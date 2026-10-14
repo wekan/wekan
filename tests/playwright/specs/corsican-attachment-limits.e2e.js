@@ -3,7 +3,7 @@ const { test, expect } = require('../fixtures');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
 const strings = require('../../../imports/i18n/data/co.i18n.json');
 
-for (const language of ['co', 'la']) {
+for (const language of ['ht', 'co', 'la']) {
 const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
 test(`Attachment limits preserve transfer directions and unit labels in ${language}`, async ({ page, adminUser }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);
@@ -11,6 +11,10 @@ test(`Attachment limits preserve transfer directions and unit labels in ${langua
   await navigateInApp(page, '/admin/attachments/limits');
   const pane = page.locator('#attachment-limits-setting');
   await expect(pane.locator('h3')).toHaveText(strings['attachment-transfer-limits-title']);
+  if (language === 'ht') {
+    await expect(pane.locator('h3')).toContainText('pyès atache');
+    await expect(pane).not.toContainText('pyès jwenn');
+  }
   await expect(pane.locator('.description')).toHaveText(strings['attachment-transfer-limits-description']);
   for (const key of ['attachment-upload-limit-label', 'attachment-download-limit-label', 'api-upload-limit-label', 'api-download-limit-label']) {
     await expect(pane.getByText(strings[key], { exact: true })).toBeVisible();

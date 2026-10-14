@@ -207625,5 +207625,572 @@
     "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
     "after": "Nan Microsoft Planner, ouvri plan an, chwazi meni ⋯ bò kote non li a, apre sa Export as Excel (nan Planner klasik: Export plan to Excel), epi chwazi fichye .xlsx sa a. Gwoup yo vin lis epi travay yo vin kat, ak moun ki asiyen yo, dat, etikèt, lis verifikasyon ak deskripsyon yo; Progress, Priority ak Completed By vin chan pèsonalize.",
     "reason": "Replace stale English import guidance with Haitian Creole following the current source, retaining literal menu names and mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "r-w-attachment-added",
+    "before": "Yon pyès jwenn ajoute",
+    "after": "Yon pyès atache ajoute",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-a-attach",
+    "before": "Lè yon pyès jwenn",
+    "after": "Lè yon pyès atache",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-a-due-date-changed",
+    "before": "Dat limit: dat la chanje",
+    "after": "Lè dat limit la defini oswa chanje",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-a-start-date-changed",
+    "before": "Kòmanse: dat la chanje",
+    "after": "Lè dat kòmansman an defini oswa chanje",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fen: dat la chanje",
+    "after": "Lè dat fen an defini oswa chanje",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-a-received-date-changed",
+    "before": "Resevwa: dat la chanje",
+    "after": "Lè dat resepsyon an defini oswa chanje",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-uncheck-all",
+    "before": "Dezaktive tout",
+    "after": "Retire tout mak yo sou",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-uncheck",
+    "before": "Dezaktive",
+    "after": "Retire mak la sou",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-d-uncheck-all",
+    "before": "Dezaktive tout eleman nan yon lis",
+    "after": "Retire mak yo sou tout eleman nan yon lis",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-d-uncheck-one",
+    "before": "Dezaktive eleman",
+    "after": "Retire mak la sou eleman an",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-a-assignee",
+    "before": "Lè yon Responsab",
+    "after": "Lè yon moun ki asiyen",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-when-the-assignee",
+    "before": "Lè Responsab nan",
+    "after": "Lè moun ki asiyen an",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "r-assignee",
+    "before": "moun-asiyen",
+    "after": "moun ki asiyen",
+    "reason": "Correct Haitian rule semantics: attachments, date initialization, checkbox state versus disabling, and assignee grammar."
+  },
+  {
+    "locale": "ht",
+    "key": "act-addAttachment",
+    "before": "ajoute pyès jwenn __attachment__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
+    "after": "ajoute pyès atache __attachment__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "act-deleteAttachment",
+    "before": "efase pyès jwenn __attachment__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
+    "after": "efase pyès atache __attachment__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "add-attachment",
+    "before": "Ajoute yon pyès jwenn",
+    "after": "Ajoute yon pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment",
+    "before": "Pyès jwenn",
+    "after": "Pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-delete-pop",
+    "before": "Efase yon pyès jwenn se pèmanan. Pa gen fason pou defèt sa.",
+    "after": "Efase yon pyès atache se pèmanan. Pa gen fason pou defèt sa.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-soft-delete-pop",
+    "before": "Pyès jwenn nan retire nan kat sa a epi fichye li a konsève. Nenpòt moun ki ka modifye kat la ka retabli li nan istorik kat la.",
+    "after": "Pyès atache nan retire nan kat sa a epi fichye li a konsève. Nenpòt moun ki ka modifye kat la ka retabli li nan istorik kat la.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachmentDeletePopup-title",
+    "before": "Efase pyès jwenn?",
+    "after": "Efase pyès atache?",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachments",
+    "before": "Pyès jwenn",
+    "after": "Pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "card-edit-attachments",
+    "before": "Modifye pyès jwenn",
+    "after": "Modifye pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "export-board-without-attachments",
+    "before": "san pyès jwenn",
+    "after": "san pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "import-attachments-zip",
+    "before": "ZIP pyès jwenn Trello (opsyonèl, ki soti nan Trello Card Attachments Downloader)",
+    "after": "ZIP pyès atache Trello (opsyonèl, ki soti nan Trello Card Attachments Downloader)",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "import-trello-json-file-hint",
+    "before": "Yon tablo Trello ekspòte kòm .json. Si ou te anrejistre kle API ak jeton Trello, pyès jwenn li yo, fon tablo a ak avatar manm yo ap telechaje tou.",
+    "after": "Yon tablo Trello ekspòte kòm .json. Si ou te anrejistre kle API ak jeton Trello, pyès atache li yo, fon tablo a ak avatar manm yo ap telechaje tou.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "import-trello-zip-file-hint",
+    "before": "Yon .zip ki gen youn oswa plizyè fichye .json tablo ak pyès jwenn yo nan soudosye ki pote non tablo a (ki soti nan Trello Card Attachments Downloader). Tout tablo yo ap enpòte.",
+    "after": "Yon .zip ki gen youn oswa plizyè fichye .json tablo ak pyès atache yo nan soudosye ki pote non tablo a (ki soti nan Trello Card Attachments Downloader). Tout tablo yo ap enpòte.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "trello-api-import-desc",
+    "before": "Kole kle API ak jeton Trello ou pou afiche espas travay ak tablo Trello ou yo, epi enpòte sa ou chwazi yo ansanm ak pyès jwenn yo.",
+    "after": "Kole kle API ak jeton Trello ou pou afiche espas travay ak tablo Trello ou yo, epi enpòte sa ou chwazi yo ansanm ak pyès atache yo.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-transfer-limits-title",
+    "before": "Limit gwosè fichye pou pyès jwenn ak API",
+    "after": "Limit gwosè fichye pou pyès atache ak API",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Limit transfè pyès jwenn yo anrejistre.",
+    "after": "Limit transfè pyès atache yo anrejistre.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "Anrejistreman limit transfè pyès jwenn yo echwe",
+    "after": "Anrejistreman limit transfè pyès atache yo echwe",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-upload-limit-label",
+    "before": "Gwosè maksimòm fichye pou voye pyès jwenn",
+    "after": "Gwosè maksimòm fichye pou voye pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-download-limit-label",
+    "before": "Gwosè maksimòm fichye pou telechaje pyès jwenn",
+    "after": "Gwosè maksimòm fichye pou telechaje pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "badge-attachment-on-minicard",
+    "before": "Kantite pyès jwenn sou mini-kat",
+    "after": "Kantite pyès atache sou mini-kat",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-count",
+    "before": "Kantite pyès jwenn",
+    "after": "Kantite pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "activity-delete-attach",
+    "before": "te efase yon pyès jwenn sou %s",
+    "after": "te efase yon pyès atache sou %s",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "activity-delete-attach-card",
+    "before": "te efase yon pyès jwenn",
+    "after": "te efase yon pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "my-attachments",
+    "before": "Kat mwen Pyès jwenn",
+    "after": "Pyès atache kat mwen yo",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachmentActionsPopup-title",
+    "before": "Aksyon pyès jwenn",
+    "after": "Aksyon pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-move-storage-fs",
+    "before": "Deplase pyès jwenn nan sistèm fichye",
+    "after": "Deplase pyès atache nan sistèm fichye",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Deplase pyès jwenn nan GridFS",
+    "after": "Deplase pyès atache nan GridFS",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-move-storage-s3",
+    "before": "Deplase pyès jwenn nan S3",
+    "after": "Deplase pyès atache nan S3",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-move",
+    "before": "Deplase pyès jwenn",
+    "after": "Deplase pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments-to-fs",
+    "before": "Deplase tout pyès jwenn nan sistèm fichye",
+    "after": "Deplase tout pyès atache nan sistèm fichye",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Deplase tout pyès jwenn nan GridFS",
+    "after": "Deplase tout pyès atache nan GridFS",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments-to-s3",
+    "before": "Deplase tout pyès jwenn nan S3",
+    "after": "Deplase tout pyès atache nan S3",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Deplase tout pyès jwenn tablo a nan sistèm fichye",
+    "after": "Deplase tout pyès atache tablo a nan sistèm fichye",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Deplase tout pyès jwenn tablo a nan GridFS",
+    "after": "Deplase tout pyès atache tablo a nan GridFS",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Deplase tout pyès jwenn tablo a nan S3",
+    "after": "Deplase tout pyès atache tablo a nan S3",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-all-attachments",
+    "before": "Deplase tout pyès jwenn",
+    "after": "Deplase tout pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-repair-locations-description",
+    "before": "Jwenn pyès jwenn ak avatar kote depo anrejistre a (sistèm fichye / GridFS / nwaj) pa koresponn ankò ak kote fichye a ye, epi korije bazdone a pou li pwente sou vrè kote a.",
+    "after": "Jwenn pyès atache ak avatar kote depo anrejistre a (sistèm fichye / GridFS / nwaj) pa koresponn ankò ak kote fichye a ye, epi korije bazdone a pou li pwente sou vrè kote a.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "move-scope-both",
+    "before": "Pyès jwenn ak avatar",
+    "after": "Pyès atache ak avatar",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "default-save-storage-description",
+    "before": "Chwazi sistèm depo kote nouvo pyès jwenn yo ap anrejistre.",
+    "after": "Chwazi sistèm depo kote nouvo pyès atache yo ap anrejistre.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-id",
+    "before": "ID pyès jwenn",
+    "after": "ID pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-zip",
+    "before": "Ajoute fichye .zip ki gen fichye JSON tablo ak soudosye ki pote non tablo yo avèk pyès jwenn",
+    "after": "Ajoute fichye .zip ki gen fichye JSON tablo ak soudosye ki pote non tablo yo avèk pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-storage-configuration",
+    "before": "Konfigirasyon depo pyès jwenn",
+    "after": "Konfigirasyon depo pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachments-path",
+    "before": "Chemen pyès jwenn",
+    "after": "Chemen pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachments-path-description",
+    "before": "Chemen kote fichye pyès jwenn yo estoke",
+    "after": "Chemen kote fichye pyès atache yo estoke",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "database-migration-description",
+    "before": "Migre done ki baze sou tèks (tout bagay sof pyès jwenn ak avatar, ki rete nan sistèm fichye a) ant MongoDB ak FerretDB v1 (SQLite). Lòt bazdone a dwe ap fonksyone epi li dwe aksesib (pò pa defo: FerretDB mongodb://127.0.0.1:27018, MongoDB mongodb://127.0.0.1:27019; ranplase avèk WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL). Lè li fini, fè MONGO_URL pwente sou lòt bazdone a epi redemare WeKan (sou Snap: snap set wekan database=ferretdb oswa =mongodb).",
+    "after": "Migre done ki baze sou tèks (tout bagay sof pyès atache ak avatar, ki rete nan sistèm fichye a) ant MongoDB ak FerretDB v1 (SQLite). Lòt bazdone a dwe ap fonksyone epi li dwe aksesib (pò pa defo: FerretDB mongodb://127.0.0.1:27018, MongoDB mongodb://127.0.0.1:27019; ranplase avèk WEKAN_FERRETDB_URL / WEKAN_MONGODB_URL). Lè li fini, fè MONGO_URL pwente sou lòt bazdone a epi redemare WeKan (sou Snap: snap set wekan database=ferretdb oswa =mongodb).",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "database-migration-confirm",
+    "before": "Kopye tout koleksyon ki baze sou tèks nan __db__? Pyès jwenn ak avatar nan sistèm fichye a pa afekte. Bazdone sib la dwe ap fonksyone.",
+    "after": "Kopye tout koleksyon ki baze sou tèks nan __db__? Pyès atache ak avatar nan sistèm fichye a pa afekte. Bazdone sib la dwe ap fonksyone.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "sandstorm-migration-description",
+    "before": "Lè WeKan fonksyone anndan yon grain Sandstorm, ansyen bazdone MongoDB 3 li a migre nan FerretDB v1 (SQLite) nan premye demaraj la, epi pyès jwenn ak avatar yo deplase soti nan bazdone a pou ale nan repètwa files/attachments ak files/avatars grain nan. Sa montre si migrasyon an reyisi ak konbyen espas disk ansyen fichye bazdone MongoDB brit yo toujou itilize anndan grain nan, epi li pèmèt ou efase fichye brit sa yo pou libere espas.",
+    "after": "Lè WeKan fonksyone anndan yon grain Sandstorm, ansyen bazdone MongoDB 3 li a migre nan FerretDB v1 (SQLite) nan premye demaraj la, epi pyès atache ak avatar yo deplase soti nan bazdone a pou ale nan repètwa files/attachments ak files/avatars grain nan. Sa montre si migrasyon an reyisi ak konbyen espas disk ansyen fichye bazdone MongoDB brit yo toujou itilize anndan grain nan, epi li pèmèt ou efase fichye brit sa yo pou libere espas.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "disable-all-export-description",
+    "before": "Lè li aktive, tout fonksyon ekspòtasyon etenn: ekspòte yon tablo kòm WeKan JSON, CSV, Excel, Kanboard, oswa nan NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, ak ekspòtasyon yon sèl pyès jwenn. Opsyon meni ekspòtasyon yo kache epi sèvè a rejte tout demann ekspòtasyon. Li dezaktive pa defo.",
+    "after": "Lè li aktive, tout fonksyon ekspòtasyon etenn: ekspòte yon tablo kòm WeKan JSON, CSV, Excel, Kanboard, oswa nan NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, ak ekspòtasyon yon sèl pyès atache. Opsyon meni ekspòtasyon yo kache epi sèvè a rejte tout demann ekspòtasyon. Li dezaktive pa defo.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "backup-description",
+    "before": "Fè sovgad Pyès jwenn, Avatar ak/oswa Done (tout koleksyon ki baze sou tèks ki pa pyès jwenn oswa avatar). .zip la pase dirèkteman nan depo chwazi a — san fichye tanporè — kòm backup/YYYY/MM/DD/HH_MM_SS/backup.zip, epi li gen YYYY_MM_DD-HH_MM_SS/attachments, /avatars ak /data. Depo nwaj (S3/MinIO, Azure, GCS) itilize kalifikasyon ki konfigire nan onglè depo yo.",
+    "after": "Fè sovgad Pyès atache, Avatar ak/oswa Done (tout koleksyon ki baze sou tèks ki pa pyès atache oswa avatar). .zip la pase dirèkteman nan depo chwazi a — san fichye tanporè — kòm backup/YYYY/MM/DD/HH_MM_SS/backup.zip, epi li gen YYYY_MM_DD-HH_MM_SS/attachments, /avatars ak /data. Depo nwaj (S3/MinIO, Azure, GCS) itilize kalifikasyon ki konfigire nan onglè depo yo.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "backup-scope-description",
+    "before": "Tout enstans lan, oswa yon Òganizasyon. Sovgad yon Òganizasyon gen tablo li yo ak tout bagay sou yo, tankou pyès jwenn tablo sa yo — men li pa gen kont itilizatè ni paramèt enstans, paske chak Òganizasyon pataje yo. Restorasyon sovgad yon Òganizasyon ekri sèlman nan tablo Òganizasyon sa a posede.",
+    "after": "Tout enstans lan, oswa yon Òganizasyon. Sovgad yon Òganizasyon gen tablo li yo ak tout bagay sou yo, tankou pyès atache tablo sa yo — men li pa gen kont itilizatè ni paramèt enstans, paske chak Òganizasyon pataje yo. Restorasyon sovgad yon Òganizasyon ekri sèlman nan tablo Òganizasyon sa a posede.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "backup-restore-confirm",
+    "before": "Retabli sovgad ki chwazi a? Pyès jwenn/avatar yo ekri nan sistèm fichye a epi done yo nan bazdone a selon mòd chwazi a.",
+    "after": "Retabli sovgad ki chwazi a? Pyès atache/avatar yo ekri nan sistèm fichye a epi done yo nan bazdone a selon mòd chwazi a.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-move-storage-azure",
+    "before": "Deplase pyès jwenn nan Azure Blob Storage",
+    "after": "Deplase pyès atache nan Azure Blob Storage",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-move-storage-gcs",
+    "before": "Deplase pyès jwenn nan Google Cloud Storage",
+    "after": "Deplase pyès atache nan Google Cloud Storage",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "gridfs-move-collectionfs-note",
+    "before": "Pou pyès jwenn ak avatar yo vizib, deplase yo soti nan CollectionFS pou ale nan nenpòt lòt Depo.",
+    "after": "Pou pyès atache ak avatar yo vizib, deplase yo soti nan CollectionFS pou ale nan nenpòt lòt Depo.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-migration",
+    "before": "Migrasyon pyès jwenn",
+    "after": "Migrasyon pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-monitoring",
+    "before": "Siveyans pyès jwenn",
+    "after": "Siveyans pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-settings",
+    "before": "Paramèt pyès jwenn",
+    "after": "Paramèt pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Mete tout URL pyès jwenn fichye sou tablo sa a ajou pou itilize bon sistèm depo a epi korije referans fichye ki kase.",
+    "after": "Mete tout URL pyès atache fichye sou tablo sa a ajou pou itilize bon sistèm depo a epi korije referans fichye ki kase.",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Sa pral mete tout URL pyès jwenn fichye sou tablo sa a ajou pou itilize bon sistèm depo a. Kontinye?",
+    "after": "Sa pral mete tout URL pyès atache fichye sou tablo sa a ajou pou itilize bon sistèm depo a. Kontinye?",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "step-fix-attachment-urls",
+    "before": "Korije URL pyès jwenn",
+    "after": "Korije URL pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "step-scan-files",
+    "before": "Ap verifye pyès jwenn fichye tablo",
+    "after": "Ap verifye pyès atache fichye tablo",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "filesystem-attachments",
+    "before": "Pyès jwenn sistèm fichye",
+    "after": "Pyès atache sistèm fichye",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "gridfs-attachments",
+    "before": "Pyès jwenn GridFS",
+    "after": "Pyès atache GridFS",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "migrated-attachments",
+    "before": "Pyès jwenn ki migre",
+    "after": "Pyès atache ki migre",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "migration-batch-size-description",
+    "before": "Kantite pyès jwenn pou trete nan chak gwoup (1-100)",
+    "after": "Kantite pyès atache pou trete nan chak gwoup (1-100)",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "remaining-attachments",
+    "before": "Pyès jwenn ki rete",
+    "after": "Pyès atache ki rete",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "total-attachments",
+    "before": "Total pyès jwenn",
+    "after": "Total pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "email-to-card-part-attachments",
+    "before": "Pyès jwenn",
+    "after": "Pyès atache",
+    "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
   }
 ]

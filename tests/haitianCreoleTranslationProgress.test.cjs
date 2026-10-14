@@ -139,7 +139,7 @@ assert.equal(creole['recovery-db'], 'Bazdone');
 assert.equal(creole['cardDetailsPopup-title'], 'Detay kat');
 assert.equal(creole['add-teams'], 'Ajoute ekip');
 assert.match(creole.Node_heap_total_heap_size, /Node/);
-assert.equal(creole['attachment-move-storage-s3'], 'Deplase pyès jwenn nan S3');
+assert.equal(creole['attachment-move-storage-s3'], 'Deplase pyès atache nan S3');
 assert.equal(creole['move-storage-fs'], 'Sistèm fichye');
 assert.equal(creole['attachment-repair-done'], 'Reparasyon fini.');
 assert.match(creole['mongodb-compact-warning'], /Meteor/);
@@ -147,7 +147,7 @@ assert.equal(creole['board-status'], 'Estati tablo');
 assert.deepEqual(tokens(creole['drag-board-to-workspace']), ['__workspaces__']);
 assert.equal(creole['accessibility'], 'Aksesibilite');
 assert.equal(creole['accounts-lockout-unlock-all'], 'Debloke tout');
-assert.equal(creole['attachments-path'], 'Chemen pyès jwenn');
+assert.equal(creole['attachments-path'], 'Chemen pyès atache');
 assert.equal(creole['cron-migrations'], 'Migrasyon pwograme');
 assert.equal(creole['cron-job-deleted'], 'Travay pwograme a efase avèk siksè');
 assert.deepEqual(tokens(creole['database-migration-confirm']), ['__db__']);
@@ -164,7 +164,7 @@ assert.match(creole['s3-region-description'], /us-east-1/);
 assert.equal(creole['lost-cards'], 'Kat pèdi');
 assert.match(creole['restore-lost-cards-migration-description'], /swimlaneId/);
 assert.equal(creole['step-validate-migration'], 'Valide migrasyon');
-assert.equal(creole['step-fix-attachment-urls'], 'Korije URL pyès jwenn');
+assert.equal(creole['step-fix-attachment-urls'], 'Korije URL pyès atache');
 assert.equal(creole['every-6-hours'], 'Chak 6 èdtan');
 assert.equal(creole['job-queue'], 'Fil datant travay');
 assert.equal(creole['memory-usage'], 'Itilizasyon memwa');
@@ -334,3 +334,28 @@ assert.match(creole['import-board-instruction-planner'], /Progress, Priority ak 
 const currentCatalog = spawnSync(process.execPath, [fillScript, '--list', 'ht'], { cwd: root, encoding: 'utf8' });
 assert.equal(currentCatalog.status, 0, currentCatalog.stderr);
 assert.deepEqual(JSON.parse(currentCatalog.stdout), {}, 'No current Haitian English placeholders remain; semantic review is separate');
+
+const reviewedRuleSemanticsKeys = ["r-w-attachment-added", "r-when-a-attach", "r-when-a-due-date-changed", "r-when-a-start-date-changed", "r-when-a-end-date-changed", "r-when-a-received-date-changed", "r-uncheck-all", "r-uncheck", "r-d-uncheck-all", "r-d-uncheck-one", "r-when-a-assignee", "r-when-the-assignee", "r-assignee"];
+for (const key of reviewedRuleSemanticsKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const field of ['due', 'start', 'end', 'received']) {
+  assert.match(creole[`r-when-a-${field}-date-changed`], /^Lè .*defini oswa chanje$/);
+}
+for (const key of ['r-uncheck', 'r-uncheck-all', 'r-d-uncheck-all', 'r-d-uncheck-one']) {
+  assert.match(creole[key], /^Retire .*mak/);
+  assert.doesNotMatch(creole[key], /Dezaktive/);
+}
+assert.match(creole['r-w-attachment-added'], /pyès atache/);
+assert.match(creole['r-when-a-attach'], /pyès atache/);
+assert.equal(creole['r-assignee'], 'moun ki asiyen');
+
+const reviewedAttachmentTermKeys = ["act-addAttachment", "act-deleteAttachment", "add-attachment", "attachment", "attachment-delete-pop", "attachment-soft-delete-pop", "attachmentDeletePopup-title", "attachments", "card-edit-attachments", "export-board-without-attachments", "import-attachments-zip", "import-trello-json-file-hint", "import-trello-zip-file-hint", "trello-api-import-desc", "attachment-transfer-limits-title", "attachment-transfer-limits-saved", "attachment-transfer-limits-save-failed", "attachment-upload-limit-label", "attachment-download-limit-label", "badge-attachment-on-minicard", "attachment-count", "activity-delete-attach", "activity-delete-attach-card", "my-attachments", "attachmentActionsPopup-title", "attachment-move-storage-fs", "attachment-move-storage-gridfs", "attachment-move-storage-s3", "attachment-move", "move-all-attachments-to-fs", "move-all-attachments-to-gridfs", "move-all-attachments-to-s3", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3", "move-all-attachments", "attachment-repair-locations-description", "move-scope-both", "default-save-storage-description", "attachment-id", "import-board-zip", "attachment-storage-configuration", "attachments-path", "attachments-path-description", "database-migration-description", "database-migration-confirm", "sandstorm-migration-description", "disable-all-export-description", "backup-description", "backup-scope-description", "backup-restore-confirm", "attachment-move-storage-azure", "attachment-move-storage-gcs", "gridfs-move-collectionfs-note", "attachment-migration", "attachment-monitoring", "attachment-settings", "fix-all-file-urls-migration-description", "run-fix-all-file-urls-migration-confirm", "step-fix-attachment-urls", "step-scan-files", "filesystem-attachments", "gridfs-attachments", "migrated-attachments", "migration-batch-size-description", "remaining-attachments", "total-attachments", "email-to-card-part-attachments"];
+for (const key of reviewedAttachmentTermKeys) {
+  assert.match(creole[key], /pyès atache/i, key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const [key, value] of Object.entries(creole)) assert.doesNotMatch(value, /pyès jwenn/i, key);
+assert.match(creole['attachment-soft-delete-pop'], /fichye li a konsève.*retabli/);
+assert.match(creole['attachment-delete-pop'], /pèmanan.*Pa gen fason/);
