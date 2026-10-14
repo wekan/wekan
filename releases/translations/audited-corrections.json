@@ -206253,5 +206253,68 @@
     "before": "In Kanri, open Import & Export and choose Export individual board (or Export all data), then paste the .json file. Columns become lists and cards become cards, with their description, due date, tags and colors; a card's tasks become a checklist. From an all-data export the first board is imported.",
     "after": "Nan Kanri, ouvri Import & Export epi chwazi Export individual board (oswa Export all data), apre sa kole fichye .json an. Kolòn yo vin lis epi kat yo vin kat, ak deskripsyon, dat limit, etikèt ak koulè yo; travay yon kat vin yon lis verifikasyon. Nan yon ekspòtasyon tout done, se premye tablo a ki enpòte.",
     "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-pivotal",
+    "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
+    "after": "Nan Pivotal Tracker, ouvri onglet MORE pwojè a epi chwazi Export CSV (oswa chwazi istwa yo epi chwazi Bulk Actions, CSV), apre sa kole CSV a. Chak eta istwa vin yon lis epi istwa yo vin kat, ak kalite yo, etikèt, pwopriyetè, moun ki mande yo, dat, kòmantè, travay ak blokaj; Estimate vin Story points epi iterasyon yo vin sprint.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-tasksorg",
+    "before": "In Tasks.org, open Settings, Backups and choose Export tasks, then paste the contents of that .json file. Lists become lists and tasks become cards, with their notes, tags, dates, comments and subtasks; completed tasks keep their completion date, and priority becomes a custom field.",
+    "after": "Nan Tasks.org, ouvri Settings, Backups epi chwazi Export tasks, apre sa kole sa ki nan fichye .json sa a. Lis yo vin lis epi travay yo vin kat, ak nòt, etikèt, dat, kòmantè ak sou-travay yo; travay ki fini yo kenbe dat yo te fini an, epi priyorite vin yon chan pèsonalize.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-monday",
+    "before": "In monday.com, open the board menu, choose More actions and Export board to Excel (with updates and subitems if you like), then choose that .xlsx file. The Status column becomes lists and groups become swimlanes; people, dates, timeline and tags keep their places, other columns become custom fields and updates become comments.",
+    "after": "Nan monday.com, ouvri meni tablo a, chwazi More actions ak Export board to Excel (ak mizajou ak sou-eleman si ou vle), apre sa chwazi fichye .xlsx sa a. Kolòn Status la vin lis epi gwoup yo vin kouloir; moun, dat, delè ak etikèt kenbe plas yo, lòt kolòn yo vin chan pèsonalize epi mizajou yo vin kòmantè.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-superproductivity",
+    "before": "In Super Productivity, open Settings, then Sync & Backup, choose Export Data and paste the contents of the sp-backup .json file. Each project becomes a swimlane and tasks become cards in To Do, In Progress, Backlog or Done, with their notes, tags, due date, time spent and sub-tasks; archived tasks become archived cards.",
+    "after": "Nan Super Productivity, ouvri Settings, apre sa Sync & Backup, chwazi Export Data epi kole sa ki nan fichye sp-backup .json an. Chak pwojè vin yon kouloir epi travay yo vin kat nan To Do, In Progress, Backlog oswa Done, ak nòt, etikèt, dat limit, tan pase ak sou-travay yo; travay achive yo vin kat achive.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-taiga",
+    "before": "In Taiga, open Admin > Project > Export and download the project dump (unpack a .json.gz file first), then paste its JSON. User story statuses become lists, user stories become cards with their tasks as subtasks, epics and issues get swimlanes of their own, and sprints, tags, comments and custom attributes come along. Attachments are not imported.",
+    "after": "Nan Taiga, ouvri Admin > Project > Export epi telechaje kopi done pwojè a (dekonprese fichye .json.gz la anvan), apre sa kole JSON li a. Estati istwa itilizatè yo vin lis, istwa itilizatè yo vin kat ak travay yo kòm sou-travay, epik ak pwoblèm yo jwenn kouloir pa yo, epi sprint, etikèt, kòmantè ak atribi pèsonalize yo vini tou. Pyès atache yo pa enpòte.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-vikunja",
+    "before": "In Vikunja, open Settings, choose Data Export and download the .zip file it sends you, then choose that file, or paste the data.json inside it. Kanban buckets become lists and tasks become cards, with their labels, assignees, dates, description, task lists as checklists and comments; priority, percent done and done become custom fields. Attachments are not imported.",
+    "after": "Nan Vikunja, ouvri Settings, chwazi Data Export epi telechaje fichye .zip li voye ba ou a, apre sa chwazi fichye sa a, oswa kole data.json ki ladan l. Resipyan Kanban yo vin lis epi travay yo vin kat, ak etikèt, moun ki responsab, dat, deskripsyon, lis travay kòm lis verifikasyon ak kòmantè yo; priyorite, pousantaj ki fini ak eta fini vin chan pèsonalize. Pyès atache yo pa enpòte.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-quire",
+    "before": "In Quire, open the project menu and choose Export CSV, then paste the CSV. Statuses become lists and tasks become cards, with their subtasks as child cards, assignees, tags as labels, start, due and completed dates, description and priority as a custom field. Comments and attachments are not in Quire's CSV.",
+    "after": "Nan Quire, ouvri meni pwojè a epi chwazi Export CSV, apre sa kole CSV a. Estati yo vin lis epi travay yo vin kat, ak sou-travay yo kòm kat pitit, moun ki responsab, tag kòm etikèt, dat kòmansman, dat limit ak dat fini, deskripsyon ak priyorite kòm yon chan pèsonalize. Kòmantè ak pyès atache yo pa nan CSV Quire la.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-wrike",
+    "before": "In Wrike, export a project or folder to Excel, or fill in Wrike's Excel import template, then choose that .xlsx file. Folder and project rows become swimlanes, Status becomes lists and tasks become cards, with their Key, parent task, assignees, start and end dates, dependencies and description; Priority, Duration and other columns become custom fields.",
+    "after": "Nan Wrike, ekspòte yon pwojè oswa dosye nan Excel, oswa ranpli modèl enpòtasyon Excel Wrike la, apre sa chwazi fichye .xlsx sa a. Liy dosye ak pwojè yo vin kouloir, Status vin lis epi travay yo vin kat, ak Key yo, travay paran, moun ki responsab, dat kòmansman ak fen, depandans ak deskripsyon; Priority, Duration ak lòt kolòn yo vin chan pèsonalize.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-teamwork",
+    "before": "In Teamwork.com, fill in the Excel task import template (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) and save it as .xlsx, then choose that file. Task lists become lists and tasks become cards; a task starting with -, # or > becomes a subtask of the task above it (--, ## or >> one level deeper). Assignees, dates and tags keep their places; Priority, Estimated time and Complete become custom fields.",
+    "after": "Nan Teamwork.com, ranpli modèl enpòtasyon travay Excel la (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) epi anrejistre li kòm .xlsx, apre sa chwazi fichye sa a. Lis travay yo vin lis epi travay yo vin kat; yon travay ki kòmanse ak -, # oswa > vin yon sou-travay travay ki anlè li a (--, ## oswa >> mete l yon nivo pi fon). Moun ki responsab, dat ak etikèt kenbe plas yo; Priority, Estimated time ak Complete vin chan pèsonalize.",
+    "reason": "Translate project import guides, preserving attachment exclusions, archived state, hierarchy markers and custom-field mappings."
   }
 ]

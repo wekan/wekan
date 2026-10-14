@@ -217,3 +217,18 @@ for (const format of ['nullboard', 'kanri']) assert.match(creole[`import-board-i
 assert.match(creole['import-board-instruction-nullboard'], /etikèt raw/);
 assert.match(creole['import-board-instruction-clickup'], /tout kolòn yo/);
 assert.match(creole['import-board-instruction-meistertask'], /kenbe dat yo te fini an/);
+
+const reviewedProjectImportKeys = ["import-board-instruction-pivotal", "import-board-instruction-tasksorg", "import-board-instruction-monday", "import-board-instruction-superproductivity", "import-board-instruction-taiga", "import-board-instruction-vikunja", "import-board-instruction-quire", "import-board-instruction-wrike", "import-board-instruction-teamwork"];
+for (const key of reviewedProjectImportKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.doesNotMatch(creole[key], /\b(?:then paste|become lists|not imported|choose that file|with their)\b/, key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const format of ['taiga', 'vikunja']) assert.match(creole[`import-board-instruction-${format}`], /Pyès atache yo pa enpòte/);
+assert.match(creole['import-board-instruction-quire'], /Kòmantè ak pyès atache yo pa nan CSV/);
+assert.match(creole['import-board-instruction-superproductivity'], /travay achive yo vin kat achive/);
+assert.match(creole['import-board-instruction-tasksorg'], /kenbe dat yo te fini an/);
+assert.match(creole['import-board-instruction-taiga'], /dekonprese.*\.json\.gz.*anvan/);
+for (const marker of ['--', '##', '>>']) assert.ok(creole['import-board-instruction-teamwork'].includes(marker));
+assert.match(creole['import-board-instruction-teamwork'], /yon nivo pi fon/);
+assert.match(creole['import-board-instruction-wrike'], /Priority, Duration.*chan pèsonalize/);

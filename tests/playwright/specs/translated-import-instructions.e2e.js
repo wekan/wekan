@@ -6,14 +6,14 @@ for (const language of ['ht', 'la', 'st', 'mt', 'sw', 'co']) {
 const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
 for (const format of [...(language === 'la' ? ["trello", "kanboard", "deck", "openproject", "asana", "zenkit", "csv", "jira", "excel", "wekan", "todoist", "planner"] : []), ...(language === 'st' ? ['markdown', 'taskwarrior', 'focalboard', 'todoist', 'planner', 'jira', 'excel'] : []), ...(language === 'co' ? ['zenkit', 'jira', 'excel', 'kanboard', 'deck', 'openproject', 'focalboard', 'todoist', 'planner'] : []), 'opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane']) {
   if (language === 'la' && !["opml", "orgmode", "meistertask", "obsidian", "linear", "ticktick", "clickup", "nullboard", "kanri", "pivotal", "tasksorg", "monday", "trello", "superproductivity", "taiga", "vikunja", "quire", "wrike", "teamwork", "businessmap", "redmine", "notion", "plane", "kanboard", "deck", "openproject", "asana", "zenkit", "csv", "jira", "excel", "wekan", "todoist", "planner"].includes(format)) continue;
-  if (language === 'ht' && !['opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri'].includes(format)) continue;
+  if (language === 'ht' && !['opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork'].includes(format)) continue;
   test(`Import instructions and limits for ${format} in ${language}`, async ({ loggedInPage: page }) => {
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     await navigateInApp(page, `/import/${format}`);
     const label = page.locator('label[for="import-textarea"]');
     await expect(label).toContainText(strings[`import-board-instruction-${format}`]);
     await expect(label).not.toContainText(en[`import-board-instruction-${format}`]);
-    if (['excel', 'planner'].includes(format)) await expect(page.locator('#import-file')).toBeEmpty();
+    if (['excel', 'planner', 'monday', 'wrike', 'teamwork'].includes(format)) await expect(page.locator('#import-file')).toBeEmpty();
     else await expect(page.locator('#import-textarea')).toBeEmpty();
   });
 }
