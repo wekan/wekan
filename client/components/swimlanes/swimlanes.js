@@ -732,16 +732,16 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
 }
 
 Template.swimlane.helpers({
+  // #6745: board-role checks only (see listHeader.js) - not the whole user.
+  currentUser() {
+    return currentUserWith(['username']);
+  },
   // #2805: with the board's shared list header row on, only the first
   // swimlane shows its list headers, sticky (swimlanes.css).
   isFirstSwimlane() {
     const board = Utils.getCurrentBoard();
     const first = board && board.hasSharedListHeaders && board.hasSharedListHeaders() && board.swimlanes()[0];
     return !!(first && first._id === this._id);
-  },
-  // #6745: board-role checks only (see listHeader.js) - not the whole user.
-  currentUser() {
-    return currentUserWith(['username']);
   },
   canSeeAddList() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();

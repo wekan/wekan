@@ -237,7 +237,10 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   assert.deepStrictEqual(groups,
     // "Optional APIs" (the Trello, Jira, GitHub and Gitea compatible APIs)
     // follows Features, the other group about what this WeKan offers.
-    ['all-boards-hide', 'features', 'optional-apis', 'date', 'settings-group-url', 'external-link-pattern',
+    // #2217 added "Rules" (boards may show their Rules to members, read-only)
+    // between Features and Optional APIs, with the other switches of what
+    // boards may offer.
+    ['all-boards-hide', 'features', 'rules', 'optional-apis', 'date', 'settings-group-url', 'external-link-pattern',
       'custom-product-name', 'change-color', 'settings-group-logo'],
     'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with

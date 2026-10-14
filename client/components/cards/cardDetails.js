@@ -624,14 +624,6 @@ Template.cardDetails.onRendered(function () {
 });
 
 Template.cardDetails.onDestroyed(function () {
-  // #2111 / #1604: closing the card counts as having seen it, so the
-  // member's own edits made while it was open do not mark it unread.
-  if (this.openedCardId) {
-    const closingUser = ReactiveCache.getCurrentUser();
-    if (closingUser && closingUser.profile && closingUser.profile.unreadChangesSince) {
-      closingUser.setCardLastViewed(this.openedCardId);
-    }
-  }
   const boardBody = getBoardBodyInstance();
   if (boardBody !== null) {
     boardBody.showOverlay.set(false);
@@ -645,6 +637,15 @@ Template.cardDetails.onDestroyed(function () {
     const baseStackEntry = Popup._stack?.[0];
     if (baseStackEntry?.dataContext?._id === openedCardId) {
       Popup.close();
+    }
+  }
+
+  // #2111 / #1604: closing the card counts as having seen it, so the
+  // member's own edits made while it was open do not mark it unread.
+  if (this.openedCardId) {
+    const closingUser = ReactiveCache.getCurrentUser();
+    if (closingUser && closingUser.profile && closingUser.profile.unreadChangesSince) {
+      closingUser.setCardLastViewed(this.openedCardId);
     }
   }
 });

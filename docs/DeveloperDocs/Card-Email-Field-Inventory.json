@@ -74,5 +74,17 @@
   {
     "fields": ["email"],
     "handling": "#794: the email this card came from or was sent as - sender, recipients, subject and the Message-IDs that thread replies onto it (server/emailToCard.js, server/emailView.js). Mail bookkeeping, not card content: excluded, so a card mailed onward never discloses who wrote to the board or the addresses of the conversation."
+  },
+  {
+    "fields": ["cardKind"],
+    "handling": "#2012: whether the card is a Story or a Task. It selects which custom fields the card offers; those fields are covered by customFields above, so the kind itself is not email content."
+  },
+  {
+    "fields": ["columnSetValues"],
+    "handling": "#211: the card's column in each of the board's column sets, as set-id to column-id. Board-view bookkeeping like the Map positions; the ids mean nothing without the board, so they are not email content."
+  },
+  {
+    "fields": ["drawings"],
+    "handling": "#1178: the strokes of the card's drawings, kept so a drawing can be edited again. The drawing itself is a PNG attachment, covered by the attachments manifest; the strokes are not email content."
   }
 ]

@@ -232,8 +232,14 @@ test('and All Boards reaches it from the left menu, not the header bar', () => {
 
   // A rule above and below the Workspaces section: the menu is three kinds of
   // thing in one column and the tree ran into its neighbours without them.
+  // #802 added a third, under the organization and team tabs that follow the
+  // section - only drawn when the member is in a group - so the two around the
+  // tree are counted where they are.
   const dividers = (menu.match(/hr\.boards-menu-divider/g) || []).length;
-  assert.strictEqual(dividers, 2, 'one rule above the section and one below');
+  assert.strictEqual(dividers, 3, 'one rule above the section, one below, and one under the team tabs');
+  assert.match(menu, /hr\.boards-menu-divider\s*\n\s*\.workspaces-header/, 'a rule right above Workspaces');
+  assert.match(menu, /\+workspaceTree\([^)]*\)\s*\n\s*hr\.boards-menu-divider/, 'and right below its tree');
+  assert.match(menu, /if myGroups\.length[\s\S]{0,500}?\n {10}hr\.boards-menu-divider/, 'the third only with team tabs');
   const headerAt = menu.indexOf('.workspaces-header');
   const firstHr = menu.indexOf('hr.boards-menu-divider');
   const secondHr = menu.indexOf('hr.boards-menu-divider', firstHr + 1);

@@ -15,7 +15,7 @@ WebApp.handlers.get('/jslicense.html', (req, res) => {
       .flatMap(arch => bundleScripts(programs[arch] && programs[arch].manifest, prefix())))];
     const version = (() => { try { return require('/package.json').version; } catch (e) { return ''; } })();
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.setHeader('Cache-Control', 'private, max-age=3600');
     res.end(renderJsWebLabels({ scripts, version }));
   } catch (error) {
     res.statusCode = 500;

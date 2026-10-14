@@ -36,7 +36,10 @@ assert.match(read('server/models/users.js'), /async toggleUnreadChanges\(\) \{\s
 const minicard = read('client/components/cards/minicard.js');
 assert.match(minicard, /hasUnreadChanges\(\) \{[\s\S]{0,400}if \(!enabledAt\) return false;/);
 assert.match(read('client/components/cards/minicard.jade'), /class="\{\{#if hasUnreadChanges\}\}minicard-unread-changes\{\{\/if\}\}"/);
-assert.match(read('client/components/cards/cardDetails.js'), /Template\.cardDetails\.onDestroyed\(function \(\) \{\s*\n\s*\/\/ #2111[\s\S]{0,400}closingUser\.setCardLastViewed\(this\.openedCardId\);/,
+// In onDestroyed, after the #6686 popup handling (labelsPopupStaleCardContext
+// reads that handling from the top of the function).
+const destroyed = read('client/components/cards/cardDetails.js').split('Template.cardDetails.onDestroyed(function () {')[1].split('\n});')[0];
+assert.match(destroyed, /\/\/ #2111[\s\S]{0,400}closingUser\.setCardLastViewed\(this\.openedCardId\);/,
   'closing a card counts as seen, so own edits do not mark it');
 assert.match(read('client/components/users/userHeader.jade'), /a\.js-toggle-unread-changes/);
 console.log('  ok - the switch, the minicard mark and closing a card');

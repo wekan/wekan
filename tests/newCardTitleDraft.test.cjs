@@ -20,7 +20,17 @@ test('draft writes are owned, scoped to list/swimlane/position and cleared only 
   owner = 'author'; tpl.saveTitleDraft(''); assert.equal(writes[1].cleared, true);
 });
 test('draft clears after insertion succeeds and flushes on composer teardown', () => {
-  assert.ok(source.indexOf('formComponent.saveTitleDraft(') > source.indexOf('const _id = await Cards.insertAsync(cardFields)'));
+  // Every clear follows a card that was really added. #2809 added a second way
+  // to add one - a linked list's card goes to its source list through
+  // addCardToLinkedList - so each clear is checked against the add before it,
+  // not only the first clear against Cards.insertAsync.
+  const clears = [...source.matchAll(/formComponent\.saveTitleDraft\(/g)].map(m => m.index);
+  assert.ok(clears.length >= 2);
+  for (const at of clears) {
+    const before = source.slice(Math.max(0, at - 200), at);
+    assert.match(before, /(const _id = await Cards\.insertAsync\(cardFields\)|await Meteor\.callAsync\('addCardToLinkedList', data\._id, title\));\s*titleIndex \+= 1;\s*$/,
+      'the draft is cleared only after the card was added');
+  }
   assert.match(source, /Template.addCardForm.onDestroyed[\s\S]*?titleDraftPending !== undefined[\s\S]*?saveTitleDraft/);
   assert.match(source, /titleDraftEdited\) return/);
 });
