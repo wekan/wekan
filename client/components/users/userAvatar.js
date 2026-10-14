@@ -156,6 +156,9 @@ Template.userAvatar.helpers({
 });
 
 Template.userAvatarInitials.helpers({
+  colorStyle() {
+    return require('/models/lib/avatarColor').avatarColorStyle(this.userId);
+  },
   initials() {
     if (typeof this.initials === 'string' && this.initials) return this.initials;
     const user = ReactiveCache.getUser(this.userId, { fields: INITIALS_USER_FIELDS });

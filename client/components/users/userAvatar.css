@@ -17,6 +17,8 @@
   border-radius: 50%;
 }
 .member .avatar.avatar-initials {
+  /* The grey is only a fallback: each person has a colour of their own (#2110,
+     set inline from models/lib/avatarColor.js). The initials take its text colour. */
   height: 70%;
   width: 70%;
   padding: 15%;
@@ -26,6 +28,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/* SVG text is drawn with `fill`, not `color`: the initials follow the
+   person's text colour (#2110). */
+.member .avatar.avatar-initials text {
+  fill: currentColor;
 }
 .member .avatar.avatar-image {
   object-fit: cover;

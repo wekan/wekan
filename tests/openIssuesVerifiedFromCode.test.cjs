@@ -111,10 +111,16 @@ test('#5081: a row that does not fit wraps, still right-aligned', () => {
   // "If it does not fit into one row or get to close i would put the assignees
   // in a new line but still right aligned." Floated avatars do that by
   // themselves - each avatar floats too, so the group wraps within the card.
+  // #2110 changed HOW: floating each avatar to the inline end also drew them
+  // in reverse - the person added first ended up last - so the group is a
+  // wrapping flex row aligned to the end. It still wraps, still right-aligned.
   const css = read('client/components/cards/minicard.css');
+  const groupRule = css.slice(css.indexOf('.minicard .minicard-members,'));
+  const group = groupRule.slice(0, groupRule.indexOf('}'));
+  assert.ok(/flex-wrap:\s*wrap/.test(group) && /justify-content:\s*flex-end/.test(group), 'the row wraps, aligned to the inline end');
   const avatarRule = css.slice(css.indexOf('.minicard .minicard-members .member,'));
   const block = avatarRule.slice(0, avatarRule.indexOf('}'));
-  assert.ok(/float:\s*inline-end/.test(block), 'each avatar floats to the inline end');
+  assert.ok(!/float:\s*inline-end/.test(block), 'and each avatar keeps its added order (#2110)');
   assert.ok(/margin-bottom/.test(block), 'with room between the wrapped rows');
 });
 

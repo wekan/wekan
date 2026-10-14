@@ -561,11 +561,18 @@
   float: inline-end;
   margin-inline-start: 10px;
   margin-bottom: 4px;
+  /* #2110: the avatars in the order people were added, first at the start,
+     as on the opened card. Floating each one to the end drew them reversed. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 2px;
 }
 .minicard .minicard-members .member,
 .minicard .minicard-assignees .member,
 .minicard .minicard-creator .member {
-  float: inline-end;
+  float: none;
+  position: relative;
   border-radius: 50%;
   height: 24px;
   width: 24px;
@@ -574,7 +581,8 @@
 .minicard .minicard-members .assignee,
 .minicard .minicard-assignees .assignee,
 .minicard .minicard-creator .assignee {
-  float: inline-end;
+  float: none;
+  position: relative;
   border-radius: 50%;
   height: 24px;
   width: 24px;
