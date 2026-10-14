@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy bulk transfer and mapping choices — 2026-10-14
+
+Commit `ef60786045` translates 35 messages. Member mapping distinguishes existing
+users, named placeholders and the importing user. Column mapping explains
+missing fields and required choices. Bulk-transfer help retains the distinction
+between one export archive and multiple boards, permitted exports and per-board
+Excel/ZIP layouts. Trello and Sandstorm help keeps its technical markers.
+
+The Malagasy catalog and guarded-correction suites pass with 30,034 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Two browser cases inspect member
+choices and bulk-export layouts. Syntax and discovery pass; runtime execution
+remains pending.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy project import guidance — 2026-10-14
 
 Commit `b3eaaf9f4e` translates twelve guides for Tasks.org, monday.com,
