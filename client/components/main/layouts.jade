@@ -84,6 +84,13 @@ template(name="userFormsLayout")
           button.primary.js-oauth-provider(type="button" data-provider=key)
             i.fa(class=icon)
             | {{_ 'sign-in-with' label}}
+        //- #5847: sign in with a passkey (client/lib/passkeys.js).
+        if passkeysSupported
+          button.primary.js-passkey-sign-in(type="button")
+            i.fa.fa-key
+            | {{_ 'passkey-sign-in'}}
+          if passkeyMessage
+            p.quiet.js-passkey-message= passkeyMessage
         // accounts-passwordless: e-mailed one-time sign-in code.
         if passwordlessEnabled
           if passwordlessCodeStep

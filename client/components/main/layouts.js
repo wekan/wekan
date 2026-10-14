@@ -41,6 +41,8 @@ Template.userFormsLayout.onCreated(function () {
   // the getAuthenticationsEnabled call in onRendered.
   templateInstance.enabledOauthProviders = new ReactiveVar([]);
   templateInstance.passwordlessEnabled = new ReactiveVar(false);
+  // #5847: what the passkey sign-in said, if it failed.
+  templateInstance.passkeyMessage = new ReactiveVar('');
   // The ROOT_URL origin and this page's, when they differ and a provider
   // login is offered (models/lib/loginOriginMismatch.js).
   templateInstance.loginOriginMismatch = new ReactiveVar(null);
@@ -278,6 +280,8 @@ Template.userFormsLayout.onDestroyed(() => {
 });
 
 Template.userFormsLayout.helpers({
+  passkeysSupported() { return require('/client/lib/passkeys').passkeysSupported(); },
+  passkeyMessage() { return Template.instance().passkeyMessage.get(); },
   logoSettingsReady() {
     return Template.instance().subscriptionsReady();
   },
@@ -370,6 +374,19 @@ Template.main.helpers({
 });
 
 Template.userFormsLayout.events({
+  // #5847: the browser offers this site's passkeys; the server verifies one.
+  async 'click .js-passkey-sign-in'(event, templateInstance) {
+    event.preventDefault();
+    templateInstance.passkeyMessage.set('');
+    try {
+      await require('/client/lib/passkeys').signInWithPasskey();
+      FlowRouter.go('/');
+    } catch (error) {
+      if (error && error.name === 'NotAllowedError') return; // the person closed the browser's dialog
+      templateInstance.passkeyMessage.set(TAPi18n.__(error.reason === 'passkey-invalid' || error.error === 'passkey-invalid'
+        ? 'passkey-invalid' : 'passkey-sign-in-failed'));
+    }
+  },
   'change .js-userform-set-language'(event) {
     const tag = $(event.currentTarget).val();
     // setLanguage is async; surface a failed load instead of silently leaving

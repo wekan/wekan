@@ -66,6 +66,7 @@
     "@meteorjs/reify": "^0.25.4",
     "@node-saml/node-saml": "^5.1.0",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
+    "@simplewebauthn/server": "14.0.3",
     "@swc/helpers": "^0.5.23",
     "@textcomplete/contenteditable": "^0.1.13",
     "@textcomplete/core": "^0.1.13",

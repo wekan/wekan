@@ -360,6 +360,8 @@ import '/server/accountWebhook';
 import '/server/jsWebLabels';
 // #1293: Android share target.
 import '/server/shareTarget';
+// #5847: passkey (WebAuthn) login.
+import '/server/passkeys';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

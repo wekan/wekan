@@ -120,6 +120,12 @@ template(name="memberMenuPopup")
             a.js-two-factor-auth
               i.fa.fa-shield
               | {{_ 'twoFactorAuthPopup-title'}}
+      //- #5847: sign in with a passkey instead of a password.
+      unless isSandstorm
+        li
+          a.js-passkeys
+            i.fa.fa-key
+            | {{_ 'passkeysPopup-title'}}
       li
         a.js-change-language
           i.fa.fa-flag
@@ -136,6 +142,16 @@ template(name="memberMenuPopup")
         a.js-logout
           i.fa.fa-sign-out
           | {{_ 'log-out'}}
+      //- #5847: end every session of this account - other browsers, phones,
+        the desktop app - and this one.
+      li
+        a.js-logout-everywhere
+          i.fa.fa-power-off
+          | {{_ 'log-out-everywhere'}}
+
+template(name="logoutEverywherePopup")
+  p {{_ 'log-out-everywhere-confirm'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'log-out-everywhere'}}
 
 template(name="invitePeoplePopup")
   ul#registration-setting.setting-detail
@@ -202,6 +218,30 @@ template(name="supportPopup")
 
 template(name="changePasswordPopup")
   +atForm(state='changePwd')
+
+//- #5847: this account's passkeys (server/passkeys.js), added on this device
+  and removed from any.
+template(name="passkeysPopup")
+  .passkeys-popup
+    p.quiet {{_ 'passkeys-description'}}
+    ul.pop-over-list
+      each passkeys
+        li.passkey-row
+          i.fa.fa-key
+          |  {{name}}
+          span.quiet  {{createdText}}
+          a.js-remove-passkey(data-id=id title="{{_ 'remove'}}")
+            i.fa.fa-trash
+      else
+        li.quiet {{_ 'passkeys-none'}}
+    if supported
+      form.js-add-passkey
+        input.js-passkey-name(type="text" maxlength="60" placeholder="{{_ 'passkey-name'}}" aria-label="{{_ 'passkey-name'}}")
+        button.primary.js-add-passkey-button(type="submit") {{_ 'passkey-add'}}
+    else
+      p.quiet {{_ 'passkeys-unsupported'}}
+    if message
+      p.quiet= message
 
 template(name="twoFactorAuthPopup")
   //- Issue #3058: opt-in per-user TOTP two-factor authentication, via

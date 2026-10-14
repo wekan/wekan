@@ -954,6 +954,15 @@ Meteor.methods({
 
   // Per-user "submit editors on plain Enter" preference (Member Settings).
   // Off by default; when on, plain Enter submits and Shift+Enter is a newline.
+  // #5847: Member Settings / Log out everywhere - every login token of the
+  // caller goes, so Meteor ends every one of their sessions, this one too.
+  // Only their own; nothing else of the account changes.
+  async logoutEverywhere() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    await Users.updateAsync(this.userId, { $set: { 'services.resume.loginTokens': [] } });
+    return true;
+  },
+
   // #1273: keep the #label / @member text in a new card's title (Member
   // Settings; off by default).
   async toggleKeepTitleTags() {

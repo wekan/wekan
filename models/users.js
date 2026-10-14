@@ -344,6 +344,19 @@ Users.attachSchema(
       type: String,
       allowedValues: GROUP_KEYS,
     },
+    passkeys: {
+      /**
+       * #5847: this account's passkeys (server/passkeys.js): [{ id, publicKey,
+       * counter, transports, name, createdAt, lastUsedAt }]. Never published,
+       * and not writable from the client.
+       */
+      type: Array,
+      optional: true,
+    },
+    'passkeys.$': {
+      type: Object,
+      blackbox: true,
+    },
     ntfy: {
       /**
        * #5148: the member's own ntfy topic (models/lib/ntfy.js):

@@ -2207,6 +2207,78 @@
     {
       "key": "share-target-empty",
       "since": "2026-10-14"
+    },
+    {
+      "key": "log-out-everywhere",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "logoutEverywherePopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "log-out-everywhere-confirm",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkeysPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkeys-description",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkeys-none",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-name",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-add",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkeys-unsupported",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-added",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-invalid",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-sign-in",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-sign-in-failed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-expired",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-exists",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-too-many",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-needs-https",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "passkey-cancelled",
+      "since": "2026-10-14"
     }
   ]
 }

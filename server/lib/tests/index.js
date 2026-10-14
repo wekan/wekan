@@ -150,3 +150,4 @@ import './editableCardIds.tests';
 import './listSyncPlanning.tests';
 import './notificationDelivery.tests';
 import './customFieldLinks.tests';
+import './passkeys.tests';

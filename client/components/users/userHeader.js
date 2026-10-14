@@ -101,6 +101,7 @@ Template.memberMenuPopup.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-two-factor-auth': Popup.open('twoFactorAuth'),
+  'click .js-passkeys': Popup.open('passkeys'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
   async 'click .js-logout'(event) {
@@ -120,6 +121,18 @@ Template.memberMenuPopup.events({
     }
     AccountsTemplates.logout();
   },
+  // #5847: every login token of this account goes, so Meteor closes every
+  // session at once; then this browser signs out the usual way.
+  'click .js-logout-everywhere': Popup.afterConfirm('logoutEverywhere', async function () {
+    Popup.back();
+    try {
+      await Meteor.callAsync('logoutEverywhere');
+    } catch (error) {
+      console.error('Log out everywhere failed:', error);
+      return;
+    }
+    AccountsTemplates.logout();
+  }),
   'click .js-go-setting'() {
     Popup.back();
   },
@@ -671,5 +684,40 @@ Template.changeFontPopup.events({
     event.preventDefault();
     tpl.textColor.set(null); // back to default
     applyUiColors(tpl);
+  },
+});
+
+// #5847: Member Settings / Passkeys (client/lib/passkeys.js).
+Template.passkeysPopup.onCreated(function () {
+  this.passkeys = new ReactiveVar([]);
+  this.message = new ReactiveVar('');
+  this.load = () => Meteor.call('passkeyList', (error, list) => { if (!error) this.passkeys.set(list || []); });
+  this.load();
+});
+
+Template.passkeysPopup.helpers({
+  passkeys() { return Template.instance().passkeys.get(); },
+  createdText() { return this.createdAt ? new Date(this.createdAt).toLocaleDateString() : ''; },
+  supported() { return require('/client/lib/passkeys').passkeysSupported(); },
+  message() { return Template.instance().message.get(); },
+});
+
+Template.passkeysPopup.events({
+  async 'click .js-add-passkey-button, submit .js-add-passkey'(event, tpl) {
+    event.preventDefault();
+    tpl.message.set('');
+    try {
+      await require('/client/lib/passkeys').addPasskey(String(tpl.$('.js-passkey-name').val() || ''));
+      tpl.$('.js-passkey-name').val('');
+      tpl.message.set(TAPi18n.__('passkey-added'));
+      tpl.load();
+    } catch (error) {
+      tpl.message.set(TAPi18n.__(error.error || 'passkey-invalid'));
+    }
+  },
+  async 'click .js-remove-passkey'(event, tpl) {
+    event.preventDefault();
+    await Meteor.callAsync('passkeyRemove', event.currentTarget.dataset.id);
+    tpl.load();
   },
 });
