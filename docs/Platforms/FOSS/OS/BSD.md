@@ -107,6 +107,7 @@ are where progress is checked.
 | Item | Repository | State |
 | --- | --- | --- |
 | 1. FreeBSD Node.js bundle x64 | wekan/wekan | in progress |
+| FreeBSD rc.d service script | wekan/wekan | in the FreeBSD bundle as `bundle/rc.d/wekan` ([FreeBSD](FreeBSD.md)); a ports Makefile is outlined there, for proposing to FreeBSD |
 | 3. OpenBSD and NetBSD Node.js | wekan/node-patches | patch sets carried (`dist/openbsd`, `dist/netbsd`) and VM builds added; waiting for its next Release All |
 | 3. OpenBSD and NetBSD bundles | wekan/wekan | `bsd.yml` builds them automatically once node-patches has published those binaries |
 | 2, 4, 5 | | planned |

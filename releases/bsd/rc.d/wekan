@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# FreeBSD rc.d script for the WeKan bundle (wekan-<version>-freebsd-<arch>.zip),
+# #2662. The bundle carries it as bundle/rc.d/wekan. Install:
+#
+#   pw useradd wekan -d /nonexistent -s /usr/sbin/nologin -c WeKan
+#   unzip wekan-<version>-freebsd-x64.zip -d /usr/local/wekan
+#   install -m 555 /usr/local/wekan/bundle/rc.d/wekan /usr/local/etc/rc.d/wekan
+#   sysrc wekan_enable=YES wekan_root_url=https://wekan.example.com
+#   service wekan start
+#
+# It runs the bundle's own start-wekan.sh - the bundled Node.js and FerretDB on
+# SQLite, as a user starts it by hand - under daemon(8), as wekan_user, with
+# the data under wekan_data and the output in wekan_logfile. Everything
+# start-wekan.sh reads from the environment can be set in wekan_env.
+#
+# PROVIDE: wekan
+# REQUIRE: LOGIN NETWORKING
+# KEYWORD: shutdown
+#
+# rc.conf variables (sysrc):
+#   wekan_enable    YES to start WeKan at boot.             Default: NO
+#   wekan_dir       The unzipped bundle directory.           Default: /usr/local/wekan/bundle
+#   wekan_user      User WeKan runs as.                      Default: wekan
+#   wekan_group     Its group.                               Default: wekan
+#   wekan_port      Port WeKan listens on.                   Default: 8080
+#   wekan_root_url  The address people open WeKan at.        Default: http://localhost:<port>
+#   wekan_data      WRITABLE_PATH: database and attachments. Default: /var/db/wekan
+#   wekan_logfile   Output of WeKan and FerretDB.            Default: /var/log/wekan.log
+#   wekan_env       More VAR=value pairs, e.g. "MAIL_URL=smtp://mail.example.com:25/"
+
+. /etc/rc.subr
+
+name="wekan"
+rcvar="wekan_enable"
+desc="WeKan open source kanban"
+
+load_rc_config "$name"
+
+: "${wekan_enable:=NO}"
+: "${wekan_dir:=/usr/local/wekan/bundle}"
+: "${wekan_user:=wekan}"
+: "${wekan_group:=wekan}"
+: "${wekan_port:=8080}"
+: "${wekan_root_url:=http://localhost:${wekan_port}}"
+: "${wekan_data:=/var/db/wekan}"
+: "${wekan_logfile:=/var/log/wekan.log}"
+
+pidfile="/var/run/${name}.pid"
+command="/usr/sbin/daemon"
+# -P: the supervisor's pid, which stop signals; no -r, because start-wekan.sh
+# already restarts WeKan when it exits.
+command_args="-f -P ${pidfile} -o ${wekan_logfile} -t ${name} ${wekan_dir}/start-wekan.sh"
+wekan_chdir="${wekan_dir}"
+wekan_env="PORT=${wekan_port} ROOT_URL=${wekan_root_url} WRITABLE_PATH=${wekan_data} HOME=${wekan_data} ${wekan_env}"
+
+start_precmd="wekan_prestart"
+stop_cmd="wekan_stop"
+
+wekan_prestart()
+{
+	if [ ! -x "${wekan_dir}/start-wekan.sh" ]; then
+		err 1 "${wekan_dir}/start-wekan.sh not found: set wekan_dir to the unzipped bundle"
+	fi
+	install -d -o "${wekan_user}" -g "${wekan_group}" -m 750 "${wekan_data}"
+	[ -e "${wekan_logfile}" ] || install -o "${wekan_user}" -g "${wekan_group}" -m 640 /dev/null "${wekan_logfile}"
+	# The data directory and the log belong to wekan_user, and daemon(8)
+	# starts as root (it writes the pidfile in /var/run) and drops to
+	# wekan_user with -u - so -u is given here rather than through rc.subr's
+	# ${name}_user, which would run daemon itself unprivileged.
+	command_args="-u ${wekan_user} ${command_args}"
+}
+
+# start-wekan.sh runs node in the foreground and FerretDB in the background.
+# A TERM to the shell alone waits for node to exit first, so the whole process
+# group daemon(8) started is signalled: node, FerretDB and the shell together.
+wekan_stop()
+{
+	local pid pgid
+	pid=$(check_pidfile "${pidfile}" "${command}")
+	if [ -z "${pid}" ]; then
+		echo "${name} is not running."
+		return 1
+	fi
+	echo "Stopping ${name}."
+	pgid=$(ps -o pgid= -p "${pid}" | tr -d ' ')
+	if [ -n "${pgid}" ]; then
+		kill -TERM -- "-${pgid}" 2>/dev/null
+	else
+		kill -TERM "${pid}"
+	fi
+	wait_for_pids "${pid}"
+}
+
+run_rc_command "$1"

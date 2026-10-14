@@ -204,6 +204,9 @@ jobs:
           for want in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
             grep -q " $want$" zip-listing.txt || { echo "::error::$zip has no $want."; exit 1; }
           done
+          if [ "${{ matrix.os }}" = freebsd ]; then
+            grep -q " bundle/rc.d/wekan$" zip-listing.txt || { echo "::error::$zip has no bundle/rc.d/wekan (#2662)."; exit 1; }
+          fi
           sha256sum "$zip" > "$zip.sha256sum"
           cat "$zip.sha256sum"
           if [ "$PUBLISH" = true ]; then

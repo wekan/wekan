@@ -54,6 +54,12 @@ node "$root/releases/platform-native-packages.mjs" "$root/bundle" "$os" "$arch"
 cp "$root/bsd-tools/bin/node" "$root/bundle/node"
 chmod +x "$root/bundle/node" "$root/bundle/ferretdb"
 touch "$root/bundle/.ferretdb-default"
+# #2662: FreeBSD's service script, so `service wekan start` runs this bundle
+# (releases/bsd/rc.d/wekan; install steps in its header).
+if [ "$os" = freebsd ]; then
+  mkdir -p "$root/bundle/rc.d"
+  install -m 555 "$root/releases/bsd/rc.d/wekan" "$root/bundle/rc.d/wekan"
+fi
 
 # The smoke test: the bundle as a user starts it.
 bash "$root/releases/bsd/smoke.sh" "$root/bundle"
