@@ -226,3 +226,52 @@ Tests:
 The older [Windows single EXE](Propietary/OS/Windows/Offline.md) is still
 published beside the single files. It unpacks about thirty files, Node.js among
 them, into `wekan-app`.
+
+## Bun single files
+
+Every release also has a single file made from each [Bun bundle](../../releases/bun/README.md):
+`wekan-<version>-bun-<target>-single-file` (`.exe` on Windows) for
+`linux-x64`, `linux-arm64`, `linux-x64-musl`, `linux-arm64-musl` (Alpine and
+other musl systems), `macos-x64`, `macos-arm64`, `windows-x64` and
+`windows-arm64`. FreeBSD and Android have Bun bundles but no single file,
+because GitHub has no runner of theirs to build and check one on.
+
+They are smaller and simpler than the Node.js single files above, because a
+Bun bundle is: **there is no database inside and no menu**. Start it like
+`bundle/start-wekan.sh`:
+
+```
+MONGO_URL=mongodb://127.0.0.1:27017/wekan ROOT_URL=http://localhost:3000 ./wekan-12.41-bun-linux-x64-single-file
+```
+
+`PORT` is 3000 unless set. `--version` prints what it is, and
+`--extract-only` only unpacks and prints where.
+
+The first start unpacks the bundle into a cache directory, and every later
+start uses it, so only the first one waits:
+
+| OS | Cache |
+| --- | --- |
+| Linux and other Unix | `$XDG_CACHE_HOME/wekan/single-file`, else `~/.cache/wekan/single-file` |
+| macOS | `~/Library/Caches/wekan/single-file` |
+| Windows | `%LOCALAPPDATA%\wekan\single-file` |
+| any | `WEKAN_SINGLE_FILE_CACHE`, when set |
+
+Each version gets its own directory there, named after the bundle's SHA-256,
+so an old one can be deleted at any time. The single file never writes
+anywhere else.
+
+How it is built (`.github/workflows/bun-single-file.yml`): on a runner of each
+platform, Alpine for musl, the published Bun bundle ZIP is checked against its
+`.sha256sum`, and the bundle's OWN `bun` compiles
+`releases/single-file/bun/launcher.mjs` with that ZIP inside, unchanged
+(`releases/single-file/bun/build.mjs`). So the runtime is exactly the one the
+bundle was built and tested with. The launcher extracts the ZIP itself
+(`releases/single-file/bun/unzip.mjs`, which refuses any entry or link that
+would land outside the cache directory) - without the bundle's `bun`, because
+the single file IS that Bun - and then runs the bundle's `index.mjs` with
+itself as Bun (`BUN_BE_BUN=1`). Before it is published,
+`releases/single-file/bun/build-and-check.sh` checks that it names itself,
+refuses to start without a database, extracts once and reuses that, and loads
+every native addon of the bundle. `tests/bunSingleFile.test.cjs` covers the
+extraction and its refusals.

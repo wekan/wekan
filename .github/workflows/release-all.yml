@@ -1315,6 +1315,19 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  # One Bun executable per Bun platform, from that platform's Bun bundle
+  # (docs/Platforms/Single-File.md, "Bun single files"), so it waits for them.
+  bun-single-file:
+    name: Bun single-file WeKan
+    needs: [prepare, release, bun]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/bun-single-file.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   mac-app:
     name: Mac apps
     needs: [prepare, release, build-mac-arm64, build-mac-x64]
