@@ -39,7 +39,11 @@ const cards = read('models/cards.js');
 assert.match(cards, /cardKind: \{[\s\S]{0,300}allowedValues: \['story', 'task'\],/);
 assert.match(cards, /async setCardKind\(kind\) \{[\s\S]{0,700}\$push: \{ customFields: \{ \$each: add \} \}/);
 assert.match(cards, /definitions = definitions\.filter\(d => definitionAppliesToKind\(d, card\.cardKind\)\);/, 'customFieldsWD shows only fields of the card\'s kind');
-assert.match(read('models/customFields.js'), /cardKinds: \{[\s\S]{0,300}type: \[String\],/);
+// The schema library takes Array plus a '.$' entry; `type: [String]` stopped
+// WeKan at startup ("type may not be an array"), found by the runtime test.
+assert.match(read('models/customFields.js'), /cardKinds: \{[\s\S]{0,300}type: Array,\s*optional: true,\s*\},\s*'cardKinds\.\$': \{\s*type: String,\s*allowedValues: \['story', 'task'\],/);
+assert.doesNotMatch(read('models/customFields.js') + read('models/cards.js') + read('models/users.js') + read('models/lists.js') + read('models/checklistItems.js') + read('models/boards.js') + read('models/settings.js') + read('models/integrations.js'),
+  /type: \[(String|Number|Object|Boolean)\]/, 'no array shorthand type anywhere in the touched schemas');
 assert.match(read('client/components/cards/cardDetails.jade'), /a\.js-set-card-kind/);
 assert.match(read('client/components/cards/cardDetails.jade'), /template\(name="cardKindPopup"\)/);
 assert.match(read('client/components/cards/minicard.jade'), /\.badge\.card-kind-badge/);

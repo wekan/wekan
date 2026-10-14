@@ -119,8 +119,12 @@ CustomFields.attachSchema(
        * #2012: the card kinds this field belongs to ('story', 'task'); empty
        * is every card (models/lib/cardKinds.js).
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'cardKinds.$': {
+      type: String,
+      allowedValues: ['story', 'task'],
     },
     showSumAtTopOfList: {
       /**
