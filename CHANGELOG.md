@@ -619,6 +619,11 @@ This release closes the following already-done feature request:
 - [Each member chooses how often email notifications come: never, periodically or instantly](https://github.com/wekan/wekan/commit/3f88fb39a5).
   Thanks to saurabharch and xet7.
 
+and fixes the following build bug:
+
+- [The OpenBSD bundles are built on OpenBSD 7.8, where Node.js 26 now builds](https://github.com/wekan/wekan/commit/209e3b0c47).
+  Thanks to xet7.
+
 and updates the following translations:
 
 <details>
