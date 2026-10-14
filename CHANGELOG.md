@@ -408,19 +408,10 @@ not have).
 The maintainer answered the open design questions; each is built as decided.
 [#2698](https://github.com/wekan/wekan/issues/2698) (GitLab: write changes back
 to GitLab - issues, comments, state - with live tests in the build.sh and
-build.bat menus, run with the same git credentials mirror.sh uses),
-[#5758](https://github.com/wekan/wekan/issues/5758) (Windows SSO with
-Kerberos/NTLM through node-expose-sspi, built without a Windows/AD test
-environment), [#6549](https://github.com/wekan/wekan/issues/6549) (documented
-how the Rocket.Chat / G Suite SAML chain must be configured, then closed),
-[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL's sqrlonly and
-hardlock options: an account a member locks to SQRL refuses other sign-ins,
-and a hardlocked one refuses password reset and e-mail change). Batch undo
-and redo of a large sprint is made faster now. Importers for Planka,
-Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google Keep, through
-their APIs, with live tests in the build.sh and build.bat menus run with the
-maintainer's own credentials. Bosnian uses "Tabla" for board throughout;
-Tsonga gets a word for archive of its own, apart from storage.
+build.bat menus, run with the same git credentials mirror.sh uses). Importers
+for Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google
+Keep, through their APIs, with live tests in the build.sh and build.bat menus
+run with the maintainer's own credentials.
 
 </details>
 
@@ -431,18 +422,6 @@ Tsonga gets a word for archive of its own, apart from storage.
 landmarks and labels exist, and every icon-only control is named and guarded;
 what is left is a screen-reader pass through the board, card and drag-and-drop
 flows, which needs the running app and a screen reader).
-
-</details>
-
-<details>
-<summary>Batch undo and redo of a large sprint take minutes.</summary>
-
-Measured with `server/lib/tests/scrumSnapshotRows.tests.js` at 10,500 cards: a
-sprint's start and close take 2 s and its rollover 36 s, but undoing the close
-takes 282 s and redoing it 578 s - about 27 ms a card, written one by one in the
-background (`server/lib/scrumBatchJobs.js`). The test passes (15 min 25 s) and
-has 30 minutes now; what remains is making the batch faster, which needs
-profiling one card's undo against the running server.
 
 </details>
 
@@ -526,6 +505,86 @@ there.
 </details>
 
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** Members can lock their account to **SQRL** with their SQRL
+client's *sqrlonly* and *hardlock* options, and a WeKan on Windows can sign
+domain members in with **Windows single sign-on** (Kerberos / NTLM). Batch
+**undo and redo of a large sprint** is 2.6 times faster. **Bosnian** says Tabla
+for board throughout, and **Tsonga** has its own word for the Archive.
+
+This release adds the following new features:
+
+**Signing in** - accounts locked to SQRL, and Windows domain sign-in.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a539429fce">SQRL's sqrlonly and hardlock lock an account to SQRL</a>. Thanks to xet7.</summary>
+
+The member's SQRL client sends both options with every sign-in, and WeKan
+follows the latest. sqrlonly refuses every other way of signing in - password,
+OIDC, LDAP, SAML, CAS, passkey, Nextcloud, the REST `/users/login` and header
+login. hardlock sends no password-reset e-mail (answering as if it did),
+refuses a reset link sent before, and refuses the member's own e-mail change.
+Disabling SQRL from the client, the admin switching SQRL off, and an admin's
+own changes are the ways back. `tests/sqrl.test.cjs` drives both through the
+protocol with a real Ed25519 client and lists every file that mints a login
+token, so a new one cannot skip the check.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a594a58117">Windows single sign-on with Kerberos or NTLM</a>. Thanks to nikalasmd and xet7.</summary>
+
+[#5758](https://github.com/wekan/wekan/issues/5758). On Windows, with
+`WINDOWS_SSO_ENABLED=true` and node-expose-sspi installed in the bundle,
+"Sign in with Windows" runs the browser's Negotiate handshake, and a one-time
+token signs the page in through the ordinary login checks. Only the domains in
+`WINDOWS_SSO_DOMAINS` are let in (empty means nobody), and a same-named local
+account is taken over only with `WINDOWS_SSO_MERGE_EXISTING_USERS=true`. Built
+without a Windows domain to test against: the decisions are tested in
+`tests/windowsSso.test.cjs`, the handshake is not, and
+[WindowsSSO.md](docs/Features/Login/WindowsSSO.md) says how to set it up.
+
+</details>
+
+and makes the following faster:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e671c7034">Batch undo and redo of a large sprint is 2.6 times faster</a>. Thanks to xet7.</summary>
+
+Undoing a 10,500-card sprint close took 282 s and redoing it 578 s, about
+thirty database round trips a card. A History row's records are now read in
+one query per type, with one ownership check before and one after the read,
+and every write is still fenced right before it. The 10,500-card test went
+from 14 min 27 s to 6 min 7 s; `tests/scrumHistoryWriteState.test.cjs` pins
+the bracketed read and that every write stays fenced.
+
+</details>
+
+and has the following documentation:
+
+- [How WeKan, Rocket.Chat and a G Suite SAML login chain together](https://github.com/wekan/wekan/commit/03b83c14c1):
+  the redirect login style, Rocket.Chat's and Google's settings, and the
+  direct alternatives, in OAuth2.md. Fixes
+  [#6549](https://github.com/wekan/wekan/issues/6549). Thanks to timmy-mac and
+  xet7.
+
+and fixes the following translations:
+
+**Languages updated:** Bosnian, Tsonga, Croatian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0502261090">Bosnian says Tabla for board, and Tsonga keeps the Archive apart from storage</a>. Thanks to xet7.</summary>
+
+Bosnian used both ploča and tabla for a board; every board string uses tabla
+now, with ploča left only for the dashboard and the Admin Panel, and the board
+search abbreviation is tb. Tsonga's Archive is "vuhlayiselo bya swa khale",
+while storage stays "vuhlayiselo". Bosnian and Croatian translate S3 port.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.45 2026-10-14 WeKan ® release
 
