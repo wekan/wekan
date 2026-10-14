@@ -173,9 +173,19 @@ test('TODO Later says what is NOT done, and thanks nobody for it', () => {
     assert.ok(!/<a href=/.test(b.summary),
       `line ${b.line}: a category is not a commit - the issues are linked in the body`);
   }
+  // This was "at least half of the categories link issues". It was a proxy for
+  // "an issue the backlog is about is linked", and it stopped holding when the
+  // decided issues were built (2026-10-14: #802 to #2460 fixed, their category
+  // gone): what remains is mostly status records no single issue tracks -
+  // translations, backups, an e-mailed report. So the rule is now the thing
+  // itself: the issue triage categories exist, and no category names an issue
+  // without linking it.
   const withIssues = inSection.filter(b => /\/issues\//.test(b.body)).length;
-  assert.ok(withIssues >= inSection.length / 2,
-    'most categories list the issues they are about');
+  assert.ok(withIssues >= 3, 'the issue triage categories link the issues they are about');
+  for (const b of inSection) {
+    const bare = /(^|[^\[\/\w])#\d{3,5}\b/.exec(b.body.replace(/\[#\d+\]\([^)]*\)/g, ''));
+    assert.ok(!bare, `line ${b.line}: an issue named without its link: ${bare && bare[0]}`);
+  }
   assert.ok(!section.some(l => /wekan\/commit\//.test(l)),
     'nothing here was committed, so nothing here links a commit');
 });

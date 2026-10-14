@@ -389,7 +389,7 @@ People either way.
 <details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
-The #4790 split is prepared and waits for the maintainer to file it (see
+The [#4790](https://github.com/wekan/wekan/issues/4790) split is prepared and waits for the maintainer to file it (see
 "Waiting on the maintainer" above).
 
 [#2698](https://github.com/wekan/wekan/issues/2698) (GitLab integration: one-way
@@ -403,32 +403,12 @@ not have).
 </details>
 
 <details>
-<summary>Decided on 2026-10-14 (second round), waiting to be implemented.</summary>
+<summary>Ongoing accessibility work.</summary>
 
-The maintainer answered every open design question; each is built as decided.
-[#802](https://github.com/wekan/wekan/issues/802) (a tab per organization and team in All Boards, where their admins
-manage members; LDAP groups are only read, never written back),
-[#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another board's list,
-editable by whoever may write the source board),
-[#211](https://github.com/wekan/wekan/issues/211) (named column sets over the same cards, per board),
-[#140](https://github.com/wekan/wekan/issues/140) (real-time shared editing of descriptions with Yjs and the current
-editor),
-[#1178](https://github.com/wekan/wekan/issues/1178) (drawing onto a card, saved as both PNG and SVG and editable later,
-reusing the drawing code of the "Red Strings" issue),
-[#2111](https://github.com/wekan/wekan/issues/2111) and [#1604](https://github.com/wekan/wekan/issues/1604) (every change to any field of a card is marked unread
-- title, description, attachments, checklists, members, dates, labels - with
-a per-user switch),
-[#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (browser push notifications, a webhook activity picker
-in the UI, and an all-boards activity feed),
-[#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: a public board publishes its card activity to
-followers, read-only),
-[#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp, WebDAV attachment storage and CalDAV
-sync),
-[#6554](https://github.com/wekan/wekan/issues/6554) (Gogs beside WeKan) is closed as WONTFIX.
-
-Not a question, but ongoing work:
-[#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap, landmarks and many labels exist; many links
-still lack `href` and many icons lack labels).
+[#337](https://github.com/wekan/wekan/issues/337) (move buttons, focus trap,
+landmarks and labels exist, and every icon-only control is named and guarded;
+what is left is a screen-reader pass through the board, card and drag-and-drop
+flows, which needs the running app and a screen reader).
 
 </details>
 
@@ -454,22 +434,6 @@ every writer stopped. Decided on 2026-10-08: that stays the only switch. An
 online switch would need proof that no older server still writes History the
 legacy way, and a server older than the writer heartbeat cannot be seen at
 all, so it is not offered.
-
-[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
-report is a single comment-free link to https://www.grc.com/sqrl from 2019.
-SQRL has no official Meteor/Node package, unlike accounts-2fa (#3058);
-confirmed no `sqrl` dependency exists in `package.json`. Supporting it would
-mean implementing SQRL's own custom Ed25519-based handshake protocol - not
-OAuth2/OIDC, which WeKan already supports generically via
-`accounts-oidc`/similar - either from scratch or via a third-party library, and
-no well-maintained, actively-updated, MIT/copyfree-licensed Node.js SQRL
-library is known to exist that a Meteor server integration could trust.
-Hand-rolling an authentication protocol's cryptography is exactly the
-security-critical work that should not be freshly written without extensive
-review. SQRL's real-world adoption peaked around 2013-2016 and has not grown
-since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
-standard that gained the adoption SQRL did not. Decided on 2026-10-03: kept
-open as it is, with no implementation attempted.).
 
 </details>
 
@@ -531,16 +495,39 @@ there.
 
 # Upcoming WeKan ® release
 
-**In short:** sign in with a **passkey**, and **log out everywhere**. Phones
-get **ntfy** and **Share to WeKan**, webhooks **direct-message** on
-**Mattermost**, and **All Boards** groups boards by letter, team and label.
-Cards can be **Stories** or **Tasks**, checklist items get a **person
-responsible** and appear in the **calendar and Gantt**, the **Table view**
-adds and drags cards, and swimlanes can share **one list header row**.
-E-mails use a **clear HTML layout**, Rules can be shown **read-only**, and
-**LibreJS** recognises the bundle.
+**In short:** sign in with a **passkey** or **SQRL**, and **log out
+everywhere**. **Browser push**, an **activity feed** and **ntfy** bring
+notifications anywhere, and webhooks **direct-message** on **Mattermost**. Card
+descriptions are **edited together, live**; cards can be **drawn on**, be
+**Stories** or **Tasks**, and mark **unread changes**. Boards get **column
+sets**, **linked lists** and a **Table view** that adds and drags cards, and
+**All Boards** gives each team a tab. **Nextcloud** gets **CalDAV** sync and
+**WebDAV** storage, public boards join the **fediverse**, and two **CodeQL**
+alerts are fixed.
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/587efab82b">Two CodeQL alerts in a test, and every test pattern of the same shapes</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL alerts #584 (bad HTML filtering regexp) and #585 (incomplete regular
+expression for hostnames), both in `tests/accountEmailHtml.test.cjs`: it
+checked that the e-mail layout escapes markup with `/<img|<script|<b>/`, which
+a `<SCRIPT>` passes, and made the reset address into a RegExp. It now lists
+every tag of the output in any letter case and allows only the layout's own
+`div`, `p`, `a` and `br`, and compares the address as text. The renderer was
+already escaping them.
+
+Both are pinned as shapes across the tree in
+`tests/securityAlerts20261012.test.cjs`, which found more: a case-sensitive
+`<script>` pattern in `jsWebLabels.test.cjs`, a path spliced into generated
+code in `singleFile.test.cjs`, and twelve test patterns with a host name's dot
+unescaped. These are in tests, so there is no attempt at runtime to record in
+Admin Panel → Problems.
+
+</details>
+
+and adds the following new features:
 
 **Sign-in** - how members sign in and out, and who is told.
 
@@ -567,6 +554,28 @@ in or an account is made, only for the ticked events. It carries the event,
 the user name and the time; the email, IP address, full name and sign-in
 method only when ticked. It is sent after the login, through the SSRF guard,
 and is never published. `tests/accountWebhook.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c940b3e301">Sign in with SQRL, from a phone or a computer</a>. Thanks to xet7.</summary>
+
+[SQRL](https://www.grc.com/sqrl/sqrl.htm) signs in with a SQRL app or client
+instead of a password, after a site admin turns it on (Admin Panel → Settings,
+off by default). A member adds their identity once in Member Settings → SQRL;
+the sign-in page then shows a `sqrl://` link and its QR code and signs in by
+itself when the client has answered. WeKan keeps only the identity's public
+keys, never published and not writable from the client.
+
+Every nut is random and used once, each request must carry the server's
+previous reply unchanged, and every request is checked with Ed25519 (Node.js's
+own `crypto`). An unknown identity can neither make an account nor sign in;
+disable, enable, remove and rekey follow the protocol, the last three only
+with the rescue code's unlock key. `tests/sqrl.test.cjs` drives the real
+handler with a software SQRL client, forged signatures, replays and altered
+replies included, and `server/lib/tests/sqrl.tests.js` adds an identity and
+signs in through the running server. Documented in
+[SQRL.md](docs/Features/Login/SQRL.md).
 
 </details>
 
@@ -600,6 +609,38 @@ A webhook's new tick sends each message about a card to its members and
 assignees as `@username`, never to whoever made the change, at most 50.
 `tests/mattermostDirectMessages.test.cjs`,
 [Mattermost](docs/Features/Webhooks/Chat/Mattermost.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a5ae3e205">Browser push notifications, per device</a>. Thanks to saurabharch, hingerl and xet7.</summary>
+
+Member Settings → Notification Settings → Browser notifications on this
+device: every notification the member gets also pops up from that browser,
+even with WeKan closed, and a click opens the card. web-push 3.6.7 (pinned)
+sends it with this WeKan's own VAPID keys. A subscription is accepted only over
+https and only at the push services browsers use, checked when saved and
+before every send. Not offered on Sandstorm.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/656af74b2c">An activity feed across all of a member's boards</a>. Thanks to xet7.</summary>
+
+Member menu → Activity on all my boards lists what happened on every board the
+member sees, newest first, 50 at a time, in the sentences the notifications
+use. It never carries a field's value, follows the assigned-only rule, and is
+empty when the Admin Panel turns activities off. `tests/activityFeed.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3321926ab">Webhooks: pick which activities a webhook is sent</a>. Thanks to xet7.</summary>
+
+The webhook form gets "Send this webhook:" with Every activity and a tick per
+kind of activity - the groups notifications are muted by. Nothing ticked stays
+"all", so a webhook never silently gets nothing.
+`tests/webhookActivityPicker.test.cjs`.
 
 </details>
 
@@ -652,6 +693,17 @@ allowed. The pickers offer only the admin's own groups.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2fd3993538">A linked whole list: a live mirror of another board's list</a>. Thanks to javen9881 and xet7.</summary>
+
+The add-list form can link a list from another board: its cards appear live
+and stay the source board's cards, under its rules, and a card typed into the
+mirror is added to the source list only for somebody who may write there. The
+cards are published only to a subscriber who sees both boards. No self links,
+archived or foreign lists, or mirrors of mirrors. `tests/linkedList.test.cjs`.
+
+</details>
+
 **Cards and checklists** - kinds of card, subtasks from other boards, and
 who does each checklist item.
 
@@ -682,6 +734,42 @@ item's date. `tests/checklistItemSchedule.test.cjs`.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9138e85091">Edit a card description together, live</a>. Thanks to dalareo and xet7.</summary>
+
+Everybody with a card's description open edits one shared Yjs document, so two
+people typing at once both keep what they typed instead of the later Save
+replacing the earlier. The editor stays the Markdown textarea, with the caret
+kept where it was; Save writes the description as before. The document is
+published only to people who may edit the card, merged with a conditional
+write, size-limited and rate-limited, and started again when the description
+changes some other way. yjs 13.6.33 (pinned). `tests/sharedDescription.test.cjs`
+runs the real Yjs.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c772769c0e">Draw or write by hand on a card, saved as PNG and SVG</a>. Thanks to aleroot and xet7.</summary>
+
+Card menu → Drawing: draw with a mouse, pen or finger, undo and clear. The
+strokes stay on the card so the drawing can be edited later, and a PNG is
+uploaded as an attachment; Download as SVG builds the SVG from the strokes.
+Only numbers and the allowed colours and widths reach the SVG.
+`tests/cardDrawing.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8690a26f5">Cards changed since a member last opened them are marked</a>. Thanks to Lacour20, martinpospech and xet7.</summary>
+
+Member Settings → Mark cards changed since I last opened them, off by default:
+a minicard gets a blue edge when its fields, checklists, attachments or
+comments changed after the member last opened it. Turning it on does not mark
+every old card, and the member's own edits do not mark it.
+`tests/unreadChanges.test.cjs`.
+
+</details>
+
 **Board views** - the Table and Swimlanes views.
 
 <details>
@@ -702,6 +790,17 @@ not repeated. `tests/sharedListHeaders.test.cjs`.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03d0144538">Column sets: the same cards in several named sets of columns</a>. Thanks to kentonv and xet7.</summary>
+
+A new board view. A board keeps named column sets - say Completion, Priority,
+Milestone - and every card is in one column of each set. Dragging a card moves
+it only within the shown set, and each card shows its columns in the other sets
+as coloured labels. Board admins make the sets; the Admin Panel can turn the
+view off. Documented in [Column-Sets.md](docs/Features/Board/Column-Sets.md).
+
+</details>
+
 **All Boards** - finding boards among many.
 
 <details>
@@ -710,6 +809,17 @@ not repeated. `tests/sharedListHeaders.test.cjs`.
 A facet bar shows each group with its count, and a click shows only that
 group. Board labels are the member's own, applied to every board whose name
 includes some text. `tests/allBoardsFacets.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d04b8444a6">A tab per organization and team, where their admins manage members</a>. Thanks to xet7.</summary>
+
+The left menu of All Boards gets a tab for each organization and team the
+member is in, with its boards and its members. The group's admins and site
+admins add and remove members there; a group that comes from LDAP or another
+directory is read-only, because WeKan never writes directory groups back.
+`tests/groupMembers.test.cjs`.
 
 </details>
 
@@ -741,11 +851,94 @@ every page links it with `rel="jslicense"`. `tests/jsWebLabels.test.cjs`.
 
 </details>
 
+**Nextcloud and the fediverse** - calendars, files and followers outside WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c76f3e2e98">CalDAV: card due dates in Nextcloud Calendar or any CalDAV calendar</a>. Thanks to scriptPilot and xet7.</summary>
+
+Board Settings → Date → Calendar sync: each card with a due date is one event
+in the chosen calendar, removed when the due date goes, and a due date moved in
+the calendar comes back to the card every 15 minutes. The calendar's password
+is never published and only a board admin sees the link; requests go through
+the SSRF guard. `tests/caldavSync.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4234081752">WebDAV attachment storage: Nextcloud Files or any WebDAV server</a>. Thanks to scriptPilot and xet7.</summary>
+
+Admin Panel → Attachments → WebDAV (Nextcloud Files), beside S3, Azure and
+Google Cloud Storage, with the same switches, connection test, default storage
+and Move Attachment. The password is a secret field like the others, and
+redirects are refused. With CalDAV this completes #687; the Nextcloud ExApp is
+built by `.github/workflows/nextcloud.yml`. `tests/webdavStorage.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf633b9c72">ActivityPub: a public board can be followed from Mastodon</a>. Thanks to ASLLR and xet7.</summary>
+
+Admin Panel → Settings → ActivityPub, off by default: each public board is an
+actor, `@board-<id>` at this WeKan, and its new card activity reaches its
+followers as signed Notes. It is read-only - only signed Follow and Undo Follow
+are acted on - and a private board is never an actor. Outgoing requests go
+through the SSRF guard. `tests/activityPub.test.cjs`.
+
+</details>
+
+
+and fixes the following bugs:
+
+**Speed** - finding a card's subtasks.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c6c0c6021">Finding subtasks no longer scans every card</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+Subtasks of several parents are found with `{ $or: [{ parentId }, { parentIds }]
+}`,
+and only `parentId` had an index - a `$or` uses indexes only when every branch
+has one, so removing, copying and exporting cards scanned the whole collection.
+`parentIds` has its own index now, and `tests/cardQueryIndexes.test.cjs`
+requires
+an index for every branch of every subtask `$or`.
+
+</details>
+
+**Startup** - a schema WeKan could not start with.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3966fa6b9">Story and Task cards no longer stop WeKan at startup</a>. Thanks to xet7.</summary>
+
+The unreleased Story and Task commit declared `cardKinds` as `type: [String]`,
+which the schema library refuses at startup. It is `type: Array` with a
+`cardKinds.$` entry, and `tests/cardKinds.test.cjs` pins the form.
+
+</details>
+
+**Accessibility** - screen readers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d71c6f925">Every icon-only link and button has a name for screen readers</a>. Thanks to ndarilek and xet7.</summary>
+
+21 controls showed only an icon and had no name: the drag handles, the inline
+forms' close buttons, a card's date buttons, the notification drawer, History's
+previous and next and others. Each has a translated title, which becomes its
+`aria-label`, and `tests/iconOnlyControlLabels.test.cjs` scans every template
+for an unnamed icon-only control. Part of #337.
+
+</details>
+
 and has the following developer-tooling and translation changes:
 
 - [The new strings translated in all 234 locales](https://github.com/wekan/wekan/commit/fdc52787e1). Thanks to xet7.
 - [The Mattermost, Share to WeKan, passkey and hidden board strings translated](https://github.com/wekan/wekan/commit/5409e059ae). Thanks to xet7.
 - [The risk baseline allows the Sandstorm share helper's addresses](https://github.com/wekan/wekan/commit/a4727e6764). Thanks to xet7.
+- [The cross-board subtask, checklist owner, shared header, facet and card kind strings translated](https://github.com/wekan/wekan/commit/946f032883). Thanks to xet7.
+- [The push, linked-list, column-set, drawing and team-tab strings translated](https://github.com/wekan/wekan/commit/2b84e6b616). Thanks to xet7.
+- [The ActivityPub, CalDAV and WebDAV strings, translated](https://github.com/wekan/wekan/commit/2c9df4db88). Thanks to xet7.
+- [The SQRL strings translated](https://github.com/wekan/wekan/commit/b0e47537e0). Thanks to xet7.
+- [A test pins the issue's own example of keeping #label and @member](https://github.com/wekan/wekan/commit/cd4c4ad9ce), which shipped in v12.43. Thanks to biji and xet7.
+- [A guard skips every rspack output directory, not only _build](https://github.com/wekan/wekan/commit/5f2dd80f41). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
