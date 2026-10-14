@@ -41,6 +41,7 @@ const WANTED = {
     '{ listId: 1, sort: 1 }',        // a list's cards, in the order drawn
     '{ swimlaneId: 1, sort: 1 }',    // a swimlane's
     '{ parentId: 1 }',               // subtasks
+    '{ parentIds: 1 }',              // subtasks of several parents (#6770)
     '{ boardId: 1, cardNumber: 1 }', // search by card number (#5006)
   ],
   'models/activities.js': [
@@ -106,6 +107,21 @@ test('the reason is written where the next reader will be (negative)', () => {
   assert.ok(/FerretDB/.test(cards), 'and why it is worse there');
   assert.ok(/one user on a test server/i.test(cards),
     'and why one user was enough to feel it');
+});
+
+test('#6770: every branch of every subtask $or has an index of its own (negative)', () => {
+  // A $or can use indexes only when each branch has one; one unindexed branch
+  // turns the whole query into a collection scan. The fields are read from
+  // the selectors themselves, so a new branch cannot arrive without its index.
+  const parents = read('models/lib/cardParents.js');
+  const branches = [...parents.matchAll(/\$or: \[([^\]]*)\]/g)];
+  assert.ok(branches.length >= 2, 'childrenSelector and sharedChildrenSelector');
+  const fields = new Set(branches.flatMap(m => [...m[1].matchAll(/\{ ([\w.]+):/g)].map(f => f[1])));
+  assert.deepEqual([...fields].sort(), ['parentId', 'parentIds']);
+  const cards = read('models/cards.js');
+  for (const field of fields) {
+    assert.match(cards, new RegExp(`ensureIndex\\(Cards, \\{ ${field}: 1 \\}\\)`), `${field} is indexed on its own`);
+  }
 });
 
 console.log(`\ncardQueryIndexes: ${passed} tests passed`);

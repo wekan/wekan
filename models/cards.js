@@ -4334,6 +4334,11 @@ if (Meteor.isServer) {
   //   listId + sort        a list's cards, in the order they are drawn
   //   swimlaneId + sort    the swimlane view's rows
   //   parentId             subtasks of a card
+  //   parentIds            subtasks of a card with several parents (#6770):
+  //                        childrenSelector asks { $or: [{ parentId }, { parentIds }] },
+  //                        and a $or uses indexes only when EVERY branch has
+  //                        one - without this it was a collection scan on every
+  //                        card removal, copy and export
   //   boardId + cardNumber searching by card number (#5006)
   const { ensureIndex } = require('/server/lib/mongoStartup');
   Meteor.startup(async () => {
@@ -4341,6 +4346,7 @@ if (Meteor.isServer) {
     await ensureIndex(Cards, { listId: 1, sort: 1 });
     await ensureIndex(Cards, { swimlaneId: 1, sort: 1 });
     await ensureIndex(Cards, { parentId: 1 });
+    await ensureIndex(Cards, { parentIds: 1 });
     await ensureIndex(Cards, { boardId: 1, cardNumber: 1 });
   });
 }
