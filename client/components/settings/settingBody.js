@@ -1783,3 +1783,31 @@ Template.email.events({
     });
   },
 });
+
+// Admin Panel / Settings / Global Webhooks / Internal destinations
+// (server/webhookInternalHosts.js): read and saved through site-admin methods,
+// never published.
+Template.webhookSettings.onCreated(function () {
+  this.internalHosts = new ReactiveVar('');
+  Meteor.call('getWebhookInternalHosts', (error, hosts) => {
+    if (!error) this.internalHosts.set((hosts || []).join('\n'));
+  });
+});
+
+Template.webhookSettings.helpers({
+  internalHosts() { return Template.instance().internalHosts.get(); },
+});
+
+Template.webhookSettings.events({
+  'click .js-save-webhook-internal-hosts'(event, tpl) {
+    event.preventDefault();
+    const status = tpl.$('.js-webhook-internal-hosts-status');
+    Meteor.call('saveWebhookInternalHosts', String(tpl.$('.js-webhook-internal-hosts').val() || ''), (error, result) => {
+      if (error) { status.text(error.reason || error.message); return; }
+      tpl.internalHosts.set(result.hosts.join('\n'));
+      status.text(result.rejected.length
+        ? `${TAPi18n.__('webhook-internal-hosts-rejected')} ${result.rejected.join(', ')}`
+        : TAPi18n.__('feature-saved'));
+    });
+  },
+});

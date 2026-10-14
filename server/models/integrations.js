@@ -59,7 +59,9 @@ WebApp.handlers.post('/api/boards/:boardId/integrations', async function(req, re
     // SSRF protection: block webhook URLs that resolve to private/loopback/
     // link-local addresses (e.g. cloud metadata at 169.254.169.254) before the
     // URL is ever stored and delivered server-side. See GHSA-hc3x-hq3m-663q.
-    const validation = await validateAttachmentUrl(req.body.url);
+    // ...unless a site admin listed it as an internal destination.
+    const validation = (await require('/server/webhookInternalHosts').webhookHostIsInternalAllowed(req.body.url))
+      ? { valid: true } : await validateAttachmentUrl(req.body.url);
     if (!validation.valid) {
       sendJsonResult(res, {
         code: 400,
@@ -124,7 +126,8 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
       // SSRF protection: this update path uses Integrations.direct, which
       // bypasses the schema's url validator, so validate explicitly here.
       // See GHSA-hc3x-hq3m-663q.
-      const validation = await validateAttachmentUrl(req.body.url);
+      const validation = (await require('/server/webhookInternalHosts').webhookHostIsInternalAllowed(req.body.url))
+        ? { valid: true } : await validateAttachmentUrl(req.body.url);
       if (!validation.valid) {
         sendJsonResult(res, {
           code: 400,

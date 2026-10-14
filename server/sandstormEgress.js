@@ -91,7 +91,16 @@ async function mayManageWebhook(userId, integrationId) {
 
 // Same arguments and the same kind of answer as fetchSafe.
 export async function webhookFetch(url, options = {}) {
-  if (!isSandstorm) return fetchSafe(url, options);
+  if (!isSandstorm) {
+    // A host the site administrator listed as an internal destination
+    // (Admin Panel / Settings / Global Webhooks) is reached directly - still
+    // without redirects, and bounded in time - the SSRF guard everywhere else.
+    if (await require('/server/webhookInternalHosts').webhookHostIsInternalAllowed(url)) {
+      return fetch(url, { method: options.method || 'POST', headers: options.headers || {}, body: options.body,
+        redirect: 'error', signal: AbortSignal.timeout(options.totalTimeoutMs || options.timeoutMs || 30000) });
+    }
+    return fetchSafe(url, options);
+  }
   const api = await egress();
   const target = api.webhookGrantFor(url);
   const grant = target && await SandstormApiGrants.findOneAsync(webhookGrantId(target.canonicalUrl));

@@ -204,6 +204,10 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // The optional compatible APIs call WeKan's OWN REST API on the loopback
     // address, with a path checked to be /api/... - never a URL a user names.
     'server/compatApi/core.js': 'only http://127.0.0.1:<PORT>/api/..., WeKan itself',
+    // Outgoing webhooks to a host a SITE ADMIN listed as an internal
+    // destination (models/lib/internalWebhookHosts.js), without redirects;
+    // every other webhook goes through fetchSafe on the next line.
+    'server/sandstormEgress.js': 'only hosts in Admin Panel / Global Webhooks / Internal destinations',
   };
   const found = {};
   for (const file of sourceFiles()) {

@@ -290,6 +290,17 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // Admin Panel / Settings / Global Webhooks / Internal destinations
+    // (models/lib/internalWebhookHosts.js): hosts on WeKan's own network that
+    // outgoing webhooks may reach. Empty: none. Never published; read and
+    // saved by site admins through methods (server/webhookInternalHosts.js).
+    webhookInternalHosts: {
+      type: Array,
+      optional: true,
+    },
+    'webhookInternalHosts.$': {
+      type: String,
+    },
     // Admin Panel / Settings / Visibility / Optional APIs
     // (models/lib/optionalApis.js): { trello, jira, github, gitea } - each
     // compatible API is off unless ticked here.

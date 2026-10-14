@@ -350,6 +350,8 @@ import '/server/compatApi/jira';
 import '/server/compatApi/githubLike';
 // Board Settings / Bots: dispatches, the run report route, runs for admins.
 import '/server/bots';
+// Admin Panel / Settings / Global Webhooks / Internal destinations.
+import '/server/webhookInternalHosts';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

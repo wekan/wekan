@@ -43,6 +43,14 @@ template(name="setting")
 template(name="webhookSettings")
   span
      +outgoingWebhooksPopup
+  //- Internal destinations (models/lib/internalWebhookHosts.js): hosts on
+    WeKan's own network that webhooks may reach. Empty: none.
+  .webhook-internal-hosts
+    h2.admin-pane-group-title {{_ 'webhook-internal-hosts'}}
+    p.quiet {{_ 'webhook-internal-hosts-desc'}}
+    textarea.wekan-form-control.js-webhook-internal-hosts(rows="4" placeholder="nodered.lan&#10;10.0.0.5:1880" aria-label="{{_ 'webhook-internal-hosts'}}")= internalHosts
+    button.primary.js-save-webhook-internal-hosts(type="button") {{_ 'save'}}
+    span.js-webhook-internal-hosts-status
 
 //- The Login pane. Admin Panel / PEOPLE renders this now (peopleBody.jade); it is
 //- defined here, with the other admin settings panes, because Blaze templates are

@@ -2051,6 +2051,18 @@
     {
       "key": "sort-by-label-order",
       "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-internal-hosts",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-internal-hosts-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "webhook-internal-hosts-rejected",
+      "since": "2026-10-14"
     }
   ]
 }

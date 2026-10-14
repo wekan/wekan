@@ -35,9 +35,18 @@ that a webhook URL cannot be used to reach the server's own network
 resolved. So:
 
 - Node-RED on `localhost`, on the same LAN, or in another container on the
-  same Docker network is **not** reachable from WeKan's webhooks, and
+  same Docker network is **not** reachable from WeKan's webhooks unless it
+  is listed as below, and
   `host.docker.internal` does not help either: it is a private address.
-- Give Node-RED a public address and name (for example behind the same
+- A site administrator can make an exception for Node-RED, and only for
+  it: **Admin Panel → Settings → Global Webhooks → Internal destinations**
+  lists hosts on WeKan's own network that webhooks may reach, one per line,
+  a name or an address, with a port to allow only that port
+  (`nodered.lan:1880`). It is empty by default and only site administrators
+  see and change it, so a board member still cannot point a webhook inward
+  and every other address stays behind the guard. A listed host is called
+  directly, without following redirects.
+- Or give Node-RED a public address and name (for example behind the same
   Caddy or nginx as WeKan, with HTTPS), and use that name in WeKan.
 - An HTTP proxy ([Proxy](Proxy.md)) does not change this: the destination is
   checked before the proxy is used.
