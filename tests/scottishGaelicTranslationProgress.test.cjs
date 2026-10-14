@@ -86,3 +86,17 @@ assert.match(gaelic['import-members-mode-placeholder'], /h-ainmean aca fhèin.*f
 assert.match(gaelic['import-many-boards-hint'], /gun mhaidseadh bhall.*na aon bhòrd.*an àite an raoin gu h-àrd/);
 assert.match(gaelic['export-all-boards-hint'], /aon leabhar-obrach.*siota airson gach bòrd.*\.zip.*faidhle airson gach bòrd/);
 assert.match(gaelic['csv-mapping-title-required'], /tiotalan nan cairtean/);
+
+const integrationKeys = ["exportToTrelloPopup-title", "trello-export-desc", "trello-export-include-attachments", "trello-export-start", "trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access", "sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "webhook-payload-heading", "webhook-payload-description", "webhook-payload-text", "webhook-payload-fields", "webhook-payload-field-standard", "webhook-payload-field-ids", "webhook-payload-field-names", "webhook-payload-field-links", "webhook-payload-field-actor", "webhook-payload-field-people", "webhook-payload-field-details", "webhook-hide-identity", "webhook-someone", "notification-delivery-layout-classic", "notification-delivery-layout-clear", "notification-delivery-parts", "notification-delivery-part-board", "notification-delivery-part-actor", "notification-delivery-part-card", "notification-delivery-part-details", "notification-delivery-part-dates", "notification-delivery-part-link", "notification-delivery-grouping", "notification-delivery-grouping-all", "notification-delivery-grouping-board", "notification-delivery-grouping-card", "notification-delivery-grouping-none", "notification-delivery-schedule", "notification-delivery-schedule-immediate", "notification-delivery-schedule-interval", "notification-delivery-schedule-daily", "notification-delivery-interval", "notification-delivery-minutes", "notification-delivery-quiet", "notification-delivery-quiet-clear", "notification-delivery-timezone", "notification-delivery-invalid", "notification-group-card", "notification-group-board"];
+for (const key of integrationKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+for (const key of ['external-link-rules-description', 'external-link-identifier-aliases']) {
+  assert.deepEqual(gaelic[key].match(/\{(?:number|identifier)\}/g), english[key].match(/\{(?:number|identifier)\}/g));
+}
+assert.match(gaelic['trello-export-desc'], /Swimlane: …/);
+assert.match(gaelic['sandstorm-trello-access-needed'], /Chan eil.*an toiseach/);
+assert.match(gaelic['webhook-payload-description'], /dhìleab.*mur eil dad suidhichte/);
+assert.match(gaelic['notification-delivery-quiet'], /fuirich gus am bi iad seachad/);
+assert.notEqual(gaelic['notification-delivery-grouping-board'], gaelic['notification-delivery-grouping-card']);

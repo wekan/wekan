@@ -214492,5 +214492,376 @@
     "before": "Export all boards",
     "after": "Às-phortaich a h-uile bòrd",
     "reason": "Translate Scottish Gaelic import and bulk export controls with mapping and file-layout conditions intact; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "exportToTrelloPopup-title",
+    "before": "Export to Trello",
+    "after": "Às-phortaich gu Trello",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "trello-export-desc",
+    "before": "Create a copy of this board in Trello through Trello's API, with your Trello API key and token. Swimlanes become labels named \"Swimlane: …\", which WeKan's Trello import turns back into swimlanes.",
+    "after": "Cruthaich lethbhreac den bhòrd seo ann an Trello tro API Trello, leis an iuchair API agus tòcan Trello agad. Thèid slighean nan leubailean leis an ainm \"Swimlane: …\", a thionndaidheas ion-phortadh Trello WeKan air ais nan slighean.",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "trello-export-include-attachments",
+    "before": "Include attachments",
+    "after": "Gabh ceanglachain a-steach",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "trello-export-start",
+    "before": "Export to Trello",
+    "after": "Às-phortaich gu Trello",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "trello-export-open-board",
+    "before": "Open the board in Trello",
+    "after": "Fosgail am bòrd ann an Trello",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "trello-export-warnings",
+    "before": "Not everything could be exported",
+    "after": "Cha b’ urrainn dhuinn a h-uile rud às-phortadh",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "sandstorm-trello-access-needed",
+    "before": "A Sandstorm grain has no Internet access of its own. Allow this grain to reach Trello first.",
+    "after": "Chan eil inntrigeadh dhan eadar-lìon aig grain Sandstorm leis fhèin. Ceadaich dhan grain seo Trello a ruigsinn an toiseach.",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "sandstorm-allow-trello-access",
+    "before": "Allow access to Trello",
+    "after": "Ceadaich inntrigeadh gu Trello",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "sandstorm-trello-access-granted",
+    "before": "This grain may reach Trello.",
+    "after": "Faodaidh an grain seo Trello a ruigsinn.",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "sandstorm-forget-access",
+    "before": "Forget",
+    "after": "Dìochuimhnich",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "sandstorm-trello-save-label",
+    "before": "Trello, for importing and exporting boards",
+    "after": "Trello, airson bùird ion-phortadh agus às-phortadh",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "external-link-rules",
+    "before": "More link rules",
+    "after": "Barrachd riaghailtean ceangail",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "external-link-rules-description",
+    "before": "One rule per line: the text to find, \" = \", and the address. Use {number} for digits and {identifier} for a word, in both, for example [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "after": "Aon riaghailt air gach loidhne: an teacsa ri lorg, \" = \", agus an seòladh. Cleachd {number} airson àireamhan agus {identifier} airson facal, anns an dà chuid, mar eisimpleir [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "external-link-identifier-aliases",
+    "before": "Abbreviations for {identifier}, for example TK=Task, IN=Incident",
+    "after": "Giorrachaidhean airson {identifier}, mar eisimpleir TK=Task, IN=Incident",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-heading",
+    "before": "Webhook data",
+    "after": "Dàta webhook",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-description",
+    "before": "What outgoing webhooks (Rocket.Chat, Slack, ...) send. Default keeps the inherited setting; with nothing set, webhooks send what they always have.",
+    "after": "Na chuireas webhooks a-mach (Rocket.Chat, Slack, ...). Cumaidh Bun-roghainn an roghainn a fhuaireadh mar dhìleab; mur eil dad suidhichte, cuiridh webhooks na chuir iad a-riamh.",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-text",
+    "before": "Send the message text",
+    "after": "Cuir teacsa na teachdaireachd",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-fields",
+    "before": "Send these fields",
+    "after": "Cuir na raointean seo",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-standard",
+    "before": "Standard fields (WEBHOOKS_ATTRIBUTES)",
+    "after": "Raointean àbhaisteach (WEBHOOKS_ATTRIBUTES)",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-ids",
+    "before": "IDs",
+    "after": "Aithnichearan",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-names",
+    "before": "Names and titles",
+    "after": "Ainmean agus tiotalan",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-links",
+    "before": "Links to the card and board",
+    "after": "Ceanglaichean dhan chairt agus dhan bhòrd",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-actor",
+    "before": "Who did it",
+    "after": "Cò rinn e",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-people",
+    "before": "The member or assignee it is about",
+    "after": "Am ball no an neach-obrach ris a bheil e a’ buntainn",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-payload-field-details",
+    "before": "Details: comment, description, values and dates",
+    "after": "Mion-fhiosrachadh: beachd, tuairisgeul, luachan agus cinn-là",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-hide-identity",
+    "before": "Leave my name out of outgoing webhooks",
+    "after": "Fàg m’ ainm a-mach à webhooks a thèid a-mach",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "webhook-someone",
+    "before": "A member",
+    "after": "Ball",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-layout-classic",
+    "before": "One sentence (classic)",
+    "after": "Aon seantans (clasaigeach)",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-layout-clear",
+    "before": "Clearly arranged: board, who, card in bold",
+    "after": "Air a chur air dòigh gu soilleir: bòrd, cò, cairt ann an clò trom",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-parts",
+    "before": "Show",
+    "after": "Seall",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-part-board",
+    "before": "Board name and link",
+    "after": "Ainm agus ceangal a’ bhùird",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-part-actor",
+    "before": "Who did it",
+    "after": "Cò rinn e",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-part-card",
+    "before": "Card title and link",
+    "after": "Tiotal agus ceangal na cairte",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-part-details",
+    "before": "Comment or changed value",
+    "after": "Beachd no luach a chaidh atharrachadh",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-part-dates",
+    "before": "Dates",
+    "after": "Cinn-là",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-part-link",
+    "before": "Link on its own line",
+    "after": "Ceangal air loidhne fa leth",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-grouping",
+    "before": "Grouping",
+    "after": "Buidhneachadh",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-grouping-all",
+    "before": "Everything due in one message",
+    "after": "A h-uile rud ri chur ann an aon teachdaireachd",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-grouping-board",
+    "before": "One per board",
+    "after": "Aon airson gach bòrd",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-grouping-card",
+    "before": "One per card",
+    "after": "Aon airson gach cairt",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-grouping-none",
+    "before": "Each on its own",
+    "after": "Gach fear fa leth",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-schedule",
+    "before": "When to send",
+    "after": "Cuin a chuirear iad",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-schedule-immediate",
+    "before": "Immediately",
+    "after": "Sa bhad",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-schedule-interval",
+    "before": "Every few minutes or hours",
+    "after": "Gach beagan mhionaidean no uairean",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-schedule-daily",
+    "before": "Once a day",
+    "after": "Aon turas san latha",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-interval",
+    "before": "Every",
+    "after": "Gach",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-minutes",
+    "before": "__count__ minutes",
+    "after": "__count__ mionaid",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-quiet",
+    "before": "Quiet hours (wait until they end)",
+    "after": "Uairean sàmhach (fuirich gus am bi iad seachad)",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-quiet-clear",
+    "before": "No quiet hours",
+    "after": "Gun uairean sàmhach",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-timezone",
+    "before": "Time zone:",
+    "after": "Roinn-tìde:",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-delivery-invalid",
+    "before": "The setting could not be saved.",
+    "after": "Cha b’ urrainn dhuinn an roghainn a shàbhaladh.",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-group-card",
+    "before": "__count__ notifications on card __card__",
+    "after": "__count__ brath air cairt __card__",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
+  },
+  {
+    "locale": "gd",
+    "key": "notification-group-board",
+    "before": "__count__ notifications on board __board__",
+    "after": "__count__ brath air bòrd __board__",
+    "reason": "Translate Scottish Gaelic integration and delivery controls while retaining literal syntax, permission and scheduling conditions; fluent review remains needed."
   }
 ]
