@@ -159,10 +159,11 @@ Deck sharing rules are not imported by design: an import never grants access.
 # Upcoming WeKan ® release
 
 **In short:** **Jira List Sync works from a Sandstorm grain**: the Powerbox
-grant keeps the Jira sign-in, and the **Jira import brings closed sprints**. A
-**CodeQL** alert in the live tests is fixed across all of them, and the backlog
-is down to translations and attachment contents: every open issue that is built
-is closed.
+grant keeps the Jira sign-in, the **Jira import brings closed sprints**, and the
+**Version Control view's attachments** open in the viewer with the card's
+controls. A **CodeQL** alert in the live tests is fixed across all of them, and
+the backlog is down to translations and attachment contents: every open issue
+that is built is closed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -203,6 +204,16 @@ rebuilt from each issue's Sprint field, status and resolution at the sprint's
 dates - from the change history when the export has `expand=changelog`, from
 the issues as they are now otherwise - and marked partial. A closed sprint
 with no dates is still reported. Not run against a live Jira here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/132b341b8d">Version Control view: attachments have the card's controls and open in the viewer</a>. Thanks to xet7.</summary>
+
+The Attachments tab listed each file as a link to a new browser tab. A click on
+a file now views it in the card's attachment viewer, next and previous walking
+the tab's files, and each file has the opened card's controls: view, download,
+rename, delete and the cover / background menu, for the same members.
 
 </details>
 
