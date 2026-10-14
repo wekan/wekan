@@ -98,12 +98,9 @@ Which databases WeKan supports
 <details>
 <summary>Carried to a future release.</summary>
 
-What is not built yet, checked against the code on 2026-10-14. Finished
+What is not built yet, checked against the code on 2026-10-15. Finished
 work - also what is built but not yet tested against a live service - is in
 the releases and old-CHANGELOG/.
-
-**Needs a live service to build against:** Jira closed sprints and their
-commitment snapshots (the Jira Software sprint report API).
 
 </details>
 
@@ -162,9 +159,10 @@ Deck sharing rules are not imported by design: an import never grants access.
 # Upcoming WeKan ® release
 
 **In short:** **Jira List Sync works from a Sandstorm grain**: the Powerbox
-grant keeps the Jira sign-in. A **CodeQL** alert in the live tests is fixed
-across all of them, and the backlog is down to translations and two connectors:
-every open issue that is built is closed.
+grant keeps the Jira sign-in, and the **Jira import brings closed sprints**. A
+**CodeQL** alert in the live tests is fixed across all of them, and the backlog
+is down to translations and attachment contents: every open issue that is built
+is closed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -181,7 +179,7 @@ Panel → Problems.
 
 </details>
 
-and adds the following new feature:
+and adds the following new features:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1dc5b82369">Jira List Sync works from a Sandstorm grain</a>. Thanks to xet7.</summary>
@@ -193,6 +191,18 @@ the grant instead: in the Powerbox, connect to any address and enter
 every request; WeKan never sees it. The Powerbox request asks for Basic
 authentication, and the List Sync popup says what to enter. Not run in a real
 grain here.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc0b8c60ba">Jira import brings closed sprints, rebuilt from the issues</a>. Thanks to xet7.</summary>
+
+Jira's sprint report has no documented API, so a closed sprint was reported
+and skipped. It is imported as closed now, its start and close snapshots
+rebuilt from each issue's Sprint field, status and resolution at the sprint's
+dates - from the change history when the export has `expand=changelog`, from
+the issues as they are now otherwise - and marked partial. A closed sprint
+with no dates is still reported. Not run against a live Jira here.
 
 </details>
 
