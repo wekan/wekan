@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Il-klijent SQRL tiegħek sakkar dan il-kont għall-SQRL biss: kull mod ieħor ta' dħul huwa miċħud.",
   "sqrl-hardlock-on": "Il-klijent SQRL tiegħek sakkar dan il-kont b'mod sħiħ: ir-reset tal-kelma ta' għassa u t-tibdil tal-posta elettronika huma miċħuda.",
   "sqrl-only": "Dan il-kont jidħol bl-SQRL biss.",
-  "sqrl-hardlock": "Dan il-kont huwa msakkar għall-SQRL: ma jistax jiġi rkuprat jew mibdul b'ebda mod ieħor."
+  "sqrl-hardlock": "Dan il-kont huwa msakkar għall-SQRL: ma jistax jiġi rkuprat jew mibdul b'ebda mod ieħor.",
+  "windows-sso-sign-in": "Idħol bil-Windows",
+  "windows-sso-failed": "Id-dħul bil-Windows ma rnexxiex. Il-kont Windows tiegħek jista' ma jkunx permess hawn."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Ua loka e lau kalani SQRL lenei teugatupe i le SQRL na o ia: ua teena isi auala uma e saini ai i totonu.",
   "sqrl-hardlock-on": "Ua loka mausali e lau kalani SQRL lenei teugatupe: ua teena le toe setiina o le upu faataga ma le suiina o le imeli.",
   "sqrl-only": "O lenei teugatupe e saini i totonu i le SQRL na o ia.",
-  "sqrl-hardlock": "Ua loka lenei teugatupe i le SQRL: e le mafai ona toe maua pe suia i se isi lava auala."
+  "sqrl-hardlock": "Ua loka lenei teugatupe i le SQRL: e le mafai ona toe maua pe suia i se isi lava auala.",
+  "windows-sso-sign-in": "Saini i totonu i le Windows",
+  "windows-sso-failed": "Ua lē manuia le saini i totonu i le Windows. Atonu e lē faatagaina lau tala Windows iinei."
 }

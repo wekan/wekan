@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Vosse cliyint SQRL a serré ci conte ci al SQRL: tos les ôtes manires di s' mintrer sont rifuzêyes.",
   "sqrl-hardlock-on": "Vosse cliyint SQRL a serré ci conte ci a dur: li rimetaedje do sicret eyet l' candjmint d' emile sont rifuzés.",
   "sqrl-only": "Ci conte ci s' mintere seulmint avou SQRL.",
-  "sqrl-hardlock": "Ci conte ci est serré al SQRL: on n' el pout rapexhî ni candjî d' nole ôte manire."
+  "sqrl-hardlock": "Ci conte ci est serré al SQRL: on n' el pout rapexhî ni candjî d' nole ôte manire.",
+  "windows-sso-sign-in": "Si mintrer avou Windows",
+  "windows-sso-failed": "Li session avou Windows n' a nén roté. Vosse conte Windows n' est motoit nén permetou chal."
 }

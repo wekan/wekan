@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "侬个 SQRL 客户端拿搿只账户锁定成只好用 SQRL：别个登录方法侪拒绝脱。",
   "sqrl-hardlock-on": "侬个 SQRL 客户端拿搿只账户硬锁脱了：重设密码搭改电子邮件侪拒绝脱。",
   "sqrl-only": "搿只账户只好用 SQRL 登录。",
-  "sqrl-hardlock": "搿只账户锁定勒 SQRL 上：用别个办法侪勿好恢复或者修改。"
+  "sqrl-hardlock": "搿只账户锁定勒 SQRL 上：用别个办法侪勿好恢复或者修改。",
+  "windows-sso-sign-in": "用 Windows 登录",
+  "windows-sso-failed": "Windows 登录失败哉。侬个 Windows 账户可能勿允许勒此地用。"
 }

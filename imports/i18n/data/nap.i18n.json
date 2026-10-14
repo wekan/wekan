@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "'O client SQRL tujo ha nchiuso stu cunto sulo cu SQRL: ogne ata manera 'e trasì vene rifiutata.",
   "sqrl-hardlock-on": "'O client SQRL tujo ha nchiuso stu cunto pe' ssempe: 'o ripristino d''a parola d'ordine e 'o cagno d''a posta elettronica so' rifiutate.",
   "sqrl-only": "Stu cunto trase sulo cu SQRL.",
-  "sqrl-hardlock": "Stu cunto è nchiuso cu SQRL: nun se pò recuperà o cagnà 'n nisciun'ata manera."
+  "sqrl-hardlock": "Stu cunto è nchiuso cu SQRL: nun se pò recuperà o cagnà 'n nisciun'ata manera.",
+  "windows-sso-sign-in": "Trase cu Windows",
+  "windows-sso-failed": "'A trasuta cu Windows nun è ghiuta bona. Forse 'o cunto Windows tujo nun è permesso ccà."
 }

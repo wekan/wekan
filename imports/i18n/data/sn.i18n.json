@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Purogiramu yako yeSQRL yakiya akaundi iyi kuSQRL chete: dzimwe nzira dzose dzekupinda dzinorambwa.",
   "sqrl-hardlock-on": "Purogiramu yako yeSQRL yakiya akaundi iyi zvakasimba: kuseta patsva pasiwedhi nekushandura tsamba yemagetsi zvinorambwa.",
   "sqrl-only": "Akaundi iyi inopinda neSQRL chete.",
-  "sqrl-hardlock": "Akaundi iyi yakakiyiwa kuSQRL: haigone kudzoserwa kana kushandurwa neimwe nzira."
+  "sqrl-hardlock": "Akaundi iyi yakakiyiwa kuSQRL: haigone kudzoserwa kana kushandurwa neimwe nzira.",
+  "windows-sso-sign-in": "Pinda neWindows",
+  "windows-sso-failed": "Kupinda neWindows kwakundikana. Akaundi yako yeWindows ingangodaro isingabvumidzwi pano."
 }

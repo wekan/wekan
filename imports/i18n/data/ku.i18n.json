@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Muwekîlê te yê SQRL ev hesab bi SQRL ve qefilandiye: hemû rêyên din ên têketinê tên redkirin.",
   "sqrl-hardlock-on": "Muwekîlê te yê SQRL ev hesab bi tevahî qefilandiye: nûkirina şîfreyê û guhertina e-nameyê tên redkirin.",
   "sqrl-only": "Têketina vê hesabê tenê bi SQRL e.",
-  "sqrl-hardlock": "Ev hesab bi SQRL ve qefilandî ye: bi tu rêyeke din nayê vegerandin an guhertin."
+  "sqrl-hardlock": "Ev hesab bi SQRL ve qefilandî ye: bi tu rêyeke din nayê vegerandin an guhertin.",
+  "windows-sso-sign-in": "Bi Windows têkeve",
+  "windows-sso-failed": "Têketina bi Windows bi ser neket. Dibe ku hesabê te yê Windows li vir nayê destûrdan."
 }

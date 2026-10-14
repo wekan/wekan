@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Oníbàárà SQRL rẹ ti ti àkọọ́lẹ̀ yìí mọ́ SQRL: gbogbo ọ̀nà ìwọlé mìíràn ni a kọ̀.",
   "sqrl-hardlock-on": "Oníbàárà SQRL rẹ ti ti àkọọ́lẹ̀ yìí pa pátápátá: àtúnṣe ọ̀rọ̀ìgbaniwọlé àti yíyí ímeèlì padà ni a kọ̀.",
   "sqrl-only": "Àkọọ́lẹ̀ yìí ń wọlé pẹ̀lú SQRL nìkan.",
-  "sqrl-hardlock": "Àkọọ́lẹ̀ yìí ti di títì mọ́ SQRL: a kò lè gbà á padà tàbí yí i padà ní ọ̀nà mìíràn."
+  "sqrl-hardlock": "Àkọọ́lẹ̀ yìí ti di títì mọ́ SQRL: a kò lè gbà á padà tàbí yí i padà ní ọ̀nà mìíràn.",
+  "windows-sso-sign-in": "Wọlé pẹ̀lú Windows",
+  "windows-sso-failed": "Wíwọlé pẹ̀lú Windows kò yọrí sí rere. Ó ṣeéṣe kí a má gba àkọọ́lẹ̀ Windows rẹ láàyè níbí."
 }

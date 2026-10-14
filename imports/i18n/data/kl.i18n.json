@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL-imut atortutit kontu una SQRL-imut kisimi parnaarpaa: iserfissat allat tamarmik itigartinneqarput.",
   "sqrl-hardlock-on": "SQRL-imut atortutit kontu una tamakkiisumik parnaarpaa: isertaatip nutaamik aaqqissuunnera e-mailillu allanngortinnera itigartinneqarput.",
   "sqrl-only": "Kontu una SQRL kisiat atorlugu iserfigineqartarpoq.",
-  "sqrl-hardlock": "Kontu una SQRL-imut parnaarneqarpoq: allatigut annaanneqarsinnaanngilaq allanngortinneqarsinnaananiluunniit."
+  "sqrl-hardlock": "Kontu una SQRL-imut parnaarneqarpoq: allatigut annaanneqarsinnaanngilaq allanngortinneqarsinnaananiluunniit.",
+  "windows-sso-sign-in": "Windows atorlugu iserit",
+  "windows-sso-failed": "Windows atorlugu iserneq iluatsinngilaq. Windows-imi kontoqarfiit maani akuerisaanngitsoorsinnaavoq."
 }

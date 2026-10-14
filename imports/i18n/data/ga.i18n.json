@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Tá do chliant SQRL tar éis an cuntas seo a ghlasáil ar SQRL: diúltaítear do gach bealach eile chun logáil isteach.",
   "sqrl-hardlock-on": "Tá do chliant SQRL tar éis an cuntas seo a ghlasáil go docht: diúltaítear d'athshocrú pasfhocail agus d'athrú ríomhphoist.",
   "sqrl-only": "Logálann an cuntas seo isteach le SQRL amháin.",
-  "sqrl-hardlock": "Tá an cuntas seo glasáilte ar SQRL: ní féidir é a aisghabháil ná a athrú ar aon bhealach eile."
+  "sqrl-hardlock": "Tá an cuntas seo glasáilte ar SQRL: ní féidir é a aisghabháil ná a athrú ar aon bhealach eile.",
+  "windows-sso-sign-in": "Logáil isteach le Windows",
+  "windows-sso-failed": "Theip ar logáil isteach le Windows. B'fhéidir nach bhfuil cead ag do chuntas Windows anseo."
 }

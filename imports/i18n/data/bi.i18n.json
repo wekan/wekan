@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL klaen blong yu i lokem akaon ia long SQRL nomo: olgeta narafala rod blong go insaed oli no save wok.",
   "sqrl-hardlock-on": "SQRL klaen blong yu i lokem akaon ia strong: oli no save jenisim paswod mo jenisim imel.",
   "sqrl-only": "Akaon ia i go insaed wetem SQRL nomo.",
-  "sqrl-hardlock": "Akaon ia i lok long SQRL: i no save kambak o jenis long eni narafala rod."
+  "sqrl-hardlock": "Akaon ia i lok long SQRL: i no save kambak o jenis long eni narafala rod.",
+  "windows-sso-sign-in": "Go insaed wetem Windows",
+  "windows-sso-failed": "Go insaed wetem Windows i no wok. Maet Windows akaon blong yu i no gat raet long ples ia."
 }

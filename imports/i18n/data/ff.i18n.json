@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Kuutorgal maa SQRL uddii ndee konte e SQRL tan: laabi goɗɗi fof ngam seŋorde ɗon salaa.",
   "sqrl-hardlock-on": "Kuutorgal maa SQRL uddii ndee konte fof: wattitgol finnde e waylugol imeel ɗon salaa.",
   "sqrl-only": "Ndee konte seŋotoo e SQRL tan.",
-  "sqrl-hardlock": "Ndee konte uddaama e SQRL: waawaa artireede walla waylteede e laabi goɗɗi."
+  "sqrl-hardlock": "Ndee konte uddaama e SQRL: waawaa artireede walla waylteede e laabi goɗɗi.",
+  "windows-sso-sign-in": "Seŋo e Windows",
+  "windows-sso-failed": "Seŋo e Windows roŋkii. Konte maa Windows ina waawi wonde yamiraaka ɗoo."
 }

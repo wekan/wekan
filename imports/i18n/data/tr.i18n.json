@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL istemciniz bu hesabı SQRL'ye kilitledi: diğer tüm oturum açma yolları reddedilir.",
   "sqrl-hardlock-on": "SQRL istemciniz bu hesabı sıkı kilitledi: parola sıfırlama ve e-posta değiştirme reddedilir.",
   "sqrl-only": "Bu hesapta yalnızca SQRL ile oturum açılır.",
-  "sqrl-hardlock": "Bu hesap SQRL'ye kilitli: başka hiçbir yolla kurtarılamaz veya değiştirilemez."
+  "sqrl-hardlock": "Bu hesap SQRL'ye kilitli: başka hiçbir yolla kurtarılamaz veya değiştirilemez.",
+  "windows-sso-sign-in": "Windows ile oturum aç",
+  "windows-sso-failed": "Windows ile oturum açılamadı. Windows hesabınıza burada izin verilmiyor olabilir."
 }

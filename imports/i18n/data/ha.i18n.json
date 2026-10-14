@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Manhajar SQRL ɗinka ta kulle wannan asusun zuwa SQRL: an ƙi duk wata hanyar shiga.",
   "sqrl-hardlock-on": "Manhajar SQRL ɗinka ta kulle wannan asusun gaba ɗaya: an ƙi sake saita kalmar sirri da canza imel.",
   "sqrl-only": "Wannan asusun yana shiga da SQRL kaɗai.",
-  "sqrl-hardlock": "An kulle wannan asusun zuwa SQRL: ba za a iya dawo da shi ko canza shi ta wata hanya ba."
+  "sqrl-hardlock": "An kulle wannan asusun zuwa SQRL: ba za a iya dawo da shi ko canza shi ta wata hanya ba.",
+  "windows-sso-sign-in": "Shiga da Windows",
+  "windows-sso-failed": "Shiga da Windows ya kasa. Mai yiwuwa ba a yarda da asusunka na Windows a nan ba."
 }

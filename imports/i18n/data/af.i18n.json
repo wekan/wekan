@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Jou SQRL-kliënt het hierdie rekening aan SQRL gesluit: elke ander manier van aanmeld word geweier.",
   "sqrl-hardlock-on": "Jou SQRL-kliënt het hierdie rekening hard gesluit: wagwoordherstel en e-posverandering word geweier.",
   "sqrl-only": "Hierdie rekening meld slegs met SQRL aan.",
-  "sqrl-hardlock": "Hierdie rekening is aan SQRL gesluit: dit kan op geen ander manier herstel of verander word nie."
+  "sqrl-hardlock": "Hierdie rekening is aan SQRL gesluit: dit kan op geen ander manier herstel of verander word nie.",
+  "windows-sso-sign-in": "Meld aan met Windows",
+  "windows-sso-failed": "Aanmelding met Windows het misluk. Jou Windows-rekening word dalk nie hier toegelaat nie."
 }

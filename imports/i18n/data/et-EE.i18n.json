@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Sinu SQRL-klient on lukustanud selle konto SQRL-ile: kõik muud sisselogimisviisid keelatakse.",
   "sqrl-hardlock-on": "Sinu SQRL-klient on selle konto täielikult lukustanud: parooli lähtestamine ja e-posti muutmine keelatakse.",
   "sqrl-only": "See konto logib sisse ainult SQRL-iga.",
-  "sqrl-hardlock": "See konto on lukustatud SQRL-ile: seda ei saa muul viisil taastada ega muuta."
+  "sqrl-hardlock": "See konto on lukustatud SQRL-ile: seda ei saa muul viisil taastada ega muuta.",
+  "windows-sso-sign-in": "Logi sisse Windowsiga",
+  "windows-sso-failed": "Windowsiga sisselogimine ebaõnnestus. Sinu Windowsi kontol ei pruugi siin olla lubatud."
 }

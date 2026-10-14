@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Nde SQRL kliénte omboty ko kuénta SQRL-pe añoite: ojeja opaite ambue tape jeike peguarã.",
   "sqrl-hardlock-on": "Nde SQRL kliénte omboty hatãite ko kuénta: ojeja ñe'ẽñemi ñembopyahu ha correo electrónico ñemoambue.",
   "sqrl-only": "Ko kuénta oike SQRL rupive añoite.",
-  "sqrl-hardlock": "Ko kuénta oñembotypa SQRL-pe: ndaikatúi oñemoingove jey térã oñemoambue ambue tape rupive."
+  "sqrl-hardlock": "Ko kuénta oñembotypa SQRL-pe: ndaikatúi oñemoingove jey térã oñemoambue ambue tape rupive.",
+  "windows-sso-sign-in": "Eike Windows rupive",
+  "windows-sso-failed": "Ndaikatúi reike Windows rupive. Ikatu nde mba'ete Windows ndojeheja'ỹi ko'ápe."
 }

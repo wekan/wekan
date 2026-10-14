@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Kasitomala wanu wa SQRL watseka akawunti iyi ku SQRL yokha: njira zina zonse zolowera zikukanidwa.",
   "sqrl-hardlock-on": "Kasitomala wanu wa SQRL watseka akawunti iyi kotheratu: kukonzanso mawu achinsinsi ndi kusintha imelo zikukanidwa.",
   "sqrl-only": "Akawunti iyi imalowa ndi SQRL yokha.",
-  "sqrl-hardlock": "Akawunti iyi yatsekedwa ku SQRL: singabwezeretsedwe kapena kusinthidwa mwanjira ina iliyonse."
+  "sqrl-hardlock": "Akawunti iyi yatsekedwa ku SQRL: singabwezeretsedwe kapena kusinthidwa mwanjira ina iliyonse.",
+  "windows-sso-sign-in": "Lowani ndi Windows",
+  "windows-sso-failed": "Kulowa ndi Windows kwalephera. Akaunti yanu ya Windows mwina siyiloledwa pano."
 }

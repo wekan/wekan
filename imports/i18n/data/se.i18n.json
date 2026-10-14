@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Du SQRL-klienta lea lohkkadan dán kontu dušše SQRL:ii: buot eará sisačáliheami vuogit hilgojuvvojit.",
   "sqrl-hardlock-on": "Du SQRL-klienta lea garrasit lohkkadan dán kontu: beassansáni ođasmahttin ja e-boasta rievdadeapmi hilgojuvvojit.",
   "sqrl-only": "Dát konto čálihuvvo sisa dušše SQRL:in.",
-  "sqrl-hardlock": "Dát konto lea lohkkaduvvon SQRL:ii: dan ii sáhte máhcahit dahje rievdadit makkárge eará vugiin."
+  "sqrl-hardlock": "Dát konto lea lohkkaduvvon SQRL:ii: dan ii sáhte máhcahit dahje rievdadit makkárge eará vugiin.",
+  "windows-sso-sign-in": "Čális sisa Windows:in",
+  "windows-sso-failed": "Windows-sisačáliheapmi ii lihkostuvvan. Du Windows-kontu ii soaitte leat lobálaš dáppe."
 }

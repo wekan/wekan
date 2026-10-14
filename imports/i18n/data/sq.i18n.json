@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Klienti juaj SQRL e ka kyçur këtë llogari vetëm te SQRL: çdo mënyrë tjetër hyrjeje refuzohet.",
   "sqrl-hardlock-on": "Klienti juaj SQRL e ka kyçur fort këtë llogari: rivendosja e fjalëkalimit dhe ndryshimi i email-it refuzohen.",
   "sqrl-only": "Kjo llogari hyn vetëm me SQRL.",
-  "sqrl-hardlock": "Kjo llogari është e kyçur te SQRL: nuk mund të rikuperohet ose ndryshohet në asnjë mënyrë tjetër."
+  "sqrl-hardlock": "Kjo llogari është e kyçur te SQRL: nuk mund të rikuperohet ose ndryshohet në asnjë mënyrë tjetër.",
+  "windows-sso-sign-in": "Hyr me Windows",
+  "windows-sso-failed": "Hyrja me Windows dështoi. Llogaria juaj Windows mund të mos lejohet këtu."
 }

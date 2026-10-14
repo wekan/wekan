@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Twōj klijynt SQRL zawar to konto na SQRL: kożdy inszy spusōb logowanio je ôdciepowany.",
   "sqrl-hardlock-on": "Twōj klijynt SQRL zawar to konto na fest: resetowanie hasła i zmiana mejla sōm ôdciepowane.",
   "sqrl-only": "To konto loguje sie yno bez SQRL.",
-  "sqrl-hardlock": "To konto je zawarte na SQRL: niy idzie go ôdzyskać ani zmiynić inakszij."
+  "sqrl-hardlock": "To konto je zawarte na SQRL: niy idzie go ôdzyskać ani zmiynić inakszij.",
+  "windows-sso-sign-in": "Zaloguj bez Windows",
+  "windows-sso-failed": "Logowanie bez Windows niy wyszło. Twoje kōnto Windows może niy mieć tukej dostympu."
 }

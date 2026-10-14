@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Kösömanaplad SQRL olik elökofärmükon kali at pro SQRL te: mods valik votik nünäda pedeidons.",
   "sqrl-hardlock-on": "Kösömanaplad SQRL olik elökofärmükon kali at fefiko: dönugetükam letavöda e votükam ladeta leäktronik pedeidons.",
   "sqrl-only": "Kal at nunädon te me SQRL.",
-  "sqrl-hardlock": "Kal at pelökofärmükon pro SQRL: no kanon padönugetön u pavotükön me mod votik."
+  "sqrl-hardlock": "Kal at pelökofärmükon pro SQRL: no kanon padönugetön u pavotükön me mod votik.",
+  "windows-sso-sign-in": "Nunädön oki me Windows",
+  "windows-sso-failed": "Nunäd me Windows no eplöpon. Kal olik Windows ba no pedälon is."
 }

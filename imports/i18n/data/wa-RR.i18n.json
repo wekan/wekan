@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Ginkandado han imo SQRL nga kliyente ini nga account ha SQRL la: ginbabalibaran an ngatanan nga iba nga paagi han pagsulod.",
   "sqrl-hardlock-on": "Ginkandado hin mahugot han imo SQRL nga kliyente ini nga account: ginbabalibaran an pag-reset han sekreto nga pulong ngan pagbag-o han e-mail.",
   "sqrl-only": "Ini nga account nasulod gamit an SQRL la.",
-  "sqrl-hardlock": "Ini nga account nakandado ha SQRL: diri ini mababawi o mababag-o ha bisan ano nga iba nga paagi."
+  "sqrl-hardlock": "Ini nga account nakandado ha SQRL: diri ini mababawi o mababag-o ha bisan ano nga iba nga paagi.",
+  "windows-sso-sign-in": "Sumulod gamit an Windows",
+  "windows-sso-failed": "Napakyas an pagsulod gamit an Windows. Bangin diri gintutugotan dinhi an imo Windows account."
 }

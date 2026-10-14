@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Din SQRL-klient har låst denne konto til SQRL: alle andre måder at logge ind på afvises.",
   "sqrl-hardlock-on": "Din SQRL-klient har hårdlåst denne konto: nulstilling af kodeord og ændring af e-postadresse afvises.",
   "sqrl-only": "Denne konto logger kun ind med SQRL.",
-  "sqrl-hardlock": "Denne konto er låst til SQRL: den kan ikke gendannes eller ændres på nogen anden måde."
+  "sqrl-hardlock": "Denne konto er låst til SQRL: den kan ikke gendannes eller ændres på nogen anden måde.",
+  "windows-sso-sign-in": "Log ind med Windows",
+  "windows-sso-failed": "Log ind med Windows mislykkedes. Din Windows-konto er muligvis ikke tilladt her."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Vaš odjemalec SQRL je ta račun zaklenil samo na SQRL: vsak drug način prijave je zavrnjen.",
   "sqrl-hardlock-on": "Vaš odjemalec SQRL je ta račun trdno zaklenil: ponastavitev gesla in sprememba e-pošte sta zavrnjeni.",
   "sqrl-only": "Ta račun se prijavlja samo s SQRL.",
-  "sqrl-hardlock": "Ta račun je zaklenjen na SQRL: ni ga mogoče obnoviti ali spremeniti na noben drug način."
+  "sqrl-hardlock": "Ta račun je zaklenjen na SQRL: ni ga mogoče obnoviti ali spremeniti na noben drug način.",
+  "windows-sso-sign-in": "Prijava z Windows",
+  "windows-sso-failed": "Prijava z Windows ni uspela. Vaš račun Windows tukaj morda ni dovoljen."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Moreki wa hao wa SQRL o notletse akhaonto ena ho SQRL feela: mekgwa e meng kaofela ya ho kena e a hanwa.",
   "sqrl-hardlock-on": "Moreki wa hao wa SQRL o notletse akhaonto ena ka thata: ho seta phasewete botjha le ho fetola imeile ho a hanwa.",
   "sqrl-only": "Akhaonto ena e kena ka SQRL feela.",
-  "sqrl-hardlock": "Akhaonto ena e notletswe ho SQRL: e ke ke ya fumanwa hape kapa ya fetolwa ka tsela e nngwe."
+  "sqrl-hardlock": "Akhaonto ena e notletswe ho SQRL: e ke ke ya fumanwa hape kapa ya fetolwa ka tsela e nngwe.",
+  "windows-sso-sign-in": "Kena ka Windows",
+  "windows-sso-failed": "Ho kena ka Windows ho hlolehile. Akhaonto ya hao ya Windows e kanna ya se dumellwe mona."
 }

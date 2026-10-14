@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "I ka SQRL kiliyan ye nin jate datugu SQRL kan: donni sira tɔw bɛɛ banna.",
   "sqrl-hardlock-on": "I ka SQRL kiliyan ye nin jate datugu kosɛbɛ: gundo daɲɛ kuraya ani imɛli yɛlɛmali banna.",
   "sqrl-only": "Nin jate bɛ don SQRL dɔrɔn de fɛ.",
-  "sqrl-hardlock": "Nin jate datugulen don SQRL kan: a tɛ se ka segin walima ka yɛlɛma sira wɛrɛ fɛ."
+  "sqrl-hardlock": "Nin jate datugulen don SQRL kan: a tɛ se ka segin walima ka yɛlɛma sira wɛrɛ fɛ.",
+  "windows-sso-sign-in": "Don ni Windows ye",
+  "windows-sso-failed": "Donni ni Windows ye ma se ka kɛ. I ka Windows jatebɔ tɛ sira sɔrɔ yan, a bɛ se ka kɛ."
 }

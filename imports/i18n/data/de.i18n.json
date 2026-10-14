@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Ihr SQRL-Client hat dieses Konto auf SQRL festgelegt: Jede andere Art der Anmeldung wird abgelehnt.",
   "sqrl-hardlock-on": "Ihr SQRL-Client hat dieses Konto fest gesperrt: Zurücksetzen des Passworts und Ändern der E-Mail werden abgelehnt.",
   "sqrl-only": "Dieses Konto meldet sich nur mit SQRL an.",
-  "sqrl-hardlock": "Dieses Konto ist an SQRL gebunden: Es kann auf keine andere Weise wiederhergestellt oder geändert werden."
+  "sqrl-hardlock": "Dieses Konto ist an SQRL gebunden: Es kann auf keine andere Weise wiederhergestellt oder geändert werden.",
+  "windows-sso-sign-in": "Mit Windows anmelden",
+  "windows-sso-failed": "Die Anmeldung mit Windows ist fehlgeschlagen. Ihr Windows-Konto ist hier möglicherweise nicht zugelassen."
 }

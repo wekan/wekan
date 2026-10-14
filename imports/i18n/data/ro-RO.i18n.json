@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Clientul dvs. SQRL a blocat acest cont la SQRL: orice altă modalitate de autentificare este refuzată.",
   "sqrl-hardlock-on": "Clientul dvs. SQRL a blocat definitiv acest cont: resetarea parolei și schimbarea adresei de e-mail sunt refuzate.",
   "sqrl-only": "Acest cont se autentifică doar cu SQRL.",
-  "sqrl-hardlock": "Acest cont este blocat la SQRL: nu poate fi recuperat sau modificat în niciun alt mod."
+  "sqrl-hardlock": "Acest cont este blocat la SQRL: nu poate fi recuperat sau modificat în niciun alt mod.",
+  "windows-sso-sign-in": "Autentificare cu Windows",
+  "windows-sso-failed": "Autentificarea Windows a eșuat. Este posibil ca contul tău Windows să nu fie permis aici."
 }

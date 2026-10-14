@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Dyn SQRL-client hat dit akkount oan SQRL fêstsetten: alle oare manieren om oan te melden wurde wegere.",
   "sqrl-hardlock-on": "Dyn SQRL-client hat dit akkount hurd beskoattele: wachtwurd opnij ynstelle en e-mailadres wizigje wurde wegere.",
   "sqrl-only": "Dit akkount meldt allinnich oan mei SQRL.",
-  "sqrl-hardlock": "Dit akkount is oan SQRL fêstsetten: it kin op gjin oare wize werombrocht of feroare wurde."
+  "sqrl-hardlock": "Dit akkount is oan SQRL fêstsetten: it kin op gjin oare wize werombrocht of feroare wurde.",
+  "windows-sso-sign-in": "Oanmelde mei Windows",
+  "windows-sso-failed": "Oanmelden mei Windows is mislearre. Jo Windows-akkount is hjir mooglik net tastien."
 }

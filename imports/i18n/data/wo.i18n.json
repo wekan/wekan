@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Sa kiliyaan SQRL tëj na kont bii ci SQRL rekk: yeneen anam yépp yu ñu man a dugge dañu leen gàntu.",
   "sqrl-hardlock-on": "Sa kiliyaan SQRL tëj na kont bii bu dëgër: soppi baatu jall ak soppi e-mail dañu leen gàntu.",
   "sqrl-only": "Kont bii dañu ciy dugg ak SQRL rekk.",
-  "sqrl-hardlock": "Kont bii dañu ko tëj ci SQRL: manuñu ko delloo walla soppi ci beneen anam."
+  "sqrl-hardlock": "Kont bii dañu ko tëj ci SQRL: manuñu ko delloo walla soppi ci beneen anam.",
+  "windows-sso-sign-in": "Dugg ak Windows",
+  "windows-sso-failed": "Duggu ak Windows antuwul. Xéyna sa kont Windows dañu ko mayul fii."
 }

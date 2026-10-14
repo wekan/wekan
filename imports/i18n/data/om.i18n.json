@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Maamilli SQRL kee herrega kana SQRL qofatti cufeera: karaawwan seensaa kan biroo hundi ni didamu.",
   "sqrl-hardlock-on": "Maamilli SQRL kee herrega kana jabeessee cufeera: jecha darbii haaromsuu fi imeelii jijjiiruun ni didama.",
   "sqrl-only": "Herregni kun SQRL qofaan seena.",
-  "sqrl-hardlock": "Herregni kun SQRL-tti cufameera: karaa biraan deebisuu ykn jijjiiruun hin danda'amu."
+  "sqrl-hardlock": "Herregni kun SQRL-tti cufameera: karaa biraan deebisuu ykn jijjiiruun hin danda'amu.",
+  "windows-sso-sign-in": "Windows-n seeni",
+  "windows-sso-failed": "Seensi Windows-n hin milkoofne. Herregni Windows kee asitti hin hayyamamne ta'uu danda'a."
 }

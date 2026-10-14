@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Lu to client SQRL bluccau stu cuntu sulu a SQRL: ogni autra manera di tràsiri è rifiutata.",
   "sqrl-hardlock-on": "Lu to client SQRL bluccau pi sempri stu cuntu: lu ripristinu dâ palora d'ordini e lu canciu dâ posta elettronica sunnu rifiutati.",
   "sqrl-only": "Stu cuntu trasi sulu cu SQRL.",
-  "sqrl-hardlock": "Stu cuntu è bluccatu a SQRL: nun si pò ricupirari o canciari pi nudda autra manera."
+  "sqrl-hardlock": "Stu cuntu è bluccatu a SQRL: nun si pò ricupirari o canciari pi nudda autra manera.",
+  "windows-sso-sign-in": "Trasi cu Windows",
+  "windows-sso-failed": "L'accessu cu Windows nun arriniscìu. Forsi lu to cuntu Windows nun è pirmittutu ccà."
 }

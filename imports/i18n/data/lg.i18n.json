@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Pulogulaamu yo eya SQRL esibye akawunti eno ku SQRL yokka: engeri endala zonna ez'okuyingira zigaaniddwa.",
   "sqrl-hardlock-on": "Pulogulaamu yo eya SQRL esibye akawunti eno ddala: okuzzaawo ekigambo ekyekusifu n'okukyusa imeyilo bigaaniddwa.",
   "sqrl-only": "Akawunti eno eyingira ng'ekozesa SQRL yokka.",
-  "sqrl-hardlock": "Akawunti eno esibiddwa ku SQRL: tesobola kuzzibwawo wadde okukyusibwa mu ngeri endala yonna."
+  "sqrl-hardlock": "Akawunti eno esibiddwa ku SQRL: tesobola kuzzibwawo wadde okukyusibwa mu ngeri endala yonna.",
+  "windows-sso-sign-in": "Yingira ng'okozesa Windows",
+  "windows-sso-failed": "Okuyingira ng'okozesa Windows kulemye. Akawunti yo eya Windows oboolyawo tekkirizibwa wano."
 }

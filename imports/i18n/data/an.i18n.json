@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "O tuyo client SQRL ha blocau ista cuenta a SQRL: se refusa qualsiquier atra manera d'iniciar sesión.",
   "sqrl-hardlock-on": "O tuyo client SQRL ha blocau de raso ista cuenta: se refusan o restablimiento d'a clau de paso y o cambio de correu electronico.",
   "sqrl-only": "Ista cuenta inicia sesión nomás con SQRL.",
-  "sqrl-hardlock": "Ista cuenta ye blocada a SQRL: no se puede recuperar ni cambiar de garra atra manera."
+  "sqrl-hardlock": "Ista cuenta ye blocada a SQRL: no se puede recuperar ni cambiar de garra atra manera.",
+  "windows-sso-sign-in": "Iniciar sesión con Windows",
+  "windows-sso-failed": "L'inicio de sesión con Windows ha fallau. Talment a tuya cuenta de Windows no siga permitida aquí."
 }

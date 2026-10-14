@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Tes client SQRL ha bloccà quest conto sin SQRL: mintga autra moda da s'annunziar vegn refusada.",
   "sqrl-hardlock-on": "Tes client SQRL ha bloccà definitivamain quest conto: la reinizialisaziun dal pled-clav e la midada da l'e-mail vegnan refusadas.",
   "sqrl-only": "Quest conto s'annunzia mo cun SQRL.",
-  "sqrl-hardlock": "Quest conto è bloccà sin SQRL: el na po betg vegnir restituì u midà en in'autra moda."
+  "sqrl-hardlock": "Quest conto è bloccà sin SQRL: el na po betg vegnir restituì u midà en in'autra moda.",
+  "windows-sso-sign-in": "S'annunziar cun Windows",
+  "windows-sso-failed": "L'annunzia cun Windows n'è betg reussida. Forsa n'è tes conto da Windows betg permess qua."
 }

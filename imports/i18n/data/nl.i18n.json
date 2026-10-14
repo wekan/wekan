@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Je SQRL-client heeft dit account aan SQRL vergrendeld: elke andere manier van aanmelden wordt geweigerd.",
   "sqrl-hardlock-on": "Je SQRL-client heeft dit account hard vergrendeld: wachtwoordherstel en het wijzigen van het e-mailadres worden geweigerd.",
   "sqrl-only": "Dit account meldt zich alleen aan met SQRL.",
-  "sqrl-hardlock": "Dit account is aan SQRL vergrendeld: het kan op geen enkele andere manier worden hersteld of gewijzigd."
+  "sqrl-hardlock": "Dit account is aan SQRL vergrendeld: het kan op geen enkele andere manier worden hersteld of gewijzigd.",
+  "windows-sso-sign-in": "Aanmelden met Windows",
+  "windows-sso-failed": "Aanmelden met Windows is mislukt. Je Windows-account heeft hier mogelijk geen toegang."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Kliyan SQRL ou fèmen kont sa a sou SQRL: tout lòt fason pou konekte refize.",
   "sqrl-hardlock-on": "Kliyan SQRL ou fèmen kont sa a nèt: reyinisyalizasyon modpas ak chanjman imèl refize.",
   "sqrl-only": "Kont sa a konekte ak SQRL sèlman.",
-  "sqrl-hardlock": "Kont sa a fèmen sou SQRL: yo pa ka rekipere l ni chanje l nan okenn lòt fason."
+  "sqrl-hardlock": "Kont sa a fèmen sou SQRL: yo pa ka rekipere l ni chanje l nan okenn lòt fason.",
+  "windows-sso-sign-in": "Konekte ak Windows",
+  "windows-sso-failed": "Koneksyon ak Windows echwe. Petèt kont Windows ou a pa gen dwa isit la."
 }

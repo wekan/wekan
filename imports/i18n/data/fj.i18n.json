@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Na nomu porokaramu ni SQRL e sa loka na akaude oqo me SQRL ga: e sega ni vakadonui e dua tale na sala ni curu.",
   "sqrl-hardlock-on": "Na nomu porokaramu ni SQRL e sa loka vakaukauwa na akaude oqo: e sega ni vakadonui na vakavoui ni vosa vuni kei na veisau ni i-meli.",
   "sqrl-only": "Na akaude oqo e curu ga ena SQRL.",
-  "sqrl-hardlock": "Na akaude oqo e lokataki ena SQRL: e sega ni rawa ni vakabulai se veisautaki ena dua tale na sala."
+  "sqrl-hardlock": "Na akaude oqo e lokataki ena SQRL: e sega ni rawa ni vakabulai se veisautaki ena dua tale na sala.",
+  "windows-sso-sign-in": "Curu ena Windows",
+  "windows-sso-failed": "E sega ni rawa na curu ena Windows. Sa rairai ni sega ni vakatarai eke na nomu akaude ni Windows."
 }

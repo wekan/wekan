@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Tín SQRL-klientur hevur læst hesa kontu til SQRL: allir aðrir hættir at rita inn verða noktaðir.",
   "sqrl-hardlock-on": "Tín SQRL-klientur hevur harðlæst hesa kontu: nullstilling av loyniorði og broyting av teldupostadressu verða noktaði.",
   "sqrl-only": "Henda kontan ritar einans inn við SQRL.",
-  "sqrl-hardlock": "Henda kontan er læst til SQRL: hon kann ikki endurskapast ella broytast á nakran annan hátt."
+  "sqrl-hardlock": "Henda kontan er læst til SQRL: hon kann ikki endurskapast ella broytast á nakran annan hátt.",
+  "windows-sso-sign-in": "Rita inn við Windows",
+  "windows-sso-failed": "Innritan við Windows miseydnaðist. Tín Windows-konta er møguliga ikki loyvd her."
 }

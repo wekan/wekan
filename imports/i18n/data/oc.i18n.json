@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Vòstre client SQRL a verrolhat aqueste compte sus SQRL: tota autra manièra de s'identificar es refusada.",
   "sqrl-hardlock-on": "Vòstre client SQRL a verrolhat fèrmament aqueste compte: la reïnicializacion del senhal e lo cambiament de corrièl son refusats.",
   "sqrl-only": "Aqueste compte s'identifica pas qu'amb SQRL.",
-  "sqrl-hardlock": "Aqueste compte es verrolhat sus SQRL: se pòt pas recuperar ni modificar d'una autra manièra."
+  "sqrl-hardlock": "Aqueste compte es verrolhat sus SQRL: se pòt pas recuperar ni modificar d'una autra manièra.",
+  "windows-sso-sign-in": "S'identificar amb Windows",
+  "windows-sso-failed": "L'identificacion amb Windows a fracassat. Benlèu que vòstre compte Windows es pas autorizat aicí."
 }

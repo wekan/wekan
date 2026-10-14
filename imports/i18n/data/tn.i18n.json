@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Moreki wa gago wa SQRL o notlelele akhaonto e mo SQRL fela: ditsela tsotlhe tse dingwe tsa go tsena di a ganwa.",
   "sqrl-hardlock-on": "Moreki wa gago wa SQRL o notlelele akhaonto e ka thata: go baakanya lefoko la sephiri sešwa le go fetola imeile go a ganwa.",
   "sqrl-only": "Akhaonto e e tsena ka SQRL fela.",
-  "sqrl-hardlock": "Akhaonto e e notleletswe mo SQRL: ga e kake ya busediwa kgotsa ya fetolwa ka tsela epe e nngwe."
+  "sqrl-hardlock": "Akhaonto e e notleletswe mo SQRL: ga e kake ya busediwa kgotsa ya fetolwa ka tsela epe e nngwe.",
+  "windows-sso-sign-in": "Tsena ka Windows",
+  "windows-sso-failed": "Go tsena ka Windows go paletse. Akhaonto ya gago ya Windows e ka tswa e sa letlelelwe fano."
 }

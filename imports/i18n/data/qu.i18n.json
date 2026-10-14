@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL llamk'anaykiqa kay cuentata SQRL-llapaq wichq'arqan: yaykunapaq huk ñankunaqa llapanmi mana chaskisqachu.",
   "sqrl-hardlock-on": "SQRL llamk'anaykiqa kay cuentata sinchita wichq'arqan: pakasqa rimayta musuqchayqa elektroniku chaskita tikrayqa mana chaskisqachu.",
   "sqrl-only": "Kay cuentaqa SQRL-wanllam yaykun.",
-  "sqrl-hardlock": "Kay cuentaqa SQRL-man wichq'asqa: manam huk ñanwanqa kutichiyta nitaq tikrayta atikunchu."
+  "sqrl-hardlock": "Kay cuentaqa SQRL-man wichq'asqa: manam huk ñanwanqa kutichiyta nitaq tikrayta atikunchu.",
+  "windows-sso-sign-in": "Windows-wan yaykuy",
+  "windows-sso-failed": "Windows-wan yaykuyqa mana atikurqanchu. Windows cuentaykiqa manachá kaypi saqisqachu."
 }

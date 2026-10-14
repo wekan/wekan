@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Macmiilkaaga SQRL wuxuu akoonkan ku xiray SQRL oo keliya: hab kasta oo kale oo galitaan waa la diidayaa.",
   "sqrl-hardlock-on": "Macmiilkaaga SQRL wuxuu akoonkan si adag u xiray: dib-u-dejinta furaha sirta iyo beddelka iimaylka waa la diidayaa.",
   "sqrl-only": "Akoonkan wuxuu ku galaa SQRL oo keliya.",
-  "sqrl-hardlock": "Akoonkan waxa lagu xiray SQRL: lama soo celin karo lamana beddeli karo si kale."
+  "sqrl-hardlock": "Akoonkan waxa lagu xiray SQRL: lama soo celin karo lamana beddeli karo si kale.",
+  "windows-sso-sign-in": "Ku gal Windows",
+  "windows-sso-failed": "Galitaanka Windows wuu fashilmay. Akoonkaaga Windows waxaa laga yaabaa in aan halkan loo oggolayn."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Mae eich cleient SQRL wedi cloi'r cyfrif hwn i SQRL: gwrthodir pob ffordd arall o fewngofnodi.",
   "sqrl-hardlock-on": "Mae eich cleient SQRL wedi cloi'r cyfrif hwn yn galed: gwrthodir ailosod cyfrinair a newid ebost.",
   "sqrl-only": "Mae'r cyfrif hwn yn mewngofnodi gyda SQRL yn unig.",
-  "sqrl-hardlock": "Mae'r cyfrif hwn wedi'i gloi i SQRL: ni ellir ei adfer na'i newid mewn unrhyw ffordd arall."
+  "sqrl-hardlock": "Mae'r cyfrif hwn wedi'i gloi i SQRL: ni ellir ei adfer na'i newid mewn unrhyw ffordd arall.",
+  "windows-sso-sign-in": "Mewngofnodi gyda Windows",
+  "windows-sso-failed": "Methodd mewngofnodi gyda Windows. Efallai na chaniateir eich cyfrif Windows yma."
 }

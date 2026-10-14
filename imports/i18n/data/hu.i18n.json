@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Az SQRL-kliense ezt a fiókot az SQRL-hez zárolta: minden más bejelentkezési módot elutasítunk.",
   "sqrl-hardlock-on": "Az SQRL-kliense ezt a fiókot véglegesen zárolta: a jelszó-visszaállítást és az e-mail-cím módosítását elutasítjuk.",
   "sqrl-only": "Ez a fiók csak SQRL-lel jelentkezik be.",
-  "sqrl-hardlock": "Ez a fiók az SQRL-hez van zárolva: semmilyen más módon nem állítható helyre és nem módosítható."
+  "sqrl-hardlock": "Ez a fiók az SQRL-hez van zárolva: semmilyen más módon nem állítható helyre és nem módosítható.",
+  "windows-sso-sign-in": "Bejelentkezés Windowszal",
+  "windows-sso-failed": "A Windowsos bejelentkezés sikertelen. Lehet, hogy a Windows-fiókja itt nem engedélyezett."
 }

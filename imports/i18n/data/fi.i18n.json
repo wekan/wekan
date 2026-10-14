@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL-asiakasohjelmasi on lukinnut tämän tilin SQRL:ään: kaikki muut kirjautumistavat estetään.",
   "sqrl-hardlock-on": "SQRL-asiakasohjelmasi on lukinnut tämän tilin pysyvästi: salasanan palautus ja sähköpostiosoitteen vaihto estetään.",
   "sqrl-only": "Tälle tilille kirjaudutaan vain SQRL:llä.",
-  "sqrl-hardlock": "Tämä tili on lukittu SQRL:ään: sitä ei voi palauttaa eikä muuttaa millään muulla tavalla."
+  "sqrl-hardlock": "Tämä tili on lukittu SQRL:ään: sitä ei voi palauttaa eikä muuttaa millään muulla tavalla.",
+  "windows-sso-sign-in": "Kirjaudu Windowsilla",
+  "windows-sso-failed": "Windows-kirjautuminen epäonnistui. Windows-tilisi ei ehkä ole sallittu täällä."
 }

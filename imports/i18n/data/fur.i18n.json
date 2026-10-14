@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Il to client SQRL al à blocât chest account su SQRL: ogni altre maniere di jentrâ e ven refudade.",
   "sqrl-hardlock-on": "Il to client SQRL al à blocât dal dut chest account: il ripristin de password e il cambiament de e-mail a vegnin refudâts.",
   "sqrl-only": "Chest account al jentre dome cun SQRL.",
-  "sqrl-hardlock": "Chest account al è blocât su SQRL: nol pues jessi recuperât ni cambiât in nissune altre maniere."
+  "sqrl-hardlock": "Chest account al è blocât su SQRL: nol pues jessi recuperât ni cambiât in nissune altre maniere.",
+  "windows-sso-sign-in": "Jentre cun Windows",
+  "windows-sso-failed": "La jentrade cun Windows e je falide. Forsit il to account Windows nol è consintût achì."
 }

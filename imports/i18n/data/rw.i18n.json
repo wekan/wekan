@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Umukiriya wawe wa SQRL yafunze iyi konti kuri SQRL gusa: ubundi buryo bwose bwo kwinjira buranzwe.",
   "sqrl-hardlock-on": "Umukiriya wawe wa SQRL yafunze iyi konti burundu: gusubiramo ijambobanga no guhindura imeyili biranzwe.",
   "sqrl-only": "Iyi konti yinjira ikoresheje SQRL gusa.",
-  "sqrl-hardlock": "Iyi konti ifungiye kuri SQRL: ntishobora kugarurwa cyangwa guhindurwa mu bundi buryo."
+  "sqrl-hardlock": "Iyi konti ifungiye kuri SQRL: ntishobora kugarurwa cyangwa guhindurwa mu bundi buryo.",
+  "windows-sso-sign-in": "Injira ukoresheje Windows",
+  "windows-sso-failed": "Kwinjira ukoresheje Windows byanze. Konti yawe ya Windows ishobora kuba itemerewe hano."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Your SQRL client has locked this account to SQRL: every other way of signing in is refused.",
   "sqrl-hardlock-on": "Your SQRL client has hardlocked this account: password reset and e-mail change are refused.",
   "sqrl-only": "This account signs in with SQRL only.",
-  "sqrl-hardlock": "This account is locked to SQRL: it cannot be recovered or changed any other way."
+  "sqrl-hardlock": "This account is locked to SQRL: it cannot be recovered or changed any other way.",
+  "windows-sso-sign-in": "Sign in with Windows",
+  "windows-sso-failed": "Windows sign-in failed. Your Windows account may not be allowed here."
 }

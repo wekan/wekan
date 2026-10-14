@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Váš klient SQRL uzamkol tento účet len na SQRL: každý iný spôsob prihlásenia sa odmieta.",
   "sqrl-hardlock-on": "Váš klient SQRL natrvalo uzamkol tento účet: obnovenie hesla a zmena e-mailu sa odmietajú.",
   "sqrl-only": "Do tohto účtu sa prihlasuje len cez SQRL.",
-  "sqrl-hardlock": "Tento účet je uzamknutý na SQRL: nedá sa obnoviť ani zmeniť žiadnym iným spôsobom."
+  "sqrl-hardlock": "Tento účet je uzamknutý na SQRL: nedá sa obnoviť ani zmeniť žiadnym iným spôsobom.",
+  "windows-sso-sign-in": "Prihlásiť sa cez Windows",
+  "windows-sso-failed": "Prihlásenie cez Windows zlyhalo. Váš účet Windows tu pravdepodobne nemá povolený prístup."
 }

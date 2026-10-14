@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Teiden SQRL-klient om lukustanu necen kontan vaiše SQRL:aha: kaik toižed tulendan tavad hyl'gädas.",
   "sqrl-hardlock-on": "Teiden SQRL-klient om lujas lukustanu necen kontan: peitsanan udištoitand da email-počtan vajehtand hyl'gädas.",
   "sqrl-only": "Neche kontha tuldas vaiše SQRL:anke.",
-  "sqrl-hardlock": "Nece kont om lukustadud SQRL:aha: sidä ei voi pördutada eskai vajehtada nikut toižiči."
+  "sqrl-hardlock": "Nece kont om lukustadud SQRL:aha: sidä ei voi pördutada eskai vajehtada nikut toižiči.",
+  "windows-sso-sign-in": "Tulda Windows:an kal",
+  "windows-sso-failed": "Tulend Windows:an kal ei onistund. Voib olda, sinun Windows-akkaunt ei ole lubatud täs."
 }

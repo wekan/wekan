@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Mteja wako wa SQRL amefunga akaunti hii kwa SQRL: njia nyingine zote za kuingia zinakataliwa.",
   "sqrl-hardlock-on": "Mteja wako wa SQRL amefunga akaunti hii kabisa: kuweka upya nenosiri na kubadilisha barua pepe kunakataliwa.",
   "sqrl-only": "Akaunti hii huingia kwa SQRL pekee.",
-  "sqrl-hardlock": "Akaunti hii imefungwa kwa SQRL: haiwezi kurejeshwa wala kubadilishwa kwa njia nyingine yoyote."
+  "sqrl-hardlock": "Akaunti hii imefungwa kwa SQRL: haiwezi kurejeshwa wala kubadilishwa kwa njia nyingine yoyote.",
+  "windows-sso-sign-in": "Ingia kwa Windows",
+  "windows-sso-failed": "Kuingia kwa Windows kumeshindwa. Huenda hesabu yako ya Windows hairuhusiwi hapa."
 }

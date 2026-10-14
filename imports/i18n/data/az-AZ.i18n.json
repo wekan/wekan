@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL müştəriniz bu hesabı SQRL-ə kilidləyib: girişin bütün digər yolları rədd edilir.",
   "sqrl-hardlock-on": "SQRL müştəriniz bu hesabı sərt kilidləyib: parolun sıfırlanması və e-poçtun dəyişdirilməsi rədd edilir.",
   "sqrl-only": "Bu hesaba yalnız SQRL ilə giriş edilir.",
-  "sqrl-hardlock": "Bu hesab SQRL-ə kilidlənib: onu başqa heç bir yolla bərpa etmək və ya dəyişdirmək olmaz."
+  "sqrl-hardlock": "Bu hesab SQRL-ə kilidlənib: onu başqa heç bir yolla bərpa etmək və ya dəyişdirmək olmaz.",
+  "windows-sso-sign-in": "Windows ilə daxil ol",
+  "windows-sso-failed": "Windows ilə daxil olmaq alınmadı. Windows hesabınıza burada icazə verilməyə bilər."
 }

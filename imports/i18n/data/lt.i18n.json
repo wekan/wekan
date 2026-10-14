@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Jūsų SQRL klientas užrakino šią paskyrą tik SQRL: visi kiti prisijungimo būdai atmetami.",
   "sqrl-hardlock-on": "Jūsų SQRL klientas griežtai užrakino šią paskyrą: slaptažodžio atkūrimas ir el. pašto keitimas atmetami.",
   "sqrl-only": "Ši paskyra prisijungia tik su SQRL.",
-  "sqrl-hardlock": "Ši paskyra užrakinta SQRL: jos negalima atkurti ar pakeisti jokiu kitu būdu."
+  "sqrl-hardlock": "Ši paskyra užrakinta SQRL: jos negalima atkurti ar pakeisti jokiu kitu būdu.",
+  "windows-sso-sign-in": "Prisijungti su Windows",
+  "windows-sso-failed": "Nepavyko prisijungti su Windows. Jūsų Windows paskyrai čia gali būti neleidžiama."
 }

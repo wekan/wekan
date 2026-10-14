@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Klien SQRL panjenengan wis ngunci akun iki menyang SQRL: kabeh cara mlebu liyane ditolak.",
   "sqrl-hardlock-on": "Klien SQRL panjenengan wis ngunci akun iki kanthi rapet: ngreset tembung sandhi lan ngganti email ditolak.",
   "sqrl-only": "Akun iki mlebu mung nganggo SQRL.",
-  "sqrl-hardlock": "Akun iki dikunci menyang SQRL: ora bisa dipulihake utawa diganti kanthi cara liya."
+  "sqrl-hardlock": "Akun iki dikunci menyang SQRL: ora bisa dipulihake utawa diganti kanthi cara liya.",
+  "windows-sso-sign-in": "Mlebu nganggo Windows",
+  "windows-sso-failed": "Gagal mlebu nganggo Windows. Akun Windows sampeyan bisa uga ora diidinake ing kene."
 }

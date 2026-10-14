@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Cliens tuus SQRL hanc rationem ad SQRL solum clausit: omnis alia via ingrediendi recusatur.",
   "sqrl-hardlock-on": "Cliens tuus SQRL hanc rationem firmiter clausit: tesserae renovatio et litterarum electronicarum mutatio recusantur.",
   "sqrl-only": "Haec ratio per SQRL solum ingreditur.",
-  "sqrl-hardlock": "Haec ratio ad SQRL clausa est: nulla alia via recuperari aut mutari potest."
+  "sqrl-hardlock": "Haec ratio ad SQRL clausa est: nulla alia via recuperari aut mutari potest.",
+  "windows-sso-sign-in": "Ingredere per Windows",
+  "windows-sso-failed": "Ingressus per Windows defecit. Fortasse rationi tuae Windows hic intrare non licet."
 }

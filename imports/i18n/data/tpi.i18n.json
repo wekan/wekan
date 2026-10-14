@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL klaien bilong yu i lokim dispela akaun long SQRL tasol: olgeta narapela rot bilong go insait i no inap.",
   "sqrl-hardlock-on": "SQRL klaien bilong yu i lokim strong dispela akaun: senisim paswot na senisim imel i no inap.",
   "sqrl-only": "Dispela akaun i save go insait long SQRL tasol.",
-  "sqrl-hardlock": "Dispela akaun i lok long SQRL: yu no inap kisim bek o senisim long narapela rot."
+  "sqrl-hardlock": "Dispela akaun i lok long SQRL: yu no inap kisim bek o senisim long narapela rot.",
+  "windows-sso-sign-in": "Go insait wantaim Windows",
+  "windows-sso-failed": "Go insait wantaim Windows i no wok. Ating Windows akaun bilong yu i no gat tok orait long hia."
 }

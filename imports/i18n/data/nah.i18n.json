@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "MoSQRL tepoztlatequipanoh oquitzacuh inin cuenta zan ica SQRL: occequintin calaquiliztli ohtli moilcahuah.",
   "sqrl-hardlock-on": "MoSQRL tepoztlatequipanoh cenca oquitzacuh inin cuenta: ichtaca tlahtolli yancuiliztli ihuan tlahcuilolli patlaliztli moilcahuah.",
   "sqrl-only": "Inin cuenta calaqui zan ica SQRL.",
-  "sqrl-hardlock": "Inin cuenta motzacuh ica SQRL: ahmo huel occeppa mocui nozo mopatla ica occe ohtli."
+  "sqrl-hardlock": "Inin cuenta motzacuh ica SQRL: ahmo huel occeppa mocui nozo mopatla ica occe ohtli.",
+  "windows-sso-sign-in": "Xicalaqui ica Windows",
+  "windows-sso-failed": "Ahmo ohuel calac ica Windows. Achtopa amo tlen moamatlacuiloltzin Windows nican quicahua."
 }

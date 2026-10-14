@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL clientemax aka cuentaw SQRL ukaru llawintatayna: yaqha thakhinakampi mantañax janiw katuqatäkiti.",
   "sqrl-hardlock-on": "SQRL clientemax aka cuentaw ch'amampi llawintatayna: imantata aru machaqtayañasa, aruskipäwi mayjt'ayañasa janiw katuqatäkiti.",
   "sqrl-only": "Aka cuentax SQRL ukampikiw mantaraki.",
-  "sqrl-hardlock": "Aka cuentax SQRL ukaru llawintatawa: janiw yaqha thakhimpix kutt'ayañjamäkiti ni mayjt'ayañjamäkiti."
+  "sqrl-hardlock": "Aka cuentax SQRL ukaru llawintatawa: janiw yaqha thakhimpix kutt'ayañjamäkiti ni mayjt'ayañjamäkiti.",
+  "windows-sso-sign-in": "Windows ukampi mantaña",
+  "windows-sso-failed": "Windows ukampi mantañax janiw walikiti. Windows jakhuwimaxa akan janiw iyawsatäkaspati."
 }

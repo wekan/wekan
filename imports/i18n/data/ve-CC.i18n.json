@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "El to client SQRL el ga blocà sto account solo su SQRL: ogni altro modo de intrar el vien refudà.",
   "sqrl-hardlock-on": "El to client SQRL el ga blocà del tuto sto account: el reset de ła password e el canbio de posta eletrònica i vien refudài.",
   "sqrl-only": "Sto account el intra solo co SQRL.",
-  "sqrl-hardlock": "Sto account el xe blocà su SQRL: no se pol recuperarlo o canbiarlo in nisun altro modo."
+  "sqrl-hardlock": "Sto account el xe blocà su SQRL: no se pol recuperarlo o canbiarlo in nisun altro modo.",
+  "windows-sso-sign-in": "Intra co Windows",
+  "windows-sso-failed": "L'acesso co Windows no l'è ndà ben. Forse el to conto Windows no 'l xe parmesso qua."
 }

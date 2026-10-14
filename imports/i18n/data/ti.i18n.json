@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "ናይ SQRL ክላይንትካ ነዚ ሕሳብ ናብ SQRL ጥራይ ዓጽይዎ ኣሎ፡ ኩሉ ካልእ መንገዲ ምእታው ይንጸግ።",
   "sqrl-hardlock-on": "ናይ SQRL ክላይንትካ ነዚ ሕሳብ ብትሪ ዓጽይዎ ኣሎ፡ መሕለፊ ቃል ምሕዳስን ኢመይል ምቕያርን ይንጸጉ።",
   "sqrl-only": "እዚ ሕሳብ ብSQRL ጥራይ ይኣቱ።",
-  "sqrl-hardlock": "እዚ ሕሳብ ናብ SQRL ተዓጽዩ ኣሎ፡ ብካልእ መንገዲ ክምለስ ወይ ክቕየር ኣይክእልን።"
+  "sqrl-hardlock": "እዚ ሕሳብ ናብ SQRL ተዓጽዩ ኣሎ፡ ብካልእ መንገዲ ክምለስ ወይ ክቕየር ኣይክእልን።",
+  "windows-sso-sign-in": "ብWindows እቶ",
+  "windows-sso-failed": "ብWindows ምእታው ኣይተዓወተን። ሕሳብ Windows ኩም ኣብዚ ዘይፍቀድ ክኸውን ይኽእል።"
 }

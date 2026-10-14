@@ -826,6 +826,19 @@ REM SET HEADER_LOGIN_TRUSTED_PROXIES=10.0.0.1,10.0.0.2
 
 REM ------------------------------------------------
 
+REM # #5758: Windows single sign-on (Kerberos / NTLM). Needs node-expose-sspi
+REM # installed in the bundle: cd bundle\programs\server  then
+REM # npm install node-expose-sspi@0.1.60 . See docs/Features/Login/WindowsSSO.md
+REM SET WINDOWS_SSO_ENABLED=true
+REM # REQUIRED: the domains allowed to sign in, comma separated. Empty = nobody.
+REM SET WINDOWS_SSO_DOMAINS=CONTOSO
+REM # Read name and e-mail from Active Directory:
+REM SET WINDOWS_SSO_ACTIVE_DIRECTORY=true
+REM # Sign in to an existing WeKan account with the same username or e-mail:
+REM SET WINDOWS_SSO_MERGE_EXISTING_USERS=false
+
+REM ------------------------------------------------
+
 REM # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
 REM # example : LOGOUT_WITH_TIMER=true
 REM SET LOGOUT_WITH_TIMER=

@@ -91,6 +91,11 @@ template(name="userFormsLayout")
             | {{_ 'passkey-sign-in'}}
           if passkeyMessage
             p.quiet.js-passkey-message= passkeyMessage
+        //- #5758: Windows single sign-on (server/windowsSso.js).
+        if windowsSsoOffered
+          a.button.primary.js-windows-sso(href="/sso/windows")
+            i.fa.fa-windows
+            | {{_ 'windows-sso-sign-in'}}
         //- #2460: sign in with SQRL (client/lib/sqrl.js).
         if sqrlOffered
           button.primary.js-sqrl-sign-in(type="button")

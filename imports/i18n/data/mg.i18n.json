@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Nohidian'ny mpanjifa SQRL anao ho an'ny SQRL ihany ity kaonty ity: lavina avokoa ny fomba hafa rehetra hidirana.",
   "sqrl-hardlock-on": "Nohidian'ny mpanjifa SQRL anao mafy ity kaonty ity: lavina ny famerenana ny teny miafina sy ny fanovana ny mailaka.",
   "sqrl-only": "Amin'ny SQRL ihany no idirana amin'ity kaonty ity.",
-  "sqrl-hardlock": "Voahidy amin'ny SQRL ity kaonty ity: tsy azo averina na ovaina amin'ny fomba hafa izy."
+  "sqrl-hardlock": "Voahidy amin'ny SQRL ity kaonty ity: tsy azo averina na ovaina amin'ny fomba hafa izy.",
+  "windows-sso-sign-in": "Midira amin'ny Windows",
+  "windows-sso-failed": "Tsy nahomby ny fidirana amin'ny Windows. Mety tsy avela eto ny kaontinao Windows."
 }

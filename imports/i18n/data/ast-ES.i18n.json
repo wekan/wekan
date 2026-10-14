@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "El to veceru SQRL bloquió esta cuenta a SQRL: refúgase cualquier otra manera d'aniciar sesión.",
   "sqrl-hardlock-on": "El to veceru SQRL bloquió dafechu esta cuenta: refúguense'l restablecimientu de la contraseña y el cambéu de corréu electrónicu.",
   "sqrl-only": "Esta cuenta anicia sesión namái con SQRL.",
-  "sqrl-hardlock": "Esta cuenta ta bloquiada a SQRL: nun se pue recuperar nin camudar de nenguna otra manera."
+  "sqrl-hardlock": "Esta cuenta ta bloquiada a SQRL: nun se pue recuperar nin camudar de nenguna otra manera.",
+  "windows-sso-sign-in": "Aniciar sesión con Windows",
+  "windows-sso-failed": "Falló l'aniciu de sesión con Windows. Ye posible que la to cuenta de Windows nun tea permitida equí."
 }

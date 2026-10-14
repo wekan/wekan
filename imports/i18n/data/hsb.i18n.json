@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Waš SQRL-klient je tute konto na SQRL zawrěł: kóždy druhi puć přizjewjenja so wotpokaza.",
   "sqrl-hardlock-on": "Waš SQRL-klient je tute konto dospołnje zawrěł: wróćostajenje hesła a změna e-mejloweje adresy so wotpokazatej.",
   "sqrl-only": "Tute konto so jenož přez SQRL přizjewja.",
-  "sqrl-hardlock": "Tute konto je na SQRL zawrjene: njehodźi so na žadyn druhi puć wobnowić abo změnić."
+  "sqrl-hardlock": "Tute konto je na SQRL zawrjene: njehodźi so na žadyn druhi puć wobnowić abo změnić.",
+  "windows-sso-sign-in": "Přez Windows přizjewić",
+  "windows-sso-failed": "Přizjewjenje přez Windows je so njeporadźiło. Waše konto Windows tu snano dowolene njeje."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Ua laka kāu mea kōkua SQRL i kēia moʻokāki i SQRL: hōʻole ʻia nā ala ʻē aʻe a pau o ka ʻeʻe.",
   "sqrl-hardlock-on": "Ua laka paʻa loa kāu mea kōkua SQRL i kēia moʻokāki: hōʻole ʻia ka hoʻonohonoho hou ʻana i ka ʻōlelo huna a me ka hoʻololi ʻana i ka leka uila.",
   "sqrl-only": "ʻEʻe kēia moʻokāki me SQRL wale nō.",
-  "sqrl-hardlock": "Ua laka ʻia kēia moʻokāki i SQRL: ʻaʻole hiki ke hoʻihoʻi ʻia a hoʻololi ʻia paha ma kekahi ala ʻē aʻe."
+  "sqrl-hardlock": "Ua laka ʻia kēia moʻokāki i SQRL: ʻaʻole hiki ke hoʻihoʻi ʻia a hoʻololi ʻia paha ma kekahi ala ʻē aʻe.",
+  "windows-sso-sign-in": "ʻEʻe me Windows",
+  "windows-sso-failed": "ʻAʻole i kō ke komo ʻana me Windows. ʻAʻole paha i ʻae ʻia kāu moʻokāki Windows ma ʻaneʻi."
 }

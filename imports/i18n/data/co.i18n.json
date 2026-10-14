@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "U vostru cliente SQRL hà chjosu stu contu à SQRL: ogni altra manera di cunnettesi hè ricusata.",
   "sqrl-hardlock-on": "U vostru cliente SQRL hà chjosu à fondu stu contu: a riinizializazione di a parolla d'intrata è u cambiamentu di a posta elettronica sò ricusati.",
   "sqrl-only": "Stu contu si cunnette solu cù SQRL.",
-  "sqrl-hardlock": "Stu contu hè chjosu à SQRL: ùn pò esse ricuperatu nè cambiatu in alcuna altra manera."
+  "sqrl-hardlock": "Stu contu hè chjosu à SQRL: ùn pò esse ricuperatu nè cambiatu in alcuna altra manera.",
+  "windows-sso-sign-in": "Cunnettassi cù Windows",
+  "windows-sso-failed": "A cunnessione cù Windows hè fallita. U vostru contu Windows ùn hè forse micca permessu quì."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Kua rakaina e tō kiritaki SQRL tēnei pūkete ki SQRL anake: ka whakakāhoretia ngā huarahi takiuru kē katoa.",
   "sqrl-hardlock-on": "Kua tino rakaina e tō kiritaki SQRL tēnei pūkete: ka whakakāhoretia te tautuhi anō i te kupuhipa me te huri īmēra.",
   "sqrl-only": "Ka takiuru tēnei pūkete mā SQRL anake.",
-  "sqrl-hardlock": "Kua rakaina tēnei pūkete ki SQRL: kāore e taea te whakaora, te huri rānei mā tētahi atu huarahi."
+  "sqrl-hardlock": "Kua rakaina tēnei pūkete ki SQRL: kāore e taea te whakaora, te huri rānei mā tētahi atu huarahi.",
+  "windows-sso-sign-in": "Takiuru mā te Windows",
+  "windows-sso-failed": "I rahua te takiuru Windows. Tērā pea kāore tō pūkete Windows e whakaaetia ki konei."
 }

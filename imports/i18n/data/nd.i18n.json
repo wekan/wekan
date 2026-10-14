@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Uhlelo lwakho lweSQRL luyikhiye le akhawunti yaba ngeyeSQRL kuphela: zonke ezinye izindlela zokungena ziyaliwa.",
   "sqrl-hardlock-on": "Uhlelo lwakho lweSQRL luyikhiye ngokuqinileyo le akhawunti: ukusetha kabusha iphasiwedi lokuntshintsha i-imeyili kuyaliwa.",
   "sqrl-only": "Le akhawunti ingena ngeSQRL kuphela.",
-  "sqrl-hardlock": "Le akhawunti ikhiyelwe kuSQRL: ayingeke ibuyiswe kumbe intshintshwe ngenye indlela."
+  "sqrl-hardlock": "Le akhawunti ikhiyelwe kuSQRL: ayingeke ibuyiswe kumbe intshintshwe ngenye indlela.",
+  "windows-sso-sign-in": "Ngena nge-Windows",
+  "windows-sso-failed": "Ukungena nge-Windows kwehlulekile. I-akhawunti yakho ye-Windows kungenzeka ingavunyelwa lapha."
 }

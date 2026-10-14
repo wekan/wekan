@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Votre client SQRL a verrouillé ce compte sur SQRL : tout autre moyen de connexion est refusé.",
   "sqrl-hardlock-on": "Votre client SQRL a verrouillé définitivement ce compte : la réinitialisation du mot de passe et le changement d'adresse e-mail sont refusés.",
   "sqrl-only": "Ce compte se connecte uniquement avec SQRL.",
-  "sqrl-hardlock": "Ce compte est verrouillé sur SQRL : il ne peut être ni récupéré ni modifié d'une autre manière."
+  "sqrl-hardlock": "Ce compte est verrouillé sur SQRL : il ne peut être ni récupéré ni modifié d'une autre manière.",
+  "windows-sso-sign-in": "Se connecter avec Windows",
+  "windows-sso-failed": "La connexion avec Windows a échoué. Votre compte Windows n'est peut-être pas autorisé ici."
 }

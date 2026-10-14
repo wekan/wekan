@@ -2651,6 +2651,14 @@
     {
       "key": "sqrl-hardlock",
       "since": "2026-10-14"
+    },
+    {
+      "key": "windows-sso-sign-in",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "windows-sso-failed",
+      "since": "2026-10-14"
     }
   ]
 }

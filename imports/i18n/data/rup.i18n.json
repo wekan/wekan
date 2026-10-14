@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Clientul tãu SQRL ãncljisi aestu cont maşi trã SQRL: tuti alanti cãljuri di intrari suntu arcati.",
   "sqrl-hardlock-on": "Clientul tãu SQRL ãncljisi ghini aestu cont: ãnnãoirea a zborlui di intrari şi alãxirea a poştãljei electronicã suntu arcati.",
   "sqrl-only": "Aestu cont intrã maşi cu SQRL.",
-  "sqrl-hardlock": "Aestu cont easti ãncljis trã SQRL: nu poati s-hibã aduts nãpoi i alãxit cu altã cali."
+  "sqrl-hardlock": "Aestu cont easti ãncljis trã SQRL: nu poati s-hibã aduts nãpoi i alãxit cu altã cali.",
+  "windows-sso-sign-in": "Intrari cu Windows",
+  "windows-sso-failed": "Intrarea cu Windows nu s-featsi. Contul a tãu di Windows poati nu easti alãsat aoa."
 }

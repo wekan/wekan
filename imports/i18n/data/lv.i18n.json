@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Jūsu SQRL klients ir piesaistījis šo kontu tikai SQRL: visi citi pierakstīšanās veidi tiek noraidīti.",
   "sqrl-hardlock-on": "Jūsu SQRL klients ir stingri bloķējis šo kontu: paroles atiestatīšana un e-pasta maiņa tiek noraidītas.",
   "sqrl-only": "Šajā kontā var pierakstīties tikai ar SQRL.",
-  "sqrl-hardlock": "Šis konts ir piesaistīts SQRL: to nevar atjaunot vai mainīt nekādā citā veidā."
+  "sqrl-hardlock": "Šis konts ir piesaistīts SQRL: to nevar atjaunot vai mainīt nekādā citā veidā.",
+  "windows-sso-sign-in": "Pierakstīties ar Windows",
+  "windows-sso-failed": "Pierakstīšanās ar Windows neizdevās. Jūsu Windows kontam šeit, iespējams, nav atļauts piekļūt."
 }

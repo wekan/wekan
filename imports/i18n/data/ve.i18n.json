@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Khiḽaini yaṋu ya SQRL yo hadzimela akhaunthu iyi kha SQRL fhedzi: nḓila dzoṱhe dzińwe dza u dzhena dzi a hanelwa.",
   "sqrl-hardlock-on": "Khiḽaini yaṋu ya SQRL yo hadzimela akhaunthu iyi nga u khwaṱha: u vhea hafhu phasiwede na u shandukisa imeiḽi zwi a hanelwa.",
   "sqrl-only": "Akhaunthu iyi i dzhena nga SQRL fhedzi.",
-  "sqrl-hardlock": "Akhaunthu iyi yo hadzimelwa kha SQRL: a i koni u wanulusiwa kana u shandukiswa nga iṅwe nḓila."
+  "sqrl-hardlock": "Akhaunthu iyi yo hadzimelwa kha SQRL: a i koni u wanulusiwa kana u shandukiswa nga iṅwe nḓila.",
+  "windows-sso-sign-in": "Dzhenani nga Windows",
+  "windows-sso-failed": "U dzhena nga Windows a zwo ngo konadzea. Akhaunthu yaṋu ya Windows i nga kha ḓi sa tendelwi fhano."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "你的 SQRL 用戶端已將此帳戶鎖定為僅限 SQRL：所有其他登入方式都會被拒絕。",
   "sqrl-hardlock-on": "你的 SQRL 用戶端已硬鎖定此帳戶：重設密碼及更改電子郵件都會被拒絕。",
   "sqrl-only": "此帳戶只使用 SQRL 登入。",
-  "sqrl-hardlock": "此帳戶已鎖定為 SQRL：無法以任何其他方式恢復或更改。"
+  "sqrl-hardlock": "此帳戶已鎖定為 SQRL：無法以任何其他方式恢復或更改。",
+  "windows-sso-sign-in": "使用 Windows 登入",
+  "windows-sso-failed": "Windows 登入失敗。您的 Windows 帳號可能不獲准在此使用。"
 }

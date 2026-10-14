@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Su cliente SQRL tuo at blocadu custu contu a SQRL: cale si siat àtera manera de intrare est refudada.",
   "sqrl-hardlock-on": "Su cliente SQRL tuo at blocadu de su totu custu contu: su riprìstinu de sa crae e su càmbiu de sa posta eletrònica sunt refudados.",
   "sqrl-only": "Custu contu intrat isceti cun SQRL.",
-  "sqrl-hardlock": "Custu contu est blocadu a SQRL: non podet èssere recuperadu o cambiadu in peruna àtera manera."
+  "sqrl-hardlock": "Custu contu est blocadu a SQRL: non podet èssere recuperadu o cambiadu in peruna àtera manera.",
+  "windows-sso-sign-in": "Intra cun Windows",
+  "windows-sso-failed": "S'intrada cun Windows no est andada bene. Fortzis su contu Windows tuo no est permìtidu inoghe."
 }

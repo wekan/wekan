@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Agas klyens SQRL re alwhedhas an akont ma dhe SQRL: pub fordh aral dhe omgelmi yw naghys.",
   "sqrl-hardlock-on": "Agas klyens SQRL re alwhedhas an akont ma yn tien: dasselya an ger-tremena ha chanjya an e-bost yw naghys.",
   "sqrl-only": "An akont ma a omgelm gans SQRL hepken.",
-  "sqrl-hardlock": "An akont ma yw alwhedhys dhe SQRL: ny yll bos daskevys na chanjys yn fordh aral vyth."
+  "sqrl-hardlock": "An akont ma yw alwhedhys dhe SQRL: ny yll bos daskevys na chanjys yn fordh aral vyth.",
+  "windows-sso-sign-in": "Omgelmi gans Windows",
+  "windows-sso-failed": "Fyllys veu omgelmi gans Windows. Martesen nyns yw gesys dha akont Windows omma."
 }

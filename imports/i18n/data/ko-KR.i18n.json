@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL 클라이언트가 이 계정을 SQRL 전용으로 잠갔습니다. 다른 모든 로그인 방법은 거부됩니다.",
   "sqrl-hardlock-on": "SQRL 클라이언트가 이 계정을 완전히 잠갔습니다. 비밀번호 재설정과 이메일 변경은 거부됩니다.",
   "sqrl-only": "이 계정은 SQRL로만 로그인합니다.",
-  "sqrl-hardlock": "이 계정은 SQRL에 잠겨 있습니다. 다른 방법으로는 복구하거나 변경할 수 없습니다."
+  "sqrl-hardlock": "이 계정은 SQRL에 잠겨 있습니다. 다른 방법으로는 복구하거나 변경할 수 없습니다.",
+  "windows-sso-sign-in": "Windows로 로그인",
+  "windows-sso-failed": "Windows 로그인에 실패했습니다. 이곳에서는 Windows 계정이 허용되지 않을 수 있습니다."
 }

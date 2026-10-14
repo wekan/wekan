@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Ngwa SQRL gị ekpochiela akaụntụ a na SQRL: a jụrụ ụzọ ọ bụla ọzọ isi banye.",
   "sqrl-hardlock-on": "Ngwa SQRL gị ekpochiela akaụntụ a kpam kpam: a jụrụ ịtọgharị okwuntughe na ịgbanwe email.",
   "sqrl-only": "Akaụntụ a na-abanye naanị site na SQRL.",
-  "sqrl-hardlock": "Akaụntụ a ka ekpochiri na SQRL: enweghị ike iweghachi ya ma ọ bụ gbanwee ya n'ụzọ ọ bụla ọzọ."
+  "sqrl-hardlock": "Akaụntụ a ka ekpochiri na SQRL: enweghị ike iweghachi ya ma ọ bụ gbanwee ya n'ụzọ ọ bụla ọzọ.",
+  "windows-sso-sign-in": "Banye site na Windows",
+  "windows-sso-failed": "Ịbanye site na Windows dara. Ọ nwere ike ịbụ na anaghị ekwe akaụntụ Windows gị ebe a."
 }

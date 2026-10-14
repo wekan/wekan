@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "SQRL müşderiňiz bu hasaby diňe SQRL-e gulplady: girmegiň beýleki ähli ýollary ret edilýär.",
   "sqrl-hardlock-on": "SQRL müşderiňiz bu hasaby berk gulplady: paroly täzeden bellemek we e-poçtany üýtgetmek ret edilýär.",
   "sqrl-only": "Bu hasaba diňe SQRL bilen girilýär.",
-  "sqrl-hardlock": "Bu hasap SQRL-e gulplanan: ony başga hiç bir ýol bilen dikeltmek ýa-da üýtgetmek bolmaýar."
+  "sqrl-hardlock": "Bu hasap SQRL-e gulplanan: ony başga hiç bir ýol bilen dikeltmek ýa-da üýtgetmek bolmaýar.",
+  "windows-sso-sign-in": "Windows bilen gir",
+  "windows-sso-failed": "Windows bilen girmek şowsuz boldy. Windows hasabyňyza bu ýerde rugsat berilmedik bolmagy mümkin."
 }

@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Klien SQRL anda telah mengunci akaun ini kepada SQRL: semua cara log masuk yang lain ditolak.",
   "sqrl-hardlock-on": "Klien SQRL anda telah mengunci ketat akaun ini: penetapan semula kata laluan dan penukaran emel ditolak.",
   "sqrl-only": "Akaun ini log masuk dengan SQRL sahaja.",
-  "sqrl-hardlock": "Akaun ini dikunci kepada SQRL: ia tidak boleh dipulihkan atau diubah dengan cara lain."
+  "sqrl-hardlock": "Akaun ini dikunci kepada SQRL: ia tidak boleh dipulihkan atau diubah dengan cara lain.",
+  "windows-sso-sign-in": "Log masuk dengan Windows",
+  "windows-sso-failed": "Log masuk Windows gagal. Akaun Windows anda mungkin tidak dibenarkan di sini."
 }

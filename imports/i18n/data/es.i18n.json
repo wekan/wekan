@@ -4552,5 +4552,7 @@
   "sqrl-only-on": "Tu cliente SQRL ha bloqueado esta cuenta a SQRL: se rechaza cualquier otra forma de iniciar sesión.",
   "sqrl-hardlock-on": "Tu cliente SQRL ha aplicado un bloqueo total a esta cuenta: se rechazan el restablecimiento de contraseña y el cambio de correo electrónico.",
   "sqrl-only": "Esta cuenta inicia sesión solo con SQRL.",
-  "sqrl-hardlock": "Esta cuenta está bloqueada a SQRL: no se puede recuperar ni cambiar de ninguna otra forma."
+  "sqrl-hardlock": "Esta cuenta está bloqueada a SQRL: no se puede recuperar ni cambiar de ninguna otra forma.",
+  "windows-sso-sign-in": "Iniciar sesión con Windows",
+  "windows-sso-failed": "Error al iniciar sesión con Windows. Es posible que tu cuenta de Windows no esté permitida aquí."
 }
