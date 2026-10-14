@@ -109,3 +109,15 @@ test('Malagasy cloud credentials distinguish authentication from permissions', a
   await expect(hint).toContainText('antsipiriany fanamarinana mahazatra');
   await expect(hint).not.toContainText('fahazoan-dalana');
 });
+
+test('Irish S3 settings distinguish access and secret keys', async ({ page, adminUser }) => {
+  const mg = require('../../../imports/i18n/data/ga.i18n.json');
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ga'));
+  await navigateInApp(page, '/admin/attachments/s3');
+  for (const key of ['s3-endpoint', 's3-access-key', 's3-secret-key']) {
+    await expect(page.getByText(mg[key], { exact: true })).toBeVisible();
+  }
+  await expect(page.locator('#s3-secret-key')).toHaveAttribute('type', 'password');
+  await expect(page.locator('#s3-access-key')).toHaveAttribute('type', 'text');
+});

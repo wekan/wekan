@@ -46,3 +46,18 @@ test('Malagasy announcement editor identifies its audience', async ({ boardPage:
   await expect(popup).not.toContainText('Show it to everyone');
   await page.evaluate(() => Popup.close());
 });
+
+test('Irish announcement editor identifies its audience', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'ga');
+    Popup.close();
+    Popup.open('boardAnnouncement', { titleKey: 'board-announcement' })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  });
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.header-title')).toHaveText('Fógra cláir');
+  await expect(popup).toContainText('Taispeáin é do gach duine ar an gclár seo');
+  await expect(popup).not.toContainText('Show it to everyone');
+  await page.evaluate(() => Popup.close());
+});

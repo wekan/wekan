@@ -55,3 +55,20 @@ assert.deepEqual(tokens(irish['act-removeChecklistItem']), [
 ]);
 assert.match(irish['act-createBoard'], /clár/);
 assert.match(irish['act-createCard'], /cárta/);
+
+const cardLinkKeys = ["attach-card", "attachCardPopup-title", "attach-card-hint", "attached-card-unavailable", "detach-card", "attach-card-self", "attach-card-limit", "attach-card-not-found", "board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title", "cards-use-list-color"];
+for (const key of cardLinkKeys) {
+  assert.notEqual(irish[key], english[key], key);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+assert.match(irish['custom-field-link-both'], /Sa dá threo.*cheachtar cárta/);
+assert.match(irish['custom-field-link-send'], /I dtreo amháin.*bpríomhchárta/);
+assert.match(irish['custom-field-link-inactive'], /Ar sos.*an dá chárta.*sa chartlann/);
+assert.match(irish['field-link-not-allowed'], /an dá chárta a chur in eagar/);
+assert.match(irish['attach-card-self'], /Ní féidir.*leis féin/);
+assert.match(irish['custom-field-links-hint'], /Ní athraítear réimsí.*chárta amháin/);
+
+assert.match(irish['s3-access-key'], /rochtana/);
+assert.match(irish['s3-secret-key'], /rúnda/);
+assert.notEqual(irish['s3-access-key'], irish['s3-secret-key']);
+assert.match(irish['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
