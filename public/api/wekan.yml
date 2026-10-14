@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.45
+  version: v12.46
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6677,6 +6677,9 @@ definitions:
       syncLastSource:
         $ref: "#/definitions/CardsSynclastsource"
         x-nullable: true
+      syncClosedByWeKan:
+        type: boolean
+        x-nullable: true
       syncExternalId:
         type: string
         x-nullable: true
@@ -7689,6 +7692,13 @@ definitions:
       syncSource:
         $ref: "#/definitions/ListsSyncsource"
         x-nullable: true
+      syncWriteBackError:
+        description: |
+           #2698: why the last write-back to GitLab failed, cleared when one
+           succeeds. Beside syncSource, because a run's list writes match
+           syncSource as a whole.
+        type: string
+        x-nullable: true
     required:
       - title
       - archived
@@ -7734,6 +7744,10 @@ definitions:
         type: boolean
       issueDetails:
         type: boolean
+      writeBack:
+        type: boolean
+      writeBackSince:
+        type: string
       enabled:
         type: boolean
       lastSyncedAt:
