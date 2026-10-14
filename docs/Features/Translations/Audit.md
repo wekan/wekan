@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole calendars and core controls — 2026-10-14
+
+Commit `6227e6b908` corrects 20 entries. Fourteen calendar labels were French
+despite the Haitian locale tag. They now use Haitian Creole, retaining the
+Gregorian/ISO-week distinction, Indian national calendar, Jalali and Minguo
+names, and the two Ethiopian variants. Six other fixes repair roadmap spelling,
+the bucket-list idiom, account anonymization, snapshot-date meaning and assignee
+terminology. These errors were invisible to English-placeholder counts.
+
+The Haitian catalog and guarded-correction suites pass with 29,792 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. A calendar-selector browser case
+checks native labels and rejects French text; syntax and discovery pass,
+runtime remains pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole subtasks and checklists — 2026-10-14
 
 Commit `5dd13b7808` corrects 30 entries across card controls, activity text and
