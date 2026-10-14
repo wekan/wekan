@@ -179,3 +179,26 @@ assert.deepEqual(tokens(creole['globalSearch-instructions-operator-number']),
   ['__operator_number__']);
 assert.deepEqual(tags(creole['globalSearch-instructions-operator-number']),
   ['<number>', '<number>']);
+
+const reviewedLinkedCardKeys = ["attach-card", "attachCardPopup-title", "attach-card-hint", "attached-card-unavailable", "detach-card", "attach-card-self", "attach-card-limit", "attach-card-not-found", "board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title"];
+for (const key of reviewedLinkedCardKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.doesNotMatch(creole[key], /\b(?:Attach card|Custom fields|Both ways|One way|Paused|cannot|not found)\b/, key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.equal(creole['attach-card'], creole['attachCardPopup-title']);
+assert.match(creole['custom-field-links-hint'], /menm non ak menm kalite sou toude/);
+assert.match(creole['custom-field-links-hint'], /yon sèl kat rete san chanjman/);
+assert.match(creole['custom-field-link-inactive'], /pa ka modifye toude kat yo ankò.*achive/);
+assert.match(creole['custom-field-link-both'], /toude sans/);
+assert.match(creole['custom-field-link-send'], /yon sèl sans.*kat prensipal/);
+assert.notEqual(creole['custom-field-link-sends'], creole['custom-field-link-receives']);
+assert.match(creole['field-link-not-allowed'], /modifye toude kat/);
+assert.match(creole['attach-card-self'], /pa ka atache ak tèt li/);
+
+assert.equal(creole['r-to'], 'bay', 'mail recipient placeholder');
+assert.match(creole['s3-secret-key-required'], /obligatwa/);
+assert.notEqual(creole['s3-connection-success'], creole['s3-connection-failed']);
+assert.notEqual(creole['s3-access-key'], creole['s3-secret-key']);
+assert.ok(creole['s3-endpoint-description'].includes('minio.example.com'));
+assert.ok(creole['s3-minio-storage-description'].includes('DigitalOcean Spaces'));
