@@ -308,6 +308,12 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // #4198: public boards publish their card activity over ActivityPub
+    // (models/lib/activityPub.js). Off by default.
+    activityPubEnabled: {
+      type: Boolean,
+      optional: true,
+    },
     // #2217: boards may show their Rules to members, read-only
     // (models/lib/rulesReadOnly.js). Off by default.
     rulesReadOnlyForMembers: {

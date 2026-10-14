@@ -1046,6 +1046,15 @@ Template.tableVisibilityModeSettings.events({
   // ── Features (#6736) ──────────────────────────────────────────────────────
   // Every feature row's tick, the two policies and the pilot users, in one
   // server method that validates them against the catalog.
+  // #4198
+  async 'click .js-toggle-activity-pub'(event, instance) {
+    event.preventDefault();
+    try {
+      await Meteor.callAsync('saveActivityPubEnabled', !instance.$('#activity-pub-enabled').hasClass('is-checked'));
+    } catch (error) {
+      console.error(error);
+    }
+  },
   // #2217: saved at once, like a tick that changes nothing by itself.
   async 'click .js-toggle-rules-read-only'(event, instance) {
     event.preventDefault();

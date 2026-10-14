@@ -135,6 +135,10 @@
     "models/lib/sandstormShare.js": [
       "http://grain\\.invalid",
       "https://docs\\.sandstorm\\.io/en/latest/developing/path/(#[a-z-]+)?"
+    ],
+    "models/lib/activityPub.js": [
+      "https://www\\.w3\\.org/ns/activitystreams(#Public)?",
+      "https://w3id\\.org/security/v1"
     ]
   },
   "files": {

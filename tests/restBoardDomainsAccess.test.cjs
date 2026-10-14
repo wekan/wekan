@@ -125,6 +125,9 @@ const BOARD_CHECKS = [
   /callAsUser\(/, // runs the Meteor method as the caller; the method checks the board
   /checkRestDependencyAccess\(/,
   /userHasBoardWriteAccess\(/,
+  // #4198: the ActivityPub actor routes serve only a PUBLIC board, and only
+  // while the site admin has the feature on (pinned in activityPub.test.cjs).
+  /activityPubPublicBoard\(/,
 ];
 
 function walk(dir, out = []) {

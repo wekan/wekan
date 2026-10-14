@@ -80,6 +80,8 @@ const SETTING_FIELDS = {
   optionalApis: 1,
   // #2217: whether boards may show their Rules to members; no secret.
   rulesReadOnlyForMembers: 1,
+  // #4198: whether public boards are on the fediverse; no secret.
+  activityPubEnabled: 1,
   hideBoardMemberList: 1,
   hideDateFormat: 1,
   globalDateFormat: 1,

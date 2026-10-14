@@ -442,6 +442,17 @@ template(name='tableVisibilityModeSettings')
 
       li.admin-pane-group-separator
         hr
+      //- #4198: public boards on the fediverse (ActivityPub). Off by default.
+      li
+        h2.admin-pane-group-title ActivityPub
+      li.tableVisibilityMode-form
+        a.flex.js-toggle-activity-pub
+          .materialCheckBox#activity-pub-enabled(class="{{#if currentSetting.activityPubEnabled}}is-checked{{/if}}")
+          span {{_ 'activity-pub-enabled'}}
+        .feature-desc {{_ 'activity-pub-desc'}}
+
+      li.admin-pane-group-separator
+        hr
       //- #2217: boards may show their Rules to members, read-only. Off by
         default; each board admin then decides on the board's Rules page.
       li

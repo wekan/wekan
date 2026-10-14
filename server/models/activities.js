@@ -516,6 +516,9 @@ Activities.after.insert(async (userId, doc) => {
   // #2026 / #1377: and to each recipient's browsers, when they turned push on.
   try { require('/server/webPush').sendActivityToWebPush(prepared); }
   catch (error) { console.warn('browser push skipped'); }
+  // #4198: and to the fediverse followers of a public board.
+  try { require('/server/activityPub').deliverActivityToFollowers(doc); }
+  catch (error) { console.warn('ActivityPub delivery skipped'); }
 
   const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {

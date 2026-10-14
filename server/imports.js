@@ -376,6 +376,8 @@ import '/server/webPush';
 import '/server/linkedLists';
 // #802: All Boards organization and team tabs.
 import '/server/groupMembers';
+// #4198: ActivityPub for public boards.
+import '/server/activityPub';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)
