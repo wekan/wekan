@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic report controls — 2026-10-14
+
+Commit `999922d6a6` includes 24 report-label corrections prepared during this
+review, plus their catalog and browser assertions. Targets, estimates, historical
+stays, open episodes and statistical measures now have descriptive labels.
+The numeric-field sum label retains the source meaning and was left unchanged.
+Specialist statistical terminology is lower confidence and needs fluent review.
+
+Catalog and guarded-correction suites pass with 30,801 ledger entries; all 21
+human-preference checks pass. Comparison against the pre-work commit `2dd80befcf`
+preserves 38,430 existing Chinese values. Five report browser cases pass syntax
+and discovery, including expanded target and size-field checks; runtime has not
+been executed. Full all-language semantic verification remains unfinished.
+
 ## Scottish Gaelic report explanations — 2026-10-14
 
 Commit `8b46431477` corrects eleven report strings: five headings, five

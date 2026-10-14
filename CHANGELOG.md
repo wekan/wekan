@@ -4622,6 +4622,22 @@ All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/999922d6a6bb6e9146ec3c0f96822bd3078148c2">Clarify Scottish Gaelic report controls and metric labels</a>. Thanks to xet7.</summary>
+
+Correct 24 report labels for targets, estimates, historical samples and
+statistical measures. Replace symbols with descriptive text. Specialist
+terminology is lower confidence and needs fluent review.
+
+Both catalog and guarded-correction suites pass with 30,801 audited corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Five report browser cases pass syntax and discovery, with target and size-field
+assertions extended; execution remains pending. All-language review is
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
