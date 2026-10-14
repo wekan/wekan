@@ -51,7 +51,14 @@ test('the redirect keeps only the path, and names a host the browser asked for o
 test('pages and websocket upgrades over TLS, through the existing HTTP server; a renewed certificate without a restart', { skip: !HAS_OPENSSL && 'needs openssl' }, async () => {
   const dir = fs.mkdtempSync(path.join(ROOT, '.tools', 'tmp', 'https-'));
   const first = selfSigned(dir, 'first.example');
-  const app = http.createServer((req, res) => res.end(`served ${req.url} encrypted=${!!req.socket.encrypted}`));
+  // The page is named by comparison, never by echoing req.url back: a
+  // response that reflects the request is the reflected-XSS shape (CodeQL
+  // #583), even in a test (tests/noReflectedRequest.test.cjs).
+  const app = http.createServer((req, res) => {
+    const page = req.url === '/hello' ? '/hello' : 'another page';
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.end(`served ${page} encrypted=${!!req.socket.encrypted}`);
+  });
   let upgraded = false;
   app.on('upgrade', (req, socket) => { upgraded = true; socket.end('HTTP/1.1 101 Switching Protocols\r\n\r\n'); });
   const env = { HTTPS_PORT: '1', HTTPS_CERT_FILE: first.cert, HTTPS_KEY_FILE: first.key };
