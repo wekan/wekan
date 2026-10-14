@@ -4067,6 +4067,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/211c67ad11">Translate Malagasy outline and task import guides</a>. Thanks to xet7.</summary>
+
+- Translate ten guides for OPML, Org mode, MeisterTask, Obsidian, Linear,
+  TickTick, ClickUp, Nullboard, Kanri and Pivotal Tracker. Preserve hierarchy
+  mappings, completion dates, first-board limits and literal format/menu names.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Ten browser cases pass syntax and discovery;
+  runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

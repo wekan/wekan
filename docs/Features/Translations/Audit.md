@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy outline and task import guides — 2026-10-14
+
+Commit `211c67ad11` translates ten guides: OPML, Org mode, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri and Pivotal Tracker.
+The translations preserve hierarchy mappings, completion dates, first-board
+restrictions, format markers and literal provider menu names. They follow the
+current English instructions; external provider interfaces were not revalidated.
+
+The Malagasy catalog and guarded-correction suites pass with 29,987 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Ten import-help browser cases pass
+syntax and discovery; runtime execution remains pending.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy linked cards and storage placeholders — 2026-10-14
 
 Commit `7d10b098f8` translates 67 English placeholders. The first 34 cover
