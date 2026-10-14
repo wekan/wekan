@@ -1060,7 +1060,9 @@ const LOCALE_INVARIANTS = {
     // "Calendario" and "Scheda" in these.
     'calendar', 'board-view-cal', 'cardType-card', 'cards-count-one',
   ])])),
-  rup: new Set(['color-indigo', 'color-magenta']),
+  // Aromanian "calendar", a loanword spelled as in Romanian and English; the
+  // file had the Italian/Spanish "Calendario" (low confidence).
+  rup: new Set(['color-indigo', 'color-magenta', 'calendar']),
   lld: new Set(['move-progress-file']),
   // Galician shared vocabulary, product names and mathematical notation.
   ...Object.fromEntries(['gl', 'gl-ES'].map(code => [code, new Set([

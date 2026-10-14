@@ -28,9 +28,16 @@ const tokens = value => (String(value).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/
   for (const [key, value] of Object.entries(bs)) {
     if (key in en) assert.deepEqual(tokens(value), tokens(en[key]), `bs ${key} keeps its placeholders`);
   }
-  assert.equal(bs.storage, 'Skladište');
   assert.equal(bs['log-in'], 'Prijavi se');
-  console.log('  ok - Bosnian in Latin script, placeholders intact');
+  // Ijekavian Bosnian, not the Serbian ekavian the values were seeded with.
+  assert.match(bs['activity-moved'], /premjestio/);
+  assert.equal(bs['allboards.remaining'], 'Neraspoređene');
+  assert.equal(bs.history, 'Historija');
+  assert.equal(bs.week, 'Sedmica');
+  for (const [key, value] of Object.entries(bs)) {
+    assert.doesNotMatch(value, /\b(premest|uneti|neraspodelj|istorij|nedelj[ae]?\b|sledeć|vreme\b|mesec)/i, `bs ${key} is ijekavian Bosnian`);
+  }
+  console.log('  ok - Bosnian in Latin script and ijekavian, placeholders intact');
 
   // One value each, in the locale's own language.
   const expected = {
@@ -51,6 +58,7 @@ const tokens = value => (String(value).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/
     yi: { password: 'פּאַראָל' },
     oc: { password: 'Senhal' },
     ts: { storage: 'Vuhlayiselo' },
+    rup: { calendar: 'Calendar' },
   };
   for (const [tag, values] of Object.entries(expected)) {
     const data = locale(tag);
@@ -72,6 +80,14 @@ const tokens = value => (String(value).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/
   const en2 = locale('en');
   for (const [key, value] of Object.entries(locale('lv'))) {
     if (key in en2) assert.deepEqual(tokens(value), tokens(en2[key]), `lv ${key} keeps its placeholders`);
+  }
+  // Tsonga: 618 values were the filler "Hi Xitsonga: mhaka" and 831 were
+  // Xitsonga words padded with a repeated "mhaka" where the generator had no
+  // word. Neither is left, and the placeholders survived.
+  for (const [key, value] of Object.entries(locale('ts'))) {
+    assert.doesNotMatch(value, /Hi Xitsonga/, `ts ${key}`);
+    assert.ok((value.match(/\bmhaka\b/g) || []).length < 2, `ts ${key} is not padded with mhaka`);
+    if (key in en2) assert.deepEqual(tokens(value), tokens(en2[key]), `ts ${key} keeps its placeholders`);
   }
   console.log('  ok - and nowhere else in those files');
   console.log('\nwrongLanguageCorrections20261014: all tests passed');
