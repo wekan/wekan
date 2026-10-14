@@ -79,6 +79,23 @@ test('no subject: the first line; no text part: the HTML as text, never as marku
   assert.equal(cardFromEmail({ subject: 'x'.repeat(400) }, {}).title.length, 255);
 });
 
+test('CodeQL #570/#571: removing a tag never splices the text around it into a new one', () => {
+  // One pass of each removal used to leave a whole tag or script element.
+  for (const html of ['<scr<script>ipt>alert(1)</script>', '<<b>script>alert(1)<</b>/script>',
+    '<scr<script>x</script>ipt>alert(1)</scr<script>x</script>ipt>', '<<<i>i>i>b>bold']) {
+    const text = htmlToText(html);
+    // No complete tag is left; a lone `<` with no `>` after it is not one.
+    assert.doesNotMatch(text, /<[^>]*>/, `${JSON.stringify(html)} -> ${JSON.stringify(text)}`);
+  }
+  // A script element spliced together by removing an inner one is removed
+  // too, contents and all; one pass left "alert(1)" in the card.
+  for (const html of ['<scr<script></script>ipt>alert(1)</script>', '<sty<style></style>le>p{}</style>ok']) {
+    assert.doesNotMatch(htmlToText(html), /alert|p\{\}/, JSON.stringify(html));
+  }
+  // Negative: what is NOT a tag stays, and real text is kept.
+  assert.equal(htmlToText('<p>2 &lt; 3 and 4 > 1</p>'), '2 < 3 and 4 > 1');
+});
+
 test('board addresses: random, case-sensitive tokens', () => {
   const a = newBoardAddressToken();
   const b = newBoardAddressToken();

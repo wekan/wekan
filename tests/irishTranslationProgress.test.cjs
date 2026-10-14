@@ -71,7 +71,7 @@ assert.match(irish['custom-field-links-hint'], /Ní athraítear réimsí.*chárt
 assert.match(irish['s3-access-key'], /rochtana/);
 assert.match(irish['s3-secret-key'], /rúnda/);
 assert.notEqual(irish['s3-access-key'], irish['s3-secret-key']);
-assert.match(irish['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
+assert.match(irish['s3-endpoint-description'], /s3\.amazonaws\.com.*minio\.example\.com/);
 
 const importGuideKeys = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri", "import-board-instruction-pivotal"];
 for (const key of importGuideKeys) {
@@ -115,7 +115,7 @@ for (const key of notificationKeys) {
 for (const key of ['external-link-rules-description', 'external-link-identifier-aliases']) {
   assert.deepEqual(irish[key].match(/\{(?:number|identifier)\}/g), english[key].match(/\{(?:number|identifier)\}/g));
 }
-assert.match(irish['external-link-rules-description'], /https:\/\/tracker.example.com\/\{identifier\}\/\{number\}/);
+assert.match(irish['external-link-rules-description'], /https:\/\/tracker\.example\.com\/\{identifier\}\/\{number\}/);
 assert.match(irish['webhook-payload-description'], /socrú oidhreachta.*mura bhfuil aon rud socraithe/);
 assert.match(irish['notification-delivery-quiet'], /fan go dtí go mbeidh siad thart/);
 assert.match(irish['notification-delivery-grouping-all'], /aon teachtaireacht amháin/);

@@ -423,7 +423,7 @@ assert.match(latin['trello-select-boards'], /saltem unam tabulam/);
 assert.match(latin['trello-cancel-delete-confirm'], /iam hac operatione importatas.*revocari non potest/);
 assert.notEqual(latin['trello-cancel'], latin['trello-cancel-delete']);
 assert.notEqual(latin['trello-cancel'], latin['trello-resume']);
-assert.ok(latin['trello-api-key'].includes('https://trello.com/app-key'));
+assert.match(latin['trello-api-key'], /(?<![\w.-])https:\/\/trello\.com\/app-key(?![\w.-])/);
 
 const reviewedMappingStatusKeys = ["copy-to-clipboard", "running", "paused", "import-map-members", "import-members-map", "import-members-map-note", "import-show-user-mapping", "import-user-select", "importMapMembersAddPopup-title", "info", "check-version", "version-check-failed", "initials", "invalid-date", "invalid-time", "invalid-year", "invalid-user", "joined", "just-invited", "keyboard-shortcuts", "label-create", "label-default", "label-delete-pop", "last-admin-desc", "leave-board"];
 for (const key of reviewedMappingStatusKeys) {

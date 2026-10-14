@@ -90,12 +90,27 @@ function formatSender(from) {
 // The HTML body as plain text, when an email has no text part: tags removed,
 // block ends kept as line breaks, the common entities decoded. Good enough for
 // a card description; nothing here is ever rendered as HTML.
+// Each removal runs to a fixed point: removing one tag must not splice the text
+// around it into another ("<scr<script>ipt>" -> "<script>"), which CodeQL
+// alerts #570 and #571 found here.
+function untilStable(text, step) {
+  let prev;
+  let next = text;
+  do {
+    prev = next;
+    next = step(prev);
+  } while (next !== prev);
+  return next;
+}
+
 function htmlToText(html) {
-  return String(html || '')
-    .replace(/<(script|style|head)\b[^>]*>[\s\S]*?<\/\1\b[^>]*>/gi, '')
+  let text = untilStable(String(html || ''),
+    s => s.replace(/<(script|style|head)\b[^>]*>[\s\S]*?<\/\1\b[^>]*>/gi, ''));
+  text = text
     .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/(p|div|li|tr|h[1-6]|blockquote)\b[^>]*>/gi, '\n')
-    .replace(/<[^>]+>/g, '')
+    .replace(/<\/(p|div|li|tr|h[1-6]|blockquote)\b[^>]*>/gi, '\n');
+  text = untilStable(text, s => s.replace(/<[^>]*>/g, ''));
+  return text
     .replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&')
     .replace(/\n{3,}/g, '\n\n')

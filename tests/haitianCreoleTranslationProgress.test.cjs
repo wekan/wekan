@@ -200,7 +200,7 @@ assert.equal(creole['r-to'], 'bay', 'mail recipient placeholder');
 assert.match(creole['s3-secret-key-required'], /obligatwa/);
 assert.notEqual(creole['s3-connection-success'], creole['s3-connection-failed']);
 assert.notEqual(creole['s3-access-key'], creole['s3-secret-key']);
-assert.ok(creole['s3-endpoint-description'].includes('minio.example.com'));
+assert.match(creole['s3-endpoint-description'], /(?<![\w.-])minio\.example\.com(?![\w.-])/);
 assert.ok(creole['s3-minio-storage-description'].includes('DigitalOcean Spaces'));
 
 const reviewedImportGuideKeys = ["cards-use-list-color", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri"];

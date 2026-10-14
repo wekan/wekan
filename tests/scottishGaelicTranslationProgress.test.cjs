@@ -40,7 +40,7 @@ assert.match(gaelic['attach-card-not-found'], /Cha deach.*a chì thu/);
 assert.match(gaelic['s3-access-key'], /inntrigidh/);
 assert.match(gaelic['s3-secret-key'], /dhìomhair/);
 assert.notEqual(gaelic['s3-access-key'], gaelic['s3-secret-key']);
-assert.match(gaelic['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
+assert.match(gaelic['s3-endpoint-description'], /s3\.amazonaws\.com.*minio\.example\.com/);
 
 const fieldLinkKeys = ["board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title", "cards-use-list-color"];
 for (const key of fieldLinkKeys) {

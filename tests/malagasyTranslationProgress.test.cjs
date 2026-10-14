@@ -364,7 +364,7 @@ for (const key of storageLegacyKeys) {
 assert.notEqual(malagasy['s3-access-key'], malagasy['s3-secret-key']);
 assert.match(malagasy['s3-secret-key-required'], /Ilaina.*miafina/);
 assert.match(malagasy['s3-disabled'], /Tsy mandeha/);
-assert.match(malagasy['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
+assert.match(malagasy['s3-endpoint-description'], /s3\.amazonaws\.com.*minio\.example\.com/);
 
 const importGuideKeys = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri", "import-board-instruction-pivotal"];
 

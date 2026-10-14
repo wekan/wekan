@@ -99,7 +99,7 @@ describe('Email bounces (runtime)', function () {
     assert.deepEqual([row.counts.hard, row.stopped, row.lastStatus, row.lastSource], [1, true, '5.1.1', 'ses']);
     const toInviter = sent.find(mail => String(mail.to).includes(inviterMail));
     assert.ok(toInviter, 'the inviter is told');
-    assert.match(toInviter.subject, new RegExp(typo.replace(/[.]/g, '\\.')));
+    assert.ok(toInviter.subject.includes(typo), toInviter.subject);
     assert.match(toInviter.text, /user unknown/);
 
     // Every WeKan email to the address is stopped now; one with another

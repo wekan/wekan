@@ -234,7 +234,7 @@ describe('Email to card (runtime)', function () {
     const { cardId } = await call(member, 'sendBoardEmail', boardId,
       { to: ['client@example.test'], cc: [], subject: 'Quote', text: 'Here is the quote.' });
     assert.equal(sent.length, 1);
-    assert.match(String(sent[0].from), new RegExp(address.replace(/[.+]/g, '\\$&')));
+    assert.ok(String(sent[0].from).includes(address), String(sent[0].from));
     assert.equal(sent[0].subject, 'Quote');
     const card = await Cards.findOneAsync(cardId);
     assert.deepEqual([card.email.direction, card.listId, card.userId], ['out', listId, member]);

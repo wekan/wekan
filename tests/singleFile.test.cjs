@@ -101,6 +101,13 @@ test('wekan.env: KEY=VALUE, comments and quotes; setting a value keeps every oth
   assert.equal(config.setEnvValue(text, 'PORT', '2'), '# keep\nPORT=2\nOTHER=x\n');
   assert.equal(config.setEnvValue(text, 'NEW', 'y'), '# keep\nPORT=1\nOTHER=x\nNEW=y\n');
   assert.deepEqual(config.parseEnvFile(config.ENV_TEMPLATE), {}, 'the template sets nothing by itself');
+  // CodeQL #574: the key used to be spliced into a RegExp. Only a variable
+  // name is a setting, it is compared literally, and a value is one line.
+  for (const bad of ['.*', 'PORT|X', '(a+)+$', 'A B', '', '1PORT', 'PORT\nX']) {
+    assert.throws(() => config.setEnvValue(text, bad, '1'), /Not a setting name/, JSON.stringify(bad));
+  }
+  assert.throws(() => config.setEnvValue(text, 'PORT', '1\nMAIL_URL=smtp://evil'), /one line/);
+  assert.equal(config.setEnvValue('PORTS=1\nPORT=1\n', 'PORT', '2'), 'PORTS=1\nPORT=2\n', 'a key is matched whole');
 });
 
 test('the memory budget is start-wekan.sh\'s: 3/5 for Node up to 4 GiB (1 GiB on 32-bit), 1/5 for Go up to 1 GiB', () => {
@@ -324,6 +331,15 @@ test('a download is installed only when its checksum matches (negative: a wrong 
     releases.install({ layout: l, newFile: kept, currentVersion: '12.40', target: 'amd64' });
     assert.equal(fs.readFileSync(l.exePath, 'utf8'), 'old wekan');
     assert.deepEqual(releases.keptVersions(l, 'amd64').map(k => k.version), ['12.40', '12.39']);
+    // A kept version's name is read literally (it used to be a half-escaped
+    // RegExp): only wekan-<version><exe> counts.
+    for (const junk of ['wekan-12.38x', 'wekan-12.38.exe.partial', 'wekan-latest', 'xwekan-12.37', '.download-12.36-1-ab']) {
+      fs.writeFileSync(path.join(l.versions, junk), '');
+    }
+    assert.deepEqual(releases.keptVersions(l, 'amd64').map(k => k.version), ['12.40', '12.39']);
+    fs.writeFileSync(path.join(l.versions, 'wekan-12.35.exe'), '');
+    fs.writeFileSync(path.join(l.versions, 'wekan-12.34Xexe'), '');
+    assert.deepEqual(releases.keptVersions(l, 'win64').map(k => k.version), ['12.35']);
     // Negative: a new file that cannot be moved in leaves the old executable in place.
     assert.throws(() => releases.install({ layout: l, newFile: path.join(dir, 'missing'), currentVersion: '12.39', target: 'amd64' }));
     assert.equal(fs.readFileSync(l.exePath, 'utf8'), 'old wekan', 'the executable is put back');

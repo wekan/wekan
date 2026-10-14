@@ -86,12 +86,17 @@ async function fetchReleases(target, { fetchImpl = fetch, pages = 3 } = {}) {
 /** Versions kept in wekan-files/versions, newest first. */
 function keptVersions(layout, target, fsImpl = fs) {
   const exe = isWindowsTarget(target) ? '.exe' : '';
-  const re = new RegExp(`^wekan-(\\d+(?:\\.\\d+)+)${exe.replace('.', '\\.')}$`);
+  // wekan-<version><exe>, read literally rather than through a built pattern.
+  const versionOf = name => {
+    if (!name.startsWith('wekan-') || !name.endsWith(exe)) return null;
+    const version = name.slice('wekan-'.length, name.length - exe.length);
+    return /^\d+(?:\.\d+)+$/.test(version) ? version : null;
+  };
   try {
     return fsImpl.readdirSync(layout.versions)
-      .map(n => re.exec(n))
-      .filter(Boolean)
-      .map(m => ({ version: m[1], file: path.join(layout.versions, m[0]) }))
+      .map(name => ({ name, version: versionOf(name) }))
+      .filter(entry => entry.version)
+      .map(entry => ({ version: entry.version, file: path.join(layout.versions, entry.name) }))
       .sort((x, y) => compareVersions(y.version, x.version));
   } catch (e) {
     return [];

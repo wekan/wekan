@@ -47,12 +47,22 @@ function parseEnvFile(text) {
 }
 
 /** Sets KEY=VALUE in an env file's text, keeping every other line. */
+// A setting is an environment variable name, nothing else (CodeQL #574: the
+// key used to be spliced into a regular expression).
+const ENV_KEY = /^[A-Za-z_][A-Za-z0-9_]*$/;
+
 function setEnvValue(text, key, value) {
+  if (!ENV_KEY.test(String(key))) throw new Error(`Not a setting name: ${key}`);
+  if (/[\r\n]/.test(String(value))) throw new Error('A setting is one line.');
   const lines = String(text || '').split(/\r?\n/);
-  const re = new RegExp(`^\\s*(?:export\\s+)?${key}\\s*=`);
+  // The line's own key, compared literally.
+  const keyOf = line => {
+    const m = /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=/.exec(line);
+    return m ? m[1] : null;
+  };
   let done = false;
   const next = lines.map(line => {
-    if (!done && re.test(line)) {
+    if (!done && keyOf(line) === key) {
       done = true;
       return `${key}=${value}`;
     }
@@ -143,4 +153,4 @@ function readEnvFile(layout, fsImpl = fs) {
   }
 }
 
-module.exports = { ENV_TEMPLATE, parseEnvFile, setEnvValue, memoryBudget, readCgroupMb, buildEnv, readEnvFile };
+module.exports = { ENV_KEY, ENV_TEMPLATE, parseEnvFile, setEnvValue, memoryBudget, readCgroupMb, buildEnv, readEnvFile };
