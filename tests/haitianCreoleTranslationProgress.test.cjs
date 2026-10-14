@@ -556,3 +556,18 @@ for (const key of ['flow-note-agingWip', 'flow-note-blockerAnalysis', 'flow-note
 assert.match(creole['move-reason'], /Rezon.*opsyonèl/);
 assert.match(creole['ask-move-reason'], /rezon.*deplase kat/);
 assert.match(creole['time-adjustments'], /Ajisteman tan selon otè/);
+
+for (const key of ['import-board-instruction-jira', 'import-board-instruction-excel', 'scrum-import-into-board-hint', 'list-sync-description']) {
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.notEqual(creole[key], english[key], key);
+}
+for (const literal of ['GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema', 'nextPageToken', '{ "issues": [...] }', '"automationRules"']) {
+  assert.ok(creole['import-board-instruction-jira'].includes(literal), literal);
+}
+assert.match(creole['import-board-instruction-jira'], /san fields.*sèlman ID.*tout paj.*yon sèl.*chak paj.*tablo apa/);
+assert.match(creole['import-board-instruction-excel'], /yon kat pou chak ranje.*Pwochen etap.*kolòn.*chan.*Chak fèy.*ranje antèt.*tablo/);
+assert.doesNotMatch(creole['import-board-instruction-excel'], /menm kolòn ak ekspòtasyon Excel/);
+assert.match(creole['scrum-import-into-board-hint'], /Gade apèsi a anvan/);
+assert.doesNotMatch(creole['scrum-import-into-board-hint'], /aperçu/);
+assert.match(creole['list-sync-description'], /sistèm swivi ekstèn.*aryèplan.*15 minit.*Senkwonize kounye a.*imedyatman/);
+assert.doesNotMatch(creole['list-sync-description'], /swiv-mak/);

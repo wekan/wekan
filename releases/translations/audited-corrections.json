@@ -209312,5 +209312,33 @@
     "before": "èdtan — Δ — Non itilizatè",
     "after": "Ajisteman tan selon otè",
     "reason": "Restore analytics meaning and complete methodological limits instead of abbreviated symbols; clarify movement and never-synced labels."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-jira",
+    "before": "Kole JSON rechèch pwoblèm ki soti nan Jira Cloud REST API (GET /rest/api/3/search/jql), oswa yon objè ekivalan { \"issues\": [...] }. Estati Jira yo vin lis epi pwoblèm yo vin kat. Ou ka mete yon tablo \"automationRules\" pou enpòte règ yo tou.",
+    "after": "Kole JSON yon rechèch pwoblèm Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (san fields, li retounen sèlman ID pwoblèm yo). Yon gwo pwojè vini an plizyè paj, chak ak yon nextPageToken pou pwochen paj la: mete pwoblèm tout paj yo nan yon sèl tablo \"issues\", oswa enpòte chak paj kòm yon tablo apa avèk Enpòte plizyè tablo. Yon objè ekivalan { \"issues\": [...] } mache tou. Estati Jira yo vin lis epi pwoblèm yo vin kat. Ou ka mete yon tablo \"automationRules\" tou pou enpòte règ yo.",
+    "reason": "Restore current import pagination and worksheet behavior; remove French preview wording and clarify external tracker synchronization."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-excel",
+    "before": "Chwazi yon fèy kalkil .xlsx nan estil WeKan (menm kolòn ak ekspòtasyon Excel la: Tit, Deskripsyon, Estati/Lis, Manm, Etikèt, dat, chan pèsonalize). Premye ranje a se antèt la.",
+    "after": "Chwazi yon liv travay .xlsx: yon tablo ki gen yon kat pou chak ranje (kolòn tankou Tit, Deskripsyon, Estati/Lis, Manm, Etikèt, dat ak chan pèsonalize), oswa yon liv travay WeKan te ekspòte, menm si chak tablo sou yon fèy apa. Pwochen etap la montre ki kolòn ki koresponn ak ki chan. Chak fèy ki gen yon ranje antèt vin yon tablo.",
+    "reason": "Restore current import pagination and worksheet behavior; remove French preview wording and clarify external tracker synchronization."
+  },
+  {
+    "locale": "ht",
+    "key": "scrum-import-into-board-hint",
+    "before": "Chwazi yon ekspòtasyon tablo WeKan oswa yon fichye transfè Scrum. Sprint ak vèsyon tablo sa a deja genyen yo lye, yo pa janm double. Kat yo koresponn dapre ID yo, oswa dapre nimewo ak tit kat la; kat ki pa koresponn yo parèt nan yon lis epi yo rete san chanjman. Gade aperçu a anvan pou wè sa ki pral chanje.",
+    "after": "Chwazi yon ekspòtasyon tablo WeKan oswa yon fichye transfè Scrum. Sprint ak vèsyon tablo sa a deja genyen yo lye, yo pa janm double. Kat yo koresponn dapre ID yo, oswa dapre nimewo ak tit kat la; kat ki pa koresponn yo parèt nan yon lis epi yo rete san chanjman. Gade apèsi a anvan pou wè sa ki pral chanje.",
+    "reason": "Restore current import pagination and worksheet behavior; remove French preview wording and clarify external tracker synchronization."
+  },
+  {
+    "locale": "ht",
+    "key": "list-sync-description",
+    "before": "Kenbe lis sa a ajou apati yon swiv-mak deyò. Yon travay fondal tcheke chak 15 minit; itilize \"Senkwonize kounye a\" pou tcheke imedyatman.",
+    "after": "Kenbe lis sa a ajou apati yon sistèm swivi ekstèn. Yon travay nan aryèplan verifye li chak 15 minit; sèvi ak \"Senkwonize kounye a\" pou verifye li imedyatman.",
+    "reason": "Restore current import pagination and worksheet behavior; remove French preview wording and clarify external tracker synchronization."
   }
 ]

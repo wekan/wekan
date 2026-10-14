@@ -13,7 +13,7 @@ const call = (page, method, ...args) => page.evaluate(async ({ method, args }) =
   catch (error) { throw new Error(`${error.error}: ${error.reason || error.message}`); }
 }, { method, args });
 
-for (const language of ['la', 'st', 'sw', 'en', 'mt']) {
+for (const language of ['ht', 'la', 'st', 'sw', 'en', 'mt']) {
 test(`Scrum planning imports into an existing board once, matching its cards in ${language}`, async ({ page, browser, request, user, board }) => {
   const destination = db.seedBoard({ ownerId: user.id, title: 'Scrum import destination',
     cardTitlesPerList: [['Alpha Card'], ['Beta Card'], ['Not the same card']] });
@@ -51,6 +51,10 @@ test(`Scrum planning imports into an existing board once, matching its cards in 
     await page.locator('.pop-over .js-open-sprints-view').click();
     const panel = page.locator('details.scrum-transfer-import');
     await panel.locator('summary').click();
+    if (language === 'ht') {
+      await expect(panel).toContainText('Gade apèsi a anvan');
+      await expect(panel).not.toContainText('aperçu');
+    }
     await panel.locator('.js-scrum-transfer-file').setInputFiles({ name: 'board.json', mimeType: 'application/json',
       buffer: Buffer.from(JSON.stringify(exported)) });
     await panel.locator('.js-scrum-transfer-preview').click();

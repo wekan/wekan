@@ -39,6 +39,10 @@ test(`the Sync settings opt into sprint and releases, and a Sync plans the card 
     const config = { type: 'gitlab', url: base, projectKey: '42', token: 'planning-test-token' };
     await call(page, 'setListSyncSource', listId, config);
     await openSyncPopup(page, db.findOne('lists', { _id: listId }));
+    if (language === 'ht') {
+      await expect(page.locator('.js-pop-over')).toContainText(strings['list-sync-description']);
+      await expect(page.locator('.js-pop-over')).not.toContainText('swiv-mak');
+    }
     // Off until chosen; the hint shows once one is.
     await expect(page.locator('.js-toggle-sync-field[data-field="sprint"]')).toBeVisible();
     await expect(page.locator('.js-toggle-sync-field[data-field="releases"]')).toBeVisible();
