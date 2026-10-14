@@ -2,6 +2,33 @@
 
 [UberLab/Uberspace 7 Manual: Wekan](https://lab.uberspace.de/guide_wekan.html) - ([Source](https://github.com/wekan/wekan/issues/2009#issuecomment-817010524))
 
+([#2009](https://github.com/wekan/wekan/issues/2009)) On Uberspace 7, WeKan runs as a supervisord service:
+
+- **Install**: the UberLab guide above.
+- **Update**: [update_wekan](https://github.com/BabyFnord/update_wekan), a
+  script written with Uberspace support. It installs to a different place
+  than the UberLab guide, for a reason given in its README.
+- **Email**: every setting goes on ONE `environment=` line in
+  `~/etc/services.d/wekan.ini`, separated by commas - a second line is
+  ignored - then `supervisorctl reread`, `supervisorctl update` and
+  `supervisorctl restart wekan`:
+
+  ```
+  [program:wekan]
+  environment=PORT="40000",MONGO_URL="mongodb://wekan:PASS@127.0.0.1:27017/wekan",ROOT_URL="https://USERNAME.uber.space",MAIL_URL="smtp://POSTBOX@USERNAME.uber.space:PASSWORD@SERVER.uberspace.de:587",MAIL_FROM="WeKan <POSTBOX@USERNAME.uber.space>"
+  directory=%(ENV_HOME)s/wekan/current
+  command=node main.js
+  autostart=yes
+  autorestart=yes
+  ```
+
+  `POSTBOX` is a mailbox you created (`uberspace mail user add POSTBOX`) and
+  `SERVER` is the mail server named under "Your primary email address" on the
+  Uberspace dashboard's datasheet - not the dashboard's own server. Reported
+  to work; a password with only letters and digits avoids URL escaping. See
+  [Troubleshooting Mail](../../../../Features/Email/Troubleshooting-Mail.md) for the rest.
+  The SMTP server can also be set in Admin Panel → Email instead.
+
 ***
 
 # OLD:
