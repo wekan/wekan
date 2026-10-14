@@ -560,29 +560,19 @@ used.
 </details>
 
 <details>
-<summary>Planned: Android bundles; Sandstorm sync and import; Node.js musl bundles.</summary>
+<summary>Planned: Android bundles, once their Node.js exists.</summary>
 
-Requested on 2026-10-13. Done since: Bun single files (musl included),
-outgoing webhooks through the Powerbox and the REST API with a Sandstorm API
-key (see Upcoming); Trello import and export and a grain's own email shipped
-earlier. Builds run on GitHub Actions only. Left:
+Requested on 2026-10-13; everything else of it is done (see Upcoming): Bun
+single files, musl bundles and AppImages, outgoing webhooks, list sync and
+the REST API through Sandstorm. Builds run on GitHub Actions only.
 
 - Android on the WeKan platforms: `android-*` bundles for all four Android
   CPUs, once wekan/node-patches has published its `node-android-*` binaries.
   The single-file workflow builds them as soon as those bundles exist.
-- Sandstorm ([#2208](https://github.com/wekan/wekan/issues/2208),
-  [#2167](https://github.com/wekan/wekan/issues/2167)) list sync and the
-  JSON importers through the Powerbox: GitHub and Jira send their credential
-  in the `Authorization` header and GitLab in `PRIVATE-TOKEN`, and the bridge
-  proxy replaces the first and drops the second, so only public repositories,
-  read without a credential, could be reached that way. A question for the
-  maintainer: is reading public repositories through the Powerbox wanted?
-- Node.js musl bundles and a musl AppImage: Alpine is now served by the Bun
-  musl bundles and Bun musl single files. A Node.js musl bundle needs Node.js
-  from unofficial-builds and every native addon rebuilt in Alpine, on a
-  runner; a question for the maintainer: is it still wanted beside the Bun
-  ones, and is an AppImage wanted on musl systems, where AppImage itself is
-  uncommon?
+- Not possible, recorded so it is not asked again: Jira list sync from a
+  Sandstorm grain ([#2208](https://github.com/wekan/wekan/issues/2208),
+  [#2167](https://github.com/wekan/wekan/issues/2167)). Jira signs in only with an `Authorization` header, and the
+  bridge proxy puts its own grant there.
 
 </details>
 
@@ -592,9 +582,10 @@ earlier. Builds run on GitHub Actions only. Left:
 
 **In short:** **custom board roles**, **per-list permissions** and boards
 **every signed-in user may edit**; board **keys** (`DEV-7`) and **shared
-labels**; WeKan serves **HTTPS** itself; **Bun single files**, Alpine
-included; on **Sandstorm**, webhooks leave through the Powerbox and the REST
-API takes a grain API key. Fifteen locale files that held **another
+labels**; WeKan serves **HTTPS** itself; **Bun single files** and **musl
+bundles and AppImages** for Alpine; on **Sandstorm**, webhooks and list sync
+leave through the Powerbox and the REST API takes a grain API key. Seventeen
+locale files that held **another
 language**, and six full of machine-fill prefixes, are rewritten in their
 own, and thirteen **GitHub CodeQL** alerts are fixed.
 
@@ -795,6 +786,21 @@ covers the reader and its refusals. See
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1d2994c1c">musl bundles and AppImages for Alpine and the other musl systems</a>. Thanks to xet7.</summary>
+
+Every release also has `wekan-<version>-linux-x64-musl.zip` and
+`-linux-arm64-musl.zip`, with FerretDB, and the AppImages
+`WeKan-<version>-x86_64-musl` and `-aarch64-musl`. Each is the release's
+Linux bundle rebuilt inside Alpine on a runner of its CPU: the musl Node.js of
+the same version, checked against its SHA256, and every native addon
+compiled against musl. Before it is published, each addon's architecture is
+checked, sharp must load, and the bundle must start and answer HTTP 200; the
+AppImages are started inside Alpine too. `tests/muslBundles.test.cjs`
+covers the build and the workflows. See [Alpine](docs/Platforms/FOSS/OS/Alpine.md).
+
+</details>
+
 **Sandstorm** - reaching out of a grain, and into it.
 
 <details>
@@ -822,6 +828,22 @@ and a key without the participate permission reads only. Off Sandstorm the
 `X-Sandstorm-*` headers are never believed.
 `tests/sandstormApiIdentity.test.cjs`
 covers both sides.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d53b4da799">List sync from GitHub, GitLab, Gitea and Forgejo works in a grain</a>. Thanks to xet7.</summary>
+
+A board member who may write saves a list's sync source and allows the grain
+to reach that tracker's API in the Powerbox; the periodic sync then goes
+through the bridge with that grant, which belongs to the tracker, so no one
+needs to be signed in. GitLab's token is sent as `private_token`, because the
+bridge drops `PRIVATE-TOKEN`, so private GitLab projects sync too; GitHub,
+Gitea and Forgejo sync public repositories, whose token headers cannot pass
+the bridge. Jira signs in only with an `Authorization` header, which the
+bridge replaces, so it is refused in a grain with that reason. Off Sandstorm
+nothing changes. `tests/sandstormSyncEgress.test.cjs` runs it against a fake
+bridge proxy. See [Powerbox](docs/Platforms/FOSS/Container/Sandstorm/Powerbox-External-APIs.md#list-sync).
 
 </details>
 
@@ -870,6 +892,16 @@ and updates the following translations:
 
 **Languages that held another language** - each locale file now says what its
 tag says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3c92273ae">Hong Kong Chinese in Traditional characters, and Flemish in Dutch</a>. Thanks to xet7.</summary>
+
+Hong Kong Chinese had 90 values in Simplified Chinese; they are now
+Traditional. Flemish held 158 values in about a dozen other languages, Venda
+and Vietnamese among them, and they are now Flemish, with its 225 values
+still in English filled too.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba6d0014f7">Locale files that held another language are rewritten in their own</a>. Thanks to xet7.</summary>
