@@ -211293,5 +211293,250 @@
     "before": "X: Planning Poker / Isa. Y: Fotoam-potoana (andro). (tsy fantatra): —.",
     "after": "Ny tombana Planning Poker ankehitriny na saha manokana isa iray ampitahaina amin’ny faharetan’ny tsingerina vita, amin’ny andro. Tsy ampidirina ny tombana tsy misy sy ny daty tsy manan-kery. Raha tsy misy ny Fanombohana dia ny daty namoronana no ampiasaina; raha tsy misy ny Fiafarana dia ny daty nampidirana tao amin’ny arisiva.",
     "reason": "Restore account anonymization consequences and full report methodology instead of unrelated export text and shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "sum-of-number-fields",
+    "before": "Fitambaran'ny saha manokana isa aseho eo ambonin'ny lisitra",
+    "after": "Fitambaran’ny sanda ao amin’ny saha manokana isa voamarika haseho eo ambonin’ny lisitra",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "wip-limit-groups",
+    "before": "Alefaso ny fetra WIP (Lisitra)",
+    "after": "Vondrona fetra WIP",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "Anarana (safidy)",
+    "after": "Anaran’ny vondrona (tsy voatery)",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "wip-limit-group-add",
+    "before": "Hanampy Alefaso ny fetra WIP",
+    "after": "Ampio vondrona fetra WIP",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Fidio ny solaitra Lalana",
+    "after": "Fidio ny lalana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Ampiharo Lalana",
+    "after": "Ampiharo amin’ny lalana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-aging-wip",
+    "before": "Fahanteran'ny karatra — Lisitra",
+    "after": "Faharetan’ny asa mbola an-dalana (WIP)",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-blocker-analysis",
+    "before": "Fiankinana — Antontanisa",
+    "after": "Famakafakana sakana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-monte-carlo",
+    "before": "Monte Carlo — Histogram'ny famokarana",
+    "after": "Vinavina Monte Carlo",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-process-behavior",
+    "before": "XmR — Fotoam-potoana",
+    "after": "Fitondran’ny fizotrany (XmR)",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-size-cycle-time",
+    "before": "Habe / Fotoam-potoana",
+    "after": "Haben’ny asa ampitahaina amin’ny faharetan’ny tsingerina",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-cycle-days",
+    "before": "Fotoam-potoana (andro)",
+    "after": "Faharetan’ny tsingerina (andro)",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-age-days",
+    "before": "Lisitra — Faharetana (andro)",
+    "after": "Faharetana ao amin’ny dingana (andro)",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-p85",
+    "before": "Lisitra — P85 (andro)",
+    "after": "Sanda mandrakotra ny 85% amin’ny faharetana voarakitra ao amin’ny dingana (andro)",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-samples",
+    "before": "Tantara — n",
+    "after": "Fijanonana voarakitra tamin’ny lasa",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-signal",
+    "before": "Fetra",
+    "after": "Famantarana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-unusual",
+    "before": "Fetra ⚠",
+    "after": "Mihoatra ny fetra",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-blocker",
+    "before": "Manakana",
+    "after": "Karatra manakana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-episodes",
+    "before": "Fiankinana — Tantara",
+    "after": "Vanim-potoana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-active",
+    "before": "Fiankinana — Fiafarana —",
+    "after": "Vanim-potoana mbola misokatra",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-blocked-days",
+    "before": "Voasakan'ny (Karatra × andro)",
+    "after": "Andro-karatra voasakana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-unknown-start",
+    "before": "Hanomboka — (tsy fantatra)",
+    "after": "Fiandohana tsy fantatra",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-confidence",
+    "before": "Antontanisa (%)",
+    "after": "Haavon’ny fahatokisana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-target-count",
+    "before": "Karatra — Isa",
+    "after": "Isan’ny karatra kendrena",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-finish-days",
+    "before": "Vita (andro)",
+    "after": "Andro ilaina hamitana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-finish-date",
+    "before": "Vita — Daty",
+    "after": "Daty hahavitana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-capacity",
+    "before": "Karatra ≥",
+    "after": "Karatra farafahakeliny toy izao ny isany",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-beyond-horizon",
+    "before": "> 3650 andro",
+    "after": "Mihoatra ny fe-potoan’ny simulation",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-mean",
+    "before": "Fotoam-potoana — x̄",
+    "after": "Salanisa",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-moving-range",
+    "before": "|Δ Fotoam-potoana|",
+    "after": "Elanelana tsy miiba eo amin’ny sanda roa mifanesy",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-mr-mean",
+    "before": "MR̄",
+    "after": "Salanisan’ny elanelana tsy miiba eo amin’ny sanda mifanesy",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-size-source",
+    "before": "Habe — Saha manokana",
+    "after": "Saha misy ny habe",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-size",
+    "before": "Habe",
+    "after": "Tombana",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-error",
+    "before": "Hadisoana — Antontanisa",
+    "after": "Tsy azo nampidirina ny tatitra. Hamarino ny sanda ary andramo indray.",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
+  },
+  {
+    "locale": "mg",
+    "key": "flow-details",
+    "before": "Antsipiriany — Tantara",
+    "after": "Tantara iorenan’ny tatitra",
+    "reason": "Correct WIP group controls, numeric sum meaning and analytics labels that previously used unrelated or incomplete shorthand."
   }
 ]

@@ -11,6 +11,7 @@ for (const [slug, key, essential] of [
   test(`Malagasy ${slug} explains methodology and limits`, async ({ boardPage: page }) => {
     await page.evaluate(() => Meteor.callAsync('setLanguage', 'mg'));
     await page.locator('.js-toggle-board-view').first().click();
+    await expect(page.locator(`.pop-over .js-open-${slug}-view`)).toContainText(strings[`board-view-${slug}`]);
     await page.locator(`.pop-over .js-open-${slug}-view`).click();
     const note = page.locator('.chart-view-content .chart-method-note');
     await expect(note).toHaveText(strings[`flow-note-${key}`]);

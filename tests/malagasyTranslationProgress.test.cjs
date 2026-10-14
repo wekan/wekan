@@ -517,3 +517,20 @@ assert.match(malagasy['flow-note-monteCarlo'], /2,000.*UTC.*tsy nahavitana.*ambo
 assert.match(malagasy['flow-note-processBehavior'], /Fanombohana.*namoronana.*Fiafarana.*arisiva.*roa farafahakeliny/);
 assert.match(malagasy['flow-note-sizeCycleTime'], /Tsy ampidirina.*daty tsy manan-kery.*Fanombohana.*namoronana.*Fiafarana.*arisiva/);
 for (const key of reportAccountKeys.filter(key => key.startsWith('flow-note-'))) assert.doesNotMatch(malagasy[key], /→|≥|≤|✓|MR̄/);
+
+const reportLabelKeys = ["sum-of-number-fields", "wip-limit-groups", "wip-limit-group-name-placeholder", "wip-limit-group-add", "wip-limit-group-select-swimlane", "wip-limit-group-apply-swimlane", "board-view-aging-wip", "board-view-blocker-analysis", "board-view-monte-carlo", "board-view-process-behavior", "board-view-size-cycle-time", "flow-cycle-days", "flow-age-days", "flow-p85", "flow-samples", "flow-signal", "flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-confidence", "flow-target-count", "flow-finish-days", "flow-finish-date", "flow-capacity", "flow-beyond-horizon", "flow-mean", "flow-moving-range", "flow-mr-mean", "flow-size-source", "flow-size", "flow-error", "flow-details"];
+
+for (const key of reportLabelKeys) assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+assert.match(malagasy['sum-of-number-fields'], /Fitambaran’ny sanda.*voamarika.*lisitra/);
+for (const key of ['wip-limit-groups', 'wip-limit-group-add']) {
+  assert.match(malagasy[key], /vondrona fetra WIP/i);
+  assert.doesNotMatch(malagasy[key], /Alefaso/);
+}
+assert.match(malagasy['wip-limit-group-name-placeholder'], /vondrona.*tsy voatery/);
+assert.doesNotMatch(malagasy['wip-limit-group-select-swimlane'], /solaitra/);
+assert.match(malagasy['board-view-monte-carlo'], /Vinavina/);
+assert.doesNotMatch(malagasy['board-view-monte-carlo'], /Histogram/);
+assert.match(malagasy['flow-active'], /mbola misokatra/);
+assert.match(malagasy['flow-capacity'], /farafahakeliny/);
+assert.match(malagasy['flow-confidence'], /fahatokisana/);
+assert.match(malagasy['flow-error'], /tatitra.*Hamarino ny sanda.*andramo indray/);

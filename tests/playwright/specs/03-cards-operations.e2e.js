@@ -1027,3 +1027,33 @@ test('Haitian numeric summary describes a value sum, excluding hidden fields', a
     db.deleteMany('customFields', { _id: { $in: [shownId, hiddenId] } });
   }
 });
+
+test('Malagasy numeric summary describes a value sum, excluding hidden fields', async ({ boardPage, board, user }) => {
+  const shownId = db.uid('shownNumber');
+  const hiddenId = db.uid('hiddenNumber');
+  const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+  try {
+    for (const [id, shown] of [[shownId, true], [hiddenId, false]]) {
+      db.insertOne('customFields', {
+        _id: id, boardIds: [board.boardId], name: id, type: 'number', settings: {},
+        showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: false, showSumAtTopOfList: shown,
+        createdAt: new Date(), modifiedAt: new Date(),
+      });
+    }
+    db.updateOne('cards', { _id: cardId }, { $set: {
+      customFields: [{ _id: shownId, value: 7 }, { _id: hiddenId, value: 100 }],
+    } });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'mg', 'profile.showCardsCountAt': 0 } });
+    await boardPage.reload();
+    await loginWithToken(boardPage, user.id, user.token);
+    await openBoard(boardPage, board.boardId, board.slug);
+    const badge = new BoardPage(boardPage).list(board.listIds[0]).locator('.list-sum-badge').first();
+    await expect(badge).toHaveText('∑ 7');
+    await expect(badge).not.toHaveText('∑ 107');
+    await expect(badge).toHaveAttribute('title', /^Fitambaran’ny sanda ao amin’ny saha manokana isa voamarika haseho eo ambonin’ny lisitra/);
+    await expect(badge).not.toHaveAttribute('title', /Fitambaran'ny saha manokana isa/);
+  } finally {
+    db.deleteMany('customFields', { _id: { $in: [shownId, hiddenId] } });
+  }
+});

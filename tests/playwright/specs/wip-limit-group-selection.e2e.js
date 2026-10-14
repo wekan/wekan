@@ -84,3 +84,21 @@ test('Haitian WIP dialog names groups and limits selection to swimlanes', async 
   await expect(form).not.toContainText('Chwazi tablo');
   await page.evaluate(() => Popup.close());
 });
+
+test('Malagasy WIP dialog distinguishes groups and swimlanes', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'mg');
+    Popup.close();
+    Popup.open('wipLimitGroups', { titleKey: 'wip-limit-groups' })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  });
+  await expect(page.locator('.js-pop-over .header-title')).toHaveText('Vondrona fetra WIP');
+  const form = page.locator('.wip-limit-group-new');
+  await expect(form.locator('.js-wip-limit-group-new-save')).toHaveValue('Ampio vondrona fetra WIP');
+  await expect(form.locator('.js-wip-limit-group-new-save')).not.toHaveValue(/Alefaso/);
+  await expect(form.locator('.js-wip-limit-group-swimlane option[value=""]')).toHaveText('Fidio ny lalana');
+  await expect(form.locator('.js-wip-limit-group-apply-swimlane')).toHaveText('Ampiharo amin’ny lalana');
+  await expect(form).not.toContainText('Fidio ny solaitra');
+  await page.evaluate(() => Popup.close());
+});
