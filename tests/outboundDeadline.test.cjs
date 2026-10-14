@@ -25,7 +25,7 @@ function guard({ lookup = async () => [{ address: '93.184.216.34', family: 4 }],
   } };
   const { isIpBlocked } = load('models/lib/attachmentUrlValidation.js', { Meteor: { isServer: true }, require }, ['isIpBlocked']);
   const { fetchSafe } = load('server/lib/ssrfGuard.js', { dns: { promises: { lookup } }, fs, net: require('node:net'),
-    http: transport, https: transport, URL, isIpBlocked, createOutboundDeadline: deadlineFactory, console: { info() {} } }, ['fetchSafe']);
+    http: transport, https: transport, URL, isIpBlocked, createOutboundDeadline: deadlineFactory, ...require('../server/lib/outboundProxy'), tls: require('tls'), console: { info() {} } }, ['fetchSafe']);
   return { fetchSafe, requests, responses };
 }
 test('late DNS completion cannot dial after total deadline', async () => {

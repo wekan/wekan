@@ -30,9 +30,11 @@ import fs from 'fs';
 import net from 'net';
 import http from 'http';
 import https from 'https';
+import tls from 'tls';
 import { URL } from 'url';
 import { isIpBlocked } from '/models/lib/attachmentUrlValidation';
 import { createOutboundDeadline } from '/server/lib/outboundDeadline';
+import { proxyFor, proxyAuthorization, pinnedAuthority } from '/server/lib/outboundProxy';
 
 // dns/promises is only a standalone sub-path from Node 15+; use dns.promises
 // for compatibility with the Node 14 runtime bundled in Meteor 2.x.
@@ -246,6 +248,8 @@ async function validateAndResolve(rawUrl, guard = {}) {
  * virtual-hosting and certificate validation work.
  */
 function requestOnce(parsed, resolvedIp, options, deadline) {
+  const proxy = proxyFor(parsed);
+  if (proxy) return requestViaProxy(parsed, resolvedIp, proxy, options, deadline);
   return new Promise((resolve, reject) => {
     const isHttps = parsed.protocol === 'https:';
     const transport = isHttps ? https : http;
@@ -288,6 +292,72 @@ function requestOnce(parsed, resolvedIp, options, deadline) {
       }
     }
 
+    sendRequest(transport, reqOptions, options, deadline, resolve, reject);
+  });
+}
+
+// #1455: through the proxy HTTP(S)_PROXY names, unless NO_PROXY sends the
+// destination direct. The destination was already resolved and checked, and
+// the proxy is asked for that IP address, never the name: it cannot resolve
+// the name to somewhere else. An https:// destination goes through a CONNECT
+// tunnel with TLS (SNI, certificate check) still against the real host; an
+// http:// one is sent to the proxy as an absolute URL on the pinned address.
+function requestViaProxy(parsed, resolvedIp, proxy, options, deadline) {
+  return new Promise((resolve, reject) => {
+    const isHttps = parsed.protocol === 'https:';
+    const port = parsed.port ? parseInt(parsed.port, 10) : (isHttps ? 443 : 80);
+    const proxyTransport = proxy.protocol === 'https:' ? https : http;
+    const proxyPort = proxy.port ? parseInt(proxy.port, 10) : (proxy.protocol === 'https:' ? 443 : 80);
+    const authority = pinnedAuthority(resolvedIp, port);
+    const auth = proxyAuthorization(proxy);
+    const proxyHeaders = auth ? { 'Proxy-Authorization': auth } : {};
+    const headers = Object.assign({}, options.headers, { Host: parsed.host });
+
+    if (!isHttps) {
+      sendRequest(proxyTransport, {
+        method: options.method || 'GET',
+        hostname: proxy.hostname,
+        port: proxyPort,
+        // Absolute form, on the pinned address: the proxy connects there.
+        path: `${parsed.protocol}//${authority}${parsed.pathname}${parsed.search}`,
+        headers: Object.assign(headers, proxyHeaders),
+      }, options, deadline, resolve, reject);
+      return;
+    }
+
+    deadline?.assertActive();
+    const connect = proxyTransport.request({
+      method: 'CONNECT',
+      hostname: proxy.hostname,
+      port: proxyPort,
+      path: authority,
+      headers: Object.assign({ Host: authority }, proxyHeaders),
+    });
+    connect.on('error', reject);
+    deadline?.watch(connect);
+    connect.on('connect', (res, socket) => {
+      if (res.statusCode !== 200) {
+        socket.destroy();
+        reject(new Error(`SSRF_GUARD: the proxy refused the tunnel (${res.statusCode})`));
+        return;
+      }
+      const ca = webhookCaCert();
+      sendRequest(https, {
+        method: options.method || 'GET',
+        hostname: parsed.hostname,
+        port,
+        path: parsed.pathname + parsed.search,
+        headers,
+        agent: false,
+        createConnection: () => tls.connect(Object.assign({ socket, servername: parsed.hostname }, ca ? { ca } : {})),
+      }, options, deadline, resolve, reject);
+    });
+    connect.end();
+  });
+}
+
+function sendRequest(transport, reqOptions, options, deadline, resolve, reject) {
+  {
     deadline?.assertActive();
     const req = transport.request(reqOptions, (res) => {
       // The caller reads the body a microtask later (or destroys the response
@@ -316,7 +386,7 @@ function requestOnce(parsed, resolvedIp, options, deadline) {
       req.write(options.body);
     }
     req.end();
-  });
+  }
 }
 
 // Read a response to the end and wrap it in the small WHATWG-fetch-shaped

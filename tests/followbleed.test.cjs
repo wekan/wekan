@@ -122,6 +122,9 @@ function loadGuard(transport) {
       https: transport,
       URL: require('url').URL,
       isIpBlocked: validation.isIpBlocked,
+      // #1455: the proxy decision is real; with no HTTP(S)_PROXY it connects direct.
+      ...require('../server/lib/outboundProxy'),
+      tls: require('tls'),
       console: { info() {}, error() {}, warn() {} },
     },
     ['fetchSafe'],

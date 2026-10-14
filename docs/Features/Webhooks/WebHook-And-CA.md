@@ -10,3 +10,4 @@ wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt -O lets-
 ```sh
 NODE_EXTRA_CA_CERTS=/etc/ssl/certs/lets-encrypt-x3-cross-signed.pem node main.js
 ```
+To send webhooks through a proxy such as Squid, see [Proxy.md](Proxy.md).
