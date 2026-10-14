@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole project imports — 2026-10-14
+
+Commit `e26b9f041b` translates guides for Pivotal Tracker, Tasks.org, monday.com,
+Super Productivity, Taiga, Vikunja, Quire, Wrike and Teamwork. Checks retain
+attachment/comment exclusions, archive states, completion dates, compressed
+JSON handling, nested-task markers and custom-field mappings.
+
+The Haitian catalog and guarded-correction suites pass with 29,474 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. The browser suite now registers 18
+Haitian import cases. Spreadsheet-only formats check file inputs, matching
+`models/lib/importSources.js`. Syntax and discovery pass; runtime is pending.
+
+Further Haitian strings and other languages still require translation and
+semantic review. The all-language objective remains unfinished.
+
 ## Haitian Creole outline and task imports — 2026-10-14
 
 Commit `80e756b223` translates nine import guides (OPML, Org mode, MeisterTask,

@@ -3778,6 +3778,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e26b9f041b">Translate Haitian Creole project import guides</a>. Thanks to xet7.</summary>
+
+- Translate nine project-import guides, retaining attachment exclusions,
+  archived/completed states, nested-task markers and custom-field mappings.
+- Haitian catalog and guarded-correction suites pass, along with 21
+  human-preference checks. Existing Chinese values remain unchanged. Eighteen
+  Haitian import browser cases pass discovery; runtime remains pending.
+- Correct spreadsheet input assertions for monday.com, Wrike and Teamwork.
+  Further translations and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
