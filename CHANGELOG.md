@@ -594,9 +594,9 @@ earlier. Builds run on GitHub Actions only. Left:
 **every signed-in user may edit**; board **keys** (`DEV-7`) and **shared
 labels**; WeKan serves **HTTPS** itself; **Bun single files**, Alpine
 included; on **Sandstorm**, webhooks leave through the Powerbox and the REST
-API takes a grain API key. Seventeen locale files that held **another
-language** are rewritten in their own, and thirteen **GitHub CodeQL** alerts
-are fixed.
+API takes a grain API key. Fifteen locale files that held **another
+language**, and six full of machine-fill prefixes, are rewritten in their
+own, and thirteen **GitHub CodeQL** alerts are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
