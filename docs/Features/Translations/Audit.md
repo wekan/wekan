@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole attachment and rule semantics — 2026-10-14
+
+Commit `bcdf935521` corrects 81 existing translations. Thirteen rule strings
+confused unchecking with disabling, mistranslated attachments, omitted date
+initialization or used inconsistent assignee grammar. Reviewing the assembled
+checklist-action sentence also restored its connecting preposition. The same
+attachment mistranslation occurred in 68 further messages, now corrected across
+imports, storage, backup, activity and deletion prompts. Technical strings and
+placeholders remain intact; permanent and reversible deletion stay distinct.
+
+The Haitian catalog and guarded-correction suites pass with 29,742 correction
+ledger entries. Three older assertions contained the mistranslated term and
+were corrected. All 21 human-preference checks pass, and 38,430 existing Chinese
+values remain unchanged. Rule-builder and attachment-settings browser cases
+pass syntax and discovery; runtime remains pending.
+
+These semantic errors existed with zero current English placeholders. The
+inventory is therefore only one check; full Haitian semantic review and the
+all-language objective remain unfinished.
+
 ## Haitian Creole current placeholders and stale English — 2026-10-14
 
 Commit `eca6c80825` translates eight remaining current placeholders and repairs

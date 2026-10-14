@@ -3868,6 +3868,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bcdf935521">Correct Haitian attachment and rule terminology</a>. Thanks to xet7.</summary>
+
+- Correct 81 existing translations: attachment terminology, checkbox actions,
+  date-initialization triggers and assignee grammar. Preserve deletion warnings,
+  storage details and placeholders. Update tests that encoded the old wording.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. Rule-builder and attachment
+  browser cases pass syntax and discovery; execution remains pending.
+- These errors existed despite an empty English-placeholder inventory.
+  All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
