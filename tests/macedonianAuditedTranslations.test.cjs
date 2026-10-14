@@ -275,4 +275,10 @@ assert.equal(data['board-view-calendar-mode'], 'Календарски режи�
 assert.equal(data['blockly-FIELD_BITMAP_PIXEL_LABEL'], '%1, ред %2, колона %3');
 assert.equal(data['blockly-TEXT_APPEND_TITLE'], 'на %1 додај текст %2');
 assert.equal(data['import-trello-json-file'], 'Trello .json датотека');
+// Russian "Уведомления" and Bulgarian "Сваляне" had seeded these; Macedonian
+// says Известувања and Преземи, as the rest of the file already did.
+assert.equal(data['notifications'], 'Известувања');
+assert.equal(data['features-notifications'], 'Известувања');
+assert.equal(data['download'], 'Преземи');
+for (const [key, value] of Object.entries(data)) assert.doesNotMatch(value, /Уведомлени|Сваля/, key);
 console.log('Macedonian vocabulary review: actions, status, date formats, JSON structure and retained shared terms pass');

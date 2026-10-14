@@ -119,5 +119,7 @@ for (const code of ['ca', 'ca_ES']) {
   for (const literal of ['GET /workflows', 'Active', 'Completed', 'Deferred', 'Cancelled']) assert.ok(data['r-wrike-workflow-note'].includes(literal), literal);
   assert.ok(data['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
   assert.notEqual(data['subtask-mark-done'], data['subtask-mark-not-done']);
+  // "Membres d'Afegeix" was a word-for-word garble of "Add members".
+  assert.equal(data['add-members'], code === 'ca@valencia' ? 'Afegir membres' : 'Afegeix membres');
 }
 console.log('Catalan current catalogs, shared date label, tokens and field meanings pass');

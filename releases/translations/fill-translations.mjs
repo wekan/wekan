@@ -1090,6 +1090,8 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS',
     'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
     ...(code === 'ca@valencia' ? ['errors'] : []),
+    // Catalan "no" is the same word as the English (DIEC2, entry no).
+    'no',
   ])])),
   sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private',
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-TAB_KEY',
