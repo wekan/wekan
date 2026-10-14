@@ -216305,5 +216305,299 @@
     "before": "One board per project",
     "after": "Otu bọọdụ maka ọrụ ukwu ọ bụla",
     "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "external-link-rules",
+    "before": "More link rules",
+    "after": "Iwu njikọ ndị ọzọ",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "external-link-rules-description",
+    "before": "One rule per line: the text to find, \" = \", and the address. Use {number} for digits and {identifier} for a word, in both, for example [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "after": "Otu iwu n’ahịrị ọ bụla: ederede a ga-achọ, \" = \", na adreesị. Jiri {number} maka ọnụọgụ na {identifier} maka okwu, n’akụkụ abụọ ahụ, dịka [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "external-link-identifier-aliases",
+    "before": "Abbreviations for {identifier}, for example TK=Task, IN=Incident",
+    "after": "Ndebiri maka {identifier}, dịka TK=Task, IN=Incident",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-heading",
+    "before": "Webhook data",
+    "after": "Data webhook",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-description",
+    "before": "What outgoing webhooks (Rocket.Chat, Slack, ...) send. Default keeps the inherited setting; with nothing set, webhooks send what they always have.",
+    "after": "Ihe webhook na-apụ apụ (Rocket.Chat, Slack, ...) na-eziga. Nhọrọ ndabara na-edobe ntọala e ketara; ọ bụrụ na e debeghị ihe ọ bụla, webhook na-eziga ihe ha na-ezigabu.",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-text",
+    "before": "Send the message text",
+    "after": "Ziga ederede ozi",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-fields",
+    "before": "Send these fields",
+    "after": "Ziga oghere ndị a",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-standard",
+    "before": "Standard fields (WEBHOOKS_ATTRIBUTES)",
+    "after": "Oghere ọkọlọtọ (WEBHOOKS_ATTRIBUTES)",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-ids",
+    "before": "IDs",
+    "after": "Njirimara",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-names",
+    "before": "Names and titles",
+    "after": "Aha na isiokwu",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-links",
+    "before": "Links to the card and board",
+    "after": "Njikọ kaadị na bọọdụ",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-actor",
+    "before": "Who did it",
+    "after": "Onye mere ya",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-people",
+    "before": "The member or assignee it is about",
+    "after": "Onye otu ma ọ bụ onye e kenyere nke ozi a gbasara",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-payload-field-details",
+    "before": "Details: comment, description, values and dates",
+    "after": "Nkọwa zuru ezu: ozi nkọwa, nkọwa ọdịnaya, uru na ụbọchị",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-hide-identity",
+    "before": "Leave my name out of outgoing webhooks",
+    "after": "E tinyela aha m na webhook na-apụ apụ",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "webhook-someone",
+    "before": "A member",
+    "after": "Onye otu",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-layout-classic",
+    "before": "One sentence (classic)",
+    "after": "Otu ahịrịokwu (ụdị ochie)",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-layout-clear",
+    "before": "Clearly arranged: board, who, card in bold",
+    "after": "Haziri nke ọma: bọọdụ, onye, kaadị n’ederede gbara ọkpụrụkpụ",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-parts",
+    "before": "Show",
+    "after": "Gosi",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-part-board",
+    "before": "Board name and link",
+    "after": "Aha na njikọ bọọdụ",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-part-actor",
+    "before": "Who did it",
+    "after": "Onye mere ya",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-part-card",
+    "before": "Card title and link",
+    "after": "Aha na njikọ kaadị",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-part-details",
+    "before": "Comment or changed value",
+    "after": "Ozi nkọwa ma ọ bụ uru gbanwere",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-part-dates",
+    "before": "Dates",
+    "after": "Ụbọchị",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-part-link",
+    "before": "Link on its own line",
+    "after": "Njikọ n’ahịrị nke ya",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-grouping",
+    "before": "Grouping",
+    "after": "Ịchịkọta n’ìgwè",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-grouping-all",
+    "before": "Everything due in one message",
+    "after": "Ihe niile oge iziga ha eruola n’otu ozi",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-grouping-board",
+    "before": "One per board",
+    "after": "Otu maka bọọdụ ọ bụla",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-grouping-card",
+    "before": "One per card",
+    "after": "Otu maka kaadị ọ bụla",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-grouping-none",
+    "before": "Each on its own",
+    "after": "Nke ọ bụla iche",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-schedule",
+    "before": "When to send",
+    "after": "Mgbe a ga-eziga",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-schedule-immediate",
+    "before": "Immediately",
+    "after": "Ozugbo",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-schedule-interval",
+    "before": "Every few minutes or hours",
+    "after": "Kwa nkeji ma ọ bụ awa ole na ole",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-schedule-daily",
+    "before": "Once a day",
+    "after": "Otu ugboro n’ụbọchị",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-interval",
+    "before": "Every",
+    "after": "Kwa",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-minutes",
+    "before": "__count__ minutes",
+    "after": "Nkeji __count__",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-quiet",
+    "before": "Quiet hours (wait until they end)",
+    "after": "Oge ịnọ jụụ (chere ruo mgbe ọ gwụchara)",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-quiet-clear",
+    "before": "No quiet hours",
+    "after": "Enweghị oge ịnọ jụụ",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-timezone",
+    "before": "Time zone:",
+    "after": "Mpaghara oge:",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-delivery-invalid",
+    "before": "The setting could not be saved.",
+    "after": "Enweghị ike ịchekwa ntọala ahụ.",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-group-card",
+    "before": "__count__ notifications on card __card__",
+    "after": "Ọkwa __count__ na kaadị __card__",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "notification-group-board",
+    "before": "__count__ notifications on board __board__",
+    "after": "Ọkwa __count__ na bọọdụ __board__",
+    "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
   }
 ]

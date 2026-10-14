@@ -261,3 +261,15 @@ assert.match(locales.ig['import-file-label'], /Họrọ faịlụ.*ma ọ bụ t
 assert.match(locales.ig['export-selected-boards'], /ndị ahọpụtara/);
 assert.notEqual(locales.ig['export-selected-boards'], locales.ig['export-all-boards']);
 assert.match(locales.ig['import-one-board-per-project'], /Otu bọọdụ.*ọ bụla/);
+
+assert.match(locales.ig['external-link-rules-description'], /\[\{identifier\}:\{number\}\] = https:\/\/tracker.example.com\/\{identifier\}\/\{number\}/);
+assert.match(locales.ig['webhook-payload-field-standard'], /WEBHOOKS_ATTRIBUTES/);
+assert.match(locales.ig['webhook-payload-description'], /ntọala e ketara.*e debeghị ihe ọ bụla.*ihe ha na-ezigabu/);
+assert.match(locales.ig['webhook-hide-identity'], /E tinyela aha m/);
+assert.notEqual(locales.ig['notification-delivery-grouping-board'], locales.ig['notification-delivery-grouping-card']);
+assert.match(locales.ig['notification-delivery-grouping-all'], /oge iziga ha eruola.*otu ozi/);
+assert.match(locales.ig['notification-delivery-quiet'], /chere ruo mgbe ọ gwụchara/);
+assert.match(locales.ig['notification-delivery-quiet-clear'], /Enweghị/);
+assert.equal(locales.ig['notification-delivery-minutes'], 'Nkeji __count__');
+assert.match(locales.ig['notification-group-card'], /__count__.*__card__/);
+assert.match(locales.ig['notification-group-board'], /__count__.*__board__/);
