@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Agor sawl cerdyn ar unwaith",
   "open-many-cards-at-once-description": "Mae pob cerdyn rydych chi’n clicio arno yn aros ar agor yn ei ffenestr ei hun. Pan fydd hyn wedi’i ddiffodd, mae clicio ar gerdyn yn cau’r un oedd ar agor.",
   "submit-on-enter-description": "Pan fydd ymlaen, mae pwyso Enter yn cadw teitl y cerdyn, y disgrifiad a golygyddion mewnol eraill; mae Shift+Enter yn mewnosod llinell newydd. Pan fydd i ffwrdd, mae Ctrl/Cmd+Enter yn cadw ac mae Enter yn mewnosod llinell newydd.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Chwarae sain pan gwblheir eitem rhestr wirio",
   "checklist-ding-sound-description": "Chwarae ping byr wrth ticio eitem rhestr wirio. I ffwrdd yn ddiofyn.",
   "assignee": "Aseinai",

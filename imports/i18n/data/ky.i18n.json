@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Бир убакта көп карточканы ачуу",
   "open-many-cards-at-once-description": "Баскан ар бир карточкаңызды өзүнчө терезеде ачык кармоо. Бул өчүрүлгөндө, карточканы басуу мурун ачылган карточканы жабат.",
   "submit-on-enter-description": "Күйгүзүлгөндө Enter басуу карточканын аталышын, сүрөттөмөсүн жана башка сап ичиндеги редакторлорду сактайт; Shift+Enter жаңы сап киргизет. Өчүрүлгөндө Ctrl/Cmd+Enter сактайт, ал эми Enter жаңы сап киргизет.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Текшерүү тизмесиндеги пункт аяктаганда үн ойнотуу",
   "checklist-ding-sound-description": "Текшерүү тизмесиндеги пунктту белгилегенде кыска үн ойнотот. Демейки боюнча өчүрүлгөн.",
   "assignee": "Жооптуу",

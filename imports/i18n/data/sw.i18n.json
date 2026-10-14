@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Fungua kadi nyingi kwa wakati mmoja",
   "open-many-cards-at-once-description": "Kila kadi unayobofya inabaki wazi katika dirisha lake. Chaguo hili likizimwa, kubofya kadi hufunga ile iliyokuwa wazi.",
   "submit-on-enter-description": "Ikiwashwa, kubonyeza Enter huhifadhi kichwa cha kadi, maelezo na wahariri wengine wa ndani; Shift+Enter huingiza mstari mpya. Ikizimwa, Ctrl/Cmd+Enter huhifadhi na Enter huingiza mstari mpya.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Cheza sauti wakati kipengele cha orodha ya ukaguzi kikamilika",
   "checklist-ding-sound-description": "Hucheza sauti fupi unapotia alama kwenye kipengele cha orodha ya ukaguzi. Imezimwa kwa chaguo-msingi.",
   "assignee": "Mkabidhiwa",

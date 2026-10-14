@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Buɗe katuna da yawa lokaci guda",
   "open-many-cards-at-once-description": "Bar kowane katin da ka danna a buɗe cikin tagarsa. Idan wannan a kashe yake, danna kati zai rufe wanda yake buɗe.",
   "submit-on-enter-description": "Idan yana kunne, danna Enter yana adana sunan kati, bayani da sauran masu gyara na cikin layi; Shift+Enter yana saka sabon layi. Idan yana kashe, Ctrl/Cmd+Enter yana adanawa kuma Enter yana saka sabon layi.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Kunna sauti idan an kammala abu a jerin duba",
   "checklist-ding-sound-description": "Yana kunna gajeren sauti idan ka duba abu a jerin duba. An kashe shi tun da farko.",
   "assignee": "Wanda aka ba wa",

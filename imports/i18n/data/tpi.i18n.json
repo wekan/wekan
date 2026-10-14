@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Opim many ol kat long once",
   "open-many-cards-at-once-description": "Larim olgeta kat yu klikim i stap op long windo bilong em yet. Sapos dispela i no wok, taim yu klikim wanpela kat, kat i bin stap op bai pas.",
   "submit-on-enter-description": "Sapos dispela i wok, presim Enter bilong seivim nem na toksave bilong kat na ol arapela bokis bilong senisim long dispela pes; Shift+Enter i putim nupela lain. Sapos dispela i no wok, Ctrl/Cmd+Enter i seivim na Enter i putim nupela lain.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Pilai wanpela nois taim wanpela samting long checklist i pinis",
   "checklist-ding-sound-description": "Pilai sotpela nois taim yu makim wanpela samting long lis bilong sekim olsem pinis. Long stat dispela i no wok.",
   "assignee": "Man i gat wok",

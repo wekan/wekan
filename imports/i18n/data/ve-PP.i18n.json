@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Avaida äi kartoid ühten aigan",
   "open-many-cards-at-once-description": "Jäta kaikuččen kartan, mittušt sinä painad, avoimeks ičeze iknas. Ku nece ei ole aktivine, kartan painand sauptab aigemba avaitud kartan.",
   "submit-on-enter-description": "Konz om avoitud, Enter-nübastmine panokseb kartan pälkirjutesen, kuvamišen i toižed sirased redaktorad; Shift+Enter ližadab uden rivin. Konz om saubatud, Ctrl/Cmd+Enter panokseb, a Enter ližadab uden rivin.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
   "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "Märitud kävutai",

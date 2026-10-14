@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Mepee ọtụtụ kaadị n’otu oge",
   "open-many-cards-at-once-description": "Kaadị ọ bụla ị pịrị na-anọgide na-emeghe na windo nke ya. Mgbe nke a gbanyụrụ, ịpị kaadị na-emechi nke mepere emepe.",
   "submit-on-enter-description": "Mgbe ọ gbanyere, ịpị Enter na-echekwa isiokwu kaadị, nkọwa na ndị nchịkọta ozugbo ndị ọzọ; Shift+Enter na-etinye ahịrị ọhụrụ. Mgbe ọ gbanyụrụ, Ctrl/Cmd+Enter na-echekwa, Enter na-etinye ahịrị ọhụrụ.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Kpọọ ụda mgbe ihe checklist mezuru",
   "checklist-ding-sound-description": "Na-akpọ obere ụda mgbe ị lelere ihe checklist. Ọ dị mgbanwụ site na ndabara.",
   "assignee": "Onye ọrụ",

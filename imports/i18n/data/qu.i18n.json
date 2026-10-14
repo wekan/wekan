@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Achka kartakunata huk kutillapi kichay",
   "open-many-cards-at-once-description": "Ñit'isqayki sapa kartata kikin ventananpi kichasqata waqaychay. Kay wañusqa kaptinqa, huk kartata ñit'iyqa kichasqa kaqta wichqan.",
   "submit-on-enter-description": "Kawsachisqa kaptinqa, Enter ñit'iyqa kartap uma sutinta, willakuyninta, huk allichaqkunatapas waqaychan; Shift+Enter musuq siq'ita churan. Wañusqa kaptinqa, Ctrl/Cmd+Enter waqaychan, Enter-taq musuq siq'ita churan.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Uyarichiy huk kunkata checklist ruway tukusqanmanta",
   "checklist-ding-sound-description": "Huk kunka kunkata uyarichin checklist ruway señalasqaykipi. Manam kachkanchu ñawpaqmanta.",
   "assignee": "Ruranapaq churasqa",

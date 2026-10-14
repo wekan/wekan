@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Bue many kaads wɔ once",
   "open-many-cards-at-once-description": "Ma kaad biara a wumia so no nna hɔ wɔ n'ankasa mfɛnsere mu. Sɛ wɔadum eyi a, kaad a wumia so no ma nea na abue no to mu.",
   "submit-on-enter-description": "Sɛ wɔasɔ a, Enter a wumia no sie kaad asɛmti, nkyerɛkyerɛmu ne afã foforo a wosesa wɔ hɔ no; Shift+Enter hyɛ nkyerɛw no ɔfa foforo ase. Sɛ wɔadum a, Ctrl/Cmd+Enter sie, na Enter hyɛ nkyerɛw no ɔfa foforo ase.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Bɔ nnyigyei bere a wɔawie nhwehwɛmu no mu ade bi",
   "checklist-ding-sound-description": "Bɔ nnyigyei tiaa bi bere a wohyɛ nhwehwɛmu no mu ade bi agyirae sɛ wɔawie. Wɔadum fi mfiase.",
   "assignee": "Nea wɔde adwuma ama no",

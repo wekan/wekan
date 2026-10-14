@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Отвори више предмета одједном",
   "open-many-cards-at-once-description": "Сваки предмет на који кликнете остаје отворен у сопственом прозору. Када је ово искључено, клик на предмет затвара онај који је био отворен.",
   "submit-on-enter-description": "Када је укључено, притисак на Enter чува наслов картице, опис и друге уграђене уређиваче; Shift+Enter уметне нови ред. Када је искључено, Ctrl/Cmd+Enter чува, а Enter уметне нови ред.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Пусти звук када се ставка контролне листе заврши",
   "checklist-ding-sound-description": "Пушта кратак звук када означите ставку контролне листе. Подразумевано искључено.",
   "assignee": "Задужено лице",

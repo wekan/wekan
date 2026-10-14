@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Fungura amakarita menshi icyarimwe",
   "open-many-cards-at-once-description": "Gumisha buri karita ukandaho ifunguye mu idirishya ryayo. Iyo ibi bizimye, gukanda ikarita bifunga iyari ifunguye.",
   "submit-on-enter-description": "Iyo bikora, gukanda Enter bibika umutwe w'ikarita, ibisobanuro n'ibindi bihindurirwa aho biri; Shift+Enter yongeraho umurongo mushya. Iyo bizimye, Ctrl/Cmd+Enter irabika kandi Enter ikongeraho umurongo mushya.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Kina ijwi iyo ikintu cy'urutonde rw'igenzura kirangiye",
   "checklist-ding-sound-description": "Kina ijwi rigufi igihe ushyize akamenyetso ku kintu cy'urutonde rw'igenzura. Mu buryo busanzwe birazimye.",
   "assignee": "Uwahawe akazi",

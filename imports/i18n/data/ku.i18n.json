@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Gelek kartan bi hev re veke",
   "open-many-cards-at-once-description": "Her karta ku lê bitikînî di paceya xwe de vekirî bihêle. Dema ev neçalak be, tikandina kartekê ya vekirî digire.",
   "submit-on-enter-description": "Dema çalak be, pêlkirina Enter sernav, danasîn û edîtorên din ên nav-rêzê tomar dike; Shift+Enter rêzeke nû dixe. Dema neçalak be, Ctrl/Cmd+Enter tomar dike û Enter rêzeke nû dixe.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Dema hêmaneke checklistê temam dibe dengekî lêbide",
   "checklist-ding-sound-description": "Dema hêmaneke checklistê nîşan dikî dengekî kurt lêbide. Bi eslê xwe girtî ye.",
   "assignee": "Berpirsyar",

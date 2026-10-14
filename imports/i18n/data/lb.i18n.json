@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Mehrere Kaarten gleichzeitig opmaachen",
   "open-many-cards-at-once-description": "Jede Kaart, déi Dir anklicken, bleibt in engem eigenen Fenster geöffnet. Ist dies ausgeschaltet, schließt ein Klick op eng Kaart déi zuvor geöffnete.",
   "submit-on-enter-description": "Wann aktivéiert, speichert dat Drücken vun Enter den Kartentitel, déi Beschreiwung un andere Inline-Editoren; Shift+Enter fügt eng neue Zeile ein. Wann deaktiviert, speichert Ctrl/Cmd+Enter un Enter fügt eng neue Zeile ein.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "E Kloen ofspillen wann en Checklist-Element ofgeschloss ass",
   "checklist-ding-sound-description": "Spillt e kuerze Kloen of wann Dir en Checklist-Element ofhakt. Standardméisseg aus.",
   "assignee": "Zoustänneg",

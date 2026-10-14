@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Abrihi an damo nga kard hin dungan",
   "open-many-cards-at-once-description": "Tipigi nga abrido ha kalugaringon nga bintana an tagsa nga kard nga imo ginkiklik. Kon naka-off ini, an pagklik hin kard nagsasara han daan nga abrido nga kard.",
   "submit-on-enter-description": "Kon nakabuhat, an pagpindot han Enter nagtitipig han titulo han karta, deskripsyon ngan iba nga inline nga editor; Shift+Enter nagdudugang hin bag-o nga linya. Kon nakapatay, Ctrl/Cmd+Enter an nagtitipig ngan Enter nagdudugang hin bag-o nga linya.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Magpatunog kon natatapos an usa nga butang ha lista han sususihon",
   "checklist-ding-sound-description": "Magpatunog hin halipot kon ginmamarkahan mo nga tapos an usa nga butang ha lista han sususihon. Daan nga nakaparong.",
   "assignee": "Gin-asignaran",

@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "एक साथ बहुत कार्ड खोलीं",
   "open-many-cards-at-once-description": "क्लिक कइल हर कार्ड के ओकर आपन खिड़की में खुलल राखीं। ई बंद होखे त कार्ड पर क्लिक कइला से पहिले खुलल कार्ड बंद हो जाला।",
   "submit-on-enter-description": "चालू होखे त Enter दबइला से कार्ड शीर्षक, विवरण आ दोसरा पाँति वाला संपादक सहेजल जाला; Shift+Enter नया पाँति जोड़ेला। बंद होखे त Ctrl/Cmd+Enter सहेजेला आ Enter नया पाँति जोड़ेला।",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "चेकलिस्ट आइटम पूरा होखला पर आवाज बजाईं",
   "checklist-ding-sound-description": "चेकलिस्ट आइटम चेक करला पर छोट आवाज बजाईं। डिफॉल्ट रूप से बंद।",
   "assignee": "जिम्मेदार",

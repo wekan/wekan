@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "بىر ۋاقىتتا كۆپ كارتا ئېچىش",
   "open-many-cards-at-once-description": "سىز چەككەن ھەر بىر كارتا ئۆز كۆزنىكىدە ئوچۇق قالىدۇ. بۇ تاقالغاندا، كارتىنى چېكىش ئوچۇق كارتىنى تاقايدۇ.",
   "submit-on-enter-description": "ئوچۇق بولغاندا، Enter بېسىش كارتا ماۋزۇسى، چۈشەندۈرۈشى ۋە باشقا ئىچكى تەھرىرلىگۈچلەرنى ساقلايدۇ؛ Shift+Enter يېڭى قۇر قوشىدۇ. تاقاق بولغاندا، Ctrl/Cmd+Enter ساقلايدۇ، Enter يېڭى قۇر قوشىدۇ.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "تەكشۈرۈش تىزىملىكى تۈرى تاماملانغاندا ئاۋاز قويۇڭ",
   "checklist-ding-sound-description": "تەكشۈرۈش تىزىملىكى تۈرىنى بەلگىلىگەندە قىسقا ئاۋاز قويىدۇ. سۈكۈتتە ئېتىك.",
   "assignee": "ھاۋالە قىلغۇچى",

@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Ggulawo many kaadi ku once",
   "open-many-cards-at-once-description": "Keep every kaadi ggwe click ggulawo mu kyakyo own window. Nga kino kiri off, clicking kaadi closes one ekyo kyali ggulawo.",
   "submit-on-enter-description": "Nga ku, pressing Yingiza saves kaadi mutwe, kunnyonnyola ne kirala inline editors; Shift+Yingiza inserts kipya line. Nga off, Ctrl/Cmd+Yingiza saves ne Yingiza inserts kipya line.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Kuba oluyimba nga ekintu kya checklist kimazeeko",
   "checklist-ding-sound-description": "Kuba oluyimba olutono ng'oteekako akabonero ku kintu kya checklist. Kizikiddwa ku mutindo ogw'obulijjo.",
   "assignee": "Aweereddwa omulimu",

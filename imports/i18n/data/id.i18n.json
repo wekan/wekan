@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Buka banyak kartu sekaligus",
   "open-many-cards-at-once-description": "Setiap kartu yang Anda klik tetap terbuka di jendelanya sendiri. Bila ini dimatikan, mengeklik kartu akan menutup kartu yang sedang terbuka.",
   "submit-on-enter-description": "Saat aktif, menekan Enter menyimpan judul kartu, deskripsi, dan editor sebaris lainnya; Shift+Enter menyisipkan baris baru. Saat nonaktif, Ctrl/Cmd+Enter menyimpan dan Enter menyisipkan baris baru.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Putar suara saat item daftar periksa selesai",
   "checklist-ding-sound-description": "Memutar suara ding singkat saat Anda mencentang item daftar periksa. Nonaktif secara default.",
   "assignee": "Penerima tugas",

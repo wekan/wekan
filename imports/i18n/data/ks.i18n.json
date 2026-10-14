@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "اکے ساتہٕ واریاہ کارڈ کھولیو",
   "open-many-cards-at-once-description": "ہر کارڈ یَتھ تُہۍ کلک کریو پننِس ونڈو منٛز کھولِتھ تراویو۔ یِہ بند آسنس پؠٹھ کارڈس پؠٹھ کلک کرنہٕ سٕتۍ گوڈٕ کھولِتھ کارڈ بند گژھِ۔",
   "submit-on-enter-description": "چالو آسنس پؠٹھ Enter دباونس سٕتۍ کارڈ ناو، تفصیل تہٕ دۄیِم اِن لائن ایڈیٹر محفوظ گژھن؛ Shift+Enter نوٚو سطر شامل کرِ۔ بند آسنس پؠٹھ Ctrl/Cmd+Enter محفوظ کرِ تہٕ Enter نوٚو سطر شامل کرِ۔",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "چیک لسٹ آئٹم مکمل تہٕ گژھاں آواز چلاو",
   "checklist-ding-sound-description": "چیک لسٹ آئٹم چیک کرنہٕ پؠٹھ ژٹھ آواز چلاو۔ باوجود اساسی طور تہٕ بند۔",
   "assignee": "ذمہ دار",

@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Avaa monta korttia kerralla",
   "open-many-cards-at-once-description": "Jokainen klikkaamasi kortti jää auki omaan ikkunaansa. Kun tämä ei ole käytössä, kortin klikkaaminen sulkee aiemmin avatun kortin.",
   "submit-on-enter-description": "Kun päällä, Enter tallentaa kortin otsikon, kuvauksen ja muut sisäiset editorit; Vaihto+Enter lisää rivinvaihdon. Kun pois, Ctrl/Cmd+Enter tallentaa ja Enter lisää rivinvaihdon.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Toista ääni, kun tarkistuslistan kohta merkitään tehdyksi",
   "checklist-ding-sound-description": "Toistaa lyhyen ping-äänen, kun merkitset tarkistuslistan kohdan tehdyksi. Oletuksena pois päältä.",
   "assignee": "Käsittelijä",

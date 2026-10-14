@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Verzi pì schede insieme",
   "open-many-cards-at-once-description": "Ogni scheda che te cliche ła resta verta inte ła so finestra. Co sta opsion ła xe disativà, clicar na scheda el sera queła che ła jera verta.",
   "submit-on-enter-description": "Co l'è tacà, schissar Enter salva el titolo de la carta, la descrizion e altri editor in linea; Shift+Enter zonta na riga nova. Co l'è distacà, Ctrl/Cmd+Enter salva e Enter zonta na riga nova.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Sona un son co na voze de ła lista de controło ła xe finìa",
   "checklist-ding-sound-description": "Sona un \"din\" curto co te segni na voze de ła lista de controło. Destacà de predefinìo.",
   "assignee": "Asegnatario",

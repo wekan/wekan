@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "ⵔⵥⵎ ⵎⵏⵏⴰⵡ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵢⴰⵜ ⵜⴽⴽⵍⵉⵜ",
   "open-many-cards-at-once-description": "ⵃⴹⵓ ⵢⴰⵍ ⵜⴰⴽⴰⵕⴹⴰ ⵜⵙⵙⵉⵜⴷ ⵖⵉⴼⵙ ⵜⵔⵥⵎ ⴳ ⵓⵙⴼⴰⵢⵍⵓ ⵏⵏⵙ. ⵎⴽ ⵉⵏⵙⴰ ⵓⴼⵔⴰⵏ ⴰⴷ, ⴰⵙⵙⵉⵜ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⴰⴷ ⵢⵔⴳⵍ ⵜⵉⵏⵏⴰ ⵉⵔⵥⵎⵏ.",
   "submit-on-enter-description": "ⵎⴽ ⵉⵍⵍⴰ, ⴰⵙⵙⵉⴹⵏ ⵏ Enter ⵉⵜⵜⴰⵊⵊⴰ ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ, ⴰⴳⵍⴰⵎ ⴷ ⵉⵎⵙⵖⴰⵍ ⵢⴰⴹⵏⵉⵏ; Shift+Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ. ⵎⴽ ⵓⵔ ⵉⵍⵍⵉ, Ctrl/Cmd+Enter ⵉⵜⵜⴰⵊⵊⴰ, Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Sireg ameslay mi itemma umernan n checklist",
   "checklist-ding-sound-description": "Isireg ameslay awezlan mi tettwarit umernan n checklist. Yensa s wudem alugan.",
   "assignee": "ⴰⴼⴳⴰⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ",

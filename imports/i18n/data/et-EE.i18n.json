@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Ava mitu kaarti korraga",
   "open-many-cards-at-once-description": "Iga kaart, millele klõpsad, jääb avatuks omaenda aknas. Kui see on välja lülitatud, sulgeb kaardil klõpsamine selle, mis oli avatud.",
   "submit-on-enter-description": "Kui see on sees, salvestab Enter kaardi pealkirja, kirjelduse ja muud reasisesed redaktorid; Shift+Enter lisab uue rea. Kui see on väljas, salvestab Ctrl/Cmd+Enter ja Enter lisab uue rea.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Esita heli, kui kontrollnimekirja üksus lõpetatakse",
   "checklist-ding-sound-description": "Esitab lühikese helina, kui märgid kontrollnimekirja üksuse tehtuks. Vaikimisi väljas.",
   "assignee": "Vastuvõtja",

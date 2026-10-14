@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Tatala pepa e tele i le taimi e tasi",
   "open-many-cards-at-once-description": "Ia tatala pea pepa taitasi e te kilikiina i lona lava faamalama. Pe a tape lenei filifiliga, o le kilikiina o se pepa e tapunia ai le pepa sa tatala.",
   "submit-on-enter-description": "Pe a ola, o le oomiina o le Enter e sefe ai le ulutala o le pepa, faamatalaga ma isi faatonu i totonu; Shift+Enter e faaofi ai se laina fou. Pe a tape, Ctrl/Cmd+Enter e sefe ai ae o le Enter e faaofi ai se laina fou.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Ta'alo se leo pe a maea se mea checklist",
   "checklist-ding-sound-description": "Ta'alo se leo puupuu pe a e tuu se faailoga i se mea checklist. Ua tapeina i le fa'avae muamua.",
   "assignee": "Ua tofia",

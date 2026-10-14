@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Wjele kartow naraz wočinić",
   "open-many-cards-at-once-description": "Kóžda karta, na kotruž kliknjeće, wostanje w swójskim woknje wočinjena. Hdyž je to wupinjene, klik na kartu začini tu, kotraž bě wočinjena.",
   "submit-on-enter-description": "Hdyž je zapinjene, tłóčenje Enter titul karty, wopisanje a druhe inline-editory składuje; Shift+Enter nowu linku zasadźi. Hdyž je wupinjene, Ctrl/Cmd+Enter składuje a Enter nowu linku zasadźi.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Zynk wothrać, hdyž so zapisk kontrolneje lisćiny dokónči",
   "checklist-ding-sound-description": "Krótki zynk wothrać, hdyž zapisk kontrolneje lisćiny woznamjeniće. Po standardźe wupinjene.",
   "assignee": "Přirjadowana wosoba",

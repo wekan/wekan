@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Բացել շատ քարտեր միաժամանակ",
   "open-many-cards-at-once-description": "Ձեր սեղմած յուրաքանչյուր քարտ մնում է բաց իր առանձին պատուհանում։ Երբ սա անջատված է, քարտի վրա սեղմելը փակում է բացվածը։",
   "submit-on-enter-description": "Միացված վիճակում Enter սեղմելը պահպանում է քարտի վերնագիրը, նկարագրությունը և այլ ներդրված խմբագրիչներ. Shift+Enter-ը ավելացնում է նոր տող։ Անջատված վիճակում Ctrl/Cmd+Enter-ը պահպանում է, իսկ Enter-ը ավելացնում է նոր տող։",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Ձայն նվագարկել, երբ ստուգաթերթի տարրն ավարտվում է",
   "checklist-ding-sound-description": "Կարճ ձայնային ազդանշան է հնչեցնում, երբ նշում եք ստուգաթերթի տարրը։ Լռելյայն անջատված է։",
   "assignee": "Հանձնարարող",

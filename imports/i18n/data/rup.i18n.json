@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Dishcljidi ma multi cãrtsã deadun",
   "open-many-cards-at-once-description": "Tsãni cathi cartã pi cari fats clic dishcljisã tu fereastra a ljei. Cãndu aestu easti dizactivat, un clic pi unã cartã u ncljidi atsea tsi eara dishcljisã.",
   "submit-on-enter-description": "Cãndu easti activat, Enter avleadzi titlul ali cartã, discriirea shi alti editori inline; Shift+Enter bagã unã linii noauã. Cãndu easti dizactivat, Ctrl/Cmd+Enter avleadzi shi Enter bagã unã linii noauã.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Bati un son cãndu un element dit lista di verificari s-bitiseashti",
   "checklist-ding-sound-description": "Bati un son scurtu cãndu bifedz un element dit lista di verificari. Dizactivat di ahurhitã.",
   "assignee": "Responsabil",

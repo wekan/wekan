@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Kaardiiwwan hedduu yeroo tokkotti bani",
   "open-many-cards-at-once-description": "Kaardii cuqaastu hunda foddaa mataa isaa keessatti banaa tursiisi. Kun yeroo dhaamu, kaardii cuqaasuun isa banamee ture cufa.",
   "submit-on-enter-description": "Yeroo banamu, Enter dhiibuun mata-duree kaardii, ibsa fi gulaaltoota sararaa biroo kuusa; Shift+Enter sarara haaraa galcha. Yeroo dhaamu, Ctrl/Cmd+Enter kuusa; Enter sarara haaraa galcha.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Sagalee taphachiisi yeroo tarreeffamni ilaalchaa xumurame",
   "checklist-ding-sound-description": "Sagalee gabaabaa taphachiisa yeroo tarreeffama ilaalchaa mallatteessitu. Kan dhaabbii duraan dhaamsame.",
   "assignee": "Kan itti kenname",

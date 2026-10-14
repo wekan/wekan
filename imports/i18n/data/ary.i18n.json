@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "فتح عدة بطاقات في وقت واحد",
   "open-many-cards-at-once-description": "تبقى كل بطاقة تنقر عليها مفتوحة في نافذتها الخاصة. عند إيقاف هذا الخيار، يؤدي النقر على بطاقة إلى إغلاق البطاقة المفتوحة.",
   "submit-on-enter-description": "ملي مفعّل، Enter كيسجّل عنوان الكارطة والوصف والمحررات الأخرى؛ Shift+Enter كيزيد سطر جديد. ملي مطفّي، Ctrl/Cmd+Enter كيسجّل وEnter كيزيد سطر جديد.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "شغّل صوت ملي كيتكمل عنصر ديال لائحة تاشيك",
   "checklist-ding-sound-description": "شغّل نغمة قصيرة ملي تعلّم عنصر ديال لائحة تاشيك. راه مطفي من الأصل.",
   "assignee": "محول‌شده",

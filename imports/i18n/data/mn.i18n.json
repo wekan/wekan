@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Олон картыг нэгэн зэрэг нээх",
   "open-many-cards-at-once-description": "Дарсан карт бүрийг тус тусын цонхонд нээлттэй үлдээнэ. Үүнийг унтраасан үед карт дарахад нээлттэй байсан карт хаагдана.",
   "submit-on-enter-description": "Асаалттай үед Enter дарахад картын гарчиг, тайлбар болон бусад засварыг хадгална; Shift+Enter шинэ мөр оруулна. Унтраалттай үед Ctrl/Cmd+Enter хадгалж, Enter шинэ мөр оруулна.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Шалгах жагсаалтын зүйл дуусахад дуу тавих",
   "checklist-ding-sound-description": "Шалгах жагсаалтын зүйлийг тэмдэглэхэд богино дуу тавина. Анхны тохиргоогоор унтраалттай.",
   "assignee": "Хариуцагч",

@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "ʋu kaɖi geɖe zi ɖeka",
   "open-many-cards-at-once-description": "Na kaɖi ɖesiaɖe si nèzi dzi la nanɔ ʋuʋu le eya ŋutɔ ƒe fesre me. Ne woxe mɔ na esia la, kaɖi dzi zizi tua nusi nɔ ʋuʋu la.",
   "submit-on-enter-description": "Ne ele dɔ wɔm la, Enter dzi zizi dzraa kaɖi ƒe ŋkɔ, numeɖeɖe kple nuŋlɔla bubu siwo le fli dzi ɖo; Shift+Enter tsɔa fli yeye kpe ɖe eŋu. Ne mele dɔ wɔm o la, Ctrl/Cmd+Enter dzraa ɖo eye Enter tsɔa fli yeye kpe ɖe eŋu.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Ƒo gbeɖiɖi ne checklist ƒe nu aɖe wu enu",
   "checklist-ding-sound-description": "Ƒo gbeɖiɖi kpui ne ède dzesi checklist ƒe nu aɖe ŋu. Wonye tsotso le gɔmedzedze.",
   "assignee": "Ame si wotsɔ dɔ na",

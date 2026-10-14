@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Deschide mai multe carduri simultan",
   "open-many-cards-at-once-description": "Fiecare card pe care faci clic rămâne deschis în propria fereastră. Când această opțiune este dezactivată, un clic pe un card îl închide pe cel care era deschis.",
   "submit-on-enter-description": "Când este activat, apăsarea Enter salvează titlul cardului, descrierea și alte editoare inline; Shift+Enter inserează o linie nouă. Când este dezactivat, Ctrl/Cmd+Enter salvează, iar Enter inserează o linie nouă.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Redă un sunet când un element din lista de verificare este finalizat",
   "checklist-ding-sound-description": "Redă un sunet scurt când bifezi un element din lista de verificare. Dezactivat implicit.",
   "assignee": "Responsabil",

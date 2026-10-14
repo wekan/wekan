@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Fakaava ha ngaahi kaati lahi ʻi he taimi tatau",
   "open-many-cards-at-once-description": "Tauhi ke ava ʻa e kaati kotoa pē ʻoku ke lomiʻi ʻi hono matapā sioʻata pē ʻoʻona. ʻI he taimi ʻoku tāmateʻi ai ʻa e meʻa ni, ko hono lomiʻi ha kaati ʻoku tāpuni ai ʻa e kaati naʻe ava.",
   "submit-on-enter-description": "ʻI he taimi ʻoku fakaʻatā ai, ko hono lomiʻi ʻa e Enter ʻoku tauhi ai ʻa e kaveinga, fakamatala mo e ngaahi feituʻu fakatonutonu kehe ʻo e kaati; ʻoku tānaki ʻe he Shift+Enter ha laine foʻou. ʻI he taimi ʻoku taʻofi ai, ʻoku tauhi ʻe he Ctrl/Cmd+Enter pea tānaki ʻe he Enter ha laine foʻou.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Fakatangi ha leʻo ʻi he taimi ʻoku fakaʻosi ai ha fāsili checklist",
   "checklist-ding-sound-description": "ʻOku fakatangi ha leʻo nounou ʻi hoʻo fakaʻilongaʻi ha fāsili checklist. Kuo tāmateʻi ʻi he founga makehe.",
   "assignee": "Kuo tuku ki ai",

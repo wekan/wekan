@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Karata caman dayɛlɛ tuma kelen",
   "open-many-cards-at-once-description": "Karata o karata min i digira, a to dayɛlɛlen a yɛrɛ fenɛtiri la. Ni nin datugulen don, karata dɔ digi bɛ min tun dayɛlɛlen datugu.",
   "submit-on-enter-description": "Ni a dalen don, Enter digi bɛ karata tɔgɔ, ɲɛfɔli ani sɛbɛnnibaga wɛrɛw mara; Shift+Enter bɛ sira kura don. Ni a datugulen don, Ctrl/Cmd+Enter bɛ mara, Enter bɛ sira kura don.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Kanfa mankan tuma min na checklist fɛn dafara",
   "checklist-ding-sound-description": "Kanfa mankan surunman tuma min na i bɛ checklist fɛn sɛbɛn. A tɛ baara la ka bɔ a bɔyɔrɔ la.",
   "assignee": "Baarakɛla",

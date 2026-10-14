@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Ôtwiyrŏj wiele kart narŏz",
   "open-many-cards-at-once-description": "Każda karta, którą klikniesz, pozostaje otwarta we własnym oknie. Gdy ta opcja je wyłączona, kliknięcie karty zamyka tę, kerŏ była otwarta.",
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, ôpis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Grej źwynk, kej pozycyjo listy do zaznaczaniŏ je gotowo",
   "checklist-ding-sound-description": "Grŏ krotki źwynk, kej ôbznaczisz pozycyjo listy do zaznaczaniŏ. Wyłōnczōne wedle dōmyślnego sztalōnku.",
   "assignee": "Ôdpowiedzialny",

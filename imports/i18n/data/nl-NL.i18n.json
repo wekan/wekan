@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Meerdere kaarten tegelijk openen",
   "open-many-cards-at-once-description": "Elke kaart waarop je klikt blijft open in een eigen venster. Staat dit uit, dan sluit het klikken op een kaart de kaart die openstond.",
   "submit-on-enter-description": "Indien ingeschakeld slaat Enter de kaarttitel, beschrijving en andere inline-editors op; Shift+Enter voegt een nieuwe regel in. Indien uitgeschakeld slaat Ctrl/Cmd+Enter op en voegt Enter een nieuwe regel in.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Speel een geluid af wanneer een checklist-item is voltooid",
   "checklist-ding-sound-description": "Speelt een kort belgeluid af wanneer u een checklist-item afvinkt. Standaard uitgeschakeld.",
   "assignee": "Toegewezen aan",

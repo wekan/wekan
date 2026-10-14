@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Atvērt vairākas kartiņas vienlaikus",
   "open-many-cards-at-once-description": "Katra kartiņa, uz kuras noklikšķini, paliek atvērta savā logā. Kad šis ir izslēgts, klikšķis uz kartiņas aizver to, kura bija atvērta.",
   "submit-on-enter-description": "Kad ieslēgts, nospiežot Enter tiek saglabāts kartītes nosaukums, apraksts un citi iegultie redaktori; Shift+Enter ievieto jaunu rindu. Kad izslēgts, Ctrl/Cmd+Enter saglabā, un Enter ievieto jaunu rindu.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Atskaņot skaņu, kad kontrolsaraksta vienums ir pabeigts",
   "checklist-ding-sound-description": "Atskaņo īsu skaņu, kad atzīmējat kontrolsaraksta vienumu. Pēc noklusējuma izslēgts.",
   "assignee": "Īpašnieks",

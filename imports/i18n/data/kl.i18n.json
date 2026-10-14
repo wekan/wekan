@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "Kortsit arlallit ataatsikkut ammaruk",
   "open-many-cards-at-once-description": "Kortsit toortakkat tamarmik nammineq igalaaminni ammasuutikkit. Atorunnaarsimappat kortsimik toorsineq siornatigut ammasoq matussavaa.",
   "submit-on-enter-description": "Atulersimappat Enter-ip toorneratigut kortsip qulequtaa, nassuiaataa allanngortitsissutillu allat titarnerup iluaniittut toqqorneqassapput; Shift+Enter titarneq nutaaq ilanngutissavaa. Atorunnaarsimappat Ctrl/Cmd+Enter toqqorsissaaq Enter-ilu titarneq nutaaq ilanngutissallugu.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Nipilerit atortikkit checklist-imi allaaserisap naammassinerani",
   "checklist-ding-sound-description": "Nipi naatsooq atortikkit checklist-imi allaaserineq ilanngussakkut. Aallartitaanera atugassaanngilaq.",
   "assignee": "Akisussaasoq",

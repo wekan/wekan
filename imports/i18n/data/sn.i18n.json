@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "vhura many makadhi pa once",
   "open-many-cards-at-once-description": "Keep every kadhi you click vhura mu its own window. When this iri off, clicking a kadhi closes the one that yaiva vhura.",
   "submit-on-enter-description": "When pa, pressing Enter saves the kadhi musoro, tsananguro uye zvimwe inline editors; Shift+Enter inserts a itsva line. When off, Ctrl/Cmd+Enter saves uye Enter inserts a itsva line.",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "Ridza ruzha kana chinhu che checklist chapera",
   "checklist-ding-sound-description": "Inoridza ruzha rudiki kana wachecker chinhu che checklist. Zvakadzimwa nemazvo.",
   "assignee": "Wapiwa basa",

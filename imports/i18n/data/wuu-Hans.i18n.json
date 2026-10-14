@@ -1788,6 +1788,8 @@
   "open-many-cards-at-once": "同时打开多张卡片",
   "open-many-cards-at-once-description": "侬点开个每张卡片侪勒自家个窗口里向保持打开。关脱搿项个辰光，点开一张卡片就会关脱原来打开个卡片。",
   "submit-on-enter-description": "开着个辰光,揿 Enter 会得保存卡片标题、描述搭仔其他内嵌编辑器;Shift+Enter 加一记新行。关脱个辰光,Ctrl/Cmd+Enter 保存,Enter 加新行。",
+  "keep-title-tags": "Keep #label and @member in new card titles",
+  "keep-title-tags-description": "When you pick a label with # or a member with @ while typing a new card's title, keep that text in the title as well. Off: the text is replaced by the label or member.",
   "checklist-ding-sound": "勾清单项目辰光播放声音",
   "checklist-ding-sound-description": "勾清单项目辰光播放一声短促个叮咚提示音。默认关闭。",
   "assignee": "负责人",
