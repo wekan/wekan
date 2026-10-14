@@ -1866,6 +1866,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-set-card-kind': Popup.open('cardKind'),
+  'click .js-card-drawing': Popup.open('cardDrawing'),
   async 'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const card = Cards.findOne(getCardId());

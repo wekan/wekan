@@ -2475,6 +2475,30 @@
     {
       "key": "column-color",
       "since": "2026-10-14"
+    },
+    {
+      "key": "cardDrawingPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-drawing-new",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-drawing-undo",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-drawing-clear",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-drawing-download-svg",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-drawing-saved",
+      "since": "2026-10-14"
     }
   ]
 }

@@ -204,6 +204,18 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    drawings: {
+      /**
+       * #1178: drawings on this card, editable later (models/lib/cardDrawing.js):
+       * [{ _id, strokes, width, height, pngAttachmentId, updatedAt }].
+       */
+      type: Array,
+      optional: true,
+    },
+    'drawings.$': {
+      type: Object,
+      blackbox: true,
+    },
     columnSetValues: {
       /**
        * #211: which column this card is in for each of its board's column

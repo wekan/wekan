@@ -1,0 +1,8 @@
+/* #1178: drawing on a card. */
+.card-drawing { min-width: min(820px, 90vw); }
+.card-drawing-surface { border: 1px solid #ccc; touch-action: none; cursor: crosshair; background: #fff; display: block; }
+.card-drawing-tools, .card-drawing-actions, .card-drawing-list { display: flex; flex-wrap: wrap; gap: 0.4em; align-items: center; margin: 0.4em 0; }
+.card-drawing-color { width: 1.4em; height: 1.4em; border-radius: 50%; border: 2px solid #999; display: inline-block; }
+.card-drawing-color.is-active, .card-drawing-width.is-active, .card-drawing-thumb.is-active { outline: 2px solid #2b6cb0; }
+.card-drawing-width { padding: 0 0.4em; border: 1px solid #ccc; border-radius: 3px; }
+.card-drawing-thumb svg { width: 6em; height: auto; border: 1px solid #ddd; display: block; }

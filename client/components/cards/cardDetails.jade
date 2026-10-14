@@ -1163,6 +1163,11 @@ template(name="cardDetailsActionsPopup")
             a.js-set-card-color
               i.fa.fa-paint-brush
               | {{_ 'setCardColorPopup-title'}}
+          //- #1178: draw or write by hand on the card.
+          li
+            a.js-card-drawing
+              i.fa.fa-pencil
+              | {{_ 'cardDrawingPopup-title'}}
           //- #2012: a Story or a Task, with custom fields of its own.
           li
             a.js-set-card-kind
@@ -1765,3 +1770,35 @@ template(name="cardKindPopup")
       a.js-select-card-kind(data-kind="task" class="{{#if $eq cardKind 'task'}}is-active{{/if}}")
         i.fa.fa-check-square-o
         |  {{_ 'card-kind-task'}}
+
+//- #1178: drawing on a card (models/lib/cardDrawing.js). The card's drawings
+  open again for editing; saving keeps the strokes on the card and uploads a
+  PNG attachment, and the SVG is downloaded from the strokes.
+template(name="cardDrawingPopup")
+  .card-drawing
+    if drawings.length
+      .card-drawing-list
+        each drawings
+          a.card-drawing-thumb.js-edit-drawing(data-id=_id class="{{#if isEditing}}is-active{{/if}}")
+            != thumbSvg
+        a.js-new-drawing
+          i.fa.fa-plus
+          |  {{_ 'card-drawing-new'}}
+    .card-drawing-tools
+      each colors
+        a.card-drawing-color.js-drawing-color(data-color=this style="background:{{this}}" class="{{#if isColor this}}is-active{{/if}}")
+      each widths
+        a.card-drawing-width.js-drawing-width(data-width=this class="{{#if isWidth this}}is-active{{/if}}") {{this}}
+      a.js-drawing-undo(title="{{_ 'card-drawing-undo'}}")
+        i.fa.fa-undo
+      a.js-drawing-clear(title="{{_ 'card-drawing-clear'}}")
+        i.fa.fa-eraser
+    svg.card-drawing-surface.js-drawing-surface(viewBox="0 0 800 500" width="100%")
+      rect(width="800" height="500" fill="#ffffff")
+      each strokes
+        path(d=pathD stroke=color stroke-width=width fill="none" stroke-linecap="round" stroke-linejoin="round")
+    .card-drawing-actions
+      button.primary.js-drawing-save(type="button" disabled=saving) {{_ 'save'}}
+      a.js-drawing-download-svg {{_ 'card-drawing-download-svg'}}
+      if message
+        span.quiet= message
