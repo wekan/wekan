@@ -428,3 +428,19 @@ assert.match(malagasy['notification-delivery-quiet-clear'], /Tsy misy/);
 assert.match(malagasy['notification-delivery-grouping-all'], /tokony halefa.*hafatra iray/);
 assert.notEqual(malagasy['notification-delivery-grouping-board'], malagasy['notification-delivery-grouping-card']);
 assert.match(malagasy['notification-delivery-invalid'], /^Tsy/);
+
+const workflowKeys = ["read-only-field", "r-wrike-workflow", "r-wrike-workflow-note", "r-export-wrike-workflow", "r-import-wrike-workflow", "r-import-wrike-workflow-done", "r-moved-forward", "r-moved-back", "r-add-actinguser-assignee", "r-remove-all-assignees", "ldap-sync-now", "ldap-sync-now-done", "ldap-sync-now-error", "ldap-sync-now-nothing", "oauth-providers-allowed-email-domains", "import-file-label", "subtask-mark-done", "subtask-mark-not-done", "subtask-done-no-permission", "blockly-ANNOUNCE_MOVE_OF", "blockly-FIELD_BITMAP_PIXEL_ON", "blockly-LISTS_GET_SUBLIST_END_FROM_START", "blockly-LISTS_SET_INDEX_INPUT_TO", "blockly-PROCEDURES_DEFNORETURN_TITLE", "blockly-PROCEDURES_DEFRETURN_TITLE"];
+
+for (const key of workflowKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+  assert.deepEqual((malagasy[key].match(/%\d+/g) || []).sort(), (english[key].match(/%\d+/g) || []).sort(), key);
+}
+assert.match(malagasy['read-only-field'], /mpikambana rehetra.*mpitantana solaitra ihany/);
+for (const literal of ['Active', 'Completed', 'Deferred', 'Cancelled', 'GET /workflows']) assert.ok(malagasy['r-wrike-workflow-note'].includes(literal));
+assert.match(malagasy['r-wrike-workflow-note'], /ho vita.*Completed na Cancelled.*tsy vita.*Active na Deferred.*Tsy azo avoaka/);
+for (const literal of ['LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS', 'LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED']) assert.ok(malagasy['ldap-sync-now-nothing'].includes(literal));
+assert.match(malagasy['oauth-providers-allowed-email-domains'], /faingo.*raha banga.*ekena daholo/);
+assert.match(malagasy['subtask-mark-not-done'], /tsy vita/);
+assert.match(malagasy['subtask-done-no-permission'], /^Tsy afaka/);
+assert.notEqual(malagasy['subtask-mark-done'], malagasy['subtask-mark-not-done']);

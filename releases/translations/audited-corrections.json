@@ -210551,5 +210551,180 @@
     "before": "__count__ notifications on board __board__",
     "after": "Fampandrenesana __count__ ao amin’ny solaitra __board__",
     "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "read-only-field",
+    "before": "Read-only: every member sees the value, only board admins change it",
+    "after": "Vakiana ihany: hitan’ny mpikambana rehetra ny sanda, fa ny mpitantana solaitra ihany no afaka manova azy",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-wrike-workflow",
+    "before": "Wrike workflow",
+    "after": "Fizotran’asa Wrike",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-wrike-workflow-note",
+    "before": "A Wrike workflow is a list of statuses, each in the Active, Completed, Deferred or Cancelled group. Export writes this board's lists as one, named after the board, in the JSON Wrike's API returns for workflows: create that workflow in Wrike before importing the board's Wrike Excel export, so its statuses are applied. Import reads that JSON pasted above, from WeKan or from Wrike's GET /workflows, into the chosen board: a status without a list becomes a list, and a rule marks a card complete when it is moved into a Completed or Cancelled status and incomplete in an Active or Deferred one. Wrike's own automation rules cannot be exported from Wrike.",
+    "after": "Ny fizotran’asa Wrike dia lisitry ny sata, izay samy ao amin’ny vondrona Active, Completed, Deferred na Cancelled. Ny fanondranana dia manoratra ny lisitr’ity solaitra ity ho fizotran’asa iray mitondra ny anaran’ny solaitra, amin’ny endrika JSON averin’ny API Wrike ho an’ny fizotran’asa: forony ao amin’ny Wrike aloha io fizotran’asa io alohan’ny hanafarana ny fanondranana Excel Wrike an’ny solaitra, mba hampiharana ny sata ao aminy. Ny fanafarana dia mamaky ilay JSON napetaka etsy ambony, avy amin’ny WeKan na GET /workflows an’ny Wrike, ho ao amin’ny solaitra voafidy: lasa lisitra ny sata tsy manana lisitra, ary misy fitsipika manamarika ny karatra ho vita rehefa afindra amin’ny sata Completed na Cancelled, ary ho tsy vita amin’ny Active na Deferred. Tsy azo avoaka avy amin’ny Wrike ny fitsipika mandeha ho azy an’ny Wrike.",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-export-wrike-workflow",
+    "before": "Export Wrike workflow",
+    "after": "Avoahy ny fizotran’asa Wrike",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-import-wrike-workflow",
+    "before": "Import Wrike workflow",
+    "after": "Ampidiro ny fizotran’asa Wrike",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-import-wrike-workflow-done",
+    "before": "Wrike workflow \"__name__\": __lists__ list(s) and __rules__ rule(s) added, __skipped__ part(s) not read",
+    "after": "Fizotran’asa Wrike \"__name__\": lisitra __lists__ sy fitsipika __rules__ nampiana, fizarana __skipped__ tsy novakina",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-moved-forward",
+    "before": "moved forward to a later list",
+    "after": "nafindra nandroso ho amin’ny lisitra aoriana kokoa",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-moved-back",
+    "before": "moved back to an earlier list",
+    "after": "nafindra nihemotra ho amin’ny lisitra aloha kokoa",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-add-actinguser-assignee",
+    "before": "Add the user who triggered this rule as an assignee",
+    "after": "Ampio ho olona voatendry ilay mpampiasa nampandeha ity fitsipika ity",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "r-remove-all-assignees",
+    "before": "Remove all assignees from the card",
+    "after": "Esory amin’ny karatra ny olona voatendry rehetra",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "ldap-sync-now",
+    "before": "Sync LDAP users now",
+    "after": "Ampifanaraho izao ny mpampiasa LDAP",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "ldap-sync-now-done",
+    "before": "LDAP sync finished",
+    "after": "Vita ny fampifanarahana LDAP",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "ldap-sync-now-error",
+    "before": "LDAP sync failed: %s",
+    "after": "Tsy nahomby ny fampifanarahana LDAP: %s",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "ldap-sync-now-nothing",
+    "before": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
+    "after": "Tsy misy hampifanarahana: alefaso aloha ny LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS na LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED.",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "oauth-providers-allowed-email-domains",
+    "before": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
+    "after": "Ireto sehatra mailaka ireto ihany no afaka miditra amin’ireto mpamatsy ireto (sarahana amin’ny faingo; raha banga dia ekena daholo)",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "import-file-label",
+    "before": "Choose the export file, or paste its text below:",
+    "after": "Fidio ny rakitra fanondranana, na apetaho eto ambany ny lahatsoratra ao aminy:",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "subtask-mark-done",
+    "before": "Mark subtask as done",
+    "after": "Mariho ho vita ny zana-asa",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "subtask-mark-not-done",
+    "before": "Mark subtask as not done",
+    "after": "Mariho ho tsy vita ny zana-asa",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "subtask-done-no-permission",
+    "before": "You cannot change whether this subtask is done",
+    "after": "Tsy afaka manova ny maha-vita na tsia an’ity zana-asa ity ianao",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "blockly-ANNOUNCE_MOVE_OF",
+    "before": "%1 of %2",
+    "after": "%1 amin’ny %2",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "blockly-FIELD_BITMAP_PIXEL_ON",
+    "before": "on",
+    "after": "mandeha",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "blockly-LISTS_GET_SUBLIST_END_FROM_START",
+    "before": "to #",
+    "after": "hatramin’ny #",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "blockly-LISTS_SET_INDEX_INPUT_TO",
+    "before": "as",
+    "after": "ho",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "to",
+    "after": "mba",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "to",
+    "after": "mba",
+    "reason": "Translate workflows, LDAP and OAuth guidance, subtask permissions and remaining Blockly fragments into Malagasy."
   }
 ]
