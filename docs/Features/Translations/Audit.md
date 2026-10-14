@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole subtasks and checklists — 2026-10-14
+
+Commit `5dd13b7808` corrects 30 entries across card controls, activity text and
+settings. Subtask variants now consistently use “sou-travay”; checklist controls
+use “lis verifikasyon”. The empty-search message specifies matching cards,
+template-copy labels retain “from”, and the attachment-removal prompt uses the
+correct article while retaining its file-preservation and restoration meanings.
+
+The Haitian catalog and guarded-correction suites pass with 29,772 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. The existing Haitian subtask browser
+case now checks its heading and add button; it and the denied-access case pass
+syntax and discovery. Runtime remains pending.
+
+The current placeholder inventory remains empty, but Haitian semantic review
+and the all-language objective are unfinished.
+
 ## Haitian Creole attachment and rule semantics — 2026-10-14
 
 Commit `bcdf935521` corrects 81 existing translations. Thirteen rule strings

@@ -3882,6 +3882,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dd13b7808">Unify Haitian subtask and checklist terminology</a>. Thanks to xet7.</summary>
+
+- Correct 30 card-control, activity and settings entries. Use consistent subtask
+  and checklist terms, restore matching and template-copy meanings, and repair
+  an article in the attachment-removal prompt without changing retention.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. Subtask browser cases pass
+  syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
