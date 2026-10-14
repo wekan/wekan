@@ -380,3 +380,18 @@ assert.match(malagasy['import-board-instruction-meistertask'], /daty nahavitana.
 assert.match(malagasy['import-board-instruction-obsidian'], /\.md.*fetran’ny karatra.*arisiva/);
 assert.match(malagasy['import-board-instruction-clickup'], /tsanganana rehetra/);
 assert.match(malagasy['import-board-instruction-pivotal'], /Story points.*Estimate.*sprint/);
+
+const projectImportKeys = ["import-board-instruction-tasksorg", "import-board-instruction-monday", "import-board-instruction-superproductivity", "import-board-instruction-taiga", "import-board-instruction-vikunja", "import-board-instruction-quire", "import-board-instruction-wrike", "import-board-instruction-teamwork", "import-board-instruction-businessmap", "import-board-instruction-redmine", "import-board-instruction-notion", "import-board-instruction-plane"];
+
+for (const key of projectImportKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+for (const format of ['taiga', 'vikunja']) assert.match(malagasy[`import-board-instruction-${format}`], /Tsy ampidirina ny rakitra ampiarahina/);
+assert.match(malagasy['import-board-instruction-quire'], /Tsy ao.*fanehoan-kevitra.*rakitra ampiarahina/);
+assert.match(malagasy['import-board-instruction-notion'], /raha tsy misy.*voalohany.*tatitra.*Tsy ampidirina ny fifandraisana, sary ary rakitra/);
+assert.match(malagasy['import-board-instruction-plane'], /Tsy misy famaritana na rakitra.*tsy ampidirina/);
+assert.match(malagasy['import-board-instruction-businessmap'], /teny anglisy.*teny anglisy aloha/);
+assert.match(malagasy['import-board-instruction-redmine'], /My account alohan’ny fanondranana/);
+for (const literal of ['--', '##', '>>', '.xlsx', 'Tasklist', 'Estimated time']) assert.ok(malagasy['import-board-instruction-teamwork'].includes(literal));
+assert.match(malagasy['import-board-instruction-tasksorg'], /daty nahavitana/);

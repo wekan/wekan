@@ -209907,5 +209907,89 @@
     "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
     "after": "Ao amin’ny Pivotal Tracker, sokafy ny takelaka MORE an’ny tetikasa ary fidio ny Export CSV (na fidio ny tantara ary fidio ny Bulk Actions, CSV), dia apetaho ny CSV. Lasa lisitra ny sata tsirairay an’ny tantara ary lasa karatra ny tantara, miaraka amin’ny karazana, marika, tompony, mpangataka, daty, fanehoan-kevitra, asa ary sakana; lasa Story points ny Estimate ary lasa sprint ny tsingerina.",
     "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-tasksorg",
+    "before": "In Tasks.org, open Settings, Backups and choose Export tasks, then paste the contents of that .json file. Lists become lists and tasks become cards, with their notes, tags, dates, comments and subtasks; completed tasks keep their completion date, and priority becomes a custom field.",
+    "after": "Ao amin’ny Tasks.org, sokafy ny Settings, Backups ary fidio ny Export tasks, dia apetaho ny atin’ilay rakitra .json. Mijanona ho lisitra ny lisitra ary lasa karatra ny asa, miaraka amin’ny naoty, marika, daty, fanehoan-kevitra ary zana-asa; mitazona ny daty nahavitana azy ny asa vita, ary lasa saha manokana ny laharam-pahamehana.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-monday",
+    "before": "In monday.com, open the board menu, choose More actions and Export board to Excel (with updates and subitems if you like), then choose that .xlsx file. The Status column becomes lists and groups become swimlanes; people, dates, timeline and tags keep their places, other columns become custom fields and updates become comments.",
+    "after": "Ao amin’ny monday.com, sokafy ny menion’ny solaitra, fidio ny More actions sy Export board to Excel (miaraka amin’ny fanavaozana sy zana-singa raha tianao), dia fidio ilay rakitra .xlsx. Lasa lisitra ny tsanganana Status ary lasa lalana ny vondrona; mitazona ny toerany ny olona, daty, fandaharam-potoana ary marika; lasa saha manokana ny tsanganana hafa ary lasa fanehoan-kevitra ny fanavaozana.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-superproductivity",
+    "before": "In Super Productivity, open Settings, then Sync & Backup, choose Export Data and paste the contents of the sp-backup .json file. Each project becomes a swimlane and tasks become cards in To Do, In Progress, Backlog or Done, with their notes, tags, due date, time spent and sub-tasks; archived tasks become archived cards.",
+    "after": "Ao amin’ny Super Productivity, sokafy ny Settings, avy eo Sync & Backup, fidio ny Export Data ary apetaho ny atin’ny rakitra sp-backup .json. Lasa lalana ny tetikasa tsirairay ary lasa karatra ao amin’ny To Do, In Progress, Backlog na Done ny asa, miaraka amin’ny naoty, marika, daty farany, fotoana lany ary zana-asa; lasa karatra ao amin’ny arisiva ny asa voatahiry ao amin’ny arisiva.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-taiga",
+    "before": "In Taiga, open Admin > Project > Export and download the project dump (unpack a .json.gz file first), then paste its JSON. User story statuses become lists, user stories become cards with their tasks as subtasks, epics and issues get swimlanes of their own, and sprints, tags, comments and custom attributes come along. Attachments are not imported.",
+    "after": "Ao amin’ny Taiga, sokafy ny Admin > Project > Export ary sintomy ny tahirin’angon’ny tetikasa (vahao aloha ny rakitra .json.gz), dia apetaho ny JSON ao aminy. Lasa lisitra ny satan’ny tantaran’ny mpampiasa, lasa karatra ny tantaran’ny mpampiasa ary lasa zana-asany ny asa ao aminy, mahazo lalana manokana ny epika sy ny olana, ary ampidirina koa ny sprint, marika, fanehoan-kevitra ary toetra manokana. Tsy ampidirina ny rakitra ampiarahina.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-vikunja",
+    "before": "In Vikunja, open Settings, choose Data Export and download the .zip file it sends you, then choose that file, or paste the data.json inside it. Kanban buckets become lists and tasks become cards, with their labels, assignees, dates, description, task lists as checklists and comments; priority, percent done and done become custom fields. Attachments are not imported.",
+    "after": "Ao amin’ny Vikunja, sokafy ny Settings, fidio ny Data Export ary sintomy ny rakitra .zip alefany aminao, dia fidio ilay rakitra, na apetaho ny data.json ao anatiny. Lasa lisitra ny vondrona Kanban ary lasa karatra ny asa, miaraka amin’ny marika, olona voatendry, daty, famaritana, lisitry ny asa ho lisitra fanamarinana ary fanehoan-kevitra; lasa saha manokana ny laharam-pahamehana, ny isan-jato vita ary ny sata vita. Tsy ampidirina ny rakitra ampiarahina.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-quire",
+    "before": "In Quire, open the project menu and choose Export CSV, then paste the CSV. Statuses become lists and tasks become cards, with their subtasks as child cards, assignees, tags as labels, start, due and completed dates, description and priority as a custom field. Comments and attachments are not in Quire's CSV.",
+    "after": "Ao amin’ny Quire, sokafy ny menion’ny tetikasa ary fidio ny Export CSV, dia apetaho ny CSV. Lasa lisitra ny sata ary lasa karatra ny asa, miaraka amin’ny zana-asa ho karatra zanaka, olona voatendry, marika, daty fanombohana, daty farany sy daty nahavitana, famaritana ary laharam-pahamehana ho saha manokana. Tsy ao amin’ny CSV Quire ny fanehoan-kevitra sy ny rakitra ampiarahina.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-wrike",
+    "before": "In Wrike, export a project or folder to Excel, or fill in Wrike's Excel import template, then choose that .xlsx file. Folder and project rows become swimlanes, Status becomes lists and tasks become cards, with their Key, parent task, assignees, start and end dates, dependencies and description; Priority, Duration and other columns become custom fields.",
+    "after": "Ao amin’ny Wrike, avoahy ho Excel ny tetikasa na lahatahiry, na fenoy ny môdely fanafarana Excel an’ny Wrike, dia fidio ilay rakitra .xlsx. Lasa lalana ny andalana lahatahiry sy tetikasa, lasa lisitra ny Status ary lasa karatra ny asa, miaraka amin’ny Key, asa ray aman-dreny, olona voatendry, daty fanombohana sy fiafarana, fiankinana ary famaritana; lasa saha manokana ny Priority, Duration ary ny tsanganana hafa.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-teamwork",
+    "before": "In Teamwork.com, fill in the Excel task import template (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) and save it as .xlsx, then choose that file. Task lists become lists and tasks become cards; a task starting with -, # or > becomes a subtask of the task above it (--, ## or >> one level deeper). Assignees, dates and tags keep their places; Priority, Estimated time and Complete become custom fields.",
+    "after": "Ao amin’ny Teamwork.com, fenoy ny môdely fanafarana asa Excel (Tasklist, Task, Description, Assign to, Start date, Due date, Priority, Estimated time, Tags, Status) ary tehirizo ho .xlsx, dia fidio ilay rakitra. Lasa lisitra ny lisitry ny asa ary lasa karatra ny asa; ny asa manomboka amin’ny -, # na > dia lasa zana-asan’ilay asa eo amboniny (--, ## na >> dia ambaratonga iray lalindalina kokoa). Mitazona ny toerany ny olona voatendry, daty ary marika; lasa saha manokana ny Priority, Estimated time ary Complete.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-businessmap",
+    "before": "In Businessmap (formerly Kanbanize), open Advanced Search, choose Configure results to pick the columns, download the Excel file, then choose that .xlsx file. Columns are read by their English names (Title, Column, Lane, Owner, Deadline ...): if your account uses another language, rename the header row to English first. Column becomes lists and Lane swimlanes; owners, tags, color, dates, comments and parent links keep their places, and Priority, Size, Type and other columns become custom fields.",
+    "after": "Ao amin’ny Businessmap (Kanbanize taloha), sokafy ny Advanced Search, fidio ny Configure results hisafidianana ny tsanganana, sintomy ny rakitra Excel, dia fidio ilay rakitra .xlsx. Vakina araka ny anarany amin’ny teny anglisy ny tsanganana (Title, Column, Lane, Owner, Deadline ...): raha mampiasa fiteny hafa ny kaontinao, avadiho ho teny anglisy aloha ny anaran’ny tsanganana eo amin’ny andalana lohateny. Lasa lisitra ny Column ary lasa lalana ny Lane; mitazona ny toerany ny tompony, marika, loko, daty, fanehoan-kevitra ary rohy amin’ny ray aman-dreny; lasa saha manokana ny Priority, Size, Type ary ny tsanganana hafa.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-redmine",
+    "before": "In Redmine, open the project's Issues, choose Also available in: CSV at the bottom of the list, pick the columns (All columns, with Description) and export, then paste the CSV. Redmine names the columns in your language, so set your language to English in My account before exporting. Each status becomes a list and issues become cards, with the tracker as a label, assignee, author, dates, parent task and related issues; priority, category, target version, estimated time, % Done and custom fields become custom fields.",
+    "after": "Ao amin’ny Redmine, sokafy ny Issues an’ny tetikasa, fidio ny Also available in: CSV eo ambanin’ny lisitra, fidio ny tsanganana (All columns, miaraka amin’ny Description) ary avoahy, dia apetaho ny CSV. Amin’ny fiteninao no anomezan’ny Redmine anarana ny tsanganana, ka apetraho ho teny anglisy ny fiteninao ao amin’ny My account alohan’ny fanondranana. Lasa lisitra ny sata tsirairay ary lasa karatra ny olana, miaraka amin’ny tracker ho marika, olona voatendry, mpanoratra, daty, asa ray aman-dreny ary olana mifandraika; lasa saha manokana ny laharam-pahamehana, sokajy, kinova kendrena, fotoana tombanana, % Done ary saha manokana.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-notion",
+    "before": "In Notion, open the database as a full page, choose ••• and Export, pick Markdown & CSV, and choose the .zip file it downloads, or one database CSV from it, or paste that CSV. A column named Status becomes the lists (without one, the first column that looks like a select does, and the import report says which); rows become cards with their title, tags as labels, people as members, dates, and the page text as the description; other columns become custom fields. Relations, images and attachments are not imported.",
+    "after": "Ao amin’ny Notion, sokafy ho pejy feno ny angon-drakitra, fidio ny ••• sy Export, fidio ny Markdown & CSV, ary fidio ny rakitra .zip sintomina, na CSV angon-drakitra iray ao anatiny, na apetaho ilay CSV. Lasa lisitra ny tsanganana antsoina hoe Status (raha tsy misy izany, ny tsanganana voalohany toa safidy no ampiasaina, ary milaza izay voafidy ny tatitra fanafarana); lasa karatra ny andalana, miaraka amin’ny lohateny, marika, olona ho mpikambana, daty, ary ny lahatsoratry ny pejy ho famaritana; lasa saha manokana ny tsanganana hafa. Tsy ampidirina ny fifandraisana, sary ary rakitra ampiarahina.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-plane",
+    "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
+    "after": "Ao amin’ny Plane, sokafy ny Workspace Settings, fidio ny Exports, avoahy ho JSON, CSV na Excel ny tetikasa ary sintomy ny rakitra .zip, dia fidio ilay rakitra, na rakitra iray ao anatiny, na apetaho ny JSON na CSV. Lasa lisitra ny sata, lasa lalana ny tetikasa, ary lasa karatra ny olana miaraka amin’ny mari-panondroana, ray aman-dreny, olona voatendry, marika, daty, rohy ary fanehoan-kevitra; lasa saha manokana ny laharam-pahamehana, tombana, tsingerina ary môdily. Tsy misy famaritana na rakitra ampiarahina ao amin’ny fanondranana Plane, ka tsy ampidirina ireo.",
+    "reason": "Translate project import guides into Malagasy, retaining field mappings, literal menus, file formats and explicit omissions."
   }
 ]
