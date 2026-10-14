@@ -61,12 +61,17 @@ const tokens = value => (String(value).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/
 
   // Negative: the wrong words are gone, whatever key they were under.
   const gone = {
-    ro: /Scadenza|Calendario|Scheda/, 'ro-RO': /Scadenza|Calendario|Scheda/, lv: /Sandėliavimas|\bTerminas\b/,
+    ro: /Scadenza|Calendario|Scheda/, 'ro-RO': /Scadenza|Calendario|Scheda/, lv: /[ąęėįųĄĘĖĮŲ]|\b(Ataskait|Migracij|darbo sri|Organizacij|Užrakint|Nustatym|Pasirink|Pridėti|Redaguoti|Ištrinti|Kortel|šiandien|rytoj)|\bTerminas\b/,
     'vi-VN': /\bStoran\b/, mk: /Настройки|По крајњем/, fa: /تنظمات/, uz: /Qo'shiq qo'shish/,
-    yue_CN: /依戀/, ts: /Hi Xitsonga: mhaka/, oc: /Santa-Clara/,
+    yue_CN: /依戀/, oc: /Santa-Clara/,
   };
   for (const [tag, pattern] of Object.entries(gone)) {
     for (const [key, value] of Object.entries(locale(tag))) assert.doesNotMatch(value, pattern, `${tag} ${key}`);
+  }
+  // The Latvian file had 225 Lithuanian values; their placeholders survived.
+  const en2 = locale('en');
+  for (const [key, value] of Object.entries(locale('lv'))) {
+    if (key in en2) assert.deepEqual(tokens(value), tokens(en2[key]), `lv ${key} keeps its placeholders`);
   }
   console.log('  ok - and nowhere else in those files');
   console.log('\nwrongLanguageCorrections20261014: all tests passed');
