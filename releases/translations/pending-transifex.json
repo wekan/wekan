@@ -2279,6 +2279,18 @@
     {
       "key": "passkey-cancelled",
       "since": "2026-10-14"
+    },
+    {
+      "key": "hide-board",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "hiddenBoardsPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "hidden-boards-none",
+      "since": "2026-10-14"
     }
   ]
 }

@@ -54,6 +54,8 @@ test('a plain member quitting deactivates the membership', () => {
     ok: true,
     removeMember: true,
     pullInvite: false,
+    // #4265: nothing reaches the board another way, so it is not hidden.
+    hide: false,
   });
 });
 
@@ -63,6 +65,8 @@ test('#4730: declining (member + pending invite) deactivates AND clears the invi
     ok: true,
     removeMember: true,
     pullInvite: true,
+    // #4265: nothing reaches the board another way, so it is not hidden.
+    hide: false,
   });
 });
 
@@ -75,6 +79,8 @@ test('#4730: a stale invitation without a member entry can still be quit', () =>
     ok: true,
     removeMember: false,
     pullInvite: true,
+    // #4265: nothing reaches the board another way, so it is not hidden.
+    hide: false,
   });
 });
 

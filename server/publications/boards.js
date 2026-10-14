@@ -449,6 +449,9 @@ Meteor.methods({
       );
     }
 
+    // #4265: boards this user hid by leaving them stay out of All Boards.
+    const hidden = (user.profile && Array.isArray(user.profile.hiddenBoards)) ? user.profile.hiddenBoards : [];
+    if (hidden.length) selector.$and = [...(selector.$and || []), { _id: { $nin: hidden } }];
     // Encode the selected menu in Mongo before pagination. A search spans every
     // category, preserving the existing behavior.
     const profile = user.profile || {};

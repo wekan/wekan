@@ -709,6 +709,18 @@ Users.attachSchema(
     'profile.invitedBoards.$': {
       type: String,
     },
+    'profile.hiddenBoards': {
+      /**
+       * #4265: boards this user left that they still reach through a team,
+       * organization or e-mail domain; All Boards leaves them out, and Member
+       * Settings / Hidden boards brings them back. The team is not touched.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.hiddenBoards.$': {
+      type: String,
+    },
     'profile.language': {
       /**
        * language of the user

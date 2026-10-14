@@ -326,6 +326,13 @@ template(name="boardList")
                         title="{{_ 'star-board-title'}}")
                         span.emoji-icon
                           i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+                      //- #4265: a board this user reaches only through a team,
+                        organization or e-mail domain can be left: it is hidden
+                        for them, and Member Settings / Hidden boards restores it.
+                      if canHideBoard
+                        a.js-hide-board(title="{{_ 'hide-board'}}")
+                          span.emoji-icon
+                            i.fa.fa-eye-slash
                       //- #2220 Home-board toggle is disabled: the icon and the
                       //- set-default-board action are intentionally not rendered.
 

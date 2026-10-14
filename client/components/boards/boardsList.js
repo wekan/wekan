@@ -568,6 +568,9 @@ function boardsForView(tpl) {
     if (membershipOrs.length) {
       query.$and.splice(2, 0, { $or: membershipOrs });
     }
+    // #4265: boards this user hid by leaving them stay out of All Boards.
+    const hidden = currUser?.profile?.hiddenBoards;
+    if (Array.isArray(hidden) && hidden.length) query.$and.push({ _id: { $nin: hidden } });
   } else if (
     allowPrivateVisibilityOnly !== undefined &&
     !allowPrivateVisibilityOnly.booleanValue
@@ -1075,6 +1078,14 @@ Template.boardList.helpers({
   isStarred() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(this._id);
+  },
+
+  // #4265: not an active member - so it is here through a team, organization
+  // or e-mail domain - and not the archive.
+  canHideBoard() {
+    const userId = Meteor.userId();
+    if (!userId || this.archived) return false;
+    return !(this.members || []).some(m => m && m.userId === userId && m.isActive !== false);
   },
 
   // When this board was archived, in the reader's own date format. Shown only
@@ -1617,6 +1628,18 @@ Template.boardList.events({
     const total = tpl.pagedBoardsVar.get().total || 0;
     tpl.boardsPageVar.set(adjacentPage(total, tpl.boardsPageVar.get(), 1,
       BOARDS_PER_PAGE));
+  },
+  // #4265: leave a board that came through a team: it is hidden for this user.
+  'click .js-hide-board'(evt, tpl) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const boardId = this._id;
+    if (!boardId) return;
+    Meteor.call('quitBoard', boardId, (err) => {
+      if (err) return;
+      const paged = tpl.pagedBoardsVar.get();
+      tpl.pagedBoardsVar.set({ ids: (paged.ids || []).filter(id => id !== boardId), total: Math.max(0, (paged.total || 1) - 1) });
+    });
   },
   'click .js-star-board'(evt) {
     evt.preventDefault();

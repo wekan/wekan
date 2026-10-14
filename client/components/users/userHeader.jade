@@ -120,6 +120,11 @@ template(name="memberMenuPopup")
             a.js-two-factor-auth
               i.fa.fa-shield
               | {{_ 'twoFactorAuthPopup-title'}}
+      //- #4265: boards this member left that came through a team.
+      li
+        a.js-hidden-boards
+          i.fa.fa-eye-slash
+          | {{_ 'hiddenBoardsPopup-title'}}
       //- #5847: sign in with a passkey instead of a password.
       unless isSandstorm
         li
@@ -242,6 +247,19 @@ template(name="passkeysPopup")
       p.quiet {{_ 'passkeys-unsupported'}}
     if message
       p.quiet= message
+
+//- #4265: the boards this member hid by leaving them; each comes back to
+  All Boards with Restore. Access is the board's own, as before.
+template(name="hiddenBoardsPopup")
+  ul.pop-over-list.hidden-boards-popup
+    each hiddenBoards
+      li
+        span= title
+        a.js-restore-hidden-board(data-id=_id)
+          i.fa.fa-undo
+          |  {{_ 'restore'}}
+    else
+      li.quiet {{_ 'hidden-boards-none'}}
 
 template(name="twoFactorAuthPopup")
   //- Issue #3058: opt-in per-user TOTP two-factor authentication, via

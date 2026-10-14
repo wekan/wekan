@@ -294,9 +294,18 @@ Meteor.methods({
     // removed them) may also quit: their invitation is cleared instead of
     // throwing error-board-notAMember, so the board can always be removed
     // from the personal overview.
+    // #4265: a board reached through a team, organization or e-mail domain is
+    // hidden for this user instead (models/lib/boardInvites.js).
+    const { reachesBoardOtherwise, hiddenBoardsAfter } = require('/models/lib/boardInvites');
+    const reachableOtherwise = !!user && reachesBoardOtherwise(board, {
+      teamIds: typeof user.teamIds === 'function' ? user.teamIds() : [],
+      orgIds: typeof user.orgIds === 'function' ? user.orgIds() : [],
+      emailDomains: typeof user.emailDomains === 'function' ? user.emailDomains() : [],
+    });
     const plan = planQuitBoard({
       isMember: board.memberIndex(userId) >= 0,
       isInvited: isInvitedToBoard(user && user.profile, boardId),
+      reachableOtherwise,
     });
     if (!plan.ok) {
       throw new Meteor.Error(plan.error);
@@ -310,6 +319,22 @@ Meteor.methods({
     if (plan.removeMember) {
       await board.removeMember(userId);
     }
+    if (plan.hide) {
+      await Users.updateAsync(userId, { $set: {
+        'profile.hiddenBoards': hiddenBoardsAfter(user.profile && user.profile.hiddenBoards, boardId, true) } });
+    }
+    return true;
+  },
+
+  // #4265: bring a hidden board back to All Boards (Member Settings / Hidden
+  // boards). Only the caller's own list changes; access is the board's own.
+  async restoreHiddenBoard(boardId) {
+    check(boardId, String);
+    if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+    const user = await ReactiveCache.getUser(this.userId);
+    const { hiddenBoardsAfter } = require('/models/lib/boardInvites');
+    await Users.updateAsync(this.userId, { $set: {
+      'profile.hiddenBoards': hiddenBoardsAfter(user && user.profile && user.profile.hiddenBoards, boardId, false) } });
     return true;
   },
 

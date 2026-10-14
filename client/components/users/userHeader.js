@@ -102,6 +102,7 @@ Template.memberMenuPopup.events({
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-two-factor-auth': Popup.open('twoFactorAuth'),
   'click .js-passkeys': Popup.open('passkeys'),
+  'click .js-hidden-boards': Popup.open('hiddenBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
   async 'click .js-logout'(event) {
@@ -719,5 +720,20 @@ Template.passkeysPopup.events({
     event.preventDefault();
     await Meteor.callAsync('passkeyRemove', event.currentTarget.dataset.id);
     tpl.load();
+  },
+});
+
+// #4265: Member Settings / Hidden boards.
+Template.hiddenBoardsPopup.helpers({
+  hiddenBoards() {
+    const ids = (ReactiveCache.getCurrentUser()?.profile?.hiddenBoards) || [];
+    return ids.map(id => ReactiveCache.getBoard(id) || { _id: id, title: id });
+  },
+});
+
+Template.hiddenBoardsPopup.events({
+  'click .js-restore-hidden-board'(event) {
+    event.preventDefault();
+    Meteor.call('restoreHiddenBoard', event.currentTarget.dataset.id);
   },
 });

@@ -42,7 +42,17 @@ function isInvitedToBoard(profile, boardId) {
 // - A non-member with a pending (stale) invitation: just clear the invitation
 //   and report success, so the board disappears from the personal overview.
 // - Neither member nor invited: nothing to quit — error.
-function planQuitBoard({ isMember, isInvited }) {
+//
+// #4265: a board the user also reaches some other way - one of their teams or
+// organizations, or their e-mail domain - would still be in All Boards after
+// the member entry went, and a user who reaches it ONLY that way has no member
+// entry to leave. Leaving such a board HIDES it: it goes into the user's own
+// hidden list (profile.hiddenBoards), from which Member Settings restores it,
+// and the team or organization membership is not touched.
+function planQuitBoard({ isMember, isInvited, reachableOtherwise = false }) {
+  if (!isMember && !isInvited && reachableOtherwise) {
+    return { ok: true, removeMember: false, pullInvite: false, hide: true };
+  }
   if (!isMember && !isInvited) {
     return {
       ok: false,
@@ -55,7 +65,24 @@ function planQuitBoard({ isMember, isInvited }) {
     ok: true,
     removeMember: !!isMember,
     pullInvite: !!isInvited,
+    hide: !!reachableOtherwise,
   };
+}
+
+// Whether the user reaches the board through a team, an organization or an
+// e-mail domain (the same ways models/lib/boardVisibilitySelectors.js lists).
+function reachesBoardOtherwise(board, { teamIds = [], orgIds = [], emailDomains = [] } = {}) {
+  if (!board) return false;
+  const active = (list, key, ids) => (Array.isArray(list) ? list : [])
+    .some(entry => entry && entry.isActive !== false && ids.includes(entry[key]));
+  return active(board.teams, 'teamId', teamIds) || active(board.orgs, 'orgId', orgIds)
+    || (Array.isArray(board.domains) ? board.domains : []).some(d => d && emailDomains.includes(d.domain));
+}
+
+// The hidden list after hiding or restoring a board: once each, bounded.
+function hiddenBoardsAfter(current, boardId, hide) {
+  const list = (Array.isArray(current) ? current : []).filter(id => typeof id === 'string' && id !== boardId);
+  return hide ? [...list, boardId].slice(-1000) : list;
 }
 
 // Decide what `acceptInvite` must do. Only a user actually holding an
@@ -69,6 +96,8 @@ function planAcceptInvite({ isInvited }) {
 }
 
 module.exports = {
+  reachesBoardOtherwise,
+  hiddenBoardsAfter,
   isInvitedToBoard,
   planQuitBoard,
   planAcceptInvite,
