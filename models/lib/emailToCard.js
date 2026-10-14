@@ -90,27 +90,55 @@ function formatSender(from) {
 // The HTML body as plain text, when an email has no text part: tags removed,
 // block ends kept as line breaks, the common entities decoded. Good enough for
 // a card description; nothing here is ever rendered as HTML.
-// Each removal runs to a fixed point: removing one tag must not splice the text
-// around it into another ("<scr<script>ipt>" -> "<script>"), which CodeQL
-// alerts #570 and #571 found here.
-function untilStable(text, step) {
-  let prev;
-  let next = text;
-  do {
-    prev = next;
-    next = step(prev);
-  } while (next !== prev);
-  return next;
+// Tags are removed by ONE pass over the characters, not by regular
+// expressions: a scanner never puts back together what it took apart, so text
+// around a removed tag cannot become a tag ("<scr<script>ipt>"), and a
+// <script>, <style> or <head> element goes with everything inside it. CodeQL
+// alerts #570, #571, #581 and #582 were the regular-expression versions.
+const SKIP_CONTENT = new Set(['script', 'style', 'head']);
+const LINE_ENDS = new Set(['br', '/p', '/div', '/li', '/tr', '/h1', '/h2', '/h3', '/h4', '/h5', '/h6', '/blockquote']);
+
+function isNameChar(ch) {
+  return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9');
+}
+
+function stripTags(html) {
+  const out = [];
+  let i = 0;
+  while (i < html.length) {
+    const ch = html[i];
+    const next = html[i + 1] || '';
+    const isLetter = (next >= 'a' && next <= 'z') || (next >= 'A' && next <= 'Z');
+    // "<" that does not start a tag ("2 < 3") is text, as in a browser - but
+    // not one right before another "<", which with the tag after it removed
+    // would read as a tag again ("<<b>script>" -> "<script>").
+    if (ch !== '<' || !(isLetter || next === '/' || next === '!' || next === '?')) {
+      if (!(ch === '<' && next === '<')) out.push(ch);
+      i += 1;
+      continue;
+    }
+    let j = i + 1;
+    let name = html[j] === '/' ? '/' : '';
+    if (name) j += 1;
+    while (j < html.length && isNameChar(html[j])) name += html[j++];
+    name = name.toLowerCase();
+    const close = html.indexOf('>', j);
+    if (close < 0) break; // an unfinished tag: the rest is part of it
+    i = close + 1;
+    if (SKIP_CONTENT.has(name)) {
+      // Everything up to the element's end tag, or to the end if it has none.
+      const end = html.toLowerCase().indexOf(`</${name}`, i);
+      const endClose = end < 0 ? -1 : html.indexOf('>', end);
+      i = endClose < 0 ? html.length : endClose + 1;
+    } else if (LINE_ENDS.has(name)) {
+      out.push('\n');
+    }
+  }
+  return out.join('');
 }
 
 function htmlToText(html) {
-  let text = untilStable(String(html || ''),
-    s => s.replace(/<(script|style|head)\b[^>]*>[\s\S]*?<\/\1\b[^>]*>/gi, ''));
-  text = text
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/(p|div|li|tr|h[1-6]|blockquote)\b[^>]*>/gi, '\n');
-  text = untilStable(text, s => s.replace(/<[^>]*>/g, ''));
-  return text
+  return stripTags(String(html || ''))
     .replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&')
     .replace(/\n{3,}/g, '\n\n')
