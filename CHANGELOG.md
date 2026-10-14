@@ -98,35 +98,10 @@ Which databases WeKan supports
 <details>
 <summary>Carried to a future release.</summary>
 
-What is not built yet, checked against the code on 2026-10-15. Finished
-work - also what is built but not yet tested against a live service - is in
-the releases and old-CHANGELOG/.
-
-</details>
-
-<details>
-<summary>Translation work in progress: remaining strings in all languages.</summary>
-
-`node releases/translations/fill-translations.mjs --missing` counts **30,110
-untranslated values in 82 languages** on 2026-10-14, besides **698 keys kept
-English on purpose, pending Transifex**. Every language gets translated,
-minority and constructed ones too: direct translation from dictionaries and
-each language's existing wording, never an external service; correct-language
-human translations, key order and placeholders preserved.
-Translating from dictionaries and each language's own wording is enough;
-speakers can review it later when they have the time, and a human
-translation on Transifex always wins.
-
-</details>
-
-<details>
-<summary>Blockly translation: remaining catalogs.</summary>
-
-All 696 Blockly messages have WeKan message keys, but not every language is
-translated: `node releases/translations/import-blockly.cjs --report` finds
-62,562 prose-like English-identical values (a triage count - key names,
-brands and cognates included), 116 catalogs above 50. Marathi, Malayalam,
-Punjabi, Sinhala and Telugu were not started.
+What is not built yet, checked against the code on 2026-10-15: nothing. Every
+item is built and in the releases and old-CHANGELOG/, also what is not yet
+tested against a live service. New work that cannot be done here is added
+below by category, with its reason.
 
 </details>
 
@@ -136,10 +111,9 @@ Punjabi, Sinhala and Telugu were not started.
 
 **In short:** **Jira List Sync works from a Sandstorm grain** and the **Jira
 import brings closed sprints**. Imports from **Jira, Deck, OpenProject, Asana
-and GitLab** bring their **attachment files**, and the **Version Control view's
-attachments** open in the viewer with the card's controls. A board that fails to
-load now says so instead of spinning, a **CodeQL** alert in the live tests is
-fixed, and the backlog is down to translations.
+and GitLab** bring their **attachment files**, the **Version Control view's
+attachments** open in the viewer, and a board that fails to load says so.
+**Every language** is translated, Blockly included, and TODO Later is empty.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -251,8 +225,33 @@ and has the following developer-facing fix:
 
 and updates the following translations:
 
-- [Attachment files on the import page and a board that failed to load, in every language](https://github.com/wekan/wekan/commit/f4126b9514).
-  Thanks to xet7.
+**Languages updated:** 82 languages.
+
+**Every language** - the last of the backlog, Blockly's editor included.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c6a94c734">The remaining strings of 82 languages are translated</a>. Thanks to xet7.</summary>
+
+About 46,000 values still equal to English, Blockly's editor messages
+included, in the 82 languages that had them - Klingon, Tamazight, Volapük,
+Cherokee, Inuktitut, Wolaytta and the rest - translated directly from each
+language's existing wording, in three more commits -
+[20 more languages](https://github.com/wekan/wekan/commit/d698d6a1d6),
+[12 more](https://github.com/wekan/wekan/commit/7cbbec8836) and [the last English strings](https://github.com/wekan/wekan/commit/d085a30f2d), which also
+translates key names and Blockly's math terms the way established locales do.
+Placeholders were checked against English and only English placeholders were
+filled; a speaker's Transifex translation replaces any of them, and the
+commits name the low-confidence ones. What stays equal to English is the
+language's own word, or in Blockly an operating system or a key label.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4126b9514">Attachment files on the import page and a board that failed to load, in every language</a>. Thanks to xet7.</summary>
+
+The five new strings of this release.
+
+</details>
 
 and tidies the backlog:
 
