@@ -72,3 +72,14 @@ assert.match(irish['s3-access-key'], /rochtana/);
 assert.match(irish['s3-secret-key'], /rúnda/);
 assert.notEqual(irish['s3-access-key'], irish['s3-secret-key']);
 assert.match(irish['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
+
+const importGuideKeys = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri", "import-board-instruction-pivotal"];
+for (const key of importGuideKeys) {
+  assert.notEqual(irish[key], english[key], key);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+assert.match(irish['import-board-instruction-orgmode'], /TODO agus DONE.*SCHEDULED, DEADLINE agus CLOSED/);
+assert.match(irish['import-board-instruction-meistertask'], /tascanna críochnaithe a ndáta críochnaithe/);
+assert.match(irish['import-board-instruction-nullboard'], /lipéad raw.*an chéad chlár/);
+assert.match(irish['import-board-instruction-kanri'], /an chéad chlár/);
+assert.match(irish['import-board-instruction-clickup'], /colúin go léir/);

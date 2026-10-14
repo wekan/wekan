@@ -2,9 +2,10 @@
 const { test, expect } = require('../fixtures');
 const { navigateInApp } = require('../helpers/auth');
 const en = require('../../../imports/i18n/data/en.i18n.json');
-for (const language of ['mg', 'ht', 'la', 'st', 'mt', 'sw', 'co']) {
+for (const language of ['ga', 'mg', 'ht', 'la', 'st', 'mt', 'sw', 'co']) {
 const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
 for (const format of [...(language === 'mg' ? ['todoist', 'planner', 'csv', 'jira', 'excel'] : []),...(language === 'ht' ? ['jira', 'excel', 'todoist', 'planner'] : []),...(language === 'la' ? ["trello", "kanboard", "deck", "openproject", "asana", "zenkit", "csv", "jira", "excel", "wekan", "todoist", "planner"] : []), ...(language === 'st' ? ['markdown', 'taskwarrior', 'focalboard', 'todoist', 'planner', 'jira', 'excel'] : []), ...(language === 'co' ? ['zenkit', 'jira', 'excel', 'kanboard', 'deck', 'openproject', 'focalboard', 'todoist', 'planner'] : []), 'opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane']) {
+  if (language === 'ga' && !['opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal'].includes(format)) continue;
   if (language === 'la' && !["opml", "orgmode", "meistertask", "obsidian", "linear", "ticktick", "clickup", "nullboard", "kanri", "pivotal", "tasksorg", "monday", "trello", "superproductivity", "taiga", "vikunja", "quire", "wrike", "teamwork", "businessmap", "redmine", "notion", "plane", "kanboard", "deck", "openproject", "asana", "zenkit", "csv", "jira", "excel", "wekan", "todoist", "planner"].includes(format)) continue;
   if (language === 'ht' && !['jira', 'excel', 'todoist', 'planner','opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal', 'tasksorg', 'monday', 'superproductivity', 'taiga', 'vikunja', 'quire', 'wrike', 'teamwork', 'businessmap', 'redmine', 'notion', 'plane'].includes(format)) continue;
 

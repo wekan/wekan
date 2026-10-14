@@ -212154,5 +212154,75 @@
     "before": "S3 Size",
     "after": "Méid S3",
     "reason": "Translate legacy English storage labels and rule connectors exposed by the Irish completed-catalog regression gate."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-opml",
+    "before": "Paste an OPML outline, as Workflowy, Dynalist, OmniOutliner, Logseq and other outliners export it. Top-level items become lists, their children become cards with the note as the description, and deeper items become checklists. Completed items import as done.",
+    "after": "Greamaigh imlíne OPML, mar a easpórtálann Workflowy, Dynalist, OmniOutliner, Logseq agus eagarthóirí imlíne eile í. Déantar liostaí de na míreanna barrleibhéil, cártaí dá bhfo-mhíreanna agus an nóta mar chur síos orthu, agus seicliostaí de na míreanna níos doimhne. Iompórtáiltear míreanna críochnaithe mar mhíreanna déanta.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-orgmode",
+    "before": "Paste an Org mode file, as Emacs, Orgzly or Beorg write it. Top-level headings become lists and second-level headings become cards. TODO and DONE, priorities, tags, SCHEDULED, DEADLINE and CLOSED are kept, and checkboxes and deeper headings become checklists.",
+    "after": "Greamaigh comhad Org mode, mar a scríobhann Emacs, Orgzly nó Beorg é. Déantar liostaí de cheannteidil bharrleibhéil agus cártaí de cheannteidil dara leibhéil. Coinnítear TODO agus DONE, tosaíochtaí, clibeanna, SCHEDULED, DEADLINE agus CLOSED, agus déantar seicliostaí de bhoscaí seiceála agus de cheannteidil níos doimhne.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-meistertask",
+    "before": "In MeisterTask, click the project name, choose Export project and export the CSV, then paste it. Sections become lists and tasks become cards, with their notes, due date, assignee and tags; completed tasks keep their completion date. A CSV written for MeisterTask's own import works too.",
+    "after": "In MeisterTask, cliceáil ainm an tionscadail, roghnaigh Export project agus easpórtáil an CSV, ansin greamaigh é. Déantar liostaí de rannóga agus cártaí de thascanna, lena nótaí, spriocdháta, sannaí agus clibeanna; coinníonn tascanna críochnaithe a ndáta críochnaithe. Oibríonn CSV a scríobhadh le haghaidh iompórtáil MeisterTask féin freisin.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-obsidian",
+    "before": "In Obsidian, open the Kanban board's file as Markdown (or open the .md file in a text editor), then paste all of it. Lanes become lists with their card limits, cards keep their tags, dates, priority, fields and checklist, and the Archive becomes archived cards.",
+    "after": "In Obsidian, oscail comhad an chláir Kanban mar Markdown (nó oscail an comhad .md in eagarthóir téacs), ansin greamaigh é ar fad. Déantar liostaí de lánaí lena dteorainneacha cártaí, coinníonn cártaí a gclibeanna, dátaí, tosaíocht, réimsí agus seicliosta, agus déantar cártaí sa chartlann den Archive.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-linear",
+    "before": "In Linear, export the issues as CSV (Settings, Import / Export, Export data, or a view's export), then paste the CSV. Statuses become lists, teams become swimlanes, and issues become cards with their assignee, labels, dates, parent issue, priority, estimate, project and cycle.",
+    "after": "In Linear, easpórtáil na saincheisteanna mar CSV (Settings, Import / Export, Export data, nó easpórtáil ó amharc), ansin greamaigh an CSV. Déantar liostaí de stádais, lánaí d’fhoirne, agus cártaí de shaincheisteanna lena sannaí, lipéid, dátaí, máthair-shaincheist, tosaíocht, meastachán, tionscadal agus timthriall.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-ticktick",
+    "before": "In TickTick, open Settings, Account, Backup & Import and generate a backup, then paste the CSV file. Each TickTick list becomes a swimlane and its columns become lists; tasks keep their tags, dates, checklist, priority and subtasks.",
+    "after": "In TickTick, oscail Settings, Account, Backup & Import agus cruthaigh cúltaca, ansin greamaigh an comhad CSV. Déantar lána de gach liosta TickTick agus liostaí dá cholúin; coinníonn tascanna a gclibeanna, dátaí, seicliosta, tosaíocht agus fo-thascanna.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-clickup",
+    "before": "In ClickUp, export the tasks as CSV (Settings, Imports / Exports, Export Items, or a List or Table view's export with all columns), then paste the CSV. Statuses become lists, ClickUp lists become swimlanes, and tasks become cards with their subtasks, assignees, tags, dates, priority and time.",
+    "after": "In ClickUp, easpórtáil na tascanna mar CSV (Settings, Imports / Exports, Export Items, nó easpórtáil ó amharc List nó Table leis na colúin go léir), ansin greamaigh an CSV. Déantar liostaí de stádais, lánaí de liostaí ClickUp, agus cártaí de thascanna lena bhfo-thascanna, sannaithe, clibeanna, dátaí, tosaíocht agus am.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-nullboard",
+    "before": "In Nullboard, open the board, choose Export this board... from the menu, open the .nbx file in a text editor and paste its contents. Lists become lists and notes become cards: a note's first line is the card title and the rest its description. A raw note gets the label raw. A file with several boards imports its first board.",
+    "after": "In Nullboard, oscail an clár, roghnaigh Export this board... ón roghchlár, oscail an comhad .nbx in eagarthóir téacs agus greamaigh a bhfuil ann. Déantar liostaí de liostaí agus cártaí de nótaí: is é an chéad líne den nóta teideal an chárta agus is é an chuid eile a chur síos. Faigheann nóta amh an lipéad raw. Má tá roinnt clár sa chomhad, iompórtáiltear an chéad chlár.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-kanri",
+    "before": "In Kanri, open Import & Export and choose Export individual board (or Export all data), then paste the .json file. Columns become lists and cards become cards, with their description, due date, tags and colors; a card's tasks become a checklist. From an all-data export the first board is imported.",
+    "after": "In Kanri, oscail Import & Export agus roghnaigh Export individual board (nó Export all data), ansin greamaigh an comhad .json. Déantar liostaí de cholúin agus cártaí de chártaí, lena gcur síos, spriocdháta, clibeanna agus dathanna; déantar seicliosta de thascanna cárta. Iompórtáiltear an chéad chlár as easpórtáil na sonraí go léir.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-pivotal",
+    "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
+    "after": "In Pivotal Tracker, oscail cluaisín MORE an tionscadail agus roghnaigh Export CSV (nó roghnaigh scéalta agus roghnaigh Bulk Actions, CSV), ansin greamaigh an CSV. Déantar liosta de gach staid scéil agus cártaí de scéalta, lena gcineál agus lipéid, úinéirí, iarrthóir, dátaí, nótaí tráchta, tascanna agus bacainní; déantar pointí scéil de Estimate agus ráigeanna d’atriallta.",
+    "reason": "Translate English import guidance into Irish while preserving file formats, source menu labels and mapping limitations."
   }
 ]
