@@ -429,8 +429,6 @@ the calendar and Gantt),
 [#211](https://github.com/wekan/wekan/issues/211) (named column sets over the same cards, per board),
 [#140](https://github.com/wekan/wekan/issues/140) (real-time shared editing of descriptions with Yjs and the current
 editor),
-[#1273](https://github.com/wekan/wekan/issues/1273) (a Member Settings switch to keep the `#label` / `@member` text in
-the title; default as now),
 [#1178](https://github.com/wekan/wekan/issues/1178) (drawing onto a card, saved as both PNG and SVG and editable later,
 reusing the drawing code of the "Red Strings" issue),
 [#4791](https://github.com/wekan/wekan/issues/4791) (All Boards grouped by first letter, by board labels and by
@@ -456,8 +454,6 @@ followers, read-only),
 [#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board and
 list),
 [#1188](https://github.com/wekan/wekan/issues/1188) (on Sandstorm, Copy card URL copies a grain sharing link),
-[#2662](https://github.com/wekan/wekan/issues/2662) (an rc.d script in the FreeBSD bundle here, and a ports Makefile
-proposed to FreeBSD),
 [#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp, WebDAV attachment storage and CalDAV
 sync),
 [#1040](https://github.com/wekan/wekan/issues/1040) (LibreJS license markers in the browser bundle),
@@ -566,15 +562,174 @@ there.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Bots** hand cards to external runners such as an AI agent, a
+CI job or a script, as kanbots does, with no rights of their own. Board search
+**reveals each card it finds** on the board, lists **sort by label order**, and
+a Member Settings switch **keeps #label and @member** in new card titles.
+Webhooks may reach **internal hosts** a site admin lists, the activity
+notification **recovery list drains**, and the **FreeBSD** bundle runs as a
+service.
+
+This release adds the following new features:
+
+**Bots** - external runners a board hands cards to.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa48a2b71d">Board Settings / Bots: hand cards to an AI agent, CI job or script, as kanbots does</a>. Thanks to xet7.</summary>
+
+Board Settings → **Bots**, below Workflow view, is the Rules page's view for
+bots, laid out like kanbots in the board's theme. The rail lists the bots,
+the live runs and their activity. The board's lists are the columns, each
+card showing its run's state, its current step and the answers to the bot's
+question. The drawer shows the card's thread, **Hand to bot**, **Stop** and a
+reply box. A bot has no rights of its own. WeKan only sends to it: a dispatch
+goes through the outgoing-webhook queue, behind the SSRF guard and signed,
+and a bot receives no board activity. The runner works on the board through
+WeKan's REST API with its own user's role, and reports at one route that
+needs write access. Board admins only: in the view, or with the new Rule
+action **Hand the card to bot**. See [Bots](docs/Features/Automation/Bots.md).
+Tests: `tests/botRuns.test.cjs` and `server/lib/tests/bots.tests.js`.
+
+</details>
+
+**Search** - finding a card on the board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c239177cd8">Board search shows each card found on the board, and Enter steps to the next</a>. Thanks to rlach and xet7.</summary>
+
+A result opened from the board search is also scrolled into the middle of
+the board and highlighted for a moment. Enter again in the search box steps
+to the next card found, wrapping round, with "2 of 7" under the box, as
+finding on a page works. Shift+Enter or the arrows beside the count step back
+([previous](https://github.com/wekan/wekan/commit/7dd484f8c2)). A list found is
+revealed the same way. Tests:
+`tests/revealOnBoard.test.cjs` (jsdom), and a Playwright spec in
+`tests/playwright/specs/04-search.e2e.js`.
+
+</details>
+
+**Labels and avatars** - order and recognition at a glance.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cba618e2f9">Sort a list by the board's label order</a>. Thanks to mnantel and xet7.</summary>
+
+Board admins move a label up or down when editing it, and Sort cards has
+**Label order**: a card comes where its first label comes, and cards without
+labels come last. It is a display order only, like Sort by votes: it never
+changes the dragged order. `tests/labelOrder.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c56c03d202">Minicard avatars in the order people were added, each with its own colour</a>. Thanks to HolgerGH and xet7.</summary>
+
+The minicard floated each avatar to the end of its row, which drew them
+reversed: the first person added, whom a team treats as responsible, came
+last. They are a wrapping row in added order now, still right-aligned, as
+issue \#5081 asked. Each person's initials avatar has a lasting colour of
+their own, readable at WCAG AA, and the tooltip names them.
+`tests/avatarColor.test.cjs`.
+
+</details>
+
+**Webhooks** - where they may go.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4d2604e61">Outgoing webhooks may reach the internal hosts a site admin lists</a>. Thanks to xet7.</summary>
+
+Admin Panel → Settings → Global Webhooks → **Internal destinations** lists
+hosts on WeKan's own network that outgoing webhooks may reach: a Node-RED, a
+chat server, a Matrix hookshot. Each entry is a name or an address, with a
+port to allow only that port. It is empty by default. Only site
+administrators read and change it, through methods, and it is never
+published, so a board member still cannot point a webhook inward. A listed
+host is called without following redirects; everything else stays behind
+the SSRF guard. `tests/internalWebhookHosts.test.cjs`.
+
+</details>
+
+**Documentation** - how-tos the decided issues asked for.
+
+- [Bitbucket login through the generic OAuth2 settings](https://github.com/wekan/wekan/commit/f715e95b40), checked against the OIDC code. Thanks to thuanpq and xet7.
+- [Matrix notifications through an outgoing webhook and matrix-hookshot, no bot](https://github.com/wekan/wekan/commit/dff0856585). Thanks to killua-eu and xet7.
+- [RFID tags moving cards through the REST API](https://github.com/wekan/wekan/commit/c47fe98ab0). Thanks to xet7.
+- [WeKan on current Rancher with the Helm chart](https://github.com/wekan/wekan/commit/28477b5a85). Thanks to Dreampie and xet7.
+
+**Member Settings** - how a new card's title is typed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6b2938e1c">Keep #label and @member in a new card's title, as a Member Settings switch</a>. Thanks to biji and xet7.</summary>
+
+Picking a label with `#` or a member with `@` while typing a new card's title
+gave the card that label or member and removed the text from the title. Member
+Settings → **Keep #label and @member in new card titles** keeps the text as
+well, for those who read the title as a sentence. It is off by default, so
+nothing changes unless a user turns it on. `models/lib/titleTags.js` decides
+what stays; `tests/titleTags.test.cjs` checks both settings, a label known
+only by its colour, and that nothing like `@undefined` is ever left. The two
+strings are in every locale
+([translations](https://github.com/wekan/wekan/commit/8fd04f9984)).
+
+</details>
+
+**Platforms** - where WeKan runs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a29dbd8b7">The FreeBSD bundle runs as a service, with an rc.d script</a>. Thanks to xet7.</summary>
+
+`bundle/rc.d/wekan` in the FreeBSD bundle runs the bundle's own
+`start-wekan.sh` - the bundled Node.js and FerretDB on SQLite - under
+`daemon(8)` as an unprivileged user, set up in `rc.conf`: `wekan_enable`,
+`wekan_port`, `wekan_root_url`, `wekan_data`, `wekan_env`. `service wekan
+stop` stops FerretDB with WeKan. The FreeBSD bundle job fails without it.
+[FreeBSD](docs/Platforms/FOSS/OS/FreeBSD.md) has the install steps and an
+outline of a ports Makefile to propose to FreeBSD.
+`tests/freebsdRcScript.test.cjs`.
+
+</details>
+
+and fixes the following bugs:
+
+**Notifications and background jobs** - large instances.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0317a9ff3">The activity notification recovery list drains, and old entries expire</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The recovery scan retried every pending notification each round. One that
+can never be delivered failed every time and stayed forever: its activity
+was deleted or changed, a recipient lost access, or its plan had nothing or
+too much to send. After a ten-minute grace such a notification is now
+cancelled through the administrator's own cancellation, as the system.
+Pending notifications older than `ACTIVITY_NOTIFICATION_MAX_AGE_DAYS` (7)
+expire. Admin Panel → Problems gets **Retry all** and **Cancel older…**.
+`tests/activityNotificationExpiry.test.cjs` and a runtime test.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0317a9ff3">synced-cron's per-minute running-job lookup uses an index</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+`{ name, finishedAt: { $exists: false } }`, asked every minute per job and
+instance, scanned the whole `cronJobs` history: synced-cron indexes only
+`{ intendedAt, name }` and the TTL. `{ name, finishedAt }` is created at
+startup. `tests/syncedCronIndex.test.cjs` and a runtime test that checks the
+plan.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.42 2026-10-14 WeKan ® release
 
 **In short:** a new **Version Control** board view shows a board as a
-**GitHub** or **Gitea** issue tracker, and a whole **GitHub organization**
-imports into it, its **GitHub Actions** as Rules. **Bots** hand cards to
-external runners as kanbots does, and optional **Trello**, **Jira**,
-**GitHub** and **Gitea** compatible APIs let their clients use WeKan as a
-backend - none with rights of its own. Board search reveals what it finds on
-the board, and lists sort by label order.
+**GitHub** or **Gitea** issue tracker, with releases, a **wiki** and history
+with undo, and a whole **GitHub organization** imports into it, its **GitHub
+Actions** as Rules. Optional **Trello**, **Jira**, **GitHub** and **Gitea**
+compatible APIs let their clients use WeKan as a backend. Old boards get their
+keys in one pass, list sync keeps issue details current, any board view can be
+a **read-only public view**, and WeKan has **Android** bundles.
 
 This release adds the following new features:
 
@@ -715,89 +870,6 @@ fails if any of them writes past WeKan's REST API.
 
 </details>
 
-**Bots** - external runners a board hands cards to.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/aa48a2b71d">Board Settings / Bots: hand cards to an AI agent, CI job or script, as kanbots does</a>. Thanks to xet7.</summary>
-
-Board Settings → **Bots**, below Workflow view, is the Rules page's view for
-bots, laid out like kanbots in the board's theme. The rail lists the bots,
-the live runs and their activity. The board's lists are the columns, each
-card showing its run's state, its current step and the answers to the bot's
-question. The drawer shows the card's thread, **Hand to bot**, **Stop** and a
-reply box. A bot has no rights of its own. WeKan only sends to it: a dispatch
-goes through the outgoing-webhook queue, behind the SSRF guard and signed,
-and a bot receives no board activity. The runner works on the board through
-WeKan's REST API with its own user's role, and reports at one route that
-needs write access. Board admins only: in the view, or with the new Rule
-action **Hand the card to bot**. See [Bots](docs/Features/Automation/Bots.md).
-Tests: `tests/botRuns.test.cjs` and `server/lib/tests/bots.tests.js`.
-
-</details>
-
-**Search** - finding a card on the board.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c239177cd8">Board search shows each card found on the board, and Enter steps to the next</a>. Thanks to rlach and xet7.</summary>
-
-A result opened from the board search is also scrolled into the middle of
-the board and highlighted for a moment. Enter again in the search box steps
-to the next card found, wrapping round, with "2 of 7" under the box, as
-finding on a page works. Shift+Enter or the arrows beside the count step back
-([previous](https://github.com/wekan/wekan/commit/7dd484f8c2)). A list found is
-revealed the same way. Tests:
-`tests/revealOnBoard.test.cjs` (jsdom), and a Playwright spec in
-`tests/playwright/specs/04-search.e2e.js`.
-
-</details>
-
-**Labels and avatars** - order and recognition at a glance.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/cba618e2f9">Sort a list by the board's label order</a>. Thanks to mnantel and xet7.</summary>
-
-Board admins move a label up or down when editing it, and Sort cards has
-**Label order**: a card comes where its first label comes, and cards without
-labels come last. It is a display order only, like Sort by votes: it never
-changes the dragged order. `tests/labelOrder.test.cjs`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c56c03d202">Minicard avatars in the order people were added, each with its own colour</a>. Thanks to HolgerGH and xet7.</summary>
-
-The minicard floated each avatar to the end of its row, which drew them
-reversed: the first person added, whom a team treats as responsible, came
-last. They are a wrapping row in added order now, still right-aligned, as
-issue \#5081 asked. Each person's initials avatar has a lasting colour of
-their own, readable at WCAG AA, and the tooltip names them.
-`tests/avatarColor.test.cjs`.
-
-</details>
-
-**Webhooks** - where they may go.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b4d2604e61">Outgoing webhooks may reach the internal hosts a site admin lists</a>. Thanks to xet7.</summary>
-
-Admin Panel → Settings → Global Webhooks → **Internal destinations** lists
-hosts on WeKan's own network that outgoing webhooks may reach: a Node-RED, a
-chat server, a Matrix hookshot. Each entry is a name or an address, with a
-port to allow only that port. It is empty by default. Only site
-administrators read and change it, through methods, and it is never
-published, so a board member still cannot point a webhook inward. A listed
-host is called without following redirects; everything else stays behind
-the SSRF guard. `tests/internalWebhookHosts.test.cjs`.
-
-</details>
-
-**Documentation** - how-tos the decided issues asked for.
-
-- [Bitbucket login through the generic OAuth2 settings](https://github.com/wekan/wekan/commit/f715e95b40), checked against the OIDC code. Thanks to thuanpq and xet7.
-- [Matrix notifications through an outgoing webhook and matrix-hookshot, no bot](https://github.com/wekan/wekan/commit/dff0856585). Thanks to killua-eu and xet7.
-- [RFID tags moving cards through the REST API](https://github.com/wekan/wekan/commit/c47fe98ab0). Thanks to xet7.
-- [WeKan on current Rancher with the Helm chart](https://github.com/wekan/wekan/commit/28477b5a85). Thanks to Dreampie and xet7.
-
 **Cards** - opening a card on a phone.
 
 <details>
@@ -830,33 +902,6 @@ covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.
 </details>
 
 and fixes the following bugs:
-
-**Notifications and background jobs** - large instances.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0317a9ff3">The activity notification recovery list drains, and old entries expire</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-The recovery scan retried every pending notification each round. One that
-can never be delivered failed every time and stayed forever: its activity
-was deleted or changed, a recipient lost access, or its plan had nothing or
-too much to send. After a ten-minute grace such a notification is now
-cancelled through the administrator's own cancellation, as the system.
-Pending notifications older than `ACTIVITY_NOTIFICATION_MAX_AGE_DAYS` (7)
-expire. Admin Panel → Problems gets **Retry all** and **Cancel older…**.
-`tests/activityNotificationExpiry.test.cjs` and a runtime test.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0317a9ff3">synced-cron's per-minute running-job lookup uses an index</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-`{ name, finishedAt: { $exists: false } }`, asked every minute per job and
-instance, scanned the whole `cronJobs` history: synced-cron indexes only
-`{ intendedAt, name }` and the TTL. `{ name, finishedAt }` is created at
-startup. `tests/syncedCronIndex.test.cjs` and a runtime test that checks the
-plan.
-
-</details>
 
 **Board keys** - how old boards get theirs.
 
