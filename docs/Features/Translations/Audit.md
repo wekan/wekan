@@ -2,6 +2,20 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole bulk imports and exports — 2026-10-14
+
+Commit `7687970a9d` translates 20 mapping, multi-board import and export entries.
+Checks preserve member-mapping limits, single-board archives, per-project
+boundaries, Excel/ZIP layouts, Trello's literal swimlane label and placeholders.
+
+The Haitian catalog and guarded-correction suites pass with 29,509 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. A bulk-export browser case passes
+syntax and discovery; runtime remains pending.
+
+Further Haitian strings and other languages still require translation and
+semantic review. The all-language objective remains unfinished.
+
 ## Haitian Creole import mapping — 2026-10-14
 
 Commit `a79388c894` translates 15 entries covering Businessmap, Redmine, Notion,

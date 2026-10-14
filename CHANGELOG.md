@@ -3804,6 +3804,18 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7687970a9d">Translate Haitian Creole bulk import and export controls</a>. Thanks to xet7.</summary>
+
+- Translate 20 mapping, multi-board import and export entries. Retain member
+  mapping limits, project boundaries, Excel/ZIP layouts and placeholders.
+- Haitian catalog and guarded-correction suites pass, along with 21
+  human-preference checks. Existing Chinese values remain unchanged. The bulk
+  export browser test passes syntax and discovery; execution remains pending.
+- Further translations and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
