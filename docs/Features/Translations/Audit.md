@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy project import guidance — 2026-10-14
+
+Commit `b3eaaf9f4e` translates twelve guides for Tasks.org, monday.com,
+Super Productivity, Taiga, Vikunja, Quire, Wrike, Teamwork, Businessmap,
+Redmine, Notion and Plane. The translations retain unsupported-data warnings,
+English column requirements, task nesting, completion dates and fallback
+mappings. They follow the current English source; provider interfaces were
+not revalidated.
+
+The Malagasy catalog and guarded-correction suites pass with 29,999 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. The browser suite now covers all
+22 translated import formats. Syntax and discovery pass; runtime execution
+remains pending.
+
+Further Malagasy translations and all-language semantic review remain unfinished.
+
 ## Malagasy outline and task import guides — 2026-10-14
 
 Commit `211c67ad11` translates ten guides: OPML, Org mode, MeisterTask,

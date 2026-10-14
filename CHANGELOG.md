@@ -4080,6 +4080,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3eaaf9f4e">Translate Malagasy project import guidance</a>. Thanks to xet7.</summary>
+
+- Translate twelve guides for Tasks.org, monday.com, Super Productivity, Taiga,
+  Vikunja, Quire, Wrike, Teamwork, Businessmap, Redmine, Notion and Plane.
+  Preserve omission warnings, English column requirements and task nesting.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. All 22 translated import-guide browser cases pass
+  syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
