@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo workflows and permission messages — 2026-10-14
+
+Commit `daac3ead0d` translates 19 workflow and permission strings, including
+Wrike status handling, directory synchronization and subtask completion.
+Literal API paths, environment identifiers and placeholders are preserved.
+Technical prose is lower confidence and needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,962 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. Three browser cases pass syntax and discovery, including a
+permission-denial case; execution remains pending. The full Igbo placeholder
+list contains 69 entries, mostly recovery messages. All-language review is unfinished.
+
 ## Igbo notification and integration settings — 2026-10-14
 
 Commit `238354f6a5` translates 42 strings covering notification content,

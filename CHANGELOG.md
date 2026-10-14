@@ -637,8 +637,8 @@ Upcoming as it is committed. Builds run on GitHub Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** Igbo notification and integration settings are translated, with
-regression checks and further language review still in progress.
+**In short:** Igbo notification, integration, workflow and permission settings
+are translated, with regression checks and further language review in progress.
 
 This release updates the following translations:
 
@@ -654,6 +654,21 @@ All 21 human-preference checks pass; 38,430 existing Chinese values are
 unchanged.
 One notification browser case passes syntax and discovery; execution is pending.
 All-language translation and semantic verification remain unfinished.
+
+</details>
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/daac3ead0dceb451bdb69970cc5b19678d17ce6d">Translate Igbo workflow and permission controls</a>. Thanks to xet7.</summary>
+
+Translate 19 workflow, directory-sync and permission messages, preserving
+Wrike status behavior, environment identifiers and subtask completion choices.
+Technical prose is lower confidence and needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,962 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Three browser cases pass syntax and discovery; execution remains pending.
+Igbo has 69 detected placeholders left. All-language semantic review is
+unfinished.
 
 </details>
 
