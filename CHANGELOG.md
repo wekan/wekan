@@ -406,12 +406,9 @@ not have).
 <summary>Decided on 2026-10-14 (third round), waiting to be implemented.</summary>
 
 The maintainer answered the open design questions; each is built as decided.
-[#2698](https://github.com/wekan/wekan/issues/2698) (GitLab: write changes back
-to GitLab - issues, comments, state - with live tests in the build.sh and
-build.bat menus, run with the same git credentials mirror.sh uses). Importers
-for Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google
-Keep, through their APIs, with live tests in the build.sh and build.bat menus
-run with the maintainer's own credentials.
+Importers for Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and
+Google Keep, through their APIs, with live tests in the build.sh and build.bat
+menus run with the maintainer's own credentials.
 
 </details>
 
@@ -509,9 +506,10 @@ there.
 # Upcoming WeKan ® release
 
 **In short:** Members can lock their account to **SQRL** with their SQRL
-client's *sqrlonly* and *hardlock* options, and a WeKan on Windows can sign
-domain members in with **Windows single sign-on** (Kerberos / NTLM). Batch
-**undo and redo of a large sprint** is 2.6 times faster. **Bosnian** says Tabla
+client's *sqrlonly* and *hardlock* options, a WeKan on Windows can sign domain
+members in with **Windows single sign-on** (Kerberos / NTLM), and **List Sync
+writes changes back to GitLab**. Batch **undo and redo of a large sprint** is
+2.6 times faster. **Bosnian** says Tabla
 for board throughout, and **Tsonga** has its own word for the Archive.
 
 This release adds the following new features:
@@ -548,6 +546,23 @@ without a Windows domain to test against: the decisions are tested in
 
 </details>
 
+**List Sync** - writing back to the tracker.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6c1d6fce1">WeKan's changes are written back to GitLab</a>. Thanks to gotjoshua and xet7.</summary>
+
+Part of [#2698](https://github.com/wekan/wekan/issues/2698). A GitLab list's
+Sync option "Write changes back to GitLab", off by default: every run first
+sends titles and descriptions edited in WeKan (never over a conflict),
+comments as notes, archiving as closing and restoring as reopening, then reads
+GitLab. Only what happens after it was switched on is sent, each write is
+fenced by the list's Sync reservation, and a refused write is shown in the
+popup while the read sync goes on. `tests/listSyncWriteBack.test.cjs` and a
+Meteor test against a fake GitLab cover it; build.sh / build.bat → Tests →
+Live tests runs it against gitlab.com with the mirror's glab login.
+
+</details>
+
 and makes the following faster:
 
 <details>
@@ -569,6 +584,12 @@ and has the following documentation:
   direct alternatives, in OAuth2.md. Fixes
   [#6549](https://github.com/wekan/wekan/issues/6549). Thanks to timmy-mac and
   xet7.
+
+and has the following developer-tooling fix:
+
+- [oauthProviders follows the translated login-error list](https://github.com/wekan/wekan/commit/b38532ed72):
+  the SQRL refusals joined the conflict in one list of translated codes.
+  Thanks to xet7.
 
 and fixes the following translations:
 
