@@ -95,6 +95,8 @@ const sharedTerms = {
   // The Blockly image field: Veps uses kuva for a picture, as in add-cover
   // ("koren kuva") and every avatar string ("kävutajan kuva").
   'blockly-ARIA_TYPE_FIELD_IMAGE': 'kuva',
+  // Blockly's "not %1": Veps negates with the verb ei, as `no` above does.
+  'blockly-LOGIC_NEGATE_TITLE': 'ei %1',
 };
 for (const [key, value] of Object.entries(sharedTerms)) {
   assert.equal(veps[key], value, `${key}: attested shared Veps term`);
