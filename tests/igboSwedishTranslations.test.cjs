@@ -251,3 +251,13 @@ assert.equal(locales.ig['csv-mapping-column-number'], 'Kọlụm __number__');
 assert.match(locales.ig['import-many-boards-hint'], /faịlụ ọ bụla.*na-enweghị ijikọ.*bụ otu bọọdụ.*kama ọdịnaya oghere dị n’elu/);
 assert.match(locales.ig['import-many-progress'], /__done__.*__total__.*__name__/);
 assert.match(locales.ig['export-all-boards-hint'], /ị nwere ike ibupụ.*mpempe akwụkwọ maka bọọdụ ọ bụla.*\.zip nwere faịlụ maka bọọdụ ọ bụla/);
+
+assert.match(locales.ig['trello-export-desc'], /API Trello.*igodo API Trello na token.*"Swimlane: …".*na-agbanweghachi/);
+assert.match(locales.ig['trello-export-warnings'], /Enweghị ike.*ihe niile/);
+assert.match(locales.ig['sandstorm-trello-access-needed'], /enweghị ohere Ịntanetị nke ya.*Buru ụzọ/);
+assert.match(locales.ig['sandstorm-trello-access-granted'], /nwere ike ịnweta Trello/);
+assert.notEqual(locales.ig['sandstorm-trello-access-needed'], locales.ig['sandstorm-trello-access-granted']);
+assert.match(locales.ig['import-file-label'], /Họrọ faịlụ.*ma ọ bụ tapawa ederede/);
+assert.match(locales.ig['export-selected-boards'], /ndị ahọpụtara/);
+assert.notEqual(locales.ig['export-selected-boards'], locales.ig['export-all-boards']);
+assert.match(locales.ig['import-one-board-per-project'], /Otu bọọdụ.*ọ bụla/);

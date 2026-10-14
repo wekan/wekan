@@ -216200,5 +216200,110 @@
     "before": "Every board you can export, in one download: Excel as one workbook with a sheet per board named after it, every other format as a .zip with a file per board.",
     "after": "Bọọdụ ọ bụla ị nwere ike ibupụ, n’otu nbudata: Excel dịka otu akwụkwọ ọrụ nwere mpempe akwụkwọ maka bọọdụ ọ bụla, aha ya bụ aha bọọdụ ahụ; ụdị ndị ọzọ niile dịka .zip nwere faịlụ maka bọọdụ ọ bụla.",
     "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "export-selected-boards",
+    "before": "Export selected boards",
+    "after": "Bupụ bọọdụ ndị ahọpụtara",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "exportToTrelloPopup-title",
+    "before": "Export to Trello",
+    "after": "Bupụ na Trello",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "trello-export-desc",
+    "before": "Create a copy of this board in Trello through Trello's API, with your Trello API key and token. Swimlanes become labels named \"Swimlane: …\", which WeKan's Trello import turns back into swimlanes.",
+    "after": "Mepụta oyiri bọọdụ a na Trello site na API Trello, jiri igodo API Trello na token gị. Ahịrị igwu mmiri na-aghọ akara aha ha bụ \"Swimlane: …\", nke mbubata Trello nke WeKan na-agbanweghachi ka ha bụrụ ahịrị igwu mmiri.",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "trello-export-include-attachments",
+    "before": "Include attachments",
+    "after": "Tinye mgbakwunye",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "trello-export-start",
+    "before": "Export to Trello",
+    "after": "Bupụ na Trello",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "trello-export-open-board",
+    "before": "Open the board in Trello",
+    "after": "Mepee bọọdụ na Trello",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "trello-export-warnings",
+    "before": "Not everything could be exported",
+    "after": "Enweghị ike ibupụ ihe niile",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "sandstorm-trello-access-needed",
+    "before": "A Sandstorm grain has no Internet access of its own. Allow this grain to reach Trello first.",
+    "after": "Grain Sandstorm enweghị ohere Ịntanetị nke ya. Buru ụzọ kwe ka grain a nweta Trello.",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "sandstorm-allow-trello-access",
+    "before": "Allow access to Trello",
+    "after": "Kwe ka e nweta Trello",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "sandstorm-trello-access-granted",
+    "before": "This grain may reach Trello.",
+    "after": "Grain a nwere ike ịnweta Trello.",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "sandstorm-forget-access",
+    "before": "Forget",
+    "after": "Chefuo",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "sandstorm-trello-save-label",
+    "before": "Trello, for importing and exporting boards",
+    "after": "Trello, maka mbubata na mbupụ bọọdụ",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-export-wrike-workflow",
+    "before": "Export Wrike workflow",
+    "after": "Bupụ usoro ọrụ Wrike",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-file-label",
+    "before": "Choose the export file, or paste its text below:",
+    "after": "Họrọ faịlụ mbupụ, ma ọ bụ tapawa ederede ya n’okpuru:",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-one-board-per-project",
+    "before": "One board per project",
+    "after": "Otu bọọdụ maka ọrụ ukwu ọ bụla",
+    "reason": "Translate Trello and Sandstorm transfer help and remaining export/import controls; preserve the literal Swimlane label. Direct Igbo technical wording needs fluent review."
   }
 ]
