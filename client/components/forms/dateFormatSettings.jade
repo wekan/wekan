@@ -5,6 +5,23 @@ template(name="boardDateSettingsPopup")
     a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
       i.fa(class="{{#if isShowWeekOfYear}}fa-check{{else}}fa-square-o{{/if}}")
       span {{_ 'show-week-of-year'}}
+  //- #687: this board's due dates in a CalDAV calendar (Nextcloud Calendar...).
+    Board admins; the password is never sent back to the browser.
+  if currentUser.isBoardAdmin
+    hr
+    form.caldav-link.js-caldav-link
+      strong {{_ 'caldav-sync'}}
+      p.quiet {{_ 'caldav-sync-desc'}}
+      input.js-caldav-url(type="url" placeholder="https://cloud.example.com/remote.php/dav/calendars/user/wekan/" aria-label="{{_ 'caldav-url'}}" value=caldav.url)
+      input.js-caldav-username(type="text" placeholder="{{_ 'username'}}" aria-label="{{_ 'username'}}" value=caldav.username)
+      input.js-caldav-password(type="password" autocomplete="off" placeholder="{{#if caldav.hasPassword}}{{_ 'cloud-secret-keep-blank'}}{{else}}{{_ 'caldav-app-password'}}{{/if}}" aria-label="{{_ 'caldav-app-password'}}")
+      a.flex.js-caldav-enabled
+        i.fa(class="{{#if caldav.enabled}}fa-check{{else}}fa-square-o{{/if}}")
+        span {{_ 'caldav-enabled'}}
+      button.primary.js-caldav-save(type="submit") {{_ 'save'}}
+      button.js-caldav-sync-now(type="button") {{_ 'caldav-sync-now'}}
+      if caldavMessage
+        p.quiet= caldavMessage
 
 template(name="memberDateSettingsPopup")
   +dateFormatEditor(scope="member")

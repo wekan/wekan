@@ -139,6 +139,9 @@
     "models/lib/activityPub.js": [
       "https://www\\.w3\\.org/ns/activitystreams(#Public)?",
       "https://w3id\\.org/security/v1"
+    ],
+    "client/components/forms/dateFormatSettings.jade": [
+      "https://cloud\\.example\\.com(/[^\\s]*)?"
     ]
   },
   "files": {

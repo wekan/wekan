@@ -117,7 +117,19 @@ Template.dateFormatEditor.events({
   },
 });
 
+// #687: the board's CalDAV link, for board admins (server/caldavSync.js).
+Template.boardDateSettingsPopup.onCreated(function () {
+  this.caldav = new ReactiveVar({ url: '', username: '', enabled: false, hasPassword: false });
+  this.caldavMessage = new ReactiveVar('');
+  const board = Utils.getCurrentBoard();
+  if (board && ReactiveCache.getCurrentUser()?.isBoardAdmin()) {
+    Meteor.call('getCalDavLink', board._id, (error, link) => { if (!error && link) this.caldav.set(link); });
+  }
+});
+
 Template.boardDateSettingsPopup.helpers({
+  caldav() { return Template.instance().caldav.get(); },
+  caldavMessage() { return Template.instance().caldavMessage.get(); },
   isShowWeekOfYear() {
     const user = ReactiveCache.getCurrentUser();
     if (!user) return window.localStorage.getItem('showWeekOfYear') === 'true';
@@ -126,6 +138,38 @@ Template.boardDateSettingsPopup.helpers({
 });
 
 Template.boardDateSettingsPopup.events({
+  'click .js-caldav-enabled'(event, tpl) {
+    event.preventDefault();
+    tpl.caldav.set({ ...tpl.caldav.get(), enabled: !tpl.caldav.get().enabled });
+  },
+  async 'click .js-caldav-save, submit .js-caldav-link'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    const input = { url: String(tpl.$('.js-caldav-url').val() || ''), username: String(tpl.$('.js-caldav-username').val() || ''),
+      enabled: !!tpl.caldav.get().enabled };
+    const password = String(tpl.$('.js-caldav-password').val() || '');
+    if (password) input.password = password;
+    try {
+      await Meteor.callAsync('saveCalDavLink', board._id, input);
+      tpl.caldav.set(await Meteor.callAsync('getCalDavLink', board._id));
+      tpl.$('.js-caldav-password').val('');
+      tpl.caldavMessage.set(TAPi18n.__('feature-saved'));
+    } catch (error) {
+      tpl.caldavMessage.set(TAPi18n.__(error.error) || error.reason || error.message);
+    }
+  },
+  async 'click .js-caldav-sync-now'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    try {
+      const result = await Meteor.callAsync('syncCalDavNow', board._id);
+      tpl.caldavMessage.set(`${result.pushed} / ${result.total}`);
+    } catch (error) {
+      tpl.caldavMessage.set(TAPi18n.__(error.error) || error.reason || error.message);
+    }
+  },
   'click .js-show-week-of-year-toggle'() {
     const user = ReactiveCache.getCurrentUser();
     if (user) {

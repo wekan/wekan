@@ -378,6 +378,8 @@ import '/server/linkedLists';
 import '/server/groupMembers';
 // #4198: ActivityPub for public boards.
 import '/server/activityPub';
+// #687: CalDAV sync of card due dates.
+import '/server/caldavSync';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)
