@@ -118,6 +118,9 @@ test('production ChangeHistory admits Sync in either mode and links each row whe
   assert.match(body, /if \(mode === 'coordinated'\) return appendStoredHistoryChain\(\{ row, assertCurrent \}\);/);
   // The legacy link goes after the chain's TIP, walking successors, not after
   // whatever row is newest by createdAt (one batch shares a createdAt).
-  assert.match(body, /previousHash: previous\.integrityHash \}/);
+  // (models/lib/historyLegacyAppend.js historyChainTip), one append at a time.
+  assert.match(body, /return serializeHistoryAppend\(prepared\.boardId, async \(\) => \{\s*const previous = await historyChainTip\(ChangeHistory, prepared\.boardId\);/);
+  assert.match(require('node:fs').readFileSync(require('node:path').join(__dirname, '../../models/lib/historyLegacyAppend.js'), 'utf8'),
+    /history\.findOneAsync\(\{ boardId, previousHash: tip\.integrityHash \}/);
   assert.doesNotMatch(src, /sync-history-coordination-required/, 'a coordinated board is no longer refused');
 });

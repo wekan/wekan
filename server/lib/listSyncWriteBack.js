@@ -22,14 +22,14 @@ const { exactFieldSelector } = require('/models/lib/exactFieldSelector');
  * Write one list's WeKan changes back to GitLab.
  *   list, source, sourceKey, credential   the list and its selected Sync settings
  *   assertCurrent                          the reservation check
- *   fetch, write                           GitLab reads and writes (tests replace them)
+ *   readIssues, write                      GitLab reads and writes (tests replace them)
  * Returns { text, closed, reopened, comments, skipped }.
  */
 export async function writeBackToGitlab({ list, source, sourceKey, credential, assertCurrent,
-  fetch = fetchGitlabIssues, write = gitlabWrite }) {
+  readIssues = fetchGitlabIssues, write = gitlabWrite }) {
   const counts = { text: 0, closed: 0, reopened: 0, comments: 0, skipped: 0 };
   if (!source || source.writeBack !== true || !WRITE_BACK_SOURCES.includes(source.type) || !source.writeBackSince) return counts;
-  const issues = await fetch({ ...source, issueDetails: false }, credential);
+  const issues = await readIssues({ ...source, issueDetails: false }, credential);
   const cards = await Cards.find({ boardId: list.boardId, listId: list._id, syncSourceKey: sourceKey, syncExternalId: { $exists: true } },
     { fields: { _id: 1, syncExternalId: 1, title: 1, description: 1, archived: 1, archivedAt: 1, syncLastSource: 1, syncClosedByWeKan: 1 } }).fetchAsync();
   if (!cards.length) return counts;

@@ -39,7 +39,7 @@ describe('List Sync GitLab write-back', function () {
       return { ...issue };
     };
     const run = () => as(async () => syncOneList(await Lists.findOneAsync(listId),
-      { fetchers: { gitlab: fetch }, writeBackIo: { fetch, write } }));
+      { fetchers: { gitlab: fetch }, writeBackIo: { readIssues: fetch, write } }));
     const card = () => Cards.rawCollection().findOne({ boardId, syncExternalId: '7' });
     const save = writeBack => as(() => Meteor.server.method_handlers.setListSyncSource.apply(context, [listId,
       { type: 'gitlab', url: 'https://gitlab.example.org', projectKey: 'team/app', token: 'token', fields: ['title', 'description'], writeBack }]));

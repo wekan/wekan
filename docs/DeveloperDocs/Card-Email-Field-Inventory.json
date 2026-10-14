@@ -52,7 +52,7 @@
     "handling": "Control source resolution and durable identity checks; not raw prose fields."
   },
   {
-    "fields": ["scrumRevision", "syncSourceKey", "syncLastSource", "syncExternalId", "syncSourceType", "syncLabelIds", "syncIssueState", "deletedAt", "deletedBy", "deleteBatchId", "linkId_gantt"],
+    "fields": ["scrumRevision", "syncSourceKey", "syncLastSource", "syncExternalId", "syncSourceType", "syncLabelIds", "syncIssueState", "syncClosedByWeKan", "deletedAt", "deletedBy", "deleteBatchId", "linkId_gantt"],
     "handling": "Internal provenance, revision, deletion and renderer identifiers are excluded; deletion still governs eligibility."
   },
   {
