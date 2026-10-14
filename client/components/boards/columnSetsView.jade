@@ -1,0 +1,44 @@
+//- #211: the same cards in several named column sets (models/lib/columnSets.js).
+  Pick a set; drag a card to another column to change its place in that set
+  only. Each card shows its column in the other sets.
+template(name="columnSetsView")
+  .column-sets-view
+    .column-sets-toolbar
+      if columnSets.length
+        select.js-column-set-select(aria-label="{{_ 'column-sets'}}")
+          each columnSets
+            option(value=_id selected=isCurrentSet) {{name}}
+      if isBoardAdmin
+        form.js-add-column-set
+          input.js-column-set-name(type="text" maxlength="60" placeholder="{{_ 'column-set-new'}}" aria-label="{{_ 'column-set-new'}}")
+          button.js-add-column-set-button(type="submit") {{_ 'add'}}
+        if currentSet
+          form.js-add-column
+            input.js-column-title(type="text" maxlength="60" placeholder="{{_ 'column-new'}}" aria-label="{{_ 'column-new'}}")
+            select.js-column-color(aria-label="{{_ 'column-color'}}")
+              each colors
+                option(value=this) {{this}}
+            button.js-add-column-button(type="submit") {{_ 'add'}}
+          a.js-remove-column-set(title="{{_ 'column-set-remove'}}")
+            i.fa.fa-trash
+    if currentSet
+      .column-sets-columns
+        each columns
+          .column-sets-column.js-column-sets-drop(data-column-id=_id class="{{#if color}}card-label-{{color}}{{/if}}")
+            .column-sets-column-header
+              if title
+                | {{title}}
+              else
+                span.quiet {{_ 'column-not-placed'}}
+              span.quiet  {{cards.length}}
+              if title
+                if isBoardAdmin
+                  a.js-remove-column(data-column-id=_id title="{{_ 'column-remove'}}")
+                    i.fa.fa-times
+            each cards
+              .column-sets-card.js-column-sets-card(draggable="{{#if canWrite}}true{{/if}}" data-card-id=_id)
+                a.js-column-sets-open-card(data-card-id=_id)= title
+                each otherBadges
+                  span.card-label(class="card-label-{{color}}" title="{{setName}}") {{title}}
+    else
+      p.quiet {{_ 'column-sets-empty'}}

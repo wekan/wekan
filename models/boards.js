@@ -1425,6 +1425,18 @@ Boards.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    columnSets: {
+      /**
+       * #211: named column sets over the same cards (models/lib/columnSets.js):
+       * [{ _id, name, columns: [{ _id, title, color }] }].
+       */
+      type: Array,
+      optional: true,
+    },
+    'columnSets.$': {
+      type: Object,
+      blackbox: true,
+    },
     sharedListHeaders: {
       /**
        * #2805: one shared list header row for all swimlanes - the first

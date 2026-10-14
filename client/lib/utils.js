@@ -362,6 +362,7 @@ export const Utils = {
         'board-view-email',
         'board-view-chat',
         'board-view-version-control',
+        'board-view-column-sets',
       ].includes(view)
     ) {
       window.localStorage.setItem('boardView', view); //true
@@ -471,6 +472,7 @@ export const Utils = {
         'board-view-email',
         'board-view-chat',
         'board-view-version-control',
+        'board-view-column-sets',
       ].includes(window.localStorage.getItem('boardView'))
     ) {
       return window.localStorage.getItem('boardView');

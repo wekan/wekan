@@ -204,6 +204,15 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    columnSetValues: {
+      /**
+       * #211: which column this card is in for each of its board's column
+       * sets, { setId: columnId } (models/lib/columnSets.js).
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     cardKind: {
       /**
        * #2012: 'story' or 'task'; unset is an ordinary card

@@ -55,6 +55,9 @@ const FEATURES = [
     views: ['board-view-chat'] },
   { key: 'views-version-control', labelKey: 'feature-views-version-control', descKey: 'feature-views-version-control-desc',
     views: ['board-view-version-control'] },
+  // #211
+  { key: 'views-column-sets', labelKey: 'feature-views-column-sets', descKey: 'feature-views-column-sets-desc',
+    views: ['board-view-column-sets'] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

@@ -67,6 +67,8 @@ const BOARD_VIEWS = [
   // The board as a GitHub / Gitea issue tracker: issues, milestones, labels,
   // files and the history with its undo (client/components/boards/versionControlView.*).
   { view: 'board-view-version-control', labelKey: 'board-view-version-control', icon: 'fa-code-fork' },
+  // #211: the same cards in several named column sets (client/components/boards/columnSetsView.*).
+  { view: 'board-view-column-sets', labelKey: 'board-view-column-sets', icon: 'fa-columns' },
 ];
 
 const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
@@ -122,12 +124,14 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-email',
   'board-view-chat',
   'board-view-version-control',
+  'board-view-column-sets',
 ];
 
 // Views added to the default order after a board could save an order of its
 // own (Board Settings / Board View). A saved order that lacks only these is
 // the default order of its time, not a custom one (normalizeBoardViewOrder).
-const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'board-view-chat', 'board-view-version-control'];
+const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'board-view-chat', 'board-view-version-control',
+  'board-view-column-sets'];
 
 // After which entries the menu draws a separator - the same six `hr`s the
 // pre-feature template had, at the same places - only in the DEFAULT order,

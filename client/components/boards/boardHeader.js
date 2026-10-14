@@ -468,6 +468,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-version-control');
     Popup.back();
   },
+  'click .js-open-column-sets-view'() {
+    Utils.setBoardView('board-view-column-sets');
+    Popup.back();
+  },
   'click .js-open-pulse-view'() {
     Utils.setBoardView('board-view-pulse');
     Popup.back();
@@ -968,6 +972,7 @@ Template.boardViewMenu.helpers({
       'board-view-email': 'board-view-email',
       'board-view-chat': 'board-view-chat',
       'board-view-version-control': 'board-view-version-control',
+      'board-view-column-sets': 'board-view-column-sets',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

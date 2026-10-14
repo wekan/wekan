@@ -949,6 +949,9 @@ Template.boardBody.helpers({
   isViewChat() {
     return Utils.boardView() === 'board-view-chat';
   },
+  isViewColumnSets() {
+    return Utils.boardView() === 'board-view-column-sets';
+  },
   isViewVersionControl() {
     return Utils.boardView() === 'board-view-version-control';
   },

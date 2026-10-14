@@ -1,0 +1,10 @@
+/* #211: the Column sets view. */
+.column-sets-view { padding: 0.5em; }
+.column-sets-toolbar { display: flex; flex-wrap: wrap; gap: 0.5em; align-items: center; margin-bottom: 0.6em; }
+.column-sets-toolbar form { display: inline-flex; gap: 0.3em; margin: 0; }
+.column-sets-toolbar input, .column-sets-toolbar select { width: auto; margin: 0; }
+.column-sets-columns { display: flex; gap: 0.6em; align-items: flex-start; overflow-x: auto; }
+.column-sets-column { min-width: 14em; max-width: 18em; background: rgba(0, 0, 0, 0.05); border-radius: 4px; padding: 0.4em; }
+.column-sets-column-header { font-weight: bold; margin-bottom: 0.4em; display: flex; gap: 0.4em; align-items: center; }
+.column-sets-card { background: #fff; border-radius: 3px; padding: 0.35em 0.5em; margin-bottom: 0.35em; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15); cursor: grab; }
+.column-sets-card .card-label { font-size: 0.75em; margin-right: 0.2em; }

@@ -118,6 +118,8 @@ template(name="boardBody")
           +chatView
         else if isViewVersionControl
           +versionControlView
+        else if isViewColumnSets
+          +columnSetsView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

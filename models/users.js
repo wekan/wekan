@@ -1003,6 +1003,7 @@ Users.attachSchema(
         'board-view-email',
         'board-view-chat',
         'board-view-version-control',
+        'board-view-column-sets',
       ],
     },
     'profile.listSortBy': {

@@ -2431,6 +2431,50 @@
     {
       "key": "link-list-list",
       "since": "2026-10-14"
+    },
+    {
+      "key": "board-view-column-sets",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "feature-views-column-sets",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "feature-views-column-sets-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-sets",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-set-new",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-new",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-set-remove",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-remove",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-not-placed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-sets-empty",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "column-color",
+      "since": "2026-10-14"
     }
   ]
 }
