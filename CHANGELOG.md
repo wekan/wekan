@@ -4433,6 +4433,22 @@ pending. All-language semantic review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/503d439ddcfd3408d3a8b97fa6f1c9ad859cc05e">Correct Irish rule subjects and omit duplicated linking verbs</a>. Thanks to xet7.</summary>
+
+Correct six Irish card and assignee rule labels. Extend the existing grammar
+helper to omit a second linking verb after Irish temporal clauses that already
+contain one. Preserve the behavior of other languages.
+
+The Irish catalog, guarded-correction and rule-grammar suites pass with 30,526
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. The browser case for rule rows and saved descriptions
+passes syntax and discovery; runtime remains pending. Full semantic review
+remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

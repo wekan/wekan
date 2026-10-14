@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish rule subjects and assembled grammar — 2026-10-14
+
+Commit `503d439ddc` corrects six labels for card and assignee triggers. Assignee
+events no longer read as commands, and the assignee noun no longer names the
+assigner. The grammar helper omits the extra linking verb after Irish temporal
+subjects containing bhíonn. Tests cover locale variants, a distinct language
+sharing the prefix, reactive helper selection and assembled named subjects.
+
+The Irish catalog, guarded-correction and rule-grammar suites pass with 30,526
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. The Irish browser case for rule rows
+and saved descriptions passes syntax and discovery; runtime remains pending.
+
+These changes do not establish fluency for every assembled rule. Irish and
+all-language semantic review remain unfinished.
+
 ## Irish import and header help omissions — 2026-10-14
 
 Commit `32ae43650c` corrects three entries. Jira guidance restores the fields
