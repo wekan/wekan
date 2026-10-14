@@ -66,6 +66,17 @@ template(name="boardList")
         // Workspaces tree
         +workspaceTree(nodes=workspacesTree selectedWorkspaceId=selectedWorkspaceId)
         hr.boards-menu-divider
+        //- #802: a tab per organization and team the member is in: its boards,
+          and its members, managed there by its admins.
+        if myGroups.length
+          ul.menu.group-tabs
+            each myGroups
+              li(class="menu-item {{#if isSelectedGroup}}active{{/if}}")
+                a.js-select-group(data-kind=kind data-id=id)
+                  span.menu-label
+                    i.fa(class="{{#if $eq kind 'org'}}fa-sitemap{{else}}fa-users{{/if}}")
+                    |  {{name}}
+          hr.boards-menu-divider
 
         // Existing filter by orgs/teams (kept)
         ul.AllBoardTeamsOrgs
@@ -138,6 +149,30 @@ template(name="boardList")
               span.boards-page-info {{boardsCurrentPage}} / {{boardsTotalPages}}
               button.js-boards-next-page(class="{{#if hasBoardsNextPage}}{{else}}disabled{{/if}}")
                 | &gt;
+          //- #802: the selected organization or team - who is in it; its admins
+            add and remove members here. A directory-synced group is read-only.
+          if selectedGroup
+            .group-members-panel
+              h3
+                i.fa(class="{{#if $eq selectedGroup.kind 'org'}}fa-sitemap{{else}}fa-users{{/if}}")
+                |  {{selectedGroup.name}}
+              ul.group-members
+                each groupMembers
+                  li
+                    | {{username}}
+                    if fullname
+                      span.quiet  {{fullname}}
+                    if isAdmin
+                      span.quiet  ({{_ 'admin'}})
+                    if canManageGroup
+                      a.js-remove-group-member(data-user-id=_id title="{{_ 'group-member-remove'}}")
+                        i.fa.fa-times
+              if canManageGroup
+                form.js-add-group-member
+                  input.js-group-member-username(type="text" placeholder="{{_ 'username'}}" aria-label="{{_ 'username'}}")
+                  button.js-add-group-member-button(type="submit") {{_ 'group-member-add'}}
+              else
+                p.quiet {{_ 'group-members-read-only'}}
           //- #4791: All Boards organized automatically - by first character,
             organization, team and the member's own board labels, each with
             its count; a click shows that group only.

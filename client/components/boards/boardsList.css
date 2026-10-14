@@ -2298,3 +2298,9 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   width: auto;
   margin: 0;
 }
+
+/* #802: an organization or team tab's members. */
+.group-members-panel { margin: 0.4em 0 0.8em; padding: 0.5em; background: rgba(0, 0, 0, 0.04); border-radius: 4px; }
+.group-members { display: flex; flex-wrap: wrap; gap: 0.3em 1em; list-style: none; padding: 0; }
+.group-members-panel form { display: inline-flex; gap: 0.3em; }
+.group-members-panel input { width: auto; margin: 0; }

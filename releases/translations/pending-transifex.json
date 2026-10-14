@@ -2499,6 +2499,18 @@
     {
       "key": "card-drawing-saved",
       "since": "2026-10-14"
+    },
+    {
+      "key": "group-member-add",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "group-member-remove",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "group-members-read-only",
+      "since": "2026-10-14"
     }
   ]
 }

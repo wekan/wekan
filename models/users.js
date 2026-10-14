@@ -247,6 +247,14 @@ Users.attachSchema(
        */
       type: String,
     },
+    'teams.$.isAdmin': {
+      /**
+       * #802: this member administers this team's members in All Boards, as
+       * orgs.$.isAdmin does for an organization (models/lib/groupMembers.js).
+       */
+      type: Boolean,
+      optional: true,
+    },
     emails: {
       /**
        * the list of emails attached to a user

@@ -374,6 +374,8 @@ import '/server/activityFeed';
 import '/server/webPush';
 // #2809: linked whole lists.
 import '/server/linkedLists';
+// #802: All Boards organization and team tabs.
+import '/server/groupMembers';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

@@ -804,6 +804,16 @@ Template.boardList.onCreated(function () {
     if (!error && facets) this.boardFacets.set(facets);
   });
   this.loadBoardFacets();
+  // #802: the organization or team tab picked, and its members.
+  this.selectedGroup = new ReactiveVar(null);
+  this.groupMembers = new ReactiveVar({ canManage: false, members: [] });
+  this.loadGroupMembers = () => {
+    const group = this.selectedGroup.get();
+    if (!group) return;
+    Meteor.call('groupMembers', group.kind, group.id, (error, result) => {
+      this.groupMembers.set(error ? { canManage: false, members: [] } : result);
+    });
+  };
   // #5850: the user's orgs/teams that have the per-org/team Shared Templates
   // flag set (plus email domains), fetched via a non-admin server method since
   // the org/team publications are admin-only. Gates the drag-to-share targets.
@@ -994,6 +1004,18 @@ Template.boardList.helpers({
     return !!(f && f.type === type && f.value === (this.key || ''));
   },
   hasBoardFacet() { return !!Template.instance().boardFacet.get(); },
+  // #802
+  myGroups() {
+    const { myGroups } = require('/models/lib/groupMembers');
+    return myGroups(ReactiveCache.getCurrentUser());
+  },
+  isSelectedGroup() {
+    const g = Template.instance().selectedGroup.get();
+    return !!(g && g.kind === this.kind && g.id === this.id);
+  },
+  selectedGroup() { return Template.instance().selectedGroup.get(); },
+  groupMembers() { return Template.instance().groupMembers.get().members; },
+  canManageGroup() { return Template.instance().groupMembers.get().canManage; },
   userHasTeams() {
     if (ReactiveCache.getCurrentUser()?.teams?.length > 0) return true;
     else return false;
@@ -1547,6 +1569,43 @@ function persistBoardOrderFromDom(evt, tpl) {
 }
 
 Template.boardList.events({
+  // #802: an organization or team tab: its boards, and its members.
+  'click .js-select-group'(evt, tpl) {
+    evt.preventDefault();
+    const { kind, id } = evt.currentTarget.dataset;
+    const current = tpl.selectedGroup.get();
+    if (current && current.kind === kind && current.id === id) {
+      tpl.selectedGroup.set(null);
+      tpl.boardFacet.set(null);
+      return;
+    }
+    const { myGroups } = require('/models/lib/groupMembers');
+    const group = myGroups(ReactiveCache.getCurrentUser()).find(g => g.kind === kind && g.id === id);
+    tpl.selectedGroup.set(group || { kind, id, name: '' });
+    tpl.boardFacet.set({ type: kind, value: id });
+    tpl.boardsPageVar.set(1);
+    tpl.loadGroupMembers();
+  },
+  async 'click .js-add-group-member-button, submit .js-add-group-member'(evt, tpl) {
+    evt.preventDefault();
+    const group = tpl.selectedGroup.get();
+    const username = String(tpl.$('.js-group-member-username').val() || '').trim();
+    if (!group || !username) return;
+    try {
+      await Meteor.callAsync('addGroupMember', group.kind, group.id, username);
+      tpl.$('.js-group-member-username').val('');
+      tpl.loadGroupMembers();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Could not add the member.');
+    }
+  },
+  async 'click .js-remove-group-member'(evt, tpl) {
+    evt.preventDefault();
+    const group = tpl.selectedGroup.get();
+    if (!group) return;
+    await Meteor.callAsync('removeGroupMember', group.kind, group.id, evt.currentTarget.dataset.userId);
+    tpl.loadGroupMembers();
+  },
   // #4791: pick a group of the facet bar, again to clear it.
   'click .js-board-facet'(evt, tpl) {
     evt.preventDefault();
