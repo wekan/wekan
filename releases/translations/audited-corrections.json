@@ -216032,5 +216032,173 @@
     "before": "In Plane, open Workspace Settings, choose Exports, export the projects as JSON, CSV or Excel and download the .zip file, then choose that file, or one file from inside it, or paste the JSON or CSV. States become lists, projects become swimlanes, and issues become cards with their identifier, parent, assignees, labels, dates, links and comments; priority, estimate, cycle and module become custom fields. Plane's export has no descriptions or attachments, so they are not imported.",
     "after": "Na Plane, mepee Ntọala ebe ọrụ, họrọ Mbupụ, bupụ ọrụ ukwu dịka JSON, CSV ma ọ bụ Excel wee budata faịlụ .zip, họrọzie faịlụ ahụ, ma ọ bụ otu faịlụ dị n’ime ya, ma ọ bụ tapawa JSON ma ọ bụ CSV. Ọnọdụ na-aghọ ndepụta, ọrụ ukwu na-aghọ ahịrị igwu mmiri, nsogbu na-aghọkwa kaadị nwere njirimara, nne na nna, ndị e kenyere, akara, ụbọchị, njikọ na nkọwa ha; mkpa, atụmatụ nha, okirikiri na modul na-aghọ oghere ahaziri. Mbupụ Plane enweghị nkọwa ọdịnaya ma ọ bụ mgbakwunye, ya mere a naghị ebubata ha.",
     "reason": "Translate remaining modern import guides with exclusions and required literal headers; direct Igbo technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-members-mode-heading",
+    "before": "People in the file:",
+    "after": "Ndị nọ na faịlụ ahụ:",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-members-mode-map",
+    "before": "Choose an existing user for each of them",
+    "after": "Họrọ onye ọrụ dị adị maka onye ọ bụla n’ime ha",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-members-mode-placeholder",
+    "before": "Keep them as placeholder users with their own names, to map to real users later",
+    "after": "Debe ha dịka ndị ọrụ nnọchi anya nwere aha nke ha, ka e jikọọ ha na ndị ọrụ n’ezie ma emechaa",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-members-mode-me",
+    "before": "Make them all me",
+    "after": "Mee ka ha niile bụrụ m",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-title",
+    "before": "Which column is which?",
+    "after": "Kedu kọlụm bụ nke ọ bụla?",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-description",
+    "before": "Choose the column of the file that holds each card field. The choices were made from the column names; change any that are wrong, and choose (not in the file) for a field the file does not have.",
+    "after": "Họrọ kọlụm faịlụ nwere oghere kaadị ọ bụla. E ji aha kọlụm mee nhọrọ ndị a; gbanwee ndị na-ezighị ezi, ma họrọ (adịghị na faịlụ) maka oghere faịlụ ahụ na-enweghị.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-not-in-file",
+    "before": "(not in the file)",
+    "after": "(adịghị na faịlụ)",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-column-number",
+    "before": "Column __number__",
+    "after": "Kọlụm __number__",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-list-missing",
+    "before": "The file has no column for the list. Choose one above, or type the name of the one list every card goes into.",
+    "after": "Faịlụ ahụ enweghị kọlụm maka ndepụta. Họrọ otu n’elu, ma ọ bụ dee aha otu ndepụta kaadị niile ga-abanye na ya.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-list-name",
+    "before": "List for every card",
+    "after": "Ndepụta maka kaadị niile",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-custom-fields",
+    "before": "Other columns to import as text custom fields:",
+    "after": "Kọlụm ndị ọzọ a ga-ebubata dịka oghere ederede ahaziri:",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-boards",
+    "before": "Each sheet becomes its own board:",
+    "after": "Mpempe akwụkwọ ọ bụla na-aghọ bọọdụ nke ya:",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-skipped-sheets",
+    "before": "Sheets that are not imported:",
+    "after": "Mpempe akwụkwọ a na-agaghị ebubata:",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-title-required",
+    "before": "Choose the column that holds the card titles.",
+    "after": "Họrọ kọlụm nwere aha kaadị.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "csv-mapping-list-required",
+    "before": "Type the name of the list every card goes into, or choose the column that holds the list.",
+    "after": "Dee aha ndepụta kaadị niile ga-abanye na ya, ma ọ bụ họrọ kọlụm nwere ndepụta.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "invalid-import-mapping",
+    "before": "The column mapping does not match the file.",
+    "after": "Njikọ kọlụm ahụ adabaghị na faịlụ.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-many-boards",
+    "before": "Import many boards",
+    "after": "Bubata ọtụtụ bọọdụ",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-many-boards-hint",
+    "before": "Choose several export files of this tool, or one .zip that holds them: each file becomes its own board, imported without member mapping. A .zip that is itself one export (Vikunja, Notion, Plane, or WeKan with attachments) is one board. When files are chosen here, Import imports them instead of the field above.",
+    "after": "Họrọ ọtụtụ faịlụ mbupụ nke ngwa a, ma ọ bụ otu .zip nwere ha: faịlụ ọ bụla na-aghọ bọọdụ nke ya, a na-ebubata ya na-enweghị ijikọ ndị otu na ndị ọrụ. Faịlụ .zip nke bụ otu mbupụ n’onwe ya (Vikunja, Notion, Plane, ma ọ bụ WeKan nwere mgbakwunye) bụ otu bọọdụ. Mgbe a họọrọ faịlụ ebe a, Mbubata na-ebubata ha kama ọdịnaya oghere dị n’elu.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-many-progress",
+    "before": "Importing __done__ of __total__: __name__",
+    "after": "Na-ebubata __done__ n’ime __total__: __name__",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-many-results-heading",
+    "before": "Imported files",
+    "after": "Faịlụ ebubatara",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-many-imported",
+    "before": "imported",
+    "after": "ebubatara",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "export-all-boards",
+    "before": "Export all boards",
+    "after": "Bupụ bọọdụ niile",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "exportAllBoardsPopup-title",
+    "before": "Export all boards",
+    "after": "Bupụ bọọdụ niile",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "export-all-boards-hint",
+    "before": "Every board you can export, in one download: Excel as one workbook with a sheet per board named after it, every other format as a .zip with a file per board.",
+    "after": "Bọọdụ ọ bụla ị nwere ike ibupụ, n’otu nbudata: Excel dịka otu akwụkwọ ọrụ nwere mpempe akwụkwọ maka bọọdụ ọ bụla, aha ya bụ aha bọọdụ ahụ; ụdị ndị ọzọ niile dịka .zip nwere faịlụ maka bọọdụ ọ bụla.",
+    "reason": "Translate import member choices, column mapping and bulk import/export layouts; preserve variables. Direct Igbo technical prose needs fluent review."
   }
 ]

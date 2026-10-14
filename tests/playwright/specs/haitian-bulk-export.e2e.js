@@ -57,3 +57,17 @@ test('Scottish Gaelic bulk export explains workbook and ZIP layouts', async ({ b
   await expect(popup.locator('p.quiet')).toContainText('.zip le faidhle airson gach bòrd');
   await expect(popup.locator('p.quiet')).not.toContainText('Every board');
 });
+
+test('Igbo bulk export explains workbook and ZIP layouts', async ({ boardPage: page }) => {
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ig'));
+  await navigateInApp(page, '/');
+  const settings = page.locator('.js-export-all-boards');
+  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+  await settings.click();
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.header-title')).toHaveText('Bupụ bọọdụ niile');
+  await expect(popup.locator('p.quiet')).toContainText('Bọọdụ ọ bụla ị nwere ike ibupụ');
+  await expect(popup.locator('p.quiet')).toContainText('mpempe akwụkwọ maka bọọdụ ọ bụla');
+  await expect(popup.locator('p.quiet')).toContainText('.zip nwere faịlụ maka bọọdụ ọ bụla');
+  await expect(popup.locator('p.quiet')).not.toContainText('Every board');
+});

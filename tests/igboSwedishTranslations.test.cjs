@@ -242,3 +242,12 @@ assert.match(locales.ig['import-board-instruction-redmine'], /Bekee.*tupu mbup�
 assert.match(locales.ig['import-board-instruction-teamwork'], /--, ##.*>>.*ọkwa/);
 assert.match(locales.ig['import-board-instruction-notion'], /Status.*kọlụm mbụ.*akụkọ mbubata.*A naghị ebubata mmekọrịta, onyonyo na mgbakwunye/);
 assert.match(locales.ig['import-board-instruction-plane'], /enweghị nkọwa ọdịnaya ma ọ bụ mgbakwunye/);
+
+assert.match(locales.ig['import-members-mode-placeholder'], /aha nke ha.*ndị ọrụ n’ezie ma emechaa/);
+assert.notEqual(locales.ig['import-members-mode-map'], locales.ig['import-members-mode-me']);
+assert.match(locales.ig['csv-mapping-description'], /gbanwee.*adịghị na faịlụ/);
+assert.match(locales.ig['csv-mapping-list-required'], /aha ndepụta.*ma ọ bụ họrọ kọlụm/);
+assert.equal(locales.ig['csv-mapping-column-number'], 'Kọlụm __number__');
+assert.match(locales.ig['import-many-boards-hint'], /faịlụ ọ bụla.*na-enweghị ijikọ.*bụ otu bọọdụ.*kama ọdịnaya oghere dị n’elu/);
+assert.match(locales.ig['import-many-progress'], /__done__.*__total__.*__name__/);
+assert.match(locales.ig['export-all-boards-hint'], /ị nwere ike ibupụ.*mpempe akwụkwọ maka bọọdụ ọ bụla.*\.zip nwere faịlụ maka bọọdụ ọ bụla/);
