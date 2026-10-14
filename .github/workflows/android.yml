@@ -1,0 +1,195 @@
+name: Android bundles
+
+# WeKan on Android, for Termux: the published Linux bundle of each CPU,
+# rebuilt inside Termux's own image (real Bionic and Android clang, the ARM
+# ones on ARM runners) by releases/android/build-bundle.sh with wekan/
+# node-patches' node-android-<cpu> of the same version, then started and
+# required to answer HTTP 200. The same pattern as the musl and BSD bundles.
+# A target whose Linux bundle, or whose Android Node.js, is not published yet
+# is SKIPPED, not failed, and builds by itself once it is.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing WeKan release tag (empty = latest published release)'
+        type: string
+        required: false
+      publish:
+        description: 'Attach the Android bundles and checksums to that release'
+        type: boolean
+        default: true
+      only:
+        description: 'JSON target list, e.g. ["android-arm64"] (empty = all)'
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      publish:
+        type: boolean
+        default: true
+      only:
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wekan-android-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -euo pipefail
+          tag="${TAG:-$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName -q .tagName)}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          matrix="$(python3 -c '
+          import json, os
+          targets = json.load(open("releases/android/targets.json"))
+          only = json.loads(os.environ.get("ONLY") or "[]")
+          if only:
+              targets = [t for t in targets if t["target"] in only]
+          print(json.dumps({"include": targets}))')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "Release $tag; targets: $matrix"
+
+  build:
+    needs: plan
+    name: Android ${{ matrix.target }}
+    runs-on: ${{ matrix.runner }}
+    # 32-bit ARM runs on the arm64 runner only when its kernel can; a target
+    # that cannot run there must not fail the others.
+    continue-on-error: ${{ matrix.tolerate_failure || false }}
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      TAG: ${{ needs.plan.outputs.tag }}
+      TARGET: ${{ matrix.target }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Fetch and verify the Linux bundle and the Android Node.js
+        id: fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          zip="wekan-${version}-${BASE}.zip"
+          if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$zip" --pattern "$zip.sha256sum" || [ ! -f "$zip" ]; then
+            echo "::notice::$TARGET: $TAG has no $zip; skipped."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          [ -f "$zip.sha256sum" ] || { echo "::error::$zip has no published .sha256sum; a bundle is never rebuilt from an unverified one."; exit 1; }
+          sha256sum -c "$zip.sha256sum"
+          unzip -q "$zip"
+          rm -f "$zip" "$zip.sha256sum"
+          node_version="$(grep -aoE 'nodejs\.org/download/release/v[0-9]+\.[0-9]+\.[0-9]+/' bundle/node | head -n1 | sed -E 's#.*/(v[0-9.]+)/#\1#')"
+          [ -n "$node_version" ] || { echo "::error::Could not read the Node.js version of bundle/node."; exit 1; }
+          rc=0; out="$(bash releases/resolve-node-source.sh "$TARGET" "$node_version")" || rc=$?
+          if [ "$rc" = 3 ] || ! printf '%s\n' "$out" | grep -q '^node_found=true'; then
+            echo "::notice::$TARGET: wekan/node-patches has no node-$TARGET for $node_version yet; skipped."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          eval "$(printf '%s\n' "$out" | grep -E '^node_(url|sha256|kind|member)=')"
+          mkdir -p android-tools
+          bash releases/fetch.sh -o android-node.download "$node_url"
+          [ -n "$node_sha256" ] || { echo "::error::$node_url has no published SHA256."; exit 1; }
+          echo "$node_sha256  android-node.download" | sha256sum -c -
+          case "$node_kind" in
+            binary) mv android-node.download android-tools/node ;;
+            tar.xz) tar -xJf android-node.download -C android-tools && mv "android-tools/$node_member" android-tools/node && rm -f android-node.download ;;
+            *) echo "::error::unexpected Android Node.js kind: $node_kind"; exit 1 ;;
+          esac
+          chmod +x android-tools/node
+          file android-tools/node bundle/ferretdb
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild and start it in Termux
+        if: steps.fetch.outputs.skip != 'true'
+        env:
+          TERMUX_ARCH: ${{ matrix.termux_arch }}
+          ARCH: ${{ matrix.arch }}
+        run: |
+          # Termux's entrypoint clears the Docker environment when it switches
+          # to its unprivileged user, so the values go after the switch (as
+          # bun.yml does), and that user needs a writable bind mount.
+          chmod -R a+rwX .
+          docker run --rm --security-opt seccomp=unconfined -v "$PWD:/work" -w /work \
+            "termux/termux-docker:$TERMUX_ARCH" env "ARCH=$ARCH" DO_NOT_TRACK=1 bash -ec '
+              apt-get update
+              apt-get install -y nodejs-lts python make clang pkg-config libvips curl procps file
+              bash releases/android/build-bundle.sh "$ARCH"'
+
+      - name: Package
+        if: steps.fetch.outputs.skip != 'true'
+        env:
+          VERSION: ${{ steps.fetch.outputs.version }}
+        run: |
+          set -euo pipefail
+          sudo chown -R "$(id -u):$(id -g)" bundle
+          out="wekan-${VERSION}-${TARGET}.zip"
+          zip -qry "$out" bundle
+          sha256sum "$out" > "$out.sha256sum"
+          ls -la "$out" "$out.sha256sum"
+
+      - uses: actions/upload-artifact@v7
+        if: steps.fetch.outputs.skip != 'true'
+        with:
+          name: android-${{ matrix.target }}
+          path: wekan-*-${{ matrix.target }}.zip*
+          retention-days: 3
+          compression-level: 0
+
+  publish:
+    needs: [plan, build]
+    if: ${{ !cancelled() && inputs.publish }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v7
+        with:
+          pattern: android-*
+          path: artifacts
+      - name: Attach every Android bundle that was built and started
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.plan.outputs.tag }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          published=0
+          for f in artifacts/android-*/wekan-*.zip; do
+            (cd "$(dirname "$f")" && sha256sum -c "$(basename "$f").sha256sum")
+            bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "$TAG" "$f" "$f.sha256sum"
+            published=$((published + 1))
+          done
+          echo "Published $published Android bundles to $TAG."

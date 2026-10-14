@@ -1314,6 +1314,19 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  # Android (Termux): the Linux bundles rebuilt in Termux with wekan/
+  # node-patches' node-android-<cpu>; skipped until those are published.
+  android:
+    name: Android bundles
+    needs: [prepare, release, build-amd64, build-arm64, build-extra-arches]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/android.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   # The musl AppImages wrap the musl bundles, so they wait for them.
   appimage-musl:
     name: musl AppImages

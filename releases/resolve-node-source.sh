@@ -138,6 +138,12 @@ case "$platform" in
   openbsd-x64)   nodename="openbsd-x64"   ; asset="node-openbsd-x64"   ; ext="tar.xz" ;;
   openbsd-arm64) nodename="openbsd-arm64" ; asset="node-openbsd-arm64" ; ext="tar.xz" ;;
   netbsd-x64)    nodename="netbsd-x64"    ; asset="node-netbsd-x64"    ; ext="tar.xz" ;;
+  # Android (Termux): only wekan/node-patches builds these, with the NDK, the
+  # C++ library linked in (releases/android/build-bundle.sh uses them).
+  android-arm64) nodename="android-arm64" ; asset="node-android-arm64" ; ext="tar.xz" ;;
+  android-armv7) nodename="android-armv7" ; asset="node-android-armv7" ; ext="tar.xz" ;;
+  android-x64)   nodename="android-x64"   ; asset="node-android-x64"   ; ext="tar.xz" ;;
+  android-x86)   nodename="android-x86"   ; asset="node-android-x86"   ; ext="tar.xz" ;;
   *)
     log "::error::resolve-node-source.sh does not know the platform '${1}'. Add it to the mapping table if WeKan builds for it now."
     exit 1

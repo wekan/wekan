@@ -1,0 +1,6 @@
+[
+  {"target": "android-arm64", "base": "arm64", "arch": "arm64", "termux_arch": "aarch64", "runner": "ubuntu-24.04-arm"},
+  {"target": "android-x64", "base": "amd64", "arch": "x64", "termux_arch": "x86_64", "runner": "ubuntu-24.04"},
+  {"target": "android-armv7", "base": "armhf", "arch": "arm", "termux_arch": "arm", "runner": "ubuntu-24.04-arm", "tolerate_failure": true},
+  {"target": "android-x86", "base": "i386", "arch": "ia32", "termux_arch": "i686", "runner": "ubuntu-24.04"}
+]

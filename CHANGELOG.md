@@ -578,7 +578,7 @@ the REST API through Sandstorm. Builds run on GitHub Actions only.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.41 2026-10-14 WeKan ® release
 
 **In short:** **custom board roles**, **per-list permissions** and boards
 **every signed-in user may edit**; board **keys** (`DEV-7`) and **shared
