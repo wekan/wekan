@@ -215262,5 +215262,54 @@
     "before": "Only the server environment sets these. They are shown here read-only.",
     "after": "Chan urrainnear iad seo a shuidheachadh ach ann an àrainneachd an fhrithealaiche. Tha iad ri leughadh a-mhàin an-seo.",
     "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "card-recurrence-interval",
+    "before": "Ath-shuidheachadh fèin-obrachail",
+    "after": "Ath-aithris na cairt",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "before": "Ath-shuidheachadh fèin-obrachail",
+    "after": "Ath-aithris na cairt",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "card-recurrence-interval-none",
+    "before": "Dheth (chan ath-shuidhichear e gu fèin-obrachail)",
+    "after": "Dheth (cha dèanar a’ chairt a-rithist gu fèin-obrachail)",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "move-reason",
+    "before": "Gluais a' chairt — Tuairisgeul",
+    "after": "Adhbhar a’ ghluasaid (roghainneil)",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "ask-move-reason",
+    "before": "Gluais a' chairt → Tuairisgeul?",
+    "after": "Iarr adhbhar nuair a ghluaiseas tu cairtean",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-board-instruction-todoist",
+    "before": "In Todoist, open the project menu and choose Export as a template, then paste the CSV file. Sections become lists, tasks become cards, sub-tasks become a checklist, notes become comments, and @labels and priorities p1 to p3 become labels.",
+    "after": "Ann an Todoist, fosgail am pròiseact, tagh an clàr-taice ⋯ aig a’ mhullach air an làimh dheis, an uair sin Stiùirich dàta > Às-phortaich mar CSV, agus cuir susbaint an fhaidhle CSV ann. Thèid earrannan nan liostaichean, gnìomhan nan cairtean, fo-ghnìomhan nan liosta-dearbhaidh, notaichean nam beachdan, agus @leubailean agus prìomhachasan p1 gu p3 nan leubailean.",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-board-instruction-planner",
+    "before": "In Microsoft Planner, open the plan's menu and choose Export plan to Excel, then choose that .xlsx file. Buckets become lists and tasks become cards, with their assignees, dates, labels, checklist and description; Progress, Priority and Completed By become custom fields.",
+    "after": "Ann am Microsoft Planner, fosgail am plana, tagh an clàr-taice ⋯ ri taobh ainm, an uair sin Às-phortaich mar Excel (ann am Planner clasaigeach: Às-phortaich am plana gu Excel), agus tagh am faidhle .xlsx sin. Thèid bucaidean nan liostaichean agus gnìomhan nan cairtean, còmhla ris an luchd-obrach ainmichte, cinn-là, leubailean, liosta-dearbhaidh agus tuairisgeul aca; thèid Adhartas, Prìomhachas agus Crìochnaichte le nan raointean gnàthaichte.",
+    "reason": "Correct stale English import guides and distinguish card recurrence and optional move reasons; direct Scottish Gaelic technical prose needs fluent review."
   }
 ]

@@ -127,3 +127,23 @@ for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncat
 const fullCatalog = spawnSync(process.execPath, [fillScript, '--list', 'gd'], { cwd: root, encoding: 'utf8' });
 assert.equal(fullCatalog.status, 0, fullCatalog.stderr);
 assert.deepEqual(JSON.parse(fullCatalog.stdout), {}, 'Full Scottish Gaelic placeholder inventory including pending keys');
+
+// Meaning checks catch stale English and wrong actions even after placeholders reach zero.
+for (const key of ['card-recurrence-interval', 'cardRecurrenceIntervalPopup-title']) {
+  assert.equal(gaelic[key], 'Ath-aithris na cairt');
+  assert.doesNotMatch(gaelic[key], /Ath-shuidheachadh/);
+}
+assert.match(gaelic['card-recurrence-interval-none'], /cha dèanar.*a-rithist/);
+assert.doesNotMatch(gaelic['card-recurrence-interval-none'], /ath-shuidhichear/);
+assert.match(gaelic['move-reason'], /Adhbhar.*roghainneil/);
+assert.match(gaelic['ask-move-reason'], /Iarr adhbhar.*cairtean/);
+assert.doesNotMatch(gaelic['move-reason'] + gaelic['ask-move-reason'], /Tuairisgeul/);
+for (const format of ['todoist', 'planner']) {
+  const value = gaelic[`import-board-instruction-${format}`];
+  assert.match(value, /^Ann /);
+  assert.doesNotMatch(value, /open the|choose|Sections become|Buckets become/);
+}
+assert.match(gaelic['import-board-instruction-todoist'], /Stiùirich dàta > Às-phortaich mar CSV/);
+assert.match(gaelic['import-board-instruction-todoist'], /@leubailean.*p1 gu p3/);
+assert.match(gaelic['import-board-instruction-planner'], /Planner clasaigeach.*\.xlsx/);
+assert.match(gaelic['import-board-instruction-planner'], /Adhartas, Prìomhachas agus Crìochnaichte le.*raointean gnàthaichte/);
