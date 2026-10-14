@@ -4590,6 +4590,21 @@ All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19f5807e041312a478a904fa49b0fe2b67284f5a">Clarify Scottish Gaelic date triggers and card linking</a>. Thanks to xet7.</summary>
+
+Correct seven strings: include initial date setting in four rule triggers,
+identify Gregorian ISO weeks, and distinguish linking to a destination board
+from creating a board from a card. Direct wording needs fluent review.
+
+Both catalog and guarded-correction suites pass with 30,766 audited corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Two browser cases pass syntax and discovery; execution remains pending.
+All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

@@ -2,6 +2,21 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic dates and card-link actions — 2026-10-14
+
+Commit `19f5807e04` corrects four date triggers that omitted initial setting,
+the Gregorian ISO-week calendar label, and two card-link action labels that
+obscured destination linking and creation from a source card. Seven values
+changed; direct wording still needs fluent review.
+
+Catalog and guarded-correction checks pass with 30,766 ledger entries, and all
+21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. Two browser cases cover date-trigger rows and card-link actions;
+syntax and discovery pass, but runtime execution remains pending.
+
+The full all-language semantic review is unfinished. These checks establish
+specific corrected meanings, not completeness or fluent verification.
+
 ## Scottish Gaelic action meanings and stale English — 2026-10-14
 
 Commit `1fda1c4dd0` corrects seven strings: two entirely English import guides
