@@ -4362,6 +4362,21 @@ pass syntax and discovery; runtime remains pending. All-language work continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4d4b2125c250d724a41baa11ed33b8aabaabe95">Correct Irish action meanings and stale import guidance</a>. Thanks to xet7.</summary>
+
+Correct eight strings: translate stale English Todoist and Planner guides,
+distinguish card recurrence from resetting, restore optional move reasons, and
+remove the implication that permanent anonymization uses temporary values.
+
+The Irish catalog and guarded-correction suites pass with 30,475 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Five browser cases pass syntax and discovery; runtime remains
+pending. These stale passages show why zero placeholders does not establish
+complete translation. Irish and all-language semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

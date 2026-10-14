@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish semantic review: actions and stale guides — 2026-10-14
+
+Commit `e4d4b2125c` corrects eight entries. Todoist and Planner retained old
+English instructions despite the zero-placeholder result. The translations now
+follow the current English source; external provider interfaces were not
+revalidated. Card recurrence no longer says reset, move reasons retain
+optionality, and permanent anonymization uses replacement values rather than
+values described as temporary.
+
+The Irish catalog and guarded-correction suites pass with 30,475 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Five browser cases cover import help and action
+dialogs without confirming destructive actions. Syntax and discovery pass;
+runtime remains pending.
+
+The stale English passages demonstrate the limits of placeholder detection.
+Irish and all-language semantic review remain unfinished.
+
 ## Irish recovery messages and full placeholder gate — 2026-10-14
 
 Commit `ee99da3ddf` translates 38 strings for stopped list syncs, interrupted
