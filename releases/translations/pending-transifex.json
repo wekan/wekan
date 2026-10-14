@@ -2155,6 +2155,34 @@
     {
       "key": "r-email-members-hint",
       "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy-description",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy-enabled",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy-topic-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy-token",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy-invalid-topic-url",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "ntfy-invalid-token",
+      "since": "2026-10-14"
     }
   ]
 }

@@ -510,6 +510,9 @@ Activities.after.insert(async (userId, doc) => {
   // separate from this local acknowledgement boundary.
   deliverStoredActivityNotifications(doc, userId, async () => prepared)
     .catch(() => console.error('Activity notification delivery incomplete; pending intent retained'));
+  // #5148: and to each recipient's own ntfy topic, when they set one.
+  try { require('/server/notifications/ntfy').sendActivityToNtfy(prepared); }
+  catch (error) { console.warn('ntfy notifications skipped'); }
 
   const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {

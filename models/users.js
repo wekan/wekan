@@ -344,6 +344,17 @@ Users.attachSchema(
       type: String,
       allowedValues: GROUP_KEYS,
     },
+    ntfy: {
+      /**
+       * #5148: the member's own ntfy topic (models/lib/ntfy.js):
+       * { enabled, url, token }. Outside `profile` and never published - the
+       * token is a secret - read and saved only through the member's own
+       * methods (server/notifications/ntfy.js).
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     'profile.notifyOverrideTray': {
       /**
        * Member-level override of the in-app notification tray (3-tier

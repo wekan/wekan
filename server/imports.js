@@ -288,6 +288,8 @@ import '/server/notifications/notifications';
 import '/server/notifications/outgoing';
 import '/server/notifications/webhookQueue';
 import '/server/notifications/profile';
+// #5148: ntfy, per member.
+import '/server/notifications/ntfy';
 import '/server/notifications/watch';
 
 // ----------------------------------------------------------------------------

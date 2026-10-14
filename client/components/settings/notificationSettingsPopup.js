@@ -44,9 +44,17 @@ Template.notificationSettingsPopup.onCreated(function () {
   this.dueRemindersOff = new ReactiveVar(Boolean(board && Array.isArray(board.dueReminderDays)
     && board.dueReminderDays.length === 0));
   this.dueReminderWebhook = new ReactiveVar(Boolean(board && board.dueReminderWebhook));
+  // #5148: the member's own ntfy topic, through their own methods.
+  this.ntfy = new ReactiveVar({ enabled: false, url: '', token: '' });
+  this.ntfyMessage = new ReactiveVar('');
+  if (this.data.scope === 'member') {
+    Meteor.call('getNtfySettings', (error, value) => { if (!error && value) this.ntfy.set(value); });
+  }
 });
 
 Template.notificationSettingsPopup.helpers({
+  ntfy() { return Template.instance().ntfy.get(); },
+  ntfyMessage() { return Template.instance().ntfyMessage.get(); },
   // #5323: per-board due-date reminder offsets and webhook delivery.
   isBoardScope() {
     return Template.instance().data.scope === 'board';
@@ -107,6 +115,20 @@ Template.notificationSettingsPopup.helpers({
 });
 
 Template.notificationSettingsPopup.events({
+  'click .js-ntfy-enabled'(event, tpl) {
+    event.preventDefault();
+    tpl.ntfy.set({ ...tpl.ntfy.get(), enabled: !tpl.ntfy.get().enabled });
+  },
+  'click .js-ntfy-save, submit .js-ntfy-form'(event, tpl) {
+    event.preventDefault();
+    const value = { enabled: tpl.ntfy.get().enabled,
+      url: String(tpl.$('.js-ntfy-url').val() || ''), token: String(tpl.$('.js-ntfy-token').val() || '') };
+    Meteor.call('saveNtfySettings', value, (error, saved) => {
+      if (error) { tpl.ntfyMessage.set(TAPi18n.__(error.error) || error.reason || error.message); return; }
+      tpl.ntfy.set(saved);
+      tpl.ntfyMessage.set(TAPi18n.__('feature-saved'));
+    });
+  },
   'click .js-due-reminder-off'(event, instance) {
     event.preventDefault();
     instance.dueRemindersOff.set(!instance.dueRemindersOff.get());

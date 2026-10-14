@@ -65,6 +65,23 @@ template(name="notificationSettingsPopup")
           a.flex.js-notify-activity(data-group="{{key}}" role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
             .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
             span {{_ labelKey}}
+    //- #5148: the member's own ntfy topic - their notifications on their
+      phone through the ntfy app. Read and saved through their own methods.
+    if isMemberScope
+      li.notification-ntfy-settings
+        .title
+          i.fa.fa-mobile
+          | {{_ 'ntfy'}}
+        p.quiet {{_ 'ntfy-description'}}
+        form.js-ntfy-form
+          a.flex.js-ntfy-enabled(role="checkbox" aria-checked="{{#if ntfy.enabled}}true{{else}}false{{/if}}")
+            .materialCheckBox(class="{{#if ntfy.enabled}}is-checked{{/if}}")
+            span {{_ 'ntfy-enabled'}}
+          input.js-ntfy-url(type="url" placeholder="https://ntfy.sh/my-topic" aria-label="{{_ 'ntfy-topic-url'}}" value=ntfy.url)
+          input.js-ntfy-token(type="password" autocomplete="off" placeholder="{{_ 'ntfy-token'}}" aria-label="{{_ 'ntfy-token'}}" value=ntfy.token)
+          button.primary.js-ntfy-save(type="submit") {{_ 'save'}}
+          if ntfyMessage
+            p.quiet {{ntfyMessage}}
     //- #3695 / #5171: how notifications are delivered, per channel - content,
       grouping, schedule (models/lib/notificationDelivery.js). Admin Panel: the
       instance defaults; Board Settings: this board's (board admins); Member
