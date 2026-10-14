@@ -24,5 +24,6 @@ for (const [name, selector, key, forbidden] of [
       await expect(page.locator('.js-pop-over [data-interval="none"]')).toContainText(strings['card-recurrence-interval-none']);
     }
     await page.evaluate(() => Popup.close());
+    await expect(page.locator('.js-toggle-header-icons-collapsed')).toHaveAttribute('title', strings['toggle-header-icons-collapsed']);
   });
 }

@@ -213617,5 +213617,26 @@
     "before": "Cruthaigh clár (Cárta)",
     "after": "Cruthaigh clár ón gcárta seo",
     "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-jira",
+    "before": "Greamaigh an JSON ó chuardach saincheiste Jira Cloud REST API (GET /rest/api/3/search/jql), nó réad coibhéiseach { \"issues\": [...] }. Déantar liostaí de stádais Jira agus cártaí de shaincheisteanna. Is féidir eagar \"automationRules\" a chur leis chun rialacha a iompórtáil.",
+    "after": "Greamaigh JSON ó chuardach saincheisteanna Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (gan fields ní thugtar ar ais ach aitheantais saincheisteanna). Tagann tionscadal mór ina leathanaigh, agus nextPageToken ag gach ceann don chéad cheann eile: cuir saincheisteanna gach leathanaigh in aon eagar \"issues\" amháin, nó iompórtáil gach leathanach mar chlár ar leith le Iompórtáil roinnt clár. Oibríonn réad coibhéiseach { \"issues\": [...] } freisin. Déantar liostaí de stádais Jira agus cártaí de shaincheisteanna. Is féidir eagar \"automationRules\" a chur leis chun rialacha a iompórtáil.",
+    "reason": "Restore omitted Jira pagination, Excel sheet mapping and header toggle scope in Irish."
+  },
+  {
+    "locale": "ga",
+    "key": "import-board-instruction-excel",
+    "before": "Roghnaigh scarbhileog .xlsx ar nós WeKan (na colúin chéanna leis an easpórtáil Excel: Title, Description, Status/List, Members, Labels, dátaí, réimsí saincheaptha). Is é an chéad ró an ceanntásc.",
+    "after": "Roghnaigh leabhar oibre .xlsx: tábla le cárta amháin in aghaidh an ró (colúin ar nós Title, Description, Status/List, Members, Labels, dátaí agus réimsí saincheaptha), nó leabhar oibre a d’easpórtáil WeKan, lena n-áirítear ceann le gach clár ar a bhileog féin. Taispeánann an chéad chéim eile cén colún a fhreagraíonn do gach réimse. Déantar clár de gach bileog a bhfuil ró ceanntásca inti.",
+    "reason": "Restore omitted Jira pagination, Excel sheet mapping and header toggle scope in Irish."
+  },
+  {
+    "locale": "ga",
+    "key": "toggle-header-icons-collapsed",
+    "before": "Laghdaigh/leathnaigh deilbhíní an cheanntásc",
+    "after": "Laghdaigh/leathnaigh deilbhíní an cheanntásca (ar fhón póca/ríomhaire, go dtí na fógraí)",
+    "reason": "Restore omitted Jira pagination, Excel sheet mapping and header toggle scope in Irish."
   }
 ]

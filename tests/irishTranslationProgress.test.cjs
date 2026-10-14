@@ -192,3 +192,7 @@ assert.match(irish['calendar-system-iso8601'], /Gréagórach.*seachtainí ISO 86
 assert.doesNotMatch(irish['calendar-system-iso8601'], /bhliain ag an tús/);
 assert.equal(irish['linkCardToBoardPopup-title'], 'Nasc le clár');
 assert.match(irish['linkCardToNewBoard'], /ón gcárta seo/);
+
+assert.match(irish['import-board-instruction-jira'], /fields=\*all&expand=names,schema.*nextPageToken.*gach leathanaigh.*"automationRules"/);
+assert.match(irish['import-board-instruction-excel'], /chéim eile.*gach réimse.*gach bileog.*ró ceanntásca/);
+assert.match(irish['toggle-header-icons-collapsed'], /fhón póca\/ríomhaire.*fógraí/);
