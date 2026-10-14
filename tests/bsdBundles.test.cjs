@@ -24,6 +24,12 @@ test('the targets: FreeBSD x64/arm64, OpenBSD x64/arm64, NetBSD x64, each with i
     assert.equal(t.ferretdb_arch, `${t.os}-${t.arch === 'x64' ? 'amd64' : t.arch}`, t.target);
     assert.match(t.release, /^\d+\.\d+$/, t.target);
   }
+  // node-patches builds OpenBSD's Node.js on 7.8, the first release whose base
+  // Clang (19) builds Node 26; the bundle runs where that binary runs.
+  for (const t of targets.filter(x => x.os === 'openbsd')) {
+    const [major, minor] = t.release.split('.').map(Number);
+    assert.ok(major > 7 || (major === 7 && minor >= 8), `${t.target} on OpenBSD ${t.release} (needs 7.8+)`);
+  }
 });
 
 test('every piece knows every target: the Node.js resolver, the ELF check, the native packages', async () => {

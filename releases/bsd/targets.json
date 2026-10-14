@@ -1,7 +1,7 @@
 [
   {"target": "freebsd-x64", "os": "freebsd", "arch": "x64", "vm_arch": "x86_64", "release": "14.3", "ferretdb_arch": "freebsd-amd64"},
   {"target": "freebsd-arm64", "os": "freebsd", "arch": "arm64", "vm_arch": "aarch64", "release": "14.3", "ferretdb_arch": "freebsd-arm64"},
-  {"target": "openbsd-x64", "os": "openbsd", "arch": "x64", "vm_arch": "x86_64", "release": "7.7", "ferretdb_arch": "openbsd-amd64"},
-  {"target": "openbsd-arm64", "os": "openbsd", "arch": "arm64", "vm_arch": "aarch64", "release": "7.7", "ferretdb_arch": "openbsd-arm64"},
+  {"target": "openbsd-x64", "os": "openbsd", "arch": "x64", "vm_arch": "x86_64", "release": "7.8", "ferretdb_arch": "openbsd-amd64"},
+  {"target": "openbsd-arm64", "os": "openbsd", "arch": "arm64", "vm_arch": "aarch64", "release": "7.8", "ferretdb_arch": "openbsd-arm64"},
   {"target": "netbsd-x64", "os": "netbsd", "arch": "x64", "vm_arch": "x86_64", "release": "10.1", "ferretdb_arch": "netbsd-amd64"}
 ]

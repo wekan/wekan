@@ -61,6 +61,11 @@ Upstream Node.js (`configure.py` and BUILDING.md, v26.11.1):
 - **bcrypt, argon2:** plain node-gyp, compiled on each BSD with no patches.
 - **FerretDB (Go plus pure-Go SQLite):** builds for FreeBSD, OpenBSD and NetBSD
   x86-64; NetBSD arm64 and DragonFly BSD have no SQLite build.
+- **OpenBSD 7.8 or newer:** Node.js 26 needs Clang 19, which OpenBSD has in
+  base from 7.8, so node-patches builds on 7.8 and the bundle needs 7.8 or
+  newer.
+- **NetBSD's OpenSSL:** Node's bundled OpenSSL had no NetBSD configuration;
+  node-patches gives it FreeBSD's (`dist/netbsd/netbsd-openssl-config.patch`).
 - **OpenBSD W^X:** `node` is linked `wxneeded` and must run from a filesystem
   mounted `wxallowed`. **Install the OpenBSD bundle under `/usr/local`**, which
   is mounted that way by default, or add `wxallowed` to the mount it is on.
