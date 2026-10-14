@@ -1136,11 +1136,9 @@ Template.membersWidget.helpers({
   },
   isWorker() {
     const user = ReactiveCache.getCurrentUser();
-    if (user) {
-      return Meteor.call(Boards.hasWorker(user.memberId));
-    } else {
-      return false;
-    }
+    // Boards.hasWorker is not a function of the collection; the board's own
+    // helper answers for the current user.
+    return !!(user && user.isWorker());
   },
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
@@ -3599,7 +3597,9 @@ Template.changePermissionsPopup.helpers({
   isLastAdmin() {
     const currentBoard = Utils.getCurrentBoard();
     return (
-      currentBoard.hasAdmin(this.userId) && currentBoard.activeAdmins() === 1
+      // activeAdmins() is a list: comparing it with 1 was always false, so the
+      // last admin was never stopped from giving the role away.
+      currentBoard.hasAdmin(this.userId) && currentBoard.activeAdmins().length === 1
     );
   },
 });

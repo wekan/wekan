@@ -531,12 +531,16 @@ Meteor.methods({
     if(!board || !userId || memberIndex > -1) return
 
     await board.addMember(userId)
+    // DEFAULT_BOARD_ID=<id>:isAdmin:isWorker... - Array has no .contains, so
+    // this threw and the user got the default role whatever was configured.
+    // isCommentsOnly is the spelling that has always been documented here;
+    // isCommentOnly, the flag's real name, works too.
     await board.setMemberPermission(
       userId,
-      defaultBoardParams.contains("isAdmin"),
-      defaultBoardParams.contains("isNoComments"),
-      defaultBoardParams.contains("isCommentsOnly"),
-      defaultBoardParams.contains("isWorker")
+      defaultBoardParams.includes("isAdmin"),
+      defaultBoardParams.includes("isNoComments"),
+      defaultBoardParams.includes("isCommentOnly") || defaultBoardParams.includes("isCommentsOnly"),
+      defaultBoardParams.includes("isWorker")
     )
   }
 });

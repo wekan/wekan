@@ -30,7 +30,9 @@ Template.rulesList.helpers({
   },
   canAdmin() {
     const user = ReactiveCache.getCurrentUser();
-    return user && (user.isAdmin || user.isBoardAdmin);
+    // isBoardAdmin is a helper to call: as a bare reference it was always
+    // truthy, so every member was shown the rule controls.
+    return !!(user && (user.isAdmin || user.isBoardAdmin()));
   },
   isSelected() {
     return getSelected().includes(this._id);

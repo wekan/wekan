@@ -17,6 +17,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Utils } from '/client/lib/utils';
 import { TAPi18n } from '/imports/i18n';
 import { Accounts } from 'meteor/accounts-base';
 import { BOARD_EXPORT_FIELDS } from '/models/lib/exportFields';
@@ -323,10 +324,12 @@ function resolvedFormatGroups() {
 // menus that offer the Import row have to ask the same question - four copies of
 // four permission checks is how one of them ends up offering a row that then
 // refuses to do anything.
+//
+// It asks the write capability, as the server does when the import runs. It used
+// to test `!user.isWorker && ...` - the helper functions themselves, which are
+// always truthy - so the Import row was offered to nobody.
 function canImportIntoBoard() {
-  const user = ReactiveCache.getCurrentUser();
-  return Boolean(user && !user.isWorker && !user.isCommentOnly
-    && !user.isReadOnly && !user.isReadAssignedOnly);
+  return Boolean(ReactiveCache.getCurrentUser() && Utils.currentUserCan('write'));
 }
 Template.registerHelper('canImportIntoBoard', canImportIntoBoard);
 

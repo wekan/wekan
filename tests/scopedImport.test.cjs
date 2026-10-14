@@ -128,7 +128,10 @@ test('importing is a WRITE, and is checked as one', () => {
 });
 
 test('the popup offers import only to somebody who may write', () => {
-  assert.ok(/function canImportIntoBoard\(\)/.test(scopeJs) && /isReadOnly/.test(scopeJs),
+  // It asks the write capability since 2026-10-14: the old body tested the role
+  // helpers as references (`!user.isReadOnly`, always false) and so offered
+  // the import to nobody (tests/roleHelperRegressions.test.cjs).
+  assert.ok(/function canImportIntoBoard\(\) \{\n  return Boolean\(ReactiveCache\.getCurrentUser\(\) && Utils\.currentUserCan\('write'\)\);/.test(scopeJs),
     'a read-only member sees the exports and not the import');
   assert.ok(/if canImport/.test(scopeJade), 'and the template asks');
   // The MENU rows ask the same question, from the same function registered as a
