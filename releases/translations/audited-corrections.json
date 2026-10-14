@@ -215878,5 +215878,75 @@
     "before": "Cards without a colour of their own use this colour",
     "after": "Kaadị ndị na-enweghị agba nke ha na-eji agba a",
     "reason": "Translate linked-field directions, authorization and board controls; repair custom-fields label that repeated culture. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-opml",
+    "before": "Paste an OPML outline, as Workflowy, Dynalist, OmniOutliner, Logseq and other outliners export it. Top-level items become lists, their children become cards with the note as the description, and deeper items become checklists. Completed items import as done.",
+    "after": "Tapawa ndepụta OPML, dịka Workflowy, Dynalist, OmniOutliner, Logseq na ngwa ndepụta ndị ọzọ si ebupụ ya. Ihe dị n’ọkwa mbụ na-aghọ ndepụta, ihe dị n’okpuru ha na-aghọ kaadị nwere ndetu dịka nkọwa, ihe dị n’ọkwa dị omimi na-aghọ ndepụta nyocha. A na-ebubata ihe emechara dịka ihe emechara.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-orgmode",
+    "before": "Paste an Org mode file, as Emacs, Orgzly or Beorg write it. Top-level headings become lists and second-level headings become cards. TODO and DONE, priorities, tags, SCHEDULED, DEADLINE and CLOSED are kept, and checkboxes and deeper headings become checklists.",
+    "after": "Tapawa faịlụ Org mode, dịka Emacs, Orgzly ma ọ bụ Beorg si ede ya. Isiokwu dị n’ọkwa mbụ na-aghọ ndepụta, isiokwu dị n’ọkwa nke abụọ na-aghọ kaadị. A na-edobe TODO na DONE, ihe ndị ka mkpa, mkpado, SCHEDULED, DEADLINE na CLOSED; igbe nrịbama na isiokwu dị n’ọkwa dị omimi na-aghọ ndepụta nyocha.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-meistertask",
+    "before": "In MeisterTask, click the project name, choose Export project and export the CSV, then paste it. Sections become lists and tasks become cards, with their notes, due date, assignee and tags; completed tasks keep their completion date. A CSV written for MeisterTask's own import works too.",
+    "after": "Na MeisterTask, pịa aha ọrụ ahụ, họrọ Mbupụ ọrụ wee bupụ CSV, tinyezie ya ebe a. Nkebi na-aghọ ndepụta, ọrụ ndị a ga-eme na-aghọ kaadị, tinyere ndetu ha, ụbọchị njedebe, onye e kenyere na mkpado; ọrụ emechara na-edobe ụbọchị e mechara ha. CSV edere maka mbubata nke MeisterTask n’onwe ya na-arụkwa ọrụ.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-obsidian",
+    "before": "In Obsidian, open the Kanban board's file as Markdown (or open the .md file in a text editor), then paste all of it. Lanes become lists with their card limits, cards keep their tags, dates, priority, fields and checklist, and the Archive becomes archived cards.",
+    "after": "Na Obsidian, mepee faịlụ bọọdụ Kanban dịka Markdown (ma ọ bụ mepee faịlụ .md n’ihe ndezi ederede), tinyezie ọdịnaya ya niile ebe a. Ahịrị na-aghọ ndepụta nwere oke kaadị ha, kaadị na-edobe mkpado, ụbọchị, mkpa, oghere na ndepụta nyocha ha, ebe nchekwa na-aghọkwa kaadị echekwara.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-linear",
+    "before": "In Linear, export the issues as CSV (Settings, Import / Export, Export data, or a view's export), then paste the CSV. Statuses become lists, teams become swimlanes, and issues become cards with their assignee, labels, dates, parent issue, priority, estimate, project and cycle.",
+    "after": "Na Linear, bupụ nsogbu dịka CSV (Ntọala, Mbubata / Mbupụ, Bupụ data, ma ọ bụ mbupụ nlele), tinyezie CSV ebe a. Ọnọdụ na-aghọ ndepụta, otu na-aghọ ahịrị igwu mmiri, nsogbu na-aghọ kaadị nwere onye e kenyere, akara, ụbọchị, nsogbu nne na nna, mkpa, atụmatụ nha, ọrụ na okirikiri ha.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-ticktick",
+    "before": "In TickTick, open Settings, Account, Backup & Import and generate a backup, then paste the CSV file. Each TickTick list becomes a swimlane and its columns become lists; tasks keep their tags, dates, checklist, priority and subtasks.",
+    "after": "Na TickTick, mepee Ntọala, Akaụntụ, Ndabere & Mbubata wee mepụta ndabere, tinyezie faịlụ CSV ebe a. Ndepụta TickTick ọ bụla na-aghọ ahịrị igwu mmiri, kọlụm ya na-aghọkwa ndepụta; ọrụ na-edobe mkpado, ụbọchị, ndepụta nyocha, mkpa na obere ọrụ ha.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-clickup",
+    "before": "In ClickUp, export the tasks as CSV (Settings, Imports / Exports, Export Items, or a List or Table view's export with all columns), then paste the CSV. Statuses become lists, ClickUp lists become swimlanes, and tasks become cards with their subtasks, assignees, tags, dates, priority and time.",
+    "after": "Na ClickUp, bupụ ọrụ dịka CSV (Ntọala, Mbubata / Mbupụ, Bupụ ihe, ma ọ bụ mbupụ nlele Ndepụta ma ọ bụ Tebụl nwere kọlụm niile), tinyezie CSV ebe a. Ọnọdụ na-aghọ ndepụta, ndepụta ClickUp na-aghọ ahịrị igwu mmiri, ọrụ na-aghọkwa kaadị nwere obere ọrụ, ndị e kenyere, mkpado, ụbọchị, mkpa na oge ha.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-nullboard",
+    "before": "In Nullboard, open the board, choose Export this board... from the menu, open the .nbx file in a text editor and paste its contents. Lists become lists and notes become cards: a note's first line is the card title and the rest its description. A raw note gets the label raw. A file with several boards imports its first board.",
+    "after": "Na Nullboard, mepee bọọdụ, họrọ Bupụ bọọdụ a... na nhọrọ, mepee faịlụ .nbx n’ihe ndezi ederede ma tapawa ọdịnaya ya. Ndepụta na-anọgide dịka ndepụta, ndetu na-aghọkwa kaadị: ahịrị mbụ nke ndetu bụ aha kaadị, nke fọdụrụ bụ nkọwa ya. Ndetu raw na-enweta akara raw. Ọ bụrụ na faịlụ nwere ọtụtụ bọọdụ, a na-ebubata bọọdụ mbụ ya.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-kanri",
+    "before": "In Kanri, open Import & Export and choose Export individual board (or Export all data), then paste the .json file. Columns become lists and cards become cards, with their description, due date, tags and colors; a card's tasks become a checklist. From an all-data export the first board is imported.",
+    "after": "Na Kanri, mepee Mbubata & Mbupụ wee họrọ Bupụ otu bọọdụ (ma ọ bụ Bupụ data niile), tinyezie faịlụ .json ebe a. Kọlụm na-aghọ ndepụta, kaadị na-anọgide dịka kaadị, tinyere nkọwa, ụbọchị njedebe, mkpado na agba ha; ọrụ kaadị na-aghọ ndepụta nyocha. Site na mbupụ data niile, a na-ebubata bọọdụ mbụ.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-board-instruction-pivotal",
+    "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
+    "after": "Na Pivotal Tracker, mepee taabụ MORE nke ọrụ ahụ wee họrọ Bupụ CSV (ma ọ bụ họrọ akụkọ wee họrọ Omume n’ìgwè, CSV), tinyezie CSV ebe a. Ọnọdụ akụkọ ọ bụla na-aghọ ndepụta, akụkọ na-aghọkwa kaadị nwere ụdị na akara ha, ndị nwe ha, onye rịọrọ, ụbọchị, nkọwa, ọrụ na ihe na-egbochi ha; atụmatụ nha na-aghọ akara akụkọ, ugboro ọrụ na-aghọkwa sprint.",
+    "reason": "Translate import mappings and limits in Igbo while preserving technical file and field identifiers; longer technical prose is lower confidence and needs fluent review."
   }
 ]

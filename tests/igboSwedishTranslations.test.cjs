@@ -219,3 +219,15 @@ assert.match(locales.ig['field-link-archived'], /Enweghị ike.*ebe nchekwa/);
 assert.notEqual(locales.ig['custom-field-link-sends'], locales.ig['custom-field-link-receives']);
 assert.match(locales.ig['board-announcement-enabled'], /onye ọ bụla.*bọọdụ a/);
 assert.match(locales.ig['cards-use-list-color'], /na-enweghị agba nke ha/);
+
+const igboImportFormats = ['opml', 'orgmode', 'meistertask', 'obsidian', 'linear', 'ticktick', 'clickup', 'nullboard', 'kanri', 'pivotal'];
+for (const format of igboImportFormats) {
+  const guide = locales.ig[`import-board-instruction-${format}`];
+  assert.doesNotMatch(guide, /Top-level|become lists|then paste|In [A-Z]/);
+  assert.match(guide, /ndepụta|kaadị/);
+}
+assert.match(locales.ig['import-board-instruction-orgmode'], /TODO na DONE.*SCHEDULED, DEADLINE na CLOSED/);
+assert.match(locales.ig['import-board-instruction-meistertask'], /ọrụ emechara.*ụbọchị e mechara/);
+assert.match(locales.ig['import-board-instruction-nullboard'], /akara raw.*bọọdụ mbụ/);
+assert.match(locales.ig['import-board-instruction-kanri'], /data niile.*bọọdụ mbụ/);
+assert.match(locales.ig['import-board-instruction-clickup'], /kọlụm niile/);
