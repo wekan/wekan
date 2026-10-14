@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole uploads and archive guidance — 2026-10-14
+
+Commit `08b5bbf36f` corrects ten entries. Attachment-export metadata and map
+controls now use the upload verb rather than the download verb; default storage
+explicitly refers to newly uploaded attachments. The archive hint points to
+All Boards instead of the old home-page header. Dropdown, template-container
+and creator-filter labels use consistent terms. Map administrator permissions
+and the supported image examples remain intact.
+
+The Haitian catalog and guarded-correction suites pass with 29,802 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Haitian Creole joins the existing
+map-upload browser case, with explicit upload wording assertions. Syntax and
+discovery pass; runtime remains pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole calendars and core controls — 2026-10-14
 
 Commit `6227e6b908` corrects 20 entries. Fourteen calendar labels were French

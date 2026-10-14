@@ -3908,6 +3908,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08b5bbf36f">Correct Haitian upload direction and archive guidance</a>. Thanks to xet7.</summary>
+
+- Correct ten upload and control labels. Distinguish uploading from downloading,
+  point archive restoration to All Boards, and clarify dropdown, template and
+  creator-filter terminology while preserving administrator permissions.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. The map-upload browser case
+  passes syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
