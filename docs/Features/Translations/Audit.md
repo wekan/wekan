@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic attachments and legacy storage — 2026-10-14
+
+Commit `4f5f5d0d33` translates 41 English placeholders: eight attached-card
+messages and 33 older storage labels and rule connectors. The catalog's existing
+card and board terminology is retained. Attachment limits, visibility and
+self-attachment restrictions remain explicit. Technical storage wording is
+lower confidence and needs fluent review; attempted dictionary queries did not
+provide usable lexical entries, so no dictionary verification is claimed.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,567
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. Two browser cases cover attachment
+behavior and access/secret-key fields. Syntax and discovery pass; runtime remains
+pending. The older catalog gate passes, but newer feature text remains English.
+
+The reviewed Irish checklist/reset labels retained their main distinctions.
+Neither that targeted review nor this Scottish Gaelic batch completes semantic
+verification. The all-language objective remains unfinished.
+
 ## Irish rule subjects and assembled grammar — 2026-10-14
 
 Commit `503d439ddc` corrects six labels for card and assignee triggers. Assignee

@@ -4449,6 +4449,22 @@ remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f5f5d0d332e8dd5cc68bbaaa597ef1dec4c7805">Translate Scottish Gaelic attachment and legacy storage messages</a>. Thanks to xet7.</summary>
+
+Translate 41 English placeholders for attached cards, storage labels and rule
+connectors. Preserve inaccessible-card and self-attachment restrictions and
+access/secret-key distinctions. Technical storage wording is lower confidence
+and needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,567
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. Two browser cases pass syntax and discovery; runtime
+remains pending. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
