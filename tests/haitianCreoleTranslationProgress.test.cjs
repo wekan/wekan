@@ -263,3 +263,18 @@ assert.match(creole['export-all-boards-hint'], /gen dwa ekspòte.*yon sèl liv t
 assert.equal(creole['export-all-boards'], creole['exportAllBoardsPopup-title']);
 assert.ok(creole['trello-export-desc'].includes('Swimlane: …'));
 assert.match(creole['trello-export-desc'], /tounen kouloir ankò/);
+
+const reviewedNotificationKeys = ["trello-export-open-board", "trello-export-warnings", "sandstorm-trello-access-needed", "sandstorm-allow-trello-access", "sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "webhook-payload-heading", "webhook-payload-description", "webhook-payload-text", "webhook-payload-fields", "webhook-payload-field-standard", "webhook-payload-field-ids", "webhook-payload-field-names", "webhook-payload-field-links", "webhook-payload-field-actor", "webhook-payload-field-people", "webhook-payload-field-details", "webhook-hide-identity", "webhook-someone", "notification-delivery-layout-classic", "notification-delivery-layout-clear", "notification-delivery-parts", "notification-delivery-part-board", "notification-delivery-part-actor", "notification-delivery-part-card", "notification-delivery-part-details", "notification-delivery-part-dates", "notification-delivery-part-link", "notification-delivery-grouping", "notification-delivery-grouping-all", "notification-delivery-grouping-board", "notification-delivery-grouping-card", "notification-delivery-grouping-none", "notification-delivery-schedule", "notification-delivery-schedule-immediate", "notification-delivery-schedule-interval", "notification-delivery-schedule-daily", "notification-delivery-interval", "notification-delivery-minutes", "notification-delivery-quiet", "notification-delivery-quiet-clear", "notification-delivery-timezone", "notification-delivery-invalid", "notification-group-card", "notification-group-board"];
+for (const key of reviewedNotificationKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.doesNotMatch(creole[key], /\b(?:One per board|Every few minutes|Leave my name|outgoing webhooks|could not be saved)\b/, key);
+}
+assert.match(creole['webhook-payload-description'], /paramèt li eritye.*si pa gen anyen.*toujou konn voye/);
+assert.match(creole['webhook-hide-identity'], /Pa mete non mwen/);
+assert.match(creole['notification-delivery-quiet'], /tann yo fini/);
+assert.equal(new Set(['all', 'board', 'card', 'none'].map(mode => creole[`notification-delivery-grouping-${mode}`])).size, 4);
+assert.match(creole['external-link-rules-description'], /\[\{identifier\}:\{number\}\] = https:\/\/tracker\.example\.com\/\{identifier\}\/\{number\}/);
+assert.ok(creole['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+assert.ok(creole['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(creole['sandstorm-trello-access-needed'], /pa gen aksè Entènèt poukont li/);

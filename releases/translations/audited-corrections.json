@@ -206561,5 +206561,348 @@
     "before": "Export to Trello",
     "after": "Ekspòte nan Trello",
     "reason": "Translate bulk import/export and CSV validation messages, preserving ZIP distinctions, permissions, progress tokens and Trello round-trip labels."
+  },
+  {
+    "locale": "ht",
+    "key": "trello-export-open-board",
+    "before": "Open the board in Trello",
+    "after": "Ouvri tablo a nan Trello",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "trello-export-warnings",
+    "before": "Not everything could be exported",
+    "after": "Se pa tout bagay ki te ka ekspòte",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "sandstorm-trello-access-needed",
+    "before": "A Sandstorm grain has no Internet access of its own. Allow this grain to reach Trello first.",
+    "after": "Yon grain Sandstorm pa gen aksè Entènèt poukont li. Bay grain sa a pèmisyon pou jwenn Trello anvan.",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "sandstorm-allow-trello-access",
+    "before": "Allow access to Trello",
+    "after": "Pèmèt aksè nan Trello",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "sandstorm-trello-access-granted",
+    "before": "This grain may reach Trello.",
+    "after": "Grain sa a gen pèmisyon pou jwenn Trello.",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "sandstorm-forget-access",
+    "before": "Forget",
+    "after": "Bliye",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "sandstorm-trello-save-label",
+    "before": "Trello, for importing and exporting boards",
+    "after": "Trello, pou enpòte ak ekspòte tablo yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "external-link-rules",
+    "before": "More link rules",
+    "after": "Plis règ pou lyen yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "external-link-rules-description",
+    "before": "One rule per line: the text to find, \" = \", and the address. Use {number} for digits and {identifier} for a word, in both, for example [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "after": "Yon règ sou chak liy: tèks pou jwenn lan, \" = \", epi adrès la. Sèvi ak {number} pou chif ak {identifier} pou yon mo, nan toude, pa egzanp [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "external-link-identifier-aliases",
+    "before": "Abbreviations for {identifier}, for example TK=Task, IN=Incident",
+    "after": "Abrevyasyon pou {identifier}, pa egzanp TK=Task, IN=Incident",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-heading",
+    "before": "Webhook data",
+    "after": "Done webhook",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-description",
+    "before": "What outgoing webhooks (Rocket.Chat, Slack, ...) send. Default keeps the inherited setting; with nothing set, webhooks send what they always have.",
+    "after": "Sa webhook sortan yo (Rocket.Chat, Slack, ...) voye. Valè pa defo a kenbe paramèt li eritye a; si pa gen anyen ki defini, webhook yo voye sa yo te toujou konn voye.",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-text",
+    "before": "Send the message text",
+    "after": "Voye tèks mesaj la",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-fields",
+    "before": "Send these fields",
+    "after": "Voye chan sa yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-standard",
+    "before": "Standard fields (WEBHOOKS_ATTRIBUTES)",
+    "after": "Chan nòmal yo (WEBHOOKS_ATTRIBUTES)",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-ids",
+    "before": "IDs",
+    "after": "Idantifyan yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-names",
+    "before": "Names and titles",
+    "after": "Non ak tit yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-links",
+    "before": "Links to the card and board",
+    "after": "Lyen pou kat la ak tablo a",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-actor",
+    "before": "Who did it",
+    "after": "Ki moun ki te fè sa",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-people",
+    "before": "The member or assignee it is about",
+    "after": "Manm oswa moun ki asiyen aksyon an konsène a",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-payload-field-details",
+    "before": "Details: comment, description, values and dates",
+    "after": "Detay: kòmantè, deskripsyon, valè ak dat",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-hide-identity",
+    "before": "Leave my name out of outgoing webhooks",
+    "after": "Pa mete non mwen nan webhook sortan yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "webhook-someone",
+    "before": "A member",
+    "after": "Yon manm",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-layout-classic",
+    "before": "One sentence (classic)",
+    "after": "Yon fraz (klasik)",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-layout-clear",
+    "before": "Clearly arranged: board, who, card in bold",
+    "after": "Dispoze klèman: tablo, moun, kat an gra",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-parts",
+    "before": "Show",
+    "after": "Montre",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-part-board",
+    "before": "Board name and link",
+    "after": "Non ak lyen tablo a",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-part-actor",
+    "before": "Who did it",
+    "after": "Ki moun ki te fè sa",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-part-card",
+    "before": "Card title and link",
+    "after": "Tit ak lyen kat la",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-part-details",
+    "before": "Comment or changed value",
+    "after": "Kòmantè oswa valè ki chanje",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-part-dates",
+    "before": "Dates",
+    "after": "Dat yo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-part-link",
+    "before": "Link on its own line",
+    "after": "Lyen sou pwòp liy pa li",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-grouping",
+    "before": "Grouping",
+    "after": "Gwoupman",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-grouping-all",
+    "before": "Everything due in one message",
+    "after": "Tout sa ki lè pou voye nan yon sèl mesaj",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-grouping-board",
+    "before": "One per board",
+    "after": "Youn pou chak tablo",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-grouping-card",
+    "before": "One per card",
+    "after": "Youn pou chak kat",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-grouping-none",
+    "before": "Each on its own",
+    "after": "Chak apa",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-schedule",
+    "before": "When to send",
+    "after": "Kilè pou voye",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-schedule-immediate",
+    "before": "Immediately",
+    "after": "Touswit",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-schedule-interval",
+    "before": "Every few minutes or hours",
+    "after": "Chak kèk minit oswa èdtan",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-schedule-daily",
+    "before": "Once a day",
+    "after": "Yon fwa pa jou",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-interval",
+    "before": "Every",
+    "after": "Chak",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-minutes",
+    "before": "__count__ minutes",
+    "after": "__count__ minit",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-quiet",
+    "before": "Quiet hours (wait until they end)",
+    "after": "Lè silans (tann yo fini)",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-quiet-clear",
+    "before": "No quiet hours",
+    "after": "Pa gen lè silans",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-timezone",
+    "before": "Time zone:",
+    "after": "Fizo orè:",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-delivery-invalid",
+    "before": "The setting could not be saved.",
+    "after": "Paramèt la pa t ka anrejistre.",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-group-card",
+    "before": "__count__ notifications on card __card__",
+    "after": "__count__ notifikasyon sou kat __card__",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
+  },
+  {
+    "locale": "ht",
+    "key": "notification-group-board",
+    "before": "__count__ notifications on board __board__",
+    "after": "__count__ notifikasyon sou tablo __board__",
+    "reason": "Translate remaining Haitian integration and notification controls; preserve syntax examples, identity choices and scheduling distinctions."
   }
 ]
