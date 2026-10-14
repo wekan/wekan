@@ -460,7 +460,6 @@ account emails),
 guard),
 [#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: a public board publishes its card activity to
 followers, read-only),
-[#4930](https://github.com/wekan/wekan/issues/4930) (a Trellinator-compatible API),
 [#1126](https://github.com/wekan/wekan/issues/1126) (an RFID how-to over the REST API),
 [#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board and
 list),
@@ -581,12 +580,12 @@ there.
 # Upcoming WeKan ® release
 
 **In short:** a new **Version Control** board view shows a board as a
-**GitHub** or **Gitea** issue tracker, with milestones, labels, releases, a
-**wiki** and the board history with undo, and a whole **GitHub organization**
-imports into it: issues with their files, releases, **GitHub Actions** as
-Rules and wikis with their history. List sync can keep **comments, labels,
-state and files** current, any board view can be a public board's
-**read-only public view**, and WeKan has **Android** bundles for Termux.
+**GitHub** or **Gitea** issue tracker, with releases, a **wiki** and history
+with undo, and a whole **GitHub organization** imports into it, its **GitHub
+Actions** as Rules. Optional **Trello**, **Jira**, **GitHub** and **Gitea**
+compatible APIs let their clients use WeKan as a backend. Old boards get their
+keys in one pass, list sync keeps issue details current, any board view can be
+a **read-only public view**, and WeKan has **Android** bundles.
 
 This release adds the following new features:
 
@@ -706,6 +705,27 @@ Tests: `tests/githubActionsRules.test.cjs`, `tests/cronSchedule.test.cjs` and
 
 </details>
 
+**Optional APIs** - other trackers' clients, with WeKan as their backend.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86ec72fade">Trello, Jira, GitHub and Gitea compatible APIs, off until an admin ticks them</a>. Thanks to xet7.</summary>
+
+Admin Panel → Settings → Visibility → **Optional APIs** turns on REST APIs
+in Trello's, Jira's, GitHub's and Gitea's shape (#4930), each described with
+the address a client uses. None has rights of its own: each translates a
+request into the matching request to WeKan's own REST API, made with the
+caller's WeKan token, so every WeKan permission applies unchanged. An API that
+is not ticked answers 404, and `WITH_API` turns them all off. Trello covers
+members, boards, lists, cards, labels, comments and checklists. In Jira a
+board is a project (the board key), a card is an issue (`DEV-7`), lists are
+statuses, and simple JQL works. In GitHub and Gitea a board is a repository and
+a card an issue, open or closed as in Version Control. Deleting archives. See
+[Optional APIs](docs/API/Optional-APIs.md). `tests/optionalApis.test.cjs`
+fails if any of them writes past WeKan's REST API.
+`server/lib/tests/compatApi.tests.js` runs them over real HTTP.
+
+</details>
+
 **Cards** - opening a card on a phone.
 
 <details>
@@ -737,7 +757,25 @@ covers the build and the workflow. See [Android](docs/Platforms/FOSS/OS/Android.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Board keys** - how old boards get theirs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0378f33c2">Old boards get their keys in one pass, in seconds rather than hours</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+v12.41 gave each board without a key one at startup by re-reading every key
+of the instance per board. It also counted up from 2 again for every board
+sharing a title. That is quadratic: on 32,500 boards it ran for hours of slow
+queries. Now the keys in use are read once, the new ones are planned in
+memory, linearly, and written in batches, each only where the board still has
+no key. A single new board reads only the keys that could collide with it,
+through a new index. Tests: `tests/boardKeyBackfill.test.cjs` (32,500 boards
+planned well under a second) and `server/lib/tests/boardKeys.tests.js`.
+
+</details>
+
+**Rules** - when a rule runs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/935e68dfdd">A disabled rule no longer runs on a schedule or from its button</a>. Thanks to xet7.</summary>
