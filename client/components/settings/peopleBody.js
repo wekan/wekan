@@ -44,7 +44,20 @@ import InviteToBoardRolesSettings, {
 const {
   BOARD_ROLES,
   ROLE_CAPABILITIES,
+  CUSTOM_ROLE_CAPABILITIES,
+  normalizeCustomCapabilities,
 } = require('/models/lib/boardRoleCapabilities');
+import CustomBoardRoles from '/models/customBoardRoles';
+
+// Custom roles (#3022): the label of each capability checkbox. The Roles Status
+// columns already name most of them.
+const CUSTOM_ROLE_CAPABILITY_LABELS = {
+  seesAllCards: 'custom-role-sees-all',
+  comment: 'roles-status-comment',
+  write: 'roles-status-write',
+  moveCard: 'roles-status-move',
+  inviteToBoard: 'roles-status-invite',
+};
 
 // Multitenancy option D (D.2/D.9): the org fields that make an Organization a
 // tenant - its hostnames plus the branding that overrides the instance branding on
@@ -1170,6 +1183,10 @@ Template.rolesGeneral.onCreated(function () {
   // but the shared controls row is part of the design, so they work.
   this.statusSearch = new ReactiveVar('');
   this.statusPage = new ReactiveVar(1);
+  // Custom roles being edited, by id ('new' is the empty row that adds one):
+  // { name, capabilities }. A row not in here shows its saved values.
+  this.customEdits = new ReactiveVar({});
+  this.subscribe('customBoardRoles');
   this.autorun(() => {
     if (this.workingRoles.get() === null) {
       const doc = InviteToBoardRolesSettings.findOne(INVITE_TO_BOARD_ROLES_ID);
@@ -1197,7 +1214,7 @@ Template.rolesGeneral.onCreated(function () {
 // there to show what the checkboxes mean, so it has to follow them as they are
 // ticked, before saving.
 const ROLES_STATUS_COLUMNS = [
-  { labelKey: 'roles-status-role', value: doc => TAPi18n.__(doc.roleKey) },
+  { labelKey: 'roles-status-role', value: doc => doc.roleName || TAPi18n.__(doc.roleKey) },
   { labelKey: 'roles-status-invite', value: doc => yesNo(doc.invite) },
   {
     labelKey: 'roles-status-sees',
@@ -1206,6 +1223,7 @@ const ROLES_STATUS_COLUMNS = [
   },
   { labelKey: 'roles-status-comment', value: doc => yesNo(doc.comment) },
   { labelKey: 'roles-status-write', value: doc => yesNo(doc.write) },
+  { labelKey: 'roles-status-move', value: doc => yesNo(doc.moveCard) },
   { labelKey: 'roles-status-manage', value: doc => yesNo(doc.manageBoard) },
 ];
 
@@ -1229,11 +1247,16 @@ Template.rolesGeneral.helpers({
       invite: INVITE_TO_BOARD_ROLES.includes(roleKey) && working.includes(roleKey),
       ...ROLE_CAPABILITIES[roleKey],
     }));
+    // Custom roles follow, under their own names, with their own invite setting.
+    CustomBoardRoles.find({}, { sort: { sort: 1, name: 1 } }).forEach(role => {
+      const caps = normalizeCustomCapabilities(role.capabilities);
+      all.push({ _id: `custom:${role._id}`, roleName: role.name, invite: caps.inviteToBoard, ...caps });
+    });
 
     // The shared controls row always renders a search box, so it searches -
     // on the role's TRANSLATED name, which is what the reader sees.
     const docs = term
-      ? all.filter(doc => TAPi18n.__(doc.roleKey).toLowerCase().includes(term))
+      ? all.filter(doc => (doc.roleName || TAPi18n.__(doc.roleKey)).toLowerCase().includes(term))
       : all;
 
     const info = pageInfo(docs.length, tpl.statusPage.get());
@@ -1255,6 +1278,27 @@ Template.rolesGeneral.helpers({
     };
   },
 
+  // Custom roles, each an editable row, then the empty row that adds one.
+  customRoleRows() {
+    const edits = Template.instance().customEdits.get();
+    const row = (id, saved) => {
+      const edit = edits[id];
+      const name = edit ? edit.name : (saved ? saved.name : '');
+      const caps = normalizeCustomCapabilities(edit ? edit.capabilities : (saved && saved.capabilities));
+      return {
+        id,
+        isNew: id === 'new',
+        name,
+        capabilities: CUSTOM_ROLE_CAPABILITIES.map(cap => ({
+          cap, on: caps[cap], labelKey: CUSTOM_ROLE_CAPABILITY_LABELS[cap],
+        })),
+      };
+    };
+    const rows = CustomBoardRoles.find({}, { sort: { sort: 1, name: 1 } }).map(role => row(role._id, role));
+    rows.push(row('new', null));
+    return rows;
+  },
+
   roleOptions() {
     const working = Template.instance().workingRoles.get() || [];
     // The role key doubles as the i18n key. 'board-admin' renders as
@@ -1270,6 +1314,24 @@ Template.rolesGeneral.helpers({
     return INVITE_TO_BOARD_ROLES.every((key) => working.includes(key));
   },
 });
+
+// The row's values as they are being edited: the saved role with any unsaved
+// changes on top.
+function currentCustomRole(tpl, id) {
+  const edit = tpl.customEdits.get()[id];
+  if (edit) return edit;
+  const saved = id === 'new' ? null : CustomBoardRoles.findOne(id);
+  return {
+    name: saved ? saved.name : '',
+    capabilities: normalizeCustomCapabilities(saved && saved.capabilities),
+  };
+}
+
+function editCustomRole(tpl, id, change) {
+  const next = change(currentCustomRole(tpl, id));
+  next.capabilities = normalizeCustomCapabilities(next.capabilities);
+  tpl.customEdits.set({ ...tpl.customEdits.get(), [id]: next });
+}
 
 Template.rolesGeneral.events({
   'click a.js-toggle-role'(event, tpl) {
@@ -1294,6 +1356,44 @@ Template.rolesGeneral.events({
     event.preventDefault();
     InviteToBoardRolesSettings.update(INVITE_TO_BOARD_ROLES_ID, {
       $set: { allowedRoles: tpl.workingRoles.get() || [] },
+    });
+  },
+
+  // Custom roles (#3022). A row's edits are kept until it is saved; saving
+  // goes through the site-admin method, which also updates every board member
+  // who has the role.
+  'input .js-custom-role-name'(event, tpl) {
+    const id = $(event.currentTarget).closest('.custom-role').data('id');
+    editCustomRole(tpl, String(id), edit => ({ ...edit, name: event.currentTarget.value }));
+  },
+  'click .js-custom-role-cap, keydown .js-custom-role-cap'(event, tpl) {
+    if (event.type === 'keydown' && event.key !== ' ' && event.key !== 'Enter') return;
+    event.preventDefault();
+    const id = String($(event.currentTarget).closest('.custom-role').data('id'));
+    const cap = $(event.currentTarget).data('cap');
+    editCustomRole(tpl, id, edit => ({ ...edit, capabilities: { ...edit.capabilities, [cap]: !edit.capabilities[cap] } }));
+  },
+  'click .js-custom-role-save'(event, tpl) {
+    event.preventDefault();
+    const id = String($(event.currentTarget).closest('.custom-role').data('id'));
+    const edit = currentCustomRole(tpl, id);
+    if (!edit.name.trim()) return;
+    Meteor.call('customBoardRoles.save', id === 'new' ? null : id,
+      { name: edit.name, capabilities: edit.capabilities }, err => {
+        if (err) {
+          console.error('customBoardRoles.save', err);
+          return;
+        }
+        const edits = { ...tpl.customEdits.get() };
+        delete edits[id];
+        tpl.customEdits.set(edits);
+      });
+  },
+  'click .js-custom-role-delete'(event, tpl) {
+    event.preventDefault();
+    const id = String($(event.currentTarget).closest('.custom-role').data('id'));
+    Meteor.call('customBoardRoles.remove', id, err => {
+      if (err) console.error('customBoardRoles.remove', err);
     });
   },
 

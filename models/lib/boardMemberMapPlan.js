@@ -83,14 +83,23 @@ function planBoardMemberMapping({
   // Copying the placeholder's flags is what makes this a "this virtual member IS this
   // person" operation rather than a role grant — and it can only ever equal the role the
   // import already recorded, never exceed it.
+  // ALL eight role flags and the custom role (#3022) come from the placeholder:
+  // copying four used to turn a read-only or assigned-only placeholder into a
+  // normal member, and let a stale flag of the target's old membership stand.
+  const { customRoleId: staleCustomRole, ...targetRest } = targetMember || {};
   const entry = {
-    ...(targetMember || {}),
+    ...targetRest,
     userId: targetId,
     isActive: true,
     isAdmin: placeholderMember.isAdmin === true,
     isNoComments: placeholderMember.isNoComments === true,
     isCommentOnly: placeholderMember.isCommentOnly === true,
     isWorker: placeholderMember.isWorker === true,
+    isNormalAssignedOnly: placeholderMember.isNormalAssignedOnly === true,
+    isCommentAssignedOnly: placeholderMember.isCommentAssignedOnly === true,
+    isReadOnly: placeholderMember.isReadOnly === true,
+    isReadAssignedOnly: placeholderMember.isReadAssignedOnly === true,
+    ...(placeholderMember.customRoleId ? { customRoleId: placeholderMember.customRoleId } : {}),
   };
   const newMembers = targetMember
     ? withoutPlaceholder.map(m => (m.userId === targetId ? entry : m))

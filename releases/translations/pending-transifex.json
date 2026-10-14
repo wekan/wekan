@@ -1515,6 +1515,30 @@
     {
       "key": "sandstorm-trello-save-label",
       "since": "2026-10-13"
+    },
+    {
+      "key": "roles-status-move",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "custom-roles",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "custom-roles-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "custom-role-name",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "add-custom-role",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "custom-role-sees-all",
+      "since": "2026-10-14"
     }
   ]
 }

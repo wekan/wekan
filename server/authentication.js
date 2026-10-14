@@ -74,8 +74,8 @@ export const Authentication = {
     // refused here until those routes scope to assigned cards (TODO Later);
     // not recorded, since an API client of such a member reaches it in
     // ordinary use.
-    const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker &&
-      !e.isNormalAssignedOnly && !e.isCommentAssignedOnly && !e.isReadAssignedOnly);
+    const { memberReadsWholeBoard } = require('/models/lib/boardReadAccess');
+    const normalAccess = board.members.some(e => memberReadsWholeBoard(e, userId));
     await Authentication.checkAdminOrCondition(userId, normalAccess);
   },
 

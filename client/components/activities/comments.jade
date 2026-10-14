@@ -86,11 +86,9 @@ template(name="commentReactions")
       span.reaction(class="{{#if isSelected reaction.userIds}}selected{{/if}}" data-codepoint="#{reaction.reactionCodepoint}" title="{{userNames reaction.userIds}}")
         span.reaction-codepoint !{reaction.reactionCodepoint}
         span.reaction-count #{reaction.userIds.length}
-    if (currentUser.isBoardMember)
-      unless currentUser.isReadOnly
-        unless currentUser.isReadAssignedOnly
-          a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
-            i.fa.fa-smile-o(title="{{_ 'addReactionPopup-title' }}")
+    if canComment
+      a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
+        i.fa.fa-smile-o(title="{{_ 'addReactionPopup-title' }}")
             i.fa.fa-plus(title="{{_ 'add' }}")
 
 template(name="addReactionPopup")

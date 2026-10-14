@@ -214,11 +214,15 @@ test('#4593 wiring: creating a user directly into team(s) also adds their boards
 });
 
 test('#4593 wiring: addUserToTeamBoards routes through the tested helper', () => {
-  const start = usersSrc.indexOf('const addUserToTeamBoards =');
-  assert.ok(start > -1, 'addUserToTeamBoards must be defined');
-  const body = usersSrc.slice(start, start + 700);
-  assert.ok(/boardsToAddMemberTo|gainedTeamIds|teamBoardMemberSync/.test(body),
-    'addUserToTeamBoards must use the teamBoardMemberSync helper (the tested decision logic)');
+  // Since #4178 a team gives AND takes memberships, so addUserToTeamBoards
+  // is the team half of syncUserGroupBoards, which decides through the tested
+  // groupBoardMembership helpers (tests/groupBoardMembership.test.cjs).
+  assert.ok(/const addUserToTeamBoards = \(userId, oldTeams, newTeams\) => syncUserGroupBoards\(userId, 'team', oldTeams, newTeams\);/.test(usersSrc),
+    'addUserToTeamBoards must be the team half of syncUserGroupBoards');
+  const start = usersSrc.indexOf('const syncUserGroupBoards =');
+  const body = usersSrc.slice(start, start + 2600);
+  assert.ok(/groupChanges\(/.test(body) && /planGain\(/.test(body) && /planLoss\(/.test(body),
+    'syncUserGroupBoards must use the tested decision logic');
 });
 
 console.log(`\n${passed} tests passed`);

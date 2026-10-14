@@ -103,9 +103,12 @@ test('REST board-wide reads refuse assigned-only members (checkBoardAccess)', ()
   const auth = require('fs').readFileSync(require('path').join(__dirname, '..', 'server/authentication.js'), 'utf8');
   const at = auth.indexOf('async checkBoardAccess(userId, boardId) {');
   const body = auth.slice(at, auth.indexOf('\n  },', at));
-  const expr = /const normalAccess = (board\.members\.some\([\s\S]*?\));/.exec(body)[1];
-  // eslint-disable-next-line no-new-func
-  const allowed = new Function('board', 'userId', `return ${expr};`);
+  // Since #3022 the decision is the pure memberReadsWholeBoard
+  // (models/lib/boardReadAccess.js), which also knows custom roles; the route
+  // must still ask it for the caller's own entry.
+  assert.match(body, /const normalAccess = board\.members\.some\(e => memberReadsWholeBoard\(e, userId\)\);/);
+  const { memberReadsWholeBoard } = require('../models/lib/boardReadAccess');
+  const allowed = (b, userId) => b.members.some(e => memberReadsWholeBoard(e, userId));
   const board = flags => ({ members: [{ userId: 'u', isActive: true, ...flags }] });
   for (const flags of [{ isNormalAssignedOnly: true }, { isCommentAssignedOnly: true }, { isReadAssignedOnly: true }]) {
     assert.strictEqual(allowed(board(flags), 'u'), false, JSON.stringify(flags));

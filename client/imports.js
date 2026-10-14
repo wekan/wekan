@@ -50,6 +50,7 @@ import '/client/lib/boardMultiSelection';
 import '/client/lib/cardSearch';
 import '/client/lib/cssEvents';
 import '/client/lib/currentCard';
+import '/client/lib/customBoardRoles';
 import '/client/lib/customFields';
 import '/client/lib/dialogWithBoardSwimlaneList';
 import '/client/lib/dialogWithBoardSwimlaneListCard';

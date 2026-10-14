@@ -328,7 +328,11 @@ test('every string in it is translatable', () => {
   const spec = peopleJs.slice(at, peopleJs.indexOf('];', at));
 
   const keys = [...spec.matchAll(/labelKey: '([\w-]+)'/g)].map(m => m[1]);
-  assert.strictEqual(keys.length, 6, `expected six column headers, found ${keys.length}`);
+  // Seven since #3022: "Move cards" became a column of its own, because a
+  // custom role may move cards without writing them, and the table has to
+  // show that difference (a Worker's row shows it too).
+  assert.strictEqual(keys.length, 7, `expected seven column headers, found ${keys.length}`);
+  assert.ok(keys.includes('roles-status-move'), 'the Move cards column');
 
   const helper = peopleJs.slice(peopleJs.indexOf('rolesStatusTable() {'));
   const body = helper.slice(0, helper.indexOf('\n  },'));

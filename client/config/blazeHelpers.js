@@ -164,6 +164,11 @@ Blaze.registerHelper('canModifyCard', function canModifyCard() {
 
 Blaze.registerHelper('canMoveCard', () => Utils.canMoveCard());
 
+// May the current member comment? The same capability the server's comment
+// and reaction rules decide with (models/lib/boardRoleCapabilities.js), so a
+// No comments, read-only or custom role is not offered what it cannot do.
+Blaze.registerHelper('canComment', () => Utils.currentUserCan('comment'));
+
 // #3307: a Worker cannot edit/delete a checklist item, but may check it.
 Blaze.registerHelper('canCheckChecklistItem', function canCheckChecklistItem() {
   return Utils.canCheckChecklistItem(this && this.card);

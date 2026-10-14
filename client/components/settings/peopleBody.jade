@@ -802,6 +802,24 @@ template(name="rolesGeneral")
 
     button.js-roles-save.primary {{_ 'save'}}
 
+    //- Custom roles (#3022): named roles built from what a board member may
+    //- do. Board admin stays a built-in role. Each row saves on its own.
+    h4 {{_ 'custom-roles'}}
+    p.roles-description {{_ 'custom-roles-desc'}}
+    ul.custom-roles.setting-detail
+      each customRoleRows
+        li.custom-role(data-id="{{id}}")
+          input.js-custom-role-name(type="text" value=name maxlength="60" aria-label="{{_ 'custom-role-name'}}" placeholder="{{_ 'custom-role-name'}}")
+          each capabilities
+            a.flex.js-custom-role-cap(data-cap="{{cap}}" role="checkbox" aria-checked="{{#if on}}true{{else}}false{{/if}}" tabindex="0")
+              .materialCheckBox(class="{{#if on}}is-checked{{/if}}")
+              span {{_ labelKey}}
+          if isNew
+            button.js-custom-role-save.primary {{_ 'add-custom-role'}}
+          else
+            button.js-custom-role-save.primary {{_ 'save'}}
+            button.js-custom-role-delete {{_ 'delete'}}
+
     //- Roles Status: what each board role may do, READ-ONLY, below the Save
     //- button. It is the shared table page (docs/Features/Page/Table.md), so it
     //- looks and behaves like every other Admin Panel table, and it follows the

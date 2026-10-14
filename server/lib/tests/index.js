@@ -112,6 +112,8 @@ import './inboundEmailRoute.tests';
 import './emailToCard.tests';
 import './emailSendReceive.tests';
 import './emailBounces.tests';
+import './customBoardRoles.tests';
+import './groupBoardMembership.tests';
 import './activityIncarnation.tests';
 import './listSyncDurable.tests';
 import './storedRuleChecklist.tests';

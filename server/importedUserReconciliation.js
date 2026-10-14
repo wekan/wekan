@@ -84,7 +84,7 @@ async function checkMayAddBoardMember(board, caller, target) {
   }
 
   const allowedRoles = await InviteToBoardRolesSettings.allowedRoles();
-  if (!allowedRoles.includes(board.memberRole(caller._id))) {
+  if (!require('/models/lib/invitationBoardPermission').roleMayInvite(board.memberRole(caller._id), allowedRoles)) {
     throw new Meteor.Error('error-notAllowed');
   }
 

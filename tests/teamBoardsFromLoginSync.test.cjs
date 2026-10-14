@@ -21,7 +21,7 @@ console.log('teamBoardsFromLoginSync:');
 
 test('the helper is shared: exported for the app, global for the OIDC package', () => {
   const users = read('server/models/users.js');
-  assert.match(users, /^export \{ addUserToTeamBoards \};$/m);
+  assert.match(users, /^export \{ addUserToTeamBoards, syncUserOrgBoards, syncUserGroupBoards \};$/m);
   assert.match(users, /^globalThis\.__wekanAddUserToTeamBoards = addUserToTeamBoards;$/m);
 });
 

@@ -114,8 +114,8 @@ Template.chatViewChatPane.helpers({
     });
   },
   canComment() {
-    const user = ReactiveCache.getCurrentUser();
-    return !!(selectedCard() && user && (user.isBoardMember() || user.isCommentOnly()) && !user.isNoComments());
+    // The comment capability, as the server decides (read-only roles too).
+    return !!(selectedCard() && Utils.currentUserCan('comment'));
   },
 });
 

@@ -26,6 +26,16 @@ import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
+import CustomBoardRoles from '/models/customBoardRoles';
+const { normalizeCustomCapabilities } = require('/models/lib/boardRoleCapabilities');
+// What a custom role's description lists, in this order (#3022).
+const CUSTOM_ROLE_SUMMARY = [
+  ['seesAllCards', 'custom-role-sees-all'],
+  ['comment', 'roles-status-comment'],
+  ['write', 'roles-status-write'],
+  ['moveCard', 'roles-status-move'],
+  ['inviteToBoard', 'roles-status-invite'],
+];
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 const boardViewSettings = require('/models/lib/boardViewSettings');
 import { allowBoardView } from '/client/lib/instanceFeatures';
@@ -3449,6 +3459,15 @@ Template.removeBoardTeamPopup.events({
 });
 
 Template.changePermissionsPopup.events({
+  'click .js-set-custom-role'(event) {
+    event.preventDefault();
+    const currentBoard = Utils.getCurrentBoard();
+    const roleId = String($(event.currentTarget).data('role'));
+    Meteor.call('boards.setMemberCustomRole', currentBoard._id, this.userId, roleId, err => {
+      if (err) console.error('boards.setMemberCustomRole', err);
+      else Popup.back(1);
+    });
+  },
   async 'click .js-set-admin, click .js-set-normal, click .js-set-normal-assigned-only, click .js-set-no-comments, click .js-set-comment-only, click .js-set-comment-assigned-only, click .js-set-read-only, click .js-set-read-assigned-only, click .js-set-worker'(
     event,
   ) {
@@ -3484,6 +3503,17 @@ Template.changePermissionsPopup.events({
 });
 
 Template.changePermissionsPopup.helpers({
+  // Custom roles (#3022), with what each may do as its description.
+  customRoles() {
+    const currentBoard = Utils.getCurrentBoard();
+    const current = currentBoard && currentBoard.customRoleOf(this.userId);
+    return CustomBoardRoles.find({}, { sort: { sort: 1, name: 1 } }).map(role => {
+      const caps = normalizeCustomCapabilities(role.capabilities);
+      const summary = CUSTOM_ROLE_SUMMARY.filter(([cap]) => caps[cap]).map(([, key]) => TAPi18n.__(key)).join(', ');
+      return { _id: role._id, name: role.name, isCurrent: role._id === current, summary: summary || TAPi18n.__('read-assigned-only') };
+    });
+  },
+
   isAdmin() {
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard.hasAdmin(this.userId);
@@ -3491,6 +3521,7 @@ Template.changePermissionsPopup.helpers({
 
   isNormal() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       !currentBoard.hasNoComments(this.userId) &&
@@ -3505,6 +3536,7 @@ Template.changePermissionsPopup.helpers({
 
   isNormalAssignedOnly() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasNormalAssignedOnly(this.userId)
@@ -3513,6 +3545,7 @@ Template.changePermissionsPopup.helpers({
 
   isNoComments() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasNoComments(this.userId)
@@ -3521,6 +3554,7 @@ Template.changePermissionsPopup.helpers({
 
   isCommentOnly() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasCommentOnly(this.userId)
@@ -3529,6 +3563,7 @@ Template.changePermissionsPopup.helpers({
 
   isCommentAssignedOnly() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasCommentAssignedOnly(this.userId)
@@ -3537,6 +3572,7 @@ Template.changePermissionsPopup.helpers({
 
   isReadOnly() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasReadOnly(this.userId)
@@ -3545,6 +3581,7 @@ Template.changePermissionsPopup.helpers({
 
   isReadAssignedOnly() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasReadAssignedOnly(this.userId)
@@ -3553,6 +3590,7 @@ Template.changePermissionsPopup.helpers({
 
   isWorker() {
     const currentBoard = Utils.getCurrentBoard();
+    if (currentBoard.customRoleOf(this.userId)) return false;
     return (
       !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
     );

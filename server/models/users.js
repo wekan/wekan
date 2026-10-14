@@ -122,11 +122,7 @@ import {
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
 import { paginateDomains } from '/models/lib/domainTablePage';
 import { orgsToAutoAddForEmail } from '/models/lib/orgAutoAddByDomain';
-import {
-  gainedTeamIds,
-  newTeamBoardMemberEntry,
-  boardsToAddMemberTo,
-} from '/models/lib/teamBoardMemberSync';
+const { grantOf, planGain, planLoss, updateFor, groupChanges } = require('/models/lib/groupBoardMembership');
 
 // #4593: when a team is assigned to a board (addBoardTeamPopup), every user in
 // the team at that moment is pushed into board.members as a normal member — but
@@ -141,31 +137,66 @@ import {
 // member may also have been invited individually; explicit cleanup remains the
 // board admin's removeBoardTeamPopup action). Failures are logged, never fatal
 // to the user update that triggered the sync.
-const addUserToTeamBoards = async (userId, oldTeams, newTeams) => {
+// #4178 (maintainer decision 2026-10-14): a team or organization that gives a
+// user board memberships also takes them away when the user leaves it - but
+// only the ones it gave. Each entry records where it came from (grantedBy,
+// models/lib/groupBoardMembership.js): a direct membership (an invitation, a
+// board admin's choice, every entry from before) is never touched, a board
+// admin is kept, and the user's last group leaving deactivates the entry the
+// way removing a member does. Template boards are skipped (#5850). Failures
+// are logged, never fatal to the user update that triggered the sync.
+//
+// Teams give memberships on every board they are assigned to (#4593); an
+// organization only where it propagates its members to boards
+// (orgPropagateMembersToBoards, server/propagateOrgTeamMembers.js).
+const syncUserGroupBoards = async (userId, kind, oldList, newList) => {
+  const idField = kind === 'org' ? 'orgId' : 'teamId';
+  const field = kind === 'org' ? 'orgs' : 'teams';
   try {
-    const gained = gainedTeamIds(oldTeams, newTeams);
-    if (!gained.length) return;
-    const boards = await ReactiveCache.getBoards(
-      { teams: { $elemMatch: { teamId: { $in: gained }, isActive: true } } },
-      { fields: { _id: 1, type: 1, teams: 1, members: 1 } },
-    );
-    for (const boardId of boardsToAddMemberTo(boards, userId, gained)) {
-      // Guarded push: never create a duplicate entry if the user became a
-      // member through another path between the read above and this write.
-      await Boards.updateAsync(
-        { _id: boardId, 'members.userId': { $ne: userId } },
-        { $push: { members: newTeamBoardMemberEntry(userId) } },
-      );
+    const { gained, lost } = groupChanges(oldList, newList, idField);
+    for (const groupId of gained) {
+      if (kind === 'org') {
+        const org = await ReactiveCache.getOrg(groupId);
+        if (!org || org.orgPropagateMembersToBoards !== true) continue;
+      }
+      const grant = grantOf(kind, groupId);
+      const boards = await Boards.find(
+        { [field]: { $elemMatch: { [idField]: groupId, isActive: true } }, type: { $nin: ['template-board', 'template-container'] } },
+        { fields: { _id: 1, members: 1 } },
+      ).fetchAsync();
+      for (const board of boards) {
+        const plan = planGain(board.members, userId, grant);
+        const update = updateFor(plan, grant);
+        if (!update) continue;
+        // A push is guarded, so a member who arrived through another path
+        // between the read and this write is not added twice.
+        const selector = plan.action === 'push' ? { _id: board._id, 'members.userId': { $ne: userId } } : { _id: board._id };
+        await Boards.updateAsync(selector, update);
+      }
+    }
+    for (const groupId of lost) {
+      const grant = grantOf(kind, groupId);
+      const boards = await Boards.find(
+        { members: { $elemMatch: { userId, grantedBy: grant } } },
+        { fields: { _id: 1, members: 1 } },
+      ).fetchAsync();
+      for (const board of boards) {
+        const update = updateFor(planLoss(board.members, userId, grant), grant);
+        if (update) await Boards.updateAsync({ _id: board._id }, update);
+      }
     }
   } catch (error) {
-    console.error('addUserToTeamBoards failed:', error);
+    console.error(`syncUserGroupBoards(${kind}) failed:`, error);
   }
 };
+
+const addUserToTeamBoards = (userId, oldTeams, newTeams) => syncUserGroupBoards(userId, 'team', oldTeams, newTeams);
+const syncUserOrgBoards = (userId, oldOrgs, newOrgs) => syncUserGroupBoards(userId, 'org', oldOrgs, newOrgs);
 // The LDAP group sync (server/ldapGroupSync.js) imports it; the wekan-oidc
 // package cannot import app code and reaches it through this global, the way
 // it reaches authEnv (#4178: users added to a team by a login provider were
 // never made members of the team's boards).
-export { addUserToTeamBoards };
+export { addUserToTeamBoards, syncUserOrgBoards, syncUserGroupBoards };
 globalThis.__wekanAddUserToTeamBoards = addUserToTeamBoards;
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -504,6 +535,11 @@ Meteor.methods({
     // boards those teams are assigned to, like the team's original members did.
     if (updateData.teams !== undefined) {
       await addUserToTeamBoards(targetUserId, targetUser.teams, updateData.teams);
+    }
+    // #4178: and an organization that propagates its members gives and takes
+    // its boards the same way.
+    if (updateData.orgs !== undefined) {
+      await syncUserOrgBoards(targetUserId, targetUser.orgs, updateData.orgs);
     }
   },
 
@@ -1552,7 +1588,7 @@ Meteor.methods({
       // Enforce the Admin Panel / People / Roles policy: only the configured
       // board roles are allowed to invite users to a board.
       const allowedRoles = await InviteToBoardRolesSettings.allowedRoles();
-      if (!allowedRoles.includes(board.memberRole(inviter._id))) {
+      if (!require('/models/lib/invitationBoardPermission').roleMayInvite(board.memberRole(inviter._id), allowedRoles)) {
         throw new Meteor.Error('error-notAllowed');
       }
     }

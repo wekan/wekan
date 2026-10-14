@@ -25,7 +25,9 @@
 //     of dropping them silently.
 //
 // Returns { members, removedMemberIds }.
-function reconcileBoardTeamMembers(authoritativeMembers = [], clientMembers = []) {
+// grantsFor(userId) -> the groups a NEW member arrives through (#4178), e.g.
+// ['team:<id>']; recorded as grantedBy so leaving those teams removes them.
+function reconcileBoardTeamMembers(authoritativeMembers = [], clientMembers = [], grantsFor = () => []) {
   const authoritative = Array.isArray(authoritativeMembers)
     ? authoritativeMembers
     : [];
@@ -62,6 +64,10 @@ function reconcileBoardTeamMembers(authoritativeMembers = [], clientMembers = []
         isCommentAssignedOnly: !!member.isCommentAssignedOnly,
         isReadOnly: !!member.isReadOnly,
         isReadAssignedOnly: !!member.isReadAssignedOnly,
+        ...(() => {
+          const grants = grantsFor(member.userId) || [];
+          return grants.length ? { grantedBy: grants } : {};
+        })(),
       });
     }
   }

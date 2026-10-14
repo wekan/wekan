@@ -48,6 +48,55 @@ button, as the read-only *Roles Status* pane. It is rendered from
 `models/lib/boardRoleCapabilities.js`, which is also what the allow rules decide
 with — so the page cannot show a permission that is not enforced.
 
+## Custom roles
+
+An administrator can add named roles in **Admin Panel → People → Roles →
+Custom roles** (#3022). A custom role is built from these columns:
+
+- which cards the member sees: all, or only those assigned to them;
+- whether they may comment;
+- whether they may create and edit cards, lists, swimlanes and checklists;
+- whether they may move cards and assign themselves (always on when they may
+  edit);
+- whether they may invite people to the board.
+
+**Board admin** stays a built-in role. A custom role never gets the board
+settings, members and roles column, because a board must always keep an admin.
+
+A board admin gives a custom role to a member in the same popup as the built-in
+roles: click the member, then **Change permissions**. The custom roles are
+listed below the built-in ones, and each shows what it may do. The Roles Status
+table in the Admin Panel lists the custom roles after the built-in ones.
+
+How it is enforced:
+
+- **The capability table decides.** Each permission check asks
+  `models/lib/boardRoleCapabilities.js`. For a member with a custom role, the
+  table answers from that role (`customRoleId` on the board member, read
+  through `memberRoleOf`/`roleCan`).
+- **The flags are a safe mirror.** The member's built-in flags are also set,
+  to the most capable built-in role that grants nothing the custom role does
+  not (`fallbackRoleFor`). Code that still reads a flag can therefore never
+  grant more. That role also sees the same cards: all, or only assigned ones.
+- **Changes reach every board.** Changing a role rewrites those flags on every
+  board where it is used.
+- **Deleting a role is safe.** Members keep the mirror, which is a subset of
+  what the role allowed.
+- **Name-based checks get the closest built-in role.** Where the interface or
+  the server asks for a role by name (`hasWorker`, `isCommentOnly`, ...), a
+  custom role answers as the built-in role that does what it does
+  (`uiRoleFor`). A role that moves but does not edit is a Worker there.
+- **Commenting is always asked as a capability.** The comment form, reactions,
+  chat and the server all ask `comment`, never a role name.
+- **Choosing a built-in role removes the custom one.**
+- **REST whole-board reads** admit a custom role when it sees all cards.
+- **Invitations** use the custom role's own invite setting; the built-in roles
+  keep theirs from the Admin Panel list (`roleMayInvite`).
+- **Imports drop a custom role from another instance.** Its id means nothing
+  here, so an imported member keeps the flags.
+
+`tests/customBoardRoles.test.cjs` checks every combination of capabilities.
+
 ## Where each column comes from
 
 `models/lib/boardRoleCapabilities.js` is the table, in code. Everything reads it:

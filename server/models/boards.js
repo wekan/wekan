@@ -595,8 +595,16 @@ Meteor.methods({
     //  - only remove non-admin members the client explicitly omitted (an
     //    intentional team-leave), logging + cleaning up each such removal below
     //    so it is auditable rather than silent.
+    // #4178: a member the team brings carries the board's active teams they
+    // belong to, so leaving those teams takes the membership away again.
+    const activeTeamIds = boardTeamsArray.filter(t => t.isActive).map(t => t.teamId);
+    const newIds = membersArray.map(m => m.userId).filter(id => !board.members.some(m => m && m.userId === id));
+    const teamsOfNew = new Map();
+    for (const user of await Meteor.users.find({ _id: { $in: newIds } }, { fields: { teams: 1 } }).fetchAsync()) {
+      teamsOfNew.set(user._id, (user.teams || []).map(t => t && t.teamId).filter(id => activeTeamIds.includes(id)));
+    }
     const { members: resultMembers, removedMemberIds } =
-      reconcileBoardTeamMembers(board.members, membersArray);
+      reconcileBoardTeamMembers(board.members, membersArray, id => (teamsOfNew.get(id) || []).map(t => `team:${t}`));
 
     await Boards.updateAsync(currBoardId, {
       $set: {

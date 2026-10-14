@@ -77,6 +77,107 @@ const ROLE_CAPABILITIES = {
   'read-assigned-only':    { seesAllCards: false, comment: false, write: false, manageBoard: false, moveCard: false },
 };
 
+// ── Custom roles (#3022) ─────────────────────────────────────────────────────
+//
+// An administrator can define named roles in Admin Panel / People / Roles, each
+// a set of the capabilities below (models/customBoardRoles.js). A board member
+// given one carries `customRoleId`, and its role key is `custom:<id>`.
+//
+// What a custom role can NOT be is a board admin: `manageBoard` stays with the
+// built-in board-admin role, which has rules of its own (a board always keeps
+// one). So a custom role chooses from these:
+const CUSTOM_ROLE_CAPABILITIES = ['seesAllCards', 'comment', 'write', 'moveCard', 'inviteToBoard'];
+const CUSTOM_ROLE_PREFIX = 'custom:';
+
+// Where custom roles are looked up: set once by the server (an in-memory copy
+// kept current from the collection) and the client (the published collection,
+// so it is reactive). Until then there are none, and every custom role key is
+// unknown - and an unknown role may do nothing.
+let customRoleLookup = () => null;
+function setCustomRoleLookup(fn) {
+  customRoleLookup = typeof fn === 'function' ? fn : () => null;
+}
+
+// A custom role's capabilities, cleaned: only the known ones, only booleans,
+// and `write` brings `moveCard` with it, as it does for every built-in role -
+// moving a card IS writing it.
+function normalizeCustomCapabilities(input) {
+  const caps = {};
+  for (const cap of CUSTOM_ROLE_CAPABILITIES) caps[cap] = !!(input && input[cap] === true);
+  if (caps.write) caps.moveCard = true;
+  caps.manageBoard = false;
+  return caps;
+}
+
+function customRoleCapabilities(roleKey) {
+  if (typeof roleKey !== 'string' || !roleKey.startsWith(CUSTOM_ROLE_PREFIX)) return null;
+  const id = roleKey.slice(CUSTOM_ROLE_PREFIX.length);
+  if (!id) return null;
+  let doc = null;
+  try {
+    doc = customRoleLookup(id);
+  } catch (e) {
+    doc = null;
+  }
+  return doc ? normalizeCustomCapabilities(doc.capabilities) : null;
+}
+
+// The built-in role a member with this custom role ALSO carries in the old
+// per-role flags: the most capable built-in role that can do nothing the custom
+// role cannot. Code that still reads a flag directly therefore never grants more
+// than the custom role does, and a member whose custom role is deleted keeps
+// exactly that much. Ties go to the order of BOARD_ROLES.
+const FALLBACK_CAPABILITIES = ['seesAllCards', 'comment', 'write', 'moveCard'];
+function fallbackRoleFor(capabilities) {
+  const caps = normalizeCustomCapabilities(capabilities);
+  let best = 'read-assigned-only';
+  let bestCount = -1;
+  for (const role of BOARD_ROLES) {
+    if (role === 'board-admin') continue;
+    const builtIn = ROLE_CAPABILITIES[role];
+    if (!FALLBACK_CAPABILITIES.every(cap => !builtIn[cap] || caps[cap])) continue;
+    const count = FALLBACK_CAPABILITIES.filter(cap => builtIn[cap]).length;
+    if (count > bestCount) {
+      best = role;
+      bestCount = count;
+    }
+  }
+  return best;
+}
+
+// The built-in role a custom role BEHAVES like where code asks for a role by
+// name (Board.hasWorker, currentUser.isCommentOnly, ...): what it may do to a
+// card decides, and seeing only assigned cards picks the assigned variant.
+// Unlike fallbackRoleFor this may grant what the role has - a custom role that
+// moves but does not write is a Worker here, because moving is what a Worker
+// may do. It never grants writing or moving the role lacks; commenting is
+// never asked by role name (the comment form, reactions and the server all
+// ask the `comment` capability), so a Worker's comments do not come with it.
+// The one place it
+// is wider is seeing cards: a role that writes without commenting and sees
+// only assigned cards has no built-in twin and reads as No comments - but
+// which cards a member sees is decided on the server from the fallback flags,
+// which are assigned-only for it, not from this.
+function uiRoleFor(capabilities) {
+  const caps = normalizeCustomCapabilities(capabilities);
+  if (caps.write) {
+    if (caps.comment) return caps.seesAllCards ? 'normal' : 'normal-assigned-only';
+    return 'no-comments';
+  }
+  if (caps.moveCard) return 'worker';
+  if (caps.comment) return caps.seesAllCards ? 'comment-only' : 'comment-assigned-only';
+  return caps.seesAllCards ? 'read-only' : 'read-assigned-only';
+}
+
+// The eight per-role flags of a board member for one BUILT-IN role: that
+// role's flag set, every other one cleared ('normal' clears them all).
+function flagsForRole(role) {
+  const flags = {};
+  for (const flag of Object.values(ROLE_FLAGS)) flags[flag] = false;
+  if (ROLE_FLAGS[role]) flags[ROLE_FLAGS[role]] = true;
+  return flags;
+}
+
 // The role of ONE member document. The order matters and matches
 // Board.memberRole(): a member carries a single flag in practice
 // (setMemberPermission writes all of them at once), but the REST API can set
@@ -86,6 +187,11 @@ const ROLE_CAPABILITIES = {
 function memberRoleOf(member) {
   if (!member || member.isActive !== true) return null;
   if (member.isAdmin) return 'board-admin';
+  // A custom role that still exists; a deleted one leaves the fallback flags.
+  if (member.customRoleId) {
+    const key = CUSTOM_ROLE_PREFIX + member.customRoleId;
+    if (customRoleCapabilities(key)) return key;
+  }
   for (const role of BOARD_ROLES) {
     const flag = ROLE_FLAGS[role];
     if (flag && flag !== 'isAdmin' && member[flag]) return role;
@@ -96,6 +202,8 @@ function memberRoleOf(member) {
 // May a member with this role do this? An unknown role or capability is `false`:
 // a permission question with no answer is a no.
 function roleCan(role, capability) {
+  const custom = customRoleCapabilities(role);
+  if (custom) return custom[capability] === true;
   const caps = ROLE_CAPABILITIES[role];
   if (!caps) return false;
   return caps[capability] === true;
@@ -116,4 +224,12 @@ module.exports = {
   memberRoleOf,
   roleCan,
   memberCan,
+  CUSTOM_ROLE_CAPABILITIES,
+  CUSTOM_ROLE_PREFIX,
+  setCustomRoleLookup,
+  normalizeCustomCapabilities,
+  customRoleCapabilities,
+  fallbackRoleFor,
+  flagsForRole,
+  uiRoleFor,
 };

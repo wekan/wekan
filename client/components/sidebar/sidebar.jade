@@ -1072,6 +1072,14 @@ template(name="changePermissionsPopup")
         if isReadAssignedOnly
           i.fa.fa-check
         span.sub-name {{_ 'read-assigned-only-desc'}}
+    //- Custom roles (#3022), defined in Admin Panel / People / Roles.
+    each customRoles
+      li
+        a(class="{{#if isLastAdmin}}disabled{{else}}js-set-custom-role{{/if}}" data-role="{{_id}}")
+          | {{name}}
+          if isCurrent
+            i.fa.fa-check
+          span.sub-name {{summary}}
   if isLastAdmin
     hr
     p.quiet.bottom {{_ 'last-admin-desc'}}

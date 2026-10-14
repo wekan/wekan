@@ -315,6 +315,8 @@ import '/server/publications/recoveryReport';
 import '/server/publications/recoveryMaintenance';
 import '/server/recovery';
 import '/server/publications/inviteToBoardRolesSettings';
+// Custom board roles (#3022): the permission lookup, publication and methods.
+import '/server/customBoardRoles';
 import '/server/publications/lockoutSettings';
 import '/server/publications/notifications';
 import '/server/publications/org';

@@ -257,11 +257,8 @@ template(name="cardDetails")
               span.card-details-unread-comments(title="{{_ 'card-has-unread-comments'}}")
                 i.fa.fa-comment
         if isSectionOpen "comments"
-          if currentUser.isBoardMember
-            unless currentUser.isNoComments
-              unless currentUser.isReadOnly
-                unless currentUser.isReadAssignedOnly
-                  +commentForm
+          if canComment
+            +commentForm
           +comments
 
     .card-details-right

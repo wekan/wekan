@@ -3,7 +3,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
 import Team from '/models/team';
 import Boards from '/models/boards';
-import { membersToAddToBoard } from '/models/lib/propagateMembers';
+const { grantOf, planGain, updateFor } = require('/models/lib/groupBoardMembership');
 
 // #4737 / #5850: implement the per-org/team "Propagate Members To Boards" flag
 // (orgPropagateMembersToBoards / teamPropagateMembersToBoards). Until now the
@@ -75,15 +75,27 @@ export async function propagateGroupMembersToBoards(kind, group) {
     [field]: { $elemMatch: { [idField]: groupId, isActive: true } },
   }).fetchAsync();
 
+  // #4178: each membership records the group it came through (grantedBy), so a
+  // user who leaves the group loses it again; a direct member is untouched.
+  const grant = grantOf(kind, groupId);
   for (const board of boards) {
-    const newMembers = membersToAddToBoard(board.members, memberUserIds);
-    if (newMembers.length === 0) continue;
-    await Boards.updateAsync(
-      { _id: board._id },
-      { $push: { members: { $each: newMembers } } },
-    );
-    boardsUpdated += 1;
-    membersAdded += newMembers.length;
+    let added = 0;
+    let members = board.members;
+    for (const userId of memberUserIds) {
+      const plan = planGain(members, userId, grant);
+      const update = updateFor(plan, grant);
+      if (!update) continue;
+      const selector = plan.action === 'push' ? { _id: board._id, 'members.userId': { $ne: userId } } : { _id: board._id };
+      await Boards.updateAsync(selector, update);
+      if (plan.action === 'push') {
+        added += 1;
+        members = [...(members || []), plan.entry];
+      }
+    }
+    if (added) {
+      boardsUpdated += 1;
+      membersAdded += added;
+    }
   }
   return { boardsUpdated, membersAdded };
 }

@@ -13,8 +13,12 @@ function planImportedBoardMember(wekanMember, importerId) {
   const memberId = wekanMember.wekanId || wekanMember.userId || wekanMember.id;
   if (!memberId || memberId === importerId) return null;
   const mapped = !!wekanMember.wekanId;
+  // A custom role (#3022) is this instance's; another instance's id would name
+  // nothing here, or worse, a different role. The member keeps the built-in
+  // flags, which are the role's safe mirror.
+  const { customRoleId: foreignCustomRole, ...member } = wekanMember;
   return {
-    ...wekanMember,
+    ...member,
     userId: memberId,
     wekanId: memberId,
     isActive: mapped ? wekanMember.isActive !== false : false,

@@ -140,16 +140,23 @@ check('the propagation function is exported + used by the (formerly dead) method
   const src = read('server/propagateOrgTeamMembers.js');
   assert.ok(/export async function propagateGroupMembersToBoards/.test(src),
     'single-group propagation must be exported for the flag-setters');
-  assert.ok(/membersToAddToBoard\(board\.members, memberUserIds\)/.test(src),
-    'propagation must use the tested membersToAddToBoard helper');
+  // Since #4178 propagation records where each membership came from
+  // (grantedBy), so it decides per user through groupBoardMembership's planGain
+  // instead of membersToAddToBoard - which stays tested above as the add-only
+  // rule planGain keeps: an existing member is never re-added or changed.
+  assert.ok(/planGain\(members, userId, grant\)/.test(src) && /grantOf\(kind, groupId\)/.test(src),
+    'propagation must use the tested groupBoardMembership helpers');
   assert.ok(/return await propagateAllFlaggedGroupsToBoards\(\)/.test(src),
     'the Meteor method must delegate to the shared implementation');
 });
 check('propagation stays add-only + skips template boards (regression)', () => {
   const src = read('server/propagateOrgTeamMembers.js');
   assert.ok(/type: 'board'/.test(src), 'only regular boards (type board) are propagated to');
-  assert.ok(/\$push: \{ members:/.test(src), 'members are ADDED ($push), never overwritten');
-  assert.ok(!/\$set: \{ members/.test(src), 'must never $set/overwrite the members array');
+  // The $push lives in groupBoardMembership.updateFor since #4178.
+  const lib = read('models/lib/groupBoardMembership.js');
+  assert.ok(/updateFor\(plan, grant\)/.test(src) && /\$push: \{ members: plan\.entry \}/.test(lib),
+    'members are ADDED ($push), never overwritten');
+  for (const file of [src, lib]) assert.ok(!/\$set: \{ members[:,\s}]/.test(file), 'must never $set/overwrite the members array');
 });
 
 console.log(`\npropagateMembers: ${passed} checks passed`);

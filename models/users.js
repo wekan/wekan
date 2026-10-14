@@ -1549,7 +1549,7 @@ if (Meteor.isClient) {
       if (!role) return false;
       const doc = InviteToBoardRolesSettings.findOne(INVITE_TO_BOARD_ROLES_ID);
       const allowed = (doc && doc.allowedRoles) || INVITE_TO_BOARD_ROLES_DEFAULT;
-      return allowed.includes(role);
+      return require('/models/lib/invitationBoardPermission').roleMayInvite(role, allowed);
     },
   });
 }
