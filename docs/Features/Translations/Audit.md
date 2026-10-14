@@ -2,6 +2,25 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole current placeholders and stale English — 2026-10-14
+
+Commit `eca6c80825` translates eight remaining current placeholders and repairs
+two older English import guides for Todoist and Planner. Those guides differed
+from the current English source, so equality-based counting missed them. The
+translations follow the current source guidance; external interfaces were not
+revalidated. Literal menu names and field mappings remain intact.
+
+The current Haitian placeholder inventory is empty, including pending keys.
+A regression gate now checks that inventory. A targeted English-prose scan of
+all 4,270 Haitian values finds no further matches outside URLs, but this does
+not prove semantic correctness or cover every possible untranslated phrase.
+
+The Haitian catalog and guarded-correction suites pass with 29,661 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Six browser cases cover recovery
+permissions, LDAP and import guides; syntax and discovery pass, runtime remains
+pending. Haitian semantic review and the all-language objective are unfinished.
+
 ## Haitian Creole planning sync and recovery — 2026-10-14
 
 Commit `940aee620b` translates 48 Scrum matching, planning-sync, blocked-sync

@@ -3854,6 +3854,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eca6c80825">Finish Haitian English placeholders and repair stale import guides</a>. Thanks to xet7.</summary>
+
+- Translate eight remaining current placeholders and two stale-English import
+  guides. The current Haitian placeholder inventory is empty, including pending
+  keys; semantic correctness still requires review beyond that count.
+- Preserve Scrum recovery permissions and data-retention choices. Add current
+  catalog coverage and browser cases for recovery, LDAP and import guides.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Six browser cases pass syntax and discovery;
+  execution remains pending. All-language translation and review continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
