@@ -216732,5 +216732,131 @@
     "before": "Only the server environment sets these. They are shown here read-only.",
     "after": "Naanị gburugburu sava na-ahazi ihe ndị a. A na-egosi ha ebe a maka ọgụgụ naanị.",
     "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-heading",
+    "before": "List Sync operations that cannot be replayed",
+    "after": "Omume mmekọrịta ndepụta a na-enweghị ike ịmegharị",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-description",
+    "before": "Each of these saved List Sync operations stopped part way and can no longer be finished, because its list was removed, recreated or reconfigured, or the user who started it lost write access. While one is pending, that list cannot Sync. Discard it to let the list Sync again: changes already applied stay, the remaining saved changes are never written, and the next Sync compares the list with its source again.",
+    "after": "Omume mmekọrịta ndepụta ọ bụla echekwara ebe a kwụsịrị n’etiti, a pụghịzi imecha ya, n’ihi na ewepụrụ ndepụta ya, megharịrị ya ma ọ bụ gbanwee ntọala ya, ma ọ bụ onye malitere ya enweghịzi ikike ide ihe. Mgbe otu ka na-echere, ndepụta ahụ enweghị ike imekọrịta. Tụfuo ya ka ndepụta ahụ nwee ike imekọrịta ọzọ: mgbanwe e tinyelarị na-anọgide, a gaghị ede mgbanwe ndị fọdụrụ echekwara, mmekọrịta na-esote ga-atụnyere ndepụta ahụ na isi iyi ya ọzọ.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-list",
+    "before": "Board / list",
+    "after": "Bọọdụ / ndepụta",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-applied",
+    "before": "__applied__ of __total__ changes applied",
+    "after": "Etinyela mgbanwe __applied__ n’ime __total__",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-reason-scope-changed",
+    "before": "The list was removed, recreated or its Sync settings changed",
+    "after": "Ewepụrụ ndepụta ahụ, megharịrị ya ma ọ bụ gbanwee ntọala mmekọrịta ya",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-reason-access-denied",
+    "before": "The user who started it no longer has write access to the whole list",
+    "after": "Onye ọrụ malitere ya enweghịzi ikike ide ihe na ndepụta ahụ dum",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-reason-trigger-unknown",
+    "before": "Saved by an earlier WeKan version without what started it",
+    "after": "Ụdị WeKan ochie chekwara ya na-enweghị ihe kpalitere ya",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-reason-intent-missing",
+    "before": "The record of who started it is missing",
+    "after": "Ndekọ onye malitere ya adịghị",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-reason-unknown",
+    "before": "Could not be checked now",
+    "after": "Enweghị ike ịlele ya ugbu a",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-replayable-now",
+    "before": "It can be replayed again now and will finish by itself, so it cannot be discarded.",
+    "after": "Enwere ike ịmegharị ya ugbu a, ọ ga-emecha n’onwe ya, ya mere enweghị ike ịtụfu ya.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-discard-confirm",
+    "before": "Discard this saved List Sync operation? Changes it already applied stay; the rest are never written. The list can then Sync again.",
+    "after": "Tụfuo omume mmekọrịta ndepụta a echekwara? Mgbanwe ọ tinyelarị na-anọgide; a gaghị ede ndị fọdụrụ. Ndepụta ahụ ga-enwe ike imekọrịta ọzọ.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-empty",
+    "before": "No List Sync operations are waiting for review.",
+    "after": "Enweghị omume mmekọrịta ndepụta na-echere nyocha.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-truncated",
+    "before": "Only the oldest 50 are shown. Discard some and refresh to see more.",
+    "after": "A na-egosi naanị 50 kacha ochie. Tụfuo ụfọdụ ma mee ka ibe a dị ọhụrụ ka ị hụ ndị ọzọ.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-unavailable",
+    "before": "Could not load the List Sync operations. Refresh to try again.",
+    "after": "Enweghị ike ibunye omume mmekọrịta ndepụta. Mee ka ibe a dị ọhụrụ ka ị nwaa ọzọ.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-missing",
+    "before": "This operation is no longer pending.",
+    "after": "Omume a anaghịzi echere.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-not-stuck",
+    "before": "This operation has not been found stuck, so it cannot be discarded.",
+    "after": "Achọpụtaghị na omume a rapaara, ya mere enweghị ike ịtụfu ya.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-replayable",
+    "before": "This operation can be replayed again now and will finish by itself, so it was not discarded.",
+    "after": "Enwere ike ịmegharị omume a ugbu a, ọ ga-emecha n’onwe ya, ya mere a tụfughị ya.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "stuck-sync-operation-busy",
+    "before": "This list is syncing right now. Try again in a moment.",
+    "after": "Ndepụta a na-emekọrịta ugbu a. Nwaa ọzọ n’oge na-adịghị anya.",
+    "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
   }
 ]

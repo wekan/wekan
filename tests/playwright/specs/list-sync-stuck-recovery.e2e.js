@@ -48,7 +48,7 @@ test('only administrators can list or discard stuck List Sync operations', async
   } finally { cleanup([listId], [seeded.operationId], [seeded.intentId]); }
 });
 
-for (const language of ['gd', 'ga', 'mg', 'ht', 'la', 'st', 'co', 'sw', 'mt', 'en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'bn', 'mr', 'ne', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
+for (const language of ['ig', 'gd', 'ga', 'mg', 'ht', 'la', 'st', 'co', 'sw', 'mt', 'en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'bn', 'mr', 'ne', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
 test(`administrator discards a stuck List Sync operation in Recovery, once in ${language}`, async ({ page, adminUser }) => {
   // Its list no longer exists, so the scope can never match again.
   const listId = `stale-${randomUUID()}`;

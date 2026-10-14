@@ -284,3 +284,11 @@ assert.match(locales.ig['subtask-mark-done'], /ka emechara$/);
 assert.match(locales.ig['subtask-mark-not-done'], /ka emechaghị$/);
 assert.match(locales.ig['subtask-done-no-permission'], /Ị nweghị ike/);
 assert.match(locales.ig['login-setting-env-only'], /Naanị gburugburu sava.*ọgụgụ naanị/);
+
+assert.match(locales.ig['stuck-sync-operation-description'], /enweghịzi ikike.*enweghị ike imekọrịta.*mgbanwe e tinyelarị na-anọgide.*a gaghị ede mgbanwe ndị fọdụrụ.*isi iyi ya ọzọ/);
+assert.match(locales.ig['stuck-sync-operation-discard-confirm'], /tinyelarị na-anọgide.*a gaghị ede ndị fọdụrụ/);
+assert.match(locales.ig['stuck-sync-operation-replayable-now'], /ga-emecha n’onwe ya.*enweghị ike ịtụfu/);
+assert.match(locales.ig['stuck-sync-operation-not-stuck'], /Achọpụtaghị.*enweghị ike ịtụfu/);
+assert.match(locales.ig['stuck-sync-operation-truncated'], /naanị 50 kacha ochie/);
+assert.equal(locales.ig['stuck-sync-operation-applied'], 'Etinyela mgbanwe __applied__ n’ime __total__');
+assert.match(locales.ig['stuck-sync-operation-reason-access-denied'], /ndepụta ahụ dum/);
