@@ -471,3 +471,19 @@ assert.match(malagasy['stuck-sync-operation-replayable-now'], /ho vita ho azy.*t
 assert.match(malagasy['stuck-sync-operation-replayable'], /ho vita ho azy.*tsy nariana/);
 assert.match(malagasy['stuck-sync-operation-not-stuck'], /Tsy hita.*tsy azo ariana/);
 assert.match(malagasy['stuck-sync-operation-truncated'], /50 tranainy indrindra.*havaozy/);
+
+const importRecoveryKeys = ["interrupted-import-heading", "interrupted-import-description", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-scrum", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "interrupted-import-scrum-busy", "scrum-history-checkpoint-stuck", "scrum-history-checkpoint-counts", "scrum-history-checkpoint-hint", "scrum-history-checkpoint-rollback", "scrum-history-checkpoint-discard", "scrum-history-checkpoint-discard-confirm", "scrum-history-checkpoint-ask-admin", "login-setting-env-only"];
+
+for (const key of importRecoveryKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.match(malagasy['interrupted-import-description'], /Tsy azo tohizana.*tsy voatahiry.*rakitra loharano.*izay rehetra.*nampiana/);
+assert.match(malagasy['interrupted-import-keep-confirm'], /Tsy misy esorina.*tsy ho voatanisa/);
+assert.match(malagasy['interrupted-import-discard-confirm'], /voafafa tanteraka.*izay rehetra/);
+assert.match(malagasy['interrupted-import-foreign-board'], /Tsy ity.*tsy novaina/);
+assert.match(malagasy['scrum-history-checkpoint-hint'], /tsy omena.*olon-kafa.*tsy manova firaketana.*voarakitra/);
+assert.match(malagasy['login-setting-env-only'], /mpizara ihany.*vakiana fotsiny/);
+const currentMalagasyCatalog = spawnSync(process.execPath, [fillScript, '--list', 'mg'], { cwd: root, encoding: 'utf8' });
+assert.equal(currentMalagasyCatalog.status, 0, currentMalagasyCatalog.stderr);
+assert.deepEqual(JSON.parse(currentMalagasyCatalog.stdout), {});

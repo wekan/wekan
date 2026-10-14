@@ -210999,5 +210999,208 @@
     "before": "This list is syncing right now. Try again in a moment.",
     "after": "Eo am-pampifanarahana ity lisitra ity izao. Andramo indray afaka fotoana fohy.",
     "reason": "Translate stuck synchronization recovery into Malagasy, preserving retained writes and discard restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-heading",
+    "before": "Board imports that stopped before finishing",
+    "after": "Fanafarana solaitra nijanona talohan’ny fahavitany",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-description",
+    "before": "Each of these board imports stopped part way - the server restarted, or the import failed - and left a partial board. An import cannot be continued, because its source file is not kept. Keep the board as it is, or discard it and import the file again. Discarding removes the board this import created and everything on it, including anything added to it since.",
+    "after": "Nijanona teny antenatenany ny tsirairay amin’ireto fanafarana solaitra ireto — niverina nandeha ny mpizara, na tsy nahomby ny fanafarana — ka namela solaitra tsy feno. Tsy azo tohizana ny fanafarana satria tsy voatahiry ny rakitra loharano. Tazomy amin’ny endriny ankehitriny ny solaitra, na ario ary ampidiro indray ny rakitra. Ny fanariana dia manaisotra ny solaitra noforonin’ity fanafarana ity sy izay rehetra ao aminy, anisan’izany izay nampiana tao hatramin’izay.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-progress",
+    "before": "Where it stopped",
+    "after": "Toerana nijanonany",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-created",
+    "before": "Created so far",
+    "after": "Izay efa noforonina",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-source",
+    "before": "Imported from __source__",
+    "after": "Nampidirina avy amin’ny __source__",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-state-stopped",
+    "before": "Stopped without finishing, at __stage__",
+    "after": "Nijanona tsy vita, teo amin’ny __stage__",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-state-failed",
+    "before": "Failed with __error__, at __stage__",
+    "after": "Tsy nahomby noho ny __error__, teo amin’ny __stage__",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-state-discarding",
+    "before": "Being discarded; discard again to finish",
+    "after": "Eo am-panariana; ario indray hamitana azy",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-scrum",
+    "before": "Its Scrum stage has its own checkpoint (__state__, __next__ of __total__ steps). If you keep the board, finish or discard it from the board's Scrum import recovery.",
+    "after": "Manana toerana fanohizana manokana ny dingana Scrum (__state__, __next__ amin’ny dingana __total__). Raha tazoninao ny solaitra, vitao na ario io dingana io ao amin’ny famerenana ny fanafarana Scrum an’ilay solaitra.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-counts",
+    "before": "__swimlanes__ swimlanes, __lists__ lists, __cards__ cards, __checklists__ checklists, __comments__ comments, __attachments__ attachments",
+    "after": "Lalana __swimlanes__, lisitra __lists__, karatra __cards__, lisitra fanamarinana __checklists__, fanehoan-kevitra __comments__, rakitra ampiarahina __attachments__",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-no-board",
+    "before": "No board was created",
+    "after": "Tsy nisy solaitra noforonina",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-keep",
+    "before": "Keep",
+    "after": "Tazomy",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-keep-confirm",
+    "before": "Keep this partial board as it is? Nothing is removed, and the import is no longer listed here.",
+    "after": "Tazonina amin’ny endriny ankehitriny ve ity solaitra tsy feno ity? Tsy misy esorina, ary tsy ho voatanisa eto intsony ilay fanafarana.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-discard-confirm",
+    "before": "Discard this import? The board it created and everything on it are removed permanently.",
+    "after": "Hariana ve ity fanafarana ity? Ho voafafa tanteraka ny solaitra noforoniny sy izay rehetra ao aminy.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-empty",
+    "before": "No interrupted board imports are waiting for review.",
+    "after": "Tsy misy fanafarana solaitra tapaka miandry fandinihana.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-truncated",
+    "before": "Only the oldest 50 are shown. Keep or discard some and refresh to see more.",
+    "after": "Ny 50 tranainy indrindra ihany no aseho. Tazomy na ario ny sasany ary havaozy hahitana bebe kokoa.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-unavailable",
+    "before": "Could not load the interrupted board imports. Refresh to try again.",
+    "after": "Tsy azo nampidirina ny fanafarana solaitra tapaka. Havaozy hanandrana indray.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-missing",
+    "before": "This import is no longer recorded.",
+    "after": "Tsy voarakitra intsony ity fanafarana ity.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-not-interrupted",
+    "before": "This import is not waiting for a decision any more.",
+    "after": "Tsy miandry fanapahan-kevitra intsony ity fanafarana ity.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-foreign-board",
+    "before": "The board with this id was not created by this import, so it was not touched.",
+    "after": "Tsy ity fanafarana ity no namorona ny solaitra manana io ID io, ka tsy novaina izany.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "interrupted-import-scrum-busy",
+    "before": "Its Scrum stage is still being written or recovered. Try again in a few minutes.",
+    "after": "Mbola soratana na averina ny dingana Scrum ao aminy. Andramo indray afaka minitra vitsivitsy.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-stuck",
+    "before": "An undo, redo or restore of Scrum changes stopped on a conflict. Scrum edits on this board are blocked until it is resolved.",
+    "after": "Nijanona noho ny fifanoherana ny fanafoanana, famerenana na famerenana amin’ny laoniny ny fanovana Scrum. Voasakana ny fanovana Scrum eto amin’ity solaitra ity mandra-pamaha izany.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-counts",
+    "before": "__applied__ of __total__ changes were written, __pending__ were not, and __conflicted__ were changed by someone else since.",
+    "after": "Fanovana __applied__ amin’ny __total__ no voasoratra, __pending__ no tsy voasoratra, ary __conflicted__ no novain’olon-kafa hatramin’izay.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-hint",
+    "before": "Rolling back puts every changed record back as it was before; it is offered only when nobody else has changed those records since. Keeping the board as it is removes the stopped operation and changes no records. Either way, it is recorded in Admin Panel, Problems, Recovery.",
+    "after": "Ny famerenana amin’ny teo aloha dia mamerina ny firaketana rehetra niova ho toy ny teo aloha; tsy omena io safidy io raha nisy olon-kafa nanova ireo firaketana ireo hatramin’izay. Ny fitazonana ny solaitra amin’ny endriny ankehitriny dia manaisotra ilay asa nijanona nefa tsy manova firaketana. Na inona na inona safidy, voarakitra ao amin’ny Tontonana fitantanana, Olana, Famerenana izany.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-rollback",
+    "before": "Roll back",
+    "after": "Avereno amin’ny teo aloha",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-discard",
+    "before": "Keep the board as it is",
+    "after": "Tazomy amin’ny endriny ankehitriny ny solaitra",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-discard-confirm",
+    "before": "Keep every record as it is now, including the changes the stopped operation already wrote?",
+    "after": "Tazonina amin’ny endriny ankehitriny ve ny firaketana rehetra, anisan’izany ny fanovana efa nosoratan’ilay asa nijanona?",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "scrum-history-checkpoint-ask-admin",
+    "before": "A board administrator can roll it back or keep the board as it is.",
+    "after": "Afaka mamerina amin’ny teo aloha na mitazona ny solaitra amin’ny endriny ankehitriny ny mpitantana solaitra.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
+  },
+  {
+    "locale": "mg",
+    "key": "login-setting-env-only",
+    "before": "Only the server environment sets these. They are shown here read-only.",
+    "after": "Ny tontolon’ny mpizara ihany no mametraka ireo. Aseho eto ho vakiana fotsiny izy ireo.",
+    "reason": "Translate interrupted import and Scrum conflict recovery, preserving permanent deletion, no-change choices and rollback restrictions."
   }
 ]
