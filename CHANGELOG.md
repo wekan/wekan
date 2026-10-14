@@ -4333,6 +4333,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ccf484c6d3d7a6992c3d80c5b59e0c4c8b8e9b1">Translate Irish workflow and permission messages</a>. Thanks to xet7.</summary>
+
+Translate 19 strings for read-only fields, Wrike workflows, rule actions, LDAP
+sync, provider email-domain restrictions and subtask completion. Preserve status
+transitions, setting names, empty-domain behaviour and authorization limits.
+
+The Irish catalog and guarded-correction suites pass with 30,429 audited
+corrections. All 21 human-preference checks pass; 38,430 existing Chinese values
+remain unchanged. Three browser cases pass syntax and discovery; runtime remains
+pending. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

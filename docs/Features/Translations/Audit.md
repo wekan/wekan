@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Irish workflows and permission messages — 2026-10-14
+
+Commit `9ccf484c6d` translates 19 strings for read-only fields, Wrike workflow
+mapping, rule actions, LDAP sync, provider email-domain restrictions and
+subtask completion. Wrike status groups and its automation export limitation
+remain explicit. LDAP environment names and empty-domain behaviour are retained.
+External provider interfaces were not revalidated.
+
+The Irish catalog and guarded-correction suites pass with 30,429 correction
+ledger entries. All 21 human-preference checks pass; exact comparison preserves
+38,430 existing Chinese values. Three browser cases cover LDAP authorization
+and subtask completion, including refusal for a comment-only member. Syntax
+and discovery pass; runtime remains pending.
+
+Remaining Irish feature text and all-language semantic review are unfinished.
+
 ## Irish integration and notification settings — 2026-10-14
 
 Commit `b3a554e748` translates 42 strings covering link rules, webhook payloads,
