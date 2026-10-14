@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import Boards from '/models/boards';
-import { assignKey } from '/server/boardKeys';
+import { assignKey, backfillKeys } from '/server/boardKeys';
 
 // Board keys (#2449, #2450) on a running server: a board gets a key from its
 // title, keys are unique, and a board admin changes one - but not to a key
@@ -48,5 +48,32 @@ describe('Board keys (runtime)', function () {
     const key = `K${tag}`.slice(0, 10);
     assert.equal(await call(owner, 'setBoardKey', a, key.toLowerCase()), key, 'typed in lower case, stored in capitals');
     assert.equal((await Boards.findOneAsync(a)).key, key);
+  });
+
+  // #6767: the backfill gives many boards keys in one pass - unique, the
+  // existing ones left alone - instead of re-reading every key per board.
+  it('backfills hundreds of boards at once, unique, without touching set keys', async () => {
+    const ids = Array.from({ length: 600 }, () => Random.id());
+    const preset = Random.id();
+    const presetKey = `P${tag}`.slice(0, 10);
+    await Boards.rawCollection().insertMany([
+      ...ids.map((id, i) => ({ _id: id, title: i % 2 ? `Backfill ${tag}` : `Q${tag}`, type: 'board', permission: 'private', members: [] })),
+      { _id: preset, title: `Backfill ${tag}`, key: presetKey, type: 'board', permission: 'private', members: [] },
+    ]);
+    try {
+      const started = Date.now();
+      const written = await backfillKeys();
+      assert.ok(written >= ids.length, `wrote ${written}`);
+      assert.ok(Date.now() - started < 30000, 'well within seconds');
+      const docs = await Boards.rawCollection().find({ _id: { $in: ids } }, { projection: { key: 1 } }).toArray();
+      const keys = docs.map(d => d.key);
+      assert.ok(keys.every(key => /^[A-Z][A-Z0-9]{1,9}$/.test(key)), 'every board has a key');
+      const all = await Boards.rawCollection().find({ key: { $in: keys } }, { projection: { key: 1 } }).toArray();
+      assert.equal(all.length, keys.length, 'no key is used by two boards');
+      assert.equal((await Boards.findOneAsync(preset)).key, presetKey, 'negative: a key already set is not replaced');
+      assert.equal(await backfillKeys(), 0, 'a second run has nothing to do');
+    } finally {
+      await Boards.rawCollection().deleteMany({ _id: { $in: [...ids, preset] } });
+    }
   });
 });

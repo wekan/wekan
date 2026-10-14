@@ -31,6 +31,11 @@ function asciiWords(title) {
  * is added until it is free ("DT2", "DT3").
  */
 function suggestKey(title, taken = new Set()) {
+  return keyWithNumber(keyBase(title), taken, 2).key;
+}
+
+/** The key a title starts from, before any number is added. */
+function keyBase(title) {
   // Words that start with a letter; a leading number ("2026 plans") is not an initial.
   const words = asciiWords(title).filter(w => /^[A-Z]/.test(w));
   let base;
@@ -42,13 +47,48 @@ function suggestKey(title, taken = new Set()) {
   if (!base || !/^[A-Z]/.test(base) || base.length < 2) {
     base = base && /^[A-Z]/.test(base) ? `${base}B` : 'BOARD';
   }
-  base = base.replace(/[^A-Z0-9]/g, '').slice(0, KEY_MAX);
-  if (!taken.has(base) && isValidKey(base)) return base;
-  for (let n = 2; ; n += 1) {
+  return base.replace(/[^A-Z0-9]/g, '').slice(0, KEY_MAX);
+}
+
+// The base itself when free, else the base with the first free number from
+// `from` up; { key, n } so a caller can go on from n + 1 next time.
+function keyWithNumber(base, taken, from) {
+  if (from <= 2 && !taken.has(base) && isValidKey(base)) return { key: base, n: 1 };
+  for (let n = Math.max(2, from); ; n += 1) {
     const suffix = String(n);
     const candidate = base.slice(0, KEY_MAX - suffix.length) + suffix;
-    if (!taken.has(candidate) && isValidKey(candidate)) return candidate;
+    if (!taken.has(candidate) && isValidKey(candidate)) return { key: candidate, n };
   }
+}
+
+/**
+ * Keys for many boards at once (#6767): [{ _id, key }], each unique against
+ * `taken` (the keys in use, a Set this adds to) and against each other.
+ * Linear: the keys in use are read once by the caller, and each base keeps
+ * the next number to try, so a thousand boards called "Board" do not each
+ * count up from 2 again.
+ */
+function planBoardKeys(boards, taken = new Set()) {
+  const next = new Map();
+  const plan = [];
+  for (const board of Array.isArray(boards) ? boards : []) {
+    if (!board || !board._id) continue;
+    const base = keyBase(board.title);
+    const { key, n } = keyWithNumber(base, taken, next.get(base) || 2);
+    next.set(base, n + 1);
+    taken.add(key);
+    plan.push({ _id: board._id, key });
+  }
+  return plan;
+}
+
+/**
+ * The shortest start every key suggested from this title has, whatever
+ * number is added: a single board's lookup reads only keys beginning with
+ * it, not every key (#6767).
+ */
+function keyPrefix(title) {
+  return keyBase(title).slice(0, KEY_MAX - 6);
 }
 
 /** How a card's number is shown: KEY-7, or #7 for a board without a key yet. */
@@ -69,4 +109,4 @@ function normalizeKey(input) {
   return String(input || '').trim().toUpperCase();
 }
 
-module.exports = { KEY_PATTERN, KEY_MAX, isValidKey, suggestKey, formatCardKey, parseCardKey, normalizeKey };
+module.exports = { KEY_PATTERN, KEY_MAX, isValidKey, suggestKey, keyBase, keyPrefix, planBoardKeys, formatCardKey, parseCardKey, normalizeKey };
