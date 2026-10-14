@@ -1,0 +1,9 @@
+/* The card title in an activity feed entry opens the card (activityFeed.jade). */
+.activity-feed-card {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.activity-feed-card:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

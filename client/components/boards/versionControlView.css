@@ -467,3 +467,13 @@
 .vcs-wiki-sidebar {
   padding: 8px 16px;
 }
+
+/* Titles, labels and milestones that open or filter are spans with
+   role=link (a rendered title can hold a link of its own). */
+.vcs-view [role="link"] {
+  cursor: pointer;
+}
+.vcs-view [role="link"]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

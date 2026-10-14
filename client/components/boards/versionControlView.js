@@ -16,6 +16,13 @@ const vcs = require('/models/lib/versionControlView');
 const TAB_ICONS = { issues: 'fa-dot-circle-o', milestones: 'fa-map-signs', labels: 'fa-tag', releases: 'fa-tags', wiki: 'fa-book', files: 'fa-file-o', history: 'fa-history' };
 const TAB_LABELS = { issues: 'vcs-issues', milestones: 'vcs-milestones', labels: 'labels', releases: 'vcs-releases', wiki: 'vcs-wiki', files: 'attachments', history: 'history' };
 const SOURCES = ['github', 'gitlab', 'gitea', 'forgejo'];
+
+// A click on a link inside a rendered title or label (inlineViewer), not on
+// the title itself.
+const inRenderedLink = event => {
+  const link = event.target && event.target.closest && event.target.closest('a[href]');
+  return !!(link && event.currentTarget.contains(link) && link !== event.currentTarget);
+};
 const SOURCE_NAMES = { github: 'GitHub', gitlab: 'GitLab', gitea: 'Gitea', forgejo: 'Forgejo', jira: 'Jira' };
 
 // The view's state. One board view is drawn at a time, so it lives here and is
@@ -283,15 +290,28 @@ Template.versionControlView.events({
   'change .js-vcs-sort'(event, tpl) {
     setQuery(tpl, vcs.withQualifier(query.get(), 'sort', event.currentTarget.value));
   },
+  // The clickable titles and labels are spans with role=link: Enter and
+  // Space click them, as on a link or a button.
+  'keydown [role="link"]'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    event.currentTarget.click();
+  },
   'click .js-vcs-label'(event, tpl) {
+    // A link inside a rendered title opens itself.
+    if (inRenderedLink(event)) return;
     event.preventDefault();
     setQuery(tpl, vcs.withQualifier(tab.get() === 'issues' ? query.get() : 'is:open', 'label', event.currentTarget.dataset.name));
   },
   'click .js-vcs-milestone'(event, tpl) {
+    // A link inside a rendered title opens itself.
+    if (inRenderedLink(event)) return;
     event.preventDefault();
     setQuery(tpl, vcs.withQualifier(tab.get() === 'issues' ? query.get() : 'is:open', 'milestone', event.currentTarget.dataset.title));
   },
   'click .js-vcs-open-issue'(event) {
+    // A link inside a rendered title opens itself.
+    if (inRenderedLink(event)) return;
     event.preventDefault();
     tab.set('issues');
     creating.set(false);
@@ -309,6 +329,8 @@ Template.versionControlView.events({
     Meteor.call('syncListNow', listId, () => syncing.set(null));
   },
   'click .js-vcs-wiki-page'(event) {
+    // A link inside a rendered title opens itself.
+    if (inRenderedLink(event)) return;
     event.preventDefault();
     wikiPageId.set(event.currentTarget.dataset.cardId);
     wikiHistory.set(false);

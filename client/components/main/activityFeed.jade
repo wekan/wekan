@@ -10,11 +10,22 @@ template(name="activityFeed")
         li.activity-feed-entry
           span.activity-feed-time= timeText
           strong.activity-feed-user= username
-          |  {{description}}
+          | 
+          //- What it names can be Markdown - a card title with a link or an
+            emoji - and renders as such (inlineViewer), with the Admin Panel's
+            settings. A rendered link cannot sit inside a link, so the card
+            opens from a span.
+          +inlineViewer
+            = description
           if cardId
-            |  
-            a(href=cardUrl)= cardTitle
-          span.quiet  · {{boardTitle}}
+            | 
+            span.activity-feed-card.js-activity-feed-card(role="link" tabindex="0" data-url=cardUrl)
+              +inlineViewer
+                = cardTitle
+          span.quiet
+            |  · 
+            +inlineViewer
+              = boardTitle
       else
         li.quiet {{_ 'activity-feed-empty'}}
     if hasMore

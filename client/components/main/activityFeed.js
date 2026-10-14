@@ -39,6 +39,18 @@ Template.activityFeed.helpers({
 });
 
 Template.activityFeed.events({
+  // The card opens from its title, unless a link inside the title was clicked.
+  'click .js-activity-feed-card'(event) {
+    const link = event.target.closest && event.target.closest('a[href]');
+    if (link && event.currentTarget.contains(link)) return;
+    event.preventDefault();
+    FlowRouter.go(event.currentTarget.dataset.url);
+  },
+  'keydown .js-activity-feed-card'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    event.currentTarget.click();
+  },
   'click .js-activity-feed-more'(event, tpl) {
     event.preventDefault();
     const list = tpl.entries.get();

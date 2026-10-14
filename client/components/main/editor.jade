@@ -16,3 +16,11 @@ template(name="viewer")
     +mentions
       +markdown
         {{> UI.contentBlock }}
+
+//- A title, a name or a label in a line of other text: the same viewer -
+  Markdown, emoji, mentions, and the Admin Panel's settings for links and
+  code - laid out inline at the text's own size (editor.css).
+template(name="inlineViewer")
+  span.inline-viewer
+    +viewer
+      {{> UI.contentBlock }}

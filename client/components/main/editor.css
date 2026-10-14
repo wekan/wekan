@@ -22,3 +22,27 @@
   top: 20px;
   inset-inline-end: 6px;
 }
+
+/* inlineViewer (editor.jade): rendered Markdown that reads as part of the
+   line it is in - a heading or a paragraph keeps the line's size and flows
+   with the text around it. */
+.inline-viewer,
+.inline-viewer > .viewer {
+  display: inline;
+}
+.inline-viewer .viewer :is(h1, h2, h3, h4, h5, h6, p, ul, ol, li, blockquote, pre) {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border: 0;
+}
+.inline-viewer .viewer :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: bold;
+}
+.inline-viewer .viewer img {
+  max-height: 1.4em;
+  vertical-align: middle;
+}

@@ -9,7 +9,9 @@ template(name="versionControlView")
     header.vcs-header
       h2.vcs-repo
         i.fa.fa-code-fork
-        span.vcs-repo-name {{boardTitle}}
+        span.vcs-repo-name
+          +inlineViewer
+            = boardTitle
         if isPublic
           span.vcs-badge {{_ 'public'}}
       .vcs-header-actions
@@ -22,7 +24,9 @@ template(name="versionControlView")
           each syncedLists
             button.vcs-button.js-vcs-sync(type="button" data-list-id="{{_id}}" disabled="{{#if busy}}disabled{{/if}}" title="{{source}} {{project}}{{#if error}} - {{error}}{{/if}}")
               i.fa.fa-refresh(class="{{#if busy}}fa-spin{{/if}}")
-              | &nbsp;{{_ 'vcs-sync-now' source}}: {{title}}
+              | &nbsp;{{_ 'vcs-sync-now' source}}: 
+              +inlineViewer
+                = title
         a.vcs-button.js-vcs-export(href="#")
           i.fa.fa-download
           | &nbsp;{{_ 'export-board'}}
@@ -66,17 +70,25 @@ template(name="versionControlView")
               li.vcs-issue
                 i.fa.vcs-issue-icon(class="{{#if closed}}fa-check-circle is-closed{{else}}fa-dot-circle-o is-open{{/if}}" aria-hidden="true")
                 .vcs-issue-main
-                  a.vcs-issue-title.js-vcs-open-issue(href="#" data-card-id="{{_id}}") {{title}}
+                  //- Rendered titles and labels can hold links, and a link
+                    inside a link is not one: the clickable ones are spans.
+                  span.vcs-issue-title.js-vcs-open-issue(role="link" tabindex="0" data-card-id="{{_id}}")
+                    +inlineViewer
+                      = title
                   each labels
-                    a.card-label.vcs-label.js-vcs-label(href="#" data-name="{{name}}" class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{name}}
+                    span.card-label.vcs-label.js-vcs-label(role="link" tabindex="0" data-name="{{name}}" class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
+                      +inlineViewer
+                        = name
                   .vcs-issue-meta.quiet
                     if number
                       | {{numberText}}&nbsp;
                     | {{_ 'vcs-opened-by' date author}}
                     each milestones
-                      a.vcs-issue-milestone.js-vcs-milestone(href="#" data-title="{{title}}")
+                      span.vcs-issue-milestone.js-vcs-milestone(role="link" tabindex="0" data-title="{{title}}")
                         i.fa.fa-map-signs
-                        | &nbsp;{{title}}
+                        | &nbsp;
+                        +inlineViewer
+                          = title
                 .vcs-issue-side
                   each assignees
                     +userAvatar(userId=this noRemove=true)
@@ -93,7 +105,9 @@ template(name="versionControlView")
           each milestones
             li.vcs-milestone
               .vcs-milestone-main
-                a.vcs-milestone-title.js-vcs-milestone(href="#" data-title="{{title}}") {{title}}
+                span.vcs-milestone-title.js-vcs-milestone(role="link" tabindex="0" data-title="{{title}}")
+                  +inlineViewer
+                    = title
                 .quiet(class="{{#if overdue}}vcs-overdue{{/if}}")
                   if dueAt
                     i.fa.fa-calendar
@@ -112,7 +126,12 @@ template(name="versionControlView")
         ul.vcs-labels
           each labelRows
             li.vcs-label-row
-              a.card-label.vcs-label.js-vcs-label(href="#" data-name="{{name}}" class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{#if name}}{{name}}{{else}}{{color}}{{/if}}
+              span.card-label.vcs-label.js-vcs-label(role="link" tabindex="0" data-name="{{name}}" class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
+                if name
+                  +inlineViewer
+                    = name
+                else
+                  | {{color}}
               span.quiet {{_ 'vcs-open-issues' open}}
           else
             li.vcs-empty.quiet {{_ 'vcs-no-labels'}}
@@ -123,7 +142,9 @@ template(name="versionControlView")
           li.vcs-box.vcs-release
             .vcs-comment-header
               i.fa.fa-tag
-              strong  {{title}}
+              strong
+                +inlineViewer
+                  = title
               span.quiet  {{date}}
             .vcs-comment-body
               +viewer
@@ -143,7 +164,9 @@ template(name="versionControlView")
         .vcs-wiki
           .vcs-wiki-main
             with wikiPage
-              h2.vcs-issue-heading {{title}}
+              h2.vcs-issue-heading
+                +inlineViewer
+                  = title
             p.vcs-wiki-tools
               a.js-vcs-wiki-history(href="#")
                 i.fa.fa-history
@@ -173,7 +196,9 @@ template(name="versionControlView")
               ul.vcs-wiki-pages
                 each wikiPages
                   li(class="{{#if active}}is-active{{/if}}")
-                    a.js-vcs-wiki-page(href="#" data-card-id="{{_id}}") {{title}}
+                    span.js-vcs-wiki-page(role="link" tabindex="0" data-card-id="{{_id}}")
+                      +inlineViewer
+                        = title
             if wikiSidebar
               .vcs-box.vcs-wiki-sidebar
                 .vcs-wiki-body
@@ -194,10 +219,11 @@ template(name="versionControlView")
                   a(href="{{link}}" target="_blank" rel="noopener noreferrer") {{name}}
                 td.quiet {{size}}
                 td
-                  a.js-vcs-open-issue(href="#" data-card-id="{{cardId}}")
+                  span.js-vcs-open-issue(role="link" tabindex="0" data-card-id="{{cardId}}")
                     if number
                       | {{numberText}}&nbsp;
-                    | {{issueTitle}}
+                    +inlineViewer
+                      = issueTitle
                 td.quiet {{date}}
             else
               tr
@@ -216,7 +242,9 @@ template(name="versionControlIssue")
       i.fa.fa-arrow-left
       | &nbsp;{{_ 'vcs-issues'}}
     h2.vcs-issue-heading
-      | {{title}}&nbsp;
+      +inlineViewer
+        = title
+      | &nbsp;
       if number
         span.quiet {{numberText}}
     .vcs-issue-status
@@ -273,7 +301,9 @@ template(name="versionControlIssue")
         .vcs-side-block
           h3 {{_ 'labels'}}
           each labels
-            span.card-label.vcs-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{name}}
+            span.card-label.vcs-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
+              +inlineViewer
+                = name
           else
             p.quiet {{_ 'vcs-none'}}
         .vcs-side-block
@@ -281,7 +311,9 @@ template(name="versionControlIssue")
           each milestones
             p
               i.fa.fa-map-signs
-              | &nbsp;{{title}}
+              | &nbsp;
+              +inlineViewer
+                = title
           else
             p.quiet {{_ 'vcs-none'}}
         .vcs-side-block
@@ -308,7 +340,12 @@ template(name="versionControlNewIssue")
         each boardLabels
           label.vcs-new-label
             input.js-vcs-new-label(type="checkbox" value="{{_id}}")
-            span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{#if name}}{{name}}{{else}}{{color}}{{/if}}
+            span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
+              if name
+                +inlineViewer
+                  = name
+              else
+                | {{color}}
     if error
       p.warning {{error}}
     .vcs-comment-actions
