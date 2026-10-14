@@ -210236,5 +210236,320 @@
     "before": "Allow access to Trello",
     "after": "Omeo alalana hiditra amin’ny Trello",
     "reason": "Translate bulk transfer, column and member mapping, Trello export and Sandstorm access messages into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "sandstorm-trello-access-granted",
+    "before": "This grain may reach Trello.",
+    "after": "Afaka mifandray amin’ny Trello ity grain ity.",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "sandstorm-forget-access",
+    "before": "Forget",
+    "after": "Hadinoina",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "sandstorm-trello-save-label",
+    "before": "Trello, for importing and exporting boards",
+    "after": "Trello, hanafarana sy hanondranana solaitra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "external-link-rules",
+    "before": "More link rules",
+    "after": "Fitsipika rohy fanampiny",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "external-link-rules-description",
+    "before": "One rule per line: the text to find, \" = \", and the address. Use {number} for digits and {identifier} for a word, in both, for example [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "after": "Fitsipika iray isaky ny andalana: ny lahatsoratra hotadiavina, \" = \", ary ny adiresy. Ampiasao ny {number} ho an’ny tarehimarika ary ny {identifier} ho an’ny teny, amin’izy roa, ohatra [{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}.",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "external-link-identifier-aliases",
+    "before": "Abbreviations for {identifier}, for example TK=Task, IN=Incident",
+    "after": "Fanafohezana ny {identifier}, ohatra TK=Task, IN=Incident",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-heading",
+    "before": "Webhook data",
+    "after": "Angona webhook",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-description",
+    "before": "What outgoing webhooks (Rocket.Chat, Slack, ...) send. Default keeps the inherited setting; with nothing set, webhooks send what they always have.",
+    "after": "Izay alefan’ny webhook mivoaka (Rocket.Chat, Slack, ...). Ny safidy mahazatra dia mitazona ny fikirakirana nolovaina; raha tsy misy napetraka, ny webhook dia mandefa izay nalefany hatramin’izay.",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-text",
+    "before": "Send the message text",
+    "after": "Alefaso ny lahatsoratry ny hafatra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-fields",
+    "before": "Send these fields",
+    "after": "Alefaso ireto saha ireto",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-standard",
+    "before": "Standard fields (WEBHOOKS_ATTRIBUTES)",
+    "after": "Saha mahazatra (WEBHOOKS_ATTRIBUTES)",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-ids",
+    "before": "IDs",
+    "after": "Mari-panondroana",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-names",
+    "before": "Names and titles",
+    "after": "Anarana sy lohateny",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-links",
+    "before": "Links to the card and board",
+    "after": "Rohy mankany amin’ny karatra sy solaitra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-actor",
+    "before": "Who did it",
+    "after": "Izay nanao izany",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-people",
+    "before": "The member or assignee it is about",
+    "after": "Ny mpikambana na olona voatendry voakasik’izany",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-payload-field-details",
+    "before": "Details: comment, description, values and dates",
+    "after": "Antsipiriany: fanehoan-kevitra, famaritana, sanda ary daty",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-hide-identity",
+    "before": "Leave my name out of outgoing webhooks",
+    "after": "Aza ampidirina ao amin’ny webhook mivoaka ny anarako",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "webhook-someone",
+    "before": "A member",
+    "after": "Mpikambana iray",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-layout-classic",
+    "before": "One sentence (classic)",
+    "after": "Fehezanteny iray (mahazatra)",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-layout-clear",
+    "before": "Clearly arranged: board, who, card in bold",
+    "after": "Voalamina mazava: solaitra, iza, karatra amin’ny sora-matevina",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-parts",
+    "before": "Show",
+    "after": "Asehoy",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-part-board",
+    "before": "Board name and link",
+    "after": "Anarana sy rohin’ny solaitra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-part-actor",
+    "before": "Who did it",
+    "after": "Izay nanao izany",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-part-card",
+    "before": "Card title and link",
+    "after": "Lohateny sy rohin’ny karatra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-part-details",
+    "before": "Comment or changed value",
+    "after": "Fanehoan-kevitra na sanda niova",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-part-dates",
+    "before": "Dates",
+    "after": "Daty",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-part-link",
+    "before": "Link on its own line",
+    "after": "Rohy amin’ny andalana manokana",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-grouping",
+    "before": "Grouping",
+    "after": "Fampivondronana",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-grouping-all",
+    "before": "Everything due in one message",
+    "after": "Izay rehetra tokony halefa ao anaty hafatra iray",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-grouping-board",
+    "before": "One per board",
+    "after": "Iray isaky ny solaitra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-grouping-card",
+    "before": "One per card",
+    "after": "Iray isaky ny karatra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-grouping-none",
+    "before": "Each on its own",
+    "after": "Samy alefa misaraka",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-schedule",
+    "before": "When to send",
+    "after": "Rahoviana no handefasana",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-schedule-immediate",
+    "before": "Immediately",
+    "after": "Avy hatrany",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-schedule-interval",
+    "before": "Every few minutes or hours",
+    "after": "Isaky ny minitra na ora vitsivitsy",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-schedule-daily",
+    "before": "Once a day",
+    "after": "Indray mandeha isan’andro",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-interval",
+    "before": "Every",
+    "after": "Isaky ny",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-minutes",
+    "before": "__count__ minutes",
+    "after": "__count__ minitra",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-quiet",
+    "before": "Quiet hours (wait until they end)",
+    "after": "Ora mangina (miandrasa mandra-pahatapiny)",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-quiet-clear",
+    "before": "No quiet hours",
+    "after": "Tsy misy ora mangina",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-timezone",
+    "before": "Time zone:",
+    "after": "Faritra ora:",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-delivery-invalid",
+    "before": "The setting could not be saved.",
+    "after": "Tsy voatahiry ny fikirakirana.",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-group-card",
+    "before": "__count__ notifications on card __card__",
+    "after": "Fampandrenesana __count__ ao amin’ny karatra __card__",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
+  },
+  {
+    "locale": "mg",
+    "key": "notification-group-board",
+    "before": "__count__ notifications on board __board__",
+    "after": "Fampandrenesana __count__ ao amin’ny solaitra __board__",
+    "reason": "Translate integrations and notification delivery, preserving inheritance, privacy choices, grouping and scheduling semantics."
   }
 ]

@@ -411,3 +411,20 @@ assert.equal(malagasy['export-all-boards'], malagasy['exportAllBoardsPopup-title
 assert.ok(malagasy['trello-export-desc'].includes('"Swimlane: …"'));
 assert.match(malagasy['trello-export-warnings'], /^Tsy/);
 assert.match(malagasy['sandstorm-trello-access-needed'], /Tsy manana.*Internet.*alalana/);
+
+const notificationKeys = ["sandstorm-trello-access-granted", "sandstorm-forget-access", "sandstorm-trello-save-label", "external-link-rules", "external-link-rules-description", "external-link-identifier-aliases", "webhook-payload-heading", "webhook-payload-description", "webhook-payload-text", "webhook-payload-fields", "webhook-payload-field-standard", "webhook-payload-field-ids", "webhook-payload-field-names", "webhook-payload-field-links", "webhook-payload-field-actor", "webhook-payload-field-people", "webhook-payload-field-details", "webhook-hide-identity", "webhook-someone", "notification-delivery-layout-classic", "notification-delivery-layout-clear", "notification-delivery-parts", "notification-delivery-part-board", "notification-delivery-part-actor", "notification-delivery-part-card", "notification-delivery-part-details", "notification-delivery-part-dates", "notification-delivery-part-link", "notification-delivery-grouping", "notification-delivery-grouping-all", "notification-delivery-grouping-board", "notification-delivery-grouping-card", "notification-delivery-grouping-none", "notification-delivery-schedule", "notification-delivery-schedule-immediate", "notification-delivery-schedule-interval", "notification-delivery-schedule-daily", "notification-delivery-interval", "notification-delivery-minutes", "notification-delivery-quiet", "notification-delivery-quiet-clear", "notification-delivery-timezone", "notification-delivery-invalid", "notification-group-card", "notification-group-board"];
+
+for (const key of notificationKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.ok(malagasy['external-link-rules-description'].includes('[{identifier}:{number}] = https://tracker.example.com/{identifier}/{number}'));
+assert.ok(malagasy['external-link-identifier-aliases'].includes('TK=Task, IN=Incident'));
+assert.match(malagasy['webhook-payload-description'], /nolovaina.*raha tsy misy napetraka.*hatramin’izay/);
+assert.match(malagasy['webhook-hide-identity'], /Aza.*anarako/);
+assert.ok(malagasy['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
+assert.match(malagasy['notification-delivery-quiet'], /miandrasa mandra-pahatapiny/);
+assert.match(malagasy['notification-delivery-quiet-clear'], /Tsy misy/);
+assert.match(malagasy['notification-delivery-grouping-all'], /tokony halefa.*hafatra iray/);
+assert.notEqual(malagasy['notification-delivery-grouping-board'], malagasy['notification-delivery-grouping-card']);
+assert.match(malagasy['notification-delivery-invalid'], /^Tsy/);
