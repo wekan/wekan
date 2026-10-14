@@ -4723,6 +4723,22 @@ remains pending. All-language translation and semantic review are unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1cea7b89f1f6d5b344b8e4c2b9300ae5d1071dfc">Translate Igbo import mapping and bulk transfer controls</a>. Thanks to xet7.</summary>
+
+Translate 24 member-mapping, column-mapping and bulk import/export strings.
+Preserve placeholder-user choices, missing-column handling and the distinction
+between single-board and multi-board ZIP files. Technical prose needs fluent
+review.
+
+Both translation and guarded-correction suites pass with 30,886 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Two browser cases pass syntax and discovery; execution remains pending.
+All-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

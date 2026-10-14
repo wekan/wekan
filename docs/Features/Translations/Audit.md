@@ -2,6 +2,18 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo import mapping and bulk operations — 2026-10-14
+
+Commit `1cea7b89f1` translates 24 member choices, column-mapping controls and
+bulk import/export messages. Assertions preserve named placeholders, later
+mapping to real users, required column/list alternatives and ZIP layout rules.
+Direct technical wording needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,886 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. Two browser cases pass syntax and discovery; runtime execution
+is pending. Full all-language semantic and translation verification is unfinished.
+
 ## Igbo import guides, second batch — 2026-10-14
 
 Commit `7e8ebcd458` translates twelve further import guides: Tasks.org,
