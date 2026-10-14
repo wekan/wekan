@@ -202,3 +202,18 @@ assert.notEqual(creole['s3-connection-success'], creole['s3-connection-failed'])
 assert.notEqual(creole['s3-access-key'], creole['s3-secret-key']);
 assert.ok(creole['s3-endpoint-description'].includes('minio.example.com'));
 assert.ok(creole['s3-minio-storage-description'].includes('DigitalOcean Spaces'));
+
+const reviewedImportGuideKeys = ["cards-use-list-color", "import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri"];
+for (const key of reviewedImportGuideKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.doesNotMatch(creole[key], /\b(?:Paste an|In Todoist|then paste|become lists|their children|first board is imported)\b/, key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+assert.match(creole['cards-use-list-color'], /pa gen koulè pa yo/);
+assert.match(creole['import-board-instruction-opml'], /pitit yo vin kat.*pi fon yo vin lis verifikasyon/);
+assert.match(creole['import-board-instruction-opml'], /fini yo enpòte kòm fini/);
+for (const marker of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(creole['import-board-instruction-orgmode'].includes(marker));
+for (const format of ['nullboard', 'kanri']) assert.match(creole[`import-board-instruction-${format}`], /premye tablo/);
+assert.match(creole['import-board-instruction-nullboard'], /etikèt raw/);
+assert.match(creole['import-board-instruction-clickup'], /tout kolòn yo/);
+assert.match(creole['import-board-instruction-meistertask'], /kenbe dat yo te fini an/);

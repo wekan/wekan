@@ -206183,5 +206183,75 @@
     "before": "S3 Size",
     "after": "Gwosè S3",
     "reason": "Translate English storage labels and rule fragments exposed by the existing Haitian catalog gate."
+  },
+  {
+    "locale": "ht",
+    "key": "cards-use-list-color",
+    "before": "Cards without a colour of their own use this colour",
+    "after": "Kat ki pa gen koulè pa yo sèvi ak koulè sa a",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-opml",
+    "before": "Paste an OPML outline, as Workflowy, Dynalist, OmniOutliner, Logseq and other outliners export it. Top-level items become lists, their children become cards with the note as the description, and deeper items become checklists. Completed items import as done.",
+    "after": "Kole yon plan OPML jan Workflowy, Dynalist, OmniOutliner, Logseq ak lòt zouti plan ekspòte li. Eleman nan nivo ki pi wo a vin lis, pitit yo vin kat ak nòt la kòm deskripsyon, epi eleman ki pi fon yo vin lis verifikasyon. Eleman ki fini yo enpòte kòm fini.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-orgmode",
+    "before": "Paste an Org mode file, as Emacs, Orgzly or Beorg write it. Top-level headings become lists and second-level headings become cards. TODO and DONE, priorities, tags, SCHEDULED, DEADLINE and CLOSED are kept, and checkboxes and deeper headings become checklists.",
+    "after": "Kole yon fichye Org mode jan Emacs, Orgzly oswa Beorg ekri li. Tit premye nivo yo vin lis epi tit dezyèm nivo yo vin kat. TODO ak DONE, priyorite, etikèt, SCHEDULED, DEADLINE ak CLOSED konsève, epi kaz pou tcheke ak tit ki pi fon yo vin lis verifikasyon.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-meistertask",
+    "before": "In MeisterTask, click the project name, choose Export project and export the CSV, then paste it. Sections become lists and tasks become cards, with their notes, due date, assignee and tags; completed tasks keep their completion date. A CSV written for MeisterTask's own import works too.",
+    "after": "Nan MeisterTask, klike sou non pwojè a, chwazi Export project epi ekspòte CSV a, apre sa kole li. Seksyon yo vin lis epi travay yo vin kat, ak nòt yo, dat limit, moun ki responsab ak etikèt; travay ki fini yo kenbe dat yo te fini an. Yon CSV ki fèt pou enpòtasyon MeisterTask la mache tou.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-obsidian",
+    "before": "In Obsidian, open the Kanban board's file as Markdown (or open the .md file in a text editor), then paste all of it. Lanes become lists with their card limits, cards keep their tags, dates, priority, fields and checklist, and the Archive becomes archived cards.",
+    "after": "Nan Obsidian, ouvri fichye tablo Kanban an kòm Markdown (oswa ouvri fichye .md a nan yon editè tèks), epi kole tout sa ki ladan l. Kouloir yo vin lis ak limit kat yo, kat yo kenbe etikèt, dat, priyorite, chan ak lis verifikasyon yo, epi Archive vin kat achive.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-linear",
+    "before": "In Linear, export the issues as CSV (Settings, Import / Export, Export data, or a view's export), then paste the CSV. Statuses become lists, teams become swimlanes, and issues become cards with their assignee, labels, dates, parent issue, priority, estimate, project and cycle.",
+    "after": "Nan Linear, ekspòte pwoblèm yo kòm CSV (Settings, Import / Export, Export data, oswa ekspòtasyon yon vi), epi kole CSV a. Estati yo vin lis, ekip yo vin kouloir, epi pwoblèm yo vin kat ak moun ki responsab, etikèt, dat, pwoblèm paran, priyorite, estimasyon, pwojè ak sik yo.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-ticktick",
+    "before": "In TickTick, open Settings, Account, Backup & Import and generate a backup, then paste the CSV file. Each TickTick list becomes a swimlane and its columns become lists; tasks keep their tags, dates, checklist, priority and subtasks.",
+    "after": "Nan TickTick, ouvri Settings, Account, Backup & Import epi kreye yon sovgad, apre sa kole fichye CSV a. Chak lis TickTick vin yon kouloir epi kolòn li yo vin lis; travay yo kenbe etikèt, dat, lis verifikasyon, priyorite ak sou-travay yo.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-clickup",
+    "before": "In ClickUp, export the tasks as CSV (Settings, Imports / Exports, Export Items, or a List or Table view's export with all columns), then paste the CSV. Statuses become lists, ClickUp lists become swimlanes, and tasks become cards with their subtasks, assignees, tags, dates, priority and time.",
+    "after": "Nan ClickUp, ekspòte travay yo kòm CSV (Settings, Imports / Exports, Export Items, oswa ekspòtasyon yon vi List oswa Table ak tout kolòn yo), epi kole CSV a. Estati yo vin lis, lis ClickUp yo vin kouloir, epi travay yo vin kat ak sou-travay, moun ki responsab, etikèt, dat, priyorite ak tan yo.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-nullboard",
+    "before": "In Nullboard, open the board, choose Export this board... from the menu, open the .nbx file in a text editor and paste its contents. Lists become lists and notes become cards: a note's first line is the card title and the rest its description. A raw note gets the label raw. A file with several boards imports its first board.",
+    "after": "Nan Nullboard, ouvri tablo a, chwazi Export this board... nan meni an, ouvri fichye .nbx la nan yon editè tèks epi kole sa ki ladan l. Lis yo vin lis epi nòt yo vin kat: premye liy yon nòt se tit kat la epi rès la se deskripsyon li. Yon nòt raw resevwa etikèt raw. Si yon fichye gen plizyè tablo, se premye tablo li ki enpòte.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
+  },
+  {
+    "locale": "ht",
+    "key": "import-board-instruction-kanri",
+    "before": "In Kanri, open Import & Export and choose Export individual board (or Export all data), then paste the .json file. Columns become lists and cards become cards, with their description, due date, tags and colors; a card's tasks become a checklist. From an all-data export the first board is imported.",
+    "after": "Nan Kanri, ouvri Import & Export epi chwazi Export individual board (oswa Export all data), apre sa kole fichye .json an. Kolòn yo vin lis epi kat yo vin kat, ak deskripsyon, dat limit, etikèt ak koulè yo; travay yon kat vin yon lis verifikasyon. Nan yon ekspòtasyon tout done, se premye tablo a ki enpòte.",
+    "reason": "Translate import format instructions into Haitian Creole while preserving menu labels, hierarchy mappings and first-board limits."
   }
 ]
