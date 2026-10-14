@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole WIP groups and numeric summaries — 2026-10-14
+
+Commit `dcb7064e49` corrects six labels. WIP groups no longer use enable-limit
+wording, group names remain optional, and swimlane selection no longer adds a
+board reference. The numeric summary describes summing values of selected
+numeric custom fields, rather than counting fields. This matches the list
+header's numeric summary and the sidebar's group editor.
+
+The Haitian catalog and guarded-correction suites pass with 29,863 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Two browser cases cover group labels
+and a numeric total excluding a hidden field. Syntax and discovery pass;
+runtime execution remains pending.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole backup and credential terminology — 2026-10-14
 
 Commit `9bc9a3fe7e` corrects eight storage-help entries. Authentication credentials

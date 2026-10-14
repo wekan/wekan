@@ -4000,6 +4000,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcb7064e49">Correct Haitian WIP groups and numeric summary labels</a>. Thanks to xet7.</summary>
+
+- Correct six labels: distinguish WIP groups from enabling limits, identify
+  optional group names and swimlane selection, and describe numeric value sums
+  instead of field counts for fields selected to appear above a list.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Two browser cases check group labels and numeric
+  totals with hidden fields excluded; syntax and discovery pass, runtime is
+  pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
