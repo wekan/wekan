@@ -213568,5 +213568,54 @@
     "before": "Suim na réimsí uimhriúla saincheaptha a thaispeántar ag barr an liosta",
     "after": "Suim luachanna na réimsí uimhriúla saincheaptha atá marcáilte le taispeáint ag barr an liosta",
     "reason": "Replace Irish metric shorthand with explicit quantities and clarify summed values and swimlane targeting."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-a-due-date-changed",
+    "before": "Spriocdháta: dáta athraithe",
+    "after": "Nuair a shocraítear nó a athraítear an spriocdháta",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-a-start-date-changed",
+    "before": "Tosaigh: dáta athraithe",
+    "after": "Nuair a shocraítear nó a athraítear an dáta tosaithe",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-a-end-date-changed",
+    "before": "Deireadh: dáta athraithe",
+    "after": "Nuair a shocraítear nó a athraítear an dáta deiridh",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "r-when-a-received-date-changed",
+    "before": "Faighte: dáta athraithe",
+    "after": "Nuair a shocraítear nó a athraítear an dáta faighte",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "calendar-system-iso8601",
+    "before": "Féilire Ghréagóra (an bhliain ag an tús)",
+    "after": "Féilire Gréagórach (seachtainí ISO 8601)",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Nasc leis an gClár seo",
+    "after": "Nasc le clár",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
+  },
+  {
+    "locale": "ga",
+    "key": "linkCardToNewBoard",
+    "before": "Cruthaigh clár (Cárta)",
+    "after": "Cruthaigh clár ón gcárta seo",
+    "reason": "Restore date-setting triggers, ISO week calendar meaning and source/destination distinctions in Irish card actions."
   }
 ]

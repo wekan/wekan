@@ -165,3 +165,24 @@ test('Haitian card actions identify destination linking and creation from a card
   await expect(page.locator('.js-pop-over .js-submit')).toHaveText('Kreye yon tablo apati kat sa a');
   await page.evaluate(() => Popup.close());
 });
+
+test('Irish card actions identify destination linking and creation from a card', async ({ boardPage: page, board }) => {
+  const db = require('../helpers/db');
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ga'));
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const card = new CardPage(page);
+  await card.waitForOpen();
+  await card.openActionsMenu();
+  const action = page.locator('.js-pop-over .js-link-card-to-board');
+  await expect(action).toHaveText('Nasc le clár');
+  await expect(action).not.toContainText('gClár seo');
+  const source = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  await page.evaluate(source => {
+    Popup.close();
+    Popup.open('createBoardFromCard', { dataContext: source })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  }, source);
+  await expect(page.locator('.js-pop-over .js-submit')).toHaveText('Cruthaigh clár ón gcárta seo');
+  await page.evaluate(() => Popup.close());
+});

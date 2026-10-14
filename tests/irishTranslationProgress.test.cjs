@@ -182,3 +182,13 @@ assert.match(irish['flow-mr-mean'], /Meán.*absalóideacha/);
 assert.equal(irish['flow-size'], 'Meastachán');
 assert.match(irish['sum-of-number-fields'], /Suim luachanna.*marcáilte.*barr an liosta/);
 assert.match(irish['wip-limit-group-apply-swimlane'], /ar an lána/);
+
+for (const key of ['r-when-a-due-date-changed', 'r-when-a-start-date-changed',
+  'r-when-a-end-date-changed', 'r-when-a-received-date-changed']) {
+  assert.match(irish[key], /^Nuair a shocraítear nó a athraítear/);
+  assert.deepEqual(tokens(irish[key]), tokens(english[key]), key);
+}
+assert.match(irish['calendar-system-iso8601'], /Gréagórach.*seachtainí ISO 8601/);
+assert.doesNotMatch(irish['calendar-system-iso8601'], /bhliain ag an tús/);
+assert.equal(irish['linkCardToBoardPopup-title'], 'Nasc le clár');
+assert.match(irish['linkCardToNewBoard'], /ón gcárta seo/);
