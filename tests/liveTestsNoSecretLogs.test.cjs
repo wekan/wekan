@@ -30,7 +30,10 @@ for (const file of files) {
     const call = /\blog\((.*)\);?\s*$/.exec(line);
     if (!call) return;
     for (const name of tainted) {
-      if (new RegExp(`\\$\\{[^}]*\\b${name.replace(/\$/g, '\\$')}\\b`).test(call[1])) offenders.push(`${file}:${i + 1}: ${name}`);
+      // Every metacharacter escaped, not only `$`: a name is an identifier
+      // today, but the pattern must not depend on that.
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (new RegExp(`\\$\\{[^}]*\\b${escaped}\\b`).test(call[1])) offenders.push(`${file}:${i + 1}: ${name}`);
     }
   });
 }

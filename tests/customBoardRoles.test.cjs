@@ -82,7 +82,9 @@ test('by name, a custom role reads as the built-in role that does what it does',
   const details = read('client/components/cards/cardDetails.jade');
   assert.match(details, /if canComment\n\s+\+commentForm/);
   assert.match(read('client/components/activities/comments.jade'), /if canComment\n\s+a\.open-comment-reaction-popup/);
-  assert.match(read('client/components/boards/chatView.js'), /Utils\.currentUserCan\('comment'\)/);
+  // The Chat view opens a card of any board the member reads (2026-10-15), so
+  // it asks the capability on the CARD's board, not the board in the URL.
+  assert.match(read('client/components/boards/chatView.js'), /Utils\.currentUserCan\('comment', ReactiveCache\.getBoard\(card\.boardId\)\)/);
   // Since #4527 the helper asks the card's LIST first (a list may allow or
   // refuse commenting for a role) and falls back to the same capability table.
   assert.match(read('client/config/blazeHelpers.js'), /registerHelper\('canComment', \(\) => Utils\.currentUserCanInList\('comment'\)\)/);
