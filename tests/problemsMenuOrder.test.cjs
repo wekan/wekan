@@ -120,7 +120,11 @@ test('EVERY pane in the menu is rendered, and has something behind it', () => {
   // or have a report config. Missing either is what made a pane render blank -
   // the menu set a variable, the template asked for a helper that did not exist,
   // and an undefined helper is simply falsy.
-  const ids = [...reportsJs.matchAll(/^\s*\{ id: '([\w-]+)'/gm)].map(m => m[1]);
+  // A report's own toolbar buttons are written the same way - `actions: [{ id,
+  // labelKey }]`, such as the recovery list's Retry all and Cancel older
+  // (#6768) - and are buttons, not panes, so their lists are left out.
+  const menuSource = reportsJs.replace(/actions: \[[\s\S]*?\]/g, '');
+  const ids = [...menuSource.matchAll(/^\s*\{ id: '([\w-]+)'/gm)].map(m => m[1]);
   assert.ok(ids.length > 10, `expected the menu, found ${ids.length} entries`);
 
   const selfLoading = /const SELF_LOADING_PANES = \[([\s\S]*?)\];/.exec(reportsJs);

@@ -89,7 +89,10 @@ test('every webhook sender goes through webhookFetch, which is fetchSafe off San
   }
   const server = read('server/sandstormEgress.js');
   const body = server.slice(server.indexOf('export async function webhookFetch('));
-  assert.match(body, /if \(!isSandstorm\) return fetchSafe\(url, options\);/);
+  // Off Sandstorm: fetchSafe, except a host the site admin listed under
+  // Internal destinations (b4d2604e61; that branch is pinned in
+  // internalWebhookHosts.test.cjs) - and the fetchSafe call ends the branch.
+  assert.match(body, /if \(!isSandstorm\) \{[\s\S]*?webhookHostIsInternalAllowed\(url\)\) \{[\s\S]*?\}\s*return fetchSafe\(url, options\);\s*\}/);
   assert.match(body, /if \(!grant \|\| !api\.grantCovers\(grant, target\.url\)\) return fetchSafe\(url, options\);/);
   // Found by the URL being sent to - never a search of the grants.
   assert.match(body, /findOneAsync\(webhookGrantId\(target\.canonicalUrl\)\)/);
