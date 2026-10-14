@@ -156,3 +156,18 @@ assert.equal(gaelic['calendar-system-iso8601'], 'Mìosachan Griogarach (seachdai
 assert.equal(gaelic['linkCardToBoardPopup-title'], 'Ceangail ri bòrd');
 assert.doesNotMatch(gaelic['linkCardToBoardPopup-title'], /seo/);
 assert.equal(gaelic['linkCardToNewBoard'], 'Cruthaich bòrd bhon chairt seo');
+
+// Report methodology must retain limits and fallbacks, not compressed symbols.
+for (const kind of ['agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime']) {
+  assert.doesNotMatch(gaelic[`flow-note-${kind}`], /→|≥|≤|✓|MR̄/);
+  assert.notEqual(gaelic[`flow-note-${kind}`], english[`flow-note-${kind}`]);
+}
+assert.match(gaelic['flow-note-agingWip'], /85mh.*co-dhiù còig.*chan eil an aois aithnichte/);
+assert.match(gaelic['flow-note-blockerAnalysis'], /as sine aithnichte.*dealbhan-glèidhte.*a chunntadh fa leth/);
+assert.match(gaelic['flow-note-monteCarlo'], /2,000.*UTC.*gun obair chrìochnaichte/);
+assert.match(gaelic['flow-note-monteCarlo'], /cheann àrd.*cheann ìosal.*chan e gealladh cinnteach.*3,650.*cha bhi ro-mheasadh/);
+assert.match(gaelic['flow-note-processBehavior'], /cruthachaidh.*tasglannaidh.*co-dhiù dà chrìochnachadh dligheach/);
+assert.match(gaelic['flow-note-sizeCycleTime'], /aon raon àireamhach.*neo-dhligheach fhàgail às.*cruthachaidh.*tasglannaidh/);
+assert.match(gaelic['flow-error'], /aithisg.*luachan.*feuch ris a-rithist/);
+assert.equal(gaelic['board-view-monte-carlo'], 'Ro-mheasaidhean Monte Carlo');
+assert.doesNotMatch(gaelic['board-view-monte-carlo'], /Histogram/);

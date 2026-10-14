@@ -215360,5 +215360,82 @@
     "before": "Cruthaich bòrd (Cairt)",
     "after": "Cruthaich bòrd bhon chairt seo",
     "reason": "Restore date-setting triggers, Gregorian ISO-week meaning and card-to-board action directions; direct Scottish Gaelic wording needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "board-view-aging-wip",
+    "before": "Aois chairtean — Liosta",
+    "after": "Aois na h-obrach a tha a’ dol air adhart",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "board-view-blocker-analysis",
+    "before": "Eisimeileachdan — Staitistig",
+    "after": "Mion-sgrùdadh air bacaidhean",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "board-view-monte-carlo",
+    "before": "Monte Carlo — Histogram cinneasachd",
+    "after": "Ro-mheasaidhean Monte Carlo",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "board-view-process-behavior",
+    "before": "XmR — Ùine cuairt",
+    "after": "Giùlan a’ phròiseis (XmR)",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "board-view-size-cycle-time",
+    "before": "Meud / Ùine cuairt",
+    "after": "Meud na h-obrach an coimeas ri ùine cuairte",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-error",
+    "before": "Mearachd — Staitistig",
+    "after": "Cha b’ urrainn dhuinn an aithisg a luchdadh. Thoir sùil air na luachan agus feuch ris a-rithist.",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-note-agingWip",
+    "before": "Liosta: Tòisich → Faid. P85: n ≥ 5. (neo-aithnichte): —.",
+    "after": "Cairtean fosgailte: làithean bho chaidh iad a-steach dhan ìre làithreach. Tha bàraichean dearga os cionn an 85mh ceudail ann an eachdraidh na h-ìre (co-dhiù còig amannan san ìre). Mura h-eil eachdraidh inntrigidh ann, chan eil an aois aithnichte.",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-note-blockerAnalysis",
+    "before": "Eisimeileachdan: Eachdraidh → Tòisich / Crìoch. Tòisich (neo-aithnichte): —.",
+    "after": "Bheir eachdraidh nan eisimeileachdan amannan tòiseachaidh is crìochnachaidh nam bacaidhean airson gach ìre. Dh’fhaodadh nach eil toiseach nan ceanglaichean as sine aithnichte. Feumar dealbhan-glèidhte den eachdraidh airson cairtean a chaidh a sguabadh às. Thèid adhbharan a tha a’ dol thairis air a chèile a chunntadh fa leth.",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-note-monteCarlo",
+    "before": "Monte Carlo: 2000 × Eachdraidh. làithean: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cairtean ≥; Faid ≤. Crìochan: 3650 làithean.",
+    "after": "Bidh 2,000 deuchainn a’ samplachadh làithean mìosachain slàna UTC, a’ gabhail a-steach làithean gun obair chrìochnaichte. Tha cinn-là nan ro-mheasaidhean bho cheann àrd an sgaoilidh; tha cunntasan nan geallaidhean bho cheann ìosal an sgaoilidh. Thathar a’ gabhail ris gum bi ìre crìochnachaidh coltach ris san àm ri teachd; chan e gealladh cinnteach a tha seo. An ùine as fhaide: 3,650 latha. Mura h-eil obair chrìochnaichte ann, cha bhi ro-mheasadh ann.",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-note-processBehavior",
+    "before": "XmR: Ùine cuairt; Tòisich → Deiseil. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
+    "after": "Cleachdaidh ùine cuairte an ceann-là tòiseachaidh, no ceann-là cruthachaidh mura h-eil e ann, agus an ceann-là crìochnachaidh, no ceann-là tasglannaidh mura h-eil e ann. Seallaidh XmR luachan fa leth agus eadar-dhealachaidhean leantainneach, leis a’ chuibheas agus crìochan nàdarra a’ phròiseis; feumar co-dhiù dà chrìochnachadh dligheach.",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "flow-note-sizeCycleTime",
+    "before": "X: Planning Poker / Àireamh. Y: Ùine cuairt (làithean). (neo-aithnichte): —.",
+    "after": "An tuairmse Planning Poker làithreach no aon raon àireamhach gnàthaichte an coimeas ri ùine cuairte chrìochnaichte ann an làithean. Thèid tuairmsean a tha a dhìth agus cinn-là neo-dhligheach fhàgail às. Thèid ceann-là cruthachaidh a chleachdadh mura h-eil ceann-là tòiseachaidh ann; thèid ceann-là tasglannaidh a chleachdadh mura h-eil ceann-là crìochnachaidh ann.",
+    "reason": "Replace report shorthand with methodology, fallback and uncertainty details; direct Scottish Gaelic statistical terminology is lower confidence and needs fluent review."
   }
 ]
