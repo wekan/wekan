@@ -42,6 +42,16 @@
 // is left board-wide, which is a legitimate layout and is what it looks like now
 // anyway.
 
+// #6766: the automatic un-binding stopped with #6515, first released in
+// v10.31 (2026-07-23). A list created after that release cannot have lost its
+// binding to it: if it is board-wide, it is board-wide by design (a list
+// created board-wide, or made board-wide since), and binding it back to the
+// swimlane it was created in would take it out of every other swimlane. The
+// end of the release day, so a list from that day still counts as before it.
+// An installation that upgraded later keeps a few such lists board-wide - which
+// is what they look like already, and hides nothing.
+const LIST_UNBINDING_STOPPED_AT = Date.parse('2026-07-24T00:00:00Z');
+
 /* A list is "unbound" when it renders under every swimlane: no swimlaneId. */
 function isUnbound(list) {
   if (!list) return false;
@@ -60,7 +70,15 @@ function isUnbound(list) {
  * list that can be put back exactly. Every rule below is a reason to SKIP:
  * this restores what was recorded, and nothing else.
  */
-function planListSwimlaneRestore(lists, history, swimlanes) {
+/*
+ *   cardSwimlanes  Map listId -> Set of the swimlaneIds its cards are in
+ *                  (archived ones too: restoring one must not hide it).
+ *
+ * #6766: a list whose cards are in a swimlane other than the one it would be
+ * bound to is never restored - binding it would hide those cards ("TE DOEN"
+ * used across several swimlanes: 490 cards on one installation).
+ */
+function planListSwimlaneRestore(lists, history, swimlanes, cardSwimlanes = new Map(), { stoppedAt = LIST_UNBINDING_STOPPED_AT } = {}) {
   const original = new Map();
   for (const entry of Array.isArray(history) ? history : []) {
     if (!entry || entry.entityType !== 'list') continue;
@@ -69,6 +87,9 @@ function planListSwimlaneRestore(lists, history, swimlanes) {
     // null is recorded for a list that was created board-wide - there is
     // nothing to restore, and writing '' over '' would be noise.
     if (typeof was !== 'string' || was.length === 0) continue;
+    // Created after the un-binding stopped: board-wide by design (#6766).
+    const created = entry.createdAt ? new Date(entry.createdAt).getTime() : NaN;
+    if (Number.isFinite(created) && created >= stoppedAt) continue;
     original.set(entry.entityId, was);
   }
 
@@ -96,6 +117,10 @@ function planListSwimlaneRestore(lists, history, swimlanes) {
     if (!swimlane) continue;
     if (swimlane.boardId !== list.boardId) continue;
 
+    // Its cards are elsewhere too: binding it would hide them (#6766).
+    const inSwimlanes = cardSwimlanes instanceof Map ? cardSwimlanes.get(list._id) : null;
+    if (inSwimlanes && [...inSwimlanes].some(id => id !== swimlaneId)) continue;
+
     plan.push({
       listId: list._id,
       boardId: list.boardId,
@@ -107,4 +132,4 @@ function planListSwimlaneRestore(lists, history, swimlanes) {
   return plan;
 }
 
-module.exports = { planListSwimlaneRestore, isUnbound };
+module.exports = { planListSwimlaneRestore, isUnbound, LIST_UNBINDING_STOPPED_AT };

@@ -33,7 +33,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
-const { planListSwimlaneRestore, isUnbound } =
+const { planListSwimlaneRestore, isUnbound, LIST_UNBINDING_STOPPED_AT } =
   require(path.join(ROOT, 'models', 'lib', 'listSwimlaneRestore'));
 const { buildProblemsOverview } =
   require(path.join(ROOT, 'models', 'lib', 'problemsOverview'));
@@ -299,5 +299,52 @@ test('the new string is translated everywhere, placeholders untouched', () => {
   }
   assert.ok(withKey > 150, `expected the string in every complete locale, found ${withKey}`);
 });
+
+// #6766: lists created board-wide after the un-binding stopped, and lists
+// whose cards live in several swimlanes, are never "missing their swimlane".
+{
+  const board = 'B';
+  const swimlanes = [{ _id: 'S1', boardId: board, title: 'One' }, { _id: 'S2', boardId: board, title: 'Two' }];
+  const lists = [
+    { _id: 'old', boardId: board, title: 'Old', swimlaneId: '' },
+    { _id: 'new', boardId: board, title: 'Nieuw', swimlaneId: '' },
+    { _id: 'shared', boardId: board, title: 'TE DOEN', swimlaneId: '' },
+  ];
+  const before = new Date(LIST_UNBINDING_STOPPED_AT - 86400000);
+  const after = new Date(LIST_UNBINDING_STOPPED_AT + 86400000);
+  const history = [
+    { entityType: 'list', entityId: 'old', boardId: board, originalSwimlaneId: 'S1', createdAt: before },
+    { entityType: 'list', entityId: 'new', boardId: board, originalSwimlaneId: 'S1', createdAt: after },
+    { entityType: 'list', entityId: 'shared', boardId: board, originalSwimlaneId: 'S1', createdAt: before },
+  ];
+  const cards = new Map([['old', new Set(['S1'])], ['shared', new Set(['S1', 'S2'])]]);
+
+  test('#6766: a list created after the un-binding stopped is board-wide by design', () => {
+    const ids = planListSwimlaneRestore(lists, history, swimlanes, cards).map(item => item.listId);
+    assert.ok(!ids.includes('new'));
+    assert.ok(LIST_UNBINDING_STOPPED_AT >= Date.parse('2026-07-23T13:48:46Z'), 'not before the release with #6515 (v10.31)');
+  });
+
+  test('#6766: a list with cards in another swimlane is never bound - they would be hidden', () => {
+    const ids = planListSwimlaneRestore(lists, history, swimlanes, cards).map(item => item.listId);
+    assert.ok(!ids.includes('shared'));
+    // An archived card counts too, and so does one with no swimlane at all.
+    const withNoSwimlaneCard = new Map([...cards, ['old', new Set(['S1', ''])]]);
+    assert.ok(!planListSwimlaneRestore(lists, history, swimlanes, withNoSwimlaneCard).some(item => item.listId === 'old'));
+  });
+
+  test('#6766 negative: a list really un-bound before the fix, cards only in its swimlane, is still restored', () => {
+    assert.deepEqual(planListSwimlaneRestore(lists, history, swimlanes, cards).map(item => item.listId), ['old']);
+  });
+
+  test('#6766: the server reads each list\'s creation time and its cards\' swimlanes', () => {
+    const server = fs.readFileSync(path.join(ROOT, 'server/lib/restoreListSwimlanes.js'), 'utf8');
+    assert.match(server, /originalSwimlaneId: 1, createdAt: 1/);
+    assert.match(server, /\$group: \{ _id: \{ listId: '\$listId', swimlaneId: '\$swimlaneId' \} \}/);
+    assert.match(server, /planListSwimlaneRestore\(lists, history, swimlanes, cardSwimlanes\)/);
+    // No archived filter: restoring an archived card must not land it hidden.
+    assert.doesNotMatch(server.slice(server.indexOf('cardSwimlanes = new Map')), /archived/);
+  });
+}
 
 console.log(`listSwimlaneRestore: ${passed} tests passed`);

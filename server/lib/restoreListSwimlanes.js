@@ -1,3 +1,4 @@
+import Cards from '/models/cards';
 import Lists from '/models/lists';
 import PositionHistory from '/models/positionHistory';
 import Swimlanes from '/models/swimlanes';
@@ -25,19 +26,34 @@ async function loadPlanInputs() {
     ).fetchAsync(),
     PositionHistory.find(
       { entityType: 'list' },
-      { fields: { entityType: 1, entityId: 1, boardId: 1, originalSwimlaneId: 1 } },
+      { fields: { entityType: 1, entityId: 1, boardId: 1, originalSwimlaneId: 1, createdAt: 1 } },
     ).fetchAsync(),
     Swimlanes.find({}, { fields: { _id: 1, boardId: 1, title: 1 } }).fetchAsync(),
   ]);
-  return { lists, history, swimlanes };
+  // #6766: which swimlanes each candidate list's cards are in, as one grouped
+  // query - a list with cards in another swimlane is not restored, since
+  // binding it would hide them.
+  const cardSwimlanes = new Map();
+  const ids = lists.map(list => list._id);
+  if (ids.length) {
+    const rows = await Cards.rawCollection().aggregate([
+      { $match: { listId: { $in: ids } } },
+      { $group: { _id: { listId: '$listId', swimlaneId: '$swimlaneId' } } },
+    ]).toArray();
+    for (const { _id: { listId, swimlaneId } } of rows) {
+      if (!cardSwimlanes.has(listId)) cardSwimlanes.set(listId, new Set());
+      cardSwimlanes.get(listId).add(swimlaneId || '');
+    }
+  }
+  return { lists, history, swimlanes, cardSwimlanes };
 }
 
 // What could be restored right now. Never writes, so it is safe to poll from the
 // Problems page (it reloads every 30 seconds).
 export async function planRestorableListSwimlanes() {
   try {
-    const { lists, history, swimlanes } = await loadPlanInputs();
-    return planListSwimlaneRestore(lists, history, swimlanes);
+    const { lists, history, swimlanes, cardSwimlanes } = await loadPlanInputs();
+    return planListSwimlaneRestore(lists, history, swimlanes, cardSwimlanes);
   } catch (error) {
     // A detection that throws must not take the whole Problems overview down
     // with it - the other problems on that page are what an admin came for.
