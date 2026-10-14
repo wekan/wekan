@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole backup and credential terminology — 2026-10-14
+
+Commit `9bc9a3fe7e` corrects eight storage-help entries. Authentication credentials
+no longer use the word for qualifications, backup settings no longer use the
+word for environments, and destination directories use consistent terminology.
+Two related article corrections improve cloud help. Key-length requirements,
+the missing-key restore warning, backup paths, optional authentication choices
+and literal provider menu/permission labels remain intact.
+
+The Haitian catalog and guarded-correction suites pass with 29,857 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. A browser case checks cloud credential
+labels and fallback help. Syntax and discovery pass; runtime remains pending.
+External provider interfaces were not revalidated; the translations follow the
+current source guidance.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole account anonymization warning — 2026-10-14
 
 Commit `cdcbe1e430` fixes the account-anonymization action label and confirmation.

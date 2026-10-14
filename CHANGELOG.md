@@ -3987,6 +3987,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bc9a3fe7e">Correct Haitian backup and credential terminology</a>. Thanks to xet7.</summary>
+
+- Correct eight storage-help entries. Distinguish authentication credentials,
+  settings and directories; preserve key-length requirements, restore warnings,
+  backup paths and provider permission labels.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. The cloud-settings browser case passes syntax and
+  discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
