@@ -365,3 +365,18 @@ assert.notEqual(malagasy['s3-access-key'], malagasy['s3-secret-key']);
 assert.match(malagasy['s3-secret-key-required'], /Ilaina.*miafina/);
 assert.match(malagasy['s3-disabled'], /Tsy mandeha/);
 assert.match(malagasy['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
+
+const importGuideKeys = ["import-board-instruction-opml", "import-board-instruction-orgmode", "import-board-instruction-meistertask", "import-board-instruction-obsidian", "import-board-instruction-linear", "import-board-instruction-ticktick", "import-board-instruction-clickup", "import-board-instruction-nullboard", "import-board-instruction-kanri", "import-board-instruction-pivotal"];
+
+for (const key of importGuideKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+for (const literal of ['TODO', 'DONE', 'SCHEDULED', 'DEADLINE', 'CLOSED']) assert.ok(malagasy['import-board-instruction-orgmode'].includes(literal));
+assert.match(malagasy['import-board-instruction-opml'], /zanany.*naoty.*lalindalina.*efa vita/);
+assert.match(malagasy['import-board-instruction-nullboard'], /\.nbx.*andalana voalohany.*raw.*solaitra voalohany/);
+assert.match(malagasy['import-board-instruction-kanri'], /\.json.*solaitra voalohany/);
+assert.match(malagasy['import-board-instruction-meistertask'], /daty nahavitana.*CSV/);
+assert.match(malagasy['import-board-instruction-obsidian'], /\.md.*fetran’ny karatra.*arisiva/);
+assert.match(malagasy['import-board-instruction-clickup'], /tsanganana rehetra/);
+assert.match(malagasy['import-board-instruction-pivotal'], /Story points.*Estimate.*sprint/);

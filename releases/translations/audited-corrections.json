@@ -209837,5 +209837,75 @@
     "before": "S3 Size",
     "after": "Haben’ny S3",
     "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-opml",
+    "before": "Paste an OPML outline, as Workflowy, Dynalist, OmniOutliner, Logseq and other outliners export it. Top-level items become lists, their children become cards with the note as the description, and deeper items become checklists. Completed items import as done.",
+    "after": "Apetaho ny drafitra OPML navoakan’ny Workflowy, Dynalist, OmniOutliner, Logseq na fitaovana fandrafetana hafa. Lasa lisitra ny singa ambony indrindra, lasa karatra ny zanany ary ny naoty no famaritana, ary lasa lisitra fanamarinana ny singa lalindalina kokoa. Ampidirina ho vita ny singa efa vita.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-orgmode",
+    "before": "Paste an Org mode file, as Emacs, Orgzly or Beorg write it. Top-level headings become lists and second-level headings become cards. TODO and DONE, priorities, tags, SCHEDULED, DEADLINE and CLOSED are kept, and checkboxes and deeper headings become checklists.",
+    "after": "Apetaho ny rakitra Org mode nosoratan’ny Emacs, Orgzly na Beorg. Lasa lisitra ny lohateny amin’ny ambaratonga voalohany ary lasa karatra ny lohateny amin’ny ambaratonga faharoa. Voatahiry ny TODO sy DONE, ny laharam-pahamehana, ny marika, ny SCHEDULED, DEADLINE ary CLOSED; lasa lisitra fanamarinana kosa ny boaty fanamarihana sy ny lohateny lalindalina kokoa.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-meistertask",
+    "before": "In MeisterTask, click the project name, choose Export project and export the CSV, then paste it. Sections become lists and tasks become cards, with their notes, due date, assignee and tags; completed tasks keep their completion date. A CSV written for MeisterTask's own import works too.",
+    "after": "Ao amin’ny MeisterTask, tsindrio ny anaran’ny tetikasa, fidio ny Export project ary avoahy ny CSV, dia apetaho izany. Lasa lisitra ny fizarana ary lasa karatra ny asa, miaraka amin’ny naoty, daty farany, olona voatendry ary marika; mitazona ny daty nahavitana azy ny asa vita. Azo ampiasaina koa ny CSV natao ho an’ny fanafarana ao amin’ny MeisterTask.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-obsidian",
+    "before": "In Obsidian, open the Kanban board's file as Markdown (or open the .md file in a text editor), then paste all of it. Lanes become lists with their card limits, cards keep their tags, dates, priority, fields and checklist, and the Archive becomes archived cards.",
+    "after": "Ao amin’ny Obsidian, sokafy ho Markdown ny rakitry ny solaitra Kanban (na sokafy amin’ny mpanova lahatsoratra ny rakitra .md), dia apetaho ny atiny rehetra. Lasa lisitra miaraka amin’ny fetran’ny karatra ny lalana; mitazona ny marika, daty, laharam-pahamehana, saha ary lisitra fanamarinana ny karatra; ary lasa karatra ao amin’ny arisiva ny Archive.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-linear",
+    "before": "In Linear, export the issues as CSV (Settings, Import / Export, Export data, or a view's export), then paste the CSV. Statuses become lists, teams become swimlanes, and issues become cards with their assignee, labels, dates, parent issue, priority, estimate, project and cycle.",
+    "after": "Ao amin’ny Linear, avoahy ho CSV ny olana (Settings, Import / Export, Export data, na fanondranana avy amin’ny fijery iray), dia apetaho ny CSV. Lasa lisitra ny sata, lasa lalana ny ekipa, ary lasa karatra ny olana miaraka amin’ny olona voatendry, marika, daty, olana ray aman-dreny, laharam-pahamehana, tombana, tetikasa ary tsingerina.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-ticktick",
+    "before": "In TickTick, open Settings, Account, Backup & Import and generate a backup, then paste the CSV file. Each TickTick list becomes a swimlane and its columns become lists; tasks keep their tags, dates, checklist, priority and subtasks.",
+    "after": "Ao amin’ny TickTick, sokafy ny Settings, Account, Backup & Import ary mamoròna tahiry fiarovana, dia apetaho ny rakitra CSV. Lasa lalana ny lisitra TickTick tsirairay ary lasa lisitra ny tsanganany; mitazona ny marika, daty, lisitra fanamarinana, laharam-pahamehana ary zana-asa ny asa.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-clickup",
+    "before": "In ClickUp, export the tasks as CSV (Settings, Imports / Exports, Export Items, or a List or Table view's export with all columns), then paste the CSV. Statuses become lists, ClickUp lists become swimlanes, and tasks become cards with their subtasks, assignees, tags, dates, priority and time.",
+    "after": "Ao amin’ny ClickUp, avoahy ho CSV ny asa (Settings, Imports / Exports, Export Items, na fanondranana avy amin’ny fijery List na Table miaraka amin’ny tsanganana rehetra), dia apetaho ny CSV. Lasa lisitra ny sata, lasa lalana ny lisitra ClickUp, ary lasa karatra ny asa miaraka amin’ny zana-asa, olona voatendry, marika, daty, laharam-pahamehana ary fotoana.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-nullboard",
+    "before": "In Nullboard, open the board, choose Export this board... from the menu, open the .nbx file in a text editor and paste its contents. Lists become lists and notes become cards: a note's first line is the card title and the rest its description. A raw note gets the label raw. A file with several boards imports its first board.",
+    "after": "Ao amin’ny Nullboard, sokafy ny solaitra, fidio ny Export this board... ao amin’ny menio, sokafy amin’ny mpanova lahatsoratra ny rakitra .nbx ary apetaho ny atiny. Mijanona ho lisitra ny lisitra ary lasa karatra ny naoty: ny andalana voalohany amin’ny naoty no lohatenin’ny karatra ary ny ambiny no famaritana. Mahazo ny marika raw ny naoty raw. Raha misy solaitra maromaro ao amin’ny rakitra iray, ny solaitra voalohany no ampidirina.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-kanri",
+    "before": "In Kanri, open Import & Export and choose Export individual board (or Export all data), then paste the .json file. Columns become lists and cards become cards, with their description, due date, tags and colors; a card's tasks become a checklist. From an all-data export the first board is imported.",
+    "after": "Ao amin’ny Kanri, sokafy ny Import & Export ary fidio ny Export individual board (na Export all data), dia apetaho ny rakitra .json. Lasa lisitra ny tsanganana ary mijanona ho karatra ny karatra, miaraka amin’ny famaritana, daty farany, marika ary loko; lasa lisitra fanamarinana ny asa ao amin’ny karatra iray. Raha fanondranana ny angona rehetra ilay izy, ny solaitra voalohany no ampidirina.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
+  },
+  {
+    "locale": "mg",
+    "key": "import-board-instruction-pivotal",
+    "before": "In Pivotal Tracker, open the project's MORE tab and choose Export CSV (or select stories and choose Bulk Actions, CSV), then paste the CSV. Each story state becomes a list and stories become cards, with their type and labels, owners, requester, dates, comments, tasks and blockers; Estimate becomes Story points and iterations become sprints.",
+    "after": "Ao amin’ny Pivotal Tracker, sokafy ny takelaka MORE an’ny tetikasa ary fidio ny Export CSV (na fidio ny tantara ary fidio ny Bulk Actions, CSV), dia apetaho ny CSV. Lasa lisitra ny sata tsirairay an’ny tantara ary lasa karatra ny tantara, miaraka amin’ny karazana, marika, tompony, mpangataka, daty, fanehoan-kevitra, asa ary sakana; lasa Story points ny Estimate ary lasa sprint ny tsingerina.",
+    "reason": "Translate import instructions into Malagasy while preserving format tokens, provider menu labels and data mapping limits."
   }
 ]
