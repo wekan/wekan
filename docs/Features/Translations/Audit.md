@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic import details and header tooltip — 2026-10-14
+
+Commit `399e9a19d7` restores three incomplete translations: Jira search fields,
+pagination and page-import alternatives; Excel column mapping and per-sheet
+boards; and the header tooltip's notification-toggle explanation. Technical
+wording needs fluent review. API parameters and JSON field names stay literal.
+
+Catalog and guarded-correction suites pass with 30,804 ledger entries. All 21
+human-preference checks pass; exact comparison preserves 38,430 existing Chinese
+values. Four browser cases pass syntax and discovery, with header assertions
+added to existing action cases and Jira/Excel added to the import guide suite.
+Browser execution and full all-language semantic verification remain unfinished.
+
 ## Scottish Gaelic report controls — 2026-10-14
 
 Commit `999922d6a6` includes 24 report-label corrections prepared during this

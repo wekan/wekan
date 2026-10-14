@@ -4638,6 +4638,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/399e9a19d7bca4eec7e0c998074c363befb0827b">Restore Scottish Gaelic import instructions and header help</a>. Thanks to xet7.</summary>
+
+Restore Jira pagination and required fields, Excel column mapping and separate
+boards for each sheet, and the header notification-toggle explanation. Three
+strings corrected; direct technical wording needs fluent review.
+
+Both catalog and guarded-correction suites pass with 30,804 audited corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Four browser cases pass syntax and discovery; execution remains pending.
+All-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
