@@ -38,6 +38,10 @@ let BoardBody = null;
 
 Template.board.onCreated(function () {
   this.isBoardReady = new ReactiveVar(false);
+  // The board publication stopped with an error: say so instead of spinning
+  // forever (a board restored from an old WeKan whose data the publication
+  // could not read showed only the loading animation).
+  this.boardLoadError = new ReactiveVar(false);
   // Kept for the template/jade which still references it; conversion is a no-op.
   this.isConverting = new ReactiveVar(false);
   this._swimlaneCreated = new Set(); // boards where a default swimlane was ensured
@@ -231,6 +235,7 @@ Template.board.onCreated(function () {
     if (this.subscriptionBoardId !== currentBoardId) {
       this.subscriptionBoardId = currentBoardId;
       this.isBoardReady.set(false);
+      this.boardLoadError.set(false);
     }
     if (!currentBoardId) return;
 
@@ -239,6 +244,14 @@ Template.board.onCreated(function () {
       currentBoardId,
       false,
       subscriptionGeneration,
+      {
+        onStop: (error) => {
+          if (error && this.subscriptionBoardId === currentBoardId) {
+            console.error('[board] the board publication stopped:', error.reason || error.message || error.error);
+            this.boardLoadError.set(true);
+          }
+        },
+      },
     );
     // Learn this board's card-loading mode (lazy vs eager) so 'auto' can decide
     // per board by size; the flag drives isLazyCards(boardId). #6480.
@@ -301,6 +314,9 @@ Template.board.helpers({
     return Template.instance().isConverting.get();
   },
 
+  boardLoadError() {
+    return Template.instance().boardLoadError.get();
+  },
   isBoardReady() {
     return Template.instance().isBoardReady.get();
   },

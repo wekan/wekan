@@ -717,13 +717,12 @@ const ReactiveCacheClient = {
           __select.idOrFirstObjectSelector,
           __select.options,
         );
-        if (!_ret && typeof __select.idOrFirstObjectSelector === 'string') {
-          // Fall back to old structure for single attachment lookup
-          _ret = Attachments.getAttachmentWithBackwardCompatibility(
-            __select.idOrFirstObjectSelector,
-          );
-        }
-        return _ret;
+        // No fallback to the old (CollectionFS) structure here: on the
+        // client it is an async stub (models/attachments.js), and its Promise
+        // was taken for a found attachment - a 6.09 card's coverId became a
+        // "cover" whose link() threw. The server's cache has the real lookup;
+        // the client gets legacy files from legacyBoardAttachments.
+        return _ret || null;
       });
     }
     const ret = this.__attachment.get(EJSON.stringify(idOrFirstObjectSelect));
@@ -738,12 +737,8 @@ const ReactiveCacheClient = {
         let _ret = Attachments.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
-          // If no results and we have a cardId selector, try old structure
-          if (_ret.length === 0 && __select.selector['meta.cardId']) {
-            _ret = Attachments.getAttachmentsWithBackwardCompatibility(
-              __select.selector,
-            );
-          }
+          // No client fallback to the old structure: the stub answers with a
+          // Promise, which callers took for the array (see getAttachment).
         } else {
           // Register a reactive dependency on the underlying Mongo cursor so the
           // DataCache autorun re-runs (and callers see fresh data) when attachments

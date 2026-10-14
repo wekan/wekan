@@ -67,7 +67,9 @@ Meteor.publish('legacyBoardAttachments', async function (boardId, cardId) {
       continue;
     }
     const name = (rec.original && rec.original.name) || copy.name || rec._id;
-    const type = (rec.original && rec.original.type) || copy.type || 'application/octet-stream';
+    // A string whatever the record holds: a 6.09 record with an odd type
+    // threw at startsWith() below and stopped the publication.
+    const type = String((rec.original && rec.original.type) || copy.type || 'application/octet-stream');
     const size = (rec.original && rec.original.size) || copy.size || 0;
     const ext = extensionOf(name);
 
