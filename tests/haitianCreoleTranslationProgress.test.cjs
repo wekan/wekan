@@ -512,3 +512,20 @@ assert.match(creole['continuous-backup-key-file'], /deyò repètwa destinasyon.*
 assert.match(creole['continuous-backup-saved'], /^Paramèt/);
 for (const literal of ['client_email', 'Storage Object Admin', 'New principals']) assert.ok(creole['gcs-permissions-note'].includes(literal));
 for (const literal of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip', 'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data']) assert.ok(creole['backup-description'].includes(literal));
+
+const reviewedWipSummaryKeys = ['wip-limit-groups', 'wip-limit-group-name-placeholder', 'wip-limit-group-add', 'wip-limit-group-select-swimlane', 'wip-limit-group-apply-swimlane', 'sum-of-number-fields'];
+for (const key of reviewedWipSummaryKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const key of ['wip-limit-groups', 'wip-limit-group-add']) {
+  assert.match(creole[key], /gwoup limit WIP/i);
+  assert.doesNotMatch(creole[key], /aktive/i);
+}
+assert.match(creole['wip-limit-group-name-placeholder'], /gwoup.*opsyonèl/);
+for (const key of ['wip-limit-group-select-swimlane', 'wip-limit-group-apply-swimlane']) {
+  assert.match(creole[key], /kouloir/);
+  assert.doesNotMatch(creole[key], /tablo/i);
+}
+assert.match(creole['sum-of-number-fields'], /Sòm valè.*nimerik.*ki make.*anlè lis/);
+assert.doesNotMatch(creole['sum-of-number-fields'], /kantite chan/);

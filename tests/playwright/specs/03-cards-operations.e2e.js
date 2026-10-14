@@ -997,3 +997,33 @@ test('#6694 multi-selection adds labels and members to a mixed selection', async
   await boardPage.locator('.pop-over .js-assign-member').click();
   await expect.poll(() => cards.every(card => db.findOne('cards', { _id: card._id }).members.includes(user.id))).toBe(true);
 });
+
+test('Haitian numeric summary describes a value sum, excluding hidden fields', async ({ boardPage, board, user }) => {
+  const shownId = db.uid('shownNumber');
+  const hiddenId = db.uid('hiddenNumber');
+  const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+  try {
+    for (const [id, shown] of [[shownId, true], [hiddenId, false]]) {
+      db.insertOne('customFields', {
+        _id: id, boardIds: [board.boardId], name: id, type: 'number', settings: {},
+        showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: false, showSumAtTopOfList: shown,
+        createdAt: new Date(), modifiedAt: new Date(),
+      });
+    }
+    db.updateOne('cards', { _id: cardId }, { $set: {
+      customFields: [{ _id: shownId, value: 7 }, { _id: hiddenId, value: 100 }],
+    } });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'ht', 'profile.showCardsCountAt': 0 } });
+    await boardPage.reload();
+    await loginWithToken(boardPage, user.id, user.token);
+    await openBoard(boardPage, board.boardId, board.slug);
+    const badge = new BoardPage(boardPage).list(board.listIds[0]).locator('.list-sum-badge').first();
+    await expect(badge).toHaveText('∑ 7');
+    await expect(badge).not.toHaveText('∑ 107');
+    await expect(badge).toHaveAttribute('title', /^Sòm valè chan pèsonalize nimerik ki make pou parèt anlè lis la/);
+    await expect(badge).not.toHaveAttribute('title', /kantite chan/);
+  } finally {
+    db.deleteMany('customFields', { _id: { $in: [shownId, hiddenId] } });
+  }
+});

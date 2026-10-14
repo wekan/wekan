@@ -208997,5 +208997,47 @@
     "before": "Chemen sou sèvè WeKan nan pou fichye kle JSON kont sèvis ki telechaje a (kreye anba a). Itilize sa OSWA kole JSON nan chan anba a.",
     "after": "Chemen sou sèvè WeKan an pou fichye kle JSON kont sèvis ki telechaje a (kreye anba a). Itilize sa OSWA kole JSON nan chan anba a.",
     "reason": "Correct Haitian authentication-credential, backup-setting and directory terminology while preserving paths, key requirements and cloud permission labels."
+  },
+  {
+    "locale": "ht",
+    "key": "wip-limit-groups",
+    "before": "Aktive limit WIP (Lis)",
+    "after": "Gwoup limit WIP",
+    "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
+  },
+  {
+    "locale": "ht",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "Non (opsyonèl)",
+    "after": "Non gwoup la (opsyonèl)",
+    "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
+  },
+  {
+    "locale": "ht",
+    "key": "wip-limit-group-add",
+    "before": "Ajoute Aktive limit WIP",
+    "after": "Ajoute yon gwoup limit WIP",
+    "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
+  },
+  {
+    "locale": "ht",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Chwazi tablo Kouloir",
+    "after": "Chwazi kouloir la",
+    "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
+  },
+  {
+    "locale": "ht",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Aplike Kouloir",
+    "after": "Aplike nan kouloir la",
+    "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
+  },
+  {
+    "locale": "ht",
+    "key": "sum-of-number-fields",
+    "before": "Total kantite chan nimewo pèsonalize ki montre anwo lis la",
+    "after": "Sòm valè chan pèsonalize nimerik ki make pou parèt anlè lis la",
+    "reason": "Correct WIP group versus enable-limit wording, swimlane scope and numeric-value sum versus field-count meaning."
   }
 ]

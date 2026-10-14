@@ -62,3 +62,25 @@ test('Southern Sotho WIP dialog distinguishes groups from enabling a limit', asy
   await expect(form).not.toContainText('Kgetha boto');
   await page.evaluate(() => Popup.close());
 });
+
+test('Haitian WIP dialog names groups and limits selection to swimlanes', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { wipLimitGroups: [{
+    _id: 'translated-group', name: '', listIds: board.listIds.slice(0, 2), limit: 1, enabled: true,
+  }] } });
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
+  await page.evaluate(() => {
+    Popup.close();
+    Popup.open('wipLimitGroups', { titleKey: 'wip-limit-groups' })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  });
+  await expect(page.locator('.js-pop-over .header-title')).toHaveText('Gwoup limit WIP');
+  const form = page.locator('.wip-limit-group-new');
+  await expect(page.locator('form.wip-limit-group textarea[placeholder="Non gwoup la (opsyonèl)"]')).toBeVisible();
+  await expect(form.locator('.js-wip-limit-group-new-save')).toHaveValue('Ajoute yon gwoup limit WIP');
+  await expect(form.locator('.js-wip-limit-group-new-save')).not.toHaveValue(/Aktive/);
+  await expect(form.locator('.js-wip-limit-group-swimlane option[value=""]')).toHaveText('Chwazi kouloir la');
+  await expect(form.locator('.js-wip-limit-group-apply-swimlane')).toHaveText('Aplike nan kouloir la');
+  await expect(form).not.toContainText('Chwazi tablo');
+  await page.evaluate(() => Popup.close());
+});
