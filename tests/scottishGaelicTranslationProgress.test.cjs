@@ -184,3 +184,11 @@ assert.equal(gaelic['flow-size'], 'Tuairmse');
 for (const key of ['flow-capacity', 'flow-moving-range', 'flow-mr-mean', 'flow-mean', 'flow-beyond-horizon']) {
   assert.doesNotMatch(gaelic[key], /≥|Δ|MR̄|x̄|3650/);
 }
+
+assert.match(gaelic['import-board-instruction-jira'], /GET \/rest\/api\/3\/search\/jql\?jql=project=KEY&fields=\*all&expand=names,schema/);
+assert.match(gaelic['import-board-instruction-jira'], /às aonais fields.*IDan.*nextPageToken.*aon arraigh "issues"/);
+assert.match(gaelic['import-board-instruction-jira'], /bhòrd fa leth.*automationRules/);
+assert.match(gaelic['import-board-instruction-excel'], /aon chairt anns gach sreath.*gach bòrd air duilleag fa leth/);
+assert.match(gaelic['import-board-instruction-excel'], /an ath cheum.*gach colbh.*gach duilleag.*bhann-cinn/);
+assert.doesNotMatch(gaelic['import-board-instruction-excel'], /na h-aon cholbhan ri às-phortadh/);
+assert.match(gaelic['toggle-header-icons-collapsed'], /brathan.*fòn-làimhe\/deasg/);

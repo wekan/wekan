@@ -215605,5 +215605,26 @@
     "before": "Mion-fhiosrachadh — Eachdraidh",
     "after": "An eachdraidh air a bheil seo stèidhichte",
     "reason": "Replace symbolic report controls with distinct Scottish Gaelic metrics, targets and statistical labels; specialist terminology is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-board-instruction-jira",
+    "before": "Cuir a-steach an JSON bho lorg chùisean Jira Cloud REST API (GET /rest/api/3/search/jql), no oibseact co-ionann { \"issues\": [...] }. Bidh staidean Jira nan liostaichean agus cùisean nan cairtean. Faodaidh arraigh \"automationRules\" a bhith ann gus riaghailtean iom-phortadh.",
+    "after": "Cuir a-steach JSON bho lorg chùisean Jira Cloud: GET /rest/api/3/search/jql?jql=project=KEY&fields=*all&expand=names,schema (às aonais fields, cha till e ach IDan nan cùisean). Thig pròiseact mòr ann an duilleagan, gach fear le nextPageToken airson an ath fhear: cuir cùisean gach duilleige ann an aon arraigh \"issues\", no iom-phortaich gach duilleag mar bhòrd fa leth le Iom-phortaich iomadh bòrd. Obraichidh oibseact co-ionann { \"issues\": [...] } cuideachd. Thèid staidean Jira nan liostaichean agus cùisean nan cairtean. Faodaidh tu arraigh \"automationRules\" a chur ris gus riaghailtean iom-phortadh.",
+    "reason": "Restore Jira pagination and fields, Excel mapping and per-sheet boards, and the notification toggle detail; direct technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "import-board-instruction-excel",
+    "before": "Tagh cliath-dhuilleag .xlsx ann an stoidhle WeKan (na h-aon cholbhan ri às-phortadh Excel: Title, Description, Status/List, Members, Labels, cinn-là, raointean gnàthaichte). Is e a' chiad sreath am bann-cinn.",
+    "after": "Tagh leabhar-obrach .xlsx: clàr le aon chairt anns gach sreath (colbhan mar Tiotal, Tuairisgeul, Staid/Liosta, Buill, Leubailean, cinn-là agus raointean gnàthaichte), no leabhar-obrach a chaidh às-phortadh le WeKan, cuideachd fear le gach bòrd air duilleag fa leth. Seallaidh an ath cheum dè an raon a tha a’ freagairt ri gach colbh. Thèid gach duilleag aig a bheil sreath bhann-cinn na bòrd.",
+    "reason": "Restore Jira pagination and fields, Excel mapping and per-sheet boards, and the notification toggle detail; direct technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "toggle-header-icons-collapsed",
+    "before": "Co-theannaich/leudaich ìomhaighean a' bhanna-chinn",
+    "after": "Co-theannaich/leudaich ìomhaighean a’ bhanna-chinn (tionndaidh gu brathan air fòn-làimhe/deasg)",
+    "reason": "Restore Jira pagination and fields, Excel mapping and per-sheet boards, and the notification toggle detail; direct technical prose needs fluent review."
   }
 ]
