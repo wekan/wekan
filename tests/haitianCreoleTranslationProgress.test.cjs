@@ -359,3 +359,16 @@ for (const key of reviewedAttachmentTermKeys) {
 for (const [key, value] of Object.entries(creole)) assert.doesNotMatch(value, /pyès jwenn/i, key);
 assert.match(creole['attachment-soft-delete-pop'], /fichye li a konsève.*retabli/);
 assert.match(creole['attachment-delete-pop'], /pèmanan.*Pa gen fason/);
+
+const reviewedSubtaskChecklistKeys = ["act-addSubtask", "activity-subtask-added", "add-subtask", "add-existing-card-as-subtask", "addExistingSubtaskPopup-title", "convertChecklistItemToSubtask-title", "checklistItem-linked-subtask", "subtasks", "confirm-subtask-delete-popup", "subtaskDeletePopup-title", "export-card-subtasks", "default-subtasks-board", "subtask-settings", "boardSubtaskSettingsPopup-title", "deposit-subtasks-board", "deposit-subtasks-list", "other-parent-cards", "remove-parent-card", "subtaskActionsPopup-title", "show-subtasks-field", "hideCompletedSubtasks", "add-existing-card-as-subtask-empty", "add-checklist-item", "checklists", "checklist-ding-sound", "checklist-ding-sound-description", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "editChecklistItemsAsTextPopup-title", "attachment-soft-delete-pop"];
+for (const key of reviewedSubtaskChecklistKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+  assert.doesNotMatch(creole[key], /sou-tach|soutach|soutravay|su-tach|ti-tach/i, key);
+}
+assert.equal(creole.subtasks, 'Sou-travay');
+assert.match(creole['add-existing-card-as-subtask-empty'], /kat ki koresponn/);
+assert.match(creole['copyChecklistFromTemplate'], /soti nan modèl/);
+assert.equal(creole['copyChecklistFromTemplate'], creole['copyChecklistFromTemplatePopup-title']);
+assert.match(creole['checklist-ding-sound-description'], /lis verifikasyon.*dezaktive pa defo/);
+assert.match(creole['attachment-soft-delete-pop'], /^Pyès atache a retire.*fichye li a konsève/);

@@ -33,6 +33,11 @@ test.describe(`Subtask done checkbox in ${language} (#4693)`, () => {
     const { parent, child } = makeSubtask(board);
     const cp = await openCard(boardPage, board, parent._id);
     const heading = cp.root.locator('.js-toggle-card-section[data-section="subtasks"]');
+    if (language === 'ht') {
+      await expect(heading).toContainText('Sou-travay');
+      await expect(heading).not.toContainText('Soutravay');
+      await expect(cp.root.locator('a.js-open-inlined-form[title="Ajoute sou-travay"]')).toHaveCount(1);
+    }
     if (language === 'co') {
       await expect(heading).toContainText('Sottucompiti');
       await expect(heading).not.toContainText('Sotto-compiti');

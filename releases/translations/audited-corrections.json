@@ -208192,5 +208192,215 @@
     "before": "Pyès jwenn",
     "after": "Pyès atache",
     "reason": "Replace the incorrect attachment term with Haitian pyès atache, preserving technical strings and placeholders."
+  },
+  {
+    "locale": "ht",
+    "key": "act-addSubtask",
+    "before": "ajoute sou-tach __subtask__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
+    "after": "ajoute sou-travay __subtask__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "activity-subtask-added",
+    "before": "ajoute sou-tach nan %s",
+    "after": "ajoute sou-travay nan %s",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "add-subtask",
+    "before": "Ajoute sou-tach",
+    "after": "Ajoute sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "add-existing-card-as-subtask",
+    "before": "Ajoute yon kat ki egziste kòm yon soutach",
+    "after": "Ajoute yon kat ki egziste kòm yon sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "addExistingSubtaskPopup-title",
+    "before": "Ajoute yon Su-Tach ki Egziste",
+    "after": "Ajoute yon sou-travay ki egziste",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "convertChecklistItemToSubtask-title",
+    "before": "Konvèti an ti-tach",
+    "after": "Konvèti an sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "checklistItem-linked-subtask",
+    "before": "Ti-tach ki konekte",
+    "after": "Sou-travay ki konekte",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "subtasks",
+    "before": "Soutravay",
+    "after": "Sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Èske ou sèten ou vle efase soutravay la?",
+    "after": "Èske ou sèten ou vle efase sou-travay la?",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "subtaskDeletePopup-title",
+    "before": "Efase soutravay?",
+    "after": "Efase sou-travay?",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "export-card-subtasks",
+    "before": "Soutravay",
+    "after": "Sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "default-subtasks-board",
+    "before": "Soutravay pou tablo __board__",
+    "after": "Sou-travay pou tablo __board__",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "subtask-settings",
+    "before": "Paramèt soutravay",
+    "after": "Paramèt sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Paramèt soutravay",
+    "after": "Paramèt sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "deposit-subtasks-board",
+    "before": "Depoze soutravay sou tablo sa a:",
+    "after": "Depoze sou-travay sou tablo sa a:",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "deposit-subtasks-list",
+    "before": "Lis destinasyon pou soutravay ki depoze isit la:",
+    "after": "Lis destinasyon pou sou-travay ki depoze isit la:",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "other-parent-cards",
+    "before": "Se yon soutravay tou pou",
+    "after": "Se yon sou-travay tou pou",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "remove-parent-card",
+    "before": "Li pa yon soutravay kat sa a ankò",
+    "after": "Li pa yon sou-travay kat sa a ankò",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "subtaskActionsPopup-title",
+    "before": "Aksyon soutravay",
+    "after": "Aksyon sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "show-subtasks-field",
+    "before": "Montre chan soutravay",
+    "after": "Montre chan sou-travay",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "hideCompletedSubtasks",
+    "before": "Kache soutach ki fini",
+    "after": "Kache sou-travay ki fini",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Pa jwenn kat",
+    "after": "Pa jwenn okenn kat ki koresponn",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "add-checklist-item",
+    "before": "Ajoute yon eleman nan lis kontwòl la",
+    "after": "Ajoute yon eleman nan lis verifikasyon an",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "checklists",
+    "before": "Lis kontwòl",
+    "after": "Lis verifikasyon",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "checklist-ding-sound",
+    "before": "Jwe yon son lè yon eleman checklist fini",
+    "after": "Jwe yon son lè yon eleman lis verifikasyon fini",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "checklist-ding-sound-description",
+    "before": "Jwe yon ti son kout lè ou tcheke yon eleman checklist. Li fèmen pa defo.",
+    "after": "Jwe yon ti son kout lè ou tcheke yon eleman lis verifikasyon. Li dezaktive pa defo.",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "copyChecklistFromTemplate",
+    "before": "Kopye lis verifikasyon - Modèl",
+    "after": "Kopye lis verifikasyon soti nan modèl",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Kopye lis verifikasyon - Modèl",
+    "after": "Kopye lis verifikasyon soti nan modèl",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "editChecklistItemsAsTextPopup-title",
+    "before": "Modifye eleman lis kontwòl yo kòm tèks",
+    "after": "Modifye eleman lis verifikasyon yo kòm tèks",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
+  },
+  {
+    "locale": "ht",
+    "key": "attachment-soft-delete-pop",
+    "before": "Pyès atache nan retire nan kat sa a epi fichye li a konsève. Nenpòt moun ki ka modifye kat la ka retabli li nan istorik kat la.",
+    "after": "Pyès atache a retire nan kat sa a epi fichye li a konsève. Nenpòt moun ki ka modifye kat la ka retabli li nan istorik kat la.",
+    "reason": "Unify Haitian subtask and checklist terminology, restore matching/template-copy meaning and correct attachment article agreement."
   }
 ]
