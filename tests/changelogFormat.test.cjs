@@ -166,7 +166,10 @@ test('TODO Later says what is NOT done, and thanks nobody for it', () => {
     (/^# v\d/.test(l) || l === '# Upcoming WeKan ® release'));
   const section = lines.slice(start, end);
   const inSection = ALL.filter(b => b.line > start && b.line < end);
-  assert.ok(inSection.length >= 5, 'the backlog is grouped by category');
+  // At least the opening block that says what the list is. The categories
+  // shrink as the backlog is built (2026-10-15: down to translations), and an
+  // emptied category is removed rather than kept as an empty heading.
+  assert.ok(inSection.length >= 1, 'the backlog opens by saying what it is');
   for (const b of inSection) {
     assert.ok(!/Thanks to /.test(b.summary),
       `line ${b.line}: nothing is done yet, so there is nobody to thank`);

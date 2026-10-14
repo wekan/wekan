@@ -130,40 +130,16 @@ Punjabi, Sinhala and Telugu were not started.
 
 </details>
 
-<details>
-<summary>Attachment-board upgrade report needs affected data or runtime logs.</summary>
-
-An upgrade report by email: after a 6.09 to 10.85 dump-and-restore,
-one board that has attachments loads forever - "it only loads and shows nothing:
-no cards, nothing but the loading animation" - while every other board on the
-same instance is fine. The attached `snap logs wekan.mongodb` is mongod startup
-only, with no errors in it, so there is nothing yet to point at; it needs that
-board's data, or the browser console and the WeKan (not mongod) log while it
-hangs.
-
-</details>
-
-<details>
-<summary>Import: attachment contents from the JSON sources.</summary>
-
-The exports of Jira, Nextcloud Deck, OpenProject, Asana, Zenkit and
-GitHub/GitLab carry attachment metadata only; the files themselves come from
-each one's documented attachment API, through connectors like the six built
-on 2026-10-14. Formats with no published documentation are not taken on.
-Deck sharing rules are not imported by design: an import never grants access.
-
-</details>
-
 </details>
 
 # Upcoming WeKan ® release
 
-**In short:** **Jira List Sync works from a Sandstorm grain**: the Powerbox
-grant keeps the Jira sign-in, the **Jira import brings closed sprints**, and the
-**Version Control view's attachments** open in the viewer with the card's
-controls. A **CodeQL** alert in the live tests is fixed across all of them, and
-the backlog is down to translations and attachment contents: every open issue
-that is built is closed.
+**In short:** **Jira List Sync works from a Sandstorm grain** and the **Jira
+import brings closed sprints**. Imports from **Jira, Deck, OpenProject, Asana
+and GitLab** bring their **attachment files**, and the **Version Control view's
+attachments** open in the viewer with the card's controls. A board that fails to
+load now says so instead of spinning, a **CodeQL** alert in the live tests is
+fixed, and the backlog is down to translations.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -182,8 +158,10 @@ Panel → Problems.
 
 and adds the following new features:
 
+**Jira** - List Sync from a Sandstorm grain, and closed sprints in the import.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1dc5b82369">Jira List Sync works from a Sandstorm grain</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1dc5b82369">List Sync works from a Sandstorm grain</a>. Thanks to xet7.</summary>
 
 It was recorded as impossible, because the bridge proxy takes the
 Authorization header Jira needs. Sandstorm's HTTP driver keeps the sign-in in
@@ -196,7 +174,7 @@ grain here.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cc0b8c60ba">Jira import brings closed sprints, rebuilt from the issues</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cc0b8c60ba">The import brings closed sprints, rebuilt from the issues</a>. Thanks to xet7.</summary>
 
 Jira's sprint report has no documented API, so a closed sprint was reported
 and skipped. It is imported as closed now, its start and close snapshots
@@ -207,8 +185,28 @@ with no dates is still reported. Not run against a live Jira here.
 
 </details>
 
+**Import** - attachment files that exports name but do not carry.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/132b341b8d">Version Control view: attachments have the card's controls and open in the viewer</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/51238ed8ad">Jira, Deck, OpenProject, Asana and GitLab imports bring their attachment files</a>. Thanks to xet7.</summary>
+
+Their exports name attachments without the files, so the files were reported
+as lost. Under **Attachment files** the import page asks for the service's
+address and sign-in, and each file is downloaded from the service's documented
+endpoint: Jira's attachment content, Deck's attachment API, OpenProject's
+`downloadLocation`, Asana's `download_url`, and GitLab's project uploads API
+for a private project. The sign-in goes with that one import, only to the
+address typed, and is never stored or logged; every download goes through
+the import's SSRF guard. A file that cannot be fetched is on the loss report.
+Zenkit is left out: it publishes no way to download a file. Not run against
+the live services here.
+
+</details>
+
+**Version Control view** - its Attachments tab.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/132b341b8d">Attachments have the card's controls and open in the viewer</a>. Thanks to xet7.</summary>
 
 The Attachments tab listed each file as a link to a new browser tab. A click on
 a file now views it in the card's attachment viewer, next and previous walking
@@ -217,16 +215,44 @@ rename, delete and the cover / background menu, for the same members.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Board loading** - a board restored from an old WeKan.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/230badf48e">Chat view opens a card from any board in the middle, and folded panes keep their carets</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/31615d7f98">A board that fails to load says so, and 6.09 attachments no longer break covers</a>. Thanks to xet7.</summary>
+
+After a 6.09 to 10.85 restore, one board with attachments showed only the
+loading animation. The board page waited forever when its publication stopped
+with an error; it now says the board could not be loaded and points at the
+server log, which names the cause. The client also took a pending legacy
+lookup for a found attachment, which broke a 6.09 card's cover, and the legacy
+attachments publication threw on a record whose type was not text. The board
+itself was not reproduced: that needs its data.
+
+</details>
+
+**Chat view** - opening cards and folding panes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/230badf48e">A card from any board opens in the middle, and folded panes keep their carets</a>. Thanks to xet7.</summary>
 
 A card clicked in the channel tree took the member to its board; it opens in
 the middle pane now, with its conversation, from any board the member may
 read. Folding Channels or Comments left only an icon; the double caret stays.
 
 </details>
+
+and has the following developer-facing fix:
+
+- [Two guards follow the Chat view and the live-test log fixes](https://github.com/wekan/wekan/commit/71b862c28c):
+  the Chat comment check is on the card's board, and the live-test guard
+  escapes every RegExp metacharacter. Thanks to xet7.
+
+and updates the following translations:
+
+- [Attachment files on the import page and a board that failed to load, in every language](https://github.com/wekan/wekan/commit/f4126b9514).
+  Thanks to xet7.
 
 and tidies the backlog:
 
