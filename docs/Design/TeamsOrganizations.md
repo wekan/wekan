@@ -94,7 +94,7 @@ a recommendation; nothing here is decided or implemented by this document.
 | [#3022](https://github.com/wekan/wekan/issues/3022) Granular roles | Custom roles with permission checkboxes; many issues merged into it (restrict board creation, registration by email domain, default member per board, anonymous edit, see only own cards...) | AP | Plan: meteor-roles (alanning:roles) used "like tags" for Organization, Team and Role; bounty 2000 EUR. xet7: "I really don't know how to implement Teams/Organizations #802 without Granular Roles." |
 | [#4527](https://github.com/wekan/wekan/issues/4527) Permissions for lists | One list editable by all signed-in users on a read-only board | BA | Option c) "only logged-in users" chosen by reporter |
 | [#2217](https://github.com/wekan/wekan/issues/2217) Rules for non-admins | Show Rules to more roles; "superadmin, admin, user" | AP | |
-| [#4790](https://github.com/wekan/wekan/issues/4790) User Filter (umbrella) | Labels on orgs/teams/people/boards; rules like "domain X -> add to boards of Org1 with Normal"; "LDAP group -> BoardAdmin"; multitenancy | AP, IdP | Split prepared in [User-Filter-4790-Split.md](../Features/User-Filter-4790-Split.md) |
+| [#4790](https://github.com/wekan/wekan/issues/4790) User Filter (umbrella) | Labels on orgs/teams/people/boards; rules like "domain X -> add to boards of Org1 with Normal"; "LDAP group -> BoardAdmin"; multitenancy | AP, IdP | Closed 2026-10-15: covered by organizations and teams, LDAP group sync (#4737), board sharing with organizations and teams, domain auto-add and custom board roles (#3022) |
 
 ### 2.3 Identity providers and group sync
 
@@ -254,8 +254,8 @@ Defects found while reading the code (worth fixing before building on them):
 | Team maintainers (delegation) | **missing**; org admins exist for tenants |
 | Org owns teams / hierarchy | **missing** |
 | IdP groups -> orgs/teams | LDAP and custom OIDC: add-only; SAML none; SCIM none |
-| Group -> board role (e.g. BoardAdmin for an LDAP group) | **missing** (#4790 split item 5) |
-| Custom roles | **missing (#3022)** |
+| Group -> board role (e.g. BoardAdmin for an LDAP group) | through a team: the LDAP group syncs as a team (#4737), and the team is shared to the board with its role |
+| Custom roles | done: custom board roles from the capability matrix (#3022) |
 | Team as card assignee, `@team` mention | **missing (#802 comments)** |
 
 ## 4. Prior art in other software

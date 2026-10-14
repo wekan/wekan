@@ -105,11 +105,6 @@ the releases and old-CHANGELOG/.
 **Needs a live service to build against:** Jira closed sprints and their
 commitment snapshots (the Jira Software sprint report API).
 
-**Waiting on the maintainer:** filing the
-[#4790](https://github.com/wekan/wekan/issues/4790) split prepared in
-[User-Filter-4790-Split.md](docs/Features/User-Filter-4790-Split.md), which is
-a publishing step.
-
 </details>
 
 <details>
