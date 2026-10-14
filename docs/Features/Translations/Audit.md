@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole analytics meanings and limits — 2026-10-14
+
+Commit `8a4cf08d65` corrects 39 entries. Five methodology notes previously
+replaced substantial explanations with symbols and fragments. They now explain
+missing history, overlapping blocker causes, simulation assumptions and limits,
+cycle-date fallbacks and omitted invalid values. Report headings and metrics
+use meaningful labels; movement reasons remain optional, time adjustments name
+the author, and the never-synced label includes its missing negation.
+
+The Haitian catalog and guarded-correction suites pass with 29,902 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Six browser cases check report help
+and time adjustments. Syntax and discovery pass; runtime remains pending.
+The source's 2,000-trial, 3,650-day and five-stay threshold constants were
+checked against the analytics implementation.
+
+Haitian semantic review and the all-language objective remain unfinished.
+
 ## Haitian Creole WIP groups and numeric summaries — 2026-10-14
 
 Commit `dcb7064e49` corrects six labels. WIP groups no longer use enable-limit

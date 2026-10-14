@@ -4014,6 +4014,20 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a4cf08d65">Restore Haitian analytics explanations and report labels</a>. Thanks to xet7.</summary>
+
+- Correct 39 entries. Replace shorthand with complete analytics methodology:
+  missing history, overlapping blockers, forecast uncertainty and date
+  fallbacks.
+  Clarify report labels, movement reasons and the never-synced state.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Six browser cases cover report help and time
+  adjustments; syntax and discovery pass, runtime execution is pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
