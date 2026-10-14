@@ -2,6 +2,24 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole integrations and notifications — 2026-10-14
+
+Commit `38e2004f8e` translates 49 entries for Trello/Sandstorm access, link rules,
+webhook payloads and notification delivery. Checks retain literal rule syntax,
+inherited settings, identity hiding, quiet-hour delays, grouping distinctions
+and placeholders. Haitian Creole joins the existing notification-settings UI
+case, which exercises saving settings and reverting to inherited defaults.
+
+The Haitian catalog and guarded-correction suites pass with 29,558 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Browser syntax and discovery pass;
+runtime remains pending.
+
+The refreshed inventory reports 30,236 missing values across 91 languages,
+excluding 379 pending keys. Pending keys remain in scope, and equality-based
+counts cannot prove semantic correctness. Further Haitian strings and other
+languages still require translation and review; the objective is unfinished.
+
 ## Haitian Creole bulk imports and exports — 2026-10-14
 
 Commit `7687970a9d` translates 20 mapping, multi-board import and export entries.

@@ -3816,6 +3816,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38e2004f8e">Translate Haitian integration and notification settings</a>. Thanks to xet7.</summary>
+
+- Translate 49 integration and notification messages. Preserve link-rule
+  syntax, webhook inheritance, identity hiding, grouping and delivery schedules.
+- Haitian catalog and guarded-correction suites pass, with 21 human-preference
+  checks. Existing Chinese values remain unchanged. The Haitian notification
+  browser case passes syntax and discovery; execution remains pending.
+- The refreshed inventory still lists 30,236 missing values across 91 languages,
+  excluding pending keys. All-language translation and semantic review continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
