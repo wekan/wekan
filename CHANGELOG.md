@@ -4691,6 +4691,22 @@ translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29282c6ddf04f0c39bf71bd085385b99eb2ab888">Translate ten Igbo import guides with format limits</a>. Thanks to xet7.</summary>
+
+Translate OPML, Org mode, MeisterTask, Obsidian, Linear, TickTick, ClickUp,
+Nullboard, Kanri and Pivotal Tracker guides. Preserve field mappings, completed
+items, first-board limits and literal format identifiers. Longer technical
+prose is lower confidence and needs fluent review.
+
+Both translation and guarded-correction suites pass with 30,850 corrections.
+All 21 human-preference checks pass; 38,430 existing Chinese values are
+unchanged.
+Ten browser cases pass syntax and discovery; execution remains pending.
+All-language translation and semantic verification remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

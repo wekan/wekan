@@ -2,6 +2,19 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Igbo import guides, first batch — 2026-10-14
+
+Commit `29282c6ddf` translates ten guides: OPML, Org mode, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard, Kanri and Pivotal Tracker.
+Tests cover literal Org mode identifiers, completion dates, all-column exports,
+raw labels and first-board limits. Longer technical prose is lower confidence
+and needs fluent review.
+
+The Igbo/Swedish and guarded-correction suites pass with 30,850 ledger entries;
+all 21 human-preference checks pass. Exact comparison preserves 38,430 existing
+Chinese values. Ten import-guide browser cases pass syntax and discovery;
+execution remains pending. All-language semantic and translation work is unfinished.
+
 ## Igbo linked fields and board controls — 2026-10-14
 
 Commit `77218ed315` translates 26 pending strings and repairs the custom-fields
