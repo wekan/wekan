@@ -216599,5 +216599,138 @@
     "before": "__count__ notifications on board __board__",
     "after": "Ọkwa __count__ na bọọdụ __board__",
     "reason": "Translate notification delivery and integration controls; preserve placeholder counts, example link syntax and WEBHOOKS_ATTRIBUTES. Direct Igbo technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "import-one-board-per-project-hint",
+    "before": "Each swimlane the import would make (a project, folder or list of the tool) becomes its own board. Parent cards and dependencies between those boards are listed in the import report.",
+    "after": "Ahịrị igwu mmiri ọ bụla mbubata ga-eme (ọrụ ukwu, nchekwa ma ọ bụ ndepụta nke ngwa ahụ) na-aghọ bọọdụ nke ya. Akụkọ mbubata na-edepụta kaadị nne na nna na ihe bọọdụ ndị ahụ dabere na ibe ha.",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "read-only-field",
+    "before": "Read-only: every member sees the value, only board admins change it",
+    "after": "Ọgụgụ naanị: onye otu ọ bụla na-ahụ uru ahụ, naanị ndị nchịkwa bọọdụ na-agbanwe ya",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-wrike-workflow",
+    "before": "Wrike workflow",
+    "after": "Usoro ọrụ Wrike",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-wrike-workflow-note",
+    "before": "A Wrike workflow is a list of statuses, each in the Active, Completed, Deferred or Cancelled group. Export writes this board's lists as one, named after the board, in the JSON Wrike's API returns for workflows: create that workflow in Wrike before importing the board's Wrike Excel export, so its statuses are applied. Import reads that JSON pasted above, from WeKan or from Wrike's GET /workflows, into the chosen board: a status without a list becomes a list, and a rule marks a card complete when it is moved into a Completed or Cancelled status and incomplete in an Active or Deferred one. Wrike's own automation rules cannot be exported from Wrike.",
+    "after": "Usoro ọrụ Wrike bụ ndepụta ọnọdụ, nke ọ bụla nọ n’ìgwè Active, Completed, Deferred ma ọ bụ Cancelled. Mbupụ na-ede ndepụta bọọdụ a dịka otu usoro ọrụ nwere aha bọọdụ ahụ, na JSON API Wrike na-eweghachi maka usoro ọrụ: mepụta usoro ọrụ ahụ na Wrike tupu ibubata mbupụ Wrike Excel nke bọọdụ ahụ, ka e jiri ọnọdụ ya. Mbubata na-agụ JSON e tinyere n’elu, site na WeKan ma ọ bụ GET /workflows nke Wrike, n’ime bọọdụ ahọpụtara: ọnọdụ na-enweghị ndepụta na-aghọ ndepụta, iwu na-akakwa kaadị ka emechara mgbe e bugara ya na ọnọdụ Completed ma ọ bụ Cancelled, ma ka emechaghị na Active ma ọ bụ Deferred. Enweghị ike ibupụ iwu akpaaka nke Wrike n’onwe ya site na Wrike.",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-import-wrike-workflow",
+    "before": "Import Wrike workflow",
+    "after": "Bubata usoro ọrụ Wrike",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-import-wrike-workflow-done",
+    "before": "Wrike workflow \"__name__\": __lists__ list(s) and __rules__ rule(s) added, __skipped__ part(s) not read",
+    "after": "Usoro ọrụ Wrike \"__name__\": agbakwunyere ndepụta __lists__ na iwu __rules__, agụghị akụkụ __skipped__",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-moved-forward",
+    "before": "moved forward to a later list",
+    "after": "ebugara ya n’ihu na ndepụta na-esote na usoro",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-moved-back",
+    "before": "moved back to an earlier list",
+    "after": "ebugara ya azụ na ndepụta dị na mbụ na usoro",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-add-actinguser-assignee",
+    "before": "Add the user who triggered this rule as an assignee",
+    "after": "Tinye onye ọrụ kpalitere iwu a dịka onye e kenyere",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "r-remove-all-assignees",
+    "before": "Remove all assignees from the card",
+    "after": "Wepụ ndị niile e kenyere na kaadị",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "ldap-sync-now",
+    "before": "Sync LDAP users now",
+    "after": "Mekọrịta ndị ọrụ LDAP ugbu a",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "ldap-sync-now-done",
+    "before": "LDAP sync finished",
+    "after": "Mmekọrịta LDAP agwụla",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "ldap-sync-now-error",
+    "before": "LDAP sync failed: %s",
+    "after": "Mmekọrịta LDAP kụrụ afọ n’ala: %s",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "ldap-sync-now-nothing",
+    "before": "Nothing to sync: turn on LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS or LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED first.",
+    "after": "Enweghị ihe a ga-emekọrịta: buru ụzọ gbanye LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS ma ọ bụ LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED.",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "oauth-providers-allowed-email-domains",
+    "before": "Only these email domains may sign in with these providers (comma separated; empty allows all)",
+    "after": "Naanị ngalaba email ndị a nwere ike iji ndị na-eweta ọrụ ndị a banye (jiri rịkọm kewaa ha; ịhapụ ya efu na-enye ndị niile ohere)",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "subtask-mark-done",
+    "before": "Mark subtask as done",
+    "after": "Kaa obere ọrụ ka emechara",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "subtask-mark-not-done",
+    "before": "Mark subtask as not done",
+    "after": "Kaa obere ọrụ ka emechaghị",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "subtask-done-no-permission",
+    "before": "You cannot change whether this subtask is done",
+    "after": "Ị nweghị ike ịgbanwe ma obere ọrụ a emechara",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "login-setting-env-only",
+    "before": "Only the server environment sets these. They are shown here read-only.",
+    "after": "Naanị gburugburu sava na-ahazi ihe ndị a. A na-egosi ha ebe a maka ọgụgụ naanị.",
+    "reason": "Translate workflow, read-only permission and directory-sync messages; preserve Wrike states, API path, variables and environment identifiers. Technical prose is lower confidence and needs fluent review."
   }
 ]

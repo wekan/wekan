@@ -25,7 +25,7 @@ async function openCard(page, board, cardId) {
   return cp;
 }
 
-for (const language of ['gd', 'ga', 'mg', 'ht', 'st', 'co', 'sw', 'en', 'mt']) {
+for (const language of ['ig', 'gd', 'ga', 'mg', 'ht', 'st', 'co', 'sw', 'en', 'mt']) {
 test.describe(`Subtask done checkbox in ${language} (#4693)`, () => {
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
   test('ticking and unticking a subtask updates it and the done/total count', async ({ boardPage, board }) => {

@@ -273,3 +273,14 @@ assert.match(locales.ig['notification-delivery-quiet-clear'], /Enweghị/);
 assert.equal(locales.ig['notification-delivery-minutes'], 'Nkeji __count__');
 assert.match(locales.ig['notification-group-card'], /__count__.*__card__/);
 assert.match(locales.ig['notification-group-board'], /__count__.*__board__/);
+
+assert.match(locales.ig['read-only-field'], /onye otu ọ bụla.*naanị ndị nchịkwa/);
+assert.match(locales.ig['r-wrike-workflow-note'], /GET \/workflows.*Completed ma ọ bụ Cancelled.*Active ma ọ bụ Deferred.*Enweghị ike ibupụ iwu akpaaka/);
+assert.match(locales.ig['r-add-actinguser-assignee'], /onye ọrụ kpalitere iwu a/);
+assert.match(locales.ig['r-remove-all-assignees'], /ndị niile e kenyere/);
+assert.match(locales.ig['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS.*LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED/);
+assert.match(locales.ig['oauth-providers-allowed-email-domains'], /Naanị.*rịkọm.*efu.*ndị niile/);
+assert.match(locales.ig['subtask-mark-done'], /ka emechara$/);
+assert.match(locales.ig['subtask-mark-not-done'], /ka emechaghị$/);
+assert.match(locales.ig['subtask-done-no-permission'], /Ị nweghị ike/);
+assert.match(locales.ig['login-setting-env-only'], /Naanị gburugburu sava.*ọgụgụ naanị/);

@@ -125,7 +125,7 @@ test('Header login is shown read-only, and a hand-made save is refused', async (
 // Admin Panel / People / LDAP / Sync now (maintainer decision of 2026-10-08):
 // the method is loaded and admin-only, and the pane reports its answer. The
 // test server has no directory, so LDAP is off and the answer is a refusal.
-for (const language of ['gd', 'ga', 'mg', 'ht', 'co', 'en', 'mt', 'sw']) {
+for (const language of ['ig', 'gd', 'ga', 'mg', 'ht', 'co', 'en', 'mt', 'sw']) {
 test(`LDAP Sync now answers in the pane, and ordinary users are refused in ${language}`, async ({ page, adminUser, user }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
