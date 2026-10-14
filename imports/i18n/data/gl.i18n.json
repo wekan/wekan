@@ -154,6 +154,7 @@
   "add-subtask": "Engadir subtarefa",
   "add-existing-card-as-subtask": "Engadir tarxeta existente como subtarefa",
   "add-existing-card-as-subtask-empty": "Non se atoparon tarxetas coincidentes",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Engadir subtarefa existente",
   "add-checklist": "Engadir lista de verificación",
   "checklist": "Lista de verificación",

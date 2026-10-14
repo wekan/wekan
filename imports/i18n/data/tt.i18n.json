@@ -154,6 +154,7 @@
   "add-subtask": "Өстәмә бирем өстәү",
   "add-existing-card-as-subtask": "Булган картаны кече бурыч итеп өстәү",
   "add-existing-card-as-subtask-empty": "Туры килгән карточкалар табылмады",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Булган ярдәмче бурычны өстәү",
   "add-checklist": "Тикшерү исемлеге өстәү",
   "checklist": "Тикшерү исемлеге",

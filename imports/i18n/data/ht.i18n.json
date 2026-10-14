@@ -154,6 +154,7 @@
   "add-subtask": "Ajoute sou-travay",
   "add-existing-card-as-subtask": "Ajoute yon kat ki egziste kòm yon sou-travay",
   "add-existing-card-as-subtask-empty": "Pa jwenn okenn kat ki koresponn",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Ajoute yon sou-travay ki egziste",
   "add-checklist": "Ajoute lis verifikasyon",
   "checklist": "Lis verifikasyon",

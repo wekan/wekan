@@ -362,6 +362,8 @@ import '/server/jsWebLabels';
 import '/server/shareTarget';
 // #5847: passkey (WebAuthn) login.
 import '/server/passkeys';
+// #1931: an existing card from another board as a subtask.
+import '/server/crossBoardSubtasks';
 // #864: adding a card from the Table view.
 import '/server/tableViewCards';
 

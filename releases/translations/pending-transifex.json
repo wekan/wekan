@@ -2291,6 +2291,10 @@
     {
       "key": "hidden-boards-none",
       "since": "2026-10-14"
+    },
+    {
+      "key": "subtask-from-board",
+      "since": "2026-10-14"
     }
   ]
 }

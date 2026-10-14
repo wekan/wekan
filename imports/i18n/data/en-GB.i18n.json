@@ -154,6 +154,7 @@
   "add-subtask": "Add Subtask",
   "add-existing-card-as-subtask": "Add Existing Card as Subtask",
   "add-existing-card-as-subtask-empty": "No Cards Found",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Add Existing Subtask",
   "add-checklist": "Add Checklist",
   "checklist": "Checklist",

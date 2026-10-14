@@ -154,6 +154,7 @@
   "add-subtask": "Bæta við undirverkefni",
   "add-existing-card-as-subtask": "Bæta við fyrirliggjandi spjaldi sem undirverkefni",
   "add-existing-card-as-subtask-empty": "Engin spjöld fundust",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Bæta við fyrirliggjandi undirverkefni",
   "add-checklist": "Bæta við gátlista",
   "checklist": "Gátlisti",

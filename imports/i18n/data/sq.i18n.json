@@ -154,6 +154,7 @@
   "add-subtask": "Shto nëndetyrë",
   "add-existing-card-as-subtask": "Shto kartën ekzistuese si nën-detyrë",
   "add-existing-card-as-subtask-empty": "Nuk u gjetën karta",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Shto nëndetyrë ekzistuese",
   "add-checklist": "Shto listë kontrolli",
   "checklist": "Listë kontrolli",

@@ -154,6 +154,7 @@
   "add-subtask": "Aggiungi sotto-compito",
   "add-existing-card-as-subtask": "Aggiungi scheda esistente come sottoattività",
   "add-existing-card-as-subtask-empty": "Nessuna scheda trovata",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Aggiungi sottoscheda esistente",
   "add-checklist": "Aggiungi checklist",
   "checklist": "Lista di controllo",

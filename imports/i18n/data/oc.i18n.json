@@ -154,6 +154,7 @@
   "add-subtask": "Apondre una jos-tasca",
   "add-existing-card-as-subtask": "Apondre una fisha existenta coma sostòca",
   "add-existing-card-as-subtask-empty": "Cap de cartas correspondents pas trobats",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Apondre una jos-tasca existenta",
   "add-checklist": "Apondre una checklist",
   "checklist": "Lista de verificacion",

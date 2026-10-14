@@ -154,6 +154,7 @@
   "add-subtask": "הוסף תת משימה",
   "add-existing-card-as-subtask": "הוספת כרטיס קיים כמשימת משנה",
   "add-existing-card-as-subtask-empty": "לא נמצאו כרטיסים",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "הוספת משימת משנה קיימת",
   "add-checklist": "הוספת רשימת מטלות",
   "checklist": "רשימת מטלות",

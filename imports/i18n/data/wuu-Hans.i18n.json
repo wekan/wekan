@@ -154,6 +154,7 @@
   "add-subtask": "添加子任务",
   "add-existing-card-as-subtask": "增加现存个卡片做子任务",
   "add-existing-card-as-subtask-empty": "呒没寻着匹配个卡片",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "添加现有个子任务",
   "add-checklist": "添加清单",
   "checklist": "清单",

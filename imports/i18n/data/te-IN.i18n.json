@@ -154,6 +154,7 @@
   "add-subtask": "సబ్‌టాస్క్‌ని జోడించండి",
   "add-existing-card-as-subtask": "ఉన్న కార్డును ఉప-పనిగా జోడించండి",
   "add-existing-card-as-subtask-empty": "కార్డ్‌లు ఏవీ కనుగొనబడలేదు",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "ఇప్పటికే ఉన్న ఉప-పనిని జోడించు",
   "add-checklist": "చెక్‌లిస్ట్ జోడించండి",
   "checklist": "చెక్‌లిస్ట్",

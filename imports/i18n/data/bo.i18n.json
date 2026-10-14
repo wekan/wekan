@@ -154,6 +154,7 @@
   "add-subtask": "ལས་ཕྲན་ཁ་སྣོན།",
   "add-existing-card-as-subtask": "ཡོད་བཞིན་པའི་ཀར་ཊི་ལས་འགན་ཆུང་ངུར་སྣོན།",
   "add-existing-card-as-subtask-empty": "བྱང་བུ་རྙེད་མ་སོང་།",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "ཡོད་བཞིན་པའི་ལས་འགན་ཆུང་བ་སྣོན་པ།",
   "add-checklist": "ཞིབ་བཤེར་ཐོ་ཁ་སྣོན།",
   "checklist": "ཞིབ་བཤེར་ཐོ་གཞུང་།",

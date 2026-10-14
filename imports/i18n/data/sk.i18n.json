@@ -154,6 +154,7 @@
   "add-subtask": "Pridať Podúlohu",
   "add-existing-card-as-subtask": "Pridať existujúcu kartu ako podúlohu",
   "add-existing-card-as-subtask-empty": "Nenašli sa žiadne zodpovedajúce karty",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Pridať existujúcu podúlohu",
   "add-checklist": "Pridať Checklist",
   "checklist": "Kontrolný zoznam",

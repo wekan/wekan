@@ -154,6 +154,7 @@
   "add-subtask": "Subtask نى قوشۇڭ",
   "add-existing-card-as-subtask": "مەۋجۇت كارتىنى تارماق ۋەزىپە سۈپىتىدە قوشۇش",
   "add-existing-card-as-subtask-empty": "كارتا تېپىلمىدى",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "مەۋجۇت تارماق ۋەزىپىنى قوشۇش",
   "add-checklist": "تەكشۈرۈش تىزىملىكىنى قوشۇڭ",
   "checklist": "تەكشۈرۈش تىزىملىكى",

@@ -154,6 +154,7 @@
   "add-subtask": "လုပ်ငန်းခွဲ ထည့်ရန်",
   "add-existing-card-as-subtask": "ရှိပြီးသား ကတ်ကို အလုပ်ခွဲငယ် အဖြစ် ထည့်ပါ",
   "add-existing-card-as-subtask-empty": "ကတ်များ မတွေ့ပါ",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "ရှိပြီးသား ဆပ်ကာချက်တစ်ခု ထည့်ရန်",
   "add-checklist": "စစ်ဆေးစာရင်း ထည့်ရန်",
   "checklist": "စစ်ဆေးရန်စာရင်း",

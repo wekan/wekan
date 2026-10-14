@@ -154,6 +154,7 @@
   "add-subtask": "Adhibir subtarea",
   "add-existing-card-as-subtask": "Adhibir Targeta Existent como Subfeina",
   "add-existing-card-as-subtask-empty": "No s'ha trobau garra tarcheta coincident",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Adhibir subtarea existent",
   "add-checklist": "Adhibir una lista de verificación",
   "checklist": "Lista de comprebación",

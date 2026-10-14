@@ -154,6 +154,7 @@
   "add-subtask": "Thêm Nhiệm vụ phụ",
   "add-existing-card-as-subtask": "Thêm thẻ hiện có làm việc con",
   "add-existing-card-as-subtask-empty": "Không tìm thấy thẻ",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Thêm việc con đã có",
   "add-checklist": "Thêm Danh Sách Kiểm Tra",
   "checklist": "Danh sách kiểm tra",

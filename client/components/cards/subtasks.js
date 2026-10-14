@@ -299,7 +299,27 @@ Template.subtaskActionsPopup.events({
 // rather than creating a new card the way `addSubtaskCard` does.
 Template.addExistingSubtaskPopup.onCreated(function () {
   this.searchTerm = new ReactiveVar('');
+  // #1931: '' is this card's own board; another board's cards come from the
+  // server (crossBoardSubtaskCandidates), which checks write access to both.
+  this.sourceBoardId = new ReactiveVar('');
+  this.remoteCandidates = new ReactiveVar([]);
+  this.autorun(() => {
+    const boardId = this.sourceBoardId.get();
+    const term = this.searchTerm.get();
+    const contextCard = ReactiveCache.getCard(Template.currentData().cardId);
+    if (!boardId || !contextCard || boardId === contextCard.boardId) { this.remoteCandidates.set([]); return; }
+    const parentId = contextCard.getRealId ? contextCard.getRealId() : contextCard._id;
+    Meteor.call('crossBoardSubtaskCandidates', parentId, boardId, term || '', (error, cards) => {
+      this.remoteCandidates.set(error ? [] : cards || []);
+    });
+  });
 });
+
+function isOtherSourceBoard(tpl) {
+  const boardId = tpl.sourceBoardId.get();
+  const contextCard = ReactiveCache.getCard(Template.currentData().cardId);
+  return !!(boardId && contextCard && boardId !== contextCard.boardId);
+}
 
 function existingSubtaskCandidatesFor(tpl) {
   const contextCard = ReactiveCache.getCard(Template.currentData().cardId);
@@ -334,16 +354,37 @@ function existingSubtaskCandidatesFor(tpl) {
 
 Template.addExistingSubtaskPopup.helpers({
   existingSubtaskCandidates() {
-    return existingSubtaskCandidatesFor(Template.instance());
+    const tpl = Template.instance();
+    return isOtherSourceBoard(tpl) ? tpl.remoteCandidates.get() : existingSubtaskCandidatesFor(tpl);
   },
   noExistingSubtaskCandidates() {
-    return existingSubtaskCandidatesFor(Template.instance()).length === 0;
+    const tpl = Template.instance();
+    return (isOtherSourceBoard(tpl) ? tpl.remoteCandidates.get() : existingSubtaskCandidatesFor(tpl)).length === 0;
+  },
+  // This card's board first, then the other boards the member may write.
+  subtaskSourceBoards() {
+    const user = ReactiveCache.getCurrentUser();
+    const contextCard = ReactiveCache.getCard(Template.currentData().cardId);
+    if (!user || !contextCard) return [];
+    const writable = ReactiveCache.getBoards({ archived: false, type: 'board', members: { $elemMatch: {
+      userId: user._id, isActive: true, isReadOnly: { $ne: true }, isCommentOnly: { $ne: true },
+      isNoComments: { $ne: true }, isReadAssignedOnly: { $ne: true }, isWorker: { $ne: true } } } }, { sort: { title: 1 } });
+    const own = writable.find(b => b._id === contextCard.boardId) || ReactiveCache.getBoard(contextCard.boardId);
+    return [own, ...writable.filter(b => b._id !== contextCard.boardId)].filter(Boolean);
+  },
+  isSourceBoard() {
+    const tpl = Template.instance();
+    const contextCard = ReactiveCache.getCard(tpl.data.cardId);
+    return (tpl.sourceBoardId.get() || (contextCard && contextCard.boardId)) === this._id;
   },
 });
 
 Template.addExistingSubtaskPopup.events({
   'keyup .js-add-existing-subtask-search'(event, tpl) {
     tpl.searchTerm.set(event.target.value);
+  },
+  'change .js-add-existing-subtask-board'(event, tpl) {
+    tpl.sourceBoardId.set(event.currentTarget.value);
   },
   submit(event) {
     event.preventDefault();
@@ -352,6 +393,18 @@ Template.addExistingSubtaskPopup.events({
     event.preventDefault();
     const cardId = $(event.currentTarget).data('id');
     const contextCard = ReactiveCache.getCard(Template.currentData().cardId);
+    // #1931: a card of another board is attached by the server, which checks
+    // write access to both boards and loops through every parent.
+    if (contextCard && isOtherSourceBoard(Template.instance())) {
+      const parentCardId = contextCard.getRealId ? contextCard.getRealId() : contextCard._id;
+      try {
+        await Meteor.callAsync('addCrossBoardSubtask', parentCardId, String(cardId));
+      } catch (error) {
+        alert(error?.reason || error?.message || 'Could not add the existing card as a subtask.');
+      }
+      Popup.close();
+      return;
+    }
     const targetCard = ReactiveCache.getCard(cardId);
     if (!contextCard || !targetCard) {
       Popup.close();

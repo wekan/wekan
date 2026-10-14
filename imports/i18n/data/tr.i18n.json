@@ -154,6 +154,7 @@
   "add-subtask": "Alt Görev Ekle",
   "add-existing-card-as-subtask": "Var olan kartı alt görev olarak ekle",
   "add-existing-card-as-subtask-empty": "Kart Bulunamadı",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Var Olan Alt Görevi Ekle",
   "add-checklist": "Yapılacak Listesi Ekle",
   "checklist": "Kontrol listesi",

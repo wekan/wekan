@@ -154,6 +154,7 @@
   "add-subtask": "إضافة مهمة فرعية",
   "add-existing-card-as-subtask": "زيد كارط كاينة كتاسك فرعية",
   "add-existing-card-as-subtask-empty": "لم يتم العثور على بطاقات مطابقة",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "زيد مهمة فرعية موجودة",
   "add-checklist": "إضافة قائمة تدقيق",
   "checklist": "قائمة التحقق",

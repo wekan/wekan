@@ -154,6 +154,7 @@
   "add-subtask": "Dodaj podzadanie",
   "add-existing-card-as-subtask": "Dodaj istniejącą kartę jako podzadanie",
   "add-existing-card-as-subtask-empty": "Nie znaleziono kart",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Dodaj istniejące podzadanie",
   "add-checklist": "Dodaj czeklistę",
   "checklist": "Checklista",

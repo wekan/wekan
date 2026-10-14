@@ -154,6 +154,7 @@
   "add-subtask": "Dodaj podopravilo",
   "add-existing-card-as-subtask": "Dodaj obstoječo kartico kot podopravilo",
   "add-existing-card-as-subtask-empty": "Ni najdenih ustreznih kartic",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Dodaj obstoječo podnalogo",
   "add-checklist": "Dodaj kontrolni seznam",
   "checklist": "Kontrolni seznam",

@@ -154,6 +154,7 @@
   "add-subtask": "เพิ่มงานย่อย",
   "add-existing-card-as-subtask": "เพิ่มการ์ดที่มีอยู่เป็นงานย่อย",
   "add-existing-card-as-subtask-empty": "ไม่พบการ์ด",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "เพิ่มงานย่อยที่มีอยู่",
   "add-checklist": "เพิ่มเช็คลิสต์",
   "checklist": "เช็คลิสต์",

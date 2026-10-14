@@ -154,6 +154,7 @@
   "add-subtask": "Adicionar subtarefa",
   "add-existing-card-as-subtask": "Adicionar cartão existente como subtarefa",
   "add-existing-card-as-subtask-empty": "Nenhum cartão encontrado",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Adicionar Subtarefa Existente",
   "add-checklist": "Adicionar lista de verificação",
   "checklist": "Lista de verificação",

@@ -154,6 +154,7 @@
   "add-subtask": "Adde submunus",
   "add-existing-card-as-subtask": "Adde Chartam Existentem ut Subtaskum",
   "add-existing-card-as-subtask-empty": "Nullae chartae congruentes inventae sunt",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Adde Pensum Subordinatum Exsistens",
   "add-checklist": "Adde indicem probationis",
   "checklist": "Index probationis",

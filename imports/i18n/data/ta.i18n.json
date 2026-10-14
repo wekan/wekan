@@ -154,6 +154,7 @@
   "add-subtask": "துணைப்பணியைச் சேர்",
   "add-existing-card-as-subtask": "தற்போதுள்ள அட்டையை துணைப்பணியாக சேர்",
   "add-existing-card-as-subtask-empty": "அட்டைகள் எதுவும் காணப்படவில்லை",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "இருக்கும் துணைப்பணியைச் சேர்",
   "add-checklist": "சரிபார்ப்புப் பட்டியலைச் சேர்",
   "checklist": "சரிபார்ப்புப் பட்டியல்",

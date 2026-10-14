@@ -154,6 +154,7 @@
   "add-subtask": "Subtaak Toevoegen",
   "add-existing-card-as-subtask": "Bestaande kaart als subtaak toevoegen",
   "add-existing-card-as-subtask-empty": "Geen Kaarten Gevonden",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Bestaande subtaak toevoegen",
   "add-checklist": "Checklist toevoegen",
   "checklist": "Controlelijst",

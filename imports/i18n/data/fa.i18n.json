@@ -154,6 +154,7 @@
   "add-subtask": "افزودن زیر وظیفه",
   "add-existing-card-as-subtask": "افزودن کارت موجود به‌عنوان زیرکار",
   "add-existing-card-as-subtask-empty": "هیچ کارتی یافت نشد",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "افزودن زیرکار موجود",
   "add-checklist": "افزودن چک‌لیست",
   "checklist": "چک‌لیست",

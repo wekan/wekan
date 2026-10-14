@@ -154,6 +154,7 @@
   "add-subtask": "Legg til Underoppgave",
   "add-existing-card-as-subtask": "Legg til eksisterende kort som underoppgave",
   "add-existing-card-as-subtask-empty": "Ingen Kort funnet.",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Legg til eksisterende deloppgave",
   "add-checklist": "Legg til Sjekkliste",
   "checklist": "Sjekkliste",

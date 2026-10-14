@@ -154,6 +154,7 @@
   "add-subtask": "Tambah Subtugas",
   "add-existing-card-as-subtask": "Tambahkan Kartu yang Ada sebagai Subtugas",
   "add-existing-card-as-subtask-empty": "Tidak ditemukan kartu yang cocok",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Tambahkan Subtugas yang Ada",
   "add-checklist": "Tambah Checklist",
   "checklist": "Daftar periksa",

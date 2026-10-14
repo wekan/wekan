@@ -154,6 +154,7 @@
   "add-subtask": "উপকাজ যোগ করুন",
   "add-existing-card-as-subtask": "বিদ্যমান কার্ডটি উপ-কাজ হিসেবে যোগ করুন",
   "add-existing-card-as-subtask-empty": "কোনো কার্ড পাওয়া যায়নি",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "বিদ্যমান সাবটাস্ক যোগ করুন",
   "add-checklist": "যাচাইতালিকা যোগ করুন",
   "checklist": "চেকলিস্ট",

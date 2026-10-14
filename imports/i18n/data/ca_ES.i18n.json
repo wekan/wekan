@@ -154,6 +154,7 @@
   "add-subtask": "Afegir Subtasca",
   "add-existing-card-as-subtask": "Afegeix la targeta existent com a subtasca",
   "add-existing-card-as-subtask-empty": "No s'han trobat fitxes",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Afegeix subtasca existent",
   "add-checklist": "Llista de verificació d'Afegeix",
   "checklist": "Llista de verificació",

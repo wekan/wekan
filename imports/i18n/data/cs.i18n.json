@@ -154,6 +154,7 @@
   "add-subtask": "Přidat Podúkol",
   "add-existing-card-as-subtask": "Přidat existující kartu jako podúkol",
   "add-existing-card-as-subtask-empty": "Žádné karty nebyly nalezeny",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Přidat existující podúkol",
   "add-checklist": "Přidat zaškrtávací seznam",
   "checklist": "Kontrolní seznam",

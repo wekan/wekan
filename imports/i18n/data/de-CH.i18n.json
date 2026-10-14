@@ -154,6 +154,7 @@
   "add-subtask": "Teilaufgabe hinzufügen",
   "add-existing-card-as-subtask": "Vorhandene Karte als Unteraufgabe hinzufügen",
   "add-existing-card-as-subtask-empty": "Keine Karten gefunden",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Vorhandene Teilaufgabe hinzufügen",
   "add-checklist": "Checkliste hinzufügen",
   "checklist": "Checkliste",

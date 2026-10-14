@@ -154,6 +154,7 @@
   "add-subtask": "Кошумча тапшырма кошуу",
   "add-existing-card-as-subtask": "Учурдагы картаны кичи тапшырма катары кошуу",
   "add-existing-card-as-subtask-empty": "Карточкалар табылган жок",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Бар кичи тапшырманы кошуу",
   "add-checklist": "Текшерүү тизмесин кошуу",
   "checklist": "Текшерүү тизмеси",

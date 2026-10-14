@@ -154,6 +154,7 @@
   "add-subtask": "උපකාර්යයක් එක් කරන්න",
   "add-existing-card-as-subtask": "පවතින කාඩ්පත උප-කාර්යයක් ලෙස එක් කරන්න",
   "add-existing-card-as-subtask-empty": "කාඩ්පත් හමු නොවීය",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "පවතින උපකාර්යයක් එක් කරන්න",
   "add-checklist": "පිරික්සුම් ලැයිස්තුවක් එක් කරන්න",
   "checklist": "පිරික්සුම් ලැයිස්තුව",

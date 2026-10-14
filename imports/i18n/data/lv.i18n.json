@@ -154,6 +154,7 @@
   "add-subtask": "Pievienot apakšuzdevumu",
   "add-existing-card-as-subtask": "Pievienot esošu karti kā apakšuzdevumu",
   "add-existing-card-as-subtask-empty": "Kortelių nerasta",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Pievienot esošu apakšuzdevumu",
   "add-checklist": "Pievienot kontrolsarakstu",
   "checklist": "Kontrolsaraksts",

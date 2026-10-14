@@ -154,6 +154,7 @@
   "add-subtask": "Gehitu azpiataza",
   "add-existing-card-as-subtask": "Gehitu dagoen txartela azpiataza gisa",
   "add-existing-card-as-subtask-empty": "Ez da txartelik aurkitu",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Gehitu lehendik dagoen azpiataza",
   "add-checklist": "Gehitu kontrol-zerrenda",
   "checklist": "Kontrol-zerrenda",

@@ -154,6 +154,7 @@
   "add-subtask": "Ku dar Hawl Hoose",
   "add-existing-card-as-subtask": "Ku dar Kaadhka Jira sida Hawl Hoosaadka",
   "add-existing-card-as-subtask-empty": "Wax Kaarar ah Lama Helin",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Ku dar Hawl-yar Jirta",
   "add-checklist": "Ku dar Liis Hubin",
   "checklist": "Liiska hubinta",

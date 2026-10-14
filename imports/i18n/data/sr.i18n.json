@@ -154,6 +154,7 @@
   "add-subtask": "Издвоји посао",
   "add-existing-card-as-subtask": "Додај постојећу картицу као подзадатак",
   "add-existing-card-as-subtask-empty": "Није пронађен ни један предмет",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Додај постојећи подзадатак",
   "add-checklist": "Додај предметну радњу",
   "checklist": "Предметна радња",

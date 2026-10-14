@@ -154,6 +154,7 @@
   "add-subtask": "Rész-feladat hozzáadása",
   "add-existing-card-as-subtask": "Meglévő kártya hozzáadása alfeladatként",
   "add-existing-card-as-subtask-empty": "Nem találtam Kártyát",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Meglévő részfeladat hozzáadása",
   "add-checklist": "Ellenőrzőlista hozzáadása",
   "checklist": "Ellenőrzőlista",

@@ -154,6 +154,7 @@
   "add-subtask": "उपकार्य जोड़ीं",
   "add-existing-card-as-subtask": "मौजूदा कार्ड के उप-कार्य के रूप में जोड़ीं",
   "add-existing-card-as-subtask-empty": "कवनो कार्ड ना मिलल",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "मौजूदा उप-कार्य जोड़ीं",
   "add-checklist": "जाँच-सूची जोड़ीं",
   "checklist": "जाँच सूची",

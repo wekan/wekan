@@ -154,6 +154,7 @@
   "add-subtask": "Προσθήκη Υποεργασίας",
   "add-existing-card-as-subtask": "Προσθήκη υπάρχουσας κάρτας ως υποεργασία",
   "add-existing-card-as-subtask-empty": "Δεν βρέθηκαν κάρτες",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Προσθήκη Υπάρχουσας Υποεργασίας",
   "add-checklist": "Προσθήκη Λίστας ελέγχου",
   "checklist": "Check-list",

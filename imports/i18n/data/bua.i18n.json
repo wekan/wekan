@@ -154,6 +154,7 @@
   "add-subtask": "Дэд-даабари нэмэхэ",
   "add-existing-card-as-subtask": "Байгаа картые дэд даалгабари болгожо нэмэхэ",
   "add-existing-card-as-subtask-empty": "Карта олдобогүй",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Байгаа дэд-ажал нэмэхэ",
   "add-checklist": "Шалгалтын жагсаалта нэмэхэ",
   "checklist": "Шалгалтын жагсаалта",

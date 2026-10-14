@@ -154,6 +154,7 @@
   "add-subtask": "Ішкі тапсырма қосу",
   "add-existing-card-as-subtask": "Бар картаны кіші тапсырма ретінде қосу",
   "add-existing-card-as-subtask-empty": "Карточкалар табылмады",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Бар кіші тапсырманы қосу",
   "add-checklist": "Тексеру тізімін қосу",
   "checklist": "Тексеру тізімі",

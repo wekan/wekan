@@ -154,6 +154,7 @@
   "add-subtask": "Ajouter une sous-tâche",
   "add-existing-card-as-subtask": "Ajouter une carte existante comme sous-tâche",
   "add-existing-card-as-subtask-empty": "Aucune carte trouvée",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Ajouter une sous-tâche existante",
   "add-checklist": "Ajouter une check-list",
   "checklist": "Check-list",

@@ -154,6 +154,7 @@
   "add-subtask": "Tilføj delopgave",
   "add-existing-card-as-subtask": "Tilføj eksisterende kort som underopgave",
   "add-existing-card-as-subtask-empty": "Ingen matchende kort fundet",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Tilføj eksisterende deltopgave",
   "add-checklist": "Tilføj tjekliste",
   "checklist": "Tjekliste",

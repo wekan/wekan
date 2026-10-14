@@ -154,6 +154,7 @@
   "add-subtask": "Lisää alitehtävä",
   "add-existing-card-as-subtask": "Lisää olemassa oleva kortti alitehtäväksi",
   "add-existing-card-as-subtask-empty": "Kortteja ei löytynyt.",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Lisää olemassa oleva alitehtävä",
   "add-checklist": "Lisää tarkistuslista",
   "checklist": "Tarkistuslista",

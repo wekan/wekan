@@ -154,6 +154,7 @@
   "add-subtask": "បន្ថែមកិច្ចការរង",
   "add-existing-card-as-subtask": "បន្ថែមកាតដែលមានស្រាប់ជាកិច្ចការរង",
   "add-existing-card-as-subtask-empty": "រកមិនឃើញកាតទេ។",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "បន្ថែមកិច្ចការរងដែលមានស្រាប់",
   "add-checklist": "បន្ថែមបញ្ជីត្រួតពិនិត្យ",
   "checklist": "បញ្ជីត្រួតពិនិត្យ",

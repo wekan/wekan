@@ -154,6 +154,7 @@
   "add-subtask": "Dodaj podzadatak",
   "add-existing-card-as-subtask": "Dodaj postojeću karticu kao podzadatak",
   "add-existing-card-as-subtask-empty": "Nisu pronađene odgovarajuće kartice",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Dodaj postojeći podzadatak",
   "add-checklist": "Dodaj listu provjere",
   "checklist": "Kontrolna lista",

@@ -154,6 +154,7 @@
   "add-subtask": "Adaugă subsarcină",
   "add-existing-card-as-subtask": "Adăugați cardul existent ca subsarcină",
   "add-existing-card-as-subtask-empty": "Nu s-a găsit niciun card",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Adaugă subsarcină existentă",
   "add-checklist": "Adaugă listă de verificare",
   "checklist": "Listă de verificare",

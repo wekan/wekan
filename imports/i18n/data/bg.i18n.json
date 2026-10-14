@@ -154,6 +154,7 @@
   "add-subtask": "Добави подзадача",
   "add-existing-card-as-subtask": "Добавяне на съществуваща карта като подзадача",
   "add-existing-card-as-subtask-empty": "Не са намерени съответстващи карти",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "Добавяне на съществуваща подзадача",
   "add-checklist": "Добави списък със задачи",
   "checklist": "Чеклист",

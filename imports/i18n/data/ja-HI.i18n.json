@@ -154,6 +154,7 @@
   "add-subtask": "サブタスクを追加",
   "add-existing-card-as-subtask": "既存のカードをサブタスクとして追加",
   "add-existing-card-as-subtask-empty": "カードが見つかりませんでした",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "既存のサブタスクを追加",
   "add-checklist": "チェックリストを追加",
   "checklist": "チェックリスト",

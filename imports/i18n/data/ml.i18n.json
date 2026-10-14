@@ -154,6 +154,7 @@
   "add-subtask": "ഉപചുമതല ചേർക്കുക",
   "add-existing-card-as-subtask": "നിലവിലുള്ള കാർഡ് ഉപടാസ്‌ക് ആയി ചേർക്കുക",
   "add-existing-card-as-subtask-empty": "കാർഡുകളൊന്നും കണ്ടെത്തിയില്ല",
+  "subtask-from-board": "Card from board",
   "addExistingSubtaskPopup-title": "നിലവിലുള്ള ഉപടാസ്ക് ചേർക്കുക",
   "add-checklist": "ചെക്ക്‌ലിസ്റ്റ് ചേർക്കുക",
   "checklist": "പരിശോധനാ പട്ടിക",
