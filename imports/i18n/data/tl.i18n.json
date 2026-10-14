@@ -4548,5 +4548,9 @@
   "sqrl-added": "Naidagdag na ang iyong SQRL identity.",
   "sqrl-none": "Walang naidagdag na SQRL identity.",
   "sqrl-remove": "Alisin ang aking SQRL identity",
-  "sqrl-disabled-by-client": "Naka-disable ang pag-sign in gamit ang SQRL para sa account na ito mula sa iyong SQRL client. I-enable itong muli roon gamit ang iyong rescue code."
+  "sqrl-disabled-by-client": "Naka-disable ang pag-sign in gamit ang SQRL para sa account na ito mula sa iyong SQRL client. I-enable itong muli roon gamit ang iyong rescue code.",
+  "sqrl-only-on": "Ini-lock ng iyong SQRL client ang account na ito sa SQRL: tinatanggihan ang lahat ng iba pang paraan ng pag-sign in.",
+  "sqrl-hardlock-on": "Mahigpit na ini-lock ng iyong SQRL client ang account na ito: tinatanggihan ang pag-reset ng password at pagpapalit ng e-liham.",
+  "sqrl-only": "Ang account na ito ay nagsa-sign in gamit lamang ang SQRL.",
+  "sqrl-hardlock": "Naka-lock ang account na ito sa SQRL: hindi ito mababawi o mababago sa anumang ibang paraan."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Jūsų SQRL tapatybė pridėta.",
   "sqrl-none": "Nepridėta jokia SQRL tapatybė.",
   "sqrl-remove": "Pašalinti mano SQRL tapatybę",
-  "sqrl-disabled-by-client": "Prisijungimas su SQRL šiai paskyrai išjungtas jūsų SQRL kliente. Vėl įjunkite jį ten su savo gelbėjimo kodu."
+  "sqrl-disabled-by-client": "Prisijungimas su SQRL šiai paskyrai išjungtas jūsų SQRL kliente. Vėl įjunkite jį ten su savo gelbėjimo kodu.",
+  "sqrl-only-on": "Jūsų SQRL klientas užrakino šią paskyrą tik SQRL: visi kiti prisijungimo būdai atmetami.",
+  "sqrl-hardlock-on": "Jūsų SQRL klientas griežtai užrakino šią paskyrą: slaptažodžio atkūrimas ir el. pašto keitimas atmetami.",
+  "sqrl-only": "Ši paskyra prisijungia tik su SQRL.",
+  "sqrl-hardlock": "Ši paskyra užrakinta SQRL: jos negalima atkurti ar pakeisti jokiu kitu būdu."
 }

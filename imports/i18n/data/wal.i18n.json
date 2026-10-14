@@ -4548,5 +4548,9 @@
   "sqrl-added": "Ne SQRL eraxay gujjettiis.",
   "sqrl-none": "Gujjettida SQRL eraxay baawa.",
   "sqrl-remove": "Ta SQRL eraxaa digga",
-  "sqrl-disabled-by-client": "SQRL ehaa gelay ha akaawuntiyaas ne SQRL oosuwaappe qolpettiis. Yan ne ashshiyo koodiyaa ehaa zaarada doya."
+  "sqrl-disabled-by-client": "SQRL ehaa gelay ha akaawuntiyaas ne SQRL oosuwaappe qolpettiis. Yan ne ashshiyo koodiyaa ehaa zaarada doya.",
+  "sqrl-only-on": "Ne SQRL oosuwaa ha akaawuntiyaa SQRL xalaalan qolpiis: geliyo hara ogee ubbay ixettees.",
+  "sqrl-hardlock-on": "Ne SQRL oosuwaa ha akaawuntiyaa minttidi qolpiis: geeman qaalaa ooratissiyoogaa iimeeliyaa laammiyoogaa ixettees.",
+  "sqrl-only": "Ha akaawuntiyaa SQRL xalaalan gelettees.",
+  "sqrl-hardlock": "Ha akaawuntiyaa SQRL bolla qolpettiis: hara ogiyan zaaridi demmanaw woykko laammanaw dandda'ettenna."
 }

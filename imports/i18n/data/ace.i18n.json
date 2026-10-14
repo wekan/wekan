@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identitas SQRL droeneuh ka geutamah.",
   "sqrl-none": "Hana identitas SQRL nyang geutamah.",
   "sqrl-remove": "Hapus identitas SQRL lôn",
-  "sqrl-disabled-by-client": "Tamong ngon SQRL ka geupadam keu akun nyoe nibak klien SQRL droeneuh. Peuudép lom keudéh ngon kode peuseulamat droeneuh."
+  "sqrl-disabled-by-client": "Tamong ngon SQRL ka geupadam keu akun nyoe nibak klien SQRL droeneuh. Peuudép lom keudéh ngon kode peuseulamat droeneuh.",
+  "sqrl-only-on": "Klien SQRL droeneuh ka geukunci akun nyoe keu SQRL: ban mandum cara tamong laen geutulak.",
+  "sqrl-hardlock-on": "Klien SQRL droeneuh ka geukunci kong akun nyoe: peuglah kata sandi ngon gantoe emel geutulak.",
+  "sqrl-only": "Akun nyoe tamong ngon SQRL mantong.",
+  "sqrl-hardlock": "Akun nyoe ka geukunci keu SQRL: hana jeuet geupeuglah atawa geugantoe ngon cara laen."
 }

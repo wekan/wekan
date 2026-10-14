@@ -1522,6 +1522,12 @@ Meteor.methods({
     if (!currentUser?.isAdmin && !allowSelfChange) {
       throw new Meteor.Error('not-authorized');
     }
+    // #2460 SQRL hardlock: the member asked that the account not be
+    // recovered any other way, and a new e-mail address is the way to a
+    // password reset. An admin can still change it - the last resort.
+    if (!currentUser?.isAdmin && (await require('/server/sqrl').sqrlHardlocked(userId))) {
+      throw new Meteor.Error('sqrl-hardlock');
+    }
     if (Array.isArray(email)) {
       email = email.shift();
     }

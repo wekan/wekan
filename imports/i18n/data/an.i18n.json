@@ -4548,5 +4548,9 @@
   "sqrl-added": "A tuya identidat SQRL ye adhibida.",
   "sqrl-none": "No i hai garra identidat SQRL adhibida.",
   "sqrl-remove": "Sacar a mía identidat SQRL",
-  "sqrl-disabled-by-client": "L'inicio de sesión con SQRL ye desactivau pa ista cuenta dende o tuyo client SQRL. Torna a activar-lo allí con o tuyo codigo de rescate."
+  "sqrl-disabled-by-client": "L'inicio de sesión con SQRL ye desactivau pa ista cuenta dende o tuyo client SQRL. Torna a activar-lo allí con o tuyo codigo de rescate.",
+  "sqrl-only-on": "O tuyo client SQRL ha blocau ista cuenta a SQRL: se refusa qualsiquier atra manera d'iniciar sesión.",
+  "sqrl-hardlock-on": "O tuyo client SQRL ha blocau de raso ista cuenta: se refusan o restablimiento d'a clau de paso y o cambio de correu electronico.",
+  "sqrl-only": "Ista cuenta inicia sesión nomás con SQRL.",
+  "sqrl-hardlock": "Ista cuenta ye blocada a SQRL: no se puede recuperar ni cambiar de garra atra manera."
 }

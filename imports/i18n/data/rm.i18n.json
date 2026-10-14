@@ -4548,5 +4548,9 @@
   "sqrl-added": "Tia identitad SQRL è agiuntada.",
   "sqrl-none": "Nagina identitad SQRL n'è agiuntada.",
   "sqrl-remove": "Allontanar mia identitad SQRL",
-  "sqrl-disabled-by-client": "L'annunzia cun SQRL è deactivada per quest conto da tes client SQRL. Activescha ella là danovamain cun tes code da salvament."
+  "sqrl-disabled-by-client": "L'annunzia cun SQRL è deactivada per quest conto da tes client SQRL. Activescha ella là danovamain cun tes code da salvament.",
+  "sqrl-only-on": "Tes client SQRL ha bloccà quest conto sin SQRL: mintga autra moda da s'annunziar vegn refusada.",
+  "sqrl-hardlock-on": "Tes client SQRL ha bloccà definitivamain quest conto: la reinizialisaziun dal pled-clav e la midada da l'e-mail vegnan refusadas.",
+  "sqrl-only": "Quest conto s'annunzia mo cun SQRL.",
+  "sqrl-hardlock": "Quest conto è bloccà sin SQRL: el na po betg vegnir restituì u midà en in'autra moda."
 }

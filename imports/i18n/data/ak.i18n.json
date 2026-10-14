@@ -4548,5 +4548,9 @@
   "sqrl-added": "Wɔde wo SQRL nipasu aka ho.",
   "sqrl-none": "Wɔmfaa SQRL nipasu biara nkaa ho.",
   "sqrl-remove": "Yi me SQRL nipasu firi mu",
-  "sqrl-disabled-by-client": "Wo SQRL client adum SQRL kɔ mu ama saa akontaabu yi. Fa wo ahobammɔ code no sɔ bio wɔ hɔ."
+  "sqrl-disabled-by-client": "Wo SQRL client adum SQRL kɔ mu ama saa akontaabu yi. Fa wo ahobammɔ code no sɔ bio wɔ hɔ.",
+  "sqrl-only-on": "Wo SQRL client ato saa akontaabu yi mu ama SQRL nko: ɔkwan foforo biara a wɔfa so kɔ mu no, wɔpo.",
+  "sqrl-hardlock-on": "Wo SQRL client ato saa akontaabu yi mu denneennen: wɔpo ahintasɛm a wɔsiesie no ne ɛmɛl a wɔsesa no.",
+  "sqrl-only": "Saa akontaabu yi de SQRL nko na ɛkɔ mu.",
+  "sqrl-hardlock": "Wɔato saa akontaabu yi mu ama SQRL: wɔntumi mfa ɔkwan foforo biara so nsan nnya anaa nsesa."
 }

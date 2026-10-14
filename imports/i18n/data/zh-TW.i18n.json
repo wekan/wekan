@@ -4548,5 +4548,9 @@
   "sqrl-added": "你的 SQRL 身分已新增。",
   "sqrl-none": "尚未新增任何 SQRL 身分。",
   "sqrl-remove": "移除我的 SQRL 身分",
-  "sqrl-disabled-by-client": "已從你的 SQRL 用戶端停用此帳號的 SQRL 登入。請在用戶端中使用救援碼重新啟用。"
+  "sqrl-disabled-by-client": "已從你的 SQRL 用戶端停用此帳號的 SQRL 登入。請在用戶端中使用救援碼重新啟用。",
+  "sqrl-only-on": "你的 SQRL 用戶端已將此帳號鎖定為僅限 SQRL：所有其他登入方式都會被拒絕。",
+  "sqrl-hardlock-on": "你的 SQRL 用戶端已硬鎖定此帳號：重設密碼與變更電子郵件都會被拒絕。",
+  "sqrl-only": "此帳號僅使用 SQRL 登入。",
+  "sqrl-hardlock": "此帳號已鎖定為 SQRL：無法以任何其他方式復原或變更。"
 }

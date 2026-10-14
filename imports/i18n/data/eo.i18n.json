@@ -4548,5 +4548,9 @@
   "sqrl-added": "Via SQRL-identeco estas aldonita.",
   "sqrl-none": "Neniu SQRL-identeco estas aldonita.",
   "sqrl-remove": "Forigi mian SQRL-identecon",
-  "sqrl-disabled-by-client": "Ensaluto per SQRL estas malŝaltita por ĉi tiu konto el via SQRL-kliento. Reŝaltu ĝin tie per via savkodo."
+  "sqrl-disabled-by-client": "Ensaluto per SQRL estas malŝaltita por ĉi tiu konto el via SQRL-kliento. Reŝaltu ĝin tie per via savkodo.",
+  "sqrl-only-on": "Via SQRL-kliento ŝlosis ĉi tiun konton al SQRL: ĉiu alia maniero ensaluti estas rifuzata.",
+  "sqrl-hardlock-on": "Via SQRL-kliento firme ŝlosis ĉi tiun konton: restarigo de pasvorto kaj ŝanĝo de retpoŝtadreso estas rifuzataj.",
+  "sqrl-only": "Ĉi tiu konto ensalutas nur per SQRL.",
+  "sqrl-hardlock": "Ĉi tiu konto estas ŝlosita al SQRL: ĝi ne povas esti restaŭrita aŭ ŝanĝita alimaniere."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Dientif SQRL olik peläükon.",
   "sqrl-none": "Dientif SQRL nonik peläükon.",
   "sqrl-remove": "Moükön dientifi SQRL obik",
-  "sqrl-disabled-by-client": "Nunäd SQRL pemoükon pro kal at fa kösömanaplad SQRL olik. Dönu mogükolös oni us me kod savama olik."
+  "sqrl-disabled-by-client": "Nunäd SQRL pemoükon pro kal at fa kösömanaplad SQRL olik. Dönu mogükolös oni us me kod savama olik.",
+  "sqrl-only-on": "Kösömanaplad SQRL olik elökofärmükon kali at pro SQRL te: mods valik votik nünäda pedeidons.",
+  "sqrl-hardlock-on": "Kösömanaplad SQRL olik elökofärmükon kali at fefiko: dönugetükam letavöda e votükam ladeta leäktronik pedeidons.",
+  "sqrl-only": "Kal at nunädon te me SQRL.",
+  "sqrl-hardlock": "Kal at pelökofärmükon pro SQRL: no kanon padönugetön u pavotükön me mod votik."
 }

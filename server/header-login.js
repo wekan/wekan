@@ -12,6 +12,11 @@ async function issueLoginTokenCookies(userId, req, res) {
   if (!userId) {
     return;
   }
+  // #2460 SQRL sqrlonly: the proxy's header is another way of signing in.
+  const headerUser = await Meteor.users.findOneAsync(userId, { fields: { sqrl: 1 } });
+  if (await require('/server/sqrl').sqrlRefusesRestLogin(headerUser)) {
+    return;
+  }
 
   const stampedToken = Accounts._generateStampedLoginToken();
   const tokenExpires = Accounts._tokenExpiration(stampedToken.when);

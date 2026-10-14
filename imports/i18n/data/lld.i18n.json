@@ -4548,5 +4548,9 @@
   "sqrl-added": "Ti identità SQRL ie ajonteda.",
   "sqrl-none": "Nia identità SQRL ne n'ie ajonteda.",
   "sqrl-remove": "Tò demez mi identità SQRL",
-  "sqrl-disabled-by-client": "L azes cun SQRL ie destudà per chësc account da ti client SQRL. Impiëlo inò ilò cun ti codesc de salvamënt."
+  "sqrl-disabled-by-client": "L azes cun SQRL ie destudà per chësc account da ti client SQRL. Impiëlo inò ilò cun ti codesc de salvamënt.",
+  "sqrl-only-on": "Ti client SQRL à blucà chësc account sun SQRL: uni autra maniera de fé azes vën refudeda.",
+  "sqrl-hardlock-on": "Ti client SQRL à blucà dl dut chësc account: l ripristin dla parola secreta y la mudazion dl e-mail vën refudei.",
+  "sqrl-only": "Chësc account fej azes mé cun SQRL.",
+  "sqrl-hardlock": "Chësc account ie blucà sun SQRL: al ne n possa nia vester recuperà o mudà te nia n'autra maniera."
 }

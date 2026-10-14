@@ -4548,5 +4548,9 @@
   "sqrl-added": "Boitsebiso ba hao ba SQRL bo ekeditswe.",
   "sqrl-none": "Ha ho boitsebiso ba SQRL bo ekeditsweng.",
   "sqrl-remove": "Tlosa boitsebiso ba ka ba SQRL",
-  "sqrl-disabled-by-client": "Ho kena ka SQRL ho timilwe bakeng sa akhaonto ena ho tswa ho moreki wa hao wa SQRL. Ho bulele hape moo ka khoutu ya hao ya pholoso."
+  "sqrl-disabled-by-client": "Ho kena ka SQRL ho timilwe bakeng sa akhaonto ena ho tswa ho moreki wa hao wa SQRL. Ho bulele hape moo ka khoutu ya hao ya pholoso.",
+  "sqrl-only-on": "Moreki wa hao wa SQRL o notletse akhaonto ena ho SQRL feela: mekgwa e meng kaofela ya ho kena e a hanwa.",
+  "sqrl-hardlock-on": "Moreki wa hao wa SQRL o notletse akhaonto ena ka thata: ho seta phasewete botjha le ho fetola imeile ho a hanwa.",
+  "sqrl-only": "Akhaonto ena e kena ka SQRL feela.",
+  "sqrl-hardlock": "Akhaonto ena e notletswe ho SQRL: e ke ke ya fumanwa hape kapa ya fetolwa ka tsela e nngwe."
 }

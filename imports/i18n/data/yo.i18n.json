@@ -4548,5 +4548,9 @@
   "sqrl-added": "A ti fi ìdánimọ̀ SQRL rẹ kún un.",
   "sqrl-none": "Kò sí ìdánimọ̀ SQRL tí a fi kún un.",
   "sqrl-remove": "Yọ ìdánimọ̀ SQRL mi kúrò",
-  "sqrl-disabled-by-client": "A ti pa ìwọlé SQRL fún àkọọ́lẹ̀ yìí láti inú oníbàárà SQRL rẹ. Tún un tàn níbẹ̀ pẹ̀lú kóòdù ìgbàlà rẹ."
+  "sqrl-disabled-by-client": "A ti pa ìwọlé SQRL fún àkọọ́lẹ̀ yìí láti inú oníbàárà SQRL rẹ. Tún un tàn níbẹ̀ pẹ̀lú kóòdù ìgbàlà rẹ.",
+  "sqrl-only-on": "Oníbàárà SQRL rẹ ti ti àkọọ́lẹ̀ yìí mọ́ SQRL: gbogbo ọ̀nà ìwọlé mìíràn ni a kọ̀.",
+  "sqrl-hardlock-on": "Oníbàárà SQRL rẹ ti ti àkọọ́lẹ̀ yìí pa pátápátá: àtúnṣe ọ̀rọ̀ìgbaniwọlé àti yíyí ímeèlì padà ni a kọ̀.",
+  "sqrl-only": "Àkọọ́lẹ̀ yìí ń wọlé pẹ̀lú SQRL nìkan.",
+  "sqrl-hardlock": "Àkọọ́lẹ̀ yìí ti di títì mọ́ SQRL: a kò lè gbà á padà tàbí yí i padà ní ọ̀nà mìíràn."
 }

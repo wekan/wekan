@@ -4548,5 +4548,9 @@
   "sqrl-added": "Ua hoʻohui ʻia kou ʻike pilikino SQRL.",
   "sqrl-none": "ʻAʻohe ʻike pilikino SQRL i hoʻohui ʻia.",
   "sqrl-remove": "Wehe i koʻu ʻike pilikino SQRL",
-  "sqrl-disabled-by-client": "Ua hoʻopio ʻia ka ʻeʻe SQRL no kēia moʻokāki mai kāu mea kōkua SQRL. E hoʻā hou iā ia ma laila me kou koina hoʻopakele."
+  "sqrl-disabled-by-client": "Ua hoʻopio ʻia ka ʻeʻe SQRL no kēia moʻokāki mai kāu mea kōkua SQRL. E hoʻā hou iā ia ma laila me kou koina hoʻopakele.",
+  "sqrl-only-on": "Ua laka kāu mea kōkua SQRL i kēia moʻokāki i SQRL: hōʻole ʻia nā ala ʻē aʻe a pau o ka ʻeʻe.",
+  "sqrl-hardlock-on": "Ua laka paʻa loa kāu mea kōkua SQRL i kēia moʻokāki: hōʻole ʻia ka hoʻonohonoho hou ʻana i ka ʻōlelo huna a me ka hoʻololi ʻana i ka leka uila.",
+  "sqrl-only": "ʻEʻe kēia moʻokāki me SQRL wale nō.",
+  "sqrl-hardlock": "Ua laka ʻia kēia moʻokāki i SQRL: ʻaʻole hiki ke hoʻihoʻi ʻia a hoʻololi ʻia paha ma kekahi ala ʻē aʻe."
 }

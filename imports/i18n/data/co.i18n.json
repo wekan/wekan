@@ -4548,5 +4548,9 @@
   "sqrl-added": "A vostra identità SQRL hè aghjunta.",
   "sqrl-none": "Nisuna identità SQRL hè aghjunta.",
   "sqrl-remove": "Caccià a mo identità SQRL",
-  "sqrl-disabled-by-client": "A cunnessione SQRL hè disattivata per stu contu da u vostru cliente SQRL. Riattivatela culà cù u vostru codice di salvezza."
+  "sqrl-disabled-by-client": "A cunnessione SQRL hè disattivata per stu contu da u vostru cliente SQRL. Riattivatela culà cù u vostru codice di salvezza.",
+  "sqrl-only-on": "U vostru cliente SQRL hà chjosu stu contu à SQRL: ogni altra manera di cunnettesi hè ricusata.",
+  "sqrl-hardlock-on": "U vostru cliente SQRL hà chjosu à fondu stu contu: a riinizializazione di a parolla d'intrata è u cambiamentu di a posta elettronica sò ricusati.",
+  "sqrl-only": "Stu contu si cunnette solu cù SQRL.",
+  "sqrl-hardlock": "Stu contu hè chjosu à SQRL: ùn pò esse ricuperatu nè cambiatu in alcuna altra manera."
 }

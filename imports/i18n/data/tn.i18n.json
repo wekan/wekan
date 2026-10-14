@@ -4548,5 +4548,9 @@
   "sqrl-added": "Boitshupo jwa gago jwa SQRL bo tsentswe.",
   "sqrl-none": "Ga go na boitshupo jwa SQRL jo bo tsentsweng.",
   "sqrl-remove": "Tlosa boitshupo jwa me jwa SQRL",
-  "sqrl-disabled-by-client": "Go tsena ka SQRL go thibetswe mo akhaontong e go tswa mo morekeng wa gago wa SQRL. Go bulele gape koo ka khoutu ya gago ya pholoso."
+  "sqrl-disabled-by-client": "Go tsena ka SQRL go thibetswe mo akhaontong e go tswa mo morekeng wa gago wa SQRL. Go bulele gape koo ka khoutu ya gago ya pholoso.",
+  "sqrl-only-on": "Moreki wa gago wa SQRL o notlelele akhaonto e mo SQRL fela: ditsela tsotlhe tse dingwe tsa go tsena di a ganwa.",
+  "sqrl-hardlock-on": "Moreki wa gago wa SQRL o notlelele akhaonto e ka thata: go baakanya lefoko la sephiri sešwa le go fetola imeile go a ganwa.",
+  "sqrl-only": "Akhaonto e e tsena ka SQRL fela.",
+  "sqrl-hardlock": "Akhaonto e e notleletswe mo SQRL: ga e kake ya busediwa kgotsa ya fetolwa ka tsela epe e nngwe."
 }

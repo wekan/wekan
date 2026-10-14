@@ -4548,5 +4548,9 @@
   "sqrl-added": "Twoja tożsamość SQRL została dodana.",
   "sqrl-none": "Nie dodano żadnej tożsamości SQRL.",
   "sqrl-remove": "Usuń moją tożsamość SQRL",
-  "sqrl-disabled-by-client": "Logowanie przez SQRL zostało wyłączone dla tego konta w Twoim kliencie SQRL. Włącz je tam ponownie za pomocą kodu ratunkowego."
+  "sqrl-disabled-by-client": "Logowanie przez SQRL zostało wyłączone dla tego konta w Twoim kliencie SQRL. Włącz je tam ponownie za pomocą kodu ratunkowego.",
+  "sqrl-only-on": "Twój klient SQRL zablokował to konto wyłącznie na SQRL: każdy inny sposób logowania jest odrzucany.",
+  "sqrl-hardlock-on": "Twój klient SQRL trwale zablokował to konto: resetowanie hasła i zmiana adresu e-mail są odrzucane.",
+  "sqrl-only": "To konto loguje się wyłącznie przez SQRL.",
+  "sqrl-hardlock": "To konto jest zablokowane na SQRL: nie można go odzyskać ani zmienić w żaden inny sposób."
 }

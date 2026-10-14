@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identitas SQRL Anda sudah ditambahkan.",
   "sqrl-none": "Belum ada identitas SQRL yang ditambahkan.",
   "sqrl-remove": "Hapus identitas SQRL saya",
-  "sqrl-disabled-by-client": "Masuk dengan SQRL dinonaktifkan untuk akun ini dari klien SQRL Anda. Aktifkan kembali di sana dengan kode pemulihan Anda."
+  "sqrl-disabled-by-client": "Masuk dengan SQRL dinonaktifkan untuk akun ini dari klien SQRL Anda. Aktifkan kembali di sana dengan kode pemulihan Anda.",
+  "sqrl-only-on": "Klien SQRL Anda telah mengunci akun ini ke SQRL: semua cara masuk lainnya ditolak.",
+  "sqrl-hardlock-on": "Klien SQRL Anda telah mengunci penuh akun ini: pengaturan ulang kata sandi dan perubahan email ditolak.",
+  "sqrl-only": "Akun ini masuk hanya dengan SQRL.",
+  "sqrl-hardlock": "Akun ini terkunci ke SQRL: tidak dapat dipulihkan atau diubah dengan cara lain apa pun."
 }

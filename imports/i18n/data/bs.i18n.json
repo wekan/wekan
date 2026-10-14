@@ -4548,5 +4548,9 @@
   "sqrl-added": "Vaš SQRL identitet je dodan.",
   "sqrl-none": "Nijedan SQRL identitet nije dodan.",
   "sqrl-remove": "Ukloni moj SQRL identitet",
-  "sqrl-disabled-by-client": "Prijava putem SQRL-a je za ovaj račun onemogućena iz vašeg SQRL klijenta. Ponovo je omogućite tamo pomoću svog koda za oporavak."
+  "sqrl-disabled-by-client": "Prijava putem SQRL-a je za ovaj račun onemogućena iz vašeg SQRL klijenta. Ponovo je omogućite tamo pomoću svog koda za oporavak.",
+  "sqrl-only-on": "Vaš SQRL klijent je zaključao ovaj račun na SQRL: svaki drugi način prijave se odbija.",
+  "sqrl-hardlock-on": "Vaš SQRL klijent je čvrsto zaključao ovaj račun: poništavanje lozinke i promjena e-pošte se odbijaju.",
+  "sqrl-only": "Ovaj račun se prijavljuje samo putem SQRL-a.",
+  "sqrl-hardlock": "Ovaj račun je zaključan na SQRL: ne može se oporaviti niti promijeniti ni na koji drugi način."
 }

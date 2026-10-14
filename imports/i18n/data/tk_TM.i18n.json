@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL şahsyýetiňiz goşuldy.",
   "sqrl-none": "Hiç hili SQRL şahsyýeti goşulmady.",
   "sqrl-remove": "SQRL şahsyýetimi aýyr",
-  "sqrl-disabled-by-client": "Bu hasap üçin SQRL bilen giriş SQRL müşderiňizden öçürildi. Ony şol ýerde halas ediş koduňyz bilen täzeden açyň."
+  "sqrl-disabled-by-client": "Bu hasap üçin SQRL bilen giriş SQRL müşderiňizden öçürildi. Ony şol ýerde halas ediş koduňyz bilen täzeden açyň.",
+  "sqrl-only-on": "SQRL müşderiňiz bu hasaby diňe SQRL-e gulplady: girmegiň beýleki ähli ýollary ret edilýär.",
+  "sqrl-hardlock-on": "SQRL müşderiňiz bu hasaby berk gulplady: paroly täzeden bellemek we e-poçtany üýtgetmek ret edilýär.",
+  "sqrl-only": "Bu hasaba diňe SQRL bilen girilýär.",
+  "sqrl-hardlock": "Bu hasap SQRL-e gulplanan: ony başga hiç bir ýol bilen dikeltmek ýa-da üýtgetmek bolmaýar."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL-imi kinaassutsit ilanngunneqarpoq.",
   "sqrl-none": "SQRL-imi kinaassuseq ilanngunneqanngilaq.",
   "sqrl-remove": "SQRL-imi kinaassusera piiguk",
-  "sqrl-disabled-by-client": "SQRL atorlugu iserneq kontomut matumunnga SQRL-imut atortutit aqqutigalugu matuneqarpoq. Tassani annaassiniutit kodeat atorlugu ammaqqiguk."
+  "sqrl-disabled-by-client": "SQRL atorlugu iserneq kontomut matumunnga SQRL-imut atortutit aqqutigalugu matuneqarpoq. Tassani annaassiniutit kodeat atorlugu ammaqqiguk.",
+  "sqrl-only-on": "SQRL-imut atortutit kontu una SQRL-imut kisimi parnaarpaa: iserfissat allat tamarmik itigartinneqarput.",
+  "sqrl-hardlock-on": "SQRL-imut atortutit kontu una tamakkiisumik parnaarpaa: isertaatip nutaamik aaqqissuunnera e-mailillu allanngortinnera itigartinneqarput.",
+  "sqrl-only": "Kontu una SQRL kisiat atorlugu iserfigineqartarpoq.",
+  "sqrl-hardlock": "Kontu una SQRL-imut parnaarneqarpoq: allatigut annaanneqarsinnaanngilaq allanngortinneqarsinnaananiluunniit."
 }

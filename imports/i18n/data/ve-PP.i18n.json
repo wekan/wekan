@@ -4548,5 +4548,9 @@
   "sqrl-added": "Teiden SQRL-tundištuz om ližatud.",
   "sqrl-none": "Ni üht SQRL-tundištust ei ole ližatud.",
   "sqrl-remove": "Heitta minun SQRL-tundištuz",
-  "sqrl-disabled-by-client": "Tulend SQRL:an kal om sauptud necen kontan täht teiden SQRL-klientaspäi. Kävutagat se tagaze sigä teiden pästandkodanke."
+  "sqrl-disabled-by-client": "Tulend SQRL:an kal om sauptud necen kontan täht teiden SQRL-klientaspäi. Kävutagat se tagaze sigä teiden pästandkodanke.",
+  "sqrl-only-on": "Teiden SQRL-klient om lukustanu necen kontan vaiše SQRL:aha: kaik toižed tulendan tavad hyl'gädas.",
+  "sqrl-hardlock-on": "Teiden SQRL-klient om lujas lukustanu necen kontan: peitsanan udištoitand da email-počtan vajehtand hyl'gädas.",
+  "sqrl-only": "Neche kontha tuldas vaiše SQRL:anke.",
+  "sqrl-hardlock": "Nece kont om lukustadud SQRL:aha: sidä ei voi pördutada eskai vajehtada nikut toižiči."
 }

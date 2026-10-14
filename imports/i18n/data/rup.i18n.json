@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identitatea ta SQRL easti adavgatã.",
   "sqrl-none": "Nu easti adavgatã vãrã identitati SQRL.",
   "sqrl-remove": "Scoati identitatea a mea SQRL",
-  "sqrl-disabled-by-client": "Intrarea cu SQRL easti ãncljisã trã aestu cont di la clientul tãu SQRL. Dişcljid-u diznou aclo cu coda ta di scãpari."
+  "sqrl-disabled-by-client": "Intrarea cu SQRL easti ãncljisã trã aestu cont di la clientul tãu SQRL. Dişcljid-u diznou aclo cu coda ta di scãpari.",
+  "sqrl-only-on": "Clientul tãu SQRL ãncljisi aestu cont maşi trã SQRL: tuti alanti cãljuri di intrari suntu arcati.",
+  "sqrl-hardlock-on": "Clientul tãu SQRL ãncljisi ghini aestu cont: ãnnãoirea a zborlui di intrari şi alãxirea a poştãljei electronicã suntu arcati.",
+  "sqrl-only": "Aestu cont intrã maşi cu SQRL.",
+  "sqrl-hardlock": "Aestu cont easti ãncljis trã SQRL: nu poati s-hibã aduts nãpoi i alãxit cu altã cali."
 }

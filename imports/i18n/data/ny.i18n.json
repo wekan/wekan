@@ -4548,5 +4548,9 @@
   "sqrl-added": "Chizindikiritso chanu cha SQRL chawonjezedwa.",
   "sqrl-none": "Palibe chizindikiritso cha SQRL chomwe chawonjezedwa.",
   "sqrl-remove": "Chotsani chizindikiritso changa cha SQRL",
-  "sqrl-disabled-by-client": "Kulowa ndi SQRL kwazimitsidwa pa akawunti iyi kuchokera ku kasitomala wanu wa SQRL. Yatsaninso kumeneko ndi khodi yanu yopulumutsira."
+  "sqrl-disabled-by-client": "Kulowa ndi SQRL kwazimitsidwa pa akawunti iyi kuchokera ku kasitomala wanu wa SQRL. Yatsaninso kumeneko ndi khodi yanu yopulumutsira.",
+  "sqrl-only-on": "Kasitomala wanu wa SQRL watseka akawunti iyi ku SQRL yokha: njira zina zonse zolowera zikukanidwa.",
+  "sqrl-hardlock-on": "Kasitomala wanu wa SQRL watseka akawunti iyi kotheratu: kukonzanso mawu achinsinsi ndi kusintha imelo zikukanidwa.",
+  "sqrl-only": "Akawunti iyi imalowa ndi SQRL yokha.",
+  "sqrl-hardlock": "Akawunti iyi yatsekedwa ku SQRL: singabwezeretsedwe kapena kusinthidwa mwanjira ina iliyonse."
 }

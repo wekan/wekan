@@ -4548,5 +4548,9 @@
   "sqrl-added": "S'identidade SQRL tua est agiunta.",
   "sqrl-none": "Nissuna identidade SQRL agiunta.",
   "sqrl-remove": "Boga s'identidade SQRL mea",
-  "sqrl-disabled-by-client": "S'intrada cun SQRL est disativada pro custu contu dae su cliente SQRL tuo. Torra·dda a ativare in cue cun su còdighe de sarvamentu tuo."
+  "sqrl-disabled-by-client": "S'intrada cun SQRL est disativada pro custu contu dae su cliente SQRL tuo. Torra·dda a ativare in cue cun su còdighe de sarvamentu tuo.",
+  "sqrl-only-on": "Su cliente SQRL tuo at blocadu custu contu a SQRL: cale si siat àtera manera de intrare est refudada.",
+  "sqrl-hardlock-on": "Su cliente SQRL tuo at blocadu de su totu custu contu: su riprìstinu de sa crae e su càmbiu de sa posta eletrònica sunt refudados.",
+  "sqrl-only": "Custu contu intrat isceti cun SQRL.",
+  "sqrl-hardlock": "Custu contu est blocadu a SQRL: non podet èssere recuperadu o cambiadu in peruna àtera manera."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Akaranga kawe ka SQRL kongeweko.",
   "sqrl-none": "Nta karanga ka SQRL kongeweko.",
   "sqrl-remove": "Kura akaranga kanje ka SQRL",
-  "sqrl-disabled-by-client": "Kwinjira ukoresheje SQRL vyazimijwe kuri iyi konti biciye ku mukiriya wawe wa SQRL. Bisubire uhe ngaho ukoresheje kode yawe yo gutabara."
+  "sqrl-disabled-by-client": "Kwinjira ukoresheje SQRL vyazimijwe kuri iyi konti biciye ku mukiriya wawe wa SQRL. Bisubire uhe ngaho ukoresheje kode yawe yo gutabara.",
+  "sqrl-only-on": "Umukiriya wawe wa SQRL yugaye iyi konti ku SQRL gusa: ubundi buryo bwose bwo kwinjira buranswe.",
+  "sqrl-hardlock-on": "Umukiriya wawe wa SQRL yugaye iyi konti burundu: gusubiramwo ijambo ry'ibanga no guhindura imeyili biranswe.",
+  "sqrl-only": "Iyi konti yinjira ikoresheje SQRL gusa.",
+  "sqrl-hardlock": "Iyi konti yugawe kuri SQRL: ntishobora gusubizwa canke guhindurwa mu bundi buryo."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Bunikhwe bakho be-SQRL sebungetiwe.",
   "sqrl-none": "Abukho bunikhwe be-SQRL lobungetiwe.",
   "sqrl-remove": "Susa bunikhwe bami be-SQRL",
-  "sqrl-disabled-by-client": "Kungena nge-SQRL kuvaliwe kule-akhawunti kusuka kulikhasimende lakho le-SQRL. Kuvule futsi lapho ngekhodi yakho yekutsakula."
+  "sqrl-disabled-by-client": "Kungena nge-SQRL kuvaliwe kule-akhawunti kusuka kulikhasimende lakho le-SQRL. Kuvule futsi lapho ngekhodi yakho yekutsakula.",
+  "sqrl-only-on": "Likhasimende lakho le-SQRL likhiye le-akhawunti ku-SQRL kuphela: tonkhe letinye tindlela tekungena tiyaliwa.",
+  "sqrl-hardlock-on": "Likhasimende lakho le-SQRL likhiye le-akhawunti ngalokucinile: kusetha kabusha liphasiwedi nekushintja i-imeyili kuyaliwa.",
+  "sqrl-only": "Le-akhawunti ingena nge-SQRL kuphela.",
+  "sqrl-hardlock": "Le-akhawunti ikhiyelwe ku-SQRL: ayikwati kubuyiswa nome kushintjwa ngalenye indlela."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Du SQRL-identitehta lea lasihuvvon.",
   "sqrl-none": "Ii leat lasihuvvon makkárge SQRL-identitehta.",
   "sqrl-remove": "Sihko mu SQRL-identitehta",
-  "sqrl-disabled-by-client": "SQRL-sisačáliheapmi lea jáddaduvvon dán kontui du SQRL-klienttas. Doaimmat dan fas doppe iežat gádjunkodain."
+  "sqrl-disabled-by-client": "SQRL-sisačáliheapmi lea jáddaduvvon dán kontui du SQRL-klienttas. Doaimmat dan fas doppe iežat gádjunkodain.",
+  "sqrl-only-on": "Du SQRL-klienta lea lohkkadan dán kontu dušše SQRL:ii: buot eará sisačáliheami vuogit hilgojuvvojit.",
+  "sqrl-hardlock-on": "Du SQRL-klienta lea garrasit lohkkadan dán kontu: beassansáni ođasmahttin ja e-boasta rievdadeapmi hilgojuvvojit.",
+  "sqrl-only": "Dát konto čálihuvvo sisa dušše SQRL:in.",
+  "sqrl-hardlock": "Dát konto lea lohkkaduvvon SQRL:ii: dan ii sáhte máhcahit dahje rievdadit makkárge eará vugiin."
 }

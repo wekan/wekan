@@ -4548,5 +4548,9 @@
   "sqrl-added": "Nde SQRL rechaukaha oñemoingéma.",
   "sqrl-none": "Ndaipóri SQRL rechaukaha oñemoingéva.",
   "sqrl-remove": "Aipe'a che SQRL rechaukaha",
-  "sqrl-disabled-by-client": "Jeike SQRL rupive oñembotypa ko kuénta peguarã nde SQRL kliénte guive. Embojurujá jey upépe nde papapy ñemoingove rupive."
+  "sqrl-disabled-by-client": "Jeike SQRL rupive oñembotypa ko kuénta peguarã nde SQRL kliénte guive. Embojurujá jey upépe nde papapy ñemoingove rupive.",
+  "sqrl-only-on": "Nde SQRL kliénte omboty ko kuénta SQRL-pe añoite: ojeja opaite ambue tape jeike peguarã.",
+  "sqrl-hardlock-on": "Nde SQRL kliénte omboty hatãite ko kuénta: ojeja ñe'ẽñemi ñembopyahu ha correo electrónico ñemoambue.",
+  "sqrl-only": "Ko kuénta oike SQRL rupive añoite.",
+  "sqrl-hardlock": "Ko kuénta oñembotypa SQRL-pe: ndaikatúi oñemoingove jey térã oñemoambue ambue tape rupive."
 }

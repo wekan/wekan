@@ -4548,5 +4548,9 @@
   "sqrl-added": "Etinyela njirimara SQRL gị.",
   "sqrl-none": "Enweghị njirimara SQRL etinyere.",
   "sqrl-remove": "Wepụ njirimara SQRL m",
-  "sqrl-disabled-by-client": "Ngwa SQRL gị emechiela mbanye site na SQRL maka akaụntụ a. Mepee ya ọzọ n'ebe ahụ site na koodu nnapụta gị."
+  "sqrl-disabled-by-client": "Ngwa SQRL gị emechiela mbanye site na SQRL maka akaụntụ a. Mepee ya ọzọ n'ebe ahụ site na koodu nnapụta gị.",
+  "sqrl-only-on": "Ngwa SQRL gị ekpochiela akaụntụ a na SQRL: a jụrụ ụzọ ọ bụla ọzọ isi banye.",
+  "sqrl-hardlock-on": "Ngwa SQRL gị ekpochiela akaụntụ a kpam kpam: a jụrụ ịtọgharị okwuntughe na ịgbanwe email.",
+  "sqrl-only": "Akaụntụ a na-abanye naanị site na SQRL.",
+  "sqrl-hardlock": "Akaụntụ a ka ekpochiri na SQRL: enweghị ike iweghachi ya ma ọ bụ gbanwee ya n'ụzọ ọ bụla ọzọ."
 }

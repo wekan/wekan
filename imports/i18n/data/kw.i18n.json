@@ -4548,5 +4548,9 @@
   "sqrl-added": "Agas honanieth SQRL yw keworrys.",
   "sqrl-none": "Nyns eus honanieth SQRL keworrys.",
   "sqrl-remove": "Dilea ow honanieth SQRL",
-  "sqrl-disabled-by-client": "Omgelmi gans SQRL yw dialloghys rag an akont ma dhyworth agas klyens SQRL. Gweythresewgh hi arta ena gans agas kod sawya."
+  "sqrl-disabled-by-client": "Omgelmi gans SQRL yw dialloghys rag an akont ma dhyworth agas klyens SQRL. Gweythresewgh hi arta ena gans agas kod sawya.",
+  "sqrl-only-on": "Agas klyens SQRL re alwhedhas an akont ma dhe SQRL: pub fordh aral dhe omgelmi yw naghys.",
+  "sqrl-hardlock-on": "Agas klyens SQRL re alwhedhas an akont ma yn tien: dasselya an ger-tremena ha chanjya an e-bost yw naghys.",
+  "sqrl-only": "An akont ma a omgelm gans SQRL hepken.",
+  "sqrl-hardlock": "An akont ma yw alwhedhys dhe SQRL: ny yll bos daskevys na chanjys yn fordh aral vyth."
 }

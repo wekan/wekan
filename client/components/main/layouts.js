@@ -553,10 +553,12 @@ function showLoginError(err) {
     return;
   }
   const reason = err.reason || err.message || '';
-  errorDiv.textContent =
-    err.error === 'oauth-account-conflict'
-      ? TAPi18n.__('oauth-account-conflict')
-      : reason || String(err.error || err);
+  // #2460: an account its member locked to SQRL says so in their language.
+  const translated = ['oauth-account-conflict', 'sqrl-only', 'sqrl-hardlock']
+    .find(key => err.error === key || reason === key);
+  errorDiv.textContent = translated
+    ? TAPi18n.__(translated)
+    : reason || String(err.error || err);
 }
 
 Template.defaultLayout.events({

@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL kimliyiniz əlavə edildi.",
   "sqrl-none": "Heç bir SQRL kimliyi əlavə edilməyib.",
   "sqrl-remove": "SQRL kimliyimi sil",
-  "sqrl-disabled-by-client": "Bu hesab üçün SQRL ilə giriş SQRL müştərinizdən deaktiv edilib. Onu orada xilasetmə kodunuzla yenidən aktivləşdirin."
+  "sqrl-disabled-by-client": "Bu hesab üçün SQRL ilə giriş SQRL müştərinizdən deaktiv edilib. Onu orada xilasetmə kodunuzla yenidən aktivləşdirin.",
+  "sqrl-only-on": "SQRL müştəriniz bu hesabı SQRL-ə kilidləyib: girişin bütün digər yolları rədd edilir.",
+  "sqrl-hardlock-on": "SQRL müştəriniz bu hesabı sərt kilidləyib: parolun sıfırlanması və e-poçtun dəyişdirilməsi rədd edilir.",
+  "sqrl-only": "Bu hesaba yalnız SQRL ilə giriş edilir.",
+  "sqrl-hardlock": "Bu hesab SQRL-ə kilidlənib: onu başqa heç bir yolla bərpa etmək və ya dəyişdirmək olmaz."
 }

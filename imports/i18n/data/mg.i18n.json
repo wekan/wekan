@@ -4548,5 +4548,9 @@
   "sqrl-added": "Voampy ny maha-izy anao SQRL.",
   "sqrl-none": "Tsy misy maha-izy SQRL voampy.",
   "sqrl-remove": "Esory ny maha-izy ahy SQRL",
-  "sqrl-disabled-by-client": "Natsahatry ny mpanjifa SQRL anao ny fidirana SQRL ho an'ity kaonty ity. Avereno velomina any izany amin'ny kaody famonjena anao."
+  "sqrl-disabled-by-client": "Natsahatry ny mpanjifa SQRL anao ny fidirana SQRL ho an'ity kaonty ity. Avereno velomina any izany amin'ny kaody famonjena anao.",
+  "sqrl-only-on": "Nohidian'ny mpanjifa SQRL anao ho an'ny SQRL ihany ity kaonty ity: lavina avokoa ny fomba hafa rehetra hidirana.",
+  "sqrl-hardlock-on": "Nohidian'ny mpanjifa SQRL anao mafy ity kaonty ity: lavina ny famerenana ny teny miafina sy ny fanovana ny mailaka.",
+  "sqrl-only": "Amin'ny SQRL ihany no idirana amin'ity kaonty ity.",
+  "sqrl-hardlock": "Voahidy amin'ny SQRL ity kaonty ity: tsy azo averina na ovaina amin'ny fomba hafa izy."
 }

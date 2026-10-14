@@ -4548,5 +4548,9 @@
   "sqrl-added": "Bo identidat SQRL a wòrdu agregá.",
   "sqrl-none": "No tin ningun identidat SQRL agregá.",
   "sqrl-remove": "Kita mi identidat SQRL",
-  "sqrl-disabled-by-client": "Bo kliente SQRL a deshabilitá drenta ku SQRL pa e kuenta aki. Habilit'é atrobe aya ku bo kódigo di rescate."
+  "sqrl-disabled-by-client": "Bo kliente SQRL a deshabilitá drenta ku SQRL pa e kuenta aki. Habilit'é atrobe aya ku bo kódigo di rescate.",
+  "sqrl-only-on": "Bo kliente SQRL a sera e kuenta aki na SQRL so: tur otro manera di drenta ta wòrdu rechasá.",
+  "sqrl-hardlock-on": "Bo kliente SQRL a sera e kuenta aki kompletamente: restablesé kontraseña i kambia e-mail ta wòrdu rechasá.",
+  "sqrl-only": "E kuenta aki ta drenta ku SQRL so.",
+  "sqrl-hardlock": "E kuenta aki ta será na SQRL: e no por wòrdu rekuperá ni kambiá di ningun otro manera."
 }

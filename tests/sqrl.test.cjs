@@ -11,6 +11,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {
   TIF, toBase64url, fromBase64url, parseNameValues, encodeNameValues, siteOf, sqrlLink, handleSqrlRequest,
+  sqrlLocks, sqrlRefusesLogin,
 } = require('../models/lib/sqrl.js');
 
 const ROOT = path.join(__dirname, '..');
@@ -39,6 +40,7 @@ function memoryStore() {
       return true;
     },
     async replace(userId, keys) { Object.assign(users.get(userId), keys); },
+    async setOptions(userId, options) { Object.assign(users.get(userId), options); },
     async setDisabled(userId, disabled) { users.get(userId).disabled = disabled; },
     async remove(userId) { users.delete(userId); },
     async complete(id, { userId, cps }) {
@@ -114,7 +116,7 @@ async function request(store, at, fields, { id, previous, unlock, ip = '203.0.11
   r = await request(store, r.next, { cmd: 'ident', suk, vuk: aliceUnlock.key }, { id: alice });
   assert.equal(r.tif & TIF.COMMAND_FAILED, 0);
   assert.equal(r.tif & TIF.ID_MATCH, TIF.ID_MATCH);
-  assert.deepEqual(store.users.get('alice'), { idk: alice.key, suk, vuk: aliceUnlock.key, disabled: false });
+  assert.deepEqual(store.users.get('alice'), { idk: alice.key, suk, vuk: aliceUnlock.key, disabled: false, sqrlOnly: false, hardlock: false });
   assert.equal(store.sessions.get(sessionId).state, 'done');
   console.log('  ok - an identity is added from Member Settings');
 
@@ -138,6 +140,52 @@ async function request(store, at, fields, { id, previous, unlock, ip = '203.0.11
   assert.equal(r.tif & (TIF.COMMAND_FAILED | TIF.IP_MATCH), 0);
   assert.equal(store.sessions.get(at.nut).state, 'ready');
   console.log('  ok - sign-in: the waiting page, the same device, another network');
+
+  // sqrlonly and hardlock: every ident carries the member's current choice,
+  // and a flag left out switches it off again.
+  at = startSession(store, { purpose: 'login' });
+  r = await request(store, at, { cmd: 'ident', opt: 'sqrlonly~hardlock' }, { id: alice });
+  assert.equal(r.tif & TIF.COMMAND_FAILED, 0);
+  assert.equal(store.users.get('alice').sqrlOnly, true);
+  assert.equal(store.users.get('alice').hardlock, true);
+  at = startSession(store, { purpose: 'login' });
+  await request(store, at, { cmd: 'ident', opt: 'sqrlonly' }, { id: alice });
+  assert.deepEqual([store.users.get('alice').sqrlOnly, store.users.get('alice').hardlock], [true, false]);
+  at = startSession(store, { purpose: 'login' });
+  await request(store, at, { cmd: 'ident' }, { id: alice });
+  assert.deepEqual([store.users.get('alice').sqrlOnly, store.users.get('alice').hardlock], [false, false]);
+  // Negative: a query, or a failed ident, changes nothing.
+  at = startSession(store, { purpose: 'login' });
+  await request(store, at, { cmd: 'query', opt: 'sqrlonly~hardlock' }, { id: alice });
+  assert.equal(store.users.get('alice').sqrlOnly, false, 'a query sets nothing');
+  at = startSession(store, { purpose: 'login' });
+  r = await request(store, at, { cmd: 'ident', opt: 'sqrlonly' }, { id: alice, ip: '198.51.100.9' });
+  assert.equal(r.tif & TIF.COMMAND_FAILED, TIF.COMMAND_FAILED);
+  assert.equal(store.users.get('alice').sqrlOnly, false, 'a refused ident sets nothing');
+  const intruder = identity();
+  at = startSession(store, { purpose: 'login' });
+  r = await request(store, at, { cmd: 'ident', opt: 'sqrlonly' }, { id: alice, signer: intruder });
+  assert.equal(store.users.get('alice').sqrlOnly, false, 'a forged ident sets nothing');
+  console.log('  ok - sqrlonly and hardlock follow the client\'s opt on every ident');
+
+  // What the locks refuse.
+  const locked = { idk: 'k', sqrlOnly: true, hardlock: true, disabled: false };
+  assert.equal(sqrlRefusesLogin(locked, { type: 'password' }), 'sqrl-only');
+  for (const type of ['oidc', 'ldap', 'saml', 'cas', 'passkey', 'nextcloud', 'password', 'google', undefined]) {
+    assert.equal(sqrlRefusesLogin(locked, { type }), 'sqrl-only', `${type}: refused`);
+  }
+  assert.equal(sqrlRefusesLogin(locked, { type: 'sqrl' }), null, 'SQRL itself signs in');
+  assert.equal(sqrlRefusesLogin(locked, { type: 'resume' }), null, 'a session SQRL started resumes');
+  assert.equal(sqrlRefusesLogin(locked, { type: 'password', methodName: 'resetPassword' }), 'sqrl-hardlock');
+  assert.equal(sqrlRefusesLogin({ ...locked, sqrlOnly: false }, { type: 'password', methodName: 'resetPassword' }), 'sqrl-hardlock');
+  assert.equal(sqrlRefusesLogin({ ...locked, sqrlOnly: false }, { type: 'password', methodName: 'login' }), null);
+  // Negative: nothing is locked by an unset, disabled or absent identity.
+  for (const sqrl of [null, undefined, {}, { idk: 'k' }, { ...locked, disabled: true }, { ...locked, idk: undefined },
+    { idk: 'k', sqrlOnly: 'yes', hardlock: 1 }]) {
+    assert.deepEqual(sqrlLocks(sqrl), { sqrlOnly: false, hardlock: false }, JSON.stringify(sqrl));
+    assert.equal(sqrlRefusesLogin(sqrl, { type: 'password', methodName: 'resetPassword' }), null);
+  }
+  console.log('  ok - sqrlonly refuses every other sign-in, hardlock the reset; a disabled identity locks nothing');
 
   // Negative: a forged signature, a replayed nut, a changed server value.
   const mallory = identity();
@@ -255,6 +303,32 @@ async function request(store, at, fields, { id, previous, unlock, ip = '203.0.11
     assert.ok(en[key], key);
   }
   console.log('  ok - the sign-in page, Member Settings and the Admin Panel');
+  // The locks are enforced on every path that signs a member in.
+  const lockServer = read('server/sqrl.js');
+  assert.match(lockServer, /Accounts\.validateLoginAttempt\(async attempt => \{[\s\S]{0,300}sqrlRefusesLogin\(sqrl, \{ type: attempt\.type, methodName: attempt\.methodName \}\)/);
+  assert.match(lockServer, /if \(!sqrl \|\| !\(await sqrlEnabled\(\)\)\) return true;/, 'SQRL turned off lifts the locks');
+  assert.match(lockServer, /Accounts\.sendResetPasswordEmail = async function \(userId, \.\.\.rest\) \{\s*if \(await sqrlHardlocked\(userId\)\) return undefined;/);
+  assert.match(lockServer, /store = \{[\s\S]*setOptions\(userId, \{ sqrlOnly, hardlock \}\)/);
+  assert.match(read('server/apiAuthRoutes.js'), /await require\('\/server\/sqrl'\)\.sqrlRefusesRestLogin\(user\)/);
+  assert.match(read('server/header-login.js'), /await require\('\/server\/sqrl'\)\.sqrlRefusesRestLogin\(headerUser\)/);
+  assert.match(read('server/models/users.js'), /async setEmail\([\s\S]{0,900}!currentUser\?\.isAdmin && \(await require\('\/server\/sqrl'\)\.sqrlHardlocked\(userId\)\)/);
+  // Negative: no other place mints a login token without asking. Every file
+  // that makes one is listed, and each either asks the locks or is the
+  // admin's own impersonation token (the admin is the last resort).
+  const minters = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+      const rel = `${dir}/${entry.name}`;
+      if (entry.isDirectory()) { if (!['node_modules', '_build', '.build', 'tests'].includes(entry.name)) walk(rel); }
+      else if (/\.js$/.test(entry.name) && /Accounts\._generateStampedLoginToken\(\)/.test(read(rel))) minters.push(rel);
+    }
+  };
+  ['server', 'models', 'config', 'imports', 'packages'].forEach(walk);
+  assert.deepEqual(minters.sort(), ['server/apiAuthRoutes.js', 'server/header-login.js', 'server/models/users.js'],
+    'a new place that mints login tokens must ask sqrlRefusesRestLogin');
+  assert.match(read('server/models/users.js'), /\/api\/createtoken\/:userId[\s\S]{0,200}Authentication\.checkUserId\(req\.userId\)/, 'admin only');
+  console.log('  ok - every sign-in path, the reset e-mail and the e-mail change ask the locks');
+
   console.log('\nsqrl: all tests passed');
 })().catch(error => {
   console.error(error);

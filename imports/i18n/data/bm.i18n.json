@@ -4548,5 +4548,9 @@
   "sqrl-added": "I ka SQRL tɔgɔsɛbɛn farala a kan.",
   "sqrl-none": "SQRL tɔgɔsɛbɛn si ma fara a kan.",
   "sqrl-remove": "N ka SQRL tɔgɔsɛbɛn bɔ",
-  "sqrl-disabled-by-client": "SQRL donni datugulen don nin jate in kama i ka SQRL kiliyan fɛ. A da yɛlɛ yen kokura ni i ka kisili kode ye."
+  "sqrl-disabled-by-client": "SQRL donni datugulen don nin jate in kama i ka SQRL kiliyan fɛ. A da yɛlɛ yen kokura ni i ka kisili kode ye.",
+  "sqrl-only-on": "I ka SQRL kiliyan ye nin jate datugu SQRL kan: donni sira tɔw bɛɛ banna.",
+  "sqrl-hardlock-on": "I ka SQRL kiliyan ye nin jate datugu kosɛbɛ: gundo daɲɛ kuraya ani imɛli yɛlɛmali banna.",
+  "sqrl-only": "Nin jate bɛ don SQRL dɔrɔn de fɛ.",
+  "sqrl-hardlock": "Nin jate datugulen don SQRL kan: a tɛ se ka segin walima ka yɛlɛma sira wɛrɛ fɛ."
 }

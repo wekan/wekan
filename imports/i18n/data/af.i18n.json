@@ -4548,5 +4548,9 @@
   "sqrl-added": "Jou SQRL-identiteit is bygevoeg.",
   "sqrl-none": "Geen SQRL-identiteit is bygevoeg nie.",
   "sqrl-remove": "Verwyder my SQRL-identiteit",
-  "sqrl-disabled-by-client": "SQRL-aanmelding is vir hierdie rekening vanuit jou SQRL-kliënt gedeaktiveer. Aktiveer dit weer daar met jou reddingskode."
+  "sqrl-disabled-by-client": "SQRL-aanmelding is vir hierdie rekening vanuit jou SQRL-kliënt gedeaktiveer. Aktiveer dit weer daar met jou reddingskode.",
+  "sqrl-only-on": "Jou SQRL-kliënt het hierdie rekening aan SQRL gesluit: elke ander manier van aanmeld word geweier.",
+  "sqrl-hardlock-on": "Jou SQRL-kliënt het hierdie rekening hard gesluit: wagwoordherstel en e-posverandering word geweier.",
+  "sqrl-only": "Hierdie rekening meld slegs met SQRL aan.",
+  "sqrl-hardlock": "Hierdie rekening is aan SQRL gesluit: dit kan op geen ander manier herstel of verander word nie."
 }

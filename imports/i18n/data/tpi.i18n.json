@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL aidentiti bilong yu i stap nau.",
   "sqrl-none": "I no gat SQRL aidentiti i stap.",
   "sqrl-remove": "Rausim SQRL aidentiti bilong mi",
-  "sqrl-disabled-by-client": "SQRL klaien bilong yu i pasim go insait long SQRL bilong dispela akaun. Opim gen long hap wantaim kod bilong kisim bek."
+  "sqrl-disabled-by-client": "SQRL klaien bilong yu i pasim go insait long SQRL bilong dispela akaun. Opim gen long hap wantaim kod bilong kisim bek.",
+  "sqrl-only-on": "SQRL klaien bilong yu i lokim dispela akaun long SQRL tasol: olgeta narapela rot bilong go insait i no inap.",
+  "sqrl-hardlock-on": "SQRL klaien bilong yu i lokim strong dispela akaun: senisim paswot na senisim imel i no inap.",
+  "sqrl-only": "Dispela akaun i save go insait long SQRL tasol.",
+  "sqrl-hardlock": "Dispela akaun i lok long SQRL: yu no inap kisim bek o senisim long narapela rot."
 }

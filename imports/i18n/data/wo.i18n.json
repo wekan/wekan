@@ -4548,5 +4548,9 @@
   "sqrl-added": "Sa xammeekaay SQRL yokku na.",
   "sqrl-none": "Amul benn xammeekaay SQRL bu ñu yokk.",
   "sqrl-remove": "Dindi sama xammeekaay SQRL",
-  "sqrl-disabled-by-client": "Dugg ak SQRL dañu ko fey ci kont bii jaare ko ci sa kiliyaan SQRL. Taalaatal ko foofa ak sa koodu musalkaay."
+  "sqrl-disabled-by-client": "Dugg ak SQRL dañu ko fey ci kont bii jaare ko ci sa kiliyaan SQRL. Taalaatal ko foofa ak sa koodu musalkaay.",
+  "sqrl-only-on": "Sa kiliyaan SQRL tëj na kont bii ci SQRL rekk: yeneen anam yépp yu ñu man a dugge dañu leen gàntu.",
+  "sqrl-hardlock-on": "Sa kiliyaan SQRL tëj na kont bii bu dëgër: soppi baatu jall ak soppi e-mail dañu leen gàntu.",
+  "sqrl-only": "Kont bii dañu ciy dugg ak SQRL rekk.",
+  "sqrl-hardlock": "Kont bii dañu ko tëj ci SQRL: manuñu ko delloo walla soppi ci beneen anam."
 }

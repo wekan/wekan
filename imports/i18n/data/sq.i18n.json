@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identiteti juaj SQRL u shtua.",
   "sqrl-none": "Nuk është shtuar asnjë identitet SQRL.",
   "sqrl-remove": "Hiq identitetin tim SQRL",
-  "sqrl-disabled-by-client": "Hyrja me SQRL është çaktivizuar për këtë llogari nga klienti juaj SQRL. Riaktivizojeni atje me kodin tuaj të shpëtimit."
+  "sqrl-disabled-by-client": "Hyrja me SQRL është çaktivizuar për këtë llogari nga klienti juaj SQRL. Riaktivizojeni atje me kodin tuaj të shpëtimit.",
+  "sqrl-only-on": "Klienti juaj SQRL e ka kyçur këtë llogari vetëm te SQRL: çdo mënyrë tjetër hyrjeje refuzohet.",
+  "sqrl-hardlock-on": "Klienti juaj SQRL e ka kyçur fort këtë llogari: rivendosja e fjalëkalimit dhe ndryshimi i email-it refuzohen.",
+  "sqrl-only": "Kjo llogari hyn vetëm me SQRL.",
+  "sqrl-hardlock": "Kjo llogari është e kyçur te SQRL: nuk mund të rikuperohet ose ndryshohet në asnjë mënyrë tjetër."
 }

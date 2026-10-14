@@ -4548,5 +4548,9 @@
   "sqrl-added": "Amestóse la to identidá SQRL.",
   "sqrl-none": "Nun hai nenguna identidá SQRL amestada.",
   "sqrl-remove": "Quitar la mio identidá SQRL",
-  "sqrl-disabled-by-client": "L'aniciu de sesión con SQRL ta desactiváu pa esta cuenta dende'l to veceru SQRL. Volvi activalu ellí col to códigu de rescate."
+  "sqrl-disabled-by-client": "L'aniciu de sesión con SQRL ta desactiváu pa esta cuenta dende'l to veceru SQRL. Volvi activalu ellí col to códigu de rescate.",
+  "sqrl-only-on": "El to veceru SQRL bloquió esta cuenta a SQRL: refúgase cualquier otra manera d'aniciar sesión.",
+  "sqrl-hardlock-on": "El to veceru SQRL bloquió dafechu esta cuenta: refúguense'l restablecimientu de la contraseña y el cambéu de corréu electrónicu.",
+  "sqrl-only": "Esta cuenta anicia sesión namái con SQRL.",
+  "sqrl-hardlock": "Esta cuenta ta bloquiada a SQRL: nun se pue recuperar nin camudar de nenguna otra manera."
 }

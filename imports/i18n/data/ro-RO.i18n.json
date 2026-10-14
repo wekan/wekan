@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identitatea dvs. SQRL a fost adăugată.",
   "sqrl-none": "Nu este adăugată nicio identitate SQRL.",
   "sqrl-remove": "Elimină identitatea mea SQRL",
-  "sqrl-disabled-by-client": "Autentificarea SQRL este dezactivată pentru acest cont din clientul dvs. SQRL. Reactivați-o acolo cu codul de recuperare."
+  "sqrl-disabled-by-client": "Autentificarea SQRL este dezactivată pentru acest cont din clientul dvs. SQRL. Reactivați-o acolo cu codul de recuperare.",
+  "sqrl-only-on": "Clientul dvs. SQRL a blocat acest cont la SQRL: orice altă modalitate de autentificare este refuzată.",
+  "sqrl-hardlock-on": "Clientul dvs. SQRL a blocat definitiv acest cont: resetarea parolei și schimbarea adresei de e-mail sunt refuzate.",
+  "sqrl-only": "Acest cont se autentifică doar cu SQRL.",
+  "sqrl-hardlock": "Acest cont este blocat la SQRL: nu poate fi recuperat sau modificat în niciun alt mod."
 }

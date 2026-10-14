@@ -4548,5 +4548,9 @@
   "sqrl-added": "Ua faaopoopo lou faasinomaga SQRL.",
   "sqrl-none": "E leai se faasinomaga SQRL ua faaopoopo.",
   "sqrl-remove": "Aveese lo'u faasinomaga SQRL",
-  "sqrl-disabled-by-client": "Ua tapē le saini i totonu i le SQRL mo lenei teugatupe mai lau kalani SQRL. Toe ki iina i lau koti laveai."
+  "sqrl-disabled-by-client": "Ua tapē le saini i totonu i le SQRL mo lenei teugatupe mai lau kalani SQRL. Toe ki iina i lau koti laveai.",
+  "sqrl-only-on": "Ua loka e lau kalani SQRL lenei teugatupe i le SQRL na o ia: ua teena isi auala uma e saini ai i totonu.",
+  "sqrl-hardlock-on": "Ua loka mausali e lau kalani SQRL lenei teugatupe: ua teena le toe setiina o le upu faataga ma le suiina o le imeli.",
+  "sqrl-only": "O lenei teugatupe e saini i totonu i le SQRL na o ia.",
+  "sqrl-hardlock": "Ua loka lenei teugatupe i le SQRL: e le mafai ona toe maua pe suia i se isi lava auala."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "MoSQRL ixiptlayo ye omocaquiti.",
   "sqrl-none": "Ahmo onca SQRL ixiptlayo omocaquiti.",
   "sqrl-remove": "Xiquixti noSQRL ixiptlayo",
-  "sqrl-disabled-by-client": "In calaquiliztli ica SQRL omotzacuh inic inin cuenta ica moSQRL tepoztlatequipanoh. Xictlapo occeppa ompa ica motemaquixtiliz machiyotl."
+  "sqrl-disabled-by-client": "In calaquiliztli ica SQRL omotzacuh inic inin cuenta ica moSQRL tepoztlatequipanoh. Xictlapo occeppa ompa ica motemaquixtiliz machiyotl.",
+  "sqrl-only-on": "MoSQRL tepoztlatequipanoh oquitzacuh inin cuenta zan ica SQRL: occequintin calaquiliztli ohtli moilcahuah.",
+  "sqrl-hardlock-on": "MoSQRL tepoztlatequipanoh cenca oquitzacuh inin cuenta: ichtaca tlahtolli yancuiliztli ihuan tlahcuilolli patlaliztli moilcahuah.",
+  "sqrl-only": "Inin cuenta calaqui zan ica SQRL.",
+  "sqrl-hardlock": "Inin cuenta motzacuh ica SQRL: ahmo huel occeppa mocui nozo mopatla ica occe ohtli."
 }

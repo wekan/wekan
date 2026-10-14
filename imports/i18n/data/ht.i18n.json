@@ -4548,5 +4548,9 @@
   "sqrl-added": "Idantite SQRL ou ajoute.",
   "sqrl-none": "Pa gen okenn idantite SQRL ki ajoute.",
   "sqrl-remove": "Retire idantite SQRL mwen",
-  "sqrl-disabled-by-client": "Koneksyon ak SQRL dezaktive pou kont sa a depi kliyan SQRL ou. Reaktive li la a ak kòd sekou ou."
+  "sqrl-disabled-by-client": "Koneksyon ak SQRL dezaktive pou kont sa a depi kliyan SQRL ou. Reaktive li la a ak kòd sekou ou.",
+  "sqrl-only-on": "Kliyan SQRL ou fèmen kont sa a sou SQRL: tout lòt fason pou konekte refize.",
+  "sqrl-hardlock-on": "Kliyan SQRL ou fèmen kont sa a nèt: reyinisyalizasyon modpas ak chanjman imèl refize.",
+  "sqrl-only": "Kont sa a konekte ak SQRL sèlman.",
+  "sqrl-hardlock": "Kont sa a fèmen sou SQRL: yo pa ka rekipere l ni chanje l nan okenn lòt fason."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Tu identidad SQRL ha sido añadida.",
   "sqrl-none": "No hay ninguna identidad SQRL añadida.",
   "sqrl-remove": "Quitar mi identidad SQRL",
-  "sqrl-disabled-by-client": "El inicio de sesión con SQRL está deshabilitado para esta cuenta desde tu cliente SQRL. Vuelve a habilitarlo allí con tu código de rescate."
+  "sqrl-disabled-by-client": "El inicio de sesión con SQRL está deshabilitado para esta cuenta desde tu cliente SQRL. Vuelve a habilitarlo allí con tu código de rescate.",
+  "sqrl-only-on": "Tu cliente SQRL ha bloqueado esta cuenta a SQRL: se rechaza cualquier otra forma de iniciar sesión.",
+  "sqrl-hardlock-on": "Tu cliente SQRL ha aplicado un bloqueo total a esta cuenta: se rechazan el restablecimiento de contraseña y el cambio de correo electrónico.",
+  "sqrl-only": "Esta cuenta inicia sesión solo con SQRL.",
+  "sqrl-hardlock": "Esta cuenta está bloqueada a SQRL: no se puede recuperar ni cambiar de ninguna otra forma."
 }

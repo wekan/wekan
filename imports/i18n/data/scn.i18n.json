@@ -4548,5 +4548,9 @@
   "sqrl-added": "La to idintità SQRL è ammisa.",
   "sqrl-none": "Nudda idintità SQRL è ammisa.",
   "sqrl-remove": "Leva la me idintità SQRL",
-  "sqrl-disabled-by-client": "L'accessu cu SQRL è astutatu pi stu cuntu dû to client SQRL. Addumalu arrè ddà cu lu to còdici di sarvataggiu."
+  "sqrl-disabled-by-client": "L'accessu cu SQRL è astutatu pi stu cuntu dû to client SQRL. Addumalu arrè ddà cu lu to còdici di sarvataggiu.",
+  "sqrl-only-on": "Lu to client SQRL bluccau stu cuntu sulu a SQRL: ogni autra manera di tràsiri è rifiutata.",
+  "sqrl-hardlock-on": "Lu to client SQRL bluccau pi sempri stu cuntu: lu ripristinu dâ palora d'ordini e lu canciu dâ posta elettronica sunnu rifiutati.",
+  "sqrl-only": "Stu cuntu trasi sulu cu SQRL.",
+  "sqrl-hardlock": "Stu cuntu è bluccatu a SQRL: nun si pò ricupirari o canciari pi nudda autra manera."
 }

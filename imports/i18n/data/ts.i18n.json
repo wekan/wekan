@@ -4548,5 +4548,9 @@
   "sqrl-added": "Vutivikelo bya wena bya SQRL byi engeteriwile.",
   "sqrl-none": "A ku na vutivikelo bya SQRL lebyi engeteriweke.",
   "sqrl-remove": "Susa vutivikelo bya mina bya SQRL",
-  "sqrl-disabled-by-client": "Ku nghena hi SQRL ku timiwile eka akhawunti leyi ku suka eka khiliyente ya wena ya SQRL. Ku pfula nakambe kona hi khodi ya wena ya ku ponisa."
+  "sqrl-disabled-by-client": "Ku nghena hi SQRL ku timiwile eka akhawunti leyi ku suka eka khiliyente ya wena ya SQRL. Ku pfula nakambe kona hi khodi ya wena ya ku ponisa.",
+  "sqrl-only-on": "Khiliyente ya wena ya SQRL yi pfale akhawunti leyi eka SQRL ntsena: tindlela hinkwato tin'wana ta ku nghena ta aleriwa.",
+  "sqrl-hardlock-on": "Khiliyente ya wena ya SQRL yi pfale akhawunti leyi hi ku tiya: ku vekela xiletelo xa xihundla nakambe ni ku cinca imeyili swa aleriwa.",
+  "sqrl-only": "Akhawunti leyi yi nghena hi SQRL ntsena.",
+  "sqrl-hardlock": "Akhawunti leyi yi pfaleriwile eka SQRL: a yi koti ku vuyisiwa kumbe ku cinciwa hi ndlela yin'wana."
 }

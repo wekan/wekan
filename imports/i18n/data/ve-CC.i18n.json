@@ -4548,5 +4548,9 @@
   "sqrl-added": "Ła to identità SQRL ła xe stà xontà.",
   "sqrl-none": "No xe stà xontà nisuna identità SQRL.",
   "sqrl-remove": "Cava ła me identità SQRL",
-  "sqrl-disabled-by-client": "L'intrada co SQRL ła xe stà desativà par sto account dal to client SQRL. Riativeła là co'l to còdexe de salvatajo."
+  "sqrl-disabled-by-client": "L'intrada co SQRL ła xe stà desativà par sto account dal to client SQRL. Riativeła là co'l to còdexe de salvatajo.",
+  "sqrl-only-on": "El to client SQRL el ga blocà sto account solo su SQRL: ogni altro modo de intrar el vien refudà.",
+  "sqrl-hardlock-on": "El to client SQRL el ga blocà del tuto sto account: el reset de ła password e el canbio de posta eletrònica i vien refudài.",
+  "sqrl-only": "Sto account el intra solo co SQRL.",
+  "sqrl-hardlock": "Sto account el xe blocà su SQRL: no se pol recuperarlo o canbiarlo in nisun altro modo."
 }

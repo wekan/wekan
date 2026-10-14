@@ -270,9 +270,11 @@ Template.editProfilePopup.events({
       Meteor.call('setEmail', email.toLowerCase(), Meteor.userId(), function(
         error,
       ) {
+        const hardlocked = !!error && error.error === 'sqrl-hardlock';
         const messageElement = templateInstance.$('.email-taken');
+        templateInstance.$('.sqrl-hardlock-error').toggle(hardlocked);
         if (error) {
-          messageElement.show();
+          messageElement.toggle(!hardlocked);
         } else {
           messageElement.hide();
           Popup.back();

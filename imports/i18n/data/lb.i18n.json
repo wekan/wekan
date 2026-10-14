@@ -4548,5 +4548,9 @@
   "sqrl-added": "Är SQRL-Identitéit ass derbäigesat.",
   "sqrl-none": "Keng SQRL-Identitéit derbäigesat.",
   "sqrl-remove": "Meng SQRL-Identitéit ewechhuelen",
-  "sqrl-disabled-by-client": "SQRL-Login ass fir dëse Kont vun Ärem SQRL-Client aus desaktivéiert. Aktivéiert en do erëm mat Ärem Rettungscode."
+  "sqrl-disabled-by-client": "SQRL-Login ass fir dëse Kont vun Ärem SQRL-Client aus desaktivéiert. Aktivéiert en do erëm mat Ärem Rettungscode.",
+  "sqrl-only-on": "Ären SQRL-Client huet dëse Kont op SQRL gespaart: all aner Manéier fir sech anzeloggen gëtt refuséiert.",
+  "sqrl-hardlock-on": "Ären SQRL-Client huet dëse Kont fest gespaart: Passwuert zrécksetzen an E-Mail änneren ginn refuséiert.",
+  "sqrl-only": "Dëse Kont loggt sech just mat SQRL an.",
+  "sqrl-hardlock": "Dëse Kont ass op SQRL gespaart: en ka op keng aner Manéier erëmgewonnen oder geännert ginn."
 }

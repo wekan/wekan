@@ -4548,5 +4548,9 @@
   "sqrl-added": "Kua tāpirihia tō tuakiri SQRL.",
   "sqrl-none": "Kāore he tuakiri SQRL kua tāpirihia.",
   "sqrl-remove": "Tango i taku tuakiri SQRL",
-  "sqrl-disabled-by-client": "Kua monokia te takiuru SQRL mō tēnei pūkete i tō kiritaki SQRL. Whakahohea anō ki reira mā tō waehere whakaora."
+  "sqrl-disabled-by-client": "Kua monokia te takiuru SQRL mō tēnei pūkete i tō kiritaki SQRL. Whakahohea anō ki reira mā tō waehere whakaora.",
+  "sqrl-only-on": "Kua rakaina e tō kiritaki SQRL tēnei pūkete ki SQRL anake: ka whakakāhoretia ngā huarahi takiuru kē katoa.",
+  "sqrl-hardlock-on": "Kua tino rakaina e tō kiritaki SQRL tēnei pūkete: ka whakakāhoretia te tautuhi anō i te kupuhipa me te huri īmēra.",
+  "sqrl-only": "Ka takiuru tēnei pūkete mā SQRL anake.",
+  "sqrl-hardlock": "Kua rakaina tēnei pūkete ki SQRL: kāore e taea te whakaora, te huri rānei mā tētahi atu huarahi."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Kuo tānaki hoʻo mahinoʻi-kita SQRL.",
   "sqrl-none": "ʻOku ʻikai ha mahinoʻi-kita SQRL kuo tānaki.",
   "sqrl-remove": "Toʻo hoku mahinoʻi-kita SQRL",
-  "sqrl-disabled-by-client": "Kuo tāmateʻi ʻe hoʻo kalaieni SQRL ʻa e hū ki loto SQRL ki he ʻakauni ko ʻení. Toe fakaʻaongaʻi ia ʻi ai ʻaki hoʻo kouti fakahaofi."
+  "sqrl-disabled-by-client": "Kuo tāmateʻi ʻe hoʻo kalaieni SQRL ʻa e hū ki loto SQRL ki he ʻakauni ko ʻení. Toe fakaʻaongaʻi ia ʻi ai ʻaki hoʻo kouti fakahaofi.",
+  "sqrl-only-on": "Kuo loka ʻe hoʻo kalaieni SQRL ʻa e ʻakauni ko ʻení ki he SQRL: ʻoku taʻofi ʻa e ngaahi founga kehe kotoa pē ke hū ki loto.",
+  "sqrl-hardlock-on": "Kuo loka mālohi ʻe hoʻo kalaieni SQRL ʻa e ʻakauni ko ʻení: ʻoku taʻofi ʻa e toe fokotuʻu ʻo e lea fufū mo e liliu ʻo e ʻīmeili.",
+  "sqrl-only": "ʻOku hū ki loto ʻa e ʻakauni ko ʻení ʻaki pē ʻa e SQRL.",
+  "sqrl-hardlock": "Kuo loka ʻa e ʻakauni ko ʻení ki he SQRL: ʻoku ʻikai lava ke toe maʻu mai pe liliu ʻi ha founga kehe."
 }

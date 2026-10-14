@@ -98,6 +98,33 @@ function options(opt) {
   return new Set(String(opt || '').split('~').filter(Boolean));
 }
 
+// sqrlonly: the member asks that the account sign in with SQRL only.
+// hardlock: the member asks that the account not be recovered any other way -
+// no password reset, no e-mail change. Both come from the client's opt.
+function lockOptions(opt) {
+  return { sqrlOnly: opt.has('sqrlonly'), hardlock: opt.has('hardlock') };
+}
+
+// What a member's stored identity (user.sqrl) enforces now. Only an enabled
+// identity enforces anything: a member whose client disabled SQRL (lost
+// phone, compromised identity) gets the other ways back, which is what the
+// emergency stop is for.
+function sqrlLocks(sqrl) {
+  const active = !!(sqrl && sqrl.idk && !sqrl.disabled);
+  return { sqrlOnly: active && sqrl.sqrlOnly === true, hardlock: active && sqrl.hardlock === true };
+}
+
+// Whether a login attempt is refused by the member's SQRL locks: an error
+// name, or null. `type` is the login handler's name (Accounts'
+// attempt.type), `methodName` the DDP method that logs in. A resume token was
+// issued by an earlier sign-in that was itself allowed, so it stays valid.
+function sqrlRefusesLogin(sqrl, { type, methodName } = {}) {
+  const locks = sqrlLocks(sqrl);
+  if (locks.hardlock && methodName === 'resetPassword') return 'sqrl-hardlock';
+  if (locks.sqrlOnly && type !== 'sqrl' && type !== 'resume') return 'sqrl-only';
+  return null;
+}
+
 // One request. `store` is the server's storage (see server/sqrl.js), `verify`
 // checks an Ed25519 signature (message, signature base64url, key base64url)
 // and `newNut` makes an unpredictable nut. Resolves to the reply's body.
@@ -177,6 +204,7 @@ async function handleSqrlRequest({ site, nut, body, ip, now = new Date(), store,
           if (!(await store.associate(session.userId, { idk: client.idk, suk: client.suk, vuk: client.vuk }))) return fail(tif);
           tif |= TIF.ID_MATCH;
         }
+        await store.setOptions(session.userId, lockOptions(opt));
         await store.complete(session._id, { userId: session.userId });
         return respond(tif);
       }
@@ -192,6 +220,9 @@ async function handleSqrlRequest({ site, nut, body, ip, now = new Date(), store,
       // Same device (cps): the client opens the returned url in the browser,
       // which signs in with its one-time token, and the waiting sign-in page
       // is abandoned. Otherwise the waiting page is the one that signs in.
+      // Every ident carries the member's current sqrlonly and hardlock choice;
+      // a flag the client leaves out is switched off again.
+      await store.setOptions(known.userId, lockOptions(opt));
       const cpsToken = await store.complete(session._id, { userId: known.userId, cps: opt.has('cps') });
       if (cpsToken) extra.url = `${site.rootUrl}/sign-in?sqrl=${encodeURIComponent(cpsToken)}`;
       return respond(tif);
@@ -222,5 +253,5 @@ async function handleSqrlRequest({ site, nut, body, ip, now = new Date(), store,
 module.exports = {
   TIF, SESSION_MS, MAX_BODY_BYTES,
   toBase64url, fromBase64url, parseNameValues, encodeNameValues,
-  siteOf, sqrlLink, qryFor, handleSqrlRequest,
+  siteOf, sqrlLink, qryFor, handleSqrlRequest, lockOptions, sqrlLocks, sqrlRefusesLogin,
 };

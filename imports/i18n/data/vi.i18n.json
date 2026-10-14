@@ -4548,5 +4548,9 @@
   "sqrl-added": "Đã thêm danh tính SQRL của bạn.",
   "sqrl-none": "Chưa thêm danh tính SQRL nào.",
   "sqrl-remove": "Gỡ danh tính SQRL của tôi",
-  "sqrl-disabled-by-client": "Đăng nhập bằng SQRL đã bị tắt cho tài khoản này từ ứng dụng khách SQRL của bạn. Hãy bật lại ở đó bằng mã khôi phục."
+  "sqrl-disabled-by-client": "Đăng nhập bằng SQRL đã bị tắt cho tài khoản này từ ứng dụng khách SQRL của bạn. Hãy bật lại ở đó bằng mã khôi phục.",
+  "sqrl-only-on": "Ứng dụng khách SQRL của bạn đã khóa tài khoản này chỉ dùng SQRL: mọi cách đăng nhập khác đều bị từ chối.",
+  "sqrl-hardlock-on": "Ứng dụng khách SQRL của bạn đã khóa cứng tài khoản này: việc đặt lại mật khẩu và đổi email đều bị từ chối.",
+  "sqrl-only": "Tài khoản này chỉ đăng nhập bằng SQRL.",
+  "sqrl-hardlock": "Tài khoản này đã bị khóa vào SQRL: không thể khôi phục hay thay đổi bằng bất kỳ cách nào khác."
 }

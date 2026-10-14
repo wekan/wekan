@@ -4548,5 +4548,9 @@
   "sqrl-added": "Eenyummaan SQRL kee dabalameera.",
   "sqrl-none": "Eenyummaan SQRL tokkollee hin dabalamne.",
   "sqrl-remove": "Eenyummaa SQRL koo haqi",
-  "sqrl-disabled-by-client": "Seensi SQRL-n herrega kanaaf maamila SQRL kee irraa dhorkameera. Achitti koodii oolchaa keetiin irra deebi'ii eeyyami."
+  "sqrl-disabled-by-client": "Seensi SQRL-n herrega kanaaf maamila SQRL kee irraa dhorkameera. Achitti koodii oolchaa keetiin irra deebi'ii eeyyami.",
+  "sqrl-only-on": "Maamilli SQRL kee herrega kana SQRL qofatti cufeera: karaawwan seensaa kan biroo hundi ni didamu.",
+  "sqrl-hardlock-on": "Maamilli SQRL kee herrega kana jabeessee cufeera: jecha darbii haaromsuu fi imeelii jijjiiruun ni didama.",
+  "sqrl-only": "Herregni kun SQRL qofaan seena.",
+  "sqrl-hardlock": "Herregni kun SQRL-tti cufameera: karaa biraan deebisuu ykn jijjiiruun hin danda'amu."
 }

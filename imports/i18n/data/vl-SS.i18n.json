@@ -4548,5 +4548,9 @@
   "sqrl-added": "Uw SQRL-identiteit is toegevoegd.",
   "sqrl-none": "Er is geen SQRL-identiteit toegevoegd.",
   "sqrl-remove": "Mijn SQRL-identiteit verwijderen",
-  "sqrl-disabled-by-client": "Aanmelden met SQRL is voor deze account uitgeschakeld vanuit uw SQRL-client. Schakel het daar opnieuw in met uw reddingscode."
+  "sqrl-disabled-by-client": "Aanmelden met SQRL is voor deze account uitgeschakeld vanuit uw SQRL-client. Schakel het daar opnieuw in met uw reddingscode.",
+  "sqrl-only-on": "Uw SQRL-client heeft deze account vergrendeld op SQRL: elke andere manier van aanmelden wordt geweigerd.",
+  "sqrl-hardlock-on": "Uw SQRL-client heeft deze account hard vergrendeld: wachtwoordherstel en e-mailwijziging worden geweigerd.",
+  "sqrl-only": "Deze account meldt zich alleen aan met SQRL.",
+  "sqrl-hardlock": "Deze account is vergrendeld op SQRL: hij kan op geen enkele andere manier hersteld of gewijzigd worden."
 }

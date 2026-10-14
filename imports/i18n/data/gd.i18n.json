@@ -4548,5 +4548,9 @@
   "sqrl-added": "Chaidh an dearbh-aithne SQRL agad a chur ris.",
   "sqrl-none": "Cha deach dearbh-aithne SQRL sam bith a chur ris.",
   "sqrl-remove": "Thoir air falbh an dearbh-aithne SQRL agam",
-  "sqrl-disabled-by-client": "Tha an clàradh a-steach le SQRL à comas airson a' chunntais seo on chliant SQRL agad. Cuir an comas a-rithist e an-sin leis a' chòd-teasairginn agad."
+  "sqrl-disabled-by-client": "Tha an clàradh a-steach le SQRL à comas airson a' chunntais seo on chliant SQRL agad. Cuir an comas a-rithist e an-sin leis a' chòd-teasairginn agad.",
+  "sqrl-only-on": "Ghlais an cliant SQRL agad an cunntas seo ri SQRL: thèid gach dòigh eile air clàradh a-steach a dhiùltadh.",
+  "sqrl-hardlock-on": "Ghlais an cliant SQRL agad an cunntas seo gu teann: thèid ath-shuidheachadh an fhacail-fhaire agus atharrachadh a' phuist-d a dhiùltadh.",
+  "sqrl-only": "Cha chlàraich an cunntas seo a-steach ach le SQRL.",
+  "sqrl-hardlock": "Tha an cunntas seo glaiste ri SQRL: cha ghabh aiseag no atharrachadh air dòigh sam bith eile."
 }

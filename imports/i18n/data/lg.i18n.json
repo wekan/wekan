@@ -4548,5 +4548,9 @@
   "sqrl-added": "Endagamuntu yo eya SQRL eyongeddwako.",
   "sqrl-none": "Tewali ndagamuntu ya SQRL eyongeddwako.",
   "sqrl-remove": "Ggyawo endagamuntu yange eya SQRL",
-  "sqrl-disabled-by-client": "Okuyingira ng'okozesa SQRL kuggaddwa ku akawunti eno okuva mu pulogulaamu yo eya SQRL. Kuddemu okukuggulawo eyo ng'okozesa koodi yo ey'okuwonya."
+  "sqrl-disabled-by-client": "Okuyingira ng'okozesa SQRL kuggaddwa ku akawunti eno okuva mu pulogulaamu yo eya SQRL. Kuddemu okukuggulawo eyo ng'okozesa koodi yo ey'okuwonya.",
+  "sqrl-only-on": "Pulogulaamu yo eya SQRL esibye akawunti eno ku SQRL yokka: engeri endala zonna ez'okuyingira zigaaniddwa.",
+  "sqrl-hardlock-on": "Pulogulaamu yo eya SQRL esibye akawunti eno ddala: okuzzaawo ekigambo ekyekusifu n'okukyusa imeyilo bigaaniddwa.",
+  "sqrl-only": "Akawunti eno eyingira ng'ekozesa SQRL yokka.",
+  "sqrl-hardlock": "Akawunti eno esibiddwa ku SQRL: tesobola kuzzibwawo wadde okukyusibwa mu ngeri endala yonna."
 }

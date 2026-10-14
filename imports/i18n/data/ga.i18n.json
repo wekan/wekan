@@ -4548,5 +4548,9 @@
   "sqrl-added": "Cuireadh d'fhéiniúlacht SQRL leis.",
   "sqrl-none": "Níl aon fhéiniúlacht SQRL curtha leis.",
   "sqrl-remove": "Bain m'fhéiniúlacht SQRL",
-  "sqrl-disabled-by-client": "Tá logáil isteach SQRL díchumasaithe don chuntas seo ó do chliant SQRL. Cumasaigh arís ansin é le do chód tarrthála."
+  "sqrl-disabled-by-client": "Tá logáil isteach SQRL díchumasaithe don chuntas seo ó do chliant SQRL. Cumasaigh arís ansin é le do chód tarrthála.",
+  "sqrl-only-on": "Tá do chliant SQRL tar éis an cuntas seo a ghlasáil ar SQRL: diúltaítear do gach bealach eile chun logáil isteach.",
+  "sqrl-hardlock-on": "Tá do chliant SQRL tar éis an cuntas seo a ghlasáil go docht: diúltaítear d'athshocrú pasfhocail agus d'athrú ríomhphoist.",
+  "sqrl-only": "Logálann an cuntas seo isteach le SQRL amháin.",
+  "sqrl-hardlock": "Tá an cuntas seo glasáilte ar SQRL: ní féidir é a aisghabháil ná a athrú ar aon bhealach eile."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL kimliğiniz eklendi.",
   "sqrl-none": "Hiçbir SQRL kimliği eklenmedi.",
   "sqrl-remove": "SQRL kimliğimi kaldır",
-  "sqrl-disabled-by-client": "Bu hesap için SQRL ile oturum açma, SQRL istemcinizden devre dışı bırakıldı. Kurtarma kodunuzla orada yeniden etkinleştirin."
+  "sqrl-disabled-by-client": "Bu hesap için SQRL ile oturum açma, SQRL istemcinizden devre dışı bırakıldı. Kurtarma kodunuzla orada yeniden etkinleştirin.",
+  "sqrl-only-on": "SQRL istemciniz bu hesabı SQRL'ye kilitledi: diğer tüm oturum açma yolları reddedilir.",
+  "sqrl-hardlock-on": "SQRL istemciniz bu hesabı sıkı kilitledi: parola sıfırlama ve e-posta değiştirme reddedilir.",
+  "sqrl-only": "Bu hesapta yalnızca SQRL ile oturum açılır.",
+  "sqrl-hardlock": "Bu hesap SQRL'ye kilitli: başka hiçbir yolla kurtarılamaz veya değiştirilemez."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Mae eich hunaniaeth SQRL wedi'i hychwanegu.",
   "sqrl-none": "Does dim hunaniaeth SQRL wedi'i hychwanegu.",
   "sqrl-remove": "Tynnu fy hunaniaeth SQRL",
-  "sqrl-disabled-by-client": "Mae mewngofnodi SQRL wedi'i analluogi ar gyfer y cyfrif hwn o'ch cleient SQRL. Galluogwch ef eto yno gyda'ch cod achub."
+  "sqrl-disabled-by-client": "Mae mewngofnodi SQRL wedi'i analluogi ar gyfer y cyfrif hwn o'ch cleient SQRL. Galluogwch ef eto yno gyda'ch cod achub.",
+  "sqrl-only-on": "Mae eich cleient SQRL wedi cloi'r cyfrif hwn i SQRL: gwrthodir pob ffordd arall o fewngofnodi.",
+  "sqrl-hardlock-on": "Mae eich cleient SQRL wedi cloi'r cyfrif hwn yn galed: gwrthodir ailosod cyfrinair a newid ebost.",
+  "sqrl-only": "Mae'r cyfrif hwn yn mewngofnodi gyda SQRL yn unig.",
+  "sqrl-hardlock": "Mae'r cyfrif hwn wedi'i gloi i SQRL: ni ellir ei adfer na'i newid mewn unrhyw ffordd arall."
 }

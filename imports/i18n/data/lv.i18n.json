@@ -4548,5 +4548,9 @@
   "sqrl-added": "Jūsu SQRL identitāte ir pievienota.",
   "sqrl-none": "Nav pievienota neviena SQRL identitāte.",
   "sqrl-remove": "Noņemt manu SQRL identitāti",
-  "sqrl-disabled-by-client": "Pierakstīšanās ar SQRL šim kontam ir atspējota jūsu SQRL klientā. Iespējojiet to tur atkārtoti ar savu glābšanas kodu."
+  "sqrl-disabled-by-client": "Pierakstīšanās ar SQRL šim kontam ir atspējota jūsu SQRL klientā. Iespējojiet to tur atkārtoti ar savu glābšanas kodu.",
+  "sqrl-only-on": "Jūsu SQRL klients ir piesaistījis šo kontu tikai SQRL: visi citi pierakstīšanās veidi tiek noraidīti.",
+  "sqrl-hardlock-on": "Jūsu SQRL klients ir stingri bloķējis šo kontu: paroles atiestatīšana un e-pasta maiņa tiek noraidītas.",
+  "sqrl-only": "Šajā kontā var pierakstīties tikai ar SQRL.",
+  "sqrl-hardlock": "Šis konts ir piesaistīts SQRL: to nevar atjaunot vai mainīt nekādā citā veidā."
 }

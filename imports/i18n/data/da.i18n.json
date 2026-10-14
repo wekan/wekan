@@ -4548,5 +4548,9 @@
   "sqrl-added": "Din SQRL-identitet er tilføjet.",
   "sqrl-none": "Ingen SQRL-identitet er tilføjet.",
   "sqrl-remove": "Fjern min SQRL-identitet",
-  "sqrl-disabled-by-client": "SQRL-login er slået fra for denne konto fra din SQRL-klient. Slå det til igen der med din gendannelseskode."
+  "sqrl-disabled-by-client": "SQRL-login er slået fra for denne konto fra din SQRL-klient. Slå det til igen der med din gendannelseskode.",
+  "sqrl-only-on": "Din SQRL-klient har låst denne konto til SQRL: alle andre måder at logge ind på afvises.",
+  "sqrl-hardlock-on": "Din SQRL-klient har hårdlåst denne konto: nulstilling af kodeord og ændring af e-postadresse afvises.",
+  "sqrl-only": "Denne konto logger kun ind med SQRL.",
+  "sqrl-hardlock": "Denne konto er låst til SQRL: den kan ikke gendannes eller ændres på nogen anden måde."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Dyn SQRL-identiteit is tafoege.",
   "sqrl-none": "Der is gjin SQRL-identiteit tafoege.",
   "sqrl-remove": "Myn SQRL-identiteit fuortsmite",
-  "sqrl-disabled-by-client": "Oanmelden mei SQRL is foar dit akkount útskeakele fanút dyn SQRL-client. Skeakel it dêr wer yn mei dyn rêdingskoade."
+  "sqrl-disabled-by-client": "Oanmelden mei SQRL is foar dit akkount útskeakele fanút dyn SQRL-client. Skeakel it dêr wer yn mei dyn rêdingskoade.",
+  "sqrl-only-on": "Dyn SQRL-client hat dit akkount oan SQRL fêstsetten: alle oare manieren om oan te melden wurde wegere.",
+  "sqrl-hardlock-on": "Dyn SQRL-client hat dit akkount hurd beskoattele: wachtwurd opnij ynstelle en e-mailadres wizigje wurde wegere.",
+  "sqrl-only": "Dit akkount meldt allinnich oan mei SQRL.",
+  "sqrl-hardlock": "Dit akkount is oan SQRL fêstsetten: it kin op gjin oare wize werombrocht of feroare wurde."
 }

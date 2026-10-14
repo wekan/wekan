@@ -4548,5 +4548,9 @@
   "sqrl-added": "'A identità SQRL toja è stata azzeccata.",
   "sqrl-none": "Nun ce sta nisciuna identità SQRL azzeccata.",
   "sqrl-remove": "Leva 'a identità SQRL mia",
-  "sqrl-disabled-by-client": "'A trasuta cu SQRL pe stu cunto è stata stutata d''o client SQRL tujo. Appicciala n'ata vota llà cu 'o codice 'e salvataggio tujo."
+  "sqrl-disabled-by-client": "'A trasuta cu SQRL pe stu cunto è stata stutata d''o client SQRL tujo. Appicciala n'ata vota llà cu 'o codice 'e salvataggio tujo.",
+  "sqrl-only-on": "'O client SQRL tujo ha nchiuso stu cunto sulo cu SQRL: ogne ata manera 'e trasì vene rifiutata.",
+  "sqrl-hardlock-on": "'O client SQRL tujo ha nchiuso stu cunto pe' ssempe: 'o ripristino d''a parola d'ordine e 'o cagno d''a posta elettronica so' rifiutate.",
+  "sqrl-only": "Stu cunto trase sulo cu SQRL.",
+  "sqrl-hardlock": "Stu cunto è nchiuso cu SQRL: nun se pò recuperà o cagnà 'n nisciun'ata manera."
 }

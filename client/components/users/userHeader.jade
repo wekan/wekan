@@ -213,6 +213,9 @@ template(name="editProfilePopup")
       | {{_ 'email'}}
       span.error.hide.email-taken
         | {{_ 'error-email-taken'}}
+      //- #2460: the member's SQRL client hardlocked the account.
+      span.error.hide.sqrl-hardlock-error
+        | {{_ 'sqrl-hardlock'}}
       if allowEmailChange
         input.js-profile-email(type="email" value="{{emails.[0].address}}")
       else
@@ -271,6 +274,14 @@ template(name="sqrlPopup")
           |  {{_ 'sqrl-added'}}
         if mine.disabled
           p.quiet {{_ 'sqrl-disabled-by-client'}}
+        if mine.sqrlOnly
+          p.quiet
+            i.fa.fa-lock
+            |  {{_ 'sqrl-only-on'}}
+        if mine.hardlock
+          p.quiet
+            i.fa.fa-lock
+            |  {{_ 'sqrl-hardlock-on'}}
         button.js-sqrl-remove(type="button") {{_ 'sqrl-remove'}}
       else
         p.quiet {{_ 'sqrl-none'}}

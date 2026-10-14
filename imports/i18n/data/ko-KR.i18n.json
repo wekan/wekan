@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL ID가 추가되었습니다.",
   "sqrl-none": "추가된 SQRL ID가 없습니다.",
   "sqrl-remove": "내 SQRL ID 제거",
-  "sqrl-disabled-by-client": "SQRL 클라이언트에서 이 계정의 SQRL 로그인이 비활성화되었습니다. 클라이언트에서 복구 코드로 다시 활성화하세요."
+  "sqrl-disabled-by-client": "SQRL 클라이언트에서 이 계정의 SQRL 로그인이 비활성화되었습니다. 클라이언트에서 복구 코드로 다시 활성화하세요.",
+  "sqrl-only-on": "SQRL 클라이언트가 이 계정을 SQRL 전용으로 잠갔습니다. 다른 모든 로그인 방법은 거부됩니다.",
+  "sqrl-hardlock-on": "SQRL 클라이언트가 이 계정을 완전히 잠갔습니다. 비밀번호 재설정과 이메일 변경은 거부됩니다.",
+  "sqrl-only": "이 계정은 SQRL로만 로그인합니다.",
+  "sqrl-hardlock": "이 계정은 SQRL에 잠겨 있습니다. 다른 방법으로는 복구하거나 변경할 수 없습니다."
 }

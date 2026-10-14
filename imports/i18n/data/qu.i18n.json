@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL kikiykiqa yapasqañam.",
   "sqrl-none": "Manam ima SQRL kikinpas yapasqachu.",
   "sqrl-remove": "SQRL kikiyta qichuy",
-  "sqrl-disabled-by-client": "Kay cuentapaq SQRL-wan yaykuyqa SQRL llamk'anaykimanta wañuchisqa. Chaypi qispichiy chiqtaykiwan wakmanta kawsachiy."
+  "sqrl-disabled-by-client": "Kay cuentapaq SQRL-wan yaykuyqa SQRL llamk'anaykimanta wañuchisqa. Chaypi qispichiy chiqtaykiwan wakmanta kawsachiy.",
+  "sqrl-only-on": "SQRL llamk'anaykiqa kay cuentata SQRL-llapaq wichq'arqan: yaykunapaq huk ñankunaqa llapanmi mana chaskisqachu.",
+  "sqrl-hardlock-on": "SQRL llamk'anaykiqa kay cuentata sinchita wichq'arqan: pakasqa rimayta musuqchayqa elektroniku chaskita tikrayqa mana chaskisqachu.",
+  "sqrl-only": "Kay cuentaqa SQRL-wanllam yaykun.",
+  "sqrl-hardlock": "Kay cuentaqa SQRL-man wichq'asqa: manam huk ñanwanqa kutichiyta nitaq tikrayta atikunchu."
 }

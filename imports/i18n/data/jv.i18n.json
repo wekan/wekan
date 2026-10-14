@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identitas SQRL panjenengan wis ditambahake.",
   "sqrl-none": "Durung ana identitas SQRL sing ditambahake.",
   "sqrl-remove": "Busak identitas SQRL kula",
-  "sqrl-disabled-by-client": "Mlebu nganggo SQRL dipateni kanggo akun iki saka klien SQRL panjenengan. Uripake maneh ing kana nganggo kode penyelamat panjenengan."
+  "sqrl-disabled-by-client": "Mlebu nganggo SQRL dipateni kanggo akun iki saka klien SQRL panjenengan. Uripake maneh ing kana nganggo kode penyelamat panjenengan.",
+  "sqrl-only-on": "Klien SQRL panjenengan wis ngunci akun iki menyang SQRL: kabeh cara mlebu liyane ditolak.",
+  "sqrl-hardlock-on": "Klien SQRL panjenengan wis ngunci akun iki kanthi rapet: ngreset tembung sandhi lan ngganti email ditolak.",
+  "sqrl-only": "Akun iki mlebu mung nganggo SQRL.",
+  "sqrl-hardlock": "Akun iki dikunci menyang SQRL: ora bisa dipulihake utawa diganti kanthi cara liya."
 }

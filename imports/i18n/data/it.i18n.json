@@ -4548,5 +4548,9 @@
   "sqrl-added": "La tua identità SQRL è stata aggiunta.",
   "sqrl-none": "Nessuna identità SQRL aggiunta.",
   "sqrl-remove": "Rimuovi la mia identità SQRL",
-  "sqrl-disabled-by-client": "L'accesso con SQRL è disattivato per questo account dal tuo client SQRL. Riattivalo lì con il tuo codice di recupero."
+  "sqrl-disabled-by-client": "L'accesso con SQRL è disattivato per questo account dal tuo client SQRL. Riattivalo lì con il tuo codice di recupero.",
+  "sqrl-only-on": "Il tuo client SQRL ha vincolato questo account a SQRL: ogni altro modo di accedere viene rifiutato.",
+  "sqrl-hardlock-on": "Il tuo client SQRL ha bloccato completamente questo account: il ripristino della password e la modifica dell'e-mail vengono rifiutati.",
+  "sqrl-only": "Questo account accede solo con SQRL.",
+  "sqrl-hardlock": "Questo account è vincolato a SQRL: non può essere recuperato né modificato in nessun altro modo."
 }

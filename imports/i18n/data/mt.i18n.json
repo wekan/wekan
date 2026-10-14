@@ -4548,5 +4548,9 @@
   "sqrl-added": "L-identità SQRL tiegħek ġiet miżjuda.",
   "sqrl-none": "L-ebda identità SQRL ma ġiet miżjuda.",
   "sqrl-remove": "Neħħi l-identità SQRL tiegħi",
-  "sqrl-disabled-by-client": "Id-dħul bl-SQRL huwa mitfi għal dan il-kont mill-klijent SQRL tiegħek. Erġa' ixgħlu hemm bil-kodiċi ta' salvataġġ tiegħek."
+  "sqrl-disabled-by-client": "Id-dħul bl-SQRL huwa mitfi għal dan il-kont mill-klijent SQRL tiegħek. Erġa' ixgħlu hemm bil-kodiċi ta' salvataġġ tiegħek.",
+  "sqrl-only-on": "Il-klijent SQRL tiegħek sakkar dan il-kont għall-SQRL biss: kull mod ieħor ta' dħul huwa miċħud.",
+  "sqrl-hardlock-on": "Il-klijent SQRL tiegħek sakkar dan il-kont b'mod sħiħ: ir-reset tal-kelma ta' għassa u t-tibdil tal-posta elettronika huma miċħuda.",
+  "sqrl-only": "Dan il-kont jidħol bl-SQRL biss.",
+  "sqrl-hardlock": "Dan il-kont huwa msakkar għall-SQRL: ma jistax jiġi rkuprat jew mibdul b'ebda mod ieħor."
 }

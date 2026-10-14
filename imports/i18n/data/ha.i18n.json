@@ -4548,5 +4548,9 @@
   "sqrl-added": "An ƙara shaidar SQRL ɗinka.",
   "sqrl-none": "Ba a ƙara wata shaidar SQRL ba.",
   "sqrl-remove": "Cire shaidar SQRL ta",
-  "sqrl-disabled-by-client": "An kashe shiga da SQRL don wannan asusun daga manhajar SQRL ɗinka. Sake kunna shi a can da lambar ceto ɗinka."
+  "sqrl-disabled-by-client": "An kashe shiga da SQRL don wannan asusun daga manhajar SQRL ɗinka. Sake kunna shi a can da lambar ceto ɗinka.",
+  "sqrl-only-on": "Manhajar SQRL ɗinka ta kulle wannan asusun zuwa SQRL: an ƙi duk wata hanyar shiga.",
+  "sqrl-hardlock-on": "Manhajar SQRL ɗinka ta kulle wannan asusun gaba ɗaya: an ƙi sake saita kalmar sirri da canza imel.",
+  "sqrl-only": "Wannan asusun yana shiga da SQRL kaɗai.",
+  "sqrl-hardlock": "An kulle wannan asusun zuwa SQRL: ba za a iya dawo da shi ko canza shi ta wata hanya ba."
 }

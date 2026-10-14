@@ -4548,5 +4548,9 @@
   "sqrl-added": "Vhuvhili haṋu ha SQRL ho engedzwa.",
   "sqrl-none": "A hu na vhuvhili ha SQRL ho engedzwaho.",
   "sqrl-remove": "Bvisani vhuvhili hanga ha SQRL",
-  "sqrl-disabled-by-client": "U dzhena nga SQRL ho dzimiwa kha akhaunthu iyi u bva kha khiḽaini yaṋu ya SQRL. Hu dzhiseni hafhu henefho nga khoudu yaṋu ya u tshidza."
+  "sqrl-disabled-by-client": "U dzhena nga SQRL ho dzimiwa kha akhaunthu iyi u bva kha khiḽaini yaṋu ya SQRL. Hu dzhiseni hafhu henefho nga khoudu yaṋu ya u tshidza.",
+  "sqrl-only-on": "Khiḽaini yaṋu ya SQRL yo hadzimela akhaunthu iyi kha SQRL fhedzi: nḓila dzoṱhe dzińwe dza u dzhena dzi a hanelwa.",
+  "sqrl-hardlock-on": "Khiḽaini yaṋu ya SQRL yo hadzimela akhaunthu iyi nga u khwaṱha: u vhea hafhu phasiwede na u shandukisa imeiḽi zwi a hanelwa.",
+  "sqrl-only": "Akhaunthu iyi i dzhena nga SQRL fhedzi.",
+  "sqrl-hardlock": "Akhaunthu iyi yo hadzimelwa kha SQRL: a i koni u wanulusiwa kana u shandukiswa nga iṅwe nḓila."
 }

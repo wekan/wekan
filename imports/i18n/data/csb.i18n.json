@@ -4548,5 +4548,9 @@
   "sqrl-added": "Twòja identiteta SQRL je dodónô.",
   "sqrl-none": "Nie je dodónô niżódnô identiteta SQRL.",
   "sqrl-remove": "Rëmni mòjã identitetã SQRL",
-  "sqrl-disabled-by-client": "Wlogòwanié przez SQRL je wëłączoné dlô tegò kònta w twòjim klientce SQRL. Włączë je tam znowa swòjim kòdã ratënkù."
+  "sqrl-disabled-by-client": "Wlogòwanié przez SQRL je wëłączoné dlô tegò kònta w twòjim klientce SQRL. Włączë je tam znowa swòjim kòdã ratënkù.",
+  "sqrl-only-on": "Twój klient SQRL zablokòwôł to kònto do SQRL: wszëtczé jinszé sposobë wlogòwaniô są òdrzucóné.",
+  "sqrl-hardlock-on": "Twój klient SQRL twardo zablokòwôł to kònto: resetowanié parolë ë zmiana elektronicznegò lëstu są òdrzucóné.",
+  "sqrl-only": "Do tegò kònta mòżna sã wlogòwac le przez SQRL.",
+  "sqrl-hardlock": "To kònto je zablokòwóné do SQRL: nie dô gò òdzwëskac ani zmienic żódnym jinszim sposobã."
 }

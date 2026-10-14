@@ -2635,6 +2635,22 @@
     {
       "key": "sqrl-disabled-by-client",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-only-on",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-hardlock-on",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-only",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sqrl-hardlock",
+      "since": "2026-10-14"
     }
   ]
 }

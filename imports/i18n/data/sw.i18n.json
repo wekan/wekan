@@ -4548,5 +4548,9 @@
   "sqrl-added": "Utambulisho wako wa SQRL umeongezwa.",
   "sqrl-none": "Hakuna utambulisho wa SQRL ulioongezwa.",
   "sqrl-remove": "Ondoa utambulisho wangu wa SQRL",
-  "sqrl-disabled-by-client": "Kuingia kwa SQRL kumezimwa kwa akaunti hii kutoka kwa mteja wako wa SQRL. Kuwashe tena huko kwa msimbo wako wa uokoaji."
+  "sqrl-disabled-by-client": "Kuingia kwa SQRL kumezimwa kwa akaunti hii kutoka kwa mteja wako wa SQRL. Kuwashe tena huko kwa msimbo wako wa uokoaji.",
+  "sqrl-only-on": "Mteja wako wa SQRL amefunga akaunti hii kwa SQRL: njia nyingine zote za kuingia zinakataliwa.",
+  "sqrl-hardlock-on": "Mteja wako wa SQRL amefunga akaunti hii kabisa: kuweka upya nenosiri na kubadilisha barua pepe kunakataliwa.",
+  "sqrl-only": "Akaunti hii huingia kwa SQRL pekee.",
+  "sqrl-hardlock": "Akaunti hii imefungwa kwa SQRL: haiwezi kurejeshwa wala kubadilishwa kwa njia nyingine yoyote."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "Din SQRL-identitet är tillagd.",
   "sqrl-none": "Ingen SQRL-identitet är tillagd.",
   "sqrl-remove": "Ta bort min SQRL-identitet",
-  "sqrl-disabled-by-client": "SQRL-inloggning är inaktiverad för det här kontot från din SQRL-klient. Aktivera den igen där med din räddningskod."
+  "sqrl-disabled-by-client": "SQRL-inloggning är inaktiverad för det här kontot från din SQRL-klient. Aktivera den igen där med din räddningskod.",
+  "sqrl-only-on": "Din SQRL-klient har låst det här kontot till SQRL: alla andra sätt att logga in nekas.",
+  "sqrl-hardlock-on": "Din SQRL-klient har hårdlåst det här kontot: återställning av lösenord och byte av e-post nekas.",
+  "sqrl-only": "Det här kontot loggar bara in med SQRL.",
+  "sqrl-hardlock": "Det här kontot är låst till SQRL: det kan inte återställas eller ändras på något annat sätt."
 }

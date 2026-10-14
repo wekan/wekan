@@ -4548,5 +4548,9 @@
   "sqrl-added": "Identitas tua SQRL addita est.",
   "sqrl-none": "Nulla identitas SQRL addita est.",
   "sqrl-remove": "Remove identitatem meam SQRL",
-  "sqrl-disabled-by-client": "Ingressus per SQRL huic rationi a cliente tuo SQRL debilitatus est. Ibi eum codice tuo salutis rursus para."
+  "sqrl-disabled-by-client": "Ingressus per SQRL huic rationi a cliente tuo SQRL debilitatus est. Ibi eum codice tuo salutis rursus para.",
+  "sqrl-only-on": "Cliens tuus SQRL hanc rationem ad SQRL solum clausit: omnis alia via ingrediendi recusatur.",
+  "sqrl-hardlock-on": "Cliens tuus SQRL hanc rationem firmiter clausit: tesserae renovatio et litterarum electronicarum mutatio recusantur.",
+  "sqrl-only": "Haec ratio per SQRL solum ingreditur.",
+  "sqrl-hardlock": "Haec ratio ad SQRL clausa est: nulla alia via recuperari aut mutari potest."
 }

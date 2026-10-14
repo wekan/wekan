@@ -4548,5 +4548,9 @@
   "sqrl-added": "Ihre SQRL-Identität wurde hinzugefügt.",
   "sqrl-none": "Keine SQRL-Identität hinzugefügt.",
   "sqrl-remove": "Meine SQRL-Identität entfernen",
-  "sqrl-disabled-by-client": "Die SQRL-Anmeldung ist für dieses Konto in Ihrem SQRL-Client deaktiviert. Aktivieren Sie sie dort mit Ihrem Rettungscode wieder."
+  "sqrl-disabled-by-client": "Die SQRL-Anmeldung ist für dieses Konto in Ihrem SQRL-Client deaktiviert. Aktivieren Sie sie dort mit Ihrem Rettungscode wieder.",
+  "sqrl-only-on": "Ihr SQRL-Client hat dieses Konto auf SQRL festgelegt: Jede andere Art der Anmeldung wird abgelehnt.",
+  "sqrl-hardlock-on": "Ihr SQRL-Client hat dieses Konto fest gesperrt: Zurücksetzen des Passworts und Ändern der E-Mail werden abgelehnt.",
+  "sqrl-only": "Dieses Konto meldet sich nur mit SQRL an.",
+  "sqrl-hardlock": "Dieses Konto ist an SQRL gebunden: Es kann auf keine andere Weise wiederhergestellt oder geändert werden."
 }

@@ -56,5 +56,28 @@ The QR code is drawn by
 [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) (MIT),
 pinned in `package.json`.
 
-Not supported: the `sqrlonly` and `hardlock` options, which ask the site to
-refuse every other way of signing in; WeKan keeps those for the admin.
+## Locking the account to SQRL
+
+Your SQRL client has two options that it sends to WeKan every time it signs
+you in. WeKan follows whatever the latest sign-in sent, so you switch them on
+and off in the SQRL client. Member Settings → **SQRL** shows which are on.
+
+- **sqrlonly** (*Request SQRL-only login*): your account signs in with SQRL
+  only. Password, OAuth2/OIDC, LDAP, SAML, CAS, passkey, Nextcloud, header
+  login and the REST API's `/users/login` all refuse it. Browsers that are
+  already signed in stay signed in; sign out everywhere to end them.
+- **hardlock** (*Request no recourse identity lock*): your account cannot be
+  taken over by recovering it some other way. No password-reset e-mail is
+  sent; WeKan answers as if one were, so the answer reveals nothing about the
+  account. A reset link sent before the lock does not sign in, and you cannot
+  change your e-mail address yourself.
+
+Ways back, on purpose:
+
+- **Disable SQRL from your SQRL client.** It is the emergency stop for a lost
+  or compromised identity, and while the identity is disabled, neither lock
+  applies. Re-enabling it with your rescue code puts the locks back.
+- **The admin turns SQRL off** (Admin Panel → Settings → Visibility →
+  Features). Then no account is locked.
+- **An admin can still** change your e-mail address, set your password and
+  create a token for you; the admin is the last resort.

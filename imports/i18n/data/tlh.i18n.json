@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL ngu'meH ngaQHa'moHwI'lIj chellu'pu'.",
   "sqrl-none": "SQRL ngu'meH ngaQHa'moHwI' pagh chellu'.",
   "sqrl-remove": "SQRL ngu'meH ngaQHa'moHwI'wIj yIteq",
-  "sqrl-disabled-by-client": "SQRL De'wI'lIjvo' mI'vam SQRL lo'taH 'elmeH chu'Ha'lu'pu'. pa' QaQwI' ngutlhlIj lo'taH yIchu'qa'."
+  "sqrl-disabled-by-client": "SQRL De'wI'lIjvo' mI'vam SQRL lo'taH 'elmeH chu'Ha'lu'pu'. pa' QaQwI' ngutlhlIj lo'taH yIchu'qa'.",
+  "sqrl-only-on": "mI'vam SQRL neH ngaQmoHpu' SQRL De'wI'lIj: 'elmeH Hoch latlh mIw lajQo'lu'.",
+  "sqrl-hardlock-on": "mI'vam HoS ngaQmoHpu' SQRL De'wI'lIj: pegh mu' choHqa'meH je jabbI'ID choHmeH je tlhobmeH lajQo'lu'.",
+  "sqrl-only": "SQRL neH lo'taHvIS mI'vam 'ellu'.",
+  "sqrl-hardlock": "SQRL ngaQmoHlu'pu' mI'vam: latlh mIw lo'taHvIS chenqa'laHbe'lu' choHlaHbe'lu' je."
 }

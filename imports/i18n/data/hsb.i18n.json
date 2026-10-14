@@ -4548,5 +4548,9 @@
   "sqrl-added": "Waša SQRL-identita je přidata.",
   "sqrl-none": "Žana SQRL-identita njeje přidata.",
   "sqrl-remove": "Moju SQRL-identitu wotstronić",
-  "sqrl-disabled-by-client": "Přizjewjenje přez SQRL je za tute konto we wašim SQRL-klienće znjemóžnjene. Zmóžńće je tam znowa ze swojim wuchowanskim kodom."
+  "sqrl-disabled-by-client": "Přizjewjenje přez SQRL je za tute konto we wašim SQRL-klienće znjemóžnjene. Zmóžńće je tam znowa ze swojim wuchowanskim kodom.",
+  "sqrl-only-on": "Waš SQRL-klient je tute konto na SQRL zawrěł: kóždy druhi puć přizjewjenja so wotpokaza.",
+  "sqrl-hardlock-on": "Waš SQRL-klient je tute konto dospołnje zawrěł: wróćostajenje hesła a změna e-mejloweje adresy so wotpokazatej.",
+  "sqrl-only": "Tute konto so jenož přez SQRL přizjewja.",
+  "sqrl-hardlock": "Tute konto je na SQRL zawrjene: njehodźi so na žadyn druhi puć wobnowić abo změnić."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL identifikatoringiz qo'shildi.",
   "sqrl-none": "Hech qanday SQRL identifikatori qo'shilmagan.",
   "sqrl-remove": "SQRL identifikatorimni olib tashlash",
-  "sqrl-disabled-by-client": "Bu hisob uchun SQRL orqali kirish SQRL mijozingizdan o'chirilgan. Uni o'sha yerda qutqaruv kodingiz bilan qayta yoqing."
+  "sqrl-disabled-by-client": "Bu hisob uchun SQRL orqali kirish SQRL mijozingizdan o'chirilgan. Uni o'sha yerda qutqaruv kodingiz bilan qayta yoqing.",
+  "sqrl-only-on": "SQRL mijozingiz bu hisobni faqat SQRL'ga qulfladi: kirishning boshqa barcha usullari rad etiladi.",
+  "sqrl-hardlock-on": "SQRL mijozingiz bu hisobni qattiq qulfladi: parolni tiklash va elektron pochtani o'zgartirish rad etiladi.",
+  "sqrl-only": "Bu hisobga faqat SQRL orqali kiriladi.",
+  "sqrl-hardlock": "Bu hisob SQRL'ga qulflangan: uni boshqa hech qanday yo'l bilan tiklab yoki o'zgartirib bo'lmaydi."
 }

@@ -4548,5 +4548,9 @@
   "sqrl-added": "La tô identitât SQRL e je stade zontade.",
   "sqrl-none": "Nissune identitât SQRL zontade.",
   "sqrl-remove": "Gjave la mê identitât SQRL",
-  "sqrl-disabled-by-client": "La jentrade cun SQRL e je distudade par chest account dal to client SQRL. Tornile a ativâ li cul to codiç di salvament."
+  "sqrl-disabled-by-client": "La jentrade cun SQRL e je distudade par chest account dal to client SQRL. Tornile a ativâ li cul to codiç di salvament.",
+  "sqrl-only-on": "Il to client SQRL al à blocât chest account su SQRL: ogni altre maniere di jentrâ e ven refudade.",
+  "sqrl-hardlock-on": "Il to client SQRL al à blocât dal dut chest account: il ripristin de password e il cambiament de e-mail a vegnin refudâts.",
+  "sqrl-only": "Chest account al jentre dome cun SQRL.",
+  "sqrl-hardlock": "Chest account al è blocât su SQRL: nol pues jessi recuperât ni cambiât in nissune altre maniere."
 }

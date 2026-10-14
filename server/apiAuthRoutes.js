@@ -187,7 +187,10 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       result = await Accounts._checkPasswordAsync(user, options.password);
     }
 
-    if (!result || result.error || !result.userId || !require('/server/lib/activeUser').allowActiveUser(user, 'rest-login', req)) {
+    // #2460 SQRL sqrlonly: a member who locked the account to SQRL is not
+    // signed in with a password here either. The answer is the uniform one.
+    if (!result || result.error || !result.userId || !require('/server/lib/activeUser').allowActiveUser(user, 'rest-login', req)
+      || (await require('/server/sqrl').sqrlRefusesRestLogin(user))) {
       restLoginThrottle.recordFailure(clientKey, now);
       failAccount();
       throw uniformLoginError();

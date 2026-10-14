@@ -4548,5 +4548,9 @@
   "sqrl-added": "Sinu SQRL-identiteet on lisatud.",
   "sqrl-none": "Ühtegi SQRL-identiteeti pole lisatud.",
   "sqrl-remove": "Eemalda minu SQRL-identiteet",
-  "sqrl-disabled-by-client": "SQRL-iga sisselogimine on selle konto jaoks sinu SQRL-kliendis keelatud. Luba see seal uuesti oma päästekoodiga."
+  "sqrl-disabled-by-client": "SQRL-iga sisselogimine on selle konto jaoks sinu SQRL-kliendis keelatud. Luba see seal uuesti oma päästekoodiga.",
+  "sqrl-only-on": "Sinu SQRL-klient on lukustanud selle konto SQRL-ile: kõik muud sisselogimisviisid keelatakse.",
+  "sqrl-hardlock-on": "Sinu SQRL-klient on selle konto täielikult lukustanud: parooli lähtestamine ja e-posti muutmine keelatakse.",
+  "sqrl-only": "See konto logib sisse ainult SQRL-iga.",
+  "sqrl-hardlock": "See konto on lukustatud SQRL-ile: seda ei saa muul viisil taastada ega muuta."
 }

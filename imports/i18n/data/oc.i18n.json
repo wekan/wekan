@@ -4548,5 +4548,9 @@
   "sqrl-added": "Vòstra identitat SQRL es aponduda.",
   "sqrl-none": "Cap d'identitat SQRL es pas aponduda.",
   "sqrl-remove": "Levar mon identitat SQRL",
-  "sqrl-disabled-by-client": "L'identificacion amb SQRL es desactivada per aqueste compte dempuèi vòstre client SQRL. Tornatz l'activar alai amb vòstre còdi de salvament."
+  "sqrl-disabled-by-client": "L'identificacion amb SQRL es desactivada per aqueste compte dempuèi vòstre client SQRL. Tornatz l'activar alai amb vòstre còdi de salvament.",
+  "sqrl-only-on": "Vòstre client SQRL a verrolhat aqueste compte sus SQRL: tota autra manièra de s'identificar es refusada.",
+  "sqrl-hardlock-on": "Vòstre client SQRL a verrolhat fèrmament aqueste compte: la reïnicializacion del senhal e lo cambiament de corrièl son refusats.",
+  "sqrl-only": "Aqueste compte s'identifica pas qu'amb SQRL.",
+  "sqrl-hardlock": "Aqueste compte es verrolhat sus SQRL: se pòt pas recuperar ni modificar d'una autra manièra."
 }

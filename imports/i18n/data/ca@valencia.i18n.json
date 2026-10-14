@@ -4548,5 +4548,9 @@
   "sqrl-added": "La teua identitat SQRL s'ha afegit.",
   "sqrl-none": "No hi ha cap identitat SQRL afegida.",
   "sqrl-remove": "Lleva la meua identitat SQRL",
-  "sqrl-disabled-by-client": "L'inici de sessió amb SQRL està desactivat per a este compte des del teu client SQRL. Torna a activar-lo allí amb el teu codi de rescat."
+  "sqrl-disabled-by-client": "L'inici de sessió amb SQRL està desactivat per a este compte des del teu client SQRL. Torna a activar-lo allí amb el teu codi de rescat.",
+  "sqrl-only-on": "El teu client SQRL ha bloquejat este compte a SQRL: es rebutja qualsevol altra manera d'iniciar la sessió.",
+  "sqrl-hardlock-on": "El teu client SQRL ha bloquejat del tot este compte: es rebutgen el restabliment de la contrasenya i el canvi de correu electrònic.",
+  "sqrl-only": "Este compte només inicia la sessió amb SQRL.",
+  "sqrl-hardlock": "Este compte està bloquejat a SQRL: no es pot recuperar ni canviar de cap altra manera."
 }

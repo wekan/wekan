@@ -4548,5 +4548,9 @@
   "sqrl-added": "Tín SQRL-samleiki er lagdur afturat.",
   "sqrl-none": "Eingin SQRL-samleiki er lagdur afturat.",
   "sqrl-remove": "Strika mín SQRL-samleika",
-  "sqrl-disabled-by-client": "Innritan við SQRL er sløkt fyri hesa kontu úr tínum SQRL-klienti. Tendra hana aftur har við tíni bjargingarkotu."
+  "sqrl-disabled-by-client": "Innritan við SQRL er sløkt fyri hesa kontu úr tínum SQRL-klienti. Tendra hana aftur har við tíni bjargingarkotu.",
+  "sqrl-only-on": "Tín SQRL-klientur hevur læst hesa kontu til SQRL: allir aðrir hættir at rita inn verða noktaðir.",
+  "sqrl-hardlock-on": "Tín SQRL-klientur hevur harðlæst hesa kontu: nullstilling av loyniorði og broyting av teldupostadressu verða noktaði.",
+  "sqrl-only": "Henda kontan ritar einans inn við SQRL.",
+  "sqrl-hardlock": "Henda kontan er læst til SQRL: hon kann ikki endurskapast ella broytast á nakran annan hátt."
 }

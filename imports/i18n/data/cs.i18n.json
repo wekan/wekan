@@ -4548,5 +4548,9 @@
   "sqrl-added": "Vaše SQRL identita je přidána.",
   "sqrl-none": "Není přidána žádná SQRL identita.",
   "sqrl-remove": "Odebrat moji SQRL identitu",
-  "sqrl-disabled-by-client": "Přihlášení pomocí SQRL je pro tento účet zakázáno ve vašem SQRL klientovi. Znovu ho tam povolte pomocí svého záchranného kódu."
+  "sqrl-disabled-by-client": "Přihlášení pomocí SQRL je pro tento účet zakázáno ve vašem SQRL klientovi. Znovu ho tam povolte pomocí svého záchranného kódu.",
+  "sqrl-only-on": "Váš SQRL klient uzamkl tento účet na SQRL: každý jiný způsob přihlášení je odmítnut.",
+  "sqrl-hardlock-on": "Váš SQRL klient pevně uzamkl tento účet: obnovení hesla a změna e-mailu jsou odmítnuty.",
+  "sqrl-only": "K tomuto účtu se lze přihlásit pouze pomocí SQRL.",
+  "sqrl-hardlock": "Tento účet je uzamčen na SQRL: nelze jej obnovit ani změnit žádným jiným způsobem."
 }

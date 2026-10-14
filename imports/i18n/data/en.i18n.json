@@ -4548,5 +4548,9 @@
   "sqrl-added": "Your SQRL identity is added.",
   "sqrl-none": "No SQRL identity is added.",
   "sqrl-remove": "Remove my SQRL identity",
-  "sqrl-disabled-by-client": "SQRL sign-in is disabled for this account from your SQRL client. Re-enable it there with your rescue code."
+  "sqrl-disabled-by-client": "SQRL sign-in is disabled for this account from your SQRL client. Re-enable it there with your rescue code.",
+  "sqrl-only-on": "Your SQRL client has locked this account to SQRL: every other way of signing in is refused.",
+  "sqrl-hardlock-on": "Your SQRL client has hardlocked this account: password reset and e-mail change are refused.",
+  "sqrl-only": "This account signs in with SQRL only.",
+  "sqrl-hardlock": "This account is locked to SQRL: it cannot be recovered or changed any other way."
 }

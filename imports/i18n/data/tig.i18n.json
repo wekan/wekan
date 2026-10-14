@@ -4548,5 +4548,9 @@
   "sqrl-added": "መንነትካ ናይ SQRL ተወስከ።",
   "sqrl-none": "ኢኖ መንነት SQRL እተወስከ።",
   "sqrl-remove": "መንነትየ ናይ SQRL ሕደግ",
-  "sqrl-disabled-by-client": "እትዋ SQRL ለእሊ ሕሳብ እምነ ዓሚል SQRL ማልካ ተዓጽዩ። ብ ኮድ ምድሐን ማልካ ህቱ ኣሕደስ ፍታሕዮ።"
+  "sqrl-disabled-by-client": "እትዋ SQRL ለእሊ ሕሳብ እምነ ዓሚል SQRL ማልካ ተዓጽዩ። ብ ኮድ ምድሐን ማልካ ህቱ ኣሕደስ ፍታሕዮ።",
+  "sqrl-only-on": "ዓሚል SQRL ማልካ ለእሊ ሕሳብ ለ SQRL ባሕቱ ዐጽዩ፡ ኵሉ ካልእ ፍንተ እትዋ ተሐረመ።",
+  "sqrl-hardlock-on": "ዓሚል SQRL ማልካ ለእሊ ሕሳብ ብ ጽንዓት ዐጽዩ፡ ሚስጥር ቃል ምሕዳስ ወ ኢመይል ምብዳል ተሐረመ።",
+  "sqrl-only": "እሊ ሕሳብ ብ SQRL ባሕቱ ልትአቴ።",
+  "sqrl-hardlock": "እሊ ሕሳብ ለ SQRL ተዓጽዩ፡ ብ ካልእ ፍንተ ኢልትመየስ ወኢልትበደል።"
 }

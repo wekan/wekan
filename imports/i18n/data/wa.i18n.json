@@ -4548,5 +4548,9 @@
   "sqrl-added": "Vosse idintité SQRL est radjoutêye.",
   "sqrl-none": "I gn a nole idintité SQRL di radjoutêye.",
   "sqrl-remove": "Oister mi idintité SQRL",
-  "sqrl-disabled-by-client": "Li mintraedje avou SQRL est dismetou po ci conte ci dispoy vosse cliyint SQRL. Ritchoukîz-l' la avou vosse côde di sacwaedje."
+  "sqrl-disabled-by-client": "Li mintraedje avou SQRL est dismetou po ci conte ci dispoy vosse cliyint SQRL. Ritchoukîz-l' la avou vosse côde di sacwaedje.",
+  "sqrl-only-on": "Vosse cliyint SQRL a serré ci conte ci al SQRL: tos les ôtes manires di s' mintrer sont rifuzêyes.",
+  "sqrl-hardlock-on": "Vosse cliyint SQRL a serré ci conte ci a dur: li rimetaedje do sicret eyet l' candjmint d' emile sont rifuzés.",
+  "sqrl-only": "Ci conte ci s' mintere seulmint avou SQRL.",
+  "sqrl-hardlock": "Ci conte ci est serré al SQRL: on n' el pout rapexhî ni candjî d' nole ôte manire."
 }

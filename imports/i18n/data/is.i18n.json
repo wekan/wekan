@@ -4548,5 +4548,9 @@
   "sqrl-added": "SQRL-auðkenninu þínu hefur verið bætt við.",
   "sqrl-none": "Engu SQRL-auðkenni hefur verið bætt við.",
   "sqrl-remove": "Fjarlægja SQRL-auðkenni mitt",
-  "sqrl-disabled-by-client": "SQRL-innskráning er óvirk fyrir þennan aðgang í SQRL-biðlaranum þínum. Virkjaðu hana aftur þar með björgunarkóðanum þínum."
+  "sqrl-disabled-by-client": "SQRL-innskráning er óvirk fyrir þennan aðgang í SQRL-biðlaranum þínum. Virkjaðu hana aftur þar með björgunarkóðanum þínum.",
+  "sqrl-only-on": "SQRL-biðlarinn þinn hefur læst þessum aðgangi við SQRL: öllum öðrum innskráningarleiðum er hafnað.",
+  "sqrl-hardlock-on": "SQRL-biðlarinn þinn hefur harðlæst þessum aðgangi: endurstillingu lykilorðs og breytingu á tölvupóstfangi er hafnað.",
+  "sqrl-only": "Þessi aðgangur skráir sig aðeins inn með SQRL.",
+  "sqrl-hardlock": "Þessi aðgangur er læstur við SQRL: ekki er hægt að endurheimta hann eða breyta honum á neinn annan hátt."
 }

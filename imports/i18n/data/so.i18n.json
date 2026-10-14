@@ -4548,5 +4548,9 @@
   "sqrl-added": "Aqoonsigaaga SQRL waa la daray.",
   "sqrl-none": "Ma jiro aqoonsi SQRL oo la daray.",
   "sqrl-remove": "Ka saar aqoonsigayga SQRL",
-  "sqrl-disabled-by-client": "Galitaanka SQRL waa laga joojiyay akoonkan macmiilkaaga SQRL. Halkaas dib ugu shid koodhkaaga badbaadinta."
+  "sqrl-disabled-by-client": "Galitaanka SQRL waa laga joojiyay akoonkan macmiilkaaga SQRL. Halkaas dib ugu shid koodhkaaga badbaadinta.",
+  "sqrl-only-on": "Macmiilkaaga SQRL wuxuu akoonkan ku xiray SQRL oo keliya: hab kasta oo kale oo galitaan waa la diidayaa.",
+  "sqrl-hardlock-on": "Macmiilkaaga SQRL wuxuu akoonkan si adag u xiray: dib-u-dejinta furaha sirta iyo beddelka iimaylka waa la diidayaa.",
+  "sqrl-only": "Akoonkan wuxuu ku galaa SQRL oo keliya.",
+  "sqrl-hardlock": "Akoonkan waxa lagu xiray SQRL: lama soo celin karo lamana beddeli karo si kale."
 }
