@@ -215626,5 +215626,68 @@
     "before": "Co-theannaich/leudaich ìomhaighean a' bhanna-chinn",
     "after": "Co-theannaich/leudaich ìomhaighean a’ bhanna-chinn (tionndaidh gu brathan air fòn-làimhe/deasg)",
     "reason": "Restore Jira pagination and fields, Excel mapping and per-sheet boards, and the notification toggle detail; direct technical prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attach-card",
+    "before": "Attach card",
+    "after": "Tinye kaadị dịka mgbakwunye",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attachCardPopup-title",
+    "before": "Attach card",
+    "after": "Tinye kaadị dịka mgbakwunye",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attach-card-hint",
+    "before": "Paste a card link (Copy card link on the other card), or type a card title on this board",
+    "after": "Tapawa njikọ kaadị (Detuo njikọ kaadị na kaadị ọzọ), ma ọ bụ dee aha kaadị dị na bọọdụ a",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attached-card-unavailable",
+    "before": "An attached card you cannot see",
+    "after": "Kaadị agbakwunyere nke ị na-enweghị ike ịhụ",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "detach-card",
+    "before": "Remove attached card",
+    "after": "Wepụ kaadị agbakwunyere",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attach-card-self",
+    "before": "A card cannot be attached to itself",
+    "after": "Enweghị ike ịgbakwunye kaadị na onwe ya",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attach-card-limit",
+    "before": "This card already has as many attached cards as it can have",
+    "after": "Kaadị a enweelarị ọnụ ọgụgụ kaadị agbakwunyere kachasị ọ nwere ike inwe",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "attach-card-not-found",
+    "before": "No card you can see was found for that link",
+    "after": "Achọtaghị kaadị ị nwere ike ịhụ maka njikọ ahụ",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "s3-file-id",
+    "before": "S3 File ID",
+    "after": "Njirimara faịlụ S3",
+    "reason": "Translate pending card attachment controls and storage identifier in Igbo; direct technical wording needs fluent review."
   }
 ]

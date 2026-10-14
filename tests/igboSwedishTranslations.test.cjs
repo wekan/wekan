@@ -194,3 +194,15 @@ assert.match(swedishDelivery['r-wrike-workflow-note'], /egna automatiseringsregl
 assert.ok(swedishDelivery['r-wrike-workflow-note'].includes('GET /workflows'));
 assert.ok(swedishDelivery['webhook-payload-field-standard'].includes('WEBHOOKS_ATTRIBUTES'));
 assert.notEqual(swedishDelivery['subtask-mark-done'], swedishDelivery['subtask-mark-not-done']);
+
+for (const key of ['attach-card', 'attachCardPopup-title', 'attach-card-hint', 'attached-card-unavailable', 'detach-card', 'attach-card-self', 'attach-card-limit', 'attach-card-not-found', 's3-file-id']) {
+  const source = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+  assert.notEqual(locales.ig[key], source[key], key);
+}
+assert.match(locales.ig['attach-card-hint'], /njikọ kaadị.*aha kaadị.*bọọdụ a/);
+assert.match(locales.ig['attach-card-self'], /Enweghị ike.*onwe ya/);
+assert.match(locales.ig['attach-card-not-found'], /Achọtaghị.*ị nwere ike ịhụ/);
+assert.match(locales.ig['attached-card-unavailable'], /na-enweghị ike ịhụ/);
+assert.match(locales.ig['attach-card-limit'], /ọnụ ọgụgụ.*kachasị/);
+assert.doesNotMatch(locales.ig['detach-card'], /Hichapụ/);
+assert.equal(locales.ig['s3-file-id'], 'Njirimara faịlụ S3');

@@ -8,7 +8,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-for (const language of ['gd', 'ga', 'mg', 'la', 'st', 'co', 'sw', 'en', 'mt']) {
+for (const language of ['ig', 'gd', 'ga', 'mg', 'la', 'st', 'co', 'sw', 'en', 'mt']) {
 test(`a card of the board is attached by its title, opens, and is removed in ${language} (#3257)`, async ({ boardPage: page, board, user }) => {
   await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
   const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
