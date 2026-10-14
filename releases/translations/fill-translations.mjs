@@ -1210,6 +1210,18 @@ const SHARED_SOURCE_WORDS = {
   ...Object.fromEntries(['nl', 'nl-NL'].map(code => [code, { 'r-is': 'is' }])),
   ...Object.fromEntries(['af', 'af_ZA'].map(code => [code,
     { 'r-is': 'is', 'blockly-LISTS_SET_INDEX_INPUT_TO': 'as' }])),
+  // Reviewed 2026-10-15: each is the language's own word, or a term a
+  // speaker or the file already settled on.
+  nap: { no: 'No' },                                   // Neapolitan "no"
+  'vl-SS': { 'r-is': 'is' },                           // Flemish "is"
+  ...Object.fromEntries(['fy', 'fy-NL'].map(code => [code,
+    { 'r-is': 'is', 'blockly-LISTS_SET_INDEX_INPUT_TO': 'as' }])), // Frisian "is", "as"
+  vo: { no: 'No', 'blockly-CONTROLS_IF_MSG_IF': 'if',  // Volapük no, if, as
+    'blockly-CONTROLS_IF_IF_TITLE_IF': 'if', 'blockly-LISTS_SET_INDEX_INPUT_TO': 'as' },
+  br: { 'dueCardsViewChange-choice-me': 'Me' },        // Breton "me" (I), audited
+  wa: { 'blockly-PAUSE_KEY': 'Pause' },                // Walloon, the September review
+  've-CC': { 'scrum-sprint': 'Sprint' },               // Venetian, the file's Scrum term
+  've-PP': { 'blockly-MATH_SUBTRACTION_SYMBOL_ARIA': 'minus' }, // Veps, no long vowels
 };
 const isSharedSourceWord = (code, key) =>
   Object.hasOwn(SHARED_SOURCE_WORDS[code] || {}, key)

@@ -43,7 +43,11 @@ assert.deepEqual(tokens(wolaytta['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 assert.deepEqual(tokens(wolaytta['activity-changedTitle']), ['%s', '%s']);
 assert.equal(JSON.parse(wolaytta['copyManyCardsPopup-format']).length, 3);
-assert.match(wolaytta['enable-permanent-delete'], /Wolayttatto/);
+// It once carried a "Wolayttatto:" marker over English words; the 2026-10-14
+// rewrite dropped the marker and left the English. It is Wolaytta now, in the
+// words archive-permanent-delete-disabled-hint already uses.
+assert.match(wolaytta['enable-permanent-delete'], /merinaa xayssiyoo/);
+assert.doesNotMatch(wolaytta['enable-permanent-delete'], /permanent|Global|Wolayttatto/);
 
 console.log('wolayttaTranslationProgress: complete locale passed');
 

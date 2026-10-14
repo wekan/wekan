@@ -3263,7 +3263,14 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ', 'uz-AR']) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
     if (code === 'uz-AR') assert.match(locale[key], /[\u0600-\u06ff]/);
   }
-  for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-INSERT_KEY", "blockly-LINUX", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY", "blockly-WINDOWS"]) assert.equal(locale[key], english[key], `${code}:${key}: technical invariant`);
+  for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-INSERT_KEY", "blockly-LINUX", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY", "blockly-WINDOWS"]) {
+    // An operating system or a symbol stays as written. A key name may be
+    // translated as the established locales do (Finnish Välilyönti, German
+    // Leertaste) as long as the label printed on the key is kept beside it:
+    // "Registrni almashtirish (Shift)".
+    assert.ok(locale[key] === english[key] || locale[key].includes(`(${english[key]})`),
+      `${code}:${key}: technical invariant, or translated with the key's label kept`);
+  }
   assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
   assert.notEqual(locale['history-request-pending-undo'], locale['history-request-pending-redo']);
   assert.ok(locale['saml-login-not-started'].includes('SAML'));

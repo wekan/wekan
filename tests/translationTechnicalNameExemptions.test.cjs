@@ -106,4 +106,7 @@ for (const [locale, words] of Object.entries(reviewedShared.SHARED_SOURCE_WORDS)
     sharedCount++;
   }
 }
-assert.equal(sharedCount, 16);
+// 16 until 2026-10-15, when the last English values of nine locales were
+// reviewed as their own words (Neapolitan, Flemish, Frisian, Volapük, Breton)
+// or settled terms (Walloon, Venetian, Veps): each pinned above as it is.
+assert.equal(sharedCount, 30);

@@ -2085,7 +2085,7 @@
   "operator-user-abbrev": "@",
   "operator-member": "ⴰⴳⵎⴰⵎ",
   "operator-member-abbrev": "m",
-  "operator-assignee": "ⴰⴼⴳⴰⵏ ⵉ ⵉⵜⵜⵓⵡⵛⴰⵏ ⵜⴰⵡⵓⵔⵉ",
+  "operator-assignee": "assignee",
   "operator-assignee-abbrev": "a",
   "operator-creator": "ⴰⵎⵙⵏⴼⵍⵓⵍ",
   "operator-status": "ⴰⴷⴷⴰⴷ",

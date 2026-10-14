@@ -22,7 +22,9 @@ for (const key of ['card-due', 'due-date', 'due-today', 'filter-due-today']) {
   assert.doesNotMatch(locales.ace[key], /Jatuh Tempo|Tamat Hari ini|Tarikh Akhir|Jitôh/);
 }
 assert.equal(cards.length, 3);
-assert.equal(cards[0].title, 'Nan kartu phon');
+// The example cards use the file's own word for card: the 2026-10-14 rewrite
+// settled Acehnese on kad, as `card` itself is.
+assert.equal(cards[0].title, `Nan ${locales.ace.card.toLowerCase()} phon`);
 for (const language of ['cs-CZ', 'cs']) {
   assert.equal(locales[language].checklist, 'Kontrolní seznam');
   assert.equal(locales[language]['office-logins'], 'Přihlášení');

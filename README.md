@@ -24,7 +24,7 @@ that by providing one-click installation on various platforms.
 - WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
 - WeKan ® largest user has 30k users using WeKan ® in their company.
 - WeKan ® has been [translated](https://app.transifex.com/wekan/) into 234 locale catalogs;
-  171 have non-English text for over 90% of source keys. This measures text coverage,
+  234 have non-English text for over 90% of source keys. This measures text coverage,
   not translation quality; language review and remaining translations are ongoing.
 - [Databases](https://github.com/wekan/wekan/blob/main/docs/Databases/Supported.md):
   - FerretDB v1 with SQLite, the default on every platform - bundle, Docker,

@@ -173733,13 +173733,6 @@
     "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
   },
   {
-    "locale": "zgh",
-    "key": "operator-assignee",
-    "before": "assignee",
-    "after": "ⴰⴼⴳⴰⵏ ⵉ ⵉⵜⵜⵓⵡⵛⴰⵏ ⵜⴰⵡⵓⵔⵉ",
-    "reason": "Replace English or wrong-language seeded UI terminology with target-language wording (2026-10-13 shared-label review). Provisional software terminology; native phrasing review remains open."
-  },
-  {
     "locale": "tl",
     "key": "s3-force-path-style",
     "before": "Force landas-style URLs",
