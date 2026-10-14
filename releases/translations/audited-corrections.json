@@ -211636,5 +211636,26 @@
     "before": "Tantara: Δ ora; Anaram-pikambana ≠ Voatendry.",
     "after": "Fanovana ny ora voarakitra, navondrona araka ny olona nanova ny fitambarany. Tsy fotoam-piasana tsirairay ireo. Fanitsiana ny sanda miiba. Tsy azo ampifandraisina amin’olona ny fotoana taloha tsy voarakitra.",
     "reason": "Restore scheduling and time-report meaning from the English source and recurrence implementation; distinguish new recurring cards from resets."
+  },
+  {
+    "locale": "mg",
+    "key": "gcs-credentials",
+    "before": "Fahazoan-dalan'ny kaonty tolotra (JSON)",
+    "after": "Antsipiriany fanamarinana ny kaonty tolotra (JSON)",
+    "reason": "Distinguish authentication credentials from access permissions in storage settings and backup help."
+  },
+  {
+    "locale": "mg",
+    "key": "gcs-credentials-description",
+    "before": "Tsy voatery: apetaho ny fanalahidy JSON an'ny kaonty tolotra. Avelao ho banga hampiasana ny rakitra fanalahidy na ny fahazoan-dalana mahazatra.",
+    "after": "Tsy voatery: apetaho ny fanalahidy JSON an’ny kaonty tolotra. Avelao ho banga mba hampiasana ny rakitra fanalahidy na ny antsipiriany fanamarinana mahazatra.",
+    "reason": "Distinguish authentication credentials from access permissions in storage settings and backup help."
+  },
+  {
+    "locale": "mg",
+    "key": "backup-description",
+    "before": "Manaova tahiry fiarovana ny Rakitra miaraka, Sarin'ny mpampiasa ary/na Angona (fanangonana mifototra amin'ny lahatsoratra rehetra izay tsy rakitra miaraka na sary). Alefa mivantana any amin'ny fitahirizana voafidy ny .zip — tsy misy rakitra vonjimaika — ho backup/YYYY/MM/DD/HH_MM_SS/backup.zip, ahitana YYYY_MM_DD-HH_MM_SS/attachments, /avatars ary /data. Ny fitahirizana rahona (S3/MinIO, Azure, GCS) dia mampiasa ny fahazoan-dalana voalamina ao amin'ny kiheban'ny fitahirizana.",
+    "after": "Manaova tahiry fiarovana ny Rakitra miaraka, Sarin'ny mpampiasa ary/na Angona (fanangonana mifototra amin'ny lahatsoratra rehetra izay tsy rakitra miaraka na sary). Alefa mivantana any amin'ny fitahirizana voafidy ny .zip — tsy misy rakitra vonjimaika — ho backup/YYYY/MM/DD/HH_MM_SS/backup.zip, ahitana YYYY_MM_DD-HH_MM_SS/attachments, /avatars ary /data. Ny fitahirizana rahona (S3/MinIO, Azure, GCS) dia mampiasa ny antsipiriany fanamarinana voalamina ao amin'ny kiheban'ny fitahirizana.",
+    "reason": "Distinguish authentication credentials from access permissions in storage settings and backup help."
   }
 ]

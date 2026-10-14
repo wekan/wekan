@@ -550,3 +550,10 @@ assert.match(malagasy['calendar-system-iso8601'], /gregoriana.*herinandro ISO 86
 assert.match(malagasy['due-reminder-invalid'], /isa manontolo.*folo.*-14.*14/);
 assert.match(malagasy['time-adjustment-note'], /olona nanova ny fitambarany.*Tsy fotoam-piasana tsirairay.*Fanitsiana ny sanda miiba.*tsy voarakitra/);
 assert.doesNotMatch(malagasy['time-adjustment-note'], /Δ|≠/);
+
+for (const key of ['gcs-credentials', 'gcs-credentials-description', 'backup-description']) {
+  assert.match(malagasy[key], /[Aa]ntsipiriany fanamarinana/);
+  assert.doesNotMatch(malagasy[key], /fahazoan-dalana/);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.match(malagasy['gcs-credentials-description'], /Tsy voatery.*Avelao ho banga.*rakitra fanalahidy.*na.*mahazatra/);

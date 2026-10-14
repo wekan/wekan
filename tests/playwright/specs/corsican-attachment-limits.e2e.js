@@ -95,3 +95,17 @@ test('Malagasy S3 settings distinguish access and secret keys', async ({ page, a
   await expect(page.locator('#s3-secret-key')).toHaveAttribute('type', 'password');
   await expect(page.locator('#s3-access-key')).toHaveAttribute('type', 'text');
 });
+
+test('Malagasy cloud credentials distinguish authentication from permissions', async ({ page, adminUser }) => {
+  const mg = require('../../../imports/i18n/data/mg.i18n.json');
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'mg'));
+  await navigateInApp(page, '/admin/attachments/gcs');
+  for (const key of ['gcs-credentials', 'gcs-credentials-description', 'gcs-permissions-note']) {
+    await expect(page.getByText(mg[key], { exact: true })).toBeVisible();
+  }
+  const hint = page.getByText(mg['gcs-credentials-description'], { exact: true });
+  await expect(hint).toContainText('Avelao ho banga');
+  await expect(hint).toContainText('antsipiriany fanamarinana mahazatra');
+  await expect(hint).not.toContainText('fahazoan-dalana');
+});
