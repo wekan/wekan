@@ -2375,6 +2375,18 @@
     {
       "key": "webhook-activities-all",
       "since": "2026-10-14"
+    },
+    {
+      "key": "activity-feed-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "activity-feed-empty",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "activity-feed-more",
+      "since": "2026-10-14"
     }
   ]
 }

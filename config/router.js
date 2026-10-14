@@ -347,6 +347,18 @@ FlowRouter.route('/accessibility', {
   },
 });
 
+// #2026 / #1377: what happened on all my boards.
+FlowRouter.route('/activity', {
+  name: 'activity-feed',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentCard', null);
+    Utils.manageCustomUI();
+    this.render('defaultLayout', { content: 'activityFeed' });
+  },
+});
+
 // #1293: Share → WeKan on a phone (the manifest's share_target).
 FlowRouter.route('/share-target', {
   name: 'share-target',

@@ -31,6 +31,8 @@ import '/client/components/main/spinner_wave.jade';
 import '/client/components/main/support.jade';
 // #1293: Android share target.
 import '/client/components/main/shareTarget.jade';
+// #2026 / #1377: the all-boards activity feed.
+import '/client/components/main/activityFeed.jade';
 
 import '/client/lib/keyboard';
 import '/client/lib/popup';
@@ -58,6 +60,7 @@ import '/client/components/main/safeFilename.js';
 import '/client/components/main/spinner.js';
 import '/client/components/main/support.js';
 import '/client/components/main/shareTarget.js';
+import '/client/components/main/activityFeed.js';
 
 import '/client/components/main/mapProvider.css';
 import '/client/components/main/accessibility.css';

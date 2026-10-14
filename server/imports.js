@@ -368,6 +368,8 @@ import '/server/crossBoardSubtasks';
 import '/server/tableViewCards';
 // #4791: All Boards facets and the member's board labels.
 import '/server/allBoardsFacets';
+// #2026 / #1377: the all-boards activity feed.
+import '/server/activityFeed';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)

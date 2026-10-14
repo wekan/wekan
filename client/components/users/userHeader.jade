@@ -135,6 +135,11 @@ template(name="memberMenuPopup")
         a.js-change-language
           i.fa.fa-flag
           | {{_ 'changeLanguagePopup-title'}}
+      //- #2026 / #1377: what happened on all my boards.
+      li
+        a(href="{{pathFor 'activity-feed'}}")
+          i.fa.fa-history
+          | {{_ 'activity-feed-title'}}
       if isSupportPageEnabled
         li
           a(href="{{pathFor 'support'}}")

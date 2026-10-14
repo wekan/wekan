@@ -1,0 +1,21 @@
+//- #2026 / #1377: what happened on all my boards, newest first
+  (server/activityFeed.js).
+template(name="activityFeed")
+  .wrapper.activity-feed
+    h2
+      i.fa.fa-history
+      | {{_ 'activity-feed-title'}}
+    ul.activity-feed-list
+      each entries
+        li.activity-feed-entry
+          span.activity-feed-time= timeText
+          strong.activity-feed-user= username
+          |  {{description}}
+          if cardId
+            |  
+            a(href=cardUrl)= cardTitle
+          span.quiet  · {{boardTitle}}
+      else
+        li.quiet {{_ 'activity-feed-empty'}}
+    if hasMore
+      button.js-activity-feed-more(type="button") {{_ 'activity-feed-more'}}
