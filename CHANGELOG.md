@@ -4465,6 +4465,21 @@ remains pending. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f35ee57518af9f47f81009b223e6da626d5fed1">Translate Scottish Gaelic field links and board announcements</a>. Thanks to xet7.</summary>
+
+Translate 26 strings for linked custom fields, announcements, calendar mode and
+card colours. Preserve one-way/two-way directions, inaccessible cards, edit
+permissions and paused-link conditions. Fluent review remains needed.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,593
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. Two browser cases pass syntax and discovery; runtime
+remains pending. All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

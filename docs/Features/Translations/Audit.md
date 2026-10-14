@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic field links and announcements — 2026-10-14
+
+Commit `4f35ee5751` translates 26 English strings for field links, board
+announcements, calendar mode and card colours. Matching field names and types,
+one-way/two-way changes, unavailable cards, archived cards and permission loss
+remain explicit. Fields present on only one card remain unaffected. The text
+uses the catalog's card, board and custom-field terminology; fluent review is
+still needed.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,593
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. Two browser cases cover field-link
+behavior and announcement audience. Syntax and discovery pass; runtime remains
+pending.
+
+Scottish Gaelic and all-language translation and semantic review are unfinished.
+
 ## Scottish Gaelic attachments and legacy storage — 2026-10-14
 
 Commit `4f5f5d0d33` translates 41 English placeholders: eight attached-card
