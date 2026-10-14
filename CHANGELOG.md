@@ -410,17 +410,10 @@ The maintainer answered every open design question; each is built as decided.
 manage members; LDAP groups are only read, never written back),
 [#5141](https://github.com/wekan/wekan/issues/5141) (a board admin may add only the organizations and teams they belong
 to),
-[#4265](https://github.com/wekan/wekan/issues/4265) (leaving a board that came through a team hides it in a per-user
-list it can be restored from; the team membership stays),
-[#2217](https://github.com/wekan/wekan/issues/2217) (Admin Panel / Settings / Visibility gets an option, off by default,
-that lets a board show its Rules to members read-only),
-[#5847](https://github.com/wekan/wekan/issues/5847) (Log out everywhere in Member Settings, and passkey / WebAuthn
-login),
 [#2805](https://github.com/wekan/wekan/issues/2805) (one shared, sticky list header row for all swimlanes, as a board
 view setting),
 [#2809](https://github.com/wekan/wekan/issues/2809) (a linked whole list: a live mirror of another board's list,
 editable by whoever may write the source board),
-[#1953](https://github.com/wekan/wekan/issues/1953) (a Board Settings picker for the swimlane new subtasks go to),
 [#1931](https://github.com/wekan/wekan/issues/1931) (an existing card from another board as a subtask, for users who
 may write both boards),
 [#1618](https://github.com/wekan/wekan/issues/1618) (a person responsible for each checklist item, and dated items in
@@ -439,24 +432,10 @@ organization subgroups),
 a per-user switch),
 [#2026](https://github.com/wekan/wekan/issues/2026) and [#1377](https://github.com/wekan/wekan/issues/1377) (browser push notifications, a webhook activity picker
 in the UI, and an all-boards activity feed),
-[#1297](https://github.com/wekan/wekan/issues/1297) (a webhook option to also send a Mattermost direct message to each
-member and assignee),
-[#2290](https://github.com/wekan/wekan/issues/2290) (an instance webhook on login and registration in the Admin Panel,
-off by default, with the user name and time only unless more is chosen),
-[#2435](https://github.com/wekan/wekan/issues/2435) (a member picker with autocomplete for a rule email's To field;
-free addresses still allowed),
-[#4434](https://github.com/wekan/wekan/issues/4434) (the clear HTML layout as the default for notifications and for
-account emails),
-[#5148](https://github.com/wekan/wekan/issues/5148) (ntfy as a notification channel, per user, through the SSRF
-guard),
 [#4198](https://github.com/wekan/wekan/issues/4198) (ActivityPub: a public board publishes its card activity to
 followers, read-only),
-[#1293](https://github.com/wekan/wekan/issues/1293) (an Android share target that makes a card on a chosen board and
-list),
-[#1188](https://github.com/wekan/wekan/issues/1188) (on Sandstorm, Copy card URL copies a grain sharing link),
 [#687](https://github.com/wekan/wekan/issues/687) (publish the Nextcloud ExApp, WebDAV attachment storage and CalDAV
 sync),
-[#1040](https://github.com/wekan/wekan/issues/1040) (LibreJS license markers in the browser bundle),
 [#6554](https://github.com/wekan/wekan/issues/6554) (Gogs beside WeKan) is closed as WONTFIX.
 
 Not a question, but ongoing work:
@@ -561,6 +540,154 @@ there.
 </details>
 
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** sign in with a **passkey**, and **log out everywhere**. Phones
+get **ntfy** notifications and **Share to WeKan** on Android, and webhooks can
+**direct-message** a card's people on **Mattermost**. Board admins can show
+**Rules read-only** to members, pick where new **subtasks** land and choose
+rule e-mail recipients from the **members**. E-mails use the **clear HTML
+layout** by default, a **login webhook** reports sign-ins, a board that came
+through a team can be **hidden**, and **LibreJS** recognises the bundle.
+
+This release adds the following new features:
+
+**Sign-in** - how members sign in and out, and who is told.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63ef900d56">Passkey login, and Log out everywhere</a>. Thanks to xet7.</summary>
+
+Member Settings / Passkeys adds a passkey on this device under a name and
+removes one; the sign-in page has "Sign in with a passkey", with no user name
+needed. Verification is @simplewebauthn/server (pinned) against ROOT_URL's host
+and origin, with a single-use challenge that expires in five minutes and a
+signature counter that must move forward. Passkeys are never published. Log out
+everywhere ends every session of the account, this one too.
+`tests/passkeys.test.cjs` signs with a software authenticator and refuses
+another key, origin, challenge or a counter that went back; a Meteor runtime
+test checks the server loads. [Passkeys](docs/Features/Login/Passkeys.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea256dd772">A login and registration webhook in the Admin Panel, off by default</a>. Thanks to KrunalDholakiya and xet7.</summary>
+
+Admin Panel / Settings / Global Webhooks tells one address when somebody logs
+in or an account is made, only for the ticked events. It carries the event,
+the user name and the time; the email, IP address, full name and sign-in
+method only when ticked. It is sent after the login, through the SSRF guard,
+and is never published. `tests/accountWebhook.test.cjs`.
+
+</details>
+
+**Notifications** - where they arrive and how they look.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d873af70e8">ntfy phone notifications, per member</a>. Thanks to xet7.</summary>
+
+Member Settings / Notification Settings takes a member's ntfy topic address
+and token; each notification they get also arrives in the ntfy app, with a tap
+opening the card. JSON publishing, through the SSRF guard, best effort, and the
+topic is never published. `tests/ntfy.test.cjs`,
+[ntfy](docs/Features/Notifications/ntfy.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/058677e078">E-mails in the clear HTML layout by default</a>. Thanks to Meeques and xet7.</summary>
+
+Notification e-mail defaults to the clearly arranged layout of \#5171, classic
+one choice away; account e-mails (reset password, verify, new account,
+invitations) get an HTML part built from the same translated text, everything
+escaped and only http(s) linked. `tests/accountEmailHtml.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/349d6dc5e6">Webhooks can also direct-message the card's people on Mattermost</a>. Thanks to xet7.</summary>
+
+A webhook's new tick sends each message about a card to its members and
+assignees as `@username`, never to whoever made the change, at most 50.
+`tests/mattermostDirectMessages.test.cjs`,
+[Mattermost](docs/Features/Webhooks/Chat/Mattermost.md).
+
+</details>
+
+**Rules** - who sees them, and who their e-mails go to.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4a3690256">Board members can be shown the Rules, read-only</a>. Thanks to justinr1234 and xet7.</summary>
+
+An Admin Panel option, off by default, lets board admins tick "Show these
+Rules to board members, read-only"; members then read the rules list and
+details with no control that changes them. Without both ticks only admins see
+the Rules page. `tests/rulesReadOnly.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75e260966b">Pick board members for a rule e-mail's To field</a>. Thanks to chenghongxi and xet7.</summary>
+
+A member picker with autocomplete adds `@username`, which becomes that member's
+current address when the rule runs; free addresses still work, and a name of
+somebody outside the board is dropped. `tests/ruleEmailMembers.test.cjs`.
+
+</details>
+
+**Boards** - subtasks and leaving a board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/740c3920eb">Board Settings / Subtasks picks the swimlane new subtasks land in</a>. Thanks to BjoernLudwig and xet7.</summary>
+
+Beside the landing list; unset keeps the parent's swimlane title, else the
+default. `tests/subtaskLandingSwimlane.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1acc9f2b9f">Leaving a board that came through a team hides it, restorably</a>. Thanks to LaureHades and xet7.</summary>
+
+Such a board goes into the member's hidden list, out of All Boards, and Member
+Settings / Hidden boards restores it; the team membership is untouched.
+`tests/hiddenBoards.test.cjs`.
+
+</details>
+
+**Platforms** - phones, Sandstorm and free JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52b0ea0d81">Share to WeKan from other Android apps</a>. Thanks to memeplex and xet7.</summary>
+
+The manifest's share target opens "Add to WeKan": pick a board and list and
+what was shared becomes a card. The server checks the right to write in that
+list. `tests/shareTarget.test.cjs`,
+[Android](docs/Platforms/FOSS/OS/Android.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1d806de2c">On Sandstorm, Copy card URL shares the card through Sandstorm</a>. Thanks to AlexanderZobkov and xet7.</summary>
+
+It opens Sandstorm's Share Access dialog for the card's page, whose link opens
+the grain there; elsewhere it copies as before. `tests/sandstormShare.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/631a7fdfe2">LibreJS license information for the browser bundle</a>. Thanks to alexgleason and xet7.</summary>
+
+`/jslicense.html` is a JS Web Labels table of the scripts actually served, and
+every page links it with `rel="jslicense"`. `tests/jsWebLabels.test.cjs`.
+
+</details>
+
+and has the following developer-tooling and translation changes:
+
+- [The new strings translated in all 234 locales](https://github.com/wekan/wekan/commit/fdc52787e1). Thanks to xet7.
+- [The risk baseline allows the Sandstorm share helper's addresses](https://github.com/wekan/wekan/commit/a4727e6764). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.43 2026-10-14 WeKan ® release
 
