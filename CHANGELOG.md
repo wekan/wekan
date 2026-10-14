@@ -625,12 +625,38 @@ Actions only.
 
 # Upcoming WeKan ® release
 
-**In short:** **per-member notification frequency** (#2141) is confirmed
-already done and closed. Igbo notification, integration, workflow and
-permission settings are translated, with regression checks and further
-language review in progress.
+**In short:** eleven **GitHub CodeQL** alerts are fixed, among them email to
+card keeping the contents of a spliced script element. **Per-member
+notification frequency** (#2141) is confirmed already done and closed. Igbo
+notification, integration, workflow and permission settings are translated,
+with regression checks and further language review in progress.
 
-This release closes the following already-done feature request:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2352f1f44f">HTML tags are removed until none are left, and no input is spliced into a pattern</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+- **#570, #571:** an HTML-only email became card text with one pass of each
+  removal, so a script element spliced together by removing an inner one
+  survived, and its contents reached the card. Both removals now run until
+  nothing changes.
+- **#574:** the single file's settings writer put the setting name into a
+  regular expression. A setting must be an environment variable name and is
+  compared literally, and a value must be one line. The kept-versions reader
+  now reads file names literally too.
+- **#572, #573, #575-#580:** tests escaped only some characters, or matched
+  example hostnames with unescaped dots; they compare literally or escape
+  fully now.
+
+`tests/tagStrippingFixedPoint.test.cjs` now also catches the `<[^>]+>`
+spelling it missed, which also found the search-index text of Office
+documents: never rendered, so recorded as such. `tests/emailToCard.test.cjs`
+fails on the old code. Nothing here is an attempt the server refuses at run
+time, so no Admin Panel / Problems key is added.
+
+</details>
+
+and closes the following already-done feature request:
 
 - [Each member chooses how often email notifications come: never, periodically or instantly](https://github.com/wekan/wekan/commit/3f88fb39a5).
   Thanks to saurabharch and xet7.
