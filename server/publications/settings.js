@@ -75,6 +75,9 @@ const SETTING_FIELDS = {
   // The card fields every board shows (models/lib/cardFieldVisibility.js):
   // every client hides the unticked ones; no secret.
   cardFieldStates: 1,
+  // Which optional compatible APIs are on (models/lib/optionalApis.js): the
+  // Admin Panel shows the ticks; whether one is on is no secret.
+  optionalApis: 1,
   hideBoardMemberList: 1,
   hideDateFormat: 1,
   globalDateFormat: 1,

@@ -109,6 +109,7 @@ import "./cardListEntry.tests";
 import './autoArchiveCards.tests';
 import './cardParents.tests';
 import './inboundEmailRoute.tests';
+import './compatApi.tests';
 import './emailToCard.tests';
 import './emailSendReceive.tests';
 import './emailBounces.tests';

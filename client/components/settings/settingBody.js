@@ -931,6 +931,11 @@ Template.tableVisibilityModeSettings.helpers({
   featureRows() {
     return instanceFeatures.featureRows(ReactiveCache.getCurrentSetting());
   },
+  optionalApiRows() {
+    const setting = ReactiveCache.getCurrentSetting();
+    const { OPTIONAL_APIS, isOptionalApiEnabled } = require('/models/lib/optionalApis');
+    return OPTIONAL_APIS.map(api => ({ ...api, enabled: isOptionalApiEnabled(setting, api.key) }));
+  },
   // The card fields every board shows, with Board Settings / Card's own icons
   // and labels; ticks only, no order. models/lib/cardFieldVisibility.js
   cardFieldRows() {
@@ -1041,6 +1046,20 @@ Template.tableVisibilityModeSettings.events({
   // ── Features (#6736) ──────────────────────────────────────────────────────
   // Every feature row's tick, the two policies and the pilot users, in one
   // server method that validates them against the catalog.
+  async 'click button.js-optional-apis-save'(event, instance) {
+    event.preventDefault();
+    const states = {};
+    instance.$('.js-optional-api-row').each((i, row) => {
+      states[row.dataset.api] = $(row).find('.js-optional-api-enabled').hasClass('is-checked');
+    });
+    const status = instance.$('.js-optional-apis-status');
+    try {
+      await Meteor.callAsync('saveOptionalApis', states);
+      status.text(TAPi18n.__('feature-saved'));
+    } catch (error) {
+      status.text(error.reason || error.message);
+    }
+  },
   async 'click button.js-visibility-features-save'(event, instance) {
     event.preventDefault();
     const states = {};

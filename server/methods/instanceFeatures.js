@@ -7,6 +7,7 @@ import { check, Match } from 'meteor/check';
 import Settings from '/models/settings';
 const { featureSettingsModifier, parsePilotUsernames } = require('/models/lib/instanceFeatures');
 const { cardFieldStatesValue } = require('/models/lib/cardFieldVisibility');
+const { cleanOptionalApis } = require('/models/lib/optionalApis');
 
 async function requireSiteAdmin() {
   const user = await Meteor.userAsync();
@@ -25,6 +26,19 @@ Meteor.methods({
 
   // Saves every feature's decision, the two policies and the pilot users.
   // Unknown usernames are returned rather than silently ignored.
+  // Admin Panel / Settings / Visibility / Optional APIs: which compatible
+  // APIs (Trello, Jira, GitHub, Gitea) answer. Site admins only; unknown keys
+  // are dropped and every value is a boolean (models/lib/optionalApis.js).
+  async saveOptionalApis(input) {
+    await requireSiteAdmin();
+    check(input, Object);
+    const setting = await Settings.findOneAsync({});
+    if (!setting) throw new Meteor.Error('settings-not-found');
+    const optionalApis = cleanOptionalApis(input);
+    await Settings.updateAsync(setting._id, { $set: { optionalApis } });
+    return optionalApis;
+  },
+
   async saveInstanceFeatures(input) {
     await requireSiteAdmin();
     check(input, {

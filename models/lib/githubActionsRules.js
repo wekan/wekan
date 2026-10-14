@@ -45,6 +45,7 @@ const { parseWorkflowYaml } = require('./workflowYaml');
 const { isValidCron } = require('./cronSchedule');
 
 const ANY = '*';
+const escapeRegExp = s => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const CARD_SCOPE = { listName: ANY, swimlaneName: ANY, cardTitle: ANY, userId: ANY };
 
 function events(on) {
@@ -110,7 +111,7 @@ function ghActions(script) {
     if (!m) { unknown.push(line); continue; }
     const args = m[2];
     const opt = name => {
-      const r = new RegExp(`--${name}(?:=|\\s+)(?:"([^"]*)"|'([^']*)'|(\\S+))`, 'g');
+      const r = new RegExp(`--${escapeRegExp(name)}(?:=|\\s+)(?:"([^"]*)"|'([^']*)'|(\\S+))`, 'g');
       const out = [];
       let x;
       while ((x = r.exec(args))) out.push(x[1] ?? x[2] ?? x[3]);

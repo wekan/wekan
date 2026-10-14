@@ -1907,6 +1907,46 @@
     {
       "key": "github-org-import-running",
       "since": "2026-10-14"
+    },
+    {
+      "key": "optional-apis",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-apis-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-trello",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-trello-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-jira",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-jira-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-github",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-github-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-gitea",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "optional-api-gitea-desc",
+      "since": "2026-10-14"
     }
   ]
 }

@@ -140,7 +140,8 @@ test('wiring: every place that draws or picks a board view asks the instance', (
 test('storage: site admin only, published without secrets, pilots not writable by users', () => {
   const method = read('server/methods/instanceFeatures.js');
   assert.match(method, /async requireSiteAdmin\(\)|async function requireSiteAdmin\(\) \{\s*const user = await Meteor\.userAsync\(\);\s*if \(user\?\.isAdmin !== true\) throw/);
-  assert.equal((method.match(/await requireSiteAdmin\(\);/g) || []).length, 2, 'both methods check the admin');
+  // Three since saveOptionalApis joined the two feature methods: each checks.
+  assert.equal((method.match(/await requireSiteAdmin\(\);/g) || []).length, 3, 'every method checks the admin');
   assert.match(method, /featureSettingsModifier\(decisions\)/);
   assert.match(read('server/imports.js'), /import '\/server\/methods\/instanceFeatures';/);
   const settingsPub = read('server/publications/settings.js');

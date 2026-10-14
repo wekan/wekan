@@ -75,6 +75,14 @@ Stored on the settings document as `cardFieldStates` (`{ field: true|false }`;
 a missing field is shown), saved by the site-admin-only Features save. The catalog
 and the decisions are `models/lib/cardFieldVisibility.js`.
 
+## Optional APIs
+
+Below Features: one tick each for the **Trello**, **Jira**, **GitHub** and
+**Gitea** compatible APIs, all off by default, each with what it does and the
+address a client uses. They let apps written for those trackers use WeKan as
+their backend, with no rights of their own: every call is WeKan's REST API as
+the person signed in. See [Optional APIs](../../../API/Optional-APIs.md).
+
 ## URL
 
 - **Support** — the link to `/support`, whether the page is enabled, whether it is

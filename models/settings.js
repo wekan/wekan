@@ -290,6 +290,14 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // Admin Panel / Settings / Visibility / Optional APIs
+    // (models/lib/optionalApis.js): { trello, jira, github, gitea } - each
+    // compatible API is off unless ticked here.
+    optionalApis: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     // Keep features added by a later update off until an administrator enables them.
     featureApprovalRequired: {
       type: Boolean,

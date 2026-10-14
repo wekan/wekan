@@ -414,6 +414,28 @@ template(name='tableVisibilityModeSettings')
 
       li.admin-pane-group-separator
         hr
+      //- Optional APIs (models/lib/optionalApis.js): REST APIs in the shape of
+        Trello's, Jira's, GitHub's and Gitea's, so their clients can use WeKan
+        as their backend. Each is off until ticked, and has no rights of its
+        own: it is WeKan's REST API, with the caller's own permissions.
+      li
+        h2.admin-pane-group-title {{_ 'optional-apis'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'optional-apis-desc'}}
+      each optionalApiRows
+        li.tableVisibilityMode-form.js-optional-api-row(data-api=key)
+          a.flex.js-toggle-feature
+            .materialCheckBox.js-optional-api-enabled(class="{{#if enabled}}is-checked{{/if}}")
+            span {{_ labelKey}}
+          .feature-desc {{_ descKey}}
+          .feature-desc
+            code {{base}}
+      li
+        button.js-optional-apis-save.primary {{_ 'save'}}
+        span.js-optional-apis-status
+
+      li.admin-pane-group-separator
+        hr
       li
         h2.admin-pane-group-title {{_ 'date'}}
       li.tableVisibilityMode-form
