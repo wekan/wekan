@@ -42,6 +42,13 @@ Meteor.startup(async () => {
           '  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n';
       }
 
+      // #1040: where LibreJS finds the license of every script on the page
+      // (server/jsWebLabels.js).
+      if (!/rel=["']?jslicense/i.test(data.head)) {
+        const { jsLicenseLink } = require('/models/lib/jsWebLabels');
+        data.head += `  ${jsLicenseLink((typeof __meteor_runtime_config__ !== 'undefined' && __meteor_runtime_config__.ROOT_URL_PATH_PREFIX) || '')}\n`;
+      }
+
       // Only add custom head tags if enabled
       if (!setting || !setting.customHeadEnabled) {
         return data;

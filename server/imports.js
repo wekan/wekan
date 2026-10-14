@@ -356,6 +356,8 @@ import '/server/bots';
 import '/server/webhookInternalHosts';
 // Admin Panel / Settings / Global Webhooks / Login and registration (#2290).
 import '/server/accountWebhook';
+// #1040: the JS Web Labels page for LibreJS.
+import '/server/jsWebLabels';
 
 // ----------------------------------------------------------------------------
 // 14. Server — routes (REST API, file serving)
