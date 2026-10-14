@@ -249,6 +249,11 @@ describe('attachmentApi authentication', function() {
         },
       });
 
+      // The handler logs the refusal with console.error. Printing an error's
+      // stack is what took this test past Mocha's two seconds: as the first
+      // stack of the run, it loads the server bundle's source map. The log is
+      // not what is tested, so it is captured instead of printed.
+      const consoleError = sinon.stub(console, 'error');
       let thrown;
       try {
         await uploadHandler.apply(
@@ -257,7 +262,10 @@ describe('attachmentApi authentication', function() {
         );
       } catch (error) {
         thrown = error;
+      } finally {
+        consoleError.restore();
       }
+      expect(consoleError.calledWithMatch('API attachment upload error:')).to.equal(true);
 
       expect(thrown).to.exist;
       expect(thrown.error).to.equal('upload-error');
