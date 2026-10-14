@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic action meanings and stale English — 2026-10-14
+
+Commit `1fda1c4dd0` corrects seven strings: two entirely English import guides
+for Todoist and Planner, three recurrence labels that described resetting,
+and two move-reason labels that described a card description. Existing account
+anonymization help retains its permanent-change and retained-history warnings.
+Direct Scottish Gaelic technical prose still needs fluent review.
+
+Catalog and guarded-correction checks pass with 30,759 ledger entries; all 21
+human-preference checks pass. Exact comparison preserves 38,430 existing Chinese
+values. Four browser cases pass syntax and discovery but have not been executed.
+
+These stale English guides escaped the zero-placeholder gate because their
+wording differed from current English. Full semantic review, fluent verification
+and the all-language objective remain unfinished.
+
 ## Scottish Gaelic recovery and full placeholder gate — 2026-10-14
 
 Commit `53be36536d` translates 38 recovery and server-only setting messages.
