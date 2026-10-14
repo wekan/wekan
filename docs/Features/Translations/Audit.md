@@ -2,6 +2,23 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic recovery and full placeholder gate — 2026-10-14
+
+Commit `53be36536d` translates 38 recovery and server-only setting messages.
+Discarded sync work retains applied changes; discarded imports permanently
+remove their partial boards, including later additions. Missing source files,
+untouched foreign boards, busy operations and oldest-50 limits remain explicit.
+Technical prose needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,752
+correction ledger entries. The full placeholder check now returns no entries,
+including pending keys. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. Two recovery browser cases pass syntax
+and discovery; runtime remains pending.
+
+Zero detected placeholders does not prove correct meaning or detect every stale
+English passage. Scottish Gaelic and all-language semantic review are unfinished.
+
 ## Scottish Gaelic workflows and permission messages — 2026-10-14
 
 Commit `73bdd4061b` translates 19 strings for read-only fields, Wrike workflows,

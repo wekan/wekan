@@ -4559,6 +4559,22 @@ remains pending. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53be36536d77b68f9afc8c152b04f73ccc51faf0">Translate Scottish Gaelic recovery messages and close placeholder gap</a>. Thanks to xet7.</summary>
+
+Translate 38 messages for stopped list syncs, interrupted imports and
+server-only
+settings. Preserve retained changes, permanent deletion and recovery limits.
+Technical prose needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,752
+audited corrections. The full placeholder check now finds no entries, including
+pending keys; semantic review remains unfinished. All 21 human-preference checks
+pass, and 38,430 existing Chinese values remain unchanged. Two browser cases
+pass syntax and discovery; runtime remains pending. All-language work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
