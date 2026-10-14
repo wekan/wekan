@@ -40,7 +40,7 @@ template(name="swimlaneFixedHeader")
               a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
                 i.fa.fa-plus
               if isTouchScreenOrShowDesktopDragHandles
-                a.swimlane-header-handle.handle.nodragscroll.js-swimlane-header-handle
+                a.swimlane-header-handle.handle.nodragscroll.js-swimlane-header-handle(title="{{_ 'moveSwimlanePopup-title'}}")
                   i.fa.fa-arrows
 
 template(name="editSwimlaneTitleForm")
@@ -48,7 +48,7 @@ template(name="editSwimlaneTitleForm")
     textarea.list-name-input.full-line(rows="2" autofocus dir="auto") {{isTitleDefault title}}
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
-      a.js-close-inlined-form
+      a.js-close-inlined-form(title="{{_ 'close'}}")
         i.fa.fa-times-thin
 
 template(name="swimlaneActionPopup")

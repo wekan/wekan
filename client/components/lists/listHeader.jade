@@ -17,7 +17,7 @@ template(name="listHeader")
     else
       if isMiniScreen
         if isCurrentList
-          a.list-header-left-icon.js-unselect-list
+          a.list-header-left-icon.js-unselect-list(title="{{_ 'go-back'}}")
             i.fa.fa-caret-left
       else
         if collapsed
@@ -110,7 +110,7 @@ template(name="listHeader")
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
         else
-          a.list-header-menu-icon.js-select-list
+          a.list-header-menu-icon.js-select-list(title="{{_ 'open'}}")
             i.fa.fa-caret-right
           //- The add-list + sits BETWEEN the caret and the drag handle, so mobile
           //- mode needs no "Add List" row of its own. Same class, same handler and
@@ -124,7 +124,7 @@ template(name="listHeader")
                     i.fa.fa-plus-square-o
           unless currentUser.isWorker
             if isTouchScreenOrShowDesktopDragHandles
-              a.list-header-handle.handle.nodragscroll.js-list-handle
+              a.list-header-handle.handle.nodragscroll.js-list-handle(title="{{_ 'moveListPopup-title'}}")
                 i.fa.fa-arrows
       else if currentUser.isBoardMember
         if isWatching
@@ -161,7 +161,7 @@ template(name="editListTitleForm")
     textarea.list-name-input.full-line(rows="2" autofocus dir="auto") {{title}}
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
-      a.js-close-inlined-form
+      a.js-close-inlined-form(title="{{_ 'close'}}")
         i.fa.fa-times-thin
 
 template(name="listActionPopup")

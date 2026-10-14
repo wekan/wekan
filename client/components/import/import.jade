@@ -297,7 +297,7 @@ template(name="importMapMembers")
               if wekanId
                 +userAvatar(userId=wekanId)
               else
-                a.member.add-member
+                a.member.add-member(title="{{_ 'add-members'}}")
                   i.fa.fa-plus
         //-
           Due to the way the flewbox layout is working, we need to set some

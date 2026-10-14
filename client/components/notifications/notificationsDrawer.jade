@@ -1,7 +1,7 @@
 template(name='notificationsDrawer')
   section#notifications-drawer(class="{{#if $.Session.get 'showReadNotifications'}}show-read{{/if}}")
     .header
-      a.notification-menu-toggle
+      a.notification-menu-toggle(title="{{_ 'menu'}}")
         i.fa.fa-bars
       .notification-menu(class="{{#if $.Session.get 'showNotificationMenu'}}is-open{{/if}}")
         .menu-section
@@ -47,7 +47,7 @@ template(name='notificationsDrawer')
       h5 {{_ 'notifications'}}
         if($gt unreadNotifications 0)
           |(#{unreadNotifications})
-      a.close
+      a.close(title="{{_ 'close'}}")
         i.fa.fa-times-thin
     //- #5171: entries of one card or board collapse into one row when the
       tray grouping says so (models/lib/notificationDelivery.js).

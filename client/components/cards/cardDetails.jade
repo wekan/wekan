@@ -387,7 +387,7 @@ template(name="cardFieldSectionDates")
                     else
                       if canModifyCard
                         unless currentUser.isWorker
-                          a.card-label.add-label.js-received-date
+                          a.card-label.add-label.js-received-date(title="{{_ 'card-received'}}")
                             i.fa.fa-plus
 
               if $eq field "startDate"
@@ -401,7 +401,7 @@ template(name="cardFieldSectionDates")
                     else
                       if canModifyCard
                         unless currentUser.isWorker
-                          a.card-label.add-label.js-start-date
+                          a.card-label.add-label.js-start-date(title="{{_ 'card-start'}}")
                             i.fa.fa-plus
 
               if $eq field "dueDate"
@@ -415,7 +415,7 @@ template(name="cardFieldSectionDates")
                     else
                       if canModifyCard
                         unless currentUser.isWorker
-                          a.card-label.add-label.js-due-date
+                          a.card-label.add-label.js-due-date(title="{{_ 'card-due'}}")
                             i.fa.fa-plus
                     if dueDateChangeCount
                       .card-details-due-date-changes(title="{{_ 'due-date-changes'}}")
@@ -432,7 +432,7 @@ template(name="cardFieldSectionDates")
                     else
                       if canModifyCard
                         unless currentUser.isWorker
-                          a.card-label.add-label.js-end-date
+                          a.card-label.add-label.js-end-date(title="{{_ 'card-end'}}")
                             i.fa.fa-plus
 
 template(name="cardFieldSectionMembers")
@@ -1056,14 +1056,14 @@ template(name="editCardRequesterForm")
   textarea.js-edit-card-requester(rows='1' autofocus dir="auto")= getRequestedBy
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-requester-form(type="submit") {{_ 'save'}}
-    a.js-close-inlined-form
+    a.js-close-inlined-form(title="{{_ 'close'}}")
       i.fa.fa-times-thin
 
 template(name="editCardAssignerForm")
   textarea.js-edit-card-assigner(rows='1' autofocus dir="auto")= getAssignedBy
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-assigner-form(type="submit") {{_ 'save'}}
-    a.js-close-inlined-form
+    a.js-close-inlined-form(title="{{_ 'close'}}")
       i.fa.fa-times-thin
 
 template(name="editCardSortOrderForm")

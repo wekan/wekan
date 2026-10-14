@@ -40,10 +40,10 @@ template(name="historyTable")
           aria-label="{{_ 'search'}}"
           value="{{searchTerm}}")
         .history-pagination
-          a.js-history-prev(class="{{#unless hasPrev}}is-disabled{{/unless}}")
+          a.js-history-prev(class="{{#unless hasPrev}}is-disabled{{/unless}}" title="{{_ 'previous'}}")
             i.fa.fa-chevron-left
           span.history-page {{page}} / {{totalPages}}
-          a.js-history-next(class="{{#unless hasNext}}is-disabled{{/unless}}")
+          a.js-history-next(class="{{#unless hasNext}}is-disabled{{/unless}}" title="{{_ 'next'}}")
             i.fa.fa-chevron-right
         button.js-history-restore.primary(disabled="{{#unless hasSelection}}disabled{{/unless}}")
           i.fa.fa-undo

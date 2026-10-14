@@ -23,7 +23,7 @@ template(name="userAvatar")
     unless isSandstorm
       if showEdit
         if $eq currentUser._id userData._id
-          a.edit-avatar.js-change-avatar
+          a.edit-avatar.js-change-avatar(title="{{_ 'changeAvatarPopup-title'}}")
             i.fa.fa-pencil-square-o
 
 template(name="userAvatarInitials")
