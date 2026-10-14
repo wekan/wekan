@@ -418,8 +418,10 @@ test('the Attachments heading can still show its count', () => {
 test('the End date has ONE add button (negative)', () => {
   // A stray second `i.fa.fa-plus` appeared beside it - a bare icon, not a
   // button, from a slice that duplicated a line.
+  // The item runs to the next template; a fixed 500 characters stopped
+  // short once the button got its title (#337).
   const at = jade.indexOf('card-details-item-end');
-  const block = jade.slice(at, at + 500);
+  const block = jade.slice(at, jade.indexOf('template(name=', at));
   const pluses = (block.match(/i\.fa\.fa-plus/g) || []).length;
   assert.strictEqual(pluses, 1, 'one plus in the End date item');
 });

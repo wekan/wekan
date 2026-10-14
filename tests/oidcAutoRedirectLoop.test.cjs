@@ -30,6 +30,9 @@ function fixture(storage = new Map()) {
       loginWithOidc: () => { state.redirects++; },
     },
     AccountsTemplates: { options: {} },
+    // #2460: onCreated also reads ?sqrl= for a SQRL client's one-time
+    // sign-in; this page has none.
+    FlowRouter: { getQueryParam: () => undefined },
   };
   vm.createContext(context);
   vm.runInContext(source, context);

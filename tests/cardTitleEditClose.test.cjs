@@ -91,7 +91,9 @@ test('the other card editors show their X too', () => {
   // close was invisible in these as well.
   for (const name of ['editCardRequesterForm', 'editCardAssignerForm']) {
     const form = template(name);
-    assert.ok(/js-close-inlined-form\n\s+i\.fa\.fa-times-thin/.test(form),
+    // The anchor may carry attributes - its title names it for screen
+    // readers (#337) - but the icon must still be its content.
+    assert.ok(/js-close-inlined-form(\([^)\n]*\))?\n\s+i\.fa\.fa-times-thin/.test(form),
       `${name} has a visible close`);
   }
 });

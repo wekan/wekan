@@ -86,7 +86,8 @@ console.log('  ok - editors only, sizes, resets, races, rate limit');
 const offenders = [];
 (function walk(dir) {
   for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-    if (['node_modules', '.tools', '_build', '.build', '.meteor', '.git'].includes(entry.name)) continue;
+    // _build-local-test and the like: rspack's bundled copy of every file.
+    if (['node_modules', '.tools', '.build', '.meteor', '.git'].includes(entry.name) || entry.name.startsWith('_build')) continue;
     const rel = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(rel);
     else if (/\.js$/.test(entry.name) && !['server/sharedDescription.js', 'client/lib/sharedDescription.js'].includes(rel)

@@ -77,6 +77,7 @@ const REVIEWED = {
   'server/lib/schemaUpgradeSteps.js': [1, 'case repair of stored values'],
   'server/models/boards.js': [1, '/api/boards_count counts each kind'],
   'server/publications/boards.js': [1, 'the admin report filter lists instance beside it'],
+  'server/activityPub.js': [1, '#4198: only a PUBLIC board is a fediverse actor - an instance board is for signed-in members, not for every server on the internet'],
   'server/sandstorm.js': [1, 'a commented-out v0.8 migration that SET boards public; a write, not a read gate'],
 };
 const PATTERN = "isPublic\\(\\)|permission: 'public'|permission ?===? ?'public'|=== 'public'";
