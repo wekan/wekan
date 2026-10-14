@@ -510,12 +510,15 @@ there.
 # Upcoming WeKan ® release
 
 **In short:** **Sync and rule notifications** are delivered again with the clear
-e-mail layout. **Latvian**, **Tsonga** and **Bosnian** are translated where they
-were Lithuanian, filler or Serbian, and the same wrong words are gone from
-**Macedonian**, **Persian**, **Cantonese** and **Occitan**. The attachment
-viewer's picture gets **alt text**.
+e-mail layout, and the **musl**, **Android**, **FreeBSD**, **Windows
+single-file** and **Bun** builds that stopped publishing in v12.41 build again.
+**Latvian**, **Tsonga** and **Bosnian** are translated where they were
+Lithuanian, filler or Serbian, and the attachment viewer's picture gets **alt
+text**.
 
 This release fixes the following bugs:
+
+**Notifications and accessibility** - Sync notifications, and an image name.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e85eaa3ad3">Sync and rule notifications are planned again with the clear e-mail layout</a>. Thanks to xet7.</summary>
@@ -532,6 +535,58 @@ takes what the e-mail outbox takes, checked the same way, and
 - [The attachment viewer's picture has alt text](https://github.com/wekan/wekan/commit/a530a3c673):
   "Preview" until a picture opens, then the file's name; a guard fails on any
   image without alt. Part of #337. Thanks to ndarilek and xet7.
+
+**Release builds** - the platforms v12.41 to v12.44 did not publish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5331e06199">musl and Android bundles give sharp its platform package where it is</a>. Thanks to xet7.</summary>
+
+sharp is an application package, under programs/server/npm, but its glibc
+platform packages were removed from programs/server/node_modules and the musl
+ones never arrived, so "Cannot find module 'sharp'" ended the musl builds.
+platform-native-packages.mjs now takes --libc musl. Android builds sharp from
+source in its own directory, falls back to WebAssembly with a warning, and no
+longer stops at "chmod: Operation not permitted" in Termux.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d23746441">The FreeBSD bundles start</a>. Thanks to xet7.</summary>
+
+The launcher ran every binary through cpu-exec, a Linux #!/bin/bash script, and
+FreeBSD has no /bin/bash: "cpu-exec: not found". It is used only on Linux with a
+/bin/bash, and the BSD bundles drop it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0966a90d39">The Windows single files start</a>. Thanks to xet7.</summary>
+
+Node.js mounts the archive at `\\.\NUL\vfs`, which Meteor's path conversion
+turned into a C: path, so the server stopped with "Cannot find module 'denque'";
+the single file carries a patched mini-files.js that keeps device and UNC paths.
+A 32-bit single file is built by a 32-bit Node.js now, because the SEA blob
+stores its lengths as size_t: win32 found no archive, and i386 and 32-bit ARM
+had the same fault unseen.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41399b7518">The Bun FreeBSD and Windows bundles build</a>. Thanks to xet7.</summary>
+
+FreeBSD packages libvips 8.18.6 and sharp 0.35.5 asked for 8.18.7; a
+patch-release gap is accepted with a notice. A CDN HTTP 500 is retried, and the
+checksum files are LF on every platform.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce3d4310d5">The Docker image copy to Quay retries a dropped connection</a>. Thanks to xet7.</summary>
+
+An HTTP/2 stream reset failed the copy; a transport error is retried up to four
+times, and a refusal still fails at once.
+
+</details>
 
 and fixes the following translations:
 
