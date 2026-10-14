@@ -1,0 +1,26 @@
+//- Admin Panel / Settings / Labels: shared labels (#2761, #4698). The
+//- instance-wide catalog and those of organizations and teams; a board uses
+//- them beside its own labels (docs/Features/Board/Shared-Labels.md).
+template(name="sharedLabelsSettings")
+  .shared-labels-settings
+    p.roles-description {{_ 'shared-labels-desc'}}
+    ul.setting-detail.shared-labels-list
+      each rows
+        li.shared-label-row(data-id="{{id}}")
+          span.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}") {{name}}
+          input.js-shared-label-name(type="text" value=name maxlength="100" placeholder="{{_ 'name'}}" aria-label="{{_ 'name'}}")
+          select.js-shared-label-color(aria-label="{{_ 'dependency-color'}}")
+            each colorOptions
+              option(value=value selected=selected) {{value}}
+          select.js-shared-label-scope(aria-label="{{_ 'shared-labels'}}")
+            each scopeOptions
+              option(value=value selected=selected) {{_ labelKey}}
+          if needsScopeId
+            select.js-shared-label-scope-id
+              each scopeIdOptions
+                option(value=value selected=selected) {{label}}
+          if isNew
+            button.js-shared-label-save.primary {{_ 'add-shared-label'}}
+          else
+            button.js-shared-label-save.primary {{_ 'save'}}
+            button.js-shared-label-delete {{_ 'delete'}}

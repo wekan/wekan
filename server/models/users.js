@@ -1206,6 +1206,8 @@ Meteor.methods({
     }
     // list.width/constraint are per-board fields shared with all users, so
     // only board members may change them, and only on the list's own board.
+    // board.members, not the board: instance editing (#4575) lets a non-member
+    // edit cards, never the board's own settings.
     const board = await ReactiveCache.getBoard(boardId);
     // MutationBleed sibling (2026-10-02): a shared board setting needs write
     // access, not just membership. Not recorded as an attempt: the menus may

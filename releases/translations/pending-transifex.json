@@ -1539,6 +1539,82 @@
     {
       "key": "custom-role-sees-all",
       "since": "2026-10-14"
+    },
+    {
+      "key": "instance-editing-allowed",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "instance-editing",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "instance-editing-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-key",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-key-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-key-taken",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "board-key-invalid",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "shared-labels",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "shared-labels-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "shared-label-scope-instance",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "shared-label-scope-org",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "shared-label-scope-team",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "add-shared-label",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "listPermissionsPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "list-permissions-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "list-permission-board",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "list-permission-allow",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "list-permission-deny",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "list-permission-signed-in",
+      "since": "2026-10-14"
     }
   ]
 }

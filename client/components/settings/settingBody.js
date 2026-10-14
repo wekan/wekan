@@ -267,6 +267,7 @@ Template.setting.onCreated(function () {
   this.accessibilitySetting = new ReactiveVar(false);
   this.layoutSetting = new ReactiveVar(false);
   this.webhookSetting = new ReactiveVar(false);
+  this.sharedLabelsSetting = new ReactiveVar(false);
   this.attachmentSettings = new ReactiveVar(false);
   this.attachmentStorageSettings = new ReactiveVar(null);
   // #6473: real storage paths come from the server (WRITABLE_PATH does not
@@ -383,6 +384,7 @@ const SETTINGS_PANE_VARS = {
   'translation-setting': 'translationSetting',
   'layout-setting': 'layoutSetting',
   'webhook-setting': 'webhookSetting',
+  'shared-labels-setting': 'sharedLabelsSetting',
   // Reachable from Admin Panel / Attachments rather than from this menu, but it
   // is one of this template's panes and has to be cleared with the rest.
   'attachment-settings': 'attachmentSettings',
@@ -419,6 +421,8 @@ function settingsMenu(user) {
     { id: 'translation-setting', icon: 'fa-globe', labelKey: 'translation', emoji: true },
     { id: 'layout-setting', icon: 'fa-mobile', label: 'PWA', emoji: true },
     { id: 'webhook-setting', icon: 'fa-globe', labelKey: 'global-webhook', emoji: true },
+    // #2761, #4698: shared label catalogs.
+    { id: 'shared-labels-setting', icon: 'fa-tags', labelKey: 'shared-labels', emoji: true },
   ];
   // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7/D.9): an
   // Organization's own admin has ONE pane here - Visibility, for its "Change color"
@@ -442,6 +446,7 @@ function activeSettingId(inst) {
     ['translationSetting', 'translation-setting'],
     ['layoutSetting', 'layout-setting'],
     ['webhookSetting', 'webhook-setting'],
+    ['sharedLabelsSetting', 'shared-labels-setting'],
   ];
   for (const [varName, id] of panes) {
     if (inst[varName] && inst[varName].get()) return id;
@@ -492,6 +497,10 @@ Template.setting.helpers({
   isWebhookSetting() {
     const inst = Template.instance();
     return inst.webhookSetting && inst.webhookSetting.get();
+  },
+  isSharedLabelsSetting() {
+    const inst = Template.instance();
+    return inst.sharedLabelsSetting && inst.sharedLabelsSetting.get();
   },
   isAttachmentSettings() {
     const inst = Template.instance();
@@ -951,6 +960,11 @@ Template.tableVisibilityModeSettings.helpers({
       'tableVisibilityMode-boardCreationAdminOnly',
     )?.booleanValue;
   },
+  allowInstanceEditing() {
+    return TableVisibilityModeSettings.findOne(
+      'tableVisibilityMode-allowInstanceEditing',
+    )?.booleanValue;
+  },
 });
 
 // Admin Panel / Settings / Visibility saves per SECTION: All Boards, URL, Product
@@ -1076,6 +1090,11 @@ Template.tableVisibilityModeSettings.events({
     if ($('#accounts-boardCreationAdminOnly').length) {
       TableVisibilityModeSettings.update('tableVisibilityMode-boardCreationAdminOnly', {
         $set: { booleanValue: $('#accounts-boardCreationAdminOnly').hasClass('is-checked') },
+      });
+    }
+    if ($('#accounts-allowInstanceEditing').length) {
+      TableVisibilityModeSettings.update('tableVisibilityMode-allowInstanceEditing', {
+        $set: { booleanValue: $('#accounts-allowInstanceEditing').hasClass('is-checked') },
       });
     }
     const $set = {};

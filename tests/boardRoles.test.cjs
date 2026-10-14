@@ -126,9 +126,11 @@ test('an unknown role or capability is a no', () => {
 
 test('the server allow rules ARE the table', () => {
   // The authority. If these grow their own flag list again, the drift is back.
-  assert.ok(/memberCan\(board\.members, userId, 'write'\)/.test(serverUtils),
+  // memberCan is given the BOARD since #4575 (a board may let every signed-in
+  // user edit it), and still decides from the one table.
+  assert.ok(/memberCan\(board, userId, 'write'\)/.test(serverUtils),
     'allowIsBoardMemberWithWriteAccess must ask for the write capability');
-  assert.ok(/memberCan\(board\.members, userId, 'comment'\)/.test(serverUtils),
+  assert.ok(/memberCan\(board, userId, 'comment'\)/.test(serverUtils),
     'allowIsBoardMemberCommentOnly must ask for the comment capability');
 
   const code = serverUtils.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
@@ -159,14 +161,21 @@ test('the UI offers exactly what the server would accept', () => {
     const at = code.indexOf(`  ${fn}(`);
     assert.notStrictEqual(at, -1, `${fn} must exist`);
     const body = code.slice(at, code.indexOf('\n  },', at));
-    assert.ok(new RegExp(`currentUserCan\\('${capability}'(?:,|\\))`).test(body),
+    // #4527: canModifyCard asks through currentUserCanInList, which adds the
+    // card's list's exception (models/lib/listPermissions.js) and otherwise
+    // asks currentUserCan - the same table - as pinned below.
+    assert.ok(new RegExp(`currentUserCan(?:InList)?\\('${capability}'(?:,|\\))`).test(body),
       `${fn} must ask the table for the ${capability} capability`);
     for (const flag of Object.values(ROLE_FLAGS)) {
       assert.ok(!body.includes(flag), `${fn} must not name ${flag} itself`);
     }
   }
-  assert.ok(/memberCan\(board\.members, userId, capability\)/.test(clientUtils),
+  assert.ok(/memberCan\(board, userId, capability\)/.test(clientUtils),
     'and currentUserCan must go through the shared helper');
+  const inList = code.slice(code.indexOf('  currentUserCanInList('), code.indexOf('\n  },', code.indexOf('  currentUserCanInList(')));
+  assert.ok(/return Utils\.currentUserCan\(capability, board\);/.test(inList)
+    && /listCan\(board, list, Meteor\.userId\(\), capability\)/.test(inList),
+    'currentUserCanInList is the table plus the list exception, nothing else');
 });
 
 // ── the documentation table ─────────────────────────────────────────────────

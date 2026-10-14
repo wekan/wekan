@@ -46,6 +46,7 @@ const WIRED = [
   ['cas.account-conflict',             'packages/wekan-accounts-cas/cas_server.js',    'CasAccountMergeBleed'],
   ['oauth.account-conflict',           'server/lib/oauthProviders.js',                'CasBleed'],
   ['list.cross-board-move',            'server/permissions/lists.js',                 'BoardBleed'],
+  ['list.role-exceptions-direct',      'server/listPermissions.js',                   '-'],
   ['swimlane.cross-board-move',        'server/permissions/swimlanes.js',             'BoardBleed'],
   ['checklist.cross-board-move',       'server/permissions/checklists.js',            'ChecklistBleed'],
   ['checklist-item.cross-board-move',  'server/permissions/checklistItems.js',        'ChecklistBleed'],

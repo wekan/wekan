@@ -592,6 +592,7 @@ Template.listActionPopup.events({
     Popup.back();
   },
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
+  'click .js-list-permissions': Popup.open('listPermissions'),
   'click .js-copy-list': Popup.open('copyList'),
   'click .js-move-list': Popup.open('moveList'),
   'click .js-more': Popup.open('listMore'),

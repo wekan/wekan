@@ -16,6 +16,10 @@ test('live links cannot promote explicit non-writing source roles', async () => 
       sourceRoleBlocksDelegation, recordLinkedWriteDenial: source => logs.push(source),
       allowIsBoardMemberWithWriteAccess: (id, board) => Boolean(board && memberCan(board.members, id, 'write')),
       canUserSeeBoard: async () => true,
+      // #4527: the card's list is asked first; these lists make no exception,
+      // so the source role alone decides, as this test is about.
+      listException: async () => undefined,
+      require: () => ({ exceptionFor: () => undefined }),
       Boards: { findOneAsync: async () => source, find: () => ({ fetchAsync: async () => [{ members: [{ userId: 'u', isActive: true, isAdmin: true }] }] }) },
       Cards: { find: () => ({ fetchAsync: async () => [{ boardId: 'self-owned' }] }) },
     };

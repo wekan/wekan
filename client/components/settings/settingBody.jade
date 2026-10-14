@@ -37,6 +37,8 @@ template(name="setting")
             +pwaSettings
           else if isWebhookSetting
             +webhookSettings
+          else if isSharedLabelsSetting
+            +sharedLabelsSettings
 
 template(name="webhookSettings")
   span
@@ -319,6 +321,12 @@ template(name='tableVisibilityModeSettings')
         a.flex.js-toggle-all-boards-hide
           .materialCheckBox#accounts-boardCreationAdminOnly(class="{{#if boardCreationAdminOnly}}is-checked{{/if}}")
           span {{_ 'board-creation-admin-only'}}
+      li.tableVisibilityMode-form
+        //- #4575: ticked lets a board admin open an Instance or Public board
+        //- to editing by every signed-in user. Off: no board can.
+        a.flex.js-toggle-all-boards-hide
+          .materialCheckBox#accounts-allowInstanceEditing(class="{{#if allowInstanceEditing}}is-checked{{/if}}")
+          span {{_ 'instance-editing-allowed'}}
       li.hideBoardActivities-form
         a.flex.js-toggle-all-boards-hide
           .materialCheckBox#hide-board-activities(class="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}is-checked{{/if}}")

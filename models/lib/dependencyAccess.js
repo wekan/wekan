@@ -31,7 +31,7 @@ function canViewBoard(board, userId) {
 
 function canEditBoardDependencies(board, userId) {
   if (!board || !text(userId)) return false;
-  return memberCan(board.members, userId, 'write') || memberCan(board.members, userId, 'moveCard');
+  return memberCan(board, userId, 'write') || memberCan(board, userId, 'moveCard');
 }
 
 // May this user see this card at all (assigned-only members see their own)?

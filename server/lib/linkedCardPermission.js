@@ -3,6 +3,9 @@ import Cards from '/models/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { sourceRoleBlocksDelegation, recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
+import { listException } from '/server/lib/listPermissionGate';
+import Lists from '/models/lists';
+const { exceptionFor } = require('/models/lib/listPermissions');
 
 // Editing a linked card is delegated by the board that contains the link. A
 // user may therefore edit the source when they can write either the source
@@ -13,6 +16,10 @@ export async function canEditCardOrLinkedCard(userId, card, knownSourceBoard, { 
   if (!userId || !card) return false;
 
   const sourceBoard = knownSourceBoard || await Boards.findOneAsync(card.boardId);
+  // #4527: the card's list may say otherwise for this user's role, either way.
+  // A list that refuses is final - a link on another board is not a way round it.
+  const listRule = await listException(userId, sourceBoard, card.listId, 'write');
+  if (listRule !== undefined) return listRule;
   if (allowIsBoardMemberWithWriteAccess(userId, sourceBoard)) return true;
   // An explicit non-writing source role is a ceiling, including for links
   // minted before link creation was restricted. A self-owned destination must
@@ -51,15 +58,27 @@ export async function canEditCardOrLinkedCard(userId, card, knownSourceBoard, { 
 // rules: board writers edit them all, an explicit non-writing role edits none,
 // otherwise a card is editable through a link on a board the user may write.
 export async function editableCardIds(userId, cards, sourceBoard) {
-  const ids = cards.map(card => card._id);
-  if (!userId || !sourceBoard || !ids.length) return new Set();
-  if (allowIsBoardMemberWithWriteAccess(userId, sourceBoard)) return new Set(ids);
-  if (sourceRoleBlocksDelegation(userId, sourceBoard) || !(await canUserSeeBoard(userId, sourceBoard._id))) return new Set();
+  if (!userId || !sourceBoard || !cards.length) return new Set();
+  // #4527: cards in a list with an exception for this user's role are decided
+  // by it; the rest by the rules below.
+  const excepted = await Lists.find({ boardId: sourceBoard._id, roleExceptions: { $exists: true } },
+    { fields: { roleExceptions: 1 } }).fetchAsync();
+  const listRule = new Map(excepted.map(list => [list._id, exceptionFor(sourceBoard, list, userId, 'write')]));
+  const decided = new Set();
+  for (const card of cards) {
+    const rule = listRule.get(card.listId);
+    if (rule === true) decided.add(card._id);
+  }
+  const open = cards.filter(card => listRule.get(card.listId) === undefined);
+  const ids = open.map(card => card._id);
+  if (!ids.length) return decided;
+  if (allowIsBoardMemberWithWriteAccess(userId, sourceBoard)) return new Set([...decided, ...ids]);
+  if (sourceRoleBlocksDelegation(userId, sourceBoard) || !(await canUserSeeBoard(userId, sourceBoard._id))) return decided;
   const links = await Cards.find({ linkedId: { $in: ids }, type: 'cardType-linkedCard', archived: { $ne: true } },
     { fields: { boardId: 1, linkedId: 1 } }).fetchAsync();
-  if (!links.length) return new Set();
+  if (!links.length) return decided;
   const boards = await Boards.find({ _id: { $in: [...new Set(links.map(link => link.boardId))] } },
     { fields: { members: 1 } }).fetchAsync();
   const writable = new Set(boards.filter(board => allowIsBoardMemberWithWriteAccess(userId, board)).map(board => board._id));
-  return new Set(links.filter(link => writable.has(link.boardId)).map(link => link.linkedId));
+  return new Set([...decided, ...links.filter(link => writable.has(link.boardId)).map(link => link.linkedId)]);
 }

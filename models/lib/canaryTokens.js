@@ -59,6 +59,10 @@ const CANARIES = {
     key: 'authz.board',
     what: 'tried to move a list into a board they cannot write to',
   },
+  'list.role-exceptions-direct': {
+    key: 'authz.board',
+    what: 'tried to change a list\'s role permissions without the board admin method',
+  },
   'swimlane.cross-board-move': {
     key: 'authz.board',
     what: 'tried to move a swimlane into a board they cannot write to',

@@ -4,6 +4,8 @@ import { LABEL_COLORS } from '/models/metadata/colors';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
+import SharedLabels from '/models/sharedLabels';
+const { offeredTo } = require('/models/lib/sharedLabels');
 
 let labelColors;
 Meteor.startup(() => {
@@ -154,6 +156,10 @@ Template.cardLabelsPopup.helpers({
     // the whole label picker into the lone "Create label" row (#6616).
     return getCardLabelBoard(card);
   },
+  sharedLabelsOffered() {
+    const board = getCardLabelBoard(Template.currentData());
+    return board ? offeredTo(board, SharedLabels.find({}, { sort: { sort: 1, name: 1 } }).fetch()) : [];
+  },
   isLabelSelected(cardId) {
     const card = ReactiveCache.getCard(cardId);
     return (card?.getRealCard().labelIds || []).includes(this._id);
@@ -181,6 +187,20 @@ Template.cardLabelsPopup.events({
   },
   'click .js-edit-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
+  // A shared label is copied to the board once, then put on the card.
+  async 'click .js-use-shared-label, keydown .js-use-shared-label'(event, templateInstance) {
+    if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    const card = templateInstance.data;
+    const board = getCardLabelBoard(card);
+    if (!card?.toggleLabel || !board) return;
+    try {
+      const labelId = await Meteor.callAsync('boards.useSharedLabel', board._id, this._id);
+      if (!(card.getRealCard().labelIds || []).includes(labelId)) await card.toggleLabel(labelId);
+    } catch (error) {
+      console.error('boards.useSharedLabel', error);
+    }
+  },
 });
 
 Template.createLabelPopup.events({

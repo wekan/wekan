@@ -12,6 +12,10 @@ setCustomRoleLookup(id => CustomBoardRoles.findOne(id) || null);
 
 Meteor.startup(() => {
   Tracker.autorun(() => {
-    if (Meteor.userId()) Meteor.subscribe('customBoardRoles');
+    if (Meteor.userId()) {
+      Meteor.subscribe('customBoardRoles');
+      // Shared labels (#2761, #4698): the catalogs this user may use.
+      Meteor.subscribe('sharedLabels');
+    }
   });
 });

@@ -53,7 +53,7 @@ export function allowIsAnyBoardMember(userId, boards) {
 // which is what it means: everyone except the roles whose capability table says
 // they may not comment.
 export function allowIsBoardMemberCommentOnly(userId, board) {
-  return !!(board && memberCan(board.members, userId, 'comment'));
+  return !!(board && memberCan(board, userId, 'comment'));
 }
 
 export function allowIsBoardMemberNoComments(userId, board) {
@@ -82,7 +82,7 @@ export function allowIsBoardMemberNoComments(userId, board) {
 // the documentation are built from - so there is nowhere for a fourth opinion to
 // appear.
 export function allowIsBoardMemberWithWriteAccess(userId, board) {
-  return !!(board && memberCan(board.members, userId, 'write'));
+  return !!(board && memberCan(board, userId, 'write'));
 }
 
 // Write-access variant of allowIsAnyBoardMember: true if the user has write
@@ -209,7 +209,7 @@ export function canUpdateBoardSameWidthValue(userId, board, fieldNames) {
     !!userId &&
     fields.length === 1 &&
     fields[0] === 'sameWidthForAllListsValue' &&
-    !!(board && memberCan(board.members, userId, 'write'))
+    !!(board && memberCan(board, userId, 'write'))
   );
 }
 

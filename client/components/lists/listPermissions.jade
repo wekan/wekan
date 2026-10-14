@@ -1,0 +1,22 @@
+//- #4527: per-list exceptions to the board's roles, for board admins.
+  models/lib/listPermissions.js decides; lists.setRoleExceptions saves.
+template(name="listPermissionsPopup")
+  .list-permissions
+    p.quiet {{_ 'list-permissions-desc'}}
+    table.list-permissions-table
+      thead
+        tr
+          th
+          th {{_ 'edit'}}
+          th {{_ 'comment'}}
+      tbody
+        each role in roles
+          tr(data-role="{{role.key}}")
+            th(scope="row") {{role.label}}
+            each cap in capabilities
+              td
+                select.js-list-permission(data-role="{{role.key}}" data-cap="{{cap}}" aria-label="{{role.label}} - {{capLabel cap}}")
+                  option(value="" selected="{{isChoice role.key cap ''}}") {{_ 'list-permission-board'}}
+                  option(value="allow" selected="{{isChoice role.key cap 'allow'}}") {{_ 'list-permission-allow'}}
+                  option(value="deny" selected="{{isChoice role.key cap 'deny'}}") {{_ 'list-permission-deny'}}
+    button.primary.full.js-save-list-permissions(type="button") {{_ 'save'}}

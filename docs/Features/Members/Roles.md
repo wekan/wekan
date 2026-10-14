@@ -48,6 +48,12 @@ button, as the read-only *Roles Status* pane. It is rendered from
 `models/lib/boardRoleCapabilities.js`, which is also what the allow rules decide
 with — so the page cannot show a permission that is not enforced.
 
+## Per-list exceptions
+
+A board admin can change what a role may do in ONE list - allow editing or
+commenting there, or refuse it - see [List permissions](../Board/List-Permissions.md)
+(#4527).
+
 ## Custom roles
 
 An administrator can add named roles in **Admin Panel → People → Roles →

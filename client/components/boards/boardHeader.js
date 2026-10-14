@@ -44,6 +44,16 @@ function setCardsSortBy(sortBy) {
   } catch (e) {}
 }
 
+Template.boardChangeTitlePopup.onCreated(function () {
+  this.boardKeyError = new ReactiveVar('');
+});
+
+Template.boardChangeTitlePopup.helpers({
+  boardKeyError() {
+    return Template.instance().boardKeyError.get();
+  },
+});
+
 Template.boardChangeTitlePopup.events({
   async submit(event, templateInstance) {
     event.preventDefault();
@@ -67,6 +77,18 @@ Template.boardChangeTitlePopup.events({
           ? context
           : Utils.getCurrentBoard();
       if (board) {
+        // The key first: a key that is taken or not valid keeps the popup
+        // open with the reason, and nothing else is saved yet.
+        const keyInput = templateInstance.$('.js-board-key');
+        const newKey = keyInput.length ? String(keyInput.val() || '').trim().toUpperCase() : '';
+        if (newKey && newKey !== board.key) {
+          try {
+            await Meteor.callAsync('setBoardKey', board._id, newKey);
+          } catch (error) {
+            templateInstance.boardKeyError.set(error && error.error === 'board-key-taken' ? 'board-key-taken' : 'board-key-invalid');
+            return;
+          }
+        }
         await board.rename(newTitle);
         await board.setDescription(newDesc);
       }
@@ -677,6 +699,15 @@ Template.boardChangeVisibilityPopup.onCreated(function () {
 });
 
 Template.boardChangeVisibilityPopup.helpers({
+  instanceEditingOffered() {
+    const board = Utils.getCurrentBoard();
+    return !!(board && ['instance', 'public'].includes(board.permission)
+      && TableVisibilityModeSettings.findOne('tableVisibilityMode-allowInstanceEditing')?.booleanValue);
+  },
+  currentBoardInstanceEditing() {
+    const board = Utils.getCurrentBoard();
+    return !!(board && board.allowsInstanceEditing);
+  },
   notAllowPrivateVisibilityOnly(){
     return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
   },
@@ -687,6 +718,11 @@ Template.boardChangeVisibilityPopup.helpers({
 });
 
 Template.boardChangeVisibilityPopup.events({
+  'click .js-toggle-instance-editing'(event) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (board) Boards.updateAsync(board._id, { $set: { allowsInstanceEditing: !board.allowsInstanceEditing } });
+  },
   'click .js-select-visibility'() {
     const currentBoard = Utils.getCurrentBoard();
     const visibility = this;

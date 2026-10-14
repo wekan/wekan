@@ -15,6 +15,7 @@ import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
 import { resolveShowDragHandles, readDragHandlesPreference } from '/models/lib/dragHandles';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { sourceRoleBlocksDelegation } = require('/models/lib/linkedWritePolicy');
+const { listCan } = require('/models/lib/listPermissions');
 
 // One key for both pages: they draw one menu. docs/Features/Page/Left-Menu.md
 const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
@@ -245,7 +246,7 @@ export const Utils = {
   // clicking it. Reading the one table is what keeps them honest.
   currentUserCan(capability, board = Utils.getCurrentBoard()) {
     const userId = Meteor.userId();
-    return !!(board && memberCan(board.members, userId, capability));
+    return !!(board && memberCan(board, userId, capability));
   },
   canModifyCard(card = Utils.getCurrentCard()) {
     if (card && card.type === 'cardType-linkedCard') {
@@ -256,7 +257,14 @@ export const Utils = {
     const board = card && typeof card.board === 'function'
       ? card.board()
       : Utils.getCurrentBoard();
-    return Utils.currentUserCan('write', board);
+    return Utils.currentUserCanInList('write', card, board);
+  },
+  // #4527: what the card's list allows this user's role, over the board's own
+  // rule - the same decision as server/lib/listPermissionGate.js.
+  currentUserCanInList(capability, card = Utils.getCurrentCard(), board = Utils.getCurrentBoard()) {
+    const list = card && card.listId ? ReactiveCache.getList(card.listId) : null;
+    if (!list || !list.roleExceptions) return Utils.currentUserCan(capability, board);
+    return !!(board && listCan(board, list, Meteor.userId(), capability));
   },
   // A move is a card update on the server, but it is NOT the same capability: a
   // Worker may move a card and assign themselves to it while writing nothing else

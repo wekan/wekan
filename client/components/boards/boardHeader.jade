@@ -126,6 +126,16 @@ template(name="boardVisibilityList")
 
 template(name="boardChangeVisibilityPopup")
   +boardVisibilityList
+  //- #4575: an open board can let every signed-in user edit it, where Admin
+  //- Panel / Settings / Visibility allows that.
+  if instanceEditingOffered
+    hr
+    ul.pop-over-list
+      li
+        a.flex.js-toggle-instance-editing(role="checkbox" aria-checked="{{#if currentBoardInstanceEditing}}true{{else}}false{{/if}}")
+          .materialCheckBox(class="{{#if currentBoardInstanceEditing}}is-checked{{/if}}")
+          span {{_ 'instance-editing'}}
+      p.quiet {{_ 'instance-editing-desc'}}
 
 template(name="boardChangeWatchPopup")
   ul.pop-over-list.described-list
@@ -261,6 +271,13 @@ template(name="boardChangeTitlePopup")
     label
       | {{_ 'description'}}
       textarea.js-board-desc(dir="auto")= description
+    //- #2449/#2450: the board key card numbers show with (KEY-7).
+    label
+      | {{_ 'board-key'}}
+      input.js-board-key(type="text" value=key maxlength="10" autocapitalize="characters" spellcheck="false")
+    p.quiet {{_ 'board-key-desc'}}
+    if boardKeyError
+      p.error {{_ boardKeyError}}
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
 
 template(name="boardCreateRulePopup")

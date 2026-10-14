@@ -78,7 +78,7 @@ template(name="minicard")
         span.minicard-title-text
           if showCardNumber
             span.card-number
-              | ##{getCardNumber} &nbsp;
+              | #{getCardKey} &nbsp;
           +viewer
             = getTitle
     //- Everything under the title renders in the board's minicard order

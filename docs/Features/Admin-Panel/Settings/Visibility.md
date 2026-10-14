@@ -15,6 +15,23 @@ Each row is ticked when the thing is **hidden**.
 
   <img src="allow-private-boards-only.png" width="60%" alt="Allow private boards only" />
 
+- **Boards that every signed-in user can edit** (#4575). This row is ticked when
+  the feature is **allowed**, not hidden, and it is off by default. When it is
+  on, a board admin can open an **Instance** or **Public** board to editing by
+  every signed-in user: in the board's visibility popup, tick **Everyone signed
+  in can edit**.
+
+  Such a user may add, edit and move cards and comment, like a **Normal**
+  member. They can never change the board's settings, members or roles. Their
+  first edit makes them a Normal member, so the member list shows who has
+  edited, and a board admin can change their role or remove them like any other
+  member. A removed user stays removed.
+
+  Rules, webhooks, email and list sync do not get these rights: they act only
+  for members. The setting is stored as
+  `tableVisibilityMode-allowInstanceEditing`. Unticking it takes the right away
+  from every board at once; members who have already joined keep their
+  membership.
 - **Board activities** — do not show the activity feed on All Boards. One global
   setting, read once by the feed, so turning it off restores each board's own value.
 - **Card counter list** — hide the per-list card counts on All Boards.

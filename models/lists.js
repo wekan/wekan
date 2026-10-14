@@ -292,6 +292,17 @@ Lists.attachSchema(
         }
       },
     },
+    roleExceptions: {
+      /**
+       * #4527: what each role may do in this list, over the board's own rule:
+       * { <role>: { write?: Boolean, comment?: Boolean } }
+       * (models/lib/listPermissions.js). Only the lists.setRoleExceptions
+       * method writes it; a direct client write is refused.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     // NOTE: collapsed state is per-user only, stored in user profile.collapsedLists
     // and localStorage for non-logged-in users
     // NOTE: width is per-board (shared with all users), stored in lists.width

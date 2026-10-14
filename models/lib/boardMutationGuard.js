@@ -4,7 +4,7 @@ const { memberCan } = require('./boardRoleCapabilities');
 // Shared by server methods and their client stubs. The capability decision is
 // identical on both; only the server records attempted unauthorized writes.
 function requireBoardMutation(userId, board, source, Meteor) {
-  if (board && memberCan(board.members, userId, 'write')) return;
+  if (board && memberCan(board, userId, 'write')) return;
   if (Meteor.isServer) {
     try {
       require('/server/lib/securityLog').record({

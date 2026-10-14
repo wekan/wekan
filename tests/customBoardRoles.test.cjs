@@ -83,7 +83,10 @@ test('by name, a custom role reads as the built-in role that does what it does',
   assert.match(details, /if canComment\n\s+\+commentForm/);
   assert.match(read('client/components/activities/comments.jade'), /if canComment\n\s+a\.open-comment-reaction-popup/);
   assert.match(read('client/components/boards/chatView.js'), /Utils\.currentUserCan\('comment'\)/);
-  assert.match(read('client/config/blazeHelpers.js'), /registerHelper\('canComment', \(\) => Utils\.currentUserCan\('comment'\)\)/);
+  // Since #4527 the helper asks the card's LIST first (a list may allow or
+  // refuse commenting for a role) and falls back to the same capability table.
+  assert.match(read('client/config/blazeHelpers.js'), /registerHelper\('canComment', \(\) => Utils\.currentUserCanInList\('comment'\)\)/);
+  assert.match(read('client/lib/utils.js'), /if \(!list \|\| !list\.roleExceptions\) return Utils\.currentUserCan\(capability, board\);/);
   assert.equal(caps.uiRoleFor({ seesAllCards: true, moveCard: true }), 'worker');
   assert.equal(caps.uiRoleFor({ comment: true }), 'comment-assigned-only');
 });

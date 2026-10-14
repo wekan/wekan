@@ -209,11 +209,44 @@ function roleCan(role, capability) {
   return caps[capability] === true;
 }
 
-// May THIS member of THIS board do it? `members` is board.members.
-function memberCan(members, userId, capability) {
-  if (!userId || !Array.isArray(members)) return false;
+// ── Boards every signed-in user may edit (#4575) ─────────────────────────────
+//
+// A board admin can let every signed-in user edit an open board ('instance' or
+// 'public') - but only where Admin Panel / Settings / Visibility allows it
+// (tableVisibilityMode-allowInstanceEditing). Such a user may then write,
+// comment and move cards like a Normal member, never manage the board; and
+// their first edit makes them one (server/instanceEditingJoin.js), so what they
+// changed is attributed to a member. The allowance is looked up like the
+// custom roles: the server keeps it current, the client reads the setting.
+const INSTANCE_EDITING_CAPABILITIES = ['comment', 'write', 'moveCard'];
+let instanceEditingLookup = () => false;
+function setInstanceEditingLookup(fn) {
+  instanceEditingLookup = typeof fn === 'function' ? fn : () => false;
+}
+
+function instanceEditable(board) {
+  if (!board || Array.isArray(board) || board.allowsInstanceEditing !== true || board.archived === true) return false;
+  if (board.permission !== 'instance' && board.permission !== 'public') return false;
+  try {
+    return instanceEditingLookup() === true;
+  } catch (e) {
+    return false;
+  }
+}
+
+// May THIS user do it on THIS board? The first argument is the board, or -
+// as callers have long passed - only its members, which then knows nothing
+// of the board's own settings. A member is judged by their role; a signed-in
+// non-member only by the board letting everybody edit it.
+function memberCan(boardOrMembers, userId, capability) {
+  if (!userId || !boardOrMembers) return false;
+  const members = Array.isArray(boardOrMembers) ? boardOrMembers : boardOrMembers.members;
+  if (!Array.isArray(members)) return false;
   const member = members.find(m => m && m.userId === userId && m.isActive === true);
-  return roleCan(memberRoleOf(member), capability);
+  if (member) return roleCan(memberRoleOf(member), capability);
+  // An inactive entry is somebody a board admin removed: that decision stands.
+  if (members.some(m => m && m.userId === userId)) return false;
+  return instanceEditable(boardOrMembers) && INSTANCE_EDITING_CAPABILITIES.includes(capability);
 }
 
 module.exports = {
@@ -232,4 +265,7 @@ module.exports = {
   fallbackRoleFor,
   flagsForRole,
   uiRoleFor,
+  INSTANCE_EDITING_CAPABILITIES,
+  setInstanceEditingLookup,
+  instanceEditable,
 };

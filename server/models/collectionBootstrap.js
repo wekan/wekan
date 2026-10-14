@@ -148,6 +148,12 @@ Meteor.startup(async () => {
     { _id: 'tableVisibilityMode-boardCreationAdminOnly' },
     { $setOnInsert: { booleanValue: false, sort: 1 } },
   );
+  // #4575: off by default - no board can let every signed-in user edit it
+  // until a site admin allows that.
+  await TableVisibilityModeSettings.upsertAsync(
+    { _id: 'tableVisibilityMode-allowInstanceEditing' },
+    { $setOnInsert: { booleanValue: false, sort: 2 } },
+  );
 
   await ensureIndex(InviteToBoardRolesSettings, { modifiedAt: -1 });
   await InviteToBoardRolesSettings.upsertAsync(

@@ -1,5 +1,7 @@
 'use strict';
 
+import { parseCardKey } from './boardKey.js';
+
 // Pure helpers for board card search. Extracted from models/boards.js
 // (Board.searchCards) so the query it builds is unit-testable without Meteor.
 //
@@ -33,7 +35,7 @@ function parseNumericSearchTerm(term) {
 
 // Build the `$or` clause array for a board card search on `term`. `term` is
 // expected to be a trimmed, non-empty string (Board.searchCards guards that).
-function buildCardSearchOr(term) {
+function buildCardSearchOr(term, { boardKey = null } = {}) {
   const regex = new RegExp(term, 'i');
   const or = [
     { title: regex },
@@ -45,6 +47,9 @@ function buildCardSearchOr(term) {
     // #5680: also match numeric custom fields (number / currency) by value.
     or.push({ customFields: { $elemMatch: { value: numeric } } });
   }
+  // #2449/#2450: the card's own KEY-7, on its board.
+  const byKey = parseCardKey(term);
+  if (byKey && boardKey && byKey.key === boardKey) or.push({ cardNumber: byKey.number });
   return or;
 }
 

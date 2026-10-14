@@ -93,7 +93,7 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-authorized');
     const boards = await Boards.find({ 'members.userId': this.userId, archived: false }).fetchAsync();
     const writable = [];
-    for (const board of boards) if (memberCan(board.members, this.userId, 'write')) writable.push({ _id: board._id, title: board.title });
+    for (const board of boards) if (memberCan(board, this.userId, 'write')) writable.push({ _id: board._id, title: board.title });
     const targetBoard = await boardAccess(this.userId, target.boardId);
     // An assigned-only member is offered only the cards they can see.
     const cardScope = assignedOnlyCardScope(targetBoard, this.userId) || {};

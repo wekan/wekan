@@ -34,7 +34,11 @@ template(name="cardLabelsPopup")
   ul.edit-labels-pop-over
     each board.labels
       li.js-card-label-item
-        a.card-label-edit-button.fa.fa-pencil.js-edit-label
+        //- A shared label's copy follows the catalog, so it is not edited here.
+        if sharedLabelId
+          span.card-label-edit-button.fa.fa-share-alt(title="{{_ 'shared-labels'}}")
+        else
+          a.card-label-edit-button.fa.fa-pencil.js-edit-label
         if isTouchScreenOrShowDesktopDragHandles
           span.fa.label-handle(class="fa-arrows" title="{{_ 'move-scope'}}")
         span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="{{labelColorClass color}}"
@@ -45,4 +49,14 @@ template(name="cardLabelsPopup")
               i.card-label-selectable-icon.fa.fa-check
         if dueAt
           span.card-label-due-at(title="{{_ 'due-date'}}") {{formatLabelDueAt dueAt}}
+  //- Shared labels (#2761, #4698) this board may use and does not have yet.
+  if sharedLabelsOffered.length
+    p.quiet {{_ 'shared-labels'}}
+    ul.edit-labels-pop-over.shared-labels-offered
+      each sharedLabelsOffered
+        li
+          span.fa.fa-share-alt.card-label-edit-button(title="{{_ 'shared-labels'}}")
+          span.card-label.card-label-selectable.js-use-shared-label.card-label-wrapper(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" role="button" tabindex="0")
+            +viewer
+              = name
   a.quiet-button.full.js-add-label {{_ 'label-create'}}

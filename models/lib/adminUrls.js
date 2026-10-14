@@ -60,6 +60,7 @@ const ADMIN_PAGES = {
       translation: 'translation-setting',
       pwa: 'layout-setting',
       'global-webhooks': 'webhook-setting',
+      labels: 'shared-labels-setting',
     },
   },
   people: {
@@ -171,6 +172,7 @@ const ADMIN_PANE_TITLES = {
     translation: { titleKey: 'translation' },
     pwa: { title: 'PWA' },
     'global-webhooks': { titleKey: 'global-webhook' },
+    labels: { titleKey: 'shared-labels' },
   },
   people: {
     login: { titleKey: 'login' },

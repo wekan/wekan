@@ -14,6 +14,7 @@ import CardComments, { assertCanMutateComment } from '/models/cardComments';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { tripCanary } from '/server/lib/canary';
 import { allowIsBoardMemberCommentOnly } from '/server/lib/utils';
+import { canCommentInList } from '/server/lib/listPermissionGate';
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
@@ -162,12 +163,13 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
     Authentication.checkLoggedIn(req.userId);
     const board = await ReactiveCache.getBoard(paramBoardId);
     Authentication.checkBoardExists(board);
-    await Authentication.checkAdminOrCondition(
-      req.userId,
-      allowIsBoardMemberCommentOnly(req.userId, board),
-    );
-
     const card = await ReactiveCache.getCard({ _id: paramCardId, boardId: paramBoardId });
+    // #4527: the card's list may grant or refuse commenting for this role.
+    const mayComment = card && card.boardId === paramBoardId
+      ? await canCommentInList(req.userId, board, card.listId)
+      : allowIsBoardMemberCommentOnly(req.userId, board);
+    await Authentication.checkAdminOrCondition(req.userId, mayComment);
+
     if (!commentCardMatchesBoard(card, paramCardId, paramBoardId)) {
       recordCommentBoundaryDenial('rest:comment-insert');
       sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });

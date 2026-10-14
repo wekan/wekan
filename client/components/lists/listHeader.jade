@@ -263,6 +263,10 @@ template(name="listActionPopup")
               a.js-set-wip-limit
                 i.fa.fa-ban
                 | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+            li
+              a.js-list-permissions
+                i.fa.fa-lock
+                | {{_ 'listPermissionsPopup-title'}}
         //- #3847: board-wide toggle, exposed here per the maintainer's
           instruction to reach it from the List hamburger menu. See
           models/boards.js's stickyListHeaders and list.css's use of the

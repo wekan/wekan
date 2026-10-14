@@ -42,6 +42,7 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | `/admin/settings/translation` | Translation | `translation-setting` |
 | `/admin/settings/pwa` | PWA | `layout-setting` |
 | `/admin/settings/global-webhooks` | Global Webhooks | `webhook-setting` |
+| `/admin/settings/labels` | Shared labels | `shared-labels-setting` |
 
 ## People — `/admin/people`
 

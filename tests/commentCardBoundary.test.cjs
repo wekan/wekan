@@ -22,13 +22,15 @@ test('REST attack returns 404 before any insert, while legitimate comments still
   const start = source.indexOf('    const paramBoardId', at);
   const end = source.indexOf('    // Validate the required', start);
   const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
-  const run = new AsyncFunction('req', 'res', 'Authentication', 'ReactiveCache', 'allowIsBoardMemberCommentOnly', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'sendJsonResult', source.slice(start, end) + '\nreturn "validated-boundary";');
+  const run = new AsyncFunction('req', 'res', 'Authentication', 'ReactiveCache', 'allowIsBoardMemberCommentOnly', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'sendJsonResult', 'canCommentInList', source.slice(start, end) + '\nreturn "validated-boundary";');
   for (const foreign of [false, true]) {
     const logs = [], responses = [];
     const result = await run({ params: { boardId: 'A', cardId: 'card' }, userId: 'u' }, {},
       { checkLoggedIn() {}, checkBoardExists() {}, async checkAdminOrCondition() {} },
       { getBoard: async () => ({}), getCard: async query => ({ _id: query._id, boardId: foreign ? 'B' : query.boardId }) },
-      () => true, commentCardMatchesBoard, source => logs.push(source), (res, data) => responses.push(data));
+      () => true, commentCardMatchesBoard, source => logs.push(source), (res, data) => responses.push(data),
+      // #4527: the card's list may allow or refuse commenting; here it allows.
+      async () => true);
     assert.equal(result, foreign ? undefined : 'validated-boundary');
     assert.equal(logs.length, foreign ? 1 : 0);
     if (foreign) assert.equal(responses[0].code, 404);

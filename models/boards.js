@@ -237,6 +237,14 @@ Boards.attachSchema(
         return 'notAllowed';
       },
     },
+    'labels.$.sharedLabelId': {
+      /**
+       * This label is the board's copy of a shared label (#2761, #4698,
+       * models/lib/sharedLabels.js): its name and colour follow the shared one.
+       */
+      type: String,
+      optional: true,
+    },
     'labels.$.dueAt': {
       /**
        * Optional due date carried by the label itself (#2802), e.g. a
@@ -338,6 +346,24 @@ Boards.attachSchema(
     'members.$.isReadAssignedOnly': {
       /**
        * Is the member only allowed to read assigned cards (no comments, no editing)
+       */
+      type: Boolean,
+      optional: true,
+    },
+    key: {
+      /**
+       * The board's key (#2449, #2450): 2-10 capital letters and digits,
+       * unique in the instance, so a card's number shows as KEY-7. Given when
+       * the board is created (server/boardKeys.js); a board admin may change it.
+       */
+      type: String,
+      optional: true,
+    },
+    allowsInstanceEditing: {
+      /**
+       * Every signed-in user may edit this open board (#4575), where Admin
+       * Panel / Settings / Visibility allows it. Their first edit makes them a
+       * Normal member.
        */
       type: Boolean,
       optional: true,
@@ -2378,7 +2404,7 @@ Boards.helpers({
 
       // #5680: build the $or so numeric custom fields (number / currency, stored
       // as JS Numbers) match by value too — a regex alone only matches strings.
-      query.$or = buildCardSearchOr(term);
+      query.$or = buildCardSearchOr(term, { boardKey: this.key });
 
       // #3841: also find cards whose match is only inside a COMMENT. Comments
       // live in a separate collection, so Minimongo can't match them with a

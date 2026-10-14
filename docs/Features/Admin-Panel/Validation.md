@@ -58,6 +58,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Translation (`translation`) | [translation.js](../../../server/models/translation.js) | Add/edit/delete custom translation records with administrator checks. |
 | PWA (`pwa`) | [settingBody.js](../../../client/components/settings/settingBody.js) | Saved head/manifest/assetlinks configuration; device installation requires a device check. |
 | Global Webhooks (`global-webhooks`) | [outgoing.js](../../../server/notifications/outgoing.js) | Global integration configuration and event delivery; endpoint delivery requires a configured receiver. |
+| Shared labels (`labels`) | [sharedLabels.js](../../../server/sharedLabels.js) | Site-admin catalog edits reach every board copy; `tests/sharedLabels.test.cjs` and its runtime suite. |
 
 ## People
 

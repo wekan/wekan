@@ -57,6 +57,7 @@ import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import { debounce } from '/imports/lib/collectionHelpers';
 const { SimpleSchema } = require('/imports/simpleSchema');
+const { formatCardKey } = require('/models/lib/boardKey');
 
 // #1759: map a card's labels onto the board it moves or is copied to, creating
 // the missing ones there when the actor is that board's admin
@@ -2797,6 +2798,14 @@ Cards.helpers({
 
   getCardNumber() {
     return this.getRealCard().cardNumber;
+  },
+
+  // The card's number as people see and search it: KEY-7 with its board's key
+  // (#2449, #2450), #7 for a board that has none yet.
+  getCardKey() {
+    const card = this.getRealCard();
+    const board = card && ReactiveCache.getBoard(card.boardId);
+    return formatCardKey(board && board.key, card && card.cardNumber);
   },
 
   getBoardTitle() {

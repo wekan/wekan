@@ -48,6 +48,7 @@ import ChecklistItems from '/models/checklistItems';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import { assertListNotRefused } from '/server/lib/listPermissionGate';
 // #4693: setSubtaskDone - tick a subtask done from the parent's Subtasks list.
 import '/server/lib/subtaskDoneMethod';
 import getSlug from 'limax';
@@ -1360,6 +1361,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   // (non board member) caller's rejection never blocks and the card was created
   // anyway — an auth bypass (CWE-862). Awaiting enforces the membership check.
   await Authentication.checkAdminOrCondition(req.userId, addPermission);
+  await assertListNotRefused(req.userId, board, req.params.listId); // #4527
   const paramListId = req.params.listId;
   const paramParentId = req.params.parentId;
 
@@ -1488,6 +1490,7 @@ WebApp.handlers.post(
     const board = await ReactiveCache.getBoard(paramBoardId);
     const addPermission = allowIsBoardMemberWithWriteAccess(req.userId, board);
     await Authentication.checkAdminOrCondition(req.userId, addPermission);
+    await assertListNotRefused(req.userId, board, req.params.listId); // #4527
     const paramListId = req.params.listId;
 
     const cardsInput = req.body.cards;
@@ -1621,6 +1624,11 @@ WebApp.handlers.put(
     const { newBoardId, newSwimlaneId, newListId } = moveParams;
     let updated = false;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), paramListId); // #4527
+    // #4527: a move INTO a list that refuses this role is refused too.
+    if (typeof newListId === 'string' && newListId && newListId !== paramListId) {
+      await assertListNotRefused(req.userId, await ReactiveCache.getBoard(newBoardId || paramBoardId), newListId, 'moveCard');
+    }
     const beforeEdit = await Cards.findOneAsync({ _id: paramCardId, boardId: paramBoardId, listId: paramListId });
     // A card that is not on this board and list is not edited here: the move
     // branches below would otherwise act on the card id alone, on any board.
@@ -2037,6 +2045,7 @@ WebApp.handlers.delete(
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), paramListId); // #4527
 
     // GHSA-8cqr-x6m5-v4w6: the card is fetched with the BOARD the caller was
     // authorised on, not by its id alone. A bare primary-key lookup answered
@@ -2270,6 +2279,7 @@ WebApp.handlers.post(
     const paramCustomFieldId = req.params.customFieldId;
     const paramCustomFieldValue = req.body.value;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), paramListId); // #4527
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
       listId: paramListId,
@@ -2303,6 +2313,7 @@ WebApp.handlers.post(
     const paramCardId = req.params.cardId;
     const paramListId = req.params.listId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), paramListId); // #4527
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
       listId: paramListId,
@@ -2327,6 +2338,7 @@ WebApp.handlers.post(
     const paramCardId = req.params.cardId;
     const paramListId = req.params.listId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), paramListId); // #4527
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
       listId: paramListId,
@@ -2354,6 +2366,7 @@ async function cardMemberFieldHandler(req, res, field, paramUserKey, addNotRemov
   const paramCardId = req.params.cardId;
   const targetUserId = req.params[paramUserKey];
   await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+  await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), paramListId); // #4527
 
   const card = await ReactiveCache.getCard({
     _id: paramCardId,
@@ -2437,6 +2450,8 @@ WebApp.handlers.post(
     }
     // Require write access on the destination board too (may differ from source).
     await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+    // #4527: copying INTO a list is adding a card to it; copying out is reading.
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(toBoardId), toListId);
 
     const card = await ReactiveCache.getCard({
       _id: paramCardId,
