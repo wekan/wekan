@@ -112,3 +112,18 @@ assert.match(gaelic['ldap-sync-now-nothing'], /LDAP_BACKGROUND_SYNC_IMPORT_NEW_U
 assert.match(gaelic['oauth-providers-allowed-email-domains'], /cromagan.*ceadaichear a h-uile fear.*falamh/);
 assert.notEqual(gaelic['subtask-mark-done'], gaelic['subtask-mark-not-done']);
 assert.match(gaelic['subtask-done-no-permission'], /Chan urrainn dhut/);
+
+const recoveryKeys = ["stuck-sync-operation-heading", "stuck-sync-operation-description", "stuck-sync-operation-list", "stuck-sync-operation-applied", "stuck-sync-operation-reason-scope-changed", "stuck-sync-operation-reason-access-denied", "stuck-sync-operation-reason-trigger-unknown", "stuck-sync-operation-reason-intent-missing", "stuck-sync-operation-reason-unknown", "stuck-sync-operation-replayable-now", "stuck-sync-operation-discard-confirm", "stuck-sync-operation-empty", "stuck-sync-operation-truncated", "stuck-sync-operation-unavailable", "stuck-sync-operation-missing", "stuck-sync-operation-not-stuck", "stuck-sync-operation-replayable", "stuck-sync-operation-busy", "interrupted-import-heading", "interrupted-import-description", "interrupted-import-progress", "interrupted-import-created", "interrupted-import-source", "interrupted-import-state-stopped", "interrupted-import-state-failed", "interrupted-import-state-discarding", "interrupted-import-counts", "interrupted-import-no-board", "interrupted-import-keep", "interrupted-import-keep-confirm", "interrupted-import-discard-confirm", "interrupted-import-empty", "interrupted-import-truncated", "interrupted-import-unavailable", "interrupted-import-missing", "interrupted-import-not-interrupted", "interrupted-import-foreign-board", "login-setting-env-only"];
+for (const key of recoveryKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+assert.match(gaelic['stuck-sync-operation-discard-confirm'], /Fuirichidh.*cha tèid an còrr a sgrìobhadh gu bràth/);
+assert.match(gaelic['interrupted-import-description'], /faidhle tùsail.*air a chumail.*a chaidh a chur ris bhon uair sin/);
+assert.match(gaelic['interrupted-import-discard-confirm'], /gach rud air.*gu buan/);
+assert.match(gaelic['interrupted-import-keep-confirm'], /Cha tèid dad a thoirt air falbh/);
+assert.match(gaelic['interrupted-import-foreign-board'], /cha deach atharrachadh/);
+for (const key of ['stuck-sync-operation-truncated', 'interrupted-import-truncated']) assert.match(gaelic[key], /50 fear as sine/);
+const fullCatalog = spawnSync(process.execPath, [fillScript, '--list', 'gd'], { cwd: root, encoding: 'utf8' });
+assert.equal(fullCatalog.status, 0, fullCatalog.stderr);
+assert.deepEqual(JSON.parse(fullCatalog.stdout), {}, 'Full Scottish Gaelic placeholder inventory including pending keys');

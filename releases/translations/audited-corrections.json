@@ -214996,5 +214996,271 @@
     "before": "You cannot change whether this subtask is done",
     "after": "Chan urrainn dhut atharrachadh a bheil am fo-ghnìomh seo deiseil",
     "reason": "Translate Scottish Gaelic workflow and permission messages with restrictions, status mapping and setting names retained; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-heading",
+    "before": "List Sync operations that cannot be replayed",
+    "after": "Obrachaidhean sioncronachaidh liosta nach gabh ath-chluich",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-description",
+    "before": "Each of these saved List Sync operations stopped part way and can no longer be finished, because its list was removed, recreated or reconfigured, or the user who started it lost write access. While one is pending, that list cannot Sync. Discard it to let the list Sync again: changes already applied stay, the remaining saved changes are never written, and the next Sync compares the list with its source again.",
+    "after": "Stad gach aon de na h-obrachaidhean sioncronachaidh liosta sàbhailte seo letheach slighe agus chan urrainnear a chrìochnachadh tuilleadh, oir chaidh an liosta aige a thoirt air falbh, ath-chruthachadh no ath-rèiteachadh, no chaill an cleachdaiche a thòisich e cead sgrìobhaidh. Fhad ’s a tha fear ri feitheamh, chan urrainnear an liosta sin a shioncronachadh. Tilg air falbh e gus an liosta a shioncronachadh a-rithist: fuirichidh atharrachaidhean a chaidh a chur an sàs mu thràth, cha tèid na h-atharrachaidhean sàbhailte eile a sgrìobhadh gu bràth, agus nì an ath shioncronachadh coimeas eadar an liosta agus an tùs aige a-rithist.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-list",
+    "before": "Board / list",
+    "after": "Bòrd / liosta",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-applied",
+    "before": "__applied__ of __total__ changes applied",
+    "after": "__applied__ de __total__ atharrachadh air an cur an sàs",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-reason-scope-changed",
+    "before": "The list was removed, recreated or its Sync settings changed",
+    "after": "Chaidh an liosta a thoirt air falbh, ath-chruthachadh no na roghainnean sioncronachaidh aige atharrachadh",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-reason-access-denied",
+    "before": "The user who started it no longer has write access to the whole list",
+    "after": "Chan eil cead sgrìobhaidh aig a’ chleachdaiche a thòisich e air an liosta gu lèir tuilleadh",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-reason-trigger-unknown",
+    "before": "Saved by an earlier WeKan version without what started it",
+    "after": "Air a shàbhaladh le tionndadh nas sine de WeKan gun chlàr air dè a thòisich e",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-reason-intent-missing",
+    "before": "The record of who started it is missing",
+    "after": "Tha an clàr air cò a thòisich e a dhìth",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-reason-unknown",
+    "before": "Could not be checked now",
+    "after": "Cha b’ urrainn dhuinn a sgrùdadh an-dràsta",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-replayable-now",
+    "before": "It can be replayed again now and will finish by itself, so it cannot be discarded.",
+    "after": "Gabhaidh ath-chluich an-dràsta agus crìochnaichidh e leis fhèin, mar sin chan urrainnear a thilgeil air falbh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-discard-confirm",
+    "before": "Discard this saved List Sync operation? Changes it already applied stay; the rest are never written. The list can then Sync again.",
+    "after": "An tilg thu air falbh an obrachadh sioncronachaidh liosta sàbhailte seo? Fuirichidh na h-atharrachaidhean a chuir e an sàs mu thràth; cha tèid an còrr a sgrìobhadh gu bràth. Gabhaidh an liosta a shioncronachadh a-rithist an uair sin.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-empty",
+    "before": "No List Sync operations are waiting for review.",
+    "after": "Chan eil obrachaidhean sioncronachaidh liosta a’ feitheamh ri ath-sgrùdadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-truncated",
+    "before": "Only the oldest 50 are shown. Discard some and refresh to see more.",
+    "after": "Chan fhaicear ach an 50 fear as sine. Tilg cuid air falbh agus ath-nuadhaich gus barrachd fhaicinn.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-unavailable",
+    "before": "Could not load the List Sync operations. Refresh to try again.",
+    "after": "Cha b’ urrainn dhuinn na h-obrachaidhean sioncronachaidh liosta a luchdadh. Ath-nuadhaich gus feuchainn a-rithist.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-missing",
+    "before": "This operation is no longer pending.",
+    "after": "Chan eil an obrachadh seo ri feitheamh tuilleadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-not-stuck",
+    "before": "This operation has not been found stuck, so it cannot be discarded.",
+    "after": "Cha deach a lorg gu bheil an obrachadh seo steigte, mar sin chan urrainnear a thilgeil air falbh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-replayable",
+    "before": "This operation can be replayed again now and will finish by itself, so it was not discarded.",
+    "after": "Gabhaidh an obrachadh seo ath-chluich an-dràsta agus crìochnaichidh e leis fhèin, mar sin cha deach a thilgeil air falbh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "stuck-sync-operation-busy",
+    "before": "This list is syncing right now. Try again in a moment.",
+    "after": "Tha an liosta seo ga shioncronachadh an-dràsta. Feuch ris a-rithist ann an greis.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-heading",
+    "before": "Board imports that stopped before finishing",
+    "after": "Ion-phortaidhean bùird a stad mus robh iad deiseil",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-description",
+    "before": "Each of these board imports stopped part way - the server restarted, or the import failed - and left a partial board. An import cannot be continued, because its source file is not kept. Keep the board as it is, or discard it and import the file again. Discarding removes the board this import created and everything on it, including anything added to it since.",
+    "after": "Stad gach aon de na h-ion-phortaidhean bùird seo letheach slighe — dh’ath-thòisich am frithealaiche no dh’fhàillig an ion-phortadh — agus dh’fhàg e bòrd neo-choileanta. Chan urrainnear leantainn air ion-phortadh oir chan eil am faidhle tùsail aige air a chumail. Cùm am bòrd mar a tha e, no tilg air falbh e agus ion-phortaich am faidhle a-rithist. Ma thilgeas tu air falbh e, thèid am bòrd a chruthaich an ion-phortadh seo agus gach rud air a thoirt air falbh, a’ gabhail a-steach rud sam bith a chaidh a chur ris bhon uair sin.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-progress",
+    "before": "Where it stopped",
+    "after": "Far an do stad e",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-created",
+    "before": "Created so far",
+    "after": "Air a chruthachadh gu ruige seo",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-source",
+    "before": "Imported from __source__",
+    "after": "Air ion-phortadh à __source__",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-state-stopped",
+    "before": "Stopped without finishing, at __stage__",
+    "after": "Stad gun chrìochnachadh, aig __stage__",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-state-failed",
+    "before": "Failed with __error__, at __stage__",
+    "after": "Dh’fhàillig le __error__, aig __stage__",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-state-discarding",
+    "before": "Being discarded; discard again to finish",
+    "after": "Ga thilgeil air falbh; tilg air falbh a-rithist gus crìochnachadh",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-counts",
+    "before": "__swimlanes__ swimlanes, __lists__ lists, __cards__ cards, __checklists__ checklists, __comments__ comments, __attachments__ attachments",
+    "after": "__swimlanes__ slighe, __lists__ liosta, __cards__ cairt, __checklists__ liosta-dearbhaidh, __comments__ beachd, __attachments__ ceanglachan",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-no-board",
+    "before": "No board was created",
+    "after": "Cha deach bòrd a chruthachadh",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-keep",
+    "before": "Keep",
+    "after": "Cùm",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-keep-confirm",
+    "before": "Keep this partial board as it is? Nothing is removed, and the import is no longer listed here.",
+    "after": "An cùm thu am bòrd neo-choileanta seo mar a tha e? Cha tèid dad a thoirt air falbh, agus cha bhi an ion-phortadh air a liostadh an-seo tuilleadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-discard-confirm",
+    "before": "Discard this import? The board it created and everything on it are removed permanently.",
+    "after": "An tilg thu an ion-phortadh seo air falbh? Thèid am bòrd a chruthaich e agus gach rud air a thoirt air falbh gu buan.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-empty",
+    "before": "No interrupted board imports are waiting for review.",
+    "after": "Chan eil ion-phortaidhean bùird a chaidh stad a’ feitheamh ri ath-sgrùdadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-truncated",
+    "before": "Only the oldest 50 are shown. Keep or discard some and refresh to see more.",
+    "after": "Chan fhaicear ach an 50 fear as sine. Cùm no tilg air falbh cuid agus ath-nuadhaich gus barrachd fhaicinn.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-unavailable",
+    "before": "Could not load the interrupted board imports. Refresh to try again.",
+    "after": "Cha b’ urrainn dhuinn na h-ion-phortaidhean bùird a chaidh stad a luchdadh. Ath-nuadhaich gus feuchainn a-rithist.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-missing",
+    "before": "This import is no longer recorded.",
+    "after": "Chan eil an ion-phortadh seo clàraichte tuilleadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-not-interrupted",
+    "before": "This import is not waiting for a decision any more.",
+    "after": "Chan eil an ion-phortadh seo a’ feitheamh ri co-dhùnadh tuilleadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "interrupted-import-foreign-board",
+    "before": "The board with this id was not created by this import, so it was not touched.",
+    "after": "Cha do chruthaich an ion-phortadh seo am bòrd leis an ID seo, mar sin cha deach atharrachadh.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "login-setting-env-only",
+    "before": "Only the server environment sets these. They are shown here read-only.",
+    "after": "Chan urrainnear iad seo a shuidheachadh ach ann an àrainneachd an fhrithealaiche. Tha iad ri leughadh a-mhàin an-seo.",
+    "reason": "Translate Scottish Gaelic recovery messages with irreversible effects, retained changes and retry conditions explicit; technical prose needs fluent review."
   }
 ]
