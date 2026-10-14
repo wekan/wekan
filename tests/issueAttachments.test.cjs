@@ -59,7 +59,10 @@ test('the parsers pass them on and the creator downloads them safely into defaul
   const parsers = read('models/lib/externalParsers.js');
   assert.strictEqual((parsers.match(/\.\.\.withAttachments\(issue\)/g) || []).length, 2, 'GitHub/Gitea and GitLab');
   const creator = read('models/kanboardCreator.js');
-  assert.match(creator, /fetchImportedAttachment\(att\.url\)/);
+  // Through the import's sign-in plan (models/lib/importAttachmentAuth.js),
+  // which ends in the same SSRF-guarded fetchImportedAttachment.
+  assert.match(creator, /downloadImportAttachment\(this\.source, att, attachmentAuth\.get\(this\)\)/);
+  assert.match(read('models/lib/importAttachmentDownload.js'), /await fetchImportedAttachment\(request\.url, \{ headers: request\.headers \}\)/);
   assert.match(creator, /Attachments\.writeAsync\(downloaded\.buffer, \{[\s\S]*?\}, true\)/);
   // negative: Meteor-Files' own download follows redirects unchecked (FollowBleed)
   assert.doesNotMatch(creator, /Attachments\.loadAsync\(/);

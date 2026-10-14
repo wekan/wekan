@@ -84,8 +84,8 @@ From the [format coverage](../Format-Coverage.md) audit:
   importer with the source author's name leading the text; start, end and
   creation dates, archive state, several assignees and source order are kept.
   Creation dates survive the schema's `createdAt` autoValue through
-  `writeImportedEntity`. File contents (the JSON carries attachment metadata
-  only) and sharing rules are reported. Deck sharing rules stay a reported
+  `writeImportedEntity`. Attachment files are downloaded with the sign-in the
+  import page asks for (below); sharing rules are reported. Deck sharing rules stay a reported
   loss by design: an import never grants board access.
 
 What the current code does (`parseNextcloudDeck` in
@@ -124,13 +124,41 @@ has `title`, `description`, `duedate`, the labels as `{ title }`, `createdAt`,
 the end date as `done`, the owner and further people as `assignedUsers`, the
 creator as `owner` and the comments.
 
+## Attachment files
+
+Each card's `attachments` list names its files; Deck's REST API documents
+`GET /index.php/apps/deck/api/v1.0/boards/{boardId}/stacks/{stackId}/cards/{cardId}/attachments/{attachmentId}`
+as the file itself (`v1.1` for the `file` type, the Nextcloud Files ones of
+Deck 1.3 and later). Under **Attachment files** on the import page, give the
+Nextcloud address, the user name and an app password (Nextcloud → Personal
+settings → Security → Devices & sessions); the import downloads each file with
+them, sending `OCS-APIRequest: true` as the API requires.
+
+The address and the sign-in go with that one import: they are sent only to the
+address typed there (an export file names any URL it likes, and one pointing
+an attachment elsewhere gets no sign-in), never stored and never logged, and
+the token field is emptied when Import is pressed. Every download goes through
+the import's SSRF guard, which checks each redirect and drops the sign-in on a
+redirect to another host, and lands in Admin Panel → Attachments → Default
+Storage like any upload. A file that cannot be fetched is on the loss report
+with the reason, and the import goes on. Leaving the fields empty imports the
+board without its files. Unticking **Attachments** under what to include
+leaves them out too. A service on a private address is refused by the same
+guard. `models/lib/importAttachmentAuth.js` decides what is asked of whom.
+Through the REST API (`POST /api/boards/import/<source>`), send the same as
+`"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
+`"board"`.
+
 ## What is not kept
 
 The import reports these on the loss report:
 
 - the board's `acl` sharing rules (board access is granted in WeKan, not by an
   import);
-- card attachments (they are Nextcloud files, not part of the export);
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
+- an `attachmentCount` with no `attachments` list: nothing names the files
+  (`GET .../cards/{cardId}/attachments` lists them);
 - deleted stacks and cards, as a warning.
 
 Deck has no member mapping in WeKan, so assignees do not become card members.

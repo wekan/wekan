@@ -34,13 +34,16 @@ const MAX_IMPORT_REDIRECTS = 5;
  * Fetch an attachment URL named by an imported board.
  *
  * @param {string} url
+ * @param {{headers?: Object}} [options]  the service's sign-in, for a file
+ *   behind it (models/lib/importAttachmentAuth.js); fetchSafe drops it on a
+ *   redirect to another origin
  * @returns {Promise<{blocked: true, reason: string} | {buffer: Buffer, type: string|null}>}
  *   `blocked` when the URL — or a redirect it answered with — is not allowed to
  *   be contacted; the caller skips that one attachment. Throws on an ordinary
  *   download failure (HTTP error, network), which callers already treat as
  *   "skip this attachment".
  */
-export async function fetchImportedAttachment(url) {
+export async function fetchImportedAttachment(url, { headers } = {}) {
   const validation = await validateAttachmentUrl(url);
   if (!validation.valid) {
     return { blocked: true, reason: validation.reason };
@@ -52,7 +55,7 @@ export async function fetchImportedAttachment(url) {
 
   let res;
   try {
-    res = await fetchSafe(url, { maxRedirects: MAX_IMPORT_REDIRECTS });
+    res = await fetchSafe(url, { maxRedirects: MAX_IMPORT_REDIRECTS, ...(headers ? { headers } : {}) });
   } catch (error) {
     const message = (error && error.message) || 'download failed';
     if (/^SSRF_GUARD:/.test(message)) {
@@ -68,4 +71,48 @@ export async function fetchImportedAttachment(url) {
   const type =
     ((res.headers && res.headers.get('content-type')) || '').split(';')[0].trim() || null;
   return { buffer: Buffer.from(await res.arrayBuffer()), type };
+}
+
+/**
+ * Download one attachment of a Jira, Deck, OpenProject, Asana or GitLab
+ * import, with the import's sign-in where the service needs it
+ * (models/lib/importAttachmentAuth.js decides what is asked of whom).
+ *
+ * @returns {Promise<{buffer: Buffer, type: string|null} | {lost: string}>}
+ */
+export async function downloadImportAttachment(source, attachment, auth) {
+  // Embedded in the export as base64: nothing to fetch.
+  if (attachment && typeof attachment.file === 'string' && attachment.file) {
+    const buffer = Buffer.from(attachment.file, 'base64');
+    return buffer.length ? { buffer, type: null } : { lost: 'empty file in the export' };
+  }
+  const { attachmentRequest } = require('./importAttachmentAuth');
+  const request = attachmentRequest(source, attachment, auth);
+  if (request.lost) return { lost: request.lost };
+  let answer;
+  try {
+    answer = await fetchImportedAttachment(request.url, { headers: request.headers });
+  } catch (error) {
+    // The status only: an error never carries the address or the sign-in.
+    return { lost: `download failed (${(error && error.message) || 'error'})` };
+  }
+  if (answer.blocked) return { lost: `not downloaded (${answer.reason})` };
+  if (request.then !== 'asana') return answer;
+  // Asana: the attachment record names a signed, short-lived address.
+  let downloadUrl = null;
+  try {
+    const record = JSON.parse(answer.buffer.toString('utf8'));
+    downloadUrl = record && record.data && record.data.download_url;
+  } catch (e) {
+    downloadUrl = null;
+  }
+  if (typeof downloadUrl !== 'string' || !downloadUrl) {
+    return { lost: 'not downloaded: Asana gives no download address for it (a file hosted elsewhere)' };
+  }
+  try {
+    const file = await fetchImportedAttachment(downloadUrl);
+    return file.blocked ? { lost: `not downloaded (${file.reason})` } : file;
+  } catch (error) {
+    return { lost: `download failed (${(error && error.message) || 'error'})` };
+  }
 }

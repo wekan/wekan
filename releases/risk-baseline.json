@@ -176,6 +176,9 @@
     ],
     "models/lib/kanbanflowApiFormat.js": [
       "https://kanbanflow\\.com/.*"
+    ],
+    "models/lib/importAttachmentAuth.js": [
+      "https://app\\.asana\\.com(/.*)?"
     ]
   },
   "files": {

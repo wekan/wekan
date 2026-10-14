@@ -7,7 +7,7 @@
 // status, assignee and type. It now also reads start and creation dates,
 // spent/estimated time (ISO 8601 durations), progress, priority, category,
 // version, responsible and author, schema-named custom fields, embedded
-// comments, the parent hierarchy and relations. Watchers and attachment
+// comments, the parent hierarchy and relations; attachments keep their download link. Watchers and attachment
 // metadata are reported as losses. Parent and dependency links resolve only
 // between items of the same import (models/lib/importedTaskPlan.js).
 
@@ -47,7 +47,10 @@ async function main() {
   assert.deepEqual(task.comments, [{ text: expected.comment, author: 'op-user', date: '2026-09-30T12:34:56Z' }]);
   // Watchers are no longer a parser loss: they become card watchers when
   // mapped to a board member, and the importer reports the rest.
-  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/_embedded/elements/0/attachments']);
+  assert.deepEqual(parsed.unsupported.map(u => u.path), []);
+  // The file is downloaded from its documented downloadLocation, relative to
+  // the instance (models/lib/importAttachmentAuth.js).
+  assert.deepEqual(task.attachments, [{ name: 'audit.txt', path: '/api/v3/attachments/1/content' }]);
   assert.deepEqual(task.watchers, ['op-assignee']);
   const watched = planImportedTask(task, { members: { 'op-assignee': 'u1' }, boardMemberIds: ['u1'] });
   assert.deepEqual([watched.watcherIds, watched.unwatchedCount], [['u1'], 0]);

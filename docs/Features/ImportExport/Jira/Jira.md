@@ -94,8 +94,8 @@ From the [format coverage](../Format-Coverage.md) audit:
   importer with the source author's name leading the text), sub-tasks as child
   cards when they are imported too and as a checklist otherwise, parent
   hierarchy and dependencies between issues of the same import, custom-field
-  values as typed board custom fields, and source order. File contents (the
-  search carries attachment metadata only) are reported.
+  values as typed board custom fields, source order, and the attachment
+  files, downloaded with the sign-in the import page asks for (below).
 
 What the current code does (`models/jiraCreator.js`,
 `models/lib/jiraIssueExtras.js`):
@@ -283,6 +283,31 @@ Scrum is selected), `issuetype` and `fixVersions` (with Scrum), `labels`,
 with a `names` map. With an estimate mapping it also writes
 `wekanScrumMapping` and `schema`.
 
+## Attachment files
+
+The search carries each attachment's `content` address,
+`/rest/api/3/attachment/content/<id>`, which Jira's REST API documents as the
+attachment's contents. Under **Attachment files** on the import page, give the
+Jira address (`https://your-site.atlassian.net`), the account's email and an
+[API token](https://id.atlassian.com/manage-profile/security/api-tokens); the
+import downloads each file with them. Jira answers with a redirect to its media
+store, which is followed without the sign-in.
+
+The address and the sign-in go with that one import: they are sent only to the
+address typed there (an export file names any URL it likes, and one pointing
+an attachment elsewhere gets no sign-in), never stored and never logged, and
+the token field is emptied when Import is pressed. Every download goes through
+the import's SSRF guard, which checks each redirect and drops the sign-in on a
+redirect to another host, and lands in Admin Panel → Attachments → Default
+Storage like any upload. A file that cannot be fetched is on the loss report
+with the reason, and the import goes on. Leaving the fields empty imports the
+board without its files. Unticking **Attachments** under what to include
+leaves them out too. A service on a private address is refused by the same
+guard. `models/lib/importAttachmentAuth.js` decides what is asked of whom.
+Through the REST API (`POST /api/boards/import/<source>`), send the same as
+`"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
+`"board"`.
+
 ## What is not kept
 
 A closed sprint's report: Jira's sprint report has no documented API, so the
@@ -299,7 +324,8 @@ history entries.
 
 The import reports these on the loss report:
 
-- attachments (the search API carries metadata, not file contents);
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
 - a parent or Epic Link to an issue that is not in the file;
 - more result pages than the file holds (`nextPageToken`, or a `total`
   larger than the issues in the file);

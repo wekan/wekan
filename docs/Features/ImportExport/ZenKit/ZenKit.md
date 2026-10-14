@@ -136,7 +136,8 @@ custom fields as `fields`, the checklists and the comments.
 
 The import reports these on the loss report:
 
-- file fields (files are not part of the export);
+- file fields (files are not part of the export, and Zenkit publishes no API
+  for downloading one, so WeKan does not fetch them);
 - reference fields to other lists;
 - formula fields (results are computed by Zenkit);
 - field types with no documented value format;

@@ -51,9 +51,16 @@ import {
 // Issue statuses become lists (the Jira workflow columns), each issue becomes a
 // card, Jira labels become board labels, and recognizable automation rules are
 // mapped to WeKan rules (best effort).
+// The sign-in an import was given for its attachment files
+// (models/lib/importAttachmentAuth.js), beside the creator rather than on it.
+const attachmentAuth = new WeakMap();
+
 export class JiraCreator {
   constructor(data) {
     this._nowDate = new Date();
+    if (data && data.attachmentAuth) attachmentAuth.set(this, data.attachmentAuth);
+    // Files that could not be downloaded, for the loss report.
+    this.attachmentLosses = [];
     // Who the file's people become - chosen users, placeholders, or the
     // person importing - the same for every source (models/lib/importMembersMode.js).
     this.membersMode = membersMode(data);
@@ -288,6 +295,7 @@ export class JiraCreator {
       await insertImportedChecklists(importedChecklists(extra.checklists), { boardId, cardId, now: this._now() });
       const comments = extra.comments.map(c => importedComment(c, this.members)).filter(Boolean);
       await insertImportedComments(comments, { boardId, cardId, now: this._now(), importerId: this._user() });
+      await this.createAttachments(extra.attachments, { boardId, cardId, key: issue.key || String(index) });
     }
     // Sub-tasks and child issues imported together keep their parent; a
     // legacy Epic Link names the card's epic the same way.
@@ -372,6 +380,35 @@ export class JiraCreator {
     { scrumTransfer: this.planning.transfer }, boardId);
   }
 
+  // The issue's files, from Jira's attachment content address: through the
+  // import's SSRF guard (every hop validated, the sign-in dropped on Jira's
+  // redirect to its media store) and written like every upload, into Admin
+  // Panel / Attachments / Default Storage. One that cannot be fetched is a
+  // loss of the import, never fatal.
+  async createAttachments(attachments, { boardId, cardId, key }) {
+    if (!Meteor.isServer || !Array.isArray(attachments) || !attachments.length) return;
+    const Attachments = require('/models/attachments').default;
+    const { downloadImportAttachment } = require('/models/lib/importAttachmentDownload');
+    for (const att of attachments) {
+      const lost = reason => this.attachmentLosses.push({ path: `/issues/${key}/attachment`, reason: `${att.name}: ${reason}` });
+      try {
+        const downloaded = await downloadImportAttachment('jira', att, attachmentAuth.get(this));
+        if (downloaded.lost) {
+          lost(downloaded.lost);
+          continue;
+        }
+        await Attachments.writeAsync(downloaded.buffer, {
+          fileName: att.name || 'attachment',
+          type: downloaded.type || 'application/octet-stream',
+          userId: this._user(),
+          meta: { boardId, cardId, source: 'import' },
+        }, true);
+      } catch (error) {
+        lost(`download failed (${(error && error.message) || error})`);
+      }
+    }
+  }
+
   async create(board, currentBoardId) {
     // Validate before archiving a Sandstorm board or creating any documents.
     try { this.estimateMapping = validateJiraEstimateMapping(board); }
@@ -410,6 +447,7 @@ export class JiraCreator {
       unsupported: [
         ...issues.flatMap(issue => this._extras(board, issue).unsupported),
         ...this.planning.losses,
+        ...this.attachmentLosses,
         ...planImportedCustomFields(issues.map(issue => this._extras(board, issue))).unsupported,
       ],
       boardId,

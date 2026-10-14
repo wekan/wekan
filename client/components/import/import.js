@@ -24,6 +24,29 @@ import GithubImportJobs from '/models/githubImportJobs';
 import { csvMappingData, parseCsvImportText, startCsvMapping } from './csvMapping';
 
 const { jiraEstimateCandidates, discoveredJiraEstimateMapping } = require('/models/lib/jiraEstimateMapping');
+const { attachmentAuthFields } = require('/models/lib/importAttachmentAuth');
+
+// The sign-in for an import's attachment files (models/lib/importAttachmentAuth.js),
+// read from the page when Import is pressed and held only until that import
+// is sent: the map-members step comes between, and the fields are gone by then.
+// The token field is emptied at once.
+function takeAttachmentAuth(tpl, importTpl) {
+  importTpl.attachmentAuth = null;
+  if (!attachmentAuthFields(Session.get('importSource'))) return;
+  const field = cls => tpl.find(cls);
+  const value = cls => (field(cls) ? field(cls).value.trim() : '');
+  const auth = { url: value('.js-import-attachment-url'), username: value('.js-import-attachment-username'),
+    token: value('.js-import-attachment-token') };
+  if (field('.js-import-attachment-token')) field('.js-import-attachment-token').value = '';
+  if (auth.token) importTpl.attachmentAuth = auth;
+}
+
+// Sent with ONE import call, then forgotten.
+function attachmentAuthData(importTpl) {
+  const auth = importTpl.attachmentAuth;
+  importTpl.attachmentAuth = null;
+  return auth ? { attachmentAuth: auth } : {};
+}
 
 // Helper to find the closest ancestor template instance by name
 function findParentTemplateInstance(childTemplateInstance, parentTemplateName) {
@@ -403,6 +426,8 @@ Template.import.onCreated(function () {
     // One person at a time cannot be chosen for many files: their people are
     // placeholders, or all the person importing.
     const membersMode = chosenMembersMode(false) === 'me' ? 'me' : 'placeholder';
+    // One sign-in for the files of every board of this run.
+    const auth = attachmentAuthData(this);
     for (let i = 0; i < files.length; i += 1) {
       const { name, bytes } = files[i];
       this.manyProgress.set(TAPi18n.__('import-many-progress', { done: i + 1, total: files.length, name }));
@@ -427,7 +452,7 @@ Template.import.onCreated(function () {
           boardId = (result.boardIds || [])[0];
         } else {
           boardId = await Meteor.callAsync('importBoard', pruneImportDocument(doc, selectedFields()),
-            { membersMapping: {}, membersMode, importFields: selectedFields(), ...(split ? { splitBy: 'swimlane' } : {}) }, source, null);
+            { membersMapping: {}, membersMode, importFields: selectedFields(), ...auth, ...(split ? { splitBy: 'swimlane' } : {}) }, source, null);
         }
         results.push({ name, ok: !!boardId, error: boardId ? '' : TAPi18n.__('error-json-malformed') });
       } catch (e) {
@@ -531,6 +556,7 @@ Template.import.onCreated(function () {
       // The selection again, for the parts only a creator can leave out:
       // the Scrum planning external parsers find (models/kanboardCreator.js).
       { membersMapping: mappingById, importFields: selectedFields(), membersMode: this.membersMode || 'map', ...csvMappingData(this),
+        ...attachmentAuthData(this),
         ...(splitByProject(this.importSource) ? { splitBy: 'swimlane' } : {}) },
       this.importSource,
       Session.get('fromBoard'),
@@ -705,6 +731,8 @@ Template.importTextarea.helpers({
   importAccept() { return acceptFor(Session.get('importSource')); },
   importPaste() { return Boolean((importSourceSpec(Session.get('importSource')) || {}).paste); },
   isJiraImport() { return Session.get('importSource') === 'jira'; },
+  // Jira, Deck, OpenProject, Asana and GitLab: the sign-in for the files.
+  attachmentAuth() { return attachmentAuthFields(Session.get('importSource')); },
   // A service the page can fetch from (models/lib/apiImportServices.js).
   apiImport() { const key = Session.get('importSource'); return isApiImport(key) ? key : null; },
   // The numeric fields the pasted Jira export declares, to pick the estimate.
@@ -741,6 +769,7 @@ Template.importTextarea.events({
   submit(evt, tpl) {
     const importTpl = findParentTemplateInstance(tpl, 'import');
     if (importTpl) {
+      takeAttachmentAuth(tpl, importTpl);
       return importTpl.importData(evt, Session.get('importSource'));
     }
   },
@@ -749,6 +778,7 @@ Template.importTextarea.events({
   'click .js-import-without-mapping'(evt, tpl) {
     const importTpl = findParentTemplateInstance(tpl, 'import');
     if (importTpl) {
+      takeAttachmentAuth(tpl, importTpl);
       return importTpl.importData(evt, Session.get('importSource'), true);
     }
   },

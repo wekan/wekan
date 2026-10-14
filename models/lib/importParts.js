@@ -54,6 +54,8 @@ function pruneImportDocument(doc, fields) {
         delete tracking.remainingEstimate;
       }
     }
+    // Jira's attachments are per issue, not a top-level array.
+    if (!wanted.has('attachments')) delete values.attachment;
     if (!wanted.has('dates')) {
       delete values.timespent;
       if (tracking && typeof tracking === 'object') {

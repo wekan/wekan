@@ -341,11 +341,21 @@ export function parseNextcloudDeck(data) {
     live.forEach(card => {
       const at = `/stacks/${stackIndex}/cards/${cards.indexOf(card)}`;
       const people = (Array.isArray(card.assignedUsers) ? card.assignedUsers : []).map(deckUser).filter(Boolean);
-      const attachments = Array.isArray(card.attachments) ? card.attachments.length : Number(card.attachmentCount) || 0;
-      if (attachments) {
-        unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s) are Nextcloud files, not part of the export` });
+      // Each attachment the export lists is downloaded from Deck's documented
+      // attachment endpoint, with the Nextcloud app password the import page
+      // asks for (models/lib/importAttachmentAuth.js). A count with no list
+      // names nothing to download.
+      const listed = (Array.isArray(card.attachments) ? card.attachments : []).filter(deckLive);
+      const files = listed.map(file => ({
+        name: String((file.extendedData && file.extendedData.info && file.extendedData.info.basename) || file.data || 'attachment'),
+        deck: { boardId: board.id, stackId: card.stackId !== undefined ? card.stackId : stack.id, cardId: card.id, id: file.id, type: file.type },
+      }));
+      const counted = Array.isArray(card.attachments) ? 0 : Number(card.attachmentCount) || 0;
+      if (counted) {
+        unsupported.push({ path: `${at}/attachments`, reason: `${counted} attachment(s) not listed in the export (GET .../cards/{id}/attachments lists them)` });
       }
       tasks.push({
+        ...(files.length ? { attachments: files } : {}),
         title: card.title || 'Imported card',
         description: card.description || '',
         column_name: stack.title,
@@ -467,8 +477,17 @@ export function parseOpenProject(data) {
     // Watchers become card watchers when mapped to a board member (the
     // importer decides, models/lib/importedTaskPlan.js); others are reported.
     const watchers = embeddedElements(wp, 'watchers').map(w => w && (w.name || w.login)).filter(Boolean);
-    const attachments = embeddedElements(wp, 'attachments').length;
-    if (attachments) unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s): the API export carries metadata, not file contents` });
+    // The files are downloaded from each one's documented downloadLocation,
+    // relative to the instance, with the API key the import page asks for
+    // (models/lib/importAttachmentAuth.js); without it, they are reported.
+    const files = embeddedElements(wp, 'attachments').map(file => {
+      const fileLinks = (file && file._links) || {};
+      const href = (fileLinks.downloadLocation && fileLinks.downloadLocation.href)
+        || (fileLinks.staticDownloadLocation && fileLinks.staticDownloadLocation.href);
+      if (typeof href !== 'string' || !href) return null;
+      const name = (file.fileName || file.title || 'attachment').toString();
+      return /^https?:\/\//i.test(href) ? { name, url: href } : { name, path: href };
+    }).filter(Boolean);
 
     const tags = [
       halTitle(links.type),
@@ -477,6 +496,7 @@ export function parseOpenProject(data) {
       links.version && halTitle(links.version) && `version:${halTitle(links.version)}`,
     ].filter(Boolean);
     return {
+      ...(files.length ? { attachments: files } : {}),
       ref: id,
       parent_ref: halId(links.parent),
       dependencies,
@@ -801,10 +821,27 @@ export function parseAsana(data) {
     });
     const embedded = (Array.isArray(t.subtasks) ? t.subtasks : []).filter(sub => !(sub && sub.gid && listed.has(String(sub.gid))));
     const followers = (Array.isArray(t.followers) ? t.followers : []).map(asanaUser).filter(Boolean);
-    const attachments = Array.isArray(t.attachments) ? t.attachments.length : 0;
-    if (attachments) unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s): the API export carries metadata, not file contents` });
+    // A file the export embeds (export_boards.pl writes it as base64), or one
+    // Asana stores, fetched by its gid with the access token the import page
+    // asks for (models/lib/importAttachmentAuth.js). One kept on Google Drive,
+    // Dropbox and the like is a link there, not a file in Asana.
+    const files = [];
+    (Array.isArray(t.attachments) ? t.attachments : []).forEach((file, i) => {
+      if (!file || typeof file !== 'object') return;
+      const name = String(file.name || 'attachment');
+      if (typeof file.file === 'string' && file.file) {
+        files.push({ name, file: file.file });
+      } else if (file.host && file.host !== 'asana') {
+        unsupported.push({ path: `${at}/attachments/${i}`, reason: `${name}: a link to ${file.host}, not a file stored in Asana` });
+      } else if (file.gid !== undefined && file.gid !== null) {
+        files.push({ name, asanaGid: String(file.gid), ...(typeof file.download_url === 'string' ? { url: file.download_url } : {}) });
+      } else {
+        unsupported.push({ path: `${at}/attachments/${i}`, reason: `${name}: no file and no Asana id in the export` });
+      }
+    });
     const footer = t.permalink_url ? `Source: ${t.permalink_url}` : '';
     return {
+      ...(files.length ? { attachments: files } : {}),
       ref: t.gid !== undefined && t.gid !== null ? String(t.gid) : undefined,
       parent_ref: t.parent && t.parent.gid !== undefined ? String(t.parent.gid) : undefined,
       // Each dependency is also listed on the other task as a dependent; keep

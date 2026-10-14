@@ -13,7 +13,8 @@ import { adfPlainText } from './externalParsers.js';
 //   subtasks      fields.subtasks that are NOT imported: a checklist instead
 //   custom_fields customfield_NNNNN values, named from the search response's
 //                 `names` map (expand=names) when present
-//   unsupported   attachments (metadata only) and a parent outside the import
+//   attachments   { name, url } to download (JiraCreator)
+//   unsupported   an attachment with no address, and a parent outside the import
 
 function jiraName(value) {
   if (value === null || value === undefined) return undefined;
@@ -73,11 +74,19 @@ export function jiraIssueExtras(issue, { names = {}, importedKeys = new Set(), s
     custom[typeof names[key] === 'string' && names[key] ? names[key] : key] = value;
   });
 
-  const attachments = Array.isArray(fields.attachment) ? fields.attachment.length : 0;
-  if (attachments) {
-    unsupported.push({ path: `${at}/attachment`, reason: `${attachments} attachment(s): the search API carries metadata, not file contents` });
-  }
+  // Each attachment's `content` is Jira's documented download address
+  // (/rest/api/3/attachment/content/<id>); JiraCreator downloads it with the
+  // sign-in the import page asks for (models/lib/importAttachmentAuth.js).
+  const attachments = [];
+  (Array.isArray(fields.attachment) ? fields.attachment : []).forEach((file, i) => {
+    if (file && typeof file.content === 'string' && /^https?:\/\//i.test(file.content)) {
+      attachments.push({ name: String(file.filename || 'attachment'), url: file.content });
+    } else {
+      unsupported.push({ path: `${at}/attachment/${i}`, reason: 'an attachment with no download address' });
+    }
+  });
   return {
+    attachments,
     tags,
     comments,
     parentKey: parentKey && importedKeys.has(parentKey) ? parentKey : undefined,

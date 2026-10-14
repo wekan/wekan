@@ -30,7 +30,9 @@ async function main() {
   assert.equal(task.requested_by, 'deck-owner');
   assert.deepEqual(task.tags, [expected.label]);
   assert.deepEqual(parsed.warnings, [{ path: '/stacks/0/cards', reason: '1 deleted card(s) skipped' }]);
-  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/acl', '/stacks/0/cards/0/attachments']);
+  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/acl']);
+  // Each listed attachment is downloaded from Deck's attachment endpoint.
+  assert.deepEqual(task.attachments, [{ name: 'audit.txt', deck: { boardId: 1, stackId: 1, cardId: task.attachments[0].deck.cardId, id: 1, type: 'file' } }]);
 
   const plan = planImportedTask(task, { members: { 'deck-a': 'uA', 'deck-b': 'uB', 'deck-guest': 'uG' } });
   assert.deepEqual(plan.memberIds, ['uA', 'uB'], 'assignees become members; the ACL guest does not');
@@ -64,7 +66,7 @@ async function main() {
   assert.equal(odd.tasks[0].owner_username, 'plain-uid');
   assert.deepEqual(odd.tasks[0].comments, []);
   assert.equal(odd.tasks[0].archived, false, 'only a real boolean archives');
-  assert.match(odd.unsupported[0].reason, /^2 attachment/);
+  assert.match(odd.unsupported[0].reason, /^2 attachment\(s\) not listed in the export/, 'a count names nothing to download');
   assert.deepEqual(parseNextcloudDeck({}).tasks, []);
 
   console.log('  ok - Deck assignees, comments, order, archive/done state and losses import');

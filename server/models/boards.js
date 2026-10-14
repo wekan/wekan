@@ -14,6 +14,7 @@ import {
 } from '/models/lib/boardInvites';
 import { buildBoardLabel } from '/models/lib/restLabel';
 import { isCsvMappingShape } from '/models/lib/csvImportMapping';
+import { isAttachmentAuthShape } from '/models/lib/importAttachmentAuth';
 import { LABEL_COLORS } from '/models/metadata/colors';
 import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -1182,6 +1183,14 @@ WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
         throw new Meteor.Error('invalid-import-mapping', 'csvMapping is not a valid column mapping');
       }
       additionalData.csvMapping = body.csvMapping;
+    }
+    // The sign-in for the attachment files of a Jira, Deck, OpenProject, Asana
+    // or GitLab import (models/lib/importAttachmentAuth.js), for this call only.
+    if (body.attachmentAuth !== undefined) {
+      if (!isAttachmentAuthShape(body.attachmentAuth)) {
+        throw new Meteor.Error('invalid-import-format', 'attachmentAuth is { url, username, token } strings');
+      }
+      additionalData.attachmentAuth = body.attachmentAuth;
     }
     const boardId = await DDP._CurrentMethodInvocation.withValue(
       { userId: req.userId },

@@ -7,7 +7,7 @@
 // tags. It now keeps start, completion and creation dates, custom-field
 // values of every Asana kind, comment stories, subtasks (as child cards when
 // fetched as tasks, as a checklist when only embedded) and dependencies.
-// Followers and attachment metadata are reported as losses.
+// Followers become watchers; attachments are downloaded with the import's sign-in.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -32,7 +32,14 @@ async function main() {
   assert.deepEqual(task.checklists, [{ title: 'Subtasks', items: [{ title: 'Audit subtask', done: true }] }]);
   // Followers are no longer a parser loss: they become card watchers when
   // mapped to a board member, and the importer reports the rest.
-  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/data/0/attachments']);
+  assert.deepEqual(parsed.unsupported.map(u => u.path), []);
+  // Fetched by gid with the access token; a link to another host is reported.
+  assert.deepEqual(task.attachments, [{ name: 'audit.txt', asanaGid: '5' }]);
+  const linked = parseAsana({ data: [{ gid: '9', name: 'T', attachments: [
+    { gid: '6', name: 'drive doc', host: 'gdrive' }, { name: 'embedded.txt', file: 'aGk=' }, { name: 'no id' }] }] });
+  assert.deepEqual(linked.tasks[0].attachments, [{ name: 'embedded.txt', file: 'aGk=' }], 'an embedded file is taken as it is');
+  assert.deepEqual(linked.unsupported.map(u => u.reason), ['drive doc: a link to gdrive, not a file stored in Asana',
+    'no id: no file and no Asana id in the export']);
   assert.deepEqual(task.watchers, ['Asana Assignee']);
   const watched = planImportedTask(task, { members: { 'Asana Assignee': 'u1' }, boardMemberIds: ['u1'] });
   assert.deepEqual([watched.watcherIds, watched.unwatchedCount], [['u1'], 0]);

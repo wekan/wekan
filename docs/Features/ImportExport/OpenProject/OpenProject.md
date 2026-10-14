@@ -87,8 +87,8 @@ From the [format coverage](../Format-Coverage.md) audit:
   hierarchy and dependencies between work packages of the same import,
   custom-field values as typed board custom fields, start and creation dates,
   several assignees and source order. Creation dates survive the schema's
-  `createdAt` autoValue through `writeImportedEntity`. File contents (the JSON
-  carries attachment metadata only) are reported. OpenProject watchers become
+  `createdAt` autoValue through `writeImportedEntity`. Attachment files are
+  downloaded with the API key the import page asks for (below). OpenProject watchers become
   card watchers when they are mapped to a member of the new board; watching
   grants no access, but a non-member watching a private board would receive
   its notifications, so any other watcher is counted in the loss report
@@ -174,11 +174,37 @@ author (the creator) and parent. Comments go out as `Activity::Comment`
 activities. With Scrum selected, it adds `position`, `version` and `sprint`
 links, and `_embedded.versions` and `_embedded.sprints`.
 
+## Attachment files
+
+Each embedded attachment carries `_links.downloadLocation`, which the API v3
+documents as the direct download link, relative to the instance
+(`/api/v3/attachments/<id>/content`). Under **Attachment files** on the import
+page, give the OpenProject address and an API key (My account → Access tokens);
+the import downloads each file with them, as Basic `apikey:<key>`, the way the
+API documents. A work-package collection embeds attachments only when the
+export asks for them.
+
+The address and the sign-in go with that one import: they are sent only to the
+address typed there (an export file names any URL it likes, and one pointing
+an attachment elsewhere gets no sign-in), never stored and never logged, and
+the token field is emptied when Import is pressed. Every download goes through
+the import's SSRF guard, which checks each redirect and drops the sign-in on a
+redirect to another host, and lands in Admin Panel → Attachments → Default
+Storage like any upload. A file that cannot be fetched is on the loss report
+with the reason, and the import goes on. Leaving the fields empty imports the
+board without its files. Unticking **Attachments** under what to include
+leaves them out too. A service on a private address is refused by the same
+guard. `models/lib/importAttachmentAuth.js` decides what is asked of whom.
+Through the REST API (`POST /api/boards/import/<source>`), send the same as
+`"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
+`"board"`.
+
 ## What is not kept
 
 The import reports these on the loss report:
 
-- attachments (the API export carries metadata, not file contents);
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
 - watchers who are not members of the new board;
 - version and sprint links whose records are not embedded, active sprints
   (imported as planned) and completed sprints;

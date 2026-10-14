@@ -136,6 +136,7 @@ import './attachedCards.tests';
 import './storedRuleMoveBoard.tests';
 import './ruleEmailFollowedMove.tests';
 import './jiraScrumImport.tests';
+import './importAttachmentAuth.tests';
 import './externalScrumImport.tests';
 import './listSyncGitlabEstimate.tests';
 import './listSyncWriteBack.tests';

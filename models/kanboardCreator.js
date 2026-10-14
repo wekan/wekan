@@ -46,9 +46,15 @@ import {
 //
 // What each task becomes is decided by models/lib/importedTaskPlan.js, which
 // plain-Node tests exercise; this class only performs the inserts.
+// The sign-in an import was given for its attachment files
+// (models/lib/importAttachmentAuth.js), held beside the creator rather than on
+// it, so nothing that reads the creator - the import run, a log - can see it.
+const attachmentAuth = new WeakMap();
+
 export class KanboardCreator {
   constructor(data, source = 'kanboard') {
     this.source = source;
+    if (data && data.attachmentAuth) attachmentAuth.set(this, data.attachmentAuth);
     // Parser and planner losses, recorded once the board exists.
     this.losses = [];
     this._nowDate = new Date();
@@ -66,6 +72,9 @@ export class KanboardCreator {
     const fields = data && Array.isArray(data.importFields)
       ? data.importFields.filter(field => typeof field === 'string') : [];
     this.wantsScrum = fields.length === 0 || fields.includes('scrum');
+    // A parser's attachments are nested in its tasks, where the pruning of
+    // models/lib/importParts.js does not reach.
+    this.wantsAttachments = fields.length === 0 || fields.includes('attachments');
   }
 
   _now(dateString) {
@@ -258,21 +267,23 @@ export class KanboardCreator {
   }
 
   // The files of a GitHub / GitLab / Gitea / Forgejo issue
-  // (models/lib/issueAttachments.js): downloaded through the import's SSRF
-  // guard, which validates every redirect hop (FollowBleed), and written like
+  // (models/lib/issueAttachments.js), and those a Deck, OpenProject or Asana
+  // export names: downloaded through the import's SSRF guard, which validates
+  // every redirect hop (FollowBleed), with the import's sign-in where the
+  // service needs one (models/lib/importAttachmentAuth.js), and written like
   // every upload, so the after-upload hook stores them in Admin Panel /
   // Attachments / Default Storage and checks their type and size. A file that
   // can not be fetched is recorded as a loss of the import, never fatal.
   async createAttachments(attachments, { boardId, cardId, index }) {
-    if (!Meteor.isServer || !Array.isArray(attachments) || !attachments.length) return;
+    if (!Meteor.isServer || !this.wantsAttachments || !Array.isArray(attachments) || !attachments.length) return;
     const Attachments = require('/models/attachments').default;
-    const { fetchImportedAttachment } = require('/models/lib/importAttachmentDownload');
+    const { downloadImportAttachment } = require('/models/lib/importAttachmentDownload');
     for (const att of attachments) {
-      const lost = reason => this.losses.push({ path: `/tasks/${index}/attachments`, reason: `${att.name || att.url}: ${reason}` });
+      const lost = reason => this.losses.push({ path: `/tasks/${index}/attachments`, reason: `${att.name || 'attachment'}: ${reason}` });
       try {
-        const downloaded = await fetchImportedAttachment(att.url);
-        if (downloaded.blocked) {
-          lost(`not downloaded (${downloaded.reason})`);
+        const downloaded = await downloadImportAttachment(this.source, att, attachmentAuth.get(this));
+        if (downloaded.lost) {
+          lost(downloaded.lost);
           continue;
         }
         await Attachments.writeAsync(downloaded.buffer, {

@@ -207,7 +207,7 @@ The import reports these on the loss report:
 - the Scrum cases listed under **Sprints and releases** above;
 - links to issues that are not in the same import.
 
-These are not read: label colors, attachments, system notes, and GitLab's
+These are not read: label colors, system notes, and GitLab's
 time-tracking history beyond the totals.
 
 The import page has no member mapping for GitLab, so assignees and comment
@@ -218,6 +218,30 @@ GitLab author's name at the start.
 The GitLab export does not write weight, time estimate, task completion,
 custom fields, checklists, subtasks, dependencies, attachments, archived
 cards, or a cancelled sprint or release.
+
+## Attachment files
+
+The files linked from an issue and its comments (`/uploads/<secret>/<name>`)
+are downloaded as before. A private project's upload needs a sign-in: under
+**Attachment files** on the import page, give the GitLab address and a personal
+access token (scope `read_api`); the import then downloads each upload of that
+GitLab through `GET /api/v4/projects/<id>/uploads/<secret>/<name>`, which GitLab
+17.4 and later document, with the token as `Authorization: Bearer`.
+
+The address and the sign-in go with that one import: they are sent only to the
+address typed there (an export file names any URL it likes, and one pointing
+an attachment elsewhere gets no sign-in), never stored and never logged, and
+the token field is emptied when Import is pressed. Every download goes through
+the import's SSRF guard, which checks each redirect and drops the sign-in on a
+redirect to another host, and lands in Admin Panel → Attachments → Default
+Storage like any upload. A file that cannot be fetched is on the loss report
+with the reason, and the import goes on. Leaving the fields empty imports the
+board without its files. Unticking **Attachments** under what to include
+leaves them out too. A service on a private address is refused by the same
+guard. `models/lib/importAttachmentAuth.js` decides what is asked of whom.
+Through the REST API (`POST /api/boards/import/<source>`), send the same as
+`"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
+`"board"`.
 
 ## REST API
 

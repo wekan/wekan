@@ -91,6 +91,21 @@ template(name="importTextarea")
           option(value=fieldId) {{name}}
       label(for='jira-estimate-unit') {{_ 'scrum-estimate-unit'}}
       input.js-jira-estimate-unit(id='jira-estimate-unit' type='text' maxlength='80')
+    //- The export names its files without carrying them; the service's
+      documented download needs its sign-in (models/lib/importAttachmentAuth.js).
+      Used for this import only, sent only to the address typed here.
+    if attachmentAuth
+      fieldset.import-attachment-auth
+        legend {{_ 'import-attachment-auth'}}
+        p.quiet {{_ 'import-attachment-auth-hint'}}
+        if attachmentAuth.url
+          label(for='import-attachment-url') {{_ 'import-attachment-auth-url'}}
+          input.js-import-attachment-url(id='import-attachment-url' type='url' autocomplete='off' maxlength='2048' placeholder='https://')
+        if attachmentAuth.username
+          label(for='import-attachment-username') {{_ 'username'}} / {{_ 'email'}}
+          input.js-import-attachment-username(id='import-attachment-username' type='text' autocomplete='off' maxlength='2048')
+        label(for='import-attachment-token') {{_ 'import-attachment-auth-token'}}
+        input.js-import-attachment-token(id='import-attachment-token' type='password' autocomplete='new-password' maxlength='2048')
     if isTrelloImport
       p.import-file-row
         label(for='import-zip-file') {{_ 'import-trello-zip-file'}}

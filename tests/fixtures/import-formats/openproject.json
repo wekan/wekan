@@ -60,7 +60,7 @@
               {
                 "id": 1,
                 "fileName": "audit.txt",
-                "fileSize": 25
+                "fileSize": 25, "_links": { "downloadLocation": { "href": "/api/v3/attachments/1/content" } }
               }
             ]
           },

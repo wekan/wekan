@@ -80,8 +80,9 @@ From the [format coverage](../Format-Coverage.md) audit:
   hierarchy and dependencies between tasks of the same import, custom-field
   values as typed board custom fields, start, end and creation dates and
   source order. Creation dates survive the schema's `createdAt` autoValue
-  through `writeImportedEntity`. File contents (the JSON carries attachment
-  metadata only) are reported. Asana followers become card watchers when they
+  through `writeImportedEntity`. Attachment files are imported: embedded ones
+  as they are, the others with the access token the import page asks for
+  (below). Asana followers become card watchers when they
   are mapped to a member of the new board; watching grants no access, but a
   non-member watching a private board would receive its notifications, so any
   other follower is counted in the loss report instead.
@@ -146,11 +147,39 @@ complete, archiv or finished) with `completed_at`, `due_on`, `start_on`,
 `number_value`, everything else as `text_value`), every checklist item as a
 `subtasks` entry and the comments as `comment_added` stories.
 
+## Attachment files
+
+A file `export_boards.pl` embedded (as base64) is imported as it is. For the
+others, Asana's API documents `GET /attachments/{attachment_gid}` with
+`opt_fields=download_url`, an address valid for two minutes. Under
+**Attachment files** on the import page, give a personal access token
+(Asana → My settings → Apps → Developer apps); the import asks Asana for each
+file's `download_url` with it and downloads the file from that signed address
+without the token.
+
+The address and the sign-in go with that one import: they are sent only to the
+address typed there (an export file names any URL it likes, and one pointing
+an attachment elsewhere gets no sign-in), never stored and never logged, and
+the token field is emptied when Import is pressed. Every download goes through
+the import's SSRF guard, which checks each redirect and drops the sign-in on a
+redirect to another host, and lands in Admin Panel → Attachments → Default
+Storage like any upload. A file that cannot be fetched is on the loss report
+with the reason, and the import goes on. Leaving the fields empty imports the
+board without its files. Unticking **Attachments** under what to include
+leaves them out too. A service on a private address is refused by the same
+guard. `models/lib/importAttachmentAuth.js` decides what is asked of whom.
+Through the REST API (`POST /api/boards/import/<source>`), send the same as
+`"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
+`"board"`.
+
 ## What is not kept
 
 The import reports these on the loss report:
 
-- attachments (the API export carries metadata, not file contents);
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
+- an attachment kept on Google Drive, Dropbox, OneDrive, Box or Vimeo, which
+  is a link there rather than a file in Asana;
 - followers who are not members of the new board;
 - the milestone losses listed above;
 - more than 50 custom fields, duplicate task ids, and parents or dependencies

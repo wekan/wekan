@@ -13,6 +13,7 @@ import { getMembersToMap } from './wekanmapper';
 import { assertImportEnabled } from './lib/importExportSecurity';
 import { withDeadline } from './lib/withDeadline';
 import { isCsvMappingShape, mappingForSheet } from './lib/csvImportMapping';
+const { isAttachmentAuthShape } = require('./lib/importAttachmentAuth');
 
 // Hard deadline for a single board import, so a stalled/hung import can never leave the
 // client's spinner running forever — the method returns a timeout error instead.
@@ -73,6 +74,10 @@ Meteor.methods({
     // The CSV/TSV and Excel imports' column mapping (models/lib/csvImportMapping.js):
     // its shape here, its column numbers against the file's header in the creator.
     check(data.csvMapping, Match.Maybe(Match.Where(isCsvMappingShape)));
+    // The sign-in for the attachment files of a Jira, Deck, OpenProject, Asana
+    // or GitLab import (models/lib/importAttachmentAuth.js): used for this
+    // import's downloads only, never stored or logged.
+    check(data.attachmentAuth, Match.Maybe(Match.Where(isAttachmentAuthShape)));
     // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
     // writes, so authentication is rejected immediately after Meteor's mandatory
     // argument audit and before feature checks, parsing or creator construction.

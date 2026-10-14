@@ -27,7 +27,11 @@ async function main() {
   assert.deepEqual(extra.custom_fields, { 'Audit points': 5, 'Audit team': 'Blue' });
   assert.deepEqual(extra.checklists, [{ title: 'Sub-tasks', items: [{ title: '[AUDIT-9] Audit subtask', done: true }] }]);
   assert.equal(extra.parentKey, undefined);
-  assert.deepEqual(extra.unsupported.map(u => u.path), ['/issues/AUDIT-1/attachment']);
+  assert.deepEqual(extra.unsupported.map(u => u.path), []);
+  // The attachment's documented content address, downloaded by JiraCreator.
+  assert.deepEqual(extra.attachments, [{ name: 'audit.txt', url: 'https://example.invalid/audit.txt' }]);
+  const noAddress = jiraIssueExtras({ key: 'X-1', fields: { attachment: [{ filename: 'a', content: 'javascript:x' }] } }, { importedKeys: new Set() });
+  assert.deepEqual([noAddress.attachments, noAddress.unsupported.map(u => u.path)], [[], ['/issues/X-1/attachment/0']]);
   const comment = importedComment(extra.comments[0], {});
   assert.equal(comment.text, `jira-user: ${expected.comment}`, 'shown by display name, mapped by account id');
   assert.equal(comment.createdAt.toISOString(), '2026-09-30T12:34:56.000Z');
@@ -71,7 +75,7 @@ async function main() {
 
   // Negative: an issue with nothing extra yields nothing.
   assert.deepEqual(jiraIssueExtras({ key: 'E-1', fields: {} }),
-    { tags: [], comments: [], parentKey: undefined, checklists: [], custom_fields: {}, unsupported: [] });
+    { attachments: [], tags: [], comments: [], parentKey: undefined, checklists: [], custom_fields: {}, unsupported: [] });
   assert.deepEqual(jiraIssueExtras(null).tags, []);
 
   // The creator uses all of it, in search order.
