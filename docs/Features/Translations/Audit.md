@@ -2,6 +2,26 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole import and synchronization guidance — 2026-10-14
+
+Commit `4063ccbbc8` corrects four entries. Jira help restores pagination,
+required query fields and alternatives for combining pages. Excel help now
+explains generic tables, column mapping and separate boards for worksheets
+with headers. Scrum preview help uses Haitian wording, and list sync identifies
+an external tracking system and its background checks. Provider interfaces
+were not revalidated; these translations follow the current English source.
+
+The Haitian catalog and guarded-correction suites pass with 29,906 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Browser coverage includes Jira and
+Excel help, Scrum import and list synchronization. Syntax and discovery pass;
+runtime execution remains pending.
+
+The remaining Blockly sections were reviewed against the English meanings,
+including logic, numeric limits, list operations and accessibility guidance;
+no additional corrections were identified in that pass. This is not a claim
+of complete Haitian or all-language semantic verification.
+
 ## Haitian Creole analytics meanings and limits — 2026-10-14
 
 Commit `8a4cf08d65` corrects 39 entries. Five methodology notes previously

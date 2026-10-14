@@ -4028,6 +4028,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4063ccbbc8">Update Haitian import and synchronization guidance</a>. Thanks to xet7.</summary>
+
+- Correct four entries: restore Jira pagination and required query fields,
+  Excel column mapping and separate worksheet boards; replace French preview
+  wording and clarify external tracking in list synchronization help.
+- Translation suites and 21 human-preference checks pass. Existing Chinese
+  values remain unchanged. Import, Scrum and sync browser coverage passes
+  syntax and discovery; runtime execution remains pending.
+- All-language semantic review and remaining translations continue.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
