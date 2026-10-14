@@ -23,7 +23,10 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 test('each of the five asks the right thing', () => {
   assert.match(read('client/components/boards/exportScope.js'),
     /function canImportIntoBoard\(\) \{\n  return Boolean\(ReactiveCache\.getCurrentUser\(\) && Utils\.currentUserCan\('write'\)\);/);
-  assert.match(read('client/components/rules/rulesList.js'), /user\.isAdmin \|\| user\.isBoardAdmin\(\)/);
+  // #2217 moved the Rules page's one access rule to client/lib/rulesAccess.js;
+  // it still CALLS isBoardAdmin, and canAdmin asks it.
+  assert.match(read('client/components/rules/rulesList.js'), /return currentRulesAccess\(\) === 'edit';/);
+  assert.match(read('client/lib/rulesAccess.js'), /isBoardAdmin: !!user\.isBoardAdmin\(\),\s*isSiteAdmin: user\.isAdmin === true,/);
   const sidebar = read('client/components/sidebar/sidebar.js');
   assert.match(sidebar, /currentBoard\.activeAdmins\(\)\.length === 1/);
   assert.doesNotMatch(sidebar, /Boards\.hasWorker\(/);

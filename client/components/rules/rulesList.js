@@ -1,3 +1,5 @@
+import Boards from '/models/boards';
+import { currentRulesAccess } from '/client/lib/rulesAccess';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Rules from '/models/rules';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
@@ -29,10 +31,18 @@ Template.rulesList.helpers({
     return ReactiveCache.getRules({ boardId });
   },
   canAdmin() {
-    const user = ReactiveCache.getCurrentUser();
     // isBoardAdmin is a helper to call: as a bare reference it was always
-    // truthy, so every member was shown the rule controls.
-    return !!(user && (user.isAdmin || user.isBoardAdmin()));
+    // truthy, so every member was shown the rule controls. #2217: one rule
+    // for the whole Rules page (client/lib/rulesAccess.js).
+    return currentRulesAccess() === 'edit';
+  },
+  // #2217: the board admin's tick, offered when the Admin Panel allows it.
+  rulesForMembersOffered() {
+    return !!(ReactiveCache.getCurrentSetting() || {}).rulesReadOnlyForMembers;
+  },
+  rulesVisibleToMembers() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return !!(board && board.rulesVisibleToMembers);
   },
   isSelected() {
     return getSelected().includes(this._id);
@@ -50,6 +60,11 @@ Template.rulesList.helpers({
 });
 
 Template.rulesList.events({
+  'click .js-toggle-rules-visible-to-members'(event) {
+    event.preventDefault();
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    if (board) Boards.update(board._id, { $set: { rulesVisibleToMembers: !board.rulesVisibleToMembers } });
+  },
   'change .js-rule-select'(event) {
     const ruleId = event.currentTarget.getAttribute('data-rule-id');
     const selected = new Set(getSelected());

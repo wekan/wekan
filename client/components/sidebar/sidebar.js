@@ -1,3 +1,4 @@
+import { currentRulesAccess } from '/client/lib/rulesAccess';
 import '/client/components/forms/dateFormatSettings';
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -920,6 +921,8 @@ Template.wipLimitGroupsPopup.events({
 });
 
 Template.boardMenuPopup.helpers({
+  // #2217: a member reads the board's Rules when both switches allow it.
+  rulesReadable() { return currentRulesAccess() === 'read'; },
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },

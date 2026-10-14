@@ -726,6 +726,16 @@ Boards.attachSchema(
       defaultValue: null,
     },
 
+    rulesVisibleToMembers: {
+      /**
+       * #2217: board members may read this board's Rules, when Admin Panel /
+       * Settings / Visibility allows it (models/lib/rulesReadOnly.js). Set by
+       * a board admin; grants no right to change a rule.
+       */
+      type: Boolean,
+      optional: true,
+    },
+
     subtasksDefaultSwimlaneId: {
       /**
        * #1953: the swimlane new subtasks land in on the deposit board

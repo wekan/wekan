@@ -62,7 +62,15 @@ function liveLines(src) {
   }
   return out;
 }
-const lines = liveLines(menu);
+// #2217: `else if rulesReadable` is the ALTERNATIVE to the board-admin block -
+// a member who may read the board's Rules gets one Rules entry there, and
+// never at the same time as the admin's groups - so it is left out of the
+// admin's sequence and pinned on its own below.
+const readerAt = menu.indexOf('\n  else if rulesReadable\n');
+const readerEnd = menu.indexOf('\n  if currentUser\n', readerAt);
+assert.ok(readerAt !== -1 && readerEnd !== -1, 'the reader branch sits between the admin block and the next one');
+const readerBranch = menu.slice(readerAt, readerEnd);
+const lines = liveLines(menu.slice(0, readerAt) + menu.slice(readerEnd));
 
 // The sequence of entries (by their js-* class) and rules, top to bottom.
 const sequence = lines
@@ -197,4 +205,11 @@ test('each Rules view entry opens the Rules page in that view; Import / Export o
     assert.ok(menu.includes(`{{_ '${key}'}}`), key);
     assert.strictEqual(en[key], text, key);
   }
+});
+
+test('#2217: a member who may read Rules gets the Rules entry alone', () => {
+  const entries = liveLines(readerBranch)
+    .map(l => (l.text === 'hr' ? 'hr' : (l.text.match(/^a\.(js-[a-z-]+)/) || [])[1]))
+    .filter(Boolean);
+  assert.deepStrictEqual(entries, ['js-open-rules-view', 'hr']);
 });

@@ -1,3 +1,4 @@
+import { currentRulesAccess } from '/client/lib/rulesAccess';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { localizeStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
@@ -34,6 +35,8 @@ function extraParts(ruleIdVar, kind) {
 }
 
 Template.ruleDetails.helpers({
+  // #2217: a member who only reads gets no add or remove buttons.
+  canEditRules() { return currentRulesAccess() === 'edit'; },
   currentRuleId() {
     return Template.currentData().ruleId.get();
   },

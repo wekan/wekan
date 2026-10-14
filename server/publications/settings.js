@@ -78,6 +78,8 @@ const SETTING_FIELDS = {
   // Which optional compatible APIs are on (models/lib/optionalApis.js): the
   // Admin Panel shows the ticks; whether one is on is no secret.
   optionalApis: 1,
+  // #2217: whether boards may show their Rules to members; no secret.
+  rulesReadOnlyForMembers: 1,
   hideBoardMemberList: 1,
   hideDateFormat: 1,
   globalDateFormat: 1,

@@ -4,6 +4,14 @@ template(name="rulesList")
       i.fa.fa-magic
       | {{_ 'r-board-rules' }}
 
+    //- #2217: a board admin shows this board's Rules to its members, read-only,
+      when Admin Panel / Settings / Visibility allows it.
+    if canAdmin
+      if rulesForMembersOffered
+        a.flex.js-toggle-rules-visible-to-members(title="{{_ 'rules-visible-to-members'}}")
+          i.fa(class="{{#if rulesVisibleToMembers}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+          span {{_ 'rules-visible-to-members'}}
+
     if rules.length
       .rules-toolbar
         button.primary.js-rules-select-all(type="button")

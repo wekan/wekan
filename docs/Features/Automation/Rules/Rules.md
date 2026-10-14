@@ -10,6 +10,24 @@ into one of its views listed under it: **List view**, **Workflow view**,
 right sidebar is the board's own sidebar, so the same entries are there. Pick a
 view in the **Board View** menu to go back to the board.
 
+
+## Showing a board's Rules to its members
+
+[#2217](https://github.com/wekan/wekan/issues/2217). Rules are edited by board
+admins only. Members can be shown them, read-only, so they know what happens
+when they move a card:
+
+1. **Admin Panel → Settings → Visibility → Rules**: tick **Boards may show their
+   Rules to members, read-only**. It is off by default.
+2. On the board's Rules page, a board admin ticks **Show these Rules to board
+   members, read-only**.
+
+Members of that board then have **Rules** in Board Settings, with the rules
+list and each rule's details, and no control that changes a rule. The server
+methods that change rules check for a board admin as before, so this gives
+nobody a right to change anything. Without both ticks, only board admins see
+the Rules page.
+
 ## How a rule works
 
 A rule links one **trigger** to one **action**:

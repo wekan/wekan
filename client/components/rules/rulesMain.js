@@ -1,3 +1,4 @@
+import { currentRulesAccess } from '/client/lib/rulesAccess';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
 import { triggerValueHasVars } from '/models/lib/ruleTriggerVars';
@@ -58,6 +59,8 @@ Template.rulesMain.helpers({
   currentBoard() {
     return Utils.getCurrentBoard();
   },
+  // #2217: 'edit', 'read' or 'none' (client/lib/rulesAccess.js).
+  rulesAccess() { return currentRulesAccess(); },
   rulesBoardId() { return Session.get('currentBoard'); },
   isRulesHistoryView() { return Session.get('rulesViewMode') === 'history'; },
   isBlocksView() { return Session.get('rulesViewMode') === 'blocks'; },

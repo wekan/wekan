@@ -1046,6 +1046,16 @@ Template.tableVisibilityModeSettings.events({
   // ── Features (#6736) ──────────────────────────────────────────────────────
   // Every feature row's tick, the two policies and the pilot users, in one
   // server method that validates them against the catalog.
+  // #2217: saved at once, like a tick that changes nothing by itself.
+  async 'click .js-toggle-rules-read-only'(event, instance) {
+    event.preventDefault();
+    const box = instance.$('#rules-read-only-for-members');
+    try {
+      await Meteor.callAsync('saveRulesReadOnlyForMembers', !box.hasClass('is-checked'));
+    } catch (error) {
+      console.error(error);
+    }
+  },
   async 'click button.js-optional-apis-save'(event, instance) {
     event.preventDefault();
     const states = {};

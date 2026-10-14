@@ -39,6 +39,17 @@ Meteor.methods({
     return optionalApis;
   },
 
+  // #2217: Admin Panel / Settings / Visibility - boards may show their Rules
+  // to members, read-only (models/lib/rulesReadOnly.js). Site admins only.
+  async saveRulesReadOnlyForMembers(enabled) {
+    await requireSiteAdmin();
+    check(enabled, Boolean);
+    const setting = await Settings.findOneAsync({});
+    if (!setting) throw new Meteor.Error('settings-not-found');
+    await Settings.updateAsync(setting._id, { $set: { rulesReadOnlyForMembers: enabled } });
+    return enabled;
+  },
+
   async saveInstanceFeatures(input) {
     await requireSiteAdmin();
     check(input, {

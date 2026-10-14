@@ -2095,6 +2095,22 @@
     {
       "key": "deposit-subtasks-swimlane-auto",
       "since": "2026-10-14"
+    },
+    {
+      "key": "rules-read-only-for-members",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "rules-read-only-for-members-desc",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "rules-visible-to-members",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "r-rules-not-shown",
+      "since": "2026-10-14"
     }
   ]
 }

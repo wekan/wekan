@@ -6,21 +6,32 @@
 template(name="rulesMain")
   .wrapper
     .rules-page(class=currentBoard.colorClass)
-      if($eq rulesCurrentTab.get 'rulesList')
-        if isWorkflowView
-          +rulesWorkflow
-        else if isBotsView
-          +rulesBots
-        else if isBlocksView
-          +rulesBlocks
-        else if isRulesHistoryView
-          +historyTable(scope="board" scopeId=rulesBoardId group="rules")
+      //- #2217: who may edit sees every view; a member a board shows its Rules
+        to reads the rules list and rule details, with no control that
+        changes a rule; anybody else sees nothing (client/lib/rulesAccess.js).
+      if($eq rulesAccess 'edit')
+        if($eq rulesCurrentTab.get 'rulesList')
+          if isWorkflowView
+            +rulesWorkflow
+          else if isBotsView
+            +rulesBots
+          else if isBlocksView
+            +rulesBlocks
+          else if isRulesHistoryView
+            +historyTable(scope="board" scopeId=rulesBoardId group="rules")
+          else
+            +rulesList
+        if($eq rulesCurrentTab.get 'trigger')
+          +rulesTriggers(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
+        if($eq rulesCurrentTab.get 'action')
+          +rulesActions(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
+        if($eq rulesCurrentTab.get 'ruleDetails')
+          +ruleDetails(ruleId=ruleId)
+      else if($eq rulesAccess 'read')
+        if($eq rulesCurrentTab.get 'ruleDetails')
+          +ruleDetails(ruleId=ruleId)
         else
           +rulesList
-      if($eq rulesCurrentTab.get 'trigger')
-        +rulesTriggers(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
-      if($eq rulesCurrentTab.get 'action')
-        +rulesActions(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
-      if($eq rulesCurrentTab.get 'ruleDetails')
-        +ruleDetails(ruleId=ruleId)
+      else
+        p.quiet {{_ 'r-rules-not-shown'}}
     +sidebar

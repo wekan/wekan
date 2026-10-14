@@ -301,6 +301,12 @@ Settings.attachSchema(
     'webhookInternalHosts.$': {
       type: String,
     },
+    // #2217: boards may show their Rules to members, read-only
+    // (models/lib/rulesReadOnly.js). Off by default.
+    rulesReadOnlyForMembers: {
+      type: Boolean,
+      optional: true,
+    },
     // Admin Panel / Settings / Visibility / Optional APIs
     // (models/lib/optionalApis.js): { trello, jira, github, gitea } - each
     // compatible API is off unless ticked here.

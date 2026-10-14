@@ -422,6 +422,18 @@ template(name='tableVisibilityModeSettings')
 
       li.admin-pane-group-separator
         hr
+      //- #2217: boards may show their Rules to members, read-only. Off by
+        default; each board admin then decides on the board's Rules page.
+      li
+        h2.admin-pane-group-title {{_ 'rules'}}
+      li.tableVisibilityMode-form
+        a.flex.js-toggle-rules-read-only
+          .materialCheckBox#rules-read-only-for-members(class="{{#if currentSetting.rulesReadOnlyForMembers}}is-checked{{/if}}")
+          span {{_ 'rules-read-only-for-members'}}
+        .feature-desc {{_ 'rules-read-only-for-members-desc'}}
+
+      li.admin-pane-group-separator
+        hr
       //- Optional APIs (models/lib/optionalApis.js): REST APIs in the shape of
         Trello's, Jira's, GitHub's and Gitea's, so their clients can use WeKan
         as their backend. Each is off until ticked, and has no rights of its

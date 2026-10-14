@@ -629,6 +629,15 @@ template(name="boardMenuPopup")
     //
               | {{_ 'board-info-on-my-boards'}}
     hr
+  else if rulesReadable
+    //- #2217: a member of a board that shows its Rules reads them here; the
+      page draws no control that changes a rule.
+    ul.pop-over-list
+      li
+        a.js-open-rules-view(title="{{_ 'rules'}}")
+          i.fa.fa-magic
+          | {{_ 'rules'}}
+    hr
   if currentUser
     //- Board View, Swimlane, List and Card settings, together. Board View,
       Swimlane and List are board-admin settings (the resize locks), same
