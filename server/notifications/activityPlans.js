@@ -1,3 +1,4 @@
+import { Random } from 'meteor/random';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import Activities from '/models/activities';
@@ -163,8 +164,24 @@ export async function resumeActivityNotifications(intentId, { assertAllowed = as
       () => prepareActivityNotification(row.dispatchUserId, activity), assertCurrent);
   });
 }
+// #6768: give up on a notification that can never be delivered, or has
+// expired - through the same cancellation an administrator uses, as the
+// system - so the recovery list drains (server/lib/activityNotificationExpiry.js).
+export async function giveUpActivityNotification(intentId, reason) {
+  const { readActivityNotificationControl, cancelActivityNotification } = require('/server/lib/activityNotificationControl');
+  const controls = ActivityNotificationControls.rawCollection();
+  const current = await readActivityNotificationControl({ controls, intentId });
+  if (!current.cancelled) {
+    await cancelActivityNotification({ intentId, expectedRevision: current.revision, requestId: Random.id(32),
+      actorId: `system:${String(reason || 'expired').slice(0, 100)}`, controls,
+      intents: ActivityNotificationIntents.rawCollection(), leases: ActivityNotificationLeases.rawCollection(),
+      assertAdmin: async () => {} });
+  }
+  await cleanupCancelledActivityNotifications(intentId);
+}
 export const recoverActivityNotifications = createActivityNotificationRecovery({
   intents: ActivityNotificationIntents.rawCollection(), run: resumeActivityNotifications,
+  giveUp: giveUpActivityNotification,
 });
 const recoveryInterval = activityNotificationRecoveryInterval();
 Meteor.startup(async () => {

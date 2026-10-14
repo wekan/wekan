@@ -3,14 +3,45 @@ import { check } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Activities from '/models/activities';
 import { ActivityNotificationIntents } from '/server/notifications/activityIntents';
-import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotificationControls, resumeActivityNotifications, cleanupCancelledActivityNotifications } from '/server/notifications/activityPlans';
+import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotificationControls, resumeActivityNotifications, cleanupCancelledActivityNotifications, giveUpActivityNotification, recoverActivityNotifications } from '/server/notifications/activityPlans';
+const { olderThanSelector } = require('/server/lib/activityNotificationExpiry');
 const { controlActivityNotification, cancelActivityNotification } = require('/server/lib/activityNotificationControl');
 const { activityNotificationReport } = require('/server/lib/activityNotificationReport');
+const BULK_LIMIT = 5000;
 async function assertAdmin(userId) {
   const user = userId && await Meteor.users.findOneAsync(userId, { fields: { isAdmin: 1, loginDisabled: 1 } });
   if (!user?.isAdmin || user.loginDisabled) throw new Meteor.Error('not-authorized');
 }
 Meteor.methods({
+  // #6768: bulk actions, so a long list is handled in one click, not per row.
+  // Cancel every pending notification whose activity is older than `days`.
+  async cancelActivityNotificationsOlderThan(request) {
+    check(request, { days: Number });
+    await assertAdmin(this.userId);
+    if (!Number.isFinite(request.days) || request.days < 0 || request.days > 3650) throw new Meteor.Error('activity-recovery-invalid-request');
+    const rows = await ActivityNotificationIntents.rawCollection().find(olderThanSelector(request.days), { projection: { _id: 1 } })
+      .limit(BULK_LIMIT).toArray();
+    let cancelled = 0;
+    for (const { _id } of rows) {
+      await assertAdmin(this.userId);
+      try { await giveUpActivityNotification(_id, 'admin'); cancelled += 1; } catch (error) { /* busy or already done: the next pass */ }
+    }
+    const remaining = await ActivityNotificationIntents.rawCollection().countDocuments(olderThanSelector(request.days));
+    return { cancelled, remaining };
+  },
+  // Retry every pending notification now, a page at a time.
+  async retryAllActivityNotifications() {
+    await assertAdmin(this.userId);
+    const totals = { visited: 0, completed: 0, skipped: 0, failed: 0, busy: 0, cancelled: 0 };
+    for (let i = 0; i < 50; i += 1) {
+      await assertAdmin(this.userId);
+      const result = await recoverActivityNotifications();
+      for (const key of Object.keys(totals)) totals[key] += result[key] || 0;
+      if (result.visited < 100) break;
+    }
+    return totals;
+  },
+
   async activityNotificationRecoveryReport(query) {
     check(query, { search: String, page: Number });
     await assertAdmin(this.userId);
@@ -83,6 +114,7 @@ Meteor.methods({
     }
   },
 });
-for (const name of ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery', 'cancelActivityNotificationRecovery']) {
+for (const name of ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery', 'cancelActivityNotificationRecovery',
+  'cancelActivityNotificationsOlderThan', 'retryAllActivityNotifications']) {
   DDPRateLimiter.addRule({ type: 'method', name, connectionId: () => true }, 30, 10000);
 }

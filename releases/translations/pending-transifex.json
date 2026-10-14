@@ -2063,6 +2063,22 @@
     {
       "key": "webhook-internal-hosts-rejected",
       "since": "2026-10-14"
+    },
+    {
+      "key": "activity-recovery-retry-all",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "activity-recovery-cancel-older",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "activity-recovery-cancel-older-prompt",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "activity-recovery-bulk-result",
+      "since": "2026-10-14"
     }
   ]
 }

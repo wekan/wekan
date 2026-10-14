@@ -111,6 +111,8 @@ import './cardParents.tests';
 import './inboundEmailRoute.tests';
 import './compatApi.tests';
 import './bots.tests';
+import './syncedCronIndex.tests';
+import './activityNotificationExpiry.tests';
 import './emailToCard.tests';
 import './emailSendReceive.tests';
 import './emailBounces.tests';

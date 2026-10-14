@@ -49,4 +49,30 @@ export const SyncedCron = new Proxy(
 // schedules immediately once running). The removed migration bootstrap was the
 // last caller of startSyncedCron, leaving backups/rules registered but idle.
 configureSyncedCron();
-Meteor.startup(startSyncedCron);
+Meteor.startup(async () => {
+  startSyncedCron();
+  // The package makes its collection in its own startup; if it is not there
+  // yet, ask again a little later rather than leave the scan in place.
+  if (!(await ensureCronIndexes()) && !getSyncedCronInstance()._collection && typeof setTimeout === 'function') {
+    setTimeout(() => { ensureCronIndexes(); }, 5000);
+  }
+});
+
+// #6769: before running a job, synced-cron asks whether one of that name is
+// still running - `{ name, finishedAt: { $exists: false } }` - every minute
+// for every job on every instance. The package indexes only
+// `{ intendedAt, name }` and the TTL on `startedAt`, so that question scanned
+// the whole history: thousands of documents with many pods and a 48-hour TTL.
+// `{ name, finishedAt }` answers it from the index.
+export const CRON_RUNNING_JOB_INDEX = { name: 1, finishedAt: 1 };
+export async function ensureCronIndexes() {
+  try {
+    const collection = getSyncedCronInstance()._collection;
+    if (!collection) return false;
+    const { ensureIndex } = require('/server/lib/mongoStartup');
+    return await ensureIndex(collection, CRON_RUNNING_JOB_INDEX);
+  } catch (error) {
+    console.error('SyncedCron: could not index the running-job lookup:', error && error.message);
+    return false;
+  }
+}

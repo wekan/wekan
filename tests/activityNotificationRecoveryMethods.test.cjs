@@ -35,7 +35,9 @@ test('manual retry rechecks administrator access inside its reservation', async 
     if (scenario === 'admin') assert.equal((await call()).status, 'completed');
     else await assert.rejects(call(), /not-authorized/);
     assert.equal(f.count().writes, scenario === 'admin' ? 1 : 0);
-    assert.deepEqual(f.rules.map(rule => rule[0].name), ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery', 'cancelActivityNotificationRecovery']);
+    // #6768 added the two bulk actions, rate-limited like the rest.
+    assert.deepEqual(f.rules.map(rule => rule[0].name), ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery', 'cancelActivityNotificationRecovery',
+      'cancelActivityNotificationsOlderThan', 'retryAllActivityNotifications']);
     for (const rule of f.rules) assert.deepEqual(rule.slice(1), [30, 10000]);
   }
 });

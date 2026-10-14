@@ -1582,7 +1582,10 @@ Template.activityNotificationRecoveryReports.helpers({
       controlDisabled: t.busy.get() || !row.canControl, controlLabel: row.paused ? 'activity-recovery-resume' : 'activity-recovery-pause' })),
     rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
     page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
-    actions: [{ id: 'refresh-activity-notifications', labelKey: 'refresh' }] };
+    actions: [{ id: 'refresh-activity-notifications', labelKey: 'refresh' },
+      // #6768: the whole list at once.
+      { id: 'retry-all-activity-notifications', labelKey: 'activity-recovery-retry-all' },
+      { id: 'cancel-old-activity-notifications', labelKey: 'activity-recovery-cancel-older' }] };
   },
 });
 Template.activityNotificationRecoveryReports.events({
@@ -1591,7 +1594,29 @@ Template.activityNotificationRecoveryReports.events({
     if (event.key === 'Enter') { event.preventDefault(); t.search.set(event.currentTarget.value.trim().slice(0, 100)); t.load(); }
   },
   'click .js-table-page-action'(event, t) {
-    event.preventDefault(); event.stopPropagation(); t.actionError.set(''); t.load();
+    event.preventDefault(); event.stopPropagation(); t.actionError.set('');
+    const action = event.currentTarget.dataset.action;
+    const done = (error, result) => {
+      if (t.view.isDestroyed) return;
+      t.busy.set(false);
+      if (error) t.actionError.set(TAPi18n.__('activity-recovery-control-failed'));
+      else if (result) t.actionError.set(TAPi18n.__('activity-recovery-bulk-result', result.cancelled || 0, result.completed || 0, result.remaining || 0));
+      t.load();
+    };
+    if (action === 'retry-all-activity-notifications') {
+      t.busy.set(true);
+      Meteor.call('retryAllActivityNotifications', done);
+      return;
+    }
+    if (action === 'cancel-old-activity-notifications') {
+      const answer = window.prompt(TAPi18n.__('activity-recovery-cancel-older-prompt'), '7');
+      const days = Number(answer);
+      if (answer === null || !Number.isFinite(days) || days < 0) return;
+      t.busy.set(true);
+      Meteor.call('cancelActivityNotificationsOlderThan', { days }, done);
+      return;
+    }
+    t.load();
   },
   'click .js-table-page-prev, click .js-table-page-next'(event, t) {
     event.preventDefault(); event.stopPropagation();
