@@ -495,12 +495,25 @@ there.
 
 # Upcoming WeKan ® release
 
-**In short:** the **Latvian** translation, which was largely **Lithuanian**, is
+**In short:** **Sync and rule notifications** are delivered again with the clear
+e-mail layout. The **Latvian** translation, which was largely **Lithuanian**, is
 Latvian now, and the same wrong words are gone from **Macedonian**, **Persian**,
 **Cantonese** and **Occitan**. The attachment viewer's picture gets **alt
 text**.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e85eaa3ad3">Sync and rule notifications are planned again with the clear e-mail layout</a>. Thanks to xet7.</summary>
+
+v12.44 made the clear HTML layout the default for notification e-mail, and
+with it every e-mail job carries its plain-text part. The Sync notification
+plan accepted exactly seven job fields, so it refused every plan, and a rule or
+Sync run's notifications failed with `sync-notification-plan-invalid`. It now
+takes what the e-mail outbox takes, checked the same way, and
+`tests/syncNotificationPlan.test.cjs` pins that the two lists are the same.
+
+</details>
 
 - [The attachment viewer's picture has alt text](https://github.com/wekan/wekan/commit/a530a3c673):
   "Preview" until a picture opens, then the file's name; a guard fails on any
