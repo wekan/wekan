@@ -213680,5 +213680,292 @@
     "before": "sannaitheoir",
     "after": "sannaí",
     "reason": "Correct Irish assignee and card trigger meanings; temporal clauses contain their own verb."
+  },
+  {
+    "locale": "gd",
+    "key": "attach-card",
+    "before": "Attach card",
+    "after": "Ceangail cairt",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "attachCardPopup-title",
+    "before": "Attach card",
+    "after": "Ceangail cairt",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "attach-card-hint",
+    "before": "Paste a card link (Copy card link on the other card), or type a card title on this board",
+    "after": "Cuir a-steach ceangal cairt (Dèan lethbhreac de cheangal na cairte air a’ chairt eile), no sgrìobh tiotal cairt air a’ bhòrd seo",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "attached-card-unavailable",
+    "before": "An attached card you cannot see",
+    "after": "Cairt cheangailte nach urrainn dhut fhaicinn",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "detach-card",
+    "before": "Remove attached card",
+    "after": "Thoir air falbh a’ chairt cheangailte",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "attach-card-self",
+    "before": "A card cannot be attached to itself",
+    "after": "Chan urrainn dhut cairt a cheangal rithe fhèin",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "attach-card-limit",
+    "before": "This card already has as many attached cards as it can have",
+    "after": "Tha an àireamh as motha de chairtean ceangailte ris a’ chairt seo mu thràth",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "attach-card-not-found",
+    "before": "No card you can see was found for that link",
+    "after": "Cha deach cairt a chì thu a lorg airson a’ cheangail sin",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "MongoDB_version",
+    "before": "MongoDB compatible version",
+    "after": "Tionndadh co-chòrdail ri MongoDB",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "MongoDB_storage_engine",
+    "before": "MongoDB storage engine",
+    "after": "Einnsean stòraidh MongoDB",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "MongoDB Oplog enabled",
+    "after": "Oplog MongoDB an comas",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "a-rèir",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-is",
+    "before": "is",
+    "after": "tha",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-to",
+    "before": "to",
+    "after": "gu",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-of",
+    "before": "of",
+    "after": "de",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-d-send-email-to",
+    "before": "to",
+    "after": "gu",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "r-by",
+    "before": "by",
+    "after": "le",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Me",
+    "after": "Mise",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-file-id",
+    "before": "S3 File ID",
+    "after": "ID faidhle S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-minio-storage-description",
+    "before": "S3-compatible object storage: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces and others.",
+    "after": "Stòradh oibseactan a tha co-chòrdail ri S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces agus feadhainn eile.",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-disabled",
+    "before": "S3/MinIO Storage Disabled",
+    "after": "Stòradh S3/MinIO à comas",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "mongodb-gridfs-storage",
+    "before": "MongoDB GridFS Storage",
+    "after": "Stòradh MongoDB GridFS",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-access-key",
+    "before": "S3 Access Key",
+    "after": "Iuchair inntrigidh S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-bucket",
+    "before": "S3 Bucket",
+    "after": "Bucaid S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket name for storing files",
+    "after": "Ainm bucaid S3 airson faidhlichean a stòradh",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-connection-failed",
+    "before": "S3 connection failed",
+    "after": "Dh’fhàillig an ceangal S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-connection-success",
+    "before": "S3 connection successful",
+    "after": "Shoirbhich leis a’ cheangal S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-enabled",
+    "before": "S3 Enabled",
+    "after": "S3 an comas",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-endpoint",
+    "before": "S3 Endpoint",
+    "after": "Puing-deiridh S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint URL (e.g., s3.amazonaws.com or minio.example.com)",
+    "after": "URL puing-deiridh S3 (m.e., s3.amazonaws.com no minio.example.com)",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-minio-storage",
+    "before": "S3/MinIO Storage",
+    "after": "Stòradh S3/MinIO",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-port",
+    "before": "S3 Port",
+    "after": "Port S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-port-description",
+    "before": "S3 endpoint port number",
+    "after": "Àireamh port puing-deiridh S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-region",
+    "before": "S3 Region",
+    "after": "Roinn S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-secret-key",
+    "before": "S3 Secret Key",
+    "after": "Iuchair dhìomhair S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-secret-key-required",
+    "before": "S3 secret key is required",
+    "after": "Tha iuchair dhìomhair S3 a dhìth",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-settings-saved",
+    "before": "S3 settings saved successfully",
+    "after": "Chaidh roghainnean S3 a shàbhaladh",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL Enabled",
+    "after": "SSL S3 an comas",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "of",
+    "before": "of",
+    "after": "de",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-attachments",
+    "before": "S3 Attachments",
+    "after": "Ceanglachain S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
+  },
+  {
+    "locale": "gd",
+    "key": "s3-size",
+    "before": "S3 Size",
+    "after": "Meud S3",
+    "reason": "Translate Scottish Gaelic attachment controls and legacy English storage labels; technical storage wording is lower confidence and needs fluent review."
   }
 ]

@@ -29,3 +29,15 @@ assert.equal(gaelic.accept, 'Gabh ris');
 assert.match(gaelic['act-createBoard'], /bòrd/);
 assert.match(gaelic['act-createCard'], /cairt/);
 assert.equal(gaelic.log, 'Loga');
+
+const attachmentStorageKeys = ["attach-card", "attachCardPopup-title", "attach-card-hint", "attached-card-unavailable", "detach-card", "attach-card-self", "attach-card-limit", "attach-card-not-found", "MongoDB_version", "MongoDB_storage_engine", "MongoDB_Oplog_enabled", "r-sort-by", "r-is", "r-to", "r-of", "r-d-send-email-to", "r-by", "dueCardsViewChange-choice-me", "s3-file-id", "s3-minio-storage-description", "s3-disabled", "mongodb-gridfs-storage", "s3-access-key", "s3-bucket", "s3-bucket-description", "s3-connection-failed", "s3-connection-success", "s3-enabled", "s3-endpoint", "s3-endpoint-description", "s3-minio-storage", "s3-port", "s3-port-description", "s3-region", "s3-secret-key", "s3-secret-key-required", "s3-settings-saved", "s3-ssl-enabled", "of", "s3-attachments", "s3-size"];
+for (const key of attachmentStorageKeys) {
+  assert.notEqual(gaelic[key], english[key], key);
+  assert.deepEqual(tokens(gaelic[key]), tokens(english[key]), key);
+}
+assert.match(gaelic['attach-card-self'], /Chan urrainn.*rithe fhèin/);
+assert.match(gaelic['attach-card-not-found'], /Cha deach.*a chì thu/);
+assert.match(gaelic['s3-access-key'], /inntrigidh/);
+assert.match(gaelic['s3-secret-key'], /dhìomhair/);
+assert.notEqual(gaelic['s3-access-key'], gaelic['s3-secret-key']);
+assert.match(gaelic['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);
