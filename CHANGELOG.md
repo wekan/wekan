@@ -493,7 +493,7 @@ there.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.46 2026-10-14 WeKan ® release
 
 **In short:** Accounts can be locked to **SQRL**, Windows domains can sign in
 with **Windows single sign-on**, **List Sync writes back to GitLab**, and boards
