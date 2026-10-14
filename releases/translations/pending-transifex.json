@@ -2335,6 +2335,26 @@
     {
       "key": "board-facet-clear",
       "since": "2026-10-14"
+    },
+    {
+      "key": "cardKindPopup-title",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-kind-none",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-kind-story",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "card-kind-task",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "custom-field-card-kinds",
+      "since": "2026-10-14"
     }
   ]
 }

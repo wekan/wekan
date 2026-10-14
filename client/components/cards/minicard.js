@@ -48,6 +48,14 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  // #2012: the card's kind, as a badge.
+  cardKindIcon() {
+    const { KIND_ICONS } = require('/models/lib/cardKinds');
+    return KIND_ICONS[this.cardKind] || null;
+  },
+  cardKindTitle() {
+    return this.cardKind ? TAPi18n.__(`card-kind-${this.cardKind}`) : '';
+  },
   commentBadgeTitle() {
     return commentBadgeTitle(this.comments(), count => TAPi18n.__('card-comments-title', count));
   },

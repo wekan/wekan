@@ -1163,6 +1163,11 @@ template(name="cardDetailsActionsPopup")
             a.js-set-card-color
               i.fa.fa-paint-brush
               | {{_ 'setCardColorPopup-title'}}
+          //- #2012: a Story or a Task, with custom fields of its own.
+          li
+            a.js-set-card-kind
+              i.fa.fa-book
+              | {{_ 'cardKindPopup-title'}}
     if canModifyCard
       hr
     else
@@ -1744,3 +1749,19 @@ template(name="cardQrCodePopup")
       p.card-qr-code-url {{cardUrl}}
     else
       p.warning {{_ 'card-qr-code-too-long'}}
+
+//- #2012: Story, Task or an ordinary card (models/lib/cardKinds.js).
+template(name="cardKindPopup")
+  ul.pop-over-list
+    li
+      a.js-select-card-kind(data-kind="" class="{{#unless cardKind}}is-active{{/unless}}")
+        i.fa.fa-square-o
+        |  {{_ 'card-kind-none'}}
+    li
+      a.js-select-card-kind(data-kind="story" class="{{#if $eq cardKind 'story'}}is-active{{/if}}")
+        i.fa.fa-book
+        |  {{_ 'card-kind-story'}}
+    li
+      a.js-select-card-kind(data-kind="task" class="{{#if $eq cardKind 'task'}}is-active{{/if}}")
+        i.fa.fa-check-square-o
+        |  {{_ 'card-kind-task'}}

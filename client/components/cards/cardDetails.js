@@ -1857,6 +1857,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
+  'click .js-set-card-kind': Popup.open('cardKind'),
   async 'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const card = Cards.findOne(getCardId());
@@ -3399,5 +3400,17 @@ Template.cardQrCodePopup.helpers({
     const svg = url ? qrSvg(url, { scale: 6 }) : '';
     // The SVG is the encoder's own ASCII markup, never the link's text.
     return svg ? `data:image/svg+xml;base64,${window.btoa(svg)}` : '';
+  },
+});
+
+// #2012: Template.currentData() is the card.
+Template.cardKindPopup.events({
+  async 'click .js-select-card-kind'(event) {
+    event.preventDefault();
+    const card = Template.currentData();
+    if (card && typeof card.setCardKind === 'function') {
+      try { await card.setCardKind(event.currentTarget.dataset.kind || null); } catch (error) { console.error(error); }
+    }
+    Popup.back();
   },
 });

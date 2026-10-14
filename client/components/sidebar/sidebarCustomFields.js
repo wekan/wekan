@@ -159,6 +159,11 @@ Template.createCustomFieldPopup.onCreated(function () {
 });
 
 Template.createCustomFieldPopup.helpers({
+  // #2012: the field's card kinds, when editing one.
+  hasCardKind(kind) {
+    const field = Template.currentData();
+    return !!(field && Array.isArray(field.cardKinds) && field.cardKinds.includes(kind));
+  },
   types() {
     const currentType = Template.currentData().type;
     return CUSTOM_FIELD_TYPES.map(type => {
@@ -255,6 +260,13 @@ Template.createCustomFieldPopup.events({
     $target.find('.materialCheckBox').toggleClass('is-checked');
     $target.toggleClass('is-checked');
   },
+  // #2012
+  'click .js-field-card-kind'(evt) {
+    evt.preventDefault();
+    const $target = $(evt.currentTarget);
+    $target.find('.materialCheckBox').toggleClass('is-checked');
+    $target.toggleClass('is-checked');
+  },
   'click .js-field-always-on-card'(evt) {
     let $target = $(evt.target);
     if (!$target.hasClass('js-field-always-on-card')) {
@@ -311,6 +323,9 @@ Template.createCustomFieldPopup.events({
         tpl.find('.js-field-always-on-card.is-checked') !== null,
       showSumAtTopOfList:
         tpl.find('.js-field-show-sum-at-top-of-list.is-checked') !== null,
+      // #2012
+      cardKinds: (typeof tpl.findAll === 'function' ? Array.from(tpl.findAll('.js-field-card-kind.is-checked') || []) : [])
+        .map(el => el.dataset.kind),
     };
 
     // #3141: the control itself is only rendered for a board admin (see the

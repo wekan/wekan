@@ -204,6 +204,15 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    cardKind: {
+      /**
+       * #2012: 'story' or 'task'; unset is an ordinary card
+       * (models/lib/cardKinds.js).
+       */
+      type: String,
+      optional: true,
+      allowedValues: ['story', 'task'],
+    },
     color: {
       type: String,
       optional: true,
@@ -1727,6 +1736,9 @@ Cards.helpers({
     const isBoardAdmin = !!(cardBoard && cardBoard.hasAdmin(currentUserId));
     const { buildCustomFieldsWD, filterAdminOnlyDefinitions } = require('./lib/customFieldsWD');
     definitions = filterAdminOnlyDefinitions(definitions, isBoardAdmin);
+    // #2012: a field that belongs to other card kinds is not shown here.
+    const { definitionAppliesToKind } = require('./lib/cardKinds');
+    definitions = definitions.filter(d => definitionAppliesToKind(d, card.cardKind));
     // #3748: entries whose definition is unavailable are skipped rather than
     // becoming phantom `{}` rows. For a linked card both values and definitions
     // now come from its source board publication.
@@ -3467,6 +3479,20 @@ Cards.helpers({
       { _id: this.getRealId() },
       { $pull: { locations: { _id: locationId } } },
     );
+  },
+
+  // #2012: make this a Story or a Task (null: an ordinary card), adding the
+  // custom fields that belong to that kind.
+  async setCardKind(kind) {
+    const { cleanCardKind, fieldsToAddForKind } = require('./lib/cardKinds');
+    const card = this.getRealCard();
+    const clean = cleanCardKind(kind);
+    if (!clean) return Cards.updateAsync(card._id, { $unset: { cardKind: '' } });
+    const definitions = ReactiveCache.getCustomFields({ boardIds: { $in: [card.boardId] } });
+    const add = fieldsToAddForKind(card.customFields, Array.isArray(definitions) ? definitions : [], clean)
+      .map(d => ({ _id: d._id, value: null }));
+    return Cards.updateAsync(card._id, { $set: { cardKind: clean },
+      ...(add.length ? { $push: { customFields: { $each: add } } } : {}) });
   },
 
   setColor(newColor) {

@@ -89,6 +89,16 @@ template(name="createCustomFieldPopup")
             .materialCheckBox(class="{{#if alwaysOnCard}}is-checked{{/if}}")
             span {{_ 'always-field-on-card'}}
 
+        //- #2012: only on Story or Task cards; neither ticked is every card.
+        .custom-field-card-kinds
+          span {{_ 'custom-field-card-kinds'}}
+          a.flex.js-field-card-kind(data-kind="story" class="{{#if hasCardKind 'story'}}is-checked{{/if}}")
+            .materialCheckBox(class="{{#if hasCardKind 'story'}}is-checked{{/if}}")
+            span {{_ 'card-kind-story'}}
+          a.flex.js-field-card-kind(data-kind="task" class="{{#if hasCardKind 'task'}}is-checked{{/if}}")
+            .materialCheckBox(class="{{#if hasCardKind 'task'}}is-checked{{/if}}")
+            span {{_ 'card-kind-task'}}
+
         a.flex.js-field-showLabel-on-card(class="{{#if showLabelOnMiniCard}}is-checked{{/if}}")
             .materialCheckBox(class="{{#if showLabelOnMiniCard}}is-checked{{/if}}")
 

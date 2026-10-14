@@ -243,6 +243,11 @@ template(name="minicard")
               +minicardChecklist(checklist=. card=..)
         if $eq section "badges"
           .badges
+            //- #2012: a Story or a Task.
+            if cardKindIcon
+              .badge.card-kind-badge(title="{{cardKindTitle}}")
+                span.badge-icon
+                  i.fa(class=cardKindIcon)
             //- The description BADGE - shown when the description's text is not
               on the minicard - belongs to the Description text row, whose own
               position is the full text further down; it keeps the first place
