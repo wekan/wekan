@@ -178,8 +178,13 @@ test('negative: Docker entrypoint still works without cpu-exec (older bundles)',
 
 test('bundle launcher routes ferretdb and node through cpu-exec when present', () => {
   assert.ok(startWekan.includes('CPU_EXEC="$DIR/cpu-exec"'));
-  assert.ok(startWekan.includes('[ -x "$CPU_EXEC" ] || CPU_EXEC=""'),
-    'missing cpu-exec (e.g. macOS bundle) must fall back to direct execution');
+  // Missing cpu-exec (macOS, Windows, BSD bundles), another kernel, or no
+  // /bin/bash for its #! line (FreeBSD, Alpine without bash, Termux) all fall
+  // back to direct execution - FreeBSD's bundle never started before this.
+  assert.ok(startWekan.includes('if [ ! -x "$CPU_EXEC" ] || [ "$(uname -s)" != Linux ] || [ ! -x /bin/bash ]; then\n  CPU_EXEC=""\nfi'),
+    'cpu-exec only where it can run: Linux, with /bin/bash');
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'releases/bsd/build-bundle.sh'), 'utf8'),
+    /rm -f "\$root\/bundle\/cpu-exec" "\$root\/bundle\/qemu-"\*/, 'the BSD bundles drop it like Windows and macOS');
   assert.ok(/\$\{CPU_EXEC:\+"\$CPU_EXEC"\} "\$FERRETDB_BIN"/.test(startWekan));
   assert.ok(/\$\{CPU_EXEC:\+"\$CPU_EXEC"\} "\$NODE" "\$DIR\/main\.js"/.test(startWekan));
 });

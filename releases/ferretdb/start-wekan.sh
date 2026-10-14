@@ -138,7 +138,13 @@ fi
 # builds needing no special features, so with none declared this is a plain
 # exec — but every binary launch here is feature-safe on every platform.
 CPU_EXEC="$DIR/cpu-exec"
-[ -x "$CPU_EXEC" ] || CPU_EXEC=""
+# It is a Linux tool (/proc/cpuinfo, Linux qemu-user) and a #!/bin/bash script:
+# on FreeBSD, on Alpine without bash and in Termux there is no /bin/bash, and
+# running it failed "cpu-exec: not found", so WeKan never started (the FreeBSD
+# bundles, v12.41-v12.44). Where it cannot run, binaries start directly.
+if [ ! -x "$CPU_EXEC" ] || [ "$(uname -s)" != Linux ] || [ ! -x /bin/bash ]; then
+  CPU_EXEC=""
+fi
 
 while true; do
   if [ "$want_ferret" = true ]; then

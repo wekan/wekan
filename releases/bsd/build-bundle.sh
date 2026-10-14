@@ -51,6 +51,9 @@ node "$root/releases/bump-bundle-npm-deps.mjs" "$root/bundle"
 node "$root/releases/bundle-trim.mjs" "$root/bundle" --transport sockjs --drop-legacy-client
 node "$root/releases/prune-unreachable-npm.mjs" "$root/bundle"
 node "$root/releases/platform-native-packages.mjs" "$root/bundle" "$os" "$arch"
+# Linux-only cpu-exec + qemu-user (#6458) mean nothing on a BSD, as on Windows
+# and macOS (release-all.yml drops them there too).
+rm -f "$root/bundle/cpu-exec" "$root/bundle/qemu-"*
 cp "$root/bsd-tools/bin/node" "$root/bundle/node"
 chmod +x "$root/bundle/node" "$root/bundle/ferretdb"
 touch "$root/bundle/.ferretdb-default"
