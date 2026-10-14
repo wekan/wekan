@@ -206,6 +206,8 @@ test.describe('Chat view', () => {
     await view.locator('.chat-view-tree .js-chat-fold').click();
     await expect(view.locator('.chat-view-tree')).toHaveCount(0);
     await expect(view.locator('.js-chat-unfold[data-pane="tree"]')).toBeVisible();
+    // The double caret stays visible on the folded pane (2026-10-15).
+    await expect(view.locator('.js-chat-unfold[data-pane="tree"] .fa-angle-double-right')).toBeVisible();
     await expect.poll(() => db.findOne('users', { _id: user.id }).profile.chatViewLayout?.treeCollapsed).toBe(true);
     await view.locator('.js-chat-unfold[data-pane="tree"]').click();
     await expect(view.locator('.chat-view-tree')).toBeVisible();
@@ -217,6 +219,7 @@ test.describe('Chat view', () => {
     await view.locator('.js-chat-unfold[data-pane="card"]').click();
     await view.locator('.chat-view-chat .js-chat-fold').click();
     await expect(view.locator('.js-chat-unfold[data-pane="chat"]')).toBeVisible();
+    await expect(view.locator('.js-chat-unfold[data-pane="chat"] .fa-angle-double-left')).toBeVisible();
     await view.locator('.js-chat-unfold[data-pane="chat"]').click();
 
     // Resize: drag the border right of the tree 120px wider.
@@ -339,6 +342,13 @@ test.describe('Chat view', () => {
       expect(before).toBe(true);
       await moved.locator(':scope > .chat-view-row').click();
       await expect(moved.locator('[data-kind="card"] .chat-view-unread')).toHaveText('1');
+      // A card from another board opens in the middle, with its conversation,
+      // and the page stays on this board (2026-10-15).
+      const here = page.url();
+      await moved.locator('[data-kind="card"] .js-chat-select-card').click();
+      await expect(page.locator('.chat-view-card .card-details')).toContainText('Talk here');
+      await expect(page.locator('.chat-view-message', { hasText: 'Hello' })).toBeVisible();
+      expect(page.url()).toBe(here);
       // Negative: my own message is never unread to me.
       db.insertOne('card_comments', { _id: db.uid('cmt'), boardId: other.boardId, cardId: talk._id, userId: user.id,
         text: 'Mine', createdAt: new Date(), modifiedAt: new Date() });

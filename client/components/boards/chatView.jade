@@ -25,14 +25,16 @@ template(name="chatView")
 template(name="chatViewTreePane")
   if collapsed 'tree'
     .chat-view-pane.chat-view-pane-folded
-      button.js-chat-unfold(data-pane="tree" title="{{_ 'chat-view-show-channels'}}")
-        i.fa.fa-sitemap
+      //- The double caret stays where it was, pointing the way the pane opens.
+      button.js-chat-unfold(data-pane="tree" title="{{_ 'chat-view-show-channels'}}" aria-label="{{_ 'chat-view-show-channels'}}")
+        i.fa.fa-angle-double-right.chat-view-fold-caret(aria-hidden="true")
+        i.fa.fa-sitemap(aria-hidden="true")
   else
     nav.chat-view-pane.chat-view-tree(style="flex-basis: {{width 'tree'}}px" aria-label="{{_ 'chat-view-channels'}}" dir="{{treeDir}}")
       .chat-view-pane-header
         span.chat-view-pane-title {{_ 'chat-view-channels'}}
         button.js-chat-fold(data-pane="tree" title="{{_ 'chat-view-hide'}}")
-          i.fa.fa-angle-double-left
+          i.fa.fa-angle-double-left.chat-view-fold-caret
       //- Workspaces > boards > swimlanes > lists > cards that have a
         conversation (server/chatView.js), each level folding open under its
         caret; every board without one is under Other boards, until its first
@@ -136,8 +138,9 @@ template(name="chatViewCardPane")
 template(name="chatViewChatPane")
   if collapsed 'chat'
     .chat-view-pane.chat-view-pane-folded
-      button.js-chat-unfold(data-pane="chat" title="{{_ 'chat-view-show-chat'}}")
-        i.fa.fa-comments
+      button.js-chat-unfold(data-pane="chat" title="{{_ 'chat-view-show-chat'}}" aria-label="{{_ 'chat-view-show-chat'}}")
+        i.fa.fa-angle-double-left.chat-view-fold-caret(aria-hidden="true")
+        i.fa.fa-comments(aria-hidden="true")
   else
     section.chat-view-pane.chat-view-chat(style="flex-basis: {{width 'chat'}}px")
       .chat-view-pane-header
@@ -149,7 +152,7 @@ template(name="chatViewChatPane")
           else
             | {{_ 'comments'}}
         button.js-chat-fold(data-pane="chat" title="{{_ 'chat-view-hide'}}")
-          i.fa.fa-angle-double-right
+          i.fa.fa-angle-double-right.chat-view-fold-caret
       .chat-view-messages.js-chat-messages
         each messages
           .chat-view-message(class="{{#if mine}}is-mine{{/if}}")

@@ -168,8 +168,14 @@ test('the tree: carets before the icons, rows that fold rather than navigate, na
   assert.ok((jade.match(/\+inlineViewer/g) || []).length >= 6);
   assert.doesNotMatch(jade, /chat-view-row-title \{\{|\| # \{\{selectedCard\.title\}\}/);
   const js = read('client/components/boards/chatView.js');
-  // Negative: a board row does not leave the Chat view.
+  // Negative: a board row does not leave the Chat view, and neither does a
+  // card from another board - it opens in the middle (2026-10-15).
   assert.doesNotMatch(js, /js-chat-open-board/);
+  assert.doesNotMatch(js, /FlowRouter/);
+  assert.match(js, /'click \.js-chat-select-card'\(event\) \{[\s\S]{0,300}selectedCardId\.set\(event\.currentTarget\.dataset\.cardId\);\n  \},/);
+  assert.match(js, /this\.subscribe\('chatViewCardComments', id\);/);
+  // The comment button follows the card's own board, not the open one.
+  assert.match(js, /Utils\.currentUserCan\('comment', ReactiveCache\.getBoard\(card\.boardId\)\)/);
   assert.match(js, /'click \.js-chat-toggle'\(event\) \{[\s\S]{0,600}setOpen\(key, open\);/);
   const css = read('client/components/boards/chatView.css');
   assert.match(css, /\.chat-view-node\.is-open > \.chat-view-collapse \{\n  grid-template-rows: 1fr;/);
@@ -187,4 +193,17 @@ test('the server sends only what the member may read', () => {
   assert.match(server, /if \(!board\) throw new Meteor\.Error\('not-authorized'\);/);
   assert.match(server, /userId: \{ \$ne: this\.userId \}/, 'my own messages are not unread');
   assert.match(read('server/imports.js'), /^import '\/server\/chatView';$/m);
+  // A card's conversation from another board: the same limits.
+  const pub = server.slice(server.indexOf("Meteor.publish('chatViewCardComments'"));
+  assert.match(pub, /if \(!this\.userId\) return this\.ready\(\);/);
+  assert.match(pub, /!\(await board\.isVisibleBy\(\{ _id: this\.userId \}\)\) \|\| !readsComments\(board, this\.userId\)\) return this\.ready\(\);/);
+  assert.match(pub, /isAssignedOnlyMember\(board, this\.userId\) &&/);
+});
+
+test('a folded Channels or Comments pane keeps its double caret, mirrored right to left', () => {
+  const jade = read('client/components/boards/chatView.jade');
+  assert.match(jade, /button\.js-chat-unfold\(data-pane="tree"[^\n]*\n\s*i\.fa\.fa-angle-double-right\.chat-view-fold-caret/);
+  assert.match(jade, /button\.js-chat-unfold\(data-pane="chat"[^\n]*\n\s*i\.fa\.fa-angle-double-left\.chat-view-fold-caret/);
+  assert.equal((jade.match(/\.chat-view-fold-caret/g) || []).length, 4, 'fold and unfold, both side panes');
+  assert.match(read('client/components/boards/chatView.css'), /\.chat-view\[data-dir="rtl"\] \.chat-view-fold-caret \{\n  transform: scaleX\(-1\);/);
 });

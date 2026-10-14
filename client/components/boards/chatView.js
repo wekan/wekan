@@ -1,5 +1,4 @@
 import { ReactiveVar } from 'meteor/reactive-var';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
@@ -121,10 +120,11 @@ function saveLayout(next) {
   Meteor.call('setChatViewLayout', clean, () => dragLayout.set(null));
 }
 
+// The card opened in the middle, from any board in the tree: its own data
+// (popupCardData) and conversation (chatViewCardComments) are subscribed.
 function selectedCard() {
   const id = selectedCardId.get();
-  const card = id && ReactiveCache.getCard(id);
-  return card && card.boardId === Utils.getCurrentBoardId() ? card : null;
+  return (id && ReactiveCache.getCard(id)) || null;
 }
 
 Template.chatView.onCreated(function () {
@@ -133,7 +133,10 @@ Template.chatView.onCreated(function () {
   this.subscribe('boards');
   this.autorun(() => {
     const id = selectedCardId.get();
-    if (id) this.subscribe('popupCardData', id);
+    if (id) {
+      this.subscribe('popupCardData', id);
+      this.subscribe('chatViewCardComments', id);
+    }
   });
 });
 
@@ -222,8 +225,10 @@ Template.chatViewChatPane.helpers({
     });
   },
   canComment() {
-    // The comment capability, as the server decides (read-only roles too).
-    return !!(selectedCard() && Utils.currentUserCan('comment'));
+    // The comment capability on the CARD's board, as the server decides
+    // (read-only roles too).
+    const card = selectedCard();
+    return !!(card && Utils.currentUserCan('comment', ReactiveCache.getBoard(card.boardId)));
   },
 });
 
@@ -289,18 +294,13 @@ Template.chatView.events({
     event.preventDefault();
     saveLayout({ ...layout(), [`${event.currentTarget.dataset.pane}Collapsed`]: false });
   },
-  // A card is a channel: it opens here. One on another board takes the
-  // member to that board, still in the Chat view, with the card selected.
+  // A card is a channel: it opens in the middle, with its conversation
+  // beside it - from any board, without leaving the board the member is on.
   'click .js-chat-select-card'(event) {
     const link = event.target.closest && event.target.closest('a[href]');
     if (link && event.currentTarget.contains(link)) return;
     event.preventDefault();
-    const { cardId, boardId } = event.currentTarget.dataset;
-    selectedCardId.set(cardId);
-    if (boardId && boardId !== Utils.getCurrentBoardId()) {
-      const board = (channelSummary.get() || { boards: [] }).boards.find(b => b._id === boardId);
-      FlowRouter.go('board', { id: boardId, slug: (board && board.slug) || 'board' });
-    }
+    selectedCardId.set(event.currentTarget.dataset.cardId);
   },
   // A workspace, board, swimlane or list folds or unfolds; a board without
   // a conversation shows all its cards when opened, to write the first one.

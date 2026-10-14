@@ -13,6 +13,7 @@ import Cards from '/models/cards';
 import CardComments from '/models/cardComments';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import Boards from '/models/boards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { visibleAllBoards } from '/server/allBoardsFacets';
 
@@ -126,6 +127,23 @@ Meteor.methods({
       cards: cards.map(c => ({ cardId: c._id, boardId, swimlaneId: c.swimlaneId, listId: c.listId, title: c.title || '', sort: c.sort })),
     };
   },
+});
+
+// The conversation of a card opened in the Chat view from any board the
+// member sees - the board page publishes only its own board's comments - with
+// its writers' names and pictures. The same limits as the tree.
+Meteor.publish('chatViewCardComments', async function (cardId) {
+  check(cardId, String);
+  if (!this.userId) return this.ready();
+  const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1, assignees: 1, members: 1 } });
+  const board = card && await Boards.findOneAsync(card.boardId);
+  if (!board || !(await board.isVisibleBy({ _id: this.userId })) || !readsComments(board, this.userId)) return this.ready();
+  if (isAssignedOnlyMember(board, this.userId) &&
+      !(card.assignees || []).includes(this.userId) && !(card.members || []).includes(this.userId)) return this.ready();
+  const comments = CardComments.find({ cardId, boardId: card.boardId });
+  const authors = [...new Set((await comments.fetchAsync()).map(c => c.userId).filter(Boolean))];
+  return [comments, Meteor.users.find({ _id: { $in: authors } },
+    { fields: { username: 1, 'profile.fullname': 1, 'profile.avatarUrl': 1, 'profile.initials': 1 } })];
 });
 
 DDPRateLimiter.addRule({ type: 'method', name: name => ['chatViewChannels', 'chatViewBoardChannels'].includes(name),
