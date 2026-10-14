@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks e Auina Atu",
   "boardCardTitlePopup-title": "Faamama o le Ulutala o le Pepa",
   "disable-webhook": "Tape Lenei Webhook",
+  "sandstorm-webhook-grant": "Faataga lenei grain e oo atu i lenei tuatusi",
+  "sandstorm-webhook-granted": "E mafai e lenei grain ona oo atu i lenei tuatusi",
   "global-webhook": "Webhooks Aoao",
   "new-outgoing-webhook": "Webhook Fou e Auina Atu",
   "no-name": "(Lē iloa)",

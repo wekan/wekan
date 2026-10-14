@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ելքային Webhooks",
   "boardCardTitlePopup-title": "Քարտի վերնագրի զտիչ",
   "disable-webhook": "Անջատել այս Webhook-ը",
+  "sandstorm-webhook-grant": "Թույլատրել այս grain-ին հասնել այս հասցեին",
+  "sandstorm-webhook-granted": "Այս grain-ը կարող է հասնել այս հասցեին",
   "global-webhook": "Համաշխարհային վեբ-կեռիկներ",
   "new-outgoing-webhook": "Նոր ելքային Webhook",
   "no-name": "(Անհայտ)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook in uscita",
   "boardCardTitlePopup-title": "Filtro per titolo scheda",
   "disable-webhook": "Disattiva questo webhook",
+  "sandstorm-webhook-grant": "Parmeti a sto grain de rivar a sto indirizo",
+  "sandstorm-webhook-granted": "Sto grain el pol rivar a sto indirizo",
   "global-webhook": "Webhook globali",
   "new-outgoing-webhook": "Nuovo webhook in uscita",
   "no-name": "(Sconosciuto)",

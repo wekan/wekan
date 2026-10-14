@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ti njade Webhooks",
   "boardCardTitlePopup-title": "Akọle kaadi Ajọ",
   "disable-webhook": "Pa yi Webhook",
+  "sandstorm-webhook-grant": "Gba grain yìí láàyè láti dé àdírẹ́sì yìí",
+  "sandstorm-webhook-granted": "Grain yìí lè dé àdírẹ́sì yìí",
   "global-webhook": "Agbaye Webhooks",
   "new-outgoing-webhook": "Titun ti njade Webhook",
   "no-name": "(Aimọ)",

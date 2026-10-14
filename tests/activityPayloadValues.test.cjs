@@ -77,7 +77,8 @@ async function outgoingPayload(params, type = 'outgoing', attributes) {
     ...require('../models/lib/webhookPayload'), ...require('../models/lib/notificationDelivery'),
     TAPi18n: { ensureLanguageLoaded: async () => {}, __: () => 'changed' },
     Integrations: { Const: { TWOWAY: 'two-way' } },
-    fetchSafe: async (url, request) => { payload = JSON.parse(request.body); return { status: 200 }; },
+    // The senders call webhookFetch: fetchSafe off Sandstorm (server/sandstormEgress.js).
+    webhookFetch: async (url, request) => { payload = JSON.parse(request.body); return { status: 200 }; },
     process: { env: attributes ? { WEBHOOKS_ATTRIBUTES: attributes } : {} },
   };
   vm.runInNewContext(source, context);

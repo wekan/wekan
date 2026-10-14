@@ -2,6 +2,7 @@ import '/client/components/forms/dateFormatSettings';
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
@@ -1201,6 +1202,9 @@ Template.membersWidget.events({
 });
 
 Template.outgoingWebhooksPopup.helpers({
+  webhookGranted(integrationId) {
+    return webhookGrants.get(integrationId) === true;
+  },
   boardId() {
     return Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
   },
@@ -1222,7 +1226,32 @@ Template.outgoingWebhooksPopup.helpers({
   },
 });
 
+// Which webhooks this grain may already reach (Sandstorm only), asked once
+// per webhook when the popup shows it.
+const webhookGrants = new ReactiveDict();
+Template.outgoingWebhooksPopup.onRendered(function () {
+  if (!(Meteor.settings.public && Meteor.settings.public.sandstorm)) return;
+  this.autorun(() => {
+    const boardId = Session.get('currentBoard') || Integrations.Const.GLOBAL_WEBHOOK_ID;
+    for (const integration of ReactiveCache.getIntegrations({ boardId })) {
+      Meteor.callAsync('sandstormWebhookGrantStatus', integration._id)
+        .then(({ granted }) => webhookGrants.set(integration._id, granted))
+        .catch(() => webhookGrants.set(integration._id, false));
+    }
+  });
+});
+
 Template.outgoingWebhooksPopup.events({
+  async 'click .js-sandstorm-webhook-grant'(evt) {
+    evt.preventDefault();
+    const integration = this;
+    try {
+      const granted = await window.sandstormRequestWebhook(integration._id, integration.title || integration.url);
+      webhookGrants.set(integration._id, !!granted);
+    } catch (error) {
+      console.error('sandstormRequestWebhook', error);
+    }
+  },
   'click .js-toggle-webhook-enabled'(evt) {
     evt.preventDefault();
     $(evt.currentTarget).find(MCB).toggleClass(CKCLS);

@@ -17,7 +17,8 @@ function fixture({ load = async () => {}, translate = (key, params, language) =>
       getCurrentSetting: async () => ({}),
       getCard: async id => (id === 'card' ? { _id: 'card', boardId: 'board', listId: 'list' } : null) },
     TAPi18n: { ensureLanguageLoaded: load, __: (...args) => { translations.push(args); return translate(...args); } },
-    fetchSafe: async (url, request) => { requests.push({ url, ...request }); return { status: 200 }; },
+    // The senders call webhookFetch: fetchSafe off Sandstorm (server/sandstormEgress.js).
+    webhookFetch: async (url, request) => { requests.push({ url, ...request }); return { status: 200 }; },
     // #3695: the payload builder outgoing.js imports (stripped below).
     ...require('../models/lib/webhookPayload'), ...require('../models/lib/notificationDelivery'),
   };

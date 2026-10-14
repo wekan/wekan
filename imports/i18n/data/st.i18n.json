@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Di-webhook tse tswang",
   "boardCardTitlePopup-title": "Sefe sa sehlooho sa karete",
   "disable-webhook": "Kwala webhook ena",
+  "sandstorm-webhook-grant": "Dumella grain ena ho fihlella aterese ena",
+  "sandstorm-webhook-granted": "Grain ena e ka fihlella aterese ena",
   "global-webhook": "Di-webhook tsa lefatshe",
   "new-outgoing-webhook": "Webhook e ntjha e tswang",
   "no-name": "(Ha e tsejwe)",

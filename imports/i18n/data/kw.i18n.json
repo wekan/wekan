@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhookow ow mos dhe-ves",
   "boardCardTitlePopup-title": "Hidla titel karten",
   "disable-webhook": "Marowa an webhook ma",
+  "sandstorm-webhook-grant": "Gasa an grain ma dhe dhrehedhes an trigva ma",
+  "sandstorm-webhook-granted": "An grain ma a yll drehedhes an trigva ma",
   "global-webhook": "Webhookow ollvysel",
   "new-outgoing-webhook": "Webhook nowydh ow mos dhe-ves",
   "no-name": "(Anaswonnys)",

@@ -48,6 +48,33 @@ export function serviceForUrl(url) {
   return null;
 }
 
+// Does a grant cover this URL: its canonicalUrl, followed by a path, a query
+// or nothing (not merely a longer host name that starts the same way).
+export function grantCovers(grant, url) {
+  const base = grant && grant.canonicalUrl;
+  if (typeof base !== 'string' || !base || typeof url !== 'string') return false;
+  return url === base || (url.startsWith(base) && /^[/?]/.test(url.slice(base.length)));
+}
+
+// An outgoing webhook through the Powerbox (docs/Platforms/FOSS/Container/
+// Sandstorm/Powerbox-External-APIs.md): the API a board admin is asked to
+// approve, for the webhook's URL. The bridge proxy joins canonicalUrl and the
+// request path with a '/', so the grant is the URL's PARENT path and the
+// request carries its last segment: https://hooks.example.com/services/T/B/X
+// is granted as .../services/T/B and requested as /X, which arrives exactly
+// as written, without a trailing slash. Only http(s), no user name or
+// password in it (the proxy owns Authorization), no fragment.
+export function webhookGrantFor(rawUrl) {
+  let url;
+  try { url = new URL(rawUrl); } catch (e) { return null; }
+  if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+  if (url.username || url.password || url.hash) return null;
+  const segments = url.pathname.split('/').filter(Boolean);
+  const parent = segments.slice(0, -1).map(s => `/${s}`).join('');
+  const canonicalUrl = `${url.origin}${parent}`;
+  return { canonicalUrl, url: `${url.origin}${url.pathname === '/' ? '' : url.pathname}${url.search}` };
+}
+
 // The absolute-form request target the bridge proxy expects. Only the part
 // after canonicalUrl is meaningful to it; the host is informational.
 export function proxyTarget(canonicalUrl, url) {
@@ -111,7 +138,9 @@ export async function proxyFetch(url, {
   grant, method = 'GET', headers = {}, body, stream = false, signal, timeoutMs = 30000,
 } = {}, { env = process.env, request } = {}) {
   if (!grant || !grant.cap || !grant.canonicalUrl) throw new Error('sandstorm-api-not-granted');
-  if (serviceForUrl(url) === null || !url.startsWith(grant.canonicalUrl)) {
+  // The grant, not a fixed list, decides where a request may go: a Trello
+  // grant reaches Trello, a webhook's grant reaches that webhook.
+  if (!grantCovers(grant, url)) {
     throw new Error('sandstorm-egress-url-not-granted');
   }
   const lowered = Object.fromEntries(Object.entries(headers).map(([k, v]) => [k.toLowerCase(), v]));

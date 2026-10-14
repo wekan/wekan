@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ganchos Web Salientes",
   "boardCardTitlePopup-title": "Filtro de títulos de tarjeta",
   "disable-webhook": "Deshabilitar este Webhook",
+  "sandstorm-webhook-grant": "Permitir que este grain acceda a esta dirección",
+  "sandstorm-webhook-granted": "Este grain puede acceder a esta dirección",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nuevo Gancho Web",
   "no-name": "(desconocido)",

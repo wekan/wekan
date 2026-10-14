@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Chiqish vebhuklari",
   "boardCardTitlePopup-title": "Karta sarlavhasi filtri",
   "disable-webhook": "Ushbu veb-hukni o'chirib qo'ying",
+  "sandstorm-webhook-grant": "Ushbu grain-ga bu manzilga ulanishga ruxsat berish",
+  "sandstorm-webhook-granted": "Ushbu grain bu manzilga ulanishi mumkin",
   "global-webhook": "Global Webhooklar",
   "new-outgoing-webhook": "Yangi chiquvchi vebhuk",
   "no-name": "(Noma'lum)",

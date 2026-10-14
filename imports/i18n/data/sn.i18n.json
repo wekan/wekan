@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Mawebhook anobuda",
   "boardCardTitlePopup-title": "kadhi musoro sefa",
   "disable-webhook": "dzima This Webhook",
+  "sandstorm-webhook-grant": "Bvumira grain iyi kusvika pakero iyi",
+  "sandstorm-webhook-granted": "Grain iyi inogona kusvika pakero iyi",
   "global-webhook": "Mawebhook ehurongwa hwese",
   "new-outgoing-webhook": "itsva Outgoing Webhook",
   "no-name": "(Hazvizivikanwi)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "အထွက် Webhooks",
   "boardCardTitlePopup-title": "ကတ်ခေါင်းစဉ် စစ်ထုတ်မှု",
   "disable-webhook": "ဤ Webhook ကို ပိတ်ရန်",
+  "sandstorm-webhook-grant": "ဤ grain ကို ဤလိပ်စာသို့ ရောက်ရှိခွင့်ပြုရန်",
+  "sandstorm-webhook-granted": "ဤ grain သည် ဤလိပ်စာသို့ ရောက်ရှိနိုင်သည်",
   "global-webhook": "ကမ္ဘာလုံးဆိုင်ရာ Webhooks",
   "new-outgoing-webhook": "အထွက် Webhook အသစ်",
   "no-name": "(မသိ)",

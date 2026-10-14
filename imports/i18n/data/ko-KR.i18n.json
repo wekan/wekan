@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "발신 웹훅",
   "boardCardTitlePopup-title": "카드 제목 필터",
   "disable-webhook": "이 웹훅 비활성화",
+  "sandstorm-webhook-grant": "이 grain이 이 주소에 접근하도록 허용",
+  "sandstorm-webhook-granted": "이 grain은 이 주소에 접근할 수 있습니다",
   "global-webhook": "전역 웹훅",
   "new-outgoing-webhook": "새 발신 웹훅",
   "no-name": "(알 수 없음)",

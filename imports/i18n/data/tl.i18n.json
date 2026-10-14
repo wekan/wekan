@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Papalabas Mga webhook",
   "boardCardTitlePopup-title": "kard Pamagat Salain",
   "disable-webhook": "Huwag paganahin Ito Webhook",
+  "sandstorm-webhook-grant": "Payagan ang grain na ito na maabot ang address na ito",
+  "sandstorm-webhook-granted": "Maaaring maabot ng grain na ito ang address na ito",
   "global-webhook": "Global Mga webhook",
   "new-outgoing-webhook": "Bago Papalabas Webhook",
   "no-name": "(Hindi alam)",

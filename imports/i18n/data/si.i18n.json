@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "පිටතට යන Webhooks",
   "boardCardTitlePopup-title": "කාඩ්පත් මාතෘකා පෙරහන",
   "disable-webhook": "මෙම Webhook අක්‍රිය කරන්න",
+  "sandstorm-webhook-grant": "මෙම grain හට මෙම ලිපිනයට ළඟා වීමට ඉඩ දෙන්න",
+  "sandstorm-webhook-granted": "මෙම grain හට මෙම ලිපිනයට ළඟා විය හැක",
   "global-webhook": "ගෝලීය Webhooks",
   "new-outgoing-webhook": "නව පිටතට යන Webhook එකක්",
   "no-name": "(නොදනී)",

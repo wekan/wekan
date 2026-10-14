@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ᎦᏄᎪᎬ Webhooks",
   "boardCardTitlePopup-title": "ᎪᏪᎵ ᎤᏍᏗ ᎤᏙᎥ ᎪᎵᏰᏗ",
   "disable-webhook": "ᎯᎠ Webhook ᎠᏍᏚᎲ",
+  "sandstorm-webhook-grant": "ᎯᎠ grain ᎠᎵᏍᏓᏁᏗ ᎯᎠ ᎦᏁᎸ ᏩᎷᎯᏍᏗ",
+  "sandstorm-webhook-granted": "ᎯᎠ grain ᎬᏩᎷᎯᏍᏗ ᎯᎠ ᎦᏁᎸ",
   "global-webhook": "ᎡᎶᎯ Webhooks",
   "new-outgoing-webhook": "ᎢᏤ ᎦᏄᎪᎬ Webhook",
   "no-name": "(ᏄᏙᎥᏒᎾ)",

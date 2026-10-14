@@ -2,6 +2,7 @@
 // Replaces communitypackages:json-routes middleware chain.
 // Must be imported before model files that register API routes.
 
+const { Meteor } = require('meteor/meteor');
 const { WebApp } = require('meteor/webapp');
 const { safeJsonStringify } = require('/server/lib/apiResponseHelpers');
 
@@ -110,6 +111,29 @@ WebApp.handlers.use(async function authenticateByToken(req, res, next) {
     } catch (e) {
       // Ignore auth errors — routes handle missing userId themselves
     }
+  }
+  next();
+});
+
+// ---------------------------------------------------------------------------
+// 4a. Sandstorm API keys: in a grain, the bridge says who is calling
+// (models/lib/sandstormApiIdentity.js). Never off Sandstorm, never in place of
+// a WeKan token, and only for an account that already exists and is enabled.
+// ---------------------------------------------------------------------------
+const isSandstormGrain = !!(Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm);
+WebApp.handlers.use(async function authenticateSandstormApiKey(req, res, next) {
+  if (req.userId || !isSandstormGrain) return next();
+  try {
+    const { sandstormApiIdentity } = require('/models/lib/sandstormApiIdentity');
+    const identity = sandstormApiIdentity(req.headers, { sandstorm: isSandstormGrain, method: req.method });
+    if (identity) {
+      const user = await Meteor.users.findOneAsync({ 'services.sandstorm.id': identity.sandstormId }, { fields: { _id: 1, loginDisabled: 1 } });
+      if (user && require('/server/lib/activeUser').allowActiveUser(user, 'sandstormApiKey', req)) {
+        req.userId = user._id;
+      }
+    }
+  } catch (e) {
+    // Ignore auth errors — routes handle missing userId themselves
   }
   next();
 });

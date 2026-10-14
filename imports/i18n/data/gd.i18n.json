@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks a-mach",
   "boardCardTitlePopup-title": "Criathrag Tiotal Cairte",
   "disable-webhook": "Cuir an Webhook Seo À Comas",
+  "sandstorm-webhook-grant": "Leig leis a’ grain seo an seòladh seo a ruigsinn",
+  "sandstorm-webhook-granted": "Faodaidh an grain seo an seòladh seo a ruigsinn",
   "global-webhook": "Webhooks Cruinneil",
   "new-outgoing-webhook": "Webhook Ùr a-mach",
   "no-name": "(Neo-aithnichte)",

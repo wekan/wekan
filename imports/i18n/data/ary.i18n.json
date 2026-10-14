@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "الويبهوك الصادرة",
   "boardCardTitlePopup-title": "تصفية عناوين البطاقات",
   "disable-webhook": "حذف این وب‌هوک",
+  "sandstorm-webhook-grant": "سمح لهاد grain يوصل لهاد العنوان",
+  "sandstorm-webhook-granted": "هاد grain يقدر يوصل لهاد العنوان",
   "global-webhook": "وب‌هوک‌های سراسری",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(غير معروف)",

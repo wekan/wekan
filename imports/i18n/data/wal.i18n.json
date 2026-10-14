@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Wolayttatto: Outgoing Webhooks",
   "boardCardTitlePopup-title": "Wolayttatto: Kaardiya Huuphe sunttaa Piltterissa",
   "disable-webhook": "Wolayttatto: Digga This Webhook",
+  "sandstorm-webhook-grant": "Ha grain ha teesuwaa gakkanaadan maata imma",
+  "sandstorm-webhook-granted": "Ha grain ha teesuwaa gakkana danda'ees",
   "global-webhook": "Wolayttatto: Global Webhooks",
   "new-outgoing-webhook": "Wolayttatto: Oorattaa Outgoing Webhook",
   "no-name": "Wolayttatto: (Unknown)",

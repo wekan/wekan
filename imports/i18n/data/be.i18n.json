@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Выходныя вэб-хукі",
   "boardCardTitlePopup-title": "Фільтр назвы карткі",
   "disable-webhook": "Адключыць гэты вэб-хук",
+  "sandstorm-webhook-grant": "Дазволіць гэтаму грэйну звяртацца да гэтага адраса",
+  "sandstorm-webhook-granted": "Гэты грэйн можа звяртацца да гэтага адраса",
   "global-webhook": "Глабальныя вэб-хукі",
   "new-outgoing-webhook": "Новы выходны вэб-хук",
   "no-name": "(Невядома)",

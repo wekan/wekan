@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Odchozí Webhooky",
   "boardCardTitlePopup-title": "Filter názvov kariet",
   "disable-webhook": "Zakázat tento webhook",
+  "sandstorm-webhook-grant": "Povoliť tomuto grainu prístup na túto adresu",
+  "sandstorm-webhook-granted": "Tento grain môže pristupovať na túto adresu",
   "global-webhook": "Globální webhooks",
   "new-outgoing-webhook": "Nové odchozí Webhooky",
   "no-name": "(Neznámé)",

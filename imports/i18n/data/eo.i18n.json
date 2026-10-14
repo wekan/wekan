@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Elirantaj Webhook-oj",
   "boardCardTitlePopup-title": "Filtrilo de kartaj titoloj",
   "disable-webhook": "Malŝalti ĉi tiun Webhook",
+  "sandstorm-webhook-grant": "Permesi al ĉi tiu grajno atingi ĉi tiun adreson",
+  "sandstorm-webhook-granted": "Ĉi tiu grajno rajtas atingi ĉi tiun adreson",
   "global-webhook": "Ĝeneralaj Webhook-oj",
   "new-outgoing-webhook": "Nova eliranta Webhook",
   "no-name": "(Nekonata)",

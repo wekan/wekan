@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Väljaminevad veebikonksud",
   "boardCardTitlePopup-title": "Kaardi pealkirja filter",
   "disable-webhook": "Lülita see veebikonks välja",
+  "sandstorm-webhook-grant": "Luba sellel grainil sellele aadressile ühenduda",
+  "sandstorm-webhook-granted": "See grain võib sellele aadressile ühenduda",
   "global-webhook": "Globaalsed veebikonksud",
   "new-outgoing-webhook": "Uus väljaminev veebikonks",
   "no-name": "(Tundmatu)",

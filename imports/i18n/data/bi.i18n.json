@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ol webhook we oli go aot",
   "boardCardTitlePopup-title": "Kad Taetol Filter",
   "disable-webhook": "Mekem i no wok Dispela Webhook",
+  "sandstorm-webhook-grant": "Letem grain ya i go kasem adres ya",
+  "sandstorm-webhook-granted": "Grain ya i save go kasem adres ya",
   "global-webhook": "Ol webhook blong ful sistem",
   "new-outgoing-webhook": "Niu Outgoing Webhook",
   "no-name": "(Oli no save)",

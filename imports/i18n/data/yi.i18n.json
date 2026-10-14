@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "אַוטגאָוינג וועבהאָאָקס",
   "boardCardTitlePopup-title": "קאָרט טיטל פילטער",
   "disable-webhook": "דיסייבאַל דעם וועבהאָאָק",
+  "sandstorm-webhook-grant": "דערלויבן דעם grain צו דערגרייכן דעם אַדרעס",
+  "sandstorm-webhook-granted": "דער grain מעג דערגרייכן דעם אַדרעס",
   "global-webhook": "גלאבאלע וועבהאָאָקס",
   "new-outgoing-webhook": "ניו אַוטגאָוינג וועבהאָאָק",
   "no-name": "(אומבאַקאַנט)",

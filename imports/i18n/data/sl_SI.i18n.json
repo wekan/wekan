@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Izhodni spletni vmesniki (webhooks)",
   "boardCardTitlePopup-title": "Filter po naslovu kartice",
   "disable-webhook": "Onemogoči ta spletni vmesnik (webhook)",
+  "sandstorm-webhook-grant": "Dovoli temu grainu dostop do tega naslova",
+  "sandstorm-webhook-granted": "Ta grain lahko dostopa do tega naslova",
   "global-webhook": "Globalni spletni vmesnik (webhook)",
   "new-outgoing-webhook": "Nov izhodni spletni vmesnik (webhook)",
   "no-name": "(Neznano)",

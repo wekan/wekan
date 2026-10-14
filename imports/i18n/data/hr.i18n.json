@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Odlazni webhookovi",
   "boardCardTitlePopup-title": "Filtar naslova kartica",
   "disable-webhook": "Onemogući ovaj webhook",
+  "sandstorm-webhook-grant": "Dopusti ovom grainu pristup ovoj adresi",
+  "sandstorm-webhook-granted": "Ovaj grain smije pristupiti ovoj adresi",
   "global-webhook": "Globalni webhookovi",
   "new-outgoing-webhook": "Novi odlazni webhook",
   "no-name": "(Nepoznato)",

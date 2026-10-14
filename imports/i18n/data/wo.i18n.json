@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks boppam",
   "boardCardTitlePopup-title": "Fëltar ci turu karta",
   "disable-webhook": "Far sa webhook bi",
+  "sandstorm-webhook-grant": "May grain bii mu agsi ci adrees bii",
+  "sandstorm-webhook-granted": "Grain bii man na agsi ci adrees bii",
   "global-webhook": "Webhooks global",
   "new-outgoing-webhook": "Webhook boppam bi",
   "no-name": "(xameesul)",

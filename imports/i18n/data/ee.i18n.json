@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook siwo yina go",
   "boardCardTitlePopup-title": "Kaɖi ƒe ŋkɔ mɔɖeɖe",
   "disable-webhook": "Xe mɔ na webhook sia",
+  "sandstorm-webhook-grant": "Na mɔ grain sia be wòaɖo adrɛs sia gbɔ",
+  "sandstorm-webhook-granted": "Grain sia ate ŋu aɖo adrɛs sia gbɔ",
   "global-webhook": "Xexeame katã ƒe webhookwo",
   "new-outgoing-webhook": "Webhook yeye si yina go",
   "no-name": "(Womenya o)",

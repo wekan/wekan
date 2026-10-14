@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks yaltuɗe",
   "boardCardTitlePopup-title": "Siiwtorde hoore kartal",
   "disable-webhook": "Dartin webhook oo",
+  "sandstorm-webhook-grant": "Yamir grain ngal yottaade ñiiɓirde nde",
+  "sandstorm-webhook-granted": "Grain ngal no waawi yottaade ñiiɓirde nde",
   "global-webhook": "Webhooks kuuɓɗe",
   "new-outgoing-webhook": "Webhook yaltuɗo keso",
   "no-name": "(Anndaaka)",

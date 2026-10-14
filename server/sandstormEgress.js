@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { AsyncLocalStorage } from 'node:async_hooks';
+import { fetchSafe } from '/server/lib/ssrfGuard';
 
 // The Meteor half of outbound HTTP from a Sandstorm grain through the Powerbox
 // (imports/sandstorm/egress.mjs is the protocol half). A user approves an
@@ -65,6 +66,112 @@ export async function sandstormFetch(url, options = {}) {
 
 export async function hasSandstormGrant(userId, service) {
   return !!(userId && await SandstormApiGrants.findOneAsync(grantId(userId, service)));
+}
+
+// ── Outgoing webhooks through the Powerbox ───────────────────────────────────
+// A grain has no network but the bridge proxy, so a webhook leaves only
+// through an API a board admin approved in the Powerbox for that webhook's URL.
+// Its grant belongs to that DESTINATION (webhook:<granted URL>), not to a
+// user: activity on the board sends it, whoever acted, and it is found by the
+// URL being sent to, never by a search. Sandstorm lists the connection in the
+// grain's settings, where it can be revoked. Off Sandstorm, and for a URL no
+// grant covers, this is exactly fetchSafe.
+const webhookGrantId = canonicalUrl => `webhook:${canonicalUrl}`;
+
+async function mayManageWebhook(userId, integrationId) {
+  const Integrations = require('/models/integrations').default;
+  const Boards = require('/models/boards').default;
+  const { allowIsBoardAdmin } = require('/server/lib/utils');
+  const integration = await Integrations.findOneAsync(integrationId);
+  if (!integration) return null;
+  const user = await Meteor.users.findOneAsync(userId, { fields: { isAdmin: 1 } });
+  const board = await Boards.findOneAsync(integration.boardId);
+  return (user && user.isAdmin) || allowIsBoardAdmin(userId, board) ? integration : null;
+}
+
+// Same arguments and the same kind of answer as fetchSafe.
+export async function webhookFetch(url, options = {}) {
+  if (!isSandstorm) return fetchSafe(url, options);
+  const api = await egress();
+  const target = api.webhookGrantFor(url);
+  const grant = target && await SandstormApiGrants.findOneAsync(webhookGrantId(target.canonicalUrl));
+  if (!grant || !api.grantCovers(grant, target.url)) return fetchSafe(url, options);
+  const res = await api.proxyFetch(target.url, {
+    grant,
+    method: options.method || 'POST',
+    headers: options.headers || {},
+    body: options.body,
+    timeoutMs: options.totalTimeoutMs || options.timeoutMs || 30000,
+  });
+  // A response is read whole, with fetchSafe's size limit.
+  const limit = Number.isFinite(options.maxResponseBytes) ? options.maxResponseBytes : 10 * 1024 * 1024;
+  const bytes = Buffer.from(await res.arrayBuffer());
+  if (bytes.length > limit) throw new Error(`outbound response exceeds ${limit} bytes`);
+  return {
+    status: res.status,
+    ok: res.ok,
+    headers: res.headers,
+    text: async () => bytes.toString('utf8'),
+    json: async () => JSON.parse(bytes.toString('utf8')),
+    arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+  };
+}
+
+if (isSandstorm) {
+  Meteor.methods({
+    // The Powerbox query for one webhook: approve exactly its URL's API.
+    async sandstormWebhookDescriptor(integrationId) {
+      check(integrationId, String);
+      if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+      const integration = await mayManageWebhook(this.userId, integrationId);
+      if (!integration) throw new Meteor.Error('error-notAuthorized');
+      const api = await egress();
+      const target = api.webhookGrantFor(integration.url);
+      if (!target) throw new Meteor.Error('sandstorm-webhook-url', 'This webhook address cannot be granted.');
+      const { apiSessionDescriptor } = await import('/imports/sandstorm/bridgeClient.mjs');
+      return { descriptor: apiSessionDescriptor(target.canonicalUrl), canonicalUrl: target.canonicalUrl };
+    },
+
+    async sandstormClaimWebhookGrant(integrationId, requestToken) {
+      check(integrationId, String);
+      check(requestToken, String);
+      if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+      const integration = await mayManageWebhook(this.userId, integrationId);
+      if (!integration) throw new Meteor.Error('error-notAuthorized');
+      const api = await egress();
+      const target = api.webhookGrantFor(integration.url);
+      if (!target) throw new Meteor.Error('sandstorm-webhook-url', 'This webhook address cannot be granted.');
+      let cap;
+      try {
+        cap = await api.claimApiGrant(this.connection.sandstormSessionId(), requestToken);
+      } catch (e) {
+        throw new Meteor.Error('sandstorm-claim-failed', e.message);
+      }
+      await SandstormApiGrants.upsertAsync(webhookGrantId(target.canonicalUrl), {
+        $set: {
+          service: 'webhook',
+          integrationId,
+          boardId: integration.boardId,
+          canonicalUrl: target.canonicalUrl,
+          cap,
+          grantedBy: this.userId,
+          grantedAt: new Date(),
+        },
+      });
+      return { granted: true, canonicalUrl: target.canonicalUrl };
+    },
+
+    async sandstormWebhookGrantStatus(integrationId) {
+      check(integrationId, String);
+      if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+      const integration = await mayManageWebhook(this.userId, integrationId);
+      if (!integration) throw new Meteor.Error('error-notAuthorized');
+      const api = await egress();
+      const target = api.webhookGrantFor(integration.url);
+      const grant = target && await SandstormApiGrants.findOneAsync(webhookGrantId(target.canonicalUrl), { fields: { canonicalUrl: 1 } });
+      return { granted: !!grant, canonicalUrl: target ? target.canonicalUrl : null };
+    },
+  });
 }
 
 if (isSandstorm) {

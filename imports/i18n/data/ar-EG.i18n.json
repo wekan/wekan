@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "الويبهوك الصادرة",
   "boardCardTitlePopup-title": "تصفية عناوين البطاقات",
   "disable-webhook": "تعطيل خطاف الويب هذا",
+  "sandstorm-webhook-grant": "السماح لهذه الحاوية بالوصول إلى هذا العنوان",
+  "sandstorm-webhook-granted": "يمكن لهذه الحاوية الوصول إلى هذا العنوان",
   "global-webhook": "خطافات الويب العامة",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(غير معروف)",

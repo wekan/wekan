@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks ħerġin",
   "boardCardTitlePopup-title": "Kard Titlu Iffiltra",
   "disable-webhook": "Iddiżattiva Dan Webhook",
+  "sandstorm-webhook-grant": "Ħalli dan il-grain jilħaq dan l-indirizz",
+  "sandstorm-webhook-granted": "Dan il-grain jista' jilħaq dan l-indirizz",
   "global-webhook": "Webhooks globali",
   "new-outgoing-webhook": "Ġdid Outgoing Webhook",
   "no-name": "(Mhux magħruf)",

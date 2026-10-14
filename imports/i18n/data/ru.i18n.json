@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Исходящие Веб-Хуки",
   "boardCardTitlePopup-title": "Фильтр названий карточек",
   "disable-webhook": "Отключить этот Веб-Хук",
+  "sandstorm-webhook-grant": "Разрешить этому grain обращаться к этому адресу",
+  "sandstorm-webhook-granted": "Этот grain может обращаться к этому адресу",
   "global-webhook": "Глобальные Веб-Хуки",
   "new-outgoing-webhook": "Новый исходящий Веб-Хук",
   "no-name": "(Неизвестный)",

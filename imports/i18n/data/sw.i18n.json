@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Wavuti zinazotoka",
   "boardCardTitlePopup-title": "Kichujio cha Kichwa cha Kadi",
   "disable-webhook": "Lemaza Kitabu hiki cha Wavuti",
+  "sandstorm-webhook-grant": "Ruhusu grain hii kufikia anwani hii",
+  "sandstorm-webhook-granted": "Grain hii inaweza kufikia anwani hii",
   "global-webhook": "Mtandao wa Kimataifa",
   "new-outgoing-webhook": "Mtandao Mpya Unaotoka",
   "no-name": "(Haijulikani)",

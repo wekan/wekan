@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "oukakoinaka wepahookaka",
   "boardCardTitlePopup-title": "kāleka inoa kānana",
   "disable-webhook": "hoʻopau kēia wepahooka",
+  "sandstorm-webhook-grant": "ʻAe i kēia grain e hiki aku i kēia wahi noho",
+  "sandstorm-webhook-granted": "Hiki i kēia grain ke hiki aku i kēia wahi noho",
   "global-webhook": "kalopala wepahookaka",
   "new-outgoing-webhook": "hou oukakoinaka wepahooka",
   "no-name": "(unakanowana)",

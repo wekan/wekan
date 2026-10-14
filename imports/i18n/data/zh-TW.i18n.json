@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "設定訂閱 (Webhooks)",
   "boardCardTitlePopup-title": "卡片標題過濾器",
   "disable-webhook": "禁用訂閱 (Webhooks)",
+  "sandstorm-webhook-grant": "允許此 grain 存取此位址",
+  "sandstorm-webhook-granted": "此 grain 已獲准存取此位址",
   "global-webhook": "全域訂閱 (Webhooks)",
   "new-outgoing-webhook": "新增連外訂閱 (Webhooks)",
   "no-name": "（未知）",

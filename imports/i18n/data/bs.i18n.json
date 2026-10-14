@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Дојава догађаја",
   "boardCardTitlePopup-title": "Издвајање по наслову задатка",
   "disable-webhook": "Онеспособи ову дојаву догађаја",
+  "sandstorm-webhook-grant": "Dozvoli ovom grainu da pristupi ovoj adresi",
+  "sandstorm-webhook-granted": "Ovaj grain smije pristupiti ovoj adresi",
   "global-webhook": "Дојава догађаја",
   "new-outgoing-webhook": "Нова дојава догађаја",
   "no-name": "(Nepoznato)",

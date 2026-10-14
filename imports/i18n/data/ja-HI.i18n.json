@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "発信Webフック",
   "boardCardTitlePopup-title": "カード名フィルタ",
   "disable-webhook": "このWebフックを無効化",
+  "sandstorm-webhook-grant": "このグレインがこのアドレスにアクセスすることを許可",
+  "sandstorm-webhook-granted": "このグレインはこのアドレスにアクセスできます",
   "global-webhook": "グローバルWebフック",
   "new-outgoing-webhook": "発信Webフックの作成",
   "no-name": "(名前なし)",

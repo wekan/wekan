@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks sortants",
   "boardCardTitlePopup-title": "Filtre par titre de carte",
   "disable-webhook": "Désactiver ce webhook",
+  "sandstorm-webhook-grant": "Autoriser ce grain à joindre cette adresse",
+  "sandstorm-webhook-granted": "Ce grain peut joindre cette adresse",
   "global-webhook": "Webhooks globaux",
   "new-outgoing-webhook": "Nouveau webhook sortant",
   "no-name": "(Inconnu)",

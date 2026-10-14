@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "भायर वचपी वेबहूक",
   "boardCardTitlePopup-title": "कार्ड माथाळें गाळण",
   "disable-webhook": "हो वेबहूक बंद करात",
+  "sandstorm-webhook-grant": "ह्या grain क ह्या पत्त्यार पावपाक परवानगी दियात",
+  "sandstorm-webhook-granted": "हो grain ह्या पत्त्यार पावूं येता",
   "global-webhook": "जागतिक वेबहूक",
   "new-outgoing-webhook": "नवो भायर वचपी वेबहूक",
   "no-name": "(अज्ञात)",

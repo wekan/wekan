@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Faka-Tonga: Outgoing Webhooks",
   "boardCardTitlePopup-title": "Faka-Tonga: kaati Title Filter",
   "disable-webhook": "Faka-Tonga: Disable This Webhook",
+  "sandstorm-webhook-grant": "Tuku ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
+  "sandstorm-webhook-granted": "ʻE lava ke aʻu ʻa e grain ni ki he tuʻasila ko ʻeni",
   "global-webhook": "Faka-Tonga: Global Webhooks",
   "new-outgoing-webhook": "Faka-Tonga: New Outgoing Webhook",
   "no-name": "Faka-Tonga: (Unknown)",

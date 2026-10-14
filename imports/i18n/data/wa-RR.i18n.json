@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Mga Papagawas nga Webhook",
   "boardCardTitlePopup-title": "Filter han Titulo han Card",
   "disable-webhook": "I-disable Ini nga Webhook",
+  "sandstorm-webhook-grant": "Tuguti ini nga grain nga umabot hini nga adres",
+  "sandstorm-webhook-granted": "Puydi umabot ini nga grain hini nga adres",
   "global-webhook": "Global nga mga Webhook",
   "new-outgoing-webhook": "Bag-o nga Papagawas nga Webhook",
   "no-name": "(Diri kilala)",

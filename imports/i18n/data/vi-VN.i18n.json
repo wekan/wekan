@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks gửi đi",
   "boardCardTitlePopup-title": "Lọc tiêu đề thẻ",
   "disable-webhook": "Vô hiệu hóa Webhook này",
+  "sandstorm-webhook-grant": "Cho phép grain này truy cập địa chỉ này",
+  "sandstorm-webhook-granted": "Grain này được phép truy cập địa chỉ này",
   "global-webhook": "Webhook toàn cầu",
   "new-outgoing-webhook": "Webhook gửi đi mới",
   "no-name": "(Không xác định)",

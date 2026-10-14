@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ama-Webhooks aphumayo",
   "boardCardTitlePopup-title": "Isihlungi Sesihloko Sekhadi",
   "disable-webhook": "Khubaza Le Webbhook",
+  "sandstorm-webhook-grant": "Vumela le-grain ukuthi ifinyelele kuleli kheli",
+  "sandstorm-webhook-granted": "Le-grain ingafinyelela kuleli kheli",
   "global-webhook": "Global Webhook",
   "new-outgoing-webhook": "I-Webhook Entsha Ephumayo",
   "no-name": "(Akwaziwa)",

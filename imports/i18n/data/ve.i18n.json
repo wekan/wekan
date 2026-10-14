@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ama-Webhooks aphumayo",
   "boardCardTitlePopup-title": "Tsha u ṱalula dzina ḽa khadi",
   "disable-webhook": "Khubaza Le Webbhook",
+  "sandstorm-webhook-grant": "Tendelani grain iyi uri i swike kha ḓiresi iyi",
+  "sandstorm-webhook-granted": "Grain iyi i nga swika kha ḓiresi iyi",
   "global-webhook": "Global Webhook",
   "new-outgoing-webhook": "Webhook ntswa ya u bva",
   "no-name": "(Akwaziwa)",

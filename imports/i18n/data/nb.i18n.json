@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Utgående webhook",
   "boardCardTitlePopup-title": "Filter korttittel",
   "disable-webhook": "Deaktiver denne webhooken",
+  "sandstorm-webhook-grant": "La dette grainet nå denne adressen",
+  "sandstorm-webhook-granted": "Dette grainet kan nå denne adressen",
   "global-webhook": "Globale webhooks",
   "new-outgoing-webhook": "Ny utgående webhook",
   "no-name": "(Ukjent)",

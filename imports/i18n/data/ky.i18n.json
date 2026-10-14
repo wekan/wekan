@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Чыгуучу Webhook'тор",
   "boardCardTitlePopup-title": "Карточка аталышынын чыпкасы",
   "disable-webhook": "Бул Webhook'ту өчүрүү",
+  "sandstorm-webhook-grant": "Бул grain'ге ушул дарекке жетүүгө уруксат берүү",
+  "sandstorm-webhook-granted": "Бул grain ушул дарекке жете алат",
   "global-webhook": "Глобалдык Webhook'тор",
   "new-outgoing-webhook": "Жаңы чыгуучу Webhook",
   "no-name": "(Белгисиз)",

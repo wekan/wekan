@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ଯାଉଥିବା ୱେବହକ୍ସ |",
   "boardCardTitlePopup-title": "କାର୍ଡ ଆଖ୍ୟା ଫିଲ୍ଟର୍ |",
   "disable-webhook": "ଏହି ୱେବ୍ ହକ୍ ଅକ୍ଷମ କରନ୍ତୁ |",
+  "sandstorm-webhook-grant": "ଏହି grain କୁ ଏହି ଠିକଣାରେ ପହଞ୍ଚିବାକୁ ଅନୁମତି ଦିଅନ୍ତୁ",
+  "sandstorm-webhook-granted": "ଏହି grain ଏହି ଠିକଣାରେ ପହଞ୍ଚିପାରିବ",
   "global-webhook": "ଗ୍ଲୋବାଲ୍ ୱେବହକ୍ସ |",
   "new-outgoing-webhook": "ନୂତନ ଆଉଟକିଙ୍ଗ୍ ୱେବ୍ ହକ୍ |",
   "no-name": "(ଅଜ୍ଞାତ)",

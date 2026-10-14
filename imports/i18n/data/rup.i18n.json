@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook-uri di ishiri",
   "boardCardTitlePopup-title": "Filtru dupã titlu di cartã",
   "disable-webhook": "Dizactiveadzã aestu webhook",
+  "sandstorm-webhook-grant": "Alasã aestu grain s-agiungã la aestã adresã",
+  "sandstorm-webhook-granted": "Aestu grain poati s-agiungã la aestã adresã",
   "global-webhook": "Webhook-uri globali",
   "new-outgoing-webhook": "Webhook nou di ishiri",
   "no-name": "(Nicunuscut)",

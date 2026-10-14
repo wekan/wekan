@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ordenacions de webhooks",
   "boardCardTitlePopup-title": "Filtre de títol de la fitxa",
   "disable-webhook": "Desactiveu aquest webhook",
+  "sandstorm-webhook-grant": "Permet que aquest gra arribi a aquesta adreça",
+  "sandstorm-webhook-granted": "Aquest gra pot arribar a aquesta adreça",
   "global-webhook": "Webhooks globals",
   "new-outgoing-webhook": "Nou Webbook sortt",
   "no-name": "Importa tauler des de Wekan",

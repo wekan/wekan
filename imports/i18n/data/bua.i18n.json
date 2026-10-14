@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Гараха вебхукүүд",
   "boardCardTitlePopup-title": "Картын нэрын шүүлтэ",
   "disable-webhook": "Энэ вебхук унтарааха",
+  "sandstorm-webhook-grant": "Энэ grain-да энэ хаягта хүрэхые зүбшөөхэ",
+  "sandstorm-webhook-granted": "Энэ grain энэ хаягта хүрэжэ болоно",
   "global-webhook": "Юрэнхы вебхукүүд",
   "new-outgoing-webhook": "Шэнэ гараха вебхук",
   "no-name": "(Мэдэгдээгүй)",

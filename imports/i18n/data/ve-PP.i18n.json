@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Lähtejad webhukad",
   "boardCardTitlePopup-title": "Kartan pälkirjutezen puhtastim",
   "disable-webhook": "Saupta nece Webhook",
+  "sandstorm-webhook-grant": "Laske nece grain tulda necile adresale",
+  "sandstorm-webhook-granted": "Nece grain voib tulda necile adresale",
   "global-webhook": "Üleižed Webhookad",
   "new-outgoing-webhook": "Uz’ oigendamižen Webhook",
   "no-name": "(Tundmatoi)",

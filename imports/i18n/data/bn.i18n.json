@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "বহির্গামী Webhook",
   "boardCardTitlePopup-title": "কার্ডের শিরোনামের ছাঁকনি",
   "disable-webhook": "এই Webhook বন্ধ করুন",
+  "sandstorm-webhook-grant": "এই grain-কে এই ঠিকানায় পৌঁছানোর অনুমতি দিন",
+  "sandstorm-webhook-granted": "এই grain এই ঠিকানায় পৌঁছাতে পারে",
   "global-webhook": "বৈশ্বিক Webhook",
   "new-outgoing-webhook": "নতুন বহির্গামী Webhook",
   "no-name": "(অজানা)",

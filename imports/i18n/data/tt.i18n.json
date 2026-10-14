@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Чыгыш вебхуклары",
   "boardCardTitlePopup-title": "Карточка исеме фильтры",
   "disable-webhook": "Бу вебхукны сүндерү",
+  "sandstorm-webhook-grant": "Бу grain-га бу адреска ирешергә рөхсәт итү",
+  "sandstorm-webhook-granted": "Бу grain бу адреска ирешә ала",
   "global-webhook": "Глобаль вебхуклар",
   "new-outgoing-webhook": "Яңа чыгыш вебхугы",
   "no-name": "(Билгесез)",

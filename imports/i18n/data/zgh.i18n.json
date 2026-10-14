@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "الويبهوك الصادرة",
   "boardCardTitlePopup-title": "ⵜⴰⵎⵣⵉⵣⴷⴳⵜ ⵏ ⵓⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
   "disable-webhook": "ⴽⴽⵙ webhook ⵏ ⴰⵙⵏⵓ",
+  "sandstorm-webhook-grant": "ⴰⵊⵊ ⴰⴷ ⵢⴰⵡⴹ grain ⴰⴷ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
+  "sandstorm-webhook-granted": "ⵉⵣⵎⵔ grain ⴰⴷ ⴰⴷ ⵢⴰⵡⴹ ⵖⵔ ⵓⵏⵙⴰ ⴰⴷ",
   "global-webhook": "Webhooks ⵏ ⵎⴰⵕⵕⴰ",
   "new-outgoing-webhook": "ويبهوك جديدة",
   "no-name": "(ⴰⵔⵓⵙⵙⵉⵏ)",

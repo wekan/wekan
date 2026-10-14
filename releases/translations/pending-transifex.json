@@ -1615,6 +1615,14 @@
     {
       "key": "list-permission-signed-in",
       "since": "2026-10-14"
+    },
+    {
+      "key": "sandstorm-webhook-grant",
+      "since": "2026-10-14"
+    },
+    {
+      "key": "sandstorm-webhook-granted",
+      "since": "2026-10-14"
     }
   ]
 }

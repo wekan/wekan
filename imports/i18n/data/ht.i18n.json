@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook k ap soti",
   "boardCardTitlePopup-title": "Filtè tit kat",
   "disable-webhook": "Dezaktive webhook sa a",
+  "sandstorm-webhook-grant": "Pèmèt grain sa a rive nan adrès sa a",
+  "sandstorm-webhook-granted": "Grain sa a ka rive nan adrès sa a",
   "global-webhook": "Webhook global",
   "new-outgoing-webhook": "Nouvo webhook k ap soti",
   "no-name": "(Enkoni)",

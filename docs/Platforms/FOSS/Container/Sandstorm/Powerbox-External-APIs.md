@@ -66,3 +66,50 @@ mismatch fails.
 - [Sandstorm: Powerbox](https://docs.sandstorm.io/en/latest/developing/powerbox/)
 - `src/sandstorm/api-session.capnp` and `src/sandstorm/bridge-proxy.c++` in
   [sandstorm-io/sandstorm](https://github.com/sandstorm-io/sandstorm)
+
+## Outgoing webhooks
+
+A grain has no network of its own, so an outgoing webhook (Board menu →
+Outgoing Webhooks) reaches its address only once a board admin allows it:
+each saved webhook has **Allow this grain to reach this address**, which opens
+the Powerbox for exactly that address's API. After it is approved the form
+says so, and the webhook is sent through the bridge proxy with that grant.
+
+- The grant belongs to the address, not to the person who approved it: board
+  activity sends the webhook whoever caused it. It is listed, and can be
+  revoked, in the grain's Sandstorm settings like any other connection.
+- What is approved is the address's parent path:
+  `https://hooks.example.com/services/T1/B2/X3` is approved as
+  `https://hooks.example.com/services/T1/B2`. The bridge joins the approved
+  API and the request path with a `/`, so this is what makes the webhook
+  arrive at its exact address, with no trailing slash added.
+- A changed address needs approving again. An address with a user name or
+  password in it cannot be approved: the proxy owns the `Authorization`
+  header. Put a token in the path or query, or in the webhook's token field.
+- Off Sandstorm nothing changes: webhooks go out directly, through the SSRF
+  guard (`server/lib/ssrfGuard.js`), as before.
+
+`imports/sandstorm/egress.mjs` (`webhookGrantFor`, `grantCovers`) decides
+what is approved and what a grant covers; `server/sandstormEgress.js`
+(`webhookFetch`) sends every webhook - immediate, grouped and stored - and
+falls back to the SSRF-guarded `fetchSafe` off Sandstorm or for an address no
+grant covers. `tests/sandstormWebhookEgress.test.cjs` runs it against a fake
+bridge proxy.
+
+## The REST API, from outside the grain
+
+The other direction: a script or service calling WeKan's
+[REST API](../../../../API/REST-API.md) in a grain. Create an API key for the
+grain in Sandstorm (the key icon in the grain's top bar) and send requests to
+the API host it shows, with the key as `Authorization: Bearer <key>`. Sandstorm
+keeps that header for the key, so the WeKan login token is not used: the
+bridge says who is calling instead, and WeKan acts as that user
+(`models/lib/sandstormApiIdentity.js`, `server/apiMiddleware.js`).
+
+- The key's user must have opened the grain at least once, so that WeKan has
+  an account for them; a key never creates one. A disabled account stays
+  refused.
+- A key without the participate permission reads only: anything but GET is
+  answered as nobody. Board roles apply on top, as for every API call.
+- Off Sandstorm the `X-Sandstorm-*` headers are never believed - anybody
+  could send them - and only WeKan tokens count.

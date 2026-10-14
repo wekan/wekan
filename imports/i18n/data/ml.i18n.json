@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "പുറത്തേക്കുള്ള വെബ്‌ഹുക്കുകൾ",
   "boardCardTitlePopup-title": "കാർഡ് ശീർഷക ഫിൽട്ടർ",
   "disable-webhook": "ഈ വെബ്‌ഹുക്ക് പ്രവർത്തനരഹിതമാക്കുക",
+  "sandstorm-webhook-grant": "ഈ grain-ന് ഈ വിലാസത്തിലേക്ക് എത്താൻ അനുവദിക്കുക",
+  "sandstorm-webhook-granted": "ഈ grain-ന് ഈ വിലാസത്തിലേക്ക് എത്താം",
   "global-webhook": "ആഗോള വെബ്‌ഹുക്കുകൾ",
   "new-outgoing-webhook": "പുതിയ പുറത്തേക്കുള്ള വെബ്‌ഹുക്ക്",
   "no-name": "(അജ്ഞാതം)",

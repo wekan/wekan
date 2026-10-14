@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook e Lako Tani",
   "boardCardTitlePopup-title": "Vakatautaki ni Ulutaga ni Kadi",
   "disable-webhook": "Bokoca na Webhook Oqo",
+  "sandstorm-webhook-grant": "Vakatara me yaco rawa na grain oqo ki na itikotiko oqo",
+  "sandstorm-webhook-granted": "E rawa ni yaco na grain oqo ki na itikotiko oqo",
   "global-webhook": "Webhook Raraba",
   "new-outgoing-webhook": "Webhook Vou e Lako Tani",
   "no-name": "(Sega ni kilai)",

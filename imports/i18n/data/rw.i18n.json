@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks Zisohoka",
   "boardCardTitlePopup-title": "Akayunguruzo k'Umutwe w'Ikarita",
   "disable-webhook": "Zimya Iyi Webhook",
+  "sandstorm-webhook-grant": "Emerera iyi grain kugera kuri iyi aderesi",
+  "sandstorm-webhook-granted": "Iyi grain ishobora kugera kuri iyi aderesi",
   "global-webhook": "Webhooks za Hose",
   "new-outgoing-webhook": "Webhook Nshya Isohoka",
   "no-name": "(Ntibizwi)",

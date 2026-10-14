@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ਆਊਟਗੋਇੰਗ ਵੈਬਹੁੱਕ",
   "boardCardTitlePopup-title": "ਕਾਰਡ ਟਾਈਟਲ ਫਿਲਟਰ",
   "disable-webhook": "ਇਸ ਵੈੱਬਹੁੱਕ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ",
+  "sandstorm-webhook-grant": "ਇਸ grain ਨੂੰ ਇਸ ਪਤੇ ਤੱਕ ਪਹੁੰਚਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ",
+  "sandstorm-webhook-granted": "ਇਹ grain ਇਸ ਪਤੇ ਤੱਕ ਪਹੁੰਚ ਸਕਦਾ ਹੈ",
   "global-webhook": "ਗਲੋਬਲ ਵੈਬਹੁੱਕਸ",
   "new-outgoing-webhook": "ਨਵਾਂ ਆਊਟਗੋਇੰਗ ਵੈਬਹੁੱਕ",
   "no-name": "(ਅਣਜਾਣ)",

@@ -146,7 +146,11 @@ test('the access token stays on the server, per user, and only a signed-in user 
   const server = read('server/sandstormEgress.js');
   assert.match(server, /new Mongo\.Collection\('sandstorm_api_grants'\)/);
   const methods = server.slice(server.indexOf('Meteor.methods({'));
-  assert.equal((methods.match(/if \(!this\.userId\) throw new Meteor\.Error\('error-notAuthorized'\);/g) || []).length, 3);
+  // Every method - the Trello ones and the webhook ones - refuses a caller
+  // who is not signed in, first.
+  const names = [...methods.matchAll(/^    async (\w+)\(/gm)].map(m => m[1]);
+  assert.ok(names.length >= 6, names.join(', '));
+  assert.equal((methods.match(/if \(!this\.userId\) throw new Meteor\.Error\('error-notAuthorized'\);/g) || []).length, names.length);
   assert.match(server, /findOneAsync\(grantId\(userId, service\)\)/, 'a request uses the acting user\'s own grant');
   // Nothing publishes the grants or sends the token to a client.
   const walk = dir => fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap(e =>

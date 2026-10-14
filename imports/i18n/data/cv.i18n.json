@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Тухакан webhookсем",
   "boardCardTitlePopup-title": "Карточка ячӗн фильтрӗ",
   "disable-webhook": "Ҫак webhookа хутмас",
+  "sandstorm-webhook-grant": "Ҫак grain-а ҫак адреса ҫитме ирӗк пар",
+  "sandstorm-webhook-granted": "Ҫак grain ҫак адреса ҫитме пултарать",
   "global-webhook": "Тӗп webhookсем",
   "new-outgoing-webhook": "Ҫӗнӗ тухакан webhook",
   "no-name": "(Паллӑ мар)",

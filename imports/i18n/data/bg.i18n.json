@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Изходящи Webhooks",
   "boardCardTitlePopup-title": "Филтър на Име на Карта",
   "disable-webhook": "Изключи този Webhook",
+  "sandstorm-webhook-grant": "Разрешаване на този grain да достига този адрес",
+  "sandstorm-webhook-granted": "Този grain може да достига този адрес",
   "global-webhook": "Глобални Webhooks",
   "new-outgoing-webhook": "Нов Изходящ Webhook",
   "no-name": "(Непознат)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks tlen quisah",
   "boardCardTitlePopup-title": "Amatlapalli itocayo tlachipahualiztli",
   "disable-webhook": "Xictzacua inin webhook",
+  "sandstorm-webhook-grant": "Xiquincahua inin grain ma ahsi inin tlacan",
+  "sandstorm-webhook-granted": "Inin grain huelis ahsi inin tlacan",
   "global-webhook": "Hueyi webhooks",
   "new-outgoing-webhook": "Yancuic webhook tlen quisa",
   "no-name": "(amo mixmati)",

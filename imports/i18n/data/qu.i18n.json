@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Kay willaymi: Outgoingta Webhooksta",
   "boardCardTitlePopup-title": "Kay willaymi: Tarjeta Umalliq Ch'uyanchay",
   "disable-webhook": "Kay willaymi: Disableta Thista Webhookta",
+  "sandstorm-webhook-grant": "Kay grain-ta kay tiyanaman chayananpaq saqiy",
+  "sandstorm-webhook-granted": "Kay grain kay tiyanaman chayanman",
   "global-webhook": "Kay willaymi: Globalta Webhooksta",
   "new-outgoing-webhook": "Kay willaymi: Musuq Outgoingta Webhookta",
   "no-name": "Kay willaymi: (Unknownta)",

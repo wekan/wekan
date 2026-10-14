@@ -2,7 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { fetchSafe } from '/server/lib/ssrfGuard';
+// Off Sandstorm exactly fetchSafe (server/lib/ssrfGuard.js); in a grain, through
+// the Powerbox grant a board admin gave this webhook, when there is one.
+import { webhookFetch } from '/server/sandstormEgress';
 import CardComments from '/models/cardComments';
 import Integrations from '/models/integrations';
 import { buildWebhookBody, hideIdentityFields, memberHidesIdentity } from '/models/lib/webhookPayload';
@@ -312,7 +314,7 @@ Meteor.methods({
         // and blocks redirects — fully preventing DNS-rebinding SSRF attacks.
         let response;
         try {
-          response = await fetchSafe(prepared.url, {
+          response = await webhookFetch(prepared.url, {
             method: 'POST',
             totalTimeoutMs: 30000,
             headers: prepared.headers,

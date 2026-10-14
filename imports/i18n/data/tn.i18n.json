@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "E e tswang Dikgokagano tsa webe",
   "boardCardTitlePopup-title": "Karata Setlhogo Setlhotlhi",
   "disable-webhook": "Tima Eno Webhook",
+  "sandstorm-webhook-grant": "Letla grain eno go fitlha aterese eno",
+  "sandstorm-webhook-granted": "Grain eno e ka fitlha aterese eno",
   "global-webhook": "Ya lefatshe lotlhe Dikgokagano tsa webe",
   "new-outgoing-webhook": "Ntšhwa E e tswang Webhook",
   "no-name": "Tshedimosetso: (Unknown)",

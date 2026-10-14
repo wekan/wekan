@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook Bahaa",
   "boardCardTitlePopup-title": "Calaltuu Mata-duree Kaardii",
   "disable-webhook": "Webhook Kana Dhaamsi",
+  "sandstorm-webhook-grant": "Grain kun teessoo kana akka gahu hayyami",
+  "sandstorm-webhook-granted": "Grain kun teessoo kana gahuu danda'a",
   "global-webhook": "Webhook Waliigalaa",
   "new-outgoing-webhook": "Webhook Bahaa Haaraa",
   "no-name": "(Hin beekamne)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook Keluar",
   "boardCardTitlePopup-title": "Filter Judul Kartu",
   "disable-webhook": "Nonaktifkan Webhook Ini",
+  "sandstorm-webhook-grant": "Izinkan grain ini menjangkau alamat ini",
+  "sandstorm-webhook-granted": "Grain ini boleh menjangkau alamat ini",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Keluar Baru",
   "no-name": "(Tidak Diketahui)",

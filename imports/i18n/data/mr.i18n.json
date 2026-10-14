@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "बाहेर जाणारे Webhooks",
   "boardCardTitlePopup-title": "कार्ड शीर्षक फिल्टर",
   "disable-webhook": "हा Webhook बंद करा",
+  "sandstorm-webhook-grant": "या ग्रेनला या पत्त्यापर्यंत पोहोचण्याची परवानगी द्या",
+  "sandstorm-webhook-granted": "हा ग्रेन या पत्त्यापर्यंत पोहोचू शकतो",
   "global-webhook": "जागतिक Webhooks",
   "new-outgoing-webhook": "नवीन बाहेर जाणारा Webhook",
   "no-name": "(अज्ञात)",

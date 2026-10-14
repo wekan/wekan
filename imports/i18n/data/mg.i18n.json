@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook mivoaka",
   "boardCardTitlePopup-title": "Sivana lohatenin'ny karatra",
   "disable-webhook": "Vonoy ity webhook ity",
+  "sandstorm-webhook-grant": "Avelao hifandray amin'ity adiresy ity ity grain ity",
+  "sandstorm-webhook-granted": "Afaka mifandray amin'ity adiresy ity ity grain ity",
   "global-webhook": "Webhook manerantany",
   "new-outgoing-webhook": "Webhook mivoaka vaovao",
   "no-name": "(Tsy fantatra)",

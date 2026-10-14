@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks Baxaya",
   "boardCardTitlePopup-title": "Shaandhaynta Cinwaanka Kaarka",
   "disable-webhook": "Dami Webhook-kan",
+  "sandstorm-webhook-grant": "U oggolow grain-kan inuu gaaro cinwaankan",
+  "sandstorm-webhook-granted": "Grain-kan wuu gaari karaa cinwaankan",
   "global-webhook": "Webhooks Caalami ah",
   "new-outgoing-webhook": "Webhook Baxaya oo Cusub",
   "no-name": "(Aan la aqoon)",

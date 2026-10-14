@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook bɔtaw",
   "boardCardTitlePopup-title": "Karata tɔgɔ sɛgɛsɛgɛli",
   "disable-webhook": "Webhook in datugu",
+  "sandstorm-webhook-grant": "A to grain nin ka se ladɛrɛsi nin ma",
+  "sandstorm-webhook-granted": "Grain nin bɛ se ka se ladɛrɛsi nin ma",
   "global-webhook": "Foroba webhookw",
   "new-outgoing-webhook": "Webhook bɔta kura",
   "no-name": "(Dɔnnen tɛ)",

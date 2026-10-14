@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Kimenő webhurkok",
   "boardCardTitlePopup-title": "Kártya-cím filter",
   "disable-webhook": "Tiltsd le ezt a webhurkot",
+  "sandstorm-webhook-grant": "Engedélyezés, hogy ez a grain elérje ezt a címet",
+  "sandstorm-webhook-granted": "Ez a grain elérheti ezt a címet",
   "global-webhook": "Globális webhurkok",
   "new-outgoing-webhook": "Új kimenő webhurok",
   "no-name": "(Ismeretlen)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Hi Xitsonga: mhaka mhaka",
   "boardCardTitlePopup-title": "khadi nhlokomhaka sefa",
   "disable-webhook": "pfala mhaka mhaka",
+  "sandstorm-webhook-grant": "Pfumelela grain leyi ku fika eka adirese leyi",
+  "sandstorm-webhook-granted": "Grain leyi yi nga fika eka adirese leyi",
   "global-webhook": "Hi Xitsonga: mhaka mhaka",
   "new-outgoing-webhook": "ntshwa mhaka mhaka",
   "no-name": "Hi Xitsonga: (mhaka)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Siunčiami žiniatinklio kabliukai",
   "boardCardTitlePopup-title": "Kortelės pavadinimo filtras",
   "disable-webhook": "Išjungti šį Webhook",
+  "sandstorm-webhook-grant": "Leisti šiam grain pasiekti šį adresą",
+  "sandstorm-webhook-granted": "Šis grain gali pasiekti šį adresą",
   "global-webhook": "Globalūs žiniatinklio kabliukai (Webhooks)",
   "new-outgoing-webhook": "Naujas siunčiamas žiniatinklio kabliukas",
   "no-name": "(Nežinoma)",

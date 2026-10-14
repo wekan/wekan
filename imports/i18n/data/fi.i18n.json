@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Lähtevät Webkoukut",
   "boardCardTitlePopup-title": "Kortin otsikkosuodatin",
   "disable-webhook": "Poista käytöstä tämä Webkoukku",
+  "sandstorm-webhook-grant": "Salli tämän grainin tavoittaa tämä osoite",
+  "sandstorm-webhook-granted": "Tämä grain saa tavoittaa tämän osoitteen",
   "global-webhook": "Kaikenkattavat Webkoukut",
   "new-outgoing-webhook": "Uusi lähtevä Webkoukku",
   "no-name": "(Tuntematon)",

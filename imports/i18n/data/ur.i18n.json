@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ووتگوینگ وےبہووکس",
   "boardCardTitlePopup-title": "کارڈ عنوان فلٹر",
   "disable-webhook": "غیر فعال تہیس وےبہووک",
+  "sandstorm-webhook-grant": "اس grain کو اس پتے تک پہنچنے کی اجازت دیں",
+  "sandstorm-webhook-granted": "یہ grain اس پتے تک پہنچ سکتا ہے",
   "global-webhook": "گلوبال وےبہووکس",
   "new-outgoing-webhook": "نیا ووتگوینگ وےبہووک",
   "no-name": "(ونکنوون)",

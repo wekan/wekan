@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Irteerako Webhook-ak",
   "boardCardTitlePopup-title": "Txartelen tituluen iragazkia",
   "disable-webhook": "Desgaitu Webhook hau",
+  "sandstorm-webhook-grant": "Baimendu grain honi helbide honetara iristea",
+  "sandstorm-webhook-granted": "Grain hau helbide honetara irits daiteke",
   "global-webhook": "Webhook globalak",
   "new-outgoing-webhook": "Irteera-webhook berria",
   "no-name": "(Ezezaguna)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook in uscita",
   "boardCardTitlePopup-title": "Filtro pi tìtulu carta",
   "disable-webhook": "Disattiva chistu webhook",
+  "sandstorm-webhook-grant": "Pirmèttiri a stu grain di arrivari a st'indirizzu",
+  "sandstorm-webhook-granted": "Stu grain pò arrivari a st'indirizzu",
   "global-webhook": "Webhook globali",
   "new-outgoing-webhook": "Novu webhook in uscita",
   "no-name": "(Sconosciuto)",

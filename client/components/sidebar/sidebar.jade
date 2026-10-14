@@ -491,6 +491,17 @@ template(name="outgoingWebhooksPopup")
       input(type="hidden" value=this.type name="_type")
       input(type="hidden" value=_id name="id")
       input.primary.wide(type="submit" value="{{_ 'save'}}")
+      //- A grain has no network of its own: a webhook leaves only through an
+        address a board admin allowed in the Sandstorm Powerbox.
+      if isSandstorm
+        if webhookGranted _id
+          p.quiet
+            i.fa.fa-check
+            | {{_ 'sandstorm-webhook-granted'}}
+        else
+          a.button.wide.js-sandstorm-webhook-grant
+            i.fa.fa-plug
+            | {{_ 'sandstorm-webhook-grant'}}
       //- #3695: what this webhook sends, grouped and when (content, grouping,
         schedule). Saved at once on each change; a two-way webhook keeps the
         full activity parameters and immediate delivery its reply needs.

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Gedən Webhooks",
   "boardCardTitlePopup-title": "Kart Başlıq Filtri",
   "disable-webhook": "Bu Webhooku söndürün",
+  "sandstorm-webhook-grant": "Bu grain-ə bu ünvana qoşulmağa icazə verin",
+  "sandstorm-webhook-granted": "Bu grain bu ünvana qoşula bilər",
   "global-webhook": "Qlobal Webhooks",
   "new-outgoing-webhook": "Yeni Gedən Webhook",
   "no-name": "(Naməlum)",

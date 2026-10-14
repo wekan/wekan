@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhookyn goll magh",
   "boardCardTitlePopup-title": "Screeu ennym kaart",
   "disable-webhook": "Jean y webhook shoh ass",
+  "sandstorm-webhook-grant": "Lhig da'n grain shoh roshtyn er yn enmys shoh",
+  "sandstorm-webhook-granted": "Foddee yn grain shoh roshtyn er yn enmys shoh",
   "global-webhook": "Webhookyn cadjin",
   "new-outgoing-webhook": "Webhook noa goll magh",
   "no-name": "(Neu-enney)",

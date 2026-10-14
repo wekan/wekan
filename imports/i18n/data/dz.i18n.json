@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ཕྱིར་གཏོང་ Webhook རྣམས།",
   "boardCardTitlePopup-title": "ཤོག་བྱང་ཁ་བྱང་གི་ཚགས་མ།",
   "disable-webhook": "Webhook འདི་སྤྱོད་མེད་བཟོ།",
+  "sandstorm-webhook-grant": "གྲེན་འདི་ ཁ་བྱང་འདི་ལུ་ལྷོད་ནིའི་གནང་བ་བྱིན།",
+  "sandstorm-webhook-granted": "གྲེན་འདི་ ཁ་བྱང་འདི་ལུ་ལྷོད་ཆོག།",
   "global-webhook": "སྤྱི་ཡོངས་ Webhook རྣམས།",
   "new-outgoing-webhook": "ཕྱིར་གཏོང་ Webhook གསར་པ།",
   "no-name": "(ངོ་མ་ཤེས་པ།)",

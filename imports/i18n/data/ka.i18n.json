@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "გამავალი Webhook",
   "boardCardTitlePopup-title": "ბარათის სათაურის ფილტრი",
   "disable-webhook": "ამ webhook-ის გამორთვა",
+  "sandstorm-webhook-grant": "ამ grain-ისთვის ამ მისამართთან წვდომის დაშვება",
+  "sandstorm-webhook-granted": "ამ grain-ს შეუძლია ამ მისამართთან წვდომა",
   "global-webhook": "გლობალური webhook-ები",
   "new-outgoing-webhook": "ახალი გამავალი webhook",
   "no-name": "(უცნობი)",

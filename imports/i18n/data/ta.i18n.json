@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "வெளிச்செல்லும் Webhook கள்",
   "boardCardTitlePopup-title": "அட்டைத் தலைப்பு வடிகட்டி",
   "disable-webhook": "இந்த Webhook ஐ முடக்கு",
+  "sandstorm-webhook-grant": "இந்த grain இந்த முகவரியை அடைய அனுமதி",
+  "sandstorm-webhook-granted": "இந்த grain இந்த முகவரியை அடையலாம்",
   "global-webhook": "உலகளாவிய Webhook கள்",
   "new-outgoing-webhook": "புதிய வெளிச்செல்லும் Webhook",
   "no-name": "(தெரியவில்லை)",

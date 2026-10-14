@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ወጻኢ Webhooks",
   "boardCardTitlePopup-title": "መጻረዪ ኣርእስቲ ካርድ",
   "disable-webhook": "እዚ Webhook ኣሰናኽል",
+  "sandstorm-webhook-grant": "እዚ grain ናብዚ ኣድራሻ ክበጽሕ ፍቐድ",
+  "sandstorm-webhook-granted": "እዚ grain ናብዚ ኣድራሻ ክበጽሕ ይኽእል",
   "global-webhook": "ዓለማዊ Webhooks",
   "new-outgoing-webhook": "ሓድሽ ወጻኢ Webhook",
   "no-name": "(ዘይተፈልጠ)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook-e dalëse",
   "boardCardTitlePopup-title": "Filtri i titullit të kartës",
   "disable-webhook": "Çaktivizo këtë webhook",
+  "sandstorm-webhook-grant": "Lejo këtë grain të arrijë në këtë adresë",
+  "sandstorm-webhook-granted": "Ky grain mund të arrijë në këtë adresë",
   "global-webhook": "Webhook-e globale",
   "new-outgoing-webhook": "Webhook i ri dalës",
   "no-name": "(E panjohur)",

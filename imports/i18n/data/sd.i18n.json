@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ٻاهر ويندڙ ويب هُڪ",
   "boardCardTitlePopup-title": "ڪارڊ عنوان ڇاڻ",
   "disable-webhook": "هي ويب هُڪ غير فعال ڪريو",
+  "sandstorm-webhook-grant": "هن grain کي هن پتي تائين پهچڻ جي اجازت ڏيو",
+  "sandstorm-webhook-granted": "هي grain هن پتي تائين پهچي سگهي ٿو",
   "global-webhook": "عالمي ويب هُڪ",
   "new-outgoing-webhook": "نئون ٻاهر ويندڙ ويب هُڪ",
   "no-name": "(اڻڄاتل)",

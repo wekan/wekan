@@ -2,7 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import Integrations from '/models/integrations';
 import { ensureIndex } from '/server/lib/mongoStartup';
-import { fetchSafe } from '/server/lib/ssrfGuard';
+// Off Sandstorm exactly fetchSafe (server/lib/ssrfGuard.js); in a grain, through
+// the Powerbox grant a board admin gave this webhook, when there is one.
+import { webhookFetch } from '/server/sandstormEgress';
 const { createWebhookOutbox } = require('/server/lib/webhookOutbox');
 
 // #3695: grouped and scheduled outgoing webhooks (server/lib/webhookOutbox.js).
@@ -21,7 +23,7 @@ export const webhookOutbox = createWebhookOutbox({
   // The same SSRF-guarded transport as an immediate webhook (IntegrationBleed).
   post: async (url, request) => {
     try {
-      return await fetchSafe(url, { ...request, totalTimeoutMs: 30000 });
+      return await webhookFetch(url, { ...request, totalTimeoutMs: 30000 });
     } catch (err) {
       if (/^SSRF_GUARD:/.test(err && err.message)) {
         // IntegrationBleed: a webhook pointed at an internal address.

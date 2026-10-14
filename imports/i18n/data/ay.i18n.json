@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Aymar aruna: Outgoing Webhooks",
   "boardCardTitlePopup-title": "tarjeta pʼiqiñcha susuña",
   "disable-webhook": "jiwtʼayaña aka Webhook",
+  "sandstorm-webhook-grant": "Aka grain ukaxa aka chiqaru purinxañapataki jaysañamawa",
+  "sandstorm-webhook-granted": "Aka grain ukaxa aka chiqaru purinxaspawa",
   "global-webhook": "Aymar aruna: Global Webhooks",
   "new-outgoing-webhook": "machaqa Outgoing Webhook",
   "no-name": "Aymar aruna: (Unknown)",

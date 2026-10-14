@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Útfarandi vefkrækjur",
   "boardCardTitlePopup-title": "Sía fyrir heiti spjalds",
   "disable-webhook": "Gera þessa vefkrækju óvirka",
+  "sandstorm-webhook-grant": "Leyfa þessu graini að ná í þetta vistfang",
+  "sandstorm-webhook-granted": "Þetta grain má ná í þetta vistfang",
   "global-webhook": "Altækar vefkrækjur",
   "new-outgoing-webhook": "Ný útfarandi vefkrækja",
   "no-name": "(Óþekkt)",

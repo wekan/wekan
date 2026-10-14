@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Вебҳукҳои содиротӣ",
   "boardCardTitlePopup-title": "Полоиши унвони корт",
   "disable-webhook": "Хомӯш кардани ин вебҳук",
+  "sandstorm-webhook-grant": "Ба ин grain иҷозат диҳед, ки ба ин суроға дастрасӣ ёбад",
+  "sandstorm-webhook-granted": "Ин grain метавонад ба ин суроға дастрасӣ ёбад",
   "global-webhook": "Вебҳукҳои умумӣ",
   "new-outgoing-webhook": "Вебҳуки нави содиротӣ",
   "no-name": "(Номаълум)",

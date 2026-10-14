@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Izejošie Webhook",
   "boardCardTitlePopup-title": "Kartiņu virsraksta filtrs",
   "disable-webhook": "Atspējot šo Webhook",
+  "sandstorm-webhook-grant": "Atļaut šim grain sasniegt šo adresi",
+  "sandstorm-webhook-granted": "Šis grain drīkst sasniegt šo adresi",
   "global-webhook": "Globālie Webhook",
   "new-outgoing-webhook": "Jauns izejošais Webhook",
   "no-name": "(Nezināms)",

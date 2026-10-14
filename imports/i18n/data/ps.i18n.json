@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "وتونکي وېب‌هوکونه",
   "boardCardTitlePopup-title": "د کارت د سرليک چاڼ",
   "disable-webhook": "دا وېب‌هوک بند کړئ",
+  "sandstorm-webhook-grant": "دې grain ته اجازه ورکړئ چې دې پتې ته ورسېږي",
+  "sandstorm-webhook-granted": "دا grain کولی شي دې پتې ته ورسېږي",
   "global-webhook": "نړيوال وېب‌هوکونه",
   "new-outgoing-webhook": "نوی وتونکی وېب‌هوک",
   "no-name": "(ناپېژندل شوی)",

@@ -150,6 +150,22 @@ if (isSandstorm && Meteor.isClient) {
     });
   };
 
+  // An outgoing webhook's own address, through the Powerbox: the server builds
+  // the query for exactly that URL (imports/sandstorm/egress.mjs
+  // webhookGrantFor), and keeps the access token for the webhook, not the user.
+  // Resolves true when granted, false when the user closed the Powerbox.
+  window.sandstormRequestWebhook = function(integrationId, saveLabel) {
+    return Meteor.callAsync('sandstormWebhookDescriptor', integrationId)
+      .then(({ descriptor }) => sendRpc('powerboxRequest', {
+        query: [descriptor],
+        saveLabel: { defaultText: saveLabel },
+      }))
+      .then(response => {
+        if (response.canceled) return false;
+        return Meteor.callAsync('sandstormClaimWebhookGrant', integrationId, response.token).then(() => true);
+      });
+  };
+
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Шығыс вебхуктар",
   "boardCardTitlePopup-title": "Карточка атауының сүзгісі",
   "disable-webhook": "Осы вебхукты өшіру",
+  "sandstorm-webhook-grant": "Осы grain-ге осы мекенжайға қол жеткізуге рұқсат ету",
+  "sandstorm-webhook-granted": "Бұл grain осы мекенжайға қол жеткізе алады",
   "global-webhook": "Жаһандық вебхуктар",
   "new-outgoing-webhook": "Жаңа шығыс вебхук",
   "no-name": "(Белгісіз)",

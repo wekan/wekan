@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook di surtita",
   "boardCardTitlePopup-title": "Filtru secondu u titulu di a carta",
   "disable-webhook": "Disattivà stu webhook",
+  "sandstorm-webhook-grant": "Permette à stu grain d'accede à st'indirizzu",
+  "sandstorm-webhook-granted": "Stu grain pò accede à st'indirizzu",
   "global-webhook": "Webhook glubali",
   "new-outgoing-webhook": "Novu webhook di surtita",
   "no-name": "(Scunnisciutu)",

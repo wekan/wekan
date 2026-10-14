@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks seimik",
   "boardCardTitlePopup-title": "Sul ma tiäd kada",
   "disable-webhook": "Nog aktifikön at webhook",
+  "sandstorm-webhook-grant": "Dälön grain at ad rivön ladeti at",
+  "sandstorm-webhook-granted": "Grain at dalon rivön ladeti at",
   "global-webhook": "Webhooks valöpo",
   "new-outgoing-webhook": "Nog Outgoing Webhook",
   "no-name": "(Nonik)",

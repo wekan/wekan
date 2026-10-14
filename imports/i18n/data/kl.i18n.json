@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks anisut",
   "boardCardTitlePopup-title": "Kortsip qulequtaanut immikkoortiterineq",
   "disable-webhook": "Webhook una atorunnaarsiguk",
+  "sandstorm-webhook-grant": "Grain-ip uunga najugaqarfimmut anguniarnissaa akuerijuk",
+  "sandstorm-webhook-granted": "Grain-ip uunga najugaqarfimmut anguniarsinnaavoq",
   "global-webhook": "Webhooks nunarsuaq tamakkerlugu atuuttut",
   "new-outgoing-webhook": "Webhook anisoq nutaaq",
   "no-name": "(Ilisimaneqanngilaq)",

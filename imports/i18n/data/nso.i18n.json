@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Di-Webhook tše di Tšwago",
   "boardCardTitlePopup-title": "Sehlodi sa Sehlogo sa Karata",
   "disable-webhook": "Thibela Webhook ye",
+  "sandstorm-webhook-grant": "Dumelela grain ye go fihlelela atrese ye",
+  "sandstorm-webhook-granted": "Grain ye e ka fihlelela atrese ye",
   "global-webhook": "Di-Webhook tša Lefase ka Bophara",
   "new-outgoing-webhook": "Webhook ye Mpsha ye e Tšwago",
   "no-name": "(Ga e Tsebjwe)",

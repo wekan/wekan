@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Uitgaande Webhooks",
   "boardCardTitlePopup-title": "Kaarttitelfilter",
   "disable-webhook": "Deaktiveer hierdie webhaak",
+  "sandstorm-webhook-grant": "Laat hierdie grain toe om hierdie adres te bereik",
+  "sandstorm-webhook-granted": "Hierdie grain mag hierdie adres bereik",
   "global-webhook": "Globale Webhooks",
   "new-outgoing-webhook": "Nuwe Uitgaande Webhook",
   "no-name": "(Onbekend)",

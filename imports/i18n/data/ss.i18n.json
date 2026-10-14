@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Ema-Webhook Laphumako",
   "boardCardTitlePopup-title": "Sihlungi Sesihloko Selikhadi",
   "disable-webhook": "Vala Le-Webhook",
+  "sandstorm-webhook-grant": "Vumela le-grain kutsi ifike kulelikheli",
+  "sandstorm-webhook-granted": "Le-grain ingafika kulelikheli",
   "global-webhook": "Ema-Webhook Omhlaba Wonkhe",
   "new-outgoing-webhook": "I-Webhook Lensha Lephumako",
   "no-name": "(Akwatiwa)",

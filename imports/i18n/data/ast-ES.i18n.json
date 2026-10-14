@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks salientes",
   "boardCardTitlePopup-title": "Filtru de títulos de tarxeta",
   "disable-webhook": "Desactivar esti Webhook",
+  "sandstorm-webhook-grant": "Permitir qu'esti grain llegue a esta direición",
+  "sandstorm-webhook-granted": "Esti grain pue llegar a esta direición",
   "global-webhook": "Webhooks globales",
   "new-outgoing-webhook": "Nuevo webhook saliente",
   "no-name": "(Desconocido)",

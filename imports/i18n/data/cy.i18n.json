@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Llyfrau Gwe Allan",
   "boardCardTitlePopup-title": "Hidlo Teitl Cerdyn",
   "disable-webhook": "Analluoga'r Llyfr Gwe Hwn",
+  "sandstorm-webhook-grant": "Caniatáu i'r grawn hwn gyrraedd y cyfeiriad hwn",
+  "sandstorm-webhook-granted": "Caiff y grawn hwn gyrraedd y cyfeiriad hwn",
   "global-webhook": "Bachau Gwe Byd-eang",
   "new-outgoing-webhook": "Llyfr Gwe Allan Newydd",
   "no-name": "(Anhysbys)",

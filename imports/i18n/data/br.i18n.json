@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Bougevadurien diga-digant",
   "boardCardTitlePopup-title": "Sil titl ar gartenn",
   "disable-webhook": "Diweredekaat ar webhook-mañ",
+  "sandstorm-webhook-grant": "Aotren ar grain-mañ da dizhout ar chomlec'h-mañ",
+  "sandstorm-webhook-granted": "Gallout a ra ar grain-mañ tizhout ar chomlec'h-mañ",
   "global-webhook": "Bougevadurien diga-digant hollek",
   "new-outgoing-webhook": "New Bougevadurien diga-digant",
   "no-name": "(Dinamet)",

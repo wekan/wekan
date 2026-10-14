@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "外部Web挂钩",
   "boardCardTitlePopup-title": "卡片标题过滤",
   "disable-webhook": "禁用Webhook",
+  "sandstorm-webhook-grant": "允许此 grain 访问此地址",
+  "sandstorm-webhook-granted": "此 grain 已获准访问此地址",
   "global-webhook": "全局Webhook",
   "new-outgoing-webhook": "新建外部Web挂钩",
   "no-name": "(未知)",

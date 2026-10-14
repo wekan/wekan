@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Outgoing Webhooks (mu Luganda)",
   "boardCardTitlePopup-title": "Kaadi Mutwe Sengeka",
   "disable-webhook": "Lemesa Kino Webhook",
+  "sandstorm-webhook-grant": "Kkiriza grain eno okutuuka ku ndagiriro eno",
+  "sandstorm-webhook-granted": "Grain eno esobola okutuuka ku ndagiriro eno",
   "global-webhook": "Global Webhooks (mu Luganda)",
   "new-outgoing-webhook": "Kipya Outgoing Webhook",
   "no-name": "(Unknown) (mu Luganda)",

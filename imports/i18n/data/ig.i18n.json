@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks na-apụ apụ",
   "boardCardTitlePopup-title": "Ihe nzacha aha kaadị",
   "disable-webhook": "Gbanyụọ nko webụ a",
+  "sandstorm-webhook-grant": "Kwe ka grain a ruo adreesị a",
+  "sandstorm-webhook-granted": "Grain a nwere ike iru adreesị a",
   "global-webhook": "Webhook zuru ụwa ọnụ",
   "new-outgoing-webhook": "Webhook ọhụrụ na-apụ apụ",
   "no-name": "(Amaghị)",

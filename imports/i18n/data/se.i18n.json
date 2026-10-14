@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Olggos manni webhookat",
   "boardCardTitlePopup-title": "Goartta namahussilli",
   "disable-webhook": "Váldde dán webhooka eret",
+  "sandstorm-webhook-grant": "Divtte dán grain olahit dán čujuhussii",
+  "sandstorm-webhook-granted": "Dát grain oažžu olahit dán čujuhussii",
   "global-webhook": "Globála webhookat",
   "new-outgoing-webhook": "Ođđa olggos manni webhook",
   "no-name": "(Amas)",

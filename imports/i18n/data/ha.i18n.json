@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks masu fita",
   "boardCardTitlePopup-title": "Tace taken kati",
   "disable-webhook": "Kashe wannan webhook",
+  "sandstorm-webhook-grant": "Bari wannan grain ya isa wannan adireshi",
+  "sandstorm-webhook-granted": "Wannan grain zai iya isa wannan adireshi",
   "global-webhook": "Webhooks na duniya",
   "new-outgoing-webhook": "Sabon webhook mai fita",
   "no-name": "(Ba a sani ba)",

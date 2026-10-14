@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "বাহিৰলৈ যোৱা Webhooks",
   "boardCardTitlePopup-title": "কাৰ্ড শিৰোনামৰ ফিল্টাৰ",
   "disable-webhook": "এই Webhook বন্ধ কৰক",
+  "sandstorm-webhook-grant": "এই grain-ক এই ঠিকনালৈ যাবলৈ অনুমতি দিয়ক",
+  "sandstorm-webhook-granted": "এই grain-এ এই ঠিকনালৈ যাব পাৰে",
   "global-webhook": "গ্ল'বেল Webhooks",
   "new-outgoing-webhook": "নতুন বাহিৰলৈ যোৱা Webhook",
   "no-name": "(অজ্ঞাত)",

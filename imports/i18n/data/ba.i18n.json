@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Сығыусы веб-хуктар",
   "boardCardTitlePopup-title": "Карточка исемен фильтрлау",
   "disable-webhook": "Был веб-хукты һүндерергә",
+  "sandstorm-webhook-grant": "Был grain-ға был адресҡа барып етергә рөхсәт итергә",
+  "sandstorm-webhook-granted": "Был grain был адресҡа барып етә ала",
   "global-webhook": "Глобаль веб-хуктар",
   "new-outgoing-webhook": "Яңы сығыусы веб-хук",
   "no-name": "(Билдәһеҙ)",

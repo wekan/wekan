@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook Metu",
   "boardCardTitlePopup-title": "Saringan Judhul Kertu",
   "disable-webhook": "Pateni Webhook Iki",
+  "sandstorm-webhook-grant": "Idini grain iki tekan alamat iki",
+  "sandstorm-webhook-granted": "Grain iki oleh tekan alamat iki",
   "global-webhook": "Webhook Global",
   "new-outgoing-webhook": "Webhook Metu Anyar",
   "no-name": "(Ora dingerteni)",

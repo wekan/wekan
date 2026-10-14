@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "ወጪ Webhooks",
   "boardCardTitlePopup-title": "የካርድ ርዕስ ማጣሪያ",
   "disable-webhook": "ይህን Webhook አሰናክል",
+  "sandstorm-webhook-grant": "ይህ grain ወደዚህ አድራሻ እንዲደርስ ፍቀድ",
+  "sandstorm-webhook-granted": "ይህ grain ወደዚህ አድራሻ መድረስ ይችላል",
   "global-webhook": "ዓለም አቀፍ Webhooks",
   "new-outgoing-webhook": "አዲስ ወጪ Webhook",
   "no-name": "(ያልታወቀ)",

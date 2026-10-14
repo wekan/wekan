@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhook osẽva",
   "boardCardTitlePopup-title": "Kuatia'i réra mboguaha",
   "disable-webhook": "Embogue ko Webhook",
+  "sandstorm-webhook-grant": "Emoneĩ ko grain oho hag̃ua ko rendápe",
+  "sandstorm-webhook-granted": "Ko grain ikatu oho ko rendápe",
   "global-webhook": "Webhook opavavegua",
   "new-outgoing-webhook": "Webhook osẽva pyahu",
   "no-name": "(Ojekuaa'ỹva)",

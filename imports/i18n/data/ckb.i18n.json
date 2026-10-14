@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhookە دەرچووەکان",
   "boardCardTitlePopup-title": "پاڵاوتنی ناونیشانی کارت",
   "disable-webhook": "ئەم Webhookە ناچالاک بکە",
+  "sandstorm-webhook-grant": "ڕێگە بدە بەم grainە بگاتە ئەم ناونیشانە",
+  "sandstorm-webhook-granted": "ئەم grainە دەتوانێت بگاتە ئەم ناونیشانە",
   "global-webhook": "Webhookە گشتییەکان",
   "new-outgoing-webhook": "Webhookی دەرچووی نوێ",
   "no-name": "(نەناسراو)",

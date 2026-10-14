@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "આઉટગોઇંગ વેબહુક્સ",
   "boardCardTitlePopup-title": "કાર્ડ શીર્ષક ફિલ્ટર",
   "disable-webhook": "આ વેબહૂકને અક્ષમ કરો",
+  "sandstorm-webhook-grant": "આ grain ને આ સરનામા સુધી પહોંચવાની મંજૂરી આપો",
+  "sandstorm-webhook-granted": "આ grain આ સરનામા સુધી પહોંચી શકે છે",
   "global-webhook": "વૈશ્વિક વેબહુક્સ",
   "new-outgoing-webhook": "નવું આઉટગોઇંગ વેબહૂક",
   "no-name": "(અજ્ઞાત)",

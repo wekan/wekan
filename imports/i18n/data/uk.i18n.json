@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Вихідні Webhooks",
   "boardCardTitlePopup-title": "Фільтр назви картки",
   "disable-webhook": "Відключити цей Webhook",
+  "sandstorm-webhook-grant": "Дозволити цьому grain звертатися до цієї адреси",
+  "sandstorm-webhook-granted": "Цей grain може звертатися до цієї адреси",
   "global-webhook": "Глобальні Webhooks",
   "new-outgoing-webhook": "Новий вихідний Webhook",
   "no-name": "(Невідомо)",

@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Wëchòdzącé webhooki",
   "boardCardTitlePopup-title": "Filtruj poprzez nazwę kôrtë",
   "disable-webhook": "Wëłączë nen webhook",
+  "sandstorm-webhook-grant": "Pòzwôlôj temù grainowi dosëgnąc tegò adresë",
+  "sandstorm-webhook-granted": "Nen grain mòże dosëgnąc tegò adresë",
   "global-webhook": "Globalné webhooki",
   "new-outgoing-webhook": "Nowi wychodzący webhook",
   "no-name": "(Nieznóné)",

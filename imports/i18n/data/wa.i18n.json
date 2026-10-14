@@ -1298,6 +1298,8 @@
   "outgoingWebhooksPopup-title": "Webhooks ki rexhowèt",
   "boardCardTitlePopup-title": "Passaedje pa tite di cåte",
   "disable-webhook": "Désactive ce webhook",
+  "sandstorm-webhook-grant": "Leyî ci grain chal ariver a cisse adresse ci",
+  "sandstorm-webhook-granted": "Ci grain chal pout ariver a cisse adresse ci",
   "global-webhook": "Webhooks global",
   "new-outgoing-webhook": "Novea webhook ki rexhowe",
   "no-name": "(Nén cnoxhou)",
