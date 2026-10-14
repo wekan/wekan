@@ -83,3 +83,15 @@ test('Haitian cloud credentials preserve optional authentication choices and per
   await expect(hint).toContainText('enfòmasyon otantifikasyon pa defo');
   await expect(hint).not.toContainText('kalifikasyon');
 });
+
+test('Malagasy S3 settings distinguish access and secret keys', async ({ page, adminUser }) => {
+  const mg = require('../../../imports/i18n/data/mg.i18n.json');
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'mg'));
+  await navigateInApp(page, '/admin/attachments/s3');
+  for (const key of ['s3-endpoint', 's3-access-key', 's3-secret-key']) {
+    await expect(page.getByText(mg[key], { exact: true })).toBeVisible();
+  }
+  await expect(page.locator('#s3-secret-key')).toHaveAttribute('type', 'password');
+  await expect(page.locator('#s3-access-key')).toHaveAttribute('type', 'text');
+});

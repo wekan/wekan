@@ -337,3 +337,31 @@ assert.deepEqual(tokens(malagasy['globalSearch-instructions-operator-number']),
   ['__operator_number__']);
 assert.match(malagasy['import-board-source'],
   /Trello.*Jira.*WeKan.*CSV.*Excel/);
+
+const linkedCardKeys = ["attach-card", "attachCardPopup-title", "attach-card-hint", "attached-card-unavailable", "detach-card", "attach-card-self", "attach-card-limit", "attach-card-not-found", "board-announcement", "board-announcement-enabled", "board-view-calendar-mode", "custom-field-links", "custom-field-links-hint", "custom-field-links-none", "custom-field-link-unavailable", "custom-field-link-fields", "custom-field-link-no-fields", "custom-field-link-inactive", "custom-field-unlink", "custom-field-link-target", "custom-field-link-direction", "custom-field-link-both", "custom-field-link-send", "custom-field-link-sends", "custom-field-link-receives", "custom-field-link-add", "field-link-self", "field-link-limit", "field-link-archived", "field-link-invalid", "field-link-not-found", "field-link-not-allowed", "cardCustomFieldLinksPopup-title", "cards-use-list-color"];
+
+for (const key of linkedCardKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.equal(malagasy['attach-card'], malagasy['attachCardPopup-title']);
+assert.match(malagasy['custom-field-links-hint'], /mitovy anarana sy karazana.*karatra roa.*Tsy ovaina.*karatra iray ihany/);
+assert.match(malagasy['custom-field-link-inactive'], /tsy afaka manova.*karatra roa.*arisiva/);
+assert.match(malagasy['custom-field-link-both'], /lalana roa/);
+assert.match(malagasy['custom-field-link-send'], /lalana iray.*karatra fototra/);
+assert.notEqual(malagasy['custom-field-link-sends'], malagasy['custom-field-link-receives']);
+assert.match(malagasy['field-link-not-allowed'], /afaka manova.*karatra roa/);
+assert.match(malagasy['attach-card-self'], /Tsy.*tenany/);
+assert.match(malagasy['field-link-archived'], /Tsy.*arisiva/);
+assert.match(malagasy['cards-use-list-color'], /tsy manana lokony manokana/);
+
+const storageLegacyKeys = ["MongoDB_version", "MongoDB_storage_engine", "MongoDB_Oplog_enabled", "r-sort-by", "r-is", "r-to", "r-of", "r-d-send-email-to", "r-by", "dueCardsViewChange-choice-me", "s3-file-id", "s3-minio-storage-description", "s3-disabled", "mongodb-gridfs-storage", "s3-access-key", "s3-bucket", "s3-bucket-description", "s3-connection-failed", "s3-connection-success", "s3-enabled", "s3-endpoint", "s3-endpoint-description", "s3-minio-storage", "s3-port", "s3-port-description", "s3-region", "s3-secret-key", "s3-secret-key-required", "s3-settings-saved", "s3-ssl-enabled", "of", "s3-attachments", "s3-size"];
+
+for (const key of storageLegacyKeys) {
+  assert.notEqual(malagasy[key], english[key], key);
+  assert.deepEqual(tokens(malagasy[key]), tokens(english[key]), key);
+}
+assert.notEqual(malagasy['s3-access-key'], malagasy['s3-secret-key']);
+assert.match(malagasy['s3-secret-key-required'], /Ilaina.*miafina/);
+assert.match(malagasy['s3-disabled'], /Tsy mandeha/);
+assert.match(malagasy['s3-endpoint-description'], /s3.amazonaws.com.*minio.example.com/);

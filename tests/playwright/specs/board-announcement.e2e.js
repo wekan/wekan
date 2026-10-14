@@ -31,3 +31,18 @@ test('a board announcement shows on its board until dismissed, and again after a
   await expect(page.locator('.js-board-announcement')).toContainText('Freeze moved to Monday');
   db.updateOne('boards', { _id: board.boardId }, { $unset: { announcement: '' } });
 });
+
+test('Malagasy announcement editor identifies its audience', async ({ boardPage: page }) => {
+  await page.evaluate(async () => {
+    await Meteor.callAsync('setLanguage', 'mg');
+    Popup.close();
+    Popup.open('boardAnnouncement', { titleKey: 'board-announcement' })({
+      currentTarget: document.body, target: document.body, preventDefault() {},
+    });
+  });
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.header-title')).toHaveText('Filazana momba ny solaitra');
+  await expect(popup).toContainText('Asehoy amin’ny olona rehetra eto amin’ity solaitra ity');
+  await expect(popup).not.toContainText('Show it to everyone');
+  await page.evaluate(() => Popup.close());
+});

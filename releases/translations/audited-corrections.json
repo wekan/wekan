@@ -209368,5 +209368,474 @@
     "before": "Sa WeKan fè ak imèl ki retounen: yon adrès ki mal ekri, yon bwat lèt ki plen, yon repons absans, yon plent spam. Chak kalite gen pwòp aksyon pa li, ki fèt lè li retounen konbyen fwa sa a.",
     "after": "Sa WeKan fè ak imèl ki retounen: yon adrès ki mal ekri, yon bwat lèt ki plen, yon repons absans, yon plent spam. Chak kalite gen pwòp aksyon pa li, ki fèt lè kantite retou yo rive nan papòt ki fikse a.",
     "reason": "Clarify card-derived board creation, destination linking, failed version lookup and configured bounce thresholds."
+  },
+  {
+    "locale": "mg",
+    "key": "attach-card",
+    "before": "Attach card",
+    "after": "Ampifandraiso ny karatra",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "attachCardPopup-title",
+    "before": "Attach card",
+    "after": "Ampifandraiso ny karatra",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "attach-card-hint",
+    "before": "Paste a card link (Copy card link on the other card), or type a card title on this board",
+    "after": "Apetaho ny rohin-karatra (Adikao ny rohin-karatra eo amin’ilay karatra hafa), na soraty ny lohatenin’ny karatra eto amin’ity solaitra ity",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "attached-card-unavailable",
+    "before": "An attached card you cannot see",
+    "after": "Karatra mifandray izay tsy azonao jerena",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "detach-card",
+    "before": "Remove attached card",
+    "after": "Esory ny karatra mifandray",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "attach-card-self",
+    "before": "A card cannot be attached to itself",
+    "after": "Tsy azo ampifandraisina amin’ny tenany ny karatra",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "attach-card-limit",
+    "before": "This card already has as many attached cards as it can have",
+    "after": "Efa nahatratra ny isan’ny karatra azo ampifandraisina aminy ity karatra ity",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "attach-card-not-found",
+    "before": "No card you can see was found for that link",
+    "after": "Tsy nisy karatra azonao jerena hita tamin’io rohy io",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "board-announcement",
+    "before": "Board announcement",
+    "after": "Filazana momba ny solaitra",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "board-announcement-enabled",
+    "before": "Show it to everyone on this board",
+    "after": "Asehoy amin’ny olona rehetra eto amin’ity solaitra ity",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "board-view-calendar-mode",
+    "before": "Calendar Mode",
+    "after": "Fomba kalandrie",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-links",
+    "before": "Link fields to another card",
+    "after": "Ampifandraiso amin’ny karatra hafa ny saha",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-links-hint",
+    "before": "Custom fields with the same name and type on both cards are linked: when a value changes on one card, it is copied to the other card. Fields that only one card has are left alone.",
+    "after": "Mifandray ny saha manokana mitovy anarana sy karazana amin’ireo karatra roa: rehefa miova ny sanda amin’ny karatra iray dia adika any amin’ilay karatra hafa izany. Tsy ovaina ny saha izay eo amin’ny karatra iray ihany.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-links-none",
+    "before": "This card's custom fields are not linked to any card.",
+    "after": "Tsy mifandray amin’ny karatra hafa ny saha manokana amin’ity karatra ity.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-unavailable",
+    "before": "A linked card you cannot see",
+    "after": "Karatra mifandray izay tsy azonao jerena",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-fields",
+    "before": "Linked fields:",
+    "after": "Saha mifandray:",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-no-fields",
+    "before": "No fields with the same name and type yet",
+    "after": "Tsy mbola misy saha mitovy anarana sy karazana",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-inactive",
+    "before": "Paused: the person who made this link can no longer edit both cards, or a card is archived.",
+    "after": "Miato: tsy afaka manova ireo karatra roa intsony ilay olona namorona ny rohy, na voatahiry ao amin’ny arisiva ny karatra iray.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-unlink",
+    "before": "Unlink",
+    "after": "Tapaho ny rohy",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-target",
+    "before": "Card link (Copy card link), or search this board's cards",
+    "after": "Rohin-karatra (Adikao ny rohin-karatra), na tadiavo ny karatra eto amin’ity solaitra ity",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-direction",
+    "before": "Direction",
+    "after": "Lalana",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-both",
+    "before": "Both ways: changes on either card go to the other",
+    "after": "Mandeha amin’ny lalana roa: ny fanovana amin’ny karatra iray dia mankany amin’ilay karatra hafa",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-send",
+    "before": "One way: changes on this card go to the main card",
+    "after": "Mandeha amin’ny lalana iray: ny fanovana amin’ity karatra ity dia mankany amin’ny karatra fototra",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-sends",
+    "before": "Changes on this card go to that card",
+    "after": "Ny fanovana amin’ity karatra ity dia mankany amin’io karatra io",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-receives",
+    "before": "Changes on that card come to this card",
+    "after": "Ny fanovana amin’io karatra io dia tonga eto amin’ity karatra ity",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "custom-field-link-add",
+    "before": "Link fields",
+    "after": "Ampifandraiso ny saha",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "field-link-self",
+    "before": "A card cannot be linked to itself.",
+    "after": "Tsy azo ampifandraisina amin’ny tenany ny karatra.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "field-link-limit",
+    "before": "This card, or that card, already has the most linked cards it can have.",
+    "after": "Efa nahatratra ny isan’ny karatra azo ampifandraisina aminy ity karatra ity na ilay karatra hafa.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "field-link-archived",
+    "before": "An archived card cannot be linked.",
+    "after": "Tsy azo ampifandraisina ny karatra voatahiry ao amin’ny arisiva.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "field-link-invalid",
+    "before": "That is not a card link.",
+    "after": "Tsy rohin-karatra izany.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "field-link-not-found",
+    "before": "Card not found.",
+    "after": "Tsy hita ny karatra.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "field-link-not-allowed",
+    "before": "You need to be able to edit both cards.",
+    "after": "Tsy maintsy afaka manova ireo karatra roa ianao.",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "cardCustomFieldLinksPopup-title",
+    "before": "Linked custom fields",
+    "after": "Saha manokana mifandray",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "cards-use-list-color",
+    "before": "Cards without a colour of their own use this colour",
+    "after": "Ny karatra tsy manana lokony manokana dia mampiasa ity loko ity",
+    "reason": "Translate remaining linked-card, custom-field direction and permission messages, announcements and list-color inheritance into Malagasy."
+  },
+  {
+    "locale": "mg",
+    "key": "MongoDB_version",
+    "before": "MongoDB compatible version",
+    "after": "Kinova mifanaraka amin’ny MongoDB",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "MongoDB_storage_engine",
+    "before": "MongoDB storage engine",
+    "after": "Rafitra fitahirizana MongoDB",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "MongoDB Oplog enabled",
+    "after": "Mandeha ny Oplog MongoDB",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "r-sort-by",
+    "before": "by",
+    "after": "araka ny",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "r-is",
+    "before": "is",
+    "after": "dia",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "r-to",
+    "before": "to",
+    "after": "ho an’ny",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "r-of",
+    "before": "of",
+    "after": "an’ny",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "r-d-send-email-to",
+    "before": "to",
+    "after": "ho an’ny",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "r-by",
+    "before": "by",
+    "after": "nataon’i",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Me",
+    "after": "Izaho",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-file-id",
+    "before": "S3 File ID",
+    "after": "ID rakitra S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-minio-storage-description",
+    "before": "S3-compatible object storage: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces and others.",
+    "after": "Fitahirizana zavatra mifanaraka amin’ny S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces sy ny hafa.",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-disabled",
+    "before": "S3/MinIO Storage Disabled",
+    "after": "Tsy mandeha ny fitahirizana S3/MinIO",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "mongodb-gridfs-storage",
+    "before": "MongoDB GridFS Storage",
+    "after": "Fitahirizana MongoDB GridFS",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-access-key",
+    "before": "S3 Access Key",
+    "after": "Lakile fidirana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-bucket",
+    "before": "S3 Bucket",
+    "after": "Siny S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket name for storing files",
+    "after": "Anaran’ny siny S3 hitahirizana rakitra",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-connection-failed",
+    "before": "S3 connection failed",
+    "after": "Tsy nahomby ny fifandraisana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-connection-success",
+    "before": "S3 connection successful",
+    "after": "Nahomby ny fifandraisana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-enabled",
+    "before": "S3 Enabled",
+    "after": "Mandeha ny S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-endpoint",
+    "before": "S3 Endpoint",
+    "after": "Teboka fidirana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint URL (e.g., s3.amazonaws.com or minio.example.com)",
+    "after": "URL teboka fidirana S3 (ohatra: s3.amazonaws.com na minio.example.com)",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-minio-storage",
+    "before": "S3/MinIO Storage",
+    "after": "Fitahirizana S3/MinIO",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-port",
+    "before": "S3 Port",
+    "after": "Seranana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-port-description",
+    "before": "S3 endpoint port number",
+    "after": "Laharan’ny seranana amin’ny teboka fidirana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-region",
+    "before": "S3 Region",
+    "after": "Faritra S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-secret-key",
+    "before": "S3 Secret Key",
+    "after": "Lakile miafina S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-secret-key-required",
+    "before": "S3 secret key is required",
+    "after": "Ilaina ny lakile miafina S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-settings-saved",
+    "before": "S3 settings saved successfully",
+    "after": "Voatahiry soa aman-tsara ny fikirakirana S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL Enabled",
+    "after": "Mandeha ny SSL S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "of",
+    "before": "of",
+    "after": "amin’ny",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-attachments",
+    "before": "S3 Attachments",
+    "after": "Rakitra ampiarahina S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
+  },
+  {
+    "locale": "mg",
+    "key": "s3-size",
+    "before": "S3 Size",
+    "after": "Haben’ny S3",
+    "reason": "Translate remaining legacy English storage labels and rule connectors found by the completed-catalog check."
   }
 ]
