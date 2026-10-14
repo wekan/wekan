@@ -208612,5 +208612,103 @@
     "before": "Filtre pa moun ki Kreyatè",
     "after": "Filtre pa kreyatè",
     "reason": "Correct Haitian upload direction, archive destination and control terminology while preserving administrator permissions."
+  },
+  {
+    "locale": "ht",
+    "key": "custom-private-desc",
+    "before": "Pèsonalize Prive deskripsyon",
+    "after": "Deskripsyon pèsonalize pou tablo prive",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "custom-private-desc-placeholder",
+    "before": "Kite vid pou itilize sa ki default la Prive deskripsyon tablo",
+    "after": "Kite vid pou itilize deskripsyon pa defo tablo prive a",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "custom-public-desc",
+    "before": "Pèsonalize Piblik deskripsyon",
+    "after": "Deskripsyon pèsonalize pou tablo piblik",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "custom-public-desc-placeholder",
+    "before": "Kite vid pou itilize sa ki default la Piblik deskripsyon tablo",
+    "after": "Kite vid pou itilize deskripsyon pa defo tablo piblik la",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "starred-swimlanes",
+    "before": "Liy naje ki gen zetwal",
+    "after": "Kouloir ki gen zetwal",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "automatic-linked-url-schemes",
+    "before": "Chema URL pèsonalize ki dwe klike otomatikman. Yon chema URL pa liy",
+    "after": "Chema URL pèsonalize ki dwe vin lyen ou ka klike otomatikman. Yon chema URL sou chak liy",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "external-link-pattern",
+    "before": "Otomatik lyen ak yon tracker pwoblèm deyò",
+    "after": "Lyen otomatik pou sistèm swivi pwoblèm ekstèn",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "external-link-pattern-description",
+    "before": "Li otomatikman lye tokenn tankou \"#1234\" yo jwenn nan tèks kat la ak yon tracker pwoblèm deyò. Kite yon jaden vid pou dezaktive.",
+    "after": "Kreye lyen otomatik pou eleman tankou \"#1234\" ki nan tèks kat la, pou ale nan yon sistèm swivi pwoblèm ekstèn. Kite youn nan de chan yo vid pou dezaktive sa.",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "smtp-host",
+    "before": "Lame SMTP",
+    "after": "Sèvè SMTP",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "email-templates-title",
+    "before": "Imèl Modèl",
+    "after": "Modèl imèl",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "email-templates-invite-subject",
+    "before": "Envite Imèl Sijè",
+    "after": "Sijè imèl envitasyon an",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "email-templates-invite-body",
+    "before": "Envite Imèl Tèks",
+    "after": "Tèks imèl envitasyon an",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "email-templates-activity-subject",
+    "before": "Aktivite Imèl Sijè",
+    "after": "Sijè imèl notifikasyon aktivite a",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
+  },
+  {
+    "locale": "ht",
+    "key": "email-templates-activity-body",
+    "before": "Aktivite Imèl Tèks",
+    "after": "Tèks imèl notifikasyon aktivite a",
+    "reason": "Correct Haitian settings grammar and false meanings: SMTP host, clickable links, visibility descriptions, starred swimlanes and email templates."
   }
 ]

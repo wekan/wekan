@@ -406,3 +406,23 @@ assert.match(creole['close-board-pop'], /Achiv.*paj Tout tablo/);
 assert.doesNotMatch(creole['close-board-pop'], /antèt paj akèy/);
 assert.match(creole['custom-field-dropdownMultiSelect'], /Lis dewoulant.*chwazi plizyè/);
 assert.equal(creole['createTemplateContainerPopup-title'], creole['add-template-container']);
+
+const reviewedSettingsMeaningKeys = ["custom-private-desc", "custom-private-desc-placeholder", "custom-public-desc", "custom-public-desc-placeholder", "starred-swimlanes", "automatic-linked-url-schemes", "external-link-pattern", "external-link-pattern-description", "smtp-host", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body"];
+for (const key of reviewedSettingsMeaningKeys) {
+  assert.notEqual(creole[key], english[key], key);
+  assert.deepEqual(tokens(creole[key]), tokens(english[key]), key);
+}
+for (const visibility of ['private', 'public']) {
+  assert.match(creole[`custom-${visibility}-desc-placeholder`], /Kite vid.*deskripsyon pa defo/);
+  assert.doesNotMatch(creole[`custom-${visibility}-desc-placeholder`], /default/);
+}
+assert.equal(creole['smtp-host'], 'Sèvè SMTP');
+assert.doesNotMatch(creole['smtp-host'], /Lame/);
+assert.match(creole['automatic-linked-url-schemes'], /lyen ou ka klike.*chak liy/);
+assert.match(creole['external-link-pattern-description'], /#1234.*youn nan de chan yo vid/);
+for (const part of ['subject', 'body']) {
+  assert.match(creole[`email-templates-invite-${part}`], /imèl envitasyon/);
+  assert.match(creole[`email-templates-activity-${part}`], /imèl notifikasyon aktivite/);
+}
+assert.match(creole['starred-swimlanes'], /Kouloir/);
+assert.doesNotMatch(creole['starred-swimlanes'], /naje/);

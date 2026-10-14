@@ -36,3 +36,16 @@ test('Southern Sotho bounce setup identifies the sending address', async ({ page
   await expect(section).toContainText('aterese eo WeKan e romelang ho tloha ho eona');
   await expect(section).not.toContainText('aterese eo WeKan e romelang ho eona');
 });
+
+
+test('Haitian email settings identify the SMTP server and template purposes', async ({ page, adminUser }) => {
+  const ht = require('../../../imports/i18n/data/ht.i18n.json');
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
+  await navigateInApp(page, '/admin/people/email');
+  for (const key of ['smtp-host', 'email-templates-title', 'email-templates-invite-subject', 'email-templates-invite-body', 'email-templates-activity-subject', 'email-templates-activity-body']) {
+    await expect(page.getByText(ht[key], { exact: true })).toBeVisible();
+  }
+  await expect(page.getByText('Lame SMTP', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Envite Imèl Sijè', { exact: true })).toHaveCount(0);
+});
