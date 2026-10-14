@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Scottish Gaelic integrations and notification delivery — 2026-10-14
+
+Commit `9724c40077` translates 53 strings for Trello export, Sandstorm access,
+link rules, webhook content and notification delivery. Literal link-rule tokens,
+example URLs and Trello round-trip labels are retained. Unset webhook settings,
+identity omission, per-card/per-board grouping and quiet-hour deferral remain
+explicit. Technical prose needs fluent review; external provider interfaces were
+not revalidated.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,695
+correction ledger entries. All 21 human-preference checks pass; exact comparison
+preserves 38,430 existing Chinese values. The notification browser case passes
+syntax and discovery; runtime remains pending.
+
+Scottish Gaelic and all-language translation and semantic review are unfinished.
+
 ## Scottish Gaelic import mapping and bulk exports — 2026-10-14
 
 Commit `6a028b4327` translates 27 strings for user matching, column mapping,

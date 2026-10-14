@@ -4527,6 +4527,22 @@ remains pending. All-language translation and semantic review remain unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9724c40077ed4376e4350caf7decfb178322881a">Translate Scottish Gaelic integration and notification controls</a>. Thanks to xet7.</summary>
+
+Translate 53 strings for Trello export, Sandstorm access, link rules, webhook
+content and notification delivery. Preserve literal placeholders, round-trip
+labels, inherited settings, grouping and quiet-hour conditions. Technical prose
+needs fluent review.
+
+The Scottish Gaelic catalog and guarded-correction suites pass with 30,695
+audited corrections. All 21 human-preference checks pass; 38,430 existing
+Chinese
+values remain unchanged. The notification browser case passes syntax and
+discovery; runtime remains pending. All-language review remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
