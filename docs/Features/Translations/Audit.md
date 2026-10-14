@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Malagasy action labels and refreshed inventory — 2026-10-14
+
+Commit `aaaa3391bc` corrects four labels: the optional move reason, the setting
+requesting it, version-check failure and header-icon toggle scope. This resolves
+the move-reason finding recorded in the preceding storage audit.
+
+The Malagasy catalog and guarded-correction suites pass with 30,241 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. One new browser case covers the move
+dialog and header tooltip. Syntax and discovery pass; runtime remains pending.
+
+The refreshed placeholder inventory reports 89 languages with untranslated
+strings. It excludes 379 pending-Transifex keys, which remain in scope. Neither
+that inventory nor a zero-placeholder result verifies semantic correctness.
+Malagasy and all-language review remain unfinished.
+
 ## Malagasy storage authentication terminology — 2026-10-14
 
 Commit `7ec01cb14e` corrects three Google Cloud and backup help entries that

@@ -4241,6 +4241,20 @@ All-language semantic review remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aaaa3391bc0b0f7ab3e359d7406853f3460e0356">Restore Malagasy action and status label meaning</a>. Thanks to xet7.</summary>
+
+Correct four labels for optional move reasons, requesting reasons, failed
+version checks and header-icon toggling. Replace shorthand with explicit action
+and status descriptions.
+
+Translation suites pass with 30,241 audited corrections, as do all 21
+human-preference checks. All 38,430 existing Chinese values remain unchanged.
+The new browser case passes syntax and discovery; runtime remains pending.
+All-language translation and semantic review remain unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release
