@@ -3765,6 +3765,19 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80e756b223">Translate Haitian Creole outline and task import guides</a>. Thanks to xet7.</summary>
+
+- Translate nine import guides and the card-color hint. Preserve literal menu
+  labels, hierarchy mappings, completion states and first-board-only limits.
+- Haitian catalog and guarded-correction suites pass, along with 21
+  human-preference checks. Existing Chinese values remain unchanged. Nine import
+  browser cases pass syntax and discovery; execution remains pending.
+- Further Haitian strings and other languages still need translation and
+  semantic review. The all-language objective remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.39 2026-10-13 WeKan ® release

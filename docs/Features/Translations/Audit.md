@@ -2,6 +2,22 @@
 
 Audit date: **2026-09-12**. Last updated: **2026-10-14**.
 
+## Haitian Creole outline and task imports — 2026-10-14
+
+Commit `80e756b223` translates nine import guides (OPML, Org mode, MeisterTask,
+Obsidian, Linear, TickTick, ClickUp, Nullboard and Kanri) plus the card-color hint.
+Checks preserve hierarchy mappings, completion states, literal menu labels,
+Org mode markers and first-board-only limits. These translations follow the
+existing source guidance; external product interfaces were not revalidated.
+
+The Haitian catalog and guarded-correction suites pass with 29,465 correction
+ledger entries. All 21 human-preference checks pass, and exact comparison
+preserves 38,430 existing Chinese values. Nine import browser cases pass syntax
+and discovery; runtime remains pending.
+
+Further Haitian strings and other languages still need translation and semantic
+review. The all-language objective remains unfinished.
+
 ## Haitian Creole linked cards and storage — 2026-10-14
 
 Commit `4ac5621e64` translates 66 English placeholders: 33 linked-card and
