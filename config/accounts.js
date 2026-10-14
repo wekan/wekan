@@ -477,6 +477,22 @@ if (Meteor.isServer) {
       );
   });
 
+  // #4434: the same e-mails in the clear HTML layout, built from the same
+  // localized text, which stays the plain-text part (models/lib/accountEmailHtml.js).
+  const { renderAccountEmailHtml } = require('/models/lib/accountEmailHtml');
+  ['resetPassword', 'verifyEmail', 'enrollAccount'].forEach(templateName => {
+    Accounts.emailTemplates[templateName].html = (user, url) => {
+      try {
+        return renderAccountEmailHtml({
+          text: Accounts.emailTemplates[templateName].text(user, url),
+          siteName: Accounts.emailTemplates.siteName,
+        });
+      } catch (e) {
+        return undefined; // the text part alone, as before - never a 500 (#5706)
+      }
+    };
+  });
+
   // #5706: When SMTP is not configured (no MAIL_URL / MAIL_FROM, or a bad mail
   // server), Meteor's `Email.sendAsync` throws. That exception otherwise propagates
   // out of the `forgotPassword` method as a raw HTTP 500 ("Internal Server Error").

@@ -50,7 +50,10 @@ const CHANNEL_KEYS = Object.freeze({
 });
 
 const BUILT_IN = Object.freeze({
-  email: Object.freeze({ layout: 'classic', parts: Object.freeze([...ITEM_PARTS]), grouping: 'all',
+  // #4434: e-mail defaults to the clearly arranged layout (#5171) - board,
+  // actor and card in bold and linked, with a plain-text alternative. Classic
+  // stays one choice away at every level.
+  email: Object.freeze({ layout: 'clear', parts: Object.freeze([...ITEM_PARTS]), grouping: 'all',
     schedule: 'immediate', intervalMinutes: 60, dailyTime: '08:00', quietStart: null, quietEnd: null, timezone: null }),
   tray: Object.freeze({ layout: 'classic', parts: Object.freeze([...ITEM_PARTS]), grouping: 'none',
     schedule: 'immediate', intervalMinutes: 60, dailyTime: '08:00', quietStart: null, quietEnd: null, timezone: null }),

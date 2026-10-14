@@ -7,7 +7,10 @@ const source = fs.readFileSync(require.resolve('../server/lib/emailLocalization.
   .replace(/^import .*;\n/gm, '').replace('export default EmailLocalization;', 'globalThis.localization = EmailLocalization;');
 function fixture() {
   const events = [], sent = [];
-  const context = { structuredClone, require: name => { assert.equal(name, './ruleEmailAttachments'); return require('../server/lib/ruleEmailAttachments'); }, Accounts: { emailTemplates: { from: 'default@example.org' } },
+  const context = { structuredClone, require: name => {
+    // #4434: a WeKan e-mail string without HTML of its own gets the clear layout.
+    if (name === '/models/lib/accountEmailHtml') return require('../models/lib/accountEmailHtml');
+    assert.equal(name, './ruleEmailAttachments'); return require('../server/lib/ruleEmailAttachments'); }, Accounts: { emailTemplates: { from: 'default@example.org' } },
     ReactiveCache: { getUser: async id => { events.push(`user:${id}`); return { getLanguage: () => 'fi' }; } },
     TAPi18n: { getLanguage: () => 'en', ensureLanguageLoaded: async lang => { events.push(`load:${lang}`); },
       __: (key, params, lang) => { events.push(`translate:${key}`); return `${lang}:${key}:${params.name || ''}`; } },
@@ -65,7 +68,10 @@ test('transport failure remains visible to the rule caller', async () => {
 
 test('plain text preparation omits absent HTML before BSON serialization', async () => {
   const f = fixture();
-  const mail = await f.localization.prepareEmail({ ...options, html: undefined });
+  // #4434: a WeKan `email-` string now gets a real HTML part (tested below),
+  // so absence is checked with literal text, which has none - the point is
+  // still that no `html: undefined` key reaches BSON.
+  const mail = await f.localization.prepareEmail({ ...options, html: undefined, text: 'Literal body' });
   assert.equal(Object.hasOwn(mail, 'html'), false);
   const { EJSON } = require('bson');
   assert.equal(Object.hasOwn(EJSON.parse(EJSON.stringify(mail)), 'html'), false);
@@ -81,4 +87,13 @@ test('attachment snapshots survive preparation and reach the transport unchanged
   assert.deepEqual(f.sent[0].attachments, attachments);
   await assert.rejects(f.localization.sendEmail({ ...options, attachments: [{ path: '/private/file' }] }), /invalid/);
   assert.equal(f.sent.length, 1);
+});
+
+test('#4434: a WeKan e-mail string without HTML of its own also gets the clear HTML layout', async () => {
+  const f = fixture();
+  const mail = await f.localization.prepareEmail({ ...options, html: undefined });
+  assert.equal(mail.text, 'fi:email-body:Person', 'the text part is unchanged');
+  assert.match(mail.html, /^<div style="font-family:[\s\S]*<p style="margin:0 0 16px 0">fi:email-body:Person<\/p>/);
+  const literal = await f.localization.prepareEmail({ ...options, html: undefined, text: 'Literal body' });
+  assert.equal(Object.hasOwn(literal, 'html'), false, 'text that is not a WeKan e-mail string gets no HTML');
 });

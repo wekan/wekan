@@ -23,7 +23,10 @@ test('built-in defaults reproduce the behaviour before these settings, per chann
     assert.equal(resolved.quietStart, null, channel);
     for (const key of d.CHANNEL_KEYS[channel]) assert.equal(resolved.from[key], 'default', `${channel}.${key}`);
   }
-  assert.equal(d.BUILT_IN.email.layout, 'classic');
+  // #4434 made the clear layout the e-mail default on purpose; the tray
+  // keeps classic.
+  assert.equal(d.BUILT_IN.email.layout, 'clear');
+  assert.equal(d.BUILT_IN.tray.layout, 'classic');
   assert.equal(d.BUILT_IN.email.grouping, 'all', 'e-mails were always combined per recipient');
   assert.equal(d.BUILT_IN.tray.grouping, 'none');
   assert.equal(d.BUILT_IN.webhook.grouping, 'none');
@@ -51,7 +54,7 @@ test('precedence: member, then board, then Admin Panel, key by key; webhooks: we
 
 test('negative: a corrupt stored level is ignored, never trusted', () => {
   const r = d.resolveChannelSettings('email', [['member', { grouping: 'everything', layout: '<b>' }], ['board', 'x'], ['admin', null]]);
-  assert.equal(r.grouping, 'all'); assert.equal(r.layout, 'classic');
+  assert.equal(r.grouping, 'all'); assert.equal(r.layout, 'clear', 'the built-in default (#4434)');
 });
 
 test('normalize keeps only known keys and values', () => {

@@ -62,6 +62,14 @@ const EmailLocalization = {
       mail.attachments = structuredClone(validateRuleEmailAttachments(options.attachments));
     }
     if (options.html !== undefined) mail.html = options.html;
+    // #4434: a WeKan account e-mail (an `email-...` i18n text such as a board
+    // invitation) also goes out in the clear HTML layout, built from the same
+    // translated text. A caller's own HTML, or text that is not one of
+    // WeKan's e-mail strings, is left exactly as it was.
+    else if (typeof options.text === 'string' && options.text.startsWith('email-') && typeof text === 'string') {
+      const { renderAccountEmailHtml } = require('/models/lib/accountEmailHtml');
+      mail.html = renderAccountEmailHtml({ text, siteName: Accounts.emailTemplates.siteName });
+    }
     // #2414: reply-by-email - a Reply-To carrying an HMAC-signed card token,
     // set by server/notifications/emailQueue.js, lets a reply sent through the
     // inbound-email webhook (server/routes/inboundEmail.js) be matched back to

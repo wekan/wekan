@@ -15,13 +15,15 @@ and **outgoing webhooks** - has the same three kinds of settings:
 One shared, pure module resolves and applies them for every channel:
 `models/lib/notificationDelivery.js`. Each channel only adapts its output.
 
-## Nothing changes until somebody changes a setting
+## The built-in behaviour
 
-With nothing set anywhere, every channel behaves exactly as before:
+With nothing set anywhere, every channel behaves as below. E-mail is in the
+*clearly arranged* layout since [#4434](https://github.com/wekan/wekan/issues/4434);
+everything else is what WeKan always did:
 
 | Channel | Built-in behaviour |
 | --- | --- |
-| E-mail | the classic sentence; everything due for a recipient combined into one e-mail, sent `EMAIL_NOTIFICATION_TIMEOUT` (30 s) after the notification |
+| E-mail | the clearly arranged layout, with a plain-text alternative; everything due for a recipient combined into one e-mail, sent `EMAIL_NOTIFICATION_TIMEOUT` (30 s) after the notification |
 | Tray | the classic activity line; every notification its own entry, shown at once |
 | Webhook | `text` plus the standard attributes (`WEBHOOKS_ATTRIBUTES`); one POST per notification, at once |
 
@@ -92,6 +94,12 @@ layout also carries a **plain-text alternative** of every item.
 
 An admin's own activity e-mail template (Admin Panel → Email Templates) still
 wins over the layout: it is the more specific instruction.
+
+E-mail uses *Clearly arranged* unless a level chooses *One sentence (classic)*
+([#4434](https://github.com/wekan/wekan/issues/4434)); the tray keeps the
+classic line. Account e-mails - reset password, verify e-mail, a new account
+and board invitations - are sent in the same clear HTML style, built from the
+same translated text, which is also sent as their plain-text part.
 
 ### Webhooks
 
