@@ -46,7 +46,7 @@ test('only administrators can list, keep or discard interrupted imports', async 
   } finally { cleanup([seeded]); }
 });
 
-for (const language of ['gd', 'ga', 'mg', 'ht', 'la', 'st', 'co', 'sw', 'mt', 'en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'bn', 'mr', 'ne', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
+for (const language of ['ig', 'gd', 'ga', 'mg', 'ht', 'la', 'st', 'co', 'sw', 'mt', 'en', 'haw', 'fa', 'fa-IR', 'he', 'he-IL', 'ar', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-Hant', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'bn', 'mr', 'ne', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
 test(`administrator discards an interrupted import in Recovery, once, and nothing else in ${language}`, async ({ page, adminUser, board }) => {
   const seeded = seedInterrupted(adminUser.id);
   const otherCards = db.countDocuments('cards', { boardId: board.boardId });

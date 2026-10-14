@@ -216858,5 +216858,152 @@
     "before": "This list is syncing right now. Try again in a moment.",
     "after": "Ndepụta a na-emekọrịta ugbu a. Nwaa ọzọ n’oge na-adịghị anya.",
     "reason": "Translate stopped list synchronization recovery, preserving retained changes, discarded pending writes and replay restrictions. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-heading",
+    "before": "Board imports that stopped before finishing",
+    "after": "Mbubata bọọdụ kwụsịrị tupu ha agwụ",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-description",
+    "before": "Each of these board imports stopped part way - the server restarted, or the import failed - and left a partial board. An import cannot be continued, because its source file is not kept. Keep the board as it is, or discard it and import the file again. Discarding removes the board this import created and everything on it, including anything added to it since.",
+    "after": "Mbubata bọọdụ ọ bụla ebe a kwụsịrị n’etiti — sava malitegharịrị, ma ọ bụ mbubata kụrụ afọ n’ala — wee hapụ bọọdụ ezughị ezu. Enweghị ike ịga n’ihu na mbubata, n’ihi na a naghị edobe faịlụ isi iyi ya. Debe bọọdụ ahụ dịka ọ dị, ma ọ bụ tụfuo ya ma bubata faịlụ ahụ ọzọ. Ịtụfu ya na-ewepụ bọọdụ mbubata a mepụtara na ihe niile dị na ya, tinyere ihe ọ bụla agbakwunyere na ya kemgbe ahụ.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-progress",
+    "before": "Where it stopped",
+    "after": "Ebe ọ kwụsịrị",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-created",
+    "before": "Created so far",
+    "after": "Ihe emepụtara ruo ugbu a",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-source",
+    "before": "Imported from __source__",
+    "after": "Ebubatara site na __source__",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-state-stopped",
+    "before": "Stopped without finishing, at __stage__",
+    "after": "Ọ kwụsịrị na-emechaghị, na __stage__",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-state-failed",
+    "before": "Failed with __error__, at __stage__",
+    "after": "Ọ dara na njehie __error__, na __stage__",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-state-discarding",
+    "before": "Being discarded; discard again to finish",
+    "after": "A na-atụfu ya; tụfuo ya ọzọ iji mechaa",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-scrum",
+    "before": "Its Scrum stage has its own checkpoint (__state__, __next__ of __total__ steps). If you keep the board, finish or discard it from the board's Scrum import recovery.",
+    "after": "Ọkwa Scrum ya nwere ebe nchekwa ọganihu nke ya (__state__, __next__ n’ime usoro __total__). Ọ bụrụ na ị debe bọọdụ ahụ, mechaa ma ọ bụ tụfuo ya site na mgbake mbubata Scrum nke bọọdụ ahụ.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-counts",
+    "before": "__swimlanes__ swimlanes, __lists__ lists, __cards__ cards, __checklists__ checklists, __comments__ comments, __attachments__ attachments",
+    "after": "Ahịrị igwu mmiri __swimlanes__, ndepụta __lists__, kaadị __cards__, ndepụta nyocha __checklists__, ozi nkọwa __comments__, mgbakwunye __attachments__",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-no-board",
+    "before": "No board was created",
+    "after": "E mepụtaghị bọọdụ ọ bụla",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-keep",
+    "before": "Keep",
+    "after": "Debe",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-keep-confirm",
+    "before": "Keep this partial board as it is? Nothing is removed, and the import is no longer listed here.",
+    "after": "Debe bọọdụ a ezughị ezu dịka ọ dị? A naghị ewepụ ihe ọ bụla, a naghịzi edepụta mbubata ahụ ebe a.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-discard-confirm",
+    "before": "Discard this import? The board it created and everything on it are removed permanently.",
+    "after": "Tụfuo mbubata a? A ga-ewepụ bọọdụ ọ mepụtara na ihe niile dị na ya kpamkpam ruo mgbe ebighị ebi.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-empty",
+    "before": "No interrupted board imports are waiting for review.",
+    "after": "Enweghị mbubata bọọdụ kwụsịrị na-echere nyocha.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-truncated",
+    "before": "Only the oldest 50 are shown. Keep or discard some and refresh to see more.",
+    "after": "A na-egosi naanị 50 kacha ochie. Debe ma ọ bụ tụfuo ụfọdụ ma mee ka ibe a dị ọhụrụ ka ị hụ ndị ọzọ.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-unavailable",
+    "before": "Could not load the interrupted board imports. Refresh to try again.",
+    "after": "Enweghị ike ibunye mbubata bọọdụ kwụsịrị. Mee ka ibe a dị ọhụrụ ka ị nwaa ọzọ.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-missing",
+    "before": "This import is no longer recorded.",
+    "after": "A naghịzi edekọ mbubata a.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-not-interrupted",
+    "before": "This import is not waiting for a decision any more.",
+    "after": "Mbubata a anaghịzi echere mkpebi.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-foreign-board",
+    "before": "The board with this id was not created by this import, so it was not touched.",
+    "after": "Mbubata a emepụtaghị bọọdụ nwere njirimara a, ya mere emetụghị ya aka.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
+  },
+  {
+    "locale": "ig",
+    "key": "interrupted-import-scrum-busy",
+    "before": "Its Scrum stage is still being written or recovered. Try again in a few minutes.",
+    "after": "A ka na-ede ma ọ bụ na-eweghachi ọkwa Scrum ya. Nwaa ọzọ n’ime nkeji ole na ole.",
+    "reason": "Translate interrupted import recovery, preserving permanent deletion, retained partial boards, absent source files and untouched foreign boards. Direct Igbo recovery prose needs fluent review."
   }
 ]

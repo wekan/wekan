@@ -292,3 +292,12 @@ assert.match(locales.ig['stuck-sync-operation-not-stuck'], /Achọpụtaghị.*e
 assert.match(locales.ig['stuck-sync-operation-truncated'], /naanị 50 kacha ochie/);
 assert.equal(locales.ig['stuck-sync-operation-applied'], 'Etinyela mgbanwe __applied__ n’ime __total__');
 assert.match(locales.ig['stuck-sync-operation-reason-access-denied'], /ndepụta ahụ dum/);
+
+assert.match(locales.ig['interrupted-import-description'], /Enweghị ike ịga n’ihu.*a naghị edobe faịlụ isi iyi.*ihe ọ bụla agbakwunyere.*kemgbe/);
+assert.match(locales.ig['interrupted-import-keep-confirm'], /A naghị ewepụ ihe ọ bụla/);
+assert.match(locales.ig['interrupted-import-discard-confirm'], /ihe niile.*ruo mgbe ebighị ebi/);
+assert.match(locales.ig['interrupted-import-foreign-board'], /emepụtaghị.*emetụghị ya aka/);
+assert.match(locales.ig['interrupted-import-truncated'], /naanị 50 kacha ochie.*Debe ma ọ bụ tụfuo/);
+assert.match(locales.ig['interrupted-import-scrum'], /__state__.*__next__.*__total__.*mgbake mbubata Scrum/);
+assert.match(locales.ig['interrupted-import-state-failed'], /__error__.*__stage__/);
+assert.notEqual(locales.ig['interrupted-import-keep-confirm'], locales.ig['interrupted-import-discard-confirm']);
