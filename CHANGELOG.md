@@ -217,11 +217,15 @@ read. Folding Channels or Comments left only an icon; the double caret stays.
 
 </details>
 
-and has the following developer-facing fix:
+and has the following developer-facing fixes:
 
 - [Two guards follow the Chat view and the live-test log fixes](https://github.com/wekan/wekan/commit/71b862c28c):
   the Chat comment check is on the card's board, and the live-test guard
   escapes every RegExp metacharacter. Thanks to xet7.
+- [Every node suite passes again](https://github.com/wekan/wekan/commit/75534b5f1a):
+  the thirteen translation guards that failed before this release, fixed in
+  the locale where the locale was wrong (Bislama, Uzbek, Romansh, Tigre,
+  Wolaytta, Tamazight) and in the guard where it was stale. Thanks to xet7.
 
 and updates the following translations:
 
