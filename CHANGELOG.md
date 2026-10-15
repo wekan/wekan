@@ -109,13 +109,35 @@ below by category, with its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the **Windows** and **NetBSD** bundles build again: the release
-scripts read their files as UTF-8 on every runner, and the NetBSD build finds
-pkgsrc's Python. **LDAP background sync** imports new users again and keeps
-the interval it is given, and every **Caddyfile** example is **Caddy 2**, so
-the snap no longer renames a Caddyfile copied from the docs.
+**In short:** an **AssignedBleed** follow-up keeps assigned-only members to
+their own cards' files and document text on every remaining read path. The
+**Windows** and **NetBSD** bundles build again: the release scripts read their
+files as UTF-8 on every runner, and the NetBSD build finds pkgsrc's Python.
+**LDAP background sync** imports new users again and keeps the interval it is
+given, and every **Caddyfile** example is **Caddy 2**, so the snap no longer
+renames a Caddyfile copied from the docs.
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f3428db8e">Assigned-only members get only their own cards' files and document text</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[GHSA-3cgr-47wm-9cc9](https://github.com/wekan/wekan/security/advisories/GHSA-3cgr-47wm-9cc9):
+an assigned-only member sees only the cards assigned to them, but six read
+paths asked only for board membership. Both file downloads, the
+`Attachments.protected` check and the legacy download route served any card's
+file. The document search returned other cards' extracted text with their ids,
+the legacy attachment publication listed every legacy file of the board, and a
+linked list showed every card of its source list. Each now applies the
+assigned-only rule. A refused download, or a subscription to another card's
+legacy files, shows as AssignedBleed in Admin Panel → Problems; searching and
+viewing a linked list are ordinary use and are narrowed without a record. The
+board's background and map image stay readable to every member. A test fails
+when any file serving attachment or document data lacks the rule.
+
+</details>
+
+and fixes the following bugs:
 
 **Bundle builds** - the Windows and NetBSD bundles of v12.47.
 
