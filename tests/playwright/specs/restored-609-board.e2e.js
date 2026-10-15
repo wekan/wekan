@@ -32,7 +32,7 @@ function restore(userId) {
   const restored = JSON.parse(text).collections;
   delete restored.users;
   // GridFS ids are ObjectIds; a fresh pair per run.
-  const oid = () => ({ $oid: [...Array(24)].map(() => '0123456789abcdef'[Math.floor(Math.random() * 16)]).join('') });
+  const oid = () => ({ $oid: require('node:crypto').randomBytes(12).toString('hex') });
   const fileId = oid();
   for (const f of restored['cfs_gridfs.attachments.files'] || []) f._id = fileId;
   for (const c of restored['cfs_gridfs.attachments.chunks'] || []) { c._id = oid(); c.files_id = fileId; }

@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+// Its templates first: cardDetails.js imports this file for restoreArchivedCard.
+import '/client/components/sidebar/sidebarArchives.jade';
 import { TAPi18n } from '/imports/i18n';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
