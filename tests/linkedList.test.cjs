@@ -35,8 +35,12 @@ console.log('  ok - no self link, foreign or archived list, or a mirror of a mir
 
 // Server: both boards visible to see it; the source's write right to add to it.
 const server = read('server/linkedLists.js');
-assert.ok(server.includes('if (!(await visibleBoard(this.userId, list.boardId)) || !(await visibleBoard(this.userId, list.linkedBoardId))) return this.ready();'),
+assert.ok(server.includes('const source = await visibleBoard(this.userId, list.linkedBoardId);') &&
+  server.includes('if (!(await visibleBoard(this.userId, list.boardId)) || !source) return this.ready();'),
   'the cards only to a subscriber who sees both boards');
+// ...and of the source board only the cards they see there (GHSA-3cgr-47wm-9cc9).
+assert.ok(server.includes('...(assignedOnlyCardScope(source, this.userId) || {}) }, { limit: 1000 })'),
+  'an assigned-only member of the source board gets their own cards');
 assert.match(server, /if \(!\(await canWriteInList\(this\.userId, source, sourceList\._id\)\)\) throw new Meteor\.Error\('not-authorized'\);/);
 assert.match(server, /if \(!board \|\| board\.archived \|\| !allowIsBoardMemberWithWriteAccess\(this\.userId, board\)\) throw/);
 assert.match(server, /if \(!validLink\(\{ \.\.\.input, sourceList \}\)\) throw new Meteor\.Error\('linked-list-invalid'\);/);

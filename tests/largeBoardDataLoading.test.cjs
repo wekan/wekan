@@ -377,7 +377,9 @@ test('legacy attachments: the open card only, looked up in one query', () => {
   const pub = read('server/publications/legacyAttachments.js');
   assert.match(pub, /Meteor\.publish\('legacyBoardAttachments', async function \(boardId, cardId\)/);
   assert.match(pub, /check\(cardId, Match\.Maybe\(String\)\)/);
-  assert.match(pub, /const selector = cardId \? \{ boardId, cardId \} : \{ boardId \};/);
+  // The open card when one is passed; otherwise the board, narrowed to an
+  // assigned-only member's own cards (GHSA-3cgr-47wm-9cc9).
+  assert.match(pub, /const cardClause = cardId \? \{ cardId \} : \(assigned \? \{ cardId: \{ \$in: assigned \} \} : \{\}\);\n\s*const selector = \{ boardId, \.\.\.cardClause \};/);
   // negative: no per-record lookup inside the loop.
   assert.doesNotMatch(pub, /await ReactiveCache\.getAttachment\(rec\._id\)/);
   const details = read('client/components/cards/cardDetails.js');

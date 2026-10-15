@@ -9,6 +9,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { canWriteInList } from '/server/lib/listPermissionGate';
 
 const { isLinkedList, validLink } = require('/models/lib/linkedList');
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 async function visibleBoard(userId, boardId) {
   const board = boardId && await Boards.findOneAsync(boardId);
@@ -22,9 +23,14 @@ Meteor.publish('linkedListCards', async function (listId) {
   if (!this.userId) return this.ready();
   const list = await Lists.findOneAsync(listId);
   if (!isLinkedList(list)) return this.ready();
-  if (!(await visibleBoard(this.userId, list.boardId)) || !(await visibleBoard(this.userId, list.linkedBoardId))) return this.ready();
+  const source = await visibleBoard(this.userId, list.linkedBoardId);
+  if (!(await visibleBoard(this.userId, list.boardId)) || !source) return this.ready();
+  // Only the cards the subscriber sees on the SOURCE board: an assigned-only
+  // member there gets their own cards (AssignedBleed, GHSA-3cgr-47wm-9cc9).
+  // Viewing a linked list is ordinary use, so nothing is logged.
   return [
-    Cards.find({ boardId: list.linkedBoardId, listId: list.linkedListId, archived: false }, { limit: 1000 }),
+    Cards.find({ boardId: list.linkedBoardId, listId: list.linkedListId, archived: false,
+      ...(assignedOnlyCardScope(source, this.userId) || {}) }, { limit: 1000 }),
     Boards.find({ _id: list.linkedBoardId }, { fields: { title: 1, slug: 1, labels: 1, permission: 1, members: 1, color: 1 } }),
   ];
 });

@@ -3,6 +3,7 @@ import { check, Match } from 'meteor/check';
 import { MongoInternals } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { canReadBoard } from '/models/lib/boardVisibility';
+import { assignedOnlyCardIds } from '/server/lib/assignedOnlyAttachments';
 
 // Read-in-place support for legacy CollectionFS attachments.
 //
@@ -43,7 +44,22 @@ Meteor.publish('legacyBoardAttachments', async function (boardId, cardId) {
     // 'cfs.attachments.filerecord' already exists elsewhere and Meteor forbids a
     // second instance with the same name.
     const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
-    const selector = cardId ? { boardId, cardId } : { boardId };
+    // An assigned-only member gets only their own cards' files (AssignedBleed,
+    // GHSA-3cgr-47wm-9cc9): without a cardId this sent every legacy
+    // attachment of the board. Card details always pass the open card, so a
+    // card not assigned to them is an attempt and is recorded.
+    const assigned = await assignedOnlyCardIds(board, this.userId);
+    if (assigned && cardId && !assigned.includes(cardId)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.assigned', action: 'blocked', source: 'legacy-attachments:publish', userId: this.userId,
+          detail: 'Assigned-only member subscribed to the legacy attachments of a card not assigned to them.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      return this.ready();
+    }
+    const cardClause = cardId ? { cardId } : (assigned ? { cardId: { $in: assigned } } : {});
+    const selector = { boardId, ...cardClause };
     records = await db.collection('cfs.attachments.filerecord').find(selector).toArray();
   } catch (error) {
     return this.ready();

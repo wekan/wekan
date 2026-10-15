@@ -263,7 +263,9 @@ Attachments.onAfterRemove = function (filesInput) {
 
 // We authorize the attachment download either:
 // - if the board is public, everyone (even unconnected) can download it
-// - if the board is private, only board members can download it
+// - if the board is private, only board members can download it, and an
+//   assigned-only member only the files of cards assigned to them
+//   (AssignedBleed, GHSA-3cgr-47wm-9cc9)
 // Note: ostrio:files v3.x uses `await this.protected.call(...)` in _checkAccess,
 // so this function can be async and use findOneAsync for Meteor 3.x compatibility.
 Attachments.protected = async function (fileObj) {
@@ -279,7 +281,9 @@ Attachments.protected = async function (fileObj) {
   if (readableWithoutMembership(board.permission, !!this.userId)) {
     return true;
   }
-  return board.hasMember(this.userId);
+  if (!board.hasMember(this.userId)) return false;
+  return require('/server/lib/assignedOnlyAttachments')
+    .mayReadBoardAttachment(board, this.userId, fileObj, 'attachments:protected');
 };
 
 // ---------------------------------------------------------------------------

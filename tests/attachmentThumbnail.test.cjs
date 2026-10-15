@@ -75,7 +75,7 @@ async function main() {
   const handler = route.slice(route.indexOf("WebApp.handlers.use('/cdn/storage/attachments'"), route.indexOf("WebApp.handlers.use('/cdn/storage/avatars'"));
   const at = text => { const i = handler.indexOf(text); assert.notEqual(i, -1, text); return i; };
   const thumbnail = at('const wantsThumbnail = isThumbnailPath(');
-  for (const check of ['isAuthorizedForBoard(req, board)', 'isActiveSiteLogo(', 'attachmentDownloadLimits.blocked',
+  for (const check of ['isAuthorizedForBoard(req, board, attachment,', 'isActiveSiteLogo(', 'attachmentDownloadLimits.blocked',
     'attachmentDownloadLimits.maxBytes', 'isStorageReadEnabled(storageName)']) {
     assert.ok(at(check) < thumbnail, `${check} runs before a thumbnail is served`);
   }

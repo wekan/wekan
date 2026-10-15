@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { getUserIdFromRequest } from '/server/lib/requestUser';
+import { mayReadBoardAttachment } from '/server/lib/assignedOnlyAttachments';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
@@ -97,7 +98,10 @@ if (Meteor.isServer) {
       // From the REQUEST, not Meteor.userId(): this is a WebApp handler, where
       // that throws rather than returning null (see server/lib/requestUser.js).
       const userId = await getUserIdFromRequest(req);
-      if (!canReadBoard(userId, board)) {
+      // Membership is not enough: an assigned-only member reads only their
+      // own cards' files (AssignedBleed, GHSA-3cgr-47wm-9cc9).
+      if (!canReadBoard(userId, board) ||
+          !(await mayReadBoardAttachment(board, userId, attachment, 'legacy-attachments:download'))) {
         res.writeHead(403);
         res.end('Access denied');
         return;

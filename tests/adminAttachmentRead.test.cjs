@@ -13,6 +13,9 @@ function policy(user) {
     extractLoginToken: req => req.token,
     isSandstormRequest: () => false,
     canReadBoard: (id, value) => !!value?.isVisibleBy(id ? { _id: id } : null),
+    // GHSA-3cgr-47wm-9cc9: membership is no longer the whole answer; the
+    // assigned-only rule decides per file (tests/assignedOnlyReads.test.cjs).
+    mayReadBoardAttachment: async (b, userId, attachment) => !(attachment && attachment.hiddenFrom === userId),
     process: { env: {} },
   });
 }
@@ -31,6 +34,13 @@ test('missing credentials, disabled admin, non-boolean admin and missing board d
     assert.equal(await policy(user)({ token: 'valid-token-123' }, board), false);
   }
   assert.equal(await policy({ _id: 'admin', isAdmin: true })({ token: 'valid-token-123' }, null), false);
+});
+test('GHSA-3cgr-47wm-9cc9: a member is refused a file the assigned-only rule hides from them', async () => {
+  const hidden = { hiddenFrom: 'member' };
+  assert.equal(await policy({ _id: 'member' })({ token: 'valid-token-123' }, board, hidden, 'file-server:cdn'), false);
+  assert.equal(await policy({ _id: 'member' })({ token: 'valid-token-123' }, board, {}, 'file-server:cdn'), true);
+  // The Files Report administrator is not an assigned-only member (negative).
+  assert.equal(await policy({ _id: 'admin', isAdmin: true })({ token: 'valid-token-123' }, board, { hiddenFrom: 'admin' }), true);
 });
 test('public attachments remain readable without credentials', async () => {
   assert.equal(await policy(null)({}, { isVisibleBy: () => true }), true);

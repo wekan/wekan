@@ -22,6 +22,7 @@ import Settings from '/models/settings';
 const {isActiveSiteLogo} = require('/models/lib/siteLogo');
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
+import { assignedOnlyCardIds, mayReadBoardAttachment } from '/server/lib/assignedOnlyAttachments';
 import fs from 'fs';
 import path from 'path';
 import { DocumentPreviews, indexDocumentText } from '/server/lib/documentGif';
@@ -141,9 +142,14 @@ if (Meteor.isServer) {
       if (!board || !(await canReadBoard(this.userId, board))) {
         throw new Meteor.Error('not-authorized');
       }
+      // An assigned-only member searches only their own cards' documents
+      // (AssignedBleed, GHSA-3cgr-47wm-9cc9): boardId alone matched the
+      // extracted text of every card. Ordinary use, so nothing is logged.
+      const assignedCardIds = await assignedOnlyCardIds(board, this.userId);
       const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const rows = await DocumentPreviews.find(
-        { boardId, searchText: { $regex: escaped, $options: 'i' } },
+        { boardId, searchText: { $regex: escaped, $options: 'i' },
+          ...(assignedCardIds ? { cardId: { $in: assignedCardIds } } : {}) },
         { fields: { attachmentId: 1, cardId: 1, searchText: 1 }, limit: 50 },
       ).fetchAsync();
       return rows.map(row => {
@@ -482,7 +488,10 @@ if (Meteor.isServer) {
    * - Public boards: allow
    * - Private boards: require an active member or an enabled site administrator
    */
-  async function isAuthorizedForBoard(req, board) {
+  // `attachment`: the file asked for. Membership is not enough for it: an
+  // assigned-only member reads only their own cards' files (AssignedBleed,
+  // GHSA-3cgr-47wm-9cc9); `source` names the route in Admin Panel -> Problems.
+  async function isAuthorizedForBoard(req, board, attachment, source) {
     try {
       if (!board) return false;
       // Sandstorm already gated grain access; trust the platform (see isSandstormRequest).
@@ -493,7 +502,8 @@ if (Meteor.isServer) {
       // Files Report already publishes every attachment to site administrators.
       // Keep this exception local to attachment routes, not general board reads.
       if (user?.isAdmin === true && user.loginDisabled !== true) return true;
-      return canReadBoard(user && user._id, board);
+      if (!canReadBoard(user && user._id, board)) return false;
+      return await mayReadBoardAttachment(board, user && user._id, attachment, source);
     } catch (e) {
       if (process.env.DEBUG === 'true') {
         console.warn('Authorization check failed:', e);
@@ -641,7 +651,7 @@ if (Meteor.isServer) {
           res.end('Board not found');
           return;
         }
-        const authorized = await isAuthorizedForBoard(req, board);
+        const authorized = await isAuthorizedForBoard(req, board, attachment, 'file-server:cdn');
         if (!authorized) {
           res.writeHead(403);
           res.end('Access denied');
@@ -910,7 +920,7 @@ if (Meteor.isServer) {
       }
 
       // Enforce cookie/header/query-based auth for private boards
-      if (!(await isAuthorizedForBoard(req, board))) {
+      if (!(await isAuthorizedForBoard(req, board, attachment, 'file-server:cfs'))) {
         res.writeHead(403);
         res.end('Access denied');
         return;
