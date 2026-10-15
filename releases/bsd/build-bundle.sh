@@ -45,6 +45,17 @@ fi
 
 # Native modules are compiled here, by the BSD's own C++ compiler (cc/c++).
 export CC="${CC:-cc}" CXX="${CXX:-c++}"
+# node-gyp looks for `python3` (or `python`); pkgsrc's python313 installs only
+# /usr/pkg/bin/python3.13, so on NetBSD argon2's build stopped with "You need
+# to install the latest version of Python". Hand it the versioned one.
+if [ -z "${PYTHON:-}" ] && ! command -v python3 >/dev/null 2>&1 && ! command -v python >/dev/null 2>&1; then
+  for p in /usr/pkg/bin/python3.[0-9]* /usr/local/bin/python3.[0-9]*; do
+    case "$p" in *-config) continue ;; esac
+    if [ -x "$p" ]; then export PYTHON="$p" npm_config_python="$p"; break; fi
+  done
+  [ -n "${PYTHON:-}" ] || { echo "::error::No Python for node-gyp on $os: install python3 (pkgsrc python313)."; exit 1; }
+  echo "node-gyp uses $PYTHON"
+fi
 (cd "$root/bundle/programs/server" && bash "$root/releases/npm-retry.sh" npm install)
 node "$root/releases/prune-build-only-modules.mjs" "$root/bundle"
 node "$root/releases/bump-bundle-npm-deps.mjs" "$root/bundle"
