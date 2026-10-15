@@ -349,11 +349,13 @@ test.describe('Chat view', () => {
       await expect(page.locator('.chat-view-card .card-details')).toContainText('Talk here');
       await expect(page.locator('.chat-view-message', { hasText: 'Hello' })).toBeVisible();
       expect(page.url()).toBe(here);
-      // Negative: my own message is never unread to me.
+      // Opening it in the middle read "Hello". Negative: my own message after
+      // that is never unread to me, so nothing is unread on that board.
       db.insertOne('card_comments', { _id: db.uid('cmt'), boardId: other.boardId, cardId: talk._id, userId: user.id,
         text: 'Mine', createdAt: new Date(), modifiedAt: new Date() });
       await view_reload(page, board);
-      await expect(page.locator(`.chat-view-tree [data-kind="board"][data-id="${other.boardId}"] > .chat-view-row .chat-view-unread`)).toHaveText('1');
+      await expect(page.locator(`.chat-view-tree [data-kind="board"][data-id="${other.boardId}"]`)).toBeVisible();
+      await expect(page.locator(`.chat-view-tree [data-kind="board"][data-id="${other.boardId}"] > .chat-view-row .chat-view-unread`)).toHaveCount(0);
     } finally {
       db.deleteMany('card_comments', { boardId: other.boardId });
       db.cleanup({ boardIds: [other.boardId], userIds: [friend.id] });

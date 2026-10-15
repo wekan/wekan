@@ -867,9 +867,11 @@ Template.attachmentRenamePopup.events({
   'click button.js-submit-edit-attachment-name'(event, tpl) {
     // save button pressed
     event.preventDefault();
+    // A migrated attachment can lack extensionWithDot; its extension is enough.
+    const suffix = this.extensionWithDot || (this.extension ? `.${this.extension}` : '');
     const name = tpl.$('.js-edit-attachment-name')[0]
       .value
-      .trim() + this.extensionWithDot;
+      .trim() + suffix;
     if (name === sanitizeText(name)) {
       Meteor.call('renameAttachment', this._id, name);
     }

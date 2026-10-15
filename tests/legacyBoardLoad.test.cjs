@@ -50,4 +50,10 @@ test('negative: the legacy publication reads its type as a string', () => {
   assert.doesNotMatch(src, /rec\.(?:original|copies)[\w.]*\.(?:startsWith|endsWith|toLowerCase|split)\(/);
 });
 
+test('negative: renaming a migrated attachment never appends "undefined"', () => {
+  const src = read('client/components/cards/attachments.js');
+  assert.match(src, /const suffix = this\.extensionWithDot \|\| \(this\.extension \? `\.\$\{this\.extension\}` : ''\);/);
+  assert.doesNotMatch(src, /\.trim\(\) \+ this\.extensionWithDot/);
+});
+
 console.log(`# ${passed} passed`);

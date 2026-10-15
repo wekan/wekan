@@ -10,26 +10,38 @@ const { navigateInApp } = require('../helpers/auth');
 const fs = require('node:fs');
 const path = require('node:path');
 
-async function insertFile(page, board, id, name, type, bytes) {
+// Where the server keeps attachment files: an administrator's method, so the
+// test's user is one for this call only.
+async function storagePaths(page, user) {
+  db.updateOne('users', { _id: user.id }, { $set: { isAdmin: true } });
+  try {
+    return await page.evaluate(() => Meteor.callAsync('getAttachmentStoragePaths'));
+  } finally {
+    db.updateOne('users', { _id: user.id }, { $set: { isAdmin: false } });
+  }
+}
+
+async function insertFile(page, board, storage, id, name, type, bytes) {
   const extension = name.split('.').pop();
-  const storage = await page.evaluate(() => Meteor.callAsync('getAttachmentStoragePaths'));
   const directory = path.join(process.env.WEKAN_FILES_PATH, 'attachments');
   fs.mkdirSync(directory, { recursive: true });
   const file = path.join(directory, `${id}.${extension}`);
   fs.writeFileSync(file, bytes);
+  // As uploads store it, but without extensionWithDot, which a migrated file can lack.
   db.insertOne('attachments', { _id: id, name, extension, type, size: bytes.length,
     meta: { boardId: board.boardId, cardId: db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' }) },
     versions: { original: { storage: 'fs', path: `${storage.attachments}/${id}.${extension}`, size: bytes.length, extension, type } } });
   return file;
 }
 
-test('Version Control Attachments: view, download, rename, delete', async ({ boardPage: page, board }) => {
+test('Version Control Attachments: view, download, rename, delete', async ({ boardPage: page, board, user }) => {
+  const storage = await storagePaths(page, user);
   const image = db.uid('vcsimage');
   const binary = db.uid('vcsbinary');
   const files = [
-    await insertFile(page, board, image, 'diagram.png', 'image/png',
+    await insertFile(page, board, storage, image, 'diagram.png', 'image/png',
       fs.readFileSync(path.resolve(__dirname, '../../../public/favicon-32x32.png'))),
-    await insertFile(page, board, binary, 'firmware.bin', 'application/octet-stream', Buffer.from([0, 1, 2, 3])),
+    await insertFile(page, board, storage, binary, 'firmware.bin', 'application/octet-stream', Buffer.from([0, 1, 2, 3])),
   ];
   try {
     await page.evaluate(id => Meteor.callAsync('setBoardView', 'board-view-version-control', id), board.boardId);
