@@ -48,11 +48,39 @@ test('milliseconds, as documented, become an interval - from a Number or a strin
   for (const value of [3600000, '3600000', ' 600000 ']) {
     const parser = fakeParser();
     assert.doesNotThrow(() => ldapSyncSchedule(parser, value, warn));
-    assert.ok(parser.calls.some(c => /every\((60|10)\)\.minute\(\)$/.test(c)), String(value));
+    // An hour is every(1).hour(): every(60).minute() only happened to work
+    // for 60, and the same form made 2 hours hourly (#6771).
+    assert.ok(parser.calls.some(c => /every\(1\)\.hour\(\)$|every\(10\)\.minute\(\)$/.test(c)), String(value));
   }
+  // #6771: every(90).second() is "second 0 of each minute" to later, so 90 s
+  // is rounded to an interval later keeps, and the warning says so.
+  warnings.length = 0;
   const seconds = fakeParser();
   ldapSyncSchedule(seconds, 90000, warn);
-  assert.ok(seconds.calls.some(c => /every\(90\)\.second\(\)$/.test(c)), 'not a whole minute: seconds');
+  assert.ok(seconds.calls.some(c => /every\(2\)\.minute\(\)$/.test(c)), '90 s: the nearest interval later keeps');
+  assert.ok(!seconds.calls.some(c => /every\(90\)/.test(c)), 'never every(90)');
+  assert.match(warnings.join('\n'), /90 seconds.*syncing every 2 minutes/);
+});
+
+test('#6771: no interval reaches later as an every(n) it cannot keep', () => {
+  // Hours, minutes and seconds: n must divide the unit's range (24, 60, 60).
+  for (let ms = 1000; ms <= 36 * 3600000; ms += ms < 60000 ? 1000 : ms < 3600000 ? 60000 : 3600000) {
+    const parser = fakeParser();
+    ldapSyncSchedule(parser, ms, () => {});
+    for (const call of parser.calls) {
+      const m = /every\((\d+)\)\.(second|minute|hour)\(\)$/.exec(call);
+      if (m) assert.equal((m[2] === 'hour' ? 24 : 60) % Number(m[1]), 0, `${ms} ms -> ${call}`);
+    }
+  }
+});
+
+test('#6771: an interval under a minute is synced as asked, with a warning', () => {
+  warnings.length = 0;
+  ldapSyncSchedule(fakeParser(), 3600, warn);
+  assert.match(warnings[0], /3600 is milliseconds.*every 4 seconds.*3600000/);
+  warnings.length = 0;
+  ldapSyncSchedule(fakeParser(), 3600000, warn);
+  assert.deepEqual(warnings, [], 'an hour is not warned about');
 });
 
 test('later.js text still works, also in the quotes a compose file keeps (#2354)', () => {
@@ -101,6 +129,17 @@ test('with the real later.js: the crash is reproduced, and the fix schedules', f
   // The documented example: 10000 ms.
   const tenSeconds = later.schedule(ldapSyncSchedule(later.parse, 10000, warn)).next(2, new Date('2026-10-14T13:44:37Z'));
   assert.equal(tenSeconds[1] - tenSeconds[0], 10000);
+  // #6771: each documented-style interval keeps its spacing on later's
+  // clock. Before, 2 hours and 1 day were hourly and 90 s every minute.
+  const gap = ms => {
+    const at = later.schedule(ldapSyncSchedule(later.parse, ms, () => {})).next(4, new Date('2026-10-14T13:44:37Z'));
+    return [at[2] - at[1], at[3] - at[2]];
+  };
+  for (const ms of [60000, 300000, 3600000, 7200000, 21600000, 86400000, 172800000, 604800000]) {
+    assert.deepEqual(gap(ms), [ms, ms], `${ms} ms`);
+  }
+  assert.deepEqual(gap(90000), [120000, 120000], '90 s: every 2 minutes, not every minute');
+  assert.deepEqual(gap(18000000), [21600000, 21600000], '5 hours: every 6 hours, not hourly');
   const fallback = ldapSyncSchedule(later.parse, 'every banana', warn);
   assert.ok(later.schedule(fallback).next(1), 'an unreadable value still schedules');
 });

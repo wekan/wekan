@@ -13,6 +13,7 @@ import {
   groupMemberClause,
 } from './groupFilterConfig';
 import { requireUserCredentials, escapeUserDnValue } from './userCredentials';
+import { userSearchValue, describeUserSearch } from './userSearchValue';
 
 // Every LDAP_* setting is read through ONE accessor: the app's
 // server/lib/authConfig.js authEnv(), which answers with the Admin Panel /
@@ -390,8 +391,9 @@ export default class LDAP {
       }
     }
 
-    // Escape the username to prevent LDAP injection
-    const escapedUsername = escapeLdapFilterValue(username);
+    // Escape the username to prevent LDAP injection; only ALL_LDAP_USERS,
+    // which no login can send, searches with the wildcard (#6771).
+    const escapedUsername = userSearchValue(username, escapeLdapFilterValue);
     const usernameFilter = this.options.User_Search_Field.split(',').map((item) => `(${item}=${escapedUsername})`);
 
     if (usernameFilter.length === 0) {
@@ -469,7 +471,7 @@ export default class LDAP {
       };
     }
 
-    Log.info(`Searching user ${username}`);
+    Log.info(`Searching user ${describeUserSearch(username)}`);
     log_debug('searchOptions', searchOptions);
     log_debug('BaseDN', this.options.BaseDN);
 

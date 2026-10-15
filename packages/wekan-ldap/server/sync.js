@@ -7,6 +7,7 @@ import { isAdminByGroups } from './adminGroups';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { ldapSyncSchedule } from './syncSchedule';
+import { ALL_LDAP_USERS } from './userSearchValue';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 import { ldapPresenceUpdate } from './presenceSync';
 import { isKnownLdapGroup } from './entryKind';
@@ -415,7 +416,8 @@ export async function importNewUsers(ldap) {
 
   try {
     let count = 0;
-    const ldapUsers = await ldap.searchUsers('*');
+    // Every user: the wildcard a login name can never be (#6771).
+    const ldapUsers = await ldap.searchUsers(ALL_LDAP_USERS);
 
     for (const ldapUser of ldapUsers) {
       count++;

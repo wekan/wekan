@@ -15,6 +15,7 @@ module.exports = function harness(overrides = {}) {
  const context = vm.createContext({process:{env:{}}, Buffer, global,
   Log:log, normalizeLdapEncryption:()=>({mode:'off'}),resolveConfigValue:()=>({value:undefined}),
   ...require(path.join(directory,'groupFilterConfig')), ...require(path.join(directory,'userCredentials')),
+  ...require(path.join(directory,'userSearchValue')),
   Accounts:{registerLoginHandler(name,fn){login=fn;}, _runLoginHandlers:async()=>{state.events.push('fallback');return {userId:'fallback'};}},
   Meteor:{Error:class extends Error{},users:{findOneAsync:async()=>{state.events.push('lookup');return {_id:'alice-id',username:'alice',authenticationMethod:'ldap'};}}},
   slug:v=>v, getLdapUserUniqueID:()=>null, syncUserData:async()=>{},syncUserGroupsToOrgsTeams:async()=>{},

@@ -4,7 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname, '../packages/wekan-ldap/server/ldap.js'), 'utf8');
 const body = source.split('  getUserFilter(username) {')[1].split('\n  async bindUserIfNecessary')[0].replace(/\n  }\s*$/, '');
-const getUserFilter = new Function('escapeLdapFilterValue', 'Log', `return function(username) {${body}}`)(value => value, { error() {} });
+const { userSearchValue, describeUserSearch } = require('../packages/wekan-ldap/server/userSearchValue');
+const getUserFilter = new Function('escapeLdapFilterValue', 'Log', 'userSearchValue', `return function(username) {${body}}`)(value => value, { error() {} }, userSearchValue);
 for (const value of [undefined, null, '']) {
   assert.equal(getUserFilter.call({ options: { User_Search_Filter: value, User_Search_Field: 'sAMAccountName' } }, 'alice'), '(&(sAMAccountName=alice))');
 }
@@ -33,7 +34,7 @@ console.log('ldapOptionalUserFilter: unset optional filter, configured restricti
     const searchBody = source.split('  async searchUsers(username) {')[1].split('\n  async getUserById(')[0].replace(/\n  }\s*$/, '');
     ldap.bindIfNecessary = new AsyncFunction('Log', bindBody).bind(ldap, Log);
     // #6548: the search details go to the LDAP logger (log_debug), not Log.debug.
-    ldap.searchUsers = new AsyncFunction('Log', 'log_debug', 'username', searchBody).bind(ldap, Log, () => {});
+    ldap.searchUsers = new AsyncFunction('Log', 'log_debug', 'describeUserSearch', 'username', searchBody).bind(ldap, Log, () => {}, describeUserSearch);
     assert.deepEqual(await ldap.searchUsers('alice'), [{dn:'cn=alice'}]);
     assert.deepEqual(events, ['bind','search']);
     ldap.domainBinded = false; events.length = 0;
