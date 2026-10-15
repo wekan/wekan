@@ -56,14 +56,14 @@ if os.environ['ASSET_CASE'] == 'present': print('wekan-12.37-i386.zip', flush=Tr
 # Large multi-write response catches early-closing grep/pipefail regressions.
 for i in range(20000): print('other-asset-' + str(i))
 `);
-  const gate = step('.github/workflows/AppImage.yml', 'Skip this arch if its release bundle is not published yet')
-    .replaceAll('${{ needs.release.outputs.version }}', '12.37')
-    .replaceAll('${{ needs.release.outputs.tag }}', 'v12.37')
-    .replaceAll('${{ matrix.bundle_arch }}', 'i386')
-    .replaceAll('${{ github.repository }}', 'wekan/wekan');
+  const gate = step('.github/workflows/AppImage.yml', 'Skip this arch if its release bundle is not published yet');
+  // The step's env: block, as the runner would set it (the values reach the
+  // script through env since the workflow hardening).
+  const gateEnv = { NEEDS_RELEASE_VERSION: '12.37', NEEDS_RELEASE_TAG: 'v12.37',
+    MATRIX_BUNDLE_ARCH: 'i386', GITHUB_CTX_REPOSITORY: 'wekan/wekan' };
   for (const kind of ['present', 'missing', 'error']) {
     fs.writeFileSync(env.GITHUB_ENV, '');
-    const result = spawnSync('bash', ['-ec', gate], { cwd: tmp, env: { ...env, ASSET_CASE: kind }, encoding: 'utf8' });
+    const result = spawnSync('bash', ['-ec', gate], { cwd: tmp, env: { ...env, ...gateEnv, ASSET_CASE: kind }, encoding: 'utf8' });
     assert.equal(result.status === 0, kind !== 'error', result.stdout + result.stderr);
     assert.equal(fs.readFileSync(env.GITHUB_ENV, 'utf8').includes('BUILD_THIS=false'), kind === 'missing');
   }

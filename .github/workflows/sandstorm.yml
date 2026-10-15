@@ -32,13 +32,14 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Build the dispatched ref so a fix branch can be tested before it is
           # merged to main; defaults to main for a plain `gh workflow run`.
           ref: ${{ github.event.inputs.ref || 'main' }}
+          persist-credentials: false
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -124,7 +125,7 @@ jobs:
           ls -la "$SPK"
           echo "spk=$SPK" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ steps.build.outputs.spk }}
           path: ${{ steps.build.outputs.spk }}
@@ -134,6 +135,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+          STEP_BUILD_SPK: ${{ steps.build.outputs.spk }}
         run: |
           set -euo pipefail
           TAG="$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || true)"
@@ -141,5 +143,5 @@ jobs:
             echo "::error::No existing GitHub Release found to attach the .spk to."
             exit 1
           fi
-          echo "Uploading ${{ steps.build.outputs.spk }} to the newest release: $TAG"
-          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" "${{ steps.build.outputs.spk }}" --clobber
+          echo "Uploading ${STEP_BUILD_SPK} to the newest release: $TAG"
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" "${STEP_BUILD_SPK}" --clobber

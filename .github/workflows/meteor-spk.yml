@@ -32,11 +32,12 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.inputs.ref || 'main' }}
+          persist-credentials: false
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -87,7 +88,7 @@ jobs:
           ls -la "$GITHUB_WORKSPACE/$ZIP"
           echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ steps.zip.outputs.zip }}
           path: ${{ steps.zip.outputs.zip }}
@@ -97,6 +98,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+          STEP_ZIP_ZIP: ${{ steps.zip.outputs.zip }}
         run: |
           set -euo pipefail
           TAG="$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || true)"
@@ -104,5 +106,5 @@ jobs:
             echo "::warning::No existing GitHub Release found; the meteor-spk bundle is available only as a workflow artifact."
             exit 0
           fi
-          echo "Uploading ${{ steps.zip.outputs.zip }} to the newest release: $TAG"
-          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" "${{ steps.zip.outputs.zip }}" --clobber
+          echo "Uploading ${STEP_ZIP_ZIP} to the newest release: $TAG"
+          gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "$TAG" "${STEP_ZIP_ZIP}" --clobber

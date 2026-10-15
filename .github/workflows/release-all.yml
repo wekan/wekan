@@ -133,9 +133,10 @@ on:
         required: true
         type: string
 
+# Read-only by default: each job that writes (git push, a release asset, an
+# image) is granted exactly that below (zizmor excessive-permissions).
 permissions:
-  contents: write
-  packages: write
+  contents: read
 
 # Node.js major version that Meteor 3.6-beta.1 bundles. Used for native module
 # rebuilds on every platform — it must match the amd64 build's Node ABI.
@@ -170,7 +171,7 @@ jobs:
     steps:
       # Shallow: this job reads the tree, commits the version bump on top of it
       # and pushes - none of which needs history.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
 
@@ -190,7 +191,7 @@ jobs:
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -205,28 +206,34 @@ jobs:
           # Builds fetch dependencies from upstream themselves, so skip the slow
           # pre-download of Node/MongoDB tarballs that the local flow does.
           RELEASE_SKIP_DEP_DOWNLOAD: '1'
+          INPUT_OLD_VERSION: ${{ inputs.old_version }}
+          INPUT_NEW_VERSION: ${{ inputs.new_version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          ./releases/version.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
-          ./releases/rebuild-docs.sh "${{ inputs.new_version }}"
+          ./releases/version.sh "${INPUT_OLD_VERSION}" "${INPUT_NEW_VERSION}"
+          ./releases/rebuild-docs.sh "${INPUT_NEW_VERSION}"
 
       - name: Recheck dependency review after version preparation
         run: python3 releases/remote-release.py --audit
 
       - name: Verify every release version reference
+        env:
+          INPUT_NEW_VERSION: ${{ inputs.new_version }}
         run: |
-          node ./releases/verify-release-versions.mjs "${{ inputs.new_version }}"
+          node ./releases/verify-release-versions.mjs "${INPUT_NEW_VERSION}"
 
       - name: Commit and push version bump
+        env:
+          INPUT_NEW_VERSION: ${{ inputs.new_version }}
         run: |
           git add --all
           if git diff --cached --quiet; then
             # Not fatal - a re-run of the same release bumps nothing - but it is not
             # the normal case, so it must be visible rather than a line of prose.
-            echo "::warning::bump: nothing to commit. Either the versions were already at v${{ inputs.new_version }} (a re-run), or releases/version.sh changed no file - its output above says which."
+            echo "::warning::bump: nothing to commit. Either the versions were already at v${INPUT_NEW_VERSION} (a re-run), or releases/version.sh changed no file - its output above says which."
           else
-            git commit -m "Bump versions for v${{ inputs.new_version }}"
+            git commit -m "Bump versions for v${INPUT_NEW_VERSION}"
             if ! git push origin main; then
               echo "::error::bump: could not push the version bump to main. A branch protection rule, a required review, or a token without write access does this - and the rest of the release would then build the OLD version."
               exit 1
@@ -243,21 +250,25 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark bump"
           echo "$mark bump" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::bump FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # ─── 1. Tag the release and extract release notes ───────────────────────────
   prepare:
+    permissions:
+      contents: write
     needs: bump
     runs-on: ubuntu-latest
     # A hung job must FAIL on its own rather than wait for somebody to cancel it:
@@ -275,7 +286,7 @@ jobs:
     steps:
       # Shallow: the only thing history was fetched for was finding out whether
       # the release tag already exists, which the tag step now asks GitHub.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
 
@@ -285,8 +296,10 @@ jobs:
 
       - name: Normalise version from input
         id: version
+        env:
+          INPUT_NEW_VERSION: ${{ inputs.new_version }}
         run: |
-          VERSION="${{ inputs.new_version }}"
+          VERSION="${INPUT_NEW_VERSION}"
           VERSION="${VERSION#v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
@@ -299,15 +312,19 @@ jobs:
       # that needs the notes now extracts them from its own checkout of
       # CHANGELOG.md with the same script, straight into a file.
       - name: Check the release notes exist in CHANGELOG.md
+        env:
+          STEP_VERSION_VERSION: ${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
-          VERSION="${{ steps.version.outputs.version }}"
+          VERSION="${STEP_VERSION_VERSION}"
           bash releases/release-notes.sh "$VERSION" > release-notes-body.md
           echo "OK: release notes are $(wc -l < release-notes-body.md) lines / $(wc -c < release-notes-body.md) characters."
 
       - name: Create and push tag v${{ steps.version.outputs.version }}
+        env:
+          STEP_VERSION_VERSION: ${{ steps.version.outputs.version }}
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
+          VERSION="${STEP_VERSION_VERSION}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Asked of GitHub, not of this shallow checkout, which carries no tags:
@@ -328,16 +345,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark prepare"
           echo "$mark prepare" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::prepare FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -388,7 +407,7 @@ jobs:
           echo "website: WEKAN_REPO_TOKEN works and can push to wekan/wekan.fi."
 
       - name: Checkout wekan repo (bumped main, with rebuilt API docs)
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
           path: wekan
@@ -398,7 +417,7 @@ jobs:
         run: python3 wekan/releases/check-telemetry.py --source wekan
 
       - name: Checkout wekan.fi website repo
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: wekan/wekan.fi
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
@@ -409,12 +428,14 @@ jobs:
           WEBDIR: ${{ github.workspace }}/wekan.fi
           WEKANREPODIR: ${{ github.workspace }}/wekan
           RELEASE_PUSH_WEBSITE: '1'
+          INPUT_OLD_VERSION: ${{ inputs.old_version }}
+          INPUT_NEW_VERSION: ${{ inputs.new_version }}
         run: |
           cd wekan.fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           cd ..
-          ./wekan/releases/release-website.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
+          ./wekan/releases/release-website.sh "${INPUT_OLD_VERSION}" "${INPUT_NEW_VERSION}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -425,16 +446,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark website"
           echo "$mark website" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::website FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -497,7 +520,7 @@ jobs:
           echo "charts: WEKAN_REPO_TOKEN works and can push to wekan/charts."
 
       - name: Checkout wekan repo (for releases/release-charts.sh + version refs)
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
           path: wekan
@@ -507,7 +530,7 @@ jobs:
         run: python3 wekan/releases/check-telemetry.py --source wekan
 
       - name: Checkout wekan/charts repo (main + gh-pages)
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: wekan/charts
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
@@ -515,7 +538,7 @@ jobs:
           path: charts
 
       - name: Install Helm
-        uses: azure/setup-helm@v5
+        uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
 
       - name: Fetch gh-pages branch (release-charts.sh switches to it)
         run: |
@@ -528,8 +551,9 @@ jobs:
       - name: Release and publish chart
         env:
           CHARTS_DIR: ${{ github.workspace }}/charts
+          INPUT_NEW_VERSION: ${{ inputs.new_version }}
         run: |
-          ./wekan/releases/release-charts.sh "${{ inputs.new_version }}"
+          ./wekan/releases/release-charts.sh "${INPUT_NEW_VERSION}"
 
       # What the index does NOT have, reported every release rather than
       # discovered years later. A chart entry is written once, during the release
@@ -556,16 +580,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark charts"
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::charts FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -574,29 +600,32 @@ jobs:
   # The full Meteor build always runs here on x86_64; every other platform then
   # only rebuilds the native npm modules from this bundle.
   build-amd64:
+    permissions:
+      contents: write
     needs: [prepare]
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
       - name: Cache Meteor installation
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.meteor
           key: meteor-${{ hashFiles('.meteor/release') }}-${{ hashFiles('.meteor/packages') }}
           restore-keys: meteor-
 
       - name: Cache npm packages
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
@@ -605,7 +634,7 @@ jobs:
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl wget zip unzip xz-utils elfutils qemu-user-static
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -825,13 +854,13 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: provenance-amd64
           path: provenance/
           if-no-files-found: warn
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: bundle-amd64
           path: .build/wekan-${{ needs.prepare.outputs.version }}-amd64.zip
@@ -879,21 +908,25 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-amd64"
           echo "$mark build-amd64" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-amd64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # ─── 3. Build arm64 bundle (rebuild native modules natively) ─────────────────
   build-arm64:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64]
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 60
@@ -906,9 +939,10 @@ jobs:
       # ("releases/require-binaries.sh: No such file or directory"). Check out
       # first, before download-artifact drops the bundle into the same workspace,
       # so the scripts are present at the repo root the calls expect.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
@@ -943,7 +977,7 @@ jobs:
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -1068,14 +1102,14 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: provenance-arm64
           path: provenance/
           if-no-files-found: warn
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-arm64
@@ -1116,16 +1150,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-arm64"
           echo "$mark build-arm64" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -1139,6 +1175,8 @@ jobs:
   # and their .sha256sum are there - every downstream snap / docker / AppImage
   # job needs: release and downloads wekan-<version>-{amd64,arm64}.zip from it.
   release:
+    permissions:
+      contents: write
     needs:
       - prepare
       - build-amd64
@@ -1161,9 +1199,10 @@ jobs:
       # workspace (v10.63 and v10.64 shipped no base bundles that way). The
       # bundles are now attached by their own build jobs, so nothing is
       # downloaded here for a checkout to wipe.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
@@ -1171,7 +1210,7 @@ jobs:
 
       - name: Collect where the binaries came from
         continue-on-error: true
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: provenance-*
           path: provenance
@@ -1201,7 +1240,7 @@ jobs:
       # loudly and verified from the release side; the next step checks the two
       # base bundles from here.
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
           tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
@@ -1243,16 +1282,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark release"
           echo "$mark release" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::release FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -1403,6 +1444,8 @@ jobs:
 
   # Build win64 bundle (rebuild native modules on Windows).
   build-win64:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64, release]
     runs-on: windows-latest
     timeout-minutes: 60
@@ -1412,16 +1455,17 @@ jobs:
       # Checked out into src/ so start-wekan.bat and snapcraft.yaml (which pins
       # the MongoDB tools/mongosh versions) are available; the downloaded bundle
       # is extracted alongside it in the workspace root.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 src/releases/check-telemetry.py --source src
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -1481,7 +1525,7 @@ jobs:
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -1728,7 +1772,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-win64
@@ -1737,7 +1781,7 @@ jobs:
 
       - name: Upload win64 provenance
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: provenance-win64
           path: provenance/
@@ -1778,16 +1822,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-win64"
           echo "$mark build-win64" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-win64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -1818,6 +1864,8 @@ jobs:
   # architecture-specific things in the zip are the three binaries above,
   # which are downloaded rather than built.
   build-win-arm64:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64, release]
     runs-on: windows-latest
     timeout-minutes: 60
@@ -1827,16 +1875,17 @@ jobs:
       # Checked out into src/ so start-wekan.bat and snapcraft.yaml (which pins
       # the MongoDB tools/mongosh versions) are available; the downloaded bundle
       # is extracted alongside it in the workspace root.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 src/releases/check-telemetry.py --source src
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -1896,7 +1945,7 @@ jobs:
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -2147,7 +2196,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-win-arm64
@@ -2156,7 +2205,7 @@ jobs:
 
       - name: Upload win-arm64 provenance
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: provenance-win-arm64
           path: provenance/
@@ -2197,16 +2246,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-win-arm64"
           echo "$mark build-win-arm64" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-win-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -2226,16 +2277,19 @@ jobs:
   # the rebuild step below - node-gyp --arch=ia32 against a nodedir holding the
   # fork's ia32 node.lib. The shipped node.exe is the fork's 32-bit node-win32.exe.
   build-win32:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64, release]
     runs-on: windows-latest
     timeout-minutes: 60
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
+          persist-credentials: false
 
       # x64 Node (the runner's own): there is no 32-bit Windows Node 26 to
       # install. It only DRIVES npm/node-gyp; the ia32 output comes from
@@ -2244,7 +2298,7 @@ jobs:
         shell: bash
         run: python3 src/releases/check-telemetry.py --source src
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -2306,7 +2360,7 @@ jobs:
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -2543,7 +2597,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB, intact, and was built from a bundle that had main.js and node.exe."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-win32
@@ -2552,7 +2606,7 @@ jobs:
 
       - name: Upload win32 provenance
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: provenance-win32
           path: provenance/
@@ -2581,21 +2635,25 @@ jobs:
       - name: Job result
         if: always()
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-win32"
           echo "$mark build-win32" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-win32 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # Build mac-arm64 bundle (rebuild native modules on Apple Silicon).
   build-mac-arm64:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64, release]
     runs-on: macos-14   # macos-14 runners are Apple Silicon (arm64)
     timeout-minutes: 60
@@ -2606,15 +2664,16 @@ jobs:
       # "Check the binaries ..." step dies with exit 127. Check out first, before
       # download-artifact drops the bundle into the same workspace, so the script
       # is present at the repo root the call expects.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -2645,7 +2704,7 @@ jobs:
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -2803,7 +2862,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-mac-arm64
@@ -2812,7 +2871,7 @@ jobs:
 
       - name: Upload mac-arm64 provenance
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: provenance-mac-arm64
           path: provenance/
@@ -2851,16 +2910,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-mac-arm64"
           echo "$mark build-mac-arm64" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-mac-arm64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -2871,6 +2932,8 @@ jobs:
   # day Intel macOS stops being published this job SKIPS with a warning instead of
   # failing red, and returns on its own if a Node.js for it appears again.
   build-mac-x64:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64, release]
     # Intel (x86_64) macOS. It was `macos-13`, and GitHub RETIRED that image -
     # actions/runner-images publishes macos-14, macos-15 and macos-26 only, and
@@ -2888,15 +2951,16 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -2932,7 +2996,7 @@ jobs:
 
       - name: Download amd64 bundle
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -3072,7 +3136,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-mac-x64
@@ -3081,7 +3145,7 @@ jobs:
 
       - name: Upload mac-x64 provenance
         if: steps.preflight.outputs.skip != 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: provenance-mac-x64
           path: provenance/
@@ -3109,16 +3173,18 @@ jobs:
       - name: Job result
         if: always()
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-mac-x64"
           echo "$mark build-mac-x64" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-mac-x64 FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -3140,6 +3206,8 @@ jobs:
   # build a Node.js for it - so there would be nothing to run the bundle with. See
   # docs/Platforms/Platforms.md.
   build-extra-arches:
+    permissions:
+      contents: write
     needs: [prepare, build-amd64, release]
     runs-on: ubuntu-24.04
     timeout-minutes: 300
@@ -3289,7 +3357,9 @@ jobs:
       #
       # It also has to come before the artifact download, because
       # actions/checkout cleans the workspace and would remove the bundle.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
@@ -3300,10 +3370,10 @@ jobs:
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" curl unzip zip
 
       - name: Set up QEMU for ${{ matrix.arch }} emulation
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
 
       - name: Download amd64 bundle
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bundle-amd64
 
@@ -3324,16 +3394,23 @@ jobs:
       # emulated container with a 404 in the middle of an npm install.
       - name: Check the binaries ${{ matrix.arch }} needs exist
         id: preflight
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
+          MATRIX_NODE_ARCH: ${{ matrix.node_arch }}
+          MATRIX_FERRETDB_ARCH: ${{ matrix.ferretdb_arch }}
+          MATRIX_IMAGE: ${{ matrix.image }}
+          MATRIX_PLATFORM: ${{ matrix.platform }}
+          MATRIX_OPTIONAL: ${{ matrix.optional }}
         run: |
           set -euo pipefail
           bash releases/check-arch-binaries.sh \
-            '${{ matrix.arch }}' \
-            '${{ matrix.node_arch }}' \
-            '${{ matrix.ferretdb_arch }}' \
+            "${MATRIX_ARCH}" \
+            "${MATRIX_NODE_ARCH}" \
+            "${MATRIX_FERRETDB_ARCH}" \
             "$NODE_VERSION" \
-            '${{ matrix.image }}' \
-            '${{ matrix.platform }}' \
-            '${{ matrix.optional }}' \
+            "${MATRIX_IMAGE}" \
+            "${MATRIX_PLATFORM}" \
+            "${MATRIX_OPTIONAL}" \
             | tee /tmp/preflight.txt
           # skip=true when a best-effort arch has no Node.js port yet; the build
           # steps below are gated on it. node_* are absent in that case.
@@ -3346,9 +3423,10 @@ jobs:
           NODE_FROM: ${{ steps.preflight.outputs.node_from }}
           NODE_URL: ${{ steps.preflight.outputs.node_url }}
           NODE_SHA256: ${{ steps.preflight.outputs.node_sha256 }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          bash releases/record-provenance.sh '${{ matrix.arch }}' 'Node.js' \
+          bash releases/record-provenance.sh "${MATRIX_ARCH}" 'Node.js' \
             "$NODE_FROM" "$NODE_FULL" "$NODE_URL" "${NODE_SHA256:-}"
 
       - name: Rebuild native modules for ${{ matrix.arch }} under emulation
@@ -3360,6 +3438,11 @@ jobs:
           NODE_KIND: ${{ steps.preflight.outputs.node_kind }}
           NODE_MEMBER: ${{ steps.preflight.outputs.node_member }}
           NODE_SHA256: ${{ steps.preflight.outputs.node_sha256 }}
+          MATRIX_NODE_ARCH: ${{ matrix.node_arch }}
+          MATRIX_ARCH: ${{ matrix.arch }}
+          MATRIX_PLATFORM: ${{ matrix.platform }}
+          MATRIX_SAME_ARCH_CONTAINER: ${{ matrix.same_arch_container }}
+          MATRIX_IMAGE: ${{ matrix.image }}
         run: |
           set -euo pipefail
           # bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3 which
@@ -3374,7 +3457,7 @@ jobs:
           # arm64, so `docker run --platform linux/s390x node:26-slim` fails with
           # "no matching manifest". Run a plain distribution image that does
           # publish this architecture and install Node.js inside it.
-          echo "Using Node ${NODE_FULL} (${{ matrix.node_arch }}) for ${{ matrix.arch }}, from ${NODE_FROM}"
+          echo "Using Node ${NODE_FULL} (${MATRIX_NODE_ARCH}) for ${MATRIX_ARCH}, from ${NODE_FROM}"
 
           # The container script is a FILE, mounted in. It used to be an inline
           # `bash -c '...'` and it contains apostrophes - which a single-quoted
@@ -3385,20 +3468,20 @@ jobs:
           # architecture, and died on the 404 - four of the six failures in the
           # v10.57 run. A file has no quoting layer to get wrong, and `bash -n`
           # can check it.
-          docker run --rm --platform ${{ matrix.platform }} \
+          docker run --rm --platform "${MATRIX_PLATFORM}" \
             -e NODE_FULL="$NODE_FULL" \
             -e NODE_FROM="$NODE_FROM" \
             -e NODE_URL="$NODE_URL" \
             -e NODE_KIND="$NODE_KIND" \
             -e NODE_MEMBER="$NODE_MEMBER" \
             -e NODE_SHA256="$NODE_SHA256" \
-            -e ARCH='${{ matrix.arch }}' \
-            -e NODE_ARCH='${{ matrix.node_arch }}' \
-            -e SAME_ARCH_CONTAINER='${{ matrix.same_arch_container }}' \
+            -e ARCH="${MATRIX_ARCH}" \
+            -e NODE_ARCH="${MATRIX_NODE_ARCH}" \
+            -e SAME_ARCH_CONTAINER="${MATRIX_SAME_ARCH_CONTAINER}" \
             -v "$(pwd)/bundle:/bundle" \
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
-            ${{ matrix.image }} \
+            "${MATRIX_IMAGE}" \
             bash /releases/install-node-for-arch.sh
 
       - name: Embed FerretDB (${{ matrix.arch }}) into the bundle
@@ -3408,13 +3491,16 @@ jobs:
         # download only this arch's binary from the newest wekan/FerretDB release.
         # A marker file makes FerretDB the default backend at runtime (see the
         # launcher + Docker entrypoint).
+        env:
+          MATRIX_FERRETDB_ARCH: ${{ matrix.ferretdb_arch }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           # `ferretdb_arch`, not `arch`: FerretDB names the 32-bit ARM asset armhf
           # and the 32-bit x86 one i386, which is what we call them too - but the
           # two names are kept separate here so a platform whose Node.js name,
           # FerretDB name and our own name disagree cannot silently download the
           # wrong CPU's binary.
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${{ matrix.ferretdb_arch }}"
+          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${MATRIX_FERRETDB_ARCH}"
           bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o bundle/ferretdb "$FERRET_URL"
           chmod +x bundle/ferretdb
           # wekan/FerretDB publishes a .sha256sum beside each binary now. Older
@@ -3425,15 +3511,15 @@ jobs:
             FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
             GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
             if [ "$GOT" != "$FERRET_SHA" ]; then
-              echo "::error::FerretDB for ${{ matrix.ferretdb_arch }} does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
+              echo "::error::FerretDB for ${MATRIX_FERRETDB_ARCH} does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
               exit 1
             fi
             echo "FerretDB SHA256 verified: $GOT"
           else
-            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${{ matrix.ferretdb_arch }} on this release, so it is unverified."
+            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${MATRIX_FERRETDB_ARCH} on this release, so it is unverified."
           fi
           FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
-          bash releases/record-provenance.sh '${{ matrix.arch }}' 'FerretDB' \
+          bash releases/record-provenance.sh "${MATRIX_ARCH}" 'FerretDB' \
             'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
           # Tolerant: wekan/mongo-tools-patches does not publish mongo-tools for every arch this
@@ -3442,22 +3528,24 @@ jobs:
           # not need these to start. A silently-amd64 tool would be worse.
           # It removes the inherited amd64 tools first, so a platform with none
           # ships without them rather than with the wrong CPU's.
-          rc=0; bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle "${{ matrix.ferretdb_arch }}" || rc=$?
+          rc=0; bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle "${MATRIX_FERRETDB_ARCH}" || rc=$?
           [ "$rc" != 2 ] || { echo "::error::A MongoDB Database Tools download failed or did not match its checksum; the lines above say which."; exit 1; }
-          [ "$rc" = 0 ] || echo "::warning::No MongoDB Database Tools for ${{ matrix.ferretdb_arch }} in wekan/mongo-tools-patches; the bundle ships without them."
+          [ "$rc" = 0 ] || echo "::warning::No MongoDB Database Tools for ${MATRIX_FERRETDB_ARCH} in wekan/mongo-tools-patches; the bundle ships without them."
           touch bundle/.ferretdb-default
 
       - name: Create ${{ matrix.arch }} zip
         id: zip
         if: steps.preflight.outputs.skip != 'true'
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
-          zip -r wekan-${VERSION}-${{ matrix.arch }}.zip bundle
+          zip -r "wekan-${VERSION}-${MATRIX_ARCH}.zip" bundle
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
           # zipped"; the entries answer "can this bundle start at all" - bundle/main.js is
           # what the launcher runs, bundle/node is the runtime the zip promises to carry.
-          zip="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          zip="wekan-${VERSION}-${MATRIX_ARCH}.zip"
           if [ ! -f "$zip" ]; then
             echo "::error::$zip was not created. The build step above produced no bundle - its log says why."
             exit 1
@@ -3481,7 +3569,7 @@ jobs:
           done
           echo "OK: $zip is $((bytes/1024/1024)) MiB and contains bundle/main.js and bundle/node."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: bundle-${{ matrix.arch }}
@@ -3495,15 +3583,17 @@ jobs:
       - name: Checksum the ${{ matrix.arch }} zip and collect provenance
         id: checksum
         if: ${{ always() && steps.zip.outcome == 'success' && steps.preflight.outputs.skip != 'true' }}
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          zip="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          zip="wekan-${VERSION}-${MATRIX_ARCH}.zip"
           sha256sum "$zip" > "${zip}.sha256sum"
           cat "${zip}.sha256sum"
           mkdir -p provenance
-          [ -f provenance.tsv ] && mv provenance.tsv "provenance/${{ matrix.arch }}.tsv" || true
+          [ -f provenance.tsv ] && mv provenance.tsv "provenance/${MATRIX_ARCH}.tsv" || true
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.preflight.outputs.skip != 'true'
         with:
           name: provenance-${{ matrix.arch }}
@@ -3517,9 +3607,10 @@ jobs:
           # No repo checkout in this job, so set GH_REPO so `gh` knows the target
           # repository instead of trying (and failing) to detect a git remote.
           GH_REPO: ${{ github.repository }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          asset="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          asset="wekan-${VERSION}-${MATRIX_ARCH}.zip"
           if [ ! -f "$asset" ]; then
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
@@ -3542,17 +3633,20 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
-          echo "$mark build-extra-arches ${{ matrix.arch }}"
-          echo "$mark build-extra-arches ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::build-extra-arches ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          echo "$mark build-extra-arches ${MATRIX_ARCH}"
+          echo "$mark build-extra-arches ${MATRIX_ARCH}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${JOB_STATUS}" = "failure" ]; then
+            echo "::error::build-extra-arches ${MATRIX_ARCH} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # ─── 7c. Build the Sandstorm .spk and attach it to the Release ───────────────
@@ -3569,6 +3663,8 @@ jobs:
   # continue-on-error: the experimental Sandstorm build must NOT fail the release;
   # like the other post-`release` bundle jobs it only attaches its artifact.
   build-sandstorm:
+    permissions:
+      contents: write
     needs: [prepare, release]
     continue-on-error: true
     runs-on: ubuntu-24.04
@@ -3599,15 +3695,16 @@ jobs:
           fi
           echo "build-sandstorm: SANDSTORM_KEYRING decodes to $bytes bytes."
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use release npm version
@@ -3823,7 +3920,7 @@ jobs:
           fi
           ls -la "$SPK"
           echo "spk=$SPK" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ steps.build.outputs.spk }}
           path: ${{ steps.build.outputs.spk }}
@@ -3833,9 +3930,10 @@ jobs:
         if: ${{ always() && steps.build.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STEP_BUILD_SPK: ${{ steps.build.outputs.spk }}
         run: |
           set -euo pipefail
-          asset="${{ steps.build.outputs.spk }}"
+          asset="${STEP_BUILD_SPK}"
           if [ ! -f "$asset" ]; then
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
@@ -3858,16 +3956,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark build-sandstorm"
           echo "$mark build-sandstorm" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::build-sandstorm FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -3879,6 +3979,9 @@ jobs:
   # needs `build-extra-arches` because the image now covers ppc64le/s390x/riscv64,
   # whose zips (with FerretDB baked in) are attached by that job after `release`.
   docker:
+    permissions:
+      contents: read
+      packages: write
     needs: [prepare, release, build-extra-arches]
     # always() + release success: build-extra-arches is a matrix, and if ANY leg
     # fails (e.g. one exotic CPU) the whole matrix job is "failed", which would
@@ -3951,19 +4054,20 @@ jobs:
           check GHCR_AUTH ghcr.io "$GHCR_AUTH" || rc=1
           exit $rc
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       # (The login to all three registries happens in the secrets check above, so a
       # bad credential names itself before anything is built.)
@@ -4488,16 +4592,18 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark docker"
           echo "$mark docker" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
+          if [ "${JOB_STATUS}" = "failure" ]; then
             echo "::error::docker FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
@@ -4616,6 +4722,8 @@ jobs:
           echo "SNAP_AUTH is usable, and carries every snap name this release publishes."
 
   snap-native:
+    permissions:
+      contents: write
     needs: [prepare, release, snap-auth-check]
     strategy:
       fail-fast: false
@@ -4672,7 +4780,7 @@ jobs:
           esac
           echo "snap-native: SNAP_AUTH is set ($chars characters)."
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
 
@@ -4716,7 +4824,7 @@ jobs:
         # platform whose `build-on` matches this host — no Launchpad, no emulation.
         id: build-first
         continue-on-error: true
-        uses: snapcore/action-build@v1
+        uses: snapcore/action-build@3bdaa03e1ba6bf59a65f84a751d943d549a54e79 # v1.3.0
         with:
           snapcraft-args: pack
 
@@ -4727,7 +4835,7 @@ jobs:
       - name: Retry Snapcraft once after refreshing its base instance
         id: build-retry
         if: steps.build-first.outcome == 'failure'
-        uses: snapcore/action-build@v1
+        uses: snapcore/action-build@3bdaa03e1ba6bf59a65f84a751d943d549a54e79 # v1.3.0
         with:
           snapcraft-args: pack
 
@@ -4742,28 +4850,34 @@ jobs:
 
       - name: Verify the built snap is ${{ matrix.arch }}
         id: verify
+        env:
+          STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          snap="${{ steps.build.outputs.snap }}"
+          snap="${STEP_BUILD_SNAP}"
           echo "Built: $snap"
           case "$snap" in
-            *_${{ matrix.arch }}.snap) : ;;
-            *) echo "::error::Built snap '$snap' is not ${{ matrix.arch }}."; exit 1 ;;
+            *_${MATRIX_ARCH}.snap) : ;;
+            *) echo "::error::Built snap '$snap' is not ${MATRIX_ARCH}."; exit 1 ;;
           esac
 
       - id: publish
         name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
         run: |
           set -euo pipefail
-          SNAP_UPLOAD_LABEL="${{ steps.build.outputs.snap }}" \
-          bash releases/snap-upload-retry.sh "${{ steps.build.outputs.snap }}" stable,candidate,beta,edge
+          SNAP_UPLOAD_LABEL="${STEP_BUILD_SNAP}" \
+          bash releases/snap-upload-retry.sh "${STEP_BUILD_SNAP}" stable,candidate,beta,edge
 
       # The upload step above retries only transient store-side processing/server
       # failures. Name the secret when the remaining failure is credentials/ACL.
       - name: Say which secret the Snap Store refused
         if: failure() && steps.publish.outcome == 'failure'
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           # Two different failures wear the same red X here, and the line snapcraft
           # printed just above in the log says which:
@@ -4772,7 +4886,7 @@ jobs:
           #      output instead of the file contents. Nothing to do with the store.
           #   401 / 403 / "not authorized"       -> the credential is fine but does
           #      not carry the ACL for this snap NAME.
-          echo "::error::The ${{ matrix.arch }} snap was built but not published. Read the snapcraft line above: 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login (mangled, or the terminal output instead of the file contents); 401/403/not authorized means it lacks the ACL for this snap name. Both are fixed by re-exporting for ALL THREE names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+          echo "::error::The ${MATRIX_ARCH} snap was built but not published. Read the snapcraft line above: 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login (mangled, or the terminal output instead of the file contents); 401/403/not authorized means it lacks the ACL for this snap name. Both are fixed by re-exporting for ALL THREE names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
           exit 1
 
       # always() + the verify step's outcome: a snap that was built and checked
@@ -4783,9 +4897,10 @@ jobs:
         if: ${{ always() && steps.verify.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
         run: |
           set -euo pipefail
-          asset="${{ steps.build.outputs.snap }}"
+          asset="${STEP_BUILD_SNAP}"
           if [ ! -f "$asset" ]; then
             echo "::error::$asset does not exist, so there is nothing to attach. The step that builds it failed, or produced a different name."
             exit 1
@@ -4806,20 +4921,25 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
-          echo "$mark snap-native ${{ matrix.arch }}"
-          echo "$mark snap-native ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::snap-native ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          echo "$mark snap-native ${MATRIX_ARCH}"
+          echo "$mark snap-native ${MATRIX_ARCH}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${JOB_STATUS}" = "failure" ]; then
+            echo "::error::snap-native ${MATRIX_ARCH} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   snap-launchpad:
+    permissions:
+      contents: write
     # ENABLED. `continue-on-error: true` below means a failure here can never
     # fail the release or hold up another job - the point of running it is to
     # SEE what it reports. Disable again with `if: ${{ false }}`.
@@ -4897,11 +5017,12 @@ jobs:
         id: bundle
         env:
           GH_TOKEN: ${{ github.token }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          case "${{ matrix.arch }}" in
+          case "${MATRIX_ARCH}" in
             ppc64el) bundle_arch=ppc64le ;;
-            *)       bundle_arch=${{ matrix.arch }} ;;
+            *)       bundle_arch=${MATRIX_ARCH} ;;
           esac
           asset="wekan-${VERSION}-${bundle_arch}.zip"
           echo "asset=$asset" >> "$GITHUB_OUTPUT"
@@ -4913,13 +5034,13 @@ jobs:
             --json assets --jq '.assets[].name')"
           if grep -qxF "$asset" <<< "$assets"; then
             echo "available=true" >> "$GITHUB_OUTPUT"
-            echo "Found $asset; Launchpad can build ${{ matrix.arch }}."
+            echo "Found $asset; Launchpad can build ${MATRIX_ARCH}."
           else
             echo "available=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::$asset is absent after build-extra-arches finished; skipping the ${{ matrix.arch }} snap instead of retrying a permanent 404 on Launchpad."
+            echo "::warning::$asset is absent after build-extra-arches finished; skipping the ${MATRIX_ARCH} snap instead of retrying a permanent 404 on Launchpad."
           fi
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.bundle.outputs.available == 'true'
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
@@ -4936,7 +5057,9 @@ jobs:
         if: steps.bundle.outputs.available == 'true'
         # Snapcraft hashes the project files, not only its commit. Use a complete
         # one-commit source tree with Git metadata/logs outside the hashed tree.
-        run: bash releases/prepare-launchpad-source.sh "${{ matrix.arch }}"
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
+        run: bash releases/prepare-launchpad-source.sh "${MATRIX_ARCH}"
 
       - name: Install snapcraft
         if: steps.bundle.outputs.available == 'true'
@@ -4986,6 +5109,8 @@ jobs:
         # therefore reported "succeeded" over an empty `Artifacts:` list and walked
         # into `'wekan_10.48_s390x.snap' is not a valid file` in the upload step - a
         # missing file, blamed on SNAP_AUTH. Ask the filesystem instead.
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -uo pipefail
           shopt -s nullglob
@@ -5033,7 +5158,7 @@ jobs:
             (
               cd "$remote_source" || { echo "::error::Prepared Launchpad source is missing: $remote_source" >&2; exit 1; }
               timeout --kill-after=30s "${remaining}s" bash "$remote_wrapper" remote-build --launchpad-accept-public-upload \
-                --build-for ${{ matrix.arch }} "$@"
+                --build-for "${MATRIX_ARCH}" "$@"
             ) 2>&1 | tee "$remote_log"
             local remote_rc=${PIPESTATUS[0]}
             # Downloaded artifacts and build logs also change the project hash.
@@ -5059,8 +5184,8 @@ jobs:
             # A partial file from a previous attempt must not be mistaken for
             # this attempt's artifact: snapcraft does not re-download a name it
             # already has, so the truncated one would be uploaded again.
-            rm -f wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap
-            echo "::group::Remote build ${{ matrix.arch }} attempt $i/$attempts"
+            rm -f "wekan_${VERSION}_${MATRIX_ARCH}"*.snap ./*_"${MATRIX_ARCH}".snap
+            echo "::group::Remote build ${MATRIX_ARCH} attempt $i/$attempts"
             # Build logs this attempt downloads are newer than this marker; the
             # earlier attempts' logs stay in the directory for the diagnostics
             # below, but must not be printed again as if they were this one's.
@@ -5080,14 +5205,14 @@ jobs:
               fi
             fi
             fresh_next=0
-            if grep -qE "^(Stopped|Failed|Cancelled): ${{ matrix.arch }}\$" "$remote_log"; then
+            if grep -qE "^(Stopped|Failed|Cancelled): ${MATRIX_ARCH}\$" "$remote_log"; then
               fresh_next=1
             fi
             echo "::endgroup::"
             # A real glob, so nullglob can empty it, plus any name Launchpad chose -
             # deduplicated, because the two patterns match the same file and it was
             # printed (and would be uploaded) twice.
-            snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
+            snaps=( $(printf '%s\n' "wekan_${VERSION}_${MATRIX_ARCH}"*.snap *_"${MATRIX_ARCH}".snap | sort -u) )
             # snapcraft can download a complete snap and then fail while cleaning
             # up its Launchpad session (for example an SSL EOF while revoking the
             # proxy token). The validated artifact is the build result; do not
@@ -5097,20 +5222,20 @@ jobs:
               if [ "$rc" -ne 0 ]; then
                 echo "::warning::snapcraft exited $rc during post-download cleanup, but ${snaps[0]} is a complete squashfs snap; keeping it."
               fi
-              echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]} ($(wc -c < "${snaps[0]}" | tr -d '[:space:]') bytes, squashfs)"
+              echo "Remote build ${MATRIX_ARCH} succeeded on attempt $i: ${snaps[*]} ($(wc -c < "${snaps[0]}" | tr -d '[:space:]') bytes, squashfs)"
               echo "built=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [ "$rc" -eq 124 ] || [ "$SECONDS" -ge "$deadline" ]; then
               echo "pending=true" >> "$GITHUB_OUTPUT"
-              echo "::warning::Launchpad ${{ matrix.arch }} has not produced a snap within the five-hour wait budget. Ending the local wait cleanly; re-run this matrix job later to reconnect to the same build and publish its snap."
+              echo "::warning::Launchpad ${MATRIX_ARCH} has not produced a snap within the five-hour wait budget. Ending the local wait cleanly; re-run this matrix job later to reconnect to the same build and publish its snap."
               exit 0
             fi
             if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
               echo "::warning::Attempt $i produced ${snaps[0]}, but it is not a usable snap (see above). Refusing to publish it; recovery must retrieve a valid artifact."
             fi
             if [ "$rc" -eq 0 ]; then
-              echo "Attempt $i: snapcraft exited 0 but produced NO .snap for ${{ matrix.arch }} - the Launchpad build did not finish (a 'Stopped' build downloads logs and no artifact). Everything in the directory:"
+              echo "Attempt $i: snapcraft exited 0 but produced NO .snap for ${MATRIX_ARCH} - the Launchpad build did not finish (a 'Stopped' build downloads logs and no artifact). Everything in the directory:"
             else
               echo "Attempt $i: snapcraft exit=$rc, .snap files produced=${#snaps[@]}."
             fi
@@ -5165,7 +5290,7 @@ jobs:
               sleep 60
             fi
           done
-          echo "::error::Remote build ${{ matrix.arch }} failed after $attempts attempts (no wekan_${VERSION}_${{ matrix.arch }}.snap produced). The Launchpad build log printed above says why; the builds are also at https://launchpad.net/~xet7/+snaps" >&2
+          echo "::error::Remote build ${MATRIX_ARCH} failed after $attempts attempts (no wekan_${VERSION}_${MATRIX_ARCH}.snap produced). The Launchpad build log printed above says why; the builds are also at https://launchpad.net/~xet7/+snaps" >&2
           # A DETERMINISTIC failure, named before the guesses below. Three
           # identical attempts on ONE architecture while the others build on
           # attempt 1 is not the build farm having a bad day - and the guidance
@@ -5182,11 +5307,11 @@ jobs:
           # step is waiting and re-running rather than editing snapcraft.yaml.
           if grep -qsE 'could not be fetched: 5[0-9][0-9] |Gateway error \[IP: ' snapcraft-wekan-*.txt; then
             proxypkg="$(grep -hs -oE "could not be fetched: 5[0-9][0-9] [^[]*|/download/[^ ']*\.deb" snapcraft-wekan-*.txt | sed 's#^/download/##' | sort -u | tr '\n' ' ')"
-            echo "::error::Launchpad's build-farm package proxy failed (HTTP 5xx) while the ${{ matrix.arch }} build downloaded its stage-packages: ${proxypkg}. That is Launchpad infrastructure, not WeKan, and snapcraft.yaml needs no change; re-run this job (or Release All Missing) later. Builder status: https://launchpad.net/builders" >&2
+            echo "::error::Launchpad's build-farm package proxy failed (HTTP 5xx) while the ${MATRIX_ARCH} build downloaded its stage-packages: ${proxypkg}. That is Launchpad infrastructure, not WeKan, and snapcraft.yaml needs no change; re-run this job (or Release All Missing) later. Builder status: https://launchpad.net/builders" >&2
           fi
           if grep -qs 'Stage package not found' snapcraft-wekan-*.txt; then
             missingpkg="$(grep -hs -o "Stage package not found in part '[^']*': [^ ]*" snapcraft-wekan-*.txt | sort -u | tr '\n' ' ')"
-            echo "::error::This is NOT a transient failure and re-running will not fix it: ${missingpkg}. A stage-package that resolves on the 64-bit architectures can be missing on ${{ matrix.arch }} - Ubuntu 24.04's 64-bit time_t transition renamed libraries to a t64 suffix, and the renamed package carries 'Provides: <old name>' on amd64/arm64 but NOT on armhf, where the ABI really changed. Name the real package in snapcraft.yaml (libssl3 -> libssl3t64, libcurl4 -> libcurl4t64, libgoogle-perftools4 -> libgoogle-perftools4t64). Check a name against the archive: curl -fsSL http://ports.ubuntu.com/ubuntu-ports/dists/noble/main/binary-armhf/Packages.gz | gunzip -c | grep '^Package: <name>$'" >&2
+            echo "::error::This is NOT a transient failure and re-running will not fix it: ${missingpkg}. A stage-package that resolves on the 64-bit architectures can be missing on ${MATRIX_ARCH} - Ubuntu 24.04's 64-bit time_t transition renamed libraries to a t64 suffix, and the renamed package carries 'Provides: <old name>' on amd64/arm64 but NOT on armhf, where the ABI really changed. Name the real package in snapcraft.yaml (libssl3 -> libssl3t64, libcurl4 -> libcurl4t64, libgoogle-perftools4 -> libgoogle-perftools4t64). Check a name against the archive: curl -fsSL http://ports.ubuntu.com/ubuntu-ports/dists/noble/main/binary-armhf/Packages.gz | gunzip -c | grep '^Package: <name>$'" >&2
             exit 1
           fi
           # A "Stopped" build with no artifact is Launchpad ENDING the build
@@ -5216,7 +5341,7 @@ jobs:
           # produce anywhere else. Nothing transient about it, and "re-run" was
           # the one thing that could not help. So these are named as the things to
           # LOOK FOR in the log above, not as what probably happened.
-          echo "::error::snap-launchpad ${{ matrix.arch }}: the Launchpad build log is printed above - read it first; it names the part and the line that failed. Common causes, in the order they are worth checking: (1) a 'Failed to copy .../parts/<part>/install/<path>' - a stage:/prime: filter naming something the part did not produce on THIS architecture, which is deterministic and will not pass on a re-run; (2) an npm/network error inside a part's override-build, which is transient and is retried; (3) 'Stopped' with no artifact and no error - then check that https://launchpad.net/xet7-craft-remote-build still has a licence set (MIT / X/Expat), and otherwise Launchpad ended the build itself. Builds: https://launchpad.net/~xet7/+snaps" >&2
+          echo "::error::snap-launchpad ${MATRIX_ARCH}: the Launchpad build log is printed above - read it first; it names the part and the line that failed. Common causes, in the order they are worth checking: (1) a 'Failed to copy .../parts/<part>/install/<path>' - a stage:/prime: filter naming something the part did not produce on THIS architecture, which is deterministic and will not pass on a re-run; (2) an npm/network error inside a part's override-build, which is transient and is retried; (3) 'Stopped' with no artifact and no error - then check that https://launchpad.net/xet7-craft-remote-build still has a licence set (MIT / X/Expat), and otherwise Launchpad ended the build itself. Builds: https://launchpad.net/~xet7/+snaps" >&2
           # A wrong or expired LP_CREDENTIALS makes Launchpad answer 401/403, which
           # reads as an ordinary build failure unless the log is checked. But the
           # pattern must be SPECIFIC: a bare `401`/`403` matches any three digits in
@@ -5259,7 +5384,7 @@ jobs:
           done
           ls -la snap-logs || true
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         # A DIAGNOSTIC upload can never fail the build it is diagnosing. The snap
         # is the deliverable; these logs are here so a failure can be read
         # afterwards, and the renaming above is not the last thing that could
@@ -5276,18 +5401,19 @@ jobs:
         if: steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true'
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
           shopt -s nullglob
           # Deduplicated: the two patterns match the same file, and uploading it
           # twice is how one build became two Snap Store revisions.
-          snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
+          snaps=( $(printf '%s\n' "wekan_${VERSION}_${MATRIX_ARCH}"*.snap *_"${MATRIX_ARCH}".snap | sort -u) )
           # "No file", "not a snap" and "the store said no" are three different
           # problems with three different owners, so they get three messages.
           # v10.48 printed the SNAP_AUTH one for a file that was never built, and
           # v10.89 let the store be the first to notice a truncated download.
           if [ "${#snaps[@]}" -eq 0 ] || [ ! -s "${snaps[0]}" ]; then
-            echo "::error::No wekan_${VERSION}_${{ matrix.arch }}.snap to upload - the Launchpad build produced no artifact. This is NOT a SNAP_AUTH problem; see the build step above."
+            echo "::error::No wekan_${VERSION}_${MATRIX_ARCH}.snap to upload - the Launchpad build produced no artifact. This is NOT a SNAP_AUTH problem; see the build step above."
             exit 1
           fi
           if [ "$(head -c4 "${snaps[0]}")" != "hsqs" ]; then
@@ -5336,6 +5462,7 @@ jobs:
         if: ${{ always() && steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
           shopt -s nullglob
@@ -5352,11 +5479,11 @@ jobs:
           # way. All three had BUILT, and all three were already published to the
           # Snap Store by the step above - so the failure was only ever in the
           # attaching, which is the half people download from.
-          snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
+          snaps=( $(printf '%s\n' "wekan_${VERSION}_${MATRIX_ARCH}"*.snap *_"${MATRIX_ARCH}".snap | sort -u) )
           if [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
             bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}"
           else
-            echo "No ${{ matrix.arch }} snap to attach - the build produced none."
+            echo "No ${MATRIX_ARCH} snap to attach - the build produced none."
           fi
 
       # Always, as the last step: the run summary then answers "what worked and what
@@ -5365,8 +5492,10 @@ jobs:
       # job it was in.
       - name: Say what an unfinished ${{ matrix.arch }} build leaves behind
         if: steps.launchpad.outputs.pending == 'true'
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          echo "::warning::snap-launchpad ${{ matrix.arch }} is unfinished on Launchpad; this Actions job stopped waiting cleanly before GitHub's cap."
+          echo "::warning::snap-launchpad ${MATRIX_ARCH} is unfinished on Launchpad; this Actions job stopped waiting cleanly before GitHub's cap."
           echo "Re-run this matrix job after Launchpad finishes. Its deterministic snapshot reconnects to the same build, downloads the snap, and publishes it."
 
       # An unexpected job-level cancellation is distinct from the deliberate,
@@ -5375,8 +5504,10 @@ jobs:
       # while Launchpad sat in "Uploading", and said "ran out of time".
       - name: Say what a cancelled ${{ matrix.arch }} job leaves behind
         if: cancelled()
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          echo "::warning::snap-launchpad ${{ matrix.arch }} was cancelled (by hand, or at the job time cap), but the Launchpad build was NOT cancelled - it may still be building there."
+          echo "::warning::snap-launchpad ${MATRIX_ARCH} was cancelled (by hand, or at the job time cap), but the Launchpad build was NOT cancelled - it may still be building there."
           echo "Re-run THIS job when it has finished: snapcraft remote-build reconnects to the same Launchpad build and downloads the snap; nothing is rebuilt."
           for log in snapcraft-wekan-*.txt; do
             [ -e "$log" ] || continue
@@ -5389,17 +5520,20 @@ jobs:
         # bash explicitly: this same step runs on the Windows and macOS runners too,
         # where the default shell is PowerShell / not necessarily this bash.
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
-          echo "$mark snap-launchpad ${{ matrix.arch }}"
-          echo "$mark snap-launchpad ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::snap-launchpad ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          echo "$mark snap-launchpad ${MATRIX_ARCH}"
+          echo "$mark snap-launchpad ${MATRIX_ARCH}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${JOB_STATUS}" = "failure" ]; then
+            echo "::error::snap-launchpad ${MATRIX_ARCH} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # Repository synchronization is a required, separately visible release job.
@@ -5466,6 +5600,8 @@ jobs:
         id: guard
         env:
           SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+          MATRIX_SNAPNAME: ${{ matrix.snapname }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           # SNAP_AUTH decides whether this job can do its job at all. It must carry
           # the ACL for THIS snap name as well as for `wekan`:
@@ -5474,14 +5610,14 @@ jobs:
           #     snap-auth.txt
           if [ -z "$SNAP_AUTH" ]; then
             echo "snap=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::snap-variants (${{ matrix.snapname }} ${{ matrix.arch }}) skipped — SNAP_AUTH is not set, so the snap cannot be published. See docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md."
+            echo "::warning::snap-variants (${MATRIX_SNAPNAME} ${MATRIX_ARCH}) skipped — SNAP_AUTH is not set, so the snap cannot be published. See docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md."
             exit 0
           fi
           echo "snap=true" >> "$GITHUB_OUTPUT"
 
       - name: Checkout wekan at the release tag
         if: steps.guard.outputs.snap == 'true'
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: wekan
@@ -5493,6 +5629,10 @@ jobs:
       - name: Build the ${{ matrix.snapname }} tree from wekan
         id: tree
         if: steps.guard.outputs.snap == 'true'
+        env:
+          MATRIX_SNAPNAME: ${{ matrix.snapname }}
+          MATRIX_TITLE: ${{ matrix.title }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
           # The variant IS wekan, with a different snap name - so it is built from
@@ -5508,24 +5648,24 @@ jobs:
           # WeKan snap.
           for f in snapcraft.yaml snapcraft-core26.yaml; do
             [ -f "$f" ] || continue
-            sed -i "s/^name: wekan$/name: ${{ matrix.snapname }}/" "$f"
-            sed -i "s/^title: .*/title: ${{ matrix.title }}/" "$f"
+            sed -i "s/^name: wekan$/name: ${MATRIX_SNAPNAME}/" "$f"
+            sed -i "s/^title: .*/title: ${MATRIX_TITLE}/" "$f"
           done
-          if ! grep -qxF "name: ${{ matrix.snapname }}" snapcraft.yaml; then
-            echo "::error::snapcraft.yaml was not renamed to ${{ matrix.snapname }} ($(grep -m1 '^name:' snapcraft.yaml)) - it would publish itself as the default wekan snap."
+          if ! grep -qxF "name: ${MATRIX_SNAPNAME}" snapcraft.yaml; then
+            echo "::error::snapcraft.yaml was not renamed to ${MATRIX_SNAPNAME} ($(grep -m1 '^name:' snapcraft.yaml)) - it would publish itself as the default wekan snap."
             exit 1
           fi
           if ! grep -qxF "version: '${VERSION}'" snapcraft.yaml; then
             echo "::error::snapcraft.yaml is not at version '${VERSION}' ($(grep -m1 '^version:' snapcraft.yaml)). The bump job (releases/version.sh) did not update the tagged commit."
             exit 1
           fi
-          echo "${{ matrix.snapname }} ${{ matrix.arch }}: snapcraft.yaml is $(grep -m1 '^name:' snapcraft.yaml), $(grep -m1 '^version:' snapcraft.yaml), $(grep -m1 '^base:' snapcraft.yaml)."
+          echo "${MATRIX_SNAPNAME} ${MATRIX_ARCH}: snapcraft.yaml is $(grep -m1 '^name:' snapcraft.yaml), $(grep -m1 '^version:' snapcraft.yaml), $(grep -m1 '^base:' snapcraft.yaml)."
 
       - name: Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})
         id: build-first
         continue-on-error: true
         if: steps.guard.outputs.snap == 'true'
-        uses: snapcore/action-build@v1
+        uses: snapcore/action-build@3bdaa03e1ba6bf59a65f84a751d943d549a54e79 # v1.3.0
         with:
           snapcraft-args: pack
           path: variant
@@ -5537,7 +5677,7 @@ jobs:
       - name: Retry Snapcraft once after refreshing its base instance
         id: build-retry
         if: steps.build-first.outcome == 'failure'
-        uses: snapcore/action-build@v1
+        uses: snapcore/action-build@3bdaa03e1ba6bf59a65f84a751d943d549a54e79 # v1.3.0
         with:
           snapcraft-args: pack
           path: variant
@@ -5554,14 +5694,17 @@ jobs:
 
       - name: Verify the built snap is ${{ matrix.snapname }}
         if: steps.guard.outputs.snap == 'true'
+        env:
+          STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
+          MATRIX_SNAPNAME: ${{ matrix.snapname }}
         run: |
           set -euo pipefail
-          snap="${{ steps.build.outputs.snap }}"
+          snap="${STEP_BUILD_SNAP}"
           base="$(basename "$snap")"
           case "$base" in
-            ${{ matrix.snapname }}_*) ;;
+            ${MATRIX_SNAPNAME}_*) ;;
             *)
-              echo "::error::the build produced $base, which is not a ${{ matrix.snapname }} snap - publishing it would overwrite another snap in the store."
+              echo "::error::the build produced $base, which is not a ${MATRIX_SNAPNAME} snap - publishing it would overwrite another snap in the store."
               exit 1
               ;;
           esac
@@ -5571,12 +5714,13 @@ jobs:
         if: steps.guard.outputs.snap == 'true'
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
         run: |
           set -euo pipefail
           # base: core24, grade: stable - so all four channels accept it, exactly
           # as they do for the default wekan snap.
-          SNAP_UPLOAD_LABEL="${{ steps.build.outputs.snap }}" \
-          bash "$GITHUB_WORKSPACE/wekan/releases/snap-upload-retry.sh" "${{ steps.build.outputs.snap }}" stable,candidate,beta,edge
+          SNAP_UPLOAD_LABEL="${STEP_BUILD_SNAP}" \
+          bash "$GITHUB_WORKSPACE/wekan/releases/snap-upload-retry.sh" "${STEP_BUILD_SNAP}" stable,candidate,beta,edge
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -5585,22 +5729,28 @@ jobs:
       - name: Job result
         if: always()
         shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          MATRIX_SNAPNAME: ${{ matrix.snapname }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
-          echo "$mark snap-variants ${{ matrix.snapname }} ${{ matrix.arch }}"
-          echo "$mark snap-variants ${{ matrix.snapname }} ${{ matrix.arch }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ job.status }}" = "failure" ]; then
-            echo "::error::snap-variants ${{ matrix.snapname }} ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
+          echo "$mark snap-variants ${MATRIX_SNAPNAME} ${MATRIX_ARCH}"
+          echo "$mark snap-variants ${MATRIX_SNAPNAME} ${MATRIX_ARCH}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${JOB_STATUS}" = "failure" ]; then
+            echo "::error::snap-variants ${MATRIX_SNAPNAME} ${MATRIX_ARCH} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
   # Refresh the selected changelog notes after builds. Binary provenance remains
   # in build artifacts and is never appended to release notes.
   release-notes:
+    permissions:
+      contents: write
     name: complete the release notes
     needs:
       - prepare
@@ -5627,15 +5777,16 @@ jobs:
     timeout-minutes: 15
     steps:
       # ref: main, so this job reads the same CHANGELOG.md the release job did.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
 
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         continue-on-error: true
         with:
           pattern: provenance-*

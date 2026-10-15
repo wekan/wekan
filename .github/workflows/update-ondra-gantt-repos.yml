@@ -38,14 +38,14 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout newest WeKan content
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: wekan/wekan
           ref: ${{ inputs.source_ref }}
           path: source
 
       - name: Checkout wekan/${{ matrix.repository }}
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: wekan/${{ matrix.repository }}
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
@@ -55,20 +55,27 @@ jobs:
           # history of these repositories is ~160 MB each and is not read.
 
       - name: Copy WeKan and restore ${{ matrix.package }} package identities
+        env:
+          MATRIX_PACKAGE: ${{ matrix.package }}
+          MATRIX_TITLE: ${{ matrix.title }}
         run: |
           source/releases/prepare-variant-repo.sh \
-            source target "${{ matrix.package }}" "${{ matrix.title }}"
+            source target "${MATRIX_PACKAGE}" "${MATRIX_TITLE}"
 
       - name: Commit and push wekan/${{ matrix.repository }}
         working-directory: target
+        env:
+          MATRIX_REPOSITORY: ${{ matrix.repository }}
+          INPUT_SOURCE_REF: ${{ inputs.source_ref }}
+          MATRIX_PACKAGE: ${{ matrix.package }}
         run: |
           set -euo pipefail
           git config user.name 'wekan-release-bot'
           git config user.email 'release@wekan.team'
           git add -A
           if git diff --cached --quiet; then
-            echo "wekan/${{ matrix.repository }} already matches ${{ inputs.source_ref }}."
+            echo "wekan/${MATRIX_REPOSITORY} already matches ${INPUT_SOURCE_REF}."
             exit 0
           fi
-          git commit -m "Sync newest WeKan as ${{ matrix.package }}"
+          git commit -m "Sync newest WeKan as ${MATRIX_PACKAGE}"
           git push origin HEAD:main

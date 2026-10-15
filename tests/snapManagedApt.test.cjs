@@ -17,7 +17,8 @@ test('native and variant Snap jobs allow exactly one guarded recovery', () => {
   for (const name of ['snap-native', 'snap-variants']) {
     const job = workflow.split(`\n  ${name}:\n`)[1]?.split(/\n  [\w-]+:\n/)[0];
     assert.ok(job, name);
-    assert.equal((job.match(/uses: snapcore\/action-build@v1/g) || []).length, 2);
+    // Pinned to a commit of v1 (tests/workflowHardening.test.cjs).
+    assert.equal((job.match(/uses: snapcore\/action-build@[0-9a-f]{40} # v1\./g) || []).length, 2);
     assert.match(job, /id: build-first\s+continue-on-error: true/);
     assert.match(job, /Refresh stale managed APT indexes after a package 404\s+if: steps.build-first.outcome == 'failure'\s+run: sudo .*snap-refresh-managed-apt.py/);
     assert.match(job, /id: build-retry\s+if: steps.build-first.outcome == 'failure'\s+uses:/);

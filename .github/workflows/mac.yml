@@ -34,8 +34,9 @@ on:
         default: ''
         type: string
 
+# Read-only by default; the job that writes is granted it below.
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: wekan-mac-app-${{ inputs.tag || github.ref }}
@@ -65,6 +66,8 @@ jobs:
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
 
   build:
+    permissions:
+      contents: write
     name: Mac app ${{ matrix.arch }}
     needs: release
     runs-on: ${{ matrix.runner }}
@@ -82,7 +85,9 @@ jobs:
     env:
       BUILD_THIS: ${{ inputs.only == '' || contains(fromJSON(inputs.only), matrix.arch) }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
         if: ${{ env.BUILD_THIS == 'true' }}
       - name: Download and verify the native macOS bundle
         if: ${{ env.BUILD_THIS == 'true' }}
@@ -153,14 +158,14 @@ jobs:
             "$PWD/.tools/tmp/mac-smoke.log"
 
       - name: Keep Mac smoke log
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ always() && env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' }}
         with:
           name: mac-smoke-${{ matrix.arch }}
           path: .tools/tmp/mac-smoke.log
           if-no-files-found: ignore
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' }}
         with:
           name: mac-app-${{ matrix.arch }}

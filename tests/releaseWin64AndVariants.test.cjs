@@ -208,7 +208,7 @@ test('both variants are built for the two native architectures', () => {
 });
 
 test('a variant build that produced the wrong snap is not published', () => {
-  assert.ok(/is not a \$\{\{ matrix\.snapname \}\} snap/.test(variantsJob),
+  assert.ok(/is not a \$\{MATRIX_SNAPNAME\} snap/.test(variantsJob) && /MATRIX_SNAPNAME: \$\{\{ matrix\.snapname \}\}/.test(variantsJob),
     'the built file name must start with the variant snap name - publishing a '
     + 'file called wekan_*.snap from here would overwrite the DEFAULT snap');
 });

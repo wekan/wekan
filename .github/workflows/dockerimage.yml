@@ -16,7 +16,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v7
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
 
     # The Dockerfile does not build WeKan from source — it DOWNLOADS the prebuilt
     # release zip (wekan-<VERSION>-amd64.zip) that release-all.yml publishes, and
@@ -31,6 +33,7 @@ jobs:
       id: rel
       env:
         GH_TOKEN: ${{ github.token }}
+        GITHUB_CTX_REPOSITORY: ${{ github.repository }}
       run: |
         set -euo pipefail
         VERSION="$(sed -n 's/^ARG VERSION=//p' Dockerfile | head -1)"
@@ -39,7 +42,7 @@ jobs:
         # at the first match while gh is still writing; gh gets SIGPIPE, pipefail
         # makes the pipeline fail, and a PUBLISHED asset was reported missing - the
         # v12.39 Mac apps were skipped that way, with the bundles already attached.
-        assets="$(gh release view "v${VERSION}" --repo "${{ github.repository }}" \
+        assets="$(gh release view "v${VERSION}" --repo "${GITHUB_CTX_REPOSITORY}" \
              --json assets --jq '.assets[].name' 2>/dev/null || true)"
         if grep -qx "$asset" <<< "$assets"; then
           echo "build=yes" >> "$GITHUB_OUTPUT"

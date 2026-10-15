@@ -62,7 +62,7 @@ jobs:
       matrix: ${{ steps.plan.outputs.matrix }}
       any: ${{ steps.plan.outputs.any }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - id: plan
@@ -110,7 +110,7 @@ jobs:
       TAG: ${{ needs.plan.outputs.tag }}
       TARGET: ${{ matrix.target }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           ref: ${{ needs.plan.outputs.tag }}
@@ -144,7 +144,7 @@ jobs:
 
       # The SEA blob format belongs to one Node.js version: the builder runs
       # on the same version the bundle embeds (build.mjs checks it too).
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         if: steps.fetch.outputs.skip != 'true'
         with:
           node-version: ${{ steps.fetch.outputs.node_version }}
@@ -191,7 +191,7 @@ jobs:
           ls -la "$out" "$out.sha256sum"
           rm -rf bundle
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.fetch.outputs.skip != 'true'
         with:
           name: single-file-${{ matrix.target }}
@@ -216,7 +216,7 @@ jobs:
     steps:
       - name: Get the single file
         id: get
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         continue-on-error: true
         with:
           name: single-file-${{ matrix.target }}
@@ -224,12 +224,15 @@ jobs:
 
       - name: Is there one to start here?
         id: what
+        env:
+          STEP_GET_OUTCOME: ${{ steps.get.outcome }}
+          MATRIX_SMOKE: ${{ matrix.smoke }}
         run: |
           set -euo pipefail
-          if [ "${{ steps.get.outcome }}" != success ]; then
+          if [ "${STEP_GET_OUTCOME}" != success ]; then
             echo "run=false" >> "$GITHUB_OUTPUT"; echo "::notice::$TARGET was not built this release."; exit 0
           fi
-          if [ "${{ matrix.smoke }}" = none ]; then
+          if [ "${MATRIX_SMOKE}" = none ]; then
             echo "run=false" >> "$GITHUB_OUTPUT"
             echo "::notice::GitHub has no runner for $TARGET: the single file is published without being started (its bundle was tested where it was built)."
             mkdir -p ok && echo "$TARGET untested" > "ok/$TARGET"; exit 0
@@ -266,7 +269,7 @@ jobs:
           ls wekan-files wekan-files/bin
           echo "WeKan answered HTTP 200 from the $TARGET single file."
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.what.outputs.run == 'true' && matrix.target == 'amd64'
         with:
           persist-credentials: false
@@ -301,7 +304,7 @@ jobs:
           [ -f wekan-files/logs/wekan.log ] && tail -n 60 wekan-files/logs/wekan.log || true
           mkdir -p ok && echo "$TARGET started" > "ok/$TARGET"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: success() && (steps.what.outputs.run == 'true' || matrix.smoke == 'none')
         with:
           name: single-file-ok-${{ matrix.target }}
@@ -319,10 +322,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           pattern: single-file-*
           path: artifacts

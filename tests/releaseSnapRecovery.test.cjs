@@ -52,7 +52,8 @@ export -f snapcraft
       // Redirect only the workflow's log/cache paths into the fixture. Never
       // change HOME or let this test touch a real Snapcraft cache/credentials.
       .replaceAll('$HOME', '$fixture');
-    const result = spawnSync('bash', ['-c', script], { cwd: dir, env: { ...process.env, SCENARIO: scenario, ARCH: arch, FIXTURE_ROOT: dir }, encoding: 'utf8', timeout: 15000 });
+    // MATRIX_ARCH: the step's env: block, as the runner sets it.
+    const result = spawnSync('bash', ['-c', script], { cwd: dir, env: { ...process.env, SCENARIO: scenario, ARCH: arch, MATRIX_ARCH: arch, FIXTURE_ROOT: dir }, encoding: 'utf8', timeout: 15000 });
     assert.ifError(result.error);
     return { ...result, output: fs.readFileSync(path.join(dir, 'output'), 'utf8'), calls: fs.readFileSync(path.join(dir, 'calls'), 'utf8').trim().split('\n') };
   });

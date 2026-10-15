@@ -82,7 +82,7 @@ assert.match(localRelease, /METEOR_RELEASE=\$\{METEOR_RELEASE\}/,
 assert.ok(fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8')
   .includes(`METEOR_RELEASE=METEOR@${meteorVersion}`),
   'Docker metadata currently matches .meteor/release');
-assert.match(workflow, /release-website\.sh "\$\{\{ inputs\.old_version \}\}" "\$\{\{ inputs\.new_version \}\}"/,
+assert.match(workflow, /INPUT_OLD_VERSION: \$\{\{ inputs\.old_version \}\}[\s\S]*?release-website\.sh "\$\{INPUT_OLD_VERSION\}" "\$\{INPUT_NEW_VERSION\}"/,
   'release-all website job runs the script that generates both destinations');
 
 fs.rmSync(temp, { recursive: true, force: true });

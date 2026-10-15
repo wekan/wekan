@@ -135,7 +135,8 @@ test('armv6 is marked as a container that is not its own CPU, so no qemu-user is
 });
 
 test('the docker run passes SAME_ARCH_CONTAINER into the container', () => {
-  assert.ok(/-e SAME_ARCH_CONTAINER='\$\{\{ matrix\.same_arch_container \}\}'/.test(workflow),
+  assert.ok(/MATRIX_SAME_ARCH_CONTAINER: \$\{\{ matrix\.same_arch_container \}\}/.test(workflow) &&
+    /-e SAME_ARCH_CONTAINER="\$\{MATRIX_SAME_ARCH_CONTAINER\}"/.test(workflow),
     'the matrix flag has to reach install-node-for-arch.sh to have any effect');
 });
 

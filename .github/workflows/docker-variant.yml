@@ -62,6 +62,7 @@ jobs:
       - name: Check DOCKERHUB_AUTH is configured and works
         env:
           DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
+          INPUT_IMAGE: ${{ inputs.image }}
         run: |
           set -uo pipefail
           if [ -z "${DOCKERHUB_AUTH:-}" ]; then
@@ -79,16 +80,19 @@ jobs:
           user="${creds%%:*}"
           token="${creds#*:}"
           if ! printf '%s' "$token" | docker login docker.io -u "$user" --password-stdin; then
-            echo "::error::docker-variant: DOCKERHUB_AUTH was REJECTED by docker.io (login failed as user '$user'). The token is wrong, expired, or lacks push rights for wekanteam/${{ inputs.image }}."
+            echo "::error::docker-variant: DOCKERHUB_AUTH was REJECTED by docker.io (login failed as user '$user'). The token is wrong, expired, or lacks push rights for wekanteam/${INPUT_IMAGE}."
             exit 1
           fi
           echo "docker-variant: DOCKERHUB_AUTH works for docker.io (user '$user')."
 
       - name: Work out which version to publish
         id: v
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_IMAGE: ${{ inputs.image }}
         run: |
           set -euo pipefail
-          version="${{ inputs.version }}"
+          version="${INPUT_VERSION}"
           if [ -z "$version" ]; then
             # The newest release of wekan/wekan, asked of GitHub rather than guessed.
             version="$(curl -sSL -H 'Accept: application/vnd.github+json' \
@@ -101,16 +105,20 @@ jobs:
             exit 1
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "Publishing wekanteam/${{ inputs.image }} from wekanteam/wekan:v$version"
+          echo "Publishing wekanteam/${INPUT_IMAGE} from wekanteam/wekan:v$version"
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       - name: Retag wekanteam/wekan as wekanteam/${{ inputs.image }}
+        env:
+          STEP_V_VERSION: ${{ steps.v.outputs.version }}
+          INPUT_IMAGE: ${{ inputs.image }}
+          INPUT_ALSO_LATEST: ${{ inputs.also_latest }}
         run: |
           set -euo pipefail
-          src="wekanteam/wekan:v${{ steps.v.outputs.version }}"
-          dst="wekanteam/${{ inputs.image }}:v${{ steps.v.outputs.version }}"
+          src="wekanteam/wekan:v${STEP_V_VERSION}"
+          dst="wekanteam/${INPUT_IMAGE}:v${STEP_V_VERSION}"
 
           # The source must exist and be the full multi-arch manifest, or the
           # variant tag would quietly cover fewer architectures than wekan does.
@@ -128,8 +136,8 @@ jobs:
           done
 
           tags=(-t "$dst")
-          if [ "${{ inputs.also_latest }}" = "true" ]; then
-            tags+=(-t "wekanteam/${{ inputs.image }}:latest")
+          if [ "${INPUT_ALSO_LATEST}" = "true" ]; then
+            tags+=(-t "wekanteam/${INPUT_IMAGE}:latest")
           fi
           # imagetools create copies the MANIFEST, so the variant tag points at the
           # very digests the release built and verified. Nothing is rebuilt.
@@ -149,12 +157,15 @@ jobs:
 
       - name: Job result
         if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          INPUT_IMAGE: ${{ inputs.image }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
-          echo "$mark docker-variant wekanteam/${{ inputs.image }}"
-          echo "$mark docker-variant wekanteam/${{ inputs.image }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "$mark docker-variant wekanteam/${INPUT_IMAGE}"
+          echo "$mark docker-variant wekanteam/${INPUT_IMAGE}" >> "$GITHUB_STEP_SUMMARY"

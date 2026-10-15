@@ -55,7 +55,7 @@ jobs:
       matrix: ${{ steps.plan.outputs.matrix }}
       count: ${{ steps.plan.outputs.count }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - id: plan
@@ -74,19 +74,19 @@ jobs:
     steps:
       # Keep workflow helpers from this workflow revision, and the app from the
       # exact release tag. Never put current main's code on an older release.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: build-tools
           persist-credentials: false
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/${{ needs.plan.outputs.tag }}
           path: app
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '26'
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: ${{ needs.plan.outputs.bun_version }}
       - name: Prepare isolated Meteor with ESM support
@@ -95,7 +95,7 @@ jobs:
           mkdir -p releases/bun
           cp -R ../build-tools/releases/bun/. releases/bun/
           bash releases/bun/prepare-meteor.sh
-      - uses: actions/cache@v6
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             ~/.meteor
@@ -118,7 +118,7 @@ jobs:
           git rev-parse HEAD > ../esm-output/bundle/wekan-commit.txt
           node --test .tools/meteor-bun/scripts/ci/__tests__/*.node-test.js
           tar -cf - -C ../esm-output bundle | gzip -1 > ../esm-bundle.tar.gz
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: bun-esm-source
           path: esm-bundle.tar.gz
@@ -148,13 +148,13 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bun-esm-source
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.13'
       - name: Unpack ESM and fetch verified target Bun
@@ -162,7 +162,7 @@ jobs:
           tar -xzf esm-bundle.tar.gz
           export WEKAN_COMMIT="$(cat bundle/wekan-commit.txt)"
           python3 releases/bun/assets.py fetch "$BUN_TAG" "$TARGET"
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         if: matrix.kind == 'native'
         with:
           node-version: '26'
@@ -215,7 +215,7 @@ jobs:
               bash releases/bun/build-target.sh'
       - name: FreeBSD VM build and smoke tests
         if: matrix.kind == 'freebsd'
-        uses: vmactions/freebsd-vm@v1
+        uses: vmactions/freebsd-vm@c46abacb49f09938ca4e1702d15d836285d694cc # v1.5.9
         with:
           release: '14.5'
           arch: ${{ matrix.vm_arch }}
@@ -232,7 +232,7 @@ jobs:
           [ "${#files[@]}" -eq 1 ]
           test -s "${files[0]}"
           test -s "${files[0]}.sha256sum"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && steps.ready.outcome == 'success'
         with:
           name: wekan-bun-${{ matrix.target }}

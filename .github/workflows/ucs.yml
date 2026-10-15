@@ -41,7 +41,9 @@ jobs:
             echo 'enabled=true' >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
         if: steps.config.outputs.enabled == 'true'
 
       - name: Resolve published WeKan and FerretDB versions
@@ -88,11 +90,12 @@ jobs:
 
       - name: Checkout the app definition
         if: steps.config.outputs.enabled == 'true' && steps.portal.outputs.skip != 'true'
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: wekan/univention
           ref: master
           path: univention
+          persist-credentials: false
 
       - name: Prepare versioned compose and migration hook
         id: prepare
@@ -112,7 +115,7 @@ jobs:
 
       - name: Keep the exact submitted app definition
         if: steps.upload.outputs.result == 'uploaded'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ucs-${{ env.VERSION }}
           path: .tools/ucs-release/component

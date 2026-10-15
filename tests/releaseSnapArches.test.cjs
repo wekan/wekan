@@ -187,7 +187,8 @@ test('Launchpad waits for and verifies its architecture-specific release bundle'
     'a missing optional bundle is skipped with its real cause instead of retried');
 
   for (const step of [
-    'actions/checkout@v7',
+    // pinned to a commit (tests/workflowHardening.test.cjs)
+    'actions/checkout@',
     'Flatten history so the Launchpad push stays small',
     'Install snapcraft',
     'Provide Launchpad credentials for remote-build',
@@ -257,7 +258,7 @@ test('a remote build that produced no .snap is a failure, not a silent success',
   // remote-build can exit 0 having only downloaded logs. Uploading nothing is how
   // "is not a valid file" (snapcraft upload, exit 64) used to end a release.
   const launchpad = job('snap-launchpad');
-  assert.ok(/No wekan_\$\{VERSION\}_\$\{\{ matrix\.arch \}\}\.snap to upload/.test(launchpad),
+  assert.ok(/No wekan_\$\{VERSION\}_\$\{MATRIX_ARCH\}\.snap to upload/.test(launchpad),
     'the upload step must refuse to run without the file');
   assert.ok(/failed after \$attempts attempts/.test(launchpad), 'and the build step must retry');
 

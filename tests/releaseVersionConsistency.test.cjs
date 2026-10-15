@@ -19,7 +19,8 @@ const run = (cwd = root) => spawnSync(node, [verifier, expected], {
 });
 
 assert.equal(run().status, 0, run().stderr);
-assert.match(workflow, /name: Verify every release version reference[\s\S]*verify-release-versions\.mjs "\$\{\{ inputs\.new_version \}\}"/,
+// The input reaches the script through env (tests/workflowHardening.test.cjs).
+assert.match(workflow, /name: Verify every release version reference\n\s+env:\n\s+INPUT_NEW_VERSION: \$\{\{ inputs\.new_version \}\}\n\s+run: \|\n\s+node \.\/releases\/verify-release-versions\.mjs "\$\{INPUT_NEW_VERSION\}"/,
   'release-all verifies the bumped checkout before committing it');
 
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-release-versions-'));

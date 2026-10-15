@@ -59,8 +59,11 @@ test('the musl AppImages are named apart and started inside Alpine', () => {
   assert.match(wf, /name_arch: x86_64-musl\n\s+bundle_arch: linux-x64-musl/);
   assert.match(wf, /name_arch: aarch64-musl\n\s+bundle_arch: linux-arm64-musl/);
   assert.match(wf, /name="WeKan-\$\{version\}-\$\{NAME_ARCH\}"/);
-  assert.match(wf, /if \[ '\$\{\{ matrix\.musl \}\}' = true \]; then\n\s+docker run --rm --network host[^\n]*alpine:3\.23/);
-  assert.match(wf, /\[ '\$\{\{ matrix\.musl \}\}' = true \] \|\| required="\$required bundle\/node-runtime\/libatomic\.so\.1"/);
+  // The matrix value reaches the script through env (template-injection
+  // hardening, tests/workflowHardening.test.cjs).
+  assert.match(wf, /MATRIX_MUSL: \$\{\{ matrix\.musl \}\}/);
+  assert.match(wf, /if \[ "\$\{MATRIX_MUSL\}" = true \]; then\n\s+docker run --rm --network host[^\n]*alpine:3\.23/);
+  assert.match(wf, /\[ "\$\{MATRIX_MUSL\}" = true \] \|\| required="\$required bundle\/node-runtime\/libatomic\.so\.1"/);
 });
 
 console.log(`muslBundles: ${passed} tests passed`);

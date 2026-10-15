@@ -26,7 +26,8 @@ assert(workflow.includes('BUN_SMOKE_BROWSER:'));
 assert(read('releases/bun/live-smoke.mjs').includes('../../tests/bun-browser-smoke.cjs'));
 assert(workflow.includes('ref: refs/tags/${{ needs.plan.outputs.tag }}'));
 assert(workflow.includes('termux/termux-docker:$TERMUX_ARCH'));
-assert(workflow.includes('vmactions/freebsd-vm@v1'));
+// Pinned to a commit since the workflow hardening (tests/workflowHardening.test.cjs).
+assert(/vmactions\/freebsd-vm@[0-9a-f]{40} # v1\./.test(workflow));
 assert(workflow.includes('fail-fast: false'));
 assert(!workflow.includes('continue-on-error:'));
 assert(!workflow.includes('self-hosted'));

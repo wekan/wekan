@@ -81,8 +81,9 @@ on:
         default: ''
         type: string
 
+# Read-only by default; the job that writes is granted it below.
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: wekan-appimage-${{ inputs.tag || github.ref }}
@@ -97,19 +98,23 @@ jobs:
       tag: ${{ steps.find.outputs.tag }}
       version: ${{ steps.find.outputs.version }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - id: find
         env:
           GH_TOKEN: ${{ github.token }}
+          INPUT_TAG: ${{ inputs.tag }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          tag='${{ inputs.tag }}'
+          tag="${INPUT_TAG}"
           # --repo on every gh call, whether or not the job happens to have
           # checked out: a call that relies on an inferred remote breaks the day
           # somebody removes the checkout, and the error it gives - "fatal: not
           # a git repository" - names neither gh nor the workflow.
-          [ -n "$tag" ] || tag="$(gh release list --repo "${{ github.repository }}" \
+          [ -n "$tag" ] || tag="$(gh release list --repo "${GITHUB_CTX_REPOSITORY}" \
             --limit 1 --json tagName --jq '.[0].tagName')"
           if [ -z "$tag" ]; then
             echo "::error::No release to wrap, and no tag was given."
@@ -122,6 +127,8 @@ jobs:
           echo "Wrapping the bundles from $tag (version $version)"
 
   build:
+    permissions:
+      contents: write
     name: AppImage ${{ matrix.appimage_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}
@@ -189,7 +196,9 @@ jobs:
       NAME_ARCH: ${{ matrix.name_arch || matrix.appimage_arch }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
         if: ${{ env.BUILD_THIS == 'true' }}
 
       # An AppImage only WRAPS an existing release bundle
@@ -204,17 +213,21 @@ jobs:
         if: ${{ env.BUILD_THIS == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          MATRIX_BUNDLE_ARCH: ${{ matrix.bundle_arch }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
+          NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
         run: |
           set -euo pipefail
-          zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
+          zip="wekan-${NEEDS_RELEASE_VERSION}-${MATRIX_BUNDLE_ARCH}.zip"
           # Read the complete response before searching: grep -q can close a
           # pipe early and turn a present asset into a SIGPIPE failure.
-          assets=$(gh release view --repo "${{ github.repository }}" '${{ needs.release.outputs.tag }}' \
+          assets=$(gh release view --repo "${GITHUB_CTX_REPOSITORY}" "${NEEDS_RELEASE_TAG}" \
             --json assets --jq '.assets[].name')
           if grep -Fxq "$zip" <<< "$assets"; then
-            echo "OK: $zip is on ${{ needs.release.outputs.tag }}; building its AppImage."
+            echo "OK: $zip is on ${NEEDS_RELEASE_TAG}; building its AppImage."
           else
-            echo "::notice::$zip is not on ${{ needs.release.outputs.tag }} yet - skipping this AppImage (it can only wrap a bundle that exists)."
+            echo "::notice::$zip is not on ${NEEDS_RELEASE_TAG} yet - skipping this AppImage (it can only wrap a bundle that exists)."
             echo "BUILD_THIS=false" >> "$GITHUB_ENV"
           fi
 
@@ -222,17 +235,22 @@ jobs:
         if: ${{ env.BUILD_THIS == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          MATRIX_BUNDLE_ARCH: ${{ matrix.bundle_arch }}
+          NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
+          MATRIX_MUSL: ${{ matrix.musl }}
         run: |
           set -euo pipefail
-          zip="wekan-${{ needs.release.outputs.version }}-${{ matrix.bundle_arch }}.zip"
-          gh release download '${{ needs.release.outputs.tag }}' \
-            --repo "${{ github.repository }}" --pattern "$zip" --clobber
+          zip="wekan-${NEEDS_RELEASE_VERSION}-${MATRIX_BUNDLE_ARCH}.zip"
+          gh release download "${NEEDS_RELEASE_TAG}" \
+            --repo "${GITHUB_CTX_REPOSITORY}" --pattern "$zip" --clobber
           unzip -q "$zip"
           # A zip that exists is not a bundle that runs; these are the two files
           # the AppImage is built around.
           # A musl bundle has no node-runtime: its Node.js needs no glibc libraries.
           required="bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh"
-          [ '${{ matrix.musl }}' = true ] || required="$required bundle/node-runtime/libatomic.so.1"
+          [ "${MATRIX_MUSL}" = true ] || required="$required bundle/node-runtime/libatomic.so.1"
           for f in $required; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
@@ -245,10 +263,13 @@ jobs:
 
       - name: Build the AppDir
         if: ${{ env.BUILD_THIS == 'true' }}
+        env:
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          MATRIX_APPIMAGE_ARCH: ${{ matrix.appimage_arch }}
         run: |
           set -euo pipefail
-          version='${{ needs.release.outputs.version }}'
-          arch='${{ matrix.appimage_arch }}'
+          version="${NEEDS_RELEASE_VERSION}"
+          arch="${MATRIX_APPIMAGE_ARCH}"
           rm -rf AppDir
           mkdir -p AppDir/usr/lib/wekan AppDir/usr/share/applications \
                    AppDir/usr/share/icons/hicolor/512x512/apps
@@ -369,10 +390,13 @@ jobs:
 
       - name: Pack the AppImage
         if: ${{ env.BUILD_THIS == 'true' }}
+        env:
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          MATRIX_APPIMAGE_ARCH: ${{ matrix.appimage_arch }}
         run: |
           set -euo pipefail
-          version='${{ needs.release.outputs.version }}'
-          arch='${{ matrix.appimage_arch }}'
+          version="${NEEDS_RELEASE_VERSION}"
+          arch="${MATRIX_APPIMAGE_ARCH}"
           name="WeKan-${version}-${NAME_ARCH}"
 
           curl -fSL --retry 5 --retry-delay 10 -o appimagetool \
@@ -399,9 +423,13 @@ jobs:
       - name: Check that it starts
         id: smoke
         if: ${{ env.BUILD_THIS == 'true' }}
+        env:
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          MATRIX_MUSL: ${{ matrix.musl }}
+          MATRIX_APPIMAGE_ARCH: ${{ matrix.appimage_arch }}
         run: |
           set -euo pipefail
-          version='${{ needs.release.outputs.version }}'
+          version="${NEEDS_RELEASE_VERSION}"
           app="dist/WeKan-${version}-${NAME_ARCH}.AppImage"
           # An AppImage that packs is not an AppImage that runs. Start it, wait
           # for WeKan to answer on its port, then stop it - so a broken bundle
@@ -410,7 +438,7 @@ jobs:
 
           # A musl AppImage runs its musl Node.js, which an Ubuntu runner cannot,
           # so it is started where it is meant to run: inside Alpine.
-          if [ '${{ matrix.musl }}' = true ]; then
+          if [ "${MATRIX_MUSL}" = true ]; then
             docker run --rm --network host -v "$PWD:/work" -w /work -e APP="$app" alpine:3.23 sh -ec '
               apk add --no-cache curl >/dev/null
               export WRITABLE_PATH=/work/smoke-data PORT=8080
@@ -436,7 +464,7 @@ jobs:
           # AppDir is the exact tree just packed, so this also avoids extracting
           # the large image merely to make the capability decision.
           if ! LD_LIBRARY_PATH="$PWD/AppDir/usr/lib/wekan/bundle/node-runtime${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" AppDir/usr/lib/wekan/bundle/node --version >/dev/null 2>&1; then
-            echo "::warning::this runner cannot execute the bundled ${{ matrix.appimage_arch }} Node binary, so the AppImage was packed but not started. It is uploaded unchecked."
+            echo "::warning::this runner cannot execute the bundled ${MATRIX_APPIMAGE_ARCH} Node binary, so the AppImage was packed but not started. It is uploaded unchecked."
             exit 0
           fi
 
@@ -457,7 +485,7 @@ jobs:
           fi
           echo "WeKan answered on port 8080."
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ env.BUILD_THIS == 'true' }}
         with:
           name: appimage-${{ matrix.name_arch || matrix.appimage_arch }}
@@ -476,6 +504,8 @@ jobs:
         if: ${{ always() && env.BUILD_THIS == 'true' && steps.smoke.outcome == 'success' && inputs.publish != false }}
         env:
           GH_TOKEN: ${{ github.token }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
+          NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
         run: |
           set -euo pipefail
           shopt -s nullglob
@@ -486,7 +516,7 @@ jobs:
           fi
           # --repo inside the script, so gh never has to infer the repository
           # from a git remote. Retried, bounded, and verified by name and size.
-          bash releases/github-release-upload.sh "${{ github.repository }}" '${{ needs.release.outputs.tag }}' "${files[@]}"
+          bash releases/github-release-upload.sh "${GITHUB_CTX_REPOSITORY}" "${NEEDS_RELEASE_TAG}" "${files[@]}"
 
   # The last job no longer uploads anything: each build job above attached its
   # own AppImage as soon as it was built and checked. This one only says, at the
@@ -502,10 +532,14 @@ jobs:
       - name: Say what was built, and what was not
         env:
           GH_TOKEN: ${{ github.token }}
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
+          NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
+          NEEDS_BUILD_RESULT: ${{ needs.build.result }}
         run: |
           set -euo pipefail
-          version='${{ needs.release.outputs.version }}'
-          gh release view --repo "${{ github.repository }}" '${{ needs.release.outputs.tag }}' \
+          version="${NEEDS_RELEASE_VERSION}"
+          gh release view --repo "${GITHUB_CTX_REPOSITORY}" "${NEEDS_RELEASE_TAG}" \
             --json assets --jq '.assets[].name' > published.txt
           if grep -qE "^WeKan-${version}-.*\.AppImage$" published.txt; then
             # Every architecture the matrix builds. A missing one WARNS rather
@@ -515,10 +549,10 @@ jobs:
             for want in x86_64 aarch64 i686 armhf x86_64-musl aarch64-musl; do
               for f in "WeKan-${version}-${want}.AppImage" "WeKan-${version}-${want}.AppImage.sha256sum"; do
                 grep -qxF "$f" published.txt || \
-                  echo "::warning::$f is not on ${{ needs.release.outputs.tag }} - see the AppImage $want build job's log"
+                  echo "::warning::$f is not on ${NEEDS_RELEASE_TAG} - see the AppImage $want build job's log"
               done
             done
-            echo "AppImages on $(gh release view --repo "${{ github.repository }}" '${{ needs.release.outputs.tag }}' --json url --jq .url):"
+            echo "AppImages on $(gh release view --repo "${GITHUB_CTX_REPOSITORY}" "${NEEDS_RELEASE_TAG}" --json url --jq .url):"
             grep -E "^WeKan-${version}-.*\.AppImage" published.txt || true
           else
             # No AppImage was attached. That is only a FAILURE if there was a base
@@ -529,10 +563,10 @@ jobs:
               grep -qx "wekan-${version}-${arch}.zip" published.txt && base_present=true
             done
             if [ "$base_present" = false ]; then
-              echo "::notice::No base bundle (wekan-${version}-{amd64,arm64}.zip) is on ${{ needs.release.outputs.tag }} yet, so there is nothing to wrap - skipping. release-all.yml builds the AppImages once the base bundles are published."
+              echo "::notice::No base bundle (wekan-${version}-{amd64,arm64}.zip) is on ${NEEDS_RELEASE_TAG} yet, so there is nothing to wrap - skipping. release-all.yml builds the AppImages once the base bundles are published."
               exit 0
             fi
-            if [ "${{ needs.build.result }}" = "cancelled" ]; then
+            if [ "${NEEDS_BUILD_RESULT}" = "cancelled" ]; then
               echo "::warning::The run was cancelled before any AppImage finished building; nothing was attached."
               exit 0
             fi

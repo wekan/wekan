@@ -46,8 +46,9 @@ on:
         default: true
         type: boolean
 
+# Read-only by default; the job that writes is granted it below.
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: wekan-windows-exe-${{ inputs.tag || github.ref }}
@@ -63,15 +64,19 @@ jobs:
       version: ${{ steps.find.outputs.version }}
       available: ${{ steps.find.outputs.available }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - id: find
         env:
           GH_TOKEN: ${{ github.token }}
+          INPUT_TAG: ${{ inputs.tag }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          tag='${{ inputs.tag }}'
-          [ -n "$tag" ] || tag="$(gh release list --repo "${{ github.repository }}" \
+          tag="${INPUT_TAG}"
+          [ -n "$tag" ] || tag="$(gh release list --repo "${GITHUB_CTX_REPOSITORY}" \
             --limit 1 --json tagName --jq '.[0].tagName')"
           [ -n "$tag" ] || { echo "::error::No release to wrap."; exit 1; }
           version="${tag#v}"
@@ -80,7 +85,7 @@ jobs:
           # at the first match while gh is still writing; gh gets SIGPIPE, pipefail
           # makes the pipeline fail, and a PUBLISHED asset was reported missing - the
           # v12.39 Mac apps were skipped that way, with the bundles already attached.
-          assets="$(gh release view "$tag" --repo "${{ github.repository }}" --json assets \
+          assets="$(gh release view "$tag" --repo "${GITHUB_CTX_REPOSITORY}" --json assets \
                --jq '.assets[].name')"
           if grep -qx "wekan-${version}-win64.zip" <<< "$assets"; then
             available=true
@@ -92,28 +97,35 @@ jobs:
           echo "available=$available" >> "$GITHUB_OUTPUT"
 
   build:
+    permissions:
+      contents: write
     name: self-extracting win64 EXE
     needs: release
     if: ${{ needs.release.outputs.available == 'true' }}
     runs-on: windows-latest
     timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Fetch and verify the published win64 bundle
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
+          NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
         run: |
           $ErrorActionPreference = 'Stop'
-          $zip = 'wekan-${{ needs.release.outputs.version }}-win64.zip'
-          $assets = gh release view --repo '${{ github.repository }}' `
-            '${{ needs.release.outputs.tag }}' --json assets --jq '.assets[].name'
+          $zip = "wekan-$($env:NEEDS_RELEASE_VERSION)-win64.zip"
+          $assets = gh release view --repo $env:GITHUB_CTX_REPOSITORY `
+            $env:NEEDS_RELEASE_TAG --json assets --jq '.assets[].name'
           if ($assets -notcontains $zip) {
-            throw "$zip is not on ${{ needs.release.outputs.tag }}. The single EXE can only wrap a published win64 bundle."
+            throw "$zip is not on $($env:NEEDS_RELEASE_TAG). The single EXE can only wrap a published win64 bundle."
           }
-          gh release download '${{ needs.release.outputs.tag }}' `
-            --repo '${{ github.repository }}' --pattern "$zip*" --clobber
+          gh release download $env:NEEDS_RELEASE_TAG `
+            --repo $env:GITHUB_CTX_REPOSITORY --pattern "$zip*" --clobber
           # The ZIP is the payload, so it is checked as a whole against the
           # checksum published beside it rather than unpacked here.
           if (Test-Path "$zip.sha256sum" -PathType Leaf) {
@@ -145,7 +157,7 @@ jobs:
           python releases/check-telemetry.py --archive $zip
           if ($LASTEXITCODE -ne 0) { throw 'Telemetry audit rejected the Windows bundle.' }
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 26
       - name: Use release npm version
@@ -156,13 +168,15 @@ jobs:
         # The launcher unpacks these and nothing else. The list is computed from
         # the archive, not written by hand, so a bundle that gains an addon or a
         # database tool does not silently lose it at runtime.
+        env:
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
         run: |
           $ErrorActionPreference = 'Stop'
           node releases/append-windows-payload.mjs `
-            --manifest "wekan-${{ needs.release.outputs.version }}-win64.zip" `
+            --manifest "wekan-$($env:NEEDS_RELEASE_VERSION)-win64.zip" `
             --header wekan-real-files.h
 
-      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1.13.0
 
       - name: Compile the native launcher
         shell: cmd
@@ -174,9 +188,11 @@ jobs:
 
       - name: Append the bundle and its trailer to the launcher
         shell: pwsh
+        env:
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
         run: |
           $ErrorActionPreference = 'Stop'
-          $version = '${{ needs.release.outputs.version }}'
+          $version = $env:NEEDS_RELEASE_VERSION
           New-Item -ItemType Directory -Force dist | Out-Null
           node releases/append-windows-payload.mjs `
             --launcher wekan-launcher.exe `
@@ -240,9 +256,11 @@ jobs:
         # loop still answers on port 8080 eventually and a poll-until-ready
         # check calls it healthy. This one fails on the restart line and on
         # a SyntaxError, so a bundle Node.js cannot load can no longer ship.
+        env:
+          NEEDS_RELEASE_VERSION: ${{ needs.release.outputs.version }}
         run: |
           $ErrorActionPreference = 'Stop'
-          $version = '${{ needs.release.outputs.version }}'
+          $version = $env:NEEDS_RELEASE_VERSION
           # Run from its own directory: the EXE unpacks ~700 MB beside itself
           # and dist/ is what gets uploaded as the release artifact.
           New-Item -ItemType Directory -Force smoke | Out-Null
@@ -324,7 +342,7 @@ jobs:
 
           Start-Once 'second' 120
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: windows-single-exe-win64
           path: dist/
@@ -341,6 +359,8 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          GITHUB_CTX_REPOSITORY: ${{ github.repository }}
+          NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
         run: |
           set -euo pipefail
           shopt -s nullglob
@@ -350,6 +370,6 @@ jobs:
             exit 1
           fi
           # Retried, bounded, and verified by name and size from the release side.
-          bash releases/github-release-upload.sh '${{ github.repository }}' '${{ needs.release.outputs.tag }}' "${files[@]}"
-          gh release view --repo '${{ github.repository }}' \
-            '${{ needs.release.outputs.tag }}' --json url --jq .url
+          bash releases/github-release-upload.sh "${GITHUB_CTX_REPOSITORY}" "${NEEDS_RELEASE_TAG}" "${files[@]}"
+          gh release view --repo "${GITHUB_CTX_REPOSITORY}" \
+            "${NEEDS_RELEASE_TAG}" --json url --jq .url

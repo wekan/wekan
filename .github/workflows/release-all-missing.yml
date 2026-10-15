@@ -57,9 +57,9 @@ on:
         required: false
         type: string
 
+# Read-only by default; the job that writes is granted it below.
 permissions:
-  contents: write
-  actions: write
+  contents: read
 
 env:
   DO_NOT_TRACK: '1'
@@ -74,10 +74,15 @@ concurrency:
 
 jobs:
   recover:
+    permissions:
+      contents: read
+      actions: write
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Check dependency risk indicators before recovery
         run: python3 releases/remote-release.py --audit
       - name: Retry failed jobs of the matching full release
@@ -106,7 +111,9 @@ jobs:
       manual: ${{ steps.plan.outputs.manual }}
       total: ${{ steps.plan.outputs.total }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Check dependency risk indicators before release work
         shell: bash
@@ -119,10 +126,11 @@ jobs:
       - id: plan
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
 
-          V='${{ inputs.version }}'
+          V="${INPUT_VERSION}"
           V="${V#v}"
           if [ -z "$V" ]; then
             V="$(gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" --json tagName --jq .tagName)"
@@ -189,13 +197,18 @@ jobs:
 
       - name: Say plainly what this run will not do
         if: ${{ steps.plan.outputs.manual != '' }}
+        env:
+          STEP_PLAN_VERSION: ${{ steps.plan.outputs.version }}
+          STEP_PLAN_MANUAL: ${{ steps.plan.outputs.manual }}
         run: |
-          echo "::error::v${{ steps.plan.outputs.version }} still lacks ${{ steps.plan.outputs.manual }} after recovery. Inspect the matching full-release run; older unnamed runs need their failed jobs retried manually."
+          echo "::error::v${STEP_PLAN_VERSION} still lacks ${STEP_PLAN_MANUAL} after recovery. Inspect the matching full-release run; older unnamed runs need their failed jobs retried manually."
           exit 1
 
   # The six architectures nobody else builds for, repacked from the PUBLISHED
   # amd64 bundle - which is what makes this possible without a Meteor build.
   extra-arches:
+    permissions:
+      contents: write
     name: ${{ matrix.arch }}
     needs: plan
     if: ${{ needs.plan.outputs.extra != '[]' }}
@@ -227,15 +240,20 @@ jobs:
     steps:
       - name: Skip the architectures this release already has
         id: want
+        env:
+          NEEDS_PLAN_EXTRA: ${{ needs.plan.outputs.extra }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
-          if printf '%s' '${{ needs.plan.outputs.extra }}' | jq -e --arg a '${{ matrix.arch }}' 'index($a)' >/dev/null; then
+          if printf '%s' "${NEEDS_PLAN_EXTRA}" | jq -e --arg a "${MATRIX_ARCH}" 'index($a)' >/dev/null; then
             echo "build=yes" >> "$GITHUB_OUTPUT"
           else
             echo "build=no" >> "$GITHUB_OUTPUT"
-            echo "v${VERSION} already has ${{ matrix.arch }}; nothing to do."
+            echo "v${VERSION} already has ${MATRIX_ARCH}; nothing to do."
           fi
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Audit telemetry source before release work
         shell: bash
@@ -248,7 +266,7 @@ jobs:
 
       - name: Set up QEMU for ${{ matrix.arch }} emulation
         if: ${{ steps.want.outputs.build == 'yes' }}
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
 
       # Before the download, because actions/checkout cleans the workspace.        if: ${{ steps.want.outputs.build == 'yes' }}
 
@@ -301,9 +319,10 @@ jobs:
         if: ${{ always() && steps.want.outputs.build == 'yes' && steps.repack.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MATRIX_ARCH: ${{ matrix.arch }}
         run: |
           set -euo pipefail
-          asset="wekan-${VERSION}-${{ matrix.arch }}.zip"
+          asset="wekan-${VERSION}-${MATRIX_ARCH}.zip"
           # Retried, bounded, and verified by name AND size from the release
           # side - an upload that reports success and leaves no asset behind is
           # the failure nobody notices until a download 404s.
@@ -410,7 +429,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wekan (for releases/release-charts.sh)
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: wekan
 
@@ -452,7 +471,7 @@ jobs:
 
       - name: Checkout wekan/charts (main + gh-pages)
         if: steps.check.outputs.skip != 'true'
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: wekan/charts
           token: ${{ secrets.WEKAN_REPO_TOKEN }}
@@ -461,12 +480,13 @@ jobs:
 
       - name: Install Helm
         if: steps.check.outputs.skip != 'true'
-        uses: azure/setup-helm@v5
+        uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
 
       - name: Publish the chart for this release
         if: steps.check.outputs.skip != 'true'
         env:
           CHARTS_DIR: ${{ github.workspace }}/charts
+          NEEDS_PLAN_VERSION: ${{ needs.plan.outputs.version }}
         run: |
           set -euo pipefail
           cd charts
@@ -476,16 +496,18 @@ jobs:
           git branch --track gh-pages origin/gh-pages 2>/dev/null || true
           git checkout main
           cd ..
-          ./wekan/releases/release-charts.sh "${{ needs.plan.outputs.version }}"
+          ./wekan/releases/release-charts.sh "${NEEDS_PLAN_VERSION}"
 
       - name: Job result
         if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
         run: |
-          case "${{ job.status }}" in
+          case "${JOB_STATUS}" in
             success)   mark='OK       ' ;;
             failure)   mark='FAILED   ' ;;
             cancelled) mark='CANCELLED' ;;
-            *)         mark='${{ job.status }}' ;;
+            *)         mark="${JOB_STATUS}" ;;
           esac
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
 
@@ -501,7 +523,9 @@ jobs:
     if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
