@@ -53,7 +53,7 @@ def known_bad_hashes():
         candidates.append(script.parents[2] / 'releases/risk-baseline.json')
     for policy_path in candidates:
         if policy_path.is_file():
-            hashes.update(json.loads(policy_path.read_text()).get('denyHashes', []))
+            hashes.update(json.loads(policy_path.read_text(encoding='utf-8')).get('denyHashes', []))
     return hashes
 
 
@@ -195,7 +195,7 @@ def main():
     try:
         if args.source:
             try:
-                manifest = json.loads(Path(__file__).with_name('telemetry-source.json').read_text())
+                manifest = json.loads(Path(__file__).with_name('telemetry-source.json').read_text(encoding='utf-8'))
                 audit_source(args.source, manifest)
             except (ValueError, OSError, KeyError) as error:
                 print('::warning::Best-effort source inventory: ' + str(error), file=sys.stderr)

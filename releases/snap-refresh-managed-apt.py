@@ -73,6 +73,6 @@ if __name__ == '__main__':
                 raise ValueError('No Snapcraft execution log found; original failure remains fatal')
             log = max(logs, key=lambda item: item.stat().st_mtime_ns)
         print('Inspecting ' + str(log), flush=True)
-        refresh(log.read_text(errors='replace'))
+        refresh(log.read_text(encoding='utf-8', errors='replace'))
     except (ValueError, OSError, subprocess.SubprocessError) as error:
         parser.exit(1, str(error) + '\n')

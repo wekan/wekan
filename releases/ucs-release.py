@@ -111,7 +111,7 @@ def ldap_group_problems(compose):
 def prepare(repo, output, release, database_image=''):
     release = version(release)
     source = Path(repo) / 'component'
-    compose = (source / 'compose').read_text()
+    compose = (source / 'compose').read_text(encoding='utf-8')
     problems = ldap_group_problems(compose)
     if problems:
         raise ValueError('UCS compose LDAP settings would refuse every login: ' + '; '.join(problems))
@@ -130,8 +130,8 @@ def prepare(repo, output, release, database_image=''):
     destination.mkdir(parents=True, exist_ok=True)
     for name in FILES:
         shutil.copy2(source / name, destination / name)
-    (destination / 'compose').write_text(images(compose, {'wekan': app_image, 'wekandb': database_image}))
-    hook = (destination / 'preinst').read_text()
+    (destination / 'compose').write_text(images(compose, {'wekan': app_image, 'wekandb': database_image}), encoding='utf-8')
+    hook = (destination / 'preinst').read_text(encoding='utf-8')
     for key, value in [('image', app_image), ('helper', helper_image), ('dbimage', database_image)]:
         hook, count = re.subn(rf'^{key}=.*$', f'{key}={value}', hook, flags=re.M)
         if count != 1:
@@ -139,7 +139,7 @@ def prepare(repo, output, release, database_image=''):
     pull_block = 'docker pull "$image"\ndocker pull "$dbimage"\ndocker pull "$helper"'
     if hook.count(pull_block) != 1:
         raise ValueError('Expected one preinst image-pull block before downtime')
-    fallback = Path(__file__).with_name('ucs-pull-image.sh').read_text()
+    fallback = Path(__file__).with_name('ucs-pull-image.sh').read_text(encoding='utf-8')
     hook = hook.replace(pull_block, fallback + '\n' + """
 ucs_compose="${BASH_SOURCE[0]%.preinst}.compose"
 if [ ! -f "$ucs_compose" ]; then ucs_compose="$(dirname -- "${BASH_SOURCE[0]}")/compose"; fi
@@ -153,7 +153,7 @@ docker run --rm --entrypoint bash "$image" /opt/ucs-migration/start.sh --check
     if hook.count(worker_tail) != 1:
         raise ValueError('Expected one UCS migration worker command')
     hook = hook.replace(worker_tail, worker_tail + ' bash /opt/ucs-migration/start.sh')
-    (destination / 'preinst').write_text(hook)
+    (destination / 'preinst').write_text(hook, encoding='utf-8')
     return {'app_image': app_image, 'helper_image': helper_image, 'database_image': database_image}
 
 
@@ -214,7 +214,7 @@ def verify_public_images(directory=None, app_image=None):
     """Use the same unauthenticated pulls as a UCS host, including image layers."""
     references = [app_image] if app_image else []
     if directory is not None:
-        hook = (Path(directory) / 'component/preinst').read_text()
+        hook = (Path(directory) / 'component/preinst').read_text(encoding='utf-8')
         for key in ('image', 'dbimage'):
             matches = re.findall(rf'^{key}=(\S+)$', hook, re.M)
             if len(matches) != 1 or not re.fullmatch(r'ghcr\.io/wekan/[a-z0-9-]+:[A-Za-z0-9_.-]+', matches[0]):
@@ -265,7 +265,7 @@ def upload(portal, directory, source_app, target_app):
     # the local checks above and a read-back of the critical migration pair.
     actual = portal.call('get', target_app, json_result=True)
     for name in ('compose', 'preinst'):
-        expected = (Path(directory) / 'component' / name).read_text()
+        expected = (Path(directory) / 'component' / name).read_text(encoding='utf-8')
         if actual.get(name, '').replace('\r\n', '\n') != expected.replace('\r\n', '\n'):
             raise RuntimeError(f'Portal {name} read-back differs; release remains an unverified draft')
     return 'uploaded'
@@ -282,9 +282,9 @@ def main():
     parser.add_argument('--cli', default='.tools/univention-appcenter-control')
     args = parser.parse_args()
     if args.action == 'resolve':
-        result = release_selection(json.loads(Path(args.wekan_release).read_text()),
-                                   json.loads(Path(args.ferretdb_release).read_text()))
-        with open(os.environ['GITHUB_ENV'], 'a') as output:
+        result = release_selection(json.loads(Path(args.wekan_release).read_text(encoding='utf-8')),
+                                   json.loads(Path(args.ferretdb_release).read_text(encoding='utf-8')))
+        with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as output:
             for key, value in result.items():
                 output.write(f'{key}={value}\n')
         print(json.dumps(result))
@@ -298,7 +298,7 @@ def main():
         result = prepare(args.repo, args.directory, args.version, os.getenv('UCS_FERRETDB_IMAGE', ''))
         print(json.dumps(result))
         if os.getenv('GITHUB_OUTPUT'):
-            with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+            with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
                 for key, value in result.items():
                     output.write(f'{key}={value}\n')
         return
@@ -309,7 +309,7 @@ def main():
     result = plan(portal, source, target) if args.action == 'plan' else upload(portal, args.directory, source, target)
     print(f'{target}: {result}; production release still requires Univention approval')
     if os.getenv('GITHUB_OUTPUT'):
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+        with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
             output.write(f'skip={str(result == "published").lower()}\n')
             output.write(f'result={result}\n')
 

@@ -85,7 +85,7 @@ def main():
     if not exists:
         name = prepare(args.info, args.version)
     if os.getenv('GITHUB_OUTPUT'):
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+        with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
             output.write(f'app_id={name}\nskip={str(exists).lower()}\n')
     print('Nextcloud: already published' if exists else 'Nextcloud: publication needed')
 

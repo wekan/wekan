@@ -42,7 +42,7 @@ def main():
                       ('mongo', 'https://downloads.mongodb.org/full.json'),
                       ('npm', 'https://registry.npmjs.org/npm/latest')]:
         if args.metadata_dir:
-            raw = (args.metadata_dir / (name + '.json')).read_text()
+            raw = (args.metadata_dir / (name + '.json')).read_text(encoding='utf-8')
         else:
             raw = subprocess.check_output(['curl', '-fsSL', '--retry', '2',
                 '--connect-timeout', '15', '--max-time', '60', url], text=True)

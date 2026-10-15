@@ -87,14 +87,14 @@ def audit(root, config):
     """Best-effort diagnostics only; never approve or block dependency changes."""
     warnings = []
     try:
-        expected = json.loads((root / 'releases/dependency-review.json').read_text())
+        expected = json.loads((root / 'releases/dependency-review.json').read_text(encoding='utf-8'))
         actual = inventory(root)
         changes = sorted(k for k in set(actual) | set(expected['files'])
                          if actual.get(k) != expected['files'].get(k))
         if changes:
             warnings.append('Dependency fingerprints changed: ' + ', '.join(changes))
         for name in actual:
-            text = (root / name).read_text(errors='replace')
+            text = (root / name).read_text(encoding='utf-8', errors='replace')
             known = expected.get('knownKeywordMatches', {}).get(name, {})
             accepted = set(known.get('lines', [])) if known.get('reason') else set()
             known_count = 0
@@ -136,7 +136,7 @@ def audit(root, config):
 
 
 def notes(root, config, missing=False):
-    text = (root / 'CHANGELOG.md').read_text()
+    text = (root / 'CHANGELOG.md').read_text(encoding='utf-8')
     heading = config['upcoming']
     if missing and heading not in text.splitlines():
         # Completing a release does not require new notes or a new version.
@@ -156,13 +156,13 @@ def source_version(root, config, requested=''):
     if not upstream:
         return requested
     try:
-        record = json.loads((root / upstream['review']).read_text())
+        record = json.loads((root / upstream['review']).read_text(encoding='utf-8'))
     except (ValueError, OSError):
         record = {}
     approved = record.get('upstreamCommit') or ''
     if config['kind'] == 'node':
         version = requested or run(root, 'bash', 'releases/newest-release.sh', '.')
-        major = (root / 'node-major.txt').read_text().strip()
+        major = (root / 'node-major.txt').read_text(encoding='utf-8').strip()
         if not re.fullmatch(r'v' + re.escape(major) + r'\.\d+\.\d+', version):
             raise ValueError('Invalid Node release tag')
         lines = run(root, 'git', 'ls-remote', upstream['url'], 'refs/tags/' + version,
@@ -241,7 +241,7 @@ def publish(root, config, text, version, missing):
             heading = f"## [{version}](https://github.com/{config['repo']}/releases/tag/{version}) ({date})"
         else:
             heading = f"# {version} {date} {config['repo'].split('/')[1]} release"
-        (root / 'CHANGELOG.md').write_text(text.replace(config['upcoming'], heading, 1))
+        (root / 'CHANGELOG.md').write_text(text.replace(config['upcoming'], heading, 1), encoding='utf-8')
     run(root, 'git', 'add', '--all')
     if run(root, 'git', 'diff', '--cached', '--name-only'):
         subprocess.run(['git', 'commit', '-m', ('Complete ' if missing else 'Prepare ') + version + ' release'], cwd=root, check=True)
@@ -263,7 +263,7 @@ def main():
     parser.add_argument('--audit', action='store_true', help='offline dependency/source audit only')
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
-    config = json.loads((root / 'releases/remote-release.json').read_text())
+    config = json.loads((root / 'releases/remote-release.json').read_text(encoding='utf-8'))
     os.environ['DO_NOT_TRACK'] = '1'
     os.environ['GOTELEMETRY'] = 'off'
     (root / '.tools/tmp').mkdir(parents=True, exist_ok=True)

@@ -65,7 +65,7 @@ def smoke(command, url, log, timeout=180, grace=5):
             try:
                 stop_app(process, grace)
             finally:
-                with log.open(errors='replace') as lines:
+                with log.open(encoding='utf-8', errors='replace') as lines:
                     print(''.join(deque(lines, maxlen=100)), end='', flush=True)
 
 

@@ -133,14 +133,14 @@ def main():
     args = p.parse_args()
     try:
         try:
-            policy = json.loads(args.policy.read_text())
+            policy = json.loads(args.policy.read_text(encoding='utf-8'))
         except (OSError, ValueError) as error:
             print('::warning::Indicator baseline unavailable: ' + str(error), file=sys.stderr)
             policy = {}
         if args.source and args.record_baseline:
             policy['files'] = collect(args.source, policy)
             policy['initialized'] = True
-            args.policy.write_text(json.dumps(policy, indent=2) + '\n')
+            args.policy.write_text(json.dumps(policy, indent=2) + '\n', encoding='utf-8')
             print('Recorded indicator baseline: ' + str(args.policy))
         elif args.source:
             inspect(args.source, policy)

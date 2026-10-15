@@ -113,7 +113,7 @@ class BunReleaseTests(unittest.TestCase):
         # Windows text mode wrote CRLF, and `sha256sum -c` then looked for a
         # file named "<zip>\\r" (bun-single-file windows-arm64, v12.44).
         source = (ROOT / 'releases/bun/assets.py').read_text()
-        self.assertIn("write_text(f'{digest}  {name}\\n', newline='\\n')", source)
+        self.assertIn("write_text(f'{digest}  {name}\\n', encoding='utf-8', newline='\\n')", source)
 
     def test_download_retries_a_server_error_but_not_a_missing_asset(self):
         import urllib.error

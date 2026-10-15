@@ -12,7 +12,7 @@ import urllib.request
 import zipfile
 
 ROOT = Path(__file__).resolve().parent
-TARGETS = json.loads((ROOT / 'targets.json').read_text())
+TARGETS = json.loads((ROOT / 'targets.json').read_text(encoding='utf-8'))
 
 
 def api(path):
@@ -95,7 +95,7 @@ def fetch_runtime(bun_tag, target):
     sums = work / 'SHASUMS256.txt'
     download(base + item['asset'], archive)
     download(base + sums.name, sums)
-    expected = next(line.split()[0] for line in sums.read_text().splitlines()
+    expected = next(line.split()[0] for line in sums.read_text(encoding='utf-8').splitlines()
                     if line.split()[-1].lstrip('*') == archive.name)
     with archive.open('rb') as source:
         actual = hashlib.file_digest(source, 'sha256').hexdigest()
@@ -113,7 +113,7 @@ def fetch_runtime(bun_tag, target):
     (Path('bundle') / 'bun-build.json').write_text(json.dumps({
         'bun': bun_tag, 'target': target, 'runtime_sha256': actual,
         'wekan_commit': os.environ.get('WEKAN_COMMIT'),
-    }, indent=2) + '\n')
+    }, indent=2) + '\n', encoding='utf-8')
 
 
 def package(tag, target):
@@ -136,7 +136,7 @@ def package(tag, target):
         digest = hashlib.file_digest(source, 'sha256').hexdigest()
     # LF on every platform: on Windows text mode wrote CRLF, and `sha256sum -c`
     # then looked for a file named "<zip>\r" (bun-single-file windows-arm64).
-    (output / (name + '.sha256sum')).write_text(f'{digest}  {name}\n', newline='\n')
+    (output / (name + '.sha256sum')).write_text(f'{digest}  {name}\n', encoding='utf-8', newline='\n')
 
 
 if __name__ == '__main__':
@@ -149,7 +149,7 @@ if __name__ == '__main__':
         release = api(f'repos/{repository}/releases/' + ('tags/' + tag if tag else 'latest'))
         result = plan(release, api('repos/oven-sh/bun/releases/latest'),
                       os.environ.get('ONLY', ''), os.environ.get('MISSING_ONLY') == 'true')
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+        with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
             for key, value in result.items():
                 out.write(f'{key}={json.dumps(value, separators=(",", ":")) if isinstance(value, dict) else value}\n')
     elif command == 'fetch':
