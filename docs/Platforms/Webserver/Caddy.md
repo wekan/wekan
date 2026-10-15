@@ -133,8 +133,8 @@ boards.wekan.team {
 			"sha256_cert_fingerprints": ["AA:AA:ED:7D:4C:9C:5A:A3:B5:DA:10:66:14:34:07:5D:EB:BE:96:CD:82:7B:09:46:47:13:65:29:5B:EA:96:30","61:41:86:5B:05:13:9B:64:5F:39:75:5A:16:C3:F2:22:25:6C:DA:74:B9:B0:8C:5F:93:B0:D2:26:65:16:1B:E6"]
 		}
 	}	]`
-	header /site.webmanifest/* Content-Type application/json
-	header /site.webmanifest/* Access-Control-Allow-Origin *
+	header /site.webmanifest Content-Type application/json
+	header /site.webmanifest Access-Control-Allow-Origin *
 	respond /site.webmanifest ` {
 		"name": "Wekan",
 		"short_name": "Wekan",
@@ -593,15 +593,13 @@ sudo nano /var/snap/wekan/common/Caddyfile
 ```
 There change config:
 ```
-http://example.com https://example.com {
+# Caddy 2 redirects http:// to https:// by itself.
+example.com {
         tls {
             load /var/snap/wekan/common/certs
             alpn http/1.1
         }
-        proxy / localhost:3001 {
-          websocket
-          transparent
-        }
+        reverse_proxy localhost:3001
 }
 ```
 Save: Ctrl-o Enter
@@ -654,49 +652,54 @@ Add this config to ~/caddy/Caddyfile
 There's also some extra examples.
 
 ```bash
+{
+	# Let's Encrypt account email
+	email admin@example.com
+}
+
 example.com {
-        root /home/username/caddy/example.com
-        # Static website, markdown or html
-        ext .md .html
-
-        proxy /wekan 127.0.0.1:3000 {
-                websocket
-        }
-
-	log /home/username/caddy/logs/wekan-access.log {
-	    rotate {
-		size 100 # Rotate after 100 MB
-		age  7   # Keep log files for 7 days
-		keep 52  # Keep at most 52 log files
-	    }
+	# WeKan at https://example.com/wekan (set ROOT_URL to that)
+	handle /wekan* {
+		reverse_proxy 127.0.0.1:3000
 	}
-	errors {
-		log /home/username/caddy/logs/wekan-error.log {
-			size 100 # Rotate after 100 MB
-			age  7   # Keep log files for 7 days
-			keep 52  # Keep at most 52 log files
+
+	# View files in directory, has sorting in browser
+	handle_path /files* {
+		root * /home/username/files
+		file_server browse
+	}
+
+	# Static website, markdown or html
+	handle {
+		root * /home/username/caddy/example.com
+		try_files {path} {path}.md {path}.html
+		file_server
+	}
+
+	# Access log. Caddy 2 has no separate error log: errors are logged
+	# here and to Caddy's own output.
+	log {
+		output file /home/username/caddy/logs/wekan-access.log {
+			roll_size 100MiB    # Rotate after 100 MB
+			roll_keep_for 168h  # Keep log files for 7 days
+			roll_keep 52        # Keep at most 52 log files
 		}
 	}
 }
-
-example.com/files {
-	root /home/username/files
-	# View files in directory, has sorting in browser
-	browse
-}
 ```
 
-Install Caddy. Change username to what user you run caddy, like in /home/username , and Let's Encrypt email to your email adderess:
+Install Caddy 2. Change username to what user you run caddy, like in /home/username , and the Let's Encrypt email at the top of the Caddyfile to your email address:
 
 ```bash
-# Install caddy with some plugins
-curl https://getcaddy.com | bash -s personal http.ipfilter,http.mailout,http.ratelimit,http.realip
+# The official Caddy 2 binary; for packages see https://caddyserver.com/docs/install
+curl -fsSL "https://caddyserver.com/api/download?os=linux&arch=amd64" -o ~/caddy/caddy
+chmod +x ~/caddy/caddy
 ```
 
 # Give permissions to caddy to bind 80 and 443
 
 ```
-sudo setcap cap_net_bind_service=+ep /usr/local/bin/caddy
+sudo setcap cap_net_bind_service=+ep /home/username/caddy/caddy
 ```
 
 And this service file for Caddy to /etc/systemd/system/caddy@.service
@@ -716,12 +719,12 @@ Wants=systemd-networkd-wait-online.service
 ; run user and group for caddy
 User=username
 Group=username
-ExecStart=/home/username/caddy/caddy -conf=/home/username/caddy/Caddyfile -agree -email="admin@example.com"
+ExecStart=/home/username/caddy/caddy run --environ --config /home/username/caddy/Caddyfile --adapter caddyfile
 Restart=on-failure
 StartLimitInterval=86400
 StartLimitBurst=5
 RestartSec=10
-ExecReload=/bin/kill -USR1 $MAINPID
+ExecReload=/home/username/caddy/caddy reload --config /home/username/caddy/Caddyfile --adapter caddyfile
 ; limit the number of file descriptors, see `man systemd.exec` for more limit settings
 LimitNOFILE=1048576
 LimitNPROC=64

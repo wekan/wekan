@@ -205,7 +205,7 @@ DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS) pe
 DEFAULT_CADDY_ENABLED="false"
 KEY_CADDY_ENABLED="caddy-enabled"
 
-DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy, value set here will be set in $SNAP_COMMON/Caddyfile"
+DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy (WeKan listens on it when caddy is enabled); $SNAP_COMMON/Caddyfile reads it as {$CADDY_BIND_PORT}"
 DEFAULT_CADDY_BIND_PORT="3001"
 KEY_CADDY_BIND_PORT="caddy-bind-port"
 

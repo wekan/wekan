@@ -15,6 +15,10 @@ if [ "$value" = "true" ]; then
     # update caddy file
     bind_port=$(snapctl get caddy-bind-port)
     port=$(snapctl get port)
+    # A Caddy 2 Caddyfile reads both ports from the environment caddy-control
+    # gives it ({$CADDY_PORT}, {$CADDY_BIND_PORT}; see snap-src/Caddyfile), so
+    # the restart below applies them. These two lines rewrite only a Caddy v1
+    # file (`proxy / localhost:...`, `http://:...`) that is not migrated yet.
     [ "x" != "x${bind_port}" ] && sed -i 's|proxy / localhost:.* {|proxy / localhost:'"${bind_port}"' {|g' $SNAP_COMMON/Caddyfile
     [ "x" != "x$port" ] && sed -i 's|http://:.*|http://:'"${port}"'|g' $SNAP_COMMON/Caddyfile
     snapctl start --enable ${SNAP_NAME}.caddy 2>&1 || true

@@ -217,17 +217,11 @@ sudo nano /var/snap/wekan/common/Caddyfile
 Add Caddy config. This uses free Let's Encrypt SSL. You can also use [free CloudFlare wildcard SSL or any other SSL cert](../../Platforms/Webserver/Caddy.md).
 ```
 boards.yourdomain.com {
-        proxy / localhost:3001 {
-          websocket
-          transparent
-        }
+        reverse_proxy localhost:3001
 }
 
 chat.yourdomain.com {
-        proxy / localhost:3000 {
-          websocket
-          transparent
-        }
+        reverse_proxy localhost:3000
 }
 ```
 Enable Wekan's Caddy:

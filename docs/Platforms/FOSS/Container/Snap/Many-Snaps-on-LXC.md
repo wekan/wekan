@@ -423,24 +423,19 @@ boards.example.com {
 	    alpn http/1.1
 	}
 
-	proxy / 10.10.10.231:3001 {
-	  websocket
-	  transparent
-	}
+	reverse_proxy 10.10.10.231:3001
 }
 ```
 For [CloudFlare SSL](../../../Webserver/Caddy.md), like this to `/var/snap/wekan/common/Caddyfile`:
 ```
-http://boards.example.com https://boards.example.com {
+# Caddy 2 redirects http:// to https:// by itself.
+boards.example.com {
 	tls {
 	    load /var/snap/wekan/common/certificates
 	    alpn http/1.1
 	}
 
-	proxy / 10.10.10.231:3001 {
-	  websocket
-	  transparent
-	}
+	reverse_proxy 10.10.10.231:3001
 }
 ```
 ## 2) New LXC container

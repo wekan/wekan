@@ -7,7 +7,7 @@ Wekan installed with [Export Docker Mongo Data](../FOSS/Container/Docker/Export-
 1) https://caddyserver.com config Caddyfile:
 ```bash
 my.domain.com {
-  proxy / localhost:8080
+  reverse_proxy localhost:8080
 }
 ```
 
@@ -21,7 +21,7 @@ sudo setcap cap_net_bind_service=+ep ./caddy
 1) https://caddyserver.com config Caddyfile:
 ```bash
 my.domain.com {
-  proxy / localhost:7000
+  reverse_proxy localhost:7000
 }
 ```
 

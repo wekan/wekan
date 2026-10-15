@@ -888,10 +888,12 @@ parts:
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
             cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
             # Default Caddyfile for Wekan
-            # This is loaded by caddy-control script if no other config is provided
+            # migrate-caddyfile-v1-to-v2.sh writes this when a Caddy v1 file
+            # cannot be converted. WeKan listens on caddy-bind-port when Caddy
+            # is enabled (default 3001), never 3000, and Caddy on `port`.
 
-            :8080 {
-                reverse_proxy localhost:3000
+            :{$CADDY_PORT:8080} {
+                reverse_proxy localhost:{$CADDY_BIND_PORT:3001}
             }
             EOF
         stage:

@@ -115,10 +115,7 @@ boards.example.com {
 	  alpn http/1.1
 	}
 
-	proxy / localhost:3001 {
-	  websocket
-	  transparent
-	}
+	reverse_proxy localhost:3001
 }
 ```
 Caddyfile example of static directory listing:
@@ -126,8 +123,8 @@ Caddyfile example of static directory listing:
 # Files have these permissions:
 #   chown root:root /var/snap/wekan/common/download.example.com
 download.example.com {
-	root /var/snap/wekan/common/download.example.com
-	browse
+	root * /var/snap/wekan/common/download.example.com
+	file_server browse
 }
 ```
 [MORE Caddyfile EXAMPLES](https://github.com/caddyserver/examples)

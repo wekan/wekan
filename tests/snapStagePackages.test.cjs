@@ -259,7 +259,10 @@ test('stock Caddy is enough - no plugin, so no xcaddy build', () => {
   // that, and would not fail until Caddy refused the config at runtime.
   const caddyfile = yaml.slice(yaml.indexOf('etc/Caddyfile'));
   const body = caddyfile.slice(0, caddyfile.indexOf('stage:'));
-  assert.ok(/reverse_proxy\s+localhost:3000/.test(body),
+  // It proxies to caddy-bind-port, where WeKan listens when Caddy is enabled
+  // (default 3001). This used to pin localhost:3000, where nothing of WeKan
+  // listens in the snap - see tests/caddyfileExamplesV2.test.cjs.
+  assert.ok(/reverse_proxy\s+localhost:\{\$CADDY_BIND_PORT:3001\}/.test(body),
     'the default Caddyfile no longer reverse-proxies WeKan');
   // Directives that only exist in a plugin build. If one appears, the snap
   // needs an xcaddy build and downloading the release binary is not enough.

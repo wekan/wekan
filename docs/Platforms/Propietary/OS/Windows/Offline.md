@@ -86,13 +86,10 @@ Caddyfile:
 ```
 wekan.example.com {
         tls {
-            load C:\wekan\certs\example.com.pem
+            load C:\wekan\certs
             alpn http/1.1
         }
-        proxy / localhost:2000 {
-          websocket
-          transparent
-        }
+        reverse_proxy localhost:2000
 }
 ```
 
@@ -288,13 +285,10 @@ extract .zip file, and copy caddy.exe to above directory structure.
 ```
 wekan.example.com {
         tls {
-            load C:\wekan\certs\example.com.pem
+            load C:\wekan\certs
             alpn http/1.1
         }
-        proxy / localhost:2000 {
-          websocket
-          transparent
-        }
+        reverse_proxy localhost:2000
 }
 ```
 11. Open `cmd.exe` terminal, write there:

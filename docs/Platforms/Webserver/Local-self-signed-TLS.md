@@ -14,31 +14,25 @@ In both cases your `/etc/hosts` should have *a* entry that routes your "domain" 
 You need to enable caddy `sudo snap set wekan caddy-enabled='true'` and set the `root-url` to https://wekan.local. 
 Keep in mind that 3001 is the wekan webapp port, not the caddy port(!). Caddy will use 80 and 443.
  
-# Option 1: `tls self_signed` 7d Dev Certificate (Caddy<v2) 
+# Option 1: `tls internal`, Caddy's own local certificate authority
 Your `/var/snap/wekan/common/Caddyfile` should look like this:
 ```
 https://wekan.local {
-        tls self_signed
-        proxy / localhost:3001 {
-          websocket
-          transparent
-        }
+        tls internal
+        reverse_proxy localhost:3001
 }
 ```
 
 Restart your Wekan snap service: `sudo snap restart wekan && sudo snap restart wekan.caddy` voila! 
 
-*Drawback:* There is a significant drawback in doing so, because the public docs of caddy stating that below caddyV2 (like in our snap) there's only a seven day life span given. Due to the origin intent of testing, not for production.
+*Drawback:* Caddy 2 signs the certificate with its own local certificate authority and renews it by itself, but browsers trust it only on a computer where that authority's root certificate is installed (`caddy trust`, or import it by hand). Meant for testing, not for production. (Caddy 1's `tls self_signed`, which this replaces, made a certificate that lasted only seven days.)
 
 # Option 2: Custom, long-living, self-signed TLS Cert
 Your `/var/snap/wekan/common/Caddyfile` should look like this:
 ```
 https://wekan.local {
         tls /var/snap/wekan/common/certs/certificate.pem /var/snap/wekan/common/certs/key.pem
-        proxy / localhost:3001 {
-          websocket
-          transparent
-        }
+        reverse_proxy localhost:3001
 }
 ```
 
@@ -107,7 +101,7 @@ Finally, run `sudo ./runfiles.sh` and it should work at the address being recomm
 - Don't try to use `load` it won't work!
 - Don't mess around without a SERVERNAME... it won't work
 - Don't use the default caddy file with this tls subdirectives. It won't work and break into No Connection or `PR_END_OF_FILE_ERROR` (firefox)
-- Caddy has bugs with self_signed certificates for Caddy < 2 (below caddyv2)
+- Caddy 1 had bugs with `self_signed` certificates; the snap's Caddy 2 uses `tls internal` instead
 - **FIREWALL CONFIG:** Don't forget to block in and out 3001 for outside connections (e.g. using ufw or nfttables / iptables)
 
 ### Sources:

@@ -164,6 +164,10 @@ nogoogle.wekan.team {
 }
 
 # 3) Static website
+#
+# 3.1 and 3.2 (and 6.x, 7.x below) are two ways to serve one site; each has
+# its own host here so this file as a whole is valid - Caddy 2 refuses one
+# host defined twice ("ambiguous site definition"). Keep the one you need.
 
 # 3.1) Static Website: Let's Encrypt TLS
 customer.com {
@@ -172,7 +176,7 @@ customer.com {
 }
 
 # 3.2) Static Website: CloudFlare TLS
-customer.com {
+customer2.com {
 	tls {
 		load /etc/caddy/certs
 	}
@@ -231,7 +235,7 @@ blog.wekan.fi {
 
 # 5) PHP/MySQL Wordpress
 
-customer.com {
+wordpress.customer.com {
 	tls {
 		load /etc/caddy/certs
 	}
@@ -266,7 +270,7 @@ kanboard.customer.com {
 
 # 6.2) CloudFlare TLS
 
-kanboard.customer.com {
+kanboard.customer2.com {
 	tls {
 		load /etc/caddy/certs
 	}
@@ -294,9 +298,9 @@ hesk.customer.com {
 	}
 }
 
-# 7.1) CloudFlare TLS
+# 7.2) CloudFlare TLS
 
-hesk.customer.com {
+hesk.customer2.com {
 	tls {
 		load /etc/caddy/certs
 	}

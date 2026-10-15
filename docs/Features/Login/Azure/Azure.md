@@ -78,15 +78,13 @@ boards.example.com {
   tls {
       alpn http/1.1
   }
-  proxy / localhost:3001 {
-    websocket
-    transparent
-  }
+  reverse_proxy localhost:3001
 }
 
 # If you have static main website in this directory, also add it:
 example.com {
-  root /var/snap/wekan/common/example.com
+  root * /var/snap/wekan/common/example.com
+  file_server
   tls {
       alpn http/1.1
   }
@@ -131,7 +129,8 @@ http://boards.example.com {
 
 # Static main website, if you have that in this directory
 https://example.com {
-  root /var/snap/wekan/common/example.com
+  root * /var/snap/wekan/common/example.com
+  file_server
   tls {
       load /var/snap/wekan/common/certs
       alpn http/1.1
@@ -144,10 +143,7 @@ https://boards.example.com {
       load /var/snap/wekan/common/certs
       alpn http/1.1
   }
-  proxy / localhost:3001 {
-    websocket
-    transparent
-  }
+  reverse_proxy localhost:3001
 }
 ```
 Optionally you can would like to [disable all Snap automatic updates](https://github.com/wekan/wekan-snap/wiki/Automatic-update-schedule#if-required-you-can-disable-all-snap-updates) (not recommended, only required by some clients).

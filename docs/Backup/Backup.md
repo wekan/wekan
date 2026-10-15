@@ -685,41 +685,37 @@ makeDump
 /var/snap/wekan/common/Caddyfile
 ```bash
 chat.example.com {
-	proxy / localhost:3000 {
-	  websocket
-	  transparent
-	}
+	reverse_proxy localhost:3000
 }
 
 https://boards.example.com {
-	proxy / localhost:3001 {
-	  websocket
-	  transparent
-	}
+	reverse_proxy localhost:3001
 }
 
 example.com {
-	root /var/snap/wekan/common/example.com
-	fastcgi / /var/run/php/php7.0-fpm.sock php
+	root * /var/snap/wekan/common/example.com
+	php_fastcgi unix//var/run/php/php7.0-fpm.sock
 }
 
 matomo.example.com {
-        root /var/snap/wekan/common/matomo.example.com
-        fastcgi / /var/run/php/php7.0-fpm.sock php
+        root * /var/snap/wekan/common/matomo.example.com
+        php_fastcgi unix//var/run/php/php7.0-fpm.sock
 }
 
 # Example CloudFlare free wildcard SSL Origin Certificate, there is example.com.pem at certificates directory with private key at to and cert at bottom.
-http://example.com https://example.com {
+# Caddy 2 redirects http:// to https:// by itself.
+files.example.com {
         tls {
             load /var/snap/wekan/common/certificates
             alpn http/1.1
         }
-        root /var/snap/wekan/common/example.com
-        browse
+        root * /var/snap/wekan/common/files.example.com
+        file_server browse
 }
 
 static.example.com {
-	root /var/snap/wekan/common/static.example.com
+	root * /var/snap/wekan/common/static.example.com
+	file_server
 }
 ```
 
