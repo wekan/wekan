@@ -233,6 +233,20 @@ itself was not reproduced: that needs its data.
 
 </details>
 
+**Archive** - restoring cards into lists that are full.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9edbcc858">Restore into a full list asks for another list instead of doing nothing</a>. Thanks to jullbo and xet7.</summary>
+
+Restoring an archived card whose list had reached a hard WIP limit did nothing
+at all, and Restore all skipped such cards silently
+([#6772](https://github.com/wekan/wekan/issues/6772)). Restore now asks which
+list to restore it to, offering only lists with room, and Restore all says how
+many cards it left out. A list already over its hard limit blocks too, which the
+old check let through; a soft limit still only warns.
+
+</details>
+
 **Search in the Email view and Public Boards** - results of the search typed.
 
 <details>
