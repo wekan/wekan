@@ -136,7 +136,8 @@ class LdapConnection:
                             data['initials'] = ''
                         try:
                             data['photo'] = ldap_data[self.user_photo_attribute][0]
-                            data['photo_hash'] = hashlib.md5(data['photo']).digest()
+                            # Only to notice a changed photo; not a security use.
+                            data['photo_hash'] = hashlib.md5(data['photo'], usedforsecurity=False).digest()
                         except KeyError:
                             data['photo'] = None
                         data['is_superuser'] = f"{self.admin_group},{self.basedn}" in ldap_data['memberOf']

@@ -58,7 +58,9 @@ class Pagination(unittest.TestCase):
              patch('urllib.request.urlopen', side_effect=get), \
              patch.object(sys, 'argv', ['planner', str(Path(tmp) / 'plan.json')]), \
              contextlib.redirect_stderr(io.StringIO()):
-            exec(compile(planner, 'backfill-charts.sh:planner', 'exec'), {})
+            # The planner under test is this repository's own backfill-charts.sh,
+            # run in an empty namespace with the network patched out.
+            exec(compile(planner, 'backfill-charts.sh:planner', 'exec'), {})  # nosec B102
             result = json.loads((Path(tmp) / 'plan.json').read_text())
         self.assertEqual(len(calls), pages)
         self.assertEqual(result['keep'], ['12.37'])

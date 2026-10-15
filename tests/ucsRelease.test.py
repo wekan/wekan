@@ -129,8 +129,9 @@ assert 'UNIVENTION_APP_PROVIDER_PASSWORD' not in os.environ
 print(json.dumps({'authenticated': True}))
 """)
         before = set(self.root.rglob('*'))
-        portal = ucs.Portal(str(cli), 'test-user', 'test-provider-secret')
-        with patch.dict(os.environ, UNIVENTION_APP_PROVIDER_PASSWORD='test-provider-secret'), \
+        fixture = 'test-provider-secret'  # the fake portal's expected value, not a credential
+        portal = ucs.Portal(str(cli), 'test-user', fixture)
+        with patch.dict(os.environ, UNIVENTION_APP_PROVIDER_PASSWORD=fixture), \
              patch.object(ucs.Path, 'write_text', side_effect=AssertionError('no credential files')):
             for action in ('list', 'get'):
                 self.assertEqual(portal.call(action, json_result=True), {'authenticated': True})

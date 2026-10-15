@@ -77,7 +77,14 @@ for major in args.majors:
     download(url, f'nextcloud-{major}.zip', digest)
 wekan = github_asset('wekan/wekan', f'tags/v{args.version}', f'wekan-{args.version}-amd64.zip', 'wekan.zip')
 # Keep downloaded artifacts separate from fresh run data. Extracting replaces code only.
-with zipfile.ZipFile(wekan) as z: z.extractall(RUNTIME / 'wekan')
+with zipfile.ZipFile(wekan) as z:
+    # Every member must land inside the target (zipfile also refuses '..' and
+    # absolute names; this makes the check explicit for a downloaded archive).
+    target = (RUNTIME / 'wekan').resolve()
+    for name in z.namelist():
+        if not (target / name).resolve().is_relative_to(target):
+            raise RuntimeError(f'{wekan}: member outside the target: {name}')
+    z.extractall(target)  # nosec B202 - every member was checked above
 ferret = github_asset('wekan/FerretDB', 'latest', 'ferretdb-amd64', 'ferretdb')
 ferret.chmod(0o755)
 for name, remote, branch in [('nextcloud', 'wekan/nextcloud', 'main'), ('nextcloud-harp', 'nextcloud/HaRP', 'v0.4.5')]:

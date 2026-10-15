@@ -21,7 +21,8 @@ spec.loader.exec_module(audit)
 
 class ReleaseTelemetry(unittest.TestCase):
     def test_shallow_copy_reads_sibling_policy_without_index_error(self):
-        for location in ('/check-telemetry.py', '/tmp/check-telemetry.py'):
+        # Fake __file__ values for the path logic; nothing is written there.
+        for location in ('/check-telemetry.py', '/tmp/check-telemetry.py'):  # nosec B108
             with patch.object(audit, '__file__', location), \
                  patch.object(Path, 'is_file', return_value=True), \
                  patch.object(Path, 'read_text', return_value='{"denyHashes":["denied"]}'):
