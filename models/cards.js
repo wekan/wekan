@@ -4,6 +4,7 @@ import { Random } from 'meteor/random';
 import { EJSON } from 'meteor/ejson';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
+const { wipLimitBlocksRestore } = require('/models/lib/wipRestore');
 import {
   formatDateTime,
   formatDate,
@@ -1821,16 +1822,16 @@ Cards.helpers({
 
   canBeRestored() {
     const list = ReactiveCache.getList(this.listId);
-    if (
-      !list.getWipLimit('soft') &&
-      list.getWipLimit('enabled') &&
-      // #2095: WIP limit must count ALL cards in the list, not only the ones
-      // currently visible through an active filter (cards() applies the filter).
-      list.getWipLimit('value') === list.cardsUnfiltered().length
-    ) {
-      return false;
-    }
-    return true;
+    // A list that is gone cannot hold it either; the restore asks for another.
+    if (!list) return false;
+    // #6772: full - or over - a hard limit blocks (models/lib/wipRestore.js).
+    // #2095: WIP limit must count ALL cards in the list, not only the ones
+    // currently visible through an active filter (cards() applies the filter).
+    return !wipLimitBlocksRestore({
+      enabled: list.getWipLimit('enabled'),
+      soft: list.getWipLimit('soft'),
+      value: list.getWipLimit('value'),
+    }, list.cardsUnfiltered().length);
   },
 
   parentCard() {

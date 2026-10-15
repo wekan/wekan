@@ -82,6 +82,7 @@ import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { caretClassFor } from '/client/lib/sectionCaret';
+import { restoreArchivedCard } from '/client/components/sidebar/sidebarArchives';
 const { openCardIsUnavailable } = require('/models/lib/openCardPresence');
 
 // Id of the location currently being edited in the cardLocationsPopup; null
@@ -1911,18 +1912,9 @@ Template.cardDetailsActionsPopup.events({
     const card = Cards.findOne(getCardId());
     if (!card) return;
 
-    const currentList = ReactiveCache.getList(card.listId);
-    if (!currentList) {
-      Popup.open('restoreArchivedCardToList')(event, {
-        dataContextIfCurrentDataIsUndefined: { _id: card._id },
-      });
-      return;
-    }
-
-    if (typeof card.canBeRestored === 'function' && card.canBeRestored()) {
-      await card.restore();
-    }
-    Popup.back();
+    // The same as the Archive sidebar's Restore: a missing list, or one a hard
+    // WIP limit has filled (#6772), asks which list to restore it to.
+    if (await restoreArchivedCard(event, card)) Popup.back();
   },
   'click .js-more': Popup.open('cardMore'),
   'click .js-create-board-from-card': Popup.open('createBoardFromCard'),

@@ -109,14 +109,26 @@ template(name="archivesSidebar")
   else
     +spinner
 
+//- Restore an archived card into a list: its own list is gone, or (#6772)
+  its own list has reached a hard WIP limit. Only lists with room are offered.
 template(name="restoreArchivedCardToListPopup")
-  p {{_ 'error-list-doesNotExist'}}, {{_ 'list'}}:
-  select.js-select-restore-target-list(autofocus)
-    each availableLists
-      option(value="{{_id}}" selected="{{#if isSelectedList _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+  if wipLimitReached
+    p.js-restore-wip-reached {{_ 'restore-card-wip-limit-reached' list=currentListTitle}}
+  else
+    p {{_ 'error-list-doesNotExist'}}, {{_ 'list'}}:
+  if availableLists.length
+    select.js-select-restore-target-list(autofocus)
+      each availableLists
+        option(value="{{_id}}" selected="{{#if isSelectedList _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
-  .edit-controls.clearfix
-    button.primary.confirm.js-restore-card-to-list {{_ 'restore'}}
+    .edit-controls.clearfix
+      button.primary.confirm.js-restore-card-to-list {{_ 'restore'}}
+  else
+    p.js-restore-no-list-with-room {{_ 'restore-card-no-list-with-room'}}
+
+//- #6772: Restore all left out the cards whose lists are full.
+template(name="restoreAllSkippedPopup")
+  p.js-restore-all-skipped {{_ 'restore-all-skipped-wip-limit' count=count}}
 
 template(name="restoreArchivedListToSwimlanePopup")
   p {{_ 'no-results'}}, {{_ 'wip-limit-group-select-swimlane'}}:

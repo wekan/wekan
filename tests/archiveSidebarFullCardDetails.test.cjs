@@ -82,16 +82,24 @@ test('the Restore action calls the existing card.restore() un-archive mutation',
   const at = cardDetailsJs.indexOf("'click .js-restore-archived-card'");
   assert.notStrictEqual(at, -1, 'the handler exists');
   const body = cardDetailsJs.slice(at, cardDetailsJs.indexOf('\n  },', at));
-  assert.ok(/await card\.restore\(\)/.test(body), 'it calls the same Cards.restore() every other Restore link uses');
+  // Since #6772 through the Archive sidebar's own restoreArchivedCard(), so a
+  // full list asks for another one in both places; that function is what
+  // calls card.restore().
+  assert.ok(/await restoreArchivedCard\(event, card\)/.test(body), 'it restores exactly as the Archive sidebar does');
+  const sidebar = fs.readFileSync(path.join(__dirname, '..', 'client/components/sidebar/sidebarArchives.js'), 'utf8');
+  const fn = sidebar.slice(sidebar.indexOf('export async function restoreArchivedCard'));
+  assert.ok(/await card\.restore\(\)/.test(fn.slice(0, fn.indexOf('\n}\n'))), 'it calls the same Cards.restore() every other Restore link uses');
   // Same target-list fallback the Archive sidebar's own Restore link already
   // has (a card whose list was itself archived/deleted needs somewhere to
   // land) - reused rather than re-invented, and guarded so canBeRestored()
   // is never called against a missing list.
-  assert.ok(/ReactiveCache\.getList\(card\.listId\)/.test(body),
+  // These now live in that shared function (#6772), so both places check them.
+  const shared = fn.slice(0, fn.indexOf('\n}\n'));
+  assert.ok(/ReactiveCache\.getList\(card\.listId\)/.test(shared),
     'checks the current list exists first, like sidebarArchives.js does');
-  assert.ok(/Popup\.open\('restoreArchivedCardToList'\)/.test(body),
+  assert.ok(/Popup\.open\('restoreArchivedCardToList'\)/.test(shared),
     'and falls back to the SAME restoreArchivedCardToList popup sidebarArchives.js opens');
-  assert.ok(/canBeRestored/.test(body), 'canBeRestored() is still consulted before restoring');
+  assert.ok(/canBeRestored/.test(shared), 'canBeRestored() is still consulted before restoring');
 });
 
 test('sidebarArchives.js already defines the restoreArchivedCardToListPopup this handler reuses', () => {

@@ -2815,6 +2815,22 @@
     {
       "key": "board-load-failed",
       "since": "2026-10-14"
+    },
+    {
+      "key": "restoreAllSkippedPopup-title",
+      "since": "2026-10-15"
+    },
+    {
+      "key": "restore-card-wip-limit-reached",
+      "since": "2026-10-15"
+    },
+    {
+      "key": "restore-card-no-list-with-room",
+      "since": "2026-10-15"
+    },
+    {
+      "key": "restore-all-skipped-wip-limit",
+      "since": "2026-10-15"
     }
   ]
 }
