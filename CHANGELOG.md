@@ -112,7 +112,8 @@ below by category, with its reason.
 **In short:** the **Windows** and **NetBSD** bundles build again: the release
 scripts read their files as UTF-8 on every runner, and the NetBSD build finds
 pkgsrc's Python. **LDAP background sync** imports new users again and keeps
-the interval it is given.
+the interval it is given, and every **Caddyfile** example is **Caddy 2**, so
+the snap no longer renames a Caddyfile copied from the docs.
 
 This release fixes the following bugs:
 
@@ -154,6 +155,25 @@ minute, and 3600 every 4 seconds. Each interval now becomes one later keeps
 exactly, or the nearest one with a warning, and one under a minute is warned
 about as probably seconds. Tests reproduce the reported filter and check the
 spacing of every interval with the real later.js.
+
+</details>
+
+**The snap's Caddy** - the Caddyfiles it ships and the ones the docs show.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37d2397603">Caddyfile examples are Caddy 2, and Caddy proxies to where WeKan listens</a>. Thanks to Group-Deed and xet7.</summary>
+
+The snap moves a Caddyfile that Caddy 2 cannot read to `Caddyfile.v1.bak-<n>`
+on every start, and 19 examples in the docs were Caddy v1 (`proxy / ...
+websocket transparent`, `browse`, `fastcgi`, `tls self_signed`), so a file
+copied from the snap install page was renamed each time it was put back. All
+are Caddy 2 now and pass `caddy adapt`, as do the Docker Caddyfile and
+Caddy.md's systemd unit.
+
+The default the migration writes proxied to port 3000, where nothing of WeKan
+listens in the snap. Both templates now read `port` and `caddy-bind-port` from
+the snap settings. A test fails on Caddy v1 syntax anywhere and, with a Caddy
+2 binary, adapts all 30 Caddyfiles.
 
 </details>
 
