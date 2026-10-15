@@ -232,6 +232,21 @@ itself was not reproduced: that needs its data.
 
 </details>
 
+**Search in the Email view and Public Boards** - results of the search typed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49344f32f4">A search shows its own results, never the previous search's</a>. Thanks to xet7.</summary>
+
+Both views subscribe in an autorun, so a new search starts before the old one
+stops, and both sent their page's ids in one shared document: while both
+existed, the older search's rows won, and a search for something that matches
+nothing could still list the last search's card. Each search now has its own
+page index, keyed the same way on the server and the client, and the view reads
+only its own. Found running the Email view's browser test against the
+production bundle.
+
+</details>
+
 **Chat view** - opening cards and folding panes.
 
 <details>
@@ -248,6 +263,9 @@ and has the following developer-facing fixes:
 - [Two guards follow the Chat view and the live-test log fixes](https://github.com/wekan/wekan/commit/71b862c28c):
   the Chat comment check is on the card's board, and the live-test guard
   escapes every RegExp metacharacter. Thanks to xet7.
+- [The Email and Chat browser specs pass against the production bundle](https://github.com/wekan/wekan/commit/160110d1b3):
+  Compose's mail is caught by the local mail sink the other mail specs use, and
+  the Chat spec waits for the sign-in after a reload. Thanks to xet7.
 - [Every node suite passes again](https://github.com/wekan/wekan/commit/75534b5f1a):
   the thirteen translation guards that failed before this release, fixed in
   the locale where the locale was wrong (Bislama, Uzbek, Romansh, Tigre,
