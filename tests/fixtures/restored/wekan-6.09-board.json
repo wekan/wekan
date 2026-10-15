@@ -1,0 +1,336 @@
+{
+  "notes": "Derived from git show v6.09 (package.json v6.09.0, METEOR@2.2, aldeed:simple-schema@1.5.4, aldeed:collection2@2.10.0, matb33:collection-hooks@0.9.1, wekan-cfs-* bundled packages, cfs-gridfs Npm mongodb 2.2.9 + gridfs-stream 1.1.1). Collection names: boards, swimlanes, lists, cards, checklists, checklistItems, card_comments, customFields, activities, users (Meteor.users); attachments via CollectionFS FS.Collection('attachments') => filerecords in 'cfs.attachments.filerecord', file bytes in GridFS root 'cfs_gridfs.attachments' => 'cfs_gridfs.attachments.files' + 'cfs_gridfs.attachments.chunks' (or on disk when ATTACHMENTS_STORE_PATH was set, FS.Store.FileSystem, with GridFS as read fallback). Avatars use the same mechanism: 'cfs.avatars.filerecord' + 'cfs_gridfs.avatars.files/.chunks'. Transient upload chunks live in 'cfs._tempstore.chunks' (CollectionFS TempStore) and may be left over. All Meteor ids are 17-char Random strings; only GridFS files/chunks use ObjectId. DIFFERENCES vs current WeKan: (1) Attachments are CollectionFS, not Meteor-Files: no 'attachments' collection with name/extension/extensionWithDot/versions.original.path/meta{boardId,cardId}; instead filerecord has original{name,type,size,updatedAt}, copies.attachments{name,type,size,key(GridFS ObjectId hex STRING),updatedAt,createdAt}, top-level boardId/swimlaneId/listId/cardId/userId, uploadedAt (set only when upload finished; records without uploadedAt/copies are incomplete uploads). Non-image files have copies.attachments.type forced to 'application/octet-stream' by beforeWrite while original.type keeps the real MIME. Linked-card uploads carry only boardId/cardId (no listId/swimlaneId). Imported filerecords briefly have source:'import' (then $unset). GridFS chunkSize is 2097152 (2MB), files doc has md5/aliases/metadata:null; the cfs init created an index {files_id:1,n:1} on the wrong collection 'cfs_gridfs.attachments' (no .chunks). (2) cards.coverId is the CollectionFS filerecord _id (set automatically only for images); '' when none. (3) lists.swimlaneId defaults to '' (lists shared by all swimlanes) - only template boards set a real swimlaneId; lists.sort/swimlanes.sort optional (may be missing on old/imported data); lists have starred, wipLimit{value,enabled,soft} optional object, type 'list'|'template-list'; lists.modifiedAt only set on insert, updatedAt tracks updates. (4) No width/collapsed/showAtMinicard etc. on lists, no per-swimlane list widths. (5) boards.members is [{userId,isAdmin,isActive,isNoComments,isCommentOnly,isWorker}] - no isNormalAssignedOnly/isCommentAssignedOnly/isReadOnly/isReadAssignedOnly; removed members stay with isActive:false. boards.permission only 'public'|'private'. boards.labels has NO default labels on new boards (autoValue commented out) so labels may be absent/empty; label {_id (6-char Random), name, color}. boards.type 'board'|'template-board'|'template-container'; each user has a 'template-container' board referenced from users.profile.templatesBoardId. boards.sort default -1 then lastBoard.sort+1; orgs/teams arrays optional; color from ALLOWED_BOARD_COLORS (default 'belize'); stars counter; many allows* booleans (no allowsBadge*/allowsShowListsAtMinicard etc.). (6) cards: members/assignees are arrays of userId strings; labelIds array; customFields [{_id,value}]; type 'cardType-card' (also 'cardType-linkedCard','cardType-linkedBoard','template-card'); listId/boardId/parentId/linkedId/coverId/requestedBy/assignedBy default ''; sort default 0; subtaskSort -1; cardNumber 0 unless board.allowsCardNumber; spentTime 0; isOvertime false; dateLastActivity; vote/poker sub-objects are schema-optional but simple-schema 1.5.4 applies nested defaultValues on insert, so cards created by 6.09 most likely carry vote{question:'',positive:[],negative:[],end:null,public:false,allowNonBoardMembers:false} and poker{question:false,one..unsure:[],end:null,allowNonBoardMembers:false} - but cards may also lack them (card C609B shows that shape). Gantt fields targetId_gantt/linkType_gantt/linkId_gantt arrays. No receivedAt/startAt/dueAt/endAt unless set. (7) checklists: {cardId,title,sort,createdAt,modifiedAt,finishedAt?} - before.insert also sets userId (not in schema; may or may not survive collection2 cleaning). No showAtMinicard/hideCheckedItems/hideAllItems. (8) checklistItems: {title,sort,isFinished,checklistId,cardId,createdAt,modifiedAt,userId?}. (9) card_comments: {boardId,cardId,text,createdAt,modifiedAt,userId}; reactions in separate cardCommentReactions. (10) customFields: boardIds array (not boardId), type in text/number/date/dropdown/checkbox/currency/stringtemplate, settings object always present (may be {}), showOnCard/automaticallyOnCard/alwaysOnCard/showLabelOnMiniCard/showSumAtTopOfList. (11) activities: no schema; createdAt/modifiedAt via hook; fields vary by activityType (createBoard has type:'board' + activityTypeId; addAttachment has type:'card', attachmentId = filerecord _id, attachmentName). (12) swimlanes: {title,archived,boardId,createdAt,sort?,color?,updatedAt,modifiedAt,type:'swimlane'|'template-container'}; default swimlane titled 'Default' (or translated 'default') created lazily by getDefaultSwimline.",
+  "collections": {
+    "users": [
+      {
+        "_id": "U609",
+        "username": "admin609",
+        "emails": [{ "address": "admin609@example.com", "verified": true }],
+        "createdAt": { "$date": "2022-06-01T09:00:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:30:00.000Z" },
+        "services": { "password": { "bcrypt": "$2b$10$abcdefghijklmnopqrstuvABCDEFGHIJKLMNOPQRSTUVWXYZ01234" } },
+        "profile": {
+          "fullname": "Admin 609",
+          "initials": "A6",
+          "boardView": "board-view-swimlanes",
+          "listSortBy": "-modifiedAt",
+          "templatesBoardId": "B609T",
+          "cardTemplatesSwimlaneId": "S609TC",
+          "listTemplatesSwimlaneId": "S609TL",
+          "boardTemplatesSwimlaneId": "S609TB"
+        },
+        "isAdmin": true,
+        "authenticationMethod": "password"
+      }
+    ],
+    "boards": [
+      {
+        "_id": "B609",
+        "title": "Board 609",
+        "slug": "board-609",
+        "archived": false,
+        "createdAt": { "$date": "2022-06-01T10:00:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:30:00.000Z" },
+        "stars": 0,
+        "labels": [
+          { "_id": "Lb6091", "name": "Bug", "color": "red" },
+          { "_id": "Lb6092", "name": "", "color": "green" }
+        ],
+        "members": [
+          { "userId": "U609", "isAdmin": true, "isActive": true, "isNoComments": false, "isCommentOnly": false, "isWorker": false }
+        ],
+        "permission": "private",
+        "color": "belize",
+        "description": "",
+        "subtasksDefaultBoardId": null,
+        "subtasksDefaultListId": null,
+        "dateSettingsDefaultBoardId": null,
+        "dateSettingsDefaultListId": null,
+        "allowsSubtasks": true,
+        "allowsAttachments": true,
+        "allowsChecklists": true,
+        "allowsComments": true,
+        "allowsDescriptionTitle": true,
+        "allowsDescriptionText": true,
+        "allowsCardNumber": false,
+        "allowsActivities": true,
+        "allowsLabels": true,
+        "allowsCreator": true,
+        "allowsAssignee": true,
+        "allowsMembers": true,
+        "allowsRequestedBy": true,
+        "allowsCardSortingByNumber": true,
+        "allowsShowLists": true,
+        "allowsAssignedBy": true,
+        "allowsReceivedDate": true,
+        "allowsStartDate": true,
+        "allowsEndDate": true,
+        "allowsDueDate": true,
+        "presentParentTask": "no-parent",
+        "isOvertime": false,
+        "type": "board",
+        "sort": 1
+      }
+    ],
+    "swimlanes": [
+      {
+        "_id": "S609",
+        "title": "Default",
+        "archived": false,
+        "boardId": "B609",
+        "createdAt": { "$date": "2022-06-01T10:00:01.000Z" },
+        "sort": 0,
+        "updatedAt": { "$date": "2022-06-01T10:00:01.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:00:01.000Z" },
+        "type": "swimlane"
+      }
+    ],
+    "lists": [
+      {
+        "_id": "L609",
+        "title": "To Do",
+        "starred": false,
+        "archived": false,
+        "boardId": "B609",
+        "swimlaneId": "",
+        "createdAt": { "$date": "2022-06-01T10:01:00.000Z" },
+        "sort": 0,
+        "updatedAt": { "$date": "2022-06-01T10:01:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:01:00.000Z" },
+        "type": "list"
+      },
+      {
+        "_id": "L609B",
+        "title": "Done",
+        "starred": false,
+        "archived": false,
+        "boardId": "B609",
+        "swimlaneId": "",
+        "createdAt": { "$date": "2022-06-01T10:01:30.000Z" },
+        "sort": 1,
+        "updatedAt": { "$date": "2022-06-01T10:05:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:01:30.000Z" },
+        "wipLimit": { "value": 3, "enabled": true, "soft": false },
+        "color": "green",
+        "type": "list"
+      }
+    ],
+    "cards": [
+      {
+        "_id": "C609",
+        "title": "Card with attachment",
+        "archived": false,
+        "parentId": "",
+        "listId": "L609",
+        "swimlaneId": "S609",
+        "boardId": "B609",
+        "coverId": "A609",
+        "createdAt": { "$date": "2022-06-01T10:02:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:10:00.000Z" },
+        "customFields": [{ "_id": "CF609", "value": "hello" }],
+        "dateLastActivity": { "$date": "2022-06-01T10:10:00.000Z" },
+        "description": "Description in **markdown**",
+        "requestedBy": "",
+        "assignedBy": "",
+        "labelIds": ["Lb6091"],
+        "members": ["U609"],
+        "assignees": ["U609"],
+        "dueAt": { "$date": "2022-06-10T10:00:00.000Z" },
+        "spentTime": 0,
+        "isOvertime": false,
+        "userId": "U609",
+        "sort": 0,
+        "subtaskSort": -1,
+        "type": "cardType-card",
+        "linkedId": "",
+        "vote": { "question": "", "positive": [], "negative": [], "end": null, "public": false, "allowNonBoardMembers": false },
+        "poker": { "question": false, "one": [], "two": [], "three": [], "five": [], "eight": [], "thirteen": [], "twenty": [], "forty": [], "oneHundred": [], "unsure": [], "end": null, "allowNonBoardMembers": false },
+        "targetId_gantt": [],
+        "linkType_gantt": [],
+        "linkId_gantt": [],
+        "cardNumber": 0
+      },
+      {
+        "_id": "C609B",
+        "title": "Plain card",
+        "archived": false,
+        "parentId": "",
+        "listId": "L609B",
+        "swimlaneId": "S609",
+        "boardId": "B609",
+        "coverId": "",
+        "createdAt": { "$date": "2022-06-01T10:03:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:03:00.000Z" },
+        "customFields": [],
+        "dateLastActivity": { "$date": "2022-06-01T10:03:00.000Z" },
+        "description": "",
+        "requestedBy": "",
+        "assignedBy": "",
+        "labelIds": [],
+        "members": [],
+        "assignees": [],
+        "spentTime": 0,
+        "isOvertime": false,
+        "userId": "U609",
+        "sort": 1,
+        "subtaskSort": -1,
+        "type": "cardType-card",
+        "linkedId": "",
+        "targetId_gantt": [],
+        "linkType_gantt": [],
+        "linkId_gantt": [],
+        "cardNumber": 0
+      }
+    ],
+    "checklists": [
+      {
+        "_id": "CL609",
+        "cardId": "C609",
+        "title": "Checklist",
+        "createdAt": { "$date": "2022-06-01T10:04:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:04:00.000Z" },
+        "sort": 0,
+        "userId": "U609"
+      }
+    ],
+    "checklistItems": [
+      {
+        "_id": "CI609",
+        "title": "First item",
+        "sort": 0,
+        "isFinished": true,
+        "checklistId": "CL609",
+        "cardId": "C609",
+        "createdAt": { "$date": "2022-06-01T10:04:30.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:06:00.000Z" },
+        "userId": "U609"
+      },
+      {
+        "_id": "CI609B",
+        "title": "Second item",
+        "sort": 1,
+        "isFinished": false,
+        "checklistId": "CL609",
+        "cardId": "C609",
+        "createdAt": { "$date": "2022-06-01T10:04:40.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:04:40.000Z" },
+        "userId": "U609"
+      }
+    ],
+    "card_comments": [
+      {
+        "_id": "CC609",
+        "boardId": "B609",
+        "cardId": "C609",
+        "text": "A comment from 6.09",
+        "createdAt": { "$date": "2022-06-01T10:07:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:07:00.000Z" },
+        "userId": "U609"
+      }
+    ],
+    "customFields": [
+      {
+        "_id": "CF609",
+        "boardIds": ["B609"],
+        "name": "Text field",
+        "type": "text",
+        "settings": {},
+        "showOnCard": true,
+        "automaticallyOnCard": false,
+        "alwaysOnCard": false,
+        "showLabelOnMiniCard": false,
+        "showSumAtTopOfList": false,
+        "createdAt": { "$date": "2022-06-01T10:01:45.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:01:45.000Z" }
+      },
+      {
+        "_id": "CF609D",
+        "boardIds": ["B609"],
+        "name": "Dropdown field",
+        "type": "dropdown",
+        "settings": { "dropdownItems": [{ "_id": "dd6091", "name": "One" }, { "_id": "dd6092", "name": "Two" }] },
+        "showOnCard": false,
+        "automaticallyOnCard": false,
+        "alwaysOnCard": false,
+        "showLabelOnMiniCard": false,
+        "showSumAtTopOfList": false,
+        "createdAt": { "$date": "2022-06-01T10:01:50.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:01:50.000Z" }
+      }
+    ],
+    "activities": [
+      {
+        "_id": "ACT609A",
+        "userId": "U609",
+        "type": "board",
+        "activityTypeId": "B609",
+        "activityType": "createBoard",
+        "boardId": "B609",
+        "createdAt": { "$date": "2022-06-01T10:00:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:00:00.000Z" }
+      },
+      {
+        "_id": "ACT609B",
+        "userId": "U609",
+        "type": "card",
+        "activityType": "addAttachment",
+        "attachmentId": "A609",
+        "attachmentName": "photo.png",
+        "boardId": "B609",
+        "cardId": "C609",
+        "listId": "L609",
+        "swimlaneId": "S609",
+        "createdAt": { "$date": "2022-06-01T10:08:00.000Z" },
+        "modifiedAt": { "$date": "2022-06-01T10:08:00.000Z" }
+      }
+    ],
+    "cfs.attachments.filerecord": [
+      {
+        "_id": "A609",
+        "original": {
+          "name": "photo.png",
+          "updatedAt": { "$date": "2022-05-30T08:00:00.000Z" },
+          "size": 2048,
+          "type": "image/png"
+        },
+        "boardId": "B609",
+        "swimlaneId": "S609",
+        "listId": "L609",
+        "cardId": "C609",
+        "userId": "U609",
+        "uploadedAt": { "$date": "2022-06-01T10:08:00.000Z" },
+        "copies": {
+          "attachments": {
+            "name": "photo.png",
+            "type": "image/png",
+            "size": 2048,
+            "key": "629738c0a1b2c3d4e5f60609",
+            "updatedAt": { "$date": "2022-06-01T10:08:01.000Z" },
+            "createdAt": { "$date": "2022-06-01T10:08:01.000Z" }
+          }
+        }
+      }
+    ],
+    "cfs_gridfs.attachments.files": [
+      {
+        "_id": { "$oid": "629738c0a1b2c3d4e5f60609" },
+        "filename": "photo.png",
+        "contentType": "image/png",
+        "length": 2048,
+        "chunkSize": 2097152,
+        "uploadDate": { "$date": "2022-06-01T10:08:01.000Z" },
+        "aliases": [],
+        "metadata": null,
+        "md5": "0f343b0931126a20f133d67c2b018a3b"
+      }
+    ],
+    "cfs_gridfs.attachments.chunks": [
+      {
+        "_id": { "$oid": "629738c0a1b2c3d4e5f6060a" },
+        "files_id": { "$oid": "629738c0a1b2c3d4e5f60609" },
+        "n": 0,
+        "data": { "$binary": { "base64": "iVBORw0KGgo=", "subType": "00" } }
+      }
+    ]
+  }
+}
