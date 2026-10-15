@@ -2,6 +2,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Boards from '/models/boards';
 import { ReportPages } from '/client/lib/reportPages';
+import { reportPageKey } from '/models/lib/reportPageIndex';
 import {
   buildHeader,
   docsByIds,
@@ -62,7 +63,10 @@ Template.publicBoards.helpers({
     // a plain find(): every board this user has opened is also in minimongo, and
     // reading the collection would draw those too — the pager would say "1 / 3"
     // beside rows from all three pages.
-    const index = ReportPages.findOne(PAGE_ID);
+    // The index of THIS request (models/lib/reportPageIndex.js reportPageKey),
+    // built from the same arguments the autorun subscribed with.
+    const index = ReportPages.findOne(reportPageKey(PAGE_ID,
+      [tpl.searchTerm.get() || '', TABLE_PAGE_ROWS_PER_PAGE, (tpl.page.get() - 1) * TABLE_PAGE_ROWS_PER_PAGE]));
     const ids = (index && index.ids) || [];
     const boards = ids.length
       ? docsByIds(ids, Boards.find({ _id: { $in: ids } }).fetch())

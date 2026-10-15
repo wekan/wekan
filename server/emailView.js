@@ -23,9 +23,9 @@ import Cards from '/models/cards';
 import { cardCreation } from '/models/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
-import { publishReportPage } from '/models/lib/reportPageIndex';
+import { publishReportPage, reportPageKey } from '/models/lib/reportPageIndex';
 
-const { EMAIL_VIEW_PAGE_ID, emailFolderSelector, emailSearchSelector, cleanOutgoingEmail } = require('/models/lib/emailView');
+const { EMAIL_VIEW_PAGE_ID, emailViewPageArgs, emailFolderSelector, emailSearchSelector, cleanOutgoingEmail } = require('/models/lib/emailView');
 const { createRateLimiter, resolveEmailToCard } = require('/models/lib/emailToCard');
 const { boardAddress } = require('/server/lib/inboundBoardAddress');
 
@@ -81,7 +81,7 @@ Meteor.publish('emailViewPage', async function emailViewPage(boardId, options) {
     const { _id, ...fields } = doc;
     this.added('cards', _id, fields);
   }
-  publishReportPage(this, EMAIL_VIEW_PAGE_ID, docs);
+  publishReportPage(this, reportPageKey(EMAIL_VIEW_PAGE_ID, emailViewPageArgs(boardId, options)), docs);
   return this.ready();
 });
 

@@ -6,7 +6,7 @@ import { subtaskDepositChildren } from '/server/lib/subtaskDepositPublication';
 // 2. the user has starred
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
-import { publishReportPage } from '/models/lib/reportPageIndex';
+import { publishReportPage, reportPageKey } from '/models/lib/reportPageIndex';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 import { findWhere } from '/imports/lib/collectionHelpers';
 import Users from "../../models/users";
@@ -267,7 +267,8 @@ Meteor.publish('publicBoards', async function(searchTerm = '', limit = 10, skip 
   for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
   // WHICH boards this page is, in this order: the visitor's own boards are in
   // minimongo whatever page is open, so the pane must render the named page only.
-  publishReportPage(this, 'public-boards', boards);
+  // One index per request (reportPageKey): the page subscribes in an autorun.
+  publishReportPage(this, reportPageKey('public-boards', [searchTerm || '', limit, skip || 0]), boards);
   this.ready();
 });
 

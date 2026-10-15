@@ -154,8 +154,14 @@ test('ten rows per page, paged and counted on the SERVER', () => {
 
   // The rows drawn are the page the SERVER named, not whatever minimongo holds -
   // every board this user has opened is also in there.
-  assert.ok(/ReportPages\.findOne\(PAGE_ID\)/.test(js) && /docsByIds/.test(js),
-    'the page must render the ids the server sent, in that order');
+  // ...the index of THIS request (2026-10-15): the page subscribes in an
+  // autorun, so a new search overlaps the old one, and one shared index id
+  // let the older search's rows win. Server and client key it alike.
+  assert.ok(/ReportPages\.findOne\(reportPageKey\(PAGE_ID,\s*\[tpl\.searchTerm\.get\(\) \|\| '', TABLE_PAGE_ROWS_PER_PAGE, \(tpl\.page\.get\(\) - 1\) \* TABLE_PAGE_ROWS_PER_PAGE\]\)\)/.test(js) && /docsByIds/.test(js),
+    'the page must render the ids the server sent for this request, in that order');
+  assert.ok(/publishReportPage\(this, reportPageKey\('public-boards', \[searchTerm \|\| '', limit, skip \|\| 0\]\), boards\)/.test(publications),
+    'and the server keys the index by the same arguments');
+  assert.ok(!/ReportPages\.findOne\(PAGE_ID\)/.test(js), 'no reader of the shared id is left');
 });
 
 test('a page sends the fields the two columns need, and not a board', () => {

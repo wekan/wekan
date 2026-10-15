@@ -111,7 +111,15 @@ test('server: the page is server-side and access-checked, From is the member\'s 
   const server = read('server/emailView.js');
   assert.match(server, /board\.isVisibleBy\(user\)/, 'only a board the user may see');
   assert.match(server, /skip: \(page - 1\) \* TABLE_PAGE_ROWS_PER_PAGE/);
-  assert.match(server, /publishReportPage\(this, EMAIL_VIEW_PAGE_ID, docs\)/);
+  // One page index per request (2026-10-15): a new search's subscription
+  // starts before the old one stops, and under one shared id the merge box
+  // showed the older search's rows. Server and client key it alike.
+  assert.match(server, /publishReportPage\(this, reportPageKey\(EMAIL_VIEW_PAGE_ID, emailViewPageArgs\(boardId, options\)\), docs\)/);
+  const client = read('client/components/boards/emailView.js');
+  assert.match(client, /reportPageKey\(EMAIL_VIEW_PAGE_ID, emailViewPageArgs\(Utils\.getCurrentBoardId\(\),\s*\{ folder: tpl\.folder\.get\(\), page: tpl\.page\.get\(\), search: tpl\.searchTerm\.get\(\) \}\)\)/);
+  assert.match(client, /const options = \{ folder: this\.folder\.get\(\), page: this\.page\.get\(\), search: this\.searchTerm\.get\(\) \};/, 'the same three the subscription sends');
+  // Negative: no reader of the shared id is left.
+  assert.doesNotMatch(client, /reportPageDocs\(Cards, EMAIL_VIEW_PAGE_ID,/);
   assert.match(server, /allowIsBoardMemberWithWriteAccess\(userId, board\)/, 'sending needs write access');
   assert.match(server, /const from = boardAddress\(row\.token, inboundMail\.domain\)/);
   assert.doesNotMatch(server, /from:\s*input\./, 'From never comes from the form');

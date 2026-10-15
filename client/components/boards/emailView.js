@@ -4,9 +4,10 @@ import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { Utils } from '/client/lib/utils';
 import { reportPageDocs } from '/client/lib/reportPages';
+import { reportPageKey } from '/models/lib/reportPageIndex';
 import { buildHeader, docsByIds, pageInfo } from '/models/lib/tablePage';
 
-const { EMAIL_VIEW_PAGE_ID, parseFolder, previewMarkdown } = require('/models/lib/emailView');
+const { EMAIL_VIEW_PAGE_ID, emailViewPageArgs, parseFolder, previewMarkdown } = require('/models/lib/emailView');
 
 // Board View / Email (emailView.jade, server/emailView.js). The folder, the
 // page and the search are this view's state; the rows are the page the server
@@ -88,7 +89,11 @@ Template.emailView.helpers({
     const info = pageInfo(tpl.total.get(), tpl.page.get());
     const board = Utils.getCurrentBoard();
     const labels = (board && board.labels) || [];
-    const cards = reportPageDocs(Cards, EMAIL_VIEW_PAGE_ID, docsByIds);
+    // The index of THIS request only: a previous search's index can still be
+    // in minimongo while its subscription stops.
+    const key = reportPageKey(EMAIL_VIEW_PAGE_ID, emailViewPageArgs(Utils.getCurrentBoardId(),
+      { folder: tpl.folder.get(), page: tpl.page.get(), search: tpl.searchTerm.get() }));
+    const cards = reportPageDocs(Cards, key, docsByIds);
     const docs = cards.map(card => {
       const email = card.email || {};
       const outgoing = email.direction === 'out';

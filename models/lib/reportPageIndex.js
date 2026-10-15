@@ -18,6 +18,18 @@
 
 export const REPORT_PAGE_COLLECTION = 'report_pages';
 
+// One index per REQUEST, not per report, for a view that subscribes in an
+// autorun. Typing a new search starts the new subscription before the old one
+// stops, and both publish an index; under one shared id DDP's merge box shows
+// the OLDER subscription's ids until it is gone, so a search could keep the
+// previous search's rows (seen in the Email view: "nothing-matches-this"
+// still listing one card). Keyed by the subscription's arguments, each search
+// has its own index and the view reads only the one it asked for. Server and
+// client build the key with this same function.
+export function reportPageKey(reportId, args) {
+  return `${reportId}:${JSON.stringify(args)}`;
+}
+
 // Send the index for `reportId` from inside a publication (`this`).
 // Documents without an `_id` are skipped rather than published as a null id.
 export function publishReportPage(publication, reportId, docs) {

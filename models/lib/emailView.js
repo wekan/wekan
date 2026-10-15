@@ -97,9 +97,16 @@ function previewMarkdown(description, maxLines = 8, maxLength = 2000) {
   return out;
 }
 
+// What one Email view page request is, the same on the server and the client,
+// so each request's page index has its own id (models/lib/reportPageIndex.js).
+function emailViewPageArgs(boardId, options = {}) {
+  return [boardId, String(options.folder || ''), Math.max(1, Math.floor(options.page || 1)), String(options.search || '')];
+}
+
 module.exports = {
   previewMarkdown,
   EMAIL_VIEW_PAGE_ID,
+  emailViewPageArgs,
   MAX_RECIPIENTS,
   parseFolder,
   emailFolderSelector,
