@@ -194,13 +194,14 @@ and fixes the following bugs:
 **LDAP** - the background sync interval.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7dfd942ff6">A sync interval in milliseconds no longer stops WeKan</a>. Thanks to B2RN and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7dfd942ff6">A sync interval in milliseconds no longer stops WeKan</a>. Thanks to B2RN, tromlet and xet7.</summary>
 
 The docs give LDAP_BACKGROUND_SYNC_INTERVAL in milliseconds, but the number
 reached later.js's text parser, which threw "string.toLowerCase is not a
 function" from a timer, and the snap stopped and restarted in a loop. A quoted
 value such as 'every 1 mins' from a compose file never ran at all
-([#2354](https://github.com/wekan/wekan/issues/2354)). Milliseconds and later.js
+([#2354](https://github.com/wekan/wekan/issues/2354)); the same crash on Snap 12.46
+with LDAP sign-in is [#6771](https://github.com/wekan/wekan/issues/6771). Milliseconds and later.js
 text both work now, with or without quotes; an unreadable value is logged and
 the default is used, and nothing a setting holds can throw.
 
