@@ -107,7 +107,7 @@ below by category, with its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.47 2026-10-15 WeKan ® release
 
 **In short:** **Jira List Sync works from a Sandstorm grain** and the **Jira
 import brings closed sprints**. Imports from **Jira, Deck, OpenProject, Asana
