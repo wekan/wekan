@@ -111,7 +111,8 @@ below by category, with its reason.
 
 **In short:** the **Windows** and **NetBSD** bundles build again: the release
 scripts read their files as UTF-8 on every runner, and the NetBSD build finds
-pkgsrc's Python.
+pkgsrc's Python. **LDAP background sync** imports new users again and keeps
+the interval it is given.
 
 This release fixes the following bugs:
 
@@ -134,6 +135,25 @@ any that does not.
 pkgsrc installs Python as `python3.13` only, so compiling argon2 stopped with
 "You need to install the latest version of Python". The build now hands node-gyp
 the versioned interpreter when there is no `python3`.
+
+</details>
+
+**LDAP background sync** - which users it imports, and how often it runs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a944be1817">It imports new users again and keeps the sync interval it is given</a>. Thanks to tromlet and xet7.</summary>
+
+The import searched `(uid=\2a)` and found nobody: it asked for every user with
+the string `*`, and the escaping added for login names on 2026-09-27 made that
+a literal asterisk. Only an internal value a login cannot send is the wildcard
+now, so a typed `*` is still escaped.
+
+The interval in milliseconds became a later.js calendar rule that only works
+when it divides the hour: 2 hours and 1 day synced hourly, 90 seconds every
+minute, and 3600 every 4 seconds. Each interval now becomes one later keeps
+exactly, or the nearest one with a warning, and one under a minute is warned
+about as probably seconds. Tests reproduce the reported filter and check the
+spacing of every interval with the real later.js.
 
 </details>
 
