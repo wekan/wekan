@@ -107,7 +107,7 @@ below by category, with its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.48 2026-10-15 WeKan ® release
 
 **In short:** an **AssignedBleed** follow-up keeps assigned-only members to
 their own cards' files and document text on every remaining read path, and the
