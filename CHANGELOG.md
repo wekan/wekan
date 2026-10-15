@@ -107,6 +107,38 @@ below by category, with its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **Windows** and **NetBSD** bundles build again: the release
+scripts read their files as UTF-8 on every runner, and the NetBSD build finds
+pkgsrc's Python.
+
+This release fixes the following bugs:
+
+**Bundle builds** - the Windows and NetBSD bundles of v12.47.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11f97d016e">The Windows bundles build again: release scripts read their files as UTF-8</a>. Thanks to xet7.</summary>
+
+All three Windows bundles of v12.47 stopped at the risk audit, which named a
+file that had not changed. The audit read its baseline in the runner's own
+encoding - cp1252 on Windows - so a URL ending in "…" no longer matched. Every
+text read and write in the release scripts now names UTF-8, and a test fails on
+any that does not.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa62479245">The NetBSD bundle builds again: node-gyp finds pkgsrc's Python</a>. Thanks to xet7.</summary>
+
+pkgsrc installs Python as `python3.13` only, so compiling argon2 stopped with
+"You need to install the latest version of Python". The build now hands node-gyp
+the versioned interpreter when there is no `python3`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.47 2026-10-15 WeKan ® release
 
 **In short:** **Jira List Sync works from a Sandstorm grain** and the **Jira
