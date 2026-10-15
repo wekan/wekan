@@ -88,12 +88,12 @@ sudo snap set wekan ldap-authentication-userdn='CN=LDAP-User,OU=Service Accounts
 sudo snap set wekan ldap-authentication-password='<password>'
 sudo snap set wekan ldap-log-enabled='true'
 sudo snap set wekan ldap-background-sync='true'
-# LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-# The format must be as specified in:
+# LDAP_BACKGROUND_SYNC_INTERVAL : How often the background task syncs: milliseconds (3600000 = hourly) or text
+# Text is later.js text, quotes allowed, as specified in:
 # https://bunkat.github.io/later/parsers.html#text
 #sudo snap set wekan ldap-background-sync-interval='every 1 hours'
-# At which interval does the background task sync in milliseconds.
-# If not in use, Leave this unset, so it uses default, and does not crash.
+# Milliseconds (3600000 = hourly) or later.js text such as every 1 hours.
+# If not in use, leave this unset: it uses the default (hourly).
 # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
 #sudo snap set wekan ldap-background-sync-interval=''
 sudo snap set wekan ldap-background-sync-interval='every 1 hours'
@@ -144,12 +144,12 @@ snap set wekan ldap-basedn='dc=example,dc=com'
 snap set wekan ldap-background-sync='true'
 snap set wekan ldap-background-sync-keep-existant-users-updated='true'
 snap set wekan ldap-background-sync-import-new-users='true'
-# LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-# The format must be as specified in:
+# LDAP_BACKGROUND_SYNC_INTERVAL : How often the background task syncs: milliseconds (3600000 = hourly) or text
+# Text is later.js text, quotes allowed, as specified in:
 # https://bunkat.github.io/later/parsers.html#text
 #sudo snap set wekan ldap-background-sync-interval='every 1 hours'
-# At which interval does the background task sync in milliseconds.
-# If not in use, Leave this unset, so it uses default, and does not crash.
+# Milliseconds (3600000 = hourly) or later.js text such as every 1 hours.
+# If not in use, leave this unset: it uses the default (hourly).
 # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
 #sudo snap set wekan ldap-background-sync-interval=''
 snap set wekan ldap-background-sync-interval='every 1 hours'
@@ -173,12 +173,12 @@ sudo snap set wekan ldap-authentication-password='********'
 sudo snap set wekan ldap-authentication-userdn='cn=admin,dc=*******,dc=lan'
 sudo snap set wekan ldap-background-sync='true'
 sudo snap set wekan ldap-background-sync-import-new-users='true'
-# LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-# The format must be as specified in:
+# LDAP_BACKGROUND_SYNC_INTERVAL : How often the background task syncs: milliseconds (3600000 = hourly) or text
+# Text is later.js text, quotes allowed, as specified in:
 # https://bunkat.github.io/later/parsers.html#text
 #sudo snap set wekan ldap-background-sync-interval='every 1 hours'
-# At which interval does the background task sync in milliseconds.
-# If not in use, Leave this unset, so it uses default, and does not crash.
+# Milliseconds (3600000 = hourly) or later.js text such as every 1 hours.
+# If not in use, leave this unset: it uses the default (hourly).
 # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
 #sudo snap set wekan ldap-background-sync-interval=''
 sudo snap set wekan ldap-background-sync-interval='every 1 hours'
@@ -423,12 +423,12 @@ services:
       # LDAP_BACKGROUND_SYNC : If the sync of the users should be done in the background
       # example : LDAP_BACKGROUND_SYNC=true
       - LDAP_BACKGROUND_SYNC=false
-      # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-      # The format must be as specified in:
+      # LDAP_BACKGROUND_SYNC_INTERVAL : How often the background task syncs: milliseconds (3600000 = hourly) or text
+      # Text is later.js text, quotes allowed, as specified in:
       # https://bunkat.github.io/later/parsers.html#text
       #- LDAP_BACKGROUND_SYNC_INTERVAL=every 1 hours
-      # At which interval does the background task sync in milliseconds.
-      # Leave this unset, so it uses default, and does not crash.
+      # Unset or empty uses the default (hourly). A value it cannot read is logged
+      # and the default is used; it no longer stops WeKan (#2354).
       # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
       - LDAP_BACKGROUND_SYNC_INTERVAL=''
       # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED : 

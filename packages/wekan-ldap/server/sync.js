@@ -6,6 +6,7 @@ import { parseGroupAllowlist, filterGroupsByAllowlist } from './groupAllowlist';
 import { isAdminByGroups } from './adminGroups';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
+import { ldapSyncSchedule } from './syncSchedule';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 import { ldapPresenceUpdate } from './presenceSync';
 import { isKnownLdapGroup } from './entryKind';
@@ -688,13 +689,9 @@ const addCronJob = debounce(function addCronJobDebounced() {
   log_info('Enabling LDAP Background Sync');
   sc.add({
     name: jobName,
-    schedule: function(parser) {
-    if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL')) {
-       return parser.text(LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL'));
-    }
-    else {
-       return parser.recur().on(0).minute();
-    }},
+    // Milliseconds (as documented, which settings_get() turns into a Number)
+    // or later.js text; never throws (syncSchedule.js).
+    schedule: parser => ldapSyncSchedule(parser, LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL'), log_warn),
     job: async function() {
       await runLdapSync();
     },

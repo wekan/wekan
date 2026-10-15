@@ -510,7 +510,7 @@ DESCRIPTION_LDAP_BACKGROUND_SYNC="If the sync of the users should be done in the
 DEFAULT_LDAP_BACKGROUND_SYNC="false"
 KEY_LDAP_BACKGROUND_SYNC="ldap-background-sync"
 
-DESCRIPTION_LDAP_BACKGROUND_SYNC_INTERVAL="At which interval does the background task sync"
+DESCRIPTION_LDAP_BACKGROUND_SYNC_INTERVAL="How often the background task syncs: milliseconds (3600000 = hourly) or later.js text such as every 1 hours"
 DEFAULT_LDAP_BACKGROUND_SYNC_INTERVAL=""
 KEY_LDAP_BACKGROUND_SYNC_INTERVAL="ldap-background-sync-interval"
 
