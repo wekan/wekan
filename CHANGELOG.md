@@ -110,12 +110,13 @@ below by category, with its reason.
 # Upcoming WeKan ® release
 
 **In short:** an **AssignedBleed** follow-up keeps assigned-only members to
-their own cards' files and document text on every remaining read path. The
-**Windows** and **NetBSD** bundles build again: the release scripts read their
-files as UTF-8 on every runner, and the NetBSD build finds pkgsrc's Python.
-**LDAP background sync** imports new users again and keeps the interval it is
-given, and every **Caddyfile** example is **Caddy 2**, so the snap no longer
-renames a Caddyfile copied from the docs.
+their own cards' files and document text on every remaining read path, and the
+**release workflows** are hardened against injection. The **Windows** and
+**NetBSD** bundles build again: the release scripts read their files as UTF-8 on
+every runner, and the NetBSD build finds pkgsrc's Python. **LDAP background
+sync** imports new users again and keeps the interval it is given, and every
+**Caddyfile** example is **Caddy 2**, so the snap no longer renames a Caddyfile
+copied from the docs.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
 
@@ -134,6 +135,37 @@ legacy files, shows as AssignedBleed in Admin Panel → Problems; searching and
 viewing a linked list are ordinary use and are narrowed without a record. The
 board's background and map image stay readable to every member. A test fails
 when any file serving attachment or document data lacks the rule.
+
+</details>
+
+and fixes the following SECURITY ISSUES found by Qlty code scanning:
+
+**Release workflows** - the GitHub Actions that build and publish every release.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f7cc63cde">No expressions in scripts, every action pinned, and write access only where it is used</a>. Thanks to Qlty and xet7.</summary>
+
+A `${{ ... }}` pasted into a `run:` script is expanded before the shell sees it,
+so a crafted input, tag or output became shell code: 251 such values now reach
+their scripts through `env:`. Every action is pinned to a commit with its
+version in a comment. Six workflows granted write to every job; they grant read
+and each job that writes says so. Checkouts no longer keep the token, except in
+the jobs that push. `tests/workflowHardening.test.cjs` fails on any of the four
+and runs zizmor when installed. Build tooling only, so there is no attempt to
+record in Admin Panel → Problems.
+
+</details>
+
+**Python scripts and tests** - the bandit findings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee2a657977">The LDAP photo hash says it is not for security, and a downloaded zip is checked before extracting</a>. Thanks to Qlty and xet7.</summary>
+
+The LDAP sync script's MD5 only notices a changed photo, and says so. The
+Nextcloud test bootstrap checks every member of the WeKan zip lands inside its
+target before extracting. The other three were test code: a fixture password
+is passed as a variable, and an `exec` of the repository's own script and a
+fake `/tmp` path are marked with their reasons.
 
 </details>
 
