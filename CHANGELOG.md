@@ -111,9 +111,9 @@ below by category, with its reason.
 
 **In short:** **Jira List Sync works from a Sandstorm grain** and the **Jira
 import brings closed sprints**. Imports from **Jira, Deck, OpenProject, Asana
-and GitLab** bring their **attachment files**, the **Version Control view's
-attachments** open in the viewer, and a board that fails to load says so.
-**Every language** is translated, Blockly included, and TODO Later is empty.
+and GitLab** bring their **attachment files**, a board that fails to load says
+so, and an **LDAP sync interval in milliseconds** no longer stops WeKan. **Every
+language** is translated, Blockly included, and TODO Later is empty.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -190,6 +190,32 @@ rename, delete and the cover / background menu, for the same members.
 </details>
 
 and fixes the following bugs:
+
+**LDAP** - the background sync interval.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dfd942ff6">A sync interval in milliseconds no longer stops WeKan</a>. Thanks to B2RN and xet7.</summary>
+
+The docs give LDAP_BACKGROUND_SYNC_INTERVAL in milliseconds, but the number
+reached later.js's text parser, which threw "string.toLowerCase is not a
+function" from a timer, and the snap stopped and restarted in a loop. A quoted
+value such as 'every 1 mins' from a compose file never ran at all
+([#2354](https://github.com/wekan/wekan/issues/2354)). Milliseconds and later.js
+text both work now, with or without quotes; an unreadable value is logged and
+the default is used, and nothing a setting holds can throw.
+
+</details>
+
+**Attachments** - renaming.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/515e63d322">Renaming a migrated attachment keeps its extension</a>. Thanks to xet7.</summary>
+
+The rename popup appended extensionWithDot, which a migrated attachment can
+lack, so a file became "nameundefined"; it falls back to the extension. Found
+by running the new browser tests, which pass against a local server.
+
+</details>
 
 **Board loading** - a board restored from an old WeKan.
 
