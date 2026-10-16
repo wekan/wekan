@@ -133,6 +133,11 @@ serving card data has no role rule.
 
 </details>
 
+and updates the following documentation:
+
+- [Board roles: how a role applies to every board view, the API and every write](https://github.com/wekan/wekan/commit/63117b61d9).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.48 2026-10-15 WeKan ® release
