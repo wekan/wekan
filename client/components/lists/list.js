@@ -45,6 +45,11 @@ import {
   normalizeListWidth,
   resolveListWidth,
 } from '/models/lib/listWidth';
+import {
+  isFixedListWidth,
+  fixedListWidthValue,
+  setAnonFixedListWidth,
+} from '/client/lib/fixedListWidth';
 
 function isPersonalListWidth(boardId) {
   const board = ReactiveCache.getBoard(boardId);
@@ -85,64 +90,9 @@ function readAnonListWidth(boardId, listId) {
 // change together). Stored exactly like the personal width:
 //   * logged-in -> profile.fixedListWidthBoards / profile.fixedListWidths
 //   * anonymous  -> localStorage (mirrors readAnonListWidth)
+// The helpers are in client/lib/fixedListWidth.js, shared with the list
+// header menu that turns the mode on.
 // ---------------------------------------------------------------------------
-function readAnonFixedListWidthEnabled(boardId) {
-  try {
-    const stored = localStorage.getItem('wekan-fixed-list-width-enabled');
-    if (stored) {
-      const flags = JSON.parse(stored);
-      return flags[boardId] === true;
-    }
-  } catch (e) {
-    console.warn('Error reading fixed list width flag from localStorage:', e);
-  }
-  return false;
-}
-
-function readAnonFixedListWidth(boardId) {
-  try {
-    const stored = localStorage.getItem('wekan-fixed-list-width');
-    if (stored) {
-      const widths = JSON.parse(stored);
-      const w = widths[boardId];
-      if (typeof w === 'number' && w >= MIN_LIST_WIDTH) return w;
-    }
-  } catch (e) {
-    console.warn('Error reading fixed list width from localStorage:', e);
-  }
-  return DEFAULT_LIST_WIDTH;
-}
-
-// Whether the current viewer has fixed width mode enabled for this board.
-function isFixedListWidth(boardId) {
-  const user = ReactiveCache.getCurrentUser();
-  if (user) {
-    return !!user.isFixedListWidth(boardId);
-  }
-  return readAnonFixedListWidthEnabled(boardId);
-}
-
-// The single width every list should use when fixed width mode is enabled.
-function fixedListWidthValue(boardId) {
-  const user = ReactiveCache.getCurrentUser();
-  if (user) {
-    return user.getFixedListWidth(boardId);
-  }
-  return readAnonFixedListWidth(boardId);
-}
-
-// Persist the single fixed width for the whole board (anon localStorage).
-function saveAnonFixedListWidth(boardId, width) {
-  try {
-    const stored = localStorage.getItem('wekan-fixed-list-width');
-    const widths = stored ? JSON.parse(stored) : {};
-    widths[boardId] = width;
-    localStorage.setItem('wekan-fixed-list-width', JSON.stringify(widths));
-  } catch (e) {
-    console.warn('Error saving fixed list width to localStorage:', e);
-  }
-}
-
 // #6680: the BOARD-WIDE equivalent of isFixedListWidth/fixedListWidthValue
 // above - same "every list renders at one shared value" mode, but as an
 // admin-set board setting (toggled from the top header) instead of each
@@ -236,7 +186,7 @@ function saveListWidth(list, width) {
         if (error) console.error('Error saving fixed list width:', error);
       });
     } else {
-      saveAnonFixedListWidth(boardId, width);
+      setAnonFixedListWidth(boardId, width);
     }
     return;
   }
