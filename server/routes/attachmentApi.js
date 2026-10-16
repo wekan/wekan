@@ -8,7 +8,6 @@ import {
   isTrustedHeaderLoginSource,
 } from '/server/lib/headerLoginAuth';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
-import { Settings } from '../../models/settings';
 import { moveToStorage } from '/models/lib/fileStoreStrategy';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';

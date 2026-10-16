@@ -163,8 +163,10 @@ const sleep = ms => new Promise(resolve => Meteor.setTimeout(resolve, ms));
 /** Current CPU load, 0-100, or NaN when it cannot be read. */
 function cpuPercent() {
   try {
-    const { currentCpuPercent } = require('/server/lib/cpuMonitor');
-    if (typeof currentCpuPercent === 'function') return Number(currentCpuPercent());
+    // cpuMonitor has no currentCpuPercent; asking for it returned undefined, so
+    // this was always NaN and the scan never waited for a quiet CPU.
+    const { getCurrentCpu } = require('/server/lib/cpuMonitor');
+    if (typeof getCurrentCpu === 'function') return Number(getCurrentCpu().percent);
   } catch (e) { /* the monitor is optional */ }
   return NaN;
 }

@@ -7,7 +7,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Admin-Panel/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
 import { TAPi18n } from '/imports/i18n';
-import Attachments, { AttachmentStorage } from '/models/attachments';
+import Attachments from '/models/attachments';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Rules from '/models/rules';

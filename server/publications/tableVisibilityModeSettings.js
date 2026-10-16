@@ -1,4 +1,3 @@
-import { Settings } from '../../models/settings';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 
 Meteor.publish('tableVisibilityModeSettings', function() {

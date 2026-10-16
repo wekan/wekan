@@ -64,7 +64,6 @@ import { isHexColor, isAllowedCardColor, toHex, contrastText, customColorsInUse 
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
-import { UserAvatar } from '../users/userAvatar';
 import { Filter } from '/client/lib/filter';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
 import { handleFileUpload } from './attachments';
