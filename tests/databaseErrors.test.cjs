@@ -192,7 +192,7 @@ test('every field an event logger writes is declared in the EventLog schema', ()
     'server/lib/databaseProblems.js',
     'server/lib/securityLog.js',
     'server/lib/speedLog.js',
-    'server/lib/cpuLog.js',
+    'server/lib/resourceLog.js', // cpu, ram and disk
     'server/lib/testLog.js',
   ];
   for (const file of writers) {

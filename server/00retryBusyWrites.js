@@ -51,11 +51,8 @@
 // ============================================================================
 import { Mongo } from 'meteor/mongo';
 import { isTransientDatabaseError } from '/server/00processErrors';
+const { intEnv } = require('/models/lib/intEnv');
 
-function intEnv(name, fallback) {
-  const n = parseInt(process.env[name], 10);
-  return Number.isFinite(n) && n >= 0 ? n : fallback;
-}
 
 // Attempts INCLUDING the first, so 5 means one write and four retries.
 const MAX_ATTEMPTS = Math.max(1, intEnv('WEKAN_DB_RETRY_ATTEMPTS', 5));

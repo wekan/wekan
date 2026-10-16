@@ -16,6 +16,7 @@
 import { Meteor } from 'meteor/meteor';
 import os from 'os';
 const { HighCpuTracker } = require('/models/lib/cpuHighTracker');
+const { intEnv } = require('/models/lib/intEnv');
 
 // Tunables (env-overridable).
 const INTERVAL_MS = intEnv('WEKAN_CPU_SAMPLE_INTERVAL_MS', 5000);
@@ -49,10 +50,6 @@ const ENABLED = String(process.env.WEKAN_CPU_MONITOR || 'true').toLowerCase() !=
 const SAMPLE_WINDOW = Math.max(12, intEnv('WEKAN_CPU_STATS_SAMPLES', 720));
 const MAINTENANCE_LOW_SAMPLES = Math.max(1, intEnv('WEKAN_MAINTENANCE_LOW_SAMPLES', 3));
 
-function intEnv(name, fallback) {
-  const n = parseInt(process.env[name], 10);
-  return Number.isFinite(n) && n >= 0 ? n : fallback;
-}
 
 const tracker = new HighCpuTracker({
   highPct: HIGH_PCT, lowPct: LOW_PCT, enterSamples: ENTER_SAMPLES, exitSamples: EXIT_SAMPLES,
@@ -324,6 +321,11 @@ function sampleCpuPercent() {
 // setActivity('label') before a heavy operation and setActivity('') after.
 export function setActivity(label) {
   currentActivity = String(label || '');
+}
+
+// What WeKan is doing now, for the RAM and disk monitors' rows.
+export function currentActivityLabel() {
+  return currentActivity;
 }
 
 // True when the system is currently in a sustained high-CPU period.

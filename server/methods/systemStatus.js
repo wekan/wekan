@@ -8,6 +8,8 @@ import {
   getLoginProblems,
 } from '/server/lib/systemStatus';
 import { getCurrentCpu } from '/server/lib/cpuMonitor';
+import { getCurrentMemory } from '/server/lib/ramMonitor';
+import { getCurrentDisks } from '/server/lib/diskMonitor';
 
 // Admin-gated methods behind the Admin Panel / Problems "Status" overview. The
 // same data is available without the Admin Panel via `snap run wekan.problems`.
@@ -59,7 +61,7 @@ Meteor.methods({
     return getInProgress();
   },
 
-  // Detail for one problem area (currently 'cpu'); mirrors the snap sub-command.
+  // Detail for one problem area ('cpu', 'ram', 'disk'); mirrors the snap sub-command.
   // `area` MUST be check()ed: Meteor runs with audit-argument-checks, so a method
   // that receives an argument it never checks throws "Did not check() all arguments"
   // on every call. Nothing passed an argument here until the CPU usage page started
@@ -68,6 +70,8 @@ Meteor.methods({
     check(area, Match.OneOf(String, null, undefined));
     await requireAdmin();
     if (area === 'cpu') return cpuDetail();
+    if (area === 'ram') return { area: 'ram', current: getCurrentMemory() };
+    if (area === 'disk') return { area: 'disk', current: getCurrentDisks() };
     if (area === 'login') return { area: 'login', checks: await getLoginProblems() };
     if (area === 'status' || !area) return getProblemsOverview();
     throw new Meteor.Error('unknown-area', `Unknown problem area: ${area}`);

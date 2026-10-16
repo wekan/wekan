@@ -107,7 +107,10 @@ EventLogAcks.attachSchema(
 // 'mail' is what went wrong sending or receiving email: a send the mail server
 // refused, an IMAP mailbox that cannot be read, an email that could not be
 // read or was for a board that no longer takes email (models/lib/mailProblems.js).
-export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database', 'integrity', 'mail'];
+// 'ram' and 'disk' are the CPU monitor's siblings: the start and end of a
+// sustained memory or filesystem high-usage period (server/lib/ramMonitor.js,
+// server/lib/diskMonitor.js).
+export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'ram', 'disk', 'database', 'integrity', 'mail'];
 
 if (Meteor.isServer) {
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`

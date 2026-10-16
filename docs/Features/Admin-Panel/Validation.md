@@ -113,6 +113,8 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Speed (`speed`) | [eventLog.js](../../../models/eventLog.js) | Recorded speed events; no events is a valid empty report. |
 | Tests (`tests`) | [eventLog.js](../../../models/eventLog.js) | Recorded test results; opening the pane does not run every repository test. |
 | CPU usage (`cpu`) | [systemStatus.js](../../../server/methods/systemStatus.js) | CPU detail and recorded governor events. |
+| Memory Usage (`ram`) | [ramMonitor.js](../../../server/lib/ramMonitor.js) | Live RAM and swap, and recorded high-memory periods. |
+| Disk usage (`disk`) | [diskMonitor.js](../../../server/lib/diskMonitor.js) | Live use of each filesystem WeKan writes to, and recorded high-usage periods. |
 | Instrumentation (`instrumentation`) | [instrumentationReport.js](../../../server/methods/instrumentationReport.js) | Local Meteor operation counters; no external telemetry upload. |
 | Broken Cards (`broken-cards`) | [repairBrokenCards.js](../../../server/methods/repairBrokenCards.js) | Broken-card repair and reports, with administrator checks. |
 | Files (`files`) | [fileStatusAudit.js](../../../server/methods/fileStatusAudit.js) | Read-only file/status/type/history scans and report data. |

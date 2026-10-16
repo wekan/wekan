@@ -20,14 +20,11 @@
 // ============================================================================
 
 import { MongoInternals } from 'meteor/mongo';
+const { intEnv } = require('/models/lib/intEnv');
 
 const COMMAND_TIMEOUT_MS = intEnv('WEKAN_FERRETDB_TIMEOUT_MS', 2000);   // per-call timeout
 const COOLDOWN_MS = intEnv('WEKAN_FERRETDB_COOLDOWN_MS', 60000);        // back-off after a failure
 
-function intEnv(name, fallback) {
-  const n = parseInt(process.env[name], 10);
-  return Number.isFinite(n) && n >= 0 ? n : fallback;
-}
 
 // null = unknown (try once); true = supported; false = permanently unsupported
 // (plain MongoDB / no such command).

@@ -321,6 +321,9 @@ const PROBLEMS_MENU = [
   { id: 'report-speed', icon: 'fa-tachometer', labelKey: 'speedReportTitle' },
   { id: 'report-tests', icon: 'fa-flask', labelKey: 'testsReportTitle' },
   { id: 'report-cpu', icon: 'fa-tachometer', labelKey: 'cpuReportTitle' },
+  // The CPU monitor's siblings, with labels every language already translates.
+  { id: 'report-ram', icon: 'fa-microchip', labelKey: 'memory-usage' },
+  { id: 'report-disk', icon: 'fa-hdd-o', labelKey: 'sandstorm-disk-usage' },
   { id: 'report-instrumentation', icon: 'fa-line-chart', label: 'Instrumentation' },
   { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
   { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
@@ -526,7 +529,8 @@ function switchMenu(event, tmpl) {
 const SELF_LOADING_PANES = [
   'report-summary',
   'features-performance', 'features-security', 'features-delete', 'features-notifications',
-  'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-instrumentation',
+  'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-ram', 'report-disk',
+  'report-instrumentation',
   'report-database', 'report-integrity', 'report-office', 'report-api', 'report-mail',
 ];
 
@@ -981,6 +985,16 @@ Template.eventStreamReport.onCreated(function () {
     // order keeps the header live without polling the server pointlessly often.
     this.cpuTimer = Meteor.setInterval(this.loadCpu, 5000);
   }
+  // RAM and Disk usage: the same live line, from their own monitors.
+  if (this.stream === 'ram' || this.stream === 'disk') {
+    this.loadCpu = () => {
+      Meteor.call('problemDetailReport', this.stream, (err, res) => {
+        if (!err && res) this.cpu.set(res.current || null);
+      });
+    };
+    this.loadCpu();
+    this.cpuTimer = Meteor.setInterval(this.loadCpu, this.stream === 'disk' ? 30000 : 5000);
+  }
 });
 
 Template.eventStreamReport.onDestroyed(function () {
@@ -1075,6 +1089,52 @@ function formatEventAt(at) {
   catch (e) { return String(at); }
 }
 
+const gb = bytes => (Number(bytes) / (1024 ** 3)).toFixed(1);
+
+// The live CPU line.
+function cpuStatus(cpu) {
+  return {
+    high: cpu.high,
+    percent: cpu.percent,
+    cores: cpu.cores,
+    activity: cpu.activity,
+    // "1.42 / 1.10 / 0.98" - one line, no chart, matching the plain-table
+    // look of the rest of the Problems pages.
+    loadAverage: Array.isArray(cpu.loadAverage)
+      ? cpu.loadAverage.map(n => (Number.isFinite(n) ? n.toFixed(2) : '?')).join(' / ')
+      : '',
+    statistics: cpu.statistics ? {
+      minimum: cpu.statistics.minimum,
+      average: cpu.statistics.average,
+      maximum: cpu.statistics.maximum,
+      samples: cpu.statistics.samples,
+      lowestAt: formatEventAt(cpu.statistics.lowestAt),
+    } : null,
+  };
+}
+
+// The live RAM line: used of total, the percentage, and swap when the machine
+// has any. Numbers only, so it needs no new translation.
+function ramStatus(mem) {
+  return {
+    high: mem.high,
+    percent: mem.ramPct,
+    used: gb(mem.ramUsed),
+    total: gb(mem.ramTotal),
+    swap: mem.swapPct == null ? null : { percent: mem.swapPct, used: gb(mem.swapUsed), total: gb(mem.swapTotal) },
+  };
+}
+
+// The live disk lines: one per filesystem WeKan writes to.
+function diskStatus(current) {
+  return {
+    disks: (current.disks || []).map(d => ({
+      high: d.high, path: d.path, roles: d.roles.join(', '), percent: d.usedPct,
+      available: gb(d.available), total: gb(d.total),
+    })),
+  };
+}
+
 Template.eventStreamReport.helpers({
   tablePageData() {
     const t = Template.instance();
@@ -1096,29 +1156,15 @@ Template.eventStreamReport.helpers({
       totalPages: info.totalPages,
       hasPrev: info.hasPrev,
       hasNext: info.hasNext,
-      // CPU usage is the only stream with a live status row: the table below it
-      // lists PAST high-CPU periods, so this line is the only place the page says
-      // what the CPU is doing right now. Null on the other streams, so the shared
+      // CPU, RAM and Disk usage have a live status row: the table below it lists
+      // PAST high-usage periods, so this line is the only place the page says
+      // what is happening right now. Null on the other streams, so the shared
       // page simply renders no status row there.
-      statusTemplate: cpu ? 'cpuCurrentStatus' : null,
-      statusData: cpu ? {
-        high: cpu.high,
-        percent: cpu.percent,
-        cores: cpu.cores,
-        activity: cpu.activity,
-        // "1.42 / 1.10 / 0.98" - one line, no chart, matching the plain-table
-        // look of the rest of the Problems pages.
-        loadAverage: Array.isArray(cpu.loadAverage)
-          ? cpu.loadAverage.map(n => (Number.isFinite(n) ? n.toFixed(2) : '?')).join(' / ')
-          : '',
-        statistics: cpu.statistics ? {
-          minimum: cpu.statistics.minimum,
-          average: cpu.statistics.average,
-          maximum: cpu.statistics.maximum,
-          samples: cpu.statistics.samples,
-          lowestAt: formatEventAt(cpu.statistics.lowestAt),
-        } : null,
-      } : null,
+      statusTemplate: !cpu ? null
+        : t.stream === 'ram' ? 'ramCurrentStatus'
+          : t.stream === 'disk' ? 'diskCurrentStatus' : 'cpuCurrentStatus',
+      statusData: !cpu ? null : t.stream === 'ram' ? ramStatus(cpu)
+        : t.stream === 'disk' ? diskStatus(cpu) : cpuStatus(cpu),
     };
   },
 });

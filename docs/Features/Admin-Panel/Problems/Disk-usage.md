@@ -1,8 +1,11 @@
-# Design: Disk-usage monitor and Admin Panel → Problems report
+# Disk-usage monitor and Admin Panel → Problems → Disk usage
 
-Status: **Design (proposed)** · Owner: xet7 · Related (to be added):
-`server/lib/diskMonitor.js`, `server/lib/diskLog.js`, `models/lib/diskHighTracker.js`,
-`models/eventLog.js`, Admin Panel → Problems → Disk usage.
+Status: **Implemented** (2026-10-17) · Owner: xet7 · Files:
+`server/lib/diskMonitor.js`, `server/lib/diskLog.js` (through the shared
+`server/lib/resourceLog.js`), `models/lib/diskHighTracker.js`, the `disk` stream in
+`models/eventLog.js`, Admin Panel → Problems → **Disk usage**
+(`/admin/problems/disk`). Tests: `tests/diskHighTracker.test.cjs`,
+`tests/resourceMonitorsWiring.test.cjs`.
 
 Sibling of the [CPU-usage](CPU-usage.md) and [RAM-usage](RAM-usage.md) monitors. A
 disk that fills up breaks WeKan (and FerretDB/SQLite) hard: uploads fail, the database
@@ -43,10 +46,13 @@ needless `statfs` calls):
 - Uses `fs.statfs(path)` (Node ≥ 18) for each watched path: `bsize × blocks` =
   total bytes, `bsize × bavail` = bytes available to non-root. Used% =
   `(total − available) / total × 100`.
-- Watched paths (de-duplicated by the filesystem they resolve to, so one physical
-  disk is reported once): the data/state directory, `WRITABLE_PATH` (attachments),
-  and `WRITABLE_PATH/files/temp` (upload sanitizing). Configurable via
-  `WEKAN_DISK_WATCH_PATHS` (a `:`-separated list) for non-standard layouts.
+- Watched paths, each measured once per filesystem (paths on the same device - the
+  `dev` of `fs.statSync` - share one line and one episode): the files root WeKan
+  stores attachments in (`WRITABLE_PATH`, or its `files` directory, as the self-checks
+  use it), its `temp` directory (uploads), and in the snap `SNAP_COMMON`, which holds the
+  database. A path that does not exist is skipped. `WEKAN_DISK_WATCH_PATHS` (a
+  `:`-separated list) replaces the defaults for other layouts, such as a database on
+  its own disk.
 
 ### Start/end only — `models/lib/diskHighTracker.js`
 
@@ -71,7 +77,12 @@ episode, per filesystem:
 - **end** (`remediated`): `high disk usage ended after 12m on /var/lib/wekan (peak
   97%, back under 85%): 71% used, 23 GB free of 80 GB`
 
-Severity: `high` at ≥ 95% used (imminent failure), else `medium`.
+Severity: `high` at ≥ 95% used (imminent failure), else `medium`. The end row is
+`info`.
+
+Above the rows, a live line per filesystem shows how full it is, free / total GB, its
+path and what WeKan keeps there, refreshed every 30 seconds. The menu entry and the
+page title use the existing `sandstorm-disk-usage` translation.
 
 ## 3. Environment variables
 

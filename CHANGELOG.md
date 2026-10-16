@@ -115,15 +115,6 @@ below by category, with its reason.
 
 </details>
 
-<details>
-<summary>Designed, not implemented.</summary>
-
-- Admin Panel / Problems / RAM usage and Disk usage: the pages describe the
-  monitors and their `WEKAN_RAM_*` / `WEKAN_DISK_*` settings, and no code reads
-  them yet.
-
-</details>
-
 </details>
 
 # Upcoming WeKan ® release

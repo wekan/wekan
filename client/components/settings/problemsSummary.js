@@ -12,6 +12,10 @@ const STREAM_LABEL_KEY = {
   security: 'securityReportTitle',
   speed: 'speedReportTitle',
   tests: 'testsReportTitle',
+  // The resource monitors. CPU had no entry and showed as "cpu".
+  cpu: 'cpuReportTitle',
+  ram: 'memory-usage',
+  disk: 'sandstorm-disk-usage',
 };
 
 Template.problemsSummary.onCreated(function () {

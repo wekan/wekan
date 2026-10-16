@@ -1,8 +1,11 @@
-# Design: RAM-usage monitor and Admin Panel → Problems report
+# RAM-usage monitor and Admin Panel → Problems → Memory Usage
 
-Status: **Design (proposed)** · Owner: xet7 · Related (to be added):
-`server/lib/ramMonitor.js`, `server/lib/ramLog.js`, `models/lib/ramHighTracker.js`,
-`models/eventLog.js`, Admin Panel → Problems → RAM usage.
+Status: **Implemented** (2026-10-17) · Owner: xet7 · Files:
+`server/lib/ramMonitor.js`, `server/lib/ramLog.js` (through the shared
+`server/lib/resourceLog.js`), `models/lib/ramHighTracker.js`, the `ram` stream in
+`models/eventLog.js`, Admin Panel → Problems → **Memory Usage**
+(`/admin/problems/ram`). Tests: `tests/ramHighTracker.test.cjs`,
+`tests/resourceMonitorsWiring.test.cjs`.
 
 Sibling of the [CPU-usage](CPU-usage.md) monitor. WeKan and FerretDB on the same
 machine can use enough RAM (and push the machine into swap) to starve or crash other
@@ -35,8 +38,11 @@ one shape, one event-stream mechanism, and one report template.
 `server/lib/ramMonitor.js` samples on an interval (`WEKAN_RAM_SAMPLE_INTERVAL_MS`,
 default 5s):
 
-- **RAM**: `os.totalmem()` and `os.freemem()` give system total and free bytes. Used
-  RAM% = `(total − free) / total × 100`. Measured at the OS level, so it includes
+- **RAM**: on Linux, `MemTotal` and `MemAvailable` from `/proc/meminfo`; used RAM% =
+  `(total − available) / total × 100`. `MemAvailable` counts the page cache the
+  kernel can drop as available - `os.freemem()` (MemFree) does not, and would show a
+  healthy server with a full cache as out of memory. Without `/proc/meminfo` (not
+  Linux, or an old kernel) the monitor uses `os.totalmem()` and `os.freemem()`. Measured at the OS level, so it includes
   WeKan, FerretDB and every other process — the true "is the machine low on memory"
   signal.
 - **Swap**: on Linux, read `SwapTotal` and `SwapFree` from `/proc/meminfo`; used
@@ -59,7 +65,7 @@ flapping:
   `WEKAN_RAM_LOW_PERCENT` (default 80%) and swap below the swap threshold;
 - it tracks the peak RAM% and peak swap% seen during the episode for the end row.
 
-### Report — Admin Panel → Problems → RAM usage
+### Report — Admin Panel → Problems → Memory Usage
 
 Episodes are written to the `eventLog` collection on the **`ram`** stream (a new
 `securityCategories`-style stream alongside `cpu`), and shown by the existing
@@ -70,7 +76,14 @@ Episodes are written to the `eventLog` collection on the **`ram`** stream (a new
 - **end** (`remediated`): `high RAM usage ended after 42s (peak RAM 96%, peak swap
   41%, back under 80%): RAM 5.1/8.0 GB (64%), swap 0.1/2.0 GB (5%)`
 
-Severity: `high` when RAM peak ≥ 95% or swap is in use, else `medium`.
+Severity: `high` when RAM is at ≥ 95% or swap is at/above its threshold when the
+period starts, else `medium`. The end row is `info`, so it does not count as a new
+problem.
+
+Above the rows, a live line shows the current RAM use (percentage and used / total
+GB) and swap when the machine has any, refreshed every 5 seconds. The menu entry and
+the page title use the existing `memory-usage` translation, so every language
+already has them.
 
 ## 3. Environment variables
 

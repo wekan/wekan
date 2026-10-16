@@ -114,6 +114,8 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Speed | `speed` | — |
 | Problems / Tests | `tests` | — |
 | Problems / CPU usage | `cpu` | [CPU-usage.md](CPU-usage.md) |
+| Problems / Memory Usage | `ram` | [RAM-usage.md](RAM-usage.md) |
+| Problems / Disk usage | `disk` | [Disk-usage.md](Disk-usage.md) |
 | Problems / Instrumentation | `instrumentation` | [Instrumentation.md](Instrumentation.md) |
 | Problems / Broken Cards | `broken-cards` | — |
 | Problems / Files Report | `files` | [File-status.md](File-status.md) |
@@ -127,7 +129,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Filesystem integrity | `integrity` | — |
 | Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
 
-15 of these 22 panes has no page of its own yet. A dash is a
+15 of these 24 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 

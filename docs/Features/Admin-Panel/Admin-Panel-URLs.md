@@ -83,6 +83,8 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/problems/speed` | Speed | `report-speed` |
 | `/admin/problems/tests` | Tests | `report-tests` |
 | `/admin/problems/cpu` | CPU usage | `report-cpu` |
+| `/admin/problems/ram` | Memory Usage | `report-ram` |
+| `/admin/problems/disk` | Disk usage | `report-disk` |
 | `/admin/problems/instrumentation` | Instrumentation | `report-instrumentation` |
 | `/admin/problems/broken-cards` | Broken Cards | `report-broken` |
 | `/admin/problems/files` | Files Report | `report-files` |

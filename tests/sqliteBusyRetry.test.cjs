@@ -89,6 +89,7 @@ const UNWRAPPED_READ = CollectionProto.findOneAsync;
 
 const recorded = [];
 const requireStub = id => {
+  if (id === '/models/lib/intEnv') return require('../models/lib/intEnv.js');
   if (id === '/server/lib/databaseProblems') {
     return { recordDatabaseProblem: (error, options) => recorded.push({ error, options }) };
   }

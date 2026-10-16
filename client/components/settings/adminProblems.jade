@@ -40,6 +40,10 @@ template(name="adminProblems")
             +eventStreamReport(stream="tests")
           else if isPane 'report-cpu'
             +eventStreamReport(stream="cpu")
+          else if isPane 'report-ram'
+            +eventStreamReport(stream="ram")
+          else if isPane 'report-disk'
+            +eventStreamReport(stream="disk")
           else if isPane 'report-instrumentation'
             +instrumentationReport
           else if isPane 'report-database'
@@ -90,6 +94,21 @@ template(name="cpuCurrentStatus")
         |  ({{statistics.samples}} samples, lowest {{statistics.lowestAt}})
     if activity
       span.quiet  &middot; {{activity}}
+
+template(name="ramCurrentStatus")
+  .admin-cpu-current(class="{{#if high}}admin-cpu-high{{/if}}")
+    span.admin-cpu-label {{_ 'memory-usage'}}
+    span.admin-cpu-percent {{percent}}%
+    span.quiet  {{used}} / {{total}} GB
+    if swap
+      span.quiet  &middot; swap {{swap.percent}}% ({{swap.used}} / {{swap.total}} GB)
+
+template(name="diskCurrentStatus")
+  each disk in disks
+    .admin-cpu-current(class="{{#if disk.high}}admin-cpu-high{{/if}}")
+      span.admin-cpu-label {{_ 'sandstorm-disk-usage'}}
+      span.admin-cpu-percent {{disk.percent}}%
+      span.quiet  {{disk.available}} / {{disk.total}} GB &middot; {{disk.path}} ({{disk.roles}})
 
 //- Performance, Security and Notifications. They were the whole of Admin Panel /
 //- Features, which is gone; they are Problems panes now and live with the page that
