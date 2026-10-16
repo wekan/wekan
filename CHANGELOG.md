@@ -107,7 +107,7 @@ below by category, with its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.49 2026-10-16 WeKan ® release
 
 **In short:** an **AssignedBleed** follow-up makes **board role permissions
 apply to every board view** and API: an assigned-only member sees and changes
