@@ -2,7 +2,7 @@
 
 // Which group of the card details view a changed field belongs to, and what a
 // history row should store for it.
-// docs/Features/Reports/History/History.md §3 (groups) and §4 (content shapes).
+// docs/Features/General/History/History.md §3 (groups) and §4 (content shapes).
 //
 // Pure and Meteor-free so it is unit-tested directly
 // (tests/changeHistoryGroups.test.cjs). It is the table that phase 5 - "roll out

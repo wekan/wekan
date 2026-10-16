@@ -4,7 +4,7 @@
 //
 // THE RULE THIS SERVES: the same functions, layouts and templates for every PDF
 // and Excel export, so that there is no duplicated code
-// (docs/Features/ImportExport/One-Card-Layout.md).
+// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/One-Card-Layout.md).
 //
 // The layout is the one "Export card to Excel" already draws, because it is the
 // one that was designed: a title, meta rows of label/value pairs, then a section

@@ -4,7 +4,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 
 /**
  * The universal change history — one append-only row per change a user makes.
- * docs/Features/Reports/History/History.md §4 is the specification; this is
+ * docs/Features/General/History/History.md §4 is the specification; this is
  * phase 1 of §10 (the store, the write helper, and the undo/redo stack that the
  * shipped position history moves onto).
  *

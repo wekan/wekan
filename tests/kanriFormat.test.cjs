@@ -3,7 +3,7 @@
 // Kanri's JSON export: import and export (models/lib/kanriFormat.js). The
 // fixtures are written here from the structure Kanri's types and import
 // schemas define (types/kanban-types.d.ts, types/json-schemas.ts in the Kanri
-// repository; see docs/Features/ImportExport/Format-Coverage.md). No Kanri
+// repository; see docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md). No Kanri
 // code is copied.
 // Run: node tests/kanriFormat.test.cjs
 
@@ -270,9 +270,9 @@ async function main() {
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-kanri'], /Kanri/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Kanri/Kanri.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Kanri/Kanri.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Kanri\/Kanri\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Kanri\/Kanri\.md\)/);
   });
 
   console.log(`\nkanriFormat: ${passed} checks passed`);

@@ -1,7 +1,7 @@
 'use strict';
 
 // GitHub Actions workflows as WeKan Rules, for the GitHub organization import
-// (design: docs/Features/Board/Version-Control-View.md, "GitHub Actions").
+// (design: docs/Features/Board-Header/Board-Views/Version-Control-View.md, "GitHub Actions").
 //
 // A workflow is "on <event> run <steps>". The events about issues have WeKan
 // triggers, and the steps that change an issue have WeKan actions, on a board

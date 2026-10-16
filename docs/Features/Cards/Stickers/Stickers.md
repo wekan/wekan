@@ -27,4 +27,4 @@ python3 api.py setcardstickers BOARDID LISTID CARDID '[{"icon":"taco-cool"}]'
 ## Related
 
 - [Cards](../Cards.md)
-- [Migrating from Trello](../../ImportExport/Trello/trello/Migrating-from-Trello.md)
+- [Migrating from Trello](../../Board-Sidebar/Board-Settings/Import-Export/Trello/trello/Migrating-from-Trello.md)

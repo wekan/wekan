@@ -184,7 +184,7 @@ test('wiring: the recovery notice shows the stopped checkpoint and its two ways 
 });
 
 test('docs name both ways to resolve it', () => {
-  const doc = read('docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-History-Recovery.md');
+  const doc = read('docs/Features/Board-Header/Board-Views/Scrum/Scrum-History-Recovery.md');
   for (const text of ['releases/recover-scrum-history.cjs', '--apply --offline', 'Problems', 'Roll back', 'Keep the board as it is']) {
     assert.ok(doc.includes(text), text);
   }

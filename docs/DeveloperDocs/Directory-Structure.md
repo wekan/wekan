@@ -16,7 +16,7 @@ for years this page described four directories out of twenty and did not say so.
 | [public/](../../public) | files served as-is: icons, fonts, the web app manifest |
 | [private/](../../private) | files the SERVER can read and the client cannot |
 | [tests/](../../tests) | the suites - `*.test.cjs` run by `tests/run-node-suites.cjs`, plus the Playwright and e2e directories |
-| [docs/](../../docs) | this documentation |
+| [docs/](..) | this documentation |
 | [releases/](../../releases) | how a release is built and published - the bundle steps, the translations tooling, the CHANGELOG tooling |
 | [snap/](../../snap), [snap-src/](../../snap-src), [snap-base-debian/](../../snap-base-debian) | the snap package |
 | [sandstorm-src/](../../sandstorm-src) | the Sandstorm package |

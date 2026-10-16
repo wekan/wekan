@@ -1,4 +1,4 @@
-// List sync reconcile (docs/Features/ImportExport/Sync.md, #Priority-1 of the
+// List sync reconcile (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md, #Priority-1 of the
 // import/export/sync audit): pure diff between the CURRENT items an external
 // tracker (Jira, GitHub, GitLab, Gitea...) reports for a list and the WeKan
 // cards already synced from it, with no database or network access - so the

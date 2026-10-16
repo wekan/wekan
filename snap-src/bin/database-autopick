@@ -31,7 +31,7 @@
 #
 # The merge is what makes this safe to do automatically, and WeKan's own design is
 # what makes the merge safe: the history is append-only
-# (docs/Features/Reports/History/History.md), so the activities, comments and
+# (docs/Features/General/History/History.md), so the activities, comments and
 # change-history rows from the copy that is not being served are ADDED to the one
 # that is. The work done there stops being stranded in a database nobody opens and
 # becomes readable in the card's History.

@@ -11,5 +11,5 @@ import { ReactiveVar } from 'meteor/reactive-var';
 // who needs it reads it.
 //
 // A leaf: this module imports nothing but ReactiveVar, so it cannot be half of
-// an import cycle. docs/Features/Board/Starred.md
+// an import cycle. docs/Features/Pages/Starred.md
 export const headerPathVar = new ReactiveVar('');

@@ -5,7 +5,7 @@
 //
 // parseGitlab used to keep only title, description, state, due date, the
 // first assignee, author and labels, and silently dropped the rest of an
-// Issues API v4 issue. It now meets docs/Features/ImportExport/Format-
+// Issues API v4 issue. It now meets docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-
 // Coverage.md like the GitHub adapter: every field either lands on the card,
 // becomes a tag or custom field, or is named in the `unsupported` report.
 

@@ -3,7 +3,7 @@
 // object, and its importer (`load_dump`, New project > Import > Taiga) reads
 // the same object back. The keys and value shapes here follow taiga-back's
 // export serializers and import validators (taiga/export_import/; see
-// docs/Features/ImportExport/Format-Coverage.md for the links). Pure, so
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md for the links). Pure, so
 // tests/taigaFormat.test.cjs runs import, export and the round trip in Node.
 //
 // In a dump, people are emails, statuses / swimlanes / sprints / roles are

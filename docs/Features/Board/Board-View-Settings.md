@@ -1,3 +1,3 @@
-# Board View Settings
+# Moved
 
-This guide has moved to [Board Settings / Board View](../Right-Sidebar/Board-Settings/Board-View.md).
+This page is now [Board View settings](../Board-Sidebar/Board-Settings/Board-View.md), where it sits in the menu structure.

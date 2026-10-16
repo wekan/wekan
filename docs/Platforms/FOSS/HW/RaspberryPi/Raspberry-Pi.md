@@ -21,7 +21,7 @@ WeKan only requires:
   - `WRITABLE_PATH=..`
   - if using node http at port 80, permission for binding to port 80, like `sudo setcap cap_net_bind_service=+ep /usr/local/bin/node`. See https://github.com/wekan/wekan/issues/4735#issuecomment-1295079327
   - Optional other settings are at [start-wekan.sh](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.sh) (and at https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys#list-of-supported-keys but Snap settings have lowercase minus like `root-url`, where `.sh` scripts and services have uppercase underline like `ROOT_URL`)
-- [Adding users](../../../../Features/Login/Adding-users.md) and [Troubleshooting Mail](../../../../Features/Email/Troubleshooting-Mail.md)
+- [Adding users](../../../../Features/Login-Page/Adding-users.md) and [Troubleshooting Mail](../../../../Features/General/Email/Troubleshooting-Mail.md)
 - Optional autoupgrade script https://github.com/wekan/wekan-bash-install-autoupgrade
 
 ## Bundle files
@@ -331,7 +331,7 @@ you could install [postfix](https://github.com/wekan/wekan-bash-install-autoupgr
 MAIL_URL='smtp://127.0.0.1:25/'
 MAIL_FROM='Board Support <wekan@example.com>'
 ```
-It is much more recommended to use [email sending service like AWS SES or some other service](../../../../Features/Email/Troubleshooting-Mail.md) that can ensure delivering email correctly, for Wekan email notifications etc.
+It is much more recommended to use [email sending service like AWS SES or some other service](../../../../Features/General/Email/Troubleshooting-Mail.md) that can ensure delivering email correctly, for Wekan email notifications etc.
 
 ## 8. Optional: Nginx and Let's Encrypt SSL
 
@@ -520,7 +520,7 @@ and then allow it:
 ```
 sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
 ```
-[Adding users](../../../../Features/Login/Adding-users.md)
+[Adding users](../../../../Features/Login-Page/Adding-users.md)
 
 #### Upgrade bundle
 

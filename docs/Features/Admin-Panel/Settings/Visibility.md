@@ -43,7 +43,7 @@ Each row is ticked when the thing is **hidden**.
   Unchecking restores personal formats; stored dates and calendar choices
   are unchanged.
 - **Wait Spinner** — which spinner is shown while something loads. See
-  [Wait Spinners](../../Troubleshooting/Wait-Spinners.md).
+  [Wait Spinners](../../General/Troubleshooting/Wait-Spinners.md).
 
 ## Features
 
@@ -103,7 +103,7 @@ page and the progress dashboards.
 The theme of this site: the same picker as Board Settings / Change Color and Member
 Settings / Change color — the categories of swatches, the "Default theme" row and the
 custom-colour wheels — described in
-[Design / Change color](../../../Features/Page/Theme.md). It applies as soon as you
+[Design / Change color](../../General/Theme/Change-Color.md). It applies as soon as you
 click a colour; there is no Save button.
 
 **The order of themes**, weakest first:
@@ -139,5 +139,5 @@ into the field here.
 
 ## Related
 
-- [All Boards](../../Board/Boards/Boards.md)
-- [Members and Permissions](../../Members/Members.md)
+- [All Boards](../../All-Boards/Boards.md)
+- [Members and Permissions](../../Board-Sidebar/Members/Members.md)

@@ -11,7 +11,7 @@
 //
 // Read by: server/lib/utils.js (the authority), client/lib/utils.js (what the UI
 // offers), Admin Panel / People / Roles (the Roles Status table), and
-// docs/Features/Members/Roles.md through tests/boardRoles.test.cjs.
+// docs/Features/Board-Sidebar/Members/Roles.md through tests/boardRoles.test.cjs.
 //
 // Pure: no Meteor, no DOM, no database.
 

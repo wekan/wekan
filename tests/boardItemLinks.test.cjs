@@ -6,7 +6,7 @@
 // CARD the cache returned first for that list - so "link to this list" went to
 // a card, and to nothing at all when the list was empty.
 //
-// docs/Features/Page/Board-Item-Links.md
+// docs/Features/General/Board-Item-Links.md
 
 const assert = require('assert');
 const fs = require('fs');

@@ -6,7 +6,7 @@ import { normalizeDependency } from '/models/metadata/dependencies';
 const { canEditBoardDependencies, canEditCardDependency, normalizeMyDependencies } = require('/models/lib/dependencyAccess');
 
 // #6732: the two dependency layers as THIS user sees them
-// (docs/Features/Editor/RedStrings/Board-And-My-Dependencies.md). Both are off
+// (docs/Features/General/Editor/RedStrings/Board-And-My-Dependencies.md). Both are off
 // until the user turns them on in Member Settings, and turning one on changes
 // only their own view.
 

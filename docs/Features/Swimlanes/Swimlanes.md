@@ -10,7 +10,7 @@ Use **+** beside a swimlane header to open **Add Swimlane**. Paste several lines
 and use **Add** to choose one multiline swimlane name or one swimlane per
 nonempty line. Save to create them in the pasted order. Click the name to rename
 it; the editor and displayed title preserve line breaks.
-See [multiline creation](../Editor/Multiline.md).
+See [multiline creation](../General/Editor/Multiline.md).
 
 ## Arrange and manage
 
@@ -19,10 +19,10 @@ collapses/expands a lane, and its menu provides links/history, export/import and
 permitted move/copy/archive actions. Resize with the lane's resize handle when
 the board administrator has not locked resizing.
 
-- [Board Settings / Swimlane](../Right-Sidebar/Board-Settings/Swimlane.md):
+- [Board Settings / Swimlane](../Board-Sidebar/Board-Settings/Swimlane.md):
   resize locking and WIP Limit Groups
 - [Lists](../Lists/Lists.md): create a first list with the empty lane's **+**
-- [Archive and Delete](../Board/Archive-and-Delete.md)
+- [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md)
 
 ## Insert above or below
 

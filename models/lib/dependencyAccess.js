@@ -1,7 +1,7 @@
 'use strict';
 // Card dependencies ("Red Strings", #3392), #6732: who may see, edit and
 // import them. Pure, so tests/dependencyAccess.test.cjs runs it without Meteor.
-// The design is docs/Features/Editor/RedStrings/Board-And-My-Dependencies.md.
+// The design is docs/Features/General/Editor/RedStrings/Board-And-My-Dependencies.md.
 //
 // - Showing or hiding dependencies is each user's OWN preference, in their
 //   profile, off by default. It never changes what another user sees, and

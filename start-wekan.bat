@@ -828,7 +828,7 @@ REM ------------------------------------------------
 
 REM # #5758: Windows single sign-on (Kerberos / NTLM). Needs node-expose-sspi
 REM # installed in the bundle: cd bundle\programs\server  then
-REM # npm install node-expose-sspi@0.1.60 . See docs/Features/Login/WindowsSSO.md
+REM # npm install node-expose-sspi@0.1.60 . See docs/Features/Login-Page/WindowsSSO.md
 REM SET WINDOWS_SSO_ENABLED=true
 REM # REQUIRED: the domains allowed to sign in, comma separated. Empty = nobody.
 REM SET WINDOWS_SSO_DOMAINS=CONTOSO
@@ -879,8 +879,8 @@ REM SET SAML_WANT_RESPONSE_SIGNED=
 REM SET SAML_WANT_ASSERTIONS_SIGNED=
 REM SET SAML_LOGIN_FLOW=
 
-REM # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
-REM # and docs/Features/Login/Passwordless.md. Every one of these can be overridden
+REM # Login with Meteor accounts providers, see docs/Features/Login-Page/OAuth-Providers.md
+REM # and docs/Features/Login-Page/Passwordless.md. Every one of these can be overridden
 REM # in Admin Panel / People / Login; a value set there wins over the environment
 REM # variable. Register this callback URL at the provider:
 REM #   <ROOT_URL>/_oauth/<service>  where service is google, github, facebook,

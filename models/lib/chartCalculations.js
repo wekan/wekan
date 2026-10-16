@@ -1,7 +1,7 @@
 'use strict';
 
 // Pure calculations behind the board report charts (chartPlaceholderViews.jade
-// replacements, docs/Features/Reports/charts.tsv). No Mongo/Meteor here so
+// replacements, docs/Features/Board-Header/Board-Views/Charts/charts.tsv). No Mongo/Meteor here so
 // these can be driven directly from tests/chartCalculations.test.cjs; the
 // server method in server/publications/boards.js loads the plain records
 // (cards/lists/activities) and hands them to these functions.

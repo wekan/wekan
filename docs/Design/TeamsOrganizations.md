@@ -139,7 +139,7 @@ OAuth2 only for existing users.
 | Membership | `models/users.js` `orgs[]` `{orgId, orgDisplayName, isAdmin}` and `teams[]` `{teamId, teamDisplayName}` | stored **on the user** (the 2021 suggestion of jrsupplee in #802). `orgs.$.isAdmin` = per-tenant admin. **No role inside a team, no source of the membership.** |
 | `orgUser` | `models/orgUser.js` | numeric-id join table from the early Grafana-like plan; unused by the current UI as far as could be found. |
 | Board sharing | `models/boards.js` `orgs[]`, `teams[]`, `domains[]` each with `isActive` | share entries; `isActive:false` is the revoke switch (`models/lib/boardVisibilitySelectors.js`). |
-| Board roles | `docs/Features/Members/Members.md`, `models/lib/boardRoleCapabilities.js` | nine per-board roles on `board.members[]` (admin, normal, no comments, comment only, worker, read only, assigned-only variants). |
+| Board roles | `docs/Features/Board-Sidebar/Members/Members.md`, `models/lib/boardRoleCapabilities.js` | nine per-board roles on `board.members[]` (admin, normal, no comments, comment only, worker, read only, assigned-only variants). |
 | Board permission | `models/lib/boardPermission.js` | `private`, `instance` (all signed-in users read), `public`. |
 
 Important consequence: **a share with an org/team grants read visibility only.**
@@ -168,7 +168,7 @@ in several places:
   [Organizations](../Features/Admin-Panel/People/Organizations.md),
   [Teams](../Features/Admin-Panel/People/Teams.md),
   [Roles](../Features/Admin-Panel/People/Roles.md).
-- All are the shared paginated [table page](../Features/Page/Table.md)
+- All are the shared paginated [table page](../Features/General/Table.md)
   (search, total, prev/next).
 - **Bulk:** People has per-row checkboxes, select-all for the page, and a
   **Teams** action that adds or removes one team for the selected users
@@ -206,9 +206,9 @@ in several places:
 
 | Source | What exists | Where |
 | --- | --- | --- |
-| LDAP / AD | Group filter for login (`LDAP_GROUP_FILTER_ENABLE`, `_OBJECTCLASS`, `_GROUP_ID_ATTRIBUTE`, `_GROUP_MEMBER_ATTRIBUTE`, `_GROUP_MEMBER_FORMAT`, `_GROUP_NAME`, `LDAP_GROUP_BASEDN`); **nested AD groups** via `LDAP_GROUP_FILTER_NESTED=true` using `member:1.2.840.113556.1.4.1941:` (commit dc2e7592a3, #6744); admin from groups (`LDAP_SYNC_ADMIN_STATUS`, `LDAP_SYNC_ADMIN_GROUPS`, also during background sync); `LDAP_SYNC_GROUP_ROLES`; **groups -> Orgs/Teams** (`LDAP_SYNC_ORGANIZATIONS[_GROUPS]`, `LDAP_SYNC_TEAMS[_GROUPS]`, wildcards); background sync (`LDAP_BACKGROUND_SYNC*`, can disable vanished users). Org/team sync is **add-only** and matches by display name. | `packages/wekan-ldap/`, `server/ldapGroupSync.js`, [LDAP.md](../Features/Login/LDAP.md), external script [ldap-sync.py](../Features/Login/ldap-sync/ldap-sync.py) which also removes |
-| OAuth2 / OIDC | Claim read from `userinfo.wekanGroups` or `userinfo.groups` (hard-coded names, `packages/wekan-oidc/oidc_server.js`); `OAUTH2_ADMIN_GROUPS` (admin from groups, #5876); with `PROPAGATE_OIDC_DATA`, `addGroupsWithAttributes` creates orgs/teams from a custom group object (`displayName`, `isOrganisation`, `isAdmin`, `forceCreate`) sent in a "wekanGroup" scope - **not** the standard plain-string `groups` claim of Keycloak/Entra/Okta; pushes memberships (add-only) and grants team boards; `OAUTH2_DEFAULT_ORGANIZATION` (#5339). | `packages/wekan-oidc/loginHandler.js`, [OAuth2.md](../Features/Login/OAuth2.md) |
-| SAML | Login with attribute mapping for the profile (`SAML_ATTRIBUTES`, `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE`). **No group/role mapping found.** | `packages/wekan-accounts-saml/`, [SAML.md](../Features/Login/SAML.md) |
+| LDAP / AD | Group filter for login (`LDAP_GROUP_FILTER_ENABLE`, `_OBJECTCLASS`, `_GROUP_ID_ATTRIBUTE`, `_GROUP_MEMBER_ATTRIBUTE`, `_GROUP_MEMBER_FORMAT`, `_GROUP_NAME`, `LDAP_GROUP_BASEDN`); **nested AD groups** via `LDAP_GROUP_FILTER_NESTED=true` using `member:1.2.840.113556.1.4.1941:` (commit dc2e7592a3, #6744); admin from groups (`LDAP_SYNC_ADMIN_STATUS`, `LDAP_SYNC_ADMIN_GROUPS`, also during background sync); `LDAP_SYNC_GROUP_ROLES`; **groups -> Orgs/Teams** (`LDAP_SYNC_ORGANIZATIONS[_GROUPS]`, `LDAP_SYNC_TEAMS[_GROUPS]`, wildcards); background sync (`LDAP_BACKGROUND_SYNC*`, can disable vanished users). Org/team sync is **add-only** and matches by display name. | `packages/wekan-ldap/`, `server/ldapGroupSync.js`, [LDAP.md](../Features/Login-Page/LDAP.md), external script [ldap-sync.py](../Features/Login-Page/ldap-sync/ldap-sync.py) which also removes |
+| OAuth2 / OIDC | Claim read from `userinfo.wekanGroups` or `userinfo.groups` (hard-coded names, `packages/wekan-oidc/oidc_server.js`); `OAUTH2_ADMIN_GROUPS` (admin from groups, #5876); with `PROPAGATE_OIDC_DATA`, `addGroupsWithAttributes` creates orgs/teams from a custom group object (`displayName`, `isOrganisation`, `isAdmin`, `forceCreate`) sent in a "wekanGroup" scope - **not** the standard plain-string `groups` claim of Keycloak/Entra/Okta; pushes memberships (add-only) and grants team boards; `OAUTH2_DEFAULT_ORGANIZATION` (#5339). | `packages/wekan-oidc/loginHandler.js`, [OAuth2.md](../Features/Login-Page/OAuth2.md) |
+| SAML | Login with attribute mapping for the profile (`SAML_ATTRIBUTES`, `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE`). **No group/role mapping found.** | `packages/wekan-accounts-saml/`, [SAML.md](../Features/Login-Page/SAML.md) |
 | Email domain | `orgAutoAddUsersWithDomainName` (`models/lib/orgAutoAddByDomain.js`); board sharing by domain (#5850) | |
 | SCIM | **Nothing** (no `scim` anywhere in code). | |
 | CAS | Login gate only: `Meteor.settings.cas.allowedLdapGroups` matched against `cas:memberOf` (settings.json only, no env var). No org/team/admin mapping. | `packages/wekan-accounts-cas/cas_server.js`, `groupPolicy.js` |
@@ -240,7 +240,7 @@ Defects found while reading the code (worth fixing before building on them):
   with sync on, a manually granted admin outside the admin groups is demoted.
   This is the right model for synced data, and the opposite of how org/team
   sync behaves (add-only) - an inconsistency to resolve in one place.
-- The external [ldap-sync.py](../Features/Login/ldap-sync/ldap-sync.py) is
+- The external [ldap-sync.py](../Features/Login-Page/ldap-sync/ldap-sync.py) is
   authoritative (it `$set`s teams and rewrites `board.members`), unlike the
   in-app add-only sync.
 
@@ -827,7 +827,7 @@ Admin Panel / People / Teams (sketch):
 - Drag a tree node onto another to re-parent (reuse the workspace tree drop
   zones, `models/lib/workspacesTree.js`); drag selected table rows onto a tree
   node to add them to that team.
-- The table is the existing [table page](../Features/Page/Table.md) with a
+- The table is the existing [table page](../Features/General/Table.md) with a
   selection column; counts in the tree come from one aggregate.
 - Tabs "Boards" and "Sync" on the right show the team's board shares (with
   role) and the IdP mapping.

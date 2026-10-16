@@ -3,7 +3,7 @@
 // Guard: which changed fields become history rows, and what those rows hold.
 // Run: node tests/changeHistoryGroups.test.cjs
 //
-// docs/Features/Reports/History/History.md §3 (the groups) and §5 (the choke
+// docs/Features/General/History/History.md §3 (the groups) and §5 (the choke
 // point). Phase 5 - "roll out to every remaining group/entity" - is this table
 // rather than a call per setter, because the hook that uses it also catches the
 // REST API, the importers and the rules engine. None of those go through the

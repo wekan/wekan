@@ -12,8 +12,9 @@ that opens with the Admin Panel.
 | Settings / Translation | `translation` | [Translation.md](Translation.md) | Custom translation strings. |
 | Settings / PWA | `pwa` | [PWA.md](PWA.md) | Custom head tags, web manifest and assetlinks.json. |
 | Settings / Global Webhooks | `global-webhooks` | [Global-Webhooks.md](Global-Webhooks.md) | Outgoing webhooks for the whole instance. |
-| Settings / Shared labels | `labels` | [Shared-Labels.md](../../Board/Shared-Labels.md) | Label catalogs for every board, an organization's boards, or a team's. |
+| Settings / Global Webhooks / Login and registration webhook | `global-webhooks` | [Login-and-Registration-Webhook.md](Login-and-Registration-Webhook.md) | One address told about logins and new accounts, off by default. |
+| Settings / Shared labels | `labels` | [Shared-Labels.md](Shared-Labels.md) | Label catalogs for every board, an organization's boards, or a team's. |
 
 Every pane opens with a heading that is its menu entry's own label, so the pane and
 the row that opened it always say the same thing — see
-[Left Menu](../../../Features/Page/Left-Menu.md).
+[Left Menu](../../All-Boards/Left-Menu.md).

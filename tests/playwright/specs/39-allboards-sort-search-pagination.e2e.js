@@ -113,7 +113,7 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
 
       // Search is a VIEW of the All Boards right sidebar now, opened by the
       // Search button in the first top header bar - it was a field in a second
-      // header bar that no longer exists. docs/Features/Page/Search.md
+      // header bar that no longer exists. docs/Features/Board-Header/Search.md
       const search = page.locator('.js-board-search-input');
       if (!(await search.isVisible().catch(() => false))) {
         await page.locator('.js-all-boards-sidebar-search').first().click();

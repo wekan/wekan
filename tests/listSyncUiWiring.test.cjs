@@ -1,6 +1,6 @@
 'use strict';
 
-// UI wiring for list sync (docs/Features/ImportExport/Sync.md,
+// UI wiring for list sync (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md,
 // client/components/lists/listHeader.jade/.js): source checks, not a
 // reimplementation of the reconcile logic already covered by
 // tests/listSyncReconcile.test.cjs. Three things this pins:

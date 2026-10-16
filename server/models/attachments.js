@@ -6,7 +6,7 @@ import { sendJsonResult } from '/server/apiMiddleware';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import Attachments from '/models/attachments';
 
-// REST API for the attachment soft delete (docs/Features/Reports/History/
+// REST API for the attachment soft delete (docs/Features/General/History/
 // History.md §12). Every write here goes through the SAME Meteor methods the
 // card and the card history use - `attachments.softDelete` and
 // `attachments.restore` in server/attachmentSoftDelete.js - run as the

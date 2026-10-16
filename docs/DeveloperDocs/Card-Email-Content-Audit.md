@@ -92,7 +92,7 @@ must be classified by its user-visible meaning before adding it to email.
 Stored Sync command recovery remains partly unfinished. Offline confirmation
 of independently verified acceptance for every recipient now records an immutable
 decision and reconciles the exact receipt without sending again; see the
-[Sync recovery workflow](../Features/ImportExport/Sync.md). Legacy unbound
+[Sync recovery workflow](../Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md). Legacy unbound
 commands, obsolete Details bindings, partial/unknown SMTP acceptance and online
 operator resolution remain open. Snapshots are not automatically rewritten or
 resent. Version-five source evidence now binds related-card titles to their complete

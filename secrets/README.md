@@ -14,7 +14,7 @@ environment variable:
 - `OAUTH_<PROVIDER>_SECRET_FILE` - the secret of a Meteor accounts login
   provider; `<PROVIDER>` is one of `GOOGLE`, `GITHUB`, `FACEBOOK`, `TWITTER`,
   `METEOR_DEVELOPER`, `WEIBO`, `MEETUP` (see
-  `docs/Features/Login/OAuth-Providers.md`)
+  `docs/Features/Login-Page/OAuth-Providers.md`)
 
 The variable itself (for example `LDAP_AUTHENTIFICATION_PASSWORD`) wins over its
 file when both are set, and a value saved in Admin Panel / People wins over

@@ -130,7 +130,7 @@ test('every write goes through the rule, and the client cannot write My Dependen
     assert.ok(users.includes(`'${field}': {`), field);
   }
   // The docs describe the design.
-  const doc = read('docs/Features/Editor/RedStrings/Board-And-My-Dependencies.md');
+  const doc = read('docs/Features/General/Editor/RedStrings/Board-And-My-Dependencies.md');
   for (const phrase of ['off by default', 'edit cards or move cards', 'An import combines; it never replaces']) {
     assert.ok(doc.includes(phrase), phrase);
   }

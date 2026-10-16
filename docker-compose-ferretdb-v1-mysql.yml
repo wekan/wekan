@@ -541,7 +541,7 @@ services:
       #- OAUTH2_FULLNAME_MAP=name
       #-----------------------------------------------------------------
       # ==== OAUTH2 AUTHELIA ====
-      # https://github.com/wekan/wekan/blob/main/docs/Features/Login/Authelia.md  <== MAPPING INFO, REQUIRED
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/Authelia.md  <== MAPPING INFO, REQUIRED
       # https://www.authelia.com/integration/openid-connect/introduction/
       #- OAUTH2_ENABLED=true
       # OAuth2 login style: redirect (default) or popup.
@@ -908,7 +908,7 @@ services:
       #- CAS_LOGIN_URL=https://cas.example.com/login
       #- CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
       #---------------------------------------------------------------------
-      # SAML 2.0 (SP-initiated) login, see docs/Features/Login/SAML.md.
+      # SAML 2.0 (SP-initiated) login, see docs/Features/Login-Page/SAML.md.
       # SAML_ENABLED : turn the "Sign In with SAML" login button on.
       #- SAML_ENABLED=true
       # SAML_PROVIDER : short name for the identity provider, used to build
@@ -939,7 +939,7 @@ services:
       # attribute email_verified=true (SAML has no standard one: add it at the
       # IdP only if the IdP verifies addresses) and that email to be verified on
       # the local account. A refused link logs its reason in the server log.
-      # docs/Features/Login/SAML.md
+      # docs/Features/Login-Page/SAML.md
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       # SAML_ATTRIBUTES : not used by login at the moment; attributes are read
       # from the validated assertion as named (email, username, displayName).
@@ -950,8 +950,8 @@ services:
       #- SAML_WANT_ASSERTIONS_SIGNED=
       #- SAML_LOGIN_FLOW=
       #---------------------------------------------------------------------
-      # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
-      # and docs/Features/Login/Passwordless.md. Every one of these can be overridden
+      # Login with Meteor accounts providers, see docs/Features/Login-Page/OAuth-Providers.md
+      # and docs/Features/Login-Page/Passwordless.md. Every one of these can be overridden
       # in Admin Panel / People / Login; a value set there wins over the environment
       # variable. Register this callback URL at the provider:
       #   <ROOT_URL>/_oauth/<service>  where service is google, github, facebook,

@@ -135,4 +135,4 @@ itself), which puts a child's caret under its parent's **name**.
 
 - [All Boards](All-Boards.md) — the page this menu belongs to
 - [The All Boards URLs](URLs.md) — how a workspace is addressed
-- [Left menu](../Page/Left-Menu.md) — the panel it is drawn in, and its own fold
+- [Left menu](Left-Menu.md) — the panel it is drawn in, and its own fold

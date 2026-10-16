@@ -4,7 +4,7 @@ import '/server/notifications/storedWebhooks';
 import '/server/notifications/storedDelivery';
 import '/server/lib/listSyncOperations';
 import { currentSyncActor, durableSyncDecision, runDurableListSync, replayStoredListSync } from '/server/lib/listSyncApplication';
-// List sync (docs/Features/ImportExport/Sync.md, Priority 1 of the
+// List sync (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md, Priority 1 of the
 // import/export/sync audit): periodic job that keeps a WeKan list up to date
 // from an external tracker (Jira first, end to end; the same mechanism also
 // covers GitHub/GitLab/Gitea/Forgejo since their fetchers+parsers already

@@ -79,7 +79,7 @@ FerretDB. Nothing is overwritten and nothing is deleted.
 
 This is safe because of how WeKan stores history: activities, comments and the
 change-history rows are **append-only**
-([History.md](../../../../Features/Reports/History/History.md)), so merging them
+([History.md](../../../../Features/General/History/History.md)), so merging them
 can only add to what a card's Activity feed shows. Work done on the copy that is
 not being served becomes readable in the History of the one that is, instead of
 sitting in a database nobody opens.

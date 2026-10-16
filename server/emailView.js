@@ -1,5 +1,5 @@
 // Board View / Email (#794): the board as a Gmail-like mailbox
-// (client/components/boards/emailView.*, docs/Features/Board/Email-View.md).
+// (client/components/boards/emailView.*, docs/Features/Board-Header/Board-Views/Email-View.md).
 //
 //   folders  inbox            the list email-to-card puts new cards in
 //            sent             cards sent from this view
@@ -8,7 +8,7 @@
 //            label:<labelId>  any label of the board, as a Gmail label
 //
 // One page of rows at a time, newest first, as every WeKan table page does
-// (docs/Features/Page/Table.md): the publication applies skip/limit on the
+// (docs/Features/General/Table.md): the publication applies skip/limit on the
 // server and names its card ids in the page index (models/lib/reportPageIndex.js),
 // so the client renders exactly the page and never re-slices the board's cards;
 // the total comes from emailViewCount.

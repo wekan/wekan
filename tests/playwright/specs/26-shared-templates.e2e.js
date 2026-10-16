@@ -71,7 +71,7 @@ test.describe('Admin – shared templates', () => {
   async function openTemplatesTab(page) {
     await navigateInApp(page, '/admin/people/shared-templates');
     // The shared left menu addresses an entry by data-id, not by a per-page class
-    // (docs/Features/Page/Left-Menu.md).
+    // (docs/Features/All-Boards/Left-Menu.md).
     // templatesGeneral renders its three scope checkboxes.
     await page.locator('#templates-setting').waitFor({ timeout: 15_000 });
   }

@@ -253,9 +253,9 @@ async function main() {
     assert.match(read('client/components/boards/exportScope.js'),
       /\{ key: 'notion', icon: 'fa-table', label: 'Notion', path: 'export\/notion', ext: 'csv', scopes: BOARD_ONLY \}/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Notion/Notion.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Notion/Notion.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Notion\/Notion\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Notion\/Notion\.md\)/);
     // No web addresses in the code comments of this format.
     for (const file of ['models/lib/notionFormat.js', 'server/lib/notionArchive.js']) {
       assert.doesNotMatch(read(file), /https?:\/\/[a-z]/i, file);

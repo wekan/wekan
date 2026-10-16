@@ -1,7 +1,7 @@
 /* The Admin Panel's selected left-menu row is painted by the SAME rules as the
    second header bar. Flat themes below share structure and publish only their
    values; exceptional and gradient themes retain explicit rules.
-   See docs/Features/Page/Theme.md and docs/Features/Page/Left-Menu.md. */
+   See docs/Features/General/Theme/Change-Color.md and docs/Features/All-Boards/Left-Menu.md. */
 
 /* Ordinary solid-colour themes. */
 
@@ -1405,7 +1405,7 @@ THEME - Clear Blue
    coloured main bar - the username and the board links in it were background
    furniture. This bar is the header now, so its text is the header's text:
    full white, like every other theme's, and like the page title beside it.
-   No other theme dims these. docs/Features/Page/Theme.md */
+   No other theme dims these. docs/Features/General/Theme/Change-Color.md */
 .board-color-clearblue#header-quick-access #header-new-board-icon,
 .board-color-clearblue#header-quick-access #header-user-bar,
 .board-color-clearblue#header-quick-access ul li {
@@ -1433,7 +1433,7 @@ THEME - Clear Blue
    right for them; a slide is not a colour, so the variable cannot carry it and
    clearblue's row came out flat #00aecc while the Admin Panel's row beside it
    slid. The Admin Panel's row has always been named in this rule; this is the
-   All Boards row joining it. docs/Features/Page/Theme.md */
+   All Boards row joining it. docs/Features/General/Theme/Change-Color.md */
 .board-color-clearblue#header #header-main-bar,
 .board-color-clearblue#header-quick-access,
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active,
@@ -1770,7 +1770,7 @@ THEME - Natural
    the main bar is gone and this one carries the theme, so the darker shade
    painted Natural near-black instead of its green-grey. The shared
    `#header, #header-quick-access` rule above provides the colour.
-   docs/Features/Page/Theme.md */
+   docs/Features/General/Theme/Change-Color.md */
 .board-color-natural.board-wrapper {
   background-color: #dedede;
 }
@@ -1894,7 +1894,7 @@ THEME - Modern
 /* Same as Natural: `#333 !important` was the thin dark strip's colour, and it
    painted Modern charcoal instead of its blue. The padding and font-size were
    the strip's too - this bar sizes itself like every other theme's now.
-   docs/Features/Page/Theme.md */
+   docs/Features/General/Theme/Change-Color.md */
 .board-color-modern#header-quick-access ul {
   overflow: visible;
 }
@@ -4453,7 +4453,7 @@ clearblue uses on its own: the border under the bar is base x 0.8, the one
 above it base x 0.6, the current tab base x 1.15, a selected minicard the
 base mixed toward white. Derived rather than hand-picked so a sixth slide
 theme is one line in the generator and not a page of guessed hexes.
-docs/Features/Page/Theme.md
+docs/Features/General/Theme/Change-Color.md
 =================*/
 
 
@@ -4749,7 +4749,7 @@ clearblue uses on its own: the border under the bar is base x 0.8, the one
 above it base x 0.6, the current tab base x 1.15, a selected minicard the
 base mixed toward white. Derived rather than hand-picked so a sixth slide
 theme is one line in the generator and not a page of guessed hexes.
-docs/Features/Page/Theme.md
+docs/Features/General/Theme/Change-Color.md
 =================*/
 
 
@@ -5045,7 +5045,7 @@ clearblue uses on its own: the border under the bar is base x 0.8, the one
 above it base x 0.6, the current tab base x 1.15, a selected minicard the
 base mixed toward white. Derived rather than hand-picked so a sixth slide
 theme is one line in the generator and not a page of guessed hexes.
-docs/Features/Page/Theme.md
+docs/Features/General/Theme/Change-Color.md
 =================*/
 
 
@@ -5341,7 +5341,7 @@ clearblue uses on its own: the border under the bar is base x 0.8, the one
 above it base x 0.6, the current tab base x 1.15, a selected minicard the
 base mixed toward white. Derived rather than hand-picked so a sixth slide
 theme is one line in the generator and not a page of guessed hexes.
-docs/Features/Page/Theme.md
+docs/Features/General/Theme/Change-Color.md
 =================*/
 
 
@@ -5637,7 +5637,7 @@ clearblue uses on its own: the border under the bar is base x 0.8, the one
 above it base x 0.6, the current tab base x 1.15, a selected minicard the
 base mixed toward white. Derived rather than hand-picked so a sixth slide
 theme is one line in the generator and not a page of guessed hexes.
-docs/Features/Page/Theme.md
+docs/Features/General/Theme/Change-Color.md
 =================*/
 
 

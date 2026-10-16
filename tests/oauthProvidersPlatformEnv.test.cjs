@@ -147,7 +147,7 @@ test('the Docker secrets scaffolding knows the per-provider secret files', () =>
 });
 
 test('the docs pages exist, say what each provider needs, and are linked from the index', () => {
-  const oauth = read('docs/Features/Login/OAuth-Providers.md');
+  const oauth = read('docs/Features/Login-Page/OAuth-Providers.md');
   for (const [p, [service, idVar]] of Object.entries(PROVIDERS)) {
     assert.ok(oauth.includes(`\`${service}\``), `OAuth-Providers.md: service ${service}`);
     assert.ok(oauth.includes(`OAUTH_${p}_${idVar}`), `OAuth-Providers.md: OAUTH_${p}_${idVar}`);
@@ -157,11 +157,11 @@ test('the docs pages exist, say what each provider needs, and are linked from th
     assert.ok(oauth.includes(v), `OAuth-Providers.md: ${v}`);
   }
   assert.ok(/Admin Panel/.test(oauth), 'OAuth-Providers.md: the Admin Panel overrides');
-  const pwless = read('docs/Features/Login/Passwordless.md');
+  const pwless = read('docs/Features/Login-Page/Passwordless.md');
   assert.ok(pwless.includes('PASSWORDLESS_ENABLED') && pwless.includes('MAIL_URL'));
   const index = read('docs/README.md');
-  assert.ok(index.includes('(./Features/Login/OAuth-Providers.md)'), 'docs/README.md links OAuth-Providers.md');
-  assert.ok(index.includes('(./Features/Login/Passwordless.md)'), 'docs/README.md links Passwordless.md');
+  assert.ok(index.includes('(./Features/Login-Page/OAuth-Providers.md)'), 'docs/README.md links OAuth-Providers.md');
+  assert.ok(index.includes('(./Features/Login-Page/Passwordless.md)'), 'docs/README.md links Passwordless.md');
 });
 
 console.log(`\n${passed} passed`);

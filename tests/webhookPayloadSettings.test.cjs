@@ -262,7 +262,7 @@ test('wiring: settings are stored with validation, saved through one guarded met
 });
 
 test('docs list every payload property and the settings', () => {
-  const doc = read('docs/Features/Webhooks/Webhook-data.md');
+  const doc = read('docs/Features/Board-Sidebar/Board-Settings/Outgoing-Webhooks/Webhook-data.md');
   for (const group of GROUP_KEYS) {
     for (const key of WEBHOOK_PAYLOAD_GROUPS[group]) assert.match(doc, new RegExp('`' + key + '`'), key);
   }

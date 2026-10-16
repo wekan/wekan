@@ -1,4 +1,4 @@
-/* The one History view (docs/Features/Reports/History/History.md §7).
+/* The one History view (docs/Features/General/History/History.md §7).
    Left pane of contributors, then search + pagination + Restore above the table.
    RTL mirrors the whole thing: the pane moves to the right, the controls
    reverse, and the columns follow the document direction. */

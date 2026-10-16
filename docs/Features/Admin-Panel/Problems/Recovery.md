@@ -1,6 +1,6 @@
 # Design: SQLite corruption/bloat safety, automatic recovery, and Admin Panel → Problems → Recovery
 
-> **This page uses the shared [Table Page](../../../Features/Page/Table.md) design.**
+> **This page uses the shared [Table Page](../../General/Table.md) design.**
 > The layout, search, pagination, column spec and per-page data loading are defined
 > there and are not repeated here.
 
@@ -68,7 +68,7 @@ control collections have no client publication or direct client writes.
 Detailed terminal receipt metadata is compacted after 30 days by default.
 Minimal replay identities remain indefinitely, so an old cancellation cannot
 affect later messages. Pending or failed work and recipient holds are retained.
-See [receipt retention](../../Email/Troubleshooting-Mail.md#completed-notification-receipts)
+See [receipt retention](../../General/Email/Troubleshooting-Mail.md#completed-notification-receipts)
 for configuration and [durable operations](Durable-Operations.md) for remaining
 activity-to-delivery integration work.
 
@@ -146,7 +146,7 @@ discarded automatically.
 ## Board imports that stopped before finishing
 
 Every board import and board copy is recorded before its first write, with the
-id its new board will have ([details](../../ImportExport/Import-Run-Recovery.md)).
+id its new board will have ([details](../../Board-Sidebar/Board-Settings/Import-Export/Import-Run-Recovery.md)).
 One that stops - its server restarted, its writer hung for longer than
 `WEKAN_IMPORT_RUN_STALE_MS`, or it failed after creating its board - is
 flagged once by the `wekan-import-run-scan` job and adds one

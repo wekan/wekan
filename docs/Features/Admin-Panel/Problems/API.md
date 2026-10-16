@@ -88,4 +88,4 @@ be added without being counted** — there is nothing per route to forget.
 
 - [README.md](README.md) — every pane of this page
 - [Design.md](Design.md) — why Problems records summaries and not events
-- [../../Page/Table.md](../../Page/Table.md) — the shared table this pane draws with
+- [../../Page/Table.md](../../General/Table.md) — the shared table this pane draws with

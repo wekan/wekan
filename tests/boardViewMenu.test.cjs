@@ -84,7 +84,7 @@ const VIEWS = [
 const HR_AFTER = ['board-view-table', 'board-view-timeline', 'board-view-stats', 'board-view-group-by-assignee', 'board-view-gantt-dhtmlx', 'board-view-bigboard'];
 
 // The menu is no longer 25 static entries in the jade: Board Settings / Board
-// View (docs/Features/Board/Board-View-Settings.md) lets a board admin hide
+// View (docs/Features/Board-Sidebar/Board-Settings/Board-View.md) lets a board admin hide
 // and REORDER the entries per board, so boardChangeViewPopup renders one
 // `each boardViewMenuEntries` loop from the shared table in
 // models/lib/boardViewSettings.js. The order, icon, label and separator pins

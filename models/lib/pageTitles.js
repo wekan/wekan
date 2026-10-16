@@ -13,7 +13,7 @@
 //
 // Pure: no Meteor, no i18n, no router. It maps a route name to a translation
 // KEY; resolving the key and finding the current route is the caller's job.
-// docs/Features/Page/Header.md
+// docs/Features/Header-Bar/Header.md
 
 // routeName -> i18n key.
 const PAGE_TITLE_KEYS = {

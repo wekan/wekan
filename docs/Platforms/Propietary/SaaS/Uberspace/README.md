@@ -26,7 +26,7 @@
   `SERVER` is the mail server named under "Your primary email address" on the
   Uberspace dashboard's datasheet - not the dashboard's own server. Reported
   to work; a password with only letters and digits avoids URL escaping. See
-  [Troubleshooting Mail](../../../../Features/Email/Troubleshooting-Mail.md) for the rest.
+  [Troubleshooting Mail](../../../../Features/General/Email/Troubleshooting-Mail.md) for the rest.
   The SMTP server can also be set in Admin Panel → Email instead.
 
 ***

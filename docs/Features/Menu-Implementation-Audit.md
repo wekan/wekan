@@ -98,7 +98,7 @@ Confirmed limitations requiring further implementation:
 - Paginated issue/task API responses require all pages and related resources.
   A one-page file cannot prove that an entire project was transferred.
 
-[Format-Coverage.md](ImportExport/Format-Coverage.md) describes the broader target
+[Format-Coverage.md](Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md) describes the broader target
 contract, including loss accounting; it is not evidence that those promises are
 already implemented. For disaster recovery use the
 [full backup documentation](../Backup/Backup.md).

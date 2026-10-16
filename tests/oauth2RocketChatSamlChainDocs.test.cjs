@@ -14,7 +14,7 @@ assert.match(auth, /loginStyle:\s*authEnv\('OAUTH2_LOGIN_STYLE'\) === 'popup' \?
   'OIDC login style defaults to redirect; popup only when asked');
 assert.match(read('snap-src/bin/config'), /DEFAULT_OAUTH2_LOGIN_STYLE="redirect"/, 'snap default is redirect');
 
-const doc = read('docs/Features/Login/OAuth2.md');
+const doc = read('docs/Features/Login-Page/OAuth2.md');
 const start = doc.indexOf('### Rocket.Chat signing in with SAML');
 assert.ok(start > 0, 'the SAML chain section exists');
 const section = doc.slice(start, doc.indexOf('\n## ', start) > 0 ? doc.indexOf('\n## ', start) : undefined);

@@ -19,7 +19,7 @@
 // can share it.
 //
 // There is no "finish" or "resume": that needs the source document, and it is
-// deliberately not kept (docs/Features/ImportExport/Import-Run-Recovery.md).
+// deliberately not kept (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Import-Run-Recovery.md).
 // An interrupted import is completed by discarding it and importing the file
 // again. The Scrum stage keeps its own private plan and resumes from it
 // (server/lib/scrumImportRecovery.js); this module only reports that checkpoint

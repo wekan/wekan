@@ -1457,7 +1457,7 @@ Boards.attachSchema(
       optional: true,
       defaultValue: false,
     },
-    // Board Settings / Board View (docs/Features/Board/Board-View-Settings.md):
+    // Board Settings / Board View (docs/Features/Board-Sidebar/Board-Settings/Board-View.md):
     // which Board View menu entries this board offers, and which one it opens
     // in, separately for a public and a private board. The decisions live in
     // models/lib/boardViewSettings.js; a missing entry/side means SHOWN and a

@@ -2,7 +2,7 @@
 
 `/public` lists the boards anybody may open. It is a **table page**: everything
 about its layout, its controls and its paging is defined once in
-[the Table page design](../Page/Table.md), and this page describes only what is different
+[the Table page design](../General/Table.md), and this page describes only what is different
 about this one.
 
 ## What it is not
@@ -119,7 +119,7 @@ client, and it needs no login: a public board is public.
 ## Related files
 
 Only what is specific to this page; everything shared is in
-[Table.md's own list](../Page/Table.md#related-files).
+[Table.md's own list](../General/Table.md#related-files).
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -132,5 +132,5 @@ Only what is specific to this page; everything shared is in
 
 ## Related
 
-- [The Table page design](../Page/Table.md) — everything shared
-- [Left menu](../Page/Left-Menu.md)
+- [The Table page design](../General/Table.md) — everything shared
+- [Left menu](Left-Menu.md)

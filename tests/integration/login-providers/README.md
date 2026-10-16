@@ -5,7 +5,7 @@ and repeat with `--sandstorm`. The runner requires a POSIX host, OpenSSL,
 installed repository/Playwright dependencies, Chromium and a native prepared
 WeKan/FerretDB bundle. It uses a new database for each run.
 
-See [login testing](../../../docs/Features/Login/Testing.md) for the coverage
+See [login testing](../../../docs/Features/Login-Page-Page/Testing.md) for the coverage
 matrix, dummy values, network isolation, artifacts and limitations.
 
 `ldap.cjs` implements the limited LDAPv3 wire operations the scenarios use.

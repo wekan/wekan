@@ -210,9 +210,9 @@ async function main() {
     assert.match(read('models/lib/importSources.js'), /\{ key: 'pivotal', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'pivotal'[^}]*path: 'export\/pivotal', ext: 'csv'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Pivotal-Tracker/Pivotal-Tracker.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Pivotal-Tracker/Pivotal-Tracker.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Pivotal\-Tracker\/Pivotal\-Tracker\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Pivotal\-Tracker\/Pivotal\-Tracker\.md\)/);
   });
 
   console.log(`\npivotalCsv: ${passed} checks passed`);

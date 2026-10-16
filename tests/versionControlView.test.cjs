@@ -1,7 +1,7 @@
 'use strict';
 
 // Guard: Board View / Version Control - the board as a GitHub / Gitea issue
-// tracker (docs/Features/Board/Version-Control-View.md).
+// tracker (docs/Features/Board-Header/Board-Views/Version-Control-View.md).
 // Run: node tests/versionControlView.test.cjs
 //
 // It keeps no data of its own: a card is an issue, a label is a label, a label

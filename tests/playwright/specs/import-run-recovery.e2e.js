@@ -2,7 +2,7 @@
 // A board import that stopped before finishing is listed in Admin Panel ->
 // Problems -> Recovery, where an administrator keeps its partial board or
 // discards exactly what it created (server/lib/importRuns.js,
-// docs/Features/ImportExport/Import-Run-Recovery.md). Non-administrators are
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Import-Run-Recovery.md). Non-administrators are
 // refused, another board is never touched, a second discard is a no-op, and a
 // finished import is never listed.
 const { randomUUID } = require('node:crypto');

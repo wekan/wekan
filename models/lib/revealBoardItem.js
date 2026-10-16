@@ -27,7 +27,7 @@
 // gives an activity `id="activity-<id>"`.
 //
 // Pure: an id in, an element id out. No DOM, no Meteor, no jQuery.
-// docs/Features/Page/Board-Item-Links.md
+// docs/Features/General/Board-Item-Links.md
 
 const REVEAL_KINDS = ['swimlane', 'list', 'comment', 'activity'];
 

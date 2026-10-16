@@ -5,7 +5,7 @@
 // chat server or a Matrix hookshot beside WeKan - which the SSRF guard refuses
 // otherwise. Empty by default: nothing internal is reachable until a site
 // administrator lists it. Only a site administrator can change it, so no board
-// member can point a webhook inward. See docs/Features/Webhooks/Proxy.md and
+// member can point a webhook inward. See docs/Features/Board-Sidebar/Board-Settings/Outgoing-Webhooks/Proxy.md and
 // #2017's how-to. Pure: tests/internalWebhookHosts.test.cjs.
 
 const MAX_HOSTS = 50;

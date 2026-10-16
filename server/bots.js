@@ -1,4 +1,4 @@
-// Board Settings / Bots (models/lib/botRuns.js, docs/Features/Automation/Bots.md):
+// Board Settings / Bots (models/lib/botRuns.js, docs/Features/Rules/Bots.md):
 // handing a card to a bot, and what its runner reports back.
 //
 // A bot has no rights in WeKan of its own:

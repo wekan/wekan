@@ -446,9 +446,9 @@ async function main() {
     assert.match(creator, /const sourceColors = data\.label_colors && typeof data\.label_colors === 'object' \? data\.label_colors : \{\};/);
     assert.match(creator, /color === 'black' && LABEL_COLORS\.includes\(named\) \? named : color/, 'only a WeKan label color is stored');
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Taiga/Taiga.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Taiga/Taiga.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Taiga\/Taiga\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Taiga\/Taiga\.md\)/);
     // Named in both the import and the export list.
     assert.ok((read('README.md').match(/\bTaiga\b/g) || []).length >= 2);
     // No link in the module's comments (tests/releaseTelemetry*.cjs).

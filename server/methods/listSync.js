@@ -1,4 +1,4 @@
-// List sync configuration methods (docs/Features/ImportExport/Sync.md). Lets
+// List sync configuration methods (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md). Lets
 // a board member with write access mark a list as synced from an external
 // tracker and store its credential. The credential itself is written into
 // ListSyncCredentials (models/listSyncCredentials.js), a collection with no

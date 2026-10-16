@@ -28,7 +28,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Javascript enabled Desktop and Mobile Safari/Chromium/Firefox based browsers
 - Apps at Play Store, Windows Microsoft Store, Ubuntu Touch OpenStore [Browser compatibility matrix](../Browsers/Browser-compatibility-matrix.md)
 - Alternatively, for self-hosted WeKan, create PWA icon [PWA](../Browsers/PWA.md)
-- Using WeKan with big touchscreen [Touch Screen support](../Features/DragDrop/Touch-Screen-support.md)
+- Using WeKan with big touchscreen [Touch Screen support](../Features/General/DragDrop/Touch-Screen-support.md)
 
 ## Meteor WeKan Server
 
@@ -46,13 +46,13 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Whitelabel: Change product name and product image at login screen and board left top corner. Not changing favicon, because there are 100+ favicons for different devices.
 - Drag Drop at Desktop and Mobile:
   - Board Icons, Swimlanes, Lists, Cards, Checklists, Checklist Items
-  - Drag handles, per screen [Drag Drop](../Features/DragDrop/Drag-Drop.md)
+  - Drag handles, per screen [Drag Drop](../Features/General/DragDrop/Drag-Drop.md)
 - Some features similar to Trello and Jira. Some features not in Trello and Jira.
-- IFTTT Rules like Trello Butler [IFTTT](../Features/Automation/IFTTT/IFTTT.md) , translated to all supported languages. Trello Butler is only In English.
+- IFTTT Rules like Trello Butler [IFTTT](../Features/Rules/IFTTT/IFTTT.md) , translated to all supported languages. Trello Butler is only In English.
 - Many Assignees like in Jira.
 - Change background image and Card Cover. Change Theme. Change color of Boards, Swimlane, List, Card, Label.
-- Markdown at: Board name and description, Swimlane, List, Card title and description, Checklist and Checklist Item, Subtask title,  [Wekan Markdown](../Features/Editor/Markdown/Markdown.md)
-- Emoji [Emoji](../Features/Editor/Emoji.md)
+- Markdown at: Board name and description, Swimlane, List, Card title and description, Checklist and Checklist Item, Subtask title,  [Wekan Markdown](../Features/General/Editor/Markdown/Markdown.md)
+- Emoji [Emoji](../Features/General/Editor/Emoji.md)
 - MathML
 - Preview card attachment image and PDF
 - Show Start at End Dates of card at Calendar of Swimlanes/Lists/Calendar dropdown menu
@@ -69,10 +69,10 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
   - Filter cards, by user etc
   - Multi-Selection, checkmark and drag many cards at once
   - Sort current board
-- Python and PHP based additional features [Python](../Features/Editor/Python.md)
+- Python and PHP based additional features [Python](../Features/General/Editor/Python.md)
 - Admin Panel:
   - Organizations/Teams/People. Impersonate User, logged to database when someone uses that feature.
-  - Customize Translations [Customize Translations](../Features/Translations/Customize-Translations.md)
+  - Customize Translations [Customize Translations](../Features/General/Translations/Customize-Translations.md)
 
 ## Technical details
 
@@ -87,27 +87,27 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
   - Repo [wekan-oidc](../../packages/wekan-oidc)
   - Features:
     - At Admin Panel, you can change text of login page button `Login with OIDC`
-    - Auth0 [OAuth2](../Features/Login/OAuth2.md#auth0) . This did take about half year to implement by xet7, was not available anywhere else for Meteor.
-    - Oracle OIM. [Oracle OIM](../Features/Login/Oracle-OIM.md) . For this, customer provided some code. xet7 added fix to make login work even when some login field was missing data, by taking data from other field, all this while xet7 did not have access to customers Oracle OIM, just guessing about what code to add, and it worked.
-    - GitLab [OAuth2](../Features/Login/OAuth2.md#gitlab-providing-oauth2-login-to-wekan)
-    - RocketChat [OAuth2](../Features/Login/OAuth2.md#rocketchat-providing-oauth2-login-to-wekan)
-    - Nextcloud [Nextcloud](../Features/Login/Nextcloud.md)
-    - ADFS 4.0 using OAuth2 and OpenID [ADFS](../Features/Login/ADFS.md)
-    - Azure [Azure](../Features/Login/Azure/Azure.md)
-    - Keycloak [Keycloak](../Features/Login/Keycloak/Keycloak.md)
-    - Google login [Google login](../Features/Login/Google-login.md)
+    - Auth0 [OAuth2](../Features/Login-Page/OAuth2.md#auth0) . This did take about half year to implement by xet7, was not available anywhere else for Meteor.
+    - Oracle OIM. [Oracle OIM](../Features/Login-Page/Oracle-OIM.md) . For this, customer provided some code. xet7 added fix to make login work even when some login field was missing data, by taking data from other field, all this while xet7 did not have access to customers Oracle OIM, just guessing about what code to add, and it worked.
+    - GitLab [OAuth2](../Features/Login-Page/OAuth2.md#gitlab-providing-oauth2-login-to-wekan)
+    - RocketChat [OAuth2](../Features/Login-Page/OAuth2.md#rocketchat-providing-oauth2-login-to-wekan)
+    - Nextcloud [Nextcloud](../Features/Login-Page/Nextcloud.md)
+    - ADFS 4.0 using OAuth2 and OpenID [ADFS](../Features/Login-Page/ADFS.md)
+    - Azure [Azure](../Features/Login-Page/Azure/Azure.md)
+    - Keycloak [Keycloak](../Features/Login-Page/Keycloak/Keycloak.md)
+    - Google login [Google login](../Features/Login-Page/Google-login.md)
 - Custom LDAP
-  - LDAP [LDAP](../Features/Login/LDAP.md)
-  - LDAP AD Simple Auth [LDAP AD Simple Auth](../Features/Login/LDAP-AD-Simple-Auth.md)
+  - LDAP [LDAP](../Features/Login-Page/LDAP.md)
+  - LDAP AD Simple Auth [LDAP AD Simple Auth](../Features/Login-Page/LDAP-AD-Simple-Auth.md)
 - Default board for users https://github.com/wekan/wekan/pull/5098
-- Brute Force Accounts Lockout [Accounts Lockout](../Features/Login/Accounts-Lockout.md)
+- Brute Force Accounts Lockout [Accounts Lockout](../Features/Login-Page/Accounts-Lockout.md)
 - Markdown, Emoji, MathML, sanitizing [template-integration.js](../../packages/markdown/src/template-integration.js)
 - Many security fixes from Responsible Disclosure https://wekan.fi/hall-of-fame/
 
 ## Upcoming Features
 
-- CAS [CAS](../Features/Login/CAS.md)
-- SAML [SAML](../Features/Login/SAML.md)
+- CAS [CAS](../Features/Login-Page/CAS.md)
+- SAML [SAML](../Features/Login-Page/SAML.md)
 
 ## Video
 

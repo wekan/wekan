@@ -3,7 +3,7 @@
 // Board Settings / Bots: bots are external runners - an AI agent, a CI job, a
 // script on someone's own server - that a board admin connects to a board and
 // hands cards to, as kanbots does, in a view beside the Rules' Workflow view
-// (design: docs/Features/Automation/Bots.md).
+// (design: docs/Features/Rules/Bots.md).
 //
 // A bot HAS NO RIGHTS IN WEKAN OF ITS OWN. It is:
 //   - an outgoing webhook (an Integration marked `bot`) that WeKan sends a

@@ -99,7 +99,7 @@ From Meteor Discord chat from someone:
 
 ## Building WeKan
 
-- [Emoji](../Features/Editor/Emoji.md)
+- [Emoji](../Features/General/Editor/Emoji.md)
 - Docs: [docs](..)
 
 ## Similar technology

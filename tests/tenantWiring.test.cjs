@@ -306,7 +306,7 @@ test('the Backup pane offers a scope, and asks the server for the list', () => {
   assert.ok(/Meteor\.call\('runBackup', opts, storage, orgId \|\| null/.test(js));
 });
 
-// ── the site theme (D.9 / docs/Features/Page/Theme.md) ─────────────────────────
+// ── the site theme (D.9 / docs/Features/General/Theme/Change-Color.md) ─────────────────────────
 
 test('Visibility gets a Change color section, above Logo, using the SHARED picker', () => {
   const jade = liveJade(read('client/components/settings/settingBody.jade'));
@@ -397,7 +397,7 @@ test('an empty custom-colour list does not override the instance one', () => {
 });
 
 test('the design of the shared picker is written down', () => {
-  const doc = read('docs/Features/Page/Theme.md');
+  const doc = read('docs/Features/General/Theme/Change-Color.md');
   assert.ok(/scope="admin"/.test(doc) && /scope="board"/.test(doc) && /scope="global"/.test(doc));
   assert.ok(/Default theme/.test(doc) && /Site theme/i.test(doc) && /User's own/.test(doc),
     'including the order of themes');

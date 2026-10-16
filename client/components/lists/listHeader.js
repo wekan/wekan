@@ -29,7 +29,7 @@ import {
   parseListWidthInput,
   normalizeListWidth,
 } from '/models/lib/listWidth';
-// List sync (docs/Features/ImportExport/Sync.md): UI wiring only, calls the
+// List sync (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md): UI wiring only, calls the
 // EXISTING setListSyncSource/hasListSyncCredential/syncListNow methods in
 // server/methods/listSync.js. SYNC_CAPABLE_SOURCES is the same list those
 // methods validate `type` against, reused here so the picker can never offer
@@ -885,7 +885,7 @@ Template.setListColorPopup.events({
   },
 });
 
-// List sync settings popup (docs/Features/ImportExport/Sync.md). UI wiring
+// List sync settings popup (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md). UI wiring
 // only: reads the list's own (already published, credential-free) syncSource
 // fields and calls the configuration, Sync and conflict-resolution methods in
 // server/methods/listSync.js. Authority and fresh comparison checks stay there.

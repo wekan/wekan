@@ -20,7 +20,7 @@
 //     being invisible.
 //
 // WHY THAT IS ENOUGH, and it is WeKan's own design that makes it enough: the
-// history is APPEND-ONLY (docs/Features/Reports/History/History.md). Activities,
+// history is APPEND-ONLY (docs/Features/General/History/History.md). Activities,
 // comments and the change-history rows are never rewritten in place, so merging
 // them can only ADD to what a card's Activity feed shows. The work done on the
 // copy that is not being served becomes readable in the history of the copy that

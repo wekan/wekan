@@ -670,7 +670,7 @@ template(name="boardMenuPopup")
           board offers, and which one it opens in, for a public and for a
           private board. Above Swimlane, since it decides what the whole
           board looks like before any swimlane does.
-          docs/Features/Board/Board-View-Settings.md
+          docs/Features/Board-Sidebar/Board-Settings/Board-View.md
         li
           a.js-open-board-view-settings(title="{{_ 'board-view'}}")
             i.fa.fa-eye
@@ -745,7 +745,7 @@ template(name="boardMenuPopup")
   "Default" columns are radio groups drawn as checkboxes: one tick each. The
   two public columns are not rendered when Admin Panel / Settings /
   Visibility hides public boards (tableVisibilityMode-allowPrivateOnly).
-  docs/Features/Board/Board-View-Settings.md, client/components/sidebar/sidebar.js
+  docs/Features/Board-Sidebar/Board-Settings/Board-View.md, client/components/sidebar/sidebar.js
 template(name="boardViewSettingsPopup")
   form.board-view-settings(class="{{#if publicBoardsHidden}}hide-public-columns{{/if}}")
     .board-view-settings-row

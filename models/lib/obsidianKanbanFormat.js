@@ -2,7 +2,7 @@
 // written in plain JavaScript so tests/obsidianKanban.test.cjs runs the round
 // trip in Node. The grammar follows the plugin's parser and writer
 // (src/parsers/formats/list.ts, parseMarkdown.ts and common.ts of
-// mgmeyers/obsidian-kanban); docs/Features/ImportExport/Format-Coverage.md
+// mgmeyers/obsidian-kanban); docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md
 // links them.
 //
 //   ---

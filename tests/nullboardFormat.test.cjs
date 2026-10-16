@@ -156,9 +156,9 @@ async function main() {
     assert.match(read('models/lib/importSources.js'), /\{ key: 'nullboard', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'nullboard'[^}]*path: 'export\/nullboard', ext: 'nbx'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Nullboard/Nullboard.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Nullboard/Nullboard.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Nullboard\/Nullboard\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Nullboard\/Nullboard\.md\)/);
   });
 
   console.log(`\nnullboardFormat: ${passed} checks passed`);

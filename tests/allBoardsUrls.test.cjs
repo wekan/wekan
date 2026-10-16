@@ -331,7 +331,7 @@ test('the section the page opens on depends on whether anything is starred', () 
     ['remaining', 'starred', 'home', 'templates', 'archive']);
   // The TOP row is the one the page opens on, in both cases. Home sits under
   // the two board lists and does not take the top: after login you are already
-  // IN the Home board. docs/Features/Board/Home.md
+  // IN the Home board. docs/Features/All-Boards/Home.md
   for (const starred of [true, false]) {
     assert.strictEqual(menuSectionOrder(starred)[0], defaultSection(starred),
       'the row you land on is the row at the top');

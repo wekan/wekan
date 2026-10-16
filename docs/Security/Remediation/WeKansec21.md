@@ -22,7 +22,7 @@ Reporter credit in the advisories: Wenhao Wu, Southeast University.
 
 Targeted test log: `.tools/tmp/sec21-private-only-tests.log`.
 No live browser/server security reproduction has been run yet.
-Translation review remains open at `docs/Features/Translations/Audit.md`.
+Translation review remains open at `docs/Features/General/Translations/Audit.md`.
 No remote writes or publishing were performed.
 
 Broader guard-inventory review continues, including trusted board-copy/helper

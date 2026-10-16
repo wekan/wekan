@@ -48,7 +48,7 @@ async function dependencyLine(sourceCard, dep) {
 
 // #6732: dependencies are edited through these methods only, under one rule
 // (models/lib/dependencyAccess.js; design in
-// docs/Features/Editor/RedStrings/Board-And-My-Dependencies.md):
+// docs/Features/General/Editor/RedStrings/Board-And-My-Dependencies.md):
 //   - Board Dependencies, on the board's cards: a role that may edit OR move
 //     cards; assigned-only members on the cards assigned to them.
 //   - My Dependencies, in the user's profile: every user, their own, between

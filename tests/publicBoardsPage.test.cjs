@@ -11,7 +11,7 @@
 // and some of it offered actions the visitor has no rights to - Multi-Selection
 // offered to archive boards they do not own.
 //
-// Design: docs/Features/All-Boards/Public.md, which is docs/Features/Page/Table.md.
+// Design: docs/Features/All-Boards/Public.md, which is docs/Features/General/Table.md.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -266,7 +266,7 @@ test('the design doc says what is different, and links to the shared one', () =>
   assert.ok(/## Read-only/.test(design) && /## Columns/.test(design),
     'and describe what is particular to this page');
   // Table.md lists the pages that use the design; this one has to be in it.
-  const table = read('docs/Features/Page/Table.md');
+  const table = read('docs/Features/General/Table.md');
   assert.ok(/Public Boards/.test(table) && /Public\.md/.test(table),
     'Table.md must list Public Boards among the pages that use it');
   // Every file the design doc names must exist.

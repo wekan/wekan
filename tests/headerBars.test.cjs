@@ -256,7 +256,7 @@ test('starred boards are a dropdown, not a row of links', () => {
     'the caret is to the left of the count');
   // "Starred", not "Starred Boards": the dropdown lists bookmarks too now, and
   // a button named after one of the two kinds under it is a button that names
-  // half of what it opens. docs/Features/Board/Starred.md
+  // half of what it opens. docs/Features/Pages/Starred.md
   assert.ok(/title="\{\{_ 'allboards.starred'\}\}"/.test(head), 'named by a tooltip');
   // The count is the button's only label now, so it is shown even at zero -
   // otherwise the button is a bare caret with nothing to say what it opens.
@@ -266,7 +266,7 @@ test('starred boards are a dropdown, not a row of links', () => {
     'the count is shown at zero too, not blanked');
   // Boards AND bookmarks (and now swimlanes/lists/cards, #1172): the count
   // moved into the user model's own starredCount(), so a count that left any
-  // kind out would say 2 above five rows. docs/Features/Board/Starred.md
+  // kind out would say 2 above five rows. docs/Features/Pages/Starred.md
   assert.ok(/user\.starredCount \? user\.starredCount\(\) : 0/.test(countHelper),
     'delegates to the user model, which counts every starred kind');
 
@@ -304,7 +304,7 @@ test('starred boards are a dropdown, not a row of links', () => {
   // ...then the BOOKMARKS, under their own heading, because they are a
   // different kind of destination and a flat list of both would leave the
   // reader working out which rows are boards.
-  // docs/Features/Board/Starred.md
+  // docs/Features/Pages/Starred.md
   assert.ok(/each currentUser\.starredPages/.test(popup), 'listing the bookmarks too');
   assert.ok(/\{\{_ 'starred-pages'\}\}/.test(popup), 'under their own heading');
   assert.ok(popup.indexOf('starredBoards') < popup.indexOf('starredPages'),

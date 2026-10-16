@@ -7,4 +7,4 @@ Today there is one action, **Allow Invite to Board**: which of the nine per-boar
 roles may invite someone to a board they are on.
 
 Everything a role may do *inside* a board is described in
-[Members and Permissions](../../Members/Members.md).
+[Members and Permissions](../../Board-Sidebar/Members/Members.md).

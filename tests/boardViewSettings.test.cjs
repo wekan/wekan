@@ -1,6 +1,6 @@
 'use strict';
 
-// Board Settings / Board View (docs/Features/Board/Board-View-Settings.md):
+// Board Settings / Board View (docs/Features/Board-Sidebar/Board-Settings/Board-View.md):
 // per board, which Board View menu entries a public / private board offers
 // and which one it opens in.
 //
@@ -539,6 +539,33 @@ test('the client resolves and draws the menu for the person looking', () => {
   const header = read('client/components/boards/boardHeader.js');
   assert.match(utils, /resolveBoardView\(board, stored, allowBoardView, Meteor\.userId\(\)\)/);
   assert.match(header, /boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView, Meteor\.userId\(\)\)/);
+});
+
+// The doc lists every view, in the menu's order, with the menu's own key and
+// its English label. It once stopped at 25 while BOARD_VIEWS had grown to 40,
+// so the list is compared with the code rather than trusted.
+test('Board-View.md lists exactly the views of BOARD_VIEWS, in order', () => {
+  const doc = read('docs/Features/Board-Sidebar/Board-Settings/Board-View.md');
+  const listed = [...doc.matchAll(/^(\d+)\. (.+) \(`([\w-]+)`\)$/gm)];
+  assert.deepStrictEqual(listed.map(m => m[3]), bvs.BOARD_VIEWS.map(v => v.labelKey));
+  listed.forEach((m, i) => {
+    assert.strictEqual(Number(m[1]), i + 1, 'numbered from 1 without gaps');
+    assert.strictEqual(m[2], en[m[3]], `${m[3]} shows its English label`);
+  });
+});
+
+// docs/Features/Board-Header/README.md maps every menu entry to the template
+// that draws it; a view added to BOARD_VIEWS without a row, or a row naming a
+// template that is gone, fails here.
+test('Board-Header/README.md has one row per view, naming a template that exists', () => {
+  const doc = read('docs/Features/Board-Header/README.md');
+  const rows = [...doc.matchAll(/^\| [^|]+ \| `(board-view-[\w-]+)` \| `(\w+)` in `([^`]+)` \|/gm)];
+  assert.deepStrictEqual(rows.map(m => m[1]), bvs.BOARD_VIEWS.map(v => v.view));
+  for (const [, view, template, file] of rows) {
+    assert.ok(read(file).includes(`template(name="${template}")`), `${view}: ${template} in ${file}`);
+    assert.ok(read('client/components/boards/boardBody.jade').includes(`+${template}`),
+      `${view}: boardBody renders ${template}`);
+  }
 });
 
 console.log(`boardViewSettings: ${passed} passed`);

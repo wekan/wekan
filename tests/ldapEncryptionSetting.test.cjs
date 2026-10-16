@@ -205,7 +205,7 @@ test('#4158 wiring logs normalization warnings instead of failing silently', () 
 
 test('#4158 documentation names all preferred modes without the false security claim', () => {
   const documentation = fs.readFileSync(path.join(
-    __dirname, '..', 'docs', 'Features', 'Login', 'LDAP.md',
+    __dirname, '..', 'docs', 'Features', 'Login-Page', 'LDAP.md',
   ), 'utf8');
   assert.match(documentation, /`LDAP_ENCRYPTION`/);
   assert.match(documentation, /`true`[^\n]*LDAPS/);

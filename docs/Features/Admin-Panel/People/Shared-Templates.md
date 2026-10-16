@@ -10,4 +10,4 @@ pane is the instance-wide list of scopes to browse by.
 
 ## Related
 
-- [Templates](../../Board/Templates.md)
+- [Templates](../../All-Boards/Templates.md)

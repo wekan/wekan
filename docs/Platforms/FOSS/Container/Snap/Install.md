@@ -33,7 +33,7 @@ How ROOT_URL is set:
 [Settings](../../../Webserver/Settings.md)
 
 Here is how to add users:
-[Adding users](../../../../Features/Login/Adding-users.md)
+[Adding users](../../../../Features/Login-Page/Adding-users.md)
 
 How to switch between WeKan and WeKan Gantt GPL:
 https://github.com/wekan/wekan/issues/2870#issuecomment-721364824
@@ -112,7 +112,7 @@ sudo snap set wekan mail-url='smtps://user:pass@mailserver.example.com:453'
 sudo snap set wekan mail-from='Wekan Boards <support@example.com>'
 ```
 
-[Troubleshooting Email](../../../../Features/Email/Troubleshooting-Mail.md)
+[Troubleshooting Email](../../../../Features/General/Email/Troubleshooting-Mail.md)
 
 ## LDAP
 
@@ -122,7 +122,7 @@ See [Supported Settings Keys](Supported-settings-keys.md#ldap)
 
 See [Supported Settings Keys](Supported-settings-keys.md#matomo-web-analytics-integration)
 
-## [Rocket.Chat providing OAuth2 login to Wekan](../../../../Features/Login/OAuth2.md)
+## [Rocket.Chat providing OAuth2 login to Wekan](../../../../Features/Login-Page/OAuth2.md)
 
 Also, if you have Rocket.Chat using LDAP/SAML/Google/etc for logging into Rocket.Chat, then same users can login to Wekan when Rocket.Chat is providing OAuth2 login to Wekan. 
 
@@ -179,9 +179,9 @@ $ sudo snap set wekan mongodb-port=27019
 
 ## 12) Add users
 
-[Add users](../../../../Features/Login/Adding-users.md)
+[Add users](../../../../Features/Login-Page/Adding-users.md)
 
-[Forgot Password](../../../../Features/Login/Forgot-Password.md)
+[Forgot Password](../../../../Features/Login-Page/Forgot-Password.md)
 
 ## MongoDB CLI
 

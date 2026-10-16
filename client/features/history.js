@@ -1,5 +1,5 @@
 // The universal change History view
-// (docs/Features/Reports/History/History.md). ONE template serves every scope -
+// (docs/Features/General/History/History.md). ONE template serves every scope -
 // the card group menu, the whole card, Member settings, Board settings, and the
 // swimlane and list menus - so there is one file to register here however many
 // menus offer History.

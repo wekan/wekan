@@ -55,7 +55,7 @@ Docker and source based installs. You can also on MongoDB
 Outgoing email can be configured at **Admin Panel / People / E-mail** by enabling
 **Enable below email settings**. This offers custom SMTP and many built-in email
 providers. Leave it disabled to keep using the installation's `MAIL_URL` and
-`MAIL_FROM` settings. See [Troubleshooting Mail](../../Features/Email/Troubleshooting-Mail.md)
+`MAIL_FROM` settings. See [Troubleshooting Mail](../../Features/General/Email/Troubleshooting-Mail.md)
 for provider choices, configuration examples and tests. For Exchange, you can
 use [DavMail](http://davmail.sourceforge.net), Wekan SMTP => DavMail => Exchange.
 

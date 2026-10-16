@@ -186,7 +186,7 @@ for (const { lang, dir, label } of LANGS) {
         // these three pages no longer render one at all - their title moved
         // beside the house icon and their controls moved into a right sidebar,
         // so a second bar would have been a tall empty strip.
-        // docs/Features/Page/Header.md
+        // docs/Features/Header-Bar/Header.md
         await expectVisibleText(page.locator('#header-quick-access .header-page-title'));
       }
     });

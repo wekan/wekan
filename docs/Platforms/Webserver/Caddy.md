@@ -543,7 +543,7 @@ boards.wekan.team {
 
 ***
 
-[Caddy OAuth2 with Let's Encrypt SSL example](../../Features/Login/OAuth2.md)
+[Caddy OAuth2 with Let's Encrypt SSL example](../../Features/Login-Page/OAuth2.md)
 
 ***
 

@@ -1,7 +1,7 @@
 'use strict';
 
 // Pure query helpers for the universal change history
-// (docs/Features/Reports/History/History.md §6). No Meteor, no database, so they
+// (docs/Features/General/History/History.md §6). No Meteor, no database, so they
 // are unit-tested directly (tests/changeHistoryQuery.test.cjs) — the same
 // discipline as models/lib/undoRedoSelection.js, and for the same reason: the
 // selection and filtering rules are where this feature is either right or

@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const doc = fs.readFileSync(
-  path.join(__dirname, '..', 'docs/Features/Email/Troubleshooting-Mail.md'),
+  path.join(__dirname, '..', 'docs/Features/General/Email/Troubleshooting-Mail.md'),
   'utf8',
 );
 

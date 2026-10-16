@@ -17,7 +17,7 @@
 // per-collection counts, and the newest moment any document carries. WeKan's
 // history is what makes that reliable (every change a user makes writes a row) and
 // what makes the merge safe (rows are append-only, so they can only be ADDED) -
-// see docs/Features/Reports/History/History.md section 9a.
+// see docs/Features/General/History/History.md section 9a.
 //
 // The rules being pinned here:
 //   * a copy that holds everything the other holds is served, with nothing to merge

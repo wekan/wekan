@@ -15,7 +15,7 @@ list with a multiline name; choose the multiple-list count to create a list
 for each nonempty line, in pasted order. For example, `Todo`, `Doing` and `Done`
 on separate lines can become three lists. Click **Save** to create them.
 Click a list title to rename it; line breaks are retained in the header.
-See [multiline creation](../Editor/Multiline.md).
+See [multiline creation](../General/Editor/Multiline.md).
 
 ## Menu and layout
 
@@ -26,12 +26,12 @@ a reload. Expand it with the same control.
 
 Drag the resize handle between lists when resizing is allowed. Board-wide
 resize locking and same-width controls are in
-[Board Settings / List](../Right-Sidebar/Board-Settings/List.md).
+[Board Settings / List](../Board-Sidebar/Board-Settings/List.md).
 There is no **Set width** row in the current list menu.
 
 Archive content to put it away, then use Board Settings / Archived Items to
 restore it. Permanent deletion has separate permissions and confirmation;
-see [Archive and Delete](../Board/Archive-and-Delete.md).
+see [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md).
 
 - [Per-list WIP limits](WipLimit/WipLimit.md)
 - [Shared WIP Limit Groups](WipLimit/WIP-Limit-Groups.md)

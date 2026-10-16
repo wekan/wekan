@@ -2,7 +2,7 @@
 // "Integrated Windows Authentication" - with node-expose-sspi
 // (models/lib/windowsSso.js holds the decisions). Off unless WeKan runs on
 // Windows with WINDOWS_SSO_ENABLED=true and node-expose-sspi installed in the
-// bundle (docs/Features/Login/WindowsSSO.md).
+// bundle (docs/Features/Login-Page/WindowsSSO.md).
 //
 // The sign-in page links to /sso/windows. There the browser proves who is
 // signed in to Windows; WeKan finds or creates that member and sends the
@@ -43,7 +43,7 @@ function loadSspi() {
       break;
     } catch (e) { /* the next place */ }
   }
-  if (!sspi) console.warn('Windows SSO: WINDOWS_SSO_ENABLED=true, but node-expose-sspi is not installed (docs/Features/Login/WindowsSSO.md).');
+  if (!sspi) console.warn('Windows SSO: WINDOWS_SSO_ENABLED=true, but node-expose-sspi is not installed (docs/Features/Login-Page/WindowsSSO.md).');
   return sspi;
 }
 

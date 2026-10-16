@@ -1,7 +1,7 @@
 'use strict';
 
 // Pure calculations behind the board report charts - see
-// models/lib/chartCalculations.js and docs/Features/Reports/charts.tsv.
+// models/lib/chartCalculations.js and docs/Features/Board-Header/Board-Views/Charts/charts.tsv.
 //
 // Run: node tests/chartCalculations.test.cjs
 

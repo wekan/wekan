@@ -320,7 +320,7 @@ Lists.attachSchema(
     // and localStorage for non-logged-in users
     // NOTE: width is per-board (shared with all users), stored in lists.width
     //
-    // List sync (docs/Features/ImportExport/Sync.md): marks this list as kept up
+    // List sync (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md): marks this list as kept up
     // to date from an external tracker by the periodic job in
     // server/listSync.js, which reuses the SAME parsers models/lib/externalParsers.js
     // already has for one-time import (parseJira here, parseGithub/parseGitlab/

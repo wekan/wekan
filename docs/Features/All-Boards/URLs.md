@@ -71,7 +71,7 @@ was still real — a stale link names the part of the path that still exists
 rather than nothing at all.
 
 This is the same title trail the Admin Panel uses
-([Admin Panel URLs](../Page/Admin-Panel-URLs.md)), one list rather than a helper per
+([Admin Panel URLs](../Admin-Panel/Admin-Panel-URLs.md)), one list rather than a helper per
 segment: the two pages do not have the same number of segments, and a workspace
 has as many as its tree is deep.
 
@@ -129,4 +129,4 @@ that redirect.
 ## Related
 
 - [All Boards](All-Boards.md) — the page these URLs open
-- [The Admin Panel's URLs](../Page/Admin-Panel-URLs.md) — the same idea, for the Admin Panel
+- [The Admin Panel's URLs](../Admin-Panel/Admin-Panel-URLs.md) — the same idea, for the Admin Panel

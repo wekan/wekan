@@ -312,9 +312,9 @@ async function main() {
     assert.match(read('models/lib/importSources.js'), /\{ key: 'superproductivity', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'superproductivity'[^}]*path: 'export\/superproductivity', ext: 'json'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Super-Productivity/Super-Productivity.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Super-Productivity/Super-Productivity.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Super\-Productivity\/Super\-Productivity\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Super\-Productivity\/Super\-Productivity\.md\)/);
   });
 
   console.log(`\nsuperProductivityFormat: ${passed} checks passed`);

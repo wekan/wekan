@@ -1,6 +1,6 @@
 'use strict';
 
-// docs/Features/ImportExport/External-Tools.md is the page the README links
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md is the page the README links
 // for "what can WeKan import and export". It went stale once (ten tools when
 // WeKan read fifty), so every source on the import page and every format in
 // the export menu has to be named on it. Run:
@@ -11,7 +11,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
-const doc = read('docs/Features/ImportExport/External-Tools.md');
+const doc = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md');
 // The import page's sources are the one list it reads (models/lib/importSources.js).
 const importPage = read('models/lib/importSources.js');
 const exportMenu = read('client/components/boards/exportScope.js');
@@ -40,12 +40,12 @@ test('every export format is on the page', () => {
 
 test('the README links the page from its import and export lists', () => {
   const readme = read('README.md');
-  assert.match(readme, /Add Board \/ Import \(\[all import and export formats\]\(docs\/Features\/ImportExport\/External-Tools\.md\)\):/);
-  assert.match(readme, /Export to \(\[all formats\]\(docs\/Features\/ImportExport\/External-Tools\.md\)\):/);
+  assert.match(readme, /Add Board \/ Import \(\[all import and export formats\]\(docs\/Features\/Board-Sidebar\/Board-Settings\/Import-Export\/External-Tools\.md\)\):/);
+  assert.match(readme, /Export to \(\[all formats\]\(docs\/Features\/Board-Sidebar\/Board-Settings\/Import-Export\/External-Tools\.md\)\):/);
 });
 
 // Each import source and export format has a directory of its own under
-// docs/Features/ImportExport, with the steps and the details, linked from the
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export, with the steps and the details, linked from the
 // coverage index (which used to hold every format's details in one table).
 const DIRECTORY = {
   wekan: 'WeKan', json: 'WeKan', 'json-no-attachments': 'WeKan', zip: 'WeKan', trello: 'Trello', 'trello-api': 'Trello', csv: 'CSV', scsv: 'CSV', tsv: 'CSV',
@@ -72,9 +72,9 @@ test('every import source and export format has its own page, with the steps and
   ];
   const unmapped = [...new Set(keys)].filter(key => !DIRECTORY[key] && !['files', 'calendar', 'dependencies', 'json', 'tools', 'other'].includes(key));
   assert.deepEqual(unmapped, [], 'a format with no directory page');
-  const index = read('docs/Features/ImportExport/Format-Coverage.md');
+  const index = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md');
   for (const dir of new Set(Object.values(DIRECTORY))) {
-    const page = read(`docs/Features/ImportExport/${dir}/${dir}.md`);
+    const page = read(`docs/Features/Board-Sidebar/Board-Settings/Import-Export/${dir}/${dir}.md`);
     // A heading is matched as text: its characters are escaped, not read as
     // regular-expression syntax.
     const at = HEADINGS.map(h => page.search(new RegExp(`^## ${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm')));
@@ -86,7 +86,7 @@ test('every import source and export format has its own page, with the steps and
 });
 
 test('the coverage index holds no format\'s details any more, only the index and the shared contract', () => {
-  const index = read('docs/Features/ImportExport/Format-Coverage.md');
+  const index = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md');
   assert.doesNotMatch(index, /^\| Format \| Current authoritative shape/m);
   assert.doesNotMatch(index, /^## Current external adapter checkpoint/m);
   assert.match(index, /^## Formats$/m);

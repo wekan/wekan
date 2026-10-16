@@ -40,9 +40,9 @@ own REST API on the loopback address.
 
 | | Trello | Jira | GitHub, Gitea |
 | --- | --- | --- | --- |
-| Board | board | project (key = the [board key](../Features/Board/Boards/Board-Key.md)) | repository `owner/<board key or id>` |
+| Board | board | project (key = the [board key](../Features/Header-Bar/Board-Title/Board-Key.md)) | repository `owner/<board key or id>` |
 | List | list | status; a transition moves the card | the open / closed list |
-| Card | card | issue `KEY-7` | issue `#7`, open or closed as in [Version Control](../Features/Board/Version-Control-View.md) |
+| Card | card | issue `KEY-7` | issue `#7`, open or closed as in [Version Control](../Features/Board-Header/Board-Views/Version-Control-View.md) |
 | Labels | labels and `idLabels` | `labels` | labels; a label with a due date is a milestone |
 | Comments | `commentCard` actions | `/issue/{key}/comment` | `/issues/{n}/comments` |
 | Checklists | checklists | - | - |

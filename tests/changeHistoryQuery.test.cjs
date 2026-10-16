@@ -3,7 +3,7 @@
 // Guard: the universal change history's query rules.
 // Run: node tests/changeHistoryQuery.test.cjs
 //
-// docs/Features/Reports/History/History.md §6 and its appendix: the paging,
+// docs/Features/General/History/History.md §6 and its appendix: the paging,
 // search and selection logic is kept pure so it can be tested without Meteor or
 // a database, "à la models/lib/undoRedoSelection.js". This is that test.
 //

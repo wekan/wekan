@@ -64,7 +64,7 @@ export function allowIsBoardMemberNoComments(userId, board) {
 //
 // Both of these used to spell the rule out as a list of flags, and that list had
 // drifted from the roles' own names in three ways (see
-// docs/Features/Members/Roles.md):
+// docs/Features/Board-Sidebar/Members/Roles.md):
 //
 //   * it excluded `isNoComments`, so the role that is meant to stop COMMENTING
 //     stopped writing as well - a second read-only role under a name that says

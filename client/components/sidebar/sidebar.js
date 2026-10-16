@@ -671,7 +671,7 @@ Template.boardMenuPopup.onCreated(function() {
   });
 });
 
-// Board Settings / Board View (docs/Features/Board/Board-View-Settings.md).
+// Board Settings / Board View (docs/Features/Board-Sidebar/Board-Settings/Board-View.md).
 // Rows come from the one shared BOARD_VIEWS table; every decision - what is
 // shown, what is default, what a click may change - is the pure module's,
 // applied through the Board instance setters, so the popup, the Board View
@@ -1193,7 +1193,7 @@ Template.membersWidget.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   // Boards in Archive is a SECTION of All Boards, not a page of its own: the
   // row in its left menu. `/archive` is the full-width page that section
-  // replaced. docs/Features/Page/Archive.md
+  // replaced. docs/Features/All-Boards/Archive.md
   'click .js-open-archived-board'() {
     FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },

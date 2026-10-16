@@ -200,7 +200,7 @@ if [ "$mongodb_readable" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     # moment its data carries, and serves the copy that holds the work. Where both
     # hold something the other does not, the documents that exist only in the other
     # one are copied across - inserting what is missing, overwriting nothing - so
-    # WeKan's append-only history (docs/Features/Reports/History/History.md) carries
+    # WeKan's append-only history (docs/Features/General/History/History.md) carries
     # the work done on the copy that is not being served into the card History of
     # the one that is, instead of leaving it in a database nobody opens.
     #
@@ -320,7 +320,7 @@ if [ "ferretdb" = "$DATABASE" ] && [ "$mongodb_readable" = "true" ] && [ "$migra
     # to be READ during a migration. So the repair is the merge, not a switch:
     # bring the documents MongoDB has and FerretDB does not into FerretDB -
     # inserting what is missing, overwriting nothing - and carry on there. WeKan's
-    # history is append-only (docs/Features/Reports/History/History.md), so the
+    # history is append-only (docs/Features/General/History/History.md), so the
     # work done on MongoDB after the migration lands in the card History rather
     # than staying in a database nobody opens.
     merged=false

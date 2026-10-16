@@ -1,6 +1,6 @@
 'use strict';
 // Jira sprints, fix versions, rank and epic links as WeKan Scrum planning data
-// (docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md:
+// (docs/Features/Board-Header/Board-Views/Scrum/Scrum-Design.md:
 // "Jira mappings use the supplied field schema and explicit user choices, not
 // hard-coded customfield_* numbers ... report those gaps; do not claim
 // complete Jira preservation").

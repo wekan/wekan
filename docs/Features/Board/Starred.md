@@ -1,3 +1,3 @@
-# Starred
+# Moved
 
-This guide has moved to [All Boards / Starred](../All-Boards/Starred.md).
+This page is now [Starred: boards, and bookmarks to everything else](../Pages/Starred.md), where it sits in the menu structure.

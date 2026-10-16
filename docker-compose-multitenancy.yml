@@ -116,7 +116,7 @@ services:
       # attribute email_verified=true (SAML has no standard one: add it at the
       # IdP only if the IdP verifies addresses) and that email to be verified on
       # the local account. A refused link logs its reason in the server log.
-      # docs/Features/Login/SAML.md
+      # docs/Features/Login-Page/SAML.md
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       # SAML_ATTRIBUTES : not used by login at the moment; attributes are read
       # from the validated assertion as named (email, username, displayName).
@@ -169,7 +169,7 @@ services:
       # attribute email_verified=true (SAML has no standard one: add it at the
       # IdP only if the IdP verifies addresses) and that email to be verified on
       # the local account. A refused link logs its reason in the server log.
-      # docs/Features/Login/SAML.md
+      # docs/Features/Login-Page/SAML.md
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       # SAML_ATTRIBUTES : not used by login at the moment; attributes are read
       # from the validated assertion as named (email, username, displayName).

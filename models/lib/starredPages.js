@@ -19,7 +19,7 @@
 //
 // Pure: an array in, an array out. No Meteor, no collections, no router, so the
 // same rules run on the client, on the server and in a unit test.
-// docs/Features/Board/Starred.md
+// docs/Features/Pages/Starred.md
 
 // A cap, because this is a dropdown. Starring is one click and unstarring is
 // one click, so a list that grows without limit is a list that quietly stops

@@ -15,7 +15,7 @@
 # That is what this is for. A migration that re-ran, or one that was interrupted,
 # can leave a snap serving a FerretDB copy older than the MongoDB it was made
 # from - and the newer work is sitting in the other file, unread. WeKan's history
-# is APPEND-ONLY (docs/Features/Reports/History/History.md): activities, comments
+# is APPEND-ONLY (docs/Features/General/History/History.md): activities, comments
 # and the change-history rows are never rewritten in place, so adding the other
 # copy's rows can only ADD to what a card shows. That is why this is safe to run
 # without knowing which copy is "right".

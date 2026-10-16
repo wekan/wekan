@@ -18,7 +18,7 @@
 //     not to mint a fresh one per token-exchange request, which is what
 //     this module is for) - unlike a static secret, so it cannot be reused
 //     once it has expired even if leaked.
-// See docs/Features/Login/Apple.md for the operator-facing setup.
+// See docs/Features/Login-Page/Apple.md for the operator-facing setup.
 //
 // This is plain Node `crypto` - no new dependency. Node has supported ES256
 // (ECDSA P-256 + SHA-256) signing since 8.x, and the IEEE-P1363 (raw r||s)

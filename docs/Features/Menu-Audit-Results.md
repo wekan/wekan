@@ -114,7 +114,7 @@ harness is documented in [test setup](../Security/Sandboxes/vscodium/README.md).
 
 ## Login protocol follow-up
 
-The [local login audit](Login/Testing.md) adds real LDAP, OAuth, SAML, CAS,
+The [local login audit](Login-Page/Testing.md) adds real LDAP, OAuth, SAML, CAS,
 SMTP, proxy and Sandstorm exchanges, including positive and rejected logins.
 Its focused passing results do not erase the unrelated baseline failures
 above or certify live external identity-provider deployments.

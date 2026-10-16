@@ -9,7 +9,7 @@
 // place in that shape (a second assignee, a state reason, an issue number)
 // used to be silently dropped; this pins that they now survive either as a
 // tag or as an entry in the `unsupported` loss report, per
-// docs/Features/ImportExport/Format-Coverage.md's `{ normalized, warnings,
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md's `{ normalized, warnings,
 // unsupported }` contract.
 
 const assert = require('assert');

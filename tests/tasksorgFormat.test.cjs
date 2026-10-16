@@ -203,9 +203,9 @@ async function main() {
     assert.doesNotMatch(page, /dataSource === 'tasksorg'/, 'a backup is JSON, parsed by the page like the other JSON sources');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'tasksorg'[^}]*path: 'export\/tasksorg', ext: 'json'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Tasks-org/Tasks-org.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Tasks-org/Tasks-org.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Tasks\-org\/Tasks\-org\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Tasks\-org\/Tasks\-org\.md\)/);
   });
 
   console.log(`\ntasksorgFormat: ${passed} checks passed`);

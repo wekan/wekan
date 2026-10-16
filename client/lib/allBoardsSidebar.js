@@ -19,7 +19,7 @@ const {
 // into the layout's headerBar region - so an instance ReactiveVar on either is
 // invisible to the other. Same reason as client/lib/allBoardsView.js.
 //
-// docs/Features/Page/Search.md, docs/Features/Page/Multi-Selection.md
+// docs/Features/Board-Header/Search.md, docs/Features/General/Multi-Selection.md
 
 const openVar = new ReactiveVar(false);
 const viewVar = new ReactiveVar(DEFAULT_SIDEBAR_VIEW);

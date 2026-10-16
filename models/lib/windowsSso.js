@@ -83,7 +83,7 @@ async function resolveMember(profile, { find, merge = false } = {}) {
 }
 
 // Where node-expose-sspi is looked for: it is Windows-only and installed by
-// the admin into the bundle (docs/Features/Login/WindowsSSO.md), never a
+// the admin into the bundle (docs/Features/Login-Page/WindowsSSO.md), never a
 // dependency every platform downloads.
 function moduleSearchBases({ cwd, mainScript }) {
   const bases = [];

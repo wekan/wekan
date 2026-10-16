@@ -1,4 +1,4 @@
-See also the [native Scrum source audit and implementation design](../Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md). The design distinguishes existing features from planned additions.
+See also the [native Scrum source audit and implementation design](../Board-Header/Board-Views/Scrum/Scrum-Design.md). The design distinguishes existing features from planned additions.
 
 [Discussion](https://github.com/wekan/wekan/issues/3087)
 
@@ -30,7 +30,7 @@ drawn once per swimlane row, and the badge is scoped to the row it is
 drawn in, so a story-point sum next to a sprint's "Doing" or "Done" list
 reads as that swimlane's own total, not the whole board's - useful for a
 rough velocity number without a separate burndown tool. See
-[Burndown and Velocity Chart](../Reports/Burndown-and-Velocity-Chart.md)
+[Burndown and Velocity Chart](../Board-Header/Board-Views/Charts/Burndown-and-Velocity-Chart.md)
 for existing burndown options if a graph is wanted on top of the sum.
 
 ## One board (or swimlane) per sprint
@@ -40,8 +40,8 @@ outside WeKan:
 
 - **A board per sprint** keeps each sprint's cards, lists and history
   completely separate, and a finished sprint's board can simply be
-  archived (see [Archive and Delete](../Board/Archive-and-Delete.md)).
-  [Templates](../Board/Templates.md) let a new sprint board start from a
+  archived (see [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md)).
+  [Templates](../All-Boards/Templates.md) let a new sprint board start from a
   saved list/swimlane layout instead of being rebuilt from scratch every
   time.
 - **A swimlane per sprint** on one long-lived board keeps all sprints
@@ -50,7 +50,7 @@ outside WeKan:
   same board each show their own point total. See
   [Swimlanes](../Swimlanes/Swimlanes.md).
 
-Either way, [Card Dependencies ("Red Strings")](../Editor/RedStrings/RedStrings.md)
+Either way, [Card Dependencies ("Red Strings")](../General/Editor/RedStrings/RedStrings.md)
 and [Linked Cards](Linked-Cards.md) can connect a story on a sprint board
 back to its source card on the backlog/planning board below.
 
@@ -59,7 +59,7 @@ back to its source card on the backlog/planning board below.
 A separate board (or a "Backlog" list on the same board) holds stories not
 yet committed to a sprint. Move or copy a card into the active sprint
 board/swimlane when it is pulled into a sprint - WeKan's
-[Drag Drop](../DragDrop/Drag-Drop.md) and "move card to board" actions
+[Drag Drop](../General/DragDrop/Drag-Drop.md) and "move card to board" actions
 both work across boards. [WIP Limits](../Lists/WipLimit/WipLimit.md) on
 the sprint board's "Doing" list give a simple check against overcommitting
 mid-sprint.

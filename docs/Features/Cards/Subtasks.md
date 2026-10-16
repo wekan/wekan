@@ -64,4 +64,4 @@ Several long-standing subtask bugs are fixed in the upcoming release:
 
 To focus a board on one project's direct subtasks, open its parent card and
 choose **Card Actions → Filter: Subtasks**. Adjust or clear the selection under
-**Filter → Parent card**. See [Board filters](../Filter/README.md#subtasks-by-parent).
+**Filter → Parent card**. See [Board filters](../Board-Sidebar/Filter/README.md#subtasks-by-parent).

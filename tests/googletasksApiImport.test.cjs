@@ -206,7 +206,7 @@ async function main() {
   });
 
   await test('the docs page has its sections in order', async () => {
-    const doc = read('docs/Features/ImportExport/Google-Tasks/Google-Tasks.md');
+    const doc = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Google-Tasks/Google-Tasks.md');
     const sections = doc.split('\n').filter(line => line.startsWith('## ')).map(line => line.slice(3));
     assert.deepEqual(sections, ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
       'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources']);

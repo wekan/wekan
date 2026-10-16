@@ -3,7 +3,7 @@
 //
 // It had a table of its own, which meant the one place you go to bring a board
 // back was the one place multi-selection, dragging and the tile layout did not
-// work. docs/Features/Page/Archive.md
+// work. docs/Features/All-Boards/Archive.md
 //
 // Run: node tests/archiveSection.test.cjs
 
@@ -51,7 +51,7 @@ test('the Archive is drawn with board icons, like every other section', () => {
   // No "Add Board" tile: a board cannot be created already archived. One
   // helper rather than a condition in the markup, because Home excludes it too
   // and nesting a second `unless` moved the tile's own children out from under
-  // it. docs/Features/Board/Home.md
+  // it. docs/Features/All-Boards/Home.md
   assert.ok(/if showsAddBoardTile\n\s+li\.js-add-board/.test(jade),
     'the tile is drawn only where a board can be created');
   const helper = js.slice(js.indexOf('  showsAddBoardTile() {'),

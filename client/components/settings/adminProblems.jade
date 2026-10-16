@@ -8,7 +8,7 @@ template(name="adminProblems")
 
         .main-body
           //- Every Admin Panel pane opens with the same heading, and it is the
-          //- open menu entry's own label (docs/Features/Page/Left-Menu.md).
+          //- open menu entry's own label (docs/Features/All-Boards/Left-Menu.md).
           +paneTitle(paneTitleData)
           if showFileStatusAudit
             +fileStatusAudit
@@ -57,12 +57,12 @@ template(name="adminProblems")
 
 template(name="officeReport")
   //- Where people log in from, grouped. Through the shared table page like every
-  //- other report here (docs/Features/Page/Table.md).
+  //- other report here (docs/Features/General/Table.md).
   +tablePage(tablePageData)
 
 template(name="eventStreamReport")
   //- Security / Speed / Tests / CPU usage all render through the shared table
-  //- page (docs/Features/Page/Table.md). CPU usage additionally passes the live
+  //- page (docs/Features/General/Table.md). CPU usage additionally passes the live
   //- figure as the status row between the title and the controls.
   +tablePage(tablePageData)
 
@@ -440,7 +440,7 @@ template(name="listSyncStuckOperations")
 
 //- A board import that stopped before finishing left a partial board; an
 //- administrator keeps it as it is or discards it here
-//- (server/lib/importRuns.js, docs/Features/ImportExport/Import-Run-Recovery.md).
+//- (server/lib/importRuns.js, docs/Features/Board-Sidebar/Board-Settings/Import-Export/Import-Run-Recovery.md).
 template(name="interruptedImports")
   section.interrupted-imports
     h2 {{_ 'interrupted-import-heading'}}

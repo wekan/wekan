@@ -1,3 +1,3 @@
-# Date Format
+# Moved
 
-This guide has moved to [Date / README](Member-Settings/Date/README.md).
+This page is now [Date format](Member-Settings/Date/README.md), where it sits in the menu structure.

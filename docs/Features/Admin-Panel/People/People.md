@@ -14,5 +14,5 @@ header, so a first user can always be created.
 ## Related
 
 - [Locked Users](Locked-Users.md)
-- [Members and Permissions](../../Members/Members.md)
+- [Members and Permissions](../../Board-Sidebar/Members/Members.md)
 - [Login](Login.md) — whether users may change their username or delete themselves.

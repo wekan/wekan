@@ -27,8 +27,8 @@ import {
 import { selectedStarTitleKey, selectedStarAction } from '/models/lib/selectedStars';
 
 // The All Boards right sidebar. Its shell mirrors the board sidebar's; what it
-// shows is this page's own. docs/Features/Page/Search.md,
-// docs/Features/Page/Multi-Selection.md
+// shows is this page's own. docs/Features/Board-Header/Search.md,
+// docs/Features/General/Multi-Selection.md
 
 Template.allBoardsSidebar.helpers({
   isSidebarOpen() {
@@ -99,7 +99,7 @@ Template.allBoardsHomeSidebar.events({
     evt.preventDefault();
     closeAllBoardsSidebar();
     // The SECTION of this page, not the full-width page it replaced.
-    // docs/Features/Page/Archive.md
+    // docs/Features/All-Boards/Archive.md
     FlowRouter.go(allBoardsPath(SECTION_ARCHIVE, []));
   },
 });

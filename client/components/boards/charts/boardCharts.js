@@ -24,7 +24,7 @@ function loadFlowRenderer() {
 // ReactiveVar holds the answer, helpers read it. Drawn with Chart.js (MIT,
 // canvas-based), loaded with a dynamic import() so its code only reaches the
 // browser when a chart view actually mounts, following
-// docs/Features/Reports/charts.tsv for what each chartKey means.
+// docs/Features/Board-Header/Board-Views/Charts/charts.tsv for what each chartKey means.
 Template.boardChartView.onCreated(function() {
   this.chartData = new ReactiveVar(null);
   this.options = new ReactiveVar({});

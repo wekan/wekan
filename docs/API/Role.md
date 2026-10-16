@@ -4,7 +4,7 @@ BoardAdmin can change role of user at right sidebar / click avatar / select role
 
 For what each role may and may not do — a column-by-column comparison of all nine
 board roles, written from the code — see
-[Board roles](../Features/Members/Roles.md). Note that this API sets the member
+[Board roles](../Features/Board-Sidebar/Members/Roles.md). Note that this API sets the member
 flags **individually**, so it can produce combinations the Web UI cannot; the
 "Known gaps" section of that page says which of those are worth avoiding.
 

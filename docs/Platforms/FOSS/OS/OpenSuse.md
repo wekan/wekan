@@ -16,7 +16,7 @@ sudo snap set wekan port='80'
 
 Login at http://localhost/sign-in
 
-More info at [Adding users](../../../Features/Login/Adding-users.md)
+More info at [Adding users](../../../Features/Login-Page/Adding-users.md)
 
 4) If you instead would like to access WeKan from other
 laptops on your local network, check what is your computer

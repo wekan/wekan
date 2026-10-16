@@ -24,7 +24,7 @@ const assert = require('node:assert/strict');
   }
   assert.notDeepEqual(tokens('__translated__ %s'), tokens('__card__ %s'), 'renamed placeholders are detectable');
   assert.notDeepEqual(tokens('__card__'), tokens('__card__ %s'), 'removed placeholders are detectable');
-  const report = fs.readFileSync(path.join(__dirname, '../docs/Features/Translations/Audit.md'), 'utf8');
+  const report = fs.readFileSync(path.join(__dirname, '../docs/Features/General/Translations/Audit.md'), 'utf8');
   const pendingTable = Object.fromEntries([...report.matchAll(
     /^\| ([\w-]+) — [^|]+ \| (\d+) \|$/gm,
   )].map(([, locale, count]) => [locale, Number(count)]));

@@ -34,7 +34,7 @@ No**, where Default means "inherit from the level above".
 Below the on/off rows, each channel (Email, Notifications tray, Outgoing
 Webhooks) has its delivery settings - what a notification shows, whether
 several are combined, and when they are sent. See
-[Notification delivery](../Notifications/Notification-Delivery.md).
+[Notification delivery](../General/Notifications/Notification-Delivery.md).
 
 ## Precedence
 

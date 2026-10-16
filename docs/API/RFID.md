@@ -67,7 +67,7 @@ The ids are in the board's URL and in `GET /api/boards/{board}/lists` and
 - Create a card for an unknown tag: `POST
   /api/boards/{board}/lists/{list}/cards` with `{ "title": tag, "swimlaneId":
   ... }`, then set its *RFID* field.
-- Let a [Rule](../Features/Automation/Rules/Rules.md) do the rest: "when a card
+- Let a [Rule](../Features/Rules/Rules/Rules.md) do the rest: "when a card
   is moved to *In use*, set the due date to 7 days later".
 
 Keep the reader's WeKan password out of the script in shared places, for

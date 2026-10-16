@@ -1,6 +1,6 @@
 // Board View / Version Control: the board as a GitHub / Gitea issue tracker
 // (client/components/boards/versionControlView.*,
-// docs/Features/Board/Version-Control-View.md). Reading needs nothing new -
+// docs/Features/Board-Header/Board-Views/Version-Control-View.md). Reading needs nothing new -
 // the cards, labels, comments and attachments are the board's own, already
 // published to whoever can see the board. Only two writes need the server:
 //

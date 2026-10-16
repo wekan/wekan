@@ -2,7 +2,7 @@
 // A Scrum History undo that stopped on a conflict blocks the board's Scrum
 // edits; the History recovery notice lets a board administrator roll it back
 // or keep the board as it is (server/lib/scrumHistoryRecovery.js), and tells an
-// ordinary member who can. docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-History-Recovery.md
+// ordinary member who can. docs/Features/Board-Header/Board-Views/Scrum/Scrum-History-Recovery.md
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');

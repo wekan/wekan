@@ -407,7 +407,7 @@ Meteor.methods({
     return bounceSettingsView({ ...value, providers: Object.fromEntries(PROVIDERS.map(n => [n, providers[n]])) });
   },
 
-  // One page of bounced addresses, newest first (docs/Features/Page/Table.md).
+  // One page of bounced addresses, newest first (docs/Features/General/Table.md).
   async emailBouncesPage(options) {
     check(options, { page: Match.Optional(Number), search: Match.Optional(String), stoppedOnly: Match.Optional(Boolean) });
     await requireAdmin(this.userId);

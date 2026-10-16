@@ -1,6 +1,6 @@
 'use strict';
 // Scrum planning data from importers other than Jira
-// (docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md:
+// (docs/Features/Board-Header/Board-Views/Scrum/Scrum-Design.md:
 // "External adapters must report unavailable historical data rather than
 // fabricating native commitment or completion snapshots").
 //

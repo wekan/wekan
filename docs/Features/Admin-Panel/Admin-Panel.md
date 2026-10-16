@@ -9,7 +9,7 @@ Admin Panel / Settings / Visibility is
 [`Settings/Visibility.md`](Settings/Visibility.md), Admin Panel / People / Teams is
 [`People/Teams.md`](People/Teams.md), and so on. The tab bar has four sections, and
 each has its own left menu — the shared design behind both is
-[Left Menu](../../Features/Page/Left-Menu.md).
+[Left Menu](../All-Boards/Left-Menu.md).
 
 ## Settings
 
@@ -59,7 +59,7 @@ The left menu is two named groups. **Settings** — Security and Notifications, 
 two panes that came from the removed Features tab. **Reports** — Security Report,
 Impersonation Report, Performance, Speed, Tests, CPU usage, Broken Cards, Files,
 Rules, Boards, Cards and Recovery. Every report is one shared
-[table page](../../Features/Page/Table.md): a search box, a total, `page X / N` and
+[table page](../General/Table.md): a search box, a total, `page X / N` and
 prev/next.
 
 ## Sandstorm
@@ -88,8 +88,8 @@ Renames to know when following an older link: **Layout** is
 
 - [Login / Authentication methods](../../README.md#LoginAuth) — LDAP, OAuth2,
   SAML, Keycloak, Google, Azure, and more.
-- [Members and Permissions](../Members/Members.md)
-- [E-mail troubleshooting](../Email/Troubleshooting-Mail.md)
+- [Members and Permissions](../Board-Sidebar/Members/Members.md)
+- [E-mail troubleshooting](../General/Email/Troubleshooting-Mail.md)
 - [Comment replies and editing restriction](../Cards/Comment-Replies-And-Editing-Restriction.md)
   — a board setting rather than an Admin Panel one, but often looked for here.
 

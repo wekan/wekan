@@ -3,7 +3,7 @@
 // Guard: the universal change history is wired to the things that use it.
 // Run: node tests/changeHistoryWiring.test.cjs
 //
-// docs/Features/Reports/History/History.md phase 1 (§10.1): the store, the write
+// docs/Features/General/History/History.md phase 1 (§10.1): the store, the write
 // helper, and the undo/redo stack the shipped position history moves onto.
 // tests/changeHistoryQuery.test.cjs covers the pure query rules; this covers the
 // connections between files, which is where a subsystem like this dies quietly:

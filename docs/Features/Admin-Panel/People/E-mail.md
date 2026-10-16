@@ -26,5 +26,5 @@ what happened.
 
 ## Related
 
-- [E-mail troubleshooting](../../Email/Troubleshooting-Mail.md)
+- [E-mail troubleshooting](../../General/Email/Troubleshooting-Mail.md)
 - [Domains](Domains.md) — which domains are actually in use.

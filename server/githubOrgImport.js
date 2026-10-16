@@ -1,6 +1,6 @@
 // The GitHub organization import: every repository of an organization (or a
 // user), each as its own board, opened in Board View / Version Control
-// (docs/Features/Board/Version-Control-View.md, "GitHub organization").
+// (docs/Features/Board-Header/Board-Views/Version-Control-View.md, "GitHub organization").
 // What is imported and how is decided in models/lib/githubOrgImport.js,
 // githubActionsRules.js and githubWiki.js; this runs the job.
 //

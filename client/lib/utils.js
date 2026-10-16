@@ -17,7 +17,7 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { sourceRoleBlocksDelegation } = require('/models/lib/linkedWritePolicy');
 const { listCan } = require('/models/lib/listPermissions');
 
-// One key for both pages: they draw one menu. docs/Features/Page/Left-Menu.md
+// One key for both pages: they draw one menu. docs/Features/All-Boards/Left-Menu.md
 const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
 const LEFT_MENU_WIDTH_KEY = 'leftMenuWidth';
 const pendingBoardView = new ReactiveVar(null);
@@ -581,7 +581,7 @@ export const Utils = {
   //
   // ONE state for both pages. All Boards and the Admin Panel draw one menu, and
   // a reader who folds it away on one of them has said what they want on the
-  // other. docs/Features/Page/Left-Menu.md
+  // other. docs/Features/All-Boards/Left-Menu.md
   getLeftMenuCollapseState() {
     const sessionVal = Session.get(LEFT_MENU_COLLAPSED_KEY);
     if (typeof sessionVal === 'boolean') return sessionVal;
@@ -617,7 +617,7 @@ export const Utils = {
   // `undefined` when nobody has ever dragged it, and that is deliberate: the
   // DEFAULT width is a number in the stylesheet, and returning one here too
   // would be a second copy of it to keep in step.
-  // docs/Features/Page/Left-Menu.md
+  // docs/Features/All-Boards/Left-Menu.md
   getLeftMenuWidth() {
     const sessionVal = Session.get(LEFT_MENU_WIDTH_KEY);
     if (typeof sessionVal === 'number') return sessionVal;
@@ -656,7 +656,7 @@ export const Utils = {
   // the user's profile behind it, and a cookie for a reader who is not signed
   // in. OPEN is the default - a tree that opened folded would hide the
   // workspaces a reader has never touched.
-  // docs/Features/Page/Workspaces.md
+  // docs/Features/All-Boards/Workspaces.md
   getWorkspaceCollapseState(workspaceId) {
     if (!workspaceId) return false;
     const key = `collapsedWorkspace-${workspaceId}`;
@@ -1119,7 +1119,7 @@ export const Utils = {
     // product name, so ten open tabs of one WeKan were ten identical tabs, and
     // a bookmark of any of them was named after the whole app rather than after
     // the page. The path is the one the header bar draws, published by it.
-    // docs/Features/Board/Starred.md
+    // docs/Features/Pages/Starred.md
     document.title = pageDocumentTitle(productName, headerPathVar.get());
   },
 

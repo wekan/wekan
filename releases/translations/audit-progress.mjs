@@ -64,7 +64,7 @@ export function updateAuditSummary(text, summary, correctionCount, date, progres
     .replace(/contain \*\*[\d,]+\*\* exact/, `contain **${correctionCount.toLocaleString('en-US')}** exact`);
 }
 export function repairProgress(repository = root) {
-  const audit = parseAudit(fs.readFileSync(path.join(repository, 'docs/Features/Translations/Audit-Evidence.md'), 'utf8'));
+  const audit = parseAudit(fs.readFileSync(path.join(repository, 'docs/Features/General/Translations/Audit-Evidence.md'), 'utf8'));
   const corrections = JSON.parse(fs.readFileSync(path.join(repository, 'releases/translations/audited-corrections.json'), 'utf8'));
   const reviews = JSON.parse(fs.readFileSync(path.join(repository, 'releases/translations/audited-reviews.json'), 'utf8'));
   const corrected = new Map(corrections.map(row => [`${row.locale}:${row.key}`, row]));
@@ -86,7 +86,7 @@ export function repairProgress(repository = root) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const result = repairProgress();
   if (process.argv.includes('--update-summary')) {
-    const summaryPath = path.join(root, 'docs/Features/Translations/Audit.md');
+    const summaryPath = path.join(root, 'docs/Features/General/Translations/Audit.md');
     const corrections = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8'));
     const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Helsinki', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
     fs.writeFileSync(summaryPath, updateAuditSummary(fs.readFileSync(summaryPath, 'utf8'), result.summary, corrections.length, date, result));

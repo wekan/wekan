@@ -192,9 +192,9 @@ async function main() {
     assert.match(read('models/lib/importSources.js'), /\{ key: 'teamwork', name: '[^']+', \.\.\.EXCEL/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'teamwork'[^}]*path: 'export\/teamwork', ext: 'xlsx'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Teamwork/Teamwork.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Teamwork/Teamwork.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Teamwork\/Teamwork\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Teamwork\/Teamwork\.md\)/);
   });
 
   console.log(`\nteamworkFormat: ${passed} checks passed`);

@@ -3,7 +3,7 @@
 // Reply-by-email token: the local part of a notification email's Reply-To
 // address, so a reply posted by a mail provider's inbound-parse webhook
 // (server/routes/inboundEmail.js) can be matched back to its card - see
-// docs/Features/Email/Reply-By-Email.md and https://github.com/wekan/wekan/issues/2414.
+// docs/Features/General/Email/Reply-By-Email.md and https://github.com/wekan/wekan/issues/2414.
 //
 // ReplyBleed (GHSA-mc7c-cv99-64h7): the token used to sign the CARD only, and
 // the comment author was whoever the inbound From address named - a field the

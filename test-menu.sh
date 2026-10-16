@@ -10,7 +10,7 @@
 #
 # The example INPUT for a feature lives with its documentation, checked into
 # the repository: docs/Features/<path>/example-input.txt (a curl call, a URL,
-# a JSON body - hand-written for Login and ImportExport/PDF, extracted from
+# a JSON body - hand-written for Login-Page and ImportExport/PDF, extracted from
 # the feature's own .md for the rest). test-menu.sh only ever READS these -
 # it never writes into docs/Features.
 #
@@ -21,8 +21,8 @@
 #     run.log     - the full narrative, timestamps included
 #
 # A few leaves have a real runner wired up below (RUNNERS) that exercises the
-# actual WeKan server code from this checkout - e.g. Login does a REST
-# username/password login round trip, and ImportExport/PDF creates a board
+# actual WeKan server code from this checkout - e.g. Login-Page does a REST
+# username/password login round trip, and Board-Sidebar/Board-Settings/Import-Export/PDF creates a board
 # and downloads its PDF export - using the request shown in their
 # example-input.txt. Every leaf without a dedicated runner falls back, in
 # order, to: (1) this repo's own automated tests (tests/*.test.cjs) whose
@@ -182,7 +182,7 @@ record_result() {
 # Login: a real username/password REST login round trip
 # (server/apiAuthRoutes.js POST /users/login), against a disposable test user
 # created through the public POST /users/register route. The request shape is
-# documented at docs/Features/Login/example-input.txt; a fresh username is
+# documented at docs/Features/Login-Page/example-input.txt; a fresh username is
 # generated each run so repeated runs never collide with each other.
 run_login_password() {
   local relpath="$1" outdir="$2" outputfile="$3" resultfile="$4" logfile="$5"
@@ -208,7 +208,7 @@ run_login_password() {
   echo "Registered test user $username. Response: $register_response" >>"$logfile"
 
   echo "2. Log in with that username and password (POST /users/login)," \
-    "as documented in docs/Features/Login/example-input.txt" >>"$logfile"
+    "as documented in docs/Features/Login-Page/example-input.txt" >>"$logfile"
   local login_response
   login_response=$(curl -sS -H "Content-type: application/json" \
     "$WEKAN_TEST_URL/users/login" \
@@ -237,7 +237,7 @@ run_login_password() {
 
 # ImportExport/PDF: create a board through the REST API, then download its
 # PDF export (models/exportPDF.js GET /api/boards/:boardId/exportPDF), the
-# request shape documented at docs/Features/ImportExport/PDF/example-input.txt.
+# request shape documented at docs/Features/Board-Sidebar/Board-Settings/Import-Export/PDF/example-input.txt.
 run_export_pdf() {
   local relpath="$1" outdir="$2" outputfile="$3" resultfile="$4" logfile="$5"
   if ! ensure_server; then
@@ -253,7 +253,7 @@ run_export_pdf() {
   if [ -z "$token" ] || [ "$url" != "$WEKAN_TEST_URL" ]; then
     echo "No cached login for $WEKAN_TEST_URL; logging in a fresh test user first." \
       >>"$logfile"
-    run_login_password "Login" "$outdir" "$outputfile" "$resultfile" "$logfile"
+    run_login_password "Login-Page" "$outdir" "$outputfile" "$resultfile" "$logfile"
     token=$(jq -r '.token // empty' "$STATE_DIR/session.json" 2>/dev/null)
     : > "$resultfile"
   fi
@@ -284,7 +284,7 @@ run_export_pdf() {
   echo "Created board $boardId." >>"$logfile"
 
   echo "4. Export that board to PDF (GET /api/boards/:boardId/exportPDF)," \
-    "as documented in docs/Features/ImportExport/PDF/example-input.txt" >>"$logfile"
+    "as documented in docs/Features/Board-Sidebar/Board-Settings/Import-Export/PDF/example-input.txt" >>"$logfile"
   curl -sS -H "Authorization: Bearer $token" \
     "$WEKAN_TEST_URL/api/boards/$boardId/exportPDF?authToken=$token" \
     -o "$outdir/board.pdf"
@@ -307,8 +307,8 @@ run_export_pdf() {
 # Maps a docs/Features leaf's relative path to the runner above. Anything not
 # listed here uses run_generic_fallback.
 declare -A RUNNERS=(
-  ["Login"]="run_login_password"
-  ["ImportExport/PDF"]="run_export_pdf"
+  ["Login-Page"]="run_login_password"
+  ["Board-Sidebar/Board-Settings/Import-Export/PDF"]="run_export_pdf"
 )
 
 # ---------------------------------------------------------------------------
@@ -364,7 +364,7 @@ find_matching_tests() {
 
 # The feature's own checked-in example input, if any: docs/Features/<path>/
 # example-input.txt - a worked example (a curl call, a URL, a JSON body),
-# hand-written for Login and ImportExport/PDF and extracted from the
+# hand-written for Login-Page and Board-Sidebar/Board-Settings/Import-Export/PDF and extracted from the
 # feature's own .md for the rest. Never written to by this script.
 example_input_file() {
   local f="$FEATURES_DIR/$1/example-input.txt"
@@ -478,9 +478,23 @@ run_feature() {
   log "  -> $outdir/result.txt"
 }
 
+# The feature folders directly under $1. A folder holding nothing but
+# forwarding pages ("# Moved", left where a released changelog still links
+# an old location) is not a feature, and is left out.
+feature_dirs() {
+  local d f real
+  while IFS= read -r d; do
+    real=0
+    while IFS= read -r f; do
+      if [[ "$f" != *.md ]] || [ "$(head -n1 "$f")" != "# Moved" ]; then real=1; break; fi
+    done < <(find "$d" -type f)
+    [ "$real" = "1" ] && echo "$d"
+  done < <(find "$1" -mindepth 1 -maxdepth 1 -type d | sort)
+}
+
 # Recursively runs every leaf feature at or under $1 (a docs/Features
 # directory). A directory that has both subdirectories AND its own markdown
-# files directly in it (e.g. Login) also runs as its own feature first, using
+# files directly in it (e.g. Login-Page) also runs as its own feature first, using
 # its own relative path - exactly the entry RUNNERS above keys off.
 run_all_under() {
   local dir="$1" rel
@@ -488,7 +502,7 @@ run_all_under() {
 
   local -a subdirs=()
   while IFS= read -r d; do subdirs+=("$d"); done \
-    < <(find "$dir" -mindepth 1 -maxdepth 1 -type d | sort)
+    < <(feature_dirs "$dir")
 
   if [ "${#subdirs[@]}" -eq 0 ]; then
     [ -n "$rel" ] && run_feature "$rel"
@@ -528,12 +542,12 @@ show_menu() {
     local d
     while IFS= read -r d; do
       labels+=("$(basename "$d")")
-      if [ -z "$(find "$d" -mindepth 1 -maxdepth 1 -type d -print -quit)" ]; then
+      if [ -z "$(feature_dirs "$d")" ]; then
         types+=("run"); values+=("${d#"$FEATURES_DIR"/}")
       else
         types+=("menu"); values+=("$d")
       fi
-    done < <(find "$dir" -mindepth 1 -maxdepth 1 -type d | sort)
+    done < <(feature_dirs "$dir")
 
     echo
     echo "=== $title ==="

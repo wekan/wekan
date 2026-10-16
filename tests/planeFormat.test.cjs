@@ -357,9 +357,9 @@ async function main() {
     assert.doesNotMatch(read('models/export.js') + read('server/lib/renderExternalExport.js'), /'plane'/);
     assert.match(read('README.md'), /Super Productivity, Taiga, Vikunja[^\n]*, Plane\n/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Plane/Plane.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Plane/Plane.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Plane\/Plane\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Plane\/Plane\.md\)/);
   });
 
   await test('the archive reader inflates only through the bounded reader and never uses entry names as paths', () => {

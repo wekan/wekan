@@ -268,7 +268,7 @@ curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
 # Attachments
 
 Deleting an attachment from a card is a **soft delete** (see
-[History.md §12](../Features/Reports/History/History.md)): the file is kept,
+[History.md §12](../Features/General/History/History.md)): the file is kept,
 the card and the minicard badge hide it, and the card history - or this API -
 restores it. There is **no hard delete of a single attachment** over the API;
 the one hard delete is deleting an archived board with Admin Panel / Problems /
@@ -386,7 +386,7 @@ Returns the order in effect, in the same shape as `GET`.
 
 Which entries of the **Board View** menu a board offers and which one it
 opens in, separately for when the board is public and when it is private, and
-the order the menu lists them in - the [Board View settings](../Features/Right-Sidebar/Board-Settings/Board-View.md)
+the order the menu lists them in - the [Board View settings](../Features/Board-Sidebar/Board-Settings/Board-View.md)
 popup over the API. Both endpoints answer the state in effect, the way the
 menu renders it: every view key exactly once with both `showOnPublic` and
 `showOnPrivate` explicit (a board that never opened the popup shows every
@@ -532,8 +532,8 @@ problems for the stream until the next one is recorded.
 The **Admin Panel / People / Login** section for Meteor's own accounts-*
 login services (Google, GitHub, Facebook, X/Twitter, Meteor Developer, Weibo,
 Meetup) and passwordless email codes - see
-[OAuth Providers](../Features/Login/OAuth-Providers.md) and
-[Passwordless](../Features/Login/Passwordless.md). **Global-admin only.** A
+[OAuth Providers](../Features/Login-Page/OAuth-Providers.md) and
+[Passwordless](../Features/Login-Page/Passwordless.md). **Global-admin only.** A
 value saved here wins over the `OAUTH_*` / `PASSWORDLESS_ENABLED` environment
 variable and takes effect without a restart. **A provider's secret is never
 returned**: it is reported only as `{ "source", "hasValue" }`.

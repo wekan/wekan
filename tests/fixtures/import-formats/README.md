@@ -35,5 +35,5 @@ comments, checklists, dates and custom fields and check them in the database
 and the opened card. File contents are never part of these adapters' JSON;
 their metadata is counted in each parser's `unsupported` report.
 
-See [format coverage](../../../docs/Features/ImportExport/Format-Coverage.md)
+See [format coverage](../../../docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md)
 and [menu audit](../../../docs/Features/Menu-Implementation-Audit.md).

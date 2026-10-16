@@ -15,7 +15,7 @@
 //   again  the fix was applied to the list path in server/models/lists.js and
 //          not to the card path in models/cards.js, which kept the same dead
 //          guard - so list moves became undoable and card moves, the commonest
-//          drag on any board, silently did not. docs/Features/Login/Undo/Undo.md
+//          drag on any board, silently did not. docs/Features/General/Undo/Undo.md
 //          said card moves "now actually runs" for months while they did not.
 //
 // Both are the same mistake, and it is invisible in review because the code
@@ -172,7 +172,7 @@ test('the gap between what undo handles and what is recorded is known', () => {
 // The doc is the only place a reader learns what is undoable. It said card
 // moves were recorded while they were not, which is how the gap survived.
 test('the doc does not claim more than the code does', () => {
-  const doc = read('docs/Features/Login/Undo/Undo.md');
+  const doc = read('docs/Features/General/Undo/Undo.md');
   assert.match(doc, /Undo\.md|position/i);
   assert.doesNotMatch(doc, /already present \(now actually runs\)/,
     'that line claimed card moves were being recorded while the call site had ' +

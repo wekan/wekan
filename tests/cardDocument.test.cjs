@@ -5,7 +5,7 @@
 //
 // The rule: the same functions, layouts and templates for every PDF and Excel
 // export, so that there is no duplicated code
-// (docs/Features/ImportExport/One-Card-Layout.md).
+// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/One-Card-Layout.md).
 //
 // The layout is the one "Export card to Excel" already draws - it is the one
 // that was designed. What was missing is that only ONE exporter could draw it:

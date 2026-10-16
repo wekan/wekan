@@ -1,7 +1,7 @@
 // Kanri, the offline desktop kanban app: its JSON export, read and written.
 // Plain JavaScript without Meteor, so tests/kanriFormat.test.cjs runs the round
 // trip in Node. Where each field comes from in Kanri is in
-// docs/Features/ImportExport/Format-Coverage.md.
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md.
 //
 // Kanri writes two JSON files, and its "Import from Kanri" reads both back:
 //

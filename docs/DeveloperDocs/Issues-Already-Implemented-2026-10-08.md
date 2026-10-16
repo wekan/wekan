@@ -113,7 +113,7 @@ Boards table view lists boards as rows.
 Kanboard's Bigboard plugin
 
 The Bigboard board view shows several boards on one page
-(client/components/boards/bigboardView.*, docs/Features/Board/Bigboard.md), and
+(client/components/boards/bigboardView.*, docs/Features/Board-Header/Board-Views/Bigboard.md), and
 cards can be dragged between boards in it.
 
 ## [#4250](https://github.com/wekan/wekan/issues/4250) Move a checklist from

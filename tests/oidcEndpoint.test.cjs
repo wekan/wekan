@@ -79,7 +79,7 @@ test('authorization, token, Oracle token and userinfo paths share the resolver',
 
 test('maintained docs name Spring defaults and the exact callback', () => {
   const docs = fs.readFileSync(
-    path.join(__dirname, '..', 'docs', 'Features', 'Login', 'OAuth2.md'),
+    path.join(__dirname, '..', 'docs', 'Features', 'Login-Page', 'OAuth2.md'),
     'utf8',
   );
   assert.match(docs, /Spring Authorization Server/);

@@ -16,4 +16,4 @@ list indicates it and blocks adding further cards.
 ## Related
 
 - [Lists](../Lists.md)
-- [Burndown and Velocity Chart](../../Reports/Burndown-and-Velocity-Chart.md)
+- [Burndown and Velocity Chart](../../Board-Header/Board-Views/Charts/Burndown-and-Velocity-Chart.md)

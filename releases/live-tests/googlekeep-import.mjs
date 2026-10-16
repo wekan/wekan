@@ -6,7 +6,7 @@
 //
 // WEKAN_LIVE_GOOGLE_KEEP_TOKEN is an OAuth 2 access token with the scope
 // https://www.googleapis.com/auth/keep.readonly, of a Google Workspace account
-// (see docs/Features/ImportExport/Google-Keep/Google-Keep.md). It lists and
+// (see docs/Features/Board-Sidebar/Board-Settings/Import-Export/Google-Keep/Google-Keep.md). It lists and
 // fetches the notes with WeKan's own client (models/lib/apiImport/googlekeep.js)
 // and reads them with WeKan's parser. Nothing is written to Google Keep.
 // Exit 0: passed, 1: failed, 2: skipped (no token).

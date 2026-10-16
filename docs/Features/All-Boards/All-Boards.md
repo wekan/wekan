@@ -4,7 +4,7 @@ All Boards (`/board`, and the Starred / Templates / Remaining sections with it) 
 a left menu, a header bar of controls, and a view of the boards themselves.
 
 Its **Table** view is a table page: everything about the table's layout, controls
-and paging is defined once in [the Table page design](../Page/Table.md), and only what is
+and paging is defined once in [the Table page design](../General/Table.md), and only what is
 particular to it is described here.
 
 ## The controls live in the header bar
@@ -18,12 +18,12 @@ same emphasis state when a control is on.
 | Control | Icon | What it does |
 | --- | --- | --- |
 | Sort | `fa-sort` | Opens the boards sort popup. Emphasised while a sort other than the custom order is active. |
-| Search | `fa-search` | Opens the right sidebar on its search view — [Search](../Page/Search.md). |
-| Multi-Selection | `fa-check-square-o` | Turns board multi-selection on and opens the sidebar that holds what to do with a selection — [Multi-Selection](../Page/Multi-Selection.md). |
+| Search | `fa-search` | Opens the right sidebar on its search view — [Search](../Board-Header/Search.md). |
+| Multi-Selection | `fa-check-square-o` | Turns board multi-selection on and opens the sidebar that holds what to do with a selection — [Multi-Selection](../General/Multi-Selection.md). |
 | Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 
 Each names itself beside its icon where the bar has room for it, and loses the
-label below 1100px with every other one — see [the header](../Header/Header.md).
+label below 1100px with every other one — see [the header](../Header-Bar/Header.md).
 
 **Archive is not one of them.** The three above act on the boards in
 front of you; the Archive is a *place* you go instead, so it is a row of the
@@ -86,7 +86,7 @@ top**, so the highlighted row is the first row.
 The rule is `defaultSection()` / `menuSectionOrder()` in
 `models/lib/allBoardsUrls.js` — a boolean in, a section name (or the five rows in
 order) out — so the page and its guard read the same one. Only the first two
-rows move; [Home](../Board/Home.md), Templates and the Archive keep
+rows move; [Home](Home.md), Templates and the Archive keep
 their places under them.
 
 **The router does not answer this.** It runs before the user document has
@@ -109,7 +109,7 @@ moving markup about. Their icons and names live in a map beside the loop.
 The left menu is three kinds of thing in one column — the three board lists, the
 workspaces tree, and the archive — so the Workspaces section has a rule above and
 below it. Without them the tree ran into its neighbours as if it were more of the
-same list. The menu itself is styled like the **Admin Panel's** ([Left menu](../Page/Left-Menu.md)),
+same list. The menu itself is styled like the **Admin Panel's** ([Left menu](Left-Menu.md)),
 and reaches the window's **left and bottom edges** the way that one does — it is
 a fixed side of the window, not content floating inside the page. The Admin Panel
 gets that for free: `.setting-content` sits *outside* `.wrapper`, absolutely
@@ -170,7 +170,7 @@ is a button whose only job is to be kept in step with the menu.
 **The actions on a selection are in the sidebar**, not in this bar. They were
 four icon-only buttons crowded in beside the controls; the sidebar gives each
 one its name, and it is where a board keeps them too. See
-[Multi-Selection](../Page/Multi-Selection.md).
+[Multi-Selection](../General/Multi-Selection.md).
 
 ### Every button names itself in a tooltip
 
@@ -193,9 +193,9 @@ same `.board-sidebar.sidebar` classes, the same `.sidebar-actions` row with the
 
 | View | Opened by | What it is |
 | --- | --- | --- |
-| `home` | the back arrow of another view | The page's own menu: Search, Multi-Selection, and [Boards in Archive](../Page/Archive.md) — which is a page, so that row leaves the sidebar rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. Nothing *opens* the sidebar here any more, since those four are in the header bar; it is what you land on going back. |
-| `search` | the Search button | [Search](../Page/Search.md) |
-| `multiselection` | the Multi-Selection button | [Multi-Selection](../Page/Multi-Selection.md) |
+| `home` | the back arrow of another view | The page's own menu: Search, Multi-Selection, and [Boards in Archive](Archive.md) — which is a page, so that row leaves the sidebar rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. Nothing *opens* the sidebar here any more, since those four are in the header bar; it is what you land on going back. |
+| `search` | the Search button | [Search](../Board-Header/Search.md) |
+| `multiselection` | the Multi-Selection button | [Multi-Selection](../General/Multi-Selection.md) |
 
 Which views exist, and the template each one draws, is
 `models/lib/allBoardsSidebar.js` — pure, so a guard can check that every view
@@ -375,9 +375,9 @@ drag source right now".
 ## Related files
 
 Only what is particular to this page; everything shared by table pages is in
-[Table.md's own list](../Page/Table.md#related-files), and the two shared header-bar
-controls have their own lists in [Search](../Page/Search.md) and
-[Multi-Selection](../Page/Multi-Selection.md).
+[Table.md's own list](../General/Table.md#related-files), and the two shared header-bar
+controls have their own lists in [Search](../Board-Header/Search.md) and
+[Multi-Selection](../General/Multi-Selection.md).
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -397,14 +397,14 @@ controls have their own lists in [Search](../Page/Search.md) and
 
 ## Related
 
-- [Boards in Archive](../Page/Archive.md) — the page the sidebar's Archive row opens
+- [Boards in Archive](Archive.md) — the page the sidebar's Archive row opens
 - [The All Boards URLs](URLs.md) — a URL per left-menu entry, workspaces included
-- [Search](../Page/Search.md) — the shared Search control and both search views
-- [Multi-Selection](../Page/Multi-Selection.md) — the shared Multi-Selection control and both views
-- [The Table page design](../Page/Table.md) — everything shared by table pages
+- [Search](../Board-Header/Search.md) — the shared Search control and both search views
+- [Multi-Selection](../General/Multi-Selection.md) — the shared Multi-Selection control and both views
+- [The Table page design](../General/Table.md) — everything shared by table pages
 - [Public Boards](Public.md) — the other board table, read-only
 - [Workspaces](Workspaces.md) — the tree in the left menu: folding, nesting and the drag
-- [Left menu](../Page/Left-Menu.md)
+- [Left menu](Left-Menu.md)
 
 ## Archive or duplicate a board
 

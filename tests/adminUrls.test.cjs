@@ -266,7 +266,7 @@ test('the old singular /setting still works', () => {
 });
 
 test('the design doc says what the URLs are', () => {
-  const doc = read('docs/Features/Page/Admin-Panel-URLs.md');
+  const doc = read('docs/Features/Admin-Panel/Admin-Panel-URLs.md');
   for (const page of ADMIN_PAGE_KEYS) {
     for (const slug of Object.keys(ADMIN_PAGES[page].panes)) {
       const url = adminPath(page, slug);
@@ -331,7 +331,7 @@ test('the title bar names the pane, in the menu row\'s own words', () => {
   // workspace's own name still must not go through the translator.
   //
   // In `headerFullPath()`, a plain function: the browser tab needs the same
-  // string (docs/Features/Board/Starred.md) and a Blaze helper cannot be called
+  // string (docs/Features/Pages/Starred.md) and a Blaze helper cannot be called
   // from outside its template, so the helper delegates to it.
   const at = js.indexOf('function headerFullPath() {');
   assert.notStrictEqual(at, -1, 'the path is built in one place');

@@ -2,7 +2,7 @@
 
 // Board Settings / Board View: which entries of the Board View menu a board
 // offers, and which one it opens in, separately for a PUBLIC and a PRIVATE
-// board (design: docs/Features/Board/Board-View-Settings.md).
+// board (design: docs/Features/Board-Sidebar/Board-Settings/Board-View.md).
 //
 // Pure CommonJS, no Meteor: the client (the popup, the view menu and
 // Utils.boardView), the server (the Board instance setters) and the

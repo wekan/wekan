@@ -3,7 +3,7 @@
 // Guard: there is exactly ONE History view, and every menu opens it.
 // Run: node tests/historyOneTemplate.test.cjs
 //
-// docs/Features/Reports/History/History.md §7a: "Every non-card-group surface is
+// docs/Features/General/History/History.md §7a: "Every non-card-group surface is
 // the same historyTable with a different changeHistory.page scope; there is ONE
 // implementation, parametrised by scope ... Concretely, adding History to a new
 // menu = (1) a menu item that opens historyPopup with a scope, (2) nothing

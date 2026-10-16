@@ -119,7 +119,7 @@ check('CPU usage report is wired into Admin Panel / Problems', () => {
   assert.ok(/'security', 'speed', 'tests', 'cpu'/.test(read('models/eventLog.js')), 'cpu event stream registered');
   const jade = read('client/components/settings/adminProblems.jade');
   assert.ok(/stream="cpu"/.test(jade), 'report template');
-  // The side menu is data now (docs/Features/Page/Left-Menu.md).
+  // The side menu is data now (docs/Features/All-Boards/Left-Menu.md).
   assert.ok(/'report-cpu'/.test(read('client/components/settings/adminProblems.js')), 'menu item');
   const js = read('client/components/settings/adminProblems.js');
   // The pane's state is the shared activeReport id now, not a ReactiveVar of its

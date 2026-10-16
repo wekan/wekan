@@ -11,7 +11,7 @@ import Announcements, {
 import { Utils } from '/client/lib/utils';
 // What this bar calls the page you are on. models/lib/pageTitles.js
 import { headerTitle } from '/models/lib/pageTitles';
-// The bookmark rules. docs/Features/Board/Starred.md
+// The bookmark rules. docs/Features/Pages/Starred.md
 import { isStarrablePageUrl } from '/models/lib/starredPages';
 import { headerPathVar } from '/client/lib/headerPathVar';
 import { boardCreationAllowed } from '/client/lib/boardCreationAllowed';
@@ -99,7 +99,7 @@ Template.header.helpers({
   // is a board; otherwise the page's, by route name. Two helpers rather than
   // one string, because a translated title has to go through {{_ }} and a board
   // title must NOT (it is user text, and a board called "settings" is not the
-  // Admin Panel). docs/Features/Page/Header.md
+  // Admin Panel). docs/Features/Header-Bar/Header.md
   // How many boards are starred, shown on the button the way a board's own star
   // shows its count. Nothing is shown when none are.
   // The button carries no star icon any more, so this number IS its label -
@@ -111,7 +111,7 @@ Template.header.helpers({
     // Boards, pages, swimlanes, lists AND cards (#1172): the group is one list
     // of the places you keep, like a browser's bookmarks, so a count that left
     // any kind out would undercount what the dropdown actually shows.
-    // docs/Features/Board/Starred.md
+    // docs/Features/Pages/Starred.md
     return user.starredCount ? user.starredCount() : 0;
   },
 
@@ -357,7 +357,7 @@ Template.header.helpers({
 
 Template.header.events({
   // The starred boards, by name. They were listed inline in this bar; the bar
-  // is one row now and the names are in the popup. docs/Features/Page/Header.md
+  // is one row now and the names are in the popup. docs/Features/Header-Bar/Header.md
   // Titled "Starred Boards", from the key the app already has for that phrase,
   // rather than a `starredBoardsPopup-title` of its own: the convention key
   // would be a second copy of one phrase in all 147 language files, English in
@@ -393,7 +393,7 @@ Template.header.events({
   },
   // The one hamburger, in the bar that is always on screen. Which sidebar it
   // toggles depends on where you are: a board has its own, and every other page
-  // shares one. docs/Features/Page/Header.md
+  // shares one. docs/Features/Header-Bar/Header.md
   'click .js-toggle-page-sidebar'(evt) {
     evt.preventDefault();
     const boardSidebar = Utils.getCurrentBoardId() ? getSidebarInstance() : null;
@@ -505,7 +505,7 @@ const DROPDOWN_ITEMS_PER_TYPE = 5;
 // The dropdown lists several kinds of thing, so "is it empty" is a question
 // about all of them. Without this the "Star a board to add a shortcut" line
 // was drawn under a list of starred pages, because the `each` it hung off
-// only knew about boards. docs/Features/Board/Starred.md
+// only knew about boards. docs/Features/Pages/Starred.md
 Template.starredBoardsPopup.helpers({
   hasAnyStarred() {
     const user = ReactiveCache.getCurrentUser();

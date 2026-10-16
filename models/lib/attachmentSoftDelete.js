@@ -1,7 +1,7 @@
 'use strict';
 
 // Attachment soft delete: the decisions, with no Meteor in them.
-// Design: docs/Features/Reports/History/History.md §12.
+// Design: docs/Features/General/History/History.md §12.
 //
 // CommonJS and dependency-light on purpose, like models/lib/softDelete.js it
 // builds on, so tests/attachmentSoftDelete.test.cjs can run every rule here as

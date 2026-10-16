@@ -108,7 +108,7 @@ the browser blocks WeKan's own requests to the ROOT_URL host as cross-origin.
 
 ## Gantt
 
-[How to use Gantt](../../../../../Features/Reports/Gantt.md)
+[How to use Gantt](../../../../../Features/Board-Header/Board-Views/Gantt.md)
 
 UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://github.com/wekan/wekan/issues/2870#issuecomment-954598565).
 
@@ -126,7 +126,7 @@ UCS WeKan v5.71 and newer is using WeKan Gantt GPL version. [Source](https://git
 
 ### 3) Mail Settings
 
-[Troubleshooting Mail](../../../../../Features/Email/Troubleshooting-Mail.md)
+[Troubleshooting Mail](../../../../../Features/General/Email/Troubleshooting-Mail.md)
 
 ![ucs-mail-3](https://user-images.githubusercontent.com/15545/78279359-129e7800-7520-11ea-9e22-a911826285ba.png)
 

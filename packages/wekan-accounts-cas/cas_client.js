@@ -9,7 +9,7 @@ function addParameterToURL(url, param){
 // job, so it is done here at startup rather than left to every app; the
 // result goes to the app as a 'wekan-cas-login' event, because the button's
 // callback did not survive the page change.
-// docs/Features/Login/CAS.md
+// docs/Features/Login-Page/CAS.md
 function reportCasResult(error) {
   window.dispatchEvent(new CustomEvent('wekan-cas-login', { detail: { error: error || null } }));
 }

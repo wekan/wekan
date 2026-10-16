@@ -219,7 +219,7 @@ test('wiring: e-mail, tray and webhooks read the shared model', () => {
 });
 
 test('docs describe the three settings places and every channel', () => {
-  const doc = read('docs/Features/Notifications/Notification-Delivery.md');
+  const doc = read('docs/Features/General/Notifications/Notification-Delivery.md');
   for (const word of ['Admin Panel', 'Member Settings', 'Board Settings', 'quiet hours', 'EMAIL_NOTIFICATION_TIMEOUT', 'act-batch']) {
     assert.ok(doc.includes(word), word);
   }

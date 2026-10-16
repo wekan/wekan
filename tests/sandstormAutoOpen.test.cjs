@@ -90,7 +90,7 @@ test('auto-open persists nothing: nothing on that path saves a Home board', () =
   // This used to read "the name `setDefaultBoard` appears nowhere", which was a
   // proxy for "there is no unconditional setter" back when the only way to set
   // a Home board was the explicit toggle. There IS one now - dropping a board
-  // on the Home row replaces whatever was there (docs/Features/Board/Home.md) -
+  // on the Home row replaces whatever was there (docs/Features/All-Boards/Home.md) -
   // so the guard checks what it was actually protecting: the auto-open path
   // does not save anything. A grain that opens its one board must not thereby
   // decide which board that user starts in.

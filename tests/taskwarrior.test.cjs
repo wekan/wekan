@@ -106,9 +106,9 @@ async function main() {
     assert.match(read('server/lib/renderExternalExport.js'), /taskwarrior: 'application\/json'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'taskwarrior'.*path: 'export\/taskwarrior', ext: 'json'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Taskwarrior/Taskwarrior.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Taskwarrior/Taskwarrior.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Taskwarrior\/Taskwarrior\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Taskwarrior\/Taskwarrior\.md\)/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-taskwarrior'], /task export/);
   });

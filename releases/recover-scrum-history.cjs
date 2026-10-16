@@ -4,7 +4,7 @@
 // conflict (server/lib/scrumHistoryRecovery.js), for when WeKan cannot start
 // or every writer has to be stopped first. Online, a board administrator does
 // the same from the Scrum History notice on the board.
-// docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-History-Recovery.md
+// docs/Features/Board-Header/Board-Views/Scrum/Scrum-History-Recovery.md
 const { MongoClient } = require('mongodb');
 const { inspectScrumHistoryCheckpoint, resolveScrumHistoryCheckpoint, describeResolution,
   ScrumHistoryRecoveryError } = require('../server/lib/scrumHistoryRecovery');

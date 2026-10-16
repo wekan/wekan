@@ -3,7 +3,7 @@
 // Board View / Version Control: the board as a GitHub / Gitea repository's
 // issue tracker, drawn in the board's own theme
 // (client/components/boards/versionControlView.*, design:
-// docs/Features/Board/Version-Control-View.md).
+// docs/Features/Board-Header/Board-Views/Version-Control-View.md).
 //
 // Nothing here is a second copy of anything. A card is an issue, the board's
 // labels are the labels, a label with a due date (#2802) is a milestone, the

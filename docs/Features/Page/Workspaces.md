@@ -1,3 +1,3 @@
-# Workspaces
+# Moved
 
-This guide has moved to [All Boards / Workspaces](../All-Boards/Workspaces.md).
+This page is now [Design: Workspaces](../All-Boards/Workspaces.md), where it sits in the menu structure.

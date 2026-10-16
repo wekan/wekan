@@ -492,7 +492,7 @@ test('the design doc says what is different and links to the shared one', () => 
   // Search and Multi-Selection are shared with the board header, so what they
   // are is written once, in their own designs, and this one links to them.
   // (This used to assert "Search is a field" - it is a button now, and the
-  // field is a view of the sidebar. docs/Features/Page/Search.md.)
+  // field is a view of the sidebar. docs/Features/Board-Header/Search.md.)
   for (const shared of ['Search.md', 'Multi-Selection.md']) {
     assert.ok(design.includes(shared), `it links to ${shared}`);
     assert.ok(fs.existsSync(path.join(ROOT, 'docs/Features/Page', shared)), `${shared} must exist`);
@@ -500,14 +500,14 @@ test('the design doc says what is different and links to the shared one', () => 
   assert.ok(!/Search is a field/i.test(design), 'and does not still call Search a field');
 
   // Every file any of the three names must exist.
-  for (const doc of [design, read('docs/Features/Page/Search.md'),
-    read('docs/Features/Page/Multi-Selection.md')]) {
+  for (const doc of [design, read('docs/Features/Board-Header/Search.md'),
+    read('docs/Features/General/Multi-Selection.md')]) {
     for (const m of doc.matchAll(/`([\w.-]+\/[\w./-]+\.(?:jade|js|css|cjs))`/g)) {
       assert.ok(fs.existsSync(path.join(ROOT, m[1])),
         `a design doc names ${m[1]}, which does not exist`);
     }
   }
-  const table = read('docs/Features/Page/Table.md');
+  const table = read('docs/Features/General/Table.md');
   assert.ok(/All-Boards\.md/.test(table),
     'Table.md must list the All Boards table among the pages that use it');
 });

@@ -13,4 +13,4 @@ someone's precise physical location.
 This is an administrator report of locally recorded login activity. Its
 implementation does not require sending login addresses to an external
 geolocation service. See [Problems](README.md) and
-[account lockout](../../Login/Accounts-Lockout.md).
+[account lockout](../../Login-Page/Accounts-Lockout.md).

@@ -77,7 +77,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py importboard EXPORT.json # Import a whole board (with rules/workflows) from a WeKan export
     python3 api.py migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS # Import ALL boards+workflows+rules from another WeKan
     python3 api.py exportboardpdf BOARDID OUTPUT.pdf # Export a whole board to PDF
-    python3 api.py importboardfrom SOURCE FILE [--csv-mapping MAPPING.json] # Import a tool's export file (csv and excel: --csv-mapping says which column is which field); SOURCE is a key of the import page (trello, jira, csv, excel, planner, wrike, notion, ...), see docs/Features/ImportExport
+    python3 api.py importboardfrom SOURCE FILE [--csv-mapping MAPPING.json] # Import a tool's export file (csv and excel: --csv-mapping says which column is which field); SOURCE is a key of the import page (trello, jira, csv, excel, planner, wrike, notion, ...), see docs/Features/Board-Sidebar/Board-Settings/Import-Export
     python3 api.py exportboardformat BOARDID FORMAT OUTPUTFILE # Export to a tool's format; FORMAT is a key of the export menu (kanboard, trello, planner, wrike, wrikeworkflow, ...)
     python3 api.py importboardsfrom SOURCE [--split] FILE_OR_DIR ... # Import many boards: each file (or each file of a directory or .zip) becomes a board; --split makes one board per project
     python3 api.py exportallboards FORMAT OUTPUTFILE [--boards ID1,ID2] # Export all boards: Excel as one workbook with a sheet per board, other formats as a .zip with a file per board

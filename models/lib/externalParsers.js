@@ -547,7 +547,7 @@ export function parseOpenProject(data) {
 // issue number. Rather than silently drop it, `warnings`/`unsupported` are
 // attached as extra top-level keys alongside the normalized shape (the
 // `{ normalized, warnings, unsupported }` contract from
-// docs/Features/ImportExport/Format-Coverage.md, flattened here so the
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md, flattened here so the
 // existing KanboardCreator call site in models/import.js keeps working
 // unchanged): every caller that only reads board/columns/swimlanes/tasks is
 // unaffected, and Problems -> Recovery can still show what a full audit of

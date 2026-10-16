@@ -191,9 +191,9 @@ async function main() {
     // Card dependencies reach the export when the Dependencies part is selected.
     assert.match(read('models/lib/externalExporters.js'), /want\('dependencies'\)[\s\S]{0,120}dependencies: c\.cardDependencies/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/ImportExport/Redmine/Redmine.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Redmine/Redmine.md');
     assert.match(docPage, /^## Format details$/m);
-    assert.match(read('docs/Features/ImportExport/Format-Coverage.md'), /\]\(\.\/Redmine\/Redmine\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Redmine\/Redmine\.md\)/);
   });
 
   console.log(`\nredmineCsv: ${passed} checks passed`);

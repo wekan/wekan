@@ -1,6 +1,6 @@
 'use strict';
 // Event-level sprint scope and burndown, replayed from History
-// (docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md:
+// (docs/Features/Board-Header/Board-Views/Scrum/Scrum-Design.md:
 // "replay scope and estimate history; never present current estimates as
 // historical facts").
 //

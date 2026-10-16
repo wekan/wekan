@@ -107,7 +107,7 @@ List databases again to show that database testing is not there anymore:
 ```
 show dbs
 ```
-Also see [Forgot Password](../../../../Features/Login/Forgot-Password.md)
+Also see [Forgot Password](../../../../Features/Login-Page/Forgot-Password.md)
 
 Exit MongoDB CLI:
 ```
@@ -119,7 +119,7 @@ C:\ProgramData\MongoDB\data\db
 ```
 [More info about MongoDB](../../../FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
 
-9. [Add users](../../../../Features/Login/Adding-users.md).
+9. [Add users](../../../../Features/Login-Page/Adding-users.md).
 
 
 ***

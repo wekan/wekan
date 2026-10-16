@@ -1,7 +1,7 @@
 'use strict';
 
 // The one-line summary of what an import could not bring over, for Admin
-// Panel -> Problems -> Recovery (docs/Features/ImportExport/Format-Coverage.md:
+// Panel -> Problems -> Recovery (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md:
 // "a success with unsupported fields is completed-with-warnings, not silently
 // completed"). Parsers and planners return { path, reason } entries; this
 // bounds them so a huge source cannot grow one recovery row without limit.

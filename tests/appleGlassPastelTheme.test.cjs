@@ -23,7 +23,7 @@ const config = read('config/const.js');
 const categories = read('models/lib/themeCategories.js');
 const accents = read('models/lib/themeAccents.js');
 const exporter = read('models/server/ExporterExcelCard.js');
-const docs = read('docs/Features/Theme/Theme.md');
+const docs = read('docs/Features/General/Theme/Theme.md');
 const preview = read('tests/fixtures/appleGlassPastelThemePreview.html');
 
 const THEME = 'appleglasspastel';

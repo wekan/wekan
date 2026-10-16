@@ -105,7 +105,7 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
   assert.match(layouts, /windowsSsoOffered\(\) \{ return Meteor\.settings\?\.public\?\.windowsSsoEnabled === true; \}/);
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   for (const key of ['windows-sso-sign-in', 'windows-sso-failed']) assert.equal(typeof en[key], 'string', key);
-  assert.match(read('docs/Features/Login/WindowsSSO.md'), /WINDOWS_SSO_DOMAINS/);
+  assert.match(read('docs/Features/Login-Page/WindowsSSO.md'), /WINDOWS_SSO_DOMAINS/);
   console.log('  ok - the sign-in page and the docs');
 
   console.log('\nwindowsSso: all tests passed');

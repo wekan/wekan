@@ -1,3 +1,3 @@
-# Public
+# Moved
 
-This guide has moved to [All Boards / Public](../All-Boards/Public.md).
+This page is now [Design: the Public Boards page](../All-Boards/Public.md), where it sits in the menu structure.

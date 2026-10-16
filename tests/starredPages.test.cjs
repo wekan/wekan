@@ -13,7 +13,7 @@
 // them.
 //
 // Run: node tests/starredPages.test.cjs
-// docs/Features/Board/Starred.md
+// docs/Features/Pages/Starred.md
 
 const assert = require('assert');
 const fs = require('fs');
@@ -315,14 +315,14 @@ test('the server refuses what it should, and checks before anything else', () =>
 });
 
 test('the design doc is there and says what all of it does', () => {
-  const doc = read('docs/Features/All-Boards/Starred.md');
+  const doc = read('docs/Features/Pages/Starred.md');
   for (const phrase of ['bookmark', 'relative', 'Product name - All Boards / Remaining',
     'template-container', '--theme-accent', 'moveStarredPage', 'caret',
     'toggleStarredPage']) {
     assert.ok(doc.includes(phrase), `the doc must explain ${phrase}`);
   }
-  assert.ok(/docs\/Features\/Board\/Starred\.md/.test(headerJs)
-    && /docs\/Features\/Board\/Starred\.md/.test(listJs), 'and the code points at it');
+  assert.ok(/docs\/Features\/Pages\/Starred\.md/.test(headerJs)
+    && /docs\/Features\/Pages\/Starred\.md/.test(listJs), 'and the code points at it');
 });
 
 for (const [name, fn] of tests) {

@@ -9,7 +9,7 @@
 // the AuthnRequest, parsing the response, verifying the XML signature) is
 // done by @node-saml/node-saml (MIT license) - this file only wires that
 // into Meteor's accounts system. See ../LICENSE and
-// docs/Features/Login/SAML.md.
+// docs/Features/Login-Page/SAML.md.
 
 import { createResponseReplayGuard } from './responseReplay';
 import { samlIdentity, samlIdentitySelector, samlIdentityNormalization, samlEmailVerified, samlLinkRefusal, GENERIC_CONFLICT } from './identity';

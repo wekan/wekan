@@ -201,9 +201,9 @@ ZIP are different archives with different restore entry points.
 
 ![Board import choices including WeKan JSON and ZIP and external application formats](board-import-supported-formats.png)
 
-See [format coverage and round-trip limits](../Features/ImportExport/Format-Coverage.md),
-[importing a previous WeKan export](../Features/ImportExport/WeKan/From-Previous-Export.md),
-[CSV/TSV](../Features/ImportExport/CSV/CSV.md),
+See [format coverage and round-trip limits](../Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md),
+[importing a previous WeKan export](../Features/Board-Sidebar/Board-Settings/Import-Export/WeKan/From-Previous-Export.md),
+[CSV/TSV](../Features/Board-Sidebar/Board-Settings/Import-Export/CSV/CSV.md),
 [features by menu](../Features/Features.md) and the [REST API](../API/REST-API.md).
 The export/import/move screenshots above are the companion images already
 referenced by the issue's link to `docs/Backup`.
@@ -454,7 +454,7 @@ https://nosqlbooster.com/downloads
 
 For below scheduled backup scripts, no info from above of this wiki page is required. Backup scripts below have the required settings.
 
-This does backup of [Wekan+RocketChat snap databases](../Features/Login/OAuth2.md) and php website etc.
+This does backup of [Wekan+RocketChat snap databases](../Features/Login-Page/OAuth2.md) and php website etc.
 
 If you need to backup some remote server or cloud, you can use scp, or read [rclone docs](https://rclone.org/docs/) about how to configure saving to some other remote server or cloud.
 

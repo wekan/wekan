@@ -83,7 +83,7 @@ test.describe('Admin – newest features', () => {
       // now - `/admin/problems/files` - so there is no need to land on the page
       // and then click a menu row, and no race between the redirect from the old
       // `/admin-reports` and the menu rendering.
-      // docs/Features/Page/Admin-Panel-URLs.md
+      // docs/Features/Admin-Panel/Admin-Panel-URLs.md
       await navigateInApp(page, '/admin/problems/files');
       // The evaluate below reaches for `window.Meteor.callAsync`; `networkidle`
       // only means the network went quiet, so Firefox got here with Meteor still
@@ -187,7 +187,7 @@ test.describe('Admin – newest features', () => {
 
       // NO Search button; the search field + pagination controls ARE present. Every
       // report renders through the ONE shared table page now
-      // (docs/Features/Page/Table.md), so the controls carry the shared class names and
+      // (docs/Features/General/Table.md), so the controls carry the shared class names and
       // the per-report ones are gone with the per-report markup.
       await expect(page.locator('button.js-files-search-button')).toHaveCount(0);
       await expect(page.locator('input.js-files-search-input')).toHaveCount(0);
@@ -251,7 +251,7 @@ test.describe('Admin – newest features', () => {
     // ready and the report was stuck on the loading spinner. Each report's template
     // (with its search input) only renders once the subscription is ready, so a
     // visible search input proves the spinner cleared and the report loaded.
-    // One shared table page for every report (docs/Features/Page/Table.md): the entry
+    // One shared table page for every report (docs/Features/General/Table.md): the entry
     // is addressed by data-id and the search field is the shared one, so what proves
     // the subscription became ready is the shared controls row rendering with the
     // report's own title above it.

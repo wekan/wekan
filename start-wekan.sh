@@ -812,8 +812,8 @@
       #export SAML_WANT_ASSERTIONS_SIGNED=
       #export SAML_LOGIN_FLOW=
       #---------------------------------------------------------------------
-      # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
-      # and docs/Features/Login/Passwordless.md. Every one of these can be overridden
+      # Login with Meteor accounts providers, see docs/Features/Login-Page/OAuth-Providers.md
+      # and docs/Features/Login-Page/Passwordless.md. Every one of these can be overridden
       # in Admin Panel / People / Login; a value set there wins over the environment
       # variable. Register this callback URL at the provider:
       #   <ROOT_URL>/_oauth/<service>  where service is google, github, facebook,

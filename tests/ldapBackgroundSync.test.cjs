@@ -11,7 +11,7 @@ const read = (relative) =>
   fs.readFileSync(path.join(__dirname, '..', relative), 'utf8');
 const syncSource = read('packages/wekan-ldap/server/sync.js');
 const ldapSource = read('packages/wekan-ldap/server/ldap.js');
-const documentation = read('docs/Features/Login/LDAP.md');
+const documentation = read('docs/Features/Login-Page/LDAP.md');
 
 let passed = 0;
 function test(name, fn) {

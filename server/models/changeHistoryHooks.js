@@ -13,7 +13,7 @@ const { deferSyncRecording, deferSyncItemRecording, deferSyncChecklistRecording,
   require('/server/lib/syncRecordingScope');
 import { diffFields } from '/models/lib/changeHistoryGroups';
 
-// Phase 5 of docs/Features/Reports/History/History.md: record EVERY remaining
+// Phase 5 of docs/Features/General/History/History.md: record EVERY remaining
 // group, from one place.
 //
 // §5 suggests "a thin, central choke point ... recording history next to

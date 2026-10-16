@@ -42,7 +42,7 @@ check('#1158: canModifyBoard() is falsy for an anonymous user (no currentUser)',
   // This used to read the three flag exclusions out of canModifyBoard's own body.
   // It no longer has any: the UI helpers and the server allow rules both ask
   // models/lib/boardRoleCapabilities.js now, because writing the rule out in each
-  // of them is how the three copies drifted apart (docs/Features/Members/Roles.md).
+  // of them is how the three copies drifted apart (docs/Features/Board-Sidebar/Members/Roles.md).
   // What #1158 actually needs is unchanged and is what is checked here: an
   // anonymous user must be FALSY, so `!Utils.canModifyBoard()` disables the list
   // sortable. That is a behaviour, so test the behaviour.

@@ -126,7 +126,7 @@ mv /var/snap/wekan_customer1/common/* old_customer1_common/
 snap start wekan_customer1
 ```
 
-5) Add some settings, for example Google login and [AWS SES email sending](../../../../Features/Email/Troubleshooting-Mail.md#example-aws-ses):
+5) Add some settings, for example Google login and [AWS SES email sending](../../../../Features/General/Email/Troubleshooting-Mail.md#example-aws-ses):
 
 For each customer, node and mongodb needs to be in different ports, for example:
 ```

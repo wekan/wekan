@@ -14,7 +14,7 @@ import { historyRowOffersRestore } from '/models/lib/attachmentSoftDelete';
 import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
 // THE History view — one implementation for every scope
-// (docs/Features/Reports/History/History.md §7a). The card-group menu, the whole
+// (docs/Features/General/History/History.md §7a). The card-group menu, the whole
 // card, Member settings, Board settings and the swimlane/list menus all render
 // this same template with a different data context; there is no second copy of
 // the table, the search, the pagination or the restore anywhere.

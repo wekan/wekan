@@ -144,7 +144,7 @@ test('source: every group-membership clause in ldap.js goes through groupMemberC
 
 test('the setting is documented and configurable wherever the other group settings are', () => {
   const root = path.join(__dirname, '..');
-  const files = ['docs/Features/Login/LDAP.md', 'Dockerfile', 'snap-src/bin/config', 'start-wekan.sh', 'start-wekan.bat',
+  const files = ['docs/Features/Login-Page/LDAP.md', 'Dockerfile', 'snap-src/bin/config', 'start-wekan.sh', 'start-wekan.bat',
     ...fs.readdirSync(root).filter(f => /^docker-compose.*\.yml$/.test(f))];
   for (const file of files) {
     const text = fs.readFileSync(path.join(root, file), 'utf8');

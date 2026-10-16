@@ -13,7 +13,7 @@
 // or none can be Home, because logging in opens one board.
 //
 // Run: node tests/homeBoard.test.cjs
-// docs/Features/Board/Home.md
+// docs/Features/All-Boards/Home.md
 
 const assert = require('assert');
 const fs = require('fs');
@@ -299,13 +299,13 @@ test('Multi-Selection still toggles, and both write the same one field', () => {
 });
 
 test('the design doc is there and says what the drags do', () => {
-  const doc = read('docs/Features/Board/Home.md');
+  const doc = read('docs/Features/All-Boards/Home.md');
   for (const phrase of ['/allboards/home', 'replaces', 'star', 'setDefaultBoard',
     'clearDefaultBoard', 'application/x-board-from-home', 'launcher',
     'preventDefault']) {
     assert.ok(doc.includes(phrase), `the doc must explain ${phrase}`);
   }
-  assert.ok(/docs\/Features\/Board\/Home\.md/.test(listJs),
+  assert.ok(/docs\/Features\/All-Boards\/Home\.md/.test(listJs),
     'and the code points at it');
 });
 

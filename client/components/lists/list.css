@@ -1733,7 +1733,7 @@ form.inlined-form .list-composer {
 }
 
 /* List sync popup (listSyncPopup, listHeader.jade/.js,
-   docs/Features/ImportExport/Sync.md). Same success/error color convention
+   docs/Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md). Same success/error color convention
    as the LDAP test-connection result (client/components/settings/settingBody.css
    .ldap-test-success/.ldap-test-error) so an inline result reads the same way
    everywhere it appears. */

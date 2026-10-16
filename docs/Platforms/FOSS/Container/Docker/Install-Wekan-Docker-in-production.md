@@ -22,7 +22,7 @@ https://github.com/wekan/wekan-mongodb
 
 ## 3. Email
 
-[Troubleshooting Email](../../../../Features/Email/Troubleshooting-Mail.md)
+[Troubleshooting Email](../../../../Features/General/Email/Troubleshooting-Mail.md)
 
 ## 4. Configure webserver as a front-end proxy
 

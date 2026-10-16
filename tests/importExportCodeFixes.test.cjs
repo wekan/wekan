@@ -1,7 +1,7 @@
 'use strict';
 
 // Faults found while documenting every import and export format
-// (docs/Features/ImportExport/<format>/): each is pinned here so it cannot
+// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/<format>/): each is pinned here so it cannot
 // come back. Run: node tests/importExportCodeFixes.test.cjs
 
 const assert = require('node:assert/strict');

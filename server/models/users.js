@@ -703,7 +703,7 @@ Meteor.methods({
   // what page it is looking at - but neither is trusted: the URL is refused
   // unless it is a RELATIVE path (an absolute or protocol-relative one would
   // put another site behind a row in this user's own dropdown), and the title
-  // is stored as text and drawn as text. docs/Features/Board/Starred.md
+  // is stored as text and drawn as text. docs/Features/Pages/Starred.md
   async toggleStarredPage(url, title) {
     check(url, String);
     check(title, String);
@@ -726,7 +726,7 @@ Meteor.methods({
   //
   // The order is the reader's, and it is ONE order: the tiles in All Boards /
   // Starred and the rows of the header dropdown are two views of the same
-  // array. docs/Features/Board/Starred.md
+  // array. docs/Features/Pages/Starred.md
   async moveStarredPage(url, beforeUrl) {
     check(url, String);
     check(beforeUrl, Match.OneOf(String, null));
@@ -746,7 +746,7 @@ Meteor.methods({
   // board on the Home row REPLACES - Home holds one board, and a drop that
   // sometimes set and sometimes cleared (which is what toggleDefaultBoard would
   // do here) would depend on state the reader cannot see while dragging.
-  // docs/Features/Board/Home.md
+  // docs/Features/All-Boards/Home.md
   async setDefaultBoard(boardId) {
     check(boardId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
@@ -892,7 +892,7 @@ Meteor.methods({
   // Collapse or expand the left menu. One setting for both pages: All Boards
   // and the Admin Panel draw one menu, and a reader who folds it away on one of
   // them has said what they want on the other.
-  // docs/Features/Page/Left-Menu.md
+  // docs/Features/All-Boards/Left-Menu.md
   async setLeftMenuCollapsed(collapsed) {
     check(collapsed, Boolean);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
@@ -905,7 +905,7 @@ Meteor.methods({
   // ones are stored, so unfolding REMOVES the key rather than writing false: a
   // reader who folds two workspaces out of fifty has two keys, and a workspace
   // that is deleted takes its key with it the next time it is unfolded.
-  // docs/Features/Page/Workspaces.md
+  // docs/Features/All-Boards/Workspaces.md
   async setWorkspaceCollapsed(workspaceId, collapsed) {
     check(workspaceId, String);
     check(collapsed, Boolean);
@@ -927,7 +927,7 @@ Meteor.methods({
   // a call with 20000 - or with NaN, which passes `check(width, Number)` and
   // would store a width no page could recover from - cannot leave a user with a
   // menu that fills the window and no way to get at what it covers.
-  // docs/Features/Page/Left-Menu.md
+  // docs/Features/All-Boards/Left-Menu.md
   async setLeftMenuWidth(width) {
     check(width, Number);
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

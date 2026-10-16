@@ -9,8 +9,8 @@ Under each saved one-way webhook, *Outgoing Webhooks* chooses whether it sends
 the message text, which groups of properties it sends, whether several
 notifications go in one POST and when it is sent (#3695). A global webhook
 follows its own choice, then Admin Panel / People / Notifications; a board's
-settings never apply to it. See [Webhook data](../../Webhooks/Webhook-data.md)
-and [Notification delivery](../../Notifications/Notification-Delivery.md).
+settings never apply to it. See [Webhook data](../../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Webhook-data.md)
+and [Notification delivery](../../General/Notifications/Notification-Delivery.md).
 
 ## Related
 

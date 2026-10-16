@@ -32,7 +32,7 @@ test('negative: no shipped default turns verification off', () => {
     assert.match(read(file), /^\s*LDAP_REJECT_UNAUTHORIZED=true \\$/m, file);
   }
   assert.match(read('snap-src/bin/config'), /^DEFAULT_LDAP_REJECT_UNAUTHORIZED="true"$/m);
-  assert.match(read('docs/Features/Login/LDAP.md'), /^\s*- LDAP_REJECT_UNAUTHORIZED=true$/m);
+  assert.match(read('docs/Features/Login-Page/LDAP.md'), /^\s*- LDAP_REJECT_UNAUTHORIZED=true$/m);
   // Example compose files may show the opt-out only commented out.
   const files = fs.readdirSync(ROOT).filter(f => /^docker-compose.*\.yml$/.test(f));
   for (const file of files) {
