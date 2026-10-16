@@ -315,15 +315,6 @@ template(name="listActionPopup")
               i.fa.fa-link
               | {{_ 'listMorePopup-title'}}
 
-template(name="boardLists")
-  ul.pop-over-list
-    each currentBoard.lists
-      li
-        if($eq ../_id _id)
-          a.disabled {{title}} ({{_ 'current'}})
-        else
-          a.js-select-list= title
-
 template(name="listMorePopup")
   p.quiet
     span.clearfix

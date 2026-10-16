@@ -105,10 +105,16 @@ test('client attachments.js path helpers no longer read process.env (undefined i
 });
 
 test('client settingBody.js path helpers no longer read process.env', () => {
+  // settingBody.js carried a second copy of the storage paths, S3 and transfer
+  // limits for an attachmentSettings pane that no menu opened and no template
+  // drew; it was removed with the pane. attachments.js (Admin Panel /
+  // Attachments, checked above) is the one that asks the server.
   const src = read('client/components/settings/settingBody.js');
   assert.ok(!/WRITABLE_PATH\s*\|\|\s*'\/data'/.test(src),
     'the "/data" fallback in the browser was the bug');
-  assert.ok(src.includes("Meteor.call('getAttachmentStoragePaths'"));
+  assert.ok(!src.includes('storagePaths') && !src.includes('attachmentStorageSettings'),
+    'and the dead copy of the attachment pane stays gone');
+  assert.ok(!fs.existsSync(path.join(__dirname, '..', 'client/components/settings/attachmentSettings.jade')));
 });
 
 // --- the server method exists, is admin-only, and uses the shared helper ------

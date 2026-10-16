@@ -62,20 +62,25 @@ test('the badge is written once', () => {
   const links = cardDate.match(/a\.js-edit-date/g) || [];
   assert.strictEqual(links.length, 1, 'and the badge link exists in exactly one place');
   const includes = cardDate.match(/\+dateBadgeBody\(/g) || [];
-  assert.strictEqual(includes.length, 14, 'fourteen templates draw it');
+  // dateBadge, dateCustomField and cardCustomFieldDate drew it too, but were
+  // rendered nowhere and were removed, leaving eleven.
+  assert.strictEqual(includes.length, 11, 'eleven templates draw it');
+  for (const gone of ['dateBadge', 'dateCustomField', 'cardCustomFieldDate']) {
+    assert.ok(!cardDate.includes(`template(name="${gone}")`), `${gone} stays removed`);
+  }
 });
 
 test('a custom field date is still not a .card-date (negative)', () => {
-  // The trap in sharing one badge: three of the fourteen never carried
+  // The trap in sharing one badge: some callers never carried
   // `card-date`, and folding them into a template that adds it would restyle
   // them. `baseClass` is what the caller's own markup carried.
   const body = cardDate.slice(cardDate.indexOf('template(name="dateBadgeBody")'),
-    cardDate.indexOf('template(name="dateBadge")'));
+    cardDate.indexOf('template(name="cardReceivedDate")'));
   assert.ok(/class="\{\{baseClass\}\} \{\{classes\}\}"/.test(body),
     'the base class comes from the caller');
   assert.ok(!/a\.js-edit-date\.card-date|a\.card-date/.test(body),
     'and is not baked into the shared markup');
-  for (const plain of ['dateCustomField', 'cardCustomFieldDate', 'minicardCustomFieldDate']) {
+  for (const plain of ['minicardCustomFieldDate']) {
     const at = cardDate.indexOf(`template(name="${plain}")`);
     const include = cardDate.slice(at, cardDate.indexOf('\n', cardDate.indexOf('+dateBadgeBody', at)));
     assert.ok(!/baseClass=/.test(include), `${plain} passes no base class`);

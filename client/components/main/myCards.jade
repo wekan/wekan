@@ -11,12 +11,6 @@ template(name="myCardsControls")
       i.fa.fa-bar-chart
       | {{_ 'myCardsViewChange-choice-table'}}
 
-template(name="myCardsModalTitle")
-  if currentUser
-    h2
-      i.fa.fa-keyboard-o
-      | {{_ 'my-cards'}}
-
 template(name="myCards")
   if currentUser
     if searching.get

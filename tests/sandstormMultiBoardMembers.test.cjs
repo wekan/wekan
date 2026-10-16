@@ -59,7 +59,7 @@ test('the button names the open board, and the claim invites the person to it', 
 test('Sandstorm cannot create an unusable local email account from the picker', () => {
   const popup = sidebar.slice(
     sidebar.indexOf('template(name="addMemberPopup")'),
-    sidebar.indexOf('template(name="addMemberPopupTest")'),
+    sidebar.indexOf('template(name="changePermissionsPopup")'),
   );
   assert.match(popup, /unless isSandstorm\s+button\.js-email-invite/);
 });

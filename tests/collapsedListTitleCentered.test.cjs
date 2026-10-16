@@ -130,12 +130,14 @@ test('every collapsed-title h2 rule cancels the generic 56px min-width clamp', (
       `${selector} must override min-width back to 0`);
   }
 
-  // The three @media (min-width: 768/1024/1200px) duplicates of the desktop
-  // rule need the same override - they are not scoped by :not(.mobile-view)
-  // and hit the same 56px clamp on ordinary desktop widths.
+  // The @media (min-width: 768px) copy of the desktop rule needs the same
+  // override - it is not scoped by :not(.mobile-view) and hits the same 56px
+  // clamp on ordinary desktop widths. The 1024px and 1200px blocks repeated
+  // it word for word and were removed: 768px already covers those widths, so
+  // a second or third copy can only drift from the first.
   const mediaBlocks = css.match(
     /@media \(min-width: (?:768|1024|1200)px\) \{[\s\S]*?\n\}/g) || [];
-  assert.strictEqual(mediaBlocks.length, 3, 'expected the three responsive collapsed-list blocks');
+  assert.strictEqual(mediaBlocks.length, 1, 'expected the one responsive collapsed-list block');
   for (const block of mediaBlocks) {
     assert.ok(/h2\.list-header-name \{[^}]*min-width:\s*0/.test(block.replace(/\/\*[\s\S]*?\*\//g, '')),
       'each responsive block\'s h2 rule must also override min-width back to 0');

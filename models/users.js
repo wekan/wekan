@@ -2031,53 +2031,6 @@ Users.helpers({
     }
   },
 
-  getSwimlaneHeightFromStorage(boardId, swimlaneId) {
-    // For logged-in users, get from profile
-    if (this._id) {
-      return this.getSwimlaneHeight(boardId, swimlaneId);
-    }
-
-    // For non-logged-in users, get from localStorage
-    try {
-      const stored = localStorage.getItem('wekan-swimlane-heights');
-      if (stored) {
-        const heights = JSON.parse(stored);
-        if (heights[boardId] && heights[boardId][swimlaneId]) {
-          return heights[boardId][swimlaneId];
-        }
-      }
-    } catch (e) {
-      console.warn('Error reading swimlane heights from localStorage:', e);
-    }
-
-    return -1;
-  },
-
-  setSwimlaneHeightToStorage(boardId, swimlaneId, height) {
-    assertSafeMapKey(boardId, swimlaneId);
-    // For logged-in users, save to profile
-    if (this._id) {
-      return this.setSwimlaneHeight(boardId, swimlaneId, height);
-    }
-
-    // For non-logged-in users, save to localStorage
-    try {
-      const stored = localStorage.getItem('wekan-swimlane-heights');
-      let heights = stored ? JSON.parse(stored) : {};
-
-      if (!heights[boardId]) {
-        heights[boardId] = {};
-      }
-      heights[boardId][swimlaneId] = height;
-
-      localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
-      return true;
-    } catch (e) {
-      console.warn('Error saving swimlane height to localStorage:', e);
-      return false;
-    }
-  },
-
   /** returns all confirmed move and copy dialog field values
    * <li> the board, swimlane and list id is stored for each board
    */

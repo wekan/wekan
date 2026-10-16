@@ -280,11 +280,6 @@ template(name="boardChangeTitlePopup")
       p.error {{_ boardKeyError}}
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
 
-template(name="boardCreateRulePopup")
-  p {{_ 'close-board-pop'}}
-  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
-
-
 template(name="cardsSortPopup")
   ul.pop-over-list
     li

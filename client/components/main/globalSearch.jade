@@ -31,12 +31,6 @@ template(name="globalSearchViewChangePopup")
           if $eq Utils.globalSearchView "all"
             i.fa.fa-check
 
-template(name="globalSearchModalTitle")
-  if currentUser
-    h2
-      i.fa.fa-keyboard-o
-      | {{_ 'globalSearch-title'}}
-
 template(name="resultsPaged")
   if resultsHeading
     h1= resultsHeading

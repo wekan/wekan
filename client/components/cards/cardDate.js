@@ -347,30 +347,6 @@ Template.cardEndDate.events({
   'click .js-edit-date': openDateEditor('editCardEndDate'),
 });
 
-// cardCustomFieldDate
-Template.cardCustomFieldDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(Template.currentData().value));
-  });
-});
-
-Template.cardCustomFieldDate.helpers(cardDateHelpers({
-  showDate() {
-    const tpl = Template.instance();
-    return formatCardDateForDisplay(tpl.date.get(), true);
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${formattedDate}`;
-  },
-  classes() {
-    return 'customfield-date';
-  },
-}));
-
 // --- Minicard date templates ---
 
 // minicardReceivedDate

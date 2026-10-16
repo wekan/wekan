@@ -104,7 +104,7 @@ test('the state it sets exists by the time it runs', () => {
   const use = created.indexOf("Session.get('settingsOpenPane')");
   for (const name of ['versionSetting', 'translationSetting', 'webhookSetting',
     'layoutSetting', 'announcementSetting', 'accessibilitySetting',
-    'tableVisibilityModeSetting', 'attachmentSettings']) {
+    'tableVisibilityModeSetting']) {
     const declared = created.indexOf(`this.${name} = new ReactiveVar(`);
     assert.ok(declared !== -1 && declared < use,
       `this.${name} must be created before the requested pane is applied`);

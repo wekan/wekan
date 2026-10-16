@@ -11,12 +11,6 @@ template(name="dueCardsControls")
       i.fa.fa-users
       | {{_ 'dueCardsViewChange-choice-all'}}
 
-template(name="dueCardsModalTitle")
-  if currentUser
-    h2
-      i.fa.fa-keyboard-o
-      | {{_ 'dueCards-title'}}
-
 template(name="dueCards")
   if currentUser
     if searching.get

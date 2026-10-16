@@ -1,6 +1,5 @@
 import '/client/components/settings/adminProblems.jade';
 import '/client/components/settings/attachments.jade';
-import '/client/components/settings/attachmentSettings.jade';
 import '/client/components/settings/connectionMethod.jade';
 import '/client/components/settings/informationBody.jade';
 import '/client/components/settings/invitationCode.jade';

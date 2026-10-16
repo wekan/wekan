@@ -3141,12 +3141,6 @@ Template.addMemberPopup.helpers({
   }
 })
 
-Template.addMemberPopupTest.helpers({
-  searchResults() {
-    return Session.get('addMemberPopup.searchResults') || [];
-  }
-})
-
 Template.addBoardOrgPopup.onCreated(function() {
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);

@@ -57,15 +57,7 @@ template(name="subtaskDetail")
             i.fa.fa-list-ul
             | {{ subtaskStatus }}
 
-template(name="addSubtaskItemForm")
-  textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
-  .edit-controls.clearfix
-    button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
-    a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-add-checklist-item'}}")
-
-//- #2184: separate from the generic addSubtaskItemForm (shared with checklist
-  items, which have no labels) so only the "Add a new subtask" form gets the
-  inherit-labels checkbox.
+//- #2184: the "Add a new subtask" form, with the inherit-labels checkbox.
 template(name="addSubtaskCardForm")
   textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
   label.subtask-inherit-labels
@@ -88,35 +80,6 @@ template(name="editSubtaskItemForm")
     if canModifyCard
       if currentUser.isBoardAdmin
         a.js-delete-subtask-item {{_ "delete"}}...
-
-template(name="subtasksItems")
-  .subtasks-items.js-subtasks-items
-    each item in subtasks.items
-      +inlinedForm(classNames="js-edit-subtask-item" item = item subtasks = subtasks)
-        +editSubtaskItemForm(type = 'item' item = item subtasks = subtasks)
-      else
-        +subtaskItemDetail(item = item subtasks = subtasks)
-    if canModifyCard
-      +inlinedForm(autoclose=false classNames="js-add-subtask-item" subtasks = subtasks dir="auto")
-        +addSubtaskItemForm
-      else
-        a.add-subtask-item.js-open-inlined-form
-          i.fa.fa-plus
-          | {{_ 'add-subtask'}}...
-
-template(name='subtaskItemDetail')
-  .js-subtasks-item.subtasks-item
-    if canModifyCard
-      .check-box-container
-        .check-box.materialCheckBox(class="{{#if item.isFinished}}is-checked{{/if}}")
-      .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
-        +viewer
-          = item.title
-    else
-      .materialCheckBox(class="{{#if item.isFinished}}is-checked{{/if}}")
-      .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
-        +viewer
-          = item.title
 
 template(name="subtaskDeletePopup")
   p {{_ 'confirm-subtask-delete-popup'}}

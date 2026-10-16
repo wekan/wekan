@@ -47,7 +47,10 @@ const code = text => text.replace(/\/\/[^\n]*/g, '');
 check('the model: assignMember/unassignMember write members, assignAssignee/unassignAssignee write assignees', () => {
   assert.match(cards, /assignMember\(memberId\) \{\s*return Cards\.updateAsync\(this\.getRealId\(\), \{ \$addToSet: \{ members: memberId \} \}\);/);
   assert.match(cards, /assignAssignee\(assigneeId\) \{\s*return Cards\.updateAsync\(this\.getRealId\(\), \{ \$addToSet: \{ assignees: assigneeId \} \}\);/);
-  assert.match(cards, /return Cards\.updateAsync\(\{ _id: this\._id \}, \{ \$pull: \{ members: memberId \} \}\);/);
+  // models/cards.js once defined these helpers twice; the second copy is the one
+  // that ran and the only one left (tests/noDuplicateObjectKeys.test.cjs).
+  assert.match(cards, /unassignMember\(memberId\) \{\s*return Cards\.updateAsync\(this\.getRealId\(\), \{ \$pull: \{ members: memberId \} \}\);/);
+  assert.match(cards, /unassignAssignee\(assigneeId\) \{\s*return Cards\.updateAsync\(this\.getRealId\(\), \{ \$pull: \{ assignees: assigneeId \} \}\);/);
 });
 
 check('members: add assigns, remove unassigns, remove-all iterates card.members', () => {

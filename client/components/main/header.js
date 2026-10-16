@@ -413,9 +413,6 @@ Template.header.events({
     const currentMode = Utils.getMobileMode();
     Utils.setMobileMode(!currentMode);
   },
-  'click .js-open-bookmarks'(evt) {
-    // Already added but ensure single definition -- safe guard
-  },
   'click .js-close-announcement'() {
     $('.announcement').hide();
     // Permanently dismiss the current announcement for this user (#6051).

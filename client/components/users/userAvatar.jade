@@ -36,10 +36,6 @@ template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15" aria-hidden="true" style="{{colorStyle}}")
     text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= initials
 
-template(name="orgAvatar")
-  a.member.orgOrTeamMember(class="js-member" title="{{orgData.orgDisplayName}}")
-    +boardOrgName(orgId=orgData._id)
-
 template(name="boardOrgRow")
   a.member.orgOrTeamMember.js-manage-board-removeOrg(title="{{orgData.orgDisplayName}}")
     +boardOrgName(orgId=orgData._id)
@@ -51,10 +47,6 @@ template(name="boardTeamRow")
 template(name="boardOrgName")
   svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15" aria-hidden="true")
     text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= orgName
-
-template(name="teamAvatar")
-  a.member.orgOrTeamMember(class="js-member" title="{{teamData.teamDisplayName}}")
-    +boardTeamName(orgId=orgData._id)
 
 template(name="boardTeamName")
   svg.avatar.avatar-initials(viewBox="0 0 {{teamViewPortWidth}} 15" aria-hidden="true")

@@ -231,15 +231,6 @@ Template.subtaskDetail.events({
   },
 });
 
-Template.subtaskItemDetail.events({
-  async 'click .js-subtasks-item .check-box-container'() {
-    const item = Template.currentData().item;
-    if (item && item._id) {
-      await item.toggleItem();
-    }
-  },
-});
-
 Template.subtaskActionsPopup.helpers({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
