@@ -42,14 +42,14 @@ function defaultPaths() {
 export function sampleDisks() {
   if (typeof fs.statfsSync !== 'function') return [];
   const byDevice = new Map();
-  for (const entry of defaultPaths()) {
+  for (const watched of defaultPaths()) {
     try {
-      if (!fs.existsSync(entry.path)) continue;
-      const dev = String(fs.statSync(entry.path).dev);
-      const usage = statfsUsage(fs.statfsSync(entry.path));
+      if (!fs.existsSync(watched.path)) continue;
+      const dev = String(fs.statSync(watched.path).dev);
+      const usage = statfsUsage(fs.statfsSync(watched.path));
       if (!usage) continue;
-      if (byDevice.has(dev)) byDevice.get(dev).roles.push(entry.role);
-      else byDevice.set(dev, { fsKey: dev, path: entry.path, roles: [entry.role], ...usage });
+      if (byDevice.has(dev)) byDevice.get(dev).roles.push(watched.role);
+      else byDevice.set(dev, { fsKey: dev, path: watched.path, roles: [watched.role], ...usage });
     } catch (e) { /* not permitted or gone: skip this path */ }
   }
   return [...byDevice.values()];

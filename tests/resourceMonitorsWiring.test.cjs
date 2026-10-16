@@ -33,9 +33,9 @@ test('each monitor samples on an interval and records only start and end', () =>
   assert.match(ram, /readFileSync\('\/proc\/meminfo'/);
   assert.match(ram, /HighRamTracker/);
   const disk = read('server/lib/diskMonitor.js');
-  assert.match(disk, /fs\.statfsSync\(entry\.path\)/);
+  assert.match(disk, /fs\.statfsSync\(watched\.path\)/);
   assert.match(disk, /DiskEpisodes/);
-  assert.match(disk, /fs\.statSync\(entry\.path\)\.dev/, 'one line per filesystem, not per path');
+  assert.match(disk, /fs\.statSync\(watched\.path\)\.dev/, 'one line per filesystem, not per path');
   for (const [file, src, prefix] of [['ramMonitor', ram, 'RAM'], ['diskMonitor', disk, 'disk']]) {
     assert.match(src, /Meteor\.setInterval\(/, `${file} samples on an interval`);
     assert.match(src, /res\.event === 'start'/);
