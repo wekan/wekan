@@ -313,62 +313,10 @@ export const Utils = {
           pendingBoardView.set(null);
         }
       });
-    } else if (view === 'board-view-swimlanes') {
-      window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
-      Utils.reload();
-    } else if (view === 'board-view-lists') {
-      window.localStorage.setItem('boardView', 'board-view-lists'); //true
-      Utils.reload();
-    } else if (view === 'board-view-cal') {
-      window.localStorage.setItem('boardView', 'board-view-cal'); //true
-      Utils.reload();
-    } else if (view === 'board-view-gantt') {
-      window.localStorage.setItem('boardView', 'board-view-gantt'); //true
-      Utils.reload();
-    } else if (
-      [
-        'board-view-multiboard-cal',
-        'board-view-calendar-mode',
-        'board-view-gantt-frappe',
-        'board-view-gantt-dhtmlx',
-        'board-view-table',
-        'board-view-time',
-        'board-view-timeline',
-        'board-view-stats',
-        'board-view-group-by-assignee',
-        'board-view-product-backlog',
-        'board-view-sprints',
-        'board-view-sprint-report',
-        'board-view-velocity',
-        'board-view-roadmap',
-        'board-view-dashboard',
-        'board-view-bigboard',
-        'board-view-burndown',
-        'board-view-burnup',
-        'board-view-cumulative-flow',
-        'board-view-control-chart',
-        'board-view-cycle-time',
-        'board-view-flow-efficiency',
-        'board-view-lead-time',
-        'board-view-throughput-histogram',
-        'board-view-wip-run',
-        'board-view-pulse',
-        'board-view-aging-wip',
-        'board-view-blocker-analysis',
-        'board-view-monte-carlo',
-        'board-view-process-behavior',
-        'board-view-size-cycle-time',
-        'board-view-map',
-        'board-view-email',
-        'board-view-chat',
-        'board-view-version-control',
-        'board-view-column-sets',
-      ].includes(view)
-    ) {
-      window.localStorage.setItem('boardView', view); //true
-      Utils.reload();
     } else {
-      window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
+      // Not logged in: the browser keeps the choice. Any view of the Board View
+      // menu (BOARD_VIEWS), anything else the default.
+      window.localStorage.setItem('boardView', isKnownBoardView(view) ? view : DEFAULT_BOARD_VIEW);
       Utils.reload();
     }
   },
@@ -427,58 +375,11 @@ export const Utils = {
     if (isKnownBoardView(profileView)) {
       return profileView;
     }
-    if (
-      window.localStorage.getItem('boardView') === 'board-view-swimlanes'
-    ) {
-      return 'board-view-swimlanes';
-    } else if (
-      window.localStorage.getItem('boardView') === 'board-view-lists'
-    ) {
-      return 'board-view-lists';
-    } else if (window.localStorage.getItem('boardView') === 'board-view-cal') {
-      return 'board-view-cal';
-    } else if (window.localStorage.getItem('boardView') === 'board-view-gantt') {
-      return 'board-view-gantt';
-    } else if (
-      [
-        'board-view-multiboard-cal',
-        'board-view-calendar-mode',
-        'board-view-gantt-frappe',
-        'board-view-gantt-dhtmlx',
-        'board-view-table',
-        'board-view-time',
-        'board-view-timeline',
-        'board-view-stats',
-        'board-view-group-by-assignee',
-        'board-view-roadmap',
-        'board-view-dashboard',
-        'board-view-bigboard',
-        'board-view-burndown',
-        'board-view-burnup',
-        'board-view-cumulative-flow',
-        'board-view-control-chart',
-        'board-view-cycle-time',
-        'board-view-flow-efficiency',
-        'board-view-lead-time',
-        'board-view-throughput-histogram',
-        'board-view-wip-run',
-        'board-view-pulse',
-        'board-view-aging-wip',
-        'board-view-blocker-analysis',
-        'board-view-monte-carlo',
-        'board-view-process-behavior',
-        'board-view-size-cycle-time',
-        'board-view-map',
-        'board-view-email',
-        'board-view-chat',
-        'board-view-version-control',
-        'board-view-column-sets',
-      ].includes(window.localStorage.getItem('boardView'))
-    ) {
-      return window.localStorage.getItem('boardView');
-    } else {
-      return DEFAULT_BOARD_VIEW;
-    }
+    // The same list setBoardView accepts. A hand-written copy of it here once
+    // lacked the four Scrum views, so a visitor's Product Backlog, Sprints,
+    // Sprint Report or Velocity opened as Swimlanes.
+    const browserView = window.localStorage.getItem('boardView');
+    return isKnownBoardView(browserView) ? browserView : DEFAULT_BOARD_VIEW;
   },
 
   // `swimlaneId` scopes a BOARD-WIDE list's collapse state to the one

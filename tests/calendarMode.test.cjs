@@ -69,7 +69,9 @@ test('the view is offered below Calendar, rendered by the board, and shows label
   assert.ok(bvs.BOARD_VIEWS.some(v => v.view === 'board-view-calendar-mode' && v.labelKey === 'board-view-calendar-mode'));
   assert.match(read('models/users.js'), /'board-view-cal',\s*'board-view-calendar-mode',/);
   assert.match(read('models/lib/instanceFeatures.js'), /views: \['board-view-cal', 'board-view-calendar-mode', 'board-view-multiboard-cal'\]/);
-  assert.equal((read('client/lib/utils.js').match(/'board-view-calendar-mode',/g) || []).length, 2, 'set and read back');
+  // Set and read back without an account through BOARD_VIEWS (checked above).
+  assert.match(read('client/lib/utils.js'), /setItem\('boardView', isKnownBoardView\(view\) \? view : DEFAULT_BOARD_VIEW\)/, 'set');
+  assert.match(read('client/lib/utils.js'), /return isKnownBoardView\(browserView\) \? browserView : DEFAULT_BOARD_VIEW;/, 'and read back');
   assert.match(read('client/components/boards/boardHeader.js'), /'click \.js-open-calendar-mode-view'\(\) \{\s*Utils\.setBoardView\('board-view-calendar-mode'\);/);
   assert.match(read('client/components/boards/boardBody.jade'), /else if isViewCalendarMode\s*\n\s*\+calendarModeView/);
   const jade = read('client/components/boards/calendarModeView.jade');

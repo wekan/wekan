@@ -7,7 +7,7 @@ const utils = fs.readFileSync('client/lib/utils.js', 'utf8');
 const block = utils.slice(utils.indexOf('setBoardView(view) {'),
   utils.indexOf('\n\n  unsetBoardView()', utils.indexOf('setBoardView(view) {')));
 const authenticated = block.slice(0,
-  block.indexOf("} else if (view === 'board-view-swimlanes')"));
+  block.indexOf('} else {\n      // Not logged in'));
 
 // #4906 / #4256: the pending choice carries the board it was made on.
 assert.match(authenticated, /pendingBoardView\.set\(\{ view, boardId \}\)/,
