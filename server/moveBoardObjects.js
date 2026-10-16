@@ -119,6 +119,22 @@ Meteor.methods({
       if (!doc || doc.archived) throw new Meteor.Error('not-found');
       const described = await describe(entry.kind, doc);
       if (described.boardId !== sourceBoardId) throw new Meteor.Error('invalid-selection');
+      // Board roles apply here as in every view (GHSA-r4gm-mjj9-g3x8): an
+      // assigned-only member moves only their own cards and what is on them -
+      // never a list or swimlane, which holds cards they cannot see. The move
+      // dialog offers them nothing else, so this is an attempt.
+      const owner = entry.kind === 'card' ? doc
+        : ['checklist', 'item'].includes(entry.kind) ? await Cards.findOneAsync(doc.cardId) : null;
+      const { mayCopyFromBoard } = require('/models/lib/boardCardScope');
+      if (!mayCopyFromBoard(sourceBoard, this.userId, owner || undefined)) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.assigned', action: 'blocked', source: 'move-board-objects', userId: this.userId,
+            detail: 'Assigned-only member tried to move something they cannot see.',
+          });
+        } catch (e) { /* logging must never break the guard */ }
+        throw new Meteor.Error('not-found');
+      }
       entries.push(described);
     }
     const roots = selectionRoots(entries);

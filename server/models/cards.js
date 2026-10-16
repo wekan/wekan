@@ -2587,11 +2587,16 @@ WebApp.handlers.get('/api/user/cards', async function(req, res) {
           _id: { $in: boardIds },
           members: { $elemMatch: { userId, isActive: true } },
         },
-        { fields: { _id: 1 } },
+        { fields: { _id: 1, members: 1 } },
       )
     : [];
-  const allowed = new Set((visible || []).map(board => board._id));
-  const readable = (cards || []).filter(card => allowed.has(card.boardId));
+  const visibleBoards = new Map((visible || []).map(board => [board._id, board]));
+  // ...and on each board by the caller's role: being a card's member,
+  // requester or assigner does not show an assigned-only member a card that
+  // is not assigned to them (GHSA-r4gm-mjj9-g3x8).
+  const { assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
+  const readable = (cards || []).filter(card => visibleBoards.has(card.boardId) &&
+    assignedOnlyAllowsCard(visibleBoards.get(card.boardId), userId, card));
 
   sendJsonResult(res, {
     code: 200,

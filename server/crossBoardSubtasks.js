@@ -9,6 +9,8 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 const { cardParentIds, withParentAdded, collectAllAncestorIds, wouldCreateParentCycle } = require('/models/lib/cardParents');
 
@@ -26,14 +28,20 @@ Meteor.methods({
     check(boardId, String);
     check(term, Match.Optional(String));
     if (!this.userId) throw new Meteor.Error('not-authorized');
-    const parent = await Cards.findOneAsync(parentCardId, { fields: { boardId: 1, parentId: 1, parentIds: 1 } });
-    if (!parent || !(await writableBoard(this.userId, parent.boardId)) || !(await writableBoard(this.userId, boardId))) {
+    const parent = await Cards.findOneAsync(parentCardId, { fields: { boardId: 1, parentId: 1, parentIds: 1, assignees: 1, listId: 1 } });
+    const target = await writableBoard(this.userId, boardId);
+    // Board roles apply here as in every view (GHSA-r4gm-mjj9-g3x8): the parent
+    // is a card the caller may edit, and the candidates are only the cards
+    // they see on the target board - an assigned-only member, their own.
+    if (!parent || !(await writableBoard(this.userId, parent.boardId)) || !target ||
+        !(await canEditCardOrLinkedCard(this.userId, parent))) {
       throw new Meteor.Error('not-authorized');
     }
     const ancestors = await collectAllAncestorIds(cardParentIds(parent),
       ids => Cards.find({ _id: { $in: ids } }, { fields: { parentId: 1, parentIds: 1 } }).fetchAsync());
     const selector = { boardId, archived: false, type: { $nin: NOT_ATTACHABLE },
-      _id: { $nin: [parentCardId, ...ancestors] }, parentId: { $ne: parentCardId }, parentIds: { $ne: parentCardId } };
+      _id: { $nin: [parentCardId, ...ancestors] }, parentId: { $ne: parentCardId }, parentIds: { $ne: parentCardId },
+      ...(assignedOnlyCardScope(target, this.userId) || {}) };
     const q = String(term || '').trim().slice(0, 100);
     if (q) selector.title = { $regex: q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' };
     return Cards.find(selector, { fields: { title: 1 }, sort: { sort: 1 }, limit: 50 }).fetchAsync();
@@ -46,7 +54,10 @@ Meteor.methods({
     const parent = await Cards.findOneAsync(parentCardId);
     const child = await Cards.findOneAsync(childCardId);
     if (!parent || !child || child.archived || NOT_ATTACHABLE.includes(child.type)) throw new Meteor.Error('not-found');
-    if (!(await writableBoard(this.userId, parent.boardId)) || !(await writableBoard(this.userId, child.boardId))) {
+    // Attaching changes the child and adds to the parent: both are cards the
+    // caller may edit, which for an assigned-only member means their own.
+    if (!(await writableBoard(this.userId, parent.boardId)) || !(await writableBoard(this.userId, child.boardId)) ||
+        !(await canEditCardOrLinkedCard(this.userId, parent)) || !(await canEditCardOrLinkedCard(this.userId, child))) {
       throw new Meteor.Error('not-authorized');
     }
     const ancestors = await collectAllAncestorIds(cardParentIds(parent),

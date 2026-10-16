@@ -757,7 +757,10 @@ Meteor.methods({
       // Check source permissions: a move removes the attachment from the source
       // board, so it requires write access there.
       const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-      if (!sourceBoard || !(await userHasBoardWriteAccess(sourceBoard, this.userId))) {
+      if (!sourceBoard || !(await userHasBoardWriteAccess(sourceBoard, this.userId)) ||
+          // Moving another card's file onto one's own card would make it readable
+          // (GHSA-r4gm-mjj9-g3x8): the source must be a file the caller reads.
+          !(await mayReadBoardAttachment(sourceBoard, this.userId, sourceAttachment, 'attachment-api:move'))) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 

@@ -17,6 +17,7 @@ import Cards from '/models/cards';
 import { cardCreation } from '/models/cards';
 import Lists from '/models/lists';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 
 const { cleanNewIssue, stateTarget, isSyncedIssue } = require('/models/lib/versionControlView');
 
@@ -78,6 +79,9 @@ Meteor.methods({
     const card = await ReactiveCache.getCard(cardId);
     if (!card) throw new Meteor.Error('not-found');
     const board = await writableBoard(userId, card.boardId);
+    // Closing an issue moves its card: only a card the caller may edit, which
+    // for an assigned-only member is their own (GHSA-r4gm-mjj9-g3x8).
+    if (!(await canEditCardOrLinkedCard(userId, card, board))) throw new Meteor.Error('not-authorized');
     // A synced issue is closed and reopened in its tracker, and the next sync
     // brings the state: moving the card out of its synced list would make
     // the sync see the issue as gone.

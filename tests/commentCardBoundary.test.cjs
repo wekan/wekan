@@ -22,7 +22,9 @@ test('REST attack returns 404 before any insert, while legitimate comments still
   const start = source.indexOf('    const paramBoardId', at);
   const end = source.indexOf('    // Validate the required', start);
   const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
-  const run = new AsyncFunction('req', 'res', 'Authentication', 'ReactiveCache', 'allowIsBoardMemberCommentOnly', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'sendJsonResult', 'canCommentInList', source.slice(start, end) + '\nreturn "validated-boundary";');
+  // GHSA-r4gm-mjj9-g3x8: the card rule is the real one (boardCardScope).
+  const { assignedOnlyAllowsCard } = require('../models/lib/boardCardScope');
+  const run = new AsyncFunction('req', 'res', 'Authentication', 'ReactiveCache', 'allowIsBoardMemberCommentOnly', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'sendJsonResult', 'canCommentInList', 'assignedOnlyAllowsCard', source.slice(start, end) + '\nreturn "validated-boundary";');
   for (const foreign of [false, true]) {
     const logs = [], responses = [];
     const result = await run({ params: { boardId: 'A', cardId: 'card' }, userId: 'u' }, {},
@@ -30,7 +32,7 @@ test('REST attack returns 404 before any insert, while legitimate comments still
       { getBoard: async () => ({}), getCard: async query => ({ _id: query._id, boardId: foreign ? 'B' : query.boardId }) },
       () => true, commentCardMatchesBoard, source => logs.push(source), (res, data) => responses.push(data),
       // #4527: the card's list may allow or refuse commenting; here it allows.
-      async () => true);
+      async () => true, assignedOnlyAllowsCard);
     assert.equal(result, foreign ? undefined : 'validated-boundary');
     assert.equal(logs.length, foreign ? 1 : 0);
     if (foreign) assert.equal(responses[0].code, 404);
@@ -40,10 +42,17 @@ test('DDP insertion and rebinding cannot bypass the boundary', async () => {
   const source = read('server/permissions/cardComments.js');
   const at = source.indexOf('CardComments.deny({');
   let deny;
-  new Function('CardComments', 'Cards', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'hasPrivateCommentWrite', 'recordCommentPrivateDenial', source.slice(at, source.indexOf('CardComments.allow({', at)))(
-    { deny: value => { deny = value; } }, { findOneAsync: async id => ({ _id: id, boardId: 'B' }) }, commentCardMatchesBoard, () => {}, hasPrivateCommentWrite, () => {});
+  // GHSA-r4gm-mjj9-g3x8: an assigned-only member comments only on their cards.
+  const { assignedOnlyAllowsCard } = require('../models/lib/boardCardScope');
+  const boards = { findOneAsync: async () => ({ _id: 'B', members: [
+    { userId: 'u', isActive: true }, { userId: 'limited', isActive: true, isCommentAssignedOnly: true }] }) };
+  new Function('CardComments', 'Cards', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'hasPrivateCommentWrite', 'recordCommentPrivateDenial', 'Boards', 'assignedOnlyAllowsCard', source.slice(at, source.indexOf('CardComments.allow({', at)))(
+    { deny: value => { deny = value; } }, { findOneAsync: async id => ({ _id: id, boardId: 'B', assignees: id === 'own' ? ['limited'] : [] }) }, commentCardMatchesBoard, () => {}, hasPrivateCommentWrite, () => {},
+    boards, assignedOnlyAllowsCard);
   assert.equal(await deny.insert('u', { cardId: 'c', boardId: 'A' }), true);
   assert.equal(await deny.insert('u', { cardId: 'c', boardId: 'B' }), false);
+  assert.equal(await deny.insert('limited', { cardId: 'c', boardId: 'B' }), true, 'not their card');
+  assert.equal(await deny.insert('limited', { cardId: 'own', boardId: 'B' }), false, 'their own card');
   assert.equal(deny.update('u', {}, ['cardId']), true);
   assert.equal(deny.update('u', {}, ['boardId']), true);
   assert.equal(deny.update('u', {}, ['text']), false);

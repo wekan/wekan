@@ -9,6 +9,7 @@ import CardComments from '/models/cardComments';
 import Integrations from '/models/integrations';
 import { buildWebhookBody, hideIdentityFields, memberHidesIdentity } from '/models/lib/webhookPayload';
 import { channelOf, resolveChannelSettings, webhookQueueTarget } from '/models/lib/notificationDelivery';
+import { assignedOnlyAllowsCard } from '/models/lib/boardCardScope';
 
 const Lock = {
     _lock: {},
@@ -288,6 +289,18 @@ Meteor.methods({
               require('/server/lib/securityLog').record({
                 key: 'ssrf.webhook-forge', action: 'blocked', source: 'outgoingWebhooks', userId: this.userId,
                 detail: `client tried to send '${String(description).slice(0, 40)}' through webhook ${storedIntegration._id}`,
+              });
+            } catch (e) { /* logging must never break the guard */ }
+            return;
+          }
+          // Opening a card is reported only for a card the caller sees: an
+          // assigned-only member's own (GHSA-r4gm-mjj9-g3x8). No view opens
+          // another card for them, so this is an attempt.
+          if (!assignedOnlyAllowsCard(integrationBoard, this.userId, card)) {
+            try {
+              require('/server/lib/securityLog').record({
+                key: 'authz.assigned', action: 'blocked', source: 'outgoingWebhooks:card-opened', userId: this.userId,
+                detail: 'Assigned-only member reported opening a card not assigned to them.',
               });
             } catch (e) { /* logging must never break the guard */ }
             return;

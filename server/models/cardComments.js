@@ -1,4 +1,5 @@
 import { commentCardMatchesBoard, recordCommentBoundaryDenial } from '/models/lib/commentCardBoundary';
+import { assignedOnlyAllowsCard } from '/models/lib/boardCardScope';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
@@ -172,6 +173,17 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
 
     if (!commentCardMatchesBoard(card, paramCardId, paramBoardId)) {
       recordCommentBoundaryDenial('rest:comment-insert');
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
+    // An assigned-only member comments only on their own cards (GHSA-r4gm-mjj9-g3x8).
+    if (!assignedOnlyAllowsCard(board, req.userId, card)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.assigned', action: 'blocked', source: 'rest:comment-insert', userId: req.userId,
+          detail: 'Assigned-only member commented on a card not assigned to them.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
       sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
       return;
     }

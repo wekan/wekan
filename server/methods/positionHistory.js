@@ -84,7 +84,12 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    await assertCanReadBoard(this.userId, card.boardId);
+    // ...and the card by the board role, as getCardDescription does
+    // (GHSA-r4gm-mjj9-g3x8): an assigned-only member's own cards only.
+    const cardBoard = await assertCanReadBoard(this.userId, card.boardId);
+    if (!mayCopyFromBoard(cardBoard, this.userId, card)) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this card.');
+    }
 
     return card.trackOriginalPosition();
   },
@@ -144,7 +149,12 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    await assertCanReadBoard(this.userId, card.boardId);
+    // ...and the card by the board role, as getCardDescription does
+    // (GHSA-r4gm-mjj9-g3x8): an assigned-only member's own cards only.
+    const cardBoard = await assertCanReadBoard(this.userId, card.boardId);
+    if (!mayCopyFromBoard(cardBoard, this.userId, card)) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this card.');
+    }
 
     return card.getOriginalPosition();
   },
@@ -204,7 +214,12 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    await assertCanReadBoard(this.userId, card.boardId);
+    // ...and the card by the board role, as getCardDescription does
+    // (GHSA-r4gm-mjj9-g3x8): an assigned-only member's own cards only.
+    const cardBoard = await assertCanReadBoard(this.userId, card.boardId);
+    if (!mayCopyFromBoard(cardBoard, this.userId, card)) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this card.');
+    }
 
     return card.hasMovedFromOriginalPosition();
   },

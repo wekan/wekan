@@ -11,7 +11,11 @@ test('button rule requires write access and binds a supplied card to its board',
   for (const role of BOARD_ROLES) {
     const member = { userId: 'u', isActive: true, [ROLE_FLAGS[role] || 'normal']: true };
     const board = { _id: 'A', members: [member] };
-    assert.equal(buttonRuleAllowed('u', board, 'c', { _id: 'c', boardId: 'A' }), roleCan(role, 'write'));
+    // GHSA-r4gm-mjj9-g3x8: on a card, an assigned-only role decides by the
+    // card too - an unassigned card is refused, their own card is not.
+    const assignedOnly = /assigned-only/.test(role);
+    assert.equal(buttonRuleAllowed('u', board, 'c', { _id: 'c', boardId: 'A' }), roleCan(role, 'write') && !assignedOnly, role);
+    assert.equal(buttonRuleAllowed('u', board, 'c', { _id: 'c', boardId: 'A', assignees: ['u'] }), roleCan(role, 'write'), role);
     assert.equal(buttonRuleAllowed('u', board, undefined, undefined), roleCan(role, 'write'), 'board button remains supported');
     assert.equal(buttonRuleAllowed('u', board, 'c', { _id: 'c', boardId: 'B' }), false);
     assert.equal(buttonRuleAllowed('u', board, 'missing', null), false);

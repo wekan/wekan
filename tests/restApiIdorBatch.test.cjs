@@ -143,7 +143,8 @@ test('my-cards answers only for boards the caller is an active member of', () =>
   const body = handler(cards, 'get', '/api/user/cards');
   assert.ok(/members: \{ \$elemMatch: \{ userId, isActive: true \} \}/.test(body),
     'the boards are re-checked, with isActive');
-  assert.ok(/const readable = \(cards \|\| \[\]\)\.filter\(card => allowed\.has\(card\.boardId\)\)/.test(body),
+  // ...and on each, by the caller's board role (GHSA-r4gm-mjj9-g3x8).
+  assert.ok(/const readable = \(cards \|\| \[\]\)\.filter\(card => visibleBoards\.has\(card\.boardId\) &&/.test(body),
     'and the answer is the filtered set');
   assert.ok(/data: readable\.map/.test(body),
     'which is what is serialised (negative: not the unfiltered cards)');

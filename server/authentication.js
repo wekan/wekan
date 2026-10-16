@@ -89,8 +89,17 @@ export const Authentication = {
     // omitted isCommentAssignedOnly, so that non-writing role could mutate
     // cards through every REST route using this helper. Read the same role
     // capability table as DDP permissions and the client instead.
-    const writeAccess = allowIsBoardMemberWithWriteAccess(userId, board);
-    if (!writeAccess) {
+    // GHSA-r4gm-mjj9-g3x8: an assigned-only member may change only the cards
+    // assigned to them, and these routes act on any card, list or swimlane of
+    // the board by id (copy, move, members, custom fields, checklists...). They
+    // are refused here as the REST reads are (checkBoardAccess above); their
+    // UI writes through DDP, where every card write asks the card. Not
+    // recorded, since an API client of such a member reaches it in ordinary use.
+    const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
+    const capability = allowIsBoardMemberWithWriteAccess(userId, board);
+    const writeAccess = capability && !isAssignedOnlyMember(board, userId);
+    // A role without the write capability at all is still the GHSA-f396 shape.
+    if (!capability) {
       const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
       if (!admin) { // not `=== undefined`: a null from the cache must refuse too
         tripCanary(writeRefusalCanary(board, userId), { userId });

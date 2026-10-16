@@ -97,7 +97,8 @@ test('negative: every attachment API read applies the assigned-only rule', () =>
 test('the other read paths apply the same rule', () => {
   const activities = read('server/publications/activities.js');
   assert.match(activities, /if \(!mayCopyFromBoard\(board, this\.userId, card\)\) \{\n\s*return this\.ready\(\);/);
-  assert.match(activities, /if \(kind === 'board' && isAssignedOnlyMember\(board, this\.userId\)\)/);
+  // Per board of the feed, linked boards included (GHSA-r4gm-mjj9-g3x8).
+  assert.match(activities, /feedBoards\.filter\(b => isAssignedOnlyMember\(b, this\.userId\)\)/);
   const cardsPub = read('server/publications/cards.js');
   assert.match(cardsPub, /\{ boardId: \{ \$in: assignedOnlyBoards \}, assignees: userId \}/);
   assert.match(cardsPub, /\{ boardId: \{ \$in: assignedOnlyBoardIds \}, assignees: userId \}/);

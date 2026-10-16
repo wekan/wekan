@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { canReadBoard } from '/models/lib/boardVisibility';
+const { assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
 
 // We use these when displaying notifications in the notificationsDrawer
 
@@ -155,24 +157,49 @@ async function activityIds() {
   return activityIds;
 }
 
+// A notification shows what its activity names - the card, its comments and
+// checklists - only while the user may still read it: the board, and on it
+// the card, by the user's board role now (GHSA-r4gm-mjj9-g3x8). A member
+// removed from a board, or made assigned-only, kept every notification and
+// so the full documents of the cards they named.
+async function readableActivities(activities) {
+  // The same user activityIds() reads the notifications of.
+  const userId = (await ReactiveCache.getCurrentUser())?._id;
+  if (!userId || !activities.length) return [];
+  const cardIds = [...new Set(activities.map(a => a.cardId).filter(Boolean))];
+  const cards = new Map((cardIds.length ? await ReactiveCache.getCards({ _id: { $in: cardIds } },
+    { fields: { boardId: 1, assignees: 1 } }) : []).map(card => [card._id, card]));
+  const boardIds = [...new Set([...activities.map(a => a.boardId), ...[...cards.values()].map(c => c.boardId)].filter(Boolean))];
+  const boards = new Map((boardIds.length ? await ReactiveCache.getBoards({ _id: { $in: boardIds } }) : [])
+    .map(board => [board._id, board]));
+  return activities.filter(activity => {
+    if (activity.boardId && !canReadBoard(userId, boards.get(activity.boardId))) return false;
+    if (!activity.cardId) return true;
+    const card = cards.get(activity.cardId);
+    if (!card) return false;
+    const board = boards.get(card.boardId);
+    return canReadBoard(userId, board) && assignedOnlyAllowsCard(board, userId, card);
+  });
+}
+
 async function activityDocs() {
   const ids = await activityIds();
   if (ids.length === 0) {
     return [];
   }
-  return await ReactiveCache.getActivities({
+  return await readableActivities(await ReactiveCache.getActivities({
     _id: { $in: ids },
-  });
+  }));
 }
 
 async function activityCursor() {
-  const ids = await activityIds();
-  if (ids.length === 0) {
+  const readable = await activityDocs();
+  if (readable.length === 0) {
     return [];
   }
   return await ReactiveCache.getActivities(
     {
-      _id: { $in: ids },
+      _id: { $in: readable.map(activity => activity._id) },
     },
     {},
     true,

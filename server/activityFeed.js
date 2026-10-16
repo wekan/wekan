@@ -30,7 +30,9 @@ Meteor.methods({
     const boardIds = boards.map(b => b._id);
     const assignedOnlyBoardIds = boards.filter(b => isAssignedOnlyMember(b, this.userId)).map(b => b._id);
     const assignedCardIds = assignedOnlyBoardIds.length
-      ? (await Cards.find({ boardId: { $in: assignedOnlyBoardIds }, $or: [{ assignees: this.userId }, { members: this.userId }] },
+      // Assigned to them, as on the board itself - not merely a card member
+      // (GHSA-r4gm-mjj9-g3x8).
+      ? (await Cards.find({ boardId: { $in: assignedOnlyBoardIds }, assignees: this.userId },
         { fields: { _id: 1 } }).fetchAsync()).map(c => c._id) : [];
     const selector = { boardId: { $in: boardIds } };
     if (options && options.before) selector.createdAt = { $lt: options.before };

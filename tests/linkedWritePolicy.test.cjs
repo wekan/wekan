@@ -12,6 +12,10 @@ test('live links cannot promote explicit non-writing source roles', async () => 
     const member = { userId: 'u', isActive: true, [ROLE_FLAGS[role] || 'normal']: true };
     const source = { _id: 'A', members: [member] };
     assert.equal(sourceRoleBlocksDelegation('u', source), !roleCan(role, 'write'));
+    // An assigned-only role is decided by the card first, before any link
+    // (GHSA-r4gm-mjj9-g3x8, tests/boardRoleViews.test.cjs); this test is about
+    // what a link may delegate.
+    if (/assigned-only/.test(role)) continue;
     const logs = [], context = {
       sourceRoleBlocksDelegation, recordLinkedWriteDenial: source => logs.push(source),
       allowIsBoardMemberWithWriteAccess: (id, board) => Boolean(board && memberCan(board.members, id, 'write')),
@@ -19,7 +23,7 @@ test('live links cannot promote explicit non-writing source roles', async () => 
       // #4527: the card's list is asked first; these lists make no exception,
       // so the source role alone decides, as this test is about.
       listException: async () => undefined,
-      require: () => ({ exceptionFor: () => undefined }),
+      require: name => (/boardCardScope/.test(name) ? require('../models/lib/boardCardScope') : { exceptionFor: () => undefined }),
       Boards: { findOneAsync: async () => source, find: () => ({ fetchAsync: async () => [{ members: [{ userId: 'u', isActive: true, isAdmin: true }] }] }) },
       Cards: { find: () => ({ fetchAsync: async () => [{ boardId: 'self-owned' }] }) },
     };

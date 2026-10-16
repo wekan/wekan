@@ -3,6 +3,7 @@ import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
 import { allowIsBoardMemberCommentOnly, allowIsBoardAdmin } from '/server/lib/utils';
 import { commentCardMatchesBoard, recordCommentBoundaryDenial } from '/models/lib/commentCardBoundary';
+const { assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
 
 const { hasPrivateCommentWrite } = require('/models/lib/commentPrivateFields');
 
@@ -20,9 +21,22 @@ CardComments.deny({
       return true;
     }
     const card = await Cards.findOneAsync(doc.cardId);
-    if (commentCardMatchesBoard(card, doc.cardId, doc.boardId)) return false;
-    recordCommentBoundaryDenial('ddp:comment-insert');
-    return true;
+    if (!commentCardMatchesBoard(card, doc.cardId, doc.boardId)) {
+      recordCommentBoundaryDenial('ddp:comment-insert');
+      return true;
+    }
+    // An assigned-only member comments only on their own cards; no view shows
+    // them another, so this is an attempt (GHSA-r4gm-mjj9-g3x8).
+    if (!assignedOnlyAllowsCard(await Boards.findOneAsync(doc.boardId), userId, card)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.assigned', action: 'blocked', source: 'ddp:comment-insert', userId,
+          detail: 'Assigned-only member commented on a card not assigned to them.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      return true;
+    }
+    return false;
   },
   update(userId, doc, fields, modifier) {
     if (hasPrivateCommentWrite(fields, modifier)) {

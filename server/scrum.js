@@ -112,6 +112,9 @@ export async function getScrumBoardData(userId, boardId) {
     let sprint = sprints[index];
     // Rollover checkpoints contain internal preconditions, not public card data.
     sprint.rolloverPending = restricted ? await rolloverTouches(sprint, visible) : hasRolloverPending(sprint);
+    // The rollover's progress counts the whole sprint's cards, which a
+    // restricted reader may not count (GHSA-r4gm-mjj9-g3x8).
+    if (restricted) { delete sprint.rolloverTotal; delete sprint.rolloverDone; }
     if (restricted && (sprint.startSnapshot || sprint.closeSnapshot)) {
       sprint = await withSnapshotRows(sprint);
       for (const name of ['startSnapshot', 'closeSnapshot']) {

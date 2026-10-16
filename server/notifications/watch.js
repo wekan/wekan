@@ -82,6 +82,19 @@ Meteor.methods({
     if (!(await canSeeBoard(userId, board))) {
       throw new Meteor.Error('error-board-notAMember');
     }
+    // ...and on it, the card by the user's board role: an assigned-only member
+    // watches only their own cards (GHSA-r4gm-mjj9-g3x8). No view shows them
+    // another card's watch button, so this is an attempt.
+    if (watchableType === 'card' &&
+        !require('/models/lib/boardCardScope').assignedOnlyAllowsCard(board, userId, watchableObj)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.assigned', action: 'blocked', source: 'watch:card', userId,
+          detail: 'Assigned-only member tried to watch a card not assigned to them.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('error-card-doesNotExist');
+    }
 
     await watchableObj.setWatcher(userId, level);
     return true;

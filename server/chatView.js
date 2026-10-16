@@ -54,10 +54,13 @@ async function visibleBoardsFor(userId) {
   return { user, boards: await visibleAllBoards(user, { title: 1, slug: 1, members: 1, permission: 1 }) };
 }
 
-// The cards an assigned-only member sees on such a board.
+// The cards an assigned-only member sees on such a board: those assigned to
+// them, as on the board itself (models/lib/boardCardScope.js). Being one of a
+// card's members is not the same thing, and let them read cards the board
+// hides from them (GHSA-r4gm-mjj9-g3x8).
 async function assignedCardIds(boardIds, userId) {
   if (!boardIds.length) return new Set();
-  const cards = await Cards.find({ boardId: { $in: boardIds }, $or: [{ assignees: userId }, { members: userId }] },
+  const cards = await Cards.find({ boardId: { $in: boardIds }, assignees: userId },
     { fields: { _id: 1 } }).fetchAsync();
   return new Set(cards.map(c => c._id));
 }
@@ -138,8 +141,7 @@ Meteor.publish('chatViewCardComments', async function (cardId) {
   const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1, assignees: 1, members: 1 } });
   const board = card && await Boards.findOneAsync(card.boardId);
   if (!board || !(await board.isVisibleBy({ _id: this.userId })) || !readsComments(board, this.userId)) return this.ready();
-  if (isAssignedOnlyMember(board, this.userId) &&
-      !(card.assignees || []).includes(this.userId) && !(card.members || []).includes(this.userId)) return this.ready();
+  if (isAssignedOnlyMember(board, this.userId) && !(card.assignees || []).includes(this.userId)) return this.ready();
   const comments = CardComments.find({ cardId, boardId: card.boardId });
   const authors = [...new Set((await comments.fetchAsync()).map(c => c.userId).filter(Boolean))];
   return [comments, Meteor.users.find({ _id: { $in: authors } },

@@ -54,4 +54,37 @@ describe('editableCardIds', function () {
       await Boards.rawCollection().deleteMany({ _id: { $in: [source, mine, theirs] } });
     }
   });
+
+  // GHSA-r4gm-mjj9-g3x8: board roles apply to every view. A normal-assigned-only
+  // member's role carries `write`, but on a card that is a card answer: only
+  // the cards assigned to them, in the batch and card by card alike, and also
+  // for a card fetched without its assignees (the Cards allow rule fetches
+  // only boardId).
+  it('an assigned-only member edits only their own cards', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const [member, other] = [Random.id(), Random.id()];
+    const boardId = Random.id(), own = Random.id(), notOwn = Random.id();
+    try {
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Assigned only', permission: 'private', members: [
+        { userId: member, isAdmin: false, isActive: true, isNormalAssignedOnly: true },
+        { userId: other, isAdmin: false, isActive: true }] });
+      await Cards.rawCollection().insertMany([
+        { _id: own, boardId, title: 'Mine', assignees: [member] },
+        { _id: notOwn, boardId, title: 'Theirs', assignees: [other] },
+      ]);
+      const board = await Boards.findOneAsync(boardId);
+      const cards = await Cards.find({ boardId }).fetchAsync();
+      assert.deepEqual([...await editableCardIds(member, cards, board)], [own]);
+      assert.equal(await canEditCardOrLinkedCard(member, cards.find(c => c._id === own), board, { recordDenial: false }), true);
+      assert.equal(await canEditCardOrLinkedCard(member, cards.find(c => c._id === notOwn), board, { recordDenial: false }), false);
+      // Fetched with only boardId: the assignees are read, not assumed.
+      assert.equal(await canEditCardOrLinkedCard(member, { _id: own, boardId }, board, { recordDenial: false }), true);
+      assert.equal(await canEditCardOrLinkedCard(member, { _id: notOwn, boardId }, board, { recordDenial: false }), false);
+      // An ordinary member is not narrowed (negative).
+      assert.equal((await editableCardIds(other, cards, board)).size, 2);
+    } finally {
+      await Cards.rawCollection().deleteMany({ boardId });
+      await Boards.rawCollection().deleteMany({ _id: boardId });
+    }
+  });
 });

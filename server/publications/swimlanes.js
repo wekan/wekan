@@ -42,6 +42,10 @@ Meteor.methods({
     if (!swimlane) throw new Meteor.Error('not-found');
     const sourceBoard = await Boards.findOneAsync(swimlane.boardId);
     requireBoardMutation(this.userId, sourceBoard, 'moveSwimlane:source', Meteor);
+    // As copySwimlane: a swimlane holds cards an assigned-only member cannot
+    // see, and moving it shows them on the destination (GHSA-r4gm-mjj9-g3x8).
+    if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId))
+      throw new Meteor.Error('not-authorized');
     const toBoard = await ReactiveCache.getBoard(toBoardId);
     if (!toBoard) throw new Meteor.Error('not-found');
     requireBoardMutation(this.userId, toBoard, 'moveSwimlane:destination', Meteor);

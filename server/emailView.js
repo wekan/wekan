@@ -28,6 +28,7 @@ import { publishReportPage, reportPageKey } from '/models/lib/reportPageIndex';
 const { EMAIL_VIEW_PAGE_ID, emailViewPageArgs, emailFolderSelector, emailSearchSelector, cleanOutgoingEmail } = require('/models/lib/emailView');
 const { createRateLimiter, resolveEmailToCard } = require('/models/lib/emailToCard');
 const { boardAddress } = require('/server/lib/inboundBoardAddress');
+const { assignedOnlyCardScope, mergeCardScope, isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 
 const ROW_FIELDS = {
   title: 1, description: 1, createdAt: 1, receivedAt: 1, userId: 1, labelIds: 1, listId: 1,
@@ -51,11 +52,15 @@ export async function inboxListId(board) {
   return lists && lists[0] ? lists[0]._id : null;
 }
 
-async function selectorFor(board, folder, search) {
-  return {
+// The folder and search, narrowed by the member's board role: an
+// assigned-only member's mailbox holds only the cards assigned to them, as
+// every other view of the board does (GHSA-r4gm-mjj9-g3x8). Opening the view
+// is ordinary use, so nothing is recorded.
+async function selectorFor(board, userId, folder, search) {
+  return mergeCardScope({
     ...emailFolderSelector(board._id, folder, { inboxListId: await inboxListId(board) }),
     ...emailSearchSelector(search),
-  };
+  }, assignedOnlyCardScope(board, userId));
 }
 
 const OptionsPattern = { folder: String, page: Match.Optional(Number), search: Match.Optional(String) };
@@ -69,7 +74,7 @@ Meteor.publish('emailViewPage', async function emailViewPage(boardId, options) {
   check(options, OptionsPattern);
   const board = await readableBoard(this.userId, boardId);
   if (!board) return this.ready();
-  const selector = await selectorFor(board, options.folder, options.search);
+  const selector = await selectorFor(board, this.userId, options.folder, options.search);
   const page = Math.max(1, Math.floor(options.page || 1));
   const docs = await Cards.find(selector, {
     sort: { createdAt: -1, _id: 1 },
@@ -90,7 +95,7 @@ Meteor.methods({
     check(options, OptionsPattern);
     const board = await readableBoard(this.userId, boardId);
     if (!board) throw new Meteor.Error('not-authorized');
-    const total = await Cards.find(await selectorFor(board, options.folder, options.search)).countAsync();
+    const total = await Cards.find(await selectorFor(board, this.userId, options.folder, options.search)).countAsync();
     return { total, inboxListId: await inboxListId(board), pages: pageInfo(total, 1).totalPages };
   },
 
@@ -135,6 +140,18 @@ Meteor.methods({
     if (input.cardId) {
       card = await ReactiveCache.getCard({ _id: input.cardId, boardId: board._id });
       if (!card) throw new Meteor.Error('not-found');
+      // A reply comments on the card and continues its thread: an
+      // assigned-only member replies only on their own cards. The view never
+      // lists another card to them, so this is an attempt.
+      if (isAssignedOnlyMember(board, userId) && !(card.assignees || []).includes(userId)) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.assigned', action: 'blocked', source: 'email-view:reply', userId,
+            detail: 'Assigned-only member replied by email on a card not assigned to them.',
+          });
+        } catch (e) { /* logging must never break the guard */ }
+        throw new Meteor.Error('not-found');
+      }
     }
     const thread = card && card.email && Array.isArray(card.email.threadIds) ? card.email.threadIds : [];
 

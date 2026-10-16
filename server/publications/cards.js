@@ -477,6 +477,14 @@ publishComposite('myAttachments', async function(limit = 200, skip = 0) {
         async find(attachment) {
           const cardId = attachment.meta && attachment.meta.cardId;
           if (!cardId) return { find() { return []; } };
+          // The card of one's own upload, only while one may see it: by the
+          // board role, an assigned-only member's own card (GHSA-r4gm-mjj9-g3x8).
+          const card = await ReactiveCache.getCard({ _id: cardId }, { fields: { boardId: 1, assignees: 1 } });
+          const cardBoard = card && await ReactiveCache.getBoard(card.boardId);
+          if (!cardBoard || !cardBoard.isVisibleBy({ _id: userId }) ||
+              !require('/models/lib/boardCardScope').assignedOnlyAllowsCard(cardBoard, userId, card)) {
+            return { find() { return []; } };
+          }
           return await ReactiveCache.getCards({ _id: cardId }, {}, true);
         },
       },

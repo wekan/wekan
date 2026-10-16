@@ -36,6 +36,13 @@ Meteor.methods({
     const targetBoard = await ReactiveCache.getBoard(newCard.boardId);
     requireBoardMutation(this.userId, sourceBoard, 'moveChecklist:source', Meteor);
     requireBoardMutation(this.userId, targetBoard, 'moveChecklist:destination', Meteor);
+    // Both cards change: the caller may edit each, which for an assigned-only
+    // member means their own (GHSA-r4gm-mjj9-g3x8).
+    const { canEditCardOrLinkedCard } = require('/server/lib/linkedCardPermission');
+    if (!sourceCard || !(await canEditCardOrLinkedCard(this.userId, sourceCard, sourceBoard)) ||
+        !(await canEditCardOrLinkedCard(this.userId, newCard, targetBoard))) {
+      throw new Meteor.Error('not-authorized', 'You cannot change these cards.');
+    }
 
     const activities = await ReactiveCache.getActivities({ checklistId });
     for (const activity of activities) {

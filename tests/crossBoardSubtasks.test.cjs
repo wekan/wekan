@@ -26,7 +26,8 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
   const server = read('server/crossBoardSubtasks.js');
   const add = server.slice(server.indexOf('async addCrossBoardSubtask('));
   // Positive: the write right to BOTH boards, then the loop check, then the write.
-  assert.match(add, /if \(!\(await writableBoard\(this\.userId, parent\.boardId\)\) \|\| !\(await writableBoard\(this\.userId, child\.boardId\)\)\) \{\s*throw new Meteor\.Error\('not-authorized'\);/);
+  // ...and both CARDS by the caller's board role (GHSA-r4gm-mjj9-g3x8).
+  assert.match(add, /if \(!\(await writableBoard\(this\.userId, parent\.boardId\)\) \|\| !\(await writableBoard\(this\.userId, child\.boardId\)\) \|\|\n\s+!\(await canEditCardOrLinkedCard\(this\.userId, parent\)\) \|\| !\(await canEditCardOrLinkedCard\(this\.userId, child\)\)\) \{\s*throw new Meteor\.Error\('not-authorized'\);/);
   assert.ok(add.indexOf('wouldCreateParentCycle') < add.indexOf('Cards.updateAsync'), 'checked before the write');
   assert.match(server, /return board && !board\.archived && allowIsBoardMemberWithWriteAccess\(userId, board\) \? board : null;/);
   // Negative: no template or linked card, no archived card, never without a user.

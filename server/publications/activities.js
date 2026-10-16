@@ -47,12 +47,16 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
 
   let linkedElmtId = [id];
   let board;
+  // The boards whose activities a board feed shows: this one and its visible
+  // linked boards, each read by the user's role on THAT board.
+  const feedBoards = [];
 
   if (kind === 'board') {
     board = await ReactiveCache.getBoard(id);
     if (!board || !board.isVisibleBy(userForVisibility)) {
       return this.ready();
     }
+    feedBoards.push(board);
 
     // Get linked boards, but only those visible to the user
     const linkedCards = await ReactiveCache.getCards({
@@ -63,6 +67,7 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
       const linkedBoard = await ReactiveCache.getBoard(card.linkedId);
       if (linkedBoard && linkedBoard.isVisibleBy(userForVisibility)) {
         linkedElmtId.push(card.linkedId);
+        feedBoards.push(linkedBoard);
       }
     }
   } else if (kind === 'card') {
@@ -83,12 +88,15 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
   const clauses = [{ [`${kind}Id`]: { $in: linkedElmtId } }];
   if (!showActivities) clauses.push({ activityType: 'addComment' });
   // On a board an assigned-only member reads the board's own activities that
-  // concern no card, and those of the cards assigned to them; a linked board's
-  // activities stay under that board's own visibility check above.
-  if (kind === 'board' && isAssignedOnlyMember(board, this.userId)) {
-    const assigned = await ReactiveCache.getCards({ boardId: board._id, assignees: this.userId }, { fields: { _id: 1 } });
+  // concern no card, and those of the cards assigned to them - on this board
+  // and on every linked board where they are assigned-only too: a linked
+  // board's activities passed whole before (GHSA-r4gm-mjj9-g3x8).
+  const restricted = kind === 'board' ? feedBoards.filter(b => isAssignedOnlyMember(b, this.userId)) : [];
+  if (restricted.length) {
+    const restrictedIds = restricted.map(b => b._id);
+    const assigned = await ReactiveCache.getCards({ boardId: { $in: restrictedIds }, assignees: this.userId }, { fields: { _id: 1 } });
     clauses.push({ $or: [
-      { boardId: { $ne: board._id } },
+      { boardId: { $nin: restrictedIds } },
       { cardId: { $exists: false } },
       { cardId: null },
       { cardId: { $in: (assigned || []).map(c => c._id) } },

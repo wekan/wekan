@@ -21,6 +21,8 @@ function fixture({ load = async () => {}, translate = (key, params, language) =>
     webhookFetch: async (url, request) => { requests.push({ url, ...request }); return { status: 200 }; },
     // #3695: the payload builder outgoing.js imports (stripped below).
     ...require('../models/lib/webhookPayload'), ...require('../models/lib/notificationDelivery'),
+    // GHSA-r4gm-mjj9-g3x8: the card-opened notification asks the card rule.
+    ...require('../models/lib/boardCardScope'),
   };
   const source = fs.readFileSync(require.resolve('../server/notifications/outgoing.js'), 'utf8')
     .replace(/^import .*;\n/gm, '').replace(/^export /gm, '');

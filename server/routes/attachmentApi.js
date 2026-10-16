@@ -1150,7 +1150,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           // Check source permissions: a move removes the attachment from the
           // source board, so it requires write access there.
           const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
-          if (!sourceBoard || !(await userHasBoardWriteAccess(sourceBoard, userId))) {
+          if (!sourceBoard || !(await userHasBoardWriteAccess(sourceBoard, userId)) ||
+              // GHSA-r4gm-mjj9-g3x8: only a file the caller may read is moved.
+              !(await mayReadBoardAttachment(sourceBoard, userId, sourceAttachment, 'attachment-api:move'))) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 

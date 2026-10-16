@@ -56,6 +56,14 @@ function mergeCardScope(clientSelector, scope) {
 // only a card assigned to them - never a whole list or swimlane, which holds
 // cards they cannot see. Pass the card for a card copy, nothing for a container.
 function mayCopyFromBoard(board, userId, card) {
+  return assignedOnlyAllowsCard(board, userId, card);
+}
+
+// The card half of a board role, for any action on one card - reading it,
+// commenting on it, running a rule on it (GHSA-r4gm-mjj9-g3x8: board roles
+// apply to every view). Everyone but an assigned-only member passes; they
+// pass only for a card assigned to them. The card must carry `assignees`.
+function assignedOnlyAllowsCard(board, userId, card) {
   if (!isAssignedOnlyMember(board, userId)) return true;
   return !!card && Array.isArray(card.assignees) && card.assignees.includes(userId);
 }
@@ -75,6 +83,7 @@ function copyableSubtasks(subtasks, userId, boardOf, canRead) {
 
 module.exports = {
   mayCopyFromBoard,
+  assignedOnlyAllowsCard,
   copyableSubtasks,
   boardScopeIds,
   boardCardScope,

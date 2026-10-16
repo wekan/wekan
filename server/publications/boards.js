@@ -26,7 +26,21 @@ const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
 } = require('/models/lib/cardsLoading');
-const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
+const { boardCardScope, assignedOnlyCardScope, assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
+
+// Board roles apply to every view (GHSA-r4gm-mjj9-g3x8). Of cards that may
+// live on any board this subscriber sees - ancestors, linked sources, their
+// subtasks and dependencies - keep those their role on each card's own board
+// lets them see: an assigned-only member, only cards assigned to them. Each
+// card needs `boardId` and `assignees`.
+async function roleVisibleCards(userId, cards) {
+  const list = cards || [];
+  const boardIds = [...new Set(list.map(card => card.boardId).filter(Boolean))];
+  if (!boardIds.length) return list;
+  const boards = new Map(((await ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { members: 1 } })) || [])
+    .map(board => [board._id, board]));
+  return list.filter(card => assignedOnlyAllowsCard(boards.get(card.boardId), userId, card));
+}
 const {
   boardVisibilitySelectors,
   starredPublicBoardSelector,
@@ -561,13 +575,22 @@ Meteor.methods({
         ? await lists.fetchAsync()
         : (typeof lists.fetch === 'function' ? lists.fetch() : lists);
 
+      // A tile counts the cards this user sees on each board: an assigned-only
+      // member's own (GHSA-r4gm-mjj9-g3x8).
+      const restricted = boards.filter(board => countedBoardIds.includes(board._id) && assignedOnlyCardScope(board, userId))
+        .map(board => board._id);
+      const open = countedBoardIds.filter(id => !restricted.includes(id));
+      const countMatch = { archived: false, $or: [
+        ...(open.length ? [{ boardId: { $in: open } }] : []),
+        ...(restricted.length ? [{ boardId: { $in: restricted }, assignees: userId }] : []),
+      ] };
       try {
         // One grouped count for all boards on the page instead of a count per
         // list (and instead of shipping every card to the client, which is
         // what the old reactive helpers effectively did).
         const rows = await Cards.rawCollection()
           .aggregate([
-            { $match: { boardId: { $in: countedBoardIds }, archived: false } },
+            { $match: countMatch },
             { $group: { _id: '$listId', n: { $sum: 1 } } },
           ])
           .toArray();
@@ -577,10 +600,7 @@ Meteor.methods({
       } catch (error) {
         // Aggregation may be unavailable on some storage backends; fall back
         // to fetching only the cards' listId and folding in memory.
-        const cards = await Cards.find(
-          { boardId: { $in: countedBoardIds }, archived: false },
-          { fields: { listId: 1 } },
-        ).fetchAsync();
+        const cards = await Cards.find(countMatch, { fields: { listId: 1 } }).fetchAsync();
         Object.assign(cardCounts, countCardsByListId(cards));
       }
     }
@@ -816,13 +836,14 @@ publishComposite('board', async function(boardId, isArchived, generation) {
 
       const linked = await ReactiveCache.getCards(
         { _id: { $in: linkedIds } },
-        { fields: { _id: 1, boardId: 1 } },
+        { fields: { _id: 1, boardId: 1, assignees: 1 } },
         false,
       );
       const linkedBoardIds = [...new Set((linked || []).map(c => c.boardId).filter(Boolean))];
       const allowedBoardIds = await visibleBoardIds(thisUserId, linkedBoardIds);
       allowedBoardIds.add(board._id);
-      return (linked || []).filter(c => allowedBoardIds.has(c.boardId)).map(c => c._id);
+      const visible = (linked || []).filter(c => allowedBoardIds.has(c.boardId));
+      return (await roleVisibleCards(thisUserId, visible)).map(c => c._id);
     })();
     visibleLinkedByParent.set(board, compute);
     return compute;
@@ -912,6 +933,15 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // card. A lazy board ships no comments here either, so it ships no
           // reactions: the opened card's own come from `openCardData`.
           if (await boardIsLazy(board)) return null;
+          // An assigned-only member gets the reactions of their own cards'
+          // comments only, as the comments themselves (GHSA-r4gm-mjj9-g3x8).
+          const scope = assignedOnlyCardScope(board, thisUserId);
+          if (scope) {
+            const cards = await ReactiveCache.getCards({ boardId: board._id, archived: isArchived, ...scope },
+              { fields: { _id: 1 } }, false);
+            return await ReactiveCache.getCardCommentReactions(
+              { boardId: board._id, cardId: { $in: (cards || []).map(card => card._id) } }, {}, true);
+          }
           return await ReactiveCache.getCardCommentReactions({ boardId: board._id }, {}, true);
         }
       },
@@ -1107,7 +1137,7 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // subscriber may actually see.
           const ancestors = await ReactiveCache.getCards(
             { _id: { $in: ancestorIds } },
-            { fields: { _id: 1, boardId: 1 } },
+            { fields: { _id: 1, boardId: 1, assignees: 1 } },
             false,
           );
           const ancestorBoardIds = [...new Set((ancestors || []).map(c => c.boardId).filter(Boolean))];
@@ -1116,8 +1146,9 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // cards need no second decision.
           allowedBoardIds.add(board._id);
 
-          const allowedAncestorIds = (ancestors || [])
-            .filter(c => allowedBoardIds.has(c.boardId))
+          // ...and of those, the ones the subscriber's role lets them see.
+          const allowedAncestorIds = (await roleVisibleCards(thisUserId,
+            (ancestors || []).filter(c => allowedBoardIds.has(c.boardId))))
             .map(c => c._id);
           if (allowedAncestorIds.length === 0) return null;
 
@@ -1234,14 +1265,13 @@ publishComposite('board', async function(boardId, isArchived, generation) {
             false,
           );
           const sourceBoardIds = [...new Set(linkedCards.map(card => card.boardId))];
-          return await ReactiveCache.getCards(
-            {
-              parentId: { $in: linkedCardIds },
-              boardId: { $in: sourceBoardIds },
-            },
-            {},
-            true,
-          );
+          const subtasks = await roleVisibleCards(thisUserId, await ReactiveCache.getCards(
+            { parentId: { $in: linkedCardIds }, boardId: { $in: sourceBoardIds } },
+            { fields: { _id: 1, boardId: 1, assignees: 1 } },
+            false,
+          ));
+          if (subtasks.length === 0) return null;
+          return await ReactiveCache.getCards({ _id: { $in: subtasks.map(card => card._id) } }, {}, true);
         }
       },
       // Cards named by the linked source card's dependency field. Constrain
@@ -1263,14 +1293,13 @@ publishComposite('board', async function(boardId, isArchived, generation) {
             ),
           ).filter(Boolean))];
           if (dependencyIds.length === 0) return null;
-          return await ReactiveCache.getCards(
-            {
-              _id: { $in: dependencyIds },
-              boardId: { $in: sourceBoardIds },
-            },
-            {},
-            true,
-          );
+          const targets = await roleVisibleCards(thisUserId, await ReactiveCache.getCards(
+            { _id: { $in: dependencyIds }, boardId: { $in: sourceBoardIds } },
+            { fields: { _id: 1, boardId: 1, assignees: 1 } },
+            false,
+          ));
+          if (targets.length === 0) return null;
+          return await ReactiveCache.getCards({ _id: { $in: targets.map(card => card._id) } }, {}, true);
         }
       },
       // Comments for linked cards
