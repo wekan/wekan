@@ -3,6 +3,7 @@ import { Random } from 'meteor/random';
 import { isLazyCards } from '/client/lib/lazyCards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { TAPi18n } from '/imports/i18n';
 import { Filter } from '/client/lib/filter';
 import { tableViewCardsSelector, tableCardWithDates } from '/models/lib/tableViewFilter';
 import {
@@ -239,6 +240,18 @@ Template.tableView.helpers({
     const board = Utils.getCurrentBoard();
     return !!board && (board.allowsEndDate || board.allowsEndDateOnMinicard);
   },
+
+  // A swimlane header row spans the whole table: Edit, Card, List and Swimlane,
+  // then - except on a small screen - Assignees, Members, Labels and each date
+  // column the board shows. A fixed 11 left it one short with all four dates
+  // and too wide on a phone.
+  columnCount() {
+    if (Utils.isMiniScreen()) return 4;
+    const board = Utils.getCurrentBoard();
+    const dates = !board ? 0 : ['Received', 'Start', 'Due', 'End']
+      .filter(kind => board[`allows${kind}Date`] || board[`allows${kind}DateOnMinicard`]).length;
+    return 7 + dates;
+  },
 });
 
 Template.tableView.events({
@@ -285,7 +298,10 @@ Template.tableView.events({
         swimlaneId: String(tpl.$('.js-table-view-add-card-swimlane').val() || '') });
       input.val('');
     } catch (error) {
-      alert(error?.reason || error?.message || 'Could not add the card.');
+      // tableViewAddCard refuses with an error code; show it in the reader's
+      // language rather than the code or an English sentence.
+      const key = error?.error === 'not-found' ? 'error-list-doesNotExist' : 'error-notAllowed';
+      alert(TAPi18n.__(key));
     }
   },
 

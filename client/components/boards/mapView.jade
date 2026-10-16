@@ -42,4 +42,4 @@ template(name="mapImageUpload")
     input.js-map-upload-input.hide(type="file" accept="image/png,image/jpeg,image/gif,image/webp")
     button.primary.js-map-upload-button(type="button" disabled=uploading) {{_ 'map-view-upload'}}
     if error
-      p.warning {{error}}
+      p.warning {{_ error}}

@@ -20,6 +20,7 @@ const { officeRowsByPerson } = require('/models/lib/loginTally');
 import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
+import { errorMessage } from '/client/lib/errorMessage';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { attachmentKind } = require('/models/lib/attachmentKind');
 const { filesize } = require('filesize');
@@ -1145,7 +1146,7 @@ function toggleSettingField(field) {
   if (setting) {
     if (field === 'enablePermanentDelete') {
       Meteor.call('setPermanentDeleteEnabled', !setting[field], (err) => {
-        if (err) alert(err.reason || err.message || 'Failed to update permanent delete');
+        if (err) alert(errorMessage(err));
       });
       return;
     }

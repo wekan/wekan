@@ -3,6 +3,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Template } from 'meteor/templating';
 import { Utils } from '/client/lib/utils';
+import { TAPi18n } from '/imports/i18n';
 import { reconstructBoardStateAt } from '/models/lib/boardTimeline';
 
 // Board View / Timeline (Step 2 of the maintainer's spec, Step 1 wiring):
@@ -91,6 +92,13 @@ function boardActivities() {
 }
 
 Template.timelineView.helpers({
+  // Restoring writes the card through its own setters, so it is offered only
+  // to those who may change that card now - the same rule as everywhere else
+  // (role, list exceptions, assigned-only).
+  canRestoreCard(cardId) {
+    const card = ReactiveCache.getCard(cardId);
+    return !!card && Utils.canModifyCard(card);
+  },
   selectedTimestamp() {
     return Template.instance().selectedTimestamp.get();
   },
@@ -259,7 +267,11 @@ Template.timelineView.events({
   'click .js-restore-card-timeline': Popup.afterConfirm('cardRestoreToTimeline', function () {
     const cardContext = this;
     if (cardContext && cardContext.cardId) {
-      restoreCardFromTimeline(cardContext.cardId, cardContext.fields);
+      // A refused write used to vanish: nothing awaited the restore.
+      restoreCardFromTimeline(cardContext.cardId, cardContext.fields).catch(error => {
+        if (process.env.DEBUG === 'true') console.warn('timeline restore failed:', error);
+        alert(TAPi18n.__('error-notAllowed'));
+      });
     }
   }),
 });

@@ -32,6 +32,7 @@ import {
 import { buildCardFromChecklistItem } from '/models/lib/checklistItemToCard';
 import { subtaskNavTarget } from '/client/components/cards/subtaskViewHelpers';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { errorMessage } from '/client/lib/errorMessage';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -395,7 +396,7 @@ Template.checklists.events({
       // of it disappearing instantly. See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
     } catch (error) {
-      alert(error?.reason || error?.message || 'Could not create the subtask.');
+      alert(errorMessage(error));
     }
   },
   'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {

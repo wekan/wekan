@@ -16,6 +16,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { adminPath } from '/models/lib/adminUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
+import { errorMessage } from '/client/lib/errorMessage';
 const { ALL_MAIL_SERVICES, mailServiceStorageKey } = require('/models/lib/mailServices');
 const instanceFeatures = require('/models/lib/instanceFeatures');
 const { cardFieldRows } = require('/models/lib/cardFieldVisibility');
@@ -853,7 +854,7 @@ Template.announcementSettings.events({
         $('.admin-announcement').slideDown();
       }
     } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to update announcement setting');
+      alert(errorMessage(error));
     } finally {
       tpl.loading.set(false);
     }
@@ -870,7 +871,7 @@ Template.announcementSettings.events({
         $set: { body: message },
       });
     } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to save announcement');
+      alert(errorMessage(error));
     }
   },
 });

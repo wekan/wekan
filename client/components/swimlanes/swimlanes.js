@@ -15,6 +15,7 @@ import { Utils } from '/client/lib/utils';
 import { currentUserWith } from '/client/lib/currentUserWith';
 import { TAPi18n } from '/imports/i18n';
 import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpers';
+import { errorMessage } from '/client/lib/errorMessage';
 const { calculateIndex } = Utils;
 
 // #4223 (Bigboard): normally exactly one board's lists are ever on the page,
@@ -1294,7 +1295,7 @@ Template.linkListPopup.events({
       await Meteor.callAsync('createLinkedList', { boardId: board._id, sourceBoardId, sourceListId });
       Popup.back();
     } catch (error) {
-      alert(error?.reason || error?.message || 'Could not link the list.');
+      alert(errorMessage(error));
     }
   },
 });

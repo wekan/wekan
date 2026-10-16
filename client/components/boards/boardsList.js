@@ -70,6 +70,7 @@ import {
   SIDEBAR_SEARCH,
   SIDEBAR_MULTISELECTION,
 } from '/models/lib/allBoardsSidebar';
+import { errorMessage } from '/client/lib/errorMessage';
 
 // SubsManager removed for Meteor 3 migration
 
@@ -1596,7 +1597,7 @@ Template.boardList.events({
       tpl.$('.js-group-member-username').val('');
       tpl.loadGroupMembers();
     } catch (error) {
-      alert(error?.reason || error?.message || 'Could not add the member.');
+      alert(errorMessage(error));
     }
   },
   async 'click .js-remove-group-member'(evt, tpl) {
@@ -1629,7 +1630,7 @@ Template.boardList.events({
       tpl.$('.js-board-label-text').val('');
       tpl.loadBoardFacets();
     } catch (error) {
-      alert(error?.reason || error?.message || 'Could not label the boards.');
+      alert(errorMessage(error));
     }
   },
   async 'click .js-remove-board-label'(evt, tpl) {
@@ -2008,7 +2009,7 @@ Template.boardList.events({
     if (confirm(TAPi18n.__('archive-board-confirm'))) {
       const boardId = this._id;
       Meteor.call('archiveBoard', boardId, (err) => {
-        if (err) alert(err?.reason || err?.message || 'Failed to archive board');
+        if (err) alert(errorMessage(err));
       });
       evt.preventDefault();
     }
@@ -2329,7 +2330,7 @@ Template.boardList.events({
 
     boardIds.forEach((boardId) => {
       Meteor.call('archiveBoard', boardId, (err) => {
-        if (err) alert(err?.reason || err?.message || 'Failed to archive board');
+        if (err) alert(errorMessage(err));
       });
     });
     // The dragged boards are gone from this page, so a selection of them is
@@ -2450,7 +2451,7 @@ Template.boardList.events({
 
     boardIds.forEach((boardId) => {
       Meteor.call('clearDefaultBoard', boardId, (err) => {
-        if (err) alert(err?.reason || err?.message || 'Failed to remove from Home');
+        if (err) alert(errorMessage(err));
       });
     });
     if (isMultiBoard) BoardMultiSelection.reset();
@@ -2505,7 +2506,7 @@ Template.boardList.events({
     // silently choose its first id; it has to be narrowed to one before this
     // drop can change anything.
     Meteor.call('setDefaultBoard', boardIds[0], (err) => {
-      if (err) alert(err?.reason || err?.message || 'Failed to set Home board');
+      if (err) alert(errorMessage(err));
     });
     if (isMultiBoard) BoardMultiSelection.reset();
   },
@@ -2562,7 +2563,7 @@ Template.boardList.events({
       const board = ReactiveCache.getBoard(boardId);
       if (board && board.archived) {
         Meteor.call('restoreBoard', boardId, (err) => {
-          if (err) alert(err?.reason || err?.message || 'Failed to restore board');
+          if (err) alert(errorMessage(err));
         });
       }
       // ...and out of whatever workspace it was in, which is the other half of

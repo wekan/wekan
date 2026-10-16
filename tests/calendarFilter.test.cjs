@@ -41,6 +41,7 @@ function fieldMatches(cond, value) {
       }
       return list.includes(value);
     }
+    if ('$ne' in cond) return value !== cond.$ne;
     let ok = true;
     if ('$gte' in cond) ok = ok && value !== undefined && value >= cond.$gte;
     if ('$lte' in cond) ok = ok && value !== undefined && value <= cond.$lte;
@@ -75,7 +76,7 @@ const END = 200;
 
 // --- no active filter: selector unchanged -----------------------------------
 test('#5656: cardsDueInBetweenSelector is unchanged when no filter is active', () => {
-  const base = { boardId: BOARD, dueAt: { $gte: START, $lte: END } };
+  const base = { boardId: BOARD, archived: { $ne: true }, dueAt: { $gte: START, $lte: END } };
   assert.deepStrictEqual(cardsDueInBetweenSelector(BOARD, START, END), base);
   assert.deepStrictEqual(cardsDueInBetweenSelector(BOARD, START, END, {}), base);
   assert.deepStrictEqual(cardsDueInBetweenSelector(BOARD, START, END, null), base);
@@ -93,7 +94,7 @@ test('#5656: an active filter is ANDed into the due-date selector', () => {
   const filter = assigneeFilterSelector(USER);
   const sel = cardsDueInBetweenSelector(BOARD, START, END, filter);
   assert.deepStrictEqual(sel, {
-    $and: [filter, { boardId: BOARD, dueAt: { $gte: START, $lte: END } }],
+    $and: [filter, { boardId: BOARD, archived: { $ne: true }, dueAt: { $gte: START, $lte: END } }],
   });
 });
 
@@ -107,6 +108,19 @@ test('#5656: an active filter is ANDed into the interval selector without $or cl
   assert.strictEqual(sel.$and.length, 2);
   assert.deepStrictEqual(sel.$and[0], filter);
   assert.ok('$or' in sel.$and[1], 'interval base $or preserved');
+});
+
+// --- archived cards stay off every calendar ---------------------------------
+test('an archived card is on no calendar, a live one is (negative and positive)', () => {
+  const live = { _id: 'a1', boardId: BOARD, dueAt: 150, receivedAt: 150, endAt: 150, startAt: 120 };
+  const archived = { ...live, _id: 'a2', archived: true };
+  for (const build of [cardsDueInBetweenSelector, cardsReceivedInBetweenSelector,
+    cardsEndInBetweenSelector, cardsInIntervalSelector]) {
+    const sel = build(BOARD, START, END);
+    assert.ok(docMatches(sel, live), `${build.name} shows the live card`);
+    assert.ok(docMatches(sel, { ...live, archived: false }), `${build.name} shows archived: false`);
+    assert.ok(!docMatches(sel, archived), `${build.name} leaves the archived card out`);
+  }
 });
 
 // --- behavioural: filter scopes which cards the Calendar shows --------------
@@ -143,7 +157,7 @@ test('#5656: without a filter, both users\' cards are shown (pre-fix behaviour p
 // four of WeKan's card dates (Received, Start, Due, End) on the Calendar.
 
 test('cardsReceivedInBetweenSelector mirrors cardsDueInBetweenSelector, on receivedAt', () => {
-  const base = { boardId: BOARD, receivedAt: { $gte: START, $lte: END } };
+  const base = { boardId: BOARD, archived: { $ne: true }, receivedAt: { $gte: START, $lte: END } };
   assert.deepStrictEqual(cardsReceivedInBetweenSelector(BOARD, START, END), base);
   const filter = assigneeFilterSelector(USER);
   assert.deepStrictEqual(cardsReceivedInBetweenSelector(BOARD, START, END, filter), {
@@ -152,7 +166,7 @@ test('cardsReceivedInBetweenSelector mirrors cardsDueInBetweenSelector, on recei
 });
 
 test('cardsEndInBetweenSelector mirrors cardsDueInBetweenSelector, on endAt', () => {
-  const base = { boardId: BOARD, endAt: { $gte: START, $lte: END } };
+  const base = { boardId: BOARD, archived: { $ne: true }, endAt: { $gte: START, $lte: END } };
   assert.deepStrictEqual(cardsEndInBetweenSelector(BOARD, START, END), base);
   const filter = assigneeFilterSelector(USER);
   assert.deepStrictEqual(cardsEndInBetweenSelector(BOARD, START, END, filter), {

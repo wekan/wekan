@@ -19,11 +19,16 @@
 
 import { combineWithFilter } from './swimlaneFilter.js';
 
+// Every selector leaves out archived cards: the board publication does not send
+// them, but the Archive sidebar does, and once it had they showed on the
+// calendars as if they were live.
+
 // Cards whose due date falls within [start, end].
 function cardsDueInBetweenSelector(boardId, start, end, filterSelector) {
   return combineWithFilter(
     {
       boardId,
+      archived: { $ne: true },
       dueAt: { $gte: start, $lte: end },
     },
     filterSelector,
@@ -38,6 +43,7 @@ function cardsReceivedInBetweenSelector(boardId, start, end, filterSelector) {
   return combineWithFilter(
     {
       boardId,
+      archived: { $ne: true },
       receivedAt: { $gte: start, $lte: end },
     },
     filterSelector,
@@ -53,6 +59,7 @@ function cardsEndInBetweenSelector(boardId, start, end, filterSelector) {
   return combineWithFilter(
     {
       boardId,
+      archived: { $ne: true },
       endAt: { $gte: start, $lte: end },
     },
     filterSelector,
@@ -66,6 +73,7 @@ function cardsInIntervalSelector(boardId, start, end, filterSelector) {
   return combineWithFilter(
     {
       boardId,
+      archived: { $ne: true },
       $or: [
         { startAt: { $lte: start }, endAt: { $gte: start } },
         { startAt: { $lte: end }, endAt: { $gte: end } },

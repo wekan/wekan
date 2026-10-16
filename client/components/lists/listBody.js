@@ -38,6 +38,7 @@ import {
   findActiveCardDrag,
 } from '/client/lib/cardDragGeometry';
 import autosize from 'autosize';
+import { errorMessage } from '/client/lib/errorMessage';
 
 // SubsManager removed for Meteor 3 migration
 const InfiniteScrollIter = 10;
@@ -1533,7 +1534,7 @@ Template.searchElementPopup.events({
     const cardId = this && this._id;
     if (!cardId) return;
     Meteor.call('toggleDefaultBoardTemplate', cardId, (err) => {
-      if (err) alert(err?.reason || err?.message || 'Failed to set default board template');
+      if (err) alert(errorMessage(err));
     });
   },
   'change .js-select-boards'(evt, tpl) {

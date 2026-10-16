@@ -130,12 +130,17 @@ Template.mapImageUpload.events({
       });
       uploader.on('end', err => {
         tpl.uploading.set(false);
-        if (err) tpl.error.set(err.reason || err.message || 'upload-failed');
+        // The template translates the key; the reason is for the console.
+        if (err) {
+          if (process.env.DEBUG === 'true') console.warn('map image upload failed:', err);
+          tpl.error.set('upload-failed');
+        }
       });
       uploader.start();
     } catch (error) {
       tpl.uploading.set(false);
-      tpl.error.set((error && (error.reason || error.message)) || 'upload-failed');
+      if (process.env.DEBUG === 'true') console.warn('map image upload failed:', error);
+      tpl.error.set('upload-failed');
     } finally {
       input.value = '';
     }

@@ -78,6 +78,7 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { UnsavedEdits } from '/client/lib/unsavedEdits';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
+import { errorMessage } from '/client/lib/errorMessage';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { caretClassFor } from '/client/lib/sectionCaret';
@@ -1246,7 +1247,7 @@ Template.cardDetails.events({
       // description" warning behind.
       UnsavedEdits.reset({ fieldName: 'cardDescription', docId: card._id });
     } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to save description');
+      alert(errorMessage(error));
     }
   },
   async 'submit .js-card-details-title'(event, tpl) {
@@ -1258,7 +1259,7 @@ Template.cardDetails.events({
     try {
       await card.setTitle(title || '');
     } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to save title');
+      alert(errorMessage(error));
     }
   },
   'submit .js-card-details-assigner'(event, tpl) {
@@ -1859,7 +1860,7 @@ Template.cardDetailsActionsPopup.events({
       await Meteor.callAsync('saveCardAsTemplate', cardId);
       Popup.back();
     } catch (err) {
-      alert(err?.reason || err?.message || 'Failed to save card as template');
+      alert(errorMessage(err));
     }
   },
   'click .js-set-card-recurrence-interval': Popup.open('cardRecurrenceInterval'),
@@ -2844,7 +2845,7 @@ Template.cardMorePopup.events({
     try {
       card.addParent(parentId);
     } catch (error) {
-      alert(error?.reason || error?.message || 'Could not add the parent card.');
+      alert(errorMessage(error));
     }
   },
   'click .js-remove-other-parent'(event) {

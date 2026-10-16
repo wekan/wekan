@@ -71,6 +71,7 @@ import {
   getSidebarInstance,
   setSidebarInstance,
 } from '/client/features/sidebar/service';
+import { errorMessage } from '/client/lib/errorMessage';
 
 export let Sidebar = null;
 
@@ -615,7 +616,7 @@ Template.boardMenuPopup.events({
       await Meteor.callAsync('archiveBoard', currentBoard._id);
       FlowRouter.go('home');
     } catch (err) {
-      alert(err?.reason || err?.message || 'Failed to archive board');
+      alert(errorMessage(err));
     }
   }),
   'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
@@ -1355,7 +1356,7 @@ Template.outgoingWebhooksPopup.events({
       }
       Popup.back();
     } catch (error) {
-      alert(error?.reason || error?.message || 'Failed to save webhook');
+      alert(errorMessage(error));
     }
   },
 });
