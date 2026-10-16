@@ -105,6 +105,43 @@ below by category, with its reason.
 
 </details>
 
+<details>
+<summary>Built but not yet in use.</summary>
+
+- Original positions: `originalPositionsView` and `originalPosition`
+  (client/components/boards/, client/components/common/) are drawn by nothing;
+  every string is hard-coded English, so they need translation keys and a place
+  in a menu before they are wired in.
+
+</details>
+
+<details>
+<summary>Designed, not implemented.</summary>
+
+- Admin Panel / Problems / RAM usage and Disk usage: the pages describe the
+  monitors and their `WEKAN_RAM_*` / `WEKAN_DISK_*` settings, and no code reads
+  them yet.
+
+</details>
+
+<details>
+<summary>Documentation gaps.</summary>
+
+- Board views without a guide of their own: Table, Calendar Mode, Time,
+  Timeline and Map are described only in Board Settings / Board View.
+
+</details>
+
+<details>
+<summary>Code to combine.</summary>
+
+- The card and minicard date badges (client/components/cards/cardDate.js), the
+  calendar options of the Calendar and Multi Board Calendar views, and the list
+  sortable setup repeated in client/components/swimlanes/swimlanes.js. Tests
+  pin their source text, so each needs its tests rewritten with it.
+
+</details>
+
 </details>
 
 # Upcoming WeKan ® release
