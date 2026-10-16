@@ -91,7 +91,7 @@ docker run \
 sudo wekan.wekan-help | grep MONGO_OPLOG
 
 # Configure
-sudo snap set wekan MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+sudo snap set wekan mongo-oplog-url='mongodb://127.0.0.1:27017/local?replicaSet=rs0'
 ```
 
 ### 5. Production Deployment

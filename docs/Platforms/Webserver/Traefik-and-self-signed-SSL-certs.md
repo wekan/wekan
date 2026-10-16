@@ -6,7 +6,7 @@ Craig had been using nginx as a reverse proxy for a restyaboard install, but it 
 
 This was done to demo using containers as services (he works in an older style org and they're still stuck in a vmware/vm mentality).
 
-Updated 5-10-18 for wekan v1.52 and mongodb 3.2.21
+Updated 5-10-18 for wekan v1.52 and mongodb 3.2.21. The images below are now the current WeKan and MongoDB 7; Traefik stays at v1.7 because the configuration is v1 syntax.
 ## Install
 
 Note: my login is a member of the docker group on this docker host so I can exec docker commands.
@@ -44,11 +44,11 @@ Created an internal dns entry wekan.myinternaldomain.org that is a cname for the
 added the following to `/opt/traefik/docker-compose.yml`
 
 ```
-version: '2'
-
 services:
   traefik:
-    image: traefik:latest
+    # The labels and traefik.toml below are Traefik v1 syntax; traefik:latest
+    # is v3 and ignores them.
+    image: traefik:v1.7
     ports:
       - 80:80
       - 443:443
@@ -134,15 +134,13 @@ Now for Wekan:
 This fairly standard with the addition of some labels(handy notes have been removed for brevity)
 
 ```
-version: '2'
-
 services:
 
   wekandb:
-    image: mongo:3.2.21
+    image: mongo:7
     container_name: wekan-db
     restart: always
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --oplogSize 128
     networks:
       - web
     expose:
@@ -151,7 +149,7 @@ services:
       - wekan-db:/data/db
       - wekan-db-dump:/dump
   wekan:
-    image: quay.io/wekan/wekan:v1.52
+    image: ghcr.io/wekan/wekan:latest
     container_name: wekan-app
     restart: always
     networks:

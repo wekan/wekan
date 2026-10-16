@@ -263,17 +263,18 @@ docker-compose up -d --no-build
 Note: Some newer settings could be missing from example below. Someone could copy newest missing settings from docker-compose.yml above to example below. Some examples are also at closed and open issues at https://github.com/wekan/wekan-ldap/issues
 
 ```
-version: '2'
-
 services:
 
   wekandb:
     # All Wekan data is stored in MongoDB. For backup and restore, see:
     #   [Export Docker Mongo Data](../../Platforms/FOSS/Container/Docker/Export-Docker-Mongo-Data.md)
-    image: mongo:4.0.3
+    # MongoDB 7. For the replica set that Meteor's change streams use, and for
+    # FerretDB (the default database), see docker-compose-mongodb-v7.yml and
+    # docker-compose.yml at the repository root.
+    image: mongo:7
     container_name: wekan-db
     restart: always
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --oplogSize 128
     networks:
       - wekan-tier
     expose:
@@ -286,11 +287,8 @@ services:
     # Wekan container only has Node.js and related code,
     # there is no data stored here.
     #
-    # Docker Hub, usually broken:
-    #image: wekanteam/wekan:latest
-    #
-    # Quay, usually works, updates faster:
-    image: quay.io/wekan/wekan:meteor-1.8
+    # Also at Quay (quay.io/wekan/wekan) and Docker Hub (wekanteam/wekan).
+    image: ghcr.io/wekan/wekan:latest
     container_name: wekan-app
     restart: always
     networks:

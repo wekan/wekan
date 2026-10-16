@@ -208,6 +208,10 @@ https://github.com/wekan/wekan-snap/wiki/Install
 
 ## f) Install Meteor on Windows - does not build correctly, gives errors
 
+To build WeKan from source on Windows now, use `build.bat` in the repository
+root: its menu installs the dependencies, builds WeKan and runs the tests.
+The old steps below are kept for reference.
+
 https://github.com/zodern/windows-meteor-installer/
 
 ```
@@ -218,7 +222,7 @@ REM in PowerShell as Administrator
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 REM Install with cmd.exe or PowerShell as Administrator
-REM - nodejs-lts, that is 12.x
+REM - nodejs-lts
 REM - ndm, that is npm package manager for Windows
 
 choco install -y nodejs-lts ndm git
@@ -240,14 +244,12 @@ cd wekan
 REM a) For development, available at local network, at your computer IP address. Does rebuild when code changes.
 
 SET WITH_API=true
-SET RICHER_CARD_EDITOR=false
 SET ROOT_URL=http://192.168.0.200:4000
 meteorz --port 4000
 
 REM b) For development, available only at http://localhost:4000 . Does rebuild when code changes.
 
 SET WITH_API=true
-SET RICHER_CARD_EDITOR=false
 meteorz --port 4000
 
 REM c) For production, after Wekan is built to "wekan/.build/bundle",

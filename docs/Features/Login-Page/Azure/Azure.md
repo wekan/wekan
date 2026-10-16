@@ -150,7 +150,7 @@ Optionally you can would like to [disable all Snap automatic updates](https://gi
 
 ### There are two major steps for configuring Wekan to authenticate to Azure AD via OpenID Connect (OIDC)
 
-Note: These old docs below don't have all settings listed that above new Snap settings have. Text case and _- is different, for example at Docker there is `OAUTH2_ENABLED=true` when at Snap same setting is `sudo snap set wekan oauth-enabled='true'`
+Note: These old docs below don't have all settings listed that above new Snap settings have. Text case and _- is different, for example at Docker there is `OAUTH2_ENABLED=true` when at Snap same setting is `sudo snap set wekan oauth2-enabled='true'`
 
 1. Register the application with Azure. Make sure you capture the application ID as well as generate a secret key.
 2. Configure the environment variables.  This differs slightly by installation type, but make sure you have the following:

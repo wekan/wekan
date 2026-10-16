@@ -45,7 +45,7 @@ environment:
 
 **Setup:**
 ```bash
-sudo snap set wekan MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+sudo snap set wekan mongo-oplog-url='mongodb://127.0.0.1:27017/local?replicaSet=rs0'
 ```
 
 ### ✅ Production Deployments
@@ -116,7 +116,7 @@ For Users to Enable Oplog:
   - [ ] Run `docker-compose up --build`
 
 - [ ] **Snap:**
-  - [ ] Run `sudo snap set wekan MONGO_OPLOG_URL=...`
+  - [ ] Run `sudo snap set wekan mongo-oplog-url='...'`
   - [ ] Verify with `sudo wekan.wekan-help`
 
 - [ ] **Production:**

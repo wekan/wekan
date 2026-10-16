@@ -8,7 +8,7 @@
 - disable mongodb in wekan by calling:
 
 ```
-$ snap set wekan set disable-mongodb='true'
+$ snap set wekan disable-mongodb='true'
 ```
 
 - set mongodb-bind-unix-socket to point to serving mongodb. Use relative path inside shared directory, e.g run/mongodb-27017.sock
