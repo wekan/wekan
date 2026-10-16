@@ -107,6 +107,84 @@ below by category, with its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** a **LockoutBleed** follow-up loads the web login's timing
+equalizer, which was finished but never imported, together with **card
+recurrence** and the snap's product name. Notification attachments show
+again, labels that showed their translation key are translated, and
+**docs/Features is filed by the WeKan menus**.
+
+This release fixes the following CRITICAL SECURITY ISSUE of [LockoutBleed](https://wekan.fi/hall-of-fame/lockoutbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f3a61df0c">The web login no longer tells by its response time whether a username exists</a>. Thanks to xet7.</summary>
+
+[GHSA-2g94-9x3m-hv37](https://github.com/wekan/wekan/security/advisories/GHSA-2g94-9x3m-hv37)
+follow-up: `package.json` sets `meteor.mainModule`, so the server runs only
+what an import chain from `server/main.js` reaches, and
+`server/loginTimingNormalization.js` - the DDP `login` half of the timing fix -
+was never imported. The REST login was equalized; the web login was not. It
+is loaded now. Nothing is refused by it, so there is nothing to record in Admin
+Panel → Problems; the lockout itself still records under LockoutBleed.
+`tests/serverModulesLoaded.test.cjs` fails when any server module that
+registers a login handler, methods, publications, a route, a startup hook or
+a job is not reached.
+
+</details>
+
+and fixes the following bugs:
+
+**Cards** - features that were saved but never acted on.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f3a61df0c">A card's Recurrence setting recurs, and the snap's offline pages show the product name</a>. Thanks to xet7.</summary>
+
+`server/cardRecurrenceSchedule.js`, the hourly job behind a card's Recurrence
+setting, and `server/productNameCache.js`, the Admin Panel product name for the
+pages the snap shows while the database is down, were never imported, so the
+setting was saved and nothing recurred. Both are loaded with the timing fix
+above.
+
+</details>
+
+**Notifications and labels** - what the drawer receives, and what the pages
+say.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/262f9194fc">Notification attachments show, and six labels no longer show their translation key</a>. Thanks to xet7.</summary>
+
+The notifications drawer subscribed to `notificationsAttachments` while the
+server publishes `notificationAttachments`, so the subscription never became
+ready. Six template keys did not exist: the sidebar filter's Due group, the
+Scrum sprint form, the Jira estimate field, the passkey trash icon and two
+webhook URL fields showed `dueAt`, `end`, `no-cards`, `custom-field`, `remove`
+and `URL`. They use existing keys now. Two tests check every subscription
+against every publication and every template key against `en.i18n.json`.
+
+</details>
+
+and has the following developer-facing changes:
+
+- [Remove files nothing loads, and point their tests at the code that runs](https://github.com/wekan/wekan/commit/70dcc2a134).
+  Thanks to xet7.
+
+and updates the following documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7589737f5">docs/Features is filed the way the WeKan menus are, with the code behind each entry</a>. Thanks to xet7.</summary>
+
+Guides sit under the menu they are used from: Header-Bar, All-Boards, Pages,
+Board-Header, Board-Sidebar, Rules, Swimlanes, Lists, Cards, Member-Settings,
+Admin-Panel and Login-Page, with shared topics in General. Each area has a
+README mapping its menu entries to guides and to the template or module that
+implements them; Board View lists all 40 views, of which five have no guide of
+their own yet. Old paths that released changelogs link keep a forwarding page.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.49 2026-10-16 WeKan ® release
 
 **In short:** an **AssignedBleed** follow-up makes **board role permissions
