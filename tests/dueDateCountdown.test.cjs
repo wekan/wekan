@@ -77,31 +77,26 @@ test('cardDate.js wires dueCountdown into the card-detail and minicard due badge
   assert.match(src, /function dueCountdownText\(dueDate, nowVal\)/,
     'cardDate.js must have a dueCountdownText() helper turning dueCountdown() into text');
 
-  // Both cardDueDate and minicardDueDate must call the helper from their
-  // showDate() - which is what the badge actually renders.
-  const dueDateBlockMatch = src.match(
-    /Template\.cardDueDate\.helpers\(cardDateHelpers\(\{[\s\S]*?\}\)\);/,
-  );
-  assert.ok(dueDateBlockMatch, 'could not find Template.cardDueDate.helpers block');
-  assert.match(dueDateBlockMatch[0], /dueCountdownText\(/,
-    'cardDueDate helpers must call dueCountdownText()');
-
-  const miniDueDateBlockMatch = src.match(
-    /Template\.minicardDueDate\.helpers\(cardDateHelpers\(\{[\s\S]*?\}\)\);/,
-  );
-  assert.ok(miniDueDateBlockMatch, 'could not find Template.minicardDueDate.helpers block');
-  assert.match(miniDueDateBlockMatch[0], /dueCountdownText\(/,
-    'minicardDueDate helpers must call dueCountdownText()');
+  // cardDueDate and minicardDueDate are both built from CARD_DATE_KINDS.Due,
+  // so the countdown is in that one entry's showDate()/showTitle() - which is
+  // what both badges render.
+  const kinds = src.slice(src.indexOf('const CARD_DATE_KINDS = {'), src.indexOf('\n};', src.indexOf('const CARD_DATE_KINDS = {')));
+  const kind = name => {
+    const at = kinds.indexOf(`\n  ${name}: {`);
+    assert.ok(at !== -1, `CARD_DATE_KINDS has ${name}`);
+    const next = kinds.slice(at + 1).search(/\n {2}\w+: \{/);
+    return next === -1 ? kinds.slice(at) : kinds.slice(at, at + 1 + next);
+  };
+  assert.match(kind('Due'), /showDate\(\) \{[\s\S]*dueCountdownText\(/,
+    'the due date badges call dueCountdownText()');
+  assert.match(src, /for \(const name of \[`card\$\{kind\}Date`, `minicard\$\{kind\}Date`\]\)/,
+    'and both the opened-card and the minicard badge are built from it');
 
   // Negative: the received/start/end date badges must NOT gain a countdown -
   // this is scoped to the due-date badge only (they share the same markup
   // template, dateBadgeBody, but not the same showDate() override).
-  for (const name of ['cardReceivedDate', 'cardStartDate', 'cardEndDate',
-    'minicardReceivedDate', 'minicardStartDate', 'minicardEndDate']) {
-    const re = new RegExp(`Template\\.${name}\\.helpers\\(cardDateHelpers\\(\\{[\\s\\S]*?\\}\\)\\);`);
-    const block = src.match(re);
-    assert.ok(block, `could not find Template.${name}.helpers block`);
-    assert.doesNotMatch(block[0], /dueCountdownText\(/,
+  for (const name of ['Received', 'Start', 'End']) {
+    assert.doesNotMatch(kind(name), /dueCountdownText\(/,
       `${name} must not gain a countdown - only the due-date badge does`);
   }
 });

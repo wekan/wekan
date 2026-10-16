@@ -157,10 +157,14 @@ test('clicking an existing date reopens its editor with the Card context', () =>
     'the surrounding date template supplies its Card, not dateBadgeBody arguments');
   assert.ok(/event\.stopPropagation\(\)/.test(opener),
     'cardDetails must not open a second popup while the badge click bubbles');
+  // Each date's card and minicard badge are built from its CARD_DATE_KINDS
+  // entry, whose editor the shared click handler opens.
   for (const kind of ['Received', 'Start', 'Due', 'End']) {
-    assert.ok(new RegExp(`Template\\.card${kind}Date\\.events\\(\\{[\\s\\S]*?openDateEditor\\('editCard${kind}Date'\\)`)
+    assert.ok(new RegExp(`${kind}: \\{\\s*\\n\\s*read: card => card\\.get${kind}\\(\\),\\s*\\n\\s*editor: 'editCard${kind}Date',`)
       .test(js), `${kind} dates reopen through the Card-aware handler`);
   }
+  assert.ok(/'click \.js-edit-date': openDateEditor\(spec\.editor\)/.test(js),
+    'and the handler is openDateEditor for every one of them');
   assert.ok(!/'click \.js-edit-date': Popup\.open\('editCard/.test(js),
     'negative: no existing card date passes child display data to a popup');
 });

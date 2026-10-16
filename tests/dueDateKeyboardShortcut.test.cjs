@@ -137,7 +137,10 @@ test('the due date control it clicks is the one card details renders only for ed
   assert.match(date, /template\(name="dateBadgeBody"\)\s*\n\s*if canModifyCard\s*\n\s*a\.js-edit-date/);
   const details = read('client/components/cards/cardDetails.js');
   assert.match(details, /'click \.js-due-date': Popup\.open\('editCardDueDate'\)/);
-  assert.match(read('client/components/cards/cardDate.js'), /Template\.cardDueDate\.events\(\{\s*\n\s*'click \.js-edit-date': openDateEditor\('editCardDueDate'\)/);
+  // cardDueDate and minicardDueDate are both built from CARD_DATE_KINDS.Due.
+  const dateJs = read('client/components/cards/cardDate.js');
+  assert.match(dateJs, /Due: \{\s*\n\s*read: card => card\.getDue\(\),\s*\n\s*editor: 'editCardDueDate',/);
+  assert.match(dateJs, /'click \.js-edit-date': openDateEditor\(spec\.editor\)/);
 });
 
 test('appears in the keyboard shortcuts help list with English text', () => {

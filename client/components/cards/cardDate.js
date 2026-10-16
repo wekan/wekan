@@ -187,336 +187,150 @@ function cardDateHelpers(extraHelpers) {
   return Object.assign(base, extraHelpers);
 }
 
-// cardReceivedDate
-Template.cardReceivedDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getReceived()));
-  });
-});
+// The four card dates - Received, Start, Due, End - each drawn twice: in the
+// opened card (card*Date) and on the minicard (minicard*Date). Both badges of a
+// date read the same field, colour themselves the same way and open the same
+// editor, so each date is described once here and both templates are built
+// from it.
+const CARD_DATE_KINDS = {
+  Received: {
+    read: card => card.getReceived(),
+    editor: 'editCardReceivedDate',
+    helpers: {
+      classes() {
+        const tpl = Template.instance();
+        let classes = 'received-date ';
+        const data = cardFromDateContext();
+        const dueAt = data.getDue();
+        const endAt = data.getEnd();
+        const startAt = data.getStart();
+        const theDate = tpl.date.get();
 
-Template.cardReceivedDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    let classes = 'received-date ';
-    const data = cardFromDateContext();
-    const dueAt = data.getDue();
-    const endAt = data.getEnd();
-    const startAt = data.getStart();
-    const theDate = tpl.date.get();
-
-    if (
-      (startAt && isAfter(theDate, startAt)) ||
-      (endAt && isAfter(theDate, endAt)) ||
-      (dueAt && isAfter(theDate, dueAt))
-    ) {
-      classes += 'overdue';
-    } else {
-      classes += 'not-due';
-    }
-    return classes;
+        if (
+          (startAt && isAfter(theDate, startAt)) ||
+          (endAt && isAfter(theDate, endAt)) ||
+          (dueAt && isAfter(theDate, dueAt))
+        ) {
+          classes += 'overdue';
+        } else {
+          classes += 'not-due';
+        }
+        return classes;
+      },
+      showTitle() {
+        const tpl = Template.instance();
+        const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
+        return `${TAPi18n.__('card-received-on')} ${formattedDate}`;
+      },
+    },
   },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${TAPi18n.__('card-received-on')} ${formattedDate}`;
+  Start: {
+    read: card => card.getStart(),
+    editor: 'editCardStartDate',
+    helpers: {
+      classes() {
+        const tpl = Template.instance();
+        let classes = 'start-date ';
+        const data = cardFromDateContext();
+        const dueAt = data.getDue();
+        const endAt = data.getEnd();
+        const theDate = tpl.date.get();
+        const nowVal = tpl.now.get();
+
+        if ((endAt && isAfter(theDate, endAt)) || (dueAt && isAfter(theDate, dueAt))) {
+          classes += 'overdue';
+        } else if (isAfter(theDate, nowVal)) {
+          classes += 'not-due';
+        } else {
+          classes += 'current';
+        }
+        return classes;
+      },
+      showTitle() {
+        const tpl = Template.instance();
+        const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
+        return `${TAPi18n.__('card-start-on')} ${formattedDate}`;
+      },
+    },
   },
-}));
+  // Only the due date counts down (dueCountdownText), and only until the card
+  // has an end date.
+  Due: {
+    read: card => card.getDue(),
+    editor: 'editCardDueDate',
+    helpers: {
+      classes() {
+        const tpl = Template.instance();
+        const data = cardFromDateContext();
+        const endAt = data.getEnd();
+        const theDate = tpl.date.get();
+        const nowVal = tpl.now.get();
 
-Template.cardReceivedDate.events({
-  'click .js-edit-date': openDateEditor('editCardReceivedDate'),
-});
-
-// cardStartDate
-Template.cardStartDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getStart()));
-  });
-});
-
-Template.cardStartDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    let classes = 'start-date ';
-    const data = cardFromDateContext();
-    const dueAt = data.getDue();
-    const endAt = data.getEnd();
-    const theDate = tpl.date.get();
-    const nowVal = tpl.now.get();
-
-    if ((endAt && isAfter(theDate, endAt)) || (dueAt && isAfter(theDate, dueAt))) {
-      classes += 'overdue';
-    } else if (isAfter(theDate, nowVal)) {
-      classes += 'not-due';
-    } else {
-      classes += 'current';
-    }
-    return classes;
+        return `due-date ${dueDateClass(theDate, nowVal, endAt)}`;
+      },
+      showTitle() {
+        const tpl = Template.instance();
+        const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
+        const data = cardFromDateContext();
+        const endAt = data.getEnd();
+        const title = `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+        if (endAt) return title;
+        return `${title} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
+      },
+      showDate() {
+        const tpl = Template.instance();
+        const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
+        const data = cardFromDateContext();
+        const endAt = data.getEnd();
+        if (endAt) return formattedDate;
+        return `${formattedDate} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
+      },
+    },
   },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${TAPi18n.__('card-start-on')} ${formattedDate}`;
+  End: {
+    read: card => card.getEnd(),
+    editor: 'editCardEndDate',
+    helpers: {
+      classes() {
+        const tpl = Template.instance();
+        let classes = 'end-date ';
+        const data = cardFromDateContext();
+        const dueAt = data.getDue();
+        const theDate = tpl.date.get();
+
+        if (!dueAt) {
+          classes += 'completed';
+        } else if (isBefore(theDate, dueAt)) {
+          classes += 'completed-early';
+        } else if (isAfter(theDate, dueAt)) {
+          classes += 'completed-late';
+        } else {
+          classes += 'completed-on-time';
+        }
+        return classes;
+      },
+      showTitle() {
+        const tpl = Template.instance();
+        return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => format(date, 'LLLL'))}`;
+      },
+    },
   },
-}));
+};
 
-Template.cardStartDate.events({
-  'click .js-edit-date': openDateEditor('editCardStartDate'),
-});
-
-// cardDueDate
-Template.cardDueDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getDue()));
-  });
-});
-
-Template.cardDueDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    const data = cardFromDateContext();
-    const endAt = data.getEnd();
-    const theDate = tpl.date.get();
-    const nowVal = tpl.now.get();
-
-    return `due-date ${dueDateClass(theDate, nowVal, endAt)}`;
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    const data = cardFromDateContext();
-    const endAt = data.getEnd();
-    const title = `${TAPi18n.__('card-due-on')} ${formattedDate}`;
-    if (endAt) return title;
-    return `${title} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
-  },
-  showDate() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    const data = cardFromDateContext();
-    const endAt = data.getEnd();
-    if (endAt) return formattedDate;
-    return `${formattedDate} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
-  },
-}));
-
-Template.cardDueDate.events({
-  'click .js-edit-date': openDateEditor('editCardDueDate'),
-});
-
-// cardEndDate
-Template.cardEndDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getEnd()));
-  });
-});
-
-Template.cardEndDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    let classes = 'end-date ';
-    const data = cardFromDateContext();
-    const dueAt = data.getDue();
-    const theDate = tpl.date.get();
-
-    if (!dueAt) {
-      classes += 'completed';
-    } else if (isBefore(theDate, dueAt)) {
-      classes += 'completed-early';
-    } else if (isAfter(theDate, dueAt)) {
-      classes += 'completed-late';
-    } else {
-      classes += 'completed-on-time';
-    }
-    return classes;
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => format(date, 'LLLL'))}`;
-  },
-}));
-
-Template.cardEndDate.events({
-  'click .js-edit-date': openDateEditor('editCardEndDate'),
-});
-
-// --- Minicard date templates ---
-
-// minicardReceivedDate
-Template.minicardReceivedDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getReceived()));
-  });
-});
-
-Template.minicardReceivedDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    let classes = 'received-date ';
-    const data = cardFromDateContext();
-    const dueAt = data.getDue();
-    const endAt = data.getEnd();
-    const startAt = data.getStart();
-    const theDate = tpl.date.get();
-
-    if (
-      (startAt && isAfter(theDate, startAt)) ||
-      (endAt && isAfter(theDate, endAt)) ||
-      (dueAt && isAfter(theDate, dueAt))
-    ) {
-      classes += 'overdue';
-    } else {
-      classes += 'not-due';
-    }
-    return classes;
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${TAPi18n.__('card-received-on')} ${formattedDate}`;
-  },
-  showDate() {
-    return formatCardDateForDisplay(Template.instance().date.get(), true);
-  },
-}));
-
-Template.minicardReceivedDate.events({
-  'click .js-edit-date': openDateEditor('editCardReceivedDate'),
-});
-
-// minicardStartDate
-Template.minicardStartDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getStart()));
-  });
-});
-
-Template.minicardStartDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    let classes = 'start-date ';
-    const data = cardFromDateContext();
-    const dueAt = data.getDue();
-    const endAt = data.getEnd();
-    const theDate = tpl.date.get();
-    const nowVal = tpl.now.get();
-
-    if ((endAt && isAfter(theDate, endAt)) || (dueAt && isAfter(theDate, dueAt))) {
-      classes += 'overdue';
-    } else if (isAfter(theDate, nowVal)) {
-      classes += 'not-due';
-    } else {
-      classes += 'current';
-    }
-    return classes;
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${TAPi18n.__('card-start-on')} ${formattedDate}`;
-  },
-  showDate() {
-    return formatCardDateForDisplay(Template.instance().date.get(), true);
-  },
-}));
-
-Template.minicardStartDate.events({
-  'click .js-edit-date': openDateEditor('editCardStartDate'),
-});
-
-// minicardDueDate
-Template.minicardDueDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getDue()));
-  });
-});
-
-Template.minicardDueDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    const data = cardFromDateContext();
-    const endAt = data.getEnd();
-    const theDate = tpl.date.get();
-    const nowVal = tpl.now.get();
-
-    return `due-date ${dueDateClass(theDate, nowVal, endAt)}`;
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    const data = cardFromDateContext();
-    const endAt = data.getEnd();
-    const title = `${TAPi18n.__('card-due-on')} ${formattedDate}`;
-    if (endAt) return title;
-    return `${title} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
-  },
-  showDate() {
-    const tpl = Template.instance();
-    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    const data = cardFromDateContext();
-    const endAt = data.getEnd();
-    if (endAt) return formattedDate;
-    return `${formattedDate} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
-  },
-}));
-
-Template.minicardDueDate.events({
-  'click .js-edit-date': openDateEditor('editCardDueDate'),
-});
-
-// minicardEndDate
-Template.minicardEndDate.onCreated(function () {
-  cardDateOnCreated(this);
-  const self = this;
-  self.autorun(() => {
-    self.date.set(new Date(cardFromDateContext().getEnd()));
-  });
-});
-
-Template.minicardEndDate.helpers(cardDateHelpers({
-  classes() {
-    const tpl = Template.instance();
-    let classes = 'end-date ';
-    const data = cardFromDateContext();
-    const dueAt = data.getDue();
-    const theDate = tpl.date.get();
-
-    if (!dueAt) {
-      classes += 'completed';
-    } else if (isBefore(theDate, dueAt)) {
-      classes += 'completed-early';
-    } else if (isAfter(theDate, dueAt)) {
-      classes += 'completed-late';
-    } else {
-      classes += 'completed-on-time';
-    }
-    return classes;
-  },
-  showTitle() {
-    const tpl = Template.instance();
-    return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => format(date, 'LLLL'))}`;
-  },
-  showDate() {
-    return formatCardDateForDisplay(Template.instance().date.get(), true);
-  },
-}));
-
-Template.minicardEndDate.events({
-  'click .js-edit-date': openDateEditor('editCardEndDate'),
-});
+for (const [kind, spec] of Object.entries(CARD_DATE_KINDS)) {
+  for (const name of [`card${kind}Date`, `minicard${kind}Date`]) {
+    Template[name].onCreated(function () {
+      cardDateOnCreated(this);
+      this.autorun(() => {
+        this.date.set(new Date(spec.read(cardFromDateContext())));
+      });
+    });
+    Template[name].helpers(cardDateHelpers(spec.helpers));
+    Template[name].events({
+      'click .js-edit-date': openDateEditor(spec.editor),
+    });
+  }
+}
 
 // minicardCustomFieldDate
 Template.minicardCustomFieldDate.onCreated(function () {
