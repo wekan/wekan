@@ -267,7 +267,9 @@ test('every board sortable autorun goes through setSortableOptions', () => {
   const list = read('client/components/lists/list.js');
   assert.ok(/setSortableOptions\(\$cards, \{\s*handle:/.test(list), 'the per-list cards sortable');
   const swimlanes = read('client/components/swimlanes/swimlanes.js');
-  assert.strictEqual((swimlanes.match(/setSortableOptions\(\$parent, \{/g) || []).length, 2, 'both lists sortables');
+  // A swimlane and the Lists view share initListsSortable, so its one call
+  // serves both.
+  assert.strictEqual((swimlanes.match(/setSortableOptions\(\$parent, \{/g) || []).length, 1, 'the shared lists sortable');
   const boardBody = read('client/components/boards/boardBody.js');
   assert.ok(/setSortableOptions\(\$swimlanesDom, \{/.test(boardBody), 'the swimlanes sortable');
   // Negative: no autorun sets handle/disabled/items one call at a time any more.

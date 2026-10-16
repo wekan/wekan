@@ -38,7 +38,9 @@ assert.doesNotMatch(rule, /background-color:\s*rgba\(0,\s*0,\s*0,\s*0\.2\)/,
 // Every list sortable sets the placeholder width AND a min-width from the helper.
 const widthCalls = swimlanes.match(/ui\.placeholder\.width\(ui\.helper\.width\(\)\);/g) || [];
 const minWidthCalls = swimlanes.match(/ui\.placeholder\.css\('min-width', ui\.helper\.width\(\)\);/g) || [];
-assert.ok(widthCalls.length >= 3, 'all three list sortables size the placeholder');
+// Two sortables now: the one initListsSortable builds for a swimlane and the
+// Lists view, and the swimlanes' own.
+assert.ok(widthCalls.length >= 2, 'every list sortable sizes the placeholder');
 assert.strictEqual(minWidthCalls.length, widthCalls.length,
   'every list sortable that sizes the placeholder also pins its min-width');
 

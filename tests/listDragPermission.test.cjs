@@ -25,7 +25,11 @@ const utils = read('client/lib/utils.js');
 check('#1158: every list sortable in swimlanes.js is gated by canModifyBoard()', () => {
   const sortables = (swimlanes.match(/\.sortable\(\{/g) || []).length;
   const gated = (swimlanes.match(/disabled: !Utils\.canModifyBoard\(\)/g) || []).length;
-  assert.ok(sortables >= 3, `expected the 3 list sortables, found ${sortables}`);
+  // A swimlane and the Lists view share one list sortable (initListsSortable);
+  // the third is the swimlanes' own.
+  assert.ok(sortables >= 2, `expected the 2 list sortables, found ${sortables}`);
+  assert.strictEqual((swimlanes.match(/initListsSortable\(tpl, \$parent, handleSelector, boardComponent\);/g) || []).length, 2,
+    'both the swimlane and the Lists view use the shared list sortable');
   // #6745: the re-applying autoruns now set `disabled` through
   // setSortableOptions({ ..., disabled: !Utils.canModifyBoard() || ... }), so the
   // same gate appears there as well: one per sortable at creation, plus one per
