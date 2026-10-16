@@ -17,7 +17,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
-const SPEC = /(?:import\s+(?:[^'"]*?\s+from\s+)?|require\(\s*|import\(\s*)['"]([^'"]+)['"]/g;
+// import ... from, export ... from (a re-export loads the module too), require, import()
+const SPEC = /(?:import\s+(?:[^'"]*?\s+from\s+)?|export\s+(?:\*|\{[^}]*\})(?:\s+as\s+\w+)?\s+from\s+|require\(\s*|import\(\s*)['"]([^'"]+)['"]/g;
 const EXTS = ['', '.js', '.mjs', '.cjs', '.jade', '.css', '.html', '.json', '/index.js'];
 
 function resolve(from, spec) {

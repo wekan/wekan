@@ -1,10 +1,10 @@
 'use strict';
 
 // Vendored copy of models/lib/oauth2ClientSecretJwt.js. A Meteor local
-// package is its own isolated build unit and cannot import app-tree modules
-// (see packages/wekan-ldap/server/configResolver.js's header comment for the
-// full story - the same "works under plain Node, fails under Meteor's
-// package linker" trap). This file is pure (Node's crypto/fs only, no other
+// package is its own isolated build unit and cannot import app-tree modules:
+// an import of an app-tree path inside packages/ resolves at runtime, not at
+// build time, and fails with "Cannot find module" when the app boots - while
+// node test suites, which run these files directly, never notice. This file is pure (Node's crypto/fs only, no other
 // app dependency), so it is vendored rather than injected. Keep both copies
 // in sync; models/lib/oauth2ClientSecretJwt.js stays canonical, tested by
 // tests/oauth2ClientSecretJwt.test.cjs.

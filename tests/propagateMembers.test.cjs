@@ -8,7 +8,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { membersToAddToBoard } = require('../models/lib/propagateMembers');
+const { planGain, grantOf } = require('../models/lib/groupBoardMembership');
 
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -16,28 +16,23 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const M = (userId, extra = {}) => ({ userId, isActive: true, ...extra });
 
-// ── membersToAddToBoard (add-only) ──────────────────────────────────────────
+// ── add-only, decided by groupBoardMembership's planGain ──────────────────────
+// The propagation decides per user through planGain (since #4178 it records
+// where each membership came from). models/lib/propagateMembers.js, which these
+// checks used to exercise, was no longer used by the app and is removed.
+const grant = grantOf('team', 'T');
 check('adds the members that are not already on the board, as active non-admins', () => {
-  const out = membersToAddToBoard([M('a')], ['a', 'b', 'c']);
-  assert.deepStrictEqual(out.map(m => m.userId), ['b', 'c']);
-  assert.ok(out.every(m => m.isActive === true && m.isAdmin === false && m.isWorker === false));
+  const plans = ['a', 'b', 'c'].map(id => planGain([M('a')], id, grant));
+  assert.deepStrictEqual(plans.map(p => p.action), ['none', 'push', 'push']);
+  assert.ok(plans.filter(p => p.entry).every(p => p.entry.isActive === true && p.entry.isAdmin === false && p.entry.isWorker === false));
 });
-check('add-only: never removes or modifies existing members (returns only additions)', () => {
-  assert.deepStrictEqual(membersToAddToBoard([M('a', { isAdmin: true })], ['a']), [],
+check('add-only: never removes or modifies an existing direct member', () => {
+  assert.deepStrictEqual(planGain([M('a', { isAdmin: true })], 'a', grant), { action: 'none' },
     'an existing member (even admin) is never re-added or changed');
 });
-check('de-duplicates the incoming member ids', () => {
-  const out = membersToAddToBoard([], ['x', 'x', 'y']);
-  assert.deepStrictEqual(out.map(m => m.userId), ['x', 'y']);
-});
-check('empty when everyone is already a member', () => {
-  assert.deepStrictEqual(membersToAddToBoard([M('a'), M('b')], ['a', 'b']), []);
-});
-check('negative: tolerates missing/invalid inputs without throwing', () => {
-  assert.deepStrictEqual(membersToAddToBoard(undefined, ['a']).map(m => m.userId), ['a']);
-  assert.deepStrictEqual(membersToAddToBoard([M('a')], undefined), []);
-  assert.deepStrictEqual(membersToAddToBoard([null, {}, M('a')], ['a', '', null, 5, 'b'])
-    .map(m => m.userId), ['b']);
+check('negative: tolerates missing members without throwing', () => {
+  assert.equal(planGain(undefined, 'a', grant).action, 'push');
+  assert.equal(planGain([null, {}, M('a')], 'a', grant).action, 'none');
 });
 
 // ── #6559: what the flag-setters pass, and what the function accepts ─────────
@@ -142,8 +137,8 @@ check('the propagation function is exported + used by the (formerly dead) method
     'single-group propagation must be exported for the flag-setters');
   // Since #4178 propagation records where each membership came from
   // (grantedBy), so it decides per user through groupBoardMembership's planGain
-  // instead of membersToAddToBoard - which stays tested above as the add-only
-  // rule planGain keeps: an existing member is never re-added or changed.
+  // (tested above as the add-only rule: an existing member is never re-added
+  // or changed).
   assert.ok(/planGain\(members, userId, grant\)/.test(src) && /grantOf\(kind, groupId\)/.test(src),
     'propagation must use the tested groupBoardMembership helpers');
   assert.ok(/return await propagateAllFlaggedGroupsToBoards\(\)/.test(src),

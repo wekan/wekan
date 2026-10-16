@@ -236,8 +236,8 @@ export default { tripCanary, tripCanaryDeny, canaryTrackedPairs };
 // Bridge for local Meteor packages (packages/wekan-accounts-saml/saml_server.js,
 // packages/wekan-accounts-cas/cas_server.js): a package is its own isolated
 // build unit and cannot `import`/`require` an app-tree module like this one -
-// see packages/wekan-ldap/server/configResolver.js's header comment for the
-// full story. The Node process itself is shared, so the actual Node `global`
+// such an import resolves at runtime and fails with "Cannot find module" when
+// the app boots, while node tests that run the file directly never notice. The Node process itself is shared, so the actual Node `global`
 // object (not a Meteor construct) is the one thing both sides can reach
 // without either importing the other. Set once, here, as soon as this module
 // loads - guaranteed before boot finishes, since server/authentication.js

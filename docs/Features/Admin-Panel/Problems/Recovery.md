@@ -5,7 +5,7 @@
 > there and are not repeated here.
 
 Status: **Implemented for bundled FerretDB SQLite launch paths** · Owner: xet7 · Related (#6492):
-`models/lib/recoveryPlan.js`, `models/lib/recoveryEventsJsonl.js`,
+`releases/ferretdb/sqlite-recovery.mjs`, `models/lib/recoveryEventsJsonl.js`,
 `models/recoveryEvents.js`, `server/recovery.js`,
 `server/publications/recoveryReport.js`, `client/components/settings/adminProblems.*`,
 `snap-src/bin/ferretdb-control`, `releases/ferretdb/*`, and the FerretDB fork
@@ -198,12 +198,12 @@ bundled release `start-wekan.sh`, the Docker `wekan-entrypoint.sh`):
 
 ### The recovery decision
 
-`models/lib/recoveryPlan.js` (`decideRecovery`) is the pure, unit-tested policy: given
-the integrity result and what backups / MongoDB are available, it chooses the
-least-invasive recovery — latest good backup → previous backup → re-migrate → (else)
-manual. It never chooses anything destructive unless the database is **known corrupt**.
-The launch scripts implement this policy through `sqlite-recovery.mjs` and FerretDB's
-read-only `check-sqlite` command. They verify the live file before FerretDB opens it,
+The policy is the least-invasive recovery - latest good backup → previous backup →
+re-migrate → (else) manual - and nothing destructive unless the database is **known
+corrupt**. `releases/ferretdb/sqlite-recovery.mjs` carries it out, with FerretDB's
+read-only `check-sqlite` command. (A separate model of the policy,
+`models/lib/recoveryPlan.js`, was never run by anything and was removed on
+2026-10-16; the script is what decides.) They verify the live file before FerretDB opens it,
 then restore and re-check latest or previous compressed snapshots. Snap quarantines
 unusable SQLite files and re-runs migration when retained MongoDB source files exist.
 
@@ -311,9 +311,9 @@ Recovery report.
 
 ## Tests
 
-- `tests/recoveryPlan.test.cjs` — the decision logic (positive + negatives: never act
-  on a healthy/unknown database; never restore a known-bad backup; nothing to restore
-  → manual, non-destructive).
+- `tests/sqliteVerifiedRecovery.test.cjs` — the recovery script itself: a healthy
+  database is left alone, a corrupt one is restored from the latest verified snapshot,
+  then the previous one, and only then is manual recovery reported.
 - `tests/recoveryEventsJsonl.test.cjs` — the JSONL parser (skips junk, normalizes
   severity, bounds line size; never throws).
 - `tests/recoveryReportQuery.test.cjs` — the report search and outcome selectors

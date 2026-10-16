@@ -9,9 +9,8 @@
 // server/ldap.js imported Settings and resolveConfigValue from '/models/...'
 // directly), but fails the moment Meteor's own package linker loads it for
 // real: "Error: Cannot find module '/models/settings'", crashing the server
-// at boot. The fix was to vendor the small pure pieces a package needs
-// (packages/wekan-ldap/server/configResolver.js) and inject anything
-// stateful (Settings access) from the app side via a setter
+// at boot. The fix was to vendor the small pure pieces a package needs and
+// inject anything stateful (Settings access) from the app side via a setter
 // (setLdapSettingsAccessor, wired by server/ldapAdminSettingsBridge.js).
 //
 // This is the negative sweep: nothing under packages/ may import an
@@ -77,28 +76,22 @@ test('wekan-ldap/server/ldap.js no longer imports Settings or the app configReso
   assert.ok(!/process\.env\[name\]/.test(settingsGet), 'and never straight from the environment');
 });
 
-test('the vendored packages/wekan-ldap/server/configResolver.js stays behaviourally in sync '
-  + 'with models/lib/configResolver.js', () => {
-  const appPath = path.join(ROOT, 'models', 'lib', 'configResolver.js');
-  const pkgPath = path.join(PACKAGES_DIR, 'wekan-ldap', 'server', 'configResolver.js');
-  delete require.cache[require.resolve(appPath)];
-  const app = require(appPath);
-
-  // The package copy is a real ES module (import/export), so it cannot be
-  // require()'d directly by this CommonJS test the way the app copy can;
-  // compare their resolveConfigValue/hasConfigValue FUNCTION BODIES instead,
-  // which is exactly what would drift if only one copy were edited.
-  const pkgSrc = fs.readFileSync(pkgPath, 'utf8');
-  for (const name of ['resolveConfigValue', 'hasConfigValue']) {
-    assert.ok(typeof app[name] === 'function', `models/lib/configResolver.js exports ${name}`);
-    const appBody = app[name].toString().replace(/\s+/g, ' ').trim();
-    const pkgFn = new RegExp(`function ${name}\\(([^)]*)\\) \\{([\\s\\S]*?)\\n\\}`).exec(pkgSrc);
-    assert.ok(pkgFn, `packages/wekan-ldap/server/configResolver.js defines ${name}`);
-    const pkgBody = `function ${name}(${pkgFn[1]}) {${pkgFn[2]}\n}`.replace(/\s+/g, ' ').trim();
-    assert.strictEqual(pkgBody, appBody,
-      `${name}'s vendored copy in packages/wekan-ldap has drifted from models/lib/configResolver.js - `
-      + 'keep both edits together');
+// wekan-ldap reads every setting through the accessor above, so it carried a
+// vendored copy of models/lib/configResolver.js that nothing imported; it was
+// removed (2026-10-16). No package may bring an unused copy back.
+test('no package carries a configResolver copy it does not use', () => {
+  const copies = [];
+  for (const pkg of fs.readdirSync(PACKAGES_DIR)) {
+    const walk = dir => {
+      for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, e.name);
+        if (e.isDirectory()) { if (!['.npm', 'node_modules'].includes(e.name)) walk(full); }
+        else if (e.name === 'configResolver.js') copies.push(path.relative(ROOT, full));
+      }
+    };
+    walk(path.join(PACKAGES_DIR, pkg));
   }
+  assert.deepStrictEqual(copies, []);
 });
 
 test('wekan-oidc/oidc_server.js no longer imports the app oauth2ClientSecretJwt module', () => {

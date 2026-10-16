@@ -150,13 +150,15 @@ in several places:
 - when a board admin adds a team (`client/components/sidebar/sidebar.js`
   `addBoardTeamPopup`, server `setBoardTeams` in `server/models/boards.js`,
   reconciled by `models/lib/reconcileBoardTeamMembers.js`);
-- when a user **gains** a team (`addUserToTeamBoards` in
-  `server/models/users.js`, logic in `models/lib/teamBoardMemberSync.js`) -
-  **teams only, gain only**; losing a team removes nothing on purpose, because
-  the data cannot tell a team-derived member from an individually invited one;
+- when a user **gains or loses** a team (`addUserToTeamBoards` /
+  `syncUserGroupBoards` in `server/models/users.js`, logic in
+  `models/lib/groupBoardMembership.js`). Since #4178 each membership records
+  the group it came through (`grantedBy`), so losing the team removes what it
+  gave and nothing else; a direct membership is never touched, and a board
+  admin is kept;
 - when the org/team flag "Propagate Members To Boards" is on
-  (`server/propagateOrgTeamMembers.js`, `models/lib/propagateMembers.js`) -
-  add-only, also run by the LDAP background sync.
+  (`server/propagateOrgTeamMembers.js`, through the same
+  `models/lib/groupBoardMembership.js`), also run by the LDAP background sync.
 
 ### 3.2 Admin Panel / People
 

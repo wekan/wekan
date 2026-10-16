@@ -32,7 +32,7 @@
 //
 // Pure and Meteor-free so tests/userDeletionCleanup.test.cjs can exercise it
 // in plain Node (same pattern as models/lib/apiLogout.js and
-// models/lib/teamBoardMemberSync.js).
+// models/lib/groupBoardMembership.js).
 
 // A userId acceptable in a Mongo selector: a non-empty string. Anything else
 // (undefined, null, objects — including selector-injection attempts like
