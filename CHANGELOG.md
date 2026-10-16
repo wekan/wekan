@@ -137,6 +137,8 @@ and updates the following documentation:
 
 - [Board roles: how a role applies to every board view, the API and every write](https://github.com/wekan/wekan/commit/63117b61d9).
   Thanks to xet7.
+- [Custom roles from the Admin Panel apply in every board view as built-in roles do, verified for every combination](https://github.com/wekan/wekan/commit/1020cd7e86).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
