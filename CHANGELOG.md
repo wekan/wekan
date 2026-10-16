@@ -107,6 +107,34 @@ below by category, with its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** an **AssignedBleed** follow-up makes **board role permissions
+apply to every board view** and API: an assigned-only member sees and changes
+only the cards assigned to them, in the **Email View**, the Chat view, linked
+cards, notifications, counts and REST alike.
+
+This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b2ed17e6b">Board role permissions apply to every board view and every path to a card</a>. Thanks to crypto-nidh, binary-lover and xet7.</summary>
+
+[GHSA-r4gm-mjj9-g3x8](https://github.com/wekan/wekan/security/advisories/GHSA-r4gm-mjj9-g3x8):
+the Board Email View checked only that the reader was a board member, so an
+assigned-only member read the title and body of every card in a list or label,
+and their counts. An audit of every path to a card found the same shape in the
+board publication's parent and linked cards, All Boards counts, linked boards'
+activities, the Chat view, notifications, position history and REST - and in
+writes: the role's `write` let such a member change, comment on, move or watch
+any card by id. Each now asks the card. REST writes refuse assigned-only
+members, as REST reads already did. Attempts no view would make show as
+AssignedBleed in Admin Panel → Problems; a test fails when any server path
+serving card data has no role rule.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.48 2026-10-15 WeKan ® release
 
 **In short:** an **AssignedBleed** follow-up keeps assigned-only members to
