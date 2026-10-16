@@ -110,11 +110,12 @@ below by category, with its reason.
 # Upcoming WeKan ® release
 
 **In short:** a **LockoutBleed** follow-up loads the web login's timing
-equalizer, which was finished but never imported, together with **card
-recurrence**. Cloning, notification attachments and a visitor's **Scrum views**
-work again, over 1,400 lines of **duplicated or unreachable code** are
-gone, and **docs/Features is filed by the WeKan menus** with examples that match
-this WeKan.
+equalizer, which was finished but never imported. Admin Panel / Problems gains
+**Memory Usage** and **Disk usage** reports, and the board menu **Original
+positions**. Cloning, calendars, notification attachments and failed-call
+messages work as they should. Removing **duplicated and unreachable code**
+leaves the app over 1,700 lines smaller even with the new reports, and
+**docs/Features is filed by the WeKan menus**.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [LockoutBleed](https://wekan.fi/hall-of-fame/lockoutbleed/):
 
@@ -131,6 +132,34 @@ Panel → Problems; the lockout itself still records under LockoutBleed.
 `tests/serverModulesLoaded.test.cjs` fails when any server module that
 registers a login handler, methods, publications, a route, a startup hook or
 a job is not reached.
+
+</details>
+
+and adds the following new features:
+
+**Admin Panel / Problems** - what the machine is short of.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6a3d98736">Memory Usage and Disk usage reports, beside CPU usage</a>. Thanks to xet7.</summary>
+
+The two pages were designs no code carried out. Each monitor records only the
+start and the end of a sustained high-usage period: memory from MemAvailable
+and swap, and each filesystem WeKan writes to - files, uploads and the snap's
+data - once per device. A live line sits above the rows, the labels use keys
+every language already translates, and the settings are `WEKAN_RAM_*`,
+`WEKAN_SWAP_HIGH_PERCENT` and `WEKAN_DISK_*`. Observe and report only.
+
+</details>
+
+**Boards** - what happened to a board's swimlanes, lists and cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9e28a8fbb">Board menu: Original positions, where each swimlane, list and card was put</a>. Thanks to xet7.</summary>
+
+The positions were recorded on creation and shown by nothing. The right sidebar
+lists them by the names they have now, marks what has moved and shows the
+title each was made with. The server shows each reader only what they may see.
+One new key, translated into every language.
 
 </details>
 
@@ -165,7 +194,8 @@ against every publication and every template key against `en.i18n.json`.
 
 </details>
 
-**Boards** - cloning, and the view a visitor chose.
+**Board views** - cloning, the calendars, and what a visitor or a viewer is
+offered.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e29641111">Cloning a board through the cloneBoard method works again</a>. Thanks to xet7.</summary>
@@ -185,6 +215,27 @@ Without an account the browser keeps the board view, and `client/lib/utils.js`
 stored it from one hand-written list of views but read it back through another
 that lacked the four Scrum views, so they opened as Swimlanes. Both ask
 `BOARD_VIEWS` now, which removes the two lists.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fff9d4828">Calendars leave archived cards out, and Timeline offers Restore only to those who may</a>. Thanks to xet7.</summary>
+
+Every calendar showed archived cards once the Archive sidebar had loaded them.
+Timeline's restore was offered to every viewer and a refusal vanished. A Table
+swimlane row spanned a fixed 11 columns. Map showed the raw "upload-failed".
+25 alerts fell back to their own English sentence; they report the error in the
+reader's language through one helper, and a test keeps new ones from falling
+back to English.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/483f3cd538">The file integrity scan waits for a quiet CPU again</a>. Thanks to xet7.</summary>
+
+It asked the CPU monitor for a function it never had, so its CPU check was
+always NaN and the hourly scan never skipped a busy hour. A test checks every
+named import of an app module against what that module exports.
 
 </details>
 
@@ -211,6 +262,12 @@ twice in an object literal and on a template nothing draws.
   Thanks to xet7.
 - [The board's organization and team pickers share one state helper](https://github.com/wekan/wekan/commit/a6aa3fdfb7).
   Thanks to xet7.
+- [Each card date is described once for its card and minicard badge](https://github.com/wekan/wekan/commit/9a73bf9173).
+  Thanks to xet7.
+- [One list drag-and-drop setup for a swimlane and the Lists view](https://github.com/wekan/wekan/commit/d444a76af2).
+  Thanks to xet7.
+- [The Calendar and Multi Board Calendar views share their calendar options](https://github.com/wekan/wekan/commit/5908fab5de).
+  Thanks to xet7.
 
 and updates the following documentation:
 
@@ -236,6 +293,9 @@ help and Admin Panel catalog. The LDAP and Traefik examples ran MongoDB 3.2 and
 4.0 with the removed `--smallfiles` and 2018 WeKan images.
 
 </details>
+
+- [Guides for the Table, Calendar Mode, Time, Timeline and Map views](https://github.com/wekan/wekan/commit/c046afa807).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
