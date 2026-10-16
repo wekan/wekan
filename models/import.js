@@ -677,7 +677,9 @@ Meteor.methods({
     const additionalData = {};
 
     //get the members to map
-    const membersMapping = getMembersToMap(data);
+    // getMembersToMap is async: without the await this was a Promise, whose
+    // .forEach below threw, so every clone stopped here.
+    const membersMapping = await getMembersToMap(data);
 
     //now mirror the mapping done in finishImport in client/components/import/import.js:
     if (membersMapping) {
