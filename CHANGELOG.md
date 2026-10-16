@@ -124,24 +124,6 @@ below by category, with its reason.
 
 </details>
 
-<details>
-<summary>Documentation gaps.</summary>
-
-- Board views without a guide of their own: Table, Calendar Mode, Time,
-  Timeline and Map are described only in Board Settings / Board View.
-
-</details>
-
-<details>
-<summary>Code to combine.</summary>
-
-- The card and minicard date badges (client/components/cards/cardDate.js), the
-  calendar options of the Calendar and Multi Board Calendar views, and the list
-  sortable setup repeated in client/components/swimlanes/swimlanes.js. Tests
-  pin their source text, so each needs its tests rewritten with it.
-
-</details>
-
 </details>
 
 # Upcoming WeKan ® release

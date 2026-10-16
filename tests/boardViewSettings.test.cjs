@@ -568,4 +568,17 @@ test('Board-Header/README.md has one row per view, naming a template that exists
   }
 });
 
+// Every Board View entry has a guide of its own. Table, Calendar Mode, Time,
+// Timeline and Map were described only in Board-View.md until 2026-10-17.
+test('every Board View entry links a guide that exists', () => {
+  const doc = read('docs/Features/Board-Header/README.md');
+  const rows = [...doc.matchAll(/^\| [^|]+ \| `(board-view-[\w-]+)` \| [^|]+ \| (.+) \|$/gm)];
+  assert.strictEqual(rows.length, bvs.BOARD_VIEWS.length);
+  for (const [, view, guide] of rows) {
+    const link = /\]\(([^)]+\.md)\)/.exec(guide);
+    assert.ok(link && !guide.startsWith('only in'), `${view} has a guide of its own`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'docs/Features/Board-Header', link[1])), `${view}: ${link[1]} exists`);
+  }
+});
+
 console.log(`boardViewSettings: ${passed} passed`);
