@@ -537,7 +537,7 @@ template(name="outgoingWebhooksPopup")
         +notificationDeliverySettings(scope="integration" targetId=_id channel="webhook")
   form.integration-form
     textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")
-    input.js-outgoing-webhooks-url(placeholder="{{_ 'URL' }}" type="text" name="url")
+    input.js-outgoing-webhooks-url(placeholder="{{_ 'settings-group-url' }}" type="text" name="url")
     input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" name="token")
     select.js-outgoing-webhooks-type(name="type")
         each _type in types

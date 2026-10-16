@@ -56,7 +56,7 @@ template(name="webhookSettings")
   .account-webhook
     h2.admin-pane-group-title {{_ 'account-webhook'}}
     p.quiet {{_ 'account-webhook-desc'}}
-    input.wekan-form-control.js-account-webhook-url(type="url" placeholder="https://" aria-label="{{_ 'URL'}}" value=accountWebhook.url)
+    input.wekan-form-control.js-account-webhook-url(type="url" placeholder="https://" aria-label="{{_ 'settings-group-url'}}" value=accountWebhook.url)
     input.wekan-form-control.js-account-webhook-token(type="text" placeholder="{{_ 'webhook-token'}}" aria-label="{{_ 'webhook-token'}}" value=accountWebhook.token)
     a.flex.js-account-webhook-tick(data-key="onLogin")
       .materialCheckBox(class="{{#if accountWebhook.onLogin}}is-checked{{/if}}")

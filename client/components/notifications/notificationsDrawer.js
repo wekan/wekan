@@ -18,7 +18,7 @@ Template.notificationsDrawer.onCreated(function() {
   Meteor.subscribe('notificationActivities');
   Meteor.subscribe('notificationCards');
   Meteor.subscribe('notificationUsers');
-  Meteor.subscribe('notificationsAttachments');
+  Meteor.subscribe('notificationAttachments');
   Meteor.subscribe('notificationChecklistItems');
   Meteor.subscribe('notificationChecklists');
   Meteor.subscribe('notificationComments');

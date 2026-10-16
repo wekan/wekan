@@ -83,7 +83,7 @@ template(name="importTextarea")
       textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
         | {{jsonText}}
     if isJiraImport
-      label(for='jira-estimate-field') Jira: {{_ 'scrum-estimate'}} / {{_ 'custom-field'}}
+      label(for='jira-estimate-field') Jira: {{_ 'scrum-estimate'}} / {{_ 'custom-fields'}}
       //- The export's numeric fields, offered as the user types (models/lib/jiraEstimateMapping.js).
       input.js-jira-estimate-field(id='jira-estimate-field' type='text' placeholder='customfield_10016' maxlength='32' list='jira-estimate-fields')
       datalist#jira-estimate-fields

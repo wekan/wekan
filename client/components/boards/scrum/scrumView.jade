@@ -59,7 +59,7 @@ template(name="scrumView")
                 select(name="estimateSource")
                   each estimateSources
                     option(value=value selected=selected) {{label}}
-              label {{_ 'custom-field'}}
+              label {{_ 'custom-fields'}}
                 select(name="estimateCustomFieldId")
                   option(value="") —
                   each estimateFields
@@ -141,7 +141,7 @@ template(name="scrumView")
                         textarea(name="goal") {{selectedSprint.goal}}
                       label {{_ 'start'}}
                         input(type="date" name="plannedStart" value=sprintStart)
-                      label {{_ 'end'}}
+                      label {{_ 'card-end'}}
                         input(type="date" name="plannedEnd" value=sprintEnd)
                       label {{_ 'scrum-capacity'}}
                         input(type="number" name="capacity" min="0" step="any" value=selectedSprint.capacity)
@@ -174,7 +174,7 @@ template(name="scrumView")
                       textarea(name="goal") {{selectedRelease.goal}}
                     label {{_ 'start'}}
                       input(type="date" name="plannedStart" value=releaseStart)
-                    label {{_ 'end'}}
+                    label {{_ 'card-end'}}
                       input(type="date" name="plannedEnd" value=releaseEnd)
                     label {{_ 'status'}}
                       select(name="state")
@@ -241,7 +241,7 @@ template(name="scrumView")
                             button.primary(type="submit" disabled=busy) {{_ 'save'}}
                   else
                     tr
-                      td(colspan="6") {{_ 'no-cards'}}
+                      td(colspan="6") {{_ 'no-cards-found'}}
             if hiddenCards
               button.js-scrum-show-more(type="button") {{showMoreLabel}}
             if isSprints
