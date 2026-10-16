@@ -35,6 +35,8 @@ const dependencies = {
   '/client/lib/calendarFirstDay': { toFullCalendarFirstDay: value => value },
   '/models/lib/weekStart': { weekNumberByFirstDay: () => 1 },
   '/models/lib/helperBoards': { notHelperBoardTitle: () => ({ $nin: ['Templates'] }) },
+  // The real shared options, so the direction below is what the view builds.
+  '/models/lib/calendarBaseOptions': require('../models/lib/calendarBaseOptions.js'),
 };
 vm.runInNewContext(source, {
   Meteor: { userId: () => 'member' },
@@ -54,7 +56,10 @@ rtl = true;
 assert.equal(helpers.multiboardCalendarOptions().direction, 'rtl');
 rtl = false;
 const boardSource = fs.readFileSync(path.join(__dirname, '../client/components/boards/boardBody.js'), 'utf8');
-assert.match(boardSource, /direction: TAPi18n\.isRTL\(\) \? 'rtl' : 'ltr'/);
+// The Calendar view passes the same RTL flag to the shared options.
+assert.match(boardSource, /rtl: TAPi18n\.isRTL\(\),/);
+assert.match(fs.readFileSync(path.join(__dirname, '../models/lib/calendarBaseOptions.js'), 'utf8'),
+  /direction: rtl \? 'rtl' : 'ltr'/);
 assert.doesNotMatch(boardSource, /isRTL\s*:/);
 
 let events;

@@ -20,7 +20,9 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('calendarToolbarLayout:');
 
-const js = read('client/components/boards/boardBody.js');
+// The Calendar and Multi Board Calendar views take their toolbar from the one
+// shared options module.
+const js = read('models/lib/calendarBaseOptions.js');
 const css = read('client/components/boards/calendarView.css');
 
 test('the title is alone on the left, with no other buttons in its group', () => {

@@ -6,6 +6,7 @@ import { TAPi18n } from '/imports/i18n';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
 import { weekNumberByFirstDay } from '/models/lib/weekStart';
+import { calendarBaseOptions } from '/models/lib/calendarBaseOptions';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 
 // #2469: "Multi Board Calendar" - reuses #4223 Bigboard's exact
@@ -51,22 +52,21 @@ Template.multiboardCalendarView.helpers({
     return !Template.instance().subsReady.get();
   },
   multiboardCalendarOptions() {
-    const t = (key, fallback) => {
-      const translated = TAPi18n.__(key);
-      return translated && translated !== key ? translated : fallback;
-    };
-
     const currentUser = ReactiveCache.getCurrentUser();
     const firstDay = toFullCalendarFirstDay(
       currentUser ? currentUser.getStartDayOfWeek() : 1,
     );
 
-    const displayOptions = calendarDateDisplayOptions('multiboard-calendar-view');
     return {
-      id: 'multiboard-calendar-view',
-      ...displayOptions,
-      initialView: displayOptions.initialView || 'dayGridMonth',
-      firstDay,
+      ...calendarBaseOptions({
+        id: 'multiboard-calendar-view',
+        displayOptions: calendarDateDisplayOptions('multiboard-calendar-view'),
+        firstDay,
+        weekNumberOf: weekNumberByFirstDay,
+        translate: key => TAPi18n.__(key),
+        locale: TAPi18n.getLanguage(),
+        rtl: TAPi18n.isRTL(),
+      }),
       // #2469 scope: cross-board drag-to-reschedule is out of scope for
       // this pass (a card's board isn't necessarily the one currently
       // open, and moving it needs more care than a single setDue call) -
@@ -74,39 +74,7 @@ Template.multiboardCalendarView.helpers({
       // behaviour unchanged, and is unaffected by this view.
       editable: false,
       selectable: false,
-      weekNumbers: true,
-      weekNumberCalculation: date => weekNumberByFirstDay(date, firstDay),
-      eventTimeFormat: {
-        hour: 'numeric',
-        minute: '2-digit',
-        meridiem: 'short',
-      },
-      slotLabelFormat: {
-        hour: 'numeric',
-        minute: '2-digit',
-        meridiem: 'short',
-      },
-      headerToolbar: {
-        left: 'title',
-        center: '',
-        right:
-          'today prev,next timeGridDay,listDay timeGridWeek,listWeek dayGridMonth,listMonth',
-      },
-      buttonIcons: false,
-      buttonText: {
-        prev: t('previous', 'Previous'),
-        next: t('next', 'Next'),
-        today: t('today', 'Today'),
-        day: t('day', 'Day'),
-        week: t('week', 'Week'),
-        month: t('month', 'Month'),
-        list: t('list', 'List'),
-      },
-      height: 'auto',
       navLinks: false,
-      nowIndicator: true,
-      locale: TAPi18n.getLanguage(),
-      direction: TAPi18n.isRTL() ? 'rtl' : 'ltr',
       events(fetchInfo, callback) {
         const filterSelector = Filter.isActive()
           ? Filter._getMongoSelector()

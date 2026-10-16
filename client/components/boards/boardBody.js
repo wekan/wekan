@@ -16,6 +16,7 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { calendarDateDisplayOptions } from '/client/lib/dateDisplay';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
 import { weekNumberByFirstDay } from '/models/lib/weekStart';
+import { calendarBaseOptions } from '/models/lib/calendarBaseOptions';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
@@ -1231,82 +1232,34 @@ Template.calendarView.onRendered(function () {
 
 Template.calendarView.helpers({
   calendarOptions() {
-    const t = (key, fallback) => {
-      const translated = TAPi18n.__(key);
-      return translated && translated !== key ? translated : fallback;
-    };
-
-    // #5521: respect the user's "start day of week" setting instead of the
-    // FullCalendar locale default. getStartDayOfWeek() returns a zero-based day
-    // index (0=Sunday..6=Saturday), the same convention FullCalendar's firstDay
-    // uses; toFullCalendarFirstDay() validates it and falls back to Monday (1).
+    // #5521: getStartDayOfWeek() returns a zero-based day index
+    // (0=Sunday..6=Saturday), the convention FullCalendar's firstDay uses;
+    // toFullCalendarFirstDay() validates it and falls back to Monday (1).
     const currentUser = ReactiveCache.getCurrentUser();
     const firstDay = toFullCalendarFirstDay(
       currentUser ? currentUser.getStartDayOfWeek() : 1,
     );
 
-    const displayOptions = calendarDateDisplayOptions('calendar-view');
     return {
-      id: 'calendar-view',
-      ...displayOptions,
-      initialView: displayOptions.initialView || 'dayGridMonth',
-      firstDay,
+      ...calendarBaseOptions({
+        id: 'calendar-view',
+        displayOptions: calendarDateDisplayOptions('calendar-view'),
+        firstDay,
+        weekNumberOf: weekNumberByFirstDay,
+        translate: key => TAPi18n.__(key),
+        locale: TAPi18n.getLanguage(),
+        rtl: TAPi18n.isRTL(),
+      }),
       editable: true,
       selectable: true,
-      weekNumbers: true,
-      // #4946: FullCalendar's default weekNumberCalculation is locale-based
-      // (Sunday-anchored for many locales), so the week-number column ignored
-      // the user's start-day-of-week setting even though `firstDay` moved the
-      // grid. Compute the number from the SAME firstDay so the label matches the
-      // way the week is laid out.
-      weekNumberCalculation: date => weekNumberByFirstDay(date, firstDay),
-      // Use non-localized AM/PM time format to avoid confusing notations like 上/下/中
-      // Use full 'am'/'pm' instead of single-letter 'a'/'p' for clarity
-      eventTimeFormat: {
-        hour: 'numeric',
-        minute: '2-digit',
-        meridiem: 'short',
-      },
-      slotLabelFormat: {
-        hour: 'numeric',
-        minute: '2-digit',
-        meridiem: 'short',
-      },
-      // #6686: Today/Previous/Next used to sit in their own group under the
-      // title, with the Day/Week/Month view toggles in a third, CENTER group
-      // that pushed everything onto a second row. All the buttons now sit
-      // together in ONE group on the right side of the title, which stays
-      // alone on the left - see calendarView.css for the title's vertical
-      // centering against that single row.
-      headerToolbar: {
-        left: 'title',
-        center: '',
-        right:
-          'today prev,next timeGridDay,listDay timeGridWeek,listWeek dayGridMonth,listMonth',
-      },
-      buttonIcons: false,
-      buttonText: {
-        prev: t('previous', 'Previous'),
-        next: t('next', 'Next'),
-        today: t('today', 'Today'),
-        day: t('day', 'Day'),
-        week: t('week', 'Week'),
-        month: t('month', 'Month'),
-        list: t('list', 'List'),
-      },
-      // height: 'parent', nope, doesn't work as the parent might be small
-      height: 'auto',
       /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */
       navLinks: true,
-      nowIndicator: true,
       businessHours: {
         // days of week. an array of zero-based day of week integers (0=Sunday)
         daysOfWeek: [1, 2, 3, 4, 5], // Monday - Friday
         start: '8:00',
         end: '18:00',
       },
-      locale: TAPi18n.getLanguage(),
-      direction: TAPi18n.isRTL() ? 'rtl' : 'ltr',
       events(fetchInfo, callback) {
         const currentBoard = Utils.getCurrentBoard();
         // #5656: apply the active board Filter (member / assignee / due-date /

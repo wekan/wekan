@@ -53,10 +53,13 @@ assert.equal(quechua['every-1-day'], 'Sapa p’unchay');
 for (const key of ['day', 'every-1-day']) {
   assert.doesNotMatch(quechua[key], /Kay willaymi|Everyta|[Dd]ayta/);
 }
+// Both calendar views take their toolbar labels from the shared options.
+assert.match(fs.readFileSync(path.join(root, 'models/lib/calendarBaseOptions.js'), 'utf8'),
+  /day: t\('day', 'Day'\)/, 'calendar toolbar uses the translated day label');
 for (const file of ['client/components/boards/boardBody.js',
   'client/components/boards/multiboardCalendarView.js']) {
   assert.match(fs.readFileSync(path.join(root, file), 'utf8'),
-    /day: t\('day', 'Day'\)/, 'calendar toolbar uses the translated day label');
+    /translate: key => TAPi18n\.__\(key\),/, `${file} passes the translation in`);
 }
 assert.match(quechua['act-deleteCard'], /Qullusqa Tarjeta/);
 assert.deepEqual(tokens(quechua['act-deleteCard']),
