@@ -155,6 +155,50 @@ in `models/lib/boardCardScope.js`, and the server applies it - the UI only
 decides what to draw. A view that has no server source of its own draws from the
 board's published cards, which are already narrowed.
 
+### Custom roles in every board view
+
+A [custom role](#custom-roles) from **Admin Panel → People → Roles → Custom
+roles** is applied in every board view exactly as a built-in role is, because
+every view asks the same two things of the member:
+
+- **What may they do?** - comment, create and edit, move cards, invite. This
+  is asked of the capability table (`memberCan()` / `roleCan()` in
+  `models/lib/boardRoleCapabilities.js`), which answers from the custom role
+  itself for a member who carries one.
+- **Which cards may they see?** - this is asked of the member's flags
+  (`isAssignedOnlyMember()`), and a custom role writes those flags. A role
+  whose **Sees all cards** is off gives its members one of the three
+  assigned-only flags (`fallbackRoleFor()` picks only among built-in roles
+  that see no more cards than the role does), so in every view below they see
+  and change only the cards assigned to them. A role with **Sees all cards**
+  on never carries an assigned-only flag.
+
+So the table below is the same for a custom role: read "an assigned-only
+member" as "a member whose role does not see all cards", built-in or custom.
+A custom role that may write but sees only assigned cards writes only its own
+cards, in every view and method, and is refused by REST writes, like Normal,
+assigned only.
+
+The two never drift apart:
+
+- **Giving the role** to a member writes its flags with it
+  (`boards.setMemberCustomRole`).
+- **Changing the role** in the Admin Panel rewrites the flags of every member
+  who has it, on every board, at once (`refreshMembersOf`) - turning **Sees
+  all cards** off narrows every view for all of them immediately, and turning
+  it on widens them again.
+- **Choosing a built-in role** removes the custom one, so its flags and its
+  capabilities are the built-in role's alone (`setMemberPermission`).
+- **Deleting the role** leaves its members on the flags it wrote, which see
+  no more cards than the role did.
+
+`tests/boardRoleViews.test.cjs` builds a member for every combination of
+custom role capabilities, as the server writes it, and checks that each view's
+rule narrows them exactly when their role does not see all cards - and that
+nothing sets the flags without the custom role following.
+`server/lib/tests/customBoardRoles.tests.js` checks on a running server that
+turning **Sees all cards** off and on again reaches the member.
+
 ### Which source each view reads
 
 | Board view | Where its cards come from | For an assigned-only member |

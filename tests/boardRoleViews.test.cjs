@@ -233,3 +233,71 @@ test('REST writes and moves: an assigned-only member cannot act on cards they ca
     assert.match(read(file), /mayReadBoardAttachment\(sourceBoard, (this\.)?userId, sourceAttachment, 'attachment-api:move'\)/, file);
   }
 });
+
+// ---- custom roles (Admin Panel → People → Roles → Custom roles) ------------
+
+test('custom roles: every combination is narrowed in every view exactly when it does not see all cards', async () => {
+  const caps = require('../models/lib/boardRoleCapabilities');
+  const { memberReadsWholeBoard } = require('../models/lib/boardReadAccess');
+  const NAMES = ['seesAllCards', 'comment', 'write', 'moveCard', 'inviteToBoard'];
+  const roles = new Map();
+  caps.setCustomRoleLookup(id => roles.get(id) || null);
+  try {
+    for (let bits = 0; bits < 1 << NAMES.length; bits += 1) {
+      const capabilities = Object.fromEntries(NAMES.map((name, i) => [name, Boolean(bits & (1 << i))]));
+      const role = caps.normalizeCustomCapabilities(capabilities);
+      const id = `role${bits}`;
+      roles.set(id, { _id: id, capabilities });
+      // The member as server/customBoardRoles.js memberFields() writes it.
+      const member = { userId: 'c', isActive: true, customRoleId: id, ...caps.flagsForRole(caps.fallbackRoleFor(capabilities)) };
+      const board = { _id: 'B', members: [member, { userId: 'normal', isActive: true }] };
+      const ownCard = { _id: 'own', boardId: 'B', assignees: ['c'] };
+      const otherCard = { _id: 'other', boardId: 'B', assignees: ['normal'] };
+      const label = JSON.stringify(role);
+      const narrowed = !role.seesAllCards;
+      // The custom role decides capabilities; the mirror decides which cards.
+      assert.equal(caps.memberRoleOf(member), `custom:${id}`, label);
+      assert.equal(caps.memberCan(board, 'c', 'write'), role.write, label);
+      assert.equal(scope.isAssignedOnlyMember(board, 'c'), narrowed, label);
+      assert.deepEqual(scope.assignedOnlyCardScope(board, 'c'), narrowed ? { assignees: { $in: ['c'] } } : null, label);
+      assert.equal(memberReadsWholeBoard(member, 'c'), role.seesAllCards, `${label} REST whole-board reads`);
+      // Every card-level rule, as each view's server path asks it.
+      assert.equal(scope.assignedOnlyAllowsCard(board, 'c', ownCard), true, label);
+      assert.equal(scope.assignedOnlyAllowsCard(board, 'c', otherCard), role.seesAllCards, label);
+      assert.equal(buttonRuleAllowed('c', board, 'other', otherCard), role.write && role.seesAllCards, `${label} button`);
+      assert.equal(buttonRuleAllowed('c', board, 'own', ownCard), role.write, `${label} own-card button`);
+      // REST writes: the capability, and never for an assigned-only member.
+      assert.equal(caps.memberCan(board, 'c', 'write') && !scope.isAssignedOnlyMember(board, 'c'),
+        role.write && role.seesAllCards, `${label} REST writes`);
+      // The Email View's real selector.
+      const selector = await selectorFor(scope.mergeCardScope, emailFolderSelector, emailSearchSelector,
+        async () => 'INBOX', scope.assignedOnlyCardScope, board, 'c', 'all', '');
+      assert.deepEqual(selector.$and[1], narrowed ? { assignees: { $in: ['c'] } } : {}, `${label} Email View`);
+    }
+  } finally {
+    caps.setCustomRoleLookup(() => null);
+  }
+});
+
+test('custom roles: nothing sets the role flags without the custom role following', () => {
+  // A flag written with the custom role left in place would let the role's
+  // capabilities apply while the flags say which cards - the two could then
+  // disagree. Only two writers set them: memberFields() with the custom role,
+  // and setMemberPermission(), which removes it.
+  const custom = read('server/customBoardRoles.js');
+  assert.match(custom, /const flags = flagsForRole\(fallbackRoleFor\(capabilities\)\);[\s\S]*?fields\[`members\.\$\{index\}\.customRoleId`\] = roleId;/);
+  assert.match(custom, /await refreshMembersOf\(roleId, capabilities\);/, 'saving a role rewrites its members on every board');
+  const boards = read('models/boards.js');
+  const setter = boards.slice(boards.indexOf('async setMemberPermission('), boards.indexOf('async setAllowsSubtasks('));
+  assert.match(setter, /\$unset: \{\n\s+\[`members\.\$\{memberIndex\}\.customRoleId`\]: '',/);
+  const writers = [];
+  const walk = dir => {
+    for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+      const rel = `${dir}/${e.name}`;
+      if (e.isDirectory()) { if (!['node_modules', '_build', '.build', 'tests'].includes(e.name)) walk(rel); }
+      else if (e.name.endsWith('.js') && /`members\.\$\{\w+\}\.is(NormalAssignedOnly|CommentAssignedOnly|ReadAssignedOnly|NoComments|CommentOnly|Worker|ReadOnly)`/.test(read(rel))) writers.push(rel);
+    }
+  };
+  walk('server'); walk('models');
+  assert.deepEqual(writers, ['models/boards.js'], 'only setMemberPermission writes a flag by member index');
+});

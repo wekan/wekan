@@ -10,6 +10,7 @@ import CustomBoardRoles from '/models/customBoardRoles';
 // role reaches the member, the last board admin cannot lose that role, a
 // built-in role replaces the custom one, and a deleted role leaves the mirror.
 const { memberCan, memberRoleOf } = require('/models/lib/boardRoleCapabilities');
+const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 
 describe('Custom board roles (runtime)', function () {
   this.timeout(60000);
@@ -71,6 +72,26 @@ describe('Custom board roles (runtime)', function () {
     const m = await memberOf(member);
     assert.equal(m.isReadOnly, false);
     assert.equal(memberCan((await board()).members, member, 'write'), true);
+  });
+
+  // GHSA-r4gm-mjj9-g3x8: which cards a member sees is decided in every board
+  // view from the mirrored flags (isAssignedOnlyMember). Taking "sees all
+  // cards" away from the role must make its members assigned-only on every
+  // board at once, and giving it back must lift that.
+  it('a role that stops seeing all cards makes its members assigned-only, in every view', async () => {
+    await call(siteAdmin, 'customBoardRoles.save', roleId,
+      { name: 'Editor', capabilities: { seesAllCards: false, comment: true, write: true } });
+    await settle();
+    let m = await memberOf(member);
+    assert.equal(m.isNormalAssignedOnly, true, 'the mirror: Normal, assigned only');
+    assert.equal(isAssignedOnlyMember(await board(), member), true);
+    assert.equal(memberCan((await board()).members, member, 'write'), true, 'still writes - its own cards');
+    await call(siteAdmin, 'customBoardRoles.save', roleId,
+      { name: 'Editor', capabilities: { seesAllCards: true, comment: true, write: true } });
+    await settle();
+    m = await memberOf(member);
+    assert.equal(m.isNormalAssignedOnly, false);
+    assert.equal(isAssignedOnlyMember(await board(), member), false, 'and back (negative)');
   });
 
   it('the last board admin cannot be given a custom role (negative)', async () => {
