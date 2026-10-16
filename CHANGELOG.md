@@ -111,9 +111,10 @@ below by category, with its reason.
 
 **In short:** a **LockoutBleed** follow-up loads the web login's timing
 equalizer, which was finished but never imported, together with **card
-recurrence** and the snap's product name. Notification attachments show
-again, labels that showed their translation key are translated, and
-**docs/Features is filed by the WeKan menus**.
+recurrence**. Cloning, notification attachments and a visitor's **Scrum views**
+work again, over 1,400 lines of **duplicated or unreachable code** are
+gone, and **docs/Features is filed by the WeKan menus** with examples that match
+this WeKan.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [LockoutBleed](https://wekan.fi/hall-of-fame/lockoutbleed/):
 
@@ -164,9 +165,51 @@ against every publication and every template key against `en.i18n.json`.
 
 </details>
 
+**Boards** - cloning, and the view a visitor chose.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e29641111">Cloning a board through the cloneBoard method works again</a>. Thanks to xet7.</summary>
+
+`getMembersToMap` is async, and `cloneBoard` called `.forEach` on the Promise it
+returned, so every clone through that method stopped with an error; the board
+menu clones with `copyBoard` and was not affected. A test resolves every
+variable assigned from an async function, file by file, and fails when it is
+used as a value without `await`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a896f3ed8c">A visitor's Product Backlog, Sprints, Sprint Report or Velocity view stays chosen</a>. Thanks to xet7.</summary>
+
+Without an account the browser keeps the board view, and `client/lib/utils.js`
+stored it from one hand-written list of views but read it back through another
+that lacked the four Scrum views, so they opened as Swimlanes. Both ask
+`BOARD_VIEWS` now, which removes the two lists.
+
+</details>
+
 and has the following developer-facing changes:
 
+**Less code to maintain** - copies that decided nothing, and code nothing
+reached.
+
 - [Remove files nothing loads, and point their tests at the code that runs](https://github.com/wekan/wekan/commit/70dcc2a134).
+  Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dc5399dc7">Remove code a second copy replaced, and templates nothing draws</a>. Thanks to xet7.</summary>
+
+Twelve card member methods and two user helpers were defined twice in one
+object literal, where only the last copy runs. An Admin Panel attachment
+settings pane that no menu opened, a dozen templates nothing drew, and CSS
+blocks repeated word for word went with them. Two tests fail on a key defined
+twice in an object literal and on a template nothing draws.
+
+</details>
+
+- [The list and its header share the fixed list width helpers](https://github.com/wekan/wekan/commit/73e815b4f4).
+  Thanks to xet7.
+- [The board's organization and team pickers share one state helper](https://github.com/wekan/wekan/commit/a6aa3fdfb7).
   Thanks to xet7.
 
 and updates the following documentation:
@@ -180,6 +223,17 @@ Admin-Panel and Login-Page, with shared topics in General. Each area has a
 README mapping its menu entries to guides and to the template or module that
 implements them; Board View lists all 40 views, of which five have no guide of
 their own yet. Old paths that released changelogs link keep a forwarding page.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11babe27f2">Snap keys, the setting guide and Docker examples match this WeKan</a>. Thanks to xet7.</summary>
+
+Three `snap set` lines named keys the snap does not have, which snapd stores
+without a word; a test checks every one in the docs against
+`snap-src/bin/config`. The guide to adding a setting follows the real config,
+help and Admin Panel catalog. The LDAP and Traefik examples ran MongoDB 3.2 and
+4.0 with the removed `--smallfiles` and 2018 WeKan images.
 
 </details>
 
