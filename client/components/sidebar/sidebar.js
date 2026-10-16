@@ -96,6 +96,7 @@ const viewTitles = {
   multiselection: 'multi-selection',
   customFields: 'custom-fields',
   archives: 'archives',
+  originalPositions: 'original-positions',
 };
 
 Template.sidebar.onCreated(function() {
@@ -559,6 +560,15 @@ Template.boardMenuPopup.events({
   'click .js-open-archives'() {
     if (Sidebar) {
       Sidebar.setView('archives');
+    }
+    Popup.back();
+  },
+  // Where each swimlane, list and card was put when it was made
+  // (originalPositionsSidebar). Open to everyone who sees the board, like
+  // Archived items: the server returns only what the reader may see.
+  'click .js-open-original-positions'() {
+    if (Sidebar) {
+      Sidebar.setView('originalPositions');
     }
     Popup.back();
   },

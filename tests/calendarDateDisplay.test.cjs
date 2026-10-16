@@ -148,7 +148,7 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   // utilities must not implicitly depend on a user's display calendar.
   for (const file of ['cards/cardCustomFields.js', 'cards/checklists.js',
     'notifications/notification.js', 'history/historyTable.js', 'cards/attachments.js',
-    'boards/boardsList.js', 'boards/timelineView.js', 'boards/originalPositionsView.js',
+    'boards/boardsList.js', 'boards/timelineView.js', 'sidebar/sidebarOriginalPositions.js',
     'boards/groupByAssigneeView.js', 'lists/listHeader.js', 'cards/labels.js', 'settings/adminProblems.js',
     'settings/peopleBody.js', 'settings/attachments.js', 'gantt/gantt.js',
     'gantt/frappeGantt.js', 'gantt/dhtmlxGantt.js']) {

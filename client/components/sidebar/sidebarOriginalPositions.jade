@@ -1,0 +1,42 @@
+//- Board menu → Original positions (docs/Features/General/Original-Positions).
+  Where each swimlane, list and card was put when it was made, and which have
+  moved since. The server returns only what the reader may see: for an
+  assigned-only role, the cards assigned to them (positionHistory.getBoardHistory).
+template(name="originalPositionsSidebar")
+  .original-positions-view
+    .original-positions-header
+      button.btn.btn-sm.btn-outline-primary.js-refresh-history(type="button")
+        i.fa.fa-refresh
+        |  {{_ 'refresh'}}
+    if isLoading
+      .original-positions-loading
+        i.fa.fa-spinner.fa-spin
+        |  {{_ 'loading'}}
+    else
+      each group in groups
+        h3.original-positions-group
+          i.fa(class="{{group.icon}}")
+          |  {{_ group.labelKey}}
+        .original-positions-list
+          each item in group.items
+            .original-position-item
+              .original-position-item-header
+                span.entity-name
+                  +viewer
+                    = item.title
+                if item.moved
+                  span.original-position-moved  {{_ 'history-change-moved'}}
+              .original-position-item-details
+                if item.originalPlace
+                  .original-position-description {{item.originalPlace}}
+                if item.originalTitle
+                  .original-title
+                    strong {{_ 'title'}}:
+                    +viewer
+                      = item.originalTitle
+                .original-position-date
+                  small.text-muted {{_ 'createdAt'}}: {{item.createdAt}}
+      else
+        .no-original-positions
+          i.fa.fa-info-circle
+          |  {{_ 'no-results'}}

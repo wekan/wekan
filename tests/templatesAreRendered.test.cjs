@@ -43,16 +43,11 @@ function walk(dir, out = []) {
 // (cardCustomFields.js).
 const BUILT = [/Sidebar$/, /^spinner[A-Z]/, /^cardCustomField-/];
 
-// Kept on purpose, not yet drawn.
+// Kept on purpose, not drawn by name.
 const PENDING = {
   // An extension point: FilterProviderRegistry entries name the template
   // they render, and tests/filterProviders.test.cjs registers this one.
   textFilterProvider: 'filter-provider extension point',
-  // Original positions (docs/Features/General/Original-Positions): built
-  // but every string is hard-coded English, so they are not wired into a
-  // menu until they are translated.
-  originalPositionsView: 'original positions, untranslated',
-  originalPosition: 'original positions, untranslated',
 };
 
 const templates = new Map();
@@ -93,7 +88,10 @@ test('the removed templates stay removed', () => {
     'attachmentMonitoring', 'dateBadge', 'dateCustomField', 'cardCustomFieldDate',
     'orgAvatar', 'teamAvatar', 'globalSearchModalTitle', 'dueCardsModalTitle',
     'myCardsModalTitle', 'boardLists', 'boardCreateRulePopup', 'addMemberPopupTest',
-    'subtasksItems', 'subtaskItemDetail', 'addSubtaskItemForm']) {
+    'subtasksItems', 'subtaskItemDetail', 'addSubtaskItemForm',
+    // Original positions are the board menu's originalPositionsSidebar now;
+    // the per-item component repeated what that lists and was never placed.
+    'originalPositionsView', 'originalPosition']) {
     assert.ok(!templates.has(gone), `${gone} was drawn by nothing and was removed`);
   }
 });

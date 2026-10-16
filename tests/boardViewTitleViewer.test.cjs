@@ -11,7 +11,7 @@ test('new board fields use the shared policy-aware viewer', () => {
     ['boards/groupByAssigneeView.jade', ['title']],
     ['boards/roadmapView.jade', ['label']],
     ['boards/bigboardView.jade', ['title']],
-    ['boards/originalPositionsView.jade', ['originalTitle']],
+    ['sidebar/sidebarOriginalPositions.jade', ['item.title', 'item.originalTitle']],
     ['boards/tableView.jade', ['row.title', 'row.listTitle', 'row.swimlaneTitle']],
     ['boards/charts/boardCharts.jade', ['header', 'cell']],
     ['lists/listHeader.jade', ['title']],

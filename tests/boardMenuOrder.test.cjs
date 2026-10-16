@@ -105,6 +105,7 @@ const EXPECTED = [
   'js-outgoing-webhooks',
   'hr',
   'js-open-archives',
+  'js-open-original-positions',
   'js-archive-board',
 ];
 
@@ -158,6 +159,8 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-notification-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-outgoing-webhooks'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-archives'), [], 'Archived items is open to everyone who sees the board');
+  assert.deepStrictEqual(guardsOf('js-open-original-positions'), [],
+    'so is Original positions: the server narrows it to what the reader may see');
   assert.deepStrictEqual(guardsOf('js-archive-board'), ['unless currentBoard.isTemplatesBoard', admin]);
 });
 

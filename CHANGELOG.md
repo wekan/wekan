@@ -105,16 +105,6 @@ below by category, with its reason.
 
 </details>
 
-<details>
-<summary>Built but not yet in use.</summary>
-
-- Original positions: `originalPositionsView` and `originalPosition`
-  (client/components/boards/, client/components/common/) are drawn by nothing;
-  every string is hard-coded English, so they need translation keys and a place
-  in a menu before they are wired in.
-
-</details>
-
 </details>
 
 # Upcoming WeKan ® release

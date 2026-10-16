@@ -1,34 +1,45 @@
-{% raw %}
-<!-- Contains literal {{> ...}} template snippets; wrap in raw so Jekyll's
-     Liquid engine does not try to evaluate them when building GitHub Pages. -->
-# Original Positions Tracking Feature
+# Original positions
 
-This feature allows users to see the original positions of swimlanes, lists, and cards before the list naming feature was added in commit [719ef87efceacfe91461a8eeca7cf74d11f4cc0a](https://github.com/wekan/wekan/commit/719ef87efceacfe91461a8eeca7cf74d11f4cc0a).
+Board hamburger menu → **Original positions** opens a right-sidebar view of
+where each swimlane, list and card was put when it was made, and which have
+moved since. It sits after **Archive** in the same menu and, like it, is open to
+everyone who can see the board; what each reader is shown is decided on the
+server.
 
-## Overview
+## What it shows
 
-The original positions tracking system automatically captures and stores the initial positions of all board entities (swimlanes, lists, and cards) when they are created. This allows users to:
+Three groups - **Swimlanes**, **Lists** and **Cards** - and for each item:
 
-- View the original position of any entity
-- See if an entity has moved from its original position
-- Track the original title before any changes
-- View a complete history of original positions for a board
+- its name **now**;
+- **Moved**, when it is no longer where it was put: a different position, or for a
+  list a different swimlane, or for a card a different list or swimlane;
+- where it was put, by the names those have now: *List: Doing · Swimlane:
+  Default* for a card, the swimlane for a list;
+- the **title** it was made with, when that is not its title now;
+- when it was made.
 
-## Features
+**Refresh** reads the board's history again. Something made before positions
+were recorded has no row; something that no longer exists is shown by the title
+it was made with, never as moved.
 
-### 1. Automatic Position Tracking
-- **Swimlanes**: Tracks original sort position and title
-- **Lists**: Tracks original sort position, title, and swimlane assignment
-- **Cards**: Tracks original sort position, title, swimlane, and list assignment
+## Who sees what
 
-### 2. Database Schema
-The system uses a new `PositionHistory` collection with the following structure:
+`positionHistory.getBoardHistory` returns rows only to someone who may read the
+board, and for an assigned-only role only the swimlanes, the lists and the cards
+assigned to them - the same rule as every other board view (see
+[Roles](../../Board-Sidebar/Members/Roles.md)).
+
+## How positions are recorded
+
+When a swimlane, list or card is made, the server stores one row in the
+`PositionHistory` collection:
+
 ```javascript
 {
   boardId: String,           // Board ID
   entityType: String,        // 'swimlane', 'list', or 'card'
   entityId: String,          // Entity ID
-  originalPosition: Object,  // Original position data
+  originalPosition: Object,  // Original position data ({ sort, title })
   originalSwimlaneId: String, // Original swimlane (for lists/cards)
   originalListId: String,    // Original list (for cards)
   originalTitle: String,     // Original title
@@ -37,216 +48,31 @@ The system uses a new `PositionHistory` collection with the following structure:
 }
 ```
 
-### 3. UI Components
+Only the first row of an item is kept, so later moves never overwrite it. The
+hooks are in `server/models/swimlanes.js`, `server/models/lists.js` and
+`server/models/cards.js` (`trackOriginalPosition()`).
 
-#### Individual Entity Display
-- Shows original position information for individual swimlanes, lists, or cards
-- Indicates if the entity has moved from its original position
-- Displays original title if different from current title
+## Server methods
 
-#### Board-Level View
-- Complete overview of all original positions on a board
-- Filter by entity type (swimlanes, lists, cards)
-- Search and sort functionality
-- Export capabilities
+All of them check that the caller may read the board, and the card methods
+that the caller may see that card:
 
-## Usage
+| Method | Returns |
+| --- | --- |
+| `positionHistory.getBoardHistory(boardId)` | every row of the board the caller may see |
+| `positionHistory.getBoardHistoryByType(boardId, type)` | the same, for `swimlane`, `list` or `card` |
+| `positionHistory.get{Swimlane,List,Card}OriginalPosition(id)` | one item's row |
+| `positionHistory.has{Swimlane,List,Card}Moved(id)` | whether it has moved |
+| `positionHistory.track{Swimlane,List,Card}(id)` | records a row for an item made before tracking |
 
-### 1. Automatic Tracking
-Position tracking happens automatically when entities are created. No manual intervention required.
+## Implementation
 
-### 2. Viewing Original Positions
+`client/components/sidebar/sidebarOriginalPositions.jade`, `.js` and `.css`
+(the `originalPositionsSidebar` view); `models/lib/originalPositions.js` (the
+groups, names and "moved", tested without Meteor in
+`tests/originalPositions.test.cjs`); `server/methods/positionHistory.js`;
+`models/positionHistory.js`.
 
-#### In Templates
-```html
-<!-- Show original position for a swimlane -->
-{{> originalPosition entityId=swimlane._id entityType="swimlane"}}
-
-<!-- Show original position for a list -->
-{{> originalPosition entityId=list._id entityType="list"}}
-
-<!-- Show original position for a card -->
-{{> originalPosition entityId=card._id entityType="card"}}
-```
-
-#### In JavaScript
-```javascript
-import { addOriginalPositionToSwimlane, addOriginalPositionToList, addOriginalPositionToCard } from '/client/lib/originalPositionHelpers';
-
-// Track original position for a swimlane
-addOriginalPositionToSwimlane(swimlaneId);
-
-// Track original position for a list
-addOriginalPositionToList(listId);
-
-// Track original position for a card
-addOriginalPositionToCard(cardId);
-```
-
-### 3. Server Methods
-
-#### Track Original Positions
-```javascript
-// Track swimlane
-Meteor.call('positionHistory.trackSwimlane', swimlaneId);
-
-// Track list
-Meteor.call('positionHistory.trackList', listId);
-
-// Track card
-Meteor.call('positionHistory.trackCard', cardId);
-```
-
-#### Get Original Position Data
-```javascript
-// Get swimlane original position
-Meteor.call('positionHistory.getSwimlaneOriginalPosition', swimlaneId);
-
-// Get list original position
-Meteor.call('positionHistory.getListOriginalPosition', listId);
-
-// Get card original position
-Meteor.call('positionHistory.getCardOriginalPosition', cardId);
-```
-
-#### Check if Entity Has Moved
-```javascript
-// Check if swimlane has moved
-Meteor.call('positionHistory.hasSwimlaneMoved', swimlaneId);
-
-// Check if list has moved
-Meteor.call('positionHistory.hasListMoved', listId);
-
-// Check if card has moved
-Meteor.call('positionHistory.hasCardMoved', cardId);
-```
-
-#### Get Board History
-```javascript
-// Get all position history for a board
-Meteor.call('positionHistory.getBoardHistory', boardId);
-
-// Get position history by entity type
-Meteor.call('positionHistory.getBoardHistoryByType', boardId, 'swimlane');
-Meteor.call('positionHistory.getBoardHistoryByType', boardId, 'list');
-Meteor.call('positionHistory.getBoardHistoryByType', boardId, 'card');
-```
-
-## Integration Examples
-
-### 1. Add to Swimlane Template
-```html
-<template name="swimlane">
-  <div class="swimlane">
-    <!-- Existing swimlane content -->
-    
-    <!-- Add original position info -->
-    {{> originalPosition entityId=_id entityType="swimlane"}}
-  </div>
-</template>
-```
-
-### 2. Add to List Template
-```html
-<template name="list">
-  <div class="list">
-    <!-- Existing list content -->
-    
-    <!-- Add original position info -->
-    {{> originalPosition entityId=_id entityType="list"}}
-  </div>
-</template>
-```
-
-### 3. Add to Card Template
-```html
-<template name="card">
-  <div class="card">
-    <!-- Existing card content -->
-    
-    <!-- Add original position info -->
-    {{> originalPosition entityId=_id entityType="card"}}
-  </div>
-</template>
-```
-
-### 4. Add Board-Level View
-```html
-<template name="board">
-  <div class="board">
-    <!-- Existing board content -->
-    
-    <!-- Add original positions view -->
-    {{> originalPositionsView}}
-  </div>
-</template>
-```
-
-## Configuration
-
-### 1. Enable/Disable Tracking
-Position tracking is enabled by default. To disable it, comment out the tracking hooks in the model files:
-
-```javascript
-// In models/swimlanes.js, models/lists.js, models/cards.js
-// Comment out the tracking hooks:
-/*
-Meteor.setTimeout(() => {
-  const entity = Collection.findOne(doc._id);
-  if (entity) {
-    entity.trackOriginalPosition();
-  }
-}, 100);
-*/
-```
-
-### 2. Customize Display
-Modify the CSS files to customize the appearance:
-- `client/components/common/originalPosition.css`
-- `client/components/boards/originalPositionsView.css`
-
-## Database Migration
-
-No database migration is required. The system automatically creates the `PositionHistory` collection when first used.
-
-## Performance Considerations
-
-- Position tracking adds minimal overhead to entity creation
-- Original position data is only stored once per entity
-- Database indexes are created for efficient querying
-- UI components use reactive data for real-time updates
-
-## Troubleshooting
-
-### 1. Original Position Not Showing
-- Check if the entity has been created after the feature was implemented
-- Verify that the position tracking hooks are enabled
-- Check browser console for any JavaScript errors
-
-### 2. Performance Issues
-- Ensure database indexes are created (happens automatically on startup)
-- Consider limiting the number of entities displayed in the board view
-- Use the filter functionality to reduce the number of displayed items
-
-### 3. Data Inconsistencies
-- Original position data is only captured when entities are created
-- Existing entities will not have original position data
-- Use the refresh functionality to re-scan the board
-
-## Future Enhancements
-
-- Export original position data to CSV/JSON
-- Bulk operations for managing original positions
-- Integration with board templates
-- Advanced filtering and search capabilities
-- Position change notifications
-- Historical position timeline view
-
-## Support
-
-For issues or questions about the original positions tracking feature, please:
-1. Check the browser console for errors
-2. Verify that all required files are present
-3. Test with a new board to ensure the feature works correctly
-4. Report issues with detailed error messages and steps to reproduce
-{% endraw %}
+Until 2026-10-17 this was two templates nothing drew, with every string in
+English and raw ids instead of names, and a set of client helpers nothing
+called; they were replaced by the sidebar view.

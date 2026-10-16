@@ -725,6 +725,10 @@ template(name="boardMenuPopup")
       a.js-open-archives
         i.fa.fa-archive
         | {{_ 'archived-items'}}
+    li
+      a.js-open-original-positions
+        i.fa.fa-history
+        | {{_ 'original-positions'}}
     unless currentBoard.isTemplatesBoard
       if currentUser.isBoardAdmin
         // li
