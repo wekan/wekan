@@ -29,6 +29,7 @@ Empty optional groups can be hidden by those settings.
 | Checklists → From description | [Checklist or subtasks from the description](Checklist-From-Description.md) |
 | Action items | [Action items from a comment or description](Action-Items.md) |
 | Helpers that need no AI | [Overview](../General/Assistants/Assistants.md) |
+| Drawing → Open as whiteboard | [Whiteboard, several people at once](Whiteboard.md) |
 | Export / Import | [Scope, formats and limits](../Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md) |
 
 The opened-card heading is **Date**, not Change Date Format. Linked-card titles
