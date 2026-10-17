@@ -98,27 +98,10 @@ Which databases WeKan supports
 <details>
 <summary>Carried to a future release.</summary>
 
-What is not built yet, checked against the code on 2026-10-17: the features
-below. New work that cannot be done here is added below by category, with its
-reason.
-
-</details>
-
-<details>
-<summary>Features other kanban apps call AI, done here with plain code.</summary>
-
-Trello, Jira and ClickUp sell these as AI. Each one can be computed from the
-board's own data, with no model behind it. 1-11 are done; what is left:
-
-12. A card's drawing opens full screen as a whiteboard under the header bar,
-    with the same drawing tools as Red Strings, and several people draw on it
-    at the same time.
-
-Each is hidden like the features before them: the card helpers are rows of
-Board Settings / Card and of Admin Panel / Settings / Visibility / Features /
-Card fields, the board and search helpers are features of Admin Panel /
-Settings / Visibility / Features. The guides are in
-docs/Features/General/Assistants/Assistants.md and the menu folders it links.
+What is not built yet, checked against the code on 2026-10-17: nothing. The
+helpers that need no AI and the whiteboard are built and in the Upcoming
+release. New work that cannot be done here is added below by category, with
+its reason.
 
 </details>
 
@@ -131,7 +114,8 @@ apps sell as AI, done here with plain code: a **due date from the title**,
 **similar cards**, **rule suggestions**, a board **Summary**, **Since your last
 visit**, **At risk**, **suggested members**, a **forecast done date**, a
 **checklist from the description**, **action items** and **search phrases**.
-Each can be hidden per board or for the whole WeKan.
+A card's drawing also opens as a **whiteboard** that several people draw on
+at once. Each can be hidden per board or for the whole WeKan.
 
 This release adds the following new features:
 
@@ -273,10 +257,27 @@ assist-search-phrases.e2e.js.
 
 </details>
 
+**Whiteboard** - a card's drawing full screen, for several people at once.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/390007e380">A card's drawing opens as a whiteboard that several people draw on at once</a>. Thanks to xet7.</summary>
+
+Card menu -> Drawing -> Open as whiteboard: the drawing under the header bar,
+over the opened card, with the drawing's and Red Strings' own colours, widths,
+Undo, Clear and Save picture, scaled to the screen. Each line is one atomic
+$push with its id and author, carried to everyone by the card's publication;
+Undo and Clear take away only one's own lines, Save picture writes only the
+PNG. Who may draw is who may edit the card. A Board Settings / Card row.
+tests/whiteboard.test.cjs, and whiteboard.e2e.js draws from two browsers at
+the same moment.
+
+</details>
+
 and improves the documentation:
 
 - [docs/Features: guides for the eleven helpers that need no AI, filed by menu](https://github.com/wekan/wekan/commit/e76f12bcdd),
   and TODO Later lists them. Thanks to xet7.
+- [docs/Features: Cards / Whiteboard](https://github.com/wekan/wekan/commit/d9bb7b4f4f). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
