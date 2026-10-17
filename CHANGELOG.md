@@ -140,6 +140,16 @@ and adds the following new features:
 **Admin Panel / Problems** - what the machine is short of.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b8a33022b">Instrumentation shows the whole picture as one bar per area of WeKan</a>. Thanks to xet7.</summary>
+
+Instead of up to 200 rows on 11 pages, the page opens with one bar per area -
+Settings, Login, People, Boards, Cards and the rest - showing its calls, the
+share that failed and the average duration; clicking an area filters the table
+to it. All of WeKan's 614 methods and publications are grouped and tested.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6a3d98736">Memory Usage and Disk usage reports, beside CPU usage</a>. Thanks to xet7.</summary>
 
 The two pages were designs no code carried out. Each monitor records only the
