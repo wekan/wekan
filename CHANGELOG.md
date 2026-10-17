@@ -107,7 +107,7 @@ below by category, with its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.50 2026-10-17 WeKan ® release
 
 **In short:** a **LockoutBleed** follow-up loads the web login's timing
 equalizer, which was finished but never imported. Admin Panel / Problems gains
