@@ -27,10 +27,10 @@ test('native and emulated Linux bundles both package their own runtime', () => {
 test('AppImage and Flatpak require the bundled library and preserve the bundle', () => {
   for (const name of ['AppImage', 'Flatpak']) {
     const workflow = read(`.github/workflows/${name}.yml`);
-    // AppImage also wraps the musl bundles, whose Node.js needs no glibc
-    // libraries; every glibc bundle must still carry node-runtime.
+    // AppImage also wraps the musl bundles, whose node-runtime holds GCC's
+    // C++ runtime instead; every glibc bundle must still carry libatomic.
     assert.match(workflow, name === 'AppImage'
-      ? /\[ "\$\{MATRIX_MUSL\}" = true \] \|\| required="\$required bundle\/node-runtime\/libatomic\.so\.1"\n\s+for f in \$required/
+      ? /else\n\s+required="\$required bundle\/node-runtime\/libatomic\.so\.1"\n\s+fi\n\s+for f in \$required/
       : /for f in [^\n]*bundle\/node-runtime\/libatomic.so.1/);
     assert.match(workflow, /cp -a bundle /);
   }

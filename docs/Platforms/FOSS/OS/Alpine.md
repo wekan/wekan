@@ -22,6 +22,10 @@ and, inside Alpine on a runner of the same CPU
 
 - puts in the musl Node.js of exactly the bundle's version, checked against
   its published SHA256, and removes the glibc libraries of `node-runtime`;
+- puts GCC's C++ runtime (`libstdc++.so.6`, `libgcc_s.so.1`, with its license
+  notice) from that Alpine into `node-runtime` instead: the musl Node.js is
+  linked against it, and an Alpine without `apk add libstdc++` does not have
+  it. `start-wekan.sh` puts `node-runtime` on the library path;
 - reinstalls the server's npm packages, so every native addon is compiled
   against musl and sharp's musl package is the one installed;
 - checks every native addon's architecture and that sharp loads;

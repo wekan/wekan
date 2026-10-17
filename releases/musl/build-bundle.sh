@@ -7,7 +7,9 @@
 #
 #   - bundle/node becomes the musl Node.js of the same version, already
 #     downloaded and checked against its SHASUMS256 into musl-tools/;
-#   - bundle/node-runtime, the glibc libraries Node.js needed, goes;
+#   - bundle/node-runtime, the glibc libraries Node.js needed, goes, and
+#     holds Alpine's libstdc++ and libgcc_s instead, which the musl Node.js
+#     needs and a bare Alpine lacks;
 #   - npm reinstalls programs/server here, so every native addon Meteor's own
 #     server packages build is compiled against musl;
 #   - the application's packages (programs/server/npm/node_modules) are not
@@ -49,6 +51,30 @@ node "$root/releases/prune-unreachable-npm.mjs" "$root/bundle"
 
 rm -rf "$root/bundle/node-runtime"
 cp "$root/musl-tools/bin/node" "$root/bundle/node"
+# The musl Node.js is a C++ program linked against GCC's libstdc++ and
+# libgcc_s, which a bare Alpine does not have (Error relocating ... node:
+# _ZTVN10__cxxabiv117__class_type_infoE: symbol not found - every musl
+# AppImage of v12.51). They come from this Alpine and go into node-runtime,
+# which start-wekan.sh puts on LD_LIBRARY_PATH, as the glibc bundle does with
+# libatomic.
+runtime="$root/bundle/node-runtime"
+mkdir -p "$runtime"
+for lib in libstdc++.so.6 libgcc_s.so.1; do
+  src="$(readlink -f "/usr/lib/$lib" 2>/dev/null || true)"
+  [ -f "$src" ] || { echo "::error::this Alpine has no /usr/lib/$lib (apk add libstdc++ libgcc)."; exit 1; }
+  cp "$src" "$runtime/$lib"
+done
+{
+  echo "libstdc++.so.6 and libgcc_s.so.1 are GCC's runtime libraries, copied from"
+  echo "Alpine Linux $(cat /etc/alpine-release 2>/dev/null || echo '(unknown)') packages:"
+  apk info -v libstdc++ libgcc 2>/dev/null | sed 's/^/  /' || true
+  echo
+  echo "License: GPL-3.0-or-later WITH GCC-exception-3.1"
+  echo "  https://www.gnu.org/licenses/gpl-3.0.txt"
+  echo "  https://www.gnu.org/licenses/gcc-exception-3.1.txt"
+  echo "Source: https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/main/gcc"
+  echo "  and https://gcc.gnu.org/"
+} > "$runtime/NOTICE-libstdc++-libgcc.txt"
 chmod +x "$root/bundle/node" "$root/bundle/ferretdb"
 touch "$root/bundle/.ferretdb-default"
 

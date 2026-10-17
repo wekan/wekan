@@ -248,9 +248,14 @@ jobs:
           unzip -q "$zip"
           # A zip that exists is not a bundle that runs; these are the two files
           # the AppImage is built around.
-          # A musl bundle has no node-runtime: its Node.js needs no glibc libraries.
+          # A musl bundle's node-runtime holds GCC's C++ runtime, which its
+          # Node.js needs and a bare Alpine lacks; a glibc one holds libatomic.
           required="bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh"
-          [ "${MATRIX_MUSL}" = true ] || required="$required bundle/node-runtime/libatomic.so.1"
+          if [ "${MATRIX_MUSL}" = true ]; then
+            required="$required bundle/node-runtime/libstdc++.so.6 bundle/node-runtime/libgcc_s.so.1"
+          else
+            required="$required bundle/node-runtime/libatomic.so.1"
+          fi
           for f in $required; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."

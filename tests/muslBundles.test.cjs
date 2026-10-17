@@ -63,7 +63,33 @@ test('the musl AppImages are named apart and started inside Alpine', () => {
   // hardening, tests/workflowHardening.test.cjs).
   assert.match(wf, /MATRIX_MUSL: \$\{\{ matrix\.musl \}\}/);
   assert.match(wf, /if \[ "\$\{MATRIX_MUSL\}" = true \]; then\n\s+docker run --rm --network host[^\n]*alpine:3\.23/);
-  assert.match(wf, /\[ "\$\{MATRIX_MUSL\}" = true \] \|\| required="\$required bundle\/node-runtime\/libatomic\.so\.1"/);
+  assert.match(wf, /if \[ "\$\{MATRIX_MUSL\}" = true \]; then\n\s+required="\$required bundle\/node-runtime\/libstdc\+\+\.so\.6 bundle\/node-runtime\/libgcc_s\.so\.1"\n\s+else\n\s+required="\$required bundle\/node-runtime\/libatomic\.so\.1"/);
+});
+
+test('the musl bundle carries the C++ runtime its Node.js is linked against', () => {
+  // A bare Alpine has no libstdc++: every musl AppImage of v12.51 died with
+  // "Error relocating ... node: _ZTVN10__cxxabiv117__class_type_infoE".
+  const build = read('releases/musl/build-bundle.sh');
+  const at = build.indexOf('rm -rf "$root/bundle/node-runtime"');
+  const after = build.slice(at);
+  assert.match(after, /for lib in libstdc\+\+\.so\.6 libgcc_s\.so\.1; do/);
+  assert.match(after, /cp "\$src" "\$runtime\/\$lib"/);
+  assert.match(after, /NOTICE-libstdc\+\+-libgcc\.txt/, 'the libraries go with their license');
+  assert.match(after, /GPL-3\.0-or-later WITH GCC-exception-3\.1/);
+  assert(after.indexOf('for lib in') < after.indexOf('releases/bsd/smoke.sh'), 'in place before the bundle is started');
+  // start-wekan.sh is what puts node-runtime on the library path.
+  assert.match(read('releases/ferretdb/start-wekan.sh'), /if \[ -d "\$DIR\/node-runtime" \]; then\n\s+export LD_LIBRARY_PATH="\$DIR\/node-runtime/);
+});
+
+test('negative: a missing C++ runtime stops the build, and the AppImage smoke adds none', () => {
+  const build = read('releases/musl/build-bundle.sh');
+  assert.match(build, /\[ -f "\$src" \] \|\| \{ echo "::error::this Alpine has no \/usr\/lib\/\$lib/);
+  // The AppImage is started in an Alpine with only curl added, as a user's
+  // would be: installing libstdc++ there would hide this fault again.
+  const wf = read('.github/workflows/AppImage.yml');
+  const smoke = wf.slice(wf.indexOf('alpine:3.23 sh -ec'), wf.indexOf('alpine:3.23 sh -ec') + 400);
+  assert.match(smoke, /apk add --no-cache curl >\/dev\/null/);
+  assert.doesNotMatch(smoke, /libstdc\+\+|libgcc/);
 });
 
 console.log(`muslBundles: ${passed} tests passed`);
