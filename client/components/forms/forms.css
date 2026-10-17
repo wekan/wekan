@@ -301,6 +301,14 @@ textarea::-moz-placeholder {
   height: 41px;
   margin-bottom: 0px;
 }
+/* "or Template or link a list from another board": each alternative is its own
+   span.quiet, and in this flex row a span is a flex item, which drops the space
+   its text begins with - so the second read "Templateor link...". The gap is
+   the span's own margin instead of a space the layout throws away. */
+.edit-controls > .quiet + .quiet,
+.add-controls > .quiet + .quiet {
+  margin-inline-start: 0.3em;
+}
 .edit-controls .fa-times-thin,
 .add-controls .fa-times-thin {
   font-size: calc(20px * var(--wekan-ui-font-scale, 1));

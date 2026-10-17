@@ -16,7 +16,9 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
 // inlineViewer is the viewer itself, inline: nothing of it bypasses the viewer.
 const editor = read('client/components/main/editor.jade');
-assert.match(editor, /template\(name="inlineViewer"\)\n  span\.inline-viewer\n    \+viewer\n      \{\{> UI\.contentBlock \}\}/);
+// `+Template.contentBlock`, not a bare `{{> UI.contentBlock }}` line, which the
+// Jade compiler warned about on every build (tests/jadeCompilesClean.test.cjs).
+assert.match(editor, /template\(name="inlineViewer"\)\n  span\.inline-viewer\n    \+viewer\n      \+Template\.contentBlock\n/);
 assert.match(read('client/components/main/editor.css'), /\.inline-viewer,\n\.inline-viewer > \.viewer \{\n  display: inline;/);
 console.log('  ok - inlineViewer is the viewer, laid out inline');
 
