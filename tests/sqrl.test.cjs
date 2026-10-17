@@ -297,7 +297,9 @@ async function request(store, at, fields, { id, previous, unlock, ip = '203.0.11
   assert.match(read('client/components/users/userHeader.js'), /runSqrlSession\('associate'/);
   assert.match(read('client/components/settings/settingBody.js'), /Meteor\.callAsync\('saveSqrlEnabled'/);
   assert.match(read('client/lib/sqrl.js'), /sqrlEnabled === true\) && !Meteor\.settings\?\.public\?\.sandstorm/);
-  assert.match(read('package.json'), /"qrcode-generator": "1\.4\.4"/);
+  // Pinned to an exact version, as every dependency here; dependabot moves it
+  // (1.4.4 -> 2.0.4, #6775: the same SVG for sqrlQrSvg's call).
+  assert.match(read('package.json'), /"qrcode-generator": "\d+\.\d+\.\d+"/);
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   for (const key of ['sqrl-sign-in', 'sqrl-scan', 'sqrl-open-client', 'sqrlPopup-title', 'sqrl-add', 'sqrl-remove', 'sqrl-enabled']) {
     assert.ok(en[key], key);

@@ -56,7 +56,15 @@ test('the workflow: skip without a Node.js, verify every download, build and sta
   // OpenBSD: node runs only from a wxallowed filesystem; NetBSD: GCC 14 for Node 26's C++20.
   assert.match(workflow, /mount -u -o wxallowed "\$\(df -P \. \| awk 'NR==2 \{print \$6\}'\)"/);
   assert.match(workflow, /CC=\/usr\/pkg\/gcc14\/bin\/gcc CXX=\/usr\/pkg\/gcc14\/bin\/g\+\+/);
-  assert.match(workflow, /uses: vmactions\/freebsd-vm@f0552d3b69211736abd97f02ff3d4674c56b73b1/, 'FreeBSD VM pinned to the commit node-patches uses');
+  // The same FreeBSD VM that built the Node.js builds the native modules. A
+  // dependabot bump of one (v1.5.9, #6781) has to be made in the other too.
+  const pin = workflow.match(/uses: vmactions\/freebsd-vm@([0-9a-f]{40})/);
+  assert.ok(pin, 'FreeBSD VM pinned to a commit');
+  assert.equal(pin[1], 'c46abacb49f09938ca4e1702d15d836285d694cc', 'FreeBSD VM pinned to the commit node-patches uses');
+  const np = path.join(__dirname, '..', '.tools', 'node-patches', '.github', 'workflows', 'release-all.yml');
+  if (fs.existsSync(np)) {
+    assert.match(fs.readFileSync(np, 'utf8'), new RegExp(`uses: vmactions/freebsd-vm@${pin[1]}`), 'node-patches uses the same commit');
+  }
   assert.match(workflow, /sha256sum -c "wekan-\$\{version\}-amd64\.zip\.sha256sum"/, 'the release bundle is verified');
   assert.match(workflow, /echo "\$NODE_SHA256  bsd-tools\/bin\/node" \| sha256sum -c -/, 'Node.js is verified');
   assert.match(workflow, /bundle\/ferretdb" \| sha256sum -c -/, 'FerretDB is verified');
