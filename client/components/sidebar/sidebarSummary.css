@@ -1,0 +1,48 @@
+/* Board menu -> Summary (sidebarSummary.jade). */
+.board-summary-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.board-summary-controls button {
+  margin: 0;
+  padding: 4px 10px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+.board-summary-controls button.is-active {
+  color: #fff;
+  background: #01628c;
+  border-color: #01628c;
+}
+.board-summary-person {
+  margin-bottom: 14px;
+}
+.board-summary-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  font-size: 1em;
+}
+.board-summary-group {
+  margin: 2px 0 6px;
+}
+.board-summary-group-name {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.board-summary-overdue .board-summary-group-name {
+  color: #b00020;
+}
+.board-summary-cards {
+  list-style: none;
+  margin: 2px 0 0;
+  padding-inline-start: 12px;
+}
+.board-summary-cards li {
+  overflow-wrap: anywhere;
+}

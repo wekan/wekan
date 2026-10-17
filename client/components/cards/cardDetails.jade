@@ -154,6 +154,14 @@ template(name="cardDetails")
 
     .card-details-left
 
+      //- At risk, Show on Card (docs/Features/Cards/At-Risk.md): every reason
+        that applied, the moves back included.
+      unless $eq currentBoard.allowsAtRiskOnCard false
+        with cardAtRisk
+          .card-details-at-risk.js-card-at-risk
+            i.fa.fa-exclamation-triangle
+            |  {{_ 'at-risk'}}: {{text}}
+
       .card-details-items
         //- #4448: render the reorderable card-detail sections (Labels, Dates,
           Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
@@ -441,6 +449,17 @@ template(name="cardFieldSectionDates")
                         unless currentUser.isWorker
                           a.card-label.add-label.js-end-date(title="{{_ 'card-end'}}")
                             i.fa.fa-plus
+            //- Forecast, Show on Card (docs/Features/Cards/Dates/Forecast.md).
+            unless $eq currentBoard.allowsForecastOnCard false
+              with cardForecastOf this
+                .card-details-item.card-details-forecast.js-card-forecast
+                  h3.card-details-item-title
+                    i.fa.fa-line-chart
+                    | {{_ 'forecast'}}
+                  if enough
+                    span.card-details-forecast-text {{_ 'forecast-done' p50=(forecastDate p50) p85=(forecastDate p85)}}
+                  else
+                    span.card-details-forecast-text.quiet {{_ 'forecast-not-enough'}}
 
 template(name="cardFieldSectionMembers")
   if currentBoard.hasAnyAllowsUser
@@ -1413,6 +1432,19 @@ template(name="convertChecklistItemToCardPopup")
 
 template(name="cardMembersPopup")
   input.card-members-filter(type="text" placeholder="{{_ 'search'}}")
+  //- Suggested members, Show on Card (docs/Features/Cards/Suggested-Members.md).
+  if suggestedMembers.length
+    .card-members-suggested.js-suggested-members
+      h4.card-members-suggested-title {{_ 'suggested-members'}}
+      ul.pop-over-list
+        each suggestedMembers
+          li.item
+            a.name.js-select-member(href="#")
+              +userAvatar(userId=userId)
+              span.full-name
+                = userData.profile.fullname
+                if userData.username
+                  | (#{userData.username})
   ul.pop-over-list.js-card-member-list
     each members
       li.item(class="{{#if isCardMember}}active{{/if}}")
@@ -1449,6 +1481,19 @@ template(name="cardIdentityPicker")
 template(name="cardAssigneesPopup")
   input.card-assignees-filter(type="text" placeholder="{{_ 'search'}}")
   unless currentUser.isWorker
+    //- Suggested members, Show on Card (docs/Features/Cards/Suggested-Members.md).
+    if suggestedMembers.length
+      .card-members-suggested.js-suggested-members
+        h4.card-members-suggested-title {{_ 'suggested-members'}}
+        ul.pop-over-list
+          each suggestedMembers
+            li.item
+              a.name.js-select-assignee(href="#")
+                +userAvatar(userId=userId)
+                span.full-name
+                  = userData.profile.fullname
+                  if userData.username
+                    | (#{userData.username})
     ul.pop-over-list.js-card-assignee-list
       each members
         li.item(class="{{#if isCardAssignee}}active{{/if}}")

@@ -106,6 +106,10 @@ const EXPECTED = [
   'hr',
   'js-open-archives',
   'js-open-original-positions',
+  // The board helpers that need no AI, each behind its Admin Panel /
+  // Settings / Visibility / Features tick (docs/Features/General/Assistants).
+  'js-open-board-summary',
+  'js-open-since-last-visit',
   'js-archive-board',
 ];
 
@@ -159,6 +163,9 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-notification-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-outgoing-webhooks'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-archives'), [], 'Archived items is open to everyone who sees the board');
+  // The helpers answer only what the reader may see; the tick hides them.
+  assert.deepStrictEqual(guardsOf('js-open-board-summary'), ["if allowFeature 'board-summary'"]);
+  assert.deepStrictEqual(guardsOf('js-open-since-last-visit'), ["if allowFeature 'since-last-visit'"]);
   assert.deepStrictEqual(guardsOf('js-open-original-positions'), [],
     'so is Original positions: the server narrows it to what the reader may see');
   assert.deepStrictEqual(guardsOf('js-archive-board'), ['unless currentBoard.isTemplatesBoard', admin]);

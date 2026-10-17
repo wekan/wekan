@@ -2,6 +2,7 @@
 // Features) for the signed-in user, reactively. The decisions themselves are
 // models/lib/instanceFeatures.js; this only supplies what the client knows -
 // the published Settings document and the user's own preview flag.
+import { Template } from 'meteor/templating';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { currentUserWith } from '/client/lib/currentUserWith';
 const { isBoardViewAvailable, isFeatureAvailable } = require('/models/lib/instanceFeatures');
@@ -21,3 +22,6 @@ export function allowBoardView(view) {
 export function allowFeature(key) {
   return isFeatureAvailable(ReactiveCache.getCurrentSetting(), currentUserWith(PREVIEW_USER_FIELDS), key);
 }
+
+// {{#if allowFeature 'board-summary'}} in a template.
+Template.registerHelper('allowFeature', key => allowFeature(key));

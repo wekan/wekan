@@ -21,6 +21,8 @@ import { canArchiveCard } from '/client/lib/archivePermission';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 import { dueFromTitle } from '/client/components/forms/titleDueHint';
+import { riskOf } from '/client/lib/cardRiskOf';
+import { suggestedMembersFor } from '/client/lib/suggestedMembers';
 import '/client/components/cards/similarCards';
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
@@ -1633,6 +1635,13 @@ Template.cardDetails.events({
 });
 
 
+// docs/Features/Cards/At-Risk.md: the opened card also counts moves back.
+Template.cardDetails.helpers({
+  cardAtRisk() {
+    return riskOf(Template.currentData(), { withMoves: true });
+  },
+});
+
 Template.cardDetails.helpers({
   isPopup() {
     let ret = !!Utils.getPopupCardId();
@@ -1996,6 +2005,9 @@ Template.cardMembersPopup.events({
 });
 
 Template.cardMembersPopup.helpers({
+  suggestedMembers() {
+    return suggestedMembersFor(getCurrentCardFromContext(), 'members');
+  },
   isCardMember() {
     const card = getCurrentCardFromContext();
     if (!card) return false;
@@ -3219,6 +3231,9 @@ Template.cardAssigneesPopup.events({
 });
 
 Template.cardAssigneesPopup.helpers({
+  suggestedMembers() {
+    return suggestedMembersFor(getCurrentCardFromContext(), 'assignees');
+  },
   isCardAssignee() {
     const card = getCurrentCardFromContext();
     if (!card) return false;

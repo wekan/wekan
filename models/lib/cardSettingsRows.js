@@ -21,7 +21,9 @@
 //   flag/default   - a plain board flag: the generic 'js-board-card-flag'
 //                    handler toggles `field`, and a board that never set it
 //                    reads `default` (what that surface drew before the row
-//                    had this side). Every row has both sides (2026-10-02). `personal: true` marks
+//                    had this side). Every row has both sides (2026-10-02),
+//                    except a helper that works only in the opened card
+//                    (Suggested members). `personal: true` marks
 //                    the two rows that are the user's or the card's own rather
 //                    than the board's (sidebar.css .card-settings-row-personal);
 //                    `after` places a row that has NO element of its own on the
@@ -220,6 +222,14 @@ const CARD_SETTINGS_ROWS = [
   { key: 'similarCards', icons: ['fa-clone'], label: ['similar-cards'],
     card: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnCard', flag: true, default: true, after: 'textNotes' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnMinicard', flag: true, default: true, after: 'dueFromTitle' } },
+  { key: 'atRisk', icons: ['fa-exclamation-triangle'], label: ['at-risk'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsAtRiskOnCard', flag: true, default: true, after: 'dueDate' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsAtRiskOnMinicard', flag: true, default: true, after: 'dueDate' } },
+  { key: 'suggestedMembers', icons: ['fa-user-plus'], label: ['suggested-members'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsSuggestedMembersOnCard', flag: true, default: true, after: 'members' } },
+  { key: 'forecast', icons: ['fa-line-chart'], label: ['forecast'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsForecastOnCard', flag: true, default: true, after: 'endDate' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsForecastOnMinicard', flag: true, default: false, after: 'atRisk' } },
 
   // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
   // where the board's order puts them, like any other row. `scrum` names the

@@ -1,3 +1,4 @@
+import { riskOf } from '/client/lib/cardRiskOf';
 import { commentBadgeTitle } from '/models/lib/commentBadgeTitle';
 import { newLineLayer } from '/client/lib/dependencyLayers';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
@@ -155,6 +156,10 @@ Template.minicard.helpers({
   },
   // #3984: visual card aging — fade cards that have not been touched recently,
   // based on dateLastActivity, when the board has card aging enabled.
+  // docs/Features/Cards/At-Risk.md
+  atRisk() {
+    return riskOf(this);
+  },
   agingClass() {
     const card = this.getRealCard();
     const board = ReactiveCache.getBoard(this.boardId);

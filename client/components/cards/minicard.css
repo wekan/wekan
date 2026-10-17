@@ -1205,6 +1205,11 @@
   margin: 0;
 }
 
+/* At risk, Show on Minicard (docs/Features/Cards/At-Risk.md). */
+.minicard .badges .minicard-at-risk .badge-icon {
+  color: #c62828;
+}
+
 /* #2111 / #1604: changed since this member last opened it (Member Settings). */
 .minicard.minicard-unread-changes {
   box-shadow: inset 4px 0 0 #2b6cb0;

@@ -1,3 +1,4 @@
+import { markBoardVisited } from '/client/lib/boardVisits';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { setSortableOptions } from '/client/lib/sortableOptions';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -339,6 +340,12 @@ Template.boardBody.onCreated(function () {
 
   // Store global reference for external access (swimlanes, cardDetails, etc.)
   BoardBody = this;
+
+  // Remember this visit, once per board per page load, for Board menu ->
+  // Since your last visit (client/lib/boardVisits.js).
+  this.autorun(() => {
+    markBoardVisited(Session.get('currentBoard'));
+  });
 
   // Methods on the template instance for programmatic access
   this.setIsDragging = (bool) => {

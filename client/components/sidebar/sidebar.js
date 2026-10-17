@@ -48,6 +48,7 @@ import Integrations from '/models/integrations';
 import Lists from '/models/lists';
 import { listIdsForSwimlane } from '/models/lib/wipLimitGroupDecision.js';
 import { Filter } from '/client/lib/filter';
+import { loadSinceLastVisit } from '/client/lib/boardVisits';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import {
@@ -72,6 +73,7 @@ import {
   setSidebarInstance,
 } from '/client/features/sidebar/service';
 import { errorMessage } from '/client/lib/errorMessage';
+const { changeCount } = require('/models/lib/sinceLastVisit');
 
 export let Sidebar = null;
 
@@ -97,6 +99,8 @@ const viewTitles = {
   customFields: 'custom-fields',
   archives: 'archives',
   originalPositions: 'original-positions',
+  boardSummary: 'summary',
+  sinceLastVisit: 'since-last-visit',
 };
 
 Template.sidebar.onCreated(function() {
@@ -572,6 +576,21 @@ Template.boardMenuPopup.events({
     }
     Popup.back();
   },
+  // Board menu -> Summary (docs/Features/General/Summary/Summary.md).
+  'click .js-open-board-summary'() {
+    if (Sidebar) {
+      Sidebar.setView('boardSummary');
+    }
+    Popup.back();
+  },
+  // Board menu -> Since your last visit
+  // (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md).
+  'click .js-open-since-last-visit'() {
+    if (Sidebar) {
+      Sidebar.setView('sinceLastVisit');
+    }
+    Popup.back();
+  },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-open-board-announcement': Popup.open('boardAnnouncement', { titleKey: 'board-announcement' }),
   'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
@@ -679,6 +698,11 @@ Template.boardMenuPopup.onCreated(function() {
   this.apiEnabled = new ReactiveVar(false);
   Meteor.call('_isApiEnabled', (e, result) => {
     this.apiEnabled.set(result);
+  });
+  // How many changes "Since your last visit" holds, for its menu entry.
+  this.sinceVisitCount = new ReactiveVar(0);
+  loadSinceLastVisit(Session.get('currentBoard'), groups => {
+    this.sinceVisitCount.set(changeCount(groups));
   });
 });
 
@@ -942,6 +966,9 @@ Template.wipLimitGroupsPopup.events({
 });
 
 Template.boardMenuPopup.helpers({
+  sinceVisitCount() {
+    return Template.instance().sinceVisitCount.get();
+  },
   // #2217: a member reads the board's Rules when both switches allow it.
   rulesReadable() { return currentRulesAccess() === 'read'; },
   isBoardAdmin() {

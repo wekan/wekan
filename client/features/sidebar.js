@@ -8,6 +8,8 @@ import '/client/components/sidebar/sidebarSearches.jade';
 import '/client/components/sidebar/sidebar.js';
 import '/client/components/sidebar/sidebarArchives.js';
 import '/client/components/sidebar/sidebarOriginalPositions.js';
+import '/client/components/sidebar/sidebarSummary.js';
+import '/client/components/sidebar/sidebarSinceLastVisit.js';
 import '/client/components/sidebar/sidebarCustomFields.js';
 import '/client/components/sidebar/sidebarFilters.js';
 import '/client/components/sidebar/sidebarSearches.js';

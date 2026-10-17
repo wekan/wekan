@@ -729,6 +729,21 @@ template(name="boardMenuPopup")
       a.js-open-original-positions
         i.fa.fa-history
         | {{_ 'original-positions'}}
+    //- Helpers that need no AI (docs/Features/General/Assistants/Assistants.md),
+      each hidden by its Admin Panel / Settings / Visibility / Features tick.
+    if allowFeature 'board-summary'
+      li
+        a.js-open-board-summary
+          i.fa.fa-list-alt
+          | {{_ 'summary'}}
+    if allowFeature 'since-last-visit'
+      li
+        a.js-open-since-last-visit
+          i.fa.fa-bell-o
+          if sinceVisitCount
+            | {{_ 'since-last-visit-count' count=sinceVisitCount}}
+          else
+            | {{_ 'since-last-visit'}}
     unless currentBoard.isTemplatesBoard
       if currentUser.isBoardAdmin
         // li

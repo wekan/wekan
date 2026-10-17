@@ -1,0 +1,32 @@
+//- Board menu -> Summary (docs/Features/General/Summary/Summary.md): what each
+  person did on this board in the last day or week, and what they have
+  overdue. The server returns only what the reader may see (boards.summary).
+template(name="boardSummarySidebar")
+  .board-summary-view
+    .board-summary-controls
+      button.board-summary-period.js-summary-period(type="button" data-period="day" class="{{#if $eq period 'day'}}is-active{{/if}}") {{_ 'summary-last-day'}}
+      button.board-summary-period.js-summary-period(type="button" data-period="week" class="{{#if $eq period 'week'}}is-active{{/if}}") {{_ 'summary-last-week'}}
+      button.board-summary-copy.js-summary-copy(type="button" title="{{_ 'summary-copy'}}")
+        i.fa.fa-clipboard
+        |  {{#if copied}}{{_ 'copied'}}{{else}}{{_ 'summary-copy'}}{{/if}}
+    if isLoading
+      .board-summary-loading
+        i.fa.fa-spinner.fa-spin
+        |  {{_ 'loading'}}
+    else
+      each person in rows
+        .board-summary-person
+          h3.board-summary-name
+            +userAvatar(userId=person.userId)
+            span @{{person.username}}
+          each group in groupsOf person
+            .board-summary-group(class="board-summary-{{group.key}}")
+              .board-summary-group-name {{_ group.labelKey}} ({{group.cards.length}})
+              ul.board-summary-cards
+                each card in group.cards
+                  li
+                    a.js-open-summary-card(href="#" data-card-id=card._id)= card.title
+      else
+        .board-summary-empty
+          i.fa.fa-info-circle
+          |  {{_ 'no-results'}}

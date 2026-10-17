@@ -1,0 +1,24 @@
+//- Board menu -> Since your last visit
+  (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md): what other
+  people changed on this board since you last had it open, by card, newest
+  first. The server returns only what the reader may see.
+template(name="sinceLastVisitSidebar")
+  .since-last-visit-view
+    if isLoading
+      .since-last-visit-loading
+        i.fa.fa-spinner.fa-spin
+        |  {{_ 'loading'}}
+    else
+      each card in cards
+        .since-last-visit-card
+          a.since-last-visit-title.js-open-since-visit-card(href="#" data-card-id=card._id)= card.title
+          ul.since-last-visit-changes
+            each change in card.changes
+              li
+                span.since-last-visit-who @{{change.username}}
+                |  {{sentence change}}
+                span.since-last-visit-when.quiet  {{when change.at}}
+      else
+        .since-last-visit-empty
+          i.fa.fa-info-circle
+          |  {{_ 'since-visit-none'}}

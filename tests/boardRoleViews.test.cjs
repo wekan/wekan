@@ -152,6 +152,7 @@ test('negative: every server path that returns card data applies the board role,
     'server/shareTarget.js': 'creates a card; returns only its id',
     'server/tableViewCards.js': 'creates a card; returns only its id',
     'server/trelloApiImport.js': 'imports into a board; returns no other card',
+    'server/methods/ruleSuggestions.js': 'board admins only; returns list, label and member names, no card content',
   };
   const files = [];
   const walk = dir => {

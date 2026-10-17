@@ -1,0 +1,23 @@
+/* Board menu -> Since your last visit (sidebarSinceLastVisit.jade). */
+.since-last-visit-card {
+  margin-bottom: 12px;
+}
+.since-last-visit-title {
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+.since-last-visit-changes {
+  list-style: none;
+  margin: 2px 0 0;
+  padding-inline-start: 12px;
+  font-size: 0.9em;
+}
+.since-last-visit-changes li {
+  overflow-wrap: anywhere;
+}
+.since-last-visit-who {
+  font-weight: bold;
+}
+.since-last-visit-when {
+  font-size: 0.85em;
+}

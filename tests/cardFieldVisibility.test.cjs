@@ -116,6 +116,10 @@ test('every side of a hidden row reads off: plain flags, Labels text, Scrum fiel
   for (const row of CARD_SETTINGS_ROWS) {
     for (const side of ['card', 'minicard']) {
       const spec = row[side];
+      // Every field drawn on a card has both sides; a helper that works only in
+      // the opened card (Suggested members, in its Members and Assignees
+      // popups - docs/Features/Cards/Suggested-Members.md) has only that one.
+      if (!spec) continue;
       if (spec.scrum) assert.equal(all.scrum.visibility[spec.scrum], false, `${row.key} ${side}`);
       else if (!spec.personal) assert.equal(all[v.boardFieldOfSide(spec)], false, `${row.key} ${side}`);
       else assert.equal(v.isCardFieldHiddenOnBoard(all, row.key), true, `${row.key} ${side}`);

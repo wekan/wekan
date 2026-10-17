@@ -52,6 +52,7 @@ const REVIEWED = {
   'models/lib/urlSchemeAllowlist.js': 'names is the constant scheme allowlist',
   'packages/markdown/src/secureDOMPurify.js': 'names is the constant scheme allowlist',
   'models/lib/versionCheck.js': 'label comes from the constant VERSION_MANIFEST_LABELS',
+  'models/lib/titleDueDate.js': "the words come from the engine's Intl tables and are each passed through escapeRe when the vocabulary is built; the typed title is only the text matched, never the pattern",
 };
 
 const SOURCE_DIRS = /^(?:client|models|server|imports|config|releases|tools|snap-src|packages)\//;

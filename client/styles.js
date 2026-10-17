@@ -63,6 +63,8 @@ import '/client/components/settings/settingHeader.css';
 import '/client/components/settings/translationBody.css';
 import '/client/components/sidebar/sidebar.css';
 import '/client/components/sidebar/sidebarOriginalPositions.css';
+import '/client/components/sidebar/sidebarSummary.css';
+import '/client/components/sidebar/sidebarSinceLastVisit.css';
 import '/client/components/sidebar/sidebarSearches.css';
 import '/client/components/swimlanes/swimlanes.css';
 import '/client/components/users/userAvatar.css';

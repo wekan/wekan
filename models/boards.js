@@ -1363,6 +1363,11 @@ Boards.attachSchema(
     allowsDueFromTitleOnMinicard: { type: Boolean, optional: true },
     allowsSimilarCardsOnCard: { type: Boolean, optional: true },
     allowsSimilarCardsOnMinicard: { type: Boolean, optional: true },
+    allowsAtRiskOnCard: { type: Boolean, optional: true },
+    allowsAtRiskOnMinicard: { type: Boolean, optional: true },
+    allowsSuggestedMembersOnCard: { type: Boolean, optional: true },
+    allowsForecastOnCard: { type: Boolean, optional: true },
+    allowsForecastOnMinicard: { type: Boolean, optional: true },
     allowsIssueTypeOnMinicard: {
       /**
        * Does the board show the work item type badge on the minicard? It was

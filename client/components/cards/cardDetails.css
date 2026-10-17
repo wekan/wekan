@@ -1366,6 +1366,28 @@ body.desktop-mode .card-details.card-details-position-pending:not(.card-details-
   opacity: 0.8;
 }
 
+/* At risk, Show on Card (docs/Features/Cards/At-Risk.md). */
+.card-details-at-risk {
+  margin: 4px 0 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #fdecea;
+  color: #8a1c12;
+  overflow-wrap: anywhere;
+}
+
+/* Suggested members, above the full list (docs/Features/Cards/Suggested-Members.md). */
+.card-members-suggested {
+  margin: 6px 0 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.card-members-suggested-title {
+  margin: 0 0 2px;
+  font-size: 0.85em;
+  color: #666;
+}
+
 /* #2015: the card's link as a QR code - always black on white with its quiet
    zone, whatever the theme, so a phone camera can read it. */
 .card-qr-code {

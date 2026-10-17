@@ -249,6 +249,22 @@ template(name="minicard")
               .badge.card-kind-badge(title="{{cardKindTitle}}")
                 span.badge-icon
                   i.fa(class=cardKindIcon)
+            //- At risk, Show on Minicard (docs/Features/Cards/At-Risk.md): the
+              reasons are its title.
+            unless $eq currentBoard.allowsAtRiskOnMinicard false
+              with atRisk
+                .badge.badge-state-image-only.minicard-at-risk.js-minicard-at-risk(title=text)
+                  span.badge-icon
+                    i.fa.fa-exclamation-triangle
+            //- Forecast, Show on Minicard: off until a board turns it on
+              (docs/Features/Cards/Dates/Forecast.md).
+            if currentBoard.allowsForecastOnMinicard
+              with cardForecastOf this
+                if enough
+                  .badge.minicard-forecast.js-minicard-forecast(title="{{_ 'forecast-done' p50=(forecastDate p50) p85=(forecastDate p85)}}")
+                    span.badge-icon
+                      i.fa.fa-line-chart
+                    span.badge-text {{forecastDate p85}}
             //- The description BADGE - shown when the description's text is not
               on the minicard - belongs to the Description text row, whose own
               position is the full text further down; it keeps the first place

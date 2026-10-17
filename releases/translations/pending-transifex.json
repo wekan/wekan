@@ -2899,6 +2899,122 @@
     {
       "key": "feature-rule-suggestions-desc",
       "since": "2026-10-17"
+    },
+    {
+      "key": "summary-last-day",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "summary-last-week",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "summary-copy",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "summary-commented",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-board-summary",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-board-summary-desc",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-last-visit",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-last-visit-count",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-none",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-created",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-moved",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-commented",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-due",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-member",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-archived",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-label",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "since-visit-edited",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-since-last-visit",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-since-last-visit-desc",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "at-risk",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "at-risk-reason-overdue",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "at-risk-reason-due-soon",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "at-risk-reason-blocked",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "at-risk-reason-idle",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "at-risk-reason-sent-back",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "suggested-members",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "forecast",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "forecast-done",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "forecast-not-enough",
+      "since": "2026-10-17"
     }
   ]
 }

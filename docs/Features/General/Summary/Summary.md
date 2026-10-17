@@ -3,13 +3,14 @@
 Board hamburger menu → **Summary** opens a right-sidebar view of what happened on
 this board, person by person - a standup report that writes itself.
 
-Choose **Last day** or **Last week**. For each member who did something, in
-order of how much:
+Choose **Last day** (the last 24 hours) or **Last week** (the last seven
+days). For each member who did something, or has cards overdue, in order of how
+much they did:
 
 | Group | What counts |
 | --- | --- |
-| Done | cards they marked complete, archived, or moved into the board's last list |
-| Moved | cards they moved to another list or swimlane |
+| Done | cards they marked complete, gave an end date, archived, or moved into the board's last list (of each swimlane, where lists belong to one) |
+| Moved | cards they moved to another list or swimlane, unless that move finished the card |
 | Added | cards they created |
 | Commented | cards they commented on |
 | Overdue | cards they are a member or assignee of whose due date has passed and that are not done - now, whatever the period |

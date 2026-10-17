@@ -32,6 +32,7 @@ import '/client/components/cards/minicard.js';
 import '/client/components/cards/resultCard.js';
 import '/client/components/cards/subtasks.js';
 import '/client/components/cards/similarCards.js';
+import '/client/lib/forecastHelpers';
 
 import '/client/components/cards/attachments.css';
 import '/client/components/cards/cardDate.css';
