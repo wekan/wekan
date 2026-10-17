@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.51 2026-10-17 WeKan ® release
 
 **In short:** eleven **helpers that need no AI** - features other kanban
 apps sell as AI, done here with plain code: a **due date from the title**,
