@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.50
+  version: v12.51
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5901,6 +5901,42 @@ definitions:
       allowsUnreadCommentsOnCard:
         type: boolean
         x-nullable: true
+      allowsDueFromTitleOnCard:
+        type: boolean
+        x-nullable: true
+      allowsDueFromTitleOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsSimilarCardsOnCard:
+        type: boolean
+        x-nullable: true
+      allowsSimilarCardsOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsAtRiskOnCard:
+        type: boolean
+        x-nullable: true
+      allowsAtRiskOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsSuggestedMembersOnCard:
+        type: boolean
+        x-nullable: true
+      allowsForecastOnCard:
+        type: boolean
+        x-nullable: true
+      allowsForecastOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsChecklistFromDescriptionOnCard:
+        type: boolean
+        x-nullable: true
+      allowsActionItemsOnCard:
+        type: boolean
+        x-nullable: true
+      allowsWhiteboardOnCard:
+        type: boolean
+        x-nullable: true
       allowsIssueTypeOnMinicard:
         description: |
            Does the board show the work item type badge on the minicard? It was
@@ -9128,6 +9164,21 @@ definitions:
            above - a blackbox map keyed by cardId - because it is the same kind
            of thing: per-user view state, not an edit to the card, so every
            board member can have their own.
+        type: object
+      boardVisits:
+        description: |
+           When this user last opened each board: { <boardId>: Date }, at most
+           500 boards. Board menu -> Since your last visit lists what changed
+           after the visit before the current one
+           (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md); written
+           only by boards.markVisited.
+        type: object
+      dismissedRuleSuggestions:
+        description: |
+           The rule suggestions this user dismissed, per board:
+           { <boardId>: [<suggestion key>] }. Board menu -> Rules -> Suggested
+           rules (docs/Features/Rules/Rule-Suggestions.md); written only by
+           rules.dismissSuggestion.
         type: object
       keyboardShortcuts:
         description: |
