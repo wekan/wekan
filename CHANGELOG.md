@@ -108,14 +108,9 @@ reason.
 <summary>Features other kanban apps call AI, done here with plain code.</summary>
 
 Trello, Jira and ClickUp sell these as AI. Each one can be computed from the
-board's own data, with no model behind it. They are built in this order:
+board's own data, with no model behind it. They are built in this order; 1-3
+(due date from the title, similar cards, rule suggestions) are done:
 
-1. Quick add reads a due date from the new card's title: "tomorrow 14:00",
-   "friday", "next week", in the user's language.
-2. Similar cards, and possible duplicates: a warning while adding a card and a
-   list on the card, from title and description trigrams.
-3. Rule suggestions from repeated actions: the same pair of actions done often
-   enough is offered as a ready rule.
 4. A daily and weekly summary (standup) per person: done, moved, added,
    commented and overdue, built from the activities.
 5. What changed on a board since the user's last visit.
@@ -130,6 +125,9 @@ board's own data, with no model behind it. They are built in this order:
     lines become cards, with that member.
 11. Search phrases in plain language, such as "my overdue cards", translated
     into the existing search operators.
+12. A card's drawing opens full screen as a whiteboard under the header bar,
+    with the same drawing tools as Red Strings, and several people draw on it
+    at the same time.
 
 Each is hidden like the features before them: the card helpers are rows of
 Board Settings / Card and of Admin Panel / Settings / Visibility / Features /
@@ -140,6 +138,74 @@ docs/Features/General/Assistants/Assistants.md and the menu folders it links.
 </details>
 
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** the first of the **helpers that need no AI** - features other
+kanban apps sell as AI, done here with plain code. A card gets its **due date
+from its title**, WeKan points out **similar cards and possible duplicates**,
+and the Rules page offers **rule suggestions** from what people keep doing by
+hand. Each can be hidden per board or for the whole WeKan.
+
+This release adds the following new features:
+
+**Helpers that need no AI** - computed from the board's own data, hidden like
+every other optional part, and translated in every language.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8267d704e">A due date typed at the end of a card title becomes its due date</a>. Thanks to xet7.</summary>
+
+"Call the printer tomorrow 14:00", "Soita huomenna klo 14", "friday 9:30",
+"in 3 days" or "23.10." at the end of a new card's title gives the card that
+due date, and the words leave the title. The words come from the browser's
+own Intl tables (relative days, weekdays, the language's date order and the
+word before a time), so every language works without a word list, and English
+works in every language. Only the end of the title is read, a time alone needs
+a colon, a day word or am/pm, and "Release 1.2" is never a date. A hint under
+the field shows the date and its x keeps the words; the opened card's title
+reads it only when the title changed. Board Settings / Card row *Due date
+from title*. models/lib/titleDueDate.js; tests/titleDueDate.test.cjs checks
+eleven languages, the negatives and every WeKan language tag, and
+assist-due-from-title.e2e.js the form, the x, the board switch and the
+opened card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8267d704e">Similar cards and possible duplicates while adding a card and on the opened card</a>. Thanks to xet7.</summary>
+
+Letter triples and the Dice coefficient - letter pairs for scripts written
+without spaces - rank the board's open cards against the title being typed or
+the opened card's title and description. The add-card form lists up to three,
+marking one 80 % alike or more as a possible duplicate; the opened card has a
+Similar cards section. The method cards.similar reads through
+server/lib/assistGate.js: a board the caller may read, the board's switch and
+the Admin Panel's, and for an assigned-only member only the cards assigned to
+them. tests/similarCards.test.cjs and assist-similar-cards.e2e.js, with the
+assigned-only and switched-off negatives.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2211b24119">Rules suggests rules from what people keep doing by hand</a>. Thanks to xet7.</summary>
+
+When the same person does one thing to a card and within two minutes
+another, the pair is counted once per card; seen on three cards in 30 days it
+is offered above the rule list - moved to a list then a label, a member or
+archive, and so on. A pair a rule already does is not offered. Create goes
+through rules.createRule with the trigger and action the wizard builds, and
+Dismiss hides one for that admin on that board. Board admins only, and
+Admin Panel / Settings / Visibility / Features has a Rule suggestions tick.
+tests/ruleSuggestions.test.cjs and assist-rule-suggestions.e2e.js.
+
+</details>
+
+and improves the documentation:
+
+- [docs/Features: guides for the eleven helpers that need no AI, filed by menu](https://github.com/wekan/wekan/commit/e76f12bcdd),
+  and TODO Later lists them. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.50 2026-10-17 WeKan ® release
 
