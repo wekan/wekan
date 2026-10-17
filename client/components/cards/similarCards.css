@@ -1,0 +1,46 @@
+/* Similar cards and possible duplicates (similarCards.jade). */
+.similar-cards-list {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+}
+.similar-card {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 3px 0;
+}
+.similar-card-link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 12em;
+  overflow-wrap: anywhere;
+}
+.similar-card-list {
+  font-size: 0.85em;
+}
+.similar-card-duplicate {
+  flex: 0 0 auto;
+  padding: 0 6px;
+  border-radius: 3px;
+  background: #fde2c4;
+  color: #8a4b00;
+  font-size: 0.85em;
+}
+.similar-card-percent {
+  flex: 0 0 auto;
+  font-size: 0.85em;
+}
+.similar-cards-hint {
+  margin: 4px 0;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: #fff8e1;
+  font-size: 0.9em;
+}
+.similar-cards-hint-title {
+  font-weight: bold;
+}

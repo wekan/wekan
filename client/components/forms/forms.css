@@ -879,3 +879,26 @@ textarea[rows] {
 .board-color-cleanlight {
   --theme-button-text: #1a1a1a;
 }
+
+/* The due date a typed title will give its card (titleDueHint). */
+.title-due-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #e8f2f8;
+  color: #01628c;
+  font-size: 0.9em;
+}
+.title-due-hint-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.title-due-hint-dismiss {
+  flex: 0 0 auto;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 4px;
+}

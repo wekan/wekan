@@ -20,6 +20,8 @@ import {
 import { canArchiveCard } from '/client/lib/archivePermission';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
+import { dueFromTitle } from '/client/components/forms/titleDueHint';
+import '/client/components/cards/similarCards';
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
 // own data context is the dependency row (not the source card), so we capture
@@ -1253,11 +1255,18 @@ Template.cardDetails.events({
   async 'submit .js-card-details-title'(event, tpl) {
     event.preventDefault();
     const titleInput = tpl.find('.js-edit-card-title');
-    const title = titleInput ? titleInput.value.trim() : '';
+    const typed = titleInput ? titleInput.value.trim() : '';
     const card = Template.currentData();
+    // A due date typed at the end of a CHANGED title; saving the title a card
+    // already had never dates it. docs/Features/Cards/Dates/Due-Date-From-Title.md
+    const fromTitle = typed && typed !== card.title
+      ? dueFromTitle(titleInput.closest('form'), typed, 'allowsDueFromTitleOnCard')
+      : null;
+    const title = fromTitle ? fromTitle.title : typed;
     // #5809: surface a visible error instead of failing silently (see above).
     try {
       await card.setTitle(title || '');
+      if (fromTitle) await card.setDue(fromTitle.dueAt);
     } catch (error) {
       alert(errorMessage(error));
     }

@@ -1,0 +1,10 @@
+//- The due date a title will give its card, shown under the field while it is
+//- typed: "Due: Fri 23 Oct 09:30". The x keeps the words in the title and sets
+//- no date, for this card. docs/Features/Cards/Dates/Due-Date-From-Title.md
+template(name="titleDueHint")
+  if due
+    .title-due-hint.js-title-due-hint
+      i.fa.fa-clock-o
+      span.title-due-hint-text {{_ 'card-due'}}: {{due}}
+      a.title-due-hint-dismiss.js-title-due-hint-dismiss(title="{{_ 'due-from-title-keep'}}" aria-label="{{_ 'due-from-title-keep'}}")
+        i.fa.fa-times

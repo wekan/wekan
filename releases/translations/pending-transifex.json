@@ -2831,6 +2831,26 @@
     {
       "key": "restore-all-skipped-wip-limit",
       "since": "2026-10-15"
+    },
+    {
+      "key": "due-from-title",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "due-from-title-keep",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "similar-cards",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "similar-cards-none",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "possible-duplicate",
+      "since": "2026-10-17"
     }
   ]
 }

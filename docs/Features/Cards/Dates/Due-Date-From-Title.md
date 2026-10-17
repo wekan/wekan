@@ -18,7 +18,10 @@ this card only. Press Enter as usual to add the card.
 ## What is recognised
 
 Only the end of the title is read, so a title that merely mentions a day
-("Friday party planning") is left alone. The words are your WeKan language's
+("Friday party planning") is left alone, and a title that is nothing but a
+date ("tomorrow") stays a title. A date without a year is written with its
+closing dot (`23.10.`) in languages that use one, so "Release 1.2" is never a
+date. The words are your WeKan language's
 own, taken from the browser's language tables (`Intl.RelativeTimeFormat` and
 `Intl.DateTimeFormat`), so every language WeKan offers works without a word
 list of its own:
@@ -27,11 +30,17 @@ list of its own:
   for it;
 - in N days, in N weeks;
 - next week (its Monday);
-- a weekday name, long or short: the next such day after today;
+- a weekday's full name, also inflected ("perjantaina"): the next such day
+  after today. Short names are not read, because "sun" or "mar" at the end of
+  a title is more often an ordinary word;
 - a date as `YYYY-MM-DD`, or in your language's day/month order (`23.10.`,
   `23.10.2026`, `10/23/2026`);
-- then optionally a time, `14:00`, `14.00`, `klo 14` style words where the
-  language writes them, or `2pm` / `2:30 pm` in languages with a 12-hour clock.
+- then optionally a time, `14:00`, `14.00`, with the word the language writes
+  before a time (`at`, `klo`, `um`, `kl.`, `à`) also before a bare hour
+  (`klo 14`), or `2pm` / `2:30 pm` in languages with a 12-hour clock;
+- or a time alone, `Standup 9:00`: today, or tomorrow when that time has
+  passed. A time alone needs a colon, the language's word or am/pm, so
+  "Version 1.10" stays a title.
 
 Without a time the due date gets the due date picker's default time, 17:00.
 

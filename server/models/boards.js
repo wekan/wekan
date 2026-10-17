@@ -1395,6 +1395,11 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsCardButtonsOnMinicard',
   'allowsDescriptionBadgeOnCard',
   'allowsUnreadCommentsOnCard',
+  // Helpers that need no AI (docs/Features/General/Assistants/Assistants.md).
+  'allowsDueFromTitleOnCard',
+  'allowsDueFromTitleOnMinicard',
+  'allowsSimilarCardsOnCard',
+  'allowsSimilarCardsOnMinicard',
   'allowsCardCollapse',
   'allowsChecklistTitleOnMinicard',
   'allowsLabelTextOnCard',

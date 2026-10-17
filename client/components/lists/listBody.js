@@ -2,6 +2,8 @@ import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { titleSortIndexes } from '/models/lib/multilineTitles';
 import { titleTagText } from '/models/lib/titleTags';
 import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
+import { dueFromTitle, resetDueFromTitle } from '/client/components/forms/titleDueHint';
+import '/client/components/cards/similarCards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -202,7 +204,7 @@ Template.listBody.onCreated(function () {
         // if needed, creates) that label instead of becoming part of the card
         // title - e.g. "[Fedora] Do a thing" creates "Do a thing" labeled
         // "Fedora". Only a single bracket prefix at the very start is parsed.
-        const { title, labelName: quickAddLabelName } = parseQuickAddCardLabel(rawTitle);
+        const { title: labelledTitle, labelName: quickAddLabelName } = parseQuickAddCardLabel(rawTitle);
 
         const sortIndex = indexes[titleIndex];
 
@@ -230,6 +232,15 @@ Template.listBody.onCreated(function () {
         if (!data) {
           return;
         }
+        // A due date typed at the end of the title ("... tomorrow 14:00"),
+        // unless More options set one or the hint's x kept the words. A card
+        // added to a linked list goes to the source board as typed.
+        // docs/Features/Cards/Dates/Due-Date-From-Title.md
+        const fromTitle = !dueAt && !data.linkedListId
+          ? dueFromTitle(submittedForm, labelledTitle, 'allowsDueFromTitleOnMinicard')
+          : null;
+        const title = fromTitle ? fromTitle.title : labelledTitle;
+        const cardDueAt = dueAt || (fromTitle && fromTitle.dueAt);
         const board = data.board();
         let linkedId = '';
         let swimlaneId = '';
@@ -239,6 +250,7 @@ Template.listBody.onCreated(function () {
           // before any async operations that would leave the old text visible.
           textarea.val('').focus();
           autosize.update(textarea);
+          resetDueFromTitle(submittedForm);
 
           // #3986: resolve the "[LabelName] " bracket prefix (if any) against the
           // board's labels - match an existing label by name case-insensitively,
@@ -311,8 +323,8 @@ Template.listBody.onCreated(function () {
           if (description) {
             cardFields.description = description;
           }
-          if (dueAt && !isNaN(dueAt.getTime())) {
-            cardFields.dueAt = dueAt;
+          if (cardDueAt && !isNaN(cardDueAt.getTime())) {
+            cardFields.dueAt = cardDueAt;
           }
           if (assignees.length) {
             cardFields.assignees = assignees;

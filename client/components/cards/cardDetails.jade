@@ -248,6 +248,13 @@ template(name="cardDetails")
           if isSectionOpen "text-notes"
             +cardTextNotes(_id = _id)
 
+        //- Similar cards, Show on Card: the cards of this board like this one
+          (docs/Features/Cards/Similar-Cards.md). Asked only while open.
+        unless $eq currentBoard.allowsSimilarCardsOnCard false
+          +cardSectionHeader(section="similar-cards" icon="fa-clone" label="similar-cards")
+          if isSectionOpen "similar-cards"
+            +similarCards(cardId=_id)
+
       if currentBoard.allowsComments
         .comment-title
           +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments" count=cardCommentCountShown)
@@ -1049,6 +1056,7 @@ template(name="editCardTitleForm")
   span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-card-title(rows='1' autofocus dir="auto")
     = getTitle
+  +titleDueHint(selector=".js-edit-card-title" field="allowsDueFromTitleOnCard")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
 

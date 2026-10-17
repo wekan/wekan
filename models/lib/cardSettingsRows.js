@@ -211,6 +211,16 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-board-card-flag', field: 'allowsUnreadCommentsOnCard', flag: true, default: false, after: 'comments' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsUnreadCommentsOnMinicard', flag: true, default: true, after: 'commentCount' } },
 
+  // The helpers that need no AI (docs/Features/General/Assistants/Assistants.md).
+  // For these a side is where the helper works rather than something drawn:
+  // the add-card form is the minicard's, the opened card is the card's.
+  { key: 'dueFromTitle', icons: ['fa-calendar-plus-o'], label: ['due-from-title'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsDueFromTitleOnCard', flag: true, default: true, after: 'dueDate' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsDueFromTitleOnMinicard', flag: true, default: true, after: 'dueDate' } },
+  { key: 'similarCards', icons: ['fa-clone'], label: ['similar-cards'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnCard', flag: true, default: true, after: 'textNotes' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnMinicard', flag: true, default: true, after: 'dueFromTitle' } },
+
   // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
   // where the board's order puts them, like any other row. `scrum` names the
   // Scrum visibility flag the checkbox sets (models/lib/scrum.js). The work

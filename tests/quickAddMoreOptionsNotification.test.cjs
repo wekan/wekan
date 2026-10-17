@@ -91,7 +91,12 @@ const insertSetup = addCardBody.slice(cardFieldsStart, insertCallStart);
 
 assert.match(insertSetup, /cardFields\.description = description/,
   'positive: description is assigned onto cardFields before the single insert');
-assert.match(insertSetup, /cardFields\.dueAt = dueAt/,
+// The due date is More options' one, or else the one typed at the end of the
+// title (docs/Features/Cards/Dates/Due-Date-From-Title.md) - cardDueAt is the
+// first of the two, and it still travels in the same single insert.
+assert.match(addCardBody, /const cardDueAt = dueAt \|\| \(fromTitle && fromTitle\.dueAt\);/,
+  'positive: More options wins over a date read from the title');
+assert.match(insertSetup, /cardFields\.dueAt = cardDueAt/,
   'positive: dueAt is assigned onto cardFields before the single insert');
 assert.match(insertSetup, /cardFields\.assignees = assignees/,
   'positive: assignees is assigned onto cardFields before the single insert');

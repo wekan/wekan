@@ -17,7 +17,9 @@ Both texts are lower-cased, accents and punctuation are removed, and each is cut
 into letter triples ("printer" → `pri`, `rin`, `int`, `nte`, `ter`). The
 similarity is the share of triples the two have in common (the Dice
 coefficient), from 0 to 100 %. Letters of every script count, so this works the
-same in Finnish, Japanese or Arabic.
+same in Finnish, Japanese or Arabic. Scripts written without spaces between
+words - Chinese, Japanese, Thai and the like - are cut into letter pairs
+instead, since one "word" there is a whole phrase.
 
 | Similarity | Shown as |
 | --- | --- |
@@ -26,9 +28,9 @@ same in Finnish, Japanese or Arabic.
 | under 50 % | not shown |
 
 In the opened card the title counts twice as much as the description. Archived
-cards are left out. A card you may not see - an assigned-only role, a list you
-may not open - is never listed: the server applies the same checks as opening
-the card.
+cards are left out. A card you may not see is never listed: the server applies
+the same checks as opening the board, and an assigned-only member is shown
+only the cards assigned to them.
 
 ## Hiding it
 
