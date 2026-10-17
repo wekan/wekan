@@ -111,11 +111,55 @@ its reason.
 
 **In short:** the release builds that failed in v12.51 work again: the
 **Android** bundles, the **musl AppImages** and the **i386** and
-**freebsd-x64** single files.
+**freebsd-x64** single files. Nine dependency updates, among them
+**qrcode-generator 2** and **actions/download-artifact 8**, were checked
+against how WeKan uses them.
 
-This release fixes the following bugs:
+This release updates the following dependencies:
 
-**Release builds** - the Android, musl and single-file builds of v12.51.
+- **qrcode-generator 1.4.4 → 2.0.4** — [the SQRL sign-in QR
+  code](https://github.com/wekan/wekan/pull/6775); now ES module and CommonJS
+  builds, and the SVG of WeKan's call is byte for byte the same.
+- **temml 0.13.5 → 0.14.0** — [math in
+  Markdown](https://github.com/wekan/wekan/pull/6777); WeKan's
+  `renderToString` options give the same output for formulas, errors and
+  `\href`.
+- **i18next 26.4.2 → 26.4.5** — [the translation
+  library](https://github.com/wekan/wekan/pull/6779).
+- **@swc/core 1.16.13 → 1.16.18** — [the compiler of the
+  build](https://github.com/wekan/wekan/pull/6778).
+- **@rspack/cli 2.2.8 → 2.2.9** — [the bundler's command
+  line](https://github.com/wekan/wekan/pull/6773).
+- **@playwright/test 1.63.0 → 1.64.1** — [the browser
+  tests](https://github.com/wekan/wekan/pull/6776).
+- **actions/download-artifact 7.0.0 → 8.0.2** — [in five
+  workflows](https://github.com/wekan/wekan/pull/6774); a hash mismatch now
+  fails the download, and every artifact WeKan uploads is still a zip.
+- **actions/setup-python 6.3.0 → 7.0.0** — [in
+  bun.yml](https://github.com/wekan/wekan/pull/6780); the removed `pip-install`
+  input was not used.
+- **vmactions/freebsd-vm 1.5.5 → 1.5.9** — [in
+  bsd.yml](https://github.com/wekan/wekan/pull/6781), the version bun.yml
+  already uses.
+
+Thanks to dependabot.
+
+and fixes the following bugs:
+
+**Release builds** - the Android, musl and single-file builds of v12.51, and
+the guards of the dependency updates.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53729d47f5">The guards follow freebsd-vm 1.5.9 and qrcode-generator 2.0.4</a>. Thanks to dependabot and xet7.</summary>
+
+Two tests stopped at the merged updates. `tests/bsdBundles.test.cjs` pinned
+`bsd.yml`'s FreeBSD VM action to its old commit, because the VM that builds
+the bundle's native modules must be the one that built node-freebsd-x64. It
+now reads the pin and requires wekan/node-patches to use the same commit, and
+node-patches now does. `tests/sqrl.test.cjs` required qrcode-generator 1.4.4
+exactly, and now requires an exact version.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0670cc65a3">Android bundles: the checkout belongs to Termux's user, so npm may chmod</a>. Thanks to xet7.</summary>
