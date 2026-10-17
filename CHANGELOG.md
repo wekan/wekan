@@ -98,10 +98,38 @@ Which databases WeKan supports
 <details>
 <summary>Carried to a future release.</summary>
 
-What is not built yet, checked against the code on 2026-10-15: nothing. Every
-item is built and in the releases and old-CHANGELOG/, also what is not yet
-tested against a live service. New work that cannot be done here is added
-below by category, with its reason.
+What is not built yet, checked against the code on 2026-10-17: the features
+below. New work that cannot be done here is added below by category, with its
+reason.
+
+</details>
+
+<details>
+<summary>Features other kanban apps call AI, done here with plain code.</summary>
+
+Trello, Jira and ClickUp sell these as AI. Each one can be computed from the
+board's own data, with no model behind it. They are built in this order:
+
+1. Quick add reads a due date from the new card's title: "tomorrow 14:00",
+   "friday", "next week", in the user's language.
+2. Similar cards, and possible duplicates: a warning while adding a card and a
+   list on the card, from title and description trigrams.
+3. Rule suggestions from repeated actions: the same pair of actions done often
+   enough is offered as a ready rule.
+4. A daily and weekly summary (standup) per person: done, moved, added,
+   commented and overdue, built from the activities.
+5. What changed on a board since the user's last visit.
+6. An at-risk mark on a card: overdue, idle for days, blocked by an open
+   dependency, or moved backwards often, as a weighted score.
+7. Suggested members for a card, from who has handled the same label, list or
+   swimlane on that board.
+8. A forecast done date for one card, from the cycle time percentiles of its
+   list.
+9. A checklist or subtasks from the lines of a card's description.
+10. Action items from a comment or description: `TODO:` and `@user does X`
+    lines become cards, with that member.
+11. Search phrases in plain language, such as "my overdue cards", translated
+    into the existing search operators.
 
 </details>
 
