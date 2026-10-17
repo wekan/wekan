@@ -1,7 +1,8 @@
 'use strict';
 
-// The new UI at the common screen sizes, upright and on its side: a phone, a
-// foldable, a tablet, a laptop and a 55" touchscreen. For each one:
+// The new UI at the common screen sizes, upright and on its side: a phone, the
+// iPhone Duo foldable (open and closed), a tablet, a laptop and a 55"
+// touchscreen. For each one:
 //   - the board header's icons and texts are on screen, and the page does not
 //     scroll sideways;
 //   - board menu → Original positions is reachable and its sidebar fits;
@@ -37,12 +38,20 @@ const screen = (width, height, touch) => ({
   userAgent: devices['Desktop Chrome'].userAgent,
 });
 
+// An iPhone (iOS Safari user agent, touch, 3x) at a given size in CSS pixels.
+const iphoneDuo = (width, height) => ({ ...preset('iPhone 15'), viewport: { width, height } });
+
 const DEVICES = [
   ['phone-portrait', preset('iPhone 15')],
   ['phone-landscape', preset('iPhone 15 landscape')],
-  // A dual-screen foldable, unfolded.
-  ['foldable-portrait', preset('Galaxy Z Fold 7')],
-  ['foldable-landscape', preset('Galaxy Z Fold 7 landscape')],
+  // iPhone Duo, Apple's foldable (on sale 2026-10-23). Apple's specs
+  // (apple.com/iphone-duo/specs): inner 7.6" 1878 x 2670 px at 430 ppi, outer
+  // 5.4" 1398 x 2034 px at 460 ppi. At the 3x of every current iPhone that is
+  // 626 x 890 and 466 x 678 CSS pixels. Playwright has no preset for it yet.
+  ['iphone-duo-inner-portrait', iphoneDuo(626, 890)],
+  ['iphone-duo-inner-landscape', iphoneDuo(890, 626)],
+  ['iphone-duo-cover-portrait', iphoneDuo(466, 678)],
+  ['iphone-duo-cover-landscape', iphoneDuo(678, 466)],
   ['tablet-portrait', preset('iPad Pro 11')],
   ['tablet-landscape', preset('iPad Pro 11 landscape')],
   ['laptop-landscape', screen(1366, 768, false)],
