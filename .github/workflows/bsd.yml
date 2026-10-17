@@ -147,7 +147,7 @@ jobs:
 
       - name: Build and start in FreeBSD
         if: steps.node.outputs.skip != 'true' && matrix.os == 'freebsd'
-        uses: vmactions/freebsd-vm@f0552d3b69211736abd97f02ff3d4674c56b73b1
+        uses: vmactions/freebsd-vm@c46abacb49f09938ca4e1702d15d836285d694cc
         with:
           release: ${{ matrix.release }}
           arch: ${{ matrix.vm_arch }}
