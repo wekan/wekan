@@ -108,18 +108,9 @@ reason.
 <summary>Features other kanban apps call AI, done here with plain code.</summary>
 
 Trello, Jira and ClickUp sell these as AI. Each one can be computed from the
-board's own data, with no model behind it. They are built in this order; 1-3
-(due date from the title, similar cards, rule suggestions) are done:
+board's own data, with no model behind it. They are built in this order; 1-8
+are done:
 
-4. A daily and weekly summary (standup) per person: done, moved, added,
-   commented and overdue, built from the activities.
-5. What changed on a board since the user's last visit.
-6. An at-risk mark on a card: overdue, idle for days, blocked by an open
-   dependency, or moved backwards often, as a weighted score.
-7. Suggested members for a card, from who has handled the same label, list or
-   swimlane on that board.
-8. A forecast done date for one card, from the cycle time percentiles of the
-   board's finished cards.
 9. A checklist or subtasks from the lines of a card's description.
 10. Action items from a comment or description: `TODO:` and `@user does X`
     lines become cards, with that member.
@@ -141,11 +132,11 @@ docs/Features/General/Assistants/Assistants.md and the menu folders it links.
 
 # Upcoming WeKan ® release
 
-**In short:** the first of the **helpers that need no AI** - features other
-kanban apps sell as AI, done here with plain code. A card gets its **due date
-from its title**, WeKan points out **similar cards and possible duplicates**,
-and the Rules page offers **rule suggestions** from what people keep doing by
-hand. Each can be hidden per board or for the whole WeKan.
+**In short:** **helpers that need no AI** - features other kanban apps sell
+as AI, done here with plain code: a **due date from the title**, **similar
+cards**, **rule suggestions**, a board **Summary**, **Since your last visit**,
+an **At risk** mark, **suggested members** and a **forecast done date**. Each
+can be hidden per board or for the whole WeKan.
 
 This release adds the following new features:
 
@@ -197,6 +188,60 @@ through rules.createRule with the trigger and action the wizard builds, and
 Dismiss hides one for that admin on that board. Board admins only, and
 Admin Panel / Settings / Visibility / Features has a Rule suggestions tick.
 tests/ruleSuggestions.test.cjs and assist-rule-suggestions.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/083c863fb7">Board menu: Summary, what each person did in the last day or week</a>. Thanks to xet7.</summary>
+
+Per person: done (marked complete, given an end date, archived or moved into
+the last list), moved, added, commented, and what they have overdue now -
+from the activities and History, only the cards the reader may see. Copy as
+text gives Markdown with card links. An Admin Panel / Settings / Visibility /
+Features tick. tests/boardSummary.test.cjs and assist-board-summary.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/083c863fb7">Board menu: Since your last visit, with how many changes</a>. Thanks to xet7.</summary>
+
+What others changed since the visit before this one, grouped by card. Opening
+a board remembers the visit in profile.boardVisits (500 boards at most) even
+while the feature is hidden; a board never opened shows its last seven days.
+tests/sinceLastVisit.test.cjs and assist-since-last-visit.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/083c863fb7">At risk: a triangle on the minicard and the reasons in the opened card</a>. Thanks to xet7.</summary>
+
+A weighted score: overdue 3, due within two days with less than half the
+checklist done 2, blocked by an open card 2, idle 14 days in a middle list
+2, moved back twice 1 (the opened card counts those). 3 or more is at risk;
+a complete card never is. models/lib/cardRisk.js; tests/cardRisk.test.cjs and
+assist-at-risk.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/083c863fb7">Suggested members in the Members and Assignees popups</a>. Thanks to xet7.</summary>
+
+Up to three active board members, by points from the board's open cards that
+share this card's labels (2 each), list (1) and swimlane (1); people already
+on the card are skipped. A Show on Card row only, the one row with no
+minicard side. tests/memberSuggestions.test.cjs and
+assist-suggested-members-forecast.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/083c863fb7">Forecast done date for one card, 50 % and 85 %</a>. Thanks to xet7.</summary>
+
+From the cycle times of the board's cards finished in 180 days, counting only
+those that took at least as long as this card has been open; fewer than five
+say so. The server sends the times once per board, numbers only, scoped by
+role. On the opened card's dates, and on the minicard when a board turns that
+side on. tests/cardForecast.test.cjs and the e2e above.
 
 </details>
 
