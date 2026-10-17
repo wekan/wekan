@@ -1407,6 +1407,7 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsForecastOnMinicard',
   'allowsChecklistFromDescriptionOnCard',
   'allowsActionItemsOnCard',
+  'allowsWhiteboardOnCard',
   'allowsCardCollapse',
   'allowsChecklistTitleOnMinicard',
   'allowsLabelTextOnCard',

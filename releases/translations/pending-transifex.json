@@ -3095,6 +3095,26 @@
     {
       "key": "feature-search-phrases-desc",
       "since": "2026-10-17"
+    },
+    {
+      "key": "whiteboard",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "whiteboard-open",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "whiteboard-clear-mine",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "whiteboard-save-picture",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "whiteboard-read-only",
+      "since": "2026-10-17"
     }
   ]
 }

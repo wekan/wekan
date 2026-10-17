@@ -1,0 +1,53 @@
+/* The whiteboard (whiteboard.jade): under the header bar, the rest of the window. */
+.card-whiteboard {
+  position: fixed;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  /* Above an opened card (cardDetails.css, 2001) - the whiteboard is that
+     card's drawing, full screen - and below the header bar by position. */
+  z-index: 2050;
+  display: flex;
+  flex-direction: column;
+  background: #f4f5f7;
+}
+.card-whiteboard-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px max(10px, env(safe-area-inset-left, 0px));
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.card-whiteboard-title {
+  font-weight: bold;
+  margin-inline-end: 8px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card-whiteboard-toolbar button {
+  margin: 0;
+  padding: 4px 12px;
+}
+.card-whiteboard-message {
+  font-size: 0.9em;
+  color: #555;
+}
+.card-whiteboard-close {
+  margin-inline-start: auto;
+  font-size: 1.4em;
+  padding: 0 6px;
+  color: #333;
+  cursor: pointer;
+}
+.card-whiteboard-surface {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  touch-action: none;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.card-whiteboard-surface.can-draw {
+  cursor: crosshair;
+}

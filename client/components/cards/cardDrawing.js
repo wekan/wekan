@@ -6,6 +6,7 @@ import { Utils } from '/client/lib/utils';
 import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig';
 import Cards from '/models/cards';
 import Attachments from '/models/attachments';
+import { openWhiteboard } from '/client/components/cards/whiteboard';
 
 const d = require('/models/lib/cardDrawing');
 const W = 800;
@@ -14,6 +15,31 @@ const H = 500;
 function pathD(points) {
   if (points.length === 1) return `M${points[0][0]} ${points[0][1]}l0.1 0`;
   return points.map((p, i) => `${i ? 'L' : 'M'}${p[0]} ${p[1]}`).join('');
+}
+
+// The drawing as a PNG file, the size it is drawn at - for the popup's Save
+// and the whiteboard's Save picture (docs/Features/Cards/Whiteboard.md).
+export async function drawingPngFile(target, strokes) {
+  const svg = d.strokesToSvg(strokes, { width: W, height: H });
+  const img = new Image();
+  const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+  await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; img.src = url; });
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  canvas.getContext('2d').drawImage(img, 0, 0);
+  URL.revokeObjectURL(url);
+  const png = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  return new File([png], `${(target.title || 'drawing').slice(0, 60)}.png`, { type: 'image/png' });
+}
+
+// Upload a drawing's PNG as a card attachment; resolves with its id.
+export async function uploadDrawingPng(target, file) {
+  const uploader = await Attachments.insertAsync(buildAttachmentUploadConfig({ file, meta: Utils.getCommonAttachmentMetaFrom(target) }), false);
+  return new Promise((resolve, reject) => {
+    uploader.on('end', (error, fileRef) => (error ? reject(error) : resolve(fileRef && fileRef._id)));
+    uploader.start();
+  });
 }
 
 // #1178: Template.currentData() is the card.
@@ -58,6 +84,12 @@ Template.cardDrawingPopup.events({
   'click .js-drawing-width'(event, tpl) { event.preventDefault(); tpl.width.set(Number(event.currentTarget.dataset.width)); },
   'click .js-drawing-undo'(event, tpl) { event.preventDefault(); tpl.strokes.set(tpl.strokes.get().slice(0, -1)); },
   'click .js-drawing-clear'(event, tpl) { event.preventDefault(); tpl.strokes.set([]); },
+  // docs/Features/Cards/Whiteboard.md
+  'click .js-open-whiteboard'(event, tpl) {
+    event.preventDefault();
+    openWhiteboard(card(tpl)._id, event.currentTarget.dataset.id);
+    Popup.close();
+  },
   'click .js-new-drawing'(event, tpl) { event.preventDefault(); tpl.editingId.set(null); tpl.strokes.set([]); },
   'click .js-edit-drawing'(event, tpl) {
     event.preventDefault();
@@ -99,28 +131,14 @@ Template.cardDrawingPopup.events({
     if (!target || !strokes.length) return;
     tpl.saving.set(true);
     try {
-      const svg = d.strokesToSvg(strokes, { width: W, height: H });
-      const img = new Image();
-      const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
-      await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; img.src = url; });
-      const canvas = document.createElement('canvas');
-      canvas.width = W;
-      canvas.height = H;
-      canvas.getContext('2d').drawImage(img, 0, 0);
-      URL.revokeObjectURL(url);
-      const png = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-      const file = new File([png], `${(target.title || 'drawing').slice(0, 60)}.png`, { type: 'image/png' });
+      const file = await drawingPngFile(target, strokes);
       const id = tpl.editingId.get() || Random.id();
-      const uploader = await Attachments.insertAsync(buildAttachmentUploadConfig({ file, meta: Utils.getCommonAttachmentMetaFrom(target) }), false);
-      uploader.on('end', async (error, fileRef) => {
-        tpl.saving.set(false);
-        if (error) { tpl.message.set(error.reason || error.message); return; }
-        const drawing = { _id: id, strokes, width: W, height: H, pngAttachmentId: fileRef && fileRef._id, updatedAt: new Date() };
-        await Cards.updateAsync(target._id, { $set: { drawings: d.drawingsAfterSave(target.drawings, drawing) } });
-        tpl.editingId.set(id);
-        tpl.message.set(TAPi18n.__('card-drawing-saved'));
-      });
-      uploader.start();
+      const pngAttachmentId = await uploadDrawingPng(target, file);
+      tpl.saving.set(false);
+      const drawing = { _id: id, strokes, width: W, height: H, pngAttachmentId, updatedAt: new Date() };
+      await Cards.updateAsync(target._id, { $set: { drawings: d.drawingsAfterSave(target.drawings, drawing) } });
+      tpl.editingId.set(id);
+      tpl.message.set(TAPi18n.__('card-drawing-saved'));
     } catch (error) {
       tpl.saving.set(false);
       tpl.message.set((error && (error.reason || error.message)) || 'error');

@@ -57,4 +57,21 @@ function drawingsAfterSave(current, drawing) {
   return [...list, drawing].slice(-MAX_DRAWINGS);
 }
 
-module.exports = { COLORS, WIDTHS, MAX_DRAWINGS, cleanStrokes, strokesToSvg, drawingsAfterSave };
+// The whiteboard (docs/Features/Cards/Whiteboard.md): one line at a time,
+// each with its own id and its author, so several people add lines to the
+// same drawing at once and each can undo or clear only their own.
+const ID = /^[A-Za-z0-9_-]{1,40}$/;
+
+function whiteboardStroke(input, userId, { width = 800, height = 500 } = {}) {
+  if (!input || typeof userId !== 'string' || !ID.test(String(input._id || ''))) return null;
+  const [clean] = cleanStrokes([input], { width, height });
+  return clean ? { _id: input._id, userId, ...clean } : null;
+}
+
+// The id of `userId`'s last line, for Undo.
+function lastStrokeOf(strokes, userId) {
+  const own = (Array.isArray(strokes) ? strokes : []).filter(s => s && s.userId === userId && s._id);
+  return own.length ? own[own.length - 1]._id : null;
+}
+
+module.exports = { COLORS, WIDTHS, MAX_DRAWINGS, MAX_STROKES, cleanStrokes, strokesToSvg, drawingsAfterSave, whiteboardStroke, lastStrokeOf };

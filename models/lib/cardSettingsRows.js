@@ -232,6 +232,8 @@ const CARD_SETTINGS_ROWS = [
     minicard: { toggle: 'js-board-card-flag', field: 'allowsForecastOnMinicard', flag: true, default: false, after: 'atRisk' } },
   { key: 'checklistFromDescription', icons: ['fa-list-ul'], label: ['checklist-from-description'],
     card: { toggle: 'js-board-card-flag', field: 'allowsChecklistFromDescriptionOnCard', flag: true, default: true, after: 'checklists' } },
+  { key: 'whiteboard', icons: ['fa-expand'], label: ['whiteboard'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsWhiteboardOnCard', flag: true, default: true, after: 'attachments' } },
   { key: 'actionItems', icons: ['fa-tasks'], label: ['action-items'],
     card: { toggle: 'js-board-card-flag', field: 'allowsActionItemsOnCard', flag: true, default: true, after: 'comments' } },
 

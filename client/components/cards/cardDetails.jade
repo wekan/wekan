@@ -1844,6 +1844,10 @@ template(name="cardDrawingPopup")
         each drawings
           a.card-drawing-thumb.js-edit-drawing(data-id=_id class="{{#if isEditing}}is-active{{/if}}")
             != thumbSvg
+          //- Whiteboard, Show on Card (docs/Features/Cards/Whiteboard.md).
+          unless $eq currentBoard.allowsWhiteboardOnCard false
+            a.card-drawing-whiteboard.js-open-whiteboard(data-id=_id title="{{_ 'whiteboard-open'}}" aria-label="{{_ 'whiteboard-open'}}")
+              i.fa.fa-expand
         a.js-new-drawing
           i.fa.fa-plus
           |  {{_ 'card-drawing-new'}}

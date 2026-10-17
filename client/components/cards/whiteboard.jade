@@ -1,0 +1,31 @@
+//- The whiteboard (docs/Features/Cards/Whiteboard.md): a card's drawing full
+//- screen, under the header bar, that several people draw on at once. Every
+//- line comes from the card's publication; the one being drawn, and the ones
+//- sent but not yet back, are this browser's own.
+template(name="cardWhiteboard")
+  if open
+    .card-whiteboard.js-card-whiteboard(style="top: {{top}}px")
+      .card-whiteboard-toolbar
+        span.card-whiteboard-title
+          i.fa.fa-pencil-square-o
+          |  {{cardTitle}}
+        if canDraw
+          each colors
+            a.card-drawing-color.js-whiteboard-color(data-color=this style="background:{{this}}" class="{{#if isColor this}}is-active{{/if}}" title=this)
+          each widths
+            a.card-drawing-width.js-whiteboard-width(data-width=this class="{{#if isWidth this}}is-active{{/if}}") {{this}}
+          a.js-whiteboard-undo(title="{{_ 'card-drawing-undo'}}")
+            i.fa.fa-undo
+          a.js-whiteboard-clear(title="{{_ 'whiteboard-clear-mine'}}")
+            i.fa.fa-eraser
+          button.primary.js-whiteboard-save(type="button" disabled=saving) {{_ 'whiteboard-save-picture'}}
+          if message
+            span.card-whiteboard-message= message
+        else
+          span.quiet {{_ 'whiteboard-read-only'}}
+        a.card-whiteboard-close.js-whiteboard-close(title="{{_ 'close'}}" aria-label="{{_ 'close'}}")
+          i.fa.fa-times-thin
+      svg.card-whiteboard-surface.js-whiteboard-surface(viewBox="0 0 {{width}} {{height}}" preserveAspectRatio="xMidYMid meet" class="{{#if canDraw}}can-draw{{/if}}")
+        rect(width=width height=height fill="#ffffff")
+        each strokes
+          path(d=pathD stroke=color stroke-width=width fill="none" stroke-linecap="round" stroke-linejoin="round")
