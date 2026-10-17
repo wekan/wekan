@@ -11,7 +11,9 @@ kept in catalogs that boards use beside their own labels:
 
 A site admin keeps the catalogs in **Admin Panel → Settings → Labels**
 (`/admin/settings/labels`). Each row has the label's name, colour and catalog,
-and saves on its own; the last row adds a label.
+and saves on its own; the last row adds a label. The colour is picked with the
+same picker as a board label's - the palette swatches, at the size they have on
+an opened card, or any custom colour from the colour wheel.
 
 **On a board:** open a card's labels. Below the board's own labels, under
 **Shared labels**, are the shared ones this board may use and does not have

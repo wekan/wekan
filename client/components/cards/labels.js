@@ -35,12 +35,23 @@ const getFallbackLabelColor = () => {
 const getCardLabelBoard = card =>
   card?.getRealBoard?.() || card?.board?.() || Utils.getCurrentBoard();
 
-Template.formLabel.onCreated(function () {
-  const initialColor = this.data?.color || getFallbackLabelColor();
-  this.currentColor = new ReactiveVar(initialColor);
+// The colour picker shared by the board label popup and Admin Panel / Settings /
+// Shared labels: palette swatches and a custom colour wheel (#5514).
+Template.labelColorPicker.onCreated(function () {
+  this.currentColor = new ReactiveVar(this.data?.color || getFallbackLabelColor());
+  // A row that is saved or reset elsewhere shows its colour again.
+  this.autorun(() => {
+    const color = Template.currentData()?.color;
+    if (color) this.currentColor.set(color);
+  });
+  this.pick = color => {
+    this.currentColor.set(color);
+    const onChange = this.data?.onChange;
+    if (onChange && typeof onChange.set === 'function') onChange.set(color);
+  };
 });
 
-Template.formLabel.helpers({
+Template.labelColorPicker.helpers({
   labels() {
     const colors = Array.isArray(labelColors) ? labelColors : [getFallbackLabelColor()];
     return colors.map(color => ({ color, name: '' }));
@@ -53,6 +64,24 @@ Template.formLabel.helpers({
   currentColorHex() {
     return toHex(Template.instance().currentColor.get()) || '#3cb500';
   },
+});
+
+Template.labelColorPicker.events({
+  'click .js-palette-color'(event, tpl) {
+    const paletteData = Blaze.getData(event.currentTarget);
+    const selectedColor = paletteData?.color || Template.currentData()?.color || getFallbackLabelColor();
+    tpl.pick(selectedColor);
+  },
+  // #5514: picking a color from the native color wheel stores a custom hex.
+  'input .js-label-color-wheel'(event, tpl) {
+    const value = event.currentTarget.value;
+    if (isHexColor(value)) {
+      tpl.pick(value);
+    }
+  },
+});
+
+Template.formLabel.helpers({
   // #2802: a label's optional "milestone" due date, formatted as the
   // yyyy-mm-dd a native <input type="date"> expects. Unset for a label with
   // no due date, and for the "create label" popup's blank starting label.
@@ -62,21 +91,6 @@ Template.formLabel.helpers({
     const date = dueAt instanceof Date ? dueAt : new Date(dueAt);
     if (isNaN(date.getTime())) return '';
     return date.toISOString().slice(0, 10);
-  },
-});
-
-Template.formLabel.events({
-  'click .js-palette-color'(event, tpl) {
-    const paletteData = Blaze.getData(event.currentTarget);
-    const selectedColor = paletteData?.color || Template.currentData()?.color || getFallbackLabelColor();
-    tpl.currentColor.set(selectedColor);
-  },
-  // #5514: picking a color from the native color wheel stores a custom hex.
-  'input .js-label-color-wheel'(event, tpl) {
-    const value = event.currentTarget.value;
-    if (isHexColor(value)) {
-      tpl.currentColor.set(value);
-    }
   },
 });
 

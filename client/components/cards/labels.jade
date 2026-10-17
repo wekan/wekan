@@ -3,16 +3,23 @@ template(name="formLabel")
   textarea.js-label-name#labelName(rows="2" name="name" autofocus)= name
 
   label {{_ "select-color"}}
-  .palette-colors: each labels
-    span.card-label.palette-color.js-palette-color(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
-      if(isSelected color)
-        i.fa.fa-check
-  .color-wheel-wrap
-    label(for="labelColorWheel") {{_ 'custom-color'}}
-    input.js-label-color-wheel#labelColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
+  +labelColorPicker(color=color)
 
   label(for="labelDueAt") {{_ 'due-date'}}
   +calendarDateInput(inputId="labelDueAt" fieldClass="js-label-due-at" value=dueAtValue)
+
+//- A label's colour: the palette swatches and a custom colour wheel. The board
+//- label popup (formLabel) and Admin Panel / Settings / Shared labels use this
+//- one picker. `onChange`, an object with set(color), hears each pick; the
+//- popups read the picked colour back from the checked swatch or the wheel.
+template(name="labelColorPicker")
+  .palette-colors: each labels
+    span.card-label.palette-color.js-palette-color(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{color}}")
+      if(isSelected color)
+        i.fa.fa-check
+  .color-wheel-wrap
+    label {{_ 'custom-color'}}
+      input.js-label-color-wheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
 
 template(name="createLabelPopup")
   form.create-label

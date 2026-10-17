@@ -50,7 +50,9 @@ Template.sharedLabelsSettings.helpers({
         isNew: id === 'new',
         name: row.name,
         color: row.color,
-        colorOptions: LABEL_COLORS.map(value => ({ value, selected: value === row.color })),
+        // The picker hears a pick through set(); an object, not a function,
+        // because Spacebars would call a function argument instead of passing it.
+        colorSink: { set: color => change(tpl, id, 'color', color) },
         scopeOptions: Object.keys(SCOPE_LABELS).map(value => ({ value, labelKey: SCOPE_LABELS[value], selected: value === row.scope })),
         needsScopeId: row.scope !== 'instance',
         scopeIdOptions: scopeIds.map(o => ({ ...o, selected: o.value === row.scopeId })),
@@ -63,7 +65,6 @@ const rowId = event => String($(event.currentTarget).closest('.shared-label-row'
 
 Template.sharedLabelsSettings.events({
   'input .js-shared-label-name'(event, tpl) { change(tpl, rowId(event), 'name', event.currentTarget.value); },
-  'change .js-shared-label-color'(event, tpl) { change(tpl, rowId(event), 'color', event.currentTarget.value); },
   'change .js-shared-label-scope'(event, tpl) {
     change(tpl, rowId(event), 'scope', event.currentTarget.value);
     change(tpl, rowId(event), 'scopeId', '');

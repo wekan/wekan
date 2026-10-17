@@ -133,6 +133,19 @@
   align-items: center;
   justify-content: center;
 }
+/* Admin Panel / Settings / Shared labels uses the board label popup's picker
+   (labelColorPicker). The swatches grow to fill their row, so on the wide admin
+   page their width followed the window. There each swatch has the size it has
+   in an opened card's label popup - 36 x 25px of content, 3px 8px padding and a
+   1px border, 54 x 33px in all - at every window width. */
+.shared-label-color .palette-colors .palette-color {
+  flex: 0 0 auto;
+  box-sizing: content-box;
+  width: 36px;
+  height: 25px;
+  padding: 3px 8px;
+  margin: 0 2px 2px 0;
+}
 .card-label-white {
   background-color: #fff;
   color: #000;
