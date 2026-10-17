@@ -136,8 +136,17 @@ jobs:
         run: |
           # Termux's entrypoint clears the Docker environment when it switches
           # to its unprivileged user, so the values go after the switch (as
-          # bun.yml does), and that user needs a writable bind mount.
+          # bun.yml does), and that user needs a writable bind mount. Writable
+          # is not enough: npm chmods every package's bin when it installs, and
+          # only a file's OWNER may chmod it (EPERM on uuid/dist/bin/uuid,
+          # v12.51), so the checkout is handed to that user. Package takes the
+          # bundle back.
           chmod -R a+rwX .
+          owner="$(docker run --rm "termux/termux-docker:$TERMUX_ARCH" sh -c 'echo "$(id -u):$(id -g)"' | tr -d '\r' | tail -n1)"
+          case "$owner" in
+            *[0-9]:[0-9]*) sudo chown -R "$owner" . ;;
+            *) echo "::error::Could not read the uid of Termux's user (got: $owner)."; exit 1 ;;
+          esac
           docker run --rm --security-opt seccomp=unconfined -v "$PWD:/work" -w /work \
             "termux/termux-docker:$TERMUX_ARCH" env "ARCH=$ARCH" DO_NOT_TRACK=1 bash -ec '
               apt-get update
@@ -150,7 +159,7 @@ jobs:
           VERSION: ${{ steps.fetch.outputs.version }}
         run: |
           set -euo pipefail
-          sudo chown -R "$(id -u):$(id -g)" bundle
+          sudo chown -R "$(id -u):$(id -g)" .
           out="wekan-${VERSION}-${TARGET}.zip"
           zip -qry "$out" bundle
           sha256sum "$out" > "$out.sha256sum"

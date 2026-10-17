@@ -62,4 +62,21 @@ test('negative: nothing is built from an unverified download, and a missing Node
   assert.match(all, /build-extra-arches, bsd, android\]/, 'single files wait for the Android bundles');
 });
 
+test('the checkout is OWNED by Termux\'s user, not only writable, and handed back', () => {
+  // npm chmods each package's bin on install, and only a file's owner may chmod
+  // it: a+rwX alone ended every Android build of v12.51 with EPERM.
+  const wf = read('.github/workflows/android.yml');
+  const run = wf.slice(wf.indexOf('- name: Rebuild and start it in Termux'), wf.indexOf('- name: Package'));
+  assert.match(run, /owner="\$\(docker run --rm "termux\/termux-docker:\$TERMUX_ARCH" sh -c 'echo "\$\(id -u\):\$\(id -g\)"'/);
+  assert.match(run, /sudo chown -R "\$owner" \./);
+  assert(run.indexOf('sudo chown -R "$owner"') < run.indexOf('bash releases/android/build-bundle.sh'), 'owned before npm runs');
+  const pkg = wf.slice(wf.indexOf('- name: Package'));
+  assert.match(pkg, /sudo chown -R "\$\(id -u\):\$\(id -g\)" \./, 'the runner takes the checkout back');
+});
+
+test('negative: an unreadable uid stops the job instead of chowning to nothing', () => {
+  const wf = read('.github/workflows/android.yml');
+  assert.match(wf, /\*\) echo "::error::Could not read the uid of Termux's user/);
+});
+
 console.log(`androidBundles: ${passed} tests passed`);
