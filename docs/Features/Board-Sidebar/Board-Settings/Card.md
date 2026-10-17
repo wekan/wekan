@@ -114,6 +114,24 @@ neighbour: *Text notes* (card, between the attachment count and comments)
 and *Swimlane name* (minicard, last, under the list name).
 `tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs` pins both sequences.
 
+## The helpers that need no AI
+
+Seven rows turn the [helpers that need no AI](../../General/Assistants/Assistants.md)
+on and off for this board. For them *Show on Card* and *Show on Minicard* mean
+where the helper works:
+
+| Row | Show on Minicard | Show on Card |
+| --- | --- | --- |
+| [Due date from title](../../Cards/Dates/Due-Date-From-Title.md) | the add-card form | renaming the opened card |
+| [Similar cards](../../Cards/Similar-Cards.md) | the hint in the add-card form | the section in the opened card |
+| [At risk](../../Cards/At-Risk.md) | the triangle | the reasons line |
+| [Suggested members](../../Cards/Suggested-Members.md) | - | the Members and Assignees popups |
+| [Forecast](../../Cards/Dates/Forecast.md) | the 85 % date, off by default | the forecast line |
+| [Checklist from description](../../Cards/Checklist-From-Description.md) | - | From description in Checklists |
+| [Action items](../../Cards/Action-Items.md) | - | the comment and card menu entries |
+
+All are on by default except the minicard's forecast.
+
 ## Prerequisites
 
 - Only a board admin can change these settings; the arrows are shown only

@@ -7,4 +7,5 @@ rules run on the server (`server/rulesHelper.js`) for the board they belong to.
 - [Rules (Automation)](Rules/Rules.md) — triggers, actions and the rule list
 - [Blocks view](Rules/Blocks.md) — building a rule from blocks (`client/components/rules/rulesBlocks.jade`)
 - [IFTTT](IFTTT/IFTTT.md) — the original IFTTT rules design
+- [Rule suggestions](Rule-Suggestions.md) — rules offered from what people keep doing by hand
 - [Bots](Bots.md) — rules that act as a named bot (`client/components/rules/rulesBots.jade`)

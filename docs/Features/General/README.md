@@ -12,6 +12,7 @@ own: each page says where in the menus the feature is used.
 | Drag and drop | [Drag and drop](DragDrop/Drag-Drop.md), [touch screens](DragDrop/Touch-Screen-support.md) |
 | Selection and links | [Multi-selection](Multi-Selection.md), [board item links](Board-Item-Links.md) |
 | History | [History](History/History.md), [Undo / Redo](Undo/Undo.md), [original positions](Original-Positions/Original-Positions.md) |
+| Helpers that need no AI | [Overview](Assistants/Assistants.md), [Summary](Summary/Summary.md), [Since your last visit](Since-Last-Visit/Since-Last-Visit.md) |
 | Pages built on a table | [Table Page design](Table.md) |
 | Email | [Email to card](Email/Email-To-Card.md), [reply by email](Email/Reply-By-Email.md), [bounces](Email/Bounces.md), [troubleshooting mail](Email/Troubleshooting-Mail.md) |
 | Notifications | [Notification delivery](Notifications/Notification-Delivery.md), [ntfy](Notifications/ntfy.md) |

@@ -21,6 +21,14 @@ Empty optional groups can be hidden by those settings.
 | Planning Poker | [Estimation](Planning-Poker.md) |
 | Cover, stickers and location | [Cover](Cover/Cover.md), [stickers](Stickers/Stickers.md), [location](Locations/Locations.md) |
 | History and Undo | [History](../General/History/History.md) and [Undo](../General/Undo/Undo.md) |
+| Due date typed in the title | [Due date from the title](Dates/Due-Date-From-Title.md) |
+| Similar cards | [Similar cards and possible duplicates](Similar-Cards.md) |
+| At risk mark | [At risk](At-Risk.md) |
+| Members and Assignees popups | [Suggested members](Suggested-Members.md) |
+| Forecast done date | [Forecast](Dates/Forecast.md) |
+| Checklists → From description | [Checklist or subtasks from the description](Checklist-From-Description.md) |
+| Action items | [Action items from a comment or description](Action-Items.md) |
+| Helpers that need no AI | [Overview](../General/Assistants/Assistants.md) |
 | Export / Import | [Scope, formats and limits](../Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md) |
 
 The opened-card heading is **Date**, not Change Date Format. Linked-card titles

@@ -50,6 +50,13 @@ Each row is ticked when the thing is **hidden**.
 Which optional features this WeKan offers. An unticked feature is hidden from
 everyone's interface; its data is kept and no permission changes.
 
+Besides the board view groups, four
+[helpers that need no AI](../../General/Assistants/Assistants.md) are features
+here: **Rule suggestions**, **Summary**, **Since your last visit** and
+**Search phrases**. The card helpers - Due date from title, Similar cards, At
+risk, Suggested members, Forecast, Checklist from description and Action
+items - are card fields, below.
+
 ### Card fields
 
 Above the Features **Save** there is one tick per field type of the board right

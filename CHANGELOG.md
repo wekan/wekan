@@ -123,13 +123,19 @@ board's own data, with no model behind it. They are built in this order:
    dependency, or moved backwards often, as a weighted score.
 7. Suggested members for a card, from who has handled the same label, list or
    swimlane on that board.
-8. A forecast done date for one card, from the cycle time percentiles of its
-   list.
+8. A forecast done date for one card, from the cycle time percentiles of the
+   board's finished cards.
 9. A checklist or subtasks from the lines of a card's description.
 10. Action items from a comment or description: `TODO:` and `@user does X`
     lines become cards, with that member.
 11. Search phrases in plain language, such as "my overdue cards", translated
     into the existing search operators.
+
+Each is hidden like the features before them: the card helpers are rows of
+Board Settings / Card and of Admin Panel / Settings / Visibility / Features /
+Card fields, the board and search helpers are features of Admin Panel /
+Settings / Visibility / Features. The guides are in
+docs/Features/General/Assistants/Assistants.md and the menu folders it links.
 
 </details>
 
