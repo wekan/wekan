@@ -123,6 +123,11 @@
    is quieter and smaller than an entry: it names the group, it is not one of them.
    (The Problems page used to style its separator from adminProblems.css with a
    class the shared menu does not render, so the rule never applied at all.) */
+/* No list bullets. In the column they fell outside the menu's edge and were
+   hidden; in the phone's wrapping row they showed as a dot after every entry. */
+.setting-content .content-body .side-menu ul {
+  list-style: none;
+}
 .setting-content .content-body .side-menu ul li.left-menu-separator {
   margin: 6px 4px;
 }
@@ -951,6 +956,13 @@ li.has-error .form-group .wekan-form-control {
   .setting-content .content-body .side-menu ul li {
     flex: 0 0 auto;
     margin: 0;
+  }
+  /* In the wrapping row a rule between groups shrank to a short dash beside an
+     entry, and a group title sat mid-row. Each takes a whole line instead, so
+     every group starts on a row of its own - the same grouping as the column. */
+  .setting-content .content-body .side-menu ul li.left-menu-separator,
+  .setting-content .content-body .side-menu ul li.left-menu-heading {
+    flex: 0 0 100%;
   }
   .setting-content .content-body .side-menu ul li a {
     width: auto;

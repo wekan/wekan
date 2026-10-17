@@ -201,4 +201,17 @@ test('the swimlane header wrapper is only as tall as its bar', () => {
     'the header wrapper is the .nodragscroll one');
 });
 
+// The quick-access bar is `width: 100%` on a phone and has the header gutter as
+// side padding; as a content box it came out 24px wider than a 393px iPhone, and
+// its last button - the sidebar hamburger - sat past the right edge.
+// tests/playwright/specs/viewport-matrix.e2e.js measures it at every size.
+test('the phone header bar measures its padding inside', () => {
+  const layouts = read('client/components/main/layouts.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  const at = layouts.indexOf('#header-quick-access {\n    display: flex;');
+  assert.ok(at !== -1, 'the phone rule for the bar exists');
+  const body = layouts.slice(at, layouts.indexOf('}', at));
+  assert.ok(/width:\s*100%/.test(body), 'it is the full-width rule');
+  assert.ok(/box-sizing:\s*border-box/.test(body), 'and its padding is inside that width');
+});
+
 console.log(`\nmobileBoardFit: ${passed} tests passed`);

@@ -51,4 +51,18 @@ test('the bare {{_ \'card\'}}/{{_ \'swimlane\'}} tooltips are gone from these bu
   });
 });
 
+// The global `button` rule (forms.css) pads every button 35px a side and paints
+// its text white; on these white toggles the icon was white on white and the
+// box 72px wide. tests/playwright/specs/viewport-matrix.e2e.js checks the colour
+// in a browser.
+test('the toggles draw a dark icon on their white face, at their own size', () => {
+  const css = read('client/components/boards/tableView.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  const at = css.indexOf('.table-view-controls .js-table-view-toggle-card-title-wrap,\n.table-view-controls .js-table-view-toggle-swimlane-groups {');
+  assert.ok(at !== -1, 'the toggle rule exists');
+  const body = css.slice(at, css.indexOf('}', at));
+  assert.match(body, /background:\s*#fff/);
+  assert.match(body, /color:\s*#333/, 'a dark icon, not the global white');
+  assert.match(body, /padding:\s*0/, 'no 35px global padding');
+});
+
 console.log(`\ntableViewToggleTooltips: ${passed} tests passed`);

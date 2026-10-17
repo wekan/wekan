@@ -1072,4 +1072,21 @@ test('no admin stylesheet forces a table wider than its panel', () => {
   }
 });
 
+// On a phone, equal columns of a 13-column report were about 25px wide and every
+// header broke one letter per line, and 42px on an upright iPad. Up to 1024px a
+// column keeps a floor, and the table - not the page - scrolls in its wrapper.
+test('a phone or a tablet keeps every column readable and scrolls the table, not the page', () => {
+  const css = read('client/components/settings/tablePage.css');
+  const at = css.indexOf('@media screen and (max-width: 1024px)');
+  assert.ok(at !== -1, 'the floor has its own narrow-window block');
+  const narrow = css.slice(at, css.indexOf('}\n}', at));
+  assert.ok(/\.table-page-table \{\s*min-width:\s*calc\(var\(--table-page-columns, 1\) \* 6\.5em\) !important;/.test(narrow),
+    'a per-column floor on narrow windows only');
+  assert.ok(!/--table-page-columns/.test(css.slice(0, at)),
+    'wider windows keep the equal columns that fit the panel');
+  assert.match(read('client/components/settings/tablePage.jade'),
+    /table\.table-page-table\(style="--table-page-columns: \{\{header\.length\}\}"\)/);
+  assert.ok(/\.table-page-table-wrap \{[^}]*overflow-x:\s*auto/.test(css), 'the wrapper is what scrolls');
+});
+
 console.log(`\ntablePage: ${passed} tests passed`);

@@ -1069,4 +1069,17 @@ test('Version is the FIRST Settings pane, and has no page of its own', () => {
     'which names the pane rather than leaving the first one implicit');
 });
 
+// On a phone the menu is a wrapping row (settingBody.css, max-width 800px). The
+// list kept its disc bullets, which the column hid past its edge but the row
+// showed as a dot after every entry, and a separator shrank to a dash beside an
+// entry. tests/playwright/specs/viewport-matrix.e2e.js checks it in a browser.
+test('the menu has no bullets, and on a phone each group starts a row', () => {
+  const css = read('client/components/settings/settingBody.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(/\.setting-content \.content-body \.side-menu ul \{\s*list-style:\s*none;/.test(css),
+    'list-style: none on the menu list, at every width');
+  const phone = css.slice(css.indexOf('@media screen and (max-width: 800px)'));
+  assert.ok(/li\.left-menu-separator,\s*\.setting-content \.content-body \.side-menu ul li\.left-menu-heading \{\s*flex:\s*0 0 100%;/.test(phone),
+    'a separator and a group title take a whole line in the wrapping row');
+});
+
 console.log(`\nleftMenu: ${passed} tests passed`);

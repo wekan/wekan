@@ -70,7 +70,8 @@ template(name="tablePage")
     //- a last resort: the table itself is width:100% + table-layout:fixed, so
     //- it cannot grow past the panel and push its right edge off-screen.
     .table-page-table-wrap
-      table.table-page-table
+      //- The column count, for the narrow-screen floor in tablePage.css.
+      table.table-page-table(style="--table-page-columns: {{header.length}}")
         thead
           tr
             each header

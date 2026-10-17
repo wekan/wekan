@@ -859,6 +859,12 @@ a:not(.disabled).is-active i.fa {
        gaps alone were 8px x 6 = 48px, an eighth of the whole bar. */
     gap: 6px;
     width: 100%;
+    /* The bar has side padding (--wekan-header-gutter), and with the global
+       box-sizing unset `width: 100%` was the CONTENT box: on a 393px iPhone the
+       bar was 417px wide and the hamburger at its end sat past the right edge,
+       hidden by the html overflow-x guard below rather than shown.
+       tests/playwright/specs/viewport-matrix.e2e.js measures it. */
+    box-sizing: border-box;
     /* ONE row. This used to wrap to a second row because the items did not fit:
        the home link kept its full "All Boards" label, the logo was allowed 120px,
        and TWO items had `margin-inline-start: auto`, each eating all remaining

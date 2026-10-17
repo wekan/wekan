@@ -83,11 +83,28 @@
   color: #333;
 }
 
+/* The table, not the board, scrolls sideways when its columns are wider than
+   the window. At 800px and below the table scrolls itself (display: block);
+   just above that - an iPad or an unfolded phone held upright, 834-928px - it
+   did not, the board canvas around it is overflow-x: hidden, and Members, Labels
+   and the date columns were cut off with no way to reach them.
+   tests/playwright/specs/viewport-matrix.e2e.js checks every column is reachable. */
+.table-view-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .table-view-controls .js-table-view-toggle-card-title-wrap,
 .table-view-controls .js-table-view-toggle-swimlane-groups {
   box-sizing: border-box;
   width: 34px;
   height: 34px;
+  /* The global `button` rule (forms.css) pads every button 35px on each side
+     and paints its text white. On these white toggles that made the icon
+     white on white - two empty squares - and the padding stretched the 34px
+     box to 72px. tests/playwright/specs/viewport-matrix.e2e.js checks both. */
+  padding: 0;
+  color: #333;
   line-height: 1;
   border: 1px solid #bbb;
   background: #fff;
