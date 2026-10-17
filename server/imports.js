@@ -263,6 +263,7 @@ import '/server/methods/cleanupTemplateContainers';
 import '/server/methods/systemStatus';
 import '/server/methods/positionHistory';
 import '/server/methods/similarCards';
+import '/server/methods/ruleSuggestions';
 import '/server/methods/sandstormMigration';
 import '/server/methods/tenant';
 import '/server/startup/repairBoardsOnStartup';

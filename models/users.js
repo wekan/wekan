@@ -1252,6 +1252,17 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.dismissedRuleSuggestions': {
+      /**
+       * The rule suggestions this user dismissed, per board:
+       * { <boardId>: [<suggestion key>] }. Board menu -> Rules -> Suggested
+       * rules (docs/Features/Rules/Rule-Suggestions.md); written only by
+       * rules.dismissSuggestion.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     'profile.keyboardShortcuts': {
       /**
        * User-specified state of keyboard shortcut activation. On by default,

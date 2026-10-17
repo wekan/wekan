@@ -2851,6 +2851,54 @@
     {
       "key": "possible-duplicate",
       "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestions",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-when-moved",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-when-created",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-when-label",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-then-label",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-then-member",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-then-archive",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-count",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-create",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "rule-suggestion-dismiss",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-rule-suggestions",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-rule-suggestions-desc",
+      "since": "2026-10-17"
     }
   ]
 }

@@ -20,6 +20,7 @@ template(name="rulesMain")
           else if isRulesHistoryView
             +historyTable(scope="board" scopeId=rulesBoardId group="rules")
           else
+            +ruleSuggestions
             +rulesList
         if($eq rulesCurrentTab.get 'trigger')
           +rulesTriggers(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)

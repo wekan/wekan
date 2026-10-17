@@ -19,7 +19,10 @@ const pilot = { _id: 'p', featurePreview: true };
 test('the catalog groups known views, each once, and never the core views', () => {
   const seen = new Set();
   for (const feature of features.FEATURES) {
-    assert.ok(feature.views.length > 0, feature.key);
+    // A view group has views; a helper that needs no AI (rule suggestions,
+    // ...) is a feature with no view of its own, decided by its key alone.
+    if (feature.key.startsWith('views-')) assert.ok(feature.views.length > 0, feature.key);
+    else assert.deepEqual(feature.views, [], `${feature.key} is not a view group`);
     for (const view of feature.views) {
       assert.ok(views.isKnownBoardView(view), `${feature.key}: ${view} is not a board view`);
       assert.ok(!seen.has(view), `${view} is in two features`);

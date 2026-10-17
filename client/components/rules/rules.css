@@ -509,3 +509,49 @@
   color: #6b778c;
   font-size: 0.9em;
 }
+
+/* Suggested rules (ruleSuggestions.jade), above the rule list. */
+.rule-suggestions {
+  margin: 0 0 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff8e1;
+  border: 1px solid #f0d78c;
+}
+.rule-suggestions-title {
+  margin: 0 0 6px;
+  font-size: 1.05em;
+}
+.rule-suggestions-title .fa {
+  margin-inline-end: 6px;
+}
+.rule-suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rule-suggestion {
+  padding: 6px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.rule-suggestion:first-child {
+  border-top: 0;
+}
+.rule-suggestion-text {
+  overflow-wrap: anywhere;
+}
+.rule-suggestion-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.rule-suggestion-buttons button {
+  margin: 0;
+  padding: 4px 12px;
+}
+.rule-suggestion-buttons button:not(.primary) {
+  color: #333;
+  background: #fff;
+  border: 1px solid #bbb;
+}

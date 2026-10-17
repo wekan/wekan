@@ -1,0 +1,19 @@
+//- Suggested rules (docs/Features/Rules/Rule-Suggestions.md): what people on
+//- this board keep doing by hand, above the rule list. Board admins only - the
+//- server answers nobody else - and hidden with Admin Panel / Settings /
+//- Visibility / Features: Rule suggestions.
+template(name="ruleSuggestions")
+  if suggestions.length
+    .rule-suggestions.js-rule-suggestions
+      h3.rule-suggestions-title
+        i.fa.fa-lightbulb-o
+        | {{_ 'rule-suggestions'}}
+      ul.rule-suggestions-list
+        each suggestions
+          li.rule-suggestion(data-key=key)
+            .rule-suggestion-text
+              | {{sentence}}
+            .rule-suggestion-count.quiet {{_ 'rule-suggestion-count' count=count}}
+            .rule-suggestion-buttons
+              button.primary.js-create-suggested-rule(type="button") {{_ 'rule-suggestion-create'}}
+              button.js-dismiss-suggested-rule(type="button") {{_ 'rule-suggestion-dismiss'}}

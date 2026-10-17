@@ -23,6 +23,7 @@ import '/client/components/rules/ruleDetails.js';
 import '/client/components/rules/rulesActions.js';
 import '/client/components/rules/rulesList.js';
 import '/client/components/rules/rulesMain.js';
+import '/client/components/rules/ruleSuggestions.js';
 import '/client/components/rules/rulesImportExport.js';
 import '/client/components/rules/rulesWorkflow.js';
 import '/client/components/rules/rulesBots.js';
