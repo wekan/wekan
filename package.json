@@ -118,7 +118,7 @@
     "qrcode-generator": "1.4.4",
     "sanitize-html": "2.18.0",
     "sharp": "^0.35.5",
-    "temml": "^0.13.3",
+    "temml": "^0.14.0",
     "underscore": "^1.13.8",
     "unzipper": "^0.12.5",
     "wasmagic": "1.0.11",
