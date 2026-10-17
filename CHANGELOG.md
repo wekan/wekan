@@ -239,6 +239,22 @@ named import of an app module against what that module exports.
 
 </details>
 
+**Screen sizes** - the new UI on a phone, a foldable, a tablet, a laptop and a
+55" touchscreen, upright and on its side.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e34a488617">Header, Admin Panel menu and tables, and the Table view fit every screen size</a>. Thanks to xet7.</summary>
+
+A browser test opens the new pages at ten sizes and checks that icons and texts
+are on screen and visible, that nothing scrolls the page sideways, that every
+table column can be reached and read, and that dragscroll pans by mouse and by
+finger. It found the iPhone header's hamburger past the right edge, bullets and
+dashes in the Admin Panel menu on a phone, Admin table columns too narrow to
+read on a phone and an upright iPad, the Table view's toggles drawn white on
+white, and its columns cut off on an upright iPad. Each is fixed.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Less code to maintain** - copies that decided nothing, and code nothing
