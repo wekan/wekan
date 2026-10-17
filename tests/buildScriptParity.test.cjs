@@ -430,6 +430,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   SKIP['single-file/bun/launcher.mjs'] = 'runs INSIDE the Bun single-file executable, embedded by single-file/bun/build.mjs';
   SKIP['single-file/bun/unzip.mjs'] = 'imported by single-file/bun/build.mjs and launcher.mjs';
   SKIP['single-file/meteor-device-paths.mjs'] = 'imported by single-file/build.mjs (Windows device and UNC paths)';
+  SKIP['single-file/sea-inject.mjs'] = 'imported by single-file/build.mjs (can LIEF inject this Node.js)';
   SKIP['translations/audit-exempt-prose.mjs'] = 'read-only audit supplement to the fill inventory; run directly';
 
   // Live tests against real services (Tests -> Live tests): both menus run

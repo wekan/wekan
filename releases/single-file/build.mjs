@@ -29,6 +29,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { listFiles, writeZip } from './zip.mjs';
 import { MINI_FILES, patchMiniFiles } from './meteor-device-paths.mjs';
+import { seaInjectProblemOf } from './sea-inject.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
@@ -150,6 +151,15 @@ export function build(opts) {
   for (const [what, file] of [['Node.js', node], ['FerretDB', ferretdb]]) {
     if (!fs.existsSync(file)) throw new Error(`No ${what} at ${file}.`);
   }
+  // A Node.js that LIEF cannot inject correctly is not built at all: the
+  // error says why, and the CLI exits 3, which single-file.yml reads as a skip
+  // (sea-inject.mjs).
+  const problem = seaInjectProblemOf(node);
+  if (problem) {
+    const err = new Error(`${opts.target} is not built: ${problem}.`);
+    err.code = 'SEA_NOT_INJECTABLE';
+    throw err;
+  }
   const nodeVersion = nodeVersionOf(node);
   const explicitHost = opts.hostNode || opts['host-node'];
   const hostNode = explicitHost || process.execPath;
@@ -222,6 +232,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     build(parseArgs(process.argv.slice(2)));
   } catch (err) {
     console.error(`single-file build: ${err.message}`);
-    process.exit(1);
+    process.exit(err.code === 'SEA_NOT_INJECTABLE' ? 3 : 1);
   }
 }

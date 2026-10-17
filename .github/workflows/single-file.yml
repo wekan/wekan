@@ -174,6 +174,7 @@ jobs:
           echo "node=$host" >> "$GITHUB_OUTPUT"
 
       - name: Build the single file
+        id: build
         if: steps.fetch.outputs.skip != 'true'
         env:
           VERSION: ${{ steps.fetch.outputs.version }}
@@ -185,17 +186,40 @@ jobs:
           out="wekan-${VERSION}-${TARGET}-single-file${ext}"
           # The i386 Node.js finds its own libraries; the libraries are ignored by
           # the x64 Node.js that runs build.mjs (another architecture).
+          # Exit 3: this Node.js is one LIEF cannot inject the SEA into
+          # correctly (releases/single-file/sea-inject.mjs says which and why).
+          # That is a missing single file, not a failed release.
+          rc=0
           LD_LIBRARY_PATH="${HOST_LIBS:-${LD_LIBRARY_PATH:-}}" \
             node releases/single-file/build.mjs --bundle bundle --target "$TARGET" --version "$VERSION" --out "$out" \
-            ${HOST_NODE:+--host-node "$HOST_NODE"}
-          ls -la "$out" "$out.sha256sum"
+            ${HOST_NODE:+--host-node "$HOST_NODE"} 2> build.err || rc=$?
+          cat build.err >&2
           rm -rf bundle
+          if [ "$rc" = 3 ]; then
+            reason="$(sed -n 's/^single-file build: //p' build.err | head -n1)"
+            echo "::notice::$reason"
+            printf '%s\n' "$reason" > "single-file-skipped-$TARGET.txt"
+            rm -f build.err; exit 0
+          fi
+          rm -f build.err
+          [ "$rc" = 0 ] || exit "$rc"
+          ls -la "$out" "$out.sha256sum"
+
+      # A target that was not built still leaves an artifact - one line saying
+      # why - so its Start job finds something to read instead of logging an
+      # "Artifact not found" error for a release that is fine.
+      - name: Say why there is no single file
+        if: steps.fetch.outputs.skip == 'true'
+        run: |
+          [ -f "single-file-skipped-$TARGET.txt" ] || echo "$TARGET: this release has no bundle to build it from." > "single-file-skipped-$TARGET.txt"
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        if: steps.fetch.outputs.skip != 'true'
         with:
           name: single-file-${{ matrix.target }}
-          path: wekan-*-${{ matrix.target }}-single-file*
+          path: |
+            wekan-*-${{ matrix.target }}-single-file*
+            single-file-skipped-${{ matrix.target }}.txt
+          if-no-files-found: error
           retention-days: 3
           compression-level: 0
 
@@ -231,6 +255,9 @@ jobs:
           set -euo pipefail
           if [ "${STEP_GET_OUTCOME}" != success ]; then
             echo "run=false" >> "$GITHUB_OUTPUT"; echo "::notice::$TARGET was not built this release."; exit 0
+          fi
+          if [ -f "sf/single-file-skipped-$TARGET.txt" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"; echo "::notice::$(cat "sf/single-file-skipped-$TARGET.txt")"; exit 0
           fi
           if [ "${MATRIX_SMOKE}" = none ]; then
             echo "run=false" >> "$GITHUB_OUTPUT"
@@ -340,6 +367,8 @@ jobs:
           for dir in artifacts/single-file-*; do
             target="${dir#artifacts/single-file-}"
             case "$target" in ok-*) continue ;; esac
+            # Not built, and its build job said why in a notice already.
+            [ -f "$dir/single-file-skipped-$target.txt" ] && continue
             if [ ! -d "artifacts/single-file-ok-$target" ]; then
               echo "::warning::$target: not published - it did not start on its runner."
               continue

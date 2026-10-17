@@ -16,6 +16,14 @@ the one for your computer, put it in a directory of its own, and run it.
 Each release has a single file for every platform it has a WeKan bundle for.
 Every file has a `.sha256sum` beside it.
 
+A platform whose Node.js the archive cannot be injected into correctly has no
+single file in that release, and the release log says why. Up to v12.51 these
+were i386, whose Node.js was an i386 PIE, and freebsd-x64, whose Node.js was a
+non-PIE with two bss-like segments
+(`releases/single-file/sea-inject.mjs`). wekan/node-patches builds both the
+way the injection needs, and they are built again from the first release with
+those Node.js binaries.
+
 ## Starting it
 
 ```
