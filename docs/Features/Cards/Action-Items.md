@@ -12,9 +12,9 @@ These lines are action items:
 | `@alice Send the agenda` | Send the agenda | alice |
 | `TODO: @bob Check the budget` | Check the budget | bob |
 
-A comment with action items gets **Create cards from action items** in its
-menu; a description with them gets the same entry in the card's hamburger
-menu. A preview lists the cards to be made, each with a tick, and **Create**
+A comment with action items gets **Create cards from action items** on its
+line, beside **Reply**; a description with them gets the same entry in the
+card's hamburger menu, for those who may edit the card. A preview lists the cards to be made, each with a tick, and **Create**
 adds the ticked ones to the top of the card's own list, in its swimlane. Each
 new card's description links back to the card the line came from.
 

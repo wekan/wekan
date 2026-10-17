@@ -108,14 +108,8 @@ reason.
 <summary>Features other kanban apps call AI, done here with plain code.</summary>
 
 Trello, Jira and ClickUp sell these as AI. Each one can be computed from the
-board's own data, with no model behind it. They are built in this order; 1-8
-are done:
+board's own data, with no model behind it. 1-11 are done; what is left:
 
-9. A checklist or subtasks from the lines of a card's description.
-10. Action items from a comment or description: `TODO:` and `@user does X`
-    lines become cards, with that member.
-11. Search phrases in plain language, such as "my overdue cards", translated
-    into the existing search operators.
 12. A card's drawing opens full screen as a whiteboard under the header bar,
     with the same drawing tools as Red Strings, and several people draw on it
     at the same time.
@@ -132,11 +126,12 @@ docs/Features/General/Assistants/Assistants.md and the menu folders it links.
 
 # Upcoming WeKan ® release
 
-**In short:** **helpers that need no AI** - features other kanban apps sell
-as AI, done here with plain code: a **due date from the title**, **similar
-cards**, **rule suggestions**, a board **Summary**, **Since your last visit**,
-an **At risk** mark, **suggested members** and a **forecast done date**. Each
-can be hidden per board or for the whole WeKan.
+**In short:** eleven **helpers that need no AI** - features other kanban
+apps sell as AI, done here with plain code: a **due date from the title**,
+**similar cards**, **rule suggestions**, a board **Summary**, **Since your last
+visit**, **At risk**, **suggested members**, a **forecast done date**, a
+**checklist from the description**, **action items** and **search phrases**.
+Each can be hidden per board or for the whole WeKan.
 
 This release adds the following new features:
 
@@ -242,6 +237,39 @@ those that took at least as long as this card has been open; fewer than five
 say so. The server sends the times once per board, numbers only, scoped by
 role. On the opened card's dates, and on the minicard when a board turns that
 side on. tests/cardForecast.test.cjs and the e2e above.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cb089b8ca">Checklists: From description makes a checklist or subtasks from its list</a>. Thanks to xet7.</summary>
+
+The description's list lines - "- ", "* ", "+ ", "1. ", "1) " and task boxes,
+never inside a code block - are previewed, then made into a checklist ticked
+where the line was [x], or into subtasks through addSubtaskCard. The
+description is not changed. tests/descriptionListItems.test.cjs and
+assist-from-text.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cb089b8ca">Cards from the action items of a comment or a description</a>. Thanks to xet7.</summary>
+
+"TODO: ...", "- [ ] ..." and "@user ..." lines become cards at the top of the
+card's list, each linking back to the card, with the mentioned user as member
+when they are an active board member - a mention of anybody else stays in the
+title. On the comment's line, and in the card menu for the description.
+tests/actionItems.test.cjs and assist-from-text.e2e.js.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cb089b8ca">Global search understands plain phrases such as my overdue cards</a>. Thanks to xet7.</summary>
+
+Ten phrases in the reader's language, and in English everywhere, run as the
+search operators in the reader's language; the page shows the query it ran,
+and a query that already has an operator is never rewritten. An Admin Panel /
+Settings / Visibility / Features tick. tests/searchPhrases.test.cjs and
+assist-search-phrases.e2e.js.
 
 </details>
 
