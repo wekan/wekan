@@ -23,6 +23,11 @@ const TAG_STRIP = /\.replace\(\/<\[\^>\][*+]>\/[a-z]*,/;
 // replace(/<(script|style|head)\b[^>]*>[\s\S]*?<\/\1...>/) - is the same
 // multi-character sanitization, one level up.
 const ELEMENT_STRIP = /\.replace\(\/<\(?(\?:)?(script|style|head)\b/i;
+// Alert #588: removing a multi-character name that begins `on` followed by a
+// capital - onCreated, onRendered - with '' (tests/templatesAreRendered.test.cjs).
+// CodeQL reads what is left as a possible on... attribute; the same fixed point
+// answers it.
+const ON_NAME_STRIP = /\.replace\(\/(?:[^/\\\n]|\\.)*\bon[A-Z](?:[^/\\\n]|\\.)*\/[a-z]*,\s*(?:''|"")\)/;
 
 // Output that is not HTML, so a re-formed tag in it is inert text.
 const NOT_HTML = {
@@ -47,7 +52,7 @@ function findings(files) {
   for (const file of files) {
     const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split('\n');
     lines.forEach((line, index) => {
-      if (!(TAG_STRIP.test(line) || ELEMENT_STRIP.test(line)) || /^\s*\/\//.test(line)) return;
+      if (!(TAG_STRIP.test(line) || ELEMENT_STRIP.test(line) || ON_NAME_STRIP.test(line)) || /^\s*\/\//.test(line)) return;
       if (NOT_HTML[file] || inFixedPointLoop(lines, index)) return;
       out.push(`${file}:${index + 1}: ${line.trim()}`);
     });
@@ -78,6 +83,13 @@ try {
   assert.equal(findings([rel('stub.js')]).length, 1, 'the alert #545 stub is caught');
   assert.equal(findings([rel('loop.js')]).length, 0, 'a fixed-point loop passes');
   assert.equal(findings([rel('once.js')]).length, 1, 'any other loop is not enough');
+  // Alert #588's shape: an on... name removed once, and the same in a loop.
+  fs.writeFileSync(path.join(tmp, 'on-once.js'),
+    "src = src.replace(/Template\\.\\w+\\.(?:helpers|onCreated|onRendered)/g, '');\n");
+  fs.writeFileSync(path.join(tmp, 'on-loop.js'),
+    "let previous;\ndo {\n  previous = src;\n  src = src.replace(/Template\\.\\w+\\.(?:helpers|onCreated|onRendered)/g, '');\n} while (src !== previous);\n");
+  assert.equal(findings([rel('on-once.js')]).length, 1, 'the alert #588 shape is caught');
+  assert.equal(findings([rel('on-loop.js')]).length, 0, 'and passes in a fixed-point loop');
   // Alerts #570/#571: the `+` spelling, in a chain, is caught too...
   fs.writeFileSync(path.join(tmp, 'plus.js'), "const t = html\n  .replace(/<br>/gi, '')\n  .replace(/<[^>]+>/g, '')\n  .trim();\n");
   assert.equal(findings([rel('plus.js')]).length, 1, 'the <[^>]+> spelling is caught');

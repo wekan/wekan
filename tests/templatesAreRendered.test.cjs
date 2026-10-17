@@ -59,10 +59,21 @@ for (const file of ['client', 'config', 'models', 'server', 'imports', 'packages
     for (const m of src.matchAll(/^template\(name=["']([^"']+)["']\)/gm)) {
       templates.set(m[1], path.relative(ROOT, file));
     }
-    src = src.replace(/^template\(name=["'][^"']+["']\)/gm, '');
+    // To a fixed point: removing one declaration must not splice its
+    // neighbours into another (CodeQL js/incomplete-multi-character-
+    // sanitization, alert #588 - see tests/tagStrippingFixedPoint.test.cjs).
+    let previousJade;
+    do {
+      previousJade = src;
+      src = src.replace(/^template\(name=["'][^"']+["']\)/gm, '');
+    } while (src !== previousJade);
   }
   // A template's own helpers/events are not somebody drawing it.
-  src = src.replace(/Template(?:\.\w+|\[['"][^'"]+['"]\])\.(?:helpers|events|onCreated|onRendered|onDestroyed)/g, '');
+  let previous;
+  do {
+    previous = src;
+    src = src.replace(/Template(?:\.\w+|\[['"][^'"]+['"]\])\.(?:helpers|events|onCreated|onRendered|onDestroyed)/g, '');
+  } while (src !== previous);
   parts.push(src);
 }
 const corpus = parts.join('\n');
