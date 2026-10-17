@@ -62,12 +62,17 @@ test('both bars are the same colour, in every theme', () => {
   // say it their own way, and that is fine as long as the answer matches.
   const bg = which => {
     const out = {};
-    for (const rule of colors.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    // Only a rule whose subject IS the bar (`#header`, `#header #header-main-bar`
+    // or `#header-quick-access`), not one for something inside it - Apple Glass
+    // Pastel's emphasis button is navy inside a glass bar. And the whole value:
+    // a glass bar is a gradient, not one hex (2026-10-17).
+    for (const rule of colors.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
       const [, selector, body] = rule;
-      const decl = /background(?:-color)?:\s*(#[0-9a-fA-F]+)/.exec(body);
-      if (!decl) continue;
-      for (const m of selector.matchAll(new RegExp(`\\.board-color-([\\w-]+)${which}(?![-\\w])`, 'g'))) {
-        if (out[m[1]] === undefined) out[m[1]] = decl[1].toLowerCase();
+      const decl = /background(?:-color)?:\s*([^;]+);/.exec(body);
+      if (!decl || !/#[0-9a-fA-F]+|gradient/.test(decl[1])) continue;
+      for (const part of selector.split(',')) {
+        const m = new RegExp(`\\.board-color-([\\w-]+)${which}(?:\\s+#header-main-bar)?\\s*$`).exec(part.trim());
+        if (m && out[m[1]] === undefined) out[m[1]] = decl[1].replace(/\s+/g, ' ').trim().toLowerCase();
       }
     }
     return out;

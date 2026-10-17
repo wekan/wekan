@@ -29,6 +29,23 @@ custom colors. **dark** and **special** are hand-tuned, multi-color designs wher
 custom color would break contrast/readability — so they are **fixed** (pick the named theme, no
 custom colors).
 
+### Apple Glass Pastel
+
+`appleglasspastel` follows Apple's Liquid Glass: every surface - the two header
+bars, swimlane headers, lists, minicards, the opened card, the sidebar and
+popups - is frosted glass over a pastel mesh. Each has a translucent white fill,
+`backdrop-filter: blur(24px) saturate(180%)`, a rim of light along its edges
+(inset highlights, brightest on top), a diagonal sheen and large rounded corners.
+Text and icons are dark, and blue `#2563eb` is kept for the primary action and
+for what is active. With the system's **Reduce transparency** setting, or in a
+browser without `backdrop-filter`, the glass turns nearly opaque.
+
+`tests/playwright/specs/theme-appleglasspastel-contrast.e2e.js` checks that the
+text reads. It hides every text, takes a screenshot, and measures each text and
+icon against the pixels that were behind it: WCAG AA, 4.5:1 for text and 3:1 for
+large text and icons. It runs on the board, the opened card, the sidebar, the
+board menu and All Boards, at laptop and phone sizes.
+
 ## 2. Picker UX — two-level dropdowns + color wheel
 
 The Select Color popup (identical in Board Settings and Member Settings) is:

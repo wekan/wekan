@@ -1043,8 +1043,30 @@ THEME - Apple Glass Pastel
   color: #111827;
 }
 
+/* Apple's Liquid Glass (WWDC 2025): a surface is not a colour but frosted
+   glass over what lies behind it - a translucent fill, a backdrop blur with
+   extra saturation, a rim of light along its edges (brightest on top), and a
+   diagonal sheen. The header bars are glass too: the mesh shows through them,
+   their text is dark, and blue is kept for what is active and for the one
+   primary action. tests/playwright/specs/theme-appleglasspastel-contrast.e2e.js
+   measures every text against what is really painted behind it. */
 .board-color-appleglasspastel#header,
-.board-color-appleglasspastel#header-quick-access,
+.board-color-appleglasspastel#header #header-main-bar,
+.board-color-appleglasspastel#header-quick-access {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.58) 100%),
+    radial-gradient(60% 140% at 85% 0%, rgba(255, 200, 220, 0.55), transparent 60%),
+    radial-gradient(55% 140% at 5% 0%, rgba(180, 215, 255, 0.55), transparent 65%),
+    linear-gradient(180deg, #f6f7fb 0%, #eef0f7 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(15, 23, 42, 0.06),
+    0 8px 24px rgba(15, 23, 42, 0.06);
+  color: #0f172a;
+}
+
 .board-color-appleglasspastel.sk-spinner div,
 .board-color-appleglasspastel .setting-content .content-body .side-menu ul li.active,
 .board-color-appleglasspastel .setting-content .content-body .side-menu ul li.active:hover {
@@ -1103,12 +1125,9 @@ THEME - Apple Glass Pastel
 }
 
 .board-color-appleglasspastel#header-quick-access {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
 }
 
-.board-color-appleglasspastel#header #header-main-bar,
-.board-color-appleglasspastel#header-quick-access,
 .board-color-appleglasspastel .boards-left-menu .menu-item.active a,
 .board-color-appleglasspastel .boards-left-menu .menu-item.active a:hover {
   background: #2563eb;
@@ -1116,7 +1135,7 @@ THEME - Apple Glass Pastel
 
 .board-color-appleglasspastel#header ul li.current,
 .board-color-appleglasspastel#header-quick-access ul li.current {
-  border-bottom: 4px solid #dbeafe;
+  border-bottom: 3px solid #2563eb;
 }
 
 .board-color-appleglasspastel#header-quick-access #header-new-board-icon,
@@ -1125,14 +1144,44 @@ THEME - Apple Glass Pastel
 .board-color-appleglasspastel#header-quick-access a,
 .board-color-appleglasspastel#header .board-header-btn,
 .board-color-appleglasspastel#header .board-header-btn i {
-  color: #fff;
+  color: #0f172a;
+}
+
+/* Everything the header CSS paints white for the blue bars (header.css) is
+   dark on the glass: the buttons, their icons, the house, the username. Only
+   what still sits on blue - the emphasis button, the active desktop/mobile
+   toggle - keeps its white. */
+.board-color-appleglasspastel#header-quick-access .board-header-btn,
+.board-color-appleglasspastel#header-quick-access i.fa,
+.board-color-appleglasspastel#header-quick-access .home-icon .header-home-link,
+.board-color-appleglasspastel#header-quick-access ul li a,
+.board-color-appleglasspastel#header-quick-access #header-user-bar .header-user-bar-name,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn i.fa,
+.board-color-appleglasspastel#header #header-main-bar h1 a i.fa {
+  color: #0f172a;
+}
+
+.board-color-appleglasspastel#header-quick-access .mobile-mode-toggle .board-header-btn {
+  color: #0f172a !important;
+}
+
+/* The stock WeKan logo is white, made for the blue bar; on glass it is drawn
+   dark. A custom logo is the instance's own and is left as it is. */
+.board-color-appleglasspastel#header-quick-access div.header-logo img {
+  filter: brightness(0.2);
 }
 
 .board-color-appleglasspastel#header ul li:hover,
 .board-color-appleglasspastel#header-quick-access ul li:hover,
 .board-color-appleglasspastel .board-header-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(37, 99, 235, 0.10);
   border-radius: 10px;
+}
+
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis i {
+  color: #fff;
 }
 
 .board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis {
@@ -1168,10 +1217,13 @@ THEME - Apple Glass Pastel
 }
 
 .board-color-appleglasspastel .swimlane .swimlane-header-wrap {
-  background: rgba(255, 255, 255, 0.45);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%),
+    rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .board-color-appleglasspastel .swimlane-header {
@@ -1180,22 +1232,33 @@ THEME - Apple Glass Pastel
 }
 
 .board-color-appleglasspastel .list {
-  background: rgba(255, 255, 255, 0.65);
+  /* Sheen over the frosted fill: light falling from the top left. */
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(255, 255, 255, 0) 60%),
+    rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-inline-start: none;
-  border-radius: 18px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 22px;
+  /* The rim: a bright top edge, softer sides and bottom, and a soft drop. */
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.35),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3);
   color: #111827;
   margin: 10px 0;
   padding-bottom: 8px;
 }
 
+/* list.css paints every list header #e4e4e4 with !important, so the glass
+   has to say it the same way. */
 .board-color-appleglasspastel .list-header {
-  background: rgba(255, 255, 255, 0.45);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.75);
-  border-radius: 18px 18px 0 0;
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.75) !important;
+  border-radius: 22px 22px 0 0;
 }
 
 .board-color-appleglasspastel .list-header .list-header-name,
@@ -1215,16 +1278,26 @@ THEME - Apple Glass Pastel
 .board-color-appleglasspastel .card-details,
 .board-color-appleglasspastel.pop-over,
 .board-color-appleglasspastel .sidebar {
-  background: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.1) 32%, rgba(255, 255, 255, 0) 60%),
+    rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 12px 32px rgba(15, 23, 42, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.4);
   color: #111827;
 }
 
+.board-color-appleglasspastel.pop-over {
+  border-radius: 18px;
+}
+
 .board-color-appleglasspastel .minicard {
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 10px 10px 4px 10px;
 }
 
@@ -1239,10 +1312,10 @@ THEME - Apple Glass Pastel
 }
 
 .board-color-appleglasspastel .card-details {
-  border-radius: 18px;
+  border-radius: 22px;
 }
 
-.board-color-appleglasspastel .card-details-header {
+.board-color-appleglasspastel .card-details .card-details-header {
   background: rgba(239, 246, 255, 0.78);
   border-bottom: 1px solid rgba(229, 231, 235, 0.75);
   color: #0f172a;
@@ -1266,7 +1339,41 @@ THEME - Apple Glass Pastel
 .board-color-appleglasspastel .list.list-composer .open-list-composer {
   background: rgba(255, 255, 255, 0.45);
   border-radius: 12px;
-  color: #6b7280;
+  color: #4b5563;
+  opacity: 1;
+}
+
+/* The sidebar's section headings and Board Settings were the default #808080,
+   3.8:1 on glass. */
+.board-color-appleglasspastel .sidebar .sidebar-content h3,
+.board-color-appleglasspastel .sidebar .sidebar-content h3 i.fa,
+.board-color-appleglasspastel .sidebar .board-header-btn,
+.board-color-appleglasspastel .sidebar .board-header-btn i.fa {
+  color: #374151;
+}
+
+/* The icons. WeKan draws its control icons #a6a6a6, 2.4:1 on white glass -
+   below the 3:1 a graphic that says what a control does needs (WCAG 1.4.11).
+   An icon given its own colour (a dependency, a status) keeps it, and one on a
+   blue button stays white. */
+.board-color-appleglasspastel .board-canvas .fa:not([style*="color"]),
+.board-color-appleglasspastel .card-details .fa:not([style*="color"]),
+.board-color-appleglasspastel .sidebar .fa:not([style*="color"]),
+.board-color-appleglasspastel.pop-over .fa:not([style*="color"]),
+.board-color-appleglasspastel#header-quick-access .fa,
+.board-color-appleglasspastel#header .fa {
+  color: #4b5563;
+}
+
+.board-color-appleglasspastel#header-quick-access .fa,
+.board-color-appleglasspastel#header .fa {
+  color: #0f172a;
+}
+
+.board-color-appleglasspastel button .fa,
+.board-color-appleglasspastel .primary .fa,
+.board-color-appleglasspastel#header #header-main-bar .board-header-btn.emphasis .fa {
+  color: inherit;
 }
 
 .board-color-appleglasspastel .list-body .open-minicard-composer:hover,
@@ -1278,16 +1385,45 @@ THEME - Apple Glass Pastel
   color: #1e3a8a;
 }
 
+/* popup.css makes a hovered menu row white on the accent with !important; on
+   this theme the row turns pale blue, so its text and icon turn navy the same
+   way. */
+.board-color-appleglasspastel.pop-over .pop-over-list li > a:not(.disabled):hover,
+.board-color-appleglasspastel.pop-over .pop-over-list li > a:not(.disabled):hover i,
+.board-color-appleglasspastel.pop-over .pop-over-list li > a:not(.disabled):hover i.fa {
+  color: #1e3a8a !important;
+}
+
+@media screen and (max-width: 800px) {
+  .board-color-appleglasspastel.pop-over .header a,
+  .board-color-appleglasspastel.pop-over .header .fa,
+  .board-color-appleglasspastel.pop-over .header .close-btn i.fa {
+    color: #0f172a;
+  }
+}
+
+/* The sidebar hamburger is forced white with !important by the accessibility
+   style boardBody.js injects, which assumes a blue bar. */
+.board-color-appleglasspastel#header-quick-access .js-toggle-page-sidebar .fa-bars {
+  color: #0f172a !important;
+}
+
 .board-color-appleglasspastel button[type=submit].primary,
 .board-color-appleglasspastel input[type=submit].primary,
 .board-color-appleglasspastel button.primary,
 .board-color-appleglasspastel input.primary,
 .board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn,
 .board-color-appleglasspastel .selected-calendar-picker button.primary {
-  background: #2563eb;
+  /* Tinted glass: the blue with a highlight across its upper half. */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 55%),
+    #2563eb;
   border: 0;
   border-radius: 999px;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12), 0 1px 2px rgba(0,0,0,0.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 4px 16px rgba(37, 99, 235, 0.25),
+    0 1px 2px rgba(0, 0, 0, 0.04);
   color: #fff;
 }
 
@@ -1369,8 +1505,38 @@ THEME - Apple Glass Pastel
 
 @media screen and (max-width: 800px) {
   .board-color-appleglasspastel.pop-over .header {
-    background: #2563eb;
-    color: #fff;
+    background: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.75);
+    color: #0f172a;
+  }
+}
+
+/* Reduce transparency (macOS, iOS, Windows), and a browser with no
+   backdrop-filter: the glass turns nearly opaque, so text never depends on
+   what happens to lie behind it. */
+@media (prefers-reduced-transparency: reduce) {
+  .board-color-appleglasspastel#header,
+  .board-color-appleglasspastel#header #header-main-bar,
+  .board-color-appleglasspastel#header-quick-access,
+  .board-color-appleglasspastel .list,
+  .board-color-appleglasspastel .minicard,
+  .board-color-appleglasspastel .card-details,
+  .board-color-appleglasspastel.pop-over,
+  .board-color-appleglasspastel .sidebar,
+  .board-color-appleglasspastel .swimlane .swimlane-header-wrap {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .board-color-appleglasspastel .list,
+  .board-color-appleglasspastel .minicard,
+  .board-color-appleglasspastel .card-details,
+  .board-color-appleglasspastel.pop-over,
+  .board-color-appleglasspastel .sidebar {
+    background: rgba(255, 255, 255, 0.92);
   }
 }
 

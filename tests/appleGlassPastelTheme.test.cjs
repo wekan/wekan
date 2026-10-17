@@ -101,16 +101,42 @@ test('glass surfaces use blur, saturation, translucent white, border and soft sh
     'shadows stay soft');
 });
 
-test('primary controls and header use only the blue CTA as solid fill', () => {
+// The header bars were solid #2563eb with white text until 2026-10-17; they are
+// Liquid Glass now, like every other surface - the mesh shows through, the text
+// is dark, and blue is kept for the primary action and for what is active.
+// tests/playwright/specs/theme-appleglasspastel-contrast.e2e.js measures that
+// every text and icon on them still reads.
+test('the header bars are glass with dark text; blue is the primary action and the active mark', () => {
+  const header = rule(`.${CLASS}#header-quick-access`);
+  assert.match(header, /backdrop-filter:\s*blur\(24px\) saturate\(180%\)/, 'the header bar is frosted glass');
+  assert.match(header, /inset 0 1px 0 rgba\(255,\s*255,\s*255,\s*0\.95\)/, 'with a rim of light on top');
+  assert.match(header, /color:\s*#0f172a/, 'and dark text');
+  assert.ok(!/^\s*background:\s*#2563eb;/m.test(header), 'not a solid blue bar any more (negative)');
+  assert.match(css, /\.board-color-appleglasspastel#header-quick-access \.js-toggle-page-sidebar \.fa-bars \{\s*color: #0f172a !important;/,
+    'the hamburger the accessibility style forces white is dark here');
+  assert.match(css, /\.board-color-appleglasspastel#header-quick-access div\.header-logo img \{\s*filter: brightness\(0\.2\);/,
+    'the stock white logo is drawn dark');
+  assert.match(rule(`.${CLASS}#header ul li.current`), /border-bottom: 3px solid #2563eb/, 'the current page is marked in blue');
   for (const selector of [
-    `.${CLASS}#header`,
-    `.${CLASS}#header-quick-access`,
     `.${CLASS} button[type=submit].primary`,
     `.${CLASS} input[type=submit].primary`,
     `.${CLASS} .sidebar .sidebar-content .sidebar-btn`,
   ]) {
     assert.ok(rule(selector).includes('#2563eb'), `${selector} uses #2563eb`);
   }
+});
+
+test('glass has a rim of light and a sheen, and turns opaque when transparency is reduced', () => {
+  const list = rule(`.${CLASS} .list`);
+  assert.match(list, /inset 0 1px 1px rgba\(255,\s*255,\s*255,\s*0\.9\)/, 'bright top edge');
+  assert.match(list, /linear-gradient\(135deg, rgba\(255, 255, 255, 0\.5\)/, 'diagonal sheen');
+  assert.match(rule(`.${CLASS} .minicard`), /inset 0 1px 1px rgba\(255,\s*255,\s*255,\s*0\.95\)/);
+  assert.match(css, /@media \(prefers-reduced-transparency: reduce\) \{[\s\S]*?\.board-color-appleglasspastel \.minicard[\s\S]*?backdrop-filter: none;/,
+    'Reduce transparency gets opaque surfaces');
+  assert.match(css, /@supports not \(\(backdrop-filter: blur\(1px\)\) or \(-webkit-backdrop-filter: blur\(1px\)\)\)/,
+    'a browser without backdrop-filter gets near-opaque surfaces');
+  assert.match(rule(`.${CLASS} .list-header`), /background: rgba\(255, 255, 255, 0\.4\) !important;/,
+    'list.css pins list headers grey with !important, so the glass says it the same way');
 });
 
 test('text, focus and status colours stay high-contrast and non-pastel', () => {

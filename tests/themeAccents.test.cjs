@@ -69,9 +69,19 @@ test('every allowed board colour has an accent', () => {
   assert.deepStrictEqual(missing, [], 'themes with no accent');
 });
 
+// A theme whose header bars are glass, not a colour (2026-10-17): its accent is
+// the colour of its primary action instead, which the theme's own guard pins.
+const GLASS_HEADER = {
+  appleglasspastel: 'Liquid Glass header; the accent is the primary-button blue (tests/appleGlassPastelTheme.test.cjs)',
+};
+
 test('each accent is exactly what the stylesheet paints the header with', () => {
   const css = headerColorsFromCss();
   for (const [name, accent] of Object.entries(THEME_ACCENTS)) {
+    if (GLASS_HEADER[name]) {
+      assert.match(css[name], /gradient/, `${name}: listed as a glass header, so its bar is a gradient`);
+      continue;
+    }
     assert.strictEqual(accent, css[name],
       `${name}: the map and boardColors.css must agree`);
   }
@@ -194,6 +204,10 @@ test('the Admin Panel chrome reads that variable rather than a hard-coded colour
   const clean = themeCss.replace(/\/\*[\s\S]*?\*\//g, '');
   for (const rule of clean.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     if (!/side-menu ul li\.active/.test(rule[1])) continue;
+    // A glass header has no colour to share: its theme paints the selected row
+    // its primary blue, so the selection still stands out.
+    const names = [...rule[1].matchAll(/\.board-color-([\w-]+)/g)].map(m => m[1]);
+    if (names.length && names.every(n => GLASS_HEADER[n])) continue;
     assert.ok(/#header/.test(rule[1]),
       'the selected row is only ever added to a rule that also paints the header');
   }
@@ -244,6 +258,9 @@ test('the FIRST header bar carries each theme, and the theme it should', () => {
     const bar = firstBar[theme];
     assert.ok(bar, `${theme} must paint the first header bar`);
     if (KNOWN_ACCENT_IS_NOT_THE_BAR.has(theme)) continue;
+    // A glass bar is translucent white over the mesh, opaque white where the
+    // system asks to reduce transparency - never the accent.
+    if (GLASS_HEADER[theme]) continue;
     // Natural and Modern each had a LATER rule repainting this bar the shade it
     // wore as a thin strip above the coloured main bar - so picking Natural
     // painted the header near-black and Modern charcoal, whatever their own
