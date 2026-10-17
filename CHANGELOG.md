@@ -107,6 +107,70 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the release builds that failed in v12.51 work again: the
+**Android** bundles, the **musl AppImages** and the **i386** and
+**freebsd-x64** single files.
+
+This release fixes the following bugs:
+
+**Release builds** - the Android, musl and single-file builds of v12.51.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0670cc65a3">Android bundles: the checkout belongs to Termux's user, so npm may chmod</a>. Thanks to xet7.</summary>
+
+Every Android bundle of v12.51 stopped with EPERM. npm chmods each package's
+bin when it installs (`uuid/dist/bin/uuid`), and only a file's owner may
+chmod it, so making the bind mount writable to everyone (`a+rwX`) was not
+enough. `android.yml` now reads the uid of Termux's user from the image,
+chowns the checkout to it before the rebuild, and takes it back before
+packaging. If it cannot read the uid, it stops the job.
+`tests/androidBundles.test.cjs` pins the order and the negative case.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bce305029a">musl bundles carry libstdc++ and libgcc_s, so their Node.js starts on a bare Alpine</a>. Thanks to xet7.</summary>
+
+Every musl AppImage of v12.51 died at once in Alpine with "Error relocating
+.../bundle/node: _ZTVN10__cxxabiv117__class_type_infoE: symbol not found".
+The musl Node.js is linked against GCC's C++ runtime. The Alpine that
+`musl.yml` builds in had it installed, and a user's Alpine does not. The
+bundle's `node-runtime` now holds that Alpine's `libstdc++.so.6` and
+`libgcc_s.so.1`, with a license notice. `start-wekan.sh` puts them on the
+library path, as it does with libatomic, and the AppImage workflow requires
+both files in a musl bundle. Its smoke test still adds only curl to Alpine,
+so `tests/muslBundles.test.cjs` would catch this fault again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c316616ef8">Single files: a Node.js that LIEF cannot inject is skipped with the reason, not failed</a>. Thanks to xet7.</summary>
+
+The v12.51 i386 single file stopped with `std::bad_alloc`, and the
+freebsd-x64 one with "Failed to relocate ELF program headers". Node.js
+injects the archive with LIEF:
+
+- The i386 Node.js is a PIE with 1,524 R_386_32 relocations, which LIEF does
+  not adjust. postject, which uses the same LIEF, "succeeds" and leaves a
+  broken binary.
+- The FreeBSD Node.js is a non-PIE with two bss-like segments.
+
+`releases/single-file/sea-inject.mjs` detects both from the ELF before
+anything is built. `build.mjs` then exits 3 with the reason, which
+`single-file.yml` turns into a notice. wekan/node-patches now builds the
+i386 Node.js as a non-PIE and the FreeBSD one as a PIE, so both single files
+come back with its next release. A target that was not built leaves a
+one-line artifact saying why, so its Start job no longer logs "Artifact not
+found" errors. `tests/singleFileSeaInject.test.cjs` checks both cases on
+synthetic ELF files, and its negative cases let through what LIEF does
+inject.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.51 2026-10-17 WeKan ® release
 
 **In short:** eleven **helpers that need no AI** - features other kanban
