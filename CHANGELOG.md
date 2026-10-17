@@ -115,9 +115,27 @@ apps sell as AI, done here with plain code: a **due date from the title**,
 visit**, **At risk**, **suggested members**, a **forecast done date**, a
 **checklist from the description**, **action items** and **search phrases**.
 A card's drawing also opens as a **whiteboard** that several people draw on
-at once. Each can be hidden per board or for the whole WeKan.
+at once, and **Apple Glass Pastel** is now Liquid Glass. Each can be hidden
+per board or for the whole WeKan. A **CodeQL** alert in a test is fixed.
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6090be4dfd">Alert #588: a test removes template declarations to a fixed point</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+js/incomplete-multi-character-sanitization in
+tests/templatesAreRendered.test.cjs: one replace each removed template
+declarations and Template.<name>.helpers/onCreated/... from the source the
+test scans, so removing one could splice its neighbours into another. Both
+now repeat until nothing changes, as for alerts #545 and #570-#582, and
+tests/tagStrippingFixedPoint.test.cjs now also finds a multi-character removal
+of an on<Capital> name outside such a loop anywhere in the tree. A test's
+source scan, never run on user input, so nothing reaches Admin Panel ->
+Problems.
+
+</details>
+
+and adds the following new features:
 
 **Helpers that need no AI** - computed from the board's own data, hidden like
 every other optional part, and translated in every language.
@@ -254,6 +272,24 @@ search operators in the reader's language; the page shows the query it ran,
 and a query that already has an operator is never rewritten. An Admin Panel /
 Settings / Visibility / Features tick. tests/searchPhrases.test.cjs and
 assist-search-phrases.e2e.js.
+
+</details>
+
+**Apple Glass Pastel** - the theme as Apple's Liquid Glass, readable everywhere.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c49f7f51b">Liquid Glass surfaces, and every text and icon measured readable</a>. Thanks to xet7.</summary>
+
+Header bars, swimlanes, lists, minicards, the opened card, the sidebar and
+popups are frosted glass over the pastel mesh: a translucent fill, blur and
+saturation, a rim of light brightest on top, a diagonal sheen and larger
+corners. The header bars are glass instead of solid blue, with dark text;
+blue stays for the primary action and what is active. Reduce transparency
+gets near-opaque surfaces. theme-appleglasspastel-contrast.e2e.js measures
+every text and icon against the pixels really behind it, to WCAG AA, on the
+board, card, sidebar, board menu and All Boards at laptop and phone size; it
+found white header text and icons, the forced-white hamburger, grey sidebar
+headings and icons, and a white hovered menu row, all fixed.
 
 </details>
 
