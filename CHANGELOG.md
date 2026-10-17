@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.52 2026-10-18 WeKan ® release
 
 **In short:** the release builds that failed in v12.51 work again: the
 **Android** bundles, the **musl AppImages** and the **i386** and
