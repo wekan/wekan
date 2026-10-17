@@ -222,6 +222,21 @@ for (const [name, use] of DEVICES) {
       });
     }
 
+    test('Admin Panel → Problems → Instrumentation shows its areas as bars that fit', async ({ page }) => {
+      await loginWithToken(page, user.id, user.token);
+      await page.goto('/admin/problems/instrumentation');
+      const bars = page.locator('.instrumentation-areas');
+      await expect(bars.locator('.instrumentation-area').first()).toBeVisible({ timeout: 30_000 });
+      await bars.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: path.join(dir, '4-problems-instrumentation.png') });
+      expect(await noSidewaysScroll(page)).toBeLessThanOrEqual(1);
+      expect(await offScreen(page, '.instrumentation-area-name, .instrumentation-area-bar, .instrumentation-area-num:not(:empty)')).toEqual([]);
+      // Every bar has room to show its length.
+      const narrowest = await page.evaluate(() => Math.min(...[...document.querySelectorAll('.instrumentation-area-bar')]
+        .map(bar => bar.getBoundingClientRect().width)));
+      expect(narrowest).toBeGreaterThanOrEqual(60);
+    });
+
     for (const [view, content] of [
       ['table', '.table-view-table'],
       ['calendar-mode', '.calendar-mode-view'],

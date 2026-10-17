@@ -41,6 +41,83 @@
   color: #b04632;
 }
 
+/* Problems / Instrumentation: one bar per area (adminProblems.jade). The rows
+   share one grid, so names, bars and numbers line up; each row is a button that
+   filters the table below, reset from the global button look (forms.css pads
+   every button 35px a side and paints it the theme colour). */
+.instrumentation-areas {
+  display: grid;
+  grid-template-columns: minmax(6em, max-content) minmax(60px, 1fr) repeat(3, max-content);
+  gap: 2px 12px;
+  margin-bottom: 16px;
+}
+.instrumentation-area-head,
+.instrumentation-area {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+.instrumentation-area-head {
+  font-weight: 700;
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+.setting-content .content-body .main-body button.instrumentation-area,
+button.instrumentation-area {
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: normal;
+  text-align: start;
+  cursor: pointer;
+}
+button.instrumentation-area:hover,
+button.instrumentation-area:focus-visible {
+  background: rgba(0, 0, 0, 0.06);
+}
+button.instrumentation-area.is-active {
+  border-color: var(--theme-accent, #01628c);
+  background: rgba(0, 0, 0, 0.06);
+}
+.instrumentation-area-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.instrumentation-area-bar {
+  height: 14px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.instrumentation-area-fill {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
+}
+.instrumentation-area-errors {
+  height: 100%;
+  background: #b04632;
+}
+.instrumentation-area-num {
+  text-align: end;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.instrumentation-area-num.has-errors {
+  color: #b04632;
+  font-weight: 700;
+}
+
 .file-status-audit { margin-bottom: 1rem; }
 .file-status-audit-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
 .file-status-audit-actions button { margin: 0; min-height: 34px; }

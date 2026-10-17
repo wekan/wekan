@@ -75,6 +75,28 @@ template(name="instrumentationReport")
   if error
     p.error {{error}}
   else
+    //- The whole picture first: one bar per area of WeKan, its length the
+    //- area's calls against the busiest area's, its red end the share that
+    //- failed. A row filters the table below to that area; again, all of it.
+    //- models/lib/instrumentationAreas.js groups the operations.
+    if areas.length
+      .instrumentation-areas
+        .instrumentation-area-head(aria-hidden="true")
+          span
+          span
+          span.instrumentation-area-num {{_ 'api-calls'}}
+          span.instrumentation-area-num {{_ 'duration'}}
+          span.instrumentation-area-num {{_ 'errors'}}
+        each area in areas
+          button.instrumentation-area.js-instrumentation-area(type="button" data-area=area.id class="{{#if area.active}}is-active{{/if}}" aria-pressed="{{#if area.active}}true{{else}}false{{/if}}" title=area.title)
+            span.instrumentation-area-name {{area.label}}
+            span.instrumentation-area-bar
+              span.instrumentation-area-fill(style="width: {{area.barPct}}%")
+                if area.errors
+                  span.instrumentation-area-errors(style="width: {{area.errorPct}}%")
+            span.instrumentation-area-num {{area.callsText}}
+            span.instrumentation-area-num {{area.avgText}}
+            span.instrumentation-area-num(class="{{#if area.errors}}has-errors{{/if}}") {{area.errorsText}}
     +tablePage(tablePageData)
 
 template(name="instrumentationStatus")

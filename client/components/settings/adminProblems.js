@@ -880,7 +880,27 @@ const INSTRUMENTATION_COLUMNS = [
   { label: 'Max ms', align: 'end', value: row => row.maxMs ?? '' },
 ];
 
+const { summarizeByArea, areaOf } = require('/models/lib/instrumentationAreas');
+
+// The operations the table shows: the chosen area, then the search.
+function instrumentationRows(t) {
+  const term = t.search.get().toLowerCase();
+  const area = t.area.get();
+  return (t.snapshot.get()?.operations || []).filter(row =>
+    (!area || areaOf(row.name).id === area) &&
+    `${row.kind} ${row.name}`.toLowerCase().includes(term));
+}
+
+function formatCount(value) {
+  try {
+    return new Intl.NumberFormat(TAPi18n.getLanguage()).format(value);
+  } catch (e) {
+    return String(value);
+  }
+}
+
 Template.instrumentationReport.onCreated(function () {
+  this.area = new ReactiveVar(null);
   this.snapshot = new ReactiveVar(null);
   this.error = new ReactiveVar('');
   this.search = new ReactiveVar('');
@@ -902,12 +922,32 @@ Template.instrumentationReport.onDestroyed(function () {
 
 Template.instrumentationReport.helpers({
   error() { return Template.instance().error.get(); },
+  areas() {
+    const t = Template.instance();
+    const active = t.area.get();
+    return summarizeByArea(t.snapshot.get()?.operations).map(row => {
+      const label = TAPi18n.__(row.labelKey);
+      const avgText = row.averageMs == null ? '' : `${formatCount(row.averageMs)} ms`;
+      return {
+        ...row,
+        label,
+        active: row.id === active,
+        // At least a sliver, so an area with a handful of calls still shows.
+        barPct: Math.max(1, Math.round(row.share * 1000) / 10),
+        errorPct: row.errors ? Math.max(4, Math.round(row.errorShare * 1000) / 10) : 0,
+        callsText: formatCount(row.calls),
+        avgText,
+        errorsText: row.errors ? formatCount(row.errors) : '',
+        title: [label, `${TAPi18n.__('api-calls')} ${formatCount(row.calls)}`,
+          avgText && `${TAPi18n.__('duration')} ${avgText}`,
+          `${TAPi18n.__('errors')} ${formatCount(row.errors)}`].filter(Boolean).join(' · '),
+      };
+    });
+  },
   tablePageData() {
     const t = Template.instance();
     const snapshot = t.snapshot.get();
-    const term = t.search.get().toLowerCase();
-    const all = (snapshot?.operations || []).filter(row =>
-      `${row.kind} ${row.name}`.toLowerCase().includes(term));
+    const all = instrumentationRows(t);
     const info = pageInfo(all.length, t.page.get(), TABLE_PAGE_ROWS_PER_PAGE);
     return {
       header: buildHeader(INSTRUMENTATION_COLUMNS),
@@ -929,6 +969,11 @@ Template.instrumentationReport.helpers({
 });
 
 Template.instrumentationReport.events({
+  'click .js-instrumentation-area'(event, t) {
+    const area = event.currentTarget.dataset.area;
+    t.area.set(t.area.get() === area ? null : area);
+    t.page.set(1);
+  },
   'input .js-table-page-search'(event, t) {
     t.search.set(event.currentTarget.value.trim());
     t.page.set(1);
@@ -936,18 +981,12 @@ Template.instrumentationReport.events({
   'click .js-table-page-prev'(event, t) {
     event.preventDefault();
     event.stopPropagation();
-    const term = t.search.get().toLowerCase();
-    const count = (t.snapshot.get()?.operations || []).filter(row =>
-      `${row.kind} ${row.name}`.toLowerCase().includes(term)).length;
-    t.page.set(adjacentPage(count, t.page.get(), -1, TABLE_PAGE_ROWS_PER_PAGE));
+    t.page.set(adjacentPage(instrumentationRows(t).length, t.page.get(), -1, TABLE_PAGE_ROWS_PER_PAGE));
   },
   'click .js-table-page-next'(event, t) {
     event.preventDefault();
     event.stopPropagation();
-    const term = t.search.get().toLowerCase();
-    const count = (t.snapshot.get()?.operations || []).filter(row =>
-      `${row.kind} ${row.name}`.toLowerCase().includes(term)).length;
-    t.page.set(adjacentPage(count, t.page.get(), 1, TABLE_PAGE_ROWS_PER_PAGE));
+    t.page.set(adjacentPage(instrumentationRows(t).length, t.page.get(), 1, TABLE_PAGE_ROWS_PER_PAGE));
   },
 });
 
