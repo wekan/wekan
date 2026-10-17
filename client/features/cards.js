@@ -32,6 +32,7 @@ import '/client/components/cards/minicard.js';
 import '/client/components/cards/resultCard.js';
 import '/client/components/cards/subtasks.js';
 import '/client/components/cards/similarCards.js';
+import '/client/components/cards/fromText.js';
 import '/client/lib/forecastHelpers';
 
 import '/client/components/cards/attachments.css';
@@ -48,4 +49,5 @@ import '/client/components/cards/minicard.css';
 import '/client/components/cards/resultCard.css';
 import '/client/components/cards/subtasks.css';
 import '/client/components/cards/similarCards.css';
+import '/client/components/cards/fromText.css';
 

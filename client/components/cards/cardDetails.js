@@ -1804,6 +1804,8 @@ Template.cardDetailsActionsPopup.events({
     Utils.goBoardId(card.boardId);
     getSidebarInstance().setView('filter');
   },
+  // docs/Features/Cards/Action-Items.md: the description's action items.
+  'click .js-description-action-items': Popup.open('actionItems', { titleKey: 'action-items' }),
   // History.md §7a: adding History to a menu is a menu item and this handler,
   // opening the SAME historyTable every other scope opens.
   'click .js-card-history'(event) {

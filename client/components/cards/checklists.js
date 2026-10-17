@@ -358,6 +358,8 @@ Template.checklists.events({
     }
   },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
+  // docs/Features/Cards/Checklist-From-Description.md
+  'click .js-checklist-from-description': Popup.open('checklistFromDescription', { titleKey: 'checklist-from-description' }),
   // #2422: "Convert to subtask" - distinct from the plain, unlinked
   // "Convert to card" action above and from the #3294 drag-to-card gesture.
   // This creates a proper SUBTASK of the CURRENT card (reusing the same

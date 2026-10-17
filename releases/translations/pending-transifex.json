@@ -3015,6 +3015,86 @@
     {
       "key": "forecast-not-enough",
       "since": "2026-10-17"
+    },
+    {
+      "key": "checklist-from-description",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "from-description",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "make-checklist",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "make-subtasks",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "action-items",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "action-items-create",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "action-items-from",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-my-overdue-cards",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-my-cards",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-overdue-cards",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-due-this-week",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-unassigned-cards",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-cards-without-due-date",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-created-today",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-changed-this-week",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-archived-cards",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrase-cards-with-attachments",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "search-phrases-searching",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-search-phrases",
+      "since": "2026-10-17"
+    },
+    {
+      "key": "feature-search-phrases-desc",
+      "since": "2026-10-17"
     }
   ]
 }

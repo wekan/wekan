@@ -230,6 +230,10 @@ const CARD_SETTINGS_ROWS = [
   { key: 'forecast', icons: ['fa-line-chart'], label: ['forecast'],
     card: { toggle: 'js-board-card-flag', field: 'allowsForecastOnCard', flag: true, default: true, after: 'endDate' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsForecastOnMinicard', flag: true, default: false, after: 'atRisk' } },
+  { key: 'checklistFromDescription', icons: ['fa-list-ul'], label: ['checklist-from-description'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsChecklistFromDescriptionOnCard', flag: true, default: true, after: 'checklists' } },
+  { key: 'actionItems', icons: ['fa-tasks'], label: ['action-items'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsActionItemsOnCard', flag: true, default: true, after: 'comments' } },
 
   // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
   // where the board's order puts them, like any other row. `scrum` names the

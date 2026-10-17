@@ -1,0 +1,41 @@
+/* Checklist from description and action items (fromText.jade). */
+.from-text-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.from-text-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 0;
+}
+.from-text-choice {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+  font-weight: normal;
+}
+.from-text-choice input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+.from-text-title {
+  overflow-wrap: anywhere;
+}
+.from-text-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.from-text-buttons button {
+  margin: 0;
+}
+.from-text-buttons button:not(.primary) {
+  color: #333;
+  background: #fff;
+  border: 1px solid #bbb;
+}

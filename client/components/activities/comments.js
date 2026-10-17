@@ -211,6 +211,8 @@ Template.comment.events({
   'click .js-comment-permalink'() {
     if (this._id) Session.set('revealCommentId', this._id);
   },
+  // docs/Features/Cards/Action-Items.md
+  'click .js-comment-action-items': Popup.open('actionItems', { titleKey: 'action-items' }),
   'click .js-copy-comment-link'(evt, tpl) {
     evt.preventDefault();
     const url = commentPermalinkFor(this);

@@ -5,6 +5,10 @@ import { Query, QueryErrors } from '../../../config/query-classes';
 import { OPERATOR_USER } from '/config/search-const';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { allowFeature } from '/client/lib/instanceFeatures';
+
+// docs/Features/Pages/Search-Phrases.md
+const { rewriteSearchPhrases } = require('/models/lib/searchPhrases');
 
 // const subManager = new SubsManager();
 
@@ -35,6 +39,8 @@ Template.globalSearchViewChangePopup.events({
 Template.globalSearch.onCreated(function () {
   const search = new CardSearchPaged(this);
   this.search = search;
+  // The operators a plain-language phrase became, shown above the results.
+  this.phrasedQuery = new ReactiveVar('');
 
   this.myLists = new ReactiveVar([]);
   this.myLabelNames = new ReactiveVar([]);
@@ -234,8 +240,23 @@ function searchAllBoards(tpl, queryText) {
 
   search.searching.set(true);
 
+  // Search phrases: "my overdue cards printer" runs as its operators, and the
+  // page says so. A query with an operator in it is never rewritten.
+  let parsedText = queryText;
+  tpl.phrasedQuery.set('');
+  if (allowFeature('search-phrases')) {
+    const phrased = rewriteSearchPhrases(queryText, {
+      translate: key => TAPi18n.__(key),
+      username: (ReactiveCache.getCurrentUser() || {}).username || '',
+    });
+    if (phrased.matched) {
+      parsedText = phrased.query;
+      tpl.phrasedQuery.set(phrased.query);
+    }
+  }
+
   const query = new Query();
-  query.buildParams(queryText);
+  query.buildParams(parsedText);
 
   const queryParams = query.getQueryParams();
 
@@ -268,6 +289,9 @@ function errorMessages(tpl) {
 }
 
 Template.globalSearch.helpers({
+  phrasedQuery() {
+    return Template.instance().phrasedQuery.get();
+  },
   userId() {
     return Meteor.userId();
   },

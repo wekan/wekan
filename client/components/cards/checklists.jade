@@ -36,6 +36,12 @@ template(name="checklists")
       checklists it already has.
     a.copy-checklist-from-template.js-copy-checklist-from-template(title="{{_ 'copyChecklistFromTemplate'}}")
       i.fa.fa-clone
+    //- Checklist from description, Show on Card: only when the description
+      has a list (docs/Features/Cards/Checklist-From-Description.md).
+    if descriptionChecklistItemsOf card
+      a.checklist-from-description.js-checklist-from-description(title="{{_ 'checklist-from-description'}}")
+        i.fa.fa-list-ul
+        |  {{_ 'from-description'}}
 
 template(name="checklistDetail")
   .js-checklist.checklist.nodragscroll

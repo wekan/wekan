@@ -1128,6 +1128,16 @@ template(name="cardDetailsActionsPopup")
           i.fa.fa-history
           |  {{_ 'history'}}
     hr
+    //- Action items of the description, Show on Card
+      (docs/Features/Cards/Action-Items.md).
+    if canModifyCard
+      if actionItemsOf this
+        ul.pop-over-list
+          li
+            a.js-description-action-items
+              i.fa.fa-tasks
+              |  {{_ 'action-items-create'}}
+        hr
     ul.pop-over-list
       li
         a.js-toggle-watch-card

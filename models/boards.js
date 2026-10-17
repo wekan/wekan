@@ -1368,6 +1368,8 @@ Boards.attachSchema(
     allowsSuggestedMembersOnCard: { type: Boolean, optional: true },
     allowsForecastOnCard: { type: Boolean, optional: true },
     allowsForecastOnMinicard: { type: Boolean, optional: true },
+    allowsChecklistFromDescriptionOnCard: { type: Boolean, optional: true },
+    allowsActionItemsOnCard: { type: Boolean, optional: true },
     allowsIssueTypeOnMinicard: {
       /**
        * Does the board show the work item type badge on the minicard? It was

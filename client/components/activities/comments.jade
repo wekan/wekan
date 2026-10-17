@@ -66,6 +66,10 @@ template(name="comment")
           if currentUser.isBoardMember
             = ' - '
             a.js-reply-comment {{_ "comment-reply"}}
+            //- Action items, Show on Card (docs/Features/Cards/Action-Items.md).
+            if actionItemsOf this
+              = ' - '
+              a.js-comment-action-items {{_ "action-items-create"}}
           if canEditThisComment
             +editOrDeleteComment
 

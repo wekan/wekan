@@ -1,0 +1,35 @@
+//- Checklist or subtasks from a card's description
+//- (docs/Features/Cards/Checklist-From-Description.md), and cards from the
+//- action items of a comment or a description (docs/Features/Cards/Action-Items.md).
+//- Both show what they found first; nothing is made until a button is pressed.
+template(name="checklistFromDescriptionPopup")
+  if items.length
+    ul.from-text-list
+      each items
+        li
+          if checked
+            i.fa.fa-check-square-o
+          else
+            i.fa.fa-square-o
+          span.from-text-title= title
+    .from-text-buttons
+      button.primary.js-make-description-checklist(type="button") {{_ 'make-checklist'}}
+      if currentBoard.allowsSubtasks
+        button.js-make-description-subtasks(type="button") {{_ 'make-subtasks'}}
+  else
+    p.quiet {{_ 'no-results'}}
+
+template(name="actionItemsPopup")
+  if items.length
+    ul.from-text-list
+      each items
+        li
+          label.from-text-choice
+            input.js-action-item(type="checkbox" checked="checked" data-index=index)
+            span.from-text-title= title
+            if username
+              span.from-text-member.quiet @{{username}}
+    .from-text-buttons
+      button.primary.js-create-action-items(type="button") {{_ 'create'}}
+  else
+    p.quiet {{_ 'no-results'}}

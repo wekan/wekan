@@ -232,3 +232,14 @@ code {
     overflow-wrap: break-word;
   }
 }
+
+/* Search phrases: the operators a phrase became (docs/Features/Pages/Search-Phrases.md). */
+.global-search-phrased {
+  margin: 6px 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #e8f2f8;
+  color: #01628c;
+  font-family: monospace;
+  overflow-wrap: anywhere;
+}

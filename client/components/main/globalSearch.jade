@@ -69,6 +69,9 @@ template(name="globalSearch")
         )
         button.primary.js-new-search(type="submit" aria-label="{{_ 'trello-clear-job'}}")
           | {{_ 'trello-clear-job'}}
+      //- Search phrases (docs/Features/Pages/Search-Phrases.md).
+      if phrasedQuery
+        .global-search-phrased.js-search-phrased {{_ 'search-phrases-searching' query=phrasedQuery}}
       if searching
         +spinner
       else if hasResults

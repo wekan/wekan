@@ -67,6 +67,8 @@ const FEATURES = [
     views: [] },
   { key: 'since-last-visit', labelKey: 'feature-since-last-visit', descKey: 'feature-since-last-visit-desc',
     views: [] },
+  { key: 'search-phrases', labelKey: 'feature-search-phrases', descKey: 'feature-search-phrases-desc',
+    views: [] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);
