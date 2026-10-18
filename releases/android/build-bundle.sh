@@ -32,6 +32,21 @@ mkdir -p "$root/.tools/tmp"
 export TMPDIR="$root/.tools/tmp"
 export DO_NOT_TRACK=1 npm_config_update_notifier=false
 
+# Termux has no /usr/bin/env: a `#!/usr/bin/env node` script runs only through
+# termux-exec, an LD_PRELOAD library that Termux's `login` exports. The
+# workflow starts bash directly, not through login, so bcrypt's install
+# script failed: "sh: 1: node-gyp-build: not found" (v12.53). Export it the
+# way login does, and keep it only if a program still starts with it.
+if [ -z "${LD_PRELOAD:-}" ] && [ -n "${PREFIX:-}" ]; then
+  for lib in "$PREFIX/lib/libtermux-exec-ld-preload.so" "$PREFIX/lib/libtermux-exec.so"; do
+    if [ -f "$lib" ]; then
+      if LD_PRELOAD="$lib" sh -c true >/dev/null 2>&1; then export LD_PRELOAD="$lib"; fi
+      break
+    fi
+  done
+fi
+echo "termux-exec: ${LD_PRELOAD:-<none>}"
+
 node="$root/android-tools/node"
 # The workflow made it executable before Docker; Termux's user does not own
 # the bind mount and may not chmod it (v12.43-v12.44 stopped here).

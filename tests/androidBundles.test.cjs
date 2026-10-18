@@ -79,4 +79,21 @@ test('negative: an unreadable uid stops the job instead of chowning to nothing',
   assert.match(wf, /\*\) echo "::error::Could not read the uid of Termux's user/);
 });
 
+test('termux-exec is preloaded before npm, so #!/usr/bin/env scripts run', () => {
+  // The workflow starts bash without Termux's login, which is what exports
+  // termux-exec; without it bcrypt's install script ended every Android build
+  // of v12.53: "sh: 1: node-gyp-build: not found".
+  const build = read('releases/android/build-bundle.sh');
+  const preload = build.indexOf('export LD_PRELOAD="$lib"');
+  assert(preload > 0, 'LD_PRELOAD is exported');
+  assert.match(build, /"\$PREFIX\/lib\/libtermux-exec-ld-preload\.so" "\$PREFIX\/lib\/libtermux-exec\.so"/, 'both termux-exec generations, newest first, as login does');
+  assert.match(build, /LD_PRELOAD="\$lib" sh -c true/, 'kept only if a program still starts with it');
+  assert(preload < build.indexOf('(cd "$server" && npm install)'), 'before npm runs any install script');
+});
+
+test('negative: an LD_PRELOAD already set is not replaced', () => {
+  const build = read('releases/android/build-bundle.sh');
+  assert.match(build, /if \[ -z "\$\{LD_PRELOAD:-\}" \]/);
+});
+
 console.log(`androidBundles: ${passed} tests passed`);
