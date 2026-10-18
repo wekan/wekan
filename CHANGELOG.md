@@ -107,6 +107,54 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **Android** bundles, the **x86_64 musl AppImage** and the
+**armhf single file**, which v12.53 could not build or start, build again.
+
+This release fixes the following bugs:
+
+**Release builds** - bundles that v12.53 built broken or not at all.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/519869b561">Android bundles preload termux-exec, so bcrypt's install script runs</a>. Thanks to xet7.</summary>
+
+Every Android bundle of v12.53 stopped in `npm-rebuild.js` with "sh: 1:
+node-gyp-build: not found". Termux has no `/usr/bin/env`, so a
+`#!/usr/bin/env node` script runs only through termux-exec, an `LD_PRELOAD`
+library that Termux's `login` exports, and the workflow starts bash without
+`login`. `releases/android/build-bundle.sh` now exports it the way `login`
+does. `tests/androidBundles.test.cjs` pins it before `npm install`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa0c03437c">A single file's --build-sea is tried again when it runs out of memory</a>. Thanks to xet7.</summary>
+
+The armhf single file of v12.53 failed with `std::bad_alloc`. A 32-bit target
+is injected by the 32-bit i386 Node.js, and the executable, the 180 MiB
+archive and LIEF's copies of both come near its 4 GiB address space: armv7
+and armv6, with the same archive and host, built in the same run. `buildSea()`
+retries up to three times on `std::bad_alloc` only.
+`tests/singleFileSeaInject.test.cjs` covers the retry and that no other
+failure is retried.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df5560ad51">musl bundles carry every library their Node.js needs, libatomic too</a>. Thanks to xet7.</summary>
+
+Every x86_64 musl AppImage of v12.53 did not start in a bare Alpine: "Error
+loading shared library libatomic.so.1". `node-runtime` held only libstdc++
+and libgcc_s, and the build container had libatomic through g++. The musl
+build now copies every `NEEDED` library of `bundle/node` except musl's libc,
+and `AppImage.yml` checks each is there before packing.
+`tests/muslBundles.test.cjs` pins both.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.53 2026-10-18 WeKan ® release
 
 **In short:** moving a card with an **outgoing webhook** no longer disables
