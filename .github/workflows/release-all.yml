@@ -1315,6 +1315,10 @@ jobs:
     with:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
+      # The glibc AppImages only. The musl pair waits for the musl bundles
+      # in the "musl AppImages" call below; without this list both calls
+      # built it (v12.54: two "AppImage x86_64" and two "AppImage aarch64").
+      only: '["x86_64","aarch64","i686","armhf"]'
 
   bun:
     name: Bun runtime bundles

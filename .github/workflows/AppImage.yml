@@ -129,7 +129,11 @@ jobs:
   build:
     permissions:
       contents: write
-    name: AppImage ${{ matrix.appimage_arch }}
+    # The file's architecture, -musl included: two jobs of one name write their
+    # logs to one directory of the run's log archive, and its files then ask
+    # to be overwritten when it is unpacked (v12.54: AppImage x86_64 and
+    # aarch64, twice each).
+    name: AppImage ${{ matrix.name_arch || matrix.appimage_arch }}
     needs: release
     runs-on: ${{ matrix.runs_on }}
     # A 32-bit job that cannot run on the runner it was given must not fail the
@@ -550,9 +554,17 @@ jobs:
           GITHUB_CTX_REPOSITORY: ${{ github.repository }}
           NEEDS_RELEASE_TAG: ${{ needs.release.outputs.tag }}
           NEEDS_BUILD_RESULT: ${{ needs.build.result }}
+          INPUTS_ONLY: ${{ inputs.only }}
         run: |
           set -euo pipefail
           version="${NEEDS_RELEASE_VERSION}"
+          # The architectures THIS run builds: the musl run asked after the
+          # glibc AppImages, which another run attaches, and warned of all
+          # four as missing (v12.54).
+          wants="x86_64 aarch64 i686 armhf x86_64-musl aarch64-musl"
+          if [ -n "${INPUTS_ONLY}" ]; then
+            wants="$(python3 -c 'import json, sys; print(" ".join(json.loads(sys.argv[1])))' "${INPUTS_ONLY}")"
+          fi
           gh release view --repo "${GITHUB_CTX_REPOSITORY}" "${NEEDS_RELEASE_TAG}" \
             --json assets --jq '.assets[].name' > published.txt
           if grep -qE "^WeKan-${version}-.*\.AppImage$" published.txt; then
@@ -560,7 +572,7 @@ jobs:
             # than fails: the 32-bit pair is allowed not to build, and an
             # architecture whose base bundle was never published has nothing to
             # wrap. What must not happen silently is one going missing unnoticed.
-            for want in x86_64 aarch64 i686 armhf x86_64-musl aarch64-musl; do
+            for want in $wants; do
               for f in "WeKan-${version}-${want}.AppImage" "WeKan-${version}-${want}.AppImage.sha256sum"; do
                 grep -qxF "$f" published.txt || \
                   echo "::warning::$f is not on ${NEEDS_RELEASE_TAG} - see the AppImage $want build job's log"

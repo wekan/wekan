@@ -107,4 +107,35 @@ test('negative: a bundle Node.js with no NEEDED libraries read stops the build',
   assert.match(read('.github/workflows/musl.yml'), /apk add --no-cache [^\n]*binutils[^\n]*libatomic/, 'readelf, and libatomic to copy');
 });
 
+test('every AppImage job has its own name, and each musl AppImage is built by ONE call', () => {
+  // v12.54: the glibc call built the musl rows too, so "AppImage x86_64" and
+  // "AppImage aarch64" ran twice in each group, and their logs collided in
+  // the run's log archive (files that ask to be overwritten when unpacked).
+  const wf = read('.github/workflows/AppImage.yml');
+  assert.match(wf, /\n    name: AppImage \$\{\{ matrix\.name_arch \|\| matrix\.appimage_arch \}\}\n/);
+  const include = wf.slice(wf.indexOf('include:'), wf.indexOf('env:', wf.indexOf('include:')));
+  const rows = include.split(/\n\s+- appimage_arch: /).slice(1).map(r => {
+    const arch = r.split('\n')[0].trim();
+    const named = /\n\s+name_arch: (\S+)/.exec(r);
+    return named ? named[1] : arch;
+  });
+  assert.deepEqual(rows, ['x86_64', 'aarch64', 'i686', 'armhf', 'x86_64-musl', 'aarch64-musl']);
+  assert.equal(new Set(rows).size, rows.length, 'negative: no two matrix rows share a job name');
+  const all = read('.github/workflows/release-all.yml');
+  const calls = all.split('uses: ./.github/workflows/AppImage.yml').slice(1).map(c => /only: '(\[[^']*\])'/.exec(c.slice(0, 600)));
+  assert.equal(calls.length, 2);
+  assert(calls.every(Boolean), 'negative: no call builds every row');
+  const built = calls.flatMap(m => JSON.parse(m[1]));
+  assert.deepEqual([...built].sort(), [...rows].sort(), 'every row built, each exactly once');
+});
+
+test('the attached-files check asks only after what its own run builds', () => {
+  const wf = read('.github/workflows/AppImage.yml');
+  const pub = wf.slice(wf.indexOf('name: check what was attached'));
+  assert.match(pub, /INPUTS_ONLY: \$\{\{ inputs\.only \}\}/);
+  assert.match(pub, /if \[ -n "\$\{INPUTS_ONLY\}" \]; then\n\s+wants="\$\(python3 -c/);
+  assert.match(pub, /for want in \$wants; do/);
+  assert.doesNotMatch(pub, /for want in x86_64 aarch64/, 'negative: no fixed list of all six');
+});
+
 console.log(`muslBundles: ${passed} tests passed`);
