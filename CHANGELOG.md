@@ -107,6 +107,60 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** moving a card with an **outgoing webhook** no longer disables
+the mover's account as **HookBleed**, and a security refusal that says it
+blocks nobody (**RedirectBleed**, **LiveBleed**, **IntegrationBleed**) now
+really does not.
+
+This release fixes the following bugs:
+
+**Outgoing webhooks** - a card move delivered to a webhook is the server's own,
+and costs nobody their account.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b01c233269">Moving a card with an outgoing webhook is no HookBleed and keeps the mover's account</a>. Thanks to do4me and xet7.</summary>
+
+[#6782](https://github.com/wekan/wekan/issues/6782): the activity hook sent
+webhooks through `Meteor.call('outgoingWebhooks')`, and that method took a
+call without `this.connection` to be the server's own. Meteor gives a
+server-side `Meteor.call` the user and connection of the method it runs in,
+and a card moved in a browser runs in that browser's method. The server's own
+`act-moveCard` delivery was therefore taken for a client forging one. It was
+logged as HookBleed, and the mover's account was disabled.
+
+- The server now delivers through `deliverActivityWebhook()`, a function that
+  no client can call. It reads the integration again and names the
+  activity's actor. The method accepts only the card-opened notification, as
+  it already did for clients.
+- A server delivery no longer needs the actor to be a member of the hook's
+  board. That check had also stopped global webhooks and activities with no
+  method behind them, such as REST and timers.
+- `securityLog.record()` passed neither the catalog key nor `blocksAccount`
+  to the block decision. Every high-severity refusal therefore disabled the
+  account it named: a hook refused for its own internal address disabled the
+  mover too, and the existing `blocksAccount: false` of RedirectBleed and
+  LiveBleed never applied. Both reach the decision now, and `ssrf.webhook`
+  is `blocksAccount: false`, because the mover did not write the hook's URL.
+
+`tests/hookBleedServerDelivery.test.cjs` covers:
+
+- a card move delivered with nothing logged, also in an inherited context;
+- a forged call, still refused, logged and blocking;
+- the card-opened notification;
+- failing and internal hooks that block nobody, through `record()` itself;
+- a scan of the whole tree that no server code calls a method gated on
+  `this.connection` from inside a client's method.
+
+`hook-bleed.e2e.js` moves a card in the Move dialog with a webhook enabled.
+An account disabled by this before the upgrade is enabled again in Admin
+Panel / People.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.52 2026-10-18 WeKan ® release
 
 **In short:** the release builds that failed in v12.51 work again: the
