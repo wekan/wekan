@@ -57,17 +57,29 @@ cp "$root/musl-tools/bin/node" "$root/bundle/node"
 # AppImage of v12.51). They come from this Alpine and go into node-runtime,
 # which start-wekan.sh puts on LD_LIBRARY_PATH, as the glibc bundle does with
 # libatomic.
+# Not a fixed pair: every library this Node.js names as NEEDED, except musl's
+# own libc. The x86-64 one also needs libatomic, which g++ brought into the
+# build container - so the bundle's smoke test passed here - and a bare
+# Alpine lacks: "Error loading shared library libatomic.so.1" (every
+# x86_64 musl AppImage of v12.53).
 runtime="$root/bundle/node-runtime"
 mkdir -p "$runtime"
-for lib in libstdc++.so.6 libgcc_s.so.1; do
+needed="$(readelf -dW "$root/bundle/node" | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p')"
+[ -n "$needed" ] || { echo "::error::readelf found no NEEDED libraries in bundle/node."; exit 1; }
+gcc_libs=""
+for lib in libstdc++.so.6 libgcc_s.so.1 $needed; do
+  case "$lib" in libc.musl-*|ld-musl-*|libc.so) continue ;; esac
+  [ -f "$runtime/$lib" ] && continue
   src="$(readlink -f "/usr/lib/$lib" 2>/dev/null || true)"
-  [ -f "$src" ] || { echo "::error::this Alpine has no /usr/lib/$lib (apk add libstdc++ libgcc)."; exit 1; }
+  [ -f "$src" ] || { echo "::error::this Alpine has no /usr/lib/$lib, which bundle/node needs (apk add libstdc++ libgcc libatomic)."; exit 1; }
   cp "$src" "$runtime/$lib"
+  gcc_libs="$gcc_libs $lib"
 done
+echo "node-runtime:$gcc_libs"
 {
-  echo "libstdc++.so.6 and libgcc_s.so.1 are GCC's runtime libraries, copied from"
+  echo "${gcc_libs# } are GCC's runtime libraries, copied from"
   echo "Alpine Linux $(cat /etc/alpine-release 2>/dev/null || echo '(unknown)') packages:"
-  apk info -v libstdc++ libgcc 2>/dev/null | sed 's/^/  /' || true
+  apk info -v libstdc++ libgcc libatomic 2>/dev/null | sed 's/^/  /' || true
   echo
   echo "License: GPL-3.0-or-later WITH GCC-exception-3.1"
   echo "  https://www.gnu.org/licenses/gpl-3.0.txt"

@@ -72,7 +72,11 @@ test('the musl bundle carries the C++ runtime its Node.js is linked against', ()
   const build = read('releases/musl/build-bundle.sh');
   const at = build.indexOf('rm -rf "$root/bundle/node-runtime"');
   const after = build.slice(at);
-  assert.match(after, /for lib in libstdc\+\+\.so\.6 libgcc_s\.so\.1; do/);
+  assert.match(after, /for lib in libstdc\+\+\.so\.6 libgcc_s\.so\.1 \$needed; do/);
+  // Every NEEDED library, not a fixed pair: x86-64's Node.js also needs
+  // libatomic, and every x86_64 musl AppImage of v12.53 died without it.
+  assert.match(after, /needed="\$\(readelf -dW "\$root\/bundle\/node" \| sed -n /);
+  assert.match(after, /case "\$lib" in libc\.musl-\*\|ld-musl-\*\|libc\.so\) continue ;; esac/, 'musl itself is the system\'s');
   assert.match(after, /cp "\$src" "\$runtime\/\$lib"/);
   assert.match(after, /NOTICE-libstdc\+\+-libgcc\.txt/, 'the libraries go with their license');
   assert.match(after, /GPL-3\.0-or-later WITH GCC-exception-3\.1/);
@@ -89,7 +93,18 @@ test('negative: a missing C++ runtime stops the build, and the AppImage smoke ad
   const wf = read('.github/workflows/AppImage.yml');
   const smoke = wf.slice(wf.indexOf('alpine:3.23 sh -ec'), wf.indexOf('alpine:3.23 sh -ec') + 400);
   assert.match(smoke, /apk add --no-cache curl >\/dev\/null/);
-  assert.doesNotMatch(smoke, /libstdc\+\+|libgcc/);
+  assert.doesNotMatch(smoke, /libstdc\+\+|libgcc|libatomic/);
+  // The AppImage build checks the bundle holds every library its Node.js
+  // needs before it packs it.
+  const check = wf.slice(wf.indexOf('required="bundle/main.js'), wf.indexOf('python3 releases/check-telemetry.py --bundle bundle'));
+  assert.match(check, /for lib in \$\(readelf -dW bundle\/node \| sed -n /);
+  assert.match(check, /required="\$required bundle\/node-runtime\/\$lib"/);
+});
+
+test('negative: a bundle Node.js with no NEEDED libraries read stops the build', () => {
+  const build = read('releases/musl/build-bundle.sh');
+  assert.match(build, /\[ -n "\$needed" \] \|\| \{ echo "::error::readelf found no NEEDED libraries/);
+  assert.match(read('.github/workflows/musl.yml'), /apk add --no-cache [^\n]*binutils[^\n]*libatomic/, 'readelf, and libatomic to copy');
 });
 
 console.log(`muslBundles: ${passed} tests passed`);

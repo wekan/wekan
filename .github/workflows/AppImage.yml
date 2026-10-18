@@ -256,6 +256,15 @@ jobs:
           else
             required="$required bundle/node-runtime/libatomic.so.1"
           fi
+          # And every other library a musl Node.js needs: x86-64's also needs
+          # libatomic, and the v12.53 x86_64 musl AppImage did not start in a
+          # bare Alpine without it.
+          if [ "${MATRIX_MUSL}" = true ]; then
+            for lib in $(readelf -dW bundle/node | sed -n 's/.*(NEEDED).*\[\(.*\)\]/\1/p'); do
+              case "$lib" in libc.musl-*|ld-musl-*|libc.so) continue ;; esac
+              required="$required bundle/node-runtime/$lib"
+            done
+          fi
           for f in $required; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."

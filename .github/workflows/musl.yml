@@ -130,7 +130,7 @@ jobs:
         run: |
           docker run --rm -v "$PWD:/work" -w /work -e ARCH \
             alpine:3.23 sh -ec '
-              apk add --no-cache bash coreutils curl file python3 make g++ linux-headers libstdc++ libgcc
+              apk add --no-cache bash coreutils curl file python3 make g++ linux-headers binutils libstdc++ libgcc libatomic
               bash releases/musl/build-bundle.sh "$ARCH"'
 
       - name: Package
