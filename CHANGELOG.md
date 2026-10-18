@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.53 2026-10-18 WeKan ® release
 
 **In short:** moving a card with an **outgoing webhook** no longer disables
 the mover's account as **HookBleed**, and a security refusal that says it
