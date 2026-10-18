@@ -22,7 +22,7 @@
 // the release URL compiled into the target binary, which can be read without
 // running it (a Windows or macOS binary cannot run on the Linux builder).
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -138,6 +138,31 @@ export function archBits(arch) {
   return ['ia32', 'arm', 'mipsel', 'ppc'].includes(arch) ? 32 : 64;
 }
 
+// `--build-sea` injects the archive with LIEF inside the Node.js that runs
+// it, and for a 32-bit target that is a 32-bit Node.js: the executable, the
+// 180 MiB archive and LIEF's copies of both come near its 4 GiB address
+// space, and an allocation fails now and then - "std::bad_alloc" on armhf in
+// v12.53, where armv7 and armv6, with the same archive from the same i386
+// Node.js, built, and armhf itself built in v12.52. That failure, and only
+// that one, is tried again; anything else is a real error and stops at once.
+export const SEA_ATTEMPTS = 3;
+export function buildSea(hostNode, config, out, { attempts = SEA_ATTEMPTS, spawn = spawnSync } = {}) {
+  for (let attempt = 1; ; attempt += 1) {
+    const r = spawn(hostNode, ['--build-sea', config], { stdio: ['inherit', 'inherit', 'pipe'] });
+    const stderr = r.stderr ? r.stderr.toString() : '';
+    if (stderr) process.stderr.write(stderr);
+    if (r.error) throw r.error;
+    if (r.status === 0) return attempt;
+    const outOfMemory = /std::bad_alloc/.test(stderr);
+    if (!outOfMemory || attempt >= attempts) {
+      throw new Error(`Command failed: ${hostNode} --build-sea ${config}`
+        + (outOfMemory ? ` (std::bad_alloc on all ${attempts} attempts)` : ''));
+    }
+    fs.rmSync(out, { force: true });
+    console.warn(`--build-sea ran out of memory (std::bad_alloc), attempt ${attempt} of ${attempts}; trying again.`);
+  }
+}
+
 export function build(opts) {
   const bundle = path.resolve(opts.bundle);
   const exe = isWindowsTarget(opts.target) ? '.exe' : '';
@@ -207,7 +232,7 @@ export function build(opts) {
       vfsArchive: zip,
       disableExperimentalSEAWarning: true,
     }, null, 2));
-    execFileSync(hostNode, ['--build-sea', config], { stdio: 'inherit' });
+    buildSea(hostNode, config, out);
     fs.chmodSync(out, 0o755);
     // macOS will not run an arm64 binary whose signature no longer matches,
     // and injecting the archive invalidated it. Ad-hoc signing needs a Mac.

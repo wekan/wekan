@@ -133,5 +133,55 @@ const BSS = { offset: 0x2000, vaddr: 0x4000, filesz: 0x10, memsz: 0x100 };
     assert.match(wf, /\[ -f "\$dir\/single-file-skipped-\$target\.txt" \] && continue/, 'not warned about as unstarted');
   });
 
+  // v12.53: armhf's --build-sea, run by the 32-bit i386 Node.js, died with
+  // std::bad_alloc while armv7 and armv6 - same archive, same host - built.
+  const { buildSea, SEA_ATTEMPTS } = await import(path.join(ROOT, 'releases/single-file/build.mjs'));
+  const fakeSpawn = results => {
+    const calls = [];
+    const spawn = (cmd, args) => {
+      calls.push([cmd, ...args]);
+      const r = results[Math.min(calls.length, results.length) - 1];
+      return { status: r.status, stderr: Buffer.from(r.stderr || '') };
+    };
+    return { spawn, calls };
+  };
+  const quiet = fn => {
+    const w = process.stderr.write, c = console.warn;
+    process.stderr.write = () => true; console.warn = () => {};
+    try { return fn(); } finally { process.stderr.write = w; console.warn = c; }
+  };
+  const tmpOut = path.join(fs.mkdtempSync(path.join(process.env.TMPDIR || require('node:os').tmpdir(), 'sea-')), 'out');
+  const badAlloc = { status: 134, stderr: "terminate called after throwing an instance of 'std::bad_alloc'\n  what():  std::bad_alloc\n" };
+
+  test('a std::bad_alloc from --build-sea is tried again, and a later success is the result', () => {
+    const { spawn, calls } = fakeSpawn([badAlloc, { status: 0 }]);
+    fs.writeFileSync(tmpOut, 'partial');
+    assert.equal(quiet(() => buildSea('/host/node', 'cfg.json', tmpOut, { spawn })), 2);
+    assert.deepEqual(calls[0], ['/host/node', '--build-sea', 'cfg.json']);
+    assert.equal(calls.length, 2);
+    assert(!fs.existsSync(tmpOut), 'the partial output of the failed attempt is removed');
+    assert(SEA_ATTEMPTS >= 2);
+  });
+
+  test('negative: bad_alloc on every attempt fails, after a bounded number of them', () => {
+    const { spawn, calls } = fakeSpawn([badAlloc]);
+    assert.throws(() => quiet(() => buildSea('/host/node', 'cfg.json', tmpOut, { spawn, attempts: 3 })),
+      /Command failed: \/host\/node --build-sea cfg\.json \(std::bad_alloc on all 3 attempts\)/);
+    assert.equal(calls.length, 3);
+  });
+
+  test('negative: any other --build-sea failure is NOT retried', () => {
+    const { spawn, calls } = fakeSpawn([{ status: 1, stderr: 'Failed to relocate ELF program headers\n' }, { status: 0 }]);
+    assert.throws(() => quiet(() => buildSea('/host/node', 'cfg.json', tmpOut, { spawn })), /^Error: Command failed: \/host\/node --build-sea cfg\.json$/);
+    assert.equal(calls.length, 1);
+  });
+
+  test('the builder injects through buildSea, not a bare --build-sea', () => {
+    const build = read('releases/single-file/build.mjs');
+    assert.match(build, /buildSea\(hostNode, config, out\);/);
+    assert.equal((build.match(/'--build-sea'/g) || []).length, 1, 'one place runs --build-sea');
+  });
+
+  fs.rmSync(path.dirname(tmpOut), { recursive: true, force: true });
   console.log(`singleFileSeaInject: ${passed} tests passed`);
 })().catch(err => { console.error(err); process.exit(1); });
