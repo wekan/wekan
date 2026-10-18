@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.54 2026-10-18 WeKan ® release
 
 **In short:** the **Android** bundles, the **x86_64 musl AppImage** and the
 **armhf single file**, which v12.53 could not build or start, build again.
