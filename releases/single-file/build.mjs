@@ -22,7 +22,7 @@
 // the release URL compiled into the target binary, which can be read without
 // running it (a Windows or macOS binary cannot run on the Linux builder).
 
-import { execFileSync, spawnSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -139,28 +139,33 @@ export function archBits(arch) {
 }
 
 // `--build-sea` injects the archive with LIEF inside the Node.js that runs
-// it, and for a 32-bit target that is a 32-bit Node.js: the executable, the
-// 180 MiB archive and LIEF's copies of both come near its 4 GiB address
-// space, and an allocation fails now and then - "std::bad_alloc" on armhf in
-// v12.53, where armv7 and armv6, with the same archive from the same i386
-// Node.js, built, and armhf itself built in v12.52. That failure, and only
-// that one, is tried again; anything else is a real error and stops at once.
-export const SEA_ATTEMPTS = 3;
-export function buildSea(hostNode, config, out, { attempts = SEA_ATTEMPTS, spawn = spawnSync } = {}) {
-  for (let attempt = 1; ; attempt += 1) {
-    const r = spawn(hostNode, ['--build-sea', config], { stdio: ['inherit', 'inherit', 'pipe'] });
-    const stderr = r.stderr ? r.stderr.toString() : '';
-    if (stderr) process.stderr.write(stderr);
-    if (r.error) throw r.error;
-    if (r.status === 0) return attempt;
-    const outOfMemory = /std::bad_alloc/.test(stderr);
-    if (!outOfMemory || attempt >= attempts) {
-      throw new Error(`Command failed: ${hostNode} --build-sea ${config}`
-        + (outOfMemory ? ` (std::bad_alloc on all ${attempts} attempts)` : ''));
-    }
-    fs.rmSync(out, { force: true });
-    console.warn(`--build-sea ran out of memory (std::bad_alloc), attempt ${attempt} of ${attempts}; trying again.`);
+// it, and a 32-bit target's blob must be written by a 32-bit Node.js (its
+// lengths are size_t). The executable, the 180 MiB archive and LIEF's copies
+// of both do not fit that process's address space: armhf (v12.53) and armv7
+// (v12.54, on all three attempts of a retry) stopped with std::bad_alloc.
+// So for a 32-bit ELF target the work is split: the 32-bit Node.js writes
+// only the blob (--experimental-sea-config, the same blob, no LIEF), and
+// sea-inject-elf.py injects it in a 64-bit process with the LIEF version Node
+// vendors, step for step as --build-sea does (byte-identical output,
+// tests/singleFileSeaInject.test.cjs). win32 is PE and keeps --build-sea.
+export function seaSplit(target, nodeBinary) {
+  if (targetBits(target) !== 32) return false;
+  const fd = fs.openSync(nodeBinary, 'r');
+  try {
+    const head = Buffer.alloc(4);
+    fs.readSync(fd, head, 0, 4, 0);
+    return head.readUInt32BE(0) === 0x7f454c46;
+  } finally {
+    fs.closeSync(fd);
   }
+}
+
+export function seaCommands({ hostNode, python, node, config, blob, out, split }) {
+  if (!split) return [[hostNode, ['--build-sea', config]]];
+  return [
+    [hostNode, ['--experimental-sea-config', config]],
+    [python, ['-I', path.join(here, 'sea-inject-elf.py'), node, blob, out]],
+  ];
 }
 
 export function build(opts) {
@@ -224,15 +229,20 @@ export function build(opts) {
     const main = path.join(work, 'wekan-single-file.cjs');
     fs.writeFileSync(main, MAIN_STUB);
     const config = path.join(work, 'sea-config.json');
+    const split = seaSplit(opts.target, node);
+    const blob = path.join(work, 'sea-prep.blob');
     fs.writeFileSync(config, JSON.stringify({
       main,
-      output: out,
+      output: split ? blob : out,
       executable: node,
       useVfs: true,
       vfsArchive: zip,
       disableExperimentalSEAWarning: true,
     }, null, 2));
-    buildSea(hostNode, config, out);
+    const python = opts.python || process.env.SEA_PYTHON || 'python3';
+    for (const [cmd, args] of seaCommands({ hostNode, python, node, config, blob, out, split })) {
+      execFileSync(cmd, args, { stdio: 'inherit' });
+    }
     fs.chmodSync(out, 0o755);
     // macOS will not run an arm64 binary whose signature no longer matches,
     // and injecting the archive invalidated it. Ad-hoc signing needs a Mac.

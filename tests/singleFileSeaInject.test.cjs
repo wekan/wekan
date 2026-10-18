@@ -133,55 +133,89 @@ const BSS = { offset: 0x2000, vaddr: 0x4000, filesz: 0x10, memsz: 0x100 };
     assert.match(wf, /\[ -f "\$dir\/single-file-skipped-\$target\.txt" \] && continue/, 'not warned about as unstarted');
   });
 
-  // v12.53: armhf's --build-sea, run by the 32-bit i386 Node.js, died with
-  // std::bad_alloc while armv7 and armv6 - same archive, same host - built.
-  const { buildSea, SEA_ATTEMPTS } = await import(path.join(ROOT, 'releases/single-file/build.mjs'));
-  const fakeSpawn = results => {
-    const calls = [];
-    const spawn = (cmd, args) => {
-      calls.push([cmd, ...args]);
-      const r = results[Math.min(calls.length, results.length) - 1];
-      return { status: r.status, stderr: Buffer.from(r.stderr || '') };
-    };
-    return { spawn, calls };
-  };
-  const quiet = fn => {
-    const w = process.stderr.write, c = console.warn;
-    process.stderr.write = () => true; console.warn = () => {};
-    try { return fn(); } finally { process.stderr.write = w; console.warn = c; }
-  };
-  const tmpOut = path.join(fs.mkdtempSync(path.join(process.env.TMPDIR || require('node:os').tmpdir(), 'sea-')), 'out');
-  const badAlloc = { status: 134, stderr: "terminate called after throwing an instance of 'std::bad_alloc'\n  what():  std::bad_alloc\n" };
+  // v12.53 armhf and v12.54 armv7 (on all three attempts of a retry): the
+  // 32-bit i386 Node.js ran out of memory injecting with LIEF. A 32-bit ELF
+  // target is now split - that Node.js writes only the blob, and
+  // sea-inject-elf.py injects it in a 64-bit process.
+  const { seaSplit, seaCommands } = await import(path.join(ROOT, 'releases/single-file/build.mjs'));
+  const os = require('node:os');
+  const work = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'sea-'));
+  const elfFile = path.join(work, 'elf');
+  const peFile = path.join(work, 'pe');
+  fs.writeFileSync(elfFile, Buffer.from([0x7f, 0x45, 0x4c, 0x46, 1, 1, 1, 0]));
+  fs.writeFileSync(peFile, Buffer.from('MZ\x90\x00'));
 
-  test('a std::bad_alloc from --build-sea is tried again, and a later success is the result', () => {
-    const { spawn, calls } = fakeSpawn([badAlloc, { status: 0 }]);
-    fs.writeFileSync(tmpOut, 'partial');
-    assert.equal(quiet(() => buildSea('/host/node', 'cfg.json', tmpOut, { spawn })), 2);
-    assert.deepEqual(calls[0], ['/host/node', '--build-sea', 'cfg.json']);
-    assert.equal(calls.length, 2);
-    assert(!fs.existsSync(tmpOut), 'the partial output of the failed attempt is removed');
-    assert(SEA_ATTEMPTS >= 2);
+  test('a 32-bit ELF target is split: blob by the 32-bit Node.js, injection by sea-inject-elf.py', () => {
+    for (const t of ['armv7', 'armhf', 'armv6', 'i386']) assert.equal(seaSplit(t, elfFile), true, t);
+    const cmds = seaCommands({ hostNode: '/h/node', python: '/py', node: '/t/node', config: 'c.json', blob: 'b.blob', out: 'o', split: true });
+    assert.deepEqual(cmds[0], ['/h/node', ['--experimental-sea-config', 'c.json']]);
+    assert.equal(cmds[1][0], '/py');
+    assert.deepEqual(cmds[1][1].slice(-3), ['/t/node', 'b.blob', 'o']);
+    assert.match(cmds[1][1][1], /releases[\\/]single-file[\\/]sea-inject-elf\.py$/);
+    assert.equal(cmds.length, 2, 'LIEF never runs in the 32-bit Node.js');
   });
 
-  test('negative: bad_alloc on every attempt fails, after a bounded number of them', () => {
-    const { spawn, calls } = fakeSpawn([badAlloc]);
-    assert.throws(() => quiet(() => buildSea('/host/node', 'cfg.json', tmpOut, { spawn, attempts: 3 })),
-      /Command failed: \/host\/node --build-sea cfg\.json \(std::bad_alloc on all 3 attempts\)/);
-    assert.equal(calls.length, 3);
-  });
-
-  test('negative: any other --build-sea failure is NOT retried', () => {
-    const { spawn, calls } = fakeSpawn([{ status: 1, stderr: 'Failed to relocate ELF program headers\n' }, { status: 0 }]);
-    assert.throws(() => quiet(() => buildSea('/host/node', 'cfg.json', tmpOut, { spawn })), /^Error: Command failed: \/host\/node --build-sea cfg\.json$/);
-    assert.equal(calls.length, 1);
-  });
-
-  test('the builder injects through buildSea, not a bare --build-sea', () => {
+  test('negative: 64-bit targets and win32 (PE) keep --build-sea, and nothing else', () => {
+    assert.equal(seaSplit('amd64', elfFile), false);
+    assert.equal(seaSplit('arm64', elfFile), false);
+    assert.equal(seaSplit('win32', peFile), false);
+    assert.deepEqual(seaCommands({ hostNode: '/h/node', config: 'c.json', split: false }), [['/h/node', ['--build-sea', 'c.json']]]);
     const build = read('releases/single-file/build.mjs');
-    assert.match(build, /buildSea\(hostNode, config, out\);/);
-    assert.equal((build.match(/'--build-sea'/g) || []).length, 1, 'one place runs --build-sea');
+    assert.match(build, /output: split \? blob : out,/, 'the blob, not the executable, is what the 32-bit Node.js writes');
+    assert.doesNotMatch(build, /buildSea|SEA_ATTEMPTS/, 'no retry of an out-of-memory LIEF');
   });
 
-  fs.rmSync(path.dirname(tmpOut), { recursive: true, force: true });
+  test('the workflow gives a 32-bit ELF target LIEF 1.0.0, the version Node.js vendors', () => {
+    const wf = read('.github/workflows/single-file.yml');
+    assert.match(wf, /if \[ "\$TARGET" != win32 \]; then\n\s+python3 -m venv "\$RUNNER_TEMP\/lief"\n\s+"\$RUNNER_TEMP\/lief\/bin\/python" -m pip install --quiet 'lief==1\.0\.0'/);
+    assert.match(wf, /SEA_PYTHON: \$\{\{ steps\.host32\.outputs\.python \}\}/);
+    const inj = read('releases/single-file/sea-inject-elf.py');
+    assert.match(inj, /lief\.__version__\.split\("-"\)\[0\] != "1\.0\.0"/, 'refuses another LIEF');
+    // node's src/node_sea_bin.cc, InjectIntoELF() and MarkSentinel().
+    assert.match(inj, /RESOURCE = "NODE_SEA_BLOB"/);
+    assert.match(inj, /SECTION = "\.note\.node\.sea"/);
+    assert.match(inj, /NOTE_TYPE = 0/);
+    assert.match(inj, /FUSE = b"NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2"/);
+    assert.match(inj, /PHDR_RELOC\.BSS_END/);
+    assert.match(inj, /cfg\.notes = True\n\s+cfg\.dynamic_section = True/);
+  });
+
+  // The proof that matters: the split writes the same file --build-sea does.
+  // Needs a Node.js with --build-sea and a Python with LIEF 1.0.0
+  // (SEA_PYTHON, or python3); says so when it has neither.
+  const python = process.env.SEA_PYTHON || 'python3';
+  const hasLief = spawnSync(python, ['-c', 'import lief; assert lief.__version__.split("-")[0] == "1.0.0"']).status === 0;
+  const hasBuildSea = spawnSync(process.execPath, ['--help'], { encoding: 'utf8' }).stdout.includes('--build-sea');
+  if (hasLief && hasBuildSea && process.platform === 'linux') {
+    test('the split writes the file --build-sea writes, byte for byte, and it runs', () => {
+      fs.writeFileSync(path.join(work, 'main.js'), 'console.log("sea:" + require("node:sea").isSea())\n');
+      const cfg = output => JSON.stringify({ main: path.join(work, 'main.js'), output, executable: process.execPath, disableExperimentalSEAWarning: true });
+      fs.writeFileSync(path.join(work, 'a.json'), cfg(path.join(work, 'a.out')));
+      fs.writeFileSync(path.join(work, 'b.json'), cfg(path.join(work, 'b.blob')));
+      const run = (cmd, args) => {
+        const r = spawnSync(cmd, args, { encoding: 'utf8' });
+        assert.equal(r.status, 0, `${cmd} ${args.join(' ')}: ${r.stderr}`);
+        return r.stdout;
+      };
+      run(process.execPath, ['--build-sea', path.join(work, 'a.json')]);
+      for (const [cmd, args] of seaCommands({ hostNode: process.execPath, python, node: process.execPath,
+        config: path.join(work, 'b.json'), blob: path.join(work, 'b.blob'), out: path.join(work, 'b.out'), split: true })) {
+        run(cmd, args);
+      }
+      assert(fs.readFileSync(path.join(work, 'a.out')).equals(fs.readFileSync(path.join(work, 'b.out'))), 'identical to --build-sea');
+      assert.equal(run(path.join(work, 'b.out'), []).trim(), 'sea:true');
+    });
+
+    test('negative: an executable that already carries the blob is refused, as --build-sea refuses it', () => {
+      const r = spawnSync(python, ['-I', path.join(ROOT, 'releases/single-file/sea-inject-elf.py'),
+        path.join(work, 'b.out'), path.join(work, 'b.blob'), path.join(work, 'c.out')], { encoding: 'utf8' });
+      assert.notEqual(r.status, 0);
+      assert.match(r.stderr, /note section NODE_SEA_BLOB already exists|Sentinel is already marked/);
+      assert(!fs.existsSync(path.join(work, 'c.out')));
+    });
+  } else {
+    console.log(`  skip - byte-for-byte comparison with --build-sea (${hasLief ? '' : `no LIEF 1.0.0 in ${python}; `}${hasBuildSea ? '' : 'no --build-sea'})`);
+  }
+  fs.rmSync(work, { recursive: true, force: true });
   console.log(`singleFileSeaInject: ${passed} tests passed`);
 })().catch(err => { console.error(err); process.exit(1); });

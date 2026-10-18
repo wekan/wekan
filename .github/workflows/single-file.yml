@@ -172,6 +172,14 @@ jobs:
           host="$PWD/host32/bundle/node"
           [ -d host32/bundle/node-runtime ] && echo "libs=$PWD/host32/bundle/node-runtime" >> "$GITHUB_OUTPUT"
           echo "node=$host" >> "$GITHUB_OUTPUT"
+          # A 32-bit ELF target's blob is injected in a 64-bit process, by
+          # LIEF 1.0.0 - the version Node.js vendors - not inside this 32-bit
+          # Node.js, which ran out of memory doing it (build.mjs, seaSplit).
+          if [ "$TARGET" != win32 ]; then
+            python3 -m venv "$RUNNER_TEMP/lief"
+            "$RUNNER_TEMP/lief/bin/python" -m pip install --quiet 'lief==1.0.0'
+            echo "python=$RUNNER_TEMP/lief/bin/python" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Build the single file
         id: build
@@ -180,6 +188,7 @@ jobs:
           VERSION: ${{ steps.fetch.outputs.version }}
           HOST_NODE: ${{ steps.host32.outputs.node }}
           HOST_LIBS: ${{ steps.host32.outputs.libs }}
+          SEA_PYTHON: ${{ steps.host32.outputs.python }}
         run: |
           set -euo pipefail
           case "$TARGET" in win*) ext=.exe ;; *) ext= ;; esac
