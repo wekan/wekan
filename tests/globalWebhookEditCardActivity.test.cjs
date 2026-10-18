@@ -76,9 +76,10 @@ test('#4912: integrations are filtered by this description, "all" or the act-edi
   assert.deepEqual(webhookActivitySelection('act-a-dueAt'), ['act-a-dueAt', 'all']);
 });
 
-test('#4912: matching integrations call the outgoingWebhooks Meteor method with their own event', () => {
+test('#4912: matching integrations are delivered with their own event', () => {
   assert.match(activitiesSrc, /const delivered = webhookDescriptionFor\(integration, description\);/);
-  assert.match(activitiesSrc, /Meteor\.call\('outgoingWebhooks', integration, delivered, deliveredParams,/);
+  // #6782: through deliverActivityWebhook, not the outgoingWebhooks method.
+  assert.match(activitiesSrc, /deliverActivityWebhook\(integration, delivered, deliveredParams,/);
 });
 
 console.log('\n' + passed + ' passed');

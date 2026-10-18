@@ -35,7 +35,12 @@ const CATALOG = {
   'ssrf.redirect':   { category: 'ssrf', bleed: 'RedirectBleed', severity: 'high', cwe: 'CWE-918', blocksAccount: false },
   'ssrf.attachment': { category: 'ssrf', bleed: 'LiveBleed', severity: 'high', cwe: 'CWE-918', blocksAccount: false },
   'ssrf.fetch':      { category: 'ssrf', bleed: 'DnsBleed', severity: 'high', cwe: 'CWE-918' },
-  'ssrf.webhook':    { category: 'ssrf', bleed: 'IntegrationBleed', severity: 'high', cwe: 'CWE-918' },
+  // A webhook pointed at an internal address is refused when it is DELIVERED
+  // (outgoing.js, webhookQueue.js), and the user whose card move or comment
+  // caused that delivery did not write its URL - so it is recorded, and nobody
+  // loses their account for it (#6782; the record still names them, from the
+  // request it happened in).
+  'ssrf.webhook':    { category: 'ssrf', bleed: 'IntegrationBleed', severity: 'high', cwe: 'CWE-918', blocksAccount: false },
   // RepointBleed: a rule trigger, action, rule or webhook integration moved to
   // another board (or '*') by an update; see server/lib/boardRepointGuard.js.
   'authz.repoint':   { category: 'authz', bleed: 'RepointBleed', severity: 'high', cwe: 'CWE-863' },

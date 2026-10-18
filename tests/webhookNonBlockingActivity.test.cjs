@@ -33,7 +33,9 @@ async function run() {
   assert.match(deliveryBlock, /safeDeliver\(/);
   assert.doesNotMatch(deliveryBlock, /await\s+safeDeliver\(/,
     'activity insertion must not await webhook delivery');
-  assert.match(deliveryBlock, /Meteor\.call\('outgoingWebhooks'/);
+  // #6782: delivered by a function, never through the outgoingWebhooks method.
+  assert.match(deliveryBlock, /safeDeliver\(\(\) => deliverActivityWebhook\(integration, delivered, deliveredParams, userId \|\| doc\.userId\)\)/);
+  assert.doesNotMatch(deliveryBlock.replace(/\/\/.*$/gm, ''), /Meteor\.call/);
 
   let release;
   const hanging = safeDeliver(() => new Promise(resolve => {

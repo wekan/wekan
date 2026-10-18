@@ -13,6 +13,7 @@ import { RulesHelper } from '/server/rulesHelper';
 import { Notifications } from '/server/notifications/notifications';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { safeDeliver } from '/server/lib/webhookGuard';
+import { deliverActivityWebhook } from '/server/notifications/outgoing';
 import { labelDisplayName } from '/models/lib/labelDisplayName';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
@@ -536,18 +537,10 @@ Activities.after.insert(async (userId, doc) => {
       // webhook must never abort this activity insert or the originating
       // operation (e.g. adding/removing a card member). See bug #1402.
       // safeDeliver() never rejects, so we intentionally do not await it.
-      safeDeliver(
-        () =>
-          new Promise((resolve, reject) => {
-            Meteor.call('outgoingWebhooks', integration, delivered, deliveredParams, (err) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve();
-              }
-            });
-          }),
-      );
+      // #6782: a function, not Meteor.call('outgoingWebhooks'): a method call
+      // made here would carry the mover's own connection (Meteor passes the
+      // current method's on), and that method treats every call as a client's.
+      safeDeliver(() => deliverActivityWebhook(integration, delivered, deliveredParams, userId || doc.userId));
     });
   }
 });

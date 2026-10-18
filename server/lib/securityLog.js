@@ -37,14 +37,19 @@ const { locationFromHeaders } = require('/models/lib/geoHeaders');
 // with the attack and buries the one line that mattered under ten thousand
 // identical ones. The row carries `count`, the window `firstAt` … `at`, and a
 // per-actor tally read out as `username1 25, 100.100.100.100 30`.
-function insert(doc) {
+function insert(doc, decision = {}) {
   foldEventFireAndForget(doc, 'securityLog');
   // A logged-in account that attempted a vulnerability loses that account - see
   // server/lib/blockOnSecurityEvent.js for why the ACCOUNT and never the
   // address. Fire-and-forget like the fold: the guard already refused the
   // operation, and the consequence must not be able to break the refusal.
   try {
-    const p = blockAccountForSecurityEvent(doc);
+    // #6782: with the catalog key and its blocksAccount, which the stored row
+    // does not carry. Without them every 'high' blocked row disabled whoever it
+    // named - a webhook refused for its own internal URL disabled the user
+    // whose card move happened to send it, though ssrf.redirect,
+    // ssrf.attachment and ssrf.webhook all say blocksAccount: false.
+    const p = blockAccountForSecurityEvent({ ...doc, key: decision.key, blocksAccount: decision.blocksAccount });
     if (p && typeof p.catch === 'function') p.catch(() => {});
   } catch (e) { /* blocking must never break the guard */ }
 }
@@ -113,7 +118,7 @@ export function record(evt = {}) {
     // window's summary.
     const count = Number(m.count);
     doc.count = Number.isFinite(count) && count > 0 ? Math.floor(count) : 1;
-    insert(doc);
+    insert(doc, { key: m.key, blocksAccount: m.blocksAccount });
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('securityLog.record failed:', e && e.message);
   }

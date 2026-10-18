@@ -7,9 +7,9 @@ const vm = require('node:vm');
 function fixture() {
   const hooks = [], deliveries = [], notifications = [], pendingDeliveries = [];
   const source = fs.readFileSync(require.resolve('../server/models/activities.js'), 'utf8').replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
-  const context = { Meteor: { startup() {}, call(name, integration, description, params, callback) {
-    assert.equal(name, 'outgoingWebhooks'); deliveries.push(structuredClone(params)); callback(null);
-  } },
+  const context = { Meteor: { startup() {}, call() { throw new Error('#6782: no method call delivers a webhook'); } },
+    // #6782: the activity hook delivers through this function, not a method.
+    deliverActivityWebhook: async (integration, description, params) => { deliveries.push(structuredClone(params)); },
     // Since 54c3130ce/4c762f407 the model captures a notification intent in a
     // before.insert hook and the after.insert hook no longer calls
     // Notifications.notify directly: it hands the prepared context to
@@ -82,7 +82,8 @@ async function outgoingPayload(params, type = 'outgoing', attributes) {
     process: { env: attributes ? { WEBHOOKS_ATTRIBUTES: attributes } : {} },
   };
   vm.runInNewContext(source, context);
-  await method.call({ userId: 'author', connection: null, unblock() {} }, integration, 'act-setCustomField', params);
+  assert.equal(typeof method, 'function', 'the client method is still registered');
+  await context.deliverActivityWebhook(integration, 'act-setCustomField', params, 'author');
   return payload;
 }
 test('outgoing HTTP payload preserves falsy configured attributes without widening the attribute list', async () => {

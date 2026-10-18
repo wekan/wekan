@@ -246,12 +246,127 @@ async function sendMattermostDirectMessages(integration, prepared, params) {
   }
 }
 
+// The integration as stored, never as a caller described it (HookBleed). A
+// board member who is not its admin is published the integration without its
+// URL (a chat webhook URL is itself a credential), so it is named by _id.
+function storedIntegrationOf(integration) {
+  return ReactiveCache.getIntegration(
+    typeof integration._id === 'string'
+      ? { _id: integration._id, boardId: integration.boardId }
+      : { url: integration.url, boardId: integration.boardId },
+  );
+}
+
+// One webhook POST: from the stored integration, with params the caller has
+// already vetted. actorId is who did what is being reported.
+async function deliverWebhook(storedIntegration, description, params, actorId) {
+  const prepared = await prepareOutgoingWebhook({ integration: storedIntegration, description, params, actorId });
+  if (!prepared) return;
+  const { is2way } = prepared;
+
+  // #1297: and as a Mattermost direct message to each of the card's
+  // members and assignees, at once and best effort, beside the channel
+  // message (which may be grouped or scheduled below).
+  if (!is2way && storedIntegration.mattermostDirectMessages === true && typeof params.cardId === 'string') {
+    sendMattermostDirectMessages(storedIntegration, prepared, params).catch(() => {});
+  }
+
+  // #3695: a one-way webhook whose delivery settings group or schedule
+  // its notifications goes through the durable queue
+  // (server/notifications/webhookQueue.js); the built-in settings POST
+  // at once, below, exactly as before. Two-way webhooks are always
+  // immediate: their reply edits the comment the event was about.
+  if (!is2way) {
+    const delivery = await webhookDeliveryFor(storedIntegration);
+    const queued = webhookQueueTarget(delivery, { boardId: params.boardId, cardId: params.cardId,
+      eventId: params.activityId });
+    if (queued) {
+      await require('/server/notifications/webhookQueue').webhookOutbox.enqueue({
+        integrationId: storedIntegration._id, body: JSON.parse(prepared.body), ...queued });
+      return;
+    }
+  }
+
+  if (is2way) {
+    const cid = params.commentId;
+    const comment = params.comment;
+    const lockState = cid && Lock.has(cid, comment);
+    if (cid && lockState !== Lock.NULL) {
+      // it's a comment  and there is a previous lock
+      return;
+    } else if (cid) {
+      Lock.set(cid, comment); // set a lock here
+    }
+  }
+
+  // fetchSafe resolves DNS once, pins the connection to the resolved IP,
+  // and blocks redirects — fully preventing DNS-rebinding SSRF attacks.
+  let response;
+  try {
+    response = await webhookFetch(prepared.url, {
+      method: 'POST',
+      totalTimeoutMs: 30000,
+      headers: prepared.headers,
+      body: prepared.body,
+    });
+  } catch (err) {
+    if (/^SSRF_GUARD:/.test(err && err.message)) {
+      // IntegrationBleed: a webhook pointed at an internal address.
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'ssrf.webhook', action: 'blocked', source: 'outgoingWebhooks',
+          detail: `webhook ${storedIntegration._id}: ${String(err.message).slice(0, 160)}`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
+    throw new Meteor.Error(
+      'invalid-webhook-url',
+      `Webhook request failed: ${err.message}`,
+    );
+  }
+
+  if (response && response.status >= 200 && response.status < 300) {
+    if (is2way) {
+      // Only act on a JSON-encoded response body
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
+      }
+      if (data) {
+        try {
+          await responseFunc(data, storedIntegration);
+        } catch (e) {
+          throw new Meteor.Error('error-process-data');
+        }
+      }
+    }
+    return response; // eslint-disable-line consistent-return
+  } else {
+    throw new Meteor.Error('error-invalid-webhook-response');
+  }
+}
+
+// #6782: the server's own delivery of an activity to a webhook it selected
+// (server/models/activities.js). Not a Meteor method, so no client can reach
+// it and no inherited method context changes what it does: the activity's
+// actor is passed in rather than read from `this`. The integration is read
+// again from the database, enabled, so the request is still built from the
+// stored one alone.
+export async function deliverActivityWebhook(integration, description, params, actorId) {
+  if (!integration || typeof description !== 'string' || !params || typeof params !== 'object') return undefined;
+  const storedIntegration = await storedIntegrationOf(integration);
+  if (!storedIntegration || storedIntegration.enabled === false) return undefined;
+  return deliverWebhook(storedIntegration, description, structuredClone(params), actorId);
+}
+
 Meteor.methods({
     async outgoingWebhooks(integration, description, params) {
+      check(integration, Object);
+      check(description, String);
+      check(params, Object);
       if (this.userId) {
-        check(integration, Object);
-        check(description, String);
-        check(params, Object);
         this.unblock();
 
         integration = structuredClone(integration);
@@ -265,11 +380,7 @@ Meteor.methods({
         // A board member who is not its admin is published the integration
         // without its URL (a chat webhook URL is itself a credential), so it
         // names the integration by _id.
-        const storedIntegration = await ReactiveCache.getIntegration(
-          typeof integration._id === 'string'
-            ? { _id: integration._id, boardId: integration.boardId }
-            : { url: integration.url, boardId: integration.boardId },
-        );
+        const storedIntegration = await storedIntegrationOf(integration);
         if (!storedIntegration) return;
         const integrationBoard = await ReactiveCache.getBoard(storedIntegration.boardId);
         if (!integrationBoard || !integrationBoard.hasMember(this.userId)) return;
@@ -281,120 +392,43 @@ Meteor.methods({
         // WeKan, or turn a one-way hook two-way. Everything comes from the stored
         // integration now; and from a client, the only legitimate call is the
         // card-opened notification, whose params are rebuilt here from the card.
-        if (this.connection) {
-          const card = description === 'CardSelected' && typeof params.cardId === 'string'
-            ? await ReactiveCache.getCard(params.cardId) : null;
-          if (!card || card.boardId !== storedIntegration.boardId) {
-            try {
-              require('/server/lib/securityLog').record({
-                key: 'ssrf.webhook-forge', action: 'blocked', source: 'outgoingWebhooks', userId: this.userId,
-                detail: `client tried to send '${String(description).slice(0, 40)}' through webhook ${storedIntegration._id}`,
-              });
-            } catch (e) { /* logging must never break the guard */ }
-            return;
-          }
-          // Opening a card is reported only for a card the caller sees: an
-          // assigned-only member's own (GHSA-r4gm-mjj9-g3x8). No view opens
-          // another card for them, so this is an attempt.
-          if (!assignedOnlyAllowsCard(integrationBoard, this.userId, card)) {
-            try {
-              require('/server/lib/securityLog').record({
-                key: 'authz.assigned', action: 'blocked', source: 'outgoingWebhooks:card-opened', userId: this.userId,
-                detail: 'Assigned-only member reported opening a card not assigned to them.',
-              });
-            } catch (e) { /* logging must never break the guard */ }
-            return;
-          }
-          const caller = await ReactiveCache.getUser(this.userId);
-          params = { userId: this.userId, cardId: card._id, boardId: card.boardId, listId: card.listId,
-            user: caller && caller.username, url: '' };
+        //
+        // #6782: and EVERY call of this method is a client's. It used to trust
+        // a call without `this.connection` as the server's own, but Meteor
+        // gives a server-side Meteor.call the connection of the method it runs
+        // in (ddp-server applyAsync): a card moved from a browser runs in that
+        // browser's method, so its activity's webhook arrived here with the
+        // mover's connection, was logged as HookBleed and locked the mover's
+        // account. Server code delivers through deliverActivityWebhook(), which
+        // is not a method and cannot be called over DDP.
+        const card = description === 'CardSelected' && typeof params.cardId === 'string'
+          ? await ReactiveCache.getCard(params.cardId) : null;
+        if (!card || card.boardId !== storedIntegration.boardId) {
+          try {
+            require('/server/lib/securityLog').record({
+              key: 'ssrf.webhook-forge', action: 'blocked', source: 'outgoingWebhooks', userId: this.userId,
+              detail: `client tried to send '${String(description).slice(0, 40)}' through webhook ${storedIntegration._id}`,
+            });
+          } catch (e) { /* logging must never break the guard */ }
+          return;
         }
-        const prepared = await prepareOutgoingWebhook({ integration: storedIntegration, description, params, actorId: this.userId });
-        if (!prepared) return;
-        const { is2way } = prepared;
-
-        // #1297: and as a Mattermost direct message to each of the card's
-        // members and assignees, at once and best effort, beside the channel
-        // message (which may be grouped or scheduled below).
-        if (!is2way && storedIntegration.mattermostDirectMessages === true && typeof params.cardId === 'string') {
-          sendMattermostDirectMessages(storedIntegration, prepared, params).catch(() => {});
+        // Opening a card is reported only for a card the caller sees: an
+        // assigned-only member's own (GHSA-r4gm-mjj9-g3x8). No view opens
+        // another card for them, so this is an attempt.
+        if (!assignedOnlyAllowsCard(integrationBoard, this.userId, card)) {
+          try {
+            require('/server/lib/securityLog').record({
+              key: 'authz.assigned', action: 'blocked', source: 'outgoingWebhooks:card-opened', userId: this.userId,
+              detail: 'Assigned-only member reported opening a card not assigned to them.',
+            });
+          } catch (e) { /* logging must never break the guard */ }
+          return;
         }
-
-        // #3695: a one-way webhook whose delivery settings group or schedule
-        // its notifications goes through the durable queue
-        // (server/notifications/webhookQueue.js); the built-in settings POST
-        // at once, below, exactly as before. Two-way webhooks are always
-        // immediate: their reply edits the comment the event was about.
-        if (!is2way) {
-          const delivery = await webhookDeliveryFor(storedIntegration);
-          const queued = webhookQueueTarget(delivery, { boardId: params.boardId, cardId: params.cardId,
-            eventId: params.activityId });
-          if (queued) {
-            await require('/server/notifications/webhookQueue').webhookOutbox.enqueue({
-              integrationId: storedIntegration._id, body: JSON.parse(prepared.body), ...queued });
-            return;
-          }
-        }
-
-        if (is2way) {
-          const cid = params.commentId;
-          const comment = params.comment;
-          const lockState = cid && Lock.has(cid, comment);
-          if (cid && lockState !== Lock.NULL) {
-            // it's a comment  and there is a previous lock
-            return;
-          } else if (cid) {
-            Lock.set(cid, comment); // set a lock here
-          }
-        }
-
-        // fetchSafe resolves DNS once, pins the connection to the resolved IP,
-        // and blocks redirects — fully preventing DNS-rebinding SSRF attacks.
-        let response;
-        try {
-          response = await webhookFetch(prepared.url, {
-            method: 'POST',
-            totalTimeoutMs: 30000,
-            headers: prepared.headers,
-            body: prepared.body,
-          });
-        } catch (err) {
-          if (/^SSRF_GUARD:/.test(err && err.message)) {
-            // IntegrationBleed: a webhook pointed at an internal address.
-            try {
-              require('/server/lib/securityLog').record({
-                key: 'ssrf.webhook', action: 'blocked', source: 'outgoingWebhooks',
-                detail: `webhook ${storedIntegration._id}: ${String(err.message).slice(0, 160)}`,
-              });
-            } catch (e) { /* logging must never break the guard */ }
-          }
-          throw new Meteor.Error(
-            'invalid-webhook-url',
-            `Webhook request failed: ${err.message}`,
-          );
-        }
-
-        if (response && response.status >= 200 && response.status < 300) {
-          if (is2way) {
-            // Only act on a JSON-encoded response body
-            let data = null;
-            try {
-              data = await response.json();
-            } catch {
-              data = null;
-            }
-            if (data) {
-              try {
-                await responseFunc(data, storedIntegration);
-              } catch (e) {
-                throw new Meteor.Error('error-process-data');
-              }
-            }
-          }
-          return response; // eslint-disable-line consistent-return
-        } else {
-          throw new Meteor.Error('error-invalid-webhook-response');
-        }
+        const caller = await ReactiveCache.getUser(this.userId);
+        params = { userId: this.userId, cardId: card._id, boardId: card.boardId, listId: card.listId,
+          user: caller && caller.username, url: '' };
+        return deliverWebhook(storedIntegration, description, params, this.userId);
       }
+      return undefined;
     },
   });

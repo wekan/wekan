@@ -41,7 +41,7 @@ assert.equal(webhookParamsFor(params, 'act-a-changedTitle', 'act-a-changedTitle'
 const activities = read('server/models/activities.js');
 assert.ok(!/activities:\s*\{\s*\$in:\s*\[description,\s*'all'\]/.test(activities),
   'webhook selection must go through webhookActivitySelection');
-assert.match(activities, /Meteor\.call\('outgoingWebhooks', integration, delivered, deliveredParams/);
+assert.match(activities, /deliverActivityWebhook\(integration, delivered, deliveredParams/);
 const prepare = read('server/notifications/prepareWebhooks.js');
 assert.match(prepare, /webhookDescriptionFor\(integration, context\.description\)/);
 assert.ok(!/description:\s*context\.description/.test(prepare), 'the stored plan renders the per-webhook event');

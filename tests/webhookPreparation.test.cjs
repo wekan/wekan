@@ -29,7 +29,14 @@ function fixture({ load = async () => {}, translate = (key, params, language) =>
   vm.runInNewContext(source, context);
   return { prepare: context.prepareOutgoingWebhook,
     // Ordinary use: the stored integration is the one the caller names.
+    // #6782: the server's own delivery is deliverActivityWebhook(), not the
+    // method; a call of the method is a client's, connection or not.
     send: (input, { storedIntegration = structuredClone(input.integration), connection = null } = {}) => {
+      stored = storedIntegration;
+      if (connection === null) return context.deliverActivityWebhook(input.integration, input.description, input.params, 'actor');
+      return method.call({ userId: 'actor', connection, unblock() {} }, input.integration, input.description, input.params);
+    },
+    client: (input, { storedIntegration = structuredClone(input.integration), connection = null } = {}) => {
       stored = storedIntegration;
       return method.call({ userId: 'actor', connection, unblock() {} }, input.integration, input.description, input.params);
     }, requests, writes, translations,
@@ -82,8 +89,11 @@ test('suppression, missing user, denied membership and preparation failure never
     assert.equal(await f.prepare(input('outgoing')), null);
     await f.send(input('outgoing')); assert.equal(f.requests.length, 0);
   }
+  // A client that is not a member of the hook's board sends nothing, not even
+  // the card-opened notification.
   const denied = fixture({ member: false });
-  await denied.send(input('outgoing')); assert.equal(denied.requests.length, 0);
+  await denied.client({ ...input('outgoing'), description: 'CardSelected', params: { cardId: 'card' } }, { connection: {} });
+  assert.equal(denied.requests.length, 0);
   const broken = fixture({ load: async () => { throw new Error('load failed'); } });
   await assert.rejects(broken.prepare(input('outgoing')), /load failed/);
   await assert.rejects(broken.send(input('outgoing')), /load failed/);

@@ -16,7 +16,7 @@
  *
  * Usage:
  *   import { safeDeliver } from '/server/lib/webhookGuard';
- *   safeDeliver(() => Meteor.callAsync('outgoingWebhooks', ...));
+ *   safeDeliver(() => deliverActivityWebhook(integration, description, params, actorId));
  */
 
 /**
