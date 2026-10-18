@@ -107,6 +107,48 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **32-bit ARM single files** are injected outside the 32-bit
+Node.js that ran out of memory doing it, and each **musl AppImage** is built
+once, under a name of its own.
+
+This release fixes the following bugs:
+
+**Release builds** - single files and AppImages that v12.54 built broken,
+twice, or not at all.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29dfe94886">A 32-bit ARM single file's blob is injected in a 64-bit process</a>. Thanks to xet7.</summary>
+
+v12.54's retry did not help: armv7 failed with `std::bad_alloc` on all three
+attempts. A 32-bit target's blob must be written by a 32-bit Node.js, and
+`--build-sea` also injects it with LIEF in that process, which does not have
+the address space for it. The i386 Node.js now writes only the blob
+(`--experimental-sea-config`), and `releases/single-file/sea-inject-elf.py`
+injects it with LIEF 1.0.0, the version Node.js vendors, step for step as
+`--build-sea` does. The result is byte-identical to `--build-sea`'s, for a
+non-PIE x64 Node.js and the PIE node-armv7. win32 and 64-bit targets are
+unchanged, and the retry is gone. `tests/singleFileSeaInject.test.cjs`
+compares the two outputs byte for byte where LIEF is available.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cbb038719">Each musl AppImage is built once, and every AppImage job has its own name</a>. Thanks to xet7.</summary>
+
+The glibc AppImages call built the musl rows too, so "AppImage x86_64" and
+"AppImage aarch64" ran twice. Their logs then collided in the run's log
+archive and asked to be overwritten when it was unpacked. That call now builds
+only the glibc four, the job is named `AppImage x86_64-musl` and so on, and
+each run checks only its own AppImages are attached. The musl run had warned
+that the glibc ones were missing. `tests/muslBundles.test.cjs` checks that the
+names are unique and that each row is built by one call.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.54 2026-10-18 WeKan ® release
 
 **In short:** the **Android** bundles, the **x86_64 musl AppImage** and the
