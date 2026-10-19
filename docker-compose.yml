@@ -282,13 +282,6 @@ services:
       # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
       # Defaults below. Uncomment to change. wekan/server/accounts-common.js
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
-      #
-      # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts that
-      # have not used WeKan for this many days (Admin Panel > People > Last
-      # active). Admins are never disabled. Accounts with no recorded activity
-      # yet are counted from the first run. Re-enabling an account restarts its
-      # count. Unset or 0 = off (default).
-      #- USERS_DISABLE_INACTIVE_AFTER_DAYS=180
       #---------------------------------------------------------------
       #---------------------------------------------------------------
       # ==== CARD LOADING: all (default) or lazy ====
@@ -870,6 +863,14 @@ services:
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------
+      # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts that
+      # have not used WeKan for this many days (Admin Panel > People > Last
+      # active). Admins are never disabled. Accounts with no recorded activity
+      # yet are counted from the first run. Re-enabling an account restarts its
+      # count. Unset or 0 = off (default). Admin Panel / People / Login can set
+      # it too, and its value there wins.
+      #- USERS_DISABLE_INACTIVE_AFTER_DAYS=180
       #-------------------------------------------------------------------
       # Hide password login form
       # - PASSWORD_LOGIN_ENABLED=true
