@@ -107,6 +107,83 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** accounts nobody uses can be **disabled after a set number of
+days**, from the Admin Panel or the environment, and **LDAP background sync**
+disables what the directory disabled. Admin Panel / People shows everyone's
+**Last active**, check marks are check marks in **right-to-left** languages,
+and **restored list swimlanes** survive the next upgrade.
+
+This release adds the following new features:
+
+**People** - who uses WeKan, and what happens to accounts nobody does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b933a69cd4">Inactive accounts can be disabled; LDAP sync honours its search filter; everyone's Last active is shown</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+- [#6783](https://github.com/wekan/wekan/issues/6783): Admin Panel / People
+  showed "Last active" as "-" for every user but the administrator, because
+  the `people` publication did not carry `lastConnectionDate`.
+- [#6784](https://github.com/wekan/wekan/issues/6784):
+  `USERS_DISABLE_INACTIVE_AFTER_DAYS` disables, once a night, accounts unused
+  for that many days, and revokes their logins.
+  - Admins are never disabled.
+  - An account with no recorded activity starts its count on the first run,
+    not from when it was created.
+  - Re-enabling an account restarts its count.
+  - The setting is in **Admin Panel / People / Login** as well as in every
+    platform's settings. It is read each night, so a change there needs no
+    restart.
+- [#6785](https://github.com/wekan/wekan/issues/6785): LDAP background sync
+  looked users up without `LDAP_USER_SEARCH_FILTER`. An account the filter
+  excludes, such as one disabled in Active Directory, could not log in but was
+  still found: it was never disabled, and a manual disable was undone on the
+  next sync. The filter is now part of the lookup, and an account disabled for
+  inactivity is not re-enabled by the sync.
+
+From the patch by Raymond-Voogt. `tests/inactiveUsers.test.cjs`,
+`tests/ldapBackgroundSync.test.cjs`, `tests/ldapUserIdFilter.test.cjs`,
+`tests/authConfigCatalog.test.cjs` and
+`inactive-users-last-active.e2e.js` cover it.
+
+</details>
+
+and fixes the following bugs:
+
+**Right-to-left languages** - how a checked checkbox looks.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4bcded492">A checked checkbox shows a check mark in right-to-left languages too</a>. Thanks to mimZD and xet7.</summary>
+
+[#6786](https://github.com/wekan/wekan/issues/6786): the tick is a box rotated
+40 degrees and drawn by its bottom and side borders. The side was
+`border-inline-end`, which a right-to-left page puts on the left, so the tick
+opened the other way. All 25 rules that draw a tick now use `border-right`.
+`tests/rtlCheckMark.test.cjs` fails if any checked state in `client/` draws
+one with a logical border, and `rtl-check-mark.e2e.js` compares both
+directions.
+
+</details>
+
+**Admin Panel / Problems** - repairs that stay repaired.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3469f84c78">Restored list swimlanes stay restored after a WeKan upgrade</a>. Thanks to mimZD and xet7.</summary>
+
+[#6787](https://github.com/wekan/wekan/issues/6787): after every new release,
+the startup upgrade's `merge-per-swimlane-lists` step, written for v7.98-era
+damage, un-bound every list on a board with two lists of one title, the lists
+"Lists missing their swimlane" -> Restore had bound included. So the count
+came back the same after each upgrade. A list bound to the swimlane it was
+created in, with all its cards there, is now left alone. Press Restore once
+more after upgrading. `tests/schemaUpgradeSteps.test.cjs` covers the issue's
+board and two negatives.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.55 2026-10-18 WeKan ® release
 
 **In short:** the **32-bit ARM single files** are injected outside the 32-bit
