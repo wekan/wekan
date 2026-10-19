@@ -15,6 +15,10 @@
  *      physical left/right longhands, so every page mirrors when `dir` flips.
  *      The only allowed physical offsets are `left/right: 50%` centering tricks
  *      (paired with transform: translate, which already work in both directions).
+ *      The one allowed physical BORDER is a check mark's (#6786): a check mark is
+ *      not mirrored in a right-to-left language, and drawn with border-inline-end
+ *      it rotated into "<". Only border-left/-right inside a rule whose selector
+ *      is a checked state (is-checked, :checked) - tests/rtlCheckMark.test.cjs.
  *
  * The visual/placement behaviour ("text is visible and on the correct side on
  * every page") is covered by the browser test in
@@ -173,11 +177,20 @@ test('component CSS uses logical properties, not physical left/right longhands',
   const physical = /(^|[^-\w])(margin|padding|border)-(left|right)\b|text-align\s*:\s*(left|right)\b|float\s*:\s*(left|right)\b/;
   const offenders = [];
   for (const file of cssFiles()) {
-    const lines = withoutComments(read(path.relative(repoRoot, file))).split('\n');
-    lines.forEach((line, i) => {
-      if (physical.test(line)) {
-        offenders.push(`${path.relative(repoRoot, file)}:${i + 1}: ${line.trim()}`);
-      }
+    const css = withoutComments(read(path.relative(repoRoot, file)));
+    // Lines inside a check mark's rule, where border-left/-right is the shape
+    // of the tick rather than a side of the page.
+    const tickLines = new Set();
+    for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      if (!/is-checked|:checked/.test(m[1])) continue;
+      const first = css.slice(0, m.index + m[1].length).split('\n').length;
+      const last = first + m[2].split('\n').length - 1;
+      for (let n = first; n <= last; n++) tickLines.add(n);
+    }
+    css.split('\n').forEach((line, i) => {
+      if (!physical.test(line)) return;
+      if (tickLines.has(i + 1) && /^\s*border-(left|right)\s*:/.test(line)) return;
+      offenders.push(`${path.relative(repoRoot, file)}:${i + 1}: ${line.trim()}`);
     });
   }
   assert.deepStrictEqual(
