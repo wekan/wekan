@@ -122,4 +122,21 @@ test('the new People-page i18n keys exist and stay in step across locales', () =
   });
 });
 
+// #6783: "Last active" showed "-" for everyone but the admin. Two places had
+// to carry the date: the people publication, and the client-side projection
+// the table builds its rows from (peopleDocs) - publishing it alone left every
+// row reading a copy without it.
+test('#6783 the date reaches every People row: published AND projected', () => {
+  const root = path.join(__dirname, '..');
+  const pub = fs.readFileSync(path.join(root, 'server/publications/people.js'), 'utf8');
+  assert.match(pub, /lastConnectionDate: 1,/, 'the people publication sends it');
+  const js = fs.readFileSync(path.join(root, 'client/components/settings/peopleBody.js'), 'utf8');
+  const docs = /function peopleDocs\(tpl\) \{[\s\S]*?\n\}/.exec(js)[0];
+  assert.match(docs, /lastConnectionDate: 1,/, 'the rows\' projection keeps it');
+  // negative: the presence helpers do not read the projected row copy first.
+  const helpers = js.slice(js.indexOf('  lastActiveAt() {'), js.indexOf('  isRecentlyActive() {') + 200);
+  assert.doesNotMatch(helpers, /this\.user \|\| ReactiveCache/);
+  assert.match(helpers, /presenceUser\(this\)/);
+});
+
 console.log(`\n${passed} passed`);

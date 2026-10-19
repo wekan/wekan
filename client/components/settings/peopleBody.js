@@ -610,6 +610,11 @@ function firstPeoplePaneId(user) {
 //
 // `getPeoplePageIds` names the page; the documents still come from the publication.
 // An id whose document has not arrived yet is simply not rendered yet.
+function presenceUser(row) {
+  const id = (row.user && row.user._id) || row.userId;
+  return (id && ReactiveCache.getUser(id)) || row.user || null;
+}
+
 function peopleDocs(tpl) {
   const ids = tpl.peoplePageIds.get();
   if (!ids.length) return [];
@@ -622,6 +627,10 @@ function peopleDocs(tpl) {
       createdAt: 1,
       loginDisabled: 1,
       services: 1,
+      // The "Last active" column (#6783): without it every row read a copy
+      // that had no date and showed "-", although the people publication
+      // sends it.
+      lastConnectionDate: 1,
     },
   }).fetch();
   // The server's order, not minimongo's: `$in` does not preserve it.
@@ -1619,12 +1628,14 @@ Template.peopleRow.helpers({
   // (client/lastActiveHeartbeat.js) via the `usersHeartbeat` method; the
   // recency threshold for "online now" lives in models/lib/lastActive.js so
   // this helper and the unit test agree on what "recent" means.
+  // The whole user document, as userData() reads it: the row's own `user` is
+  // a copy with only the fields the table lists (peopleDocs).
   lastActiveAt() {
-    const user = this.user || ReactiveCache.getUser(this.userId);
+    const user = presenceUser(this);
     return user && user.lastConnectionDate;
   },
   isRecentlyActive() {
-    const user = this.user || ReactiveCache.getUser(this.userId);
+    const user = presenceUser(this);
     if (!user || !user.lastConnectionDate) return false;
     return isRecentlyActive(user.lastConnectionDate, new Date());
   },
