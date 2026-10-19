@@ -450,6 +450,84 @@ await test('negative: merge-per-swimlane-lists leaves healthy and RENAMED per-sw
   assert.ok(db._dump('cards').every((c, i) => c.listId === ['l1', 'l2'][i]), 'cards keep their own list');
 });
 
+// #6787: Admin Panel / Problems / "Restore" binds a list back to the swimlane
+// it was created in (positionHistory). This step un-bound it again on every new
+// WeKan release, so the "Lists missing their swimlane" count came back to
+// exactly the same number after each upgrade.
+await test('#6787 merge-per-swimlane-lists keeps a list bound to the swimlane it was created in', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 'b1', archived: false }],
+    swimlanes: [
+      { _id: 's1', boardId: 'b1', archived: false, sort: 0 },
+      { _id: 's2', boardId: 'b1', archived: false, sort: 1 },
+    ],
+    lists: [
+      // Restored: bound to its recorded swimlane, its cards there too.
+      { _id: 'r1', boardId: 'b1', title: 'Todo', swimlaneId: 's1', archived: false },
+      { _id: 'r2', boardId: 'b1', title: 'Todo', swimlaneId: 's2', archived: false },
+      // A v7.98 stamp on the same board: cards of another swimlane in it.
+      { _id: 'st', boardId: 'b1', title: 'Done', swimlaneId: 's1', archived: false },
+    ],
+    positionHistory: [
+      { _id: 'h1', entityType: 'list', entityId: 'r1', originalSwimlaneId: 's1' },
+      { _id: 'h2', entityType: 'list', entityId: 'r2', originalSwimlaneId: 's2' },
+    ],
+    cards: [
+      { _id: 'c1', boardId: 'b1', listId: 'r1', swimlaneId: 's1', archived: false },
+      { _id: 'c2', boardId: 'b1', listId: 'r2', swimlaneId: 's2', archived: false },
+      { _id: 'c3', boardId: 'b1', listId: 'st', swimlaneId: 's2', archived: false },
+    ],
+  });
+  await runSchemaUpgrade(db, opts);
+  const byId = Object.fromEntries(db._dump('lists').map(l => [l._id, l]));
+  assert.strictEqual(byId.r1 && byId.r1.swimlaneId, 's1', 'restored list stays in its swimlane');
+  assert.strictEqual(byId.r2 && byId.r2.swimlaneId, 's2', 'and is not merged with its namesake');
+  assert.strictEqual(byId.st.swimlaneId, '', 'negative: the stamped list on the same board is still un-bound');
+});
+
+await test('#6787 a board of only by-design lists does not trigger the step at all', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 'b1', archived: false }],
+    swimlanes: [{ _id: 's1', boardId: 'b1', archived: false, sort: 0 }, { _id: 's2', boardId: 'b1', archived: false, sort: 1 }],
+    lists: [
+      { _id: 'r1', boardId: 'b1', title: 'Todo', swimlaneId: 's1', archived: false },
+      { _id: 'r2', boardId: 'b1', title: 'Todo', swimlaneId: 's2', archived: false },
+    ],
+    positionHistory: [
+      { _id: 'h1', entityType: 'list', entityId: 'r1', originalSwimlaneId: 's1' },
+      { _id: 'h2', entityType: 'list', entityId: 'r2', originalSwimlaneId: 's2' },
+    ],
+    cards: [],
+  });
+  const res = await runSchemaUpgrade(db, opts);
+  assert.ok(!res.ran.includes('merge-per-swimlane-lists'), 'same titles in their own swimlanes are not era duplicates');
+  assert.deepStrictEqual(db._dump('lists').map(l => l.swimlaneId), ['s1', 's2']);
+});
+
+await test('#6787 negative: a recorded binding does not protect a list whose cards are elsewhere', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 'b1', archived: false }],
+    swimlanes: [{ _id: 's1', boardId: 'b1', archived: false, sort: 0 }, { _id: 's2', boardId: 'b1', archived: false, sort: 1 }],
+    lists: [{ _id: 'l1', boardId: 'b1', title: 'Todo', swimlaneId: 's1', archived: false }],
+    positionHistory: [{ _id: 'h1', entityType: 'list', entityId: 'l1', originalSwimlaneId: 's1' }],
+    cards: [{ _id: 'c1', boardId: 'b1', listId: 'l1', swimlaneId: 's2', archived: false }],
+  });
+  await runSchemaUpgrade(db, opts);
+  assert.strictEqual(db._dump('lists')[0].swimlaneId, '', 'binding it would hide the card, so it is shared');
+});
+
+await test('#6787 negative: a list bound somewhere OTHER than its record is still un-bound', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 'b1', archived: false, fixMissingListsCompleted: true }],
+    swimlanes: [{ _id: 's1', boardId: 'b1', archived: false, sort: 0 }, { _id: 's2', boardId: 'b1', archived: false, sort: 1 }],
+    lists: [{ _id: 'l1', boardId: 'b1', title: 'Todo', swimlaneId: 's1', archived: false }],
+    positionHistory: [{ _id: 'h1', entityType: 'list', entityId: 'l1', originalSwimlaneId: 's2' }],
+    cards: [],
+  });
+  await runSchemaUpgrade(db, opts);
+  assert.strictEqual(db._dump('lists')[0].swimlaneId, '');
+});
+
 await test('write path (#1959/#1971): card insert hook validates client-supplied swimlaneIds', () => {
   const hook = read('server/migrations/ensureValidSwimlaneIds.js');
   assert.ok(hook.includes('#1959/#1971'), 'the visibility fix is documented at the hook');

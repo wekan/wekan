@@ -76,6 +76,38 @@ const CHECKLIST_MINICARD_MARKER_ID = 'checklist-minicard-unset';
 // Meteor-style random document ids (Random.id(): 17 chars, unmistakable set),
 // so upgraded documents look exactly like app-created ones.
 const ID_CHARS = '23456789ABCDEFGHJKLMNPQRSTWXYZabcdefghijkmnopqrstuvwxyz';
+// #6787: a list bound to the very swimlane it was CREATED in - recorded once,
+// insert-only, in positionHistory - with none of its cards in another swimlane
+// is per-swimlane by design. It is what Admin Panel / Problems / "Restore"
+// (#6670, models/lib/listSwimlaneRestore.js) puts back, and it is not a v7.98
+// stamp: those were stamped to the default swimlane AFTER the list existed.
+// merge-per-swimlane-lists leaves these alone. Before this it un-bound them on
+// every new WeKan release, so after each upgrade the Restore count came back
+// to exactly the same number.
+async function listsBoundByDesign(db, lists) {
+  const bound = lists.filter(l => l && l.swimlaneId);
+  const kept = new Set();
+  if (!bound.length) return kept;
+  const original = new Map();
+  for (const h of await db.collection('positionHistory').find(
+    { entityType: 'list', entityId: { $in: bound.map(l => String(l._id)) } },
+    { projection: { entityId: 1, originalSwimlaneId: 1 } },
+  ).toArray()) {
+    if (typeof h.originalSwimlaneId === 'string' && h.originalSwimlaneId) {
+      original.set(String(h.entityId), h.originalSwimlaneId);
+    }
+  }
+  for (const l of bound) {
+    if (original.get(String(l._id)) !== String(l.swimlaneId)) continue;
+    if (await db.collection('cards').findOne(
+      { listId: String(l._id), swimlaneId: { $nin: [String(l.swimlaneId), null, ''] } },
+      { projection: { _id: 1 } },
+    )) continue;
+    kept.add(String(l._id));
+  }
+  return kept;
+}
+
 function randomId(len = 17) {
   // Rejection sampling: 256 is not a multiple of ID_CHARS.length (55), so a
   // plain `byte % 55` skews toward the first characters (CodeQL
@@ -386,10 +418,12 @@ const steps = [
       )) return true;
       const boardIds = (await db.collection('lists').distinct('boardId', { swimlaneId: { $nin: [null, ''] }, type: { $ne: 'template-list' } })).map(String);
       for (const boardId of boardIds) {
-        const lists = await db.collection('lists').find(
+        const all = await db.collection('lists').find(
           { boardId, type: { $ne: 'template-list' } },
           { projection: { title: 1, swimlaneId: 1, archived: 1 } },
         ).toArray();
+        const byDesign = await listsBoundByDesign(db, all);
+        const lists = all.filter(l => !byDesign.has(String(l._id)));
         const seen = new Set();
         for (const l of lists) {
           if (l.archived === true) continue;
@@ -415,10 +449,12 @@ const steps = [
       ).toArray()).map(b => String(b._id));
       const stampedBoards = (await db.collection('lists').distinct('boardId', { swimlaneId: { $nin: [null, ''] }, type: { $ne: 'template-list' } })).map(String);
       for (const boardId of new Set([...markerBoards, ...stampedBoards])) {
-        const lists = await db.collection('lists').find(
+        const all = await db.collection('lists').find(
           { boardId, type: { $ne: 'template-list' } },
           { projection: { title: 1, swimlaneId: 1, archived: 1, sort: 1, createdAt: 1 } },
         ).toArray();
+        const byDesign = await listsBoundByDesign(db, all);
+        const lists = all.filter(l => !byDesign.has(String(l._id)));
         // Only act on boards that actually show an era symptom (duplicate titles
         // or a card/list swimlane mismatch or the marker) — a healthy natively
         // per-swimlane board is left exactly as it is.
@@ -460,7 +496,7 @@ const steps = [
         }
         // shared lists render in EVERY swimlane via the '' fallback
         const r = await db.collection('lists').updateMany(
-          { boardId, type: { $ne: 'template-list' }, swimlaneId: { $nin: [null, ''] } },
+          { boardId, type: { $ne: 'template-list' }, swimlaneId: { $nin: [null, ''] }, _id: { $nin: [...byDesign] } },
           { $set: { swimlaneId: '' } },
         );
         fixed += (r && r.modifiedCount) || 0;
