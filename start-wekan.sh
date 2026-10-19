@@ -195,6 +195,8 @@
       # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
       # Defaults below. Uncomment to change. wekan/server/accounts-common.js
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
+      # Disable accounts unused for this many days (admins never). Unset or 0 = off.
+      #export USERS_DISABLE_INACTIVE_AFTER_DAYS=180
       #---------------------------------------------------------------
       # ==== Allow configuration to validate uploaded attachments ====
       #export ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="/usr/local/bin/avscan {file}"

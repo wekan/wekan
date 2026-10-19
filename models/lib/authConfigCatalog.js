@@ -182,6 +182,9 @@ const SECTIONS = {
       ['logoutIn', 'LOGOUT_IN', 'number', { max: 3650 }],
       ['logoutOnHours', 'LOGOUT_ON_HOURS', 'number', { max: 23 }],
       ['logoutOnMinutes', 'LOGOUT_ON_MINUTES', 'number', { max: 59 }],
+      // Disable accounts unused for this many days, nightly; empty or 0 is off
+      // (models/lib/inactiveUsers.js, server/disableInactiveUsers.js, #6784).
+      ['disableInactiveAfterDays', 'USERS_DISABLE_INACTIVE_AFTER_DAYS', 'number', { max: 36500 }],
     ],
   },
 };

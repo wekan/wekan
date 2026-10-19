@@ -107,4 +107,36 @@ test('old implementation would have failed on the issue configuration', () => {
   assert.strictEqual(oldGetUserByIdFilter('', 'm.user'), '(|(=m.user))'); // invalid filter
 });
 
+// ── LDAP_USER_SEARCH_FILTER in the background-sync lookup ─────────────────────
+// An account LDAP_USER_SEARCH_FILTER excludes cannot log in; background sync
+// must not "find" it either, or LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS
+// never disables a user that was disabled in the directory (and re-enables one
+// an admin disabled by hand).
+
+const AD_ENABLED_ONLY = '(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))';
+
+test('search filter is ANDed with the stored-attribute filter', () => {
+  assert.strictEqual(
+    buildUserIdFilter('objectGUID', '\\01\\02', '', '', AD_ENABLED_ONLY),
+    `(&${AD_ENABLED_ONLY}(objectGUID=\\01\\02))`,
+  );
+});
+
+test('search filter is ANDed with an OR over the configured fields', () => {
+  assert.strictEqual(
+    buildUserIdFilter(undefined, 'm.user', 'guid', 'sAMAccountName', '(objectClass=person)'),
+    '(&(objectClass=person)(|(guid=m.user)(sAMAccountName=m.user)))',
+  );
+});
+
+test('empty or missing search filter leaves the id filter unchanged', () => {
+  assert.strictEqual(buildUserIdFilter('uid', 'a', '', '', ''), '(uid=a)');
+  assert.strictEqual(buildUserIdFilter('uid', 'a', '', '', '   '), '(uid=a)');
+  assert.strictEqual(buildUserIdFilter('uid', 'a', '', ''), '(uid=a)');
+});
+
+test('no id attribute configured is still null with a search filter', () => {
+  assert.strictEqual(buildUserIdFilter(undefined, 'v', '', '', '(objectClass=person)'), null);
+});
+
 console.log(`\n${passed} tests passed`);

@@ -35,6 +35,10 @@ Meteor.publish('people', async function(query, limit, skip = 0) {
         emails: 1,
         createdAt: 1,
         loginDisabled: 1,
+        // The "Last active" column (peopleBody.jade, #3678/#3734) reads this.
+        // Without it every row but the admin's own showed "-": only the
+        // admin's own user document reached the client with the field.
+        lastConnectionDate: 1,
         authenticationMethod: 1,
         importUsernames: 1,
         orgs: 1,

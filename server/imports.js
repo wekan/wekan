@@ -433,6 +433,7 @@ import '/server/checklistResetSchedule';
 // Whole-card recurrence: the job the card's Recurrence setting waits for.
 import '/server/cardRecurrenceSchedule';
 import '/server/autoArchiveCards';
+import '/server/disableInactiveUsers';
 import '/server/listSync';
 import '/server/methods/listSync';
 import '/server/methods/listSyncStuck';

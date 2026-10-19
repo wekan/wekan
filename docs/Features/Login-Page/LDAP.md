@@ -221,6 +221,21 @@ over-broad search, so they cannot be imported as user accounts.
   `LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true`. Lookup errors,
   missing identifier settings and ambiguous matches abort the run instead of
   disabling accounts.
+
+  The lookup uses `LDAP_USER_SEARCH_FILTER`, exactly like login does, so an
+  account the filter excludes counts as no longer present. That is how an
+  account **disabled in the directory** is disabled in WeKan too. For Active
+  Directory, exclude disabled accounts in the filter:
+
+  ```
+  LDAP_USER_SEARCH_FILTER=(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
+  ```
+
+  For OpenLDAP with the ppolicy overlay, `(!(pwdAccountLockedTime=*))` does the
+  same; for 389 DS / FreeIPA, `(!(nsAccountLock=TRUE))`.
+
+  A user that WeKan disabled for inactivity (`USERS_DISABLE_INACTIVE_AFTER_DAYS`)
+  is *not* re-enabled by background sync; an administrator re-enables it.
 - `LDAP_SYNC_ORGANIZATIONS` (default `false`) — when `true`, a user's LDAP groups
   are synced into that user's Wekan **Organizations**.
 - `LDAP_SYNC_ORGANIZATIONS_GROUPS` (default empty) — comma-separated list of LDAP

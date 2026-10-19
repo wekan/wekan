@@ -589,6 +589,7 @@ async function sync() {
                 'LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS',
               ) === true,
             loginDisabled: user.loginDisabled,
+            loginDisabledReason: user.loginDisabledReason,
           });
           if (presenceUpdate) {
             log_info('Re-enabling user present in LDAP again', user.username);
@@ -614,6 +615,7 @@ async function sync() {
                 'LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS',
               ) === true,
             loginDisabled: user.loginDisabled,
+            loginDisabledReason: user.loginDisabledReason,
           });
           if (presenceUpdate) {
             log_info('Disabling user no longer present in LDAP', user.username);

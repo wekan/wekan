@@ -374,6 +374,21 @@ export default class LDAP {
     return values;
   }
 
+  // LDAP_USER_SEARCH_FILTER as one parenthesised clause, or '' when unset -
+  // the same normalisation getUserFilter (login) applies, for background sync
+  // (getUserById), so both agree on which directory accounts may use WeKan.
+  userSearchFilterClause() {
+    if (this.options.User_Search_Filter == null || this.options.User_Search_Filter === '') {
+      return '';
+    }
+    if (typeof this.options.User_Search_Filter !== 'string') {
+      throw new Error('LDAP_USER_SEARCH_FILTER must be a string');
+    }
+    return this.options.User_Search_Filter[0] === '('
+      ? `${this.options.User_Search_Filter}`
+      : `(${this.options.User_Search_Filter})`;
+  }
+
   getUserFilter(username) {
     const filter = [];
 
@@ -494,6 +509,7 @@ export default class LDAP {
       escapedValue,
       this.constructor.settings_get('LDAP_UNIQUE_IDENTIFIER_FIELD'),
       this.constructor.settings_get('LDAP_USER_SEARCH_FIELD'),
+      this.userSearchFilterClause(),
     );
 
     if (!filter) {

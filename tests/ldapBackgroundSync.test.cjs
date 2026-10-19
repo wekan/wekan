@@ -27,8 +27,32 @@ test('#4654 disables a confirmed missing LDAP user when explicitly enabled', () 
       disableNonexistentUsers: true,
       loginDisabled: false,
     }),
-    { loginDisabled: true },
+    { loginDisabled: true, loginDisabledReason: 'ldap' },
   );
+});
+
+test('an account disabled for inactivity is not re-enabled by LDAP sync', () => {
+  assert.strictEqual(
+    ldapPresenceUpdate({
+      ldapUserFound: true,
+      disableNonexistentUsers: true,
+      loginDisabled: true,
+      loginDisabledReason: 'inactive',
+    }),
+    null,
+  );
+  // ...but one LDAP disabled itself, or an admin disabled, still is.
+  for (const loginDisabledReason of ['ldap', undefined]) {
+    assert.deepStrictEqual(
+      ldapPresenceUpdate({
+        ldapUserFound: true,
+        disableNonexistentUsers: true,
+        loginDisabled: true,
+        loginDisabledReason,
+      }),
+      { loginDisabled: false },
+    );
+  }
 });
 
 test('#4654 re-enables an LDAP user that reappears', () => {

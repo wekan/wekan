@@ -3340,6 +3340,16 @@ WebApp.handlers.get('/api/admin/domains', async function(req, res) {
 // disabled accounts and catches direct database writes or racing DDP logins.
 Users.before.update(function(userId, doc, fields, modifier) {
   require('/server/lib/activeUser').revokeDisabledTokensModifier(modifier);
+  // USERS_DISABLE_INACTIVE_AFTER_DAYS (models/lib/inactiveUsers.js): enabling
+  // an account - by an admin, the REST API or LDAP sync - forgets why it was
+  // disabled and restarts its inactivity clock, so it is not disabled again by
+  // the next nightly run before its owner has had a chance to log in.
+  if (modifier.$set && modifier.$set.loginDisabled === false && doc.loginDisabled === true) {
+    modifier.$set.inactivityClockStart = new Date();
+    if (!('loginDisabledReason' in modifier.$set)) {
+      modifier.$unset = { ...(modifier.$unset || {}), loginDisabledReason: '' };
+    }
+  }
 });
 Meteor.startup(async () => {
   const revoke = id => require('/server/lib/activeUser').revokeDisabledTokens(id)

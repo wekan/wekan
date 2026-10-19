@@ -26,7 +26,23 @@ function splitFieldSetting(value) {
 // escapedValue: the id value already escaped for use inside an LDAP filter;
 // uniqueIdentifierFieldSetting / userSearchFieldSetting: the raw settings values.
 // Returns the filter string, or null when no usable attribute is configured.
-function buildUserIdFilter(attribute, escapedValue, uniqueIdentifierFieldSetting, userSearchFieldSetting) {
+//
+// userSearchFilter (optional): LDAP_USER_SEARCH_FILTER, already normalised to a
+// parenthesised clause (or empty). Login searches with it, so an account it
+// excludes - a disabled Active Directory account, with
+// (!(userAccountControl:1.2.840.113556.1.4.803:=2)) - cannot log in. Background
+// sync searched without it, so such an account was still "found": it was never
+// disabled by LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS, and a disable made
+// by hand was even undone on the next run. With the filter ANDed in, an account
+// the directory no longer lets log in counts as gone, as it does at login.
+function buildUserIdFilter(attribute, escapedValue, uniqueIdentifierFieldSetting, userSearchFieldSetting, userSearchFilter) {
+  const idFilter = buildIdOnlyFilter(attribute, escapedValue, uniqueIdentifierFieldSetting, userSearchFieldSetting);
+  if (!idFilter) return null;
+  const clause = typeof userSearchFilter === 'string' ? userSearchFilter.trim() : '';
+  return clause ? `(&${clause}${idFilter})` : idFilter;
+}
+
+function buildIdOnlyFilter(attribute, escapedValue, uniqueIdentifierFieldSetting, userSearchFieldSetting) {
   if (attribute) {
     return `(${attribute}=${escapedValue})`;
   }

@@ -854,6 +854,10 @@ REM SET LOGOUT_ON_HOURS=
 REM # LOGOUT_ON_MINUTES : The number of minutes
 REM # example : LOGOUT_ON_MINUTES=55
 REM SET LOGOUT_ON_MINUTES=
+REM # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts unused
+REM # for this many days. Admins never. Unset or 0 = off. Admin Panel / People /
+REM # Login can set it too, and its value there wins.
+REM SET USERS_DISABLE_INACTIVE_AFTER_DAYS=180
 
 REM ## https://github.com/wekan/wekan/wiki/CAS
 REM SET CAS_ENABLED=true

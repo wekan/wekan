@@ -1433,6 +1433,24 @@ Users.attachSchema(
       type: Date,
       optional: true,
     },
+    inactivityClockStart: {
+      /**
+       * USERS_DISABLE_INACTIVE_AFTER_DAYS: when the inactivity clock last
+       * (re)started for an account with no lastConnectionDate, or was re-enabled
+       * (models/lib/inactiveUsers.js)
+       */
+      type: Date,
+      optional: true,
+    },
+    loginDisabledReason: {
+      /**
+       * why loginDisabled was set automatically: 'inactive'
+       * (USERS_DISABLE_INACTIVE_AFTER_DAYS) or 'ldap' (LDAP background sync);
+       * cleared whenever the account is enabled again
+       */
+      type: String,
+      optional: true,
+    },
     anonymized: {
       /**
        * #2731: true once anonymizeUser has scrubbed this account's PII in

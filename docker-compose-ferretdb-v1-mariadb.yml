@@ -897,6 +897,14 @@ services:
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------
+      # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts that
+      # have not used WeKan for this many days (Admin Panel > People > Last
+      # active). Admins are never disabled. Accounts with no recorded activity
+      # yet are counted from the first run. Re-enabling an account restarts its
+      # count. Unset or 0 = off (default). Admin Panel / People / Login can set
+      # it too, and its value there wins.
+      #- USERS_DISABLE_INACTIVE_AFTER_DAYS=180
       #-------------------------------------------------------------------
       # Hide password login form
       # - PASSWORD_LOGIN_ENABLED=true
