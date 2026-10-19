@@ -147,7 +147,7 @@ textarea.js-edit-subtask-item {
 }
 .subtasks-item .check-box.is-checked {
   border-bottom: 2px solid #3cb500;
-  border-inline-end: 2px solid #3cb500;
+  border-right: 2px solid #3cb500;
 }
 /* Unicode checkbox icons styling */
 .subtasks-item .check-box-unicode {

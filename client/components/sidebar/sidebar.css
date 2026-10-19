@@ -121,9 +121,9 @@
   height: 15px !important;
   margin-inline-end: 6px !important;
   border-top: 2px solid transparent !important;
-  border-inline-start: 2px solid transparent !important;
+  border-left: 2px solid transparent !important;
   border-bottom: 2px solid #3cb500 !important;
-  border-inline-end: 2px solid #3cb500 !important;
+  border-right: 2px solid #3cb500 !important;
   transform: rotate(40deg) !important;
   -webkit-backface-visibility: hidden !important;
   backface-visibility: hidden !important;

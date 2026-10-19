@@ -392,9 +392,9 @@ form.inlined-form .custom-field-copy-control > a.fa-copy,
   height: 15px;
   margin-inline-end: 6px;
   border-top: 2px solid transparent;
-  border-inline-start: 2px solid transparent;
+  border-left: 2px solid transparent;
   border-bottom: 2px solid #3cb500;
-  border-inline-end: 2px solid #3cb500;
+  border-right: 2px solid #3cb500;
   transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

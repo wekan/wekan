@@ -72,8 +72,10 @@ test('the field picker uses the Admin Settings and Announcement animation', () =
   assert.ok(base && /transition: 0\.2s/.test(base[1]), 'the shared square animates');
   assert.ok(checked && /transform: rotate\(40deg\)/.test(checked[1]),
     'the shared checked state morphs into the green tick');
+  // border-right, not border-inline-end: a check mark is not mirrored in a
+  // right-to-left language, and the logical side drew "<" there (#6786).
   assert.ok(/border-bottom: 2px solid #3cb500/.test(checked[1])
-    && /border-inline-end: 2px solid #3cb500/.test(checked[1]),
+    && /border-right: 2px solid #3cb500/.test(checked[1]),
   'using the same green borders');
 });
 
