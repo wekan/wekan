@@ -124,7 +124,9 @@ This release adds the following new features:
 
 - [#6783](https://github.com/wekan/wekan/issues/6783): Admin Panel / People
   showed "Last active" as "-" for every user but the administrator, because
-  the `people` publication did not carry `lastConnectionDate`.
+  the `people` publication did not carry `lastConnectionDate`. The table's own
+  row projection left it out too, which the UI test found
+  ([the table's half](https://github.com/wekan/wekan/commit/c4376f92a5)).
 - [#6784](https://github.com/wekan/wekan/issues/6784):
   `USERS_DISABLE_INACTIVE_AFTER_DAYS` disables, once a night, accounts unused
   for that many days, and revokes their logins.
