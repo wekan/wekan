@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.56 2026-10-20 WeKan ® release
 
 **In short:** accounts nobody uses can be **disabled after a set number of
 days**, from the Admin Panel or the environment, and **LDAP background sync**
