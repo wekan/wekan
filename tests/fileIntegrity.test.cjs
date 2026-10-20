@@ -369,4 +369,20 @@ function requireUptimeHelper() {
   return new Function(`${consts}\n${fn}\nreturn { classifyPreviousRun };`)();
 }
 
+// A clean scan went to Admin Panel / Problems / Security as StorageBleed on
+// every run ("checked 12144 files ...; 0 changed, 0 with no record saying
+// why"), where only an attempt belongs.
+test('a clean scan is logged on the server, not reported as a security event', () => {
+  const src = read('server/lib/fileIntegrityScan.js');
+  const tail = src.slice(src.indexOf('const line ='), src.indexOf('return summary;'));
+  assert.match(tail, /if \(findings > 0\) \{\n\s+record\(\{[\s\S]*?source: 'integrity-scan-summary'/);
+  assert.match(tail, /\} else \{\n\s+console\.log\(`\[file-integrity\] \$\{line\}`\);/);
+  // negative: no unconditional summary record left anywhere in the scan
+  const summaries = src.match(/source: 'integrity-scan-summary'/g) || [];
+  assert.equal(summaries.length, 1);
+  // negative: each changed or missing file is still recorded on its own
+  assert.ok((src.match(/action: verdict\.explained \? 'detected' : 'blocked'/g) || []).length >= 1);
+  assert.match(src, /expected file is missing/);
+});
+
 console.log(`\n${passed} tests passed`);

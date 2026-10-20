@@ -333,15 +333,25 @@ export async function runIntegrityScan(options = {}) {
     keySource: keys ? keys.source : 'none',
   };
 
-  record({
-    severity: unexplained ? 'high' : 'info',
-    action: 'detected',
-    source: 'integrity-scan-summary',
-    detail:
-      `checked ${checked} files in ${Math.round(summary.ms / 1000)}s; ` +
-      `${findings} changed, ${unexplained} with no record saying why` +
-      (stoppedEarly ? `; stopped early: ${stoppedEarly}` : ''),
-  });
+  const line =
+    `checked ${checked} files in ${Math.round(summary.ms / 1000)}s; ` +
+    `${findings} changed, ${unexplained} with no record saying why` +
+    (stoppedEarly ? `; stopped early: ${stoppedEarly}` : '');
+  // A clean scan is the scan working, not something that happened to the
+  // files: it went to Admin Panel / Problems / Security as StorageBleed on
+  // every run ("0 changed, 0 with no record saying why", 41 of them), where
+  // only an ATTEMPT belongs. It is logged on the server; the Security report
+  // gets the summary only beside the findings it sums up.
+  if (findings > 0) {
+    record({
+      severity: unexplained ? 'high' : 'info',
+      action: 'detected',
+      source: 'integrity-scan-summary',
+      detail: line,
+    });
+  } else {
+    console.log(`[file-integrity] ${line}`);
+  }
 
   return summary;
 }
