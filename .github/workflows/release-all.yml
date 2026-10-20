@@ -5176,6 +5176,24 @@ jobs:
           }
 
           attempts=3
+          # Launchpad being down is not three strikes. v12.56 ppc64el: attempt
+          # 1's builder lost its TLS connection cloning our source ("RPC failed;
+          # curl 56 GnuTLS recv error ... early EOF"), and attempts 2 and 3, a
+          # minute apart each, both met Launchpad's own "HTTP Error 503: Service
+          # Unavailable" / "Error: Timeout" - the job gave up after 20 minutes
+          # of a five-hour budget. An attempt that failed on Launchpad
+          # infrastructure earns another one, up to this many, after a pause
+          # that grows each time.
+          max_attempts=6
+          infra_failure() {   # did THIS attempt fail on Launchpad, not on WeKan?
+            grep -qsE 'HTTP Error 5[0-9][0-9]|Error: Timeout|Service Unavailable' "$remote_log" && return 0
+            local log
+            for log in snapcraft-wekan-*.txt; do
+              [ -e "$log" ] && [ "$log" -nt "$attempt_marker" ] || continue
+              grep -qsE 'RPC failed; curl|GnuTLS recv error|fatal: early EOF|Gateway error \[IP: ' "$log" && return 0
+            done
+            return 1
+          }
           # Set once an attempt ends with Launchpad reporting the build as
           # finished without a snap ("Stopped:" / "Failed:" for this arch).
           # Recovery reconnects to that SAME build, so it can only download the
@@ -5184,7 +5202,9 @@ jobs:
           # retried by submitting a fresh one.
           fresh_next=0
           attempt_marker="$PWD/.tools/tmp/remote-build-attempt.start"
-          for i in $(seq 1 "$attempts"); do
+          i=0
+          while [ "$i" -lt "$attempts" ]; do
+            i=$((i + 1))
             # A partial file from a previous attempt must not be mistaken for
             # this attempt's artifact: snapcraft does not re-download a name it
             # already has, so the truncated one would be uploaded again.
@@ -5283,6 +5303,14 @@ jobs:
               tail -n 120 "$sclog"
               echo "::endgroup::"
             done
+            pause=60
+            if infra_failure; then
+              [ "$attempts" -lt "$max_attempts" ] && [ "$i" -ge "$attempts" ] && attempts=$((attempts + 1))
+              # 5, 10, 15... minutes, never past the shared deadline.
+              pause=$((300 * i))
+              [ "$pause" -le $((deadline - SECONDS - 600)) ] || pause=$(( deadline - SECONDS - 600 > 60 ? deadline - SECONDS - 600 : 60 ))
+              echo "::warning::Attempt $i failed on Launchpad infrastructure (an HTTP 5xx, a timeout or a dropped git/TLS transfer), not on WeKan; allowing up to $attempts attempts."
+            fi
             if [ "$i" -lt "$attempts" ]; then
               # Clear a half-pushed clone only when submission never reached
               # monitoring. A failed poll must keep the running build intact.
@@ -5290,8 +5318,8 @@ jobs:
                 echo "Clearing snapcraft's remote-build cache before retrying submission."
                 rm -rf "$HOME/.cache/snapcraft/remote-build"
               fi
-              echo "Retrying in 60s..."
-              sleep 60
+              echo "Retrying in ${pause}s..."
+              sleep "$pause"
             fi
           done
           echo "::error::Remote build ${MATRIX_ARCH} failed after $attempts attempts (no wekan_${VERSION}_${MATRIX_ARCH}.snap produced). The Launchpad build log printed above says why; the builds are also at https://launchpad.net/~xet7/+snaps" >&2
