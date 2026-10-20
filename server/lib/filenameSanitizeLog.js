@@ -26,10 +26,23 @@ function record(evt) {
 // those, also trip a canary, so the Security report separates "somebody uploaded
 // a file with an awkward name" from "somebody is probing the upload path"
 // (docs/Security/Remediation/WeKan.md §12.6).
-const DANGEROUS_REASON = /^exploit: |traversal|invisible characters|URL-encoded name/i;
+//
+// "URL-encoded name" is not one of them. Browsers and older WeKan percent-encode
+// any non-ASCII name, so every Cyrillic, Chinese or Finnish filename had it, and
+// opening a board of 2019 photos tripped "uploaded a filename carrying an exploit
+// pattern". What an encoding could hide is found anyway: the exploit, path
+// traversal, null-byte and invisible-character reasons are worked out from the
+// DECODED name (models/lib/uploadFileName.js sanitizationReasons).
+const DANGEROUS_REASON = /^exploit: |traversal|null byte|invisible characters/i;
 
-function canaryForReasons(reasons, fileObj) {
+// The canary is about somebody probing the UPLOAD path now. A name repaired
+// while a file is read (source 'fileRead') was uploaded years ago - the
+// repair is recorded, but it is not an attempt, and the reader did nothing.
+const NOT_AN_UPLOAD = new Set(['fileRead']);
+
+function canaryForReasons(reasons, fileObj, source) {
   try {
+    if (NOT_AN_UPLOAD.has(source)) return;
     const list = Array.isArray(reasons) ? reasons : [];
     const dangerous = list.filter(r => typeof r === 'string' && DANGEROUS_REASON.test(r));
     if (!dangerous.length) return;
@@ -49,7 +62,7 @@ function canaryForReasons(reasons, fileObj) {
 // uploadFileName.sanitizationReasons(); `fileObj` supplies the uploader + location.
 async function logFilenameSanitized({ fileObj, source, reasons, from, to }) {
   try {
-    canaryForReasons(reasons, fileObj);
+    canaryForReasons(reasons, fileObj, source);
     const why = Array.isArray(reasons) && reasons.length ? reasons.join('; ') : 'normalized';
     let context = '';
     try { context = formatFileContext(await resolveFileContext(fileObj)); } catch (e) { /* omit */ }
@@ -81,4 +94,4 @@ async function logContentSanitized({ fileObj, source, kinds }) {
   } catch (e) { /* never throw */ }
 }
 
-module.exports = { logFilenameSanitized, logContentSanitized };
+module.exports = { canaryForReasons, DANGEROUS_REASON, logFilenameSanitized, logContentSanitized };

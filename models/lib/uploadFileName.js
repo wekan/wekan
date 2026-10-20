@@ -171,6 +171,11 @@ function sanitizationReasons(originalName, mimeType, correctedName) {
   const corrected = String(correctedName == null ? '' : correctedName);
 
   if (decoded !== raw) reasons.push('URL-encoded name');
+  // Named in its own right, from the DECODED name, so a canary can tell a
+  // traversal from an ordinary percent-encoded (Cyrillic, CJK, Finnish) name:
+  // "URL-encoded name" alone used to be what flagged %2E%2E%2F.
+  if (/(^|[\\/])\.\.([\\/]|$)/.test(decoded)) reasons.push('path traversal');
+  if (/\u0000/.test(decoded)) reasons.push('null byte');
   if (hasInvisibleChars(decoded)) reasons.push('invisible characters');
   if (normalizeConfusables(decoded) !== decoded) reasons.push('typosquatting (look-alike characters)');
   for (const kind of classifyExploitKinds(decoded)) reasons.push('exploit: ' + kind);
