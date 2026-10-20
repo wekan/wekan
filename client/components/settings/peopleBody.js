@@ -882,6 +882,7 @@ Template.people.helpers({
   },
   // The Login pane's own login settings (PASSWORD_LOGIN_ENABLED, ...).
   loginOptionsData() { return authConfigData('login'); },
+  windowsSsoData() { return authConfigData('windowsSso'); },
   ldapPane() { return Template.instance().activeMenuId.get() === 'ldap-setting'; },
   authenticationSection() {
     return {

@@ -299,6 +299,13 @@ test('platforms: every catalog variable is listed where release-all.yml platform
     ...fs.readdirSync(ROOT).filter(f => /^docker-compose.*\.yml$/.test(f) && read(f).includes('LDAP_ENABLE'))];
   const missing = [];
   for (const v of VARS) {
+    // A section that means something on one platform only (Windows SSO) names
+    // the settings files it belongs in; it is required there and nowhere else.
+    const only = (authConfigField(v) || {}).platforms;
+    if (only) {
+      for (const file of only) if (!new RegExp(`\\b${v}\\b`).test(read(file))) missing.push(`${file}: ${v}`);
+      continue;
+    }
     for (const file of files) if (!new RegExp(`\\b${v}\\b`).test(read(file))) missing.push(`${file}: ${v}`);
     if (!keys.has(v)) missing.push(`snap keys: ${v}`);
     const key = (config.match(new RegExp(`^KEY_${v}="([^"]+)"$`, 'm')) || [])[1];

@@ -111,6 +111,12 @@ starts, so mail sent before then waits.
 
 ## Settings by environment
 
+The limits below (all but `INBOUND_IMAP_DISABLED`) are also in the Admin Panel,
+under the Email to card settings: a value set there wins, an empty field falls
+back to the variable, and a change applies at once. `INBOUND_IMAP_DISABLED`
+stays an environment variable, because it stops IMAP in one server process of
+a multi-pod deployment, and an Admin Panel value is shared by all of them.
+
 | Variable | Default | |
 | --- | --- | --- |
 | `INBOUND_IMAP_POLL_SECONDS` | 60 | how often IMAP mailboxes are read (at least 15) |

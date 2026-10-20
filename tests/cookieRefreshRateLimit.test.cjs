@@ -29,8 +29,19 @@ test('negative: anything else leaves Meteor\'s default rather than disabling the
   }
 });
 
-test('Accounts.config receives it, and only from the server environment', () => {
-  assert.match(source, /\.\.\.cookieRefreshRateLimit\(process\.env\.ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT\),/);
+// Admin Panel / People / Login overrides it now, like
+// ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS beside it: a site administrator
+// already sets the login settings, and a reverse proxy that shares one address
+// for every user is exactly what an administrator, not only the host, fixes.
+// Still read once, after the Admin Panel values have loaded, as Accounts.config
+// accepts it once.
+test('Accounts.config receives it, Admin Panel first, then the environment', () => {
+  assert.match(source, /\.\.\.cookieRefreshRateLimit\(authEnv\('ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT'\)\),/);
+  assert.ok(source.indexOf('await authConfigReady;') < source.indexOf("cookieRefreshRateLimit(authEnv("), 'after the Admin Panel values load');
+  const { authConfigField } = require(path.join(root, 'models/lib/authConfigCatalog.js'));
+  const field = authConfigField('ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT');
+  assert.equal(field && field.section, 'login');
+  assert.equal(field.restart, true, 'the form says a restart applies it');
   // false would switch Meteor's limiter off entirely; never pass it.
   assert.doesNotMatch(source, /httpOnlyCookieRateLimit:\s*false/);
 });

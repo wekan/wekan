@@ -861,6 +861,30 @@ REM SET USERS_DISABLE_INACTIVE_AFTER_DAYS=180
 REM # Keep Admin Panel filesystem backups this many days (newest always kept).
 REM # Unset or 0 = all. Admin Panel / Attachments / Backup can set it too.
 REM SET BACKUP_KEEP_DAYS=7
+REM # ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT: Login-cookie refreshes allowed per 10 seconds from one address (Meteor default 30); raise it behind a reverse proxy that is not trusted for the client address. Admin Panel / People / Login overrides it; applies from the next start.
+REM SET ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT=100
+REM # INBOUND_IMAP_POLL_SECONDS: Email to card: how often IMAP mailboxes are read, in seconds (default 60, at least 15).
+REM SET INBOUND_IMAP_POLL_SECONDS=60
+REM # INBOUND_EMAIL_PER_ADDRESS_PER_HOUR: Email to card: cards one sender address can make per hour (default 60).
+REM SET INBOUND_EMAIL_PER_ADDRESS_PER_HOUR=60
+REM # INBOUND_EMAIL_WEBHOOK_SECRET: Email to card: the secret the mail provider must send with each webhook POST, if not set in Admin Panel / People / Notification Settings / Email to card.
+REM SET INBOUND_EMAIL_WEBHOOK_SECRET=long-random-value
+REM # INBOUND_EMAIL_MAX_BYTES: Email to card: largest message in bytes (default 31457280, 30 MB).
+REM SET INBOUND_EMAIL_MAX_BYTES=31457280
+REM # INBOUND_EMAIL_MAX_ATTACHMENT_BYTES: Email to card: largest attachment in bytes (default 26214400, 25 MB).
+REM SET INBOUND_EMAIL_MAX_ATTACHMENT_BYTES=26214400
+REM # EMAIL_VIEW_SENDS_PER_HOUR: Emails one user can send from the email view per hour (default 50).
+REM SET EMAIL_VIEW_SENDS_PER_HOUR=50
+REM # INBOUND_IMAP_DISABLED: true stops THIS server process from reading IMAP mailboxes - for a multi-pod deployment where one pod should read them. Environment only: an Admin Panel value would be shared by every pod.
+REM SET INBOUND_IMAP_DISABLED=true
+REM # WEKAN_DISK_MONITOR: false turns off the disk-usage monitor of this server (Admin Panel / Problems / Disk usage). Default on.
+REM SET WEKAN_DISK_MONITOR=false
+REM # WEKAN_DISK_WATCH_PATHS: Comma-separated paths on this server whose disk usage is watched, instead of the data and files directories.
+REM SET WEKAN_DISK_WATCH_PATHS=/data,/var/lib/wekan
+REM # WEKAN_RAM_MONITOR: false turns off the memory monitor of this server (Admin Panel / Problems / Memory usage). Default on.
+REM SET WEKAN_RAM_MONITOR=false
+REM # WEKAN_IMPORT_RUN_STALE_MS: Milliseconds after which an import with no progress counts as interrupted and can be resumed or discarded (at least 60000).
+REM SET WEKAN_IMPORT_RUN_STALE_MS=600000
 REM # Attachment retention, off unless set. See docs/Features/Cards/Attachments/Attachments.md
 REM SET ATTACHMENTS_RETENTION_DAYS=730
 REM SET ATTACHMENTS_RETENTION_MODE=uploaded

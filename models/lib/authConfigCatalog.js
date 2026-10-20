@@ -177,6 +177,9 @@ const SECTIONS = {
       // the variable decides, as it always did (#5879).
       ['defaultAuthenticationMethod', 'DEFAULT_AUTHENTICATION_METHOD', 'choice', { choices: AUTHENTICATION_METHODS, defaultValue: 'password' }],
       ['loginExpirationInDays', 'ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS', 'number', { defaultValue: 90, restart: true }],
+      // Login-cookie refreshes allowed per 10 seconds from one address
+      // (server/accounts-common.js); Meteor's own default when unset.
+      ['cookieRefreshRateLimit', 'ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT', 'number', { restart: true, max: 100000 }],
       // Automatic logout (models/lib/logoutTimer.js, server/logoutTimer.js).
       ['logoutWithTimer', 'LOGOUT_WITH_TIMER', 'boolean', { defaultValue: false }],
       ['logoutIn', 'LOGOUT_IN', 'number', { max: 3650 }],
@@ -201,6 +204,34 @@ const SECTIONS = {
       ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: 1000, max: 1000000 }],
     ],
   },
+  // Email to card and the email view's limits (docs/Features/General/Email/
+  // Email-To-Card.md), beside Admin Panel / People / Notification Settings /
+  // Email to card, which holds the mailboxes and secrets. INBOUND_IMAP_DISABLED
+  // is not here on purpose: it stops IMAP in ONE process of a multi-pod
+  // deployment, and an Admin Panel value is shared by all of them.
+  inboundEmail: {
+    storage: 'inboundMailLimits',
+    fields: [
+      ['pollSeconds', 'INBOUND_IMAP_POLL_SECONDS', 'number', { defaultValue: 60, max: 86400 }],
+      ['perAddressPerHour', 'INBOUND_EMAIL_PER_ADDRESS_PER_HOUR', 'number', { defaultValue: 60, max: 100000 }],
+      ['maxBytes', 'INBOUND_EMAIL_MAX_BYTES', 'number', { defaultValue: 31457280, max: 1073741824 }],
+      ['maxAttachmentBytes', 'INBOUND_EMAIL_MAX_ATTACHMENT_BYTES', 'number', { defaultValue: 26214400, max: 1073741824 }],
+      ['emailViewSendsPerHour', 'EMAIL_VIEW_SENDS_PER_HOUR', 'number', { defaultValue: 50, max: 100000 }],
+    ],
+  },
+  // Windows SSO (docs/Features/Login-Page/WindowsSSO.md, server/windowsSso.js):
+  // Admin Panel / People / Login. It works only on a Windows server, so its
+  // variables are listed in the Windows settings file only.
+  windowsSso: {
+    storage: 'windowsSso',
+    platforms: ['start-wekan.bat'],
+    fields: [
+      ['enabled', 'WINDOWS_SSO_ENABLED', 'boolean', { defaultValue: false }],
+      ['domains', 'WINDOWS_SSO_DOMAINS', 'text'],
+      ['activeDirectory', 'WINDOWS_SSO_ACTIVE_DIRECTORY', 'boolean', { defaultValue: false }],
+      ['mergeExistingUsers', 'WINDOWS_SSO_MERGE_EXISTING_USERS', 'boolean', { defaultValue: false }],
+    ],
+  },
   // Admin Panel / Attachments / Backup (#6790, models/lib/backupRuns.js).
   backup: {
     storage: 'backupOptions',
@@ -212,10 +243,13 @@ const SECTIONS = {
 
 const AUTH_CONFIG_SECTIONS = {};
 const BY_ENV_VAR = {};
-for (const [section, { storage, envOnly = false, fields }] of Object.entries(SECTIONS)) {
+for (const [section, { storage, envOnly = false, platforms = null, fields }] of Object.entries(SECTIONS)) {
   AUTH_CONFIG_SECTIONS[section] = {
     storage,
     envOnly,
+    // A section that means something on one platform only names the settings
+    // files it belongs in (tests/authConfigCatalog.test.cjs); null is all.
+    platforms,
     fields: fields.map(([key, envVar, type, options = {}]) => {
       const field = {
         key, envVar, type, section, storage,
@@ -232,6 +266,7 @@ for (const [section, { storage, envOnly = false, fields }] of Object.entries(SEC
         restart: options.restart === true,
         max: options.max === undefined ? null : options.max,
         envOnly,
+        platforms,
       };
       for (const name of [envVar, ...field.aliases]) BY_ENV_VAR[name] = field;
       return field;

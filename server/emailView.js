@@ -34,7 +34,10 @@ const ROW_FIELDS = {
   title: 1, description: 1, createdAt: 1, receivedAt: 1, userId: 1, labelIds: 1, listId: 1,
   boardId: 1, dueAt: 1, email: 1, cardNumber: 1,
 };
-const allowSend = createRateLimiter({ limit: Number(process.env.EMAIL_VIEW_SENDS_PER_HOUR) || 50 });
+// Admin Panel first, then EMAIL_VIEW_SENDS_PER_HOUR, read at every send
+// (models/lib/authConfigCatalog.js, section inboundEmail).
+const { authEnv } = require('/server/lib/authConfig');
+const allowSend = createRateLimiter({ limit: () => Number(authEnv('EMAIL_VIEW_SENDS_PER_HOUR')) || 50 });
 
 async function readableBoard(userId, boardId) {
   check(boardId, String);

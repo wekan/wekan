@@ -38,7 +38,8 @@ Meteor.startup(async () => {
     // over a trillion values, and a code now lives 15 minutes.
     tokenSequenceLength: 10,
     loginTokenExpirationHours: 0.25,
-    ...cookieRefreshRateLimit(process.env.ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT),
+    // Admin Panel / People / Login first, like the expiry above; a restart applies it.
+    ...cookieRefreshRateLimit(authEnv('ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT')),
   });
 });
 

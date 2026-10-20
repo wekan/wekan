@@ -4,6 +4,7 @@ import { Random } from 'meteor/random';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { EMAIL_PARTS, cleanParts } from '/models/lib/emailToCard';
+const { AUTH_CONFIG_SECTIONS } = require('/models/lib/authConfigCatalog');
 
 // Email to card in Notification Settings (emailToCardSettings.jade). The
 // admin form is read through getInboundMailSettings - the settings document's
@@ -129,6 +130,14 @@ Template.emailToCardSettings.onCreated(function () {
 
 Template.emailToCardSettings.helpers({
   isAdminScope() { return Template.instance().data.scope === 'admin'; },
+  inboundLimitsData() {
+    return {
+      section: 'inboundEmail',
+      fields: AUTH_CONFIG_SECTIONS.inboundEmail.fields,
+      loadMethod: 'getAuthConfigSources',
+      saveMethod: 'saveAuthConfigSettings',
+    };
+  },
   isBoardScope() { return Template.instance().data.scope === 'board'; },
   isMemberScope() { return Template.instance().data.scope === 'member'; },
   isSandstorm() { return !!Meteor.settings?.public?.sandstorm; },

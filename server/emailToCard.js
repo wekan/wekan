@@ -59,9 +59,12 @@ export const BoardEmailAddresses = new Mongo.Collection('board_email_addresses')
 const ReceivedEmails = new Mongo.Collection('email_to_card_received');
 
 const MAX_ATTACHMENTS = 20;
-const MAX_ATTACHMENT_BYTES = Number(process.env.INBOUND_EMAIL_MAX_ATTACHMENT_BYTES) || 25 * 1024 * 1024;
+// Admin Panel first, then the environment variable, read when used
+// (models/lib/authConfigCatalog.js, section inboundEmail).
+const { authEnv } = require('/server/lib/authConfig');
+const maxAttachmentBytes = () => Number(authEnv('INBOUND_EMAIL_MAX_ATTACHMENT_BYTES')) || 25 * 1024 * 1024;
 const allowAddress = createRateLimiter({
-  limit: Number(process.env.INBOUND_EMAIL_PER_ADDRESS_PER_HOUR) || 60,
+  limit: () => Number(authEnv('INBOUND_EMAIL_PER_ADDRESS_PER_HOUR')) || 60,
 });
 
 Meteor.startup(async () => {
@@ -133,7 +136,7 @@ async function attach(card, userId, attachments) {
     const name = cleanFileName(String(a.filename).split(/[\\/]/).pop().replace(/\0/g, '')) || 'unnamed';
     const type = String(a.contentType || 'application/octet-stream').toLowerCase();
     if (name.toLowerCase().endsWith('.svg') || type === 'image/svg+xml') continue;
-    if (!Buffer.isBuffer(a.content) || a.content.length === 0 || a.content.length > MAX_ATTACHMENT_BYTES) continue;
+    if (!Buffer.isBuffer(a.content) || a.content.length === 0 || a.content.length > maxAttachmentBytes()) continue;
     try {
       await Attachments.writeAsync(a.content, {
         fileName: name,

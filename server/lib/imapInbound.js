@@ -24,10 +24,14 @@ const { fromParsedMail } = require('/server/lib/inboundEmailPayload');
 
 const State = new Mongo.Collection('inbound_mail_state');
 const OWNER = Random.id();
-const INTERVAL_MS = Math.max(15, Number(process.env.INBOUND_IMAP_POLL_SECONDS) || 60) * 1000;
-const LEASE_MS = INTERVAL_MS * 3;
+// Admin Panel / People / Notification Settings first, then the environment
+// variable (models/lib/authConfigCatalog.js, section inboundEmail), read when
+// used: a module-level constant was read before the Admin Panel values were.
+const { authEnv, onAuthConfigChange } = require('/server/lib/authConfig');
+const intervalMs = () => Math.max(15, Number(authEnv('INBOUND_IMAP_POLL_SECONDS')) || 60) * 1000;
+const leaseMs = () => intervalMs() * 3;
 const MAX_PER_POLL = 50;
-const MAX_MESSAGE_BYTES = Number(process.env.INBOUND_EMAIL_MAX_BYTES) || 30 * 1024 * 1024;
+const maxMessageBytes = () => Number(authEnv('INBOUND_EMAIL_MAX_BYTES')) || 30 * 1024 * 1024;
 
 let timer = null;
 
@@ -36,7 +40,7 @@ async function takeLease(accountId) {
   try {
     const result = await State.rawCollection().findOneAndUpdate(
       { _id: accountId, $or: [{ owner: OWNER }, { leaseUntil: { $lt: now } }, { leaseUntil: { $exists: false } }] },
-      { $set: { owner: OWNER, leaseUntil: new Date(now.getTime() + LEASE_MS) } },
+      { $set: { owner: OWNER, leaseUntil: new Date(now.getTime() + leaseMs()) } },
       { upsert: true, returnDocument: 'after' },
     );
     const doc = result && (result.value !== undefined ? result.value : result);
@@ -75,7 +79,7 @@ async function pollAccount(account, password) {
       for (const uid of uids) {
         const msg = await client.fetchOne(String(uid), { source: true, size: true }, { uid: true });
         let handled = false;
-        if (msg && msg.source && (!msg.size || msg.size <= MAX_MESSAGE_BYTES)) {
+        if (msg && msg.source && (!msg.size || msg.size <= maxMessageBytes())) {
           try {
             const message = fromParsedMail(await simpleParser(msg.source, { skipImageLinks: true, skipTextLinks: true }));
             const result = await receiveEmail(message, { source: `imap:${account.id}` });
@@ -143,8 +147,11 @@ async function pollAllOnce() {
 
 function start() {
   if (timer || Meteor.settings?.public?.sandstorm || process.env.INBOUND_IMAP_DISABLED === 'true') return;
-  timer = Meteor.setInterval(() => { pollAll().catch(e => console.warn('inbound IMAP:', e && e.message)); }, INTERVAL_MS);
+  timer = Meteor.setInterval(() => { pollAll().catch(e => console.warn('inbound IMAP:', e && e.message)); }, intervalMs());
 }
+
+// A poll interval changed in Admin Panel takes effect at once.
+onAuthConfigChange('inboundEmail', () => { if (timer) { Meteor.clearInterval(timer); timer = null; start(); } });
 
 export function restart() {
   if (timer) { Meteor.clearInterval(timer); timer = null; }

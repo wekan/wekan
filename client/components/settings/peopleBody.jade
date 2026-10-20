@@ -34,6 +34,8 @@ template(name="people")
             else if registrationSetting.get
               +general
               +authProviderSettings(loginOptionsData)
+              //- Windows SSO, which works only on a Windows server.
+              +authProviderSettings(windowsSsoData)
             else if samlSetting
               +authProviderSettings(samlSettingsData)
             else if authConfigSection

@@ -607,6 +607,8 @@ Settings.attachSchema(
     // attachment retention (#6789) and backup options (#6790).
     attachmentRetention: { type: Object, optional: true, blackbox: true },
     backupOptions: { type: Object, optional: true, blackbox: true },
+    inboundMailLimits: { type: Object, optional: true, blackbox: true },
+    windowsSso: { type: Object, optional: true, blackbox: true },
     // Admin Panel override of the OAUTH_<PROVIDER>_* environment variables for
     // Meteor's own accounts-* login services (Google, GitHub, Facebook,
     // X/Twitter, Meteor Developer, Weibo, Meetup - models/lib/oauthProviders.js

@@ -46,6 +46,10 @@ SET WINDOWS_SSO_ACTIVE_DIRECTORY=true
 SET WINDOWS_SSO_MERGE_EXISTING_USERS=false
 ```
 
+Each setting below is also in **Admin Panel / People / Login**: a value set
+there wins, an empty field falls back to the variable, and a change applies at
+once.
+
 | Variable | Meaning |
 | --- | --- |
 | `WINDOWS_SSO_ENABLED` | `true` turns it on (Windows only). |

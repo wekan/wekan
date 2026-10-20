@@ -81,6 +81,9 @@ template(name="emailToCardSettings")
                 button.js-etc-remove-account(type="button") {{_ 'delete'}}
             button.js-etc-add-account(type="button") {{_ 'email-to-card-add-imap'}}
           button.primary.js-etc-admin-save(type="button") {{_ 'save'}}
+          //- The limits, each an environment variable this overrides
+          //- (models/lib/authConfigCatalog.js, section inboundEmail).
+          +authProviderSettings(inboundLimitsData)
         if isSandstorm
           label.notification-delivery-label
             | {{_ 'email-to-card-sandstorm-board'}}

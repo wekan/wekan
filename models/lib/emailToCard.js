@@ -243,12 +243,16 @@ function inboundMailAdminView(inboundMail = {}) {
 // A sliding-window limit per key (a board address): `limit` emails per
 // `windowMs`. In memory, per server process - a flood is stopped where it
 // arrives, and a restart forgetting the window costs at most one more window.
+//
+// `limit` is a number, or a function read at every call, so a limit set in
+// Admin Panel applies at once (models/lib/authConfigCatalog.js).
 function createRateLimiter({ limit = 30, windowMs = 60 * 60 * 1000, now = Date.now } = {}) {
   const hits = new Map();
   return function allow(key) {
     const t = now();
+    const max = typeof limit === 'function' ? limit() : limit;
     const recent = (hits.get(key) || []).filter(at => t - at < windowMs);
-    if (recent.length >= limit) { hits.set(key, recent); return false; }
+    if (recent.length >= max) { hits.set(key, recent); return false; }
     recent.push(t);
     hits.set(key, recent);
     if (hits.size > 10000) hits.delete(hits.keys().next().value);

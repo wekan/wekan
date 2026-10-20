@@ -200,6 +200,30 @@
       # Keep Admin Panel filesystem backups this many days (newest always kept).
       # Unset or 0 = all. Admin Panel / Attachments / Backup can set it too.
       #export BACKUP_KEEP_DAYS=7
+      # ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT: Login-cookie refreshes allowed per 10 seconds from one address (Meteor default 30); raise it behind a reverse proxy that is not trusted for the client address. Admin Panel / People / Login overrides it; applies from the next start.
+      #export ACCOUNTS_COOKIE_REFRESH_RATE_LIMIT=100
+      # INBOUND_IMAP_POLL_SECONDS: Email to card: how often IMAP mailboxes are read, in seconds (default 60, at least 15).
+      #export INBOUND_IMAP_POLL_SECONDS=60
+      # INBOUND_EMAIL_PER_ADDRESS_PER_HOUR: Email to card: cards one sender address can make per hour (default 60).
+      #export INBOUND_EMAIL_PER_ADDRESS_PER_HOUR=60
+      # INBOUND_EMAIL_WEBHOOK_SECRET: Email to card: the secret the mail provider must send with each webhook POST, if not set in Admin Panel / People / Notification Settings / Email to card.
+      #export INBOUND_EMAIL_WEBHOOK_SECRET=long-random-value
+      # INBOUND_EMAIL_MAX_BYTES: Email to card: largest message in bytes (default 31457280, 30 MB).
+      #export INBOUND_EMAIL_MAX_BYTES=31457280
+      # INBOUND_EMAIL_MAX_ATTACHMENT_BYTES: Email to card: largest attachment in bytes (default 26214400, 25 MB).
+      #export INBOUND_EMAIL_MAX_ATTACHMENT_BYTES=26214400
+      # EMAIL_VIEW_SENDS_PER_HOUR: Emails one user can send from the email view per hour (default 50).
+      #export EMAIL_VIEW_SENDS_PER_HOUR=50
+      # INBOUND_IMAP_DISABLED: true stops THIS server process from reading IMAP mailboxes - for a multi-pod deployment where one pod should read them. Environment only: an Admin Panel value would be shared by every pod.
+      #export INBOUND_IMAP_DISABLED=true
+      # WEKAN_DISK_MONITOR: false turns off the disk-usage monitor of this server (Admin Panel / Problems / Disk usage). Default on.
+      #export WEKAN_DISK_MONITOR=false
+      # WEKAN_DISK_WATCH_PATHS: Comma-separated paths on this server whose disk usage is watched, instead of the data and files directories.
+      #export WEKAN_DISK_WATCH_PATHS=/data,/var/lib/wekan
+      # WEKAN_RAM_MONITOR: false turns off the memory monitor of this server (Admin Panel / Problems / Memory usage). Default on.
+      #export WEKAN_RAM_MONITOR=false
+      # WEKAN_IMPORT_RUN_STALE_MS: Milliseconds after which an import with no progress counts as interrupted and can be resumed or discarded (at least 60000).
+      #export WEKAN_IMPORT_RUN_STALE_MS=600000
       # Attachment retention, off unless set (docs/Features/Cards/Attachments/Attachments.md):
       #export ATTACHMENTS_RETENTION_DAYS=730
       #export ATTACHMENTS_RETENTION_MODE=uploaded

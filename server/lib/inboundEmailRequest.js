@@ -11,7 +11,12 @@ const Busboy = require('@fastify/busboy');
 const { simpleParser } = require('mailparser');
 const { fromProviderFields, fromParsedMail } = require('./inboundEmailPayload');
 
-const MAX_BYTES = Number(process.env.INBOUND_EMAIL_MAX_BYTES) || 30 * 1024 * 1024;
+// Admin Panel first, then INBOUND_EMAIL_MAX_BYTES, read for every request
+// (models/lib/authConfigCatalog.js). server/lib/authConfig.js publishes its
+// resolver as globalThis.__wekanAuthEnv; without it (plain-Node tests) this
+// is the environment.
+const setting = name => (globalThis.__wekanAuthEnv || (n => process.env[n]))(name);
+const maxBytes = () => Number(setting('INBOUND_EMAIL_MAX_BYTES')) || 30 * 1024 * 1024;
 
 function contentType(req) {
   return String((req.headers && req.headers['content-type']) || '').toLowerCase();
@@ -26,7 +31,7 @@ function readMultipart(req) {
     try {
       busboy = new Busboy({
         headers: req.headers,
-        limits: { fileSize: MAX_BYTES, files: 30, fields: 200, fieldSize: MAX_BYTES, parts: 230 },
+        limits: { fileSize: maxBytes(), files: 30, fields: 200, fieldSize: maxBytes(), parts: 230 },
       });
     } catch (e) {
       reject(e);
@@ -34,24 +39,24 @@ function readMultipart(req) {
     }
     busboy.on('field', (name, value) => {
       total += Buffer.byteLength(value || '');
-      if (total > MAX_BYTES) { reject(new Error('too-large')); return; }
+      if (total > maxBytes()) { reject(new Error('too-large')); return; }
       fields[name] = value;
     });
     busboy.on('file', (fieldname, stream, filename, encoding, mimetype) => {
       const chunks = [];
       stream.on('data', chunk => {
         total += chunk.length;
-        if (total > MAX_BYTES) { stream.resume(); return; }
+        if (total > maxBytes()) { stream.resume(); return; }
         chunks.push(chunk);
       });
       stream.on('end', () => {
-        if (!stream.truncated && total <= MAX_BYTES) {
+        if (!stream.truncated && total <= maxBytes()) {
           files.push({ fieldname, filename, contentType: mimetype, content: Buffer.concat(chunks) });
         }
       });
     });
     busboy.on('error', reject);
-    busboy.on('finish', () => (total > MAX_BYTES ? reject(new Error('too-large')) : resolve({ fields, files })));
+    busboy.on('finish', () => (total > maxBytes() ? reject(new Error('too-large')) : resolve({ fields, files })));
     req.pipe(busboy);
   });
 }
@@ -62,7 +67,7 @@ function readRaw(req) {
     let total = 0;
     req.on('data', chunk => {
       total += chunk.length;
-      if (total > MAX_BYTES) { reject(new Error('too-large')); req.destroy(); return; }
+      if (total > maxBytes()) { reject(new Error('too-large')); req.destroy(); return; }
       chunks.push(chunk);
     });
     req.on('end', () => resolve(Buffer.concat(chunks)));
@@ -91,4 +96,4 @@ async function readInboundMessage(req) {
   return { message: raw ? await parseWhole(raw) : fromProviderFields(body), fields: body };
 }
 
-module.exports = { readInboundMessage, MAX_BYTES };
+module.exports = { readInboundMessage, maxBytes };
