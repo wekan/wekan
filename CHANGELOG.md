@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.57 2026-10-20 WeKan ® release
 
 **In short:** attachments can be **deleted after a set time** and deleted ones
 **purged**, every **backup** is recorded with failures and overdue runs shown,
