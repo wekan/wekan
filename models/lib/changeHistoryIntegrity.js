@@ -91,13 +91,62 @@ function protectedHistory(row) {
   return Object.fromEntries(PROTECTED.map(key => [key, row && row[key]]));
 }
 
+// What the database keeps of a row's content. Meteor connects with
+// ignoreUndefined, so an object property that is `undefined` is dropped and an
+// undefined array element is stored as null. A row is hashed AS STORED, or a
+// row written with `deletedAt: list.deletedAt` (undefined) read back without
+// the key and failed its own checksum on every audit: a "critical" tampering
+// report for a row nobody touched (Admin Panel / Problems / Security,
+// HistoryIntegrity checksum-mismatch, 89472 of them).
+function plainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date);
+}
+
+function storedShape(value) {
+  if (Array.isArray(value)) return value.map(item => (item === undefined ? null : storedShape(item)));
+  if (!plainObject(value)) return value;
+  const out = {};
+  for (const key of Object.keys(value)) {
+    if (value[key] !== undefined) out[key] = storedShape(value[key]);
+  }
+  return out;
+}
+
 function hashHistoryRow(row) {
-  return sha256(canonical(protectedHistory(row)));
+  const shaped = protectedHistory(row);
+  shaped.previousContent = storedShape(shaped.previousContent);
+  shaped.newContent = storedShape(shaped.newContent);
+  return sha256(canonical(shaped));
+}
+
+// Rows written before the content was hashed as stored: their hash still
+// covers `"key":{"$undefined":true}` for every property that was undefined at
+// write time, and the stored row has lost those keys. Such a property is one
+// the other side of the change has (it was unset before, or unset after), so
+// re-adding, as undefined, exactly the keys present in the other content and
+// absent here reproduces what was hashed. Nothing else is accepted: a changed
+// or removed real value still fails.
+function legacyUndefinedVariant(row) {
+  const before = row.previousContent;
+  const after = row.newContent;
+  if (!plainObject(before) || !plainObject(after)) return null;
+  const fill = (own, other) => {
+    const missing = Object.keys(other).filter(key => !(key in own));
+    if (!missing.length) return own;
+    const out = { ...own };
+    for (const key of missing) out[key] = undefined;
+    return out;
+  };
+  const filledBefore = fill(before, after);
+  const filledAfter = fill(after, before);
+  if (filledBefore === before && filledAfter === after) return null;
+  return sha256(canonical({ ...protectedHistory(row), previousContent: filledBefore, newContent: filledAfter }));
 }
 
 function rowHashIsValid(row) {
-  return Boolean(row && /^[a-f0-9]{64}$/.test(row.integrityHash || '') &&
-    hashHistoryRow(row) === row.integrityHash);
+  if (!row || !/^[a-f0-9]{64}$/.test(row.integrityHash || '')) return false;
+  if (hashHistoryRow(row) === row.integrityHash) return true;
+  return legacyUndefinedVariant(row) === row.integrityHash;
 }
 
 function verifyHistoryRows(rows) {
@@ -141,4 +190,5 @@ function isConcurrentFork(failure, windowMs = CONCURRENT_FORK_MS) {
 
 module.exports = {
   canonical, sha256, hashHistoryRow, rowHashIsValid, verifyHistoryRows, isConcurrentFork, CONCURRENT_FORK_MS, PROTECTED,
+  storedShape,
 };
