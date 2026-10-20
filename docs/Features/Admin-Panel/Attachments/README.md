@@ -68,6 +68,14 @@ Which storage new files go to.
 Upload and download size limits, for attachments and for the API, each with a unit;
 and whether avatar uploads are blocked entirely.
 
+## Retention
+
+Delete card attachments after a number of days, optionally only on cards nobody
+works on any more, and remove deleted attachments for good after another number
+of days. Each field overrides an `ATTACHMENTS_RETENTION_*` environment variable;
+an empty field falls back to it. Off unless set. See
+[Attachments.md](../../Cards/Attachments/Attachments.md#retention-removing-old-attachments-automatically).
+
 ## MongoDB GridFS storage · Filesystem storage · S3 / MinIO storage · Azure Blob Storage · Google Cloud Storage · WebDAV
 
 One pane per backend, each with its own read / write switches and its own settings —
@@ -112,6 +120,7 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Move Attachment | `move` | — |
 | Attachments / Default Save Storage | `default-save-storage` | — |
 | Attachments / Limits | `limits` | — |
+| Attachments / Retention | `retention` | [Attachments.md](../../Cards/Attachments/Attachments.md) |
 | Attachments / MongoDB GridFS Storage | `gridfs` | — |
 | Attachments / Filesystem Storage | `filesystem` | — |
 | Attachments / S3/MinIO Storage | `s3` | — |

@@ -333,7 +333,9 @@ test('the Launchpad build log is printed whenever there is no snap', () => {
   assert.ok(/for log in snapcraft-wekan-\*\.txt/.test(loop), 'the downloaded log is read');
   assert.ok(/exited 0 but produced NO \.snap/.test(loop),
     'and the "exit 0, no artifact" case says so in words instead of passing');
-  assert.ok(loop.indexOf('for log in snapcraft-wekan-*.txt') > loop.indexOf('exited 0 but produced NO .snap'),
+  // Searched from the message on: infra_failure(), defined before the loop
+  // (v12.56 Launchpad outage), also reads snapcraft-wekan-*.txt.
+  assert.ok(loop.indexOf('for log in snapcraft-wekan-*.txt', loop.indexOf('exited 0 but produced NO .snap')) !== -1,
     'the log is printed on that path too, not only when snapcraft exits non-zero');
 });
 
@@ -704,7 +706,8 @@ test('a remote build that never starts still says why', () => {
   assert.ok(/rm -rf "\$HOME\/\.cache\/snapcraft\/remote-build"/.test(launchpad),
     'the remote-build cache is cleared between attempts');
   const clearAt = launchpad.indexOf('rm -rf "$HOME/.cache/snapcraft/remote-build"');
-  const sleepAt = launchpad.indexOf('sleep 60');
+  // The pause grows after a Launchpad outage (v12.56), so it is a variable.
+  const sleepAt = launchpad.indexOf('sleep "$pause"');
   assert.ok(clearAt !== -1 && clearAt < sleepAt,
     '...before the wait, so the next attempt starts clean rather than after it');
 });

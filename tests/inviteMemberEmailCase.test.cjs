@@ -28,7 +28,10 @@ test('invite by email matches the address case-insensitively and anchored', () =
 });
 
 test('the regex used matches the same address in any case, and only that one', () => {
-  const escape = s => s.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');
+  // The same escape-string-regexp the server imports - not a copy of it, which
+  // tests/incompleteEscaping.test.cjs refuses anywhere in the tree.
+  const escapeModule = require('escape-string-regexp');
+  const escape = escapeModule.default || escapeModule;
   const re = new RegExp(`^${escape(' jan.jansen@example.com '.trim())}$`, 'i');
   assert.ok(re.test('Jan.Jansen@Example.com'));
   assert.ok(!re.test('janXjansen@example.com'), 'a dot is literal');
