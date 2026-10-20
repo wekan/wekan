@@ -239,6 +239,9 @@ export function buildHeader(columns) {
   return cols.map(column => ({
     label: column.label || '',
     labelKey: column.labelKey || '',
+    // Fixed text after a translated label - a technical term that is the same
+    // in every language: "Sijainti (IPv6)" from 'location' and " (IPv6)".
+    labelSuffix: column.labelSuffix || '',
     // A column may render its own header instead of a label - a select-all pair,
     // an "add row" form. The template name and its data context come from the
     // column spec, so the shared template still owns the <th> itself.

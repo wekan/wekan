@@ -36,17 +36,21 @@ function mapLocation(row, family) {
 }
 
 function addressReportColumns({ map = false } = {}) {
-  const locationColumn = (family, label) => ({
-    ...(family === 'ipv4' ? { labelKey: 'location' } : { label }),
+  // Both from the translated 'location': the IPv6 one was the English text
+  // "IPv6 location" in every language (Admin Panel / Problems / Security in
+  // Finnish read "Sijainti" beside "IPv6 location").
+  const locationColumn = family => ({
+    labelKey: 'location',
+    ...(family === 'ipv6' ? { labelSuffix: ' (IPv6)' } : {}),
     value: row => locationText(row, family),
     flag: row => locationFlag(row, family),
     ...(map ? { location: row => mapLocation(row, family) } : {}),
   });
   return [
     { labelKey: 'event-ipv4', value: row => addressValue(row, 'ipv4') },
-    locationColumn('ipv4', 'Location'),
+    locationColumn('ipv4'),
     { labelKey: 'event-ipv6', value: row => addressValue(row, 'ipv6') },
-    locationColumn('ipv6', 'IPv6 location'),
+    locationColumn('ipv6'),
   ];
 }
 

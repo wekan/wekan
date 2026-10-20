@@ -5,8 +5,12 @@ const path = require('node:path');
 const { addressReportColumns } = require('../models/lib/addressReportColumns');
 
 const columns = addressReportColumns({ map: true });
-assert.deepEqual(columns.map(column => column.labelKey || column.label),
-  ['event-ipv4', 'location', 'event-ipv6', 'IPv6 location']);
+// Every header translated: the IPv6 location was the English text "IPv6
+// location" in every language. It is 'location' with the fixed suffix
+// " (IPv6)" now, "Sijainti (IPv6)" in Finnish.
+assert.deepEqual(columns.map(column => (column.labelKey || column.label) + (column.labelSuffix || '')),
+  ['event-ipv4', 'location', 'event-ipv6', 'location (IPv6)']);
+assert.ok(columns.every(column => column.labelKey), 'negative: no header is untranslated English');
 
 const v4 = { ipv4: '203.0.113.4', location: { country: 'FI', city: 'Helsinki',
   latitude: 60.17, longitude: 24.94 } };

@@ -82,7 +82,7 @@ template(name="tablePage")
                 if template
                   +Template.dynamic(template=template data=data)
                 else if labelKey
-                  | {{_ labelKey}}
+                  | {{_ labelKey}}{{labelSuffix}}
                 else
                   | {{label}}
         tbody

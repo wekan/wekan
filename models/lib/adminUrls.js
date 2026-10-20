@@ -209,7 +209,7 @@ const ADMIN_PANE_TITLES = {
     cpu: { titleKey: 'cpuReportTitle' },
     ram: { titleKey: 'memory-usage' },
     disk: { titleKey: 'sandstorm-disk-usage' },
-    instrumentation: { title: 'Instrumentation' },
+    instrumentation: { titleKey: 'instrumentationReportTitle' },
     'broken-cards': { titleKey: 'broken-cards' },
     files: { titleKey: 'filesReportTitle' },
     rules: { titleKey: 'rulesReportTitle' },

@@ -25,7 +25,8 @@ test('Offices shows recorded flag and city and wraps a long IPv6 address', async
     await expect(row).toContainText('Helsinki');
     const headers = await page.locator('.table-page-table thead th').allTextContents();
     expect(headers.slice(1, 5).map(text => text.trim())).toEqual([
-      'IPv4 address', 'Location', 'IPv6 address', 'IPv6 location',
+      // 'location' + " (IPv6)": translated in every language, not English text.
+      'IPv4 address', 'Location', 'IPv6 address', 'Location (IPv6)',
     ]);
     await expect(row.locator('td').nth(1)).toBeEmpty();
     await expect(row.locator('td').nth(2)).toBeEmpty();

@@ -324,7 +324,7 @@ const PROBLEMS_MENU = [
   // The CPU monitor's siblings, with labels every language already translates.
   { id: 'report-ram', icon: 'fa-microchip', labelKey: 'memory-usage' },
   { id: 'report-disk', icon: 'fa-hdd-o', labelKey: 'sandstorm-disk-usage' },
-  { id: 'report-instrumentation', icon: 'fa-line-chart', label: 'Instrumentation' },
+  { id: 'report-instrumentation', icon: 'fa-line-chart', labelKey: 'instrumentationReportTitle' },
   { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
   { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
   { id: 'report-rules', icon: 'fa-magic', labelKey: 'rulesReportTitle' },
