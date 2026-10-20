@@ -107,6 +107,46 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the release builds ride out the night's infrastructure
+trouble: the **Bun** bundles' smoke-test database is waited for and replaced
+if it is lost, and the **Launchpad snaps** retry a Launchpad outage for longer
+instead of giving up after three quick tries.
+
+This release fixes the following bugs:
+
+**Release builds** - jobs that v12.56 lost to infrastructure rather than to
+WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/294a9016d3">Bun bundles wait for their smoke-test MongoDB, and replace a lost one</a>. Thanks to xet7.</summary>
+
+v12.56's Bun linux-x64 bundle stopped with "Topology is closed": nothing
+listened on the smoke-test database's port. The container had been started
+with `--rm` and never checked, so its log was gone too. `bun.yml` now waits
+until it answers a ping, and prints its log if it does not. `build-target.sh`
+checks again before starting WeKan, with the new `releases/bun/wait-mongo.mjs`;
+a lost database is shown and replaced once. `tests/bunSmokeMongo.test.cjs`
+covers it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/727e96e527">Launchpad snaps retry an outage there for longer, not three strikes</a>. Thanks to xet7.</summary>
+
+v12.56's ppc64el snap gave up after 20 minutes of a five-hour budget. The
+builder lost TLS while cloning our source, and the next two attempts, a minute
+apart, met Launchpad's HTTP 503. An attempt that fails on Launchpad
+infrastructure now earns another, up to six, after a growing pause. Other
+failures keep three attempts. `tests/snapLaunchpadInfraRetry.test.cjs` runs
+the workflow's own check against logs shaped like v12.56's, and against the
+negatives.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.56 2026-10-20 WeKan ® release
 
 **In short:** accounts nobody uses can be **disabled after a set number of
