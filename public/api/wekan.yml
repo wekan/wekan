@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.56
+  version: v12.57
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -8286,6 +8286,18 @@ definitions:
         type: object
         x-nullable: true
       loginOptions:
+        type: object
+        x-nullable: true
+      attachmentRetention:
+        type: object
+        x-nullable: true
+      backupOptions:
+        type: object
+        x-nullable: true
+      inboundMailLimits:
+        type: object
+        x-nullable: true
+      windowsSso:
         type: object
         x-nullable: true
       oauthProviders:
