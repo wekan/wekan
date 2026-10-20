@@ -5190,7 +5190,7 @@ jobs:
             local log
             for log in snapcraft-wekan-*.txt; do
               [ -e "$log" ] && [ "$log" -nt "$attempt_marker" ] || continue
-              grep -qsE 'RPC failed; curl|GnuTLS recv error|fatal: early EOF|Gateway error \[IP: ' "$log" && return 0
+              grep -qsE 'RPC failed;|GnuTLS recv error|fatal: early EOF|Gateway error \[IP: ' "$log" && return 0
             done
             return 1
           }
