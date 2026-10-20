@@ -1342,6 +1342,7 @@
   "settings": "Qindaa'inoota",
   "attachment-transfer-limits-title": "Daangaawwan Hammamtaa Faayila Maxxansaa fi API",
   "attachment-limits": "Daangaawwan",
+  "attachment-retention": "Kuusuu",
   "attachment-transfer-limits-description": "Olkaa'uu fi buufachuuf daangaa hammamtaa faayilaa isa olaanaa qindeessi. Kuufamni dabarsa API daangaa nageenyaa gama sarvaraa adda ta'e qaba.",
   "attachment-transfer-limits-saved": "Daangaawwan dabarsa maxxansaa kuufamaniiru.",
   "attachment-transfer-limits-save-failed": "Daangaawwan dabarsa maxxansaa kuusuun hin milkoofne",

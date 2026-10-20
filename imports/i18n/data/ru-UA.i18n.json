@@ -1342,6 +1342,7 @@
   "settings": "Настройки",
   "attachment-transfer-limits-title": "Ограничения размера файлов вложений и API",
   "attachment-limits": "Ограничения",
+  "attachment-retention": "Срок хранения",
   "attachment-transfer-limits-description": "Настройте максимальные ограничения размера файлов для загрузки и скачивания. Буферизация передачи API имеет отдельные серверные защитные лимиты.",
   "attachment-transfer-limits-saved": "Ограничения передачи вложений сохранены.",
   "attachment-transfer-limits-save-failed": "Не удалось сохранить ограничения передачи вложений",

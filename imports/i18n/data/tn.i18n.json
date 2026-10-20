@@ -1342,6 +1342,7 @@
   "settings": "Dipeakanyo",
   "attachment-transfer-limits-title": "Se se tshwaraganeng Le API Faele Bogolo Ditekanyetso",
   "attachment-limits": "Ditekanyetso",
+  "attachment-retention": "Polokelo",
   "attachment-transfer-limits-description": "Configure bogolo faele bogolo ditekanyetso go uploads le downloads. API fetisetsa buffering e na le separate server-side safety caps.",
   "attachment-transfer-limits-saved": "Se se tshwaraganeng fetisetsa ditekanyetso e bolokilwe.",
   "attachment-transfer-limits-save-failed": "Paletswe go boloka se se tshwaraganeng fetisetsa ditekanyetso",

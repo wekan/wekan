@@ -1342,6 +1342,7 @@
   "settings": "सेटिंग्स",
   "attachment-transfer-limits-title": "संलग्नक और API फ़ाइल आकार सीमाएं",
   "attachment-limits": "सीमाएं",
+  "attachment-retention": "प्रतिधारण",
   "attachment-transfer-limits-description": "अपलोड और डाउनलोड के लिए अधिकतम फ़ाइल आकार सीमाएं कॉन्फ़िगर करें। API ट्रांसफ़र बफ़रिंग के अलग सर्वर-साइड सुरक्षा कैप हैं।",
   "attachment-transfer-limits-saved": "संलग्नक ट्रांसफ़र सीमाएं सहेजी गईं।",
   "attachment-transfer-limits-save-failed": "संलग्नक ट्रांसफ़र सीमाएं सहेजने में विफल",

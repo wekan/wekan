@@ -1342,6 +1342,7 @@
   "settings": "設定",
   "attachment-transfer-limits-title": "添付ファイルと API のファイルサイズ制限",
   "attachment-limits": "制限",
+  "attachment-retention": "保持期間",
   "attachment-transfer-limits-description": "アップロードとダウンロードの最大ファイルサイズ制限を設定します。API 転送のバッファリングにはサーバー側に別の安全上限があります。",
   "attachment-transfer-limits-saved": "添付ファイルの転送制限を保存しました。",
   "attachment-transfer-limits-save-failed": "添付ファイルの転送制限の保存に失敗しました",

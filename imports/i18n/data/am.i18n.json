@@ -1342,6 +1342,7 @@
   "settings": "ቅንብሮች",
   "attachment-transfer-limits-title": "የአባሪና API ፋይል መጠን ገደቦች",
   "attachment-limits": "ገደቦች",
+  "attachment-retention": "የማቆያ ጊዜ",
   "attachment-transfer-limits-description": "ለመስቀልና ለማውረድ ከፍተኛ የፋይል መጠን ገደቦችን ያዋቅሩ። የAPI ዝውውር ማቋቋሚያ የተለዩ የአገልጋይ-ጎን ደህንነት ገደቦች አሉት።",
   "attachment-transfer-limits-saved": "የአባሪ ዝውውር ገደቦች ተቀምጠዋል።",
   "attachment-transfer-limits-save-failed": "የአባሪ ዝውውር ገደቦችን ማስቀመጥ አልተሳካም",

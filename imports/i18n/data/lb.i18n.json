@@ -1342,6 +1342,7 @@
   "settings": "Astellungen",
   "attachment-transfer-limits-title": "Uschloss un API Dateigrößen Limits",
   "attachment-limits": "Grenzwerte",
+  "attachment-retention": "Opbewahrung",
   "attachment-transfer-limits-description": "Konfigurieren Dir déi maximalen Dateigrößen fir Uploads un Downloads. Die API-Übertragungspufferung huet separate serverseitige Sicherheitsgrenzen.",
   "attachment-transfer-limits-saved": "Übertragungslimits fir Uschlëss gespäichert.",
   "attachment-transfer-limits-save-failed": "Späicheren den Übertragungslimits fir Uschlëss fehlgeschlagen",

@@ -1342,6 +1342,7 @@
   "settings": "Faatulagaga",
   "attachment-transfer-limits-title": "Tapulaa o le Tele o Faila Faapipii ma le API",
   "attachment-limits": "Tapulaa",
+  "attachment-retention": "Teuina",
   "attachment-transfer-limits-description": "Faatulaga tapulaa maualuga o le tele o faila mo le tuuina i luga ma le siiina mai. E iai tapulaa saogalemu eseese i le itu o le tautua mo le teuina lē tumau o fesiitaiga API.",
   "attachment-transfer-limits-saved": "Ua teu tapulaa o fesiitaiga faapipii.",
   "attachment-transfer-limits-save-failed": "Ua lē mafai ona teu tapulaa o fesiitaiga faapipii",

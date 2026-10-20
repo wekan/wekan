@@ -1342,6 +1342,7 @@
   "settings": "Nastavení",
   "attachment-transfer-limits-title": "Limity velikosti souborů příloh a API",
   "attachment-limits": "Limity",
+  "attachment-retention": "Uchovávání",
   "attachment-transfer-limits-description": "Nastavte maximální limity velikosti souborů pro nahrávání a stahování. Ukládání přenosů API do vyrovnávací paměti má samostatné bezpečnostní limity na straně serveru.",
   "attachment-transfer-limits-saved": "Limity přenosu příloh uloženy.",
   "attachment-transfer-limits-save-failed": "Uložení limitů přenosu příloh selhalo",

@@ -1342,6 +1342,7 @@
   "settings": "Ngaahi fokotuʻutuʻu",
   "attachment-transfer-limits-title": "Ngaahi Ngataʻanga Lahi ʻo e Meʻa Fakapipiki mo e Faile API",
   "attachment-limits": "Ngaahi Ngataʻanga",
+  "attachment-retention": "Tauhi",
   "attachment-transfer-limits-description": "Fokotuʻutuʻu ʻa e ngataʻanga lahi taha ʻo e faile ki hono hiki hake mo hiki hifo. ʻOku ʻi ai ha ngaahi ngataʻanga malu kehe ʻi he sēvā ki he tauhi fakataimi ʻo e fetukutuku API.",
   "attachment-transfer-limits-saved": "Kuo tauhi ʻa e ngaahi ngataʻanga fetukutuku ʻo e meʻa fakapipiki.",
   "attachment-transfer-limits-save-failed": "Naʻe ʻikai lava ʻo tauhi ʻa e ngaahi ngataʻanga fetukutuku ʻo e meʻa fakapipiki",

@@ -1342,6 +1342,7 @@
   "settings": "Paramètres",
   "attachment-transfer-limits-title": "Limits de talha de fichièr de las pèças jonchas e de l'API",
   "attachment-limits": "Limits dels pèças juntas",
+  "attachment-retention": "Conservacion",
   "attachment-transfer-limits-description": "Configuratz los limits maximals de talha de fichièr pels mandadisses e telecargaments. La bufferizacion de transferiment de l'API a de limits de seguretat separats del costat servidor.",
   "attachment-transfer-limits-saved": "Limits de transferiment de las pèças jonchas salvats.",
   "attachment-transfer-limits-save-failed": "Fracàs de la salvagarda dels limits de transferiment de las pèças jonchas",

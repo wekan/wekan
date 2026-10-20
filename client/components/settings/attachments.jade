@@ -31,6 +31,8 @@ template(name="attachments")
                       option(value=value selected=selected) {{_ labelKey}}
                 .form-group
                   button.js-save-default-storage.primary {{_ 'save'}}
+          else if isRetentionActive
+            +authProviderSettings(retentionSettingsData)
           else if isLimitsActive
             ul#attachment-limits-setting.setting-detail
               li

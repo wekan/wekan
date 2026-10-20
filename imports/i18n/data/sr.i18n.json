@@ -1342,6 +1342,7 @@
   "settings": "Општа поставка",
   "attachment-transfer-limits-title": "Ограничења величине датотека за прилоге и API",
   "attachment-limits": "Ограничења",
+  "attachment-retention": "Задржавање",
   "attachment-transfer-limits-description": "Подесите максимална ограничења величине датотека за отпремања и преузимања. Баферовање API преноса има засебна безбедносна ограничења на страни сервера.",
   "attachment-transfer-limits-saved": "Ограничења преноса прилога су сачувана.",
   "attachment-transfer-limits-save-failed": "Није успело чување ограничења преноса прилога",

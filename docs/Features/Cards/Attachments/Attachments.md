@@ -68,6 +68,42 @@ is Apache-2.0. The pinned package ranges include the fixes for the PDF.js arbitr
 JavaScript advisory and the fflate ZIP64 denial-of-service advisory. LibreOffice,
 Ghostscript, a headless browser and OCR/Tesseract are not installed.
 
+## Retention: removing old attachments automatically
+
+For storage limits and data-minimisation (GDPR) policies, WeKan can remove card
+attachments after a set time. Everything is **off unless configured**, and runs
+once a night at 03:45 (`server/attachmentRetention.js`, rules in
+`models/lib/attachmentRetention.js`).
+
+Each setting is an environment variable, and **Admin Panel / Attachments /
+Retention** (`/admin/attachments/retention`) overrides each one: a value set
+there wins, an empty field falls back to the variable, and the page shows which
+is in effect. The job reads them on every run, so a change needs no restart.
+
+| Setting | Meaning |
+|---|---|
+| `ATTACHMENTS_RETENTION_DAYS` | Delete card attachments older than this many days. This is the same delete as the card's own **Delete**: the attachment disappears from the card, is no longer a cover, and the card history shows the removal with **Restore**. Empty or `0` = off. |
+| `ATTACHMENTS_RETENTION_MODE` | `uploaded` (default): by upload date only. `card-inactive`: also only when the card has had no activity (`dateLastActivity`) for as many days, so attachments on cards people still work on are kept. |
+| `ATTACHMENTS_PURGE_DELETED_AFTER_DAYS` | Remove for good, **file included**, attachments that were deleted - by retention or by a person - at least this many days ago. Only this step frees storage; afterwards Restore is no longer possible. Works for every storage backend. Empty or `0` = off. |
+| `ATTACHMENTS_RETENTION_DRY_RUN` | `true`: change nothing, only log what each step would delete or purge, with counts and bytes. Recommended for the first nights. |
+| `ATTACHMENTS_RETENTION_MAX_PER_RUN` | Attachments per step per night (default `1000`), so a first run on a large instance is spread over several nights. |
+
+Never touched: board backgrounds and other attachments without a card,
+attachments on template boards and template cards, and attachments whose upload
+date is unknown. The delete is recorded as the board's creator, like
+auto-archive.
+
+Example: delete after two years, keep deleted files 30 days for Restore:
+
+```
+ATTACHMENTS_RETENTION_DAYS=730
+ATTACHMENTS_PURGE_DELETED_AFTER_DAYS=30
+```
+
+Legacy CollectionFS files (`cfs_gridfs.*` in MongoDB, from WeKan before
+Meteor-Files) are not handled here: move them to a current storage first in
+**Admin Panel / Attachments**, after which they are ordinary attachments.
+
 ## Related
 
 - [Rclone: store attachments to cloud storage like S3, MinIO, etc.](../../../Backup/Rclone/Rclone.md)

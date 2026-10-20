@@ -1342,6 +1342,7 @@
   "settings": "chermeH De'",
   "attachment-transfer-limits-title": "rarDoch API ghItlh tIn veHmey",
   "attachment-limits": "veHmey",
+  "attachment-retention": "pol",
   "attachment-transfer-limits-description": "nobmeH Suqmeh je ghItlh tIn 'aqroS veH qol. API jech-vaD server-Daq le' QaD veHmey ghaj.",
   "attachment-transfer-limits-saved": "rarDoch jech veHmey pollu'pu'.",
   "attachment-transfer-limits-save-failed": "rarDoch jech veHmey pol lujpu'",

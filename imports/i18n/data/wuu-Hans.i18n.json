@@ -1342,6 +1342,7 @@
   "settings": "设置",
   "attachment-transfer-limits-title": "附件和 API 文件大小限制",
   "attachment-limits": "限制",
+  "attachment-retention": "保留期限",
   "attachment-transfer-limits-description": "设置上传搭下载个最大文件大小。API 传输缓冲另外有服务器端个安全上限。",
   "attachment-transfer-limits-saved": "附件传输限制保存好仔。",
   "attachment-transfer-limits-save-failed": "附件传输限制保存失败仔",

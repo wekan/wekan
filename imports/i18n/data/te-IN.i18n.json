@@ -1342,6 +1342,7 @@
   "settings": "సెట్టింగ్‌లు",
   "attachment-transfer-limits-title": "అటాచ్‌మెంట్ మరియు API ఫైల్ పరిమాణ పరిమితులు",
   "attachment-limits": "పరిమితులు",
+  "attachment-retention": "నిలుపుదల",
   "attachment-transfer-limits-description": "అప్‌లోడ్‌లు మరియు డౌన్‌లోడ్‌ల కోసం గరిష్ట ఫైల్ పరిమాణ పరిమితులను కాన్ఫిగర్ చేయండి. API బదిలీ బఫరింగ్‌కు వేర్వేరు సర్వర్-వైపు భద్రతా పరిమితులు ఉంటాయి.",
   "attachment-transfer-limits-saved": "అటాచ్‌మెంట్ బదిలీ పరిమితులు సేవ్ చేయబడ్డాయి.",
   "attachment-transfer-limits-save-failed": "అటాచ్‌మెంట్ బదిలీ పరిమితులను సేవ్ చేయడం విఫలమైంది",

@@ -1342,6 +1342,7 @@
   "settings": "Nā hoʻonohonoho",
   "attachment-transfer-limits-title": "mea hoʻopili a API waihona nui limikaka",
   "attachment-limits": "limikaka",
+  "attachment-retention": "Mālama ʻana",
   "attachment-transfer-limits-description": "hoʻonohonoho makimuma waihona nui limikaka pola upaloakaka a kowanaloakaka. API kalanakapela pupapelinaka loaʻa kepalake kelalelakike kapekawa kapaka.",
   "attachment-transfer-limits-saved": "mea hoʻopili kalanakapela limikaka mālama ʻia.",
   "attachment-transfer-limits-save-failed": "hāʻule i mālama mea hoʻopili kalanakapela limikaka",

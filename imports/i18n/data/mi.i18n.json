@@ -1342,6 +1342,7 @@
   "settings": "Ngā tautuhinga",
   "attachment-transfer-limits-title": "Ngā Tepe Rahi Kōnae Āpitihanga me te API",
   "attachment-limits": "Ngā Tepe",
+  "attachment-retention": "Puritanga",
   "attachment-transfer-limits-description": "Whirihorahia ngā tepe rahi kōnae mōrahi mō te tukuatu me te tikiake. He taupoki haumaru motuhake kei te taha tūmau mō te pūreirei whakawhiti API.",
   "attachment-transfer-limits-saved": "Kua tiakina ngā tepe whakawhiti āpitihanga.",
   "attachment-transfer-limits-save-failed": "I rahua te tiaki i ngā tepe whakawhiti āpitihanga",

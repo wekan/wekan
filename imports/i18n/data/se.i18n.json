@@ -1342,6 +1342,7 @@
   "settings": "Heivehusat",
   "attachment-transfer-limits-title": "Mildosiid ja API-fiillaid sturrodatrájit",
   "attachment-limits": "Rájit",
+  "attachment-retention": "Seailluheapmi",
   "attachment-transfer-limits-description": "Heivet eanemus fiilasturrodatrájiid sáddemii ja viežžamii. API-sirdima gaskavuorkás leat sierra bálvvabeale dorvvolašvuođarájit.",
   "attachment-transfer-limits-saved": "Mildosiid sirdinrájit vurkejuvvojedje.",
   "attachment-transfer-limits-save-failed": "Mildosiid sirdinrájit eai vurkejuvvon",

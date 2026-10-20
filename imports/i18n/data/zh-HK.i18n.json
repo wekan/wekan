@@ -1342,6 +1342,7 @@
   "settings": "設定",
   "attachment-transfer-limits-title": "附件與 API 檔案大小限制",
   "attachment-limits": "限制",
+  "attachment-retention": "保留期限",
   "attachment-transfer-limits-description": "設定上傳與下載的最大檔案大小限制。API 傳輸緩衝區設有獨立的伺服器端安全上限。",
   "attachment-transfer-limits-saved": "已儲存附件傳輸限制。",
   "attachment-transfer-limits-save-failed": "附件傳輸限制儲存失敗",

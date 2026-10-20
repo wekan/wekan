@@ -1342,6 +1342,7 @@
   "settings": "Тохируулганууд",
   "attachment-transfer-limits-title": "Хабсаргалта ба API файлай хэмжээнэй хизаарнууд",
   "attachment-limits": "Хизаарнууд",
+  "attachment-retention": "Хадагалха болзор",
   "attachment-transfer-limits-description": "Ашаалга ба таталгын файлай эгээн ехэ хэмжээнэй хизаарнуудые тохируулагты. API дамжуулгын буфер серверэй талын тусгаар аюулгүйн хизаартай.",
   "attachment-transfer-limits-saved": "Хабсаргалта дамжуулгын хизаарнууд хадагалагдаба.",
   "attachment-transfer-limits-save-failed": "Хабсаргалта дамжуулгын хизаарнуудые хадагалжа шадабагүй",

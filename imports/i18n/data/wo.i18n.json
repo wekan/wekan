@@ -1342,6 +1342,7 @@
   "settings": "Jekkal yi",
   "attachment-transfer-limits-title": "Dig yu réyaay bu fiise takkaay ak API",
   "attachment-limits": "Dig yi",
+  "attachment-retention": "Denc",
   "attachment-transfer-limits-description": "Tegal dig yu mag yu réyaayu fiise ngir yeb ak yebbi. Yóbbaale API am na ay dig yu kaaraange yu bopp ci wetu serwër.",
   "attachment-transfer-limits-saved": "Dig yu yóbbu takkaay dencu nañu.",
   "attachment-transfer-limits-save-failed": "Denc dig yu yóbbu takkaay antuwul",

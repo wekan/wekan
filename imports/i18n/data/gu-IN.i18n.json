@@ -1342,6 +1342,7 @@
   "settings": "સેટિંગ્સ",
   "attachment-transfer-limits-title": "જોડાણ અને API ફાઇલ કદ મર્યાદા",
   "attachment-limits": "મર્યાદાઓ",
+  "attachment-retention": "જાળવણી",
   "attachment-transfer-limits-description": "અપલોડ અને ડાઉનલોડ માટે મહત્તમ ફાઇલ કદ મર્યાદા ગોઠવો. API ટ્રાન્સફર બફરિંગમાં અલગ સર્વર-બાજુ સલામતી કેપ છે.",
   "attachment-transfer-limits-saved": "જોડાણ ટ્રાન્સફર મર્યાદા સાચવી.",
   "attachment-transfer-limits-save-failed": "જોડાણ ટ્રાન્સફર મર્યાદા સાચવવામાં નિષ્ફળ",

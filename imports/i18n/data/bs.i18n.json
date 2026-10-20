@@ -1342,6 +1342,7 @@
   "settings": "Postavke",
   "attachment-transfer-limits-title": "Ograničenja veličine datoteka za privitke i API",
   "attachment-limits": "Ograničenja",
+  "attachment-retention": "Zadržavanje",
   "attachment-transfer-limits-description": "Konfigurirajte najveća ograničenja veličine datoteka za prijenose i preuzimanja. Međuspremanje API prijenosa ima zasebna sigurnosna ograničenja na strani servera.",
   "attachment-transfer-limits-saved": "Ograničenja prijenosa privitaka spremljena.",
   "attachment-transfer-limits-save-failed": "Spremanje ograničenja prijenosa privitaka nije uspjelo",

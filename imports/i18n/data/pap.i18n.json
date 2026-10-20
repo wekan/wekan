@@ -1342,6 +1342,7 @@
   "settings": "Konfigurashon",
   "attachment-transfer-limits-title": "Límites di tamaño di archibo di adhuntos i API",
   "attachment-limits": "Límites",
+  "attachment-retention": "Wardamentu",
   "attachment-transfer-limits-description": "Configura e límites máximos di tamaño di archibo pa subidas i descargas. E almasenamiento den búfer di e transferensias di e API tin topes di seguridat independientes di e lado di e sirbidó.",
   "attachment-transfer-limits-saved": "Límites di transferensia di adhuntos guardados.",
   "attachment-transfer-limits-save-failed": "Eror na e warda e límites di transferensia di adhuntos",

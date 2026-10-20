@@ -1342,6 +1342,7 @@
   "settings": "Ynstellings",
   "attachment-transfer-limits-title": "Taheaksel- en API-bestânsgruttelimiten",
   "attachment-limits": "Limiten",
+  "attachment-retention": "Bewarring",
   "attachment-transfer-limits-description": "Konfigurearje maksimale bestânsgruttelimiten foar uploads en downloads. API-oerdrachtbuffering hat aparte feilichheidslimiten oan de serverkant.",
   "attachment-transfer-limits-saved": "Taheaksel-oerdrachtlimiten bewarre.",
   "attachment-transfer-limits-save-failed": "Bewarjen fan taheaksel-oerdrachtlimiten mislearre",

@@ -1342,6 +1342,7 @@
   "settings": "ምድላው",
   "attachment-transfer-limits-title": "ደረታት ቅያስ ተለጣፊን ፈይል APIን",
   "attachment-limits": "ሕዱዳት",
+  "attachment-retention": "ዕቅበት",
   "attachment-transfer-limits-description": "ንምስቃልን ምውራድን ዝለዓለ ደረት ቅያስ ፈይል ኣዳሉ። መዕቀቢ ምትሕልላፍ API በበይኑ ናይ ሰርቨር ደረታት ድሕነት ኣለዎ።",
   "attachment-transfer-limits-saved": "ደረታት ምትሕልላፍ ተለጣፊ ተዓቂቦም።",
   "attachment-transfer-limits-save-failed": "ደረታት ምትሕልላፍ ተለጣፊ ምዕቃብ ፈሺሉ",

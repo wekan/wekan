@@ -1342,6 +1342,7 @@
   "settings": "Sozlamalar",
   "attachment-transfer-limits-title": "Biriktirma va API fayl hajmi cheklovlari",
   "attachment-limits": "Cheklovlar",
+  "attachment-retention": "Saqlash muddati",
   "attachment-transfer-limits-description": "Yuklash va yuklab olish uchun maksimal fayl hajmi cheklovlarini sozlang. API oʻtkazishni buferlash alohida server tomonidagi xavfsizlik chegaralariga ega.",
   "attachment-transfer-limits-saved": "Biriktirma oʻtkazish cheklovlari saqlandi.",
   "attachment-transfer-limits-save-failed": "Biriktirma oʻtkazish cheklovlarini saqlab boʻlmadi",

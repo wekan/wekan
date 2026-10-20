@@ -1342,6 +1342,7 @@
   "settings": "Ɖoɖowo",
   "attachment-transfer-limits-title": "Nusi wokpe ɖe eŋu kple API agbalẽ ƒe lolome ƒe seƒoƒowo",
   "attachment-limits": "Seƒoƒowo",
+  "attachment-retention": "Dzadzraɖo ƒe ɣeyiɣi",
   "attachment-transfer-limits-description": "Ðo agbalẽ ƒe lolome gãtɔ ƒe seƒoƒowo na nu tsɔtsɔ ɖe dzi kple nu tsɔtsɔ ɖe anyi. API ƒe nu tsɔtsɔ ƒe dzraɖoɖo le dedie ƒe seƒoƒo tɔxɛwo le dɔdzikpɔla ƒe axa dzi.",
   "attachment-transfer-limits-saved": "Wodzra nusi wokpe ɖe eŋu ƒe nu tsɔtsɔ seƒoƒowo ɖo.",
   "attachment-transfer-limits-save-failed": "Nusi wokpe ɖe eŋu ƒe nu tsɔtsɔ seƒoƒowo dzraɖoɖo medze edzi o",

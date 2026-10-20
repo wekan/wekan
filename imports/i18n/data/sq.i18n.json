@@ -1342,6 +1342,7 @@
   "settings": "Cilësimet",
   "attachment-transfer-limits-title": "Kufijtë e madhësisë së bashkëngjitjeve dhe skedarëve API",
   "attachment-limits": "Kufijtë",
+  "attachment-retention": "Ruajtja",
   "attachment-transfer-limits-description": "Konfiguro kufijtë maksimalë të madhësisë së skedarëve për ngarkime dhe shkarkime. Buferimi i transferimeve API ka kufij të veçantë sigurie në server.",
   "attachment-transfer-limits-saved": "Kufijtë e transferimit të bashkëngjitjeve u ruajtën.",
   "attachment-transfer-limits-save-failed": "Ruajtja e kufijve të transferimit të bashkëngjitjeve dështoi",

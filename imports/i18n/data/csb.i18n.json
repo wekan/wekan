@@ -1342,6 +1342,7 @@
   "settings": "Ùstôwë",
   "attachment-transfer-limits-title": "Ògrańczenia miarë lopków przëłączników i API",
   "attachment-limits": "Ògrańczenia",
+  "attachment-retention": "Trzymanié",
   "attachment-transfer-limits-description": "Nastôwi nôwiãkszé miarë lopków dlô wgrëwaniô i pòbiéraniô. Bùfòrowanié transferu API mô òsóbné ògrańczenia bezpiecznotë pò stronie serwera.",
   "attachment-transfer-limits-saved": "Ògrańczenia transferu przëłączników zapisóné.",
   "attachment-transfer-limits-save-failed": "Nie dało sã zapisac ògrańczeniów transferu przëłączników",

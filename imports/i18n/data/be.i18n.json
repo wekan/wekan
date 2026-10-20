@@ -1342,6 +1342,7 @@
   "settings": "Налады",
   "attachment-transfer-limits-title": "Ліміты памеру файлаў укладанняў і API",
   "attachment-limits": "Ліміты",
+  "attachment-retention": "Тэрмін захоўвання",
   "attachment-transfer-limits-description": "Наладзьце ліміты максімальнага памеру файлаў для загрузкі і спампоўвання. Буферызацыя перадачы API мае асобныя серверныя абмежаванні бяспекі.",
   "attachment-transfer-limits-saved": "Ліміты перадачы ўкладанняў захаваны.",
   "attachment-transfer-limits-save-failed": "Не ўдалося захаваць ліміты перадачы ўкладанняў",

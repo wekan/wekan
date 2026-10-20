@@ -1342,6 +1342,7 @@
   "settings": "Paramètres",
   "attachment-transfer-limits-title": "Limites de taille des pièces jointes et des fichiers API",
   "attachment-limits": "Limites",
+  "attachment-retention": "Conservation",
   "attachment-transfer-limits-description": "Configurez les limites de taille maximale de fichier pour les téléversements et téléchargements. La mise en tampon des transferts API dispose de plafonds de sécurité distincts côté serveur.",
   "attachment-transfer-limits-saved": "Limites de transfert des pièces jointes enregistrées.",
   "attachment-transfer-limits-save-failed": "Échec de l'enregistrement des limites de transfert des pièces jointes",

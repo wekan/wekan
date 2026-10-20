@@ -1342,6 +1342,7 @@
   "settings": "Mîheng",
   "attachment-transfer-limits-title": "Sînorên mezinahiya pelan ên pêvek û API",
   "attachment-limits": "Sînor",
+  "attachment-retention": "Parastin",
   "attachment-transfer-limits-description": "Sînorên herî zêde yên mezinahiya pelan ji bo barkirin û daxistinê saz bike. Tampona veguhastina API sînorên ewlehiyê yên cuda li aliyê pêşkêşkar hene.",
   "attachment-transfer-limits-saved": "Sînorên veguhastina pêvekan hatin tomarkirin.",
   "attachment-transfer-limits-save-failed": "Tomarkirina sînorên veguhastina pêvekan bi ser neket",

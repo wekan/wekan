@@ -1342,6 +1342,7 @@
   "settings": "ସେଟିଂସମୂହ",
   "attachment-transfer-limits-title": "ସଂଲଗ୍ନକ ଏବଂ API ଫାଇଲ୍ ଆକାର ସୀମା",
   "attachment-limits": "ସୀମା",
+  "attachment-retention": "ସଂରକ୍ଷଣ ଅବଧି",
   "attachment-transfer-limits-description": "ଅପଲୋଡ୍ ଏବଂ ଡାଉନଲୋଡ୍ ପାଇଁ ସର୍ବାଧିକ ଫାଇଲ୍ ଆକାର ସୀମା ବିନ୍ୟାସ କରନ୍ତୁ। API ସ୍ଥାନାନ୍ତର ବଫରିଙ୍ଗର ଅଲଗା ସର୍ଭର-ପାର୍ଶ୍ୱ ସୁରକ୍ଷା କ୍ୟାପ୍ ଅଛି।",
   "attachment-transfer-limits-saved": "ସଂଲଗ୍ନକ ସ୍ଥାନାନ୍ତର ସୀମା ସଞ୍ଚୟ କରାଯାଇଛି।",
   "attachment-transfer-limits-save-failed": "ସଂଲଗ୍ନକ ସ୍ଥାନାନ୍ତର ସୀମା ସଞ୍ଚୟ କରିବାରେ ବିଫଳ",

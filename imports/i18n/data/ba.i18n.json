@@ -1342,6 +1342,7 @@
   "settings": "Көйләүҙәр",
   "attachment-transfer-limits-title": "Ҡушымта һәм API файл үлсәме сикләүҙәре",
   "attachment-limits": "Сикләүҙәр",
+  "attachment-retention": "Һаҡлау срогы",
   "attachment-transfer-limits-description": "Йөкләүҙәр һәм күсереп алыуҙар өсөн файлдың иң ҙур үлсәм сикләүҙәрен көйләгеҙ. API тапшырыуын буферлау өсөн сервер яғында айырым хәүефһеҙлек сиктәре бар.",
   "attachment-transfer-limits-saved": "Ҡушымталарҙы тапшырыу сикләүҙәре һаҡланды.",
   "attachment-transfer-limits-save-failed": "Ҡушымталарҙы тапшырыу сикләүҙәрен һаҡлап булманы",

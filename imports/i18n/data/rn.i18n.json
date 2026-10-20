@@ -1342,6 +1342,7 @@
   "settings": "Ibigenwa",
   "attachment-transfer-limits-title": "Imipaka y'ubunini bwa dosiye z'ivyometse na API",
   "attachment-limits": "Imipaka",
+  "attachment-retention": "Kubika",
   "attachment-transfer-limits-description": "Gena imipaka y'ubunini bunini bwa dosiye zishirwako n'izimanurwa. Ububiko bw'imfatakibanza bw'ukwimura kwa API bufise imipaka y'umutekano itandukanye ku ruhande rwa server.",
   "attachment-transfer-limits-saved": "Imipaka yo kwimura ivyometse yarabitswe.",
   "attachment-transfer-limits-save-failed": "Kubika imipaka yo kwimura ivyometse vyaranse",

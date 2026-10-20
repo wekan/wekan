@@ -1342,6 +1342,7 @@
   "settings": "Stillingar",
   "attachment-transfer-limits-title": "Støddarmørk fyri viðheft og API-fílur",
   "attachment-limits": "Mørk",
+  "attachment-retention": "Varðveiting",
   "attachment-transfer-limits-description": "Still størstu fílustødd fyri upp- og niðurtøku. Millumgoymsla til API-flutning hevur serstøk trygdarmørk á ambætaranum.",
   "attachment-transfer-limits-saved": "Flutningsmørk fyri viðheft eru goymd.",
   "attachment-transfer-limits-save-failed": "Tað bar ikki til at goyma flutningsmørk fyri viðheft",

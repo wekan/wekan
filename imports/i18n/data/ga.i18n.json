@@ -1342,6 +1342,7 @@
   "settings": "Socruithe",
   "attachment-transfer-limits-title": "Teorainneacha Méide Comhaid Ceangaltán agus API",
   "attachment-limits": "Teorainneacha",
+  "attachment-retention": "Coinneáil",
   "attachment-transfer-limits-description": "Cumraigh uasteorainneacha méide comhaid d'uaslódálacha agus d'íoslódálacha. Tá caidhpeanna sábháilteachta ar leith ar thaobh an fhreastalaí ag maolánú aistrithe API.",
   "attachment-transfer-limits-saved": "Sábháladh teorainneacha aistrithe ceangaltán.",
   "attachment-transfer-limits-save-failed": "Theip ar shábháil teorainneacha aistrithe ceangaltán",

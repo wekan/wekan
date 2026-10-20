@@ -1342,6 +1342,7 @@
   "settings": "Gosodiadau",
   "attachment-transfer-limits-title": "Terfynau Maint Ffeil Ymlyniadau ac API",
   "attachment-limits": "Terfynau",
+  "attachment-retention": "Cadw",
   "attachment-transfer-limits-description": "Ffurfweddu terfynau maint ffeil uchaf ar gyfer llwytho i fyny a lawrlwytho. Mae gan fyffro trosglwyddo API gapiau diogelwch ar wahân ar ochr y gweinydd.",
   "attachment-transfer-limits-saved": "Cadwyd terfynau trosglwyddo ymlyniadau.",
   "attachment-transfer-limits-save-failed": "Methwyd â chadw terfynau trosglwyddo ymlyniadau",

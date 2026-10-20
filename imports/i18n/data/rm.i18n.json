@@ -1342,6 +1342,7 @@
   "settings": "Parameters",
   "attachment-transfer-limits-title": "Limits da grondezza da datotecas per agiuntas ed API",
   "attachment-limits": "Limitas",
+  "attachment-retention": "Conservaziun",
   "attachment-transfer-limits-description": "Configurar las limitas maximalas da grondezza da datotecas per chargiar si e telechargiar. La memorisaziun intermediara dal transferiment API ha atgnas limitas da segirezza sin il server.",
   "attachment-transfer-limits-saved": "Las limitas da transferiment d’agiuntas èn memorisadas.",
   "attachment-transfer-limits-save-failed": "Las limitas da transferiment d’agiuntas n’han betg pudì vegnir memorisadas",

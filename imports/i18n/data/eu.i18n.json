@@ -1342,6 +1342,7 @@
   "settings": "Ezarpenak",
   "attachment-transfer-limits-title": "Eranskinen eta APIaren fitxategi-tamainaren mugak",
   "attachment-limits": "Mugak",
+  "attachment-retention": "Atxikipena",
   "attachment-transfer-limits-description": "Konfiguratu igoeren eta jaitsieren fitxategi-tamainaren gehieneko mugak. API transferentziaren bufferrak zerbitzariaren aldeko segurtasun-muga bereiziak ditu.",
   "attachment-transfer-limits-saved": "Eranskinen transferentzia-mugak gordeta.",
   "attachment-transfer-limits-save-failed": "Ezin izan dira eranskinen transferentzia-mugak gorde",

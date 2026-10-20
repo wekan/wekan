@@ -1342,6 +1342,7 @@
   "settings": "Sazlamalar",
   "attachment-transfer-limits-title": "Goşundy we API faýl ölçegi çäklendirmeleri",
   "attachment-limits": "Çäklendirmeler",
+  "attachment-retention": "Saklamak",
   "attachment-transfer-limits-description": "Ýüklemeler we göçürip almalar üçin iň ýokary faýl ölçegi çäklendirmelerini düzüň. API geçirme buferlemesiniň aýratyn serwer tarapyndaky howpsuzlyk çäkleri bar.",
   "attachment-transfer-limits-saved": "Goşundy geçirme çäklendirmeleri saklandy.",
   "attachment-transfer-limits-save-failed": "Goşundy geçirme çäklendirmelerini saklamak şowsuz boldy",

@@ -1342,6 +1342,7 @@
   "settings": "Agordoj",
   "attachment-transfer-limits-title": "Limoj de dosiergrando por aldonaĵoj kaj API",
   "attachment-limits": "Limoj",
+  "attachment-retention": "Konservado",
   "attachment-transfer-limits-description": "Agordu maksimumajn limojn de dosiergrando por alŝutoj kaj elŝutoj. La bufrado de API-transigo havas apartajn servilajn sekurecajn limojn.",
   "attachment-transfer-limits-saved": "Limoj de aldonaĵa transigo konservitaj.",
   "attachment-transfer-limits-save-failed": "Malsukcesis konservi limojn de aldonaĵa transigo",

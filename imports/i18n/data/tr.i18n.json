@@ -1342,6 +1342,7 @@
   "settings": "Ayarlar",
   "attachment-transfer-limits-title": "Eklenti ve API Dosya Boyutu Sınırları",
   "attachment-limits": "Sınırlar",
+  "attachment-retention": "Saklama süresi",
   "attachment-transfer-limits-description": "Yüklemeler ve indirmeler için maksimum dosya boyutu sınırlarını yapılandırın. API aktarım arabelleklemesinin ayrı sunucu tarafı güvenlik üst sınırları vardır.",
   "attachment-transfer-limits-saved": "Eklenti aktarım sınırları kaydedildi.",
   "attachment-transfer-limits-save-failed": "Eklenti aktarım sınırları kaydedilemedi",

@@ -1342,6 +1342,7 @@
   "settings": "סעטטינגס",
   "attachment-transfer-limits-title": "אַטאַטשמאַנט און API טעקע־גרייס גרענעצן",
   "attachment-limits": "גרענעצן",
+  "attachment-retention": "אָפּהאַלטונג",
   "attachment-transfer-limits-description": "קאָנפֿיגוריר מאַקסימאַלע טעקע־גרייס גרענעצן פֿאַר אַרויפֿלאָדונגען און אַראָפּלאָדונגען. API טראַנספֿער־בופֿערינג האָט באַזונדערע סערווער־זייַטיקע זיכערהייט־גרענעצן.",
   "attachment-transfer-limits-saved": "אַטאַטשמאַנט טראַנספֿער־גרענעצן אָפּגעהיט.",
   "attachment-transfer-limits-save-failed": "האָב נישט געקענט אָפּהיטן אַטאַטשמאַנט טראַנספֿער־גרענעצן",

@@ -1342,6 +1342,7 @@
   "settings": "Saituna",
   "attachment-transfer-limits-title": "Iyakokin girman fayil na maƙala da API",
   "attachment-limits": "Iyakoki",
+  "attachment-retention": "Ajiya",
   "attachment-transfer-limits-description": "Saita iyakar girman fayil ga ɗorawa da saukewa. Ajiyar canja wurin API tana da iyakokin aminci dabam a gefen saba.",
   "attachment-transfer-limits-saved": "An adana iyakokin canja wurin maƙala.",
   "attachment-transfer-limits-save-failed": "Adana iyakokin canja wurin maƙala ya gaza",

@@ -187,6 +187,20 @@ const SECTIONS = {
       ['disableInactiveAfterDays', 'USERS_DISABLE_INACTIVE_AFTER_DAYS', 'number', { max: 36500 }],
     ],
   },
+  // Not a login method, but the same contract: settings an environment variable
+  // configures and Admin Panel can override, resolved at run time through
+  // authEnv (server/lib/authConfig.js), with the same platform-listing test.
+  // Admin Panel / Attachments / Retention (#6789, models/lib/attachmentRetention.js).
+  attachmentRetention: {
+    storage: 'attachmentRetention',
+    fields: [
+      ['retentionDays', 'ATTACHMENTS_RETENTION_DAYS', 'number', { max: 36500 }],
+      ['mode', 'ATTACHMENTS_RETENTION_MODE', 'choice', { choices: ['uploaded', 'card-inactive'], defaultValue: 'uploaded' }],
+      ['purgeDeletedAfterDays', 'ATTACHMENTS_PURGE_DELETED_AFTER_DAYS', 'number', { max: 36500 }],
+      ['dryRun', 'ATTACHMENTS_RETENTION_DRY_RUN', 'boolean', { defaultValue: false }],
+      ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: 1000, max: 1000000 }],
+    ],
+  },
 };
 
 const AUTH_CONFIG_SECTIONS = {};

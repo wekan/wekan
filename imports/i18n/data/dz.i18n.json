@@ -1342,6 +1342,7 @@
   "settings": "གཞི་སྒྲིག",
   "attachment-transfer-limits-title": "ཟུར་སྦྱར་དང་ API ཡིག་ཆའི་ཆེ་ཆུང་ཚད།",
   "attachment-limits": "ཚད།",
+  "attachment-retention": "ཉར་ཚགས་ཀྱི་དུས་ཡུན།",
   "attachment-transfer-limits-description": "ཡར་འཇུག་དང་ཕབ་ལེན་གྱི་ཡིག་ཆའི་ཆེ་ཆུང་མང་ཤོས་ཀྱི་ཚད་སྒྲིག རྒྱུད་ལམ་གྱི་ཉེན་སྲུང་ཚད་ API སྤོ་སྒྱུར་བར་གསོག་ལ་ལོགས་སུ་ཡོད།",
   "attachment-transfer-limits-saved": "ཟུར་སྦྱར་སྤོ་སྒྱུར་གྱི་ཚད་ཉར་ཚགས་བྱས།",
   "attachment-transfer-limits-save-failed": "ཟུར་སྦྱར་སྤོ་སྒྱུར་གྱི་ཚད་ཉར་ཚགས་མ་ཐུབ།",

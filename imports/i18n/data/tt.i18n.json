@@ -1342,6 +1342,7 @@
   "settings": "Көйләүләр",
   "attachment-transfer-limits-title": "Беркетмәләр һәм API файлларының зурлык чикләүләре",
   "attachment-limits": "Чикләүләр",
+  "attachment-retention": "Саклау вакыты",
   "attachment-transfer-limits-description": "Йөкләү һәм йөкләп алу өчен файлларның иң зур рөхсәт ителгән күләмен көйләгез. API аша тапшыруны буферлау өчен сервер ягында аерым иминлек чикләүләре бар.",
   "attachment-transfer-limits-saved": "Беркетмәләрне тапшыру чикләүләре сакланды.",
   "attachment-transfer-limits-save-failed": "Беркетмәләрне тапшыру чикләүләрен саклап булмады",

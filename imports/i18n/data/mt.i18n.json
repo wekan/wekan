@@ -1342,6 +1342,7 @@
   "settings": "Konfigurazzjoni",
   "attachment-transfer-limits-title": "Mehmuż And API Fajl Size Limits",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Żamma",
   "attachment-transfer-limits-description": "Configure maximum file size limits għal uploads u downloads. API transfer buffering has separate server-side safety caps.",
   "attachment-transfer-limits-saved": "Mehmuż transfer limits saved.",
   "attachment-transfer-limits-save-failed": "Failed għal save attachment transfer limits",

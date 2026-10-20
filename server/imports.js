@@ -434,6 +434,7 @@ import '/server/checklistResetSchedule';
 import '/server/cardRecurrenceSchedule';
 import '/server/autoArchiveCards';
 import '/server/disableInactiveUsers';
+import '/server/attachmentRetention';
 import '/server/listSync';
 import '/server/methods/listSync';
 import '/server/methods/listSyncStuck';

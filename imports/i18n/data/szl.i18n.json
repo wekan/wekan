@@ -1342,6 +1342,7 @@
   "settings": "Sztelōnki",
   "attachment-transfer-limits-title": "Limity rozmiaru plikōw przidŏwkōw i API",
   "attachment-limits": "Limity",
+  "attachment-retention": "Trzimanie",
   "attachment-transfer-limits-description": "Skonfiguruj maksymalne limity rozmiaru plikōw dlŏ przesyłania i pobierania. Buforowanie transferu API ma odrębne limity bezpieczeństwa po strōnie serwera.",
   "attachment-transfer-limits-saved": "Limity transferu przidŏwkōw zapisane.",
   "attachment-transfer-limits-save-failed": "Niy udało sie zapisać limitów transferu przidŏwkōw",

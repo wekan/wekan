@@ -1342,6 +1342,7 @@
   "settings": "Valičused",
   "attachment-transfer-limits-title": "Ličtusiden i API failoiden surusen rajad",
   "attachment-limits": "Rajad",
+  "attachment-retention": "Retensi",
   "attachment-transfer-limits-description": "Säda surin failan surusen rajad päleladindoile i alaladindoile. API-sirdändan buferizacijal om ičeze server-polen turvarajad.",
   "attachment-transfer-limits-saved": "Ličtusiden sirdänd-rajad kaitud.",
   "attachment-transfer-limits-save-failed": "Ei sand kaita ličtusiden sirdänd-rajoid",

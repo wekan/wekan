@@ -1342,6 +1342,7 @@
   "settings": "Preferencias",
   "attachment-transfer-limits-title": "Llímites de tamañu de ficheru pa adjuntos y API",
   "attachment-limits": "Llímites",
+  "attachment-retention": "Retención",
   "attachment-transfer-limits-description": "Configura los llímites máximos de tamañu de ficheru pa xubíes y baxaes. El almacenamientu temporal de tresferencia de la API tien llímites de seguridá separtaos nel llau del sirvidor.",
   "attachment-transfer-limits-saved": "Guardáronse los llímites de tresferencia d'adjuntos.",
   "attachment-transfer-limits-save-failed": "Nun se pudieron guardar los llímites de tresferencia d'adjuntos",

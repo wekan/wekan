@@ -1342,6 +1342,7 @@
   "settings": "Arventennoù",
   "attachment-transfer-limits-title": "Bevennoù ment ar restroù stagadenn hag API",
   "attachment-limits": "Bevennoù",
+  "attachment-retention": "Mirerezh",
   "attachment-transfer-limits-description": "Kefluniañ ar bevennoù ment restr uc'hek evit ar pellgargadennoù hag ar pellkasadennoù. Bevennoù diogelroez a-du servijer disheñvel o deus an tremen restroù dre API.",
   "attachment-transfer-limits-saved": "Enrollet eo bevennoù treuzkas ar stagadennoù.",
   "attachment-transfer-limits-save-failed": "C'hwitet eo enrollañ bevennoù treuzkas ar stagadennoù",

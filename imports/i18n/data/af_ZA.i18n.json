@@ -1342,6 +1342,7 @@
   "settings": "Instellings",
   "attachment-transfer-limits-title": "Aanhangsel- en API-lêergrootte-limiete",
   "attachment-limits": "Limiete",
+  "attachment-retention": "Bewaring",
   "attachment-transfer-limits-description": "Stel maksimum lêergrootte-limiete vir oplaaie en aflaaie in. API-oordragbuffering het aparte bediener-kant veiligheidslimiete.",
   "attachment-transfer-limits-saved": "Aanhangsel-oordraglimiete gestoor.",
   "attachment-transfer-limits-save-failed": "Kon nie aanhangsel-oordraglimiete stoor nie",

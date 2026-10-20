@@ -1342,6 +1342,7 @@
   "settings": "Apontiaedjes",
   "attachment-transfer-limits-title": "Limites d' grandeu di fitchî po les pîces djondowes eyet l' API",
   "attachment-limits": "Limites",
+  "attachment-retention": "Wårdaedje",
   "attachment-transfer-limits-description": "Apontyîz les limites macsimom di grandeu di fitchî po les tcherdjaedjes et les aberwetaedjes. Li tampon d' transfer API a des limites di såvrité da lu do costé sierveu.",
   "attachment-transfer-limits-saved": "Limites di transfer des pîces djondowes wårdêyes.",
   "attachment-transfer-limits-save-failed": "Dji n' a nén savou wårder les limites di transfer des pîces djondowes",

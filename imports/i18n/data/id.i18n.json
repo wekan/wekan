@@ -1342,6 +1342,7 @@
   "settings": "Setelan",
   "attachment-transfer-limits-title": "Batas Ukuran File Lampiran Dan API",
   "attachment-limits": "Batas",
+  "attachment-retention": "Retensi",
   "attachment-transfer-limits-description": "Konfigurasikan batas ukuran file maksimum untuk unggahan dan unduhan. Buffering transfer API memiliki batas keamanan sisi server tersendiri.",
   "attachment-transfer-limits-saved": "Batas transfer lampiran disimpan.",
   "attachment-transfer-limits-save-failed": "Gagal menyimpan batas transfer lampiran",

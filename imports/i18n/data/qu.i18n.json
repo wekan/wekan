@@ -1342,6 +1342,7 @@
   "settings": "Allichaykuna",
   "attachment-transfer-limits-title": "Watasqa hinallataq API willañiqi hatun kay saywakuna",
   "attachment-limits": "Saywakuna",
+  "attachment-retention": "Waqaychay",
   "attachment-transfer-limits-description": "Wichachinapaq uraqachinapaq willañiqikunap aswan hatun kayninta churay. API apaypa waqaychayninqa sirwiqpi sapan amachana saywayuqmi.",
   "attachment-transfer-limits-saved": "Watasqa apay saywakuna waqaychasqa.",
   "attachment-transfer-limits-save-failed": "Watasqa apay saywakunata mana waqaychayta atikurqanchu",

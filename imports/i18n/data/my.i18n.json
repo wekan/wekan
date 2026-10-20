@@ -1342,6 +1342,7 @@
   "settings": "ဆက်တင်များ",
   "attachment-transfer-limits-title": "ပူးတွဲဖိုင်နှင့် API ဖိုင်အရွယ် ကန့်သတ်ချက်များ",
   "attachment-limits": "ကန့်သတ်ချက်များ",
+  "attachment-retention": "သိမ်းဆည်းချိန်",
   "attachment-transfer-limits-description": "တင်ခြင်းနှင့် ဒေါင်းလုဒ်ခြင်းအတွက် အများဆုံးဖိုင်အရွယ် ကန့်သတ်ချက်များကို သတ်မှတ်ပါ။ API လွှဲပြောင်းမှု buffering တွင် သီးခြား ဆာဗာဘက် လုံခြုံရေးကန့်သတ်ချက်များ ရှိသည်။",
   "attachment-transfer-limits-saved": "ပူးတွဲဖိုင် လွှဲပြောင်းမှုကန့်သတ်ချက်များ သိမ်းပြီး။",
   "attachment-transfer-limits-save-failed": "ပူးတွဲဖိုင် လွှဲပြောင်းမှုကန့်သတ်ချက်များ မသိမ်းနိုင်ပါ",

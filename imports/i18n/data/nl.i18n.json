@@ -1342,6 +1342,7 @@
   "settings": "Instellingen",
   "attachment-transfer-limits-title": "Bijlage en API bestandsgrootte limieten.",
   "attachment-limits": "Limieten",
+  "attachment-retention": "Bewaartermijn",
   "attachment-transfer-limits-description": "Configureer maximale bestandsgrootte limieten voor uploads en downloads. API transfer buffering heeft eigen server-side veiligheidsmarges.",
   "attachment-transfer-limits-saved": "Bijlage transfer limiet opgeslagen.",
   "attachment-transfer-limits-save-failed": "Bijlage transfer limiet opslaan mislukt.",

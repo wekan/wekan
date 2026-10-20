@@ -1342,6 +1342,7 @@
   "settings": "Tetapan",
   "attachment-transfer-limits-title": "Had Saiz Fail Lampiran dan API",
   "attachment-limits": "Had",
+  "attachment-retention": "Penyimpanan",
   "attachment-transfer-limits-description": "Konfigurasikan had saiz fail maksimum untuk muat naik dan muat turun. Penimbal pemindahan API mempunyai had keselamatan yang berasingan di pihak pelayan.",
   "attachment-transfer-limits-saved": "Had pemindahan lampiran disimpan.",
   "attachment-transfer-limits-save-failed": "Gagal menyimpan had pemindahan lampiran",

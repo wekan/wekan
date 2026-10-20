@@ -1342,6 +1342,7 @@
   "settings": "Paramèt",
   "attachment-transfer-limits-title": "Limit gwosè fichye pou pyès atache ak API",
   "attachment-limits": "Limit",
+  "attachment-retention": "Konsèvasyon",
   "attachment-transfer-limits-description": "Konfigire limit maksimòm gwosè fichye pou voye ak telechaje. Tanpon transfè API a gen limit sekirite separe bò sèvè a.",
   "attachment-transfer-limits-saved": "Limit transfè pyès atache yo anrejistre.",
   "attachment-transfer-limits-save-failed": "Anrejistreman limit transfè pyès atache yo echwe",

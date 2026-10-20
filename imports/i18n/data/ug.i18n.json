@@ -1342,6 +1342,7 @@
   "settings": "تەڭشەك",
   "attachment-transfer-limits-title": "قوشۇمچە ۋە API ھۆججەت چوڭلۇقى چەكلىمىلىرى",
   "attachment-limits": "چەكلىمىلەر",
+  "attachment-retention": "ساقلاش ۋاقتى",
   "attachment-transfer-limits-description": "يۈكلەش ۋە چۈشۈرۈش ئۈچۈن ئەڭ چوڭ ھۆججەت چوڭلۇقى چەكلىمىلىرىنى تەڭشەڭ. API يۆتكەش بۇفېرلىشىنىڭ ئايرىم مۇلازىمېتىر تەرەپ بىخەتەرلىك چەكلىمىسى بار.",
   "attachment-transfer-limits-saved": "قوشۇمچە يۆتكەش چەكلىمىلىرى ساقلاندى.",
   "attachment-transfer-limits-save-failed": "قوشۇمچە يۆتكەش چەكلىمىلىرىنى ساقلاش مەغلۇب بولدى",

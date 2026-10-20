@@ -1342,6 +1342,7 @@
   "settings": "ಸಂಯೋಜನೆಗಳು",
   "attachment-transfer-limits-title": "ಲಗತ್ತು ಮತ್ತು API ಕಡತದ ಗಾತ್ರ ಮಿತಿಗಳು",
   "attachment-limits": "ಮಿತಿಗಳು",
+  "attachment-retention": "ಧಾರಣೆ",
   "attachment-transfer-limits-description": "ಅಪ್‌ಲೋಡ್ ಮತ್ತು ಡೌನ್‌ಲೋಡ್‌ಗಳಿಗೆ ಗರಿಷ್ಠ ಕಡತ ಗಾತ್ರದ ಮಿತಿಗಳನ್ನು ಹೊಂದಿಸಿ. API ವರ್ಗಾವಣೆ ಬಫರಿಂಗ್‌ಗೆ ಪ್ರತ್ಯೇಕ ಸರ್ವರ್-ಬದಿಯ ಸುರಕ್ಷತಾ ಮಿತಿಗಳಿವೆ.",
   "attachment-transfer-limits-saved": "ಲಗತ್ತು ವರ್ಗಾವಣೆ ಮಿತಿಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ.",
   "attachment-transfer-limits-save-failed": "ಲಗತ್ತು ವರ್ಗಾವಣೆ ಮಿತಿಗಳನ್ನು ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ",

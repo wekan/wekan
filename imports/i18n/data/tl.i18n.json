@@ -1342,6 +1342,7 @@
   "settings": "Mga setting",
   "attachment-transfer-limits-title": "kalakip At API Talaksan Laki Mga limitasyon",
   "attachment-limits": "Mga limitasyon",
+  "attachment-retention": "Pagpapanatili",
   "attachment-transfer-limits-description": "Configure pinakamataas talaksan laki mga limitasyon para sa uploads at downloads. API transfer buffering may separate tagapaghain-side safety caps.",
   "attachment-transfer-limits-saved": "kalakip transfer mga limitasyon na-save.",
   "attachment-transfer-limits-save-failed": "Nabigo sa i-save kalakip transfer mga limitasyon",

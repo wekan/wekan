@@ -1342,6 +1342,7 @@
   "settings": "Ρυθμίσεις",
   "attachment-transfer-limits-title": "Όρια Μεγέθους Αρχείων Συνημμένων και API",
   "attachment-limits": "Όρια",
+  "attachment-retention": "Διατήρηση",
   "attachment-transfer-limits-description": "Ρυθμίστε τα μέγιστα όρια μεγέθους αρχείων για μεταφορτώσεις και λήψεις. Η προσωρινή αποθήκευση μεταφοράς API έχει ξεχωριστά όρια ασφαλείας από την πλευρά του διακομιστή.",
   "attachment-transfer-limits-saved": "Τα όρια μεταφοράς συνημμένων αποθηκεύτηκαν.",
   "attachment-transfer-limits-save-failed": "Αποτυχία αποθήκευσης ορίων μεταφοράς συνημμένων",

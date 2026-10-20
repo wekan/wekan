@@ -1342,6 +1342,7 @@
   "settings": "Nastajenja",
   "attachment-transfer-limits-title": "Limity wulkosće datajow za přiwěški a API",
   "attachment-limits": "Limity",
+  "attachment-retention": "Składowanje",
   "attachment-transfer-limits-description": "Konfigurujće maksimalne limity wulkosće datajow za nahraća a sćehnjenja. Mjezyskładowanje přenošowanjow API ma separatne wěstotne limity na boku serwera.",
   "attachment-transfer-limits-saved": "Limity přenošowanja přiwěškow składowane.",
   "attachment-transfer-limits-save-failed": "Składowanje limitow přenošowanja přiwěškow njeje so poradźiło",

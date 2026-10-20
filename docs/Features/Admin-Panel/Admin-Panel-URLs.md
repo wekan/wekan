@@ -111,6 +111,7 @@ and `performance`; `security-report` is the report, beside `impersonation`.
 | `/admin/attachments/move` | Move Attachment | `move` |
 | `/admin/attachments/default-save-storage` | Default Save Storage | `default-save-storage` |
 | `/admin/attachments/limits` | Limits | `limits` |
+| `/admin/attachments/retention` | Retention: delete old attachments, purge deleted ones (#6789) | `retention` |
 | `/admin/attachments/gridfs` | MongoDB GridFS Storage | `gridfs` |
 | `/admin/attachments/filesystem` | Filesystem Storage | `filesystem` |
 | `/admin/attachments/s3` | S3/MinIO Storage | `s3` |

@@ -1342,6 +1342,7 @@
   "settings": "Teelte",
   "attachment-transfer-limits-title": "Keeri mawneendi piille ceŋaaɗe e API",
   "attachment-limits": "Keeri",
+  "attachment-retention": "Mooftugol",
   "attachment-transfer-limits-description": "Teelto keeri mawneendi piille jollinaaɗe e aawtaaɗe. Mooftugol dirtinol API jogii keeri kisal keeriiɗi to sarworde.",
   "attachment-transfer-limits-saved": "Keeri dirtinol ceŋaaɗi mooftaama.",
   "attachment-transfer-limits-save-failed": "Mooftugol keeri dirtinol ceŋaaɗi woorii",

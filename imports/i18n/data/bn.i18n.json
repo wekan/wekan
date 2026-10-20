@@ -1342,6 +1342,7 @@
   "settings": "সেটিংস",
   "attachment-transfer-limits-title": "সংযুক্তি ও API ফাইলের আকারসীমা",
   "attachment-limits": "সীমা",
+  "attachment-retention": "সংরক্ষণের মেয়াদ",
   "attachment-transfer-limits-description": "আপলোড ও ডাউনলোডের সর্বোচ্চ ফাইল আকারসীমা নির্ধারণ করুন। API স্থানান্তর বাফারের জন্য সার্ভারে আলাদা নিরাপত্তাসীমা আছে।",
   "attachment-transfer-limits-saved": "সংযুক্তি স্থানান্তরের সীমা সংরক্ষিত হয়েছে।",
   "attachment-transfer-limits-save-failed": "সংযুক্তি স্থানান্তরের সীমা সংরক্ষণ ব্যর্থ হয়েছে",

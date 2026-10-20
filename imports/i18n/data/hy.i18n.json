@@ -1342,6 +1342,7 @@
   "settings": "Կարգավորումներ",
   "attachment-transfer-limits-title": "Կցորդի և API ֆայլի չափի սահմանափակումներ",
   "attachment-limits": "Սահմանափակումներ",
+  "attachment-retention": "Պահպանում",
   "attachment-transfer-limits-description": "Կարգավորեք ֆայլերի առավելագույն չափի սահմանափակումները վերբեռնումների և ներբեռնումների համար: API փոխանցման բուֆերացումն ունի առանձին սերվերային անվտանգության սահմաններ:",
   "attachment-transfer-limits-saved": "Կցորդի փոխանցման սահմանափակումները պահպանվեցին:",
   "attachment-transfer-limits-save-failed": "Չհաջողվեց պահպանել կցորդի փոխանցման սահմանափակումները",

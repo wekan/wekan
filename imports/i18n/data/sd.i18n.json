@@ -1342,6 +1342,7 @@
   "settings": "سيٽنگون",
   "attachment-transfer-limits-title": "منسلڪ ۽ API فائيل قد جون حدون",
   "attachment-limits": "حدون",
+  "attachment-retention": "سنڀال",
   "attachment-transfer-limits-description": "چاڙهڻ ۽ لاهڻ لاءِ وڌ ۾ وڌ فائيل قد جون حدون مقرر ڪريو. API منتقلي بفرنگ لاءِ سرور پاسي الڳ حفاظتي حدون آهن.",
   "attachment-transfer-limits-saved": "منسلڪ منتقلي جون حدون محفوظ ٿيون.",
   "attachment-transfer-limits-save-failed": "منسلڪ منتقلي جون حدون محفوظ ڪرڻ ناڪام ٿيو",

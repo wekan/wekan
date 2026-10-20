@@ -1342,6 +1342,7 @@
   "settings": "설정",
   "attachment-transfer-limits-title": "첨부 파일 및 API 파일 크기 제한",
   "attachment-limits": "제한",
+  "attachment-retention": "보존 기간",
   "attachment-transfer-limits-description": "업로드 및 다운로드의 최대 파일 크기 제한을 구성합니다. API 전송 버퍼링에는 별도의 서버 측 안전 상한이 있습니다.",
   "attachment-transfer-limits-saved": "첨부 파일 전송 제한이 저장되었습니다.",
   "attachment-transfer-limits-save-failed": "첨부 파일 전송 제한 저장에 실패했습니다",

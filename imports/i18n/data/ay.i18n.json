@@ -1342,6 +1342,7 @@
   "settings": "Wakichawinaka",
   "attachment-transfer-limits-title": "apkatata ukat API qillqa-wayaqa jachʼa tupu Limits",
   "attachment-limits": "Aymar aruna: Limits",
+  "attachment-retention": "Imaña pacha",
   "attachment-transfer-limits-description": "Configure maximum qillqa-wayaqa jachʼa tupu limits for uploads ukat downloads. API transfer buffering has separate server-side safety caps.",
   "attachment-transfer-limits-saved": "apkatata transfer limits saved.",
   "attachment-transfer-limits-save-failed": "jani phuqhata ukaru imaña apkatata transfer limits",

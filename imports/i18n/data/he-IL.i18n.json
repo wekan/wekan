@@ -1342,6 +1342,7 @@
   "settings": "הגדרות",
   "attachment-transfer-limits-title": "מגבלות גודל קובץ לצרופות ול־API",
   "attachment-limits": "מגבלות",
+  "attachment-retention": "שמירה",
   "attachment-transfer-limits-description": "הגדרת מגבלות גודל קובץ מרביות להעלאות והורדות. לאגירת ההעברה של ה־API יש מגבלות בטיחות נפרדות בצד השרת.",
   "attachment-transfer-limits-saved": "מגבלות העברת הצרופות נשמרו.",
   "attachment-transfer-limits-save-failed": "שמירת מגבלות העברת הצרופות נכשלה",

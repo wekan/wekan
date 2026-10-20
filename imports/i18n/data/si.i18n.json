@@ -1342,6 +1342,7 @@
   "settings": "සැකසුම්",
   "attachment-transfer-limits-title": "ඇමුණුම් සහ API ගොනු ප්‍රමාණ සීමා",
   "attachment-limits": "සීමා",
+  "attachment-retention": "රඳවා තබා ගැනීම",
   "attachment-transfer-limits-description": "උඩුගත කිරීම් සහ බාගැනීම් සඳහා උපරිම ගොනු ප්‍රමාණ සීමා වින්‍යාස කරන්න. API හුවමාරු බෆරයට වෙනම සේවාදායක-පාර්ශ්ව ආරක්ෂක සීමා ඇත.",
   "attachment-transfer-limits-saved": "ඇමුණුම් හුවමාරු සීමා සුරැකී ඇත.",
   "attachment-transfer-limits-save-failed": "ඇමුණුම් හුවමාරු සීමා සුරැකීම අසාර්ථකයි",

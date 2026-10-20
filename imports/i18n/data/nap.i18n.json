@@ -1342,6 +1342,7 @@
   "settings": "Mpustaziune",
   "attachment-transfer-limits-title": "Limiti di dimensione dei file pe allegati e API",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Cunservazione",
   "attachment-transfer-limits-description": "Configura i limiti massimi di dimensione dei file pe caricamenti e download. Il buffering d' 'o trasferimento API ha limiti di sicurezza separati lato server.",
   "attachment-transfer-limits-saved": "Limite 'e trasferimento d'e allegati sarvate.",
   "attachment-transfer-limits-save-failed": "Nun s'è pututo sarvà 'e limite 'e trasferimento d'e allegati",

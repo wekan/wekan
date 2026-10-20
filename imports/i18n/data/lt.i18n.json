@@ -1342,6 +1342,7 @@
   "settings": "Nustatymai",
   "attachment-transfer-limits-title": "Priedų ir API failų dydžio ribos",
   "attachment-limits": "Ribos",
+  "attachment-retention": "Saugojimas",
   "attachment-transfer-limits-description": "Konfigūruokite maksimalias failų dydžio ribas įkėlimams ir atsisiuntimams. API perdavimo buferizavimas turi atskiras serverio pusės saugumo ribas.",
   "attachment-transfer-limits-saved": "Priedų perdavimo ribos išsaugotos.",
   "attachment-transfer-limits-save-failed": "Nepavyko išsaugoti priedų perdavimo ribų",

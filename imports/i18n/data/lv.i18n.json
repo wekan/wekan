@@ -1342,6 +1342,7 @@
   "settings": "Iestatījumi",
   "attachment-transfer-limits-title": "Pielikumu un API failu izmēra ierobežojumi",
   "attachment-limits": "Ierobežojumi",
+  "attachment-retention": "Glabāšana",
   "attachment-transfer-limits-description": "Konfigurējiet maksimālos failu izmēra ierobežojumus augšupielādēm un lejupielādēm. API pārsūtīšanas buferizācijai ir atsevišķi servera puses drošības ierobežojumi.",
   "attachment-transfer-limits-saved": "Pielikumu pārsūtīšanas ierobežojumi saglabāti.",
   "attachment-transfer-limits-save-failed": "Neizdevās saglabāt pielikumu pārsūtīšanas ierobežojumus",

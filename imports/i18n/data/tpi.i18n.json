@@ -1342,6 +1342,7 @@
   "settings": "Ol seting",
   "attachment-transfer-limits-title": "Ol mak bilong sais bilong fail i pas na fail bilong API",
   "attachment-limits": "Ol mak",
+  "attachment-retention": "Holim",
   "attachment-transfer-limits-description": "Makim bikpela tru sais bilong ol fail yu salim i go antap na kisim i kam daun. Memori bilong holim ol fail taim API i salim i gat ol narapela mak bilong seifti long seva.",
   "attachment-transfer-limits-saved": "Seivim ol mak bilong salim fail i pas pinis.",
   "attachment-transfer-limits-save-failed": "I no inap seivim ol mak bilong salim fail i pas",

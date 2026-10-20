@@ -1342,6 +1342,7 @@
   "settings": "Stillingar",
   "attachment-transfer-limits-title": "Stærðarmörk viðhengja og API-skráa",
   "attachment-limits": "Mörk",
+  "attachment-retention": "Varðveisla",
   "attachment-transfer-limits-description": "Stilltu hámarksstærð skráa fyrir upphleðslu og niðurhal. Biðminni API-flutnings hefur sérstök öryggismörk á þjóninum.",
   "attachment-transfer-limits-saved": "Flutningsmörk viðhengja vistuð.",
   "attachment-transfer-limits-save-failed": "Ekki tókst að vista flutningsmörk viðhengja",

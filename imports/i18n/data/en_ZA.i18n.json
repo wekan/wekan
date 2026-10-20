@@ -1342,6 +1342,7 @@
   "settings": "Settings",
   "attachment-transfer-limits-title": "Attachment And API File Size Limits",
   "attachment-limits": "Limits",
+  "attachment-retention": "Retention",
   "attachment-transfer-limits-description": "Configure maximum file size limits for uploads and downloads. API transfer buffering has separate server-side safety caps.",
   "attachment-transfer-limits-saved": "Attachment transfer limits saved.",
   "attachment-transfer-limits-save-failed": "Failed to save attachment transfer limits",

@@ -1342,6 +1342,7 @@
   "settings": "Optiones",
   "attachment-transfer-limits-title": "Limites magnitudinis adiunctorum et fasciculorum API",
   "attachment-limits": "Limites",
+  "attachment-retention": "Retentio",
   "attachment-transfer-limits-description": "Constitue limites maximae magnitudinis fasciculorum immittendorum et recipiendorum. Memoria temporaria translationum API proprios limites securitatis in servitore habet.",
   "attachment-transfer-limits-saved": "Limites translationis adiunctorum servati sunt.",
   "attachment-transfer-limits-save-failed": "Limites translationis adiunctorum servari non potuerunt",

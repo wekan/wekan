@@ -1342,6 +1342,7 @@
   "settings": "Sitãri",
   "attachment-transfer-limits-title": "Limiti di mãrimi a fishierlor trã atashamenti shi API",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Pastrari",
   "attachment-transfer-limits-description": "Bagã limitili ma mari di mãrimi a fishierlor trã ãncãrcari shi discãrcari. Tsãnearea tu buffer a transferurlor API ari limiti di siguripsiri a ljei pi partea di server.",
   "attachment-transfer-limits-saved": "Limitili di transfer trã atashamenti furã avigljati.",
   "attachment-transfer-limits-save-failed": "Avigljarea a limitilor di transfer trã atashamenti nu ari suxes",

@@ -1342,6 +1342,7 @@
   "settings": "Тохиргоо",
   "attachment-transfer-limits-title": "Хавсралт болон API файлын хэмжээний хязгаарлалт",
   "attachment-limits": "Хязгаарлалт",
+  "attachment-retention": "Хадгалах хугацаа",
   "attachment-transfer-limits-description": "Байршуулах болон татах файлын дээд хэмжээний хязгаарлалтыг тохируулна уу. API дамжуулалтын буфер нь тусдаа серверийн талын аюулгүй байдлын хязгаартай.",
   "attachment-transfer-limits-saved": "Хавсралт дамжуулах хязгаарлалт хадгалагдлаа.",
   "attachment-transfer-limits-save-failed": "Хавсралт дамжуулах хязгаарлалтыг хадгалахад алдаа гарлаа",

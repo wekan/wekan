@@ -1342,6 +1342,7 @@
   "settings": "Inställningar",
   "attachment-transfer-limits-title": "Bilagor och API-filstorleksgränser",
   "attachment-limits": "Gränser",
+  "attachment-retention": "Lagringstid",
   "attachment-transfer-limits-description": "Konfigurera maximal filstorleksgräns för uppladdningar och nedladdningar. API-överföringsbuffring har separata säkerhetsgränser på serversidan.",
   "attachment-transfer-limits-saved": "Gränser för bilagaöverföring sparade.",
   "attachment-transfer-limits-save-failed": "Misslyckades med att spara gränser för bilagaöverföring",

@@ -1342,6 +1342,7 @@
   "settings": "स्थापणूक",
   "attachment-transfer-limits-title": "जोडणी आनी API फायल आकार मर्यादा",
   "attachment-limits": "मर्यादा",
+  "attachment-retention": "सांबाळप",
   "attachment-transfer-limits-description": "अपलोड आनी डाउनलोडाखातीर चडांत चड फायल आकार मर्यादा थारायात. API हस्तांतरण बफरिंगाक वेगळ्यो सर्व्हर-सुरक्षा मर्यादा आसात.",
   "attachment-transfer-limits-saved": "जोडणी हस्तांतरण मर्यादा सांबाळ्ळ्यो.",
   "attachment-transfer-limits-save-failed": "जोडणी हस्तांतरण मर्यादा सांबाळप असफळ",

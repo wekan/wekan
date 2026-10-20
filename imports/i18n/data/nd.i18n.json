@@ -1342,6 +1342,7 @@
   "settings": "Izilungiselelo",
   "attachment-transfer-limits-title": "Imikhawulo yobukhulu befayela lokunamathiselweyo le-API",
   "attachment-limits": "Imikhawulo",
+  "attachment-retention": "Ukugcina",
   "attachment-transfer-limits-description": "Lungisa imikhawulo yobukhulu obuphezulu bamafayela okulayishwa lokulandwa. Ukugcinwa kwesikhatshana kokudluliswa kwe-API kulemingcele yokuphepha ehlukileyo esehlangothini lweseva.",
   "attachment-transfer-limits-saved": "Imikhawulo yokudluliswa kokunamathiselweyo ilondoloziwe.",
   "attachment-transfer-limits-save-failed": "Ukulondoloza imikhawulo yokudluliswa kokunamathiselweyo kwehlulekile",

@@ -197,6 +197,12 @@
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       # Disable accounts unused for this many days (admins never). Unset or 0 = off.
       #export USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+      # Attachment retention, off unless set (docs/Features/Cards/Attachments/Attachments.md):
+      #export ATTACHMENTS_RETENTION_DAYS=730
+      #export ATTACHMENTS_RETENTION_MODE=uploaded
+      #export ATTACHMENTS_PURGE_DELETED_AFTER_DAYS=30
+      #export ATTACHMENTS_RETENTION_DRY_RUN=true
+      #export ATTACHMENTS_RETENTION_MAX_PER_RUN=1000
       #---------------------------------------------------------------
       # ==== Allow configuration to validate uploaded attachments ====
       #export ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="/usr/local/bin/avscan {file}"

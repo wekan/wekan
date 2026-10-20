@@ -1342,6 +1342,7 @@
   "settings": "Seaded",
   "attachment-transfer-limits-title": "Manuste ja API failisuuruse piirangud",
   "attachment-limits": "Piirangud",
+  "attachment-retention": "Säilitamine",
   "attachment-transfer-limits-description": "Seadista üleslaadimiste ja allalaadimiste maksimaalse failisuuruse piirangud. API ülekande puhverdusel on eraldi serveripoolsed ohutuspiirid.",
   "attachment-transfer-limits-saved": "Manuste ülekandepiirangud salvestatud.",
   "attachment-transfer-limits-save-failed": "Manuste ülekandepiirangute salvestamine ebaõnnestus",

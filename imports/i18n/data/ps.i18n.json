@@ -1342,6 +1342,7 @@
   "settings": "امستنې",
   "attachment-transfer-limits-title": "د ضميمې او API فايل د کچې حدونه",
   "attachment-limits": "حدونه",
+  "attachment-retention": "ساتنه",
   "attachment-transfer-limits-description": "د پورته او ښکته کولو لپاره د فايل د ډېرې کچې حدونه وټاکئ. د API لېږد منځګړی زېرمه د سرور په خوا کې جلا خونديتوب حدونه لري.",
   "attachment-transfer-limits-saved": "د ضميمو د لېږد حدونه خوندي شول.",
   "attachment-transfer-limits-save-failed": "د ضميمو د لېږد حدونه خوندي نه شول",

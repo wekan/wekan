@@ -1342,6 +1342,7 @@
   "settings": "الإعدادات",
   "attachment-transfer-limits-title": "حدود حجم ملفات المرفقات وواجهة API",
   "attachment-limits": "الحدود",
+  "attachment-retention": "مدة الاحتفاظ",
   "attachment-transfer-limits-description": "اضبط الحد الأقصى لحجم الملفات للرفع والتنزيل. يوجد لتخزين نقل API حدود أمان منفصلة على جانب الخادم.",
   "attachment-transfer-limits-saved": "تم حفظ حدود نقل المرفقات.",
   "attachment-transfer-limits-save-failed": "فشل حفظ حدود نقل المرفقات",

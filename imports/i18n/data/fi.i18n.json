@@ -1342,6 +1342,7 @@
   "settings": "Asetukset",
   "attachment-transfer-limits-title": "Liite- ja API-tiedostojen kokorajoitukset",
   "attachment-limits": "Rajat",
+  "attachment-retention": "Säilytysaika",
   "attachment-transfer-limits-description": "Määritä tiedostojen enimmäiskokojen rajoitukset lähetys- ja lataustiedostoille. API-siirtopuskuroinnilla on erilliset palvelinpuolen turvarajoitukset.",
   "attachment-transfer-limits-saved": "Liitteiden siirtorajoitukset tallennettu.",
   "attachment-transfer-limits-save-failed": "Liitteiden siirtorajoitusten tallentaminen epäonnistui",

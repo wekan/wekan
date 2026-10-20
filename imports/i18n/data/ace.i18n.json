@@ -1342,6 +1342,7 @@
   "settings": "Peuatôran",
   "attachment-transfer-limits-title": "Bataih Rayeuk Fail Lampiran ngön API",
   "attachment-limits": "Bataih",
+  "attachment-retention": "Retensi",
   "attachment-transfer-limits-description": "Atô bataih rayeuk fail paléng rayeuk keu peuék ngön peutrön. Buffering transfer API na bataih aman bak server nyang laén.",
   "attachment-transfer-limits-saved": "Bataih transfer lampiran ka geukeubah.",
   "attachment-transfer-limits-save-failed": "Gagai keubah bataih transfer lampiran",

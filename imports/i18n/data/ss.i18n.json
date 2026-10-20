@@ -1342,6 +1342,7 @@
   "settings": "Tilungiselelo",
   "attachment-transfer-limits-title": "Imikhawulo Yebungako Bemafayela Lokunamatsiselwe Ne-API",
   "attachment-limits": "Imikhawulo",
+  "attachment-retention": "Kugcina",
   "attachment-transfer-limits-description": "Lungiselela imikhawulo yebungako bemafayela lamakhulu ekulayisheni nasekulandeni. Kubamba kudluliswa kwe-API kunemikhawulo yekuphepha leseva leyehlukile.",
   "attachment-transfer-limits-saved": "Imikhawulo yekudluliswa kwalokunamatsiselwe ilondvolotiwe.",
   "attachment-transfer-limits-save-failed": "Kulondvolota imikhawulo yekudluliswa kwalokunamatsiselwe kwehlulekile",

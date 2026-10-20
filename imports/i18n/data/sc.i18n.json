@@ -1342,6 +1342,7 @@
   "settings": "Impostatziones",
   "attachment-transfer-limits-title": "Limiti di dimensione dei file pro alligados e API",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Cunservatzione",
   "attachment-transfer-limits-description": "Configura i limiti massimi di dimensione dei file pro caricamenti e download. Il buffering de su trasferimento API ha limiti di seguresa separados ladu server.",
   "attachment-transfer-limits-saved": "Limiti di trasferimento alligados salvados.",
   "attachment-transfer-limits-save-failed": "Impossibile sarvare i limiti di trasferimento alligados",

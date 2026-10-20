@@ -1342,6 +1342,7 @@
   "settings": "Labɛnw",
   "attachment-transfer-limits-title": "Ɲɔgɔnnan ni API dosiye bonya dantigɛw",
   "attachment-limits": "Dantigɛw",
+  "attachment-retention": "Marali waati",
   "attachment-transfer-limits-description": "Dosiye bonya dantigɛ caman labɛn layɛlɛli ni lajiginni kama. API ciyɔrɔ mara bɛ ni sɛrvɛri kɛrɛfɛ lakana dantigɛ wɛrɛw ye.",
   "attachment-transfer-limits-saved": "Ɲɔgɔnnan ciyɔrɔ dantigɛw maralen don.",
   "attachment-transfer-limits-save-failed": "Ɲɔgɔnnan ciyɔrɔ dantigɛw marali ma ɲɛ",

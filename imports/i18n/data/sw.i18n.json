@@ -1342,6 +1342,7 @@
   "settings": "Mipangilio",
   "attachment-transfer-limits-title": "Vikomo vya Ukubwa wa Faili za Viambatisho na API",
   "attachment-limits": "Vikomo",
+  "attachment-retention": "Uhifadhi",
   "attachment-transfer-limits-description": "Sanidi vikomo vya juu vya ukubwa wa faili kwa upakiaji na upakuaji. Uhifadhi wa muda wa uhamishaji wa API una vikomo tofauti vya usalama upande wa seva.",
   "attachment-transfer-limits-saved": "Vikomo vya uhamishaji wa viambatisho vimehifadhiwa.",
   "attachment-transfer-limits-save-failed": "Imeshindwa kuhifadhi vikomo vya uhamishaji wa viambatisho",

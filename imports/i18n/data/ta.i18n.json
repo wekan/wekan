@@ -1342,6 +1342,7 @@
   "settings": "அமைப்புகள்",
   "attachment-transfer-limits-title": "இணைப்பு மற்றும் API கோப்பு அளவு வரம்புகள்",
   "attachment-limits": "வரம்புகள்",
+  "attachment-retention": "தக்கவைப்பு",
   "attachment-transfer-limits-description": "பதிவேற்றங்கள் மற்றும் பதிவிறக்கங்களுக்கான அதிகபட்ச கோப்பு அளவு வரம்புகளை உள்ளமைக்கவும். API பரிமாற்ற பஃபரிங்கிற்குத் தனித்தனி சேவையக பக்க பாதுகாப்பு வரம்புகள் உள்ளன.",
   "attachment-transfer-limits-saved": "இணைப்பு பரிமாற்ற வரம்புகள் சேமிக்கப்பட்டன.",
   "attachment-transfer-limits-save-failed": "இணைப்பு பரிமாற்ற வரம்புகளைச் சேமிக்க முடியவில்லை",

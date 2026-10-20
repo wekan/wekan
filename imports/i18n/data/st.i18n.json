@@ -1342,6 +1342,7 @@
   "settings": "Ditlhophiso",
   "attachment-transfer-limits-title": "Meedi ya boholo ba diphuthelwana le difaele tsa API",
   "attachment-limits": "Meedi",
+  "attachment-retention": "Ho boloka",
   "attachment-transfer-limits-description": "Beakanya boholo bo phahameng ba difaele bakeng sa ho kenya le ho jarolla. Ho boloka phetiso ya API nakwana ho na le meedi e arohaneng ya polokeho ya seva.",
   "attachment-transfer-limits-saved": "Meedi ya phetiso ya diphuthelwana e bolokilwe.",
   "attachment-transfer-limits-save-failed": "Ho boloka meedi ya phetiso ya diphuthelwana ho hlolehile",

@@ -1342,6 +1342,7 @@
   "settings": "Mpustazzioni",
   "attachment-transfer-limits-title": "Limiti di dimensione dei fili pi allegati e API",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Cunsirvazzioni",
   "attachment-transfer-limits-description": "Configura i limiti massimi di dimensione dei fili pi carricamenti e download. Lu buffering del trasferimento API ha limiti di sicurezza separati lato server.",
   "attachment-transfer-limits-saved": "Limiti di trasferimento allegati sarvati.",
   "attachment-transfer-limits-save-failed": "Impossibili sarvare i limiti di trasferimento allegati",

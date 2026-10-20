@@ -1342,6 +1342,7 @@
   "settings": "Cài đặt",
   "attachment-transfer-limits-title": "Giới hạn kích thước tệp đính kèm và API",
   "attachment-limits": "Giới hạn",
+  "attachment-retention": "Lưu giữ",
   "attachment-transfer-limits-description": "Cấu hình giới hạn kích thước tệp tối đa cho tải lên và tải xuống. Việc đệm truyền tải API có các giới hạn an toàn riêng ở phía máy chủ.",
   "attachment-transfer-limits-saved": "Đã lưu giới hạn truyền tải tệp đính kèm.",
   "attachment-transfer-limits-save-failed": "Không thể lưu giới hạn truyền tải tệp đính kèm",

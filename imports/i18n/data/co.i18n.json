@@ -1342,6 +1342,7 @@
   "settings": "Parametri",
   "attachment-transfer-limits-title": "Limiti di dimensione di i schedarii per appicci è API",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Cunservazione",
   "attachment-transfer-limits-description": "Definite i limiti massimi di dimensione di i schedarii per i caricamenti è e scaricate. A memoria tampone di i trasferimenti API hà limiti di sicurità distinti nant’à u servitore.",
   "attachment-transfer-limits-saved": "Limiti di trasferimentu di l’appicci arregistrati.",
   "attachment-transfer-limits-save-failed": "Ùn hè statu pussibule d’arregistrà i limiti di trasferimentu di l’appicci",

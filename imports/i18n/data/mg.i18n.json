@@ -1342,6 +1342,7 @@
   "settings": "Fandrindrana",
   "attachment-transfer-limits-title": "Fetran'ny haben'ny rakitra miaraka sy API",
   "attachment-limits": "Fetra",
+  "attachment-retention": "Fitehirizana",
   "attachment-transfer-limits-description": "Farito ny fetra ambony indrindra amin'ny haben'ny rakitra ho an'ny fampakarana sy fampidinana. Manana fetra fiarovana manokana eo amin'ny lohamilina ny fitahirizana vonjimaika amin'ny famindrana API.",
   "attachment-transfer-limits-saved": "Voatahiry ny fetran'ny famindrana rakitra miaraka.",
   "attachment-transfer-limits-save-failed": "Tsy nahomby ny fitahirizana ny fetran'ny famindrana rakitra miaraka",

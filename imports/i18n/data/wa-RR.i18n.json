@@ -1342,6 +1342,7 @@
   "settings": "Mga Setting",
   "attachment-transfer-limits-title": "Mga Limit ha Kadaku han Attachment ngan API File",
   "attachment-limits": "Mga Limit",
+  "attachment-retention": "Wårdaedje",
   "attachment-transfer-limits-description": "I-configure an pinakadaku nga mga limit ha kadaku han file para ha mga upload ngan download. An API transfer buffering may bulag nga mga safety cap ha server.",
   "attachment-transfer-limits-saved": "Natipigan an mga limit ha transfer han attachment.",
   "attachment-transfer-limits-save-failed": "Napakyas an pagtipig han mga limit ha transfer han attachment",

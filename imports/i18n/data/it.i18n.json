@@ -1342,6 +1342,7 @@
   "settings": "Impostazioni",
   "attachment-transfer-limits-title": "Limiti di dimensione dei file per allegati e API",
   "attachment-limits": "Limiti",
+  "attachment-retention": "Conservazione",
   "attachment-transfer-limits-description": "Configura i limiti massimi di dimensione dei file per caricamenti e download. Il buffering del trasferimento API ha limiti di sicurezza separati lato server.",
   "attachment-transfer-limits-saved": "Limiti di trasferimento allegati salvati.",
   "attachment-transfer-limits-save-failed": "Impossibile salvare i limiti di trasferimento allegati",

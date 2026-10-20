@@ -1342,6 +1342,7 @@
   "settings": "Setelan",
   "attachment-transfer-limits-title": "Wates Ukuran Berkas Lampiran lan API",
   "attachment-limits": "Wates",
+  "attachment-retention": "Retensi",
   "attachment-transfer-limits-description": "Atur wates ukuran berkas paling gedhe kanggo unggahan lan undhuhan. Buffer transfer API nduweni wates keamanan sisih server dhewe.",
   "attachment-transfer-limits-saved": "Wates transfer lampiran disimpen.",
   "attachment-transfer-limits-save-failed": "Gagal nyimpen wates transfer lampiran",

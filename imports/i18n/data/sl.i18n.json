@@ -1342,6 +1342,7 @@
   "settings": "Nastavitve",
   "attachment-transfer-limits-title": "Omejitve velikosti datotek za priponke in API",
   "attachment-limits": "Omejitve",
+  "attachment-retention": "Hramba",
   "attachment-transfer-limits-description": "Nastavite največje omejitve velikosti datotek za nalaganje in prenos. Medpomnjenje prenosa prek API ima ločene varnostne omejitve na strani strežnika.",
   "attachment-transfer-limits-saved": "Omejitve prenosa priponk so shranjene.",
   "attachment-transfer-limits-save-failed": "Shranjevanje omejitev prenosa priponk ni uspelo",

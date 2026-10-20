@@ -1342,6 +1342,7 @@
   "settings": "Жөндөөлөр",
   "attachment-transfer-limits-title": "Тиркемелердин жана API файлдарынын өлчөм чектери",
   "attachment-limits": "Чектер",
+  "attachment-retention": "Сактоо мөөнөтү",
   "attachment-transfer-limits-description": "Жүктөө жана жүктөп алуу үчүн файлдын эң чоң өлчөм чектерин жөндөңүз. API өткөрүү буферинин сервер тарабында өзүнчө коопсуздук чектери бар.",
   "attachment-transfer-limits-saved": "Тиркеме өткөрүү чектери сакталды.",
   "attachment-transfer-limits-save-failed": "Тиркеме өткөрүү чектерин сактоо ишке ашкан жок",

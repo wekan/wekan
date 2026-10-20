@@ -1342,6 +1342,7 @@
   "settings": "Entegeka",
   "attachment-transfer-limits-title": "Ekiyungiddwa Ne API Fayiro Bunene Limits",
   "attachment-limits": "Ebikomo",
+  "attachment-retention": "Okukuuma",
   "attachment-transfer-limits-description": "Configure maximum fayiro bunene limits ku lwa uploads ne downloads. API transfer buffering has separate server-side safety caps.",
   "attachment-transfer-limits-saved": "Ekiyungiddwa transfer limits saved.",
   "attachment-transfer-limits-save-failed": "Kiremye eri tereka ekiyungiddwa transfer limits",

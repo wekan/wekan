@@ -905,6 +905,22 @@ services:
       # count. Unset or 0 = off (default). Admin Panel / People / Login can set
       # it too, and its value there wins.
       #- USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+      #---------------------------------------------------------------
+      # ATTACHMENT RETENTION (models/lib/attachmentRetention.js). Off unless set.
+      # ATTACHMENTS_RETENTION_DAYS : once a night, delete card attachments older
+      # than this many days. A normal delete: restorable from the card history.
+      #- ATTACHMENTS_RETENTION_DAYS=730
+      # ATTACHMENTS_RETENTION_MODE : uploaded (default) = by upload date;
+      # card-inactive = also only when the card has had no activity for as long.
+      #- ATTACHMENTS_RETENTION_MODE=uploaded
+      # ATTACHMENTS_PURGE_DELETED_AFTER_DAYS : remove for good, file included,
+      # attachments deleted (by retention or by anyone) this many days ago.
+      # Only this frees storage.
+      #- ATTACHMENTS_PURGE_DELETED_AFTER_DAYS=30
+      # ATTACHMENTS_RETENTION_DRY_RUN=true : only log what would happen.
+      #- ATTACHMENTS_RETENTION_DRY_RUN=true
+      # ATTACHMENTS_RETENTION_MAX_PER_RUN : per step per night (default 1000).
+      #- ATTACHMENTS_RETENTION_MAX_PER_RUN=1000
       #-------------------------------------------------------------------
       # Hide password login form
       # - PASSWORD_LOGIN_ENABLED=true

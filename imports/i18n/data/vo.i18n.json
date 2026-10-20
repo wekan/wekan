@@ -1342,6 +1342,7 @@
   "settings": "Väls",
   "attachment-transfer-limits-title": "Keblünota e API-fila Gretotalims",
   "attachment-limits": "Lims",
+  "attachment-retention": "Kipedam",
   "attachment-transfer-limits-description": "Konfigurolöd gretotalimis maxik pro laodads e nedladads. API-transläod-bufam labon serveraladik sekürakapis pat.",
   "attachment-transfer-limits-saved": "Keblünotatransläodalims pedakipons.",
   "attachment-transfer-limits-save-failed": "Malsükon ad dakipön keblünotatransläodalimis",

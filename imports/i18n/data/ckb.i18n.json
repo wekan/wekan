@@ -1342,6 +1342,7 @@
   "settings": "ڕێکخستنەکان",
   "attachment-transfer-limits-title": "سنووری قەبارەی فایلی هاوپێچ و API",
   "attachment-limits": "سنوورەکان",
+  "attachment-retention": "ماوەی پاراستن",
   "attachment-transfer-limits-description": "زۆرترین سنووری قەبارەی فایل بۆ بارکردن و داگرتن ڕێکبخە. بافەرکردنی گواستنەوەی API سنووری پاراستنی جیاوازی لەلایەن ڕاژەکارەوە هەیە.",
   "attachment-transfer-limits-saved": "سنوورەکانی گواستنەوەی هاوپێچ پاشەکەوت کران.",
   "attachment-transfer-limits-save-failed": "پاشەکەوتکردنی سنوورەکانی گواستنەوەی هاوپێچ سەرکەوتوو نەبوو",

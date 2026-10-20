@@ -1342,6 +1342,7 @@
   "settings": "ترتیبات",
   "attachment-transfer-limits-title": "منسلک تہٕ API فائل سائز حد",
   "attachment-limits": "حد",
+  "attachment-retention": "محفوظ رکھنہٕ",
   "attachment-transfer-limits-description": "اپ لوڈ تہٕ ڈاؤن لوڈ خٲطرٕ زیادٕ کھۄتہٕ زیادٕ فائل سائز حد مقرر کریو۔ API منتقلی بفرنگ خٲطرٕ چھِ الگ سرور حفاظتی حد۔",
   "attachment-transfer-limits-saved": "منسلک منتقلی حد محفوظ کرنہٕ آیہِ۔",
   "attachment-transfer-limits-save-failed": "منسلک منتقلی حد محفوظ کرُن ناکام گوو",

@@ -1342,6 +1342,7 @@
   "settings": "Igenamiterere",
   "attachment-transfer-limits-title": "Imipaka y'Ingano y'Amadosiye y'Imigereka na API",
   "attachment-limits": "Imipaka",
+  "attachment-retention": "Kubika",
   "attachment-transfer-limits-description": "Gena imipaka y'ingano ntarengwa y'amadosiye ashyirwaho n'amanurwa. Ububiko bw'agateganyo bw'iyohereza rya API bufite imipaka yabwo y'umutekano ku ruhande rwa seriveri.",
   "attachment-transfer-limits-saved": "Imipaka y'iyohereza ry'imigereka yabitswe.",
   "attachment-transfer-limits-save-failed": "Kubika imipaka y'iyohereza ry'imigereka byaranze",

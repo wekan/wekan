@@ -1342,6 +1342,7 @@
   "settings": "ቅንብራት",
   "attachment-transfer-limits-title": "ደረታት ዓቐን ፋይል መተሓሓዚን APIን",
   "attachment-limits": "ደረታት",
+  "attachment-retention": "ዕቅበት",
   "attachment-transfer-limits-description": "ንምስቃልን ምውራድን ዝለዓለ ደረት ዓቐን ፋይል ኣዋቕር። መኽዘን ምትሕልላፍ API ፍሉይ ናይ ኣገልጋሊ ደረት ድሕነት ኣለዎ።",
   "attachment-transfer-limits-saved": "ደረታት ምትሕልላፍ መተሓሓዚ ተዓቂቦም።",
   "attachment-transfer-limits-save-failed": "ደረታት ምትሕልላፍ መተሓሓዚ ምዕቃብ ኣይተዓወተን",

@@ -13,6 +13,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // Multitenancy option D: the per-tenant Global Admin rules, shared with the server
 // (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+const { AUTH_CONFIG_SECTIONS } = require('/models/lib/authConfigCatalog');
 
 // DOM field ids per cloud provider, used to read the admin form on save/test.
 const CLOUD_FIELD_IDS = {
@@ -561,6 +562,9 @@ function attachmentsMenu(user) {
     { id: 'move', icon: 'fa-arrow-right', labelKey: 'attachment-move', emoji: true },
     { id: 'default-save-storage', icon: 'fa-save', labelKey: 'default-save-storage', emoji: true },
     { id: 'limits', icon: 'fa-sliders', labelKey: 'attachment-limits', emoji: true },
+    // Delete old card attachments, purge deleted ones (#6789). Overrides the
+    // ATTACHMENTS_RETENTION_* environment variables, field by field.
+    { id: 'retention', icon: 'fa-calendar-times-o', labelKey: 'attachment-retention', emoji: true },
     { id: 'gridfs', icon: 'fa-database', labelKey: 'mongodb-gridfs-storage', emoji: true },
     { id: 'filesystem', icon: 'fa-folder-open', labelKey: 'filesystem-storage', emoji: true },
     { id: 's3', icon: 'fa-cloud', labelKey: 's3-minio-storage', emoji: true },
@@ -606,6 +610,19 @@ Template.attachments.helpers({
   },
   loading() {
     return Template.instance().loading;
+  },
+  isRetentionActive() {
+    return Template.instance().activeSection.get() === 'retention';
+  },
+  // The shared env-override form (authProviderSettings), on the catalog's
+  // attachmentRetention section.
+  retentionSettingsData() {
+    return {
+      section: 'attachmentRetention',
+      fields: AUTH_CONFIG_SECTIONS.attachmentRetention.fields,
+      loadMethod: 'getAuthConfigSources',
+      saveMethod: 'saveAuthConfigSettings',
+    };
   },
   isLimitsActive() {
     return Template.instance().activeSection.get() === 'limits';

@@ -1342,6 +1342,7 @@
   "settings": "تنظمات",
   "attachment-transfer-limits-title": "محدودیت‌های اندازه فایل ضمیمه و API",
   "attachment-limits": "محدودیت‌ها",
+  "attachment-retention": "نگهداری",
   "attachment-transfer-limits-description": "حداکثر محدودیت اندازه فایل برای بارگذاری و دانلود را پیکربندی کنید. بافر انتقال API سقف‌های ایمنی جداگانه‌ای در سمت سرور دارد.",
   "attachment-transfer-limits-saved": "محدودیت‌های انتقال ضمیمه ذخیره شد.",
   "attachment-transfer-limits-save-failed": "ذخیره محدودیت‌های انتقال ضمیمه ناموفق بود",

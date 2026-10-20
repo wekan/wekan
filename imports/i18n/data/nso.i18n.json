@@ -1342,6 +1342,7 @@
   "settings": "Dipeakanyo",
   "attachment-transfer-limits-title": "Mellwane ya Bogolo bja Faele ya Dikgomaretšwa le API",
   "attachment-limits": "Mellwane",
+  "attachment-retention": "Poloko",
   "attachment-transfer-limits-description": "Beakanya mellwane ya bogolo bjo bo fetago bja difaele tša go laiša le go taonelouta. Polokelo ya nakwana ya phetišetšo ya API e na le mellwane ya yona ya polokego ka lehlakoreng la sebara.",
   "attachment-transfer-limits-saved": "Mellwane ya phetišetšo ya dikgomaretšwa e bolokilwe.",
   "attachment-transfer-limits-save-failed": "Go boloka mellwane ya phetišetšo ya dikgomaretšwa go paletšwe",

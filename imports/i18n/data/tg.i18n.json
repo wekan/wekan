@@ -1342,6 +1342,7 @@
   "settings": "Танзимот",
   "attachment-transfer-limits-title": "Ҳадди андозаи файлҳои замима ва API",
   "attachment-limits": "Маҳдудиятҳо",
+  "attachment-retention": "Нигоҳдорӣ",
   "attachment-transfer-limits-description": "Ҳадди аксари андозаи файлро барои воридкунӣ ва боргирӣ танзим кунед. Буферкунии интиқоли API ҳадҳои алоҳидаи бехатарии тарафи сервер дорад.",
   "attachment-transfer-limits-saved": "Ҳадҳои интиқоли замима нигоҳ дошта шуданд.",
   "attachment-transfer-limits-save-failed": "Нигоҳ доштани ҳадҳои интиқоли замима ноком шуд",

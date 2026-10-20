@@ -1342,6 +1342,7 @@
   "settings": "Ӗнерлевсем",
   "attachment-transfer-limits-title": "Хушӑннисем тата API файлӗсен пысӑкӗш чиккисем",
   "attachment-limits": "Чикӗсем",
+  "attachment-retention": "Упраса хăварни",
   "attachment-transfer-limits-description": "Тиемелли тата тиесе антармалли файлсен чи пысӑкӗш чиккисене ӗнерлӗр. API куҫару буферӗн сервер енчи уйрӑм хӑрушсӑрлӑх чиккисем пур.",
   "attachment-transfer-limits-saved": "Хушӑнни куҫару чиккисем упраннӑ.",
   "attachment-transfer-limits-save-failed": "Хушӑнни куҫару чиккисене упрама пулмарӗ",

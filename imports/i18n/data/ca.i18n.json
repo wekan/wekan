@@ -1342,6 +1342,7 @@
   "settings": "Configuració",
   "attachment-transfer-limits-title": "Límits de mida de fitxer d'adjunts i de l'API",
   "attachment-limits": "Límits",
+  "attachment-retention": "Retenció",
   "attachment-transfer-limits-description": "Configureu els límits màxims de mida de fitxer per a pujades i descàrregues. La memòria intermèdia de transferència de l'API té límits de seguretat separats al costat del servidor.",
   "attachment-transfer-limits-saved": "S'han desat els límits de transferència d'adjunts.",
   "attachment-transfer-limits-save-failed": "No s'han pogut desar els límits de transferència d'adjunts",

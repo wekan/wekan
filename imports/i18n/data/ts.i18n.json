@@ -1342,6 +1342,7 @@
   "settings": "Swipimelo",
   "attachment-transfer-limits-title": "Mimpimo ya Vukulu bya Swikhomanisiwa na Tifayili ta API",
   "attachment-limits": "Mindzelekano",
+  "attachment-retention": "Ku hlayisa",
   "attachment-transfer-limits-description": "Lulamisa mimpimo ya vukulu lebyikulu bya tifayili eka ku khandziyisa na ku dawuniloda. Ku hlayisela nkarhinyana ka ku rhumela hi API ku na mimpimo ya vuhlayiseki yo hambana eka sevha.",
   "attachment-transfer-limits-saved": "Mimpimo ya ku rhumela swikhomanisiwa yi hlayisiwile.",
   "attachment-transfer-limits-save-failed": "Ku tsandzekile ku hlayisa mimpimo ya ku rhumela swikhomanisiwa",

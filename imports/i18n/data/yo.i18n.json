@@ -1342,6 +1342,7 @@
   "settings": "Eto",
   "attachment-transfer-limits-title": "Awọn Opin Iwọn Faili Asomọ Ati API",
   "attachment-limits": "Awọn opin",
+  "attachment-retention": "Ìpamọ́",
   "attachment-transfer-limits-description": "Ṣeto awọn opin iwọn faili to pọ julọ fun awọn igbesoke ati awọn igbasilẹ. Ifipamọ gbigbe API ni awọn fila aabo lọtọ ni ẹgbẹ olupin.",
   "attachment-transfer-limits-saved": "A ti fi awọn opin gbigbe asomọ pamọ.",
   "attachment-transfer-limits-save-failed": "Ikuna lati fi awọn opin gbigbe asomọ pamọ",

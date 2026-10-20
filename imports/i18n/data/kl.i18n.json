@@ -1342,6 +1342,7 @@
   "settings": "Aaqqissuussaanerit",
   "attachment-transfer-limits-title": "Ilanngussat aamma API filit angissusissaannut killiliissutit",
   "attachment-limits": "Killiliissutit",
+  "attachment-retention": "Toqqortuineq",
   "attachment-transfer-limits-description": "Filit uploaderneqartut aaneqartullu angissusissaasa amerlanerpaaffii aaqqissukkit. API-mi nuussinermi buffering serverip tungaani immikkut isumannaallisaanermut killiliissuteqarpoq.",
   "attachment-transfer-limits-saved": "Ilanngussat nuunneqarnerannut killiliissutit toqqorneqarput.",
   "attachment-transfer-limits-save-failed": "Ilanngussat nuunneqarnerannut killiliissutit toqqorneqarsinnaanngillat",

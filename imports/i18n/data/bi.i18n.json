@@ -1342,6 +1342,7 @@
   "settings": "Ol seting",
   "attachment-transfer-limits-title": "Ol Limit blong Saes blong Fael we i Joen mo Fael blong API",
   "attachment-limits": "Ol limit",
+  "attachment-retention": "Taem blong kipim",
   "attachment-transfer-limits-description": "Setem ol limit blong saes blong fael we i bigfala olgeta blong aplodem mo daonlodem. Fasin blong API blong holem data i gat ol limit blong sefti blong hem long seva.",
   "attachment-transfer-limits-saved": "Oli sevem ol limit blong sendem fael we i joen.",
   "attachment-transfer-limits-save-failed": "I no save sevem ol limit blong sendem fael we i joen",

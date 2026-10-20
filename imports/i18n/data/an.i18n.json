@@ -1342,6 +1342,7 @@
   "settings": "Configuración",
   "attachment-transfer-limits-title": "Límites de tamaño de fichero de adjuntos y API",
   "attachment-limits": "Límites",
+  "attachment-retention": "Retención",
   "attachment-transfer-limits-description": "Configura os límites máximos de tamaño de fichero ta subidas y descargas. El almacenamiento en búfer de as transferencias de la API tiene topes de seguridad independientes d'o lado d'o servidor.",
   "attachment-transfer-limits-saved": "Limites de transferencia d’adchuntos alzaus.",
   "attachment-transfer-limits-save-failed": "Error t'o alzar os límites de transferencia de adjuntos",

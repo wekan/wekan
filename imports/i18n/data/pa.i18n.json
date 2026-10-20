@@ -1342,6 +1342,7 @@
   "settings": "ਸੈਟਿੰਗਾਂ",
   "attachment-transfer-limits-title": "ਅਟੈਚਮੈਂਟ ਅਤੇ API ਫਾਈਲ ਆਕਾਰ ਸੀਮਾਵਾਂ",
   "attachment-limits": "ਸੀਮਾਵਾਂ",
+  "attachment-retention": "ਸੰਭਾਲ ਮਿਆਦ",
   "attachment-transfer-limits-description": "ਅੱਪਲੋਡ ਅਤੇ ਡਾਊਨਲੋਡ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਫਾਈਲ ਆਕਾਰ ਸੀਮਾਵਾਂ ਸੰਰਚਿਤ ਕਰੋ। API ਟ੍ਰਾਂਸਫਰ ਬਫਰਿੰਗ ਦੀਆਂ ਵੱਖਰੀਆਂ ਸਰਵਰ-ਸਾਈਡ ਸੁਰੱਖਿਆ ਸੀਮਾਵਾਂ ਹਨ।",
   "attachment-transfer-limits-saved": "ਅਟੈਚਮੈਂਟ ਟ੍ਰਾਂਸਫਰ ਸੀਮਾਵਾਂ ਸੇਵ ਹੋਈਆਂ।",
   "attachment-transfer-limits-save-failed": "ਅਟੈਚਮੈਂਟ ਟ੍ਰਾਂਸਫਰ ਸੀਮਾਵਾਂ ਸੇਵ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",

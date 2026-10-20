@@ -1342,6 +1342,7 @@
   "settings": "ترتیبات",
   "attachment-transfer-limits-title": "منسلکہ اور API فائل سیزے لیمیتس",
   "attachment-limits": "لیمیتس",
+  "attachment-retention": "محفوظ رکھنا",
   "attachment-transfer-limits-description": "کونفیگورے ماکسیموم فائل سیزے لیمیتس فور وپلوادس اور دوونلوادس. API ترانسفےر بوففےرینگ ہے سےپاراتے سےروےر-سیدے سافےتی کاپس.",
   "attachment-transfer-limits-saved": "منسلکہ ترانسفےر لیمیتس ساوےد.",
   "attachment-transfer-limits-save-failed": "فایلےد کو محفوظ منسلکہ ترانسفےر لیمیتس",

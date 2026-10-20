@@ -1342,6 +1342,7 @@
   "settings": "Parametrlər",
   "attachment-transfer-limits-title": "Qoşma və API Fayl Ölçüsü Limitləri",
   "attachment-limits": "Limitlər",
+  "attachment-retention": "Saxlanma müddəti",
   "attachment-transfer-limits-description": "Yükləmələr və endirmələr üçün maksimum fayl ölçüsü limitlərini konfiqurasiya edin. API transfer buferləməsinin ayrıca server tərəfli təhlükəsizlik hədləri var.",
   "attachment-transfer-limits-saved": "Qoşma transfer limitləri saxlanıldı.",
   "attachment-transfer-limits-save-failed": "Qoşma transfer limitləri saxlanıla bilmədi",

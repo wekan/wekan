@@ -1342,6 +1342,7 @@
   "settings": "Roghainnean",
   "attachment-transfer-limits-title": "Crìochan Meud Faidhle Ceanglachan agus API",
   "attachment-limits": "Crìochan",
+  "attachment-retention": "Glèidheadh",
   "attachment-transfer-limits-description": "Rèitich crìochan meud faidhle as motha airson luchdadh suas is a-nuas. Tha crìochan sàbhailteachd frithealaiche fa leth aig bufaradh tar-chuir API.",
   "attachment-transfer-limits-saved": "Chaidh crìochan tar-chuir cheanglachan a shàbhaladh.",
   "attachment-transfer-limits-save-failed": "Dh'fhàillig sàbhaladh chrìochan tar-chuir cheanglachan",

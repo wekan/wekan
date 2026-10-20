@@ -1342,6 +1342,7 @@
   "settings": "Ntọala",
   "attachment-transfer-limits-title": "Oke Nha Faịlụ Ndị Agbakwụnyere Na API",
   "attachment-limits": "Oke",
+  "attachment-retention": "Nchekwa",
   "attachment-transfer-limits-description": "Hazie oke nha faịlụ kachasị elu maka mbugo na mbudata. Ntinye API nwere oke nchekwa dị iche n'akụkụ nkesa.",
   "attachment-transfer-limits-saved": "Echekwara oke mbufe ihe ndị agbakwụnyere.",
   "attachment-transfer-limits-save-failed": "Enweghị ike ịchekwa oke mbufe ihe ndị agbakwụnyere",

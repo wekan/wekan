@@ -1342,6 +1342,7 @@
   "settings": "Settyansow",
   "attachment-transfer-limits-title": "Finwethow braster restr stagell hag API",
   "attachment-limits": "Finwethow",
+  "attachment-retention": "Gwitha",
   "attachment-transfer-limits-description": "Settya finwethow braster restr moyha rag kargansow hag iskargansow. Yma kapys sawder arbarth war-tu an servyer dhe woskor tansfer API.",
   "attachment-transfer-limits-saved": "Finwethow treusperthi stagell gwithys.",
   "attachment-transfer-limits-save-failed": "Gwitha finwethow treusperthi stagell a fyllis",

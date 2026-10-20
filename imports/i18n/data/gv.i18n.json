@@ -1342,6 +1342,7 @@
   "settings": "Reaghyssyn",
   "attachment-transfer-limits-title": "Eallaghyn mooadys coadan kiangltaghyn as API",
   "attachment-limits": "Eallaghyn",
+  "attachment-retention": "Freayll",
   "attachment-transfer-limits-description": "Reaghey eallaghyn mooadys coadan smoo son laadey seose as neose. Ta caipyn sauçhys er-lheh er çheu yn çhassag son stooaghey aaght API.",
   "attachment-transfer-limits-saved": "Eallaghyn aaght kiangltaghyn sauailt.",
   "attachment-transfer-limits-save-failed": "Cha ren sauail eallaghyn aaght kiangltaghyn speeideil",

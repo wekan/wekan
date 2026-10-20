@@ -1342,6 +1342,7 @@
   "settings": "Marongero",
   "attachment-transfer-limits-title": "chinamatidzwa uye API faira Size Limits",
   "attachment-limits": "Miganho",
+  "attachment-retention": "Kuchengetedza",
   "attachment-transfer-limits-description": "Configure maximum faira size limits for uploads uye downloads. API transfer buffering has separate server-side safety caps.",
   "attachment-transfer-limits-saved": "chinamatidzwa transfer limits saved.",
   "attachment-transfer-limits-save-failed": "Failed ku chengeta chinamatidzwa transfer limits",

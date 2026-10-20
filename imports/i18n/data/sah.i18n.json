@@ -1342,6 +1342,7 @@
   "settings": "Туруорууллар",
   "attachment-transfer-limits-title": "Холбоһук уонна API билэлэрин кээмэйин хааччахтара",
   "attachment-limits": "Хааччахтар",
+  "attachment-retention": "Харайыы болдьоҕо",
   "attachment-transfer-limits-description": "Билэлэри киллэрии уонна хачайдыы саамай улахан кээмэйин туруор. API көһөрүү буферын сиэрбэр өттүгэр туспа куттала суох хааччахтара бааллар.",
   "attachment-transfer-limits-saved": "Холбоһук көһөрүүтүн хааччахтара хараллыннылар.",
   "attachment-transfer-limits-save-failed": "Холбоһук көһөрүүтүн хааччахтарын харайыы сатаммата",

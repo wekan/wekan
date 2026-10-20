@@ -1342,6 +1342,7 @@
   "settings": "Giigissuwaa",
   "attachment-transfer-limits-title": "Gattidobaanne API fayiliyaa gitatettaa dorttaa",
   "attachment-limits": "Dorttata",
+  "attachment-retention": "Naagiyo",
   "attachment-transfer-limits-description": "Kessi ehhiyoogaa qassi duge ehhiyoogaa fayiliyaa ubbaappe gitatettaa dorttaa giigissa. API kiitettaa naagiyoogee ba huuphen dumma sarbbiyaa dorttata de'ees.",
   "attachment-transfer-limits-saved": "Gattidobaa kiitettaa dorttati naagettidosona.",
   "attachment-transfer-limits-save-failed": "Gattidobaa kiitettaa dorttata naaganaw danddayettibeenna",

@@ -1342,6 +1342,7 @@
   "settings": "ക്രമീകരണങ്ങൾ",
   "attachment-transfer-limits-title": "അറ്റാച്ച്മെന്റിന്റെയും API-യുടെയും ഫയൽ വലുപ്പ പരിധികൾ",
   "attachment-limits": "പരിധികൾ",
+  "attachment-retention": "സൂക്ഷിക്കൽ കാലാവധി",
   "attachment-transfer-limits-description": "അപ്‌ലോഡുകൾക്കും ഡൗൺലോഡുകൾക്കും പരമാവധി ഫയൽ വലുപ്പ പരിധികൾ ക്രമീകരിക്കുക. API കൈമാറ്റ ബഫറിങ്ങിന് വേറിട്ട സെർവർ സുരക്ഷാ പരിധികളുണ്ട്.",
   "attachment-transfer-limits-saved": "അറ്റാച്ച്മെന്റ് കൈമാറ്റ പരിധികൾ സംരക്ഷിച്ചു.",
   "attachment-transfer-limits-save-failed": "അറ്റാച്ച്മെന്റ് കൈമാറ്റ പരിധികൾ സംരക്ഷിക്കാനായില്ല",

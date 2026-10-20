@@ -1342,6 +1342,7 @@
   "settings": "ছেটিংছ",
   "attachment-transfer-limits-title": "সংলগ্নক আৰু API ফাইল আকাৰৰ সীমা",
   "attachment-limits": "সীমাসমূহ",
+  "attachment-retention": "সংৰক্ষণৰ ম্যাদ",
   "attachment-transfer-limits-description": "আপল'ড আৰু ডাউনল'ডৰ বাবে সৰ্বাধিক ফাইল আকাৰৰ সীমা বিন্যাস কৰক। API স্থানান্তৰ বাফাৰিঙৰ বাবে পৃথক ছাৰ্ভাৰ-পক্ষীয় সুৰক্ষা সীমা আছে।",
   "attachment-transfer-limits-saved": "সংলগ্নক স্থানান্তৰৰ সীমা সংৰক্ষণ কৰা হৈছে।",
   "attachment-transfer-limits-save-failed": "সংলগ্নক স্থানান্তৰৰ সীমা সংৰক্ষণ বিফল হ'ল",

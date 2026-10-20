@@ -1342,6 +1342,7 @@
   "settings": "سازلمه‌لر",
   "attachment-transfer-limits-title": "بیریکمه و API فایل اۉلچمی چیکلاولری",
   "attachment-limits": "چیکلاولر",
+  "attachment-retention": "Saqlash muddati",
   "attachment-transfer-limits-description": "یوکلش و یوکلب آلیش اوچون ماکسیمم فایل اۉلچمی چیکلاولرینی سازلنگ. API اوزاتیش بافرلشی الاهیده سیرویر تامانیدگی خوفسیزلیک چیکلاولریگه ایگه.",
   "attachment-transfer-limits-saved": "بیریکمه اوزاتیش چیکلاولری سقلندی.",
   "attachment-transfer-limits-save-failed": "بیریکمه اوزاتیش چیکلاولرینی سقلب بۉلمدی",

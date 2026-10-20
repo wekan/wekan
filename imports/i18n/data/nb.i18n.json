@@ -1342,6 +1342,7 @@
   "settings": "Innstillinger",
   "attachment-transfer-limits-title": "Størrelsesgrenser for vedlegg og API-filer",
   "attachment-limits": "Grenser",
+  "attachment-retention": "Oppbevaring",
   "attachment-transfer-limits-description": "Konfigurer maksimale filstørrelsesgrenser for opplastinger og nedlastinger. Buffring av API-overføring har egne sikkerhetsgrenser på serversiden.",
   "attachment-transfer-limits-saved": "Overføringsgrenser for vedlegg lagret.",
   "attachment-transfer-limits-save-failed": "Kunne ikke lagre overføringsgrenser for vedlegg",

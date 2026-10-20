@@ -1342,6 +1342,7 @@
   "settings": "Izilungiselelo",
   "attachment-transfer-limits-title": "Mikano ya Saizi ya Faela ya Zwo Namaṱheliswaho na API",
   "attachment-limits": "Mikano",
+  "attachment-retention": "U vhulunga",
   "attachment-transfer-limits-description": "Dzudzanya mikano mihulwane ya saizi ya faela ya u layisha na u download. U hwalela ha API hu na mikano ya tsireledzo yo fhambanaho kha seva.",
   "attachment-transfer-limits-saved": "Mikano ya u hwalela zwo namaṱheliswaho yo vhulungwa.",
   "attachment-transfer-limits-save-failed": "Zwo kundelwa u vhulunga mikano ya u hwalela zwo namaṱheliswaho",

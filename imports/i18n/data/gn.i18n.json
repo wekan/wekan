@@ -1342,6 +1342,7 @@
   "settings": "Ñemboheko",
   "attachment-transfer-limits-title": "Mbojoapyha ha API marandurenda tuichakue paha",
   "attachment-limits": "Pahakuéra",
+  "attachment-retention": "Ñongatu",
   "attachment-transfer-limits-description": "Emboheko marandurenda tuichakue paha ñembohupi ha ñemboguejýpe g̃uarã. API ñembohasa ñongatu sapy'a oreko ambue tekorosã paha mohendahavusu gotyo.",
   "attachment-transfer-limits-saved": "Mbojoapyha ñembohasa paha oñeñongatu.",
   "attachment-transfer-limits-save-failed": "Ndoikói mbojoapyha ñembohasa paha ñongatu",

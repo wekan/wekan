@@ -1342,6 +1342,7 @@
   "settings": "Impostazions",
   "attachment-transfer-limits-title": "Limic de grandëza di file per injuntes y API",
   "attachment-limits": "Limic",
+  "attachment-retention": "Conservazion",
   "attachment-transfer-limits-description": "Stabilì i limic plu auc de grandëza di file per ciarié su y ciarié ju. L buffering di trasferimënc API à si limic de segurëza dl server.",
   "attachment-transfer-limits-saved": "I limic de trasferimënt dla injuntes ie salvei.",
   "attachment-transfer-limits-save-failed": "Ne n’ie nia stat meso salvé i limic de trasferimënt dla injuntes",

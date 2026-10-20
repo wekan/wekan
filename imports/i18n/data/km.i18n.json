@@ -1342,6 +1342,7 @@
   "settings": "ការកំណត់",
   "attachment-transfer-limits-title": "ដែនកំណត់ទំហំឯកសារភ្ជាប់ និង API",
   "attachment-limits": "ដែនកំណត់",
+  "attachment-retention": "រយៈពេលរក្សាទុក",
   "attachment-transfer-limits-description": "កំណត់ដែនកំណត់ទំហំឯកសារអតិបរមាសម្រាប់ការផ្ទុកឡើង និងទាញយក។ ការbuffering ការផ្ទេរ API មានដែនកំណត់សុវត្ថិភាពខាងម៉ាស៊ីនមេដាច់ដោយឡែក។",
   "attachment-transfer-limits-saved": "ដែនកំណត់ការផ្ទេរឯកសារភ្ជាប់ត្រូវបានរក្សាទុក។",
   "attachment-transfer-limits-save-failed": "បរាជ័យក្នុងការរក្សាទុកដែនកំណត់ការផ្ទេរឯកសារភ្ជាប់",

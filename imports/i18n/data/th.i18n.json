@@ -1342,6 +1342,7 @@
   "settings": "การตั้งค่า",
   "attachment-transfer-limits-title": "ขีดจำกัดขนาดไฟล์ของไฟล์แนบและ API",
   "attachment-limits": "ขีดจำกัด",
+  "attachment-retention": "ระยะเวลาเก็บรักษา",
   "attachment-transfer-limits-description": "กำหนดค่าขีดจำกัดขนาดไฟล์สูงสุดสำหรับการอัปโหลดและดาวน์โหลด การบัฟเฟอร์การถ่ายโอน API มีขีดจำกัดความปลอดภัยฝั่งเซิร์ฟเวอร์แยกต่างหาก",
   "attachment-transfer-limits-saved": "บันทึกขีดจำกัดการถ่ายโอนไฟล์แนบแล้ว",
   "attachment-transfer-limits-save-failed": "ไม่สามารถบันทึกขีดจำกัดการถ่ายโอนไฟล์แนบได้",

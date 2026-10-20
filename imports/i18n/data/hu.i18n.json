@@ -1342,6 +1342,7 @@
   "settings": "Beállítások",
   "attachment-transfer-limits-title": "Melléklet és API fájlméret korlátok",
   "attachment-limits": "Korlátok",
+  "attachment-retention": "Megőrzés",
   "attachment-transfer-limits-description": "Állítsd be a feltöltések és letöltések maximális fájlméret korlátait. Az API átvitel pufferelése külön, szerveroldali biztonsági felső korlátokkal rendelkezik.",
   "attachment-transfer-limits-saved": "A melléklet átviteli korlátok elmentve.",
   "attachment-transfer-limits-save-failed": "A melléklet átviteli korlátok mentése sikertelen",

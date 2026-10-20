@@ -46,6 +46,10 @@ const ALLOWED = {
   ],
   // A hard card purge cascades to its attachments' legacy top-level cardId rows.
   'models/cards.js': ['await Attachments.removeAsync({ cardId: doc._id });'],
+  // Attachment retention's purge (ATTACHMENTS_PURGE_DELETED_AFTER_DAYS, off by
+  // default): only attachments ALREADY soft-deleted for that many days, the
+  // selector re-checked in the write - a trash that empties itself.
+  'server/attachmentRetention.js': ['await Attachments.removeAsync({ _id: attachment._id, deletedAt: selector.deletedAt });'],
   // Storage-format conversion to CollectionFS: the file survives, the record moves.
   'server/attachmentBulkMove.js': ['await cfg.Collection.collection.removeAsync({ _id: doc._id });'],
 };

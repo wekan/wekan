@@ -1342,6 +1342,7 @@
   "settings": "პარამეტრები",
   "attachment-transfer-limits-title": "დანართის და API ფაილის ზომის ლიმიტები",
   "attachment-limits": "ლიმიტები",
+  "attachment-retention": "შენახვის ვადა",
   "attachment-transfer-limits-description": "დააკონფიგურირეთ ფაილის ზომის მაქსიმალური ლიმიტები ატვირთვებისა და ჩამოტვირთვებისთვის. API გადაცემის ბუფერიზაციას აქვს ცალკე სერვერის მხარის უსაფრთხოების ლიმიტები.",
   "attachment-transfer-limits-saved": "დანართის გადაცემის ლიმიტები შენახულია.",
   "attachment-transfer-limits-save-failed": "დანართის გადაცემის ლიმიტების შენახვა ვერ მოხერხდა",

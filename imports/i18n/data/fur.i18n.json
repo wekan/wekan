@@ -1342,6 +1342,7 @@
   "settings": "Impostazions",
   "attachment-transfer-limits-title": "Limiti di dimensione dai file par zontis e API",
   "attachment-limits": "Limits",
+  "attachment-retention": "Conservazion",
   "attachment-transfer-limits-description": "Configura i limiti massimi di dimensione dai file par cjamementi e download. Il buffering dal trasferimento API ha limiti di sicurezza separati lato server.",
   "attachment-transfer-limits-saved": "Limiti di trasferimento zontis salveti.",
   "attachment-transfer-limits-save-failed": "Impossibile salvere i limiti di trasferimento zontis",
