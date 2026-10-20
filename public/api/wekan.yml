@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.55
+  version: v12.56
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -8589,6 +8589,20 @@ definitions:
           x-nullable: true
         x-nullable: true
       lastConnectionDate:
+        type: string
+        x-nullable: true
+      inactivityClockStart:
+        description: |
+           USERS_DISABLE_INACTIVE_AFTER_DAYS: when the inactivity clock last
+           (re)started for an account with no lastConnectionDate, or was re-enabled
+           (models/lib/inactiveUsers.js)
+        type: string
+        x-nullable: true
+      loginDisabledReason:
+        description: |
+           why loginDisabled was set automatically: 'inactive'
+           (USERS_DISABLE_INACTIVE_AFTER_DAYS) or 'ldap' (LDAP background sync);
+           cleared whenever the account is enabled again
         type: string
         x-nullable: true
       anonymized:
