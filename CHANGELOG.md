@@ -109,13 +109,74 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the **Admin Panel's Security report** stops crying wolf: an
-unset value no longer reads as **history tampering**, opening old files no
-longer trips **FileNameBleed**, a clean file scan is no longer a security
-event, and cities keep their letters. The release builds ride out the night's
-infrastructure trouble on **Bun** and **Launchpad**.
+**In short:** attachments can be **deleted after a set time** and deleted ones
+**purged**, every **backup** is recorded with failures and overdue runs shown,
+and the newest features' settings are on **every platform** and in the **Admin
+Panel**. Adding a board member by email works whatever the letter case, and the
+**Security report** stops crying wolf.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Attachments and backups** - how long files and backups are kept, and whether
+the backups worked.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcf91e4471">Attachment retention: delete card attachments after N days, purge deleted ones after M days</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6789](https://github.com/wekan/wekan/issues/6789): off unless configured, a
+nightly job deletes card attachments older than `ATTACHMENTS_RETENTION_DAYS`
+through the card's own restorable Delete, optionally only on inactive cards.
+`ATTACHMENTS_PURGE_DELETED_AFTER_DAYS` then removes them for good, file
+included, from every storage backend. There are also dry-run and per-night
+cap settings. All five are in **Admin Panel / Attachments / Retention** and on
+every platform. `tests/attachmentRetention.test.cjs` and a UI spec cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06b7ce994a">Backup status: every run recorded, failures and overdue backups shown, old backups pruned</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6790](https://github.com/wekan/wekan/issues/6790): a backup's result lived only
+in the memory of the server that ran it, so after a restart, or on another pod,
+nobody could tell whether last night's backup worked. Every run is now recorded
+for 400 days. Admin Panel / Problems / Backup shows the last success, the last
+failure, the next run and the history. Problems / Summary and `/metrics` report
+failed and overdue backups. `BACKUP_KEEP_DAYS`, also in Admin Panel /
+Attachments / Backup, prunes old local backups and always keeps the newest.
+`tests/backupRuns.test.cjs` covers it.
+
+</details>
+
+**Admin Panel settings** - the newest features' environment variables.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/718fdb5dac">The newest features' settings are on every release platform and in the Admin Panel</a>. Thanks to xet7.</summary>
+
+An audit found 30 variables new since v12.00. The Email to card limits, the
+login-cookie limit and Windows SSO are now Admin Panel settings. Those and the
+per-process switches are listed in the Dockerfile, docker-compose, start-wekan
+and the snap; none had been. `tests/envVarCoverage.test.cjs` now fails for any
+variable read that is neither an Admin Panel setting nor environment-only with
+a stated reason.
+
+</details>
+
+and fixes the following bugs:
+
+**Board members** - adding a colleague to a board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/193fb449bd">Adding a board member by email works in any letter case, and search finds colleagues past five matches</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6788](https://github.com/wekan/wekan/issues/6788): LDAP and OIDC store an
+address as the directory spells it, and the invite matched it exactly, so
+"jan.jansen@example.com" found nobody and WeKan tried to create a new account.
+The match is now case-insensitive, anchored and escaped. The member search read
+five users before filtering out disabled accounts and other organizations, so a
+colleague could be hidden; it filters first now. A test of the source and a
+UI spec cover both (`tests/inviteMemberEmailCase.test.cjs`).
+
+</details>
 
 **Admin Panel / Problems / Security** - reports that named an attack or a
 tampering where there was none, and labels it showed in English.
