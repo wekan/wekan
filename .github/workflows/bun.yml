@@ -176,7 +176,21 @@ jobs:
           tests/playwright/node_modules/.bin/playwright install --with-deps chromium
       - name: Start an isolated MongoDB for Linux HTTP and DDP tests
         if: matrix.kind == 'native' && matrix.platform == 'linux'
-        run: docker run -d --rm --name bun-smoke-mongo -p 127.0.0.1:27019:27017 mongo:8
+        run: |
+          # Not --rm: a container that dies must leave its log behind. v12.56
+          # linux-x64 found nothing on 27019 ("Topology is closed") and there
+          # was no way to see why. Wait until it answers, or show why not.
+          docker run -d --name bun-smoke-mongo -p 127.0.0.1:27019:27017 mongo:8
+          for i in $(seq 1 60); do
+            if docker exec bun-smoke-mongo mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok' 2>/dev/null | grep -qx 1; then
+              echo "MongoDB answers on 127.0.0.1:27019 after ${i}s."; exit 0
+            fi
+            sleep 1
+          done
+          echo "::error::the smoke-test MongoDB did not answer within 60s; its state and log follow."
+          docker ps -a --filter name=bun-smoke-mongo
+          docker logs bun-smoke-mongo 2>&1 | tail -n 80
+          exit 1
       - name: Native Linux, macOS or Windows build and smoke tests
         if: matrix.kind == 'native'
         env:

@@ -388,7 +388,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // developer's machine. start-wekan.sh ships inside the finished bundle.
   for (const helper of ['build-target.sh', 'check-native.mjs', 'live-smoke.mjs',
     'native-check-verdict.mjs', 'prepare-meteor.sh', 'rebuild.mjs', 'run-native-check.mjs',
-    'smoke.mjs']) {
+    'smoke.mjs', 'wait-mongo.mjs']) {
     SKIP[`bun/${helper}`] = 'Bun target-build internal run by bun.yml on the target runner';
   }
   SKIP['bun/start-wekan.sh'] = 'runs INSIDE the built Bun bundle, to start it';
