@@ -1639,8 +1639,16 @@ Meteor.methods({
     // #5664: existing invitee => their own language; new invitee => inviter's.
     let isNewUser = false;
     if (posAt >= 0) {
+      // Email addresses are case-insensitive, and LDAP/OIDC store them as the
+      // directory spells them ("Jan.Jansen@Example.com"). An exact match missed
+      // an existing colleague typed in lower case, so WeKan tried to create a
+      // new account for them: refused with "This user is not created" when
+      // registration is disabled, else a raw 403 "Email already exists"
+      // (Accounts.createUser compares case-insensitively).
       user = await ReactiveCache.getUser({
-        emails: { $elemMatch: { address: username } },
+        emails: { $elemMatch: {
+          address: new RegExp(`^${escapeForRegex(username.trim())}$`, 'i'),
+        } },
       });
     } else {
       user =
@@ -3266,8 +3274,12 @@ Meteor.methods({
           // #6116: needed for the same-org/same-team typeahead filter below.
           orgs: 1,
           teams: 1,
+          loginDisabled: 1,
         },
-        limit: 5,
+        // Filtered below (disabled accounts, #6116 org/team restriction), so
+        // read more than are shown: with `limit: 5` here, five non-matching
+        // users ahead of the colleague hid them from the list entirely.
+        limit: 50,
       },
     );
 
@@ -3275,7 +3287,8 @@ Meteor.methods({
     // users sharing an Organization or Team with the caller (or an active board
     // member). Site admins are not filtered. Mirrors inviteUserToBoard so the UI
     // never offers a candidate the server would later reject.
-    let filteredUsers = users;
+    // #1894: inviteUserToBoard refuses a disabled account; do not offer one.
+    let filteredUsers = users.filter(candidate => candidate.loginDisabled !== true);
     if (!currentUser.isAdmin) {
       const restriction = boardMemberRestriction(await ReactiveCache.getCurrentSetting());
       if (restriction.org || restriction.team) {
@@ -3288,7 +3301,7 @@ Meteor.methods({
               : await ReactiveCache.getUser(m.userId);
           if (memberUser) activeMemberUsers.push(memberUser);
         }
-        filteredUsers = users.filter(candidate =>
+        filteredUsers = filteredUsers.filter(candidate =>
           activeMemberUsers.some(memberUser =>
             memberUser.sharesRestrictedOrgOrTeamWith(candidate, restriction),
           ),
@@ -3296,7 +3309,7 @@ Meteor.methods({
       }
     }
 
-    return filteredUsers.map(user => sanitizeUserForSearch(user));
+    return filteredUsers.slice(0, 5).map(user => sanitizeUserForSearch(user));
   },
 });
 
