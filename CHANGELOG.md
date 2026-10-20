@@ -109,12 +109,73 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the release builds ride out the night's infrastructure
-trouble: the **Bun** bundles' smoke-test database is waited for and replaced
-if it is lost, and the **Launchpad snaps** retry a Launchpad outage for longer
-instead of giving up after three quick tries.
+**In short:** the **Admin Panel's Security report** stops crying wolf: an
+unset value no longer reads as **history tampering**, opening old files no
+longer trips **FileNameBleed**, a clean file scan is no longer a security
+event, and cities keep their letters. The release builds ride out the night's
+infrastructure trouble on **Bun** and **Launchpad**.
 
 This release fixes the following bugs:
+
+**Admin Panel / Problems / Security** - reports that named an attack or a
+tampering where there was none, and labels it showed in English.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f3ec0afa3">History rows are hashed as stored, so an unset value is not tampering</a>. Thanks to xet7.</summary>
+
+HistoryIntegrity reported "checksum-mismatch", critical, 89472 times, on a row
+nobody had touched. Meteor stores rows with `ignoreUndefined`, so a content
+value like `deletedAt: list.deletedAt` (unset) is dropped when stored, and the
+row's hash, which still covered it, failed every audit. Rows are now hashed as
+stored. Rows written before this verify by re-adding exactly the keys the
+other side of the change has. A changed or removed real value still fails.
+`tests/changeHistoryIntegrity.test.cjs` stores rows through BSON as the
+driver does.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7c541ccc5">FileNameBleed: a percent-encoded name is not an exploit, and opening a file is not an upload</a>. Thanks to xet7.</summary>
+
+Opening a board of 2019 photos with Cyrillic names tripped "uploaded a
+filename carrying an exploit pattern; URL-encoded name". Percent-encoding is
+how browsers and older WeKan store any non-ASCII name. It is no longer a
+dangerous reason. Path traversal and null bytes are now named from the
+decoded name, so an encoded `../` still trips the path-traversal canary. A
+name repaired while a file is read never trips the upload canary.
+`tests/filenameCanaryReasons.test.cjs` covers both directions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52f127c0a5">A clean file-integrity scan is no longer a StorageBleed event</a>. Thanks to xet7.</summary>
+
+The background scan reported its own summary ("0 changed, 0 with no record
+saying why") on every run, 41 times. The summary is recorded only beside the
+changed or missing files it sums up; a clean run goes to the server log.
+`tests/fileIntegrity.test.cjs` pins it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a23306c2e">Locations from Cloudflare keep their letters: Dinkelsbühl, not DinkelsbÃ¼hl</a>. Thanks to xet7.</summary>
+
+Cloudflare sends the city as UTF-8 bytes and Node reads header values as
+Latin-1. A value that is valid UTF-8 as bytes is now read as UTF-8; genuine
+Latin-1 and percent-encoded names are unchanged. `tests/geoHeadersUtf8.test.cjs`
+includes a real HTTP request.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d703965c4">IPv6 location and Instrumentation are translated</a>. Thanks to xet7.</summary>
+
+The IPv6 location column is the translated "location" plus " (IPv6)", and the
+Instrumentation report has a title key, translated into every language
+(French: "Instrumentation logicielle"). Several translations are
+low-confidence and listed in the commit.
+
+</details>
 
 **Release builds** - jobs that v12.56 lost to infrastructure rather than to
 WeKan.
@@ -141,7 +202,9 @@ apart, met Launchpad's HTTP 503. An attempt that fails on Launchpad
 infrastructure now earns another, up to six, after a growing pause. Other
 failures keep three attempts. `tests/snapLaunchpadInfraRetry.test.cjs` runs
 the workflow's own check against logs shaped like v12.56's, and against the
-negatives.
+negatives. Its git-error pattern says `RPC failed;` rather than naming curl
+([follow-up](https://github.com/wekan/wekan/commit/363cd22916)), as the
+downloads guard requires.
 
 </details>
 
