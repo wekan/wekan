@@ -25,6 +25,15 @@ const { filesRootFrom, scheduleText, safeEntryPath, symlinkOnRestorePath, safeCo
 // (tests/tenantBackup.test.cjs) and cannot drift between the two directions.
 import * as tenantBackup from '/models/lib/tenantBackup';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+// Backup history and health (models/lib/backupRuns.js): every run is recorded
+// in the database, so its result survives a restart and every server - every
+// pod - shows the same history, which the in-memory `progress` below cannot.
+import {
+  BackupRuns, recordRunStart, recordRunFinish, recentRuns, currentBackupHealth,
+  keepDaysSetting, pruneLocalBackups,
+} from '/server/lib/backupRuns';
+import { ensureIndex } from '/server/lib/mongoStartup';
+const { effectiveStatus } = require('/models/lib/backupRuns');
 
 // Admin Panel / Attachments / Backup. Whole-instance archives use the
 // versioned BSON/file-stream format in server/lib/fullBackup.js. Organization
@@ -141,9 +150,11 @@ async function* ndjsonOfSelector(db, coll, selector) {
   await cursor.close();
 }
 
-async function doBackup(opts, storageName, orgId = null) {
+async function doBackup(opts, storageName, orgId = null, { trigger = 'manual', userId = null } = {}) {
   let activeArchive, localOutput, partialPath;
   setProgress({ running: true, orgId, phase: 'backup', detail: '', file: '', success: null, error: '' });
+  const startedAt = new Date();
+  const runId = await recordRunStart({ trigger, userId, orgId, storage: storageName || 'filesystem', opts, now: startedAt });
   try {
     const t = nowParts();
     t.s += `_${Date.now()}_${Math.random().toString(16).slice(2, 10)}`;
@@ -235,14 +246,32 @@ async function doBackup(opts, storageName, orgId = null) {
 
     await archive.finalize();
     await donePromise;
-    if (!storageName || storageName === 'filesystem') fs.renameSync(dest + '.partial', dest);
+    const local = !storageName || storageName === 'filesystem';
+    if (local) fs.renameSync(dest + '.partial', dest);
     setProgress({ phase: 'completed', file: dest, success: true });
+    let size = null;
+    let pruned = 0;
+    if (local) {
+      try { size = fs.statSync(dest).size; } catch (_) {}
+      // BACKUP_KEEP_DAYS, only after a successful backup and only among local
+      // backups of this same scope; the newest is always kept.
+      try {
+        const keepDays = keepDaysSetting();
+        if (keepDays) {
+          const backups = findBackups(backupRoot(), [])
+            .map(b => ({ ...b, orgId: tenantBackup.orgIdOfBackupPath(b.path) }));
+          pruned = pruneLocalBackups({ backups, backupRoot: backupRoot(), keepDays, orgId });
+        }
+      } catch (e) { console.error('[backup] pruning old backups failed:', e && e.message); }
+    }
+    await recordRunFinish(runId, startedAt, { ok: true, file: dest, size, pruned });
     return dest;
   } catch (e) {
     if (activeArchive) activeArchive.destroy();
     if (localOutput) localOutput.destroy();
     if (partialPath) fs.rmSync(partialPath, { force: true });
     setProgress({ phase: 'error', success: false, error: String(e && e.message ? e.message : e).slice(0, 500) });
+    await recordRunFinish(runId, startedAt, { ok: false, error: e });
     throw e;
   } finally {
     progress.running = false;
@@ -463,14 +492,31 @@ async function registerCron() {
       return parsed;
     },
     async job() {
-      if (progress.running) return;
-      try { await doBackup({ attachments: !!s.attachments, avatars: !!s.avatars, data: !!s.data }, s.storage || 'filesystem'); }
+      if (progress.running) {
+        // A missed scheduled backup is a fact the history must show, not a
+        // silent no-op.
+        const startedAt = new Date();
+        const runId = await recordRunStart({ trigger: 'scheduled', storage: s.storage || 'filesystem', opts: s, now: startedAt });
+        await recordRunFinish(runId, startedAt, { ok: false, error: 'skipped: another backup was still running' });
+        return;
+      }
+      try { await doBackup({ attachments: !!s.attachments, avatars: !!s.avatars, data: !!s.data }, s.storage || 'filesystem', null, { trigger: 'scheduled' }); }
       catch (e) { console.error('[backup] scheduled backup failed:', e); throw e; }
     },
   });
   console.log('[backup] scheduled:', scheduleText(s));
 }
 Meteor.startup(async () => { try { await registerCron(); } catch (e) { console.error('[backup] cron init:', e); } });
+// For /metrics (models/server/metrics.js): the instance backup's health.
+export async function backupHealthNow() {
+  return currentBackupHealth(await BackupSettings.findOneAsync({ _id: 'schedule' }), new Date());
+}
+Meteor.startup(async () => {
+  try {
+    await ensureIndex(BackupRuns, { startedAt: -1 });
+    await ensureIndex(BackupRuns, { orgId: 1, startedAt: -1 });
+  } catch (e) { console.error('[backup] history index:', e && e.message); }
+});
 
 async function requireAdmin() {
   const user = await ReactiveCache.getCurrentUser();
@@ -519,7 +565,7 @@ Meteor.methods({
     if (!opts || (!opts.attachments && !opts.avatars && !opts.data)) throw new Meteor.Error('nothing-selected', 'Select at least one of Attachments, Avatars, Data.');
     try { validateBackupOptions(opts, storageName || 'filesystem'); }
     catch (error) { throw new Meteor.Error('invalid-backup-options', error.message); }
-    doBackup(opts, storageName, scope.orgId).catch(() => {}); // background; poll backupStatus
+    doBackup(opts, storageName, scope.orgId, { trigger: 'manual', userId: this.userId }).catch(() => {}); // background; poll backupStatus
     return { started: true, orgId: scope.orgId };
   },
   async restoreBackup(zipPath, mode) {
@@ -569,6 +615,46 @@ Meteor.methods({
       .filter(b => tenantBackup.canUseBackupPath({ isSiteAdmin, adminOrgIds, backupPath: b.path }))
       .map(b => ({ ...b, orgId: tenantBackup.orgIdOfBackupPath(b.path) }))
       .sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+  },
+  // Admin Panel / Attachments / Backup: the recorded runs and, for the site
+  // admin, the health of the instance backup. A per-tenant admin sees only the
+  // runs of their own Organizations, like listBackups.
+  async backupHistory() {
+    const user = this.userId
+      ? await ReactiveCache.getUser({ _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } })
+      : null;
+    if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
+    const isSiteAdmin = tenantAdmin.isSiteAdmin(user);
+    const selector = isSiteAdmin ? {} : { orgId: { $in: tenantAdmin.adminOrgIds(user) } };
+    const now = new Date();
+    const runs = await recentRuns(selector, 30);
+    const userIds = [...new Set(runs.map(r => r.userId).filter(Boolean))];
+    const names = {};
+    for (const u of await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: { username: 1 } })) {
+      names[u._id] = u.username;
+    }
+    const schedule = await BackupSettings.findOneAsync({ _id: 'schedule' });
+    return {
+      runs: runs.map(r => ({
+        _id: r._id,
+        startedAt: r.startedAt,
+        finishedAt: r.finishedAt || null,
+        status: effectiveStatus(r, now),
+        trigger: r.trigger,
+        username: r.userId ? (names[r.userId] || '') : '',
+        orgId: r.orgId || null,
+        storage: r.storage,
+        size: r.size === undefined ? null : r.size,
+        durationMs: r.durationMs === undefined ? null : r.durationMs,
+        pruned: r.pruned || 0,
+        // The file path only for the site admin, like the archive list.
+        file: isSiteAdmin ? (r.file || '') : '',
+        error: r.error || (effectiveStatus(r, now) !== r.status ? 'interrupted: the server stopped during the backup' : ''),
+      })),
+      health: isSiteAdmin ? await currentBackupHealth(schedule, now) : null,
+      keepDays: keepDaysSetting(),
+      nextRunAt: isSiteAdmin ? (SyncedCron.nextScheduledAtDate(CRON_NAME) || null) : null,
+    };
   },
   async getBackupSchedule() {
     await requireAdmin();

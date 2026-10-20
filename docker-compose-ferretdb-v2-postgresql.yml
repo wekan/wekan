@@ -815,6 +815,12 @@ services:
       # it too, and its value there wins.
       #- USERS_DISABLE_INACTIVE_AFTER_DAYS=180
       #---------------------------------------------------------------
+      # BACKUP_KEEP_DAYS : after each successful Admin Panel backup, delete
+      # local (filesystem) backups older than this many days; the newest is
+      # always kept. Unset or 0 = keep all (default). Admin Panel / Attachments
+      # / Backup can set it too, and its value there wins. docs/Backup/Backup.md
+      #- BACKUP_KEEP_DAYS=7
+      #---------------------------------------------------------------
       # ATTACHMENT RETENTION (models/lib/attachmentRetention.js). Off unless set.
       # ATTACHMENTS_RETENTION_DAYS : once a night, delete card attachments older
       # than this many days. A normal delete: restorable from the card history.

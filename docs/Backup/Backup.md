@@ -116,6 +116,55 @@ is online, as described in the issue.
 Screenshot source:
 [xet7's backup screenshot in #6683](https://github.com/wekan/wekan/issues/6683#issuecomment-5604698350).
 
+### Did the backup work? History, health and monitoring
+
+Every backup run - scheduled or **Backup now** - is recorded in the database
+(collection `backupRuns`, kept 400 days), so its result survives a restart and
+every WeKan server or Kubernetes pod shows the same answer. The status is shown
+in **Admin Panel / Problems / Settings / Backup** (`/admin/problems/backup`, with a
+link to the backup settings) and above the schedule in **Admin Panel /
+Attachments / Backup**:
+
+- the time of the **last successful** instance backup, marked **overdue** when a
+  schedule is on and no backup succeeded within its period (daily: 26 hours,
+  weekly: 7 days + 2 hours, monthly: 31 days + 2 hours);
+- the **last run** and its error, when it failed;
+- the **next run** of the schedule;
+- a **history** table of the last 30 runs: when, scheduled or by whom, scope,
+  storage, status, size, duration and error.
+
+A failed backup, or a scheduled one that is overdue, is also listed on **Admin
+Panel / Problems / Summary**.
+
+A run still marked running 24 hours after it started is shown as failed: its
+server stopped during the backup. A scheduled backup that could not start
+because another backup was still running is recorded as failed too, so a missed
+night is visible. A per-tenant administrator sees only their Organizations' runs.
+
+For monitoring, `/metrics` (see `METRICS_ACCEPTED_IP_ADDRESS`) includes:
+
+```
+wekan_backup_last_success_timestamp_seconds   # 0 = never
+wekan_backup_last_run_timestamp_seconds
+wekan_backup_last_run_success                 # 1 or 0
+wekan_backup_overdue                          # 1 when a scheduled backup is missing
+```
+
+Example Prometheus alert: `time() - wekan_backup_last_success_timestamp_seconds > 26*3600`.
+
+### Keeping only recent backups
+
+`BACKUP_KEEP_DAYS=7` deletes local (filesystem) backups older than seven days
+after each successful backup, separately for the whole instance and for each
+Organization. The newest backup of each is always kept, however old, so a
+period of failures never leaves you without one. Unset or `0` keeps every
+backup, as before. Archives in S3/MinIO, Azure or Google Cloud Storage are not
+deleted by WeKan; use the provider's lifecycle rules.
+
+Filesystem backups are written to `<WRITABLE_PATH>/files/backup`. To keep them
+on NFS, SMB or another share, mount it at that path (in Kubernetes: a volume
+mounted at `/data/files/backup`).
+
 ### What the repaired archive includes
 
 Select **Whole instance**, **Attachments**, **Avatars** and **Data (text)** for

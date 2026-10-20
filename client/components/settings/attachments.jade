@@ -543,6 +543,10 @@ template(name="attachments")
                   if backupSuccess
                     p.form-text.text-success {{_ 'backup-done'}}: {{backupStatus.file}}
 
+                //- Did the last backup work? The shared status and history
+                //- (backupRunsStatus.jade), also at Admin Panel / Problems / Backup.
+                +backupRunsStatus
+
                 h4 {{_ 'backup-schedule'}}
                 .form-group
                   label {{_ 'backup-frequency'}}
@@ -583,6 +587,10 @@ template(name="attachments")
                         aria-pressed="{{#if selected}}true{{else}}false{{/if}}") {{day}}
                 .form-group
                   button.js-save-backup-schedule.btn.btn-primary(type="button") {{_ 'save'}}
+                //- BACKUP_KEEP_DAYS, overridable here (models/lib/authConfigCatalog.js,
+                //- section backup). Site administrators only: the form draws
+                //- nothing for anybody else, and the server refuses their save.
+                +authProviderSettings(backupOptionsData)
 
                 h4 {{_ 'backup-restore'}}
                 .form-group

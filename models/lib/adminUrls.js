@@ -106,6 +106,8 @@ const ADMIN_PAGES = {
       security: 'features-security',
       delete: 'features-delete',
       notifications: 'features-notifications',
+      // The Admin Panel backup's status and history (backupRunsStatus.jade).
+      backup: 'features-backup',
       'security-report': 'report-security',
       impersonation: 'report-impersonation',
       performance: 'features-performance',
@@ -202,6 +204,7 @@ const ADMIN_PANE_TITLES = {
     security: { titleKey: 'features-security' },
     delete: { titleKey: 'delete' },
     notifications: { titleKey: 'features-notifications' },
+    backup: { titleKey: 'backup' },
     'security-report': { titleKey: 'securityReportTitle' },
     impersonation: { titleKey: 'impersonationReportTitle' },
     performance: { titleKey: 'features-performance' },

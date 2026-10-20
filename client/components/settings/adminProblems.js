@@ -311,6 +311,10 @@ const PROBLEMS_MENU = [
   { id: 'features-security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
   { id: 'features-delete', icon: 'fa-trash', labelKey: 'delete' },
   { id: 'features-notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
+  // Did last night's backup work? The status and history of the Admin Panel
+  // backup (backupRunsStatus.jade), with a link to its settings in Attachments /
+  // Backup. A failed or overdue backup is also listed on Summary.
+  { id: 'features-backup', icon: 'fa-archive', labelKey: 'backup' },
   { separator: true },
   { heading: true, labelKey: 'reports' },
   // "Security Report", not "Security": the Features pane above is also called
@@ -529,6 +533,8 @@ function switchMenu(event, tmpl) {
 const SELF_LOADING_PANES = [
   'report-summary',
   'features-performance', 'features-security', 'features-delete', 'features-notifications',
+  // backupRunsStatus.jade loads its own data (the backupHistory method).
+  'features-backup',
   'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-ram', 'report-disk',
   'report-instrumentation',
   'report-database', 'report-integrity', 'report-office', 'report-api', 'report-mail',

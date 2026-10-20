@@ -525,7 +525,13 @@ function pollBackupStatus(tpl) {
     if (err || !status) return;
     tpl.backupStatus.set(status);
     if (status.running) {
+      tpl._watchedBackupRun = true;
       tpl.backupPoll = Meteor.setTimeout(() => pollBackupStatus(tpl), 2000);
+    } else if (tpl._watchedBackupRun) {
+      // A run this pane was watching just ended: the history (backupRunsStatus.js)
+      // shows its recorded result.
+      tpl._watchedBackupRun = false;
+      Session.set('backupHistoryChanged', Date.now());
     }
   });
 }
@@ -610,6 +616,14 @@ Template.attachments.helpers({
   },
   loading() {
     return Template.instance().loading;
+  },
+  backupOptionsData() {
+    return {
+      section: 'backup',
+      fields: AUTH_CONFIG_SECTIONS.backup.fields,
+      loadMethod: 'getAuthConfigSources',
+      saveMethod: 'saveAuthConfigSettings',
+    };
   },
   isRetentionActive() {
     return Template.instance().activeSection.get() === 'retention';

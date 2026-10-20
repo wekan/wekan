@@ -20,3 +20,10 @@ test('negative: an ordinary user cannot open the retention settings', async ({ p
   await navigateInApp(page, '/admin/attachments/retention');
   await expect(page.locator('.js-auth-provider-settings')).toHaveCount(0);
 });
+
+// #6790: BACKUP_KEEP_DAYS, beside the backup schedule.
+test('Admin Panel / Attachments / Backup offers BACKUP_KEEP_DAYS', async ({ page, adminUser }) => {
+  await loginWithToken(page, adminUser.id, adminUser.token);
+  await navigateInApp(page, '/admin/attachments/backup');
+  await expect(page.locator('.js-auth-provider-settings label', { hasText: 'BACKUP_KEEP_DAYS' })).toBeVisible({ timeout: 10_000 });
+});

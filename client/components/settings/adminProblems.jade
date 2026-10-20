@@ -32,6 +32,8 @@ template(name="adminProblems")
             +featuresDelete
           else if isPane 'features-notifications'
             +featuresNotifications
+          else if isPane 'features-backup'
+            +backupRunsStatus(settingsLink=true)
           else if isPane 'report-security'
             +eventStreamReport(stream="security")
           else if isPane 'report-speed'

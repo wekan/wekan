@@ -858,6 +858,9 @@ REM # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts unused
 REM # for this many days. Admins never. Unset or 0 = off. Admin Panel / People /
 REM # Login can set it too, and its value there wins.
 REM SET USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+REM # Keep Admin Panel filesystem backups this many days (newest always kept).
+REM # Unset or 0 = all. Admin Panel / Attachments / Backup can set it too.
+REM SET BACKUP_KEEP_DAYS=7
 REM # Attachment retention, off unless set. See docs/Features/Cards/Attachments/Attachments.md
 REM SET ATTACHMENTS_RETENTION_DAYS=730
 REM SET ATTACHMENTS_RETENTION_MODE=uploaded

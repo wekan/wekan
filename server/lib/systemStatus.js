@@ -136,5 +136,20 @@ export async function getProblemsOverview() {
     countBrokenCards(),
     countRestorableListSwimlanes(),
   ]);
-  return buildProblemsOverview({ inProgress, loginProblems, brokenCards, unboundLists });
+  return buildProblemsOverview({
+    inProgress, loginProblems, brokenCards, unboundLists,
+    extraProblems: [await backupProblemNow()].filter(Boolean),
+  });
+}
+
+// A failed or overdue Admin Panel backup (models/lib/backupRuns.js). Its own
+// try: the overview must still load when the backup history cannot be read.
+async function backupProblemNow() {
+  try {
+    const { backupHealthNow } = require('/server/methods/backup');
+    const { backupProblem } = require('/models/lib/backupRuns');
+    return backupProblem(await backupHealthNow());
+  } catch (_) {
+    return null;
+  }
 }

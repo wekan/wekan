@@ -201,6 +201,13 @@ const SECTIONS = {
       ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: 1000, max: 1000000 }],
     ],
   },
+  // Admin Panel / Attachments / Backup (#6790, models/lib/backupRuns.js).
+  backup: {
+    storage: 'backupOptions',
+    fields: [
+      ['keepDays', 'BACKUP_KEEP_DAYS', 'number', { max: 36500 }],
+    ],
+  },
 };
 
 const AUTH_CONFIG_SECTIONS = {};

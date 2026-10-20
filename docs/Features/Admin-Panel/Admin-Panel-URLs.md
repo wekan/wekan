@@ -77,6 +77,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/problems/security` | Security | `features-security` |
 | `/admin/problems/delete` | Delete | `features-delete` |
 | `/admin/problems/notifications` | Notifications | `features-notifications` |
+| `/admin/problems/backup` | Backup (status and history; settings stay in Attachments / Backup) | `features-backup` |
 | `/admin/problems/security-report` | Security Report | `report-security` |
 | `/admin/problems/impersonation` | Impersonation Report | `report-impersonation` |
 | `/admin/problems/performance` | Performance | `features-performance` |

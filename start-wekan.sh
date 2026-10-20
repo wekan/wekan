@@ -197,6 +197,9 @@
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       # Disable accounts unused for this many days (admins never). Unset or 0 = off.
       #export USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+      # Keep Admin Panel filesystem backups this many days (newest always kept).
+      # Unset or 0 = all. Admin Panel / Attachments / Backup can set it too.
+      #export BACKUP_KEEP_DAYS=7
       # Attachment retention, off unless set (docs/Features/Cards/Attachments/Attachments.md):
       #export ATTACHMENTS_RETENTION_DAYS=730
       #export ATTACHMENTS_RETENTION_MODE=uploaded

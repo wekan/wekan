@@ -48,6 +48,11 @@ unsafe or noisy:
 - **Notifications** — disable all activities, all notifications, or watching, for
   deployments that must limit activity tracking
   ([#5820](https://github.com/wekan/wekan/issues/5820)).
+- **Backup** — did the Admin Panel backup work: the last successful backup,
+  the last failure and its error, the next scheduled run, and the history of
+  the last runs. Its settings stay in Admin Panel / Attachments / Backup; a
+  failed or overdue backup is also listed on Summary
+  ([Backup.md](../../../Backup/Backup.md)).
 
 **Reports** — Security Report, Impersonation Report, Performance, Speed, Tests, CPU
 usage, Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report,
@@ -108,6 +113,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Security | `security` | — |
 | Problems / Delete | `delete` | — |
 | Problems / Notifications | `notifications` | — |
+| Problems / Backup | `backup` | [Backup.md](../../../Backup/Backup.md#did-the-backup-work-history-health-and-monitoring) |
 | Problems / Security Report | `security-report` | — |
 | Problems / Impersonation Report | `impersonation` | — |
 | Problems / Performance | `performance` | — |
@@ -129,7 +135,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Filesystem integrity | `integrity` | — |
 | Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
 
-15 of these 24 panes has no page of its own yet. A dash is a
+15 of these 25 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 

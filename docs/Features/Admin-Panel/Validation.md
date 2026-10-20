@@ -107,6 +107,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Security (`security`) | [settings.js](../../../models/settings.js) | Rich-text and import/export policies, enforced by renderers and server guards. |
 | Delete (`delete`) | [settings.js](../../../server/models/settings.js) | Explicit administrator permanent-delete setting; purge remains a separate action. |
 | Notifications (`notifications`) | [settings.js](../../../models/settings.js) | Activity, notification and watching switches; separate from delivery preferences. |
+| Backup (`backup`) | [backup.js](../../../server/methods/backup.js) | Recorded backup runs, health of the instance backup and its history (backupHistory method); settings stay in Attachments / Backup. |
 | Security Report (`security-report`) | [eventLog.js](../../../models/eventLog.js) | Recorded security events, search, detail and acknowledgement. |
 | Impersonation Report (`impersonation`) | [impersonationReport.js](../../../server/publications/impersonationReport.js) | Scoped event publication and counts. |
 | Performance (`performance`) | [adminProblems.js](../../../client/components/settings/adminProblems.js) | Persisted performance options; card loading uses the active loading policy. |

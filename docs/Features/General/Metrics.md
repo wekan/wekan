@@ -16,3 +16,16 @@ https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys#matomo-web-anal
 ```
 
 
+
+### Backup metrics
+
+The Admin Panel backup (docs/Backup/Backup.md) adds:
+
+```
+wekan_backup_last_success_timestamp_seconds   # Unix time, 0 = never
+wekan_backup_last_run_timestamp_seconds
+wekan_backup_last_run_success                 # 1 or 0
+wekan_backup_overdue                          # 1 when a scheduled backup is missing
+```
+
+Alert example: `time() - wekan_backup_last_success_timestamp_seconds > 26*3600`.

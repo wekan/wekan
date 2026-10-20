@@ -239,6 +239,17 @@ Meteor.startup(() => {
             }` + '\n';
         });
 
+        // Backup health (models/lib/backupRuns.js), so monitoring can alert on
+        // a failed or missing backup. Its own try: a problem reading the backup
+        // history must not take the other metrics down with it.
+        try {
+          const { backupHealthNow } = require('/server/methods/backup');
+          const { backupMetricsLines } = require('/models/lib/backupRuns');
+          metricsRes += backupMetricsLines(await backupHealthNow());
+        } catch (e) {
+          metricsRes += '# backup metrics unavailable\n';
+        }
+
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
       } else {

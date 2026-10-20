@@ -1,0 +1,80 @@
+//- Admin Panel backup: did the last backup work? (models/lib/backupRuns.js)
+//- Shown in Admin Panel / Attachments / Backup, above the schedule, and on its
+//- own at Admin Panel / Problems / Backup, where `settingsLink` adds the way to
+//- the backup settings. Recorded in the database, so it is the same on every
+//- server and survives a restart. Only existing translation keys.
+template(name="backupRunsStatus")
+  .backup-history
+    if backupHealth
+      .backup-health
+        if backupHealthIs 'ok'
+          p.form-text.text-success
+            i.fa.fa-check-circle
+            |  {{_ 'backup-done'}}: {{displayDate backupHealth.lastSuccessAt 'LLL'}}
+        else if backupHealthIs 'never'
+          p.form-text.text-danger
+            i.fa.fa-exclamation-triangle
+            |  {{_ 'backup-done'}}: {{_ 'list-sync-last-synced-never'}}
+        else
+          if backupHealth.lastSuccessAt
+            p.form-text(class="{{#if backupHealth.overdue}}text-danger{{else}}text-success{{/if}}")
+              i.fa(class="{{#if backupHealth.overdue}}fa-exclamation-triangle{{else}}fa-check-circle{{/if}}")
+              |  {{_ 'backup-done'}}: {{displayDate backupHealth.lastSuccessAt 'LLL'}}
+              if backupHealth.overdue
+                |  ({{_ 'filter-overdue'}})
+          if backupHealthIs 'failed'
+            p.form-text.text-danger
+              i.fa.fa-times-circle
+              |  {{_ 'last-run'}}: {{_ 'bots-status-failed'}} - {{backupHealth.lastRun.error}}
+        if backupNextRunAt
+          p.form-text.text-muted {{_ 'next-run'}}: {{displayDate backupNextRunAt 'LLL'}}
+    h4
+      | {{_ 'history'}}
+      a.js-refresh-backup-history(href="#" title="{{_ 'refresh'}}" style="margin-left: 0.5em")
+        i.fa.fa-refresh
+    if backupRuns.length
+      table.gridfs-stats-table.backup-history-table
+        tr
+          th {{_ 'backup-datetime'}}
+          th
+          th {{_ 'backup-scope'}}
+          th {{_ 'backup-storage'}}
+          th {{_ 'status'}}
+          th {{_ 'size'}}
+          th {{_ 'duration'}}
+          th {{_ 'error'}}
+        each backupRuns
+          tr
+            td {{displayDate startedAt 'LLL'}}
+            //- Scheduled or started by hand, and by whom.
+            td
+              if $eq trigger 'scheduled'
+                i.fa.fa-clock-o(title="{{_ 'backup-schedule'}}")
+              else
+                i.fa.fa-user(title="{{username}}")
+                |  {{username}}
+            td {{backupScopeName orgId}}
+            td {{storage}}
+            td
+              if backupRunIs 'success'
+                span.text-success
+                  i.fa.fa-check
+                  |  {{_ 'completed'}}
+              else if backupRunIs 'failed'
+                span.text-danger
+                  i.fa.fa-times
+                  |  {{_ 'bots-status-failed'}}
+              else
+                span
+                  i.fa.fa-spinner.fa-spin
+                  |  {{_ 'running'}}
+            td {{backupRunSize}}
+            td {{backupRunDuration}}
+            td.text-danger {{error}}
+    else
+      p.form-text.text-muted {{_ 'list-sync-last-synced-never'}}
+    if settingsLink
+      p
+        a.js-open-backup-settings(href=backupSettingsPath)
+          i.fa.fa-cog
+          |  {{_ 'backup-schedule'}}
