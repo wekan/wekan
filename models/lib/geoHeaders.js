@@ -54,8 +54,26 @@ const str = v => (typeof v === 'string' ? v.trim() : '');
 // A city name arrives percent-encoded from some CDNs (`New%20York`), and Vercel
 // documents that explicitly. Decoding is best-effort: a malformed escape is left
 // as it came rather than throwing inside a login.
+//
+// And Cloudflare sends cf-ipcity as raw UTF-8 bytes, which Node hands over as
+// Latin-1, one character per byte: "Dinkelsbühl" became "DinkelsbÃ¼hl" in
+// Admin Panel / Problems / Security. A value made only of byte-sized
+// characters that is valid UTF-8 as bytes is read as UTF-8; anything else
+// (real Latin-1, or not valid UTF-8) is left as it came.
+function utf8FromLatin1(value) {
+  if (!/[\u0080-\u00ff]/.test(value) || /[^\u0000-\u00ff]/.test(value)) return value;
+  try {
+    const bytes = Uint8Array.from(value, ch => ch.charCodeAt(0));
+    return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  } catch (e) {
+    return value;
+  }
+}
+
 function decode(value) {
-  if (!value || !value.includes('%')) return value;
+  if (!value) return value;
+  value = utf8FromLatin1(value);
+  if (!value.includes('%')) return value;
   try { return decodeURIComponent(value); } catch (e) { return value; }
 }
 
