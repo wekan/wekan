@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.58 2026-10-21 WeKan ® release
 
 **In short:** an existing board can be **saved as a board template**, large
 **Jira** exports import instead of failing, and **comments** stay with a card
