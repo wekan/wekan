@@ -107,6 +107,29 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **release recovery** no longer stops on a passing GitHub API
+error, so the missing builds of a release still get built.
+
+This release has the following release-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e304e1948a">Release recovery waits out GitHub API errors instead of dying on one</a>. Thanks to xet7.</summary>
+
+The Recover job of Release All missing died on one HTTP 502 from the GitHub
+API while `gh run watch --exit-status` listed the rerun's jobs, so its plan
+and every build after it were skipped. `releases/retry-failed-release.py` now
+polls `gh run view`, retries up to ten API errors in a row, waits for the new
+attempt instead of reading the old attempt's failure, and stops only on the
+rerun's own conclusion. `tests/retryFailedRelease.test.py` pins the 502, a
+failed rerun, a lasting outage and the stale attempt, and that `gh run watch`
+is gone.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.58 2026-10-21 WeKan ® release
 
 **In short:** an existing board can be **saved as a board template**, large
