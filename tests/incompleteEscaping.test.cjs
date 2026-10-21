@@ -21,9 +21,12 @@ const ROOT = path.join(__dirname, '..');
 let passed = 0;
 const test = (name, fn) => { fn(); passed += 1; console.log('  ok -', name); };
 
-// A single-character (or escaped single-character) pattern replaced by a
-// string that starts with an escaped backslash.
-const SINGLE_ESCAPE = /\.replace\(\/(\\?[^/[\\]|\\[^\\])\/g, (['"])\\\\/g;
+// A single-character (or escaped single-character) pattern, or a character
+// class with no backslash in it, replaced by a string that starts with an
+// escaped backslash. The class was missed at first: alert 590 was
+// `stored.replace(/[.]/g, '\\.')` in an e2e $regex, which a single-character
+// pattern does not describe.
+const SINGLE_ESCAPE = /\.replace\(\/(\\?[^/[\\]|\\[^\\]|\[(?:[^\]\\]|\\[^\\])*\])\/g, (['"])\\\\/g;
 // What makes it complete: the backslash escaped in the same statement.
 const ESCAPES_BACKSLASH = /\.replace\(\/\\\\\/g, (['"])\\\\\\\\\1\)|\/\[[^\]/]*\\\\[^\]/]*\]\/g/;
 
@@ -62,6 +65,9 @@ test('the shape is found, and a complete escape is not (negative and positive sa
     "  .replace(/;/g, '\\\\;')",
   ].join('\n')), [], 'a chain over several lines');
   assert.deepEqual(findings("text.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')"), [], 'a class with the backslash');
+  assert.equal(findings("{ $regex: `^${stored.replace(/[.]/g, '\\\\.')}$` }").length, 1,
+    'a class without the backslash (alert 590)');
+  assert.equal(findings("s.replace(/[.*+?]/g, '\\\\$&')").length, 1, 'a wider class without the backslash');
   assert.deepEqual(findings('const sample = "title.replace(/]/g, \'\\\\]\')";'), [], 'quoted sample code is not code');
   assert.equal(findings("new RegExp(`(^|x)${helper.replace(/\\$/g, '\\\\$')}`)").length, 1,
     'code in a template literal interpolation is code (alert 560)');

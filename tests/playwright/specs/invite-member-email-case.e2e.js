@@ -6,6 +6,10 @@
 // calls, as the logged-in board member.
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+// The same escape-string-regexp the server matches addresses with. Escaping
+// only "." left a backslash in the address free to cancel it (CodeQL alert 590).
+const escapeModule = require('escape-string-regexp');
+const escapeRegExp = escapeModule.default || escapeModule;
 
 const call = (page, name, ...args) =>
   page.evaluate(async ({ name, args }) => {
@@ -22,7 +26,7 @@ test('an existing colleague is invited by email in any letter case', async ({ bo
   expect(result.error).toBeUndefined();
   expect(isMember(board.boardId, user2.id)).toBe(true);
   // negative: no second account was created for the same address
-  expect(db.countDocuments('users', { 'emails.address': { $regex: `^${stored.replace(/[.]/g, '\\.')}$`, $options: 'i' } })).toBe(1);
+  expect(db.countDocuments('users', { 'emails.address': { $regex: `^${escapeRegExp(stored)}$`, $options: 'i' } })).toBe(1);
 });
 
 test('negative: a similar but different address is not taken for the colleague', async ({ boardPage: page, board, user2 }) => {
