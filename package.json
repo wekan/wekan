@@ -105,7 +105,7 @@
     "jquery-ui": "^1.14.2",
     "limax": "^4.2.3",
     "mailparser": "3.9.31",
-    "markdown-it": "^15.0.2",
+    "markdown-it": "^15.0.3",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-math": "^6.0.0",
     "meteor-accounts-t9n": "^2.6.0",
