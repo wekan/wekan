@@ -23,6 +23,7 @@ import { RulesHelper } from '/server/rulesHelper';
 import { TriggersDef } from '/server/triggersDef';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { syncCardChildrenBoard } from '/server/lib/cardChildrenBoardSync';
 const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
 const { EJSON } = require('bson');
 const { assertRuleEmailSourceBinding } = require('/server/lib/ruleEmailSource');
@@ -861,12 +862,12 @@ async function applyRuleMoveBoard(command, { guard, completeDelivery, options })
     await legacy.deleteMany({ userId: entry.userId, boardId: entry.boardId, isCheckpoint: { $ne: true }, undone: true });
     try { await legacy.insertOne(entry); } catch (error) { if (!await legacy.findOne({ _id: entry._id })) throw error; }
   }
-  // The update hooks' writes on other documents, each idempotent: checklists
-  // and items re-homed, the board left keeps no dependency on the card, the
-  // attachments follow it, its label activities re-pointed or removed.
+  // The update hooks' writes on other documents, each idempotent: everything
+  // that belongs to the card re-homed with it (comments, reactions, text notes,
+  // checklists, items, attachments - #6793), the board left keeps no dependency
+  // on the card, its label activities re-pointed or removed.
   await guard();
-  await Checklists.direct.updateAsync({ cardId: command.cardId }, { $set: { boardId: place.boardId } }, { multi: true });
-  await ChecklistItems.direct.updateAsync({ cardId: command.cardId }, { $set: { boardId: place.boardId } }, { multi: true });
+  await syncCardChildrenBoard(command.cardId, place, command.before.place);
   await actor(async () => {
     // The board the card left: the plan's, or an earlier move's (fromBoard).
     await Cards.updateAsync({ boardId: command.before.place.boardId, 'cardDependencies.cardId': command.cardId },
@@ -874,8 +875,6 @@ async function applyRuleMoveBoard(command, { guard, completeDelivery, options })
     await Cards.updateAsync({ boardId: command.before.place.boardId, cardDependencies: command.cardId },
       { $pull: { cardDependencies: command.cardId } }, { multi: true });
   });
-  await Attachments.collection.rawCollection().updateMany({ 'meta.cardId': command.cardId },
-    { $set: { 'meta.boardId': place.boardId, 'meta.listId': place.listId, 'meta.swimlaneId': place.swimlaneId } });
   for (const rewrite of command.effects.labelActivities) {
     if (rewrite.remove) await Activities.rawCollection().deleteOne({ _id: rewrite._id });
     else await Activities.rawCollection().updateOne({ _id: rewrite._id },

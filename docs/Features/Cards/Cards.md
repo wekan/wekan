@@ -94,6 +94,20 @@ selected cards to another list at once.
 
 ![Wekan multi-selection screenshot](../General/DragDrop/screenshot-multi-selection.png)
 
+## Moving a card to another board
+
+A card moved to another board - with the card's hamburger menu / Move card, by
+drag and drop, by a rule, by moving its list or swimlane, or with the REST API -
+takes everything that belongs to it along: comments and their reactions, the text
+note, checklists and checklist items, and attachments. They are shown on the
+board the card is on now, and no longer on the board it left.
+
+Before [#6793](https://github.com/wekan/wekan/issues/6793), comments, reactions
+and text notes stayed behind: they disappeared when the card was moved and came
+back when it was moved back. The startup schema upgrade (step
+`card-children-boardid`) moves rows that were left behind to their card's current
+board, once per new WeKan version.
+
 ## Filtered views
 
 Filter the board by member, label, due date, and more to focus on a subset of cards.

@@ -43,8 +43,7 @@ import Cards, {
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import CustomFields from '/models/customFields';
-import Checklists from '/models/checklists';
-import ChecklistItems from '/models/checklistItems';
+import { syncCardChildrenBoard } from '/server/lib/cardChildrenBoardSync';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
@@ -982,15 +981,18 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   if (!deferSyncRecording('archive', doc)) await cardState(userId, doc, fieldNames);
 });
 
-// When a card moves to another board, re-sync the denormalized boardId on its
-// checklists and checklist items so the board publication — which filters those
-// collections by boardId — shows them on the destination board. Uses .direct to
-// skip the activity/derivation hooks (the docs' cardId did not change).
-Cards.after.update(async (userId, doc, fieldNames) => {
-  if (!fieldNames.includes('boardId')) return;
-  const boardId = doc.boardId;
-  await Checklists.direct.updateAsync({ cardId: doc._id }, { $set: { boardId } }, { multi: true });
-  await ChecklistItems.direct.updateAsync({ cardId: doc._id }, { $set: { boardId } }, { multi: true });
+// When a card moves, re-sync the denormalized board id on everything that
+// belongs to it - comments, comment reactions, text notes, checklists, checklist
+// items and attachments (models/lib/cardChildrenBoard.js) - so the board
+// publication, which finds those collections by board id, shows them on the
+// destination board. #6793: only checklists and items used to follow the card,
+// so a card moved to another board lost its comments there, and they reappeared
+// when it was moved back. Attachments followed only when Card.move() ran on the
+// server, never for a drag in the browser. Uses .direct to skip the children's
+// own hooks (their content did not change).
+Cards.after.update(async function(userId, doc, fieldNames) {
+  if (!fieldNames.some(field => field === 'boardId' || field === 'listId' || field === 'swimlaneId')) return;
+  await syncCardChildrenBoard(doc._id, doc, this.previous || {});
 });
 
 // #6572 / #3392: "Red Strings" only connect cards on the same board, so a card
@@ -1875,6 +1877,9 @@ WebApp.handlers.put(
         { $set: { swimlaneId: moveParams.swimlaneId } },
       );
       updated = true;
+      // The attachments' swimlane meta, as the hook skipped by `.direct` would (#6793).
+      await syncCardChildrenBoard(paramCardId,
+        { boardId: paramBoardId, swimlaneId: moveParams.swimlaneId }, beforeEdit);
     }
     if (moveParams.listId && !moveParams.isBoardMove) {
       const sameBoardList = await ReactiveCache.getList({
@@ -1907,6 +1912,8 @@ WebApp.handlers.put(
         { $set: { listId: destListId, sort: topSort, lastMoveReason: moveReason } },
       );
       updated = true;
+      // The attachments' list meta, as the hook skipped by `.direct` would (#6793).
+      await syncCardChildrenBoard(paramCardId, { boardId: paramBoardId, listId: destListId }, beforeEdit);
 
       const card = await ReactiveCache.getCard(paramCardId);
       // cardMove() does fieldNames.includes(...), so this MUST be an array of
@@ -1955,6 +1962,12 @@ WebApp.handlers.put(
       updated = true;
 
       const card = await ReactiveCache.getCard(paramCardId);
+      // #6793: `.direct` skips the Cards.after.update hook that re-homes the
+      // card's comments, reactions, text notes, checklists, items and
+      // attachments, so a card moved by REST arrived on the new board without
+      // them. Do here what the hook does on every other path - from the card as
+      // it now is, so a write that matched nothing moves nothing.
+      await syncCardChildrenBoard(paramCardId, (await Cards.findOneAsync(paramCardId)) || {}, beforeEdit);
       await cardMove(req.userId, card, ['boardId', 'swimlaneId', 'listId'], paramListId, beforeEdit?.swimlaneId, paramBoardId);
     }
     // Issue #5546: archive / de-archive a card. The selector intentionally does

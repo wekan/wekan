@@ -51,6 +51,9 @@
 //                            rejected by FerretDB ("infinity values are not
 //                            allowed"), aborting MongoDB->FerretDB migration ->
 //                            reset to a finite 0
+//   card-children-boardid    #6793: comments/reactions/text notes/attachments
+//                            still carrying the board their card was moved
+//                            AWAY from -> the card's current board id
 //   fs-path-heal             filesystem attachments/avatars whose recorded
 //                            path predates the current WRITABLE_PATH layout
 //                            (v6.10-18 uploads/<coll>, v6.19-v8.4x
@@ -792,6 +795,30 @@ const steps = [
   },
 
   {
+    // #6793: comments (and reactions, text notes, attachments) of a card that was
+    // moved to another board before the move hook re-homed them still carry the
+    // board the card LEFT, so the board publication - which finds them by board
+    // id - shows them nowhere the card is. Moving the card back "brought them
+    // back". Copy the card's board id onto each such row. The list of
+    // collections is the one the move hook uses (models/lib/cardChildrenBoard.js).
+    //
+    // Driven by the child rows, never by the cards collection (#6533): rows are
+    // streamed with a two-field projection, their cards resolved a chunk at a
+    // time, and only the rows that disagree are written - one updateMany per
+    // card that needs it. A row whose card is gone has nothing to copy and is
+    // skipped, not counted as unresolved, so it cannot keep the version gate
+    // open forever. Idempotent: a second pass finds nothing.
+    name: 'card-children-boardid',
+    async check(db) {
+      return (await scanCardChildBoardIds(db, { fix: false })).found > 0;
+    },
+    async run(db) {
+      const { fixed } = await scanCardChildBoardIds(db, { fix: true });
+      return { fixed, unresolved: 0 };
+    },
+  },
+
+  {
     // fs-path-heal: filesystem-stored attachments/avatars whose recorded path
     // predates the current layout. WeKan's historical fs locations/naming:
     //   v6.10-18  WRITABLE_PATH/uploads/<coll>/<name>       (Meteor-Files temp)
@@ -818,6 +845,57 @@ const steps = [
     },
   },
 ];
+
+// card-children-boardid (#6793): stream each card-child collection, resolve the
+// cards a chunk at a time, and (with fix) rewrite only the rows whose board id
+// disagrees with their card's. Without fix it stops at the first stale row.
+const CARD_CHILD_CHUNK = 500;
+async function scanCardChildBoardIds(db, { fix }) {
+  const { CARD_CHILD_COLLECTIONS, staleChildBoardId } = require('../../models/lib/cardChildrenBoard');
+  const valueAt = (row, key) => key.split('.').reduce((v, k) => (v == null ? v : v[k]), row);
+  let found = 0;
+  let fixed = 0;
+  for (const child of CARD_CHILD_COLLECTIONS) {
+    const coll = db.collection(child.name);
+    const cursor = coll.find({}, { projection: { _id: 1, [child.cardKey]: 1, [child.boardKey]: 1 } });
+    let chunk = [];
+    // Returns true when the scan can stop (a check that has its answer).
+    const flush = async () => {
+      if (chunk.length === 0) return false;
+      const rows = chunk;
+      chunk = [];
+      const cardIds = [...new Set(rows.map(row => String(valueAt(row, child.cardKey))))];
+      const cards = await db.collection('cards')
+        .find({ _id: { $in: cardIds } }, { projection: { _id: 1, boardId: 1 } }).toArray();
+      const boardOf = new Map(cards.map(card => [String(card._id), card.boardId]));
+      const staleByCard = new Map();
+      for (const row of rows) {
+        const cardId = String(valueAt(row, child.cardKey));
+        const boardId = staleChildBoardId(row, boardOf.get(cardId), child);
+        if (!boardId) continue;
+        found += 1;
+        if (!fix) return true;
+        if (!staleByCard.has(cardId)) staleByCard.set(cardId, { boardId, ids: [] });
+        staleByCard.get(cardId).ids.push(row._id);
+      }
+      for (const { boardId, ids } of staleByCard.values()) {
+        const r = await coll.updateMany({ _id: { $in: ids } }, { $set: { [child.boardKey]: boardId } });
+        fixed += (r && r.modifiedCount) || 0;
+      }
+      return false;
+    };
+    let stop = false;
+    for await (const row of cursor) {
+      if (typeof valueAt(row, child.cardKey) !== 'string' || !valueAt(row, child.cardKey)) continue;
+      chunk.push(row);
+      if (chunk.length >= CARD_CHILD_CHUNK && await flush()) { stop = true; break; }
+    }
+    if (!stop) stop = await flush();
+    if (typeof cursor.close === 'function') await cursor.close();
+    if (stop) break;
+  }
+  return { found, fixed };
+}
 
 // Visible swimlanes (not archived, not templates) — the ones the Swimlanes
 // view actually renders. Swimlanes are few, so one projected fetch is cheap.

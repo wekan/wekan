@@ -3185,24 +3185,12 @@ Cards.helpers({
       }
     }
 
-    if (Meteor.isServer) {
-      const updateMeta = {};
-      if (mutatedFields.boardId !== undefined) updateMeta['meta.boardId'] = mutatedFields.boardId;
-      if (mutatedFields.listId !== undefined) updateMeta['meta.listId'] = mutatedFields.listId;
-      if (mutatedFields.swimlaneId !== undefined) updateMeta['meta.swimlaneId'] = mutatedFields.swimlaneId;
-
-      if (Object.keys(updateMeta).length > 0) {
-        try {
-          Attachments.collection.updateAsync(
-            { 'meta.cardId': this._id },
-            { $set: updateMeta },
-            { multi: true },
-          );
-        } catch (err) {
-          console.error('Failed to update attachments metadata after moving card', this._id, err);
-        }
-      }
-    }
+    // #6793: the card's comments, reactions, text notes, checklists, checklist
+    // items and attachments follow it from the Cards.after.update hook in
+    // server/models/cards.js (server/lib/cardChildrenBoardSync.js), for every
+    // move path. The attachments' meta used to be re-pointed here, inside
+    // `if (Meteor.isServer)` - which a drag in the browser never reached, so a
+    // moved card's attachments stayed published to the board it left.
   },
 
   addLabel(labelId) {
