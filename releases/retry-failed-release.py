@@ -5,6 +5,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 
 
 def gh(*args):
@@ -30,6 +31,39 @@ def gh_pages(text):
     return pages
 
 
+def wait_for_rerun(run_id, attempt, repo, poll=30, max_errors=10, sleep=time.sleep):
+    """Wait until the rerun (an attempt after `attempt`) of run `run_id` ends.
+
+    This used to be `gh run watch --exit-status`, which ends with status 1 on
+    the first failed API call: one HTTP 502 from GitHub while it listed the
+    jobs stopped the recovery, and with it every missing build. So the run is
+    polled here, an API error is retried up to `max_errors` times in a row,
+    and only the run's own conclusion decides. Until GitHub has started the
+    new attempt, the run still shows the old attempt's failure, so that is
+    not taken as the answer either.
+    """
+    errors = 0
+    while True:
+        try:
+            state = json.loads(gh('run', 'view', str(run_id), '--repo', repo,
+                                  '--json', 'attempt,status,conclusion'))
+        except (subprocess.CalledProcessError, ValueError) as error:
+            errors += 1
+            if errors >= max_errors:
+                raise ValueError(f'GitHub did not answer about run {run_id} '
+                                 f'{errors} times in a row: {error}') from error
+            print(f'::warning::Could not read run {run_id} ({error}); trying again.')
+            sleep(poll)
+            continue
+        errors = 0
+        if state.get('attempt', 0) > attempt and state.get('status') == 'completed':
+            if state.get('conclusion') != 'success':
+                raise ValueError(f'The rerun of the full release ended {state.get("conclusion")}.')
+            print('The failed jobs of the full release succeeded on rerun.')
+            return
+        sleep(poll)
+
+
 def recover(version, repo):
     version = version.removeprefix('v')
     if not re.fullmatch(r'\d+\.\d{2}', version):
@@ -52,7 +86,7 @@ def recover(version, repo):
     # Do not rerun successful bump/tag/build/publish jobs. GitHub retries failed
     # jobs and dependent jobs only; follow that attempt before planning assets.
     subprocess.run(['gh', 'run', 'rerun', str(run['id']), '--failed', '--repo', repo], check=True)
-    subprocess.run(['gh', 'run', 'watch', str(run['id']), '--exit-status', '--repo', repo], check=True)
+    wait_for_rerun(run['id'], run.get('run_attempt', 1), repo)
 
 
 if __name__ == '__main__':
