@@ -107,6 +107,88 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** an existing board can be **saved as a board template**, large
+**Jira** exports import instead of failing, and **comments** stay with a card
+moved to another board. A **GitHub CodeQL** alert in a test is fixed.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e18794fa46">The invite-by-email test escapes the address completely, and a partial escape is found anywhere</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 590: the #6788 e2e put the stored address into a `$regex` with only `.`
+escaped, so a backslash in the address could cancel the escape. It now uses
+escape-string-regexp, the module the server matches addresses with.
+`tests/incompleteEscaping.test.cjs` knew only single-character patterns; it now
+also reports a character class without a backslash replaced by a backslash
+escape, and found this line before it was fixed. It is a test, so nothing is
+recorded in Admin Panel → Problems.
+
+</details>
+
+and adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/14a43da557">Board menu / Save as Template turns an existing board into a board template</a>. Thanks to xet7.</summary>
+
+Asked on IRC ([#6792](https://github.com/wekan/wekan/issues/6792)): a board
+template could only be built inside the Templates board. Save as Template
+copies the board - swimlanes, lists, cards, labels and custom fields - as a
+template board, private with the creator as its one member, and adds the linked
+card in the user's Templates / Board Templates swimlane that makes it a
+template; the copy opens. Board admins only, as Copy Board, and not offered on
+a board that already is a template. The entry reuses the card's own "Save as
+Template" words. `tests/largeImportAndBoardTemplate.test.cjs` pins the guards
+and the linked card, and a Playwright spec saves a board from the menu and
+checks a non-admin and a template board are refused.
+
+</details>
+
+and fixes the following bugs:
+
+**Import** - a large file imports instead of failing halfway or with an
+internal error.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/14a43da557">A Jira export of hundreds of issues imports, and a file too large says so</a>. Thanks to xet7.</summary>
+
+From IRC ([#6792](https://github.com/wekan/wekan/issues/6792)): a Jira import of
+25 issues worked and one of 858 failed. The import boundary refused documents
+over 250,000 values, and a Jira search export carries some 250 per issue even
+without comments, so it stopped at under 1,000 issues. The refusal was a plain
+Error, "Internal server error" on the import page. The cap is now four million
+values, a file over it is refused as "The file is too large to import at
+once", and the import deadline is `WEKAN_IMPORT_TIMEOUT_MS` plus half a second
+per record, on the server and in the page's watchdog alike. The test imports
+the 858-issue shape that the old cap refused.
+
+</details>
+
+**Moving cards** - what belongs to a card goes with it to another board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/696b5b073f">Comments stay with a card moved to another board, and do not reappear only when it moves back</a>. Thanks to fabiosalles and xet7.</summary>
+
+The board publication finds a board's comments, comment reactions, text notes,
+checklists, checklist items and attachments by the board id each row carries
+(#6480), but a card that changed board re-homed only its checklists and items.
+Its comments were still published to the board it left. Attachments followed
+only when the move ran on the server, never for a drag in the browser, and the
+REST card move skipped the hooks entirely. Now one list,
+`models/lib/cardChildrenBoard.js`, names every such collection, and one helper
+re-homes them from the move hook, the REST move and the durable rule move. The
+startup schema upgrade step `card-children-boardid` moves rows that a move
+already left behind to their card's board.
+`tests/cardChildrenFollowMove.test.cjs` pins the list and fails on any move
+path that skips the helper, and a Playwright spec moves a commented card with
+the Move Card popup and by REST.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.57 2026-10-20 WeKan ® release
 
 **In short:** attachments can be **deleted after a set time** and deleted ones
