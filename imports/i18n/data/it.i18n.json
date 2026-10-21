@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importazione delle bacheche dal .zip, attendere…",
   "import-trello-failed": "Importazione da Trello non riuscita.",
   "import-timeout": "L'importazione ha richiesto troppo tempo ed è stata interrotta. Riprova; se continua ad accadere, la bacheca potrebbe essere troppo grande o il database occupato.",
+  "import-too-large": "Il file è troppo grande per essere importato in una sola volta. Dividilo in file più piccoli, ad esempio per progetto o per data, e importali uno alla volta.",
   "import-trello-zip-failed": "Importazione del .zip non riuscita.",
   "import-trello-zip-read-failed": "Impossibile leggere il .zip caricato.",
   "import-trello-zip-too-large": "Il .zip è troppo grande per essere importato.",

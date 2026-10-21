@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importazion de le bacheche da'l .zip, par piaser speta…",
   "import-trello-failed": "L'importazion da Trello ła xe falìa.",
   "import-timeout": "L'inportasion ła ga ciapà massa tenpo e ła xe stà fermà. Par piaser prova da novo; se ła continua, el quadro el podarìa èsar massa grando o el database el podarìa èsar ocupà.",
+  "import-too-large": "El file el xe massa grando par inportarlo tuto inte na volta. Dividilo in file pì picołi, par esempio par projeto o par data, e inporta ognuno.",
   "import-trello-zip-failed": "L'importazion de'l .zip ła xe falìa.",
   "import-trello-zip-read-failed": "No se ga podesto łezer el .zip cargà.",
   "import-trello-zip-too-large": "El .zip el xe massa grando par esser importà.",

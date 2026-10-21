@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Tabs panüveigons de .zip. Begö! Stebedolös…",
   "import-trello-failed": "Import de Trello emalsükon.",
   "import-timeout": "Inküp ädurön tumö lunik e pestopon. Steifükolös nulido; if binon degelik, tab kanon binön tumö gretik u dätabäs binon bisiäl.",
+  "import-too-large": "Ragiv binon tu gretik ad pinküpön balna. Dilolös oni ad ragivs smalikum, a sam ma proyeg u ma dät, e inküpolös alik.",
   "import-trello-zip-failed": "Nüveigam nüneda .zip no eplöpon.",
   "import-trello-zip-read-failed": "Nüned .zip pelöpüköl no ekanon pareidön.",
   "import-trello-zip-too-large": "Nüned .zip binon tu gretik ad nüveigön.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Abaguaedje des tåvleas do .zip, tårdjîz on pô s' i vs plait…",
   "import-trello-failed": "L' abaguaedje did Trello a fayî.",
   "import-timeout": "L' abagaedje a pris trop d' tins et a stî arestè. Rissayîz ; si ça continowe, li tåvlea pout esse trop grand ou li båze di dnêyes est ocupêye.",
+  "import-too-large": "Li fitchî est trop grand po l' abaguer tot d' on côp. Partixhoz-l' e fitchîs pus ptits, metans pa prodjet ou pa date, et abaguez-les onk après l' ôte.",
   "import-trello-zip-failed": "L' abaguaedje do .zip a fayî.",
   "import-trello-zip-read-failed": "Dji n' a nén savou lére li .zip eberweté.",
   "import-trello-zip-too-large": "Li .zip est trop grand po esse abagué.",

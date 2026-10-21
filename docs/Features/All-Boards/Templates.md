@@ -84,6 +84,21 @@ Template and also set that board Archive to False.
 3. Clicking black folder icon on that card goes to your new Board Template full screen view.
 4. Add content to your Board Template
 
+### d) Save an existing board as a Board Template
+
+From [#6792](https://github.com/wekan/wekan/issues/6792).
+
+1. Open the board.
+2. Board menu (the hamburger in the board sidebar) / **Save as Template**.
+3. A copy of the board, with its swimlanes, lists, cards, labels and custom
+   fields, is added to your Templates / Board Templates swimlane and opens.
+
+The board itself is not changed. The copy is a template board like one made
+in 1c above: private, with you as its only member - share it with an
+Organization, Team or Domain from All Boards / Templates. The entry is shown
+to board admins (copying a whole board needs the same right as Copy Board),
+and not on a board that already is a template.
+
 ## 2) Insert new Cards/Lists/Boards from Templates
 
 ### a) Insert Card Templates

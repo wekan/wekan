@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importando tableros dende el .zip, por favor espera…",
   "import-trello-failed": "La importación dende Trello falló.",
   "import-timeout": "La importación tardó demasiado y se detuvo. Inténtelo de nuevo; si sigue ocurriendo, el tablero puet ser demasiado grande o la base de datos estar ocupada.",
+  "import-too-large": "O fichero ye masiau gran ta importar-lo de vez. Divide-lo en fichers mas chicotz, per eixemplo per prochecto u per calendata, y importa cadaguno.",
   "import-trello-zip-failed": "La importación d'o .zip falló.",
   "import-trello-zip-read-failed": "No s’ha puesto leyer o .zip puyau.",
   "import-trello-zip-too-large": "El .zip es demasiado grande ta importar.",

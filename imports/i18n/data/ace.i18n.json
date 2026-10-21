@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Impor papan nibak .zip, neupreh…",
   "import-trello-failed": "Impor nibak Trello gagai.",
   "import-timeout": "Peutamong that trep watèe jih ngön ka geupeu-eunteut. Neucuba lom; meunyoe teutap na, papan kadang rayeuk that atawa pangkalan data teungoh sibuk.",
+  "import-too-large": "Fail nyan rayeuk that keu geupeutamong sigo. Neubagi jeut keu fail-fail ubit, contoh meunurot proyek atawa meunurot tanggai, laju neupeutamong saboh-saboh.",
   "import-trello-zip-failed": "Impor .zip gagai.",
   "import-trello-zip-read-failed": "Hana jeuet beuet .zip nyang geupeuék.",
   "import-trello-zip-too-large": "Fail .zip rayeuk that keu geuimpor.",

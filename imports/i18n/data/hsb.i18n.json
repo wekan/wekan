@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Tafle so z dataje .zip importuja, prošu čakajće…",
   "import-trello-failed": "Importowanje z Trello je so njeporadźiło.",
   "import-timeout": "Import je předołho trał a bu zastajeny. Prošu spytajće hišće raz; jeli so to wospjetuje, je tafla snano přewulka abo datowa banka přećežena.",
+  "import-too-large": "Dataja je přewulka, zo by so naraz importowała. Rozdźělće ju na mjeńše dataje, na přikład po projekće abo po datumje, a importujće kóždu jednotliwje.",
   "import-trello-zip-failed": "Importowanje dataje .zip je so njeporadźiło.",
   "import-trello-zip-read-failed": "Nahrata dataja .zip njeda so čitać.",
   "import-trello-zip-too-large": "Dataja .zip je přewulka za import.",

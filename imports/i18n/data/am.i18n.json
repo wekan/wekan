@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "ሰሌዳዎች ከ.zip እየገቡ ነው፣ እባክዎ ይጠብቁ…",
   "import-trello-failed": "ከTrello ማስመጣት አልተሳካም።",
   "import-timeout": "ማስመጣቱ በጣም ረጅም ጊዜ ወስዶ ቆሟል። እባክዎ እንደገና ይሞክሩ፤ ችግሩ ከቀጠለ ሰሌዳው በጣም ትልቅ ወይም የውሂብ ጎታው ሥራ የበዛበት ሊሆን ይችላል።",
+  "import-too-large": "ፋይሉ በአንድ ጊዜ ለማስመጣት በጣም ትልቅ ነው። ለምሳሌ በፕሮጀክት ወይም በቀን ወደ ትናንሽ ፋይሎች ይከፋፍሉት፣ እና እያንዳንዱን ያስመጡ።",
   "import-trello-zip-failed": ".zip ማስመጣት አልተሳካም።",
   "import-trello-zip-read-failed": "የተሰቀለውን .zip ማንበብ አልተቻለም።",
   "import-trello-zip-too-large": ".zip ለማስመጣት በጣም ትልቅ ነው።",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Boards ymportearje út .zip, wachtsje asjebleaft…",
   "import-trello-failed": "Ymportearjen fan Trello mislearre.",
   "import-timeout": "It ymportearjen duorre te lang en is stoppe. Probearje it nochris; as it bliuwt barren, is it board miskien te grut of is de database drok.",
+  "import-too-large": "It bestân is te grut om yn ien kear te ymportearjen. Diel it op yn lytsere bestannen, bygelyks per projekt of per datum, en ymportearje elk apart.",
   "import-trello-zip-failed": "Ymportearjen fan de .zip mislearre.",
   "import-trello-zip-read-failed": "Koe de uploade .zip net lêze.",
   "import-trello-zip-too-large": "De .zip is te grut om te ymportearjen.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Wɔde bɔɔd reba mu afi .zip mu, twɛn…",
   "import-trello-failed": "Nsɛm a wɔde fi Trello reba mu no anyɛ yiye.",
   "import-timeout": "Nsɛm a wɔde ba mu no kyɛe dodo nti wɔgyaee. Yɛsrɛ wo san sɔ hwɛ; sɛ ɛkɔ so saa a, ebia bɔɔd no sõ dodo anaa nsɛm akorabea no reyɛ adwuma pii.",
+  "import-too-large": "Fael no sõ dodo a wontumi mfa mmra mu prɛko. Kyɛ mu ma ɛnyɛ fael nketewa, sɛ nhwɛso no, ɛfa adwuma anaa da ho, na fa emu biara ba mu.",
   "import-trello-zip-failed": ".zip a wɔde reba mu no anyɛ yiye.",
   "import-trello-zip-read-failed": "Wɔantumi ankenkan .zip a wɔde aba no.",
   "import-trello-zip-too-large": ".zip no sõ dodo sɛ wɔde bɛba mu.",

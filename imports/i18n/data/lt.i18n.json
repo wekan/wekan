@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importuojamos lentos iš .zip, palaukite…",
   "import-trello-failed": "Importuoti iš Trello nepavyko.",
   "import-timeout": "Importas užtruko per ilgai ir buvo sustabdytas. Bandykite dar kartą; jei kartojasi, lenta gali būti per didelė arba duomenų bazė užimta.",
+  "import-too-large": "Failas per didelis, kad būtų importuotas iš karto. Padalykite jį į mažesnius failus, pavyzdžiui, pagal projektą ar datą, ir importuokite kiekvieną atskirai.",
   "import-trello-zip-failed": "Importuoti .zip nepavyko.",
   "import-trello-zip-read-failed": "Nepavyko nuskaityti įkelto .zip.",
   "import-trello-zip-too-large": ".zip per didelis importuoti.",

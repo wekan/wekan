@@ -12,12 +12,15 @@ import { Exporter } from './exporter';
 import { getMembersToMap } from './wekanmapper';
 import { assertImportEnabled } from './lib/importExportSecurity';
 import { withDeadline } from './lib/withDeadline';
+import { importDeadlineFor } from './lib/importDeadline';
 import { isCsvMappingShape, mappingForSheet } from './lib/csvImportMapping';
 const { isAttachmentAuthShape } = require('./lib/importAttachmentAuth');
 
 // Hard deadline for a single board import, so a stalled/hung import can never leave the
 // client's spinner running forever — the method returns a timeout error instead.
-// Tunable via WEKAN_IMPORT_TIMEOUT_MS (0/invalid disables the deadline).
+// Tunable via WEKAN_IMPORT_TIMEOUT_MS (0/invalid disables the deadline). It is the
+// BASE: importBoard adds time per record of the file (models/lib/importDeadline.js,
+// #6792), so a large import is not stopped halfway for being large.
 function importDeadlineMs() {
   const ms = parseInt(process.env.WEKAN_IMPORT_TIMEOUT_MS, 10);
   return Number.isFinite(ms) ? ms : 120000;
@@ -37,11 +40,19 @@ function recordAnonymousImportAttempt(method, connection) {
 
 function sanitizeImported(value, source, invocation) {
   if (!Meteor.isServer) return value;
-  return require('/server/lib/secureTransfer').secureTransfer(value, {
-    direction: 'import', source: `import:${source}`,
-    userId: invocation && invocation.userId,
-    ip: invocation && invocation.connection && invocation.connection.clientAddress,
-  });
+  try {
+    return require('/server/lib/secureTransfer').secureTransfer(value, {
+      direction: 'import', source: `import:${source}`,
+      userId: invocation && invocation.userId,
+      ip: invocation && invocation.connection && invocation.connection.clientAddress,
+    });
+  } catch (error) {
+    // #6792: a plain Error reached the import page as "Internal server
+    // error", so a file over a size limit looked like a broken WeKan. The
+    // page translates the error key; the reason names the limit.
+    const message = String((error && error.message) || error);
+    throw new Meteor.Error(/limit exceeded/.test(message) ? 'import-too-large' : 'invalid-import-format', message);
+  }
 }
 
 // On Sandstorm an import replaces the board it was started from: the creators
@@ -556,7 +567,7 @@ Meteor.methods({
           creator: partCreator, execute: () => partCreator.create(part.rows, null) });
         const boardId = await withDeadline(
           tracked.promise,
-          importDeadlineMs(),
+          importDeadlineFor(importDeadlineMs(), part.rows),
           () => { tracked.abort(); return new Meteor.Error('import-timeout', 'Import took too long and was aborted'); },
         );
         if (!firstBoardId) firstBoardId = boardId;
@@ -579,7 +590,7 @@ Meteor.methods({
             creator: partCreator, execute: () => partCreator.create(part, null) });
           const boardId = await withDeadline(
             tracked.promise,
-            importDeadlineMs(),
+            importDeadlineFor(importDeadlineMs(), part),
             () => { tracked.abort(); return new Meteor.Error('import-timeout', 'Import took too long and was aborted'); },
           );
           if (!firstBoardId) firstBoardId = boardId;
@@ -593,7 +604,7 @@ Meteor.methods({
         execute: () => creator.create(importedBoard, replaceId) });
       return await withDeadline(
         tracked.promise,
-        importDeadlineMs(),
+        importDeadlineFor(importDeadlineMs(), importedBoard),
         () => { tracked.abort(); return new Meteor.Error('import-timeout', 'Import took too long and was aborted'); },
       );
     }
@@ -639,7 +650,7 @@ Meteor.methods({
     });
     return withDeadline(
       importer.run(),
-      importDeadlineMs(),
+      importDeadlineFor(importDeadlineMs(), safeDoc),
       () => new Meteor.Error('import-timeout', 'Import took too long and was aborted'),
     );
   },

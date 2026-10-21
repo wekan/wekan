@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ojegueru peteĩchakuéra .zip-gui, eha'arõ…",
   "import-trello-failed": "Trello-gui jegueru ndoikói.",
   "import-timeout": "Jegueru ipukueterei ha ojejoko. Eñeha'ã jey; oiko meme ramo, peteĩcha ikatu tuichaiterei térã marandu renda hembiapo heta.",
+  "import-too-large": "Marandurenda tuichaiterei ojegueru hag̃ua peteĩ jeýpe. Emboja'o marandurenda michĩvévape, techapyrãramo tembiapo térã ára rupi, ha egueru peteĩteĩ.",
   "import-trello-zip-failed": ".zip jegueru ndoikói.",
   "import-trello-zip-read-failed": "Ndaikatúi oñemoñe'ẽ .zip oñembohupiva'ekue.",
   "import-trello-zip-too-large": ".zip tuichaiterei ojegueru hag̃ua.",

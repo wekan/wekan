@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ku nghenisa tibodo ku suka eka .zip, ndza kombela u rindza…",
   "import-trello-failed": "Ku nghenisa ku suka eka Trello ku tsandzekile.",
   "import-timeout": "Ku nghenisa ku teke nkarhi wo leha ngopfu kutani ku yimisiwile. Ndza kombela u ringeta nakambe; loko swi ya emahlweni swi humelela, bodo yi nga ha va yi kulu ngopfu kumbe database yi nga ha va yi khomekile.",
+  "import-too-large": "Fayili yi kulu ngopfu leswaku yi nghenisiwa hi nkarhi wun'we. Yi avanyise yi va tifayili titsongo, xikombiso hi phurojeke kumbe hi siku, kutani u nghenisa yin'wana na yin'wana.",
   "import-trello-zip-failed": "Ku nghenisa .zip swi tsandzekile.",
   "import-trello-zip-read-failed": "A swi kotekanga ku hlaya .zip leyi khandziyisiweke.",
   "import-trello-zip-too-large": ".zip yi kulu ngopfu ku nghenisiwa.",

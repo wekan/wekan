@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip ᎢᏗᏢ ᏗᎦᏍᎩᎸ ᏗᏴᏍᎦ, ᎭᏚᎵᏍᏓ…",
   "import-trello-failed": "Trello ᎢᏗᏢ ᎤᏴᏍᏗ ᏄᏳᎪᏛᎾ.",
   "import-timeout": "ᎤᏴᏍᏗ ᎤᏣᏘ ᎪᎯᏗ ᎤᏟᏍᏔᏅ ᎠᎴ ᎤᏍᏚᎲ. ᏔᎵᏁ ᎭᏁᎶᏓ; ᎾᏍᎩ ᏱᏂᎦᎵᏍᏓ, ᎦᏍᎩᎸ ᎤᏣᏘ ᎡᏆ ᎨᏎᏍᏗ ᎠᎴ ᎧᏃᎮᏓ ᎦᏁᏐᏗ ᎦᎸᏫᏍᏓᏁᎮᏍᏗ.",
+  "import-too-large": "ᎪᏪᎵ ᎤᏣᏘ ᎡᏆ ᏌᏉ ᎢᏳᏩᎪᏗ ᎤᏴᏍᏗ. ᏧᎾᏍᏗ ᎪᏪᎵ ᏕᎯᏯᏙᎵ, ᎾᏍᎩᏯ ᏚᎸᏫᏍᏓᏁᎸ ᎠᎴ ᎢᎦ ᏚᏙᏢᏒ, ᎠᎴ ᏌᏉ ᏌᏉ ᎯᏴᏍᏓ.",
   "import-trello-zip-failed": ".zip ᎤᏴᏍᏗ ᏄᏳᎪᏛᎾ.",
   "import-trello-zip-read-failed": "ᎤᎵᏌᎳᏓᏅ .zip Ꮭ ᎪᎵᏰᏗ.",
   "import-trello-zip-too-large": ".zip ᎤᏣᏘ ᎡᏆ ᎤᏴᏍᏗ.",

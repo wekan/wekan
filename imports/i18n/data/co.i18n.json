@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Impurtazione di e tavule da u .zip, aspettate…",
   "import-trello-failed": "L’impurtazione da Trello hè fiascata.",
   "import-timeout": "L’impurtazione hà pigliatu troppu tempu è hè stata piantata. Pruvate torna; s’ellu accade sempre, a tavula pò esse troppu grande o a basa di dati pò esse occupata.",
+  "import-too-large": "U schedariu hè troppu grande per esse impurtatu in una volta. Spartitelu in schedarii più chjuchi, per esempiu per prughjettu o per data, è impurtate ognunu.",
   "import-trello-zip-failed": "L’impurtazione di u .zip hè fiascata.",
   "import-trello-zip-read-failed": "Ùn hè statu pussibule di leghje u .zip caricatu.",
   "import-trello-zip-too-large": "U .zip hè troppu grande per esse impurtatu.",

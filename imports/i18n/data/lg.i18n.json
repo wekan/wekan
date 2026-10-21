@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importing mbaawo okuva.zip, linda katono…",
   "import-trello-failed": "Importing okuva Trello kiremye.",
   "import-timeout": "Leeta took too long ne kyali stopped. Please try again; singa kyo keeps happening, lubaawo kiyinza ba too large oba etterekero-ly'amawulire kiyinza ba busy.",
+  "import-too-large": "Fayiro nnene nnyo okugireeta omulundi gumu. Gigabanyemu fayiro entono, okugeza okusinziira ku pulojekiti oba ku nnaku z'omwezi, oleete buli emu.",
   "import-trello-zip-failed": "Importing.zip kiremye.",
   "import-trello-zip-read-failed": "Could si read uploaded.zip.",
   "import-trello-zip-too-large": ".zip kiri too large eri leeta.",

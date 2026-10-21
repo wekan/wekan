@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip-ppe bookkiyata gelissees, guuttaa naaga…",
   "import-trello-failed": "Trello-ppe gelissiyoogee danddayettibeenna.",
   "import-timeout": "Gelissiyoogee keehi gam'iis qassi eqqiis. Zaarada paacca; zaarettishe de'ikko, bookkiyay keehi gita gidana woykko paayduwaa oottissiyaagee oosuwan de'ana danddayees.",
+  "import-too-large": "Faayilee issi toho gelissanawu keehi gita. A guuxa faayileta giidi shaaka, leemisuwawu oosuwaaninne gallasaan, qassi ubbaa dumma dumma gelissa.",
   "import-trello-zip-failed": ".zip gelissiyoogee danddayettibeenna.",
   "import-trello-zip-read-failed": "Yeddettida .zip nabbabana danddayettibeenna.",
   "import-trello-zip-too-large": ".zip gelissanaw keehi gita.",

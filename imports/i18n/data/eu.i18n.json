@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip-etik arbelak inportatzen, mesedez itxaron…",
   "import-trello-failed": "Trellotik inportatzeak huts egin du.",
   "import-timeout": "Inportazioak luzeegi iraun du eta gelditu egin da. Saiatu berriro; errepikatzen bada, arbela handiegia izan daiteke edo datu-basea lanpetuta egon daiteke.",
+  "import-too-large": "Fitxategia handiegia da aldi berean inportatzeko. Zatitu fitxategi txikiagotan, adibidez proiektuka edo dataka, eta inportatu bakoitza.",
   "import-trello-zip-failed": ".zip inportatzeak huts egin du.",
   "import-trello-zip-read-failed": "Ezin izan da igotako .zip-a irakurri.",
   "import-trello-zip-too-large": ".zip-a handiegia da inportatzeko.",

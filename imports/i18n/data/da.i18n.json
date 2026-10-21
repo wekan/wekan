@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importerer tavler fra .zip-fil, vent venligst...",
   "import-trello-failed": "Import fra Trello fejlede.",
   "import-timeout": "Importen tog for lang tid og blev stoppet. Prøv igen; hvis det bliver ved, kan tavlen være for stor, eller databasen kan være optaget.",
+  "import-too-large": "Filen er for stor til at blive importeret på én gang. Opdel den i mindre filer, for eksempel efter projekt eller dato, og importér hver enkelt.",
   "import-trello-zip-failed": "Import af .zip-fil fejlede.",
   "import-trello-zip-read-failed": "Kunne ikke læse den uploadede .zip-fil.",
   "import-trello-zip-too-large": ".zip-filen er for stor til at importere.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Sisafievrrideamen távvaliid .zip-fiillas, vuordde veaháš…",
   "import-trello-failed": "Sisafievrrideapmi Trello:s filtii.",
   "import-timeout": "Sisafievrrideapmi ádjánii menddo guhkká ja bisánii. Geahččal ođđasit; jos dat dáhpáhuvvá fas, távval sáhttá leat menddo stuoris dahje diehtovuođđu sáhttá leat barggus.",
+  "import-too-large": "Fiila lea menddo stuoris sisafievrridit oktanaga. Juohke dan unnit fiillaide, ovdamearkka dihte prošeavtta dahje beaivemearri mielde, ja sisafievrrit juohke ovtta.",
   "import-trello-zip-failed": ".zip-fiilla sisafievrrideapmi filtii.",
   "import-trello-zip-read-failed": "Ii sáhttán lohkat sáddejuvvon .zip-fiilla.",
   "import-trello-zip-too-large": ".zip-fiila lea menddo stuoris sisafievrridit.",

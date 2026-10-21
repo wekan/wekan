@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Tuodaan tauluja .zip-tiedostosta, odota hetki…",
   "import-trello-failed": "Tuonti Trellosta epäonnistui.",
   "import-timeout": "Tuonti kesti liian kauan ja se keskeytettiin. Yritä uudelleen; jos ongelma toistuu, taulu voi olla liian suuri tai tietokanta on kuormittunut.",
+  "import-too-large": "Tiedosto on liian suuri tuotavaksi kerralla. Jaa se pienempiin tiedostoihin, esimerkiksi projektin tai päivämäärän mukaan, ja tuo jokainen erikseen.",
   "import-trello-zip-failed": ".zip-tiedoston tuonti epäonnistui.",
   "import-trello-zip-read-failed": "Ladatun .zip-tiedoston lukeminen epäonnistui.",
   "import-trello-zip-too-large": ".zip-tiedosto on liian suuri tuotavaksi.",

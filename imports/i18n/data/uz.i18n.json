@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip dan taxtalar import qilinmoqda, iltimos kuting…",
   "import-trello-failed": "Trello dan import qilish muvaffaqiyatsiz tugadi.",
   "import-timeout": "Import juda uzoq davom etdi va to'xtatildi. Qayta urinib ko'ring; takrorlansa, doska juda katta bo'lishi yoki ma'lumotlar bazasi band bo'lishi mumkin.",
+  "import-too-large": "Fayl bir martada import qilish uchun juda katta. Uni kichikroq fayllarga bo'ling, masalan, loyiha yoki sana bo'yicha, va har birini alohida import qiling.",
   "import-trello-zip-failed": ".zip ni import qilish muvaffaqiyatsiz tugadi.",
   "import-trello-zip-read-failed": "Yuklangan .zip ni oʻqib boʻlmadi.",
   "import-trello-zip-too-large": ".zip import qilish uchun juda katta.",

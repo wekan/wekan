@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Duke importuar tabelat nga .zip, prit…",
   "import-trello-failed": "Importimi nga Trello dështoi.",
   "import-timeout": "Importimi zgjati shumë dhe u ndal. Provo përsëri; nëse vazhdon, tabela mund të jetë shumë e madhe ose baza e të dhënave mund të jetë e zënë.",
+  "import-too-large": "Skedari është shumë i madh për t'u importuar njëherësh. Ndajeni në skedarë më të vegjël, për shembull sipas projektit ose sipas datës, dhe importoni secilin.",
   "import-trello-zip-failed": "Importimi i .zip dështoi.",
   "import-trello-zip-read-failed": "Nuk mund të lexohej .zip-i i ngarkuar.",
   "import-trello-zip-too-large": ".zip-i është shumë i madh për t'u importuar.",

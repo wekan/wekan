@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Cláir á n-iompórtáil ón .zip, fan…",
   "import-trello-failed": "Theip ar iompórtáil ó Trello.",
   "import-timeout": "Thóg an t-iompórtáil rófhada agus stopadh í. Bain triail eile as; má leanann sé ar aghaidh, seans go bhfuil an clár rómhór nó go bhfuil an bunachar sonraí gnóthach.",
+  "import-too-large": "Tá an comhad rómhór le hiompórtáil d'aon iarraidh amháin. Roinn é i gcomhaid níos lú, mar shampla de réir tionscadail nó de réir dáta, agus iompórtáil gach ceann acu.",
   "import-trello-zip-failed": "Theip ar iompórtáil an .zip.",
   "import-trello-zip-read-failed": "Níorbh fhéidir an .zip uaslódáilte a léamh.",
   "import-trello-zip-too-large": "Tá an .zip rómhór le hiompórtáil.",

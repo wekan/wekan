@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip-dən lövhələr idxal edilir, zəhmət olmasa gözləyin…",
   "import-trello-failed": "Trello-dan idxal alınmadı.",
   "import-timeout": "İdxal çox uzun çəkdi və dayandırıldı. Yenidən cəhd edin; təkrarlanarsa, lövhə çox böyük ola bilər və ya verilənlər bazası məşğul ola bilər.",
+  "import-too-large": "Fayl bir dəfəyə idxal etmək üçün çox böyükdür. Onu daha kiçik fayllara bölün, məsələn, layihə və ya tarix üzrə, və hər birini ayrıca idxal edin.",
   "import-trello-zip-failed": ".zip-in idxalı alınmadı.",
   "import-trello-zip-read-failed": "Yüklənmiş .zip oxuna bilmədi.",
   "import-trello-zip-too-large": ".zip idxal üçün çox böyükdür.",

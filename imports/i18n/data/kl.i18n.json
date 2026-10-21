@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ilisarnaatit .zip-imit eqqunneqarput, utaqqilaarit…",
   "import-trello-failed": "Trello-mit eqqussineq iluatsinngilaq.",
   "import-timeout": "Eqqussineq sivisuallaarsimammat unitsinneqarpoq. Misileqqissaatit; ingerlaannarpat ilisarnaat angivallaarsinnaavoq imaluunniit database ulapputeqarsinnaavoq.",
+  "import-too-large": "Paasissutissiaq angivallaarpoq ataatsikkut eqqunneqarsinnaanani. Paasissutissianut mikinerusunut avikkit, assersuutigalugu suliniut imaluunniit ulloq malillugu, ataasiakkaarlugillu eqqukkit.",
   "import-trello-zip-failed": ".zip-ip eqqunneqarnera iluatsinngilaq.",
   "import-trello-zip-read-failed": ".zip uploaderneqartoq atuarneqarsinnaanngilaq.",
   "import-trello-zip-too-large": ".zip eqqunneqarnissamut angivallaarpoq.",

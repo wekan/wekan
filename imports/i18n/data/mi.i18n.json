@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "E kawemai ana i ngā papa mai i te .zip, tatari koa…",
   "import-trello-failed": "I rahua te kawemai mai i Trello.",
   "import-timeout": "I roa rawa te kawemai, ā, i whakamutua. Ngana anō koa; ki te tupu tonu, he nui rawa pea te papa, he pukumahi rānei te pātengi raraunga.",
+  "import-too-large": "He nui rawa te kōnae kia kawemaihia i te wā kotahi. Wehea kia iti iho ngā kōnae, hei tauira mā te kaupapa, mā te rā rānei, kātahi ka kawemai i ia kōnae.",
   "import-trello-zip-failed": "I rahua te kawemai i te .zip.",
   "import-trello-zip-read-failed": "Kāore i taea te pānui i te .zip i tukuatu.",
   "import-trello-zip-too-large": "He nui rawa te .zip hei kawemai.",

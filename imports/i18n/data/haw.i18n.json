@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "imapolakinaka nā papa mai .kipa, e kali…",
   "import-trello-failed": "imapolakinaka mai kalelalo hāʻule.",
   "import-timeout": "hoʻokomo kooka koo lonaka a waka kakopapeka. e ʻoluʻolu kalawa hou; ipa ika keepaka hapapeninaka, ka papa mawa he koo lalake a i ʻole ka kakapake mawa he pukawa.",
+  "import-too-large": "Nui loa ka faila e hoʻokomo ai i ka manawa hoʻokahi. E māhele iā ia i nā faila liʻiliʻi, e laʻa ma ka papahana a i ʻole ma ka lā, a e hoʻokomo i kēlā me kēia.",
   "import-trello-zip-failed": "imapolakinaka ka .kipa hāʻule.",
   "import-trello-zip-read-failed": "koulaka ʻaʻole leaka ka upaloakeka .kipa.",
   "import-trello-zip-too-large": "ka .kipa he koo lalake i hoʻokomo.",

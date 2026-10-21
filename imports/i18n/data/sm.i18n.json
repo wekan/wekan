@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "O loo faaulu laupapa mai le .zip, faamolemole faatali…",
   "import-trello-failed": "Ua lē manuia le faauluina mai Trello.",
   "import-timeout": "Ua umi tele le faauluina ma ua taofia. Faamolemole toe taumafai; afai e toe tupu, atonu ua telē tele le laupapa po o loo pisi le nofoaga o faamatalaga.",
+  "import-too-large": "Ua telē tele le faila e faauluina i le taimi e tasi. Vaevae i ni faila laiti, mo se faataitaiga e tusa ma le galuega po o le aso, ona faaulu lea o faila taitasi.",
   "import-trello-zip-failed": "Ua lē manuia le faauluina o le .zip.",
   "import-trello-zip-read-failed": "E le mafai ona faitau le .zip na tuu i luga.",
   "import-trello-zip-too-large": "Ua telē tele le .zip e faaulu.",

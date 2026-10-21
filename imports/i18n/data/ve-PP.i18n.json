@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Todaze laudoid .zip-aspäi, varasta, ole hüvä…",
   "import-trello-failed": "Sizäletond Trellospäi ei udannus.",
   "import-timeout": "U dzhenisa ho dzhia tshifhinga tshihulu vhukuma nahone ho imiswa. Kha vha lingedze hafhu; arali zwi tshi bvela phanḓa, bodo i nga vha khulu vhukuma kana database i khou shuma vhukuma.",
+  "import-too-large": "Fail om liiaks sur, miše importiruida sidä kerdal. Jagagat se penembihe failoihe, ozutesikš projektan vai datan mödhe, i importirugat kaikuččen erikseen.",
   "import-trello-zip-failed": ".zip-an sizäletond ei udannus.",
   "import-trello-zip-read-failed": "Ei voinu lugeda ladidud .zip-ad.",
   "import-trello-zip-too-large": ".zip om lujas sur' sizäletondaks.",

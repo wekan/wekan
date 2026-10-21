@@ -95,7 +95,10 @@ export class JiraCreator {
   _extras(data, issue) {
     if (!this.extras) this.extras = new Map();
     if (!this.extras.has(issue)) {
-      const importedKeys = new Set(this._issues(data).map(i => i && i.key).filter(Boolean));
+      // #6792: the issue keys of the file, collected once. Rebuilding this
+      // set for every issue made a large export quadratic.
+      if (!this.importedKeys) this.importedKeys = new Set(this._issues(data).map(i => i && i.key).filter(Boolean));
+      const importedKeys = this.importedKeys;
       const skipFields = [...(this.estimateMapping ? [this.estimateMapping.estimateFieldId] : []),
         ...(this.planning ? this.planning.skipFields : [])];
       this.extras.set(issue, jiraIssueExtras(issue, {

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zipmanta pirqakunata apamuchkan, ama hina kaspa suyay…",
   "import-trello-failed": "Trellomanta apamuyqa pantarqa.",
   "import-timeout": "Apamuyqa ancha unaytam karqa, sayachisqataq karqa. Ama hina kaspa wakmanta ruray; kaqllata pasachkaptinqa, pirqa ancha hatun kanman utaq willakuy huñuqa ruraywan hunt'a kanman.",
+  "import-too-large": "Willakuy p'anqaqa ancha hatunmi huk kutillapi apamunapaq. Huch'uy p'anqakunaman rakiy, ahinataq ruraykunaman utaq p'unchawkunaman hina, chaymanta sapankata apamuy.",
   "import-trello-zip-failed": ".zip apamuyqa pantarqa.",
   "import-trello-zip-read-failed": "Wichichisqa .zipta manam ñawinchayta atikurqachu.",
   "import-trello-zip-too-large": ".zipqa apamunapaq ancha hatunmi.",

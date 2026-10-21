@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importing pirqanaka ukata .zip, please wait…",
   "import-trello-failed": "Importing ukata Trello jani phuqhata.",
   "import-timeout": "anqäxat apaniña took too long ukat was stopped. Please try again; if it keeps happening, the pirqa may be too large jan ukax the database may be busy.",
+  "import-too-large": "Archivox wali jach'awa mä kutiru apaniñataki. Jisk'a archivonakaru jaljam, sañäni proyectorjama jan ukax urunakarjama, ukat sapa mayni apanim.",
   "import-trello-zip-failed": "Importing the .zip jani phuqhata.",
   "import-trello-zip-read-failed": "Could jani read the uploaded .zip.",
   "import-trello-zip-too-large": "The .zip awa too large ukaru anqäxat apaniña.",

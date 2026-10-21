@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Hu khou dzheniswa mabodo u bva kha .zip, ni humbelwa u lindela…",
   "import-trello-failed": "U dzhenisa u bva kha Trello zwo kundelwa.",
   "import-timeout": "U dzhenisa ho dzhia tshifhinga tshihulu vhukuma nahone ho imiswa. Kha vha lingedze hafhu; arali zwi tshi bvela phanḓa, bodo i nga vha khulu vhukuma kana database i khou shuma vhukuma.",
+  "import-too-large": "Faela ndi khulwane vhukuma u nga dzheniswa nga tshifhinga tshithihi. I khethekanyeni i vhe dzifaela ṱhukhu, sa tsumbo nga phurodzhekiṱe kana nga ḓuvha, ni dzhenise iṅwe na iṅwe.",
   "import-trello-zip-failed": "U dzhenisa .zip zwo kundelwa.",
   "import-trello-zip-read-failed": "A zwo konadzea u vhala .zip yo layishwaho.",
   "import-trello-zip-too-large": "Iyi .zip ndi khulwane vhukuma uri i dzheniswe.",

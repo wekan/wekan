@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ho kenngwa diboto ho tswa ho .zip, ka kopo ema…",
   "import-trello-failed": "Ho kenya ho tswa ho Trello ho hlolehile.",
   "import-timeout": "Ho kenya ho nkile nako e telele mme ha emiswa. Leka hape; ha ho tswela pele, boto e ka ba kgolo haholo kapa database e phathahane.",
+  "import-too-large": "Faele e kgolo haholo hore e ka kenngwa ka nako e le nngwe. E arole ka difaele tse nyane, mohlala ka projeke kapa ka letsatsi, mme o kenye e nngwe le e nngwe.",
   "import-trello-zip-failed": "Ho kenya .zip ho hlolehile.",
   "import-trello-zip-read-failed": "Faele ya .zip e kentsweng ha ya balwa.",
   "import-trello-zip-too-large": ".zip e kgolo haholo hore e kenngwe.",

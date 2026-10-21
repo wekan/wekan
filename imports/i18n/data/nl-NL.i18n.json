@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Borden importeren uit .zip, even geduld…",
   "import-trello-failed": "Importeren vanuit Trello is mislukt.",
   "import-timeout": "De import duurde te lang en is gestopt. Probeer het opnieuw; als het blijft gebeuren, is het bord mogelijk te groot of is de database bezet.",
+  "import-too-large": "Het bestand is te groot om in één keer te importeren. Splits het op in kleinere bestanden, bijvoorbeeld per project of per datum, en importeer elk bestand afzonderlijk.",
   "import-trello-zip-failed": "Importeren van de .zip is mislukt.",
   "import-trello-zip-read-failed": "Kon de geüploade .zip niet lezen.",
   "import-trello-zip-too-large": "De .zip is te groot om te importeren.",

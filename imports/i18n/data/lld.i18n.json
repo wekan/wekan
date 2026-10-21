@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Se importea tofles dal .zip, per plajëi aspeta…",
   "import-trello-failed": "L import da Trello ne n’ie nia jit.",
   "import-timeout": "L import à durà massa giut y ie stat fermà. Per plajëi prova inò; sce l suzed mo, possa la tofl ester massa granda o la banca dac ester ucupeda.",
+  "import-too-large": "L file ie massa grant per l importé dut a na outa. Dividel su te file plu pitli, per ejempl per proiet o per data, y importa vignun.",
   "import-trello-zip-failed": "L import dl .zip ne n’ie nia jit.",
   "import-trello-zip-read-failed": "Ne n’ie nia stat meso lijer l .zip ciarià su.",
   "import-trello-zip-too-large": "L .zip ie massa grant per l importé.",

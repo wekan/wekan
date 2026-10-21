@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Tahvlite importimine .zip-failist, palun oota…",
   "import-trello-failed": "Trellost importimine ebaõnnestus.",
   "import-timeout": "Import kestis liiga kaua ja peatati. Proovi uuesti; kui see kordub, võib tahvel olla liiga suur või andmebaas hõivatud.",
+  "import-too-large": "Fail on korraga importimiseks liiga suur. Jaga see väiksemateks failideks, näiteks projekti või kuupäeva järgi, ja impordi igaüks eraldi.",
   "import-trello-zip-failed": "Zip-faili importimine ebaõnnestus.",
   "import-trello-zip-read-failed": "Üleslaaditud .zip-faili ei õnnestunud lugeda.",
   "import-trello-zip-too-large": "Zip-fail on importimiseks liiga suur.",

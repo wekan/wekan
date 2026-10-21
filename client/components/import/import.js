@@ -15,6 +15,7 @@ import {
   readExportFile,
 } from '/client/components/boards/exportScope';
 import { pruneImportDocument } from '/models/lib/importParts';
+import { importDeadlineFor } from '/models/lib/importDeadline';
 import { slimTaigaDump } from '/models/lib/taigaFormat';
 import { expandFiles, documentForFile, isGeneralizedSource } from '/models/lib/importManyFiles';
 import { IMPORT_SOURCES, importSource as importSourceSpec, acceptFor, isApiImport } from '/models/lib/importSources';
@@ -536,11 +537,14 @@ Template.import.onCreated(function () {
 
     // wekan / csv: DDP import, guarded by a client-side watchdog so a stalled or
     // hung import can never leave the spinner running forever — if the method has not
-    // answered in WEKAN_IMPORT_TIMEOUT_MS (default 2 min) we surface a timeout error
-    // and clear the spinner. The server bounds the import itself too (see importBoard).
+    // answered in WEKAN_IMPORT_TIMEOUT_MS (default 2 min) plus the time each record
+    // of the file is allowed (#6792, the same models/lib/importDeadline.js the
+    // server's deadline uses) we surface a timeout error and clear the spinner.
+    // The server bounds the import itself too (see importBoard).
     this.membersToMap.set([]);
     let settled = false;
-    const timeoutMs = parseInt(window.WEKAN_IMPORT_TIMEOUT_MS, 10) || 120000;
+    const importDocument = pruneImportDocument(importedData, selectedFields());
+    const timeoutMs = importDeadlineFor(parseInt(window.WEKAN_IMPORT_TIMEOUT_MS, 10) || 120000, importDocument);
     const watchdog = Meteor.setTimeout(() => {
       if (settled) return;
       settled = true;
@@ -552,7 +556,7 @@ Template.import.onCreated(function () {
     // sources without teaching each of them a selection of its own.
     Meteor.call(
       'importBoard',
-      pruneImportDocument(importedData, selectedFields()),
+      importDocument,
       // The selection again, for the parts only a creator can leave out:
       // the Scrum planning external parsers find (models/kanboardCreator.js).
       { membersMapping: mappingById, importFields: selectedFields(), membersMode: this.membersMode || 'map', ...csvMappingData(this),

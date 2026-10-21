@@ -110,6 +110,8 @@ const EXPECTED = [
   // Settings / Visibility / Features tick (docs/Features/General/Assistants).
   'js-open-board-summary',
   'js-open-since-last-visit',
+  // #6792: the board, copied into the user's Templates as a board template.
+  'js-save-board-as-template',
   'js-archive-board',
 ];
 
@@ -169,6 +171,10 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-original-positions'), [],
     'so is Original positions: the server narrows it to what the reader may see');
   assert.deepStrictEqual(guardsOf('js-archive-board'), ['unless currentBoard.isTemplatesBoard', admin]);
+  // #6792: copying a whole board needs board admin, as Copy Board does, and a
+  // template board is not offered to become a template again.
+  assert.deepStrictEqual(guardsOf('js-save-board-as-template'),
+    ['unless currentBoard.isTemplatesBoard', admin, 'unless currentBoard.isAnyTemplateBoard']);
 });
 
 test('each group is its own ul, and a rule never follows a rule (negative)', () => {
@@ -189,7 +195,7 @@ test('the docs draw the same order', () => {
     'Rules', 'hr', 'Scrum settings', 'hr', 'Change color', 'Change Background Image', 'Date', 'hr',
     'Board View', 'Swimlane', 'List', 'Card', 'hr',
     'Export', 'Import', 'Notifications', 'Outgoing Webhooks', 'hr',
-    'Archived items', 'Move Board to Archive',
+    'Archived items', 'Save as Template', 'Move Board to Archive',
   ], 'the diagram lists the entries and rules in the menu\'s order');
 });
 

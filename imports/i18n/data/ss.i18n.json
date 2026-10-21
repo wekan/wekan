@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Kungeniswa emabhodi kusuka ku-.zip, uyacelwa ulindze…",
   "import-trello-failed": "Kungenisa kusuka ku-Trello kwehlulekile.",
   "import-timeout": "Kungenisa kutsatse sikhatsi lesidze kakhulu kwase kuyamiswa. Uyacelwa uphindze wetame; uma kuchubeka, libhodi lingaba likhulu kakhulu noma silondvoloti sedatha singaba matasa.",
+  "import-too-large": "Lifayela likhulu kakhulu kutsi lingeniswe kanye kanye. Lehlukanise libe ngemafayela lamancane, sibonelo ngeliphrojekthi noma ngelilanga, bese ungenisa ngalinye.",
   "import-trello-zip-failed": "Kungenisa i-.zip kwehlulekile.",
   "import-trello-zip-read-failed": "Akukwazeki kufundza i-.zip lelayishiwe.",
   "import-trello-zip-too-large": "I-.zip yinkhulu kakhulu kutsi ingeniswe.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Yn mewnforio byrddau o'r .zip, arhoswch os gwelwch yn dda…",
   "import-trello-failed": "Methodd y mewnforio o Trello.",
   "import-timeout": "Cymerodd y mewnforio ormod o amser a chafodd ei atal. Ceisiwch eto; os yw'n parhau, gall y bwrdd fod yn rhy fawr neu'r gronfa ddata'n brysur.",
+  "import-too-large": "Mae'r ffeil yn rhy fawr i'w mewnforio ar unwaith. Rhannwch hi'n ffeiliau llai, er enghraifft fesul prosiect neu fesul dyddiad, a mewnforiwch bob un.",
   "import-trello-zip-failed": "Methodd mewnforio'r .zip.",
   "import-trello-zip-read-failed": "Methwyd â darllen y .zip a lwythwyd.",
   "import-trello-zip-too-large": "Mae'r .zip yn rhy fawr i'w fewnforio.",

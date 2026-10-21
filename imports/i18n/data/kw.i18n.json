@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Owth ynperthi estyllennow dhyworth .zip, gortos mar pleg…",
   "import-trello-failed": "Ynperthi dhyworth Trello a fyllis.",
   "import-timeout": "An enporth a gemeras re hir hag a veu gockys. Assaya arta mar pleg; mar pes y hwarvos, an estyllen a yll bos re vras po an database a yll bos bysi.",
+  "import-too-large": "An restren yw re vras dhe enporth yn unn prys. Ranna hi yn restrennow le, rag ensampel herwydh ragdres po herwydh dydhyas, hag enporth pubonan.",
   "import-trello-zip-failed": "Ynperthi an .zip a fyllis.",
   "import-trello-zip-read-failed": "Ny yllis redya an .zip kargys.",
   "import-trello-zip-too-large": "An .zip yw re vras dhe ynperthi.",

@@ -1438,6 +1438,64 @@ Meteor.methods({
     return copy.copy(!!values.withoutCards);
   },
 
+  // #6792: "Save as Template" in the board menu - turn an EXISTING board into
+  // a board template, the way saveCardAsTemplate (server/models/cards.js)
+  // does for a card. A board template is two things: a board of type
+  // 'template-board', and the linked-board card in the user's Templates
+  // board / Board Templates swimlane that points at it (the card the "Add
+  // Board / Template" picker lists). copyBoard above makes the first and
+  // nothing made the second, so a board could only become a template by
+  // being rebuilt by hand inside the Templates board.
+  async saveBoardAsTemplate(boardId) {
+    check(boardId, String);
+
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) throw new Meteor.Error('not-found');
+    // The same rule as copyBoard: a template is a copy of the whole board.
+    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized');
+    if (board.isAnyTemplateBoard()) throw new Meteor.Error('already-a-template');
+
+    const { ensureTemplatesBoardForUserId } = require('/server/models/users');
+    const templatesBoardId = await ensureTemplatesBoardForUserId(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
+    const swimlaneId = user && user.profile && user.profile.boardTemplatesSwimlaneId;
+    if (!swimlaneId) throw new Meteor.Error('not-found', 'board-templates-swimlane-missing');
+
+    const { boardWithCopyProperties } = require('/models/lib/boardCopyProperties');
+    const templateId = await boardWithCopyProperties(board, { type: 'template-board' }).copy(false);
+    // Template boards are group-only (#5850): the creator is the one person on
+    // it, and it is shared with organizations, teams or domains from All
+    // Boards / Templates. The source board's members are not carried over.
+    await Boards.direct.updateAsync(templateId, { $set: {
+      members: [{ userId: this.userId, isAdmin: true, isActive: true, isNoComments: false,
+        isCommentOnly: false, isWorker: false }],
+      permission: 'private',
+    } });
+    const template = await Boards.findOneAsync(templateId);
+
+    const Lists = require('/models/lists').default;
+    let list = await Lists.findOneAsync({ boardId: templatesBoardId, swimlaneId, archived: false });
+    if (!list) {
+      const listId = await Lists.insertAsync({ title: 'Default', boardId: templatesBoardId, swimlaneId });
+      list = await Lists.findOneAsync(listId);
+    }
+    const templatesBoard = await Boards.findOneAsync(templatesBoardId);
+    const last = await Cards.findOneAsync({ boardId: templatesBoardId, listId: list._id }, { sort: { sort: -1 } });
+    const cardId = await Cards.insertAsync({
+      title: template.title,
+      boardId: templatesBoardId,
+      listId: list._id,
+      swimlaneId,
+      sort: last && Number.isFinite(last.sort) ? last.sort + 1 : 0,
+      type: 'cardType-linkedBoard',
+      linkedId: templateId,
+      userId: this.userId,
+      cardNumber: await templatesBoard.getNextCardNumber(),
+    });
+    return { boardId: templateId, slug: template.slug, cardId };
+  },
+
   // Board status for the sidebar Status popup: accurate counts computed on the
   // server (so they are correct even in lazy mode, where the client's minimongo
   // only holds the visible card window), plus this board's effective card-loading

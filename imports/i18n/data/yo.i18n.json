@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ngbe awọn igbimọ wọle lati .zip, jọwọ duro…",
   "import-trello-failed": "Gbigbe wọle lati Trello kuna.",
   "import-timeout": "Ìkówọlé gba àkókò púpọ̀ jù, a sì dá a dúró. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i; bí ó bá ń ṣẹlẹ̀ léraléra, pátákó lè tóbi jù tàbí ibùdó ìsọfúnni ń ṣiṣẹ́ púpọ̀.",
+  "import-too-large": "Fáìlì náà tóbi jù láti kó wọlé lẹ́ẹ̀kan ṣoṣo. Pín in sí àwọn fáìlì kéékèèké, fún àpẹẹrẹ gẹ́gẹ́ bí iṣẹ́ àkànṣe tàbí ọjọ́, kí o sì kó ọ̀kọ̀ọ̀kan wọlé.",
   "import-trello-zip-failed": "Gbigbe .zip wọle kuna.",
   "import-trello-zip-read-failed": "Ko le ka .zip ti a gbe soke.",
   "import-trello-zip-too-large": ".zip tobi ju lati gbe wọle.",

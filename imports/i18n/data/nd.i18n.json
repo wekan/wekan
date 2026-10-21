@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Kungeniswa amabhodi ku-.zip, sicela ulinde…",
   "import-trello-failed": "Ukungenisa kusuka ku-Trello kwehlulekile.",
   "import-timeout": "Ukungenisa kuthathe isikhathi eside kakhulu kwasekumiswa. Sicela uzame futhi; nxa kuqhubeka, ibhodi lingaba likhulu kakhulu loba isizindalwazi simatasa.",
+  "import-too-large": "Ifayela likhulu kakhulu ukuthi lingeniswe kanye kanye. Lehlukanise libe ngamafayela amancane, ngokwesibonelo ngephrojekthi kumbe ngosuku, ubusungenisa ngalinye.",
   "import-trello-zip-failed": "Ukungenisa i-.zip kwehlulekile.",
   "import-trello-zip-read-failed": "Akukwazanga ukufundwa i-.zip elayishiweyo.",
   "import-trello-zip-too-large": "I-.zip likhulu kakhulu ukuthi lingeniswe.",

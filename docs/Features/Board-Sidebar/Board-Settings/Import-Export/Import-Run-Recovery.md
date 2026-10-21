@@ -63,7 +63,10 @@ A writer that is only slow and comes back after being flagged finds its run no
 longer `running` and stops at its next step. When the import method's own
 deadline (`WEKAN_IMPORT_TIMEOUT_MS`) answers the client, the writer is told to
 stop at its next step as well, so a client that was told "Import took too long
-and was aborted" does not get a board that keeps growing afterwards.
+and was aborted" does not get a board that keeps growing afterwards. That
+deadline is `WEKAN_IMPORT_TIMEOUT_MS` plus half a second for each record of the
+file (models/lib/importDeadline.js, #6792), so a large import is not stopped
+for being large; the import page's own watchdog uses the same sum.
 
 ## Keep or discard
 

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Uvoz ploča iz .zip datoteke, pričekajte…",
   "import-trello-failed": "Uvoz iz Trella nije uspio.",
   "import-timeout": "Uvoz je trajao predugo i zaustavljen je. Pokušajte ponovno; ako se ponavlja, ploča je možda prevelika ili je baza podataka zauzeta.",
+  "import-too-large": "Datoteka je prevelika za uvoz odjednom. Podijelite je na manje datoteke, primjerice po projektu ili po datumu, i uvezite svaku zasebno.",
   "import-trello-zip-failed": "Uvoz datoteke .zip nije uspio.",
   "import-trello-zip-read-failed": "Nije moguće pročitati prenesenu datoteku .zip.",
   "import-trello-zip-too-large": "Datoteka .zip prevelika je za uvoz.",

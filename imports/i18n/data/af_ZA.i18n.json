@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Voer borde uit .zip in, wag asseblief…",
   "import-trello-failed": "Invoer vanaf Trello het misluk.",
   "import-timeout": "Die invoer het te lank geneem en is gestop. Probeer asseblief weer; as dit aanhou gebeur, is die bord dalk te groot of die databasis besig.",
+  "import-too-large": "Die lêer is te groot om in een keer in te voer. Verdeel dit in kleiner lêers, byvoorbeeld per projek of per datum, en voer elkeen in.",
   "import-trello-zip-failed": "Invoer van die .zip het misluk.",
   "import-trello-zip-read-failed": "Kon nie die opgelaaide .zip lees nie.",
   "import-trello-zip-too-large": "Die .zip is te groot om in te voer.",

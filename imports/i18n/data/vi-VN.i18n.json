@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Đang nhập các bảng từ tệp .zip, vui lòng đợi…",
   "import-trello-failed": "Nhập từ Trello thất bại.",
   "import-timeout": "Việc nhập mất quá nhiều thời gian và đã bị dừng. Vui lòng thử lại; nếu vẫn xảy ra, bảng có thể quá lớn hoặc cơ sở dữ liệu đang bận.",
+  "import-too-large": "Tệp quá lớn để nhập một lần. Hãy chia thành các tệp nhỏ hơn, ví dụ theo dự án hoặc theo ngày, rồi nhập từng tệp.",
   "import-trello-zip-failed": "Nhập tệp .zip thất bại.",
   "import-trello-zip-read-failed": "Không thể đọc tệp .zip đã tải lên.",
   "import-trello-zip-too-large": "Tệp .zip quá lớn để nhập.",

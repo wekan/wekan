@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Sabuuradaha ayaa laga soo dejinayaa .zip, fadlan sug…",
   "import-trello-failed": "Ka soo dejinta Trello way fashilantay.",
   "import-timeout": "Soo dejintu aad bay u dheeraatay waana la joojiyay. Fadlan isku day mar kale; haddii ay sii dhacdo, sabuuraddu aad bay u weynaan kartaa ama kaydka xogtu mashquul ayuu noqon karaa.",
+  "import-too-large": "Faylku aad buu u weyn yahay in hal mar la soo dejiyo. U kala qaybi faylal yaryar, tusaale ahaan mashruuc ama taariikh ahaan, oo mid walba gooni u soo deji.",
   "import-trello-zip-failed": "Soo dejinta .zip way fashilantay.",
   "import-trello-zip-read-failed": "Lama akhriyi karin .zip-ka la soo geliyay.",
   "import-trello-zip-too-large": ".zip-ku aad buu u weyn yahay in la soo dejiyo.",

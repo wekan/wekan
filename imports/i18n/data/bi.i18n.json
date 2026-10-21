@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "I stap karem i kam ol bod long .zip, plis wet…",
   "import-trello-failed": "Karem i kam long Trello i no wok.",
   "import-timeout": "Karem i kam i tekem longfala taem tumas mo i stop. Plis traem bakegen; sapos hem i hapen bakegen, maet bod i bigfala tumas o database i bisi.",
+  "import-too-large": "Fael i bigfala tumas blong karem i kam wantaem nomo. Seraotem long ol smosmol fael, olsem folem projek o folem det, mo karem i kam wanwan.",
   "import-trello-zip-failed": "Karem i kam .zip i no wok.",
   "import-trello-zip-read-failed": "I no save ridim .zip we oli aplodem.",
   "import-trello-zip-too-large": ".zip i bigfala tumas blong karem i kam.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ina naatna alluuje iwde e .zip, tiiɗno sabbo…",
   "import-trello-failed": "Naatnugol iwde e Trello woorii.",
   "import-timeout": "Naatnugol juutii haa dartinaama. Tiiɗno eto kadi; so ɗum jokkondirii, tawii alluwal ngal ɓurii mawnude walla ruttorde keɓe ina jaggii.",
+  "import-too-large": "Fiilde ndee ɓurii mawnude ngam naatnude nde laawol gootol. Senndu nde e fiilde ɗe ɓuri famɗude, wayno e golle walla e ñalawma, naatnu kala gooto.",
   "import-trello-zip-failed": "Naatnugol .zip woorii.",
   "import-trello-zip-read-failed": "Fiilde .zip ɓeydaande ndee waawaama tareede.",
   "import-trello-zip-too-large": "Fiilde .zip ndee ɓurii mawnude ngam naatneede.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importujú sa nástenky zo súboru .zip, prosím čakajte…",
   "import-trello-failed": "Import z Trello zlyhal.",
   "import-timeout": "Import trval príliš dlho a bol zastavený. Skúste to znova; ak sa to opakuje, tabuľa môže byť príliš veľká alebo je databáza zaneprázdnená.",
+  "import-too-large": "Súbor je príliš veľký na to, aby sa dal importovať naraz. Rozdeľte ho na menšie súbory, napríklad podľa projektu alebo podľa dátumu, a importujte každý zvlášť.",
   "import-trello-zip-failed": "Import súboru .zip zlyhal.",
   "import-trello-zip-read-failed": "Nahraný súbor .zip sa nepodarilo prečítať.",
   "import-trello-zip-too-large": "Súbor .zip je príliš veľký na import.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ngimpor papan saka .zip, mangga ngenteni…",
   "import-trello-failed": "Impor saka Trello gagal.",
   "import-timeout": "Impor suwé banget lan mandheg. Mangga coba maneh; yen terus kedadeyan, papan bisa uga gedhe banget utawa basis data lagi sibuk.",
+  "import-too-large": "Berkas iki gedhe banget kanggo diimpor sepisan. Pérang dadi berkas-berkas sing luwih cilik, contoné miturut proyèk utawa miturut tanggal, banjur impor siji-siji.",
   "import-trello-zip-failed": "Impor .zip gagal.",
   "import-trello-zip-read-failed": "Ora bisa maca .zip sing diunggah.",
   "import-trello-zip-too-large": ".zip gedhe banget kanggo diimpor.",

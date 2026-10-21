@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Notiek dēļu importēšana no .zip, lūdzu, uzgaidiet…",
   "import-trello-failed": "Importēšana no Trello neizdevās.",
   "import-timeout": "Imports ilga pārāk ilgi un tika apturēts. Mēģiniet vēlreiz; ja tas atkārtojas, dēlis var būt pārāk liels vai datubāze aizņemta.",
+  "import-too-large": "Fails ir pārāk liels, lai to importētu uzreiz. Sadaliet to mazākos failos, piemēram, pēc projekta vai datuma, un importējiet katru atsevišķi.",
   "import-trello-zip-failed": ".zip importēšana neizdevās.",
   "import-trello-zip-read-failed": "Nevarēja nolasīt augšupielādēto .zip.",
   "import-trello-zip-too-large": ".zip ir pārāk liels, lai importētu.",

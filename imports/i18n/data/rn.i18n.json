@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ivyapa biriko birinjizwa bivuye muri .zip, rindira…",
   "import-trello-failed": "Kwinjiza bivuye muri Trello vyaranse.",
   "import-timeout": "Kwinjiza vyamaze igihe kirekire maze birahagarikwa. Subira ugerageze; ni vyasubira, icapa gishobora kuba ari kinini cane canke ububiko bw'amakuru buriko burakora cane.",
+  "import-too-large": "Dosiye ni nini cane ku buryo itokwinjizwa rimwe. Yigabure mu dosiye ntoya, nk'akarorero ukurikije umugambi canke itariki, maze winjize imwe imwe.",
   "import-trello-zip-failed": "Kwinjiza .zip vyaranse.",
   "import-trello-zip-read-failed": "Ntivyashobotse gusoma .zip yashizweko.",
   "import-trello-zip-too-large": ".zip ni nini cane ku buryo itinjizwa.",

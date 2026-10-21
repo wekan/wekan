@@ -11,7 +11,12 @@ const SECRET_KEY = /(?:password|passwd|secret|api[_-]?key|api[_-]?token|auth[_-]
 function sanitizeTransferValue(input, options = {}) {
   const limits = {
     maxDepth: options.maxDepth || 40,
-    maxNodes: options.maxNodes || 250000,
+    // #6792: 250,000 stopped a Jira export at under 1,000 issues (about 6 MB):
+    // a Jira issue carries some 250 values even with no comments - mostly its
+    // null custom fields, avatar URLs and status category. The walk is linear,
+    // like the JSON parse that built the value, so the cap only has to stop a
+    // runaway document, not a large real one.
+    maxNodes: options.maxNodes || 4000000,
     maxArray: options.maxArray || 100000,
     maxString: options.maxString || 4 * 1024 * 1024,
     maxBinaryString: options.maxBinaryString || 512 * 1024 * 1024,

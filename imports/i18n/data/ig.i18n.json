@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Na-ebubata bọọdụ site na .zip, biko chere…",
   "import-trello-failed": "Ibubata site na Trello dara.",
   "import-timeout": "Mbubata were ogologo oge ma kwụsị. Biko nwaa ọzọ; ọ bụrụ na ọ na-eme mgbe niile, bọọdụ nwere ike ịbụ nnukwu ma ọ bụ na ebe nchekwa data na-arụsi ọrụ ike.",
+  "import-too-large": "Faịlụ ahụ buru oke ibu ibubata n'otu oge. Kewaa ya n'ime obere faịlụ, dịka site na ọrụ ma ọ bụ site na ụbọchị, ma bubata nke ọ bụla.",
   "import-trello-zip-failed": "Ibubata .zip dara.",
   "import-trello-zip-read-failed": "Enweghị ike ịgụ .zip ebugoro.",
   "import-trello-zip-too-large": ".zip buru ibu nke ukwuu ibubata.",

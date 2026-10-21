@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Flyt töflur inn úr .zip-skrá, bíddu…",
   "import-trello-failed": "Innflutningur úr Trello mistókst.",
   "import-timeout": "Innflutningurinn tók of langan tíma og var stöðvaður. Reyndu aftur; ef þetta gerist áfram kann taflan að vera of stór eða gagnagrunnurinn upptekinn.",
+  "import-too-large": "Skráin er of stór til að flytja hana inn í einu lagi. Skiptu henni í minni skrár, til dæmis eftir verkefni eða dagsetningu, og fluttu hverja inn fyrir sig.",
   "import-trello-zip-failed": "Innflutningur .zip-skrárinnar mistókst.",
   "import-trello-zip-read-failed": "Ekki tókst að lesa .zip-skrána sem var hlaðið upp.",
   "import-trello-zip-too-large": ".zip-skráin er of stór til innflutnings.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Táblák importálása a .zip-ből, kérjük, várj…",
   "import-trello-failed": "A Trellóból való importálás sikertelen.",
   "import-timeout": "Az importálás túl sokáig tartott, ezért leállt. Próbálja újra; ha ismétlődik, a tábla túl nagy lehet, vagy az adatbázis terhelt.",
+  "import-too-large": "A fájl túl nagy ahhoz, hogy egyszerre lehessen importálni. Ossza fel kisebb fájlokra, például projekt vagy dátum szerint, és importálja őket egyenként.",
   "import-trello-zip-failed": "A .zip importálása sikertelen.",
   "import-trello-zip-read-failed": "A feltöltött .zip nem olvasható.",
   "import-trello-zip-too-large": "A .zip túl nagy az importáláshoz.",

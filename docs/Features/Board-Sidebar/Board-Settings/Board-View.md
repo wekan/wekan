@@ -35,6 +35,7 @@ Board admins only - same restriction as Swimlane and List.
 │  Outgoing Webhooks           │
 │  ────────────────────────    │
 │  Archived items              │
+│  Save as Template            │
 │  Move Board to Archive       │
 └──────────────────────────────┘
 ```

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Impuartezione des taulis dal .zip, attendere…",
   "import-trello-failed": "Impuartezione da Trello no riuscita.",
   "import-timeout": "L'impuartezione ha necessari troppo tempo ed è stata interrotta. Riprova; se continua ad accadere, la taule potrebbe essere troppo grande o il datebase occupato.",
+  "import-too-large": "Il file al è masse grant par impuartâlu dut intune volte. Dividilu in files plui piçui, par esempli par progjet o par date, e impuarte ognidun.",
   "import-trello-zip-failed": "Impuartezione dal .zip no riuscita.",
   "import-trello-zip-read-failed": "Impossibile leggere il .zip cjameto.",
   "import-trello-zip-too-large": "Il .zip è troppo grande par essere impuarteto.",

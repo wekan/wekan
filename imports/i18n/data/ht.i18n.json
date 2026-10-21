@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ap enpòte tablo ki nan .zip la, tanpri tann…",
   "import-trello-failed": "Enpòtasyon soti nan Trello echwe.",
   "import-timeout": "Enpòtasyon an te pran twòp tan epi li te kanpe. Tanpri eseye ankò; si sa kontinye rive, tablo a ka twò gwo oswa bazdone a ka okipe.",
+  "import-too-large": "Fichye a twò gwo pou enpòte li yon sèl kou. Divize li an fichye ki pi piti, pa egzanp pa pwojè oswa pa dat, epi enpòte chak youn.",
   "import-trello-zip-failed": "Enpòtasyon .zip la echwe.",
   "import-trello-zip-read-failed": "Pa t kapab li .zip ki te voye a.",
   "import-trello-zip-too-large": ".zip la twò gwo pou enpòte.",

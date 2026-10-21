@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ana shigo da alluna daga .zip, don Allah jira…",
   "import-trello-failed": "Shigo daga Trello ya gaza.",
   "import-timeout": "Shigowa ta ɗauki lokaci mai tsawo kuma an dakatar da ita. Don Allah sake gwadawa; idan yana maimaituwa, allon na iya yin girma sosai ko rumbun bayanai yana aiki sosai.",
+  "import-too-large": "Fayil ɗin ya yi girma sosai don a shigo da shi lokaci guda. Raba shi zuwa ƙananan fayiloli, misali ta aiki ko ta kwanan wata, sannan ka shigo da kowanne.",
   "import-trello-zip-failed": "Shigo da .zip ya gaza.",
   "import-trello-zip-read-failed": "Ba a iya karanta .zip da aka ɗora ba.",
   "import-trello-zip-too-large": "Fayil ɗin .zip ya yi girma sosai don shigowa.",

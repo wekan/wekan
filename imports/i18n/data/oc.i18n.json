@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importacion dels tablèus dempuèi lo .zip, mercés d'esperar…",
   "import-trello-failed": "L'importacion dempuèi Trello a fracassat.",
   "import-timeout": "L'importacion a durat tròp de temps e es estada arrestada. Tornatz ensajar ; s'aquò contunha, lo tablèu es benlèu tròp grand o la basa de donadas es ocupada.",
+  "import-too-large": "Lo fichièr es tròp grand per l'importar d'un còp. Desseparatz-lo en fichièrs mai pichons, per exemple per projècte o per data, e importatz-los un per un.",
   "import-trello-zip-failed": "L'importacion del .zip a fracassat.",
   "import-trello-zip-read-failed": "Impossible de legir lo .zip mandat.",
   "import-trello-zip-too-large": "Lo .zip es tròp grand per èsser importat.",

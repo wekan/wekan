@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importowanie tabul z pliku .zip, proszę czekać…",
   "import-trello-failed": "Import z Trello niy powiódł sie.",
   "import-timeout": "Import trwał zbyt długo i ôstoł zatrzymany. Spróbuj zaś; jeśli to sie powtarza, tabula może być zbyt duża abo baza danych zajęta.",
+  "import-too-large": "Plik je za srogi, coby go naroz zaimportować. Podziel go na myńsze pliki, na przikłod podle projektu abo podle daty, i zaimportuj kożdy z osobna.",
   "import-trello-zip-failed": "Import pliku .zip niy powiódł sie.",
   "import-trello-zip-read-failed": "Niy udało sie odczytać przesłanego pliku .zip.",
   "import-trello-zip-too-large": "Plik .zip je zbyt duży, aby go zaimportować.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "לוחות מיובאים מקובץ ‎.zip, נא להמתין…",
   "import-trello-failed": "הייבוא מ־Trello נכשל.",
   "import-timeout": "הייבוא ארך זמן רב מדי והופסק. נסו שוב; אם זה נמשך, ייתכן שהלוח גדול מדי או שמסד הנתונים עמוס.",
+  "import-too-large": "הקובץ גדול מדי לייבוא בבת אחת. פצלו אותו לקבצים קטנים יותר, למשל לפי פרויקט או לפי תאריך, וייבאו כל אחד מהם בנפרד.",
   "import-trello-zip-failed": "ייבוא קובץ ה־‎.zip נכשל.",
   "import-trello-zip-read-failed": "לא ניתן לקרוא את קובץ ה־.zip שהועלה.",
   "import-trello-zip-too-large": "קובץ ה־‎.zip גדול מדי לייבוא.",

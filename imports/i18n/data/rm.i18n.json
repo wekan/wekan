@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importar tabellas dal .zip, per plaschair spetgar…",
   "import-trello-failed": "L’import da Trello n’è betg reussì.",
   "import-timeout": "L'import ha durà memia ditg ed è vegnì interrut. Per plaschair empruvar anc ina giada; sche quai capita adina puspè, è la tabella forsa memia gronda u la banca da datas occupada.",
+  "import-too-large": "La datoteca è memia gronda per l'importar en ina giada. La partai en datotecas pli pitschnas, per exempel tenor project u tenor data, ed importai mintgina.",
   "import-trello-zip-failed": "L'import dal .zip n'è betg reussì.",
   "import-trello-zip-read-failed": "Impussibel da leger la datoteca .zip transferida.",
   "import-trello-zip-too-large": "Il .zip è memia grond per vegnir importà.",

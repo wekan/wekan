@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importando tablanan desde e .zip, pa fabor espera…",
   "import-trello-failed": "E importashon desde Treyo fayó.",
   "import-timeout": "E importashon tardó demasiado i se detubo. Inténtelo di nobo; si sigue ocurriendo, e tabla por ser demasiado grande òf e base di datonan estar ocupada.",
+  "import-too-large": "E archivo ta muchu grandi pa importá na un biaha. Partié den archivonan mas chikitu, por ehèmpel pa proyekto òf pa fecha, i importá kada un.",
   "import-trello-zip-failed": "E importashon di e .zip fayó.",
   "import-trello-zip-read-failed": "No se pudo leer e .zip subido.",
   "import-trello-zip-too-large": "E .zip ta demasiado grande pa importar.",

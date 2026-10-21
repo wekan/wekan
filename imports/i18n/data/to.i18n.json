@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "ʻOku lolotonga hū mai ʻa e ngaahi papa mei he .zip, kātaki ʻo tatali…",
   "import-trello-failed": "Naʻe ʻikai lava ʻa e hū mai mei he Trello.",
   "import-timeout": "Naʻe fuoloa fau ʻa e hū mai pea naʻe taʻofi ia. Kātaki ʻo toe feinga; kapau ʻoku kei hoko, mahalo ʻoku lahi fau ʻa e papa pe ʻoku femoʻuekina ʻa e tauhiʻanga fakamatala.",
+  "import-too-large": "ʻOku lahi fau ʻa e faile ke hū mai he taimi pē taha. Vahevahe ia ki ha ngaahi faile siʻisiʻi ange, hangē ko e fakatatau ki he poloseki pe ko e ʻaho, pea fakahū mai taki taha.",
   "import-trello-zip-failed": "Naʻe ʻikai lava ʻa e hū mai ʻo e .zip.",
   "import-trello-zip-read-failed": "Naʻe ʻikai lava ʻo lau ʻa e .zip naʻe hiki hake.",
   "import-trello-zip-too-large": "ʻOku lahi fau ʻa e .zip ke hū mai.",

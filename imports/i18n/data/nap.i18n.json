@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importazione d' 'e tavule a 'o .zip, attendere…",
   "import-trello-failed": "Importazione da Trello nun riuscita.",
   "import-timeout": "L'importazione ha richiesto troppo tempo ed è stata interrotta. Riprova; se continua ad accadere, la tavula potrebbe essere troppo grande o il database occupato.",
+  "import-too-large": "'O file è troppo gruosso pe ll'importà tutto 'nzieme. Spartitelo int'a file cchiù piccerille, pe esempio pe pruggetto o pe data, e importate ognuno.",
   "import-trello-zip-failed": "Importazione d' 'o .zip nun riuscita.",
   "import-trello-zip-read-failed": "Nun s'è pututo leggere 'o .zip caricato.",
   "import-trello-zip-too-large": "Il .zip è troppo grande pe essere importato.",

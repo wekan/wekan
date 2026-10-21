@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "ምዱዳት ካብ .zip ይኣትዉ ኣለዉ፣ በጃኻ ተጸበ…",
   "import-trello-failed": "ካብ Trello ምእታው ፈሺሉ።",
   "import-timeout": "ምእታው ኣዝዩ ነዊሕ ግዜ ወሲዱ ደው ተባሂሉ። በጃኻ ደጊምካ ፈትን፤ ቀጺሉ እንተተፈጢሩ፣ ምዱድ ኣዝዩ ዓቢ ወይ ዳታቤዝ ትሑዝ ክኸውን ይኽእል።",
+  "import-too-large": "ፈይል ብሕድ ግዜ ለእተ ኣዝዩ ዓቢ ተ። ለምሳሌ ብፕሮጀክት ወይ ብዕለት ናብ ንኡሳን ፈይላት ፍለዩ፣ ወኩሉ ሐቴ ሐቴ እትዉ።",
   "import-trello-zip-failed": "ነቲ .zip ምእታው ፈሺሉ።",
   "import-trello-zip-read-failed": "እቲ ዝተሰቐለ .zip ክንበብ ኣይከኣለን።",
   "import-trello-zip-too-large": "እቲ .zip ንምእታው ኣዝዩ ገዚፍ እዩ።",

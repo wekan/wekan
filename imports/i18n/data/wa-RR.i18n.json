@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Nag-iimport hin mga board tikang ha .zip, alayon paghulat…",
   "import-trello-failed": "Napakyas an pag-import tikang ha Trello.",
   "import-timeout": "Nag-iha hinduro an pag-import ngan ginpaundang ini. Alayon utroha; kon padayon ini nga nahitatabo, bangin dako hinduro an board o okupado an database.",
+  "import-too-large": "Dako hinduro an file para i-import ha usa la nga higayon. Bahina ini ha mas gudti nga mga file, pananglitan sumala ha proyekto o sumala ha petsa, ngan i-import an kada usa.",
   "import-trello-zip-failed": "Napakyas an pag-import han .zip.",
   "import-trello-zip-read-failed": "Diri mabasa an gin-upload nga .zip.",
   "import-trello-zip-too-large": "Sobra kadaku an .zip basi ma-import.",

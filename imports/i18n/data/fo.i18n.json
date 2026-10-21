@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Innflytur talvur úr .zip, bíða…",
   "import-trello-failed": "Innflyting úr Trello miseydnaðist.",
   "import-timeout": "Innflytingin tók ov langa tíð og varð steðgað. Royn aftur; um tað heldur fram, kann talvan vera ov stór, ella dátugrunnurin kann vera upptikin.",
+  "import-too-large": "Fílan er ov stór at flyta inn í einum. Být hana sundur í smærri fílur, til dømis eftir verkætlan ella eftir dagfesting, og flyt hvørja inn sær.",
   "import-trello-zip-failed": "Innflyting av .zip miseydnaðist.",
   "import-trello-zip-read-failed": "Kundi ikki lesa uppløgdu .zip-fíluna.",
   "import-trello-zip-too-large": ".zip-fílan er ov stór at innflyta.",

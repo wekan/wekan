@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Wole kpekpeɖeŋuwo tsɔm vavã tso .zip, taflatse lala…",
   "import-trello-failed": "Nu tsɔtsɔ vavã tso Trello medze edzi o.",
   "import-timeout": "Nu tsɔtsɔ vavã xɔ ɣeyiɣi didi akpa ale wotu. Taflatse gbugbɔ kpɔ; ne egale edziedzi la, ɖewohĩ kpekpeɖeŋu la lolo akpa alo nyatakakadzraɖoƒe la le dɔ geɖe wɔm.",
+  "import-too-large": "Faɛl la lolo akpa be woatsɔe ade eme zi ɖeka. Mã eme wòanye faɛl suesuewo, abe dɔwɔwɔ alo ŋkeke nu ene, eye nàtsɔ wo dometɔ ɖesiaɖe ade eme.",
   "import-trello-zip-failed": ".zip tsɔtsɔ vavã medze edzi o.",
   "import-trello-zip-read-failed": "Mate ŋu axlẽ .zip si wotsɔ ɖe dzi la o.",
   "import-trello-zip-too-large": ".zip la lolo akpa be woatsɔe ava eme.",

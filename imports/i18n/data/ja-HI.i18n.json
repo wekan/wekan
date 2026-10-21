@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip からボードをインポートしています。しばらくお待ちください…",
   "import-trello-failed": "Trello からのインポートに失敗しました。",
   "import-timeout": "インポートに時間がかかりすぎたため停止しました。もう一度お試しください。繰り返す場合は、ボードが大きすぎるか、データベースが混み合っている可能性があります。",
+  "import-too-large": "ファイルが大きすぎるため、一度にインポートできません。プロジェクトごとや日付ごとなど、より小さなファイルに分割して、それぞれをインポートしてください。",
   "import-trello-zip-failed": ".zip のインポートに失敗しました。",
   "import-trello-zip-read-failed": "アップロードされた .zip を読み取れませんでした。",
   "import-trello-zip-too-large": ".zip が大きすぎてインポートできません。",

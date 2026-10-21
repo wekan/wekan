@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Manafatra solaitra avy amin'ny .zip, andraso azafady…",
   "import-trello-failed": "Tsy nahomby ny fanafarana avy amin'ny Trello.",
   "import-timeout": "Ela loatra ny fanafarana ka najanona. Andramo indray; raha mitohy izany, mety lehibe loatra ny solaitra na sahirana ny tahiry.",
+  "import-too-large": "Lehibe loatra ilay rakitra ka tsy azo afarana indray mandeha. Zarazarao ho rakitra kely kokoa izy, ohatra araka ny tetikasa na araka ny daty, ary afaro tsirairay.",
   "import-trello-zip-failed": "Tsy nahomby ny fanafarana .zip.",
   "import-trello-zip-read-failed": "Tsy voavaky ny .zip nakarina.",
   "import-trello-zip-too-large": "Lehibe loatra ny .zip ka tsy azo hafarana.",

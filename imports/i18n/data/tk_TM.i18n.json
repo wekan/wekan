@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip-den tagtalar import edilýär, garaşyň…",
   "import-trello-failed": "Trello-dan import etmek şowsuz boldy.",
   "import-timeout": "Import gaty uzak wagt aldy we saklandy. Täzeden synanyşyň; gaýtalanýan bolsa, tagta gaty uly bolup biler ýa-da maglumat bazasy meşguldyr.",
+  "import-too-large": "Faýl bir gezekde import etmek üçin gaty uly. Ony has kiçi faýllara bölüň, meselem, taslama ýa-da sene boýunça, we her birini aýratyn import ediň.",
   "import-trello-zip-failed": ".zip import etmek şowsuz boldy.",
   "import-trello-zip-read-failed": "Ýüklenen .zip okalyp bilmedi.",
   "import-trello-zip-too-large": ".zip import etmek üçin gaty uly.",

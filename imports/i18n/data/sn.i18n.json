@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importing mabhodhi kubva .zip, ndapota mira…",
   "import-trello-failed": "Importing kubva Trello failed.",
   "import-timeout": "pinza took too long uye yaiva stopped. Please try zvakare; if it keeps happening, the bhodhi anogona iva too large kana the database anogona iva busy.",
+  "import-too-large": "Faira yakakura zvakanyanya kuti ipinzwe kamwe chete. Iparadzanise kuita mafaira madiki, semuenzaniso nepurojekiti kana nezuva, wobva wapinza rimwe nerimwe.",
   "import-trello-zip-failed": "Kupinza .zip kwakundikana.",
   "import-trello-zip-read-failed": "Could kwete read the uploaded .zip.",
   "import-trello-zip-too-large": "The .zip iri too large ku pinza.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Impòrtowanié tôflów z .zip, proszã żdac…",
   "import-trello-failed": "Impòrt z Trello sã nie ùdôł.",
   "import-timeout": "Impòrt trwôł za długò i òstôł zatrzëmóny. Spróbùjë jesz rôz; jeżlë to sã pòwtôrzô, tôfla mòże bëc za wiôlgô abò baza pòdôwków mòże bëc zajãtô.",
+  "import-too-large": "Lopk je za wiôldżi, żebë gò naraz impòrtowac. Pòdzelëta gò na mniészé lopczi, na przëkłôd wedle projektu abò wedle datumù, ë impòrtujta kòżdi òsobno.",
   "import-trello-zip-failed": "Impòrt lopka .zip sã nie ùdôł.",
   "import-trello-zip-read-failed": "Nie dało sã òdczëtac wgrónégò lopka .zip.",
   "import-trello-zip-too-large": "Lopk .zip je za wiôldżi do impòrtu.",

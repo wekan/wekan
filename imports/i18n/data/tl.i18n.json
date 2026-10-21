@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importing pisaras mula sa .zip, please maghintay…",
   "import-trello-failed": "Importing mula sa Trello nabigo.",
   "import-timeout": "I-import took too long at ay stopped. Please try again; kung it keeps happening, the pisara may maging too malaki o the kalipunan ng datos may maging busy.",
+  "import-too-large": "Masyadong malaki ang file para i-import nang sabay-sabay. Hatiin ito sa mas maliliit na file, halimbawa ayon sa proyekto o ayon sa petsa, at i-import ang bawat isa.",
   "import-trello-zip-failed": "Importing the .zip nabigo.",
   "import-trello-zip-read-failed": "Could hindi basahin the nag-upload .zip.",
   "import-trello-zip-too-large": "The .zip ay too malaki sa i-import.",

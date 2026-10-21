@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importují se tabla ze souboru .zip, čekejte prosím…",
   "import-trello-failed": "Import z Trella selhal.",
   "import-timeout": "Import trval příliš dlouho a byl zastaven. Zkuste to znovu; pokud se to opakuje, tablo může být příliš velké nebo je databáze zaneprázdněná.",
+  "import-too-large": "Soubor je příliš velký na to, aby se dal importovat najednou. Rozdělte ho na menší soubory, například podle projektu nebo podle data, a importujte každý zvlášť.",
   "import-trello-zip-failed": "Import souboru .zip selhal.",
   "import-trello-zip-read-failed": "Nahraný soubor .zip nelze přečíst.",
   "import-trello-zip-too-large": "Soubor .zip je příliš velký pro import.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Mabodi akulowetsedwa kuchokera ku .zip, chonde dikirani…",
   "import-trello-failed": "Kulowetsa kuchokera ku Trello kwalephera.",
   "import-timeout": "Kulowetsa kwatenga nthawi yayitali kwambiri ndipo kwayimitsidwa. Chonde yesaninso; ngati zikupitiriza kuchitika, bolodi lingakhale lalikulu kwambiri kapena database ingakhale yotanganidwa.",
+  "import-too-large": "Fayiloyi ndi yayikulu kwambiri kuti ilowetsedwe nthawi imodzi. Igaweni m'mafayilo ang'onoang'ono, mwachitsanzo malinga ndi pulojekiti kapena tsiku, ndipo lowetsani iliyonse.",
   "import-trello-zip-failed": "Kulowetsa .zip kwalephera.",
   "import-trello-zip-read-failed": "Sitinatha kuwerenga .zip yomwe yakwezedwa.",
   "import-trello-zip-too-large": "Fayilo ya .zip ndi yaikulu kwambiri kuti ilowetsedwe.",

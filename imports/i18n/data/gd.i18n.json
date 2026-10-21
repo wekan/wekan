@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Bùird gan iom-phortadh bhon .zip, fuirich ort…",
   "import-trello-failed": "Dh'fhàillig iom-phortadh o Trello.",
   "import-timeout": "Thug an t-iom-phortadh ro fhada agus chaidh stad a chur air. Feuch a-rithist; ma thachras e fhathast, dh'fhaodadh am bòrd a bhith ro mhòr no am bun-stòr-dàta trang.",
+  "import-too-large": "Tha am faidhle ro mhòr airson a thoirt a-steach aig an aon àm. Roinn e na fhaidhlichean nas lugha, mar eisimpleir a rèir pròiseict no a rèir cinn-latha, agus thoir a-steach gach fear dhiubh.",
   "import-trello-zip-failed": "Dh'fhàillig iom-phortadh an .zip.",
   "import-trello-zip-read-failed": "Cha b' urrainn am faidhle .zip a chaidh a luchdadh suas a leughadh.",
   "import-trello-zip-too-large": "Tha an .zip ro mhòr airson iom-phortadh.",

@@ -753,6 +753,14 @@ template(name="boardMenuPopup")
              i.fa.fa-trash
         //
              | {{_ 'delete-duplicate-lists'}}
+        //- #6792: this board, copied into the user's Templates as a board
+          template (server/publications/boards.js saveBoardAsTemplate). Not
+          on a template board, which already is one.
+        unless currentBoard.isAnyTemplateBoard
+          li
+            a.js-save-board-as-template
+              i.fa.fa-clone
+              | {{_ 'save-card-as-template'}}
         li
           a.js-archive-board
             i.fa.fa-archive

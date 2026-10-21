@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "O enporzhiañ an taolennoù eus ar .zip, gortozit mar plij…",
   "import-trello-failed": "C'hwitet eo an enporzhiañ eus Trello.",
   "import-timeout": "Re bell eo bet an enporzhiañ hag ez eo bet paouezet. Klaskit en-dro; ma kendalc'h, marteze eo re vras an daolenn pe ez eo ac'hubet an diaz roadennoù.",
+  "import-too-large": "Re vras eo ar restr evit he enporzhiañ en un taol. Rannit anezhi e restroù bihanoc'h, da skouer dre raktres pe dre zeiziad, hag enporzhiit pep hini anezho.",
   "import-trello-zip-failed": "C'hwitet eo enporzhiañ ar .zip.",
   "import-trello-zip-read-failed": "N'haller ket lenn ar .zip pellgarget.",
   "import-trello-zip-too-large": "Re vras eo ar .zip evit bezañ enporzhiet.",

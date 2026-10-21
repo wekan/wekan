@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Mengimpor papan dari .zip, harap tunggu…",
   "import-trello-failed": "Impor dari Trello gagal.",
   "import-timeout": "Impor memakan waktu terlalu lama dan dihentikan. Coba lagi; jika terus terjadi, papan mungkin terlalu besar atau basis data sedang sibuk.",
+  "import-too-large": "Berkas terlalu besar untuk diimpor sekaligus. Pecah menjadi berkas-berkas yang lebih kecil, misalnya per proyek atau per tanggal, lalu impor masing-masing.",
   "import-trello-zip-failed": "Impor .zip gagal.",
   "import-trello-zip-read-failed": "Tidak dapat membaca .zip yang diunggah.",
   "import-trello-zip-too-large": ".zip terlalu besar untuk diimpor.",

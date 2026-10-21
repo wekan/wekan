@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importazzzioni dî bacheche dal .zip, attendere…",
   "import-trello-failed": "Importazzzioni da Trellu nnu riuscita.",
   "import-timeout": "L'importazzzioni ha richiesto troppo tempo ed è stata interrotta. Riprova; se continua ad accadere, la tàvula potrebbe èssiri troppo grande o lu database occupato.",
+  "import-too-large": "Lu file è troppu granni pi mpurtàrilu tuttu nzèmmula. Spàrtilu 'n file cchiù nichi, pi esempiu pi pruggettu o pi data, e mpòrta ognunu.",
   "import-trello-zip-failed": "Importazzzioni del .zip nnu riuscita.",
   "import-trello-zip-read-failed": "Impossibili leggere lu .zip carricato.",
   "import-trello-zip-too-large": "Lu .zip è troppo grande pi èssiri importato.",

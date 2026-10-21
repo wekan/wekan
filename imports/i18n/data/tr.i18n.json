@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip'ten panolar içe aktarılıyor, lütfen bekleyin…",
   "import-trello-failed": "Trello'dan içe aktarma başarısız oldu.",
   "import-timeout": "İçe aktarma çok uzun sürdü ve durduruldu. Lütfen tekrar deneyin; sürerse pano çok büyük olabilir veya veritabanı meşgul olabilir.",
+  "import-too-large": "Dosya bir kerede içe aktarılamayacak kadar büyük. Dosyayı daha küçük dosyalara bölün, örneğin projeye veya tarihe göre, ve her birini ayrı ayrı içe aktarın.",
   "import-trello-zip-failed": ".zip içe aktarma başarısız oldu.",
   "import-trello-zip-read-failed": "Yüklenen .zip okunamadı.",
   "import-trello-zip-too-large": ".zip içe aktarılamayacak kadar büyük.",

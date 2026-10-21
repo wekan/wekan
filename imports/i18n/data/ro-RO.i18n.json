@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Se importă panourile din .zip, te rugăm așteaptă…",
   "import-trello-failed": "Importul din Trello a eșuat.",
   "import-timeout": "Importul a durat prea mult și a fost oprit. Încercați din nou; dacă se repetă, panoul poate fi prea mare sau baza de date ocupată.",
+  "import-too-large": "Fișierul este prea mare pentru a fi importat dintr-o dată. Împărțiți-l în fișiere mai mici, de exemplu pe proiecte sau pe date, și importați-le pe rând.",
   "import-trello-zip-failed": "Importul .zip-ului a eșuat.",
   "import-trello-zip-read-failed": "Nu s-a putut citi .zip-ul încărcat.",
   "import-trello-zip-too-large": "Fișierul .zip este prea mare pentru a fi importat.",

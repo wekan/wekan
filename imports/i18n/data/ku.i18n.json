@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Depo ji .zip tên têxistin, ji kerema xwe bisekine…",
   "import-trello-failed": "Têxistina ji Trello bi ser neket.",
   "import-timeout": "Têxistin pir dirêj kir û hate rawestandin. Ji kerema xwe dîsa biceribîne; heke berdewam bike, dibe ku depo pir mezin be an danegeh mijûl be.",
+  "import-too-large": "Pel ji bo ku carekê were têxistin pir mezin e. Wê li pelên piçûktir parve bike, wek mînak li gorî projeyê an li gorî dîrokê, û her yekê bi serê xwe têxe.",
   "import-trello-zip-failed": "Têxistina .zip bi ser neket.",
   "import-trello-zip-read-failed": "Pela .zip ya barkirî nehat xwendin.",
   "import-trello-zip-too-large": ".zip ji bo têxistinê pir mezin e.",

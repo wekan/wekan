@@ -38,6 +38,18 @@ import each page as its own board with **Import many boards**. The older
 is read too. The file may also carry an `automationRules` array, which is
 imported as rules (see Format details).
 
+### Large exports
+
+A Jira issue carries some 250 values even without comments, most of them null
+custom fields, so a search export is large: 858 issues are about 5 MB. An
+import of that size used to fail ([#6792](https://github.com/wekan/wekan/issues/6792)):
+the import boundary refused documents over 250,000 values, and the import was
+stopped after two minutes whatever its size. The boundary now allows four
+million values, and the deadline is `WEKAN_IMPORT_TIMEOUT_MS` (default two
+minutes) plus half a second per issue. A file over the boundary is refused
+with "The file is too large to import at once" - split it into smaller
+searches, for example by project or by date, and import each one.
+
 ## How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several Jira JSON

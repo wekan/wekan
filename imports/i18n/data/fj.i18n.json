@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Sa vakacurumi tiko na vola mai na .zip, yalovinaka waraka…",
   "import-trello-failed": "Sega ni rawa na vakacurumi mai Trello.",
   "import-timeout": "Sa rui balavu na vakacurumi ka sa tarovi. Yalovinaka tovolea tale; kevaka e yaco tiko ga, de sa rui levu na vola se osooso na kato ni itukutuku.",
+  "import-too-large": "Sa rui levu na faile me vakacurumi vakadua. Wasea me so na faile lalai, me vaka ena cakacaka se ena tikinisiga, ka vakacuruma yadua.",
   "import-trello-zip-failed": "Sega ni rawa na vakacurumi ni .zip.",
   "import-trello-zip-read-failed": "Sega ni rawa ni wiliki na .zip sa vakavodoki.",
   "import-trello-zip-too-large": "Sa rui levu na .zip me vakacurumi.",

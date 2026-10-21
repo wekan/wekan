@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "S-importã tabelili dit .zip, ti pãlãcãrsescu ashteaptã…",
   "import-trello-failed": "Importul dit Trello nu ari suxes.",
   "import-timeout": "Importul tsãnu multu shi fu astãmãtsit. Ti pãlãcãrsescu, caftã diznou; ma s-fatsi tut ashi, tabela poati s-hibã multu mari i baza di dati poati s-hibã acãtsatã.",
+  "import-too-large": "Fishierlu easti multu mari ti s-lu importu di nãoarã. Imparti-lu tu fishieri ma ñits, bunãoarã dupã proiectu i dupã datã, shi importã-lu cathi unu.",
   "import-trello-zip-failed": "Importul a .zip-lui nu ari suxes.",
   "import-trello-zip-read-failed": "Nu s-putu s-ghivãseascã .zip-lu ãncãrcat.",
   "import-trello-zip-too-large": ".zip-lu easti multu mari ta s-hibã importat.",

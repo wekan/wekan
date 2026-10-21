@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": ".zip vo' raSmey qemlI'lu', yIloS…",
   "import-trello-failed": "Trello vo' qem lujpu'.",
   "import-timeout": "nItebHa'ghach ruQ 'ej mevlu'pu'. yIqaSqa'; qaSqa'chugh, raS tIn law' ghap De'wI' Qu' law'.",
+  "import-too-large": "tIn law' De'wI' ghItlh, vaj wa'logh nItebHa'moHlaHbe'. ghItlhmey mach DaSIjnIS, ngoQ pagh jaj DaghojmoHmeH, 'ej Hoch wa' nItebHa'moH.",
   "import-trello-zip-failed": ".zip qem lujpu'.",
   "import-trello-zip-read-failed": "noblu'pu'bogh .zip laDlaHbe'lu'.",
   "import-trello-zip-too-large": ".zip tInqu'; qemlaHbe'lu'.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Import des tableaux depuis le .zip, veuillez patienter…",
   "import-trello-failed": "L'import depuis Trello a échoué.",
   "import-timeout": "L'import a pris trop de temps et a été arrêté. Veuillez réessayer ; si cela persiste, le tableau est peut-être trop volumineux ou la base de données trop occupée.",
+  "import-too-large": "Le fichier est trop volumineux pour être importé en une seule fois. Divisez-le en fichiers plus petits, par exemple par projet ou par date, et importez-les un par un.",
   "import-trello-zip-failed": "L'import du .zip a échoué.",
   "import-trello-zip-read-failed": "Impossible de lire le .zip téléversé.",
   "import-trello-zip-too-large": "Le .zip est trop volumineux pour être importé.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Go tlišwa diboto go tšwa go .zip, hle ema…",
   "import-trello-failed": "Go tliša go tšwa Trello go paletšwe.",
   "import-timeout": "Go tliša go tšere nako e telele kudu gomme gwa emišwa. Hle leka gape; ge go tšwela pele, boto e ka ba e kgolo kudu goba polokelo ya data e ka ba e swaregile.",
+  "import-too-large": "Faele e kgolo kudu go ka tlišwa ka nako e tee. E arole ka difaele tše nnyane, mohlala ka projeke goba ka letšatšikgwedi, gomme o tliše e nngwe le e nngwe.",
   "import-trello-zip-failed": "Go tliša .zip go paletšwe.",
   "import-trello-zip-read-failed": "Faele ya .zip ye e laišitšwego ga se ya kgona go balwa.",
   "import-trello-zip-too-large": ".zip e kgolo kudu gore e tlišwe.",

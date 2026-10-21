@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importando quadros do arquivo .zip, aguarde…",
   "import-trello-failed": "A importação do Trello falhou.",
   "import-timeout": "A importação demorou demais e foi interrompida. Tente novamente; se continuar acontecendo, o quadro pode ser grande demais ou o banco de dados pode estar ocupado.",
+  "import-too-large": "O arquivo é grande demais para ser importado de uma só vez. Divida-o em arquivos menores, por exemplo por projeto ou por data, e importe cada um.",
   "import-trello-zip-failed": "A importação do arquivo .zip falhou.",
   "import-trello-zip-read-failed": "Não foi possível ler o arquivo .zip enviado.",
   "import-trello-zip-too-large": "O arquivo .zip é muito grande para ser importado.",

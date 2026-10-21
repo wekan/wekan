@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Kisim ol bot long .zip i kam insait, wet liklik…",
   "import-trello-failed": "Kisim i kam insait long Trello i no wok.",
   "import-timeout": "Wok bilong kisim i kam insait i kisim longpela taim tumas na i stop pinis. Traim gen; sapos dispela i kamap yet, ating bot i bikpela tumas o detabes i gat planti wok.",
+  "import-too-large": "Fail i bikpela tumas long kisim i kam insait long wanpela taim. Brukim long ol liklik fail, olsem long wanwan projek o long wanwan de, na kisim wanwan i kam insait.",
   "import-trello-zip-failed": "Kisim .zip i kam insait i no wok.",
   "import-trello-zip-read-failed": "I no inap ritim .zip yu salim i go antap.",
   "import-trello-zip-too-large": ".zip i bikpela tumas bilong kisim i kam insait.",

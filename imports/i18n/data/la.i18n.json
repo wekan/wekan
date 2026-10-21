@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Tabulae ex .zip importantur, quaeso exspecta…",
   "import-trello-failed": "Importatio ex Trello defecit.",
   "import-timeout": "Importatio nimis diu duravit et interclusa est. Quaeso rursus tempta; si hoc iterum accidit, tabula nimis magna esse potest aut repositorium datorum occupatum esse potest.",
+  "import-too-large": "Fasciculus nimis magnus est quam ut simul importetur. Divide eum in fasciculos minores, exempli gratia per inceptum aut per diem, et singulos importa.",
   "import-trello-zip-failed": "Importatio fasciculi .zip defecit.",
   "import-trello-zip-read-failed": "Fasciculus .zip immissus legi non potuit.",
   "import-trello-zip-too-large": "Fasciculus .zip nimis magnus est ut importetur.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Gabateewwan .zip keessaa galfamaa jiru, maaloo eegi…",
   "import-trello-failed": "Trello irraa galchuun hin milkoofne.",
   "import-timeout": "Galchi yeroo dheeraa fudhatee dhaabbate. Maaloo irra deebi'ii yaali; yoo itti fufe, gabateen baay'ee guddaa yookaan kuusaan daataa hojii irra jiraachuu danda'a.",
+  "import-too-large": "Faayilichi yeroo tokkotti galchuuf baay'ee guddaa dha. Faayilota xixiqqoo irratti qoodi, fakkeenyaaf pirojektii ykn guyyaa irratti hundaa'uun, tokkoon tokkoon isaanii galchi.",
   "import-trello-zip-failed": ".zip galchuun hin milkoofne.",
   "import-trello-zip-read-failed": ".zip olkaa'ame dubbisuu hin dandeenye.",
   "import-trello-zip-too-large": ".zip galchuuf baay'ee guddaadha.",

@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Tabaliw bɛ ladon ka bɔ .zip la, aw ye makɔnɔ…",
   "import-trello-failed": "Ladonni ka bɔ Trello la ma ɲɛ.",
   "import-timeout": "Ladonni mɛnna kojugu ka jɔ. Aw ye a lajɛ kokura; ni a bɛ to ka kɛ, tabali bɛ se ka bon kojugu walima datakurun bɛ baara caman na.",
+  "import-too-large": "Gafe in ka bon kojugu ka a ladon siñɛ kelen. A tila ka kɛ gafe fitininw ye, misali la ka kɛɲɛ ni baarabolo walima don ye, ka u kelen kelen bɛɛ ladon.",
   "import-trello-zip-failed": ".zip ladonni ma ɲɛ.",
   "import-trello-zip-read-failed": "A ma se ka .zip layɛlɛlen kalan.",
   "import-trello-zip-too-large": ".zip ka bon kojugu ka ladon.",

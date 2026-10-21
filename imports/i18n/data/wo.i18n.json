@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Ñungiy dugal tablo yi jóge ci .zip, xaaral ndax jërëjëf…",
   "import-trello-failed": "Dugal bi jóge ci Trello antuwul.",
   "import-timeout": "Duggu bi dafa yàgg lool, ñu taxaw ko. Jéemaat; su ko dee faral di am, tabax bi mën na réy lool walla base bi dafa bare liggéey.",
+  "import-too-large": "Fichier bi dafa réy lool ba duñu ko mën a dugal benn yoon. Xaajal ko ci ay fichier yu tuuti, ci misaal ci kow porose walla ci kow bés, te nga dugal bu ci nekk.",
   "import-trello-zip-failed": "Dugal .zip bi antuwul.",
   "import-trello-zip-read-failed": "Mënul jàng .zip bi ñu yeb.",
   "import-trello-zip-too-large": ".zip bi rey na lool ngir ñu ko dugal.",

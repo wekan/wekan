@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importing bordijiet minn .zip, please wait…",
   "import-trello-failed": "Importing minn Trello failed.",
   "import-timeout": "Importa took too long u was stopped. Jekk jogħġbok try again; if it keeps happening, il- bord may be too large jew il- database may be busy.",
+  "import-too-large": "Il-fajl huwa kbir wisq biex jiġi importat f'daqqa. Aqsmu f'fajls iżgħar, pereżempju skont il-proġett jew skont id-data, u importa kull wieħed.",
   "import-trello-zip-failed": "Importing il- .zip failed.",
   "import-trello-zip-read-failed": "Could mhux read il- uploaded .zip.",
   "import-trello-zip-too-large": "The .zip huwa too large għal import.",

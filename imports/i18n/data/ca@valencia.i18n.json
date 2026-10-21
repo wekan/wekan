@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "S'estan important taulers del .zip, espereu…",
   "import-trello-failed": "La importació des de Trello ha fallat.",
   "import-timeout": "La importació ha trigat massa i s'ha aturat. Torneu-ho a provar; si continua passant, el tauler pot ser massa gran o la base de dades pot estar ocupada.",
+  "import-too-large": "El fitxer és massa gran per a importar-lo d'una sola vegada. Dividiu-lo en fitxers més xicotets, per exemple per projecte o per data, i importeu-los un per un.",
   "import-trello-zip-failed": "La importació del .zip ha fallat.",
   "import-trello-zip-read-failed": "No s'ha pogut llegir el .zip pujat.",
   "import-trello-zip-too-large": "El .zip és massa gran per importar-lo.",

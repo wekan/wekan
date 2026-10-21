@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "正在從 .zip 匯入看板，請稍候……",
   "import-trello-failed": "從 Trello 匯入失敗。",
   "import-timeout": "匯入過程耗時過久，因此已被中斷。請重新嘗試；若此情況持續發生，可能是看板太大，或是資料庫正處於繁忙狀態。",
+  "import-too-large": "檔案過大，無法一次匯入。請將其拆分為較小的檔案，例如按專案或按日期拆分，然後逐一匯入。",
   "import-trello-zip-failed": "匯入 .zip 失敗。",
   "import-trello-zip-read-failed": "無法讀取上傳的 .zip。",
   "import-trello-zip-too-large": ".zip 太大，無法匯入。",

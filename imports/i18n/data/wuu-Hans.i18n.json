@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "勒从 .zip 导入看板，请等一歇…",
   "import-trello-failed": "从 Trello 导入失败仔。",
   "import-timeout": "导入用个辰光忒长，停脱仔。请再试一趟；假使一直搿能，可能是看板忒大或者数据库忙。",
+  "import-too-large": "文件忒大，一趟导入弗了。请拿伊拆成小一点个文件，比方讲按项目或者按日脚拆，再一个一个导入。",
   "import-trello-zip-failed": "导入 .zip 失败仔。",
   "import-trello-zip-read-failed": "读勿出上传个 .zip。",
   "import-trello-zip-too-large": ".zip 忒大，导入勿进。",

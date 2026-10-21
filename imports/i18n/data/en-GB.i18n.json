@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Importing boards from .zip, please wait…",
   "import-trello-failed": "Importing from Trello failed.",
   "import-timeout": "Import took too long and was stopped. Please try again; if it keeps happening, the board may be too large or the database may be busy.",
+  "import-too-large": "The file is too large to import at once. Split it into smaller files, for example by project or by date, and import each one.",
   "import-trello-zip-failed": "Importing the .zip failed.",
   "import-trello-zip-read-failed": "Could not read the uploaded .zip.",
   "import-trello-zip-too-large": "The .zip is too large to import.",

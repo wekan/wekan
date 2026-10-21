@@ -639,6 +639,19 @@ Template.boardMenuPopup.events({
       // You could add a toast notification here if available
     }
   }),
+  // #6792: Save as Template - the same words as the card's own action. A copy
+  // of this board becomes one of the user's board templates and opens.
+  async 'click .js-save-board-as-template'() {
+    const currentBoard = Utils.getCurrentBoard();
+    if (!currentBoard) return;
+    Popup.back();
+    try {
+      const template = await Meteor.callAsync('saveBoardAsTemplate', currentBoard._id);
+      FlowRouter.go('board', { id: template.boardId, slug: template.slug || 'board' });
+    } catch (err) {
+      alert(errorMessage(err));
+    }
+  },
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', async function() {
     const currentBoard = Utils.getCurrentBoard();
     try {

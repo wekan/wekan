@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Inaingiza bodi kutoka .zip, tafadhali subiri…",
   "import-trello-failed": "Kuingiza kutoka Trello kumeshindwa.",
   "import-timeout": "Uingizaji ulichukua muda mrefu mno na ukasimamishwa. Tafadhali jaribu tena; ikiendelea kutokea, ubao unaweza kuwa mkubwa mno au hifadhidata ina shughuli nyingi.",
+  "import-too-large": "Faili ni kubwa mno kuingizwa kwa mara moja. Igawanye katika faili ndogo zaidi, kwa mfano kwa mradi au kwa tarehe, na uingize kila moja.",
   "import-trello-zip-failed": "Kuingiza .zip kumeshindwa.",
   "import-trello-zip-read-failed": "Haikuweza kusoma .zip iliyopakiwa.",
   "import-trello-zip-too-large": ".zip ni kubwa mno kuingizwa.",

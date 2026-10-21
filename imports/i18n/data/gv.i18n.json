@@ -1001,6 +1001,7 @@
   "import-trello-zip-progress": "Cur boayrdyn stiagh veih .zip, fuirree beaghey…",
   "import-trello-failed": "Cha ren cur stiagh veih Trello speeideil.",
   "import-timeout": "Ren y cur stiagh goaill ro foddey as v'eh er ny scuirr. Prow reesht; my t'eh taghyrt kinjagh, foddee dy vel y boayrd ro vooar ny dy vel y stoor-fysseree tooilleil.",
+  "import-too-large": "Ta'n coadan ro vooar dy chur stiagh ec yn un traa. Rheynn eh ayns coadanyn ny s'beg, myr sampleyr rere obbyr ny rere date, as cur stiagh dagh fer.",
   "import-trello-zip-failed": "Cha ren cur stiagh yn .zip speeideil.",
   "import-trello-zip-read-failed": "Cha row eh abyl yn .zip laadit seose y lhaih.",
   "import-trello-zip-too-large": "Ta'n .zip ro vooar dy chur stiagh.",
