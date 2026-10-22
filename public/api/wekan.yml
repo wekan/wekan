@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.61
+  version: v12.62
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5935,6 +5935,12 @@ definitions:
         type: boolean
         x-nullable: true
       allowsWhiteboardOnCard:
+        type: boolean
+        x-nullable: true
+      allowsAttachmentPreviewsOnCard:
+        type: boolean
+        x-nullable: true
+      allowsAttachmentDetailsOnCard:
         type: boolean
         x-nullable: true
       allowsIssueTypeOnMinicard:
