@@ -107,6 +107,56 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** an opened card is **decluttered** - add buttons on their title's
+line, a compact attachment list with its upload rules in the upload popup, and
+two new **Show on Card** rows for attachment previews and details - and
+**Board Settings / Card** spreads into columns to fit the screen, with rows
+dragged by handle, icon or label. List moves no longer raise false
+**HistoryIntegrity** tampering reports.
+
+This release adds the following new features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c520ef382">A decluttered opened card, a compact attachment list, and Card Settings that fits the screen</a>. Thanks to mueschel and xet7.</summary>
+
+[#6796](https://github.com/wekan/wekan/issues/6796): an opened card gave most
+of its height to controls with nothing in them. A field's add button now sits
+on its title's line; Requested and Assigned By put their two buttons side by
+side; the checklist controls share a line. Attachments: the upload rules are in
+the upload popup instead of above every list, "+" is a small button, a file
+with nothing to preview gets a small file button, and the name has a line of
+its own. Two new Board Settings / Card / Show on Card rows, **Attachments:
+Preview** and **Attachments: Details**, are on by default.
+
+Board Settings / Card is a centred panel as wide (up to 1800px) and tall as
+the window, and each list spreads into as many columns as fit, read top to
+bottom: on 1920x1080 nothing scrolls. Its rows are dragged by the handle, the
+icon or the label with drag handles on, and by the icon or the label with them
+off; before, only the handle dragged, and only vertically. A Node test and a
+Playwright spec cover the layout, the new rows and every drag case.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76f9d41bf4">A list move with no swimlane no longer fails its own history checksum</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6797](https://github.com/wekan/wekan/issues/6797): Admin Panel / Problems /
+Security showed HistoryIntegrity (critical) 81,833 times. A list bound to no
+one swimlane has `swimlaneId: ''`; the legacy history append hashed the row
+with '' and stored it through collection2's default clean, which turned it into
+null, so every such move failed its own checksum. It now inserts as the
+stored-chain path does, and rows already stored that way verify - null for ''
+only in the id and label fields, so any real change still fails.
+`tests/historyEmptyStringChecksum.test.cjs` fails on the code before the fix.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.61 2026-10-22 WeKan ® release
 
 **In short:** WeKan's npm dependencies move to their newest versions, among
