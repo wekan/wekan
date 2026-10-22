@@ -19,6 +19,30 @@ const DATABASES = ['mongodb', 'sqlite', 'postgresql', 'mysql', 'mariadb', 'hana'
 // `act` is the thing WeKan can do BY ITSELF when it sees this - and only where
 // doing it is obviously right. Everything else is advice, because a database
 // that is out of disk is not something an application should "handle".
+const CONNECTION_LOST = /connection refused|ECONNREFUSED|server closed the connection|connection reset by peer|Topology is closed|no reachable servers|Socket '\w+' timed out|MongoNetworkTimeoutError|MongoNetworkError|Server selection timed out|MongoServerSelectionError|PoolClearedError|NotWritablePrimary|NotPrimaryNoSecondaryOk|NotPrimaryOrSecondary|not primary(?! key)/i;
+
+// The hosts of a MongoDB connection string - mongodb://user:pw@a:27017,b/db or
+// mongodb+srv://host/db - lower case, without ports.
+function databaseHostsOf(url) {
+  const match = /^mongodb(?:\+srv)?:\/\/(?:[^@/]*@)?([^/?#]+)/i.exec(String(url || '').trim());
+  if (!match) return [];
+  return match[1].split(',').map(part => part.replace(/:\d+$/, '').replace(/^\[|\]$/g, '').toLowerCase()).filter(Boolean);
+}
+
+// #6799: is the name in "getaddrinfo ENOTFOUND <name>" the database's? The
+// caller may say which hosts are the database's (options.databaseHosts);
+// otherwise MONGO_URL and MONGO_OPLOG_URL of this process say it.
+function unresolvedHostIsDatabase(message, options = {}) {
+  const found = /getaddrinfo (?:ENOTFOUND|EAI_AGAIN) ([^\s,'")]+)/i.exec(String(message || ''));
+  if (!found) return false;
+  const host = found[1].replace(/:\d+$/, '').toLowerCase();
+  const env = typeof process !== 'undefined' && process.env ? process.env : {};
+  const hosts = Array.isArray(options.databaseHosts)
+    ? options.databaseHosts.map(h => String(h).toLowerCase())
+    : [...databaseHostsOf(env.MONGO_URL), ...databaseHostsOf(env.MONGO_OPLOG_URL)];
+  return hosts.includes(host);
+}
+
 const RULES = [
   // ── WeKan's own bugs, arriving as database errors ─────────────────────────
   //
@@ -207,7 +231,12 @@ const RULES = [
     // server to select, a pool cleared after a network error, a primary that is
     // stepping down or not elected yet (a restart, a replica set being set up).
     // "not primary key" is SQL, not an election.
-    match: /connection refused|ECONNREFUSED|server closed the connection|connection reset by peer|Topology is closed|no reachable servers|Socket '\w+' timed out|MongoNetworkTimeoutError|MongoNetworkError|Server selection timed out|MongoServerSelectionError|PoolClearedError|NotWritablePrimary|NotPrimaryNoSecondaryOk|NotPrimaryOrSecondary|not primary(?! key)/i,
+    // #6799: and a name that does not resolve for the moment - a MongoDB pod
+    // restarting in Kubernetes takes its DNS record with it for a few seconds -
+    // but only the DATABASE's name (onlyIf below): a webhook or mail host that
+    // does not resolve is not a lost database connection.
+    match: new RegExp(`${CONNECTION_LOST.source}|getaddrinfo (?:ENOTFOUND|EAI_AGAIN)`, 'i'),
+    onlyIf: (message, options) => CONNECTION_LOST.test(message) || unresolvedHostIsDatabase(message, options),
     databases: DATABASES,
     severity: 'critical',
     kind: 'connection',
@@ -315,7 +344,8 @@ function classifyDatabaseError(error, options = {}) {
   const database = databaseOf(message, configured);
 
   const applies = rule => rule.match.test(message)
-    && (rule.databases.includes(database) || database === 'unknown');
+    && (rule.databases.includes(database) || database === 'unknown')
+    && (!rule.onlyIf || rule.onlyIf(message, options));
   for (const rule of RULES) {
     if (!applies(rule)) continue;
     // A more specific cause in the same message wins (see schema-validation).
@@ -365,4 +395,5 @@ function configuredDatabase(env = {}) {
 
 module.exports = {
   classifyDatabaseError, configuredDatabase, databaseOf, redactCredentials, DATABASES, RULES,
+  databaseHostsOf, unresolvedHostIsDatabase,
 };

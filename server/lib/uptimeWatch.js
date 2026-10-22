@@ -24,6 +24,7 @@
 import { Meteor } from 'meteor/meteor';
 import EventLog from '/models/eventLog';
 import { IntegrityKeys } from '/models/fileIntegrity';
+import { isTransientDatabaseError } from '/server/00processErrors';
 
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
@@ -193,7 +194,13 @@ if (Meteor.isServer) {
     // The cause, recorded before the process goes. Listeners are ADDED, never
     // replaced: removing whatever else is listening would change how the app
     // handles its own failures.
+    // #6799: not for a database that is momentarily unreachable - a MongoDB pod
+    // restarting, its name not resolving for a few seconds. server/
+    // 00processErrors.js keeps WeKan running through those and records them as
+    // database problems, so a "critical crash" for each was a crash that never
+    // happened: nine of them while WeKan reconnected by itself.
     process.on('uncaughtException', error => {
+      if (isTransientDatabaseError(error)) return;
       record({
         severity: 'critical',
         category: 'crash',
@@ -205,6 +212,7 @@ if (Meteor.isServer) {
     });
 
     process.on('unhandledRejection', reason => {
+      if (isTransientDatabaseError(reason)) return;
       record({
         severity: 'critical',
         category: 'crash',
