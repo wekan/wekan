@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import sprintf from 'i18next-sprintf-postprocessor';
 import languages from './languages';
 import { unwrapI18nModule } from './loadHelpers';
+const { normalizeLanguageTag } = require('./browserLanguage');
 // #6503: STATICALLY bundle the default English translations. Every other
 // language still loads lazily via `import('./data/<tag>.i18n.json')`, but the
 // default must never depend on a dynamic import: if dynamic import() is broken
@@ -119,10 +120,11 @@ export const TAPi18n = {
     // Case-insensitive AND underscore<->hyphen-insensitive, so a region/script tagged
     // language matches however the browser spells it (legacy 'af_ZA' vs browser 'af-ZA',
     // 'zh-hant' vs 'zh-Hant', 'JA-JP' vs 'ja-JP').
-    const norm = String(language).toLowerCase().replace(/_/g, '-');
+    // '@' too: the Valencian file is ca@valencia, its tag ca-valencia.
+    const norm = normalizeLanguageTag(language);
     for (const key of Object.keys(languages)) {
-      if (key.toLowerCase().replace(/_/g, '-') === norm ||
-          String(languages[key].tag).toLowerCase().replace(/_/g, '-') === norm) return key;
+      if (normalizeLanguageTag(key) === norm ||
+          normalizeLanguageTag(languages[key].tag) === norm) return key;
     }
     const alias = LANGUAGE_ALIASES[norm];
     if (alias && alias in languages) return alias;

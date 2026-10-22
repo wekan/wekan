@@ -5,11 +5,18 @@ const aliases = {
   'uz-arab': 'uz-AR', 'uz-latn': 'uz-LA', iw: 'he', ji: 'yi', in: 'id',
   no: 'nb', yue: 'yue_CN', wuu: 'wuu-Hans', 'zh-mo': 'zh-Hant',
 };
+// One spelling for comparing language tags: lower case, and '_' and '@' as
+// '-'. The Valencian file is ca@valencia.i18n.json while its registry tag is
+// 'ca-valencia', so a profile or a test that saved the file's own name
+// ('ca@valencia') resolved to nothing and the page stayed in English.
+function normalizeLanguageTag(tag) {
+  return String(tag).toLowerCase().replace(/[_@]/g, '-');
+}
 function matchBrowserLanguage(value, resolveTag) {
   if (typeof value !== 'string' || !value.trim()) return undefined;
   const original = resolveTag(value.trim());
   if (original) return original;
-  let candidate = value.trim().replace(/_/g, '-');
+  let candidate = value.trim().replace(/[_@]/g, '-');
   while (candidate) {
     const exact = resolveTag(candidate);
     if (exact) return exact;
@@ -30,4 +37,4 @@ function preferredLanguage(profileLanguage, navigatorInfo, resolveTag) {
   }
   return resolveTag('en') || 'en';
 }
-module.exports = { matchBrowserLanguage, preferredLanguage };
+module.exports = { matchBrowserLanguage, preferredLanguage, normalizeLanguageTag };

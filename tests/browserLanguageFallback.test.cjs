@@ -3,9 +3,10 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseLanguageMetadata } = require('./lib/languageRegistrySource.cjs');
-const { matchBrowserLanguage, preferredLanguage } = require('../imports/i18n/browserLanguage');
+const { matchBrowserLanguage, preferredLanguage, normalizeLanguageTag } = require('../imports/i18n/browserLanguage');
 const rows = parseLanguageMetadata(fs.readFileSync(path.join(__dirname, '../imports/i18n/languages.js'), 'utf8'));
-const normalize = tag => tag.toLowerCase().replace(/_/g, '-');
+// The same normalization imports/i18n/tap.js resolveTag uses, not a copy of it.
+const normalize = normalizeLanguageTag;
 const resolve = value => rows.find(row => row[2] === value)?.[2] || rows.find(row => normalize(row[2]) === normalize(value))?.[2];
 for (const row of rows) {
   assert.equal(matchBrowserLanguage(row[2], resolve), row[2]);
@@ -22,6 +23,18 @@ assert.equal(preferredLanguage('unsupported', {languages:['fr-CA']}, resolve), '
 assert.equal(preferredLanguage(undefined, {languages:['unsupported']}, resolve), 'en');
 assert.equal(preferredLanguage(undefined, {userLanguage:'fi-FI'}, resolve), 'fi');
 assert.equal(matchBrowserLanguage(null, resolve), undefined);
+// The Valencian file is ca@valencia.i18n.json and its registry tag ca-valencia:
+// a profile that saved the file's name resolves to the tag, not to English.
+assert.equal(normalizeLanguageTag('ca@valencia'), 'ca-valencia');
+assert.equal(matchBrowserLanguage('ca@valencia', resolve), 'ca-valencia');
+assert.equal(preferredLanguage('ca@valencia', {languages:['fr-CA']}, resolve), 'ca-valencia');
+// Every locale FILE name resolves to a registry language.
+for (const file of fs.readdirSync(path.join(__dirname, '../imports/i18n/data')).filter(f => f.endsWith('.i18n.json'))) {
+  const name = file.slice(0, -'.i18n.json'.length);
+  assert.ok(matchBrowserLanguage(name, resolve), `${file} has no registry language its name resolves to`);
+}
+// tap.js resolves through the same function.
+assert.match(fs.readFileSync(path.join(__dirname, '../imports/i18n/tap.js'), 'utf8'), /const norm = normalizeLanguageTag\(language\);/);
 assert.notEqual(matchBrowserLanguage('vep', resolve), 've');
 console.log(`browserLanguageFallback: ${rows.length} registry locales, standard aliases, ordered preferences and saved-profile precedence passed`);
 
