@@ -158,7 +158,7 @@ jobs:
 
       - name: Build and start in OpenBSD
         if: steps.node.outputs.skip != 'true' && matrix.os == 'openbsd'
-        uses: vmactions/openbsd-vm@5f7b2c933b8846a138361d6843c52af4bef5d945 # v1.4.8
+        uses: vmactions/openbsd-vm@f1ca8bc8ecc5b6ef7218e5b914836e067e1546d3 # v1.4.9
         with:
           release: ${{ matrix.release }}
           arch: ${{ matrix.vm_arch }}
