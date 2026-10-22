@@ -60,6 +60,19 @@ import { debounce } from '/imports/lib/collectionHelpers';
 const { SimpleSchema } = require('/imports/simpleSchema');
 const { formatCardKey } = require('/models/lib/boardKey');
 
+// #6800: a field's definition as it is NOW, not from ReactiveCache - a copy may
+// just have shared the field with the destination board (mapCustomFieldsToBoard)
+// and a cached definition would still lack that board. Lazy require: the custom
+// fields model imports this one.
+async function fieldDefinitionNow(fieldId) {
+  const CustomFields = require('/models/customFields').default;
+  const options = { fields: { boardIds: 1 } };
+  return typeof CustomFields.findOneAsync === 'function'
+    ? CustomFields.findOneAsync(fieldId, options)
+    : CustomFields.findOne(fieldId, options);
+}
+const { customFieldsForBoard } = require('/models/lib/customFieldsForBoard.cjs');
+
 // #1759: map a card's labels onto the board it moves or is copied to, creating
 // the missing ones there when the actor is that board's admin
 // (models/lib/crossBoardLabels.js).
@@ -1311,6 +1324,8 @@ Cards.helpers({
 
     if (copyOptions && !copyOptions.labels) cardData.labelIds = [];
     if (copyOptions && !copyOptions.attachments) delete cardData.coverId;
+    // #6800: only values of fields of the destination board.
+    cardData.customFields = await customFieldsForBoard(cardData.customFields, boardId, fieldDefinitionNow);
     const _id = await Cards.insertAsync(cardData);
 
     // #3392: record old->new id so a whole-board/swimlane copy can remap
@@ -1397,6 +1412,7 @@ Cards.helpers({
         listId,
         planning: subtask.boardId === this.boardId ? planning : null,
       });
+      copySubtask.customFields = await customFieldsForBoard(copySubtask.customFields, boardId, fieldDefinitionNow);
       const newSubtaskId = await Cards.insertAsync(copySubtask);
       // #3185: copy the subtask's checklists (and their items) too — previously
       // the subtask was inserted as a bare card, so it came out empty.
@@ -1424,6 +1440,8 @@ Cards.helpers({
     linkCard.swimlaneId = swimlaneId;
     linkCard.listId = listId;
     linkCard.type = 'cardType-linkedCard';
+    // #6800: only values of fields of `boardId`.
+    linkCard.customFields = await customFieldsForBoard(linkCard.customFields, boardId, fieldDefinitionNow);
     delete linkCard._id;
     delete linkCard.__id;
     // TODO shall we copy the labels for a linked card?!

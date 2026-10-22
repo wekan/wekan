@@ -36,7 +36,7 @@ const enTranslations = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 // --- 1. The existing linked-card primitive is still there, untouched -----
 assert.match(
   cardsModel,
-  /async link\(boardId, swimlaneId, listId\) \{[\s\S]{0,400}?type = 'cardType-linkedCard';[\s\S]{0,200}?return await Cards\.insertAsync\(linkCard\);\s*\},/,
+  /async link\(boardId, swimlaneId, listId\) \{[\s\S]{0,400}?type = 'cardType-linkedCard';[\s\S]{0,400}?return await Cards\.insertAsync\(linkCard\);\s*\},/,
   'Cards.helpers().link(boardId, swimlaneId, listId) must still create a cardType-linkedCard mirror',
 );
 

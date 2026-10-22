@@ -46,13 +46,18 @@ async function exercise({ sameBoard = false, cache = true, fail = false, withChi
   };
   // #3626: copy() finds the card's subtasks with the shared children selector.
   const { childrenSelector } = require('../models/lib/cardParents');
+  // #6800: copy() keeps only values of fields of the destination board; here
+  // every field the test copies is one.
+  const { customFieldsForBoard } = require('../models/lib/customFieldsForBoard.cjs');
+  const fieldDefinitionNow = async () => ({ boardIds: [boardId] });
   const copy = new Function('ReactiveCache', 'Cards', 'Meteor', 'crossBoardLabelIds', 'normalizeDependencies', 'require', 'childrenSelector',
+    'customFieldsForBoard', 'fieldDefinitionNow',
     `return ({${copyBody}}).copy;`)(ReactiveCache, Cards, { isServer: false }, crossBoardLabelIds, normalizeDependencies,
       specifier => {
         // The copy path now also delegates Scrum metadata to its pure helper.
         if (specifier === './lib/scrumCopy') return require('../models/lib/scrumCopy');
         assert.equal(specifier, './lib/subtaskCopy'); return { buildCopiedSubtaskFields };
-      }, childrenSelector);
+      }, childrenSelector, customFieldsForBoard, fieldDefinitionNow);
   if (fail) await assert.rejects(copy.call(original, boardId, 'new-swimlane', 'new-list', cardIdMap), /insert rejected/);
   else assert.equal(await copy.call(original, boardId, 'new-swimlane', 'new-list', cardIdMap), 'new-1');
   assert.equal(JSON.stringify(original), before, 'successful and rejected copies must preserve the source card');
@@ -76,11 +81,11 @@ await exercise({ fail: true });
 const map = {}; await exercise({ cardIdMap: map }); assert.equal(map.original, 'new-1');
 const linked = { _id: 'original', __id: 'original', boardId: 'source', title: 'Source', labelIds: ['label'] };
 const beforeLink = JSON.stringify(linked);
-const link = new Function('Cards', `return ({${linkBody}}).link;`)({ async insertAsync(document) {
+const link = new Function('Cards', 'customFieldsForBoard', 'fieldDefinitionNow', `return ({${linkBody}}).link;`)({ async insertAsync(document) {
   assert.equal(Object.hasOwn(document, '__id'), false); assert.equal(Object.hasOwn(document, '_id'), false);
   assert.equal(document.linkedId, 'original'); assert.equal(document.type, 'cardType-linkedCard');
   assert.equal(document.boardId, 'destination'); return 'linked';
-} });
+} }, require('../models/lib/customFieldsForBoard.cjs').customFieldsForBoard, async () => ({ boardIds: ['destination'] }));
 assert.equal(await link.call(linked, 'destination', 'swimlane', 'list'), 'linked');
 assert.equal(JSON.stringify(linked), beforeLink);
 console.log('card copy cache: 5 cases pass, including cross-board children, same-board copies, rejected inserts and linked cards');
