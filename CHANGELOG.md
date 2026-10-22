@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.59 2026-10-22 WeKan ® release
 
 **In short:** WeKan carries **Meteor 3.5.3's six security fixes** - DDP,
 allow/deny, dynamic import, Google and Facebook login, and meteor shell - on
