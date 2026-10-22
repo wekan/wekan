@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.63 2026-10-22 WeKan ® release
 
 **In short:** copying a card, linking it to another board or making one from a
 **card template** no longer fails when the card carries values of another
