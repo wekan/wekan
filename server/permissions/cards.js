@@ -94,15 +94,20 @@ export const canUpdateCard = async function(userId, doc, fields, modifier) {
   }
   // ReadOnly users cannot edit cards
   const board = await Boards.findOneAsync(doc.boardId);
-  if (await canEditCardOrLinkedCard(userId, doc, board)) return true;
+  // #6798: asked WITHOUT recording a denial first. A Worker has no write role,
+  // so the general check refuses - and a recorded refusal is a "blocked"
+  // security event (LinkedWriteBleed) naming the user, which disabled the
+  // account of every Worker who moved a card: the move then allowed below.
+  if (await canEditCardOrLinkedCard(userId, doc, board, { recordDenial: false })) return true;
   // #3189: a Worker, doing one of the two things a Worker is for. The client
   // already offers it - the assignee popup shows a Worker their own name and
   // nobody else's - and the write was being thrown away here, so the card sprang
   // back to its previous assignee in front of them.
-  if (board && board.hasWorker && board.hasWorker(userId)) {
-    return workerMayUpdateCard(userId, modifier);
+  if (board && board.hasWorker && board.hasWorker(userId) && workerMayUpdateCard(userId, modifier)) {
+    return true;
   }
-  return false;
+  // Refused after all: ask again, recording the denial as before.
+  return await canEditCardOrLinkedCard(userId, doc, board);
 };
 
 Cards.allow({

@@ -101,7 +101,12 @@ test('card edits: the canonical decision and its batch twin apply the card rule'
   // A card without its assignees is looked up, not treated as unassigned.
   assert.match(src, /const unknown = cards\.filter\(card => !Array\.isArray\(card\.assignees\) && card\._id\)/);
   // Every Cards.allow update goes through it.
-  assert.match(read('server/permissions/cards.js'), /if \(await canEditCardOrLinkedCard\(userId, doc, board\)\) return true;/);
+  // (#6798: first without recording - a Worker's allowed move must not be
+  // recorded as a refusal and disable the Worker - then, refused after all,
+  // recorded.)
+  const cardsPermission = read('server/permissions/cards.js');
+  assert.match(cardsPermission, /if \(await canEditCardOrLinkedCard\(userId, doc, board, \{ recordDenial: false \}\)\) return true;/);
+  assert.match(cardsPermission, /return await canEditCardOrLinkedCard\(userId, doc, board\);\n\};/);
 });
 
 test('each other per-card path applies the card rule', () => {

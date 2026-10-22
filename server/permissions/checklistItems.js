@@ -15,12 +15,19 @@ ChecklistItems.allow({
   // still CHECK/UNCHECK it - the same field-level carve-out workerCardWrite.js
   // gives a Worker on a card (see models/lib/workerChecklistItemToggle.js).
   async update(userId, doc, fieldNames, modifier) {
-    if (await canEditCardOrLinkedCard(userId, await Cards.findOneAsync(doc.cardId))) {
+    const card = await Cards.findOneAsync(doc.cardId);
+    // #6798: without recording first - a Worker checking an item is ALLOWED
+    // below, and a recorded refusal here disabled the Worker's account
+    // (server/permissions/cards.js canUpdateCard).
+    if (await canEditCardOrLinkedCard(userId, card, undefined, { recordDenial: false })) {
       return true;
     }
-    if (!workerMayToggleChecklistItem(userId, modifier)) return false;
-    const board = await Boards.findOneAsync(doc.boardId);
-    return !!(board && board.hasWorker(userId));
+    if (workerMayToggleChecklistItem(userId, modifier)) {
+      const board = await Boards.findOneAsync(doc.boardId);
+      if (board && board.hasWorker(userId)) return true;
+    }
+    // Refused after all: ask again, recording the denial as before.
+    return await canEditCardOrLinkedCard(userId, card);
   },
   async remove(userId, doc) {
     // ReadOnly users cannot delete checklist items

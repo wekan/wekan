@@ -38,7 +38,14 @@ const CATALOG = {
   'authn.cas-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.inactive': { category: 'authn', bleed: 'InactiveBleed', severity: 'critical', cwe: 'CWE-613' },
   'authz.subtask-deposit': { category: 'authz', bleed: 'SubtaskDepositBleed', severity: 'high', cwe: 'CWE-639' },
-  'authz.linked-write': { category: 'authz', bleed: 'LinkedWriteBleed', severity: 'high', cwe: 'CWE-863' },
+  // #6798: blocksAccount: false. This refusal also fires for a member of the
+  // card's OWN board whose role there (read-only, comment-only, Worker) does
+  // not write, linked card or not (server/lib/linkedCardPermission.js
+  // sourceRoleBlocksDelegation) - a screen still offering an edit after the
+  // role changed, a drag. That turned ordinary work into a disabled account:
+  // four accounts on one instance in three days. The write is still refused
+  // and recorded, as ssrf.webhook (#6782) is.
+  'authz.linked-write': { category: 'authz', bleed: 'LinkedWriteBleed', severity: 'high', cwe: 'CWE-863', blocksAccount: false },
   'authz.invitation-boards': { category: 'authz', bleed: 'InvitationBoardBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.invitation-profile': { category: 'authz', bleed: 'InviteProfileBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.rule-button': { category: 'authz', bleed: 'RuleButtonBleed', severity: 'high', cwe: 'CWE-639' },
