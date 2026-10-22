@@ -40,6 +40,7 @@ const REVIEWED = {
   'models/boards.js': "searchBoards/Swimlanes/Lists are called only by client templates: the viewer's own search; uniqueTitle escapes",
   'models/lib/cardSearch.js': "Board.searchCards is called only by client templates: the viewer's own search, in their browser",
   'models/lib/cardUrlAutolink.js': 'CARD_URL_RE.source is a constant regex',
+  'models/lib/databaseErrors.js': 'CONNECTION_LOST.source is a constant regex of the file (#6799)',
   'models/lib/customFieldStringTemplate.js': 'a user pattern by design; capped, and the server runs it under a time limit (templateRegexDos)',
   'models/lib/externalLinkRules.js': 'rule.source is built with externalLinkRuleEscape',
   'models/users.js': 'UserSearchIndex.search is called only by the client import mapping UI',
