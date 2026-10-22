@@ -9,6 +9,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { isMeteorPackageFork } = require('./lib/meteorPackageForks.cjs');
 const { parse } = require('@babel/parser');
 const { AREAS, OTHER, areaOf, summarizeByArea } = require('../models/lib/instrumentationAreas.js');
 
@@ -25,6 +26,8 @@ function operationNames() {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       if (['_build', 'node_modules', '.npm', 'tests'].includes(e.name)) continue;
       const rel = path.join(dir, e.name);
+      // Meteor's own packages, with their own test methods, are not WeKan's.
+      if (isMeteorPackageFork(rel)) continue;
       if (e.isDirectory()) walk(rel);
       else if (rel.endsWith('.js')) {
         const src = read(rel);

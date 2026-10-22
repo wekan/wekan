@@ -1,0 +1,201 @@
+Facebook = {};
+import crypto from 'crypto';
+import { Accounts } from 'meteor/accounts-base';
+
+// WeKan: tell the application about a refused attempt, so it shows in Admin
+// Panel / Problems. server/lib/meteorSecurityHook.js sets the hook; reporting
+// must never change what this package decides, so every error is swallowed.
+const reportToWekan = (event) => {
+  try {
+    const hook = globalThis.__wekanSecurityRecord;
+    if (typeof hook === 'function') hook(event);
+  } catch (e) { /* reporting must never break the guard */ }
+};
+
+const API_VERSION = Meteor.settings?.public?.packages?.['facebook-oauth']?.apiVersion || '22.0';
+
+Facebook.handleAuthFromAccessToken = async (accessToken, expiresAt) => {
+  // include basic fields from facebook
+  // https://developers.facebook.com/docs/facebook-login/permissions/
+  const whitelisted = ['id', 'email', 'name', 'first_name', 'last_name',
+    'middle_name', 'name_format', 'picture', 'short_name'];
+
+  const identity = await getIdentity(accessToken, whitelisted);
+
+  const fields = {};
+  whitelisted.forEach(field => fields[field] = identity[field]);
+  const serviceData = {
+    accessToken,
+    expiresAt,
+    ...fields,
+  };
+
+  return {
+    serviceData,
+    options: {profile: {name: identity.name}}
+  };
+};
+
+const verifyTokenApp = async (accessToken) => {
+  const config = await ServiceConfiguration.configurations.findOneAsync({
+    service: 'facebook',
+  });
+  if (!config) throw new ServiceConfiguration.ConfigError();
+
+  const appToken = `${config.appId}|${OAuth.openSecret(config.secret)}`;
+  // Network and parse errors can carry the request URL, which holds the app
+  // secret, so they are replaced instead of being logged.
+  let response;
+  try {
+    response = await OAuth._fetch(
+      `https://graph.facebook.com/v${API_VERSION}/debug_token`,
+      'GET',
+      { queryParams: { input_token: accessToken, access_token: appToken } }
+    ).then(res => res.json());
+  } catch (e) {
+    throw new Meteor.Error(403, 'Failed to verify Facebook access token');
+  }
+
+  // Fail closed: the token must be valid AND minted for this exact app.
+  // debug_token returns app_id as a string, while config.appId may be stored
+  // as a Number (e.g. an unquoted value in settings.json), so compare as
+  // strings to avoid rejecting every legitimate login on such deployments.
+  if (!response?.data?.is_valid ||
+      String(response?.data?.app_id) !== String(config.appId)) {
+    reportToWekan({
+      key: 'authn.oauth-token-audience',
+      action: 'blocked',
+      source: 'facebook-oauth',
+      detail: 'Facebook token not valid, or for another application',
+    });
+    throw new Meteor.Error(403, 'Facebook access token was not issued for this application');
+  }
+};
+
+Accounts.registerLoginHandler(async request => {
+  if (request.facebookSignIn !== true) {
+    return;
+  }
+  await verifyTokenApp(request.accessToken);
+  const facebookData = await Facebook.handleAuthFromAccessToken(request.accessToken, (+new Date) + (1000 * request.expirationTime));
+  if (!facebookData) return;
+  // Fail closed if the identity lookup did not resolve to a Facebook user id,
+  // so a token that passes verification but whose /me lookup silently failed
+  // cannot proceed to log in as an unintended (id: undefined) account.
+  if (!facebookData.serviceData?.id) {
+    throw new Meteor.Error(403, 'Facebook access token did not resolve to a valid user');
+  }
+  return Accounts.updateOrCreateUserFromExternalService('facebook', facebookData.serviceData, facebookData.options);
+});
+
+OAuth.registerService('facebook', 2, null, async query => {
+  const response = await getTokenResponse(query);
+  const { accessToken } = response;
+  const { expiresIn } = response;
+
+  return Facebook.handleAuthFromAccessToken(accessToken, (+new Date) + (1000 * expiresIn));
+});
+
+function getAbsoluteUrlOptions(query) {
+  const overrideRootUrlFromStateRedirectUrl = Meteor.settings?.packages?.['facebook-oauth']?.overrideRootUrlFromStateRedirectUrl;
+  if (!overrideRootUrlFromStateRedirectUrl) {
+    return undefined;
+  }
+  try {
+    const state = OAuth._stateFromQuery(query) || {};
+    const redirectUrl = new URL(state.redirectUrl);
+    return {
+      rootUrl: redirectUrl.origin,
+    };
+  } catch (e) {
+    console.error(
+      `Failed to complete OAuth handshake with Facebook because it was not able to obtain the redirect url from the state and you are using overrideRootUrlFromStateRedirectUrl.`, e
+    );
+    return undefined;
+  }
+}
+
+/**
+ * @typedef {Object} UserAccessToken
+ * @property {string} accessToken - User access Token
+ * @property {number} expiresIn - lifetime of token in seconds
+ */
+/**
+ * @async
+ * @function getTokenResponse
+ * @param {Object} query - An object with the code.
+ * @returns {Promise<UserAccessToken>} - Promise with an Object containing the accessToken and expiresIn (lifetime of token in seconds)
+ */
+const getTokenResponse = async (query) => {
+  const config = await ServiceConfiguration.configurations.findOneAsync({
+    service: 'facebook',
+  });
+  if (!config) throw new ServiceConfiguration.ConfigError();
+
+  const absoluteUrlOptions = getAbsoluteUrlOptions(query);
+  const redirectUri = OAuth._redirectUri('facebook', config, undefined, absoluteUrlOptions);
+
+  return OAuth._fetch(
+    `https://graph.facebook.com/v${API_VERSION}/oauth/access_token`,
+    'GET',
+    {
+      queryParams: {
+        client_id: config.appId,
+        redirect_uri: redirectUri,
+        client_secret: OAuth.openSecret(config.secret),
+        code: query.code,
+      },
+    }
+  )
+    .then((res) => res.json())
+    .then(data => {
+      const fbAccessToken = data.access_token;
+      const fbExpires = data.expires_in;
+      if (!fbAccessToken) {
+        throw new Error("Failed to complete OAuth handshake with facebook " +
+          `-- can't find access token in HTTP response. ${data}`);
+      }
+      return {
+        accessToken: fbAccessToken,
+        expiresIn: fbExpires
+      };
+    })
+    .catch((err) => {
+      throw Object.assign(
+        new Error(
+          `Failed to complete OAuth handshake with Facebook. ${err.message}`
+        ),
+        { response: err.response }
+      );
+    });
+};
+
+const getIdentity = async (accessToken, fields) => {
+  const config = await ServiceConfiguration.configurations.findOneAsync({
+    service: 'facebook',
+  });
+  if (!config) throw new ServiceConfiguration.ConfigError();
+
+  // Generate app secret proof that is a sha256 hash of the app access token, with the app secret as the key
+  // https://developers.facebook.com/docs/graph-api/securing-requests#appsecret_proof
+  const hmac = crypto.createHmac('sha256', OAuth.openSecret(config.secret));
+  hmac.update(accessToken);
+
+  return OAuth._fetch(`https://graph.facebook.com/v${API_VERSION}/me`, 'GET', {
+    queryParams: {
+      access_token: accessToken,
+      appsecret_proof: hmac.digest('hex'),
+      fields: fields.join(','),
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      throw Object.assign(
+        new Error(`Failed to fetch identity from Facebook. ${err.message}`),
+        { response: err.response }
+      );
+    });
+};
+
+Facebook.retrieveCredential = (credentialToken, credentialSecret) =>
+  OAuth.retrieveCredential(credentialToken, credentialSecret);

@@ -17,6 +17,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { isMeteorPackageFork } = require('./lib/meteorPackageForks.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const TOPS = ['client', 'server', 'models', 'imports', 'packages', 'config'];
@@ -30,6 +31,9 @@ function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (SKIP.has(e.name)) continue;
     const full = path.join(dir, e.name);
+    // Meteor's own packages subscribe in their own tests to what those tests
+    // publish; they are not WeKan's subscriptions.
+    if (isMeteorPackageFork(path.relative(ROOT, full))) continue;
     if (e.isDirectory()) walk(full, out);
     else if (/\.(js|jade)$/.test(e.name)) out.push(full);
   }

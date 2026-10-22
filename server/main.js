@@ -35,6 +35,11 @@
   }
 }
 
+// 0c. The Meteor 3.5.3 security fixes in packages/ (allow-deny, ddp-server,
+//     dynamic-import, google-oauth, facebook-oauth) report refused attempts to
+//     Admin Panel / Problems through this hook. Before the first connection.
+require('/server/lib/meteorSecurityHook').installMeteorSecurityHook();
+
 // 1. Helpers polyfill (server no-op for .helpers())
 require('/imports/collectionHelpers');
 

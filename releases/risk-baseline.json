@@ -7226,6 +7226,345 @@
         "https://spirateam.com/SpiraTeam/{identifier"
       ],
       "keywords": {}
+    },
+    "packages/allow-deny/allow-deny-tests.js": {
+      "sha256": "b2cb48af8d0e3ce7909cf8614a943c902dee9a071445d14c3028f1c7bfbd0b98",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/allow-deny/allow-deny.d.ts": {
+      "sha256": "4416578b05f4b80eff33dff7f699cba9ffc7f6925f01d09c82037625450812c7",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/allow-deny/allow-deny.js": {
+      "sha256": "94c86ed2ce0f33e2ced16ea6ae7ec72633634d83f03eda3d396164ec4616d9ca",
+      "urls": [
+        "http://docs.mongodb.org/manual/reference/operators/#update",
+        "https://docs.mongodb.com/drivers/node/current/whats-new/#bulkwriteerror---mongobulkwriteerror",
+        "https://github.com/meteor/meteor/issues/8947"
+      ],
+      "keywords": {}
+    },
+    "packages/allow-deny/allow-deny.test-d.ts": {
+      "sha256": "b2d70f71d9fd1484c689a245de743d5314102c579bbfe852e3292762c0be4f87",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/allow-deny/package.js": {
+      "sha256": "604250b8f972dccf76ead99b8e1f37a0e79300523e3b45929d0b55f72a3c4dbd",
+      "urls": [
+        "https://github.com/meteor/meteor"
+      ],
+      "keywords": {}
+    },
+    "packages/ddp-server/.npm/package/npm-shrinkwrap.json": {
+      "sha256": "d47ca80b8196ea7cc371e85d9b1c03e7053ddaf6d1d38c072b8d7c4ac7ce488a",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/crossbar.js": {
+      "sha256": "f4c715085949a4aa1df47f14157bc8092daeec033610e4522d4d1dc2bb952557",
+      "urls": [
+        "https://github.com/meteor/meteor/pull/3697"
+      ],
+      "keywords": {}
+    },
+    "packages/ddp-server/crossbar_tests.js": {
+      "sha256": "06c8bc92cdf5a2a3dfe7e45caf66b7aec67bc9300cc11b06362b8b77f83ec2e9",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/ddp-server.d.ts": {
+      "sha256": "9baaff35306cfeecf68a2452c73ad1e6a6711ea8a54a4513bc3d5f04a1ef492a",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/ddp-server.test-d.ts": {
+      "sha256": "a5550c67d56c91bd281d85caacd9b484f73c0f8d3e3900dea1ef332ccec0427e",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/dummy_document_view.ts": {
+      "sha256": "a4bb6d2f9c0f64ae8db0e2474fc52e0fe897fb34a6128c972442575fa298ef35",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/livedata_server.js": {
+      "sha256": "7599bed634b6bf3d7ae93a2d4d61ca8d66530b489d8d012bfee5f4e156429bd0",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/livedata_server_async_tests.js": {
+      "sha256": "7d9eb5726ed849edba6f42b5852a026d63839046fd14a6064a1e802101d1a3da",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/livedata_server_tests.js": {
+      "sha256": "86a9163086c0c414fde68a47761f13047fd07e8e3684553eaa853c6e5e1c427e",
+      "urls": [
+        "https://github.com/meteor/meteor/issues/13212"
+      ],
+      "keywords": {}
+    },
+    "packages/ddp-server/package.js": {
+      "sha256": "b99a674e968891174a8da68e401aeecfe6c35510a545a59d4fabe78a35d07489",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/raw_websocket_tests.js": {
+      "sha256": "dd601d0cab169d89371a1dbf6dd3841798af568568c71c833b35949efe3418ff",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/server_convenience.js": {
+      "sha256": "78950d8501d518b71503f94161bcabcf8e215dcc931e6c36e0724704522b962a",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/session_collection_view.ts": {
+      "sha256": "eddb7a193eb025e98ae647fb10a7d9841b8f1225cd34e38fba473f59e468ab89",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/session_document_view.ts": {
+      "sha256": "0c5f7a9e2f149750e2d167d164801b860767eb73ba03d99ef67e91a145f572ae",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/session_view_tests.js": {
+      "sha256": "8e9e16fc8d1c337b338f91fd12d256f94b42d5186be58426cd6ef55734a9e956",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/stream_server.js": {
+      "sha256": "795a0c67fb32900f65286f7a7a6369ecf5e7a18ae940a4063b3898627faea2ce",
+      "urls": [
+        "https://github.com/faye/permessage-deflate-node/blob/master/README.md",
+        "https://github.com/meteor/meteor/issues/10468",
+        "https://github.com/meteor/meteor/issues/3452",
+        "https://github.com/sockjs/sockjs-node/issues/121"
+      ],
+      "keywords": {}
+    },
+    "packages/ddp-server/transports/index.js": {
+      "sha256": "6b8a55ee29098c546b5be1af70c840cc0bff671e88df299a425bcad8fbabe033",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/transports/raw_connection.js": {
+      "sha256": "f01abf05dbaeebffedf60ca41881a502850fe494eaf36da16ffe9d31f308d6f0",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/transports/sockjs.js": {
+      "sha256": "10b9aa990b0bbad6b277699472663173c16b10522fa1afefecc3fec470511ff8",
+      "urls": [
+        "http://localhost",
+        "https://github.com/meteor/meteor/issues/8317",
+        "https://github.com/sockjs/sockjs-node/blob/cf820c55af6a9953e16558555a31decea554f70e/src/utils.coffee"
+      ],
+      "keywords": {}
+    },
+    "packages/ddp-server/transports/sockjs_tests.js": {
+      "sha256": "f39e38f05b662ca5bf7161ba8f31eb34cf411c1e79e2e2f1a874cdf2b668f0af",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/transports/uws.js": {
+      "sha256": "6d70727f58ac549e1b91f93e9391f6b00578a2e30a1e679af00830cb73e780c1",
+      "urls": [
+        "http://localhost"
+      ],
+      "keywords": {}
+    },
+    "packages/ddp-server/transports/uws_tests.js": {
+      "sha256": "1e502f05b032b3e9c489c9b0a3147fac1faa285079fb383ae2597c3e2c74771b",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/ddp-server/writefence.js": {
+      "sha256": "6b4874abcd8f1d686735af374865eba33d0fe78aee3d831ad0598b4dd3589813",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/cache.js": {
+      "sha256": "80a8581083cf59b72d55fa574b5d3815e1cc3fb7724666a39e3371170d9284ca",
+      "urls": [
+        "https://github.com/meteor/meteor/issues/8697"
+      ],
+      "keywords": {}
+    },
+    "packages/dynamic-import/client.js": {
+      "sha256": "ba9b92a7a9ca26e02ed182f46c18bfd6591458b70973c019e5408955b56d1fd7",
+      "urls": [
+        "https://bugs.webkit.org/show_bug.cgi?id=226547"
+      ],
+      "keywords": {}
+    },
+    "packages/dynamic-import/common.js": {
+      "sha256": "40a8bbad17609d7a88ca948d668768ef8374f54cfee05b3912744b28fe469df6",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/dynamic-versions.js": {
+      "sha256": "36f0c333bbc9f1f5b2330d3bd48dca205e0205abd2ed314c991e0724b7db5376",
+      "urls": [
+        "https://github.com/meteor/meteor/pull/9103"
+      ],
+      "keywords": {}
+    },
+    "packages/dynamic-import/package.js": {
+      "sha256": "11a45ae22d3662c61cc95bf570c18094e88821f0808b64969c790a7fdce77a9f",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/request-batches-tests.js": {
+      "sha256": "a3e2b4c55326079ec821c2b1030e5a6b14bdad290133ae712297ac01e37c898c",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/request-batches.js": {
+      "sha256": "965c605a3a0896ba672d4fdafcba5fc27c1bfc9393d6e1cef0848252d5ec6c01",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/request-limits.js": {
+      "sha256": "f8bb4e18757664eb1564531461d186c83986cb4919bd0dbeefb4c6bcfe4000f3",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/security.js": {
+      "sha256": "2e29f023e648d0ed92f42c446636145cd49b34749112d73dd2b2f050b28f533d",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/dynamic-import/server.js": {
+      "sha256": "6fb4a8bcc1d9363eb77cbb72994c2779627f302aad854fb1caf622c4adc82b10",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/facebook-oauth/facebook-oauth.d.ts": {
+      "sha256": "efe90af6331bb54dc0d7745712f61a06d770ef1062229b6e641632f6725e345f",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/facebook-oauth/facebook-oauth.test-d.ts": {
+      "sha256": "1f301ac60ef93aa56da23d37474f5e1f8091818c39d94eecf7c669a6bea4dcbb",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/facebook-oauth/facebook-oauth_tests.js": {
+      "sha256": "4a46ab352b622b1c1dcd7ff9d136a63ca401a4d17dbefd36652fa8cefcd436c7",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/facebook-oauth/facebook_client.js": {
+      "sha256": "a8163ce237c8dd58ed78a3ab2cc0a38881689629f23c6cf8f245395f6268ce07",
+      "urls": [
+        "https://www.facebook.com/v${API_VERSION"
+      ],
+      "keywords": {}
+    },
+    "packages/facebook-oauth/facebook_server.js": {
+      "sha256": "5bae7bed8e8887694b2094396036a5039658855a4ffe64448ab786549deab9ed",
+      "urls": [
+        "https://developers.facebook.com/docs/facebook-login/permissions/",
+        "https://developers.facebook.com/docs/graph-api/securing-requests#appsecret_proof",
+        "https://graph.facebook.com/v${API_VERSION"
+      ],
+      "keywords": {}
+    },
+    "packages/facebook-oauth/package.js": {
+      "sha256": "db665f4c30a65ada55662832750c38ed1db7e49a23aa6097734cee7e307516c2",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/google-oauth/google-oauth.d.ts": {
+      "sha256": "40ed20884c000758441068d5222867350860dc7af469663a2776cf3ddec4ad1a",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/google-oauth/google-oauth.test-d.ts": {
+      "sha256": "ee952a36986c0ad1ded9db5f1e3b3f785e12f7f0b0d34b3da504f0f9924713bb",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/google-oauth/google-oauth_tests.js": {
+      "sha256": "c1a1b3fefbcb447b7579226da27be67182351c218106051fa86351232e0dc253",
+      "urls": [
+        "https://accounts.google.com",
+        "https://evil.example",
+        "https://oauth2.googleapis.com/tokeninfo"
+      ],
+      "keywords": {}
+    },
+    "packages/google-oauth/google_client.js": {
+      "sha256": "15cfd0c677987cb714b2855f95b2028932298f7810f4eb96b46b938c8a40cefb",
+      "urls": [
+        "https://accounts.google.com/o/oauth2/auth?",
+        "https://developers.google.com/accounts/docs/OAuth2WebServer#formingtheurl"
+      ],
+      "keywords": {}
+    },
+    "packages/google-oauth/google_server.js": {
+      "sha256": "f619b5d1174de97708b83abe6a6116eab0f562881d336befe36910e017a29549",
+      "urls": [
+        "https://accounts.google.com",
+        "https://accounts.google.com/o/oauth2/token",
+        "https://developers.google.com/accounts/docs/OAuth2Login#userinfocall",
+        "https://oauth2.googleapis.com/tokeninfo",
+        "https://www.googleapis.com/oauth2/v1/tokeninfo",
+        "https://www.googleapis.com/oauth2/v1/tokeninfo?${content.toString(",
+        "https://www.googleapis.com/oauth2/v1/userinfo?${content.toString("
+      ],
+      "keywords": {}
+    },
+    "packages/google-oauth/google_sign-in.js": {
+      "sha256": "a280fb217b3c8b24b176d082753495bcba5785f3e74f54a3b991d241a563e947",
+      "urls": [
+        "https://github.com/meteor/meteor/issues/8253"
+      ],
+      "keywords": {}
+    },
+    "packages/google-oauth/namespace.js": {
+      "sha256": "f5e2d4f249133b3bb115a76fe58b3c723b7620a670a78faad3f2deb4d9786266",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/google-oauth/package.js": {
+      "sha256": "bffb6c9dd444151ace016e5eaf145092f0fabee4ac2b634bd17395f94a00fa32",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/shell-server/main.js": {
+      "sha256": "bcb732d5309d47090f6242dfe28500dcc54a70bcc5352b6be1a6b3c8a061186b",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/shell-server/package.js": {
+      "sha256": "a22a11f34f8c946a91181d43f9778ef87e6537e2cbdc3c7311043350cf78173f",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/shell-server/shell-server.d.ts": {
+      "sha256": "3430d8fb119e5110cdb8e41984cdfb8f7fcd09b8400c17c856493c50147c5bd9",
+      "urls": [],
+      "keywords": {}
+    },
+    "packages/shell-server/shell-server.js": {
+      "sha256": "3aed2347fa8d4c7127c9539a171ff5a8875859b09ae3a24a8279b6e41e5d8427",
+      "urls": [
+        "https://git.io/vbvAB",
+        "https://git.io/vbvbl",
+        "https://github.com/meteor/meteor/commit/2443d832265c7d1c"
+      ],
+      "keywords": {}
+    },
+    "packages/shell-server/shell-server.test-d.ts": {
+      "sha256": "3b7ba54c08f2b9c249818ca798bc744ec41353da5eee083701ed8933444fab8d",
+      "urls": [],
+      "keywords": {}
     }
   }
 }

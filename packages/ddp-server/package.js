@@ -1,0 +1,94 @@
+Package.describe({
+  summary: "Meteor's latency-compensated distributed data server",
+  version: '3.4.1-rc360.0_1',
+  documentation: null,
+});
+
+// WeKan fork of Meteor 3.6-rc.0's ddp-server with the Meteor 3.5.3 security
+// fixes. uWebSockets.js is left out: Meteor's own published 3.4.1-rc360.0
+// isopack carries no copy of it either, it is only loaded for the opt-in
+// "uws" transport, and it would be fetched from a git URL at build time.
+Npm.depends({
+  "permessage-deflate2": "0.1.8",
+  sockjs: "0.3.24",
+  "lodash.once": "4.1.1",
+  "lodash.isempty": "4.4.0",
+  "lodash.isstring": "4.0.1",
+  "lodash.isobject": "3.0.2"
+});
+
+Package.onUse(function (api) {
+  api.use(
+    [
+      "check",
+      "random",
+      "ejson",
+      "retry",
+      "mongo-id",
+      "diff-sequence",
+      "ecmascript",
+      "typescript",
+    ],
+    "server"
+  );
+
+  // common functionality
+  api.use("ddp-common", "server"); // heartbeat
+  api.use("ddp-rate-limiter", "server", { weak: true });
+  api.use("instrumentation", "server", { weak: true });
+  // Transport
+  api.use("ddp-client", "server");
+  api.imply("ddp-client");
+
+  api.use(["webapp", "routepolicy"], "server");
+
+  // Detect whether or not the user wants us to audit argument checks.
+  api.use(["audit-argument-checks"], "server", { weak: true });
+
+  // Allow us to detect 'autopublish', so we can print a warning if the user
+  // runs Meteor.publish while it's loaded.
+  api.use("autopublish", "server", { weak: true });
+
+  // If the facts package is loaded, publish some statistics.
+  api.use("facts-base", "server", { unordered: true });
+
+  api.use("callback-hook", "server");
+  api.export("DDPServer", "server");
+
+  api.types("ddp-server.d.ts");
+
+  api.addFiles("transports/raw_connection.js", "server");
+  api.addFiles("transports/sockjs.js", "server");
+  api.addFiles("transports/uws.js", "server");
+  api.addFiles("transports/index.js", "server");
+  api.addFiles("stream_server.js", "server");
+
+  api.addFiles("livedata_server.js", "server");
+  api.addFiles("writefence.js", "server");
+  api.addFiles("crossbar.js", "server");
+
+  api.addFiles("server_convenience.js", "server");
+});
+
+Package.onTest(function (api) {
+  api.use("ecmascript", ["client", "server"]);
+  api.use("ejson", ["client", "server"]);
+  api.use("livedata", ["client", "server"]);
+  api.use("mongo", ["client", "server"]);
+  api.use("test-helpers", ["client", "server"]);
+  api.use([
+    "tinytest",
+    "random",
+    "tracker",
+    "minimongo",
+    "reactive-var",
+  ]);
+
+  api.addFiles("livedata_server_tests.js", "server");
+  api.addFiles("livedata_server_async_tests.js", "server");
+  api.addFiles("session_view_tests.js", ["server"]);
+  api.addFiles("crossbar_tests.js", ["server"]);
+  api.addFiles("raw_websocket_tests.js", "server");
+  api.addFiles("transports/uws_tests.js", "server");
+  api.addFiles("transports/sockjs_tests.js", "server");
+});

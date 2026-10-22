@@ -9,6 +9,23 @@
 // so both the server ESM code and the tests/*.test.cjs guards can load it.
 
 const CATALOG = {
+  // Meteor 3.5.3's security fixes, carried by WeKan's forks of Meteor's own
+  // packages (packages/) until a Meteor 3.6 release has them. None of them is
+  // a WeKan hall-of-fame entry, and none blocks an account: each fires before,
+  // or without, a trusted user (models/lib/meteorSecurityEvent.cjs).
+  // A DDP message named '__proto__', 'toString' or not a string crashed the
+  // server; no DDP client sends one.
+  'dos.ddp-protocol-handler': { category: 'dos', bleed: 'Meteor DDP', severity: 'high', cwe: 'CWE-20', blocksAccount: false },
+  // A top-level '__proto__' in an update was left out of the field list the
+  // allow/deny validators saw; no WeKan client writes one.
+  'authz.allow-deny-proto-field': { category: 'authz', bleed: 'Meteor allow-deny', severity: 'high', cwe: 'CWE-863', blocksAccount: false },
+  // A dynamic import() request that is not JSON or exceeds its depth, node,
+  // key or path limits. Meteor generates these, so it is not ordinary use; an
+  // oversized one is not recorded, because an old open client may send it.
+  'dos.dynamic-import-request': { category: 'dos', bleed: 'Meteor dynamic-import', severity: 'medium', cwe: 'CWE-400', blocksAccount: false },
+  // A Google or Facebook access token minted for another application (or a
+  // Google ID token of another user) offered to the direct-token login.
+  'authn.oauth-token-audience': { category: 'authn', bleed: 'Meteor OAuth', severity: 'critical', cwe: 'CWE-287', blocksAccount: false },
   'authz.card-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
   'authz.board-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
   'authz.admin-only-field': { category: 'authz', bleed: 'AdminFieldBleed', severity: 'high', cwe: 'CWE-863' },
