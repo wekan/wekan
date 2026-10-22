@@ -107,6 +107,35 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** copying a card, linking it to another board or making one from a
+**card template** no longer fails when the card carries values of another
+board's **custom fields**, and no longer records AdminFieldBleed against the
+user who tried.
+
+This release fixes the following bugs:
+
+**Custom fields** - which values a card brings to the board it is copied or
+linked to.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63ebdb9072">Copying or linking a card carries only the custom field values of its new board</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6800](https://github.com/wekan/wekan/issues/6800): a card made from a card
+template, linked from another board or copied - and each subtask copied with it
+- took its whole customFields array along: values of another board's fields,
+of deleted fields, and entries with no field id. The admin-only field guard
+could not match those to a field of the new board, refused the whole card and
+recorded AdminFieldBleed against the user. Copy, subtask copy and link now keep
+only values of fields defined on the destination board; an admin-only value of
+that board is kept, so the guard still decides it.
+`tests/copyForeignCustomFields.test.cjs` fails on the code before the fix.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.62 2026-10-22 WeKan ® release
 
 **In short:** an opened card is **decluttered** - add buttons on their title's
