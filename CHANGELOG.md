@@ -110,9 +110,13 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** **release recovery** no longer stops on a passing GitHub API
-error, so the missing builds of a release still get built.
+error, so the missing builds of a release still get built, and **Cancel
+workflow** is kept able to stop every release workflow.
 
-This release has the following release-tooling fix:
+This release has the following release-tooling fixes:
+
+**Release workflows** - how a release run recovers from GitHub errors, and how
+it stops when cancelled.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e304e1948a">Release recovery waits out GitHub API errors instead of dying on one</a>. Thanks to xet7.</summary>
@@ -125,6 +129,19 @@ attempt instead of reading the old attempt's failure, and stops only on the
 rerun's own conclusion. `tests/retryFailedRelease.test.py` pins the 502, a
 failed rerun, a lasting outage and the stale attempt, and that `gh run watch`
 is gone.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94e1749977">Every workflow's jobs that run after a cancel end on their own</a>. Thanks to xet7.</summary>
+
+Cancel workflow does not cancel a job whose `if:` is still true, and
+`always()` is true in a cancelled run. `tests/releaseCancelSafeJobs.test.cjs`
+checked only `release-all.yml`; it now fails on a job on `always()` in any
+workflow that is a reusable-workflow call or has no timeout of 60 minutes or
+less. Every such job today is a short report and is bounded. node-patches had
+eleven five-hour resume stages called this way, and Cancel workflow did not
+stop them.
 
 </details>
 
