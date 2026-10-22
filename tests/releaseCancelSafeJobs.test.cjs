@@ -136,6 +136,31 @@ test('NO other job is guarded with always(), so Cancel stops the run (negative)'
     offenders.map(l => '  ' + l.trim()).join('\n'));
 });
 
+test('in EVERY workflow, a job that runs after a cancel ends on its own (negative)', () => {
+  // A job on always() is not cancelled by Cancel workflow and still starts if
+  // it has not, so it has to stop by itself: a timeout of 60 minutes or less,
+  // and never a reusable-workflow call, which can have no timeout at all.
+  // node-patches had eleven five-hour openbsd-arm64 resume stages called as
+  // reusable workflows on always(), and Cancel workflow did not stop them.
+  const dir = path.join(repoRoot, '.github/workflows');
+  const bad = [];
+  for (const file of fs.readdirSync(dir).filter(f => /\.ya?ml$/.test(f)).sort()) {
+    const text = fs.readFileSync(path.join(dir, file), 'utf8');
+    const at = text.search(/^jobs:\n/m);
+    if (at === -1) continue;
+    for (const part of text.slice(at).split(/^(?=  [A-Za-z0-9_-]+:\s*$)/m)) {
+      const head = part.match(/^  ([A-Za-z0-9_-]+):/);
+      const cond = part.match(/^ {4}if:\s*(.+)$/m);
+      if (!head || !cond || !/\balways\(\)/.test(cond[1])) continue;
+      if (/^ {4}uses:/m.test(part)) { bad.push(`${file}: ${head[1]} (reusable workflow)`); continue; }
+      const to = part.match(/^ {4}timeout-minutes:\s*(\d+)/m);
+      if (!to || Number(to[1]) > 60) bad.push(`${file}: ${head[1]} (no timeout-minutes of 60 or less)`);
+    }
+  }
+  assert.deepStrictEqual(bad, [],
+    'these jobs run on always(), so Cancel cannot stop them, and nothing else does:\n  ' + bad.join('\n  '));
+});
+
 test('every job has a timeout, so no job needs a human to cancel it', () => {
   // This is the other half of dropping always(). A job stuck on a retired runner
   // label used to sit for hours until somebody cancelled it by hand, and THAT
