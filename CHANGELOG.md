@@ -107,6 +107,80 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** WeKan's npm dependencies move to their newest versions, among
+them **Blockly 13.4**, whose new toolbox search is translated into every
+language, and **imapflow**, **mailparser**, **pdfjs-dist** and
+**isomorphic-git**, which now have tests that run them the way WeKan does. The
+**core26 snap** gets the Caddy part the main snap already had, and a language
+saved as **ca@valencia** shows Valencian.
+
+This release updates the following dependencies:
+
+- [The small npm updates](https://github.com/wekan/wekan/commit/8a00898252):
+  `@aws-sdk/*` 3.1155.0, `@fastify/busboy` 3.2.4, `@tweedegolf/sab-adapter-*`,
+  `blockly` 13.4.0, `dompurify` 3.4.17, `file-type` 22.2.0, `filesize`
+  11.0.28, `i18next` 26.5.4, `meteor-node-stubs` 1.2.32, `wasmagic` 1.0.12,
+  and for development `@rspack/core` 2.2.9, `@typescript-eslint/*` 8.72.0 and
+  `puppeteer` 25.15.0. Thanks to xet7.
+- [imapflow 2.8.0, mailparser 3.12.2, pdfjs-dist 6.4.299, isomorphic-git
+  1.44.3 and pretty-ms 10](https://github.com/wekan/wekan/commit/189adaee52),
+  each with a test that runs it as WeKan does: the IMAP poller against
+  WeKan's fake IMAP server, attachment text search on a PDF, and the GitHub
+  wiki import's history reading. Thanks to xet7.
+- [vmactions/openbsd-vm 1.4.9 and actions/setup-node v7.1.0](https://github.com/wekan/wekan/commit/92001bcfd9);
+  the BSD bundles are still built on OpenBSD 7.8. Thanks to xet7.
+
+and fixes the following bugs:
+
+**Snap** - the Caddy reverse proxy part of the core26 snap.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ad5999bc7">The core26 snap gets the fixed Caddy part, and both snaps fall back to Caddy 2.11.7</a>. Thanks to xet7.</summary>
+
+`snapcraft-core26.yaml` still had the Caddy part `snapcraft.yaml` had before
+v10.71: the version from `api.github.com`, whose 403 to a busy CI runner ended
+the part under pipefail before its 2.8.4 fallback ran; a plain curl with no
+retry; and a default Caddyfile that proxied to port 3000, where WeKan does not
+listen when Caddy is on. Both snaps build from `snap-src`, so core26 now has
+the main snap's part, and both pin 2.11.7 as the fallback.
+`tests/releaseSnapArches.test.cjs` read `snapcraft.yaml` only, which is how
+the copy was missed; it now checks every `snapcraft*.yaml` and the
+Caddyfile's port.
+
+</details>
+
+**Languages** - which language a saved setting selects.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a37160bc8">A language saved as ca@valencia shows Valencian, not English</a>. Thanks to xet7.</summary>
+
+The Valencian file is `ca@valencia.i18n.json` but its registry tag is
+`ca-valencia`, and the resolver treated only `_` as `-`, so a profile saved
+as the file's name stayed in English. Both resolvers now compare through one
+`normalizeLanguageTag`, and `tests/browserLanguageFallback.test.cjs` requires
+every locale file name to resolve to a registry language.
+
+</details>
+
+and has the following translation updates:
+
+**Blockly toolbox search** - the five texts Blockly 13.4 adds, in every
+language.
+
+**Languages updated:** 230 languages.
+
+- [Toolbox search, in every locale](https://github.com/wekan/wekan/commit/8a00898252),
+  written from each file's own words for "block" and "search", with `%1`
+  kept. Corrected while there: Polish "Szukaj blokad" (search for
+  blockades) from Blockly's catalog, a stray "(1)" in Arabic, English mixed
+  into Odia's "no results", and Telugu's literal `null` that the importer
+  had replaced. The commit lists the languages translated with low
+  confidence, for a speaker to correct. Thanks to translators and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.60 2026-10-22 WeKan ® release
 
 **In short:** **sanitize-html 2.18.1** fixes a stack overflow that nested
