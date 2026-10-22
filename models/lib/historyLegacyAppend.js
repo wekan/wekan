@@ -50,13 +50,23 @@ async function historyChainTip(history, boardId) {
  *   prepare   optional: the document as saved, made at its turn (createdAt)
  * Resolves to what insertAsync resolves to.
  */
+// #6797: the row is stored exactly as it was hashed. collection2 cleans an
+// insert by default - an empty string is removed, then the schema's
+// defaultValue null fills it - so a list moved with `swimlaneId: ''` (a list
+// bound to no one swimlane) was hashed with "" and stored with null, and failed
+// its own checksum at every audit: a critical HistoryIntegrity
+// "checksum-mismatch" in Admin Panel / Problems / Security for every such move.
+// The stored-chain path (server/lib/storedHistoryChain.js) inserts with the
+// same options; this, the legacy path, did not.
+const HISTORY_INSERT_OPTIONS = Object.freeze({ removeEmptyStrings: false, trimStrings: false });
+
 function appendLegacyHistoryRow({ history, boardId, document, hash, prepare = doc => doc }) {
   return serializeHistoryAppend(boardId, async () => {
     const previous = await historyChainTip(history, boardId);
     const saved = { ...prepare(document), previousHash: previous ? previous.integrityHash : null };
     saved.integrityHash = hash(saved);
-    return history.insertAsync(saved);
+    return history.insertAsync(saved, HISTORY_INSERT_OPTIONS);
   });
 }
 
-module.exports = { serializeHistoryAppend, historyChainTip, appendLegacyHistoryRow, MAX_TIP_STEPS };
+module.exports = { serializeHistoryAppend, historyChainTip, appendLegacyHistoryRow, MAX_TIP_STEPS, HISTORY_INSERT_OPTIONS };

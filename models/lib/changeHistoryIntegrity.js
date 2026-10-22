@@ -143,10 +143,33 @@ function legacyUndefinedVariant(row) {
   return sha256(canonical({ ...protectedHistory(row), previousContent: filledBefore, newContent: filledAfter }));
 }
 
+// #6797: rows the legacy append stored through collection2's default clean
+// (models/lib/historyLegacyAppend.js before HISTORY_INSERT_OPTIONS): a field
+// hashed as '' was stored as null (the empty string removed, then the schema's
+// defaultValue). Re-hashing with '' in place of that null reproduces what was
+// hashed. Only null <-> '' is accepted, and only in these id and label fields -
+// neither value is content and neither names anything - so a field that held
+// any value, or any other change, still fails.
+const CLEANED_EMPTY_FIELDS = ['boardId', 'swimlaneId', 'listId', 'cardId', 'group', 'batchId',
+  'restoredFromId', 'restoredByUserId'];
+function cleanedEmptyStringMatches(row) {
+  const nulls = CLEANED_EMPTY_FIELDS.filter(key => row[key] === null || row[key] === undefined);
+  // Every subset, because a field that really was null stays null: at most
+  // 2^8 hashes, and only for a row that has already failed the ordinary check.
+  for (let mask = 1; mask < (1 << nulls.length); mask += 1) {
+    const variant = { ...row };
+    nulls.forEach((key, i) => { if (mask & (1 << i)) variant[key] = ''; });
+    if (hashHistoryRow(variant) === row.integrityHash) return true;
+    if (legacyUndefinedVariant(variant) === row.integrityHash) return true;
+  }
+  return false;
+}
+
 function rowHashIsValid(row) {
   if (!row || !/^[a-f0-9]{64}$/.test(row.integrityHash || '')) return false;
   if (hashHistoryRow(row) === row.integrityHash) return true;
-  return legacyUndefinedVariant(row) === row.integrityHash;
+  if (legacyUndefinedVariant(row) === row.integrityHash) return true;
+  return cleanedEmptyStringMatches(row);
 }
 
 function verifyHistoryRows(rows) {
