@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.61 2026-10-22 WeKan ® release
 
 **In short:** WeKan's npm dependencies move to their newest versions, among
 them **Blockly 13.4**, whose new toolbox search is translated into every
