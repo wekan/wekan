@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akhaunthu iyi i dzhena nga SQRL fhedzi.",
   "sqrl-hardlock": "Akhaunthu iyi yo hadzimelwa kha SQRL: a i koni u wanulusiwa kana u shandukiswa nga iṅwe nḓila.",
   "windows-sso-sign-in": "Dzhenani nga Windows",
-  "windows-sso-failed": "U dzhena nga Windows a zwo ngo konadzea. Akhaunthu yaṋu ya Windows i nga kha ḓi sa tendelwi fhano."
+  "windows-sso-failed": "U dzhena nga Windows a zwo ngo konadzea. Akhaunthu yaṋu ya Windows i nga kha ḓi sa tendelwi fhano.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "A hu na bulogo dzi tshimbilelanaho dzo wanalaho",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Ṱoḓa bulogo",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Thaiphani u ṱoḓa bulogo",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bulogo dzi tshimbilelanaho: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bulogo nthihi i tshimbilelanaho"
 }

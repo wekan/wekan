@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kontu honek SQRL bidez soilik hasten du saioa.",
   "sqrl-hardlock": "Kontu hau SQRLra blokeatuta dago: ezin da beste inola berreskuratu edo aldatu.",
   "windows-sso-sign-in": "Hasi saioa Windows bidez",
-  "windows-sso-failed": "Windows bidezko saio-hasierak huts egin du. Baliteke zure Windows kontua hemen baimenduta ez egotea."
+  "windows-sso-failed": "Windows bidezko saio-hasierak huts egin du. Baliteke zure Windows kontua hemen baimenduta ez egotea.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ez da bat datorren blokerik aurkitu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bilatu blokeak",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Idatzi blokeak bilatzeko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bat datozen %1 bloke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bat datorren bloke 1"
 }

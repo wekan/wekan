@@ -4673,5 +4673,10 @@
   "sqrl-only": "Bu hasaba diňe SQRL bilen girilýär.",
   "sqrl-hardlock": "Bu hasap SQRL-e gulplanan: ony başga hiç bir ýol bilen dikeltmek ýa-da üýtgetmek bolmaýar.",
   "windows-sso-sign-in": "Windows bilen gir",
-  "windows-sso-failed": "Windows bilen girmek şowsuz boldy. Windows hasabyňyza bu ýerde rugsat berilmedik bolmagy mümkin."
+  "windows-sso-failed": "Windows bilen girmek şowsuz boldy. Windows hasabyňyza bu ýerde rugsat berilmedik bolmagy mümkin.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Gabat gelýän bloklar tapylmady",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bloklary gözle",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bloklary gözlemek üçin ýazyň",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 gabat gelýän blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 gabat gelýän blok"
 }

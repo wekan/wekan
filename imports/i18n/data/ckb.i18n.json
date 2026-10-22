@@ -4673,5 +4673,10 @@
   "sqrl-only": "ئەم هەژمارە تەنها بە SQRL دەچێتە ژوورەوە.",
   "sqrl-hardlock": "ئەم هەژمارە بە SQRL قوفڵ کراوە: بە هیچ ڕێگایەکی تر ناگەڕێنرێتەوە و ناگۆڕدرێت.",
   "windows-sso-sign-in": "چوونەژوورەوە بە Windows",
-  "windows-sso-failed": "چوونەژوورەوە بە Windows سەرنەکەوت. لەوانەیە هەژماری Windowsـەکەت لێرە ڕێگەپێدراو نەبێت."
+  "windows-sso-failed": "چوونەژوورەوە بە Windows سەرنەکەوت. لەوانەیە هەژماری Windowsـەکەت لێرە ڕێگەپێدراو نەبێت.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "هیچ بلۆکێکی هاوتا نەدۆزرایەوە",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "گەڕان بۆ بلۆکەکان",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "بنووسە بۆ گەڕان بەدوای بلۆکەکاندا",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 بلۆکی هاوتا",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 بلۆکی هاوتا"
 }

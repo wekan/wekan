@@ -4673,5 +4673,10 @@
   "sqrl-only": "ይህ መለያ የሚገባው በSQRL ብቻ ነው።",
   "sqrl-hardlock": "ይህ መለያ ለSQRL ተቆልፏል፦ በሌላ በማንኛውም መንገድ መመለስ ወይም መቀየር አይቻልም።",
   "windows-sso-sign-in": "በWindows ይግቡ",
-  "windows-sso-failed": "በWindows መግባት አልተሳካም። የWindows መለያዎ እዚህ ላይፈቀድ ይችላል።"
+  "windows-sso-failed": "በWindows መግባት አልተሳካም። የWindows መለያዎ እዚህ ላይፈቀድ ይችላል።",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "የሚዛመድ ብሎክ አልተገኘም",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ብሎኮችን ፈልግ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ብሎኮችን ለመፈለግ ይተይቡ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 የሚዛመዱ ብሎኮች",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 የሚዛመድ ብሎክ"
 }

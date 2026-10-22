@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akɔnta sia gea eme kple SQRL ko.",
   "sqrl-hardlock": "Wotu akɔnta sia ɖe SQRL ŋu: womate ŋu agbugbɔe ava alo atrɔe le mɔ bubu aɖeke nu o.",
   "windows-sso-sign-in": "Ge ɖe eme kple Windows",
-  "windows-sso-failed": "Gege ɖe eme kple Windows medze edzi o. Ðewohĩ womeɖe mɔ na wò Windows akɔnta le afii o."
+  "windows-sso-failed": "Gege ɖe eme kple Windows medze edzi o. Ðewohĩ womeɖe mɔ na wò Windows akɔnta le afii o.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Womekpɔ blɔk aɖeke si sɔ o",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Di blɔkwo",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ŋlɔ nu nàdi blɔkwo",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Blɔk %1 siwo sɔ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Blɔk 1 si sɔ"
 }

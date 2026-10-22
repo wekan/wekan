@@ -4673,5 +4673,10 @@
   "sqrl-only": "Stu cuntu trasi sulu cu SQRL.",
   "sqrl-hardlock": "Stu cuntu è bluccatu a SQRL: nun si pò ricupirari o canciari pi nudda autra manera.",
   "windows-sso-sign-in": "Trasi cu Windows",
-  "windows-sso-failed": "L'accessu cu Windows nun arriniscìu. Forsi lu to cuntu Windows nun è pirmittutu ccà."
+  "windows-sso-failed": "L'accessu cu Windows nun arriniscìu. Forsi lu to cuntu Windows nun è pirmittutu ccà.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nuddu bloccu currispunnenti truvatu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Circari blocchi",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrivi pi circari blocchi",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocchi currispunnenti",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloccu currispunnenti"
 }

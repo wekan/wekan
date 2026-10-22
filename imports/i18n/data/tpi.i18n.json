@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dispela akaun i save go insait long SQRL tasol.",
   "sqrl-hardlock": "Dispela akaun i lok long SQRL: yu no inap kisim bek o senisim long narapela rot.",
   "windows-sso-sign-in": "Go insait wantaim Windows",
-  "windows-sso-failed": "Go insait wantaim Windows i no wok. Ating Windows akaun bilong yu i no gat tok orait long hia."
+  "windows-sso-failed": "Go insait wantaim Windows i no wok. Ating Windows akaun bilong yu i no gat tok orait long hia.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "I no gat blok i stret",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Painim ol blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Raitim long painim ol blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok i stret",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok i stret"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ин ҳисоб танҳо бо SQRL ворид мешавад.",
   "sqrl-hardlock": "Ин ҳисоб ба SQRL қулф карда шудааст: онро бо ягон роҳи дигар барқарор ё иваз кардан мумкин нест.",
   "windows-sso-sign-in": "Бо Windows ворид шудан",
-  "windows-sso-failed": "Ворид шудан тавассути Windows иҷро нашуд. Шояд ҳисоби Windows-и шумо дар ин ҷо иҷозат надошта бошад."
+  "windows-sso-failed": "Ворид шудан тавассути Windows иҷро нашуд. Шояд ҳисоби Windows-и шумо дар ин ҷо иҷозат надошта бошад.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Блокҳои мувофиқ ёфт нашуданд",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Ҷустуҷӯи блокҳо",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Барои ҷустуҷӯи блокҳо нависед",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Блокҳои мувофиқ: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 блоки мувофиқ"
 }

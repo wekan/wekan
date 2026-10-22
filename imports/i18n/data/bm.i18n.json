@@ -4673,5 +4673,10 @@
   "sqrl-only": "Nin jate bɛ don SQRL dɔrɔn de fɛ.",
   "sqrl-hardlock": "Nin jate datugulen don SQRL kan: a tɛ se ka segin walima ka yɛlɛma sira wɛrɛ fɛ.",
   "windows-sso-sign-in": "Don ni Windows ye",
-  "windows-sso-failed": "Donni ni Windows ye ma se ka kɛ. I ka Windows jatebɔ tɛ sira sɔrɔ yan, a bɛ se ka kɛ."
+  "windows-sso-failed": "Donni ni Windows ye ma se ka kɛ. I ka Windows jatebɔ tɛ sira sɔrɔ yan, a bɛ se ka kɛ.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Bulɔki si bɛ bɛn a ma, o ma sɔrɔ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bulɔkiw ɲini",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Sɛbɛnni kɛ walasa ka bulɔkiw ɲini",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bulɔki %1 minnu bɛ bɛn a ma",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bulɔki 1 min bɛ bɛn a ma"
 }

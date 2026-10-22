@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kal at nunädon te me SQRL.",
   "sqrl-hardlock": "Kal at pelökofärmükon pro SQRL: no kanon padönugetön u pavotükön me mod votik.",
   "windows-sso-sign-in": "Nunädön oki me Windows",
-  "windows-sso-failed": "Nunäd me Windows no eplöpon. Kal olik Windows ba no pedälon is."
+  "windows-sso-failed": "Nunäd me Windows no eplöpon. Kal olik Windows ba no pedälon is.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Blögs leigik nonik petuvons",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Sukön blögis",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Klavolön ad sukön blögis",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Blögs leigik %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Blög leigik 1"
 }

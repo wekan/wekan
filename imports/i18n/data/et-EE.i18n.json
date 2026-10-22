@@ -4673,5 +4673,10 @@
   "sqrl-only": "See konto logib sisse ainult SQRL-iga.",
   "sqrl-hardlock": "See konto on lukustatud SQRL-ile: seda ei saa muul viisil taastada ega muuta.",
   "windows-sso-sign-in": "Logi sisse Windowsiga",
-  "windows-sso-failed": "Windowsiga sisselogimine ebaõnnestus. Sinu Windowsi kontol ei pruugi siin olla lubatud."
+  "windows-sso-failed": "Windowsiga sisselogimine ebaõnnestus. Sinu Windowsi kontol ei pruugi siin olla lubatud.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Sobivaid plokke ei leitud",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Otsi plokke",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Sisesta tekst plokkide otsimiseks",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 sobivat plokki",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 sobiv plokk"
 }

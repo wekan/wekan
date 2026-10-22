@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akun iki mlebu mung nganggo SQRL.",
   "sqrl-hardlock": "Akun iki dikunci menyang SQRL: ora bisa dipulihake utawa diganti kanthi cara liya.",
   "windows-sso-sign-in": "Mlebu nganggo Windows",
-  "windows-sso-failed": "Gagal mlebu nganggo Windows. Akun Windows sampeyan bisa uga ora diidinake ing kene."
+  "windows-sso-failed": "Gagal mlebu nganggo Windows. Akun Windows sampeyan bisa uga ora diidinake ing kene.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ora ana blok sing cocog",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Golek blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ketik kanggo nggoleki blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok sing cocog",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok sing cocog"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Вхід до цього облікового запису можливий лише через SQRL.",
   "sqrl-hardlock": "Цей обліковий запис заблоковано для SQRL: його не можна відновити чи змінити жодним іншим способом.",
   "windows-sso-sign-in": "Увійти через Windows",
-  "windows-sso-failed": "Не вдалося увійти через Windows. Можливо, ваш обліковий запис Windows тут не дозволено."
+  "windows-sso-failed": "Не вдалося увійти через Windows. Можливо, ваш обліковий запис Windows тут не дозволено.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Відповідних блоків не знайдено",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Шукати блоки",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Почніть вводити, щоб шукати блоки",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Знайдено блоків: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Знайдено 1 блок"
 }

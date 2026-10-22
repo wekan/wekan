@@ -4673,5 +4673,10 @@
   "sqrl-only": "Na akaude oqo e curu ga ena SQRL.",
   "sqrl-hardlock": "Na akaude oqo e lokataki ena SQRL: e sega ni rawa ni vakabulai se veisautaki ena dua tale na sala.",
   "windows-sso-sign-in": "Curu ena Windows",
-  "windows-sso-failed": "E sega ni rawa na curu ena Windows. Sa rairai ni sega ni vakatarai eke na nomu akaude ni Windows."
+  "windows-sso-failed": "E sega ni rawa na curu ena Windows. Sa rairai ni sega ni vakatarai eke na nomu akaude ni Windows.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "E sega ni kune e dua na bloko e veiraurau",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Vakasaqara bloko",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Vola mo vakasaqara bloko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 na bloko e veiraurau",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 na bloko e veiraurau"
 }

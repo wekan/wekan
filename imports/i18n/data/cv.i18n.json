@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ҫак аккаунта SQRL урлӑ ҫеҫ кӗреҫҫӗ.",
   "sqrl-hardlock": "Ҫак аккаунта SQRL валли питӗрнӗ: ӑна урӑх нимӗнле мелпе те каялла тавӑрма е улӑштарма ҫук.",
   "windows-sso-sign-in": "Windows урлӑ кӗрес",
-  "windows-sso-failed": "Windows урлӑ кӗме май килмерӗ. Сирӗн Windows аккаунчӗ кунта ирӗк паман пулма пултарать."
+  "windows-sso-failed": "Windows урлӑ кӗме май килмерӗ. Сирӗн Windows аккаунчӗ кунта ирӗк паман пулма пултарать.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Килӗшекен блоксем тупӑнмарӗҫ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блоксене шырас",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блоксене шырама ҫырӑр",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 килӗшекен блок",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 килӗшекен блок"
 }

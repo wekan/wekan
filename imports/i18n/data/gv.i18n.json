@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ta'n coontys shoh cheet stiagh lesh SQRL ynrican.",
   "sqrl-hardlock": "Ta'n coontys shoh glassit rish SQRL: cha nod eh ve er ny gheddyn reesht ny caghlaa ayns aght erbee elley.",
   "windows-sso-sign-in": "Çheet stiagh lesh Windows",
-  "windows-sso-failed": "Cha dooar oo çheet stiagh lesh Windows. Foddee nagh vel kied ec dty choontey Windows ayns shoh."
+  "windows-sso-failed": "Cha dooar oo çheet stiagh lesh Windows. Foddee nagh vel kied ec dty choontey Windows ayns shoh.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Cha row blockyn cosoylagh er ny gheddyn",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Shirrey blockyn",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Screeu dy hirrey blockyn",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blockyn cosoylagh",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 block cosoylagh"
 }

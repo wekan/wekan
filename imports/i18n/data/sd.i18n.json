@@ -4673,5 +4673,10 @@
   "sqrl-only": "هي کاتو صرف SQRL سان سائن ان ٿئي ٿو.",
   "sqrl-hardlock": "هي کاتو SQRL تائين بند آهي: ان کي ڪنهن ٻئي طريقي سان بحال يا تبديل نٿو ڪري سگهجي.",
   "windows-sso-sign-in": "Windows سان سائن ان ٿيو",
-  "windows-sso-failed": "Windows سان سائن ان ناڪام ٿيو. ٿي سگهي ٿو توهان جي Windows کاتي کي هتي اجازت نه هجي."
+  "windows-sso-failed": "Windows سان سائن ان ناڪام ٿيو. ٿي سگهي ٿو توهان جي Windows کاتي کي هتي اجازت نه هجي.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ڪوبه ملندڙ بلاڪ نه مليو",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "بلاڪ ڳوليو",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "بلاڪ ڳولڻ لاءِ ٽائيپ ڪريو",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ملندڙ بلاڪ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ملندڙ بلاڪ"
 }

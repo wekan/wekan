@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dát konto čálihuvvo sisa dušše SQRL:in.",
   "sqrl-hardlock": "Dát konto lea lohkkaduvvon SQRL:ii: dan ii sáhte máhcahit dahje rievdadit makkárge eará vugiin.",
   "windows-sso-sign-in": "Čális sisa Windows:in",
-  "windows-sso-failed": "Windows-sisačáliheapmi ii lihkostuvvan. Du Windows-kontu ii soaitte leat lobálaš dáppe."
+  "windows-sso-failed": "Windows-sisačáliheapmi ii lihkostuvvan. Du Windows-kontu ii soaitte leat lobálaš dáppe.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ii gávdnon heivvolaš blokkat",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Oza blokkaid",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Čális ohcat blokkaid",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 heivvolaš blokka",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 heivvolaš blokka"
 }

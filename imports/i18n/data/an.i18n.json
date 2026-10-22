@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ista cuenta inicia sesión nomás con SQRL.",
   "sqrl-hardlock": "Ista cuenta ye blocada a SQRL: no se puede recuperar ni cambiar de garra atra manera.",
   "windows-sso-sign-in": "Iniciar sesión con Windows",
-  "windows-sso-failed": "L'inicio de sesión con Windows ha fallau. Talment a tuya cuenta de Windows no siga permitida aquí."
+  "windows-sso-failed": "L'inicio de sesión con Windows ha fallau. Talment a tuya cuenta de Windows no siga permitida aquí.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "No s'ha trobau garra bloque que coincida",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Mirar bloques",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Escribe pa mirar bloques",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 bloques que coinciden",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloque que coincide"
 }

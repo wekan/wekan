@@ -4673,5 +4673,10 @@
   "sqrl-only": "Был иҫәп яҙмаһына SQRL аша ғына инелә.",
   "sqrl-hardlock": "Был иҫәп яҙмаһы SQRL-ға бикләнгән: уны башҡа бер юл менән дә тергеҙеп йәки үҙгәртеп булмай.",
   "windows-sso-sign-in": "Windows аша инергә",
-  "windows-sso-failed": "Windows аша инеү уңышһыҙ булды. Һеҙҙең Windows иҫәп яҙмаһына бында рөхсәт ителмәгән булыуы мөмкин."
+  "windows-sso-failed": "Windows аша инеү уңышһыҙ булды. Һеҙҙең Windows иҫәп яҙмаһына бында рөхсәт ителмәгән булыуы мөмкин.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Тап килгән блоктар табылманы",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блоктарҙы эҙләү",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блоктарҙы эҙләү өсөн яҙығыҙ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 тап килгән блок",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 тап килгән блок"
 }

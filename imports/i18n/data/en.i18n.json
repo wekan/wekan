@@ -4673,5 +4673,10 @@
   "sqrl-only": "This account signs in with SQRL only.",
   "sqrl-hardlock": "This account is locked to SQRL: it cannot be recovered or changed any other way.",
   "windows-sso-sign-in": "Sign in with Windows",
-  "windows-sso-failed": "Windows sign-in failed. Your Windows account may not be allowed here."
+  "windows-sso-failed": "Windows sign-in failed. Your Windows account may not be allowed here.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "No matching blocks found",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Search for blocks",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Type to search for blocks",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 matching blocks",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 matching block"
 }

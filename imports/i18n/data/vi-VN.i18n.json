@@ -4673,5 +4673,10 @@
   "sqrl-only": "Tài khoản này chỉ đăng nhập bằng SQRL.",
   "sqrl-hardlock": "Tài khoản này đã bị khóa vào SQRL: không thể khôi phục hay thay đổi bằng bất kỳ cách nào khác.",
   "windows-sso-sign-in": "Đăng nhập bằng Windows",
-  "windows-sso-failed": "Đăng nhập bằng Windows không thành công. Tài khoản Windows của bạn có thể không được phép ở đây."
+  "windows-sso-failed": "Đăng nhập bằng Windows không thành công. Tài khoản Windows của bạn có thể không được phép ở đây.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Không tìm thấy mảnh nào phù hợp",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Tìm kiếm mảnh",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Nhập để tìm kiếm mảnh",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 mảnh phù hợp",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 mảnh phù hợp"
 }

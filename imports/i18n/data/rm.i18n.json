@@ -4673,5 +4673,10 @@
   "sqrl-only": "Quest conto s'annunzia mo cun SQRL.",
   "sqrl-hardlock": "Quest conto è bloccà sin SQRL: el na po betg vegnir restituì u midà en in'autra moda.",
   "windows-sso-sign-in": "S'annunziar cun Windows",
-  "windows-sso-failed": "L'annunzia cun Windows n'è betg reussida. Forsa n'è tes conto da Windows betg permess qua."
+  "windows-sso-failed": "L'annunzia cun Windows n'è betg reussida. Forsa n'è tes conto da Windows betg permess qua.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nagins blocs correspundents chattads",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Tschertgar blocs",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tippar per tschertgar blocs",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocs correspundents",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc correspundent"
 }

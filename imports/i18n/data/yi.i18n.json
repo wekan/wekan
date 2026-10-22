@@ -4673,5 +4673,10 @@
   "sqrl-only": "דער חשבון לאָגירט זיך אַרײַן נאָר מיט SQRL.",
   "sqrl-hardlock": "דער חשבון איז פֿאַרשלאָסן אויף SQRL: מען קען אים נישט צוריקקריגן אָדער ענדערן אויף קיין אַנדער אופֿן.",
   "windows-sso-sign-in": "אַרײַנלאָגירן מיט Windows",
-  "windows-sso-failed": "אַרײַנלאָגירן מיט Windows איז דורכגעפֿאַלן. אפֿשר איז אײַער Windows־אַקאַונט ניט דערלויבט דאָ."
+  "windows-sso-failed": "אַרײַנלאָגירן מיט Windows איז דורכגעפֿאַלן. אפֿשר איז אײַער Windows־אַקאַונט ניט דערלויבט דאָ.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "קיין פּאַסיקע בלאָקן נישט געפֿונען",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "זוכן בלאָקן",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "טיפּט כּדי צו זוכן בלאָקן",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 פּאַסיקע בלאָקן",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 פּאַסיקער בלאָק"
 }

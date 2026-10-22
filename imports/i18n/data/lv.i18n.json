@@ -4673,5 +4673,10 @@
   "sqrl-only": "Šajā kontā var pierakstīties tikai ar SQRL.",
   "sqrl-hardlock": "Šis konts ir piesaistīts SQRL: to nevar atjaunot vai mainīt nekādā citā veidā.",
   "windows-sso-sign-in": "Pierakstīties ar Windows",
-  "windows-sso-failed": "Pierakstīšanās ar Windows neizdevās. Jūsu Windows kontam šeit, iespējams, nav atļauts piekļūt."
+  "windows-sso-failed": "Pierakstīšanās ar Windows neizdevās. Jūsu Windows kontam šeit, iespējams, nav atļauts piekļūt.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Atbilstoši bloki netika atrasti",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Meklēt blokus",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Rakstiet, lai meklētu blokus",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Atbilstošo bloku skaits: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 atbilstošs bloks"
 }

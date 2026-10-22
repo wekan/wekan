@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akun nyoe tamong ngon SQRL mantong.",
   "sqrl-hardlock": "Akun nyoe ka geukunci keu SQRL: hana jeuet geupeuglah atawa geugantoe ngon cara laen.",
   "windows-sso-sign-in": "Tamong ngon Windows",
-  "windows-sso-failed": "Tamong ngon Windows hana jeut. Akun Windows droeneuh mungkin hana geuizin di sinoe."
+  "windows-sso-failed": "Tamong ngon Windows hana jeut. Akun Windows droeneuh mungkin hana geuizin di sinoe.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Hana blok nyang meupadan meuteumee",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Mita blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tuléh keu mita blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok nyang meupadan",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok nyang meupadan"
 }

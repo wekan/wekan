@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kont bii dañu ciy dugg ak SQRL rekk.",
   "sqrl-hardlock": "Kont bii dañu ko tëj ci SQRL: manuñu ko delloo walla soppi ci beneen anam.",
   "windows-sso-sign-in": "Dugg ak Windows",
-  "windows-sso-failed": "Duggu ak Windows antuwul. Xéyna sa kont Windows dañu ko mayul fii."
+  "windows-sso-failed": "Duggu ak Windows antuwul. Xéyna sa kont Windows dañu ko mayul fii.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Gisuñu benn blok bu ci dëppoo",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Seet ay blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bindal ngir seet ay blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok yu ci dëppoo",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok bu ci dëppoo"
 }

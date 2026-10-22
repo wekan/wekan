@@ -4673,5 +4673,10 @@
   "sqrl-only": "Bu hesaba yalnız SQRL ilə giriş edilir.",
   "sqrl-hardlock": "Bu hesab SQRL-ə kilidlənib: onu başqa heç bir yolla bərpa etmək və ya dəyişdirmək olmaz.",
   "windows-sso-sign-in": "Windows ilə daxil ol",
-  "windows-sso-failed": "Windows ilə daxil olmaq alınmadı. Windows hesabınıza burada icazə verilməyə bilər."
+  "windows-sso-failed": "Windows ilə daxil olmaq alınmadı. Windows hesabınıza burada icazə verilməyə bilər.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Uyğun blok tapılmadı",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blokları axtar",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Blokları axtarmaq üçün yazın",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 uyğun blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 uyğun blok"
 }

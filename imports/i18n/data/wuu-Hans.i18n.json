@@ -4673,5 +4673,10 @@
   "sqrl-only": "搿只账户只好用 SQRL 登录。",
   "sqrl-hardlock": "搿只账户锁定勒 SQRL 上：用别个办法侪勿好恢复或者修改。",
   "windows-sso-sign-in": "用 Windows 登录",
-  "windows-sso-failed": "Windows 登录失败哉。侬个 Windows 账户可能勿允许勒此地用。"
+  "windows-sso-failed": "Windows 登录失败哉。侬个 Windows 账户可能勿允许勒此地用。",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "呒没寻着相配个积木块",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "搜索积木块",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "打字搜索积木块",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 块相配个积木",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 块相配个积木"
 }

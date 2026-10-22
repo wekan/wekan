@@ -4673,5 +4673,10 @@
   "sqrl-only": "Chest account al jentre dome cun SQRL.",
   "sqrl-hardlock": "Chest account al è blocât su SQRL: nol pues jessi recuperât ni cambiât in nissune altre maniere.",
   "windows-sso-sign-in": "Jentre cun Windows",
-  "windows-sso-failed": "La jentrade cun Windows e je falide. Forsit il to account Windows nol è consintût achì."
+  "windows-sso-failed": "La jentrade cun Windows e je falide. Forsit il to account Windows nol è consintût achì.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nissun bloc corispondent cjatât",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cîr blocs",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrîf par cirî blocs",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocs corispondents",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc corispondent"
 }

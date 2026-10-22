@@ -4673,5 +4673,10 @@
   "sqrl-only": "Do tegò kònta mòżna sã wlogòwac le przez SQRL.",
   "sqrl-hardlock": "To kònto je zablokòwóné do SQRL: nie dô gò òdzwëskac ani zmienic żódnym jinszim sposobã.",
   "windows-sso-sign-in": "Wlogùjë sã przez Windows",
-  "windows-sso-failed": "Logòwanié przez Windows nie darzëło sã. Twòje kònto Windows mòże nie bëc tuwò dozwòloné."
+  "windows-sso-failed": "Logòwanié przez Windows nie darzëło sã. Twòje kònto Windows mòże nie bëc tuwò dozwòloné.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nie nalazłé niżódnëch pasownëch bloków",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Szukôj bloków",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Napiszë, żebë szukac bloków",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Pasownëch bloków: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 pasowny blok"
 }

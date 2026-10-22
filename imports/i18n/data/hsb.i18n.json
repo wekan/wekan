@@ -4673,5 +4673,10 @@
   "sqrl-only": "Tute konto so jenož přez SQRL přizjewja.",
   "sqrl-hardlock": "Tute konto je na SQRL zawrjene: njehodźi so na žadyn druhi puć wobnowić abo změnić.",
   "windows-sso-sign-in": "Přez Windows přizjewić",
-  "windows-sso-failed": "Přizjewjenje přez Windows je so njeporadźiło. Waše konto Windows tu snano dowolene njeje."
+  "windows-sso-failed": "Přizjewjenje přez Windows je so njeporadźiło. Waše konto Windows tu snano dowolene njeje.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Žane wotpowědne bloki namakane",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bloki pytać",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Pisajće, zo byšće bloki pytali",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Wotpowědne bloki: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 wotpowědny blok"
 }

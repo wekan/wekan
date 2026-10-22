@@ -4673,5 +4673,10 @@
   "sqrl-only": "ʻOku hū ki loto ʻa e ʻakauni ko ʻení ʻaki pē ʻa e SQRL.",
   "sqrl-hardlock": "Kuo loka ʻa e ʻakauni ko ʻení ki he SQRL: ʻoku ʻikai lava ke toe maʻu mai pe liliu ʻi ha founga kehe.",
   "windows-sso-sign-in": "Hū ki loto ʻaki ʻa e Windows",
-  "windows-sso-failed": "Naʻe ʻikai lava ke hū ʻaki ʻa e Windows. Mahalo ʻoku ʻikai ngofua ʻi heni hoʻo ʻakauni Windows."
+  "windows-sso-failed": "Naʻe ʻikai lava ke hū ʻaki ʻa e Windows. Mahalo ʻoku ʻikai ngofua ʻi heni hoʻo ʻakauni Windows.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ʻIkai ha ngaahi poloka ʻoku tatau naʻe maʻu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Kumi ha ngaahi poloka",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tohi ke kumi ha ngaahi poloka",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Poloka ʻe %1 ʻoku tatau",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Poloka ʻe 1 ʻoku tatau"
 }

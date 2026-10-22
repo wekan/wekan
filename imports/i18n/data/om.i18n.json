@@ -4673,5 +4673,10 @@
   "sqrl-only": "Herregni kun SQRL qofaan seena.",
   "sqrl-hardlock": "Herregni kun SQRL-tti cufameera: karaa biraan deebisuu ykn jijjiiruun hin danda'amu.",
   "windows-sso-sign-in": "Windows-n seeni",
-  "windows-sso-failed": "Seensi Windows-n hin milkoofne. Herregni Windows kee asitti hin hayyamamne ta'uu danda'a."
+  "windows-sso-failed": "Seensi Windows-n hin milkoofne. Herregni Windows kee asitti hin hayyamamne ta'uu danda'a.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Bulookiin walsimu hin argamne",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bulookiiwwan barbaadi",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bulookiiwwan barbaaduuf barreessi",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bulookiiwwan walsimu %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bulookii walsimu 1"
 }

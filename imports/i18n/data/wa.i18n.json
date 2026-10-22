@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ci conte ci s' mintere seulmint avou SQRL.",
   "sqrl-hardlock": "Ci conte ci est serré al SQRL: on n' el pout rapexhî ni candjî d' nole ôte manire.",
   "windows-sso-sign-in": "Si mintrer avou Windows",
-  "windows-sso-failed": "Li session avou Windows n' a nén roté. Vosse conte Windows n' est motoit nén permetou chal."
+  "windows-sso-failed": "Li session avou Windows n' a nén roté. Vosse conte Windows n' est motoit nén permetou chal.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nou bloc ni corespond",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cweri des blocs",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tapez po cweri des blocs",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocs ki corespondèt",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc ki corespond"
 }

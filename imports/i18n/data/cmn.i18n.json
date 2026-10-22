@@ -4673,5 +4673,10 @@
   "sqrl-only": "此账户仅能使用 SQRL 登录。",
   "sqrl-hardlock": "此账户已锁定为 SQRL：无法通过任何其他方式恢复或更改。",
   "windows-sso-sign-in": "使用 Windows 登录",
-  "windows-sso-failed": "Windows 登录失败。您的 Windows 账户可能不允许在此使用。"
+  "windows-sso-failed": "Windows 登录失败。您的 Windows 账户可能不允许在此使用。",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "未找到匹配的块",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "搜索块",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "输入以搜索块",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 个匹配的块",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 个匹配的块"
 }

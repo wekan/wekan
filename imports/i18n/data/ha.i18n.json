@@ -4673,5 +4673,10 @@
   "sqrl-only": "Wannan asusun yana shiga da SQRL kaɗai.",
   "sqrl-hardlock": "An kulle wannan asusun zuwa SQRL: ba za a iya dawo da shi ko canza shi ta wata hanya ba.",
   "windows-sso-sign-in": "Shiga da Windows",
-  "windows-sso-failed": "Shiga da Windows ya kasa. Mai yiwuwa ba a yarda da asusunka na Windows a nan ba."
+  "windows-sso-failed": "Shiga da Windows ya kasa. Mai yiwuwa ba a yarda da asusunka na Windows a nan ba.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ba a sami tubalan da suka dace ba",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Nemi tubala",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Rubuta don neman tubala",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Tubala %1 da suka dace",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Tubali 1 da ya dace"
 }

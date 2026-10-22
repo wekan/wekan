@@ -4673,5 +4673,10 @@
   "sqrl-only": "Энэ данса зүгөөр SQRL-ээр нэбтэрдэг.",
   "sqrl-hardlock": "Энэ данса SQRL-дэ түгжэгдэһэн: үөрөөр ямаршье аргаар һэргээхэ гү, хубилгаха аргагүй.",
   "windows-sso-sign-in": "Windows-ээр нэбтэрхэ",
-  "windows-sso-failed": "Windows-ээр нэбтэржэ шадаагүй. Таны Windows дансые энээгүүр зүбшөөгөөгүй байжа магадгүй."
+  "windows-sso-failed": "Windows-ээр нэбтэржэ шадаагүй. Таны Windows дансые энээгүүр зүбшөөгөөгүй байжа магадгүй.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Тааралдаха блок олдоогүй",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блокуудые бэдэрхэ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блокуудые бэдэрхын тула бэшэгты",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 тааралдаха блок",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 тааралдаха блок"
 }

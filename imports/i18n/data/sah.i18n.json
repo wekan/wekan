@@ -4673,5 +4673,10 @@
   "sqrl-only": "Бу бэлиэтэниигэ SQRL нөҥүө эрэ киирэллэр.",
   "sqrl-hardlock": "Бу бэлиэтэнии SQRL-га хатаммыт: кинини атын ньыманан төнүннэрэр эбэтэр уларытар сатаммат.",
   "windows-sso-sign-in": "Windows нөҥүө киир",
-  "windows-sso-failed": "Windows нөҥүө киирии табыллыбата. Эн Windows аккаунтуҥ манна көҥүллэммэтэх буолуон сөп."
+  "windows-sso-failed": "Windows нөҥүө киирии табыллыбата. Эн Windows аккаунтуҥ манна көҥүллэммэтэх буолуон сөп.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Сөп түбэһэр блоктар көстүбэтилэр",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блоктары көрдөө",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блоктары көрдүүргэ суруй",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Сөп түбэһэр блоктар: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 сөп түбэһэр блок"
 }

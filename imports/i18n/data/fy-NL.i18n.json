@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dit akkount meldt allinnich oan mei SQRL.",
   "sqrl-hardlock": "Dit akkount is oan SQRL fêstsetten: it kin op gjin oare wize werombrocht of feroare wurde.",
   "windows-sso-sign-in": "Oanmelde mei Windows",
-  "windows-sso-failed": "Oanmelden mei Windows is mislearre. Jo Windows-akkount is hjir mooglik net tastien."
+  "windows-sso-failed": "Oanmelden mei Windows is mislearre. Jo Windows-akkount is hjir mooglik net tastien.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Gjin oerienkommende blokken fûn",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blokken sykje",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Typ om blokken te sykjen",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 oerienkommende blokken",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 oerienkommend blok"
 }

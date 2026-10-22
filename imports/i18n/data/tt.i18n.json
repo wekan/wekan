@@ -4673,5 +4673,10 @@
   "sqrl-only": "Бу хисапка SQRL белән генә керелә.",
   "sqrl-hardlock": "Бу хисап SQRL-га бикләнгән: аны башка бер юл белән дә кайтарып яки үзгәртеп булмый.",
   "windows-sso-sign-in": "Windows белән керү",
-  "windows-sso-failed": "Windows белән керү барып чыкмады. Сезнең Windows хисабыгызга монда рөхсәт булмаска мөмкин."
+  "windows-sso-failed": "Windows белән керү барып чыкмады. Сезнең Windows хисабыгызга монда рөхсәт булмаска мөмкин.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Туры килгән блоклар табылмады",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блокларны эзләү",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блокларны эзләү өчен языгыз",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Туры килгән блоклар: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 туры килгән блок"
 }

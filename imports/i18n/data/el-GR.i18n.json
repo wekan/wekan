@@ -4673,5 +4673,10 @@
   "sqrl-only": "Αυτός ο λογαριασμός συνδέεται μόνο με SQRL.",
   "sqrl-hardlock": "Αυτός ο λογαριασμός είναι κλειδωμένος στο SQRL: δεν μπορεί να ανακτηθεί ή να αλλάξει με κανέναν άλλο τρόπο.",
   "windows-sso-sign-in": "Σύνδεση με Windows",
-  "windows-sso-failed": "Η σύνδεση με Windows απέτυχε. Ο λογαριασμός σας Windows ενδέχεται να μην επιτρέπεται εδώ."
+  "windows-sso-failed": "Η σύνδεση με Windows απέτυχε. Ο λογαριασμός σας Windows ενδέχεται να μην επιτρέπεται εδώ.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Δεν βρέθηκαν αντίστοιχα μπλοκ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Αναζήτηση μπλοκ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Πληκτρολογήστε για αναζήτηση μπλοκ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 αντίστοιχα μπλοκ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 αντίστοιχο μπλοκ"
 }

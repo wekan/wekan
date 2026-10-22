@@ -4673,5 +4673,10 @@
   "sqrl-only": "このアカウントは SQRL でのみサインインします。",
   "sqrl-hardlock": "このアカウントは SQRL にロックされています。他の方法で復旧や変更をすることはできません。",
   "windows-sso-sign-in": "Windows でサインイン",
-  "windows-sso-failed": "Windows でのサインインに失敗しました。お使いの Windows アカウントはここで許可されていない可能性があります。"
+  "windows-sso-failed": "Windows でのサインインに失敗しました。お使いの Windows アカウントはここで許可されていない可能性があります。",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "一致するブロックが見つかりません",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ブロックを検索",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "入力してブロックを検索",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1個の一致するブロック",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1個の一致するブロック"
 }

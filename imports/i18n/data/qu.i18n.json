@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kay cuentaqa SQRL-wanllam yaykun.",
   "sqrl-hardlock": "Kay cuentaqa SQRL-man wichq'asqa: manam huk ñanwanqa kutichiyta nitaq tikrayta atikunchu.",
   "windows-sso-sign-in": "Windows-wan yaykuy",
-  "windows-sso-failed": "Windows-wan yaykuyqa mana atikurqanchu. Windows cuentaykiqa manachá kaypi saqisqachu."
+  "windows-sso-failed": "Windows-wan yaykuyqa mana atikurqanchu. Windows cuentaykiqa manachá kaypi saqisqachu.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Mana tupaq k'utukunaqa tarikunchu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "K'utukunata maskay",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "K'utukunata maskanapaq qillqay",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 tupaq k'utukuna",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 tupaq k'utu"
 }

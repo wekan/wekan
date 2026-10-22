@@ -4673,5 +4673,10 @@
   "sqrl-only": "Входът в този акаунт е само със SQRL.",
   "sqrl-hardlock": "Този акаунт е заключен към SQRL: не може да бъде възстановен или променен по никакъв друг начин.",
   "windows-sso-sign-in": "Вход с Windows",
-  "windows-sso-failed": "Входът с Windows е неуспешен. Възможно е вашият профил в Windows да не е разрешен тук."
+  "windows-sso-failed": "Входът с Windows е неуспешен. Възможно е вашият профил в Windows да не е разрешен тук.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Не са намерени съвпадащи блокове",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Търсене на блокове",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Пишете, за да търсите блокове",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 съвпадащи блока",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 съвпадащ блок"
 }

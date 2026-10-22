@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akun ini masuk hanya dengan SQRL.",
   "sqrl-hardlock": "Akun ini terkunci ke SQRL: tidak dapat dipulihkan atau diubah dengan cara lain apa pun.",
   "windows-sso-sign-in": "Masuk dengan Windows",
-  "windows-sso-failed": "Gagal masuk dengan Windows. Akun Windows Anda mungkin tidak diizinkan di sini."
+  "windows-sso-failed": "Gagal masuk dengan Windows. Akun Windows Anda mungkin tidak diizinkan di sini.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Tidak ada blok yang cocok",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cari blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ketik untuk mencari blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok yang cocok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok yang cocok"
 }

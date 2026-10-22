@@ -4673,5 +4673,10 @@
   "sqrl-only": "Este compte només inicia la sessió amb SQRL.",
   "sqrl-hardlock": "Este compte està bloquejat a SQRL: no es pot recuperar ni canviar de cap altra manera.",
   "windows-sso-sign-in": "Inicia sessió amb Windows",
-  "windows-sso-failed": "No s'ha pogut iniciar sessió amb Windows. Pot ser que el vostre compte de Windows no estiga permés ací."
+  "windows-sso-failed": "No s'ha pogut iniciar sessió amb Windows. Pot ser que el vostre compte de Windows no estiga permés ací.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "No s'han trobat blocs coincidents",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cerca blocs",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Escriviu per a cercar blocs",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocs coincidents",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc coincident"
 }

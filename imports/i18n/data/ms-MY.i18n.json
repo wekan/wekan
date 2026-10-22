@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akaun ini log masuk dengan SQRL sahaja.",
   "sqrl-hardlock": "Akaun ini dikunci kepada SQRL: ia tidak boleh dipulihkan atau diubah dengan cara lain.",
   "windows-sso-sign-in": "Log masuk dengan Windows",
-  "windows-sso-failed": "Log masuk Windows gagal. Akaun Windows anda mungkin tidak dibenarkan di sini."
+  "windows-sso-failed": "Log masuk Windows gagal. Akaun Windows anda mungkin tidak dibenarkan di sini.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Tiada blok sepadan ditemui",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cari blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Taip untuk mencari blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok sepadan",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok sepadan"
 }

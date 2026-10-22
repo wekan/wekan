@@ -4673,5 +4673,10 @@
   "sqrl-only": "هاد الحساب كيدخل غير ب SQRL.",
   "sqrl-hardlock": "هاد الحساب مسدود على SQRL: ما يمكنش يترجع ولا يتبدل بشي طريقة أخرى.",
   "windows-sso-sign-in": "دخل ب Windows",
-  "windows-sso-failed": "الدخول ب Windows ما نجحش. يمكن الحساب ديالك ديال Windows ما مسموحش بيه هنا."
+  "windows-sso-failed": "الدخول ب Windows ما نجحش. يمكن الحساب ديالك ديال Windows ما مسموحش بيه هنا.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ما لقينا حتى بلوك كيتطابق",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "قلّب على البلوكات",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "كتب باش تقلّب على البلوكات",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 بلوكات كيتطابقو",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 بلوك كيتطابق"
 }

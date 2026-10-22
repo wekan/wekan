@@ -4673,5 +4673,10 @@
   "sqrl-only": "እሊ ሕሳብ ብ SQRL ባሕቱ ልትአቴ።",
   "sqrl-hardlock": "እሊ ሕሳብ ለ SQRL ተዓጽዩ፡ ብ ካልእ ፍንተ ኢልትመየስ ወኢልትበደል።",
   "windows-sso-sign-in": "ብ Windows እተው",
-  "windows-sso-failed": "ብ Windows እትዋን ኢተሐዜ። ሕሳብ Windows ሓቴ ሕና ኢትትፈቀድ ቱ ትከውን።"
+  "windows-sso-failed": "ብ Windows እትዋን ኢተሐዜ። ሕሳብ Windows ሓቴ ሕና ኢትትፈቀድ ቱ ትከውን።",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ለተሳነ ብሎክ ኢተረክበ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ብሎካት ፈትሽ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ብሎካት እግል ትፈትሽ ጽሐፍ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ለተሳነው ብሎካት",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ለተሳነ ብሎክ"
 }

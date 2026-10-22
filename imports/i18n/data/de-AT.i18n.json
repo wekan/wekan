@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dieses Konto meldet sich nur mit SQRL an.",
   "sqrl-hardlock": "Dieses Konto ist an SQRL gebunden: Es kann auf keine andere Weise wiederhergestellt oder geändert werden.",
   "windows-sso-sign-in": "Mit Windows anmelden",
-  "windows-sso-failed": "Die Anmeldung mit Windows ist fehlgeschlagen. Ihr Windows-Konto ist hier möglicherweise nicht zugelassen."
+  "windows-sso-failed": "Die Anmeldung mit Windows ist fehlgeschlagen. Ihr Windows-Konto ist hier möglicherweise nicht zugelassen.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Keine passenden Blöcke gefunden",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Nach Blöcken suchen",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tippen, um nach Blöcken zu suchen",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 passende Blöcke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 passender Block"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "हें खातें फकत SQRL वरवीं प्रवेश करता.",
   "sqrl-hardlock": "हें खातें SQRL क लॉक केलां: तें हेर खंयच्याच रितीन परत मेळोवंक वा बदलूंक जायना.",
   "windows-sso-sign-in": "Windows वरवीं प्रवेश करात",
-  "windows-sso-failed": "Windows वरवीं प्रवेश अयशस्वी जालो. तुमच्या Windows खात्याक हांगा परवानगी नासूं येता."
+  "windows-sso-failed": "Windows वरवीं प्रवेश अयशस्वी जालो. तुमच्या Windows खात्याक हांगा परवानगी नासूं येता.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "जुळपी ब्लॉक मेळ्ळे नात",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ब्लॉक सोदात",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ब्लॉक सोदपाक टायप करात",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 जुळपी ब्लॉक",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 जुळपी ब्लॉक"
 }

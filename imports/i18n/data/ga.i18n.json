@@ -4673,5 +4673,10 @@
   "sqrl-only": "Logálann an cuntas seo isteach le SQRL amháin.",
   "sqrl-hardlock": "Tá an cuntas seo glasáilte ar SQRL: ní féidir é a aisghabháil ná a athrú ar aon bhealach eile.",
   "windows-sso-sign-in": "Logáil isteach le Windows",
-  "windows-sso-failed": "Theip ar logáil isteach le Windows. B'fhéidir nach bhfuil cead ag do chuntas Windows anseo."
+  "windows-sso-failed": "Theip ar logáil isteach le Windows. B'fhéidir nach bhfuil cead ag do chuntas Windows anseo.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Níor aimsíodh aon bhloc comhoiriúnach",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cuardaigh bloic",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Clóscríobh chun bloic a chuardach",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bloic chomhoiriúnacha: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bhloc comhoiriúnach"
 }

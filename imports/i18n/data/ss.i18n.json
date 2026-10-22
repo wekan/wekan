@@ -4673,5 +4673,10 @@
   "sqrl-only": "Le-akhawunti ingena nge-SQRL kuphela.",
   "sqrl-hardlock": "Le-akhawunti ikhiyelwe ku-SQRL: ayikwati kubuyiswa nome kushintjwa ngalenye indlela.",
   "windows-sso-sign-in": "Ngena nge-Windows",
-  "windows-sso-failed": "Kungena nge-Windows kuhlulekile. I-akhawunti yakho ye-Windows ingahle ingavunyelwa lapha."
+  "windows-sso-failed": "Kungena nge-Windows kuhlulekile. I-akhawunti yakho ye-Windows ingahle ingavunyelwa lapha.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Akukho emabhulokhi lafananako lokutfoliwe",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Sesha emabhulokhi",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bhala kute usesha emabhulokhi",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Emabhulokhi lafananako langu-%1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Libhulokhi linye lelifananako (1)"
 }

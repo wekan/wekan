@@ -4673,5 +4673,10 @@
   "sqrl-only": "呢個帳戶淨係用 SQRL 登入。",
   "sqrl-hardlock": "呢個帳戶已經鎖定喺 SQRL：唔可以用其他方法恢復或者更改。",
   "windows-sso-sign-in": "用 Windows 登入",
-  "windows-sso-failed": "Windows 登入失敗。你嘅 Windows 帳戶可能唔獲准喺度使用。"
+  "windows-sso-failed": "Windows 登入失敗。你嘅 Windows 帳戶可能唔獲准喺度使用。",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "搵唔到相符嘅積木",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "搜尋積木",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "打字搜尋積木",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 個相符嘅積木",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 個相符嘅積木"
 }

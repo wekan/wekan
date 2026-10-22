@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akawunti eno eyingira ng'ekozesa SQRL yokka.",
   "sqrl-hardlock": "Akawunti eno esibiddwa ku SQRL: tesobola kuzzibwawo wadde okukyusibwa mu ngeri endala yonna.",
   "windows-sso-sign-in": "Yingira ng'okozesa Windows",
-  "windows-sso-failed": "Okuyingira ng'okozesa Windows kulemye. Akawunti yo eya Windows oboolyawo tekkirizibwa wano."
+  "windows-sso-failed": "Okuyingira ng'okozesa Windows kulemye. Akawunti yo eya Windows oboolyawo tekkirizibwa wano.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Tewali bulooka ezikwatagana ezizuuliddwa",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Noonya bulooka",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Wandiika okunoonya bulooka",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bulooka %1 ezikwatagana",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bulooka 1 ekwatagana"
 }

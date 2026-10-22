@@ -4673,5 +4673,10 @@
   "sqrl-only": "Iyi konti yinjira ikoresheje SQRL gusa.",
   "sqrl-hardlock": "Iyi konti ifungiye kuri SQRL: ntishobora kugarurwa cyangwa guhindurwa mu bundi buryo.",
   "windows-sso-sign-in": "Injira ukoresheje Windows",
-  "windows-sso-failed": "Kwinjira ukoresheje Windows byanze. Konti yawe ya Windows ishobora kuba itemerewe hano."
+  "windows-sso-failed": "Kwinjira ukoresheje Windows byanze. Konti yawe ya Windows ishobora kuba itemerewe hano.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nta bice bihuye byabonetse",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Shakisha ibice",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Andika kugira ngo ushakishe ibice",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Ibice %1 bihuye",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Igice 1 gihuye"
 }

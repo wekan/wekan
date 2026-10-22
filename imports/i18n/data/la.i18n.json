@@ -4673,5 +4673,10 @@
   "sqrl-only": "Haec ratio per SQRL solum ingreditur.",
   "sqrl-hardlock": "Haec ratio ad SQRL clausa est: nulla alia via recuperari aut mutari potest.",
   "windows-sso-sign-in": "Ingredere per Windows",
-  "windows-sso-failed": "Ingressus per Windows defecit. Fortasse rationi tuae Windows hic intrare non licet."
+  "windows-sso-failed": "Ingressus per Windows defecit. Fortasse rationi tuae Windows hic intrare non licet.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nulla blocca congruentia inventa",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Quaere blocca",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scribe ut blocca quaeras",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocca congruentia",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloccum congruens"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ce compte se connecte uniquement avec SQRL.",
   "sqrl-hardlock": "Ce compte est verrouillé sur SQRL : il ne peut être ni récupéré ni modifié d'une autre manière.",
   "windows-sso-sign-in": "Se connecter avec Windows",
-  "windows-sso-failed": "La connexion avec Windows a échoué. Votre compte Windows n'est peut-être pas autorisé ici."
+  "windows-sso-failed": "La connexion avec Windows a échoué. Votre compte Windows n'est peut-être pas autorisé ici.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Aucun bloc correspondant trouvé",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Rechercher des blocs",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tapez pour rechercher des blocs",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocs correspondants",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc correspondant"
 }

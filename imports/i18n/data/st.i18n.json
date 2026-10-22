@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akhaonto ena e kena ka SQRL feela.",
   "sqrl-hardlock": "Akhaonto ena e notletswe ho SQRL: e ke ke ya fumanwa hape kapa ya fetolwa ka tsela e nngwe.",
   "windows-sso-sign-in": "Kena ka Windows",
-  "windows-sso-failed": "Ho kena ka Windows ho hlolehile. Akhaonto ya hao ya Windows e kanna ya se dumellwe mona."
+  "windows-sso-failed": "Ho kena ka Windows ho hlolehile. Akhaonto ya hao ya Windows e kanna ya se dumellwe mona.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ha ho diboloko tse tsamaellanang tse fumanweng",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Batla diboloko",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ngola ho batla diboloko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Diboloko tse %1 tse tsamaellanang",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Boloko e 1 e tsamaellanang"
 }

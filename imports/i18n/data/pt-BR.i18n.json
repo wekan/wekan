@@ -4673,5 +4673,10 @@
   "sqrl-only": "Esta conta entra somente com SQRL.",
   "sqrl-hardlock": "Esta conta está bloqueada para SQRL: ela não pode ser recuperada nem alterada de nenhuma outra forma.",
   "windows-sso-sign-in": "Entrar com Windows",
-  "windows-sso-failed": "Falha ao entrar com Windows. Sua conta do Windows pode não ter permissão aqui."
+  "windows-sso-failed": "Falha ao entrar com Windows. Sua conta do Windows pode não ter permissão aqui.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nenhum bloco correspondente encontrado",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Buscar blocos",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Digite para buscar blocos",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocos correspondentes",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloco correspondente"
 }

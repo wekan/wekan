@@ -4673,5 +4673,10 @@
   "sqrl-only": "Mae'r cyfrif hwn yn mewngofnodi gyda SQRL yn unig.",
   "sqrl-hardlock": "Mae'r cyfrif hwn wedi'i gloi i SQRL: ni ellir ei adfer na'i newid mewn unrhyw ffordd arall.",
   "windows-sso-sign-in": "Mewngofnodi gyda Windows",
-  "windows-sso-failed": "Methodd mewngofnodi gyda Windows. Efallai na chaniateir eich cyfrif Windows yma."
+  "windows-sso-failed": "Methodd mewngofnodi gyda Windows. Efallai na chaniateir eich cyfrif Windows yma.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ni chanfuwyd blociau cyfatebol",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Chwilio am flociau",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Teipiwch i chwilio am flociau",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 bloc cyfatebol",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc cyfatebol"
 }

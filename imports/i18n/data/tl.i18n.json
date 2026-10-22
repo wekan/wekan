@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ang account na ito ay nagsa-sign in gamit lamang ang SQRL.",
   "sqrl-hardlock": "Naka-lock ang account na ito sa SQRL: hindi ito mababawi o mababago sa anumang ibang paraan.",
   "windows-sso-sign-in": "Mag-sign in gamit ang Windows",
-  "windows-sso-failed": "Nabigo ang pag-sign in gamit ang Windows. Maaaring hindi pinapayagan dito ang iyong Windows account."
+  "windows-sso-failed": "Nabigo ang pag-sign in gamit ang Windows. Maaaring hindi pinapayagan dito ang iyong Windows account.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Walang nahanap na tugmang bloke",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Maghanap ng mga bloke",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Mag-type para maghanap ng mga bloke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 tugmang bloke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 tugmang bloke"
 }

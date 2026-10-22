@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akhaonto e e tsena ka SQRL fela.",
   "sqrl-hardlock": "Akhaonto e e notleletswe mo SQRL: ga e kake ya busediwa kgotsa ya fetolwa ka tsela epe e nngwe.",
   "windows-sso-sign-in": "Tsena ka Windows",
-  "windows-sso-failed": "Go tsena ka Windows go paletse. Akhaonto ya gago ya Windows e ka tswa e sa letlelelwe fano."
+  "windows-sso-failed": "Go tsena ka Windows go paletse. Akhaonto ya gago ya Windows e ka tswa e sa letlelelwe fano.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ga go a bonwa dipoloko tse di tshwanang",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Batla dipoloko",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Kwala go batla dipoloko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Dipoloko tse di tshwanang: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Poloko e le 1 e e tshwanang"
 }

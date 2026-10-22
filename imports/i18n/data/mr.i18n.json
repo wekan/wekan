@@ -4673,5 +4673,10 @@
   "sqrl-only": "हे खाते फक्त SQRL ने साइन-इन करते.",
   "sqrl-hardlock": "हे खाते SQRL ला लॉक केले आहे: ते इतर कोणत्याही मार्गाने पुनर्प्राप्त किंवा बदलता येत नाही.",
   "windows-sso-sign-in": "Windows ने साइन इन करा",
-  "windows-sso-failed": "Windows साइन-इन अयशस्वी झाले. तुमच्या Windows खात्याला येथे परवानगी नसू शकते."
+  "windows-sso-failed": "Windows साइन-इन अयशस्वी झाले. तुमच्या Windows खात्याला येथे परवानगी नसू शकते.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "जुळणारे ब्लॉक सापडले नाहीत",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ब्लॉक शोधा",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ब्लॉक शोधण्यासाठी टाइप करा",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 जुळणारे ब्लॉक",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 जुळणारा ब्लॉक"
 }

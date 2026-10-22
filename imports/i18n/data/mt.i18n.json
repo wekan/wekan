@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dan il-kont jidħol bl-SQRL biss.",
   "sqrl-hardlock": "Dan il-kont huwa msakkar għall-SQRL: ma jistax jiġi rkuprat jew mibdul b'ebda mod ieħor.",
   "windows-sso-sign-in": "Idħol bil-Windows",
-  "windows-sso-failed": "Id-dħul bil-Windows ma rnexxiex. Il-kont Windows tiegħek jista' ma jkunx permess hawn."
+  "windows-sso-failed": "Id-dħul bil-Windows ma rnexxiex. Il-kont Windows tiegħek jista' ma jkunx permess hawn.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ma nstab l-ebda blokka li taqbel",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Fittex blokki",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ikteb biex tfittex blokki",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blokki li jaqblu",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Blokka 1 li taqbel"
 }

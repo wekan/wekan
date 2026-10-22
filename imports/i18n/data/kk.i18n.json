@@ -4673,5 +4673,10 @@
   "sqrl-only": "Бұл тіркелгіге тек SQRL арқылы кіріледі.",
   "sqrl-hardlock": "Бұл тіркелгі SQRL-ге құлыпталған: оны басқа ешбір жолмен қалпына келтіруге не өзгертуге болмайды.",
   "windows-sso-sign-in": "Windows арқылы кіру",
-  "windows-sso-failed": "Windows арқылы кіру сәтсіз аяқталды. Сіздің Windows тіркелгіңізге мұнда рұқсат етілмеген болуы мүмкін."
+  "windows-sso-failed": "Windows арқылы кіру сәтсіз аяқталды. Сіздің Windows тіркелгіңізге мұнда рұқсат етілмеген болуы мүмкін.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Сәйкес блоктар табылмады",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блоктарды іздеу",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блоктарды іздеу үшін теріңіз",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 сәйкес блок",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 сәйкес блок"
 }

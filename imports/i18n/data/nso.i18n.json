@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akhaonte ye e tsena ka SQRL fela.",
   "sqrl-hardlock": "Akhaonte ye e notletšwe go SQRL: e ka se bušetšwe goba ya fetošwa ka tsela ye nngwe.",
   "windows-sso-sign-in": "Tsena ka Windows",
-  "windows-sso-failed": "Go tsena ka Windows go paletšwe. Akhaonte ya gago ya Windows e ka no se dumelelwe mo."
+  "windows-sso-failed": "Go tsena ka Windows go paletšwe. Akhaonte ya gago ya Windows e ka no se dumelelwe mo.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ga go diboloko tše di swanago tše di hweditšwego",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Nyaka diboloko",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ngwala go nyaka diboloko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Diboloko tše %1 tše di swanago",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Boloko e 1 ye e swanago"
 }

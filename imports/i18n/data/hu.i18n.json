@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ez a fiók csak SQRL-lel jelentkezik be.",
   "sqrl-hardlock": "Ez a fiók az SQRL-hez van zárolva: semmilyen más módon nem állítható helyre és nem módosítható.",
   "windows-sso-sign-in": "Bejelentkezés Windowszal",
-  "windows-sso-failed": "A Windowsos bejelentkezés sikertelen. Lehet, hogy a Windows-fiókja itt nem engedélyezett."
+  "windows-sso-failed": "A Windowsos bejelentkezés sikertelen. Lehet, hogy a Windows-fiókja itt nem engedélyezett.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nem található megfelelő blokk",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blokkok keresése",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Gépelj a blokkok kereséséhez",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 megfelelő blokk",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 megfelelő blokk"
 }

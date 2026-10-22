@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ka takiuru tēnei pūkete mā SQRL anake.",
   "sqrl-hardlock": "Kua rakaina tēnei pūkete ki SQRL: kāore e taea te whakaora, te huri rānei mā tētahi atu huarahi.",
   "windows-sso-sign-in": "Takiuru mā te Windows",
-  "windows-sso-failed": "I rahua te takiuru Windows. Tērā pea kāore tō pūkete Windows e whakaaetia ki konei."
+  "windows-sso-failed": "I rahua te takiuru Windows. Tērā pea kāore tō pūkete Windows e whakaaetia ki konei.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Kāore he poraka ōrite i kitea",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Rapu poraka",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Patohia hei rapu poraka",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ngā poraka ōrite",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 te poraka ōrite"
 }

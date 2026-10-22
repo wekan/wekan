@@ -4673,5 +4673,10 @@
   "sqrl-only": "يسجّل هذا الحساب الدخول باستخدام SQRL فقط.",
   "sqrl-hardlock": "هذا الحساب مقفل على SQRL: لا يمكن استرداده أو تغييره بأي طريقة أخرى.",
   "windows-sso-sign-in": "تسجيل الدخول عبر Windows",
-  "windows-sso-failed": "فشل تسجيل الدخول عبر Windows. قد لا يكون حسابك في Windows مسموحًا به هنا."
+  "windows-sso-failed": "فشل تسجيل الدخول عبر Windows. قد لا يكون حسابك في Windows مسموحًا به هنا.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "لم يتم العثور على كتل مطابقة",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "البحث عن الكتل",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "اكتب للبحث عن الكتل",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 كتلة مطابقة",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "كتلة مطابقة واحدة"
 }

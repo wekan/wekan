@@ -4673,5 +4673,10 @@
   "sqrl-only": "ʻEʻe kēia moʻokāki me SQRL wale nō.",
   "sqrl-hardlock": "Ua laka ʻia kēia moʻokāki i SQRL: ʻaʻole hiki ke hoʻihoʻi ʻia a hoʻololi ʻia paha ma kekahi ala ʻē aʻe.",
   "windows-sso-sign-in": "ʻEʻe me Windows",
-  "windows-sso-failed": "ʻAʻole i kō ke komo ʻana me Windows. ʻAʻole paha i ʻae ʻia kāu moʻokāki Windows ma ʻaneʻi."
+  "windows-sso-failed": "ʻAʻole i kō ke komo ʻana me Windows. ʻAʻole paha i ʻae ʻia kāu moʻokāki Windows ma ʻaneʻi.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ʻAʻohe palaka kūlike i loaʻa",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Huli i nā palaka",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Kikokiko e huli i nā palaka",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 palaka kūlike",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 palaka kūlike"
 }

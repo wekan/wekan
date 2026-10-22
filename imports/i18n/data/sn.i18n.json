@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akaundi iyi inopinda neSQRL chete.",
   "sqrl-hardlock": "Akaundi iyi yakakiyiwa kuSQRL: haigone kudzoserwa kana kushandurwa neimwe nzira.",
   "windows-sso-sign-in": "Pinda neWindows",
-  "windows-sso-failed": "Kupinda neWindows kwakundikana. Akaundi yako yeWindows ingangodaro isingabvumidzwi pano."
+  "windows-sso-failed": "Kupinda neWindows kwakundikana. Akaundi yako yeWindows ingangodaro isingabvumidzwi pano.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Hapana mabhuroko anoenderana awanikwa",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Tsvaga mabhuroko",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Nyora kuti utsvage mabhuroko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Mabhuroko %1 anoenderana",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bhuroko 1 rinoenderana"
 }

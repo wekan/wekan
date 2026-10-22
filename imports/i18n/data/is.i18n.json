@@ -4673,5 +4673,10 @@
   "sqrl-only": "Þessi aðgangur skráir sig aðeins inn með SQRL.",
   "sqrl-hardlock": "Þessi aðgangur er læstur við SQRL: ekki er hægt að endurheimta hann eða breyta honum á neinn annan hátt.",
   "windows-sso-sign-in": "Skrá inn með Windows",
-  "windows-sso-failed": "Innskráning með Windows mistókst. Windows-aðgangurinn þinn er hugsanlega ekki leyfður hér."
+  "windows-sso-failed": "Innskráning með Windows mistókst. Windows-aðgangurinn þinn er hugsanlega ekki leyfður hér.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Engir samsvarandi kubbar fundust",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Leita að kubbum",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skrifaðu til að leita að kubbum",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 samsvarandi kubbar",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 samsvarandi kubbur"
 }

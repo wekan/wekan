@@ -4673,5 +4673,10 @@
   "sqrl-only": "Уваход у гэты ўліковы запіс магчымы толькі праз SQRL.",
   "sqrl-hardlock": "Гэты ўліковы запіс заблакаваны на SQRL: яго нельга аднавіць або змяніць ніякім іншым спосабам.",
   "windows-sso-sign-in": "Увайсці праз Windows",
-  "windows-sso-failed": "Не ўдалося ўвайсці праз Windows. Магчыма, ваш акаўнт Windows тут не дазволены."
+  "windows-sso-failed": "Не ўдалося ўвайсці праз Windows. Магчыма, ваш акаўнт Windows тут не дазволены.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Адпаведных блокаў не знойдзена",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Пошук блокаў",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Пачніце ўводзіць, каб шукаць блокі",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Адпаведных блокаў: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 адпаведны блок"
 }

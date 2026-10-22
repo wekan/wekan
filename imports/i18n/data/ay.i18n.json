@@ -4673,5 +4673,10 @@
   "sqrl-only": "Aka cuentax SQRL ukampikiw mantaraki.",
   "sqrl-hardlock": "Aka cuentax SQRL ukaru llawintatawa: janiw yaqha thakhimpix kutt'ayañjamäkiti ni mayjt'ayañjamäkiti.",
   "windows-sso-sign-in": "Windows ukampi mantaña",
-  "windows-sso-failed": "Windows ukampi mantañax janiw walikiti. Windows jakhuwimaxa akan janiw iyawsatäkaspati."
+  "windows-sso-failed": "Windows ukampi mantañax janiw walikiti. Windows jakhuwimaxa akan janiw iyawsatäkaspati.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Janiw kuna bloquenakas jikxataskiti",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bloquenak thaqhaña",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bloquenak thaqhañatakix qillqt'am",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 bloquenak jikxatata",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloque jikxatata"
 }

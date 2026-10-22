@@ -4673,5 +4673,10 @@
   "sqrl-only": "Aqueste compte s'identifica pas qu'amb SQRL.",
   "sqrl-hardlock": "Aqueste compte es verrolhat sus SQRL: se pòt pas recuperar ni modificar d'una autra manièra.",
   "windows-sso-sign-in": "S'identificar amb Windows",
-  "windows-sso-failed": "L'identificacion amb Windows a fracassat. Benlèu que vòstre compte Windows es pas autorizat aicí."
+  "windows-sso-failed": "L'identificacion amb Windows a fracassat. Benlèu que vòstre compte Windows es pas autorizat aicí.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Cap de blòt correspondent pas trobat",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cercar de blòts",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Picatz per cercar de blòts",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blòts correspondents",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blòt correspondent"
 }

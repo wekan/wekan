@@ -4673,5 +4673,10 @@
   "sqrl-only": "To konto loguje sie yno bez SQRL.",
   "sqrl-hardlock": "To konto je zawarte na SQRL: niy idzie go ôdzyskać ani zmiynić inakszij.",
   "windows-sso-sign-in": "Zaloguj bez Windows",
-  "windows-sso-failed": "Logowanie bez Windows niy wyszło. Twoje kōnto Windows może niy mieć tukej dostympu."
+  "windows-sso-failed": "Logowanie bez Windows niy wyszło. Twoje kōnto Windows może niy mieć tukej dostympu.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Niy znaleziōno pasujōncych blokōw",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Szukej blokōw",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Pisz, coby szukać blokōw",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Pasujōnce bloki: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 pasujōncy blok"
 }

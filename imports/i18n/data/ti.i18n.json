@@ -4673,5 +4673,10 @@
   "sqrl-only": "እዚ ሕሳብ ብSQRL ጥራይ ይኣቱ።",
   "sqrl-hardlock": "እዚ ሕሳብ ናብ SQRL ተዓጽዩ ኣሎ፡ ብካልእ መንገዲ ክምለስ ወይ ክቕየር ኣይክእልን።",
   "windows-sso-sign-in": "ብWindows እቶ",
-  "windows-sso-failed": "ብWindows ምእታው ኣይተዓወተን። ሕሳብ Windows ኩም ኣብዚ ዘይፍቀድ ክኸውን ይኽእል።"
+  "windows-sso-failed": "ብWindows ምእታው ኣይተዓወተን። ሕሳብ Windows ኩም ኣብዚ ዘይፍቀድ ክኸውን ይኽእል።",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ዝሰማማዕ ሳንዱቕ ኣይተረኽበን",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ሳንዱቓት ድለ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ሳንዱቓት ንምድላይ ጽሓፍ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ዝሰማምዑ ሳንዱቓት",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ዝሰማማዕ ሳንዱቕ"
 }

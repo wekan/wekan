@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ta račun se prijavlja samo s SQRL.",
   "sqrl-hardlock": "Ta račun je zaklenjen na SQRL: ni ga mogoče obnoviti ali spremeniti na noben drug način.",
   "windows-sso-sign-in": "Prijava z Windows",
-  "windows-sso-failed": "Prijava z Windows ni uspela. Vaš račun Windows tukaj morda ni dovoljen."
+  "windows-sso-failed": "Prijava z Windows ni uspela. Vaš račun Windows tukaj morda ni dovoljen.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ni ustreznih blokov",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Iskanje blokov",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tipkajte za iskanje blokov",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Ustrezni bloki: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ustrezen blok"
 }

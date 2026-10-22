@@ -4673,5 +4673,10 @@
   "sqrl-only": "මෙම ගිණුම SQRL මගින් පමණක් පිවිසේ.",
   "sqrl-hardlock": "මෙම ගිණුම SQRL වෙත අගුළු දමා ඇත: එය වෙනත් කිසිදු ක්‍රමයකින් ප්‍රතිසාධනය කිරීමට හෝ වෙනස් කිරීමට නොහැක.",
   "windows-sso-sign-in": "Windows සමඟ පිවිසෙන්න",
-  "windows-sso-failed": "Windows පිවිසුම අසාර්ථක විය. ඔබගේ Windows ගිණුමට මෙහි අවසර නොමැති විය හැක."
+  "windows-sso-failed": "Windows පිවිසුම අසාර්ථක විය. ඔබගේ Windows ගිණුමට මෙහි අවසර නොමැති විය හැක.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ගැළපෙන බ්ලොක් හමු නොවීය",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "බ්ලොක් සොයන්න",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "බ්ලොක් සෙවීමට ටයිප් කරන්න",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "ගැළපෙන බ්ලොක් %1 ක්",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "ගැළපෙන බ්ලොක් 1 ක්"
 }

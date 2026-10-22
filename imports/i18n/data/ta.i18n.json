@@ -4673,5 +4673,10 @@
   "sqrl-only": "இந்தக் கணக்கு SQRL மூலம் மட்டுமே உள்நுழையும்.",
   "sqrl-hardlock": "இந்தக் கணக்கு SQRL-க்குப் பூட்டப்பட்டுள்ளது: வேறு எந்த வழியிலும் இதை மீட்கவோ மாற்றவோ முடியாது.",
   "windows-sso-sign-in": "Windows மூலம் உள்நுழை",
-  "windows-sso-failed": "Windows மூலம் உள்நுழைவு தோல்வியடைந்தது. உங்கள் Windows கணக்கிற்கு இங்கு அனுமதி இல்லாமல் இருக்கலாம்."
+  "windows-sso-failed": "Windows மூலம் உள்நுழைவு தோல்வியடைந்தது. உங்கள் Windows கணக்கிற்கு இங்கு அனுமதி இல்லாமல் இருக்கலாம்.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "பொருந்தும் உறுப்புகள் எதுவும் இல்லை",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "உறுப்புகளைத் தேடு",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "உறுப்புகளைத் தேட தட்டச்சு செய்யவும்",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 பொருந்தும் உறுப்புகள்",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 பொருந்தும் உறுப்பு"
 }

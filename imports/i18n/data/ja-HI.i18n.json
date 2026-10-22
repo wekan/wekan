@@ -4673,5 +4673,10 @@
   "sqrl-only": "この あかうんと は SQRL だけ で ろぐいん します。",
   "sqrl-hardlock": "この あかうんと は SQRL に ろっく されて います。ほかの ほうほう で ふっきゅう も へんこう も できません。",
   "windows-sso-sign-in": "Windows で ろぐいん",
-  "windows-sso-failed": "Windows での ろぐいんに しっぱい しました。あなたの Windows あかうんとは ここで きょか されて いない かも しれません。"
+  "windows-sso-failed": "Windows での ろぐいんに しっぱい しました。あなたの Windows あかうんとは ここで きょか されて いない かも しれません。",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "一致するブロックが見つかりません",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ブロックを検索",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "入力してブロックを検索",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1個の一致するブロック",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1個の一致するブロック"
 }

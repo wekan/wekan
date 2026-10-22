@@ -4673,5 +4673,10 @@
   "sqrl-only": "यह खाता केवल SQRL से लॉग इन करता है।",
   "sqrl-hardlock": "यह खाता SQRL पर लॉक है: इसे किसी और तरीके से पुनर्प्राप्त या बदला नहीं जा सकता।",
   "windows-sso-sign-in": "Windows से साइन इन करें",
-  "windows-sso-failed": "Windows से साइन इन विफल रहा। हो सकता है आपके Windows खाते को यहाँ अनुमति न हो।"
+  "windows-sso-failed": "Windows से साइन इन विफल रहा। हो सकता है आपके Windows खाते को यहाँ अनुमति न हो।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "कोई मेल खाता ब्लॉक नहीं मिला",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ब्लॉक खोजें",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ब्लॉक खोजने के लिए टाइप करें",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 मेल खाते ब्लॉक",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 मेल खाता ब्लॉक"
 }

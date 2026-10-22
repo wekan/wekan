@@ -4673,5 +4673,10 @@
   "sqrl-only": "Вход в эту учётную запись возможен только через SQRL.",
   "sqrl-hardlock": "Эта учётная запись привязана к SQRL: её нельзя восстановить или изменить никаким другим способом.",
   "windows-sso-sign-in": "Войти через Windows",
-  "windows-sso-failed": "Не удалось войти через Windows. Возможно, вашей учётной записи Windows здесь вход не разрешён."
+  "windows-sso-failed": "Не удалось войти через Windows. Возможно, вашей учётной записи Windows здесь вход не разрешён.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Подходящие блоки не найдены",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Поиск блоков",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Начните вводить для поиска блоков",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Найдено блоков: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Найден 1 блок"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Det här kontot loggar bara in med SQRL.",
   "sqrl-hardlock": "Det här kontot är låst till SQRL: det kan inte återställas eller ändras på något annat sätt.",
   "windows-sso-sign-in": "Logga in med Windows",
-  "windows-sso-failed": "Inloggningen med Windows misslyckades. Ditt Windows-konto kanske inte är tillåtet här."
+  "windows-sso-failed": "Inloggningen med Windows misslyckades. Ditt Windows-konto kanske inte är tillåtet här.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Inga matchande block hittades",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Sök efter block",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skriv för att söka efter block",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 matchande block",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 matchande block"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "ⴰⵎⵉⴹⴰⵏ ⴰⴷ ⵉⵜⵜⴽⵛⴰⵎ ⵙ SQRL ⵖⴰⵙ.",
   "sqrl-hardlock": "ⴰⵎⵉⴹⴰⵏ ⴰⴷ ⵉⵜⵜⵓⵇⵇⵏ ⵖⵔ SQRL: ⵓⵔ ⵉⵣⵎⵉⵔ ⴰⴷ ⵉⵜⵜⵓⵔⴰⵔ ⵏⵖ ⴰⴷ ⵉⵜⵜⵓⵙⵏⴼⵍ ⵙ ⵜⴱⵔⴷⴰ ⵢⴰⴹⵏ.",
   "windows-sso-sign-in": "ⴽⵛⵎ ⵙ Windows",
-  "windows-sso-failed": "ⵓⵔ ⵜⵖⵓⴷⴰ ⵜⵉⴽⵛⵎⵜ ⵙ Windows. ⵉⵣⵎⵔ ⴰⴷ ⵓⵔ ⵉⵜⵜⵓⵙⵓⵔⴳ ⵓⵎⵉⴹⴰⵏ ⵏⵏⴽ ⵏ Windows ⴷⵖⵉ."
+  "windows-sso-failed": "ⵓⵔ ⵜⵖⵓⴷⴰ ⵜⵉⴽⵛⵎⵜ ⵙ Windows. ⵉⵣⵎⵔ ⴰⴷ ⵓⵔ ⵉⵜⵜⵓⵙⵓⵔⴳ ⵓⵎⵉⴹⴰⵏ ⵏⵏⴽ ⵏ Windows ⴷⵖⵉ.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ⵓⵔ ⵏⵓⴼⵉ ⴽⵔⴰ ⵏ ⵉⴱⵍⵓⴽⵏ ⵉⵎⵙⴰⵙⴰⵏ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ⵔⵣⵓ ⵉⴱⵍⵓⴽⵏ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ⴰⵔⵓ ⴰⴷ ⵜⵔⵣⵓⴷ ⵉⴱⵍⵓⴽⵏ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ⵏ ⵉⴱⵍⵓⴽⵏ ⵉⵎⵙⴰⵙⴰⵏ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ⵏ ⵓⴱⵍⵓⴽ ⵉⵎⵙⴰⵙⴰⵏ"
 }

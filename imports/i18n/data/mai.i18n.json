@@ -4673,5 +4673,10 @@
   "sqrl-only": "ई खाता केवल SQRL सँ साइन-इन करैत अछि।",
   "sqrl-hardlock": "ई खाता SQRL पर लॉक अछि: एकरा कोनो आन तरीकासँ पुनर्प्राप्त वा परिवर्तित नहि कयल जा सकैत अछि।",
   "windows-sso-sign-in": "Windows सँ साइन इन करू",
-  "windows-sso-failed": "Windows साइन-इन असफल भेल। अहाँक Windows खाता केँ एतय अनुमति नहि भ' सकैत अछि।"
+  "windows-sso-failed": "Windows साइन-इन असफल भेल। अहाँक Windows खाता केँ एतय अनुमति नहि भ' सकैत अछि।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "कोनो मेल खाइत ब्लॉक नहि भेटल",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ब्लॉक ताकू",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ब्लॉक ताकबाक लेल टाइप करू",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 मेल खाइत ब्लॉक",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 मेल खाइत ब्लॉक"
 }

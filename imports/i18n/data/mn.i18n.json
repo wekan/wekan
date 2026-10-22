@@ -4673,5 +4673,10 @@
   "sqrl-only": "Энэ бүртгэл зөвхөн SQRL-ээр нэвтэрдэг.",
   "sqrl-hardlock": "Энэ бүртгэл SQRL-д түгжигдсэн: үүнийг өөр ямар ч аргаар сэргээх эсвэл өөрчлөх боломжгүй.",
   "windows-sso-sign-in": "Windows-оор нэвтрэх",
-  "windows-sso-failed": "Windows-оор нэвтэрч чадсангүй. Таны Windows бүртгэлийг энд зөвшөөрөөгүй байж магадгүй."
+  "windows-sso-failed": "Windows-оор нэвтэрч чадсангүй. Таны Windows бүртгэлийг энд зөвшөөрөөгүй байж магадгүй.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Тохирох блок олдсонгүй",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блок хайх",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блок хайхын тулд бичнэ үү",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Тохирох %1 блок",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Тохирох 1 блок"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Chësc account fej azes mé cun SQRL.",
   "sqrl-hardlock": "Chësc account ie blucà sun SQRL: al ne n possa nia vester recuperà o mudà te nia n'autra maniera.",
   "windows-sso-sign-in": "Fé azes cun Windows",
-  "windows-sso-failed": "L azes cun Windows ne n'ie nia jit. Tie account de Windows ne n'é forsc nia lascià ite chiò."
+  "windows-sso-failed": "L azes cun Windows ne n'ie nia jit. Tie account de Windows ne n'é forsc nia lascià ite chiò.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Deguna bloches che corespuend nia giaté",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Crì bloches",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrì per crì bloches",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 bloches che corespuend",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloch che corespuend"
 }

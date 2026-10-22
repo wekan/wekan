@@ -4673,5 +4673,10 @@
   "sqrl-only": "یہ اکاؤنٹ صرف SQRL سے سائن ان ہوتا ہے۔",
   "sqrl-hardlock": "یہ اکاؤنٹ SQRL تک لاک ہے: اسے کسی اور طریقے سے بحال یا تبدیل نہیں کیا جا سکتا۔",
   "windows-sso-sign-in": "Windows کے ساتھ سائن ان کریں",
-  "windows-sso-failed": "Windows کے ساتھ سائن ان ناکام ہو گیا۔ ہو سکتا ہے آپ کے Windows اکاؤنٹ کو یہاں اجازت نہ ہو۔"
+  "windows-sso-failed": "Windows کے ساتھ سائن ان ناکام ہو گیا۔ ہو سکتا ہے آپ کے Windows اکاؤنٹ کو یہاں اجازت نہ ہو۔",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "کوئی مماثل بلاک نہیں ملا",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "بلاکس تلاش کریں",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "بلاکس تلاش کرنے کے لیے ٹائپ کریں",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 مماثل بلاکس",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 مماثل بلاک"
 }

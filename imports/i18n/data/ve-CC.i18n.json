@@ -4673,5 +4673,10 @@
   "sqrl-only": "Sto account el intra solo co SQRL.",
   "sqrl-hardlock": "Sto account el xe blocà su SQRL: no se pol recuperarlo o canbiarlo in nisun altro modo.",
   "windows-sso-sign-in": "Intra co Windows",
-  "windows-sso-failed": "L'acesso co Windows no l'è ndà ben. Forse el to conto Windows no 'l xe parmesso qua."
+  "windows-sso-failed": "L'acesso co Windows no l'è ndà ben. Forse el to conto Windows no 'l xe parmesso qua.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nisun bloco corispondente catà",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Serca blochi",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrivi par sercar blochi",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blochi corispondenti",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloco corispondente"
 }

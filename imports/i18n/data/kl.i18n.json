@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kontu una SQRL kisiat atorlugu iserfigineqartarpoq.",
   "sqrl-hardlock": "Kontu una SQRL-imut parnaarneqarpoq: allatigut annaanneqarsinnaanngilaq allanngortinneqarsinnaananiluunniit.",
   "windows-sso-sign-in": "Windows atorlugu iserit",
-  "windows-sso-failed": "Windows atorlugu iserneq iluatsinngilaq. Windows-imi kontoqarfiit maani akuerisaanngitsoorsinnaavoq."
+  "windows-sso-failed": "Windows atorlugu iserneq iluatsinngilaq. Windows-imi kontoqarfiit maani akuerisaanngitsoorsinnaavoq.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Blokkinik naapertuuttunik nassaartoqanngilaq",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blokkinik ujarlerit",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Blokkinik ujarlerniarlutit allagit",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Blokkit naapertuuttut: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blokki naapertuuttoq"
 }

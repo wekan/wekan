@@ -4673,5 +4673,10 @@
   "sqrl-only": "Stu cunto trase sulo cu SQRL.",
   "sqrl-hardlock": "Stu cunto è nchiuso cu SQRL: nun se pò recuperà o cagnà 'n nisciun'ata manera.",
   "windows-sso-sign-in": "Trase cu Windows",
-  "windows-sso-failed": "'A trasuta cu Windows nun è ghiuta bona. Forse 'o cunto Windows tujo nun è permesso ccà."
+  "windows-sso-failed": "'A trasuta cu Windows nun è ghiuta bona. Forse 'o cunto Windows tujo nun è permesso ccà.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nisciuno blocco corrispondente truvato",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cercà blocche",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrive pe cercà blocche",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocche corrispondente",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blocco corrispondente"
 }

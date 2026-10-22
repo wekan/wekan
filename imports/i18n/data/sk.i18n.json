@@ -4673,5 +4673,10 @@
   "sqrl-only": "Do tohto účtu sa prihlasuje len cez SQRL.",
   "sqrl-hardlock": "Tento účet je uzamknutý na SQRL: nedá sa obnoviť ani zmeniť žiadnym iným spôsobom.",
   "windows-sso-sign-in": "Prihlásiť sa cez Windows",
-  "windows-sso-failed": "Prihlásenie cez Windows zlyhalo. Váš účet Windows tu pravdepodobne nemá povolený prístup."
+  "windows-sso-failed": "Prihlásenie cez Windows zlyhalo. Váš účet Windows tu pravdepodobne nemá povolený prístup.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nenašli sa žiadne zodpovedajúce bloky",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Hľadať bloky",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Píšte pre hľadanie blokov",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Nájdené bloky: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 zodpovedajúci blok"
 }

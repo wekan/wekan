@@ -4673,5 +4673,10 @@
   "sqrl-only": "To konto loguje się wyłącznie przez SQRL.",
   "sqrl-hardlock": "To konto jest zablokowane na SQRL: nie można go odzyskać ani zmienić w żaden inny sposób.",
   "windows-sso-sign-in": "Zaloguj się przez Windows",
-  "windows-sso-failed": "Logowanie przez Windows nie powiodło się. Twoje konto Windows może nie mieć tu dostępu."
+  "windows-sso-failed": "Logowanie przez Windows nie powiodło się. Twoje konto Windows może nie mieć tu dostępu.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nie znaleziono pasujących bloków",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Szukaj bloków",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Zacznij pisać, aby wyszukać bloki",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 pasujących bloków",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 pasujący blok"
 }

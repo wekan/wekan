@@ -4673,5 +4673,10 @@
   "sqrl-only": "บัญชีนี้เข้าสู่ระบบด้วย SQRL เท่านั้น",
   "sqrl-hardlock": "บัญชีนี้ถูกล็อกไว้กับ SQRL: ไม่สามารถกู้คืนหรือเปลี่ยนแปลงด้วยวิธีอื่นได้",
   "windows-sso-sign-in": "เข้าสู่ระบบด้วย Windows",
-  "windows-sso-failed": "เข้าสู่ระบบด้วย Windows ไม่สำเร็จ บัญชี Windows ของคุณอาจไม่ได้รับอนุญาตที่นี่"
+  "windows-sso-failed": "เข้าสู่ระบบด้วย Windows ไม่สำเร็จ บัญชี Windows ของคุณอาจไม่ได้รับอนุญาตที่นี่",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ไม่พบบล็อกที่ตรงกัน",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ค้นหาบล็อก",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "พิมพ์เพื่อค้นหาบล็อก",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "พบบล็อกที่ตรงกัน %1 บล็อก",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "พบบล็อกที่ตรงกัน 1 บล็อก"
 }

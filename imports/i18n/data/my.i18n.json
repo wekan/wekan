@@ -4673,5 +4673,10 @@
   "sqrl-only": "ဤအကောင့်သည် SQRL ဖြင့်သာ ဝင်ရောက်သည်။",
   "sqrl-hardlock": "ဤအကောင့်ကို SQRL ဖြင့် သော့ခတ်ထားသည်- အခြားနည်းဖြင့် ပြန်လည်ရယူခြင်း သို့မဟုတ် ပြောင်းလဲခြင်း မပြုနိုင်ပါ။",
   "windows-sso-sign-in": "Windows ဖြင့် ဝင်ရန်",
-  "windows-sso-failed": "Windows ဖြင့် ဝင်ရောက်ခြင်း မအောင်မြင်ပါ။ သင်၏ Windows အကောင့်ကို ဤနေရာတွင် ခွင့်မပြုထားနိုင်ပါ။"
+  "windows-sso-failed": "Windows ဖြင့် ဝင်ရောက်ခြင်း မအောင်မြင်ပါ။ သင်၏ Windows အကောင့်ကို ဤနေရာတွင် ခွင့်မပြုထားနိုင်ပါ။",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ကိုက်ညီသော ဘလောက် မတွေ့ပါ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ဘလောက်များ ရှာဖွေရန်",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ဘလောက်များ ရှာဖွေရန် ရိုက်ထည့်ပါ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "ကိုက်ညီသော ဘလောက် %1 ခု",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "ကိုက်ညီသော ဘလောက် 1 ခု"
 }

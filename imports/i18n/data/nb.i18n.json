@@ -4673,5 +4673,10 @@
   "sqrl-only": "Denne kontoen logger kun inn med SQRL.",
   "sqrl-hardlock": "Denne kontoen er låst til SQRL: den kan ikke gjenopprettes eller endres på noen annen måte.",
   "windows-sso-sign-in": "Logg inn med Windows",
-  "windows-sso-failed": "Windows-innlogging mislyktes. Det kan hende Windows-kontoen din ikke har tilgang her."
+  "windows-sso-failed": "Windows-innlogging mislyktes. Det kan hende Windows-kontoen din ikke har tilgang her.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Fant ingen samsvarende blokker",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Søk etter blokker",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skriv for å søke etter blokker",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 samsvarende blokker",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 samsvarende blokk"
 }

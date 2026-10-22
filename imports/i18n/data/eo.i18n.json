@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ĉi tiu konto ensalutas nur per SQRL.",
   "sqrl-hardlock": "Ĉi tiu konto estas ŝlosita al SQRL: ĝi ne povas esti restaŭrita aŭ ŝanĝita alimaniere.",
   "windows-sso-sign-in": "Ensaluti per Windows",
-  "windows-sso-failed": "Ensaluto per Windows malsukcesis. Via Windows-konto eble ne estas permesata ĉi tie."
+  "windows-sso-failed": "Ensaluto per Windows malsukcesis. Via Windows-konto eble ne estas permesata ĉi tie.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Neniuj kongruaj blokoj troviĝis",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Serĉi blokojn",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tajpu por serĉi blokojn",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 kongruaj blokoj",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 kongrua bloko"
 }

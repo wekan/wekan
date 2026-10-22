@@ -4673,5 +4673,10 @@
   "sqrl-only": "Custu contu intrat isceti cun SQRL.",
   "sqrl-hardlock": "Custu contu est blocadu a SQRL: non podet èssere recuperadu o cambiadu in peruna àtera manera.",
   "windows-sso-sign-in": "Intra cun Windows",
-  "windows-sso-failed": "S'intrada cun Windows no est andada bene. Fortzis su contu Windows tuo no est permìtidu inoghe."
+  "windows-sso-failed": "S'intrada cun Windows no est andada bene. Fortzis su contu Windows tuo no est permìtidu inoghe.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Perunu blocu currispondente agatadu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Chirca blocos",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Iscrie pro chircare blocos",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocos currispondentes",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blocu currispondente"
 }

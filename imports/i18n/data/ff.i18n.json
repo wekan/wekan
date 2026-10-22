@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ndee konte seŋotoo e SQRL tan.",
   "sqrl-hardlock": "Ndee konte uddaama e SQRL: waawaa artireede walla waylteede e laabi goɗɗi.",
   "windows-sso-sign-in": "Seŋo e Windows",
-  "windows-sso-failed": "Seŋo e Windows roŋkii. Konte maa Windows ina waawi wonde yamiraaka ɗoo."
+  "windows-sso-failed": "Seŋo e Windows roŋkii. Konte maa Windows ina waawi wonde yamiraaka ɗoo.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Alaa bulokuuji jaaɓondirɗi njiytaa",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Yiylo bulokuuji",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Winndu ngam yiylaade bulokuuji",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "bulokuuji jaaɓondirɗi %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "bulok jaaɓondirngol 1"
 }

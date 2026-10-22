@@ -4673,5 +4673,10 @@
   "sqrl-only": "Бул аккаунтка SQRL аркылуу гана кирилет.",
   "sqrl-hardlock": "Бул аккаунт SQRLге кулпуланган: аны башка эч бир жол менен калыбына келтирүүгө же өзгөртүүгө болбойт.",
   "windows-sso-sign-in": "Windows аркылуу кирүү",
-  "windows-sso-failed": "Windows аркылуу кирүү ишке ашкан жок. Сиздин Windows каттоо эсебиңизге бул жерде уруксат берилбеши мүмкүн."
+  "windows-sso-failed": "Windows аркылуу кирүү ишке ашкан жок. Сиздин Windows каттоо эсебиңизге бул жерде уруксат берилбеши мүмкүн.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Дал келген блоктор табылган жок",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Блокторду издөө",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Блокторду издөө үчүн териңиз",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 дал келген блок",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 дал келген блок"
 }

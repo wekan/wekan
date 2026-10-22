@@ -4673,5 +4673,10 @@
   "sqrl-only": "Aestu cont intrã maşi cu SQRL.",
   "sqrl-hardlock": "Aestu cont easti ãncljis trã SQRL: nu poati s-hibã aduts nãpoi i alãxit cu altã cali.",
   "windows-sso-sign-in": "Intrari cu Windows",
-  "windows-sso-failed": "Intrarea cu Windows nu s-featsi. Contul a tãu di Windows poati nu easti alãsat aoa."
+  "windows-sso-failed": "Intrarea cu Windows nu s-featsi. Contul a tãu di Windows poati nu easti alãsat aoa.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nu s-aflarã blocuri tsi s-alichescu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Caftu blocuri",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrie ti s-caftsã blocuri",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocuri tsi s-alichescu",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc tsi s-alicheashti"
 }

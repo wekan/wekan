@@ -4673,5 +4673,10 @@
   "sqrl-only": "આ ખાતું ફક્ત SQRL વડે સાઇન-ઇન કરે છે.",
   "sqrl-hardlock": "આ ખાતું SQRL પર લૉક છે: તેને બીજી કોઈ રીતે પુનઃપ્રાપ્ત કે બદલી શકાતું નથી.",
   "windows-sso-sign-in": "Windows વડે સાઇન ઇન કરો",
-  "windows-sso-failed": "Windows વડે સાઇન ઇન નિષ્ફળ થયું. તમારા Windows એકાઉન્ટને અહીં મંજૂરી ન હોઈ શકે."
+  "windows-sso-failed": "Windows વડે સાઇન ઇન નિષ્ફળ થયું. તમારા Windows એકાઉન્ટને અહીં મંજૂરી ન હોઈ શકે.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "કોઈ મેળ ખાતા બ્લોક મળ્યા નથી",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "બ્લોક શોધો",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "બ્લોક શોધવા માટે લખો",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 મેળ ખાતા બ્લોક",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 મેળ ખાતો બ્લોક"
 }

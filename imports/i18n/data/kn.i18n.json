@@ -4673,5 +4673,10 @@
   "sqrl-only": "ಈ ಖಾತೆ SQRL ನಿಂದ ಮಾತ್ರ ಸೈನ್ ಇನ್ ಆಗುತ್ತದೆ.",
   "sqrl-hardlock": "ಈ ಖಾತೆಯನ್ನು SQRL ಗೆ ಲಾಕ್ ಮಾಡಲಾಗಿದೆ: ಇದನ್ನು ಬೇರೆ ಯಾವುದೇ ರೀತಿಯಲ್ಲಿ ಮರುಪಡೆಯಲು ಅಥವಾ ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
   "windows-sso-sign-in": "Windows ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ",
-  "windows-sso-failed": "Windows ಮೂಲಕ ಸೈನ್ ಇನ್ ವಿಫಲವಾಗಿದೆ. ನಿಮ್ಮ Windows ಖಾತೆಗೆ ಇಲ್ಲಿ ಅನುಮತಿ ಇಲ್ಲದಿರಬಹುದು."
+  "windows-sso-failed": "Windows ಮೂಲಕ ಸೈನ್ ಇನ್ ವಿಫಲವಾಗಿದೆ. ನಿಮ್ಮ Windows ಖಾತೆಗೆ ಇಲ್ಲಿ ಅನುಮತಿ ಇಲ್ಲದಿರಬಹುದು.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ಹೊಂದುವ ಬ್ಲಾಕ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ಬ್ಲಾಕ್‌ಗಳನ್ನು ಹುಡುಕಿ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ಬ್ಲಾಕ್‌ಗಳನ್ನು ಹುಡುಕಲು ಟೈಪ್ ಮಾಡಿ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ಹೊಂದುವ ಬ್ಲಾಕ್‌ಗಳು",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ಹೊಂದುವ ಬ್ಲಾಕ್"
 }

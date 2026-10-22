@@ -4673,5 +4673,10 @@
   "sqrl-only": "এই অ্যাকাউন্টে শুধুমাত্র SQRL দিয়ে সাইন-ইন করা যায়।",
   "sqrl-hardlock": "এই অ্যাকাউন্টটি SQRL-এ লক করা: এটি অন্য কোনো উপায়ে পুনরুদ্ধার বা পরিবর্তন করা যায় না।",
   "windows-sso-sign-in": "Windows দিয়ে সাইন ইন করুন",
-  "windows-sso-failed": "Windows দিয়ে সাইন ইন ব্যর্থ হয়েছে। আপনার Windows অ্যাকাউন্ট এখানে অনুমোদিত নাও হতে পারে।"
+  "windows-sso-failed": "Windows দিয়ে সাইন ইন ব্যর্থ হয়েছে। আপনার Windows অ্যাকাউন্ট এখানে অনুমোদিত নাও হতে পারে।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "মিলে যায় এমন কোনো ব্লক পাওয়া যায়নি",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ব্লক অনুসন্ধান করুন",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ব্লক অনুসন্ধান করতে টাইপ করুন",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1টি মিলে যাওয়া ব্লক",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1টি মিলে যাওয়া ব্লক"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Amin'ny SQRL ihany no idirana amin'ity kaonty ity.",
   "sqrl-hardlock": "Voahidy amin'ny SQRL ity kaonty ity: tsy azo averina na ovaina amin'ny fomba hafa izy.",
   "windows-sso-sign-in": "Midira amin'ny Windows",
-  "windows-sso-failed": "Tsy nahomby ny fidirana amin'ny Windows. Mety tsy avela eto ny kaontinao Windows."
+  "windows-sso-failed": "Tsy nahomby ny fidirana amin'ny Windows. Mety tsy avela eto ny kaontinao Windows.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Tsy misy bilaoky mifanaraka hita",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Hikaroka bilaoky",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Manorata mba hikaroka bilaoky",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bilaoky mifanaraka %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bilaoky mifanaraka 1"
 }

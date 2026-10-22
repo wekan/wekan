@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ar gont-mañ a gevre gant SQRL hepken.",
   "sqrl-hardlock": "Prennet eo ar gont-mañ ouzh SQRL: ne c'hall ket bezañ adtapet na cheñchet en un doare all ebet.",
   "windows-sso-sign-in": "Kevreañ gant Windows",
-  "windows-sso-failed": "C'hwitet eo ar c'hevreañ gant Windows. Marteze n'eo ket aotreet ho kont Windows amañ."
+  "windows-sso-failed": "C'hwitet eo ar c'hevreañ gant Windows. Marteze n'eo ket aotreet ho kont Windows amañ.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "N'eus bet kavet bloc'h ebet a glot",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Klask bloc'hoù",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skrivit evit klask bloc'hoù",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 bloc'h a glot",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc'h a glot"
 }

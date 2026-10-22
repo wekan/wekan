@@ -4673,5 +4673,10 @@
   "sqrl-only": "An akont ma a omgelm gans SQRL hepken.",
   "sqrl-hardlock": "An akont ma yw alwhedhys dhe SQRL: ny yll bos daskevys na chanjys yn fordh aral vyth.",
   "windows-sso-sign-in": "Omgelmi gans Windows",
-  "windows-sso-failed": "Fyllys veu omgelmi gans Windows. Martesen nyns yw gesys dha akont Windows omma."
+  "windows-sso-failed": "Fyllys veu omgelmi gans Windows. Martesen nyns yw gesys dha akont Windows omma.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ny veu kevys blok vyth a dhesedh",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Hwilas blokow",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skrifa rag hwilas blokow",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok a dhesedh",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok a dhesedh"
 }

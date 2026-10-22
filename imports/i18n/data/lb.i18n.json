@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dëse Kont loggt sech just mat SQRL an.",
   "sqrl-hardlock": "Dëse Kont ass op SQRL gespaart: en ka op keng aner Manéier erëmgewonnen oder geännert ginn.",
   "windows-sso-sign-in": "Mat Windows aloggen",
-  "windows-sso-failed": "Windows-Login ass feelgeschloen. Däi Windows-Kont ass hei vläicht net erlaabt."
+  "windows-sso-failed": "Windows-Login ass feelgeschloen. Däi Windows-Kont ass hei vläicht net erlaabt.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Keng passend Bléck fonnt",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "No Bléck sichen",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tipp fir no Bléck ze sichen",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 passend Bléck",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 passende Block"
 }

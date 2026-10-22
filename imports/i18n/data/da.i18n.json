@@ -4673,5 +4673,10 @@
   "sqrl-only": "Denne konto logger kun ind med SQRL.",
   "sqrl-hardlock": "Denne konto er låst til SQRL: den kan ikke gendannes eller ændres på nogen anden måde.",
   "windows-sso-sign-in": "Log ind med Windows",
-  "windows-sso-failed": "Log ind med Windows mislykkedes. Din Windows-konto er muligvis ikke tilladt her."
+  "windows-sso-failed": "Log ind med Windows mislykkedes. Din Windows-konto er muligvis ikke tilladt her.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ingen matchende blokke fundet",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Søg efter blokke",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skriv for at søge efter blokke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 matchende blokke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 matchende blok"
 }

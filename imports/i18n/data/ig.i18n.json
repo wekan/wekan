@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akaụntụ a na-abanye naanị site na SQRL.",
   "sqrl-hardlock": "Akaụntụ a ka ekpochiri na SQRL: enweghị ike iweghachi ya ma ọ bụ gbanwee ya n'ụzọ ọ bụla ọzọ.",
   "windows-sso-sign-in": "Banye site na Windows",
-  "windows-sso-failed": "Ịbanye site na Windows dara. Ọ nwere ike ịbụ na anaghị ekwe akaụntụ Windows gị ebe a."
+  "windows-sso-failed": "Ịbanye site na Windows dara. Ọ nwere ike ịbụ na anaghị ekwe akaụntụ Windows gị ebe a.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ahụghị ngọngọ dabara adaba",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Chọọ ngọngọ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Pịnye ka ịchọọ ngọngọ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ngọngọ dabara adaba",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ngọngọ dabara adaba"
 }

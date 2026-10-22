@@ -1173,7 +1173,7 @@
   "no-archived-cards": "ଅଭିଲେଖାଗାରରେ କ cards ଣସି କାର୍ଡ ନାହିଁ |",
   "no-archived-lists": "ଅଭିଲେଖାଗାରରେ କ No ଣସି ତାଲିକା ନାହିଁ |",
   "no-archived-swimlanes": "ଅଭିଲେଖାଗାରରେ କ swim ଣସି ସନ୍ତରଣକାରୀ ନାହିଁ |",
-  "no-results": "କ results ଣସି ଫଳାଫଳ ନାହିଁ |",
+  "no-results": "କୌଣସି ଫଳାଫଳ ନାହିଁ",
   "normal": "ସାଧାରଣ",
   "normal-desc": "କାର୍ଡଗୁଡିକ ଦର୍ଶନ ଏବଂ ସଂପାଦନ କରିପାରିବେ | ସେଟିଂସମୂହ ପରିବର୍ତ୍ତନ କରିପାରିବ ନାହିଁ |",
   "normal-assigned-only": "କେବଳ ନର୍ମାଲ୍ ନ୍ୟସ୍ତ ହୋଇଛି |",
@@ -4673,5 +4673,10 @@
   "sqrl-only": "ଏହି ଆକାଉଣ୍ଟ କେବଳ SQRL ସହିତ ସାଇନ୍ ଇନ୍ କରେ।",
   "sqrl-hardlock": "ଏହି ଆକାଉଣ୍ଟ SQRL ରେ ଲକ୍ ହୋଇଛି: ଏହାକୁ ଅନ୍ୟ କୌଣସି ଉପାୟରେ ପୁନରୁଦ୍ଧାର କିମ୍ବା ପରିବର୍ତ୍ତନ କରାଯାଇପାରିବ ନାହିଁ।",
   "windows-sso-sign-in": "Windows ସହିତ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
-  "windows-sso-failed": "Windows ସାଇନ୍ ଇନ୍ ବିଫଳ ହେଲା। ଆପଣଙ୍କ Windows ଆକାଉଣ୍ଟକୁ ଏଠାରେ ଅନୁମତି ନଥାଇପାରେ।"
+  "windows-sso-failed": "Windows ସାଇନ୍ ଇନ୍ ବିଫଳ ହେଲା। ଆପଣଙ୍କ Windows ଆକାଉଣ୍ଟକୁ ଏଠାରେ ଅନୁମତି ନଥାଇପାରେ।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "କୌଣସି ମେଳ ଖାଉଥିବା ବ୍ଲକ୍ ମିଳିଲା ନାହିଁ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ବ୍ଲକ୍ ସନ୍ଧାନ କରନ୍ତୁ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ବ୍ଲକ୍ ସନ୍ଧାନ ପାଇଁ ଟାଇପ୍ କରନ୍ତୁ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1ଟି ମେଳ ଖାଉଥିବା ବ୍ଲକ୍",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1ଟି ମେଳ ଖାଉଥିବା ବ୍ଲକ୍"
 }

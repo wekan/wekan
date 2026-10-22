@@ -4673,5 +4673,10 @@
   "sqrl-only": "Acest cont se autentifică doar cu SQRL.",
   "sqrl-hardlock": "Acest cont este blocat la SQRL: nu poate fi recuperat sau modificat în niciun alt mod.",
   "windows-sso-sign-in": "Autentificare cu Windows",
-  "windows-sso-failed": "Autentificarea Windows a eșuat. Este posibil ca contul tău Windows să nu fie permis aici."
+  "windows-sso-failed": "Autentificarea Windows a eșuat. Este posibil ca contul tău Windows să nu fie permis aici.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nu s-au găsit blocuri potrivite",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Caută blocuri",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tastează pentru a căuta blocuri",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocuri potrivite",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc potrivit"
 }

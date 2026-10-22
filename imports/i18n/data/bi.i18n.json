@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akaon ia i go insaed wetem SQRL nomo.",
   "sqrl-hardlock": "Akaon ia i lok long SQRL: i no save kambak o jenis long eni narafala rod.",
   "windows-sso-sign-in": "Go insaed wetem Windows",
-  "windows-sso-failed": "Go insaed wetem Windows i no wok. Maet Windows akaon blong yu i no gat raet long ples ia."
+  "windows-sso-failed": "Go insaed wetem Windows i no wok. Maet Windows akaon blong yu i no gat raet long ples ia.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "I no gat blok we i fitim",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Lukaotem ol blok",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Raetem samting blong lukaotem ol blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok we i fitim",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok we i fitim"
 }

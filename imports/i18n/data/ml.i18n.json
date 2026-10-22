@@ -4673,5 +4673,10 @@
   "sqrl-only": "ഈ അക്കൗണ്ട് SQRL ഉപയോഗിച്ച് മാത്രമേ സൈൻ ഇൻ ചെയ്യൂ.",
   "sqrl-hardlock": "ഈ അക്കൗണ്ട് SQRL-ലേക്ക് ലോക്ക് ചെയ്തിരിക്കുന്നു: മറ്റൊരു വഴിയിലൂടെയും ഇത് വീണ്ടെടുക്കാനോ മാറ്റാനോ കഴിയില്ല.",
   "windows-sso-sign-in": "Windows ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക",
-  "windows-sso-failed": "Windows സൈൻ ഇൻ പരാജയപ്പെട്ടു. നിങ്ങളുടെ Windows അക്കൗണ്ടിന് ഇവിടെ അനുമതി ഇല്ലായിരിക്കാം."
+  "windows-sso-failed": "Windows സൈൻ ഇൻ പരാജയപ്പെട്ടു. നിങ്ങളുടെ Windows അക്കൗണ്ടിന് ഇവിടെ അനുമതി ഇല്ലായിരിക്കാം.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "പൊരുത്തപ്പെടുന്ന ബ്ലോക്കുകളൊന്നും കണ്ടെത്തിയില്ല",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ബ്ലോക്കുകൾ തിരയുക",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ബ്ലോക്കുകൾ തിരയാൻ ടൈപ്പ് ചെയ്യുക",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "പൊരുത്തപ്പെടുന്ന %1 ബ്ലോക്കുകൾ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "പൊരുത്തപ്പെടുന്ന 1 ബ്ലോക്ക്"
 }

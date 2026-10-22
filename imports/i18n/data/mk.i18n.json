@@ -4673,5 +4673,10 @@
   "sqrl-only": "Оваа сметка се најавува само со SQRL.",
   "sqrl-hardlock": "Оваа сметка е заклучена на SQRL: не може да се врати или промени на ниту еден друг начин.",
   "windows-sso-sign-in": "Најави се со Windows",
-  "windows-sso-failed": "Најавата со Windows не успеа. Вашата Windows сметка можеби не е дозволена тука."
+  "windows-sso-failed": "Најавата со Windows не успеа. Вашата Windows сметка можеби не е дозволена тука.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Не се пронајдени соодветни блокови",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Барај блокови",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Пишувајте за да барате блокови",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 соодветни блокови",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 соодветен блок"
 }

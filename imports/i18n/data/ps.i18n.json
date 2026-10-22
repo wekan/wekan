@@ -4673,5 +4673,10 @@
   "sqrl-only": "دا حساب یوازې په SQRL ننوځي.",
   "sqrl-hardlock": "دا حساب په SQRL پورې تړل شوی دی: په بله هېڅ لاره نه بېرته راګرځول کېدای شي او نه بدلېدای شي.",
   "windows-sso-sign-in": "د Windows له لارې ننوځئ",
-  "windows-sso-failed": "د Windows له لارې ننوتل ناکام شول. کېدای شي ستاسو د Windows حساب ته دلته اجازه نه وي."
+  "windows-sso-failed": "د Windows له لارې ننوتل ناکام شول. کېدای شي ستاسو د Windows حساب ته دلته اجازه نه وي.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "هېڅ ورته بلاک ونه موندل شو",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "بلاکونه ولټوئ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "د بلاکونو د لټولو لپاره ولیکئ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ورته بلاکونه",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ورته بلاک"
 }

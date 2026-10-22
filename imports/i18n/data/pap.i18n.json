@@ -4673,5 +4673,10 @@
   "sqrl-only": "E kuenta aki ta drenta ku SQRL so.",
   "sqrl-hardlock": "E kuenta aki ta será na SQRL: e no por wòrdu rekuperá ni kambiá di ningun otro manera.",
   "windows-sso-sign-in": "Drenta ku Windows",
-  "windows-sso-failed": "Drenta ku Windows a faya. Kisas bo kuenta di Windows no ta permití aki."
+  "windows-sso-failed": "Drenta ku Windows a faya. Kisas bo kuenta di Windows no ta permití aki.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "No a haña ningun blòk ku ta kuadra",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Buska blòki",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tipiá pa buska blòki",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blòki ku ta kuadra",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blòk ku ta kuadra"
 }

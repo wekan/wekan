@@ -4673,5 +4673,10 @@
   "sqrl-only": "Neche kontha tuldas vaiše SQRL:anke.",
   "sqrl-hardlock": "Nece kont om lukustadud SQRL:aha: sidä ei voi pördutada eskai vajehtada nikut toižiči.",
   "windows-sso-sign-in": "Tulda Windows:an kal",
-  "windows-sso-failed": "Tulend Windows:an kal ei onistund. Voib olda, sinun Windows-akkaunt ei ole lubatud täs."
+  "windows-sso-failed": "Tulend Windows:an kal ei onistund. Voib olda, sinun Windows-akkaunt ei ole lubatud täs.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ühtenzoittujid blokoid ei löudnus",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Eci blokoid",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Kirjutagat, miše eci blokoid",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ühtenzoittujad blokad",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ühtenzoittui blok"
 }

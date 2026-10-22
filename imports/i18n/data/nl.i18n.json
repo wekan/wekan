@@ -4673,5 +4673,10 @@
   "sqrl-only": "Dit account meldt zich alleen aan met SQRL.",
   "sqrl-hardlock": "Dit account is aan SQRL vergrendeld: het kan op geen enkele andere manier worden hersteld of gewijzigd.",
   "windows-sso-sign-in": "Aanmelden met Windows",
-  "windows-sso-failed": "Aanmelden met Windows is mislukt. Je Windows-account heeft hier mogelijk geen toegang."
+  "windows-sso-failed": "Aanmelden met Windows is mislukt. Je Windows-account heeft hier mogelijk geen toegang.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Geen overeenkomende blokken gevonden",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Zoeken naar blokken",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Typ om naar blokken te zoeken",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 overeenkomende blokken",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 overeenkomend blok"
 }

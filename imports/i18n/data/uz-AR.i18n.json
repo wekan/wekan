@@ -4673,5 +4673,10 @@
   "sqrl-only": "بو حسابگه فقط SQRL بیلن کیریلهدی.",
   "sqrl-hardlock": "بو حساب SQRL گه قولفلنگن: اونی باشقه هېچ بیر یۉل بیلن تیکلب یاکی ۉزگرتیریب بۉلمیدی.",
   "windows-sso-sign-in": "Windows بیلن کیریش",
-  "windows-sso-failed": "Windows بیلن کیریش اوملی بولمدی. Windows حسابینگیزگه بو یېرده روخصت بېریلمه‌گن بولیشی مومکین."
+  "windows-sso-failed": "Windows بیلن کیریش اوملی بولمدی. Windows حسابینگیزگه بو یېرده روخصت بېریلمه‌گن بولیشی مومکین.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "موس بلاکلر تاپیلمه‌دی",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "بلاکلرنی قیدیریش",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "بلاکلرنی قیدیریش اوچون یازینگ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 تا موس بلاک",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 تا موس بلاک"
 }

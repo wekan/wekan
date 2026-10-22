@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ko kuénta oike SQRL rupive añoite.",
   "sqrl-hardlock": "Ko kuénta oñembotypa SQRL-pe: ndaikatúi oñemoingove jey térã oñemoambue ambue tape rupive.",
   "windows-sso-sign-in": "Eike Windows rupive",
-  "windows-sso-failed": "Ndaikatúi reike Windows rupive. Ikatu nde mba'ete Windows ndojeheja'ỹi ko'ápe."
+  "windows-sso-failed": "Ndaikatúi reike Windows rupive. Ikatu nde mba'ete Windows ndojeheja'ỹi ko'ápe.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ndojejuhúi mbopehẽ ojojoguáva",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Heka mbopehẽ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ehai reheka hag̃ua mbopehẽ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 mbopehẽ ojojoguáva",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 mbopehẽ ojojoguáva"
 }

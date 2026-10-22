@@ -4673,5 +4673,10 @@
   "sqrl-only": "Henda kontan ritar einans inn við SQRL.",
   "sqrl-hardlock": "Henda kontan er læst til SQRL: hon kann ikki endurskapast ella broytast á nakran annan hátt.",
   "windows-sso-sign-in": "Rita inn við Windows",
-  "windows-sso-failed": "Innritan við Windows miseydnaðist. Tín Windows-konta er møguliga ikki loyvd her."
+  "windows-sso-failed": "Innritan við Windows miseydnaðist. Tín Windows-konta er møguliga ikki loyvd her.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ongir hóskandi kubbar funnir",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Leita eftir kubbum",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Skriva fyri at leita eftir kubbum",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 hóskandi kubbar",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 hóskandi kubbi"
 }

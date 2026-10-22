@@ -4673,5 +4673,10 @@
   "sqrl-only": "ეს ანგარიში შედის მხოლოდ SQRL-ით.",
   "sqrl-hardlock": "ეს ანგარიში ჩაკეტილია SQRL-ზე: მისი აღდგენა ან შეცვლა სხვა გზით შეუძლებელია.",
   "windows-sso-sign-in": "შესვლა Windows-ით",
-  "windows-sso-failed": "Windows-ით შესვლა ვერ მოხერხდა. შესაძლოა, თქვენი Windows ანგარიში აქ დაშვებული არ იყოს."
+  "windows-sso-failed": "Windows-ით შესვლა ვერ მოხერხდა. შესაძლოა, თქვენი Windows ანგარიში აქ დაშვებული არ იყოს.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "შესაბამისი ბლოკები ვერ მოიძებნა",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ბლოკების ძებნა",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "აკრიფეთ ბლოკების მოსაძებნად",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 შესაბამისი ბლოკი",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 შესაბამისი ბლოკი"
 }

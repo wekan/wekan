@@ -4673,5 +4673,10 @@
   "sqrl-only": "Stu contu si cunnette solu cù SQRL.",
   "sqrl-hardlock": "Stu contu hè chjosu à SQRL: ùn pò esse ricuperatu nè cambiatu in alcuna altra manera.",
   "windows-sso-sign-in": "Cunnettassi cù Windows",
-  "windows-sso-failed": "A cunnessione cù Windows hè fallita. U vostru contu Windows ùn hè forse micca permessu quì."
+  "windows-sso-failed": "A cunnessione cù Windows hè fallita. U vostru contu Windows ùn hè forse micca permessu quì.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nisun bloccu currispundente trovatu",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Circà blocchi",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Scrivite per circà blocchi",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocchi currispundenti",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloccu currispundente"
 }

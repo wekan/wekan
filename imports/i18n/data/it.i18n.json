@@ -4673,5 +4673,10 @@
   "sqrl-only": "Questo account accede solo con SQRL.",
   "sqrl-hardlock": "Questo account è vincolato a SQRL: non può essere recuperato né modificato in nessun altro modo.",
   "windows-sso-sign-in": "Accedi con Windows",
-  "windows-sso-failed": "Accesso con Windows non riuscito. Il tuo account Windows potrebbe non essere autorizzato qui."
+  "windows-sso-failed": "Accesso con Windows non riuscito. Il tuo account Windows potrebbe non essere autorizzato qui.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nessun blocco corrispondente trovato",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cerca blocchi",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Digita per cercare blocchi",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocchi corrispondenti",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blocco corrispondente"
 }

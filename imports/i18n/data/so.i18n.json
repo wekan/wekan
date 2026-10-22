@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akoonkan wuxuu ku galaa SQRL oo keliya.",
   "sqrl-hardlock": "Akoonkan waxa lagu xiray SQRL: lama soo celin karo lamana beddeli karo si kale.",
   "windows-sso-sign-in": "Ku gal Windows",
-  "windows-sso-failed": "Galitaanka Windows wuu fashilmay. Akoonkaaga Windows waxaa laga yaabaa in aan halkan loo oggolayn."
+  "windows-sso-failed": "Galitaanka Windows wuu fashilmay. Akoonkaaga Windows waxaa laga yaabaa in aan halkan loo oggolayn.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Lama helin baloogyo u dhigma",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Raadi baloogyada",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Qor si aad u raadiso baloogyada",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 baloog oo u dhigma",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 baloog oo u dhigma"
 }

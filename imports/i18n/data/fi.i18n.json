@@ -4673,5 +4673,10 @@
   "sqrl-only": "Tälle tilille kirjaudutaan vain SQRL:llä.",
   "sqrl-hardlock": "Tämä tili on lukittu SQRL:ään: sitä ei voi palauttaa eikä muuttaa millään muulla tavalla.",
   "windows-sso-sign-in": "Kirjaudu Windowsilla",
-  "windows-sso-failed": "Windows-kirjautuminen epäonnistui. Windows-tilisi ei ehkä ole sallittu täällä."
+  "windows-sso-failed": "Windows-kirjautuminen epäonnistui. Windows-tilisi ei ehkä ole sallittu täällä.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Vastaavia lohkoja ei löytynyt",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Etsi lohkoja",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Kirjoita etsiäksesi lohkoja",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 vastaavaa lohkoa",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 vastaava lohko"
 }

@@ -1434,7 +1434,7 @@
   "notification-delivery-quiet-from": "Tikang",
   "notification-delivery-quiet-to": "Tubtob",
   "notification-delivery-quiet-clear": "Waray hilom nga mga oras",
-  "notification-delivery-timezone": "Time zone:",
+  "notification-delivery-timezone": "Sona han oras:",
   "notification-delivery-invalid": "Diri na-save an setting.",
   "notification-group-card": "__count__ nga pahibaro ha kard __card__",
   "notification-group-board": "__count__ nga pahibaro ha pisara __board__",
@@ -1664,7 +1664,7 @@
   "r-format-auto": "Awto-detect",
   "r-import-workflow-note": "I-import an usa nga visual workflow nga gin-export tikang ha n8n o Node-RED. An nakilala nga mga trigger/action node gin-ma-map ngadto ha mga surundon han WeKan; an diri na-map nga mga node iginreport.",
   "r-import-unmapped": "Diri ma-map an __count__ nga linya",
-  "r-wrike-workflow": "Wrike workflow",
+  "r-wrike-workflow": "Proseso han trabaho han Wrike",
   "r-wrike-workflow-note": "An Wrike workflow usa nga lista han mga status, kada usa ha grupo nga Active, Completed, Deferred o Cancelled. An Export nagsusurat han mga lista hini nga pisara sugad nga usa, nga ginngaranan sunod ha pisara, ha JSON nga ginbabalik han API han Wrike para han mga workflow: himoa ito nga workflow ha Wrike antes i-import an Wrike Excel export han pisara, basi magamit an iya mga status. An Import nagbabasa hito nga JSON nga gindikit ha ibabaw, tikang ha WeKan o tikang ha GET /workflows han Wrike, ngadto ha ginpili nga pisara: an status nga waray lista magigin lista, ngan an lagda nagmamarka han kard nga kompleto kon iginbalhin ini ngadto ha Completed o Cancelled nga status ngan diri kompleto ha Active o Deferred. An kalugaringon nga mga lagda han automation han Wrike diri mahimo i-eksport tikang ha Wrike.",
   "r-export-wrike-workflow": "I-eksport an Wrike workflow",
   "r-import-wrike-workflow": "I-import an Wrike workflow",
@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ini nga account nasulod gamit an SQRL la.",
   "sqrl-hardlock": "Ini nga account nakandado ha SQRL: diri ini mababawi o mababag-o ha bisan ano nga iba nga paagi.",
   "windows-sso-sign-in": "Sumulod gamit an Windows",
-  "windows-sso-failed": "Napakyas an pagsulod gamit an Windows. Bangin diri gintutugotan dinhi an imo Windows account."
+  "windows-sso-failed": "Napakyas an pagsulod gamit an Windows. Bangin diri gintutugotan dinhi an imo Windows account.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Waray nakit-an nga nahiuyon nga bloke",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bilnga an mga bloke",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Mag-type para bumiling hin mga bloke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 nga nahiuyon nga bloke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 nga nahiuyon nga bloke"
 }

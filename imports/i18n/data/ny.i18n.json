@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akawunti iyi imalowa ndi SQRL yokha.",
   "sqrl-hardlock": "Akawunti iyi yatsekedwa ku SQRL: singabwezeretsedwe kapena kusinthidwa mwanjira ina iliyonse.",
   "windows-sso-sign-in": "Lowani ndi Windows",
-  "windows-sso-failed": "Kulowa ndi Windows kwalephera. Akaunti yanu ya Windows mwina siyiloledwa pano."
+  "windows-sso-failed": "Kulowa ndi Windows kwalephera. Akaunti yanu ya Windows mwina siyiloledwa pano.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Palibe zipika zofanana zomwe zapezeka",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Fufuzani zipika",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Lembani kuti mufufuze zipika",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Zipika zofanana %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Chipika chofanana 1"
 }

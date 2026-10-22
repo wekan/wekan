@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ha akaawuntiyaa SQRL xalaalan gelettees.",
   "sqrl-hardlock": "Ha akaawuntiyaa SQRL bolla qolpettiis: hara ogiyan zaaridi demmanaw woykko laammanaw dandda'ettenna.",
   "windows-sso-sign-in": "Windows ehaa gela",
-  "windows-sso-failed": "Windows ehaa geliyoogee danddayibeenna. Ne Windows akkawunttay haan eriyettenna aggana danddayees."
+  "windows-sso-failed": "Windows ehaa geliyoogee danddayibeenna. Ne Windows akkawunttay haan eriyettenna aggana danddayees.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Gidhiya bulookiyaa demettibeenna",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bulookiyaa koyya",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bulookiyaa koyanawu xaafa",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Gidhiya bulookiyaa %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Gidhiya bulookiyaa 1"
 }

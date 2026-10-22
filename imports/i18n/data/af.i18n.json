@@ -4673,5 +4673,10 @@
   "sqrl-only": "Hierdie rekening meld slegs met SQRL aan.",
   "sqrl-hardlock": "Hierdie rekening is aan SQRL gesluit: dit kan op geen ander manier herstel of verander word nie.",
   "windows-sso-sign-in": "Meld aan met Windows",
-  "windows-sso-failed": "Aanmelding met Windows het misluk. Jou Windows-rekening word dalk nie hier toegelaat nie."
+  "windows-sso-failed": "Aanmelding met Windows het misluk. Jou Windows-rekening word dalk nie hier toegelaat nie.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Geen passende blokke gevind nie",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Soek blokke",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tik om blokke te soek",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 passende blokke",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 passende blok"
 }

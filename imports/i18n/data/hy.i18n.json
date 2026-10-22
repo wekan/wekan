@@ -4673,5 +4673,10 @@
   "sqrl-only": "Այս հաշիվը մուտք է գործում միայն SQRL-ով։",
   "sqrl-hardlock": "Այս հաշիվը կողպված է SQRL-ին․ այն հնարավոր չէ վերականգնել կամ փոխել որևէ այլ եղանակով։",
   "windows-sso-sign-in": "Մուտք գործել Windows-ով",
-  "windows-sso-failed": "Windows-ով մուտքը ձախողվեց։ Հնարավոր է՝ ձեր Windows հաշիվն այստեղ թույլատրված չէ։"
+  "windows-sso-failed": "Windows-ով մուտքը ձախողվեց։ Հնարավոր է՝ ձեր Windows հաշիվն այստեղ թույլատրված չէ։",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Համապատասխան բլոկներ չեն գտնվել",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Որոնել բլոկներ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Մուտքագրեք՝ բլոկներ որոնելու համար",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 համապատասխան բլոկ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 համապատասխան բլոկ"
 }

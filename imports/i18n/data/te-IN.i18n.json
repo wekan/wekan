@@ -4673,5 +4673,10 @@
   "sqrl-only": "ఈ ఖాతా SQRL తో మాత్రమే లాగిన్ అవుతుంది.",
   "sqrl-hardlock": "ఈ ఖాతా SQRL కు లాక్ చేయబడింది: దీన్ని వేరే ఏ విధంగానూ తిరిగి పొందడం లేదా మార్చడం సాధ్యం కాదు.",
   "windows-sso-sign-in": "Windows తో లాగిన్ చేయండి",
-  "windows-sso-failed": "Windows లాగిన్ విఫలమైంది. మీ Windows ఖాతాకు ఇక్కడ అనుమతి లేకపోవచ్చు."
+  "windows-sso-failed": "Windows లాగిన్ విఫలమైంది. మీ Windows ఖాతాకు ఇక్కడ అనుమతి లేకపోవచ్చు.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "సరిపోలే బ్లాక్‌లు కనుగొనబడలేదు",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "బ్లాక్‌ల కోసం శోధించండి",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "బ్లాక్‌ల కోసం శోధించడానికి టైప్ చేయండి",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 సరిపోలే బ్లాక్‌లు",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 సరిపోలే బ్లాక్"
 }

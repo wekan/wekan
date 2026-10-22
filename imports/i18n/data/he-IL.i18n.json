@@ -4673,5 +4673,10 @@
   "sqrl-only": "חשבון זה נכנס עם SQRL בלבד.",
   "sqrl-hardlock": "חשבון זה נעול ל־SQRL: לא ניתן לשחזר או לשנות אותו בשום דרך אחרת.",
   "windows-sso-sign-in": "כניסה עם Windows",
-  "windows-sso-failed": "הכניסה עם Windows נכשלה. ייתכן שחשבון ה־Windows שלך אינו מורשה כאן."
+  "windows-sso-failed": "הכניסה עם Windows נכשלה. ייתכן שחשבון ה־Windows שלך אינו מורשה כאן.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "לא נמצאו קוביות תואמות",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "חיפוש קוביות",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "יש להקליד כדי לחפש קוביות",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 קוביות תואמות",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 קובייה תואמת"
 }

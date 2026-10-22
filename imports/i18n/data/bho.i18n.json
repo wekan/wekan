@@ -4673,5 +4673,10 @@
   "sqrl-only": "ई खाता खाली SQRL से साइन इन करेला।",
   "sqrl-hardlock": "ई खाता SQRL पर लॉक बा: एकरा के कवनो दोसर तरीका से वापस ना पावल जा सकेला ना बदलल जा सकेला।",
   "windows-sso-sign-in": "Windows से साइन इन करीं",
-  "windows-sso-failed": "Windows से साइन इन ना हो पावल। हो सकेला कि रउआ Windows खाता के इहाँ अनुमति ना होखे।"
+  "windows-sso-failed": "Windows से साइन इन ना हो पावल। हो सकेला कि रउआ Windows खाता के इहाँ अनुमति ना होखे।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "कवनो मिलत-जुलत ब्लॉक ना मिलल",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ब्लॉक खोजीं",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ब्लॉक खोजे खातिर टाइप करीं",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 गो मिलत-जुलत ब्लॉक",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 गो मिलत-जुलत ब्लॉक"
 }

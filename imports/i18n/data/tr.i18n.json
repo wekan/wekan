@@ -4673,5 +4673,10 @@
   "sqrl-only": "Bu hesapta yalnızca SQRL ile oturum açılır.",
   "sqrl-hardlock": "Bu hesap SQRL'ye kilitli: başka hiçbir yolla kurtarılamaz veya değiştirilemez.",
   "windows-sso-sign-in": "Windows ile oturum aç",
-  "windows-sso-failed": "Windows ile oturum açılamadı. Windows hesabınıza burada izin verilmiyor olabilir."
+  "windows-sso-failed": "Windows ile oturum açılamadı. Windows hesabınıza burada izin verilmiyor olabilir.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Eşleşen blok bulunamadı",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blok ara",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Blok aramak için yazın",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 eşleşen blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 eşleşen blok"
 }

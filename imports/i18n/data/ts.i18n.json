@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akhawunti leyi yi nghena hi SQRL ntsena.",
   "sqrl-hardlock": "Akhawunti leyi yi pfaleriwile eka SQRL: a yi koti ku vuyisiwa kumbe ku cinciwa hi ndlela yin'wana.",
   "windows-sso-sign-in": "Nghena hi Windows",
-  "windows-sso-failed": "Ku nghena hi Windows ku tsandzekile. Akhawunti ya wena ya Windows yi nga ha va yi nga pfumeleriwi laha."
+  "windows-sso-failed": "Ku nghena hi Windows ku tsandzekile. Akhawunti ya wena ya Windows yi nga ha va yi nga pfumeleriwi laha.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "A ku kumiwanga mabloko lama fambelanaka",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Lavisisa mabloko",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Thayipa ku lavisisa mabloko",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Mabloko lama fambelanaka: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bloko yin'we leyi fambelanaka"
 }

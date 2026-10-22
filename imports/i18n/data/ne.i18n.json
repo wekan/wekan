@@ -4673,5 +4673,10 @@
   "sqrl-only": "यो खाता SQRL बाट मात्र लगइन गर्छ।",
   "sqrl-hardlock": "यो खाता SQRL मा लक गरिएको छ: यसलाई अन्य कुनै तरिकाले पुनःप्राप्त वा परिवर्तन गर्न सकिँदैन।",
   "windows-sso-sign-in": "Windows मार्फत लगइन गर्नुहोस्",
-  "windows-sso-failed": "Windows लगइन असफल भयो। तपाईंको Windows खातालाई यहाँ अनुमति नहुन सक्छ।"
+  "windows-sso-failed": "Windows लगइन असफल भयो। तपाईंको Windows खातालाई यहाँ अनुमति नहुन सक्छ।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "मिल्दो कुनै ब्लक भेटिएन",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ब्लकहरू खोज्नुहोस्",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ब्लकहरू खोज्न टाइप गर्नुहोस्",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 मिल्दा ब्लकहरू",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 मिल्दो ब्लक"
 }

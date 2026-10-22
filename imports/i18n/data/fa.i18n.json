@@ -4673,5 +4673,10 @@
   "sqrl-only": "این حساب فقط با SQRL وارد می‌شود.",
   "sqrl-hardlock": "این حساب به SQRL قفل شده است: به هیچ روش دیگری قابل بازیابی یا تغییر نیست.",
   "windows-sso-sign-in": "ورود با Windows",
-  "windows-sso-failed": "ورود با Windows ناموفق بود. ممکن است حساب Windows شما در اینجا مجاز نباشد."
+  "windows-sso-failed": "ورود با Windows ناموفق بود. ممکن است حساب Windows شما در اینجا مجاز نباشد.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "هیچ بلوک منطبقی یافت نشد",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "جستجوی بلوک‌ها",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "برای جستجوی بلوک‌ها تایپ کنید",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 بلوک منطبق",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 بلوک منطبق"
 }

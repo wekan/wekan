@@ -4673,5 +4673,10 @@
   "sqrl-only": "Têketina vê hesabê tenê bi SQRL e.",
   "sqrl-hardlock": "Ev hesab bi SQRL ve qefilandî ye: bi tu rêyeke din nayê vegerandin an guhertin.",
   "windows-sso-sign-in": "Bi Windows têkeve",
-  "windows-sso-failed": "Têketina bi Windows bi ser neket. Dibe ku hesabê te yê Windows li vir nayê destûrdan."
+  "windows-sso-failed": "Têketina bi Windows bi ser neket. Dibe ku hesabê te yê Windows li vir nayê destûrdan.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Tu blokên lihevhatî nehatin dîtin",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Li blokan bigere",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Ji bo lêgerîna blokan binivîse",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blokên lihevhatî",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blokê lihevhatî"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Inin cuenta calaqui zan ica SQRL.",
   "sqrl-hardlock": "Inin cuenta motzacuh ica SQRL: ahmo huel occeppa mocui nozo mopatla ica occe ohtli.",
   "windows-sso-sign-in": "Xicalaqui ica Windows",
-  "windows-sso-failed": "Ahmo ohuel calac ica Windows. Achtopa amo tlen moamatlacuiloltzin Windows nican quicahua."
+  "windows-sso-failed": "Ahmo ohuel calac ica Windows. Achtopa amo tlen moamatlacuiloltzin Windows nican quicahua.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Ahmo onca tetl tlen monamiqui",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Xiquintemo tetl",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Xitlahcuilo ic xiquintemoz tetl",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 tetl tlen monamiqui",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 tetl tlen monamiqui"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kjo llogari hyn vetëm me SQRL.",
   "sqrl-hardlock": "Kjo llogari është e kyçur te SQRL: nuk mund të rikuperohet ose ndryshohet në asnjë mënyrë tjetër.",
   "windows-sso-sign-in": "Hyr me Windows",
-  "windows-sso-failed": "Hyrja me Windows dështoi. Llogaria juaj Windows mund të mos lejohet këtu."
+  "windows-sso-failed": "Hyrja me Windows dështoi. Llogaria juaj Windows mund të mos lejohet këtu.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nuk u gjetën blloqe që përputhen",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Kërko blloqe",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Shkruaj për të kërkuar blloqe",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blloqe që përputhen",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bllok që përputhet"
 }

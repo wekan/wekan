@@ -4673,5 +4673,10 @@
   "sqrl-only": "O lenei teugatupe e saini i totonu i le SQRL na o ia.",
   "sqrl-hardlock": "Ua loka lenei teugatupe i le SQRL: e le mafai ona toe maua pe suia i se isi lava auala.",
   "windows-sso-sign-in": "Saini i totonu i le Windows",
-  "windows-sso-failed": "Ua lē manuia le saini i totonu i le Windows. Atonu e lē faatagaina lau tala Windows iinei."
+  "windows-sso-failed": "Ua lē manuia le saini i totonu i le Windows. Atonu e lē faatagaina lau tala Windows iinei.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Leai ni poloka e tutusa na maua",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Saili poloka",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Lolomi e saili ai poloka",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 poloka e tutusa",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 poloka e tutusa"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "ਇਹ ਖਾਤਾ ਸਿਰਫ਼ SQRL ਨਾਲ ਸਾਈਨ ਇਨ ਕਰਦਾ ਹੈ।",
   "sqrl-hardlock": "ਇਹ ਖਾਤਾ SQRL ਨਾਲ ਲਾਕ ਹੈ: ਇਸਨੂੰ ਕਿਸੇ ਹੋਰ ਤਰੀਕੇ ਨਾਲ ਮੁੜ ਪ੍ਰਾਪਤ ਜਾਂ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ।",
   "windows-sso-sign-in": "Windows ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ",
-  "windows-sso-failed": "Windows ਨਾਲ ਸਾਈਨ ਇਨ ਅਸਫਲ ਰਿਹਾ। ਤੁਹਾਡੇ Windows ਖਾਤੇ ਨੂੰ ਇੱਥੇ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੋ ਸਕਦੀ।"
+  "windows-sso-failed": "Windows ਨਾਲ ਸਾਈਨ ਇਨ ਅਸਫਲ ਰਿਹਾ। ਤੁਹਾਡੇ Windows ਖਾਤੇ ਨੂੰ ਇੱਥੇ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੋ ਸਕਦੀ।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ਕੋਈ ਮੇਲ ਖਾਂਦਾ ਬਲਾਕ ਨਹੀਂ ਮਿਲਿਆ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ਬਲਾਕ ਖੋਜੋ",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ਬਲਾਕ ਖੋਜਣ ਲਈ ਟਾਈਪ ਕਰੋ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ਮੇਲ ਖਾਂਦੇ ਬਲਾਕ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ਮੇਲ ਖਾਂਦਾ ਬਲਾਕ"
 }

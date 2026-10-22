@@ -4673,5 +4673,10 @@
   "sqrl-only": "គណនីនេះចូលដោយ SQRL តែប៉ុណ្ណោះ។",
   "sqrl-hardlock": "គណនីនេះត្រូវបានចាក់សោទៅ SQRL៖ មិនអាចស្ដារ ឬប្ដូរវាតាមវិធីផ្សេងបានទេ។",
   "windows-sso-sign-in": "ចូលដោយប្រើ Windows",
-  "windows-sso-failed": "ការចូលដោយប្រើ Windows បានបរាជ័យ។ គណនី Windows របស់អ្នកប្រហែលជាមិនត្រូវបានអនុញ្ញាតនៅទីនេះទេ។"
+  "windows-sso-failed": "ការចូលដោយប្រើ Windows បានបរាជ័យ។ គណនី Windows របស់អ្នកប្រហែលជាមិនត្រូវបានអនុញ្ញាតនៅទីនេះទេ។",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "រកមិនឃើញប្លុកដែលត្រូវគ្នាទេ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ស្វែងរកប្លុក",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "វាយបញ្ចូលដើម្បីស្វែងរកប្លុក",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ប្លុកដែលត្រូវគ្នា",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ប្លុកដែលត្រូវគ្នា"
 }

@@ -1398,7 +1398,7 @@
   "webhook-payload-text": "Unviar el testu del mensaxe",
   "webhook-payload-fields": "Unviar estos campos",
   "webhook-payload-field-standard": "Campos estándar (WEBHOOKS_ATTRIBUTES)",
-  "webhook-payload-field-ids": "IDs",
+  "webhook-payload-field-ids": "Identificadores",
   "webhook-payload-field-names": "Nomes y títulos",
   "webhook-payload-field-links": "Enllaces a la tarxeta y al tableru",
   "webhook-payload-field-actor": "Quién lo fizo",
@@ -4673,5 +4673,10 @@
   "sqrl-only": "Esta cuenta anicia sesión namái con SQRL.",
   "sqrl-hardlock": "Esta cuenta ta bloquiada a SQRL: nun se pue recuperar nin camudar de nenguna otra manera.",
   "windows-sso-sign-in": "Aniciar sesión con Windows",
-  "windows-sso-failed": "Falló l'aniciu de sesión con Windows. Ye posible que la to cuenta de Windows nun tea permitida equí."
+  "windows-sso-failed": "Falló l'aniciu de sesión con Windows. Ye posible que la to cuenta de Windows nun tea permitida equí.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Nun s'atoparon bloques que concasen",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Buscar bloques",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Escribi pa buscar bloques",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 bloques que concasen",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloque que concasa"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Cha chlàraich an cunntas seo a-steach ach le SQRL.",
   "sqrl-hardlock": "Tha an cunntas seo glaiste ri SQRL: cha ghabh aiseag no atharrachadh air dòigh sam bith eile.",
   "windows-sso-sign-in": "Clàraich a-steach le Windows",
-  "windows-sso-failed": "Dh'fhàillig an clàradh a-steach le Windows. Dh'fhaoidte nach eil cead aig a' chunntas Windows agad an-seo."
+  "windows-sso-failed": "Dh'fhàillig an clàradh a-steach le Windows. Dh'fhaoidte nach eil cead aig a' chunntas Windows agad an-seo.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Cha deach bloca co-fhreagarrach a lorg",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Lorg blocaichean",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Sgrìobh gus blocaichean a lorg",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Blocaichean co-fhreagarrach: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bhloca co-fhreagarrach"
 }

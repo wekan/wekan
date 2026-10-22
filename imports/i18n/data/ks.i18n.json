@@ -4673,5 +4673,10 @@
   "sqrl-only": "یہ اکاؤنٹ چھُ صِرف SQRL سٟتؠ لاگ اِن کران۔",
   "sqrl-hardlock": "یہ اکاؤنٹ چھُ SQRL سٟتؠ لاک: اتھ ہیکہٕ نہٕ کانٛہہ بیٚیہِ طریقہٕ بحال یا تبدیل کٔرِتھ۔",
   "windows-sso-sign-in": "Windows سٟتؠ لاگ اِن کریو",
-  "windows-sso-failed": "Windows سٟتؠ لاگ اِن ناکام گوٚو۔ ہوٚکہٕ ہیٚکہِ ژےٚ سُنٛد Windows کھاتہٕ آسہِ نہٕ یتہِ اجازت۔"
+  "windows-sso-failed": "Windows سٟتؠ لاگ اِن ناکام گوٚو۔ ہوٚکہٕ ہیٚکہِ ژےٚ سُنٛد Windows کھاتہٕ آسہِ نہٕ یتہِ اجازت۔",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "کانٛہہ مطابق بلاک چھُ نہٕ",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "بلاک ژھانڈیو",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "بلاک ژھانڈنہٕ خٲطرٕ لؠکھِو",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 مطابق بلاک",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 مطابق بلاک"
 }

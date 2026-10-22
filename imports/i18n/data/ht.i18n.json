@@ -4673,5 +4673,10 @@
   "sqrl-only": "Kont sa a konekte ak SQRL sèlman.",
   "sqrl-hardlock": "Kont sa a fèmen sou SQRL: yo pa ka rekipere l ni chanje l nan okenn lòt fason.",
   "windows-sso-sign-in": "Konekte ak Windows",
-  "windows-sso-failed": "Koneksyon ak Windows echwe. Petèt kont Windows ou a pa gen dwa isit la."
+  "windows-sso-failed": "Koneksyon ak Windows echwe. Petèt kont Windows ou a pa gen dwa isit la.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Pa jwenn okenn blòk ki koresponn",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Chèche blòk",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Tape pou chèche blòk",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blòk ki koresponn",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blòk ki koresponn"
 }

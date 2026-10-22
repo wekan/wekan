@@ -4673,5 +4673,10 @@
   "sqrl-only": "이 계정은 SQRL로만 로그인합니다.",
   "sqrl-hardlock": "이 계정은 SQRL에 잠겨 있습니다. 다른 방법으로는 복구하거나 변경할 수 없습니다.",
   "windows-sso-sign-in": "Windows로 로그인",
-  "windows-sso-failed": "Windows 로그인에 실패했습니다. 이곳에서는 Windows 계정이 허용되지 않을 수 있습니다."
+  "windows-sso-failed": "Windows 로그인에 실패했습니다. 이곳에서는 Windows 계정이 허용되지 않을 수 있습니다.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "일치하는 블록이 없습니다",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "블록 검색",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "블록을 검색하려면 입력하세요",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "일치하는 블록 %1개",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "일치하는 블록 1개"
 }

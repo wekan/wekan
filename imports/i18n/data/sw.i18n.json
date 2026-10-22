@@ -4673,5 +4673,10 @@
   "sqrl-only": "Akaunti hii huingia kwa SQRL pekee.",
   "sqrl-hardlock": "Akaunti hii imefungwa kwa SQRL: haiwezi kurejeshwa wala kubadilishwa kwa njia nyingine yoyote.",
   "windows-sso-sign-in": "Ingia kwa Windows",
-  "windows-sso-failed": "Kuingia kwa Windows kumeshindwa. Huenda hesabu yako ya Windows hairuhusiwi hapa."
+  "windows-sso-failed": "Kuingia kwa Windows kumeshindwa. Huenda hesabu yako ya Windows hairuhusiwi hapa.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Hakuna bloku zinazolingana zilizopatikana",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Tafuta bloku",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Andika ili kutafuta bloku",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bloku %1 zinazolingana",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bloku 1 inayolingana"
 }

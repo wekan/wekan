@@ -4673,5 +4673,10 @@
   "sqrl-only": "此帳戶只使用 SQRL 登入。",
   "sqrl-hardlock": "此帳戶已鎖定為 SQRL：無法以任何其他方式恢復或更改。",
   "windows-sso-sign-in": "使用 Windows 登入",
-  "windows-sso-failed": "Windows 登入失敗。您的 Windows 帳號可能不獲准在此使用。"
+  "windows-sso-failed": "Windows 登入失敗。您的 Windows 帳號可能不獲准在此使用。",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "找不到相符的區塊",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "搜尋區塊",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "輸入以搜尋區塊",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 個相符的區塊",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 個相符的區塊"
 }

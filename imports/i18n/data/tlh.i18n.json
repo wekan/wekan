@@ -4673,5 +4673,10 @@
   "sqrl-only": "SQRL neH lo'taHvIS mI'vam 'ellu'.",
   "sqrl-hardlock": "SQRL ngaQmoHlu'pu' mI'vam: latlh mIw lo'taHvIS chenqa'laHbe'lu' choHlaHbe'lu' je.",
   "windows-sso-sign-in": "Windows lo'taH yI'el",
-  "windows-sso-failed": "Windows lo'taHvIS 'elbe'. chaq naDHa'lu'be'chugh Windows accountlIj naDev."
+  "windows-sso-failed": "Windows lo'taHvIS 'elbe'. chaq naDHa'lu'be'chugh Windows accountlIj naDev.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ngogh rap tu'lu'be'",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ngoghmey yInej",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ngoghmey DanejmeH yIghItlh",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "ngogh rap %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "ngogh rap wa'"
 }

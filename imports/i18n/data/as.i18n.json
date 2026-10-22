@@ -4673,5 +4673,10 @@
   "sqrl-only": "এই একাউণ্টটোৱে কেৱল SQRL-ৰে ছাইন-ইন কৰে।",
   "sqrl-hardlock": "এই একাউণ্টটো SQRL-লৈ লক কৰা হৈছে: ইয়াক আন কোনো উপায়েৰে পুনৰুদ্ধাৰ বা সলনি কৰিব নোৱাৰি।",
   "windows-sso-sign-in": "Windows-ৰে ছাইন ইন কৰক",
-  "windows-sso-failed": "Windows-ৰে ছাইন ইন বিফল হ'ল। আপোনাৰ Windows একাউণ্টক ইয়াত অনুমতি দিয়া নহ'বও পাৰে।"
+  "windows-sso-failed": "Windows-ৰে ছাইন ইন বিফল হ'ল। আপোনাৰ Windows একাউণ্টক ইয়াত অনুমতি দিয়া নহ'বও পাৰে।",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "মিল থকা কোনো ব্লক পোৱা নগ'ল",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ব্লক সন্ধান কৰক",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "ব্লক সন্ধান কৰিবলৈ টাইপ কৰক",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 টা মিল থকা ব্লক",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 টা মিল থকা ব্লক"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "Ši paskyra prisijungia tik su SQRL.",
   "sqrl-hardlock": "Ši paskyra užrakinta SQRL: jos negalima atkurti ar pakeisti jokiu kitu būdu.",
   "windows-sso-sign-in": "Prisijungti su Windows",
-  "windows-sso-failed": "Nepavyko prisijungti su Windows. Jūsų Windows paskyrai čia gali būti neleidžiama."
+  "windows-sso-failed": "Nepavyko prisijungti su Windows. Jūsų Windows paskyrai čia gali būti neleidžiama.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Atitinkančių blokų nerasta",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Ieškoti blokų",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Rašykite, kad ieškotumėte blokų",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Atitinkančių blokų: %1",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 atitinkantis blokas"
 }

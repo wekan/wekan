@@ -4673,5 +4673,10 @@
   "sqrl-only": "Bu hisobga faqat SQRL orqali kiriladi.",
   "sqrl-hardlock": "Bu hisob SQRL'ga qulflangan: uni boshqa hech qanday yo'l bilan tiklab yoki o'zgartirib bo'lmaydi.",
   "windows-sso-sign-in": "Windows orqali kirish",
-  "windows-sso-failed": "Windows orqali kirish muvaffaqiyatsiz tugadi. Windows hisobingizga bu yerda ruxsat berilmagan bo‘lishi mumkin."
+  "windows-sso-failed": "Windows orqali kirish muvaffaqiyatsiz tugadi. Windows hisobingizga bu yerda ruxsat berilmagan bo‘lishi mumkin.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "Mos bloklar topilmadi",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bloklarni qidirish",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "Bloklarni qidirish uchun yozing",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ta mos blok",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ta mos blok"
 }

@@ -4673,5 +4673,10 @@
   "sqrl-only": "بۇ ھېساباتقا پەقەت SQRL بىلەنلا كىرگىلى بولىدۇ.",
   "sqrl-hardlock": "بۇ ھېسابات SQRL غا قۇلۇپلانغان: ئۇنى باشقا ھېچقانداق ئۇسۇلدا ئەسلىگە كەلتۈرگىلى ياكى ئۆزگەرتكىلى بولمايدۇ.",
   "windows-sso-sign-in": "Windows بىلەن كىرىش",
-  "windows-sso-failed": "Windows بىلەن كىرىش مەغلۇپ بولدى. Windows ھېساباتىڭىزغا بۇ يەردە ئىجازەت بېرىلمىگەن بولۇشى مۇمكىن."
+  "windows-sso-failed": "Windows بىلەن كىرىش مەغلۇپ بولدى. Windows ھېساباتىڭىزغا بۇ يەردە ئىجازەت بېرىلمىگەن بولۇشى مۇمكىن.",
+  "blockly-TOOLBOX_SEARCH_NO_RESULTS": "ماس كېلىدىغان بۆلەك تېپىلمىدى",
+  "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "بۆلەك ئىزدەش",
+  "blockly-TOOLBOX_SEARCH_PROMPT": "بۆلەك ئىزدەش ئۈچۈن كىرگۈزۈڭ",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 ماس كېلىدىغان بۆلەك",
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ماس كېلىدىغان بۆلەك"
 }
