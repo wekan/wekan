@@ -110,10 +110,15 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** **sanitize-html 2.18.1** fixes a stack overflow that nested
-`<iframe>` tags caused in WeKan's import and export sanitizer, which could
-disable the account of whoever exported a board holding them.
+`<iframe>` tags caused in WeKan's import and export sanitizer, and a failed
+import or export no longer **disables the account** of whoever ran it unless it
+was an attempt. The forked Meteor **dynamic-import** and **meteor shell** keys
+come from the crypto RNG.
 
-This release fixes the following CRITICAL SECURITY ISSUE:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**Imports and exports** - what nested `<iframe>` did to the sanitizer, and who
+a failure is blamed on.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/96ed9ad202">sanitize-html 2.18.1: nested iframes no longer crash imports and exports, or lock out who ran them</a>. Thanks to xet7.</summary>
@@ -137,6 +142,46 @@ versions; with 2.18.0 it fails with the same `RangeError`. Its negative test
 fails if anything else imports sanitize-html. The Playwright spec exports and
 imports a board holding the payload and checks that nobody is locked out.
 Nothing is refused, so there is no Admin Panel → Problems key.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/567f99227b">A failed import or export disables an account only when it was an attempt</a>. Thanks to xet7.</summary>
+
+`secureTransfer` recorded every throw as a high "blocked" event naming the
+user, and that disables the account - so sanitize-html 2.18.0's crash, or any
+other library fault, locked out whoever happened to run the import or export.
+The transfer boundary now marks its own refusals (a cycle, a non-plain object,
+a size limit), and only those are recorded as blocked: high, and medium for a
+size limit, as before. Anything else shows in Admin Panel → Problems as
+ImportExportFailure: detected, still naming whose import or export it was, and
+never blocking an account.
+
+`tests/transferFailure.test.cjs` drives real boundary refusals and a sanitizer
+that throws through the account-blocking decision itself, and fails with the
+old `secureTransfer`. It also fails if the boundary throws a plain `Error` or
+anything other than `secureTransfer` calls it.
+
+</details>
+
+and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6efd39a70e">The dynamic-import and meteor shell keys come from the crypto RNG</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Alert 591 (js/insecure-randomness, CWE-338), in WeKan's fork of Meteor's
+`dynamic-import`: the key that lets a request read the SERVER's dynamic modules
+(`?key=` on `/__meteor__/dynamic-import/fetch`) came from `Math.random()`,
+whose state can be recovered from earlier outputs, and was compared with
+`===`. `meteor shell`'s connection key, which runs code in the server process,
+was made and compared the same way. Meteor 3.5.3 and 3.6-rc.0 both have this.
+
+Both now come from `crypto.randomBytes` (160 and 128 bits) and are compared
+with `crypto.timingSafeEqual`. `tests/meteorForkRandomKeys.test.cjs` runs both,
+and fails on any `Math.random()` in the forks and on a key, secret, token,
+nonce, salt, password or code made from `Math.random()` anywhere in the tree. A
+wrong key is not recorded in Admin Panel → Problems: another WeKan instance
+behind the same load balancer legitimately sends its own.
 
 </details>
 
