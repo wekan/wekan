@@ -17,6 +17,7 @@ import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
 import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
+const { attachmentTileCompact } = require('/models/lib/attachmentTile.cjs');
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -465,6 +466,16 @@ Template.attachmentGallery.onCreated(function () {
 });
 
 Template.attachmentGallery.helpers({
+  // #6796: the small file button instead of the preview tile
+  // (models/lib/attachmentTile.cjs).
+  attachmentTileCompact(file) {
+    if (!file) return true;
+    const board = ReactiveCache.getBoard(file.meta?.boardId) || Utils.getCurrentBoard();
+    const link = typeof file.link === 'function' ? file.link() : file.link;
+    return attachmentTileCompact({
+      isImage: file.isImage, extension: file.extension, hasLink: !!link,
+    }, board?.allowsAttachmentPreviewsOnCard);
+  },
   attachedCards() {
     return Template.instance().attachedCards.get();
   },

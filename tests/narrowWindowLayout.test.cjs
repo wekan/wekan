@@ -54,7 +54,8 @@ test('the geometry says so before it computes anything else', () => {
     'and before the popup-width math, which assumes a floating box');
   assert.ok(/const MOBILE_POPUP_MAX_WIDTH = 800;/.test(offsetSrc),
     'the width is named, so it can be kept in step with the media query');
-  assert.ok(/export \{ computePopupOffset, MOBILE_POPUP_MAX_WIDTH \}/.test(offsetSrc));
+  // #6796 exports CARD_SETTINGS_MAX_WIDTH beside them.
+  assert.ok(/export \{ computePopupOffset, MOBILE_POPUP_MAX_WIDTH[ ,}]/.test(offsetSrc));
 });
 
 test('and the CSS pins the sheet, so the inline left cannot move it', () => {

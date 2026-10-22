@@ -1371,6 +1371,10 @@ Boards.attachSchema(
     allowsChecklistFromDescriptionOnCard: { type: Boolean, optional: true },
     allowsActionItemsOnCard: { type: Boolean, optional: true },
     allowsWhiteboardOnCard: { type: Boolean, optional: true },
+    // #6796: the opened card's attachment previews, and each attachment's
+    // uploader and date. On unless a board admin turned them off.
+    allowsAttachmentPreviewsOnCard: { type: Boolean, optional: true },
+    allowsAttachmentDetailsOnCard: { type: Boolean, optional: true },
     allowsIssueTypeOnMinicard: {
       /**
        * Does the board show the work item type badge on the minicard? It was

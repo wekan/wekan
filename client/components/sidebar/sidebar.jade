@@ -314,16 +314,16 @@ template(name="boardCardSettingsPopup")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
             //- Reordered by drag and drop (client/components/sidebar/sidebar.js
-              cardFieldOrderSortable). With drag handles on, the handle sits
-              where the up/down arrows were; with them off, the icon and the
-              label are what is dragged. Either way the Up and Down arrow keys
-              move a focused row one step, as the arrows did. A row that only
+              reorderOnDrop). With drag handles on, a row is dragged by its
+              handle, its icon or its label; with them off there is no handle,
+              and it is dragged by its icon or its label. Either way the Up and
+              Down arrow keys move a focused row one step. A row that only
               modifies another (`after`) has no place of its own and no handle.
             if canModifyBoard
               if showDragHandles
                 a.flex.card-field-order-move.card-field-order-handle(class="{{#if row.positioned}}js-card-field-order-handle{{else}}is-disabled{{/if}}" href="#" draggable="false" role="button" tabindex="{{#if row.positioned}}0{{else}}-1{{/if}}" aria-disabled="{{#if row.positioned}}false{{else}}true{{/if}}" title="{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'drag-to-reorder'}}")
                   i.fa.fa-arrows
-            span.card-field-order-label(class="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/unless}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/unless}}{{/if}}")
+            span.card-field-order-label(class="{{#if canModifyBoard}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/if}}")
               each icon in row.icons
                 i.fa(class=icon)
               | {{row.title}}
@@ -346,16 +346,16 @@ template(name="boardCardSettingsPopup")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
             //- Reordered by drag and drop (client/components/sidebar/sidebar.js
-              cardFieldOrderSortable). With drag handles on, the handle sits
-              where the up/down arrows were; with them off, the icon and the
-              label are what is dragged. Either way the Up and Down arrow keys
-              move a focused row one step, as the arrows did. A row that only
+              reorderOnDrop). With drag handles on, a row is dragged by its
+              handle, its icon or its label; with them off there is no handle,
+              and it is dragged by its icon or its label. Either way the Up and
+              Down arrow keys move a focused row one step. A row that only
               modifies another (`after`) has no place of its own and no handle.
             if canModifyBoard
               if showDragHandles
                 a.flex.card-field-order-move.card-field-order-handle(class="{{#if row.positioned}}js-card-field-order-handle{{else}}is-disabled{{/if}}" href="#" draggable="false" role="button" tabindex="{{#if row.positioned}}0{{else}}-1{{/if}}" aria-disabled="{{#if row.positioned}}false{{else}}true{{/if}}" title="{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'drag-to-reorder'}}")
                   i.fa.fa-arrows
-            span.card-field-order-label(class="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/unless}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/unless}}{{/if}}")
+            span.card-field-order-label(class="{{#if canModifyBoard}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/if}}")
               each icon in row.icons
                 i.fa(class=icon)
               | {{row.title}}

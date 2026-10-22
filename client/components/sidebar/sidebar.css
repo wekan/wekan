@@ -796,6 +796,28 @@ body.sidebar-resizing-active {
 @container (min-width: 780px) {
   .card-field-order-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+/* #6796: when the form is wide, each list spreads into as many columns as fit
+   (10em each), read top to bottom, so its order is still the card's and the
+   minicard's order, and the whole of it is visible without scrolling. The
+   Draggable table keeps only the width it needs. */
+@container (min-width: 1100px) {
+  .card-field-order-columns {
+    grid-template-columns: minmax(12em, max-content) minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .card-field-order-column-minicard,
+  .card-field-order-column-card {
+    column-width: 10em;
+    column-gap: 16px;
+  }
+  .card-field-order-column-minicard > :not(.card-field-order-row),
+  .card-field-order-column-card > :not(.card-field-order-row) {
+    column-span: all;
+  }
+  .card-field-order-column .card-field-order-row {
+    break-inside: avoid;
+    padding-block: calc(2px * min(1, var(--wekan-ui-font-scale, 1)));
+  }
+}
 .card-field-order-column { min-width: 0; }
 .card-field-order-label { overflow-wrap: anywhere; }
 

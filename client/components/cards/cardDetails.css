@@ -490,10 +490,38 @@ body.desktop-mode .card-details.card-details-collapsed {
   cursor: pointer;
 }
 .card-details .card-details-person-controls {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: 0.25em;
+  flex-direction: row;
+  gap: 0.4em;
+}
+/* #6796: a field's add button sits on the line of its title, not on a line of
+   its own under it - which was most of the height of an opened card with
+   nothing filled in yet. What a field holds (labels, avatars, dates) follows
+   on the same line and wraps onto the next when there is more of it. */
+.card-details .card-details-group-body > .card-details-item:is(
+  .card-details-item-labels, .card-details-item-stickers, .card-details-item-location,
+  .card-details-item-received, .card-details-item-start, .card-details-item-due,
+  .card-details-item-end, .card-details-item-members, .card-details-item-assignees,
+  .card-details-item-creator, .card-details-item-name, .card-details-item-dependencies) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.4em;
+  row-gap: 0.25em;
+}
+/* The title as wide as its words, not the whole item (checklists.css and the
+   section header rule give every .card-details-item-title width: 100%), so
+   the add button has room beside it. */
+.card-details .card-details-group-body > .card-details-item:is(
+  .card-details-item-labels, .card-details-item-stickers, .card-details-item-location,
+  .card-details-item-received, .card-details-item-start, .card-details-item-due,
+  .card-details-item-end, .card-details-item-members, .card-details-item-assignees,
+  .card-details-item-creator, .card-details-item-name, .card-details-item-dependencies)
+  > .card-details-item-title {
+  width: auto;
+  flex: 0 1 auto;
+  margin-block: 0;
 }
 .card-details .activities {
   padding-top: 10px;

@@ -224,6 +224,13 @@ Template.checklists.helpers({
     const ret = card.checklists();
     return ret;
   },
+  // #6796: with no checklist yet the bottom "+" adds exactly what the "+" on
+  // the title line adds, so only that one is drawn.
+  hasChecklists() {
+    const card = ReactiveCache.getCard(this.cardId);
+    const list = card && typeof card.checklists === 'function' ? card.checklists() : [];
+    return Array.isArray(list) ? list.length > 0 : !!(list && list.count && list.count() > 0);
+  },
 });
 
 Template.checklists.events({

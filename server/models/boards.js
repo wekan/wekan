@@ -1408,6 +1408,8 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsChecklistFromDescriptionOnCard',
   'allowsActionItemsOnCard',
   'allowsWhiteboardOnCard',
+  'allowsAttachmentPreviewsOnCard',
+  'allowsAttachmentDetailsOnCard',
   'allowsCardCollapse',
   'allowsChecklistTitleOnMinicard',
   'allowsLabelTextOnCard',

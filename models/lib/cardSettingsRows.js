@@ -232,6 +232,12 @@ const CARD_SETTINGS_ROWS = [
     minicard: { toggle: 'js-board-card-flag', field: 'allowsForecastOnMinicard', flag: true, default: false, after: 'atRisk' } },
   { key: 'checklistFromDescription', icons: ['fa-list-ul'], label: ['checklist-from-description'],
     card: { toggle: 'js-board-card-flag', field: 'allowsChecklistFromDescriptionOnCard', flag: true, default: true, after: 'checklists' } },
+  // #6796: what each attachment of the opened card shows besides its name -
+  // a preview tile, and who uploaded it when. Off, an attachment is one line.
+  { key: 'attachmentPreviews', icons: ['fa-paperclip', 'fa-picture-o'], label: ['attachments', 'preview'], labelSeparator: ': ',
+    card: { toggle: 'js-board-card-flag', field: 'allowsAttachmentPreviewsOnCard', flag: true, default: true, after: 'attachments' } },
+  { key: 'attachmentDetails', icons: ['fa-paperclip', 'fa-user'], label: ['attachments', 'details'], labelSeparator: ': ',
+    card: { toggle: 'js-board-card-flag', field: 'allowsAttachmentDetailsOnCard', flag: true, default: true, after: 'attachments' } },
   { key: 'whiteboard', icons: ['fa-expand'], label: ['whiteboard'],
     card: { toggle: 'js-board-card-flag', field: 'allowsWhiteboardOnCard', flag: true, default: true, after: 'attachments' } },
   { key: 'actionItems', icons: ['fa-tasks'], label: ['action-items'],

@@ -124,15 +124,44 @@ div.attachment-thumbnail-container .attachment-thumbnail-text {
 .attachment-actions a:first-child {
   margin-inline-start: 0;
 }
-.add-attachment {
-  display: flex;
+/* #6796: the add button is a small "+" like every other section's
+   (.card-label.add-label), not a full-width dashed box. */
+.attachment-gallery .add-attachment {
+  align-self: flex-start;
+  margin-top: 4px;
+  cursor: pointer;
+}
+/* A file with nothing to preview, or every file when Attachments: Preview is
+   off: a small button with the file icon and its extension, which still opens
+   the preview, instead of a 144x96 box (models/lib/attachmentTile.cjs). */
+.attachment-item.attachment-item-compact {
+  margin-top: 8px;
+  gap: 8px;
+}
+button.attachment-thumbnail-container.attachment-thumbnail-compact,
+button.attachment-thumbnail-container.attachment-thumbnail-compact:hover,
+button.attachment-thumbnail-container.attachment-thumbnail-compact:focus,
+button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 2.6em;
+  height: 2.6em;
+  padding: 0 0.4em;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #555;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  margin-top: 16px;
+  gap: 0.3em;
+  line-height: 1;
+}
+.attachment-thumbnail-compact .attachment-thumbnail-ext {
+  font-size: 0.75em;
+  text-transform: lowercase;
+}
+/* The name first and on a line of its own, so a long one is read, not hidden
+   behind the buttons; who, when and the buttons follow on the next line. */
+.attachment-details > div:first-child {
+  flex: 1 1 100%;
+  min-width: 0;
 }
 .icon {
   font-size: 1.5em;
@@ -511,4 +540,10 @@ div.attachment-thumbnail-container .attachment-thumbnail-text {
 .attachment-gallery .js-detach-card {
   flex: 0 0 auto;
   cursor: pointer;
+}
+
+/* #6796: the upload rules, in the upload popup rather than above the list. */
+.attachment-upload-help {
+  margin: 8px 12px 4px;
+  font-size: 0.85em;
 }

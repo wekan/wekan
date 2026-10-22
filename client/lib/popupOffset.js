@@ -25,6 +25,10 @@
 // Keep in step with the `@media screen and (max-width: 800px)` block there.
 const MOBILE_POPUP_MAX_WIDTH = 800;
 
+// #6796: Board Settings / Card's widest; popup.css says the same
+// (`.pop-over[data-popup='boardCardSettingsPopup']`).
+const CARD_SETTINGS_MAX_WIDTH = 1800;
+
 function computePopupOffset(params) {
   const {
     viewportWidth,
@@ -58,6 +62,14 @@ function computePopupOffset(params) {
     return { left: (viewportWidth - width) / 2, top: 12,
       maxHeight: Math.max(0, viewportHeight - 24) };
   }
+  // #6796: Board Settings / Card is a panel as wide and as tall as the window
+  // allows, centred, so its lists can spread into columns and be read without
+  // scrolling. Same width as popup.css.
+  if (popupName === 'boardCardSettingsPopup') {
+    const width = Math.min(CARD_SETTINGS_MAX_WIDTH, viewportWidth * 0.96);
+    return { left: (viewportWidth - width) / 2, top: 12,
+      maxHeight: Math.max(0, viewportHeight - 24) };
+  }
 
   // Actual popup width from CSS: min(380px, 55vw)...
   //
@@ -72,9 +84,7 @@ function computePopupOffset(params) {
     boardChangeColorPopup: 720,  // Board Settings / Change Color
     // Stickers: the same, and more of them - a hundred and fifty icons.
     cardStickersPopup: 720,      // Card / Stickers
-    // Board Settings / Card: two dozen settings laid out in columns instead
-    // of one long list. Same number as popup.css.
-    boardCardSettingsPopup: 900,
+    // Board Settings / Card is placed above, as a centred panel (#6796).
   };
   // The export popups are one popup with one scope each (#1173): same panes,
   // same formats table, same panel.
@@ -212,4 +222,4 @@ function computePopupOffset(params) {
   return { left: clampedLeft, top: topVp + scrollTop, maxHeight };
 }
 
-export { computePopupOffset, MOBILE_POPUP_MAX_WIDTH };
+export { computePopupOffset, MOBILE_POPUP_MAX_WIDTH, CARD_SETTINGS_MAX_WIDTH };

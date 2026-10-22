@@ -248,3 +248,16 @@ textarea.js-edit-checklist-item {
   color: inherit;
   border: 0;
 }
+
+/* #6796: the controls under the checklists on one line, not one per line. */
+.checklists-bottom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+}
+.checklists-bottom-actions .add-checklist.js-open-inlined-form {
+  display: inline-block;
+  width: auto;
+  padding-inline: 0.5em;
+}

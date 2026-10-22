@@ -368,12 +368,18 @@
   }
 
   /* Board Settings / Card: Draggable, Show on Minicard and Show on Card.
-     Width here buys three columns of settings
-     (sidebar.css), which is what turns a list you scroll into a table you
-     read. */
+     #6796: as wide as the window allows, up to 1800px - width buys COLUMNS
+     inside each list (sidebar.css), and enough of them means the whole of
+     both lists is read without scrolling. client/lib/popupOffset.js centres
+     it at this width (CARD_SETTINGS_MAX_WIDTH) and gives it the window's
+     height. */
   .pop-over[data-popup='boardCardSettingsPopup'] {
-    width: min(90vw, 900px) !important;
-    max-width: 90vw !important;
+    position: fixed;
+    box-sizing: border-box;
+    width: min(96vw, 1800px) !important;
+    max-width: 96vw !important;
+    max-height: calc(100dvh - 24px) !important;
+    margin-top: 0;
   }
 
   /* Board Settings / Board View: five columns, four of them headed by a

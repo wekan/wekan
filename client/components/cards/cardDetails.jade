@@ -236,13 +236,9 @@ template(name="cardDetails")
           +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments"
             count=attachmentCount)
           if isSectionOpen "attachments"
-            if Meteor.settings.public.attachmentsUploadMaxSize
-              | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
-              br
-            if Meteor.settings.public.attachmentsUploadMimeTypes
-              | {{_ 'allowed-upload-filetypes'}} {{Meteor.settings.public.attachmentsUploadMimeTypes}}
-              br
-            | {{_ 'invalid-file'}}
+            //- #6796: the upload rules (size, types, what an invalid name
+              does) are read when uploading, so they are in the upload popup
+              (attachments.jade cardAttachmentsPopup), not above every list.
             .card-checklist-attachmentGallery.card-attachmentGallery
               +attachmentGallery
 

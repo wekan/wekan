@@ -249,7 +249,11 @@ test('each list draws every row as [checkbox] [handle] icon label from the table
     assert.ok(row.includes('{{#if row.checked}}is-checked{{/if}}'), `${column}: the checkbox reads the row's state`);
     assert.ok(row.includes('{{#if row.positioned}}is-positioned{{/if}}'), `${column}: only a row with a place is dragged`);
     assert.ok(row.includes('if showDragHandles\n                a.flex.card-field-order-move.card-field-order-handle'), `${column}: the handle only with drag handles on`);
-    assert.ok(row.includes('span.card-field-order-label(class="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label'), `${column}: the label is the handle with them off`);
+    // The icon and the label drag the row whether the handles are on or off;
+    // with them on, the handle drags it too (#6796: with handles on, only the
+    // handle did, and a label that looked draggable was not).
+    assert.ok(row.includes('span.card-field-order-label(class="{{#if canModifyBoard}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label'), `${column}: the icon and label drag the row, handles on or off`);
+    assert.ok(!/span\.card-field-order-label\(class="\{\{#if canModifyBoard\}\}\{\{#unless showDragHandles\}\}/.test(row), `${column}: the label is not draggable only without handles (negative)`);
     assert.ok(row.includes('data-key="{{row.key}}"'), `${column}: the row says which field`);
   }
   assert.ok(popup.includes('data-side="minicard"') && popup.includes('data-side="card"'), 'and which side');

@@ -25,23 +25,28 @@ template(name="checklists")
       if checklist.showChecklist card.hideFinishedChecklistIfItemsAreHidden
         +checklistDetail(checklist = checklist card = card)
 
+  //- #6796: the controls under the list share one line: add at the bottom
+    (only once there is a checklist - before that it is the title line's "+"),
+    copy from a template, and the checklist from the description.
   if canModifyCard
-    +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
-      +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=false)
-    else
-      a.add-checklist.js-open-inlined-form(title="{{_ 'add-checklist'}}")
-        i.fa.fa-plus
-    //- #4017: append a template card's checklists (and their items,
-      unchecked) onto this already-existing card, alongside whatever
-      checklists it already has.
-    a.copy-checklist-from-template.js-copy-checklist-from-template(title="{{_ 'copyChecklistFromTemplate'}}")
-      i.fa.fa-clone
-    //- Checklist from description, Show on Card: only when the description
-      has a list (docs/Features/Cards/Checklist-From-Description.md).
-    if descriptionChecklistItemsOf card
-      a.checklist-from-description.js-checklist-from-description(title="{{_ 'checklist-from-description'}}")
-        i.fa.fa-list-ul
-        |  {{_ 'from-description'}}
+    .checklists-bottom-actions
+      if hasChecklists
+        +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
+          +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=false)
+        else
+          a.add-checklist.js-open-inlined-form(title="{{_ 'add-checklist'}}")
+            i.fa.fa-plus
+      //- #4017: append a template card's checklists (and their items,
+        unchecked) onto this already-existing card, alongside whatever
+        checklists it already has.
+      a.copy-checklist-from-template.js-copy-checklist-from-template(title="{{_ 'copyChecklistFromTemplate'}}")
+        i.fa.fa-clone
+      //- Checklist from description, Show on Card: only when the description
+        has a list (docs/Features/Cards/Checklist-From-Description.md).
+      if descriptionChecklistItemsOf card
+        a.checklist-from-description.js-checklist-from-description(title="{{_ 'checklist-from-description'}}")
+          i.fa.fa-list-ul
+          |  {{_ 'from-description'}}
 
 template(name="checklistDetail")
   .js-checklist.checklist.nodragscroll

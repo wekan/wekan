@@ -731,10 +731,12 @@ Template.boardMenuPopup.onCreated(function() {
 // keeping a DOM order the data does not have.
 // `handle` is the drag handle when drag handles are on, else the icon and
 // label (the templates put the class on whichever it is).
-function reorderOnDrop($list, { items, handle, keyOf, drop }) {
+// `axis`: 'y' for a single column; false where the rows flow into several
+// columns (Board Settings / Card, #6796), so a row can be dropped sideways.
+function reorderOnDrop($list, { items, handle, keyOf, drop, axis = 'y' }) {
   if (!$list.length || typeof $list.sortable !== 'function') return;
   $list.sortable({
-    items, handle, axis: 'y', tolerance: 'pointer', distance: 5,
+    items, handle, axis, tolerance: 'pointer', distance: 5,
     stop(evt, ui) {
       const key = keyOf(ui.item[0]);
       const keys = $list.find(items).toArray().map(keyOf);
@@ -2573,6 +2575,7 @@ Template.boardCardSettingsPopup.onRendered(function () {
     const side = column.dataset.side;
     reorderOnDrop(this.$(column), {
       items: '> .js-card-field-order-row.is-positioned', handle: '.js-card-field-order-handle',
+      axis: false,
       keyOf: el => el.dataset.key,
       drop: (key, keys) => {
         const board = ReactiveCache.getBoard(Session.get('currentBoard'));

@@ -23,6 +23,14 @@ template(name="cardAttachmentsPopup")
       //- #3257: a card attached to this card, as Trello's card attachments.
       li
         a.js-attach-card {{_ 'attach-card'}}
+    //- #6796: the upload rules, where the upload is chosen - they used to be
+      body text above the opened card's attachment list.
+    .attachment-upload-help.quiet
+      if Meteor.settings.public.attachmentsUploadMaxSize
+        div {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
+      if Meteor.settings.public.attachmentsUploadMimeTypes
+        div {{_ 'allowed-upload-filetypes'}} {{Meteor.settings.public.attachmentsUploadMimeTypes}}
+      div {{_ 'invalid-file'}}
 
 //- #3257: attach a card - a pasted card link (Copy card link gives one), or one
   of this board's cards found by its title.
@@ -73,15 +81,22 @@ template(name="attachmentGallery")
 
   .attachment-gallery
 
+    //- #6796: a small "+" like every other section's, not a full-width box.
     if canModifyCard
-      a.attachment-item.add-attachment.js-add-attachment(title="{{_ 'add-attachment'}}")
+      a.card-label.add-label.add-attachment.js-add-attachment(title="{{_ 'add-attachment'}}" aria-label="{{_ 'add-attachment'}}")
         i.fa.fa-plus
 
     each attachments
 
-      .attachment-item(class="{{#if isAttachmentMigrating _id}}migrating{{/if}}")
-        button.attachment-thumbnail-container.open-preview(type="button" aria-label="{{_ 'preview'}}: {{cleanFilename name}}" data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
-          if link
+      //- #6796: Attachments: Preview, Show on Card (Board Settings / Card).
+        Off, the tile is a small file button that still opens the preview;
+        a file with nothing to preview (a .txt) always gets the small one.
+      .attachment-item(class="{{#if isAttachmentMigrating _id}}migrating{{/if}} {{#if attachmentTileCompact this}}attachment-item-compact{{/if}}")
+        button.attachment-thumbnail-container.open-preview(type="button" aria-label="{{_ 'preview'}}: {{cleanFilename name}}" data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}" class="{{#if attachmentTileCompact this}}attachment-thumbnail-compact{{/if}}")
+          if attachmentTileCompact this
+            i.fa.fa-file-o(aria-hidden="true")
+            span.attachment-thumbnail-ext= extension
+          else if link
             if(isImage)
               img.attachment-thumbnail(src="{{attachmentPreviewUrl this}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}" loading="lazy")
             else if($eq extension 'svg')
@@ -106,10 +121,12 @@ template(name="attachmentGallery")
             div
               b {{ cleanFilename name }}
               span.file-size ({{fileSize size}})
-            if uploaderName
-              div.attachment-uploader {{uploaderName}}
-            if uploadedAt
-              div.attachment-uploaded-at {{uploadedAt}}
+            //- #6796: Attachments: Details, Show on Card - who and when.
+            unless $eq currentBoard.allowsAttachmentDetailsOnCard false
+              if uploaderName
+                div.attachment-uploader {{uploaderName}}
+              if uploadedAt
+                div.attachment-uploaded-at {{uploadedAt}}
             .attachment-actions
               a.js-download(href="{{link}}?download=true", download="{{downloadFilename name}}", title="{{_ 'download'}}")
                 i.fa.fa-arrow-down
