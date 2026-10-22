@@ -44,6 +44,13 @@ const RULES = [
   {
     id: 'schema-validation',
     match: /ValidationError: Failed validation|Cannot read properties of undefined \(reading 'title'\)/i,
+    // #6795: collection2 wraps whatever failed during a write's validation, a
+    // database that could not be reached included - "ValidationError: Failed
+    // validation Socket 'connect' timed out" (usersHeartbeat, while MongoDB
+    // restarted) is a connection problem, not an empty field. When the message
+    // carries one of these causes, that rule classifies it instead, which also
+    // keeps it TRANSIENT for server/00startupResilience.js and 00processErrors.js.
+    unlessRules: ['connection-lost', 'timeout', 'deadlock', 'too-many-connections'],
     databases: ['mongodb', 'sqlite', 'postgresql', 'mysql', 'mariadb', 'hana'],
     severity: 'warning',
     kind: 'bug',
@@ -196,13 +203,18 @@ const RULES = [
   },
   {
     id: 'connection-lost',
-    match: /connection refused|ECONNREFUSED|server closed the connection|connection reset by peer|Topology is closed|no reachable servers/i,
+    // #6795: and the MongoDB driver's own words - a connect that timed out, no
+    // server to select, a pool cleared after a network error, a primary that is
+    // stepping down or not elected yet (a restart, a replica set being set up).
+    // "not primary key" is SQL, not an election.
+    match: /connection refused|ECONNREFUSED|server closed the connection|connection reset by peer|Topology is closed|no reachable servers|Socket '\w+' timed out|MongoNetworkTimeoutError|MongoNetworkError|Server selection timed out|MongoServerSelectionError|PoolClearedError|NotWritablePrimary|NotPrimaryNoSecondaryOk|NotPrimaryOrSecondary|not primary(?! key)/i,
     databases: DATABASES,
     severity: 'critical',
     kind: 'connection',
-    means: 'WeKan cannot reach the database at all.',
+    means: 'WeKan cannot reach the database at all, or it has no primary at the moment.',
     whatToDo: 'Check that the database container is running and that MONGO_URL points at ' +
-      'it. WeKan reconnects by itself once it is back.',
+      'it. WeKan reconnects by itself once it is back; during a database restart or a ' +
+      'replica set election this is expected for a few seconds.',
     act: 'reconnect',
   },
   {
@@ -302,9 +314,12 @@ function classifyDatabaseError(error, options = {}) {
   const configured = options.configured || 'unknown';
   const database = databaseOf(message, configured);
 
+  const applies = rule => rule.match.test(message)
+    && (rule.databases.includes(database) || database === 'unknown');
   for (const rule of RULES) {
-    if (!rule.match.test(message)) continue;
-    if (!rule.databases.includes(database) && database !== 'unknown') continue;
+    if (!applies(rule)) continue;
+    // A more specific cause in the same message wins (see schema-validation).
+    if (rule.unlessRules && RULES.some(other => rule.unlessRules.includes(other.id) && applies(other))) continue;
 
     return {
       id: rule.id,
