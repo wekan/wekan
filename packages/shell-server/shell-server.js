@@ -14,10 +14,20 @@ import {
   writeSync,
 } from "fs";
 import { createServer } from "net";
+import { randomBytes, timingSafeEqual } from "crypto";
 import { start as replStart } from "repl";
 
 // Enable process.sendMessage for communication with build process.
 import "meteor/inter-process-messaging";
+
+// Compared in constant time, so the response time says nothing about how much
+// of a guessed key was right.
+function keyMatches(given, expected) {
+  if (typeof given !== "string" || typeof expected !== "string") return false;
+  const a = Buffer.from(given);
+  const b = Buffer.from(expected);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
 
 const INFO_FILE_MODE = parseInt("600", 8); // Only the owner can read or write.
 const EXITING_MESSAGE = "Shell exiting...";
@@ -71,7 +81,9 @@ class Server {
     assert.ok(this instanceof Server);
 
     this.shellDir = shellDir;
-    this.key = Math.random().toString(36).slice(2);
+    // WeKan: the key that lets a connection run code in this process. From the
+    // crypto RNG; Math.random() is predictable (CWE-338).
+    this.key = randomBytes(16).toString("hex");
 
     this.server =
       createServer((socket) => {
@@ -127,7 +139,7 @@ class Server {
         return;
       }
 
-      if (options.key !== this.key) {
+      if (!keyMatches(options.key, this.key)) {
         if (socket) {
           socket.end(EXITING_MESSAGE + "\n");
         }
@@ -477,7 +489,7 @@ function setRequireAndModule(context) {
     // application.
     const toBeInstalled = {};
     const shellModuleName = "meteor-shell-" +
-      Math.random().toString(36).slice(2) + ".js";
+      randomBytes(8).toString("hex") + ".js";
 
     toBeInstalled[shellModuleName] = function (require, exports, module) {
       context.module = module;

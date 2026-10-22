@@ -1,6 +1,7 @@
 "use strict";
 
 const { readFileSync } = require("fs");
+const { randomBytes, timingSafeEqual } = require("crypto");
 const {
   join: pathJoin,
   normalize: pathNormalize,
@@ -70,12 +71,21 @@ function setUpPlatform(platform) {
   }
 }
 
+// The server platform's key: whoever presents it reads the SERVER's dynamic
+// modules (getPlatform below), so it must not be predictable. WeKan: from the
+// crypto RNG - it was Math.random(), whose xorshift128+ state can be recovered
+// from earlier outputs (CodeQL js/insecure-randomness, CWE-338).
 function randomId(n) {
-  let s = "";
-  while (s.length < n) {
-    s += Math.random().toString(36).slice(2);
-  }
-  return s.slice(0, n);
+  return randomBytes(Math.ceil(n / 2)).toString("hex").slice(0, n);
+}
+
+// Compared in constant time, so the response time says nothing about how
+// much of a guessed key was right.
+function keyMatches(given, expected) {
+  if (typeof given !== "string" || typeof expected !== "string") return false;
+  const a = Buffer.from(given);
+  const b = Buffer.from(expected);
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 function middleware(request, response) {
@@ -247,7 +257,7 @@ function getPlatform(request) {
   const secretKey = request.query.key;
   if (typeof secretKey === "string") {
     for (const p of Object.keys(dynamicImportInfo)) {
-      if (secretKey === dynamicImportInfo[p].key) {
+      if (keyMatches(secretKey, dynamicImportInfo[p].key)) {
         return p;
       }
     }

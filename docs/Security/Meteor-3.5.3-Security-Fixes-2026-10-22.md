@@ -38,6 +38,31 @@ fails if a script starts doing it.
 3.4.1-rc360.0 package carries no copy of it, it is only loaded for the opt-in
 `uws` DDP transport, and it would be fetched from a git URL at build time.
 
+## Beyond 3.5.3: keys from the crypto RNG
+
+GitHub CodeQL, scanning the forks as WeKan code, found one more thing that
+Meteor 3.5.3 and 3.6-rc.0 both have (alert 591, `js/insecure-randomness`,
+CWE-338):
+
+- `dynamic-import`'s server key - whoever sends it as `?key=` to
+  `/__meteor__/dynamic-import/fetch` reads the SERVER's dynamic modules - came
+  from `Math.random()`, whose xorshift128+ state can be recovered from earlier
+  outputs, and was compared with `===`.
+- `meteor shell`'s connection key, which lets a connection run code in the
+  server process, was made the same way and compared with `!==`.
+
+Both forks now take their keys from `crypto.randomBytes` (160 and 128 bits)
+and compare them with `crypto.timingSafeEqual`.
+`tests/meteorForkRandomKeys.test.cjs` runs both, and fails on any
+`Math.random()` in the forks and on a key, secret, token, nonce, salt,
+password or code made from `Math.random()` anywhere in the tree.
+
+A wrong key is not recorded in Admin Panel → Problems. A request with a key
+that is not this process's own is answered as an ordinary browser request, and
+one WeKan instance's server-side import can reach another instance behind the
+same load balancer with its own key, so a mismatch is not evidence of an
+attempt. The shell listens only on a local socket.
+
 ## Admin Panel → Problems
 
 A refused attempt is recorded, never ordinary use. The packages cannot import

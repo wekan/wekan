@@ -7440,7 +7440,7 @@
       "keywords": {}
     },
     "packages/dynamic-import/server.js": {
-      "sha256": "6fb4a8bcc1d9363eb77cbb72994c2779627f302aad854fb1caf622c4adc82b10",
+      "sha256": "f19bd2f6a3d140309620e142e9fda1aea236a589cf593bf28cf9c443455ac63f",
       "urls": [],
       "keywords": {}
     },
@@ -7553,7 +7553,7 @@
       "keywords": {}
     },
     "packages/shell-server/shell-server.js": {
-      "sha256": "3aed2347fa8d4c7127c9539a171ff5a8875859b09ae3a24a8279b6e41e5d8427",
+      "sha256": "a01b269b10ab224a94ac1d7a4d53e79ba9039a4af61b4a6da5e227d894b63327",
       "urls": [
         "https://git.io/vbvAB",
         "https://git.io/vbvbl",
