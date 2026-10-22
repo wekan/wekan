@@ -109,11 +109,49 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **release recovery** no longer stops on a passing GitHub API
-error, so the missing builds of a release still get built, and **Cancel
-workflow** is kept able to stop every release workflow.
+**In short:** WeKan carries **Meteor 3.5.3's six security fixes** - DDP,
+allow/deny, dynamic import, Google and Facebook login, and meteor shell - on
+Meteor 3.6-rc.0, which does not have them yet. **Release recovery** no longer
+stops on a passing GitHub API error, and **Cancel workflow** is kept able to
+stop every release workflow.
 
-This release has the following release-tooling fixes:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0189bc53b">Meteor 3.5.3's six security fixes on Meteor 3.6-rc.0</a>. Thanks to Meteor developers, Vext Labs and xet7.</summary>
+
+Meteor published the same six fixes as 3.3.3, 3.4.2 and 3.5.3
+([announcement](https://forums.meteor.com/t/meteor-security-releases-3-3-3-3-4-2-and-3-5-3/64836)).
+3.6-rc.0, which WeKan runs, does not have them: its tag is behind 3.5.3 by
+exactly the 15 security commits. Going back to 3.5.3 would also mean Node.js
+24 and Rspack 1, so WeKan carries 3.6-rc.0's `allow-deny`, `ddp-server`,
+`dynamic-import`, `facebook-oauth`, `google-oauth` and `shell-server` in
+`packages/` with Meteor's 3.5.3 patch applied unchanged:
+
+- DDP: a message named `__proto__`, `toString` or not a string, and an async
+  handler that rejected, crashed the server.
+- allow/deny: a top-level `__proto__` in an update was missing from the field
+  list the validators saw.
+- dynamic `import()`: requests are bounded in size (413) and complexity (400).
+- Google and Facebook direct-token login: a token issued to another
+  application was accepted. Identity now comes from the provider, and a
+  Facebook verification error no longer carries the app secret.
+- `meteor shell`: its history and compile cache are private.
+- Deploy discovery is in `meteor-tool`, which an app cannot replace. WeKan is
+  never deployed with `meteor deploy`, and a test keeps it so.
+
+Refused attempts show in Admin Panel → Problems as Meteor DDP, Meteor
+allow-deny, Meteor dynamic-import and Meteor OAuth, and none disables an
+account. `tests/meteor353SecurityFixes.test.cjs` runs each fix's own code and
+searches the tree for the shape of each fault; every check fails on the unfixed
+packages, and the suite fails when `.meteor/release` moves on, because a fork
+would silently keep 3.6-rc.0's code. The Playwright spec sends each attack to
+a running WeKan built with the forks. See
+[Meteor 3.5.3 security fixes](docs/Security/Meteor-3.5.3-Security-Fixes-2026-10-22.md).
+
+</details>
+
+and has the following release-tooling fixes:
 
 **Release workflows** - how a release run recovers from GitHub errors, and how
 it stops when cancelled.
