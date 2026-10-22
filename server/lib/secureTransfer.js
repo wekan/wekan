@@ -30,22 +30,13 @@ export function secureTransfer(value, context = {}) {
     }
     return result.value;
   } catch (error) {
-    // A size limit (too many objects, too deep, a string or array too long) is
-    // reached by a legitimate large board too, so it is recorded at medium -
-    // high with the importer's userId disabled their account. A cycle or a
-    // non-plain object is not something an export produces: still high.
-    const limitOnly = /limit exceeded/.test(String(error && error.message));
-    try { require('/server/lib/securityLog').record({
-      category: 'Import/export validation',
-      bleed: 'ImportExportValidation',
-      severity: limitOnly ? 'medium' : 'high',
-      action: 'blocked',
-      source: context.source || `${context.direction || 'import'}:unknown`,
-      userId: context.userId,
-      username: context.username,
-      ip: context.ip,
-      detail: error && error.message,
-    }); } catch (e) { /* logging must never break the guard */ }
+    // Only the boundary's own refusals are the user's attempt; a fault of the
+    // code (a sanitizer that throws) is recorded without blocking anybody.
+    // See models/lib/transferFailure.cjs.
+    try {
+      const { transferFailureEvent } = require('/models/lib/transferFailure.cjs');
+      require('/server/lib/securityLog').record(transferFailureEvent(error, context));
+    } catch (e) { /* logging must never break the guard */ }
     throw error;
   }
 }

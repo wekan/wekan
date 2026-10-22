@@ -3145,7 +3145,7 @@
       "keywords": {}
     },
     "server/lib/secureTransfer.js": {
-      "sha256": "a1fc7be0f71d8cbc152a5d80c78b81cad6986e0de4949cb9cea9068b3b4ea777",
+      "sha256": "f10867835bd0d0a4b6a9efcbcdd3b1d10103c49c79911cdd1ccf7a9433a4fc1a",
       "urls": [],
       "keywords": {}
     },
@@ -4995,7 +4995,7 @@
       "keywords": {}
     },
     "models/lib/importExportBoundary.js": {
-      "sha256": "8acf99738883ee94dd2289604a0cd7559a27e86428428a78309243cef16951da",
+      "sha256": "17d677374292883655bf077554b80eaa880538755ed1cfaac94cb5ac23537b38",
       "urls": [],
       "keywords": {}
     },
@@ -7563,6 +7563,11 @@
     },
     "packages/shell-server/shell-server.test-d.ts": {
       "sha256": "3b7ba54c08f2b9c249818ca798bc744ec41353da5eee083701ed8933444fab8d",
+      "urls": [],
+      "keywords": {}
+    },
+    "models/lib/transferFailure.cjs": {
+      "sha256": "3ee5934497d8a7386e7b4bb66b308048ea0cd498be2b70832b26ed6d40422dc6",
       "urls": [],
       "keywords": {}
     }

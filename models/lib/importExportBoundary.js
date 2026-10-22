@@ -8,6 +8,18 @@
 const BLOCKED_KEYS = new Set(['__proto__', 'prototype', 'constructor']);
 const SECRET_KEY = /(?:password|passwd|secret|api[_-]?key|api[_-]?token|auth[_-]?token|private[_-]?key|login[_-]?token)/i;
 
+// A refusal of the boundary's OWN: a size limit, a cycle or a non-plain
+// object. secureTransfer records only these as an attempt by the user
+// (models/lib/transferFailure.cjs); anything else that throws during the walk -
+// sanitize-html 2.18.0's stack overflow on nested <iframe> was one - is a fault
+// of the code, not the user's attempt, and must not disable their account.
+function boundaryError(message, kind) {
+  const error = new Error(message);
+  error.name = 'TransferBoundaryError';
+  error.kind = kind;
+  return error;
+}
+
 function sanitizeTransferValue(input, options = {}) {
   const limits = {
     maxDepth: options.maxDepth || 40,
@@ -27,8 +39,8 @@ function sanitizeTransferValue(input, options = {}) {
 
   function walk(value, path, depth) {
     nodes += 1;
-    if (nodes > limits.maxNodes) throw new Error('Import/export object limit exceeded');
-    if (depth > limits.maxDepth) throw new Error(`Import/export nesting limit exceeded at ${path}`);
+    if (nodes > limits.maxNodes) throw boundaryError('Import/export object limit exceeded', 'limit');
+    if (depth > limits.maxDepth) throw boundaryError(`Import/export nesting limit exceeded at ${path}`, 'limit');
     if (value == null || typeof value === 'boolean') return value;
     if (typeof value === 'number') {
       if (!Number.isFinite(value)) {
@@ -45,7 +57,7 @@ function sanitizeTransferValue(input, options = {}) {
         && /\/(?:file|avatarFile|excelBase64)$/.test(path)
         && value.length % 4 === 0 && /^[A-Za-z0-9+/]+={0,2}$/.test(value)
         ? limits.maxBinaryString : limits.maxString;
-      if (value.length > binaryLimit) throw new Error(`Import/export string limit exceeded at ${path}`);
+      if (value.length > binaryLimit) throw boundaryError(`Import/export string limit exceeded at ${path}`, 'limit');
       // Avoid running multi-megabyte base64 attachment bodies through DOMPurify,
       // but do pass every string that can carry active markup, a script URL or
       // CSS payload through WeKan's established server sanitizer.
@@ -68,17 +80,17 @@ function sanitizeTransferValue(input, options = {}) {
       warnings.push({ path, reason: `unsupported ${typeof value} removed` });
       return null;
     }
-    if (seen.has(value)) throw new Error(`Import/export cycle at ${path}`);
+    if (seen.has(value)) throw boundaryError(`Import/export cycle at ${path}`, 'cycle');
     seen.add(value);
     if (Array.isArray(value)) {
-      if (value.length > limits.maxArray) throw new Error(`Import/export array limit exceeded at ${path}`);
+      if (value.length > limits.maxArray) throw boundaryError(`Import/export array limit exceeded at ${path}`, 'limit');
       const result = value.map((entry, index) => walk(entry, `${path}/${index}`, depth + 1));
       seen.delete(value);
       return result;
     }
     const proto = Object.getPrototypeOf(value);
     if (proto !== Object.prototype && proto !== null) {
-      throw new Error(`Import/export non-plain object at ${path}`);
+      throw boundaryError(`Import/export non-plain object at ${path}`, 'non-plain');
     }
     const result = {};
     for (const key of Object.keys(value)) {

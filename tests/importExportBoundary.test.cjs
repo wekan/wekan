@@ -96,7 +96,10 @@ test('all import transports and export adapters use the common boundary', () => 
   }
   const wrapper = fs.readFileSync(path.join(root, 'server/lib/secureTransfer.js'), 'utf8');
   assert.ok(wrapper.includes('sanitizeTransferValue'));
-  assert.ok(wrapper.includes("action: 'blocked'"));
+  // A refusal is recorded as blocked through the shared decision, which keeps
+  // a fault of the code from being recorded as the user's attempt.
+  assert.ok(wrapper.includes('transferFailureEvent(error, context)'));
+  assert.ok(fs.readFileSync(path.join(root, 'models/lib/transferFailure.cjs'), 'utf8').includes("action: 'blocked'"));
   assert.ok(wrapper.includes("action: 'sanitized'"));
   const exporter = fs.readFileSync(path.join(root, 'models/exporter.js'), 'utf8');
   assert.match(exporter, /secureExportDoc\(doc, `export:wekan-stream:\$\{key\}`\)/);

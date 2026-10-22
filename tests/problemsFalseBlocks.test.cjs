@@ -68,9 +68,11 @@ test('history restore, exports, imports and unchanged parents record only attemp
   for (const file of ['models/export.js', 'models/exportCharts.js']) {
     assert.match(read(file), /if \(board && user && board\.isVisibleBy\(user\)\) return;/, file);
   }
+  // A size limit is medium and a fault of the code is never an attempt; the
+  // decision moved to models/lib/transferFailure.cjs (tests/transferFailure.test.cjs).
   const transfer = read('server/lib/secureTransfer.js');
-  assert.match(transfer, /const limitOnly = \/limit exceeded\/\.test/);
-  assert.match(transfer, /severity: limitOnly \? 'medium' : 'high',/);
+  assert.match(transfer, /record\(transferFailureEvent\(error, context\)\)/);
+  assert.match(read('models/lib/transferFailure.cjs'), /severity: error\.kind === 'limit' \? 'medium' : 'high',/);
   const cards = read('server/models/cards.js');
   assert.match(cards, /if \(req\.body\.parentId !== beforeEdit\.parentId\) \{\s*await assertParentCardIsVisible/);
   assert.match(cards, /if \(!beforeEdit\) \{\s*sendJsonResult\(res, \{ code: 404/);
