@@ -147,7 +147,7 @@ test('negative: no ensureIndex call anywhere passes something that is not an ind
         if (arg.startsWith('{')) continue;
         if (/^['"`]/.test(arg)) { offenders.push(`${rel}: ${m[0]}`); continue; }
         if (arg === 'keys' && rel.endsWith('mongoStartup.js')) continue;
-        const bound = new RegExp(`\\b(?:const|let|var)\\s+${arg.replace(/[.$]/g, '\\$&')}\\s*=\\s*\\{`).test(text)
+        const bound = new RegExp(`\\b(?:const|let|var)\\s+${arg.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*=\\s*\\{`).test(text)
           || new RegExp(`for \\(const ${arg} of listSortIndexKeys\\(`).test(text)
           || new RegExp(`export const ${arg}\\s*=\\s*\\{`).test(text);
         if (!bound) offenders.push(`${rel}: ${m[0]}`);
