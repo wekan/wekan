@@ -113,8 +113,9 @@ its reason.
 them **Blockly 13.4**, whose new toolbox search is translated into every
 language, and **imapflow**, **mailparser**, **pdfjs-dist** and
 **isomorphic-git**, which now have tests that run them the way WeKan does. The
-**core26 snap** gets the Caddy part the main snap already had, and a language
-saved as **ca@valencia** shows Valencian.
+**core26 snap** gets the Caddy part the main snap already had, a language saved
+as **ca@valencia** shows Valencian, and **Admin Panel / Problems** stops
+re-reporting list indexes and calling a lost connection a schema bug.
 
 This release updates the following dependencies:
 
@@ -133,6 +134,39 @@ This release updates the following dependencies:
   the BSD bundles are still built on OpenBSD 7.8. Thanks to xet7.
 
 and fixes the following bugs:
+
+**Admin Panel / Problems** - what a database message is reported as, and how
+often.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/058a2dcbce">List sort indexes are made from key objects, so they are no longer re-created at every start</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6794](https://github.com/wekan/wekan/issues/6794): "Created the missing index
+"-modifiedAt" on lists" came back at every start, from every pod. The list
+sort options were passed to `ensureIndex` as strings, so lists got indexes on
+fields literally named "-modifiedAt", "-title" and "-sort", and the "is it
+there already?" check compared a string with an index key object, which never
+matched. Startup now ensures one index per sort field and drops the three
+stray ones; `ensureIndex` turns a string key into the key it means.
+`tests/listSortIndexes.test.cjs` uses the reporter's real index list, runs
+`ensureIndex` itself against a fake collection, and fails on any call in the
+tree whose key is not an index key object.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9e680d4b2">A lost database connection inside a validation error is a connection problem, not a schema bug</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6795](https://github.com/wekan/wekan/issues/6795): while MongoDB restarted,
+"ValidationError: Failed validation Socket 'connect' timed out" was reported as
+an empty required field and a WeKan bug, and treated as fatal at startup.
+collection2 wraps whatever failed during validation, so the schema rule now
+yields to a lost connection, timeout, lock or too many connections in the same
+message, and the MongoDB driver's own network, server-selection, pool and
+not-primary errors are connection problems. The test runs both startup guards'
+own decision on the reported error and on every wrapped transient cause.
+
+</details>
 
 **Snap** - the Caddy reverse proxy part of the core26 snap.
 
