@@ -350,8 +350,41 @@ parts:
             # apt repo (their network is restricted to a fetch proxy).
             # Tracks the latest stable Caddy with a pinned fallback; set
             # CADDY_VERSION explicitly for fully reproducible builds.
-            CADDY_VERSION="$(curl -fsSL https://api.github.com/repos/caddyserver/caddy/releases/latest | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1)"
-            [ -n "${CADDY_VERSION}" ] || CADDY_VERSION="2.8.4"
+            #
+            # The version is resolved WITHOUT api.github.com. That API rate-limits
+            # unauthenticated callers by IP, and a CI runner shares its address
+            # with every other job on the same host, so it answers 403 whenever
+            # the neighbours have been busy. In v10.71 that one line failed the
+            # whole wekan-gantt-gpl amd64 snap:
+            #     curl: (22) The requested URL returned error: 403
+            #     'override-build' in part 'caddy' failed with code 22.
+            # and the pinned fallback that used to sit on the next line never
+            # ran - snapcraft executes a scriptlet under `set -o pipefail` as
+            # well, so the 403 failed the ASSIGNMENT and `set -e` ended the part
+            # one line before its own safety net. A fallback that the failure it
+            # covers skips over is not a fallback, so the lookup is now allowed
+            # to fail: `|| true` keeps the substitution's status 0, and an empty
+            # answer selects the pin.
+            #
+            # github.com/…/releases/latest is a REDIRECT to the newest tag, not an
+            # API call, so it is not rate-limited the same way and answers where
+            # the API will not. The tag is read out of the URL it lands on.
+            CADDY_PINNED_VERSION="2.11.7"
+            if [ -n "${CADDY_VERSION:-}" ]; then
+                echo "caddy: using CADDY_VERSION=${CADDY_VERSION} from the environment."
+            else
+                # Only a lookup: when it fails, the pinned version below is used,
+                # so this one stays a plain curl.
+                CADDY_LATEST_URL="$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+                    https://github.com/caddyserver/caddy/releases/latest || true)"
+                CADDY_VERSION="$(printf '%s' "${CADDY_LATEST_URL}" | sed -n 's|.*/releases/tag/v\([0-9][0-9.]*\)$|\1|p')"
+                if [ -n "${CADDY_VERSION}" ]; then
+                    echo "caddy: newest release is ${CADDY_VERSION}."
+                else
+                    CADDY_VERSION="${CADDY_PINNED_VERSION}"
+                    echo "caddy: could not resolve the newest release (landed on '${CADDY_LATEST_URL}'); using the pinned ${CADDY_VERSION}."
+                fi
+            fi
             case "${CRAFT_ARCH_BUILD_FOR}" in
                 amd64)   CADDY_ARCH=amd64 ;;
                 arm64)   CADDY_ARCH=arm64 ;;
@@ -359,18 +392,25 @@ parts:
                 ppc64el) CADDY_ARCH=ppc64le ;;   # Caddy uses ppc64le, not Debian's ppc64el
                 riscv64) CADDY_ARCH=riscv64 ;;
                 # Caddy is built by Go and its release assets carry GO's names,
-                # not Debian's: there is no linux_armhf archive, the 32-bit ARM
-                # ones are armv5, armv6 and armv7. The identical gap in
-                # snapcraft.yaml failed the whole armhf snap with a 404, and
-                # armhf is a platform of this file too now, so this branch is
-                # reached rather than merely prepared.
+                # not Debian's. There is no linux_armhf archive and there never
+                # has been; the 32-bit ARM ones are armv5, armv6 and armv7. With
+                # no branch here armhf fell through to the default below, asked
+                # for caddy_<v>_linux_armhf.tar.gz, and got
+                #     curl: (22) The requested URL returned error: 404
+                # which failed the whole armhf snap in v10.78.
+                #
                 # armv7, not armv6: Debian armhf's baseline is ARMv7-A with
-                # VFPv3-D16, which is exactly Go's GOARM=7.
+                # VFPv3-D16 hard-float, and Go's armv7 build is GOARM=7, which
+                # is exactly that. Note this is NOT the armhf/armv7 distinction
+                # that matters for Node.js in wekan/node-patches - that one is
+                # about NEON, and Go's GOARM=7 does not use NEON.
                 armhf)   CADDY_ARCH=armv7 ;;
                 *)
-                    # Not a guess. Passing the Debian name straight through
-                    # builds a URL that cannot exist, and the 404 then reads as
-                    # Caddy having dropped the architecture.
+                    # An unmapped architecture used to become a URL that 404s,
+                    # and the "fall back to the pinned version" path below then
+                    # retried the same wrong name and failed too - so the error
+                    # blamed the Caddy RELEASE for something this case statement
+                    # got wrong. Say which it is.
                     echo "caddy: no Caddy architecture is mapped for '${CRAFT_ARCH_BUILD_FOR}'." >&2
                     echo "  Caddy publishes linux_amd64, linux_arm64, linux_armv5, linux_armv6," >&2
                     echo "  linux_armv7, linux_ppc64le, linux_riscv64 and linux_s390x - Go's names," >&2
@@ -379,8 +419,25 @@ parts:
                     ;;
             esac
             echo "Downloading Caddy ${CADDY_VERSION} (linux/${CADDY_ARCH}) from GitHub releases..."
-            curl -fsSL -o /tmp/caddy.tar.gz \
-                "https://github.com/caddyserver/caddy/releases/download/v${CADDY_VERSION}/caddy_${CADDY_VERSION}_linux_${CADDY_ARCH}.tar.gz"
+            # The newest release does not have to publish every architecture -
+            # riscv64 and s390x are the ones that come and go - so a missing
+            # archive falls back to the pin rather than failing the snap.
+            caddy_url() {
+                echo "https://github.com/caddyserver/caddy/releases/download/v$1/caddy_$1_linux_${CADDY_ARCH}.tar.gz"
+            }
+            # --optional: a version that publishes no archive for this CPU is a 404,
+            # and that is the fallback below, not an outage. Everything else - the
+            # 503s and dropped connections that ended the v10.89 arm64 snap - is
+            # waited out by fetch.sh.
+            if ! bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" --optional -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"; then
+                if [ "${CADDY_VERSION}" = "${CADDY_PINNED_VERSION}" ]; then
+                    echo "caddy: no linux/${CADDY_ARCH} archive in Caddy ${CADDY_VERSION}, and that is the pinned version - nothing left to try." >&2
+                    exit 1
+                fi
+                echo "caddy: Caddy ${CADDY_VERSION} publishes no linux/${CADDY_ARCH} archive; falling back to the pinned ${CADDY_PINNED_VERSION}." >&2
+                CADDY_VERSION="${CADDY_PINNED_VERSION}"
+                bash "${CRAFT_PROJECT_DIR:-${SNAPCRAFT_PROJECT_DIR:-$PWD}}/releases/fetch.sh" -o /tmp/caddy.tar.gz "$(caddy_url "${CADDY_VERSION}")"
+            fi
             mkdir -p /tmp/caddy-extract
             tar -xzf /tmp/caddy.tar.gz -C /tmp/caddy-extract caddy
 
@@ -400,10 +457,12 @@ parts:
             mkdir -p $SNAPCRAFT_PART_INSTALL/etc
             cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
             # Default Caddyfile for Wekan
-            # This is loaded by caddy-control script if no other config is provided
+            # migrate-caddyfile-v1-to-v2.sh writes this when a Caddy v1 file
+            # cannot be converted. WeKan listens on caddy-bind-port when Caddy
+            # is enabled (default 3001), never 3000, and Caddy on `port`.
 
-            :8080 {
-                reverse_proxy localhost:3000
+            :{$CADDY_PORT:8080} {
+                reverse_proxy localhost:{$CADDY_BIND_PORT:3001}
             }
             EOF
         stage:

@@ -800,7 +800,7 @@ parts:
             # github.com/…/releases/latest is a REDIRECT to the newest tag, not an
             # API call, so it is not rate-limited the same way and answers where
             # the API will not. The tag is read out of the URL it lands on.
-            CADDY_PINNED_VERSION="2.11.4"
+            CADDY_PINNED_VERSION="2.11.7"
             if [ -n "${CADDY_VERSION:-}" ]; then
                 echo "caddy: using CADDY_VERSION=${CADDY_VERSION} from the environment."
             else

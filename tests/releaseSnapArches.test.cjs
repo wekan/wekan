@@ -539,24 +539,35 @@ test('the caddy part resolves its version without the GitHub API', () => {
   // was already there, on the very next line, and never ran: snapcraft runs a
   // scriptlet under `set -o pipefail`, so the 403 failed the ASSIGNMENT and
   // `set -e` ended the part one line above its own safety net.
-  const yaml = fs.readFileSync(path.join(repoRoot, 'snapcraft.yaml'), 'utf8');
-  const caddy = code(yaml.slice(yaml.indexOf('\n    caddy:\n')));
+  // EVERY snapcraft file: snapcraft-core26.yaml still had the API lookup, its
+  // 2.8.4 fallback and a default Caddyfile proxying to 3000 after
+  // snapcraft.yaml was fixed, because this test read snapcraft.yaml only.
+  const files = fs.readdirSync(repoRoot).filter(f => /^snapcraft.*\.ya?ml$/.test(f));
+  assert.ok(files.length >= 2, `expected snapcraft.yaml and snapcraft-core26.yaml, got ${files}`);
+  for (const file of files) {
+    const yaml = fs.readFileSync(path.join(repoRoot, file), 'utf8');
+    const parts = yaml.slice(yaml.indexOf('\nparts:\n'));
+    const caddy = code(parts.slice(parts.indexOf('\n    caddy:\n')));
 
-  assert.ok(!/api\.github\.com/.test(caddy),
-    'nothing the shell RUNS may call api.github.com - the comment above it may '
-    + 'name the API, since it is explaining what broke');
-  assert.ok(/releases\/latest/.test(caddy) && /url_effective/.test(caddy),
-    'the version comes from the releases/latest REDIRECT, which is not the API '
-    + 'and is not rate-limited the same way');
-  assert.ok(/\|\| true/.test(caddy),
-    'and the lookup is allowed to fail: without that, pipefail plus set -e ends '
-    + 'the part before the fallback, which is exactly what happened');
-  assert.ok(/CADDY_PINNED_VERSION="\d+\.\d+\.\d+"/.test(caddy),
-    'there is a pinned version to fall back to');
-  assert.ok(/CADDY_VERSION="\$\{CADDY_PINNED_VERSION\}"/.test(caddy),
-    'and something actually falls back to it - a pin nothing assigns is a comment');
-  assert.ok(/if \[ -n "\$\{CADDY_VERSION:-\}" \]/.test(caddy),
-    'CADDY_VERSION from the environment still wins, for a reproducible build');
+    assert.ok(!/api\.github\.com/.test(caddy),
+      `${file}: ` + 'nothing the shell RUNS may call api.github.com - the comment above it may '
+      + 'name the API, since it is explaining what broke');
+    assert.ok(/releases\/latest/.test(caddy) && /url_effective/.test(caddy),
+      'the version comes from the releases/latest REDIRECT, which is not the API '
+      + 'and is not rate-limited the same way');
+    assert.ok(/\|\| true/.test(caddy),
+      'and the lookup is allowed to fail: without that, pipefail plus set -e ends '
+      + 'the part before the fallback, which is exactly what happened');
+    assert.ok(/CADDY_PINNED_VERSION="\d+\.\d+\.\d+"/.test(caddy),
+      'there is a pinned version to fall back to');
+    assert.ok(/CADDY_VERSION="\$\{CADDY_PINNED_VERSION\}"/.test(caddy),
+      'and something actually falls back to it - a pin nothing assigns is a comment');
+    assert.ok(/if \[ -n "\$\{CADDY_VERSION:-\}" \]/.test(caddy),
+      'CADDY_VERSION from the environment still wins, for a reproducible build');
+    assert.ok(/reverse_proxy localhost:\{\$CADDY_BIND_PORT:3001\}/.test(caddy),
+      `${file}: the default Caddyfile proxies to CADDY_BIND_PORT, where WeKan listens when Caddy is on`);
+    assert.ok(!/reverse_proxy localhost:3000\b/.test(caddy), `${file}: not to 3000`);
+  }
 });
 
 test('the Launchpad build logs outlive the job that made them', () => {
