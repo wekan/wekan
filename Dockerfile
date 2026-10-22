@@ -38,7 +38,7 @@ FROM --platform=$BUILDPLATFORM debian:trixie AS bundle
 
 ARG TARGETARCH
 ARG TARGETVARIANT
-ARG VERSION=12.58
+ARG VERSION=12.59
 ARG DEBIAN_FRONTEND=noninteractive
 
 COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
@@ -151,7 +151,7 @@ ENV \
     NODE_VERSION=v26.12.1 \
     METEOR_RELEASE=METEOR@3.6-rc.0 \
     USE_EDGE=false \
-    NPM_VERSION=12.2.0 \
+    NPM_VERSION=12.2.1 \
     SRC_PATH=./ \
     WITH_API=true \
     MONGO_OPLOG_URL="" \
