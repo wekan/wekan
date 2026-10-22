@@ -107,6 +107,41 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **sanitize-html 2.18.1** fixes a stack overflow that nested
+`<iframe>` tags caused in WeKan's import and export sanitizer, which could
+disable the account of whoever exported a board holding them.
+
+This release fixes the following CRITICAL SECURITY ISSUE:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96ed9ad202">sanitize-html 2.18.1: nested iframes no longer crash imports and exports, or lock out who ran them</a>. Thanks to xet7.</summary>
+
+sanitize-html 2.18.0 re-sanitized the fallback of a discarded `<iframe>` with
+no recursion limit
+([GHSA-c9rx-x947-fp3h](https://github.com/advisories/GHSA-c9rx-x947-fp3h),
+CWE-674). WeKan's server sanitizer (`server/lib/inputSanitizer.js`) discards
+every tag, so it took that path: a few kilobytes of nested `<iframe>` threw
+`RangeError: Maximum call stack size exceeded` in `secureTransfer`, which
+sanitizes every import and export. `secureTransfer` records a throw as a high
+"blocked" event naming the user, and that disables the account, so a card
+planted with the payload locked out the next member who exported the board.
+2.18.1 bounds the recursion and keeps `nestingLimit` across it; it also drops
+the `deepmerge` dependency.
+
+[The tests](https://github.com/wekan/wekan/commit/d89bcab8e0):
+`tests/sanitizeHtmlNestedIframe.test.cjs` runs WeKan's own `sanitizeInput`
+options on three nested-iframe payloads and checks the installed and locked
+versions; with 2.18.0 it fails with the same `RangeError`. Its negative test
+fails if anything else imports sanitize-html. The Playwright spec exports and
+imports a board holding the payload and checks that nobody is locked out.
+Nothing is refused, so there is no Admin Panel → Problems key.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.59 2026-10-22 WeKan ® release
 
 **In short:** WeKan carries **Meteor 3.5.3's six security fixes** - DDP,
