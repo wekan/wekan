@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.60 2026-10-22 WeKan ® release
 
 **In short:** **sanitize-html 2.18.1** fixes a stack overflow that nested
 `<iframe>` tags caused in WeKan's import and export sanitizer, and a failed
