@@ -2376,8 +2376,26 @@ async function repairLegacyAvatarUrls() {
 }
 
 Meteor.startup(async () => {
-  for (const value of allowedSortValues) {
-    await ensureIndex(Lists, value);
+  // #6794: the list sort options ('-modifiedAt', 'title', ...) need one
+  // single-field index per field. They were passed as the strings themselves,
+  // which indexed fields named "-modifiedAt", "-title" and "-sort" and
+  // re-created all six at every start (models/lib/indexKeys.cjs). Ensure the
+  // real ones, and drop those leftovers.
+  const { listSortIndexKeys, straySortIndexNames } = require('/models/lib/indexKeys.cjs');
+  for (const key of listSortIndexKeys(allowedSortValues)) {
+    await ensureIndex(Lists, key);
+  }
+  try {
+    const raw = Lists.rawCollection();
+    for (const name of straySortIndexNames(await raw.indexes(), allowedSortValues)) {
+      await raw.dropIndex(name);
+      console.log(`WeKan: dropped index "${name}" on lists: it indexed a field that does not exist`);
+    }
+  } catch (e) {
+    // No collection yet, or another WeKan process dropped it first: fine.
+    if (!/ns not found|index not found|NamespaceNotFound|IndexNotFound/i.test(String(e && (e.codeName || e.message)))) {
+      console.error('WeKan: could not drop the stray list sort indexes:', e && e.message);
+    }
   }
   await ensureIndex(Users, { modifiedAt: -1 });
   // Admin Panel / People pages users newest-first and counts them with the same

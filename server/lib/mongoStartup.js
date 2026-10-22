@@ -146,6 +146,15 @@ export async function ensureIndex(collection, keys, options = {}) {
     console.error('WeKan ensureIndex: could not resolve rawCollection, skipping', keys);
     return false;
   }
+  // #6794: a key given as a string ('-modifiedAt') is read by the driver as a
+  // field NAME, and its JSON never matches an existing index's key object, so
+  // it was re-created - and reported - at every start. Use the key it means.
+  if (typeof keys === 'string') {
+    const { indexKeyFromSortValue } = require('/models/lib/indexKeys.cjs');
+    console.warn(`WeKan ensureIndex: index key given as the string ${JSON.stringify(keys)}; use an object such as { field: 1 }`);
+    keys = indexKeyFromSortValue(keys);
+    if (!keys) return false;
+  }
   const wanted = JSON.stringify(keys);
   try {
     let existing = [];
