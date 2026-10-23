@@ -107,6 +107,66 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **Sandstorm .spk** is built with only what a grain runs:
+Sandstorm login without the other login packages, **FerretDB** with only its
+**SQLite** handler, and an Admin Panel with no login, database-migration or
+SMTP/IMAP options a grain cannot use. Every build now loads **collection2**
+before the models, so writes always get their schema defaults.
+
+This release adds the following new features:
+
+**Sandstorm** - a smaller .spk, built from what a grain actually uses.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e413cd4720">The .spk leaves out every login method but Sandstorm's, and FerretDB's other database handlers</a>. Thanks to xet7.</summary>
+
+A grain has one login (Sandstorm's), one database (FerretDB on SQLite) and one
+mailbox (the grain's own address), but the .spk carried every login package
+WeKan has and a FerretDB with the PostgreSQL, MySQL and SAP HANA handlers.
+`releases/sandstorm-slim-spk.sh`, now used by `sandstorm.yml` and
+`release-all.yml`, builds with a package profile
+(`releases/sandstorm-slim.mjs`) that drops accounts-password, 2FA,
+passwordless, lockout, OAuth2/OIDC, CAS, LDAP, SAML and the seven social logins
+for that one build. It always trims the bundle for a linux/x64 sockjs grain,
+verifies none of those packages got in and packs with `spk pack`.
+`sandstorm-src/build-deps.sh` builds FerretDB from source with
+`ferretdb_no_postgresql,ferretdb_no_mysql`. Under Sandstorm the Admin Panel
+hides the login panes, Database migration, the IMAP/webhook mail settings and
+the password fields, and the REST password login answers `sandstorm-sso-only`.
+Against wekan-12.63-sandstorm.spk the file is 3.8 MiB (2.1 %) smaller and
+unpacks 26.7 MiB smaller. Docker, Snap and the bundles are unchanged.
+`tests/sandstormSlim.test.cjs` and
+`tests/playwright/specs/sandstorm-slim.e2e.js` pin it. Design:
+[Smaller-wekan-spk.md](docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+
+</details>
+
+and fixes the following bugs:
+
+**Collections** - which attachSchema the models get.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2699f4deea">Collection2 is loaded before the models, so every write is cleaned and given its defaults</a>. Thanks to xet7.</summary>
+
+Collection2's attachSchema is in its lazy main module, which only
+aldeed:schema-index loads, with an async `Collection2.load()`. The models
+attached their schemas with whichever attachSchema existed first: collection2's,
+or the bare shim in `imports/collectionHelpers.js`, which never cleans a write.
+The full build happened to load collection2 first. The smaller Sandstorm build
+reached the models sooner, so a new board's swimlane was stored without
+`archived`, `sort` and `type`, and the board opened empty. `server/main.js` now
+loads `meteor/aldeed:collection2/main` before the models in every build.
+Without accounts-password the server also no longer stops on
+`Accounts.emailTemplates` (`server/lib/accountsEmailTemplates.js`) or on
+useraccounts' "at least one account service". `tests/sandstormSlim.test.cjs`
+and the board, list and card test in `sandstorm-slim.e2e.js` pin it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.63 2026-10-22 WeKan ® release
 
 **In short:** copying a card, linking it to another board or making one from a
