@@ -721,8 +721,10 @@ jobs:
       - name: Check the binaries the amd64 bundle needs exist
         run: |
           set -euo pipefail
-          bash releases/require-binaries.sh 'amd64 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64'
+          # The SQLite-only ferretdb-sqlite-amd64, or the full ferretdb-amd64 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash releases/ferretdb-asset.sh --url amd64)"
+          bash releases/require-binaries.sh 'amd64 bundle' "$FERRET_URL"
 
       - name: Embed Node.js, FerretDB (amd64) and launcher into the bundle
         # Make the release .zip self-contained (offline): bundle Node.js + FerretDB
@@ -737,28 +739,15 @@ jobs:
           # copying the runner's unnamed, unchecksummed node. The helper exports
           # NODE_FULL and NODE_SHA256 to $GITHUB_ENV for the provenance step.
           bash releases/embed-verified-node.sh .build/bundle/node node-x64 "$NODE_VERSION"
-          # Bundled FerretDB (amd64): download only this arch's binary from the
-          # newest wekan/FerretDB release (per-arch assets, no ferretdb.zip).
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64"
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o .build/bundle/ferretdb "$FERRET_URL"
-          chmod +x .build/bundle/ferretdb
-          # wekan/FerretDB publishes a .sha256sum beside each binary now. Verify
-          # the download against it and carry the value to the provenance step
-          # (record-provenance runs in the later Create-zip step). Older releases
-          # publish none, so a missing one is unverified, not fatal - the binary
-          # IS present, which is the test.
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-            FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-            GOT="$(sha256sum .build/bundle/ferretdb | cut -d' ' -f1)"
-            if [ "$GOT" != "$FERRET_SHA" ]; then
-              echo "::error::FerretDB amd64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-              exit 1
-            fi
-            echo "FerretDB SHA256 verified: $GOT"
-            echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-          else
-            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-amd64 on this release, so it is unverified."
-          fi
+          # The SQLite-only ferretdb-sqlite-amd64 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-amd64 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          ferret_meta="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-asset.sh" amd64 -o .build/bundle/ferretdb)" \
+            || { echo "::error::FerretDB for amd64 could not be put in the bundle; the lines above say why."; exit 1; }
+          eval "$ferret_meta"
           # Bundled MongoDB Database Tools (amd64) from wekan/mongo-tools-patches (per-arch,
           # no mongodb.com). This base amd64 bundle is inherited by the other Linux
           # arches, which overwrite these with their own arch's tools below.
@@ -821,10 +810,9 @@ jobs:
           # exit 127 - which is what this line did on v10.78 before the path was
           # made absolute, failing the whole amd64 build after the zip was
           # already built and checksummed.
-          FERRET_TAG="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-latest-tag.sh" || true)"
           PROVENANCE_FILE="$GITHUB_WORKSPACE/provenance/amd64.tsv" bash "$GITHUB_WORKSPACE/releases/record-provenance.sh" \
             'amd64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64' \
+            "${FERRET_URL:-}" \
             "${FERRET_SHA:-}" || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
@@ -1011,8 +999,10 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         run: |
           set -euo pipefail
-          bash releases/require-binaries.sh 'arm64 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64'
+          # The SQLite-only ferretdb-sqlite-arm64, or the full ferretdb-arm64 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash releases/ferretdb-asset.sh --url arm64)"
+          bash releases/require-binaries.sh 'arm64 bundle' "$FERRET_URL"
 
       - name: Embed Node.js + FerretDB (arm64) into the bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -1025,24 +1015,15 @@ jobs:
           # Node 22 on ubuntu-24.04-arm - not the pinned 24, and unchecksummed.
           # The helper exports NODE_FULL and NODE_SHA256 for the provenance step.
           bash releases/embed-verified-node.sh bundle/node node-arm64 "$NODE_VERSION"
-          # Download only the arm64 FerretDB binary from the newest wekan/FerretDB
-          # release, and verify it against the .sha256sum wekan/FerretDB now
-          # publishes beside each binary (carry the value to the provenance step).
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64"
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o bundle/ferretdb "$FERRET_URL"
-          chmod +x bundle/ferretdb
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-            FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-            GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
-            if [ "$GOT" != "$FERRET_SHA" ]; then
-              echo "::error::FerretDB arm64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-              exit 1
-            fi
-            echo "FerretDB SHA256 verified: $GOT"
-            echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-          else
-            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-arm64 on this release, so it is unverified."
-          fi
+          # The SQLite-only ferretdb-sqlite-arm64 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-arm64 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          ferret_meta="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-asset.sh" arm64 -o bundle/ferretdb)" \
+            || { echo "::error::FerretDB for arm64 could not be put in the bundle; the lines above say why."; exit 1; }
+          eval "$ferret_meta"
           # Overwrite the inherited amd64 MongoDB Database Tools with arm64 ones.
           bash "$GITHUB_WORKSPACE/releases/fetch-mongo-tools.sh" bundle arm64 \
             || { echo "::error::The MongoDB Database Tools for arm64 could not be put in the bundle; the lines above say why."; exit 1; }
@@ -1069,10 +1050,9 @@ jobs:
             'arm64' 'Node.js' "${NODE_FROM:-}" "${NODE_FULL:-$NODE_VERSION}" \
             "${NODE_URL:-}" \
             "${NODE_SHA256:-}" || true
-          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
           PROVENANCE_FILE=provenance/arm64.tsv bash releases/record-provenance.sh \
             'arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64' \
+            "${FERRET_URL:-}" \
             "${FERRET_SHA:-}" || true
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
@@ -1245,11 +1225,12 @@ jobs:
           tag_name: v${{ needs.prepare.outputs.version }}
           name: v${{ needs.prepare.outputs.version }}
           body_path: release-notes.md
-          # FerretDB binaries are NOT attached here: the per-arch ferretdb-<arch>
-          # binaries live on the wekan/FerretDB releases
-          # (https://github.com/wekan/FerretDB/releases), which is where the WeKan
-          # builds fetch them from. Each wekan-<version>-<arch>.zip bundle embeds
-          # its own arch's FerretDB binary.
+          # FerretDB binaries are NOT attached here: the per-arch
+          # ferretdb-sqlite-<arch> and ferretdb-<arch> binaries live on the
+          # wekan/FerretDB releases (https://github.com/wekan/FerretDB/releases),
+          # which is where the WeKan builds fetch them from, prebuilt
+          # (releases/ferretdb-asset.sh). Each wekan-<version>-<arch>.zip bundle
+          # embeds its own arch's FerretDB binary.
 
       - name: Check the amd64 and arm64 bundles are on the GitHub Release
         env:
@@ -1618,8 +1599,10 @@ jobs:
           # This job checks the repo out into src/ (see the checkout step above),
           # so the script lives at $SRC/releases/, not the workspace root - the
           # same path the start-wekan.bat copy below uses.
-          bash $SRC/releases/require-binaries.sh 'win64 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe'
+          # The SQLite-only ferretdb-sqlite-win64, or the full ferretdb-win64 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash $SRC/releases/ferretdb-asset.sh --url win64)"
+          bash $SRC/releases/require-binaries.sh 'win64 bundle' "$FERRET_URL"
 
       - name: Add MongoDB Database Tools to the bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -1659,27 +1642,20 @@ jobs:
           node_meta="$(bash $SRC/releases/embed-verified-node.sh bundle/node.exe node-win64.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win64."; exit 1; }
           eval "$node_meta"
-          # Bundled FerretDB (win64): download this arch's binary and verify it
-          # against the .sha256sum wekan/FerretDB publishes beside it.
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe"
-          if bash "$SRC/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
-            echo "Embedded FerretDB win64 -> bundle/ferretdb.exe"
-            if bash "$SRC/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-              GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
-              if [ "$GOT" != "$FERRET_SHA" ]; then
-                echo "::error::FerretDB win64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-                exit 1
-              fi
-              echo "FerretDB SHA256 verified: $GOT"
-              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-            else
-              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-win64.exe on this release, so it is unverified."
-            fi
-          else
-            rm -f bundle/ferretdb.exe
-            echo "No win64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
-          fi
+          # The SQLite-only ferretdb-sqlite-win64 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-win64 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          rc=0; ferret_meta="$(bash "$SRC/releases/ferretdb-asset.sh" win64 -o bundle/ferretdb.exe)" || rc=$?
+          case "$rc" in
+            0) eval "$ferret_meta"
+               echo "Embedded FerretDB $FERRET_ASSET ($FERRET_TAG) -> bundle/ferretdb.exe" ;;
+            1) rm -f bundle/ferretdb.exe
+               echo "No win64 FerretDB asset in the release; Windows bundle stays MongoDB-only." ;;
+            *) echo "::error::FerretDB for win64 could not be put in the bundle; the lines above say why."; exit 1 ;;
+          esac
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
           cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           # The in-process archive mount the single EXE preloads. It is inert
@@ -1694,10 +1670,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash $SRC/releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/win64.tsv bash $SRC/releases/record-provenance.sh \
               'win64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win64.exe' \
+              "${FERRET_URL:-}" \
               "${FERRET_SHA:-}" || true
           fi
           # Check what goes IN, before anything is archived. This is the honest place
@@ -2047,8 +2022,10 @@ jobs:
           # This job checks the repo out into src/ (see the checkout step above),
           # so the script lives at $SRC/releases/, not the workspace root - the
           # same path the start-wekan.bat copy below uses.
-          bash $SRC/releases/require-binaries.sh 'win-arm64 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe'
+          # The SQLite-only ferretdb-sqlite-win-arm64, or the full ferretdb-win-arm64 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash $SRC/releases/ferretdb-asset.sh --url win-arm64)"
+          bash $SRC/releases/require-binaries.sh 'win-arm64 bundle' "$FERRET_URL"
 
       - name: Add MongoDB Database Tools to the bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -2088,27 +2065,20 @@ jobs:
           node_meta="$(bash $SRC/releases/embed-verified-node.sh bundle/node.exe node-win-arm64.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win-arm64."; exit 1; }
           eval "$node_meta"
-          # Bundled FerretDB (win-arm64): download this arch's binary and verify it
-          # against the .sha256sum wekan/FerretDB publishes beside it.
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe"
-          if bash "$SRC/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
-            echo "Embedded FerretDB win-arm64 -> bundle/ferretdb.exe"
-            if bash "$SRC/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-              GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
-              if [ "$GOT" != "$FERRET_SHA" ]; then
-                echo "::error::FerretDB win-arm64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-                exit 1
-              fi
-              echo "FerretDB SHA256 verified: $GOT"
-              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-            else
-              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-win-arm64.exe on this release, so it is unverified."
-            fi
-          else
-            rm -f bundle/ferretdb.exe
-            echo "No win-arm64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
-          fi
+          # The SQLite-only ferretdb-sqlite-win-arm64 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-win-arm64 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          rc=0; ferret_meta="$(bash "$SRC/releases/ferretdb-asset.sh" win-arm64 -o bundle/ferretdb.exe)" || rc=$?
+          case "$rc" in
+            0) eval "$ferret_meta"
+               echo "Embedded FerretDB $FERRET_ASSET ($FERRET_TAG) -> bundle/ferretdb.exe" ;;
+            1) rm -f bundle/ferretdb.exe
+               echo "No win-arm64 FerretDB asset in the release; Windows bundle stays MongoDB-only." ;;
+            *) echo "::error::FerretDB for win-arm64 could not be put in the bundle; the lines above say why."; exit 1 ;;
+          esac
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
           cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           # Where this bundle's binaries came from, for the release notes.
@@ -2118,10 +2088,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash $SRC/releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/win-arm64.tsv bash $SRC/releases/record-provenance.sh \
               'win-arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win-arm64.exe' \
+              "${FERRET_URL:-}" \
               "${FERRET_SHA:-}" || true
           fi
           # Check what goes IN, before anything is archived. This is the honest place
@@ -2487,8 +2456,10 @@ jobs:
         run: |
           SRC="$PWD/src"
           set -euo pipefail
-          bash $SRC/releases/require-binaries.sh 'win32 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe'
+          # The SQLite-only ferretdb-sqlite-win32, or the full ferretdb-win32 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash $SRC/releases/ferretdb-asset.sh --url win32)"
+          bash $SRC/releases/require-binaries.sh 'win32 bundle' "$FERRET_URL"
 
       - name: Add MongoDB Database Tools to the bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -2516,25 +2487,20 @@ jobs:
           node_meta="$(bash $SRC/releases/embed-verified-node.sh bundle/node.exe node-win32.exe "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for win32."; exit 1; }
           eval "$node_meta"
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe"
-          if bash "$SRC/releases/fetch.sh" --optional -o bundle/ferretdb.exe "$FERRET_URL"; then
-            echo "Embedded FerretDB win32 -> bundle/ferretdb.exe"
-            if bash "$SRC/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-              GOT="$(sha256sum bundle/ferretdb.exe | cut -d' ' -f1)"
-              if [ "$GOT" != "$FERRET_SHA" ]; then
-                echo "::error::FerretDB win32 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-                exit 1
-              fi
-              echo "FerretDB SHA256 verified: $GOT"
-              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-            else
-              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-win32.exe on this release, so it is unverified."
-            fi
-          else
-            rm -f bundle/ferretdb.exe
-            echo "No win32 FerretDB asset in the release; Windows bundle stays MongoDB-only."
-          fi
+          # The SQLite-only ferretdb-sqlite-win32 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-win32 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          rc=0; ferret_meta="$(bash "$SRC/releases/ferretdb-asset.sh" win32 -o bundle/ferretdb.exe)" || rc=$?
+          case "$rc" in
+            0) eval "$ferret_meta"
+               echo "Embedded FerretDB $FERRET_ASSET ($FERRET_TAG) -> bundle/ferretdb.exe" ;;
+            1) rm -f bundle/ferretdb.exe
+               echo "No win32 FerretDB asset in the release; Windows bundle stays MongoDB-only." ;;
+            *) echo "::error::FerretDB for win32 could not be put in the bundle; the lines above say why."; exit 1 ;;
+          esac
           cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win32.tsv bash $SRC/releases/record-provenance.sh \
@@ -2542,10 +2508,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb.exe ]; then
-            FERRET_TAG="$(bash $SRC/releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/win32.tsv bash $SRC/releases/record-provenance.sh \
               'win32' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe' \
+              "${FERRET_URL:-}" \
               "${FERRET_SHA:-}" || true
           fi
           for want in main.js node.exe start-wekan.bat; do
@@ -2768,8 +2733,10 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         run: |
           set -euo pipefail
-          bash releases/require-binaries.sh 'mac-arm64 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64'
+          # The SQLite-only ferretdb-sqlite-mac-arm64, or the full ferretdb-mac-arm64 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash releases/ferretdb-asset.sh --url mac-arm64)"
+          bash releases/require-binaries.sh 'mac-arm64 bundle' "$FERRET_URL"
 
       - name: Embed Node.js + FerretDB (mac-arm64) into the bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -2787,27 +2754,21 @@ jobs:
           node_meta="$(bash releases/embed-verified-node.sh bundle/node node-mac-arm64 "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for mac-arm64."; exit 1; }
           eval "$node_meta"
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64"
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb "$FERRET_URL"; then
-            chmod +x bundle/ferretdb
-            echo "Embedded FerretDB mac-arm64 -> bundle/ferretdb"
-            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-              GOT="$(shasum -a 256 bundle/ferretdb | cut -d' ' -f1)"   # macOS has no sha256sum
-              if [ "$GOT" != "$FERRET_SHA" ]; then
-                echo "::error::FerretDB mac-arm64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-                exit 1
-              fi
-              echo "FerretDB SHA256 verified: $GOT"
-              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-            else
-              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-mac-arm64 on this release, so it is unverified."
-            fi
-          else
-            rm -f bundle/ferretdb
-            echo "No mac-arm64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
-            rm -f bundle/start-wekan.sh
-          fi
+          # The SQLite-only ferretdb-sqlite-mac-arm64 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-mac-arm64 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          rc=0; ferret_meta="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-asset.sh" mac-arm64 -o bundle/ferretdb)" || rc=$?
+          case "$rc" in
+            0) eval "$ferret_meta"
+               echo "Embedded FerretDB $FERRET_ASSET ($FERRET_TAG) -> bundle/ferretdb" ;;
+            1) rm -f bundle/ferretdb
+               echo "No mac-arm64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
+               rm -f bundle/start-wekan.sh ;;
+            *) echo "::error::FerretDB for mac-arm64 could not be put in the bundle; the lines above say why."; exit 1 ;;
+          esac
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
@@ -2815,10 +2776,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
-            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/mac-arm64.tsv bash releases/record-provenance.sh \
               'mac-arm64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-arm64' \
+              "${FERRET_URL:-}" \
               "${FERRET_SHA:-}" || true
           fi
           # macOS MongoDB Database Tools (mac-arm64) from wekan/mongo-tools-patches; tolerant
@@ -3059,8 +3019,10 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         run: |
           set -euo pipefail
-          bash releases/require-binaries.sh 'mac-x64 bundle' \
-            'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64'
+          # The SQLite-only ferretdb-sqlite-mac-amd64, or the full ferretdb-mac-amd64 of
+          # the newest release until one has it (releases/ferretdb-asset.sh says which).
+          FERRET_URL="$(bash releases/ferretdb-asset.sh --url mac-amd64)"
+          bash releases/require-binaries.sh 'mac-x64 bundle' "$FERRET_URL"
 
       - name: Embed Node.js + FerretDB (mac-x64) into the bundle
         if: steps.preflight.outputs.skip != 'true'
@@ -3073,27 +3035,21 @@ jobs:
           node_meta="$(bash releases/embed-verified-node.sh bundle/node node-mac-x64 "$NODE_VERSION")" \
             || { echo "::error::Verified Node.js embed failed for mac-x64."; exit 1; }
           eval "$node_meta"
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64"
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o bundle/ferretdb "$FERRET_URL"; then
-            chmod +x bundle/ferretdb
-            echo "Embedded FerretDB mac-amd64 -> bundle/ferretdb"
-            if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-              FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-              GOT="$(shasum -a 256 bundle/ferretdb | cut -d' ' -f1)"   # macOS has no sha256sum
-              if [ "$GOT" != "$FERRET_SHA" ]; then
-                echo "::error::FerretDB mac-amd64 does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-                exit 1
-              fi
-              echo "FerretDB SHA256 verified: $GOT"
-              echo "FERRET_SHA=$FERRET_SHA" >> "$GITHUB_ENV"
-            else
-              echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-mac-amd64 on this release, so it is unverified."
-            fi
-          else
-            rm -f bundle/ferretdb
-            echo "No mac-amd64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
-            rm -f bundle/start-wekan.sh
-          fi
+          # The SQLite-only ferretdb-sqlite-mac-amd64 from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-mac-amd64 of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          rc=0; ferret_meta="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-asset.sh" mac-amd64 -o bundle/ferretdb)" || rc=$?
+          case "$rc" in
+            0) eval "$ferret_meta"
+               echo "Embedded FerretDB $FERRET_ASSET ($FERRET_TAG) -> bundle/ferretdb" ;;
+            1) rm -f bundle/ferretdb
+               echo "No mac-amd64 FerretDB asset in the release; macOS bundle stays MongoDB-only."
+               rm -f bundle/start-wekan.sh ;;
+            *) echo "::error::FerretDB for mac-amd64 could not be put in the bundle; the lines above say why."; exit 1 ;;
+          esac
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
@@ -3101,10 +3057,9 @@ jobs:
             "${node_url:-}" \
             "${node_sha256:-}" || true
           if [ -s bundle/ferretdb ]; then
-            FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
             PROVENANCE_FILE=provenance/mac-x64.tsv bash releases/record-provenance.sh \
               'mac-x64' 'FerretDB' 'wekan/FerretDB' "${FERRET_TAG:-latest}" \
-              'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-mac-amd64' \
+              "${FERRET_URL:-}" \
               "${FERRET_SHA:-}" || true
           fi
           # macOS MongoDB Database Tools (mac-x64) from wekan/mongo-tools-patches; tolerant
@@ -3504,25 +3459,15 @@ jobs:
           # two names are kept separate here so a platform whose Node.js name,
           # FerretDB name and our own name disagree cannot silently download the
           # wrong CPU's binary.
-          FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${MATRIX_FERRETDB_ARCH}"
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o bundle/ferretdb "$FERRET_URL"
-          chmod +x bundle/ferretdb
-          # wekan/FerretDB publishes a .sha256sum beside each binary now. Older
-          # releases do not, so a missing one is recorded as unverified rather
-          # than failing the build - the binary IS available, which is the test.
-          FERRET_SHA=""
-          if bash "$GITHUB_WORKSPACE/releases/fetch.sh" --optional -o /tmp/ferretdb.sha256sum "${FERRET_URL}.sha256sum"; then
-            FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-            GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
-            if [ "$GOT" != "$FERRET_SHA" ]; then
-              echo "::error::FerretDB for ${MATRIX_FERRETDB_ARCH} does not match its published SHA256 (published $FERRET_SHA, got $GOT)."
-              exit 1
-            fi
-            echo "FerretDB SHA256 verified: $GOT"
-          else
-            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${MATRIX_FERRETDB_ARCH} on this release, so it is unverified."
-          fi
-          FERRET_TAG="$(bash releases/ferretdb-latest-tag.sh || true)"
+          # The SQLite-only ferretdb-sqlite-<arch> from the newest wekan/FerretDB
+          # release that has it - or, until one does, the full ferretdb-<arch> of the
+          # newest release - verified against its .sha256sum. No FerretDB is built
+          # here. releases/ferretdb-asset.sh says in the log which one it took and
+          # why, and hands back FERRET_ASSET, FERRET_TAG, FERRET_URL and FERRET_SHA
+          # for the provenance record (here, and through $GITHUB_ENV in later steps).
+          ferret_meta="$(bash "$GITHUB_WORKSPACE/releases/ferretdb-asset.sh" "${MATRIX_FERRETDB_ARCH}" -o bundle/ferretdb)" \
+            || { echo "::error::FerretDB for ${MATRIX_FERRETDB_ARCH} could not be put in the bundle; the lines above say why."; exit 1; }
+          eval "$ferret_meta"
           bash releases/record-provenance.sh "${MATRIX_ARCH}" 'FerretDB' \
             'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
           # Overwrite the inherited amd64 MongoDB Database Tools with this arch's ones.
@@ -3751,10 +3696,13 @@ jobs:
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency
         # on the retired releases.wekan.team or the old projects.7z.
-        # FERRETDB_SOURCE=build: FerretDB built with only the SQLite handler
-        # (docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+        # FerretDB is the PREBUILT SQLite-only ferretdb-sqlite-amd64 from the newest
+        # wekan/FerretDB release that has it (the full ferretdb-amd64 of the newest
+        # release until one does), picked by releases/ferretdb-asset.sh - nothing
+        # is compiled here (docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
         env:
-          FERRETDB_SOURCE: build
+          FERRETDB_SOURCE: download
+          GH_TOKEN: ${{ github.token }}
         run: |
           bash sandstorm-src/build-deps.sh
           echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"

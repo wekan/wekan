@@ -107,11 +107,9 @@ PLATFORM="${WEKAN_BUNDLE_PLATFORM:-$(detect_platform)}"
 case "$PLATFORM" in
     win64|win32|win-arm64)
         NODE_DEST="node.exe"; FERRET_DEST="ferretdb.exe"
-        FERRET_ASSET="ferretdb-${PLATFORM}.exe"
         LAUNCHER="start-wekan.bat"; EXE=".exe" ;;
     *)
         NODE_DEST="node"; FERRET_DEST="ferretdb"
-        FERRET_ASSET="ferretdb-${PLATFORM}"
         LAUNCHER="start-wekan.sh"; EXE="" ;;
 esac
 
@@ -248,8 +246,16 @@ esac
 # FerretDB. Tolerated when the release has no asset for this platform, exactly
 # as the workflow tolerates it: the bundle is then MongoDB-only and the launcher
 # says so when it cannot find ./ferretdb.
-FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/$FERRET_ASSET"
-fetch_cached "$FERRET_URL" "$FERRET_ASSET" "$BUNDLE/$FERRET_DEST"
+#
+# Which one is the workflow's own choice, releases/ferretdb-asset.sh: the
+# SQLite-only ferretdb-sqlite-<platform> from the newest wekan/FerretDB release
+# that has it, and the full ferretdb-<platform> of the newest release until one
+# does. Cached under the release's tag, so a newer release is downloaded again
+# instead of a week-old binary being reused under the same name.
+ferret_meta="$(bash "$ROOT/releases/ferretdb-asset.sh" "$PLATFORM")" \
+    || fail "could not tell which FerretDB binary $PLATFORM gets."
+eval "$ferret_meta"
+fetch_cached "$FERRET_URL" "${FERRET_TAG:-latest}-$FERRET_ASSET" "$BUNDLE/$FERRET_DEST"
 case $? in
     0) echo "    ferretdb   $FERRET_ASSET" ;;
     1) rm -f "$BUNDLE/$FERRET_DEST"

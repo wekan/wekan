@@ -78,21 +78,25 @@ For example, `meteor/email`'s own `nodemailer` is reachable and is kept.
 
 ### FerretDB handlers other than SQLite
 
-`sandstorm-src/build-deps.sh` now builds FerretDB from source by default
-(`FERRETDB_SOURCE=build`), at the same release tag as every other platform, with:
+wekan/FerretDB releases a SQLite-only binary beside the full one,
+`ferretdb-sqlite-amd64`, built with
 
 ```
 go build -trimpath -ldflags "-s -w" -tags ferretdb_no_postgresql,ferretdb_no_mysql ./cmd/ferretdb
 ```
 
 and without `ferretdb_hana`. The FerretDB fork already had
-`ferretdb_no_postgresql`. `ferretdb_no_mysql` is new in
-`internal/handler/registry/mysql.go` and `cmd/ferretdb/main_mysql.go` (FerretDB
-Upcoming release). `go build` ignores a tag a release does not know yet, so
-until a FerretDB release has that tag, its MySQL handler is still built in. The
-script checks that the binary still has `--sqlite-url`.
-`FERRETDB_SOURCE=download` keeps the old behaviour: the published
-`ferretdb-amd64`, with all handlers.
+`ferretdb_no_postgresql`; `ferretdb_no_mysql` is new in
+`internal/handler/registry/mysql.go` and `cmd/ferretdb/main_mysql.go`.
+
+`sandstorm-src/build-deps.sh` downloads that PREBUILT binary by default
+(`FERRETDB_SOURCE=download`) through `releases/ferretdb-asset.sh`, the same
+choice as every other platform: the newest wekan/FerretDB release that has
+`ferretdb-sqlite-amd64`, and the full `ferretdb-amd64` of the newest release
+until one does (the log says which). No workflow compiles FerretDB.
+`FERRETDB_SOURCE=build` still builds it from source with those tags, for a local
+experiment with a FerretDB change. Either way the script checks that the binary
+has `--sqlite-url`.
 
 ### Admin Panel options a grain cannot use
 
@@ -236,9 +240,11 @@ push.
 - **Old grains with password accounts.** A grain never had password logins:
   the login form is not drawn there, and `wekan-accounts-sandstorm` creates every
   account. Any `services.password` left in a user document is unused data.
-- **FerretDB built from source in CI.** The workflow now needs Go. The runner's
-  Go fetches the toolchain named in `go.mod` (`GOTOOLCHAIN=auto`). If that
-  fails, `FERRETDB_SOURCE=download` falls back to the published binary.
+- **Until a wekan/FerretDB release has `ferretdb-sqlite-amd64`**, the grain
+  gets the full `ferretdb-amd64` of the newest release, so it is about 5 MB
+  larger than it will be. It runs the same SQLite handler either way. (An
+  earlier version of this change built FerretDB from source in CI; the
+  workflows now only download the prebuilt binary.)
 - **The REST password API in a grain** now answers 404. It could never succeed
   there (no account had a password), but a script that expected 401 sees a
   different code.

@@ -169,9 +169,13 @@ test('the tolerant callers ask for --optional, the required ones do not', () => 
   });
   // And the two that must never be optional: the bundle's own Node.js and
   // FerretDB on the amd64 base every other Linux bundle is repacked from.
-  const required = lines.filter(l => /fetch\.sh" -o \.build\/bundle\//.test(l));
+  // FerretDB comes through releases/ferretdb-asset.sh, whose failure the
+  // amd64 job turns into an ::error:: and exit 1 on the very next line.
+  const required = lines
+    .map((l, i) => ({ l, next: lines[i + 1] || '' }))
+    .filter(x => /ferretdb-asset\.sh" amd64 -o \.build\/bundle\//.test(x.l));
   assert.ok(required.length >= 1, 'the amd64 bundle downloads are required');
-  assert.ok(!required.some(l => /--optional/.test(l)),
+  assert.ok(required.every(x => /\|\| \{ echo "::error::[^\n]*exit 1; \}/.test(x.next)),
     'a missing FerretDB in the base bundle must stop the release, not be skipped');
 });
 

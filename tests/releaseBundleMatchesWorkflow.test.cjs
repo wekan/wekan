@@ -107,7 +107,10 @@ test('the binaries a release embeds are the binaries this embeds', () => {
   // of them still starts on a developer machine that has its own - and then
   // does not start for anybody who downloads it.
   assert.ok(/embed-verified-node\.sh/.test(script), 'a verified Node.js');
-  assert.ok(/FerretDB\/releases\/latest\/download/.test(script), 'FerretDB from wekan/FerretDB');
+  // FerretDB through the helper the workflow uses: the SQLite-only
+  // ferretdb-sqlite-<platform>, the full one until a release has it.
+  assert.ok(/releases\/ferretdb-asset\.sh" "\$PLATFORM"/.test(script), 'FerretDB from wekan/FerretDB');
+  assert.ok(/ferretdb-asset\.sh" amd64 -o/.test(baseJob), 'as the workflow');
   assert.ok(/mongo-tools-patches\/releases\/latest\/download/.test(script), 'the MongoDB tools');
   // Both get them as the one program mongo-tools-<platform> and its eight
   // launchers: the workflow through fetch-mongo-tools.sh, the local build

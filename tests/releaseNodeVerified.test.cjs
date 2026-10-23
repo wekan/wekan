@@ -127,13 +127,21 @@ for (const b of NATIVE) {
 
   test(`${b.job} verifies FerretDB against its published .sha256sum`, () => {
     const body = job(b.job);
-    assert.ok(/\$\{FERRET_URL\}\.sha256sum/.test(body),
-      `${b.job} must fetch the FerretDB .sha256sum`);
-    // A mismatch must fail the build.
+    // The download and its check are releases/ferretdb-asset.sh's: it fetches
+    // ${FERRET_URL}.sha256sum and exits 2 on a mismatch, and the job stops on
+    // any exit but "no binary for this platform" (1, a tolerated skip).
+    const plat = b.ferret.replace(/^ferretdb-/, '').replace(/\.exe$/, '');
+    assert.ok(new RegExp(`ferretdb-asset\\.sh"? ${escapeRegExp(plat)} -o `).test(body),
+      `${b.job} must download FerretDB ${plat} through releases/ferretdb-asset.sh`);
+    const helper = fs.readFileSync(path.join(repoRoot, 'releases/ferretdb-asset.sh'), 'utf8');
+    assert.ok(/\$\{FERRET_URL\}\.sha256sum/.test(helper),
+      'the helper must fetch the FerretDB .sha256sum');
     assert.ok(
-      /does not match its published SHA256[\s\S]*?exit 1/.test(body),
-      `${b.job} must exit non-zero on a FerretDB checksum mismatch`,
+      /does not match its published SHA256[\s\S]*?exit 2/.test(helper),
+      'the helper must exit non-zero on a FerretDB checksum mismatch',
     );
+    assert.ok(/could not be put in the bundle[^\n]*exit 1/.test(body),
+      `${b.job} must exit non-zero when the FerretDB download or its check fails`);
     // The verified value is carried to record-provenance.
     assert.ok(/'FerretDB'[\s\S]*?"\$\{(?:FERRET_SHA)[^}]*\}"/.test(body),
       `${b.job} must pass the verified FerretDB SHA to record-provenance`);

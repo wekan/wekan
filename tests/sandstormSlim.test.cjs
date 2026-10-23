@@ -242,9 +242,12 @@ function test(name, fn) { tests.push([name, fn]); }
   });
 
   // ── FerretDB: SQLite only ────────────────────────────────────────────────
-  test('build-deps.sh builds FerretDB from source with only the SQLite handler', () => {
+  test('build-deps.sh takes the prebuilt SQLite-only FerretDB, and builds the same one from source only on request', () => {
     const deps = read('sandstorm-src/build-deps.sh');
-    assert.match(deps, /FERRETDB_SOURCE="\$\{FERRETDB_SOURCE:-build\}"/, 'source build is the default');
+    // The prebuilt ferretdb-sqlite-amd64 is the default (releases/ferretdb-asset.sh);
+    // FERRETDB_SOURCE=build is a local option with the same tags.
+    assert.match(deps, /FERRETDB_SOURCE="\$\{FERRETDB_SOURCE:-download\}"/, 'the prebuilt binary is the default');
+    assert.match(deps, /releases\/ferretdb-asset\.sh" amd64 -o "\$DEPS\/ferretdb"/);
     assert.match(deps, /FERRETDB_TAGS="ferretdb_no_postgresql,ferretdb_no_mysql"/);
     assert.match(deps, /go build -mod=readonly -trimpath -ldflags "-s -w" -tags "\$FERRETDB_TAGS"/);
     assert.match(deps, /grep -q -- '--sqlite-url'/, 'and checks the SQLite handler is still in it');
@@ -286,7 +289,8 @@ function test(name, fn) { tests.push([name, fn]); }
       ['.github/workflows/release-all.yml', 'build-sandstorm']]) {
       const body = noComments(job(read(file), name));
       assert.match(body, /bash releases\/sandstorm-slim-spk\.sh "\$SPK"/, file);
-      assert.match(body, /FERRETDB_SOURCE: build/, `${file} builds FerretDB SQLite-only`);
+      assert.match(body, /FERRETDB_SOURCE: download/, `${file} takes the prebuilt SQLite-only FerretDB`);
+      assert.ok(!/FERRETDB_SOURCE: build/.test(body), `negative: ${file} must not build FerretDB`);
       assert.ok(!/^\s*meteor-spk pack\b/m.test(body), `negative: ${file} must not run meteor-spk pack - it rebuilds and undoes the profile`);
     }
   });

@@ -235,11 +235,15 @@ fi
 # These architectures have no MongoDB server, so FerretDB is the database the
 # bundle defaults to. Without it the bundle starts and then has nothing to talk
 # to, which is a worse failure than not shipping it.
-ferret="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${ferretdb_arch}"
-if have "$ferret"; then
-    echo "FerretDB for ${ferretdb_arch}: present"
+#
+# The SQLite-only ferretdb-sqlite-<arch>, or the full ferretdb-<arch> of the
+# newest release until a release has the SQLite-only one; ferretdb-asset.sh
+# says which.
+ferret="$(bash "$(dirname "${BASH_SOURCE[0]}")/ferretdb-asset.sh" --url "${ferretdb_arch}" || true)"
+if [ -n "$ferret" ] && have "$ferret"; then
+    echo "FerretDB for ${ferretdb_arch}: present (${ferret##*/})"
 else
-    echo "::error::No FerretDB binary for ${ferretdb_arch} at ${ferret} . FerretDB is the database this bundle defaults to, so the bundle would start with nothing to connect to. Build it in wekan/FerretDB and attach ferretdb-${ferretdb_arch} to its newest release, then re-run this job."
+    echo "::error::No FerretDB binary for ${ferretdb_arch} at ${ferret:-wekan/FerretDB} . FerretDB is the database this bundle defaults to, so the bundle would start with nothing to connect to. Build it in wekan/FerretDB and attach ferretdb-sqlite-${ferretdb_arch} and ferretdb-${ferretdb_arch} to its newest release, then re-run this job."
     missing=1
 fi
 

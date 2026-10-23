@@ -55,9 +55,12 @@ done
 echo ""
 
 echo "=== FerretDB v1 (wekan/FerretDB, per-arch, newest release) ==="
+# The SQLite-only ferretdb-sqlite-<arch> every platform takes, or the full
+# ferretdb-<arch> of the newest release until one has it - the same choice the
+# release workflows make (releases/ferretdb-asset.sh prints which).
 for a in amd64 arm64 s390x ppc64le riscv64; do
-  check "ferretdb-$a (wekan/FerretDB)" \
-    "https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-$a"
+  url="$(bash "$(dirname "$0")/ferretdb-asset.sh" --url "$a")"
+  check "${url##*/} (wekan/FerretDB)" "$url"
 done
 echo ""
 

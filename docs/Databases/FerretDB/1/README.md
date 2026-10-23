@@ -54,9 +54,31 @@ against the default one line for line.
 ## How the binary gets there
 
 The compose files do not use a FerretDB image: a small Debian container downloads
-the `ferretdb-<arch>` binary for its own architecture from the newest
+the binary for its own architecture from the newest
 [wekan/FerretDB release](https://github.com/wekan/FerretDB/releases), caches it on
 the volume and runs it. Pin a version with `FERRETDB_RELEASE=download/v1.24.2`.
+
+Every platform has **two** binaries on a wekan/FerretDB release, each with its
+own `.sha256sum`:
+
+| Asset | Handlers | Used by |
+| --- | --- | --- |
+| `ferretdb-sqlite-<arch>` | SQLite only (`-tags ferretdb_no_postgresql,ferretdb_no_mysql`, no `ferretdb_hana`) - about 5 MB smaller | every WeKan bundle, Docker image, snap, AppImage, Flatpak, BSD, macOS and Windows build, the Sandstorm `.spk`, and the default `docker-compose.yml` |
+| `ferretdb-<arch>` | SQLite, PostgreSQL, MySQL/MariaDB, SAP HANA | the PostgreSQL, MySQL, MariaDB and SAP HANA compose files |
+
+WeKan never builds FerretDB in a release workflow. Every download goes through
+[`releases/ferretdb-asset.sh`](../../../../releases/ferretdb-asset.sh), which takes
+`ferretdb-sqlite-<arch>` from the newest release that has it and, until one
+does, the full `ferretdb-<arch>` of the newest release - which has the SQLite
+handler too - and says in the log which one it took. It verifies the download
+against its `.sha256sum` and hands the tag, URL and checksum to the provenance
+table. `FERRETDB_VARIANT=full` makes it take the full binary instead. The
+default `docker-compose.yml` does the same with `FERRETDB_BINARY` (default
+`ferretdb-sqlite`; set `FERRETDB_BINARY=ferretdb` for the full one).
+
+The same two binaries are published as images, `ferretdb-sqlite` and
+`ferretdb`, on GHCR (`ghcr.io/wekan/...`), Docker Hub (`wekanteam/...`) and
+Quay.io (`quay.io/wekan/...`).
 
 **Seventeen of those binaries are built**, all cross-compiled from one checkout
 with CGO disabled: ten Linux (`amd64`, `arm64`, `armhf`, `armv6`, `armel`,
@@ -67,11 +89,11 @@ builds, not three names for one: `armhf` is `GOARM=7`, `armv6` is `GOARM=6` for
 the Raspberry Pi 1 and Zero, and `armel` is `GOARM=5` software floating point for
 genuine ARMv5.
 
-A `ferretdb-<arch>` binary is embedded in **every** WeKan bundle, and it is the
+A FerretDB binary (`ferretdb-sqlite-<arch>`, see above) is embedded in **every** WeKan bundle, and it is the
 default database on the platforms MongoDB publishes no server for — ppc64le,
-s390x, riscv64, i386, armv6 and armhf — where nothing else can be. There is also
-a multi-arch image (`wekanteam/ferretdb`, `quay.io/wekan/ferretdb`,
-`ghcr.io/wekan/ferretdb`) built `FROM scratch` around these same binaries, which
+s390x, riscv64, i386, armv6 and armhf — where nothing else can be. There are also
+multi-arch images (`ferretdb-sqlite` and `ferretdb` on `wekanteam/`,
+`quay.io/wekan/` and `ghcr.io/wekan/`) built around these same binaries, which
 is why it covers every Linux one of them, including `linux/arm/v6` and
 `linux/loong64` that the WeKan image cannot reach — see
 [Docker CPU platforms](../../../Platforms/FOSS/Container/Docker/CPU-platforms.md).

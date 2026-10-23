@@ -23,7 +23,8 @@ assert.match(
 );
 assert.match(
   compose,
-  /\[ "\$\$CACHED_RELEASE" != "\$\$REQUIRED_RELEASE" \]/,
+  // The marker is the release plus which binary (FERRETDB_BINARY) was asked for.
+  /REQUIRED_MARKER="\$\$\{REQUIRED_RELEASE\} \$\$\{FERRETDB_BINARY\}"[\s\S]*\[ "\$\$CACHED_RELEASE" != "\$\$REQUIRED_MARKER" \]/,
   'a cached older Docker binary must be replaced',
 );
 assert.match(compose, /mv "\$\$BIN\.new" "\$\$BIN"/,

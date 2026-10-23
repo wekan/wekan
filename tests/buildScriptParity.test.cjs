@@ -279,6 +279,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      rewrite. It exists so the text goes file-to-file and never becomes an\n'
       + '      argument or an environment variable - 172 KB of notes is past the\n'
       + '      128 KiB MAX_ARG_STRLEN, and v10.92 failed to start bash at all',
+    'ferretdb-asset.sh': 'release-workflow: the build jobs, the preflight and\n      build-release-bundle.sh call it to choose and download a FerretDB\n      binary - it has no release step of its own',
     'ferretdb-latest-tag.sh': 'release-workflow: a lookup the build jobs call so\n      the provenance table can name the version `latest` resolved to - it prints\n      a tag and downloads nothing',
     'update-website-version-info.sh': 'release-workflow helper: release-website.sh\n      and version.sh call it with the website checkout and the already-selected\n      release version; it has no standalone release action of its own',
     'prepare-variant-repo.sh': 'release-workflow helper: the Ondra/Gantt sync\n      calls it with a checked-out source, a checked-out mirror and that mirror\'s\n      package identity; it has no standalone release action',

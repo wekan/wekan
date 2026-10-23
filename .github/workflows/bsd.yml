@@ -131,13 +131,13 @@ jobs:
           bash releases/fetch.sh -o npm.tar.xz "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
           tar -xJf npm.tar.xz --strip-components=4 -C bsd-tools/npm "node-${NODE_FULL}-linux-x64/lib/node_modules/npm"
           rm -f npm.tar.xz
-          ferret="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${FERRETDB_ARCH}"
-          bash releases/fetch.sh -o bundle/ferretdb "$ferret"
-          if bash releases/fetch.sh --optional -o ferretdb.sha256sum "${ferret}.sha256sum"; then
-            echo "$(awk '{print $1; exit}' ferretdb.sha256sum)  bundle/ferretdb" | sha256sum -c -
-          else
-            echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${FERRETDB_ARCH}, so it is unverified."
-          fi
+          # The prebuilt SQLite-only ferretdb-sqlite-<bsd>-<arch> from the newest
+          # wekan/FerretDB release that has it (the full ferretdb-<bsd>-<arch> of
+          # the newest release until one does), verified against its .sha256sum;
+          # releases/ferretdb-asset.sh says in the log which one it took.
+          ferret_meta="$(bash releases/ferretdb-asset.sh "$FERRETDB_ARCH" -o bundle/ferretdb)" \
+            || { echo "::error::FerretDB for ${FERRETDB_ARCH} could not be put in the bundle; the lines above say why."; exit 1; }
+          eval "$ferret_meta"
           # The inherited amd64 Linux MongoDB Database Tools are the wrong OS
           # here: replaced by this BSD's, or removed when there are none.
           rc=0; bash releases/fetch-mongo-tools.sh bundle "$FERRETDB_ARCH" || rc=$?

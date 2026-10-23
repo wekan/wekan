@@ -57,9 +57,15 @@ test('no other Node source or old default remains in build-deps.sh (negative)', 
 });
 
 test('the grain FerretDB is the release version.txt names', () => {
+  // version.txt names the newest release; the grain gets that release's
+  // ferretdb-sqlite-amd64 through the same helper as every other platform,
+  // which starts from that same newest release.
   assert.ok(site.includes('releases/ferretdb-latest-tag.sh'));
+  assert.ok(deps.includes('bash "$REPO/releases/ferretdb-asset.sh" amd64 -o "$DEPS/ferretdb"'));
+  assert.ok(fs.readFileSync(path.join(__dirname, '..', 'releases/ferretdb-asset.sh'), 'utf8')
+    .includes('latest="$(bash "$here/ferretdb-latest-tag.sh"'));
+  // A local source build still builds the newest release's tag.
   assert.ok(deps.includes('FERRETDB_TAG="${FERRETDB_TAG:-$(bash "$REPO/releases/ferretdb-latest-tag.sh")}"'));
-  assert.ok(deps.includes('releases/download/$FERRETDB_TAG/ferretdb-amd64'));
 });
 
 test('every workflow that packs a .spk installs the Dockerfile npm', () => {

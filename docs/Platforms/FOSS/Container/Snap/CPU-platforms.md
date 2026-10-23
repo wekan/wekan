@@ -296,17 +296,23 @@ sudo snap restart wekan
 ## Where the FerretDB v1 binary comes from
 
 FerretDB v1 is built and released separately in
-[wekan/FerretDB](https://github.com/wekan/FerretDB/releases) as one binary per
-architecture (`ferretdb-<arch>`; there is no `ferretdb.zip`). Each WeKan build
-downloads only the single binary for the platform it targets, e.g.:
+[wekan/FerretDB](https://github.com/wekan/FerretDB/releases) as two binaries per
+architecture (there is no `ferretdb.zip`): `ferretdb-sqlite-<arch>` with only
+the SQLite handler, and `ferretdb-<arch>` with every handler. Each WeKan build
+downloads only the single prebuilt binary for the platform it targets - the
+SQLite-only one, e.g.:
 
 ```
-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64
-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-arm64
-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-s390x
-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-riscv64
-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-ppc64le
+https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-sqlite-amd64
+https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-sqlite-arm64
+https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-sqlite-s390x
+https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-sqlite-riscv64
+https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-sqlite-ppc64le
 ```
+
+[`releases/ferretdb-asset.sh`](../../../../../releases/ferretdb-asset.sh) makes
+that choice: the newest release that has `ferretdb-sqlite-<arch>`, and the full
+`ferretdb-<arch>` of the newest release until one does. The build log says which.
 
 For the snap, that binary is embedded inside the `wekan-<version>-<arch>.zip`
 bundle the snap's `wekan` part downloads, and staged to `$SNAP/ferretdb`
@@ -322,7 +328,7 @@ bundle the snap's `wekan` part downloads, and staged to `$SNAP/ferretdb`
   version/URLs) in `snapcraft.yaml`.
 - The **FerretDB v1** server and the **MongoDB client binaries** are not pinned:
   every build fetches the newest per-arch asset from the WeKan forks —
-  `ferretdb-<arch>` from [wekan/FerretDB](https://github.com/wekan/FerretDB/releases),
+  `ferretdb-sqlite-<arch>` from [wekan/FerretDB](https://github.com/wekan/FerretDB/releases),
   `mongo-tools-<arch>` from [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/releases),
   and `mongosh-<arch>` from [wekan/mongosh](https://github.com/wekan/mongosh/releases).
 

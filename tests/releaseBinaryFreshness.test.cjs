@@ -35,10 +35,19 @@ for (const [name, source] of [
   );
 }
 
+// The FerretDB URL lives in releases/ferretdb-asset.sh now (the SQLite-only
+// ferretdb-sqlite-<arch>, or the full one of the newest release until a
+// release has it); the workflow is checked for calling it, and the helper for
+// starting from the newest release rather than a pinned one.
 assert.match(
   workflow,
-  /wekan\/FerretDB\/releases\/latest\/download\/ferretdb-amd64/,
-  'the primary bundle must fetch the newest FerretDB release',
+  /releases\/ferretdb-asset\.sh" amd64 -o \.build\/bundle\/ferretdb/,
+  'the primary bundle must fetch FerretDB through the helper',
+);
+assert.match(
+  read('releases/ferretdb-asset.sh'),
+  /latest="\$\(bash "\$here\/ferretdb-latest-tag\.sh"/,
+  'the helper must start from the newest FerretDB release',
 );
 // The workflow fetches the tools through releases/fetch-mongo-tools.sh (one
 // program, mongo-tools-<platform>, instead of eight), so the newest-release
@@ -88,7 +97,7 @@ for (const file of composeVariants) {
   );
   assert.match(
     compose,
-    /ferretdb-.*\.sha256sum/,
+    /(?:ferretdb-.*|\$\$\{ASSET\})\.sha256sum/,
     `${file} must verify the downloaded FerretDB binary`,
   );
   assert.match(

@@ -78,11 +78,13 @@ jobs:
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency
         # on the retired releases.wekan.team or the old projects.7z.
-        # FERRETDB_SOURCE=build: FerretDB is built from the newest wekan/FerretDB
-        # release with only the SQLite handler - the one start.js runs - using the
-        # runner's Go, which fetches the go.mod toolchain itself (GOTOOLCHAIN=auto).
+        # FerretDB is the PREBUILT SQLite-only ferretdb-sqlite-amd64 from the newest
+        # wekan/FerretDB release that has it (the full ferretdb-amd64 of the newest
+        # release until one does), picked by releases/ferretdb-asset.sh - nothing
+        # is compiled here (docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
         env:
-          FERRETDB_SOURCE: build
+          FERRETDB_SOURCE: download
+          GH_TOKEN: ${{ github.token }}
         run: |
           bash sandstorm-src/build-deps.sh
           echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"

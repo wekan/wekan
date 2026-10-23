@@ -204,7 +204,10 @@ is computed from whichever `ferretdb-<arch>` assets downloaded, mapping
 `armv6`→`linux/arm/v6`, `armel`→`linux/arm/v5`, `i386`→`linux/386`,
 `ppc64le`→`linux/ppc64le`, `s390x`→`linux/s390x`, `riscv64`→`linux/riscv64` and
 `loong64`→`linux/loong64`. It is published as `wekanteam/ferretdb`,
-`quay.io/wekan/ferretdb` and `ghcr.io/wekan/ferretdb`.
+`quay.io/wekan/ferretdb` and `ghcr.io/wekan/ferretdb` (every handler), and the
+same way from the SQLite-only `ferretdb-sqlite-<arch>` binaries as
+`wekanteam/ferretdb-sqlite`, `quay.io/wekan/ferretdb-sqlite` and
+`ghcr.io/wekan/ferretdb-sqlite`.
 
 That is why the two lists differ: the WeKan image needs a Debian userland and a
 Node.js for a platform, and the FerretDB image needs only one static binary.

@@ -35,12 +35,23 @@ fi
 
 missing=0
 ferretdb_checked=0
+ferretdb_releases="https://github.com/wekan/FerretDB/releases"
 
 for url in "$@"; do
+    # A FerretDB is either /latest/ or the exact release releases/ferretdb-asset.sh
+    # chose (ferretdb-sqlite-<arch> can come from an older release than the
+    # newest one). The resume-login floor is checked against THAT release.
     case "$url" in
-      https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-*)
+      "$ferretdb_releases"/latest/download/ferretdb-*)
         if [ "$ferretdb_checked" -eq 0 ]; then
             bash "$(dirname "$0")/require-ferretdb-resume-login.sh" || exit 1
+            ferretdb_checked=1
+        fi ;;
+      "$ferretdb_releases"/download/*/ferretdb-*)
+        if [ "$ferretdb_checked" -eq 0 ]; then
+            tag="${url#"$ferretdb_releases"/download/}"
+            tag="${tag%%/*}"
+            bash "$(dirname "$0")/require-ferretdb-resume-login.sh" "$tag" || exit 1
             ferretdb_checked=1
         fi ;;
     esac

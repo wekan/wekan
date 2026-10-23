@@ -100,9 +100,10 @@ Start from the 0.6.0 base, then:
   3.x CLIs need). The importer reads the 3.0 data with these — the modern Node driver cannot
   speak to a 3.0/3.2 server. Reuse the same tools the snap's
   [`migratemongo`](https://github.com/wekan/migratemongo) provides (amd64, x86_64).
-- **Add** `ferretdb` — the `ferretdb-amd64` binary downloaded directly
-  (newest release of [wekan/FerretDB](https://github.com/wekan/FerretDB/releases); the same
-  `ferretdb-amd64` asset `release-all.yml` embeds).
+- **Add** `ferretdb` — the prebuilt SQLite-only `ferretdb-sqlite-amd64` binary downloaded
+  directly (newest release of [wekan/FerretDB](https://github.com/wekan/FerretDB/releases)
+  that has it, the full `ferretdb-amd64` until one does; the same asset `release-all.yml`
+  embeds, chosen by `releases/ferretdb-asset.sh`).
 - **Add** `migrate-mongo3-to-ferretdb.mjs` — copy verbatim from
   [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs);
   it is entirely env/path‑driven and needs no changes.

@@ -104,27 +104,16 @@ docker run --rm --platform "$PLATFORM" \
 # 32-bit x86 one i386, which is what we call them too - but the two names are
 # kept separate so a platform whose Node.js name, FerretDB name and our own name
 # disagree cannot silently download the wrong CPU's binary.
-FERRET_URL="https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-${FERRETDB_ARCH}"
-curl -fSL --retry 5 --retry-delay 10 -o bundle/ferretdb "$FERRET_URL"
-chmod +x bundle/ferretdb
-
-# wekan/FerretDB publishes a .sha256sum beside each binary now. Older releases
-# do not, so a missing one is recorded as unverified rather than failing the
-# build - the binary IS available, which is the test.
-FERRET_SHA=""
-if curl -fsSL "${FERRET_URL}.sha256sum" -o /tmp/ferretdb.sha256sum 2>/dev/null; then
-  FERRET_SHA="$(awk '{print $1; exit}' /tmp/ferretdb.sha256sum)"
-  GOT="$(sha256sum bundle/ferretdb | cut -d' ' -f1)"
-  if [ "$GOT" != "$FERRET_SHA" ]; then
-    echo "::error::FerretDB for ${FERRETDB_ARCH} does not match its published SHA256 (published $FERRET_SHA, got $GOT)"
-    exit 1
-  fi
-  echo "FerretDB SHA256 verified: $GOT"
-else
-  echo "::warning::wekan/FerretDB publishes no checksum for ferretdb-${FERRETDB_ARCH} on this release, so it could not be verified."
-fi
-FERRET_TAG="$(curl -fsSL https://api.github.com/repos/wekan/FerretDB/releases/latest \
-  | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tag_name",""))' 2>/dev/null || true)"
+#
+# The prebuilt SQLite-only ferretdb-sqlite-<arch> from the newest wekan/FerretDB
+# release that has it - the full ferretdb-<arch> of the newest release until one
+# does - verified against its .sha256sum (a mismatch stops the repack; a release
+# that publishes no checksum is recorded as unverified). releases/ferretdb-asset.sh
+# says in the log which one it took, and hands back the tag, URL and checksum
+# the provenance table records.
+ferret_meta="$(bash releases/ferretdb-asset.sh "$FERRETDB_ARCH" -o bundle/ferretdb)" \
+  || { echo "::error::FerretDB for ${FERRETDB_ARCH} could not be put in the bundle; the lines above say why."; exit 1; }
+eval "$ferret_meta"
 bash releases/record-provenance.sh "$ARCH" 'FerretDB' \
   'wekan/FerretDB' "${FERRET_TAG:-latest}" "$FERRET_URL" "$FERRET_SHA"
 

@@ -19,9 +19,9 @@
 #   3. `spk pack` packs the trimmed trees directly. `meteor-spk pack` would
 #      rebuild the bundle first and throw the trim away.
 #
-# The deps tree is the one sandstorm-src/build-deps.sh assembles; with
-# FERRETDB_SOURCE=build (its default) its FerretDB is built with the SQLite
-# handler only.
+# The deps tree is the one sandstorm-src/build-deps.sh assembles; its FerretDB
+# is the prebuilt SQLite-only ferretdb-sqlite-amd64 from wekan/FerretDB
+# (releases/ferretdb-asset.sh).
 #
 # Env:
 #   DEPS     the meteor-spk.deps directory   [$HOME/projects/meteor-spk/meteor-spk-0.6.0/meteor-spk.deps]

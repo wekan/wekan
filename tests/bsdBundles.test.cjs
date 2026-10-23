@@ -67,7 +67,9 @@ test('the workflow: skip without a Node.js, verify every download, build and sta
   }
   assert.match(workflow, /sha256sum -c "wekan-\$\{version\}-amd64\.zip\.sha256sum"/, 'the release bundle is verified');
   assert.match(workflow, /echo "\$NODE_SHA256  bsd-tools\/bin\/node" \| sha256sum -c -/, 'Node.js is verified');
-  assert.match(workflow, /bundle\/ferretdb" \| sha256sum -c -/, 'FerretDB is verified');
+  // FerretDB (the SQLite-only ferretdb-sqlite-<bsd>-<arch>, or the full one
+  // until a release has it) is downloaded and checksum-verified by the helper.
+  assert.match(workflow, /releases\/ferretdb-asset\.sh "\$FERRETDB_ARCH" -o bundle\/ferretdb\)/, 'FerretDB is verified');
   assert.match(workflow, /for want in bundle\/main\.js bundle\/node bundle\/ferretdb bundle\/start-wekan\.sh/);
   // Release All calls it, after the amd64 bundle is attached.
   assert.match(read('.github/workflows/release-all.yml'), /bsd:\n\s+name: BSD bundles\n\s+needs: \[prepare, release, build-amd64\][\s\S]*?uses: \.\/\.github\/workflows\/bsd\.yml/);

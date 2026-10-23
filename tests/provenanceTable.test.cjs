@@ -244,9 +244,16 @@ test('every FerretDB provenance call resolves the tag first', () => {
   calls.forEach(c => {
     assert.ok(/\$\{FERRET_TAG:-latest\}/.test(c.l),
       `${WORKFLOW}:${c.i + 1} does not use the resolved tag:\n    ${c.l.trim()}`);
-    // ...and FERRET_TAG has to have been set just above it.
+    // ...and FERRET_TAG has to have been set: by releases/ferretdb-asset.sh,
+    // which downloaded this FerretDB earlier in the same job and returned the
+    // release it came from (eval'd in that step, and through $GITHUB_ENV in
+    // the later ones) - or, for a row that names no download, just above it.
+    let s = c.i;
+    while (s > 0 && !/^  [A-Za-z0-9_-]+:\s*$/.test(lines[s])) s -= 1;
+    const job = lines.slice(s, c.i).filter(l => !/^\s*#/.test(l)).join('\n');
     const above = lines.slice(Math.max(0, c.i - 4), c.i).join('\n');
-    assert.ok(/FERRET_TAG="\$\(bash [^\n]*ferretdb-latest-tag\.sh/.test(above),
+    assert.ok(/ferret_meta="\$\(bash [^\n]*ferretdb-asset\.sh"? [^\n]* -o [^\n]*\)"[\s\S]*eval "\$ferret_meta"/.test(job)
+      || /FERRET_TAG="\$\(bash [^\n]*ferretdb-latest-tag\.sh/.test(above),
       `${WORKFLOW}:${c.i + 1} uses FERRET_TAG without resolving it above`);
   });
 });
