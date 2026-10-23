@@ -45,6 +45,17 @@ require('/imports/collectionHelpers');
 
 // 2. Collection2 (server-only)
 require('meteor/aldeed:collection2');
+// 2b. ...and collection2's attachSchema itself, NOW. It lives in the package's
+//     lazy main module, which only aldeed:schema-index loads, through an ASYNC
+//     Collection2.load(). Nothing waited for that: models/ attached their
+//     schemas with whichever attachSchema was there first, collection2's or the
+//     bare shim in imports/collectionHelpers.js, which stores the schema and
+//     never cleans a write. With every package of the full build loaded first,
+//     the import happened to win; the Sandstorm .spk, built with fewer packages
+//     (releases/sandstorm-slim.mjs), reached models/ sooner, and a new board's
+//     swimlanes were stored without archived/sort/type - so the board opened
+//     empty. Loading it here, before step 3, ends the race for every build.
+require('meteor/aldeed:collection2/main');
 
 // 3. Load all application code
 require('/server/imports');
