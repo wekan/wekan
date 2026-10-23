@@ -686,8 +686,15 @@ test('the Sandstorm exception moved to People with the E-mail pane', () => {
   // Login and E-mail are People panes now, so the entry that is dropped on a
   // Sandstorm deployment lives with them.
   const people = read('client/components/settings/peopleBody.js');
-  assert.ok(/isSandstorm \? null :/.test(people),
-    'the e-mail entry is still absent on Sandstorm - a dropped null, not empty markup');
+  // The inline `isSandstorm ? null :` became one shared list when the Sandstorm
+  // .spk dropped its login packages (models/lib/sandstormSlim.js,
+  // docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md): E-mail is
+  // still absent on Sandstorm, together with every login pane, and
+  // tests/sandstormSlim.test.cjs checks the filter itself.
+  assert.ok(/withoutSandstormPanes\(items, SANDSTORM_HIDDEN_PEOPLE_PANES/.test(people),
+    'the e-mail entry is still absent on Sandstorm - filtered out, not empty markup');
+  assert.ok(require('../models/lib/sandstormSlim').SANDSTORM_HIDDEN_PEOPLE_PANES.includes('email-setting'),
+    'and E-mail is on that list');
   assert.ok(/function peopleMenu\(/.test(people),
     'so the menu is built by a function, which can read Meteor.settings at call time '
     + '(it takes the user now, to drop the tabs a tenant admin may not open)');
@@ -782,8 +789,14 @@ test('the Attachments Sandstorm pane is commented out, code and all', () => {
   const liveJade = pageJade.replace(/^\s*\/\/-.*$/gm, '');
   assert.ok(/\/\/ \{ id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm'/.test(js),
     'the menu entry is kept as a comment');
-  assert.ok(!/sandstorm/i.test(liveJs),
-    'no live line of the page mentions Sandstorm any more');
+  // The one Sandstorm reference left on purpose is the shared filter that hides
+  // Database migration in a grain (models/lib/sandstormSlim.js,
+  // docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md) - the list
+  // and helpers it imports, nothing of the old pane.
+  const slimFilter = /SANDSTORM_HIDDEN_ATTACHMENTS_PANES|isSandstormSettings|sandstormAllowsPane|withoutSandstormPanes|\/models\/lib\/sandstormSlim/;
+  const liveJsWithoutFilter = liveJs.split('\n').filter(l => !slimFilter.test(l)).join('\n');
+  assert.ok(!/sandstorm/i.test(liveJsWithoutFilter),
+    'no live line of the page mentions Sandstorm any more, beyond the shared filter');
   assert.ok(!/sandstorm/i.test(liveJade),
     'and its pane is commented out of the template');
   // Everything else on the page keeps working: the storages, their stats, the

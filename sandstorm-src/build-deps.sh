@@ -15,7 +15,9 @@
 #   OUT             work/output dir                    [$HOME/projects/meteor-spk]
 #   SANDSTORM_NODE_VERSION  exact Node to bundle   [the Dockerfile's NODE_VERSION]
 #   FERRETDB_TAG    wekan/FerretDB release to bundle   [newest release]
-#   FERRETDB_URL    URL of the ferretdb-amd64 binary   [that release's asset]
+#   FERRETDB_SOURCE build (SQLite-only, from source) | download   [build]
+#   FERRETDB_SRC    FerretDB checkout to build from    [$OUT/FerretDB, cloned at FERRETDB_TAG]
+#   FERRETDB_URL    URL of the ferretdb-amd64 binary   [that release's asset; download only]
 #
 # The grain gets the SAME Node.js and FerretDB as every other platform: the exact
 # Node the Dockerfile pins and the FerretDB release ferretdb-latest-tag.sh names,
@@ -102,19 +104,49 @@ cp -fL --remove-destination "$LOADER" "$DEPS/lib/x86_64-linux-gnu/ld-linux-x86-6
 # NOTE: if `meteor-spk pack` / `spk dev` later reports a missing library for node
 # or ferretdb, add it here (or use `spk dev` tracing to regenerate the tree).
 
-echo "==> [4/7] FerretDB v1 (amd64) at deps root"
-# Download only the amd64 binary (per-arch assets, no ferretdb.zip) of the newest
-# wekan/FerretDB release, named by its TAG so the log says which version the grain
-# got. That is the version version.txt shows. If the tag cannot be looked up,
+echo "==> [4/7] FerretDB v1 (amd64, SQLite handler only) at deps root"
+# The SAME FerretDB release as every other platform - the newest wekan/FerretDB
+# release, named by its TAG so the log says which version the grain got; that is
+# the version version.txt shows. If the tag cannot be looked up,
 # /releases/latest/download/ is the same release, just unnamed.
 FERRETDB_TAG="${FERRETDB_TAG:-$(bash "$REPO/releases/ferretdb-latest-tag.sh")}"
-if [ -n "$FERRETDB_TAG" ]; then
-  FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/download/$FERRETDB_TAG/ferretdb-amd64}"
+# FERRETDB_SOURCE=build (default): build that release from source with ONLY the
+# SQLite handler. sandstorm-src/start.js runs `--handler=sqlite` and nothing
+# else, so the PostgreSQL, MySQL and SAP HANA handlers - and the pgx/MySQL
+# drivers behind them - are dead weight in a grain. FerretDB's own build tags
+# leave them out: ferretdb_no_postgresql, ferretdb_no_mysql, and no
+# ferretdb_hana. A tag a release does not know yet is ignored by `go build`, so
+# an older tag still builds, with its MySQL handler left in.
+# See docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md.
+# FERRETDB_SOURCE=download: the published ferretdb-amd64 asset (all handlers),
+# for a host without Go.
+FERRETDB_SOURCE="${FERRETDB_SOURCE:-build}"
+FERRETDB_REPO="${FERRETDB_REPO:-https://github.com/wekan/FerretDB.git}"
+FERRETDB_TAGS="ferretdb_no_postgresql,ferretdb_no_mysql"
+if [ "$FERRETDB_SOURCE" = "build" ]; then
+  command -v go >/dev/null 2>&1 || { echo "FERRETDB_SOURCE=build needs Go (or set FERRETDB_SOURCE=download)" >&2; exit 1; }
+  SRC="${FERRETDB_SRC:-$OUT/FerretDB}"
+  if [ ! -d "$SRC/.git" ]; then
+    git clone --depth 1 ${FERRETDB_TAG:+--branch "$FERRETDB_TAG"} "$FERRETDB_REPO" "$SRC"
+  fi
+  echo "    FerretDB ${FERRETDB_TAG:-$(git -C "$SRC" rev-parse --short HEAD)} from source, -tags $FERRETDB_TAGS"
+  # GOTOOLCHAIN=auto: go.mod names the Go release FerretDB is built with, and an
+  # older `go` on the runner fetches exactly that one.
+  ( cd "$SRC" && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOTOOLCHAIN=auto \
+      go build -mod=readonly -trimpath -ldflags "-s -w" -tags "$FERRETDB_TAGS" \
+      -o "$DEPS/ferretdb" ./cmd/ferretdb )
+  # The grain must still have the one handler it runs.
+  "$DEPS/ferretdb" --help 2>&1 | grep -q -- '--sqlite-url' \
+    || { echo "built FerretDB has no sqlite handler" >&2; exit 1; }
 else
-  FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
+  if [ -n "$FERRETDB_TAG" ]; then
+    FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/download/$FERRETDB_TAG/ferretdb-amd64}"
+  else
+    FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
+  fi
+  echo "    FerretDB ${FERRETDB_TAG:-latest}: $FERRETDB_URL"
+  bash "$FETCH" -o "$DEPS/ferretdb" "$FERRETDB_URL"
 fi
-echo "    FerretDB ${FERRETDB_TAG:-latest}: $FERRETDB_URL"
-bash "$FETCH" -o "$DEPS/ferretdb" "$FERRETDB_URL"
 chmod +x "$DEPS/ferretdb"
 python3 "$REPO/releases/check-telemetry.py" --kind ferretdb "$DEPS/ferretdb"
 

@@ -69,6 +69,21 @@ function restLoginClientKey(req) {
   });
 }
 
+// On Sandstorm, Sandstorm is the login: sandstorm-http-bridge signs every
+// request in, the API is reached with a Sandstorm API token, and the .spk is
+// built without accounts-password (releases/sandstorm-slim.mjs). So neither a
+// password login nor a sign-up exists in a grain, and both routes say so
+// plainly instead of failing inside a password check that is not there.
+// docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md
+function refuseOnSandstorm(res) {
+  if (!Meteor.settings?.public?.sandstorm) return false;
+  sendJsonResult(res, {
+    code: 404,
+    data: { error: 'sandstorm-sso-only', reason: 'Sandstorm signs users in; this grain has no password login.' },
+  });
+  return true;
+}
+
 // ---------------------------------------------------------------------------
 // POST /users/login
 // ---------------------------------------------------------------------------
@@ -77,6 +92,7 @@ WebApp.handlers.options('/users/login', function (req, res) {
 });
 
 WebApp.handlers.post('/users/login', async function (req, res) {
+  if (refuseOnSandstorm(res)) return;
   const clientKey = restLoginClientKey(req);
   const now = Number(new Date());
   try {
@@ -313,6 +329,7 @@ WebApp.handlers.options('/users/register', function (req, res) {
 });
 
 WebApp.handlers.post('/users/register', async function (req, res) {
+  if (refuseOnSandstorm(res)) return;
   try {
     // SignupBleed: this asked `Accounts._options.forbidClientAccountCreation`,
     // which NOTHING IN WEKAN EVER SETS. The only `Accounts.config()` call

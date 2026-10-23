@@ -5,6 +5,11 @@ name: Build Sandstorm .spk
 # Release as an attachment, so you can download it, test whether the Sandstorm
 # build works, and see any errors — without running a full release.
 #
+# It builds only what a grain runs (docs/Platforms/FOSS/Container/Sandstorm/
+# Smaller-wekan-spk.md): WeKan with the Sandstorm package profile - Sandstorm
+# login only, no password/OAuth2/OIDC/CAS/LDAP/SAML packages - FerretDB from
+# source with only its SQLite handler, and the deps meteor-spk.deps needs.
+#
 #   gh workflow run sandstorm.yml
 #
 # EXPERIMENTAL in CI (same caveats as the build-sandstorm job in release-all.yml):
@@ -67,12 +72,17 @@ jobs:
         # bundled one, so the Sandstorm install must be in place first.
         run: curl https://install.sandstorm.io | sudo bash -s -- -d
 
-      - name: Assemble modern meteor-spk.deps (Node 26 + FerretDB + Mongo 3.x CLIs)
+      - name: Assemble modern meteor-spk.deps (Node 26 + SQLite-only FerretDB + Mongo 3.x CLIs)
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
         # niscud). build-deps.sh swaps in Node 26, adds FerretDB + the Mongo 3.x
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency
         # on the retired releases.wekan.team or the old projects.7z.
+        # FERRETDB_SOURCE=build: FerretDB is built from the newest wekan/FerretDB
+        # release with only the SQLite handler - the one start.js runs - using the
+        # runner's Go, which fetches the go.mod toolchain itself (GOTOOLCHAIN=auto).
+        env:
+          FERRETDB_SOURCE: build
         run: |
           bash sandstorm-src/build-deps.sh
           echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
@@ -91,7 +101,7 @@ jobs:
             chmod 600 "$HOME/.sandstorm-keyring"
             echo "Restored ~/.sandstorm-keyring ($(wc -c < "$HOME/.sandstorm-keyring") bytes)."
           else
-            echo "::error::SANDSTORM_KEYRING secret is not set. meteor-spk pack signs the .spk with the WeKan Sandstorm app's private key, which lives in this keyring, so packing cannot proceed without it. Add the base64 of your ~/.sandstorm-keyring file as the SANDSTORM_KEYRING repository secret (e.g. 'base64 -w0 ~/.sandstorm-keyring')."
+            echo "::error::SANDSTORM_KEYRING secret is not set. spk pack signs the .spk with the WeKan Sandstorm app's private key, which lives in this keyring, so packing cannot proceed without it. Add the base64 of your ~/.sandstorm-keyring file as the SANDSTORM_KEYRING repository secret (e.g. 'base64 -w0 ~/.sandstorm-keyring')."
             exit 1
           fi
 
@@ -113,7 +123,11 @@ jobs:
           set -euo pipefail
           STAMP="$(date +'%Y_%m_%d-%H_%M_%S')"
           SPK="wekan-sandstorm-${STAMP}.spk"
-          meteor-spk pack "$SPK"
+          # The Sandstorm package profile, the linux/x64 sockjs trim and a
+          # `spk pack` of the trimmed trees (not `meteor-spk pack`, which would
+          # rebuild the bundle and undo the trim). The script restores
+          # .meteor/packages and .meteor/versions when it ends.
+          bash releases/sandstorm-slim-spk.sh "$SPK"
           # Report the packed size and warn if it exceeds Cloudflare's 100 MB upload
           # cap (a proxied browser upload to a Cloudflare-fronted Sandstorm 413s above
           # this; install via a DNS-only host / SSH tunnel, or trim further).

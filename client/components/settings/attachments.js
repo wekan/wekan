@@ -6,6 +6,12 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Admin-Panel/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
+const {
+  SANDSTORM_HIDDEN_ATTACHMENTS_PANES,
+  isSandstormSettings,
+  sandstormAllowsPane,
+  withoutSandstormPanes,
+} = require('/models/lib/sandstormSlim');
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import { TAPi18n } from '/imports/i18n';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
@@ -269,7 +275,10 @@ Template.attachments.onCreated(function () {
   // pane id; a bare /attachments opens Backup.
   this.autorun(() => {
     const paneId = Session.get('attachmentsOpenPane');
-    if (paneId) this.activeSection.set(paneId);
+    // A pane the Sandstorm menu leaves out does not open by URL either
+    // (models/lib/sandstormSlim.js).
+    if (paneId && sandstormAllowsPane(paneId, SANDSTORM_HIDDEN_ATTACHMENTS_PANES,
+      isSandstormSettings(Meteor.settings))) this.activeSection.set(paneId);
   });
   this.storageSettingsSubscription = Meteor.subscribe('attachmentStorageSettings');
   this.attachmentStorageSettings = new ReactiveVar(null);
@@ -557,7 +566,7 @@ const BACKUP_MONTH_DAYS = Array.from({ length: 28 }, (_, i) => i + 1);
 // The Attachments side menu, as data (docs/Features/All-Boards/Left-Menu.md).
 // emoji:true reproduces the empty span.emoji-icon this page always rendered.
 function attachmentsMenu(user) {
-  const items = [
+  let items = [
     // Backup first: it is what an admin comes to this page for most often, and it
     // is the one action here that has to be reachable in a hurry.
     { id: 'backup', icon: 'fa-archive', labelKey: 'backup', emoji: true },
@@ -585,6 +594,11 @@ function attachmentsMenu(user) {
     // deleting raw database files is not something this page needs to offer.
     // { id: 'sandstorm', icon: 'fa-hdd-o', label: 'Sandstorm', emoji: true },
   ];
+  // Sandstorm: a grain has one database, FerretDB on SQLite, and nothing to
+  // migrate it to (models/lib/sandstormSlim.js,
+  // docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+  items = withoutSandstormPanes(items, SANDSTORM_HIDDEN_ATTACHMENTS_PANES,
+    isSandstormSettings(Meteor.settings));
   // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7/D.8): a
   // per-tenant Global Admin gets Backup and nothing else - the storages, their
   // statistics and the database migration are about the instance, not about one

@@ -447,6 +447,16 @@ AccountsTemplates.configureRoute('changePwd', {
   },
 });
 
+if (Meteor.isServer && !Package['accounts-password']) {
+  // The Sandstorm .spk is built without accounts-password and every other login
+  // package (releases/sandstorm-slim.mjs): Sandstorm signs users in. useraccounts'
+  // server _init() then refuses to start - "You must add at least one account
+  // service!" - and everything else it does is checking the password form's
+  // fields and hooking password login attempts, which do not exist here. So it
+  // is marked as done. docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md
+  AccountsTemplates._initialized = true;
+}
+
 if (Meteor.isServer) {
   // #5706: Internal Server Error (500) when attempting to reset a password.
   // The reset-password email-template builders and the email send must never let

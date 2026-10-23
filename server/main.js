@@ -40,6 +40,13 @@
 //     Admin Panel / Problems through this hook. Before the first connection.
 require('/server/lib/meteorSecurityHook').installMeteorSecurityHook();
 
+// 0d. The Sandstorm .spk is built without accounts-password, which is what
+//     creates Accounts.emailTemplates - and every WeKan e-mail reads its From
+//     address from it. Made here, with the package's own defaults, when absent.
+//     server/lib/accountsEmailTemplates.js
+require('/server/lib/accountsEmailTemplates').ensureEmailTemplates(
+  require('meteor/accounts-base').Accounts, require('meteor/meteor').Meteor.absoluteUrl());
+
 // 1. Helpers polyfill (server no-op for .helpers())
 require('/imports/collectionHelpers');
 

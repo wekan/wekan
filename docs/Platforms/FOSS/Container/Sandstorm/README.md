@@ -1,5 +1,6 @@
 - At some cases [Hardened kernel may prevent creating new Wekan boards at Sandstorm](https://github.com/wekan/wekan/issues/1398)
 - [Profile server startup locally using the Sandstorm launchers](Startup-Profiling.md).
+- [Smaller WeKan .spk: only what a grain runs](Smaller-wekan-spk.md).
 
 ## 1. Backup Sandstorm
 

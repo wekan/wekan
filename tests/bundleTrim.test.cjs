@@ -337,17 +337,26 @@ test('without the flag the legacy client stays (negative)', dir => {
     'and the manifests are left exactly as they were');
 });
 
-test('the Sandstorm leg runs it before its retry pack, for linux/x64', () => {
+test('the Sandstorm leg runs it before it packs, for linux/x64', () => {
+  // The trim used to run only on a retry after a failed `meteor-spk pack`. The
+  // smaller .spk (docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md)
+  // made it the FIRST pack: releases/sandstorm-slim-spk.sh builds, trims and
+  // then runs `spk pack` on the trimmed trees, and both workflows call it.
   const wf = fs.readFileSync(path.join(ROOT, '.github/workflows/release-all.yml'), 'utf8');
   const start = wf.indexOf('\n  build-sandstorm:\n');
   assert.notStrictEqual(start, -1, 'release-all.yml has no build-sandstorm job');
   const rest = wf.slice(start + 1);
   const next = rest.search(/\n  [a-z0-9-]+:\n/);
   const job = next === -1 ? rest : rest.slice(0, next);
-  assert.ok(/node releases\/bundle-trim\.mjs .meteor-spk\/bundle --platform linux --arch x64/.test(job),
-    'build-sandstorm must trim the bundle for linux/x64 - a grain is never anything else');
-  assert.ok(job.indexOf('bundle-trim.mjs') < job.lastIndexOf('meteor-spk pack'),
-    'and it must run BEFORE the retry pack, or it trims nothing that gets packed');
+  assert.ok(/bash releases\/sandstorm-slim-spk\.sh "\$SPK"/.test(job),
+    'build-sandstorm must build through releases/sandstorm-slim-spk.sh');
+  const script = fs.readFileSync(path.join(ROOT, 'releases/sandstorm-slim-spk.sh'), 'utf8');
+  assert.ok(/node releases\/bundle-trim\.mjs .meteor-spk\/bundle --platform linux --arch x64/.test(script),
+    'the script must trim the bundle for linux/x64 - a grain is never anything else');
+  assert.ok(script.indexOf('bundle-trim.mjs') < script.lastIndexOf('pack "$@" "$OUT"'),
+    'and it must run BEFORE the pack, or it trims nothing that gets packed');
+  assert.ok(!/meteor-spk pack/.test(script.replace(/^\s*#.*$/gm, '')),
+    'negative: never `meteor-spk pack`, which rebuilds the bundle and undoes the trim');
 });
 
 // ---- prebuildify prebuilds (--trim-prebuilds) -------------------------------

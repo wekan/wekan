@@ -1,4 +1,10 @@
-import { AccountsLockout } from 'meteor/wekan-accounts-lockout';
+// Not imported statically: the Sandstorm .spk is built without
+// wekan-accounts-lockout, like the password login it locks out
+// (releases/sandstorm-slim.mjs,
+// docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+const AccountsLockout = Package['wekan-accounts-lockout']
+  ? require('meteor/wekan-accounts-lockout').AccountsLockout
+  : null;
 import LockoutSettings from '/models/lockoutSettings';
 
 // The lockout reporter (and why it names the TARGET): server/lib/lockoutReporter.js.
@@ -17,6 +23,7 @@ async function lockoutSetting(id, fallback) {
 }
 
 Meteor.startup(async () => {
+  if (!AccountsLockout) return;
   // Wait for the database to be ready
   Meteor.setTimeout(async () => {
     // Get configurations from database

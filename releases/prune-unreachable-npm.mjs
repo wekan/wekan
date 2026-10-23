@@ -4,7 +4,7 @@
 // Remove packages from a built bundle's programs/server/npm/node_modules that
 // no require() from the server can reach.
 //
-// Usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run] [--report-json <file>]
+// Usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run] [--report-json <file>] [--sandstorm]
 //
 // WHY THIS TREE IS BIG
 //
@@ -58,6 +58,9 @@ if (reportAt >= 0 && (!reportFile || reportFile.startsWith('--'))) {
   throw new Error('--report-json requires an output filename');
 }
 const dryRun = argv.includes('--dry-run');
+// --sandstorm: the Sandstorm .spk's own policy entries, below. Only the
+// Sandstorm build passes it (releases/sandstorm-slim-spk.sh).
+const sandstorm = argv.includes('--sandstorm');
 
 if (!bundle) {
   console.error('usage: node releases/prune-unreachable-npm.mjs <bundle-dir> [--dry-run] [--report-json <file>]');
@@ -115,6 +118,34 @@ const POLICY = [
     test: dir => basename(dir) === 'sinon',
   },
 ];
+
+// The Sandstorm .spk is built without the login methods a grain cannot use
+// (releases/sandstorm-slim.mjs, docs/Platforms/FOSS/Container/Sandstorm/
+// Smaller-wekan-spk.md). What is left of them here are the HOISTED copies of
+// their protocol libraries: app code that names them is compiled into
+// app/app.js by rspack, and the Meteor packages that Npm.require() them are not
+// in this build. Same rule as every entry above - the graph still vetoes any of
+// these that something in the bundle names.
+const SANDSTORM_POLICY = [
+  {
+    why: 'Sandstorm: SAML and CAS protocol libraries. wekan-accounts-saml and '
+      + 'wekan-accounts-cas are not in the Sandstorm build.',
+    test: dir => ['@node-saml/node-saml', 'xml-crypto', 'xml-encryption', '@xmldom/xmldom',
+      '@xmldom/is-dom-node', 'xpath', 'xml2js', 'xmlbuilder'].includes(rel(dir)),
+  },
+  {
+    why: 'Sandstorm: passkey (WebAuthn) libraries. Sandstorm is the login; the '
+      + 'passkey menu is not drawn in a grain.',
+    test: dir => rel(dir) === '@simplewebauthn/server' || rel(dir) === '@levischuck/tiny-cbor'
+      || rel(dir) === 'asn1js' || rel(dir).startsWith('@peculiar/asn1-'),
+  },
+  {
+    why: 'Sandstorm: the hoisted SMTP library. A grain sends through its session '
+      + 'context; meteor/email keeps its own nodemailer, which is not touched.',
+    test: dir => rel(dir) === 'nodemailer',
+  },
+];
+if (sandstorm) POLICY.push(...SANDSTORM_POLICY);
 
 function hasJs(dir) {
   let ents;

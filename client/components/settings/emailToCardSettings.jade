@@ -20,10 +20,17 @@ template(name="emailToCardSettings")
           a.flex.js-etc-admin-enabled(role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
             .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
             span {{_ 'email-to-card-admin-enabled'}}
-          if sandstormAddress
-            p.notification-delivery-label {{_ 'email-to-card-sandstorm-address'}}
-            p
-              code.js-etc-copy {{sandstormAddress}}
+          //- On Sandstorm mail reaches a grain only through the grain's own
+          //- address, never IMAP or a provider webhook, so those settings are
+          //- not drawn there - not even before the address is known
+          //- (docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+          if isSandstorm
+            if sandstormAddress
+              p.notification-delivery-label {{_ 'email-to-card-sandstorm-address'}}
+              p
+                code.js-etc-copy {{sandstormAddress}}
+            else
+              p.quiet {{_ 'email-to-card-off-sandstorm-no-session'}}
           else
             label.notification-delivery-label
               | {{_ 'email-to-card-domain'}}

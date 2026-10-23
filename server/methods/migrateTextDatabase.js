@@ -152,6 +152,12 @@ Meteor.methods({
     check(direction, String);
     const user = await ReactiveCache.getCurrentUser();
     if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
+    // A Sandstorm grain has one database, the FerretDB SQLite file
+    // sandstorm-src/start.js runs, and no second one to move it to; the pane is
+    // not offered there (models/lib/sandstormSlim.js).
+    if (Meteor.settings?.public?.sandstorm) {
+      throw new Meteor.Error('not-on-sandstorm', 'A Sandstorm grain has only its own FerretDB SQLite database.');
+    }
     if (progress.running) throw new Meteor.Error('already-running', 'A database migration is already in progress.');
     // Validate direction up front (throws on bad value).
     targetUrlFor(direction);

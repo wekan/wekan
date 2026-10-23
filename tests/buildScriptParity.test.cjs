@@ -212,6 +212,10 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'debug-speed-test.sh': 'diagnostic traffic runner used with debug-speed-server.sh',
     'debug-speed-traffic.mjs': 'browser workload helper called by debug-speed-test.sh',
     'debug-speed-watch.sh': 'instrumentation helper supervised by debug-speed-server.sh',
+    'sandstorm-slim-spk.sh': 'Sandstorm -> Make the .spk package runs it, through '
+      + 'sandstorm-make-spk.sh; sandstorm.yml and release-all.yml call it directly',
+    'sandstorm-slim.mjs': 'the Sandstorm package profile that sandstorm-slim-spk.sh '
+      + 'applies, restores and verifies - a helper, not an action',
     'run-everything.sh': 'the Tests menu runs it (EVERYTHING, sequential)',
     'db-conformance.sh': 'the Tests menu runs it (all databases)',
     'fix-changelog-hashes.sh': 'Setup -> git pull and git push both run it',

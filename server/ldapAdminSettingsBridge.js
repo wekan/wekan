@@ -5,8 +5,15 @@
 // authEnv: the Admin Panel / People / LDAP value when one is stored, otherwise
 // the LDAP_* environment variable), and reschedules LDAP background sync when
 // those settings change.
-import { setLdapSettingsAccessor, reconfigureLdapBackgroundSync } from 'meteor/wekan-ldap';
+//
+// The Sandstorm .spk is built WITHOUT wekan-ldap (releases/sandstorm-slim.mjs,
+// docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md), so the package
+// is asked for only when it is there: a static import of a package that is not
+// in the build stops the server at its first line.
 import { authEnv, onAuthConfigChange } from '/server/lib/authConfig';
 
-setLdapSettingsAccessor(authEnv);
-onAuthConfigChange('ldap', () => reconfigureLdapBackgroundSync());
+if (Package['wekan-ldap']) {
+  const { setLdapSettingsAccessor, reconfigureLdapBackgroundSync } = require('meteor/wekan-ldap');
+  setLdapSettingsAccessor(authEnv);
+  onAuthConfigChange('ldap', () => reconfigureLdapBackgroundSync());
+}

@@ -7,6 +7,12 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Session } from 'meteor/session';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
+const {
+  SANDSTORM_HIDDEN_PEOPLE_PANES,
+  isSandstormSettings,
+  sandstormAllowsPane,
+  withoutSandstormPanes,
+} = require('/models/lib/sandstormSlim');
 // buildFilters and buildActions are imported like the rest of them. The People
 // pane declares its filter dropdown and its two action buttons to the shared
 // controls row with these, and a missing import is not a build error: it is a
@@ -411,6 +417,12 @@ Template.people.onCreated(function () {
   // every left-menu entry has an address now (/people/roles, /people/domains).
   // docs/Features/Admin-Panel/Admin-Panel-URLs.md
   this.openPane = (targetID) => {
+    // A pane the Sandstorm menu leaves out cannot be opened by its URL either
+    // (models/lib/sandstormSlim.js).
+    if (!sandstormAllowsPane(targetID, SANDSTORM_HIDDEN_PEOPLE_PANES,
+      isSandstormSettings(Meteor.settings))) {
+      targetID = firstPeoplePaneId(ReactiveCache.getCurrentUser());
+    }
     // Re-opening the open pane must do nothing. The active row is rendered from
     // activeMenuId now, so compare ids instead of reading a DOM class.
     if (targetID && targetID !== this.activeMenuId.get()) {
@@ -524,11 +536,9 @@ Template.people.onDestroyed(function () {
 // A function, not a bare array: the E-mail entry depends on whether this is a
 // Sandstorm deployment, which has to be read at call time from Meteor.settings.
 function peopleMenu(user) {
-  const isSandstorm =
-    Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
-  const items = [
-    // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
-    isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
+  let items = [
+    // No e-mail settings on Sandstorm - see SANDSTORM_HIDDEN_PEOPLE_PANES below.
+    { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
     // Admin-level default for the 3-tier Notification Settings system (see
     // models/lib/notificationSettings.js): admin default -> board override ->
     // member override. Sits right below E-mail, the setting it is closest to.
@@ -554,6 +564,12 @@ function peopleMenu(user) {
     { id: 'oauth-setting', icon: 'fa-key', labelKey: 'oauth-providers-title' },
     { id: 'passwordless-setting', icon: 'fa-unlock-alt', labelKey: 'passwordless-title' },
   ];
+  // Sandstorm: the grain's login is Sandstorm's own, its mail is the grain's
+  // address, and the .spk is built without the login packages these panes
+  // configure (models/lib/sandstormSlim.js,
+  // docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+  items = withoutSandstormPanes(items, SANDSTORM_HIDDEN_PEOPLE_PANES,
+    isSandstormSettings(Meteor.settings));
   // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7): a
   // PER-TENANT Global Admin gets the same menu, shorter - only the panes that are
   // about their own Organization. Everything else here is instance-wide. The site
@@ -2260,7 +2276,9 @@ Template.editUserPopup.events({
     const username = templateInstance.find('.js-profile-username').value.trim();
     const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const initials = templateInstance.find('.js-profile-initials').value.trim();
-    const password = templateInstance.find('.js-profile-password').value;
+    // No password field on Sandstorm (peopleBody.jade): Sandstorm is the login.
+    const passwordInput = templateInstance.find('.js-profile-password');
+    const password = passwordInput ? passwordInput.value : '';
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();

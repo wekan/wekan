@@ -370,7 +370,13 @@ Meteor.methods({
     if (!setting) throw new Meteor.Error('settings-not-found');
     const previous = setting.inboundMail || {};
     // On Sandstorm the domain is the grain's, set by server/sandstormEmail.js.
-    if (Meteor.settings?.public?.sandstorm) input = { ...input, domain: previous.domain || '' };
+    // And a grain has no IMAP and no provider webhook: its mail arrives only at
+    // the grain's own address, so neither is stored there
+    // (docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
+    if (Meteor.settings?.public?.sandstorm) {
+      input = { ...input, domain: previous.domain || '', accounts: [], passwords: {},
+        webhookSecret: '', clearWebhookSecret: true };
+    }
     let clean;
     try {
       clean = cleanInboundAdmin(input);
