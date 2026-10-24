@@ -109,12 +109,13 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** every platform now runs the prebuilt **ferretdb-sqlite**
-FerretDB, which has only the **SQLite** handler, downloaded from wekan/FerretDB
-instead of built. The **Sandstorm .spk** is built with only what a grain runs:
-Sandstorm login only, and no Admin Panel options a grain cannot use. Every
-build now loads **collection2** before the models, so writes always get their
-schema defaults.
+**In short:** a **database speed test** times the common WeKan queries on every
+database WeKan runs on, with twice a production WeKan of data, and checks they
+all answer the same; its findings made **FerretDB** several times faster and
+stopped MariaDB losing edits. Every platform runs the prebuilt
+**ferretdb-sqlite**
+FerretDB, the **Sandstorm .spk** carries only what a grain runs, and every build
+loads **collection2** before the models.
 
 This release adds the following new features:
 
@@ -169,7 +170,55 @@ keep the full binary. `tests/ferretdbSqliteAsset.test.cjs` pins it. See
 
 </details>
 
+**Databases** - how fast each database answers WeKan, and whether the same.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/70485c38df">A database speed test: the common WeKan queries on every database, twice a production WeKan of data</a>. Thanks to xet7.</summary>
+
+`docs/Databases/FerretDB/1/SpeedTest/speedtest.sh` (build.sh / build.bat ->
+Tests -> Database speed test) loads 30,116 users, 92,306 boards, 221,038 lists,
+222,546 swimlanes and 615,070 cards - twice a production WeKan, skewed like a
+real one - with WeKan's own indexes into SQLite, PostgreSQL, MySQL and MariaDB
+through FerretDB v1, MongoDB 6, 7, 8 and 9 and FerretDB 2, one at a time, and
+times 18 queries as WeKan builds them. `Results.md` ranks the databases fastest
+first, and the run fails when any answer or stored write differs from MongoDB's.
+MongoDB 9 was fastest; FerretDB + SQLite, after the FerretDB fixes it led to
+(below), came next. The README says what was found, what was improved and what
+could still be: sorting in the database, multikey indexes beyond SQLite,
+MySQL/MariaDB reads through their index columns, SQLite's JSONB.
+
+</details>
+
 and fixes the following bugs:
+
+**Due Cards** - what the page reads to find them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c64b3a3b1d">The page reads only the ids and members of the boards it may show</a>. Thanks to xet7.</summary>
+
+The publication fetched every board the user may see - every public board of
+the instance among them, whole - to read two fields, and wrapped its board list
+in an `$or` that neither MongoDB nor FerretDB could use an index for. It asks
+for
+`_id` and `members` only, and with no assigned-only board uses a plain `boardId`
+list; an assigned-only board still shows only the user's assigned cards. With
+FerretDB's fixes, Due Cards on FerretDB + SQLite went from 34 s to 12.8 s on the
+speed test. `tests/dbSpeedTest.test.cjs` checks both board scopes.
+
+</details>
+
+**FerretDB 2** - the compose file that runs WeKan on it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9e1e90131">Its compose file starts with the current DocumentDB image</a>. Thanks to xet7.</summary>
+
+`ghcr.io/ferretdb/postgres-documentdb:17` installs `pg_cron`, which may only be
+created in the database named `postgres`; with `POSTGRES_DB: ferretdb` the
+DocumentDB extension failed to install and the database never started.
+`docker-compose-ferretdb-v2-postgresql.yml` uses `postgres` now - found when the
+speed test started FerretDB 2 from that file's images.
+
+</details>
 
 **Collections** - which attachSchema the models get.
 
@@ -190,6 +239,10 @@ useraccounts' "at least one account service". `tests/sandstormSlim.test.cjs`
 and the board, list and card test in `sandstorm-slim.e2e.js` pin it.
 
 </details>
+
+and has the following developer-tooling fix:
+
+- [The Sandstorm package-import guard escapes the whole package name in its pattern](https://github.com/wekan/wekan/commit/f1e447dd36). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
