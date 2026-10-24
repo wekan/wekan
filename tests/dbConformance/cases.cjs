@@ -290,6 +290,9 @@ const CASES = [
   { group: 'meta', name: 'listCollections', kind: 'listCollections', compare: COMPARE.RESULTS },
   { group: 'meta', name: 'capped collection keeps only the newest', kind: 'capped' },
   { group: 'update', name: 'writes by string _id, _ids differing only by case', kind: 'stringIds' },
+  { group: 'indexes', name: 'equality and $in on an indexed field: arrays, case, special characters, numbers', kind: 'indexedEquality' },
+  { group: 'indexes', name: 'membership in an indexed array of documents, every shape, after writes', kind: 'arrayMembership' },
+  { group: 'sort', name: 'sort over every simple type, ties, null and missing, with and without a limit; then with an array and a document', kind: 'mixedSort' },
   { group: 'meta', name: 'buildInfo answers', kind: 'command', command: { buildInfo: 1 },
     compare: COMPARE.OK },
 ];
