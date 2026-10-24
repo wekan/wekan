@@ -278,13 +278,44 @@ DB_HOST_PORT_BASE="${WEKAN_CONFORMANCE_DB_PORT:-35432}"
 # script's own, named wekan-conformance-db-<run timestamp>, so removing them is
 # safe: a `docker compose up` stack is named wekan-postgres / wekan-ferretdb and is
 # never touched.
-stale="$(docker_exec ps -aq --filter 'name=^wekan-conformance-db-' 2>/dev/null || true)"
+#
+# But only one whose run has ENDED. Each container and network carries the
+# process id of the run that made it (OWNER_LABEL), and one whose run is still
+# going - a speed test beside a conformance run, two terminals - is left alone:
+# removing it as "left behind" killed the other run's database in the middle of
+# its queries ("connection refused"), and both of its results were lost.
+OWNER_LABEL_KEY="wekan.conformance.pid"
+OWNER_LABEL="$OWNER_LABEL_KEY=$$"
+run_still_going() {
+  local pid="$1"
+  [ -n "$pid" ] && [ "$pid" != "$$" ] && kill -0 "$pid" 2>/dev/null &&
+    tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null | grep -q 'db-conformance\.sh'
+}
+left_behind() {
+  local kind="$1" id owner
+  shift
+  for id in "$@"; do
+    if [ "$kind" = network ]; then
+      owner="$(docker_exec network inspect -f "{{index .Labels \"$OWNER_LABEL_KEY\"}}" "$id" 2>/dev/null || true)"
+    else
+      owner="$(docker_exec container inspect -f "{{index .Config.Labels \"$OWNER_LABEL_KEY\"}}" "$id" 2>/dev/null || true)"
+    fi
+    if run_still_going "$owner"; then
+      echo "Keeping $id: its run (process $owner) is still going." >&2
+    else
+      echo "$id"
+    fi
+  done
+}
+# shellcheck disable=SC2046
+stale="$(left_behind container $(docker_exec ps -aq --filter 'name=^wekan-conformance-db-' 2>/dev/null || true))"
 if [ -n "$stale" ]; then
   echo "Removing containers left behind by an earlier run: $(echo "$stale" | tr '\n' ' ')"
   # shellcheck disable=SC2086
   docker_exec rm -fv $stale >/dev/null 2>&1 || true
 fi
-stale_nets="$(docker_exec network ls -q --filter 'name=^wekan-conformance-db-' 2>/dev/null || true)"
+# shellcheck disable=SC2046
+stale_nets="$(left_behind network $(docker_exec network ls -q --filter 'name=^wekan-conformance-db-' 2>/dev/null || true))"
 if [ -n "$stale_nets" ]; then
   # shellcheck disable=SC2086
   docker_exec network rm $stale_nets >/dev/null 2>&1 || true
@@ -475,7 +506,7 @@ for entry in "${BACKENDS[@]}"; do
   start_db_container() {
     local attempt
     for attempt in 1 2 3 4 5; do
-      if docker_exec run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
+      if docker_exec run -d --label "$OWNER_LABEL" --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
         return 0
       fi
 
@@ -533,7 +564,7 @@ for entry in "${BACKENDS[@]}"; do
       url="mongodb://127.0.0.1:$hostport"
       ;;
     ferretdb2)
-      docker_exec network create "$FERRET2_NETWORK" >/dev/null 2>&1
+      docker_exec network create --label "$OWNER_LABEL" "$FERRET2_NETWORK" >/dev/null 2>&1
       # POSTGRES_DB=postgres: the image installs pg_cron, which may only be
       # created in the database cron.database_name names - postgres.
       start_db_container --network "$FERRET2_NETWORK" \
@@ -608,7 +639,7 @@ for entry in "${BACKENDS[@]}"; do
   # FerretDB 2: its own container, on the database's network, published on the
   # port this run's FerretDB would use. Then it is asked like MongoDB is.
   if [ "$handler" = ferretdb2 ]; then
-    if ! docker_exec run -d --name "$FERRET2_CONTAINER" --network "$FERRET2_NETWORK" \
+    if ! docker_exec run -d --label "$OWNER_LABEL" --name "$FERRET2_CONTAINER" --network "$FERRET2_NETWORK" \
          -p "127.0.0.1:$FERRET_PORT:27017" \
          -e "FERRETDB_POSTGRESQL_URL=postgres://ferretdb:ferretdb_secret@$CONTAINER:5432/postgres" \
          -e FERRETDB_TELEMETRY=disable "$FERRET2_IMAGE" >>"$log" 2>&1; then
