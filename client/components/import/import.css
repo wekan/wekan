@@ -212,7 +212,7 @@ a.show-mapping {
    `a.flex > .materialCheckBox + span`, and no geometry of its own. That matters
    more than it looks: `.materialCheckBox.is-checked` becomes the tick by
    turning two borders transparent, rotating 40deg and shifting itself
-   (`top: -4px; inset-inline-start: -3px; margin-inline-end: 6px`) - offsets
+   (`top: -4px; left: -3px; margin-right: 6px`) - offsets
    written for the plain flow `.flex` gives it. An `align-items: center` and a
    `gap` on top of that fight those offsets, and the tick lands on the first
    word of the label, which is what this page did before.
@@ -236,8 +236,8 @@ a.show-mapping {
 /* A space between the box and its label, in BOTH states.
    `.materialCheckBox` is 13px plus a 2px border on each side, and carries no
    margin, so an unchecked row's text starts right against the box. Checked, it
-   is a different shape entirely - 7px wide, shifted `inset-inline-start: -3px`,
-   with `margin-inline-end: 6px` - so its text starts 8px + 6px in.
+   is a different shape entirely - 7px wide, shifted `left: -3px`,
+   with `margin-right: 6px` - so its text starts 8px + 6px in.
    Lining the two up is arithmetic: 17 + 8 = 25 for the unchecked box, and
    8 + 17 = 25 for the checked one, so a row's label sits in the same place
    whether it is ticked or not and ticking one no longer nudges its text. */

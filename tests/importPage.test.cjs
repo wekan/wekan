@@ -260,11 +260,19 @@ test('there is a space between the box and its label, ticked or not', () => {
   const plain = css.slice(css.indexOf('.import-page .import-source-list a.flex .materialCheckBox,'));
   assert.ok(/margin-inline-end: 8px/.test(plain.slice(0, plain.indexOf('}'))),
     'an unchecked box no longer touches its text');
+  // #6786: the tick itself is placed physically (forms.css: left/margin-right),
+  // so its margin here is physical too - a logical one put the tick beside its
+  // square right-to-left. The gap before the label is the row's, so a
+  // right-to-left rule moves it to the left: 6px of the tick's own, 11px gap.
   const checked = css.slice(css.indexOf('.materialCheckBox.is-checked,'));
-  assert.ok(/margin-inline-end: 17px/.test(checked.slice(0, checked.indexOf('}'))),
+  assert.ok(/margin-right: 17px/.test(checked.slice(0, checked.indexOf('}'))),
     'and the tick, which is a narrower shape shifted left, keeps the label in the same place');
-  assert.ok(/margin-inline-end/.test(css) && !/margin-right/.test(css),
-    'logical, so right-to-left languages get the space on their side');
+  const rtl = css.slice(css.indexOf('[dir="rtl"] .import-page .import-source-list a.flex .materialCheckBox.is-checked,'));
+  const rtlBody = rtl.slice(0, rtl.indexOf('}'));
+  assert.ok(/margin-right: 6px/.test(rtlBody) && /margin-left: 11px/.test(rtlBody),
+    'right-to-left, the label gap is on the left and the tick stays on its square');
+  assert.ok(/margin-inline-end: 8px/.test(plain.slice(0, plain.indexOf('}'))),
+    'the unchecked box keeps its logical gap, so right-to-left gets it on its side');
 });
 
 test('both import buttons look like the import they do', () => {
