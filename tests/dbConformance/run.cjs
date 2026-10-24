@@ -246,6 +246,9 @@ async function runCase(db, c) {
         compound: await ids({ g: 'k', f: 'abc' }),
         long: await ids({ f: 'x'.repeat(200) }),
         byId: await ids({ _id: 3 }),
+        // Inside an $and, as WeKan's due cards query wraps its board ids.
+        andIn: await ids({ $and: [{ f: { $in: ['abc', 'x'] } }, { $or: [{ g: 'k' }, { _id: { $lte: 2 } }] }] }),
+        andEq: await ids({ $and: [{ f: 'abc' }, { f: { $in: ['abc', 'ABC'] } }] }),
       };
       await ix.drop().catch(() => {});
       return out;
