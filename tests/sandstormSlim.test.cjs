@@ -140,7 +140,7 @@ function test(name, fn) { tests.push([name, fn]); }
     for (const file of appFiles()) {
       const src = stripComments(fs.readFileSync(file, 'utf8'));
       for (const name of EXCLUDED) {
-        const esc = name.replace(/[-]/g, '\\-');
+        const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         if (new RegExp(`from\\s+['"]meteor/${esc}['"]|import\\s+['"]meteor/${esc}['"]`).test(src)) {
           offenders.push(`${path.relative(ROOT, file)} imports meteor/${name}`);
         }
