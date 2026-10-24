@@ -385,12 +385,20 @@ form.inlined-form .custom-field-copy-control > a.fa-copy,
      templates. */
   flex: none;
 }
+/* #6786: the tick is physical geometry - a box narrowed from 13px to 7px and
+   rotated 40deg about its bottom-right corner, drawn with its bottom and right
+   borders - so where it sits is physical too. With `inset-inline-start` and
+   `margin-inline-end` a right-to-left page started the narrowed box at the
+   RIGHT edge of the square and pushed it further right: the tick sat beside
+   its box, "out of box". `left: -3px` and `margin-right: 6px` put it on the
+   square's left edge in both directions, and 7 + 4 + 6 = 17px is still the
+   square's width, so the label beside it does not move. */
 .materialCheckBox.is-checked {
   top: -4px;
-  inset-inline-start: -3px;
+  left: -3px;
   width: 7px;
   height: 15px;
-  margin-inline-end: 6px;
+  margin-right: 6px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-bottom: 2px solid #3cb500;

@@ -116,10 +116,10 @@
 .pop-over[data-popup='createCustomFieldPopup'] .materialCheckBox.is-checked,
 .pop-over[data-popup='editCustomFieldPopup'] .materialCheckBox.is-checked {
   top: -4px !important;
-  inset-inline-start: -3px !important;
+  left: -3px !important;
   width: 7px !important;
   height: 15px !important;
-  margin-inline-end: 6px !important;
+  margin-right: 6px !important;
   border-top: 2px solid transparent !important;
   border-left: 2px solid transparent !important;
   border-bottom: 2px solid #3cb500 !important;

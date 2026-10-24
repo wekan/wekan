@@ -248,7 +248,17 @@ a.show-mapping {
 
 .import-page .import-source-list a.flex .materialCheckBox.is-checked,
 .import-page .import-part-list a.flex .materialCheckBox.is-checked {
-  margin-inline-end: 17px;
+  margin-right: 17px;
+}
+
+/* #6786: the tick is placed physically (forms.css), but the gap before the
+   label is the row's, so right-to-left it is on the left: the tick keeps its 6px
+   on the right - which puts it on the square's left edge, as left-to-right - and
+   the other 11px of the 17 are the gap. */
+[dir="rtl"] .import-page .import-source-list a.flex .materialCheckBox.is-checked,
+[dir="rtl"] .import-page .import-part-list a.flex .materialCheckBox.is-checked {
+  margin-right: 6px;
+  margin-left: 11px;
 }
 
 /* The loss report replaces the page until the board is opened. */

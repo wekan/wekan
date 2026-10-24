@@ -3428,7 +3428,7 @@ THEME - Clean Dark
   height: 13px;
   border-radius: 0;
   background: none;
-  margin-inline-start: 3px;
+  margin-left: 3px;
   margin-top: 3px;
 }
 .board-color-cleandark .checklist-progress-bar {
@@ -4197,7 +4197,7 @@ THEME - Clean Light
   height: 13px;
   border-radius: 0;
   background: none;
-  margin-inline-start: 3px;
+  margin-left: 3px;
   margin-top: 3px;
 }
 .board-color-cleanlight .checklist-progress-bar {

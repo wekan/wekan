@@ -15,10 +15,12 @@
  *      physical left/right longhands, so every page mirrors when `dir` flips.
  *      The only allowed physical offsets are `left/right: 50%` centering tricks
  *      (paired with transform: translate, which already work in both directions).
- *      The one allowed physical BORDER is a check mark's (#6786): a check mark is
- *      not mirrored in a right-to-left language, and drawn with border-inline-end
- *      it rotated into "<". Only border-left/-right inside a rule whose selector
- *      is a checked state (is-checked, :checked) - tests/rtlCheckMark.test.cjs.
+ *      The one allowed physical exception is a check mark (#6786): a check mark is
+ *      not mirrored in a right-to-left language. Drawn with border-inline-end it
+ *      rotated into "<", and placed with inset-inline-start/margin-inline-end it
+ *      sat beside its box. So inside a rule whose selector is a checked state
+ *      (is-checked, :checked), border-, margin-left/-right and a `left:` offset
+ *      may be physical - tests/rtlCheckMark.test.cjs.
  *
  * The visual/placement behaviour ("text is visible and on the correct side on
  * every page") is covered by the browser test in
@@ -189,7 +191,7 @@ test('component CSS uses logical properties, not physical left/right longhands',
     }
     css.split('\n').forEach((line, i) => {
       if (!physical.test(line)) return;
-      if (tickLines.has(i + 1) && /^\s*border-(left|right)\s*:/.test(line)) return;
+      if (tickLines.has(i + 1) && /^\s*(border|margin)-(left|right)\s*:/.test(line)) return;
       offenders.push(`${path.relative(repoRoot, file)}:${i + 1}: ${line.trim()}`);
     });
   }
@@ -208,8 +210,13 @@ test('bare left:/right: offsets are only the allowed 50% centering tricks', () =
   const offenders = [];
   for (const file of cssFiles()) {
     const css = withoutComments(read(path.relative(repoRoot, file)));
+    // A check mark's rule may place the tick physically (#6786), as it draws it.
+    const tickSpans = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+      .filter(r => /is-checked|:checked/.test(r[1]))
+      .map(r => [r.index + r[1].length, r.index + r[0].length]);
     let m;
     while ((m = offsetRe.exec(css))) {
+      if (tickSpans.some(([a, b]) => m.index >= a && m.index < b)) continue;
       // `!important` is not part of the value for this purpose, and `auto` is the
       // initial value: it only ever CANCELS a physical offset (the centred admin
       // popups pair `left: 50%` with `right: auto`), so it cannot be a direction
