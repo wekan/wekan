@@ -783,6 +783,7 @@ Template.list.onCreated(function () {
     let isResizing = false;
     let startX = 0;
     let startWidth = 0;
+    let inlineDirection = 1;
     let minWidth = MIN_LIST_WIDTH; // Minimum width matching system default
 
     // Read the horizontal page coordinate from either a jQuery mouse event
@@ -800,6 +801,13 @@ Template.list.onCreated(function () {
       isResizing = true;
       startX = getEventPageX(e);
       startWidth = $list.outerWidth();
+      // #6801: the handle is on the list's inline END (list.css), which is its
+      // LEFT edge in a right-to-left language. Dragging it left widens the list
+      // there, so the pointer's movement counts the other way round - the list
+      // narrowed when dragged out and widened when dragged in. The list's own
+      // direction decides, because that is what places the handle.
+      inlineDirection =
+        window.getComputedStyle($list[0]).direction === 'rtl' ? -1 : 1;
 
       // Add visual feedback
       $list.addClass('list-resizing');
@@ -818,7 +826,7 @@ Template.list.onCreated(function () {
       }
 
       const currentX = getEventPageX(e);
-      const deltaX = currentX - startX;
+      const deltaX = (currentX - startX) * inlineDirection;
       const newWidth = Math.max(minWidth, startWidth + deltaX);
 
       // Apply the new width immediately for real-time feedback
@@ -842,7 +850,7 @@ Template.list.onCreated(function () {
 
       // Calculate final width
       const currentX = getEventPageX(e);
-      const deltaX = currentX - startX;
+      const deltaX = (currentX - startX) * inlineDirection;
       const finalWidth = Math.max(minWidth, startWidth + deltaX);
 
       // Ensure the final width is applied
