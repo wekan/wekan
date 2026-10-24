@@ -146,6 +146,16 @@ directions.
 
 </details>
 
+and has the following test fix:
+
+- [The import page guard pins the checked tick's physical margins from the first right-to-left fix](https://github.com/wekan/wekan/commit/132fecbfd8).
+  Thanks to mimZD and xet7.
+
+and updates the following translation:
+
+- [Tigre: the import size message uses the attested plural for files](https://github.com/wekan/wekan/commit/52bcd74efa).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.64 2026-10-24 WeKan ® release
