@@ -289,6 +289,7 @@ const CASES = [
   { group: 'meta', name: 'dbStats', kind: 'command', command: { dbStats: 1 }, compare: COMPARE.OK },
   { group: 'meta', name: 'listCollections', kind: 'listCollections', compare: COMPARE.RESULTS },
   { group: 'meta', name: 'capped collection keeps only the newest', kind: 'capped' },
+  { group: 'update', name: 'writes by string _id, _ids differing only by case', kind: 'stringIds' },
   { group: 'meta', name: 'buildInfo answers', kind: 'command', command: { buildInfo: 1 },
     compare: COMPARE.OK },
 ];

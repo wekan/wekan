@@ -202,6 +202,8 @@ echo  16^) EVERYTHING source one by one ^(Dev server nobuild, all browsers^)
 echo  17^) Live tests with your own accounts: GitLab write-back with the mirror's
 echo       glab login ^(only scratch items it creates and removes^) and the API
 echo       imports, read only ^(releases\live-tests\README.md^)
+echo  18^) Database speed test: the common WeKan queries on every database with an
+echo       image for this CPU, compared, written to SpeedTest\Results.md
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_everything_two
@@ -221,6 +223,7 @@ if "%choice%"=="14" goto test_all_databases
 if "%choice%"=="15" goto test_ferretdb
 if "%choice%"=="16" goto test_everything_source
 if "%choice%"=="17" goto test_live
+if "%choice%"=="18" goto test_db_speed
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -2063,6 +2066,20 @@ if errorlevel 1 (
   goto end
 )
 bash ./releases/db-conformance.sh
+goto end
+
+REM ===========================================================================
+:test_db_speed
+REM build.sh's "Database speed test": db-conformance.sh's databases, started the
+REM same way, each loaded with the same dummy WeKan data and timed on the common
+REM WeKan queries. See docs\Databases\FerretDB\1\SpeedTest\README.md.
+where bash >nul 2>&1
+if errorlevel 1 (
+  echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
+  echo        Install either, or run this from WSL: ./docs/Databases/FerretDB/1/SpeedTest/speedtest.sh
+  goto end
+)
+bash ./docs/Databases/FerretDB/1/SpeedTest/speedtest.sh
 goto end
 
 REM ===========================================================================

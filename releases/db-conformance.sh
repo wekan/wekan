@@ -47,6 +47,11 @@
 #
 # Everything is written to log/<datetime>/, where every other WeKan test run
 # writes.
+#
+# WEKAN_DB_SUITE=speedtest runs the SPEED TEST instead of the query catalogue -
+# docs/Databases/FerretDB/1/SpeedTest/README.md - through these same databases,
+# started the same way, and writes its Results.md. ./build.sh -> Tests -> Database
+# speed test, and docs/Databases/FerretDB/1/SpeedTest/speedtest.sh, set it.
 
 set -uo pipefail
 
@@ -62,7 +67,18 @@ RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
 if [ -z "${WEKAN_LOG_ROOT:-}" ]; then
   WEKAN_LOG_ROOT=".tools/log"
 fi
-LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/test-db-conformance/$RUN_TS}"
+SUITE="${WEKAN_DB_SUITE:-conformance}"
+case "$SUITE" in
+  conformance|speedtest) ;;
+  *) echo "ERROR: WEKAN_DB_SUITE must be conformance or speedtest, not '$SUITE'." >&2; exit 1 ;;
+esac
+# db-conformance-<backend>.log / db-speedtest-<backend>.log
+PREFIX="db-$SUITE"
+if [ "$SUITE" = speedtest ]; then
+  LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/test-db-speedtest/$RUN_TS}"
+else
+  LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/test-db-conformance/$RUN_TS}"
+fi
 mkdir -p "$LOGDIR"
 LOGDIR="$(cd "$LOGDIR" && pwd)"
 
@@ -87,6 +103,7 @@ BACKENDS=(
   "mysql|docker-compose-ferretdb-v1-mysql.yml|mysql|3306|mysql"
   "mariadb|docker-compose-ferretdb-v1-mariadb.yml|mariadb|3306|mysql"
   "sap-hana|docker-compose-ferretdb-v1-sap-hana.yml|hana|39017|hana"
+  "ferretdb2|docker-compose-ferretdb-v2-postgresql.yml|postgres-documentdb|5432|ferretdb2"
 )
 
 # The image a compose file uses for its database service. Read from the file, so
@@ -128,7 +145,11 @@ image_has_platform() {
 
 PLATFORM="$(host_platform)"
 echo "=========================================================================="
-echo "FerretDB v1 conformance: the same queries, on every database this CPU runs."
+if [ "$SUITE" = speedtest ]; then
+  echo "WeKan database speed test: the common WeKan queries, on every database this CPU runs."
+else
+  echo "FerretDB v1 conformance: the same queries, on every database this CPU runs."
+fi
 echo "CPU:        $(uname -s) $(uname -m)  ->  linux/$PLATFORM"
 echo "Logs:       $LOGDIR/"
 echo "Sequential: one database at a time."
@@ -165,9 +186,9 @@ fi
 if [ ! -d "$FERRET_DIR/.git" ]; then
   echo "---- FerretDB source is not in .tools/; cloning wekan/FerretDB ----"
   mkdir -p "$(dirname "$FERRET_DIR")"
-  if ! git clone "$FERRET_REPO_SSH" "$FERRET_DIR" 2>&1 | tee -a "$LOGDIR/db-conformance-build.log"; then
+  if ! git clone "$FERRET_REPO_SSH" "$FERRET_DIR" 2>&1 | tee -a "$LOGDIR/$PREFIX-build.log"; then
     echo "SSH clone failed (no key for github.com?); trying HTTPS."
-    git clone "$FERRET_REPO_HTTPS" "$FERRET_DIR" 2>&1 | tee -a "$LOGDIR/db-conformance-build.log" || {
+    git clone "$FERRET_REPO_HTTPS" "$FERRET_DIR" 2>&1 | tee -a "$LOGDIR/$PREFIX-build.log" || {
       echo "ERROR: could not clone FerretDB from $FERRET_REPO_SSH or $FERRET_REPO_HTTPS." >&2
       exit 1
     }
@@ -177,7 +198,7 @@ else
   if [ -n "$(git -C "$FERRET_DIR" status --porcelain)" ]; then
     echo "NOTE: $FERRET_DIR has local changes - building them as they are, not pulling."
   else
-    git -C "$FERRET_DIR" pull --ff-only 2>&1 | tee -a "$LOGDIR/db-conformance-build.log" \
+    git -C "$FERRET_DIR" pull --ff-only 2>&1 | tee -a "$LOGDIR/$PREFIX-build.log" \
       || echo "NOTE: could not pull; building the checkout as it is."
   fi
 fi
@@ -193,20 +214,20 @@ echo "FerretDB at $(git -C "$FERRET_DIR" rev-parse --short HEAD 2>/dev/null || e
 echo
 echo "---- Building FerretDB v1 from source ----"
 ( cd "$FERRET_DIR" && ./build.sh build ) 2>&1 \
-  | tee -a "$LOGDIR/db-conformance-build.log"
+  | tee -a "$LOGDIR/$PREFIX-build.log"
 if [ "${PIPESTATUS[0]}" -ne 0 ]; then
-  echo "ERROR: FerretDB build failed - see $LOGDIR/db-conformance-build.log" >&2
+  echo "ERROR: FerretDB build failed - see $LOGDIR/$PREFIX-build.log" >&2
   exit 1
 fi
 if [ ! -x "$FERRET_BIN" ]; then
-  echo "ERROR: the build produced no $FERRET_BIN - see $LOGDIR/db-conformance-build.log" >&2
+  echo "ERROR: the build produced no $FERRET_BIN - see $LOGDIR/$PREFIX-build.log" >&2
   exit 1
 fi
 echo "Built: $FERRET_BIN"
-"$FERRET_BIN" --version 2>&1 | tee -a "$LOGDIR/db-conformance-build.log" || true
+"$FERRET_BIN" --version 2>&1 | tee -a "$LOGDIR/$PREFIX-build.log" || true
 echo
 
-SUMMARY="$LOGDIR/db-conformance-summary.txt"
+SUMMARY="$LOGDIR/$PREFIX-summary.txt"
 : > "$SUMMARY"
 ran=0
 skipped=0
@@ -261,7 +282,12 @@ stale="$(docker_exec ps -aq --filter 'name=^wekan-conformance-db-' 2>/dev/null |
 if [ -n "$stale" ]; then
   echo "Removing containers left behind by an earlier run: $(echo "$stale" | tr '\n' ' ')"
   # shellcheck disable=SC2086
-  docker_exec rm -f $stale >/dev/null 2>&1 || true
+  docker_exec rm -fv $stale >/dev/null 2>&1 || true
+fi
+stale_nets="$(docker_exec network ls -q --filter 'name=^wekan-conformance-db-' 2>/dev/null || true)"
+if [ -n "$stale_nets" ]; then
+  # shellcheck disable=SC2086
+  docker_exec network rm $stale_nets >/dev/null 2>&1 || true
 fi
 # One container name per run, so a stack somebody started with `docker compose up`
 # - which names its containers wekan-postgres, wekan-ferretdb ... - is never
@@ -273,7 +299,74 @@ echo
 
 cleanup() {
   [ -n "${FERRET_PID:-}" ] && kill "$FERRET_PID" 2>/dev/null
-  docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+  docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+  remove_ferretdb2
+  remove_sqlite_data
+}
+
+# FerretDB 2 runs as a container of its own beside its database, on a network
+# of this run's own: wekan-conformance-db-<run>-ferretdb, -net.
+FERRET2_CONTAINER="$CONTAINER-ferretdb"
+FERRET2_NETWORK="$CONTAINER-net"
+remove_ferretdb2() {
+  docker_exec rm -fv "$FERRET2_CONTAINER" >/dev/null 2>&1
+  docker_exec network rm "$FERRET2_NETWORK" >/dev/null 2>&1
+}
+
+# The SQLite backend's data lives under .tools/tmp, not /tmp: the speed test's is
+# gigabytes, and /tmp may be a small tmpfs - which would also make SQLite look
+# faster than databases whose files are on disk. It is this run's own directory,
+# removed when the backend is done.
+SQLITE_DATA=""
+remove_sqlite_data() {
+  [ -n "$SQLITE_DATA" ] && [ -d "$SQLITE_DATA" ] && rm -rf -- "$SQLITE_DATA"
+  SQLITE_DATA=""
+}
+
+# What each suite runs against one database, and how it compares them all.
+run_suite() {
+  local uri="$1" label="$2" engine="$3"
+  if [ "$SUITE" = speedtest ]; then
+    node docs/Databases/FerretDB/1/SpeedTest/run.cjs --uri "$uri" --label "$label" \
+      --engine "$engine" --out "$LOGDIR"
+  else
+    node tests/dbConformance/run.cjs --uri "$uri" --label "$label" --out "$LOGDIR"
+  fi
+}
+compare_suite() {
+  if [ "$SUITE" = speedtest ]; then
+    node docs/Databases/FerretDB/1/SpeedTest/report.cjs --dir "$LOGDIR" \
+      --results "${WEKAN_SPEEDTEST_RESULTS:-docs/Databases/FerretDB/1/SpeedTest/Results.md}"
+  else
+    node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite
+  fi
+}
+
+# The FerretDB that was built: its release (the newest in its CHANGELOG) and commit.
+FERRET_VERSION="$(grep -m1 -oE '^## \[v[0-9][^]]*\]' "$FERRET_DIR/CHANGELOG.md" 2>/dev/null | tr -d '#[] ')"
+FERRET_VERSION="FerretDB ${FERRET_VERSION:-v1} ($(git -C "$FERRET_DIR" rev-parse --short HEAD 2>/dev/null || echo '?'))"
+
+# The database's own name and version, asked from the running server or binary.
+engine_name() {
+  local v=""
+  case "$name" in
+    mongodb*)   v="$(docker_exec exec "$CONTAINER" mongod --version 2>/dev/null | sed -n 's/^db version v//p' | head -1)"
+                echo "MongoDB ${v:-?}"; return ;;
+    postgresql) v="$(docker_exec exec "$CONTAINER" postgres --version 2>/dev/null | grep -oE '[0-9]+(\.[0-9]+)+' | head -1)"
+                v="PostgreSQL ${v:-?}" ;;
+    mysql)      v="$(docker_exec exec "$CONTAINER" mysqld --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
+                v="MySQL ${v#Ver }" ;;
+    mariadb)    v="$(docker_exec exec "$CONTAINER" mariadbd --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
+                v="MariaDB ${v#Ver }" ;;
+    sqlite)     v="$(grep -m1 -oE 'modernc.org/sqlite v[0-9.]+' "$FERRET_DIR/go.mod" 2>/dev/null)"
+                v="SQLite (${v:-modernc.org/sqlite})" ;;
+    sap-hana)   v="SAP HANA" ;;
+    ferretdb2)  local f p
+                f="$(docker_exec image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$FERRET2_IMAGE" 2>/dev/null)"
+                p="$(docker_exec exec "$CONTAINER" postgres --version 2>/dev/null | grep -oE '[0-9]+(\.[0-9]+)+' | head -1)"
+                echo "FerretDB ${f:-2} + PostgreSQL ${p:-?} with DocumentDB"; return ;;
+  esac
+  echo "$FERRET_VERSION + $v"
 }
 # Ctrl-C must END the run. Without the explicit exit, the interrupt only killed
 # whatever was in the foreground - a `docker manifest inspect`, a sleep - and the
@@ -298,7 +391,26 @@ stop_on_failure() {
 
 for entry in "${BACKENDS[@]}"; do
   IFS='|' read -r name file service port handler <<< "$entry"
-  log="$LOGDIR/db-conformance-$name.log"
+  log="$LOGDIR/$PREFIX-$name.log"
+
+  # WEKAN_DB_BACKENDS=postgresql,mysql runs only those - to repeat one database
+  # into an earlier run's WEKAN_LOGDIR after a change, say. Unset: all of them.
+  if [ -n "${WEKAN_DB_BACKENDS:-}" ] && [[ ",${WEKAN_DB_BACKENDS}," != *",$name,"* ]]; then
+    echo "SKIP  $name  not in WEKAN_DB_BACKENDS" >> "$SUMMARY"
+    skipped=$((skipped + 1))
+    continue
+  fi
+
+  # FerretDB 2 (upstream, PostgreSQL with the DocumentDB extension) is a database
+  # WeKan's compose file offers but does not ship by default. The speed test
+  # includes it; the conformance run only with WEKAN_CONFORMANCE_FERRETDB2=1, so
+  # a case it answers differently is a finding, not a failed EVERYTHING run.
+  if [ "$name" = "ferretdb2" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_FERRETDB2:-0}" != "1" ]; then
+    echo "SKIP  ferretdb2    (FerretDB 2 + DocumentDB; set WEKAN_CONFORMANCE_FERRETDB2=1 to include)"
+    echo "SKIP  ferretdb2  not requested" >> "$SUMMARY"
+    skipped=$((skipped + 1))
+    continue
+  fi
 
   # SAP HANA only on purpose (see the note at the top).
   if [ "$name" = "sap-hana" ] && [ "${WEKAN_CONFORMANCE_HANA:-0}" != "1" ]; then
@@ -320,6 +432,21 @@ for entry in "${BACKENDS[@]}"; do
       stop_on_failure
       continue
     fi
+    if [ "$name" = "ferretdb2" ]; then
+      FERRET2_IMAGE="$(image_of "$file" ferretdb)"
+      printf 'Checking %-12s %-45s ' "$name" "$FERRET2_IMAGE"
+      image_has_platform "$FERRET2_IMAGE" "$PLATFORM"
+      case $? in
+        0) echo "has linux/$PLATFORM" ;;
+        1) echo "NO linux/$PLATFORM - skipping"
+           echo "SKIP  $name  $FERRET2_IMAGE has no linux/$PLATFORM" >> "$SUMMARY"
+           skipped=$((skipped + 1)); continue ;;
+        *) echo "could not ask the registry - failing this backend"
+           echo "ERROR $name  could not inspect $FERRET2_IMAGE (network? docker login?)" >> "$SUMMARY"
+           stop_on_failure
+           continue ;;
+      esac
+    fi
     printf 'Checking %-12s %-45s ' "$name" "$image"
     image_has_platform "$image" "$PLATFORM"
     case $? in
@@ -338,7 +465,7 @@ for entry in "${BACKENDS[@]}"; do
 
   echo
   echo "---- $name: starting the database ----"
-  docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+  docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
 
   # Start the container, and when the published port turns out to be taken after
   # all, move to the next free one and try again. `free_port` looks a moment
@@ -356,7 +483,7 @@ for entry in "${BACKENDS[@]}"; do
         return 1                      # a real failure: report it as one
       fi
 
-      docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
       hostport=$((hostport + 1))
       hostport="$(free_port "$hostport")"
       echo "  port was taken; retrying on 127.0.0.1:$hostport" | tee -a "$log"
@@ -371,8 +498,9 @@ for entry in "${BACKENDS[@]}"; do
   url=""
   case "$name" in
     sqlite)
-      data="$(mktemp -d)"
-      url="file:$data/"
+      mkdir -p "$WEKAN_DIR/.tools/tmp"
+      SQLITE_DATA="$(mktemp -d "$WEKAN_DIR/.tools/tmp/$PREFIX-sqlite.XXXXXX")"
+      url="file:$SQLITE_DATA/"
       ;;
     postgresql)
       start_db_container \
@@ -404,6 +532,16 @@ for entry in "${BACKENDS[@]}"; do
         || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
       url="mongodb://127.0.0.1:$hostport"
       ;;
+    ferretdb2)
+      docker_exec network create "$FERRET2_NETWORK" >/dev/null 2>&1
+      # POSTGRES_DB=postgres: the image installs pg_cron, which may only be
+      # created in the database cron.database_name names - postgres.
+      start_db_container --network "$FERRET2_NETWORK" \
+        -e POSTGRES_USER=ferretdb -e POSTGRES_PASSWORD=ferretdb_secret \
+        -e POSTGRES_DB=postgres "$image" \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
+      url="mongodb://ferretdb:ferretdb_secret@127.0.0.1:$FERRET_PORT/"
+      ;;
     sap-hana)
       mkdir -p "$WEKAN_DIR/hana-config"
       [ -f "$WEKAN_DIR/hana-config/password.json" ] || \
@@ -427,6 +565,10 @@ for entry in "${BACKENDS[@]}"; do
       # confusing connection error.
       case "$name" in
         postgresql) docker_exec exec "$CONTAINER" pg_isready -U ferretdb -d ferretdb >/dev/null 2>&1 && up=1 ;;
+        # Ready once the DocumentDB extension is installed, not merely accepting
+        # connections - the entrypoint restarts the server after its init scripts.
+        ferretdb2)  docker_exec exec "$CONTAINER" psql -U ferretdb -d postgres -tAc \
+                      "SELECT 1 FROM pg_extension WHERE extname = 'documentdb'" 2>/dev/null | grep -q 1 && up=1 ;;
         mysql)      docker_exec exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
         mariadb)    docker_exec exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
         sap-hana)   docker_exec logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;
@@ -449,7 +591,7 @@ for entry in "${BACKENDS[@]}"; do
       echo "SKIP  $name: MongoDB refuses to start on this Linux kernel ($kernel), 6.19-7.0.13"
       echo "SKIP  $name  MongoDB refuses Linux kernel $kernel (6.19-7.0.13; upgrade the kernel)" >> "$SUMMARY"
       docker_exec logs "$CONTAINER" >>"$log" 2>&1
-      docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
       skipped=$((skipped + 1))
       continue
     fi
@@ -458,15 +600,67 @@ for entry in "${BACKENDS[@]}"; do
       docker_exec logs "$CONTAINER" >>"$log" 2>&1
       echo "ERROR $name  database never ready" >> "$SUMMARY"
       stop_on_failure
-      docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
       continue
     fi
   fi
 
+  # FerretDB 2: its own container, on the database's network, published on the
+  # port this run's FerretDB would use. Then it is asked like MongoDB is.
+  if [ "$handler" = ferretdb2 ]; then
+    if ! docker_exec run -d --name "$FERRET2_CONTAINER" --network "$FERRET2_NETWORK" \
+         -p "127.0.0.1:$FERRET_PORT:27017" \
+         -e "FERRETDB_POSTGRESQL_URL=postgres://ferretdb:ferretdb_secret@$CONTAINER:5432/postgres" \
+         -e FERRETDB_TELEMETRY=disable "$FERRET2_IMAGE" >>"$log" 2>&1; then
+      echo "ERROR $name  FerretDB 2 container did not start" >> "$SUMMARY"
+      stop_on_failure
+      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1; remove_ferretdb2
+      continue
+    fi
+    echo -n "waiting for FerretDB 2 "
+    up=0
+    for _ in $(seq 1 60); do
+      if URL="$url" node -e '
+        const {MongoClient}=require("mongodb");
+        new MongoClient(process.env.URL,{serverSelectionTimeoutMS:1500})
+          .connect().then(c=>c.db().command({ping:1}).then(()=>c.close())).then(()=>process.exit(0)).catch(()=>process.exit(1));
+      ' >/dev/null 2>&1; then up=1; break; fi
+      printf '.'
+      sleep 2
+    done
+    echo
+    if [ "$up" -ne 1 ]; then
+      echo "ERROR $name: FerretDB 2 did not accept a connection (see $log)"
+      docker_exec logs "$FERRET2_CONTAINER" >>"$log" 2>&1
+      echo "ERROR $name  FerretDB 2 did not start" >> "$SUMMARY"
+      stop_on_failure
+      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1; remove_ferretdb2
+      continue
+    fi
+    engine="$(engine_name)"
+    echo "---- $name: running the $SUITE suite against $engine ----"
+    run_suite "$url" "$name" "$engine" 2>&1 | tee -a "$log"
+    rc=${PIPESTATUS[0]}
+    if [ "$rc" -eq 0 ]; then
+      ran=$((ran + 1)); echo "RAN   $name" >> "$SUMMARY"
+    else
+      echo "ERROR $name  the $SUITE suite could not be run" >> "$SUMMARY"
+      stop_on_failure
+    fi
+    echo "---- $name: stopping ----"
+    docker_exec logs "$FERRET2_CONTAINER" >>"$log" 2>&1
+    docker_exec logs "$CONTAINER" >>"$log" 2>&1
+    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+    remove_ferretdb2
+    echo
+    continue
+  fi
+
   # MongoDB itself answers the catalogue: no FerretDB in between.
   if [ "$handler" = mongodb ]; then
-    echo "---- $name: running the query catalogue against $(docker_exec exec "$CONTAINER" mongod --version 2>/dev/null | head -1) ----"
-    node tests/dbConformance/run.cjs --uri "$url" --label "$name" --out "$LOGDIR" 2>&1 | tee -a "$log"
+    engine="$(engine_name)"
+    echo "---- $name: running the $SUITE suite against $engine ----"
+    run_suite "$url" "$name" "$engine" 2>&1 | tee -a "$log"
     rc=${PIPESTATUS[0]}
     if [ "$rc" -eq 0 ]; then
       ran=$((ran + 1)); echo "RAN   $name" >> "$SUMMARY"
@@ -476,10 +670,10 @@ for entry in "${BACKENDS[@]}"; do
     fi
     echo "---- $name: stopping ----"
     docker_exec logs "$CONTAINER" >>"$log" 2>&1
-    docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
     echo
     if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
-      node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite 2>&1 | tee -a "$SUMMARY"
+      compare_suite 2>&1 | tee -a "$SUMMARY"
       [ "${PIPESTATUS[0]}" -eq 0 ] || stop_on_failure
     fi
     continue
@@ -526,13 +720,13 @@ for entry in "${BACKENDS[@]}"; do
     echo "ERROR $name  FerretDB did not start on this backend" >> "$SUMMARY"
     stop_on_failure
     kill "$FERRET_PID" 2>/dev/null; FERRET_PID=""
-    docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
     continue
   fi
 
-  echo "---- $name: running the query catalogue ----"
-  node tests/dbConformance/run.cjs --uri "mongodb://127.0.0.1:$FERRET_PORT" \
-      --label "$name" --out "$LOGDIR" 2>&1 | tee -a "$log"
+  engine="$(engine_name)"
+  echo "---- $name: running the $SUITE suite against $engine ----"
+  run_suite "mongodb://127.0.0.1:$FERRET_PORT" "$name" "$engine" 2>&1 | tee -a "$log"
   rc=${PIPESTATUS[0]}
   if [ "$rc" -eq 0 ]; then
     ran=$((ran + 1)); echo "RAN   $name" >> "$SUMMARY"
@@ -543,15 +737,16 @@ for entry in "${BACKENDS[@]}"; do
 
   echo "---- $name: stopping ----"
   kill "$FERRET_PID" 2>/dev/null; wait "$FERRET_PID" 2>/dev/null; FERRET_PID=""
+  remove_sqlite_data
   if [ -n "$service" ]; then
     docker_exec logs "$CONTAINER" >>"$log" 2>&1
-    docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
+    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
   fi
   echo
   # Compare each completed backend before starting the next one in bail mode.
   # Query errors are recorded results and may be a shared backend limitation.
   if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
-    node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite 2>&1 | tee -a "$SUMMARY"
+    compare_suite 2>&1 | tee -a "$SUMMARY"
     [ "${PIPESTATUS[0]}" -eq 0 ] || stop_on_failure
   fi
 done
@@ -576,14 +771,20 @@ conformance_result() {
   return "$comparison_rc"
 }
 
-node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite 2>&1 | tee -a "$SUMMARY"
+compare_suite 2>&1 | tee -a "$SUMMARY"
 rc=${PIPESTATUS[0]}
 
 echo
 echo "All results: $LOGDIR/"
-echo "  db-conformance-build.log        cloning and building FerretDB"
-echo "  db-conformance-<backend>.json   what each backend answered"
-echo "  db-conformance-<backend>.log    that backend's database + FerretDB output"
-echo "  db-conformance-report.md        where they agree and where they do not"
+echo "  $PREFIX-build.log        cloning and building FerretDB"
+if [ "$SUITE" = speedtest ]; then
+  echo "  speedtest-<backend>.json      each backend's timings and answer fingerprints"
+  echo "  $PREFIX-<backend>.log    that backend's database + FerretDB output"
+  echo "  ${WEKAN_SPEEDTEST_RESULTS:-docs/Databases/FerretDB/1/SpeedTest/Results.md}"
+else
+  echo "  db-conformance-<backend>.json   what each backend answered"
+  echo "  db-conformance-<backend>.log    that backend's database + FerretDB output"
+  echo "  db-conformance-report.md        where they agree and where they do not"
+fi
 conformance_result "$rc"
 exit $?

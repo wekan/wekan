@@ -240,8 +240,13 @@ test('results are written where every other test run writes them', () => {
   assert.ok(/date '\+%Y-%m-%d_%H-%M-%S'/.test(sh), 'the same datetime format as build.sh');
   assert.ok(read('build.sh').includes("date '+%Y-%m-%d_%H-%M-%S'"),
     'which is the format build.sh uses for its own run directories');
-  for (const f of ['db-conformance-report.md', 'db-conformance-$name.log',
-    'db-conformance-summary.txt']) {
+  // The same script runs the speed test (WEKAN_DB_SUITE=speedtest), so its log
+  // names are "db-<suite>-..."; the conformance run is the default suite and so
+  // still writes db-conformance-<backend>.log and db-conformance-summary.txt.
+  assert.ok(sh.includes('SUITE="${WEKAN_DB_SUITE:-conformance}"'), 'conformance is the default suite');
+  assert.ok(sh.includes('PREFIX="db-$SUITE"'), 'and names the logs');
+  for (const f of ['db-conformance-report.md', '$PREFIX-$name.log',
+    '$PREFIX-summary.txt']) {
     assert.ok(sh.includes(f), `${f} must be written`);
   }
 });
@@ -371,8 +376,11 @@ test('backend and build failures cannot be hidden by successful comparisons or s
   const fixture = fs.mkdtempSync(path.join(parent, 'conformance-result-'));
   try {
     const sh = read('releases/db-conformance.sh');
+    // The final comparison is compare_suite (conformance or speed test); the
+    // helper ends where it begins.
     const resultHelper = sh.slice(sh.indexOf('conformance_result() {'),
-      sh.indexOf('\nnode tests/dbConformance/compare.cjs'));
+      sh.indexOf('\ncompare_suite 2>&1'));
+    assert.ok(sh.indexOf('\ncompare_suite 2>&1') > sh.indexOf('conformance_result() {'));
     const summary = path.join(fixture, 'summary');
     for (const [content, comparison, expected] of [
       ['RAN   sqlite\nRAN   postgresql\nSKIP  sap-hana not requested\n', 0, 0],
@@ -427,7 +435,11 @@ test('bail mode exits at backend errors and compares before starting another bac
     const offset = loop.indexOf(line) + line.length;
     assert.ok(line.includes('stop_on_failure') || /^\n\s*stop_on_failure/.test(loop.slice(offset)), line);
   }
-  assert.match(loop, /node tests\/dbConformance\/compare\.cjs[\s\S]*PIPESTATUS\[0\][\s\S]*stop_on_failure/);
+  // Bail mode compares after each backend through compare_suite, which is
+  // compare.cjs for the conformance catalogue (report.cjs for the speed test).
+  assert.match(loop, /compare_suite[\s\S]*PIPESTATUS\[0\][\s\S]*stop_on_failure/);
+  const compareSuite = sh.slice(sh.indexOf('compare_suite() {'), sh.indexOf('\n}', sh.indexOf('compare_suite() {')));
+  assert.match(compareSuite, /node tests\/dbConformance\/compare\.cjs --dir "\$LOGDIR" --reference sqlite/);
 });
 
 // MongoDB 8 and 9 run beside the FerretDB backends, as the real servers, so a
@@ -444,9 +456,13 @@ test('MongoDB 6, 7, 8 and 9 are compared too, queried directly, and a refused ke
   assert.ok(sh.includes('"mongodb9|image:mongo:9.0|mongodb|27017|mongodb"'));
   assert.match(sh, /image:\*\) image="\$\{file#image:\}" ;;/, 'an image: entry names its image directly');
   // The mongodb handler runs the catalogue against MongoDB and starts no FerretDB.
-  const direct = sh.slice(sh.indexOf('if [ "$handler" = mongodb ]; then\n    echo "---- $name: running'),
+  // run_suite is the catalogue (or, with WEKAN_DB_SUITE=speedtest, the speed test)
+  // against the URL it is given - here MongoDB's own.
+  const direct = sh.slice(sh.indexOf('if [ "$handler" = mongodb ]; then\n    engine="$(engine_name)"'),
     sh.indexOf('echo "---- $name: starting the FerretDB we just built ----"'));
-  assert.match(direct, /node tests\/dbConformance\/run\.cjs --uri "\$url" --label "\$name"/);
+  assert.ok(direct.length > 0, 'the MongoDB block');
+  assert.match(direct, /run_suite "\$url" "\$name" "\$engine"/);
+  assert.match(sh, /node tests\/dbConformance\/run\.cjs --uri "\$uri" --label "\$label" --out "\$LOGDIR"/);
   assert.match(direct, /\n {4}continue\n/);
   assert.doesNotMatch(direct, /FERRET_BIN/);
   // A kernel MongoDB refuses is the machine's, not a WeKan failure: a SKIP, never an ERROR.

@@ -2917,7 +2917,8 @@ while [ -z "$opt" ]; do
 					"Count tests by category|Count amount of tests by category" \
 					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in log/<datetime>/" \
 					"Live tests|Run live tests against real services with your own accounts: GitLab write-back with the mirror's glab login (only scratch items it creates and removes) and the API imports, read only (releases/live-tests/README.md); a service with no login here is skipped, log in .tools/log/<datetime>/" \
-					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in log/<datetime>/)" ;;
+					"All databases (sequential)|Test all databases that have a Docker image for this CPU, SEQUENTIALLY: build newest FerretDB v1 from source, then run every FerretDB v1 query type against each database and compare that they all answer the same (results in log/<datetime>/)" \
+					"Database speed test|Time the common WeKan queries on every database that has a Docker image for this CPU, SEQUENTIALLY, with twice a production WeKan of dummy data; check they all answer the same and write docs/Databases/FerretDB/1/SpeedTest/Results.md" ;;
 			"Tools")
 				choose "Tools" \
 					"Save Meteor deps list|Save Meteor dependency chain to ../meteor-deps.txt" \
@@ -3368,6 +3369,12 @@ for _once in 1; do
 	# dependencies - is fetched or built by the script itself; see the note at its
 	# top for why it is sequential and why SAP HANA is opt-in.
 	./releases/db-conformance.sh
+	;;
+
+    "Time the common WeKan queries on every database that has a Docker image for this CPU, SEQUENTIALLY, with twice a production WeKan of dummy data; check they all answer the same and write docs/Databases/FerretDB/1/SpeedTest/Results.md")
+	# docs/Databases/FerretDB/1/SpeedTest/README.md: db-conformance.sh's databases,
+	# the speed test's queries.
+	./docs/Databases/FerretDB/1/SpeedTest/speedtest.sh
 	;;
 
     "Count amount of tests by category")

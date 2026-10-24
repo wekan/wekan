@@ -150,6 +150,24 @@ async function runCase(db, c) {
       const names = (await db.listCollections().toArray()).map(x => x.name).sort();
       return names;
     }
+    case 'stringIds': {
+      // Writes by STRING _id - the seed's _ids are numbers, and MariaDB 12.3
+      // compares JSON numbers right but two equal JSON strings as different:
+      // FerretDB's update and delete by _id matched nothing there, and every
+      // edit was silently lost. And _ids that differ only by case or accent are
+      // different documents, which a case-insensitive _id index refused.
+      await db.collection('string_ids').drop().catch(() => {});
+      const ids = db.collection('string_ids');
+      const inserted = await ids.insertMany([{ _id: 'a', v: 1 }, { _id: 'A', v: 2 }, { _id: 'ä', v: 3 }, { _id: 'b', v: 4 }])
+        .then(r => r.insertedCount, e => `error ${e.code}`);
+      const updated = await ids.updateOne({ _id: 'a' }, { $set: { v: 10 } }).then(r => r.modifiedCount);
+      const replaced = await ids.replaceOne({ _id: 'ä' }, { v: 30 }).then(r => r.modifiedCount);
+      const deleted = await ids.deleteOne({ _id: 'A' }).then(r => r.deletedCount);
+      const many = await ids.deleteMany({ _id: { $in: ['b', 'nope'] } }).then(r => r.deletedCount);
+      const left = await ids.find({}, { sort: { _id: 1 } }).toArray();
+      await ids.drop().catch(() => {});
+      return { inserted, updated, replaced, deleted, many, left };
+    }
     case 'capped': {
       await db.collection('capped_probe').drop().catch(() => {});
       await db.createCollection('capped_probe', { capped: true, size: 4096, max: 3 });
