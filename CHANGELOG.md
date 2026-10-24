@@ -110,12 +110,15 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** in **right-to-left** languages a checked checkbox sits on its own
-square again instead of beside it.
+square again instead of beside it, and resizing a list follows the pointer.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Right-to-left languages** - checkboxes and list resizing work the way they do
+left-to-right.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6bb926af19">A checked checkbox sits on its own square in right-to-left languages, not beside it</a>. Thanks to mimZD and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6bb926af19">A checked checkbox sits on its own square, not beside it</a>. Thanks to mimZD and xet7.</summary>
 
 [#6786](https://github.com/wekan/wekan/issues/6786): after its first fix the tick
 was a check mark right-to-left, but it was still placed with
@@ -126,6 +129,20 @@ borders, so it lands on the square in the same place as left-to-right and the
 label does not move; the import page keeps its label gap on the reading side.
 `tests/rtlCheckMark.test.cjs` fails on any tick placed logically, and the
 Playwright spec measures the tick on its square in both directions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80208a7141">Resizing a list follows the pointer instead of moving the other way</a>. Thanks to mimZD and xet7.</summary>
+
+[#6801](https://github.com/wekan/wekan/issues/6801): a list's resize handle is on
+its inline end, which is its left edge right-to-left, but the new width was the
+start width plus the pointer's movement - so dragging the handle out of the list
+narrowed it and dragging it in widened it. The movement is now counted with the
+list's own direction, as the board sidebar and the left menus already did.
+`tests/rtlListResize.test.cjs` pins it and fails when any width resizer does not
+flip right-to-left; a Playwright spec drags the handle out and back in, in both
+directions.
 
 </details>
 
