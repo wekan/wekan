@@ -107,6 +107,30 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** in **right-to-left** languages a checked checkbox sits on its own
+square again instead of beside it.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6bb926af19">A checked checkbox sits on its own square in right-to-left languages, not beside it</a>. Thanks to mimZD and xet7.</summary>
+
+[#6786](https://github.com/wekan/wekan/issues/6786): after its first fix the tick
+was a check mark right-to-left, but it was still placed with
+`inset-inline-start`/`margin-inline-end`, which a right-to-left page flips: the
+narrowed, rotated box started at the square's right edge and was pushed further
+right, outside its box. It is placed with `left`/`margin-right` now, like its
+borders, so it lands on the square in the same place as left-to-right and the
+label does not move; the import page keeps its label gap on the reading side.
+`tests/rtlCheckMark.test.cjs` fails on any tick placed logically, and the
+Playwright spec measures the tick on its square in both directions.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.64 2026-10-24 WeKan ® release
 
 **In short:** a **database speed test** times the common WeKan queries on every
