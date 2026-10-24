@@ -110,9 +110,20 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** in **right-to-left** languages a checked checkbox sits on its own
-square again instead of beside it, and resizing a list follows the pointer.
+square again and resizing a list follows the pointer. The **database speed
+test** has new results, and its conformance catalogue checks indexed equality,
+array membership and sorting on every database.
 
-This release fixes the following bugs:
+This release updates the following dependencies:
+
+- **fast-uri 3.1.8 → 3.1.9** and **undici 7.30.0 → 7.30.1** — [the npm
+  group](https://github.com/wekan/wekan/pull/6804).
+- **actions/setup-python 7.0.0 → 7.1.0** — [in
+  bun.yml](https://github.com/wekan/wekan/pull/6803).
+
+Thanks to dependabot.
+
+and fixes the following bugs:
 
 **Right-to-left languages** - checkboxes and list resizing work the way they do
 left-to-right.
@@ -146,10 +157,65 @@ directions.
 
 </details>
 
-and has the following test fix:
+and has the following developer-facing changes:
 
-- [The import page guard pins the checked tick's physical margins from the first right-to-left fix](https://github.com/wekan/wekan/commit/132fecbfd8).
-  Thanks to mimZD and xet7.
+**Database tests** - the conformance catalogue and the speed test.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9fa734853">Conformance checks indexed equality, array membership and mixed-type sorting</a>. Thanks to xet7.</summary>
+
+Three cases for what FerretDB now answers from indexes or in the database: an
+equality or `$in` on an indexed field (inside an array, a value differing only
+by case, special characters, numbers, a long string), membership in an indexed
+array of documents in every shape the array can take and after writes, and a
+sort over every simple type with ties, null and missing fields, with and
+without a limit, then with an array and a document among the values.
+[A later commit](https://github.com/wekan/wekan/commit/494cbee598) adds both
+inside an `$and`, as the due cards query sends them. SQLite, PostgreSQL, MySQL
+and MariaDB answer all 114 cases as MongoDB 8 does.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d2b64273b">db-conformance.sh no longer removes the containers of a run that is still going</a>. Thanks to xet7.</summary>
+
+At start it removed every `wekan-conformance-db-*` container and network as
+left behind by an interrupted run, including those of a run still in
+progress: a speed test beside a conformance run lost its MySQL in the middle of
+Due Cards ("connection refused") and its MariaDB while loading. Containers and
+networks now carry the process id of their run as a label, and one whose run is
+alive is kept; one without the label, of a run that ended, or whose process id
+now belongs to something else is removed as before.
+`tests/dbConformanceStaleContainers.test.cjs` runs the script's own functions
+against a fake docker.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e81d17da80">New speed test results for SQLite, PostgreSQL, MySQL and MariaDB</a>. Thanks to xet7.</summary>
+
+The four FerretDB v1 backends again, at twice the production data, after the
+MySQL/MariaDB index reads, their multikey side tables, PostgreSQL's GIN
+membership index and SQLite sorting in the database; every database returned
+the same data as MongoDB. All Boards count went from 8-9 s to 159 ms on
+PostgreSQL and from 9.4 s to 1.1 s on MySQL, and adding the 44 indexes takes
+172 s on MySQL and 901 s on MariaDB instead of 20 and 40 minutes. The fixes for
+the People page on SQLite, All Boards with a starred board on MySQL/MariaDB and
+Due Cards' `$and` came after this run.
+
+</details>
+
+**Tests** - guards that had fallen behind a deliberate change.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/132fecbfd8">The import page guard pins the checked tick's physical margins from the first right-to-left fix</a>. Thanks to mimZD and xet7.</summary>
+
+`tests/importPage.test.cjs` still required the checked box's label gap to be
+`margin-inline-end`, which the [#6786](https://github.com/wekan/wekan/issues/6786)
+fix changed on purpose. It now pins `margin-right` with the right-to-left rule
+that moves the gap to the left, and the unchecked box's logical gap.
+
+</details>
 
 and updates the following translation:
 
