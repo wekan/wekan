@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.64 2026-10-24 WeKan ® release
 
 **In short:** a **database speed test** times the common WeKan queries on every
 database WeKan runs on, with twice a production WeKan of data, and checks they
@@ -8746,95 +8746,6 @@ of what is built matches the v12.30 and v12.31 release files and the
 architectures of the Docker image: the armv7, armv6, Windows and macOS bundles
 are included, loong64 is marked as not built, and the win32 fix above is
 described. FreeBSD amd64 is listed as having both binaries now.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.31 2026-10-11 WeKan ® release
-
-WeKan can be packaged as a Nextcloud External App with Nextcloud sign-in and
-persistent FerretDB SQLite storage. The companion and publisher are implemented;
-a real Docker build and Nextcloud/HaRP deployment still need validation before
-production publication. Ready files document how WeKan can be added to
-**ZimaOS**, **TrueNAS**, **Coolify**, **Dokploy** and the **AUR**.
-
-This release adds the following feature and fixes:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a325cfe991">Nextcloud ExApp sign-in and persistent SQLite packaging</a>. Thanks to xet7.</summary>
-
-The companion `wekan/nextcloud` provides AppAPI lifecycle endpoints, a
-navigation entry, authenticated HTTP/WebSocket forwarding, HaRP support and
-supervised WeKan/FerretDB processes in one container. Database, attachments and
-avatars persist in the AppAPI volume. WeKan binds sign-in and resumed sessions
-to the verified Nextcloud identity, keeps accounts separate by instance and user
-ID, and assigns site-administrator rights only to explicitly configured users.
-
-The standalone Nextcloud publisher checks for this authentication capability
-before building amd64/arm64 images. Local tests cover signed identities,
-concurrent account creation, cross-user resume refusal, disabled users, HTTP
-file access, lifecycle callbacks and WebSocket forwarding. A real-deployment
-browser suite is registered and syntax-checked, but was not run: Docker,
-Nextcloud and HaRP are unavailable here. Signing credentials, registration and
-live deployment checks remain documented in
-`docs/Design/Autoupdate/Nextcloud.md`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3c085a2d71">Fix Mac app smoke-test cleanup after successful startup</a>. Thanks to xet7.</summary>
-
-Handle macOS process-group permission errors when only exited processes remain.
-Inspect process state before ignoring the error, retain failures for live
-processes, and print the app log even if cleanup fails. Regression tests cover
-zombie groups, live permission failures, failed inspection and bounded shutdown.
-The workflow now runs these tests on both Mac architectures. Local Linux tests
-passed; the packaged app still needs a macOS workflow run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a1e97a18c4">Remove plaintext UCS provider password files (CodeQL alert 561)</a>. Thanks to xet7.</summary>
-
-Pass the provider password to each CLI invocation through an anonymous stdin
-pipe instead of writing a temporary credential file. Remove the password from
-the child environment and retain redacted failure messages. Offline tests verify
-repeated CLI authentication, no password file creation and failure redaction.
-UCS/Nextcloud workflow checks pass; CodeQL and a credentialed portal run remain
-for CI. No portal writes were performed during development.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2c4c89e794">Fix Sandstorm port handoff after successful migration</a>. Thanks to xet7.</summary>
-
-An old waiting-page process could deliver its exit callback after the blocking
-migration had already started a replacement. That callback discarded the new
-process reference, leaving port 4000 occupied when Meteor started and causing
-`EADDRINUSE`. Only clear the reference when the exiting process still owns it.
-A real-process regression reproduces the old failure and verifies that the
-replacement exits before WeKan takes the port. All 20 focused Sandstorm checks
-pass locally; a full grain upgrade was not run in this environment.
-
-</details>
-
-and has the following documentation:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bb9c4c7044">Possible additional platforms, with ready files for five app stores and the AUR</a>. Thanks to xet7.</summary>
-
-`docs/Design/Autoupdate/Platforms.md` opens with the open source platforms WeKan
-is not on yet - checked in each catalog on 2026-10-11 - and, for each, what is
-done and what is still missing. ZimaOS/CasaOS, TrueNAS, Coolify, Dokploy and the
-Arch User Repository get the files their catalogs take and a README with the
-pull request each expects, under `docs/Platforms/`. Each was tested with its
-catalog's own tools where they run without the platform: CasaOS's validator and
-store builder (1/1 built, both architectures pinned), the TrueNAS library
-render, Dokploy's three validators, and Arch's `makepkg`, whose package started
-WeKan and answered HTTP 200. `tests/platformTemplates.test.cjs` keeps the image
-tag and the settings the same across them. None is submitted yet; the human
-steps are listed.
 
 </details>
 
