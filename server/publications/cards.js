@@ -364,12 +364,15 @@ Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 
 
   // Get user's board memberships for efficient filtering
   // #3249: signed in, so 'instance' boards count as well.
+  // Only the ids and memberships are read below. Fetching whole board documents
+  // - every public board of the instance among them - made this the slowest
+  // query of the database speed test (docs/Databases/FerretDB/1/SpeedTest).
   const visibleBoards = await ReactiveCache.getBoards({
     $or: [
       ...withoutMembershipSelectors(true),
       { members: { $elemMatch: { userId, isActive: true } } }
     ]
-  });
+  }, { fields: { _id: 1, members: 1 } });
   // On a board where this user is an assigned-only member, only the cards
   // assigned to them are theirs to see - "all users" included.
   const userBoards = visibleBoards.filter(board => !isAssignedOnlyMember(board, userId)).map(board => board._id);
@@ -380,14 +383,21 @@ Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 
   }
 
   // Build optimized selector
+  // With no assigned-only board - the usual case - the board scope is a plain
+  // boardId list, which both MongoDB and FerretDB answer from the
+  // { boardId, archived, type, dueAt } index; the $or form is only needed when
+  // some boards narrow to the user's assigned cards.
+  const boardScope = assignedOnlyBoards.length
+    ? { $or: [
+      { boardId: { $in: userBoards } },
+      { boardId: { $in: assignedOnlyBoards }, assignees: userId },
+    ] }
+    : { boardId: { $in: userBoards } };
   const selector = {
     type: 'cardType-card',
     archived: false,
     dueAt: { $exists: true, $nin: [null, ''] },
-    $and: [{ $or: [
-      { boardId: { $in: userBoards } },
-      { boardId: { $in: assignedOnlyBoards }, assignees: userId },
-    ] }],
+    $and: [boardScope],
   };
 
   // Add user filtering if not showing all users
