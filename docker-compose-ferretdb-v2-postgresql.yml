@@ -27,7 +27,10 @@ services:
     environment:
       POSTGRES_USER: ferretdb
       POSTGRES_PASSWORD: ${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}
-      POSTGRES_DB: ferretdb
+      # postgres, not ferretdb: the image installs pg_cron, which can only be
+      # created in the database cron.database_name names (postgres), and the
+      # DocumentDB extension then fails to install and the server never starts.
+      POSTGRES_DB: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -39,7 +42,7 @@ services:
     container_name: wekan-ferretdb
     restart: always
     environment:
-      FERRETDB_POSTGRESQL_URL: postgres://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@postgres-documentdb/ferretdb
+      FERRETDB_POSTGRESQL_URL: postgres://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@postgres-documentdb/postgres
     depends_on:
       - postgres-documentdb
     networks:
