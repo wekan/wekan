@@ -1,7 +1,7 @@
 'use strict';
 
-// Board Settings / Card and Board Settings / Board View reorder by drag and
-// drop (2026-10-02). With drag handles on, the handle where the up/down arrows
+// Board Settings / Board View reorders by drag and drop (2026-10-02); Board
+// Settings / Card by order arrows since its rows are in sections (2026-10-25). With drag handles on, the handle where the up/down arrows
 // were is what is dragged; with them off, the row's icon and label are. The
 // Up and Down keys on the focused handle or label move a row one step.
 const { test, expect } = require('../fixtures');
@@ -28,44 +28,35 @@ async function dragOnto(page, source, target) {
   await page.mouse.up();
 }
 
-for (const handles of [false, true]) {
-  test(`Board Settings / Card reorders by dragging the ${handles ? 'handle' : 'label'}`, async ({ boardPage: page, board, user }) => {
-    setHandles(user.id, handles);
-    try {
-      await page.reload();
-      await openPopup(page, 'boardCardSettings');
-      const column = page.locator('.js-card-field-order-sortable[data-side="card"]');
-      await expect(column).toBeVisible();
-      const row = key => column.locator(`.js-card-field-order-row[data-key="${key}"]`);
-      // The handle exists only with drag handles on; without them the label is the handle.
-      await expect(column.locator('a.card-field-order-handle')).toHaveCount(handles ? await column.locator('.js-card-field-order-row').count() : 0);
-      // Negative: the head rows sit at a fixed place, so they are not dragged.
-      await expect(row('cardNumber')).not.toHaveClass(/is-positioned/);
-      const grip = key => (handles ? row(key).locator('a.js-card-field-order-handle') : row(key).locator('.card-field-order-label.js-card-field-order-handle'));
-      // Drag the Due date row onto Received date: Due date goes first among the dates.
-      await dragOnto(page, grip('dueDate'), row('receivedDate'));
-      await expect.poll(() => {
-        const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
-        return order.indexOf('dueDate') < order.indexOf('receivedDate');
-      }).toBe(true);
-      // The rows are redrawn from the stored order, not left as dropped.
-      const keys = await column.locator('.js-card-field-order-row.is-positioned').evaluateAll(rows => rows.map(r => r.dataset.key));
-      expect(keys.indexOf('dueDate')).toBeLessThan(keys.indexOf('receivedDate'));
-      // The keyboard: Down on the focused grip moves the row one step back.
-      await grip('dueDate').focus();
-      await page.keyboard.press('ArrowDown');
-      await expect.poll(() => {
-        const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
-        return order.indexOf('dueDate') > order.indexOf('receivedDate');
-      }).toBe(true);
-      // Negative: a modifier row has no place, so nothing of it is draggable.
-      await expect(row('checklistDueDate')).not.toHaveClass(/is-positioned/);
-      await expect(row('checklistDueDate').locator('.js-card-field-order-handle')).toHaveCount(0);
-    } finally {
-      db.updateOne('users', { _id: user.id }, { $unset: { 'profile.showDesktopDragHandles': '' } });
-    }
-  });
-}
+test('Board Settings / Card reorders by its order arrows and the arrow keys', async ({ boardPage: page, board }) => {
+  // docs/Features/Cards/Card-Fields.md (2026-10-25): with the rows in sections,
+  // each side of a row has up and down arrows instead of a drag.
+  try {
+    await openPopup(page, 'boardCardSettings');
+    await page.locator('.js-card-settings-menu[data-id="date"]').click();
+    const cell = key => page.locator(`.js-card-field-order-row[data-key="${key}"][data-side="card"]`);
+    await expect(cell('dueDate')).toBeVisible();
+    // Negative: the head rows sit at a fixed place, so they have no arrows.
+    await page.locator('.js-card-settings-menu[data-id="card"]').click();
+    await expect(cell('cardNumber').locator('.js-card-field-order-up')).toHaveCount(0);
+    await page.locator('.js-card-settings-menu[data-id="date"]').click();
+    await cell('dueDate').locator('.js-card-field-order-up').click();
+    await cell('dueDate').locator('.js-card-field-order-up').click();
+    await expect.poll(() => {
+      const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
+      return order.indexOf('dueDate') < order.indexOf('receivedDate');
+    }).toBe(true);
+    // The keyboard: Down on the focused arrow moves the row one step back.
+    await cell('dueDate').locator('.js-card-field-order-down').focus();
+    await page.keyboard.press('ArrowDown');
+    await expect.poll(() => {
+      const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
+      return order.indexOf('dueDate') > order.indexOf('receivedDate');
+    }).toBe(true);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '' } });
+  }
+});
 
 test('Board Settings / Board View reorders by drag and drop and by the arrow keys', async ({ boardPage: page, board, user }) => {
   setHandles(user.id, false);

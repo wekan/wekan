@@ -1438,3 +1438,10 @@ body.desktop-mode .card-details.card-details-position-pending:not(.card-details-
   font-size: 0.8em;
   word-break: break-all;
 }
+
+/* A maximized card has its comments at the top of the right column
+   (cardCommentsSection): nothing is above them there to be separated from, so
+   their heading has no rule. */
+.card-details-right .card-details-comments .card-details-section-rule {
+  display: none;
+}

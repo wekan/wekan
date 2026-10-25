@@ -147,112 +147,107 @@
   cursor: pointer;
 }
 
-/* Board Settings / Card: Draggable precedes the two independent lists -
-   "Show on Minicard" in the board's minicard order, "Show on Card" in its
-   card order (sidebar.jade boardCardSettingsPopup). Two lists rather than
-   one table of rows, because the two orders are independent: a field can be
-   third on the minicard and last on the card. Minicard reads to the LEFT of
-   Card, as the old table drew it. */
-.card-field-order-heading {
-  margin: 0 0 6px;
-  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
-  font-weight: bold;
-}
-
+/* Board Settings / Card - also the opened card's "+ Add" - is the Admin
+   Panel's left menu and right pane (sidebar.jade boardCardSettingsPopup,
+   docs/Features/Cards/Card-Fields.md): the sections on the left, the open
+   section's rows on the right, one line each - the label, then the
+   "Show on Minicard" cell and the "Show on Card" cell (a checkbox, the
+   position and the order arrows of that side), and opened from a card the
+   "On this card" checkbox. */
 .board-card-settings {
   container-type: inline-size;
 }
-
-.card-field-order-columns {
+.card-settings-sections .setting-content {
+  position: relative;
+  height: 40em;
+  max-height: calc(90vh - 5em);
+  background: transparent;
+}
+.card-settings-sections .setting-content .content-body { height: 100%; }
+.card-settings-sections .main-body { overflow: auto; flex: 1 1 auto; min-width: 16em; }
+.card-settings-pane-head,
+.card-settings-line {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 18px;
-  column-gap: 18px;
-  align-items: start;
-}
-
-.card-field-order-column-heading {
-  margin: 0;
-  padding: 5px 0;
-  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
-  font-weight: bold;
-  border-bottom: 1px solid #eee;
-}
-
-/* A row: [checkbox] [up] [down] icon label. */
-.card-field-order-row {
-  display: flex;
+  /* Show on Minicard, Show on Card, the field; opened from a card, On this
+     card first. Logical order: a right-to-left page mirrors it. */
+  grid-template-columns: minmax(7em, max-content) minmax(7em, max-content) minmax(10em, 1fr);
+  column-gap: 14px;
   align-items: center;
-  gap: 6px;
+}
+.board-card-settings.has-card .card-settings-pane-head,
+.board-card-settings.has-card .card-settings-line {
+  grid-template-columns: minmax(5em, max-content) minmax(7em, max-content) minmax(7em, max-content) minmax(10em, 1fr);
+}
+.card-settings-pane-head {
+  font-weight: bold;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  border-bottom: 1px solid #eee;
+  padding-block-end: 4px;
+}
+.card-settings-line {
   padding: calc(4px * min(1, var(--wekan-ui-font-scale, 1))) 0;
   border-bottom: 1px solid #eee;
 }
+.card-settings-line-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card-settings-side {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-settings-position {
+  min-width: 1.6em;
+  text-align: end;
+  color: #888;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
+}
+.card-settings-select-all {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+.card-settings-sections .materialCheckBox { transition: none; }
+.card-settings-sections .card-add-field.is-animating .materialCheckBox,
+.card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }
 
 .card-field-order-toggle,
 .card-field-order-move {
   flex-shrink: 0;
 }
-
-.card-field-order-move.is-disabled {
+.card-field-order-move.is-disabled,
+.card-field-order-toggle.is-disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
 
-.card-field-order-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  min-width: 0;
-}
-
-/* One side of the same popup. Card menu / Show on Card and Minicard menu /
-   Show on Minicard open this popup asking for one column; the other list is
-   hidden here, so there is still ONE set of rows and one set of handlers.
-   With a single list left, the width the popup already has is enough for two
-   or three columns of rows side by side (popup.css gives these popups more of
-   it), `auto-fill` so a narrow window still gets one column. */
-.board-card-settings.show-card-only .card-field-order-column-minicard,
-.board-card-settings.show-minicard-only .card-field-order-column-card {
+/* One side of the same popup: a menu that asks for one side hides the other
+   side's cells, so there is still ONE set of rows and one set of handlers. */
+.board-card-settings.show-card-only .card-settings-side-minicard,
+.board-card-settings.show-card-only .card-settings-side-head-minicard,
+.board-card-settings.show-minicard-only .card-settings-side-card,
+.board-card-settings.show-minicard-only .card-settings-side-head-card {
   display: none;
 }
 
-.board-card-settings.show-card-only .card-field-order-columns,
-.board-card-settings.show-minicard-only .card-field-order-columns {
-  display: block;
-}
-
-@media screen and (min-width: 801px) {
-  .board-card-settings.show-card-only .card-field-order-column-card,
-  .board-card-settings.show-minicard-only .card-field-order-column-minicard {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    column-gap: 18px;
-    align-items: start;
-  }
-  .board-card-settings.show-card-only .card-field-order-column-heading,
-  .board-card-settings.show-minicard-only .card-field-order-column-heading {
-    grid-column: 1 / -1;
-  }
-}
-
-/* "Labels text" is the user's own setting, not the board's: it shows in the
-   minicard's own view and nowhere else - not in Board Settings / Card Settings,
-   where every other row is board-wide, and not in Show on Card, which is about
-   the opened card. And when the reader is not a board admin, it is the only row
-   they may change, so it is the only row they get - the headings and the card
-   list go with the rows they would have headed. */
+/* "Labels text" and "List title" are the user's or the card's own, not the
+   board's: they are not among the board-wide rows of Board Settings / Card,
+   but they are where they belong - opened from a card, from the minicard's
+   own view, and for a reader who may change only those. */
 .board-card-settings .card-settings-row-personal {
   display: none;
 }
-
-.board-card-settings.show-minicard-only .card-settings-row-personal {
-  display: flex;
+.board-card-settings.show-minicard-only .card-settings-row-personal,
+.board-card-settings.has-card .card-settings-row-personal,
+.board-card-settings.show-personal-only .card-settings-row-personal {
+  display: grid;
 }
-
-.board-card-settings.show-personal-only .card-field-order-row:not(.card-settings-row-personal),
-.board-card-settings.show-personal-only .card-field-order-heading,
-.board-card-settings.show-personal-only .card-field-order-column-heading,
-.board-card-settings.show-personal-only .card-field-order-column-card {
+.board-card-settings.show-personal-only .card-settings-line:not(.card-settings-row-personal) {
   display: none;
 }
 
@@ -791,36 +786,6 @@ body.sidebar-resizing-active {
 }
 
 
-/* Switch all three sections together. Measure the form, not the viewport:
-   a narrow popup must stack even on a wide display. */
-@container (min-width: 780px) {
-  .card-field-order-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-/* #6796: when the form is wide, each list spreads into as many columns as fit
-   (10em each), read top to bottom, so its order is still the card's and the
-   minicard's order, and the whole of it is visible without scrolling. The
-   Draggable table keeps only the width it needs. */
-@container (min-width: 1100px) {
-  .card-field-order-columns {
-    grid-template-columns: minmax(12em, max-content) minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .card-field-order-column-minicard,
-  .card-field-order-column-card {
-    column-width: 10em;
-    column-gap: 16px;
-  }
-  .card-field-order-column-minicard > :not(.card-field-order-row),
-  .card-field-order-column-card > :not(.card-field-order-row) {
-    column-span: all;
-  }
-  .card-field-order-column .card-field-order-row {
-    break-inside: avoid;
-    padding-block: calc(2px * min(1, var(--wekan-ui-font-scale, 1)));
-  }
-}
-.card-field-order-column { min-width: 0; }
-.card-field-order-label { overflow-wrap: anywhere; }
-
 /* Keep native filter controls visible despite the application's custom inputs. */
 .filter-native-choice input[type="checkbox"],
 .filter-native-choice input[type="radio"],
@@ -853,20 +818,13 @@ body.sidebar-resizing-active {
 .filter-native-choice input { flex-shrink: 0; }
 .filter-native-choice:focus-within { outline: 2px solid currentColor; outline-offset: 2px; }
 
-/* Board Settings / Card and Board View reorder by drag and drop: the handle
-   where the up/down arrows were when drag handles are on, else the icon and
-   label themselves. */
-.card-field-order-handle.js-card-field-order-handle,
+/* Board View reorders by drag and drop: the handle when drag handles are on,
+   else the icon and label themselves. Board Settings / Card has order arrows. */
 .board-view-order-handle,
 .card-field-order-drag-label,
 .board-view-drag-label {
   cursor: grab;
 }
-.card-field-order-handle.is-disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-.js-card-field-order-sortable .ui-sortable-helper,
 .js-board-view-sortable .ui-sortable-helper {
   cursor: grabbing;
   background: var(--wekan-popup-background, #fff);

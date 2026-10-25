@@ -8,21 +8,20 @@
 // title and its text), the attachments with their Add attachment, and the
 // comments. The cover is shown when the card has one.
 //
-// Above the card's fields, under its cover, "+ Add" opens a popup with the
-// Admin Panel's left menu and right pane: the menu lists the sections (Date,
-// Members, Scrum, ...), the pane the fields of the open section, each with a
-// checkbox - ticked when the card shows it. Ticking an empty field shows it on
-// this card, to be filled in; unticking a field with data hides it from this
-// card. The card keeps both choices:
+// Above the card's fields, under its cover, "+ Add" opens Board Settings /
+// Card - the same popup - for this card: beside each row's board-wide "Show on
+// Minicard" and "Show on Card", whether THIS card shows the field. Ticking an
+// empty field shows it on this card, to be filled in; unticking a field with
+// data hides it from this card. The card keeps both choices:
 //
 //   shownFields:  [key]  shown although empty
 //   hiddenFields: [key]  hidden although it has data
 //
 // Board Settings / Card still decides what a card of the board CAN show: a
-// field turned off there is shown on no card and is not offered in "+ Add".
-// The rows not listed in SECTIONS (Collapse, Labels text, the attachment
-// previews, the badges, the helpers such as Similar cards) change how a shown
-// field looks or help to fill it; they follow Board Settings / Card alone.
+// field turned off there is shown on no card. The rows not in FIELD_KEYS
+// (Collapse, Labels text, the attachment previews, the badges, the helpers
+// such as Similar cards) change how a shown field looks or help to fill it;
+// they follow Board Settings / Card alone.
 //
 // HOW IT HIDES. The card's templates read `currentBoard.allowsDueDate` and so
 // on. The opened card and its section templates get their own `currentBoard`
@@ -35,36 +34,23 @@
 
 const { CARD_SETTINGS_ROWS } = require('./cardSettingsRows');
 
-// The "+ Add" popup's left menu: one section per entry, its fields in the
-// right pane. Every key is a row of Board Settings / Card.
-const SECTIONS = Object.freeze([
-  { id: 'date', icon: 'fa-calendar', labelKey: 'date',
-    keys: ['receivedDate', 'startDate', 'dueDate', 'endDate', 'dueComplete'] },
-  { id: 'members', icon: 'fa-users', labelKey: 'members',
-    keys: ['members', 'assignee', 'creator', 'requestedBy', 'assignedBy'] },
-  { id: 'labels', icon: 'fa-tag', labelKey: 'labels',
-    keys: ['labels', 'stickers', 'location'] },
-  { id: 'description', icon: 'fa-file-text-o', labelKey: 'description',
-    keys: ['descriptionTitle', 'descriptionText'] },
-  { id: 'checklists', icon: 'fa-check', labelKey: 'checklists',
-    keys: ['checklists', 'subtasks'] },
-  { id: 'attachments', icon: 'fa-paperclip', labelKey: 'attachments',
-    keys: ['cover', 'attachments', 'textNotes'] },
-  { id: 'time', icon: 'fa-clock-o', labelKey: 'time',
-    keys: ['spentTime', 'flowtime', 'pomodoro'] },
-  { id: 'customFields', icon: 'fa-list-alt', labelKey: 'custom-fields',
-    keys: ['customFields'] },
-  { id: 'vote', icon: 'fa-thumbs-up', labelKey: 'vote-question',
-    keys: ['vote', 'poker'] },
-  { id: 'scrum', icon: 'fa-repeat', labelKey: 'scrum-settings',
-    keys: ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank'] },
-  { id: 'comments', icon: 'fa-comment-o', labelKey: 'comments',
-    keys: ['comments', 'activities'] },
-  { id: 'card', icon: 'fa-id-card-o', labelKey: 'card',
-    keys: ['cardNumber', 'dependencies', 'cardSortingByNumber', 'showLists', 'swimlaneName'] },
+// The fields a card shows by its own data or choice - the rest of Board
+// Settings / Card's rows (modifiers, badges, helpers) follow the board alone.
+// The popup's sections are models/lib/cardSettingsSections.js.
+const FIELD_KEYS = Object.freeze([
+  'receivedDate', 'startDate', 'dueDate', 'endDate', 'dueComplete',
+  'members', 'assignee', 'creator', 'requestedBy', 'assignedBy',
+  'labels', 'stickers', 'location',
+  'descriptionTitle', 'descriptionText',
+  'checklists', 'subtasks',
+  'cover', 'attachments', 'textNotes',
+  'spentTime', 'flowtime', 'pomodoro',
+  'customFields',
+  'vote', 'poker',
+  'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank',
+  'comments', 'activities',
+  'cardNumber', 'dependencies', 'cardSortingByNumber', 'showLists', 'swimlaneName',
 ]);
-
-const FIELD_KEYS = Object.freeze(SECTIONS.flatMap(s => s.keys));
 
 // Shown on every card, empty or not.
 const ALWAYS = Object.freeze(['descriptionTitle', 'descriptionText', 'attachments', 'comments']);
@@ -158,26 +144,6 @@ function boardAllows(board, key) {
   return Boolean(value);
 }
 
-// The "+ Add" popup's left menu: the sections with at least one field the
-// board allows.
-function addSections(board) {
-  return SECTIONS.filter(s => s.keys.some(k => boardAllows(board, k)));
-}
-
-// The right pane for one section: its fields the board allows, each with its
-// row's icons and label, and whether this card shows it.
-function addRows(board, card, sectionId, counts) {
-  const section = SECTIONS.find(s => s.id === sectionId) || addSections(board)[0];
-  if (!section) return [];
-  return section.keys
-    .filter(k => boardAllows(board, k))
-    .map(k => {
-      const row = rowOf(k);
-      return { key: k, icons: row.icons, label: row.label, labelSeparator: row.labelSeparator || ' ',
-        shown: isShown(k, card, counts), hasData: ALWAYS.includes(k) || hasData(k, card, counts) };
-    });
-}
-
 const cache = typeof WeakMap === 'function' ? new WeakMap() : null;
 
 // The board as THIS card sees it: the flags of the fields the card does not
@@ -213,5 +179,5 @@ function boardForCard(board, card, counts) {
 }
 
 module.exports = {
-  SECTIONS, FIELD_KEYS, ALWAYS, hasData, isShown, cardFieldsAfter, boardAllows, addSections, addRows, boardForCard,
+  FIELD_KEYS, ALWAYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
 };

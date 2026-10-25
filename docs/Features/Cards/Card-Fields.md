@@ -26,72 +26,88 @@ members, a checklist, a custom field with a value, a vote question, a Scrum
 sprint, and so on. A creator, a card number, the history and the other
 fields every card has anyway are shown only when added.
 
-## "+ Add"
+## "+ Add" and Board Settings / Card: one popup
 
-Under the cover, above the card's fields, **+ Add** opens a popup that looks
-and works like the Admin Panel: the same **left menu** and the same **pane
-title** (the shared templates of the [Left Menu](../All-Boards/Left-Menu.md)
-design), with the fields on the right.
+Under the cover, above the card's fields, **+ Add** opens
+[Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) - the same
+popup Board Settings opens - for this card. It looks and works like the Admin
+Panel: the same **left menu** and the same **pane title** (the shared templates
+of the [Left Menu](../All-Boards/Left-Menu.md) design), with the rows on the
+right.
 
-- The **left menu** lists the sections: Date, Members, Labels, Description,
-  Checklists, Attachments, Time, Custom Fields, Voting, Scrum settings,
-  Comments and Card.
-- The **right pane** lists the fields of the open section - the same items,
-  icons and names as [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md)
-  - each with a **checkbox**, ticked when this card shows the field.
+- The **left menu** lists the sections. The first, **Card Settings**, holds
+  what is not a field: Ask for a reason when moving cards, the select-all and
+  unselect-all of each side, and the Draggable table. Then Date, Members,
+  Labels, Description, Checklists, Attachments, Time, Custom Fields, Voting,
+  Scrum settings, Comments and Card.
+- The **right pane** lists every row of the open section, one line each: its
+  icon and name, then a **Show on Minicard** cell and a **Show on Card** cell -
+  each the board-wide checkbox of that side, the field's position on that side
+  and its **up and down arrows** (the Up and Down keys on a focused arrow do the
+  same; a row that only modifies another has none).
+- Opened from a card, a third cell, **On this card**, says whether this card
+  shows the field (the per-card fields only).
 
-| Section | Fields |
+A row's name leaves out what its section already says: under **Scrum settings**
+the rows are Sprint, Past sprints, Release, Issue type, Acceptance criteria and
+Backlog rank.
+
+| Section | Rows |
 | --- | --- |
-| Date | Received, Start, Due, End, Mark as complete |
-| Members | Members, Assignee, Creator, Requested by, Assigned by |
-| Labels | Labels, Stickers, Location |
-| Description | Description title, Description text |
-| Checklists | Checklists, Subtasks |
-| Attachments | Cover image, Attachments, Text notes |
+| Card Settings | Ask for a reason when moving cards, select all of each side, Draggable |
+| Date | Received, Start, Due, End, Mark as complete, Due date from the title, At risk, Forecast |
+| Members | Members, Assignee, Creator, Requested by, Assigned by, Suggested members |
+| Labels | Labels, Labels above the title, Labels text (the board's and your own), Stickers, Location, Card color |
+| Description | Description title, Description text, Description badge |
+| Checklists | Checklists, Checklist title, Checklist due date, Checklist count, Checklist from description, Subtasks |
+| Attachments | Cover image, Attachments, Attachment count, Previews, Details, Text notes, Drawing |
 | Time | Spent time, Flowtime, Pomodoro |
 | Custom Fields | Custom Fields |
 | Voting | Voting question, Planning Poker |
 | Scrum settings | Sprint, Past sprints, Release, Issue type, Acceptance criteria, Backlog rank |
-| Comments | Comments, Activities |
-| Card | Card number, Dependencies, Card sorting by number, Show lists, Swimlane |
+| Comments | Comments, Comment count, Unread comments, Activities, Action items |
+| Card | Card number, Collapse, Parent card, Linked card, Dependencies, Card sorting by number, Show lists, List title, Swimlane, Card buttons, Similar cards |
 
-**Ticking** an empty field shows it on this card, ready to be filled in.
-**Unticking** a field hides it from this card, also when it has data - the data
-stays, and ticking it again shows it. The choice is the card's own and is kept
-with the card; a field whose tick matches what its data would decide leaves
-nothing stored.
+**On this card**: ticking an empty field shows it on this card, ready to be
+filled in; unticking a field hides it from this card, also when it has data -
+the data stays, and ticking it again shows it. The choice is the card's own and
+is kept with the card; a field whose tick matches what its data would decide
+leaves nothing stored.
 
-**+ Add** is shown to whoever may change the card. Below it there is one
-separator line, above the first section the card shows: a section the card
-does not show draws no line of its own.
+**+ Add** is shown to whoever may change the card. Its board-wide checkboxes
+and arrows work for a board admin; for anybody else they are shown disabled,
+and only **On this card** and their own rows (Labels text, List title) change.
+Below **+ Add** there is one separator line, above the first section the card
+shows: a section the card does not show draws no line of its own.
+
+The popup moves by its title bar (or the drag handle, when drag handles are on)
+and has maximize / minimize beside its close button.
 
 ## Board Settings / Card still decides what a card can show
 
-[Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) and Admin
-Panel / Settings / Visibility / Features decide what the cards of a board CAN
-show. A field turned off there is shown on no card, whatever the card's data
-or its own choice, and is not offered in **+ Add**; a section with no field
-left is not in the left menu.
+**Show on Card** and Admin Panel / Settings / Visibility / Features decide what
+the cards of a board CAN show. A field turned off there is shown on no card,
+whatever the card's data or its own choice.
 
-The rows of Board Settings / Card that are not a field of their own - Collapse,
-Labels text, Labels above the title, the attachment previews and details, the
-count badges, Card color, Parent and Linked card, and the helpers such as
-Similar cards, At risk, Forecast and Due date from the title - change how a
-shown field looks or help to fill it. They follow Board Settings / Card alone
-and are not in **+ Add**.
+The rows that are not a field of their own - Collapse, Labels text, Labels
+above the title, the attachment previews and details, the count badges, Card
+color, Parent and Linked card, and the helpers such as Similar cards, At risk,
+Forecast and Due date from the title - change how a shown field looks or help
+to fill it. They follow Board Settings / Card alone and have no **On this
+card**.
 
 ## How it works
 
-`models/lib/cardShownFields.js` holds the rules: the sections, what counts as
-data for each field, which fields a card shows, and the card's view of the
-board. The card stores two lists:
+`models/lib/cardShownFields.js` holds the rules: what counts as data for each
+field, which fields a card shows, and the card's view of the board.
+`models/lib/cardSettingsSections.js` holds the popup's sections. The card stores two lists:
 
 | Field | Holds |
 | --- | --- |
 | `shownFields` | fields shown although empty |
 | `hiddenFields` | fields hidden although they have data |
 
-Only the field keys of the sections are accepted (`models/cards.js`).
+Only the per-card field keys are accepted (`models/cards.js`).
 
 The opened card's templates read the board's flags (`currentBoard.allowsDueDate`
 and so on). The opened card and each of its section templates get their own
@@ -107,11 +123,14 @@ section order the same way.
 
 | File | What it is |
 | --- | --- |
-| `models/lib/cardShownFields.js` | The sections, "has data", what a card shows, the card's board view |
-| `client/components/cards/cardAddFields.jade` | The "+ Add" popup: the Admin Panel's left menu and pane |
-| `client/components/cards/cardAddFields.js` | The popup, and the card's own `currentBoard` |
-| `client/components/cards/cardAddFields.css` | The button, and the Admin Panel layout in a popup |
+| `models/lib/cardShownFields.js` | "Has data", what a card shows, the card's board view |
+| `models/lib/cardSettingsSections.js` | The popup's sections, and the row names within them |
+| `client/components/sidebar/sidebar.jade` | The popup (`boardCardSettingsPopup`): the left menu, the pane, the rows |
+| `client/components/sidebar/sidebar.js` | Its sections, rows, checkboxes, order arrows and On this card |
+| `client/components/sidebar/sidebar.css` | The pane's layout |
+| `client/components/cards/cardAddFields.js` | "+ Add", and the card's own `currentBoard` |
 | `client/components/cards/cardDetails.jade` | The "+ Add" button under the cover |
 | `models/cards.js` | `shownFields`, `hiddenFields` |
 | `tests/cardShownFields.test.cjs` | The rules, the wiring, and that no card section template is left out |
-| `tests/playwright/specs/card-add-fields.e2e.js` | An empty card, "+ Add", a field with data |
+| `tests/cardSettingsCoverage.test.cjs` | Every row in a section, a checkbox and a handler for each side |
+| `tests/playwright/specs/card-add-fields.e2e.js` | An empty card, "+ Add", a field with data, the popup |

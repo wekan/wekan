@@ -2,7 +2,6 @@ import '/client/components/cards/attachments.jade';
 import '/client/components/cards/cardCustomFields.jade';
 import '/client/components/cards/cardDate.jade';
 import '/client/components/cards/cardDescription.jade';
-import '/client/components/cards/cardAddFields.jade';
 import '/client/components/cards/cardDetails.jade';
 import '/client/components/cards/cardFlowtime.jade';
 import '/client/components/cards/cardPomodoro.jade';

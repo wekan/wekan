@@ -297,75 +297,87 @@ template(name="boardInfoOnMyBoardsPopup")
   `role="button"`, titled with the existing move-up/move-down keys.
   client/components/sidebar/sidebar.js, tests/cardSettingsCoverage.test.cjs
 template(name="boardCardSettingsPopup")
-  form.board-card-settings(class=settingsSideClass)
-    div.check-div
-      a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
-        i.fa(class="{{#if askForMoveReason}}fa-check{{else}}fa-square-o{{/if}}")
-        span {{_ 'ask-move-reason'}}
-    h4.card-field-order-heading {{_ 'card-field-order'}}
-    .card-field-order-columns
-      .card-field-order-column.card-field-order-column-draggable
-        +boardDragSettings(section="card")
-      .card-field-order-column.card-field-order-column-minicard.js-card-field-order-sortable(data-side="minicard")
-        h4.card-field-order-column-heading {{_ 'show-on-minicard'}}
-        +boardSettingsColumnActions(section="card" column="minicard")
-        each row in minicardSettingsRows
-          .card-field-order-row.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}}" class="{{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="minicard")
-            a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
-              i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
-            //- Reordered by drag and drop (client/components/sidebar/sidebar.js
-              reorderOnDrop). With drag handles on, a row is dragged by its
-              handle, its icon or its label; with them off there is no handle,
-              and it is dragged by its icon or its label. Either way the Up and
-              Down arrow keys move a focused row one step. A row that only
-              modifies another (`after`) has no place of its own and no handle.
-            if canModifyBoard
-              if showDragHandles
-                a.flex.card-field-order-move.card-field-order-handle(class="{{#if row.positioned}}js-card-field-order-handle{{else}}is-disabled{{/if}}" href="#" draggable="false" role="button" tabindex="{{#if row.positioned}}0{{else}}-1{{/if}}" aria-disabled="{{#if row.positioned}}false{{else}}true{{/if}}" title="{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'drag-to-reorder'}}")
-                  i.fa.fa-arrows
-            span.card-field-order-label(class="{{#if canModifyBoard}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/if}}")
-              each icon in row.icons
-                i.fa(class=icon)
-              | {{row.title}}
-              //- The user's own override of the board's "Labels text" default,
-                tri-state: it says whether it is following the board or
-                overriding it, with a way back to "follow the board" rather
-                than cycling the checkbox through both states again.
-              if row.labelTextOverride
-                if row.labelTextOverridden
-                  | &nbsp;
-                  a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
-                    | ({{_ 'label-text-overridden'}})
-                else
-                  | &nbsp;({{_ 'label-text-follows-board'}})
-      .card-field-order-column.card-field-order-column-card.js-card-field-order-sortable(data-side="card")
-        h4.card-field-order-column-heading {{_ 'show-on-card'}}
-        +boardSettingsColumnActions(section="card" column="card")
-        each row in cardSettingsRows
-          .card-field-order-row.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}}" class="{{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="card")
-            a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
-              i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
-            //- Reordered by drag and drop (client/components/sidebar/sidebar.js
-              reorderOnDrop). With drag handles on, a row is dragged by its
-              handle, its icon or its label; with them off there is no handle,
-              and it is dragged by its icon or its label. Either way the Up and
-              Down arrow keys move a focused row one step. A row that only
-              modifies another (`after`) has no place of its own and no handle.
-            if canModifyBoard
-              if showDragHandles
-                a.flex.card-field-order-move.card-field-order-handle(class="{{#if row.positioned}}js-card-field-order-handle{{else}}is-disabled{{/if}}" href="#" draggable="false" role="button" tabindex="{{#if row.positioned}}0{{else}}-1{{/if}}" aria-disabled="{{#if row.positioned}}false{{else}}true{{/if}}" title="{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'drag-to-reorder'}}")
-                  i.fa.fa-arrows
-            span.card-field-order-label(class="{{#if canModifyBoard}}{{#if row.positioned}}js-card-field-order-handle card-field-order-drag-label{{/if}}{{/if}}" tabindex="{{#if canModifyBoard}}{{#unless showDragHandles}}{{#if row.positioned}}0{{/if}}{{/unless}}{{/if}}" title="{{#if canModifyBoard}}{{#if row.positioned}}{{_ 'drag-to-reorder'}}{{/if}}{{/if}}")
-              each icon in row.icons
-                i.fa(class=icon)
-              | {{row.title}}
-              if row.labelTextOverride
-                if row.labelTextOverridden
-                  | &nbsp;
-                  a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
-                    | ({{_ 'label-text-overridden'}})
-                else
-                  | &nbsp;({{_ 'label-text-follows-board'}})
+  //- Board Settings / Card, and the opened card's "+ Add": ONE popup, the Admin
+    Panel's left menu and right pane (docs/Features/Cards/Card-Fields.md). The
+    menu lists the sections (models/lib/cardSettingsSections.js); the pane the
+    open section's rows, each with its "Show on Minicard" and "Show on Card"
+    cell - a checkbox and the order arrows of that side - and, opened from a
+    card, whether THIS card shows the field. A side cell is the
+    `.js-card-field-order-row` the handlers read data-key and data-side from.
+  form.board-card-settings.card-settings-sections(class=settingsSideClass)
+    .setting-content
+      .content-body
+        +leftMenu(settingsMenuItems)
+        .main-body
+          +paneTitle(settingsPaneTitle)
+          if $eq openSettingsSection "general"
+            div.check-div
+              a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
+                i.fa(class="{{#if askForMoveReason}}fa-check{{else}}fa-square-o{{/if}}")
+                span {{_ 'ask-move-reason'}}
+            .card-settings-select-all
+              span {{_ 'show-on-minicard'}}
+              +boardSettingsColumnActions(section="card" column="minicard")
+            .card-settings-select-all
+              span {{_ 'show-on-card'}}
+              +boardSettingsColumnActions(section="card" column="card")
+            +boardDragSettings(section="card")
+          else
+            .card-settings-pane
+              //- Reading order: On this card (opened from a card), Show on
+                Minicard, Show on Card, then the field - mirrored in a
+                right-to-left language by the grid itself.
+              .card-settings-pane-head
+                if settingsCardId
+                  span.card-settings-side-head.card-settings-side-head-this {{_ 'card-settings-this-card'}}
+                span.card-settings-side-head.card-settings-side-head-minicard {{_ 'show-on-minicard'}}
+                span.card-settings-side-head.card-settings-side-head-card {{_ 'show-on-card'}}
+                span.card-settings-pane-head-label {{_ 'card-field-order'}}
+              each row in sectionSettingsRows
+                .card-settings-line(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}")
+                  //- Opened from a card: whether this card shows the field -
+                    the field with data is shown, an empty one when ticked here
+                    (models/lib/cardShownFields.js).
+                  if settingsCardId
+                    if row.perCard
+                      span.card-settings-side.card-settings-side-this
+                        a.flex.card-add-field.js-card-add-field(data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.shownOnThisCard}}true{{else}}false{{/if}}" class="{{#if isAnimating row.key}}is-animating{{/if}}" title="{{_ 'card-settings-this-card'}}")
+                          .materialCheckBox(class="{{#if row.shownOnThisCard}}is-checked{{/if}}")
+                    else
+                      span.card-settings-side.card-settings-side-this.card-settings-side-empty
+                  each cell in row.sides
+                    if cell.present
+                      span.card-settings-side.js-card-field-order-row(class="card-settings-side-{{cell.side}} {{#if cell.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}" data-side="{{cell.side}}")
+                        //- The same animated checkbox as On this card; only the
+                          one just clicked animates.
+                        a.flex.card-field-order-toggle(class="{{#if cell.writable}}{{cell.toggle}}{{else}}is-disabled{{/if}} {{#if cell.checked}}is-checked{{/if}} {{#if cell.animating}}is-animating{{/if}}" title="{{row.title}}" role="checkbox" aria-checked="{{#if cell.checked}}true{{else}}false{{/if}}")
+                          .materialCheckBox(class="{{#if cell.checked}}is-checked{{/if}}")
+                        //- The order of this side: up and down, as the Up and
+                          Down keys do on a focused arrow. A row that only
+                          modifies another (`after`) has no place of its own.
+                        if canModifyBoard
+                          if cell.positioned
+                            span.card-settings-position {{cell.position}}
+                            a.card-field-order-move.js-card-field-order-up(href="#" role="button" title="{{_ 'card-field-order-move-up'}}" aria-label="{{_ 'card-field-order-move-up'}}")
+                              i.fa.fa-arrow-up
+                            a.card-field-order-move.js-card-field-order-down(href="#" role="button" title="{{_ 'card-field-order-move-down'}}" aria-label="{{_ 'card-field-order-move-down'}}")
+                              i.fa.fa-arrow-down
+                    else
+                      span.card-settings-side.card-settings-side-empty(class="card-settings-side-{{cell.side}}")
+                  span.card-settings-line-label
+                    each icon in row.icons
+                      i.fa(class=icon aria-hidden="true")
+                    | {{row.title}}
+                    //- The user's own override of the board's "Labels text"
+                      default, tri-state: following the board or overriding it,
+                      with a way back to following it.
+                    if row.labelTextOverride
+                      if row.labelTextOverridden
+                        | &nbsp;
+                        a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
+                          | ({{_ 'label-text-overridden'}})
+                      else
+                        | &nbsp;({{_ 'label-text-follows-board'}})
 
 
 //- The board's Subtasks Settings. Its own template, because the same settings

@@ -33,8 +33,10 @@ const flagOf = key => CARD_SETTINGS_ROWS.find(r => r.key === key).card;
 
 test('every section field is a Board Settings / Card row with a card side', () => {
   for (const key of f.FIELD_KEYS) assert.ok(flagOf(key), key);
-  assert.strictEqual(new Set(f.FIELD_KEYS).size, f.FIELD_KEYS.length, 'each field in one section');
-  for (const s of f.SECTIONS) assert.ok(s.id && s.icon && s.labelKey && s.keys.length, s.id);
+  assert.strictEqual(new Set(f.FIELD_KEYS).size, f.FIELD_KEYS.length, 'each field once');
+  // Every per-card field is in a section of the popup.
+  const { SECTIONS } = require('../models/lib/cardSettingsSections.js');
+  for (const key of f.FIELD_KEYS) assert.ok(SECTIONS.some(s => s.keys.includes(key)), key);
 });
 
 test('an empty card shows only its description, attachments and comments', () => {
@@ -100,21 +102,11 @@ test('Board Settings / Card still decides what a card CAN show', () => {
   const card = { _id: 'c1', dueAt: new Date(), shownFields: ['dueDate'], scrum: { sprintId: 's' } };
   const view = f.boardForCard(board, card, {});
   assert.strictEqual(view.allowsDueDate, false, 'never turned back on by the card');
-  assert.ok(!f.addRows(board, card, 'date', {}).some(r => r.key === 'dueDate'), 'and not offered');
-  assert.ok(!f.addSections({ _id: 'b' }).some(s => s.id === 'scrum'), 'Scrum off: no Scrum section');
+  assert.strictEqual(f.boardAllows(board, 'dueDate'), false);
+  assert.strictEqual(f.boardAllows({ _id: 'b' }, 'scrumSprint'), false, 'Scrum fields are off until turned on');
   // A plain flag the board never set reads its row's default.
   assert.strictEqual(f.boardAllows({}, 'cardNumber'), false);
   assert.strictEqual(f.boardAllows({ allowsCardNumber: true }, 'cardNumber'), true);
-});
-
-test('the right pane: the open section\'s fields, each with its label, icons and tick', () => {
-  const board = fullBoard();
-  const card = { _id: 'c1', dueAt: new Date() };
-  const rows = f.addRows(board, card, 'date', {});
-  assert.deepStrictEqual(rows.map(r => r.key), ['receivedDate', 'startDate', 'dueDate', 'endDate', 'dueComplete']);
-  assert.deepStrictEqual(rows.map(r => r.shown), [false, false, true, false, false]);
-  assert.ok(rows.every(r => r.icons.length && r.label.length));
-  assert.strictEqual(f.addRows(board, card, 'nope', {})[0].key, 'receivedDate', 'an unknown section opens the first');
 });
 
 test('the same board object when the card shows everything; one cached view per set', () => {
@@ -137,14 +129,12 @@ test('the opened card: "+ Add" under the cover, the per-card currentBoard, the S
   const js = read('client/components/cards/cardAddFields.js');
   for (const name of ['cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
     'cardFieldSectionDependencies', 'cardFieldSectionSort', 'cardFieldSectionCustomFields',
-    'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription']) {
+    'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription', 'cardCommentsSection']) {
     assert.ok(js.includes(`'${name}'`), name);
   }
   assert.match(js, /Template\[name\]\.helpers\(\{\n\s+currentBoard\(\)/);
-  assert.match(js, /'click \.js-open-card-add-fields': Popup\.open\('cardAddFields'\)/);
-  // Titled by its own key, in every language the word that language has for Add.
-  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  assert.strictEqual(en['cardAddFieldsPopup-title'], en.add);
+  // "+ Add" opens Board Settings / Card - the same popup - for this card.
+  assert.match(js, /const data = \{ card \};\n\s+Popup\.open\('boardCardSettings'\)\.call\(\{ currentData: \(\) => data \}, event\);/);
   assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| cardShowsField\(this, s\)\)/);
   // Negative: every section template of the opened card that reads a board
   // flag is in the list - a new one left out would show empty fields again.
@@ -155,19 +145,33 @@ test('the opened card: "+ Add" under the cover, the per-card currentBoard, the S
   }
 });
 
-test('the popup is the Admin Panel\'s left menu and pane, with checkboxes', () => {
-  const jade = read('client/components/cards/cardAddFields.jade');
-  assert.match(jade, /\.setting-content\n\s+\.content-body\n\s+\+leftMenu\(menuItems\)\n\s+\.main-body\n\s+\+paneTitle\(paneTitleData\)/);
-  assert.match(jade, /a\.flex\.card-add-field\.js-card-add-field\(data-key=key role="checkbox"/);
-  assert.match(jade, /\.materialCheckBox\(class="\{\{#if shown\}\}is-checked\{\{\/if\}\}"\)/);
-  const js = read('client/components/cards/cardAddFields.js');
-  assert.match(js, /leftMenuData\(menuOf\(Utils\.getCurrentBoard\(\)\), sectionOf\(tpl\), 'js-card-add-fields-menu'\)/);
-  assert.match(js, /await Cards\.updateAsync\(card\._id, \{ \$set: next \}\)/);
-  const features = read('client/features/cards.js');
-  for (const ext of ['jade', 'js', 'css']) assert.ok(features.includes(`/client/components/cards/cardAddFields.${ext}'`), ext);
-  // The section titles are words WeKan already has, in every language.
+test('the popup is Board Settings / Card: sections on the left, Show on Minicard, Show on Card and On this card on the right', () => {
+  const jade = read('client/components/sidebar/sidebar.jade');
+  const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
+  assert.match(popup, /\+leftMenu\(settingsMenuItems\)\n\s+\.main-body\n\s+\+paneTitle\(settingsPaneTitle\)/);
+  assert.match(popup, /if settingsCardId\n\s+if row\.perCard\n\s+span\.card-settings-side\.card-settings-side-this\n\s+a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{row\.key\}\}" role="checkbox"/);
+  const js = read('client/components/sidebar/sidebar.js');
+  assert.match(js, /const next = cardShownFields\.cardFieldsAfter\(card, key, !cardShownFields\.isShown\(key, card, counts\), counts\);\n\s+await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
+  assert.match(js, /if \(!card \|\| !cardShownFields\.FIELD_KEYS\.includes\(key\) \|\| !Utils\.canModifyCard\(card\)\) return;/, 'negative: only a field key, only who may change the card');
+  // The old "+ Add" popup is gone; one popup, one set of handlers.
+  assert.ok(!fs.existsSync(path.join(root, 'client/components/cards/cardAddFields.jade')));
+  assert.doesNotMatch(read('client/features/cards.js'), /cardAddFields\.jade/);
+  // The section titles are words WeKan already has; "On this card" is in every language.
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  for (const s of f.SECTIONS) assert.ok(en[s.labelKey], s.labelKey);
+  const { SECTIONS } = require('../models/lib/cardSettingsSections.js');
+  for (const sec of SECTIONS) assert.ok(en[sec.labelKey], sec.labelKey);
+  assert.strictEqual(en['card-settings-this-card'], 'On this card');
+});
+
+test('"Scrum settings" is the section, not repeated before each of its rows', () => {
+  const { SECTIONS, labelInSection, rowsOfSection } = require('../models/lib/cardSettingsSections.js');
+  const scrum = SECTIONS.find(sec => sec.id === 'scrum');
+  for (const row of rowsOfSection('scrum')) {
+    assert.ok(!labelInSection(row, scrum).includes('scrum-settings'), row.key);
+    assert.strictEqual(labelInSection(row, scrum).length, 1, row.key);
+  }
+  // Negative: a one-word label is never emptied.
+  assert.deepStrictEqual(labelInSection({ label: ['scrum-settings'] }, scrum), ['scrum-settings']);
 });
 
 test('the card keeps its choices, and only field keys', () => {
@@ -207,17 +211,19 @@ test('the cover is on by default, and a new drawing is the cover', () => {
   assert.match(drawing, /\.\.\.\(isNew \? coverOf\(pngAttachmentId\) : \{\}\)/, 'an edit leaves the cover');
 });
 
-test('the "+ Add" popup: wide and high enough, moved and maximized like Drawing, no tick animates on opening a pane', () => {
-  const css = read('client/components/cards/cardAddFields.css');
-  assert.match(css, /\.pop-over\[data-popup="cardAddFieldsPopup"\] \{ width: min\(760px, calc\(100vw - 20px\)\); \}/, 'room for the labels');
-  assert.match(css, /\.pop-over\[data-popup="cardAddFieldsPopup"\] \.content-wrapper,\n\.pop-over\[data-popup="cardAddFieldsPopup"\] \.content-container \{ max-height: none; \}/, 'room for every menu entry');
-  assert.match(css, /\.card-add-fields \.materialCheckBox \{ transition: none; \}\n\.card-add-fields \.card-add-field\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
-  const js = read('client/components/cards/cardAddFields.js');
-  assert.match(js, /tpl\.animating\.set\(null\);\n\s+tpl\.section\.set\(event\.currentTarget\.dataset\.id\);/, 'opening a pane animates nothing');
-  assert.match(js, /tpl\.animating\.set\(event\.currentTarget\.dataset\.key\);/, 'the clicked one does');
+test('the popup: wide and high enough, moved and maximized, no tick animates on opening a pane', () => {
+  const popupCss = read('client/components/main/popup.css');
+  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-wrapper,\n\s+\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-container \{\n\s+max-height: none;/, 'room for every menu entry');
+  const css = read('client/components/sidebar/sidebar.css');
+  assert.match(css, /\.card-settings-sections \.materialCheckBox \{ transition: none; \}\n\.card-settings-sections \.card-add-field\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-field-order-toggle\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
+  // A board-wide checkbox animates when clicked too, and only that one.
+  assert.match(read('client/components/sidebar/sidebar.js'), /'click \.card-field-order-toggle'\(evt, tpl\) \{\n\s+const cell = evt\.currentTarget\.closest\('\.js-card-field-order-row'\);\n\s+if \(cell\) tpl\.animating\.set\(`\$\{cell\.dataset\.key\}:\$\{cell\.dataset\.side\}`\);/);
+  const js = read('client/components/sidebar/sidebar.js');
+  assert.match(js, /tpl\.animating\.set\(null\);\n\s+tpl\.settingsSection\.set\(evt\.currentTarget\.dataset\.id\);/, 'opening a pane animates nothing');
+  assert.match(js, /tpl\.animating\.set\(key\);/, 'the clicked one does');
   const popup = read('client/components/main/popup.js');
-  assert.match(popup, /MOVABLE_POPUPS = new Set\(\[[^\]]*'cardAddFieldsPopup'/);
-  assert.match(popup, /MAXIMIZABLE_POPUPS = new Set\(\[[^\]]*'cardAddFieldsPopup'/);
+  assert.match(popup, /MOVABLE_POPUPS = new Set\(\[[^\]]*'boardCardSettingsPopup'/);
+  assert.match(popup, /MAXIMIZABLE_POPUPS = new Set\(\[[^\]]*'boardCardSettingsPopup'/);
 });
 
 test('a maximized card has its comments section in the right column', () => {
@@ -226,6 +232,8 @@ test('a maximized card has its comments section in the right column', () => {
   assert.match(jade, /\.card-details-right\n\n\s+\/\/-[^\n]*\n\s+if cardMaximized\n\s+\+cardCommentsSection/);
   assert.strictEqual((jade.match(/\+commentForm/g) || []).length, 1, 'negative: one comments section, not two copies');
   assert.ok(read('client/components/cards/cardAddFields.js').includes("'cardCommentsSection'"), 'with the card\'s own view of the board');
+  // At the top of the right column there is nothing to separate it from: no rule.
+  assert.match(read('client/components/cards/cardDetails.css'), /\.card-details-right \.card-details-comments \.card-details-section-rule \{\n\s+display: none;/);
 });
 
 console.log(`cardShownFields: ${passed} passed`);

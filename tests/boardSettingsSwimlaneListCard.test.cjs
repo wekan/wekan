@@ -242,42 +242,30 @@ test('a non-admin still reaches the one PERSONAL row ("Labels text") via persona
   assert.ok(/personalOnly:\s*true/.test(handler), 'and asks for personalOnly when the user is not an admin');
 });
 
-// ── the headings: "Card field order" over two lists ───────────────────────────
+// ── the layout: sections on the left, Show on Minicard / Show on Card on the right
 
-test('one "Card field order" heading, above both lists, then Show on Minicard and Show on Card', () => {
-  // The popup was a three-column table (Show on Card / Show on Minicard /
-  // Description) with a separate "Card field order" list of arrows under it.
-  // It is two LISTS now - the minicard's rows in the board's minicard order,
-  // the card's rows in its card order - under one heading, with the arrows
-  // on every row (models/lib/cardFieldOrder.js, models/lib/cardSettingsRows.js).
+test('Board Settings / Card is the Admin Panel left menu and pane, with Show on Minicard and Show on Card', () => {
+  // docs/Features/Cards/Card-Fields.md (2026-10-25): the same popup the opened
+  // card's "+ Add" opens. It was one "Card field order" heading over two long
+  // lists; the rows are grouped into sections now, each line with its minicard
+  // and its card checkbox side by side.
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
-  const heading = form.indexOf("h4.card-field-order-heading {{_ 'card-field-order'}}");
-  const minicard = form.indexOf("{{_ 'show-on-minicard'}}");
-  const card = form.indexOf("{{_ 'show-on-card'}}");
-  const firstRow = form.indexOf('each row in');
-  assert.ok(heading !== -1, 'the heading is there');
-  assert.ok(heading < minicard && heading < card, 'and above both column headings');
-  assert.ok(minicard < firstRow, 'Show on Minicard heads the first list');
-  assert.ok(card > firstRow, 'Show on Card heads the second');
-  assert.ok(en['card-field-order'] && en['show-on-card'] && en['show-on-minicard'],
-    'all three are existing, already-translated keys');
-  assert.ok(!sidebarJade.includes('card-settings-grid'), 'no separate grid/heading markup is reintroduced');
-  assert.ok(!sidebarCss.includes('card-settings-grid'), 'and no CSS for one either');
+  assert.ok(form.includes('+leftMenu(settingsMenuItems)') && form.includes('+paneTitle(settingsPaneTitle)'));
+  const minicard = form.indexOf("span.card-settings-side-head.card-settings-side-head-minicard {{_ 'show-on-minicard'}}");
+  const card = form.indexOf("span.card-settings-side-head.card-settings-side-head-card {{_ 'show-on-card'}}");
+  assert.ok(minicard !== -1 && card !== -1 && minicard < card, 'Show on Minicard, then Show on Card');
+  assert.ok(en['show-on-card'] && en['show-on-minicard'], 'existing, translated keys');
+  assert.ok(!form.includes('card-field-order-heading'), 'the old single heading is gone (negative)');
 });
 
-test('Show on Minicard reads to the LEFT of Show on Card - now by markup order', () => {
-  // The old table kept the card column first in markup and swapped the two
-  // visually with `order`; with two lists there is nothing to swap, the
-  // minicard list is simply first, and the side-hiding rules name the list.
-  const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
-  assert.ok(tpl.indexOf('card-field-order-column-minicard') < tpl.indexOf('card-field-order-column-card'));
+test('a menu that asks for one side hides the other side\'s cells', () => {
   assert.ok(sidebarCss.includes(
-    '.board-card-settings.show-card-only .card-field-order-column-minicard,\n'
-    + '.board-card-settings.show-minicard-only .card-field-order-column-card {'),
-    'show-card-only hides the minicard list and show-minicard-only the card list');
-  assert.ok(!/card-settings-column:nth-child\(\d\) \{\n\s+order:/.test(sidebarCss),
-    'the nth-child order swap of the old table is gone (negative)');
+    '.board-card-settings.show-card-only .card-settings-side-minicard,\n'
+    + '.board-card-settings.show-card-only .card-settings-side-head-minicard,\n'
+    + '.board-card-settings.show-minicard-only .card-settings-side-card,\n'
+    + '.board-card-settings.show-minicard-only .card-settings-side-head-card {'),
+    'show-card-only hides the minicard cells and show-minicard-only the card cells');
 });
 
 console.log(`\nboardSettingsSwimlaneListCard: ${passed} tests passed`);

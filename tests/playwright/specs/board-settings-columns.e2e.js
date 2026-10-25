@@ -33,9 +33,14 @@ for (const section of ['Swimlane','List','Card']) test(`${section} column action
           const boxes = page.locator('.js-board-drag-setting');
           for (const box of await boxes.all()) enabled ? await expect(box).toBeChecked() : await expect(box).not.toBeChecked();
         } else if (section === 'Card') {
-          const toggles = page.locator(`.card-field-order-column-${column} .card-field-order-row:not(.card-settings-row-personal) .card-field-order-toggle`);
-          await expect(toggles).toHaveCount(fields.length);
+          // docs/Features/Cards/Card-Fields.md: the rows are in sections now,
+          // one section in the pane at a time - the database above says every
+          // field changed; the Labels section's checkboxes of this side show it.
+          await page.locator('.js-card-settings-menu[data-id="labels"]').click();
+          const toggles = page.locator(`.card-settings-line:not(.card-settings-row-personal) .card-settings-side-${column} .card-field-order-toggle`);
+          await expect.poll(() => toggles.count()).toBeGreaterThan(0);
           await expect.poll(() => toggles.evaluateAll((nodes, value) => nodes.every(node => node.classList.contains('is-checked') === value), enabled)).toBe(true);
+          await page.locator('.js-card-settings-menu[data-id="general"]').click();
         }
       }
       const after = db.findOne('boards',{_id:board.boardId});
@@ -69,36 +74,24 @@ test('column updates reject foreign boards, non-admin members and invalid column
   } finally { db.cleanup({boardIds:[other.boardId]}); }
 });
 
-test('Card settings place Draggable before Minicard and Card, in three columns or one ordered stack', async ({ boardPage: page, board }) => {
+test('Card settings are the Admin Panel left menu and pane: Draggable in the first entry, each section a line per row', async ({ boardPage: page, board }) => {
+  // docs/Features/Cards/Card-Fields.md (2026-10-25): it was three columns
+  // (Draggable, Show on Minicard, Show on Card); now a left menu of sections and
+  // a pane, the same popup the opened card's "+ Add" opens.
   await expect(page.locator(`#js-list-${board.listIds[0]}`)).toBeVisible();
-  for (const [width, narrowPopup] of [[1280, false], [1280, true], [800, false], [375, false]]) {
+  for (const width of [1280, 800, 375]) {
     await page.setViewportSize({ width, height: 900 });
     await openSettings(page, 'Card');
     const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
     await expect(popup).toBeVisible();
-    if (narrowPopup) await popup.evaluate(el => el.style.setProperty('width', '600px', 'important'));
-    const columns = popup.locator('.card-field-order-columns > .card-field-order-column');
-    await expect(columns).toHaveCount(3);
-    await expect(columns.nth(0)).toHaveClass(/column-draggable/);
-    await expect(columns.nth(1)).toHaveClass(/column-minicard/);
-    await expect(columns.nth(2)).toHaveClass(/column-card/);
-    await expect.poll(() => popup.locator('.card-field-order-columns').evaluate(el =>
-      getComputedStyle(el).gridTemplateColumns.split(' ').length)).toBe(width === 1280 && !narrowPopup ? 3 : 1);
-    const [drag, mini, card] = await columns.evaluateAll(els => els.map(el => {
-      const r = el.getBoundingClientRect();
-      return { x: r.x, y: r.y, right: r.right, bottom: r.bottom };
-    }));
-    if (width === 1280 && !narrowPopup) {
-      expect(drag.right).toBeLessThanOrEqual(mini.x);
-      expect(mini.right).toBeLessThanOrEqual(card.x);
-      expect(drag.y).toBeCloseTo(mini.y, 0);
-      expect(mini.y).toBeCloseTo(card.y, 0);
-    } else {
-      expect(mini.y).toBeGreaterThanOrEqual(drag.bottom);
-      expect(card.y).toBeGreaterThanOrEqual(mini.bottom);
-      expect(drag.x).toBeCloseTo(mini.x, 0);
-      expect(mini.x).toBeCloseTo(card.x, 0);
-    }
+    await expect(popup.locator('.setting-content .content-body .side-menu')).toBeVisible();
+    await expect(popup.locator('.board-drag-settings')).toBeVisible();
+    await popup.locator('.js-card-settings-menu[data-id="date"]').click();
+    await expect(popup.locator('.board-drag-settings')).toHaveCount(0);
+    const line = popup.locator('.card-settings-line[data-key="dueDate"]');
+    await expect(line).toBeVisible();
+    const [mini, card] = await Promise.all(['minicard', 'card'].map(side => line.locator(`.card-settings-side-${side}`).boundingBox()));
+    expect(mini.x).toBeLessThan(card.x);
     expect(await popup.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
   }
 });

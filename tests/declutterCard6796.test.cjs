@@ -152,44 +152,27 @@ test('Checklists: the bottom controls share a line, and the bottom "+" waits for
 const offsetSrc = read('client/lib/popupOffset.js');
 const offset = vm.runInNewContext(`(() => { ${offsetSrc.replace(/^export \{[^}]*\};?\s*$/m, '')}\n return { computePopupOffset, CARD_SETTINGS_MAX_WIDTH }; })()`);
 
-test('the popup is a centred panel as wide (up to 1800px) and tall as the window', () => {
+test('the popup is a centred panel as wide (up to 900px) and tall as the window', () => {
+  // 1800px fitted two long lists side by side; the Admin Panel's menu and pane
+  // (docs/Features/Cards/Card-Fields.md) need a row's label and its two sides.
   const base = { popupName: 'boardCardSettingsPopup', viewportHeight: 1080, openerTopVp: 40, openerBottomVp: 60,
     openerLeftVp: 1700, scrollTop: 0, scrollLeft: 0 };
   const wide = offset.computePopupOffset({ ...base, viewportWidth: 1920 });
-  assert.strictEqual(offset.CARD_SETTINGS_MAX_WIDTH, 1800);
-  assert.strictEqual(wide.left, 60);
+  assert.strictEqual(offset.CARD_SETTINGS_MAX_WIDTH, 900);
+  assert.strictEqual(wide.left, 510);
   assert.strictEqual(wide.top, 12);
   assert.strictEqual(wide.maxHeight, 1056);
-  const laptop = offset.computePopupOffset({ ...base, viewportWidth: 1366, viewportHeight: 768 });
-  assert.ok(Math.abs(laptop.left - (1366 - 1366 * 0.96) / 2) < 0.01);
+  const narrow = offset.computePopupOffset({ ...base, viewportWidth: 900, viewportHeight: 768 });
+  assert.ok(Math.abs(narrow.left - (900 - 900 * 0.96) / 2) < 0.01);
   // A phone is still the full-screen sheet.
   assert.deepStrictEqual({ ...offset.computePopupOffset({ ...base, viewportWidth: 600 }) }, { left: 0, top: 0 });
   // The CSS says the same width.
-  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 1800px\) !important;[^}]*max-height: calc\(100dvh - 24px\) !important;/);
+  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 900px\) !important;[^}]*max-height: calc\(100dvh - 24px\) !important;/);
 });
 
-test('each list spreads into columns read top to bottom, rows unbroken, headings across', () => {
-  const block = sidebarCss.slice(sidebarCss.indexOf('@container (min-width: 1100px)'));
-  assert.match(block, /\.card-field-order-column-minicard,\s*\.card-field-order-column-card \{\s*column-width: 10em;/);
-  assert.match(block, /> :not\(\.card-field-order-row\) \{\s*column-span: all;/);
-  assert.match(block, /\.card-field-order-row \{\s*break-inside: avoid;/);
-});
-
-test('Card Settings rows drag by handle, icon or label, and sideways between columns', () => {
-  const sidebarJade = read('client/components/sidebar/sidebar.jade');
-  const sidebarJs = read('client/components/sidebar/sidebar.js');
-  const popupJade = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
-  const labels = popupJade.match(/span\.card-field-order-label\(class="[^"]*"/g).slice(0, 2);
-  for (const label of labels) {
-    assert.match(label, /\{\{#if canModifyBoard\}\}\{\{#if row\.positioned\}\}js-card-field-order-handle/);
-    assert.ok(!label.includes('showDragHandles'), 'whether handles are on or off');
-  }
-  assert.match(sidebarJs, /function reorderOnDrop\(\$list, \{ items, handle, keyOf, drop, axis = 'y' \}\)/);
-  const cardSettings = sidebarJs.slice(sidebarJs.indexOf('Template.boardCardSettingsPopup.onRendered'));
-  assert.match(cardSettings.slice(0, 600), /axis: false,/, 'the rows flow into columns, so no axis lock');
-  // Board View is one column and keeps the default.
-  const boardView = sidebarJs.slice(sidebarJs.indexOf('Template.boardViewSettingsPopup.onRendered'));
-  assert.ok(!/axis:/.test(boardView.slice(0, boardView.indexOf('});'))));
+test('each row is one line: its label, then the minicard cell and the card cell', () => {
+  assert.match(sidebarCss, /\.card-settings-pane-head,\n\.card-settings-line \{\n\s+display: grid;/);
+  assert.ok(!sidebarCss.includes('.card-field-order-column-minicard'), 'the column layout is gone (negative)');
 });
 
 console.log(`\n${passed} passed`);

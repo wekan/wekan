@@ -63,7 +63,9 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
     await Meteor.callAsync('setLanguage', 'st');
     Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
-  const heading = page.locator('.js-pop-over .card-field-order-heading');
+  // The label column's heading of a section pane (docs/Features/Cards/Card-Fields.md).
+  await page.locator('.js-pop-over .js-card-settings-menu[data-id="date"]').click();
+  const heading = page.locator('.js-pop-over .card-settings-pane-head-label');
   await expect(heading).toHaveText('Tatellano ya dikarolo tsa karete');
   await expect(heading).not.toContainText('masimo');
   await page.evaluate(() => Popup.close());

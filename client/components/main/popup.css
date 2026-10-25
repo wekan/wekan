@@ -373,13 +373,20 @@
      both lists is read without scrolling. client/lib/popupOffset.js centres
      it at this width (CARD_SETTINGS_MAX_WIDTH) and gives it the window's
      height. */
+  /* Board Settings / Card, and the opened card's "+ Add": the Admin Panel's
+     left menu and right pane, wide enough for a row's label and both sides
+     (sidebar.css .card-settings-sections). */
   .pop-over[data-popup='boardCardSettingsPopup'] {
     position: fixed;
     box-sizing: border-box;
-    width: min(96vw, 1800px) !important;
+    width: min(96vw, 900px) !important;
     max-width: 96vw !important;
     max-height: calc(100dvh - 24px) !important;
     margin-top: 0;
+  }
+  .pop-over[data-popup='boardCardSettingsPopup'] .content-wrapper,
+  .pop-over[data-popup='boardCardSettingsPopup'] .content-container {
+    max-height: none;
   }
 
   /* Board Settings / Board View: five columns, four of them headed by a

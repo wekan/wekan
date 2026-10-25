@@ -8,48 +8,49 @@ labels.
 
 **Show on Card** says what the cards of the board CAN show. Each opened card
 then shows only the fields it has data in - plus its description, attachments
-and comments - and its own **+ Add** adds the rest
+and comments - and its own **+ Add** opens this same popup, with an **On this
+card** checkbox beside each field
 ([Card fields](../../Cards/Card-Fields.md)).
+
+The popup is the Admin Panel's left menu and pane: the rows are grouped into
+sections (Date, Members, Labels, ... Scrum settings, Comments, Card), and each
+row is one line with its **Show on Minicard** and **Show on Card** checkbox,
+its position on each side and the **up and down arrows** that move it there.
+The first menu entry, **Card Settings**, holds Ask for a reason when moving
+cards, the select-all of each side and the Draggable table.
 
 ## Where to find it
 
-**Board sidebar (hamburger menu) → Board Settings → Card.** When the popup
-has enough width, its sections appear side by side:
+**Board sidebar (hamburger menu) → Board Settings → Card**, or **+ Add** on
+an opened card. The left menu lists the sections; the right pane shows the
+open section's rows:
 
-| Draggable | Show on Minicard | Show on Card |
-| --- | --- | --- |
-| Drag permission toggles | Minicard visibility and order | Opened-card visibility and order |
-
-When space is insufficient, all three sections stack in that order: Draggable
-first, then Show on Minicard, then Show on Card. The layout follows the popup's
-available width, including when a wide screen contains a narrow popup.
-
-Every row of either list reads the same way:
+| Label | Show on Minicard | Show on Card | On this card |
+| --- | --- | --- | --- |
+| the field, with the icon and name the card uses | checkbox, position, ▲ ▼ | checkbox, position, ▲ ▼ | opened from a card only |
 
 | part | what it does |
 | --- | --- |
 | checkbox | whether that side shows the field at all - the same board toggles as before (`allowsLabels`, `allowsLabelsOnMinicard`, ...) |
+| position | where the field is on that side, counted among the fields that move |
 | ▲ ▼ | move the field earlier or later **on that side only** |
-| icon and name | the field, with the same icon and name the card uses for it |
 
-The **Show on Minicard** list is in the board's minicard order and the
-**Show on Card** list in its card order. They are independent: a field can
-be third on the minicard and last on the card. What either list shows top to
-bottom is what that surface draws top to bottom.
+The minicard order and the card order are independent: a field can be third
+on the minicard and last on the card. On a narrow screen the menu stacks above
+the pane, as it does in the Admin Panel.
 
 ## Steps to use it
 
 1. Open a board you are an admin of, click the sidebar's hamburger menu,
-   then **Board Settings → Card**.
-2. In the **Show on Card** list, click ▲ or ▼ beside a field to move it on
-   the opened card; in the **Show on Minicard** list, to move it on the
-   minicard.
-3. The change takes effect immediately on every card of this board; there
+   then **Board Settings → Card** - or click **+ Add** on an opened card.
+2. Pick a section in the left menu.
+3. In a row's **Show on Card** cell, click ▲ or ▼ to move the field on the
+   opened card; in its **Show on Minicard** cell, to move it on the minicard.
+4. The change takes effect immediately on every card of this board; there
    is no separate save step.
-4. Untick a checkbox to hide the field on that side; tick it to show it.
+5. Untick a checkbox to hide the field on that side; tick it to show it.
 
-An arrow that would do nothing is greyed out, so a row's arrows also tell
-you what can move (see below).
+A row that cannot move (see below) has no arrows on that side.
 
 ## What moves, and how
 

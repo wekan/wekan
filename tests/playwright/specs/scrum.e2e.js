@@ -107,13 +107,16 @@ test('Board Settings reveals Scrum minicard fields and preserves independent car
  await page.evaluate(()=>{Popup.close();const opener=document.body;Popup.open('boardCardSettings')({currentTarget:opener,target:opener,preventDefault(){},stopPropagation(){}});});
  const popup=page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
  await expect(popup).toBeVisible();
- // Every Scrum field is a row of both columns (2026-10-02), "Scrum settings: <field>",
- // ordered with the other rows; the old separate Scrum checkbox list is gone.
+ // Every Scrum field is a row of the Scrum settings section (2026-10-25,
+ // docs/Features/Cards/Card-Fields.md), its name without "Scrum settings: "
+ // before it - the section's title says that once; the old separate Scrum
+ // checkbox list is gone.
  await expect(popup.locator('input.js-scrum-visibility')).toHaveCount(0);
+ await popup.locator('.js-card-settings-menu[data-id="scrum"]').click();
+ await expect(popup.locator('.card-settings-line[data-key="scrumBacklogRank"] .card-settings-line-label')).toHaveText('Backlog rank');
+ await expect(popup.locator('.card-settings-line[data-key="scrumSprint"] .card-settings-line-label')).toHaveText('Sprint');
  for(const side of ['card','minicard']){
-  const row=popup.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumBacklogRank"]`);
-  await expect(row).toContainText('Scrum settings: Backlog rank');
-  await expect(popup.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumSprint"]`)).toContainText('Scrum settings: Sprint');
+  await expect(popup.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumBacklogRank"] .card-field-order-toggle`)).toHaveCount(1);
  }
  await popup.locator('.js-card-field-order-row[data-side="minicard"][data-key="scrumBacklogRank"] .card-field-order-toggle').click();
  await expect.poll(()=>db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.minicardBacklogRank).toBe(true);

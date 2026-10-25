@@ -1,37 +1,5 @@
-/* "+ Add" on the opened card (docs/Features/Cards/Card-Fields.md). */
+/* "+ Add" on the opened card (docs/Features/Cards/Card-Fields.md): it opens
+   Board Settings / Card for this card (sidebar.css .card-settings-sections). */
 .card-details-add-fields { padding: 4px 0 2px; }
 .card-details-add-fields-button { display: inline-flex; align-items: center; gap: 0.3em; padding: 2px 8px; border-radius: 3px; }
 .card-details-add-fields-button:hover { background: rgba(0, 0, 0, 0.06); }
-
-/* The popup is the Admin Panel's menu and pane (settingBody.css), in a box of
-   its own size instead of the whole page. */
-/* Wide enough for the menu AND the pane's labels where the window allows; the
-   popup frame's own width (popup.css) is a narrow menu's, which left the pane
-   only its checkboxes and icons. */
-.pop-over[data-popup="cardAddFieldsPopup"] { width: min(760px, calc(100vw - 20px)); }
-.card-add-fields { width: 100%; }
-.card-add-fields .setting-content {
-  position: relative;
-  height: 40em;
-  max-height: calc(90vh - 5em);
-  background: transparent;
-}
-/* Room for every section of the menu where the window has it: the popup
-   frame's own 70vh cap on its content (popup.css) cut the menu's last entries. */
-.pop-over[data-popup="cardAddFieldsPopup"] .content-wrapper,
-.pop-over[data-popup="cardAddFieldsPopup"] .content-container { max-height: none; }
-/* A pane opened shows its ticks as they are; only the checkbox just clicked
-   animates (cardAddFields.js `animating`). */
-.card-add-fields .materialCheckBox { transition: none; }
-.card-add-fields .card-add-field.is-animating .materialCheckBox { transition: 0.2s; }
-.card-add-fields .main-body { flex: 1 1 auto; min-width: 16em; }
-.card-add-field-label { white-space: normal; overflow-wrap: anywhere; }
-/* Maximized, it takes the window. */
-.pop-over--maximized .card-add-fields .setting-content { height: calc(100vh - 6em); }
-.card-add-fields .setting-content .content-body { height: 100%; }
-.card-add-fields .main-body { overflow: auto; }
-.card-add-fields-list { list-style: none; margin: 0; padding: 0; }
-.card-add-fields-list li { margin: 2px 0; }
-.card-add-field { display: flex; align-items: center; gap: 0.5em; padding: 4px 6px; border-radius: 3px; }
-.card-add-field:hover { background: rgba(0, 0, 0, 0.05); }
-.card-add-field-icons { display: inline-flex; gap: 0.2em; min-width: 1.6em; }

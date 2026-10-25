@@ -1,11 +1,6 @@
 import './cardDetails.jade';
-import './cardAddFields.jade';
-import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
-import Cards from '/models/cards';
-import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 
 // docs/Features/Cards/Card-Fields.md: an opened card shows only the fields it
 // has data in - and its description, attachments and comments, empty or not -
@@ -67,63 +62,16 @@ export function cardShowsField(data, key) {
   return !card || f.isShown(key, card, cardFieldCounts(card));
 }
 
+// "+ Add" opens Board Settings / Card - the same popup - for this card: its
+// sections, each row's "Show on Minicard" and "Show on Card", and whether this
+// card shows the field (client/components/sidebar/sidebar.js). Overriding
+// `currentData` is what reaches the popup's data context (as Board Settings'
+// own opener does).
 Template.cardDetails.events({
-  'click .js-open-card-add-fields': Popup.open('cardAddFields'),
-});
-
-Template.cardAddFieldsPopup.onCreated(function () {
-  this.section = new ReactiveVar(null);
-  // The one checkbox that animates: the one just clicked. A pane opened shows
-  // its ticks as they are - its rows are reused from the last pane, and a tick
-  // that changes there must not play the animation.
-  this.animating = new ReactiveVar(null);
-});
-
-function sectionOf(tpl) {
-  const board = Utils.getCurrentBoard();
-  const sections = f.addSections(board);
-  const chosen = tpl.section.get();
-  return (sections.find(s => s.id === chosen) || sections[0] || {}).id;
-}
-
-function menuOf(board) {
-  return f.addSections(board).map(s => ({ id: s.id, icon: s.icon, labelKey: s.labelKey }));
-}
-
-Template.cardAddFieldsPopup.helpers({
-  menuItems() {
-    const tpl = Template.instance();
-    return leftMenuData(menuOf(Utils.getCurrentBoard()), sectionOf(tpl), 'js-card-add-fields-menu');
-  },
-  paneTitleData() {
-    const tpl = Template.instance();
-    return paneTitle(menuOf(Utils.getCurrentBoard()), sectionOf(tpl));
-  },
-  rows() {
-    const tpl = Template.instance();
+  'click .js-open-card-add-fields'(event) {
     const card = cardOf(Template.currentData());
-    return f.addRows(Utils.getCurrentBoard(), card, sectionOf(tpl), cardFieldCounts(card));
-  },
-  isAnimating(key) { return Template.instance().animating.get() === key; },
-  rowLabel() {
-    return (this.label || []).map(k => TAPi18n.__(k)).join(this.labelSeparator || ' ');
-  },
-});
-
-Template.cardAddFieldsPopup.events({
-  'click .js-card-add-fields-menu'(event, tpl) {
-    event.preventDefault();
-    tpl.animating.set(null);
-    tpl.section.set(event.currentTarget.dataset.id);
-  },
-  async 'click .js-card-add-field'(event, tpl) {
-    event.preventDefault();
-    tpl.animating.set(event.currentTarget.dataset.key);
-    const card = cardOf(Template.currentData());
-    const key = event.currentTarget.dataset.key;
-    if (!card || !f.FIELD_KEYS.includes(key)) return;
-    const counts = cardFieldCounts(card);
-    const next = f.cardFieldsAfter(card, key, !f.isShown(key, card, counts), counts);
-    await Cards.updateAsync(card._id, { $set: next });
+    if (!card) return;
+    const data = { card };
+    Popup.open('boardCardSettings').call({ currentData: () => data }, event);
   },
 });

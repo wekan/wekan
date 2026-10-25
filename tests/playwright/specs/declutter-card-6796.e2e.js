@@ -79,79 +79,52 @@ test('a field\'s add button is on its title\'s line, and the attachment list is 
   }
 });
 
-test('Board Settings / Card is read without scrolling on a 1920x1080 screen, with the new rows', async ({ boardPage: page, board }) => {
+test('Board Settings / Card: the attachment rows are in the Attachments section, each a working Show on Card', async ({ boardPage: page, board }) => {
+  // docs/Features/Cards/Card-Fields.md (2026-10-25): sections in a left menu
+  // instead of two long lists spread over a 1800px panel.
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.locator('.js-toggle-page-sidebar').first().click();
   await page.locator('.board-sidebar .js-open-board-menu').click();
   await page.locator('.js-pop-over .js-open-board-card-settings').click();
   const form = page.locator('.js-pop-over .board-card-settings');
   await form.waitFor();
-  const fit = await page.evaluate(() => {
-    const pop = document.querySelector('.js-pop-over');
-    const wrapper = pop.querySelector('.content-wrapper') || pop;
-    return { width: pop.offsetWidth, scroll: wrapper.scrollHeight - wrapper.clientHeight };
-  });
-  expect(fit.width).toBeGreaterThan(1500);
-  expect(fit.scroll).toBeLessThanOrEqual(2);
-  // Each list is in more than one column.
-  const lefts = await form.locator('.card-field-order-column-card .card-field-order-row').evaluateAll(
-    rows => new Set(rows.map(r => Math.round(r.getBoundingClientRect().left))).size);
-  expect(lefts).toBeGreaterThan(1);
-
+  await form.locator('.js-card-settings-menu[data-id="attachments"]').click();
   for (const [key, field] of [['attachmentPreviews', 'allowsAttachmentPreviewsOnCard'], ['attachmentDetails', 'allowsAttachmentDetailsOnCard']]) {
-    const row = form.locator(`.card-field-order-column-card .js-card-field-order-row[data-key="${key}"]`);
-    await expect(row).toBeVisible();
-    await expect(row.locator('.card-field-order-toggle')).toHaveClass(/is-checked/);
-    await row.locator('.card-field-order-toggle').click();
+    const cell = form.locator(`.js-card-field-order-row[data-key="${key}"][data-side="card"]`);
+    await expect(cell).toBeVisible();
+    await expect(cell.locator('.card-field-order-toggle')).toHaveClass(/is-checked/);
+    await cell.locator('.card-field-order-toggle').click();
     await expect.poll(() => db.findOne('boards', { _id: board.boardId })[field]).toBe(false);
     db.updateOne('boards', { _id: board.boardId }, { $unset: { [field]: 1 } });
   }
 });
 
-// Card Settings rows reorder by drag and drop. With drag handles on, a row is
-// dragged by its handle, its icon or its label; with them off there is no
-// handle, and it is dragged by its icon or its label. The rows flow into
-// several columns, so a drop may land beside a row as well as under it.
-async function openCardSettings(page) {
-  await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.locator('.js-toggle-page-sidebar').first().click();
-  await page.locator('.board-sidebar .js-open-board-menu').click();
-  await page.locator('.js-pop-over .js-open-board-card-settings').click();
-  const form = page.locator('.js-pop-over .board-card-settings');
-  await form.waitFor();
-  return form;
-}
-async function dragRow(page, from, to) {
-  const a = await from.boundingBox();
-  const b = await to.boundingBox();
-  await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
-  await page.mouse.down();
-  for (let i = 1; i <= 12; i += 1) {
-    await page.mouse.move(a.x + a.width / 2 + ((b.x - a.x) * i) / 12, a.y + a.height / 2 + ((b.y + b.height * 0.75 - a.y - a.height / 2) * i) / 12);
-  }
-  await page.mouse.up();
-}
+// Card Settings: each side of a row has its order arrows (the maintainer's
+// choice with the sections, 2026-10-25), and the Up and Down keys on a focused
+// arrow do the same; a row that only modifies another has none.
 const cardOrder = board => db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
 
-for (const [handles, grab] of [[true, 'label'], [true, 'handle'], [false, 'label']]) {
-  test(`Card Settings: with drag handles ${handles ? 'on' : 'off'}, a row is dragged by its ${grab}`, async ({ boardPage: page, board, user }) => {
-    db.updateOne('users', { _id: user.id }, { $set: { 'profile.showDesktopDragHandles': handles } });
-    try {
-      await page.reload();
-      const form = await openCardSettings(page);
-      const card = form.locator('.card-field-order-column-card');
-      const row = card.locator('.js-card-field-order-row[data-key="dependencies"]');
-      await expect(row.locator('.card-field-order-handle')).toHaveCount(handles ? 1 : 0);
-      await expect(row.locator('.card-field-order-label')).toHaveClass(/js-card-field-order-handle/);
-      const target = card.locator('.js-card-field-order-row[data-key="receivedDate"]');
-      const before = cardOrder(board).join(' ');
-      await dragRow(page, grab === 'handle' ? row.locator('.card-field-order-handle') : row.locator('.card-field-order-label'), target);
-      await expect.poll(() => cardOrder(board).join(' ')).not.toBe(before);
-      const order = cardOrder(board);
-      expect(order.indexOf('dependencies')).toBeLessThan(order.indexOf('members'));
-    } finally {
-      db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: 1 } });
-      db.updateOne('users', { _id: user.id }, { $unset: { 'profile.showDesktopDragHandles': 1 } });
-    }
-  });
-}
+test('Card Settings: the order arrows move a field on its own side', async ({ boardPage: page, board }) => {
+  try {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.locator('.js-toggle-page-sidebar').first().click();
+    await page.locator('.board-sidebar .js-open-board-menu').click();
+    await page.locator('.js-pop-over .js-open-board-card-settings').click();
+    const form = page.locator('.js-pop-over .board-card-settings');
+    await form.waitFor();
+    await form.locator('.js-card-settings-menu[data-id="date"]').click();
+    const due = form.locator('.js-card-field-order-row[data-key="dueDate"][data-side="card"]');
+    const before = cardOrder(board);
+    await due.locator('.js-card-field-order-up').click();
+    await expect.poll(() => cardOrder(board).join(' ')).not.toBe(before.join(' '));
+    const order = cardOrder(board);
+    expect(order.indexOf('dueDate')).toBeLessThan(order.indexOf('startDate'));
+    // The minicard's order is not touched by the card's arrow.
+    expect(db.findOne('boards', { _id: board.boardId }).minicardFieldOrder).toBeFalsy();
+    // Negative: a modifier row has no arrows.
+    await form.locator('.js-card-settings-menu[data-id="checklists"]').click();
+    await expect(form.locator('.js-card-field-order-row[data-key="checklistDueDate"][data-side="card"] .js-card-field-order-up')).toHaveCount(0);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: 1 } });
+  }
+});

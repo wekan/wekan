@@ -31,8 +31,8 @@ test('the Drawing popup is movable and maximizable; Board View settings stays mo
   assert.ok(setOf('MOVABLE_POPUPS').includes('boardViewSettingsPopup'));
   assert.ok(setOf('MAXIMIZABLE_POPUPS').includes('cardDrawingPopup'));
   // The opened card's "+ Add" popup (docs/Features/Cards/Card-Fields.md).
-  assert.ok(setOf('MOVABLE_POPUPS').includes('cardAddFieldsPopup'));
-  assert.ok(setOf('MAXIMIZABLE_POPUPS').includes('cardAddFieldsPopup'));
+  assert.ok(setOf('MOVABLE_POPUPS').includes('boardCardSettingsPopup'), 'Board Settings / Card, also the opened card\'s + Add');
+  assert.ok(setOf('MAXIMIZABLE_POPUPS').includes('boardCardSettingsPopup'));
 });
 
 test('the header has the drag handle and the maximize / minimize button, only where enabled', () => {
