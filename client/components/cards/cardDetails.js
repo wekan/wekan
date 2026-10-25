@@ -866,11 +866,18 @@ Template.cardDetails.helpers({
   // models/lib/cardFieldOrder.js
   orderedCardFieldSections() {
     const board = this?.board?.();
+    let sections;
     if (board && typeof board.getCardFieldOrder === 'function') {
-      return board.getCardFieldOrder();
+      sections = board.getCardFieldOrder();
+    } else {
+      const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
+      sections = applyCardFieldOrder(board?.cardFieldOrder);
     }
-    const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
-    return applyCardFieldOrder(board?.cardFieldOrder);
+    // A Scrum field is its own section with no board flag in this template to
+    // read: the card leaves out the ones it does not show
+    // (docs/Features/Cards/Card-Fields.md).
+    const { cardShowsField } = require('/client/components/cards/cardAddFields');
+    return sections.filter(s => !/^scrum[A-Z]/.test(s) || cardShowsField(this, s));
   },
 
   cardMaximized() {

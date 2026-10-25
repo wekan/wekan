@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "შეცვალეთ საბოლოო თარიღი",
   "setCardColorPopup-title": "ფერის დაყენება",
   "cardDrawingPopup-title": "ნახატი",
+  "cardAddFieldsPopup-title": "დამატება",
   "card-drawing-new": "ახალი ნახატი",
   "card-drawing-undo": "ბოლო შტრიხის გაუქმება",
   "card-drawing-clear": "გასუფთავება",

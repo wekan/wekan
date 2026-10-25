@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Muuda lõppkuupäeva",
   "setCardColorPopup-title": "Värvi määramine",
   "cardDrawingPopup-title": "Joonistus",
+  "cardAddFieldsPopup-title": "Lisa",
   "card-drawing-new": "Uus joonistus",
   "card-drawing-undo": "Võta viimane joon tagasi",
   "card-drawing-clear": "Tühjenda",

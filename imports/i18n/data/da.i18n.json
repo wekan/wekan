@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Tilpas slutdato",
   "setCardColorPopup-title": "Angiv farve",
   "cardDrawingPopup-title": "Tegning",
+  "cardAddFieldsPopup-title": "Tilføj",
   "card-drawing-new": "Ny tegning",
   "card-drawing-undo": "Fortryd det sidste strøg",
   "card-drawing-clear": "Ryd",

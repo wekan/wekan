@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "終了日の変更",
   "setCardColorPopup-title": "色を選択",
   "cardDrawingPopup-title": "手描き",
+  "cardAddFieldsPopup-title": "追加",
   "card-drawing-new": "新しい手描き",
   "card-drawing-undo": "最後の一筆を元に戻す",
   "card-drawing-clear": "消去",

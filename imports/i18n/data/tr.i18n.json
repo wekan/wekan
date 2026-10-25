@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Bitiş tarihini değiştir",
   "setCardColorPopup-title": "Renk ayarla",
   "cardDrawingPopup-title": "Çizim",
+  "cardAddFieldsPopup-title": "Ekle",
   "card-drawing-new": "Yeni çizim",
   "card-drawing-undo": "Son çizgiyi geri al",
   "card-drawing-clear": "Temizle",

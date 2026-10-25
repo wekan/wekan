@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Cambiar a data de fin",
   "setCardColorPopup-title": "Establecer cor",
   "cardDrawingPopup-title": "Debuxo",
+  "cardAddFieldsPopup-title": "Engadir",
   "card-drawing-new": "Novo debuxo",
   "card-drawing-undo": "Desfacer o último trazo",
   "card-drawing-clear": "Limpar",

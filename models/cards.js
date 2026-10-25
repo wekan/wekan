@@ -5,6 +5,7 @@ import { EJSON } from 'meteor/ejson';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
 const { wipLimitBlocksRestore } = require('/models/lib/wipRestore');
+const { FIELD_KEYS: CARD_SHOWN_FIELD_KEYS } = require('/models/lib/cardShownFields');
 import {
   formatDateTime,
   formatDate,
@@ -1099,6 +1100,30 @@ Cards.attachSchema(
        */
       type: Boolean,
       optional: true,
+    },
+    shownFields: {
+      /**
+       * the fields this card shows although they are empty, ticked in the opened
+       * card's "+ Add" (docs/Features/Cards/Card-Fields.md,
+       * models/lib/cardShownFields.js)
+       */
+      type: Array,
+      optional: true,
+    },
+    'shownFields.$': {
+      type: String,
+      allowedValues: CARD_SHOWN_FIELD_KEYS,
+    },
+    hiddenFields: {
+      /**
+       * the fields this card hides although they have data, unticked in "+ Add"
+       */
+      type: Array,
+      optional: true,
+    },
+    'hiddenFields.$': {
+      type: String,
+      allowedValues: CARD_SHOWN_FIELD_KEYS,
     },
     showChecklistAtMinicard: {
       /**

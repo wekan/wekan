@@ -6,6 +6,11 @@ Description or Custom Fields and wants that section first, right under the
 card title, or wants the minicard to lead with its due date rather than its
 labels.
 
+**Show on Card** says what the cards of the board CAN show. Each opened card
+then shows only the fields it has data in - plus its description, attachments
+and comments - and its own **+ Add** adds the rest
+([Card fields](../../Cards/Card-Fields.md)).
+
 ## Where to find it
 
 **Board sidebar (hamburger menu) → Board Settings → Card.** When the popup

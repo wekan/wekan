@@ -1,0 +1,181 @@
+'use strict';
+
+// docs/Features/Cards/Card-Fields.md: an opened card shows only the fields it
+// has data in - plus its description, attachments and comments, empty or not,
+// and its cover when it has one - and "+ Add", under the cover, chooses the
+// rest for this card, in the Admin Panel's left menu and right pane.
+// Run: node tests/cardShownFields.test.cjs
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const f = require('../models/lib/cardShownFields.js');
+const { CARD_SETTINGS_ROWS } = require('../models/lib/cardSettingsRows.js');
+
+const root = path.join(__dirname, '..');
+const read = p => fs.readFileSync(path.join(root, p), 'utf8');
+let passed = 0;
+function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
+
+console.log('cardShownFields:');
+
+// A board that allows every per-card field.
+const fullBoard = () => {
+  const b = { _id: 'b1', scrum: { visibility: {} } };
+  for (const key of f.FIELD_KEYS) {
+    const spec = CARD_SETTINGS_ROWS.find(r => r.key === key).card;
+    if (spec.scrum) b.scrum.visibility[spec.scrum] = true;
+    else b[spec.field] = true;
+  }
+  return b;
+};
+const flagOf = key => CARD_SETTINGS_ROWS.find(r => r.key === key).card;
+
+test('every section field is a Board Settings / Card row with a card side', () => {
+  for (const key of f.FIELD_KEYS) assert.ok(flagOf(key), key);
+  assert.strictEqual(new Set(f.FIELD_KEYS).size, f.FIELD_KEYS.length, 'each field in one section');
+  for (const s of f.SECTIONS) assert.ok(s.id && s.icon && s.labelKey && s.keys.length, s.id);
+});
+
+test('an empty card shows only its description, attachments and comments', () => {
+  const card = { _id: 'c1' };
+  const shown = f.FIELD_KEYS.filter(k => f.isShown(k, card, {}));
+  assert.deepStrictEqual(shown.sort(), ['attachments', 'comments', 'descriptionText', 'descriptionTitle']);
+  const view = f.boardForCard(fullBoard(), card, {});
+  assert.strictEqual(view.allowsDueDate, false);
+  assert.strictEqual(view.allowsLabels, false);
+  assert.strictEqual(view.allowsCoverAttachmentOnCard, false, 'no cover set');
+  assert.strictEqual(view.allowsDescriptionText, true);
+  assert.strictEqual(view.allowsAttachments, true);
+  assert.strictEqual(view.allowsComments, true);
+  assert.strictEqual(view.scrum.visibility.cardSprint, false);
+});
+
+test('a field with data is shown: dates, people, labels, checklists, the cover, Scrum...', () => {
+  const card = {
+    _id: 'c1', dueAt: new Date(), labelIds: ['l1'], members: ['u1'], coverId: 'a1',
+    customFields: [{ _id: 'f1', value: 'x' }], vote: { question: 'Q?' }, scrum: { sprintId: 's1' },
+  };
+  const counts = { checklists: 2, subtasks: 0, textNotes: 1 };
+  for (const k of ['dueDate', 'labels', 'members', 'cover', 'customFields', 'vote', 'scrumSprint', 'checklists', 'textNotes']) {
+    assert.ok(f.isShown(k, card, counts), k);
+  }
+  for (const k of ['startDate', 'assignee', 'stickers', 'subtasks', 'poker', 'scrumRelease', 'creator', 'cardNumber', 'activities']) {
+    assert.ok(!f.isShown(k, card, counts), `negative: ${k}`);
+  }
+  const view = f.boardForCard(fullBoard(), card, counts);
+  assert.strictEqual(view.allowsDueDate, true);
+  assert.strictEqual(view.allowsStartDate, false);
+  assert.strictEqual(view.allowsCoverAttachmentOnCard, true);
+  assert.strictEqual(view.scrum.visibility.cardSprint, true);
+  assert.strictEqual(view.scrum.visibility.cardRelease, false);
+  // An empty custom field value, or an empty list, is not data.
+  assert.ok(!f.hasData('customFields', { customFields: [{ _id: 'f', value: '' }, { _id: 'g', value: [] }, { _id: 'h', value: null }] }));
+});
+
+test('+ Add ticks an empty field onto the card, unticks one with data off it; only what differs is kept', () => {
+  let card = { _id: 'c1', dueAt: new Date() };
+  card = { ...card, ...f.cardFieldsAfter(card, 'startDate', true, {}) };
+  assert.deepStrictEqual(card.shownFields, ['startDate']);
+  assert.ok(f.isShown('startDate', card, {}));
+  card = { ...card, ...f.cardFieldsAfter(card, 'dueDate', false, {}) };
+  assert.deepStrictEqual(card.hiddenFields, ['dueDate']);
+  assert.ok(!f.isShown('dueDate', card, {}), 'hidden although it has a date');
+  card = { ...card, ...f.cardFieldsAfter(card, 'comments', false, {}) };
+  assert.ok(!f.isShown('comments', card, {}), 'even an always-shown one can be unticked');
+  // Ticking back what the data would show anyway leaves no entry behind.
+  card = { ...card, ...f.cardFieldsAfter(card, 'dueDate', true, {}) };
+  card = { ...card, ...f.cardFieldsAfter(card, 'startDate', false, {}) };
+  card = { ...card, ...f.cardFieldsAfter(card, 'comments', true, {}) };
+  assert.deepStrictEqual([card.shownFields, card.hiddenFields], [[], []]);
+  // Negative: a key that is not a per-card field is never stored.
+  const junk = f.cardFieldsAfter({ shownFields: ['$where', 'dueDate'] }, 'allowsX', true, {});
+  assert.deepStrictEqual(junk, { shownFields: ['dueDate'], hiddenFields: [] });
+});
+
+test('Board Settings / Card still decides what a card CAN show', () => {
+  const board = fullBoard();
+  board.allowsDueDate = false;
+  board.scrum.visibility.cardSprint = false;
+  const card = { _id: 'c1', dueAt: new Date(), shownFields: ['dueDate'], scrum: { sprintId: 's' } };
+  const view = f.boardForCard(board, card, {});
+  assert.strictEqual(view.allowsDueDate, false, 'never turned back on by the card');
+  assert.ok(!f.addRows(board, card, 'date', {}).some(r => r.key === 'dueDate'), 'and not offered');
+  assert.ok(!f.addSections({ _id: 'b' }).some(s => s.id === 'scrum'), 'Scrum off: no Scrum section');
+  // A plain flag the board never set reads its row's default.
+  assert.strictEqual(f.boardAllows({}, 'cardNumber'), false);
+  assert.strictEqual(f.boardAllows({ allowsCardNumber: true }, 'cardNumber'), true);
+});
+
+test('the right pane: the open section\'s fields, each with its label, icons and tick', () => {
+  const board = fullBoard();
+  const card = { _id: 'c1', dueAt: new Date() };
+  const rows = f.addRows(board, card, 'date', {});
+  assert.deepStrictEqual(rows.map(r => r.key), ['receivedDate', 'startDate', 'dueDate', 'endDate', 'dueComplete']);
+  assert.deepStrictEqual(rows.map(r => r.shown), [false, false, true, false, false]);
+  assert.ok(rows.every(r => r.icons.length && r.label.length));
+  assert.strictEqual(f.addRows(board, card, 'nope', {})[0].key, 'receivedDate', 'an unknown section opens the first');
+});
+
+test('the same board object when the card shows everything; one cached view per set', () => {
+  const board = fullBoard();
+  const everything = { _id: 'c', shownFields: f.FIELD_KEYS.slice() };
+  assert.strictEqual(f.boardForCard(board, everything, {}), board);
+  const a = f.boardForCard(board, { _id: 'a' }, {});
+  assert.strictEqual(f.boardForCard(board, { _id: 'b' }, {}), a);
+  assert.strictEqual(Object.getPrototypeOf(a), Object.getPrototypeOf(board), 'board helpers still work');
+  assert.notStrictEqual(board.allowsDueDate, false, 'the board itself is unchanged');
+});
+
+test('the opened card: "+ Add" under the cover, the per-card currentBoard, the Scrum sections', () => {
+  const jade = read('client/components/cards/cardDetails.jade');
+  const cover = jade.indexOf('img.card-details-cover-image');
+  const add = jade.indexOf('a.card-details-add-fields-button.js-open-card-add-fields');
+  const left = jade.indexOf('.card-details-left', cover);
+  assert.ok(cover !== -1 && cover < add && add < left, '+ Add is under the cover, above the fields');
+  assert.match(jade.slice(add - 300, add), /if canModifyCard\n\s+\.card-details-add-fields\n/, 'only for who may change the card');
+  const js = read('client/components/cards/cardAddFields.js');
+  for (const name of ['cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
+    'cardFieldSectionDependencies', 'cardFieldSectionSort', 'cardFieldSectionCustomFields',
+    'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription']) {
+    assert.ok(js.includes(`'${name}'`), name);
+  }
+  assert.match(js, /Template\[name\]\.helpers\(\{\n\s+currentBoard\(\)/);
+  assert.match(js, /'click \.js-open-card-add-fields': Popup\.open\('cardAddFields'\)/);
+  // Titled by its own key, in every language the word that language has for Add.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.strictEqual(en['cardAddFieldsPopup-title'], en.add);
+  assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| cardShowsField\(this, s\)\)/);
+  // Negative: every section template of the opened card that reads a board
+  // flag is in the list - a new one left out would show empty fields again.
+  const sectionTemplates = [...jade.matchAll(/^template\(name="(cardFieldSection\w+)"\)/gm)].map(m => m[1]);
+  for (const name of sectionTemplates) {
+    const body = jade.slice(jade.indexOf(`template(name="${name}")`)).split(/\ntemplate\(/)[0];
+    if (/currentBoard\.allows/.test(body)) assert.ok(js.includes(`'${name}'`), `${name} reads currentBoard but is not given the card's view`);
+  }
+});
+
+test('the popup is the Admin Panel\'s left menu and pane, with checkboxes', () => {
+  const jade = read('client/components/cards/cardAddFields.jade');
+  assert.match(jade, /\.setting-content\n\s+\.content-body\n\s+\+leftMenu\(menuItems\)\n\s+\.main-body\n\s+\+paneTitle\(paneTitleData\)/);
+  assert.match(jade, /a\.flex\.card-add-field\.js-card-add-field\(data-key=key role="checkbox"/);
+  assert.match(jade, /\.materialCheckBox\(class="\{\{#if shown\}\}is-checked\{\{\/if\}\}"\)/);
+  const js = read('client/components/cards/cardAddFields.js');
+  assert.match(js, /leftMenuData\(menuOf\(Utils\.getCurrentBoard\(\)\), sectionOf\(tpl\), 'js-card-add-fields-menu'\)/);
+  assert.match(js, /await Cards\.updateAsync\(card\._id, \{ \$set: next \}\)/);
+  const features = read('client/features/cards.js');
+  for (const ext of ['jade', 'js', 'css']) assert.ok(features.includes(`/client/components/cards/cardAddFields.${ext}'`), ext);
+  // The section titles are words WeKan already has, in every language.
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const s of f.SECTIONS) assert.ok(en[s.labelKey], s.labelKey);
+});
+
+test('the card keeps its choices, and only field keys', () => {
+  const cards = read('models/cards.js');
+  for (const field of ['shownFields', 'hiddenFields']) {
+    assert.match(cards, new RegExp(`'${field}\\.\\$': \\{\\s*type: String,\\s*allowedValues: CARD_SHOWN_FIELD_KEYS,`));
+  }
+  assert.match(cards, /const \{ FIELD_KEYS: CARD_SHOWN_FIELD_KEYS \} = require\('\/models\/lib\/cardShownFields'\);/);
+});
+
+console.log(`cardShownFields: ${passed} passed`);

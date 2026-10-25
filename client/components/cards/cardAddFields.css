@@ -1,0 +1,16 @@
+/* "+ Add" on the opened card (docs/Features/Cards/Card-Fields.md). */
+.card-details-add-fields { padding: 4px 0 2px; }
+.card-details-add-fields-button { display: inline-flex; align-items: center; gap: 0.3em; padding: 2px 8px; border-radius: 3px; }
+.card-details-add-fields-button:hover { background: rgba(0, 0, 0, 0.06); }
+
+/* The popup is the Admin Panel's menu and pane (settingBody.css), in a box of
+   its own size instead of the whole page. */
+.card-add-fields { width: min(680px, 92vw); }
+.card-add-fields .setting-content { position: relative; height: min(60vh, 460px); background: transparent; }
+.card-add-fields .setting-content .content-body { height: 100%; }
+.card-add-fields .main-body { overflow: auto; }
+.card-add-fields-list { list-style: none; margin: 0; padding: 0; }
+.card-add-fields-list li { margin: 2px 0; }
+.card-add-field { display: flex; align-items: center; gap: 0.5em; padding: 4px 6px; border-radius: 3px; }
+.card-add-field:hover { background: rgba(0, 0, 0, 0.05); }
+.card-add-field-icons { display: inline-flex; gap: 0.2em; min-width: 1.6em; }

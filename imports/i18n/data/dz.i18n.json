@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "མཇུག་སྒྲིལ་ཚེས་གྲངས་བསྒྱུར།",
   "setCardColorPopup-title": "ཁ་དོག་སྒྲིག",
   "cardDrawingPopup-title": "རི་མོ།",
+  "cardAddFieldsPopup-title": "ཁ་སྐོང་།",
   "card-drawing-new": "རི་མོ་གསརཔ།",
   "card-drawing-undo": "མཇུག་གི་ཐིག་ཁྲམ་འདི་ཕྱིར་འཐེན།",
   "card-drawing-clear": "གསལ་བཟོ།",

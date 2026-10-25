@@ -1,90 +1,198 @@
 [
   {
-    "fields": ["title", "description"],
+    "fields": [
+      "title",
+      "description"
+    ],
     "handling": "Footer resolves the authorized source card or board; stale link copies are excluded."
   },
   {
-    "fields": ["boardId", "listId", "swimlaneId", "sort", "subtaskSort", "listEnteredAt", "lastMoveReason"],
+    "fields": [
+      "boardId",
+      "listId",
+      "swimlaneId",
+      "sort",
+      "subtaskSort",
+      "listEnteredAt",
+      "lastMoveReason"
+    ],
     "handling": "Readable placement in ordinary Details and the separate local wrapper section; foreign list/lane names are excluded."
   },
   {
-    "fields": ["recurrenceInterval", "lastRecurrenceAt"],
+    "fields": [
+      "recurrenceInterval",
+      "lastRecurrenceAt"
+    ],
     "handling": "Ordinary Details and local wrapper Details; recurrence setters use the displayed card ID."
   },
   {
-    "fields": ["flowStartAt", "flowInterruptions", "flowUserId", "pomodoroStartAt", "pomodoroPhase", "pomodoroCount", "pomodoroUserId", "pomodoroWorkMinutes"],
+    "fields": [
+      "flowStartAt",
+      "flowInterruptions",
+      "flowUserId",
+      "pomodoroStartAt",
+      "pomodoroPhase",
+      "pomodoroCount",
+      "pomodoroUserId",
+      "pomodoroWorkMinutes"
+    ],
     "handling": "Persisted snapshots and public owner names in ordinary and local wrapper Details."
   },
   {
-    "fields": ["scrum"],
+    "fields": [
+      "scrum"
+    ],
     "handling": "Six visible fields in ordinary/local wrapper Details; sprint and release names require the same board. Internal Scrum snapshots and revisions are excluded."
   },
   {
-    "fields": ["archived", "archivedAt", "createdAt", "modifiedAt", "dateLastActivity", "cardNumber", "color"],
+    "fields": [
+      "archived",
+      "archivedAt",
+      "createdAt",
+      "modifiedAt",
+      "dateLastActivity",
+      "cardNumber",
+      "color"
+    ],
     "handling": "Ordinary/source Details. Both link types separately include local archive state/date and lifecycle timestamps. Card number/color follow getRealCard(): source-owned for linked cards, local for linked-board wrappers. Target-board archive state remains in target Details."
   },
   {
-    "fields": ["receivedAt", "startAt", "dueAt", "endAt", "spentTime", "isOvertime", "dueComplete"],
+    "fields": [
+      "receivedAt",
+      "startAt",
+      "dueAt",
+      "endAt",
+      "spentTime",
+      "isOvertime",
+      "dueComplete"
+    ],
     "handling": "Ordinary/source Details. Linked-board Details includes four dates, spent time, overtime and due-complete from the current target."
   },
   {
-    "fields": ["members", "assignees", "requesters", "assigners", "requestedBy", "assignedBy", "userId"],
+    "fields": [
+      "members",
+      "assignees",
+      "requesters",
+      "assigners",
+      "requestedBy",
+      "assignedBy",
+      "userId"
+    ],
     "handling": "Ordinary/source Details resolves public names for account references; requestedBy/assignedBy are prose. Linked-board Members and Assignees use deduplicated active target members with public names, matching card getters. Linked-board local creator/requesters/assigners appear separately with the wrapper board scope."
   },
   {
-    "fields": ["labelIds", "customFields", "stickers", "locationName", "locationAddress", "locationLatitude", "locationLongitude", "locations"],
+    "fields": [
+      "labelIds",
+      "customFields",
+      "stickers",
+      "locationName",
+      "locationAddress",
+      "locationLatitude",
+      "locationLongitude",
+      "locations"
+    ],
     "handling": "Ordinary/source Details with custom-field visibility and definition checks. Linked-board local Details renders these wrapper-owned fields with local definitions, admin visibility and policy fingerprints."
   },
   {
-    "fields": ["parentId", "parentIds", "cardDependencies", "targetId_gantt", "linkType_gantt"],
+    "fields": [
+      "parentId",
+      "parentIds",
+      "cardDependencies",
+      "targetId_gantt",
+      "linkType_gantt"
+    ],
     "handling": "Ordinary/source Details resolves authorized targets and groups duplicate labels. Linked-board wrapper relationships use the same authorized resolver and durable related-source evidence. Dependency color/icon are presentation metadata, not separate targets."
   },
   {
-    "fields": ["vote", "poker"],
+    "fields": [
+      "vote",
+      "poker"
+    ],
     "handling": "Ordinary/source and linked-board Details use disclosure checks. Private voter identities and unfinished Poker choices are excluded; voting configuration is not serialized wholesale."
   },
   {
-    "fields": ["coverId"],
+    "fields": [
+      "coverId"
+    ],
     "handling": "Live selected attachment manifest identifies the cover without exporting an internal ID."
   },
   {
-    "fields": ["type", "linkedId"],
+    "fields": [
+      "type",
+      "linkedId"
+    ],
     "handling": "Control source resolution and durable identity checks; not raw prose fields."
   },
   {
-    "fields": ["scrumRevision", "syncSourceKey", "syncLastSource", "syncExternalId", "syncSourceType", "syncLabelIds", "syncIssueState", "syncClosedByWeKan", "deletedAt", "deletedBy", "deleteBatchId", "linkId_gantt"],
+    "fields": [
+      "scrumRevision",
+      "syncSourceKey",
+      "syncLastSource",
+      "syncExternalId",
+      "syncSourceType",
+      "syncLabelIds",
+      "syncIssueState",
+      "syncClosedByWeKan",
+      "deletedAt",
+      "deletedBy",
+      "deleteBatchId",
+      "linkId_gantt"
+    ],
     "handling": "Internal provenance, revision, deletion and renderer identifiers are excluded; deletion still governs eligibility."
   },
   {
-    "fields": ["showActivities", "showListOnMinicard", "showListOnCard", "showChecklistAtMinicard", "hideFinishedChecklistIfItemsAreHidden"],
+    "fields": [
+      "showActivities",
+      "showListOnMinicard",
+      "showListOnCard",
+      "showChecklistAtMinicard",
+      "hideFinishedChecklistIfItemsAreHidden",
+      "shownFields",
+      "hiddenFields"
+    ],
     "handling": "Display preferences do not become email content. Discussion selection is controlled by the mail action."
   },
   {
-    "fields": ["mapX", "mapY"],
+    "fields": [
+      "mapX",
+      "mapY"
+    ],
     "handling": "Positions on the board's Map view image (#3256), as percentages of that image; they mean nothing without it, so they are not email content."
   },
   {
-    "fields": ["attachedCardIds"],
+    "fields": [
+      "attachedCardIds"
+    ],
     "handling": "#3257: ids of the cards attached to this one. Their titles are read only by someone who may read those cards (attachedCardsInfo), so these ids are not email content."
   },
   {
-    "fields": ["customFieldLinks"],
+    "fields": [
+      "customFieldLinks"
+    ],
     "handling": "#5681: ids of the cards whose custom fields are linked to this one, with the direction and the link's creator. Link bookkeeping, not card content: the linked values are ordinary customFields, so these ids are not email content."
   },
   {
-    "fields": ["email"],
+    "fields": [
+      "email"
+    ],
     "handling": "#794: the email this card came from or was sent as - sender, recipients, subject and the Message-IDs that thread replies onto it (server/emailToCard.js, server/emailView.js). Mail bookkeeping, not card content: excluded, so a card mailed onward never discloses who wrote to the board or the addresses of the conversation."
   },
   {
-    "fields": ["cardKind"],
+    "fields": [
+      "cardKind"
+    ],
     "handling": "#2012: whether the card is a Story or a Task. It selects which custom fields the card offers; those fields are covered by customFields above, so the kind itself is not email content."
   },
   {
-    "fields": ["columnSetValues"],
+    "fields": [
+      "columnSetValues"
+    ],
     "handling": "#211: the card's column in each of the board's column sets, as set-id to column-id. Board-view bookkeeping like the Map positions; the ids mean nothing without the board, so they are not email content."
   },
   {
-    "fields": ["drawings"],
+    "fields": [
+      "drawings"
+    ],
     "handling": "#1178: the strokes of the card's drawings, kept so a drawing can be edited again. The drawing itself is a PNG attachment, covered by the attachments manifest; the strokes are not email content."
   }
 ]

@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Befejezési dátum megváltoztatása",
   "setCardColorPopup-title": "Szín beállítása",
   "cardDrawingPopup-title": "Rajz",
+  "cardAddFieldsPopup-title": "Add hozzá",
   "card-drawing-new": "Új rajz",
   "card-drawing-undo": "Az utolsó vonás visszavonása",
   "card-drawing-clear": "Kiürítés",

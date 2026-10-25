@@ -1,9 +1,10 @@
 # Cards and minicards
 
-Create a card in a list, then click its minicard to open its details. Board-wide
-field visibility and order are in
+Create a card in a list, then click its minicard to open its details. The
+opened card shows only the fields it has data in, plus its description,
+attachments and comments; **+ Add** under the cover adds the rest
+([Card fields](Card-Fields.md)). Board-wide field visibility and order are in
 [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md).
-Empty optional groups can be hidden by those settings.
 
 | Place or action | Guide |
 | --- | --- |

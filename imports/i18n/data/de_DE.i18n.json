@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Enddatum ändern",
   "setCardColorPopup-title": "Farbe festlegen",
   "cardDrawingPopup-title": "Zeichnung",
+  "cardAddFieldsPopup-title": "Hinzufügen",
   "card-drawing-new": "Neue Zeichnung",
   "card-drawing-undo": "Letzten Strich rückgängig machen",
   "card-drawing-clear": "Leeren",

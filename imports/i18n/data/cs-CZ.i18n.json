@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Změnit datum konce",
   "setCardColorPopup-title": "Nastav barvu",
   "cardDrawingPopup-title": "Kresba",
+  "cardAddFieldsPopup-title": "Přidat",
   "card-drawing-new": "Nová kresba",
   "card-drawing-undo": "Vrátit poslední tah",
   "card-drawing-clear": "Vymazat",

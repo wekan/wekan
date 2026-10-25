@@ -152,6 +152,15 @@ template(name="cardDetails")
           .card-details-cover
             img.card-details-cover-image(alt="" src="{{attachmentPreviewUrl cover}}?dummyReloadAfterSessionEstablished={{sess}}" width="512" height="180" decoding="async")
 
+    //- "+ Add", under the cover: the card shows only the fields it has data
+      in - and its description, attachments and comments, empty or not - and
+      this chooses the rest, for this card (docs/Features/Cards/Card-Fields.md).
+    if canModifyCard
+      .card-details-add-fields
+        a.card-details-add-fields-button.js-open-card-add-fields(title="{{_ 'add'}}" aria-label="{{_ 'add'}}")
+          i.fa.fa-plus(aria-hidden="true")
+          |  {{_ 'add'}}
+
     .card-details-left
 
       //- At risk, Show on Card (docs/Features/Cards/At-Risk.md): every reason

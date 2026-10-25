@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "更改完成日期",
   "setCardColorPopup-title": "設定顏色",
   "cardDrawingPopup-title": "繪圖",
+  "cardAddFieldsPopup-title": "新增",
   "card-drawing-new": "新繪圖",
   "card-drawing-undo": "復原上一筆",
   "card-drawing-clear": "清除",

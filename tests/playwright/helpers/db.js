@@ -1,4 +1,5 @@
 'use strict';
+const { FIELD_KEYS: CARD_SHOWN_FIELD_KEYS } = require(require('path').join(__dirname, '../../../models/lib/cardShownFields'));
 
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
@@ -198,6 +199,12 @@ function seedBoard({ ownerId, title, listCount = 3, cardTitlesPerList = [] } = {
         vote: { question: '', positive: [], negative: [], end: null, public: false, allowNonBoardMembers: false },
         targetId_gantt: [], linkType_gantt: [], linkId_gantt: [],
         showActivities: false, showListOnMinicard: false, showChecklistAtMinicard: false,
+        // docs/Features/Cards/Card-Fields.md: an opened card shows only the
+        // fields it has data in. The specs written before open an empty card
+        // and fill in its date, members and labels, so a seeded card shows
+        // every field, as if each were ticked in "+ Add";
+        // card-add-fields.e2e.js clears this for the empty-card behaviour.
+        shownFields: CARD_SHOWN_FIELD_KEYS.slice(),
         createdAt: now, modifiedAt: now, dateLastActivity: now,
       });
     });
