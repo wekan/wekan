@@ -107,7 +107,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.65 2026-10-25 WeKan ® release
 
 **In short:** an **opened card** shows only the fields it has, with **+ Add**
 for the rest. **Drawing** works with a pen on the whole window - from Add Card
