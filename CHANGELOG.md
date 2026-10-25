@@ -109,10 +109,11 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** in **right-to-left** languages a checked checkbox sits on its own
-square again and resizing a list follows the pointer. The **database speed
-test** has new results, and its conformance catalogue checks indexed equality,
-array membership and sorting on every database.
+**In short:** **FerretDB** answers WeKan's queries in the database on every
+backend it supports - due cards 2 to 2.6 times faster on PostgreSQL and MySQL -
+and **SQLite** stores documents as JSONB, converted once at first start. In
+**right-to-left** languages a checked checkbox sits on its own square again and
+resizing a list follows the pointer.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -129,6 +130,64 @@ the database's name and the query's title now go through it too.
 its row, and that nothing in the tree escapes a pipe without the backslash. The
 report is built from local results, so there is no attempt to record in
 Admin Panel / Problems.
+
+</details>
+
+and has the following database speed improvements:
+
+**FerretDB** - WeKan's queries answered in the database instead of in Go, on
+every database FerretDB supports; measured with the speed test in
+[docs/Databases/FerretDB/1/SpeedTest](docs/Databases/FerretDB/1/SpeedTest).
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/ea7951d7">SQLite stores documents as SQLite JSONB, and an existing database is converted once</a>. Thanks to xet7.</summary>
+
+Every filter, sort key, index and multikey trigger parsed a document's JSON text
+again. Documents are now kept in SQLite's binary JSONB and turned back into the
+same text in Go ([the reader](https://github.com/wekan/FerretDB/commit/6e725c9b)). On 61,507 cards due cards went
+from 1,003 to 519 ms, All Boards from 95 to 42 ms, search from 12.6 to 5.2 ms
+and creating the 44 indexes from 107 to 70 s; nothing got slower.
+
+**At the first start with this FerretDB, an existing SQLite database is
+converted**, table by table, each in one transaction: 204,212 documents took
+81 s, and the file grows until SQLite reuses the freed pages. A table whose
+conversion fails stays text and keeps working. **After it, an older WeKan or
+FerretDB cannot read the database**, so take a backup before upgrading if a
+downgrade may be needed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/5be94bb7">PostgreSQL answers $and, $or and $elemMatch, and membership tests through a GIN index</a>. Thanks to xet7.</summary>
+
+[An array's GIN index](https://github.com/wekan/FerretDB/commit/9c06c788) answers `members.userId`, [a top-level
+`$and`](https://github.com/wekan/FerretDB/commit/555273c1) no longer reads the whole table, and an `$or` and an
+`$elemMatch` are conditions in the database. All Boards count went from 8-9 s to
+11 ms for a typical user on twice the production data, and due cards from 2,031
+to 815 ms on 61,507 cards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/dbc7d65d">MySQL and MariaDB use their indexes, and adding them takes minutes instead of tens of minutes</a>. Thanks to xet7.</summary>
+
+A card by `_id` went from 3.4 s to 1.8 ms on MySQL, and adding the 44 indexes
+from
+20 minutes to 3. [Multikey side tables](https://github.com/wekan/FerretDB/commit/a2caced7) answer membership tests,
+[an `$or` of `_id` sets is one `UNION ALL`](https://github.com/wekan/FerretDB/commit/c7b0a1c8) - All Boards with a
+starred board 900 ms to 6 ms on MySQL and 5.7 s to 7 ms on MariaDB - and
+[`$and`, `$or`, `$elemMatch` and a long `$in`](https://github.com/wekan/FerretDB/commit/df43d76d) are answered in the
+database: due cards 1,957 to 750 ms on MySQL. MariaDB, whose JSON is text,
+keeps what an index answers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/19311038">SQLite sorts in the database</a>. Thanks to xet7.</summary>
+
+A sorted query no longer reads and keeps every match in Go to return a few: the
+ten newest of 30,000 users allocate 2.6 MB instead of 264 MB, and the first
+batch of an unlimited sort comes 30% sooner ([each key read once](https://github.com/wekan/FerretDB/commit/34b02dbe)).
 
 </details>
 
@@ -8681,135 +8740,5 @@ and has the following developer-tooling fix:
   Thanks to xet7.
 - [The release scripts work with a GitHub CLI older than 2.48](https://github.com/wekan/wekan/commit/0516826f75),
   which has no `--slurp` and stopped the release. Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.33 2026-10-11 WeKan ® release
-
-**In short:** **LDAP login on UCS** works again after the 12.32 upgrade, and
-**Nextcloud sign-in** keeps its verified identity through WebSocket setup.
-**Attachment thumbnails** work on every platform WeKan ships, not only Linux
-amd64. The **Windows 32-bit** bundle, announced in v12.32 but not shipped,
-builds now, the **ARM64** Windows bundle gets its missing sign-in module, and
-every bundle job checks that its native modules are built for its platform and
-CPU.
-
-This release fixes the following bugs:
-
-**Nextcloud** - sign-in and deployment regression tests.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/91bfd08097">Sign-in survives SockJS header filtering, with live deployment tests</a>. Thanks to xet7.</summary>
-
-SockJS removes custom headers before Meteor sees a connection, which discarded
-Nextcloud's signed identity and prevented sign-in. The ExApp transport now
-preserves a verified identity on its own upgrade socket, before that filtering.
-Ordinary WeKan deployments do not install this hook.
-
-`bash build.sh nextcloud-tests` builds current source and runs real Nextcloud
-32–35, matching AppAPI, HaRP, WeKan and FerretDB SQLite under `.tools`. Browser
-coverage includes three accounts, explicit administrators, private boards,
-shared live edits, uploads, denied requests, resume-token isolation and account
-disabling. Restart, an AppAPI upgrade to the source build, and full-volume
-restore check the retained identity, board and downloaded file bytes. A `/cloud`
-run exercises the real FRP Unix-socket tunnel with mutual TLS and rejects an
-incorrect secret or TLS server name. All 40 browser checks passed. Docker
-image and ARM64 execution still require deployment testing.
-
-The [companion gateway fix](https://github.com/wekan/nextcloud/commit/f79f962)
-keeps disabling effective after a failed menu removal and restart, and removes
-ordinary Authorization credentials before proxying. Its 18 tests cover gateway
-failures, process supervision, metadata and runtime isolation. Release tests
-verify real signatures, tampering, existing-version retries and unsafe archive
-members; the workflow now also packages its root directory under the app ID.
-
-</details>
-
-**UCS** - signing in after the App Center upgrade.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5f0716fc74">LDAP login works after the UCS 12.32 upgrade</a>. Thanks to xet7.</summary>
-
-The UCS app kept a 6.09 setting: WeKan's LDAP group filter on, with no group
-named. WeKan 6.09 read that as "member of any group". Current WeKan refuses an
-incomplete group filter, so every UCS user got "LDAP authentication failed",
-and members of Domain Admins were no longer admins. UCS decides access with the
-**WeKan activated** user setting, so the app in wekan/univention now turns the
-group filter off and names groups by `cn`. `releases/ucs-release.py` refuses to
-publish an app whose LDAP group settings WeKan would refuse at login.
-`tests/ucsRelease.test.py` and `tests/ldapGroupFilterConfig.test.cjs` cover the
-old and fixed settings. The UCS README gives a workaround for installations
-that have already upgraded.
-
-</details>
-
-**Attachment thumbnails** - the image library on every platform.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/943bfd9197">Every bundle gets the sharp image library for its own platform and CPU</a>. Thanks to xet7.</summary>
-
-Every bundle except Linux amd64 is made from the amd64 one, which had only
-`sharp`'s Linux x64 binary. In the v12.32 zips for arm64, ppc64le, s390x,
-riscv64, i386, armhf, armv7, armv6 and both macOS, and in the Docker images and
-snaps made from them, thumbnails fell back to the full-size image. Each bundle
-job now runs `releases/platform-native-packages.mjs` for its own target. It
-adds that platform's `sharp` and libvips packages at the pinned versions,
-checked against the npm registry's sha512. On Linux i386 and loong64, where
-`sharp` publishes no binary, it uses `@img/sharp-wasm32`, now an optional
-dependency in `package.json`. That fallback made thumbnails under Node 26
-here. The script checks every native module's ELF, Mach-O or PE header for the
-target. On the v12.32 zips it found the right packages for all Linux and macOS
-bundles. `tests/sharpEveryPlatform.test.cjs` requires every bundle job to run
-it.
-
-**On 32-bit ARM this release can crash.** The armhf, armv7 and armv6 zips got
-sharp's native ARM package, which is built for ARMv7 and ARMv8. On an ARMv6
-board (Raspberry Pi 1, Zero), and possibly on some ARMv7 ones, making the first
-thumbnail can stop WeKan with an illegal instruction. The fix is in the next
-release: 32-bit ARM uses the WebAssembly sharp instead.
-
-</details>
-
-**Windows bundles** - what they build, and the native modules they ship.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/df48ef2aeb">The win32 bundle builds, with its sign-in modules checked for 32-bit Windows</a>. Thanks to xet7.</summary>
-
-v12.32 was the first release whose win32 job found its Node.js, and it failed
-at the next step: `tar` in Git Bash reads the `D:` of the runner's temporary
-directory as a remote host name. The job now gives `tar` only relative names
-and node-gyp the Windows form of the path. The step after that had never run
-either: `bcrypt` and `argon2` have no prebuilt 32-bit Windows binary, and
-WeKan's sign-in cannot work without them. `releases/check-addon-arch.mjs` now
-reads each shipped binary's header and fails the job unless both are built for
-32-bit Windows. `tests/win32BundleBuild.test.cjs` checks the step, that no
-Windows job gives `tar` such a path, and the checker on 32-bit, 64-bit and
-Linux binaries.
-
-**It was not built in v12.33 either.** The job got past the headers, but npm 12
-compiled nothing for 32-bit Windows, so the addon check refused the bundle and
-no win32 zip was published. The fix is in the next release.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b5e96ac682">Thumbnails work on Windows, and the ARM64 bundle can sign in</a>. Thanks to xet7.</summary>
-
-Every Windows bundle is made from the Linux amd64 one, so `sharp`, which makes
-attachment thumbnails, had only its Linux binary and fell back to full-size
-images. Each Windows job now adds `@img/sharp-win32-<arch>` at the version
-`sharp` pins, checked against the npm registry's sha512, and removes packages
-built for other platforms. Checking the published v12.32 zips also showed that
-the ARM64 zip had no ARM64 `argon2`, which sign-in imports with no fallback:
-the job never told npm its target CPU, so nothing was compiled. It now does.
-All three jobs check `bcrypt`, `argon2` and `sharp` before zipping.
-`tests/platformNativePackages.test.cjs` (named `windowsNativePackages` in this
-commit) covers the download, a tampered tarball and a path-traversal entry.
-
-**The ARM64 part did not work in v12.33.** npm 12 ignores `npm_config_arch`,
-so `argon2` was still not compiled for ARM64; the addon check refused the bundle
-and no win-arm64 zip was published. The fix is in the next release.
-
-</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
