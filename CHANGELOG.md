@@ -157,6 +157,21 @@ directions.
 
 </details>
 
+**Notifications** - what the server log says when one is not delivered.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf7520f972">A notification that is not delivered says which check failed</a>. Thanks to xet7.</summary>
+
+"Activity notification delivery incomplete; pending intent retained" filled
+the server log, one line for nearly every activity, and never said why: the
+error was dropped. That line, and the recovery and cleanup ones, now carry the
+failure's code, such as `activity-notification-intent-invalid` or `sync-busy`.
+Any other error gives only its name and code, never its message, which can
+contain an address or a card title. `tests/notificationFailureReason.test.cjs`
+fails when a notification failure line drops its reason again.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Database tests** - the conformance catalogue and the speed test.
@@ -8749,120 +8764,6 @@ commit) covers the download, a tampered tarball and a path-traversal entry.
 **The ARM64 part did not work in v12.33.** npm 12 ignores `npm_config_arch`,
 so `argon2` was still not compiled for ARM64; the addon check refused the bundle
 and no win-arm64 zip was published. The fix is in the next release.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.32 2026-10-11 WeKan ® release
-
-**In short:** A dropped **card** no longer flickers by showing in both lists at
-once, and the **Windows 32-bit** bundle is built again. **UCS upgrades** run
-their migration from the ordinary WeKan image and can get every image from the
-Univention registry alone. The platform docs are **reorganized** under
-`docs/Platforms`, and their CPU table matches what **node-patches** and
-**FerretDB** build.
-
-This release fixes the following bugs:
-
-**Card drag and drop** - what is shown between the drop and the saved move.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a8323cc39c">A dropped card is no longer shown in both lists at once</a>. Thanks to mimZD and xet7.</summary>
-
-The drop handler must call `sortable('cancel')`, which puts the dragged card
-back at its source until Blaze re-renders the move. The drop preview filled the
-target slot during that gap, but the card also stayed visible at its source,
-so on a large board it was drawn twice until the source list caught up. That
-is the flicker in the reporter's newest video on
-[#6430](https://github.com/wekan/wekan/issues/6430). The card left at the
-source is now hidden until Blaze removes or moves it. A reorder within one list
-no longer jumps the card back to its old place first. A rejected move, or one
-that does not arrive within 10 seconds, shows the card again where it is.
-`tests/cardDropPreviewSource.test.cjs` covers these cases on a minimal DOM,
-and `37-card-drag-sort.e2e.js` checks the source list during the drop.
-
-</details>
-
-**Windows bundles** - restore the 32-bit build.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/24e5cc4300">The win32 bundle is built again</a>. Thanks to xet7.</summary>
-
-wekan/node-patches publishes `node-win32.exe` with its checksum in
-`node-win32.sha256sum` (without `.exe`), as the line `<hash> *node-win32.exe`.
-The Node.js resolver looked only for `node-win32.exe.sha256sum` and an unmarked
-name, so it reported that no Node.js existed for win32, and the win32 bundle job
-skipped itself every release. It now also tries the sidecar without `.exe` and
-accepts the `*` binary-mode marker. The downloaded binary was checked against
-the published SHA256. `tests/releaseNodeSources.test.cjs` runs the checksum
-matcher on real sidecar lines, and checks that a line for another file such as
-`node-win32.lib` is never taken.
-
-**It was not built in v12.32 after all.** This fix let the job find its Node.js,
-and it then failed at its next step, unpacking the Node.js headers: no win32
-zip was published. The fix for that is in the next release.
-
-</details>
-
-**UCS upgrades** - what the upgrade runs, and where it gets its images.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f4a8fa6c1">Bundle migration tools and use the target UCS registry images</a>. Thanks to xet7.</summary>
-
-The 12.31 upgrade stopped before migration when the separate helper image
-returned an authorization error. The ordinary WeKan Docker image now includes
-its migration runtime and Docker client. The temporary worker explicitly runs
-that command; normal WeKan startup and the two-service deployment stay intact.
-The full release publishes these tools with the app image on all three
-registries, and missing-release recovery retries its failed Docker job.
-
-The generated preinst reads the target version's cached compose references and
-tries those exact images first. Both images can therefore come solely from the
-UCS registry, including its renamed tags. GHCR, Docker Hub and Quay provide
-fallbacks for the pinned upstream versions. Pulls and a bundled-tools check run
-before downtime; failure cancels the upgrade while retaining the original data.
-The portal uploader checks anonymous availability, bundled tools and database
-UID before writing a draft, and no longer builds a separate helper package.
-
-Regression coverage includes UCS-only access, individual upstream fallbacks,
-missing or ambiguous target metadata, failed downloads, missing tools, retries,
-portal errors, cleanup and migration integrity. The 21 migration and 17 uploader
-tests pass, as do the affected release and existing migration suites. No real
-Docker build, UCS portal upgrade or browser/LDAP test ran in this environment.
-A new WeKan release and UCS acceptance test are required; the already published
-12.31 image does not contain these tools.
-
-</details>
-
-and has the following documentation updates:
-
-**Platform docs** - where the platform pages live, and what is built.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5b04b4b47c">The platform pages are reorganized under docs/Platforms</a>. Thanks to xet7.</summary>
-
-The autoupdate design pages moved from `docs/Design/Autoupdate` to the
-platform they describe: the per-OS pages to
-`docs/Platforms/FOSS/OS/OS-future-alternatives`, the snap pages to
-`Container/Snap`, UCS and Nextcloud to `Container/Docker`, and `Platforms.md`
-to `docs/Platforms`. `docs/Platforms/FOSS/Cloud` was split between
-`Container/Docker` and `FOSS/CloudFlare`, Friend and UCS moved under
-`Container/Docker`, and Leo moved to `Features/ImportExport/Leo`. All links to
-them were updated, in the docs, workflows, tests and on wekan.fi, and
-`tests/docsLinksResolve.test.cjs` checks them.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4ad51ec8eb">The CPU platform table matches the node-patches and FerretDB releases</a>. Thanks to xet7.</summary>
-
-[Platforms.md](docs/Platforms/Platforms.md) now lists all 16
-node-patches v26.11.1 targets and all 25 FerretDB v1.92.0 targets. Its table
-of what is built matches the v12.30 and v12.31 release files and the
-architectures of the Docker image: the armv7, armv6, Windows and macOS bundles
-are included, loong64 is marked as not built, and the win32 fix above is
-described. FreeBSD amd64 is listed as having both binaries now.
 
 </details>
 
