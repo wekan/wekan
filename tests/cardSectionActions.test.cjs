@@ -82,12 +82,20 @@ test('Card Settings, opened from a card: the actions in the pane of their sectio
     else assert.ok(action.inline, `${action.id} is inline`);
   }
   assert.deepStrictEqual(cardActionsOf('time').map(a => a.inline), ['editCardSpentTimePopup']);
-  assert.deepStrictEqual(cardActionsOf('customFields').map(a => a.inline), ['cardCustomFieldsPopup']);
+  // Edit custom fields, then Create Field and Link fields to another card -
+  // the two its buttons opened - as forms of their own under it.
+  assert.deepStrictEqual(cardActionsOf('customFields').map(a => a.inline), ['cardCustomFieldsPopup', 'createCustomFieldPopup', 'cardCustomFieldLinksPopup']);
+  assert.strictEqual(cardActionsOf('customFields').find(a => a.id === 'createCustomField').board, true, 'creating a field is the board\'s, also from Board Settings');
+  // In the pane the list's own two buttons are not repeated.
+  assert.match(read('client/components/cards/cardCustomFields.jade'), /\.card-custom-fields-more\n[\s\S]{0,400}a\.quiet-button\.full\.js-open-create-custom-field[\s\S]{0,200}a\.quiet-button\.full\.js-open-custom-field-links/);
+  assert.match(read('client/components/sidebar/sidebar.css'), /\.card-settings-inline-action \.card-custom-fields-more \{ display: none; \}/);
+  // Saved in the pane the create form stays, emptied; in its own popup it steps back.
+  assert.match(read('client/components/sidebar/sidebarCustomFields.js'), /if \(!backIfOwnPopup\(evt, \['createCustomFieldPopup', 'editCustomFieldPopup'\]\) && !editing\) \{/);
   assert.deepStrictEqual(cardActionsOf('scrum').map(a => a.inline), ['cardKindPopup']);
   assert.deepStrictEqual(cardActionsOf('subtasks').map(a => a.inline), [undefined, 'boardSubtaskSettingsBody']);
   assert.match(popup, /if action\.inline\n\s+.card-settings-inline-action\n[\s\S]{0,400}\+Template\.dynamic\(template=action\.inline data=action\.inlineData\)/);
   // Saved in the pane, Card Settings stays open; saved in their own popup, it steps back.
-  assert.match(read('client/lib/popupBack.js'), /if \(popup && popup\.dataset\.popup === popupName\) Popup\.back\(\);/);
+  assert.match(read('client/lib/popupBack.js'), /if \(popup && names\.includes\(popup\.dataset\.popup\)\) \{\n\s+Popup\.back\(\);\n\s+return true;/);
   assert.match(read('client/lib/popupBack.js'), /export function backIfOwnPopup\(evt, popupName\)/);
   assert.match(js, /backIfOwnPopup\(evt, 'cardStartVotingPopup'\);/);
   assert.match(js, /backIfOwnPopup\(event, 'cardKindPopup'\);/);

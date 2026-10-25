@@ -224,6 +224,9 @@
   border-bottom: 1px solid #eee;
 }
 .card-settings-inline-action h4 { margin: 0 0 6px; }
+/* Create Field and Link fields to another card are forms of their own in the
+   Custom Fields pane: the list's two buttons that open them are not repeated. */
+.card-settings-inline-action .card-custom-fields-more { display: none; }
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
 .card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }

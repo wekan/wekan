@@ -100,11 +100,14 @@ at the top of that section's pane.
 | Card kind | Scrum settings hamburger | Scrum settings |
 | Subtask settings | Subtasks hamburger | Subtasks - also from Board Settings, for a board admin |
 | Edit custom fields | Custom Fields hamburger | Custom Fields |
+| Create Field | Custom Fields hamburger, then Create Field | Custom Fields - also from Board Settings, for a board admin |
+| Link fields to another card | Custom Fields hamburger, then Link fields | Custom Fields |
 
 In the Card Settings pane each of these is the **form itself**, right under the
 pane's title - not a link to a popup - except Filter: Subtasks, which is an
-action. Saved there, Card Settings stays open; the hamburger on the opened card
-still opens the same form as its own popup.
+action. Saved there, Card Settings stays open (a new custom field's form is
+emptied for the next one); the hamburger on the opened card still opens the
+same form as its own popup.
 
 Everything in a section's hamburger on the opened card is also at the top of
 that section's pane in Card Settings, under its title and above Show on

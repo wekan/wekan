@@ -19,17 +19,20 @@ template(name="cardCustomFieldsPopup")
                       = name
                 a.js-edit-custom-field(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                     i.fa.fa-pencil-square-o(aria-hidden="true")
-    //- The rule separates the list above from "Add custom field" below - with
-      no custom field yet, there is nothing above it to separate from.
-    if customFields.length
-        hr
-    a.quiet-button.full.js-open-create-custom-field
-        i.fa.fa-plus
-        span {{_ 'createCustomField'}}
-    //- #5681: this card's fields linked, by name, to another card's.
-    a.quiet-button.full.js-open-custom-field-links
-        i.fa.fa-link
-        span {{_ 'custom-field-links'}}
+    //- In Card Settings' Custom Fields pane these two are forms of their own
+      under the list, so they are not repeated here (sidebar.css).
+    .card-custom-fields-more
+        //- The rule separates the list above from "Add custom field" below -
+          with no custom field yet, there is nothing above it to separate from.
+        if customFields.length
+            hr
+        a.quiet-button.full.js-open-create-custom-field
+            i.fa.fa-plus
+            span {{_ 'createCustomField'}}
+        //- #5681: this card's fields linked, by name, to another card's.
+        a.quiet-button.full.js-open-custom-field-links
+            i.fa.fa-link
+            span {{_ 'custom-field-links'}}
 
 //- #5681: the cards this card's custom fields are linked to, and the form that
   links one more - a pasted card link (Copy card link gives one) or one of this

@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import CustomFields from '/models/customFields';
+import { backIfOwnPopup } from '/client/lib/popupBack';
 import { computeSortIndexMapping } from '/models/lib/boardSortReorder';
 
 Template.customFieldsSidebar.helpers({
@@ -373,7 +374,13 @@ Template.createCustomFieldPopup.events({
       CustomFields.update(currentData._id, { $set: data });
     }
 
-    Popup.back();
+    // Its own popup steps back; in Card Settings' Custom Fields pane the form
+    // stays, emptied for the next field (docs/Features/Cards/Card-Fields.md).
+    if (!backIfOwnPopup(evt, ['createCustomFieldPopup', 'editCustomFieldPopup']) && !editing) {
+      const name = tpl.find('.js-field-name');
+      if (name) name.value = '';
+      tpl.dropdownItems.set([]);
+    }
   },
   'click .js-delete-custom-field': Popup.afterConfirm(
     'deleteCustomField',

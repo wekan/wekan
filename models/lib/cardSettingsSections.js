@@ -63,7 +63,12 @@ const CARD_ACTIONS = Object.freeze({
     { id: 'filterSubtasks', icon: 'fa-filter', label: ['filter', 'subtasks'], labelSeparator: ': ' },
     { id: 'subtaskSettings', popup: 'boardSubtaskSettings', inline: 'boardSubtaskSettingsBody', icon: 'fa-cog', label: ['subtask-settings'], board: true },
   ],
-  customFields: [{ id: 'customFields', popup: 'cardCustomFields', inline: 'cardCustomFieldsPopup', icon: 'fa-list-alt', label: ['cardCustomFieldsPopup-title'] }],
+  customFields: [
+    { id: 'customFields', popup: 'cardCustomFields', inline: 'cardCustomFieldsPopup', icon: 'fa-list-alt', label: ['cardCustomFieldsPopup-title'] },
+    // What that list's two buttons opened, right under it.
+    { id: 'createCustomField', popup: 'createCustomField', inline: 'createCustomFieldPopup', icon: 'fa-plus', label: ['createCustomField'], board: true },
+    { id: 'customFieldLinks', popup: 'cardCustomFieldLinks', inline: 'cardCustomFieldLinksPopup', icon: 'fa-link', label: ['custom-field-links'] },
+  ],
   vote: [{ id: 'editVoting', popup: 'cardStartVoting', inline: 'cardStartVotingPopup', icon: 'fa-thumbs-up', label: ['card-edit-voting'] }],
   poker: [{ id: 'editPoker', popup: 'cardStartPlanningPoker', inline: 'cardStartPlanningPokerPopup', icon: 'fa-check-square', label: ['card-edit-planning-poker'] }],
   time: [{ id: 'spentTime', popup: 'editCardSpentTime', inline: 'editCardSpentTimePopup', icon: 'fa-clock-o', label: ['editCardSpentTimePopup-title'] }],
