@@ -225,6 +225,26 @@ instead of popups; saved there, Card Settings stays open.
 - [Card Settings: the pane's columns line up, and an inline form's buttons no longer push the rows aside](https://github.com/wekan/wekan/commit/ede0d68b27).
   Thanks to xet7.
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f33987931f">Card Settings / Custom Fields: Create Field and Link fields are forms in the pane</a>. Thanks to xet7.</summary>
+
+Under Edit custom fields, the pane has the two forms its buttons opened: Create
+Field (also from Board Settings, for a board admin) and Link fields to another
+card. A field saved there empties the form for the next one and Card Settings
+stays open; opened as their own popup they step back when saved, as before.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca53019d96">Card kind shows which kind is selected</a>. Thanks to xet7.</summary>
+
+In Card Settings / Scrum settings and in the Card kind popup the selected kind
+has a check mark at the end of its line and is bold, and the list is a
+radiogroup with `aria-checked`. Before, it only had an `is-active` class that
+nothing styled. `tests/cardKinds.test.cjs` pins the mark on each kind.
+
+</details>
+
 **Drawing** - handwriting and sketching on a card, with a pen too
 ([#6802](https://github.com/wekan/wekan/issues/6802)).
 
@@ -453,6 +473,18 @@ list's own direction, as the board sidebar and the left menus already did.
 `tests/rtlListResize.test.cjs` pins it and fails when any width resizer does not
 flip right-to-left; a Playwright spec drags the handle out and back in, in both
 directions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37024aa9f9">The comment form's avatar is inside the card</a>. Thanks to mimZD and xet7.</summary>
+
+[#6805](https://github.com/wekan/wekan/issues/6805): the comment form kept 38px
+free for the writer's avatar with a physical left margin, but drew the avatar at
+the reading start, so right-to-left it was outside the card. The room is
+`margin-inline` now, and the other margins of the comments are logical too.
+`tests/commentFormRtl6805.test.cjs` fails on any left- or right-only margin or
+padding in `comments.css`.
 
 </details>
 
