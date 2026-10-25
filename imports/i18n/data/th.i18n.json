@@ -1535,6 +1535,7 @@
   "card-drawing-new": "ภาพวาดใหม่",
   "card-drawing-undo": "เลิกทำเส้นล่าสุด",
   "card-drawing-clear": "ล้าง",
+  "card-drawing-eraser": "ยางลบ",
   "card-drawing-download-svg": "ดาวน์โหลดเป็น SVG",
   "card-drawing-saved": "บันทึกแล้ว ไฟล์ PNG อยู่ในสิ่งที่แนบมาของการ์ด",
   "cardKindPopup-title": "ชนิดการ์ด",

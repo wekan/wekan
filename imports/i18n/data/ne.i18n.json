@@ -1535,6 +1535,7 @@
   "card-drawing-new": "नयाँ चित्र",
   "card-drawing-undo": "अन्तिम रेखा पूर्ववत् गर्नुहोस्",
   "card-drawing-clear": "खाली गर्नुहोस्",
+  "card-drawing-eraser": "मेटाउने",
   "card-drawing-download-svg": "SVG को रूपमा डाउनलोड गर्नुहोस्",
   "card-drawing-saved": "सुरक्षित भयो। PNG कार्डका संलग्नकहरूमा छ।",
   "cardKindPopup-title": "कार्डको प्रकार",

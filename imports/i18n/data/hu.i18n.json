@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Új rajz",
   "card-drawing-undo": "Az utolsó vonás visszavonása",
   "card-drawing-clear": "Kiürítés",
+  "card-drawing-eraser": "Radír",
   "card-drawing-download-svg": "Letöltés SVG-ként",
   "card-drawing-saved": "Mentve. A PNG a kártya mellékletei között van.",
   "cardKindPopup-title": "Kártyatípus",

@@ -189,12 +189,18 @@ Popup.template.events({
 // actual DOM element. For that purpose we use the undocumented `_uihooks` API.
 Popup.template.onRendered(function () {
   this._popupElement = this.find('.js-pop-over');
-  // A popup opened maximized last time opens maximized again.
-  const name = this.data && this.data.popupName;
-  if (MAXIMIZABLE_POPUPS.has(name) && rememberedMaximized(name)) {
-    setPopupMaximized(this._popupElement, true);
-    this.popupMaximized.set(true);
-  }
+  // A popup left maximized opens maximized again, and a new drawing (#6802,
+  // client/lib/newDrawing.js) always does: the whole window. Reactive, because a
+  // popup opened from another one - Drawing from the card's menu - replaces it in
+  // the SAME rendered popup, and going back to the menu is not maximizable.
+  this.autorun(() => {
+    const data = Template.currentData() || {};
+    const name = data.popupName;
+    const newDrawing = Boolean(data.dataContext && data.dataContext.drawingNewFile);
+    const maximized = MAXIMIZABLE_POPUPS.has(name) && (newDrawing || rememberedMaximized(name));
+    this.popupMaximized.set(maximized);
+    Tracker.afterFlush(() => setPopupMaximized(this._popupElement, maximized));
+  });
   this._focusTrap = event => trapTabKey(event, this._popupElement);
   this._popupElement?.addEventListener('keydown', this._focusTrap);
   if (this._popupElement) {

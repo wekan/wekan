@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Uusi piirros",
   "card-drawing-undo": "Kumoa viimeisin veto",
   "card-drawing-clear": "Tyhjennä",
+  "card-drawing-eraser": "Pyyhekumi",
   "card-drawing-download-svg": "Lataa SVG-muodossa",
   "card-drawing-saved": "Tallennettu. PNG on kortin liitteissä.",
   "cardKindPopup-title": "Kortin tyyppi",

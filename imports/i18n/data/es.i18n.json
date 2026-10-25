@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Nuevo dibujo",
   "card-drawing-undo": "Deshacer el último trazo",
   "card-drawing-clear": "Borrar todo",
+  "card-drawing-eraser": "Borrador",
   "card-drawing-download-svg": "Descargar como SVG",
   "card-drawing-saved": "Guardado. El PNG está en los adjuntos de la tarjeta.",
   "cardKindPopup-title": "Tipo de tarjeta",

@@ -23,6 +23,11 @@ template(name="cardAttachmentsPopup")
       //- #3257: a card attached to this card, as Trello's card attachments.
       li
         a.js-attach-card {{_ 'attach-card'}}
+      //- #6802: a new drawing, the whole window, saved as an SVG attachment.
+      li
+        a.js-attach-drawing
+          i.fa.fa-pencil
+          |  {{_ 'cardDrawingPopup-title'}}
     //- #6796: the upload rules, where the upload is chosen - they used to be
       body text above the opened card's attachment list.
     .attachment-upload-help.quiet

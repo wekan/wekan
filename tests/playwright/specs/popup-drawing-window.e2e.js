@@ -38,24 +38,31 @@ test('the Drawing popup is dragged by its title bar and its handle', async ({ bo
   const popup = await openDrawing(page, board);
   const before = await popup.boundingBox();
 
-  await drag(page, popup.locator('.header-title'), -80, 40);
+  // Toward the middle of the window, so the popup is not stopped at an edge.
+  const viewport = page.viewportSize();
+  const dx = before.x > viewport.width / 2 ? -80 : 80;
+  const dy = before.y > viewport.height / 3 ? -40 : 40;
+  await drag(page, popup.locator('.header-title'), dx, dy);
   const afterTitle = await popup.boundingBox();
-  expect(Math.abs(afterTitle.x - (before.x - 80))).toBeLessThan(6);
-  expect(Math.abs(afterTitle.y - (before.y + 40))).toBeLessThan(6);
+  // Kept 12px inside the window: a tall popup has no room to go further down.
+  const clampY = y => Math.max(12, Math.min(viewport.height - before.height - 12, y));
+  expect(Math.abs(afterTitle.x - (before.x + dx))).toBeLessThan(6);
+  expect(Math.abs(afterTitle.y - clampY(before.y + dy))).toBeLessThan(8);
 
   await expect(popup.locator('.js-popup-drag-handle')).toBeVisible();
-  await drag(page, popup.locator('.js-popup-drag-handle'), 30, 30);
+  await drag(page, popup.locator('.js-popup-drag-handle'), -dx / 2, -dy / 2);
   const afterHandle = await popup.boundingBox();
-  expect(Math.abs(afterHandle.x - (afterTitle.x + 30))).toBeLessThan(6);
-  expect(Math.abs(afterHandle.y - (afterTitle.y + 30))).toBeLessThan(6);
+  expect(Math.abs(afterHandle.x - (afterTitle.x - dx / 2))).toBeLessThan(6);
+  expect(Math.abs(afterHandle.y - clampY(afterTitle.y - dy / 2))).toBeLessThan(8);
 });
 
 test('maximize fills the window, minimize puts it back, and maximized it is not dragged', async ({ boardPage: page, board }) => {
   await page.evaluate(() => { try { localStorage.removeItem('wekan-popup-maximized-cardDrawingPopup'); } catch (e) { /* none */ } });
   const popup = await openDrawing(page, board);
-  await drag(page, popup.locator('.header-title'), -60, 30);
-  const placed = await popup.boundingBox();
   const viewport = page.viewportSize();
+  const start = await popup.boundingBox();
+  await drag(page, popup.locator('.header-title'), start.x > viewport.width / 2 ? -60 : 60, start.y > viewport.height / 3 ? -30 : 30);
+  const placed = await popup.boundingBox();
 
   await popup.locator('.js-popup-maximize').click();
   await expect(popup).toHaveClass(/pop-over--maximized/);

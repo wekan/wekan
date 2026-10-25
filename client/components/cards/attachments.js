@@ -20,6 +20,7 @@ const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { attachmentTileCompact } = require('/models/lib/attachmentTile.cjs');
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { openNewDrawing } from '/client/lib/newDrawing';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 
@@ -599,6 +600,17 @@ Template.cardAttachmentsPopup.events({
   },
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
   'click .js-attach-card': Popup.open('attachCard'),
+  // #6802: draw a new file - the whole window - saved as an SVG attachment.
+  'click .js-attach-drawing'(event) {
+    event.preventDefault();
+    // This popup goes, and the drawing opens once the click is over: the
+    // document's click-outside handler would otherwise see a click on a popup
+    // that no longer exists and close the new one at once.
+    event.stopPropagation();
+    const cardId = this && this._id;
+    Popup.close();
+    setTimeout(() => openNewDrawing(cardId), 0);
+  },
 });
 
 // #3257: attach a card by a pasted card link, or one of this board's cards

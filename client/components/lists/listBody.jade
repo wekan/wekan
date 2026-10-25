@@ -77,6 +77,12 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
+    //- #6802: add the ONE card and draw on it at once - the whole window, saved
+      as an SVG attachment of the new card.
+    if singleCardTitle
+      a.add-card-drawing.js-add-card-drawing(href="#" role="button" title="{{_ 'cardDrawingPopup-title'}}")
+        i.fa.fa-pencil
+        |  {{_ 'cardDrawingPopup-title'}}
     a.js-close-inlined-form(title="{{_ 'close'}}")
       i.fa.fa-times-thin
   .add-controls.clearfix

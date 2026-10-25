@@ -1834,8 +1834,10 @@ template(name="cardKindPopup")
   open again for editing; saving keeps the strokes on the card and uploads a
   PNG attachment, and the SVG is downloaded from the strokes.
 template(name="cardDrawingPopup")
-  .card-drawing
-    if drawings.length
+  //- #6802: a NEW drawing (from Add Card, or Add attachment) opens maximized,
+    without the card's earlier drawings, and is saved as an SVG attachment.
+  .card-drawing(class="{{#if newFile}}card-drawing--new-file{{/if}}")
+    if showDrawingList
       .card-drawing-list
         each drawings
           a.card-drawing-thumb.js-edit-drawing(data-id=_id class="{{#if isEditing}}is-active{{/if}}")
@@ -1854,14 +1856,18 @@ template(name="cardDrawingPopup")
         a.card-drawing-width.js-drawing-width(data-width=this class="{{#if isWidth this}}is-active{{/if}}") {{this}}
       a.js-drawing-undo(title="{{_ 'card-drawing-undo'}}")
         i.fa.fa-undo
-      a.js-drawing-clear(title="{{_ 'card-drawing-clear'}}")
+      //- #6802: the eraser takes away the lines it touches.
+      a.card-drawing-eraser.js-drawing-eraser(class="{{#if erasing}}is-active{{/if}}" title="{{_ 'card-drawing-eraser'}}" aria-label="{{_ 'card-drawing-eraser'}}" aria-pressed="{{#if erasing}}true{{else}}false{{/if}}")
         i.fa.fa-eraser
-    svg.card-drawing-surface.js-drawing-surface(viewBox="0 0 800 500" width="100%")
+      a.js-drawing-clear(title="{{_ 'card-drawing-clear'}}")
+        i.fa.fa-trash-o
+    svg.card-drawing-surface.js-drawing-surface(viewBox="0 0 800 500" width="100%" class="{{#if erasing}}is-erasing{{/if}}")
       rect(width="800" height="500" fill="#ffffff")
       each strokes
         path(d=pathD stroke=color stroke-width=width fill="none" stroke-linecap="round" stroke-linejoin="round")
     .card-drawing-actions
       button.primary.js-drawing-save(type="button" disabled=saving) {{_ 'save'}}
-      a.js-drawing-download-svg {{_ 'card-drawing-download-svg'}}
+      unless newFile
+        a.js-drawing-download-svg {{_ 'card-drawing-download-svg'}}
       if message
         span.quiet= message

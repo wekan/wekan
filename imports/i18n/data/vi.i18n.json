@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Bản vẽ mới",
   "card-drawing-undo": "Hoàn tác nét vẽ cuối",
   "card-drawing-clear": "Xoá sạch",
+  "card-drawing-eraser": "Tẩy",
   "card-drawing-download-svg": "Tải về dạng SVG",
   "card-drawing-saved": "Đã lưu. Tệp PNG nằm trong tệp đính kèm của thẻ.",
   "cardKindPopup-title": "Loại thẻ",

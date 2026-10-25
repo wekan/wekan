@@ -1535,6 +1535,7 @@
   "card-drawing-new": "New drawing",
   "card-drawing-undo": "Undo the last stroke",
   "card-drawing-clear": "Clear",
+  "card-drawing-eraser": "Eraser",
   "card-drawing-download-svg": "Download as SVG",
   "card-drawing-saved": "Saved. The PNG is in the card's attachments.",
   "cardKindPopup-title": "Card kind",

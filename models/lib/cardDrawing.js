@@ -74,4 +74,40 @@ function lastStrokeOf(strokes, userId) {
   return own.length ? own[own.length - 1]._id : null;
 }
 
-module.exports = { COLORS, WIDTHS, MAX_DRAWINGS, MAX_STROKES, cleanStrokes, strokesToSvg, drawingsAfterSave, whiteboardStroke, lastStrokeOf };
+// #6802: the eraser takes away every line that passes within `radius` of a
+// point - measured to the line's segments, its own width included - and leaves
+// the rest as they are.
+function segmentDistance(p, a, b) {
+  const dx = b[0] - a[0];
+  const dy = b[1] - a[1];
+  const len = dx * dx + dy * dy;
+  const t = len ? Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / len)) : 0;
+  return Math.hypot(p[0] - (a[0] + t * dx), p[1] - (a[1] + t * dy));
+}
+
+function strokeTouches(stroke, point, radius) {
+  const pts = (stroke && stroke.points) || [];
+  const reach = radius + (Number(stroke && stroke.width) || 0) / 2;
+  if (pts.length === 1) return Math.hypot(point[0] - pts[0][0], point[1] - pts[0][1]) <= reach;
+  for (let i = 1; i < pts.length; i += 1) {
+    if (segmentDistance(point, pts[i - 1], pts[i]) <= reach) return true;
+  }
+  return false;
+}
+
+function eraseAt(strokes, point, radius = 10) {
+  return (Array.isArray(strokes) ? strokes : []).filter(s => !strokeTouches(s, point, radius));
+}
+
+// #6802, palm rejection: once a pen has drawn, a touch does not - the hand
+// resting on a tablet leaves no marks - and while one pointer draws, no other
+// pointer starts a second line. A mouse always draws.
+function pointerDraws({ pointerType, pointerId } = {}, state = {}) {
+  if (state.activePointerId !== undefined && state.activePointerId !== null && pointerId !== state.activePointerId) {
+    return false;
+  }
+  if (pointerType === 'touch' && state.penSeen) return false;
+  return true;
+}
+
+module.exports = { COLORS, WIDTHS, MAX_DRAWINGS, MAX_STROKES, cleanStrokes, strokesToSvg, drawingsAfterSave, whiteboardStroke, lastStrokeOf, eraseAt, strokeTouches, pointerDraws };

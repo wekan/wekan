@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Новый рисунок",
   "card-drawing-undo": "Отменить последний штрих",
   "card-drawing-clear": "Очистить",
+  "card-drawing-eraser": "Ластик",
   "card-drawing-download-svg": "Скачать как SVG",
   "card-drawing-saved": "Сохранено. PNG находится во вложениях карточки.",
   "cardKindPopup-title": "Тип карточки",

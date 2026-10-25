@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Ný teikning",
   "card-drawing-undo": "Afturkalla síðustu strokuna",
   "card-drawing-clear": "Hreinsa",
+  "card-drawing-eraser": "Strokleður",
   "card-drawing-download-svg": "Sækja sem SVG",
   "card-drawing-saved": "Vistað. PNG-myndin er í viðhengjum spjaldsins.",
   "cardKindPopup-title": "Tegund spjalds",

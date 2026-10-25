@@ -2,6 +2,7 @@ import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { titleSortIndexes } from '/models/lib/multilineTitles';
 import { titleTagText } from '/models/lib/titleTags';
 import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
+import { openNewDrawingWhenOpen } from '/client/lib/newDrawing';
 import { dueFromTitle, resetDueFromTitle } from '/client/components/forms/titleDueHint';
 import '/client/components/cards/similarCards';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -190,6 +191,9 @@ Template.listBody.onCreated(function () {
     const position = Blaze.getData(submittedForm)?.position;
     if (this.creatingCards) return;
     const titles = titlesFromComposer(textarea[0]);
+    // #6802: the composer's Drawing button - one card, then its drawing.
+    const drawAfterAdd = submittedForm.dataset.drawAfterAdd === 'true' && titles.length === 1;
+    delete submittedForm.dataset.drawAfterAdd;
     const indexes = titleSortIndexes(
       position === 'bottom' && lastCardDom ? Blaze.getData(lastCardDom).sort : null,
       position === 'top' && firstCardDom ? Blaze.getData(firstCardDom).sort : null,
@@ -340,6 +344,10 @@ Template.listBody.onCreated(function () {
           const _id = await Cards.insertAsync(cardFields);
           titleIndex += 1;
           formComponent.saveTitleDraft(titles.slice(titleIndex).join('\n'));
+          if (drawAfterAdd) {
+            Utils.goCardId(_id);
+            openNewDrawingWhenOpen(_id);
+          }
 
           // if the displayed card count is less than the total cards in the list,
           // we need to increment the displayed card count to prevent the spinner
@@ -891,6 +899,9 @@ Template.addCardForm.onCreated(function () {
   this.labels = new ReactiveVar([]);
   this.members = new ReactiveVar([]);
   this.customFields = new ReactiveVar([]);
+  // #6802: how many cards the composer would add, for its Drawing button.
+  this.titleCount = new ReactiveVar(0);
+  this.countTitles = () => this.titleCount.set(titlesFromComposer(this.find('textarea.js-card-title')).length);
   // #3967: "More options" — a handful of common fields that can be filled in
   // before the card is created, so they travel in the SAME Cards.insert call
   // as the title instead of as separate edits (and separate watcher-
@@ -986,9 +997,23 @@ Template.addCardForm.helpers({
   isAssignee(userId) {
     return Template.instance().assignees.get().includes(userId);
   },
+  singleCardTitle() {
+    return Template.instance().titleCount.get() === 1;
+  },
 });
 
 Template.addCardForm.events({
+  'input .js-card-title, change .js-multiline-title-mode'(event, tpl) {
+    tpl.countTitles();
+  },
+  // #6802: the same submit as Add, marked to open the card and its drawing.
+  'click .js-add-card-drawing'(event, tpl) {
+    event.preventDefault();
+    const form = event.currentTarget.closest('form');
+    if (!form || tpl.titleCount.get() !== 1) return;
+    form.dataset.drawAfterAdd = 'true';
+    form.requestSubmit();
+  },
   'input .js-card-title'(event, tpl) {
     tpl.titleDraftEdited = true;
     tpl.titleDraftPending = event.currentTarget.value;
@@ -1019,6 +1044,8 @@ Template.addCardForm.events({
 Template.addCardForm.onRendered(function () {
   const tpl = this;
   const $textarea = this.$('textarea');
+  // A draft restored into the composer counts too (#6802 Drawing button).
+  Meteor.defer(() => tpl.countTitles());
 
   this.autorun(() => {
     if (!this.subscriptionsReady() || this.titleDraftEdited) return;

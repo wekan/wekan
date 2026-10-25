@@ -1535,6 +1535,7 @@
   "card-drawing-new": "새 그림",
   "card-drawing-undo": "마지막 획 실행 취소",
   "card-drawing-clear": "지우기",
+  "card-drawing-eraser": "지우개",
   "card-drawing-download-svg": "SVG로 다운로드",
   "card-drawing-saved": "저장되었습니다. PNG는 카드의 첨부 파일에 있습니다.",
   "cardKindPopup-title": "카드 종류",

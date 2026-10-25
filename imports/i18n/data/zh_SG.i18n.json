@@ -1535,6 +1535,7 @@
   "card-drawing-new": "新建绘图",
   "card-drawing-undo": "撤销上一笔",
   "card-drawing-clear": "清除",
+  "card-drawing-eraser": "橡皮擦",
   "card-drawing-download-svg": "下载为 SVG",
   "card-drawing-saved": "已保存。PNG 在卡片的附件中。",
   "cardKindPopup-title": "卡片类型",

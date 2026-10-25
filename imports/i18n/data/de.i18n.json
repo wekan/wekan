@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Neue Zeichnung",
   "card-drawing-undo": "Letzten Strich rückgängig machen",
   "card-drawing-clear": "Leeren",
+  "card-drawing-eraser": "Radierer",
   "card-drawing-download-svg": "Als SVG herunterladen",
   "card-drawing-saved": "Gespeichert. Das PNG ist in den Anhängen der Karte.",
   "cardKindPopup-title": "Kartenart",

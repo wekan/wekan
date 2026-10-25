@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Uus joonistus",
   "card-drawing-undo": "Võta viimane joon tagasi",
   "card-drawing-clear": "Tühjenda",
+  "card-drawing-eraser": "Kustutuskumm",
   "card-drawing-download-svg": "Lae alla SVG-na",
   "card-drawing-saved": "Salvestatud. PNG on kaardi lisades.",
   "cardKindPopup-title": "Kaardi liik",

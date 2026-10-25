@@ -1535,6 +1535,7 @@
   "card-drawing-new": "Нова рисунка",
   "card-drawing-undo": "Отмени последния щрих",
   "card-drawing-clear": "Изчисти",
+  "card-drawing-eraser": "Гума",
   "card-drawing-download-svg": "Изтегли като SVG",
   "card-drawing-saved": "Запазено. PNG файлът е в прикачените файлове на картата.",
   "cardKindPopup-title": "Вид карта",
