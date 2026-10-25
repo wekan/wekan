@@ -26,6 +26,7 @@ const { canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
 const { boardNotificationRecipients } = require('/models/lib/boardNotificationRecipients');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { isActivityMuted } = require('/models/lib/notificationActivityGroups');
+const { notificationFailureReason } = require('/server/lib/notificationFailureReason');
 
 export const ActivityNotificationPlans = new Mongo.Collection('activityNotificationPlans');
 ActivityNotificationPlans.deny({ insert: () => true, update: () => true, remove: () => true });
@@ -114,7 +115,7 @@ async function deliverWithinReservation(activity, dispatchUserId, buildContext, 
   try {
     await compactActivityNotificationPlan({ plans: ActivityNotificationPlans.rawCollection(),
       intents: ActivityNotificationIntents.rawCollection(), id: planId(activity._id), assertCurrent });
-  } catch (error) { console.error('Completed activity notification payload cleanup failed; receipt retained'); }
+  } catch (error) { console.error(`Completed activity notification payload cleanup failed (${notificationFailureReason(error)}); receipt retained`); }
   return 'completed';
 }
 
@@ -188,7 +189,7 @@ Meteor.startup(async () => {
   await ensureIndex(ActivityNotificationIntents, { state: 1, _id: 1 });
   async function scan() {
     try { await recoverActivityNotifications(); }
-    catch (error) { console.error('Activity notification recovery scan failed; pending evidence retained'); }
+    catch (error) { console.error(`Activity notification recovery scan failed (${notificationFailureReason(error)}); pending evidence retained`); }
     finally { Meteor.setTimeout(scan, recoveryInterval); }
   }
   // Begin asynchronously after installing the pending-work index.
@@ -210,7 +211,7 @@ Meteor.startup(async () => {
   await ensureIndex(ActivityNotificationPlans, { compactReceiptVersion: 1, _id: 1 });
   async function scan() {
     try { await cleanupActivityNotificationPlans(); }
-    catch (error) { console.error('Activity notification plan cleanup failed; receipts retained'); }
+    catch (error) { console.error(`Activity notification plan cleanup failed (${notificationFailureReason(error)}); receipts retained`); }
     finally { Meteor.setTimeout(scan, planCleanupInterval); }
   }
   Meteor.setTimeout(scan, planCleanupInterval);

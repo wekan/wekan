@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { captureActivityNotificationIntent } from '/server/notifications/activityIntents';
+const { notificationFailureReason } = require('/server/lib/notificationFailureReason');
 import { deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
 const { deferSyncActivity } = require('/server/lib/syncActivityScope');
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -516,7 +517,7 @@ Activities.after.insert(async (userId, doc) => {
   // The saved plan and pending intent survive a failure; SMTP/webhooks remain
   // separate from this local acknowledgement boundary.
   deliverStoredActivityNotifications(doc, userId, async () => prepared)
-    .catch(() => console.error('Activity notification delivery incomplete; pending intent retained'));
+    .catch(error => console.error(`Activity notification delivery incomplete (${notificationFailureReason(error)}); pending intent retained`));
   // #5148: and to each recipient's own ntfy topic, when they set one.
   try { require('/server/notifications/ntfy').sendActivityToNtfy(prepared); }
   catch (error) { console.warn('ntfy notifications skipped'); }
