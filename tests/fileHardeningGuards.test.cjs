@@ -40,7 +40,7 @@ check('avatars upload hook: sanitize exploits + correct extension', () => {
 
 check('exploit sanitize is a general function covering SVG JS + XML loops', () => {
   const s = read('models/lib/sanitizeUploadedFile.js');
-  assert.ok(/sanitizeUploadedFileExploits/.test(s) && /isSvgFile/.test(s) && /sanitizeSvgFileSync/.test(s));
+  assert.ok(/sanitizeUploadedFileExploits/.test(s) && /isSvgFile/.test(s) && /sanitizeSvgFile\b/.test(s));
 });
 
 check('streaming move/copy: disk-space precheck + stop-and-remove partial on error', () => {

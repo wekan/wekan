@@ -49,7 +49,6 @@ const REVIEWED = {
   'packages/wekan-ldap/server/groupAllowlist.js': 'every character escaped by escapeRegExpChar; only * and ? become .* and .',
   'server/models/activities.js': 'BIGEVENTS_PATTERN is an operator-supplied regex by design',
   'models/lib/obsidianKanbanFormat.js': 'pattern is built from escapeRegExp(format); emoji is a key of the constant TASK_DATES',
-  'models/lib/sanitizeSvg.js': 'tag comes from the constant DANGEROUS_ELEMENTS list',
   'models/lib/urlSchemeAllowlist.js': 'names is the constant scheme allowlist',
   'packages/markdown/src/secureDOMPurify.js': 'names is the constant scheme allowlist',
   'models/lib/versionCheck.js': 'label comes from the constant VERSION_MANIFEST_LABELS',

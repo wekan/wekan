@@ -113,7 +113,7 @@ Attachments.onAfterUpload = async function (fileObj) {
   // images upload safely instead of being rejected. General for every upload,
   // regardless of the configured storage backend.
   const { sanitizeUploadedFileExploits } = require('./lib/sanitizeUploadedFile');
-  if (sanitizeUploadedFileExploits(fileObj)) {
+  if (await sanitizeUploadedFileExploits(fileObj)) {
     try {
       await Attachments.updateAsync(
         { _id: fileObj._id },

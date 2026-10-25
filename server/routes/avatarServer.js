@@ -11,17 +11,12 @@ import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory } from '/models/avatars.server';
 import { getOldAttachmentData, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
-// An SVG avatar is sent whole, sanitized, as an image (server/lib/svgResponse.js).
+// An SVG avatar is streamed, sanitized, as an image (server/lib/svgResponse.js).
 const svgResponse = require('/server/lib/svgResponse');
 
 function sendSvgAvatar(res, stream, fileObj) {
   return svgResponse.sendInlineSvg(res, stream, {
     fileName: fileObj.name,
-    downloadHeaders: r => {
-      r.setHeader('Content-Type', 'application/octet-stream');
-      r.setHeader('Content-Disposition', 'attachment');
-      r.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
-    },
     onSanitized: text => {
       try {
         const { classifyExploitKinds } = require('/imports/lib/fileNameDisplay');

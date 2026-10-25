@@ -10,21 +10,18 @@
 // allowed again, and shown as an image. What makes that safe is here, on every
 // route that serves one:
 //
-//   1. the WHOLE file is sanitized again before it is sent, whatever is stored -
+//   1. the WHOLE file is sanitized again on its way out, whatever is stored -
 //      an SVG uploaded before the upload-time sanitizer, or one in storage some
-//      other way, is cleaned on the way out. The stream sanitizer of
-//      serveFileSanitizer.js decides from the first bytes and lets a large file
-//      through untouched; that is not enough for a file served inline, so an SVG
-//      is read whole, up to SVG_INLINE_MAX_BYTES, and a larger one stays a
-//      download, as before;
+//      other way, is cleaned as it is sent. It is streamed through the
+//      tokenizer of models/lib/svgSanitizer.js, so an SVG of any size is shown
+//      sanitized, with bounded memory: there is no size above which it falls
+//      back to an unsanitized download, as there was when it was read whole;
 //   2. it is sent with a Content-Security-Policy that allows no script, no
 //      plugin, no network fetch and no framing, and `sandbox`, so even opened
 //      directly as a page it cannot run anything - an <img> or a CSS background
 //      never runs script in an SVG in the first place;
 //   3. a range request gets the whole file: the sanitized body is not the stored
 //      one, and a byte range of the stored file would cut the image wrongly.
-
-const SVG_INLINE_MAX_BYTES = 8 * 1024 * 1024;
 
 const SVG_INLINE_HEADERS = Object.freeze({
   'Content-Type': 'image/svg+xml',
@@ -39,76 +36,30 @@ function isSvg(type, name) {
   return t === 'image/svg+xml' || n.endsWith('.svg');
 }
 
-// Reads the stream up to `max` bytes. Returns { buffer } when it ended within
-// it, or { buffer, overflow: true } with what was read so far, the stream
-// paused at the point where it stopped.
-function readCapped(stream, max = SVG_INLINE_MAX_BYTES) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    let size = 0;
-    const onData = chunk => {
-      const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
-      chunks.push(buf);
-      size += buf.length;
-      if (size > max) {
-        stream.pause();
-        cleanup();
-        resolve({ buffer: Buffer.concat(chunks), overflow: true });
-      }
-    };
-    const onEnd = () => { cleanup(); resolve({ buffer: Buffer.concat(chunks), overflow: false }); };
-    const onError = error => { cleanup(); reject(error); };
-    function cleanup() {
-      stream.off('data', onData);
-      stream.off('end', onEnd);
-      stream.off('error', onError);
-    }
-    stream.on('data', onData);
-    stream.on('end', onEnd);
-    stream.on('error', onError);
-  });
-}
-
-// The sanitized SVG and whether sanitizing changed it.
+// The sanitized SVG of a whole buffer and whether sanitizing changed it - for
+// a caller that already holds the bytes.
 function sanitizedSvg(buffer) {
-  const { sanitizeSvgContent } = require('/models/lib/sanitizeSvg');
-  const original = buffer.toString('utf8');
-  const { content, changed } = sanitizeSvgContent(original);
-  return { body: Buffer.from(content, 'utf8'), changed: Boolean(changed) };
+  const { sanitizeSvgString } = require('/models/lib/svgSanitizer');
+  const { content, changed, removed } = sanitizeSvgString(buffer.toString('latin1'));
+  return { body: Buffer.from(content, 'latin1'), changed: Boolean(changed), removed };
 }
 
-// Sends the SVG in readStream, sanitized. `res` is a Node response. Inline,
-// unless `download` - a download is sanitized too, so a saved file opened from
-// the disk runs nothing either. `downloadHeaders(res)` sets the forced-download
-// headers a file too large to sanitize keeps; `onSanitized(originalText)` is told
-// when the stored file had active content. Resolves true when sent sanitized.
-async function sendInlineSvg(res, readStream, { download = false, fileName = '', downloadHeaders, onSanitized } = {}) {
-  let read;
-  try {
-    read = await readCapped(readStream);
-  } catch (error) {
-    if (!res.headersSent) { res.statusCode = 500; res.end('Error reading file'); }
-    return false;
-  }
+// Sends the SVG in readStream, sanitized, streaming. `res` is a Node response.
+// Inline, unless `download` - a download is sanitized too, so a saved file
+// opened from the disk runs nothing either. `onSanitized(removedText)` is told,
+// once the whole file has passed, when the stored file had active content; it
+// gets a sample of what was removed. Resolves true when sent.
+//
+// There is no Content-Length: the length is known only at the end. A stream
+// error after the headers were sent ends the response, cut short - which a
+// browser shows as a broken image, never as the unsanitized remainder.
+// No SVG is too large to sanitize, so none falls back to a download.
+async function sendInlineSvg(res, readStream, { download = false, fileName = '', onSanitized } = {}) {
+  const { createSvgSanitizeStream } = require('/models/lib/svgSanitizer');
+  const { pipeline } = require('stream/promises');
+  const sanitizer = createSvgSanitizeStream();
 
-  if (read.overflow) {
-    // Too large to sanitize whole: a download, under a sandbox, as before.
-    res.removeHeader('Content-Length');
-    if (typeof downloadHeaders === 'function') downloadHeaders(res);
-    res.statusCode = 200;
-    res.write(read.buffer);
-    readStream.on('error', () => res.end());
-    readStream.pipe(res);
-    readStream.resume();
-    return false;
-  }
-
-  const { body, changed } = sanitizedSvg(read.buffer);
-  if (changed && typeof onSanitized === 'function') {
-    try { onSanitized(read.buffer.toString('utf8')); } catch (e) { /* logging must never break serving */ }
-  }
-
-  for (const header of ['Content-Range', 'Accept-Ranges', 'Content-Disposition']) res.removeHeader(header);
+  for (const header of ['Content-Range', 'Accept-Ranges', 'Content-Disposition', 'Content-Length']) res.removeHeader(header);
   for (const [name, value] of Object.entries(SVG_INLINE_HEADERS)) res.setHeader(name, value);
   if (download) {
     res.setHeader('Content-Type', 'application/octet-stream');
@@ -116,10 +67,18 @@ async function sendInlineSvg(res, readStream, { download = false, fileName = '',
   } else {
     res.setHeader('Content-Disposition', 'inline');
   }
-  res.setHeader('Content-Length', String(body.length));
   res.statusCode = 200;
-  res.end(body);
+
+  try {
+    await pipeline(readStream, sanitizer, res);
+  } catch (error) {
+    if (!res.headersSent) { res.statusCode = 500; res.end('Error reading file'); } else if (!res.writableEnded) res.end();
+    return false;
+  }
+  if (sanitizer.changed && typeof onSanitized === 'function') {
+    try { onSanitized(sanitizer.removed); } catch (e) { /* logging must never break serving */ }
+  }
   return true;
 }
 
-module.exports = { SVG_INLINE_MAX_BYTES, SVG_INLINE_HEADERS, isSvg, readCapped, sanitizedSvg, sendInlineSvg };
+module.exports = { SVG_INLINE_HEADERS, isSvg, sanitizedSvg, sendInlineSvg };

@@ -12,24 +12,25 @@
 // is still on the local filesystem staging area; only after this returns should
 // the caller move the file to its final storage backend.
 
-const { isSvgFile, sanitizeSvgFileSync } = require('./sanitizeSvg');
+const { isSvgFile, sanitizeSvgFile } = require('./sanitizeSvg');
 
-// Sanitize known exploits from every version of fileObj in place. Returns true if
-// any version's bytes were modified (so the caller can persist the new sizes).
-function sanitizeUploadedFileExploits(fileObj) {
+// Sanitize known exploits from every version of fileObj in place. Resolves true
+// if any version's bytes were modified (so the caller can persist the new
+// sizes). Streaming, so an SVG of any size is sanitized whole.
+async function sanitizeUploadedFileExploits(fileObj) {
   if (!fileObj || !fileObj.versions) return false;
   let changed = false;
 
   // SVG: remove script / event handlers / javascript: URIs / XML DOCTYPE/ENTITY.
   if (isSvgFile(fileObj.type, fileObj.name)) {
-    Object.keys(fileObj.versions).forEach(versionName => {
+    for (const versionName of Object.keys(fileObj.versions)) {
       const version = fileObj.versions[versionName];
-      const newSize = sanitizeSvgFileSync(version && version.path);
+      const newSize = await sanitizeSvgFile(version && version.path);
       if (newSize !== null) {
         version.size = newSize;
         changed = true;
       }
-    });
+    }
   }
 
   // Active markup had to be REMOVED from an uploaded file - a script, an event

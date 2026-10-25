@@ -39,9 +39,11 @@ background, an avatar. Every uploaded SVG is sanitized on the server before it i
 stored - no script, event handler, `javascript:` URI, `foreignObject` or
 DOCTYPE/ENTITY XML loop - and sanitized again, whole, whenever it is served,
 under a Content-Security-Policy with no script and `sandbox`, so it runs nothing
-even opened directly. An SVG larger than 8 MB is a download. Uploads used to be
-refused after JVN#74210258; `server/lib/svgResponse.js` and
-`tests/svgServing.test.cjs` are where it is now handled and checked.
+even opened directly. Both are streamed through one tokenizer,
+`models/lib/svgSanitizer.js`, so an SVG of any size is sanitized whole, with
+bounded memory. Uploads used to be refused after JVN#74210258;
+`server/lib/svgResponse.js`, `tests/svgServing.test.cjs` and
+`tests/svgSanitizerStreaming.test.cjs` are where it is now handled and checked.
 
 ## Implementation
 

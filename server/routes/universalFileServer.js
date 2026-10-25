@@ -575,12 +575,6 @@ if (Meteor.isServer) {
     svgResponse.sendInlineSvg(res, readStream, {
       download: isDownloadRequested(req),
       fileName: fileObj.name,
-      downloadHeaders: r => {
-        r.setHeader('Content-Type', 'application/octet-stream');
-        r.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
-        r.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
-        r.setHeader('X-Frame-Options', 'DENY');
-      },
       // Active markup removed on the way out: logged like the stream sanitizer's.
       onSanitized: text => {
         try {

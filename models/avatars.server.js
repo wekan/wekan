@@ -82,7 +82,7 @@ Avatars.onAfterUpload = async function (fileObj) {
   // DOCTYPE/ENTITY (XML loop) constructs from SVG avatars, so safe SVGs are
   // accepted instead of rejected. Same general function used for attachments.
   const { sanitizeUploadedFileExploits } = require('./lib/sanitizeUploadedFile');
-  if (sanitizeUploadedFileExploits(fileObj)) {
+  if (await sanitizeUploadedFileExploits(fileObj)) {
     try {
       await require('/server/lib/filenameSanitizeLog').logContentSanitized({
         fileObj, source: 'avatarUpload',

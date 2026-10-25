@@ -3,49 +3,41 @@
 // SVG is uploaded and shown as an image again (maintainer decision 2026-10-25,
 // with #6802): an attachment, a card cover, a board background, an avatar. It
 // was refused after JVN#74210258 (stored XSS). Safe because every uploaded SVG
-// is sanitized before it is stored, and sanitized AGAIN, whole, on every route
-// that serves one, under a Content-Security-Policy with no script and `sandbox`
+// is sanitized before it is stored, and sanitized AGAIN, whole and streaming, on
+// every route that serves one, under a Content-Security-Policy with no script and `sandbox`
 // (server/lib/svgResponse.js).
 // Run: node tests/svgServing.test.cjs
 
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 const Module = require('module');
-const { Readable } = require('stream');
+const { Readable, Writable } = require('stream');
 
 const root = path.join(__dirname, '..');
 const read = p => fs.readFileSync(path.join(root, p), 'utf8');
 
-// The real sanitizer, without Meteor: its two imports are not used by
-// sanitizeSvgContent.
-const sanitizerSource = read('models/lib/sanitizeSvg.js')
-  .replace(/^import .*;$/gm, '')
-  .replace(/^export function /gm, 'function ');
-const sandbox = { module: { exports: {} }, console };
-vm.runInNewContext(`${sanitizerSource}\nmodule.exports = { sanitizeSvgContent };`, sandbox);
-const sanitizeSvg = sandbox.module.exports;
+// The real sanitizer: server/lib/svgResponse.js requires it by its Meteor
+// absolute path.
 const originalResolve = Module._resolveFilename;
 Module._resolveFilename = function (request, ...rest) {
-  if (request === '/models/lib/sanitizeSvg') return 'svg-sanitizer-shim';
+  if (request === '/models/lib/svgSanitizer') return path.join(root, 'models/lib/svgSanitizer.js');
   return originalResolve.call(this, request, ...rest);
 };
-require.cache['svg-sanitizer-shim'] = { id: 'svg-sanitizer-shim', filename: 'svg-sanitizer-shim', loaded: true, exports: sanitizeSvg };
 const svgResponse = require('../server/lib/svgResponse.js');
 
+// A response: a real Writable, so it can be piped to, with the header API.
 function fakeRes() {
   const headers = {};
   const chunks = [];
-  return {
+  const res = new Writable({ write(c, enc, cb) { chunks.push(Buffer.from(c)); cb(); } });
+  Object.assign(res, {
     headers, chunks, statusCode: 0, headersSent: false,
     setHeader(k, v) { headers[k.toLowerCase()] = String(v); },
     removeHeader(k) { delete headers[k.toLowerCase()]; },
-    write(c) { chunks.push(Buffer.from(c)); },
-    end(c) { if (c) chunks.push(Buffer.from(c)); this.ended = true; },
-    on() {}, once() {}, emit() {}, writable: true,
     body() { return Buffer.concat(chunks).toString('utf8'); },
-  };
+  });
+  return res;
 }
 
 const EVIL = `<?xml version="1.0"?>
@@ -79,8 +71,8 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
     assert.match(res.headers['content-security-policy'], /\bsandbox\b/);
     assert.doesNotMatch(res.headers['content-security-policy'], /script-src|allow-scripts/);
     assert.strictEqual(res.headers['x-content-type-options'], 'nosniff');
-    assert.strictEqual(res.headers['content-length'], String(Buffer.byteLength(body)));
-    assert.ok(logged && /<script/.test(logged), 'the attempt is reported with what was removed');
+    assert.strictEqual(res.headers['content-length'], undefined, 'streamed: the length is not known up front');
+    assert.ok(logged && /<script/i.test(logged), 'the attempt is reported with what was removed');
   });
 
   await test('a download is sanitized too, and a range is never applied to an SVG', async () => {
@@ -94,16 +86,31 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
     assert.match(read('server/routes/universalFileServer.js'), /attachment\?\.meta\?\.source !== 'legacy' && !svgResponse\.isSvg\(attachment\.type, attachment\.name\)/);
   });
 
-  await test('negative: an SVG too large to sanitize whole stays a sandboxed download', async () => {
+  await test('an SVG of any size is shown sanitized - no size falls back to an unsanitized download', async () => {
+    // 20 MB of path data, a script past the old 8 MB cap, split across chunks.
     const res = fakeRes();
-    let downloadHeaders = false;
-    const big = Buffer.alloc(svgResponse.SVG_INLINE_MAX_BYTES + 10, 0x20);
-    const sent = await svgResponse.sendInlineSvg(res, Readable.from([big.subarray(0, 4), big.subarray(4)]), {
-      downloadHeaders: r => { downloadHeaders = true; r.setHeader('Content-Type', 'application/octet-stream'); r.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;"); },
-    });
-    assert.strictEqual(sent, false);
-    assert.ok(downloadHeaders);
-    assert.strictEqual(res.headers['content-type'], 'application/octet-stream', 'never image/svg+xml unsanitized');
+    const path20 = Buffer.alloc(20 * 1024 * 1024, 'L1 1 ');
+    const chunks = [Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"><path d="'), path20, Buffer.from('"/><scr'), Buffer.from('ipt>alert(1)</script><rect/></svg>')];
+    let logged = null;
+    const sent = await svgResponse.sendInlineSvg(res, Readable.from(chunks), { onSanitized: t => { logged = t; } });
+    assert.strictEqual(sent, true);
+    const body = res.body();
+    assert.strictEqual(res.headers['content-type'], 'image/svg+xml');
+    assert.doesNotMatch(body.slice(-200), /<script|alert/i);
+    assert.ok(body.endsWith('"/><rect/></svg>'));
+    assert.ok(body.length > 20 * 1024 * 1024);
+    assert.ok(logged && /<script/i.test(logged));
+    assert.doesNotMatch(read('server/lib/svgResponse.js'), /SVG_INLINE_MAX_BYTES|readCapped|downloadHeaders\(/, 'no size cap, no unsanitized fallback');
+  });
+
+  await test('negative: a stream error ends the response short, never with unsanitized bytes', async () => {
+    const res = fakeRes();
+    const broken = new Readable({ read() {} });
+    const sending = svgResponse.sendInlineSvg(res, broken, {});
+    broken.push(Buffer.from('<svg><rect/>'));
+    broken.destroy(new Error('storage gone'));
+    assert.strictEqual(await sending, false);
+    assert.doesNotMatch(res.body(), /<script/i);
   });
 
   await test('isSvg by type or by name, and nothing else', async () => {

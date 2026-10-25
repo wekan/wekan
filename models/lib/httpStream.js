@@ -4,21 +4,15 @@ export const httpStreamOutput = function(readStream, name, http, downloadFlag, c
       fileResponsePolicy,
     } = require('./fileResponseSafety');
     const storedType = fileObj?.versions?.original?.type || fileObj?.type;
-    // An SVG is sent whole and sanitized, as an image - or as the download that
-    // was asked for (server/lib/svgResponse.js); the stream sanitizer below
-    // decides from the first bytes only, which is not enough for inline.
+    // An SVG is streamed through the SVG sanitizer, whole, as an image - or as
+    // the download that was asked for (server/lib/svgResponse.js); the stream
+    // sanitizer below decides from the first bytes only, which is not enough.
     const svgResponse = require('/server/lib/svgResponse');
     if (svgResponse.isSvg(storedType, name)) {
       require('./fileCacheHeaders').setPrivateFileCacheHeaders(http.response);
       svgResponse.sendInlineSvg(http.response, readStream, {
         download: downloadFlag === 'true',
         fileName: name,
-        downloadHeaders: r => {
-          const download = fileResponsePolicy(storedType, true);
-          r.setHeader('Content-Type', download.contentType);
-          r.setHeader('Content-Disposition', getContentDisposition(name, 'true'));
-          for (const [header, value] of Object.entries(download.headers)) r.setHeader(header, value);
-        },
         onSanitized: text => {
           try {
             const { classifyExploitKinds } = require('/imports/lib/fileNameDisplay');

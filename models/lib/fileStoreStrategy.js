@@ -984,7 +984,7 @@ export const moveToStorage = async function(fileObj, storageDestination, fileSto
   // serve-time sanitizer is the backstop for files still on a remote backend.
   try {
     const { sanitizeUploadedFileExploits } = require('./sanitizeUploadedFile');
-    if (sanitizeUploadedFileExploits(fileObj)) {
+    if (await sanitizeUploadedFileExploits(fileObj)) {
       await collection.updateAsync({ _id: fileObj._id }, { $set: { versions: fileObj.versions } })
         .catch(error => console.error('Failed to persist sanitized versions before move:', error));
       try {
@@ -1243,7 +1243,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
   // invisible/exploit chars, correct the extension for the type, cap the length).
   try {
     const { sanitizeUploadedFileExploits } = require('./sanitizeUploadedFile');
-    sanitizeUploadedFileExploits(fileObj);
+    await sanitizeUploadedFileExploits(fileObj);
   } catch (e) { /* best effort */ }
   let copyName = fileObj.name;
   try {

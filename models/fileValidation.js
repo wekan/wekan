@@ -168,6 +168,14 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
     };
 
     const checkDangerousMimeAllowance = async (mime, filePath, fileSize) => {
+      // An SVG was already sanitized on upload (sanitizeUploadedFile.js); check
+      // the WHOLE file, streaming, with the same sanitizer, so an SVG of any
+      // size is accepted when it is clean - a scan of the first megabyte would
+      // reject every large one, or pass a payload past the megabyte.
+      if (mime === 'image/svg+xml' || mime === 'image/svg') {
+        const { svgFileIsClean } = require('./lib/sanitizeSvg');
+        return svgFileIsClean(filePath);
+      }
       // Allow only if content is scanned and clean
       const { text, complete } = await readTextHead(filePath);
       if (!complete) {
