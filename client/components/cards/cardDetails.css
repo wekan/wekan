@@ -1445,3 +1445,7 @@ body.desktop-mode .card-details.card-details-position-pending:not(.card-details-
 .card-details-right .card-details-comments .card-details-section-rule {
   display: none;
 }
+
+/* Card kind: the selected one is marked, at the end of its line, and bold. */
+.card-kind-list .js-select-card-kind.is-active { font-weight: bold; }
+.card-kind-list .card-kind-selected { margin-inline-start: 0.5em; color: #3cb500; }

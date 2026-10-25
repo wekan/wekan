@@ -48,6 +48,17 @@ assert.doesNotMatch(read('models/customFields.js') + read('models/cards.js') + r
 // Card Settings' Scrum pane (docs/Features/Cards/Card-Fields.md).
 assert.match(read('client/components/cards/cardDetails.jade'), /menuClass="js-section-card-kind" menuTitle="cardKindPopup-title"/);
 assert.match(read('client/components/cards/cardDetails.jade'), /template\(name="cardKindPopup"\)/);
+// The selected kind is shown: a check mark on its line, aria-checked, bold.
+{
+  const jade = read('client/components/cards/cardDetails.jade');
+  const popup = jade.slice(jade.indexOf('template(name="cardKindPopup")')).split('\ntemplate(')[0];
+  assert.strictEqual((popup.match(/i\.fa\.fa-check\.card-kind-selected/g) || []).length, 3, 'each kind can carry the mark');
+  assert.match(popup, /unless cardKind\n\s+i\.fa\.fa-check\.card-kind-selected/, 'None, when no kind is set');
+  assert.match(popup, /if \$eq cardKind 'story'\n\s+i\.fa\.fa-check\.card-kind-selected/);
+  assert.match(popup, /if \$eq cardKind 'task'\n\s+i\.fa\.fa-check\.card-kind-selected/);
+  assert.strictEqual((popup.match(/role="radio" aria-checked=/g) || []).length, 3);
+  assert.match(read('client/components/cards/cardDetails.css'), /\.card-kind-list \.js-select-card-kind\.is-active \{ font-weight: bold; \}/);
+}
 assert.match(read('client/components/cards/minicard.jade'), /\.badge\.card-kind-badge/);
 assert.match(read('client/components/sidebar/sidebarCustomFields.js'), /cardKinds: \(typeof tpl\.findAll === 'function' \? Array\.from\(tpl\.findAll\('\.js-field-card-kind\.is-checked'\)/);
 console.log('  ok - card menu, minicard badge and the field\'s kind ticks');

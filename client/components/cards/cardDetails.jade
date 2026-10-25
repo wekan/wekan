@@ -1785,19 +1785,27 @@ template(name="cardQrCodePopup")
 
 //- #2012: Story, Task or an ordinary card (models/lib/cardKinds.js).
 template(name="cardKindPopup")
-  ul.pop-over-list
+  //- The selected kind has a check mark at the end of its line (and
+    aria-checked), in its popup and in Card Settings' Scrum settings pane.
+  ul.pop-over-list.card-kind-list(role="radiogroup" aria-label="{{_ 'cardKindPopup-title'}}")
     li
-      a.js-select-card-kind(data-kind="" class="{{#unless cardKind}}is-active{{/unless}}")
+      a.js-select-card-kind(data-kind="" role="radio" aria-checked="{{#if cardKind}}false{{else}}true{{/if}}" class="{{#unless cardKind}}is-active{{/unless}}")
         i.fa.fa-square-o
         |  {{_ 'card-kind-none'}}
+        unless cardKind
+          i.fa.fa-check.card-kind-selected(aria-hidden="true")
     li
-      a.js-select-card-kind(data-kind="story" class="{{#if $eq cardKind 'story'}}is-active{{/if}}")
+      a.js-select-card-kind(data-kind="story" role="radio" aria-checked="{{#if $eq cardKind 'story'}}true{{else}}false{{/if}}" class="{{#if $eq cardKind 'story'}}is-active{{/if}}")
         i.fa.fa-book
         |  {{_ 'card-kind-story'}}
+        if $eq cardKind 'story'
+          i.fa.fa-check.card-kind-selected(aria-hidden="true")
     li
-      a.js-select-card-kind(data-kind="task" class="{{#if $eq cardKind 'task'}}is-active{{/if}}")
+      a.js-select-card-kind(data-kind="task" role="radio" aria-checked="{{#if $eq cardKind 'task'}}true{{else}}false{{/if}}" class="{{#if $eq cardKind 'task'}}is-active{{/if}}")
         i.fa.fa-check-square-o
         |  {{_ 'card-kind-task'}}
+        if $eq cardKind 'task'
+          i.fa.fa-check.card-kind-selected(aria-hidden="true")
 
 //- #1178: drawing on a card (models/lib/cardDrawing.js). The card's drawings
   open again for editing; saving keeps the strokes on the card and uploads a
