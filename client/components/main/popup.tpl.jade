@@ -14,7 +14,20 @@
   .header
     a.back-btn.js-back-view(class="{{#unless hasPopupParent}}is-hidden{{/unless}}" aria-label="{{_ 'go-back'}}")
       i.fa.fa-caret-left(aria-hidden="true")
+    //- A movable popup (popup.js MOVABLE_POPUPS) is dragged by its title bar
+      or this handle, like the opened card; a maximizable one has the card's
+      maximize / minimize button beside its close button.
+    if popupMovable
+      span.popup-drag-handle.js-popup-drag-handle(title="{{_ 'drag-to-move'}}")
+        i.fa.fa-arrows(aria-hidden="true")
     span.header-title= title
+    if popupMaximizable
+      if popupMaximized
+        a.popup-maximize-btn.js-popup-minimize(href="#" role="button" title="{{_ 'minimize-window'}}" aria-label="{{_ 'minimize-window'}}")
+          i.fa.fa-window-minimize(aria-hidden="true")
+      else
+        a.popup-maximize-btn.js-popup-maximize(href="#" role="button" title="{{_ 'maximize-window'}}" aria-label="{{_ 'maximize-window'}}")
+          i.fa.fa-window-maximize(aria-hidden="true")
     a.close-btn.js-close-pop-over(aria-label="{{_ 'close-popup'}}")
       i.fa.fa-times-thin(aria-hidden="true")
   .content-wrapper

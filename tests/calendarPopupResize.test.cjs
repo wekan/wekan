@@ -8,13 +8,13 @@ let events;
 const context = {
   window: { innerWidth: 1280, innerHeight: 900, getComputedStyle: () => ({ direction: 'ltr' }) },
   Popup: { template: {
-    events(map) { events = map; }, onRendered() {}, onDestroyed() {},
+    events(map) { events = map; }, onCreated() {}, helpers() {}, onRendered() {}, onDestroyed() {},
   } },
 };
 const source = fs.readFileSync(path.join(__dirname, '../client/components/main/popup.js'), 'utf8');
 vm.runInNewContext(source.replace(/^import .*;\n/gm, ''), context);
 const element = {
-  dataset: {}, style: { setProperty(key, value) { this[key] = value; } },
+  dataset: {}, classList: { contains: () => false }, style: { setProperty(key, value) { this[key] = value; } },
   getBoundingClientRect() {
     return { left: 440, top: 12, width: Number.parseFloat(this.style.width) || 400,
       height: Number.parseFloat(this.style.height) || 600 };

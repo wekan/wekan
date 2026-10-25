@@ -1,3 +1,4 @@
+import { ReactiveVar } from 'meteor/reactive-var';
 import { updatePopupMenuColumns } from '/client/lib/popupMenuLayout';
 import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
@@ -27,10 +28,66 @@ function resizeDatePopup(element, width, height) {
   Object.entries(styles).forEach(([key, value]) => element.style.setProperty(key, value, 'important'));
 }
 
+// Popups dragged by their title bar (or the drag handle beside it), as the
+// opened card is. A date popup is movable too, found by its .edit-date.
+const MOVABLE_POPUPS = new Set(['boardViewSettingsPopup', 'cardDrawingPopup']);
+// Popups with the opened card's maximize / minimize button.
+const MAXIMIZABLE_POPUPS = new Set(['cardDrawingPopup']);
+
+const maximizedKey = name => `wekan-popup-maximized-${name}`;
+function rememberedMaximized(name) {
+  try { return window.localStorage.getItem(maximizedKey(name)) === 'true'; } catch (e) { return false; }
+}
+function rememberMaximized(name, on) {
+  try { window.localStorage.setItem(maximizedKey(name), on ? 'true' : 'false'); } catch (e) { /* a preference */ }
+}
+
+// Maximizing takes the popup out of wherever it was dragged or resized to: the
+// inline !important coordinates those leave would beat the stylesheet. They are
+// kept, and minimizing puts the popup back exactly there.
+function setPopupMaximized(element, on) {
+  if (!element) return;
+  if (on && !element.classList.contains('pop-over--maximized')) {
+    element.dataset.restoreStyle = element.getAttribute('style') || '';
+    ['left', 'top', 'right', 'bottom', 'width', 'height', 'max-width', 'max-height', 'min-width', 'min-height',
+      'inset-inline-start', 'inset-inline-end', 'margin', 'position'].forEach(p => element.style.removeProperty(p));
+    element.classList.add('pop-over--maximized');
+  } else if (!on && element.classList.contains('pop-over--maximized')) {
+    element.classList.remove('pop-over--maximized');
+    element.setAttribute('style', element.dataset.restoreStyle || '');
+    delete element.dataset.restoreStyle;
+  }
+}
+
+Popup.template.onCreated(function () {
+  this.popupMaximized = new ReactiveVar(false);
+});
+
+Popup.template.helpers({
+  popupMovable() {
+    return MOVABLE_POPUPS.has(this.popupName);
+  },
+  popupMaximizable() {
+    return MAXIMIZABLE_POPUPS.has(this.popupName);
+  },
+  popupMaximized() {
+    return Template.instance().popupMaximized.get();
+  },
+});
+
 Popup.template.events({
+  'click .js-popup-maximize, click .js-popup-minimize'(evt, tpl) {
+    evt.preventDefault(); evt.stopPropagation();
+    const on = evt.currentTarget.classList.contains('js-popup-maximize');
+    setPopupMaximized(evt.currentTarget.closest('.pop-over'), on);
+    tpl.popupMaximized.set(on);
+    rememberMaximized(this.popupName, on);
+  },
   'pointerdown .header'(evt, tpl) {
     const element = evt.currentTarget.closest('.pop-over');
-    if (evt.button !== 0 || (!element.querySelector('.edit-date') && element.dataset.popup !== 'boardViewSettingsPopup') ||
+    // A maximized popup has no place to be dragged to.
+    if (evt.button !== 0 || element.classList.contains('pop-over--maximized') ||
+        (!element.querySelector('.edit-date') && !MOVABLE_POPUPS.has(element.dataset.popup)) ||
         evt.target.closest('a, button, input, select')) return;
     evt.preventDefault(); evt.stopPropagation();
     const bounds = element.getBoundingClientRect();
@@ -132,6 +189,12 @@ Popup.template.events({
 // actual DOM element. For that purpose we use the undocumented `_uihooks` API.
 Popup.template.onRendered(function () {
   this._popupElement = this.find('.js-pop-over');
+  // A popup opened maximized last time opens maximized again.
+  const name = this.data && this.data.popupName;
+  if (MAXIMIZABLE_POPUPS.has(name) && rememberedMaximized(name)) {
+    setPopupMaximized(this._popupElement, true);
+    this.popupMaximized.set(true);
+  }
   this._focusTrap = event => trapTabKey(event, this._popupElement);
   this._popupElement?.addEventListener('keydown', this._focusTrap);
   if (this._popupElement) {

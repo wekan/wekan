@@ -1432,3 +1432,58 @@ body.mobile-mode .pop-over .content-wrapper {
     column-span: all;
   }
 }
+
+/* A movable popup's drag handle and a maximizable popup's maximize / minimize
+   button (popup.js MOVABLE_POPUPS / MAXIMIZABLE_POPUPS), placed like the opened
+   card's: the handle before the title, the button beside the close button. */
+.pop-over .header .popup-drag-handle {
+  float: inline-start;
+  padding: 12px 0 12px 12px;
+  cursor: move;
+  color: #888;
+}
+.pop-over .header:has(.popup-drag-handle) {
+  cursor: move;
+}
+.pop-over .header .popup-maximize-btn {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 40px;
+  padding: 12px 8px;
+  color: inherit;
+}
+.pop-over .header:has(.popup-maximize-btn) .header-title {
+  margin-inline-end: 72px;
+}
+/* Maximized: the whole window, less a margin, whatever it was dragged or resized
+   to; minimizing restores that (popup.js setPopupMaximized). */
+.pop-over.pop-over--maximized {
+  position: fixed !important;
+  inset: 8px !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+.pop-over.pop-over--maximized .header {
+  cursor: default;
+}
+.pop-over.pop-over--maximized .content-wrapper {
+  flex: 1 1 auto;
+  max-height: none;
+}
+/* The drawing keeps its 800 x 500 shape - the pointer is mapped onto its whole
+   box (cardDrawing.js) - and grows to the width or the height of the window,
+   whichever runs out first. */
+.pop-over.pop-over--maximized .card-drawing {
+  min-width: 0;
+}
+.pop-over.pop-over--maximized .card-drawing-surface {
+  width: min(100%, calc((100vh - 230px) * 1.6));
+  height: auto;
+  aspect-ratio: 8 / 5;
+  margin: 0 auto;
+}
