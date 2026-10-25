@@ -219,8 +219,11 @@ test('all three are copied the same way, from the same kind of menu', () => {
     assert.ok(/i\.fa\.fa-link/.test(popup), `${template} shows the link icon`);
     // FIRST: it is what the menu is opened for most often, and it is the only
     // row a read-only member can use.
+    // The CARD's menu has the maintainer's own order since 2026-10-25 (moving
+    // and copying first, the links after Set color and Drawing) - checked in
+    // tests/cardActionsOrder.test.cjs - so this rule is the swimlane's and the list's.
     const rowAt = popup.indexOf(cls);
-    for (const later of ['js-add-swimlane', 'js-add-card', 'js-toggle-watch-card']) {
+    for (const later of template === 'cardDetailsActionsPopup' ? [] : ['js-add-swimlane', 'js-add-card', 'js-toggle-watch-card']) {
       const otherAt = popup.indexOf(later);
       if (otherAt !== -1) assert.ok(rowAt < otherAt, `${template}: ${cls} comes first`);
     }

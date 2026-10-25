@@ -29,12 +29,13 @@ const serverUsers = fs.readFileSync(
 );
 
 test('the card menu offers a "Save as Template" action beside Copy Card', () => {
-  // Both menu variants in the file (the collapsed and the full one) must
-  // offer it, each right next to js-copy-card, so it is never present in one
-  // rendering of the menu and missing from the other.
+  // The menu is ONE list since 2026-10-25 (tests/cardActionsOrder.test.cjs),
+  // for both kinds of member it was offered to; Save as Template is in it,
+  // right after Copy Card, as often as Copy Card is.
   const copyCardCount = (jade.match(/a\.js-copy-card\n/g) || []).length;
   const templateLinkCount = (jade.match(/a\.js-save-card-as-template\n/g) || []).length;
-  assert.ok(copyCardCount >= 2, 'js-copy-card appears in both menu variants');
+  assert.ok(copyCardCount >= 1, 'js-copy-card is in the menu');
+  assert.match(jade, /a\.js-copy-card\n[^\n]*\n[^\n]*\n\s+li\n\s+a\.js-save-card-as-template\n/, 'right after Copy Card');
   assert.strictEqual(
     templateLinkCount,
     copyCardCount,

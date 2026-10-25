@@ -49,7 +49,9 @@ assert.match(
 
 // Linking writes a pointer into the source card and a mirror into the
 // destination board, so the source must be writable. Copy card is allowed
-// in both permission branches; Link to board belongs only in canModifyCard.
+// to whoever may change the card AND to a member who is not read-only - one
+// item under `cardMenuWrites` since the menu is one list (2026-10-25); Link to
+// board belongs only in canModifyCard.
 const menuOccurrences = (cardDetailsJade.match(/a\.js-link-card-to-board\n/g) || []).length;
 const copyCardOccurrences = (cardDetailsJade.match(/a\.js-copy-card\n/g) || []).length;
 assert.equal(
@@ -57,7 +59,9 @@ assert.equal(
   1,
   'the link-to-board entry must appear once in the writable source branch',
 );
-assert.equal(copyCardOccurrences, 2, 'copy remains available in both menu branches');
+assert.equal(copyCardOccurrences, 1, 'one Copy card item');
+assert.match(cardDetailsJade, /if cardMenuWrites\n[\s\S]{0,300}unless currentUser\.isWorker\n\s+li\n\s+a\.js-copy-card\n/, 'for both kinds of member, as before');
+assert.match(cardDetailsJade, /if canModifyCard\n\s+unless currentUser\.isWorker\n\s+li\n\s+a\.js-link-card-to-board\n/, 'Link to board still only for who may change the card');
 const writableMenu = cardDetailsJade.slice(cardDetailsJade.indexOf('    if canModifyCard\n'));
 assert.match(writableMenu, /a\.js-link-card-to-board\n/);
 assert.doesNotMatch(cardDetailsJade.slice(0, cardDetailsJade.indexOf('    if canModifyCard\n')),

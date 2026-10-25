@@ -1176,191 +1176,17 @@ template(name="editCardSortOrderForm")
     a.js-close-inlined-form
 
 template(name="cardDetailsActionsPopup")
+  //- One list, in this order (the maintainer's, 2026-10-25): Move Card, Copy
+    Card, Save as Template, Copy Template to Many Cards, Card recurrence, Move to
+    Top, Move to Bottom, Watch, Star | Set color, Drawing | Copy link, Link to
+    board, QR code, History, Export, Import, Move Card to Archive, More. Each
+    item keeps the permission it had. Filter: Subtasks, Edit voting, Edit
+    Planning Poker, Change spent time and Card kind are in the hamburger of
+    their own section of the opened card, and in Card Settings' pane of that
+    section (docs/Features/Cards/Card-Fields.md).
   if currentUser
-    //- Copy link, first, and named - the card's header carried this as an icon
-      with only a tooltip, which is the one place a name cannot be read without
-      hovering. It is here now, beside the swimlane's and the list's, so all
-      three are copied the same way from the same kind of menu.
-      docs/Features/General/Board-Item-Links.md
     ul.pop-over-list
-      li
-        a.js-copy-card-link
-          i.fa.fa-link
-          |  {{_ 'copy-link-to-clipboard'}}
-      //- #2015: the same link as a QR code, drawn in the browser
-        (models/lib/qrCode.js), to open the card on a phone.
-      li
-        a.js-card-qr-code
-          i.fa.fa-qrcode
-          |  {{_ 'card-qr-code'}}
-    span.copied-tooltip {{_ 'copied'}}
-    hr
-    //- History of the whole card (docs/Features/General/History/History.md §7a).
-      One menu item and nothing else: it opens the SAME historyTable every other
-      scope opens, with `scope: 'card'`.
-    ul.pop-over-list
-      li
-        a.js-card-history
-          i.fa.fa-history
-          |  {{_ 'history'}}
-    hr
-    //- Action items of the description, Show on Card
-      (docs/Features/Cards/Action-Items.md).
-    if canModifyCard
-      if actionItemsOf this
-        ul.pop-over-list
-          li
-            a.js-description-action-items
-              i.fa.fa-tasks
-              |  {{_ 'action-items-create'}}
-        hr
-    ul.pop-over-list
-      li
-        a.js-toggle-watch-card
-          if isWatching
-            i.fa.fa-eye
-            |  {{_ 'unwatch'}}
-          else
-            i.fa.fa-eye
-            |  {{_ 'watch'}}
-    //- Filter: Subtasks, Edit voting, Edit Planning Poker, Change spent time
-      and Card kind are in the hamburger of their own section of the opened
-      card, and in Card Settings' pane of that section
-      (docs/Features/Cards/Card-Fields.md).
-    hr
-    //- #1172: star/unstar this card - same toggle pattern as the board star.
-    ul.pop-over-list
-      li
-        a.js-star-card-item
-          if isCardItemStarred
-            i.fa.fa-star
-            |  {{_ 'unstar-item'}}
-          else
-            i.fa.fa-star-o
-            |  {{_ 'star-item'}}
-    hr
-    //- The board's custom fields, and this card's. The first is Board Settings
-      / Custom Fields - the list of fields the board HAS, which is where one is
-      created, renamed or deleted; the second picks which of them are on THIS
-      card. They are two halves of one subject and were three groups apart, so
-      they are one group now, the board's list first because a field has to
-      exist before a card can be given it. A board admin's, the same as in
-      Board Settings. client/components/sidebar/sidebarCustomFields.jade
-    //- "Custom Fields" was here. It is the hamburger at the end of the Custom
-      Fields heading of the card itself now - which is where the fields are.
-    if canModifyCard
-      unless currentUser.isWorker
-        ul.pop-over-list
-          //li: a.js-members {{_ 'card-edit-members'}}
-          //li: a.js-labels {{_ 'card-edit-labels'}}
-          //li: a.js-attachments {{_ 'card-edit-attachments'}}
-          //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
-          //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
-          //li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
-          //li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
-          li
-            a.js-set-card-color
-              i.fa.fa-paint-brush
-              | {{_ 'setCardColorPopup-title'}}
-          //- #1178: draw or write by hand on the card.
-          li
-            a.js-card-drawing
-              i.fa.fa-pencil
-              | {{_ 'cardDrawingPopup-title'}}
-    if canModifyCard
-      hr
-    else
-      unless currentUser.isReadOnly
-        unless currentUser.isReadAssignedOnly
-          hr
-  //- #1173: the same two rows every other menu has - the menu says what it is
-    about, so they are "Export" and "Import". Import writes, so it is asked for
-    with the same permission question the popup itself asks.
-  ul.pop-over-list
-    li
-      a.js-export-card
-        i.fa.fa-upload
-        | {{_ 'export'}}
-    if canImportIntoBoard
-      li
-        a.js-import-card
-          i.fa.fa-download
-          | {{_ 'import'}}
-  if currentUser
-    unless canModifyCard
-      unless currentUser.isReadOnly
-        unless currentUser.isReadAssignedOnly
-          hr
-          ul.pop-over-list
-            li
-              a.js-move-card-to-top
-                i.fa.fa-arrow-up
-                | {{_ 'moveCardToTop-title'}}
-            li
-              a.js-move-card-to-bottom
-                i.fa.fa-arrow-down
-                | {{_ 'moveCardToBottom-title'}}
-          hr
-          ul.pop-over-list
-            if currentUser.isBoardAdmin
-              li
-                a.js-move-card
-                  i.fa.fa-arrow-right
-                  | {{_ 'moveCardPopup-title'}}
-            unless currentUser.isWorker
-              li
-                a.js-copy-card
-                  i.fa.fa-clipboard
-                  | {{_ 'copyCardPopup-title'}}
-              li
-                a.js-save-card-as-template
-                  i.fa.fa-clone
-                  | {{_ 'save-card-as-template'}}
-
-          unless currentUser.isWorker
-            ul.pop-over-list
-              li
-                a.js-copy-checklist-cards
-                  i.fa.fa-copy
-                  | {{_ 'copyManyCardsPopup-title'}}
-            unless archived
-              hr
-              ul.pop-over-list
-                li
-                  a.js-archive
-                    i.fa.fa-archive
-                    | {{_ 'archive-card'}}
-            if archived
-              hr
-              ul.pop-over-list
-                li
-                  a.js-restore-archived-card
-                    i.fa.fa-recycle
-                    | {{_ 'restore'}}
-            hr
-            ul.pop-over-list
-              li
-                a.js-more
-                  span.emoji-icon
-                  i.fa.fa-link
-                  | {{_ 'cardMorePopup-title'}}
-              li
-                a.js-create-board-from-card
-                  i.fa.fa-external-link
-                  | {{_ 'linkCardToNewBoard'}}
-    if canModifyCard
-      hr
-      ul.pop-over-list
-        li
-          a.js-move-card-to-top
-            i.fa.fa-arrow-up
-            | {{_ 'moveCardToTop-title'}}
-        li
-          a.js-move-card-to-bottom
-            i.fa.fa-arrow-down
-            | {{_ 'moveCardToBottom-title'}}
-      hr
-      ul.pop-over-list
+      if cardMenuWrites
         if currentUser.isBoardAdmin
           li
             a.js-move-card
@@ -1376,40 +1202,122 @@ template(name="cardDetailsActionsPopup")
               i.fa.fa-clone
               | {{_ 'save-card-as-template'}}
           li
-            a.js-set-card-recurrence-interval.card-recurrence-interval
-              i.fa.fa-refresh
-              | {{_ 'card-recurrence-interval'}} ...
+            a.js-copy-checklist-cards
+              i.fa.fa-copy
+              | {{_ 'copyManyCardsPopup-title'}}
+          if canModifyCard
+            li
+              a.js-set-card-recurrence-interval.card-recurrence-interval
+                i.fa.fa-refresh
+                | {{_ 'card-recurrence-interval'}} ...
+        li
+          a.js-move-card-to-top
+            i.fa.fa-arrow-up
+            | {{_ 'moveCardToTop-title'}}
+        li
+          a.js-move-card-to-bottom
+            i.fa.fa-arrow-down
+            | {{_ 'moveCardToBottom-title'}}
+      li
+        a.js-toggle-watch-card
+          if isWatching
+            i.fa.fa-eye
+            |  {{_ 'unwatch'}}
+          else
+            i.fa.fa-eye
+            |  {{_ 'watch'}}
+      //- #1172: star/unstar this card - same toggle pattern as the board star.
+      li
+        a.js-star-card-item
+          if isCardItemStarred
+            i.fa.fa-star
+            |  {{_ 'unstar-item'}}
+          else
+            i.fa.fa-star-o
+            |  {{_ 'star-item'}}
+    if canModifyCard
+      unless currentUser.isWorker
+        hr
+        ul.pop-over-list
+          li
+            a.js-set-card-color
+              i.fa.fa-paint-brush
+              | {{_ 'setCardColorPopup-title'}}
+          //- #1178: draw or write by hand on the card.
+          li
+            a.js-card-drawing
+              i.fa.fa-pencil
+              | {{_ 'cardDrawingPopup-title'}}
+          //- Action items of the description, Show on Card
+            (docs/Features/Cards/Action-Items.md).
+          if actionItemsOf this
+            li
+              a.js-description-action-items
+                i.fa.fa-tasks
+                |  {{_ 'action-items-create'}}
+    hr
+  ul.pop-over-list
+    if currentUser
+      //- Copy link, named - the card's header carried this as an icon with only
+        a tooltip. docs/Features/General/Board-Item-Links.md
+      li
+        a.js-copy-card-link
+          i.fa.fa-link
+          |  {{_ 'copy-link-to-clipboard'}}
+      if canModifyCard
+        unless currentUser.isWorker
           li
             a.js-link-card-to-board
               i.fa.fa-link
               | {{_ 'linkCardToBoardPopup-title'}}
-      unless currentUser.isWorker
-        ul.pop-over-list
-          li
-            a.js-copy-checklist-cards
-              i.fa.fa-copy
-              | {{_ 'copyManyCardsPopup-title'}}
-        unless archived
-          hr
-          ul.pop-over-list
-            li
-              a.js-archive
-                i.fa.fa-archive
-                | {{_ 'archive-card'}}
-        if archived
-          hr
-          ul.pop-over-list
+      //- #2015: the same link as a QR code, drawn in the browser
+        (models/lib/qrCode.js), to open the card on a phone.
+      li
+        a.js-card-qr-code
+          i.fa.fa-qrcode
+          |  {{_ 'card-qr-code'}}
+      //- History of the whole card (docs/Features/General/History/History.md
+        §7a): the SAME historyTable every other scope opens, `scope: 'card'`.
+      li
+        a.js-card-history
+          i.fa.fa-history
+          |  {{_ 'history'}}
+    //- #1173: "Export" and "Import", as every other menu has them. Import
+      writes, so it is asked for with the same permission question the popup
+      itself asks.
+    li
+      a.js-export-card
+        i.fa.fa-upload
+        | {{_ 'export'}}
+    if canImportIntoBoard
+      li
+        a.js-import-card
+          i.fa.fa-download
+          | {{_ 'import'}}
+    if currentUser
+      if cardMenuWrites
+        unless currentUser.isWorker
+          if archived
             li
               a.js-restore-archived-card
                 i.fa.fa-recycle
                 | {{_ 'restore'}}
-        hr
-        ul.pop-over-list
+          else
+            li
+              a.js-archive
+                i.fa.fa-archive
+                | {{_ 'archive-card'}}
           li
             a.js-more
               span.emoji-icon
                 i.fa.fa-link
               | {{_ 'cardMorePopup-title'}}
+          unless canModifyCard
+            li
+              a.js-create-board-from-card
+                i.fa.fa-external-link
+                | {{_ 'linkCardToNewBoard'}}
+  span.copied-tooltip {{_ 'copied'}}
 
 //- #1173: the card export popup IS the shared export body - the same checkbox
   list and the same four formats every other menu offers, with the card as its

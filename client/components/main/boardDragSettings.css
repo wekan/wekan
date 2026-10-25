@@ -12,3 +12,6 @@
   appearance: auto;
   transform: none;
 }
+/* Select all / Unselect all centred under their "Draggable" heading, as the
+   heading and its checkboxes are. */
+.board-drag-settings th .board-settings-column-actions { justify-content: center; }

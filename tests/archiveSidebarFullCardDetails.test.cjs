@@ -66,15 +66,11 @@ test('the popup opened is the real cardDetails template, full size, not a narrow
 });
 
 test('opening an archived card no longer offers "Archive" - it offers "Restore" instead', () => {
-  // Both action-menu copies (canModifyCard and the read-only one) hide the
-  // Archive item while `archived` is true...
-  const archiveBlocks = [...cardDetailsJade.matchAll(/unless archived\n\s+hr\n\s+ul\.pop-over-list\n\s+li\n\s+a\.js-archive/g)];
-  assert.ok(archiveBlocks.length >= 2, 'both action-menu copies hide Archive while archived');
-
-  // ...and now BOTH copies show a Restore item in exactly that place instead.
-  const restoreBlocks = [...cardDetailsJade.matchAll(/if archived\n\s+hr\n\s+ul\.pop-over-list\n\s+li\n\s+a\.js-restore-archived-card/g)];
-  assert.strictEqual(restoreBlocks.length, 2,
-    'both the canModifyCard and read-only action-menu copies gained a Restore item');
+  // The action menu is one list (2026-10-25): an archived card has Restore
+  // where Move Card to Archive is, for both kinds of member it was offered to.
+  assert.match(cardDetailsJade, /if archived\n\s+li\n\s+a\.js-restore-archived-card\n[\s\S]{0,120}else\n\s+li\n\s+a\.js-archive\n/,
+    'Restore while archived, Move Card to Archive otherwise');
+  assert.strictEqual((cardDetailsJade.match(/a\.js-archive\n/g) || []).length, 1, 'one archive item');
   assert.ok(/\{\{_ 'restore'\}\}/.test(cardDetailsJade), 'labelled with the existing restore key - no new i18n key needed');
 });
 

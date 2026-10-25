@@ -328,9 +328,18 @@ template(name="boardCardSettingsPopup")
                 ul.pop-over-list.card-settings-card-actions
                   each action in sectionCardActions
                     li
-                      a.js-card-settings-action(data-action="{{action.id}}")
-                        i.fa(class=action.icon aria-hidden="true")
-                        | {{action.title}}
+                      //- Edit voting and Edit Planning Poker are their forms,
+                        right here; the others open their popup.
+                      if action.inline
+                        .card-settings-inline-action
+                          h4
+                            i.fa(class=action.icon aria-hidden="true")
+                            | {{action.title}}
+                          +Template.dynamic(template=action.inline)
+                      else
+                        a.js-card-settings-action(data-action="{{action.id}}")
+                          i.fa(class=action.icon aria-hidden="true")
+                          | {{action.title}}
               //- Reading order: On this card (opened from a card), Show on
                 Minicard, Show on Card, then the field - mirrored in a
                 right-to-left language by the grid itself.

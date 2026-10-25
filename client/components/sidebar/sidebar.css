@@ -209,6 +209,8 @@
   color: #888;
   font-size: calc(11px * var(--wekan-ui-font-scale, 1));
 }
+.card-settings-inline-action { padding: 6px 0 10px; border-bottom: 1px solid #eee; }
+.card-settings-inline-action h4 { margin: 0 0 6px; }
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
 .card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }

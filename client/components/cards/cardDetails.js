@@ -216,6 +216,16 @@ function getCardId() {
   return getCurrentCardIdFromContext();
 }
 
+// Edit voting and Edit Planning Poker are their own popup from the opened
+// card's section hamburger, and part of Card Settings' Voting pane
+// (docs/Features/Cards/Card-Fields.md). Saved in their own popup they step
+// back from it; saved in the pane they leave Card Settings open.
+function backIfOwnPopup(evt, popupName) {
+  const el = evt && (evt.currentTarget || evt.target);
+  const popup = el && el.closest && el.closest('.js-pop-over');
+  if (popup && popup.dataset.popup === popupName) Popup.back();
+}
+
 function getBoardBodyInstance() {
   const boardBodyEl = document.querySelector('.board-body');
   if (boardBodyEl) {
@@ -1803,6 +1813,13 @@ Template.inlinedCardDescription.events({
 });
 
 Template.cardDetailsActionsPopup.helpers({
+  // The moving and copying items: for who may change the card, and - as they
+  // always were - for a member who is not read-only.
+  cardMenuWrites() {
+    if (Utils.canModifyCard(this)) return true;
+    const user = ReactiveCache.getCurrentUser();
+    return Boolean(user && !(user.isReadOnly && user.isReadOnly()) && !(user.isReadAssignedOnly && user.isReadAssignedOnly()));
+  },
   isWatching() {
     if (!this || typeof this.findWatcher !== 'function') return false;
     return this.findWatcher(Meteor.userId());
@@ -3057,7 +3074,7 @@ Template.cardStartVotingPopup.events({
     if (endString) {
       Meteor.call('cards.setVoteEnd', card.getRealId(), new Date(endString));
     }
-    Popup.back();
+    backIfOwnPopup(evt, 'cardStartVotingPopup');
   },
   'click .js-remove-vote': Popup.afterConfirm('deleteVote', function () {
     const card = Cards.findOne(getCardId());
@@ -3161,7 +3178,7 @@ Template.cardStartPlanningPokerPopup.events({
     if (endString) {
       Meteor.call('cards.setPokerEnd', card.getRealId(), new Date(endString));
     }
-    Popup.back();
+    backIfOwnPopup(evt, 'cardStartPlanningPokerPopup');
   },
   'click .js-remove-poker': Popup.afterConfirm('deletePoker', function () {
     const card = Cards.findOne(getCardId());

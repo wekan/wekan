@@ -37,8 +37,8 @@ right.
 
 - The **left menu** lists the sections. The first, **Card Settings**, holds
   what is not a field: Ask for a reason when moving cards and the Draggable
-  table, with its select-all. Then Date, Members,
-  Labels, Description, Checklists, Attachments, Time, Custom Fields, Voting,
+  table, with its select-all. Then Date, Time, Members,
+  Labels, Description, Checklists, Attachments, Custom Fields, Voting,
   Scrum settings, Comments and Card.
 - The **right pane** lists every row of the open section, one line each: its
   icon and name, then a **Show on Minicard** cell and a **Show on Card** cell -
@@ -56,12 +56,12 @@ Backlog rank.
 | --- | --- |
 | Card Settings | Ask for a reason when moving cards, Draggable |
 | Date | Received, Start, Due, End, Mark as complete, Due date from the title, At risk, Forecast |
+| Time | Spent time, Flowtime, Pomodoro |
 | Members | Members, Assignee, Creator, Requested by, Assigned by, Suggested members |
 | Labels | Labels, Labels above the title, Labels text (the board's and your own), Stickers, Location, Card color |
 | Description | Description title, Description text, Description badge |
 | Checklists | Checklists, Checklist title, Checklist due date, Checklist count, Checklist from description, Subtasks |
 | Attachments | Cover image, Attachments, Attachment count, Previews, Details, Text notes, Drawing |
-| Time | Spent time, Flowtime, Pomodoro |
 | Custom Fields | Custom Fields |
 | Voting | Voting question, Planning Poker |
 | Scrum settings | Sprint, Past sprints, Release, Issue type, Acceptance criteria, Backlog rank |
@@ -93,8 +93,8 @@ at the top of that section's pane.
 | Action | Opened card | Card Settings pane |
 | --- | --- | --- |
 | Filter: Subtasks | Subtasks hamburger (with the subtask settings) | Checklists |
-| Edit voting | Voting hamburger | Voting |
-| Edit Planning Poker | Planning Poker hamburger | Voting |
+| Edit voting | Voting hamburger | Voting - the form itself, not a popup |
+| Edit Planning Poker | Planning Poker hamburger | Voting - the form itself, not a popup |
 | Change spent time | Spent time hamburger | Time |
 | Card kind | Scrum settings hamburger | Scrum settings |
 | Subtask settings | Subtasks hamburger | Checklists - also from Board Settings, for a board admin |

@@ -35,7 +35,9 @@ test('a mention of a non-member stays in the title; code and prose are not items
 
 test('the comment and the card menu offer it behind Board Settings / Card; cards go to the top of the list', () => {
   assert.match(read('client/components/activities/comments.jade'), /if actionItemsOf this\n\s+= ' - '\n\s+a\.js-comment-action-items/);
-  assert.match(read('client/components/cards/cardDetails.jade'), /if canModifyCard\n\s+if actionItemsOf this\n\s+ul\.pop-over-list\n\s+li\n\s+a\.js-description-action-items/);
+  // In the card menu's Set color / Drawing group (tests/cardActionsOrder.test.cjs),
+  // which is for who may change the card.
+  assert.match(read('client/components/cards/cardDetails.jade'), /if canModifyCard\n\s+unless currentUser\.isWorker\n[\s\S]{0,700}if actionItemsOf this\n\s+li\n\s+a\.js-description-action-items/);
   const js = read('client/components/cards/fromText.js');
   assert.match(js, /boardFlagOn\('allowsActionItemsOnCard', card\.boardId\)/);
   assert.match(js, /const members = board && board\.activeMembers \? board\.activeMembers\(\) : \[\];/, 'only active members become members');

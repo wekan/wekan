@@ -236,4 +236,8 @@ test('a maximized card has its comments section in the right column', () => {
   assert.match(read('client/components/cards/cardDetails.css'), /\.card-details-right \.card-details-comments \.card-details-section-rule \{\n\s+display: none;/);
 });
 
+test('Select all / Unselect all are centred under Draggable', () => {
+  assert.match(read('client/components/main/boardDragSettings.css'), /\.board-drag-settings th \.board-settings-column-actions \{ justify-content: center; \}/);
+});
+
 console.log(`cardShownFields: ${passed} passed`);

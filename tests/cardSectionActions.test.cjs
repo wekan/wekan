@@ -74,6 +74,13 @@ test('Card Settings, opened from a card: the actions in the pane of their sectio
   assert.ok(popup.indexOf('card-settings-card-actions') < popup.indexOf('.card-settings-pane-head'));
   assert.match(sidebarJs, /if \(id === 'filterSubtasks'\) \{\n\s+filterSubtasksOf\(card\);/);
   assert.match(sidebarJs, /if \(action\.board\) \{\n\s+Popup\.open\(action\.popup\)\(evt\);/, 'a board action works from Board Settings too');
+  // Edit voting and Edit Planning Poker are the forms themselves in the pane.
+  assert.deepStrictEqual(cardActionsOf('vote').map(a => a.inline), ['cardStartVotingPopup', 'cardStartPlanningPokerPopup']);
+  assert.match(popup, /if action\.inline\n\s+.card-settings-inline-action\n[\s\S]{0,400}\+Template\.dynamic\(template=action\.inline\)/);
+  // Saved in the pane, Card Settings stays open; saved in their own popup, it steps back.
+  assert.match(js, /function backIfOwnPopup\(evt, popupName\) \{[\s\S]{0,200}if \(popup && popup\.dataset\.popup === popupName\) Popup\.back\(\);/);
+  assert.match(js, /backIfOwnPopup\(evt, 'cardStartVotingPopup'\);/);
+  assert.match(js, /backIfOwnPopup\(evt, 'cardStartPlanningPokerPopup'\);/);
   assert.match(sidebarJs, /if \(!Utils\.canModifyCard\(card\)\) return;\n\s+Popup\.open\(action\.popup, \{ dataContext: card \}\)\(evt\);/, 'an edit only for who may change the card');
 });
 
