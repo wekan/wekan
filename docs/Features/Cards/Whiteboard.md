@@ -40,7 +40,8 @@ lines and a line at most 5,000 points.
 
 ## Hiding it
 
-Board Settings / Card row **Whiteboard** (*Show on Card*). A site admin hides it
+Board Settings / Card row **Drawing** (*Show on Card*) - it was called
+Whiteboard. A site admin hides it
 on every board from Admin Panel / Settings / Visibility / Features / Card
 fields. The drawing popup works as before when the whiteboard is hidden.
 

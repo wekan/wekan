@@ -69,4 +69,12 @@ test('opened from the drawing, under the header bar, hidden by its Board Setting
   assert.ok(CARD_SETTINGS_ROWS.find(r => r.key === 'whiteboard').card.field === 'allowsWhiteboardOnCard');
 });
 
+test('its Board Settings / Card row is called Drawing, in the existing translations', () => {
+  const { CARD_SETTINGS_ROWS } = require('../models/lib/cardSettingsRows.js');
+  const row = CARD_SETTINGS_ROWS.find(r => r.key === 'whiteboard');
+  assert.deepStrictEqual(row.label, ['cardDrawingPopup-title'], 'the name of the card menu\'s Drawing');
+  // Negative: not the old Whiteboard name.
+  assert.ok(!row.label.includes('whiteboard'));
+});
+
 console.log(`\nwhiteboard: ${passed} tests passed`);

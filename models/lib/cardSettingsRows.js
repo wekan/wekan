@@ -238,7 +238,10 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-board-card-flag', field: 'allowsAttachmentPreviewsOnCard', flag: true, default: true, after: 'attachments' } },
   { key: 'attachmentDetails', icons: ['fa-paperclip', 'fa-user'], label: ['attachments', 'details'], labelSeparator: ': ',
     card: { toggle: 'js-board-card-flag', field: 'allowsAttachmentDetailsOnCard', flag: true, default: true, after: 'attachments' } },
-  { key: 'whiteboard', icons: ['fa-expand'], label: ['whiteboard'],
+  // The row is called Drawing, the name of the card menu's Drawing it belongs
+  // to, in that entry's existing translations; it still shows or hides the
+  // Drawing popup's Open as whiteboard button (docs/Features/Cards/Whiteboard.md).
+  { key: 'whiteboard', icons: ['fa-pencil'], label: ['cardDrawingPopup-title'],
     card: { toggle: 'js-board-card-flag', field: 'allowsWhiteboardOnCard', flag: true, default: true, after: 'attachments' } },
   { key: 'actionItems', icons: ['fa-tasks'], label: ['action-items'],
     card: { toggle: 'js-board-card-flag', field: 'allowsActionItemsOnCard', flag: true, default: true, after: 'comments' } },
