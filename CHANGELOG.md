@@ -208,6 +208,17 @@ and MariaDB answer all 114 cases as MongoDB 8 does.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/18878f6f29">Conformance checks the $or, $elemMatch and long $in shapes FerretDB now answers in the database</a>. Thanks to xet7.</summary>
+
+The visible boards and the due cards of the `dueCards` publication - an `$or`
+of the open permissions and a membership `$elemMatch`, and an `$or` of array
+fields inside an `$and` - and an `$in` longer than the 32 values FerretDB's
+MySQL backend compares with JSON functions, with negatives that must stay in Go.
+SQLite, PostgreSQL, MySQL and MariaDB answer all 115 cases as MongoDB 8.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9d2b64273b">db-conformance.sh no longer removes the containers of a run that is still going</a>. Thanks to xet7.</summary>
 
 At start it removed every `wekan-conformance-db-*` container and network as
