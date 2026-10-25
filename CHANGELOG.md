@@ -179,6 +179,49 @@ fields.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/20e2273c07">Board Settings / Card and + Add are one popup, with sections in a left menu</a>. Thanks to xet7.</summary>
+
+Board Settings / Card is the Admin Panel's left menu and pane, and the opened
+card's "+ Add" opens the same popup for that card. Every row is in one section;
+each line has, in reading order, On this card (from a card), Show on Minicard,
+Show on Card and the field, each side with its checkbox, its position and up
+and down arrows. A row's name leaves out its section's ("Sprint", not "Scrum
+settings: Sprint"). "On this card" is new in every language.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f20f24201">Five card actions are in the hamburger of the section they act on</a>. Thanks to xet7.</summary>
+
+They left the card's actions menu: on the opened card each is in the hamburger
+of the section it acts on - the Scrum fields the card shows are one Scrum
+settings section with Card kind in its hamburger - and in Card Settings they
+are at the top of that section's pane. `tests/cardSectionActions.test.cjs`
+fails for a hamburger whose items are not in Card Settings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65621f44cc">The card actions menu in a new order, as one list</a>. Thanks to xet7.</summary>
+
+Move Card, Copy Card, Save as Template, Copy Template to Many Cards, Card
+recurrence, Move to Top, Move to Bottom, Watch, Star; Set color, Drawing; Copy
+link to clipboard, Link to board, QR code, History, Export, Import, Move Card to
+Archive, More. Each item keeps the permission it had.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c69f3fe25a">Card Settings: Card first, Subtasks and Planning Poker sections, settings in their pane</a>. Thanks to xet7.</summary>
+
+The first entry is Card, with the move-reason question, Draggable and the
+card's own rows. Subtask settings, Edit custom fields, Change spent time, Card
+kind, Edit voting and Edit Planning Poker are forms at the top of their pane
+instead of popups; saved there, Card Settings stays open.
+
+</details>
+
 **Drawing** - handwriting and sketching on a card, with a pen too
 ([#6802](https://github.com/wekan/wekan/issues/6802)).
 
