@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.64
+  version: v12.65
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5642,8 +5642,10 @@ definitions:
         type: boolean
       allowsCoverAttachmentOnCard:
         description: |
-           Does the board show the cover image on the opened card? Opt-in, OFF by
-           default (new Card Settings option).
+           Does the board show the cover image on the opened card? ON by default:
+           a card shows its cover when it has one (docs/Features/Cards/Card-Fields.md;
+           server/lib/schemaUpgradeSteps.js cover-on-card-on turned it on, once, on
+           the boards created while it was opt-in).
         type: boolean
       allowsBadgeAttachmentOnMinicard:
         description: |
@@ -6995,6 +6997,24 @@ definitions:
         description: |
            show list name on the opened card? (Board Settings / Card, List title)
         type: boolean
+        x-nullable: true
+      shownFields:
+        description: |
+           the fields this card shows although they are empty, ticked in the opened
+           card's "+ Add" (docs/Features/Cards/Card-Fields.md,
+           models/lib/cardShownFields.js)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      hiddenFields:
+        description: |
+           the fields this card hides although they have data, unticked in "+ Add"
+        type: array
+        items:
+          type: string
+          x-nullable: true
         x-nullable: true
       showChecklistAtMinicard:
         description: |
@@ -8819,6 +8839,14 @@ definitions:
            dismissed (#6051). When the admin changes the announcement text its
            version changes, so the banner reappears for everyone.
         type: string
+      drawingColors:
+        description: |
+           #6802: the custom colors the user added to the Drawing popup's palette,
+           as HTML color codes (models/lib/cardDrawing.js addCustomColor).
+        type: array
+        items:
+          type: string
+          x-nullable: true
       cardMaximized:
         description: |
            has user clicked maximize card?
