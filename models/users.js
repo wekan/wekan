@@ -645,6 +645,18 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.drawingColors': {
+      /**
+       * #6802: the custom colors the user added to the Drawing popup's palette,
+       * as HTML color codes (models/lib/cardDrawing.js addCustomColor).
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.drawingColors.$': {
+      type: String,
+      regEx: /^#[0-9a-f]{6}$/,
+    },
     'profile.cardMaximized': {
       /**
        * has user clicked maximize card?

@@ -1131,6 +1131,17 @@ Meteor.methods({
     user.toggleCardMaximized(user.hasCardMaximized());
   },
 
+  // #6802: the Drawing popup's custom colors, kept with the account. Only
+  // #rrggbb codes are stored, at most MAX_CUSTOM_COLORS, each once.
+  async setDrawingColors(colors) {
+    check(colors, [String]);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    const { addCustomColor } = require('/models/lib/cardDrawing');
+    const clean = colors.slice(0, 64).reduce((list, c) => addCustomColor(list, c), []);
+    await Users.updateAsync(this.userId, { $set: { 'profile.drawingColors': clean } });
+    return clean;
+  },
+
   async setCardCollapsed(value) {
     check(value, Boolean);
     if (!this.userId) throw new Meteor.Error('not-logged-in');

@@ -42,8 +42,10 @@ a tablet leaves no marks. While one pointer draws, no other one starts a line.
 Clicking a colour picks it and opens the **colour wheel** (hue around it,
 saturation from the centre), a **Brightness** slider and the **HTML colour
 code** (`#rrggbb`). **Add to colours** puts the colour beside the palette, for
-the next drawing too (kept in this browser); **Remove colour** takes a custom
-one away. The **eyedropper** picks a colour from anywhere on the screen where
+the next drawing too; **Remove colour** takes a custom one away. Signed in, the
+custom colours are kept with the account (`profile.drawingColors`, the
+`setDrawingColors` method), so they are there in every browser; drawing on a
+public board without signing in, they are kept in this browser. The **eyedropper** picks a colour from anywhere on the screen where
 the browser can (Chrome, Edge); elsewhere it takes the colour of the line
 clicked in the drawing. Only `#rrggbb` is ever stored, so a colour never
 becomes anything else in the SVG.

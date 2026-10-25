@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Random } from 'meteor/random';
 import { TAPi18n } from '/imports/i18n';
@@ -41,12 +42,30 @@ export function drawingSvgFile(target, strokes, { width = W, height = H } = {}) 
   return new File([svg], `${(target.title || 'drawing').slice(0, 60)}.svg`, { type: 'image/svg+xml' });
 }
 
-// #6802: custom colors are this browser's own, kept beside the palette.
+// #6802: the custom colors beside the palette. A signed-in user keeps them
+// with the account (profile.drawingColors, the setDrawingColors method), so
+// they follow the user to every browser; someone drawing on a public board
+// without signing in keeps them in this browser.
 const CUSTOM_COLORS_KEY = 'wekan-drawing-custom-colors';
-function loadCustomColors() {
+function loadBrowserColors() {
   try { return d.addCustomColor(JSON.parse(window.localStorage.getItem(CUSTOM_COLORS_KEY) || '[]'), null); } catch (e) { return []; }
 }
-function saveCustomColors(list) {
+
+// Reactive: the account's colors, or this browser's.
+function customColorsOf(tpl) {
+  const user = ReactiveCache.getCurrentUser();
+  if (user) return d.addCustomColor((user.profile && user.profile.drawingColors) || [], null);
+  return tpl.customColors.get();
+}
+
+function saveCustomColors(tpl, list) {
+  if (Meteor.userId()) {
+    Meteor.callAsync('setDrawingColors', list).catch(error => {
+      tpl.message.set((error && (error.reason || error.message)) || 'error');
+    });
+    return;
+  }
+  tpl.customColors.set(list);
   try { window.localStorage.setItem(CUSTOM_COLORS_KEY, JSON.stringify(list)); } catch (e) { /* a preference */ }
 }
 
@@ -114,7 +133,7 @@ Template.cardDrawingPopup.onCreated(function () {
   this.size = new ReactiveVar({ width: W, height: H });
   this.zoom = new ReactiveVar(1);
   // Colors: the custom ones, the wheel and code editor, the eyedropper.
-  this.customColors = new ReactiveVar(loadCustomColors());
+  this.customColors = new ReactiveVar(loadBrowserColors());
   this.colorEditor = new ReactiveVar(false);
   this.brightness = new ReactiveVar(1);
   this.picking = new ReactiveVar(false);
@@ -224,8 +243,8 @@ Template.cardDrawingPopup.helpers({
   isEditing() { return Template.instance().editingId.get() === this._id; },
   thumbSvg() { return d.strokesToSvg(this.strokes, { width: this.width || W, height: this.height || H }); },
   colors() { return d.COLORS; },
-  customColors() { return Template.instance().customColors.get(); },
-  isCustom(c) { return Template.instance().customColors.get().includes(c); },
+  customColors() { return customColorsOf(Template.instance()); },
+  isCustom(c) { return customColorsOf(Template.instance()).includes(c); },
   currentColor() { return Template.instance().color.get(); },
   colorEditorOpen() { return Template.instance().colorEditor.get(); },
   brightnessPercent() { return Math.round(Template.instance().brightness.get() * 100); },
@@ -274,15 +293,11 @@ Template.cardDrawingPopup.events({
   'click .js-drawing-close-colors'(event, tpl) { event.preventDefault(); tpl.colorEditor.set(false); },
   'click .js-drawing-add-color'(event, tpl) {
     event.preventDefault();
-    const list = d.addCustomColor(tpl.customColors.get(), tpl.color.get());
-    tpl.customColors.set(list);
-    saveCustomColors(list);
+    saveCustomColors(tpl, d.addCustomColor(customColorsOf(tpl), tpl.color.get()));
   },
   'click .js-drawing-remove-color'(event, tpl) {
     event.preventDefault();
-    const list = d.removeCustomColor(tpl.customColors.get(), tpl.color.get());
-    tpl.customColors.set(list);
-    saveCustomColors(list);
+    saveCustomColors(tpl, d.removeCustomColor(customColorsOf(tpl), tpl.color.get()));
   },
   'input .js-drawing-hex, change .js-drawing-hex'(event, tpl) {
     let v = String(event.currentTarget.value || '').trim();

@@ -110,13 +110,17 @@ test('colors: the wheel, the HTML color code, custom colors and the eyedropper',
   await page.mouse.click(wheel.x + wheel.width - 2, wheel.y + wheel.height / 2);
   await expect(popup.locator('.js-drawing-hex')).toHaveValue(/^#f[a-f0-9]0[0-9a-f]0[0-9a-f]$/);
 
-  // Added to the colors, kept for the next drawing.
+  // Added to the colors, kept with the signed-in user's account - not in the
+  // browser, which is for someone not signed in on a public board.
   await popup.locator('.js-drawing-hex').fill('#3366cc');
   await popup.locator('.js-drawing-add-color').click();
   await expect(popup.locator('.card-drawing-color--custom[data-color="#3366cc"]')).toHaveCount(1);
-  expect(await page.evaluate(() => window.localStorage.getItem('wekan-drawing-custom-colors'))).toContain('#3366cc');
+  const profileColors = () => ((db.findOne('users', { _id: board.owner.id }) || {}).profile || {}).drawingColors || [];
+  await expect.poll(profileColors, { timeout: 15_000 }).toEqual(['#3366cc']);
+  expect(await page.evaluate(() => window.localStorage.getItem('wekan-drawing-custom-colors'))).toBeNull();
   await popup.locator('.js-drawing-remove-color').click();
   await expect(popup.locator('.card-drawing-color--custom')).toHaveCount(0);
+  await expect.poll(profileColors, { timeout: 15_000 }).toEqual([]);
 
   // The eyedropper, on the drawing (the browser's screen picker cannot be
   // driven by a test): it takes the color of the line under it.

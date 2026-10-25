@@ -111,6 +111,28 @@ test('the popup: Save above the drawing, the stage, the corner handle, the color
   assert.doesNotMatch(js, /, \{ width: W, height: H \}\)/, 'negative: no operation is fixed at 800 x 500 any more');
 });
 
+test('custom colors: with the account when signed in, in the browser otherwise', () => {
+  const js = read('client/components/cards/cardDrawing.js');
+  assert.match(js, /const user = ReactiveCache\.getCurrentUser\(\);\n\s+if \(user\) return d\.addCustomColor\(\(user\.profile && user\.profile\.drawingColors\) \|\| \[\], null\);\n\s+return tpl\.customColors\.get\(\);/);
+  assert.match(js, /if \(Meteor\.userId\(\)\) \{\n\s+Meteor\.callAsync\('setDrawingColors', list\)/);
+  assert.match(js, /window\.localStorage\.setItem\(CUSTOM_COLORS_KEY, JSON\.stringify\(list\)\)/, 'not signed in: this browser');
+  // Negative: the browser copy is written only on the not-signed-in path.
+  const save = js.slice(js.indexOf('function saveCustomColors'), js.indexOf('const WHEEL'));
+  assert.ok(save.indexOf('return;') < save.indexOf('localStorage.setItem'), 'a signed-in save returns before the browser copy');
+
+  const schema = read('models/users.js');
+  assert.match(schema, /'profile\.drawingColors': \{[\s\S]{0,300}type: Array,\s*optional: true,\s*\},\s*'profile\.drawingColors\.\$': \{\s*type: String,\s*regEx: \/\^#\[0-9a-f\]\{6\}\$\/,/);
+  const method = read('server/models/users.js');
+  const body = method.slice(method.indexOf('async setDrawingColors('), method.indexOf('async setCardCollapsed('));
+  assert.match(body, /check\(colors, \[String\]\);/);
+  assert.match(body, /if \(!this\.userId\) throw new Meteor\.Error\('not-logged-in'\);/, 'negative: no account, nothing stored on the server');
+  assert.match(body, /reduce\(\(list, c\) => addCustomColor\(list, c\), \[\]\)/, 'only #rrggbb, each once, bounded');
+  assert.match(body, /\$set: \{ 'profile\.drawingColors': clean \}/);
+  // What the method stores, for what a client might send.
+  const clean = ['#ABCDEF', 'javascript:x', '#abcdef', '#123456', '"><b>'].reduce((list, c) => d.addCustomColor(list, c), []);
+  assert.deepStrictEqual(clean, ['#abcdef', '#123456']);
+});
+
 test('Add Card: Search / Template / Drawing / More options', () => {
   const composer = read('client/components/lists/listBody.jade');
   const row = composer.slice(composer.indexOf('a.js-search'), composer.indexOf('a.js-toggle-more-options'));
