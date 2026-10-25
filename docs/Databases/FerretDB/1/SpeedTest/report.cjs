@@ -35,6 +35,14 @@ function loadRuns(dir) {
     .map(f => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')));
 }
 
+// A value inside a Markdown table cell. The backslash is escaped FIRST, then the
+// pipe: escaping only the pipe let a value ending in a backslash turn the added
+// backslash into a literal one, and its pipe split the cell again (CodeQL
+// js/incomplete-sanitization, alerts #593-#595). A line break would end the row.
+function mdCell(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+}
+
 function ms(v) {
   if (v === undefined || v === null || Number.isNaN(v)) return '-';
   if (v < 10) return v.toFixed(2);
@@ -120,7 +128,7 @@ function render(runs, sameness, reference, dir) {
         if (r.error) return 'error';
         return ms(r[field]);
       });
-      lines.push(`| ${run.engine} | ${Number.isFinite(t) ? `**${ms(t)}**` : 'incomplete'} | ${cells.join(' | ')} |`);
+      lines.push(`| ${mdCell(run.engine)} | ${Number.isFinite(t) ? `**${ms(t)}**` : 'incomplete'} | ${cells.join(' | ')} |`);
     }
     lines.push('');
   };
@@ -144,8 +152,8 @@ function render(runs, sameness, reference, dir) {
   lines.push('| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |');
   for (const run of sorted) {
     const l = run.load || {};
-    const ixErrors = Object.entries(run.indexes || {}).filter(([, v]) => v.error).map(([k]) => k.replace(/\|/g, '\\|'));
-    lines.push(`| ${run.engine} | ${['users', 'boards', 'lists', 'swimlanes', 'cards'].map(c => seconds(l[c] && l[c].ms)).join(' | ')} | ` +
+    const ixErrors = Object.entries(run.indexes || {}).filter(([, v]) => v.error).map(([k]) => mdCell(k));
+    lines.push(`| ${mdCell(run.engine)} | ${['users', 'boards', 'lists', 'swimlanes', 'cards'].map(c => seconds(l[c] && l[c].ms)).join(' | ')} | ` +
       `${seconds(run.indexTotalMs)} | ${ixErrors.length ? ixErrors.join(', ') : 'none'} |`);
   }
   lines.push('');
@@ -160,7 +168,7 @@ function render(runs, sameness, reference, dir) {
   for (const run of sorted) {
     const d = sameness[run.label] || [];
     const answered = QUERIES.length + 1 - d.length;
-    lines.push(`| ${run.engine} | ${answered} of ${QUERIES.length + 1} | ${d.length ? d.map(x => `${x.query}${x.param !== undefined ? ` #${x.param}` : ''}: ${String(x.why).replace(/\|/g, '\\|').replace(/\n/g, ' ')}`).join('<br>') : 'none'} |`);
+    lines.push(`| ${mdCell(run.engine)} | ${answered} of ${QUERIES.length + 1} | ${d.length ? d.map(x => `${x.query}${x.param !== undefined ? ` #${x.param}` : ''}: ${mdCell(x.why)}`).join('<br>') : 'none'} |`);
   }
   lines.push('');
 
@@ -169,7 +177,7 @@ function render(runs, sameness, reference, dir) {
   lines.push('| Column | Query | Asked for |');
   lines.push('| --- | --- | --- |');
   for (const q of QUERIES) {
-    lines.push(`| ${q.title} | ${q.what.replace(/\|/g, '\\|')} | ${{ users: 'the 3 users on most boards + 12 others', boards: 'the 3 biggest boards + 12 others', pages: 'pages 1, 2, the middle and the last' }[q.params]} |`);
+    lines.push(`| ${mdCell(q.title)} | ${mdCell(q.what)} | ${{ users: 'the 3 users on most boards + 12 others', boards: 'the 3 biggest boards + 12 others', pages: 'pages 1, 2, the middle and the last' }[q.params]} |`);
   }
   lines.push('');
   const calls = runs.length ? Object.values(runs[0].queries).map(r => r.calls).filter(Boolean) : [];
@@ -204,4 +212,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { compare, render, total, REFERENCE_ORDER };
+module.exports = { compare, render, total, mdCell, REFERENCE_ORDER };
