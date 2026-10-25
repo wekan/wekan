@@ -20,13 +20,32 @@ the pen.
 
 ## Drawing
 
-Seven colours, four line widths, **Undo** (the last line), the **Eraser** (takes
-away every line it touches) and **Clear** (all lines). **Save** keeps the lines
+Seven colours, four line widths, **Undo** (steps back through every change: a
+line, an erase, a move, a resize, a grouping, a layer change - and then takes
+away the last line), the **Eraser** (takes away every line it touches) and
+**Clear** (all lines). **Save** keeps the lines
 on the card, so the drawing can be edited later, and stores the picture as an
 attachment: a PNG for a drawing from the card menu, an SVG for a new drawing.
 
 **Palm rejection:** once a pen has drawn, a touch does not, so a hand resting on
 a tablet leaves no marks. While one pointer draws, no other one starts a line.
+
+## The lasso
+
+The **Lasso** tool selects the lines drawn around: a loop selects every line
+that lies wholly inside it. The selection is shown in a dashed box, and:
+
+- **moves** together, dragged from inside the box - stopping at the edge of the
+  drawing, keeping its shape;
+- **resizes** by the handle at the box's bottom-right corner, from its top-left
+  corner, line widths too (to the nearest of the four);
+- **Group** makes the selection one: selecting any of its lines selects all of
+  them, and the group is saved with the drawing. **Ungroup** takes it apart;
+- **Bring to front**, **Bring forward**, **Send backward** and **Send to back**
+  change which lines are drawn over which - all the way, or one line at a time.
+
+A move or a resize is one Undo step. Pressing the Lasso again goes back to the
+pen.
 
 ## Board Settings / Card
 
@@ -48,8 +67,10 @@ bounded memory. Uploads used to be refused after JVN#74210258;
 ## Implementation
 
 `client/components/cards/cardDrawing.js` (the popup), `client/lib/newDrawing.js`
-(opening a new drawing), `models/lib/cardDrawing.js` (lines, the eraser and palm
-rejection, pure), `client/components/main/popup.js` (moving and maximizing).
-Tests: `tests/cardDrawingPen.test.cjs`, `tests/popupMoveMaximize.test.cjs`,
-`tests/svgServing.test.cjs` and the Playwright specs `card-drawing-pen.e2e.js`,
+(opening a new drawing), `models/lib/cardDrawing.js` (lines, the eraser, palm
+rejection and the lasso's selection, moving, resizing, groups and layer order,
+pure), `client/components/main/popup.js` (moving and maximizing).
+Tests: `tests/cardDrawingPen.test.cjs`, `tests/cardDrawingLasso.test.cjs`,
+`tests/popupMoveMaximize.test.cjs`, `tests/svgServing.test.cjs` and the
+Playwright specs `card-drawing-pen.e2e.js`, `card-drawing-lasso.e2e.js`,
 `popup-drawing-window.e2e.js` and `svg-attachment.e2e.js`.

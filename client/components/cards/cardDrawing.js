@@ -60,9 +60,48 @@ Template.cardDrawingPopup.onCreated(function () {
   this.saving = new ReactiveVar(false);
   this.message = new ReactiveVar('');
   this.erasing = new ReactiveVar(false);
+  // #6802, the lasso: a loop selects lines; the selection moves, resizes,
+  // groups and changes layer (models/lib/cardDrawing.js).
+  this.lasso = new ReactiveVar(false);
+  this.loop = new ReactiveVar(null);
+  this.selection = new ReactiveVar([]);
+  this.drag = null;
+  // Undo steps back through every change - a line, an erase, a move - and,
+  // with nothing left to step back to, takes away the last line as before.
+  this.history = [];
   // Palm rejection (models/lib/cardDrawing.js pointerDraws).
   this.pointer = { penSeen: false, activePointerId: null };
 });
+
+const HISTORY = 100;
+const HANDLE = 12;
+
+// Before a change: remember the strokes, for Undo.
+function remember(tpl, strokes = tpl.strokes.get()) {
+  tpl.history.push(strokes);
+  if (tpl.history.length > HISTORY) tpl.history.shift();
+}
+
+function setTool(tpl, tool) {
+  tpl.erasing.set(tool === 'eraser');
+  tpl.lasso.set(tool === 'lasso');
+  tpl.selection.set([]);
+  tpl.loop.set(null);
+}
+
+// The selection's box, with the resize handle at its bottom-right corner.
+function selectionBox(tpl) {
+  const b = d.selectionBounds(tpl.strokes.get(), tpl.selection.get());
+  return b && { ...b, hx: b.x + b.width - HANDLE / 2, hy: b.y + b.height - HANDLE / 2, size: HANDLE };
+}
+
+// What a press at `p` does with the lasso: resize by the handle, move inside
+// the selection, or start a new loop.
+function lassoAction(box, p) {
+  if (box && Math.abs(p[0] - (box.x + box.width)) <= HANDLE && Math.abs(p[1] - (box.y + box.height)) <= HANDLE) return 'resize';
+  if (box && p[0] >= box.x - 4 && p[0] <= box.x + box.width + 4 && p[1] >= box.y - 4 && p[1] <= box.y + box.height + 4) return 'move';
+  return 'loop';
+}
 
 function card(tpl) {
   return ReactiveCache.getCard(tpl.data._id) || tpl.data;
@@ -93,27 +132,67 @@ Template.cardDrawingPopup.helpers({
     return !(tpl.data && tpl.data.drawingNewFile) && (card(tpl).drawings || []).length > 0;
   },
   erasing() { return Template.instance().erasing.get(); },
+  lassoOn() { return Template.instance().lasso.get(); },
+  lassoPath() {
+    const loop = Template.instance().loop.get();
+    return loop && loop.length > 1 ? `${pathD(loop)}Z` : null;
+  },
+  selectionBox() { return selectionBox(Template.instance()); },
+  hasSelection() { return Template.instance().selection.get().length > 0; },
+  selectionGrouped() {
+    const tpl = Template.instance();
+    const strokes = tpl.strokes.get();
+    return tpl.selection.get().some(i => strokes[i] && strokes[i].group);
+  },
   message() { return Template.instance().message.get(); },
 });
 
 Template.cardDrawingPopup.events({
   'click .js-drawing-color'(event, tpl) { event.preventDefault(); tpl.color.set(event.currentTarget.dataset.color); },
   'click .js-drawing-width'(event, tpl) { event.preventDefault(); tpl.width.set(Number(event.currentTarget.dataset.width)); },
-  'click .js-drawing-undo'(event, tpl) { event.preventDefault(); tpl.strokes.set(tpl.strokes.get().slice(0, -1)); },
-  'click .js-drawing-clear'(event, tpl) { event.preventDefault(); tpl.strokes.set([]); },
-  'click .js-drawing-eraser'(event, tpl) { event.preventDefault(); tpl.erasing.set(!tpl.erasing.get()); },
+  'click .js-drawing-undo'(event, tpl) {
+    event.preventDefault();
+    tpl.selection.set([]);
+    tpl.strokes.set(tpl.history.length ? tpl.history.pop() : tpl.strokes.get().slice(0, -1));
+  },
+  'click .js-drawing-clear'(event, tpl) { event.preventDefault(); remember(tpl); tpl.selection.set([]); tpl.strokes.set([]); },
+  'click .js-drawing-eraser'(event, tpl) { event.preventDefault(); setTool(tpl, tpl.erasing.get() ? 'pen' : 'eraser'); },
+  'click .js-drawing-lasso'(event, tpl) { event.preventDefault(); setTool(tpl, tpl.lasso.get() ? 'pen' : 'lasso'); },
+  'click .js-drawing-group'(event, tpl) {
+    event.preventDefault();
+    const sel = tpl.selection.get();
+    if (sel.length < 2) return;
+    remember(tpl);
+    tpl.strokes.set(d.groupStrokes(tpl.strokes.get(), sel, Random.id()));
+  },
+  'click .js-drawing-ungroup'(event, tpl) {
+    event.preventDefault();
+    remember(tpl);
+    tpl.strokes.set(d.ungroupStrokes(tpl.strokes.get(), tpl.selection.get()));
+  },
+  'click .js-drawing-layer'(event, tpl) {
+    event.preventDefault();
+    const sel = tpl.selection.get();
+    if (!sel.length) return;
+    remember(tpl);
+    const { strokes, selection } = d.reorderStrokes(tpl.strokes.get(), sel, event.currentTarget.dataset.layer);
+    tpl.strokes.set(strokes);
+    tpl.selection.set(selection);
+  },
   // docs/Features/Cards/Whiteboard.md
   'click .js-open-whiteboard'(event, tpl) {
     event.preventDefault();
     openWhiteboard(card(tpl)._id, event.currentTarget.dataset.id);
     Popup.close();
   },
-  'click .js-new-drawing'(event, tpl) { event.preventDefault(); tpl.editingId.set(null); tpl.strokes.set([]); },
+  'click .js-new-drawing'(event, tpl) { event.preventDefault(); tpl.editingId.set(null); tpl.history = []; tpl.selection.set([]); tpl.strokes.set([]); },
   'click .js-edit-drawing'(event, tpl) {
     event.preventDefault();
     const drawing = (card(tpl).drawings || []).find(x => x._id === event.currentTarget.dataset.id);
     if (!drawing) return;
     tpl.editingId.set(drawing._id);
+    tpl.history = [];
+    tpl.selection.set([]);
     tpl.strokes.set(d.cleanStrokes(drawing.strokes, { width: W, height: H }));
   },
   'pointerdown .js-drawing-surface'(event, tpl) {
@@ -125,6 +204,19 @@ Template.cardDrawingPopup.events({
     // Capture keeps a line going past the edge; failing to capture must not
     // stop the line from starting.
     try { event.currentTarget.setPointerCapture?.(e.pointerId); } catch (error) { /* drawn without capture */ }
+    const point = pointFrom(tpl, event);
+    if (tpl.lasso.get()) {
+      const box = selectionBox(tpl);
+      const kind = lassoAction(box, point);
+      if (kind === 'loop') {
+        tpl.selection.set([]);
+        tpl.loop.set([point]);
+      }
+      tpl.drag = { kind, start: point, base: tpl.strokes.get(), box };
+      return;
+    }
+    remember(tpl);
+    tpl.selection.set([]);
     if (tpl.erasing.get()) {
       tpl.erasingNow = true;
       tpl.strokes.set(d.eraseAt(tpl.strokes.get(), pointFrom(tpl, event)));
@@ -136,6 +228,26 @@ Template.cardDrawingPopup.events({
   'pointermove .js-drawing-surface'(event, tpl) {
     const e = event.originalEvent || event;
     if (e.pointerId !== tpl.pointer.activePointerId) return;
+    if (tpl.drag) {
+      const p = pointFrom(tpl, event);
+      const { kind, start, base, box } = tpl.drag;
+      if (kind === 'loop') {
+        tpl.loop.set([...(tpl.loop.get() || []), p]);
+        return;
+      }
+      // A move or a resize is one Undo step, from where it started.
+      if (!tpl.drag.changed) { remember(tpl, base); tpl.drag.changed = true; }
+      if (kind === 'move') {
+        tpl.strokes.set(d.moveStrokes(base, tpl.selection.get(), p[0] - start[0], p[1] - start[1], { width: W, height: H }));
+      } else if (kind === 'resize' && box) {
+        // From the box's top-left corner, as far as the pointer went.
+        const fx = box.width > 0 ? (p[0] - box.x) / box.width : 0;
+        const fy = box.height > 0 ? (p[1] - box.y) / box.height : 0;
+        const factor = Math.max(fx, fy);
+        if (factor > 0) tpl.strokes.set(d.scaleStrokes(base, tpl.selection.get(), factor, { width: W, height: H }));
+      }
+      return;
+    }
     if (tpl.erasingNow) {
       tpl.strokes.set(d.eraseAt(tpl.strokes.get(), pointFrom(tpl, event)));
       return;
@@ -148,6 +260,11 @@ Template.cardDrawingPopup.events({
   'pointerup .js-drawing-surface, pointerleave .js-drawing-surface, pointercancel .js-drawing-surface'(event, tpl) {
     const e = event.originalEvent || event;
     if (tpl.pointer.activePointerId !== null && e.pointerId !== tpl.pointer.activePointerId) return;
+    if (tpl.drag && tpl.drag.kind === 'loop') {
+      tpl.selection.set(d.lassoSelect(tpl.strokes.get(), tpl.loop.get() || []));
+      tpl.loop.set(null);
+    }
+    tpl.drag = null;
     tpl.current = null;
     tpl.erasingNow = false;
     tpl.pointer.activePointerId = null;

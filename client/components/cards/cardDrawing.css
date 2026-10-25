@@ -10,3 +10,11 @@
 .card-drawing-eraser { padding: 0 0.3em; }
 .card-drawing-eraser.is-active { outline: 2px solid #2b6cb0; border-radius: 3px; }
 .card-drawing-surface.is-erasing { cursor: cell; }
+/* #6802: the lasso, its loop, the selection and its resize handle. */
+.card-drawing-lasso { padding: 0 0.3em; }
+.card-drawing-lasso.is-active { outline: 2px solid #2b6cb0; border-radius: 3px; }
+.card-drawing-surface.is-lasso { cursor: default; }
+.card-drawing-selection-tools { display: flex; flex-wrap: wrap; gap: 0.6em; align-items: center; margin: 0.2em 0 0.4em; }
+.card-drawing-lasso-loop { fill: rgba(43, 108, 176, 0.08); stroke: #2b6cb0; stroke-width: 1; stroke-dasharray: 4 3; pointer-events: none; }
+.card-drawing-selection { fill: none; stroke: #2b6cb0; stroke-width: 1; stroke-dasharray: 5 3; cursor: move; pointer-events: none; }
+.card-drawing-resize-handle { fill: #ffffff; stroke: #2b6cb0; stroke-width: 2; cursor: nwse-resize; }
