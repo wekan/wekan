@@ -114,7 +114,25 @@ square again and resizing a list follows the pointer. The **database speed
 test** has new results, and its conformance catalogue checks indexed equality,
 array membership and sorting on every database.
 
-This release updates the following dependencies:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a90576bafa">The speed test report escapes a backslash before the pipe in a table cell</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL alerts #593, #594 and #595 (`js/incomplete-sanitization`):
+`docs/Databases/FerretDB/1/SpeedTest/report.cjs` escaped `|` as `\|` in
+Markdown table cells but not a backslash, so a value ending in one turned the
+added backslash into a literal one and its pipe split the cell. One `mdCell()`
+escapes the backslash first, then the pipe, and a line break becomes a space;
+the database's name and the query's title now go through it too.
+`tests/speedTestReportCells.test.cjs` checks that no value can add a column to
+its row, and that nothing in the tree escapes a pipe without the backslash. The
+report is built from local results, so there is no attempt to record in
+Admin Panel / Problems.
+
+</details>
+
+and updates the following dependencies:
 
 - **fast-uri 3.1.8 → 3.1.9** and **undici 7.30.0 → 7.30.1** — [the npm
   group](https://github.com/wekan/wekan/pull/6804).
