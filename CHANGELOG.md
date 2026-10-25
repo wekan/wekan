@@ -110,12 +110,12 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** **Drawing** works with a pen on the whole window - from Add Card
-and Add attachment, saved as SVG, with an eraser and palm rejection - and
-**SVG** is an image again, sanitized whole at any size, streaming, on upload
-and on every serve. **FerretDB** answers WeKan's queries in the database on
-every backend, and **SQLite** stores documents as JSONB, converted once at
-first start. **Right-to-left** checkboxes
-and list resizing are fixed.
+and Add attachment, saved as SVG, with an eraser, palm rejection and a lasso
+that moves, resizes, groups and layers lines - and **SVG** is an image again,
+sanitized whole at any size, streaming, on upload and on every serve.
+**FerretDB** answers WeKan's queries in the database on every backend, and
+**SQLite** stores documents as JSONB. **Right-to-left** checkboxes and list
+resizing are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -172,6 +172,22 @@ and Minimize are in every language.
 
 The row that shows or hides the Drawing popup's Open as whiteboard button is
 named after the card menu's Drawing, with its existing translations.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c26e1bcd0">A lasso selects lines to move, resize, group and ungroup, and to change their layer</a>. Thanks to mimZD and xet7.</summary>
+
+Issue #6802 suggested a lasso for selecting and moving things. A loop drawn with
+it
+selects every line wholly inside, and a grouped line brings its whole group.
+The selection moves from inside its box, stopping at the edge; resizes from
+its corner handle, line widths to the nearest allowed one; groups and
+ungroups, the group saved with the drawing; and goes to the front, the back,
+or one layer up or down. Undo now steps back through every change.
+`tests/cardDrawingLasso.test.cjs` and
+`tests/playwright/specs/card-drawing-lasso.e2e.js` cover each step, with
+every locale translated.
 
 </details>
 
