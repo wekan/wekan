@@ -222,6 +222,9 @@ instead of popups; saved there, Card Settings stays open.
 
 </details>
 
+- [Card Settings: the pane's columns line up, and an inline form's buttons no longer push the rows aside](https://github.com/wekan/wekan/commit/ede0d68b27).
+  Thanks to xet7.
+
 **Drawing** - handwriting and sketching on a card, with a pen too
 ([#6802](https://github.com/wekan/wekan/issues/6802)).
 
