@@ -1,6 +1,11 @@
 .new-comment {
   position: relative;
-  margin: 0 0 20px 38px;
+  /* #6805: the room for the avatar is on the side the avatar is drawn - the
+     reading start (inset-inline-start below). A physical left margin kept it on
+     the left while a right-to-left page drew the avatar on the right, outside
+     the card. */
+  margin-block: 0 20px;
+  margin-inline: 38px 0;
 }
 .new-comment .member {
   opacity: 0.7;
@@ -29,7 +34,8 @@
   border: 0;
   box-shadow: 0 1px 2px rgba(0,0,0,0.23);
   height: 36px;
-  margin: 4px 4px 6px 0;
+  margin-block: 4px 6px;
+  margin-inline: 0 4px;
   padding: 9px 11px;
   width: 100%;
 }
@@ -49,7 +55,8 @@
   box-shadow: 0 1px 2px rgba(0,0,0,0.23);
   color: #8c8c8c;
   height: 36px;
-  margin: 4px 4px 6px 0;
+  margin-block: 4px 6px;
+  margin-inline: 0 4px;
   width: 92%;
 }
 .comment-item:hover {
@@ -161,7 +168,8 @@
   background: #f4f4f4;
   border-inline-start: 2px solid #ccc;
   padding: 4px 6px;
-  margin: 0 4px 6px 0;
+  margin-block: 0 6px;
+  margin-inline: 0 4px;
   font-size: 0.85em;
   color: #666;
   display: flex;
