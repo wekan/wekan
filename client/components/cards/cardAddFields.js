@@ -49,7 +49,7 @@ export function cardBoardView(data) {
 export const CARD_FIELD_TEMPLATES = Object.freeze([
   'cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
   'cardFieldSectionDependencies', 'cardFieldSectionSort', 'cardFieldSectionCustomFields',
-  'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription',
+  'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription', 'cardCommentsSection',
 ]);
 CARD_FIELD_TEMPLATES.forEach(name => {
   Template[name].helpers({

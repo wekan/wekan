@@ -587,6 +587,9 @@ body.desktop-mode .card-details.card-details-collapsed {
     float: inline-end;
     inset-inline-start: 50%;
     margin: 15px 0;
+    /* The comments are here when maximized (cardCommentsSection): the column
+       is as wide as the left one, beside it. */
+    width: calc(50% - 40px);
   }
   .card-details-maximized .card-details-header {
     width: 100%;

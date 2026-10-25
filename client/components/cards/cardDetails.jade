@@ -268,20 +268,16 @@ template(name="cardDetails")
         unless $eq currentBoard.allowsSimilarCardsOnCard false
           +cardSimilarCardsSection(cardId=_id)
 
-      if currentBoard.allowsComments
-        .comment-title
-          +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments" count=cardCommentCountShown)
-          //- Unread comments, Show on Card: the same marker as a minicard's.
-          if currentBoard.allowsUnreadCommentsOnCard
-            if cardHasUnreadComments
-              span.card-details-unread-comments(title="{{_ 'card-has-unread-comments'}}")
-                i.fa.fa-comment
-        if isSectionOpen "comments"
-          if canComment
-            +commentForm
-          +comments
+      //- The comments: in this column, or - on a maximized card - at the top of
+        the right one (cardCommentsSection below).
+      unless cardMaximized
+        +cardCommentsSection
 
     .card-details-right
+
+      //- A maximized card has its comments here, beside the card's fields.
+      if cardMaximized
+        +cardCommentsSection
 
       //- #6688: `allowsActivities` existed in the schema (default true) but
         gated nothing; Board Settings / Card now has its row and this is what
@@ -1026,6 +1022,23 @@ template(name="cardFieldSectionDescription")
   The caret points DOWN when the section is open and toward the reading
   direction's end when it is closed (right in English, left in Arabic), which
   is what `sectionCaret` works out.
+//- The comments section, in the left column of the opened card or, when it is
+  maximized, at the top of the right one.
+template(name="cardCommentsSection")
+  if currentBoard.allowsComments
+    .card-details-comments
+      .comment-title
+        +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments" count=cardCommentCountShown)
+        //- Unread comments, Show on Card: the same marker as a minicard's.
+        if currentBoard.allowsUnreadCommentsOnCard
+          if cardHasUnreadComments
+            span.card-details-unread-comments(title="{{_ 'card-has-unread-comments'}}")
+              i.fa.fa-comment
+      if isSectionOpen "comments"
+        if canComment
+          +commentForm
+        +comments
+
 template(name="cardSectionHeader")
   //- `noRule` for a section that must not have a separator above it: the FIRST
     one, which has nothing above it to be separated from, and one that already

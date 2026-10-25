@@ -220,4 +220,12 @@ test('the "+ Add" popup: wide and high enough, moved and maximized like Drawing,
   assert.match(popup, /MAXIMIZABLE_POPUPS = new Set\(\[[^\]]*'cardAddFieldsPopup'/);
 });
 
+test('a maximized card has its comments section in the right column', () => {
+  const jade = read('client/components/cards/cardDetails.jade');
+  assert.match(jade, /unless cardMaximized\n\s+\+cardCommentsSection/);
+  assert.match(jade, /\.card-details-right\n\n\s+\/\/-[^\n]*\n\s+if cardMaximized\n\s+\+cardCommentsSection/);
+  assert.strictEqual((jade.match(/\+commentForm/g) || []).length, 1, 'negative: one comments section, not two copies');
+  assert.ok(read('client/components/cards/cardAddFields.js').includes("'cardCommentsSection'"), 'with the card\'s own view of the board');
+});
+
 console.log(`cardShownFields: ${passed} passed`);
