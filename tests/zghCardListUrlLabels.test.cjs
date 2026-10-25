@@ -40,6 +40,9 @@ assert.match(cardJade, /span \{\{_ 'link-card'\}\}[\s\S]{0,240}input\.inline-inp
   'the card label identifies a read-only URL');
 assert.match(listJade, /span \{\{_ 'link-list'\}\}[\s\S]{0,650}input\.inline-input\(type="text" readonly/u,
   'the list label identifies a read-only URL');
-assert.match(zgh['linkCardPopup-title'], /[\u0600-\u06ff]/u,
-  'the distinct Link Card action remains a separate review item');
+// 2026-10-25: the Link Card action, Arabic until then, is in Tifinagh too.
+assert.doesNotMatch(zgh['linkCardPopup-title'], /[\u0600-\u06ff]/u, 'no Arabic left');
+assert.match(zgh['linkCardPopup-title'], /[\u2d30-\u2d7f]/u);
+assert.notEqual(zgh['linkCardPopup-title'], zgh['link-card'],
+  'the Link Card action stays distinct from the card URL label');
 console.log('Tamazight card/list URL labels and source contexts pass.');

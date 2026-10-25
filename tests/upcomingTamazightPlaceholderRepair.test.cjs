@@ -16,7 +16,10 @@ for (const [key, source] of Object.entries(english)) {
 const repairedKeys = ['act-addAttachment', 'act-removeChecklistItem',
   'act-setCustomField', 'globalSearch-instructions-operator-has'];
 const repaired = repairedKeys.map(key => translated[key]).join('\n');
-assert.match(repaired, /Takarḍa|takarḍa|tabdart|tafelwit|asenqed/);
+// 2026-10-25: these were Kabyle in Latin letters; Standard Moroccan Tamazight
+// is written in Tifinagh here (tests/wrongLanguageCorrections20261025.test.cjs).
+assert.match(repaired, /ⵜⴰⴽⴰⵕⴹⴰ|ⵜⴽⴰⵕⴹⴰ|ⵜⴰⵍⴳⴰⵎⵜ|ⵜⴼⵍⵡⵉⵜ/u);
+assert.doesNotMatch(repaired, /(?<!_)\b(?:Takarḍa|takarḍa|tabdart|tafelwit|asenqed)\b/u, 'no Latin-letter Kabyle left');
 assert.doesNotMatch(repaired, /[\u0600-\u06ff]|a édité|dans la|__(?:مرفق|بطاقة|قائمة|لوحة)__/u);
 console.log('upcomingTamazightPlaceholderRepair: 2 tests passed');
 

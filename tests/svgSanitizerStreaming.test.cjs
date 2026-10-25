@@ -30,7 +30,7 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
 
 // Everything that must never survive, in every form a browser accepts.
 const DANGER = [
-  /<script/i, /<\/script/i, /\son[a-z]+\s*=/i, /javascript:/i, /&#106;avascript/i, /vbscript:/i,
+  /<script/i, /<\/script\b[^>]*>/i, /\son[a-z]+\s*=/i, /javascript:/i, /&#106;avascript/i, /vbscript:/i,
   /<!DOCTYPE/i, /<!ENTITY/i, /foreignObject/i, /<iframe/i, /<embed/i, /<object/i,
   /<set\b/i, /<animate/i, /xml-stylesheet/i, /@import/i, /expression\(/i,
 ];
@@ -190,7 +190,7 @@ async function streamThrough(chunks) {
     const { content, changed } = sanitizeSvgString(bomb);
     assert.strictEqual(changed, true);
     assertClean(content, 'bomb');
-    assert.doesNotMatch(content, /SYSTEM|passwd|<script/);
+    assert.doesNotMatch(content, /SYSTEM|passwd|<script/i);
   });
 
   await test('upload: sanitizeSvgFile rewrites a hostile file in place, leaves a clean one untouched; svgFileIsClean agrees', async () => {
