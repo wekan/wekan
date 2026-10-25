@@ -165,7 +165,7 @@ Template.cardWhiteboard.events({
     if (!t || !card || !drawing) return;
     tpl.saving.set(true);
     try {
-      const file = await drawingPngFile(card, d.cleanStrokes(drawing.strokes, size(drawing)));
+      const file = await drawingPngFile(card, d.cleanStrokes(drawing.strokes, size(drawing)), size(drawing));
       const attachmentId = await uploadDrawingPng(card, file);
       await Meteor.callAsync('cards.whiteboardSetPicture', t.cardId, t.drawingId, attachmentId);
       tpl.message.set(TAPi18n.__('card-drawing-saved'));

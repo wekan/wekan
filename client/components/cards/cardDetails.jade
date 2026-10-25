@@ -1850,8 +1850,18 @@ template(name="cardDrawingPopup")
           i.fa.fa-plus
           |  {{_ 'card-drawing-new'}}
     .card-drawing-tools
+      //- #6802: the palette, then the custom colors added to it. Clicking a
+        color picks it and opens the color wheel and the HTML color code.
       each colors
-        a.card-drawing-color.js-drawing-color(data-color=this style="background:{{this}}" class="{{#if isColor this}}is-active{{/if}}")
+        a.card-drawing-color.js-drawing-color(data-color=this style="background:{{this}}" class="{{#if isColor this}}is-active{{/if}}" title=this aria-label=this)
+      each customColors
+        a.card-drawing-color.card-drawing-color--custom.js-drawing-color(data-color=this style="background:{{this}}" class="{{#if isColor this}}is-active{{/if}}" title=this aria-label=this)
+      a.card-drawing-add-custom.js-drawing-custom-color(title="{{_ 'card-drawing-custom-color'}}" aria-label="{{_ 'card-drawing-custom-color'}}")
+        i.fa.fa-plus
+      //- The eyedropper: a color from the screen, or from the drawing where the
+        browser cannot pick from the screen.
+      a.card-drawing-eyedropper.js-drawing-eyedropper(class="{{#if picking}}is-active{{/if}}" title="{{_ 'card-drawing-eyedropper'}}" aria-label="{{_ 'card-drawing-eyedropper'}}" aria-pressed="{{#if picking}}true{{else}}false{{/if}}")
+        i.fa.fa-eyedropper
       each widths
         a.card-drawing-width.js-drawing-width(data-width=this class="{{#if isWidth this}}is-active{{/if}}") {{this}}
       a.js-drawing-undo(title="{{_ 'card-drawing-undo'}}")
@@ -1864,6 +1874,35 @@ template(name="cardDrawingPopup")
       //- #6802: the lasso selects lines to move, resize, group and stack.
       a.card-drawing-lasso.js-drawing-lasso(class="{{#if lassoOn}}is-active{{/if}}" title="{{_ 'card-drawing-lasso'}}" aria-label="{{_ 'card-drawing-lasso'}}" aria-pressed="{{#if lassoOn}}true{{else}}false{{/if}}")
         i.fa.fa-draw-polygon
+      //- The magnifier: the drawing area larger and smaller on the screen.
+      a.js-drawing-zoom-out(title="{{_ 'zoom-out'}}" aria-label="{{_ 'zoom-out'}}")
+        i.fa.fa-search-minus
+      span.card-drawing-zoom.quiet {{zoomPercent}}%
+      a.js-drawing-zoom-in(title="{{_ 'zoom-in'}}" aria-label="{{_ 'zoom-in'}}")
+        i.fa.fa-search-plus
+      //- Save above the drawing, at the end of the tools.
+      .card-drawing-actions
+        if message
+          span.quiet= message
+        unless newFile
+          a.js-drawing-download-svg {{_ 'card-drawing-download-svg'}}
+        button.primary.js-drawing-save(type="button" disabled=saving) {{_ 'save'}}
+    if colorEditorOpen
+      .card-drawing-color-editor
+        canvas.card-drawing-wheel.js-drawing-wheel(width="160" height="160" aria-label="{{_ 'card-drawing-custom-color'}}")
+        .card-drawing-color-fields
+          label
+            | {{_ 'card-drawing-brightness'}}
+            input.js-drawing-brightness(type="range" min="0" max="100" value=brightnessPercent)
+          label
+            | {{_ 'card-drawing-color-code'}}
+            input.js-drawing-hex(type="text" value=currentColor maxlength="7" spellcheck="false" dir="ltr")
+          span.card-drawing-color-preview(style="background:{{currentColor}}")
+          button.js-drawing-add-color(type="button") {{_ 'card-drawing-add-color'}}
+          if isCustom currentColor
+            button.js-drawing-remove-color(type="button") {{_ 'card-drawing-remove-color'}}
+          a.js-drawing-close-colors(title="{{_ 'close'}}" aria-label="{{_ 'close'}}")
+            i.fa.fa-times
     if hasSelection
       .card-drawing-selection-tools
         a.js-drawing-group(title="{{_ 'card-drawing-group'}}" aria-label="{{_ 'card-drawing-group'}}")
@@ -1881,19 +1920,18 @@ template(name="cardDrawingPopup")
           i.fa.fa-angle-down
         a.js-drawing-layer(data-layer="back" title="{{_ 'card-drawing-send-to-back'}}" aria-label="{{_ 'card-drawing-send-to-back'}}")
           i.fa.fa-angle-double-down
-    svg.card-drawing-surface.js-drawing-surface(viewBox="0 0 800 500" width="100%" class="{{#if erasing}}is-erasing{{/if}} {{#if lassoOn}}is-lasso{{/if}}")
-      rect(width="800" height="500" fill="#ffffff")
-      each strokes
-        path(d=pathD stroke=color stroke-width=width fill="none" stroke-linecap="round" stroke-linejoin="round")
-      if lassoPath
-        path.card-drawing-lasso-loop(d=lassoPath)
-      with selectionBox
-        rect.card-drawing-selection(x=x y=y width=width height=height)
-        rect.card-drawing-resize-handle.js-drawing-resize-handle(x=hx y=hy width=size height=size)
-          title {{_ 'card-drawing-resize'}}
-    .card-drawing-actions
-      button.primary.js-drawing-save(type="button" disabled=saving) {{_ 'save'}}
-      unless newFile
-        a.js-drawing-download-svg {{_ 'card-drawing-download-svg'}}
-      if message
-        span.quiet= message
+    //- The drawing area takes the room there is; it grows from its corner
+      handle, and scrolls when zoomed past the window.
+    .card-drawing-stage.js-drawing-stage
+      .card-drawing-canvas(style="width:{{canvasWidth}}px;height:{{canvasHeight}}px")
+        svg.card-drawing-surface.js-drawing-surface(viewBox="0 0 {{drawingWidth}} {{drawingHeight}}" width=canvasWidth height=canvasHeight preserveAspectRatio="none" class="{{#if erasing}}is-erasing{{/if}} {{#if lassoOn}}is-lasso{{/if}} {{#if picking}}is-picking{{/if}}")
+          rect(width=drawingWidth height=drawingHeight fill="#ffffff")
+          each strokes
+            path(d=pathD stroke=color stroke-width=width fill="none" stroke-linecap="round" stroke-linejoin="round")
+          if lassoPath
+            path.card-drawing-lasso-loop(d=lassoPath)
+          with selectionBox
+            rect.card-drawing-selection(x=x y=y width=width height=height)
+            rect.card-drawing-resize-handle.js-drawing-resize-handle(x=hx y=hy width=size height=size)
+              title {{_ 'card-drawing-resize'}}
+        span.card-drawing-canvas-resize.js-drawing-canvas-resize(role="separator" tabindex="0" title="{{_ 'card-drawing-resize-canvas'}}" aria-label="{{_ 'card-drawing-resize-canvas'}}")

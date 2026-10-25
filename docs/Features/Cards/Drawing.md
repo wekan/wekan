@@ -8,19 +8,24 @@ Draw or write by hand on a card, with a mouse, a finger or a pen (#1178, #6802).
   saved drawing's **Open as whiteboard** ([Whiteboard.md](Whiteboard.md)).
 - **Add attachment → Drawing** - a new drawing on the whole window, saved as an
   **SVG attachment** of the card.
-- **Add Card → Drawing** - shown while the text adds ONE card: the card is
-  added, opened, and a new drawing starts on the whole window, saved as an SVG
-  attachment of the new card.
+- **Add Card → Search / Template / Drawing / More options** - Drawing is shown
+  while the text adds ONE card: the card is added, opened, and a new drawing
+  starts on the whole window, saved as an SVG attachment of the new card.
 
 The Drawing popup moves by its title bar or the drag handle beside the title,
 and has the opened card's maximize / minimize button. Maximized it fills the
 window; minimizing puts it back where it was. A popup left maximized opens
-maximized again. The drawing keeps its 800 x 500 shape, so the line lands under
-the pen.
+maximized again.
+
+The drawing area takes all the room the popup has: a new drawing is as wide and
+high as that room. The handle at its bottom-right corner makes it larger (or
+smaller, never cutting off a line), and the magnifier buttons show it larger or
+smaller on the screen, scrolling when it no longer fits. A drawing keeps its
+size when saved; drawings made before this are 800 x 500.
 
 ## Drawing
 
-Seven colours, four line widths, **Undo** (steps back through every change: a
+Seven colours and any custom colour, four line widths, **Undo** (steps back through every change: a
 line, an erase, a move, a resize, a grouping, a layer change - and then takes
 away the last line), the **Eraser** (takes away every line it touches) and
 **Clear** (all lines). **Save** keeps the lines
@@ -29,6 +34,19 @@ attachment: a PNG for a drawing from the card menu, an SVG for a new drawing.
 
 **Palm rejection:** once a pen has drawn, a touch does not, so a hand resting on
 a tablet leaves no marks. While one pointer draws, no other one starts a line.
+
+**Save** is above the drawing, at the end of the tools.
+
+## Colours
+
+Clicking a colour picks it and opens the **colour wheel** (hue around it,
+saturation from the centre), a **Brightness** slider and the **HTML colour
+code** (`#rrggbb`). **Add to colours** puts the colour beside the palette, for
+the next drawing too (kept in this browser); **Remove colour** takes a custom
+one away. The **eyedropper** picks a colour from anywhere on the screen where
+the browser can (Chrome, Edge); elsewhere it takes the colour of the line
+clicked in the drawing. Only `#rrggbb` is ever stored, so a colour never
+becomes anything else in the SVG.
 
 ## The lasso
 
@@ -71,6 +89,7 @@ bounded memory. Uploads used to be refused after JVN#74210258;
 rejection and the lasso's selection, moving, resizing, groups and layer order,
 pure), `client/components/main/popup.js` (moving and maximizing).
 Tests: `tests/cardDrawingPen.test.cjs`, `tests/cardDrawingLasso.test.cjs`,
-`tests/popupMoveMaximize.test.cjs`, `tests/svgServing.test.cjs` and the
-Playwright specs `card-drawing-pen.e2e.js`, `card-drawing-lasso.e2e.js`,
+`tests/cardDrawingCanvasColors.test.cjs`, `tests/popupMoveMaximize.test.cjs`,
+`tests/svgServing.test.cjs` and the Playwright specs `card-drawing-pen.e2e.js`,
+`card-drawing-lasso.e2e.js`, `card-drawing-canvas.e2e.js`,
 `popup-drawing-window.e2e.js` and `svg-attachment.e2e.js`.

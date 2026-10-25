@@ -28,6 +28,11 @@ async function pointerPath(page, points) {
 }
 const loopAround = (page, x0, y0, x1, y1) => pointerPath(page, [[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]]);
 const pathDs = page => lines(page).evaluateAll(ps => ps.map(p => p.getAttribute('d')));
+// The drawing's own size (#6802: it takes the room there is), from its viewBox.
+const drawingSize = page => page.locator('.js-drawing-surface').evaluate(svg => {
+  const [, , width, height] = svg.getAttribute('viewBox').split(' ').map(Number);
+  return { width, height };
+});
 const boxOf = page => page.locator('.card-drawing-selection').evaluate(r => ({
   x: Number(r.getAttribute('x')), y: Number(r.getAttribute('y')), width: Number(r.getAttribute('width')), height: Number(r.getAttribute('height')),
 }));
@@ -49,6 +54,7 @@ test('the lasso selects, moves, resizes, groups and stacks lines, and Undo steps
   await pointerPath(page, [[0.7, 0.7], [0.85, 0.8]]);
   await expect(lines(page)).toHaveCount(3);
   const before = await pathDs(page);
+  const { width: W, height: H } = await drawingSize(page);
 
   await popup.locator('.js-drawing-lasso').click();
   await expect(popup.locator('.js-drawing-lasso')).toHaveClass(/is-active/);
@@ -62,7 +68,7 @@ test('the lasso selects, moves, resizes, groups and stacks lines, and Undo steps
 
   // Moved together, from inside the box; the third line stays.
   const box = await boxOf(page);
-  const inside = [(box.x + box.width / 2) / 800, (box.y + box.height / 2) / 500];
+  const inside = [(box.x + box.width / 2) / W, (box.y + box.height / 2) / H];
   await pointerPath(page, [inside, [inside[0] + 0.25, inside[1] + 0.1]]);
   // Blaze draws a change after the event: wait for it before reading.
   await expect.poll(async () => (await pathDs(page))[0]).not.toBe(before[0]);
@@ -70,13 +76,13 @@ test('the lasso selects, moves, resizes, groups and stacks lines, and Undo steps
   expect(moved[0]).not.toBe(before[0]);
   expect(moved[1]).not.toBe(before[1]);
   expect(moved[2]).toBe(before[2]);
-  await expect.poll(async () => (await boxOf(page)).x).toBeGreaterThan(box.x + 150);
+  await expect.poll(async () => (await boxOf(page)).x).toBeGreaterThan(box.x + W * 0.18);
   const movedBox = await boxOf(page);
-  expect(movedBox.x).toBeGreaterThan(box.x + 150);
+  expect(movedBox.x).toBeGreaterThan(box.x + W * 0.18);
   expect(Math.round(movedBox.width)).toBe(Math.round(box.width));
 
   // Resized by the handle, from the top-left corner.
-  const handle = [(movedBox.x + movedBox.width) / 800, (movedBox.y + movedBox.height) / 500];
+  const handle = [(movedBox.x + movedBox.width) / W, (movedBox.y + movedBox.height) / H];
   await pointerPath(page, [handle, [handle[0] + 0.1, handle[1] + 0.1]]);
   await expect.poll(async () => (await boxOf(page)).width).toBeGreaterThan(movedBox.width * 1.2);
   const resized = await boxOf(page);
@@ -90,7 +96,7 @@ test('the lasso selects, moves, resizes, groups and stacks lines, and Undo steps
   await expect(popup.locator('.card-drawing-selection-tools')).toHaveCount(0);
   const grouped = await pathDs(page);
   const firstBox = await lines(page).first().evaluate(p => { const b = p.getBBox(); return { x: b.x, y: b.y, width: b.width, height: b.height }; });
-  await loopAround(page, (firstBox.x - 8) / 800, (firstBox.y - 8) / 500, (firstBox.x + firstBox.width + 8) / 800, (firstBox.y + firstBox.height + 8) / 500);
+  await loopAround(page, (firstBox.x - 8) / W, (firstBox.y - 8) / H, (firstBox.x + firstBox.width + 8) / W, (firstBox.y + firstBox.height + 8) / H);
   await expect(popup.locator('.js-drawing-ungroup')).toBeVisible();
   const groupBox = await boxOf(page);
   expect(groupBox.height).toBeGreaterThan(firstBox.height + 20);

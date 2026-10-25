@@ -1,8 +1,17 @@
 /* #1178: drawing on a card. */
-.card-drawing { min-width: min(820px, 90vw); }
-.card-drawing-surface { border: 1px solid #ccc; touch-action: none; cursor: crosshair; background: #fff; display: block; }
-.card-drawing-tools, .card-drawing-actions, .card-drawing-list { display: flex; flex-wrap: wrap; gap: 0.4em; align-items: center; margin: 0.4em 0; }
+/* #6802: the popup is a column - tools, then the drawing area taking the room
+   that is left: the whole window when maximized. */
+.card-drawing { min-width: min(820px, 90vw); display: flex; flex-direction: column; height: min(75vh, 720px); }
+.pop-over--maximized .card-drawing { height: calc(100vh - 6.5em); }
+/* An outline, not a border: the surface's box is exactly the drawing, so a
+   pointer position maps to it without an offset. */
+.card-drawing-surface { outline: 1px solid #ccc; touch-action: none; cursor: crosshair; background: #fff; display: block; }
+.card-drawing-tools, .card-drawing-list { display: flex; flex-wrap: wrap; gap: 0.4em; align-items: center; margin: 0.4em 0; }
+/* Save at the end of the tools, above the drawing. */
+.card-drawing-actions { display: flex; flex-wrap: wrap; gap: 0.6em; align-items: center; margin-inline-start: auto; }
+.card-drawing-actions .js-drawing-save { margin: 0; }
 .card-drawing-color { width: 1.4em; height: 1.4em; border-radius: 50%; border: 2px solid #999; display: inline-block; }
+.card-drawing-color--custom { border-style: dashed; }
 .card-drawing-color.is-active, .card-drawing-width.is-active, .card-drawing-thumb.is-active { outline: 2px solid #2b6cb0; }
 .card-drawing-width { padding: 0 0.4em; border: 1px solid #ccc; border-radius: 3px; }
 .card-drawing-thumb svg { width: 6em; height: auto; border: 1px solid #ddd; display: block; }
@@ -18,3 +27,21 @@
 .card-drawing-lasso-loop { fill: rgba(43, 108, 176, 0.08); stroke: #2b6cb0; stroke-width: 1; stroke-dasharray: 4 3; pointer-events: none; }
 .card-drawing-selection { fill: none; stroke: #2b6cb0; stroke-width: 1; stroke-dasharray: 5 3; cursor: move; pointer-events: none; }
 .card-drawing-resize-handle { fill: #ffffff; stroke: #2b6cb0; stroke-width: 2; cursor: nwse-resize; }
+/* #6802: colors - the custom-color button, the eyedropper, the wheel. */
+.card-drawing-add-custom, .card-drawing-eyedropper { padding: 0 0.3em; }
+.card-drawing-eyedropper.is-active { outline: 2px solid #2b6cb0; border-radius: 3px; }
+.card-drawing-surface.is-picking { cursor: copy; }
+.card-drawing-color-editor { display: flex; flex-wrap: wrap; gap: 1em; align-items: center; margin: 0.2em 0 0.4em; }
+.card-drawing-wheel { width: 160px; height: 160px; border-radius: 50%; touch-action: none; cursor: crosshair; }
+.card-drawing-color-fields { display: flex; flex-direction: column; gap: 0.4em; align-items: flex-start; }
+.card-drawing-color-fields label { display: flex; flex-direction: column; gap: 0.2em; }
+.card-drawing-color-fields .js-drawing-hex { width: 7em; font-family: monospace; }
+.card-drawing-color-preview { width: 3em; height: 1.4em; border: 1px solid #999; border-radius: 3px; display: inline-block; }
+/* #6802: the drawing area - it scrolls when zoomed past the room it has, and
+   grows from the handle at its bottom-right corner. */
+.card-drawing-zoom { min-width: 3em; text-align: center; }
+.card-drawing-stage { flex: 1 1 auto; min-height: 0; overflow: auto; position: relative; padding-inline-end: 10px; padding-block-end: 10px; box-sizing: border-box; }
+.card-drawing-canvas { position: relative; }
+/* At the inline end: bottom-right, or bottom-left in a right-to-left language. */
+.card-drawing-canvas-resize { position: absolute; inset-inline-end: -6px; bottom: -6px; width: 14px; height: 14px; background: #fff; border: 2px solid #2b6cb0; border-radius: 2px; cursor: nwse-resize; touch-action: none; }
+.card-drawing-canvas-resize:focus-visible { outline: 2px solid #2b6cb0; outline-offset: 2px; }

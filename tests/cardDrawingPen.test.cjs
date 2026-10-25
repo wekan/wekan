@@ -56,7 +56,7 @@ test('the popup follows the pen: palm rejection, one pointer, the eraser', () =>
 test('a new drawing opens maximized, without the earlier ones, and is saved as SVG', () => {
   const js = read('client/components/cards/cardDrawing.js');
   assert.match(read('client/lib/newDrawing.js'), /export function openNewDrawing\(cardId, opener\)[\s\S]*dataContext: \{ _id: cardId, drawingNewFile: true \}/);
-  assert.match(js, /if \(tpl\.data && tpl\.data\.drawingNewFile\) \{[\s\S]*drawingSvgFile\(target, strokes\)[\s\S]*svgAttachmentId[\s\S]*Popup\.close\(\);/);
+  assert.match(js, /if \(tpl\.data && tpl\.data\.drawingNewFile\) \{[\s\S]*drawingSvgFile\(target, strokes, size\)[\s\S]*svgAttachmentId[\s\S]*Popup\.close\(\);/);
   assert.match(js, /type: 'image\/svg\+xml'/);
   assert.match(read('client/components/main/popup.js'), /dataContext\.drawingNewFile[\s\S]{0,200}newDrawing \|\| rememberedMaximized\(name\)/);
   const jade = read('client/components/cards/cardDetails.jade');
@@ -69,7 +69,8 @@ test('Add attachment and Add Card (one card) start a new drawing', () => {
   assert.match(att, /a\.js-attach-drawing\n\s+i\.fa\.fa-pencil\n\s+\|  \{\{_ 'cardDrawingPopup-title'\}\}/);
   assert.match(read('client/components/cards/attachments.js'), /'click \.js-attach-drawing'[\s\S]{0,500}Popup\.close\(\);\n\s+setTimeout\(\(\) => openNewDrawing\(cardId\), 0\);/);
   const composer = read('client/components/lists/listBody.jade');
-  assert.match(composer, /if singleCardTitle\n\s+a\.add-card-drawing\.js-add-card-drawing/);
+  // In the row Search / Template / Drawing / More options, after Template.
+  assert.match(composer, /a\.js-card-template[^\n]*\n[\s\S]{0,400}if singleCardTitle\n\s+span\.quiet\n\s+\| &nbsp;\n\s+\| \/\n\s+a\.add-card-drawing\.js-add-card-drawing[^\n]*\n\s+span\.quiet\n\s+\| &nbsp;\n\s+\| \/\n\s+a\.js-toggle-more-options/);
   const body = read('client/components/lists/listBody.js');
   assert.match(body, /singleCardTitle\(\) \{\n\s+return Template\.instance\(\)\.titleCount\.get\(\) === 1;/);
   assert.match(body, /const drawAfterAdd = submittedForm\.dataset\.drawAfterAdd === 'true' && titles\.length === 1;/);

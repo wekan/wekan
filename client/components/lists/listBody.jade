@@ -77,12 +77,6 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    //- #6802: add the ONE card and draw on it at once - the whole window, saved
-      as an SVG attachment of the new card.
-    if singleCardTitle
-      a.add-card-drawing.js-add-card-drawing(href="#" role="button" title="{{_ 'cardDrawingPopup-title'}}")
-        i.fa.fa-pencil
-        |  {{_ 'cardDrawingPopup-title'}}
     a.js-close-inlined-form(title="{{_ 'close'}}")
       i.fa.fa-times-thin
   .add-controls.clearfix
@@ -99,6 +93,14 @@ template(name="addCardForm")
           | &nbsp;
           | /
           a.js-card-template {{_ 'template'}}
+    //- #6802: Search / Template / Drawing / More options - while the text adds
+      ONE card, Drawing adds it and draws on it at once, on the whole window,
+      saved as an SVG attachment of the new card.
+    if singleCardTitle
+      span.quiet
+        | &nbsp;
+        | /
+        a.add-card-drawing.js-add-card-drawing(href="#" role="button" title="{{_ 'cardDrawingPopup-title'}}") {{_ 'cardDrawingPopup-title'}}
     span.quiet
       | &nbsp;
       | /

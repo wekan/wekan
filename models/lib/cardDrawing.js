@@ -22,12 +22,31 @@ function num(v, max) {
   return Number.isFinite(n) ? Math.round(Math.min(max, Math.max(0, n)) * 10) / 10 : null;
 }
 
+// #6802: any colour, as an HTML colour code - the palette, a custom colour from
+// the colour wheel or the code field, or one picked from the screen. Only
+// `#rrggbb` passes, lower-cased, so a colour is never anything but a colour
+// when it becomes an SVG attribute.
+const HEX = /^#[0-9a-f]{6}$/i;
+function cleanColor(c) {
+  return typeof c === 'string' && HEX.test(c) ? c.toLowerCase() : null;
+}
+
+// The drawing's size: a new drawing takes the room the window gives it, and
+// grows from its corner. Whole units, MIN_SIZE to MAX_SIZE each way.
+const MIN_DRAWING = 100;
+const MAX_DRAWING = 4000;
+function drawingSize(width, height) {
+  const clamp = v => Math.round(Math.min(MAX_DRAWING, Math.max(MIN_DRAWING, Number(v) || 0)));
+  return { width: clamp(width || 800), height: clamp(height || 500) };
+}
+
 // Keep only well-formed strokes: an allowed colour and width, points inside
 // the drawing.
 function cleanStrokes(input, { width = 800, height = 500 } = {}) {
   const out = [];
   for (const s of (Array.isArray(input) ? input : []).slice(0, MAX_STROKES)) {
-    if (!s || !COLORS.includes(s.color) || !WIDTHS.includes(s.width)) continue;
+    const color = s && cleanColor(s.color);
+    if (!color || !WIDTHS.includes(s.width)) continue;
     const points = [];
     for (const p of (Array.isArray(s.points) ? s.points : []).slice(0, MAX_POINTS)) {
       const x = num(p && p[0], width);
@@ -35,7 +54,7 @@ function cleanStrokes(input, { width = 800, height = 500 } = {}) {
       if (x !== null && y !== null) points.push([x, y]);
     }
     if (!points.length) continue;
-    const stroke = { color: s.color, width: s.width, points };
+    const stroke = { color, width: s.width, points };
     // #6802: lines grouped with the lasso move, resize and stack together.
     if (typeof s.group === 'string' && GROUP_ID.test(s.group)) stroke.group = s.group;
     out.push(stroke);
@@ -280,9 +299,101 @@ function reorderStrokes(strokes, indexes, how) {
   };
 }
 
+// #6802, colours. The colour wheel is hue around the circle and saturation
+// from the centre out, at the brightness the slider sets (HSV).
+function hsvToHex(h, s, v) {
+  const hue = ((Number(h) % 360) + 360) % 360;
+  const sat = Math.min(1, Math.max(0, Number(s) || 0));
+  const val = Math.min(1, Math.max(0, Number(v) || 0));
+  const f = n => {
+    const k = (n + hue / 60) % 6;
+    return val - val * sat * Math.max(0, Math.min(k, 4 - k, 1));
+  };
+  return `#${[f(5), f(3), f(1)].map(c => Math.round(c * 255).toString(16).padStart(2, '0')).join('')}`;
+}
+
+function hexToHsv(hex) {
+  const c = cleanColor(hex);
+  if (!c) return null;
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16) / 255);
+  const max = Math.max(r, g, b);
+  const d = max - Math.min(r, g, b);
+  let h = 0;
+  if (d) {
+    if (max === r) h = 60 * (((g - b) / d) % 6);
+    else if (max === g) h = 60 * ((b - r) / d + 2);
+    else h = 60 * ((r - g) / d + 4);
+  }
+  return { h: (h + 360) % 360, s: max ? d / max : 0, v: max };
+}
+
+// The colour at (x, y) of a wheel of `radius` centred on (radius, radius), at
+// brightness `v`; a point past the rim takes the rim's colour.
+function wheelColor(x, y, radius, v = 1) {
+  const dx = x - radius;
+  const dy = y - radius;
+  const h = (Math.atan2(dy, dx) * 180) / Math.PI;
+  return hsvToHex(h, Math.min(1, Math.hypot(dx, dy) / radius), v);
+}
+
+// Where a colour sits on that wheel - for its marker.
+function wheelPoint(hex, radius) {
+  const hsv = hexToHsv(hex);
+  if (!hsv) return null;
+  const a = (hsv.h * Math.PI) / 180;
+  return { x: radius + Math.cos(a) * hsv.s * radius, y: radius + Math.sin(a) * hsv.s * radius, v: hsv.v };
+}
+
+// The custom colours, newest last, each once, at most MAX_CUSTOM_COLORS; a
+// palette colour is not repeated among them.
+const MAX_CUSTOM_COLORS = 16;
+function addCustomColor(list, hex) {
+  const c = cleanColor(hex);
+  const current = (Array.isArray(list) ? list : []).map(cleanColor).filter(Boolean);
+  if (!c || COLORS.includes(c)) return current.slice(-MAX_CUSTOM_COLORS);
+  return [...current.filter(x => x !== c), c].slice(-MAX_CUSTOM_COLORS);
+}
+
+function removeCustomColor(list, hex) {
+  const c = cleanColor(hex);
+  return (Array.isArray(list) ? list : []).map(cleanColor).filter(x => x && x !== c);
+}
+
+// The eyedropper on the drawing itself, where the browser cannot pick from the
+// screen: the colour of the topmost line at the point, or the white paper.
+function colorAt(strokes, point, radius = 6) {
+  const list = Array.isArray(strokes) ? strokes : [];
+  for (let i = list.length - 1; i >= 0; i -= 1) {
+    if (strokeTouches(list[i], point, radius)) return cleanColor(list[i].color);
+  }
+  return '#ffffff';
+}
+
+// How small the drawing can be made: no line may be cut off.
+function minimumDrawingSize(strokes) {
+  let w = MIN_DRAWING;
+  let h = MIN_DRAWING;
+  for (const s of Array.isArray(strokes) ? strokes : []) {
+    const r = (Number(s.width) || 0) / 2;
+    for (const [x, y] of s.points || []) { w = Math.max(w, Math.ceil(x + r)); h = Math.max(h, Math.ceil(y + r)); }
+  }
+  return { width: Math.min(MAX_DRAWING, w), height: Math.min(MAX_DRAWING, h) };
+}
+
+// Zoom steps for the magnifier buttons.
+const ZOOM_MIN = 0.25;
+const ZOOM_MAX = 4;
+function nextZoom(zoom, direction) {
+  const z = Number(zoom) || 1;
+  const next = direction > 0 ? z * 1.25 : z / 1.25;
+  return Math.round(Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, next)) * 1000) / 1000;
+}
+
 module.exports = {
   COLORS, WIDTHS, MAX_DRAWINGS, MAX_STROKES, cleanStrokes, strokesToSvg, drawingsAfterSave, whiteboardStroke,
   lastStrokeOf, eraseAt, strokeTouches, pointerDraws,
   pointInPolygon, lassoSelect, withGroups, selectionBounds, moveStrokes, scaleStrokes, groupStrokes, ungroupStrokes,
   reorderStrokes,
+  cleanColor, drawingSize, MIN_DRAWING, MAX_DRAWING, hsvToHex, hexToHsv, wheelColor, wheelPoint,
+  MAX_CUSTOM_COLORS, addCustomColor, removeCustomColor, colorAt, minimumDrawingSize, ZOOM_MIN, ZOOM_MAX, nextZoom,
 };
