@@ -191,6 +191,43 @@ async function runCase(db, c) {
       await am.drop().catch(() => {});
       return out;
     }
+    case 'logicalPushdown': {
+      // The shapes FerretDB's PostgreSQL and MySQL backends now answer in the
+      // database: an $or of open permissions and a membership $elemMatch (the
+      // visible boards of due cards), an $or of array fields inside an $and
+      // (the due cards themselves), and an $in longer than 32 values, which MySQL
+      // sends as one IN. Each must still find matches in arrays, in documents
+      // with a field missing, and leave out what only looks similar.
+      await db.collection('logical_pd').drop().catch(() => {});
+      const lp = db.collection('logical_pd');
+      const ids = Array.from({ length: 40 }, (_, i) => `b${i}`);
+      await lp.insertMany([
+        { _id: 'public', permission: 'public', members: [] },
+        { _id: 'member', permission: 'private', members: [{ userId: 'u1', isActive: true }] },
+        { _id: 'inactive', permission: 'private', members: [{ userId: 'u1', isActive: false }] },
+        { _id: 'split', permission: 'private', members: [{ userId: 'u1', isActive: false }, { userId: 'u2', isActive: true }] },
+        { _id: 'idarray', permission: 'private', members: [{ userId: ['u3', 'u1'], isActive: true }] },
+        { _id: 'card1', boardId: 'b3', archived: false, members: ['u1'], dueAt: new Date(Date.UTC(2026, 0, 2)) },
+        { _id: 'card2', boardId: 'b39', archived: false, assignees: ['u1', 'u2'], dueAt: new Date(Date.UTC(2026, 0, 1)) },
+        { _id: 'card3', boardId: 'b5', archived: false, members: ['u2'], userId: 'u9' },
+        { _id: 'card4', boardId: ['x', 'b7'], archived: false, userId: 'u1' },
+        { _id: 'card5', boardId: 'zz', archived: false, members: ['u1'] },
+        { _id: 'card6', boardId: 'B3', archived: false, members: ['u1'] },
+      ]);
+      const ids2 = async (filter, sort = { _id: 1 }) => (await lp.find(filter, { sort }).toArray()).map(d => d._id);
+      const mine = { $or: [{ members: 'u1' }, { assignees: 'u1' }, { userId: 'u1' }] };
+      const out = {
+        visible: await ids2({ $or: [{ permission: 'public' }, { members: { $elemMatch: { userId: 'u1', isActive: true } } }] }),
+        dueCards: await ids2({ archived: false, $and: [{ boardId: { $in: ids } }, mine] }, { dueAt: 1, _id: 1 }),
+        longIn: await ids2({ boardId: { $in: ids } }),
+        longInNumbers: await ids2({ n: { $in: Array.from({ length: 40 }, (_, i) => i) } }),
+        orMissing: await ids2({ $or: [{ assignees: 'u2' }, { nothere: 'x' }] }),
+        orWithRegex: await ids2({ $or: [{ members: 'u2' }, { _id: { $regex: '^pub' } }] }),
+        elemMatchOperator: await ids2({ members: { $elemMatch: { userId: { $in: ['u3'] }, isActive: true } } }),
+      };
+      await lp.drop().catch(() => {});
+      return out;
+    }
     case 'mixedSort': {
       // A sort over values of every simple type, with ties, null and missing
       // fields - SQLite sorts these in the database (FerretDB's ORDER BY

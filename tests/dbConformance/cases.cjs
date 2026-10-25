@@ -293,6 +293,7 @@ const CASES = [
   { group: 'indexes', name: 'equality and $in on an indexed field: arrays, case, special characters, numbers', kind: 'indexedEquality' },
   { group: 'indexes', name: 'membership in an indexed array of documents, every shape, after writes', kind: 'arrayMembership' },
   { group: 'sort', name: 'sort over every simple type, ties, null and missing, with and without a limit; then with an array and a document', kind: 'mixedSort' },
+  { group: 'logical', name: '$or with $elemMatch, an $or of array fields in an $and, and a long $in', kind: 'logicalPushdown' },
   { group: 'meta', name: 'buildInfo answers', kind: 'command', command: { buildInfo: 1 },
     compare: COMPARE.OK },
 ];
