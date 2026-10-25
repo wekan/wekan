@@ -156,6 +156,29 @@ show. The design is
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4f528159b">Cover on by default, a new drawing is the cover, no empty Similar cards or Custom Fields, and a better + Add popup</a>. Thanks to xet7.</summary>
+
+The opened card's cover image is on by default; a once-ever upgrade step turns
+it on for boards created while it was opt-in, and a board turned off later
+stays off. A new drawing becomes the card's cover. There is one separator line
+under "+ Add": the Sort group drew its rule for fields the card did not show.
+Similar cards and Custom Fields are shown only when there is something in
+them. The "+ Add" popup moves by its title bar (the drag handle of every
+movable popup is shown only while drag handles are on), maximizes, is wide
+and high enough for its labels and menu, and only a clicked checkbox animates.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d80b07bed">A maximized card has its comments in the right column</a>. Thanks to xet7.</summary>
+
+The comments section is its own template, in the left column of the opened
+card and, when the card is maximized, at the top of the right one beside the
+fields.
+
+</details>
+
 **Drawing** - handwriting and sketching on a card, with a pen too
 ([#6802](https://github.com/wekan/wekan/issues/6802)).
 
