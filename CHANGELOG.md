@@ -191,6 +191,20 @@ every locale translated.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5d027a6f2">The whole window to draw on, growing from its corner, zoom, any color, and Save above the drawing</a>. Thanks to xet7.</summary>
+
+The drawing area takes all the room the popup has instead of a fixed 800 x 500:
+a handle at its corner makes it larger, or smaller without cutting a line, and
+the magnifier zooms it. Clicking a color opens a color wheel, a brightness
+slider and the HTML color code; custom colors are added to the palette, and
+the eyedropper picks a color from the screen (or the drawing). Save is above
+the drawing, and Add Card's Drawing is in Search / Template / Drawing / More
+options. `tests/cardDrawingCanvasColors.test.cjs` and
+`tests/playwright/specs/card-drawing-canvas.e2e.js` cover it.
+
+</details>
+
 **SVG images** - an image like any other again, made safe where it is served.
 
 <details>
@@ -429,7 +443,26 @@ that moves the gap to the left, and the unchecked box's logical gap.
 
 </details>
 
-and updates the following translation:
+and updates the following translations:
+
+**Languages updated:** Romanian, Standard Moroccan Tamazight, Tigre, Urdu.
+
+**Wrong languages** - each locale in the language its tag names.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3dead539b">Romanian, Tamazight and Urdu in their own languages</a>. Thanks to xet7.</summary>
+
+About 160 Romanian values were Italian, with some Spanish and French; about
+330 Tamazight values were Arabic, or Kabyle and French in Latin letters, now
+in Tifinagh; and most of the Urdu file was English spelled letter by letter in
+Urdu script ("منتقل کو توپ" - توپ is a cannon - for Move to Top), now natural
+Urdu. Search keywords in these locales are one word, as the query parser reads
+them. `tests/wrongLanguageCorrections20261025.test.cjs` pins the languages,
+the placeholders and the keywords.
+
+</details>
+
+**Other** - one more translation fix.
 
 - [Tigre: the import size message uses the attested plural for files](https://github.com/wekan/wekan/commit/52bcd74efa).
   Thanks to xet7.
