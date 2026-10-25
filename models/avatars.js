@@ -85,20 +85,12 @@ const Avatars = new FilesCollection({
     // An avatar belongs to a signed-in user; nobody else uploads one.
     if (!this.userId) return 'Please sign in to upload an avatar.';
     file.name = cleanFileName(file && file.name) || 'image';
-    // Block SVG files for avatars to prevent XSS attacks
-    if (file.name && file.name.toLowerCase().endsWith('.svg')) {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked SVG file upload for avatar:', file.name);
-      }
-      return 'SVG files are not allowed for avatars due to security reasons. Please use PNG, JPG, or GIF format.';
-    }
-
-    if (file.type === 'image/svg+xml') {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked SVG MIME type upload for avatar:', file.type);
-      }
-      return 'SVG files are not allowed for avatars due to security reasons. Please use PNG, JPG, or GIF format.';
-    }
+    // SVG is allowed (#6802, maintainer decision 2026-10-25): every uploaded SVG
+    // is sanitized on the server before it is stored - no script, event handler,
+    // javascript: URI, foreignObject or DOCTYPE/ENTITY XML loop
+    // (models/lib/sanitizeUploadedFile.js) - and sanitized again whenever it is
+    // served, inline under a script-free sandbox (server/lib/svgResponse.js).
+    // It used to be refused here after JVN#74210258.
 
     if (file.size <= avatarsUploadSize && file.type.startsWith('image/')) {
       return true;

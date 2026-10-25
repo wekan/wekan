@@ -32,6 +32,8 @@ const { isThumbnailPath, canThumbnail, THUMBNAIL_TYPE } = require('/models/lib/a
 // CacheBleed (GHSA-w3qg-pf27-g68r): files are served after an access check, so never shared-cacheable.
 const { setPrivateFileCacheHeaders, privateFileCacheHeaders } = require('/models/lib/fileCacheHeaders');
 const { parseRange, partialContentHeaders, ifRangeAllows } = require('/models/lib/httpRange');
+// SVG is served sanitized, as an image (server/lib/svgResponse.js).
+const svgResponse = require('/server/lib/svgResponse');
 // The avatar types served inline; anything else is a download (AvatarMimeBleed).
 const INLINE_AVATAR_TYPES = new Set(['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp', 'image/avif', 'image/bmp']);
 const { readableWithoutMembership } = require('/models/lib/boardPermission');
@@ -562,6 +564,39 @@ if (Meteor.isServer) {
   }
 
   /**
+   * Stream a file - or, for an SVG, send it sanitized: inline as an image, or
+   * as the download that was asked for (server/lib/svgResponse.js).
+   */
+  function serveFile(req, res, readStream, fileObj) {
+    if (!svgResponse.isSvg(fileObj && fileObj.type, fileObj && fileObj.name)) {
+      streamFile(res, readStream, fileObj);
+      return;
+    }
+    svgResponse.sendInlineSvg(res, readStream, {
+      download: isDownloadRequested(req),
+      fileName: fileObj.name,
+      downloadHeaders: r => {
+        r.setHeader('Content-Type', 'application/octet-stream');
+        r.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
+        r.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
+        r.setHeader('X-Frame-Options', 'DENY');
+      },
+      // Active markup removed on the way out: logged like the stream sanitizer's.
+      onSanitized: text => {
+        try {
+          const { classifyExploitKinds } = require('/imports/lib/fileNameDisplay');
+          require('/server/lib/filenameSanitizeLog').logContentSanitized({
+            fileObj, source: 'fileView', kinds: classifyExploitKinds(text),
+          });
+        } catch (e) { /* logging must never break serving */ }
+      },
+    }).catch(error => {
+      console.error('SVG serve error:', error);
+      if (!res.headersSent) { res.writeHead(500); res.end('Error reading file'); }
+    });
+  }
+
+  /**
    * Helper function to stream file with error handling
    */
   function streamFile(res, readStream, fileObj) {
@@ -729,7 +764,8 @@ if (Meteor.isServer) {
       // CollectionFS files and thumbnails are always sent whole.
       const size = Number(attachment.size);
       let range = null;
-      if (!wantsThumbnail && attachment?.meta?.source !== 'legacy'
+      // An SVG is sent whole and sanitized (svgResponse.js): no range of it.
+      if (!wantsThumbnail && attachment?.meta?.source !== 'legacy' && !svgResponse.isSvg(attachment.type, attachment.name)
         && Number.isSafeInteger(size)
         && ifRangeAllows(req.headers['if-range'], `"${attachment._id}"`)) {
         range = parseRange(req.headers.range, size);
@@ -794,7 +830,7 @@ if (Meteor.isServer) {
         }
         res.statusCode = 206;
       }
-      streamFile(res, readStream, attachment);
+      serveFile(req, res, readStream, attachment);
 
     } catch (error) {
       console.error('Attachment server error:', error);
@@ -836,7 +872,7 @@ if (Meteor.isServer) {
             return;
           }
           setFileHeaders(res, legacy.avatar, false);
-          streamFile(res, legacy.stream, legacy.avatar);
+          serveFile(req, res, legacy.stream, legacy.avatar);
           return;
         }
         res.writeHead(404);
@@ -870,7 +906,7 @@ if (Meteor.isServer) {
 
       // Set headers and stream file
       setFileHeaders(res, avatar, false);
-      streamFile(res, readStream, avatar);
+      serveFile(req, res, readStream, avatar);
 
     } catch (error) {
       console.error('Avatar server error:', error);
@@ -946,7 +982,7 @@ if (Meteor.isServer) {
         } else {
           setFileHeaders(res, attachment, true);
         }
-        streamFile(res, fileStream, attachment);
+        serveFile(req, res, fileStream, attachment);
       } else {
         res.writeHead(404);
         res.end('Legacy attachment file not found in GridFS');
@@ -993,7 +1029,7 @@ if (Meteor.isServer) {
             return;
           }
           setFileHeaders(res, legacy.avatar, false);
-          streamFile(res, legacy.stream, legacy.avatar);
+          serveFile(req, res, legacy.stream, legacy.avatar);
           return;
         }
         res.writeHead(404);
@@ -1025,7 +1061,7 @@ if (Meteor.isServer) {
 
       // Set headers and stream file
       setFileHeaders(res, avatar, false);
-      streamFile(res, readStream, avatar);
+      serveFile(req, res, readStream, avatar);
 
     } catch (error) {
       console.error('Legacy avatar server error:', error);

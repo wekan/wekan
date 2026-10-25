@@ -142,20 +142,12 @@ const Attachments = new FilesCollection({
       file.name = cleanFileName(file.name) || 'unnamed';
     }
 
-    // Block SVG files for attachments to prevent XSS attacks
-    if (file.name && file.name.toLowerCase().endsWith('.svg')) {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked SVG file upload for attachment:', file.name);
-      }
-      return 'SVG files are not allowed for attachments due to security reasons. Please use PNG, JPG, GIF, or other safe formats.';
-    }
-
-    if (file.type === 'image/svg+xml') {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked SVG MIME type upload for attachment:', file.type);
-      }
-      return 'SVG files are not allowed for attachments due to security reasons. Please use PNG, JPG, GIF, or other safe formats.';
-    }
+    // SVG is allowed (#6802, maintainer decision 2026-10-25): every uploaded SVG
+    // is sanitized on the server before it is stored - no script, event handler,
+    // javascript: URI, foreignObject or DOCTYPE/ENTITY XML loop
+    // (models/lib/sanitizeUploadedFile.js) - and sanitized again whenever it is
+    // served, inline under a script-free sandbox (server/lib/svgResponse.js).
+    // It used to be refused here after JVN#74210258.
 
     return true;
   },

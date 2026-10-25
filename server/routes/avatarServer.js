@@ -11,6 +11,28 @@ import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory } from '/models/avatars.server';
 import { getOldAttachmentData, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
+// An SVG avatar is sent whole, sanitized, as an image (server/lib/svgResponse.js).
+const svgResponse = require('/server/lib/svgResponse');
+
+function sendSvgAvatar(res, stream, fileObj) {
+  return svgResponse.sendInlineSvg(res, stream, {
+    fileName: fileObj.name,
+    downloadHeaders: r => {
+      r.setHeader('Content-Type', 'application/octet-stream');
+      r.setHeader('Content-Disposition', 'attachment');
+      r.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
+    },
+    onSanitized: text => {
+      try {
+        const { classifyExploitKinds } = require('/imports/lib/fileNameDisplay');
+        require('/server/lib/filenameSanitizeLog').logContentSanitized({
+          fileObj, source: 'fileView', kinds: classifyExploitKinds(text),
+        });
+      } catch (e) { /* logging must never break serving */ }
+    },
+  }).catch(() => { if (!res.headersSent) { res.writeHead(500); res.end(); } });
+}
+
 // CacheBleed (GHSA-w3qg-pf27-g68r): an avatar is served after an access check.
 const { setPrivateFileCacheHeaders } = require('/models/lib/fileCacheHeaders');
 
@@ -45,6 +67,10 @@ async function serveLegacyAvatar(fileId, req, res) {
   if (ifNoneMatch && ifNoneMatch === `"${legacy._id}"`) {
     res.writeHead(304);
     res.end();
+    return true;
+  }
+  if (svgResponse.isSvg(legacy.type, legacy.name)) {
+    sendSvgAvatar(res, stream, legacy);
     return true;
   }
   res.writeHead(200);
@@ -196,7 +222,11 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
       return;
     }
 
-    // Stream the file
+    // Stream the file - an SVG sanitized, as an image.
+    if (svgResponse.isSvg(avatar.type, avatar.name)) {
+      sendSvgAvatar(res, readStream, avatar);
+      return;
+    }
     res.writeHead(200);
     readStream.pipe(res);
 

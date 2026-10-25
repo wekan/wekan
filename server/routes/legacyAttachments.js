@@ -124,6 +124,15 @@ if (Meteor.isServer) {
 
       // Get GridFS stream for legacy attachment
       const fileStream = await getOldAttachmentStream(attachmentId);
+      // An SVG is sent whole and sanitized - this route always serves a
+      // download, and a saved file opened from the disk must run nothing either.
+      if (fileStream && require('/server/lib/svgResponse').isSvg(attachment.type, attachment.name)) {
+        await require('/server/lib/svgResponse').sendInlineSvg(res, fileStream, {
+          download: true, fileName: attachment.name,
+          downloadHeaders: () => {},
+        });
+        return;
+      }
       if (fileStream) {
         res.writeHead(200);
         fileStream.pipe(res);

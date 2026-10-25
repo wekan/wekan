@@ -36,7 +36,9 @@ test('both avatar prefix routes perform authenticated legacy fallback before 404
     const end = server.indexOf('\n  });', start);
     const route = server.slice(start, end);
     assert.match(route, /readAuthenticatedLegacyAvatar\(req, (?:fileId|avatarId)\)/);
-    assert.match(route, /streamFile\(res, legacy.stream, legacy.avatar\)/);
+    // serveFile, not streamFile: since SVG is shown as an image a legacy avatar
+    // can be one, and serveFile sends that sanitized (server/lib/svgResponse.js).
+    assert.match(route, /serveFile\(req, res, legacy.stream, legacy.avatar\)/);
     assert.ok(route.indexOf('readAuthenticatedLegacyAvatar') < route.indexOf('res.writeHead(404)'));
     assert.match(route, /legacy.stream.destroy\(\)/);
   }

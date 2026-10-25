@@ -252,6 +252,7 @@ covers the whole upload choke point (`Attachments`/`Avatars` FilesCollection `on
 | Upload over the size limit | rejected | `file` / SpaceBleed — `blocked` |
 | Not enough disk space for the upload | rejected | `file` / FloppyBleed — `blocked` |
 | SVG/HTML content sanitized before storing/serving | sanitized | `xss` / MimeBleed — `sanitized` |
+| SVG shown inline (attachment, cover, background, avatar), sanitized whole on every serve under a no-script `sandbox` CSP; over 8 MB a download (`server/lib/svgResponse.js`) | sanitized | `xss` — `sanitized` |
 | Avatar URL with a non-http(s)/data:image scheme | rejected at write time | `ssrf`·`xss` / RedirectBleed — `blocked` |
 | Avatar/attachment URL resolving to a private/loopback/metadata IP | rejected before fetch | `ssrf` / RedirectBleed·LiveBleed — `blocked` |
 | Import-avatars disabled by Admin Panel security setting | skipped | `file` / (policy) — `blocked` |
