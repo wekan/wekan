@@ -123,6 +123,22 @@ This release updates the following dependencies:
 
 Thanks to dependabot.
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31332bfed4">@azure/msal-node 6.0.1 → 7.1.1 by an npm override, for GHSA-xcx6-jx8p-x3h5</a>. Thanks to xet7.</summary>
+
+`npm audit` reported two high severity issues: msal-node below 7.1.0 may
+disclose authorization code flow parameters to an attacker-controlled endpoint
+([GHSA-xcx6-jx8p-x3h5](https://github.com/advisories/GHSA-xcx6-jx8p-x3h5)). It
+comes through the Azure Blob storage adapter's `@azure/identity`, whose newest
+release still asks for msal-node 6, so `npm audit fix --force` changed nothing.
+`package.json` overrides it; 7's only breaking change is one `@azure/identity`
+does not use, and a token request still reaches Microsoft Entra. WeKan's Azure
+Blob storage signs in with `DefaultAzureCredential`, not the authorization code
+flow. `npm audit` finds 0 vulnerabilities, and `tests/msalNodeAdvisory.test.cjs`
+fails if a vulnerable copy is locked again.
+
+</details>
+
 and fixes the following bugs:
 
 **Right-to-left languages** - checkboxes and list resizing work the way they do
