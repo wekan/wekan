@@ -109,11 +109,12 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **FerretDB** answers WeKan's queries in the database on every
-backend it supports - due cards 2 to 2.6 times faster on PostgreSQL and MySQL -
-and **SQLite** stores documents as JSONB, converted once at first start. In
-**right-to-left** languages a checked checkbox sits on its own square again and
-resizing a list follows the pointer.
+**In short:** **Drawing** works with a pen on the whole window - from Add Card
+and Add attachment, saved as SVG, with an eraser and palm rejection - and
+**SVG** is an image again, sanitized on upload and on every serve. **FerretDB**
+answers WeKan's queries in the database on every backend, and **SQLite** stores
+documents as JSONB, converted once at first start. **Right-to-left** checkboxes
+and list resizing are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -130,6 +131,64 @@ the database's name and the query's title now go through it too.
 its row, and that nothing in the tree escapes a pipe without the backslash. The
 report is built from local results, so there is no attempt to record in
 Admin Panel / Problems.
+
+</details>
+
+and adds the following new features:
+
+**Drawing** - handwriting and sketching on a card, with a pen too
+([#6802](https://github.com/wekan/wekan/issues/6802)).
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54726264d3">A new drawing from Add Card and Add attachment, on the whole window, saved as SVG</a>. Thanks to mimZD and xet7.</summary>
+
+Add attachment / Drawing, and Add Card's new Drawing button - shown while the
+composer adds one card: the card is added, opened and drawn on - open a new
+drawing on the whole window, saved as an SVG attachment of the card, its lines
+kept for editing. The eraser takes away the lines it touches, and palm rejection
+keeps a hand resting on a tablet from drawing once a pen has. A lasso tool is
+not part of it. `tests/cardDrawingPen.test.cjs` and
+`tests/playwright/specs/card-drawing-pen.e2e.js`; described in
+[Drawing.md](docs/Features/Cards/Drawing.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c11976a2e1">The Drawing popup moves by its title bar or a drag handle, and maximizes</a>. Thanks to mimZD and xet7.</summary>
+
+Like the opened card: dragged by its title bar or the handle beside it, with the
+card's maximize / minimize button. Minimizing puts it back where it was, a
+maximized popup stays put, the drawing keeps its shape so the pen lands under
+the
+pointer, and a popup left maximized opens maximized again. Drag to move,
+Maximize
+and Minimize are in every language.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4bea319239">Board Settings / Card calls the Whiteboard row Drawing</a>. Thanks to mimZD and xet7.</summary>
+
+The row that shows or hides the Drawing popup's Open as whiteboard button is
+named after the card menu's Drawing, with its existing translations.
+
+</details>
+
+**SVG images** - an image like any other again, made safe where it is served.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0afb1336db">SVG is uploaded and shown as an image: an attachment, a cover, a board background, an avatar</a>. Thanks to xet7.</summary>
+
+SVG uploads were refused, and every SVG served as a download, after
+JVN#74210258. Every uploaded SVG was already sanitized before it is stored - no
+script, event handler, `javascript:` URI, `foreignObject` or XML loop - so they
+are allowed again. Every route that serves a file now sanitizes an SVG whole
+again before sending it, under a Content-Security-Policy with no script and
+`sandbox`, so it runs nothing even opened directly; over 8 MB it stays a
+download. Removed active markup is logged to Admin Panel / Problems.
+`tests/svgServing.test.cjs` also fails when a serving route skips this, and
+`tests/playwright/specs/svg-attachment.e2e.js` uploads one and uses it as a
+cover and a board background.
 
 </details>
 
