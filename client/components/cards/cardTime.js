@@ -1,6 +1,7 @@
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { getCurrentCardIdFromContext } from '/client/lib/currentCard';
+import { backIfOwnPopup } from '/client/lib/popupBack';
 
 function getCardId() {
   return getCurrentCardIdFromContext();
@@ -36,7 +37,7 @@ Template.editCardSpentTimePopup.events({
     if (spentTime >= 0) {
       card.setSpentTime(spentTime);
       card.setIsOvertime(isOvertime);
-      Popup.back();
+      backIfOwnPopup(evt, 'editCardSpentTimePopup');
     } else {
       tpl.error.set('invalid-time');
       evt.target.time.focus();
@@ -48,7 +49,7 @@ Template.editCardSpentTimePopup.events({
     if (!card) return;
     card.setSpentTime(null);
     card.setIsOvertime(false);
-    Popup.back();
+    backIfOwnPopup(evt, 'editCardSpentTimePopup');
   },
   'click a.js-toggle-overtime'(evt, tpl) {
     evt.preventDefault();

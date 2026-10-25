@@ -2149,6 +2149,11 @@ const boardCardSettingsHelpers = {
   openSettingsSection() {
     return openSettingsSectionOf(Template.instance(), this);
   },
+  // The first entry, Card, also holds what is not a field.
+  openSettingsSectionIsGeneral() {
+    const id = openSettingsSectionOf(Template.instance(), this);
+    return Boolean(cardSettingsSections.SECTIONS.find(s => s.id === id)?.general);
+  },
   // The card the popup was opened from ("+ Add"), if any.
   settingsCardId() {
     const card = settingsCard();
@@ -2168,6 +2173,9 @@ const boardCardSettingsHelpers = {
       .filter(action => (action.board ? mayBoard : (action.id === 'filterSubtasks' ? Boolean(card) : mayCard)))
       .map(action => ({
       ...action,
+      // An inline form reads its card from its data (Card kind) or the
+      // opened card (the others); a board one has none.
+      inlineData: action.board ? {} : card,
       title: action.label.map(k => TAPi18n.__(k)).join(action.labelSeparator || ' '),
     }));
   },

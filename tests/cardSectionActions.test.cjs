@@ -4,9 +4,9 @@
 // menu are in the section they act on - in the hamburger of that section on the
 // opened card, and in that section's pane of Card Settings when it is opened
 // from a card:
-//   Filter: Subtasks      - Subtasks hamburger;  Card Settings / Checklists
+//   Filter: Subtasks      - Subtasks hamburger;  Card Settings / Subtasks
 //   Edit voting           - Voting hamburger;    Card Settings / Voting
-//   Edit Planning Poker   - Planning Poker hamburger; Card Settings / Voting
+//   Edit Planning Poker   - Planning Poker hamburger; Card Settings / Planning Poker
 //   Change spent time     - Spent time hamburger; Card Settings / Time
 //   Card kind             - Scrum settings hamburger; Card Settings / Scrum settings
 // Run: node tests/cardSectionActions.test.cjs
@@ -63,9 +63,10 @@ test('the Scrum fields are one section under one heading, its fields without the
 });
 
 test('Card Settings, opened from a card: the actions in the pane of their section', () => {
-  assert.deepStrictEqual(Object.keys(CARD_ACTIONS).sort(), ['checklists', 'customFields', 'scrum', 'time', 'vote']);
+  assert.deepStrictEqual(Object.keys(CARD_ACTIONS).sort(), ['customFields', 'poker', 'scrum', 'subtasks', 'time', 'vote']);
   for (const id of Object.keys(CARD_ACTIONS)) assert.ok(SECTIONS.some(s => s.id === id), id);
-  assert.deepStrictEqual(cardActionsOf('vote').map(a => a.popup), ['cardStartVoting', 'cardStartPlanningPoker']);
+  assert.deepStrictEqual(cardActionsOf('vote').map(a => a.popup), ['cardStartVoting']);
+  assert.deepStrictEqual(cardActionsOf('poker').map(a => a.popup), ['cardStartPlanningPoker']);
   assert.deepStrictEqual(cardActionsOf('date'), [], 'negative: a section without one has none');
   for (const action of Object.values(CARD_ACTIONS).flat()) for (const k of action.label) assert.ok(en[k], k);
   const popup = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
@@ -74,12 +75,23 @@ test('Card Settings, opened from a card: the actions in the pane of their sectio
   assert.ok(popup.indexOf('card-settings-card-actions') < popup.indexOf('.card-settings-pane-head'));
   assert.match(sidebarJs, /if \(id === 'filterSubtasks'\) \{\n\s+filterSubtasksOf\(card\);/);
   assert.match(sidebarJs, /if \(action\.board\) \{\n\s+Popup\.open\(action\.popup\)\(evt\);/, 'a board action works from Board Settings too');
-  // Edit voting and Edit Planning Poker are the forms themselves in the pane.
-  assert.deepStrictEqual(cardActionsOf('vote').map(a => a.inline), ['cardStartVotingPopup', 'cardStartPlanningPokerPopup']);
-  assert.match(popup, /if action\.inline\n\s+.card-settings-inline-action\n[\s\S]{0,400}\+Template\.dynamic\(template=action\.inline\)/);
+  // In the pane each is the form itself, not a link to a popup - all but
+  // Filter: Subtasks, which is an action, not a form.
+  for (const action of Object.values(CARD_ACTIONS).flat()) {
+    if (action.id === 'filterSubtasks') assert.ok(!action.inline);
+    else assert.ok(action.inline, `${action.id} is inline`);
+  }
+  assert.deepStrictEqual(cardActionsOf('time').map(a => a.inline), ['editCardSpentTimePopup']);
+  assert.deepStrictEqual(cardActionsOf('customFields').map(a => a.inline), ['cardCustomFieldsPopup']);
+  assert.deepStrictEqual(cardActionsOf('scrum').map(a => a.inline), ['cardKindPopup']);
+  assert.deepStrictEqual(cardActionsOf('subtasks').map(a => a.inline), [undefined, 'boardSubtaskSettingsBody']);
+  assert.match(popup, /if action\.inline\n\s+.card-settings-inline-action\n[\s\S]{0,400}\+Template\.dynamic\(template=action\.inline data=action\.inlineData\)/);
   // Saved in the pane, Card Settings stays open; saved in their own popup, it steps back.
-  assert.match(js, /function backIfOwnPopup\(evt, popupName\) \{[\s\S]{0,200}if \(popup && popup\.dataset\.popup === popupName\) Popup\.back\(\);/);
+  assert.match(read('client/lib/popupBack.js'), /if \(popup && popup\.dataset\.popup === popupName\) Popup\.back\(\);/);
+  assert.match(read('client/lib/popupBack.js'), /export function backIfOwnPopup\(evt, popupName\)/);
   assert.match(js, /backIfOwnPopup\(evt, 'cardStartVotingPopup'\);/);
+  assert.match(js, /backIfOwnPopup\(event, 'cardKindPopup'\);/);
+  assert.strictEqual((read('client/components/cards/cardTime.js').match(/backIfOwnPopup\(evt, 'editCardSpentTimePopup'\);/g) || []).length, 2);
   assert.match(js, /backIfOwnPopup\(evt, 'cardStartPlanningPokerPopup'\);/);
   assert.match(sidebarJs, /if \(!Utils\.canModifyCard\(card\)\) return;\n\s+Popup\.open\(action\.popup, \{ dataContext: card \}\)\(evt\);/, 'an edit only for who may change the card');
 });
@@ -87,10 +99,10 @@ test('Card Settings, opened from a card: the actions in the pane of their sectio
 test('every hamburger of the opened card\'s sections has its items in Card Settings (negative: a new one fails here)', () => {
   // What each hamburger opens -> the section of Card Settings where it is too.
   const HAMBURGERS = {
-    'js-open-subtasks-menu': { section: 'checklists', items: ['filterSubtasks', 'subtaskSettings'] },
+    'js-open-subtasks-menu': { section: 'subtasks', items: ['filterSubtasks', 'subtaskSettings'] },
     'js-open-custom-fields-settings': { section: 'customFields', items: ['customFields'] },
     'js-section-edit-voting': { section: 'vote', items: ['editVoting'] },
-    'js-section-edit-poker': { section: 'vote', items: ['editPoker'] },
+    'js-section-edit-poker': { section: 'poker', items: ['editPoker'] },
     'js-section-spent-time': { section: 'time', items: ['spentTime'] },
     'js-section-card-kind': { section: 'scrum', items: ['cardKind'] },
   };
@@ -107,7 +119,7 @@ test('every hamburger of the opened card\'s sections has its items in Card Setti
   assert.match(js, /'click \.js-open-custom-fields-settings'\(event\) \{[\s\S]{0,120}Popup\.open\('cardCustomFields'\)/);
   assert.strictEqual(cardActionsOf('customFields')[0].popup, 'cardCustomFields');
   assert.match(js, /'click \.js-open-subtask-settings'\(event\) \{\n\s+event\.preventDefault\(\);\n\s+Popup\.open\('boardSubtaskSettings'\)/);
-  assert.strictEqual(cardActionsOf('checklists').find(a => a.id === 'subtaskSettings').popup, 'boardSubtaskSettings');
+  assert.strictEqual(cardActionsOf('subtasks').find(a => a.id === 'subtaskSettings').popup, 'boardSubtaskSettings');
 });
 
 test('Filter: Subtasks is one function, wherever it is clicked', () => {

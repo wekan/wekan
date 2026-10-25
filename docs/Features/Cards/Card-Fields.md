@@ -35,11 +35,11 @@ Panel: the same **left menu** and the same **pane title** (the shared templates
 of the [Left Menu](../All-Boards/Left-Menu.md) design), with the rows on the
 right.
 
-- The **left menu** lists the sections. The first, **Card Settings**, holds
-  what is not a field: Ask for a reason when moving cards and the Draggable
-  table, with its select-all. Then Date, Time, Members,
-  Labels, Description, Checklists, Attachments, Custom Fields, Voting,
-  Scrum settings, Comments and Card.
+- The **left menu** lists the sections. The first, **Card**, holds what is
+  not a field - Ask for a reason when moving cards and the Draggable table,
+  with its select-all - and the card's own rows. Then Date, Time, Members,
+  Labels, Description, Checklists, Subtasks, Attachments, Custom Fields,
+  Voting, Planning Poker, Scrum settings and Comments.
 - The **right pane** lists every row of the open section, one line each: its
   icon and name, then a **Show on Minicard** cell and a **Show on Card** cell -
   each the board-wide checkbox of that side, the field's position on that side
@@ -54,19 +54,20 @@ Backlog rank.
 
 | Section | Rows |
 | --- | --- |
-| Card Settings | Ask for a reason when moving cards, Draggable |
+| Card | Ask for a reason when moving cards, Draggable; Card number, Collapse, Parent card, Linked card, Dependencies, Card sorting by number, Show lists, List title, Swimlane, Card buttons, Similar cards |
 | Date | Received, Start, Due, End, Mark as complete, Due date from the title, At risk, Forecast |
 | Time | Spent time, Flowtime, Pomodoro |
 | Members | Members, Assignee, Creator, Requested by, Assigned by, Suggested members |
 | Labels | Labels, Labels above the title, Labels text (the board's and your own), Stickers, Location, Card color |
 | Description | Description title, Description text, Description badge |
-| Checklists | Checklists, Checklist title, Checklist due date, Checklist count, Checklist from description, Subtasks |
+| Checklists | Checklists, Checklist title, Checklist due date, Checklist count, Checklist from description |
+| Subtasks | Subtasks |
 | Attachments | Cover image, Attachments, Attachment count, Previews, Details, Text notes, Drawing |
 | Custom Fields | Custom Fields |
-| Voting | Voting question, Planning Poker |
+| Voting | Voting question |
+| Planning Poker | Planning Poker |
 | Scrum settings | Sprint, Past sprints, Release, Issue type, Acceptance criteria, Backlog rank |
 | Comments | Comments, Comment count, Unread comments, Activities, Action items |
-| Card | Card number, Collapse, Parent card, Linked card, Dependencies, Card sorting by number, Show lists, List title, Swimlane, Card buttons, Similar cards |
 
 **On this card**: ticking an empty field shows it on this card, ready to be
 filled in; unticking a field hides it from this card, also when it has data -
@@ -92,13 +93,18 @@ at the top of that section's pane.
 
 | Action | Opened card | Card Settings pane |
 | --- | --- | --- |
-| Filter: Subtasks | Subtasks hamburger (with the subtask settings) | Checklists |
-| Edit voting | Voting hamburger | Voting - the form itself, not a popup |
-| Edit Planning Poker | Planning Poker hamburger | Voting - the form itself, not a popup |
+| Filter: Subtasks | Subtasks hamburger (with the subtask settings) | Subtasks |
+| Edit voting | Voting hamburger | Voting |
+| Edit Planning Poker | Planning Poker hamburger | Planning Poker |
 | Change spent time | Spent time hamburger | Time |
 | Card kind | Scrum settings hamburger | Scrum settings |
-| Subtask settings | Subtasks hamburger | Checklists - also from Board Settings, for a board admin |
+| Subtask settings | Subtasks hamburger | Subtasks - also from Board Settings, for a board admin |
 | Edit custom fields | Custom Fields hamburger | Custom Fields |
+
+In the Card Settings pane each of these is the **form itself**, right under the
+pane's title - not a link to a popup - except Filter: Subtasks, which is an
+action. Saved there, Card Settings stays open; the hamburger on the opened card
+still opens the same form as its own popup.
 
 Everything in a section's hamburger on the opened card is also at the top of
 that section's pane in Card Settings, under its title and above Show on

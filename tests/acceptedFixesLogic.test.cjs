@@ -167,6 +167,8 @@ const i18n = { __: key => key };
     ReactiveVar, Cards: { findOne: () => card }, getCurrentCardIdFromContext: () => 'card',
     Template: { editCardSpentTimePopup: { onCreated(fn) { created = fn; }, helpers() {}, events(value) { timeEvents = value; } }, cardSpentTime: { helpers() {}, events() {} } },
     Popup: { back() {}, open() {} }, TAPi18n: i18n,
+    // client/lib/popupBack.js (an import, stripped here): steps back only in its own popup.
+    backIfOwnPopup() {},
   });
   const time = {}; created.call(time);
   timeEvents['click a.js-toggle-overtime']({ preventDefault() {} }, time);

@@ -1,4 +1,5 @@
 import { filterSubtasksOf } from '/client/lib/filterSubtasks';
+import { backIfOwnPopup } from '/client/lib/popupBack';
 import { canEditCardDependenciesHere } from '/client/lib/dependencyLayers';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { Random } from 'meteor/random';
@@ -214,16 +215,6 @@ const { calculateIndexData } = Utils;
 
 function getCardId() {
   return getCurrentCardIdFromContext();
-}
-
-// Edit voting and Edit Planning Poker are their own popup from the opened
-// card's section hamburger, and part of Card Settings' Voting pane
-// (docs/Features/Cards/Card-Fields.md). Saved in their own popup they step
-// back from it; saved in the pane they leave Card Settings open.
-function backIfOwnPopup(evt, popupName) {
-  const el = evt && (evt.currentTarget || evt.target);
-  const popup = el && el.closest && el.closest('.js-pop-over');
-  if (popup && popup.dataset.popup === popupName) Popup.back();
 }
 
 function getBoardBodyInstance() {
@@ -3493,6 +3484,6 @@ Template.cardKindPopup.events({
     if (card && typeof card.setCardKind === 'function') {
       try { await card.setCardKind(event.currentTarget.dataset.kind || null); } catch (error) { console.error(error); }
     }
-    Popup.back();
+    backIfOwnPopup(event, 'cardKindPopup');
   },
 });

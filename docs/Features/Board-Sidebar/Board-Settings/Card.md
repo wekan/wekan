@@ -13,11 +13,14 @@ card** checkbox beside each field
 ([Card fields](../../Cards/Card-Fields.md)).
 
 The popup is the Admin Panel's left menu and pane: the rows are grouped into
-sections (Date, Members, Labels, ... Scrum settings, Comments, Card), and each
-row is one line with its **Show on Minicard** and **Show on Card** checkbox,
-its position on each side and the **up and down arrows** that move it there.
-The first menu entry, **Card Settings**, holds Ask for a reason when moving
-cards and the Draggable table.
+sections (Card, Date, Time, Members, Labels, ... Voting, Planning Poker,
+Scrum settings, Comments), and each row is one line with its **Show on
+Minicard** and **Show on Card** checkbox, its position on each side and the
+**up and down arrows** that move it there. The first menu entry, **Card**,
+also holds Ask for a reason when moving cards and the Draggable table; a
+section's own settings - Subtask settings, Edit custom fields, Change spent
+time, Card kind, Edit voting, Edit Planning Poker - are forms at the top of
+its pane ([Card fields](../../Cards/Card-Fields.md)).
 
 ## Where to find it
 

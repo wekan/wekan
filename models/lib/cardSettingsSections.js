@@ -7,16 +7,20 @@
 // arrows, and - opened from a card - whether THIS card shows the field.
 //
 // Every row of models/lib/cardSettingsRows.js is in exactly one section
-// (tests/cardSettingsSections.test.cjs). The first entry, `general`, has no
-// rows: it holds what is not a field - asking for a move reason, the Draggable
-// table and the select-all of each side.
+// (tests/cardSettingsCoverage.test.cjs). The first entry, Card (`general`),
+// also holds what is not a field: asking for a move reason and the Draggable
+// table.
 //
 // Pure: no Meteor.
 
 const { CARD_SETTINGS_ROWS } = require('./cardSettingsRows');
 
 const SECTIONS = Object.freeze([
-  { id: 'general', icon: 'fa-cog', labelKey: 'card-settings', keys: [] },
+  // The first entry, Card: what is not a field (asking for a move reason, the
+  // Draggable table) and the card's own rows.
+  { id: 'card', icon: 'fa-id-card-o', labelKey: 'card', general: true,
+    keys: ['cardNumber', 'collapse', 'parentCard', 'linkedCard', 'dependencies', 'cardSortingByNumber',
+      'showLists', 'listTitle', 'swimlaneName', 'cardButtons', 'similarCards'] },
   { id: 'date', icon: 'fa-calendar', labelKey: 'date',
     keys: ['receivedDate', 'startDate', 'dueDate', 'endDate', 'dueComplete', 'dueFromTitle', 'atRisk', 'forecast'] },
   { id: 'time', icon: 'fa-clock-o', labelKey: 'time',
@@ -28,20 +32,19 @@ const SECTIONS = Object.freeze([
   { id: 'description', icon: 'fa-file-text-o', labelKey: 'description',
     keys: ['descriptionTitle', 'descriptionText', 'descriptionBadge'] },
   { id: 'checklists', icon: 'fa-check', labelKey: 'checklists',
-    keys: ['checklists', 'checklistTitle', 'checklistDueDate', 'checklistCount', 'checklistFromDescription', 'subtasks'] },
+    keys: ['checklists', 'checklistTitle', 'checklistDueDate', 'checklistCount', 'checklistFromDescription'] },
+  { id: 'subtasks', icon: 'fa-sitemap', labelKey: 'subtasks', keys: ['subtasks'] },
   { id: 'attachments', icon: 'fa-paperclip', labelKey: 'attachments',
     keys: ['cover', 'attachments', 'attachmentCount', 'attachmentPreviews', 'attachmentDetails', 'textNotes', 'whiteboard'] },
   { id: 'customFields', icon: 'fa-list-alt', labelKey: 'custom-fields',
     keys: ['customFields'] },
   { id: 'vote', icon: 'fa-thumbs-up', labelKey: 'vote-question',
-    keys: ['vote', 'poker'] },
+    keys: ['vote'] },
+  { id: 'poker', icon: 'fa-check-square', labelKey: 'poker-question', keys: ['poker'] },
   { id: 'scrum', icon: 'fa-repeat', labelKey: 'scrum-settings',
     keys: ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank'] },
   { id: 'comments', icon: 'fa-comment-o', labelKey: 'comments',
     keys: ['comments', 'commentCount', 'unreadComments', 'activities', 'actionItems'] },
-  { id: 'card', icon: 'fa-id-card-o', labelKey: 'card',
-    keys: ['cardNumber', 'collapse', 'parentCard', 'linkedCard', 'dependencies', 'cardSortingByNumber',
-      'showLists', 'listTitle', 'swimlaneName', 'cardButtons', 'similarCards'] },
 ]);
 
 const sectionOf = key => SECTIONS.find(s => s.keys.includes(key)) || null;
@@ -54,18 +57,17 @@ const sectionOf = key => SECTIONS.find(s => s.keys.includes(key)) || null;
 // `filterSubtasks` is client/lib/filterSubtasks.js.
 // tests/cardSectionActions.test.cjs checks every hamburger is here.
 const CARD_ACTIONS = Object.freeze({
-  checklists: [
+  // `inline`: in the pane it is the form itself, under the pane's title, not a
+  // link to its popup (the hamburger on the opened card still opens the popup).
+  subtasks: [
     { id: 'filterSubtasks', icon: 'fa-filter', label: ['filter', 'subtasks'], labelSeparator: ': ' },
-    { id: 'subtaskSettings', popup: 'boardSubtaskSettings', icon: 'fa-cog', label: ['subtask-settings'], board: true },
+    { id: 'subtaskSettings', popup: 'boardSubtaskSettings', inline: 'boardSubtaskSettingsBody', icon: 'fa-cog', label: ['subtask-settings'], board: true },
   ],
-  customFields: [{ id: 'customFields', popup: 'cardCustomFields', icon: 'fa-list-alt', label: ['cardCustomFieldsPopup-title'] }],
-  vote: [
-    // In the pane these are the forms themselves, not a link to their popup.
-    { id: 'editVoting', popup: 'cardStartVoting', inline: 'cardStartVotingPopup', icon: 'fa-thumbs-up', label: ['card-edit-voting'] },
-    { id: 'editPoker', popup: 'cardStartPlanningPoker', inline: 'cardStartPlanningPokerPopup', icon: 'fa-thumbs-up', label: ['card-edit-planning-poker'] },
-  ],
-  time: [{ id: 'spentTime', popup: 'editCardSpentTime', icon: 'fa-clock-o', label: ['editCardSpentTimePopup-title'] }],
-  scrum: [{ id: 'cardKind', popup: 'cardKind', icon: 'fa-book', label: ['cardKindPopup-title'] }],
+  customFields: [{ id: 'customFields', popup: 'cardCustomFields', inline: 'cardCustomFieldsPopup', icon: 'fa-list-alt', label: ['cardCustomFieldsPopup-title'] }],
+  vote: [{ id: 'editVoting', popup: 'cardStartVoting', inline: 'cardStartVotingPopup', icon: 'fa-thumbs-up', label: ['card-edit-voting'] }],
+  poker: [{ id: 'editPoker', popup: 'cardStartPlanningPoker', inline: 'cardStartPlanningPokerPopup', icon: 'fa-check-square', label: ['card-edit-planning-poker'] }],
+  time: [{ id: 'spentTime', popup: 'editCardSpentTime', inline: 'editCardSpentTimePopup', icon: 'fa-clock-o', label: ['editCardSpentTimePopup-title'] }],
+  scrum: [{ id: 'cardKind', popup: 'cardKind', inline: 'cardKindPopup', icon: 'fa-book', label: ['cardKindPopup-title'] }],
 });
 
 function cardActionsOf(sectionId) {
