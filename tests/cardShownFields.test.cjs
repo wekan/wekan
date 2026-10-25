@@ -236,6 +236,16 @@ test('a maximized card has its comments section in the right column', () => {
   assert.match(read('client/components/cards/cardDetails.css'), /\.card-details-right \.card-details-comments \.card-details-section-rule \{\n\s+display: none;/);
 });
 
+test('the pane lines up: fixed side columns on every line, and an inline form keeps its floats', () => {
+  const css = read('client/components/sidebar/sidebar.css');
+  // Each line is its own grid: sized by content, no two lines would agree.
+  assert.match(css, /grid-template-columns: 9em 9em minmax\(10em, 1fr\);/);
+  assert.match(css, /\.board-card-settings\.has-card \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 9em minmax\(10em, 1fr\);/);
+  assert.doesNotMatch(css, /\.card-settings-line \{[^}]*max-content/, 'negative: no content-sized side column');
+  // Save floats left and Delete right in Change spent time and the others.
+  assert.match(css, /\.card-settings-inline-action \{[^}]*display: flow-root;/);
+});
+
 test('Select all / Unselect all are centred under Draggable', () => {
   assert.match(read('client/components/main/boardDragSettings.css'), /\.board-drag-settings th \.board-settings-column-actions \{ justify-content: center; \}/);
 });

@@ -172,14 +172,17 @@
 .card-settings-line {
   display: grid;
   /* Show on Minicard, Show on Card, the field; opened from a card, On this
-     card first. Logical order: a right-to-left page mirrors it. */
-  grid-template-columns: minmax(7em, max-content) minmax(7em, max-content) minmax(10em, 1fr);
+     card first. Logical order: a right-to-left page mirrors it. Each line is
+     its own grid, so the side columns have FIXED widths - sized by content,
+     every line and the heading line would size them differently and nothing
+     would line up. */
+  grid-template-columns: 9em 9em minmax(10em, 1fr);
   column-gap: 14px;
   align-items: center;
 }
 .board-card-settings.has-card .card-settings-pane-head,
 .board-card-settings.has-card .card-settings-line {
-  grid-template-columns: minmax(5em, max-content) minmax(7em, max-content) minmax(7em, max-content) minmax(10em, 1fr);
+  grid-template-columns: 7em 9em 9em minmax(10em, 1fr);
 }
 .card-settings-pane-head {
   font-weight: bold;
@@ -190,6 +193,10 @@
 .card-settings-line {
   padding: calc(4px * min(1, var(--wekan-ui-font-scale, 1))) 0;
   border-bottom: 1px solid #eee;
+}
+.card-settings-side-head {
+  /* A heading longer than its column, in another language, wraps in it. */
+  overflow-wrap: anywhere;
 }
 .card-settings-line-label {
   display: inline-flex;
@@ -209,7 +216,13 @@
   color: #888;
   font-size: calc(11px * var(--wekan-ui-font-scale, 1));
 }
-.card-settings-inline-action { padding: 6px 0 10px; border-bottom: 1px solid #eee; }
+.card-settings-inline-action {
+  /* The forms float their buttons (Save left, Delete right); flow-root keeps
+     those floats inside the form, or the rows below wrapped around them. */
+  display: flow-root;
+  padding: 6px 0 10px;
+  border-bottom: 1px solid #eee;
+}
 .card-settings-inline-action h4 { margin: 0 0 6px; }
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
