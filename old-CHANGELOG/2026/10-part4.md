@@ -10,7 +10,983 @@ Releases per day:
 
 | 2026-10 | Releases |
 | --- | --- |
-| 03 | 1 |
+| 03 | 2 |
+| 04 | 1 |
+| 05 | 1 |
+
+# v12.19 2026-10-05 WeKan ® release
+
+**In short:** Every **login environment variable** can now be overridden in
+**Admin Panel / People**, in a section per login method, with passwords never
+sent to the browser - and the **LDAP** overrides, which never applied before,
+now do. **LDAP and OAuth2 passwords** can come from **Docker / Kubernetes
+secret files**. **LDAP** logins accept members of **nested Active Directory
+groups**.
+Every **release file** now appears on the GitHub Release as soon as its job has
+built and checked it, also when the run is cancelled.
+
+This release adds the following new features:
+
+**Login settings in the Admin Panel** - every login environment variable,
+overridable per login method, with the default sign-in method among them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">Override every login environment variable in Admin Panel / People, one section per login method</a>. Thanks to xet7.</summary>
+
+People now has a section for **LDAP**, **OAuth2** (OpenID Connect, Oracle
+OIM), **CAS** and **Header login**, beside SAML, OAuth login providers and
+Passwordless, and the **Login** pane has `PASSWORD_LOGIN_ENABLED` and
+`ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS`. Each field is labelled with its
+environment variable and says whether the Admin Panel's value, the
+variable's or the default is in effect; an empty field gives the variable
+back. `models/lib/authConfigCatalog.js` lists all 103 variables, and
+`server/lib/authConfig.js` resolves each at run time for the app and the
+wekan-ldap, wekan-oidc and wekan-accounts-cas packages, so a change applies to
+the next login. OAuth2 and CAS service configurations and LDAP background sync
+are reapplied on save; the login expiry applies from the next start.
+
+`LDAP_AUTHENTIFICATION_PASSWORD` and `OAUTH2_SECRET` never reach the browser:
+the page learns only whether one is set and where it comes from, and a typed
+one is cleared from the form after saving. Other values have a password
+written inside a URL masked on the server, and URL fields refuse credentials.
+
+Every variable is now listed in the Dockerfile, docker-compose files, snap
+config and help, and `start-wekan.sh` / `.bat`; 14 were missing.
+`tests/authConfigCatalog.test.cjs` pins resolution, secrets, input and platform
+coverage, and across the whole tree that no code reads a login variable outside
+the catalog or straight from `process.env`.
+`tests/playwright/specs/admin-login-env-overrides.e2e.js` saves an override and
+a secret through the pages and refuses an ordinary user; it passes in Chromium,
+WebKit and Firefox.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0314406656">The Admin Panel can override DEFAULT_AUTHENTICATION_METHOD, and Default gives the variable back</a>. Thanks to xet7.</summary>
+
+The default sign-in method is a field of the Login pane's settings form.
+Choosing one there overrides `DEFAULT_AUTHENTICATION_METHOD`; **Default** leaves
+the variable in charge. Before, the variable rewrote the stored method at every
+start, so an administrator's choice was lost on restart whenever it was set.
+The method the sign-in page uses is now the override, else the variable, else
+`password`. On upgrade, a method chosen with the old dropdown while no variable
+was set becomes the override, once, so nobody's choice is lost; the old dropdown
+is gone, as it was a second control for the same setting.
+`tests/authConfigCatalog.test.cjs` covers the order and the one-time upgrade,
+with negative tests that it never invents an override, and the browser test
+chooses a method, checks the sign-in page's value, and gives it back.
+
+</details>
+
+**Login secrets from files** - Docker and Kubernetes secrets, without the
+password in an environment variable.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0314406656">Read LDAP_AUTHENTIFICATION_PASSWORD_FILE and OAUTH2_SECRET_FILE at login</a>. Thanks to Roemer, CrashOverride-lab, ww-daniel-mora and xet7.</summary>
+
+Since [#5724](https://github.com/wekan/wekan/issues/5724) the Dockerfile, snap,
+docker-compose files and `start-wekan` listed these, but no code read them, so
+the password could only be an environment variable. WeKan now reads the file
+itself at each login, so the password never enters the environment and a
+rotated secret applies at once. The order is the Admin Panel, the variable,
+then its file; one trailing line break is dropped. It is the same application
+code on every platform: Docker, the snap (files under `/var/snap/wekan/common`),
+bundles, AppImage, Flatpak, Mac and Windows. Admin Panel / People says when the
+password comes from the file and when the file cannot be read - never its path
+or content. The path is an environment variable only, on purpose: settable in
+the Admin Panel beside the LDAP host or the OAuth2 token endpoint, it would make
+the server read any file and send it there as the password. The snap key is now
+`ldap-authentication-password-file`, like its siblings.
+`MAIL_SERVICE_PASSWORD_FILE`, `MONGO_PASSWORD_FILE` and `S3_SECRET_FILE` are
+still not read; `secrets/README.md` says so. Tests read a real file and a
+rotated one, drive `ldap.js` to bind with it, and check that nothing reaches the
+browser and that the Admin Panel cannot set a path.
+
+</details>
+
+and fixes the following bugs:
+
+**LDAP login** - who gets in through a directory group, and whether the Admin
+Panel's LDAP settings are used at all.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc2e7592a3">Accept members of nested Active Directory groups with LDAP_GROUP_FILTER_NESTED</a>. Thanks to rmb82 and xet7.</summary>
+
+Since v12.08 (DirectoryGroupBleed) `LDAP_USER_AUTHENTICATION=true` logins check
+`LDAP_GROUP_FILTER_ENABLE`; before it, every directory user got in. The check
+matched `(member=<user DN>)`, which is direct membership only, so an Active
+Directory that grants access through a team group nested in the access group
+refused those users: web login failed when the session ended, `POST
+/users/login` answered 401, and Admin Panel / Problems listed them as
+`ldap.group-denied` ([#6744](https://github.com/wekan/wekan/issues/6744)).
+
+`LDAP_GROUP_FILTER_NESTED=true` makes both group searches use AD's
+`LDAP_MATCHING_RULE_IN_CHAIN`, `(member:1.2.840.113556.1.4.1941:=<user DN>)`,
+so the login filter and admin status, group->role and org/team sync all see
+nested groups. It is off by default, so other directories keep direct
+membership, and the workaround of writing the rule into
+`LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE` is used as written. The user DN stays
+escaped, and a user entry with no DN is still refused without a search.
+`docs/Features/Login/LDAP.md` documents it with an upgrade note, and the
+Dockerfiles, docker-compose files, snap and start-wekan scripts list it.
+
+`tests/ldapNestedGroups.test.cjs` drives `isUserInGroup` and `getUserGroups`:
+a nested member is admitted with the in-chain filter, and the negative tests
+check direct membership without the setting, refusal when no allowed group is
+found, no search for an unnamed user, an escaped hostile DN, and that every
+member clause in `ldap.js` goes through `groupMemberClause`. There is no browser
+test, because the browser suite has no Active Directory server to log in to.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">Admin Panel LDAP settings are used, and Test connection exists</a>. Thanks to xet7.</summary>
+
+The eight LDAP settings the Admin Panel offered never applied: the server read
+them with a `Settings.findOne()`, which Meteor 3 refuses on the server, and the
+error was swallowed, so LDAP silently used the environment variables. The
+settings are now held in an observed cache. **Test connection** answered only
+"Method not found", because `testConnection.js` was never loaded, and it used
+the synchronous `Meteor.user()` Meteor 3 refuses. Whole-tree tests now fail on
+either call in server code. Test connection still reports success without a
+real connection when no service account (`LDAP_AUTHENTIFICATION`) is set.
+
+</details>
+
+**Other login methods** - settings that did not do what they said.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb49a4b1b6">CAS_VALIDATE_URL, PROPAGATE_OIDC_DATA=false and three snap help keys work as documented</a>. Thanks to xet7.</summary>
+
+CAS read only the misspelling `CASE_VALIDATE_URL`; `CAS_VALIDATE_URL` now
+works, and the old name still does. `PROPAGATE_OIDC_DATA=false` turned the
+feature on, because any non-empty value did. `snap help` showed
+`ldap-group-filter-group-id-attribute`, `-group-member-attribute` and
+`-group-member-format`, which `snap set` does not know; it shows the real keys.
+
+</details>
+
+and has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37bc66403f">Attach each release file from the job that built it, also when cancelled</a>. Thanks to xet7.</summary>
+
+The amd64 and arm64 bundles used to be uploaded together by the `release` job,
+after both were built, and the AppImages, Mac apps, Flatpaks and the Windows
+single EXE by a final `publish` job that waited for every architecture. A
+cancelled run attached nothing at all, because those collecting jobs never
+started.
+
+Now every job that builds a release file attaches it, with its `.sha256sum`, as
+its own last step through `releases/github-release-upload.sh` (retried, bounded,
+verified by name and size; it no longer needs GNU `timeout`, so it also runs on
+the macOS runners and in Windows Git Bash). `build-amd64` creates the release
+with `releases/ensure-github-release.sh` right before attaching the first file,
+so a run whose amd64 build fails still publishes no release. The `release` job
+writes the notes and checks both base bundles are there; it uploads nothing.
+
+The attach steps run on `always()` plus their build step's success, so a cancel
+that arrives after a build still attaches its file. The final jobs - release
+notes, what is still missing, and the AppImage, Mac and Flatpak summaries and
+Flatpak repository - run on `always()` while still requiring the release to
+exist. `tests/releaseAttachOwnFiles.test.cjs` pins both, with negative tests
+that no job collects other jobs' files and uploads them at the end, and that no
+attach step or final job is skipped by cancellation.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v12.18 2026-10-04 WeKan ® release
+
+**In short:** Updates **Sharp** image processing and development dependencies,
+including the **MongoDB driver** used by the browser tests, **Chai** assertions
+and **TypeScript ESLint** tooling.
+
+This release updates the following dependencies:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17d8f838cb">Update image processing and development dependencies</a>. Thanks to dependabot.</summary>
+
+- **[Sharp 0.35.4 → 0.35.5](https://github.com/wekan/wekan/commit/a688411bbe37e5a9a3e303a24673e85b8620e7c9)** — image processing.
+- **[MongoDB 7.6.0 → 7.7.0](https://github.com/wekan/wekan/commit/0c5617c0e07e83612b8a2512de436eeb2644ffc5)** — root development dependency.
+- **[MongoDB 7.6.0 → 7.7.0 for Playwright](https://github.com/wekan/wekan/commit/41840dd32400f719f7d968d254b721950e774afd)** — browser-test database helpers.
+- **[Chai 6.2.2 → 6.3.0](https://github.com/wekan/wekan/commit/56bd2fbbfec6d8e436cb5eb76a4bbbee3da6411e)** — test assertions.
+- **[@typescript-eslint/parser 8.70.1 → 8.71.0](https://github.com/wekan/wekan/commit/69c55764a71ebc22f263d8e3a92b860465e4478c)** — TypeScript parsing for lint checks.
+- **[@typescript-eslint/eslint-plugin 8.70.1 → 8.71.0](https://github.com/wekan/wekan/commit/66db856dbf4efb5f22d7f1017f2f3f703c6e1a19)** — TypeScript lint rules.
+
+Thanks to dependabot.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v12.17 2026-10-03 WeKan ® release
+
+**In short:** Fixes **SamlSubjectBleed** by binding SAML accounts to their
+original identity; legacy accounts missing issuer information require
+administrator verification before SAML access resumes. Confirms the existing
+**ZipBombBleed** fix with browser regression coverage, restores **Firefox tests
+on macOS**, and expands translations for archiving, date filters and other UI
+guidance.
+
+This release fixes the following CRITICAL SECURITY ISSUE:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0c6aa5414fd9fa28cef07ea89908670c424e2e9">Bind SAML accounts to their original identity</a>. Thanks to alham-rizvi and xet7.</summary>
+
+[SamlSubjectBleed](https://wekan.fi/hall-of-fame/samlsubjectbleed/),
+GHSA-966m-4qgp-j8w4: a different SAML subject could take over an existing
+SAML account by claiming its username/email. Login now resolves the issuer and
+qualified NameID first, persists the binding atomically, and refuses replacement
+regardless of the merge setting. Email is verified only with an explicit
+attestation; opt-in local linking also requires a verified matching local email.
+
+**Upgrade:** legacy accounts without issuer scope require independent owner
+verification and administrator repair. See the
+[SAML upgrade instructions](docs/Features/Login/SAML.md). Transient NameIDs are
+rejected. Conflicting subjects appear in Admin Panel → Problems; incomplete
+legacy bindings are refused without classifying normal upgrade logins as
+attacks.
+
+Eight SAML/canary suites pass, including actual signed assertions sharing an
+email but carrying different subjects, negative source checks and concurrent
+updates. Chromium, Firefox and WebKit each pass the SAML error-display and
+signed-login
+browser regressions. External production IdPs were not tested.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48c1ad6086">Verify the native ZIP decompression report is already fixed</a>. Thanks to alham-rizvi and xet7.</summary>
+
+GHSA-rmcq-68x2-3g5j describes the native `wekan.json` decompression path fixed
+by [the ZipBombBleed patch](https://github.com/wekan/wekan/commit/e7ed71ee2ec90558abe775a48f17923e449a4d45),
+included in v12.15. Current code counts actual decompressed bytes and stops at
+256 MiB. Strengthened real-archive tests confirm a false size declaration cannot
+bypass the counter. All three ZIP regression checks pass. Chromium, Firefox and
+WebKit each
+reject a small upload that expands beyond the production limit, leave board
+cards unchanged, then accept a valid import in the same session.
+
+Oversized exports can be legitimate, so this refusal intentionally does not
+classify the user as an attacker in Admin Panel → Problems.
+
+</details>
+
+and improves browser testing:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9941680fae">Isolate Firefox app data for macOS browser tests</a>. Thanks to xet7.</summary>
+
+On macOS 27, Firefox could fail with `Could not find profile folder` because
+its shared app-data directory was protected despite a writable test profile.
+Both native probes and real Playwright launches now use separate
+repository-local
+`MOZ_APP_DATA` and `MOZ_LOCAL_APP_DATA` directories, cleaned at process exit.
+Explicit overrides remain respected; other browsers/platforms, `HOME` and
+browser sandboxes are unchanged. Three helper regressions and six existing
+Docker/config checks pass. All three focused security scenarios pass in Firefox
+on macOS 27.0.1; Chromium and WebKit also pass all three. The 230-suite
+translation
+audit for the existing Upcoming entries passes.
+
+</details>
+
+and updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dd2f9e9b6f040fdb78a89960befba6db37bb5bd">Translate archiving and date filters into Papiamento and Tok Pisin</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Papiamento, Tok Pisin.
+
+- Fill 46 English placeholders covering automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list. Preserve existing
+  translations and literal query examples.
+- Seven relevant suites, 21 human-preference checks and per-locale preservation
+  audits pass; regression checks cover exact placeholders, numeric limits and
+  negative behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c565a873497d9e1f040916be5aaf0216d06d640">Translate archiving and date filters into Bislama and Yiddish</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Bislama, Yiddish.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf6d90277676b2c7b87008b8b196d5580ab094b5">Translate archiving and date filters into Māori and Samoan</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Māori, Samoan.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2f390006fcb0c2976e526577b43c07d2f1692db">Translate archiving and date filters into Hawaiian</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Hawaiian.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/044e907276ba250f1c5e071612b89ca5d642fafc">Translate archiving and date filters into Zulu</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Zulu (`zu`, `zu-ZA`).
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/937957f736df6e10737b8ddb32cf09b1a359e5b6">Translate archiving and date filters into Xhosa and Nyanja</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Xhosa, Nyanja.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed6cdd14be800d1fe4b2ca4f591c66e17fbe9c88">Translate archiving and date filters into Sesotho and Setswana</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Sesotho, Setswana.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b759c4ffa137b64bf539e132be122f14c1d22f57">Translate archiving and date filters into Kinyarwanda and Kirundi</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Kinyarwanda, Kirundi.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later. The standard backlog excludes the
+  three automatic-archiving keys pending Transifex, so this batch reduces that
+  count by 40 entries.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/373005ac3e6d2fb549637fa84cb673b86938415c">Translate archiving and date filters into Odia</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Odia.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ee5523d8082ac78ef8c43ea412762b3787637c3">Translate archiving and date filters into Bhojpuri and Maithili</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Bhojpuri, Maithili.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fdf81ac8c7b08f2c61e1f611a1d0188c5a79e8bc">Translate archiving and date filters into Konkani</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Konkani.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56e58e8c36c7e0afbf886da65d9e0331df8cf833">Translate archiving and date filters into Moroccan Arabic</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Moroccan Arabic.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2b64a31d78401e49bb6bf0aae2a40c39a3d78e0">Translate archiving and date filters into Northern Sotho</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Northern Sotho.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dde49cba967f9cd64dde3b4dae48393e1d09199f">Translate archiving and date filters into Northern Ndebele and Swati</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Northern Ndebele, Swati.
+
+- Fill 46 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and preservation audits
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is low confidence and needs speaker review. Remaining all-language
+  work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85c64923dc73e93a25ad44ccad9724fe758cdb35">Translate archiving and date filters into Tsonga</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Tsonga.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3ca217312d17546f3770c18f1af58389322d093">Translate archiving and date filters into Oromo</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Oromo.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Wording is provisional and would benefit from speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd75ef5d5099048e75da786ec05dd70361afb033">Translate archiving and date filters into Fijian</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Fijian.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Fijian wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef45187bf93491acc71ffbd4e31d9b36060b3789">Translate archiving and date filters into Tongan</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Tongan.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Tongan wording is low confidence and needs speaker review. Date vocabulary was checked against [Unicode CLDR's Tongan locale data](https://unicode.org/cldr/charts/42/summary/to.html). Remaining all-language work, including older mixed-language values, is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/974e24f457b1c2e5902fd1b824ed2501166b5614">Translate archiving and date filters into Upper Sorbian</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Technical wording is provisional and needs speaker review. Date vocabulary was checked against [Unicode CLDR's Upper Sorbian locale data](https://unicode.org/cldr/charts/49/summary/hsb.html). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/366d11a7318f07ccc67e4db757d5b4bd580cc82b">Translate archiving and date filters into Silesian</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Silesian technical wording is low confidence and needs speaker review. Time vocabulary was checked against [Wiktionary's Silesian time vocabulary](https://en.wiktionary.org/wiki/Category:szl:Time). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7210e145c4e0c95ae5ea30bda1faca4b9cc4485">Translate archiving and date filters into Northern Sámi</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Northern Sámi.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Northern Sámi technical wording is low confidence and needs speaker review. Time vocabulary was checked against [Unicode CLDR's Northern Sámi locale data](https://unicode.org/cldr/charts/44/summary/se.html). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/550bc0e83f537c2c75eafbcffb372c84c4217313">Translate archiving and date filters into Walloon</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Walloon.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Walloon technical wording is low confidence and needs speaker review. Vocabulary was checked against the [Walloon–French dictionary](https://dtw.walon.org/index.php). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf1b46180f4cfb7765b609b0630777d664744990">Translate archiving and date filters into Waray-Waray</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Waray-Waray.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Waray-Waray technical wording is low confidence and needs speaker review. Time vocabulary was checked against the [Waray phrasebook](https://en.wikivoyage.org/wiki/Waray_phrasebook). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9efc64f6b65ca86b726ca5ba0f297245dae0e676">Translate archiving and date filters into Wu Chinese</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Wu Chinese (Simplified Chinese script).
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Regional Wu wording is provisional and needs speaker review. Usage of 辰光 and 勿 was checked against [Shanghai-language examples](https://tatoeba.org/de/audio/index/wuu?page=3). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d0efcf493265d739fc35072c6612450b7ec836f">Translate archiving and date filters into Aromanian</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Aromanian.
+
+- Fill 23 English placeholders for automatic archiving, recent activity,
+  inclusive date ranges, due dates and time in a list; preserve existing
+  translations and literal query syntax.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact placeholders, numeric limits and negative
+  behavioral guidance.
+- Aromanian wording is low confidence and needs speaker review. Time vocabulary was checked against the [Aromanian phrasebook](https://en.wikivoyage.org/wiki/Aromanian_phrasebook) and [Wiktionary's entry for dzuã](https://en.wiktionary.org/wiki/dzu%C3%A3). Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9614de39c11d3474a2b43e7d8af2321b27e9b424">Translate Ladin map and history guidance</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 15 English placeholders for map views, undo/redo retry guidance, move
+  ordering and SAML browser-tab guidance. Existing translations and placeholder
+  tokens are preserved.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain the single-change retry guarantee, browser-tab
+  restriction and distinct actions.
+- Ladin wording is low confidence and needs speaker review; terminology references include the [Ladin dictionary](https://itavalbadia.ladinternet.it/applications/dictionary/index.jsp). These keys are pending Transifex and excluded from the standard missing-string report, so its total remains unchanged. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f02955143924b8a18d897b17cf1f26af14b5f94">Translate Ladin Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Ladin technical wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b85e70e51673894972f4d6737d53e4b398193ad">Translate Ladin Sync conflicts and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain one-way synchronization, local card
+  preservation, report limitations, numeric limits and explicit null handling.
+- Ladin technical wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/480ba024e6a22a3a10b834e970130dbeb8e35a29">Translate Ladin notification recovery messages</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain retry and cancellation limitations, preserved
+  pending work and distinct delivery states.
+- Ladin technical wording is low confidence and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd6b2923ab1742f88628ff1e8078f06c26c7790f">Translate Ladin Blockly keyboard and math labels</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Ladin.
+
+- Fill 26 English-equal keyboard and math labels, using existing localized math
+  accessibility labels. Preserve operating-system brands and existing
+  translations.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact tokens, navigation direction, distinct
+  operands and recognizable key names.
+- Ladin terminology is provisional and needs speaker review. Its four remaining
+  reported entries are ChromeOS, Linux, macOS and Windows; older wording still
+  requires language review. Remaining all-language work is tracked in TODO
+  Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a037bb72c18b78c34769abd65024c561a471458">Translate Upper Sorbian notification recovery messages</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens. Update the README completeness count from 165 to 166
+  catalogs after this batch crosses its threshold.
+- Seven relevant suites pass after correcting the documented count; 21
+  human-preference checks and a preservation audit also pass. Regression checks
+  retain retry and cancellation limitations, preserved pending work and distinct
+  delivery states.
+- Upper Sorbian wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fe33d9db9a745fb4c70f5cb304ff65d4af69c1b">Translate Upper Sorbian Sync conflicts and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain one-way synchronization, local card
+  preservation, report limitations, numeric limits and explicit null handling.
+- Upper Sorbian technical wording is provisional and needs speaker review.
+  Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c209340e491b90043c828fb6efc1aacd74da68a">Translate Upper Sorbian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Upper Sorbian technical wording is provisional and needs speaker review.
+  Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de21c66f024cccdb481ac52d179c7d9ba0f95146">Translate Upper Sorbian board and rule guidance</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 67 English placeholders for board access, rules, notifications,
+  reminders, filters, imports, maps and history. Preserve existing translations,
+  exact placeholders, literal rule variables and markup.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain access restrictions, blocked URL schemes,
+  reminder behavior, private filter replacement and retry limitations.
+- Technical wording is provisional and needs speaker review. The standard
+  backlog drops by 14 because 53 of these keys are excluded as pending
+  Transifex. Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bac344162708e839e80b0d13fc9cbe6792fe167">Translate Upper Sorbian Blockly keyboard labels</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Upper Sorbian.
+
+- Fill 18 English-equal keyboard labels while preserving existing translations,
+  product names and standard mathematical notation.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact tokens, navigation directions and
+  recognizable key names.
+- Technical wording is provisional and needs speaker review. The remaining 14
+  reported entries are product names, mathematical notation and shared
+  mathematical words; older translations still require language review.
+  Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54cde6f04cd79b4938433085e054d8ba0f175a40">Translate Silesian notification recovery messages</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain retry and cancellation limitations, preserved
+  pending work and distinct delivery states.
+- Silesian wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aebab433f13e5ece879331e56c6594d2ecb9060b">Translate Silesian Sync conflicts and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens. Update the README completeness
+  count from 166 to 167 catalogs.
+- Seven relevant suites pass after updating the documented count; 21
+  human-preference checks and a preservation audit also pass. Regression checks
+  retain one-way synchronization, local card preservation, report limitations,
+  numeric limits and explicit null handling.
+- Silesian technical wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b7438ec298c92c1491d41ee59be8eb725481eac">Translate Silesian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Silesian technical wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5512507e64570a9b9c30489bba6121c9929ba9a1">Translate Silesian board and rule guidance</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 67 English placeholders for board access, rules, notifications,
+  reminders, filters, imports, maps and history. Preserve existing translations,
+  exact placeholders, literal rule variables and markup.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain access restrictions, blocked URL schemes,
+  reminder behavior, private filter replacement and retry limitations.
+- Silesian wording is provisional and needs speaker review. The standard backlog
+  drops by 14 because 53 of these keys are excluded as pending Transifex.
+  Remaining all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4563a4343adb46d7b37ddba2b6a80a55ca71efc2">Translate Silesian Blockly keyboard labels</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Silesian.
+
+- Fill 19 English-equal keyboard labels while preserving existing translations,
+  product names and standard mathematical notation.
+- Eight relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks cover exact tokens, navigation directions and
+  recognizable key names.
+- Silesian wording is provisional and needs speaker review. The remaining 12
+  reported entries are product names and mathematical terms or notation; older
+  translations still require language review. Remaining all-language work is
+  tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e778b34dedca9f0b66cdf651d09b74eff494eb94">Translate Wu Chinese notification recovery messages</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Wu Chinese (Simplified Chinese script).
+
+- Fill 46 English placeholders for email failures, activity notification
+  controls and rule email reports. Preserve existing translations and exact
+  placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain retry and cancellation limitations, preserved
+  pending work and distinct delivery states.
+- Regional Wu wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d5884d86e0871e42e89bb045feb615046cf98db">Translate Wu Chinese Sync conflicts and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Wu Chinese (Simplified Chinese script).
+
+- Fill 63 English placeholders covering Sync conflicts, previews, source
+  omissions, run reports, diagnostics and Jira estimates. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain one-way synchronization, local card
+  preservation, report limitations, numeric limits and explicit null handling.
+- Regional Wu wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e33f26b036ef523ffecd97375d21921bd7041b1c">Translate Wu Chinese Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Wu Chinese (Simplified Chinese script).
+
+- Fill 84 English placeholders covering Scrum planning, sprint lifecycle,
+  product backlog, reports and daily observations. Preserve existing
+  translations and exact placeholder tokens.
+- Seven relevant suites, 21 human-preference checks and a preservation audit
+  pass. Regression checks retain unknown-versus-zero estimates, partial report
+  scope, daily observation limitations and numeric limits.
+- Regional Wu wording is provisional and needs speaker review. Remaining
+  all-language work is tracked in TODO Later.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.16 2026-10-03 WeKan ® release
 

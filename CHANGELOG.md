@@ -109,7 +109,8 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Drawing** works with a pen on the whole window - from Add Card
+**In short:** an **opened card** shows only the fields it has, with **+ Add**
+for the rest. **Drawing** works with a pen on the whole window - from Add Card
 and Add attachment, saved as SVG, with an eraser, palm rejection and a lasso
 that moves, resizes, groups and layers lines - and **SVG** is an image again,
 sanitized whole at any size, streaming, on upload and on every serve.
@@ -136,6 +137,24 @@ Admin Panel / Problems.
 </details>
 
 and adds the following new features:
+
+**Opened card** - only the fields a card has, and "+ Add" for the rest.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6fe0a7ef94">An opened card shows only the fields it has data in, and + Add under the cover adds the rest</a>. Thanks to xet7.</summary>
+
+An opened card shows the fields it has data in, plus its description,
+attachments and comments - empty or not - and its cover when it has one.
+"+ Add", under the cover, opens the Admin Panel's own left menu and pane: the
+sections (Date, Members, Scrum settings, ...) on the left, their fields from
+Board Settings / Card on the right, each with a checkbox that shows or hides
+the field on this card. Board Settings / Card still decides what a card can
+show. The design is
+[Card fields](https://github.com/wekan/wekan/blob/main/docs/Features/Cards/Card-Fields.md);
+`tests/cardShownFields.test.cjs` and
+`tests/playwright/specs/card-add-fields.e2e.js` cover it.
+
+</details>
 
 **Drawing** - handwriting and sketching on a card, with a pen too
 ([#6802](https://github.com/wekan/wekan/issues/6802)).
@@ -8523,359 +8542,5 @@ somewhere else. The path is made absolute first.
 stand-in node-gyp that resolves paths as the real one does.
 
 </details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.34 2026-10-12 WeKan ® release
-
-**In short:** On **Univention (UCS)**, avatars show again after an upgrade, and
-an **LDAPS** server signed by a company CA is trusted again. **Sandstorm**
-grains start faster, and the **32-bit ARM**, **Windows 32-bit** and **ARM64**
-bundles build and run more reliably. Bundles, the **Docker image** and
-**Launchpad** snap builds are smaller and quicker to make, with a stripped
-**Node.js** and the **MongoDB Database Tools** as one program. Three **GitHub
-CodeQL** alerts are fixed.
-
-This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
-
-**Regular expressions** - what goes into a pattern, and how it is escaped.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4caa929cfe">No pattern is built from an unescaped value, and no escape stops at the first match</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-Alert 564: the release script that adds each platform's native packages
-compiled its command-line platform and CPU into a regular expression, so the
-caller chose part of the pattern. The package names are now compared as text.
-The upload naming of attachments and avatars, the attachment rename popup and
-`tools/mirror-menu.mjs` built a pattern from a file extension or a name the
-same way; they compare literally now. Alert 563: a scoped package name had
-only its first `/` encoded for the npm registry; every one is now, and
-anything that is not a package name is refused. Seven tests escaped a pattern
-the same first-only way, which let `- g+` pass a check meant for `g++`.
-Alert 562: a test's app-id pattern backtracked exponentially on `0.0.0...`.
-None of these is reachable as an attack on a running WeKan - a build
-script's arguments, a test, and an extension Meteor-Files already limits to
-letters, digits, `-`, `_` and `.` - so nothing is recorded in Admin Panel →
-Problems. `tests/noUnescapedDynamicRegExp.test.cjs` parses every source file
-and fails on a pattern built from an unescaped value unless the site is
-listed with its reason, `tests/noIncompleteRegExpEscaping.test.cjs` fails on
-any first-only escape, and the attack strings are run in
-`tests/platformNativePackages.test.cjs` and `tests/platformTemplates.test.cjs`.
-
-</details>
-
-and fixes the following bugs:
-
-**LDAP** - logging in through an LDAPS directory.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/8ab7d46714">An LDAPS server signed by a company certificate authority is trusted again</a>. Thanks to fvb-sb and xet7.</summary>
-
-Since v12.15 WeKan verifies the LDAP server's certificate by default, and
-Node.js verified it only against the Mozilla list it is built with. A company
-root CA installed on the server with `update-ca-certificates` was unknown to
-it, so after upgrading from v12.14 the snap refused LDAPS logins with
-UNABLE_TO_VERIFY_LEAF_SIGNATURE. At startup WeKan now also trusts the
-certificate authorities of the operating system, read the way Go programs read
-them, including the bundle file a snap can still read when the per-CA links
-point outside it. Verification is not relaxed: a CA the system does not have
-is still refused, and Node's `--use-bundled-ca` keeps the old behaviour. A
-refused certificate now says in the log and in Admin Panel's Test connection
-what to do. `tests/systemCaCertificates6762.test.cjs` connects to a TLS server
-signed by a test private CA, with and without that CA in the system bundle.
-
-</details>
-
-**Univention (UCS)** - WeKan served under /wekan, after an upgrade.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7514d6e175">Avatars show again, and lazily loaded code comes from the page's own address</a>. Thanks to xet7.</summary>
-
-Every avatar was an empty circle, though Change Avatar showed the picture. The
-stored address `/cdn/storage/avatars/<id>` was used as is, which on UCS is
-outside WeKan's `/wekan` path, so the web server answered 404. Avatars are now
-drawn under the path WeKan is served at, whatever host or path they were saved
-with. A browser that opened WeKan by another address than `ROOT_URL` also
-fetched part of WeKan's code from the `ROOT_URL` host, which it could not
-reach; that code now comes from the page's own address. Links still use
-`ROOT_URL`. `tests/avatarDisplayUrl.test.cjs` covers the stored address forms
-and checks that no page draws a stored avatar address directly.
-
-</details>
-
-**Native modules in the bundles** - what each platform can load.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/628bb95619">32-bit ARM uses the WebAssembly sharp, and more platforms get the PDF text library</a>. Thanks to xet7.</summary>
-
-v12.33 gave the armhf, armv7 and armv6 bundles sharp's native ARM package. Its
-binaries are built for ARMv7 and ARMv8, so an ARMv6 board such as a Raspberry Pi
-1 or Zero, and possibly some ARMv7 boards, can stop WeKan with an illegal
-instruction the first time a thumbnail is made. 32-bit ARM now uses the
-WebAssembly sharp, which runs on any CPU. Checking what the bundles carry also
-showed that the PDF library needs `@napi-rs/canvas` to load at all, and only
-Linux x64 had it. Bundles for Linux arm64 and riscv64, macOS and Windows x64
-and ARM64 now get it, so PDF attachment text is indexed for search there too.
-`tests/platformNativePackages.test.cjs` covers both.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/34a33f7b14">The Windows 32-bit and ARM64 bundles compile their sign-in modules again</a>. Thanks to xet7.</summary>
-
-v12.33 published no win32 or win-arm64 zip: both jobs failed their native
-module check. `bcrypt` and `argon2` have no prebuilt binary for 32-bit Windows,
-and `argon2` has none for Windows ARM64, so they must be compiled. The jobs
-left that to npm during the install, but npm 12 ignores `npm_config_arch` and
-`npm_config_nodedir`, and blocks install scripts that `allowScripts` does not
-list. `releases/compile-native-addons.mjs` now runs node-gyp itself with the
-target CPU, and fails if no module comes out. With the real node-gyp 13,
-`argon2` 0.44 and `bcrypt` 6, both compiled and hashed a password.
-`tests/compileNativeAddons.test.cjs` covers the failure cases, and
-`tests/win32BundleBuild.test.cjs` checks both jobs.
-
-</details>
-
-and improves Sandstorm startup and packaging:
-
-**Sandstorm** - how fast a grain starts, and how much it unpacks.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bab0c13988">Reduce server bundle file count for Sandstorm extraction</a>. Thanks to mnutt and xet7.</summary>
-
-Remove unused server copies of browser libraries and client-only Core-JS, plus
-dependency type declarations. Keep the live server Core-JS polyfill, compiled
-browser programs, executable TypeScript and migration tools. Expand dependency
-analysis to include quoted specifiers, all server app chunks and
-runtime/optional/peer dependencies; retain the policy veto and add a JSON audit.
-
-The test SPK has 29,512 regular files instead of 44,472, a reduction of 14,960
-(34%). With upstream Node stripping applied, its compressed size falls from
-172.8 to 163.2 MiB. Local HTTP readiness remains 0.92 s; actual Sandstorm
-extraction time on slow storage has not yet been measured.
-
-Pruning, trimming and lazy-loading checks pass. Isolated packaged-runtime checks
-cover XLSX/ZIP round trips, image rendering, PDF generation/text extraction and
-SAML/LDAP dependencies. Browser and migration payloads compare byte-for-byte;
-browser automation and a full legacy migration were not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2b8a4a234f">Defer SAML and LDAP dependencies until first use</a>. Thanks to mnutt and xet7.</summary>
-
-Load SAML's protocol library only for configured SAML operations, the LDAP
-client on connection, and username transliteration dictionaries only when
-requested. Keep registration and authentication checks unchanged. A repeated
-local production comparison reached HTTP readiness in 902 ms versus 974 ms with
-lightweight timing enabled in both payloads. First use pays the deferred cost.
-
-LDAP and SAML regression suites pass, including signed-response/replay checks
-and deferred-loading coverage for disabled paths, first use, SAML caching and
-STARTTLS options. Packaged dependency exports were checked using the shipped
-Node binary. Browser automation was not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3df146c164">Defer ZIP and Excel initialization until first use</a>. Thanks to mnutt and xet7.</summary>
-
-Load archive dependencies when importing, exporting or restoring instead of at
-server startup. This avoids Bluebird's eager diagnostic stacks and their costly
-source-map processing. Keep lightweight Sandstorm launcher timing logs, but make
-Meteor's detailed stack-based startup profiler opt-in. A rebuilt production
-payload reached HTTP readiness in 1.38 s versus 2.90 s on the same persisted
-test database with detailed profiling disabled in both; these are local
-warm-cache measurements, not full browser load times. Source maps remain
-enabled.
-
-Fresh-process regression tests verify deferred loading, first-use workbook round
-trips, invalid input and unchanged native Promise. Existing workbook, backup and
-Sandstorm launcher tests pass; browser automation was not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/df1c240edd">Load server translations from private assets on demand</a>. Thanks to mnutt and xet7.</summary>
-
-Keep non-English dictionaries out of the eager server script, reading each only
-when requested. English remains embedded for startup fallback, all translation
-contents are preserved, and browser dynamic imports are unchanged. The
-production server script shrank from 129.6 MiB to 55.9 MiB; a local warm-cache
-comparison reached HTTP readiness in 1.220 s versus 1.453 s with source maps
-enabled.
-
-Tests check every dictionary's contents, malformed input, server-only rule
-selection, English fallback, and real Rspack first-use loading and caching.
-Existing browser lazy-loading tests pass. Browser automation was not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/8c26d75e31">Load server source maps only when formatting mapped stacks</a>. Thanks to mnutt and xet7.</summary>
-
-Extract inline server maps into adjacent runtime JSON files, retaining their
-contents and relative sourceMappingURL references without registering eager
-Meteor manifest maps. About 51 MiB of base64 comments leave the startup scripts;
-the app script shrinks from 55.9 MiB to 9.7 MiB. A repeated local production
-comparison reached HTTP readiness in 1.003 s versus 1.225 s. Client scripts are
-unchanged, and mapped error traces are preserved.
-
-Tests verify identical mapped stacks with the packaged mapper, lazy reads,
-read-only files, repeated trimming, invalid input and unchanged client scripts.
-The bundle-trimming suite and signed-package startup smoke test pass. Docker
-includes the extraction helper. Browser automation was not run.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/22d7d23118">Notify the waiting page immediately when WeKan is listening</a>. Thanks to mnutt and xet7.</summary>
-
-Replace the normal five-second page refresh with a held readiness request. The
-waiting-page process releases its listening socket, Meteor binds it, and the
-launcher then signals the waiting process to answer HTTP 204. The browser keeps
-its current URL and reloads immediately. The app also answers the readiness
-endpoint after handoff, so disconnected requests can reconnect. A five-second
-refresh remains for JavaScript-disabled clients; legacy migration dashboards
-retain their separate progress-refresh behavior.
-
-Actual production builds correct the earlier development-bundle extrapolation:
-production embeds the large app inside app/app.js and does not incur the large
-standalone .cjs Reify pass. Local production measurements reached HTTP readiness
-in 3.25–3.73 seconds. An unpacked test SPK running as a read-only root with only
-packaged libraries resumed in 3.32 seconds; the held response arrived 2 ms after
-the listening marker. These are warm-host-cache measurements, not actual grain
-or board-render timings. The profiling guide records build steps and boundaries.
-
-HTTP tests exercise the real child-process handoff and retained connection;
-waiting-page tests cover pending, successful, not-ready and disconnected
-requests. The actual production readiness endpoint returned 204. Browser
-automation was not run, as requested.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/22d7d23118">Wait for the database listener instead of sleeping 1.5 seconds</a>. Thanks to mnutt and xet7.</summary>
-
-The grain launcher checks FerretDB's loopback listener every 50 ms and starts
-Meteor as soon as it accepts connections. It waits up to 30 seconds for a slow
-database and fails if the listener never becomes available. Mongo's driver and
-the application's database readiness hook still check protocol-level readiness;
-the waiting page remains available through the handoff.
-
-The same uncached local development bundle now listens in 2.51 seconds instead
-of 3.96 seconds. Profiling attributes about another second to development source
-maps requested by Bluebird's stack inspection. A temporary overlay matching
-production's hidden-map setting reached 1.49 seconds; this is not a production
-package benchmark and no source-map behavior was changed in the launcher.
-
-Tests cover an already-listening database, a database slower than the old fixed
-delay, timeout, packaging, fresh/resumed launcher integration and HTTP handoff.
-No UI behavior changes.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/22d7d23118">Profile the Sandstorm server startup path locally</a>. Thanks to mnutt and xet7.</summary>
-
-The grain manifest enables monotonic launcher milestones with process CPU
-deltas; the local runner also enables Meteor's detailed startup profiler. The
-local profiling runner uses the real memory wrapper, launcher, bundle and
-FerretDB with the manifest environment; Bubblewrap maps isolated test data to
-the normal grain paths. It does not need a Sandstorm service or simulate browser
-identity and Cap'n Proto services.
-
-Tests cover timing and CPU deltas, disabled diagnostics, environment
-inheritance, packaging, and HTTP handoff. An opt-in local namespace integration
-test runs the launchers twice with fixture payloads to check persistent test
-data and milestone order. Actual local development-bundle runs also reached HTTP
-readiness. The profiling guide explains timing boundaries, cache comparisons and
-host I/O measurements; production grain performance still needs representative
-data and storage. No browser behavior changes.
-
-</details>
-
-and speeds up the release builds:
-
-**Release workflows** - building the image and the snaps.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3c34e65403">The Docker image is built from the released bundles, not rebuilt under emulation</a>. Thanks to xet7.</summary>
-
-The image build took 27 of the Docker job's 29 minutes, because it rebuilt each
-bundle for seven platforms, six of them under QEMU. A first build stage now runs
-on the build machine. It downloads each platform's released bundle, checks it
-against the published checksum and checks that its Node.js binary is for that
-CPU. The emulated stage only installs three runtime packages. The image's
-Node.js is now the bundle's own, and no npm or compiler is in the image.
-`tests/dockerImageFromBundle.test.cjs` checks the new build.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5f60152d08">Launchpad snap builds get 1 MB of source, and no job clones unused history</a>. Thanks to xet7.</summary>
-
-Each Launchpad snap build was sent the whole 237 MB repository, though it uses
-only the recipe and a few scripts; it now gets those 1.1 MB. The snap, version
-bump and release-tag jobs no longer clone the 447 MB history, and the Ondra and
-Gantt sync no longer clones its target repositories' history. `release.yml`,
-which ran on every push to look for Helm charts this repository does not have,
-now runs only when `charts/` changes.
-
-</details>
-
-and makes the release files smaller:
-
-**Bundled binaries** - what each bundle, image and snap carries.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3eb549058c">The bundled Node.js no longer carries its symbol table and debug data</a>. Thanks to xet7.</summary>
-
-The Node.js executables from nodejs.org include the data a debugger reads:
-linux-x64 and linux-arm64 Node.js 26 are 150 MB, and 117 and 115 MB without it.
-`releases/strip-node.sh` removes it after the download has been checked against
-its published checksum. It keeps the dynamic symbol table that bcrypt, argon2,
-sharp and canvas load against, and refuses a result without it. A macOS node is
-re-signed after stripping. FerretDB's own builds are likewise built without
-symbols in wekan/FerretDB (57.7 to 40.3 MB), which bundles get with its next
-release. `tests/stripNode.test.cjs` strips a real binary and checks what is
-left.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/44af4f3e72">The MongoDB Database Tools are one 15 MB program instead of eight taking 105 MB</a>. Thanks to xet7.</summary>
-
-Each of mongodump, mongorestore and the other six carried its own copy of the
-Go runtime and the MongoDB driver. wekan/mongo-tools-patches now publishes all
-eight as one program, `mongo-tools`, and `releases/fetch-mongo-tools.sh` puts it
-in every bundle with a small launcher per tool, so `mongodump` works as before
-in bundles, snaps and on Windows. Until that release is published, the eight
-separate tools are used. A bundle for a platform without tools no longer keeps
-the amd64 ones. `tests/fetchMongoTools.test.cjs` checks the launchers, the
-fallback, the checksum check and that nothing else downloads the tools.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/41bc82713e">Only the one-program mongo-tools is used, never the eight separate tools</a>. Thanks to xet7.</summary>
-
-wekan/mongo-tools-patches now publishes only `mongo-tools-<platform>`: nine
-binaries per platform had grown to 774 uploads a release, and GitHub's rate
-limit stopped them part way. The fallback to the eight separate tools is
-gone from `releases/fetch-mongo-tools.sh`, the local bundle build and the
-release preflight, so every bundle, image and snap has the one program or no
-tools, and the log says which. `tests/fetchMongoTools.test.cjs` serves a
-release with only the separate tools and checks none is installed or even
-requested, and fails on any script that builds such a download address.
-
-</details>
-
-and has the following developer-tooling fix:
-
-- [The board permission guard accepts the commented-out Sandstorm migration it now finds](https://github.com/wekan/wekan/commit/8a78749061).
-  Thanks to xet7.
-- [The release scripts work with a GitHub CLI older than 2.48](https://github.com/wekan/wekan/commit/0516826f75),
-  which has no `--slurp` and stopped the release. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
