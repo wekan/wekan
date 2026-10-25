@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Vaihda loppumispäivää",
   "setCardColorPopup-title": "Aseta väri",
   "cardDrawingPopup-title": "Piirros",
+  "cardSubtasksMenuPopup-title": "Alitehtävät",
   "card-drawing-new": "Uusi piirros",
   "card-drawing-undo": "Kumoa viimeisin veto",
   "card-drawing-clear": "Tyhjennä",

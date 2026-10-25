@@ -17,7 +17,7 @@ sections (Date, Members, Labels, ... Scrum settings, Comments, Card), and each
 row is one line with its **Show on Minicard** and **Show on Card** checkbox,
 its position on each side and the **up and down arrows** that move it there.
 The first menu entry, **Card Settings**, holds Ask for a reason when moving
-cards, the select-all of each side and the Draggable table.
+cards and the Draggable table.
 
 ## Where to find it
 

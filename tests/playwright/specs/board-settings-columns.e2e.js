@@ -16,7 +16,10 @@ for (const section of ['Swimlane','List','Card']) test(`${section} column action
   const profileBefore = db.findOne('users',{_id:user.id}).profile;
   try {
     await openSettings(page, section);
-    for (const column of section === 'Card' ? ['draggable','minicard','card'] : ['draggable','settings']) {
+    // Card: only Draggable has a select-all; Show on Minicard and Show on Card
+    // are checkboxes in the sections, with none under the first entry
+    // (docs/Features/Cards/Card-Fields.md).
+    for (const column of section === 'Card' ? ['draggable'] : ['draggable','settings']) {
       const actions = page.locator(`.board-settings-column-actions[data-section="${section.toLowerCase()}"][data-column="${column}"]`);
       const fields = columnFields(section.toLowerCase(), column);
       const before = db.findOne('boards',{_id:board.boardId});
@@ -32,15 +35,6 @@ for (const section of ['Swimlane','List','Card']) test(`${section} column action
         if (column === 'draggable') {
           const boxes = page.locator('.js-board-drag-setting');
           for (const box of await boxes.all()) enabled ? await expect(box).toBeChecked() : await expect(box).not.toBeChecked();
-        } else if (section === 'Card') {
-          // docs/Features/Cards/Card-Fields.md: the rows are in sections now,
-          // one section in the pane at a time - the database above says every
-          // field changed; the Labels section's checkboxes of this side show it.
-          await page.locator('.js-card-settings-menu[data-id="labels"]').click();
-          const toggles = page.locator(`.card-settings-line:not(.card-settings-row-personal) .card-settings-side-${column} .card-field-order-toggle`);
-          await expect.poll(() => toggles.count()).toBeGreaterThan(0);
-          await expect.poll(() => toggles.evaluateAll((nodes, value) => nodes.every(node => node.classList.contains('is-checked') === value), enabled)).toBe(true);
-          await page.locator('.js-card-settings-menu[data-id="general"]').click();
         }
       }
       const after = db.findOne('boards',{_id:board.boardId});
@@ -94,4 +88,10 @@ test('Card settings are the Admin Panel left menu and pane: Draggable in the fir
     expect(mini.x).toBeLessThan(card.x);
     expect(await popup.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
   }
+});
+
+test('Card settings have no select-all for Show on Minicard or Show on Card (negative)', async ({ boardPage: page }) => {
+  await openSettings(page, 'Card');
+  await expect(page.locator('.board-settings-column-actions[data-section="card"][data-column="draggable"]')).toBeVisible();
+  await expect(page.locator('.board-settings-column-actions[data-section="card"][data-column="minicard"], .board-settings-column-actions[data-section="card"][data-column="card"]')).toHaveCount(0);
 });

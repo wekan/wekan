@@ -44,7 +44,9 @@ assert.match(cards, /definitions = definitions\.filter\(d => definitionAppliesTo
 assert.match(read('models/customFields.js'), /cardKinds: \{[\s\S]{0,300}type: Array,\s*optional: true,\s*\},\s*'cardKinds\.\$': \{\s*type: String,\s*allowedValues: \['story', 'task'\],/);
 assert.doesNotMatch(read('models/customFields.js') + read('models/cards.js') + read('models/users.js') + read('models/lists.js') + read('models/checklistItems.js') + read('models/boards.js') + read('models/settings.js') + read('models/integrations.js'),
   /type: \[(String|Number|Object|Boolean)\]/, 'no array shorthand type anywhere in the touched schemas');
-assert.match(read('client/components/cards/cardDetails.jade'), /a\.js-set-card-kind/);
+// Card kind is the Scrum settings section's hamburger on the opened card, and in
+// Card Settings' Scrum pane (docs/Features/Cards/Card-Fields.md).
+assert.match(read('client/components/cards/cardDetails.jade'), /menuClass="js-section-card-kind" menuTitle="cardKindPopup-title"/);
 assert.match(read('client/components/cards/cardDetails.jade'), /template\(name="cardKindPopup"\)/);
 assert.match(read('client/components/cards/minicard.jade'), /\.badge\.card-kind-badge/);
 assert.match(read('client/components/sidebar/sidebarCustomFields.js'), /cardKinds: \(typeof tpl\.findAll === 'function' \? Array\.from\(tpl\.findAll\('\.js-field-card-kind\.is-checked'\)/);

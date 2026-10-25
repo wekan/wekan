@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Mudar data de conclusão",
   "setCardColorPopup-title": "Definir cor",
   "cardDrawingPopup-title": "Desenho",
+  "cardSubtasksMenuPopup-title": "Subtarefas",
   "card-drawing-new": "Novo desenho",
   "card-drawing-undo": "Desfazer o último traço",
   "card-drawing-clear": "Limpar",

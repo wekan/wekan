@@ -159,8 +159,11 @@
 }
 .card-settings-sections .setting-content {
   position: relative;
-  height: 40em;
-  max-height: calc(90vh - 5em);
+  /* High enough for every entry of the left menu - Card Settings and the
+     twelve sections - where the window has the room, so the menu does not
+     scroll; a shorter window caps it. */
+  height: 52em;
+  max-height: calc(100dvh - 7em);
   background: transparent;
 }
 .card-settings-sections .setting-content .content-body { height: 100%; }
@@ -205,12 +208,6 @@
   text-align: end;
   color: #888;
   font-size: calc(11px * var(--wekan-ui-font-scale, 1));
-}
-.card-settings-select-all {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 8px 0;
 }
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,

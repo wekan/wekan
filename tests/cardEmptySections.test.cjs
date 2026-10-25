@@ -27,9 +27,12 @@ const visible = (board, spent = 0) => helpers.hasVisibleSortFields.call({
 });
 assert.equal(visible({}), false);
 assert.equal(visible(null), false);
-assert.equal(visible({ allowsSpentTime: true }), false, 'no empty spent-time section');
+// Spent time: the card's view of the board already reads allowsSpentTime false
+// when the card has no hours and did not tick it "On this card"; ticked, the
+// empty field is shown to be filled in (docs/Features/Cards/Card-Fields.md).
+assert.equal(visible({ allowsSpentTime: true }), true, 'shown when the card\'s view allows it, hours or not');
 assert.equal(visible({ allowsSpentTime: true }, 5), true);
-assert.equal(visible({ allowsSpentTime: false }, 5), false);
+assert.equal(visible({ allowsSpentTime: false }, 5), false, 'not when the view says no');
 for (const field of ['allowsCardSortingByNumber', 'allowsShowLists', 'allowsFlowtime', 'allowsPomodoro']) {
   assert.equal(visible({ [field]: true }), true, `${field} alone retains the section`);
   assert.equal(visible({ [field]: false }), false);

@@ -42,8 +42,12 @@ test('the Subtasks heading carries a hamburger', () => {
   assert.ok(/if menuClass\n\s+a\.card-details-section-menu\(class="\{\{menuClass\}\}"/.test(header),
     'a section may have one, named by the handler that opens it');
   assert.ok(/i\.fa\.fa-navicon/.test(header), 'and it is the hamburger the rest of the card uses');
-  assert.ok(/menuClass="js-open-subtasks-settings" menuTitle="subtask-settings"/.test(cardJade),
+  // Its hamburger opens a menu of two (docs/Features/Cards/Card-Fields.md):
+  // Filter: Subtasks - from the card's actions menu - and these settings.
+  assert.ok(/menuClass="js-open-subtasks-menu" menuTitle="subtasks"/.test(cardJade),
     'Subtasks asks for one');
+  const menu = cardJade.slice(cardJade.indexOf('template(name="cardSubtasksMenuPopup")'));
+  assert.ok(/a\.js-filter-subtasks/.test(menu) && /a\.js-open-subtask-settings/.test(menu), 'with Filter: Subtasks and the settings');
   // Custom Fields asks for one too, for the same reason: its settings belong to
   // the section that shows them. tests/customFieldsSectionMenu.test.cjs.
   assert.ok(/menuClass="js-open-custom-fields-settings"/.test(cardJade),
@@ -51,9 +55,13 @@ test('the Subtasks heading carries a hamburger', () => {
 });
 
 test('it opens the settings, and does not fold the section (negative)', () => {
-  const handler = cardJs.slice(cardJs.indexOf("'click .js-open-subtasks-settings'"));
+  const handler = cardJs.slice(cardJs.indexOf("'click .js-open-subtasks-menu'"));
   const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/Popup\.open\('boardSubtaskSettings'\)\(event\)/.test(body), 'the settings open');
+  assert.ok(/Popup\.open\('cardSubtasksMenu'\)/.test(body), 'the menu opens');
+  // Titled by its own key, in every language that language's "Subtasks".
+  const en = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'imports/i18n/data/en.i18n.json'), 'utf8'));
+  assert.strictEqual(en['cardSubtasksMenuPopup-title'], en.subtasks);
+  assert.match(cardJs, /'click \.js-open-subtask-settings'\(event\) \{\n\s+event\.preventDefault\(\);\n\s+Popup\.open\('boardSubtaskSettings'\)\(event\);/, 'and from it the settings');
   assert.ok(/event\.stopPropagation\(\)/.test(body),
     'and the click does not reach the heading, which folds the section');
   assert.ok(/event\.preventDefault\(\)/.test(body), 'nor does anything else happen');

@@ -317,7 +317,10 @@ test('the card layout\'s default order is the order cardDetails.jade renders (de
   const middle = DEFAULT_CARD_FIELD_ORDER.flatMap(key => {
     const name = `cardFieldSection${key.charAt(0).toUpperCase()}${key.slice(1)}`;
     assert.ok(cardJade.includes(`template(name="${name}")`), `${name} is its own template`);
-    assert.ok(main.includes(`if $eq section "${key}"\n            +${name}`), `the loop renders ${key} through +${name}`);
+    // The Scrum fields sit one level deeper, under their one "Scrum settings"
+    // heading (docs/Features/Cards/Card-Fields.md).
+    const indent = /^scrum[A-Z]/.test(key) ? '              ' : '            ';
+    assert.ok(main.includes(`if $eq section "${key}"\n${indent}+${name}`), `the loop renders ${key} through +${name}`);
     return gatesOf(template(cardJade, name));
   });
   const tail = gatesOf(main.slice(leftAt));

@@ -207,18 +207,24 @@ template(name="cardDetails")
             +cardFieldSectionDescription
           //- Each Scrum field where the board's order puts it ("Scrum settings:
             Sprint" ... in Board Settings / Card).
-          if $eq section "scrumSprint"
-            +cardFieldSectionScrumSprint
-          if $eq section "scrumPastSprints"
-            +cardFieldSectionScrumPastSprints
-          if $eq section "scrumRelease"
-            +cardFieldSectionScrumRelease
-          if $eq section "scrumIssueType"
-            +cardFieldSectionScrumIssueType
-          if $eq section "scrumAcceptanceCriteria"
-            +cardFieldSectionScrumAcceptanceCriteria
-          if $eq section "scrumBacklogRank"
-            +cardFieldSectionScrumBacklogRank
+          //- The Scrum fields shown on this card are ONE section, "Scrum
+            settings", headed where the first of them is, with Card kind in its
+            hamburger (docs/Features/Cards/Card-Fields.md).
+          if $eq section firstScrumSection
+            +cardSectionHeader(section="scrum" icon="fa-repeat" label="scrum-settings" menuClass="js-section-card-kind" menuTitle="cardKindPopup-title")
+          if isSectionOpen "scrum"
+            if $eq section "scrumSprint"
+              +cardFieldSectionScrumSprint
+            if $eq section "scrumPastSprints"
+              +cardFieldSectionScrumPastSprints
+            if $eq section "scrumRelease"
+              +cardFieldSectionScrumRelease
+            if $eq section "scrumIssueType"
+              +cardFieldSectionScrumIssueType
+            if $eq section "scrumAcceptanceCriteria"
+              +cardFieldSectionScrumAcceptanceCriteria
+            if $eq section "scrumBacklogRank"
+              +cardFieldSectionScrumBacklogRank
 
       .card-checklist-attachmentGalleries
         .card-checklist-attachmentGallery.card-checklists
@@ -238,7 +244,7 @@ template(name="cardDetails")
             //- #4693: "Subtasks (1/3)", done/total (subtaskDoneCount in subtasks.js).
             +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks"
               count=subtaskDoneCount
-              menuClass="js-open-subtasks-settings" menuTitle="subtask-settings")
+              menuClass="js-open-subtasks-menu" menuTitle="subtasks")
             if isSectionOpen "subtasks"
               +subtasks(cardId = _id)
         if currentBoard.allowsAttachments
@@ -668,14 +674,18 @@ template(name="cardFieldSectionSort")
                 //.card-details-items
               if $eq field "spentTime"
                 if currentBoard.allowsSpentTime
-                  if getSpentTime
-                    .card-details-item.card-details-item-spent
-                      if getIsOvertime
-                        h3.card-details-item-title
-                          | {{_ 'overtime-hours'}}
-                      else
-                        h3.card-details-item-title
-                          | {{_ 'spent-time-hours'}}
+                  //- Shown when it has hours, or ticked "On this card" - the
+                    card's own view of the board decides (cardAddFields.js).
+                  .card-details-item.card-details-item-spent
+                    if getIsOvertime
+                      h3.card-details-item-title
+                        | {{_ 'overtime-hours'}}
+                        +cardSpentTimeMenu
+                    else
+                      h3.card-details-item-title
+                        | {{_ 'spent-time-hours'}}
+                        +cardSpentTimeMenu
+                    if getSpentTime
                       +cardSpentTime
 
                 //- #6688: the two timers each have a Board Settings / Card toggle,
@@ -738,6 +748,11 @@ template(name="cardFieldSectionVoteAndPoker")
                     | {{_ 'vote-question'}}
                   if getVoteEnd
                     +voteEndDate
+                  //- Edit voting is the section's own hamburger
+                    (docs/Features/Cards/Card-Fields.md).
+                  if canModifyCard
+                    a.card-details-section-menu.js-section-edit-voting(title="{{_ 'card-edit-voting'}}" aria-label="{{_ 'card-edit-voting'}}")
+                      i.fa.fa-navicon
                 .vote-result
                   if votePublic
                     a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
@@ -759,6 +774,18 @@ template(name="cardFieldSectionVoteAndPoker")
                   if $eq voteState false
                     i.fa.fa-thumbs-down
                   | {{_ 'vote-against'}}
+          else
+            //- Shown on this card ("+ Add") but no question yet: the heading,
+              and its hamburger to ask one.
+            hr
+            .vote-title
+              div.flex
+                h3
+                  i.fa.fa-thumbs-up
+                  | {{_ 'vote-question'}}
+                if canModifyCard
+                  a.card-details-section-menu.js-section-edit-voting(title="{{_ 'card-edit-voting'}}" aria-label="{{_ 'card-edit-voting'}}")
+                    i.fa.fa-navicon
       if $eq field "poker"
           if currentBoard.allowsPoker
             if getPokerQuestion
@@ -770,6 +797,10 @@ template(name="cardFieldSectionVoteAndPoker")
                     | {{_ 'poker-question'}}
                   if getPokerEnd
                     +pokerEndDate
+                  //- Edit Planning Poker is the section's own hamburger.
+                  if canModifyCard
+                    a.card-details-section-menu.js-section-edit-poker(title="{{_ 'card-edit-planning-poker'}}" aria-label="{{_ 'card-edit-planning-poker'}}")
+                      i.fa.fa-navicon
                 div.flex
                   .poker-result
                     if expiredPoker
@@ -960,6 +991,17 @@ template(name="cardFieldSectionVoteAndPoker")
                       i.fa.fa-plus
                       | {{_ 'set-estimation'}}
                     input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
+            else
+              //- Shown on this card ("+ Add") but no question yet.
+              hr
+              .poker-title
+                div.flex
+                  h3
+                    i.fa.fa-thumbs-up
+                    | {{_ 'poker-question'}}
+                  if canModifyCard
+                    a.card-details-section-menu.js-section-edit-poker(title="{{_ 'card-edit-planning-poker'}}" aria-label="{{_ 'card-edit-planning-poker'}}")
+                      i.fa.fa-navicon
 
 //- The Scrum fields, one template each like every other section of the
   card's order: "Scrum settings: Sprint" ... in Board Settings / Card.
@@ -1038,6 +1080,24 @@ template(name="cardCommentsSection")
         if canComment
           +commentForm
         +comments
+
+//- The Spent time heading's hamburger: Change spent time.
+template(name="cardSpentTimeMenu")
+  if canModifyCard
+    a.card-details-section-menu.js-section-spent-time(title="{{_ 'editCardSpentTimePopup-title'}}" aria-label="{{_ 'editCardSpentTimePopup-title'}}")
+      i.fa.fa-navicon
+
+//- The Subtasks heading's hamburger: Filter: Subtasks, and the subtask settings.
+template(name="cardSubtasksMenuPopup")
+  ul.pop-over-list
+    li
+      a.js-filter-subtasks
+        i.fa.fa-filter
+        | {{_ 'filter'}}: {{_ 'subtasks'}}
+    li
+      a.js-open-subtask-settings
+        i.fa.fa-cog
+        | {{_ 'subtask-settings'}}
 
 template(name="cardSectionHeader")
   //- `noRule` for a section that must not have a separator above it: the FIRST
@@ -1163,12 +1223,10 @@ template(name="cardDetailsActionsPopup")
           else
             i.fa.fa-eye
             |  {{_ 'watch'}}
-    hr
-    ul.pop-over-list
-      li
-        a.js-filter-subtasks
-          i.fa.fa-filter
-          | {{_ 'filter'}}: {{_ 'subtasks'}}
+    //- Filter: Subtasks, Edit voting, Edit Planning Poker, Change spent time
+      and Card kind are in the hamburger of their own section of the opened
+      card, and in Card Settings' pane of that section
+      (docs/Features/Cards/Card-Fields.md).
     hr
     //- #1172: star/unstar this card - same toggle pattern as the board star.
     ul.pop-over-list
@@ -1196,22 +1254,10 @@ template(name="cardDetailsActionsPopup")
           //li: a.js-members {{_ 'card-edit-members'}}
           //li: a.js-labels {{_ 'card-edit-labels'}}
           //li: a.js-attachments {{_ 'card-edit-attachments'}}
-          li
-            a.js-start-voting
-              i.fa.fa-thumbs-up
-              | {{_ 'card-edit-voting'}}
-          li
-            a.js-start-planning-poker
-              i.fa.fa-thumbs-up
-              | {{_ 'card-edit-planning-poker'}}
           //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
           //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
           //li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
           //li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
-          li
-            a.js-spent-time
-              i.fa.fa-clock-o
-              | {{_ 'editCardSpentTimePopup-title'}}
           li
             a.js-set-card-color
               i.fa.fa-paint-brush
@@ -1221,11 +1267,6 @@ template(name="cardDetailsActionsPopup")
             a.js-card-drawing
               i.fa.fa-pencil
               | {{_ 'cardDrawingPopup-title'}}
-          //- #2012: a Story or a Task, with custom fields of its own.
-          li
-            a.js-set-card-kind
-              i.fa.fa-book
-              | {{_ 'cardKindPopup-title'}}
     if canModifyCard
       hr
     else

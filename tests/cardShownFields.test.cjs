@@ -135,7 +135,7 @@ test('the opened card: "+ Add" under the cover, the per-card currentBoard, the S
   assert.match(js, /Template\[name\]\.helpers\(\{\n\s+currentBoard\(\)/);
   // "+ Add" opens Board Settings / Card - the same popup - for this card.
   assert.match(js, /const data = \{ card \};\n\s+Popup\.open\('boardCardSettings'\)\.call\(\{ currentData: \(\) => data \}, event\);/);
-  assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| cardShowsField\(this, s\)\)/);
+  assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| cardShowsField\(card, s\)\)/);
   // Negative: every section template of the opened card that reads a board
   // flag is in the list - a new one left out would show empty fields again.
   const sectionTemplates = [...jade.matchAll(/^template\(name="(cardFieldSection\w+)"\)/gm)].map(m => m[1]);

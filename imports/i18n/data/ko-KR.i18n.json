@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "종료 날짜 변경",
   "setCardColorPopup-title": "색 설정",
   "cardDrawingPopup-title": "그림",
+  "cardSubtasksMenuPopup-title": "하위태스크",
   "card-drawing-new": "새 그림",
   "card-drawing-undo": "마지막 획 실행 취소",
   "card-drawing-clear": "지우기",

@@ -46,6 +46,31 @@ const SECTIONS = Object.freeze([
 
 const sectionOf = key => SECTIONS.find(s => s.keys.includes(key)) || null;
 
+// Everything in the hamburger of a section of the opened card is also at the
+// top of that section's pane here, under its title: what the card's actions
+// menu had (Filter: Subtasks, Edit voting, ...) and the section's own settings.
+// `popup` is the popup it opens - with the card, or for `board: true` with the
+// board, which also works from Board Settings where there is no card;
+// `filterSubtasks` is client/lib/filterSubtasks.js.
+// tests/cardSectionActions.test.cjs checks every hamburger is here.
+const CARD_ACTIONS = Object.freeze({
+  checklists: [
+    { id: 'filterSubtasks', icon: 'fa-filter', label: ['filter', 'subtasks'], labelSeparator: ': ' },
+    { id: 'subtaskSettings', popup: 'boardSubtaskSettings', icon: 'fa-cog', label: ['subtask-settings'], board: true },
+  ],
+  customFields: [{ id: 'customFields', popup: 'cardCustomFields', icon: 'fa-list-alt', label: ['cardCustomFieldsPopup-title'] }],
+  vote: [
+    { id: 'editVoting', popup: 'cardStartVoting', icon: 'fa-thumbs-up', label: ['card-edit-voting'] },
+    { id: 'editPoker', popup: 'cardStartPlanningPoker', icon: 'fa-thumbs-up', label: ['card-edit-planning-poker'] },
+  ],
+  time: [{ id: 'spentTime', popup: 'editCardSpentTime', icon: 'fa-clock-o', label: ['editCardSpentTimePopup-title'] }],
+  scrum: [{ id: 'cardKind', popup: 'cardKind', icon: 'fa-book', label: ['cardKindPopup-title'] }],
+});
+
+function cardActionsOf(sectionId) {
+  return CARD_ACTIONS[sectionId] || [];
+}
+
 // A row's label inside its section: the parts that only repeat the section's
 // own name are left out - "Scrum settings: Sprint" is "Sprint" under Scrum
 // settings - unless that would leave nothing.
@@ -65,4 +90,4 @@ function rowsOfSection(sectionId) {
     .filter(Boolean);
 }
 
-module.exports = { SECTIONS, sectionOf, labelInSection, rowsOfSection };
+module.exports = { SECTIONS, sectionOf, labelInSection, rowsOfSection, CARD_ACTIONS, cardActionsOf };

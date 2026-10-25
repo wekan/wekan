@@ -1532,6 +1532,7 @@
   "editCardEndDatePopup-title": "Change end date",
   "setCardColorPopup-title": "Set color",
   "cardDrawingPopup-title": "Drawing",
+  "cardSubtasksMenuPopup-title": "Subtasks",
   "card-drawing-new": "New drawing",
   "card-drawing-undo": "Undo the last stroke",
   "card-drawing-clear": "Clear",

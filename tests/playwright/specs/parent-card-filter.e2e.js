@@ -29,8 +29,10 @@ for (const readOnly of [false, true]) test(`#1871 parent filtering works for ${r
     const bp = new BoardPage(page), cp = new CardPage(page);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();
-    await cp.root.locator('.js-open-card-details-menu:visible').first().click();
-    await page.locator('.js-filter-subtasks').click();
+    // Filter: Subtasks is in the Subtasks section's hamburger
+    // (docs/Features/Cards/Card-Fields.md).
+    await cp.root.locator('.js-open-subtasks-menu').first().click();
+    await page.locator('.js-pop-over .js-filter-subtasks').click();
     const cards = page.locator('.board-canvas .js-minicard');
     await expect.poll(() => cards.evaluateAll(els => els.map(el => el.dataset.cardId).sort())).toEqual([beta._id, childId].sort());
     await expect(page.locator('.js-card-details')).toHaveCount(0);

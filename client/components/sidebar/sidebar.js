@@ -27,6 +27,7 @@ const cardSettingsSections = require('/models/lib/cardSettingsSections');
 const cardShownFields = require('/models/lib/cardShownFields');
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import { cardFieldCounts } from '/client/components/cards/cardAddFields';
+import { filterSubtasksOf } from '/client/lib/filterSubtasks';
 import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
@@ -2154,6 +2155,22 @@ const boardCardSettingsHelpers = {
     return card && Utils.canModifyCard(card) ? card._id : null;
   },
   isAnimating(key) { return Template.instance().animating.get() === key; },
+  // The open section's card actions, opened from a card.
+  sectionCardActions() {
+    const id = openSettingsSectionOf(Template.instance(), this);
+    const card = settingsCard();
+    const mayCard = Boolean(card && Utils.canModifyCard(card));
+    const mayBoard = Boolean(Utils.canModifyBoard && Utils.canModifyBoard());
+    return cardSettingsSections.cardActionsOf(id)
+      // A board action for who may change the board; a card action only with
+      // a card, Filter: Subtasks for any reader of it, the edits for who may
+      // change it.
+      .filter(action => (action.board ? mayBoard : (action.id === 'filterSubtasks' ? Boolean(card) : mayCard)))
+      .map(action => ({
+      ...action,
+      title: action.label.map(k => TAPi18n.__(k)).join(action.labelSeparator || ' '),
+    }));
+  },
   // The open section's rows: one line each, with its minicard and card cell
   // (from the same builder the two lists used, so the checkbox, its handler
   // class and its default are what they were), in the board's card order.
@@ -2708,6 +2725,25 @@ Template.boardCardSettingsPopup.events({
   },
 
   'click .js-card-field-order-up'(evt) { moveCardSettingsRow(evt, 'up'); },
+  // A card action of the open section, for the card the popup was opened from.
+  'click .js-card-settings-action'(evt) {
+    evt.preventDefault();
+    const card = settingsCard();
+    const id = evt.currentTarget.dataset.action;
+    const action = Object.values(cardSettingsSections.CARD_ACTIONS).flat().find(a => a.id === id);
+    if (!action) return;
+    if (action.board) {
+      Popup.open(action.popup)(evt);
+      return;
+    }
+    if (!card) return;
+    if (id === 'filterSubtasks') {
+      filterSubtasksOf(card);
+      return;
+    }
+    if (!Utils.canModifyCard(card)) return;
+    Popup.open(action.popup, { dataContext: card })(evt);
+  },
   // Only the checkbox just clicked animates; its own handler does the change.
   'click .card-field-order-toggle'(evt, tpl) {
     const cell = evt.currentTarget.closest('.js-card-field-order-row');

@@ -315,15 +315,22 @@ template(name="boardCardSettingsPopup")
               a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
                 i.fa(class="{{#if askForMoveReason}}fa-check{{else}}fa-square-o{{/if}}")
                 span {{_ 'ask-move-reason'}}
-            .card-settings-select-all
-              span {{_ 'show-on-minicard'}}
-              +boardSettingsColumnActions(section="card" column="minicard")
-            .card-settings-select-all
-              span {{_ 'show-on-card'}}
-              +boardSettingsColumnActions(section="card" column="card")
+            //- No select-all of Show on Minicard / Show on Card here: their
+              checkboxes are in the sections, not under it.
             +boardDragSettings(section="card")
           else
             .card-settings-pane
+              //- Under the title: everything in the hamburger of this section on
+                the opened card - Filter: Subtasks, Edit voting, Card kind, the
+                section's settings ... (docs/Features/Cards/Card-Fields.md). The
+                card's own actions only when opened from a card.
+              if sectionCardActions.length
+                ul.pop-over-list.card-settings-card-actions
+                  each action in sectionCardActions
+                    li
+                      a.js-card-settings-action(data-action="{{action.id}}")
+                        i.fa(class=action.icon aria-hidden="true")
+                        | {{action.title}}
               //- Reading order: On this card (opened from a card), Show on
                 Minicard, Show on Card, then the field - mirrored in a
                 right-to-left language by the grid itself.

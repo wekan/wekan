@@ -1,4 +1,4 @@
-import { getSidebarInstance } from '/client/features/sidebar/service';
+import { filterSubtasksOf } from '/client/lib/filterSubtasks';
 import { canEditCardDependenciesHere } from '/client/lib/dependencyLayers';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { Random } from 'meteor/random';
@@ -846,6 +846,22 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
   Template.registerHelper('orderedVoteAndPokerFields', sectionHelper('voteAndPoker'));
 }
 
+// The card's sections in the board's order, less the Scrum fields this card
+// does not show - a Scrum field is its own section with no board flag in the
+// template to read (docs/Features/Cards/Card-Fields.md).
+function orderedSectionsOf(card) {
+  const board = card?.board?.();
+  let sections;
+  if (board && typeof board.getCardFieldOrder === 'function') {
+    sections = board.getCardFieldOrder();
+  } else {
+    const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
+    sections = applyCardFieldOrder(board?.cardFieldOrder);
+  }
+  const { cardShowsField } = require('/client/components/cards/cardAddFields');
+  return sections.filter(s => !/^scrum[A-Z]/.test(s) || cardShowsField(card, s));
+}
+
 Template.cardFieldSectionSort.helpers({
   // The card's own view of the board (docs/Features/Cards/Card-Fields.md), as
   // the fields inside read it: reading the board itself drew the group's rule
@@ -856,7 +872,9 @@ Template.cardFieldSectionSort.helpers({
     return !!(board && (
       board.allowsCardSortingByNumber || board.allowsShowLists ||
       board.allowsFlowtime || board.allowsPomodoro ||
-      (board.allowsSpentTime && this.getSpentTime())
+      // The card's own view already says whether Spent time is shown: with
+      // hours, or ticked "On this card" to be filled in.
+      board.allowsSpentTime
     ));
   },
 });
@@ -875,19 +893,12 @@ Template.cardDetails.helpers({
   // of the flat field order Board Settings / Card writes.
   // models/lib/cardFieldOrder.js
   orderedCardFieldSections() {
-    const board = this?.board?.();
-    let sections;
-    if (board && typeof board.getCardFieldOrder === 'function') {
-      sections = board.getCardFieldOrder();
-    } else {
-      const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
-      sections = applyCardFieldOrder(board?.cardFieldOrder);
-    }
-    // A Scrum field is its own section with no board flag in this template to
-    // read: the card leaves out the ones it does not show
-    // (docs/Features/Cards/Card-Fields.md).
-    const { cardShowsField } = require('/client/components/cards/cardAddFields');
-    return sections.filter(s => !/^scrum[A-Z]/.test(s) || cardShowsField(this, s));
+    return orderedSectionsOf(this);
+  },
+  // The first Scrum field this card shows: where the one "Scrum settings"
+  // heading goes, over all of them (docs/Features/Cards/Card-Fields.md).
+  firstScrumSection() {
+    return orderedSectionsOf(this).find(s => /^scrum[A-Z]/.test(s)) || null;
   },
 
   cardMaximized() {
@@ -1028,10 +1039,18 @@ Template.cardSectionHeader.events({
   // A hamburger at the end of a heading opens that section's settings. Neither
   // may reach the heading itself: a click there folds the section, so opening
   // the menu would close what you opened it from.
-  'click .js-open-subtasks-settings'(event) {
+  // Subtasks: Filter: Subtasks, and the subtask settings
+  // (docs/Features/Cards/Card-Fields.md).
+  'click .js-open-subtasks-menu'(event) {
     event.preventDefault();
     event.stopPropagation();
-    Popup.open('boardSubtaskSettings')(event);
+    Popup.open('cardSubtasksMenu').call(Utils.getCurrentCard(), event);
+  },
+  // Scrum settings: Card kind - a Story or a Task (#2012).
+  'click .js-section-card-kind'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    Popup.open('cardKind').call(Utils.getCurrentCard(), event);
   },
   // Every custom field the board has, ticked when it is on this card, with a
   // pencil each and "Add custom field" under a rule. The card is its data
@@ -1805,22 +1824,27 @@ Template.cardDetailsActionsPopup.helpers({
   },
 });
 
-Template.cardDetailsActionsPopup.events({
+// The section hamburgers of the opened card (docs/Features/Cards/Card-Fields.md):
+// what the card's actions menu had, where the section is.
+Template.cardSubtasksMenuPopup.events({
   'click .js-filter-subtasks'(event) {
     event.preventDefault();
-    const card = this.card || this;
-    if (!card?._id || card.boardId !== Session.get('currentBoard')) return;
-    Filter.parentId.reset();
-    Filter.parentId.add(card._id);
-    Filter.resetExceptions();
-    Session.set('openCards', (Session.get('openCards') || []).filter(id => id !== card._id));
-    if (Session.get('currentCard') === card._id) Session.set('currentCard', null);
-    Session.set('popupCardId', null);
-    Session.set('popupCardBoardId', null);
-    Popup.close();
-    Utils.goBoardId(card.boardId);
-    getSidebarInstance().setView('filter');
+    filterSubtasksOf(this.card || this);
   },
+  'click .js-open-subtask-settings'(event) {
+    event.preventDefault();
+    Popup.open('boardSubtaskSettings')(event);
+  },
+});
+Template.cardFieldSectionVoteAndPoker.events({
+  'click .js-section-edit-voting': Popup.open('cardStartVoting'),
+  'click .js-section-edit-poker': Popup.open('cardStartPlanningPoker'),
+});
+Template.cardSpentTimeMenu.events({
+  'click .js-section-spent-time': Popup.open('editCardSpentTime'),
+});
+
+Template.cardDetailsActionsPopup.events({
   // docs/Features/Cards/Action-Items.md: the description's action items.
   'click .js-description-action-items': Popup.open('actionItems', { titleKey: 'action-items' }),
   // History.md §7a: adding History to a menu is a menu item and this handler,
@@ -1873,13 +1897,10 @@ Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-attachments': Popup.open('cardAttachments'),
-  'click .js-start-voting': Popup.open('cardStartVoting'),
-  'click .js-start-planning-poker': Popup.open('cardStartPlanningPoker'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-end-date': Popup.open('editCardEndDate'),
-  'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
   // #2209: "Create template from element" - save THIS card as a card template
@@ -1904,7 +1925,6 @@ Template.cardDetailsActionsPopup.events({
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
-  'click .js-set-card-kind': Popup.open('cardKind'),
   'click .js-card-drawing': Popup.open('cardDrawing'),
   async 'click .js-move-card-to-top'(event) {
     event.preventDefault();

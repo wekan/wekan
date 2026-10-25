@@ -36,8 +36,8 @@ of the [Left Menu](../All-Boards/Left-Menu.md) design), with the rows on the
 right.
 
 - The **left menu** lists the sections. The first, **Card Settings**, holds
-  what is not a field: Ask for a reason when moving cards, the select-all and
-  unselect-all of each side, and the Draggable table. Then Date, Members,
+  what is not a field: Ask for a reason when moving cards and the Draggable
+  table, with its select-all. Then Date, Members,
   Labels, Description, Checklists, Attachments, Time, Custom Fields, Voting,
   Scrum settings, Comments and Card.
 - The **right pane** lists every row of the open section, one line each: its
@@ -54,7 +54,7 @@ Backlog rank.
 
 | Section | Rows |
 | --- | --- |
-| Card Settings | Ask for a reason when moving cards, select all of each side, Draggable |
+| Card Settings | Ask for a reason when moving cards, Draggable |
 | Date | Received, Start, Due, End, Mark as complete, Due date from the title, At risk, Forecast |
 | Members | Members, Assignee, Creator, Requested by, Assigned by, Suggested members |
 | Labels | Labels, Labels above the title, Labels text (the board's and your own), Stickers, Location, Card color |
@@ -82,6 +82,35 @@ shows: a section the card does not show draws no line of its own.
 
 The popup moves by its title bar (or the drag handle, when drag handles are on)
 and has maximize / minimize beside its close button.
+
+## Card actions in their sections
+
+Five actions that were in the opened card's actions menu are in the section
+they act on: in the **hamburger** at the end of that section's heading on the
+opened card, and - when Card Settings is opened from the card with **+ Add** -
+at the top of that section's pane.
+
+| Action | Opened card | Card Settings pane |
+| --- | --- | --- |
+| Filter: Subtasks | Subtasks hamburger (with the subtask settings) | Checklists |
+| Edit voting | Voting hamburger | Voting |
+| Edit Planning Poker | Planning Poker hamburger | Voting |
+| Change spent time | Spent time hamburger | Time |
+| Card kind | Scrum settings hamburger | Scrum settings |
+| Subtask settings | Subtasks hamburger | Checklists - also from Board Settings, for a board admin |
+| Edit custom fields | Custom Fields hamburger | Custom Fields |
+
+Everything in a section's hamburger on the opened card is also at the top of
+that section's pane in Card Settings, under its title and above Show on
+Minicard / Show on Card (`tests/cardSectionActions.test.cjs` fails for a
+hamburger that is not).
+
+A section is on the opened card when the field is on in Card Settings and the
+card has data in it or shows it **On this card**: tick Voting "On this card" to
+get the Voting heading, then its hamburger asks the question. The Scrum fields
+the card shows are one section, **Scrum settings**, under one heading, each
+field by its own name. Filter: Subtasks is for every reader; the editing
+actions are for whoever may change the card.
 
 ## Board Settings / Card still decides what a card can show
 
@@ -129,7 +158,9 @@ section order the same way.
 | `client/components/sidebar/sidebar.js` | Its sections, rows, checkboxes, order arrows and On this card |
 | `client/components/sidebar/sidebar.css` | The pane's layout |
 | `client/components/cards/cardAddFields.js` | "+ Add", and the card's own `currentBoard` |
-| `client/components/cards/cardDetails.jade` | The "+ Add" button under the cover |
+| `client/components/cards/cardDetails.jade` | The "+ Add" button under the cover, the section hamburgers |
+| `client/lib/filterSubtasks.js` | Filter: Subtasks |
+| `tests/cardSectionActions.test.cjs` | The five actions in their sections, none left in the actions menu |
 | `models/cards.js` | `shownFields`, `hiddenFields` |
 | `tests/cardShownFields.test.cjs` | The rules, the wiring, and that no card section template is left out |
 | `tests/cardSettingsCoverage.test.cjs` | Every row in a section, a checkbox and a handler for each side |
