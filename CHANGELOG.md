@@ -205,6 +205,17 @@ options. `tests/cardDrawingCanvasColors.test.cjs` and
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/91c12ebcce">Custom colors are kept with the account when signed in, in the browser otherwise</a>. Thanks to xet7.</summary>
+
+The custom colors added to the palette are stored in the user's profile
+(`profile.drawingColors`, the `setDrawingColors` method), so they follow the
+user to every browser. Only `#rrggbb` codes are stored, each once, at most 16,
+and nobody who is not signed in can store any. Drawing on a public board
+without signing in keeps them in that browser.
+
+</details>
+
 **SVG images** - an image like any other again, made safe where it is served.
 
 <details>
