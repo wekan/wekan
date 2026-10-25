@@ -111,9 +111,10 @@ its reason.
 
 **In short:** **Drawing** works with a pen on the whole window - from Add Card
 and Add attachment, saved as SVG, with an eraser and palm rejection - and
-**SVG** is an image again, sanitized on upload and on every serve. **FerretDB**
-answers WeKan's queries in the database on every backend, and **SQLite** stores
-documents as JSONB, converted once at first start. **Right-to-left** checkboxes
+**SVG** is an image again, sanitized whole at any size, streaming, on upload
+and on every serve. **FerretDB** answers WeKan's queries in the database on
+every backend, and **SQLite** stores documents as JSONB, converted once at
+first start. **Right-to-left** checkboxes
 and list resizing are fixed.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
@@ -184,11 +185,28 @@ JVN#74210258. Every uploaded SVG was already sanitized before it is stored - no
 script, event handler, `javascript:` URI, `foreignObject` or XML loop - so they
 are allowed again. Every route that serves a file now sanitizes an SVG whole
 again before sending it, under a Content-Security-Policy with no script and
-`sandbox`, so it runs nothing even opened directly; over 8 MB it stays a
-download. Removed active markup is logged to Admin Panel / Problems.
+`sandbox`, so it runs nothing even opened directly. Removed active markup is
+logged to Admin Panel / Problems.
 `tests/svgServing.test.cjs` also fails when a serving route skips this, and
 `tests/playwright/specs/svg-attachment.e2e.js` uploads one and uses it as a
 cover and a board background.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e748559838">An SVG of any size is sanitized whole, streaming, on upload, on validation and when served</a>. Thanks to xet7.</summary>
+
+The sanitizer was a set of regular expressions over the whole file: it read
+the file into memory, missed an entity-encoded `&#106;avascript:`, saw nothing
+in UTF-16, and the serve path sent anything over 8 MB as an unsanitized
+download while validation rejected every SVG over its 1 MB scan. A streaming
+tokenizer, `models/lib/svgSanitizer.js`, replaces it everywhere: script,
+foreignObject, iframe/object/embed, SMIL set/animate, event handlers,
+script URIs after decoding references, dangerous CSS, DOCTYPE/ENTITY and
+processing instructions are removed wherever they are, however the file is
+split into chunks. `tests/svgSanitizerStreaming.test.cjs` splits a hostile SVG
+at every byte offset, and sanitizes a 132 MB file with payloads at the start,
+middle and end in about 3 s with 38 MB of memory.
 
 </details>
 
