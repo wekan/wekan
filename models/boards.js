@@ -937,11 +937,13 @@ Boards.attachSchema(
 
     allowsCoverAttachmentOnCard: {
       /**
-       * Does the board show the cover image on the opened card? Opt-in, OFF by
-       * default (new Card Settings option).
+       * Does the board show the cover image on the opened card? ON by default:
+       * a card shows its cover when it has one (docs/Features/Cards/Card-Fields.md;
+       * server/lib/schemaUpgradeSteps.js cover-on-card-on turned it on, once, on
+       * the boards created while it was opt-in).
        */
       type: Boolean,
-      defaultValue: false,
+      defaultValue: true,
     },
 
     allowsBadgeAttachmentOnMinicard: {

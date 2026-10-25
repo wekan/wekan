@@ -30,9 +30,9 @@ function resizeDatePopup(element, width, height) {
 
 // Popups dragged by their title bar (or the drag handle beside it), as the
 // opened card is. A date popup is movable too, found by its .edit-date.
-const MOVABLE_POPUPS = new Set(['boardViewSettingsPopup', 'cardDrawingPopup']);
+const MOVABLE_POPUPS = new Set(['boardViewSettingsPopup', 'cardDrawingPopup', 'cardAddFieldsPopup']);
 // Popups with the opened card's maximize / minimize button.
-const MAXIMIZABLE_POPUPS = new Set(['cardDrawingPopup']);
+const MAXIMIZABLE_POPUPS = new Set(['cardDrawingPopup', 'cardAddFieldsPopup']);
 
 const maximizedKey = name => `wekan-popup-maximized-${name}`;
 function rememberedMaximized(name) {

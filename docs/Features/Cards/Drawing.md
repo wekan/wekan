@@ -35,7 +35,9 @@ attachment: a PNG for a drawing from the card menu, an SVG for a new drawing.
 **Palm rejection:** once a pen has drawn, a touch does not, so a hand resting on
 a tablet leaves no marks. While one pointer draws, no other one starts a line.
 
-**Save** is above the drawing, at the end of the tools.
+**Save** is above the drawing, at the end of the tools. A **new** drawing
+becomes the card's **cover image**; saving changes to an existing drawing
+leaves the cover as it is.
 
 ## Colours
 

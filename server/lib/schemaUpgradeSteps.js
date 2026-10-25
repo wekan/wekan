@@ -75,6 +75,7 @@ const MARKER_ID = 'schema-upgrade';
 // A step that must run ONCE EVER rather than once per version keeps its own marker
 // beside that one: see checklist-minicard-unset.
 const CHECKLIST_MINICARD_MARKER_ID = 'checklist-minicard-unset';
+const COVER_ON_CARD_MARKER_ID = 'cover-on-card-on';
 
 // Meteor-style random document ids (Random.id(): 17 chars, unmistakable set),
 // so upgraded documents look exactly like app-created ones.
@@ -174,7 +175,7 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
   'allowsComments',
   'allowsDescriptionTitle', 'allowsDescriptionTitleOnMinicard',
   'allowsDescriptionText',
-  'allowsCoverAttachmentOnMinicard',
+  'allowsCoverAttachmentOnMinicard', 'allowsCoverAttachmentOnCard',
   'allowsActivities',
   'allowsLabels', 'allowsLabelsOnMinicard',
   'allowsCreator',
@@ -787,6 +788,40 @@ const steps = [
       );
       await db.collection(MARKER_COLL).updateOne(
         { _id: CHECKLIST_MINICARD_MARKER_ID },
+        { $set: { at: new Date() } },
+        { upsert: true },
+      );
+      return { fixed: (r && r.modifiedCount) || 0, unresolved: 0 };
+    },
+  },
+
+  {
+    // The cover image on the opened card is ON by default now
+    // (docs/Features/Cards/Card-Fields.md): a card shows its cover when it has
+    // one. It was opt-in, and the schema's false was written into every board
+    // created since, so a board that never chose is turned on here.
+    //
+    // ONCE EVER, like checklist-minicard-unset: after this has run, a false is a
+    // choice somebody made in Board Settings / Card. Unlike that step its marker
+    // does not wait for a board to change: with any board it runs (and marks);
+    // with none - a new install, nothing created while it was opt-in - it marks
+    // itself done here. Either way a board turned off later is never turned back
+    // on by the next upgrade.
+    name: 'cover-on-card-on',
+    async check(db) {
+      const markers = db.collection(MARKER_COLL);
+      if (await markers.findOne({ _id: COVER_ON_CARD_MARKER_ID }, { projection: { _id: 1 } })) return false;
+      if (await db.collection('boards').findOne({}, { projection: { _id: 1 } })) return true;
+      await markers.updateOne({ _id: COVER_ON_CARD_MARKER_ID }, { $set: { at: new Date() } }, { upsert: true });
+      return false;
+    },
+    async run(db) {
+      const r = await db.collection('boards').updateMany(
+        { allowsCoverAttachmentOnCard: { $ne: true } },
+        { $set: { allowsCoverAttachmentOnCard: true } },
+      );
+      await db.collection(MARKER_COLL).updateOne(
+        { _id: COVER_ON_CARD_MARKER_ID },
         { $set: { at: new Date() } },
         { upsert: true },
       );

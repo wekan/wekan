@@ -49,8 +49,11 @@ test('the Drawing popup is dragged by its title bar and its handle', async ({ bo
   expect(Math.abs(afterTitle.x - (before.x + dx))).toBeLessThan(6);
   expect(Math.abs(afterTitle.y - clampY(before.y + dy))).toBeLessThan(8);
 
-  await expect(popup.locator('.js-popup-drag-handle')).toBeVisible();
-  await drag(page, popup.locator('.js-popup-drag-handle'), -dx / 2, -dy / 2);
+  // The handle is there only while drag handles are on, as on the opened card
+  // (Member Settings / Show desktop drag handles); without it the title bar is
+  // the way, which is what the second drag then uses.
+  const handles = (await popup.locator('.js-popup-drag-handle').count()) > 0;
+  await drag(page, popup.locator(handles ? '.js-popup-drag-handle' : '.header-title'), -dx / 2, -dy / 2);
   const afterHandle = await popup.boundingBox();
   expect(Math.abs(afterHandle.x - (afterTitle.x - dx / 2))).toBeLessThan(6);
   expect(Math.abs(afterHandle.y - clampY(afterTitle.y - dy / 2))).toBeLessThan(8);

@@ -10,6 +10,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { resolveShowCardLabelText } from '/client/lib/minicardLabelText';
 const { isCardFieldHiddenOnBoard } = require('/models/lib/cardFieldVisibility');
+import { cardBoardView } from '/client/components/cards/cardAddFields';
 import { hasUnreadComments } from '/models/lib/unreadComments';
 import {
   DEPENDENCY_TYPES,
@@ -690,9 +691,14 @@ Template.registerHelper('cardSwimlaneTitle', function cardSwimlaneTitle() {
   return swimlane && swimlane.title;
 });
 
+// The Custom Fields section: on a card that has a custom field value, or that
+// ticked Custom Fields in "+ Add" (docs/Features/Cards/Card-Fields.md) - not on
+// every card, where it was an empty heading. "+ Add" is how a card with none
+// gets the section, and its hamburger then adds the fields.
 Template.registerHelper('canShowCustomFieldsOnCard', function canShowCustomFieldsOnCard() {
+  const { cardShowsField } = require('/client/components/cards/cardAddFields');
   const board = this?.board?.();
-  return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
+  return Utils.canModifyCard(this) && board?.allowsCustomFields !== false && cardShowsField(this, 'customFields');
 });
 
 Template.registerHelper('stickers', function stickers() {
@@ -841,8 +847,12 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
 }
 
 Template.cardFieldSectionSort.helpers({
+  // The card's own view of the board (docs/Features/Cards/Card-Fields.md), as
+  // the fields inside read it: reading the board itself drew the group's rule
+  // for fields the card does not show - an empty group, and a second line
+  // under "+ Add".
   hasVisibleSortFields() {
-    const board = this.board();
+    const board = cardBoardView(this);
     return !!(board && (
       board.allowsCardSortingByNumber || board.allowsShowLists ||
       board.allowsFlowtime || board.allowsPomodoro ||

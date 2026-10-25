@@ -2437,7 +2437,7 @@ const boardCardSettingsHelpers = {
   allowsCoverAttachmentOnCard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
-    return currentBoard ? currentBoard.allowsCoverAttachmentOnCard : false;
+    return currentBoard ? currentBoard.allowsCoverAttachmentOnCard !== false : false;
   },
   allowsAttachments() {
     const boardId = Session.get('currentBoard');

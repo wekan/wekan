@@ -684,6 +684,38 @@ await test('checklist-minicard-unset: runs ONCE EVER, so a later "hidden" surviv
     'and the choice stands');
 });
 
+// ── cover-on-card-on (the opened card shows its cover by default) ──────────
+// The cover on the opened card was opt-in, and the schema's false was written
+// into every board created since. Turned on ONCE; after that a false is a choice.
+const coverStep = steps.find(s => s.name === 'cover-on-card-on');
+
+await test('cover-on-card-on: boards that never chose show the cover', async () => {
+  const db = fakeDb({ boards: [
+    { _id: 'b1', allowsCoverAttachmentOnCard: false },
+    { _id: 'b2', allowsCoverAttachmentOnCard: true },
+    { _id: 'b3' },
+  ] });
+  assert.strictEqual(await coverStep.check(db), true);
+  const res = await coverStep.run(db);
+  assert.strictEqual(res.fixed, 2);
+  assert.ok(db._dump('boards').every(b => b.allowsCoverAttachmentOnCard === true));
+});
+
+await test('cover-on-card-on: ONCE EVER - a later "off" stands (negative)', async () => {
+  const db = fakeDb({ boards: [{ _id: 'b1', allowsCoverAttachmentOnCard: false }] });
+  await coverStep.run(db);
+  db._dump('boards')[0].allowsCoverAttachmentOnCard = false; // turned off afterwards
+  assert.strictEqual(await coverStep.check(db), false, 'the marker stops it');
+  assert.strictEqual(db._dump('boards')[0].allowsCoverAttachmentOnCard, false);
+});
+
+await test('cover-on-card-on: a new install with no board marks it done, so a later "off" stands (negative)', async () => {
+  const db = fakeDb({ boards: [] });
+  assert.strictEqual(await coverStep.check(db), false, 'nothing to turn on');
+  db._dump('boards').push({ _id: 'b9', allowsCoverAttachmentOnCard: false });
+  assert.strictEqual(await coverStep.check(db), false, 'and the marker is written, so it never runs later');
+});
+
 // ── nonfinite-sort-repair (#6481) ────────────────────────────────────────────
 // The global fakeDb JSON-clones documents, which turns Infinity/NaN into null,
 // so build a NON-cloning db here to keep the non-finite sorts intact and drive

@@ -15,8 +15,12 @@ for (const [name, condition] of [
 }
 const js = fs.readFileSync('client/components/cards/cardDetails.js', 'utf8');
 let helpers;
+// The gate reads the card's own view of the board (cardAddFields.js
+// cardBoardView, docs/Features/Cards/Card-Fields.md), as the fields inside do;
+// here that view is the board the card gives.
 vm.runInNewContext(js.match(/Template\.cardFieldSectionSort\.helpers\([\s\S]*?\n\}\);/)[0], {
   Template: { cardFieldSectionSort: { helpers: h => { helpers = h; } } },
+  cardBoardView: card => card.board(),
 });
 const visible = (board, spent = 0) => helpers.hasVisibleSortFields.call({
   board: () => board, getSpentTime: () => spent,

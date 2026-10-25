@@ -1,3 +1,5 @@
+import './cardDetails.jade';
+import './cardAddFields.jade';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -71,6 +73,10 @@ Template.cardDetails.events({
 
 Template.cardAddFieldsPopup.onCreated(function () {
   this.section = new ReactiveVar(null);
+  // The one checkbox that animates: the one just clicked. A pane opened shows
+  // its ticks as they are - its rows are reused from the last pane, and a tick
+  // that changes there must not play the animation.
+  this.animating = new ReactiveVar(null);
 });
 
 function sectionOf(tpl) {
@@ -98,6 +104,7 @@ Template.cardAddFieldsPopup.helpers({
     const card = cardOf(Template.currentData());
     return f.addRows(Utils.getCurrentBoard(), card, sectionOf(tpl), cardFieldCounts(card));
   },
+  isAnimating(key) { return Template.instance().animating.get() === key; },
   rowLabel() {
     return (this.label || []).map(k => TAPi18n.__(k)).join(this.labelSeparator || ' ');
   },
@@ -106,10 +113,12 @@ Template.cardAddFieldsPopup.helpers({
 Template.cardAddFieldsPopup.events({
   'click .js-card-add-fields-menu'(event, tpl) {
     event.preventDefault();
+    tpl.animating.set(null);
     tpl.section.set(event.currentTarget.dataset.id);
   },
-  async 'click .js-card-add-field'(event) {
+  async 'click .js-card-add-field'(event, tpl) {
     event.preventDefault();
+    tpl.animating.set(event.currentTarget.dataset.key);
     const card = cardOf(Template.currentData());
     const key = event.currentTarget.dataset.key;
     if (!card || !f.FIELD_KEYS.includes(key)) return;

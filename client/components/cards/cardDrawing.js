@@ -99,6 +99,11 @@ function paintWheel(canvas, v, hex) {
   }
 }
 
+// A new drawing is the card's cover image (docs/Features/Cards/Drawing.md).
+function coverOf(attachmentId) {
+  return attachmentId ? { coverId: attachmentId } : {};
+}
+
 // Upload a drawing's PNG as a card attachment; resolves with its id.
 export async function uploadDrawingPng(target, file) {
   const uploader = await Attachments.insertAsync(buildAttachmentUploadConfig({ file, meta: Utils.getCommonAttachmentMetaFrom(target) }), false);
@@ -530,7 +535,8 @@ Template.cardDrawingPopup.events({
         const id = Random.id();
         const svgAttachmentId = await uploadDrawingPng(target, drawingSvgFile(target, strokes, size));
         const drawing = { _id: id, strokes, width: size.width, height: size.height, svgAttachmentId, updatedAt: new Date() };
-        await Cards.updateAsync(target._id, { $set: { drawings: d.drawingsAfterSave(target.drawings, drawing) } });
+        // A new drawing is the card's cover image.
+        await Cards.updateAsync(target._id, { $set: { drawings: d.drawingsAfterSave(target.drawings, drawing), ...coverOf(svgAttachmentId) } });
         tpl.saving.set(false);
         Popup.close();
       } catch (error) {
@@ -541,11 +547,13 @@ Template.cardDrawingPopup.events({
     }
     try {
       const file = await drawingPngFile(target, strokes, size);
+      const isNew = !tpl.editingId.get();
       const id = tpl.editingId.get() || Random.id();
       const pngAttachmentId = await uploadDrawingPng(target, file);
       tpl.saving.set(false);
       const drawing = { _id: id, strokes, width: size.width, height: size.height, pngAttachmentId, updatedAt: new Date() };
-      await Cards.updateAsync(target._id, { $set: { drawings: d.drawingsAfterSave(target.drawings, drawing) } });
+      // A NEW drawing is the card's cover image; saving an edit leaves the cover.
+      await Cards.updateAsync(target._id, { $set: { drawings: d.drawingsAfterSave(target.drawings, drawing), ...(isNew ? coverOf(pngAttachmentId) : {}) } });
       tpl.editingId.set(id);
       tpl.message.set(TAPi18n.__('card-drawing-saved'));
     } catch (error) {

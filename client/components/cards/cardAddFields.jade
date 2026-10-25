@@ -15,7 +15,7 @@ template(name="cardAddFieldsPopup")
           ul.card-add-fields-list
             each rows
               li
-                a.flex.card-add-field.js-card-add-field(data-key=key role="checkbox" aria-checked="{{#if shown}}true{{else}}false{{/if}}")
+                a.flex.card-add-field.js-card-add-field(data-key=key role="checkbox" aria-checked="{{#if shown}}true{{else}}false{{/if}}" class="{{#if isAnimating key}}is-animating{{/if}}")
                   .materialCheckBox(class="{{#if shown}}is-checked{{/if}}")
                   span.card-add-field-icons
                     each icons

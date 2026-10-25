@@ -9,7 +9,8 @@ second copy of the same task is noticed before it is made.
   open it; the card you were typing is kept.
 - **In an opened card**, the **Similar cards** section lists up to five cards
   of the same board whose title and description are close to this one's, with
-  the list each is in.
+  the list each is in, and how many there are. A card with no similar card
+  has no such section ([Card fields](Card-Fields.md)).
 
 ## How close is close
 

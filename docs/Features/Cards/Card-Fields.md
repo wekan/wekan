@@ -11,10 +11,15 @@ for:
 
 | Shown | When |
 | --- | --- |
-| **Cover** | when the card has a cover |
+| **Cover** | when the card has a cover - on by default in Board Settings / Card; a new drawing becomes the cover |
 | **Description** (its title and its text) | always, also when empty |
 | **Attachments**, with **Add attachment** | always, also when there are none |
 | **Comments** | always, also when there are none |
+
+Two sections are shown only when there is something in them: **Similar
+cards**, when the board has cards like this one, and **Custom Fields**, when
+the card has a custom field value (or Custom Fields is ticked in **+ Add**,
+which is how a card with none gets the section and its menu).
 
 Every other field is shown when it has data: a date that is set, labels,
 members, a checklist, a custom field with a value, a vote question, a Scrum
@@ -56,7 +61,9 @@ stays, and ticking it again shows it. The choice is the card's own and is kept
 with the card; a field whose tick matches what its data would decide leaves
 nothing stored.
 
-**+ Add** is shown to whoever may change the card.
+**+ Add** is shown to whoever may change the card. Below it there is one
+separator line, above the first section the card shows: a section the card
+does not show draws no line of its own.
 
 ## Board Settings / Card still decides what a card can show
 

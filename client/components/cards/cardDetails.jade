@@ -262,11 +262,11 @@ template(name="cardDetails")
             +cardTextNotes(_id = _id)
 
         //- Similar cards, Show on Card: the cards of this board like this one
-          (docs/Features/Cards/Similar-Cards.md). Asked only while open.
+          (docs/Features/Cards/Similar-Cards.md). Asked when the card opens, and
+          the section is there only when there are some
+          (docs/Features/Cards/Card-Fields.md).
         unless $eq currentBoard.allowsSimilarCardsOnCard false
-          +cardSectionHeader(section="similar-cards" icon="fa-clone" label="similar-cards")
-          if isSectionOpen "similar-cards"
-            +similarCards(cardId=_id)
+          +cardSimilarCardsSection(cardId=_id)
 
       if currentBoard.allowsComments
         .comment-title
@@ -703,16 +703,14 @@ template(name="cardFieldSectionSort")
                 //.card-details-items
 
 template(name="cardFieldSectionCustomFields")
-    //- The heading is here for EVERY card the reader may write to, not only
-      for one that already has a custom field on it. The hamburger at the end
-      of it is the single place custom fields live - the picker of which
-      fields are on this card, a pencil each, and "Add custom field" - so
-      gating the heading on `customFieldsWD`, the card's VALUES, meant a card
-      with none had no way to get one, and a board that had never used them
-      had no way anywhere: the card menu's entry and the Board Settings row
-      were removed with the move, and the sidebar view is opened by nothing.
-      The FIELDS below still come from `customFieldsWD`, so an empty section
-      is an empty section, not a phantom row.
+    //- The heading is here for a card that has a custom field value, or that
+      ticked Custom Fields in "+ Add" (docs/Features/Cards/Card-Fields.md). It
+      used to be on EVERY card the reader may write to, because the hamburger
+      at its end is the single place custom fields live - the picker of which
+      fields are on this card, a pencil each, and "Add custom field" - and a
+      card with none had no other way to get one. "+ Add" is that way now, so
+      a card with none no longer carries an empty heading. The FIELDS below
+      still come from `customFieldsWD`.
     if canShowCustomFieldsOnCard
       //- ONE header for the whole group, outside the loop: a card with six
         custom fields is one Custom Fields section, not six sections that

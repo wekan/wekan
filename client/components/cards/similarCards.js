@@ -26,7 +26,7 @@ Template.similarCardRow.events({
 });
 
 // The opened card: asked again when its title or description changes.
-Template.similarCards.onCreated(function () {
+function askForSimilarCards() {
   this.results = new ReactiveVar([]);
   this.loading = new ReactiveVar(true);
   this.autorun(() => {
@@ -45,16 +45,23 @@ Template.similarCards.onCreated(function () {
       });
     }, this.signature === undefined ? 0 : WAIT_MS);
   });
-});
+}
 
-Template.similarCards.onDestroyed(function () {
+function stopAsking() {
   clearTimeout(this.timer);
-});
+}
 
-Template.similarCards.helpers({
+const similarHelpers = {
   results() { return Template.instance().results.get(); },
   loading() { return Template.instance().loading.get(); },
-});
+};
+
+// The opened card's Similar cards SECTION (docs/Features/Cards/Card-Fields.md):
+// asked when the card opens, and drawn - heading and all - only when there
+// are similar cards. A card with none has no section to look at.
+Template.cardSimilarCardsSection.onCreated(askForSimilarCards);
+Template.cardSimilarCardsSection.onDestroyed(stopAsking);
+Template.cardSimilarCardsSection.helpers(similarHelpers);
 
 // The add-card form: asked when typing pauses, for the one title being typed.
 Template.similarCardsHint.onCreated(function () {

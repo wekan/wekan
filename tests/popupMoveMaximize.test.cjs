@@ -30,10 +30,15 @@ test('the Drawing popup is movable and maximizable; Board View settings stays mo
   assert.ok(setOf('MOVABLE_POPUPS').includes('cardDrawingPopup'));
   assert.ok(setOf('MOVABLE_POPUPS').includes('boardViewSettingsPopup'));
   assert.ok(setOf('MAXIMIZABLE_POPUPS').includes('cardDrawingPopup'));
+  // The opened card's "+ Add" popup (docs/Features/Cards/Card-Fields.md).
+  assert.ok(setOf('MOVABLE_POPUPS').includes('cardAddFieldsPopup'));
+  assert.ok(setOf('MAXIMIZABLE_POPUPS').includes('cardAddFieldsPopup'));
 });
 
 test('the header has the drag handle and the maximize / minimize button, only where enabled', () => {
-  assert.match(jade, /if popupMovable\n\s+span\.popup-drag-handle\.js-popup-drag-handle/);
+  // The handle only while drag handles are on, as on the opened card; the
+  // title bar drags either way.
+  assert.match(jade, /if popupMovable\n\s+if isTouchScreenOrShowDesktopDragHandles\n\s+span\.popup-drag-handle\.js-popup-drag-handle/);
   assert.match(jade, /if popupMaximizable\n\s+if popupMaximized\n\s+a\.popup-maximize-btn\.js-popup-minimize/);
   assert.match(jade, /a\.popup-maximize-btn\.js-popup-maximize[^\n]*maximize-window/);
   for (const key of ['drag-to-move', 'maximize-window', 'minimize-window']) assert.ok(en[key], key);

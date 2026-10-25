@@ -85,3 +85,35 @@ test('a field with data is shown without adding it, unless the board turns it of
   await addPopup(page).locator('.js-card-add-fields-menu[data-id="date"]').click();
   await expect(addPopup(page).locator('.js-card-add-field[data-key="dueDate"]')).toHaveCount(0);
 });
+
+test('the "+ Add" popup moves by its title, maximizes beside its close button, and shows the labels', async ({ boardPage: page, board }) => {
+  const details = await openCard(page, board);
+  await details.locator('.js-open-card-add-fields').click();
+  const popup = addPopup(page);
+  await expect(popup).toBeVisible();
+  // Wide enough for the pane's labels, not only the checkboxes and icons.
+  const label = popup.locator('.card-add-field-label').first();
+  await expect(label).toBeVisible();
+  const labelBox = await label.boundingBox();
+  const popupBox = await popup.boundingBox();
+  expect(labelBox.width).toBeGreaterThan(30);
+  expect(labelBox.x + labelBox.width).toBeLessThanOrEqual(popupBox.x + popupBox.width + 1);
+  // Maximize / minimize sit before the close X.
+  const max = popup.locator('.js-popup-maximize');
+  await expect(max).toBeVisible();
+  expect((await max.boundingBox()).x).toBeLessThan((await popup.locator('.js-close-pop-over').boundingBox()).x);
+  // Moved by its title bar.
+  const before = await popup.boundingBox();
+  const title = await popup.locator('.header-title').boundingBox();
+  await page.mouse.move(title.x + 10, title.y + title.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(title.x - 30, title.y + title.height / 2 + 40, { steps: 5 });
+  await page.mouse.up();
+  const after = await popup.boundingBox();
+  expect(Math.abs(after.x - before.x) + Math.abs(after.y - before.y)).toBeGreaterThan(20);
+  // Maximized, it fills the window; minimized, it is back.
+  await max.click();
+  await expect(popup).toHaveClass(/pop-over--maximized/);
+  await popup.locator('.js-popup-minimize').click();
+  await expect(popup).not.toHaveClass(/pop-over--maximized/);
+});

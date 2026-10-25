@@ -178,4 +178,46 @@ test('the card keeps its choices, and only field keys', () => {
   assert.match(cards, /const \{ FIELD_KEYS: CARD_SHOWN_FIELD_KEYS \} = require\('\/models\/lib\/cardShownFields'\);/);
 });
 
+test('one rule under "+ Add": no section draws its rule for fields the card does not show', () => {
+  const js = read('client/components/cards/cardDetails.js');
+  // The Sort group's gate reads the card's view, as its fields do; reading the
+  // board itself drew an empty group's rule - the second line under "+ Add".
+  const sort = js.slice(js.indexOf('hasVisibleSortFields()'), js.indexOf('hasVisibleSortFields()') + 400);
+  assert.match(sort, /const board = cardBoardView\(this\);/);
+  assert.doesNotMatch(sort, /const board = this\.board\(\);/, 'negative');
+  // Custom Fields: only on a card that shows them, not as an empty heading.
+  assert.match(js, /board\?\.allowsCustomFields !== false && cardShowsField\(this, 'customFields'\)/);
+});
+
+test('Similar cards: the section only when there are some', () => {
+  const jade = read('client/components/cards/similarCards.jade');
+  assert.match(jade, /template\(name="cardSimilarCardsSection"\)\n\s+if results\.length\n\s+\+cardSectionHeader/);
+  assert.doesNotMatch(jade, /similar-cards-none/, 'negative: no "No similar cards" section on the opened card');
+  assert.match(read('client/components/cards/similarCards.js'), /Template\.cardSimilarCardsSection\.onCreated\(askForSimilarCards\);/);
+});
+
+test('the cover is on by default, and a new drawing is the cover', () => {
+  const boards = read('models/boards.js');
+  assert.match(boards, /allowsCoverAttachmentOnCard: \{[\s\S]{0,500}type: Boolean,\s*defaultValue: true,/);
+  const steps = read('server/lib/schemaUpgradeSteps.js');
+  assert.match(steps, /name: 'cover-on-card-on'/);
+  assert.match(steps, /'allowsCoverAttachmentOnMinicard', 'allowsCoverAttachmentOnCard',/);
+  const drawing = read('client/components/cards/cardDrawing.js');
+  assert.match(drawing, /\.\.\.coverOf\(svgAttachmentId\)/);
+  assert.match(drawing, /\.\.\.\(isNew \? coverOf\(pngAttachmentId\) : \{\}\)/, 'an edit leaves the cover');
+});
+
+test('the "+ Add" popup: wide and high enough, moved and maximized like Drawing, no tick animates on opening a pane', () => {
+  const css = read('client/components/cards/cardAddFields.css');
+  assert.match(css, /\.pop-over\[data-popup="cardAddFieldsPopup"\] \{ width: min\(760px, calc\(100vw - 20px\)\); \}/, 'room for the labels');
+  assert.match(css, /\.pop-over\[data-popup="cardAddFieldsPopup"\] \.content-wrapper,\n\.pop-over\[data-popup="cardAddFieldsPopup"\] \.content-container \{ max-height: none; \}/, 'room for every menu entry');
+  assert.match(css, /\.card-add-fields \.materialCheckBox \{ transition: none; \}\n\.card-add-fields \.card-add-field\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
+  const js = read('client/components/cards/cardAddFields.js');
+  assert.match(js, /tpl\.animating\.set\(null\);\n\s+tpl\.section\.set\(event\.currentTarget\.dataset\.id\);/, 'opening a pane animates nothing');
+  assert.match(js, /tpl\.animating\.set\(event\.currentTarget\.dataset\.key\);/, 'the clicked one does');
+  const popup = read('client/components/main/popup.js');
+  assert.match(popup, /MOVABLE_POPUPS = new Set\(\[[^\]]*'cardAddFieldsPopup'/);
+  assert.match(popup, /MAXIMIZABLE_POPUPS = new Set\(\[[^\]]*'cardAddFieldsPopup'/);
+});
+
 console.log(`cardShownFields: ${passed} passed`);

@@ -42,7 +42,10 @@ const js = read('client/components/cards/cardDrawing.js');
 // from the room on the screen and the corner handle changes.
 assert.match(js, /const size = bounds\(tpl\);\n\s+const strokes = d\.cleanStrokes\(tpl\.strokes\.get\(\), size\);/);
 assert.match(js, /Attachments\.insertAsync\(buildAttachmentUploadConfig\(\{ file, meta: Utils\.getCommonAttachmentMetaFrom\(target\) \}\), false\)/, 'the PNG through the normal attachment upload');
-assert.match(js, /\$set: \{ drawings: d\.drawingsAfterSave\(target\.drawings, drawing\) \}/);
+// A new drawing is also the card's cover image; an edit leaves the cover.
+assert.match(js, /\$set: \{ drawings: d\.drawingsAfterSave\(target\.drawings, drawing\), \.\.\.coverOf\(svgAttachmentId\) \}/);
+assert.match(js, /\$set: \{ drawings: d\.drawingsAfterSave\(target\.drawings, drawing\), \.\.\.\(isNew \? coverOf\(pngAttachmentId\) : \{\}\) \}/);
+assert.match(js, /const isNew = !tpl\.editingId\.get\(\);/);
 assert.match(read('client/components/cards/cardDetails.jade'), /a\.js-card-drawing/);
 assert.match(read('client/components/cards/cardDetails.jade'), /template\(name="cardDrawingPopup"\)/);
 console.log('  ok - stored on the card, PNG uploaded as an attachment, opened from the card menu');

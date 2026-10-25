@@ -141,8 +141,11 @@ test('the section follows card write access and the opened-card visibility setti
     .find(l => /^\s*if /.test(l));
   assert.strictEqual(gate.trim(), 'if canShowCustomFieldsOnCard',
     'the heading uses the write-aware, default-on opened-card visibility gate');
-  assert.ok(/return Utils\.canModifyCard\(this\) && board\?\.allowsCustomFields !== false;/.test(cardJs),
-    'the gate requires write access and hides the section only when its setting is off');
+  // docs/Features/Cards/Card-Fields.md: no longer on every writable card - a
+  // card with no custom field value has no empty heading, and gets the section
+  // (with this hamburger) by ticking Custom Fields in "+ Add".
+  assert.ok(/return Utils\.canModifyCard\(this\) && board\?\.allowsCustomFields !== false && cardShowsField\(this, 'customFields'\);/.test(cardJs),
+    'the gate requires write access, the board setting, and a card that shows Custom Fields');
   // The FIELDS still come from the card's values, so an empty section stays
   // empty rather than drawing a phantom row per board definition.
   assert.ok(/each customFieldsWD/.test(group), 'the rows are still the card\'s own fields');

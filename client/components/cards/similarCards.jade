@@ -1,18 +1,16 @@
 //- Similar cards and possible duplicates (docs/Features/Cards/Similar-Cards.md).
-//- `similarCards` is the opened card's section, `similarCardsHint` the add-card
+//- `cardSimilarCardsSection` is the opened card's section, `similarCardsHint` the add-card
 //- form's line under the title. The ranking is the server's (cards.similar), so
 //- neither lists a card the reader may not see.
-template(name="similarCards")
-  .similar-cards.js-similar-cards
-    if loading
-      span.quiet {{_ 'loading'}}
-    else
-      if results.length
+//- The opened card's section: only when there are similar cards, with how many.
+template(name="cardSimilarCardsSection")
+  if results.length
+    +cardSectionHeader(section="similar-cards" icon="fa-clone" label="similar-cards" count=results.length)
+    if isSectionOpen "similar-cards"
+      .similar-cards.js-similar-cards
         ul.similar-cards-list
           each results
             +similarCardRow
-      else
-        span.quiet {{_ 'similar-cards-none'}}
 
 template(name="similarCardsHint")
   if results.length
