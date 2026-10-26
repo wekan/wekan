@@ -107,6 +107,60 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Board Settings / Card** has a **Show when empty** column, so a
+board can show the fields nearly every card needs - labels, a due date, a
+checklist - on every card from the start, even while they are empty.
+
+This release adds the following new features:
+
+**Board Settings / Card** - the fields every card of a board shows from the
+start.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80b936223f">Show when empty: the fields every card of the board shows even while they are empty</a>. Thanks to jullbo and xet7.</summary>
+
+[#6806](https://github.com/wekan/wekan/issues/6806): since an opened card shows
+only the fields it has data in, a board where nearly every card gets labels, a
+due date and a checklist needed + Add, the section and On this card on each new
+card before a field could be filled in. The new **Show when empty** column of
+Board Settings / Card - and of + Add, the same popup - is the board's list
+`cardFieldsShownEmpty`: a ticked field counts like data and is on every card.
+On this card still hides it from one card, Show on Card off still hides it from
+all, and the four always-shown fields have no such checkbox. It is a board
+admin's setting. `tests/cardFieldsShownEmpty6806.test.cjs` pins the rule, its
+storage and the column, and fails on any caller that does not pass the board;
+`card-add-fields.e2e.js` ticks it in the browser.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Tests** - a guard that read the wrong part of a file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21b2da9ad2">The title heading colour guard reads the heading block itself</a>. Thanks to xet7.</summary>
+
+`tests/boardViewTitleViewer.test.cjs` read from the last comment of
+`minicard.css` and `cardDetails.css` to the end of the file, so it passed only
+while the rules after the heading sizes set no colour, and failed once the Card
+kind check mark of v12.65 was appended with its own. It now reads the heading
+block and still fails on a colour there.
+
+</details>
+
+and updates the following translations:
+
+**Languages updated:** 232 languages.
+
+**Board Settings / Card** - the Show when empty heading.
+
+- [Show when empty in every language](https://github.com/wekan/wekan/commit/80b936223f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.65 2026-10-25 WeKan ® release
 
 **In short:** an **opened card** shows only the fields it has, with **+ Add**
