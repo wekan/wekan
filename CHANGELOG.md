@@ -109,9 +109,10 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Board Settings / Card** has a **Show when empty** column, so a
-board can show the fields nearly every card needs - labels, a due date, a
-checklist - on every card from the start, even while they are empty.
+**In short:** **Board Settings / Card** has an **Always show** column: a board
+chooses which fields every card shows from the start, empty or not - labels, a
+due date, a checklist - and can untick the description, attachments and
+comments that used to be always there.
 
 This release adds the following new features:
 
@@ -124,14 +125,26 @@ start.
 [#6806](https://github.com/wekan/wekan/issues/6806): since an opened card shows
 only the fields it has data in, a board where nearly every card gets labels, a
 due date and a checklist needed + Add, the section and On this card on each new
-card before a field could be filled in. The new **Show when empty** column of
-Board Settings / Card - and of + Add, the same popup - is the board's list
-`cardFieldsShownEmpty`: a ticked field counts like data and is on every card.
-On this card still hides it from one card, Show on Card off still hides it from
-all, and the four always-shown fields have no such checkbox. It is a board
-admin's setting. `tests/cardFieldsShownEmpty6806.test.cjs` pins the rule, its
-storage and the column, and fails on any caller that does not pass the board;
-`card-add-fields.e2e.js` ticks it in the browser.
+card before a field could be filled in. A new column of Board Settings / Card -
+and of + Add, the same popup - made a ticked field count like data, on every
+card. It became Always show in the next entry.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b54525abbe">Always show, for every field: the description, attachments and comments are its default ticks</a>. Thanks to jullbo and xet7.</summary>
+
+The column is **Always show** and covers every per-card field. The description,
+attachments and comments were always shown by a fixed list; now they are the
+default of the board's `cardFieldsAlwaysShown`, so a board that never set it
+shows them as before, and unticked they are shown when the card has a
+description, an attachment or a comment, like any other field. On this card
+still hides an always-shown field from one card, and Show on Card off still
+hides it from all. It is a board admin's setting.
+`tests/cardFieldsAlwaysShown6806.test.cjs` pins the default, unticking the
+four, the storage and the column, and fails on any caller that does not pass
+the board; `card-add-fields.e2e.js` ticks Due date and unticks Comments in the
+browser.
 
 </details>
 
@@ -154,9 +167,9 @@ and updates the following translations:
 
 **Languages updated:** 232 languages.
 
-**Board Settings / Card** - the Show when empty heading.
+**Board Settings / Card** - the Always show heading.
 
-- [Show when empty in every language](https://github.com/wekan/wekan/commit/80b936223f).
+- [Always show in every language](https://github.com/wekan/wekan/commit/b54525abbe).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
