@@ -109,11 +109,11 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Card Settings** opens on Card, where **Show empty fields**
-shows every field on every card of the board. Its **Show empty** column
-chooses which fields every card shows from the start, empty or not - labels, a
-due date, a checklist - and can untick the description, attachments and
-comments that used to be always there.
+**In short:** **Card Settings** opens on Card, where **Show empty fields** shows
+every field on every card of the board, and every column has **Select all** and
+**Select none**. Its **Show empty** column chooses which fields every card shows
+from the start, empty or not - labels, a due date, a checklist - and can untick
+the description, attachments and comments that used to be always there.
 
 This release adds the following new features:
 
@@ -160,6 +160,21 @@ columns are hidden - by CSS only, so their ticks stay saved and come back as
 they were. The Always show column is called **Show empty**, stored as before.
 `tests/cardFieldsAlwaysShown6806.test.cjs` and `card-add-fields.e2e.js` cover
 it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8a15b514f">Card Settings: Select all and Select none per column, headings aligned with their cells, labels whole</a>. Thanks to xet7.</summary>
+
+Under each column heading of every pane - On this card, Show on Minicard, Show
+on Card, Show empty - **Select all** and **Select none** set that column for the
+open section's rows at once, for who may change that column; a personal row
+(Labels text, List title) is left as it is. The headings drifted left of their
+cells and the labels were cut: the heading line had a smaller font, and the
+columns are in em. The font is on the headings now, every heading and cell
+starts at its column's start, and the popup is up to 1200px wide.
+`tests/cardSettingsSelectAllAligned.test.cjs` and `card-add-fields.e2e.js` pin
+it, the latter measuring the headings, cells and labels.
 
 </details>
 
