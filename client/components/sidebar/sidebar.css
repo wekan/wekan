@@ -171,7 +171,7 @@
 .card-settings-pane-head,
 .card-settings-line {
   display: grid;
-  /* Show on Minicard, Show on Card, Show when empty (#6806), the field;
+  /* Show on Minicard, Show on Card, Always show (#6806), the field;
      opened from a card, On this card first. Logical order: a right-to-left page mirrors it. Each line is
      its own grid, so the side columns have FIXED widths - sized by content,
      every line and the heading line would size them differently and nothing
@@ -230,7 +230,7 @@
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
 .card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox,
-.card-settings-sections .card-show-when-empty.is-animating .materialCheckBox { transition: 0.2s; }
+.card-settings-sections .card-always-show.is-animating .materialCheckBox { transition: 0.2s; }
 
 .card-field-order-toggle,
 .card-field-order-move {
@@ -238,7 +238,7 @@
 }
 .card-field-order-move.is-disabled,
 .card-field-order-toggle.is-disabled,
-.card-show-when-empty.is-disabled {
+.card-always-show.is-disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
@@ -249,8 +249,8 @@
 .board-card-settings.show-card-only .card-settings-side-head-minicard,
 .board-card-settings.show-minicard-only .card-settings-side-card,
 .board-card-settings.show-minicard-only .card-settings-side-head-card,
-.board-card-settings.show-minicard-only .card-settings-side-when-empty,
-.board-card-settings.show-minicard-only .card-settings-side-head-empty {
+.board-card-settings.show-minicard-only .card-settings-side-always,
+.board-card-settings.show-minicard-only .card-settings-side-head-always {
   display: none;
 }
 

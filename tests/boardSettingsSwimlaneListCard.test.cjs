@@ -265,10 +265,10 @@ test('a menu that asks for one side hides the other side\'s cells', () => {
     + '.board-card-settings.show-card-only .card-settings-side-head-minicard,\n'
     + '.board-card-settings.show-minicard-only .card-settings-side-card,\n'
     + '.board-card-settings.show-minicard-only .card-settings-side-head-card,\n'
-    // #6806: Show when empty is about the opened card, so the minicard's
+    // #6806: Always show is about the opened card, so the minicard's
     // own view hides it as well.
-    + '.board-card-settings.show-minicard-only .card-settings-side-when-empty,\n'
-    + '.board-card-settings.show-minicard-only .card-settings-side-head-empty {'),
+    + '.board-card-settings.show-minicard-only .card-settings-side-always,\n'
+    + '.board-card-settings.show-minicard-only .card-settings-side-head-always {'),
     'show-card-only hides the minicard cells and show-minicard-only the card cells');
 });
 

@@ -151,7 +151,7 @@ test('the popup is Board Settings / Card: sections on the left, Show on Minicard
   assert.match(popup, /\+leftMenu\(settingsMenuItems\)\n\s+\.main-body\n\s+\+paneTitle\(settingsPaneTitle\)/);
   assert.match(popup, /if settingsCardId\n\s+if row\.perCard\n\s+span\.card-settings-side\.card-settings-side-this\n\s+a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{row\.key\}\}" role="checkbox"/);
   const js = read('client/components/sidebar/sidebar.js');
-  // #6806: with the card's board, for its Show when empty fields.
+  // #6806: with the card's board, for its Always show fields.
   assert.match(js, /const next = cardShownFields\.cardFieldsAfter\(card, key, !cardShownFields\.isShown\(key, card, counts, board\), counts, board\);\n\s+await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
   assert.match(js, /if \(!card \|\| !cardShownFields\.FIELD_KEYS\.includes\(key\) \|\| !Utils\.canModifyCard\(card\)\) return;/, 'negative: only a field key, only who may change the card');
   // The old "+ Add" popup is gone; one popup, one set of handlers.
@@ -216,8 +216,8 @@ test('the popup: wide and high enough, moved and maximized, no tick animates on 
   const popupCss = read('client/components/main/popup.css');
   assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-wrapper,\n\s+\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-container \{\n\s+max-height: none;/, 'room for every menu entry');
   const css = read('client/components/sidebar/sidebar.css');
-  // #6806: Show when empty animates the same way, only when clicked.
-  assert.match(css, /\.card-settings-sections \.materialCheckBox \{ transition: none; \}\n\.card-settings-sections \.card-add-field\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-field-order-toggle\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-show-when-empty\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
+  // #6806: Always show animates the same way, only when clicked.
+  assert.match(css, /\.card-settings-sections \.materialCheckBox \{ transition: none; \}\n\.card-settings-sections \.card-add-field\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-field-order-toggle\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-always-show\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
   // A board-wide checkbox animates when clicked too, and only that one.
   assert.match(read('client/components/sidebar/sidebar.js'), /'click \.card-field-order-toggle'\(evt, tpl\) \{\n\s+const cell = evt\.currentTarget\.closest\('\.js-card-field-order-row'\);\n\s+if \(cell\) tpl\.animating\.set\(`\$\{cell\.dataset\.key\}:\$\{cell\.dataset\.side\}`\);/);
   const js = read('client/components/sidebar/sidebar.js');
@@ -241,7 +241,7 @@ test('a maximized card has its comments section in the right column', () => {
 test('the pane lines up: fixed side columns on every line, and an inline form keeps its floats', () => {
   const css = read('client/components/sidebar/sidebar.css');
   // Each line is its own grid: sized by content, no two lines would agree.
-  // #6806 added the Show when empty column (8em) before the field.
+  // #6806 added the Always show column (8em) before the field.
   assert.match(css, /grid-template-columns: 9em 9em 8em minmax\(10em, 1fr\);/);
   assert.match(css, /\.board-card-settings\.has-card \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 9em 8em minmax\(10em, 1fr\);/);
   assert.doesNotMatch(css, /\.card-settings-line \{[^}]*max-content/, 'negative: no content-sized side column');

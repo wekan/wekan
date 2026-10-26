@@ -9,7 +9,7 @@ const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelecto
 const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors } = require('/models/lib/boardPermission');
 const { normalizeAutoArchiveDays } = require('/models/lib/autoArchive');
 const { cardParentIds, parentFields } = require('/models/lib/cardParents');
-const { EMPTY_SHOWABLE_KEYS } = require('/models/lib/cardShownFields');
+const { FIELD_KEYS: CARD_SHOWN_FIELD_KEYS } = require('/models/lib/cardShownFields');
 const boardViewSettings = require('/models/lib/boardViewSettings');
 const { deliverySchemaFields } = require('/models/lib/notificationDelivery');
 import escapeForRegex from 'escape-string-regexp';
@@ -927,20 +927,20 @@ Boards.attachSchema(
     'minicardFieldOrder.$': {
       type: String,
     },
-    // #6806: the fields every card of the board shows even while they are
-    // empty - Board Settings / Card's "Show when empty"
-    // (models/lib/cardShownFields.js). A card still hides one by unticking
-    // "On this card".
-    cardFieldsShownEmpty: {
+    // #6806: the fields every card of the board shows, empty or not - Board
+    // Settings / Card's "Always show" (models/lib/cardShownFields.js). Never
+    // set: the description, attachments and comments. A card still hides one
+    // by unticking "On this card".
+    cardFieldsAlwaysShown: {
       /**
-       * The opened card's fields shown on every card even when empty
+       * The opened card's fields shown on every card, even when empty
        */
       type: Array,
       optional: true,
     },
-    'cardFieldsShownEmpty.$': {
+    'cardFieldsAlwaysShown.$': {
       type: String,
-      allowedValues: EMPTY_SHOWABLE_KEYS,
+      allowedValues: CARD_SHOWN_FIELD_KEYS,
     },
 
     allowsCoverAttachmentOnMinicard: {
@@ -2328,11 +2328,11 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { cardFieldOrder: applyCardOrder(order) } });
   },
 
-  // #6806: Board Settings / Card's "Show when empty", normalised the same way
-  // (models/lib/cardShownFields.js shownEmptyAfter).
-  async setCardFieldShownEmpty(key, show) {
-    const { shownEmptyAfter } = require('/models/lib/cardShownFields');
-    return await Boards.updateAsync(this._id, { $set: { cardFieldsShownEmpty: shownEmptyAfter(this, key, show) } });
+  // #6806: Board Settings / Card's "Always show", normalised the same way
+  // (models/lib/cardShownFields.js alwaysShownAfter).
+  async setCardFieldAlwaysShown(key, show) {
+    const { alwaysShownAfter } = require('/models/lib/cardShownFields');
+    return await Boards.updateAsync(this._id, { $set: { cardFieldsAlwaysShown: alwaysShownAfter(this, key, show) } });
   },
 
   async setMinicardFieldOrder(order) {

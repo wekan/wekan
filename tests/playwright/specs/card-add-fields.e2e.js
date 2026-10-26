@@ -139,23 +139,31 @@ test('"Scrum settings" is the section title, not repeated before each Scrum row'
   for (const text of labels) expect(text).not.toContain(scrumTitle);
 });
 
-// #6806: Show when empty - the board's fields every card shows, empty or not.
-test('"Show when empty": an empty card shows the board\'s chosen fields, and On this card still hides one', async ({ boardPage: page, board }) => {
+// #6806: Always show - the fields every card of the board shows, empty or not,
+// by default the description, attachments and comments.
+test('"Always show": an empty card shows the board\'s chosen fields, the default four can be unticked, and On this card still hides one', async ({ boardPage: page, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsLabels: true }, $unset: { cardFieldsShownEmpty: '' } });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsLabels: true, allowsComments: true }, $unset: { cardFieldsAlwaysShown: '' } });
   db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '', hiddenFields: '' }, $set: { labelIds: [] } });
+  db.deleteMany('card_comments', { cardId: card._id });
   const details = await openCard(page, board);
   // Negative: before it is ticked, the empty Due date is not on the card.
   await expect(details.locator('.card-details-item-due')).toHaveCount(0);
   await details.locator('.js-open-card-add-fields').click();
   const popup = addPopup(page);
-  await expect(popup.locator('.card-settings-side-head-empty')).toBeVisible();
+  await expect(popup.locator('.card-settings-side-head-always')).toBeVisible();
+  // The default: Comments is ticked.
+  await popup.locator('.js-card-settings-menu[data-id="comments"]').click();
+  const comments = popup.locator('.js-card-always-show[data-key="comments"]');
+  await expect(comments).toHaveAttribute('aria-checked', 'true');
+  // Due date: tick it, and every card shows it.
   await popup.locator('.js-card-settings-menu[data-id="date"]').click();
-  const empty = popup.locator('.js-card-show-when-empty[data-key="dueDate"]');
-  await expect(empty).toHaveAttribute('aria-checked', 'false');
-  await empty.click();
-  await expect(empty).toHaveAttribute('aria-checked', 'true');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsShownEmpty).toEqual(['dueDate']);
+  const due = popup.locator('.js-card-always-show[data-key="dueDate"]');
+  await expect(due).toHaveAttribute('aria-checked', 'false');
+  await due.click();
+  await expect(due).toHaveAttribute('aria-checked', 'true');
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown)
+    .toEqual(['dueDate', 'descriptionTitle', 'descriptionText', 'attachments', 'comments']);
   // The card follows the board: Due date shown, ticked On this card, nothing stored on the card.
   await expect(popup.locator('.js-card-add-field[data-key="dueDate"]')).toHaveAttribute('aria-checked', 'true');
   await expect(details.locator('.card-details-item-due')).toHaveCount(1);
@@ -164,7 +172,9 @@ test('"Show when empty": an empty card shows the board\'s chosen fields, and On 
   await popup.locator('.js-card-add-field[data-key="dueDate"]').click();
   await expect.poll(() => db.findOne('cards', { _id: card._id }).hiddenFields).toEqual(['dueDate']);
   await expect(details.locator('.card-details-item-due')).toHaveCount(0);
-  // Negative: the always-shown fields have no Show when empty checkbox.
+  // Comments unticked: a card without comments has no comments section.
   await popup.locator('.js-card-settings-menu[data-id="comments"]').click();
-  await expect(popup.locator('.js-card-show-when-empty[data-key="comments"]')).toHaveCount(0);
+  await popup.locator('.js-card-always-show[data-key="comments"]').click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).not.toContain('comments');
+  await expect(details.locator('.js-toggle-card-section[data-section="comments"]')).toHaveCount(0);
 });

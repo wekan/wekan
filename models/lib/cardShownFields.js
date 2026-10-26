@@ -3,10 +3,19 @@
 // Which fields an opened card shows (docs/Features/Cards/Card-Fields.md).
 //
 // An opened card shows only what it HAS: a field with data in it - a due date,
-// labels, a checklist - is shown, an empty one is not. Four are always there,
-// empty or not, because they are what a card is for: the description (its
-// title and its text), the attachments with their Add attachment, and the
-// comments. The cover is shown when the card has one.
+// labels, a checklist - is shown, an empty one is not - and what its board
+// ALWAYS shows, empty or not: Board Settings / Card's "Always show" column,
+// the board's
+//
+//   cardFieldsAlwaysShown: [key]
+//
+// By default (a board that never set it) that is the four a card is for: the
+// description (its title and its text), the attachments with their Add
+// attachment, and the comments. A board admin can untick those - then they
+// are shown when they have something in them, like any other field - and
+// tick any other per-card field (#6806: a board where nearly every card gets
+// labels, a due date and a checklist). The cover is shown when the card has
+// one.
 //
 // Above the card's fields, under its cover, "+ Add" opens Board Settings /
 // Card - the same popup - for this card: beside each row's board-wide "Show on
@@ -15,16 +24,7 @@
 // data hides it from this card. The card keeps both choices:
 //
 //   shownFields:  [key]  shown although empty
-//   hiddenFields: [key]  hidden although it has data
-//
-// #6806: a board where nearly every card gets labels, a due date and a
-// checklist can show those on every card even while they are empty - Board
-// Settings / Card's "Show when empty" column, the board's
-//
-//   cardFieldsShownEmpty: [key]
-//
-// which counts like having data: shown on every card of the board, and still
-// hidden from one card by unticking "On this card".
+//   hiddenFields: [key]  hidden although it has data, or always shown
 //
 // Board Settings / Card still decides what a card of the board CAN show: a
 // field turned off there is shown on no card. The rows not in FIELD_KEYS
@@ -61,7 +61,7 @@ const FIELD_KEYS = Object.freeze([
   'cardNumber', 'dependencies', 'cardSortingByNumber', 'showLists', 'swimlaneName',
 ]);
 
-// Shown on every card, empty or not.
+// Always shown, empty or not, on a board that never chose its own.
 const ALWAYS = Object.freeze(['descriptionTitle', 'descriptionText', 'attachments', 'comments']);
 
 const filled = v => (Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null && v !== '' && v !== false);
@@ -104,8 +104,10 @@ function hasData(key, card, counts = {}) {
     case 'scrumIssueType': return filled(scrum.issueType);
     case 'scrumAcceptanceCriteria': return filled(scrum.acceptanceCriteria);
     case 'scrumBacklogRank': return Number.isFinite(scrum.backlogRank);
-    // Always shown, and nothing to measure.
-    case 'descriptionTitle': case 'descriptionText': case 'attachments': case 'comments': return true;
+    // Always shown by default; with that unticked, shown when there is some.
+    case 'descriptionTitle': case 'descriptionText': return filled(c.description) && String(c.description).trim() !== '';
+    case 'attachments': return (counts.attachments || 0) > 0;
+    case 'comments': return (counts.comments || 0) > 0;
     // Shown only when added: a creator, a number, the history - every card has
     // them, so having them is not a reason to show them.
     default: return false;
@@ -114,32 +116,35 @@ function hasData(key, card, counts = {}) {
 
 const listOf = v => (Array.isArray(v) ? v.filter(k => FIELD_KEYS.includes(k)) : []);
 
-// The fields "Show when empty" can be ticked for: every per-card field but
-// the ones always shown anyway.
-const EMPTY_SHOWABLE_KEYS = Object.freeze(FIELD_KEYS.filter(k => !ALWAYS.includes(k)));
+// The fields the board always shows: its own list once it has one - an empty
+// list too, every field then shown by its data alone - else ALWAYS.
+function alwaysShownOf(board) {
+  const own = board && board.cardFieldsAlwaysShown;
+  return Array.isArray(own) ? listOf(own) : [...ALWAYS];
+}
 
-// Whether the board shows `key` on its cards even while it is empty (#6806).
-function boardShowsEmpty(board, key) {
-  return Boolean(board) && EMPTY_SHOWABLE_KEYS.includes(key) && listOf(board.cardFieldsShownEmpty).includes(key);
+// Whether the board shows `key` on every card, empty or not.
+function boardAlwaysShows(board, key) {
+  return FIELD_KEYS.includes(key) && alwaysShownOf(board).includes(key);
 }
 
 // The board's list after ticking (show = true) or unticking `key`, in
 // FIELD_KEYS' order, without unknown or repeated keys.
-function shownEmptyAfter(board, key, show) {
-  const now = new Set(listOf(board && board.cardFieldsShownEmpty));
-  if (EMPTY_SHOWABLE_KEYS.includes(key)) {
+function alwaysShownAfter(board, key, show) {
+  const now = new Set(alwaysShownOf(board));
+  if (FIELD_KEYS.includes(key)) {
     if (show) now.add(key);
     else now.delete(key);
   }
-  return EMPTY_SHOWABLE_KEYS.filter(k => now.has(k));
+  return FIELD_KEYS.filter(k => now.has(k));
 }
 
 // What the card shows when it has made no choice of its own.
 const shownByDefault = (key, card, counts, board) =>
-  ALWAYS.includes(key) || hasData(key, card, counts) || boardShowsEmpty(board, key);
+  hasData(key, card, counts) || boardAlwaysShows(board, key);
 
 // Whether this card shows `key` (before Board Settings / Card is asked).
-// `board` is the card's board, for its "Show when empty" fields.
+// `board` is the card's board, for its "Always show" fields.
 function isShown(key, card, counts, board) {
   if (!FIELD_KEYS.includes(key)) return true; // not a per-card field: the board decides
   if (listOf(card && card.hiddenFields).includes(key)) return false;
@@ -213,6 +218,6 @@ function boardForCard(board, card, counts) {
 }
 
 module.exports = {
-  FIELD_KEYS, ALWAYS, EMPTY_SHOWABLE_KEYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
-  boardShowsEmpty, shownEmptyAfter,
+  FIELD_KEYS, ALWAYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
+  alwaysShownOf, boardAlwaysShows, alwaysShownAfter,
 };

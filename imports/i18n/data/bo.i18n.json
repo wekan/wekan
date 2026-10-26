@@ -1987,7 +1987,7 @@
   "addmore-detail": "ཞིབ་ཕྲའི་འགྲེལ་བཤད་ཁ་སྣོན།",
   "show-on-card": "བྱང་བུའི་སྟེང་སྟོན།",
   "card-settings-this-card": "བྱང་བུ་འདིའི་སྟེང་།",
-  "card-settings-show-when-empty": "སྟོང་པ་ཡིན་ཡང་སྟོན།",
+  "card-settings-always-show": "རྟག་ཏུ་སྟོན།",
   "show-on-minicard": "བྱང་བུ་ཆུང་ངུའི་སྟེང་སྟོན།",
   "default-on-public-board": "སྤྱི་པའི་པང་ལེབ་སྟེང་སྔོན་སྒྲིག",
   "show-on-public-board": "སྤྱི་པའི་པང་ལེབ་སྟེང་སྟོན།",

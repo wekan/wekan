@@ -2222,9 +2222,9 @@ const boardCardSettingsHelpers = {
           perCard: Boolean(thisCard) && cardShownFields.FIELD_KEYS.includes(row.key),
           shownOnThisCard: Boolean(thisCard) && cardShownFields.isShown(row.key, thisCard, counts, board),
           // #6806: the board shows this field on every card, empty or not.
-          showableEmpty: cardShownFields.EMPTY_SHOWABLE_KEYS.includes(row.key),
-          shownEmpty: cardShownFields.boardShowsEmpty(board, row.key),
-          animatingEmpty: animatingKey === `${row.key}:empty`,
+          alwaysShowable: cardShownFields.FIELD_KEYS.includes(row.key),
+          alwaysShown: cardShownFields.boardAlwaysShows(board, row.key),
+          animatingAlways: animatingKey === `${row.key}:always`,
         };
       });
   },
@@ -2781,17 +2781,17 @@ Template.boardCardSettingsPopup.events({
     const next = cardShownFields.cardFieldsAfter(card, key, !cardShownFields.isShown(key, card, counts, board), counts, board);
     await Cards.updateAsync(card._id, { $set: next });
   },
-  // #6806: "Show when empty" - every card of the board shows the field, empty
-  // or not (models/lib/cardShownFields.js). A board admin's, like the rest.
-  async 'click .js-card-show-when-empty'(evt, tpl) {
+  // #6806: "Always show" - every card of the board shows the field, empty or
+  // not (models/lib/cardShownFields.js). A board admin's, like the rest.
+  async 'click .js-card-always-show'(evt, tpl) {
     evt.preventDefault();
     const board = ReactiveCache.getBoard(Session.get('currentBoard'));
     const key = evt.currentTarget.dataset.key;
-    if (!board || !cardShownFields.EMPTY_SHOWABLE_KEYS.includes(key)) return;
+    if (!board || !cardShownFields.FIELD_KEYS.includes(key)) return;
     if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;
-    tpl.animating.set(`${key}:empty`);
+    tpl.animating.set(`${key}:always`);
     try {
-      await board.setCardFieldShownEmpty(key, !cardShownFields.boardShowsEmpty(board, key));
+      await board.setCardFieldAlwaysShown(key, !cardShownFields.boardAlwaysShows(board, key));
     } catch (error) {
       console.error(error);
     }

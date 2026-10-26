@@ -3,8 +3,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
 
 // docs/Features/Cards/Card-Fields.md: an opened card shows only the fields it
-// has data in - and its description, attachments and comments, empty or not -
-// and "+ Add" chooses the rest. The rules are models/lib/cardShownFields.js.
+// has data in - and what its board always shows (by default its description,
+// attachments and comments), empty or not - and "+ Add" chooses the rest. The rules are models/lib/cardShownFields.js.
 const f = require('/models/lib/cardShownFields');
 
 // What lives in other collections, for "has data".
@@ -20,6 +20,9 @@ export function cardFieldCounts(card) {
     checklists: typeof card.checklists === 'function' ? countOf(card.checklists()) : 0,
     subtasks: typeof card.subtasks === 'function' ? countOf(card.subtasks()) : 0,
     textNotes: countOf(ReactiveCache.getCardTextNotes({ cardId: card._id })),
+    // For a board that does not always show these: shown when there are some.
+    attachments: typeof card.attachments === 'function' ? countOf(card.attachments()) : 0,
+    comments: typeof card.comments === 'function' ? countOf(card.comments()) : 0,
   };
 }
 
