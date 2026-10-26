@@ -139,9 +139,9 @@ test('"Scrum settings" is the section title, not repeated before each Scrum row'
   for (const text of labels) expect(text).not.toContain(scrumTitle);
 });
 
-// #6806: Always show - the fields every card of the board shows, empty or not,
+// #6806: Show empty - the fields every card of the board shows, empty or not,
 // by default the description, attachments and comments.
-test('"Always show": an empty card shows the board\'s chosen fields, the default four can be unticked, and On this card still hides one', async ({ boardPage: page, board }) => {
+test('"Show empty": an empty card shows the board\'s chosen fields, the default four can be unticked, and On this card still hides one', async ({ boardPage: page, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsLabels: true, allowsComments: true }, $unset: { cardFieldsAlwaysShown: '' } });
   db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '', hiddenFields: '' }, $set: { labelIds: [] } });
@@ -177,4 +177,38 @@ test('"Always show": an empty card shows the board\'s chosen fields, the default
   await popup.locator('.js-card-always-show[data-key="comments"]').click();
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).not.toContain('comments');
   await expect(details.locator('.js-toggle-card-section[data-section="comments"]')).toHaveCount(0);
+});
+
+// Card Settings opens on Card; its "Show empty fields" (off by default) shows
+// every field on every card and hides the Show empty columns, keeping their ticks.
+test('Card Settings opens on Card, and "Show empty fields" shows every field while keeping the Show empty ticks', async ({ boardPage: page, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, cardFieldsAlwaysShown: ['labels', 'descriptionTitle', 'descriptionText', 'attachments', 'comments'] }, $unset: { showEmptyCardFields: '' } });
+  db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '', hiddenFields: '' } });
+  const details = await openCard(page, board);
+  await details.locator('.js-open-card-add-fields').click();
+  const popup = addPopup(page);
+  // The topmost entry is open, with Show empty fields unticked under its title.
+  await expect(popup.locator('li.active .js-card-settings-menu[data-id="card"]')).toHaveCount(1);
+  await expect(popup.locator('li.active .js-card-settings-menu')).toHaveCount(1);
+  const showEmpty = popup.locator('.js-show-empty-card-fields');
+  await expect(showEmpty).toBeVisible();
+  await expect(showEmpty).toHaveAttribute('aria-checked', 'false');
+  await expect(details.locator('.card-details-item-due')).toHaveCount(0);
+  await expect(popup.locator('.card-settings-side-head-always')).toBeVisible();
+  // Ticked: every field on the card, the Show empty column hidden.
+  await showEmpty.click();
+  await expect(showEmpty).toHaveAttribute('aria-checked', 'true');
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).showEmptyCardFields).toBe(true);
+  await expect(details.locator('.card-details-item-due')).toHaveCount(1);
+  await expect(popup.locator('.card-settings-side-head-always')).toBeHidden();
+  // Negative: the Show empty ticks are kept.
+  expect(db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).toContain('labels');
+  // Unticked: the column is back as it was.
+  await showEmpty.click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).showEmptyCardFields).toBe(false);
+  await expect(popup.locator('.card-settings-side-head-always')).toBeVisible();
+  await expect(details.locator('.card-details-item-due')).toHaveCount(0);
+  await popup.locator('.js-card-settings-menu[data-id="labels"]').click();
+  await expect(popup.locator('.js-card-always-show[data-key="labels"]')).toHaveAttribute('aria-checked', 'true');
 });

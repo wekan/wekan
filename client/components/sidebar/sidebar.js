@@ -2118,9 +2118,8 @@ function settingsSectionsFor(data) {
 function openSettingsSectionOf(tpl, data) {
   const sections = settingsSectionsFor(data);
   const chosen = tpl && tpl.settingsSection && tpl.settingsSection.get();
-  // Opened from a card's "+ Add", it opens on the first section of fields.
-  const fallback = data && data.card && sections.length > 1 ? sections[1] : sections[0];
-  return (sections.find(s => s.id === chosen) || fallback || {}).id;
+  // It opens on the topmost entry, Card - from a card's "+ Add" too.
+  return (sections.find(s => s.id === chosen) || sections[0] || {}).id;
 }
 
 function settingsMenuOf(data) {
@@ -2160,6 +2159,9 @@ const boardCardSettingsHelpers = {
     return card && Utils.canModifyCard(card) ? card._id : null;
   },
   isAnimating(key) { return Template.instance().animating.get() === key; },
+  showEmptyCardFields() {
+    return cardShownFields.boardShowsEmptyFields(ReactiveCache.getBoard(Session.get('currentBoard')));
+  },
   // The open section's card actions, opened from a card.
   sectionCardActions() {
     const id = openSettingsSectionOf(Template.instance(), this);
@@ -2253,6 +2255,9 @@ const boardCardSettingsHelpers = {
     // Opened from a card's "+ Add": the card's own rows are shown too.
     // The same test as settingsCardId: the column is drawn only then.
     if (data.card && data.card._id && Utils.canModifyCard(data.card)) classes.push('has-card');
+    // Show empty fields: every field is shown, so the Show empty column is
+    // set aside - hidden, its ticks kept.
+    if (cardShownFields.boardShowsEmptyFields(ReactiveCache.getBoard(Session.get('currentBoard')))) classes.push('show-empty-fields');
     return classes.join(' ');
   },
 
@@ -2781,7 +2786,20 @@ Template.boardCardSettingsPopup.events({
     const next = cardShownFields.cardFieldsAfter(card, key, !cardShownFields.isShown(key, card, counts, board), counts, board);
     await Cards.updateAsync(card._id, { $set: next });
   },
-  // #6806: "Always show" - every card of the board shows the field, empty or
+  // Card Settings / Card's "Show empty fields": every card shows all its
+  // fields, the empty ones too. A board admin's, like the rest.
+  async 'click .js-show-empty-card-fields'(evt, tpl) {
+    evt.preventDefault();
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    if (!board || !(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+    tpl.animating.set('showEmptyCardFields');
+    try {
+      await board.setShowEmptyCardFields(!cardShownFields.boardShowsEmptyFields(board));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  // #6806: "Show empty" - every card of the board shows the field, empty or
   // not (models/lib/cardShownFields.js). A board admin's, like the rest.
   async 'click .js-card-always-show'(evt, tpl) {
     evt.preventDefault();

@@ -14,8 +14,13 @@
 // attachment, and the comments. A board admin can untick those - then they
 // are shown when they have something in them, like any other field - and
 // tick any other per-card field (#6806: a board where nearly every card gets
-// labels, a due date and a checklist). The cover is shown when the card has
-// one.
+// labels, a due date and a checklist) - the "Show empty" column. The cover is
+// shown when the card has one.
+//
+// Card Settings / Card's "Show empty fields" (the board's
+// `showEmptyCardFields`, off by default) shows every field on every card,
+// empty or not. While it is on, the "Show empty" column is set aside - hidden,
+// its ticks kept for when it is turned off again.
 //
 // Above the card's fields, under its cover, "+ Add" opens Board Settings /
 // Card - the same popup - for this card: beside each row's board-wide "Show on
@@ -139,9 +144,14 @@ function alwaysShownAfter(board, key, show) {
   return FIELD_KEYS.filter(k => now.has(k));
 }
 
+// Whether the board shows every field on every card, empty or not.
+function boardShowsEmptyFields(board) {
+  return Boolean(board) && board.showEmptyCardFields === true;
+}
+
 // What the card shows when it has made no choice of its own.
 const shownByDefault = (key, card, counts, board) =>
-  hasData(key, card, counts) || boardAlwaysShows(board, key);
+  boardShowsEmptyFields(board) || hasData(key, card, counts) || boardAlwaysShows(board, key);
 
 // Whether this card shows `key` (before Board Settings / Card is asked).
 // `board` is the card's board, for its "Always show" fields.
@@ -219,5 +229,5 @@ function boardForCard(board, card, counts) {
 
 module.exports = {
   FIELD_KEYS, ALWAYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
-  alwaysShownOf, boardAlwaysShows, alwaysShownAfter,
+  alwaysShownOf, boardAlwaysShows, alwaysShownAfter, boardShowsEmptyFields,
 };

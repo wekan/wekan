@@ -1,11 +1,15 @@
 'use strict';
 
-// #6806: Board Settings / Card's "Always show" - the fields every card of the
-// board shows, empty or not. By default the description, attachments and
+// #6806: Board Settings / Card's "Show empty" column (stored as
+// cardFieldsAlwaysShown) - the fields every card of the board shows, empty or
+// not. By default the description, attachments and
 // comments; a board admin can untick those (then they are shown when they
 // have something in them) and tick any other per-card field - a board where
 // nearly every card gets labels, a due date and a checklist. "On this card"
-// still hides one from one card. docs/Features/Cards/Card-Fields.md
+// still hides one from one card. And the Card pane's "Show empty fields"
+// (showEmptyCardFields, off by default): every field on every card, the Show
+// empty columns hidden with their ticks kept. The popup opens on Card.
+// docs/Features/Cards/Card-Fields.md
 // Run: node tests/cardFieldsAlwaysShown6806.test.cjs
 
 const assert = require('assert');
@@ -113,10 +117,10 @@ test('stored on the board, through one normalising method, as a board admin', ()
   }
 });
 
-test('Board Settings / Card and + Add: an Always show column, for every per-card field', () => {
+test('Board Settings / Card and + Add: a Show empty column, for every per-card field', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
   const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-  assert.match(popup, /span\.card-settings-side-head\.card-settings-side-head-always \{\{_ 'card-settings-always-show'\}\}/);
+  assert.match(popup, /span\.card-settings-side-head\.card-settings-side-head-always \{\{_ 'card-settings-show-empty'\}\}/);
   assert.match(popup, /if row\.alwaysShowable\n\s+span\.card-settings-side\.card-settings-side-always\n\s+a\.flex\.card-always-show\(class="\{\{#if canModifyBoard\}\}js-card-always-show\{\{else\}\}is-disabled\{\{\/if\}\}/);
   assert.match(popup, /role="checkbox" aria-checked="\{\{#if row\.alwaysShown\}\}true\{\{else\}\}false\{\{\/if\}\}"/);
   const head = popup.slice(popup.indexOf('.card-settings-pane-head'), popup.indexOf('each row in sectionSettingsRows'));
@@ -162,16 +166,76 @@ test('negative: every caller of isShown and cardFieldsAfter passes the board', (
   }
 });
 
-test('the heading in every language, and the first name gone', () => {
+test('Show empty fields: every field on every card, off by default', () => {
+  const board = fullBoard({ cardFieldsAlwaysShown: ['labels'] });
+  assert.ok(!f.boardShowsEmptyFields(board), 'negative: off by default');
+  assert.ok(!f.isShown('dueDate', emptyCard, {}, board), 'negative: off, an empty field stays hidden');
+  board.showEmptyCardFields = true;
+  assert.deepStrictEqual(shownOn(board), [...f.FIELD_KEYS], 'every field, empty or not');
+  assert.strictEqual(f.boardForCard(board, emptyCard, {}), board, 'nothing hidden: the board itself');
+  // On this card still hides one from one card.
+  const after = f.cardFieldsAfter(emptyCard, 'dueDate', false, {}, board);
+  assert.deepStrictEqual(after.hiddenFields, ['dueDate']);
+  assert.ok(!f.isShown('dueDate', { ...emptyCard, ...after }, {}, board));
+  // Show on Card off still wins.
+  const off = { ...board, [flag('labels')]: false };
+  assert.strictEqual(f.boardForCard(off, emptyCard, {})[flag('labels')], false);
+  // The Show empty ticks are kept, not rewritten: off again, they decide.
+  assert.deepStrictEqual(f.alwaysShownOf(board), ['labels']);
+  board.showEmptyCardFields = false;
+  assert.deepStrictEqual(shownOn(board), ['labels']);
+  assert.ok(!f.boardShowsEmptyFields({ showEmptyCardFields: 'yes' }), 'negative: only true');
+});
+
+test('Show empty fields: saved to the board, under the Card pane\'s title; on, the Show empty columns hidden', () => {
+  const boards = read('models/boards.js');
+  assert.match(boards, /showEmptyCardFields: \{ type: Boolean, defaultValue: false \},/);
+  assert.match(boards, /async setShowEmptyCardFields\(showEmptyCardFields\) \{\n\s+return Boards\.updateAsync\(this\._id, \{ \$set: \{ showEmptyCardFields: showEmptyCardFields === true \} \}\);/);
+  const jade = read('client/components/sidebar/sidebar.jade');
+  const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
+  // In the Card pane, right under the title, before Ask for a reason.
+  const general = popup.slice(popup.indexOf('if openSettingsSectionIsGeneral'));
+  assert.ok(popup.indexOf('+paneTitle(settingsPaneTitle)') < popup.indexOf('if openSettingsSectionIsGeneral'));
+  assert.ok(general.indexOf('div.check-div.card-settings-show-empty-fields') < general.indexOf('js-ask-move-reason'));
+  assert.match(general, /a\.flex\.card-show-empty-fields\(class="\{\{#if canModifyBoard\}\}js-show-empty-card-fields\{\{else\}\}is-disabled\{\{\/if\}\}[^"]*" role="checkbox" aria-checked="\{\{#if showEmptyCardFields\}\}true\{\{else\}\}false\{\{\/if\}\}"\)/);
+  assert.match(general, /span \{\{_ 'card-settings-show-empty-fields'\}\}/);
+  const js = read('client/components/sidebar/sidebar.js');
+  assert.match(js, /'click \.js-show-empty-card-fields'\(evt, tpl\) \{[\s\S]{0,300}if \(!board \|\| !\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;[\s\S]{0,200}board\.setShowEmptyCardFields\(!cardShownFields\.boardShowsEmptyFields\(board\)\)/);
+  assert.match(js, /if \(cardShownFields\.boardShowsEmptyFields\(ReactiveCache\.getBoard\(Session\.get\('currentBoard'\)\)\)\) classes\.push\('show-empty-fields'\);/);
+  const css = read('client/components/sidebar/sidebar.css');
+  assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-side-always,\n\.board-card-settings\.show-empty-fields \.card-settings-side-head-always \{\n\s+display: none;/);
+  // Its grid track goes too, or the field names would sit one column late.
+  assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-line \{\n\s+grid-template-columns: 9em 9em minmax\(10em, 1fr\);/);
+  assert.match(css, /\.board-card-settings\.show-empty-fields\.has-card \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 9em minmax\(10em, 1fr\);/);
+  // Negative: hidden by CSS only - turning it on does not clear the ticks.
+  assert.ok(!/setShowEmptyCardFields[\s\S]{0,300}cardFieldsAlwaysShown/.test(boards));
+});
+
+test('Card Settings opens on Card, the topmost entry - also from + Add', () => {
+  const js = read('client/components/sidebar/sidebar.js');
+  assert.match(js, /return \(sections\.find\(s => s\.id === chosen\) \|\| sections\[0\] \|\| \{\}\)\.id;/);
+  assert.ok(!/sections\.length > 1 \? sections\[1\]/.test(js), 'negative: no longer the first section of fields');
+  const { SECTIONS } = require('../models/lib/cardSettingsSections.js');
+  assert.strictEqual(SECTIONS[0].id, 'card');
+});
+
+test('the headings in every language, and the earlier names gone', () => {
   const dir = path.join(root, 'imports/i18n/data');
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  assert.strictEqual(en['card-settings-always-show'], 'Always show');
+  assert.strictEqual(en['card-settings-show-empty'], 'Show empty');
+  assert.strictEqual(en['card-settings-show-empty-fields'], 'Show empty fields');
+  const keys = Object.keys(en);
+  assert.strictEqual(keys.indexOf('card-settings-show-empty'), keys.indexOf('card-settings-this-card') + 1);
+  assert.strictEqual(keys.indexOf('card-settings-show-empty-fields'), keys.indexOf('card-settings-show-empty') + 1);
   for (const file of fs.readdirSync(dir)) {
     const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
-    const value = data['card-settings-always-show'];
-    assert.ok(value && value.trim(), file);
-    if (!file.startsWith('en')) assert.notStrictEqual(value, en['card-settings-always-show'], `${file} is translated`);
-    assert.ok(!('card-settings-show-when-empty' in data), `negative: ${file} has no Show when empty left`);
+    for (const key of ['card-settings-show-empty', 'card-settings-show-empty-fields']) {
+      assert.ok(data[key] && data[key].trim(), `${file} ${key}`);
+      if (!file.startsWith('en')) assert.notStrictEqual(data[key], en[key], `${file} ${key} is translated`);
+    }
+    for (const gone of ['card-settings-show-when-empty', 'card-settings-always-show']) {
+      assert.ok(!(gone in data), `negative: ${file} has no ${gone} left`);
+    }
   }
 });
 

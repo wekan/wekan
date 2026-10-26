@@ -312,6 +312,12 @@ template(name="boardCardSettingsPopup")
           +paneTitle(settingsPaneTitle)
           //- The first entry, Card: what is not a field, then its rows.
           if openSettingsSectionIsGeneral
+            //- Every card shows all its fields, the empty ones too; the Show
+              empty column is then set aside, its ticks kept.
+            div.check-div.card-settings-show-empty-fields
+              a.flex.card-show-empty-fields(class="{{#if canModifyBoard}}js-show-empty-card-fields{{else}}is-disabled{{/if}} {{#if isAnimating 'showEmptyCardFields'}}is-animating{{/if}}" role="checkbox" aria-checked="{{#if showEmptyCardFields}}true{{else}}false{{/if}}")
+                .materialCheckBox(class="{{#if showEmptyCardFields}}is-checked{{/if}}")
+                span {{_ 'card-settings-show-empty-fields'}}
             div.check-div
               a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
                 i.fa(class="{{#if askForMoveReason}}fa-check{{else}}fa-square-o{{/if}}")
@@ -349,7 +355,7 @@ template(name="boardCardSettingsPopup")
                 span.card-settings-side-head.card-settings-side-head-this {{_ 'card-settings-this-card'}}
               span.card-settings-side-head.card-settings-side-head-minicard {{_ 'show-on-minicard'}}
               span.card-settings-side-head.card-settings-side-head-card {{_ 'show-on-card'}}
-              span.card-settings-side-head.card-settings-side-head-always {{_ 'card-settings-always-show'}}
+              span.card-settings-side-head.card-settings-side-head-always {{_ 'card-settings-show-empty'}}
               span.card-settings-pane-head-label {{_ 'card-field-order'}}
             each row in sectionSettingsRows
               .card-settings-line(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}")
@@ -382,12 +388,13 @@ template(name="boardCardSettingsPopup")
                             i.fa.fa-arrow-down
                   else
                     span.card-settings-side.card-settings-side-empty(class="card-settings-side-{{cell.side}}")
-                //- #6806: every card of the board shows the field, empty or
-                  not - by default the description, attachments and comments;
-                  "On this card" still hides it from one card.
+                //- #6806: Show empty - every card of the board shows the
+                  field, empty or not - by default the description,
+                  attachments and comments; "On this card" still hides it
+                  from one card. Hidden while Show empty fields is on.
                 if row.alwaysShowable
                   span.card-settings-side.card-settings-side-always
-                    a.flex.card-always-show(class="{{#if canModifyBoard}}js-card-always-show{{else}}is-disabled{{/if}} {{#if row.animatingAlways}}is-animating{{/if}}" data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.alwaysShown}}true{{else}}false{{/if}}" title="{{_ 'card-settings-always-show'}}")
+                    a.flex.card-always-show(class="{{#if canModifyBoard}}js-card-always-show{{else}}is-disabled{{/if}} {{#if row.animatingAlways}}is-animating{{/if}}" data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.alwaysShown}}true{{else}}false{{/if}}" title="{{_ 'card-settings-show-empty'}}")
                       .materialCheckBox(class="{{#if row.alwaysShown}}is-checked{{/if}}")
                 else
                   span.card-settings-side.card-settings-side-always.card-settings-side-empty

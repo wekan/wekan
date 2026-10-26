@@ -171,7 +171,7 @@
 .card-settings-pane-head,
 .card-settings-line {
   display: grid;
-  /* Show on Minicard, Show on Card, Always show (#6806), the field;
+  /* Show on Minicard, Show on Card, Show empty (#6806), the field;
      opened from a card, On this card first. Logical order: a right-to-left page mirrors it. Each line is
      its own grid, so the side columns have FIXED widths - sized by content,
      every line and the heading line would size them differently and nothing
@@ -230,7 +230,8 @@
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
 .card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox,
-.card-settings-sections .card-always-show.is-animating .materialCheckBox { transition: 0.2s; }
+.card-settings-sections .card-always-show.is-animating .materialCheckBox,
+.card-settings-sections .card-show-empty-fields.is-animating .materialCheckBox { transition: 0.2s; }
 
 .card-field-order-toggle,
 .card-field-order-move {
@@ -238,10 +239,27 @@
 }
 .card-field-order-move.is-disabled,
 .card-field-order-toggle.is-disabled,
-.card-always-show.is-disabled {
+.card-always-show.is-disabled,
+.card-show-empty-fields.is-disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
+
+/* Show empty fields: every field is shown on every card, so the Show empty
+   column is set aside - hidden, and its track taken out of the grid. */
+.board-card-settings.show-empty-fields .card-settings-side-always,
+.board-card-settings.show-empty-fields .card-settings-side-head-always {
+  display: none;
+}
+.board-card-settings.show-empty-fields .card-settings-pane-head,
+.board-card-settings.show-empty-fields .card-settings-line {
+  grid-template-columns: 9em 9em minmax(10em, 1fr);
+}
+.board-card-settings.show-empty-fields.has-card .card-settings-pane-head,
+.board-card-settings.show-empty-fields.has-card .card-settings-line {
+  grid-template-columns: 7em 9em 9em minmax(10em, 1fr);
+}
+.card-settings-show-empty-fields { margin-block-end: 6px; }
 
 /* One side of the same popup: a menu that asks for one side hides the other
    side's cells, so there is still ONE set of rows and one set of handlers. */

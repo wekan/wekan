@@ -630,6 +630,11 @@ Boards.attachSchema(
       defaultValue: false,
     },
     askForMoveReason: { type: Boolean, defaultValue: false },
+    // Card Settings / Card's "Show empty fields": every opened card of the
+    // board shows all its fields, the empty ones too - and the per-field
+    // "Show empty" column (cardFieldsAlwaysShown) is set aside, kept as it
+    // was for when this is unticked (models/lib/cardShownFields.js).
+    showEmptyCardFields: { type: Boolean, defaultValue: false },
     cardAging: {
       /**
        * #3984: Visually fade cards that have not been touched for a while
@@ -3458,6 +3463,9 @@ Boards.helpers({
 
   async setAskForMoveReason(askForMoveReason) {
     return Boards.updateAsync(this._id, { $set: { askForMoveReason } });
+  },
+  async setShowEmptyCardFields(showEmptyCardFields) {
+    return Boards.updateAsync(this._id, { $set: { showEmptyCardFields: showEmptyCardFields === true } });
   },
   async setCardAging(cardAging) {
     return await Boards.updateAsync(this._id, { $set: { cardAging } });
