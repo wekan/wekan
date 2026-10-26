@@ -109,7 +109,8 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Board Settings / Card** has an **Always show** column: a board
+**In short:** **Card Settings** opens on Card, where **Show empty fields**
+shows every field on every card of the board. Its **Show empty** column
 chooses which fields every card shows from the start, empty or not - labels, a
 due date, a checklist - and can untick the description, attachments and
 comments that used to be always there.
@@ -148,6 +149,20 @@ browser.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1aa9df6075">Card Settings opens on Card, Show empty fields for the board, and the column is Show empty</a>. Thanks to jullbo and xet7.</summary>
+
+Card Settings opens on its topmost entry, Card - also from + Add, which opened
+on the first section of fields. Under the Card pane's title, **Show empty
+fields** (the board's `showEmptyCardFields`, off by default): ticked, every card
+of the board shows all its fields, the empty ones too, and the Show empty
+columns are hidden - by CSS only, so their ticks stay saved and come back as
+they were. The Always show column is called **Show empty**, stored as before.
+`tests/cardFieldsAlwaysShown6806.test.cjs` and `card-add-fields.e2e.js` cover
+it.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Tests** - a guard that read the wrong part of a file.
@@ -167,9 +182,9 @@ and updates the following translations:
 
 **Languages updated:** 232 languages.
 
-**Board Settings / Card** - the Always show heading.
+**Board Settings / Card** - the Show empty and Show empty fields headings.
 
-- [Always show in every language](https://github.com/wekan/wekan/commit/b54525abbe).
+- [Show empty and Show empty fields in every language](https://github.com/wekan/wekan/commit/1aa9df6075).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
