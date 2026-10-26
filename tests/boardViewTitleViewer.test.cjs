@@ -107,6 +107,12 @@ test('title Markdown heading sizes survive global and mobile resets', () => {
     for (const [level, size] of [[1, 2], [2, 1.5], [3, 1.25], [4, 1.125], [5, 1], [6, 0.875]]) {
       assert.ok(css.includes(`#content ${selector} .viewer h${level} { font-size: ${size}em !important; }`));
     }
-    assert.doesNotMatch(css.slice(css.lastIndexOf('/*')), /color\s*:/, 'headings keep theme color');
+    // The heading rules' own block, from its comment to the blank line after
+    // it - not whatever happens to be last in the file, which a rule appended
+    // later (the Card kind mark, with its own color) is.
+    const start = css.lastIndexOf('/*', css.indexOf(`#content ${selector} .viewer h1 {`));
+    const block = css.slice(start, css.indexOf('\n\n', start));
+    assert.ok(block.includes(`${selector} .viewer h6`), 'the whole heading block');
+    assert.doesNotMatch(block, /color\s*:/, 'headings keep theme color');
   }
 });
