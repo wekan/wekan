@@ -120,7 +120,8 @@ test('stored on the board, through one normalising method, as a board admin', ()
 test('Board Settings / Card and + Add: a Show empty column, for every per-card field', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
   const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-  assert.match(popup, /span\.card-settings-side-head\.card-settings-side-head-always \{\{_ 'card-settings-show-empty'\}\}/);
+  // Its text is a span of its own, with Select all / Select none under it.
+  assert.match(popup, /span\.card-settings-side-head\.card-settings-side-head-always\n\s+span \{\{_ 'card-settings-show-empty'\}\}/);
   assert.match(popup, /if row\.alwaysShowable\n\s+span\.card-settings-side\.card-settings-side-always\n\s+a\.flex\.card-always-show\(class="\{\{#if canModifyBoard\}\}js-card-always-show\{\{else\}\}is-disabled\{\{\/if\}\}/);
   assert.match(popup, /role="checkbox" aria-checked="\{\{#if row\.alwaysShown\}\}true\{\{else\}\}false\{\{\/if\}\}"/);
   const head = popup.slice(popup.indexOf('.card-settings-pane-head'), popup.indexOf('each row in sectionSettingsRows'));

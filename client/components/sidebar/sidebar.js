@@ -2786,6 +2786,71 @@ Template.boardCardSettingsPopup.events({
     const next = cardShownFields.cardFieldsAfter(card, key, !cardShownFields.isShown(key, card, counts, board), counts, board);
     await Cards.updateAsync(card._id, { $set: next });
   },
+  // Select all / Select none under a column's heading: that column's rows of
+  // the open section (the ones drawn in the pane), each set the way its own
+  // checkbox would set it - the board's columns for a board admin, On this
+  // card for who may change the card. A personal row (Labels text, List
+  // title) is the user's or the card's own, not the board's: left as it is.
+  async 'click .js-card-settings-select'(evt, tpl) {
+    evt.preventDefault();
+    const { column, value } = evt.currentTarget.dataset;
+    const on = value === 'all';
+    const pane = evt.currentTarget.closest('.card-settings-pane');
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    if (!pane || !board) return;
+    const isOn = el => el.getAttribute('aria-checked') === 'true';
+    const keysOf = selector => [...pane.querySelectorAll(selector)].map(el => el.dataset.key).filter(Boolean);
+    tpl.animating.set(null);
+    try {
+      if (column === 'this') {
+        const card = settingsCard();
+        if (!card || !Utils.canModifyCard(card)) return;
+        const counts = cardFieldCounts(card);
+        let next = { shownFields: card.shownFields || [], hiddenFields: card.hiddenFields || [] };
+        keysOf('.js-card-add-field').forEach(key => {
+          next = cardShownFields.cardFieldsAfter({ ...card, ...next }, key, on, counts, board);
+        });
+        await Cards.updateAsync(card._id, { $set: next });
+        return;
+      }
+      if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+      if (column === 'always') {
+        await board.setCardFieldAlwaysShown(keysOf('.js-card-always-show'), on);
+        return;
+      }
+      if (column !== 'minicard' && column !== 'card') return;
+      const cells = [...pane.querySelectorAll(`.js-card-field-order-row[data-side="${column}"]`)]
+        .filter(cell => !cell.classList.contains('card-settings-row-personal'))
+        .map(cell => cell.querySelector('.card-field-order-toggle'))
+        .filter(toggle => toggle && !toggle.classList.contains('is-disabled') && isOn(toggle) !== on);
+      // The Scrum rows are one write of the board's Scrum visibility: one by
+      // one, each would carry the same revision and all but the first fail.
+      const scrum = {};
+      cells.filter(t => t.classList.contains('js-scrum-field-toggle')).forEach(toggle => {
+        const key = toggle.closest('.js-card-field-order-row').dataset.key;
+        const spec = CARD_SETTINGS_ROWS.find(r => r.key === key)?.[column];
+        if (spec?.scrum) scrum[spec.scrum] = on;
+      });
+      if (Object.keys(scrum).length) {
+        await Meteor.callAsync('scrum.configure', board._id, { visibility: scrum }, board.scrumRevision || 0);
+        invalidateScrumNames();
+      }
+      // Every other row through its own checkbox's handler, which knows the
+      // field it sets and its default.
+      cells.filter(t => !t.classList.contains('js-scrum-field-toggle')).forEach(toggle => toggle.click());
+    } catch (error) {
+      console.error(error);
+    } finally {
+      tpl.animating.set(null);
+    }
+  },
+  // Keyboard: Enter or Space on a focused Select all / Select none.
+  'keydown .js-card-settings-select'(evt) {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      evt.preventDefault();
+      evt.currentTarget.click();
+    }
+  },
   // Card Settings / Card's "Show empty fields": every card shows all its
   // fields, the empty ones too. A board admin's, like the rest.
   async 'click .js-show-empty-card-fields'(evt, tpl) {

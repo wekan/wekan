@@ -152,14 +152,16 @@ test('Checklists: the bottom controls share a line, and the bottom "+" waits for
 const offsetSrc = read('client/lib/popupOffset.js');
 const offset = vm.runInNewContext(`(() => { ${offsetSrc.replace(/^export \{[^}]*\};?\s*$/m, '')}\n return { computePopupOffset, CARD_SETTINGS_MAX_WIDTH }; })()`);
 
-test('the popup is a centred panel as wide (up to 900px) and tall as the window', () => {
+test('the popup is a centred panel as wide (up to 1200px) and tall as the window', () => {
   // 1800px fitted two long lists side by side; the Admin Panel's menu and pane
   // (docs/Features/Cards/Card-Fields.md) need a row's label and its two sides.
   const base = { popupName: 'boardCardSettingsPopup', viewportHeight: 1080, openerTopVp: 40, openerBottomVp: 60,
     openerLeftVp: 1700, scrollTop: 0, scrollLeft: 0 };
   const wide = offset.computePopupOffset({ ...base, viewportWidth: 1920 });
-  assert.strictEqual(offset.CARD_SETTINGS_MAX_WIDTH, 900);
-  assert.strictEqual(wide.left, 510);
+  // 1200px since the Show empty column: the menu, four checkbox columns and
+  // the whole label of a row, nothing clipped.
+  assert.strictEqual(offset.CARD_SETTINGS_MAX_WIDTH, 1200);
+  assert.strictEqual(wide.left, 360);
   assert.strictEqual(wide.top, 12);
   assert.strictEqual(wide.maxHeight, 1056);
   const narrow = offset.computePopupOffset({ ...base, viewportWidth: 900, viewportHeight: 768 });
@@ -167,7 +169,7 @@ test('the popup is a centred panel as wide (up to 900px) and tall as the window'
   // A phone is still the full-screen sheet.
   assert.deepStrictEqual({ ...offset.computePopupOffset({ ...base, viewportWidth: 600 }) }, { left: 0, top: 0 });
   // The CSS says the same width.
-  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 900px\) !important;[^}]*max-height: calc\(100dvh - 24px\) !important;/);
+  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 1200px\) !important;[^}]*max-height: calc\(100dvh - 24px\) !important;/);
 });
 
 test('each row is one line: its label, then the minicard cell and the card cell', () => {

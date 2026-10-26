@@ -252,8 +252,10 @@ test('Board Settings / Card is the Admin Panel left menu and pane, with Show on 
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
   assert.ok(form.includes('+leftMenu(settingsMenuItems)') && form.includes('+paneTitle(settingsPaneTitle)'));
-  const minicard = form.indexOf("span.card-settings-side-head.card-settings-side-head-minicard {{_ 'show-on-minicard'}}");
-  const card = form.indexOf("span.card-settings-side-head.card-settings-side-head-card {{_ 'show-on-card'}}");
+  // The heading text is its own span now, with Select all / Select none under
+  // it (tests/cardSettingsSelectAllAligned.test.cjs).
+  const minicard = form.indexOf("span.card-settings-side-head.card-settings-side-head-minicard\n                span {{_ 'show-on-minicard'}}");
+  const card = form.indexOf("span.card-settings-side-head.card-settings-side-head-card\n                span {{_ 'show-on-card'}}");
   assert.ok(minicard !== -1 && card !== -1 && minicard < card, 'Show on Minicard, then Show on Card');
   assert.ok(en['show-on-card'] && en['show-on-minicard'], 'existing, translated keys');
   assert.ok(!form.includes('card-field-order-heading'), 'the old single heading is gone (negative)');

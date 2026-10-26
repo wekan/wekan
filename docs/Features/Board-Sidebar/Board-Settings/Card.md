@@ -38,6 +38,9 @@ open section's rows:
 | position | where the field is on that side, counted among the fields that move |
 | ▲ ▼ | move the field earlier or later **on that side only** |
 
+Under each column's heading, **Select all** and **Select none** set that
+column for every row of the open section at once.
+
 The minicard order and the card order are independent: a field can be third
 on the minicard and last on the card. On a narrow screen the menu stacks above
 the pane, as it does in the Admin Panel.

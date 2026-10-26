@@ -179,6 +179,10 @@
   grid-template-columns: 9em 9em 8em minmax(10em, 1fr);
   column-gap: 14px;
   align-items: center;
+  /* Every heading and every cell starts at its column's left edge (its start,
+     right-to-left), so a heading and the checkboxes under it line up. */
+  justify-items: start;
+  text-align: start;
 }
 .board-card-settings.has-card .card-settings-pane-head,
 .board-card-settings.has-card .card-settings-line {
@@ -186,9 +190,16 @@
 }
 .card-settings-pane-head {
   font-weight: bold;
-  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   border-bottom: 1px solid #eee;
   padding-block-end: 4px;
+  align-items: start;
+}
+/* The headings' smaller font is on the headings, not on their line: the
+   columns are in em, and a smaller font on the line made every column of the
+   heading narrower than the same column of the rows - each heading drifted
+   further left of its checkboxes, and the rows' labels past the pane. */
+.card-settings-pane-head > span {
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
 }
 .card-settings-line {
   padding: calc(4px * min(1, var(--wekan-ui-font-scale, 1))) 0;
@@ -197,6 +208,9 @@
 .card-settings-side-head {
   /* A heading longer than its column, in another language, wraps in it. */
   overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .card-settings-line-label {
   display: inline-flex;
@@ -208,7 +222,26 @@
 .card-settings-side {
   display: inline-flex;
   align-items: center;
+  justify-content: flex-start;
+  justify-self: start;
   gap: 6px;
+}
+.card-settings-side > a.flex {
+  margin: 0;
+}
+/* Select all / Select none under a column's heading, for that column's rows
+   of the open section. */
+.card-settings-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 6px;
+  margin-block-start: 3px;
+  font-weight: normal;
+}
+.card-settings-select-button {
+  white-space: nowrap;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .card-settings-position {
   min-width: 1.6em;

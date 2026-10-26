@@ -212,3 +212,55 @@ test('Card Settings opens on Card, and "Show empty fields" shows every field whi
   await popup.locator('.js-card-settings-menu[data-id="labels"]').click();
   await expect(popup.locator('.js-card-always-show[data-key="labels"]')).toHaveAttribute('aria-checked', 'true');
 });
+
+// Every pane: Select all / Select none under each column heading; a heading
+// and the cells under it start at the same x; no label is cut in a 1400px window.
+test('Card Settings: Select all / Select none per column, headings aligned with their cells, labels whole', async ({ boardPage: page, board }) => {
+  await page.setViewportSize({ width: 1400, height: 1000 });
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsReceivedDate: true, allowsStartDate: true, allowsDueDate: true, allowsEndDate: true }, $unset: { showEmptyCardFields: '', cardFieldsAlwaysShown: '' } });
+  db.updateOne('cards', { _id: card._id }, { $unset: { shownFields: '', hiddenFields: '', receivedAt: '', startAt: '', dueAt: '', endAt: '' } });
+  const details = await openCard(page, board);
+  await details.locator('.js-open-card-add-fields').click();
+  const popup = addPopup(page);
+  await popup.locator('.js-card-settings-menu[data-id="date"]').click();
+
+  // Aligned: each heading starts where its column's cells start.
+  for (const side of ['this', 'minicard', 'card', 'always']) {
+    const head = await popup.locator(`.card-settings-side-head-${side}`).boundingBox();
+    const sel = side === 'this' ? '.card-settings-side-this' : side === 'always' ? '.card-settings-side-always' : `.card-settings-side-${side}`;
+    const cell = await popup.locator(`.card-settings-line ${sel}`).first().boundingBox();
+    expect(Math.abs(head.x - cell.x)).toBeLessThan(2);
+  }
+  const headLabel = await popup.locator('.card-settings-pane-head-label').boundingBox();
+  const rowLabel = await popup.locator('.card-settings-line-label').first().boundingBox();
+  expect(Math.abs(headLabel.x - rowLabel.x)).toBeLessThan(2);
+  // Whole: every label ends inside the pane.
+  const pane = await popup.locator('.main-body').boundingBox();
+  for (const label of await popup.locator('.card-settings-line-label').all()) {
+    const box = await label.boundingBox();
+    expect(box.x + box.width).toBeLessThanOrEqual(pane.x + pane.width + 1);
+  }
+
+  // On this card: Select all shows the four empty dates on the card, Select none hides them.
+  await popup.locator('.card-settings-side-head-this .js-card-settings-select[data-value="all"]').click();
+  await expect.poll(() => (db.findOne('cards', { _id: card._id }).shownFields || []).length).toBeGreaterThanOrEqual(4);
+  await expect(popup.locator('.js-card-add-field[aria-checked="false"]')).toHaveCount(0);
+  await popup.locator('.card-settings-side-head-this .js-card-settings-select[data-value="none"]').click();
+  await expect(popup.locator('.js-card-add-field[aria-checked="true"]')).toHaveCount(0);
+
+  // Show empty: Select all writes the board's list in one go.
+  await popup.locator('.card-settings-side-head-always .js-card-settings-select[data-value="all"]').click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).toEqual(expect.arrayContaining(['receivedDate', 'startDate', 'dueDate', 'endDate']));
+  await popup.locator('.card-settings-side-head-always .js-card-settings-select[data-value="none"]').click();
+  await expect(popup.locator('.js-card-always-show[aria-checked="true"]')).toHaveCount(0);
+
+  // Show on Card: Select none unticks the section's rows, Select all ticks them again.
+  await popup.locator('.card-settings-side-head-card .js-card-settings-select[data-value="none"]').click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(false);
+  await expect(popup.locator('.js-card-field-order-row[data-side="card"] .card-field-order-toggle[aria-checked="true"]')).toHaveCount(0);
+  await popup.locator('.card-settings-side-head-card .js-card-settings-select[data-value="all"]').click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
+  // Negative: another section's rows are untouched.
+  expect(db.findOne('boards', { _id: board.boardId }).allowsMembers).not.toBe(false);
+});

@@ -133,14 +133,15 @@ function boardAlwaysShows(board, key) {
   return FIELD_KEYS.includes(key) && alwaysShownOf(board).includes(key);
 }
 
-// The board's list after ticking (show = true) or unticking `key`, in
-// FIELD_KEYS' order, without unknown or repeated keys.
+// The board's list after ticking (show = true) or unticking `key` - or a
+// list of keys, for Select all / Select none - in FIELD_KEYS' order, without
+// unknown or repeated keys.
 function alwaysShownAfter(board, key, show) {
   const now = new Set(alwaysShownOf(board));
-  if (FIELD_KEYS.includes(key)) {
-    if (show) now.add(key);
-    else now.delete(key);
-  }
+  (Array.isArray(key) ? key : [key]).filter(k => FIELD_KEYS.includes(k)).forEach(k => {
+    if (show) now.add(k);
+    else now.delete(k);
+  });
   return FIELD_KEYS.filter(k => now.has(k));
 }
 

@@ -27,9 +27,9 @@ const MOBILE_POPUP_MAX_WIDTH = 800;
 
 // #6796: Board Settings / Card's widest; popup.css says the same
 // (`.pop-over[data-popup='boardCardSettingsPopup']`).
-// A left menu and a pane of rows (docs/Features/Cards/Card-Fields.md): 900px
-// is room for a row's label and both its sides.
-const CARD_SETTINGS_MAX_WIDTH = 900;
+// A left menu and a pane of rows (docs/Features/Cards/Card-Fields.md): 1200px
+// is room for the menu, a row's four checkbox columns and its whole label.
+const CARD_SETTINGS_MAX_WIDTH = 1200;
 
 function computePopupOffset(params) {
   const {

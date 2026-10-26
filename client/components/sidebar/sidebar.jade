@@ -350,12 +350,25 @@ template(name="boardCardSettingsPopup")
             //- Reading order: On this card (opened from a card), Show on
               Minicard, Show on Card, then the field - mirrored in a
               right-to-left language by the grid itself.
+            //- Under each heading, Select all / Select none for that column's
+              rows of this section - for who may change what it sets.
             .card-settings-pane-head
               if settingsCardId
-                span.card-settings-side-head.card-settings-side-head-this {{_ 'card-settings-this-card'}}
-              span.card-settings-side-head.card-settings-side-head-minicard {{_ 'show-on-minicard'}}
-              span.card-settings-side-head.card-settings-side-head-card {{_ 'show-on-card'}}
-              span.card-settings-side-head.card-settings-side-head-always {{_ 'card-settings-show-empty'}}
+                span.card-settings-side-head.card-settings-side-head-this
+                  span {{_ 'card-settings-this-card'}}
+                  +cardSettingsSelectButtons(column="this")
+              span.card-settings-side-head.card-settings-side-head-minicard
+                span {{_ 'show-on-minicard'}}
+                if canModifyBoard
+                  +cardSettingsSelectButtons(column="minicard")
+              span.card-settings-side-head.card-settings-side-head-card
+                span {{_ 'show-on-card'}}
+                if canModifyBoard
+                  +cardSettingsSelectButtons(column="card")
+              span.card-settings-side-head.card-settings-side-head-always
+                span {{_ 'card-settings-show-empty'}}
+                if canModifyBoard
+                  +cardSettingsSelectButtons(column="always")
               span.card-settings-pane-head-label {{_ 'card-field-order'}}
             each row in sectionSettingsRows
               .card-settings-line(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}")
@@ -412,6 +425,14 @@ template(name="boardCardSettingsPopup")
                         | ({{_ 'label-text-overridden'}})
                     else
                       | &nbsp;({{_ 'label-text-follows-board'}})
+
+
+//- Select all / Select none of one column of Card Settings' pane
+  (boardCardSettingsPopup's 'click .js-card-settings-select').
+template(name="cardSettingsSelectButtons")
+  span.card-settings-select
+    a.card-settings-select-button.js-card-settings-select(data-column="{{column}}" data-value="all" role="button" tabindex="0") {{_ 'select-all'}}
+    a.card-settings-select-button.js-card-settings-select(data-column="{{column}}" data-value="none" role="button" tabindex="0") {{_ 'select-none'}}
 
 
 //- The board's Subtasks Settings. Its own template, because the same settings

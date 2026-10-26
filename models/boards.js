@@ -2333,8 +2333,9 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { cardFieldOrder: applyCardOrder(order) } });
   },
 
-  // #6806: Board Settings / Card's "Always show", normalised the same way
-  // (models/lib/cardShownFields.js alwaysShownAfter).
+  // #6806: Board Settings / Card's "Show empty", normalised the same way
+  // (models/lib/cardShownFields.js alwaysShownAfter). `key` may be a list:
+  // Select all / Select none of the column.
   async setCardFieldAlwaysShown(key, show) {
     const { alwaysShownAfter } = require('/models/lib/cardShownFields');
     return await Boards.updateAsync(this._id, { $set: { cardFieldsAlwaysShown: alwaysShownAfter(this, key, show) } });

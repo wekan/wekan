@@ -58,6 +58,14 @@ right.
   description, attachments and comments are ticked.
 - Opened from a card, one more cell, **On this card**, says whether this card
   shows the field (the per-card fields only).
+- Under each column's heading, **Select all** and **Select none** set that
+  column for every row of the open section at once - the board's columns for a
+  board admin, On this card for who may change the card. A personal row
+  (Labels text, List title) is left as it is.
+
+Each heading and the cells under it start at the same place, and the popup is
+up to 1200px wide - as wide as the window allows - so that where there is room
+every row's whole label is shown; a label longer than its column wraps.
 
 A row's name leaves out what its section already says: under **Scrum settings**
 the rows are Sprint, Past sprints, Release, Issue type, Acceptance criteria and

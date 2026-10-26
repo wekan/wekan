@@ -379,7 +379,7 @@
   .pop-over[data-popup='boardCardSettingsPopup'] {
     position: fixed;
     box-sizing: border-box;
-    width: min(96vw, 900px) !important;
+    width: min(96vw, 1200px) !important;
     max-width: 96vw !important;
     max-height: calc(100dvh - 24px) !important;
     margin-top: 0;
