@@ -45,7 +45,10 @@ right.
   each the board-wide checkbox of that side, the field's position on that side
   and its **up and down arrows** (the Up and Down keys on a focused arrow do the
   same; a row that only modifies another has none).
-- Opened from a card, a third cell, **On this card**, says whether this card
+- A **Show when empty** cell, for the per-card fields that are not always
+  shown: ticked, every card of the board shows the field even while it is
+  empty ([#6806](https://github.com/wekan/wekan/issues/6806)).
+- Opened from a card, one more cell, **On this card**, says whether this card
   shows the field (the per-card fields only).
 
 A row's name leaves out what its section already says: under **Scrum settings**
@@ -74,6 +77,13 @@ filled in; unticking a field hides it from this card, also when it has data -
 the data stays, and ticking it again shows it. The choice is the card's own and
 is kept with the card; a field whose tick matches what its data would decide
 leaves nothing stored.
+
+**Show when empty** is for a board where nearly every card gets the same
+fields - labels, a due date, a checklist: ticked, those are on every card of
+the board from the start, ready to be filled in, as if they had data. A card
+still hides one by unticking **On this card**, and a field turned off in
+**Show on Card** stays off. It is the board's setting, for a board admin, and
+the minicard's own view of the popup does not show it.
 
 **+ Add** is shown to whoever may change the card. Its board-wide checkboxes
 and arrows work for a board admin; for anybody else they are shown disabled,
@@ -147,6 +157,11 @@ field, which fields a card shows, and the card's view of the board.
 
 Only the per-card field keys are accepted (`models/cards.js`).
 
+The board stores **Show when empty** as `cardFieldsShownEmpty`, a list of
+those keys without the four that are always shown (`models/boards.js`,
+written normalised by `setCardFieldShownEmpty`). It counts like data: a card
+that has made no choice of its own shows the field.
+
 The opened card's templates read the board's flags (`currentBoard.allowsDueDate`
 and so on). The opened card and each of its section templates get their own
 `currentBoard` helper (`client/components/cards/cardAddFields.js`): this card's
@@ -172,5 +187,6 @@ section order the same way.
 | `tests/cardSectionActions.test.cjs` | The five actions in their sections, none left in the actions menu |
 | `models/cards.js` | `shownFields`, `hiddenFields` |
 | `tests/cardShownFields.test.cjs` | The rules, the wiring, and that no card section template is left out |
+| `tests/cardFieldsShownEmpty6806.test.cjs` | Show when empty: the rule, its storage, its column, that every caller passes the board |
 | `tests/cardSettingsCoverage.test.cjs` | Every row in a section, a checkbox and a handler for each side |
 | `tests/playwright/specs/card-add-fields.e2e.js` | An empty card, "+ Add", a field with data, the popup |

@@ -349,6 +349,7 @@ template(name="boardCardSettingsPopup")
                 span.card-settings-side-head.card-settings-side-head-this {{_ 'card-settings-this-card'}}
               span.card-settings-side-head.card-settings-side-head-minicard {{_ 'show-on-minicard'}}
               span.card-settings-side-head.card-settings-side-head-card {{_ 'show-on-card'}}
+              span.card-settings-side-head.card-settings-side-head-empty {{_ 'card-settings-show-when-empty'}}
               span.card-settings-pane-head-label {{_ 'card-field-order'}}
             each row in sectionSettingsRows
               .card-settings-line(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}")
@@ -381,6 +382,14 @@ template(name="boardCardSettingsPopup")
                             i.fa.fa-arrow-down
                   else
                     span.card-settings-side.card-settings-side-empty(class="card-settings-side-{{cell.side}}")
+                //- #6806: every card of the board shows the field, empty or
+                  not; "On this card" still hides it from one card.
+                if row.showableEmpty
+                  span.card-settings-side.card-settings-side-when-empty
+                    a.flex.card-show-when-empty(class="{{#if canModifyBoard}}js-card-show-when-empty{{else}}is-disabled{{/if}} {{#if row.animatingEmpty}}is-animating{{/if}}" data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.shownEmpty}}true{{else}}false{{/if}}" title="{{_ 'card-settings-show-when-empty'}}")
+                      .materialCheckBox(class="{{#if row.shownEmpty}}is-checked{{/if}}")
+                else
+                  span.card-settings-side.card-settings-side-when-empty.card-settings-side-empty
                 span.card-settings-line-label
                   each icon in row.icons
                     i.fa(class=icon aria-hidden="true")

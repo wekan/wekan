@@ -2220,7 +2220,11 @@ const boardCardSettingsHelpers = {
           labelTextResetClass: built.labelTextResetClass,
           sides: [cellOf('minicard', minicard.get(row.key)), cellOf('card', card.get(row.key))],
           perCard: Boolean(thisCard) && cardShownFields.FIELD_KEYS.includes(row.key),
-          shownOnThisCard: Boolean(thisCard) && cardShownFields.isShown(row.key, thisCard, counts),
+          shownOnThisCard: Boolean(thisCard) && cardShownFields.isShown(row.key, thisCard, counts, board),
+          // #6806: the board shows this field on every card, empty or not.
+          showableEmpty: cardShownFields.EMPTY_SHOWABLE_KEYS.includes(row.key),
+          shownEmpty: cardShownFields.boardShowsEmpty(board, row.key),
+          animatingEmpty: animatingKey === `${row.key}:empty`,
         };
       });
   },
@@ -2773,8 +2777,24 @@ Template.boardCardSettingsPopup.events({
     if (!card || !cardShownFields.FIELD_KEYS.includes(key) || !Utils.canModifyCard(card)) return;
     tpl.animating.set(key);
     const counts = cardFieldCounts(card);
-    const next = cardShownFields.cardFieldsAfter(card, key, !cardShownFields.isShown(key, card, counts), counts);
+    const board = ReactiveCache.getBoard(card.boardId);
+    const next = cardShownFields.cardFieldsAfter(card, key, !cardShownFields.isShown(key, card, counts, board), counts, board);
     await Cards.updateAsync(card._id, { $set: next });
+  },
+  // #6806: "Show when empty" - every card of the board shows the field, empty
+  // or not (models/lib/cardShownFields.js). A board admin's, like the rest.
+  async 'click .js-card-show-when-empty'(evt, tpl) {
+    evt.preventDefault();
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    const key = evt.currentTarget.dataset.key;
+    if (!board || !cardShownFields.EMPTY_SHOWABLE_KEYS.includes(key)) return;
+    if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+    tpl.animating.set(`${key}:empty`);
+    try {
+      await board.setCardFieldShownEmpty(key, !cardShownFields.boardShowsEmpty(board, key));
+    } catch (error) {
+      console.error(error);
+    }
   },
   // The keyboard: Up and Down on a focused order arrow move the row one step.
   'keydown .js-card-field-order-up, keydown .js-card-field-order-down'(evt) {

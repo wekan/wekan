@@ -171,18 +171,18 @@
 .card-settings-pane-head,
 .card-settings-line {
   display: grid;
-  /* Show on Minicard, Show on Card, the field; opened from a card, On this
-     card first. Logical order: a right-to-left page mirrors it. Each line is
+  /* Show on Minicard, Show on Card, Show when empty (#6806), the field;
+     opened from a card, On this card first. Logical order: a right-to-left page mirrors it. Each line is
      its own grid, so the side columns have FIXED widths - sized by content,
      every line and the heading line would size them differently and nothing
      would line up. */
-  grid-template-columns: 9em 9em minmax(10em, 1fr);
+  grid-template-columns: 9em 9em 8em minmax(10em, 1fr);
   column-gap: 14px;
   align-items: center;
 }
 .board-card-settings.has-card .card-settings-pane-head,
 .board-card-settings.has-card .card-settings-line {
-  grid-template-columns: 7em 9em 9em minmax(10em, 1fr);
+  grid-template-columns: 7em 9em 9em 8em minmax(10em, 1fr);
 }
 .card-settings-pane-head {
   font-weight: bold;
@@ -229,14 +229,16 @@
 .card-settings-inline-action .card-custom-fields-more { display: none; }
 .card-settings-sections .materialCheckBox { transition: none; }
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
-.card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }
+.card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox,
+.card-settings-sections .card-show-when-empty.is-animating .materialCheckBox { transition: 0.2s; }
 
 .card-field-order-toggle,
 .card-field-order-move {
   flex-shrink: 0;
 }
 .card-field-order-move.is-disabled,
-.card-field-order-toggle.is-disabled {
+.card-field-order-toggle.is-disabled,
+.card-show-when-empty.is-disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
@@ -246,7 +248,9 @@
 .board-card-settings.show-card-only .card-settings-side-minicard,
 .board-card-settings.show-card-only .card-settings-side-head-minicard,
 .board-card-settings.show-minicard-only .card-settings-side-card,
-.board-card-settings.show-minicard-only .card-settings-side-head-card {
+.board-card-settings.show-minicard-only .card-settings-side-head-card,
+.board-card-settings.show-minicard-only .card-settings-side-when-empty,
+.board-card-settings.show-minicard-only .card-settings-side-head-empty {
   display: none;
 }
 

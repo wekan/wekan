@@ -59,7 +59,7 @@ CARD_FIELD_TEMPLATES.forEach(name => {
 // of its own to read (the Scrum fields, cardDetails.js orderedCardFieldSections).
 export function cardShowsField(data, key) {
   const card = cardOf(data);
-  return !card || f.isShown(key, card, cardFieldCounts(card));
+  return !card || f.isShown(key, card, cardFieldCounts(card), Utils.getCurrentBoard());
 }
 
 // "+ Add" opens Board Settings / Card - the same popup - for this card: its

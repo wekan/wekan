@@ -28,9 +28,9 @@ its pane ([Card fields](../../Cards/Card-Fields.md)).
 an opened card. The left menu lists the sections; the right pane shows the
 open section's rows:
 
-| Label | Show on Minicard | Show on Card | On this card |
-| --- | --- | --- | --- |
-| the field, with the icon and name the card uses | checkbox, position, ▲ ▼ | checkbox, position, ▲ ▼ | opened from a card only |
+| Label | Show on Minicard | Show on Card | Show when empty | On this card |
+| --- | --- | --- | --- | --- |
+| the field, with the icon and name the card uses | checkbox, position, ▲ ▼ | checkbox, position, ▲ ▼ | checkbox: every card shows the field even while empty ([#6806](https://github.com/wekan/wekan/issues/6806)) | opened from a card only |
 
 | part | what it does |
 | --- | --- |

@@ -17,6 +17,15 @@
 //   shownFields:  [key]  shown although empty
 //   hiddenFields: [key]  hidden although it has data
 //
+// #6806: a board where nearly every card gets labels, a due date and a
+// checklist can show those on every card even while they are empty - Board
+// Settings / Card's "Show when empty" column, the board's
+//
+//   cardFieldsShownEmpty: [key]
+//
+// which counts like having data: shown on every card of the board, and still
+// hidden from one card by unticking "On this card".
+//
 // Board Settings / Card still decides what a card of the board CAN show: a
 // field turned off there is shown on no card. The rows not in FIELD_KEYS
 // (Collapse, Labels text, the attachment previews, the badges, the helpers
@@ -105,21 +114,46 @@ function hasData(key, card, counts = {}) {
 
 const listOf = v => (Array.isArray(v) ? v.filter(k => FIELD_KEYS.includes(k)) : []);
 
+// The fields "Show when empty" can be ticked for: every per-card field but
+// the ones always shown anyway.
+const EMPTY_SHOWABLE_KEYS = Object.freeze(FIELD_KEYS.filter(k => !ALWAYS.includes(k)));
+
+// Whether the board shows `key` on its cards even while it is empty (#6806).
+function boardShowsEmpty(board, key) {
+  return Boolean(board) && EMPTY_SHOWABLE_KEYS.includes(key) && listOf(board.cardFieldsShownEmpty).includes(key);
+}
+
+// The board's list after ticking (show = true) or unticking `key`, in
+// FIELD_KEYS' order, without unknown or repeated keys.
+function shownEmptyAfter(board, key, show) {
+  const now = new Set(listOf(board && board.cardFieldsShownEmpty));
+  if (EMPTY_SHOWABLE_KEYS.includes(key)) {
+    if (show) now.add(key);
+    else now.delete(key);
+  }
+  return EMPTY_SHOWABLE_KEYS.filter(k => now.has(k));
+}
+
+// What the card shows when it has made no choice of its own.
+const shownByDefault = (key, card, counts, board) =>
+  ALWAYS.includes(key) || hasData(key, card, counts) || boardShowsEmpty(board, key);
+
 // Whether this card shows `key` (before Board Settings / Card is asked).
-function isShown(key, card, counts) {
+// `board` is the card's board, for its "Show when empty" fields.
+function isShown(key, card, counts, board) {
   if (!FIELD_KEYS.includes(key)) return true; // not a per-card field: the board decides
   if (listOf(card && card.hiddenFields).includes(key)) return false;
   if (listOf(card && card.shownFields).includes(key)) return true;
-  return ALWAYS.includes(key) || hasData(key, card, counts);
+  return shownByDefault(key, card, counts, board);
 }
 
 // The card's two lists after ticking (show = true) or unticking `key`. Only
-// a choice that differs from what the data would decide is kept.
-function cardFieldsAfter(card, key, show, counts) {
+// a choice that differs from what the data and the board would decide is kept.
+function cardFieldsAfter(card, key, show, counts, board) {
   let shown = listOf(card && card.shownFields).filter(k => k !== key);
   let hidden = listOf(card && card.hiddenFields).filter(k => k !== key);
   if (!FIELD_KEYS.includes(key)) return { shownFields: shown, hiddenFields: hidden };
-  const byData = ALWAYS.includes(key) || hasData(key, card, counts);
+  const byData = shownByDefault(key, card, counts, board);
   if (show && !byData) shown = [...shown, key];
   if (!show && byData) hidden = [...hidden, key];
   return { shownFields: shown, hiddenFields: hidden };
@@ -152,7 +186,7 @@ const cache = typeof WeakMap === 'function' ? new WeakMap() : null;
 // works, cached per board and per set of hidden fields.
 function boardForCard(board, card, counts) {
   if (!board || typeof board !== 'object') return board;
-  const hidden = FIELD_KEYS.filter(k => !isShown(k, card, counts));
+  const hidden = FIELD_KEYS.filter(k => !isShown(k, card, counts, board));
   if (!hidden.length) return board;
   const signature = hidden.join(',');
   const perBoard = cache && cache.get(board);
@@ -179,5 +213,6 @@ function boardForCard(board, card, counts) {
 }
 
 module.exports = {
-  FIELD_KEYS, ALWAYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
+  FIELD_KEYS, ALWAYS, EMPTY_SHOWABLE_KEYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
+  boardShowsEmpty, shownEmptyAfter,
 };
