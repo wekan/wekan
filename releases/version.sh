@@ -469,9 +469,9 @@ version_bump_logic() {
   fi
 
   # 9. Update and publish the WeKan Helm chart in the separate wekan/charts repo
-  # at ../w/charts. release-charts.sh bumps only the WeKan version numbers in the
+  # at .tools/charts. release-charts.sh bumps only the WeKan version numbers in the
   # chart, packages it, and publishes it to the gh-pages Helm repo index.
-  if [ -d "../w/charts/wekan" ]; then
+  if [ -d ".tools/charts/wekan" ]; then
     ./releases/release-charts.sh "${NEW_VERSION}"
   fi
 

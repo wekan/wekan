@@ -31,11 +31,11 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-// AGENTS.md puts companion repositories under .tools/. A legacy sibling checkout
-// is accepted only as a fallback for older developer environments.
+// AGENTS.md puts companion repositories under .tools/. The old sibling checkout
+// at ../w/wekan.fi is not read: a stale copy there failed this test with markup
+// the site no longer has.
 const HOF_CANDIDATES = [
   path.join(ROOT, '.tools', 'wekan.fi', 'hall-of-fame', 'index.html'),
-  path.join(ROOT, '..', 'w', 'wekan.fi', 'hall-of-fame', 'index.html'),
 ];
 const HOF = HOF_CANDIDATES.find(candidate => fs.existsSync(candidate));
 

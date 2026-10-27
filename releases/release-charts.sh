@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update and publish the WeKan Helm chart in the separate wekan/charts repo,
-# checked out at .tools/charts (or the older ../w/charts).
+# checked out at .tools/charts.
 #
 # Usage:
 #   ./releases/release-charts.sh 9.36
@@ -53,13 +53,14 @@ CHART_VERSION="${VERSION}.0"  # e.g. 9.36.0  (chart SemVer + index version)
 # out; otherwise it is resolved below.
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 export REPO_DIR
-# .tools/charts first: companion repositories are cloned there (CLAUDE.md), which
-# is where the wekan/charts checkout lives. ../w/charts stays as the older
-# location so an existing checkout keeps working. The chart SOURCE is on the main
-# branch, so `wekan/` is what says a checkout is really there - on gh-pages it is
-# not, and a run from the wrong branch should say so rather than half-work.
+# .tools/charts: companion repositories are cloned there (CLAUDE.md), which is
+# where the wekan/charts checkout lives. The old ../w/charts beside the repo is
+# not looked at any more: a stale checkout there was used silently. The chart
+# SOURCE is on the main branch, so `wekan/` is what says a checkout is really
+# there - on gh-pages it is not, and a run from the wrong branch should say so
+# rather than half-work.
 if [ -z "${CHARTS_DIR:-}" ]; then
-  for candidate in "$REPO_DIR/.tools/charts" "$REPO_DIR/../w/charts"; do
+  for candidate in "$REPO_DIR/.tools/charts"; do
     if [ -d "$candidate" ]; then
       CHARTS_DIR="$(cd "$candidate" && pwd)"
       break
@@ -67,7 +68,7 @@ if [ -z "${CHARTS_DIR:-}" ]; then
   done
 fi
 if [ -z "${CHARTS_DIR:-}" ]; then
-  echo "Charts repo not found at $REPO_DIR/.tools/charts or $REPO_DIR/../w/charts, skipping chart release."
+  echo "Charts repo not found at $REPO_DIR/.tools/charts, skipping chart release."
   exit 0
 fi
 

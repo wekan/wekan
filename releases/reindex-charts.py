@@ -42,7 +42,7 @@ Usage:
     releases/reindex-charts.py [--charts-dir DIR]     # report only, writes nothing
     releases/reindex-charts.py --write [--charts-dir DIR]
 
-DIR defaults to $CHARTS_DIR, then .tools/charts, then ../w/charts. It must be on
+DIR defaults to $CHARTS_DIR, then .tools/charts. It must be on
 the gh-pages branch, where the packages and index.yaml live.
 """
 
@@ -75,8 +75,7 @@ def find_charts_dir(explicit):
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
     for candidate in (explicit, os.environ.get("CHARTS_DIR"),
-                      os.path.join(repo, ".tools", "charts"),
-                      os.path.join(repo, "..", "w", "charts")):
+                      os.path.join(repo, ".tools", "charts")):
         if candidate and os.path.isdir(candidate):
             return os.path.abspath(candidate)
     return None

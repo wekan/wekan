@@ -520,9 +520,8 @@ suite to remain present. As of the 2026-09-05 audit, 71 of 93 have named coverag
 22 older fixes remain explicit test gaps. `tests/hallOfFameProblemsCoverage.test.cjs`
 reads the real `.tools/wekan.fi` Hall of Fame and requires every name to be either a
 Problems catalog entry, a reasoned non-attributable case, or an explicit pending
-review. A missing companion checkout may skip the website comparison, but it can no
-longer silently use the obsolete `~/repos/w/wekan.fi` location when `.tools/wekan.fi`
-is present.
+review. A missing companion checkout may skip the website comparison, but the
+obsolete `~/repos/w/wekan.fi` location is never read.
 
 This does not equate safe output with an attack attempt. CookieTokenBleed,
 MailTitleBleed and ErrorBleed harden ordinary authentication, notification and error

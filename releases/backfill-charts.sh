@@ -43,7 +43,7 @@
 # repository's index is the maintainer's call, not a side effect of a dry run.
 #
 # CHARTS_DIR points at the wekan/charts checkout, as in release-charts.sh; it
-# defaults to ../w/charts beside this repo.
+# defaults to .tools/charts in this repo.
 
 set -euo pipefail
 
@@ -67,11 +67,11 @@ done
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 CHART_BASE_URL="https://wekan.github.io/charts"
 
-# .tools/charts first: companion repositories are kept under .tools/ (CLAUDE.md),
-# which is where the wekan/charts clone lives. ../w/charts stays as the older
-# location, so an existing checkout there keeps working.
+# .tools/charts: companion repositories are kept under .tools/ (CLAUDE.md),
+# which is where the wekan/charts clone lives. The old ../w/charts beside the
+# repo is not looked at any more: a stale checkout there was used silently.
 if [ -z "${CHARTS_DIR:-}" ]; then
-  for candidate in "$REPO_DIR/.tools/charts" "$REPO_DIR/../w/charts"; do
+  for candidate in "$REPO_DIR/.tools/charts"; do
     if [ -d "$candidate" ]; then
       CHARTS_DIR="$(cd "$candidate" && pwd)"
       break
@@ -79,7 +79,7 @@ if [ -z "${CHARTS_DIR:-}" ]; then
   done
 fi
 if [ -z "${CHARTS_DIR:-}" ] && [ "$APPLY" = true ]; then
-  echo "Charts repo not found at $REPO_DIR/.tools/charts or $REPO_DIR/../w/charts."
+  echo "Charts repo not found at $REPO_DIR/.tools/charts."
   echo "Set CHARTS_DIR to the wekan/charts checkout, or run with no --apply for a plan."
   exit 1
 fi
