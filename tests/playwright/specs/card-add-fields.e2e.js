@@ -12,6 +12,12 @@ const CardPage = require('../pages/CardPage');
 // "+ Add" opens Board Settings / Card - the same popup - for this card.
 const addPopup = page => page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
 
+// These are the specs of the empty-field rules: the seeded board shows every
+// field (helpers/db.js seedBoard, showEmptyCardFields), which they turn off.
+test.beforeEach(({ board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { showEmptyCardFields: false } });
+});
+
 async function openCard(page, board) {
   const bp = new BoardPage(page);
   const cp = new CardPage(page);
