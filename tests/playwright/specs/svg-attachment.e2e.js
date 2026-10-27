@@ -28,7 +28,11 @@ test('an uploaded SVG is sanitized, previewed, a cover and a board background', 
   await expect.poll(() => db.find('attachments', { 'meta.cardId': card._id }).length, { timeout: 30_000 }).toBe(1);
   const attachment = db.find('attachments', { 'meta.cardId': card._id })[0];
 
-  // Served: sanitized, an image, under the sandbox.
+  // Served: sanitized, an image, under the sandbox. The card has usually shown
+  // the image by now, so this fetch is a revalidation: the server answers 304
+  // and the browser hands back its stored 200 with the 304's headers merged
+  // in. That is what this pins as well - the app-wide `frame-ancestors` CSP
+  // on a 304 used to replace the SVG's own policy (models/lib/framePolicy.js).
   const served = await page.evaluate(async id => {
     const r = await fetch(`/cdn/storage/attachments/${id}`, { credentials: 'include' });
     return { status: r.status, type: r.headers.get('content-type'), csp: r.headers.get('content-security-policy'),

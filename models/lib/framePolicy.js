@@ -30,4 +30,25 @@ function framingHeaders({ enabled, trustedUrl, sandstorm } = {}) {
   return headers;
 }
 
-module.exports = { trustedOrigins, framingHeaders };
+// The framing headers to take back off a 304 Not Modified before it is sent.
+//
+// A 304 is not a response of its own: the browser keeps the 200 it stored and
+// UPDATES that stored response's headers with the ones the 304 carries (RFC
+// 9111 section 4.3.4), Chromium and Firefox included, Content-Security-Policy
+// among them. Every stored file - an attachment, an avatar, a thumbnail - is
+// served `private, no-cache` (CacheBleed), so every later view revalidates and
+// gets a 304. The app-wide `frame-ancestors 'self'` set on every response by
+// server/policy.js then REPLACED the file's own policy - an SVG's
+// `default-src 'none'; ... sandbox`, a download's `sandbox` - and from the
+// second view on the file was shown with no script restriction at all.
+// Leaving them off the 304 keeps whatever policy the stored 200 had, which is
+// the policy the route chose for that file. A header a route set on the 304
+// itself (its value is not the app-wide one) is kept.
+// `getHeader(name)` reads the response's current header.
+function framingHeadersToDropOnNotModified(framing, getHeader) {
+  return Object.entries(framing || {})
+    .filter(([name, value]) => getHeader(name) === value)
+    .map(([name]) => name);
+}
+
+module.exports = { trustedOrigins, framingHeaders, framingHeadersToDropOnNotModified };

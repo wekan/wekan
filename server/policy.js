@@ -1,6 +1,6 @@
 //import { BrowserPolicy } from 'meteor/browser-policy-common';
 import { WebApp } from 'meteor/webapp';
-const { framingHeaders } = require('/models/lib/framePolicy');
+const { framingHeaders, framingHeadersToDropOnNotModified } = require('/models/lib/framePolicy');
 
 // FrameBleed (restored 2026-10-02): the framing restriction below was all
 // commented out when browser-policy was removed in 2022, so WeKan's pages
@@ -15,6 +15,16 @@ const FRAMING_HEADERS = framingHeaders({
 if (Object.keys(FRAMING_HEADERS).length) {
   WebApp.rawHandlers.use((req, res, next) => {
     for (const [name, value] of Object.entries(FRAMING_HEADERS)) res.setHeader(name, value);
+    // ...except on a 304 Not Modified: the browser would put this CSP in
+    // place of the stored file's own (models/lib/framePolicy.js). Node sends
+    // every response's head through writeHead, an implicit one included.
+    const writeHead = res.writeHead;
+    res.writeHead = function writeHeadKeepingStoredPolicy(statusCode, ...rest) {
+      if (Number(statusCode) === 304) {
+        for (const name of framingHeadersToDropOnNotModified(FRAMING_HEADERS, n => res.getHeader(n))) res.removeHeader(name);
+      }
+      return writeHead.call(this, statusCode, ...rest);
+    };
     next();
   });
 }
