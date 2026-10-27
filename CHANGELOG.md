@@ -105,6 +105,39 @@ its reason.
 
 </details>
 
+<details>
+<summary>Need the running app to reproduce/verify</summary>
+
+- The browser test fixes of 2026-10-27 are not verified in a browser yet: the
+  second EVERYTHING run was stopped during its build, before any browser
+  stage. The first run's Chromium stage reached 3212 of 3703 tests, and every
+  failure it reported is fixed in the source; Firefox, the database
+  conformance runs and FerretDB's own suites did not run. Run `./build.sh`'s
+  EVERYTHING option again. The stopped build had started reinstalling
+  `node_modules`, so a clean install comes first.
+- The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its
+  own sandbox, and turning that off is not allowed there. Run it on a host.
+
+</details>
+
+<details>
+<summary>Needs a maintainer decision on the intended contract</summary>
+
+- A board member with write access but no admin rights can set a list's WIP
+  limit. Decide whether that is a board-admin setting.
+- REST: moving a card to another list of the same board does not check that
+  the swimlane given belongs to that board.
+- `validateAttachmentAndMoveToStorage` moves the file in a `Meteor.defer`,
+  where the caller's userId is lost, so the move runs without it.
+- The attachment REST API's JSON branch calls `insertAsync`, which exists only
+  on the client of Meteor-Files.
+- AuthBleed refusals (Admin Panel / authentication settings) are not
+  recorded in Admin Panel / Problems.
+- The Data health status "Never" in Admin Panel / Problems reuses List Sync's
+  "never synced" text; a key of its own needs translating into every language.
+
+</details>
+
 </details>
 
 # Upcoming WeKan ® release
