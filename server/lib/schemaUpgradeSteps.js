@@ -31,6 +31,11 @@
 // replacement in current WeKan, verified against `git show v8.00:server/migrations.js`):
 //   archived-flag-backfill   old docs missing `archived` never match the
 //                            archived:false view queries -> invisible
+//   card-list-other-board    #6814 / #5874: cards whose list belongs to ANOTHER
+//                            board (moved before the move hook fixed that) are
+//                            shown nowhere -> the board's first unarchived list;
+//                            before swimlane-structure, which then rescues
+//                            their swimlane in the same pass
 //   swimlane-structure       add-swimlanes (v0.65) + dangling-listId rescue +
 //                            #1959/#1971 Swimlanes-view visibility rescue
 //                            (cards under deleted/archived/foreign swimlanes)
@@ -267,6 +272,59 @@ const steps = [
           { archived: { $exists: false } },
           { $set: { archived: false } },
         );
+        fixed += (r && r.modifiedCount) || 0;
+      }
+      return { fixed, unresolved: 0 };
+    },
+  },
+
+  {
+    // #5874: a card moved to another board before the move hook kept it
+    // consistent (server/lib/cardBoardConsistency.js) can still point at a list
+    // of the board it LEFT. Every view of its own board selects cards by that
+    // board's lists, so the card is shown nowhere - and swimlane-structure's
+    // dangling-listId rescue does not see it, because the list does exist. One
+    // production database had 706 such cards (391 not archived), the oldest moved
+    // in early 2025. Give each its board's first unarchived list (or a "Rescued
+    // Data" list when the board has none), like the dangling-listId rescue.
+    //
+    // The cards are read with a two-field projection; the work is one updateMany
+    // per (list, board) pair that disagrees. Idempotent: a second pass finds
+    // nothing.
+    //
+    // #6814: BEFORE swimlane-structure, which the steps run in order: a rescued
+    // card whose new list is not bound to a swimlane keeps the swimlane of the
+    // board it left, and swimlane-structure's foreign-swimlane rescue (#1959)
+    // must see it in the same pass - after it, the card stayed hidden in the
+    // Swimlanes view until the next release re-ran the checks.
+    name: 'card-list-other-board',
+    async check(db) {
+      return (await foreignListPairs(db, { firstOnly: true })).length > 0;
+    },
+    async run(db) {
+      let fixed = 0;
+      const now = new Date();
+      const pairs = await foreignListPairs(db);
+      if (!pairs.length) return { fixed, unresolved: 0 };
+      const lists = await db.collection('lists').find(
+        { archived: { $ne: true }, type: { $ne: 'template-list' } },
+        { projection: { _id: 1, boardId: 1, swimlaneId: 1, sort: 1 } },
+      ).toArray();
+      const firstListOf = new Map();
+      for (const l of lists.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
+        if (!firstListOf.has(String(l.boardId))) firstListOf.set(String(l.boardId), l);
+      }
+      for (const { listId, boardId } of pairs) {
+        let target = firstListOf.get(boardId);
+        if (!target) {
+          target = { _id: randomId(), title: 'Rescued Data', boardId, swimlaneId: '', archived: false, sort: 0, type: 'list', createdAt: now, modifiedAt: now, updatedAt: now };
+          await db.collection('lists').insertOne(target);
+          firstListOf.set(boardId, target);
+        }
+        const set = { listId: String(target._id) };
+        // a list bound to one swimlane only shows its cards in that swimlane
+        if (target.swimlaneId) set.swimlaneId = String(target.swimlaneId);
+        const r = await db.collection('cards').updateMany({ boardId, listId }, { $set: set });
         fixed += (r && r.modifiedCount) || 0;
       }
       return { fixed, unresolved: 0 };
@@ -972,6 +1030,27 @@ async function scanCardChildBoardIds(db, { fix }) {
     if (stop) break;
   }
   return { found, fixed };
+}
+
+// card-list-other-board: the (listId, boardId) pairs of cards whose list exists
+// but belongs to another board. Lists are held as id -> board; cards are
+// streamed with two fields.
+async function foreignListPairs(db, { firstOnly = false } = {}) {
+  const listBoard = new Map();
+  for (const l of await db.collection('lists').find({}, { projection: { _id: 1, boardId: 1 } }).toArray()) {
+    listBoard.set(String(l._id), String(l.boardId));
+  }
+  const pairs = new Map();
+  const cursor = db.collection('cards').find({}, { projection: { _id: 0, listId: 1, boardId: 1 } });
+  for await (const c of cursor) {
+    const owner = listBoard.get(String(c.listId));
+    if (!owner || !c.boardId || owner === String(c.boardId)) continue;   // missing list: swimlane-structure
+    const key = String(c.listId) + '\u0000' + String(c.boardId);
+    if (!pairs.has(key)) pairs.set(key, { listId: String(c.listId), boardId: String(c.boardId) });
+    if (firstOnly) break;
+  }
+  if (typeof cursor.close === 'function') await cursor.close();
+  return [...pairs.values()];
 }
 
 // Visible swimlanes (not archived, not templates) — the ones the Swimlanes

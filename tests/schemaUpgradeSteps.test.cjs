@@ -262,6 +262,72 @@ await test('speed: card fixes are server-side updateMany batches, never per-card
   assert.ok(db._ops.updateMany >= 2, 'fixes go through updateMany');
 });
 
+// ── card-list-other-board (#5874) ─────────────────────────────────────────────
+// A card moved to another board before the move hook existed kept the list of
+// the board it left: it exists, so the dangling-listId rescue does not see it,
+// and the card is shown nowhere.
+const foreignListStep = steps.find(s => s.name === 'card-list-other-board');
+
+await test('card-list-other-board: a card on a list of the board it left gets its own board\'s first list', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 'A' }, { _id: 'B' }, { _id: 'C' }],
+    lists: [
+      { _id: 'la', boardId: 'A', sort: 0 },
+      { _id: 'lbArchived', boardId: 'B', sort: 0, archived: true },
+      { _id: 'lb2', boardId: 'B', sort: 2 },
+      { _id: 'lb1', boardId: 'B', sort: 1, swimlaneId: 'swB' },
+    ],
+    cards: [
+      { _id: 'moved', boardId: 'B', listId: 'la', swimlaneId: 'x' },        // the bug
+      { _id: 'movedArchived', boardId: 'B', listId: 'la', archived: true },
+      { _id: 'toC', boardId: 'C', listId: 'la' },                          // C has no list at all
+      { _id: 'fine', boardId: 'A', listId: 'la' },
+    ],
+  });
+  assert.strictEqual(await foreignListStep.check(db), true);
+  const res = await foreignListStep.run(db);
+  assert.strictEqual(res.fixed, 3);
+  const card = id => db._dump('cards').find(c => c._id === id);
+  assert.strictEqual(card('moved').listId, 'lb1', 'first unarchived list by sort');
+  assert.strictEqual(card('moved').swimlaneId, 'swB', 'a list bound to a swimlane brings the card into it');
+  assert.strictEqual(card('movedArchived').listId, 'lb1');
+  const rescued = db._dump('lists').find(l => l.boardId === 'C');
+  assert.ok(rescued && rescued.title === 'Rescued Data', 'a board without lists gets Rescued Data');
+  assert.strictEqual(card('toC').listId, rescued._id);
+  assert.strictEqual(card('fine').listId, 'la', 'a card on its own board is untouched');
+  assert.strictEqual(await foreignListStep.check(db), false, 'idempotent');
+});
+
+// #6814: the rescued card keeps the swimlane of the board it LEFT when its new
+// list is not bound to one - swimlane-structure's foreign-swimlane rescue must
+// see it in the same pass, so the step runs before it.
+await test('card-list-other-board runs before swimlane-structure, which then gives the card a swimlane of its board', async () => {
+  const names = steps.map(st => st.name);
+  assert.ok(names.indexOf('card-list-other-board') < names.indexOf('swimlane-structure'), 'the order the runner walks');
+  const db = fakeDb({
+    boards: [{ _id: 'A' }, { _id: 'B' }],
+    swimlanes: [{ _id: 'swA', boardId: 'A', sort: 0, archived: false }, { _id: 'swB', boardId: 'B', sort: 0, archived: false }],
+    lists: [{ _id: 'la', boardId: 'A', sort: 0, swimlaneId: '' }, { _id: 'lb', boardId: 'B', sort: 0, swimlaneId: '' }],
+    cards: [{ _id: 'moved', boardId: 'B', listId: 'la', swimlaneId: 'swA', archived: false }],
+  });
+  for (const name of ['card-list-other-board', 'swimlane-structure']) {
+    const step = steps.find(st => st.name === name);
+    if (await step.check(db)) await step.run(db);
+  }
+  const card = db._dump('cards').find(c => c._id === 'moved');
+  assert.strictEqual(card.listId, 'lb');
+  assert.strictEqual(card.swimlaneId, 'swB', 'negative: not left on the swimlane of the board it left');
+});
+
+await test('negative: card-list-other-board leaves a missing list to swimlane-structure', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 'A' }],
+    lists: [{ _id: 'la', boardId: 'A', sort: 0 }],
+    cards: [{ _id: 'c1', boardId: 'A', listId: 'la' }, { _id: 'c2', boardId: 'A', listId: 'gone' }],
+  });
+  assert.strictEqual(await foreignListStep.check(db), false);
+});
+
 await test('negative: swimlane-structure does not run on healthy data', async () => {
   const db = fakeDb({
     boards: [{ _id: 'b1', archived: false }],
