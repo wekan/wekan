@@ -543,6 +543,11 @@ inside the scope checkbox list; both are its siblings in `.templates-settings`.
 
 </details>
 
+and updates the following documentation:
+
+- [Show empty fields of Card Settings, the \[label\] title switch of Member Settings, and Data health repairs](https://github.com/wekan/wekan/commit/30e960e129).
+  Thanks to xet7.
+
 and updates the following translations:
 
 **Languages updated:** 232 languages.
