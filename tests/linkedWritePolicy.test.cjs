@@ -47,7 +47,11 @@ test('negative: method, DDP insert and link-pointer updates enforce source write
   // route used to check only read access and clone the whole source card.
   assert.match(methods, /return createLinkedCardFor\(this\.userId, [^)]*'createLinkedCard'\)/);
   assert.match(methods, /await createLinkedCardFor\(req\.userId, [\s\S]*?'rest:card-link'\)/);
-  const rest = methods.slice(methods.indexOf("if (req.body.linkedId) {"), methods.indexOf("const linkedCard = await ReactiveCache.getCard(linkedNewId);"));
+  // #6823 removed the branch's second "created" activity and its getCard, so
+  // the branch now ends at its author-spoof note.
+  const restEnd = methods.indexOf("noteAuthorSpoof(req, 'POST cards (linked)');");
+  assert.ok(restEnd > 0, 'the linked-card branch of POST cards');
+  const rest = methods.slice(methods.indexOf("if (req.body.linkedId) {"), restEnd);
   assert.doesNotMatch(rest, /checkBoardAccess|\.link\(/);
   const ddp = fs.readFileSync('server/permissions/cards.js', 'utf8');
   assert.equal((ddp.match(/await denyUnauthorizedCardLink\(/g) || []).length, 2);

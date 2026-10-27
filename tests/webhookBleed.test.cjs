@@ -55,7 +55,11 @@ const boardsPub = code(read('server/publications/boards.js'));
 
 test('GHSA-7w2h-g83c-jqrp: copyBoard requires an active board admin before copying', () => {
   const body = methodBody(boardsPub, 'copyBoard');
-  assert.match(body, /if \(!this\.userId\) throw new Meteor\.Error\('not-authorized'\)/);
+  // The signed-out refusal records an AuthBleed attempt first (authz.copy),
+  // then throws - still before the board is read.
+  assert.match(body, /if \(!this\.userId\) \{[\s\S]*?throw new Meteor\.Error\('not-authorized'\);\s*\}/);
+  assert.ok(body.indexOf('!this.userId') < body.indexOf('ReactiveCache.getBoard(boardId)'),
+    'signed out is refused before anything is read');
   assert.match(body, /if \(!board\) throw new Meteor\.Error\('not-found'\)/);
   assert.match(body, /if \(!board\.hasAdmin\(this\.userId\)\) throw new Meteor\.Error\('not-authorized'\)/);
   const guard = body.indexOf('board.hasAdmin(this.userId)');
