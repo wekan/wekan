@@ -19,6 +19,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 // Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
 // client, the server and the tests (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+import { literalSearchRegex } from '/models/lib/cardSearch';
 const { assertSafeMapKey } = require('/models/lib/safeMapKey');
 const { cardLastViewsModifier } = require('/models/lib/unreadComments');
 // The bookmark rules, pure so the client, the server and the tests agree.
@@ -1584,8 +1585,10 @@ export function writesNotificationList(modifier) {
 // Temporary fallback - create a simple search index object
 export const UserSearchIndex = {
   search: function(query, options) {
-    // Simple fallback search using MongoDB find
-    const searchRegex = new RegExp(query, 'i');
+    // Simple fallback search using MongoDB find. Matched literally, as every
+    // server-side user search does: a name with "(" or "+" in it threw
+    // "Invalid regular expression" (#6822).
+    const searchRegex = literalSearchRegex(query);
     return Users.find({
       $or: [
         { username: searchRegex },

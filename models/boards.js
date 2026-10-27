@@ -40,7 +40,7 @@ import {
   cardsEndInBetweenSelector,
 } from '/models/lib/calendarFilter';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
-import { buildCardSearchOr, matchingCommentCardIds } from '/models/lib/cardSearch';
+import { buildCardSearchOr, matchingCommentCardIds, literalSearchRegex } from '/models/lib/cardSearch';
 const { SimpleSchema } = require('/imports/simpleSchema');
 const { memberRoleOf, CUSTOM_ROLE_PREFIX, customRoleCapabilities, uiRoleFor } = require('/models/lib/boardRoleCapabilities');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -2418,7 +2418,7 @@ Boards.helpers({
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
-      const regex = new RegExp(term, 'i');
+      const regex = literalSearchRegex(term);
 
       query.$or = [{ title: regex }, { description: regex }];
     }
@@ -2440,7 +2440,7 @@ Boards.helpers({
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
-      const regex = new RegExp(term, 'i');
+      const regex = literalSearchRegex(term);
 
       query.$or = [{ title: regex }, { description: regex }];
     }
@@ -2465,7 +2465,7 @@ Boards.helpers({
       const projection = { sort: { createdAt: -1 } };
 
       if (term) {
-        const regex = new RegExp(term, 'i');
+        const regex = literalSearchRegex(term);
 
         query.$or = [{ title: regex }, { description: regex }];
       }

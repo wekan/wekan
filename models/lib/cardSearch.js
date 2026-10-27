@@ -33,10 +33,20 @@ function parseNumericSearchTerm(term) {
   return Number.isFinite(n) ? n : null;
 }
 
+// #6822: the typed term, matched literally and case-insensitively. Board search
+// used the term AS a regular expression: "C++", "(2026)" or "[x" threw "Invalid
+// regular expression" and the sidebar search and the link-card popup showed
+// nothing, and "." or "*" matched far more than was typed. Every server-side
+// search already escapes the same way (server/lib/boardTextSearch.js).
+const escapeRegExp = text => String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function literalSearchRegex(term) {
+  return new RegExp(escapeRegExp(term), 'i');
+}
+
 // Build the `$or` clause array for a board card search on `term`. `term` is
 // expected to be a trimmed, non-empty string (Board.searchCards guards that).
 function buildCardSearchOr(term, { boardKey = null } = {}) {
-  const regex = new RegExp(term, 'i');
+  const regex = literalSearchRegex(term);
   const or = [
     { title: regex },
     { description: regex },
@@ -61,7 +71,7 @@ function buildCardSearchOr(term, { boardKey = null } = {}) {
 // card search uses (reuses `buildCardSearchOr`'s matching rule rather than a
 // second implementation of "does this term match this text").
 function matchingCommentCardIds(comments, term) {
-  const regex = new RegExp(term, 'i');
+  const regex = literalSearchRegex(term);
   const ids = new Set();
   (comments || []).forEach(comment => {
     if (comment && typeof comment.text === 'string' && regex.test(comment.text)) {
@@ -71,4 +81,4 @@ function matchingCommentCardIds(comments, term) {
   return Array.from(ids);
 }
 
-export { parseNumericSearchTerm, buildCardSearchOr, matchingCommentCardIds };
+export { parseNumericSearchTerm, buildCardSearchOr, matchingCommentCardIds, literalSearchRegex };
