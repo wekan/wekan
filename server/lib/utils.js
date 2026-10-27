@@ -114,9 +114,32 @@ export async function denyCrossBoardMove(userId, modifier) {
 // Shared destination gate for the checklist deny rules below: returns true to
 // DENY when boardId names a board the caller cannot write to. An unknown/missing
 // board id also denies, matching denyCrossBoardMove's fail-closed behavior.
-async function denyMoveToUnwritableBoard(userId, boardId) {
+// #6813: the board the document is already on is not a destination. Dragging
+// a checklist item within its card sets cardId and checklistId to where the
+// item already is; for a comment-only member or a Worker their own board is "a
+// board they cannot write to", so that ordinary drag tripped the cross-board
+// canary and named them in Admin Panel / Problems as if they had attacked
+// another board. Staying on the board is no cross-board move, and whether the
+// caller may edit there is the allow rule's question, unchanged.
+//
+// `sourceBoardId` must be the board of the document's SOURCE CARD - what the
+// allow rule decides on (sourceBoardOfCardChild below) - never the document's
+// own denormalized boardId: that one a client could set on insert, and an item
+// on its own card carrying a victim board's id would then pass as "staying"
+// while being moved onto a victim card.
+async function denyMoveToUnwritableBoard(userId, boardId, sourceBoardId) {
   if (typeof boardId !== 'string' || !boardId) return false;
+  if (typeof sourceBoardId === 'string' && sourceBoardId && boardId === sourceBoardId) return false;
   return !allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(boardId));
+}
+
+// The board of the card a checklist, checklist item or text note is attached
+// to - the source the allow rules check write access on (canEditCardOrLinkedCard
+// on doc.cardId). Null when the card is gone: then nothing is skipped.
+export async function sourceBoardOfCardChild(doc) {
+  if (!doc || typeof doc.cardId !== 'string' || !doc.cardId) return null;
+  const card = await Cards.findOneAsync(doc.cardId, { fields: { boardId: 1 } });
+  return (card && card.boardId) || null;
 }
 
 // Security (GHSA-gv8h-5p3p-6hx7): Checklists and ChecklistItems are attached to a
@@ -134,16 +157,16 @@ async function denyMoveToUnwritableBoard(userId, boardId) {
 // Legitimate moves (destination writable) and same-card edits are unaffected, and
 // server-side Meteor methods bypass allow/deny entirely, so the trusted
 // moveChecklist method still works.
-export async function denyCrossBoardMoveByCard(userId, modifier) {
+export async function denyCrossBoardMoveByCard(userId, modifier, sourceBoardId) {
   const set = modifier && modifier.$set;
   if (!set) return false;
   // Direct boardId change (defense in depth, same as denyCrossBoardMove).
-  if (await denyMoveToUnwritableBoard(userId, set.boardId)) return true;
+  if (await denyMoveToUnwritableBoard(userId, set.boardId, sourceBoardId)) return true;
   // cardId change: resolve the destination card's board.
   if (typeof set.cardId === 'string' && set.cardId) {
     const card = await Cards.findOneAsync(set.cardId);
     if (!card) return true;
-    if (await denyMoveToUnwritableBoard(userId, card.boardId)) return true;
+    if (await denyMoveToUnwritableBoard(userId, card.boardId, sourceBoardId)) return true;
   }
   return false;
 }
@@ -151,15 +174,15 @@ export async function denyCrossBoardMoveByCard(userId, modifier) {
 // As denyCrossBoardMoveByCard, plus the ChecklistItem-only checklistId move: an
 // item can be re-parented to another checklist, which (via that checklist's card)
 // may live on a board the caller cannot write to. Returns true to DENY.
-export async function denyCrossBoardMoveByChecklistItem(userId, modifier) {
-  if (await denyCrossBoardMoveByCard(userId, modifier)) return true;
+export async function denyCrossBoardMoveByChecklistItem(userId, modifier, sourceBoardId) {
+  if (await denyCrossBoardMoveByCard(userId, modifier, sourceBoardId)) return true;
   const set = modifier && modifier.$set;
   if (set && typeof set.checklistId === 'string' && set.checklistId) {
     const checklist = await Checklists.findOneAsync(set.checklistId);
     if (!checklist) return true;
     const card = await Cards.findOneAsync(checklist.cardId);
     if (!card) return true;
-    if (await denyMoveToUnwritableBoard(userId, card.boardId)) return true;
+    if (await denyMoveToUnwritableBoard(userId, card.boardId, sourceBoardId)) return true;
   }
   return false;
 }

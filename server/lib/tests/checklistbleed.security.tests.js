@@ -7,6 +7,7 @@ import Checklists from '/models/checklists';
 import {
   denyCrossBoardMoveByCard,
   denyCrossBoardMoveByChecklistItem,
+  sourceBoardOfCardChild,
 } from '/server/lib/utils';
 
 // Security regression test for GHSA-gv8h-5p3p-6hx7 (ChecklistBleed):
@@ -88,6 +89,41 @@ describe('ChecklistBleed — checklist/item cross-board move deny rules (GHSA-gv
     it('ALLOWS re-parenting to a checklist on a board the caller can write to', async function() {
       const denied = await denyCrossBoardMoveByChecklistItem(ATTACKER, { $set: { checklistId: 'attackerChecklist' } });
       expect(denied).to.equal(false);
+    });
+
+    // #6813: a comment-only member or Worker reordering items on their own
+    // card - the drag sets cardId/checklistId to where the item already is. The
+    // allow rule decides that; the cross-board canary must not fire.
+    it('does not call a drag within the item\'s own board a cross-board move (#6813)', async function() {
+      const source = await sourceBoardOfCardChild({ cardId: 'victimCard' });
+      expect(source).to.equal('victimBoard');
+      const denied = await denyCrossBoardMoveByChecklistItem(ATTACKER,
+        { $set: { cardId: 'victimCard', checklistId: 'victimChecklist' } }, source);
+      expect(denied).to.equal(false);
+    });
+
+    it('still DENIES a move off the item\'s own board to an unwritable one (#6813)', async function() {
+      const denied = await denyCrossBoardMoveByChecklistItem(ATTACKER,
+        { $set: { checklistId: 'victimChecklist' } }, await sourceBoardOfCardChild({ cardId: 'attackerCard' }));
+      expect(denied).to.equal(true);
+    });
+
+    // The source is the item's CARD's board, never its own boardId: an item on
+    // the attacker's card carrying the victim board's id is still a move into
+    // the victim board.
+    it('still DENIES a move onto a victim card for an item whose own boardId names the victim board (#6813)', async function() {
+      const forged = { cardId: 'attackerCard', boardId: 'victimBoard' };
+      const source = await sourceBoardOfCardChild(forged);
+      expect(source).to.equal('sourceBoard');
+      const denied = await denyCrossBoardMoveByChecklistItem(ATTACKER,
+        { $set: { cardId: 'victimCard', checklistId: 'victimChecklist' } }, source);
+      expect(denied).to.equal(true);
+    });
+
+    it('skips nothing when the source card is gone (#6813)', async function() {
+      expect(await sourceBoardOfCardChild({ cardId: 'doesNotExist' })).to.equal(null);
+      const denied = await denyCrossBoardMoveByChecklistItem(ATTACKER, { $set: { cardId: 'victimCard' } }, null);
+      expect(denied).to.equal(true);
     });
   });
 });

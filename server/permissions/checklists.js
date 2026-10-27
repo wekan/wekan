@@ -1,6 +1,6 @@
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
-import { denyCrossBoardMoveByCard } from '/server/lib/utils';
+import { denyCrossBoardMoveByCard, sourceBoardOfCardChild } from '/server/lib/utils';
 import { tripCanaryDeny } from '/server/lib/canary';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 
@@ -27,8 +27,9 @@ Checklists.allow({
 // card). Deny any move whose destination board the caller cannot write to.
 Checklists.deny({
   async update(userId, doc, fieldNames, modifier) {
-    if (!(await denyCrossBoardMoveByCard(userId, modifier))) return false;
+    // #6813: the source board from the source card, as the allow rule.
+    if (!(await denyCrossBoardMoveByCard(userId, modifier, await sourceBoardOfCardChild(doc)))) return false;
     return tripCanaryDeny('checklist.cross-board-move', { userId });
   },
-  fetch: [],
+  fetch: ['cardId'],
 });

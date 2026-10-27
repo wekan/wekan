@@ -102,6 +102,17 @@ CardTextNotes.before.insert((userId, doc) => {
   }
 });
 
+// #6813: on the server the board is ALWAYS the card's, not what the client
+// sent - a text note on its own card could otherwise carry another board's id
+// (published to that board, and mistaken for being on it).
+if (Meteor.isServer) {
+  CardTextNotes.before.insert(async (userId, doc) => {
+    if (!doc.cardId) return;
+    const card = await ReactiveCache.getCard(doc.cardId);
+    if (card && card.boardId) doc.boardId = card.boardId;
+  });
+}
+
 if (Meteor.isServer) {
   const { ensureIndex } = require('/server/lib/mongoStartup');
   Meteor.startup(async () => {

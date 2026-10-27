@@ -21,8 +21,11 @@ const { deferSyncItemRecording, deferSyncChecklistRecording } = require('/server
 // moved to another card (its move helper sets a new cardId), so the board
 // publication can filter checklist items with a single reactive cursor on
 // boardId and still see items on newly added cards. Server-authoritative.
+// #6813: ALWAYS from the card, not only when missing - a client's own boardId
+// would otherwise stay, and a document on its own card could carry another
+// board's id (published to that board, and mistaken for being on it).
 ChecklistItems.before.insert(async (userId, doc) => {
-  if (!doc.boardId && doc.cardId) {
+  if (doc.cardId) {
     const card = await ReactiveCache.getCard(doc.cardId);
     if (card) {
       doc.boardId = card.boardId;

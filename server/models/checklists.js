@@ -78,8 +78,11 @@ Meteor.methods({
 // single reactive cursor on boardId and still see checklists on newly added
 // cards. Server-authoritative: the board publication runs on the server, so the
 // server document carrying boardId is what matters.
+// #6813: ALWAYS from the card, not only when missing - a client's own boardId
+// would otherwise stay, and a document on its own card could carry another
+// board's id (published to that board, and mistaken for being on it).
 Checklists.before.insert(async (userId, doc) => {
-  if (!doc.boardId && doc.cardId) {
+  if (doc.cardId) {
     const card = await ReactiveCache.getCard(doc.cardId);
     if (card) {
       doc.boardId = card.boardId;
