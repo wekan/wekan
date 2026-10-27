@@ -106,7 +106,17 @@ function parseTimeInput(value) {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 }
 
+// #6809: the date an "edit a date" form starts from. A card without this
+// date opens the calendar on today, marks today and names it in the heading -
+// so today is what the form shows, and Save without touching the calendar
+// must save today, not refuse an empty field with "Invalid date". The card's
+// own date when it has one.
+function draftDate(date, now = new Date()) {
+  return isValidDate(date) ? date : now;
+}
+
 export {
+  draftDate,
   isValidDate,
   formatTime,
   initialTimeValue,

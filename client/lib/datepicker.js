@@ -11,6 +11,7 @@ import { normalizeDigits } from '/imports/lib/dateUtils';
 const MIN_PLAUSIBLE_YEAR = 1000;
 const MAX_PLAUSIBLE_YEAR = 9999;
 import {
+  draftDate,
   isValidDate,
   formatTime,
   initialTimeValue,
@@ -94,10 +95,12 @@ export function datePickerHelpers() {
     datePicker() {
       return Template.instance().datePicker;
     },
+    // #6809: today when there is no date yet - the day the calendar opens
+    // on and marks - so Save without picking a day saves it (imports/lib/
+    // datePickerTime.js draftDate). The time stays the popup's default.
     showDate() {
       const dp = Template.instance().datePicker;
-      if (isValidDate(dp.date.get())) return formatDate(dp.date.get());
-      return '';
+      return formatDate(draftDate(dp.date.get()));
     },
     showTime() {
       const dp = Template.instance().datePicker;

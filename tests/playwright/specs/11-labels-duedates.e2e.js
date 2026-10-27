@@ -256,6 +256,31 @@ test.describe('Labels & due dates', () => {
     expect(critical).toHaveLength(0);
   });
 
+  // #6809: the calendar opens on today and marks it; Save without clicking a
+  // day saves today at the popup's default time instead of "Invalid date".
+  test('#6809: Save without picking a day saves today', async ({ boardPage, board }) => {
+    const cp = new CardPage(boardPage);
+    const bp = new BoardPage(boardPage);
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true } });
+    // Shown on the card although empty, so its "+" is there to click.
+    db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '' }, $set: { shownFields: ['dueDate'] } });
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+    await cp.root.locator('a.js-due-date').first().click();
+    const pop = boardPage.locator('.js-pop-over');
+    await expect(pop.locator('.selected-calendar-picker')).toBeVisible();
+    // Today is the selected day, not only the marked one.
+    await expect(pop.locator('.js-calendar-day.is-today')).toHaveAttribute('aria-pressed', 'true');
+    await pop.locator('button.js-submit-date').click();
+    // Negative: no "Invalid date".
+    await expect(pop.locator('.warning')).toHaveCount(0);
+    await expect.poll(() => {
+      const saved = db.findOne('cards', { _id: card._id })?.dueAt;
+      return saved ? new Date(saved).toDateString() : '';
+    }).toBe(new Date().toDateString());
+  });
+
   test('changing an existing due date saves the replacement (#6607)', async ({ boardPage, board }) => {
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { dueAt: new Date('2098-01-15T17:00:00') } });
