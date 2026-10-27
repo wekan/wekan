@@ -899,24 +899,25 @@ async function buildSelector(queryParams, userId) {
       const attachmentScope = Array.isArray(boardIds) ? { 'meta.boardId': { $in: boardIds } } : {};
       for (const has of queryParams.getPredicates(OPERATOR_HAS)) {
         switch (has.field) {
-          case PREDICATE_ATTACHMENT:
-            selector.$and.push({
-              _id: {
-                $in: (await ReactiveCache.getAttachments(attachmentScope, { fields: { cardId: 1 } })).map(
-                  a => a.cardId,
-                ),
-              },
-            });
+          // An attachment names its card in meta.cardId - reading `cardId`
+          // found no card at all - and a negated predicate (has:-attachment,
+          // `exists: false`) asks for the cards WITHOUT one, which was ignored.
+          // Soft-deleted attachments do not count (History.md §12.1).
+          case PREDICATE_ATTACHMENT: {
+            // (Filtered here, not in the query: the publications keep sending
+            // soft-deleted ones for the card history.)
+            const { isLiveAttachment } = require('/models/lib/attachmentSoftDelete');
+            const ids = (await ReactiveCache.getAttachments(attachmentScope, { fields: { 'meta.cardId': 1, deletedAt: 1 } }))
+              .filter(isLiveAttachment).map(a => a.meta && a.meta.cardId).filter(Boolean);
+            selector.$and.push({ _id: has.exists ? { $in: ids } : { $nin: ids } });
             break;
-          case PREDICATE_CHECKLIST:
-            selector.$and.push({
-              _id: {
-                $in: (await ReactiveCache.getChecklists(checklistScope, { fields: { cardId: 1 } })).map(
-                  a => a.cardId,
-                ),
-              },
-            });
+          }
+          case PREDICATE_CHECKLIST: {
+            const ids = (await ReactiveCache.getChecklists(checklistScope, { fields: { cardId: 1 } }))
+              .map(a => a.cardId).filter(Boolean);
+            selector.$and.push({ _id: has.exists ? { $in: ids } : { $nin: ids } });
             break;
+          }
           case PREDICATE_DESCRIPTION:
           case PREDICATE_START_AT:
           case PREDICATE_DUE_AT:
@@ -962,7 +963,8 @@ async function buildSelector(queryParams, userId) {
       }
       const attachments = await ReactiveCache.getAttachments(
         attachmentSelector,
-        { fields: { cardId: 1 } },
+        // An attachment names its card in meta.cardId, not cardId.
+        { fields: { 'meta.cardId': 1 } },
       );
 
       // #5910: free-text search must match text inside card comments, for BOTH
@@ -982,7 +984,7 @@ async function buildSelector(queryParams, userId) {
           { description: regex },
           { customFields: { $elemMatch: { value: regex } } },
           { _id: { $in: checklists.map(list => list.cardId) } },
-          { _id: { $in: attachments.map(attach => attach.cardId) } },
+          { _id: { $in: attachments.map(attach => attach.meta && attach.meta.cardId).filter(Boolean) } },
           // #5910: include cards whose comment text matches (board-scoped).
           { _id: { $in: comments.map(com => com.cardId) } },
         ];
@@ -1034,10 +1036,11 @@ async function buildSelector(queryParams, userId) {
         }
         const attachments = await ReactiveCache.getAttachments(
           attachmentSelector,
-          { fields: { cardId: 1 } },
+          // An attachment names its card in meta.cardId, not cardId.
+          { fields: { 'meta.cardId': 1 } },
         );
         if (attachments.length) {
-          selector.$and.push({ _id: { $in: attachments.map(attach => attach.cardId) } });
+          selector.$and.push({ _id: { $in: attachments.map(attach => attach.meta && attach.meta.cardId).filter(Boolean) } });
         } else {
           selector.$and.push({ _id: null });
         }

@@ -38,12 +38,15 @@ assert.match(
 );
 
 const filenameQueries = cardsPublication.match(
-  /getAttachments\(\s*attachmentSelector,\s*\{ fields: \{ cardId: 1 \} \},\s*\)/g,
+  // meta.cardId: an attachment names its card there - the cardId this used
+  // to fetch was always empty, so a filename never found a card
+  // (tests/searchHasAttachmentPredicate.test.cjs).
+  /getAttachments\(\s*attachmentSelector,\s*\/\/[^\n]*\n\s*\{ fields: \{ 'meta\.cardId': 1 \} \},\s*\)/g,
 ) || [];
 assert.strictEqual(
   filenameQueries.length,
   2,
-  'both free-text and attachment: filename searches fetch cardId only',
+  'both free-text and attachment: filename searches fetch meta.cardId only',
 );
 
 assert.match(
