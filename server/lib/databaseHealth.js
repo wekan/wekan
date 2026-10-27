@@ -21,6 +21,10 @@ const health = require('/models/lib/databaseHealth');
 const PROBE_MS = 5 * 60 * 1000;
 
 const state = {
+  scanned: null,
+  // At start, only what is logged from now on: older lines were seen by the
+  // process before a restart, or belong to a time this one cannot explain.
+  logSeenMs: Date.now(),
   uptime: null,
   restarts: 0,
   opLatencies: null,
@@ -30,6 +34,18 @@ const state = {
 async function serverStatus(db) {
   try {
     return await db.admin().command({ serverStatus: 1 });
+  } catch (e) {
+    return null;
+  }
+}
+
+// The last ~1000 lines of MongoDB's own log. Needs the getLog privilege
+// (clusterMonitor); without it, or where the database does not keep MongoDB's
+// log format (FerretDB), this check finds nothing and is skipped.
+async function globalLog(db) {
+  try {
+    const result = await db.admin().command({ getLog: 'global' });
+    return Array.isArray(result && result.log) ? result.log : null;
   } catch (e) {
     return null;
   }
@@ -96,6 +112,26 @@ export async function probeDatabaseHealth() {
       if (health.slowStorage(avg, ops)) recordDatabaseHealth(health.slowStorageProblem(avg, ops));
       state.opLatencies = status.opLatencies;
     }
+  }
+
+  // How much the database reads, between two probes (#6826).
+  const scanned = status && status.metrics && status.metrics.queryExecutor
+    && Number(status.metrics.queryExecutor.scannedObjects);
+  if (Number.isFinite(scanned)) {
+    const now = Date.now();
+    const perSecond = state.scanned
+      ? health.scanRate(state.scanned.value, scanned, (now - state.scanned.at) / 1000) : null;
+    if (perSecond !== null && perSecond > health.SCAN_RATE_PER_SEC) recordDatabaseHealth(health.scanRateProblem(perSecond));
+    state.scanned = { value: scanned, at: now };
+  }
+
+  // Queries without an index, from the "Slow query" lines MongoDB keeps. Only
+  // lines newer than the last probe, so one scan is reported once per process.
+  const log = await globalLog(db);
+  if (log) {
+    const { groups, newestMs } = health.collectionScans(log, state.logSeenMs);
+    state.logSeenMs = newestMs;
+    if (groups.length) recordDatabaseHealth(health.collectionScanProblem(groups));
   }
 
   const stats = await dbStats(db);

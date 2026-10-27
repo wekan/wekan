@@ -111,9 +111,11 @@ from a probe that runs at startup and every five minutes:
 | `db.network-filesystem` | The data directory is on a CIFS/SMB, NFS or FUSE filesystem. Only when WeKan can see that directory itself (the snap, the bundle with its embedded database, or a shared volume). |
 | `db.slow-storage` | Reads averaged over 100 ms across the interval - storage latency, the "Slow query" symptom. |
 | `db.disk-space` | The filesystem under the data directory is below 5% or 512 MiB free - the real "no space left on device", before it happens. |
+| `db.collection-scan` | MongoDB's own log (`getLog`) has "Slow query" lines where a query read a whole collection of at least 10,000 documents (COLLSCAN): an index WeKan does not know about is missing. The row names the collection and the fields filtered on - never values - so they can be reported to WeKan. Needs the `getLog` privilege (`clusterMonitor`); without it, and on FerretDB, this check is skipped. |
+| `db.scan-rate` | The database read more than 50,000 documents per second over the 5-minute interval (`serverStatus` `scannedObjects`): queries without a fitting index, or one query asked far too often. |
 | `db.index-created` | WeKan found a collection with data but without an index it queries by, and created it. Fixed automatically; nothing to do. |
 
-The first four are reported with what to do; the last is WeKan's own
+The first six are reported with what to do; the last is WeKan's own
 remediation (a missing index was the WeKan-side cause of slow queries in the
 report above).
 

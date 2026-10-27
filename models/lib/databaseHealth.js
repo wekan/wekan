@@ -20,6 +20,15 @@
 //                       the interval, the storage-latency symptom
 //   diskSpace           dbStats fsUsedSize/fsTotalSize: the real "no space
 //                       left on device", before it happens
+//   collectionScans     the "Slow query" lines MongoDB keeps in its own log
+//                       (getLog): a COLLSCAN reading at least 10,000
+//                       documents means a query has no index
+//   scanRate            serverStatus.metrics.queryExecutor.scannedObjects:
+//                       how many documents the database reads per second
+//
+// The last two found, on one instance, a 10 GB collection scanned three times
+// per search and an hourly job reading all 1.1 million cards - neither was
+// visible anywhere in WeKan, only in the database's own log (#6826).
 //
 // Remediation is what WeKan can do itself: a missing index is created at
 // startup (server/lib/mongoStartup.js ensureIndex) and recorded as fixed;
@@ -189,6 +198,89 @@ function indexCreatedRemediation(collectionName, keys, documents) {
   };
 }
 
+// ---- queries without an index ----------------------------------------------
+
+// A full collection scan this big is a missing index, not a small lookup table
+// (settings, customBoardRoles... are scanned whole by design).
+const SCAN_MIN_DOCS = 10000;
+// Documents read per second, sustained over a probe interval, above which the
+// database is doing work no index would need.
+const SCAN_RATE_PER_SEC = 50000;
+
+// The field NAMES a query filtered on, never its values.
+const fieldShape = filter => (filter && typeof filter === 'object' && !Array.isArray(filter)
+  ? Object.keys(filter).sort().join(',') : '');
+
+function slowQueryFilter(command) {
+  const cmd = command || {};
+  const first = list => (Array.isArray(list) && list[0]) || null;
+  return cmd.filter || cmd.q || cmd.query
+    || (first(cmd.pipeline) && first(cmd.pipeline).$match)
+    || (first(cmd.updates) && first(cmd.updates).q)
+    || (first(cmd.deletes) && first(cmd.deletes).q)
+    || null;
+}
+
+// The getLog('global') lines (JSON strings) newer than `sinceMs`: the big
+// collection scans, grouped by collection and the fields they filtered on.
+// Returns { groups, newestMs }.
+function collectionScans(logLines, sinceMs = 0) {
+  const groups = new Map();
+  let newestMs = sinceMs;
+  for (const line of Array.isArray(logLines) ? logLines : []) {
+    let entry;
+    try { entry = typeof line === 'string' ? JSON.parse(line) : line; } catch (e) { continue; }
+    const at = Date.parse(entry && entry.t && entry.t.$date);
+    if (!Number.isFinite(at) || at <= sinceMs) continue;
+    if (at > newestMs) newestMs = at;
+    const a = entry.msg === 'Slow query' && entry.attr;
+    if (!a || typeof a.ns !== 'string' || /^(local|config|admin)\./.test(a.ns)) continue;
+    if (!/COLLSCAN/.test(String(a.planSummary || '')) || !(Number(a.docsExamined) >= SCAN_MIN_DOCS)) continue;
+    const fields = fieldShape(slowQueryFilter(a.command));
+    const key = `${a.ns}|${fields}`;
+    const g = groups.get(key) || { ns: a.ns, fields, count: 0, maxDocs: 0, maxMs: 0 };
+    g.count += 1;
+    g.maxDocs = Math.max(g.maxDocs, Number(a.docsExamined) || 0);
+    g.maxMs = Math.max(g.maxMs, Number(a.durationMillis) || 0);
+    groups.set(key, g);
+  }
+  return { groups: [...groups.values()].sort((x, y) => y.maxDocs * y.count - x.maxDocs * x.count), newestMs };
+}
+
+function collectionScanProblem(groups) {
+  const list = (groups || []).slice(0, 3).map(g => `${g.ns} (filter on ${g.fields || 'nothing'}: `
+    + `${g.count}x, up to ${g.maxDocs} documents, ${g.maxMs} ms)`).join('; ');
+  return {
+    type: 'db.collection-scan',
+    kind: 'index',
+    severity: 'medium',
+    detail: `MongoDB read whole collections to answer queries: ${list}. A full scan per query means an `
+      + 'index is missing - WeKan creates the ones it knows at startup, so this one is unknown to it. '
+      + 'Report the collection and the filter fields to WeKan; the query, not the data, is what needs fixing.',
+  };
+}
+
+// serverStatus.metrics.queryExecutor.scannedObjects between two probes. Null
+// when it cannot be told - no previous probe, or the counter went down because
+// the database restarted.
+function scanRate(previous, current, seconds) {
+  if (previous === null || previous === undefined || current === null || current === undefined) return null;
+  const before = Number(previous), after = Number(current);
+  if (!Number.isFinite(before) || !Number.isFinite(after) || !(seconds > 0) || after < before) return null;
+  return (after - before) / seconds;
+}
+
+function scanRateProblem(perSecond) {
+  return {
+    type: 'db.scan-rate',
+    kind: 'performance',
+    severity: 'medium',
+    detail: `The database read ${Math.round(perSecond)} documents per second over the last interval. `
+      + 'That much reading is queries without a fitting index, or one query asked far too often; the '
+      + '"collection scan" row here, and the MongoDB log\'s "Slow query" lines, name them.',
+  };
+}
+
 module.exports = {
   DOCS,
   NETWORK_FS_TYPES,
@@ -210,4 +302,10 @@ module.exports = {
   slowStorageProblem,
   diskSpaceProblem,
   indexCreatedRemediation,
+  SCAN_MIN_DOCS,
+  SCAN_RATE_PER_SEC,
+  collectionScans,
+  collectionScanProblem,
+  scanRate,
+  scanRateProblem,
 };
