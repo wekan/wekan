@@ -110,10 +110,11 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** **Card Settings** opens on Card, where **Show empty fields** shows
-every field on every card of the board, and every column has **Select all** and
-**Select none**. Its **Show empty** column chooses which fields every card shows
-from the start, empty or not - labels, a due date, a checklist - and can untick
-the description, attachments and comments that used to be always there.
+every field on every card of the board; its **Show empty** column chooses which
+fields every card shows from the start, every column has **Select all** and
+**Select none**, and each section's Show on Card and Show on Minicard lists are
+reordered by **drag and drop** again. A card opened from its link no longer
+vanishes behind a **reverse proxy**.
 
 This release adds the following new features:
 
@@ -188,6 +189,40 @@ columns' headings were links; they are the Draggable table's buttons, white
 text on the theme's colour. `tests/cardSettingsSelectAllAligned.test.cjs` pins
 both, and `card-add-fields.e2e.js` measures the checkboxes and compares the
 buttons' colours.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8224852de1">Card Settings: a Show on Card and a Show on Minicard list per section, reordered by drag and drop again</a>. Thanks to xet7.</summary>
+
+The order arrows of 2026-10-25 could follow only one side's order, and their
+number was the field's place among all of that side's fields: an arrow often
+changed the number while nothing visibly moved. Each section has the two lists
+again, each in its own order and reordered by drag and drop, as since
+2026-10-02 - Show on Card with On this card and Show empty beside each row, and
+Show on Minicard. Up and Down on a focused row move it one row in its list.
+`tests/cardSettingsCoverage.test.cjs` runs the drop's placement against the
+real layout; `settings-drag-reorder.e2e.js` drags both lists.
+
+</details>
+
+and fixes the following bugs:
+
+**Opened card** - a card opened from its link.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ed3ca7c5c">A card opened from its link stays open when the connection comes back while the page loads</a>. Thanks to brlin-tw and xet7.</summary>
+
+[#6808](https://github.com/wekan/wekan/issues/6808): behind a reverse proxy the
+DDP connection can drop and come back while a card's link loads; a
+subscription re-run before the resumed login answered with nothing, the card
+left Minimongo for a moment, and the close-on-removal of #3114 closed it and
+went to the board's address. The window now waits while the subscription,
+connection or login is settling, then asks the server - the 'card'
+publication's own rule - and closes only on its no. A card really deleted,
+archived or moved still closes. `tests/openCardClose6808.test.cjs` pins it and
+fails on any close on Minimongo's word alone; the browser test drops and
+restores the connection.
 
 </details>
 
