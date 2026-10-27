@@ -960,6 +960,13 @@ Meteor.startup(async () => {
   await ensureIndex(Cards, { swimlaneId: 1 });
   await ensureIndex(Cards, { listId: 1 });
   await ensureIndex(Cards, { type: 1 });
+  // The hourly recurring-card job (server/cardRecurrenceSchedule.js) asks for
+  // cards with a recurrenceInterval. Without an index that read every card -
+  // 1.1 million on one instance, 1.1 s of a full collection scan every hour -
+  // to find the few that recur (#6825). Partial: only those cards are in it,
+  // the same way activities indexes commentId and attachmentId.
+  await ensureIndex(Cards, { recurrenceInterval: 1 },
+    { partialFilterExpression: { recurrenceInterval: { $exists: true } } });
   Meteor.defer(() => {
     addCronJob();
   });
