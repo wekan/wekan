@@ -109,17 +109,80 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Card Settings** opens on Card, where **Show empty fields** shows
-every field on every card of the board; its **Show empty** column chooses which
-fields every card shows from the start, every column has **Select all** and
-**Select none**, and each section's Show on Card and Show on Minicard lists are
-reordered by **drag and drop** again. A card opened from its link no longer
-vanishes behind a **reverse proxy**. **Minicards** show only filled custom
-fields again, cards lost in an old board move reappear, card numbers stay
-unique, a date popup saves today without a picked day, and a [label] title
-prefix becomes a label only for who turns it on.
+**In short:** two CRITICAL security fixes: **UploadBleed** - attachment uploads
+were not authorized at all - and **StampBleed**. **Card Settings** opens on
+Card, with **Show empty fields**, a **Show empty** column, **Select all** /
+**Select none** and **drag and drop** lists. A card opened from its link no
+longer vanishes behind a **reverse proxy**; minicards show only filled custom
+fields, lost cards reappear, card numbers stay unique, and a [label] title
+prefix is opt-in.
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**Attachments, checklists and text notes** - what a client may put on a card,
+and into which board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51111e1958">An attachment upload is authorized: signed in, and allowed to edit the card or write the board</a>. Thanks to xet7.</summary>
+
+[UploadBleed](https://wekan.fi/hall-of-fame/uploadbleed/): Meteor-Files' upload
+pipeline stores an attachment with a server-side insert, past the allow rules,
+and its only hook cleaned the file name. Anyone, signed in or not, could put a
+file on any card of any board - published to its members with an activity and
+notifications - and the admin's switch blocking uploads was skipped too. Every
+chunk is authorized on the server now, and a card attachment's board, list and
+swimlane are its card's. Attempts are recorded in Admin Panel / Problems;
+`tests/uploadBleed.test.cjs` drives the decision and fails on any
+FilesCollection whose upload is not checked on the server.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51111e1958">Nothing inserted on one's own card can carry another board's id or checklist</a>. Thanks to xet7.</summary>
+
+[StampBleed](https://wekan.fi/hall-of-fame/stampbleed/): checklists, checklist
+items, text notes and attachments are published by the board id they carry,
+which the server kept as the client sent it, while the insert was checked on
+the card only - so a document on one's own card could be stamped with a private
+board's id, and a checklist item drawn in that board's checklist. The board is
+taken from the card on insert
+([with the #6813 fix](https://github.com/wekan/wekan/commit/4bd6a7f088)),
+and a forged insert is refused and recorded in Admin Panel / Problems. Found
+reviewing the contributed patch for
+[#6813](https://github.com/wekan/wekan/issues/6813), which would have relied on
+the stamp. `tests/stampBleed.test.cjs` fails on any card child without an
+insert board check.
+
+</details>
+
+**Earlier fixes, regression audit** - every fixed vulnerability checked again,
+and the same mistakes found elsewhere closed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebcd02be6f">Siblings of six fixed vulnerabilities closed; every earlier fix is still in place</a>. Thanks to xet7.</summary>
+
+Every Hall of Fame vulnerability without a test naming it was checked against
+the current source; none had been reverted. The same mistakes were found again
+and closed: [FloppyBleed](https://wekan.fi/hall-of-fame/floppybleed/) - an
+upgrade step could copy any server file into an attachment by its stored name;
+[FilePathBleed](https://wekan.fi/hall-of-fame/filebleed/) - a top-level
+`path` let a client point an attachment at any file to delete or read;
+[MoveStorageBleed](https://wekan.fi/hall-of-fame/snowbleed/) - anybody
+who could see a board could delete its attachments through validation;
+[IntegrationBleed](https://wekan.fi/hall-of-fame/integrationbleed/) - the REST
+reads gave webhook URLs to every member;
+[AttachmentMigrationBleed](https://wekan.fi/hall-of-fame/snowbleed/) - migration
+methods answered about any board;
+[LegacyAttachBleed](https://wekan.fi/hall-of-fame/legacyattachbleed/) and
+[MimeStorageBleed](https://wekan.fi/hall-of-fame/mimebleed/) - more
+script types and handler forms are served safely. Attempts are recorded in
+Admin Panel / Problems where they can be attributed. 128 of 137 published
+vulnerabilities now have a named regression test
+(`tests/securityRegressionCoverage.test.cjs`).
+
+</details>
+
+and adds the following new features:
 
 **Board Settings / Card** - the fields every card of a board shows from the
 start.
@@ -225,6 +288,35 @@ cover both states.
 </details>
 
 and fixes the following bugs:
+
+**Board Settings / Card** - a field ticked Show on Card but empty.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccc67ddf68">Show on Card and an empty field: Show empty fields, Show empty or On this card show it</a>. Thanks to mimZD and xet7.</summary>
+
+[#6817](https://github.com/wekan/wekan/issues/6817): on v12.65 a Due date ticked
+in Show on Card was not shown on a card without one. Show on Card says what a
+card can show; an opened card shows a field when it has data. An empty one is
+shown by Card Settings / Card's Show empty fields, the Show empty column, or +
+Add / On this card, all in this release.
+`tests/showOnCardEmptyField6817.test.cjs`
+pins the reporter's board through each.
+
+</details>
+
+**Admin Panel / Attachments** - the Retention page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2799eb900f">Retention shows readable labels, choice names and the default of an empty variable</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6819](https://github.com/wekan/wekan/issues/6819): the page showed only
+variable names, the raw choices, and Default () when a variable was set but
+empty, as a Helm chart or docker-compose file does. Fields have translated
+labels with the variable name beside them, help lines and choice names, and an
+empty variable shows its default. From the reporter's patch;
+`tests/attachmentRetentionLabels6819.test.cjs`.
+
+</details>
 
 **Opened card** - a card opened from its link.
 
@@ -8636,199 +8728,6 @@ says it ran out of time: the v12.38 jobs were cancelled at 1h49m of a
 scripts, which bun.yml runs on each target runner, and the UCS migration's
 `docker-exec.mjs` are not `build.sh` menu entries. They are recorded as
 internals with their reason, and all 1,820 node suites pass.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.38 2026-10-12 WeKan ® release
-
-**In short:** a **GitHub CodeQL** alert on HTML end-tag patterns is fixed.
-**SAML** says why it could not link an existing account and can find it by
-email; **private favorites** show in the header popup, and a dragged **list**
-shows clearly where it will land. **Bun** build fixes restore Android build
-settings and stop native checks hanging, and **AppImage** packaging and the
-**Helm chart** report find their release assets reliably.
-
-This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/715eb2b826">End-tag patterns also match tags that carry attributes</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-Alert 569: a test found a page's script with `<\/script\s*>`, but a browser
-also ends a script at `</script foo="bar">` - a parse error it still renders -
-so the pattern could miss the tag it was looking for. That test, the server
-input sanitizer's `<style>` pattern and one more test now use
-`<\/tag\b[^>]*>`. The sanitizer runs after sanitize-html has removed every tag,
-so its pattern was defence in depth rather than an open hole, and none of these
-is reachable as an attempt on a running WeKan, so nothing is recorded in Admin
-Panel → Problems. `tests/securityAlerts20261012.test.cjs` now fails on the
-loose end-tag shape for script, noscript, style, iframe, textarea and title
-anywhere in the tree, and checks that the fixed pattern finds an end tag with
-junk in it.
-
-</details>
-
-and fixes the following bugs:
-
-**SAML** - linking a SAML login to an existing account.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a9c75efe60">It says why an existing account could not be linked, and finds it by email</a>. Thanks to xet7.</summary>
-
-Linking a SAML login to an existing account, for example one provisioned by
-LDAP, refused with the same "SAML identity does not match this account" for
-every reason - merging off, account already bound, no email, no
-`email_verified=true`, email mismatch - and logged nothing. Each condition now
-writes its own reason to the server log, and a missing `email` or
-`email_verified` in the assertion is named on the sign-in page, because the fix
-is in the IdP. The refusal itself is unchanged and fails closed. With
-`SAML_MERGE_EXISTING_USERS=true`, a login name that IS the assertion's email
-(an email NameID, or `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=email`) also finds the
-account by a verified email instead of trying to create a new user. The docs
-and compose files now describe `email_verified`, the matching rules, and that
-`SAML_ATTRIBUTES` is not used. `tests/samlIdentityBinding.test.cjs` drives the
-login handler through every refusal and the email lookup, including negative
-cases without merging, attestation or a verified local email. A live IdP was
-not available to test against.
-
-</details>
-
-**The header bar** - the Favorites popup.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bcf2305448">Private starred boards show in the Favorites popup</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-The `starredPublicBoards` publication sent only public and instance boards, so
-a user whose favorites were all private boards saw "Make a board favorite" in
-the popup. It now sends every starred board the user may see - public or
-instance, or an active membership, organization, team or domain share -
-through the same visibility builder as the other board publications, so a
-revoked share or stale star still never brings a private board back.
-`tests/publicBoardFavorites.test.cjs` covers the selector for private boards
-and that every relationship clause requires `isActive`. The popup in a running
-browser was not tested here.
-
-</details>
-
-**Board views** - dragging lists.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/205110e3a5">A dragged list shows clearly where it will land</a>. Thanks to mimZD and xet7.</summary>
-
-The drop placeholder has no `--list-width`, so none of the list width rules
-matched it, and it kept `flex-shrink: 1` with no content. In a swimlane wider
-than the window, flexbox shrank it to a thin shadow between two lists. It now
-never shrinks, all three list sortables give it the dragged list's width as
-`min-width`, and it is drawn as a tinted, dashed drop area.
-`tests/listDragPlaceholderVisible.test.cjs` pins the CSS and fails if any list
-sortable in `client/` leaves out the `min-width`. The browser drag itself was
-not run here.
-
-</details>
-
-and fixes the following build bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/929e3051d46ca267246fff4819fc2e62de05563f">Repair target builds and release asset checks</a>. Thanks to xet7.</summary>
-
-The v12.37 Android Bun jobs lost their target variables when Termux cleared
-Docker's environment. Pass them as command arguments after that boundary.
-Sharp has no Android prebuilt addon, so install Termux libvips and compile
-Sharp with its declared addon headers. Android users also need libvips at
-runtime, as documented in the bundle instructions.
-
-Both FreeBSD Bun jobs stalled after an addon dependency install. The following
-load probe had no deadline. It now exits explicitly after loading, terminates
-a stuck probe after 30 seconds, and falls back to source compilation. A Node
-supervisor bounds the final native operation checks to three minutes; failed
-checks still prevent packaging.
-
-The i386 bundle was already attached when its AppImage job reported it absent.
-Read the complete asset list before matching it, avoiding an early-closing
-pipe, and distinguish API errors from a missing asset. The chart report uses
-the available GitHub token and follows pagination links instead of guessing
-pages; its pipeline now preserves a failed planner status. Expected database
-errors and negative Mac smoke fixtures no longer emit CI error annotations.
-
-Regression coverage exercises the failing boundaries directly:
-
-- `tests/buildLogFixes.test.cjs` reproduces Termux's environment reset,
-  checks complete AppImage asset responses and API failures, and terminates
-  hung addon probes without accepting failed native checks.
-- `tests/bunSharpSourceBuild.test.cjs` installs build headers from offline
-  fixtures, removes stale native output and preserves compiler failures.
-- `tests/backfill-charts-pagination.py` runs the actual chart planner against
-  paginated responses, including more than nineteen pages, API errors and
-  an unexpected pagination host.
-- `tests/bunRelease.test.cjs` and `tests/macAppPackaging.test.cjs` verify that
-  expected smoke failures do not annotate successful CI jobs as errors,
-  while real failures retain their diagnostics.
-
-Eleven targeted Node suites, six changelog suites, shell syntax checks and
-workflow validation pass. A real Linux Bun bundle passes bcrypt and argon2
-password checks, a Sharp image operation and the startup smoke gate.
-Android and FreeBSD builds still require their CI environments; native
-macOS archive validation is skipped on Linux. These are build-infrastructure
-changes, with no application UI change requiring a browser test.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.37 2026-10-12 WeKan ® release
-
-**In short:** **Bun** release builds explicitly install the compiler tools
-needed to create the application bundle. A missing Rspack installation is
-reported before compilation starts.
-
-This release fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3d20a9e4a6c4f040037db13a767aeee6587666ed">Bun builds install Rspack before compiling</a>. Thanks to xet7.</summary>
-
-The v12.36 ESM build stopped because Meteor could not find the configuration
-inside `node_modules/@meteorjs/rspack`. The application's own configuration
-was present, but Rspack is a development dependency. The locked npm install
-now explicitly includes development and optional dependencies, including
-native compiler packages, and checks for Rspack's configuration immediately.
-Production npm settings can no longer omit these build tools.
-
-`tests/bunRelease.test.cjs` runs an offline npm fixture that first reproduces
-omitted build dependencies, then installs them with the workflow's flags.
-It also verifies that the lockfile stays unchanged and the configuration
-check runs before compilation. Bun packaging, release attachment tests and
-workflow validation pass. A fresh local dependency install with production
-omission settings and the corrected flags completed, followed by a successful
-Meteor ESM build of the application. Full platform builds still require
-GitHub Actions.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.36 2026-10-12 WeKan ® release
-
-**In short:** The **Bun** release workflow fixes the installer failure that
-blocked every platform build. The selected runtime stays consistent across
-application compilation and platform downloads.
-
-This release fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f24448ebd11a4a49a334dc10f87f00846d84c41a">Bun setup accepts the selected runtime version</a>. Thanks to xet7.</summary>
-
-The v12.35 ESM job passed `bun-v1.4.3` to `oven-sh/setup-bun`, which rejected
-it as invalid semver before Meteor could build. The planner now emits a
-separate `1.4.3` installer version while keeping the full release tag for
-runtime downloads and provenance. All targets still use the same Bun release.
-
-`tests/bun-release.py` verifies installer version conversion, retains the
-original download tag, and rejects malformed and prerelease tags.
-`tests/bunRelease.test.cjs` checks that the workflow sends each value to the
-right consumer. Bun packaging, release attachment tests and workflow
-validation pass. Full platform builds still need verification in GitHub
-Actions; these checks cover the reported setup failure.
 
 </details>
 
