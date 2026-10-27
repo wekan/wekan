@@ -113,8 +113,12 @@ test('Board Settings reveals Scrum minicard fields and preserves independent car
  // checkbox list is gone.
  await expect(popup.locator('input.js-scrum-visibility')).toHaveCount(0);
  await popup.locator('.js-card-settings-menu[data-id="scrum"]').click();
- await expect(popup.locator('.card-settings-line[data-key="scrumBacklogRank"] .card-settings-line-label')).toHaveText('Backlog rank');
- await expect(popup.locator('.card-settings-line[data-key="scrumSprint"] .card-settings-line-label')).toHaveText('Sprint');
+ // Each row is drawn twice since 2026-10-27, once in the Show on Card list and
+ // once in the Show on Minicard list (data-side), so a label is read per side.
+ for(const side of ['card','minicard']){
+  await expect(popup.locator(`.card-settings-line[data-side="${side}"][data-key="scrumBacklogRank"] .card-settings-line-label`)).toHaveText('Backlog rank');
+  await expect(popup.locator(`.card-settings-line[data-side="${side}"][data-key="scrumSprint"] .card-settings-line-label`)).toHaveText('Sprint');
+ }
  for(const side of ['card','minicard']){
   await expect(popup.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumBacklogRank"] .card-field-order-toggle`)).toHaveCount(1);
  }

@@ -47,7 +47,10 @@ test('Board Settings / Card reorders each list by drag and drop and by the arrow
       const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
       return order.indexOf('dueDate') < order.indexOf('receivedDate');
     }).toBe(true);
-    await expect(page.locator('.card-settings-list-card .js-card-field-order-row').first()).toHaveAttribute('data-key', 'dueDate');
+    // First of the rows that HAVE a place: the Date section's card list opens
+    // with Mark as complete, a head row of the card's title bar drawn at a
+    // fixed place (models/lib/cardFieldOrder.js), never moved by the order.
+    await expect(page.locator('.card-settings-list-card .js-card-field-order-row.is-positioned').first()).toHaveAttribute('data-key', 'dueDate');
     // The minicard's list is its own order: untouched.
     expect(db.findOne('boards', { _id: board.boardId }).minicardFieldOrder).toBeFalsy();
     // The keyboard: Down on the focused name moves the row one row back.

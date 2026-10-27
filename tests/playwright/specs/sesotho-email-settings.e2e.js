@@ -43,6 +43,18 @@ test('Haitian email settings identify the SMTP server and template purposes', as
   await loginWithToken(page, adminUser.id, adminUser.token);
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
   await navigateInApp(page, '/admin/people/email');
+  // The SMTP fields are drawn only while "Enable below email settings" is
+  // ticked (Nodemailer services, 2026-09-01), which follows the stored
+  // mailServer.enabled - left on or off by whichever spec ran before. Tick it
+  // here when it is off; ticking alone saves nothing (Save below writes it).
+  const enabled = page.locator('#admin-mail-settings-enabled');
+  await expect(enabled).toBeVisible();
+  if (!(await enabled.evaluate(el => el.classList.contains('is-checked')))) {
+    await page.locator('.js-toggle-admin-mail-settings').click();
+  }
+  // The host is the custom SMTP service's field, not a named service's.
+  await page.locator('#mail-service').selectOption('SMTP');
+  await expect(page.locator('#mail-server-host')).toBeVisible();
   for (const key of ['smtp-host', 'email-templates-title', 'email-templates-invite-subject', 'email-templates-invite-body', 'email-templates-activity-subject', 'email-templates-activity-body']) {
     await expect(page.getByText(ht[key], { exact: true })).toBeVisible();
   }

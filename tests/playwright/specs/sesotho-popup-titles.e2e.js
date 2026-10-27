@@ -64,8 +64,11 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
     Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
   // The label column's heading of a section pane (docs/Features/Cards/Card-Fields.md).
+  // A pane has two lists since 2026-10-27, Show on Card and Show on Minicard;
+  // the heading text is in the card list's head, the minicard list's head
+  // keeps an empty cell so the columns line up.
   await page.locator('.js-pop-over .js-card-settings-menu[data-id="date"]').click();
-  const heading = page.locator('.js-pop-over .card-settings-pane-head-label');
+  const heading = page.locator('.js-pop-over .card-settings-list[data-side="card"] .card-settings-pane-head-label');
   await expect(heading).toHaveText('Tatellano ya dikarolo tsa karete');
   await expect(heading).not.toContainText('masimo');
   await page.evaluate(() => Popup.close());
