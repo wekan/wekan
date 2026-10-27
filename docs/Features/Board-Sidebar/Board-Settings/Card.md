@@ -48,6 +48,23 @@ open section's rows:
 Under each column's heading, **Select all** and **Select none** set that
 column for every row of the open section at once.
 
+## Show empty fields
+
+The popup opens on **Card**, the first entry of its left menu, from Board
+Settings and from **+ Add** alike. Right under that pane's title is **Show
+empty fields**, a board-wide switch, off by default, saved to the board
+(`showEmptyCardFields`):
+
+- **Off** - an opened card shows the fields it has data in, plus the fields
+  ticked **Show empty**.
+- **On** - every opened card shows every field ticked **Show on Card**, empty
+  or not. The **Show empty** columns are then hidden in every section, because
+  they have nothing left to decide; what was ticked in them is kept, and comes
+  back into effect when the switch is turned off.
+
+**Ask for a reason when moving cards** sits under it, as the same animated
+checkbox.
+
 The minicard order and the card order are independent: a field can be third
 on the minicard and last on the card. On a narrow screen the menu stacks above
 the pane, as it does in the Admin Panel.
@@ -169,6 +186,13 @@ All are on by default except the minicard's forecast.
   `applyMinicardOrder`) and the move (`moveKey`). Pure, tested without
   Meteor by `tests/cardFieldOrderLayout.test.cjs` and
   `tests/cardFieldOrder.test.cjs`.
+- `models/lib/cardShownFields.js` - which fields an opened card shows:
+  `isShown()` reads the board's `cardFieldsAlwaysShown` (the Show empty
+  column, written by `board.setCardFieldAlwaysShown()`) and
+  `showEmptyCardFields` (`board.setShowEmptyCardFields()`). A linked card is
+  decided from its source card's data. Pinned by
+  `tests/cardFieldsAlwaysShown6806.test.cjs` and
+  `tests/linkedCardShownFields.test.cjs`.
 - `models/lib/cardSettingsRows.js` - the rows of the popup: toggle class,
   board field, icons and label keys of every setting.
 - Stored on the board as `cardFieldOrder` and `minicardFieldOrder`, flat
