@@ -556,7 +556,7 @@ async function digestMatches(file, digest) {
   for await (const chunk of fs.createReadStream(file)) hash.update(chunk);
   return `sha256:${hash.digest('hex')}`.toLowerCase() === digest.toLowerCase();
 }
-export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
+export function syncGit(mirror, run = command, exists = fs.existsSync, tools, checkout = process.env.WEKAN_MIRROR_SOURCE_CHECKOUT || root) {
   const sourceName = mirror.sourceName || 'github', sourceUrl = forges[sourceName].git;
   // WEKAN_MIRROR_TOOLS_DIR relocates the mirror checkouts (tests use a
   // temporary directory so a developer's real checkouts are never read).
@@ -580,67 +580,83 @@ export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
   let sourceRepo;
   let pushRefs;
   let otherRefs;
-  if (organization === 'wekan' && repository === 'wekan') {
-    // Keep mirror refs out of the working WeKan checkout. The path follows
-    // the script's checkout on macOS, Linux and Windows.
-    sourceRepo = path.join(tools, `wekan-${sourceName}`);
-    fs.mkdirSync(tools, { recursive: true });
-    if (!exists(sourceRepo)) run('git', ['clone', sourceUrl, sourceRepo]);
-    const namespace = `refs/mirror-source/${sourceName}`;
-    const heads = `${namespace}/heads/`;
-    const tags = `${namespace}/tags/`;
-    run('git', ['-C', sourceRepo, 'fetch', '--prune', '--no-tags', sourceUrl,
-      `+refs/heads/*:${heads}*`, `+refs/tags/*:${tags}*`]);
-    const refs = run('git', ['-C', sourceRepo, 'for-each-ref', '--format=%(refname)',
-      `${namespace}/heads`, `${namespace}/tags`]).trim().split(/\r?\n/).filter(Boolean);
-    if (!refs.length) return false;
-    const destination = ref => {
-      if (ref.startsWith(heads)) return `refs/heads/${ref.slice(heads.length)}`;
-      if (ref.startsWith(tags)) return `refs/tags/${ref.slice(tags.length)}`;
-      throw new Error('Unexpected source Git ref');
-    };
-    pushRefs = refs.map(ref => `${ref}:${destination(ref)}`);
-    otherRefs = refs.filter(ref => destination(ref) !== `refs/heads/${defaultBranch}`)
-      .map(ref => `${ref}:${destination(ref)}`);
-  } else {
-    // Other repositories in an organization may not have a local checkout.
-    sourceRepo = path.join(tools, `wekan-${sourceName}-mirror.git`);
-    fs.mkdirSync(tools, { recursive: true });
-    if (!exists(sourceRepo)) run('git', ['clone', '--mirror', sourceUrl, sourceRepo]);
-    else run('git', ['-C', sourceRepo, 'fetch', 'origin']);
-    const refs = run('git', ['-C', sourceRepo, 'for-each-ref', '--format=%(refname)',
-      'refs/heads', 'refs/tags']).trim().split(/\r?\n/).filter(Boolean);
-    if (!refs.length) return false;
-    if (refs.some(ref => !/^refs\/(heads|tags)\//.test(ref))) throw new Error('Unexpected source Git ref');
-    pushRefs = ['refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*'];
-    otherRefs = refs.filter(ref => ref !== `refs/heads/${defaultBranch}`).map(ref => `${ref}:${ref}`);
-  }
+  let sourceNamespace;
+  // try...finally from the first fetch on: a fetch, push or retry that fails
+  // still removes whatever the fetch put into the WeKan checkout.
   try {
-    run('git', ['-C', sourceRepo, 'push', mirror.url, ...pushRefs]);
-  } catch (original) {
-    // Older mirror.sh runs merged GitHub into destination main. Such a main
-    // is no longer an ancestor of GitHub main; preserve those merge commits.
-    const checkout = path.join(tools, `wekan-${mirror.name}`);
+    if (organization === 'wekan' && repository === 'wekan') {
+      // The source is THIS checkout (~/repos/wekan on Linux,
+      // ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows): it
+      // already holds nearly every object, so the source's branches and tags
+      // are fetched into it under a private namespace - not a 500 MB second
+      // clone in .tools/wekan-github. That namespace is not a branch, the
+      // working tree and local main are untouched (unpushed local commits are
+      // never sent to a mirror), and it is deleted again after the push.
+      sourceRepo = checkout;
+      fs.mkdirSync(tools, { recursive: true });
+      const namespace = `refs/mirror-source/${sourceName}`;
+      sourceNamespace = namespace;
+      const heads = `${namespace}/heads/`;
+      const tags = `${namespace}/tags/`;
+      run('git', ['-C', sourceRepo, 'fetch', '--prune', '--no-tags', sourceUrl,
+        `+refs/heads/*:${heads}*`, `+refs/tags/*:${tags}*`]);
+      const refs = run('git', ['-C', sourceRepo, 'for-each-ref', '--format=%(refname)',
+        `${namespace}/heads`, `${namespace}/tags`]).trim().split(/\r?\n/).filter(Boolean);
+      if (!refs.length) return false;
+      const destination = ref => {
+        if (ref.startsWith(heads)) return `refs/heads/${ref.slice(heads.length)}`;
+        if (ref.startsWith(tags)) return `refs/tags/${ref.slice(tags.length)}`;
+        throw new Error('Unexpected source Git ref');
+      };
+      pushRefs = refs.map(ref => `${ref}:${destination(ref)}`);
+      otherRefs = refs.filter(ref => destination(ref) !== `refs/heads/${defaultBranch}`)
+        .map(ref => `${ref}:${destination(ref)}`);
+    } else {
+      // Other repositories in an organization may not have a local checkout.
+      sourceRepo = path.join(tools, `wekan-${sourceName}-mirror.git`);
+      fs.mkdirSync(tools, { recursive: true });
+      if (!exists(sourceRepo)) run('git', ['clone', '--mirror', sourceUrl, sourceRepo]);
+      else run('git', ['-C', sourceRepo, 'fetch', 'origin']);
+      const refs = run('git', ['-C', sourceRepo, 'for-each-ref', '--format=%(refname)',
+        'refs/heads', 'refs/tags']).trim().split(/\r?\n/).filter(Boolean);
+      if (!refs.length) return false;
+      if (refs.some(ref => !/^refs\/(heads|tags)\//.test(ref))) throw new Error('Unexpected source Git ref');
+      pushRefs = ['refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*'];
+      otherRefs = refs.filter(ref => ref !== `refs/heads/${defaultBranch}`).map(ref => `${ref}:${ref}`);
+    }
     try {
-      if (!exists(checkout)) run('git', ['clone', '--branch', defaultBranch, mirror.url, checkout]);
-      if (run('git', ['-C', checkout, 'status', '--porcelain']).trim()) throw new Error('Mirror checkout has local changes; preserved');
-      if (run('git', ['-C', checkout, 'symbolic-ref', '--short', 'HEAD']).trim() !== defaultBranch) throw new Error('Mirror checkout is not on main; preserved');
-      for (const key of ['user.name', 'user.email']) {
-        const identity = run('git', ['-C', root, 'config', key]).trim();
-        if (!identity) throw new Error(`Configure ${key} in the WeKan checkout for mirror merge commits`);
-        run('git', ['-C', checkout, 'config', key, identity]);
-      }
-      for (const url of [mirror.url, sourceUrl]) {
-        run('git', ['-C', checkout, 'fetch', url, defaultBranch]);
-        try { run('git', ['-C', checkout, 'merge', '--no-edit', 'FETCH_HEAD']); }
-        catch (error) {
-          try { run('git', ['-C', checkout, 'merge', '--abort']); } catch { /* Original error is reported. */ }
-          throw error;
+      run('git', ['-C', sourceRepo, 'push', mirror.url, ...pushRefs]);
+    } catch (original) {
+      // Older mirror.sh runs merged GitHub into destination main. Such a main
+      // is no longer an ancestor of GitHub main; preserve those merge commits.
+      const mirrorCheckout = path.join(tools, `wekan-${mirror.name}`);
+      try {
+        if (!exists(mirrorCheckout)) run('git', ['clone', '--branch', defaultBranch, mirror.url, mirrorCheckout]);
+        if (run('git', ['-C', mirrorCheckout, 'status', '--porcelain']).trim()) throw new Error('Mirror checkout has local changes; preserved');
+        if (run('git', ['-C', mirrorCheckout, 'symbolic-ref', '--short', 'HEAD']).trim() !== defaultBranch) throw new Error('Mirror checkout is not on main; preserved');
+        for (const key of ['user.name', 'user.email']) {
+          const identity = run('git', ['-C', root, 'config', key]).trim();
+          if (!identity) throw new Error(`Configure ${key} in the WeKan checkout for mirror merge commits`);
+          run('git', ['-C', mirrorCheckout, 'config', key, identity]);
         }
-      }
-      run('git', ['-C', checkout, 'push', mirror.url, `HEAD:refs/heads/${defaultBranch}`]);
-      if (otherRefs.length) run('git', ['-C', sourceRepo, 'push', mirror.url, ...otherRefs]);
-    } catch (error) { throw new Error(`${original.message}; merge-preserving retry: ${error.message}`); }
+        for (const url of [mirror.url, sourceUrl]) {
+          run('git', ['-C', mirrorCheckout, 'fetch', url, defaultBranch]);
+          try { run('git', ['-C', mirrorCheckout, 'merge', '--no-edit', 'FETCH_HEAD']); }
+          catch (error) {
+            try { run('git', ['-C', mirrorCheckout, 'merge', '--abort']); } catch { /* Original error is reported. */ }
+            throw error;
+          }
+        }
+        run('git', ['-C', mirrorCheckout, 'push', mirror.url, `HEAD:refs/heads/${defaultBranch}`]);
+        if (otherRefs.length) run('git', ['-C', sourceRepo, 'push', mirror.url, ...otherRefs]);
+      } catch (error) { throw new Error(`${original.message}; merge-preserving retry: ${error.message}`); }
+    }
+  } finally {
+    if (sourceNamespace) {
+      // The source refs fetched into the WeKan checkout go again, pushed or not.
+      const fetched = run('git', ['-C', sourceRepo, 'for-each-ref', '--format=delete %(refname)', sourceNamespace]);
+      if (fetched.trim()) run('git', ['-C', sourceRepo, 'update-ref', '--stdin'], fetched);
+    }
   }
   if (!exists(existingCheckout)) run('git', ['clone', '--branch', defaultBranch, mirror.url, existingCheckout]);
 }

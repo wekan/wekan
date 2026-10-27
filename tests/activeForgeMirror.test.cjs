@@ -285,6 +285,9 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     assert.throws(() => m.syncGit({ name: 'codeberg', url: 'git@codeberg.org:wekan/wekan' }, bad, () => true, work), /local changes; preserved/);
   });
   await test('WeKan clones missing mirror repositories under the tools directory', () => {
+    // The source is the WeKan checkout itself (a stand-in here): GitHub's refs
+    // are fetched into it, never a second clone in .tools/wekan-github.
+    const source = path.join(work, 'checkout');
     const calls = [];
     const run = (tool, args) => {
       assert.equal(tool, 'git');
@@ -295,17 +298,21 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
       return '';
     };
     assert.equal(m.syncGit({ name: 'gitlab', url: 'git@gitlab.com:wekan/wekan' },
-      run, () => false, work), undefined);
-    assert.ok(calls.some(args => args[0] === '-C' && args[1] === path.join(work, 'wekan-github')
+      run, () => false, work, source), undefined);
+    assert.ok(calls.some(args => args[0] === '-C' && args[1] === source
       && args.includes('fetch') && args.includes('--prune') && args.includes('--no-tags')));
-    assert.ok(calls.some(args => args[0] === '-C' && args[1] === path.join(work, 'wekan-github')
+    assert.ok(calls.some(args => args[0] === '-C' && args[1] === source
       && args.includes('refs/mirror-source/github/heads/main:refs/heads/main')
       && args.includes('refs/mirror-source/github/tags/v1:refs/tags/v1')));
-    assert.ok(calls.some(args => args.includes('clone') && args.at(-1) === path.join(work, 'wekan-github')));
+    // negative: the source is not cloned; only the destination mirror is.
+    assert.ok(!calls.some(args => args.includes('clone') && /wekan-github$/.test(args.at(-1))));
     assert.ok(calls.some(args => args.includes('clone') && args.at(-1) === path.join(work, 'wekan-gitlab')));
+    // And the fetched source refs are deleted from the checkout afterwards.
+    assert.ok(calls.some(args => args[1] === source && args.includes('update-ref') && args.includes('--stdin')));
     assert.ok(!calls.filter(args => args.includes('push')).flat().some(arg => arg === '--force' || arg === '--mirror'));
   });
   await test('WeKan divergence recovery still preserves destination main', () => {
+    const source = path.join(work, 'checkout');
     const calls = [];
     const run = (tool, args) => {
       assert.equal(tool, 'git');
@@ -313,7 +320,7 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
       if (args.includes('for-each-ref')) {
         return 'refs/mirror-source/github/heads/main\nrefs/mirror-source/github/heads/devel\nrefs/mirror-source/github/tags/v1\n';
       }
-      if (args[1] === path.join(work, 'wekan-github') && args.includes('push')
+      if (args[1] === source && args.includes('push')
         && args.includes('refs/mirror-source/github/heads/main:refs/heads/main')) {
         throw new Error('non-fast-forward');
       }
@@ -324,10 +331,10 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
       return '';
     };
     m.syncGit({ name: 'codeberg', url: 'git@codeberg.org:wekan/wekan' },
-      run, () => false, work);
+      run, () => false, work, source);
     assert.equal(calls.filter(args => args.includes('merge') && args.includes('--no-edit')).length, 2);
     assert.ok(calls.some(args => args.includes('HEAD:refs/heads/main')));
-    assert.ok(calls.some(args => args[1] === path.join(work, 'wekan-github')
+    assert.ok(calls.some(args => args[1] === source
       && args.includes('refs/mirror-source/github/heads/devel:refs/heads/devel')
       && args.includes('refs/mirror-source/github/tags/v1:refs/tags/v1')));
     assert.ok(!calls.some(args => args.includes('push') && args.includes('--mirror')));
@@ -362,13 +369,17 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     const result = spawnSync(process.execPath, [path.join(root, 'tools/mirror-active-forges.mjs'), '--apply', '--code', '--skip-archive', '--target', 'gitlab', '--snapshot', file], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_GIT_RECORDER: recorder,
       // Never the developer's real .tools/wekan-<forge> checkouts: whether one
       // exists must not decide which path this test exercises.
-      WEKAN_MIRROR_TOOLS_DIR: path.join(work, 'mirror-tools') } });
+      WEKAN_MIRROR_TOOLS_DIR: path.join(work, 'mirror-tools'),
+      // nor the real WeKan checkout, which is the source of a wekan/wekan sync.
+      WEKAN_MIRROR_SOURCE_CHECKOUT: path.join(work, 'source-checkout') } });
     const logdir = result.stdout.match(/Report: ([^\r\n]+)/)?.[1];
     try {
       assert.equal(result.status, 0, result.stdout + result.stderr);
       const git = fs.readFileSync(recorder, 'utf8');
-      assert.match(git, /-C .*\/wekan-github fetch --progress --prune --no-tags https:\/\/github\.com\/wekan\/wekan\.git/);
-      assert.match(git, /clone --progress https:\/\/github\.com\/wekan\/wekan\.git/);
+      assert.match(git, /-C .*\/source-checkout fetch --progress --prune --no-tags https:\/\/github\.com\/wekan\/wekan\.git/);
+      // negative: GitHub's wekan is not cloned again - the checkout is the source.
+      assert.doesNotMatch(git, /clone --progress https:\/\/github\.com\/wekan\/wekan\.git/);
+      assert.match(git, /-C .*\/source-checkout update-ref --stdin/);
       assert.match(git, /for-each-ref --format=%\(refname\) refs\/mirror-source\/github\/heads refs\/mirror-source\/github\/tags/);
       assert.match(git, /push --progress git@gitlab\.com:wekan\/wekan refs\/mirror-source\/github\/heads\/main:refs\/heads\/main/);
       assert.ok(!/--force|refs\/codex|--all/.test(git));

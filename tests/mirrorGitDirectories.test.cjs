@@ -28,14 +28,19 @@ const path = require('node:path');
   assert.deepEqual(settings.loadSettings(work, ['gitlab','codeberg','sourceforge']).mirrors, ['gitlab','codeberg','sourceforge']);
   const calls=[];
   const run=(tool,args)=>{ calls.push(args); return args.includes('for-each-ref') ? 'refs/mirror-source/github/heads/main\n' : ''; };
-  m.syncGit({name:'gitlab',url:'https://example.invalid/repo.git'},run,()=>false,work);
-  assert.ok(calls.some(args=>args[0]==='clone' && args.at(-1)===path.join(work,'wekan-github')));
+  // The source is the WeKan checkout itself (a stand-in): fetched into, not cloned.
+  const source=path.join(work,'checkout');
+  m.syncGit({name:'gitlab',url:'https://example.invalid/repo.git'},run,()=>false,work,source);
+  assert.ok(!calls.some(args=>args[0]==='clone' && /wekan-github$/.test(args.at(-1))));
+  assert.ok(calls.some(args=>args[0]==='-C' && args[1]===source && args.includes('fetch')));
   assert.ok(calls.some(args=>args[0]==='clone' && args.at(-1)===path.join(work,'wekan-gitlab')));
   assert.ok(!calls.some(args=>args[0]==='-C' && args[1]===m.root));
   assert.ok(!calls.some(args=>args.includes('push') && (args.includes('--force') || args.includes('--mirror'))));
   const stopped=[];
-  assert.throws(()=>m.syncGit({name:'gitlab',url:'https://example.invalid/repo.git'},(tool,args)=>{ stopped.push(args); if(args.includes('clone')) throw new Error('clone failed'); return ''; },()=>false,work), /clone failed/);
+  // A failed fetch stops before any push, and still clears the source refs.
+  assert.throws(()=>m.syncGit({name:'gitlab',url:'https://example.invalid/repo.git'},(tool,args)=>{ stopped.push(args); if(args.includes('fetch')) throw new Error('fetch failed'); return ''; },()=>false,work,source), /fetch failed/);
   assert.ok(!stopped.some(args=>args.includes('push')));
+  assert.ok(stopped.some(args=>args.includes('for-each-ref') && args.includes('refs/mirror-source/github')));
  } finally { fs.rmSync(work,{recursive:true,force:true}); }
- console.log('mirror bootstrap: source/destination clones, spaces, stale Codeberg settings and clone failure verified with injected commands');
+ console.log('mirror bootstrap: the checkout as source, destination clones, spaces, stale Codeberg settings and fetch failure verified with injected commands');
 })().catch(error => { console.error(error); process.exitCode = 1; });
