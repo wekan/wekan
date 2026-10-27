@@ -146,10 +146,18 @@ const CATALOG = {
   // card with ANOTHER board's id (or an item into another card's checklist) -
   // published to that board and drawn in its checklists. server/lib/cardChildStamp.js
   'authz.card-child-stamp': { category: 'authz', bleed: 'StampBleed', severity: 'high', cwe: 'CWE-639' },
+  // AttachmentMigrationBleed (a SnowBleed finding): a board migration method
+  // asked about a board the caller cannot see (server/lib/migrationBoardAccess.js).
+  // No WeKan client calls those methods, so it is an attempt; it does not block
+  // the account, since the answer is refused either way.
+  'authz.migration-board': { category: 'authz', bleed: 'AttachmentMigrationBleed', severity: 'medium', cwe: 'CWE-862', blocksAccount: false },
   // UploadBleed: an attachment upload through Meteor-Files' own pipeline, which
   // inserts past the allow rules, by somebody not signed in or onto a card or
   // board they cannot write to. models/lib/attachmentUploadAuth.js
   'authz.attachment-upload': { category: 'authz', bleed: 'UploadBleed', severity: 'critical', cwe: 'CWE-862' },
+  // MoveStorageBleed sibling: validateAttachment - which deletes a file failing
+  // the current upload rules - asked by somebody who cannot change it.
+  'authz.attachment-validate': { category: 'authz', bleed: 'MoveStorageBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.comment':   { category: 'authz', bleed: 'CommentBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.file-path': { category: 'authz', bleed: 'PathBleed', severity: 'high', cwe: 'CWE-22' },
   'authz.attachment-file-path': { category: 'authz', bleed: 'FilePathBleed', severity: 'high', cwe: 'CWE-22' },

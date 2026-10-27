@@ -206,7 +206,12 @@ async function createMeteorFilesDocFromStream(cfg, info) {
   const newId = new ObjectId().toString();
   const name = info.name || newId;
   const dot = name.lastIndexOf('.');
-  const ext = dot >= 0 ? name.slice(dot + 1).toLowerCase() : '';
+  // FloppyBleed / BackupFileBleed shape: the stored name is user-supplied (a
+  // legacy CollectionFS record predates upload-time sanitizing), and whatever
+  // follows its last dot is joined into the on-disk path below. A name such as
+  // "a./../../x" made that "extension" a traversal, so it is reduced to the
+  // characters an extension has.
+  const ext = dot >= 0 ? name.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 16) : '';
   const storagePath = cfg.factory.storagePath;
   const fileName = ext ? `${newId}.${ext}` : newId;
   const fullPath = path.join(storagePath, fileName);

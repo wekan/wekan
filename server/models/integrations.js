@@ -15,14 +15,33 @@ Meteor.startup(async () => {
   await ensureIndex(Integrations, { boardId: 1 });
 });
 
+// HookUrlBleed, REST sibling (IntegrationBleed area): the board publication
+// sends an integration's URL to the board's admins only, because a
+// Slack/Mattermost/Teams incoming-webhook URL carries its secret in the path
+// (tests/webhookUrlPublication.test.cjs). These two REST reads let any member
+// who reads the whole board - read-only and comment-only members included -
+// receive that same URL. Board admins and site admins still get everything but
+// the token; everybody else gets exactly what the publication gives them. Not
+// recorded in Admin Panel -> Problems: an API client of an ordinary member
+// reaches this in normal use, so it is not an attempt.
+async function integrationFieldsFor(userId, boardId) {
+  const board = await ReactiveCache.getBoard(boardId);
+  const boardAdmin = ((board && board.members) || []).some(
+    m => m.userId === userId && m.isActive && m.isAdmin,
+  );
+  const siteAdmin = !boardAdmin && !!(await ReactiveCache.getUser({ _id: userId, isAdmin: true }));
+  return boardAdmin || siteAdmin ? { token: 0 } : { boardId: 1, enabled: 1, activities: 1 };
+}
+
 WebApp.handlers.get('/api/boards/:boardId/integrations', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const fields = await integrationFieldsFor(req.userId, paramBoardId);
 
     const data = (await ReactiveCache.getIntegrations(
       { boardId: paramBoardId },
-      { fields: { token: 0 } },
+      { fields },
     )).map(function(doc) {
       return doc;
     });
@@ -38,12 +57,13 @@ WebApp.handlers.get('/api/boards/:boardId/integrations/:intId', async function(r
     const paramBoardId = req.params.boardId;
     const paramIntId = req.params.intId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const fields = await integrationFieldsFor(req.userId, paramBoardId);
 
     sendJsonResult(res, {
       code: 200,
       data: await ReactiveCache.getIntegration(
         { _id: paramIntId, boardId: paramBoardId },
-        { fields: { token: 0 } },
+        { fields },
       ),
     });
   } catch (error) {

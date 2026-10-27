@@ -25,6 +25,10 @@
 // The second half pins the sinks: the importers must download through
 // fetchSafe, and must not go back to a bare redirect-following fetch() — the
 // regression the reporter asked for by name.
+//
+// The last test is also the regression guard for ImportLegacyBleed
+// (GHSL-2026-045, GitHub Security Lab report of 2026-02-12): attachment URLs of an imported Trello
+// or WeKan board were fetched without SSRF validation.
 
 const assert = require('assert');
 const fs = require('fs');

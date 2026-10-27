@@ -6,7 +6,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
-const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
+const { fileResponsePolicy, fileNameIsBrowserExecutable } = require('/models/lib/fileResponseSafety');
 
 // Ensure this file is loaded
 if (process.env.DEBUG === 'true') {
@@ -114,8 +114,9 @@ if (Meteor.isServer) {
 
       // Treat every browser-executable MIME type like SVG: serve it as an
       // opaque download under a sandbox, regardless of untrusted stored type.
-      const isSvgFile = attachment.name && attachment.name.toLowerCase().endsWith('.svg');
-      const policy = fileResponsePolicy(attachment.type, isSvgFile);
+      // LegacyAttachBleed (GHSA-xcxp-hx9w-q5q9): by NAME too, for every
+      // browser-executable extension - not only .svg - as models/lib/httpStream.js does.
+      const policy = fileResponsePolicy(attachment.type, fileNameIsBrowserExecutable(attachment.name));
       res.setHeader('Content-Type', policy.contentType);
       res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(attachment.name)));
       for (const [name, value] of Object.entries(policy.headers)) {

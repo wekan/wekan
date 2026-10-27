@@ -2158,6 +2158,15 @@ Accounts.onCreateUser(async (options, user) => {
       authEnv('OAUTH2_MERGE_EXISTING_USERS') === 'true';
     const emailVerified = user.services.oidc.email_verified === true;
     if (!mergeExistingUsers || !emailVerified) {
+      // OIDCBleed (GHSA-mp7g-hj5q-gxhq): the refused link is summarized in
+      // Admin Panel -> Problems, as the other OAuth providers, CAS and SAML
+      // record theirs (server/lib/oauthProviders.js).
+      try {
+        require('/server/lib/canary').tripCanary('oauth.account-conflict', {
+          username: existingUser.username,
+          provider: 'oidc',
+        });
+      } catch (e) { /* logging must never break the guard */ }
       throw new Meteor.Error(
         'oidc-email-already-in-use',
         'OIDC login succeeded, but there is already a Wekan account with this ' +

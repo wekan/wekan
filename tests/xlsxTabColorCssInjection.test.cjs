@@ -1,6 +1,6 @@
 'use strict';
 
-// SheetColorBleed: an XLSX member may supply sheetPr/tabColor@rgb, but those
+// SheetColorBleed (GHSA-crq2-phg8-4xvg, CWE-79, CWE-116): an XLSX member may supply sheetPr/tabColor@rgb, but those
 // bytes may control only a color token, never additional CSS declarations.
 //
 // The original fix canonicalized that color before it entered a server-

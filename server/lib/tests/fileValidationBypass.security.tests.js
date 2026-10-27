@@ -1,5 +1,6 @@
 /* eslint-env mocha */
-// MimeBleed and MimeStorageBleed - upload-side MIME and active-content guards.
+// MimeBleed and MimeStorageBleed (GHSA-jhph-whx8-wq6p, GHSA-rv5g-5p4g-3v89) -
+// upload-side MIME and active-content guards.
 // Named for tests/securityRegressionCoverage.test.cjs, which checks the published
 // Hall of Fame list against the tests that guard it - a test that does not say
 // which vulnerability it belongs to cannot be checked against that list.

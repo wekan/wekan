@@ -1,6 +1,10 @@
 'use strict';
 
-// Regression coverage for CookieTokenBleed.
+// Regression coverage for CookieTokenBleed (GHSA-8phm-9rqm-v9hc): WeKan's
+// browser JavaScript mirrored Meteor's persistent resume token into a readable
+// cookie, and Meteor kept it in Local Storage too. Meteor 3.5's native HttpOnly
+// resume-cookie flow replaces both; nothing in the client tree may write a
+// login token to a cookie or to Web Storage again.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -90,4 +94,35 @@ vm.runInNewContext(startup, { Accounts: {
   loginWithCookie() { cookieResumes++; },
 } });
 assert.equal(cookieResumes, 1);
+
+// Negative (CookieTokenBleed): the readable copy exists nowhere in code that
+// reaches the browser - no cookie and no Web Storage entry carries a token.
+{
+  const offenders = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+      if (['node_modules', 'tests', 'server'].includes(entry.name) || entry.name.startsWith('_build') || entry.name.startsWith('.')) continue;
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) { walk(rel); continue; }
+      if (!/\.(js|jsx|ts|mjs|html)$/.test(entry.name)) continue;
+      const src = read(rel);
+      for (const m of src.matchAll(/document\.cookie\s*=([^;\n]*)/g)) {
+        // The CAS client's ten-minute wekan_cas_state nonce is a login-flow
+        // state value, not a session credential, so only session tokens count.
+        if (/resume|login_?token|_storedLoginToken|authToken|Meteor\.loginToken/i.test(m[1])) offenders.push(`${rel}: ${m[0]}`);
+      }
+      for (const m of src.matchAll(/(?:local|session)Storage\.setItem\(([^)]*)\)/g)) {
+        if (/Meteor\.loginToken|loginToken|resume|_storedLoginToken/i.test(m[1])) offenders.push(`${rel}: ${m[0]}`);
+      }
+      if (/Accounts\.config\([^)]*clientStorage:\s*'(?:local|session)'/.test(src)) offenders.push(`${rel}: persistent clientStorage`);
+    }
+  };
+  for (const dir of ['client', 'imports', 'models', 'config', 'packages']) {
+    if (fs.existsSync(path.join(root, dir))) walk(dir);
+  }
+  assert.deepEqual(offenders, [], 'a login token copied where browser scripts can read it');
+  // Self-check: the scan recognises the removed shape.
+  assert.match('document.cookie = `meteor_login_token=${Accounts._storedLoginToken()}`', /document\.cookie\s*=[^;\n]*_storedLoginToken/);
+}
+
 console.log('httpOnlySessionCookie: cookie guards and legacy startup scenarios passed');

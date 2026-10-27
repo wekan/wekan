@@ -38,6 +38,9 @@ function headLooksDangerous(text) {
   if (/<\s*(script|svg|iframe|object|embed|foreignobject|meta\b)/i.test(text)) return true;
   if (/<!doctype|<!entity|<\?xml-stylesheet/i.test(text)) return true; // XML loop / DTD
   if (/\son\w+\s*=/i.test(text)) return true;                          // inline handlers
+  // MimeStorageBleed (GHSA-rv5g-5p4g-3v89): HTML allows a slash between the tag
+  // name and the handler, so `<img/onerror=...>` has no whitespace before `on`.
+  if (/<[^>]*\/on[a-z-]{1,40}\s*=/i.test(text)) return true;
   if (/javascript:|vbscript:/i.test(text)) return true;
   return false;
 }

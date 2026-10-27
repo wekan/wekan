@@ -1,6 +1,16 @@
 'use strict';
 
-// Regression coverage for AvatarMimeBleed, LegacyAttachBleed and SwimlaneBleed.
+// Regression coverage for AvatarMimeBleed (GHSA-4mjm-vj9f-p629), MimeStorageBleed
+// (GHSA-rv5g-5p4g-3v89: storage-strategy response policy and filesystem
+// upload validation; its markup sniff is in tests/mimeStorageBleed.test.cjs),
+// LegacyAttachBleed (GHSA-xcxp-hx9w-q5q9)
+// and SwimlaneBleed (GHSA-2x89-6mq2-834r: ensureDefaultSwimlane required only
+// read membership; it now needs board write access and records refusals).
+//
+// LegacyAttachBleed: the CollectionFS-compatible attachment route sandboxed SVG
+// files only, and served stored HTML, XML and JavaScript types active. Every
+// browser-executable type - by stored MIME, by `+xml` suffix, or by file name -
+// now gets the one opaque, sandboxed download policy of fileResponseSafety.js.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -36,6 +46,49 @@ test('browser-executable stored MIME types are sandboxed opaque downloads', () =
   assert.equal(image.contentType, 'image/png');
   assert.equal(image.forceDownload, false);
   assert.equal(image.headers['X-Content-Type-Options'], 'nosniff');
+});
+
+test('LegacyAttachBleed: script aliases, XSLT and every +xml type are sandboxed too', () => {
+  for (const type of [
+    'application/x-javascript', 'application/ecmascript', 'text/ecmascript',
+    'text/xsl', 'application/rss+xml', 'application/atom+xml',
+    'application/vnd.example+xml; charset=utf-8', 'IMAGE/SVG+XML',
+  ]) {
+    const policy = fileResponsePolicy(type);
+    assert.equal(policy.contentType, 'application/octet-stream', type);
+    assert.equal(policy.forceDownload, true, type);
+    assert.match(policy.headers['Content-Security-Policy'], /sandbox/, type);
+  }
+  // Negative: ordinary documents and images keep their type.
+  for (const type of ['application/pdf', 'text/plain', 'image/jpeg', 'application/zip']) {
+    assert.equal(fileResponsePolicy(type).forceDownload, false, type);
+  }
+});
+
+test('negative: no file route decides the policy by an SVG-only name check (LegacyAttachBleed)', () => {
+  // The original fault: protection keyed on `.svg` alone. Every caller of the
+  // shared policy passes the full browser-executable name check instead.
+  const callers = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+      if (['node_modules', 'tests', '.tools'].includes(entry.name) || entry.name.startsWith('_build') || entry.name.startsWith('.')) continue;
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(rel);
+      else if (entry.name.endsWith('.js') && /fileResponsePolicy\(/.test(read(rel)) && rel !== path.join('models', 'lib', 'fileResponseSafety.js')) callers.push(rel);
+    }
+  };
+  for (const dir of ['server', 'models', 'imports', 'packages']) if (fs.existsSync(path.join(root, dir))) walk(dir);
+  assert.ok(callers.length >= 3, callers.join(', '));
+  for (const rel of callers) {
+    const src = read(rel);
+    assert.doesNotMatch(src, /fileResponsePolicy\([^)]*isSvg/, `${rel}: an SVG-only name check`);
+    for (const m of src.matchAll(/fileResponsePolicy\(([^()]*(?:\([^()]*\))?[^()]*)\)/g)) {
+      const args = m[1].split(',').map(a => a.trim());
+      if (args.length > 1) assert.match(args[1], /^fileNameIsBrowserExecutable\(/, `${rel}: ${m[0]}`);
+    }
+  }
+  assert.match(read('server/routes/legacyAttachments.js'),
+    /fileResponsePolicy\(attachment\.type, fileNameIsBrowserExecutable\(attachment\.name\)\)/);
 });
 
 test('browser-executable filenames are downloads even when stored MIME is spoofed', () => {

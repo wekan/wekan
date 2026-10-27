@@ -1,6 +1,10 @@
 'use strict';
 
-// Regression coverage for ClaimBleed, MembershipBleed and ResetBleed.
+// Regression coverage for ClaimBleed (GHSA-xwv8-m73h-68vg, whitelisted OIDC
+// claims must not replace identity or service-owned token fields),
+// MembershipBleed (GHSA-5r3j-h65h-fg22, logged-out user-authenticationMethod
+// subscriptions) and ResetBleed (GHSA-9cgp-m28v-64xv, account-recovery DDP
+// methods rate-limited per address; denials summarized in Problems).
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

@@ -460,6 +460,17 @@ Meteor.methods({
     // this.connection === null; a direct client call has a non-null
     // connection. Reject the latter.
     if (this.connection !== null) {
+      // No legitimate client calls this, so a direct call is an attempt
+      // (OIDCBleed): summarized in Admin Panel -> Problems through the package
+      // bridge (server/lib/canary.js), since a package cannot import app code.
+      try {
+        if (typeof global.__wekanTripCanary === 'function') {
+          global.__wekanTripCanary('oidc.internal-method-direct', {
+            userId: this.userId || undefined,
+            ip: this.connection && this.connection.clientAddress,
+          });
+        }
+      } catch (e) { /* logging must never break the guard */ }
       throw new Meteor.Error('not-authorized');
     }
     check(info, Object);
@@ -515,6 +526,17 @@ Meteor.methods({
     // as board admin) with no per-user authorization, so reject direct
     // client/DDP calls (this.connection non-null).
     if (this.connection !== null) {
+      // No legitimate client calls this, so a direct call is an attempt
+      // (OIDCBleed): summarized in Admin Panel -> Problems through the package
+      // bridge (server/lib/canary.js), since a package cannot import app code.
+      try {
+        if (typeof global.__wekanTripCanary === 'function') {
+          global.__wekanTripCanary('oidc.internal-method-direct', {
+            userId: this.userId || undefined,
+            ip: this.connection && this.connection.clientAddress,
+          });
+        }
+      } catch (e) { /* logging must never break the guard */ }
       throw new Meteor.Error('not-authorized');
     }
     check(info, Object);

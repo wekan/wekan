@@ -1110,7 +1110,13 @@ async function healOne(db, ctx, { coll, doc, versionName, version }) {
   const writable = ctx.paths.writablePath;
   const filesRoot = path.dirname(destDir);   // <writable>[/files]
   const id = String(doc._id);
-  const name = doc.name || id;
+  // FloppyBleed / BackupFileBleed shape: `name` is user-supplied and was joined
+  // into the candidate paths below as-is. path.join resolves `..`, so a record
+  // named "../../../etc/passwd" (a client can insert one with no version path,
+  // which is exactly what this step heals) found a file OUTSIDE the storage
+  // directory, copied it in and pointed the attachment at it - an arbitrary
+  // file read on the next upgrade boot. Only the last path component is a name.
+  const name = path.basename(String(doc.name || id).replace(/\\/g, '/')) || id;
   const base = version.path ? path.basename(String(version.path).replace(/\\/g, '/')) : '';
 
   const candidates = [];

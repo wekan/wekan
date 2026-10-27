@@ -1,7 +1,9 @@
 'use strict';
 
-// Regression coverage for ChecklistWriteBleed, CommentWriteBleed, RoleBleed,
-// OwnerBleed, TokenAuditBleed and ErrorBleed.
+// Regression coverage for ChecklistWriteBleed (GHSA-5r4m-5xx6-96jf),
+// CommentWriteBleed (GHSA-qf5c-63jx-mpv4), RoleBleed (GHSA-cp24-5m9m-wm97),
+// OwnerBleed (GHSA-6jvj-85q3-6q2m), TokenAuditBleed
+// (GHSA-5r57-9vj7-c64f) and ErrorBleed (GHSA-h59p-76c3-8345).
 
 const assert = require('assert');
 const fs = require('fs');
@@ -83,6 +85,8 @@ const boardCreate = route(
 );
 assert.match(boardCreate, /userId: req\.userId/);
 assert.doesNotMatch(boardCreate, /req\.body\.owner/);
+// OwnerBleed: neither the members list nor a role flag comes from the body.
+assert.doesNotMatch(boardCreate, /req\.body\.(members|isAdmin|isActive|isNoComments|isCommentOnly|isWorker|userId)\b/);
 
 const userCreate = route(
   users,

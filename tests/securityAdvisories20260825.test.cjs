@@ -1,7 +1,12 @@
 'use strict';
 
-// Regression wiring for UserSearchBleed, MiniProfileBleed,
-// PositionHistoryBleed, SubtaskExportBleed and CasBleed.
+// Regression wiring for UserSearchBleed (GHSA-88mv-h439-rj8j, GHSA-9846-cj96-6hv5),
+// MiniProfileBleed (GHSA-c3ch-34g5-x3x7,
+// logged-out user-miniprofile subscriptions),
+// PositionHistoryBleed (GHSA-5fc2-m4gw-j6qq, forged undo history),
+// SubtaskExportBleed (GHSA-hvvr-j425-5xxm) and CasBleed
+// (with CasAccountMergeBleed, GHSA-5797-pjx8-9h6m: implicit CAS username
+// linking to a non-CAS account).
 // Run: node tests/securityAdvisories20260825.test.cjs
 
 const assert = require('assert');
@@ -115,6 +120,27 @@ test('every subtask export query carries its board boundary', () => {
     const src = code(rel);
     for (const pattern of patterns) assert.ok(pattern.test(src), rel);
   }
+});
+
+test('negative: no export file anywhere queries cards by parent without its board (SubtaskExportBleed)', () => {
+  // Every exporter - board, card, JSON, ZIP, Excel, PDF, charts - is in
+  // models/ or models/server/. A card selector that names a parent (parentId,
+  // parentIds or childrenSelector) must also name boardId, or a private card on
+  // another board that names a parent here is exported with it.
+  const files = ['models', 'models/server'].flatMap(dir => fs.readdirSync(path.join(root, dir))
+    .filter(f => /^export|^Exporter/i.test(f) && f.endsWith('.js')).map(f => `${dir}/${f}`));
+  assert.ok(files.length >= 10, 'the export implementations are found');
+  const offenders = [];
+  for (const rel of files) {
+    const src = code(rel);
+    for (const m of src.matchAll(/(?:getCards|getCard|Cards\.find(?:Async|OneAsync)?|Cards\.rawCollection\(\)\.find)\(\s*\{([^}]*)\}/g)) {
+      if (/\bparentIds?\b|childrenSelector/.test(m[1]) && !/\bboardId\b/.test(m[1])) offenders.push(`${rel}: ${m[0].slice(0, 80)}`);
+    }
+  }
+  assert.deepStrictEqual(offenders, [], 'a parent-only subtask query in an export');
+  // Self-check: the scan sees the original shape.
+  const bad = 'await ReactiveCache.getCards({ parentId: this._cardId })';
+  assert.ok(/getCards\(\s*\{([^}]*)\}/.test(bad) && !/\bboardId\b/.test(bad));
 });
 
 test('CAS refuses implicit linking and marks newly created CAS accounts', () => {

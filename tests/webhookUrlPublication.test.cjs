@@ -5,6 +5,11 @@
 // members, and on a public board anonymous visitors. A Slack/Mattermost/Teams
 // incoming-webhook URL carries its secret in the path, so reading a board was
 // enough to post as that board's integration from anywhere.
+//
+// Also the regression guard for WatchBleed (GHSL-2026-036, GitHub Security Lab report of 2026-02-12:
+// the board publication sent integration tokens) and, in its last test, for
+// GlobalBleed (GHSL-2026-037: globalwebhooks published to anybody); the
+// token exclusion of GlobalBleed is pinned by tests/customFieldGlobalBleed.test.cjs.
 // Run: node tests/webhookUrlPublication.test.cjs
 
 const { test } = require('node:test');

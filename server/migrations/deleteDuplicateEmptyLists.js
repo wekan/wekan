@@ -12,6 +12,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { assertMigrationBoardVisible } from '/server/lib/migrationBoardAccess';
 import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
@@ -322,9 +323,8 @@ Meteor.methods({
   async 'deleteDuplicateEmptyLists.needsMigration'(boardId) {
     check(boardId, String);
 
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in');
-    }
+    // AttachmentMigrationBleed: a board the caller can see, not any board.
+    await assertMigrationBoardVisible(this.userId, boardId, 'ddp:deleteDuplicateEmptyLists.needsMigration');
 
     return await deleteDuplicateEmptyListsMigration.needsMigration(boardId);
   },
@@ -362,9 +362,8 @@ Meteor.methods({
   async 'deleteDuplicateEmptyLists.getStatus'(boardId) {
     check(boardId, String);
 
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in');
-    }
+    // AttachmentMigrationBleed: a board the caller can see, not any board.
+    await assertMigrationBoardVisible(this.userId, boardId, 'ddp:deleteDuplicateEmptyLists.getStatus');
 
     return await deleteDuplicateEmptyListsMigration.getStatus(boardId);
   }

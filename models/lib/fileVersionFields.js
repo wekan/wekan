@@ -18,11 +18,21 @@ const SERVER_MANAGED_VERSION_FIELDS = ['path', 'storage'];
 
 /**
  * True when a document a client is trying to INSERT carries server-managed
- * version metadata (`versions.<any>.path` or `.storage`).
+ * version metadata (`versions.<any>.path` or `.storage`, or a top-level `path`).
  * @param {object} fileObj the document as the client sent it
  * @return {boolean}
  */
 function hasUnsafeClientVersionFields(fileObj) {
+  // FilePathBleed (GHSA-g6vm-7757-pr88), top-level sibling: a document with no
+  // `versions` object makes ostrio:files fall back to the TOP-LEVEL `path` -
+  // unlinkAsync() deletes `fileRef.path` when the record is removed (for
+  // example by the validateAttachment method rejecting it) and isFileValid()
+  // reads it. The versions-only check let a client insert `{ path: '/any/file' }`
+  // with `versions` left out. It is the same server-managed field one level up.
+  if (fileObj && typeof fileObj === 'object'
+    && Object.prototype.hasOwnProperty.call(fileObj, 'path')) {
+    return true;
+  }
   const versions = fileObj && fileObj.versions;
   if (!versions || typeof versions !== 'object') {
     return false;

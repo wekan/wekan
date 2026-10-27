@@ -478,6 +478,34 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
 
+    // MoveStorageBleed sibling (2026-10-27 regression audit): seeing the board
+    // was enough, and a file that fails the CURRENT upload rules - a type or a
+    // size an admin has since disallowed - is removed for good. So anybody who
+    // could see a board, a public one included, could delete its attachments.
+    // Only who may change the attachment's card (or write its board, for a
+    // board's own image), or a site admin, validates now. No WeKan client calls
+    // this method - validateAttachmentAndMoveToStorage does, for an admin - so
+    // a refusal is an attempt and is recorded.
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!(user && user.isAdmin)) {
+      const { canEditCardOrLinkedCard } = require('/server/lib/linkedCardPermission');
+      const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
+      const card = fileObj.meta?.cardId ? await ReactiveCache.getCard(fileObj.meta.cardId) : null;
+      const mayChange = card
+        ? await canEditCardOrLinkedCard(this.userId, card, undefined, { recordDenial: false })
+        : allowIsBoardMemberWithWriteAccess(this.userId, board);
+      if (!mayChange) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.attachment-validate', action: 'blocked', source: 'ddp:validateAttachment',
+            userId: this.userId,
+            detail: 'Asked to validate - and so possibly delete - an attachment the caller cannot change.',
+          });
+        } catch (e) { /* logging must never break the guard */ }
+        throw new Meteor.Error('not-authorized', 'You cannot change this attachment.');
+      }
+    }
+
     const effectiveUploadMaxBytes = await getAttachmentUploadMaxBytes();
     const isValid = await isFileValid(fileObj, attachmentUploadMimeTypes, effectiveUploadMaxBytes, attachmentUploadExternalProgram);
 

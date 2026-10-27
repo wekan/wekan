@@ -1,6 +1,9 @@
 'use strict';
 
-// Regression coverage for SearchBleed.
+// Regression coverage for SearchBleed (GHSA-33h9-rc5h-667p, CWE-943):
+// authenticated clients could replace the server's board-scoped global-search
+// selector; execution operators are now rejected before database access and
+// initial and stored pagination selectors are constrained to board access.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

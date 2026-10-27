@@ -6,6 +6,14 @@
 // runs the background sync once with the settings in effect, and shares one
 // lock with the scheduled job.
 //
+// SyncLDAPBleed (SnowBleed sub-finding 6, reported 2026-01-05 by Joshua Rogers
+// of Aisle Research, fixed in WeKan v8.21 by commit 146905a459): the method,
+// then called ldap_sync_users, had its admin check commented out ("TODO: This
+// needs to be fixed - security issue"), so any signed-in user could make the
+// server import and sync the whole directory. The 'only an active site
+// administrator may run it' test below pins the fix, and the last negative
+// test pins that no wekan-ldap method skips the admin check.
+//
 // Run: node tests/ldapSyncNow.test.cjs
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -82,6 +90,28 @@ test('negative: no wekan-ldap methods file is left unloaded', () => {
       assert.ok(imported.has(file), `${file} defines Meteor methods but index.js never loads it`);
     }
   }
+});
+
+// Negative, whole package (SyncLDAPBleed): every Meteor method that the LDAP
+// package defines refuses a caller who is not a site admin before it does any
+// LDAP work, and the commented-out check of the original fault is nowhere.
+test('negative: no wekan-ldap method runs for a non-admin', () => {
+  const dir = path.join(ROOT, 'packages/wekan-ldap/server');
+  let methods = 0;
+  for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.js'))) {
+    const src = fs.readFileSync(path.join(dir, file), 'utf8');
+    assert.doesNotMatch(src, /\/\/\s*if \(!RocketChat\.authz\.hasRole/, `${file}: the commented-out check is gone`);
+    if (!/Meteor\.methods\(/.test(src)) continue;
+    const heads = [...src.matchAll(/\n  (?:async )?(\w+)\([^)]*\) \{/g)];
+    for (let i = 0; i < heads.length; i += 1) {
+      const body = src.slice(heads[i].index, i + 1 < heads.length ? heads[i + 1].index : src.length);
+      const refusal = body.search(/if \(!user\.isAdmin\)|if \(user\.isAdmin !== true/);
+      const work = body.search(/new LDAP\(|runLdapSync\(|LDAP\.settings_get\(/);
+      assert.ok(refusal >= 0 && refusal < work, `${file} ${heads[i][1]}: admin check before any LDAP work`);
+      methods += 1;
+    }
+  }
+  assert.ok(methods >= 2, 'found ldap_sync_now and ldap_test_connection');
 });
 
 console.log(`\nldapSyncNow: ${passed} tests passed`);

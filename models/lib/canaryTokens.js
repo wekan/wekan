@@ -187,6 +187,13 @@ const CANARIES = {
     key: 'authn.oauth-link',
     what: 'tried to sign in through an OAuth provider with the email of an existing account made by another login method',
   },
+  // OIDCBleed (GHSA-cv95-8h7c-2ffq): groupRoutineOnLogin / boardRoutineOnLogin
+  // run only server-side during the OIDC handshake; a DDP client calling one
+  // has no legitimate reason to.
+  'oidc.internal-method-direct': {
+    key: 'auth-race.oidc',
+    what: 'called an OIDC-login-only method directly over DDP',
+  },
   'database.canary': {
     key: 'authz.database',
     what: 'the database refused an operation that WeKan never issues',

@@ -1,4 +1,10 @@
 'use strict';
+
+// SamlSubjectBleed (GHSA-966m-4qgp-j8w4, CWE-287): SAML login matched mutable
+// usernames/emails and overwrote the stored NameID, so another IdP subject
+// claiming the same username took over the account. Accounts are now resolved
+// by issuer + qualified NameID, never rebound, linked atomically, and email is
+// verified only on an explicit assertion. Conflicts trip saml.subject-conflict.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

@@ -87,6 +87,9 @@ function filenameLooksLikeExploit(name) {
   if (/<\?xml|<!doctype|<!entity/i.test(n)) return true;      // XML billion-laughs / doctype
   if (/javascript:|vbscript:|data:\s*text\/html/i.test(n)) return true;
   if (/\son\w+\s*=/i.test(n) || /^on\w+\s*=/i.test(n)) return true; // onerror= etc.
+  // MimeStorageBleed (GHSA-rv5g-5p4g-3v89): `<a/onclick=...>` - a slash, not
+  // whitespace, between the tag name and the handler.
+  if (/<[^>]*\/on[a-z-]{1,40}\s*=/i.test(n)) return true;
   if (/\{\{[\s\S]*\}\}|\$\{[\s\S]*\}|<%[\s\S]*%>/.test(n)) return true; // template injection
   if (/<\?php|<\?=/i.test(n)) return true;
   if (/\u0000/.test(n)) return true;                          // null byte

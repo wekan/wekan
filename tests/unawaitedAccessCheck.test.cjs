@@ -1,6 +1,7 @@
 'use strict';
 
-// Guard: BFLABleed (2026-05-19, reported by Fredrik Dietrichson) and ExcelBleed.
+// Guard: BFLABleed (2026-05-19, reported by Fredrik Dietrichson) and ExcelBleed
+// (CVE-2026-68559, GHSA-mwq8-ccpm-r533).
 // Run: node tests/unawaitedAccessCheck.test.cjs
 //
 // Both were the same mistake. An access check that is an `async` function

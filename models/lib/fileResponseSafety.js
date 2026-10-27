@@ -8,7 +8,18 @@ const DANGEROUS_MIME_TYPES = new Set([
   'application/xml',
   'application/javascript',
   'text/javascript',
+  // LegacyAttachBleed: the other names browsers give script and XSLT.
+  'application/x-javascript',
+  'application/ecmascript',
+  'text/ecmascript',
+  'text/xsl',
 ]);
+
+// Any structured-syntax `+xml` type (application/rss+xml, application/foo+xml)
+// is rendered as an XML document, where XHTML-namespaced script runs.
+function mimeTypeIsBrowserExecutable(normalizedType) {
+  return DANGEROUS_MIME_TYPES.has(normalizedType) || /\+xml$/.test(normalizedType);
+}
 
 const DANGEROUS_FILE_EXTENSIONS = new Set([
   'html',
@@ -32,7 +43,7 @@ function fileResponsePolicy(type, dangerousByName = false) {
     .split(';', 1)[0]
     .trim()
     .toLowerCase();
-  const dangerous = dangerousByName || DANGEROUS_MIME_TYPES.has(normalizedType);
+  const dangerous = dangerousByName || mimeTypeIsBrowserExecutable(normalizedType);
 
   return {
     contentType: dangerous ? 'application/octet-stream' : normalizedType,
@@ -51,5 +62,6 @@ module.exports = {
   DANGEROUS_MIME_TYPES,
   DANGEROUS_FILE_EXTENSIONS,
   fileNameIsBrowserExecutable,
+  mimeTypeIsBrowserExecutable,
   fileResponsePolicy,
 };

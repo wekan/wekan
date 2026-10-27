@@ -1,6 +1,8 @@
 'use strict';
 
-// Regression coverage for MailTitleBleed.
+// Regression coverage for MailTitleBleed (GHSA-hp9m-vff5-7pvw): stored activity
+// titles became active markup in HTML notification mail, and subjects could
+// carry header-injecting newlines.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

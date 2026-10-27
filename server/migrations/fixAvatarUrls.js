@@ -6,6 +6,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { assertMigrationBoardVisible } from '/server/lib/migrationBoardAccess';
 import Boards from '/models/boards';
 import Users from '/models/users';
 import { generateUniversalAvatarUrl, cleanFileUrl, extractFileIdFromUrl, isUniversalFileUrl } from '/models/lib/universalUrlGenerator';
@@ -164,9 +165,8 @@ Meteor.methods({
   async 'fixAvatarUrls.needsMigration'(boardId) {
     check(boardId, String);
 
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in');
-    }
+    // AttachmentMigrationBleed: a board the caller can see, not any board.
+    await assertMigrationBoardVisible(this.userId, boardId, 'ddp:fixAvatarUrls.needsMigration');
 
     return await fixAvatarUrlsMigration.needsMigration(boardId);
   }

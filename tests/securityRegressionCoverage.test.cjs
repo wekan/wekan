@@ -68,6 +68,15 @@ const GUARDED = {
   authtracebleed: ['tests/loginProviderSecurity.test.cjs'],
   assignedbleed: ['tests/assignedbleed.test.cjs'],
   authorbleed: ['tests/restApiIdorBatch.test.cjs'],
+  avatarbleed: ['tests/webhookBleed.test.cjs'],
+  // 2026-10-27 Hall of Fame regression audit: each sub-finding has a suite.
+  authbleed: ['tests/authBleedServiceConfiguration.test.cjs', 'tests/authBleedCopyMethods.test.cjs'],
+  floppybleed: ['tests/floppyBleed.test.cjs'],
+  snowbleed: ['tests/attachmentMigrationBleed.test.cjs', 'tests/boardTitleRestBleed.test.cjs',
+    'tests/cardPubSubBleed.test.cjs', 'tests/checklistRestBleed.test.cjs', 'tests/fixDuplicateBleed.test.cjs',
+    'tests/ldapSyncNow.test.cjs', 'tests/linkedBoardActivitiesBleed.test.cjs', 'tests/listWipBleed.test.cjs',
+    'tests/moveStorageBleed.test.cjs', 'tests/orgsTeamsBleed.test.cjs',
+    'tests/positionHistoryLegacyBleed.test.cjs', 'tests/rulesBleed.test.cjs'],
   avatarmimebleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
   boardbleed: ['tests/crossBoardParentCardLeak.test.cjs'],
   calendarbleed: ['tests/calendarbleed.test.cjs'],
@@ -217,13 +226,9 @@ const GUARDED = {
 const RECORDED = {
   adminbleed: 'privilege escalation to Admin; needs a running instance to reproduce, no source guard written',
   anchorbleed: 'GHSL-2026-035 CursorBleed; reported before the *bleed suites existed',
-  authbleed: 'unauthenticated getServiceConfiguration leaked the OIDC client secret; needs a DDP test',
-  avatarbleed: 'predates the test suites; superseded in part by tests/avatarUrlSafety.test.cjs, which does not name it',
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
-  floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
-  snowbleed: 'MigrationsBleed - a database migration fix; predates the *bleed test suites',
   socialbleed: 'social media links on wekan.fi - a website fix, not a WeKan one',
   splicebleed: 'incomplete multi-character sanitization stripping markup from a shown filename; tests/fileNameDisplay.test.cjs is the likely guard but does not name it',
   tokenbleed: 'predates the *bleed test suites; the REST token paths are exercised by 23-rest-api-more.e2e.js, which does not name it',
@@ -326,7 +331,13 @@ test('the gap list may not grow', () => {
   // validation off again; restored and held by
   // tests/ldapRejectUnauthorizedDefault.test.cjs. BruteBleed - its brute-force
   // login protection is held by tests/accountLoginDelay.test.cjs (2026-10-02).
-  assert.strictEqual(Object.keys(RECORDED).length, 13,
+  // 13 -> 12: AvatarBleed - execFile MIME detection, shell-safe avatar names
+  // and the scanner's asyncExec are held by tests/webhookBleed.test.cjs.
+  // 12 -> 9 (2026-10-27 regression audit): AuthBleed - the secret-free
+  // getServiceConfiguration and the copy/move access checks; FloppyBleed - the
+  // healer and bulk move keep a name inside storage; SnowBleed - a suite per
+  // sub-finding. Two of them found the same mistake again and fixed it.
+  assert.strictEqual(Object.keys(RECORDED).length, 9,
     'the number of published vulnerabilities with no regression test changed');
 });
 
