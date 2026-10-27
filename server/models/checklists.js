@@ -160,6 +160,22 @@ Checklists.before.remove(async (userId, doc) => {
   }
 });
 
+// #6816: a deleted checklist takes its items with it. Before this, deleting a
+// checklist - in the card, through the REST API or by a rule - left every item
+// in the database with a checklistId that points nowhere: invisible, never
+// cleaned up, and still found by searches on items. One production database had
+// 2335 of them from 690 deleted checklists. Deleting a card already removes its
+// items the same way (models/cards.js), without an activity per item: the
+// checklist's own removeChecklist activity above records the deletion.
+Checklists.after.remove(async (userId, doc) => {
+  if (!doc || !doc._id) return;
+  try {
+    await ChecklistItems.direct.removeAsync({ checklistId: doc._id });
+  } catch (e) {
+    console.error('[Checklists.after.remove] could not remove the items of checklist', doc._id, e);
+  }
+});
+
 WebApp.handlers.get(
   '/api/boards/:boardId/cards/:cardId/checklists',
   async function(req, res) {

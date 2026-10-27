@@ -186,3 +186,22 @@ test('checklist deadline uses the visible shared calendar and can be cleared', a
   await expect(checklist.locator('.checklist-due-date')).toHaveCount(0);
   await expect(checklist.locator('.js-checklist-due-date')).toBeVisible();
 });
+
+// #6816: deleting a checklist deletes its items - they stayed behind with a
+// checklistId pointing nowhere. Another checklist's items are not touched.
+test('#6816: deleting a checklist deletes its items, and only its items', async ({ boardPage, board }) => {
+  const db = require('../helpers/db');
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  const [gone, kept] = [db.uid('cl'), db.uid('cl')];
+  for (const [id, title] of [[gone, 'To delete'], [kept, 'To keep']]) {
+    db.insertOne('checklists', { _id: id, cardId: card._id, boardId: board.boardId, title, sort: 0, createdAt: new Date() });
+    for (const n of [1, 2]) db.insertOne('checklistItems', { _id: db.uid('ci'), checklistId: id, cardId: card._id, boardId: board.boardId, title: `${title} ${n}`, sort: n, isFinished: false });
+  }
+  const result = await boardPage.evaluate(async id => {
+    try { return await Meteor.callAsync('/checklists/remove', { _id: id }); } catch (e) { return { error: e.message }; }
+  }, gone);
+  expect(result && result.error).toBeFalsy();
+  await expect.poll(() => db.countDocuments('checklistItems', { checklistId: gone })).toBe(0);
+  // Negative: the other checklist keeps its items.
+  expect(db.countDocuments('checklistItems', { checklistId: kept })).toBe(2);
+});
