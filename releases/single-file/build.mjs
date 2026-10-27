@@ -22,7 +22,7 @@
 // the release URL compiled into the target binary, which can be read without
 // running it (a Windows or macOS binary cannot run on the Linux builder).
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -160,6 +160,16 @@ export function seaSplit(target, nodeBinary) {
   }
 }
 
+// A Node.js can be compiled without single executable applications - the
+// Homebrew one on macOS is - and then `--build-sea` only says "Single
+// executable application is disabled" and exits 9, which the build reported
+// as a bare failed command. It is asked first, with a config that does not
+// exist: a Node.js that has it complains about the file instead.
+export function seaSupported(hostNode) {
+  const r = spawnSync(hostNode, ['--build-sea', path.join(here, 'no-such-sea-config.json')], { encoding: 'utf8' });
+  return !/Single executable application is disabled/.test(`${r.stderr || ''}${r.stdout || ''}`);
+}
+
 export function seaCommands({ hostNode, python, node, config, blob, out, split }) {
   if (!split) return [[hostNode, ['--build-sea', config]]];
   return [
@@ -215,6 +225,10 @@ export function build(opts) {
   }
   if (!nodeVersion) {
     console.warn(`warning: could not read the Node.js version of ${node}; building with ${hostVersion}.`);
+  }
+  if (!seaSupported(hostNode)) {
+    throw new Error(`${hostNode} (${hostVersion}) was compiled without single executable application support `
+      + '(the Homebrew Node.js is): build with a Node.js from nodejs.org, given with --host-node.');
   }
   const out = path.resolve(opts.out);
   const work = fs.mkdtempSync(path.join(path.dirname(out), '.single-file-'));

@@ -42,6 +42,11 @@ const { installVirtualCwd } = lib('server.cjs');
 // node:vfs and --build-sea arrived in Node.js 26.11. An older Node.js running
 // this suite skips the parts that need them, and says so.
 const HAS_VFS = spawnSync(process.execPath, ['--no-warnings', '--experimental-vfs', '-e', "require('node:vfs')"]).status === 0;
+// And a Node.js can be compiled without single executable applications (the
+// Homebrew one on macOS is): it says so for any --build-sea, as build.mjs's
+// seaSupported() asks it.
+const HAS_SEA = !/Single executable application is disabled/.test(
+  spawnSync(process.execPath, ['--build-sea', path.join(__dirname, 'no-such-sea-config.json')], { encoding: 'utf8' }).stderr || '');
 
 // --- where files go --------------------------------------------------------
 
@@ -526,7 +531,9 @@ ws.end(() => {
 }
 
 test('build, start, status, version, menu and stop a real single executable', {
-  skip: (!HAS_VFS && 'needs --build-sea with useVfs (Node.js 26.11+)') || (process.platform === 'win32' && 'the stand-in FerretDB is a shell script'),
+  skip: (!HAS_VFS && 'needs --build-sea with useVfs (Node.js 26.11+)')
+    || (!HAS_SEA && 'this Node.js was compiled without single executable applications (Homebrew\'s is)')
+    || (process.platform === 'win32' && 'the stand-in FerretDB is a shell script'),
   timeout: 240000,
 }, async () => {
   const dir = tmp('sf-e2e-');
@@ -730,6 +737,23 @@ test('Windows: Meteor finds a package inside the single file\'s archive (\\\\.\\
   assert.match(build, /miniFiles\.data = patchMiniFiles\(fs\.readFileSync\(miniFiles\.file, 'utf8'\)\);/, 'every single file gets it');
 });
 
+test('a Node.js without single executable applications is named, not run (negative: one with them passes)', {
+  skip: process.platform === 'win32' && 'the stand-in Node.js programs are shell scripts',
+}, async () => {
+  const { seaSupported } = await import(path.join(SF, 'build.mjs'));
+  const dir = tmp('sf-sea-');
+  try {
+    const disabled = path.join(dir, 'node-without-sea');
+    fs.writeFileSync(disabled, '#!/bin/sh\necho "$0: Single executable application is disabled." >&2\nexit 9\n', { mode: 0o755 });
+    const enabled = path.join(dir, 'node-with-sea');
+    fs.writeFileSync(enabled, '#!/bin/sh\necho "Cannot read single executable configuration from $2" >&2\nexit 1\n', { mode: 0o755 });
+    assert.equal(seaSupported(disabled), false);
+    assert.equal(seaSupported(enabled), true);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('a 32-bit target is built only by a 32-bit Node.js (negative: win32 from x64 is refused)', async () => {
   const { build, targetBits, archBits } = await import(path.join(SF, 'build.mjs'));
   for (const t of ['win32', 'i386', 'armv7', 'armhf', 'armv6']) assert.equal(targetBits(t), 32, t);
@@ -745,7 +769,8 @@ test('a 32-bit target is built only by a 32-bit Node.js (negative: win32 from x6
     fs.writeFileSync(path.join(bundle, 'ferretdb.exe'), 'x');
     if (archBits(process.arch) === 64) {
       assert.throws(() => build({ bundle, target: 'win32', version: '1.0', out: path.join(dir, 'out.exe') }),
-        /win32 is a 32-bit target, but the Node\.js building it is x64/);
+        // The building Node.js is named by its own arch: x64 on a PC, arm64 on a Mac.
+        new RegExp(`win32 is a 32-bit target, but the Node\\.js building it is ${process.arch}`));
     }
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
