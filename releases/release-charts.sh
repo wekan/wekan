@@ -145,6 +145,11 @@ sedi -E "s|^version: [0-9]+\.[0-9]+\.[0-9]+|version: ${CHART_VERSION}|" "$CHART_
 # ghcr.io/wekan/ferretdb:latest out of a WeKan version bump.
 sedi -E "s|tag: v[0-9]+\.[0-9]+(\.[0-9]+)?|tag: v${VERSION}|" "$CHART_VALUES"
 
+# values.yaml's commented reference of every other setting, regenerated from
+# this release's docker-compose.yml: copied by hand once, it had fallen 74
+# settings behind (tests/chartsFerretdb.test.cjs).
+node "$REPO_DIR/releases/charts-values-reference.mjs" "$CHART_VALUES"
+
 # ── 1b. What is NEW in this chart version, written into the chart ────────────
 #
 # A chart version with no changelog is a version nobody can tell apart from the
