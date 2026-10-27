@@ -114,8 +114,8 @@ were not authorized at all - and **StampBleed**. **Card Settings** opens on
 Card, with **Show empty fields**, a **Show empty** column, **Select all** /
 **Select none** and **drag and drop** lists. A card opened from its link no
 longer vanishes behind a **reverse proxy**; minicards show only filled custom
-fields, lost cards reappear, card numbers stay unique, and a [label] title
-prefix is opt-in.
+fields, lost cards reappear, card numbers stay unique, a [label] title
+prefix is opt-in, and Problems gets a nightly **Data health** scan.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -284,6 +284,23 @@ mails ([EXTERNAL] ...) changed and filled boards with labels. It is a Member
 Settings switch now, off by default; who wants #3986's behaviour turns it on.
 `tests/titleBracketLabel6810.test.cjs` and `title-bracket-label-6810.e2e.js`
 cover both states.
+
+</details>
+
+**Admin Panel / Problems** - what in the database points at nothing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9cf523f9e">Data health: a nightly scan of broken references, with repairs</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6818](https://github.com/wekan/wekan/issues/6818): Problems now lists cards on
+a missing or another board's list or swimlane, ghost and duplicate board
+members, boards with no active admin, custom field values and boards that no
+longer exist, orphan checklist items and dangling subtasks or linked cards. The
+scan runs nightly when the CPU is low, claimed so one pod scans at a time. A
+repair that moves data runs the same upgrade steps as an upgrade; one that
+deletes asks twice and the server refuses it unconfirmed. Repairs use `$pull`
+or guarded updates, so a concurrent edit is not lost, and a member dedupe keeps
+the admin entry. `tests/dataHealth6818.test.cjs` pins it.
 
 </details>
 
@@ -515,6 +532,14 @@ With Show empty fields off by default, a new board hides a card's empty
 fields, and the specs that open a card to add a checklist or a date found no
 button to click. The seeded board turns Show empty fields on; the Card Settings
 spec, which tests the switch itself, turns it off again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00cf8f0958">The shared-template language specs read the description where it is</a>. Thanks to xet7.</summary>
+
+The Corsican and Southern Sotho specs looked for the description and the hint
+inside the scope checkbox list; both are its siblings in `.templates-settings`.
 
 </details>
 
