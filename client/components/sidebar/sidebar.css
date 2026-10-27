@@ -843,6 +843,9 @@ body.sidebar-resizing-active {
 /* #6699: this editor uses real, labelled checkboxes. Undo all three parts
    of forms.css's material-checkbox hiding rule in this popup only. */
 .wip-limit-groups input[type="checkbox"] {
+  /* #6820: no text-field padding, or a ticked box is drawn as a dot. */
+  min-height: 0;
+  padding: 0;
   display: inline-block;
   visibility: visible;
   position: static;

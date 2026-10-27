@@ -693,6 +693,9 @@ a:not(.disabled).is-active i.fa {
    checkbox in the app. */
 .viewer input[type="checkbox"]:not(:checked),
 .viewer input[type="checkbox"]:checked {
+  /* #6820: no text-field padding, or a ticked box is drawn as a dot. */
+  min-height: 0;
+  padding: 0;
   display: inline-block;
   visibility: visible;
   position: static;

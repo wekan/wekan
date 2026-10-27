@@ -2,7 +2,15 @@
 .board-drag-settings th { text-align: start; }
 .board-drag-settings th:last-child, .board-drag-settings td:last-child { text-align: center; }
 .board-drag-settings input[type=checkbox] { width: auto; min-height: 0; margin: 4px; }
+/* #6820: forms.css gives every input 9px 14px of padding and a border; on a
+   16px native checkbox that left the browser about 2px to draw in, so a ticked
+   box was a small blue dot beside an unticked square. A native checkbox keeps
+   no padding, border or background of a text field. */
 .board-drag-settings input[type=checkbox] {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
   display: inline-block;
   visibility: visible;
   position: static;
