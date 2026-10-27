@@ -38,6 +38,14 @@ export function revealOnBoard({ cardId, listId }, { doc = document, setTimer = s
       if (typeof el.scrollIntoView === 'function') {
         el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center', inline: 'center' });
       }
+      // One result is highlighted at a time: stepping to the next one (Enter
+      // in the board search) moves the highlight instead of leaving the last
+      // one lit for the rest of its moment beside the new one.
+      if (typeof doc.querySelectorAll === 'function') {
+        doc.querySelectorAll(`.${HIGHLIGHT_CLASS}`).forEach(other => {
+          if (other !== el) other.classList.remove(HIGHLIGHT_CLASS);
+        });
+      }
       el.classList.add(HIGHLIGHT_CLASS);
       setTimer(() => el.classList.remove(HIGHLIGHT_CLASS), HIGHLIGHT_MS);
       resolve(true);

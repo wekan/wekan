@@ -47,6 +47,17 @@ function board() {
     passed += 1; console.log('ok - a card found is scrolled to and highlighted on the board');
   }
   {
+    // Stepping to the next result (Enter) moves the highlight: the last one is
+    // not left lit beside the new one for the rest of its moment.
+    const dom = new JSDOM(`<div class="board-canvas"><a class="js-minicard" data-card-id="a">A</a><a class="js-minicard" data-card-id="b">B</a></div>`);
+    dom.window.HTMLElement.prototype.scrollIntoView = () => {};
+    const doc = dom.window.document;
+    await revealOnBoard({ cardId: 'a' }, { doc, setTimer: () => {}, smooth: false });
+    await revealOnBoard({ cardId: 'b' }, { doc, setTimer: () => {}, smooth: false });
+    assert.deepStrictEqual([...doc.querySelectorAll(`.${HIGHLIGHT_CLASS}`)].map(el => el.dataset.cardId), ['b']);
+    passed += 1; console.log('ok - one result is highlighted at a time');
+  }
+  {
     const { doc, scrolled } = board();
     assert.strictEqual(await revealOnBoard({ listId: 'l1' }, { doc, setTimer: fn => fn(), smooth: false }), true);
     assert.strictEqual(scrolled.length, 1);
