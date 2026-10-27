@@ -1403,7 +1403,14 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
-    if (!this.userId) throw new Meteor.Error('not-authorized');
+    // AuthBleed: no signed-out client copies a board, so this is an attempt.
+    if (!this.userId) {
+      try {
+        require('/server/lib/securityLog').record({ key: 'authz.copy', action: 'blocked',
+          source: 'method:copyBoard', detail: 'Board copy refused: not signed in' });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('not-authorized');
+    }
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) throw new Meteor.Error('not-found');
     // Require board admin, matching the REST endpoint

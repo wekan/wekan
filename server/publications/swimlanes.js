@@ -11,7 +11,16 @@ Meteor.methods({
     check(position, Match.OneOf('above', 'below'));
     check(title, Match.OneOf(String, null, undefined));
 
-    if (!this.userId) throw new Meteor.Error('not-authorized');
+    // AuthBleed: no signed-out client copies a swimlane, so this is an attempt.
+    // The membership refusals below are not recorded: a stale Copy Swimlane
+    // dialog reaches them in ordinary use.
+    if (!this.userId) {
+      try {
+        require('/server/lib/securityLog').record({ key: 'authz.copy', action: 'blocked',
+          source: 'method:copySwimlane', detail: 'Swimlane copy refused: not signed in' });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('not-authorized');
+    }
     const swimlane = await ReactiveCache.getSwimlane(swimlaneId);
     if (!swimlane) throw new Meteor.Error('not-found');
     const sourceBoard = await Boards.findOneAsync(swimlane.boardId);

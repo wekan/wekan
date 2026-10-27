@@ -107,7 +107,7 @@ const DELIBERATE = {
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.
 const PENDING = [
-  'AdminBleed', 'AnchorBleed', 'AuthBleed', 'AvatarBleed', 'BFLABleed',
+  'AdminBleed', 'AnchorBleed', 'AvatarBleed', 'BFLABleed',
   'CloneBleed', 'CrashBleed', 'DUEBleed', 'ExcelBleed',
   'ExportBleed', 'FieldBleed', 'FollowBleed', 'FrameBleed', 'IdentityBleed',
   'InvisibleBleed', 'LDAPBleed', 'LockoutBleed', 'MegaBleed',

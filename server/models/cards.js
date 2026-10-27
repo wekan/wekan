@@ -483,11 +483,20 @@ Meteor.methods({
     check(dueDate, Date);
     check(swimlaneId, String);
 
-    if (!this.userId) throw new Meteor.Error('not-authorized');
+    // AuthBleed (DueDateBleed): no WeKan client calls this method, so every
+    // refusal is an attempt and is recorded.
+    const refuse = detail => {
+      try {
+        require('/server/lib/securityLog').record({ key: 'authz.copy', action: 'blocked',
+          source: 'method:createCardWithDueDate', userId: this.userId || undefined, detail });
+      } catch (e) { /* logging must never break the guard */ }
+      return new Meteor.Error('not-authorized');
+    };
+    if (!this.userId) throw refuse('Card insert refused: not signed in');
     const destBoard = await Boards.findOneAsync(boardId);
     if (!destBoard) throw new Meteor.Error('not-found');
     if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
-      throw new Meteor.Error('not-authorized');
+      throw refuse('Card insert refused: no write access to the board');
 
     const card = {
       title,
@@ -831,7 +840,16 @@ Meteor.methods({
     check(insertAtTop, Boolean);
     check(mergeCardValues, Object);
 
-    if (!this.userId) throw new Meteor.Error('not-authorized');
+    // AuthBleed: no signed-out client copies a card, so this is an attempt.
+    // The membership refusals below are not recorded: a stale Copy Card
+    // dialog reaches them in ordinary use.
+    if (!this.userId) {
+      try {
+        require('/server/lib/securityLog').record({ key: 'authz.copy', action: 'blocked',
+          source: 'method:copyCard', detail: 'Card copy refused: not signed in' });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('not-authorized');
+    }
     const card = await ReactiveCache.getCard(cardId);
     if (!card) throw new Meteor.Error('not-found');
     const sourceBoard = await Boards.findOneAsync(card.boardId);

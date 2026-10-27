@@ -33,9 +33,12 @@
 // copy/move method has to be added here, i.e. checked, to pass.
 //
 // Admin Panel / Problems: copyList, moveList and moveSwimlane refuse through
-// requireBoardMutation, which records 'authz.mutation'. The other refusals are
-// plain not-authorized errors; AuthBleed is on the PENDING list of
-// tests/hallOfFameProblemsCoverage.test.cjs.
+// requireBoardMutation, which records 'authz.mutation'. copyBoard, copyCard,
+// copySwimlane and createCardWithDueDate record 'authz.copy' (AuthBleed) for
+// a signed-out caller, and createCardWithDueDate - which no WeKan client
+// calls - for any refusal. Their membership refusals are not recorded: a
+// template or a stale dialog reaches them in ordinary use, and a
+// high-severity record would disable that user's login.
 // Run: node tests/authBleedCopyMethods.test.cjs
 
 const assert = require('assert');
@@ -220,6 +223,44 @@ test('DueDateBleed: createCardWithDueDate refuses anonymous, non-member and read
   await refused(createCardWithDueDate, 'attacker', ['shared', 'l', 'pwned', due, 's']);
   await refused(createCardWithDueDate, 'attacker', ['nonexistent', 'l', 'pwned', due, 's'], 'not-found');
   await allowed(createCardWithDueDate, 'attacker', ['mine', 'l', 'mine', due, 's']);
+});
+
+test('Problems: an attempt no WeKan client can make is recorded as AuthBleed', async () => {
+  const card = ['card-mine', 'mine', 's', 'l', false, {}];
+  for (const [fn, args, source] of [
+    [copyBoard, ['victim', {}], 'method:copyBoard'],
+    [copyCard, card, 'method:copyCard'],
+    [copySwimlane, ['swimlane-victim', 'mine'], 'method:copySwimlane'],
+    [createCardWithDueDate, ['victim', 'l', 'pwned', new Date(), 's'], 'method:createCardWithDueDate'],
+  ]) {
+    recorded.length = 0;
+    await refused(fn, null, args);
+    assert.deepStrictEqual(recorded.map(e => [e.key, e.action, e.source]), [['authz.copy', 'blocked', source]]);
+    assert.strictEqual(recorded[0].userId, undefined, 'signed out: nobody to block');
+  }
+  // createCardWithDueDate has no WeKan client, so a signed-in refusal is an
+  // attempt too - and it names the account.
+  recorded.length = 0;
+  await refused(createCardWithDueDate, 'attacker', ['victim', 'l', 'pwned', new Date(), 's']);
+  assert.deepStrictEqual(recorded.map(e => [e.key, e.userId]), [['authz.copy', 'attacker']]);
+  const { categoryFor } = require(path.join(root, 'models/lib/securityCategories'));
+  assert.strictEqual(categoryFor('authz.copy').bleed, 'AuthBleed');
+});
+
+test('negative: a refusal ordinary use reaches is not recorded, so it cannot disable a login', async () => {
+  // A member who is not admin of a (default) template board, or a stale Copy
+  // Card / Copy Swimlane dialog, reaches these in ordinary use; an
+  // authz.copy record names the account at high severity, which disables
+  // its login.
+  for (const [fn, args] of [
+    [copyBoard, ['shared', {}]],
+    [copyCard, ['card-victim', 'mine', 's', 'l', false, {}]],
+    [copySwimlane, ['swimlane-victim', 'mine']],
+  ]) {
+    recorded.length = 0;
+    await refused(fn, 'attacker', args);
+    assert.deepStrictEqual(recorded.filter(e => e.key === 'authz.copy'), [], fn.name);
+  }
 });
 
 test('MoveListBleed: moveList refuses before any move or archive of a victim list', async () => {

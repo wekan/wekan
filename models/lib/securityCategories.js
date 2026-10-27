@@ -52,6 +52,12 @@ const CATALOG = {
   'authz.manage-board': { category: 'authz', bleed: 'ManageBoardBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.comment-card': { category: 'authz', bleed: 'CommentBoundaryBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.mutation': { category: 'authz', bleed: 'MutationBleed', severity: 'high', cwe: 'CWE-863' },
+  // AuthBleed: copyBoard / copyCard / copySwimlane / createCardWithDueDate
+  // called with no login, or createCardWithDueDate (no WeKan client calls it)
+  // into a board the caller cannot write. Membership refusals of the copy
+  // dialogs are NOT recorded: a template or a stale dialog reaches them in
+  // ordinary use, and a high-severity record would disable that login.
+  'authz.copy': { category: 'authz', bleed: 'AuthBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.board-visibility': { category: 'authz', bleed: 'VisibilityBleed', severity: 'medium', cwe: 'CWE-863' },
   // blocksAccount: false on the next two - the URL comes from data the user did
   // not write (an identity provider's avatar, an imported Trello board's link
