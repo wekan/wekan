@@ -135,6 +135,8 @@ test('clean boards: smaller font presets reduce checklist and settings spacing',
   await popup.locator('.js-card-settings-menu[data-id="date"]').click();
   await expect(popup.locator('.card-settings-line').first()).toHaveCSS('padding-top', '3.2px');
   // Firefox rounds computed font sizes to layout units (9.59375px for 9.6px).
-  await expect.poll(() => popup.locator('.card-settings-pane-head').first()
+  // The heading TEXT is the smaller font (sidebar.css), not its line: on the
+  // line, the em-sized columns shrank and the headings drifted off their cells.
+  await expect.poll(() => popup.locator('.card-settings-pane-head > span').first()
     .evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeCloseTo(9.6, 1);
 });
