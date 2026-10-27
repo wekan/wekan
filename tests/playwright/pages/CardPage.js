@@ -144,6 +144,11 @@ class CardPage {
    * handler so the dialog's selectedBoardId and list select are updated.
    */
   async _selectBoard(pop, targetBoardTitle) {
+    // The lists select is always drawn; wait for it before asking whether the
+    // boards one is there. count() answers at once, and asked while the popup
+    // was still rendering it said 0 - so a move to another board quietly stayed
+    // on the same board (#6793's Move Card spec).
+    await pop.locator('select.js-select-lists').waitFor();
     const boardSel = pop.locator('select.js-select-boards');
     if (await boardSel.count() === 0) return; // boards select hidden (isWorker user)
 
