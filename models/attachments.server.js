@@ -546,8 +546,15 @@ Meteor.methods({
 
     const fileObjAfter = await ReactiveCache.getAttachment(fileObjId);
 
+    // The move runs after the method returns. It used to re-enter
+    // moveAttachmentToStorage from Meteor.defer, where there is no method
+    // invocation and so no userId: that method's login check refused it every
+    // time, and the file never moved. Every check it makes - admin, the board
+    // visible, the destination allowlisted - was made above, so the deferred
+    // step moves the file itself, as the upload path does.
     if (fileObjAfter) {
-      Meteor.defer(() => Meteor.call('moveAttachmentToStorage', fileObjId, storageDestination));
+      Meteor.defer(() => Promise.resolve(moveToStorage(fileObjAfter, storageDestination, fileStoreStrategyFactory))
+        .catch(error => console.error('[validateAttachmentAndMoveToStorage] move failed:', error)));
     }
   },
 });

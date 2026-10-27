@@ -172,6 +172,36 @@ test('negative: no method moves a file to a caller-named storage unchecked', () 
   assert.ok(methodCallers >= 1, 'found moveAttachmentToStorage');
 });
 
+test('validate-and-move moves the file itself after it returns, not through a method with no user', () => {
+  const src = read('models/attachments.server.js');
+  const at = src.indexOf('async validateAttachmentAndMoveToStorage(');
+  assert.ok(at > 0);
+  const fn = src.slice(at, src.indexOf('\n  },', at));
+  assert.match(fn, /Meteor\.defer\(\(\) => Promise\.resolve\(moveToStorage\(fileObjAfter, storageDestination, fileStoreStrategyFactory\)\)/);
+  assert.doesNotMatch(fn, /Meteor\.call(?:Async)?\('moveAttachmentToStorage'/,
+    'Meteor.defer has no method invocation, so the login check refused the move every time');
+});
+
+test('negative: no deferred or timed callback in server/ or models/ calls a Meteor method', () => {
+  // A method called from Meteor.defer or a timer runs with no userId, so one
+  // that checks its caller refuses every time, silently.
+  const offenders = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+      if (entry.name === 'node_modules' || entry.name.startsWith('.') || entry.name === '_build') continue;
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) { walk(rel); continue; }
+      if (!/\.(js|cjs|mjs)$/.test(entry.name)) continue;
+      const src = read(rel);
+      for (const m of src.matchAll(/Meteor\.(?:defer|setTimeout)\(/g)) {
+        if (/Meteor\.call(?:Async)?\(/.test(src.slice(m.index, m.index + 160))) offenders.push(rel);
+      }
+    }
+  };
+  ['server', 'models'].forEach(walk);
+  assert.deepStrictEqual(offenders, []);
+});
+
 let finished = false;
 // A test whose promise never settles would otherwise end the run silently.
 process.on('beforeExit', () => { if (!finished) { console.error('moveStorageBleed: a test never settled'); process.exit(1); } });
