@@ -30,3 +30,17 @@ Lists.deny({
   },
   fetch: [],
 });
+
+// A list's WIP limit is a board-wide workflow rule, set by a board admin: the
+// applyWipLimit / enableWipLimit / enableSoftLimit methods have always required
+// one, but the allow rule above let any member with write access set
+// `wipLimit` with a plain list update. Every WeKan client path goes through the
+// methods, so this refuses nothing in ordinary use.
+Lists.deny({
+  async update(userId, doc, fieldNames) {
+    if (!fieldNames.includes('wipLimit')) return false;
+    const board = await Boards.findOneAsync(doc.boardId);
+    return !(board && board.hasAdmin(userId));
+  },
+  fetch: ['boardId'],
+});

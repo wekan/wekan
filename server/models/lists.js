@@ -946,6 +946,12 @@ WebApp.handlers.put('/api/boards/:boardId/lists/:listId', async function(req, re
       return;
     }
 
+    // The WIP limit is set by a board admin, as the applyWipLimit /
+    // enableWipLimit methods require; write access edits the rest.
+    if (set.wipLimit !== undefined) {
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+    }
+
     if (Object.keys(set).length > 0) {
       await Lists.direct.updateAsync(
         { _id: paramListId, boardId: paramBoardId, archived: false },
