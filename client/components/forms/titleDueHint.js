@@ -61,6 +61,11 @@ Template.titleDueHint.onRendered(function () {
     const parsed = text.includes('\n') ? null : dueFromTitle(form, text, field);
     tpl.due.set(parsed ? formatDue(parsed.dueAt) : '');
   };
+  // Not only on typing: the board's switch (Board Settings / Card, Admin
+  // Panel / Visibility) and the language can change while the form is open,
+  // and the hint follows them - a switch turned off takes away a hint already
+  // shown, as it takes away the due date the submit would set.
+  tpl.autorun(() => tpl.update());
   tpl.listener = event => {
     if (event.target && event.target.matches && event.target.matches(selector)) tpl.update();
   };

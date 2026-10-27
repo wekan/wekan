@@ -103,6 +103,10 @@ test('the add-card form and the opened card use it, each through its own Board S
   assert.ok(hint.includes('if (!boardFlagOn(field)) return null;'), 'on unless the board turned it off');
   assert.ok(read('client/lib/boardFlagOn.js').includes('board[field] !== false'));
   assert.match(hint, /form\.dataset\[DISMISSED\] === '1'\) return null/, 'the x keeps the words');
+  // The hint follows the board's switch while the form is open, not only the
+  // typing: a switch turned off takes away a hint already shown
+  // (assist-due-from-title.e2e.js, negative).
+  assert.match(hint, /tpl\.autorun\(\(\) => tpl\.update\(\)\)/);
 });
 
 test('Board Settings / Card has the row, and Admin Panel / Visibility / Card fields hides it', () => {
