@@ -965,6 +965,47 @@ Meteor.startup(async () => {
   });
 });
 
+// #6815: card numbers stay unique per board (models/lib/cardNumberAssign.js).
+Cards.before.insert(async (userId, doc) => {
+  const { counterName, isCardNumber, needsNewCardNumber, counterFloor } = require('/models/lib/cardNumberAssign');
+  if (!doc || !doc.boardId || !isCardNumber(doc.cardNumber)) return;
+  const { Counters } = require('/models/counters');
+  const counters = Counters.rawCollection();
+  const counter = counterName(doc.boardId);
+  const topNumber = async () => {
+    const top = await Cards.findOneAsync(
+      { boardId: doc.boardId },
+      { sort: { cardNumber: -1 }, fields: { cardNumber: 1 } },
+    );
+    return top && top.cardNumber;
+  };
+  const taken = await Cards.findOneAsync(
+    { boardId: doc.boardId, cardNumber: doc.cardNumber },
+    { fields: { _id: 1 } },
+  );
+  if (needsNewCardNumber(doc.cardNumber, taken)) {
+    const board = await Boards.findOneAsync(doc.boardId);
+    if (!board) return;
+    // The counter may still be below numbers browsers wrote before this check
+    // existed: raise it to the board's highest number first.
+    const top = await topNumber();
+    if (isCardNumber(top)) {
+      await counters.updateOne({ _id: counter }, { $max: { next_val: top } }, { upsert: true });
+    }
+    doc.cardNumber = await board.getNextCardNumber();
+  } else {
+    // A free number the counter did not issue (from the browser or an import):
+    // never let the counter hand it out again. A board with no counter yet is
+    // seeded from its highest number too, as getNextCardNumber's lazy seed
+    // does - created here from a browser's number alone, the counter could
+    // start below numbers outside that browser's view, and the seed would
+    // never run again.
+    const exists = await counters.findOne({ _id: counter }, { projection: { _id: 1 } });
+    const floor = counterFloor(doc.cardNumber, exists ? null : await topNumber());
+    await counters.updateOne({ _id: counter }, { $max: { next_val: floor } }, { upsert: true });
+  }
+});
+
 Cards.after.insert(async (userId, doc) => {
   if (!deferSyncRecording('create', doc)) await cardCreation(userId, doc);
 
