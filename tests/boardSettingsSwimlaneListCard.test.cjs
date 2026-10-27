@@ -252,26 +252,24 @@ test('Board Settings / Card is the Admin Panel left menu and pane, with Show on 
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
   assert.ok(form.includes('+leftMenu(settingsMenuItems)') && form.includes('+paneTitle(settingsPaneTitle)'));
-  // The heading text is its own span now, with Select all / Select none under
-  // it (tests/cardSettingsSelectAllAligned.test.cjs).
-  const minicard = form.indexOf("span.card-settings-side-head.card-settings-side-head-minicard\n                span {{_ 'show-on-minicard'}}");
-  const card = form.indexOf("span.card-settings-side-head.card-settings-side-head-card\n                span {{_ 'show-on-card'}}");
-  assert.ok(minicard !== -1 && card !== -1 && minicard < card, 'Show on Minicard, then Show on Card');
+  // The heading text is its own span, with Select all / Select none under it
+  // (tests/cardSettingsSelectAllAligned.test.cjs). Since 2026-10-27 each
+  // section has two lists again, the card's first (each in its own order,
+  // reordered by drag and drop - tests/cardSettingsCoverage.test.cjs).
+  const minicard = form.indexOf("span.card-settings-side-head.card-settings-side-head-minicard\n                  span {{_ 'show-on-minicard'}}");
+  const card = form.indexOf("span.card-settings-side-head.card-settings-side-head-card\n                  span {{_ 'show-on-card'}}");
+  assert.ok(minicard !== -1 && card !== -1 && card < minicard, 'Show on Card\'s list, then Show on Minicard\'s');
   assert.ok(en['show-on-card'] && en['show-on-minicard'], 'existing, translated keys');
   assert.ok(!form.includes('card-field-order-heading'), 'the old single heading is gone (negative)');
 });
 
-test('a menu that asks for one side hides the other side\'s cells', () => {
+test('a menu that asks for one side hides the other side\'s list', () => {
+  // The card's list carries On this card and Show empty too, so the
+  // minicard's own view hides them with it.
   assert.ok(sidebarCss.includes(
-    '.board-card-settings.show-card-only .card-settings-side-minicard,\n'
-    + '.board-card-settings.show-card-only .card-settings-side-head-minicard,\n'
-    + '.board-card-settings.show-minicard-only .card-settings-side-card,\n'
-    + '.board-card-settings.show-minicard-only .card-settings-side-head-card,\n'
-    // #6806: Show empty is about the opened card, so the minicard's
-    // own view hides it as well.
-    + '.board-card-settings.show-minicard-only .card-settings-side-always,\n'
-    + '.board-card-settings.show-minicard-only .card-settings-side-head-always {'),
-    'show-card-only hides the minicard cells and show-minicard-only the card cells');
+    '.board-card-settings.show-card-only .card-settings-list-minicard,\n'
+    + '.board-card-settings.show-minicard-only .card-settings-list-card {'),
+    'show-card-only hides the minicard list and show-minicard-only the card list');
 });
 
 console.log(`\nboardSettingsSwimlaneListCard: ${passed} tests passed`);

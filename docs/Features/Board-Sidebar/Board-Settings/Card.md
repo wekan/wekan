@@ -14,9 +14,9 @@ card** checkbox beside each field
 
 The popup is the Admin Panel's left menu and pane: the rows are grouped into
 sections (Card, Date, Time, Members, Labels, ... Voting, Planning Poker,
-Scrum settings, Comments), and each row is one line with its **Show on
-Minicard** and **Show on Card** checkbox, its position on each side and the
-**up and down arrows** that move it there. The first menu entry, **Card**,
+Scrum settings, Comments), and each section's pane has two lists, each in its
+own order and reordered by **drag and drop**: **Show on Card** - the opened
+card's fields - and **Show on Minicard**. The first menu entry, **Card**,
 also holds Ask for a reason when moving cards and the Draggable table; a
 section's own settings - Subtask settings, Edit custom fields, Change spent
 time, Card kind, Edit voting, Edit Planning Poker - are forms at the top of
@@ -28,15 +28,22 @@ its pane ([Card fields](../../Cards/Card-Fields.md)).
 an opened card. The left menu lists the sections; the right pane shows the
 open section's rows:
 
-| Label | Show on Minicard | Show on Card | Show empty | On this card |
-| --- | --- | --- | --- | --- |
-| the field, with the icon and name the card uses | checkbox, position, ▲ ▼ | checkbox, position, ▲ ▼ | checkbox: every card shows the field, empty or not - by default the description, attachments and comments ([#6806](https://github.com/wekan/wekan/issues/6806)) | opened from a card only |
+**Show on Card**, in the opened card's order:
+
+| On this card | Show on Card | Show empty | Card field order |
+| --- | --- | --- | --- |
+| opened from a card only | checkbox | checkbox: every card shows the field, empty or not - by default the description, attachments and comments ([#6806](https://github.com/wekan/wekan/issues/6806)) | the field, with the icon and name the card uses - drag it |
+
+**Show on Minicard**, in the minicard's order:
+
+| Show on Minicard | |
+| --- | --- |
+| checkbox | the field - drag it |
 
 | part | what it does |
 | --- | --- |
 | checkbox | whether that side shows the field at all - the same board toggles as before (`allowsLabels`, `allowsLabelsOnMinicard`, ...) |
-| position | where the field is on that side, counted among the fields that move |
-| ▲ ▼ | move the field earlier or later **on that side only** |
+| drag and drop | move the field earlier or later **on that side only**: by its handle when drag handles are on, else by its icon or name; Up and Down on a focused handle or name move it one row |
 
 Under each column's heading, **Select all** and **Select none** set that
 column for every row of the open section at once.
@@ -50,13 +57,15 @@ the pane, as it does in the Admin Panel.
 1. Open a board you are an admin of, click the sidebar's hamburger menu,
    then **Board Settings → Card** - or click **+ Add** on an opened card.
 2. Pick a section in the left menu.
-3. In a row's **Show on Card** cell, click ▲ or ▼ to move the field on the
-   opened card; in its **Show on Minicard** cell, to move it on the minicard.
+3. Drag a row of the **Show on Card** list to move the field on the opened
+   card; a row of the **Show on Minicard** list, to move it on the minicard.
 4. The change takes effect immediately on every card of this board; there
    is no separate save step.
 5. Untick a checkbox to hide the field on that side; tick it to show it.
 
-A row that cannot move (see below) has no arrows on that side.
+A row that cannot move (see below) is not dragged. A list shows one
+section's fields; a dropped row goes right after the row now above it in the
+side's whole order (or right before the row below it, at the top).
 
 ## What moves, and how
 
@@ -83,21 +92,22 @@ Subtasks, Checklist count, Sort number), Description text, the comment
 preview, List name, Swimlane name. Inside the dates line and the badge strip
 the fields reorder among themselves too.
 
-The arrows follow three rules:
+Moving a field follows three rules:
 
-1. **A field moves within its section.** ▼ on *Start* puts it after *Due*.
-2. **At the edge of its section, a field moves the whole section.** ▲ on
-   the first row of Dates lifts the Dates section above the section before
-   it; ▼ on its last row drops it below the next one.
+1. **A field moves within its section.** *Start* dropped below *Due* goes
+   after it.
+2. **Leaving its section, a field takes the whole section along.** The
+   first row of Dates dragged up lifts the Dates section above the section
+   before it.
 3. **A section's header stays first.** Labels, Members, Sort number and
    Description title head their sections (the fold caret is theirs), so
-   their arrows always move the section, and no other field goes above
+   dragging them always moves the section, and no other field goes above
    them.
 
 A few minicard rows have no element of their own there - *Labels text* (how
 labels are drawn), *List title* (the per-card switch under *Show lists*),
 *Requested by*, *Assigned by*, *Description title*, *Attachments* - so they
-sit under the row they modify with their arrows disabled.
+sit under the row they modify and are not dragged.
 
 ## The default order
 
@@ -146,8 +156,8 @@ All are on by default except the minicard's forecast.
 
 ## Prerequisites
 
-- Only a board admin can change these settings; the arrows are shown only
-  to an admin. Who may write them is decided where it is for every other
+- Only a board admin can change these settings; only an admin can drag a
+  row. Who may write them is decided where it is for every other
   board setting: `Boards.allow`'s update rule in
   `server/permissions/boards.js`.
 - A board that never touched the order shows exactly what it always has.

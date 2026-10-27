@@ -1,9 +1,11 @@
 'use strict';
 
-// Board Settings / Board View reorders by drag and drop (2026-10-02); Board
-// Settings / Card by order arrows since its rows are in sections (2026-10-25). With drag handles on, the handle where the up/down arrows
-// were is what is dragged; with them off, the row's icon and label are. The
-// Up and Down keys on the focused handle or label move a row one step.
+// Board Settings / Board View and Board Settings / Card reorder by drag and
+// drop (2026-10-02; Card's arrows of 2026-10-25 back to drag and drop on
+// 2026-10-27, a Show on Card and a Show on Minicard list per section). With
+// drag handles on, the handle is what is dragged, else the row's icon and
+// label. The Up and Down keys on the focused handle or label move a row one
+// step in its list.
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 
@@ -28,33 +30,46 @@ async function dragOnto(page, source, target) {
   await page.mouse.up();
 }
 
-test('Board Settings / Card reorders by its order arrows and the arrow keys', async ({ boardPage: page, board }) => {
-  // docs/Features/Cards/Card-Fields.md (2026-10-25): with the rows in sections,
-  // each side of a row has up and down arrows instead of a drag.
+test('Board Settings / Card reorders each list by drag and drop and by the arrow keys', async ({ boardPage: page, board, user }) => {
   try {
+    setHandles(user._id, false);
     await openPopup(page, 'boardCardSettings');
     await page.locator('.js-card-settings-menu[data-id="date"]').click();
-    const cell = key => page.locator(`.js-card-field-order-row[data-key="${key}"][data-side="card"]`);
-    await expect(cell('dueDate')).toBeVisible();
-    // Negative: the head rows sit at a fixed place, so they have no arrows.
+    const row = (key, side = 'card') => page.locator(`.card-settings-list-${side} .js-card-field-order-row[data-key="${key}"]`);
+    await expect(row('dueDate')).toBeVisible();
+    // Negative: the head rows sit at a fixed place, so they are not dragged.
     await page.locator('.js-card-settings-menu[data-id="card"]').click();
-    await expect(cell('cardNumber').locator('.js-card-field-order-up')).toHaveCount(0);
+    await expect(row('cardNumber').locator('.js-card-field-order-handle')).toHaveCount(0);
     await page.locator('.js-card-settings-menu[data-id="date"]').click();
-    await cell('dueDate').locator('.js-card-field-order-up').click();
-    await cell('dueDate').locator('.js-card-field-order-up').click();
+    // Drag Due by its name onto Received: first in the list, and in the card's order.
+    await dragOnto(page, row('dueDate').locator('.card-settings-line-label'), row('receivedDate'));
     await expect.poll(() => {
       const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
       return order.indexOf('dueDate') < order.indexOf('receivedDate');
     }).toBe(true);
-    // The keyboard: Down on the focused arrow moves the row one step back.
-    await cell('dueDate').locator('.js-card-field-order-down').focus();
+    await expect(page.locator('.card-settings-list-card .js-card-field-order-row').first()).toHaveAttribute('data-key', 'dueDate');
+    // The minicard's list is its own order: untouched.
+    expect(db.findOne('boards', { _id: board.boardId }).minicardFieldOrder).toBeFalsy();
+    // The keyboard: Down on the focused name moves the row one row back.
+    await row('dueDate').locator('.card-settings-line-label').focus();
     await page.keyboard.press('ArrowDown');
     await expect.poll(() => {
       const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
       return order.indexOf('dueDate') > order.indexOf('receivedDate');
     }).toBe(true);
+    // The minicard's list, by the handle when drag handles are on.
+    setHandles(user._id, true);
+    await expect(row('endDate', 'minicard').locator('a.js-card-field-order-handle')).toBeVisible();
+    await dragOnto(page, row('endDate', 'minicard').locator('a.js-card-field-order-handle'), row('receivedDate', 'minicard'));
+    await expect.poll(() => {
+      const order = db.findOne('boards', { _id: board.boardId }).minicardFieldOrder || [];
+      return order.indexOf('endDate') < order.indexOf('receivedDate');
+    }).toBe(true);
+    // Negative: the arrows are gone.
+    await expect(page.locator('.js-card-field-order-up, .js-card-field-order-down')).toHaveCount(0);
   } finally {
-    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '' } });
+    setHandles(user._id, false);
+    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '', minicardFieldOrder: '' } });
   }
 });
 

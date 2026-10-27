@@ -249,8 +249,11 @@ test('the pane lines up: fixed side columns on every line, and an inline form ke
   const css = read('client/components/sidebar/sidebar.css');
   // Each line is its own grid: sized by content, no two lines would agree.
   // #6806 added the Show empty column (8em) before the field.
-  assert.match(css, /grid-template-columns: 9em 9em 8em minmax\(10em, 1fr\);/);
-  assert.match(css, /\.board-card-settings\.has-card \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 9em 8em minmax\(10em, 1fr\);/);
+  // Since 2026-10-27 two lists: the card's (On this card from a card, Show on
+  // Card, Show empty, the field) and the minicard's (Show on Minicard, the field).
+  assert.match(css, /grid-template-columns: 9em 8em minmax\(10em, 1fr\);/);
+  assert.match(css, /\.board-card-settings\.has-card \.card-settings-list-card > \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 8em minmax\(10em, 1fr\);/);
+  assert.match(css, /\.card-settings-list-minicard > \.card-settings-line \{\n\s+grid-template-columns: 9em minmax\(10em, 1fr\);/);
   assert.doesNotMatch(css, /\.card-settings-line \{[^}]*max-content/, 'negative: no content-sized side column');
   // Save floats left and Delete right in Change spent time and the others.
   assert.match(css, /\.card-settings-inline-action \{[^}]*display: flow-root;/);

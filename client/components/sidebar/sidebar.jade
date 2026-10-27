@@ -348,84 +348,98 @@ template(name="boardCardSettingsPopup")
                       a.js-card-settings-action(data-action="{{action.id}}")
                         i.fa(class=action.icon aria-hidden="true")
                         | {{action.title}}
-            //- Reading order: On this card (opened from a card), Show on
-              Minicard, Show on Card, then the field - mirrored in a
-              right-to-left language by the grid itself.
-            //- Under each heading, Select all / Select none for that column's
-              rows of this section - for who may change what it sets.
-            .card-settings-pane-head
-              if settingsCardId
-                span.card-settings-side-head.card-settings-side-head-this
-                  span {{_ 'card-settings-this-card'}}
-                  +cardSettingsSelectButtons(column="this")
-              span.card-settings-side-head.card-settings-side-head-minicard
-                span {{_ 'show-on-minicard'}}
-                if canModifyBoard
-                  +cardSettingsSelectButtons(column="minicard")
-              span.card-settings-side-head.card-settings-side-head-card
-                span {{_ 'show-on-card'}}
-                if canModifyBoard
-                  +cardSettingsSelectButtons(column="card")
-              span.card-settings-side-head.card-settings-side-head-always
-                span {{_ 'card-settings-show-empty'}}
-                if canModifyBoard
-                  +cardSettingsSelectButtons(column="always")
-              span.card-settings-pane-head-label {{_ 'card-field-order'}}
-            each row in sectionSettingsRows
-              .card-settings-line(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}")
-                //- Opened from a card: whether this card shows the field -
-                  the field with data is shown, an empty one when ticked here
-                  (models/lib/cardShownFields.js).
+            //- Two lists, each in its own order and reordered by drag and
+              drop (sidebar.js reorderOnDrop): Show on Card - the opened
+              card's fields of this section, in the card's order, with On
+              this card (opened from a card) and Show empty beside each - and
+              Show on Minicard, in the minicard's order. Under each heading,
+              Select all / Select none for that column. The columns are
+              mirrored in a right-to-left language by the grid itself.
+            .card-settings-list.card-settings-list-card.js-card-field-order-sortable(data-side="card")
+              .card-settings-pane-head
                 if settingsCardId
-                  if row.perCard
-                    span.card-settings-side.card-settings-side-this
-                      a.flex.card-add-field.js-card-add-field(data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.shownOnThisCard}}true{{else}}false{{/if}}" class="{{#if isAnimating row.key}}is-animating{{/if}}" title="{{_ 'card-settings-this-card'}}")
-                        .materialCheckBox(class="{{#if row.shownOnThisCard}}is-checked{{/if}}")
-                  else
-                    span.card-settings-side.card-settings-side-this.card-settings-side-empty
-                each cell in row.sides
-                  if cell.present
-                    span.card-settings-side.js-card-field-order-row(class="card-settings-side-{{cell.side}} {{#if cell.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}" data-side="{{cell.side}}")
-                      //- The same animated checkbox as On this card; only the
-                        one just clicked animates.
-                      a.flex.card-field-order-toggle(class="{{#if cell.writable}}{{cell.toggle}}{{else}}is-disabled{{/if}} {{#if cell.checked}}is-checked{{/if}} {{#if cell.animating}}is-animating{{/if}}" title="{{row.title}}" role="checkbox" aria-checked="{{#if cell.checked}}true{{else}}false{{/if}}")
-                        .materialCheckBox(class="{{#if cell.checked}}is-checked{{/if}}")
-                      //- The order of this side: up and down, as the Up and
-                        Down keys do on a focused arrow. A row that only
-                        modifies another (`after`) has no place of its own.
-                      if canModifyBoard
-                        if cell.positioned
-                          span.card-settings-position {{cell.position}}
-                          a.card-field-order-move.js-card-field-order-up(href="#" role="button" title="{{_ 'card-field-order-move-up'}}" aria-label="{{_ 'card-field-order-move-up'}}")
-                            i.fa.fa-arrow-up
-                          a.card-field-order-move.js-card-field-order-down(href="#" role="button" title="{{_ 'card-field-order-move-down'}}" aria-label="{{_ 'card-field-order-move-down'}}")
-                            i.fa.fa-arrow-down
-                  else
-                    span.card-settings-side.card-settings-side-empty(class="card-settings-side-{{cell.side}}")
-                //- #6806: Show empty - every card of the board shows the
-                  field, empty or not - by default the description,
-                  attachments and comments; "On this card" still hides it
-                  from one card. Hidden while Show empty fields is on.
-                if row.alwaysShowable
-                  span.card-settings-side.card-settings-side-always
-                    a.flex.card-always-show(class="{{#if canModifyBoard}}js-card-always-show{{else}}is-disabled{{/if}} {{#if row.animatingAlways}}is-animating{{/if}}" data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.alwaysShown}}true{{else}}false{{/if}}" title="{{_ 'card-settings-show-empty'}}")
-                      .materialCheckBox(class="{{#if row.alwaysShown}}is-checked{{/if}}")
-                else
-                  span.card-settings-side.card-settings-side-always.card-settings-side-empty
-                span.card-settings-line-label
-                  each icon in row.icons
-                    i.fa(class=icon aria-hidden="true")
-                  | {{row.title}}
-                  //- The user's own override of the board's "Labels text"
-                    default, tri-state: following the board or overriding it,
-                    with a way back to following it.
-                  if row.labelTextOverride
-                    if row.labelTextOverridden
-                      | &nbsp;
-                      a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
-                        | ({{_ 'label-text-overridden'}})
+                  span.card-settings-side-head.card-settings-side-head-this
+                    span {{_ 'card-settings-this-card'}}
+                    +cardSettingsSelectButtons(column="this")
+                span.card-settings-side-head.card-settings-side-head-card
+                  span {{_ 'show-on-card'}}
+                  if canModifyBoard
+                    +cardSettingsSelectButtons(column="card")
+                span.card-settings-side-head.card-settings-side-head-always
+                  span {{_ 'card-settings-show-empty'}}
+                  if canModifyBoard
+                    +cardSettingsSelectButtons(column="always")
+                span.card-settings-pane-head-label {{_ 'card-field-order'}}
+              each row in sectionCardRows
+                .card-settings-line.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}} {{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="card")
+                  //- Opened from a card: whether this card shows the field -
+                    the field with data is shown, an empty one when ticked
+                    here (models/lib/cardShownFields.js).
+                  if settingsCardId
+                    if row.perCard
+                      span.card-settings-side.card-settings-side-this
+                        a.flex.card-add-field.js-card-add-field(data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.shownOnThisCard}}true{{else}}false{{/if}}" class="{{#if isAnimating row.key}}is-animating{{/if}}" title="{{_ 'card-settings-this-card'}}")
+                          .materialCheckBox(class="{{#if row.shownOnThisCard}}is-checked{{/if}}")
                     else
-                      | &nbsp;({{_ 'label-text-follows-board'}})
+                      span.card-settings-side.card-settings-side-this.card-settings-side-empty
+                  +cardSettingsSideToggle(row=row)
+                  //- #6806: Show empty - every card of the board shows the
+                    field, empty or not - by default the description,
+                    attachments and comments; "On this card" still hides it
+                    from one card. Hidden while Show empty fields is on.
+                  if row.alwaysShowable
+                    span.card-settings-side.card-settings-side-always
+                      a.flex.card-always-show(class="{{#if canModifyBoard}}js-card-always-show{{else}}is-disabled{{/if}} {{#if row.animatingAlways}}is-animating{{/if}}" data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.alwaysShown}}true{{else}}false{{/if}}" title="{{_ 'card-settings-show-empty'}}")
+                        .materialCheckBox(class="{{#if row.alwaysShown}}is-checked{{/if}}")
+                  else
+                    span.card-settings-side.card-settings-side-always.card-settings-side-empty
+                  +cardSettingsRowLabel(row=row)
+            .card-settings-list.card-settings-list-minicard.js-card-field-order-sortable(data-side="minicard")
+              .card-settings-pane-head
+                span.card-settings-side-head.card-settings-side-head-minicard
+                  span {{_ 'show-on-minicard'}}
+                  if canModifyBoard
+                    +cardSettingsSelectButtons(column="minicard")
+                span.card-settings-pane-head-label
+              each row in sectionMinicardRows
+                .card-settings-line.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}} {{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="minicard")
+                  +cardSettingsSideToggle(row=row)
+                  +cardSettingsRowLabel(row=row)
+
+
+//- One side's checkbox of a row of Card Settings: the board's Show on Card or
+  Show on Minicard, through the handler the row names (cardSettingsRows.js).
+  The same animated checkbox as On this card; only the one clicked animates.
+template(name="cardSettingsSideToggle")
+  span.card-settings-side(class="card-settings-side-{{row.side}}")
+    a.flex.card-field-order-toggle(class="{{#if row.writable}}{{row.toggle}}{{else}}is-disabled{{/if}} {{#if row.checked}}is-checked{{/if}} {{#if row.animating}}is-animating{{/if}}" title="{{row.title}}" role="checkbox" aria-checked="{{#if row.checked}}true{{else}}false{{/if}}")
+      .materialCheckBox(class="{{#if row.checked}}is-checked{{/if}}")
+
+
+//- A row's name in Card Settings, and what it is dragged by: with drag handles
+  on, its handle, its icon or its name; with them off, its icon or its name.
+  The Up and Down arrow keys move a focused row one step. A row with no place
+  of its own (one that only modifies another, or is drawn at a fixed place)
+  is not dragged.
+template(name="cardSettingsRowLabel")
+  span.card-settings-line-label(class="{{#if row.draggable}}js-card-field-order-handle card-field-order-drag-label{{/if}}" tabindex="{{#if row.draggable}}{{#unless row.showDragHandles}}0{{/unless}}{{/if}}" title="{{#if row.draggable}}{{_ 'drag-to-reorder'}}{{/if}}")
+    if row.draggable
+      if row.showDragHandles
+        a.flex.card-field-order-move.card-field-order-handle.js-card-field-order-handle(href="#" draggable="false" role="button" tabindex="0" title="{{_ 'drag-to-reorder'}}" aria-label="{{_ 'drag-to-reorder'}}")
+          i.fa.fa-arrows
+    each icon in row.icons
+      i.fa(class=icon aria-hidden="true")
+    | {{row.title}}
+    //- The user's own override of the board's "Labels text" default,
+      tri-state: following the board or overriding it, with a way back to
+      following it.
+    if row.labelTextOverride
+      if row.labelTextOverridden
+        | &nbsp;
+        a(class=row.labelTextResetClass title="{{_ 'label-text-use-board-default'}}")
+          | ({{_ 'label-text-overridden'}})
+      else
+        | &nbsp;({{_ 'label-text-follows-board'}})
 
 
 //- Select all / Select none of one column of Card Settings' pane

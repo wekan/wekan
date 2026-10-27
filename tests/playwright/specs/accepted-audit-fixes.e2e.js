@@ -140,11 +140,12 @@ test('F14 V01 V07 A06: scaled headers fit and narrow settings stack without iner
     const header = el.querySelector('.header').getBoundingClientRect();
     return el.querySelector('.header-title').getBoundingClientRect().bottom <= header.bottom + 1;
   })).toBe(true);
-  // docs/Features/Cards/Card-Fields.md: the rows are grouped in sections,
-  // each line with its minicard and its card cell. A row with no place of its
-  // own (it modifies another) has no order arrows, and the popup stays open.
+  // docs/Features/Cards/Card-Fields.md: the rows are grouped in sections, in
+  // a Show on Card and a Show on Minicard list. A row with no place of its
+  // own (it modifies another) is not dragged, and the popup stays open.
   await popup.locator('.js-card-settings-menu[data-id="labels"]').click();
-  await expect(popup.locator('.js-card-field-order-row[data-key="labelText"][data-side="card"] .js-card-field-order-up')).toHaveCount(0);
+  await expect(popup.locator('.js-card-field-order-row[data-key="labelText"][data-side="card"]')).not.toHaveClass(/is-positioned/);
+  await expect(popup.locator('.js-card-field-order-row[data-key="labelText"][data-side="card"] .js-card-field-order-handle')).toHaveCount(0);
   await expect(popup).toBeVisible();
   // These rows were inert on the minicard; since every Board Settings / Card
   // row can be shown on the card and the minicard (79b4467546), each has a

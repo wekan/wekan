@@ -104,7 +104,7 @@ test('Board Settings / Card: the attachment rows are in the Attachments section,
 // arrow do the same; a row that only modifies another has none.
 const cardOrder = board => db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
 
-test('Card Settings: the order arrows move a field on its own side', async ({ boardPage: page, board }) => {
+test('Card Settings: the keyboard moves a field on its own side, one row of its list', async ({ boardPage: page, board }) => {
   try {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.locator('.js-toggle-page-sidebar').first().click();
@@ -115,15 +115,17 @@ test('Card Settings: the order arrows move a field on its own side', async ({ bo
     await form.locator('.js-card-settings-menu[data-id="date"]').click();
     const due = form.locator('.js-card-field-order-row[data-key="dueDate"][data-side="card"]');
     const before = cardOrder(board);
-    await due.locator('.js-card-field-order-up').click();
+    // Up on the focused name: one row up in the Show on Card list.
+    await due.locator('.card-settings-line-label').focus();
+    await page.keyboard.press('ArrowUp');
     await expect.poll(() => cardOrder(board).join(' ')).not.toBe(before.join(' '));
     const order = cardOrder(board);
     expect(order.indexOf('dueDate')).toBeLessThan(order.indexOf('startDate'));
-    // The minicard's order is not touched by the card's arrow.
+    // The minicard's order is not touched by the card's list.
     expect(db.findOne('boards', { _id: board.boardId }).minicardFieldOrder).toBeFalsy();
-    // Negative: a modifier row has no arrows.
+    // Negative: a modifier row is not dragged.
     await form.locator('.js-card-settings-menu[data-id="checklists"]').click();
-    await expect(form.locator('.js-card-field-order-row[data-key="checklistDueDate"][data-side="card"] .js-card-field-order-up')).toHaveCount(0);
+    await expect(form.locator('.js-card-field-order-row[data-key="checklistDueDate"][data-side="card"] .js-card-field-order-handle')).toHaveCount(0);
   } finally {
     db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: 1 } });
   }

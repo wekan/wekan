@@ -127,10 +127,11 @@ test('Board Settings / Card and + Add: a Show empty column, for every per-card f
   const head = popup.slice(popup.indexOf('.card-settings-pane-head'), popup.indexOf('each row in sectionSettingsRows'));
   assert.ok(!/if settingsCardId\n\s+span\.card-settings-side-head\.card-settings-side-head-always/.test(head), 'the board\'s, in Board Settings too');
   const js = read('client/components/sidebar/sidebar.js');
-  assert.match(js, /alwaysShowable: cardShownFields\.FIELD_KEYS\.includes\(row\.key\),/, 'the default four too');
-  assert.match(js, /alwaysShown: cardShownFields\.boardAlwaysShows\(board, row\.key\),/);
+  // In the Show on Card list, for every per-card field - the default four too.
+  assert.match(js, /alwaysShowable: side === 'card' && cardShownFields\.FIELD_KEYS\.includes\(built\.key\),/, 'the default four too');
+  assert.match(js, /alwaysShown: cardShownFields\.boardAlwaysShows\(board, built\.key\),/);
   assert.match(js, /'click \.js-card-always-show'\(evt, tpl\) \{[\s\S]{0,400}if \(!\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;[\s\S]{0,200}board\.setCardFieldAlwaysShown\(key, !cardShownFields\.boardAlwaysShows\(board, key\)\)/);
-  assert.match(js, /cardShownFields\.isShown\(row\.key, thisCard, counts, board\)/);
+  assert.match(js, /cardShownFields\.isShown\(built\.key, thisCard, counts, board\)/);
   assert.match(js, /cardShownFields\.cardFieldsAfter\(card, key, !cardShownFields\.isShown\(key, card, counts, board\), counts, board\)/);
   const add = read('client/components/cards/cardAddFields.js');
   assert.match(add, /f\.isShown\(key, card, cardFieldCounts\(card\), Utils\.getCurrentBoard\(\)\)/);
@@ -138,7 +139,8 @@ test('Board Settings / Card and + Add: a Show empty column, for every per-card f
   assert.match(add, /attachments: typeof card\.attachments === 'function' \? countOf\(card\.attachments\(\)\) : 0,/);
   assert.match(add, /comments: typeof card\.comments === 'function' \? countOf\(card\.comments\(\)\) : 0,/);
   assert.match(read('models/lib/cardShownFields.js'), /FIELD_KEYS\.filter\(k => !isShown\(k, card, counts, board\)\)/);
-  assert.match(read('client/components/sidebar/sidebar.css'), /\.board-card-settings\.show-minicard-only \.card-settings-side-always,\n\.board-card-settings\.show-minicard-only \.card-settings-side-head-always \{/);
+  // The minicard's own view hides the card's list, Show empty with it.
+  assert.match(read('client/components/sidebar/sidebar.css'), /\.board-card-settings\.show-minicard-only \.card-settings-list-card \{/);
 });
 
 test('negative: every caller of isShown and cardFieldsAfter passes the board', () => {
@@ -207,8 +209,9 @@ test('Show empty fields: saved to the board, under the Card pane\'s title; on, t
   const css = read('client/components/sidebar/sidebar.css');
   assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-side-always,\n\.board-card-settings\.show-empty-fields \.card-settings-side-head-always \{\n\s+display: none;/);
   // Its grid track goes too, or the field names would sit one column late.
-  assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-line \{\n\s+grid-template-columns: 9em 9em minmax\(10em, 1fr\);/);
-  assert.match(css, /\.board-card-settings\.show-empty-fields\.has-card \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 9em minmax\(10em, 1fr\);/);
+  // (In the Show on Card list, which has the column.)
+  assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-list-card > \.card-settings-line \{\n\s+grid-template-columns: 9em minmax\(10em, 1fr\);/);
+  assert.match(css, /\.board-card-settings\.show-empty-fields\.has-card \.card-settings-list-card > \.card-settings-line \{\n\s+grid-template-columns: 7em 9em minmax\(10em, 1fr\);/);
   // Negative: hidden by CSS only - turning it on does not clear the ticks.
   assert.ok(!/setShowEmptyCardFields[\s\S]{0,300}cardFieldsAlwaysShown/.test(boards));
 });

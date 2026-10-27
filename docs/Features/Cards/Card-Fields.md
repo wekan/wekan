@@ -47,12 +47,12 @@ right.
   own rows. Then Date, Time, Members,
   Labels, Description, Checklists, Subtasks, Attachments, Custom Fields,
   Voting, Planning Poker, Scrum settings and Comments.
-- The **right pane** lists every row of the open section, one line each: its
-  icon and name, then a **Show on Minicard** cell and a **Show on Card** cell -
-  each the board-wide checkbox of that side, the field's position on that side
-  and its **up and down arrows** (the Up and Down keys on a focused arrow do the
-  same; a row that only modifies another has none).
-- A **Show empty** cell, for every per-card field: ticked, every card of the
+- The **right pane** lists the open section's rows twice: **Show on Card**, in
+  the opened card's order, and **Show on Minicard**, in the minicard's - each
+  row with the board-wide checkbox of that side, and reordered by **drag and
+  drop** (the Up and Down keys on a focused handle or name move it one row; a
+  row that only modifies another is not dragged).
+- In the Show on Card list, a **Show empty** cell, for every per-card field: ticked, every card of the
   board shows the field, empty or not
   ([#6806](https://github.com/wekan/wekan/issues/6806)). By default the
   description, attachments and comments are ticked.
@@ -111,7 +111,7 @@ empty fields brings the columns back as they were. It is saved to the board
 (`showEmptyCardFields`), for a board admin.
 
 **+ Add** is shown to whoever may change the card. Its board-wide checkboxes
-and arrows work for a board admin; for anybody else they are shown disabled,
+and dragging work for a board admin; for anybody else they are shown disabled,
 and only **On this card** and their own rows (Labels text, List title) change.
 Below **+ Add** there is one separator line, above the first section the card
 shows: a section the card does not show draws no line of its own.
@@ -206,7 +206,7 @@ section order the same way.
 | `models/lib/cardShownFields.js` | "Has data", what a card shows, the card's board view |
 | `models/lib/cardSettingsSections.js` | The popup's sections, and the row names within them |
 | `client/components/sidebar/sidebar.jade` | The popup (`boardCardSettingsPopup`): the left menu, the pane, the rows |
-| `client/components/sidebar/sidebar.js` | Its sections, rows, checkboxes, order arrows and On this card |
+| `client/components/sidebar/sidebar.js` | Its sections, the two lists, checkboxes, drag and drop and On this card |
 | `client/components/sidebar/sidebar.css` | The pane's layout |
 | `client/components/cards/cardAddFields.js` | "+ Add", and the card's own `currentBoard` |
 | `client/components/cards/cardDetails.jade` | The "+ Add" button under the cover, the section hamburgers |

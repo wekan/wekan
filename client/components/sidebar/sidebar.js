@@ -17,7 +17,6 @@ const {
   CARD_LAYOUT,
   MINICARD_LAYOUT,
   applyLayoutOrder,
-  moveKey,
   placeKey,
   isMovableKey,
 } = require('/models/lib/cardFieldOrder');
@@ -2126,14 +2125,44 @@ function settingsMenuOf(data) {
   return settingsSectionsFor(data).map(s => ({ id: s.id, icon: s.icon, labelKey: s.labelKey }));
 }
 
-// The position of `key` among a side's fields, 1-based, as the order arrows
-// move it (models/lib/cardFieldOrder.js).
-function sidePosition(board, side, key) {
-  const layout = side === 'card' ? CARD_LAYOUT : MINICARD_LAYOUT;
-  const order = applyLayoutOrder(side === 'card' ? board?.cardFieldOrder : board?.minicardFieldOrder, layout)
-    .filter(k => isMovableKey(layout, k));
-  const at = order.indexOf(key);
-  return at === -1 ? '' : String(at + 1);
+function sectionSideRows(tpl, data, side) {
+  const id = openSettingsSectionOf(tpl, data);
+  const section = cardSettingsSections.SECTIONS.find(s => s.id === id);
+  const keys = new Set(section ? section.keys : []);
+  const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+  const thisCard = settingsCard();
+  const counts = thisCard ? cardFieldCounts(thisCard) : {};
+  const writable = Boolean(board && Utils.canModifyBoard && Utils.canModifyBoard());
+  const animatingKey = tpl.animating.get();
+  const showDragHandles = Utils.showDragHandles();
+  const rowOf = key => CARD_SETTINGS_ROWS.find(r => r.key === key);
+  return buildCardSettingsRows(side, data)
+    .filter(built => keys.has(built.key))
+    .map(built => ({
+      key: built.key,
+      side,
+      icons: built.icons,
+      title: cardSettingsSections.labelInSection(rowOf(built.key), section).map(k => TAPi18n.__(k)).join(rowOf(built.key).labelSeparator || ' '),
+      toggle: built.toggle,
+      checked: built.checked,
+      personal: Boolean(built.personal),
+      // The board's rows for a board admin; a personal row for its owner.
+      writable: writable || Boolean(built.personal),
+      animating: animatingKey === `${built.key}:${side}`,
+      positioned: built.positioned,
+      // Dragged: a row with a place of its own, by a board admin.
+      draggable: writable && built.positioned,
+      showDragHandles,
+      labelTextOverride: built.labelTextOverride,
+      labelTextOverridden: built.labelTextOverridden,
+      labelTextResetClass: built.labelTextResetClass,
+      perCard: side === 'card' && Boolean(thisCard) && cardShownFields.FIELD_KEYS.includes(built.key),
+      shownOnThisCard: side === 'card' && Boolean(thisCard) && cardShownFields.isShown(built.key, thisCard, counts, board),
+      // #6806: the board shows this field on every card, empty or not.
+      alwaysShowable: side === 'card' && cardShownFields.FIELD_KEYS.includes(built.key),
+      alwaysShown: cardShownFields.boardAlwaysShows(board, built.key),
+      animatingAlways: animatingKey === `${built.key}:always`,
+    }));
 }
 
 const boardCardSettingsHelpers = {
@@ -2183,55 +2212,17 @@ const boardCardSettingsHelpers = {
       title: action.label.map(k => TAPi18n.__(k)).join(action.labelSeparator || ' '),
     }));
   },
-  // The open section's rows: one line each, with its minicard and card cell
-  // (from the same builder the two lists used, so the checkbox, its handler
-  // class and its default are what they were), in the board's card order.
-  sectionSettingsRows() {
-    const data = this;
-    const id = openSettingsSectionOf(Template.instance(), data);
-    const section = cardSettingsSections.SECTIONS.find(s => s.id === id);
-    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
-    const bySide = side => new Map(buildCardSettingsRows(side, data).map(r => [r.key, r]));
-    const minicard = bySide('minicard');
-    const card = bySide('card');
-    const cardOrder = applyLayoutOrder(board?.cardFieldOrder, CARD_LAYOUT);
-    const thisCard = settingsCard();
-    const counts = thisCard ? cardFieldCounts(thisCard) : {};
-    const writable = Boolean(board && Utils.canModifyBoard && Utils.canModifyBoard());
-    const animatingKey = Template.instance().animating.get();
-    const cellOf = (side, built) => (built ? {
-      present: true, side, toggle: built.toggle, checked: built.checked, positioned: built.positioned,
-      personal: built.personal, writable: writable || built.personal,
-      animating: animatingKey === `${built.key}:${side}`,
-      position: built.positioned ? sidePosition(board, side, built.key) : '',
-    } : { present: false, side });
-    return cardSettingsSections.rowsOfSection(id)
-      .filter(row => minicard.has(row.key) || card.has(row.key))
-      .sort((a, b) => {
-        const ia = cardOrder.indexOf(a.key);
-        const ib = cardOrder.indexOf(b.key);
-        return (ia === -1 ? 1e9 : ia) - (ib === -1 ? 1e9 : ib);
-      })
-      .map(row => {
-        const built = card.get(row.key) || minicard.get(row.key);
-        return {
-          key: row.key,
-          icons: row.icons,
-          title: cardSettingsSections.labelInSection(row, section).map(k => TAPi18n.__(k)).join(row.labelSeparator || ' '),
-          personal: Boolean(built.personal),
-          labelTextOverride: built.labelTextOverride,
-          labelTextOverridden: built.labelTextOverridden,
-          labelTextResetClass: built.labelTextResetClass,
-          sides: [cellOf('minicard', minicard.get(row.key)), cellOf('card', card.get(row.key))],
-          perCard: Boolean(thisCard) && cardShownFields.FIELD_KEYS.includes(row.key),
-          shownOnThisCard: Boolean(thisCard) && cardShownFields.isShown(row.key, thisCard, counts, board),
-          // #6806: the board shows this field on every card, empty or not.
-          alwaysShowable: cardShownFields.FIELD_KEYS.includes(row.key),
-          alwaysShown: cardShownFields.boardAlwaysShows(board, row.key),
-          animatingAlways: animatingKey === `${row.key}:always`,
-        };
-      });
-  },
+  // The open section's rows of one side's list - Show on Card or Show on
+  // Minicard - in that side's own order (buildCardSettingsRows, the builder
+  // the two lists always used, so each checkbox, its handler class and its
+  // default are what they were), each list reordered by drag and drop. The
+  // card list also carries On this card and Show empty.
+  // (Two helpers rather than one with an argument: the Jade compiler does not
+  // take a helper call as `each`'s list.)
+  sectionCardRows() { return sectionSideRows(Template.instance(), Template.currentData(), 'card'); },
+  sectionMinicardRows() { return sectionSideRows(Template.instance(), Template.currentData(), 'minicard'); },
+
+
 
   allowsMinicardCollapse() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsMinicardCollapse !== false; },
   labelsAboveTitleOnMinicard() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.labelsAboveTitleOnMinicard === true; },
@@ -2717,20 +2708,60 @@ Template.boardCardSettingsPopup.helpers(boardCardSettingsHelpers);
 // click rather than taken from the row, so two quick clicks each move from
 // where the previous one actually left it; and the move goes through the
 // board's setter, which normalises it. models/lib/cardFieldOrder.js
+// Each list of Card Settings - Show on Card, Show on Minicard - reorders by
+// drag and drop. A list shows one section's rows, so where the row was
+// dropped is turned into a place among ALL the side's fields that have one:
+// right after the row now above it (or right before the row now below it, at
+// the top). placeKey walks the same steps one at a time, so the layout's rules
+// - a pinned header first, a section moving as one - still hold
+// (models/lib/cardFieldOrder.js), and the field lands as near as they allow.
+function dropTargetIndex(stored, layout, key, listKeys) {
+  const movable = applyLayoutOrder(stored, layout).filter(k => isMovableKey(layout, k) && k !== key);
+  const keys = listKeys.filter(k => isMovableKey(layout, k));
+  const at = keys.indexOf(key);
+  if (at > 0) return movable.indexOf(keys[at - 1]) + 1;
+  if (keys.length > 1) return movable.indexOf(keys[1]);
+  return -1;
+}
+
+// `keys`: the list's rows in their new order, `key` the one that moved.
+function placeInListOrder(side, key, keys) {
+  const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+  if (!board || !(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+  const layout = side === 'minicard' ? MINICARD_LAYOUT : CARD_LAYOUT;
+  const stored = side === 'minicard' ? board.minicardFieldOrder : board.cardFieldOrder;
+  const target = dropTargetIndex(stored, layout, key, keys);
+  if (target < 0) return;
+  const order = placeKey(stored, key, target, layout);
+  if (order.join(' ') === applyLayoutOrder(stored, layout).join(' ')) return;
+  if (side === 'minicard') board.setMinicardFieldOrder(order);
+  else board.setCardFieldOrder(order);
+}
+
+Template.boardCardSettingsPopup.onRendered(function () {
+  this.$('.js-card-field-order-sortable').each((i, list) => {
+    reorderOnDrop(this.$(list), {
+      items: '> .js-card-field-order-row.is-positioned', handle: '.js-card-field-order-handle',
+      keyOf: el => el.dataset.key,
+      drop: (key, keys) => placeInListOrder(list.dataset.side, key, keys),
+    });
+  });
+});
+
+// The keyboard way to drag: one step up or down in the list as it is shown -
+// past the row above or below it - placed the same way as a drop.
 function moveCardSettingsRow(evt, direction) {
   evt.preventDefault();
-  if (evt.currentTarget.classList.contains('is-disabled')) return;
   const rowEl = evt.currentTarget.closest('.js-card-field-order-row');
-  if (!rowEl) return;
-  const { key, side } = rowEl.dataset;
-  const boardId = Session.get('currentBoard');
-  const currentBoard = ReactiveCache.getBoard(boardId);
-  if (!currentBoard || !key) return;
-  if (side === 'minicard') {
-    currentBoard.setMinicardFieldOrder(moveKey(currentBoard.minicardFieldOrder, key, direction, MINICARD_LAYOUT));
-  } else {
-    currentBoard.setCardFieldOrder(moveKey(currentBoard.cardFieldOrder, key, direction, CARD_LAYOUT));
-  }
+  const list = rowEl && rowEl.closest('.js-card-field-order-sortable');
+  if (!rowEl || !list || !rowEl.classList.contains('is-positioned')) return;
+  const keys = [...list.querySelectorAll(':scope > .js-card-field-order-row.is-positioned')].map(el => el.dataset.key);
+  const at = keys.indexOf(rowEl.dataset.key);
+  const to = direction === 'up' ? at - 1 : at + 1;
+  if (at < 0 || to < 0 || to >= keys.length) return;
+  keys.splice(at, 1);
+  keys.splice(to, 0, rowEl.dataset.key);
+  placeInListOrder(list.dataset.side, rowEl.dataset.key, keys);
 }
 
 Template.boardCardSettingsPopup.events({
@@ -2747,7 +2778,8 @@ Template.boardCardSettingsPopup.events({
     }
   },
 
-  'click .js-card-field-order-up'(evt) { moveCardSettingsRow(evt, 'up'); },
+  // A row is dragged by its handle or its name: a click on them does nothing.
+  'click .js-card-field-order-handle'(evt) { evt.preventDefault(); },
   // A card action of the open section, for the card the popup was opened from.
   'click .js-card-settings-action'(evt) {
     evt.preventDefault();
@@ -2772,7 +2804,6 @@ Template.boardCardSettingsPopup.events({
     const cell = evt.currentTarget.closest('.js-card-field-order-row');
     if (cell) tpl.animating.set(`${cell.dataset.key}:${cell.dataset.side}`);
   },
-  'click .js-card-field-order-down'(evt) { moveCardSettingsRow(evt, 'down'); },
   'click .js-card-settings-menu'(evt, tpl) {
     evt.preventDefault();
     tpl.animating.set(null);
@@ -2878,8 +2909,9 @@ Template.boardCardSettingsPopup.events({
       console.error(error);
     }
   },
-  // The keyboard: Up and Down on a focused order arrow move the row one step.
-  'keydown .js-card-field-order-up, keydown .js-card-field-order-down'(evt) {
+  // The keyboard way to drag: Up and Down on a focused handle or name move
+  // the row one step in its list's order.
+  'keydown .js-card-field-order-handle'(evt) {
     const direction = ARROW_KEYS[evt.key];
     if (direction) moveCardSettingsRow(evt, direction);
   },

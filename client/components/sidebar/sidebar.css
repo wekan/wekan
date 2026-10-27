@@ -171,12 +171,13 @@
 .card-settings-pane-head,
 .card-settings-line {
   display: grid;
-  /* Show on Minicard, Show on Card, Show empty (#6806), the field;
-     opened from a card, On this card first. Logical order: a right-to-left page mirrors it. Each line is
-     its own grid, so the side columns have FIXED widths - sized by content,
-     every line and the heading line would size them differently and nothing
-     would line up. */
-  grid-template-columns: 9em 9em 8em minmax(10em, 1fr);
+  /* Two lists: Show on Card - opened from a card On this card first, then
+     Show on Card, Show empty (#6806) and the field - and Show on Minicard,
+     then the field. Logical order: a right-to-left page mirrors it. Each
+     line is its own grid, so the side columns have FIXED widths - sized by
+     content, every line and the heading line would size them differently and
+     nothing would line up. */
+  grid-template-columns: 9em 8em minmax(10em, 1fr);
   column-gap: 14px;
   align-items: center;
   /* Every heading and every cell starts at its column's left edge (its start,
@@ -184,9 +185,25 @@
   justify-items: start;
   text-align: start;
 }
-.board-card-settings.has-card .card-settings-pane-head,
-.board-card-settings.has-card .card-settings-line {
-  grid-template-columns: 7em 9em 9em 8em minmax(10em, 1fr);
+.board-card-settings.has-card .card-settings-list-card > .card-settings-pane-head,
+.board-card-settings.has-card .card-settings-list-card > .card-settings-line {
+  grid-template-columns: 7em 9em 8em minmax(10em, 1fr);
+}
+.card-settings-list-minicard > .card-settings-pane-head,
+.card-settings-list-minicard > .card-settings-line {
+  grid-template-columns: 9em minmax(10em, 1fr);
+}
+/* The minicard's list under the card's, a little apart. */
+.card-settings-list + .card-settings-list {
+  margin-block-start: 14px;
+}
+/* What a row is dragged by: its handle (drag handles on), its icon or name. */
+.card-field-order-drag-label {
+  cursor: grab;
+}
+.card-settings-line.ui-sortable-helper {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 .card-settings-pane-head {
   font-weight: bold;
@@ -239,12 +256,6 @@
 .card-settings-select button {
   white-space: nowrap;
 }
-.card-settings-position {
-  min-width: 1.6em;
-  text-align: end;
-  color: #888;
-  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
-}
 .card-settings-inline-action {
   /* The forms float their buttons (Save left, Delete right); flow-root keeps
      those floats inside the form, or the rows below wrapped around them. */
@@ -282,24 +293,20 @@
 .board-card-settings.show-empty-fields .card-settings-side-head-always {
   display: none;
 }
-.board-card-settings.show-empty-fields .card-settings-pane-head,
-.board-card-settings.show-empty-fields .card-settings-line {
-  grid-template-columns: 9em 9em minmax(10em, 1fr);
+.board-card-settings.show-empty-fields .card-settings-list-card > .card-settings-pane-head,
+.board-card-settings.show-empty-fields .card-settings-list-card > .card-settings-line {
+  grid-template-columns: 9em minmax(10em, 1fr);
 }
-.board-card-settings.show-empty-fields.has-card .card-settings-pane-head,
-.board-card-settings.show-empty-fields.has-card .card-settings-line {
-  grid-template-columns: 7em 9em 9em minmax(10em, 1fr);
+.board-card-settings.show-empty-fields.has-card .card-settings-list-card > .card-settings-pane-head,
+.board-card-settings.show-empty-fields.has-card .card-settings-list-card > .card-settings-line {
+  grid-template-columns: 7em 9em minmax(10em, 1fr);
 }
 .card-settings-board-option { margin-block-end: 6px; }
 
 /* One side of the same popup: a menu that asks for one side hides the other
-   side's cells, so there is still ONE set of rows and one set of handlers. */
-.board-card-settings.show-card-only .card-settings-side-minicard,
-.board-card-settings.show-card-only .card-settings-side-head-minicard,
-.board-card-settings.show-minicard-only .card-settings-side-card,
-.board-card-settings.show-minicard-only .card-settings-side-head-card,
-.board-card-settings.show-minicard-only .card-settings-side-always,
-.board-card-settings.show-minicard-only .card-settings-side-head-always {
+   side's list, so there is still ONE set of lists and one set of handlers. */
+.board-card-settings.show-card-only .card-settings-list-minicard,
+.board-card-settings.show-minicard-only .card-settings-list-card {
   display: none;
 }
 

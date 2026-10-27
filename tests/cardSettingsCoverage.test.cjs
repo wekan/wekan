@@ -215,33 +215,41 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
   }
 });
 
-// ── the popup: sections on the left, one line per row on the right ─────────
-// docs/Features/Cards/Card-Fields.md (2026-10-25): Board Settings / Card is the
-// Admin Panel's left menu and right pane, the same popup the opened card's
-// "+ Add" opens. It used to be one "Card field order" heading over two long
-// lists reordered by drag and drop; a section shows a few rows at a time, so
-// each row has the order ARROWS of each side instead (the maintainer's choice),
-// and the Up and Down keys on a focused arrow do the same.
+// ── the popup: sections on the left, two lists on the right ──────────────────
+// docs/Features/Cards/Card-Fields.md: Board Settings / Card is the Admin
+// Panel's left menu and right pane, the same popup the opened card's "+ Add"
+// opens. On 2026-10-25 each row became one line with both sides' cells and
+// order ARROWS - but the lines could follow only one side's order, so an
+// arrow changed a number and nothing visibly moved. On 2026-10-27 (the
+// maintainer's choice) each section has the two lists again - Show on Card,
+// Show on Minicard - each in its own order and reordered by drag and drop,
+// as they were from 2026-10-02.
 
-test('the sections are the Admin Panel left menu, the rows a line each with a minicard and a card cell', () => {
+test('the sections are the Admin Panel left menu; each pane has a Show on Card and a Show on Minicard list', () => {
   assert.match(popup, /\.setting-content\n\s+\.content-body\n\s+\+leftMenu\(settingsMenuItems\)\n\s+\.main-body\n\s+\+paneTitle\(settingsPaneTitle\)/);
-  assert.match(popup, /each row in sectionSettingsRows/);
-  assert.match(popup, /each cell in row\.sides/);
-  // The cell is what the handlers read: data-key and data-side on the row class.
-  assert.match(popup, /span\.card-settings-side\.js-card-field-order-row\(class="card-settings-side-\{\{cell\.side\}\}[^"]*" data-key="\{\{row\.key\}\}" data-side="\{\{cell\.side\}\}"\)/);
-  assert.match(popup, /a\.flex\.card-field-order-toggle\(class="\{\{#if cell\.writable\}\}\{\{cell\.toggle\}\}\{\{else\}\}is-disabled\{\{\/if\}\} \{\{#if cell\.checked\}\}is-checked\{\{\/if\}\} \{\{#if cell\.animating\}\}is-animating\{\{\/if\}\}"/);
-  // The same animated checkbox as "On this card".
-  assert.match(popup, /a\.flex\.card-field-order-toggle\([^\n]*\n\s+\.materialCheckBox\(class="\{\{#if cell\.checked\}\}is-checked\{\{\/if\}\}"\)/);
-  // Reading order: On this card, Show on Minicard, Show on Card, the field.
-  const order = ['card-settings-side-head-this', 'card-settings-side-head-minicard', 'card-settings-side-head-card', 'card-settings-pane-head-label'].map(c => popup.indexOf(c));
+  assert.match(popup, /\.card-settings-list\.card-settings-list-card\.js-card-field-order-sortable\(data-side="card"\)/);
+  assert.match(popup, /\.card-settings-list\.card-settings-list-minicard\.js-card-field-order-sortable\(data-side="minicard"\)/);
+  assert.ok(popup.indexOf('card-settings-list-card') < popup.indexOf('card-settings-list-minicard'), 'the card\'s list first');
+  assert.match(popup, /each row in sectionCardRows/);
+  assert.match(popup, /each row in sectionMinicardRows/);
+  // The line is what the handlers read: data-key and data-side on the row class.
+  assert.strictEqual((popup.match(/\.card-settings-line\.js-card-field-order-row\(class="\{\{#if row\.personal\}\}card-settings-row-personal\{\{\/if\}\} \{\{#if row\.positioned\}\}is-positioned\{\{\/if\}\}" data-key="\{\{row\.key\}\}" data-side="(card|minicard)"\)/g) || []).length, 2);
+  // The card's list: On this card, Show on Card, Show empty, the field.
+  const card = popup.slice(popup.indexOf('card-settings-list-card'), popup.indexOf('card-settings-list-minicard'));
+  const order = ['card-settings-side-head-this', 'card-settings-side-head-card', 'card-settings-side-head-always', 'card-settings-pane-head-label'].map(c => card.indexOf(c));
+  assert.ok(order.every(i => i !== -1));
   assert.deepStrictEqual([...order].sort((x, y) => x - y), order);
-  assert.ok(popup.indexOf('each cell in row.sides') < popup.indexOf('span.card-settings-line-label'), 'the cells come before the field');
-  assert.ok(popup.indexOf("{{_ 'show-on-minicard'}}") < popup.indexOf("{{_ 'show-on-card'}}"), 'Show on Minicard reads before Show on Card');
-  // Both sides come from the one builder the two lists used.
-  assert.match(sidebarJs, /const bySide = side => new Map\(buildCardSettingsRows\(side, data\)\.map\(r => \[r\.key, r\]\)\);/);
+  const toggle = sidebarJade.slice(sidebarJade.indexOf('template(name="cardSettingsSideToggle")')).split('\ntemplate(')[0];
+  assert.match(toggle, /a\.flex\.card-field-order-toggle\(class="\{\{#if row\.writable\}\}\{\{row\.toggle\}\}\{\{else\}\}is-disabled\{\{\/if\}\} \{\{#if row\.checked\}\}is-checked\{\{\/if\}\} \{\{#if row\.animating\}\}is-animating\{\{\/if\}\}"/);
+  // The same animated checkbox as "On this card".
+  assert.match(toggle, /a\.flex\.card-field-order-toggle\([^\n]*\n\s+\.materialCheckBox\(class="\{\{#if row\.checked\}\}is-checked\{\{\/if\}\}"\)/);
+  // Each list from the one builder the two lists always used, in its side's order.
+  assert.match(sidebarJs, /return buildCardSettingsRows\(side, data\)\n\s+\.filter\(built => keys\.has\(built\.key\)\)/);
   assert.match(sidebarJs, /side === 'card' \? CARD_LAYOUT : MINICARD_LAYOUT/);
   assert.match(sidebarJs, /side === 'card' \? currentBoard\?\.cardFieldOrder : currentBoard\?\.minicardFieldOrder/);
   assert.match(sidebarJs, /rowsForSide\(side, order\)/);
+  // A menu asking for one side hides the other list.
+  assert.match(sidebarCss, /\.board-card-settings\.show-card-only \.card-settings-list-minicard,\n\.board-card-settings\.show-minicard-only \.card-settings-list-card \{\n\s+display: none;/);
   // Every row of the table is in exactly one section.
   const { SECTIONS } = require('../models/lib/cardSettingsSections');
   const keys = SECTIONS.flatMap(sec => sec.keys);
@@ -249,18 +257,25 @@ test('the sections are the Admin Panel left menu, the rows a line each with a mi
   assert.strictEqual(new Set(keys).size, keys.length);
 });
 
-test('each side cell has its order arrows, keyboard-reachable and titled; a modifier row has none', () => {
-  assert.match(popup, /if cell\.positioned\n\s+span\.card-settings-position \{\{cell\.position\}\}\n\s+a\.card-field-order-move\.js-card-field-order-up\(href="#" role="button" title="\{\{_ 'card-field-order-move-up'\}\}"/);
-  assert.match(popup, /a\.card-field-order-move\.js-card-field-order-down\(href="#" role="button" title="\{\{_ 'card-field-order-move-down'\}\}"/);
-  assert.ok(en['card-field-order-move-up'] && en['card-field-order-move-down']);
-  assert.match(sidebarJs, /'click \.js-card-field-order-up'\(evt\) \{ moveCardSettingsRow\(evt, 'up'\); \}/);
-  assert.match(sidebarJs, /'click \.js-card-field-order-down'\(evt\) \{ moveCardSettingsRow\(evt, 'down'\); \}/);
-  assert.match(sidebarJs, /'keydown \.js-card-field-order-up, keydown \.js-card-field-order-down'\(evt\) \{\s*const direction = ARROW_KEYS\[evt\.key\];\s*if \(direction\) moveCardSettingsRow\(evt, direction\);/);
-  assert.match(sidebarJs, /const ARROW_KEYS = \{ ArrowUp: 'up', ArrowDown: 'down' \};/);
+test('rows reorder by drag and drop and the keyboard, in the list as shown; a row with no place is not dragged', () => {
+  const label = sidebarJade.slice(sidebarJade.indexOf('template(name="cardSettingsRowLabel")')).split('\ntemplate(')[0];
+  assert.match(label, /span\.card-settings-line-label\(class="\{\{#if row\.draggable\}\}js-card-field-order-handle card-field-order-drag-label\{\{\/if\}\}"/);
+  assert.match(label, /if row\.draggable\n\s+if row\.showDragHandles\n\s+a\.flex\.card-field-order-move\.card-field-order-handle\.js-card-field-order-handle\(href="#" draggable="false" role="button" tabindex="0" title="\{\{_ 'drag-to-reorder'\}\}"/);
+  assert.ok(en['drag-to-reorder']);
+  // Dragged by a board admin, a row that has a place of its own.
+  assert.match(sidebarJs, /draggable: writable && built\.positioned,/);
   assert.match(sidebarJs, /const positioned = !spec\.after && isMovableKey\(layout, row\.key\);/);
-  // Negative: the drag and drop of the two long lists is gone with them.
-  assert.ok(!popup.includes('js-card-field-order-sortable'), 'no sortable list left');
-  assert.ok(!sidebarJs.includes("'> .js-card-field-order-row.is-positioned'"), 'no sortable setup left');
+  assert.match(sidebarJs, /reorderOnDrop\(this\.\$\(list\), \{\n\s+items: '> \.js-card-field-order-row\.is-positioned', handle: '\.js-card-field-order-handle',/);
+  assert.match(sidebarJs, /drop: \(key, keys\) => placeInListOrder\(list\.dataset\.side, key, keys\),/);
+  // The keyboard: one row up or down IN THE LIST, placed the same way as a drop.
+  assert.match(sidebarJs, /'keydown \.js-card-field-order-handle'\(evt\) \{\s*const direction = ARROW_KEYS\[evt\.key\];\s*if \(direction\) moveCardSettingsRow\(evt, direction\);/);
+  assert.match(sidebarJs, /const ARROW_KEYS = \{ ArrowUp: 'up', ArrowDown: 'down' \};/);
+  const move = sidebarJs.slice(sidebarJs.indexOf('function moveCardSettingsRow'), sidebarJs.indexOf('Template.boardCardSettingsPopup.events'));
+  assert.match(move, /placeInListOrder\(list\.dataset\.side, rowEl\.dataset\.key, keys\);/);
+  // Negative: the arrows and their numbers are gone, and nothing moves by
+  // the side's whole order behind the list's back.
+  assert.ok(!/js-card-field-order-up|js-card-field-order-down|card-settings-position|sidePosition/.test(popup + sidebarJs + sidebarCss));
+  assert.ok(!/moveKey\(/.test(sidebarJs), 'negative: no one-step move in the whole order');
 });
 
 test('every locale has the column heading keys', () => {
@@ -279,19 +294,49 @@ test('no hand-written row is left in the popup (negative: the table is the singl
   assert.ok(!sidebarJade.includes('cardFieldOrderRows'), 'the old separate arrow list is gone');
 });
 
-// ── the arrows move ONE side, through the board's admin-only setters ────────
+// ── a drop moves ONE side, through the board's admin-only setters ──────────
 
-test('an order arrow moves the field on its own side only, through setCardFieldOrder / setMinicardFieldOrder', () => {
-  const fn = sidebarJs.slice(sidebarJs.indexOf('function moveCardSettingsRow('), sidebarJs.indexOf('Template.boardCardSettingsPopup.events('));
-  assert.match(fn, /const \{ key, side \} = rowEl\.dataset/);
-  assert.match(fn, /if \(side === 'minicard'\) \{\s*currentBoard\.setMinicardFieldOrder\(moveKey\(currentBoard\.minicardFieldOrder, key, direction, MINICARD_LAYOUT\)\)/);
-  assert.match(fn, /currentBoard\.setCardFieldOrder\(moveKey\(currentBoard\.cardFieldOrder, key, direction, CARD_LAYOUT\)\)/);
+// The drop's placement, from sidebar.js itself, run against the real layout.
+const fieldOrder = require('../models/lib/cardFieldOrder');
+const dropTargetIndex = (() => {
+  const src = sidebarJs.slice(sidebarJs.indexOf('function dropTargetIndex('), sidebarJs.indexOf('// `keys`: the list\'s rows in their new order'));
+  return new Function('applyLayoutOrder', 'isMovableKey', `${src}\nreturn dropTargetIndex;`)(fieldOrder.applyLayoutOrder, fieldOrder.isMovableKey);
+})();
+// What a list shows after a drop: the side's new order, filtered to the list.
+const dropInto = (stored, layout, key, wanted) => {
+  const order = fieldOrder.placeKey(stored, key, dropTargetIndex(stored, layout, key, wanted), layout);
+  return order.filter(k => wanted.includes(k));
+};
+
+test('a dropped row lands where it was dropped in its list, on its own side only', () => {
+  const { CARD_LAYOUT, MINICARD_LAYOUT } = fieldOrder;
+  // Date: End dropped first.
+  assert.deepStrictEqual(dropInto(undefined, CARD_LAYOUT, 'endDate', ['endDate', 'receivedDate', 'startDate', 'dueDate']),
+    ['endDate', 'receivedDate', 'startDate', 'dueDate']);
+  // Time: its three fields share a card section with two of Card's rows -
+  // Pomodoro dropped first goes before Spent time, not before those two.
+  const time = dropInto(undefined, CARD_LAYOUT, 'pomodoro', ['pomodoro', 'spentTime', 'flowtime']);
+  assert.deepStrictEqual(time, ['pomodoro', 'spentTime', 'flowtime']);
+  assert.deepStrictEqual(fieldOrder.orderedCardFieldsOf(fieldOrder.placeKey(undefined, 'pomodoro',
+    dropTargetIndex(undefined, CARD_LAYOUT, 'pomodoro', ['pomodoro', 'spentTime', 'flowtime']), CARD_LAYOUT), 'sort').slice(0, 2),
+  ['cardSortingByNumber', 'showLists'], 'the rows of other sections keep their place');
+  // A dropped last row goes last.
+  assert.deepStrictEqual(dropInto(undefined, CARD_LAYOUT, 'receivedDate', ['startDate', 'dueDate', 'endDate', 'receivedDate']),
+    ['startDate', 'dueDate', 'endDate', 'receivedDate']);
+  // The minicard's own order, the card's untouched.
+  const mini = dropInto(undefined, MINICARD_LAYOUT, 'endDate', ['endDate', 'receivedDate', 'startDate', 'dueDate']);
+  assert.deepStrictEqual(mini, ['endDate', 'receivedDate', 'startDate', 'dueDate']);
+  // Negative: a pinned header stays first - Stickers dropped above Labels does not pass it.
+  const labels = fieldOrder.placeKey(undefined, 'stickers', dropTargetIndex(undefined, CARD_LAYOUT, 'stickers', ['stickers', 'labels', 'location']), CARD_LAYOUT);
+  assert.strictEqual(fieldOrder.orderedCardFieldsOf(labels, 'labels')[0], 'labels');
+  // Negative: a list of one row has nowhere to go.
+  assert.strictEqual(dropTargetIndex(undefined, CARD_LAYOUT, 'vote', ['vote']), -1);
+  // Through the board's setters, the side the list says; nothing written when nothing moved.
+  const place = sidebarJs.slice(sidebarJs.indexOf('function placeInListOrder('), sidebarJs.indexOf('Template.boardCardSettingsPopup.onRendered'));
+  assert.match(place, /if \(!board \|\| !\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;/);
+  assert.match(place, /if \(order\.join\(' '\) === applyLayoutOrder\(stored, layout\)\.join\(' '\)\) return;/);
+  assert.match(place, /if \(side === 'minicard'\) board\.setMinicardFieldOrder\(order\);\n\s+else board\.setCardFieldOrder\(order\);/);
   assert.ok(!/\$set: \{ (cardFieldOrder|minicardFieldOrder): /.test(sidebarJs), 'the popup never writes the order itself (negative)');
-  // placeKey keeps the layout's rules: a pinned header stays first.
-  const { placeKey, CARD_LAYOUT, orderedCardFieldsOf } = require('../models/lib/cardFieldOrder');
-  assert.deepStrictEqual(orderedCardFieldsOf(placeKey(undefined, 'stickers', 0, CARD_LAYOUT), 'labels')[0], 'labels');
-  const order = placeKey(undefined, 'endDate', 0, CARD_LAYOUT);
-  assert.deepStrictEqual(orderedCardFieldsOf(order, 'dates')[0], 'endDate', 'a field dropped first leads its section');
 });
 
 test('the setters normalise what they store, the schema holds both orders, and only a board admin may write them', () => {
@@ -302,10 +347,10 @@ test('the setters normalise what they store, the schema holds both orders, and o
   assert.match(boardsModel, /cardFieldOrder: \{[\s\S]*?type: Array,\s*optional: true/);
   // Boards.update is allowed to a board admin (or site admin) and nobody else.
   assert.match(permissions, /Boards\.allow\(\{[\s\S]*?update: allowIsBoardAdminOrSiteAdmin/);
-  // Only an admin has the order arrows, and only an admin's board checkboxes
-  // are live: anybody else gets them disabled (their own rows excepted).
-  assert.ok(/if canModifyBoard\n\s+if cell\.positioned\n/.test(popup));
-  assert.match(sidebarJs, /writable: writable \|\| built\.personal,/);
+  // Only an admin drags a row, and only an admin's board checkboxes are
+  // live: anybody else gets them disabled (their own rows excepted).
+  assert.match(sidebarJs, /draggable: writable && built\.positioned,/);
+  assert.match(sidebarJs, /writable: writable \|\| Boolean\(built\.personal\),/);
 });
 
 // ── order: the layouts' defaults ARE the templates' order ───────────────────
@@ -393,9 +438,9 @@ test('minicard-only rows sit beside the row they belong with', () => {
   const personal = CARD_SETTINGS_ROWS.filter(r => r.minicard && r.minicard.personal).map(r => r.key);
   assert.deepStrictEqual(personal, ['labelTextPersonal', 'listTitle']);
   assert.ok(popup.includes('{{#if row.personal}}card-settings-row-personal{{/if}}'), 'personal rows keep the class CSS hides outside the minicard view');
-  // One LINE per row now (card-settings-line), holding both sides' cells.
+  // A line per row in each list (card-settings-line).
   assert.ok(sidebarCss.includes('.board-card-settings.show-personal-only .card-settings-line:not(.card-settings-row-personal)'));
-  assert.match(popup, /\.card-settings-line\(class="\{\{#if row\.personal\}\}card-settings-row-personal\{\{\/if\}\}"/);
+  assert.match(popup, /\.card-settings-line\.js-card-field-order-row\(class="\{\{#if row\.personal\}\}card-settings-row-personal\{\{\/if\}\}/);
 });
 
 console.log(`\n${passed} passed`);

@@ -101,7 +101,8 @@ test('a heading and its cells start at the same x', () => {
   assert.ok(!/font-size/.test(headRule), 'negative: no font-size on the heading line itself');
   assert.match(css, /\.card-settings-pane-head > span \{\n\s+font-size: calc\(12px \* var\(--wekan-ui-font-scale, 1\)\);/);
   // Every item starts at its column's start edge.
-  assert.match(css, /grid-template-columns: 9em 9em 8em minmax\(10em, 1fr\);\n\s+column-gap: 14px;\n\s+align-items: center;\n[\s\S]{0,200}justify-items: start;\n\s+text-align: start;/);
+  // (The card's list: Show on Card, Show empty, the field.)
+  assert.match(css, /grid-template-columns: 9em 8em minmax\(10em, 1fr\);\n\s+column-gap: 14px;\n\s+align-items: center;\n[\s\S]{0,200}justify-items: start;\n\s+text-align: start;/);
   assert.match(css, /\.card-settings-side \{\n\s+display: inline-flex;\n\s+align-items: center;\n\s+justify-content: flex-start;\n\s+justify-self: start;/);
   assert.match(css, /\.card-settings-side > a\.flex \{\n\s+margin: 0;/);
   // Negative: nothing centres or right-aligns a cell of the table.
