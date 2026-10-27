@@ -306,7 +306,21 @@ the admin entry. `tests/dataHealth6818.test.cjs` pins it.
 
 and fixes the following bugs:
 
-**Board Settings / Card** - a field ticked Show on Card but empty.
+**Board Settings / Card** - a field ticked Show on Card but empty, and the
+Draggable
+table's checkboxes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66ee2d12f3">A ticked Draggable checkbox is a checkbox, not a dot</a>. Thanks to mimZD and xet7.</summary>
+
+[#6820](https://github.com/wekan/wekan/issues/6820): the Draggable table
+brought its native checkboxes back but kept the 9px 14px padding forms.css
+gives every input, so a ticked 16px box left the browser about 2px to draw
+in. The WIP limit groups popup and task-list checkboxes in a description had
+the same fault. `tests/nativeCheckboxPadding6820.test.cjs` fails on any
+stylesheet that brings back a native checkbox with that padding.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ccc67ddf68">Show on Card and an empty field: Show empty fields, Show empty or On this card show it</a>. Thanks to mimZD and xet7.</summary>
@@ -8788,143 +8802,6 @@ unchanged.
 The Trello dialog browser case passes syntax and discovery; execution is
 pending.
 All-language translation and semantic verification remain unfinished.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.39 2026-10-13 WeKan ® release
-
-**In short:** the Docker image's vulnerability scans on **Quay** and **Artifact
-Hub** are cut down to what has no fix yet. The image no longer carries
-**docker-cli** and its old Go, the bundled **FerretDB** and **MongoDB tools**
-are built with **Go 1.27.2**, and eight npm packages inside Meteor's own
-packages are raised to fixed releases. The **Android** and **FreeBSD** Bun
-builds are fixed, the Docker job checks the bundle version again, and **SAML**
-logs in users whose binding lacks the optional qualifiers.
-
-This release fixes the following SECURITY ISSUES found by container image scanning:
-
-**The Docker image** - what the image carries besides WeKan.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/be2a4053be">It no longer installs docker-cli, whose Go 1.24 filled the scans</a>. Thanks to xet7.</summary>
-
-Debian's `docker-cli` is a Go program built with Go 1.24.4, and its standard
-library advisories were most of the Quay scan (about 60 entries per
-architecture) and three of Artifact Hub's. Only the UCS migration used it, to
-run `mongo` and `mongoexport` inside the old database container. Its wrappers
-now run `releases/ucs-migration/docker-exec.mjs`, which talks to the Docker
-Engine API over the mounted socket and keeps stdout, stderr and the exit
-status apart exactly as `docker exec` did, with 125 when Docker refuses.
-`tests/ucsDockerExec.test.mjs` drives it against a fake engine that splits
-frames across reads, covers the refusals, and fails if the image installs a
-Docker CLI again. It was not run against a live UCS host here.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/169670abd5">Eight npm packages inside Meteor's packages are raised to fixed releases</a>. Thanks to xet7.</summary>
-
-Artifact Hub's scan found advisories in `browserslist` 4.28.4,
-`baseline-browser-mapping` 2.10.40, `colord` 2.9.3, `svgo` 2.8.3 and
-`source-map-js` 1.2.1 (meteor/minifier-css), `compression` 1.7.4 and `qs`
-6.15.3 (meteor/webapp, meteor/oauth) and `lodash.template` 4.5.0
-(aldeed:simple-schema), all fixed in the same major. Meteor pins those, so
-`releases/bump-bundle-npm-deps.mjs` raises them in the built bundle. It now
-also gives a bumped package its own copy of a dependency whose sibling is a
-different version, so `compression` 1.8.2 runs with the `bytes`, `negotiator`
-and `safe-buffer` it declares. On a copy of the real v12.38 bundle all eight
-load, compression serves gzip and the bundle passes
-`releases/bundle-smoke-boot.sh`. The `nodemailer` and `postcss-selector-parser`
-fixes need a new major and are listed as not fixable, beside `uuid`.
-
-</details>
-
-**FerretDB and the MongoDB tools** - the Go programs bundled with WeKan.
-
-<details>
-<summary><a href="https://github.com/wekan/FerretDB/commit/b6880891">They are built with Go 1.27.2 and golang.org/x/net v0.60.0</a>. Thanks to xet7.</summary>
-
-Both scans listed the Go 1.27.0 (`ferretdb`) and 1.27.1 (`mongo-tools`)
-standard libraries and x/net v0.59.0, fixed in Go 1.27.2 and x/net 0.60.0.
-[wekan/FerretDB](https://github.com/wekan/FerretDB/commit/b6880891) and
-[wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/commit/e4da9eb)
-now build with them; rebuilt binaries embed go1.27.2 and x/net v0.60.0. The
-FerretDB image also [takes Debian's security
-updates](https://github.com/wekan/FerretDB/commit/3711b1cb) now, for the fixed
-liblzma5. WeKan bundles them from their next releases.
-
-</details>
-
-None of these is an attempt anybody can make against a running WeKan - they
-are what the image is built from - so nothing is recorded in Admin Panel →
-Problems. The remaining Debian findings have no fixed package yet.
-
-and fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9949bca0b9">SAML logs in a binding that lacks the optional qualifiers</a>. Thanks to xet7.</summary>
-
-A SAML binding stored with `issuer`, `nameID` and `nameIDFormat` but no
-`nameQualifier` / `spNameQualifier` keys at all was not found by identity,
-because a query for an empty string does not match a missing field. The user
-was then found by username and refused as `account-already-bound-to-saml`,
-shown as "SAML identity does not match this account". When the assertion's
-qualifier is empty, a missing stored one now matches too, and the next login
-writes both as empty strings so the record is exact from then on. A non-empty
-qualifier on either side, and a missing issuer, still fail closed.
-`tests/samlIdentityBinding.test.cjs` covers the login, the normalization and
-those refusals, and the same queries were checked against a real FerretDB.
-
-</details>
-
-and fixes the following build bugs:
-
-**Bun runtime bundles** - the per-target builds in bun.yml.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fb12ea42c8">Android and FreeBSD build, and windows-arm64 no longer shows a false error</a>. Thanks to xet7.</summary>
-
-Android: Termux's user does not own the bind-mounted bundle - the workflow
-makes it writable for everyone - so `chmod` on `npm-rebuild-args.js` failed
-with EPERM before a write that was allowed. A file is now chmodded only when
-it is not writable already. FreeBSD: the final Bun native check was killed at
-its three-minute deadline with no output, because its buffered console went
-with it. It now writes each step unbuffered and exits explicitly, and the
-supervisor tells a hung operation (a failure naming the step) from every
-check passing and Bun then hanging on exit, a known FreeBSD deadlock
-([oven-sh/bun#44595](https://github.com/oven-sh/bun/issues/44595)), which
-passes with a warning. windows-arm64 built, passed and attached its bundle,
-yet showed an error: the expected no-prebuilt-addon probe printed Bun's raw
-`error:` line, which GitHub turns into an annotation; it is one plain line
-now. `tests/bunTargetBuildFailures.test.cjs` covers each case, and the real
-check passes under Bun 1.4.3 on Linux. Android and FreeBSD need their CI
-runners to confirm.
-
-</details>
-
-**Release checks** - what the release workflow verifies and reports.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/163ebf260a">The Docker job checks the bundle version again</a>. Thanks to xet7.</summary>
-
-The check looked for `"name":"wekan"` in `app.js`, but rspack keeps only the
-`version` field the server reads, so every release skipped it with a warning.
-It now also reads the one v-prefixed version-only module, and still only warns
-when that is absent or ambiguous. A cancelled snap-launchpad job no longer
-says it ran out of time: the v12.38 jobs were cancelled at 1h49m of a
-360-minute cap while Launchpad sat in "Uploading".
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/68c9f2bcd0">The build script parity guard passes again</a>. Thanks to xet7.</summary>
-
-`tests/buildScriptParity.test.cjs` failed because the Bun target-build
-scripts, which bun.yml runs on each target runner, and the UCS migration's
-`docker-exec.mjs` are not `build.sh` menu entries. They are recorded as
-internals with their reason, and all 1,820 node suites pass.
 
 </details>
 
