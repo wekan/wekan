@@ -26,7 +26,9 @@ test('external links and board links keep their existing new-tab behavior', () =
 test('card removal waits until the destination card subscription is ready', () => {
   const details = fs.readFileSync('client/components/cards/cardDetails.js', 'utf8');
   assert.match(details, /this\.subscribe\('card', openedCardId\)/);
-  const guard = details.indexOf('if (!cardSubscription?.ready()) return;');
-  const missing = details.indexOf('if (!openCardIsUnavailable(card, openedBoardId)) return;');
-  assert.ok(guard > 0 && missing > guard);
+  // Since #6808 the readiness goes into openCardCloseDecision, which waits
+  // ('wait') until the subscription is ready (tests/openCardClose6808.test.cjs).
+  assert.match(details, /subReady: Boolean\(cardSubscription\?\.ready\(\)\),/);
+  const { openCardCloseDecision } = require('../models/lib/openCardPresence');
+  assert.equal(openCardCloseDecision({ subReady: false, connected: true, loggingIn: false, card: null, openedBoardId: 'b1' }), 'wait');
 });

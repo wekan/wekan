@@ -169,6 +169,31 @@ test.describe('Cards – operations', () => {
     await expect(boardPage.locator('.board-canvas')).toBeVisible();
   });
 
+  // #6808: behind a reverse proxy the DDP connection can drop and come back
+  // while a card's link loads; the card left Minimongo for a moment and #3114
+  // closed it. Now only a server-confirmed removal closes it.
+  test('#6808: a card opened from its link stays open across a reconnect', async ({
+    boardPage,
+    board,
+  }) => {
+    const cp = new CardPage(boardPage);
+    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+    const origin = new URL(boardPage.url()).origin;
+    await boardPage.goto(`${origin}/b/${board.boardId}/${board.slug}/${cardId}`);
+    await cp.waitForOpen();
+    // The connection drops and comes back, as through the reporter's proxy.
+    await boardPage.evaluate(() => { Meteor.disconnect(); Meteor.reconnect(); });
+    await expect.poll(() => boardPage.evaluate(() => Meteor.status().connected && !Meteor.loggingIn()), { timeout: 30_000 }).toBe(true);
+    // Every subscription has re-run: give a wrong close every chance to happen.
+    await boardPage.waitForTimeout(3000);
+    await expect(boardPage.locator('.js-card-details')).toHaveCount(1);
+    expect(boardPage.url()).toContain(cardId);
+    // Negative: a card that is really gone still closes (#3114), confirmed by the server.
+    db.deleteOne('cards', { _id: cardId });
+    await expect(boardPage.locator('.js-card-details')).toHaveCount(0, { timeout: 30_000 });
+    expect(boardPage.url()).not.toContain(cardId);
+  });
+
   test('multi-selection archives every selected card', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;

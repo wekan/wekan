@@ -123,7 +123,10 @@ test('opening a card (Template.cardDetails onCreated) is what clears the flag', 
   const cardDetails = read('client/components/cards/cardDetails.js');
   const onCreatedIdx = cardDetails.indexOf('Template.cardDetails.onCreated');
   assert.ok(onCreatedIdx >= 0, 'onCreated exists');
-  const body = cardDetails.slice(onCreatedIdx, onCreatedIdx + 3000);
+  // The whole onCreated, up to the next Template.cardDetails hook - not a
+  // fixed 3000 characters, which #6808's close confirmation outgrew.
+  const end = cardDetails.indexOf('\nTemplate.cardDetails.', onCreatedIdx + 1);
+  const body = cardDetails.slice(onCreatedIdx, end === -1 ? undefined : end);
   assert.ok(/setCardLastViewed\(openedCardId\)/.test(body),
     'the existing card-open hook is reused, not a new open event');
 });

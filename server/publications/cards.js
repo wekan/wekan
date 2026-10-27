@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { publishReportPage } from '/models/lib/reportPageIndex';
 import { findWhere } from '/imports/lib/collectionHelpers';
+import { readableCard } from '/server/lib/openCardAccess';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import {
@@ -93,30 +94,9 @@ const {
 
 Meteor.publish('card', async function(cardId) {
   check(cardId, String);
-
-  const userId = this.userId;
-  const card = await ReactiveCache.getCard({ _id: cardId });
-
-  if (!card || !card.boardId) {
-    return [];
-  }
-
-  const board = await ReactiveCache.getBoard({ _id: card.boardId });
-  if (!board || !board.isVisibleBy({ _id: userId })) {
-    return [];
-  }
-
-  // If user has assigned-only permissions, check if they're assigned to this card
-  if (userId && board.members) {
-    const member = findWhere(board.members, { userId: userId, isActive: true });
-    if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-      // User with assigned-only permissions can only view cards assigned to them
-      if (!card.assignees || !card.assignees.includes(userId)) {
-        return []; // Don't publish if user is not assigned
-      }
-    }
-  }
-
+  // The rule is server/lib/openCardAccess.js, shared with 'cards.openCardAvailable'.
+  const card = await readableCard(this.userId, cardId);
+  if (!card) return [];
   const ret = await ReactiveCache.getCards(
     { _id: cardId },
     {},

@@ -267,6 +267,7 @@ import '/server/methods/ruleSuggestions';
 import '/server/methods/boardSummary';
 import '/server/methods/sinceLastVisit';
 import '/server/methods/cardForecast';
+import '/server/methods/openCardAvailability';
 import '/server/methods/whiteboard';
 import '/server/methods/sandstormMigration';
 import '/server/methods/tenant';

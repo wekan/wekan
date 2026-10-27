@@ -89,7 +89,7 @@ import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { caretClassFor } from '/client/lib/sectionCaret';
 import { restoreArchivedCard } from '/client/components/sidebar/sidebarArchives';
-const { openCardIsUnavailable } = require('/models/lib/openCardPresence');
+const { openCardIsUnavailable, openCardCloseDecision } = require('/models/lib/openCardPresence');
 
 // Id of the location currently being edited in the cardLocationsPopup; null
 // when adding a new location.
@@ -368,14 +368,12 @@ Template.cardDetails.onCreated(function () {
   // board. Minimongo then removed the data while the mobile details view kept
   // rendering an empty shell. Observe the card that created this instance and
   // close every way it can be open as soon as it no longer belongs here.
-  this.autorun(() => {
-    if (!openedCardId || !openedBoardId) return;
-    // A same-tab card link can render the details before the destination card
-    // publication arrives. Only a ready subscription can prove it is gone.
-    if (!cardSubscription?.ready()) return;
-    const card = ReactiveCache.getCard(openedCardId);
-    if (!openCardIsUnavailable(card, openedBoardId)) return;
-
+  // #6808: but a card that only LOOKS gone - Minimongo emptied for a moment
+  // while a dropped connection comes back and its subscriptions re-run, as
+  // behind a reverse proxy while the page loads - is not closed: the server
+  // is asked first (models/lib/openCardPresence.js openCardCloseDecision).
+  let confirming = false;
+  const closeOpenedCard = () => {
     Session.set(
       'openCards',
       (Session.get('openCards') || []).filter(id => id !== openedCardId),
@@ -393,6 +391,33 @@ Template.cardDetails.onCreated(function () {
     if (routeCardId === openedCardId) {
       Utils.goBoardId(openedBoardId);
     }
+  };
+  this.autorun(() => {
+    if (!openedCardId || !openedBoardId) return;
+    const decision = openCardCloseDecision({
+      // A same-tab card link can render the details before the destination
+      // card publication arrives. Only a ready subscription can prove it is gone.
+      subReady: Boolean(cardSubscription?.ready()),
+      connected: Meteor.status().connected,
+      loggingIn: Meteor.loggingIn(),
+      card: ReactiveCache.getCard(openedCardId),
+      openedBoardId,
+    });
+    if (decision !== 'confirm' || confirming) return;
+    confirming = true;
+    Meteor.callAsync('cards.openCardAvailable', openedCardId, openedBoardId)
+      .then(available => {
+        confirming = false;
+        if (available || this.view.isDestroyed) return;
+        // Still gone now that the server has answered.
+        if (!openCardIsUnavailable(ReactiveCache.getCard(openedCardId), openedBoardId)) return;
+        closeOpenedCard();
+      })
+      .catch(() => {
+        // No answer (the connection dropped again): keep the card; the
+        // autorun asks again once everything has settled.
+        confirming = false;
+      });
   });
 
   // #6686: a sub-popup opened from this card (Labels, Members, ...) is a
