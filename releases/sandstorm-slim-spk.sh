@@ -90,7 +90,8 @@ fi
 echo "==> [5/5] spk pack (the trimmed trees, no rebuild)"
 [ -d "$DEPS" ] || { echo "no meteor-spk.deps at $DEPS - run sandstorm-src/build-deps.sh first" >&2; exit 1; }
 [ -n "$SPK_BIN" ] || { echo "no spk binary: install Sandstorm, or set SPK=/path/to/spk" >&2; exit 1; }
-ln -sfT "$DEPS" .meteor-spk/deps
+# -n (BSD and GNU) replaces an existing link instead of entering it, as -T did.
+ln -sfn "$DEPS" .meteor-spk/deps
 "$SPK_BIN" pack "$@" "$OUT"
-SPK_BYTES=$(stat -c%s "$OUT")
+SPK_BYTES=$(wc -c < "$OUT" | tr -d " ")   # wc -c: the same with GNU and BSD tools
 echo "Packed $OUT: $((SPK_BYTES/1024/1024)) MiB ($SPK_BYTES bytes)"

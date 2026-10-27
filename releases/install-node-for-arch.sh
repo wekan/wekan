@@ -35,6 +35,8 @@
 #               the newest release: a CPU can lag a version or two behind.
 
 set -eux
+# Older macOS has no sha256sum; shasum -a 256 prints the same "hash  file" lines and takes -c.
+command -v sha256sum >/dev/null 2>&1 || sha256sum() { shasum -a 256 "$@"; }
 
 export DEBIAN_FRONTEND=noninteractive
 

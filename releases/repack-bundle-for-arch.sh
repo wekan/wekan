@@ -27,6 +27,8 @@
 # Produces  wekan-$VERSION-$ARCH.zip, its .sha256sum, and provenance/$ARCH.tsv.
 
 set -euo pipefail
+# Older macOS has no sha256sum; shasum -a 256 prints the same "hash  file" lines and takes -c.
+command -v sha256sum >/dev/null 2>&1 || sha256sum() { shasum -a 256 "$@"; }
 
 : "${ARCH:?ARCH is required}"
 : "${NODE_ARCH:?NODE_ARCH is required}"

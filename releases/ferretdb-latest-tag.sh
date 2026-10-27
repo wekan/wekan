@@ -44,7 +44,9 @@ if [ -n "${GH_TOKEN:-${GITHUB_TOKEN:-}}" ]; then
     auth=(-H "Authorization: Bearer ${GH_TOKEN:-$GITHUB_TOKEN}")
 fi
 
-body="$(curl -fsSL --retry 3 --retry-delay 2 "${auth[@]}" "$api" 2>/dev/null || true)"
+# ${auth[@]+...}: with no token, a bare "${auth[@]}" is an unbound variable
+# under set -u in bash 3.2 (macOS /bin/bash), as in ferretdb-asset.sh.
+body="$(curl -fsSL --retry 3 --retry-delay 2 ${auth[@]+"${auth[@]}"} "$api" 2>/dev/null || true)"
 [ -n "$body" ] || exit 0
 
 # Prefer python3 - it is on every runner that builds a bundle - and fall back to

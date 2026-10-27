@@ -20,7 +20,7 @@
 #     result.txt  - one line: PASS / FAIL / SKIP and why
 #     run.log     - the full narrative, timestamps included
 #
-# A few leaves have a real runner wired up below (RUNNERS) that exercises the
+# A few leaves have a real runner wired up below (runner_for) that exercises the
 # actual WeKan server code from this checkout - e.g. Login-Page does a REST
 # username/password login round trip, and Board-Sidebar/Board-Settings/Import-Export/PDF creates a board
 # and downloads its PDF export - using the request shown in their
@@ -305,11 +305,14 @@ run_export_pdf() {
 }
 
 # Maps a docs/Features leaf's relative path to the runner above. Anything not
-# listed here uses run_generic_fallback.
-declare -A RUNNERS=(
-  ["Login-Page"]="run_login_password"
-  ["Board-Sidebar/Board-Settings/Import-Export/PDF"]="run_export_pdf"
-)
+# listed here uses run_generic_fallback. A case, not `declare -A`: associative
+# arrays are bash 4, and macOS's /bin/bash is 3.2.
+runner_for() {
+  case "$1" in
+    Login-Page) echo run_login_password ;;
+    Board-Sidebar/Board-Settings/Import-Export/PDF) echo run_export_pdf ;;
+  esac
+}
 
 # ---------------------------------------------------------------------------
 # generic fallback runner - matches the feature against this repo's own
@@ -359,7 +362,8 @@ find_matching_tests() {
     [ "$hit" -eq 1 ] && matches+=("$f")
   done
   shopt -u nocasematch
-  printf '%s\n' "${matches[@]}"
+  # ${a[@]+...}: under set -u, bash 3.2 (macOS) calls an empty array unbound.
+  printf '%s\n' ${matches[@]+"${matches[@]}"}
 }
 
 # The feature's own checked-in example input, if any: docs/Features/<path>/
@@ -468,7 +472,8 @@ run_feature() {
   } > "$logfile"
 
   log "----- $relpath -----"
-  local runner="${RUNNERS[$relpath]:-}"
+  local runner
+  runner="$(runner_for "$relpath")"
   if [ -n "$runner" ]; then
     "$runner" "$relpath" "$outdir" "$outputfile" "$resultfile" "$logfile"
   else
@@ -495,7 +500,7 @@ feature_dirs() {
 # Recursively runs every leaf feature at or under $1 (a docs/Features
 # directory). A directory that has both subdirectories AND its own markdown
 # files directly in it (e.g. Login-Page) also runs as its own feature first, using
-# its own relative path - exactly the entry RUNNERS above keys off.
+# its own relative path - exactly the entry runner_for above keys off.
 run_all_under() {
   local dir="$1" rel
   if [ "$dir" = "$FEATURES_DIR" ]; then rel=""; else rel="${dir#"$FEATURES_DIR"/}"; fi
