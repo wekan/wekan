@@ -4,6 +4,7 @@ import ChangeHistory from '/models/changeHistory';
 import SecurityLog from '/server/lib/securityLog';
 import { runWhenCpuLow, pauseIfBusy } from '/server/lib/cpuMonitor';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { SyncedCron } from '/server/cron/syncedCron';
 
 const { verifyHistoryRows, isConcurrentFork } = require('/models/lib/changeHistoryIntegrity');
 const PAUSE_MS = 100;
@@ -69,10 +70,23 @@ export async function runHistoryIntegrityScan() {
 if (Meteor.isServer && process.env.WEKAN_HISTORY_INTEGRITY_SCAN !== 'false') {
   Meteor.startup(() => {
     ensureIndex(HistoryIntegrityReported, { reportedAt: 1 }).catch(() => {});
-    Meteor.setInterval(() => {
-      runWhenCpuLow('change history integrity audit', runHistoryIntegrityScan,
-        { maxWaitMs: 55 * 60 * 1000 }).catch(() => {});
-    }, 60 * 60 * 1000);
+    // Once an hour for the whole installation, not once per WeKan process: a
+    // Meteor.setInterval read the whole History on every pod, 24 times an hour
+    // on 24 pods (#6821). SyncedCron runs each scheduled hour on one pod only.
+    try {
+      SyncedCron.add({
+        name: 'wekan-history-integrity-scan',
+        schedule(parser) {
+          return parser.text('every 1 hour');
+        },
+        job() {
+          return runWhenCpuLow('change history integrity audit', runHistoryIntegrityScan,
+            { maxWaitMs: 55 * 60 * 1000 }).catch(() => {});
+        },
+      });
+    } catch (e) {
+      console.error('historyIntegrityScan: failed to register cron job', e);
+    }
   });
 }
 
