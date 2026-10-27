@@ -38,7 +38,15 @@ Template.inlinedForm.onRendered(function () {
       Tracker.afterFlush(() => {
         const input = tpl.find('textarea,input[type=text]');
         if (input && typeof input.focus === 'function') {
+          // What the field held when the form opened. Selecting it lets the
+          // first key replace an existing value (a title being edited); but
+          // text typed or pasted in the 50 ms before the timer ran is the
+          // user's, and selecting THAT let the next key - Enter for a new
+          // line - replace it, leaving only "\n" (editor-enter-preference
+          // e2e: the add-card and card-title editors). Leave it alone then.
+          const opened = input.value;
           setTimeout(() => {
+            if (input.value !== opened) return;
             input.focus();
             if (input.value && input.select) {
               input.select();

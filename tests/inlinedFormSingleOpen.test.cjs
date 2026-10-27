@@ -162,6 +162,16 @@ test('NEGATIVE: closeForm tolerates null/malformed forms without throwing', () =
   assert.strictEqual(tracker.get(), null, 'tracked malformed form is untracked');
 });
 
+// The delayed focus-and-select on open must not select what was typed in
+// the meantime: the next key (Enter for a new line) replaced it, leaving only
+// a newline in the add-card and card-title editors.
+test('open-time select() is skipped once the field changed after opening', () => {
+  const src = require('fs').readFileSync(require('path').join(__dirname, '../client/lib/inlinedform.js'), 'utf8');
+  assert.match(src, /const opened = input\.value;\s*setTimeout\(\(\) => \{\s*if \(input\.value !== opened\) return;/);
+  // NEGATIVE: no other select() on open that skips the check.
+  assert.strictEqual((src.match(/input\.select\(\)/g) || []).length, 1);
+});
+
 console.log(`\n${passed} tests passed`);
 
 })().catch(e => { console.error(e); process.exit(1); });
