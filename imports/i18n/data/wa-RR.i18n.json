@@ -3200,6 +3200,8 @@
   "no-new-problems": "Waray bag-o nga mga problema.",
   "repair-broken-cards": "Ayda an nadaot nga mga kard",
   "repairing": "Gin-aayad…",
+  "data-health": "Kahimtang han datos",
+  "data-health-repair": "Ayda",
   "repair-broken-cards-done": "Naayad an __fixed__ nga kard.",
   "repair-broken-cards-done-unfixable": "Naayad an __fixed__ nga kard. An __unfixable__ nga kard waray board ngan diri mahimo awtomatiko nga ayadon.",
   "restore-list-swimlanes-done": "Naibalik an __restored__ nga lista. An __remaining__ diri naibalik.",

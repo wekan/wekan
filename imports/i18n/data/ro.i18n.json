@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nicio problemă nouă.",
   "repair-broken-cards": "Repară cardurile deteriorate",
   "repairing": "Se repară…",
+  "data-health": "Sănătatea datelor",
+  "data-health-repair": "Repară",
   "repair-broken-cards-done": "__fixed__ card(uri) reparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ card(uri) reparate. __unfixable__ card(uri) nu au panou și nu pot fi reparate automat.",
   "restore-list-swimlanes-done": "__restored__ listă/liste restaurate. __remaining__ nu au putut fi restaurate.",

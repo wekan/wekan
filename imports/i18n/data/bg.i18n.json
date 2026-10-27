@@ -3200,6 +3200,8 @@
   "no-new-problems": "Няма нови проблеми.",
   "repair-broken-cards": "Поправяне на повредените карти",
   "repairing": "Поправяне…",
+  "data-health": "Състояние на данните",
+  "data-health-repair": "Поправи",
   "repair-broken-cards-done": "Поправени карти: __fixed__.",
   "repair-broken-cards-done-unfixable": "Поправени карти: __fixed__. __unfixable__ карти нямат табло и не могат да бъдат поправени автоматично.",
   "restore-list-swimlanes-done": "Възстановени списъци: __restored__. Не бяха възстановени: __remaining__.",

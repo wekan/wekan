@@ -3200,6 +3200,8 @@
   "no-new-problems": "Manam musuq sasachakuykuna kanchu.",
   "repair-broken-cards": "P'akisqa kartakunata allichay",
   "repairing": "Allichachkan…",
+  "data-health": "Willakunapa allin kaynin",
+  "data-health-repair": "Allichay",
   "repair-broken-cards-done": "__fixed__ kartata allichasqa.",
   "repair-broken-cards-done-unfixable": "__fixed__ kartata allichasqa. __unfixable__ kartakunaqa mana pirqayuqmi, manataq kikinmanta allichayta atikunchu.",
   "restore-list-swimlanes-done": "__restored__ sutisuyuta kutichisqa. __remaining__ manam kutichiyta atikurqanchu.",

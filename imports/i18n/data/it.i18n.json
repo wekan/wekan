@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nessun nuovo problema.",
   "repair-broken-cards": "Ripara le schede danneggiate",
   "repairing": "Riparazione in corso…",
+  "data-health": "Salute dei dati",
+  "data-health-repair": "Ripara",
   "repair-broken-cards-done": "__fixed__ scheda/e riparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ scheda/e riparate. __unfixable__ scheda/e non hanno una bacheca e non possono essere riparate automaticamente.",
   "restore-list-swimlanes-done": "__restored__ lista/e ripristinate. Non è stato possibile ripristinarne __remaining__.",

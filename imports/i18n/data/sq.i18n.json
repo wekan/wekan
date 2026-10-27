@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nuk ka probleme të reja.",
   "repair-broken-cards": "Riparo kartat e prishura",
   "repairing": "Po riparohet…",
+  "data-health": "Shëndeti i të dhënave",
+  "data-health-repair": "Riparo",
   "repair-broken-cards-done": "U riparuan __fixed__ karta.",
   "repair-broken-cards-done-unfixable": "U riparuan __fixed__ karta. __unfixable__ karta nuk kanë tabelë dhe nuk mund të riparohen automatikisht.",
   "restore-list-swimlanes-done": "U rikthyen __restored__ lista. __remaining__ nuk mund të riktheheshin.",

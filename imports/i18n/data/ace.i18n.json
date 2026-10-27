@@ -3200,6 +3200,8 @@
   "no-new-problems": "Hana masalah barô.",
   "repair-broken-cards": "Peu-ubat kad nyang reuloh",
   "repairing": "Teungoh geupeu-ubat…",
+  "data-health": "Seuhat data",
+  "data-health-repair": "Peugèt",
   "repair-broken-cards-done": "__fixed__ kad ka geupeu-ubat.",
   "repair-broken-cards-done-unfixable": "__fixed__ kad ka geupeu-ubat. __unfixable__ kad hana papan ngön hana jeuet geupeu-ubat keudroe.",
   "restore-list-swimlanes-done": "__restored__ dapeuta ka geupeuwoe. __remaining__ hana jeuet geupeuwoe.",

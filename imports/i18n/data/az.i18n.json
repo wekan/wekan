@@ -3200,6 +3200,8 @@
   "no-new-problems": "Yeni problem yoxdur.",
   "repair-broken-cards": "Sınıq kartları təmir et",
   "repairing": "Təmir olunur…",
+  "data-health": "Məlumatların sağlamlığı",
+  "data-health-repair": "Düzəlt",
   "repair-broken-cards-done": "__fixed__ kart təmir olundu.",
   "repair-broken-cards-done-unfixable": "__fixed__ kart təmir olundu. __unfixable__ kartın lövhəsi yoxdur və avtomatik təmir oluna bilməz.",
   "restore-list-swimlanes-done": "__restored__ siyahı bərpa olundu. __remaining__ bərpa edilə bilmədi.",

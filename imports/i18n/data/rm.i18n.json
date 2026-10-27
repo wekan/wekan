@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nagins novs problems.",
   "repair-broken-cards": "Reparar las cartas donnegiadas",
   "repairing": "Reparar…",
+  "data-health": "Sanadad da las datas",
+  "data-health-repair": "Reparar",
   "repair-broken-cards-done": "Reparà __fixed__ carta(s).",
   "repair-broken-cards-done-unfixable": "Reparà __fixed__ carta(s). __unfixable__ carta(s) n'han nagina tabella e na pon betg vegnir reparadas automaticamain.",
   "restore-list-swimlanes-done": "Restaurà __restored__ glista(s). __remaining__ n'han betg pudì vegnir restauradas.",

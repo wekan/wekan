@@ -3200,6 +3200,8 @@
   "no-new-problems": "Новых праблем няма.",
   "repair-broken-cards": "Выправіць пашкоджаныя карткі",
   "repairing": "Выпраўленне…",
+  "data-health": "Стан даных",
+  "data-health-repair": "Выправіць",
   "repair-broken-cards-done": "Выпраўлена картак: __fixed__.",
   "repair-broken-cards-done-unfixable": "Выпраўлена картак: __fixed__. __unfixable__ картак не маюць дошкі, іх нельга выправіць аўтаматычна.",
   "restore-list-swimlanes-done": "Адноўлена спісаў: __restored__. Не ўдалося аднавіць: __remaining__.",

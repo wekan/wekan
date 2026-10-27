@@ -3200,6 +3200,8 @@
   "no-new-problems": "Kò sí ìṣòro tuntun.",
   "repair-broken-cards": "Tún àwọn káàdì tí ó bàjẹ́ ṣe",
   "repairing": "À ń tún un ṣe…",
+  "data-health": "Ìlera dátà",
+  "data-health-repair": "Tún ṣe",
   "repair-broken-cards-done": "A tún káàdì __fixed__ ṣe.",
   "repair-broken-cards-done-unfixable": "A tún káàdì __fixed__ ṣe. Káàdì __unfixable__ kò ní pátákó, a kò sì lè tún un ṣe láìfọwọ́ṣe.",
   "restore-list-swimlanes-done": "A dá àkójọ __restored__ padà. __remaining__ kò ṣeé dá padà.",

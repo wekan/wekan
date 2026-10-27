@@ -3200,6 +3200,8 @@
   "no-new-problems": "Níl aon fhadhbanna nua ann.",
   "repair-broken-cards": "Deisigh cártaí briste",
   "repairing": "Á ndeisiú…",
+  "data-health": "Sláinte na sonraí",
+  "data-health-repair": "Deisigh",
   "repair-broken-cards-done": "Deisíodh __fixed__ cárta.",
   "repair-broken-cards-done-unfixable": "Deisíodh __fixed__ cárta. Níl clár ag __unfixable__ cárta agus ní féidir iad a dheisiú go huathoibríoch.",
   "restore-list-swimlanes-done": "Athchóiríodh __restored__ liosta. Níorbh fhéidir __remaining__ a athchóiriú.",

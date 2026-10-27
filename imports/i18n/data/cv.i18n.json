@@ -3200,6 +3200,8 @@
   "no-new-problems": "Ҫӗнӗ проблемӑсем ҫук.",
   "repair-broken-cards": "Пӑсӑлнӑ карточкӑсене тӳрлетес",
   "repairing": "Тӳрлетет…",
+  "data-health": "Даннăйсен сывлăхĕ",
+  "data-health-repair": "Юсас",
   "repair-broken-cards-done": "__fixed__ карточкӑна тӳрлетнӗ.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточкӑна тӳрлетнӗ. __unfixable__ карточкӑн хӑми ҫук, ҫавӑнпа хӑй тӗллӗн тӳрлетме пулмасть.",
   "restore-list-swimlanes-done": "__restored__ список каялла тавӑрнӑ. __remaining__ тавӑраймарӑмӑр.",

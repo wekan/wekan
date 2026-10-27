@@ -3200,6 +3200,8 @@
   "no-new-problems": "אין בעיות חדשות.",
   "repair-broken-cards": "תיקון כרטיסים שבורים",
   "repairing": "מתקן…",
+  "data-health": "תקינות הנתונים",
+  "data-health-repair": "תיקון",
   "repair-broken-cards-done": "תוקנו __fixed__ כרטיסים.",
   "repair-broken-cards-done-unfixable": "תוקנו __fixed__ כרטיסים. ל־__unfixable__ כרטיסים אין לוח ולא ניתן לתקנם אוטומטית.",
   "restore-list-swimlanes-done": "שוחזרו __restored__ רשימות. לא ניתן היה לשחזר __remaining__.",

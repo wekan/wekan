@@ -3200,6 +3200,8 @@
   "no-new-problems": "مشکل جدیدی وجود ندارد.",
   "repair-broken-cards": "ترمیم کارت‌های خراب",
   "repairing": "در حال ترمیم…",
+  "data-health": "سلامت داده‌ها",
+  "data-health-repair": "تعمیر",
   "repair-broken-cards-done": "__fixed__ کارت ترمیم شد.",
   "repair-broken-cards-done-unfixable": "__fixed__ کارت ترمیم شد. __unfixable__ کارت تخته ندارند و به‌طور خودکار ترمیم نمی‌شوند.",
   "restore-list-swimlanes-done": "__restored__ فهرست بازیابی شد. __remaining__ بازیابی نشد.",

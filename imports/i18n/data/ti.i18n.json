@@ -3200,6 +3200,8 @@
   "no-new-problems": "ሓድሽ ጸገም የለን።",
   "repair-broken-cards": "ዝተበላሸዉ ካርድታት ጸግን",
   "repairing": "ይጽገን ኣሎ…",
+  "data-health": "ጥዕና ዳታ",
+  "data-health-repair": "ኣዕሪ",
   "repair-broken-cards-done": "__fixed__ ካርድ(ታት) ተጸጊኖም።",
   "repair-broken-cards-done-unfixable": "__fixed__ ካርድ(ታት) ተጸጊኖም። __unfixable__ ካርድ(ታት) ሰሌዳ ስለ ዘይብሎም ብራስ-ሰር ክጽገኑ ኣይክእሉን።",
   "restore-list-swimlanes-done": "__restored__ ዝርዝር(ራት) ተመሊሶም። __remaining__ ክምለሱ ኣይከኣሉን።",

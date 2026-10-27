@@ -3200,6 +3200,8 @@
   "no-new-problems": "Pa gen nouvo pwoblèm.",
   "repair-broken-cards": "Repare kat ki kase",
   "repairing": "Ap repare…",
+  "data-health": "Sante done yo",
+  "data-health-repair": "Repare",
   "repair-broken-cards-done": "__fixed__ kat repare.",
   "repair-broken-cards-done-unfixable": "__fixed__ kat repare. __unfixable__ kat pa gen tablo epi yo pa ka repare otomatikman.",
   "restore-list-swimlanes-done": "__restored__ lis retabli. __remaining__ pa t kapab retabli.",

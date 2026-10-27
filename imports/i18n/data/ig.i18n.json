@@ -3200,6 +3200,8 @@
   "no-new-problems": "Enweghị nsogbu ọhụrụ.",
   "repair-broken-cards": "Rụzie kaadị mebiri emebi",
   "repairing": "Na-arụzi…",
+  "data-health": "Ahụike data",
+  "data-health-repair": "Dozie",
   "repair-broken-cards-done": "Arụziri kaadị __fixed__.",
   "repair-broken-cards-done-unfixable": "Rụzikwara kaadị __fixed__. Kaadị __unfixable__ enweghị bọọdụ, a pụghịkwa ịrụzi ha akpaghị aka.",
   "restore-list-swimlanes-done": "Weghachiri ndepụta __restored__. Enweghị ike iweghachi __remaining__.",

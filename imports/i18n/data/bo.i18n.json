@@ -3200,6 +3200,8 @@
   "no-new-problems": "གནད་དོན་གསར་པ་མེད།",
   "repair-broken-cards": "སྐྱོན་ཤོར་བའི་བྱང་བུ་ཆུང་བ་ཉམས་གསོ།",
   "repairing": "ཉམས་གསོ་བཞིན་པ་…",
+  "data-health": "གཞི་གྲངས་ཀྱི་བདེ་ཐང་།",
+  "data-health-repair": "བཟོ་བཅོས།",
   "repair-broken-cards-done": "བྱང་བུ་ཆུང་བ་ __fixed__ ཉམས་གསོ་བྱས།",
   "repair-broken-cards-done-unfixable": "བྱང་བུ་ཆུང་བ་ __fixed__ ཉམས་གསོ་བྱས། བྱང་བུ་ཆུང་བ་ __unfixable__ ལ་བྱང་བུ་མེད་པས་རང་འགུལ་ཉམས་གསོ་མི་ཐུབ།",
   "restore-list-swimlanes-done": "རེའུ་མིག་ __restored__ སླར་གསོ་བྱས། __remaining__ སླར་གསོ་བྱེད་མ་ཐུབ།",

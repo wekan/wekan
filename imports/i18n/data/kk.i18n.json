@@ -3200,6 +3200,8 @@
   "no-new-problems": "Жаңа мәселелер жоқ.",
   "repair-broken-cards": "Бұзылған карточкаларды жөндеу",
   "repairing": "Жөнделуде…",
+  "data-health": "Деректер саулығы",
+  "data-health-repair": "Жөндеу",
   "repair-broken-cards-done": "__fixed__ карточка жөнделді.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка жөнделді. __unfixable__ карточканың тақтасы жоқ және автоматты жөнделмейді.",
   "restore-list-swimlanes-done": "__restored__ тізім қалпына келтірілді. __remaining__ қалпына келтірілмеді.",

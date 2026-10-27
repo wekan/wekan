@@ -3200,6 +3200,8 @@
   "no-new-problems": "I no gat niu problem.",
   "repair-broken-cards": "Stretem ol kad we oli brok",
   "repairing": "I stap stretem…",
+  "data-health": "Helt blong ol data",
+  "data-health-repair": "Stretem",
   "repair-broken-cards-done": "Oli stretem __fixed__ kad.",
   "repair-broken-cards-done-unfixable": "Oli stretem __fixed__ kad. __unfixable__ kad oli no gat bod mo oli no save stretem otomatik.",
   "restore-list-swimlanes-done": "Putum bak __restored__ lis. No save putum bak __remaining__ lis.",

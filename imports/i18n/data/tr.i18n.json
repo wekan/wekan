@@ -3200,6 +3200,8 @@
   "no-new-problems": "Yeni sorun yok.",
   "repair-broken-cards": "Bozuk kartları onar",
   "repairing": "Onarılıyor…",
+  "data-health": "Veri sağlığı",
+  "data-health-repair": "Onar",
   "repair-broken-cards-done": "__fixed__ kart onarıldı.",
   "repair-broken-cards-done-unfixable": "__fixed__ kart onarıldı. __unfixable__ kartın panosu yok ve otomatik onarılamıyor.",
   "restore-list-swimlanes-done": "__restored__ liste geri yüklendi. __remaining__ geri yüklenemedi.",

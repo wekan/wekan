@@ -3200,6 +3200,8 @@
   "no-new-problems": "કોઈ નવી સમસ્યાઓ નથી.",
   "repair-broken-cards": "તૂટેલા કાર્ડ સુધારો",
   "repairing": "સુધારાઈ રહ્યું છે…",
+  "data-health": "ડેટાનું આરોગ્ય",
+  "data-health-repair": "સમારકામ",
   "repair-broken-cards-done": "__fixed__ કાર્ડ સુધારાયા.",
   "repair-broken-cards-done-unfixable": "__fixed__ કાર્ડ સુધારાયા. __unfixable__ કાર્ડને બોર્ડ નથી અને તે આપોઆપ સુધારી શકાતા નથી.",
   "restore-list-swimlanes-done": "__restored__ યાદી પુનઃસ્થાપિત કરી. __remaining__ પુનઃસ્થાપિત કરી શકાઈ નહીં.",

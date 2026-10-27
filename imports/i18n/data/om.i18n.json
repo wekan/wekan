@@ -3200,6 +3200,8 @@
   "no-new-problems": "Rakkoon haaraan hin jiru.",
   "repair-broken-cards": "Kaardiiwwan caban suphii",
   "repairing": "Suphaa jira…",
+  "data-health": "Fayyaa daataa",
+  "data-health-repair": "Suphi",
   "repair-broken-cards-done": "Kaardii __fixed__ supheera.",
   "repair-broken-cards-done-unfixable": "Kaardii __fixed__ supheera. Kaardiin __unfixable__ gabatee hin qabu; ofumaan suphamuu hin danda’u.",
   "restore-list-swimlanes-done": "Tarreewwan __restored__ deebi'aniiru. __remaining__ deebisuun hin danda'amne.",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "គ្មានបញ្ហាថ្មីទេ។",
   "repair-broken-cards": "ជួសជុលកាតដែលខូច",
   "repairing": "កំពុងជួសជុល…",
+  "data-health": "សុខភាពទិន្នន័យ",
+  "data-health-repair": "ជួសជុល",
   "repair-broken-cards-done": "បានជួសជុលកាត __fixed__ សន្លឹក។",
   "repair-broken-cards-done-unfixable": "បានជួសជុលកាត __fixed__ សន្លឹក។ កាត __unfixable__ សន្លឹកគ្មានក្តារ ហើយមិនអាចជួសជុលដោយស្វ័យប្រវត្តិបានទេ។",
   "restore-list-swimlanes-done": "បានស្ដារបញ្ជី __restored__។ មិនអាចស្ដារ __remaining__ បានទេ។",

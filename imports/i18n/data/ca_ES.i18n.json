@@ -3200,6 +3200,8 @@
   "no-new-problems": "No hi ha cap problema nou.",
   "repair-broken-cards": "Repara les targetes malmeses",
   "repairing": "S'està reparant…",
+  "data-health": "Salut de les dades",
+  "data-health-repair": "Repara",
   "repair-broken-cards-done": "__fixed__ targeta/es reparada/es.",
   "repair-broken-cards-done-unfixable": "__fixed__ targeta/es reparada/es. __unfixable__ targeta/es no tenen tauler i no es poden reparar automàticament.",
   "restore-list-swimlanes-done": "__restored__ llista/es restaurada/es. No s'han pogut restaurar __remaining__.",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "Նոր խնդիրներ չկան։",
   "repair-broken-cards": "Վերանորոգել վնասված քարտերը",
   "repairing": "Վերանորոգվում է…",
+  "data-health": "Տվյալների առողջություն",
+  "data-health-repair": "Վերանորոգել",
   "repair-broken-cards-done": "Վերանորոգվել է __fixed__ քարտ։",
   "repair-broken-cards-done-unfixable": "Վերանորոգվել է __fixed__ քարտ։ __unfixable__ քարտ չունի տախտակ և չի կարող ինքնաշխատ վերանորոգվել։",
   "restore-list-swimlanes-done": "Վերականգնվել է __restored__ ցուցակ։ __remaining__ չհաջողվեց վերականգնել։",

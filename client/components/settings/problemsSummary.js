@@ -32,6 +32,12 @@ Template.problemsSummary.onCreated(function () {
   // problems (broken cards, login-page "Must be logged in" causes). Same data as
   // `snap run wekan.problems`.
   this.status = new ReactiveVar(null);
+  // Data health: which check is being repaired, which waits for its
+  // confirming second click, and what each repair said.
+  this.dataHealthRepairing = new ReactiveVar(null);
+  this.dataHealthConfirming = new ReactiveVar(null);
+  this.dataHealthResults = new ReactiveVar({});
+  this.dataHealthScanRequested = new ReactiveVar(false);
   this.reload = () => {
     Meteor.call('eventLogProblemAreas', (err, res) => {
       if (!err) this.areas.set(Array.isArray(res) ? res : []);
@@ -77,6 +83,29 @@ Template.problemsSummary.helpers({
   },
   isUnboundLists(problem) {
     return !!problem && problem.id === 'unbound-lists';
+  },
+  dataHealthRepairing(checkId) {
+    return Template.instance().dataHealthRepairing.get() === checkId;
+  },
+  dataHealthConfirming(checkId) {
+    return Template.instance().dataHealthConfirming.get() === checkId;
+  },
+  dataHealthResult(checkId) {
+    return Template.instance().dataHealthResults.get()[checkId] || '';
+  },
+  dataHealthScanning() {
+    const tpl = Template.instance();
+    const s = tpl.status.get();
+    return tpl.dataHealthScanRequested.get() || !!(s && s.dataHealth && s.dataHealth.running);
+  },
+  dataHealthStatus() {
+    const s = Template.instance().status.get();
+    const d = s && s.dataHealth;
+    if (!d || !d.at) return TAPi18n.__('list-sync-last-synced-never');
+    // "<when> - <checks that found something>/<checks>"
+    const at = new Date(d.at).toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+    const text = `${at} - ${d.found}/${d.checks}`;
+    return d.error ? `${text} - ${d.error}` : text;
   },
   repairRunning() {
     return Template.instance().repairRunning.get();
@@ -151,6 +180,46 @@ Template.problemsSummary.events({
         TAPi18n.__('restore-list-swimlanes-done', { restored, remaining }),
       );
       templateInstance.reload();
+    });
+  },
+
+  // A repair that deletes data ('confirm') needs a second click on the same
+  // button; any other click cancels the pending confirmation.
+  'click .js-data-health-repair'(event, templateInstance) {
+    event.preventDefault();
+    const checkId = event.currentTarget.getAttribute('data-check');
+    const kind = event.currentTarget.getAttribute('data-repair');
+    if (!checkId || templateInstance.dataHealthRepairing.get()) return;
+    if (kind === 'confirm' && templateInstance.dataHealthConfirming.get() !== checkId) {
+      templateInstance.dataHealthConfirming.set(checkId);
+      return;
+    }
+    templateInstance.dataHealthConfirming.set(null);
+    templateInstance.dataHealthRepairing.set(checkId);
+    // The second click of a deleting repair is the confirmation the server
+    // requires (server/methods/dataHealth.js).
+    Meteor.call('repairDataHealth', checkId, kind === 'confirm', (error, res) => {
+      templateInstance.dataHealthRepairing.set(null);
+      const results = { ...templateInstance.dataHealthResults.get() };
+      results[checkId] = error
+        ? (error.reason || error.message || String(error))
+        : `${TAPi18n.__('attachment-repair-repaired')}: ${(res && res.fixed) || 0}`;
+      templateInstance.dataHealthResults.set(results);
+      templateInstance.reload();
+    });
+  },
+
+  'click .js-data-health-scan'(event, templateInstance) {
+    event.preventDefault();
+    templateInstance.dataHealthConfirming.set(null);
+    templateInstance.dataHealthScanRequested.set(true);
+    Meteor.call('dataHealthScanNow', () => {
+      // The scan runs in the background; the 30 s reload shows it running and,
+      // when it is done, its findings.
+      Meteor.setTimeout(() => {
+        templateInstance.dataHealthScanRequested.set(false);
+        templateInstance.reload();
+      }, 3000);
     });
   },
 

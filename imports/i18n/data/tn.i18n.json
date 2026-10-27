@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nnyaa ntšhwa mathata.",
   "repair-broken-cards": "Baakanya broken dikarata",
   "repairing": "Tshedimosetso: Repairing…",
+  "data-health": "Boitekanelo jwa data",
+  "data-health-repair": "Baakanya",
   "repair-broken-cards-done": "E baakantswe __fixed__ karata().",
   "repair-broken-cards-done-unfixable": "E baakantswe __fixed__ karata(). __unfixable__ karata() na le nnyaa boto le ga e kgone nna e baakantswe ka boitiriso.",
   "restore-list-swimlanes-done": "Go buseditswe manane a le __restored__. A le __remaining__ ga a kgona go busediwa.",

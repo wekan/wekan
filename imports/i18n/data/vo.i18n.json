@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nö säkäds nulik.",
   "repair-broken-cards": "Fidön kadis pebrekölis",
   "repairing": "Fidöfon…",
+  "data-health": "Saunüg nünodas",
+  "data-health-repair": "Lekömön",
   "repair-broken-cards-done": "Kads __fixed__ pefidöfons.",
   "repair-broken-cards-done-unfixable": "Kads __fixed__ peleodükons. Kads __unfixable__ no labons boadi e no kanons paleodükön itjäfidiko.",
   "restore-list-swimlanes-done": "Liseds __restored__ perestoröfons. __remaining__ no perestoröfons.",

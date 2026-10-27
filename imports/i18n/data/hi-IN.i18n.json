@@ -3200,6 +3200,8 @@
   "no-new-problems": "कोई नई समस्या नहीं।",
   "repair-broken-cards": "टूटे कार्ड ठीक करें",
   "repairing": "मरम्मत हो रही है…",
+  "data-health": "डेटा की सेहत",
+  "data-health-repair": "मरम्मत",
   "repair-broken-cards-done": "__fixed__ कार्ड ठीक किए गए।",
   "repair-broken-cards-done-unfixable": "__fixed__ कार्ड ठीक किए गए। __unfixable__ कार्ड का कोई बोर्ड नहीं है और उन्हें स्वतः ठीक नहीं किया जा सकता।",
   "restore-list-swimlanes-done": "__restored__ सूचियाँ बहाल की गईं। __remaining__ बहाल नहीं की जा सकीं।",

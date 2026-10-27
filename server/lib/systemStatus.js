@@ -8,6 +8,7 @@ import { buildProblemsOverview } from '/models/lib/problemsOverview';
 import { brokenCardsSelector } from '/models/lib/brokenCardsRepair';
 import { countRestorableListSwimlanes } from '/server/lib/restoreListSwimlanes';
 import { isStatusActive } from '/models/lib/statusActive';
+import { dataHealthProblemsNow } from '/server/lib/dataHealthScan';
 
 // Server hub for the Admin Panel / Problems "Status" overview and the
 // `snap run wekan.problems` command. It PERSISTS the text-migration and
@@ -138,7 +139,7 @@ export async function getProblemsOverview() {
   ]);
   return buildProblemsOverview({
     inProgress, loginProblems, brokenCards, unboundLists,
-    extraProblems: [await backupProblemNow()].filter(Boolean),
+    extraProblems: [await backupProblemNow()].filter(Boolean).concat(await dataHealthProblemsNow()),
   });
 }
 

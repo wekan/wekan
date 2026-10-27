@@ -3200,6 +3200,8 @@
   "no-new-problems": "కొత్త సమస్యలు లేవు.",
   "repair-broken-cards": "పాడైన కార్డులను బాగుచేయి",
   "repairing": "బాగుచేస్తోంది…",
+  "data-health": "డేటా ఆరోగ్యం",
+  "data-health-repair": "బాగుచేయి",
   "repair-broken-cards-done": "__fixed__ కార్డు(లు) బాగుచేయబడ్డాయి.",
   "repair-broken-cards-done-unfixable": "__fixed__ కార్డు(లు) బాగుచేయబడ్డాయి. __unfixable__ కార్డులకు బోర్డు లేదు, వాటిని స్వయంచాలకంగా బాగుచేయలేము.",
   "restore-list-swimlanes-done": "__restored__ జాబితా(లు) పునరుద్ధరించబడ్డాయి. __remaining__ పునరుద్ధరించలేకపోయాము.",

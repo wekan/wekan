@@ -3200,6 +3200,8 @@
   "no-new-problems": "አዲስ ችግኝ የለም።",
   "repair-broken-cards": "የተበላሹ ካርዶችን ጠግን",
   "repairing": "በመጠገን ላይ…",
+  "data-health": "የውሂብ ጤና",
+  "data-health-repair": "ጠግን",
   "repair-broken-cards-done": "__fixed__ ካርድ(ዶች) ተጠግነዋል።",
   "repair-broken-cards-done-unfixable": "__fixed__ ካርድ(ዶች) ተጠግነዋል። __unfixable__ ካርድ(ዶች) ቦርድ ስለሌላቸው በራስ-ሰር ሊጠገኑ አይችሉም።",
   "restore-list-swimlanes-done": "__restored__ ዝርዝር(ሮች) ተመልሰዋል። __remaining__ መመለስ አልተቻለም።",

@@ -79,6 +79,7 @@ it configures: card loading is automatic per board size, with
 | Page | What it covers |
 | --- | --- |
 | [Repairs.md](Repairs.md) | Automatic board data-repairs (#6484 lists that vanish, orphaned/missing-swimlane cards): what they fix, when they run (board open, server startup, during migration), and the progress dashboard. |
+| [Data-Health.md](Data-Health.md) | The nightly read-only data health scan: 30 checks for data WeKan should never write (a card on a list of another board, checklist items of a deleted checklist, members whose account is gone), shown in Problems / Summary with a Repair button where that is safe. |
 | [Migrations.md](Migrations.md) | The MongoDB ↔ FerretDB v1 (SQLite) text-data migration, the repair phase it runs, and the shared blue, Product-name-branded progress dashboard. |
 | [Login-Problems.md](Login-Problems.md) | Everything that can make the login page show "Must be logged in" or a stuck "Loading, please wait." spinner, and how to fix each. |
 | [Snap.md](Snap.md) | The `snap run wekan.problems` commands that print this whole overview (and problem-specific detail like CPU) as text. |

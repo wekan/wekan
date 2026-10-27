@@ -3200,6 +3200,8 @@
   "no-new-problems": "কোনো নতুন সমস্যা নাই।",
   "repair-broken-cards": "ভঙা কাৰ্ড মেৰামতি কৰক",
   "repairing": "মেৰামতি চলিছে…",
+  "data-health": "ডেটাৰ স্বাস্থ্য",
+  "data-health-repair": "মেৰামতি",
   "repair-broken-cards-done": "__fixed__ খন কাৰ্ড মেৰামতি কৰা হ'ল।",
   "repair-broken-cards-done-unfixable": "__fixed__ খন কাৰ্ড মেৰামতি কৰা হ'ল। __unfixable__ খন কাৰ্ডৰ কোনো বৰ্ড নাই আৰু স্বয়ংক্ৰিয়ভাৱে মেৰামতি কৰিব নোৱাৰি।",
   "restore-list-swimlanes-done": "__restored__ খন তালিকা পুনৰুদ্ধাৰ কৰা হ'ল। __remaining__ পুনৰুদ্ধাৰ কৰিব পৰা নগ'ল।",

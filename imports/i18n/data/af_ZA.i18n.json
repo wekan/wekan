@@ -3200,6 +3200,8 @@
   "no-new-problems": "Geen nuwe probleme nie.",
   "repair-broken-cards": "Herstel gebreekte kaarte",
   "repairing": "Herstel tans…",
+  "data-health": "Datagesondheid",
+  "data-health-repair": "Herstel",
   "repair-broken-cards-done": "__fixed__ kaart(e) herstel.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaart(e) herstel. __unfixable__ kaart(e) het geen bord nie en kan nie outomaties herstel word nie.",
   "restore-list-swimlanes-done": "__restored__ lys(te) herstel. __remaining__ kon nie herstel word nie.",

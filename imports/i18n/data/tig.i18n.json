@@ -3200,6 +3200,8 @@
   "no-new-problems": "ሐዲስ ጸገም የለን።",
   "repair-broken-cards": "ዝተበላሸዋ ወረቀት ካርዳት ኣዐርይ",
   "repairing": "ይዕረ ኣሎ…",
+  "data-health": "ጥዕና ዳታ",
+  "data-health-repair": "ዐረ",
   "repair-broken-cards-done": "__fixed__ ወረቀት ካርዳት ተዓርየን።",
   "repair-broken-cards-done-unfixable": "__fixed__ ወረቀት ካርዳት ተዓርየን። __unfixable__ ወረቀት ካርዳት ምዱድ የብለንን፣ ብኣውቶማቲክ ክዕረያ ኣይክእላን።",
   "restore-list-swimlanes-done": "__restored__ ዝርዝራት ተመሊሶም። __remaining__ ክምለሱ ኣይከኣሉን።",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "Amul jafe-jafe yu bees.",
   "repair-broken-cards": "Defaraat kart yu yàqu",
   "repairing": "Mu ngi defaraat…",
+  "data-health": "Wérug done yi",
+  "data-health-repair": "Defar",
   "repair-broken-cards-done": "Ñu defaraat __fixed__ kart.",
   "repair-broken-cards-done-unfixable": "Ñu defaraat __fixed__ kart. __unfixable__ kart amul tabax te mënuñu koo defaraat ci boppam.",
   "restore-list-swimlanes-done": "Ñu delloo __restored__ limu. __remaining__ mënuñu koo delloo.",

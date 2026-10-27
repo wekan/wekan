@@ -3200,6 +3200,8 @@
   "no-new-problems": "لا توجد مشاكل جديدة.",
   "repair-broken-cards": "إصلاح البطاقات التالفة",
   "repairing": "جارٍ الإصلاح…",
+  "data-health": "سلامة البيانات",
+  "data-health-repair": "إصلاح",
   "repair-broken-cards-done": "تم إصلاح __fixed__ بطاقة.",
   "repair-broken-cards-done-unfixable": "تم إصلاح __fixed__ بطاقة. __unfixable__ بطاقة بلا لوحة ولا يمكن إصلاحها تلقائياً.",
   "restore-list-swimlanes-done": "تمت استعادة __restored__ قائمة. تعذّرت استعادة __remaining__.",

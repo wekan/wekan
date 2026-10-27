@@ -3200,6 +3200,8 @@
   "no-new-problems": "Ei ole udid problemoid.",
   "repair-broken-cards": "Kohenda rikotud kartad",
   "repairing": "Kohendamine…",
+  "data-health": "Andmusiden tervhuz'",
+  "data-health-repair": "Kohenda",
   "repair-broken-cards-done": "Kohendadud __fixed__ kartad.",
   "repair-broken-cards-done-unfixable": "Kohendadud __fixed__ kartad. __unfixable__ kartal ei ole laudad da neid ei sa kohendada avtomatižesti.",
   "restore-list-swimlanes-done": "Endištadud __restored__ lugetižid. __remaining__ ei sa endištada.",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "Uusi probleeme pole.",
   "repair-broken-cards": "Paranda katkised kaardid",
   "repairing": "Parandamine…",
+  "data-health": "Andmete tervis",
+  "data-health-repair": "Paranda",
   "repair-broken-cards-done": "Parandatud kaarte: __fixed__.",
   "repair-broken-cards-done-unfixable": "Parandatud kaarte: __fixed__. __unfixable__ kaardil pole tahvlit ja neid ei saa automaatselt parandada.",
   "restore-list-swimlanes-done": "Taastatud loendeid: __restored__. Ei õnnestunud taastada: __remaining__.",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "Babu sabbin matsaloli.",
   "repair-broken-cards": "Gyara katunan da suka lalace",
   "repairing": "Ana gyarawa…",
+  "data-health": "Lafiyar bayanai",
+  "data-health-repair": "Gyara",
   "repair-broken-cards-done": "An gyara katuna __fixed__.",
   "repair-broken-cards-done-unfixable": "An gyara katuna __fixed__. Katuna __unfixable__ ba su da allo kuma ba za a iya gyara su ta atomatik ba.",
   "restore-list-swimlanes-done": "An maido da jerin abubuwa __restored__. Ba a iya maido da __remaining__ ba.",

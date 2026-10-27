@@ -3200,6 +3200,8 @@
   "no-new-problems": "Palibe mavuto atsopano.",
   "repair-broken-cards": "Konzani makhadi osweka",
   "repairing": "Kukonza…",
+  "data-health": "Thanzi la deta",
+  "data-health-repair": "Konza",
   "repair-broken-cards-done": "Makhadi __fixed__ akonzedwa.",
   "repair-broken-cards-done-unfixable": "Makhadi __fixed__ akonzedwa. Makhadi __unfixable__ alibe bolodi ndipo sangathe kukonzedwa okha.",
   "restore-list-swimlanes-done": "Mindandanda __restored__ yabwezeretsedwa. __remaining__ sinathe kubwezeretsedwa.",

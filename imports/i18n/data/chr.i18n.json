@@ -3200,6 +3200,8 @@
   "no-new-problems": "ᎢᏤ ᏗᎦᏓᎭ Ꮭ ᏗᎪᏩᏘ.",
   "repair-broken-cards": "ᎤᏲ ᏗᎪᏪᎵ ᏗᏍᏗ ᏗᏚᏓᎴᏍᏗ",
   "repairing": "ᎤᏚᏓᎴᏍᎬ…",
+  "data-health": "ᏗᎪᏪᎵ ᎣᏍᏛ ᎨᏒ",
+  "data-health-repair": "ᏗᏁᏍᎨᏂ",
   "repair-broken-cards-done": "__fixed__ ᎪᏪᎵ ᎤᏍᏗ ᎤᏚᏓᎴᏍᏔᏅ.",
   "repair-broken-cards-done-unfixable": "__fixed__ ᎪᏪᎵ ᎤᏍᏗ ᎤᏚᏓᎴᏍᏔᏅ. __unfixable__ ᎪᏪᎵ ᎤᏍᏗ ᎦᏍᎩᎸ ᏄᏂᏯᎥᎾ ᎠᎴ ᎤᏩᏒ Ꮭ ᏰᎵ ᏗᏚᏓᎴᏍᏗ.",
   "restore-list-swimlanes-done": "__restored__ ᏗᏟᏂᏱᏓᏍᏗ ᏔᎵᏁ ᎠᏟᏌᏅ. __remaining__ ᎥᏝ ᏰᎵ ᏔᎵᏁ ᏱᏟᏌᎦ.",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "Dim problemau newydd.",
   "repair-broken-cards": "Trwsio cardiau toredig",
   "repairing": "Wrthi'n trwsio…",
+  "data-health": "Iechyd data",
+  "data-health-repair": "Trwsio",
   "repair-broken-cards-done": "Trwsiwyd __fixed__ cerdyn.",
   "repair-broken-cards-done-unfixable": "Trwsiwyd __fixed__ cerdyn. Nid oes bwrdd gan __unfixable__ cerdyn ac ni ellir eu trwsio'n awtomatig.",
   "restore-list-swimlanes-done": "Adferwyd __restored__ rhestr. Ni ellid adfer __remaining__.",

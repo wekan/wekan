@@ -3200,6 +3200,8 @@
   "no-new-problems": "نوې ستونزې نشته.",
   "repair-broken-cards": "مات کارتونه ورغوئ",
   "repairing": "رغول کېږي…",
+  "data-health": "د معلوماتو روغتیا",
+  "data-health-repair": "سمول",
   "repair-broken-cards-done": "__fixed__ کارت/کارتونه ورغول شول.",
   "repair-broken-cards-done-unfixable": "__fixed__ کارت/کارتونه ورغول شول. __unfixable__ کارت/کارتونه تخته نه لري او په اتومات ډول نه رغېږي.",
   "restore-list-swimlanes-done": "__restored__ لړليکونه بيرته راژوندي شول. __remaining__ بيرته راژوندي نه شول.",

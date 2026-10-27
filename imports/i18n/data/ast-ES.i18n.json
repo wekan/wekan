@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nun hai problemes nuevos.",
   "repair-broken-cards": "Iguar les tarxetes frayaes",
   "repairing": "Iguando…",
+  "data-health": "Salú de los datos",
+  "data-health-repair": "Reparar",
   "repair-broken-cards-done": "Iguáronse __fixed__ tarxetes.",
   "repair-broken-cards-done-unfixable": "Iguáronse __fixed__ tarxetes. __unfixable__ tarxetes nun tienen tableru y nun puen iguase automáticamente.",
   "restore-list-swimlanes-done": "Restauráronse __restored__ llistes. Nun se pudieron restaurar __remaining__.",

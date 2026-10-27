@@ -3200,6 +3200,8 @@
   "no-new-problems": "କୌଣସି ନୂଆ ସମସ୍ୟା ନାହିଁ।",
   "repair-broken-cards": "ଭଙ୍ଗା କାର୍ଡ ମରାମତି କରନ୍ତୁ",
   "repairing": "ମରାମତି ହେଉଛି…",
+  "data-health": "ଡାଟା ସ୍ୱାସ୍ଥ୍ୟ",
+  "data-health-repair": "ମରାମତି କରନ୍ତୁ",
   "repair-broken-cards-done": "__fixed__ କାର୍ଡ ମରାମତି ହୋଇଛି।",
   "repair-broken-cards-done-unfixable": "__fixed__ କାର୍ଡ ମରାମତି ହୋଇଛି। __unfixable__ କାର୍ଡର ବୋର୍ଡ ନାହିଁ ଏବଂ ସେଗୁଡ଼ିକ ସ୍ୱୟଂଚାଳିତ ଭାବେ ମରାମତି ହୋଇପାରିବ ନାହିଁ।",
   "restore-list-swimlanes-done": "__restored__ ତାଲିକା ପୁନଃସ୍ଥାପିତ ହୋଇଛି। __remaining__ ପୁନଃସ୍ଥାପିତ ହୋଇପାରିଲା ନାହିଁ।",

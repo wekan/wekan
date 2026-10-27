@@ -3200,6 +3200,8 @@
   "no-new-problems": "No bi ha problemas nuevos.",
   "repair-broken-cards": "Reparar tarchetas rotas",
   "repairing": "Reparando…",
+  "data-health": "Salut d'os datos",
+  "data-health-repair": "Reparar",
   "repair-broken-cards-done": "__fixed__ tarcheta(s) reparada(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ tarcheta(s) reparada(s). __unfixable__ tarcheta(s) no tienen tablero y no se pueden reparar automáticamente.",
   "restore-list-swimlanes-done": "__restored__ lista(s) restaurada(s). No s’han puesto restaurar __remaining__.",

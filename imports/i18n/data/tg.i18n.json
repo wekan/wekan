@@ -3200,6 +3200,8 @@
   "no-new-problems": "Мушкилоти нав нест.",
   "repair-broken-cards": "Ислоҳи кортҳои вайрон",
   "repairing": "Ислоҳ идома дорад…",
+  "data-health": "Саломатии маълумот",
+  "data-health-repair": "Ислоҳ",
   "repair-broken-cards-done": "__fixed__ корт ислоҳ шуд.",
   "repair-broken-cards-done-unfixable": "__fixed__ корт ислоҳ шуд. __unfixable__ корт тахта надорад ва худкор ислоҳ намешавад.",
   "restore-list-swimlanes-done": "__restored__ рӯйхат барқарор шуд. __remaining__ барқарор нашуд.",

@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nessun nuovo problema.",
   "repair-broken-cards": "Ripara le carte danneggiate",
   "repairing": "Riparazione in corso…",
+  "data-health": "Salute d''e date",
+  "data-health-repair": "Accunceia",
   "repair-broken-cards-done": "__fixed__ carta/e riparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ carta/e riparate. __unfixable__ carta/e nun hanno una tavula e nun possono essere riparate automatecamente.",
   "restore-list-swimlanes-done": "__restored__ lista/e ripristinate. Nun è stato pussìbbile ripristinarne __remaining__.",

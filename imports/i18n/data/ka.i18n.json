@@ -3200,6 +3200,8 @@
   "no-new-problems": "ახალი პრობლემები არ არის.",
   "repair-broken-cards": "დაზიანებული ბარათების შეკეთება",
   "repairing": "მიმდინარეობს შეკეთება…",
+  "data-health": "მონაცემების ჯანმრთელობა",
+  "data-health-repair": "შეკეთება",
   "repair-broken-cards-done": "შეკეთდა __fixed__ ბარათი.",
   "repair-broken-cards-done-unfixable": "შეკეთდა __fixed__ ბარათი. __unfixable__ ბარათს არ აქვს დაფა და ავტომატურად ვერ შეკეთდება.",
   "restore-list-swimlanes-done": "აღდგა __restored__ სია. __remaining__ ვერ აღდგა.",

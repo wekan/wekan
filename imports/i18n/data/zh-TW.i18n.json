@@ -3200,6 +3200,8 @@
   "no-new-problems": "沒有新問題。",
   "repair-broken-cards": "修復損壞的卡片",
   "repairing": "正在修復⋯⋯",
+  "data-health": "資料健康",
+  "data-health-repair": "修復",
   "repair-broken-cards-done": "已修復 __fixed__ 張卡片。",
   "repair-broken-cards-done-unfixable": "已修復 __fixed__ 張卡片。__unfixable__ 張卡片沒有所屬看板，無法自動修復。",
   "restore-list-swimlanes-done": "已還原 __restored__ 個清單。尚有 __remaining__ 個無法還原。",

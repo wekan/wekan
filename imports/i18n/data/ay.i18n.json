@@ -3200,6 +3200,8 @@
   "no-new-problems": "janiwa machaqa problems.",
   "repair-broken-cards": "Repair broken tarjetanaka",
   "repairing": "Aymar aruna: Repairing…",
+  "data-health": "Yatiyawinakan qhali kankañapa",
+  "data-health-repair": "Askichaña",
   "repair-broken-cards-done": "Repaired __fixed__ tarjeta(s).",
   "repair-broken-cards-done-unfixable": "Repaired __fixed__ tarjeta(s). __unfixable__ tarjeta(s) have janiwa pirqa ukat cannot be repaired automatically.",
   "restore-list-swimlanes-done": "Restored __restored__ lista(s). __remaining__ could jani be restored.",

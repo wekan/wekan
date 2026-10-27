@@ -3200,6 +3200,8 @@
   "no-new-problems": "Жаңы көйгөй жок.",
   "repair-broken-cards": "Бузулган карточкаларды оңдоо",
   "repairing": "Оңдолууда…",
+  "data-health": "Маалыматтардын абалы",
+  "data-health-repair": "Оңдоо",
   "repair-broken-cards-done": "__fixed__ карточка оңдолду.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка оңдолду. __unfixable__ карточканын тактасы жок жана аны автоматтык түрдө оңдоого болбойт.",
   "restore-list-swimlanes-done": "__restored__ тизме калыбына келтирилди. __remaining__ калыбына келтирилген жок.",

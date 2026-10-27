@@ -3200,6 +3200,8 @@
   "no-new-problems": "新しい問題はありません。",
   "repair-broken-cards": "壊れたカードを修復",
   "repairing": "修復中…",
+  "data-health": "データの健全性",
+  "data-health-repair": "修復",
   "repair-broken-cards-done": "__fixed__ 枚のカードを修復しました。",
   "repair-broken-cards-done-unfixable": "__fixed__ 枚のカードを修復しました。__unfixable__ 枚のカードにはボードがなく、自動では修復できません。",
   "restore-list-swimlanes-done": "__restored__ 件のリストを復元しました。__remaining__ 件は復元できませんでした。",

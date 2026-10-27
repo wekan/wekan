@@ -3200,6 +3200,8 @@
   "no-new-problems": "Ingen nye problemer.",
   "repair-broken-cards": "Reparer ødelagte kort",
   "repairing": "Reparerer…",
+  "data-health": "Datahelse",
+  "data-health-repair": "Reparer",
   "repair-broken-cards-done": "__fixed__ kort reparert.",
   "repair-broken-cards-done-unfixable": "__fixed__ kort reparert. __unfixable__ kort mangler tavle og kan ikke repareres automatisk.",
   "restore-list-swimlanes-done": "__restored__ liste(r) gjenopprettet. __remaining__ kunne ikke gjenopprettes.",

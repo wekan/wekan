@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nta ngorane nshasha.",
   "repair-broken-cards": "Kosora amakarata yononekaye",
   "repairing": "Kuriko harakosorwa…",
+  "data-health": "Amagara y'amakuru",
+  "data-health-repair": "Kosora",
   "repair-broken-cards-done": "Hakosowe amakarata __fixed__.",
   "repair-broken-cards-done-unfixable": "Hakosowe amakarata __fixed__. Amakarata __unfixable__ nta capa afise kandi ntashobora gukosorwa ubwayo.",
   "restore-list-swimlanes-done": "Intonde __restored__ zarasubijwe. __remaining__ ntizashoboye gusubizwa.",

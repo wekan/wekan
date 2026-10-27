@@ -3200,6 +3200,8 @@
   "no-new-problems": "هیچ کێشەی نوێ نییە.",
   "repair-broken-cards": "کارتە تێکشکاوەکان چاک بکە",
   "repairing": "چاککردن بەردەوامە…",
+  "data-health": "تەندروستیی داتا",
+  "data-health-repair": "چاککردنەوە",
   "repair-broken-cards-done": "__fixed__ کارت چاک کرا.",
   "repair-broken-cards-done-unfixable": "__fixed__ کارت چاک کرا. __unfixable__ کارت هیچ تەختەیەکی نییە و خۆکارانە چاک ناکرێت.",
   "restore-list-swimlanes-done": "__restored__ لیست گەڕێندرایەوە. __remaining__ نەگەڕێندرایەوە.",

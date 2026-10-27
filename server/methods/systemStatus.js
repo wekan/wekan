@@ -10,6 +10,7 @@ import {
 import { getCurrentCpu } from '/server/lib/cpuMonitor';
 import { getCurrentMemory } from '/server/lib/ramMonitor';
 import { getCurrentDisks } from '/server/lib/diskMonitor';
+import { dataHealthNow } from '/server/lib/dataHealthScan';
 
 // Admin-gated methods behind the Admin Panel / Problems "Status" overview. The
 // same data is available without the Admin Panel via `snap run wekan.problems`.
@@ -48,11 +49,12 @@ Meteor.methods({
   // The full Problems "Status" overview: everything in progress + problems found.
   async systemStatusReport() {
     await requireAdmin();
-    const [overview, loginProblems] = await Promise.all([
+    const [overview, loginProblems, dataHealth] = await Promise.all([
       getProblemsOverview(),
       getLoginProblems(),
+      dataHealthNow(),
     ]);
-    return { overview, loginProblems };
+    return { overview, loginProblems, dataHealth };
   },
 
   // Just the in-progress migrations/repairs (cheap; polled by the Status page).

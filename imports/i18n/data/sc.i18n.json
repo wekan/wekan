@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nessun nou problema.",
   "repair-broken-cards": "Ripara le cartas danneggiadas",
   "repairing": "Riparatzione in corso…",
+  "data-health": "Salude de sos datos",
+  "data-health-repair": "Ripara",
   "repair-broken-cards-done": "__fixed__ carta/e riparadas.",
   "repair-broken-cards-done-unfixable": "__fixed__ carta/e riparadas. __unfixable__ carta/e non hanno una tàula e non possono essere riparadas automaticamente.",
   "restore-list-swimlanes-done": "__restored__ lista/e ripristinadas. Non è stadu possibile ripristinarne __remaining__.",

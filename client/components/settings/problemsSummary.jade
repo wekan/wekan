@@ -56,6 +56,37 @@ template(name="problemsSummary")
                   if restoreResult
                     br
                     span.quiet {{restoreResult}}
+              //- Data health (models/lib/dataHealth.js): a Repair button where
+              //- the repair is safe; one that deletes data asks for a second click.
+              if problem.repair
+                .admin-problem-actions
+                  button.js-data-health-repair.primary(data-check="{{problem.checkId}}" data-repair="{{problem.repair}}" disabled="{{#if dataHealthRepairing problem.checkId}}disabled{{/if}}")
+                    if dataHealthRepairing problem.checkId
+                      i.fa.fa-spinner.fa-spin
+                      | {{_ 'repairing'}}
+                    else if dataHealthConfirming problem.checkId
+                      i.fa.fa-exclamation-triangle
+                      | {{_ 'confirm'}}
+                    else
+                      i.fa.fa-wrench
+                      | {{_ 'data-health-repair'}}
+                  if dataHealthResult problem.checkId
+                    br
+                    span.quiet {{dataHealthResult problem.checkId}}
+
+    //- Data health: the nightly read-only scan behind the "Data health: ..."
+    //- problems above.
+    //- What the checks are and when it runs: docs/Features/Admin-Panel/
+    //- Problems/Data-Health.md; each finding explains itself above.
+    h2 {{_ 'data-health'}}
+    p.quiet {{_ 'last-run'}}: {{dataHealthStatus}}
+    .admin-problem-actions
+      button.js-data-health-scan.primary(disabled="{{#if dataHealthScanning}}disabled{{/if}}")
+        if dataHealthScanning
+          i.fa.fa-spinner.fa-spin
+        else
+          i.fa.fa-search
+        | {{_ 'start'}}
 
     h2 {{_ 'problems'}}
     if hasProblems

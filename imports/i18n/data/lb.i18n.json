@@ -3200,6 +3200,8 @@
   "no-new-problems": "Keng neuen Probleme.",
   "repair-broken-cards": "Defekte Kaarten reparieren",
   "repairing": "Wird repariert…",
+  "data-health": "Gesondheet vun den Donnéeën",
+  "data-health-repair": "Reparéieren",
   "repair-broken-cards-done": "__fixed__ Kaart(n) repariert.",
   "repair-broken-cards-done-unfixable": "__fixed__ Kaart(n) repariert. __unfixable__ Kaart(n) hunn kee Board un kënnen net automatisch repariert ginn.",
   "restore-list-swimlanes-done": "__restored__ Lëscht(n) restauréiert. __remaining__ konnten net restauréiert ginn.",

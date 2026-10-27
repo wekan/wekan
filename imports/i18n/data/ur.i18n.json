@@ -3200,6 +3200,8 @@
   "no-new-problems": "کوئی نیا مسئلہ نہیں۔",
   "repair-broken-cards": "خراب کارڈز کی مرمت کریں",
   "repairing": "مرمت ہو رہی ہے…",
+  "data-health": "ڈیٹا کی صحت",
+  "data-health-repair": "مرمت",
   "repair-broken-cards-done": "__fixed__ کارڈز کی مرمت کر دی گئی۔",
   "repair-broken-cards-done-unfixable": "__fixed__ کارڈز کی مرمت کر دی گئی۔ __unfixable__ کارڈز کا کوئی بورڈ نہیں ہے اور ان کی خودکار مرمت نہیں ہو سکتی۔",
   "restore-list-swimlanes-done": "__restored__ فہرستیں بحال کی گئیں۔ __remaining__ بحال نہیں ہو سکیں۔",

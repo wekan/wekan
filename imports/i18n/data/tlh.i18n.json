@@ -3200,6 +3200,8 @@
   "no-new-problems": "Qaghmey chu' tu'lu'be'.",
   "repair-broken-cards": "navmey Qaw'lu'pu'bogh yItI'",
   "repairing": "tI'lu'taH…",
+  "data-health": "De' Dotlh",
+  "data-health-repair": "tI'",
   "repair-broken-cards-done": "navmey __fixed__ tI'lu'pu'.",
   "repair-broken-cards-done-unfixable": "'echletHom __fixed__ tI'lu'. 'echlet ghajbe' 'echletHom __unfixable__, vaj tI'laHbe' De'wI'.",
   "restore-list-swimlanes-done": "tetlhmey __restored__ chenqa'lu'pu'. __remaining__ chenqa'laHbe'lu'.",

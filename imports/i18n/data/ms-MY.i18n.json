@@ -3200,6 +3200,8 @@
   "no-new-problems": "Tiada masalah baharu.",
   "repair-broken-cards": "Baiki kad yang rosak",
   "repairing": "Membaiki…",
+  "data-health": "Kesihatan data",
+  "data-health-repair": "Baiki",
   "repair-broken-cards-done": "__fixed__ kad dibaiki.",
   "repair-broken-cards-done-unfixable": "__fixed__ kad dibaiki. __unfixable__ kad tiada papan dan tidak boleh dibaiki secara automatik.",
   "restore-list-swimlanes-done": "__restored__ senarai dipulihkan. __remaining__ tidak dapat dipulihkan.",

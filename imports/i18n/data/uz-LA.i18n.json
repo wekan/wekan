@@ -3200,6 +3200,8 @@
   "no-new-problems": "Yangi muammolar yo'q.",
   "repair-broken-cards": "Buzilgan kartalarni tuzatish",
   "repairing": "Tuzatilmoqda…",
+  "data-health": "Ma'lumotlar holati",
+  "data-health-repair": "Tuzatish",
   "repair-broken-cards-done": "__fixed__ ta karta tuzatildi.",
   "repair-broken-cards-done-unfixable": "__fixed__ ta karta tuzatildi. __unfixable__ ta kartaning doskasi yo'q va ularni avtomatik tuzatib bo'lmaydi.",
   "restore-list-swimlanes-done": "__restored__ ta roʻyxat tiklandi. __remaining__ ta roʻyxatni tiklab boʻlmadi.",

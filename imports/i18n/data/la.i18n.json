@@ -3200,6 +3200,8 @@
   "no-new-problems": "Nulla nova problemata.",
   "repair-broken-cards": "Corrige chartas corruptas",
   "repairing": "Corrigitur…",
+  "data-health": "Sanitas datorum",
+  "data-health-repair": "Repara",
   "repair-broken-cards-done": "Chartae __fixed__ correctae sunt.",
   "repair-broken-cards-done-unfixable": "Chartae __fixed__ correctae sunt. Chartae __unfixable__ nullam tabulam habent et automatice corrigi non possunt.",
   "restore-list-swimlanes-done": "Indices __restored__ restituti sunt. __remaining__ restitui non potuerunt.",
