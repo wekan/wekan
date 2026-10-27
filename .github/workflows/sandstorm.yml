@@ -50,16 +50,6 @@ jobs:
       - name: Use release npm version
         run: bash releases/use-release-npm.sh
 
-      - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
-        # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,
-        # which blocks the unprivileged user namespaces that the Sandstorm install and
-        # the spk supervisor rely on (the "fragile part" noted above). Relax it so
-        # `install.sandstorm.io` and meteor-spk can create sandboxes on the runner.
-        # `|| true`: on kernels/runners without these knobs, setting them is a no-op.
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
-          sudo sysctl -w kernel.unprivileged_userns_clone=1 2>/dev/null || true
-
       - name: Install system dependencies and Meteor
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl libatomic1 build-essential g++ make python3 unzip xz-utils git qemu-user-static
@@ -70,10 +60,10 @@ jobs:
         # Installed BEFORE assembling the deps: build-deps.sh's [bridge] step copies
         # the modern /opt/sandstorm/latest/bin/sandstorm-http-bridge over the ancient
         # bundled one, so the Sandstorm install must be in place first.
-        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+        run: curl https://install.sandstorm.org | sudo bash -s -- -d
 
       - name: Assemble modern meteor-spk.deps (Node 26 + SQLite-only FerretDB + Mongo 3.x CLIs)
-        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
+        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.org (has mongod 3.0 +
         # niscud). build-deps.sh swaps in Node 26, adds FerretDB + the Mongo 3.x
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency

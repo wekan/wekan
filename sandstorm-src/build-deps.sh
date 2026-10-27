@@ -9,7 +9,7 @@
 # $OUT/meteor-spk-0.6.0 ; add its dir to PATH and run `meteor-spk pack`.
 #
 # No dependency on releases.wekan.team (gone) or the old projects.7z: the base is
-# fetched from dl.sandstorm.io and the extra binaries from GitHub releases.
+# fetched from dl.sandstorm.org and the extra binaries from GitHub releases.
 #
 # Env (override as needed):
 #   OUT             work/output dir                    [$HOME/projects/meteor-spk]
@@ -45,7 +45,7 @@ OUT="${OUT:-$HOME/projects/meteor-spk}"
 NODE_PIN="${SANDSTORM_NODE_VERSION:-$(sed -n 's/.*NODE_VERSION=\(v[0-9][0-9.]*\).*/\1/p' "$REPO/Dockerfile" | head -1)}"
 [[ "$NODE_PIN" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "no exact NODE_VERSION in $REPO/Dockerfile (got '$NODE_PIN')" >&2; exit 1; }
 MIGRATEMONGO="${MIGRATEMONGO:-https://github.com/wekan/migratemongo.git}"
-SPK_URL="https://dl.sandstorm.io/meteor-spk-0.6.0.tar.xz"
+SPK_URL="https://dl.sandstorm.org/meteor-spk-0.6.0.tar.xz"
 
 DEPS="$OUT/meteor-spk-0.6.0/meteor-spk.deps"
 mkdir -p "$OUT"
