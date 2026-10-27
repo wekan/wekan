@@ -102,9 +102,9 @@ class NextcloudRelease(unittest.TestCase):
                 (source / name).mkdir()
                 (source / name / 'private').write_text('must not be packaged')
             archive = root / 'wekan.tar.gz'
-            subprocess.run(['tar', '--exclude=.git', '--exclude=.tools', '--exclude=.env', '--exclude=node_modules',
-                            '-czf', str(archive), '--transform', r's,^\.$,wekan,;s,^\./,wekan/,',
-                            '-C', str(source), '.'], check=True)
+            # The workflow's own packer, which works with GNU tar and bsdtar.
+            pack = Path(__file__).resolve().parent.parent / 'releases' / 'nextcloud-pack.sh'
+            subprocess.run([str(pack), str(source), 'wekan', str(archive)], check=True)
             nc.verify_archive(archive, 'wekan', '12.28')
 
     def test_real_signature_accepts_archive_and_rejects_tampering(self):

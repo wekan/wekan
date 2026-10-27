@@ -19,7 +19,15 @@ helper=ghcr.io/wekan/wekan-ucs-migration:v12.28
 mkdir -p "$base/tmp"
 export TMPDIR="$base/tmp"
 exec 9>"$base/.ucs-migration.lock"
-flock -n 9 || { echo 'Another WeKan migration is running' >&2; exit 1; }
+# flock(1) is util-linux and missing on macOS and the BSDs. perl's flock()
+# takes the same lock on the inherited fd 9: a flock(2) lock belongs to the
+# open file, so it is held until this script closes fd 9, as with flock -n 9.
+if command -v flock >/dev/null 2>&1; then
+    flock -n 9 || { echo 'Another WeKan migration is running' >&2; exit 1; }
+else
+    perl -MFcntl=:flock -e 'open(my $fh, ">&=", 9) or exit 2; flock($fh, LOCK_EX | LOCK_NB) or exit 1' \
+        || { echo 'Another WeKan migration is running' >&2; exit 1; }
+fi
 stopped=false
 was_running=false
 worker_started=false

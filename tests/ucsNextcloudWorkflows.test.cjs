@@ -43,8 +43,13 @@ assert.match(dockerfile, /USER wekan/);
 assert.match(dockerfile, /CMD \["bash", "\/build\/wekan-entrypoint.sh"\]/);
 assert.ok(!dockerfile.includes('VOLUME /var/run/docker.sock'));
 const nc = read('nextcloud.yml');
-assert.ok(nc.includes('--exclude=.git'));
-assert.ok(nc.includes('--transform "s,^\\.$,${APP_ID},;s,^\\./,${APP_ID}/,"'));
+// Packed by releases/nextcloud-pack.sh, which works with GNU tar and with
+// bsdtar (macOS, the BSDs): GNU tar's --transform is not used.
+assert.ok(nc.includes('releases/nextcloud-pack.sh exapp "$APP_ID" "$task_dir/$archive"'));
+const pack = fs.readFileSync(path.join(__dirname, '..', 'releases', 'nextcloud-pack.sh'), 'utf8');
+assert.ok(pack.includes('--exclude=.git --exclude=.tools --exclude=.env --exclude=node_modules'));
+assert.ok(pack.includes('COPYFILE_DISABLE=1'), 'no ._* AppleDouble files from macOS tar');
+assert.ok(!/--transform/.test(pack.replace(/^#.*$/gm, '')), 'no GNU-only tar option');
 assert.ok(nc.includes('openssl dgst -sha512 -verify'));
 assert.ok(nc.includes("trap ") && nc.includes('EXIT'), 'private signing material is removed on failure too');
 assert.ok(nc.includes('curl --fail-with-body'), 'App Store HTTP rejection fails the publication');

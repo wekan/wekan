@@ -130,8 +130,7 @@ jobs:
           if jq -e --arg name "$archive" '.assets | any(.name == $name)' "$task_dir/assets.json" >/dev/null; then
             gh release download --repo wekan/wekan "v$VERSION" --pattern "$archive" --dir "$task_dir"
           else
-            tar --exclude=.git --exclude=.tools --exclude=.env --exclude=node_modules \
-              -czf "$task_dir/$archive" --transform "s,^\.$,${APP_ID},;s,^\./,${APP_ID}/," -C exapp .
+            releases/nextcloud-pack.sh exapp "$APP_ID" "$task_dir/$archive"
             new_archive=true
           fi
           python3 releases/nextcloud-release.py --version "$VERSION" --archive "$task_dir/$archive" --app-id "$APP_ID"
