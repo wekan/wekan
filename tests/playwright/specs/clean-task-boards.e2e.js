@@ -11,8 +11,12 @@ async function settings(page) {
   await page.locator('.js-pop-over .js-open-board-card-settings').click();
   return page.locator('.js-pop-over');
 }
-async function toggle(page, selector) {
+// Card Settings opens on its first section, Card (Collapse is there); a row of
+// another section - Labels above title, Labels - is in that section's pane
+// (models/lib/cardSettingsSections.js), so its menu entry is opened first.
+async function toggle(page, selector, section = 'card') {
   const popup = await settings(page);
+  if (section !== 'card') await popup.locator(`.js-card-settings-menu[data-id="${section}"]`).click();
   await popup.locator(selector).click();
   await popup.locator('.js-close-pop-over').click();
 }
@@ -30,7 +34,7 @@ test('clean boards: collapse control and labels above title persist without hidi
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsMinicardCollapse).toBe(false);
   await expect(mini.locator('.js-collapse-minicard')).toHaveCount(0);
   await expect(mini.locator('.minicard-labels')).toBeVisible();
-  await toggle(page, '.js-field-labels-above-title');
+  await toggle(page, '.js-field-labels-above-title', 'labels');
   await expect(mini.locator('.minicard-labels')).toHaveCount(1);
   await expect.poll(() => mini.evaluate(el => el.querySelector('.minicard-labels').getBoundingClientRect().bottom <= el.querySelector('.minicard-title').getBoundingClientRect().top + 1)).toBe(true);
   const complete = await mini.locator('.minicard-complete-toggle').boundingBox();
@@ -40,7 +44,7 @@ test('clean boards: collapse control and labels above title persist without hidi
   await page.reload();
   await expect(mini.locator('.js-collapse-minicard')).toHaveCount(0);
   await expect(mini.locator('.minicard-labels')).toBeVisible();
-  await toggle(page, '.js-field-has-labels-on-minicard');
+  await toggle(page, '.js-field-has-labels-on-minicard', 'labels');
   await expect(mini.locator('.minicard-labels')).toHaveCount(0);
   // A normal member cannot mutate presentation flags through DDP.
   db.updateOne('boards', { _id: board.boardId }, { $push: { members: { userId: user2.id, isActive: true, isAdmin: false } } });
@@ -69,16 +73,16 @@ test('clean boards: checklist due controls and section heading can be hidden wit
   const dueAt = new Date('2026-09-21T12:00:00Z');
   db.updateOne('checklists', { _id: checklistDoc._id }, { $set: { dueAt } });
   await expect(checklist.locator('.checklist-due-date')).toBeVisible();
-  await toggle(page, '.js-field-checklist-due-date');
+  await toggle(page, '.js-field-checklist-due-date', 'checklists');
   await expect(checklist.locator('.checklist-due-date, .js-checklist-due-date')).toHaveCount(0);
   await card.root.locator('[data-section="checklists"]').click();
   await expect(checklist).toHaveCount(0);
-  await toggle(page, '.js-field-checklist-title');
+  await toggle(page, '.js-field-checklist-title', 'checklists');
   await expect(card.root.locator('[data-section="checklists"]')).toHaveCount(0);
   await expect(checklist).toBeVisible();
   await expect(checklist.getByText('Keep this task', { exact: true })).toBeVisible();
   expect(db.findOne('checklists', { _id: checklistDoc._id }).dueAt).toBe(dueAt.toISOString());
-  await toggle(page, '.js-field-checklist-due-date');
+  await toggle(page, '.js-field-checklist-due-date', 'checklists');
   await expect(checklist.locator('.checklist-due-date')).toBeVisible();
 });
 

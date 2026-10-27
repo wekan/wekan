@@ -82,10 +82,16 @@ test('Card settings are the Admin Panel left menu and pane: Draggable in the fir
     await expect(popup.locator('.board-drag-settings')).toBeVisible();
     await popup.locator('.js-card-settings-menu[data-id="date"]').click();
     await expect(popup.locator('.board-drag-settings')).toHaveCount(0);
-    const line = popup.locator('.card-settings-line[data-key="dueDate"]');
-    await expect(line).toBeVisible();
-    const [mini, card] = await Promise.all(['minicard', 'card'].map(side => line.locator(`.card-settings-side-${side}`).boundingBox()));
-    expect(mini.x).toBeLessThan(card.x);
+    // Two lists per section now (Show on Card, then Show on Minicard under it,
+    // each dragged in its own order - docs/Features/Board-Sidebar/Board-Settings/Card.md),
+    // so a row is a line in each list, each with its own side's checkbox.
+    const lineOf = side => popup.locator(`.card-settings-line[data-key="dueDate"][data-side="${side}"]`);
+    for (const side of ['card', 'minicard']) {
+      await expect(lineOf(side)).toBeVisible();
+      await expect(lineOf(side).locator(`.card-settings-side-${side}`)).toBeVisible();
+    }
+    const [mini, card] = await Promise.all(['minicard', 'card'].map(side => lineOf(side).boundingBox()));
+    expect(mini.y).toBeGreaterThan(card.y);
     expect(await popup.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
   }
 });

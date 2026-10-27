@@ -11,6 +11,12 @@ for (const type of ['cardType-linkedCard', 'cardType-linkedBoard']) {
     db.updateOne('cards', { _id: source._id }, { $set: { spentTime: 4 } });
     db.updateOne('cards', { _id: wrapper._id }, { $set: { type, linkedId: type === 'cardType-linkedCard' ? source._id : board.boardId, spentTime: 999 } });
     const total = () => type === 'cardType-linkedCard' ? db.getCard(source._id).spentTime : db.findOne('boards', { _id: board.boardId }).spentTime;
+    // The writes above go straight to the database, after the board page was
+    // opened. A card's document reaches the page with the card's own writes,
+    // but the board's spentTime (the linked board's total) can wait for the
+    // server's next poll - and a Stop before it arrives credits the hour to
+    // 0 instead of 4. Reloading subscribes again with the current documents.
+    await page.reload({ waitUntil: 'domcontentloaded' });
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/${wrapper._id}`);
     await page.locator('.js-start-flow').click();
     await expect.poll(() => !!db.getCard(wrapper._id).flowStartAt).toBe(true);

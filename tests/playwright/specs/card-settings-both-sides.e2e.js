@@ -9,17 +9,35 @@ const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 const { CARD_SETTINGS_ROWS } = require('../../../models/lib/cardSettingsRows');
+const { SECTIONS } = require('../../../models/lib/cardSettingsSections');
 
 test('both columns list every row of the table', async ({ boardPage: page }) => {
   await page.evaluate(() => {
     Popup.close();
     Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
+  // The popup is a left menu of sections and a pane of the open section's rows
+  // (models/lib/cardSettingsSections.js, docs/Features/Cards/Card-Fields.md),
+  // so "every row" is every section's pane: each section lists its own rows,
+  // in both lists, and together they are the whole table.
+  const seen = { card: [], minicard: [] };
+  for (const section of SECTIONS) {
+    await page.locator(`.js-pop-over .js-card-settings-menu[data-id="${section.id}"]`).click();
+    for (const side of ['card', 'minicard']) {
+      // List title is the CARD's own row, only offered from a card's own menu.
+      const expected = section.keys.filter(key => {
+        const row = CARD_SETTINGS_ROWS.find(r => r.key === key);
+        return row && !row[side].needsCard;
+      });
+      const rows = page.locator(`.js-pop-over .js-card-field-order-row[data-side="${side}"]`);
+      await expect.poll(async () => (await rows.evaluateAll(els => els.map(r => r.dataset.key))).sort(), { message: `${section.id} ${side}` })
+        .toEqual([...expected].sort());
+      seen[side].push(...expected);
+    }
+  }
   for (const side of ['card', 'minicard']) {
-    const keys = await page.locator(`.js-card-field-order-row[data-side="${side}"]`).evaluateAll(rows => rows.map(r => r.dataset.key));
-    // List title is the CARD's own row, only offered from a card's own menu.
     const expected = CARD_SETTINGS_ROWS.filter(row => !row[side].needsCard).map(row => row.key);
-    expect(keys.sort()).toEqual(expected.sort());
+    expect(seen[side].sort()).toEqual(expected.sort());
   }
 });
 

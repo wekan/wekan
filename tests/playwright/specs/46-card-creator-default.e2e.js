@@ -41,6 +41,9 @@ test.describe('#3823 legacy board creator visibility', () => {
     await boardPage.locator('.board-sidebar .js-open-board-menu').click();
     await boardPage.locator('.js-pop-over').waitFor();
     await boardPage.locator('.js-pop-over .js-open-board-card-settings').click();
+    // Card Settings opens on its first section, Card; Creator is a row of the
+    // Members section (models/lib/cardSettingsSections.js), so open it first.
+    await boardPage.locator('.js-pop-over .js-card-settings-menu[data-id="members"]').click();
     const creatorSetting = boardPage.locator(
       '.js-pop-over .js-field-has-creator-on-minicard',
     );

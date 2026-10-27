@@ -15,10 +15,16 @@ const setting = () => db.findOne('settings', {}, { _id: 1, cardFieldStates: 1 })
 const restore = saved => (saved.cardFieldStates
   ? db.updateOne('settings', { _id: saved._id }, { $set: { cardFieldStates: saved.cardFieldStates } })
   : db.updateOne('settings', { _id: saved._id }, { $unset: { cardFieldStates: '' } }));
-const openCardSettings = page => page.evaluate(() => {
-  Popup.close();
-  Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
-});
+// Card Settings opens on its first section, Card; Flowtime and Pomodoro are
+// rows of the Time section (models/lib/cardSettingsSections.js), so the pane
+// is switched to it - otherwise "no Pomodoro row" would hold for any board.
+const openCardSettings = async page => {
+  await page.evaluate(() => {
+    Popup.close();
+    Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+  });
+  await page.locator('.js-pop-over .js-card-settings-menu[data-id="time"]').click();
+};
 
 async function tickPomodoro(page) {
   await navigateInApp(page, '/admin/settings/visibility');

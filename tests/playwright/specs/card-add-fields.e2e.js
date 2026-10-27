@@ -238,9 +238,14 @@ test('Card Settings: Select all / Select none per column, headings aligned with 
     const cell = await popup.locator(`.card-settings-line ${sel}`).first().boundingBox();
     expect(Math.abs(head.x - cell.x)).toBeLessThan(2);
   }
-  const headLabel = await popup.locator('.card-settings-pane-head-label').boundingBox();
-  const rowLabel = await popup.locator('.card-settings-line-label').first().boundingBox();
-  expect(Math.abs(headLabel.x - rowLabel.x)).toBeLessThan(2);
+  // Each of the two lists (Show on Card, Show on Minicard) has its own heading
+  // line, so the field column is compared within each list.
+  for (const list of ['card', 'minicard']) {
+    const scope = popup.locator(`.card-settings-list-${list}`);
+    const headLabel = await scope.locator('.card-settings-pane-head-label').boundingBox();
+    const rowLabel = await scope.locator('.card-settings-line-label').first().boundingBox();
+    expect(Math.abs(headLabel.x - rowLabel.x)).toBeLessThan(2);
+  }
   // Whole: every label ends inside the pane.
   const pane = await popup.locator('.main-body').boundingBox();
   for (const label of await popup.locator('.card-settings-line-label').all()) {
