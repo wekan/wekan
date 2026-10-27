@@ -41,7 +41,9 @@ test('card details clears desktop, mobile route and popup state', () => {
   // set(null) is a change that re-ran every minicard's currentBoard helpers.
   assert.ok(source.includes("Session.set('popupCardId', null)"));
   assert.ok(!source.includes("Session.delete('popupCardId')"));
-  assert.ok(source.includes('Utils.goBoardId(openedBoardId)'));
+  // #6808: the close is closeGoneCard(cardId, boardId), outside the window
+  // so it also runs after the window went with its data.
+  assert.ok(source.includes('Utils.goBoardId(boardId)'));
 });
 
 console.log(`\nopenCardPresence: ${passed} tests passed`);

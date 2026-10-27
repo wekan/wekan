@@ -41,29 +41,37 @@ test('#3114 still closes a card that is gone, after the server confirms', () => 
 });
 
 const details = read('client/components/cards/cardDetails.js');
+const confirm = details.slice(details.indexOf('function confirmGoneCard('), details.indexOf('Template.cardDetails.onCreated('));
 const created = details.slice(details.indexOf('Template.cardDetails.onCreated('), details.indexOf('// #6686: a sub-popup opened from this card'));
+const destroyed = details.slice(details.indexOf('Template.cardDetails.onDestroyed('), details.indexOf('const boardBody = getBoardBodyInstance();', details.indexOf('Template.cardDetails.onDestroyed(')));
 
-test('the window asks the server and closes only on its no, if Minimongo still agrees', () => {
+test('the window asks the server once settled, and closes only on its no, if Minimongo still agrees', () => {
   assert.match(created, /connected: Meteor\.status\(\)\.connected,\n\s+loggingIn: Meteor\.loggingIn\(\),/);
-  assert.match(created, /if \(decision !== 'confirm' \|\| confirming\) return;/);
-  assert.match(created, /Meteor\.callAsync\('cards\.openCardAvailable', openedCardId, openedBoardId\)/);
-  const then = created.slice(created.indexOf('.then(available => {'), created.indexOf('.catch('));
-  assert.match(then, /if \(available \|\| this\.view\.isDestroyed\) return;/);
-  assert.match(then, /if \(!openCardIsUnavailable\(ReactiveCache\.getCard\(openedCardId\), openedBoardId\)\) return;\n\s+closeOpenedCard\(\);/);
-  // No answer (dropped again): keep the card and ask again later.
-  assert.match(created, /\.catch\(\(\) => \{[\s\S]{0,200}confirming = false;\n\s+\}\);/);
-  const catchBlock = created.slice(created.indexOf('.catch('), created.indexOf('});', created.indexOf('.catch(')));
-  assert.ok(!/closeOpenedCard/.test(catchBlock), 'negative: an error never closes the card');
+  assert.match(created, /if \(decision === 'confirm'\) confirmGoneCard\(openedCardId, openedBoardId\);/);
+  // The question waits for a settled connection and login, then is asked once.
+  assert.match(confirm, /if \(!Meteor\.status\(\)\.connected \|\| Meteor\.loggingIn\(\)\) return;\n\s+computation\.stop\(\);\n\s+Meteor\.callAsync\('cards\.openCardAvailable', cardId, boardId\)/);
+  const then = confirm.slice(confirm.indexOf('.then(available => {'), confirm.indexOf('.catch('));
+  assert.match(then, /if \(available\) return;/);
+  assert.match(then, /if \(!openCardIsUnavailable\(ReactiveCache\.getCard\(cardId\), boardId\)\) return;\n\s+closeGoneCard\(cardId, boardId\);/);
+  const catchBlock = confirm.slice(confirm.indexOf('.catch('));
+  assert.ok(!/closeGoneCard/.test(catchBlock), 'negative: an error never closes the card');
+});
+
+test('a deleted card is still closed - and its address left - when its window is already gone', () => {
+  // Found by the browser test: the window is destroyed with its data, before
+  // the answer; the close and the step back from the card's address must
+  // still happen. So the question lives outside the window, and the window's
+  // end asks it too.
+  assert.match(confirm, /Tracker\.nonreactive\(\(\) => Tracker\.autorun\(computation => \{/);
+  assert.ok(!/isDestroyed/.test(confirm + created), 'negative: no answer is dropped because the window is gone');
+  assert.match(destroyed, /openCardIsUnavailable\(ReactiveCache\.getCard\(this\.openedCardId\), this\.openedBoardId\)\) \{\n\s+confirmGoneCard\(this\.openedCardId, this\.openedBoardId\);/);
+  assert.match(details, /const routeCardId = FlowRouter\.current\(\)\?\.params\?\.cardId;\n\s+if \(routeCardId === cardId\) \{\n\s+Utils\.goBoardId\(boardId\);/);
 });
 
 test('negative: nothing closes the opened card on Minimongo\'s word alone', () => {
-  // The one closer is closeOpenedCard, and only the server's answer calls it.
-  assert.strictEqual((created.match(/closeOpenedCard\(\)/g) || []).length, 1);
-  const decisionAt = created.indexOf('openCardCloseDecision({');
-  const closeAt = created.indexOf('closeOpenedCard();');
-  const askAt = created.indexOf("Meteor.callAsync('cards.openCardAvailable'");
-  assert.ok(decisionAt !== -1 && decisionAt < askAt && askAt < closeAt);
-  // And no other autorun in the client closes a card because it is missing.
+  // The one closer is closeGoneCard, and only the server's answer calls it.
+  assert.strictEqual((details.match(/closeGoneCard\(cardId, boardId\);/g) || []).length, 1);
+  assert.strictEqual((details.match(/closeGoneCard\(/g) || []).length, 2, 'its definition and that one call');
   const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(e => {
     const rel = path.join(dir, e.name);
     if (e.isDirectory()) return ['node_modules', '_build', '.build', '.tools'].includes(e.name) ? [] : walk(rel);
@@ -72,8 +80,10 @@ test('negative: nothing closes the opened card on Minimongo\'s word alone', () =
   for (const file of walk('client')) {
     const src = read(file);
     for (const m of src.matchAll(/openCardIsUnavailable\(/g)) {
-      const before = src.slice(Math.max(0, m.index - 400), m.index);
-      assert.ok(file.endsWith('cardDetails.js') && /\.then\(available => \{/.test(before) || /require\(/.test(src.slice(m.index - 60, m.index)) || /const \{ openCardIsUnavailable/.test(src.slice(m.index - 20, m.index)),
+      const before = src.slice(Math.max(0, m.index - 300), m.index);
+      const ok = file.endsWith('cardDetails.js')
+        && (/\.then\(available => \{/.test(before) || /onDestroyed\(function/.test(before) || /\n\s+if \(this\.openedCardId && this\.openedBoardId\n\s+&& $/.test(before));
+      assert.ok(ok || /require\(/.test(src.slice(m.index - 60, m.index)) || /const \{ openCardIsUnavailable/.test(src.slice(m.index - 20, m.index)),
         `${file}: openCardIsUnavailable used outside the server-confirmed close`);
     }
   }

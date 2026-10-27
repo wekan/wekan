@@ -356,6 +356,58 @@ function bindCardDetailsResize() {
   });
 }
 
+// #3114 / #6808: close every way the card `cardId` is open - the window,
+// the popup, the card's address - once it no longer belongs on `boardId`.
+function closeGoneCard(cardId, boardId) {
+  Session.set(
+    'openCards',
+    (Session.get('openCards') || []).filter(id => id !== cardId),
+  );
+  if (Session.get('currentCard') === cardId) {
+    Session.set('currentCard', null);
+  }
+  if (Session.get('popupCardId') === cardId) {
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Popup.close();
+  }
+  const routeCardId = FlowRouter.current()?.params?.cardId;
+  if (routeCardId === cardId) {
+    Utils.goBoardId(boardId);
+  }
+}
+
+// #6808: a card missing from Minimongo is closed only when the server
+// confirms it is gone, asked once the connection and the login have settled,
+// and only if Minimongo still agrees when it answers. Kept OUTSIDE the
+// window's lifecycle on purpose: when a card really is deleted, its window is
+// destroyed with its data, often before the answer comes back - the close (and
+// the step back from the card's address) must still happen then. A dropped
+// connection that comes back answers "available", and nothing is closed.
+const confirmingGoneCards = new Set();
+function confirmGoneCard(cardId, boardId) {
+  if (!cardId || !boardId || confirmingGoneCards.has(cardId)) return;
+  confirmingGoneCards.add(cardId);
+  // Not a child of whatever computation calls this, so it outlives it.
+  Tracker.nonreactive(() => Tracker.autorun(computation => {
+    if (!Meteor.status().connected || Meteor.loggingIn()) return;
+    computation.stop();
+    Meteor.callAsync('cards.openCardAvailable', cardId, boardId)
+      .then(available => {
+        confirmingGoneCards.delete(cardId);
+        if (available) return;
+        // Still gone now that the server has answered.
+        if (!openCardIsUnavailable(ReactiveCache.getCard(cardId), boardId)) return;
+        closeGoneCard(cardId, boardId);
+      })
+      .catch(() => {
+        // No answer (the connection dropped again): keep the card; it is
+        // asked again the next time it looks gone.
+        confirmingGoneCards.delete(cardId);
+      });
+  }));
+}
+
 Template.cardDetails.onCreated(function () {
   this.currentBoard = Utils.getCurrentBoard();
   this.isLoaded = new ReactiveVar(false);
@@ -372,26 +424,6 @@ Template.cardDetails.onCreated(function () {
   // while a dropped connection comes back and its subscriptions re-run, as
   // behind a reverse proxy while the page loads - is not closed: the server
   // is asked first (models/lib/openCardPresence.js openCardCloseDecision).
-  let confirming = false;
-  const closeOpenedCard = () => {
-    Session.set(
-      'openCards',
-      (Session.get('openCards') || []).filter(id => id !== openedCardId),
-    );
-    if (Session.get('currentCard') === openedCardId) {
-      Session.set('currentCard', null);
-    }
-    if (Session.get('popupCardId') === openedCardId) {
-      Session.set('popupCardId', null);
-      Session.set('popupCardBoardId', null);
-      Popup.close();
-    }
-
-    const routeCardId = FlowRouter.current()?.params?.cardId;
-    if (routeCardId === openedCardId) {
-      Utils.goBoardId(openedBoardId);
-    }
-  };
   this.autorun(() => {
     if (!openedCardId || !openedBoardId) return;
     const decision = openCardCloseDecision({
@@ -403,22 +435,9 @@ Template.cardDetails.onCreated(function () {
       card: ReactiveCache.getCard(openedCardId),
       openedBoardId,
     });
-    if (decision !== 'confirm' || confirming) return;
-    confirming = true;
-    Meteor.callAsync('cards.openCardAvailable', openedCardId, openedBoardId)
-      .then(available => {
-        confirming = false;
-        if (available || this.view.isDestroyed) return;
-        // Still gone now that the server has answered.
-        if (!openCardIsUnavailable(ReactiveCache.getCard(openedCardId), openedBoardId)) return;
-        closeOpenedCard();
-      })
-      .catch(() => {
-        // No answer (the connection dropped again): keep the card; the
-        // autorun asks again once everything has settled.
-        confirming = false;
-      });
+    if (decision === 'confirm') confirmGoneCard(openedCardId, openedBoardId);
   });
+  this.openedBoardId = openedBoardId;
 
   // #6686: a sub-popup opened from this card (Labels, Members, ...) is a
   // global singleton (client/lib/popup.js) that is not tied to this card
@@ -656,6 +675,13 @@ Template.cardDetails.onRendered(function () {
 });
 
 Template.cardDetails.onDestroyed(function () {
+  // #6808: the window is destroyed with its data when the card is deleted,
+  // often before the autorun above could ask the server - ask now. A card that
+  // merely left for a moment (a reconnect) comes back and answers "available".
+  if (this.openedCardId && this.openedBoardId
+    && openCardIsUnavailable(ReactiveCache.getCard(this.openedCardId), this.openedBoardId)) {
+    confirmGoneCard(this.openedCardId, this.openedBoardId);
+  }
   const boardBody = getBoardBodyInstance();
   if (boardBody !== null) {
     boardBody.showOverlay.set(false);
