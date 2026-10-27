@@ -891,6 +891,66 @@ records an AuthBleed attempt first. Both keep their assertions.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8d7b01334">The Card Settings both-sides and Scrum title specs follow the current Card Settings</a>. Thanks to xet7.</summary>
+
+Six rows have no minicard side by design, which one spec read as missing; the
+other read the pane title before Card Settings, which opens on Card now, had
+switched to Scrum. Both failed in the Chromium stage of a full run.
+
+</details>
+
+**macOS** - the scripts and tests, run on a Mac with bash 3.2 and BSD tools.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/283e51eac0">The root and releases/ shell scripts run on macOS too</a>. Thanks to xet7.</summary>
+
+Every script was checked with macOS's bash 3.2 and for GNU-only options: an
+associative array, an empty array under `set -u`, a broken `find-replace.sh`,
+`sha256sum`, `nproc`, GNU `sed -i`, `ln -sfT`, `stat -c` and `ip` each have a
+portable form or a fallback. `tests/macosShellPortability.test.cjs` parses every
+bash script with bash 3.2 and fails when one of these shapes comes back.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa1bb293f9">The UCS migration hook locks without flock, and the Nextcloud package is packed without GNU tar</a>. Thanks to xet7.</summary>
+
+Without `flock` the UCS hook takes the same lock with perl's `flock()` on its
+file descriptor. `releases/nextcloud-pack.sh` packs the ExApp under its app id
+with options GNU tar and bsdtar share, and keeps macOS's `._*` files out;
+the release workflow and its test use it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f9ada5599">No /proc: conformance runs keep each other's containers, and the start scripts see the real memory</a>. Thanks to xet7.</summary>
+
+On a Mac `db-conformance.sh` saw every live run as dead and removed its
+containers; it reads the command line with `ps` there. `start-wekan.sh` and the
+bundle's start script assumed 2 GiB and now ask `sysctl`, and the speed monitor
+shows the load average.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43e09631c4">A Node.js without single executable applications is named, not run</a>. Thanks to xet7.</summary>
+
+Homebrew's Node.js is built without them, and the single-file build stopped with
+a bare exit 9. It says what to do now, and its tests skip that build and expect
+the host's own arch rather than x64.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ed8fb20f2">strip-node.sh is exercised on a real Mach-O</a>. Thanks to xet7.</summary>
+
+On a Mac the ELF fixture is a Mach-O, so those cases skip, and a new case checks
+that the local symbols go, the exported one stays and the binary is re-signed
+and runs.
+
+</details>
+
 and updates the following documentation:
 
 - [Show empty fields of Card Settings, the \[label\] title switch of Member Settings, and Data health repairs](https://github.com/wekan/wekan/commit/30e960e129).
