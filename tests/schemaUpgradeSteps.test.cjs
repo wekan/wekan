@@ -146,7 +146,10 @@ function fakeDb(initial = {}) {
         const vals = new Set();
         for (const d of docs()) if (matches(d, filter)) {
           const v = getPath(d, field);
-          if (v !== undefined) vals.add(typeof v === 'string' ? v : String(v));
+          // MongoDB's distinct() returns each element of an array field.
+          for (const x of Array.isArray(v) ? v : [v]) {
+            if (x !== undefined) vals.add(typeof x === 'string' ? x : String(x));
+          }
         }
         return [...vals];
       },
@@ -714,6 +717,53 @@ await test('cover-on-card-on: a new install with no board marks it done, so a la
   assert.strictEqual(await coverStep.check(db), false, 'nothing to turn on');
   db._dump('boards').push({ _id: 'b9', allowsCoverAttachmentOnCard: false });
   assert.strictEqual(await coverStep.check(db), false, 'and the marker is written, so it never runs later');
+});
+
+// ── custom-fields-minicard-on (fields "Show on card" stay on the minicard) ─
+// The minicard switch for custom fields is opt-in and false in every board. A
+// board with a field marked "Show on card" had that field on its minicards
+// before; it is turned on there, ONCE.
+const cfMinicardStep = steps.find(s => s.name === 'custom-fields-minicard-on');
+
+await test('custom-fields-minicard-on: boards with a "Show on card" field keep it on the minicard', async () => {
+  const db = fakeDb({
+    customFields: [
+      { _id: 'f1', boardIds: ['b1', 'b2'], showOnCard: true },
+      { _id: 'f2', boardIds: ['b3'], showOnCard: false },
+      { _id: 'f3', boardIds: ['b4'], showOnCard: true },
+    ],
+    boards: [
+      { _id: 'b1', allowsCustomFieldsOnMinicard: false },
+      { _id: 'b2' },
+      { _id: 'b3', allowsCustomFieldsOnMinicard: false },
+      { _id: 'b4', allowsCustomFieldsOnMinicard: true },
+      { _id: 'b5', allowsCustomFieldsOnMinicard: false },
+    ],
+  });
+  assert.strictEqual(await cfMinicardStep.check(db), true);
+  const res = await cfMinicardStep.run(db);
+  assert.strictEqual(res.fixed, 2);
+  const on = Object.fromEntries(db._dump('boards').map(b => [b._id, b.allowsCustomFieldsOnMinicard]));
+  assert.deepStrictEqual(on, { b1: true, b2: true, b3: false, b4: true, b5: false },
+    'only boards with a "Show on card" field; the others keep the opt-in default');
+});
+
+await test('custom-fields-minicard-on: ONCE EVER - a later "off" stands (negative)', async () => {
+  const db = fakeDb({
+    customFields: [{ _id: 'f1', boardIds: ['b1'], showOnCard: true }],
+    boards: [{ _id: 'b1', allowsCustomFieldsOnMinicard: false }],
+  });
+  await cfMinicardStep.run(db);
+  db._dump('boards')[0].allowsCustomFieldsOnMinicard = false; // turned off afterwards
+  assert.strictEqual(await cfMinicardStep.check(db), false, 'the marker stops it');
+  assert.strictEqual(db._dump('boards')[0].allowsCustomFieldsOnMinicard, false);
+});
+
+await test('custom-fields-minicard-on: no "Show on card" field anywhere marks it done (negative)', async () => {
+  const db = fakeDb({ customFields: [], boards: [{ _id: 'b1', allowsCustomFieldsOnMinicard: false }] });
+  assert.strictEqual(await cfMinicardStep.check(db), false, 'nothing to turn on');
+  db._dump('customFields').push({ _id: 'f9', boardIds: ['b1'], showOnCard: true });
+  assert.strictEqual(await cfMinicardStep.check(db), false, 'a field added later is a choice made with the switch in place');
 });
 
 // ── nonfinite-sort-repair (#6481) ────────────────────────────────────────────

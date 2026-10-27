@@ -59,6 +59,10 @@
 //                            (v6.10-18 uploads/<coll>, v6.19-v8.4x
 //                            WRITABLE_PATH/<coll>, CFS->ostrio temp files):
 //                            locate the binary and repoint/copy it
+//   custom-fields-minicard-on #6812: boards with a "Show on card" custom
+//                            field, whose minicards drew it before the switch
+//                            allowsCustomFieldsOnMinicard (opt-in, false
+//                            written into every board) -> switch on, once ever
 //
 // Pure, dependency-free (no Meteor imports) so it can be unit tested with
 // plain Node against a driver-compatible Db object. The Meteor wrapper (and
@@ -76,6 +80,7 @@ const MARKER_ID = 'schema-upgrade';
 // beside that one: see checklist-minicard-unset.
 const CHECKLIST_MINICARD_MARKER_ID = 'checklist-minicard-unset';
 const COVER_ON_CARD_MARKER_ID = 'cover-on-card-on';
+const CUSTOM_FIELDS_MINICARD_MARKER_ID = 'custom-fields-minicard-on';
 
 // Meteor-style random document ids (Random.id(): 17 chars, unmistakable set),
 // so upgraded documents look exactly like app-created ones.
@@ -822,6 +827,43 @@ const steps = [
       );
       await db.collection(MARKER_COLL).updateOne(
         { _id: COVER_ON_CARD_MARKER_ID },
+        { $set: { at: new Date() } },
+        { upsert: true },
+      );
+      return { fixed: (r && r.modifiedCount) || 0, unresolved: 0 };
+    },
+  },
+
+  {
+    // Custom fields on minicards became a Board Settings / Card switch
+    // (allowsCustomFieldsOnMinicard), opt-in, and the schema's false was written
+    // into every board. A field marked "Show on card" was always drawn on the
+    // minicard before, so after the upgrade those fields vanished from every
+    // minicard until a board admin found the new switch. The switch is turned on
+    // for each board that has at least one such field: that is the board's own
+    // earlier choice. Boards without one keep the opt-in default.
+    //
+    // ONCE EVER, like cover-on-card-on: after this has run, a false is a choice
+    // somebody made, and the next upgrade must not turn it back on. With no such
+    // field anywhere it only marks itself done.
+    // #6812.
+    name: 'custom-fields-minicard-on',
+    async check(db) {
+      const markers = db.collection(MARKER_COLL);
+      if (await markers.findOne({ _id: CUSTOM_FIELDS_MINICARD_MARKER_ID }, { projection: { _id: 1 } })) return false;
+      if (await db.collection('customFields').findOne({ showOnCard: true }, { projection: { _id: 1 } })) return true;
+      await markers.updateOne({ _id: CUSTOM_FIELDS_MINICARD_MARKER_ID }, { $set: { at: new Date() } }, { upsert: true });
+      return false;
+    },
+    async run(db) {
+      const boardIds = (await db.collection('customFields').distinct('boardIds', { showOnCard: true }))
+        .filter(id => typeof id === 'string' && id);
+      const r = boardIds.length ? await db.collection('boards').updateMany(
+        { _id: { $in: boardIds }, allowsCustomFieldsOnMinicard: { $ne: true } },
+        { $set: { allowsCustomFieldsOnMinicard: true } },
+      ) : null;
+      await db.collection(MARKER_COLL).updateOne(
+        { _id: CUSTOM_FIELDS_MINICARD_MARKER_ID },
         { $set: { at: new Date() } },
         { upsert: true },
       );
