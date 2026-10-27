@@ -14,7 +14,12 @@ template(name="authProviderSettings")
         ul.setting-detail
           each fields
             li.accounts-form
-              label(for="auth-{{key}}")= envVar
+              if labelKey
+                label(for="auth-{{key}}")
+                  | {{_ labelKey}}
+                  span.quiet  ({{envVar}})
+              else
+                label(for="auth-{{key}}")= envVar
               .form-group
                 //- Environment-only (Header login): the value in effect,
                 //- read-only, and no js-auth-config-field so nothing is saved.
@@ -29,7 +34,7 @@ template(name="authProviderSettings")
                   select.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}")
                     option(value="" selected=inherit) {{_ 'default'}} ({{effective}})
                     each choiceOptions
-                      option(value="{{value}}" selected=selected)= value
+                      option(value="{{value}}" selected=selected)= label
                 else if secretField
                   .description.js-auth-secret-status(data-key="{{key}}")= secretStatus
                   input.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" type="password" value="" autocomplete="new-password" placeholder="{{_ 'password'}}")
@@ -45,6 +50,8 @@ template(name="authProviderSettings")
                   input.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" type="text" value="{{value}}" placeholder="{{effective}}")
                 unless secretField
                   span.ldap-source-badge= sourceLabel
+                if helpKey
+                  .description {{_ helpKey}}
                 if restart
                   .description {{_ 'login-setting-after-restart'}}
           unless sectionEnvOnly

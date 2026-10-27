@@ -34,7 +34,14 @@ Template.authProviderSettings.helpers({
       const value = overrides[field.key];
       const source = sources[field.key] || {};
       const secretField = field.type === 'secret';
-      return { ...field, value: value ?? '', effective: String(source.value ?? ''),
+      // A choice is shown by its translated name when the catalog gives one.
+      const choiceLabel = choice => (field.choiceLabelKeys && field.choiceLabelKeys[choice]
+        ? TAPi18n.__(field.choiceLabelKeys[choice]) : choice);
+      const effectiveRaw = String(source.value ?? '');
+      return { ...field, value: value ?? '',
+        effective: field.type === 'choice' ? choiceLabel(effectiveRaw)
+          : field.type === 'boolean' && ['true', 'false'].includes(effectiveRaw)
+            ? TAPi18n.__(effectiveRaw === 'true' ? 'yes' : 'no') : effectiveRaw,
         booleanField: field.type === 'boolean', multiline: field.type === 'textarea',
         choiceField: field.type === 'choice', numberField: field.type === 'number',
         secretField,
@@ -48,7 +55,7 @@ Template.authProviderSettings.helpers({
           : !source.hasValue ? TAPi18n.__('unset-color')
           : `${TAPi18n.__('password')}: ${source.source === 'admin' ? TAPi18n.__('admin-panel')
             : source.source === 'file' ? field.fileVar : field.envVar}`,
-        choiceOptions: (field.choices || []).map(choice => ({ value: choice, selected: value === choice })),
+        choiceOptions: (field.choices || []).map(choice => ({ value: choice, label: choiceLabel(choice), selected: value === choice })),
         inherit: value === undefined, enabled: value === true, disabled: value === false,
         sourceLabel: source.source === 'admin' ? TAPi18n.__('admin-panel')
           : source.source === 'env' ? field.envVar

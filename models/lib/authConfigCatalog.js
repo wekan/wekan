@@ -197,11 +197,19 @@ const SECTIONS = {
   attachmentRetention: {
     storage: 'attachmentRetention',
     fields: [
-      ['retentionDays', 'ATTACHMENTS_RETENTION_DAYS', 'number', { max: 36500 }],
-      ['mode', 'ATTACHMENTS_RETENTION_MODE', 'choice', { choices: ['uploaded', 'card-inactive'], defaultValue: 'uploaded' }],
-      ['purgeDeletedAfterDays', 'ATTACHMENTS_PURGE_DELETED_AFTER_DAYS', 'number', { max: 36500 }],
-      ['dryRun', 'ATTACHMENTS_RETENTION_DRY_RUN', 'boolean', { defaultValue: false }],
-      ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: 1000, max: 1000000 }],
+      // labelKey / helpKey / choiceLabelKeys: what the Admin Panel shows above,
+      // under and inside the field; the variable name stays beside the label.
+      ['retentionDays', 'ATTACHMENTS_RETENTION_DAYS', 'number', { max: 36500, defaultValue: 0,
+        labelKey: 'attachment-retention-days', helpKey: 'attachment-retention-days-help' }],
+      ['mode', 'ATTACHMENTS_RETENTION_MODE', 'choice', { choices: ['uploaded', 'card-inactive'], defaultValue: 'uploaded',
+        labelKey: 'attachment-retention-mode',
+        choiceLabelKeys: { uploaded: 'export-card-attachment-uploaded-at', 'card-inactive': 'last-activity' } }],
+      ['purgeDeletedAfterDays', 'ATTACHMENTS_PURGE_DELETED_AFTER_DAYS', 'number', { max: 36500, defaultValue: 0,
+        labelKey: 'attachment-retention-purge', helpKey: 'attachment-retention-purge-help' }],
+      ['dryRun', 'ATTACHMENTS_RETENTION_DRY_RUN', 'boolean', { defaultValue: false,
+        labelKey: 'attachment-retention-dry-run' }],
+      ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: 1000, max: 1000000,
+        labelKey: 'attachment-retention-max-per-run' }],
     ],
   },
   // Email to card and the email view's limits (docs/Features/General/Email/
@@ -265,6 +273,11 @@ for (const [section, { storage, envOnly = false, platforms = null, fields }] of 
         defaultValue: options.defaultValue === undefined ? null : options.defaultValue,
         restart: options.restart === true,
         max: options.max === undefined ? null : options.max,
+        // Translation keys for a readable label, a help line and choice names;
+        // without them the form shows the variable name and the raw choice.
+        labelKey: options.labelKey || null,
+        helpKey: options.helpKey || null,
+        choiceLabelKeys: options.choiceLabelKeys || null,
         envOnly,
         platforms,
       };
@@ -383,7 +396,8 @@ function authConfigSources(section, doc, env = process.env, options = {}) {
     const effective = resolveAuthEnv(field.envVar, doc, env);
     sources[field.key] = {
       source,
-      value: redactValue(effective === undefined ? field.defaultValue : effective),
+      // An empty variable is unset (isUnset): show the default, not "()".
+      value: redactValue(isUnset(effective) ? field.defaultValue : effective),
     };
   }
   return { overrides, sources };
