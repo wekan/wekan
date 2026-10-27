@@ -546,6 +546,18 @@ by hand.
 
 </details>
 
+**Apple Glass Pastel** - muted text on light glass.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9679aaf636">Muted text is darker, readable on every light surface</a>. Thanks to xet7.</summary>
+
+The theme's quiet text, `#6b7280`, was 4.51:1 on `#f7f7f7` and 4.44:1 on the
+tinted card header, at or under the 4.5:1 it needs; `#4b5563` is about 7:1.
+The opened card and sidebar contrast tests now wait for the theme before they
+measure, as the header test does.
+
+</details>
+
 **Linked cards** - the fields a linked card shows.
 
 <details>
@@ -656,6 +668,14 @@ LinkedWriteBleed over REST is refused and recorded without disabling the
 account (#6798); notification intents are seeded recent, past the expiry of
 \#6768; an invite mail goes to a running SMTP sink, and a sink waits for a busy
 port.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13d3a74b3f">The S3 settings spec expects both of its translated Save buttons</a>. Thanks to xet7.</summary>
+
+The S3 pane has had two Save buttons since \#6465, one under the Enabled and
+Read switches and one after the connection fields; the spec matched one.
 
 </details>
 
