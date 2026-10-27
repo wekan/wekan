@@ -119,6 +119,28 @@ test('the node suites run with TMPDIR in .tools/tmp', () => {
   assert.match(read('tests/run-node-suites.cjs'), /TMPDIR: TOOLS_TMP, TMP: TOOLS_TMP, TEMP: TOOLS_TMP/);
 });
 
+test('Windows: tools-env.bat puts each kind of file in .tools\\, and the batch files call it', () => {
+  const env = read('releases/tools-env.bat');
+  for (const line of ['set "TEMP=%WEKAN_TOOLS_DIR%\\tmp"', 'set "TMP=%TEMP%"', 'set "TMPDIR=%TEMP%"',
+    'set "npm_config_cache=%WEKAN_TOOLS_DIR%\\npm-cache"', 'set "npm_config_prefix=%WEKAN_TOOLS_DIR%\\npm-global"',
+    'set "GOPATH=%WEKAN_TOOLS_DIR%\\gopath"', 'set "METEOR_WAREHOUSE_DIR=%WEKAN_TOOLS_DIR%\\.meteor"']) {
+    assert.ok(env.includes(line), line);
+  }
+  assert.doesNotMatch(env, /^setlocal/im, 'the caller keeps what it sets');
+  const bat = read('build.bat');
+  assert.match(bat, /^call "%REPO%\\releases\\tools-env\.bat"$/m);
+  assert.doesNotMatch(bat, /choco install -y nodejs/, 'Node.js is unpacked into .tools, not installed system-wide');
+  assert.match(bat, /tar -xf "%TEMP%\\%WK_NODE_NAME%\.zip" -C "%WEKAN_TOOLS_DIR%"/);
+  assert.match(bat, /Get-FileHash -Algorithm SHA256/, 'verified against SHASUMS256.txt first');
+  assert.match(bat, /set "LOCALAPPDATA=%WEKAN_TOOLS_DIR%"\s+call npx -y meteor/, 'Meteor into .tools\\.meteor');
+  // Every releases\ batch file but the bundle launchers (start-wekan.bat runs a
+  // finished bundle on a user's machine, where there is no .tools\).
+  for (const f of fs.readdirSync(path.join(root, 'releases')).filter(n => n.endsWith('.bat') && n !== 'tools-env.bat')) {
+    assert.match(read(path.join('releases', f)), /call "%~dp0tools-env\.bat"/i, f);
+  }
+  assert.match(read('releases/build-bundle-win64.bat'), /SET "WORK=%TEMP%\\win64-bundle-%VERSION%"/);
+});
+
 test('negative: the checks catch what they are for', () => {
   assert.match('x="$(mktemp)"', /\bmktemp(\s+-d)?\s*\)/);
   assert.match('d="$(mktemp -d)"', /\bmktemp(\s+-d)?\s*\)/);

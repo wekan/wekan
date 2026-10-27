@@ -15,6 +15,14 @@ IF [%1] == [] GOTO usage
 
 SET VERSION=%1
 
+REM Everything is downloaded, unpacked and zipped in .tools\tmp, and node-gyp
+REM goes to .tools\npm-global: no file is written outside the checkout's .tools\
+REM (releases\tools-env.bat).
+CALL "%~dp0tools-env.bat"
+SET "WORK=%TEMP%\win64-bundle-%VERSION%"
+IF NOT EXIST "%WORK%" MKDIR "%WORK%"
+CD /D "%WORK%"
+
 ECHO 1) Installing build tools
 CALL npm install -g node-gyp @mapbox/node-pre-gyp
 
@@ -38,7 +46,7 @@ CD ..\..\..
 ECHO 6) Creating Windows bundle zip
 CALL 7z a wekan-%VERSION%-win64.zip bundle
 
-ECHO Done: wekan-%VERSION%-win64.zip
+ECHO Done: %WORK%\wekan-%VERSION%-win64.zip
 GOTO :eof
 
 :usage

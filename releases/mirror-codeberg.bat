@@ -1,6 +1,8 @@
 @echo off
 setlocal
 for %%I in ("%~dp0..") do set "WEKAN_ROOT=%%~fI"
+REM TEMP, TMP, npm and Go in .tools\ (releases\tools-env.bat).
+call "%~dp0tools-env.bat"
 set "PATH=%WEKAN_ROOT%\.tools\bin;%GOBIN%;%PATH%"
 set "FLAGS=--apply --code"
 if "%~1"=="--preview" (

@@ -430,6 +430,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // container for musl, Termux-like Android builders, the Bun builders).
   SKIP['musl/build-bundle.sh'] = 'musl bundle build run by musl.yml inside Alpine';
   SKIP['android/build-bundle.sh'] = 'Android bundle build run by android.yml';
+  SKIP['tools-env.bat'] = 'called by build.bat and the releases\\ batch files: keeps every file they write in .tools\\';
   SKIP['tools-env.sh'] = 'sourced by build.sh and the releases/ scripts: keeps every file they write in .tools/';
   SKIP['nextcloud-pack.sh'] = 'Nextcloud ExApp packer run by nextcloud.yml before signing; tested by tests/nextcloudRelease.test.py';
   SKIP['single-file/bun/build-and-check.sh'] = 'Bun single-file build run by bun-single-file.yml';
@@ -850,7 +851,10 @@ test('the floating-promises guard FAILS in both, never only warns', () => {
 
 test('Playwright: the same browser directory and single-browser project in both', () => {
   assert.match(sh, /PLAYWRIGHT_BROWSERS_PATH="\$WEKAN_DIR\/\.tools\/ms-playwright"/);
-  assert.match(bat, /set "PLAYWRIGHT_BROWSERS_PATH=%REPO%\\\.tools\\ms-playwright"/);
+  // build.bat sets it through releases\tools-env.bat, as build.sh through tools-env.sh.
+  assert.match(bat, /^call "%REPO%\\releases\\tools-env\.bat"$/m);
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'releases', 'tools-env.bat'), 'utf8'),
+    /set "PLAYWRIGHT_BROWSERS_PATH=%WEKAN_TOOLS_DIR%\\ms-playwright"/);
   assert.match(bat, /set "WEKAN_PLAYWRIGHT_PROJECT=%PW_PROJECT%"/);
 });
 
@@ -868,7 +872,8 @@ test('Node.js and npm versions come from the Dockerfile in both (negative: no ty
   assert.match(sh, /_wekan_npm_version="\$\(sed -n 's\/\.\*NPM_VERSION=/);
   assert.doesNotMatch(sh, /npm install -g npm@\d/);
   assert.match(bat, /findstr \/r \/c:"NPM_VERSION=\[0-9\]"/);
-  assert.match(bat, /choco install -y nodejs --version=%WK_NODE_VERSION%/);
+  // The Dockerfile's Node.js, from nodejs.org's zip into .tools\ - not Chocolatey.
+  assert.match(bat, /set "WK_NODE_NAME=node-v%WK_NODE_VERSION%-win-%WK_NODE_ARCH%"/);
   assert.match(bat, /npm install -g npm@%WK_NPM_VERSION%/);
 });
 

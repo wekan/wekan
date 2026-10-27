@@ -20,6 +20,8 @@
 #   .tools/npm-cache   npm's cache (npm_config_cache)
 #   .tools/volta       Volta (VOLTA_HOME)
 #   .tools/projects/meteor-spk  the Sandstorm packaging toolchain (as projects.7z unpacks)
+#   .tools/gopath, gocache, gomodcache  Go, for FerretDB builds
+#   .tools/ms-playwright  the Playwright browsers
 #
 # HOME itself is NOT moved: git reads ~/.gitconfig (the commit author) and
 # ~/.ssh from it, and gh its login. Only what WeKan's scripts write is moved.
@@ -63,8 +65,14 @@ NVM_DIR="$WEKAN_TOOLS_DIR/nvm"
 npm_config_cache="$WEKAN_TOOLS_DIR/npm-cache"
 VOLTA_HOME="$WEKAN_TOOLS_DIR/volta"
 WEKAN_METEOR_SPK_DIR="$WEKAN_TOOLS_DIR/projects/meteor-spk"
+# Go, for FerretDB builds, keeps its module and build caches here too.
+GOPATH="$WEKAN_TOOLS_DIR/gopath"
+GOCACHE="$WEKAN_TOOLS_DIR/gocache"
+GOMODCACHE="$WEKAN_TOOLS_DIR/gomodcache"
+PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-$WEKAN_TOOLS_DIR/ms-playwright}"
 export WEKAN_DIR WEKAN_TOOLS_DIR TMPDIR TMP TEMP WEKAN_DOWNLOADS \
-  NVM_DIR npm_config_cache VOLTA_HOME WEKAN_METEOR_SPK_DIR
+  NVM_DIR npm_config_cache VOLTA_HOME WEKAN_METEOR_SPK_DIR \
+  GOPATH GOCACHE GOMODCACHE PLAYWRIGHT_BROWSERS_PATH
 
 # The tools installed there come first on PATH, so no shell rc file has to be
 # edited for a new shell to find them: Meteor, n's Node.js, the newest nvm put in

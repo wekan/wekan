@@ -60,11 +60,10 @@ exit /b 0
 REM --- Repo root = folder of this script (strip trailing backslash) ---
 set "REPO=%~dp0"
 if "%REPO:~-1%"=="\" set "REPO=%REPO:~0,-1%"
-REM As build.sh: Meteor installed into the repo's .tools is on PATH, and the
-REM Playwright browsers live in .tools\ms-playwright, not in the user's cache,
-REM so a clean checkout and EVERYTHING use the same browsers.
-if exist "%REPO%\.tools\.meteor" set "PATH=%REPO%\.tools\.meteor;%PATH%"
-if not defined PLAYWRIGHT_BROWSERS_PATH set "PLAYWRIGHT_BROWSERS_PATH=%REPO%\.tools\ms-playwright"
+REM As build.sh: everything this script writes - temporary files, downloads,
+REM Node.js, Meteor, the npm cache, Go and the Playwright browsers - stays in
+REM .tools\, and those tools come first on PATH (releases\tools-env.bat).
+call "%REPO%\releases\tools-env.bat"
 cd /d "%REPO%"
 
 REM Give the Meteor build tool and Node processes a larger heap so long
@@ -852,8 +851,8 @@ REM ===========================================================================
 echo Installing WeKan dependencies for Windows.
 rem Full MIME detection uses the libmagic WASM engine/database installed by npm.
 rem No external file.exe installation is needed.
-echo This uses Chocolatey to install git, curl, Node.js LTS and MongoDB tools,
-echo then installs Meteor with npx meteor.
+echo This uses Chocolatey to install git, curl and the MongoDB tools, then puts
+echo Node.js and Meteor into .tools\ of this checkout - not into the system.
 where choco >nul 2>&1
 if errorlevel 1 (
 	echo Installing Chocolatey package manager ...
@@ -867,33 +866,50 @@ for /f "tokens=2 delims== " %%v in ('findstr /r /c:"NODE_VERSION=v[0-9]" "%REPO%
 for /f "tokens=2 delims== " %%v in ('findstr /r /c:"NPM_VERSION=[0-9]" "%REPO%\Dockerfile"') do if not defined WK_NPM_VERSION set "WK_NPM_VERSION=%%v"
 if defined WK_NODE_VERSION set "WK_NODE_VERSION=%WK_NODE_VERSION:v=%"
 call choco install -y git curl mongodb-shell
-if defined WK_NODE_VERSION (
-	echo Installing Node.js %WK_NODE_VERSION% ^(Dockerfile NODE_VERSION^) ...
-	call choco install -y nodejs --version=%WK_NODE_VERSION% --allow-downgrade
-	if errorlevel 1 (
-		echo Chocolatey has no Node.js %WK_NODE_VERSION% yet; installing its newest Node.js instead.
-		call choco install -y nodejs
-	)
-) else (
-	call choco install -y nodejs-lts
+REM Node.js from nodejs.org's zip, unpacked into .tools\node-v<version>-win-<arch>
+REM and verified against its published SHASUMS256.txt first - not a system-wide
+REM Chocolatey install. curl.exe and tar.exe come with Windows 10 and 11.
+if not defined WK_NODE_VERSION (
+	echo ERROR: could not read NODE_VERSION from the Dockerfile.
+	goto end
 )
+set "WK_NODE_ARCH=x64"
+if /I "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "WK_NODE_ARCH=arm64"
+set "WK_NODE_NAME=node-v%WK_NODE_VERSION%-win-%WK_NODE_ARCH%"
+if exist "%WEKAN_TOOLS_DIR%\%WK_NODE_NAME%\node.exe" (
+	echo Node.js %WK_NODE_VERSION% is already in .tools\%WK_NODE_NAME%.
+) else (
+	echo Installing Node.js %WK_NODE_VERSION% ^(Dockerfile NODE_VERSION^) into .tools ...
+	curl -fsSL -o "%TEMP%\%WK_NODE_NAME%.zip" "https://nodejs.org/dist/v%WK_NODE_VERSION%/%WK_NODE_NAME%.zip" || goto end
+	curl -fsSL -o "%TEMP%\SHASUMS256.txt" "https://nodejs.org/dist/v%WK_NODE_VERSION%/SHASUMS256.txt" || goto end
+	powershell -NoProfile -Command "$want = ((Select-String -Path $env:TEMP\SHASUMS256.txt -Pattern ([regex]::Escape($env:WK_NODE_NAME + '.zip') + '$')).Line -split '\s+')[0]; $got = (Get-FileHash -Algorithm SHA256 ($env:TEMP + '\' + $env:WK_NODE_NAME + '.zip')).Hash; if (-not $want -or $got -ne $want.ToUpper()) { Write-Error ('SHA256 mismatch for ' + $env:WK_NODE_NAME + '.zip'); exit 1 }" || goto end
+	tar -xf "%TEMP%\%WK_NODE_NAME%.zip" -C "%WEKAN_TOOLS_DIR%" || goto end
+	del "%TEMP%\%WK_NODE_NAME%.zip" "%TEMP%\SHASUMS256.txt"
+)
+REM npm's global installs (.tools\npm-global) before Node.js's own npm, so the
+REM npm installed next is the one found.
+set "PATH=%npm_config_prefix%;%WEKAN_TOOLS_DIR%\%WK_NODE_NAME%;%PATH%"
 if defined WK_NPM_VERSION (
 	echo Installing npm %WK_NPM_VERSION% ^(Dockerfile NPM_VERSION^) ...
 	call npm install -g npm@%WK_NPM_VERSION%
 )
 REM Meteor as https://docs.meteor.com/about/install.html installs it on Windows,
 REM Linux and macOS alike: npx meteor. The meteor npm package is only an
-REM installer; npx runs it directly, into %LOCALAPPDATA%\.meteor, and it adds
-REM that to the user's PATH. npm -g install meteor ran the same installer as an
-REM install script, which npm 12 refuses to run.
-where meteor >nul 2>&1
-if errorlevel 1 (
-	echo Installing Meteor ^(npx meteor^) ...
-	call npx -y meteor
+REM installer; npx runs it directly, into %LOCALAPPDATA%\.meteor - so
+REM LOCALAPPDATA is .tools for the installer only, and Meteor lands in
+REM .tools\.meteor. npm -g install meteor ran the same installer as an install
+REM script, which npm 12 refuses to run.
+if exist "%WEKAN_TOOLS_DIR%\.meteor\meteor.bat" (
+	echo Meteor is already installed in .tools\.meteor.
 ) else (
-	echo Meteor is already installed.
+	echo Installing Meteor ^(npx meteor^) into .tools\.meteor ...
+	setlocal
+	set "LOCALAPPDATA=%WEKAN_TOOLS_DIR%"
+	call npx -y meteor
+	endlocal
 )
-echo Done. Open a new terminal so PATH changes take effect, then re-run this script.
+call "%REPO%\releases\tools-env.bat"
+echo Done. build.bat puts .tools\ Node.js and Meteor on PATH itself; re-run this script.
 goto end
 
 REM ===========================================================================
