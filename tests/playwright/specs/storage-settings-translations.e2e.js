@@ -27,6 +27,9 @@ for (const language of ['sr', 'tr', 'bs', 'hr', 'sk', 'cs', 'cs-CZ', 'hu', 'el',
     }
     const secret = pane.locator('.form-group:has(#s3-secret-key)');
     await expect(secret.getByText(strings['s3-secret-key-menu-path'], { exact: true })).toBeVisible();
-    await expect(pane.locator('.js-save-cloud-settings')).toHaveText(strings.save);
+    // Two Save buttons since #6465: one under the Enabled / Read switches,
+    // one after the connection fields. Both are the same translated word.
+    await expect(pane.locator('.js-save-cloud-settings')).toHaveCount(2);
+    await expect(pane.locator('.js-save-cloud-settings')).toHaveText([strings.save, strings.save]);
   });
 }
