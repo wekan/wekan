@@ -110,12 +110,13 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** two CRITICAL security fixes: **UploadBleed** - attachment uploads
-were not authorized at all - and **StampBleed**. **Card Settings** opens on
-Card, with **Show empty fields**, a **Show empty** column, **Select all** /
-**Select none** and **drag and drop** lists. A card opened from its link no
-longer vanishes behind a **reverse proxy**; minicards show only filled custom
-fields, lost cards reappear, card numbers stay unique, a [label] title
-prefix is opt-in, and Problems gets a nightly **Data health** scan.
+were not authorized at all - and **StampBleed**, and a **FrameBleed** follow-up.
+**Card Settings** opens on Card, with **Show empty fields**, a **Show empty**
+column, **Select all** / **Select none** and **drag and drop** lists. A card
+opened from its link no longer vanishes behind a **reverse proxy**; minicards
+show only filled custom fields, lost cards reappear, card numbers stay unique, a
+[label] title prefix is opt-in, and Problems gets a nightly **Data health**
+scan.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -179,6 +180,22 @@ script types and handler forms are served safely. Attempts are recorded in
 Admin Panel / Problems where they can be attributed. 128 of 137 published
 vulnerabilities now have a named regression test
 (`tests/securityRegressionCoverage.test.cjs`).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8a1106782">A 304 Not Modified no longer replaces a stored file's own Content-Security-Policy</a>. Thanks to xet7.</summary>
+
+[FrameBleed](https://wekan.fi/hall-of-fame/framebleed/) follow-up, found by the
+browser test of SVG attachments: files are served `private, no-cache`, so every
+later view revalidates and gets a 304, and a browser updates the stored
+response's headers with the 304's. The app-wide `frame-ancestors 'self'` of the
+FrameBleed restore therefore replaced a file's own policy - an SVG's
+`default-src 'none'` and `sandbox` - from the second view on. The SVG stayed
+sanitized, so a layer of defence was lost rather than script allowed. The
+framing headers are left off a 304 now; `tests/frameBleed.test.cjs` pins it and
+fails on any other handler that sets a CSP for every response. Not recorded in
+Problems: it fires on ordinary revalidation, not on an attempt.
 
 </details>
 
@@ -676,6 +693,15 @@ port.
 
 The S3 pane has had two Save buttons since \#6465, one under the Enabled and
 Read switches and one after the connection fields; the spec matched one.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a656baea3">The Scrum, Sesotho and drag reorder specs read one list per side, and open the SMTP fields first</a>. Thanks to xet7.</summary>
+
+Card Settings draws each row once per list and leaves the minicard list head
+empty; the Date section starts with the fixed Mark as complete row; the SMTP
+host field is shown only while email settings are on and SMTP is chosen.
 
 </details>
 
