@@ -114,7 +114,10 @@ every field on every card of the board; its **Show empty** column chooses which
 fields every card shows from the start, every column has **Select all** and
 **Select none**, and each section's Show on Card and Show on Minicard lists are
 reordered by **drag and drop** again. A card opened from its link no longer
-vanishes behind a **reverse proxy**.
+vanishes behind a **reverse proxy**. **Minicards** show only filled custom
+fields again, cards lost in an old board move reappear, card numbers stay
+unique, a date popup saves today without a picked day, and a [label] title
+prefix becomes a label only for who turns it on.
 
 This release adds the following new features:
 
@@ -206,6 +209,21 @@ real layout; `settings-drag-reorder.e2e.js` drags both lists.
 
 </details>
 
+**Add card** - what a typed or pasted title becomes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f89c8f8030">[Text] at the start of a new card's title becomes a label only when turned on in Member Settings</a>. Thanks to jullbo and xet7.</summary>
+
+[#6810](https://github.com/wekan/wekan/issues/6810): since #3986 a title starting
+with [Text] lost the prefix and got the label Text, created when the board had
+none - for everybody, without a hint - so titles pasted from ticket systems and
+mails ([EXTERNAL] ...) changed and filled boards with labels. It is a Member
+Settings switch now, off by default; who wants #3986's behaviour turns it on.
+`tests/titleBracketLabel6810.test.cjs` and `title-bracket-label-6810.e2e.js`
+cover both states.
+
+</details>
+
 and fixes the following bugs:
 
 **Opened card** - a card opened from its link.
@@ -226,9 +244,109 @@ restores the connection.
 
 </details>
 
+**Minicard** - its custom fields.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a24da2a039">Only the custom fields that have a value, as before</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6811](https://github.com/wekan/wekan/issues/6811): the rewrite of the
+minicard's sections dropped the check of 2019, so every field a card carries -
+also the ones added empty by Automatically on card / Always on card - was drawn
+as an empty row. An empty, blank or unset value is not drawn; 0 and an unticked
+checkbox are values. The opened card is unchanged. From the reporter's patch;
+`tests/minicardFilledCustomFields6811.test.cjs` and its browser test.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6fd560817">After the upgrade, Show on card custom fields stay on the minicards</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6812](https://github.com/wekan/wekan/issues/6812): custom fields on minicards
+became an opt-in Board Settings / Card switch with false written into every
+board, so fields marked Show on card vanished from minicards. A once-ever
+upgrade step turns the switch on for each board that has such a field; a board
+turned off later stays off. From the reporter's patch, with its three tests in
+`tests/schemaUpgradeSteps.test.cjs`.
+
+</details>
+
+**Date popups** - Save without picking a day.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f5aab875b">Save without picking a day saves today instead of Invalid date</a>. Thanks to brlin-tw and xet7.</summary>
+
+[#6809](https://github.com/wekan/wekan/issues/6809): a date popup of a card
+without that date opens the calendar on today, marks it and names it in the
+heading, but its date field was empty, so Save answered Invalid date. The form
+starts from today now, and Save saves today at the popup's default time. A
+card's own date is kept, and an emptied field is still refused.
+`tests/datePickerToday6809.test.cjs` and a browser test.
+
+</details>
+
+**Checklists** - a drag on one's own board, and deleting a checklist.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4bd6a7f088">Dragging a checklist item on one's own board is no longer reported as a cross-board attack</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6813](https://github.com/wekan/wekan/issues/6813): a drag sets cardId and
+checklistId to where the item already is, and for a comment-only member or a
+Worker their own board is one they cannot write to, so ChecklistBleed's canary
+named them as attackers in Admin Panel / Problems. The board the item is on is
+no destination now - the board of its source card, which the allow rule decides
+on, not the item's own boardId as the reporter's patch read it: insert kept a
+boardId the client sent, and a forged one would have let an item onto a victim
+card. Checklists, checklist items and text notes take boardId from their card
+on insert always. A move to another unwritable board is still denied and
+reported. `tests/checklistSameBoardCanary6813.test.cjs` runs the real deny
+functions, the forged boardId included.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/742996dcce">Deleting a checklist deletes its items</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6816](https://github.com/wekan/wekan/issues/6816): every way to delete a
+checklist - the card, the REST API, a rule - removed only the checklist, and its
+items stayed behind pointing nowhere (2335 of them in one production database).
+The checklist's items are removed with it now, as deleting a card already
+removes its children. Items orphaned before are left for the administrator.
+From the reporter's patch; `tests/checklistDeleteItems6816.test.cjs` and a
+browser test.
+
+</details>
+
+**Cards** - their numbers, and cards moved to another board long ago.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2908f34e7">Their numbers stay unique: the server checks the number a browser sends</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6815](https://github.com/wekan/wekan/issues/6815): a card added in the browser
+brought the number the browser computed from the cards in its view, so with
+lazy loading numbers were reissued (842 duplicates in one production database).
+The server replaces a number another card on the board has, and raises the
+counter to a free one it did not issue - seeding a new counter from the board's
+highest number, which the reporter's patch skipped. Existing duplicates are not
+renumbered. `tests/cardNumberUnique6815.test.cjs` runs the real hook.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32031c64c4">Moved to another board before #5874, they are shown again</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6814](https://github.com/wekan/wekan/issues/6814): a card moved before the
+\#5874 fix could still point at a list of the board it left, and was shown
+nowhere (706 such cards in one production database). An upgrade step gives each
+its board's first unarchived list, or a Rescued Data list. It runs before
+swimlane-structure, so a card left on the old board's swimlane gets one of its
+board in the same pass. From the reporter's patch, with three tests in
+`tests/schemaUpgradeSteps.test.cjs`.
+
+</details>
+
 and has the following developer-facing changes:
 
-**Tests** - a guard that read the wrong part of a file.
+**Tests** - guards and specs that read the wrong thing.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/21b2da9ad2">The title heading colour guard reads the heading block itself</a>. Thanks to xet7.</summary>
@@ -241,6 +359,15 @@ block and still fails on a colour there.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dfdf77c2b">The Card Settings drag and drop spec turns drag handles on for its user</a>. Thanks to xet7.</summary>
+
+The fixture's user has an `id`, not an `_id`, so `setHandles(user._id, ...)`
+matched no user and the handle half of `settings-drag-reorder.e2e.js` never had
+drag handles on.
+
+</details>
+
 and updates the following translations:
 
 **Languages updated:** 232 languages.
@@ -248,6 +375,11 @@ and updates the following translations:
 **Board Settings / Card** - the Show empty and Show empty fields headings.
 
 - [Show empty and Show empty fields in every language](https://github.com/wekan/wekan/commit/1aa9df6075).
+  Thanks to xet7.
+
+**Member Settings** - the [label] switch of Add card.
+
+- [Turn \[label\] at the start of a new card title into a label, in every language](https://github.com/wekan/wekan/commit/f89c8f8030).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
@@ -8697,95 +8829,6 @@ original download tag, and rejects malformed and prerelease tags.
 right consumer. Bun packaging, release attachment tests and workflow
 validation pass. Full platform builds still need verification in GitHub
 Actions; these checks cover the reported setup failure.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.35 2026-10-12 WeKan ® release
-
-**In short:** The **Windows 32-bit** and **Windows ARM64** bundles build again,
-and four **GitHub CodeQL** alerts are fixed, among them a pattern that could
-stall the release build. Experimental **Bun** downloads arrive as **ZIP**
-archives across its supported platforms, with automatic release attachments
-and recovery of missing downloads.
-
-This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/900267451c">Package scanning and generated code handle unsafe input</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-Alert 565: the release script that prunes unused npm packages read package
-names with a pattern that let `/` both separate and belong to path segments,
-so a quoted `-/-/-/...` could be split in exponentially many ways, and one
-real minified file took over two seconds by itself. A `/` now only separates.
-Over all 23,812 files in node_modules it finds every package it found before,
-and also `require('querystring-es3/')`, a form the old pattern missed and so
-could have pruned. Alert 566: tests matched `<script>` case-sensitively, so a
-check that sanitized output has no script would have let `<SCRIPT>` pass; four
-now match any case. Alerts 567 and 568: a test wrote file paths into generated
-JavaScript; it and four other tests now keep that code constant, and the i18n
-loader the test drives refuses an asset name that is not a locale tag and
-escapes the literal it writes. None is reachable on a running WeKan - a build
-script and tests - so nothing is recorded in Admin Panel → Problems.
-`tests/securityAlerts20261012.test.cjs` fails on these shapes anywhere in the
-tree, and `tests/pruneUnreachableNpm.test.cjs` runs the attack string.
-
-</details>
-
-and adds the following release builds:
-
-**Bun bundles** - an alternative server runtime, packaged for each supported
-platform and attached to releases after validation.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/1d1db1c2340534fdf3f30b1aa2d8af3afcdfe9ca">Builds cover every supported OS and CPU</a>. Thanks to dupontbertrand and xet7.</summary>
-
-`bun.yml` builds the selected release as Meteor ESM once, then rebuilds its
-native dependencies for Linux (glibc and musl), macOS, Windows, FreeBSD and
-Android, each on x64 and ARM64. Archives include Bun, and their names include
-`bun`, the OS and CPU; each has a SHA256 checksum. Both release workflows call
-it, and recovery skips complete archive/checksum pairs. Native hosted runners
-and Alpine/Termux containers avoid CPU emulation where possible; FreeBSD
-uses VMs. Fast compression and cached Meteor dependencies reduce build time.
-
-Meteor's Bun support is still unmerged. An isolated, reviewed port of
-[meteor/meteor#14751](https://github.com/meteor/meteor/pull/14751) to
-3.6-rc.0 preserves WeKan's package pins; ordinary Node builds are unchanged.
-These server bundles require an external database.
-Native password/image checks and startup tests gate each target's upload.
-Linux additionally checks HTTP, DDP and Chromium signup, board creation and
-anonymous mutation rejection. The Linux x64 build and these browser checks
-passed locally, along with ten upstream tests and thirty release-related
-suites. Other target builds require GitHub Actions and were not run locally.
-`tests/bunRelease.test.cjs` and `tests/bun-release.py` cover the target catalog,
-asset names, missing checksums, rejected inputs and failed-build gates.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/05d45e219ffa56b1a7510862f1ca9839188bac15">Downloads use ZIP archives</a>. Thanks to xet7.</summary>
-
-All Bun targets now attach `wekan-<version>-bun-<os>-<cpu>[-musl].zip`
-and matching SHA256 checksums. Fast compression preserves executable permissions
-and includes linked dependencies. Release recovery expects ZIP files even when
-an older tar archive is present. Archive tests verify contents, permissions,
-linked files and directories, checksums and recovery from the old format.
-
-</details>
-
-and fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b34d36e8f5">The 32-bit and ARM64 Windows bundles find node-gyp again</a>. Thanks to xet7.</summary>
-
-v12.34's build-win32 and build-win-arm64 stopped with "Cannot find module
-...accounts-password/programs/server/node_modules/node-gyp/bin/node-gyp.js".
-The jobs give `releases/compile-native-addons.mjs` the bundle as a relative
-path, and node-gyp runs inside each package, where that relative path pointed
-somewhere else. The path is made absolute first.
-`tests/compileNativeAddons.test.cjs` now calls it the way the jobs do, with a
-stand-in node-gyp that resolves paths as the real one does.
 
 </details>
 
