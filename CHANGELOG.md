@@ -324,6 +324,14 @@ pins the reporter's board through each.
 **Admin Panel / Attachments** - the Retention page.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6f7d226ca">The Google Cloud Storage key help is shown once</a>. Thanks to xet7.</summary>
+
+A leftover copy of the key's description, from before the English and
+translated pairs, showed the same sentence twice under the field.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2799eb900f">Retention shows readable labels, choice names and the default of an empty variable</a>. Thanks to Raymond-Voogt and xet7.</summary>
 
 [#6819](https://github.com/wekan/wekan/issues/6819): the page showed only
@@ -362,6 +370,18 @@ another tab - the check that asks the server ran inside the window's own
 autorun, which was stopped with it, so the address stayed on the deleted card.
 The check now runs outside the window and also from its teardown, and
 `tests/openCardClose6808.test.cjs` pins both.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f9103c336">It stays visible after Maximize and Minimize, or Collapse</a>. Thanks to xet7.</summary>
+
+The class that keeps the window unpainted until it is placed beside its
+minicard was a static class removed by hand. Blaze writes a tag's static
+classes again whenever its class attribute changes, so maximizing and
+minimizing, or collapsing, left the card open but invisible. It is a reactive
+class now, off for good once placed; `tests/cardDetailsPlacement.test.cjs`
+fails on a static one.
 
 </details>
 
@@ -465,6 +485,53 @@ board in the same pass. From the reporter's patch, with three tests in
 
 </details>
 
+**Add card** - the due date hint.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f852cb7032">The due date hint follows the board's switch while the form is open</a>. Thanks to xet7.</summary>
+
+The hint was recomputed only on typing, so turning Due date from title off in
+Board Settings / Card left a hint already shown. `tests/titleDueDate.test.cjs`
+pins it.
+
+</details>
+
+**Editors** - the first keys typed into a form.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69a8bae0c6">Text typed right after a form opens is no longer selected and replaced</a>. Thanks to xet7.</summary>
+
+50 ms after an inlined form opens it focuses the field and selects what it
+holds, so the first key replaces a title being edited. Text typed in those
+50 ms was selected too, and Enter for a new line left only a line break. The
+selection is skipped once the field has changed;
+`tests/inlinedFormSingleOpen.test.cjs` pins it.
+
+</details>
+
+**Board visibility** - the Private and Public choices.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/437da1d9c7">The Private and Public descriptions are shown again</a>. Thanks to xet7.</summary>
+
+The helper handed the translation function over unbound, so it threw and
+both descriptions were an empty line in every language since custom
+descriptions came to Admin Panel / Settings / Visibility.
+`tests/visibilityDesc.test.cjs` fails on any unbound one in the tree.
+
+</details>
+
+**Drawing** - the size of a new drawing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2929b61c85">A new drawing fills the window it is shown in, also once maximized</a>. Thanks to xet7.</summary>
+
+A new drawing was fitted to the popup before it was maximized and kept that
+size. It is refitted whenever its room changes, until it is zoomed or resized
+by hand.
+
+</details>
+
 **Linked cards** - the fields a linked card shows.
 
 <details>
@@ -540,6 +607,41 @@ spec, which tests the switch itself, turns it off again.
 
 The Corsican and Southern Sotho specs looked for the description and the hint
 inside the scope checkbox list; both are its siblings in `.templates-settings`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6241be9053">The specs add a first checklist with the title line's +, where #6796 put it</a>. Thanks to xet7.</summary>
+
+The bottom add checklist link appears only once a card has a checklist, so
+every spec adding a first checklist failed, and 12-checklists skipped its
+checks silently.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4197f228f">The Card Settings specs open the section a row is in, and pick the list by its side</a>. Thanks to xet7.</summary>
+
+The popup draws only the open section's rows, each once per list.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/978af29b33">The language specs read the option values, tabs, addresses and texts the app has</a>. Thanks to xet7.</summary>
+
+Corsican, Haitian, Scottish Gaelic, Latin, Malagasy and Irish specs; a plain
+member is not shown the Rules editor at all, and the server still refuses
+their rule writes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8f65adff2">Specs follow deliberate changes, and their fake SMTP server waits for its port</a>. Thanks to xet7.</summary>
+
+LinkedWriteBleed over REST is refused and recorded without disabling the
+account (#6798); notification intents are seeded recent, past the expiry of
+\#6768; an invite mail goes to a running SMTP sink, and a sink waits for a busy
+port.
 
 </details>
 
