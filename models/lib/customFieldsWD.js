@@ -114,7 +114,22 @@ function filterAdminOnlyDefinitions(definitions, isBoardAdmin) {
   return definitions.filter(def => !(def && def.adminOnly));
 }
 
+// #6811: whether a card's custom field holds something to show on its
+// minicard. A field the card only carries because it is "automatically on
+// card" / "always on card" is null until someone fills it in; drawing it gave
+// every minicard a stack of empty rows (before the minicard's sections were
+// rewritten, only fields with a value were drawn). 0 and an explicitly
+// unticked checkbox (false) are values; null, undefined, an empty or blank
+// string and an empty multi-select are not.
+function hasCustomFieldValue(value) {
+  if (value === null || value === undefined) return false;
+  if (typeof value === 'string') return value.trim() !== '';
+  if (Array.isArray(value)) return value.length > 0;
+  return true;
+}
+
 export {
+  hasCustomFieldValue,
   buildCustomFieldsWD,
   resolveTrueValue,
   resolveDropdownItemName,

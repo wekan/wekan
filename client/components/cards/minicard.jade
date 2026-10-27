@@ -178,46 +178,50 @@ template(name="minicard")
             .minicard-custom-fields
               each customFieldsWD
                 if definition.showOnCard
-                  .minicard-custom-field
-                    // If there is custom field label, show label at left,
-                    // and value at right
-                    if definition.showLabelOnMiniCard
-                      .minicard-custom-field-item
-                        +viewer
-                          = definition.name
-                      .minicard-custom-field-item
-                        if $eq definition.type "currency"
+                  //- #6811: only a field with something in it, as before the
+                    minicard's sections were rewritten - a field a card carries
+                    because it is on every card is empty until filled in.
+                  if minicardCustomFieldHasValue
+                    .minicard-custom-field
+                      // If there is custom field label, show label at left,
+                      // and value at right
+                      if definition.showLabelOnMiniCard
+                        .minicard-custom-field-item
                           +viewer
-                            = formattedCurrencyCustomFieldValue(definition)
-                        else if $eq definition.type "date"
-                          .date
-                            +minicardCustomFieldDate
-                        else if $eq definition.type "checkbox"
-                          i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
-                        else if $eq definition.type "stringtemplate"
-                          +viewer
-                            = formattedStringtemplateCustomFieldValue(definition)
-                        else
-                          +viewer
-                            = trueValue
-                    else
-                      // If there is no custom field label,
-                      // show value full width
-                      .minicard-custom-field-item-fullwidth
-                        if $eq definition.type "currency"
-                          +viewer
-                            = formattedCurrencyCustomFieldValue(definition)
-                        else if $eq definition.type "date"
-                          .date
-                            +minicardCustomFieldDate
-                        else if $eq definition.type "checkbox"
-                          i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
-                        else if $eq definition.type "stringtemplate"
-                          +viewer
-                            = formattedStringtemplateCustomFieldValue(definition)
-                        else
-                          +viewer
-                            = trueValue
+                            = definition.name
+                        .minicard-custom-field-item
+                          if $eq definition.type "currency"
+                            +viewer
+                              = formattedCurrencyCustomFieldValue(definition)
+                          else if $eq definition.type "date"
+                            .date
+                              +minicardCustomFieldDate
+                          else if $eq definition.type "checkbox"
+                            i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
+                          else if $eq definition.type "stringtemplate"
+                            +viewer
+                              = formattedStringtemplateCustomFieldValue(definition)
+                          else
+                            +viewer
+                              = trueValue
+                      else
+                        // If there is no custom field label,
+                        // show value full width
+                        .minicard-custom-field-item-fullwidth
+                          if $eq definition.type "currency"
+                            +viewer
+                              = formattedCurrencyCustomFieldValue(definition)
+                          else if $eq definition.type "date"
+                            .date
+                              +minicardCustomFieldDate
+                          else if $eq definition.type "checkbox"
+                            i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
+                          else if $eq definition.type "stringtemplate"
+                            +viewer
+                              = formattedStringtemplateCustomFieldValue(definition)
+                          else
+                            +viewer
+                              = trueValue
 
         if $eq section "assignee"
           if showAssignee

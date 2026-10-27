@@ -177,6 +177,12 @@ Template.minicard.helpers({
     if (days >= d1) return 'minicard-aging-1';
     return '';
   },
+  // #6811: called inside `each customFieldsWD`, so `this` is the custom-field
+  // row: drawn on the minicard only when it holds a value.
+  minicardCustomFieldHasValue() {
+    const { hasCustomFieldValue } = require('/models/lib/customFieldsWD');
+    return hasCustomFieldValue(this && this.value);
+  },
   formattedCurrencyCustomFieldValue(definition) {
     // This helper is called from `each customFieldsWD`, so `this` is already
     // the rendered custom-field row, not the Card. Calling this.customFieldsWD
