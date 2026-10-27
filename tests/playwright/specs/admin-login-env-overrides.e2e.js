@@ -10,6 +10,13 @@ const db = require('../helpers/db');
 
 const SECRET = 'e2e-client-secret-4711';
 
+// The Save button of the override form that holds `field`. People / Login
+// now carries more than one catalog form (Login, and Windows SSO below it),
+// each with its own .js-auth-provider-save, so a page-wide locator is
+// ambiguous; the form the field is in is the one whose Save it means.
+const saveOf = (page, field) => page.locator('form.js-auth-provider-settings', { has: page.locator(field) })
+  .locator('.js-auth-provider-save');
+
 test('each login method has its own override section in People', async ({ page, adminUser }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);
   // One page load, then the menu, as an administrator moves between them. A
@@ -38,7 +45,7 @@ test('OAuth2 overrides save, the secret never reaches the browser, and ordinary 
       await navigateInApp(page, '/admin/people/oidc');
       await page.locator('#auth-clientId').fill('e2e-client');
       await page.locator('#auth-secret').fill(SECRET);
-      await page.locator('.js-auth-provider-save').click();
+      await saveOf(page, '#auth-secret').click();
       await expect.poll(() => page.evaluate(async () =>
         (await Meteor.callAsync('getAuthConfigSources', 'oidc')).sources.secret)).toEqual({ source: 'admin', hasValue: true });
 
@@ -63,7 +70,7 @@ test('OAuth2 overrides save, the secret never reaches the browser, and ordinary 
       // Emptying the field and ticking the box give the environment back.
       await page.locator('#auth-clientId').fill('');
       await page.locator('.js-auth-secret-clear[data-key="secret"]').check();
-      await page.locator('.js-auth-provider-save').click();
+      await saveOf(page, '#auth-clientId').click();
       await expect.poll(() => page.evaluate(async () => {
         const { sources } = await Meteor.callAsync('getAuthConfigSources', 'oidc');
         return [sources.clientId.source, sources.secret.source];
@@ -90,14 +97,14 @@ test('DEFAULT_AUTHENTICATION_METHOD chosen in Login overrides the environment, a
       await navigateInApp(page, '/admin/people/login');
       await expect(page.locator('#defaultAuthenticationMethod')).toHaveCount(0);
       await page.locator('#auth-defaultAuthenticationMethod').selectOption('ldap');
-      await page.locator('.js-auth-provider-save').click();
+      await saveOf(page, '#auth-defaultAuthenticationMethod').click();
       await expect.poll(() => page.evaluate(() => Meteor.callAsync('getDefaultAuthenticationMethod'))).toBe('ldap');
       // The value the sign-in page reads follows it.
       await expect.poll(() => db.findOne('settings', {}, { defaultAuthenticationMethod: 1 }).defaultAuthenticationMethod).toBe('ldap');
       // Saved on the server - the form reloads what the server reports.
       await expect(page.locator('#auth-defaultAuthenticationMethod')).toHaveValue('ldap');
       await page.locator('#auth-defaultAuthenticationMethod').selectOption('');
-      await page.locator('.js-auth-provider-save').click();
+      await saveOf(page, '#auth-defaultAuthenticationMethod').click();
       await expect.poll(() => page.evaluate(() => Meteor.callAsync('getDefaultAuthenticationMethod'))).toBe(before);
     } finally {
       await page.evaluate(() => Meteor.callAsync('saveAuthConfigSettings', 'login', { defaultAuthenticationMethod: '' })).catch(() => {});
@@ -162,7 +169,7 @@ test('LOGOUT_WITH_TIMER signs out logins past LOGOUT_IN and keeps newer ones', a
     await expect(page.locator('.js-auth-provider-settings label', { hasText: 'LOGOUT_WITH_TIMER' })).toBeVisible();
     await page.locator('#auth-logoutWithTimer').selectOption('true');
     await page.locator('#auth-logoutIn').fill('2');
-    await page.locator('.js-auth-provider-save').click();
+    await saveOf(page, '#auth-logoutIn').click();
     await expect.poll(tokens, { timeout: 15000 }).toEqual([`${marker}-new`]);
     // An hour that does not exist is refused on the server.
     const refused = await page.evaluate(async () => {

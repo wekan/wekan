@@ -18,6 +18,14 @@ function seed(id, activity, recipients) {
     activity, writerId: 'test-writer', dispatchUserId: null });
   return intentId;
 }
+// A seeded activity is dated NOW, not at the epoch. Since #6768 the one-second
+// recovery scan cancels a pending notification older than
+// ACTIVITY_NOTIFICATION_MAX_AGE_DAYS (7) as expired, and one failing for good
+// (a disabled recipient, a missing activity) once it is past a 10-minute
+// grace - so an intent dated new Date(1000) was cancelled before the page
+// loaded, and every Pause/Cancel button was already disabled. That expiry is
+// the intended behaviour; these tests are about the manual controls.
+function recent() { return new Date(); }
 function cleanup(ids) {
   db.deleteMany('activityNotificationIntents', { _id: { $in: ids.map(id => sha256(canonical(['activity-notification-intent', id]))) } });
   db.deleteMany('activityNotificationControls', { _id: { $in: ids.map(id => sha256(canonical(['activity-notification-intent', id]))) } });
@@ -69,7 +77,7 @@ test('manual retry delivers a stored plan once and removes completed work from t
   try {
     // A disabled recipient keeps automatic recovery from racing the manual UI.
     db.updateOne('users', { _id: user2.id }, { $set: { loginDisabled: true, 'profile.notifyOverrideEmail': true } });
-    const intentId = seed(id, { _id: id, activityType: 'createCard', createdAt: new Date(1000), modifiedAt: new Date(1000) },
+    const intentId = seed(id, { _id: id, activityType: 'createCard', createdAt: recent(), modifiedAt: recent() },
       [{ userId: user2.id, tray: false, email: { userId: user2.id, eventId: id, boardId: null, cardId: null,
         language: 'en', subject: 'PRIVATE SUBJECT', html: 'PRIVATE BODY' } }]);
     await loginWithToken(page, adminUser.id, adminUser.token);
@@ -123,10 +131,10 @@ test('cancellation requires confirmation, stops remaining delivery and cannot be
   const id = db.uid('cancel-activity'), orphan = db.uid('cancel-orphan');
   try {
     db.updateOne('users', { _id: user2.id }, { $set: { loginDisabled: true, 'profile.notifyOverrideEmail': true } });
-    const intentId = seed(id, { _id: id, activityType: 'createCard', createdAt: new Date(1000), modifiedAt: new Date(1000) },
+    const intentId = seed(id, { _id: id, activityType: 'createCard', createdAt: recent(), modifiedAt: recent() },
       [{ userId: user2.id, tray: false, email: { userId: user2.id, eventId: id, boardId: null, cardId: null,
         language: 'en', subject: 'PRIVATE SUBJECT', html: 'PRIVATE BODY' } }]);
-    const orphanIntent = seed(orphan, { _id: orphan, activityType: 'createCard', createdAt: new Date(1000), modifiedAt: new Date(1000) });
+    const orphanIntent = seed(orphan, { _id: orphan, activityType: 'createCard', createdAt: recent(), modifiedAt: recent() });
     await loginWithToken(page, adminUser.id, adminUser.token);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.activity-notification-recovery-reports');

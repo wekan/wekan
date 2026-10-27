@@ -7,6 +7,13 @@ const { smtpSink } = require('../helpers/smtpSink');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
+// A seeded activity is dated NOW. Since #6768 the recovery scan cancels a
+// pending notification older than ACTIVITY_NOTIFICATION_MAX_AGE_DAYS (7) as
+// expired - intended: a week-old "card moved" mail is noise - so the fixed
+// date 2026-01-01 these specs used made the background recovery cancel the
+// work they wait to see delivered.
+const recent = () => new Date();
+
 // Start the test app with MAIL_URL=smtp://127.0.0.1:<port> and
 // EMAIL_NOTIFICATION_TIMEOUT=100; run this spec with workers=1.
 for (const scope of ['board', 'list', 'card']) test(`#6658 ${scope} watching delivers SMTP email`, async ({ page, user, user2, board }) => {
@@ -109,8 +116,12 @@ test('custom-field notifications retain numeric zero and checkbox false in deliv
     const delivered = () => sink.messages.filter(mail => mail.recipients.includes(recipient))
       .map(mail => mail.data.replace(/=\r\n/g, '')).join('\n');
     for (const [method, fieldId, value, expected] of [
-      ['setCardCustomFieldCurrency', numeric, 0, 'ZeroField: 0'],
-      ['setCardCustomFieldCheckbox', checkbox, false, 'FalseField: false'],
+      // The sentence quotes every value it names since the notification
+      // content choices (models/lib/notificationDelivery.js PLACEHOLDERS):
+      // 'edited custom field "ZeroField": "0"'. What this pins is that 0 and
+      // false are still written, not dropped as empty.
+      ['setCardCustomFieldCurrency', numeric, 0, '"ZeroField": "0"'],
+      ['setCardCustomFieldCheckbox', checkbox, false, '"FalseField": "false"'],
     ]) {
       await page.evaluate(({ method, cardId, fieldId, value }) => Meteor.callAsync(method, cardId, fieldId, value),
         { method, cardId: card._id, fieldId, value });
@@ -223,7 +234,7 @@ test('background recovery delivers a persisted plan without a new activity and p
     db.updateOne('users', { _id: user2.id }, { $set: { 'profile.notifyOverrideEmail': true } });
     for (const [index, eventId] of eventIds.entries()) {
       const activity = { _id: eventId, activityType: 'createCard', userId: user2.id,
-        createdAt: new Date('2026-01-01'), modifiedAt: new Date('2026-01-01') };
+        createdAt: recent(), modifiedAt: recent() };
       const intentId = sha256(canonical(['activity-notification-intent', eventId])); intentIds.push(intentId);
       const planId = sha256(canonical(['activity-notification-plan', eventId])); planIds.push(planId);
       const plan = { version: 1, activityId: eventId, activityHash: sha256(canonical(activity)), dispatchUserId: null,
@@ -270,7 +281,7 @@ test('background recovery prepares a plan when the process stopped after activit
     db.updateOne('users', { _id: user2.id }, { $set: { 'profile.notifyOverrideEmail': true } });
     const activity = { _id: eventId, activityType: 'createCard', userId: user.id, boardId: board.boardId,
       cardId: db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' }), listId: board.listIds[0],
-      createdAt: new Date('2026-01-01'), modifiedAt: new Date('2026-01-01') };
+      createdAt: recent(), modifiedAt: recent() };
     db.insertOne('activities', activity);
     db.insertOne('activityNotificationIntents', { _id: intentId, version: 1, state: 'pending', activity,
       activityHash: sha256(canonical(activity)), dispatchUserId: user.id, writerId: randomUUID() });
@@ -300,7 +311,7 @@ test('scheduled cleanup removes completed plan content and retains unfinished pa
     for (const completed of [true, false]) {
       const eventId = db.uid(completed ? 'cleanup-completed' : 'cleanup-pending');
       const activity = { _id: eventId, activityType: 'createCard', userId: user2.id,
-        createdAt: new Date('2026-01-01'), modifiedAt: new Date('2026-01-01') };
+        createdAt: recent(), modifiedAt: recent() };
       const activityHash = sha256(canonical(activity));
       const intentId = sha256(canonical(['activity-notification-intent', eventId])); intentIds.push(intentId);
       const planId = sha256(canonical(['activity-notification-plan', eventId])); planIds.push(planId);

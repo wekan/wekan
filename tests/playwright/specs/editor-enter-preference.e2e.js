@@ -59,7 +59,7 @@ for (const enabled of [false, true]) {
           input = cp.root.locator('.js-card-description textarea');
           count = () => +(db.findOne('cards', { _id: cardId }).description === title);
         } else if (kind === 'checklist') {
-          await cp.root.locator('a.add-checklist.js-open-inlined-form').last().click();
+          await cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form').last().click();
           input = cp.root.locator('form.js-add-checklist textarea');
           count = () => db.find('checklists', { cardId, title }).length;
         } else if (kind === 'item') {

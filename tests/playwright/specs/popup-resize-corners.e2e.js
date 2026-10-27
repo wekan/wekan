@@ -13,7 +13,12 @@ for (const direction of ['ltr', 'rtl']) {
     // Themes and mobile styles can make ordinary buttons full width.
     await page.addStyleTag({ content: '.pop-over button { display:block; width:100%; min-height:40px; padding:12px; background:rgb(41,128,185); color:white; }' });
     const source = fs.readFileSync(path.join(root, 'client/components/main/popup.js'), 'utf8').replace(/^import .*;\n/gm, '');
-    await page.addScriptTag({ content: 'window.Popup = {template:{events(map){window.popupEvents=map;},onRendered(){},onDestroyed(){}}};\n' + source });
+    // Every Blaze hook popup.js calls on Popup.template is stubbed: it gained
+    // onCreated and helpers (the maximize state), and a stub without them threw
+    // at the first call - before events() - so no grip handler was bound and
+    // the drag left the popup at its initial 600px.
+    await page.addScriptTag({ content: 'window.Popup = {template:{events(map){window.popupEvents=map;},onCreated(){},helpers(){},onRendered(){},onDestroyed(){}}};\n' + source });
+    expect(await page.evaluate(() => typeof window.popupEvents)).toBe('object');
     await page.evaluate(() => {
       const grip = document.querySelector('.js-date-popup-resize');
       const tpl = {};

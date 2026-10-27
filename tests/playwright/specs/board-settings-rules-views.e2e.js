@@ -19,8 +19,11 @@ test('Rules views are listed under Rules, above a divider, and open that view', 
   const order = await popover.evaluate(root => [...root.querySelectorAll('a[class*="js-"], hr')]
     .map(node => (node.tagName === 'HR' ? 'hr' : [...node.classList].find(c => c.startsWith('js-'))))
     .filter(cls => !['js-back-view', 'js-close-pop-over'].includes(cls))
-    .slice(0, 8));
+    .slice(0, 9));
   expect(order).toEqual(['js-open-rules-view', 'js-open-rules-list-view', 'js-open-rules-workflow-view',
+    // Bots, the alternative workflow view, was added below Workflow; the
+    // source guard tests/boardMenuOrder.test.cjs (RULES_VIEWS) has it there.
+    'js-open-rules-bots-view',
     // After the divider, Scrum settings has a group of its own above the
     // board's look (sidebar.jade, added with the Scrum work).
     'js-open-rules-blocks-view', 'js-open-rules-history', 'js-open-rules-import-export', 'hr', 'js-open-board-scrum-settings']);

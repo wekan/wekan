@@ -33,8 +33,13 @@ test('REST linked-card creation follows the same source write rule (LinkedWriteB
   const source = db.find('cards', { boardId: board.boardId })[0];
   db.updateOne('cards', { _id: source._id }, { $set: { description: 'private source description' } });
   const original = db.getBoard(board.boardId).members;
-  // A fresh account per attempt: a refused attempt disables the account that
-  // made it (Admin Panel -> Problems), so one account cannot try twice.
+  // A fresh account per attempt, so each attempt is judged on its own role.
+  // (This spec used to expect a refused attempt to DISABLE the account. Since
+  // #6798 authz.linked-write is blocksAccount: false - the same refusal fires
+  // for a read-only/comment-only/Worker member editing their own board's card
+  // from a stale screen, and it disabled four accounts on one instance. The
+  // link is still refused (403) and still recorded in Admin Panel -> Problems,
+  // which is what this spec now pins; the account stays usable.)
   const attempt = async (flags, assignees) => {
     const member = db.seedUser();
     member.token = db.addResumeToken(member.id);
@@ -49,15 +54,21 @@ test('REST linked-card creation follows the same source write rule (LinkedWriteB
     return { member, own, res };
   };
   const made = [];
+  // The Problems row is ONE summary per kind of event, kept across runs, so
+  // count from where it stands now.
+  const recorded = () => db.findOne('eventlog', { bleed: 'LinkedWriteBleed', source: 'rest:card-link' })?.count || 0;
+  const before = recorded();
   try {
     for (const flags of [{ isReadOnly: true }, { isReadAssignedOnly: true }, { isNormalAssignedOnly: true }]) {
       const { member, own, res } = await attempt(flags, false);
       made.push({ member, own });
       expect(res.status(), JSON.stringify(flags)).toBe(403);
       expect(db.find('cards', { boardId: own.boardId, linkedId: source._id })).toHaveLength(0);
-      await expect.poll(() => db.findOne('users', { _id: member.id }).loginDisabled).toBe(true);
+      // Recorded (the Problems row accumulates one count per refusal) ...
+      await expect.poll(recorded).toBeGreaterThanOrEqual(before + made.length);
+      // ... but, by the #6798 decision, never a disabled account.
+      expect(db.findOne('users', { _id: member.id }).loginDisabled).not.toBe(true);
     }
-    await expect.poll(() => db.findOne('eventlog', { bleed: 'LinkedWriteBleed', source: 'rest:card-link' })?.count).toBeGreaterThan(0);
     // An assigned-only member may link a card assigned to them; a normal
     // member may link any card. The link holds the title, not a full copy.
     const assigned = await attempt({ isNormalAssignedOnly: true }, true);

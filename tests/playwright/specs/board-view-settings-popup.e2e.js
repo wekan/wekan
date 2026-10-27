@@ -16,10 +16,20 @@ test('Board View Settings stays visible and supports title drag and resizing', a
   });
   const popup = page.locator('.pop-over[data-popup="boardViewSettingsPopup"]');
   await expect(popup).toBeVisible();
+  const opened = await popup.boundingBox();
+  expect(opened.x).toBeGreaterThanOrEqual(0);
+  expect(opened.x + opened.width).toBeLessThanOrEqual(viewport.width);
+  expect(opened.y + opened.height).toBeLessThanOrEqual(viewport.height);
+  // The panel lists more views than when this was written and now fills even a
+  // 1300px window (top 12, bottom 12), where a drag DOWN is - rightly - clamped
+  // and the drag check below failed with y 12 -> 12. Make room under it first
+  // with its own size grip (Up = 20px shorter), so the drag has somewhere to go.
+  const sizeGrip = popup.locator('.js-date-popup-resize');
+  await sizeGrip.focus();
+  for (let i = 0; i < 8; i += 1) await page.keyboard.press('ArrowUp');
   const initial = await popup.boundingBox();
-  expect(initial.x).toBeGreaterThanOrEqual(0);
-  expect(initial.x + initial.width).toBeLessThanOrEqual(viewport.width);
-  expect(initial.y + initial.height).toBeLessThanOrEqual(viewport.height);
+  expect(initial.height).toBeLessThan(opened.height);
+  expect(viewport.height - 12 - (initial.y + initial.height)).toBeGreaterThan(30);
   const title = await popup.locator('.header-title').boundingBox();
   await page.mouse.move(title.x + title.width / 2, title.y + title.height / 2);
   await page.mouse.down();

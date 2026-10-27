@@ -809,7 +809,14 @@ test('an assigned-only member cannot read the whole board over REST (AssignedBle
     }
     // A normal member still reads (negative).
     db.updateOne('boards', { _id: board.boardId }, { $set: { members: [...original, { userId: user2.id, isActive: true, isAdmin: false }] } });
-    expect((await request.get(`/api/boards/${board.boardId}/lists`, { headers: authHeaders(user2.token) })).status()).toBe(200);
+    // maxRetries: this request reuses the keep-alive socket of the 403s above,
+    // and the db helper between them is a child process that can take seconds
+    // under a full parallel run. Meteor's webapp closes a socket after 5 s idle
+    // (SHORT_SOCKET_TIMEOUT), so a request sent as the server closes it read
+    // ECONNRESET. The 403 path itself leaves the socket open (it throws to
+    // Express's finalhandler, which answers and keeps the connection alive);
+    // Playwright retries only on ECONNRESET, so this cannot hide a wrong status.
+    expect((await request.get(`/api/boards/${board.boardId}/lists`, { headers: authHeaders(user2.token), maxRetries: 2 })).status()).toBe(200);
   } finally {
     db.updateOne('boards', { _id: board.boardId }, { $set: { members: original } });
   }
