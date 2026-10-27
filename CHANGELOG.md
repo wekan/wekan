@@ -336,6 +336,18 @@ restores the connection.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/036ac4f56b">A card deleted elsewhere while open also leaves the card's address</a>. Thanks to brlin-tw and xet7.</summary>
+
+The browser test of [#6808](https://github.com/wekan/wekan/issues/6808) found
+the other half: when the card window was already gone - the card deleted in
+another tab - the check that asks the server ran inside the window's own
+autorun, which was stopped with it, so the address stayed on the deleted card.
+The check now runs outside the window and also from its teardown, and
+`tests/openCardClose6808.test.cjs` pins both.
+
+</details>
+
 **Minicard** - its custom fields.
 
 <details>
@@ -436,6 +448,42 @@ board in the same pass. From the reporter's patch, with three tests in
 
 </details>
 
+**Linked cards** - the fields a linked card shows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f5a7b8220">A linked card shows the fields and member avatars its source card has</a>. Thanks to xet7.</summary>
+
+Which fields a card shows is decided from its data, and a linked card has no
+data of its own: members, labels and dates live on the source card. The choice
+counted the linked card's own empty fields, so its members' avatars were hidden
+after a reload. The data and counts now come from the source card, while the
+Show on Card choices stay those of the board the card is opened on.
+`tests/linkedCardShownFields.test.cjs` pins it.
+
+</details>
+
+**Search** - board search and Global Search.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c2edd6752">Board search highlights one result at a time</a>. Thanks to xet7.</summary>
+
+Enter steps to the next card found, and each step added its highlight without
+removing the previous one, so two cards were marked at once. The previous
+highlight is now removed first.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/125e1659f8">Cards with attachments are found again, by has:attachment and by file name</a>. Thanks to xet7.</summary>
+
+Global Search looked attachments up by a top-level `cardId`, but an attachment
+records its card in `meta.cardId`, so has:attachment and a file name search
+found nothing; has:-attachment and has:-checklist matched the same cards as
+their positive forms. Both now read `meta.cardId`, skip deleted attachments and
+honour the negation. `tests/searchHasAttachmentPredicate.test.cjs` pins it.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Tests** - guards and specs that read the wrong thing.
@@ -460,6 +508,16 @@ drag handles on.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8788458a87">The browser specs' boards show every field, as the specs were written for</a>. Thanks to xet7.</summary>
+
+With Show empty fields off by default, a new board hides a card's empty
+fields, and the specs that open a card to add a checklist or a date found no
+button to click. The seeded board turns Show empty fields on; the Card Settings
+spec, which tests the switch itself, turns it off again.
+
+</details>
+
 and updates the following translations:
 
 **Languages updated:** 232 languages.
@@ -472,6 +530,13 @@ and updates the following translations:
 **Member Settings** - the [label] switch of Add card.
 
 - [Turn \[label\] at the start of a new card title into a label, in every language](https://github.com/wekan/wekan/commit/f89c8f8030).
+  Thanks to xet7.
+- [Tigre and Tsonga wording of the switch](https://github.com/wekan/wekan/commit/595e26cfa8).
+  Thanks to xet7.
+
+**Admin Panel / Attachments** - the Retention help line.
+
+- [Tigre card noun in the Retention help line](https://github.com/wekan/wekan/commit/c7145402af).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
