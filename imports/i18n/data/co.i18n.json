@@ -3202,6 +3202,7 @@
   "repairing": "Riparazione in corsu…",
   "data-health": "Salute di i dati",
   "data-health-repair": "Riparà",
+  "data-health-never-run": "Mai",
   "repair-broken-cards-done": "__fixed__ carta/e riparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ carta/e riparate. __unfixable__ carta/e ùn anu micca tavula è ùn ponu micca esse riparate autumaticamente.",
   "restore-list-swimlanes-done": "__restored__ lista(e) ricuperata(e). __remaining__ ùn anu pussutu esse ricuperate.",

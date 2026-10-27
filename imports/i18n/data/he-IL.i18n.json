@@ -3202,6 +3202,7 @@
   "repairing": "מתקן…",
   "data-health": "תקינות הנתונים",
   "data-health-repair": "תיקון",
+  "data-health-never-run": "מעולם לא",
   "repair-broken-cards-done": "תוקנו __fixed__ כרטיסים.",
   "repair-broken-cards-done-unfixable": "תוקנו __fixed__ כרטיסים. ל־__unfixable__ כרטיסים אין לוח ולא ניתן לתקנם אוטומטית.",
   "restore-list-swimlanes-done": "שוחזרו __restored__ רשימות. לא ניתן היה לשחזר __remaining__.",

@@ -3202,6 +3202,7 @@
   "repairing": "Ho lokiswa…",
   "data-health": "Bophelo ba data",
   "data-health-repair": "Lokisa",
+  "data-health-never-run": "Le ka mohla",
   "repair-broken-cards-done": "Ho lokisitswe dikarete tse __fixed__.",
   "repair-broken-cards-done-unfixable": "Ho lokisitswe dikarete tse __fixed__. Dikarete tse __unfixable__ ha di na boto mme di ke ke tsa lokiswa ka boiketsetso.",
   "restore-list-swimlanes-done": "Ho kgutlisitswe manane a __restored__. A __remaining__ ha a ka a kgutlisetswa.",

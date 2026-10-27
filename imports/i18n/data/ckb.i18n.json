@@ -3202,6 +3202,7 @@
   "repairing": "چاککردن بەردەوامە…",
   "data-health": "تەندروستیی داتا",
   "data-health-repair": "چاککردنەوە",
+  "data-health-never-run": "هەرگیز",
   "repair-broken-cards-done": "__fixed__ کارت چاک کرا.",
   "repair-broken-cards-done-unfixable": "__fixed__ کارت چاک کرا. __unfixable__ کارت هیچ تەختەیەکی نییە و خۆکارانە چاک ناکرێت.",
   "restore-list-swimlanes-done": "__restored__ لیست گەڕێندرایەوە. __remaining__ نەگەڕێندرایەوە.",

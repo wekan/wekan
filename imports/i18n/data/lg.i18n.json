@@ -3202,6 +3202,7 @@
   "repairing": "Kiddaabiriza…",
   "data-health": "Obulamu bwa data",
   "data-health-repair": "Ddabiriza",
+  "data-health-never-run": "Tewali kikyaliwo",
   "repair-broken-cards-done": "Repaired __fixed__ kaadi(s).",
   "repair-broken-cards-done-unfixable": "Repaired __fixed__ kaadi(s). __unfixable__ kaadi(s) have nedda lubaawo ne tasobola ba repaired kyokka.",
   "restore-list-swimlanes-done": "Kyazziddwawo __restored__ lukalala(s). __remaining__ could si ba kyazziddwawo.",

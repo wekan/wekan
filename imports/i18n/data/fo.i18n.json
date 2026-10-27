@@ -3202,6 +3202,7 @@
   "repairing": "Umvælir…",
   "data-health": "Heilsa hjá dátunum",
   "data-health-repair": "Bøt",
+  "data-health-never-run": "Aldrin",
   "repair-broken-cards-done": "Umvældi __fixed__ kort.",
   "repair-broken-cards-done-unfixable": "Umvældi __fixed__ kort. __unfixable__ kort hava onga talvu og kunnu ikki umvælast sjálvvirkandi.",
   "restore-list-swimlanes-done": "Endurstovnaði __restored__ listar. __remaining__ kundu ikki endurstovnast.",

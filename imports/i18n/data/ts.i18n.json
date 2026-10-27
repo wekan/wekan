@@ -3202,6 +3202,7 @@
   "repairing": "Ku lulamisa…",
   "data-health": "Rihanyo ra data",
   "data-health-repair": "Lunghisa",
+  "data-health-never-run": "A ku si tshama",
   "repair-broken-cards-done": "Ku lunghisiwile makhadi ya __fixed__.",
   "repair-broken-cards-done-unfixable": "Ku lunghisiwile makhadi ya __fixed__. Makhadi ya __unfixable__ a ma na bodo naswona a ma koti ku lunghisiwa hi xoxe.",
   "restore-list-swimlanes-done": "Ku vuyiseriwe minxaxamelo ya __restored__. Ya __remaining__ a yi kotanga ku vuyiseriwa.",

@@ -3202,6 +3202,7 @@
   "repairing": "Tê sererastkirin…",
   "data-health": "Tenduristiya daneyan",
   "data-health-repair": "Tamîr bike",
+  "data-health-never-run": "Tucaran",
   "repair-broken-cards-done": "__fixed__ kart hatin sererastkirin.",
   "repair-broken-cards-done-unfixable": "__fixed__ kart hatin sererastkirin. __unfixable__ kart bê depo ne û nikarin bixweber bên sererastkirin.",
   "restore-list-swimlanes-done": "__restored__ lîste hatin vegerandin. __remaining__ nehatin vegerandin.",

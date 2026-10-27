@@ -3202,6 +3202,7 @@
   "repairing": "Fidöfon…",
   "data-health": "Saunüg nünodas",
   "data-health-repair": "Lekömön",
+  "data-health-never-run": "Nonik",
   "repair-broken-cards-done": "Kads __fixed__ pefidöfons.",
   "repair-broken-cards-done-unfixable": "Kads __fixed__ peleodükons. Kads __unfixable__ no labons boadi e no kanons paleodükön itjäfidiko.",
   "restore-list-swimlanes-done": "Liseds __restored__ perestoröfons. __remaining__ no perestoröfons.",

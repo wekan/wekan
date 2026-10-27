@@ -3202,6 +3202,7 @@
   "repairing": "Teungoh geupeu-ubat…",
   "data-health": "Seuhat data",
   "data-health-repair": "Peugèt",
+  "data-health-never-run": "Hana tom",
   "repair-broken-cards-done": "__fixed__ kad ka geupeu-ubat.",
   "repair-broken-cards-done-unfixable": "__fixed__ kad ka geupeu-ubat. __unfixable__ kad hana papan ngön hana jeuet geupeu-ubat keudroe.",
   "restore-list-swimlanes-done": "__restored__ dapeuta ka geupeuwoe. __remaining__ hana jeuet geupeuwoe.",

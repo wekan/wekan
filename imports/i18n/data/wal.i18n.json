@@ -3202,6 +3202,7 @@
   "repairing": "Giigettees…",
   "data-health": "Daatay paxa",
   "data-health-repair": "Giigissa",
+  "data-health-never-run": "Mule",
   "repair-broken-cards-done": "__fixed__ kaardiyaa giigettiis.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaardiyaa giigettiis. __unfixable__ kaardiyaa bookkiyaa baynnaagaa qassi ba huuphen giigissanau danddayettenna.",
   "restore-list-swimlanes-done": "__restored__ mazgabaa zaarettiis. __remaining__ zaarissanau danddayettibeenna.",

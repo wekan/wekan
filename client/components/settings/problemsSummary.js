@@ -101,7 +101,9 @@ Template.problemsSummary.helpers({
   dataHealthStatus() {
     const s = Template.instance().status.get();
     const d = s && s.dataHealth;
-    if (!d || !d.at) return TAPi18n.__('list-sync-last-synced-never');
+    // A key of its own: List Sync's "never synced" may be translated as
+    // "never synced", which reads wrong beside "Last Run".
+    if (!d || !d.at) return TAPi18n.__('data-health-never-run');
     // "<when> - <checks that found something>/<checks>"
     const at = new Date(d.at).toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
     const text = `${at} - ${d.found}/${d.checks}`;

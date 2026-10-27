@@ -3202,6 +3202,7 @@
   "repairing": "Repairing…",
   "data-health": "Data health",
   "data-health-repair": "Repair",
+  "data-health-never-run": "Never",
   "repair-broken-cards-done": "Repaired __fixed__ card(s).",
   "repair-broken-cards-done-unfixable": "Repaired __fixed__ card(s). __unfixable__ card(s) have no board and cannot be repaired automatically.",
   "restore-list-swimlanes-done": "Restored __restored__ list(s). __remaining__ could not be restored.",

@@ -3202,6 +3202,7 @@
   "repairing": "ᎤᏚᏓᎴᏍᎬ…",
   "data-health": "ᏗᎪᏪᎵ ᎣᏍᏛ ᎨᏒ",
   "data-health-repair": "ᏗᏁᏍᎨᏂ",
+  "data-health-never-run": "ᎥᏝ ᎢᎸᎯᏳ",
   "repair-broken-cards-done": "__fixed__ ᎪᏪᎵ ᎤᏍᏗ ᎤᏚᏓᎴᏍᏔᏅ.",
   "repair-broken-cards-done-unfixable": "__fixed__ ᎪᏪᎵ ᎤᏍᏗ ᎤᏚᏓᎴᏍᏔᏅ. __unfixable__ ᎪᏪᎵ ᎤᏍᏗ ᎦᏍᎩᎸ ᏄᏂᏯᎥᎾ ᎠᎴ ᎤᏩᏒ Ꮭ ᏰᎵ ᏗᏚᏓᎴᏍᏗ.",
   "restore-list-swimlanes-done": "__restored__ ᏗᏟᏂᏱᏓᏍᏗ ᏔᎵᏁ ᎠᏟᏌᏅ. __remaining__ ᎥᏝ ᏰᎵ ᏔᎵᏁ ᏱᏟᏌᎦ.",

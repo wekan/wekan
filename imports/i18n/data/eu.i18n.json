@@ -3202,6 +3202,7 @@
   "repairing": "Konpontzen…",
   "data-health": "Datuen osasuna",
   "data-health-repair": "Konpondu",
+  "data-health-never-run": "Inoiz ez",
   "repair-broken-cards-done": "__fixed__ txartel konponduta.",
   "repair-broken-cards-done-unfixable": "__fixed__ txartel konponduta. __unfixable__ txartelek ez dute arbelik eta ezin dira automatikoki konpondu.",
   "restore-list-swimlanes-done": "__restored__ zerrenda berrezarrita. __remaining__ ezin izan dira berrezarri.",

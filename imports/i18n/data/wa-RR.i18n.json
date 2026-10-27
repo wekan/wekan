@@ -3202,6 +3202,7 @@
   "repairing": "Gin-aayad…",
   "data-health": "Kahimtang han datos",
   "data-health-repair": "Ayda",
+  "data-health-never-run": "Waray pa gud",
   "repair-broken-cards-done": "Naayad an __fixed__ nga kard.",
   "repair-broken-cards-done-unfixable": "Naayad an __fixed__ nga kard. An __unfixable__ nga kard waray board ngan diri mahimo awtomatiko nga ayadon.",
   "restore-list-swimlanes-done": "Naibalik an __restored__ nga lista. An __remaining__ diri naibalik.",

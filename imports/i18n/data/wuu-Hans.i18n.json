@@ -3202,6 +3202,7 @@
   "repairing": "正在修复…",
   "data-health": "数据健康",
   "data-health-repair": "修复",
+  "data-health-never-run": "从未",
   "repair-broken-cards-done": "修复好 __fixed__ 张卡片仔。",
   "repair-broken-cards-done-unfixable": "修复好 __fixed__ 张卡片仔。__unfixable__ 张卡片呒没所属看板，自动修复勿了。",
   "restore-list-swimlanes-done": "恢复好 __restored__ 只列表仔。__remaining__ 只恢复勿了。",

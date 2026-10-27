@@ -3202,6 +3202,7 @@
   "repairing": "Виправлення…",
   "data-health": "Стан даних",
   "data-health-repair": "Виправити",
+  "data-health-never-run": "Ніколи",
   "repair-broken-cards-done": "Виправлено карток: __fixed__.",
   "repair-broken-cards-done-unfixable": "Виправлено карток: __fixed__. __unfixable__ карток не мають дошки, їх не можна виправити автоматично.",
   "restore-list-swimlanes-done": "Відновлено списків: __restored__. Не вдалося відновити: __remaining__.",

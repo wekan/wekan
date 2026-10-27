@@ -3202,6 +3202,7 @@
   "repairing": "Iyalungisa…",
   "data-health": "Impilo yedatha",
   "data-health-repair": "Lungisa",
+  "data-health-never-run": "Zange",
   "repair-broken-cards-done": "Kulungiswe amakhadi angu-__fixed__.",
   "repair-broken-cards-done-unfixable": "Kulungiswe amakhadi angu-__fixed__. Amakhadi angu-__unfixable__ akanabhodi kwaye awanakulungiswa ngokuzenzekelayo.",
   "restore-list-swimlanes-done": "Kubuyiselwe uluhlu olungu-__restored__. __remaining__ azibuyiselwanga.",

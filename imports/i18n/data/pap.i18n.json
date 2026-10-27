@@ -3202,6 +3202,7 @@
   "repairing": "Reparando…",
   "data-health": "Salú di dato",
   "data-health-repair": "Drecha",
+  "data-health-never-run": "Nunka",
   "repair-broken-cards-done": "__fixed__ karchi(s) reparada(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ karchi(s) reparada(s). __unfixable__ karchi(s) no tin tabla i no se pueden reparar automáticamente.",
   "restore-list-swimlanes-done": "A restourá __restored__ lista(nan). No tabata posibel pa restourá __remaining__.",

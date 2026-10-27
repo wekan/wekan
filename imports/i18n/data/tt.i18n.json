@@ -3202,6 +3202,7 @@
   "repairing": "Төзәтелә…",
   "data-health": "Мәгълүмат сәламәтлеге",
   "data-health-repair": "Төзәтү",
+  "data-health-never-run": "Беркайчан да",
   "repair-broken-cards-done": "__fixed__ карточка төзәтелде.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка төзәтелде. __unfixable__ карточканың тактасы юк, шуңа күрә аларны автоматик рәвештә төзәтеп булмый.",
   "restore-list-swimlanes-done": "__restored__ исемлек торгызылды. __remaining__ исемлекне торгызып булмады.",

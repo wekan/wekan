@@ -3202,6 +3202,7 @@
   "repairing": "നന്നാക്കുന്നു…",
   "data-health": "ഡാറ്റയുടെ ആരോഗ്യം",
   "data-health-repair": "നന്നാക്കുക",
+  "data-health-never-run": "ഒരിക്കലും ഇല്ല",
   "repair-broken-cards-done": "__fixed__ കാർഡ്(കൾ) നന്നാക്കി.",
   "repair-broken-cards-done-unfixable": "__fixed__ കാർഡ്(കൾ) നന്നാക്കി. __unfixable__ കാർഡ്(കൾ)ക്ക് ബോർഡ് ഇല്ലാത്തതിനാൽ സ്വയമേവ നന്നാക്കാനാകില്ല.",
   "restore-list-swimlanes-done": "__restored__ പട്ടിക(കൾ) പുനഃസ്ഥാപിച്ചു. __remaining__ പുനഃസ്ഥാപിക്കാനായില്ല.",

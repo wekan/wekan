@@ -3202,6 +3202,7 @@
   "repairing": "Qed jissewwa…",
   "data-health": "Saħħa tad-dejta",
   "data-health-repair": "Irranġa",
+  "data-health-never-run": "Qatt",
   "repair-broken-cards-done": "Repaired __fixed__ kard(s).",
   "repair-broken-cards-done-unfixable": "Repaired __fixed__ kard(s). __unfixable__ kard(s) have no bord u cannot be repaired automatically.",
   "restore-list-swimlanes-done": "Restored __restored__ lista(s). __remaining__ could mhux be irrestawra.",

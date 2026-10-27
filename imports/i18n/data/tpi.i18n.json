@@ -3202,6 +3202,7 @@
   "repairing": "I stretim…",
   "data-health": "Helt bilong ol data",
   "data-health-repair": "Stretim",
+  "data-health-never-run": "Nating taim",
   "repair-broken-cards-done": "Stretim __fixed__ kat pinis.",
   "repair-broken-cards-done-unfixable": "Stretim __fixed__ kat pinis. __unfixable__ kat i no gat bot na sistem i no inap stretim ol em yet.",
   "restore-list-swimlanes-done": "Kisim __restored__ lis bek pinis. I no inap kisim __remaining__ bek.",

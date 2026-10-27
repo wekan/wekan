@@ -3202,6 +3202,7 @@
   "repairing": "lepailinaka…",
   "data-health": "Ke olakino o ka ʻikepili",
   "data-health-repair": "Hoʻoponopono",
+  "data-health-never-run": "ʻAʻole loa",
   "repair-broken-cards-done": "lepaileka __fixed__ kāleka(ka).",
   "repair-broken-cards-done-unfixable": "lepaileka __fixed__ kāleka(ka). __unfixable__ kāleka(ka) loaʻa ʻaʻole papa a ʻaʻole hiki he lepaileka ʻakomi.",
   "restore-list-swimlanes-done": "hoʻihoʻi ʻia __restored__ papa inoa(ka). __remaining__ koulaka ʻaʻole he hoʻihoʻi ʻia.",

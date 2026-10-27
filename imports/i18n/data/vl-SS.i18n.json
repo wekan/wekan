@@ -3202,6 +3202,7 @@
   "repairing": "Repareren…",
   "data-health": "Gezondheid van de data",
   "data-health-repair": "Herstellen",
+  "data-health-never-run": "Nooit",
   "repair-broken-cards-done": "__fixed__ kaart(en) gerepareerd.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaart(en) gerepareerd. __unfixable__ kaart(en) hebben geen bord en kunnen niet automatisch worden gerepareerd.",
   "restore-list-swimlanes-done": "__restored__ lijst(en) hersteld. __remaining__ konden niet worden hersteld.",

@@ -3202,6 +3202,7 @@
   "repairing": "Засаж байна…",
   "data-health": "Өгөгдлийн эрүүл байдал",
   "data-health-repair": "Засах",
+  "data-health-never-run": "Хэзээ ч үгүй",
   "repair-broken-cards-done": "__fixed__ карт заслаа.",
   "repair-broken-cards-done-unfixable": "__fixed__ карт заслаа. __unfixable__ карт самбаргүй тул автоматаар засах боломжгүй.",
   "restore-list-swimlanes-done": "__restored__ жагсаалт сэргээгдлээ. __remaining__ сэргээж чадсангүй.",

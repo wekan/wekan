@@ -3202,6 +3202,7 @@
   "repairing": "Reparando…",
   "data-health": "Saúde dos datos",
   "data-health-repair": "Reparar",
+  "data-health-never-run": "Nunca",
   "repair-broken-cards-done": "__fixed__ tarxeta(s) reparada(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ tarxeta(s) reparada(s). __unfixable__ tarxeta(s) non teñen taboleiro e non se poden reparar automaticamente.",
   "restore-list-swimlanes-done": "__restored__ lista(s) restaurada(s). Non se puideron restaurar __remaining__.",

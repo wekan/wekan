@@ -3202,6 +3202,7 @@
   "repairing": "Lhiasaghey…",
   "data-health": "Slaynt y data",
   "data-health-repair": "Kiartee",
+  "data-health-never-run": "Rieau",
   "repair-broken-cards-done": "__fixed__ kaart(yn) lhiasit.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaart(yn) lhiasit. Cha nel boayrd ec __unfixable__ kaart(yn) as cha nod ad ve lhiasit dy hene-obbragh.",
   "restore-list-swimlanes-done": "__restored__ rolley(yn) aa-currit. Cha row __remaining__ aa-currit.",

@@ -3202,6 +3202,7 @@
   "repairing": "मरम्मत हो रहल बा…",
   "data-health": "डेटा के सेहत",
   "data-health-repair": "मरम्मत",
+  "data-health-never-run": "कबहूं ना",
   "repair-broken-cards-done": "__fixed__ कार्ड के मरम्मत भइल।",
   "repair-broken-cards-done-unfixable": "__fixed__ कार्ड के मरम्मत भइल। __unfixable__ कार्ड के कवनो बोर्ड नइखे आ अपने-आप मरम्मत ना हो सकेला।",
   "restore-list-swimlanes-done": "__restored__ सूची वापस आइल। __remaining__ के वापस ना ले आइल जा सकल।",

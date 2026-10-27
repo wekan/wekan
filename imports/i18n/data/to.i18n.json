@@ -3202,6 +3202,7 @@
   "repairing": "ʻOku fakalelei…",
   "data-health": "Moʻui lelei ʻa e fakamatalá",
   "data-health-repair": "Fakaleleiʻi",
+  "data-health-never-run": "ʻIkai ha taha",
   "repair-broken-cards-done": "Kuo fakalelei ʻa e kaati ʻe __fixed__.",
   "repair-broken-cards-done-unfixable": "Kuo fakalelei ʻa e kaati ʻe __fixed__. ʻOku ʻikai ha papa ʻa e kaati ʻe __unfixable__ pea ʻoku ʻikai lava ke fakalelei fakaʻatamai.",
   "restore-list-swimlanes-done": "Kuo fakafoki ʻa e lisi ʻe __restored__. Naʻe ʻikai lava ke fakafoki ʻa e __remaining__.",

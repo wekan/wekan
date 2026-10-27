@@ -3202,6 +3202,7 @@
   "repairing": "ದುರಸ್ತಿ ಮಾಡಲಾಗುತ್ತಿದೆ…",
   "data-health": "ಡೇಟಾದ ಆರೋಗ್ಯ",
   "data-health-repair": "ಸರಿಪಡಿಸಿ",
+  "data-health-never-run": "ಎಂದಿಗೂ ಇಲ್ಲ",
   "repair-broken-cards-done": "__fixed__ ಕಾರ್ಡ್(ಗಳನ್ನು) ದುರಸ್ತಿ ಮಾಡಲಾಗಿದೆ.",
   "repair-broken-cards-done-unfixable": "__fixed__ ಕಾರ್ಡ್(ಗಳನ್ನು) ದುರಸ್ತಿ ಮಾಡಲಾಗಿದೆ. __unfixable__ ಕಾರ್ಡ್(ಗಳಿಗೆ) ಫಲಕವಿಲ್ಲ ಮತ್ತು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದುರಸ್ತಿ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ.",
   "restore-list-swimlanes-done": "__restored__ ಪಟ್ಟಿ(ಗಳನ್ನು) ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ. __remaining__ ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",

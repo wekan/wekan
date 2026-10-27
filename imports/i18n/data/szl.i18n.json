@@ -3202,6 +3202,7 @@
   "repairing": "Naprawianie…",
   "data-health": "Zdrowie danych",
   "data-health-repair": "Napraw",
+  "data-health-never-run": "Nigdy",
   "repair-broken-cards-done": "Naprawiono kart: __fixed__.",
   "repair-broken-cards-done-unfixable": "Naprawiono kart: __fixed__. __unfixable__ kart niy ma tabule i niy idzie ich naprawić automatycznie.",
   "restore-list-swimlanes-done": "Prziwrōcōno __restored__ list. Niy szło prziwrōcić __remaining__.",

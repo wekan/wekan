@@ -3202,6 +3202,7 @@
   "repairing": "Manamboatra…",
   "data-health": "Fahasalaman'ny angona",
   "data-health-repair": "Amboary",
+  "data-health-never-run": "Tsy mbola misy",
   "repair-broken-cards-done": "Karatra __fixed__ no namboarina.",
   "repair-broken-cards-done-unfixable": "Karatra __fixed__ no namboarina. Karatra __unfixable__ no tsy manana solaitra ary tsy azo amboarina ho azy.",
   "restore-list-swimlanes-done": "Naverina ny lisitra __restored__. Tsy afaka naverina ny __remaining__.",

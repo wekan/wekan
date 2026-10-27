@@ -3202,6 +3202,7 @@
   "repairing": "Kugadzirisa…",
   "data-health": "Hutano hwedata",
   "data-health-repair": "Gadzirisa",
+  "data-health-never-run": "Kwete",
   "repair-broken-cards-done": "Repaired __fixed__ kadhi(s).",
   "repair-broken-cards-done-unfixable": "Repaired __fixed__ kadhi(s). __unfixable__ kadhi(s) have kwete bhodhi uye haagoni iva repaired automatically.",
   "restore-list-swimlanes-done": "Rondedzero __restored__ dzadzorerwa. __remaining__ hadzina kukwanisa kudzorerwa.",

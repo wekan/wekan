@@ -3202,6 +3202,7 @@
   "repairing": "Reparerar…",
   "data-health": "Datahälsa",
   "data-health-repair": "Reparera",
+  "data-health-never-run": "Aldrig",
   "repair-broken-cards-done": "__fixed__ kort reparerade.",
   "repair-broken-cards-done-unfixable": "__fixed__ kort reparerade. __unfixable__ kort saknar tavla och kan inte repareras automatiskt.",
   "restore-list-swimlanes-done": "__restored__ lista/listor återställda. __remaining__ kunde inte återställas.",

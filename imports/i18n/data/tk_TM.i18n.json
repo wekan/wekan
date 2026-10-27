@@ -3202,6 +3202,7 @@
   "repairing": "Bejerilýär…",
   "data-health": "Maglumatlaryň saglygy",
   "data-health-repair": "Bejer",
+  "data-health-never-run": "Hiç haçan",
   "repair-broken-cards-done": "__fixed__ kart bejerildi.",
   "repair-broken-cards-done-unfixable": "__fixed__ kart bejerildi. __unfixable__ kartyň tagtasy ýok we awtomatik bejerip bolmaýar.",
   "restore-list-swimlanes-done": "__restored__ sanaw dikeldildi. __remaining__ dikeldip bolmady.",

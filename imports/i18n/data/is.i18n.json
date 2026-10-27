@@ -3202,6 +3202,7 @@
   "repairing": "Geri við…",
   "data-health": "Heilbrigði gagna",
   "data-health-repair": "Lagfæra",
+  "data-health-never-run": "Aldrei",
   "repair-broken-cards-done": "Gerði við __fixed__ spjald/spjöld.",
   "repair-broken-cards-done-unfixable": "Gerði við __fixed__ spjald/spjöld. __unfixable__ spjald/spjöld eiga enga töflu og ekki er hægt að gera við þau sjálfkrafa.",
   "restore-list-swimlanes-done": "Endurheimti __restored__ lista. Ekki tókst að endurheimta __remaining__.",

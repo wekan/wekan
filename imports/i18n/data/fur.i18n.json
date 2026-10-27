@@ -3202,6 +3202,7 @@
   "repairing": "Daûr a riparâ…",
   "data-health": "Salût dai dâts",
   "data-health-repair": "Ripare",
+  "data-health-never-run": "Mai",
   "repair-broken-cards-done": "__fixed__ cjarte/e riparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ cjarte/e riparate. __unfixable__ cjarte/e no han una taule e no posa son essere riparate automaticamente.",
   "restore-list-swimlanes-done": "Ripristinadis __restored__ listis. No si à podût ripristinâ __remaining__.",

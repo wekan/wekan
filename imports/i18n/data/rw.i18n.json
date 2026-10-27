@@ -3202,6 +3202,7 @@
   "repairing": "Birimo gusanwa…",
   "data-health": "Ubuzima bw'amakuru",
   "data-health-repair": "Kosora",
+  "data-health-never-run": "Nta na rimwe",
   "repair-broken-cards-done": "Hasanwe amakarita __fixed__.",
   "repair-broken-cards-done-unfixable": "Hasanwe amakarita __fixed__. Amakarita __unfixable__ nta kibaho afite kandi ntashobora gusanwa mu buryo bwikora.",
   "restore-list-swimlanes-done": "Intonde __restored__ zasubijweho. __remaining__ ntizashoboye gusubizwaho.",

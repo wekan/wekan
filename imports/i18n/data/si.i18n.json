@@ -3202,6 +3202,7 @@
   "repairing": "අලුත්වැඩියා කරමින්…",
   "data-health": "දත්ත සෞඛ්‍යය",
   "data-health-repair": "අලුත්වැඩියා කරන්න",
+  "data-health-never-run": "කවදාවත් නැත",
   "repair-broken-cards-done": "කාඩ්පත් __fixed__ක් අලුත්වැඩියා කළා.",
   "repair-broken-cards-done-unfixable": "කාඩ්පත් __fixed__ක් අලුත්වැඩියා කළා. කාඩ්පත් __unfixable__කට පුවරුවක් නොමැති බැවින් ස්වයංක්‍රීයව අලුත්වැඩියා කළ නොහැක.",
   "restore-list-swimlanes-done": "ලැයිස්තු __restored__ක් ප්‍රතිසාධනය කළා. __remaining__ක් ප්‍රතිසාධනය කළ නොහැකි විය.",

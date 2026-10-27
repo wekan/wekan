@@ -3202,6 +3202,7 @@
   "repairing": "Ow ewnhe…",
   "data-health": "Yeghes an data",
   "data-health-repair": "Ewnhe",
+  "data-health-never-run": "Nefra",
   "repair-broken-cards-done": "Ewnhys __fixed__ karten.",
   "repair-broken-cards-done-unfixable": "Ewnhys __fixed__ karten. __unfixable__ karten nyns eus estyllen dhedho ha ny yllir y ewnhe yn awtomatek.",
   "restore-list-swimlanes-done": "Daskorrys __restored__ rol. Ny allas __remaining__ bos daskorrys.",

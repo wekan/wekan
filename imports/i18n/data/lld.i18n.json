@@ -3202,6 +3202,7 @@
   "repairing": "Se arjigna…",
   "data-health": "Sanità di dac",
   "data-health-repair": "Arjigné",
+  "data-health-never-run": "Mai",
   "repair-broken-cards-done": "Arjignà __fixed__ ciarta(es).",
   "repair-broken-cards-done-unfixable": "Arjignà __fixed__ ciarta(es). __unfixable__ ciarta(es) ne à deguna tofl y ne possa nia vester arjignedes da së nstësses.",
   "restore-list-swimlanes-done": "Ristabilì __restored__ lista(es). __remaining__ ne n’à nia pudù vester ristabilides.",

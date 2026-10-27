@@ -3202,6 +3202,7 @@
   "repairing": "Drio justar…",
   "data-health": "Sałute dei dati",
   "data-health-repair": "Justa",
+  "data-health-never-run": "Mai",
   "repair-broken-cards-done": "Justà __fixed__ schede.",
   "repair-broken-cards-done-unfixable": "Justà __fixed__ schede. __unfixable__ schede no le ga nissuna bacheca e no se pol justarle da soli.",
   "restore-list-swimlanes-done": "Ripristinà __restored__ liste. __remaining__ no se ga podesto ripristinarle.",

@@ -3202,6 +3202,7 @@
   "repairing": "Porjedźuje so…",
   "data-health": "Strowota datow",
   "data-health-repair": "Porjedźić",
+  "data-health-never-run": "Ženje",
   "repair-broken-cards-done": "Porjedźene karty: __fixed__.",
   "repair-broken-cards-done-unfixable": "Porjedźene karty: __fixed__. Karty bjez tafle (__unfixable__) njedadźa so awtomatisce porjedźić.",
   "restore-list-swimlanes-done": "Wobnowjene lisćiny: __restored__. Njedachu so wobnowić: __remaining__.",

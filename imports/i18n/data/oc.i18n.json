@@ -3202,6 +3202,7 @@
   "repairing": "Reparacion en cors…",
   "data-health": "Santat de las donadas",
   "data-health-repair": "Reparar",
+  "data-health-never-run": "Pas jamai",
   "repair-broken-cards-done": "__fixed__ ficha(s) reparada(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ ficha(s) reparada(s). __unfixable__ ficha(s) an pas de tablèu e pòdon pas èsser reparadas automaticament.",
   "restore-list-swimlanes-done": "__restored__ tièra(s) restaurada(s). Se son pas pogudas restaurar __remaining__.",

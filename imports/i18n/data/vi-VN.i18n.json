@@ -3202,6 +3202,7 @@
   "repairing": "Đang sửa…",
   "data-health": "Tình trạng dữ liệu",
   "data-health-repair": "Sửa chữa",
+  "data-health-never-run": "Chưa bao giờ",
   "repair-broken-cards-done": "Đã sửa __fixed__ thẻ.",
   "repair-broken-cards-done-unfixable": "Đã sửa __fixed__ thẻ. __unfixable__ thẻ không có bảng và không thể sửa tự động.",
   "restore-list-swimlanes-done": "Đã khôi phục __restored__ danh sách. Không thể khôi phục __remaining__.",

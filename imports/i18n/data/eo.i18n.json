@@ -3202,6 +3202,7 @@
   "repairing": "Riparado…",
   "data-health": "Sano de datumoj",
   "data-health-repair": "Ripari",
+  "data-health-never-run": "Neniam",
   "repair-broken-cards-done": "__fixed__ karto(j) riparitaj.",
   "repair-broken-cards-done-unfixable": "__fixed__ karto(j) riparitaj. __unfixable__ karto(j) ne havas tabulon kaj ne povas esti riparitaj aŭtomate.",
   "restore-list-swimlanes-done": "__restored__ listo(j) restarigita(j). __remaining__ ne restarigeblaj.",

@@ -3202,6 +3202,7 @@
   "repairing": "Wɔresiesie…",
   "data-health": "Data apɔmuden",
   "data-health-repair": "Siesie",
+  "data-health-never-run": "Da biara",
   "repair-broken-cards-done": "Repaired __fixed__ kaad(s).",
   "repair-broken-cards-done-unfixable": "Wɔasiesie kaad __fixed__. Kaad __unfixable__ nni bɔɔd, na afiri no ankasa ntumi nsiesie.",
   "restore-list-swimlanes-done": "Wɔasan de din a wɔahyehyɛ __restored__ aba. Wɔantumi ansan amfa __remaining__ amma.",

@@ -3202,6 +3202,7 @@
   "repairing": "Kinukumpuni…",
   "data-health": "Kalusugan ng datos",
   "data-health-repair": "Kumpunihin",
+  "data-health-never-run": "Hindi pa kailanman",
   "repair-broken-cards-done": "Nakumpuni __fixed__ kard(s).",
   "repair-broken-cards-done-unfixable": "Nakumpuni __fixed__ kard(s). __unfixable__ kard(s) may hindi pisara at hindi maaaring maging nakumpuni awtomatiko.",
   "restore-list-swimlanes-done": "Ibinalik __restored__ listahan(s). __remaining__ could hindi maging ibinalik.",

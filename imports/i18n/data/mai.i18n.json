@@ -3202,6 +3202,7 @@
   "repairing": "सुधार भऽ रहल अछि…",
   "data-health": "डाटा स्वास्थ्य",
   "data-health-repair": "सुधारू",
+  "data-health-never-run": "कहियो नहि",
   "repair-broken-cards-done": "__fixed__ कार्ड सुधारल गेल।",
   "repair-broken-cards-done-unfixable": "__fixed__ कार्ड सुधारल गेल। __unfixable__ कार्डक कोनो बोर्ड नहि अछि आ ओकरा स्वचालित रूप सँ सुधारल नहि जा सकैत अछि।",
   "restore-list-swimlanes-done": "__restored__ सूची घुरा आनल गेल। __remaining__ घुरा नहि आनल जा सकल।",

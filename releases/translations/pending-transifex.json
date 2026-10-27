@@ -3115,6 +3115,10 @@
     {
       "key": "whiteboard-read-only",
       "since": "2026-10-17"
+    },
+    {
+      "key": "data-health-never-run",
+      "since": "2026-10-27"
     }
   ]
 }

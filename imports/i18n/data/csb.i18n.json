@@ -3202,6 +3202,7 @@
   "repairing": "Naprawianié…",
   "data-health": "Zdrowié pòdôwków",
   "data-health-repair": "Napraw",
+  "data-health-never-run": "Nigdë",
   "repair-broken-cards-done": "Naprawiono kôrtòw: __fixed__.",
   "repair-broken-cards-done-unfixable": "Naprawiono kôrtòw: __fixed__. __unfixable__ kôrtòw nié ma tôblëcë i nié można ich naprawić automatycznié.",
   "restore-list-swimlanes-done": "Przëwróconé lëstë: __restored__. Nie dało sã przëwrócëc: __remaining__.",

@@ -3202,6 +3202,7 @@
   "repairing": "Inarekebisha…",
   "data-health": "Afya ya data",
   "data-health-repair": "Rekebisha",
+  "data-health-never-run": "Kamwe",
   "repair-broken-cards-done": "Kadi __fixed__ zimerekebishwa.",
   "repair-broken-cards-done-unfixable": "Kadi __fixed__ zimerekebishwa. Kadi __unfixable__ hazina ubao na haziwezi kurekebishwa kiotomatiki.",
   "restore-list-swimlanes-done": "Orodha __restored__ zimerejeshwa. __remaining__ hazikuweza kurejeshwa.",

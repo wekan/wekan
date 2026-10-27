@@ -3202,6 +3202,7 @@
   "repairing": "Opravuji…",
   "data-health": "Stav dat",
   "data-health-repair": "Opravit",
+  "data-health-never-run": "Nikdy",
   "repair-broken-cards-done": "Opraveno karet: __fixed__.",
   "repair-broken-cards-done-unfixable": "Opraveno karet: __fixed__. __unfixable__ karet nemá tablo a nelze je opravit automaticky.",
   "restore-list-swimlanes-done": "Obnoveno seznamů: __restored__. Nepodařilo se obnovit: __remaining__.",

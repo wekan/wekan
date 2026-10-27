@@ -3202,6 +3202,7 @@
   "repairing": "S-ndreadzi…",
   "data-health": "Sãnãtatea a datilor",
   "data-health-repair": "Adreadzi",
+  "data-health-never-run": "Vãrnãoarã",
   "repair-broken-cards-done": "S-ndreptarã __fixed__ cãrtsã.",
   "repair-broken-cards-done-unfixable": "S-ndreptarã __fixed__ cãrtsã. __unfixable__ cãrtsã nu au tabelã shi nu pot s-hibã ndrepti automat.",
   "restore-list-swimlanes-done": "S-turnarã __restored__ listi. __remaining__ nu putum s-li turnãm.",

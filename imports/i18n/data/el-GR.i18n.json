@@ -3202,6 +3202,7 @@
   "repairing": "Επιδιόρθωση…",
   "data-health": "Υγεία δεδομένων",
   "data-health-repair": "Επιδιόρθωση",
+  "data-health-never-run": "Ποτέ",
   "repair-broken-cards-done": "Επιδιορθώθηκαν __fixed__ κάρτες.",
   "repair-broken-cards-done-unfixable": "Επιδιορθώθηκαν __fixed__ κάρτες. __unfixable__ κάρτες δεν έχουν πίνακα και δεν μπορούν να επιδιορθωθούν αυτόματα.",
   "restore-list-swimlanes-done": "Επαναφέρθηκαν __restored__ λίστες. Δεν ήταν δυνατή η επαναφορά __remaining__.",

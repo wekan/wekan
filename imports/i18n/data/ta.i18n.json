@@ -3202,6 +3202,7 @@
   "repairing": "சரிசெய்யப்படுகிறது…",
   "data-health": "தரவு நலம்",
   "data-health-repair": "சரிசெய்",
+  "data-health-never-run": "ஒருபோதும் இல்லை",
   "repair-broken-cards-done": "__fixed__ அட்டை(கள்) சரிசெய்யப்பட்டன.",
   "repair-broken-cards-done-unfixable": "__fixed__ அட்டை(கள்) சரிசெய்யப்பட்டன. __unfixable__ அட்டைக்கு பலகை இல்லை, தானாகச் சரிசெய்ய முடியாது.",
   "restore-list-swimlanes-done": "__restored__ பட்டியல்(கள்) மீட்டமைக்கப்பட்டன. __remaining__ மீட்டமைக்க முடியவில்லை.",
