@@ -286,10 +286,20 @@ DB_HOST_PORT_BASE="${WEKAN_CONFORMANCE_DB_PORT:-35432}"
 # its queries ("connection refused"), and both of its results were lost.
 OWNER_LABEL_KEY="wekan.conformance.pid"
 OWNER_LABEL="$OWNER_LABEL_KEY=$$"
+# The command line comes from /proc on Linux; macOS and the BSDs have no /proc,
+# where every live run looked dead and a second run removed its containers.
+# ps -o command= gives the same line there.
+command_line_of() {
+  if [ -r "/proc/$1/cmdline" ]; then
+    tr '\0' ' ' < "/proc/$1/cmdline" 2>/dev/null
+  else
+    ps -o command= -p "$1" 2>/dev/null
+  fi
+}
 run_still_going() {
   local pid="$1"
   [ -n "$pid" ] && [ "$pid" != "$$" ] && kill -0 "$pid" 2>/dev/null &&
-    tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null | grep -q 'db-conformance\.sh'
+    command_line_of "$pid" | grep -q 'db-conformance\.sh'
 }
 left_behind() {
   local kind="$1" id owner

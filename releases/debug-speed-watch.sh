@@ -13,7 +13,8 @@ WATCH_PATH="${DEBUGSPEED_WATCH_PATH:-.}"
 printf 'timestamp\tload\tmem_available_kb\tdisk_available_kb\n'
 while :; do
   timestamp="$(date --iso-8601=seconds 2>/dev/null || date)"
-  load="$(cut -d' ' -f1-3 /proc/loadavg 2>/dev/null || echo unavailable)"
+  # /proc is Linux; macOS and the BSDs answer sysctl vm.loadavg as "{ 1.2 1.1 1.0 }".
+  load="$(cut -d' ' -f1-3 /proc/loadavg 2>/dev/null || sysctl -n vm.loadavg 2>/dev/null | tr -d '{}' | awk '{print $1, $2, $3}' || echo unavailable)"
   mem_available="$(awk '/^MemAvailable:/{print $2}' /proc/meminfo 2>/dev/null || true)"
   disk_available="$(df -Pk "$WATCH_PATH" 2>/dev/null | awk 'NR==2{print $4}')"
   printf '%s\t%s\t%s\t%s\n' \

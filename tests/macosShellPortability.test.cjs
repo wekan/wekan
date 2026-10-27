@@ -75,6 +75,15 @@ test('sha256sum, nproc and ip only with a macOS fallback', () => {
   assert.deepStrictEqual(offenders(c => /^\s*ip (address|addr|a)\b/m.test(c) && !/ifconfig/.test(c)), []);
 });
 
+test('/proc memory, load and command lines only with a macOS fallback', () => {
+  // macOS and the BSDs have no /proc. db-conformance.sh read a run's command
+  // line there, so on a Mac every live run looked dead and a second run
+  // removed its containers. The Docker entrypoint only ever runs on Linux.
+  const linuxOnly = new Set(['releases/ferretdb/wekan-entrypoint.sh']);
+  assert.deepStrictEqual(offenders(c => /\/proc\/(meminfo|loadavg|\$[A-Za-z_{][^/]*\/cmdline)/.test(c)
+    && !/sysctl -n|ps -o command=/.test(c)).filter(rel => !linuxOnly.has(rel)), []);
+});
+
 test('no GNU-only ln -T or stat -c', () => {
   assert.deepStrictEqual(offenders(c => /\bln -[a-zA-Z]*T\b|\bstat -c\b|\bstat --/.test(c)), []);
 });
