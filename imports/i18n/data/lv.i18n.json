@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kad ieslēgts, nospiežot Enter tiek saglabāts kartītes nosaukums, apraksts un citi iegultie redaktori; Shift+Enter ievieto jaunu rindu. Kad izslēgts, Ctrl/Cmd+Enter saglabā, un Enter ievieto jaunu rindu.",
   "keep-title-tags": "Saglabāt #birku un @dalībnieku jauno kartiņu nosaukumos",
   "keep-title-tags-description": "Ja, rakstot jaunas kartiņas nosaukumu, izvēlaties birku ar # vai dalībnieku ar @, šis teksts paliek arī nosaukumā. Izslēgts: teksts tiek aizstāts ar birku vai dalībnieku.",
+  "title-bracket-label": "Pārvērst [birka] jaunas kartiņas nosaukuma sākumā par birku",
+  "title-bracket-label-description": "Ja jaunas kartiņas nosaukums sākas ar [Teksts], kam seko vēl teksts, Teksts kļūst par kartiņas birku (tā tiek izveidota, ja dēlī nav birkas ar šādu nosaukumu) un tiek noņemts no nosaukuma. Izslēgts: nosaukums paliek nemainīts.",
   "checklist-ding-sound": "Atskaņot skaņu, kad kontrolsaraksta vienums ir pabeigts",
   "checklist-ding-sound-description": "Atskaņo īsu skaņu, kad atzīmējat kontrolsaraksta vienumu. Pēc noklusējuma izslēgts.",
   "assignee": "Īpašnieks",

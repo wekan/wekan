@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "As dit oanstiet, bewarret it drukken op Enter de kaarttitel, beskriuwing en oare ynline bewurkers; Shift+Enter foeget in nije rigel ta. As it útstiet, bewarret Ctrl/Cmd+Enter en foeget Enter in nije rigel ta.",
   "keep-title-tags": "#Etiket en @lid yn titels fan nije kaarten hâlde",
   "keep-title-tags-description": "As jo by it typen fan de titel fan in nije kaart in etiket mei # of in lid mei @ kieze, bliuwt dy tekst ek yn de titel stean. Ut: de tekst wurdt ferfongen troch it etiket of it lid.",
+  "title-bracket-label": "[etiket] oan it begjin fan in nije kaarttitel omsette yn in etiket",
+  "title-bracket-label-description": "As de titel fan in nije kaart begjint mei [Tekst] folge troch mear tekst, wurdt Tekst in etiket fan de kaart (oanmakke as it boerd gjin etiket mei dy namme hat) en wurdt it út de titel wei helle. Ut: de titel bliuwt sa't er is.",
   "checklist-ding-sound": "Spylje in lûd ôf as in kontrôlelist-item ôfrûne wurdt",
   "checklist-ding-sound-description": "Spylje in koart pingûdsje ôf as jo in kontrôlelist-item ôfmerke. Standert út.",
   "assignee": "Oanwêzige",

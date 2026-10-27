@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Se attivo, premendo Enter si salvano il tìtulo d' 'a carta, la descrizzione e ate editor in linea; Shift+Enter inserisce una nova riga. Se disattivo, Ctrl/Cmd+Enter sarva ed Enter inserisce una nova riga.",
   "keep-title-tags": "Tiene #etichetta e @membro dint'e titule d'e carte nove",
   "keep-title-tags-description": "Quanno scigliete n'etichetta cu # o nu membro cu @ mentre scrivite 'o titolo 'e na carta nova, chillu testo resta pure dint''o titolo. Stutato: 'o testo vene cagnato cu ll'etichetta o 'o membro.",
+  "title-bracket-label": "Fa addeventà [etichetta] 'o principio d''o titolo 'e na carta nova n'etichetta",
+  "title-bracket-label-description": "Quanno 'o titolo 'e na carta nova accummencia cu [Testo] e po' vene ato testo, Testo addeventa n'etichetta d''a carta (se crea si 'a tavula nun ne tene nisciuna cu chillu nomme) e se leva d''o titolo. Stutato: 'o titolo resta comm'è.",
   "checklist-ding-sound": "Sunà nu suono quanno n'elemento d''a lista 'e verifica se completa",
   "checklist-ding-sound-description": "Sunà nu suono curto quanno marche n'elemento d''a lista 'e verifica. Disattivato 'e default.",
   "assignee": "Assignato",

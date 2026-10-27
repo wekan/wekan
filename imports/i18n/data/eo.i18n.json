@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kiam ŝaltita, premo de Enter konservas la titolon de la karto, la priskribon kaj aliajn enliniajn redaktilojn; Shift+Enter enmetas novan linion. Kiam malŝaltita, Ctrl/Cmd+Enter konservas kaj Enter enmetas novan linion.",
   "keep-title-tags": "Konservi #etikedon kaj @membron en titoloj de novaj kartoj",
   "keep-title-tags-description": "Kiam vi elektas etikedon per # aŭ membron per @ dum vi tajpas la titolon de nova karto, tiu teksto restas ankaŭ en la titolo. Malŝaltita: la teksto estas anstataŭigata per la etikedo aŭ membro.",
+  "title-bracket-label": "Igi [etikedo] ĉe la komenco de titolo de nova karto etikedo",
+  "title-bracket-label-description": "Kiam la titolo de nova karto komenciĝas per [Teksto] sekvata de plia teksto, Teksto fariĝas etikedo de la karto (kreita, se la tabulo ne havas etikedon kun tiu nomo) kaj estas forigita el la titolo. Malŝaltita: la titolo restas kia ĝi estas.",
   "checklist-ding-sound": "Ludi sonon kiam kontrollista ero estas kompletigita",
   "checklist-ding-sound-description": "Ludi mallongan sonon kiam vi marku kontrollistan eron. Malŝaltita defaŭlte.",
   "assignee": "Asignito",

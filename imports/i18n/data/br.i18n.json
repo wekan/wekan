@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Pa vez gweredekaet, Enter a enrolla titl ar gartenn, an deskrivadur hag an editerien enlinenn all; Shift+Enter a ouzhpenn ul linenn nevez. Pa vez diweredekaet, Ctrl/Cmd+Enter a enrolla hag Enter a ouzhpenn ul linenn nevez.",
   "keep-title-tags": "Mirout #tikedenn hag @ezel e titloù ar c'hartennoù nevez",
   "keep-title-tags-description": "Pa zibabit un dikedenn gant # pe un ezel gant @ en ur skrivañ titl ur gartenn nevez, e vez miret an destenn-se en titl ivez. Lazhet: an destenn a vez erlec'hiet gant an dikedenn pe an ezel.",
+  "title-bracket-label": "Treiñ [tikedenn] e penn-kentañ titl ur gartenn nevez en un dikedenn",
+  "title-bracket-label-description": "Pa grog titl ur gartenn nevez gant [Testenn] heuliet gant muioc'h a destenn, e teu Testenn da vezañ un dikedenn eus ar gartenn (krouet ma n'eus hini ebet gant an anv-se en daolenn) hag e vez lamet eus an titl. Lazhet: miret e vez an titl evel m'emañ.",
   "checklist-ding-sound": "Seniñ ur son pa vez echuet un elfenn eus roll gwiriañ",
   "checklist-ding-sound-description": "Seniñ ur son berr pa vez merket un elfenn eus roll gwiriañ. Diweredekaet dre ziouer.",
   "assignee": "Den deverket",

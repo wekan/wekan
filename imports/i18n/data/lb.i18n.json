@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Wann aktivéiert, speichert dat Drücken vun Enter den Kartentitel, déi Beschreiwung un andere Inline-Editoren; Shift+Enter fügt eng neue Zeile ein. Wann deaktiviert, speichert Ctrl/Cmd+Enter un Enter fügt eng neue Zeile ein.",
   "keep-title-tags": "#Etikett an @Member an den Titele vun neie Kaarten halen",
   "keep-title-tags-description": "Wann Dir beim Tippe vum Titel vun enger neier Kaart eng Etikett mat # oder e Member mat @ auswielt, bleift dësen Text och am Titel. Aus: den Text gëtt duerch d'Etikett oder de Member ersat.",
+  "title-bracket-label": "[Etikett] um Ufank vun engem neie Kaartentitel an eng Etikett ëmwandelen",
+  "title-bracket-label-description": "Wann den Titel vun enger neier Kaart mat [Text] ufänkt an duerno nach méi Text kënnt, gëtt Text eng Etikett vun der Kaart (se gëtt erstallt, wann d'Tafel keng mat deem Numm huet) an aus dem Titel ewechgeholl. Aus: den Titel bleift esou wéi en ass.",
   "checklist-ding-sound": "E Kloen ofspillen wann en Checklist-Element ofgeschloss ass",
   "checklist-ding-sound-description": "Spillt e kuerze Kloen of wann Dir en Checklist-Element ofhakt. Standardméisseg aus.",
   "assignee": "Zoustänneg",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Sche activà, memorisescha Enter il titel da la carta, la descripziun ed auters editurs en lingia; Shift+Enter inserescha ina nova lingia. Sche deactivà, memorisescha Ctrl/Cmd+Enter ed Enter inserescha ina nova lingia.",
   "keep-title-tags": "Mantegnair #etichetta e @commember en ils titels da novas cartas",
   "keep-title-tags-description": "Sche Vus tschernais ina etichetta cun # u in commember cun @ durant che Vus scrivais il titel d'ina nova carta, resta quest text er en il titel. Deactivà: il text vegn remplazzà da l'etichetta u dal commember.",
+  "title-bracket-label": "Transfurmar [etichetta] al cumenzament dal titel d'ina nova carta en ina etichetta",
+  "title-bracket-label-description": "Sch'il titel d'ina nova carta cumenza cun [Text] suandà dad auter text, daventa Text ina etichetta da la carta (creada sche la tabella n'ha nagina cun quest num) ed è allontanà dal titel. Deactivà: il titel resta sco ch'el è.",
   "checklist-ding-sound": "Sunar in tun cur ch'in element da la glista da controlla vegn cumplettà",
   "checklist-ding-sound-description": "Sunar in tun curt cur ch'in element da la glista da controlla vegn marcà. Deactivà tenor standard.",
   "assignee": "Persuna incumbensada",

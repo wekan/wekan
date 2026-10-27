@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "켜면 Enter를 누를 때 카드 제목, 설명 및 기타 인라인 편집기가 저장되고, Shift+Enter는 새 줄을 삽입합니다. 끄면 Ctrl/Cmd+Enter로 저장하고 Enter는 새 줄을 삽입합니다.",
   "keep-title-tags": "새 카드 제목에 #라벨과 @멤버 유지",
   "keep-title-tags-description": "새 카드의 제목을 입력하는 동안 #으로 라벨을 선택하거나 @로 멤버를 선택하면 해당 텍스트를 제목에도 유지합니다. 끄기: 텍스트가 라벨 또는 멤버로 대체됩니다.",
+  "title-bracket-label": "새 카드 제목 앞의 [라벨]을 라벨로 바꾸기",
+  "title-bracket-label-description": "새 카드의 제목이 [텍스트]로 시작하고 그 뒤에 다른 텍스트가 이어지면, 텍스트가 카드의 라벨이 되고(보드에 그 이름의 라벨이 없으면 새로 만듭니다) 제목에서 제거됩니다. 끄기: 제목이 그대로 유지됩니다.",
   "checklist-ding-sound": "체크리스트 항목이 완료되면 소리 재생",
   "checklist-ding-sound-description": "체크리스트 항목을 체크하면 짧은 딩동 소리를 재생합니다. 기본적으로 꺼져 있습니다.",
   "assignee": "담당자",

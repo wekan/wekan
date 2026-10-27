@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "chu'lu'DI', Enter yImuvDI' card pong, QIj je latlh ghItlhwI'mey polbe'lu'; Shift+Enter chu' tlhegh chellu'. chu'be'lu'DI', Ctrl/Cmd+Enter pollu' 'ej Enter chu' tlhegh chellu'.",
   "keep-title-tags": "chu' 'echletHom pong Daq #per 'ej @chuDpu' yIpol",
   "keep-title-tags-description": "chu' 'echletHom pong DaghItlhtaHvIS # lo'taHvIS per DawIvchugh, pagh @ lo'taHvIS chuDpu' DawIvchugh, pong Daq ghItlh lupol je. Qotlh: per pagh chuDpu' ghItlh tam.",
+  "title-bracket-label": "chu' 'echletHom pong taghDaq [per] per yIchoHmoH",
+  "title-bracket-label-description": "chu' 'echletHom pong [ghItlh] lutaghchugh 'ej latlh ghItlh tlha'chugh, 'echletHom per moj ghItlh ('echlet Daq per pong rap tu'lu'be'chugh, chenmoHlu') 'ej pong vo' teqlu'. Qotlh: pong choHlu'be'.",
   "checklist-ding-sound": "checklist Doch chav DaH ghogh chu'",
   "checklist-ding-sound-description": "checklist Doch DaqIp DaH mach ghogh wa' poH. wa'DIch ghogh Qotlh.",
   "assignee": "Qu' Hevbogh lo'wI'",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ko je vklopljeno, pritisk na Enter shrani naslov kartice, opis in druge vgrajene urejevalnike; Shift+Enter vstavi novo vrstico. Ko je izklopljeno, Ctrl/Cmd+Enter shrani, Enter pa vstavi novo vrstico.",
   "keep-title-tags": "Ohrani #oznako in @člana v naslovih novih kartic",
   "keep-title-tags-description": "Ko med vnašanjem naslova nove kartice izberete oznako z # ali člana z @, se to besedilo ohrani tudi v naslovu. Izklopljeno: besedilo se nadomesti z oznako ali članom.",
+  "title-bracket-label": "Pretvori [oznaka] na začetku naslova nove kartice v oznako",
+  "title-bracket-label-description": "Ko se naslov nove kartice začne z [Besedilo], ki mu sledi še besedilo, Besedilo postane oznaka kartice (ustvari se, če tabla nima oznake s tem imenom) in se odstrani iz naslova. Izklopljeno: naslov ostane takšen, kot je.",
   "checklist-ding-sound": "Predvajaj zvok, ko je element kontrolnega seznama dokončan",
   "checklist-ding-sound-description": "Predvaja kratek zvok, ko označite element kontrolnega seznama. Privzeto izklopljeno.",
   "assignee": "Dodeljen član",

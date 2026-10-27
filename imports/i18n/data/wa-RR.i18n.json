@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kon nakabuhat, an pagpindot han Enter nagtitipig han titulo han karta, deskripsyon ngan iba nga inline nga editor; Shift+Enter nagdudugang hin bag-o nga linya. Kon nakapatay, Ctrl/Cmd+Enter an nagtitipig ngan Enter nagdudugang hin bag-o nga linya.",
   "keep-title-tags": "Itipig an #label ngan @membro ha mga titulo han bag-o nga kard",
   "keep-title-tags-description": "Kon pumili ka hin label gamit an # o hin membro gamit an @ samtang nagsusurat han titulo han bag-o nga kard, itipig liwat ito nga teksto ha titulo. Pinaso: an teksto igbabalyo han label o han membro.",
+  "title-bracket-label": "Himoa nga label an [label] ha sinbagan han titulo han bag-o nga kard",
+  "title-bracket-label-description": "Kon an titulo han bag-o nga kard nagsisinbag ha [Teksto] nga sinusundan hin dugang nga teksto, an Teksto magigin label han kard (hihimoon kon waray label ha pisara nga may-ada hito nga ngaran) ngan kukuhaon tikang ha titulo. Patay: an titulo magpapabilin sugad hiton.",
   "checklist-ding-sound": "Magpatunog kon natatapos an usa nga butang ha lista han sususihon",
   "checklist-ding-sound-description": "Magpatunog hin halipot kon ginmamarkahan mo nga tapos an usa nga butang ha lista han sususihon. Daan nga nakaparong.",
   "assignee": "Gin-asignaran",

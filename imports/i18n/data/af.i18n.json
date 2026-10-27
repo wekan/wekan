@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Wanneer aan, stoor Enter die kaart se titel, beskrywing en ander inlynredigeerders; Shift+Enter voeg 'n nuwe reël in. Wanneer af, stoor Ctrl/Cmd+Enter en voeg Enter 'n nuwe reël in.",
   "keep-title-tags": "Behou #etiket en @lid in nuwe kaarttitels",
   "keep-title-tags-description": "Wanneer jy 'n etiket met # of 'n lid met @ kies terwyl jy 'n nuwe kaart se titel tik, behou daardie teks ook in die titel. Af: die teks word deur die etiket of lid vervang.",
+  "title-bracket-label": "Maak [etiket] aan die begin van 'n nuwe kaarttitel 'n etiket",
+  "title-bracket-label-description": "Wanneer 'n nuwe kaart se titel begin met [Teks] gevolg deur meer teks, word Teks 'n etiket van die kaart (geskep as die raad nog geen etiket met daardie naam het nie) en uit die titel verwyder. Af: die titel bly soos dit is.",
   "checklist-ding-sound": "Speel 'n klank wanneer 'n kontrolelys-item voltooi word",
   "checklist-ding-sound-description": "Speel 'n kort klokkie wanneer jy 'n kontrolelysitem afmerk. Standaard af.",
   "assignee": "Gevolmagtigde",

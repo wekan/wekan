@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Idan yana kunne, danna Enter yana adana sunan kati, bayani da sauran masu gyara na cikin layi; Shift+Enter yana saka sabon layi. Idan yana kashe, Ctrl/Cmd+Enter yana adanawa kuma Enter yana saka sabon layi.",
   "keep-title-tags": "Ajiye #alama da @mamba a cikin taken sababbin katuna",
   "keep-title-tags-description": "Idan ka zaɓi alama da # ko mamba da @ yayin da kake rubuta taken sabon kati, a ajiye wannan rubutun a cikin take ma. A kashe: alamar ko mamban za su maye gurbin rubutun.",
+  "title-bracket-label": "Mayar da [alama] a farkon taken sabon kati zuwa alama",
+  "title-bracket-label-description": "Idan taken sabon kati ya fara da [Rubutu] sannan wani rubutu ya biyo baya, Rubutu zai zama alamar katin (za a ƙirƙira shi idan allon ba shi da alama mai wannan suna) kuma za a cire shi daga take. A kashe: take zai kasance yadda yake.",
   "checklist-ding-sound": "Kunna sauti idan an kammala abu a jerin duba",
   "checklist-ding-sound-description": "Yana kunna gajeren sauti idan ka duba abu a jerin duba. An kashe shi tun da farko.",
   "assignee": "Wanda aka ba wa",

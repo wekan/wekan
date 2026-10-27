@@ -128,8 +128,10 @@ check('listBody.js addCard uses parseQuickAddCardLabel for the quick-add title',
     path.join(__dirname, '..', 'client', 'components', 'lists', 'listBody.js'),
     'utf8',
   );
-  assert.ok(/parseQuickAddCardLabel\(rawTitle\)/.test(src),
-    'addCard must parse the raw quick-add title through parseQuickAddCardLabel');
+  // #6810: through quickAddTitleParts, which parses only when the user turned
+  // the bracket label on in Member Settings (tests/titleBracketLabel6810.test.cjs).
+  assert.ok(/quickAddTitleParts\(rawTitle, titleBracketLabelOn\(\)\)/.test(src),
+    'addCard must parse the raw quick-add title through quickAddTitleParts');
   assert.ok(/findExistingLabelIdByName\(board\.labels, quickAddLabelName\)/.test(src),
     'addCard must resolve the bracket label name against the board\'s existing labels');
 });

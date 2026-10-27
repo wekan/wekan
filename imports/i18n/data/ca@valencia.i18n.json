@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Quan està activat, prémer Enter guarda el títol de la targeta, la descripció i altres editors en línia; Shift+Enter inserix una línia nova. Quan està desactivat, Ctrl/Cmd+Enter guarda i Enter inserix una línia nova.",
   "keep-title-tags": "Conserva #etiqueta i @membre en els títols de les fitxes noves",
   "keep-title-tags-description": "Quan trieu una etiqueta amb # o un membre amb @ mentres escriviu el títol d'una fitxa nova, conserva també eixe text en el títol. Desactivat: el text es substituïx per l'etiqueta o el membre.",
+  "title-bracket-label": "Convertix [etiqueta] a l'inici del títol d'una fitxa nova en una etiqueta",
+  "title-bracket-label-description": "Quan el títol d'una fitxa nova comença amb [Text] seguit de més text, Text es convertix en una etiqueta de la fitxa (es crea si el tauler no en té cap amb eixe nom) i s'elimina del títol. Desactivat: el títol es conserva tal com és.",
   "checklist-ding-sound": "Reprodueix un so quan es completa un element de la llista de verificació",
   "checklist-ding-sound-description": "Reprodueix un so breu quan marqueu un element de la llista de verificació. Desactivat per defecte.",
   "assignee": "Assignat",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Atulersimappat Enter-ip toorneratigut kortsip qulequtaa, nassuiaataa allanngortitsissutillu allat titarnerup iluaniittut toqqorneqassapput; Shift+Enter titarneq nutaaq ilanngutissavaa. Atorunnaarsimappat Ctrl/Cmd+Enter toqqorsissaaq Enter-ilu titarneq nutaaq ilanngutissallugu.",
   "keep-title-tags": "Kortsit nutaat qulequtaanni #nalunaaqutsersuut aamma @ilaasortaq tigummiuk",
   "keep-title-tags-description": "Kortsip nutaap qulequtaa allakkaangakku # atorlugu nalunaaqutsersuummik imaluunniit @ atorlugu ilaasortamik toqqaagaangavit, allagaq taanna qulequtami aamma tigummiuk. Matuneqarpat: allagaq nalunaaqutsersuummik imaluunniit ilaasortamik taarserneqassaaq.",
+  "title-bracket-label": "Kortsip nutaap qulequtaata aallartinnerani [nalunaaqutsersuut] nalunaaqutsersuutinngortiguk",
+  "title-bracket-label-description": "Kortsip nutaap qulequtaa [Allagaq] aallarteqqaarpat allagaqqaarlu malippat, Allagaq kortsimut nalunaaqutsersuutinngorpoq (pilersinneqassaaq ilisarnaammi taamatut ateqartumik nalunaaqutsersuuteqanngippat) qulequtamiillu peerneqarluni. Matuneqarpat: qulequtaq allanngortinneqanngilaq.",
   "checklist-ding-sound": "Nipilerit atortikkit checklist-imi allaaserisap naammassinerani",
   "checklist-ding-sound-description": "Nipi naatsooq atortikkit checklist-imi allaaserineq ilanngussakkut. Aallartitaanera atugassaanngilaq.",
   "assignee": "Akisussaasoq",

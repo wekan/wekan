@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "ʻI he taimi ʻoku fakaʻatā ai, ko hono lomiʻi ʻa e Enter ʻoku tauhi ai ʻa e kaveinga, fakamatala mo e ngaahi feituʻu fakatonutonu kehe ʻo e kaati; ʻoku tānaki ʻe he Shift+Enter ha laine foʻou. ʻI he taimi ʻoku taʻofi ai, ʻoku tauhi ʻe he Ctrl/Cmd+Enter pea tānaki ʻe he Enter ha laine foʻou.",
   "keep-title-tags": "Tauhi ʻa e #fakaʻilonga mo e @mēmipa ʻi he ngaahi kaveinga ʻo e kaati foʻou",
   "keep-title-tags-description": "ʻI hoʻo fili ha fakaʻilonga ʻaki ʻa e # pe ha mēmipa ʻaki ʻa e @ lolotonga hoʻo tohi ʻa e kaveinga ʻo ha kaati foʻou, tauhi ʻa e konga tohi ko iá ʻi he kaveinga foki. Tāmateʻi: ʻoku fetongi ʻa e konga tohi ʻaki ʻa e fakaʻilonga pe mēmipa.",
+  "title-bracket-label": "Liliu ʻa e [fakaʻilonga] ʻi he kamataʻanga ʻo e kaveinga ʻo ha kaati foʻou ko ha fakaʻilonga",
+  "title-bracket-label-description": "ʻI he taimi ʻoku kamata ai ʻa e kaveinga ʻo ha kaati foʻou ʻaki ʻa e [Konga tohi] pea muimui ai ha konga tohi kehe, ʻoku hoko ʻa e Konga tohi ko ha fakaʻilonga ʻo e kaati (ʻoku faʻu ia kapau ʻoku ʻikai ha fakaʻilonga ʻi he papa ʻoku pehē hono hingoa) pea toʻo ia mei he kaveinga. Tāmateʻi: ʻoku tauhi ʻa e kaveinga ʻo hangē ko ia ʻoku ʻi ai.",
   "checklist-ding-sound": "Fakatangi ha leʻo ʻi he taimi ʻoku fakaʻosi ai ha fāsili checklist",
   "checklist-ding-sound-description": "ʻOku fakatangi ha leʻo nounou ʻi hoʻo fakaʻilongaʻi ha fāsili checklist. Kuo tāmateʻi ʻi he founga makehe.",
   "assignee": "Kuo tuku ki ai",

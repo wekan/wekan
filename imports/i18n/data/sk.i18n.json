@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Keď je zapnuté, stlačenie Enter uloží názov karty, popis a ďalšie vložené editory; Shift+Enter vloží nový riadok. Keď je vypnuté, Ctrl/Cmd+Enter uloží a Enter vloží nový riadok.",
   "keep-title-tags": "Zachovať #štítok a @člena v názvoch nových kariet",
   "keep-title-tags-description": "Keď pri písaní názvu novej karty vyberiete štítok pomocou # alebo člena pomocou @, tento text zostane aj v názve. Vypnuté: text sa nahradí štítkom alebo členom.",
+  "title-bracket-label": "Premeniť [štítok] na začiatku názvu novej karty na štítok",
+  "title-bracket-label-description": "Keď názov novej karty začína textom [Text], po ktorom nasleduje ďalší text, Text sa stane štítkom karty (vytvorí sa, ak nástenka nemá štítok s týmto názvom) a odstráni sa z názvu. Vypnuté: názov zostane taký, aký je.",
   "checklist-ding-sound": "Prehrať zvuk po dokončení položky kontrolného zoznamu",
   "checklist-ding-sound-description": "Prehrá krátky zvuk pri začiarknutí položky kontrolného zoznamu. V predvolenom nastavení vypnuté.",
   "assignee": "Riešiteľ",

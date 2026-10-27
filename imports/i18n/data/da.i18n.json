@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Når slået til gemmer et tryk på Enter kortets titel, beskrivelse og andre indbyggede editorer; Shift+Enter indsætter en ny linje. Når slået fra gemmer Ctrl/Cmd+Enter, og Enter indsætter en ny linje.",
   "keep-title-tags": "Behold #etiket og @medlem i titler på nye kort",
   "keep-title-tags-description": "Når du vælger en etiket med # eller et medlem med @, mens du skriver et nyt korts titel, beholdes teksten også i titlen. Fra: teksten erstattes af etiketten eller medlemmet.",
+  "title-bracket-label": "Gør [etiket] i starten af en ny korttitel til en etiket",
+  "title-bracket-label-description": "Når et nyt korts titel starter med [Tekst] efterfulgt af mere tekst, bliver Tekst en etiket på kortet (oprettes, hvis tavlen ikke har en med det navn) og fjernes fra titlen. Fra: titlen bevares, som den er.",
   "checklist-ding-sound": "Afspil en lyd, når et tjekliste-element markeres som udført",
   "checklist-ding-sound-description": "Afspil en kort klokkelyd, når du markerer et tjeklisteelement. Slået fra som standard.",
   "assignee": "Tildelt til",

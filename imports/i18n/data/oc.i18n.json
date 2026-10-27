@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Quand es activat, quichar Enter enregistra lo títol de la carta, la descripcion e los autres editors en linha; Shift+Enter inserís una linha novèla. Quand es desactivat, Ctrl/Cmd+Enter enregistra e Enter inserís una linha novèla.",
   "keep-title-tags": "Gardar #etiqueta e @membre dins los títols de las cartas novèlas",
   "keep-title-tags-description": "Quand causissètz una etiqueta amb # o un membre amb @ en escriure lo títol d'una carta novèla, aqueste tèxte es tanben gardat dins lo títol. Desactivat : lo tèxte es remplaçat per l'etiqueta o lo membre.",
+  "title-bracket-label": "Convertir [etiqueta] al començament del títol d'una carta novèla en etiqueta",
+  "title-bracket-label-description": "Quand lo títol d'una carta novèla comença per [Tèxte] seguit d'autre tèxte, Tèxte ven una etiqueta de la carta (creada se lo tablèu ne'n a pas cap amb aqueste nom) e es levat del títol. Desactivat : lo títol es gardat tal coma es.",
   "checklist-ding-sound": "Jogar un son quand un element de la lista de verificacion es acabat",
   "checklist-ding-sound-description": "Jòga un son cort quand marcatz un element de la lista de verificacion. Desactivat per defaut.",
   "assignee": "Responsable",

@@ -67,7 +67,18 @@ function pickDefaultLabelColor(labels, colors) {
   return available.length > 0 ? available[0] : palette[0];
 }
 
+// #6810: the title and the label a new card gets from what was typed. The
+// "[Text] " prefix becomes a label only for a user who turned it on in Member
+// Settings (profile.titleBracketLabel, off by default): otherwise a title
+// pasted from a ticket system or a mail ("[EXTERNAL] ...") is kept exactly as
+// it is, and no label is created.
+function quickAddTitleParts(rawTitle, bracketLabelOn) {
+  if (bracketLabelOn) return parseQuickAddCardLabel(rawTitle);
+  return { title: rawTitle == null ? '' : String(rawTitle), labelName: null };
+}
+
 export {
+  quickAddTitleParts,
   parseQuickAddCardLabel,
   findExistingLabelIdByName,
   pickDefaultLabelColor,

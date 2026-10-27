@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Cuando está activado, presionar Enter guarda el título de la tarcheta, la descripción y otros editores en línea; Shift+Enter inserta una nueva línea. Cuando está desactivado, Ctrl/Cmd+Enter guarda y Enter inserta una nueva línea.",
   "keep-title-tags": "Mantener #etiqueta y @miembro en os titols de tarchetas nuevas",
   "keep-title-tags-description": "Quan trigas una etiqueta con # u un miembro con @ mientres escribes o titol d'una tarcheta nueva, mantiene ixe texto tamién en o titol. Desactivau: o texto se substituye por l'etiqueta u o miembro.",
+  "title-bracket-label": "Convertir [etiqueta] a l'inicio d'o titol d'una tarcheta nueva en una etiqueta",
+  "title-bracket-label-description": "Quan o titol d'una tarcheta nueva empecipia con [Texto] seguiu de mas texto, Texto se convierte en una etiqueta d'a tarcheta (se crea si o tablero no en tiene garra con ixe nombre) y se quita d'o titol. Desactivau: o titol se mantiene tal como ye.",
   "checklist-ding-sound": "Sonar quan se completa un elemento d'a lista de verificación",
   "checklist-ding-sound-description": "Sonar un tono curto quan marcas un elemento d'a lista de verificación. Desactivau por defecto.",
   "assignee": "Asignau",

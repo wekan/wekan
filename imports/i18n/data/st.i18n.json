@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ha ho buletswe, ho tobetsa Enter ho boloka sehlooho sa karete, tlhaloso le bahlophisi ba bang ba moleng; Shift+Enter e kenya mola o motjha. Ha ho kwetswe, Ctrl/Cmd+Enter e boloka mme Enter e kenya mola o motjha.",
   "keep-title-tags": "Boloka #leibole le @setho dihloohong tsa dikarete tse ntjha",
   "keep-title-tags-description": "Ha o kgetha leibole ka # kapa setho ka @ ha o ntse o ngola sehlooho sa karete e ntjha, mongolo oo o bolokwa le sehloohong. E timilwe: mongolo o nkelwa sebaka ke leibole kapa setho.",
+  "title-bracket-label": "Fetola [leibole] qalong ya sehlooho sa karete e ntjha hore e be leibole",
+  "title-bracket-label-description": "Ha sehlooho sa karete e ntjha se qala ka [Mongolo] mme sa latelwa ke mongolo o mong, Mongolo o fetoha leibole ya karete (e a etswa haeba boto e se na leibole ya lebitso leo) mme o tloswa sehloohong. E timilwe: sehlooho se dula se le kamoo se leng kateng.",
   "checklist-ding-sound": "Bapala molumo ha ntho ea lenane la tlhahlobo e felile",
   "checklist-ding-sound-description": "E bapala molumo o mokhutšoane ha o tšoaea ntho ea lenane la tlhahlobo. E timile ka tlhaho.",
   "assignee": "Ea abetsoeng",

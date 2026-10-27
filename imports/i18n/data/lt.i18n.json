@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kai įjungta, paspaudus Enter išsaugomas kortelės pavadinimas, aprašymas ir kiti įterptiniai redaktoriai; Shift+Enter įterpia naują eilutę. Kai išjungta, Ctrl/Cmd+Enter išsaugo, o Enter įterpia naują eilutę.",
   "keep-title-tags": "Palikti #etiketę ir @narį naujų kortelių pavadinimuose",
   "keep-title-tags-description": "Kai rašydami naujos kortelės pavadinimą pasirenkate etiketę su # arba narį su @, tas tekstas paliekamas ir pavadinime. Išjungta: tekstas pakeičiamas etikete arba nariu.",
+  "title-bracket-label": "Paversti [etiketė] naujos kortelės pavadinimo pradžioje etikete",
+  "title-bracket-label-description": "Kai naujos kortelės pavadinimas prasideda [Tekstas], po kurio eina daugiau teksto, Tekstas tampa kortelės etikete (sukuriama, jei lentoje nėra tokio pavadinimo etiketės) ir pašalinamas iš pavadinimo. Išjungta: pavadinimas paliekamas toks, koks yra.",
   "checklist-ding-sound": "Groti garsą, kai patikros sąrašo elementas užbaigiamas",
   "checklist-ding-sound-description": "Groja trumpą garsą, kai pažymite patikros sąrašo elementą. Pagal numatytuosius nustatymus išjungta.",
   "assignee": "Perėmėjas",

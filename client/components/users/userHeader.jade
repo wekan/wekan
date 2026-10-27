@@ -431,6 +431,13 @@ template(name="changeSettingsPopup")
         | {{_ 'keep-title-tags'}}
         if isKeepTitleTags
           i.fa.fa-check
+    //- #6810: a leading "[Text] " of a new card's title becomes a label (#3986).
+    li
+      a.js-toggle-title-bracket-label(title="{{_ 'title-bracket-label-description'}}")
+        i.fa.fa-tag
+        | {{_ 'title-bracket-label'}}
+        if isTitleBracketLabel
+          i.fa.fa-check
     li
       a.js-toggle-submit-on-enter(title="{{_ 'submit-on-enter-description'}}")
         i.fa.fa-level-down

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "wahena ma, palekakinaka enakela kaleka ka kāleka inoa, wehewehe a ʻē aʻe inaline ekikolaka; kipaka+enakela inakelakaka he hou line. wahena pio, kakalala/kamaka+enakela kaleka a enakela inakelakaka he hou line.",
   "keep-title-tags": "Mālama i ka #lepili a me ka @lālā ma nā poʻo inoa o nā kāleka hou",
   "keep-title-tags-description": "Ke koho ʻoe i kekahi lepili me # a i ʻole kekahi lālā me @ i ka wā e kikokiko ai i ke poʻo inoa o kekahi kāleka hou, mālama pū ʻia ia kikokikona ma ke poʻo inoa. Pio: ua pani ʻia ke kikokikona e ka lepili a i ʻole ka lālā.",
+  "title-bracket-label": "E hoʻolilo i ka [lepili] ma ka hoʻomaka o ke poʻo inoa o ke kāleka hou i lepili",
+  "title-bracket-label-description": "Ke hoʻomaka ke poʻo inoa o kekahi kāleka hou me [Kikokikona] a ma hope he kikokikona hou aʻe, lilo ʻo Kikokikona i lepili o ke kāleka (hana ʻia inā ʻaʻohe lepili o ia inoa ma ka papa) a wehe ʻia mai ke poʻo inoa. Pio: mālama ʻia ke poʻo inoa e like me ia.",
   "checklist-ding-sound": "Pāʻani i kahi kani ke pau kekahi mea papa nānā",
   "checklist-ding-sound-description": "Pāʻani i kahi kani pōkole i ka manawa i kaha ai i kekahi mea papa nānā. Pio ma ke ʻano paʻa.",
   "assignee": "Mea i hāʻawi ʻia",

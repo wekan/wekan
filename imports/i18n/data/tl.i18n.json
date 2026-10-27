@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kapag sa, pressing Ilagay saves the kard pamagat, paglalarawan at iba inline editors; Shift+Ilagay inserts a bago line. Kapag naka-off, Ctrl/Cmd+Ilagay saves at Ilagay inserts a bago line.",
   "keep-title-tags": "Panatilihin ang #etiketa at @miyembro sa mga pamagat ng bagong kard",
   "keep-title-tags-description": "Kapag pumili ka ng etiketa gamit ang # o ng miyembro gamit ang @ habang tinatype ang pamagat ng bagong kard, mananatili rin ang tekstong iyon sa pamagat. Naka-off: papalitan ang teksto ng etiketa o ng miyembro.",
+  "title-bracket-label": "Gawing etiketa ang [etiketa] sa simula ng pamagat ng bagong kard",
+  "title-bracket-label-description": "Kapag nagsisimula ang pamagat ng bagong kard sa [Teksto] na sinusundan pa ng ibang teksto, nagiging etiketa ng kard ang Teksto (ginagawa kung walang etiketa sa pisara na may ganoong pangalan) at inaalis sa pamagat. Naka-off: pinananatili ang pamagat gaya ng dati.",
   "checklist-ding-sound": "Magpatugtog ng tunog kapag nakumpleto ang isang checklist item",
   "checklist-ding-sound-description": "Nagpapatugtog ng maikling tunog kapag nilagyan mo ng tsek ang isang checklist item. Naka-off bilang default.",
   "assignee": "Nakatalaga",

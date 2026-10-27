@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "När det är på sparar Enter kortets titel, beskrivning och andra inbäddade redigerare; Shift+Enter infogar en ny rad. När det är av sparar Ctrl/Cmd+Enter och Enter infogar en ny rad.",
   "keep-title-tags": "Behåll #etikett och @medlem i titlar på nya kort",
   "keep-title-tags-description": "När du väljer en etikett med # eller en medlem med @ medan du skriver titeln på ett nytt kort, behålls den texten även i titeln. Av: texten ersätts av etiketten eller medlemmen.",
+  "title-bracket-label": "Gör [etikett] i början av en ny korttitel till en etikett",
+  "title-bracket-label-description": "När ett nytt korts titel börjar med [Text] följt av mer text blir Text en etikett på kortet (skapas om tavlan inte har någon med det namnet) och tas bort från titeln. Av: titeln behålls som den är.",
   "checklist-ding-sound": "Spela upp ett ljud när en checklisteobjekt slutförs",
   "checklist-ding-sound-description": "Spelar upp ett kort pling-ljud när du bockar av ett checklisteobjekt. Avstängt som standard.",
   "assignee": "Tilldelad till",

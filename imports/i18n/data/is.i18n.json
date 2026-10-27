@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Þegar virkt vistar Enter heiti spjalds, lýsingu og aðra innbyggða ritla; Shift+Enter setur inn nýja línu. Þegar óvirkt vistar Ctrl/Cmd+Enter og Enter setur inn nýja línu.",
   "keep-title-tags": "Halda #merki og @meðlim í titlum nýrra spjalda",
   "keep-title-tags-description": "Þegar þú velur merki með # eða meðlim með @ meðan þú skrifar titil nýs spjalds helst sá texti einnig í titlinum. Af: textanum er skipt út fyrir merkið eða meðliminn.",
+  "title-bracket-label": "Breyta [merki] í upphafi titils nýs spjalds í merki",
+  "title-bracket-label-description": "Þegar titill nýs spjalds byrjar á [Texti] og meiri texti fylgir, verður Texti að merki spjaldsins (búið til ef taflan hefur ekkert merki með því nafni) og er fjarlægt úr titlinum. Af: titillinn helst óbreyttur.",
   "checklist-ding-sound": "Spila hljóð þegar verkefni í gátlista er lokið",
   "checklist-ding-sound-description": "Spilar stutt hljóð þegar þú hakar við atriði í gátlista. Slökkt sjálfgefið.",
   "assignee": "Ábyrgðaraðili",

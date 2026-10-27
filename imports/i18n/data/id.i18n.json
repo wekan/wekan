@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Saat aktif, menekan Enter menyimpan judul kartu, deskripsi, dan editor sebaris lainnya; Shift+Enter menyisipkan baris baru. Saat nonaktif, Ctrl/Cmd+Enter menyimpan dan Enter menyisipkan baris baru.",
   "keep-title-tags": "Pertahankan #label dan @anggota di judul kartu baru",
   "keep-title-tags-description": "Saat Anda memilih label dengan # atau anggota dengan @ ketika mengetik judul kartu baru, teks tersebut juga dipertahankan di judul. Nonaktif: teks diganti dengan label atau anggota.",
+  "title-bracket-label": "Ubah [label] di awal judul kartu baru menjadi label",
+  "title-bracket-label-description": "Saat judul kartu baru diawali dengan [Teks] lalu diikuti teks lain, Teks menjadi label kartu (dibuat jika papan belum memiliki label dengan nama itu) dan dihapus dari judul. Nonaktif: judul dibiarkan apa adanya.",
   "checklist-ding-sound": "Putar suara saat item daftar periksa selesai",
   "checklist-ding-sound-description": "Memutar suara ding singkat saat Anda mencentang item daftar periksa. Nonaktif secara default.",
   "assignee": "Penerima tugas",

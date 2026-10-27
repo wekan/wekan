@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Yen urip, mencet Enter nyimpen judhul kertu, katrangan lan editor sajejer liyane; Shift+Enter nglebokake larik anyar. Yen mati, Ctrl/Cmd+Enter nyimpen lan Enter nglebokake larik anyar.",
   "keep-title-tags": "Tetep simpen #label lan @anggota ing irah-irahan kertu anyar",
   "keep-title-tags-description": "Nalika sampeyan milih label nganggo # utawa anggota nganggo @ nalika ngetik irah-irahan kertu anyar, teks kasebut uga tetep ana ing irah-irahan. Mati: teks diganti karo label utawa anggota.",
+  "title-bracket-label": "Owahi [label] ing wiwitan irah-irahan kertu anyar dadi label",
+  "title-bracket-label-description": "Yen irah-irahan kertu anyar diwiwiti karo [Teks] lan banjur ana teks liyane, Teks dadi label kertu (digawe yen papan durung duwe label kanthi jeneng kuwi) lan dibusak saka irah-irahan. Mati: irah-irahan tetep kaya asline.",
   "checklist-ding-sound": "Muter swara nalika item checklist rampung",
   "checklist-ding-sound-description": "Muter swara cekak nalika sampeyan nyentang item checklist. Standhare mati.",
   "assignee": "Sing ditugasi",

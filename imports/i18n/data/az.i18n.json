@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Aktiv olduqda Enter kartın başlığını, təsvirini və digər sətiriçi redaktorları saxlayır; Shift+Enter yeni sətir əlavə edir. Deaktiv olduqda Ctrl/Cmd+Enter saxlayır, Enter isə yeni sətir əlavə edir.",
   "keep-title-tags": "Yeni kart başlıqlarında #etiket və @üzv saxlanılsın",
   "keep-title-tags-description": "Yeni kartın başlığını yazarkən # ilə etiket və ya @ ilə üzv seçdikdə, həmin mətn başlıqda da saxlanılır. Söndürülüb: mətn etiket və ya üzv ilə əvəz olunur.",
+  "title-bracket-label": "Yeni kart başlığının əvvəlindəki [etiket] mətnini etiketə çevir",
+  "title-bracket-label-description": "Yeni kartın başlığı [Mətn] ilə başlayıb ardınca başqa mətn gəldikdə, Mətn kartın etiketi olur (lövhədə bu adda etiket yoxdursa, yaradılır) və başlıqdan silinir. Söndürülüb: başlıq olduğu kimi saxlanılır.",
   "checklist-ding-sound": "Yoxlama siyahısı elementi tamamlandıqda səs çal",
   "checklist-ding-sound-description": "Yoxlama siyahısı elementini işarələyəndə qısa siqnal səsi çal. Standart olaraq söndürülüb.",
   "assignee": "Təyin edilmiş şəxs",

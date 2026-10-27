@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Konz om avoitud, Enter-nübastmine panokseb kartan pälkirjutesen, kuvamišen i toižed sirased redaktorad; Shift+Enter ližadab uden rivin. Konz om saubatud, Ctrl/Cmd+Enter panokseb, a Enter ližadab uden rivin.",
   "keep-title-tags": "Jätta #znam da @ühtnik uziden kartoiden nimihe",
   "keep-title-tags-description": "Konz sinä valičed znamad #-nübastmel vai ühtnikan @-nübastmel uden kartan nimen kirjutamižen aigan, necen tekst jääb mugažo nimehe. Saubatud: tekst vajehtase znamal vai ühtnikal.",
+  "title-bracket-label": "Muttä [znam] uden kartan nimen augotižes znamaks",
+  "title-bracket-label-description": "Konz uden kartan nimi augotase [Tekst]-sanaspäi i sen jäl'ghe om enamba tekstad, Tekst lugeb kartan znamaks (se sädas, ku laudal ei ole znamad mugoman nimenke) i se heittas nimespäi. Sambutadud: nimi jäb ičeze.",
   "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
   "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "Märitud kävutai",

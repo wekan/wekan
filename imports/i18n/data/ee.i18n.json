@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ne ele dɔ wɔm la, Enter dzi zizi dzraa kaɖi ƒe ŋkɔ, numeɖeɖe kple nuŋlɔla bubu siwo le fli dzi ɖo; Shift+Enter tsɔa fli yeye kpe ɖe eŋu. Ne mele dɔ wɔm o la, Ctrl/Cmd+Enter dzraa ɖo eye Enter tsɔa fli yeye kpe ɖe eŋu.",
   "keep-title-tags": "Na #dzesi kple @hametɔ nanɔ agbalẽvi yeyewo ƒe tanyawo me",
   "keep-title-tags-description": "Ne èɖe dzesi aɖe kple # alo hametɔ aɖe kple @ esime nèle agbalẽvi yeye ƒe tanya ŋlɔm la, na nuŋlɔŋlɔ ma hã nanɔ tanya la me. Esi: dzesi alo hametɔ la xɔa nuŋlɔŋlɔ la teƒe.",
+  "title-bracket-label": "Trɔ [dzesi] si le agbalẽvi yeye ƒe tanya ƒe gɔmedzedze la wòazu dzesi",
+  "title-bracket-label-description": "Ne agbalẽvi yeye ƒe tanya dze egɔme kple [Nuŋlɔŋlɔ] eye nuŋlɔŋlɔ bubu kplɔe ɖo la, Nuŋlɔŋlɔ zua agbalẽvi la ƒe dzesi (wowɔnɛ ne dzesi si ƒe ŋkɔe nye ema mele ŋɔŋlɔkpe la dzi o) eye woɖenɛ ɖa le tanya la me. Esi: tanya la nɔa abe alesi wòle ene.",
   "checklist-ding-sound": "Ƒo gbeɖiɖi ne checklist ƒe nu aɖe wu enu",
   "checklist-ding-sound-description": "Ƒo gbeɖiɖi kpui ne ède dzesi checklist ƒe nu aɖe ŋu. Wonye tsotso le gɔmedzedze.",
   "assignee": "Ame si wotsɔ dɔ na",

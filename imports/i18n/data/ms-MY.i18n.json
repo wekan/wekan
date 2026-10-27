@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Apabila dihidupkan, menekan Enter menyimpan tajuk kad, penerangan dan editor sebaris lain; Shift+Enter memasukkan baris baharu. Apabila dimatikan, Ctrl/Cmd+Enter menyimpan dan Enter memasukkan baris baharu.",
   "keep-title-tags": "Kekalkan #label dan @ahli dalam tajuk kad baharu",
   "keep-title-tags-description": "Apabila anda memilih label dengan # atau ahli dengan @ semasa menaip tajuk kad baharu, kekalkan teks itu dalam tajuk juga. Mati: teks digantikan dengan label atau ahli.",
+  "title-bracket-label": "Tukar [label] di awal tajuk kad baharu menjadi label",
+  "title-bracket-label-description": "Apabila tajuk kad baharu bermula dengan [Teks] diikuti teks lain, Teks menjadi label kad tersebut (dicipta jika papan tiada label dengan nama itu) dan dibuang daripada tajuk. Mati: tajuk dikekalkan seperti asal.",
   "checklist-ding-sound": "Mainkan bunyi apabila item senarai semak selesai",
   "checklist-ding-sound-description": "Memainkan bunyi ding pendek apabila anda menanda item senarai semak. Dimatikan secara lalai.",
   "assignee": "Penerima Tugas",

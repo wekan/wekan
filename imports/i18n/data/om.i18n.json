@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Yeroo banamu, Enter dhiibuun mata-duree kaardii, ibsa fi gulaaltoota sararaa biroo kuusa; Shift+Enter sarara haaraa galcha. Yeroo dhaamu, Ctrl/Cmd+Enter kuusa; Enter sarara haaraa galcha.",
   "keep-title-tags": "#mallattoo fi @miseensa mata-duree kaardii haaraa keessatti eegi",
   "keep-title-tags-description": "Yeroo mata-duree kaardii haaraa barreessitu mallattoo # n ykn miseensa @ n filattu, barruun sun mata-duree keessattis ni hafa. Dhaamsame: barruun mallattoo ykn miseensaan bakka buufama.",
+  "title-bracket-label": "[mallattoo] jalqaba mata-duree kaardii haaraa irra jiru gara mallattootti jijjiiri",
+  "title-bracket-label-description": "Yeroo mata-dureen kaardii haaraa [Barruu] tiin jalqabee barruun biraa itti aanu, Barruun mallattoo kaardichaa ta'a (gabateen mallattoo maqaa sanaa yoo hin qabaanne ni uumama) mata-duree keessaas ni haqama. Dhaamsame: mata-dureen akkuma jirutti hafa.",
   "checklist-ding-sound": "Sagalee taphachiisi yeroo tarreeffamni ilaalchaa xumurame",
   "checklist-ding-sound-description": "Sagalee gabaabaa taphachiisa yeroo tarreeffama ilaalchaa mallatteessitu. Kan dhaabbii duraan dhaamsame.",
   "assignee": "Kan itti kenname",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Xa ivuliwe, ukucofa u-Enter kugcina isihloko sekhadi, inkcazo kunye nabanye abahleli abangaphakathi; Shift+Enter ifaka umgca omtsha. Xa icimile, Ctrl/Cmd+Enter iyagcina kwaye u-Enter ufaka umgca omtsha.",
   "keep-title-tags": "Gcina #ileyibhile kunye no-@lilungu kwizihloko zamakhadi amatsha",
   "keep-title-tags-description": "Xa ukhetha ileyibhile nge-# okanye ilungu nge-@ ngelixa uchwetheza isihloko sekhadi elitsha, gcina nolo mbhalo kwisihloko. Kuvaliwe: umbhalo uthatyathelwa indawo yileyibhile okanye lilungu.",
+  "title-bracket-label": "Guqula [ileyibhile] ekuqaleni kwesihloko sekhadi elitsha ibe yileyibhile",
+  "title-bracket-label-description": "Xa isihloko sekhadi elitsha siqala ngo-[Umbhalo] kulandele omnye umbhalo, uMbhalo uba yileyibhile yekhadi (iyenziwa ukuba ibhodi ayinayo ileyibhile enelo gama) kwaye ususwa kwisihloko. Kuvaliwe: isihloko sihlala sinjalo.",
   "checklist-ding-sound": "Dlala isandi xa into ye-checklist igqityiwe",
   "checklist-ding-sound-description": "Idlala isandi esifutshane xa uphawula into ye-checklist. Ivaliwe ngokungagqibekanga.",
   "assignee": "Owabelweyo",

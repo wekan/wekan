@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Mgbe ọ gbanyere, ịpị Enter na-echekwa isiokwu kaadị, nkọwa na ndị nchịkọta ozugbo ndị ọzọ; Shift+Enter na-etinye ahịrị ọhụrụ. Mgbe ọ gbanyụrụ, Ctrl/Cmd+Enter na-echekwa, Enter na-etinye ahịrị ọhụrụ.",
   "keep-title-tags": "Debe #aha na @onye otu n'aha kaadị ọhụrụ",
   "keep-title-tags-description": "Mgbe ị họọrọ aha site na # ma ọ bụ onye otu site na @ ka ị na-ede aha kaadị ọhụrụ, debekwa ederede ahụ n'aha ahụ. Agbanyụrụ: a na-eji aha ahụ ma ọ bụ onye otu ahụ dochie ederede ahụ.",
+  "title-bracket-label": "Gbanwee [aha] na mmalite aha kaadị ọhụrụ ka ọ bụrụ aha",
+  "title-bracket-label-description": "Mgbe aha kaadị ọhụrụ malitere na [Ederede] ma ederede ọzọ sochiri ya, Ederede na-aghọ aha kaadị ahụ (a na-emepụta ya ma ọ bụrụ na bọọdụ enweghị nke nwere aha ahụ) ma wepụ ya n'aha. Agbanyụrụ: a na-ahapụ aha ahụ otú ọ dị.",
   "checklist-ding-sound": "Kpọọ ụda mgbe ihe checklist mezuru",
   "checklist-ding-sound-description": "Na-akpọ obere ụda mgbe ị lelere ihe checklist. Ọ dị mgbanwụ site na ndabara.",
   "assignee": "Onye ọrụ",

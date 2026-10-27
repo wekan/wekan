@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Işjeňleşdirilende, Enter basmak kartanyň adyny, düşündirişini we beýleki içki redaktorlary saklaýar; Shift+Enter täze setir goşýar. Öçürilende, Ctrl/Cmd+Enter saklaýar we Enter täze setir goşýar.",
   "keep-title-tags": "Täze kartlaryň atlarynda #bellik we @agza saklansyn",
   "keep-title-tags-description": "Täze kartyň adyny ýazýarkaňyz # bilen bellik ýa-da @ bilen agza saýlasaňyz, şol tekst adda hem saklanýar. Öçük: tekst bellik ýa-da agza bilen çalşyrylýar.",
+  "title-bracket-label": "Täze kartyň adynyň başyndaky [bellik] sözüni bellige öwür",
+  "title-bracket-label-description": "Täze kartyň ady [Tekst] bilen başlanyp, yzyndan başga tekst gelse, Tekst kartyň belligi bolýar (tagtada şu atly bellik ýok bolsa, döredilýär) we atdan aýrylýar. Öçük: ady bolşy ýaly galýar.",
   "checklist-ding-sound": "Barlaýyş sanawynyň maddasy tamamlananda ses çal",
   "checklist-ding-sound-description": "Barlaýyş sanawynyň maddasyny bellände gysga ses çalýar. Deslapky ýagdaýda öçürilen.",
   "assignee": "Bellenen",

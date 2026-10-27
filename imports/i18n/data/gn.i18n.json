@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Oñemyendy jave, Enter jopy oñongatu kuatia'i réra, ñemombe'u ha ambue mohendaha hyepypegua; Shift+Enter omoinge tairenda pyahu. Oñembogue jave, Ctrl/Cmd+Enter oñongatu ha Enter omoinge tairenda pyahu.",
   "keep-title-tags": "Eñongatu #techaukaha ha @ñemoirũha kuatia'i pyahu myakãhápe",
   "keep-title-tags-description": "Eiporavóramo techaukaha # rupive térã ñemoirũha @ rupive rehai aja kuatia'i pyahu myakãha, upe jehai opyta avei myakãhápe. Mbogue: jehai oñemyengovia techaukaha térã ñemoirũha rupive.",
+  "title-bracket-label": "Embohasa [techaukaha] kuatia'i pyahu myakãha ñepyrũme techaukahápe",
+  "title-bracket-label-description": "Kuatia'i pyahu myakãha oñepyrũramo [Jehai] rupive ha upe rire oĩve jehai, Jehai oiko kuatia'i techaukaha (ojejapo tembiapo renda ndoguerekóiramo techaukaha upe térape) ha oñemboguepa myakãhagui. Mbogue: myakãha opyta oĩháicha.",
   "checklist-ding-sound": "Mbopu peteĩ purahéi checklist rembiapo oñemohu'ãramo",
   "checklist-ding-sound-description": "Mbopu peteĩ purahéi mbykymi remomarãva checklist rembiapo peteĩ. Ndojekuaaporãi tenondegua.",
   "assignee": "Omba'apótava",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kur është aktive, Enter ruan titullin, përshkrimin dhe redaktuesit e tjerë brenda kartës; Shift+Enter shton rresht të ri. Kur është joaktive, Ctrl/Cmd+Enter ruan dhe Enter shton rresht të ri.",
   "keep-title-tags": "Ruaj #etiketën dhe @anëtarin në titujt e kartave të reja",
   "keep-title-tags-description": "Kur zgjidhni një etiketë me # ose një anëtar me @ ndërsa shkruani titullin e një karte të re, ruaje edhe atë tekst në titull. Fikur: teksti zëvendësohet nga etiketa ose anëtari.",
+  "title-bracket-label": "Shndërro [etiketë] në fillim të titullit të një karte të re në etiketë",
+  "title-bracket-label-description": "Kur titulli i një karte të re fillon me [Tekst] të ndjekur nga tekst tjetër, Tekst bëhet etiketë e kartës (krijohet nëse tabela nuk ka asnjë me atë emër) dhe hiqet nga titulli. Fikur: titulli ruhet siç është.",
   "checklist-ding-sound": "Luaj një tingull kur një artikull i listës kontrolluese përfundon",
   "checklist-ding-sound-description": "Luan një tingull të shkurtër kur shënoni një artikull të listës kontrolluese. Çaktivizuar si parazgjedhje.",
   "assignee": "I caktuari",

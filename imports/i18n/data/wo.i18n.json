@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Bu doon dox, bësal Enter dana denc tur wu kart bi, melokaan mi ak yeneen bindkat yu nekk ci biir; Shift+Enter dana yokk benn liñ bu bees. Bu doon dee, Ctrl/Cmd+Enter dana denc te Enter dana yokk benn liñ bu bees.",
   "keep-title-tags": "Denc #etiket ak @bokkkat ci boppi karta yu bees",
   "keep-title-tags-description": "Bu nga tànnee etiket ak # walla bokkkat ak @ bu ngay bind boppu karta bu bees, mbind moomu dina des itam ci bopp bi. Fey: mbind mi dañu koy wuutale etiket bi walla bokkkat bi.",
+  "title-bracket-label": "Soppi [etiket] ci ndoorteelu boppu karta bu bees etiket",
+  "title-bracket-label-description": "Bu boppu karta bu bees tàmbalee ak [Mbind] te yeneen mbind topp ko, Mbind dina nekk etiketu karta bi (dañuy sos benn su tablo bi amul etiket bu tudd noonu) te dañu koy dindi ci bopp bi. Fey: bopp bi dina des ni mu mel.",
   "checklist-ding-sound": "Fecci baat bu am bu sa checklist matoon",
   "checklist-ding-sound-description": "Dafay fecci baat bu gàtt bu nga defe marque ci checklist. Mu tëdd ci njëkk bi.",
   "assignee": "Ki ñu sas",

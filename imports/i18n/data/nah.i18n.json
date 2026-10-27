@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ihcuac motlapoa, Enter quipia amatlapalli itocayo, itlahtol ihuan occequintin tlahtolpatlanih; Shift+Enter quicaquitia yancuic pantli. Ihcuac motzacua, Ctrl/Cmd+Enter quipia ihuan Enter quicaquitia yancuic pantli.",
   "keep-title-tags": "Xicpiya #machiotl ihuan @tlacatl ipan yancuic amatlapalli tzontecomatl",
   "keep-title-tags-description": "Ihcuac tiquixpepena ce machiotl ica # noso ce tlacatl ica @ ihcuac tiquihcuiloa in itzontecon ce yancuic amatlapalli, nopa tlahcuilolli mocahua noihqui ipan tzontecomatl. Tlacahualli: in tlahcuilolli mopatla ica in machiotl noso in tlacatl.",
+  "title-bracket-label": "Xicpatla [machiotl] ipan ipehualiz yancuic amatlapalli tzontecomatl ic machiotl",
+  "title-bracket-label-description": "Ihcuac in yancuic amatlapalli tzontecomatl pehua ica [Tlahcuilolli] auh quitoca occequi tlahcuilolli, in Tlahcuilolli mochihua ce machiotl in amatlapalli (mochihua intla in huapalli amo quipia machiotl ica inon tocaitl) auh mocui ipan tzontecomatl. Tlacahualli: in tzontecomatl mocahua quen ca.",
   "checklist-ding-sound": "Xitzotzona tlacaquiztli ihcuac checklist tlamantli tlamiya",
   "checklist-ding-sound-description": "Quitzotzona ce tlacaquiztli tepitzin ihcuac ticmachiotia ce checklist tlamantli. Cehcentetl amo tlatzacuilia.",
   "assignee": "Tlanahuatilli",

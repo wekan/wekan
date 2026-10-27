@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Nigbati o ba wa lori, titẹ Enter fi akọle kaadi, apejuwe ati awọn olootu inu miiran pamọ; Shift+Enter fi laini tuntun sii. Nigbati o ba wa ni pipa, Ctrl/Cmd+Enter fipamọ, Enter si fi laini tuntun sii.",
   "keep-title-tags": "Pa #akole ati @ọmọ ẹgbẹ mọ́ ninu akọle awọn kaadi tuntun",
   "keep-title-tags-description": "Nigba ti o ba yan akole pẹlu # tabi ọmọ ẹgbẹ pẹlu @ lakoko ti o n tẹ akọle kaadi tuntun, ọrọ naa yoo wa ninu akọle pẹlu. Pa: ọrọ naa ni a fi akole tabi ọmọ ẹgbẹ rọpo.",
+  "title-bracket-label": "Yí [akole] ní ìbẹ̀rẹ̀ akọle kaadi tuntun padà sí akole",
+  "title-bracket-label-description": "Nígbà tí akọle kaadi tuntun bá bẹ̀rẹ̀ pẹ̀lú [Ọrọ] tí ọ̀rọ̀ mìíràn sì tẹ̀lé e, Ọrọ á di akole kaadi náà (a ó ṣẹ̀dá rẹ̀ bí ọkọ kò bá ní akole tí ó ní orúkọ yẹn) a ó sì yọ ọ́ kúrò nínú akọle. Pa: akọle á wà bí ó ṣe wà.",
   "checklist-ding-sound": "Mú ìró kan ṣiṣẹ́ nígbà tí ohun kan nínú àtòjọ àyẹ̀wò bá parí",
   "checklist-ding-sound-description": "Ó máa ń mú ìró kúkúrú kan ṣiṣẹ́ nígbà tí o bá ṣàmì sí ohun kan nínú àtòjọ àyẹ̀wò. Ó ti pa dé láti ìbẹ̀rẹ̀pẹ̀pẹ̀.",
   "assignee": "Ayanfunni",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Sapos dispela i wok, presim Enter bilong seivim nem na toksave bilong kat na ol arapela bokis bilong senisim long dispela pes; Shift+Enter i putim nupela lain. Sapos dispela i no wok, Ctrl/Cmd+Enter i seivim na Enter i putim nupela lain.",
   "keep-title-tags": "Holim #mak na @memba long het tok bilong ol nupela kat",
   "keep-title-tags-description": "Taim yu makim wanpela mak wantaim # o wanpela memba wantaim @ taim yu raitim het tok bilong nupela kat, holim dispela tok long het tok tu. Op: mak o memba i kisim ples bilong dispela tok.",
+  "title-bracket-label": "Senisim [mak] long stat bilong het tok bilong nupela kat i kamap mak",
+  "title-bracket-label-description": "Taim het tok bilong nupela kat i stat long [Tok] na moa tok i kam bihain, Tok i kamap mak bilong kat (ol i wokim sapos bot i no gat mak long dispela nem) na ol i rausim long het tok. Op: het tok i stap olsem em i stap.",
   "checklist-ding-sound": "Pilai wanpela nois taim wanpela samting long checklist i pinis",
   "checklist-ding-sound-description": "Pilai sotpela nois taim yu makim wanpela samting long lis bilong sekim olsem pinis. Long stat dispela i no wok.",
   "assignee": "Man i gat wok",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ina kā, mā te pēhi Enter ka tiaki te taitara kāri, whakaahuatanga me ētahi atu pūwhakatika rārangi; ka kōkuhu a Shift+Enter i tētahi rārangi hou. Ina weto, ka tiaki a Ctrl/Cmd+Enter, ā, ka kōkuhu a Enter i tētahi rārangi hou.",
   "keep-title-tags": "Puritia te #tapanga me te @mema ki ngā taitara kāri hou",
   "keep-title-tags-description": "Ina kōwhiri koe i tētahi tapanga mā te #, i tētahi mema rānei mā te @ i a koe e patopato ana i te taitara o tētahi kāri hou, puritia anō taua kuputuhi ki te taitara. Weto: ka whakakapia te kuputuhi ki te tapanga, ki te mema rānei.",
+  "title-bracket-label": "Hurihia te [tapanga] i te tīmatanga o te taitara kāri hou hei tapanga",
+  "title-bracket-label-description": "Ina tīmata te taitara o tētahi kāri hou ki te [Kuputuhi] ā ka whai mai anō he kuputuhi, ka noho a Kuputuhi hei tapanga mō te kāri (ka waihangatia mēnā kāore he tapanga pērā te ingoa i te papa) ā ka tangohia i te taitara. Weto: ka waiho te taitara kia pērā tonu.",
   "checklist-ding-sound": "Tākiritia he oro ka oti te tūemi checklist",
   "checklist-ding-sound-description": "Ka tākiritia he oro poto ina tohu koe i tētahi tūemi checklist. Ka weto i te taunoa.",
   "assignee": "Kaiwhiwhi mahi",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Bekapcsolva az Enter lenyomása menti a kártya címét, leírását és más beágyazott szerkesztőket; a Shift+Enter új sort szúr be. Kikapcsolva a Ctrl/Cmd+Enter ment, az Enter pedig új sort szúr be.",
   "keep-title-tags": "#címke és @tag megtartása az új kártyák címében",
   "keep-title-tags-description": "Ha egy új kártya címének gépelése közben # jellel címkét vagy @ jellel tagot választasz, a szöveg a címben is megmarad. Kikapcsolva: a szöveget a címke vagy a tag váltja fel.",
+  "title-bracket-label": "Az új kártya címének elején lévő [címke] címkévé alakítása",
+  "title-bracket-label-description": "Ha egy új kártya címe [Szöveg] elemmel kezdődik, és utána további szöveg következik, a Szöveg a kártya címkéje lesz (létrejön, ha a táblán nincs ilyen nevű címke), és kikerül a címből. Kikapcsolva: a cím változatlan marad.",
   "checklist-ding-sound": "Hang lejátszása, ha egy ellenőrzőlista-elem befejeződik",
   "checklist-ding-sound-description": "Rövid csengőhangot játszik le, amikor bejelölsz egy ellenőrzőlista-elemet. Alapértelmezés szerint kikapcsolva.",
   "assignee": "Felelős",

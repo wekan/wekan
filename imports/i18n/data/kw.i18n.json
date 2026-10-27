@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Pan yw byw, gwaska Enter a with titel an garten, deskrifans ha chanjyoryon yn-linenn erel; Shift+Enter a orra linenn nowydh. Pan yw marow, Ctrl/Cmd+Enter a with hag Enter a orra linenn nowydh.",
   "keep-title-tags": "Gwitha #label ha @esel yn titlys kartennow nowydh",
   "keep-title-tags-description": "Pan dhewisydh label gans # po esel gans @ ha ty ow skrifa titel karten nowydh, an tekst na a vydh gwithys y'n titel ynwedh. Dhe-ves: an tekst a vydh lies gans an label po an esel.",
+  "title-bracket-label": "Treylya [label] orth dalleth titel karten nowydh dhe label",
+  "title-bracket-label-description": "Pan dhallatho titel karten nowydh gans [Tekst] ha moy a dekst war y lergh, Tekst a dheu ha bos label an garten (gwrys mar nyns eus label gans an hanow na war an estyllen) hag yw dileys a'n titel. Dhe-ves: an titel a vydh gwithys kepar dell yw.",
   "checklist-ding-sound": "Gwari son pan yw elven checklist collenwys",
   "checklist-ding-sound-description": "Gwari son cot pan verkyugh elven checklist. Diwedhrys dre dhefowt.",
   "assignee": "Apoyntys",

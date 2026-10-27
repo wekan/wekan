@@ -26,7 +26,7 @@ import { sortCardsByVotes } from '/models/lib/voteSortCards';
 import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import {
-  parseQuickAddCardLabel,
+  quickAddTitleParts,
   findExistingLabelIdByName,
   pickDefaultLabelColor,
 } from '/models/lib/quickAddCardLabel';
@@ -179,6 +179,12 @@ Template.listBody.onCreated(function () {
     return undefined;
   };
 
+  // #6810: Member Settings' "[Text] at the start of a new card title becomes
+  // a label" - off unless the user turned it on.
+  const titleBracketLabelOn = () => {
+    const user = ReactiveCache.getCurrentUser();
+    return Boolean(user && typeof user.hasTitleBracketLabel === 'function' && user.hasTitleBracketLabel());
+  };
   this.addCard = async (evt) => {
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
@@ -208,7 +214,10 @@ Template.listBody.onCreated(function () {
         // if needed, creates) that label instead of becoming part of the card
         // title - e.g. "[Fedora] Do a thing" creates "Do a thing" labeled
         // "Fedora". Only a single bracket prefix at the very start is parsed.
-        const { title: labelledTitle, labelName: quickAddLabelName } = parseQuickAddCardLabel(rawTitle);
+        // #6810: only for who turned it on in Member Settings - off, a title
+        // pasted from a ticket system or a mail ("[EXTERNAL] ...") is kept as
+        // it is and no label is created.
+        const { title: labelledTitle, labelName: quickAddLabelName } = quickAddTitleParts(rawTitle, titleBracketLabelOn());
 
         const sortIndex = indexes[titleIndex];
 

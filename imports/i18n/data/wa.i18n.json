@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Cwand c' est en alaedje, tchôkî Enter schape li tite del cåte, li discrijhaedje eyet ls ôtes aspougneus e roye; Shift+Enter radjoute ene nouve roye. Cwand c' est distindou, Ctrl/Cmd+Enter schape et Enter radjoute ene nouve roye.",
   "keep-title-tags": "Wårder #etikete et @mimbe dins les tites des noveles cåtes",
   "keep-title-tags-description": "Cwand vos tchoezixhoz ene etikete avou # ou on mimbe avou @ tot tapant l' tite d' ene novele cåte, wårder ç' tecse la dins l' tite eto. Dismetou: li tecse est replaecî pa l' etikete ou l' mimbe.",
+  "title-bracket-label": "Candjî [etikete] å cmince do tite d' ene novele cåte en ene etikete",
+  "title-bracket-label-description": "Cwand l' tite d' ene novele cåte cmince avou [Tecse] shuvou d' ôte tecse, Tecse divént ene etikete del cåte (ele est fwaite si l' tåvlea n' end a nole avou ç' no la) et il est rsaetchî do tite. Dismetou: li tite est wårdé tot come il est.",
   "checklist-ding-sound": "Djouwer on son cwand èn elemint del djivêye di contrôle est fini",
   "checklist-ding-sound-description": "Djouwe on ptit son cwand vos apontyîz on elemint del djivêye di contrôle. Distindou pa dfaut.",
   "assignee": "Personne assignée",

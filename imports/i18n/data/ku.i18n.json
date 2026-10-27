@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Dema çalak be, pêlkirina Enter sernav, danasîn û edîtorên din ên nav-rêzê tomar dike; Shift+Enter rêzeke nû dixe. Dema neçalak be, Ctrl/Cmd+Enter tomar dike û Enter rêzeke nû dixe.",
   "keep-title-tags": "#etîket û @endam di sernavên kartên nû de bihêle",
   "keep-title-tags-description": "Dema ku tu di nivîsandina sernavê kartek nû de bi # etîketekê an bi @ endamekî hilbijêrî, ew nivîs di sernavê de jî dimîne. Girtî: nivîs bi etîket an endam tê guhertin.",
+  "title-bracket-label": "[etîket] li destpêka sernavê karta nû bike etîket",
+  "title-bracket-label-description": "Dema ku sernavê karteke nû bi [Nivîs] dest pê dike û pişt re nivîsa din tê, Nivîs dibe etîketa kartê (heke depo etîketeke bi wî navî tune be, tê afirandin) û ji sernavê tê rakirin. Girtî: sernav wekî xwe dimîne.",
   "checklist-ding-sound": "Dema hêmaneke checklistê temam dibe dengekî lêbide",
   "checklist-ding-sound-description": "Dema hêmaneke checklistê nîşan dikî dengekî kurt lêbide. Bi eslê xwe girtî ye.",
   "assignee": "Berpirsyar",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Khi bật, nhấn Enter sẽ lưu tiêu đề thẻ, mô tả và các trình soạn thảo nội tuyến khác; Shift+Enter thêm một dòng mới. Khi tắt, Ctrl/Cmd+Enter để lưu và Enter để thêm dòng mới.",
   "keep-title-tags": "Giữ #nhãn và @thành viên trong tiêu đề thẻ mới",
   "keep-title-tags-description": "Khi bạn chọn một nhãn bằng # hoặc một thành viên bằng @ trong lúc gõ tiêu đề thẻ mới, đoạn văn bản đó cũng được giữ lại trong tiêu đề. Tắt: đoạn văn bản được thay bằng nhãn hoặc thành viên.",
+  "title-bracket-label": "Chuyển [nhãn] ở đầu tiêu đề thẻ mới thành nhãn",
+  "title-bracket-label-description": "Khi tiêu đề của thẻ mới bắt đầu bằng [Văn bản] và theo sau là nội dung khác, Văn bản trở thành nhãn của thẻ (được tạo nếu bảng chưa có nhãn nào mang tên đó) và bị xóa khỏi tiêu đề. Tắt: tiêu đề được giữ nguyên.",
   "checklist-ding-sound": "Phát âm thanh khi hoàn thành một mục trong danh sách kiểm tra",
   "checklist-ding-sound-description": "Phát một âm thanh ngắn khi bạn đánh dấu hoàn thành một mục trong danh sách kiểm tra. Mặc định tắt.",
   "assignee": "Người được giao",

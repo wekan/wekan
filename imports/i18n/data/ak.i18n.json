@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Sɛ wɔasɔ a, Enter a wumia no sie kaad asɛmti, nkyerɛkyerɛmu ne afã foforo a wosesa wɔ hɔ no; Shift+Enter hyɛ nkyerɛw no ɔfa foforo ase. Sɛ wɔadum a, Ctrl/Cmd+Enter sie, na Enter hyɛ nkyerɛw no ɔfa foforo ase.",
   "keep-title-tags": "Kora #nsɛnkyerɛnne ne @amanfoɔ wɔ kaad foforɔ asɛmti mu",
   "keep-title-tags-description": "Sɛ wopaw nsɛnkyerɛnne bi wɔ # anaa obi a ɔka amanfoɔ ho wɔ @ bere a worekyerɛw kaad foforɔ asɛmti a, kora saa nkyerɛwee no wɔ asɛmti no mu nso. Mmom: nsɛnkyerɛnne anaa onipa no besi nkyerɛwee no anan.",
+  "title-bracket-label": "Dan [nsɛnkyerɛnne] a ɛwɔ kaad foforɔ asɛmti ahyɛaseɛ no nsɛnkyerɛnne",
+  "title-bracket-label-description": "Sɛ kaad foforɔ asɛmti fi ase de [Nkyerɛwee] na nkyerɛwee foforɔ di akyi a, Nkyerɛwee no bɛyɛ kaad no nsɛnkyerɛnne (wɔbɛyɛ no sɛ bɔɔd no nni nsɛnkyerɛnne a ne din saa) na wɔayi afi asɛmti no mu. Mmom: asɛmti no tena sɛdeɛ ɛte.",
   "checklist-ding-sound": "Bɔ nnyigyei bere a wɔawie nhwehwɛmu no mu ade bi",
   "checklist-ding-sound-description": "Bɔ nnyigyei tiaa bi bere a wohyɛ nhwehwɛmu no mu ade bi agyirae sɛ wɔawie. Wɔadum fi mfiase.",
   "assignee": "Nea wɔde adwuma ama no",

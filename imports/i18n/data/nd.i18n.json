@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Nxa kuvuliwe, ukucindezela u-Enter kulondoloza isihloko sekhadi, incazelo labanye abahleli abasemgqeni; u-Shift+Enter ufaka umugqa omutsha. Nxa kuvaliwe, u-Ctrl/Cmd+Enter uyalondoloza njalo u-Enter ufaka umugqa omutsha.",
   "keep-title-tags": "Gcina #ilebula le-@lilunga ezihlokweni zamakhadi amatsha",
   "keep-title-tags-description": "Nxa ukhetha ilebula ngo-# kumbe ilunga ngo-@ ubhala isihloko sekhadi elitsha, gcina lowo umbhalo lesihlokweni futhi. Kuvaliwe: umbhalo uphathelwa yilebula kumbe yilunga.",
+  "title-bracket-label": "Phendula [ilebula] ekuqaleni kwesihloko sekhadi elitsha libe yilebula",
+  "title-bracket-label-description": "Nxa isihloko sekhadi elitsha siqala ngo-[Umbhalo] kulandele omunye umbhalo, uMbhalo uba yilebula lekhadi (liyadalwa nxa ibhodi lingelalo lebula lelo bizo) njalo ususwa esihlokweni. Kuvaliwe: isihloko sihlala sinjalo.",
   "checklist-ding-sound": "Dlalisa umsindo nxa into ye-checklist isiphelile",
   "checklist-ding-sound-description": "Idlalisa umsindo omfitshane nxa uphawula into ye-checklist. Icinyiwe ngokuzenzakalelayo.",
   "assignee": "Onikwe umsebenzi",

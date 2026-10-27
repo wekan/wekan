@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Go lea alde, Enter vurke goartta namahusa, válddahusa ja eará seamma ráiddus rievdadeaddjiid; Shift+Enter lasiha ođđa ráiddu. Go lea eret, Ctrl/Cmd+Enter vurke ja Enter lasiha ođđa ráiddu.",
   "keep-title-tags": "Bisut #gilkora ja @lahtu ođđa goarttaid namahusain",
   "keep-title-tags-description": "Go válljet gilkora #:in dahje lahtu @:in čállidettiin ođđa goartta namahusa, dat teaksta bissu maiddái namahusas. Jáddaduvvon: teaksta lonuhuvvo gilkoriin dahje lahtuin.",
+  "title-bracket-label": "Rievdat [gilkor] ođđa goartta namahusa álggus gilkorin",
+  "title-bracket-label-description": "Go ođđa goartta namahus álgá [Teaksta] sániin ja dan maŋŋá boahtá eanet teaksta, Teaksta šaddá goartta gilkorin (dat ráhkaduvvo jus távvalis ii leat gilkor dainna namain) ja dat sihkkojuvvo namahusas. Jáddaduvvon: namahus bisso nugo lea.",
   "checklist-ding-sound": "Čuojat jiena go čađahanlisttu ášši gearggahuvvo",
   "checklist-ding-sound-description": "Čuojaha oanehis jiena go merket čađahanlisttu ášši. Lea jaddaduvvon standárda mielde.",
   "assignee": "Ovddasvástideaddji",

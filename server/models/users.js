@@ -985,6 +985,15 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.keepTitleTags': !((user.profile || {}).keepTitleTags) } });
   },
 
+  // #6810: turn a leading "[Text] " of a new card's title into a label
+  // (Member Settings; off by default).
+  async toggleTitleBracketLabel() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    await Users.updateAsync(this.userId, { $set: { 'profile.titleBracketLabel': (user.profile || {}).titleBracketLabel !== true } });
+  },
+
   async toggleSubmitOnEnter() {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     const user = await Users.findOneAsync(this.userId);

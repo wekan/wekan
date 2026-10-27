@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Aktibatuta dagoenean, Enter sakatzeak txartelaren izenburua, deskribapena eta lerroko beste editoreak gordetzen ditu; Shift+Enter-ek lerro berri bat txertatzen du. Desaktibatuta dagoenean, Ctrl/Cmd+Enter-ek gordetzen du eta Enter-ek lerro berri bat txertatzen du.",
   "keep-title-tags": "Mantendu #etiketa eta @kidea txartel berrien izenburuetan",
   "keep-title-tags-description": "Txartel berri baten izenburua idaztean # bidez etiketa bat edo @ bidez kide bat aukeratzen duzunean, testu hori izenburuan ere mantentzen da. Desaktibatuta: testua etiketak edo kideak ordezten du.",
+  "title-bracket-label": "Bihurtu txartel berri baten izenburuaren hasierako [etiketa] etiketa",
+  "title-bracket-label-description": "Txartel berri baten izenburua [Testua] hitzarekin hasten denean eta ondoren testu gehiago dagoenean, Testua txartelaren etiketa bihurtzen da (sortu egiten da arbelak izen hori duen etiketarik ez badu) eta izenburutik kentzen da. Desaktibatuta: izenburua dagoen bezala mantentzen da.",
   "checklist-ding-sound": "Jo soinu bat egiaztapen-zerrendako elementu bat osatzean",
   "checklist-ding-sound-description": "Egiaztapen-zerrendako elementu bat markatzean soinu labur bat jotzen du. Berez desaktibatuta.",
   "assignee": "Esleitua",

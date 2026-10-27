@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kawsachisqa kaptinqa, Enter ñit'iyqa kartap uma sutinta, willakuyninta, huk allichaqkunatapas waqaychan; Shift+Enter musuq siq'ita churan. Wañusqa kaptinqa, Ctrl/Cmd+Enter waqaychan, Enter-taq musuq siq'ita churan.",
   "keep-title-tags": "Musuq kartakunapa uma sutinpi #unanchata @ayllumasitapas waqaychay",
   "keep-title-tags-description": "Musuq kartapa uma sutinta qillqachkaspa # nisqawan unanchata utaq @ nisqawan ayllumasita akllaspaqa, chay qillqatapas uma sutipi waqaychay. Wañuchisqa: qillqaqa unanchawan utaq ayllumasiwan rantinchasqa.",
+  "title-bracket-label": "Musuq kartapa uma sutinpa qallariyninpi [unancha] unanchaman tukuchiy",
+  "title-bracket-label-description": "Musuq kartapa uma sutin [Qillqa] nisqawan qallarispa aswan qillqa qatiptinqa, Qillqa kartapa unanchanmi tukun (pirqapi chay sutiyuq unancha mana kaptinqa ruwakun) hinaspa uma sutimanta qichusqa. Wañuchisqa: uma sutiqa imaynas kasqanpi qhipan.",
   "checklist-ding-sound": "Uyarichiy huk kunkata checklist ruway tukusqanmanta",
   "checklist-ding-sound-description": "Huk kunka kunkata uyarichin checklist ruway señalasqaykipi. Manam kachkanchu ñawpaqmanta.",
   "assignee": "Ruranapaq churasqa",

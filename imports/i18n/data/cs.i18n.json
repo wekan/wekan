@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Když je zapnuto, stisknutím Enter uložíte název karty, popis a další vložené editory; Shift+Enter vloží nový řádek. Když je vypnuto, ukládá Ctrl/Cmd+Enter a Enter vloží nový řádek.",
   "keep-title-tags": "Ponechat #štítek a @člena v názvech nových karet",
   "keep-title-tags-description": "Když při psaní názvu nové karty vyberete štítek pomocí # nebo člena pomocí @, ponechá se tento text také v názvu. Vypnuto: text je nahrazen štítkem nebo členem.",
+  "title-bracket-label": "Převést [štítek] na začátku názvu nové karty na štítek",
+  "title-bracket-label-description": "Když název nové karty začíná textem [Text], za nímž následuje další text, stane se Text štítkem karty (vytvoří se, pokud tablo nemá štítek s tímto názvem) a odstraní se z názvu. Vypnuto: název zůstane tak, jak je.",
   "checklist-ding-sound": "Přehrát zvuk při dokončení položky seznamu úkolů",
   "checklist-ding-sound-description": "Přehraje krátké cinknutí při zaškrtnutí položky seznamu úkolů. Ve výchozím nastavení vypnuto.",
   "assignee": "Řešitel",

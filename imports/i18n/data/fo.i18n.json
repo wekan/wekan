@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Tá hetta er virkið, goymir Enter kortheiti, lýsing og aðrar innbygdar ritlar; Shift+Enter setur eina nýggja reglu inn. Tá hetta er sløkt, goymir Ctrl/Cmd+Enter, og Enter setur eina nýggja reglu inn.",
   "keep-title-tags": "Varðveit #merki og @lim í heitum á nýggjum kortum",
   "keep-title-tags-description": "Tá ið tú velur eitt merki við # ella ein lim við @, meðan tú skrivar heitið á einum nýggjum korti, verður tekstin eisini verandi í heitinum. Sløkt: tekstin verður skiftur út við merkið ella limin.",
+  "title-bracket-label": "Ger [merki] í byrjanini av heitinum á nýggjum korti til eitt merki",
+  "title-bracket-label-description": "Tá ið heitið á nýggjum korti byrjar við [Tekst] og meiri tekstur fylgir eftir, verður Tekst eitt merki á kortinum (stovnað, um talvan ikki hevur eitt við tí navninum) og verður strikað úr heitinum. Sløkt: heitið verður verandi sum tað er.",
   "checklist-ding-sound": "Spæl ein ljóð tá ein checklist-lutur verður liðugur",
   "checklist-ding-sound-description": "Spælur eitt stutt ljóð, tá tú merkir ein checklist-lut sum liðugan. Sløkt sum sjálvvirkjandi.",
   "assignee": "Ábyrgdari",

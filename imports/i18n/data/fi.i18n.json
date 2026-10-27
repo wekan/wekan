@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kun päällä, Enter tallentaa kortin otsikon, kuvauksen ja muut sisäiset editorit; Vaihto+Enter lisää rivinvaihdon. Kun pois, Ctrl/Cmd+Enter tallentaa ja Enter lisää rivinvaihdon.",
   "keep-title-tags": "Säilytä #nimilappu ja @jäsen uusien korttien otsikoissa",
   "keep-title-tags-description": "Kun valitset nimilapun #-merkillä tai jäsenen @-merkillä kirjoittaessasi uuden kortin otsikkoa, teksti säilytetään myös otsikossa. Pois: teksti korvataan nimilapulla tai jäsenellä.",
+  "title-bracket-label": "Muuta uuden kortin otsikon alussa oleva [nimilappu] nimilapuksi",
+  "title-bracket-label-description": "Kun uuden kortin otsikko alkaa tekstillä [Teksti], jota seuraa muuta tekstiä, Tekstistä tulee kortin nimilappu (se luodaan, jos taululla ei ole sen nimistä nimilappua) ja se poistetaan otsikosta. Pois: otsikko säilyy sellaisenaan.",
   "checklist-ding-sound": "Toista ääni, kun tarkistuslistan kohta merkitään tehdyksi",
   "checklist-ding-sound-description": "Toistaa lyhyen ping-äänen, kun merkitset tarkistuslistan kohdan tehdyksi. Oletuksena pois päältä.",
   "assignee": "Käsittelijä",

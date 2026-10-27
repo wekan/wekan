@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Taem i on, sapos yu presem Enta, hem i sevem taetol blong kad, diskripsen mo ol narafala edita; Shift+Enter i putum wan niu laen. Taem i of, Ctrl/Cmd+Enter i sevem mo Enter i putum wan niu laen.",
   "keep-title-tags": "Kipim #mak mo @memba long taetol blong ol niu kad",
   "keep-title-tags-description": "Taem yu jusum wan mak wetem # o wan memba wetem @ taem yu stap raetem taetol blong wan niu kad, kipim tekis ia long taetol tu. Of: mak o memba i tekem ples blong tekis ia.",
+  "title-bracket-label": "Tanem [mak] long stat blong taetol blong niu kad i kam wan mak",
+  "title-bracket-label-description": "Taem taetol blong wan niu kad i stat wetem [Tekis] mo i gat moa tekis biaen, Tekis i kam wan mak blong kad (oli mekem sapos bod i no gat mak wetem nem ia) mo oli tekemaot long taetol. Of: taetol i stap olsem we i stap.",
   "checklist-ding-sound": "Plei wan saon taem wan samting long jeklis i finis",
   "checklist-ding-sound-description": "Plei wan sotfala saon taem yu makem wan samting long jeklis. Long stat, hem i of.",
   "assignee": "Man we i gat wok",

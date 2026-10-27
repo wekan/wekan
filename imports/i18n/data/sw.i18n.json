@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ikiwashwa, kubonyeza Enter huhifadhi kichwa cha kadi, maelezo na wahariri wengine wa ndani; Shift+Enter huingiza mstari mpya. Ikizimwa, Ctrl/Cmd+Enter huhifadhi na Enter huingiza mstari mpya.",
   "keep-title-tags": "Hifadhi #lebo na @mwanachama katika vichwa vya kadi mpya",
   "keep-title-tags-description": "Unapochagua lebo kwa # au mwanachama kwa @ wakati unaandika kichwa cha kadi mpya, maandishi hayo yabaki pia kwenye kichwa. Imezimwa: maandishi hubadilishwa na lebo au mwanachama.",
+  "title-bracket-label": "Geuza [lebo] mwanzoni mwa kichwa cha kadi mpya kuwa lebo",
+  "title-bracket-label-description": "Kichwa cha kadi mpya kinapoanza na [Maandishi] yakifuatwa na maandishi zaidi, Maandishi huwa lebo ya kadi (huundwa ikiwa bodi haina lebo ya jina hilo) na huondolewa kwenye kichwa. Imezimwa: kichwa kinabaki kama kilivyo.",
   "checklist-ding-sound": "Cheza sauti wakati kipengele cha orodha ya ukaguzi kikamilika",
   "checklist-ding-sound-description": "Hucheza sauti fupi unapotia alama kwenye kipengele cha orodha ya ukaguzi. Imezimwa kwa chaguo-msingi.",
   "assignee": "Mkabidhiwa",

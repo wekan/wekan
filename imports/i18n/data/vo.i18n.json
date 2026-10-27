@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ven aktivik, klav: Enter dakipon tiädi kada, bepenami e redakamis votik in lien; Shift+Enter lüükon lieni nulik. Ven neaktivik, Ctrl/Cmd+Enter dakipon e Enter lüükon lieni nulik.",
   "keep-title-tags": "Kipön #ninädapenädi e @limani in tiäds kadas nulik",
   "keep-title-tags-description": "Ven välol ninädapenädi me # u limani me @ du penol tiädi kada nulik, kipön vödemi at i in tiäd. Nejäfidik: vödem pepläaön dub ninädapenäd u liman.",
+  "title-bracket-label": "Votükön [ninädapenäd] in prim tiäda kada nulik ad ninädapenäd",
+  "title-bracket-label-description": "If tiäd kada nulik primon me [Vödem] e vödem pluik sökon, Vödem vedon ninädapenäd kada (pajafon if tab no labon ninädapenädi labü nem at) e pemoükon se tiäd. Nejäfidik: tiäd pakipon ad stad oka.",
   "checklist-ding-sound": "Tonön ven notet kontrolaliseda pafinükon",
   "checklist-ding-sound-description": "Tonön tonili brefik ven mäkol noteti kontrolaliseda. Neaktivik ma stab.",
   "assignee": "Geban pejonidüköl",

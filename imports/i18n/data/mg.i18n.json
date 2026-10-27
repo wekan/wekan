@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Rehefa mandeha, ny fanindriana Enter dia mitahiry ny lohatenin'ny karatra, famaritana ary mpanova anaty andalana hafa; Shift+Enter mampiditra andalana vaovao. Rehefa maty, Ctrl/Cmd+Enter no mitahiry ary Enter mampiditra andalana vaovao.",
   "keep-title-tags": "Tazomy ny #marika sy @mpikambana ao amin'ny lohatenin'ny karatra vaovao",
   "keep-title-tags-description": "Rehefa misafidy marika amin'ny # na mpikambana amin'ny @ ianao eo am-panoratana ny lohatenin'ny karatra vaovao, tazomy ao amin'ny lohateny koa io soratra io. Maty: soloin'ny marika na ny mpikambana ilay soratra.",
+  "title-bracket-label": "Avadiho ho marika ny [marika] eo am-piandohan'ny lohatenin'ny karatra vaovao",
+  "title-bracket-label-description": "Rehefa manomboka amin'ny [Soratra] ny lohatenin'ny karatra vaovao ary arahin'ny soratra hafa, dia lasa marika ho an'ny karatra ny Soratra (noforonina raha tsy manana marika mitondra io anarana io ny solaitra) ary esorina amin'ny lohateny. Maty: tazonina tahaka ny misy azy ny lohateny.",
   "checklist-ding-sound": "Alefaso ny feo rehefa vita ny singa iray amin'ny checklist",
   "checklist-ding-sound-description": "Mamerina feo fohy rehefa mametaka marika amin'ny singa checklist iray. Maty amin'ny fomba tsy miova.",
   "assignee": "Voatendry",

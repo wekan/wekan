@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Ni waqa, na tabaki ni Enter e maroroya na ulutaga ni kadi, ivakamacala kei na dauveisau tale eso ena laini; Shift+Enter e vakacuruma e dua na laini vou. Ni boko, Ctrl/Cmd+Enter e maroroya ka Enter e vakacuruma e dua na laini vou.",
   "keep-title-tags": "Maroroya na #ivakatakilakila kei na @lewe ni soqosoqo ena ulutaga ni kadi vou",
   "keep-title-tags-description": "Ni o digitaka e dua na ivakatakilakila ena # se dua na lewe ni soqosoqo ena @ ni o vola tiko na ulutaga ni dua na kadi vou, maroroya talega na vosa oya ena ulutaga. Sogo: na vosa e veisosomitaki ena ivakatakilakila se na lewe ni soqosoqo.",
+  "title-bracket-label": "Vukica na [ivakatakilakila] e na itekivu ni ulutaga ni kadi vou me ivakatakilakila",
+  "title-bracket-label-description": "Ni tekivu na ulutaga ni kadi vou ena [Vosa] ka muria e so tale na vosa, na Vosa e yaco me ivakatakilakila ni kadi (e buli ke sega ni dua ena vola e yacana vakakina) ka kau tani mai na ulutaga. Sogo: na ulutaga e tiko ga vakataki koya.",
   "checklist-ding-sound": "Vakayagataka na domo ni sa vakaoti na iulutaga ni checklist",
   "checklist-ding-sound-description": "Vakayagataka e dua na domo lekaleka ni o sa vakadinadinataka na iulutaga ni checklist. E sega ni vakayagataki ena imatai ni ivakarau.",
   "assignee": "E lesi kina",

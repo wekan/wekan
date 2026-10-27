@@ -519,6 +519,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.titleBracketLabel': {
+      /**
+       * #6810: turn a leading "[Text] " of a new card's title into the label
+       * "Text" (#3986). Off by default: a title pasted from a ticket system or
+       * a mail ("[EXTERNAL] ...") stays as it was, and no label is created.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.checklistDingSound': {
       /**
        * #5427: per-user preference - play a short synthesized "ding" when a
@@ -2202,6 +2211,11 @@ Users.helpers({
   // #1273: keep the #label / @member text in a new card's title.
   hasKeepTitleTags() {
     return !!((this.profile || {}).keepTitleTags);
+  },
+
+  // #6810: turn a leading "[Text] " of a new card's title into a label (off by default).
+  hasTitleBracketLabel() {
+    return (this.profile || {}).titleBracketLabel === true;
   },
 
   // #5427: does this user want a short "ding" sound when a checklist item is

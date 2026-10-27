@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Se attivo, premendo Enter si sarvano lu tìtulu dâ carta, la discrizzzioni e altri editor in linea; Shift+Enter inserisce na nova riga. Se disattivo, Ctrl/Cmd+Enter sarva ed Enter inserisce na nova riga.",
   "keep-title-tags": "Teni #etichetta e @membru nti li tituli di carti novi",
   "keep-title-tags-description": "Quannu scegghi n'etichetta cu # o un membru cu @ mentri scrivi lu titulu di na carta nova, teni ddu testu puru nto titulu. Astutatu: lu testu veni rimpiazzatu di l'etichetta o dû membru.",
+  "title-bracket-label": "Trasforma [etichetta] ô principiu dû titulu di na carta nova nta n'etichetta",
+  "title-bracket-label-description": "Quannu lu titulu di na carta nova accumincia cu [Testu] e poi veni autru testu, Testu addiventa n'etichetta dâ carta (criata si la tavula nun n'havi nudda cu ddu nomu) e veni livatu dû titulu. Astutatu: lu titulu resta comu è.",
   "checklist-ding-sound": "Sona un sonu quannu un elementu dâ lista di cuntrollu è cumplitatu",
   "checklist-ding-sound-description": "Sona un sonu curtu quannu marchi un elementu dâ lista di cuntrollu. Disattivatu pi difettu.",
   "assignee": "Assignatu",

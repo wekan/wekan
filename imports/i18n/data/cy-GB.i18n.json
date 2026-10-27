@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Pan fydd ymlaen, mae pwyso Enter yn cadw teitl y cerdyn, y disgrifiad a golygyddion mewnol eraill; mae Shift+Enter yn mewnosod llinell newydd. Pan fydd i ffwrdd, mae Ctrl/Cmd+Enter yn cadw ac mae Enter yn mewnosod llinell newydd.",
   "keep-title-tags": "Cadw #label a @aelod yn nheitlau cardiau newydd",
   "keep-title-tags-description": "Pan fyddwch yn dewis label gyda # neu aelod gyda @ wrth deipio teitl cerdyn newydd, cadw'r testun hwnnw yn y teitl hefyd. I ffwrdd: mae'r label neu'r aelod yn disodli'r testun.",
+  "title-bracket-label": "Troi [label] ar ddechrau teitl cerdyn newydd yn label",
+  "title-bracket-label-description": "Pan fydd teitl cerdyn newydd yn dechrau gyda [Testun] ac yna ragor o destun, daw Testun yn label ar y cerdyn (caiff ei greu os nad oes gan y bwrdd un o'r enw hwnnw) a chaiff ei dynnu o'r teitl. I ffwrdd: cedwir y teitl fel y mae.",
   "checklist-ding-sound": "Chwarae sain pan gwblheir eitem rhestr wirio",
   "checklist-ding-sound-description": "Chwarae ping byr wrth ticio eitem rhestr wirio. I ffwrdd yn ddiofyn.",
   "assignee": "Aseinai",

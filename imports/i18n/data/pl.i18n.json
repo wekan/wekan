@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, opis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
   "keep-title-tags": "Zachowuj #etykietę i @użytkownika w tytułach nowych kart",
   "keep-title-tags-description": "Gdy podczas wpisywania tytułu nowej karty wybierzesz etykietę za pomocą # lub użytkownika za pomocą @, ten tekst pozostanie również w tytule. Wyłączone: tekst zostaje zastąpiony etykietą lub użytkownikiem.",
+  "title-bracket-label": "Zamieniaj [etykieta] na początku tytułu nowej karty w etykietę",
+  "title-bracket-label-description": "Gdy tytuł nowej karty zaczyna się od [Tekst], po którym następuje dalszy tekst, Tekst staje się etykietą karty (zostaje utworzona, jeśli tablica nie ma etykiety o tej nazwie) i jest usuwany z tytułu. Wyłączone: tytuł pozostaje bez zmian.",
   "checklist-ding-sound": "Odtwórz dźwięk po ukończeniu elementu listy kontrolnej",
   "checklist-ding-sound-description": "Odtwarza krótki dźwięk po zaznaczeniu elementu listy kontrolnej. Domyślnie wyłączone.",
   "assignee": "Przypisani",

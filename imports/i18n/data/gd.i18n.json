@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Nuair a bhios seo air, sàbhalaidh Enter tiotal na cairte, an tuairisgeul agus luchd-deasachaidh inline eile; cuiridh Shift+Enter loidhne ùr a-steach. Nuair a bhios seo dheth, sàbhalaidh Ctrl/Cmd+Enter agus cuiridh Enter loidhne ùr a-steach.",
   "keep-title-tags": "Cùm #leubail agus @ball ann an tiotalan chairtean ùra",
   "keep-title-tags-description": "Nuair a thaghas tu leubail le # no ball le @ fhad 's a bhios tu a' sgrìobhadh tiotal cairt ùir, cùm an teacsa sin san tiotal cuideachd. Dheth: thèid an leubail no am ball an àite an teacsa.",
+  "title-bracket-label": "Dèan leubail de [leubail] aig toiseach tiotal cairt ùir",
+  "title-bracket-label-description": "Nuair a thòisicheas tiotal cairt ùir le [Teacsa] agus barrachd teacsa às a dhèidh, thèid Teacsa na leubail aig a' chairt (cruthaichear i mur eil tè air a' bhòrd air a bheil an t-ainm sin) agus thèid a thoirt air falbh on tiotal. Dheth: cumar an tiotal mar a tha e.",
   "checklist-ding-sound": "Cluich fuaim nuair a thèid nì liosta-sgrùdaidh a choileanadh",
   "checklist-ding-sound-description": "Cluichidh e fuaim ghoirid nuair a chuireas tu cromag ri nì liosta-sgrùdaidh. Dheth a ghnàth.",
   "assignee": "Neach-obrach",

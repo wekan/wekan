@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Si haec optio activa est, premendo Enter servas titulum chartae, descriptionem et textum aliorum editorum in loco; Shift+Enter novam lineam inserit. Si inactiva est, Ctrl/Cmd+Enter servat et Enter novam lineam inserit.",
   "keep-title-tags": "Serva #titellum et @sodalem in titulis chartarum novarum",
   "keep-title-tags-description": "Cum titellum per # aut sodalem per @ eligis dum titulum chartae novae scribis, ille textus etiam in titulo servatur. Inactivum: textus titello aut sodali substituitur.",
+  "title-bracket-label": "Converte [titellus] in initio tituli chartae novae in titellum",
+  "title-bracket-label-description": "Cum titulus chartae novae incipit a [Textus] et alius textus sequitur, Textus fit titellus chartae (creatur si tabula nullum eo nomine habet) et e titulo removetur. Inactivum: titulus servatur ut est.",
   "checklist-ding-sound": "Sonum reproduce cum elementum indicis inspectionis perficitur",
   "checklist-ding-sound-description": "Sonum brevem reproducit cum elementum indicis inspectionis notas. Per defectum inactivum.",
   "assignee": "Delegatus",

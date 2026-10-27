@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Nga ku, pressing Yingiza saves kaadi mutwe, kunnyonnyola ne kirala inline editors; Shift+Yingiza inserts kipya line. Nga off, Ctrl/Cmd+Yingiza saves ne Yingiza inserts kipya line.",
   "keep-title-tags": "Kuuma #akabonero ne @memba mu mitwe gy'ekaadi empya",
   "keep-title-tags-description": "Bw'olonda akabonero ne # oba memba ne @ ng'owandiika omutwe gw'ekaadi empya, kuuma ebigambo ebyo ne mu mutwe. Kiggale: ebigambo bikyusibwamu akabonero oba memba.",
+  "title-bracket-label": "Fuula [akabonero] ku ntandikwa y'omutwe gw'ekaadi empya okubeera akabonero",
+  "title-bracket-label-description": "Omutwe gw'ekaadi empya bwe gutandika ne [Ebigambo] era ne wabaawo ebigambo ebirala oluvannyuma, Ebigambo bifuuka akabonero k'ekaadi (kakolebwa singa olubaawo terulina kabonero ka linnya eryo) era biggibwa mu mutwe. Kiggale: omutwe gusigala nga bwe guli.",
   "checklist-ding-sound": "Kuba oluyimba nga ekintu kya checklist kimazeeko",
   "checklist-ding-sound-description": "Kuba oluyimba olutono ng'oteekako akabonero ku kintu kya checklist. Kizikiddwa ku mutindo ogw'obulijjo.",
   "assignee": "Aweereddwa omulimu",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Cuando está activado, presionar Enter guarda el título de la tarjeta, la descripción y otros editores en línea; Shift+Enter inserta una nueva línea. Cuando está desactivado, Ctrl/Cmd+Enter guarda y Enter inserta una nueva línea.",
   "keep-title-tags": "Conservar #etiqueta y @miembro en los títulos de tarjetas nuevas",
   "keep-title-tags-description": "Cuando elegís una etiqueta con # o un miembro con @ mientras escribís el título de una tarjeta nueva, ese texto también se conserva en el título. Desactivado: el texto se reemplaza por la etiqueta o el miembro.",
+  "title-bracket-label": "Convertir [etiqueta] al inicio del título de una tarjeta nueva en una etiqueta",
+  "title-bracket-label-description": "Cuando el título de una tarjeta nueva empieza por [Texto] seguido de más texto, Texto se convierte en una etiqueta de la tarjeta (se crea si el tablero no tiene ninguna con ese nombre) y se quita del título. Desactivado: el título se mantiene tal cual.",
   "checklist-ding-sound": "Reproducir un sonido cuando se completa un elemento de la lista de verificación",
   "checklist-ding-sound-description": "Reproduce un breve sonido al marcar un elemento de la lista de verificación. Desactivado de forma predeterminada.",
   "assignee": "Asignado",

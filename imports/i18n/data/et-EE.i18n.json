@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Kui see on sees, salvestab Enter kaardi pealkirja, kirjelduse ja muud reasisesed redaktorid; Shift+Enter lisab uue rea. Kui see on väljas, salvestab Ctrl/Cmd+Enter ja Enter lisab uue rea.",
   "keep-title-tags": "Jäta #märgis ja @liige uute kaartide pealkirja",
   "keep-title-tags-description": "Kui valid uue kaardi pealkirja kirjutades märgise # abil või liikme @ abil, jääb see tekst ka pealkirja alles. Väljas: tekst asendatakse märgise või liikmega.",
+  "title-bracket-label": "Muuda uue kaardi pealkirja alguses olev [märgis] märgiseks",
+  "title-bracket-label-description": "Kui uue kaardi pealkiri algab tekstiga [Tekst], millele järgneb veel teksti, saab Tekstist kaardi märgis (see luuakse, kui tahvlil sellise nimega märgist pole) ja see eemaldatakse pealkirjast. Väljas: pealkiri jääb nii, nagu see on.",
   "checklist-ding-sound": "Esita heli, kui kontrollnimekirja üksus lõpetatakse",
   "checklist-ding-sound-description": "Esitab lühikese helina, kui märgid kontrollnimekirja üksuse tehtuks. Vaikimisi väljas.",
   "assignee": "Vastuvõtja",

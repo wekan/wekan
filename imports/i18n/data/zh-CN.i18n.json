@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "开启后，按 Enter 保存卡片标题、描述及其他内嵌编辑器；Shift+Enter 插入新行。关闭后，Ctrl/Cmd+Enter 保存，Enter 插入新行。",
   "keep-title-tags": "在新卡片标题中保留 #标签 和 @成员",
   "keep-title-tags-description": "在输入新卡片标题时用 # 选择标签或用 @ 选择成员后，该文字也保留在标题中。关闭：该文字会被标签或成员替换。",
+  "title-bracket-label": "将新卡片标题开头的 [标签] 转换为标签",
+  "title-bracket-label-description": "当新卡片的标题以 [文本] 开头且后面还有其他文字时，文本会成为该卡片的标签（如果看板中没有该名称的标签则会创建），并从标题中删除。关闭：标题保持原样。",
   "checklist-ding-sound": "勾选清单项目时播放声音",
   "checklist-ding-sound-description": "勾选清单项目时播放一声短促的叮咚提示音。默认关闭。",
   "assignee": "被指派人",

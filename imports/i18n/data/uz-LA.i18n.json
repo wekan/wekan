@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Yoqilganda Enter tugmasi karta sarlavhasi, tavsifi va boshqa ichki tahrirlagichlarni saqlaydi; Shift+Enter yangi qator qo‘shadi. O‘chirilganda Ctrl/Cmd+Enter saqlaydi, Enter esa yangi qator qo‘shadi.",
   "keep-title-tags": "Yangi karta sarlavhalarida #yorliq va @a'zoni saqlash",
   "keep-title-tags-description": "Yangi kartaning sarlavhasini yozayotganda # orqali yorliq yoki @ orqali a'zo tanlasangiz, o'sha matn sarlavhada ham qoladi. O'chiq: matn yorliq yoki a'zo bilan almashtiriladi.",
+  "title-bracket-label": "Yangi karta sarlavhasi boshidagi [yorliq] so'zini yorliqqa aylantirish",
+  "title-bracket-label-description": "Yangi karta sarlavhasi [Matn] bilan boshlanib, undan keyin yana matn kelsa, Matn kartaning yorlig'iga aylanadi (taxtada shu nomli yorliq bo'lmasa, yaratiladi) va sarlavhadan olib tashlanadi. O'chiq: sarlavha qanday bo'lsa, shunday qoladi.",
   "checklist-ding-sound": "Nazorat ro'yxati bandi tugallanganda tovush chalish",
   "checklist-ding-sound-description": "Nazorat ro'yxati bandini belgilaganingizda qisqa tovush chalinadi. Sukut bo'yicha o'chirilgan.",
   "assignee": "Tayinlangan shaxs",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Indien ingeschakeld slaat Enter de kaarttitel, beschrijving en andere inline-editors op; Shift+Enter voegt een nieuwe regel in. Indien uitgeschakeld slaat Ctrl/Cmd+Enter op en voegt Enter een nieuwe regel in.",
   "keep-title-tags": "#Markering en @lid behouden in titels van nieuwe kaarten",
   "keep-title-tags-description": "Als je tijdens het typen van de titel van een nieuwe kaart een markering kiest met # of een lid met @, blijft die tekst ook in de titel staan. Uit: de tekst wordt vervangen door de markering of het lid.",
+  "title-bracket-label": "[markering] aan het begin van een nieuwe kaarttitel omzetten in een markering",
+  "title-bracket-label-description": "Als de titel van een nieuwe kaart begint met [Tekst] gevolgd door meer tekst, wordt Tekst een markering van de kaart (aangemaakt als het bord er geen met die naam heeft) en wordt het uit de titel verwijderd. Uit: de titel blijft zoals hij is.",
   "checklist-ding-sound": "Speel een geluid af wanneer een checklist-item is voltooid",
   "checklist-ding-sound-description": "Speelt een kort belgeluid af wanneer u een checklist-item afvinkt. Standaard uitgeschakeld.",
   "assignee": "Toegewezen aan",

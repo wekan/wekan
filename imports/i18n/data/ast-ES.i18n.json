@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Cuando ta activao, calcar Enter guarda'l títulu de la tarxeta, la descripción y otros editores en llinia; Shift+Enter inxerta una llinia nueva. Cuando ta desactivao, Ctrl/Cmd+Enter guarda y Enter inxerta una llinia nueva.",
   "keep-title-tags": "Caltener #etiqueta y @miembru nos títulos de tarxetes nueves",
   "keep-title-tags-description": "Cuando escueyes una etiqueta con # o un miembru con @ mientres escribes el títulu d'una tarxeta nueva, caltién esi testu tamién nel títulu. Desactiváu: el testu sustitúyese pola etiqueta o pol miembru.",
+  "title-bracket-label": "Convertir [etiqueta] al entamu del títulu d'una tarxeta nueva nuna etiqueta",
+  "title-bracket-label-description": "Cuando'l títulu d'una tarxeta nueva entama con [Testu] siguíu de más testu, Testu conviértese nuna etiqueta de la tarxeta (críase si'l tableru nun tien nenguna con esi nome) y quítase del títulu. Desactiváu: el títulu caltiénse como ta.",
   "checklist-ding-sound": "Sonar cuando se completa un elementu de llista de verificación",
   "checklist-ding-sound-description": "Sonar un tonu curtiu cuando marques un elementu de llista de verificación. Desactiváu por defeutu.",
   "assignee": "Asignado",

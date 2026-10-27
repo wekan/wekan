@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "As 't an stiet, bewoart Enter den titel van de koarte, de beschrievienge en andere inline-editors; Shift+Enter voegt een nieuwe regel toe. As 't uut stiet, bewoart Ctrl/Cmd+Enter en voegt Enter een nieuwe regel toe.",
   "keep-title-tags": "#Aanduidingsmarkerienge en @lid in titels van nieuwe kaartn hoedn",
   "keep-title-tags-description": "A je bie 't typn van den titel van e nieuwe kaart e aanduidingsmarkerienge mee # of e lid mee @ kiest, blyft die tekst ook in den titel stoan. Uut: den tekst wordt vervangn deur d'aanduidingsmarkerienge of 't lid.",
+  "title-bracket-label": "[markerienge] an 't begin van e nieuwe kaartntitel omzettn in e markerienge",
+  "title-bracket-label-description": "A de titel van e nieuwe kaart begunt mee [Tekst] en er kom nog tekst achter, wordt Tekst e markerienge van de kaart (angemakt as 't bord der gin ee mee die noame èt) en wordt 't uut de titel gehoald. Uut: de titel blyft zoals 'ij is.",
   "checklist-ding-sound": "Play een klank wanneir e checklist-element voltraokken is",
   "checklist-ding-sound-description": "Speult ne kortn klank of wanneir gie e checklist-element aafvinkt. Standaard uit.",
   "assignee": "Toegewezen aan",

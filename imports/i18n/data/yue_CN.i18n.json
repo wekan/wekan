@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "开咗之后，㩒 Enter 会保存卡片标题、描述同其他内嵌编辑器；Shift+Enter 换行。熄咗之后，Ctrl/Cmd+Enter 保存，㩒 Enter 换行。",
   "keep-title-tags": "喺新卡片標題入面保留 #標籤 同 @會員",
   "keep-title-tags-description": "喺輸入新卡片標題嗰陣，如果用 # 揀標籤或者用 @ 揀會員，嗰段文字都會保留喺標題入面。關閉：文字會被標籤或者會員取代。",
+  "title-bracket-label": "將新卡片標題開頭嘅 [標籤] 變成標籤",
+  "title-bracket-label-description": "當新卡片嘅標題以 [文字] 開頭，後面仲有其他文字嘅時候，文字會變成呢張卡片嘅標籤（如果看板冇呢個名嘅標籤就會新建），並且喺標題度刪走。關閉：標題保持原樣。",
   "checklist-ding-sound": "勾選清單項目時播放聲音",
   "checklist-ding-sound-description": "勾選清單項目時播放一聲短促嘅叮噹提示音。預設關閉。",
   "assignee": "受讓人",

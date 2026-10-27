@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Iyo bikora, gukanda Enter bibika umutwe w'ikarita, ibisobanuro n'ibindi bihindurirwa aho biri; Shift+Enter yongeraho umurongo mushya. Iyo bizimye, Ctrl/Cmd+Enter irabika kandi Enter ikongeraho umurongo mushya.",
   "keep-title-tags": "Gumana #ikirango na @umunyamuryango mu mitwe y'amakarita mashya",
   "keep-title-tags-description": "Iyo uhisemo ikirango ukoresheje # cyangwa umunyamuryango ukoresheje @ mu gihe wandika umutwe w'ikarita nshya, iyo nyandiko igumamo no mu mutwe. Bizimye: inyandiko isimburwa n'ikirango cyangwa umunyamuryango.",
+  "title-bracket-label": "Hindura [ikirango] kiri mu ntangiriro y'umutwe w'ikarita nshya kibe ikirango",
+  "title-bracket-label-description": "Iyo umutwe w'ikarita nshya utangiranye na [Inyandiko] igakurikirwa n'indi nyandiko, Inyandiko iba ikirango cy'ikarita (gihangwa niba ikibaho kidafite ikirango cy'iryo zina) kandi ikavanwa mu mutwe. Bizimye: umutwe uguma uko uri.",
   "checklist-ding-sound": "Kina ijwi iyo ikintu cy'urutonde rw'igenzura kirangiye",
   "checklist-ding-sound-description": "Kina ijwi rigufi igihe ushyize akamenyetso ku kintu cy'urutonde rw'igenzura. Mu buryo busanzwe birazimye.",
   "assignee": "Uwahawe akazi",

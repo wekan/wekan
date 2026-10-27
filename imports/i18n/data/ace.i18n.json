@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Watèe udép, teugon Enter geukeubah judul kad, deskripsi ngön editor inline laén; Shift+Enter geutamah baréh barô. Watèe matê, Ctrl/Cmd+Enter geukeubah ngön Enter geutamah baréh barô.",
   "keep-title-tags": "Keubah #label ngon @anggota lam judul kad barô",
   "keep-title-tags-description": "Watèe neupileh label ngon # atawa anggota ngon @ watèe neutuléh judul kad barô, teutap keubah haba nyan lam judul. Mate: haba nyan teugantoe le label atawa anggota.",
+  "title-bracket-label": "Peugantoe [label] bak phôn judul kad barô jeut keu label",
+  "title-bracket-label-description": "Watèe judul kad barô geupeuphôn ngon [Haba] lheuh nyan na haba laén, Haba jeut keu label kad nyan (geupeugöt meunyo papan hana label ngon nan nyan) dan geupeugadoh nibak judul. Mate: judul teutap lagée nyan.",
   "checklist-ding-sound": "Peubunyi su watèe item checklist geuseuleusoe",
   "checklist-ding-sound-description": "Peubunyi su \"ding\" paneuk watèe droeneueh cek saboh item checklist. Matê meunurôt default.",
   "assignee": "Ureueng nyang geubri buet",

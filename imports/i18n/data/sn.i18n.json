@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "When pa, pressing Enter saves the kadhi musoro, tsananguro uye zvimwe inline editors; Shift+Enter inserts a itsva line. When off, Ctrl/Cmd+Enter saves uye Enter inserts a itsva line.",
   "keep-title-tags": "Chengeta #reberu ne @nhengo mumisoro yemakadhi matsva",
   "keep-title-tags-description": "Paunosarudza reberu ne # kana nhengo ne @ uchinyora musoro wekadhi nyowani, mavara iwayo anosara mumusoro futi. Kudzimwa: mavara anotsiviwa nereberu kana nhengo.",
+  "title-bracket-label": "Shandura [reberu] pakutanga kwemusoro wekadhi nyowani kuita reberu",
+  "title-bracket-label-description": "Kana musoro wekadhi nyowani uchitanga ne [Mavara] uye mamwe mavara achitevera, Mavara anova reberu yekadhi (inogadzirwa kana bhodhi risina reberu yezita iroro) uye anobviswa mumusoro. Kudzimwa: musoro unoramba wakadaro.",
   "checklist-ding-sound": "Ridza ruzha kana chinhu che checklist chapera",
   "checklist-ding-sound-description": "Inoridza ruzha rudiki kana wachecker chinhu che checklist. Zvakadzimwa nemazvo.",
   "assignee": "Wapiwa basa",

@@ -1977,6 +1977,8 @@
   "submit-on-enter-description": "Doyettiyo wode, Enter xiqqiyoogee kaardiyaa sunttaa, qonccissuwaanne hara laammiyaabata naagees; Shift+Enter ooratha xiqiyaa gelissees. To'ettiyo wode, Ctrl/Cmd+Enter naagees qassi Enter ooratha xiqiyaa gelissees.",
   "keep-title-tags": "Ooratta kaardiyaa huuphe sunttan #malaataanne @yaraa naaga",
   "keep-title-tags-description": "Ooratta kaardiyaa huuphe sunttaa xaafiyo wode # maddan malaataa woy @ maddan yaraa doorikko, he xaafettay huuphe sunttankka attees. Gorddettidaba: xaafettay malaataaninne woy yaraan laammettees.",
+  "title-bracket-label": "Ooratta kaardiyaa huuphe sunttaa doommaaniya [malaataa] malaatan laamma",
+  "title-bracket-label-description": "Ooratta kaardiyaa huuphe sunttay [Xaafettaa] giidi doommidi hara xaafettay kaalliya wode, Xaafettay kaardiyaa malaataa gidees (bookkiyan he sunttaa malaatay baynnaba gidikko medhettees) qassi huuphe sunttaappe diggettees. Gorddettidaba: huuphe sunttay de'iyoogaadan attees.",
   "checklist-ding-sound": "Chekilisttiya harggo polettiyaa wode giireta phalqisa",
   "checklist-ding-sound-description": "Chekilisttiya harggo malaassiya wode qanttata giireta phalqisees. Koyro hanotan digettidayssa.",
   "assignee": "Oosoy imettidoogaa",
