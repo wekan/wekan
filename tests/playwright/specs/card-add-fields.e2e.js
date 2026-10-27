@@ -137,11 +137,15 @@ test('"Scrum settings" is the section title, not repeated before each Scrum row'
   const details = await openCard(page, board);
   await details.locator('.js-open-card-add-fields').click();
   const popup = addPopup(page);
-  await popup.locator('.js-card-settings-menu[data-id="scrum"]').click();
-  await expect(popup.locator('.admin-pane-title')).toBeVisible();
+  const scrumMenu = popup.locator('.js-card-settings-menu[data-id="scrum"]');
+  await scrumMenu.click();
+  // Card Settings opens on Card now, so wait for the pane to BE Scrum's
+  // before reading it: read too early, the title was "Card" and every label
+  // with "Card" in it failed.
+  const scrumTitle = (await scrumMenu.textContent()).trim();
+  await expect(popup.locator('.admin-pane-title')).toHaveText(scrumTitle);
   const labels = await popup.locator('.card-settings-line-label').allTextContents();
   expect(labels.length).toBeGreaterThan(0);
-  const scrumTitle = (await popup.locator('.admin-pane-title').textContent()).trim();
   for (const text of labels) expect(text).not.toContain(scrumTitle);
 });
 

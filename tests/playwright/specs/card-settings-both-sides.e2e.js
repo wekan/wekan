@@ -24,10 +24,12 @@ test('both columns list every row of the table', async ({ boardPage: page }) => 
   for (const section of SECTIONS) {
     await page.locator(`.js-pop-over .js-card-settings-menu[data-id="${section.id}"]`).click();
     for (const side of ['card', 'minicard']) {
-      // List title is the CARD's own row, only offered from a card's own menu.
+      // List title is the CARD's own row, only offered from a card's own menu;
+      // and a row with no minicard side (Drawing, Action items, attachment
+      // previews...) is listed only on the card side, as rowsForSide does.
       const expected = section.keys.filter(key => {
         const row = CARD_SETTINGS_ROWS.find(r => r.key === key);
-        return row && !row[side].needsCard;
+        return row && row[side] && !row[side].needsCard;
       });
       const rows = page.locator(`.js-pop-over .js-card-field-order-row[data-side="${side}"]`);
       await expect.poll(async () => (await rows.evaluateAll(els => els.map(r => r.dataset.key))).sort(), { message: `${section.id} ${side}` })
@@ -36,7 +38,7 @@ test('both columns list every row of the table', async ({ boardPage: page }) => 
     }
   }
   for (const side of ['card', 'minicard']) {
-    const expected = CARD_SETTINGS_ROWS.filter(row => !row[side].needsCard).map(row => row.key);
+    const expected = CARD_SETTINGS_ROWS.filter(row => row[side] && !row[side].needsCard).map(row => row.key);
     expect(seen[side].sort()).toEqual(expected.sort());
   }
 });
