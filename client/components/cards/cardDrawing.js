@@ -174,6 +174,25 @@ Template.cardDrawingPopup.onRendered(function () {
   Tracker.afterFlush(() => requestAnimationFrame(() => requestAnimationFrame(() => {
     if (!tpl.view.isDestroyed && !tpl.strokes.get().length && !tpl.editingId.get()) fitToStage(tpl, null);
   })));
+  // ...and again whenever that room changes while the drawing is still new,
+  // empty and not sized or zoomed by hand. Opened from another popup (the
+  // card's + Add, Add attachment) the popup is the SAME rendered one, and its
+  // maximize follows reactively - after the fit above had already taken the
+  // un-maximized 820px, so a new drawing kept about 784px of a 1280px window.
+  // The same refit follows the window being resized or the popup maximized.
+  const stage = this.find('.js-drawing-stage');
+  if (stage && typeof ResizeObserver !== 'undefined') {
+    let lastRoom = '';
+    this.stageObserver = new ResizeObserver(() => {
+      const room = stageRoom(tpl);
+      const key = room ? `${room.width}x${room.height}` : '';
+      if (key === lastRoom) return;
+      lastRoom = key;
+      if (tpl.view.isDestroyed || tpl.sizedByHand || tpl.strokes.get().length || tpl.editingId.get()) return;
+      fitToStage(tpl, null);
+    });
+    this.stageObserver.observe(stage);
+  }
   // The color wheel follows the brightness and the color.
   this.autorun(() => {
     if (!tpl.colorEditor.get()) return;
@@ -242,6 +261,10 @@ function pointFrom(tpl, event) {
   const { width, height } = bounds(tpl);
   return [Math.round(((e.clientX - rect.left) / rect.width) * width * 10) / 10, Math.round(((e.clientY - rect.top) / rect.height) * height * 10) / 10];
 }
+
+Template.cardDrawingPopup.onDestroyed(function () {
+  if (this.stageObserver) this.stageObserver.disconnect();
+});
 
 Template.cardDrawingPopup.helpers({
   drawings() { return (card(Template.instance()).drawings || []); },
@@ -337,8 +360,10 @@ Template.cardDrawingPopup.events({
     }
     tpl.picking.set(!tpl.picking.get());
   },
-  'click .js-drawing-zoom-in'(event, tpl) { event.preventDefault(); tpl.zoom.set(d.nextZoom(tpl.zoom.get(), 1)); },
-  'click .js-drawing-zoom-out'(event, tpl) { event.preventDefault(); tpl.zoom.set(d.nextZoom(tpl.zoom.get(), -1)); },
+  // A zoom or a corner resize is the user's choice of size: from then on a
+  // change of the room no longer refits the drawing (onRendered's observer).
+  'click .js-drawing-zoom-in'(event, tpl) { event.preventDefault(); tpl.sizedByHand = true; tpl.zoom.set(d.nextZoom(tpl.zoom.get(), 1)); },
+  'click .js-drawing-zoom-out'(event, tpl) { event.preventDefault(); tpl.sizedByHand = true; tpl.zoom.set(d.nextZoom(tpl.zoom.get(), -1)); },
   // The drawing area grows (or shrinks, never cutting a line) from its corner.
   'pointerdown .js-drawing-canvas-resize'(event, tpl) {
     const e = event.originalEvent || event;
@@ -348,6 +373,7 @@ Template.cardDrawingPopup.events({
     try { event.currentTarget.setPointerCapture?.(e.pointerId); } catch (error) { /* resized without capture */ }
     // Right to left, the handle is at the bottom-left and grows the drawing leftwards.
     const direction = window.getComputedStyle(event.currentTarget).direction === 'rtl' ? -1 : 1;
+    tpl.sizedByHand = true;
     tpl.canvasResize = { pointerId: e.pointerId, x: e.clientX, y: e.clientY, size: tpl.size.get(), zoom: tpl.zoom.get(), direction };
   },
   'pointermove .js-drawing-canvas-resize'(event, tpl) {
@@ -367,6 +393,7 @@ Template.cardDrawingPopup.events({
     const step = steps[event.key];
     if (!step) return;
     event.preventDefault();
+    tpl.sizedByHand = true;
     const min = d.minimumDrawingSize(tpl.strokes.get());
     const size = tpl.size.get();
     const next = d.drawingSize(size.width + step[0], size.height + step[1]);
@@ -414,6 +441,7 @@ Template.cardDrawingPopup.events({
     tpl.history = [];
     tpl.selection.set([]);
     tpl.strokes.set([]);
+    tpl.sizedByHand = false;
     fitToStage(tpl, null);
   },
   'click .js-edit-drawing'(event, tpl) {
