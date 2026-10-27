@@ -180,6 +180,11 @@ for (const vp of [{ name: 'laptop', width: 1366, height: 768 }, { name: 'phone',
     test('the opened card', async ({ boardPage, board }) => {
       await themedBoard(board);
       await boardPage.reload();
+      await boardPage.locator('.js-minicard').first().waitFor({ timeout: 30_000 });
+      // Wait for the theme, as the header test does: the board's colour was
+      // written straight to the database, and measuring before the reloaded
+      // page has it measures WeKan's stock colours instead.
+      await expect(boardPage.locator('#header-quick-access')).toHaveClass(new RegExp(`board-color-${THEME}`));
       const bp = new BoardPage(boardPage);
       const cp = new CardPage(boardPage);
       await bp.clickCard(board.listIds[0], 'Alpha Card');
@@ -191,6 +196,10 @@ for (const vp of [{ name: 'laptop', width: 1366, height: 768 }, { name: 'phone',
       await themedBoard(board);
       await boardPage.reload();
       await boardPage.locator('.js-minicard').first().waitFor({ timeout: 30_000 });
+      // Wait for the theme, as the header test does: the board's colour was
+      // written straight to the database, and measuring before the reloaded
+      // page has it measures WeKan's stock colours instead.
+      await expect(boardPage.locator('#header-quick-access')).toHaveClass(new RegExp(`board-color-${THEME}`));
       const cog = boardPage.locator('.board-sidebar .js-open-board-menu');
       if (!(await cog.isVisible().catch(() => false))) await boardPage.locator('.js-toggle-page-sidebar').first().click();
       await expect(cog).toBeVisible();

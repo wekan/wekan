@@ -1327,11 +1327,15 @@ THEME - Apple Glass Pastel
   color: #111827;
 }
 
+/* Quiet text - the forecast's "Not enough finished cards", empty-field hints,
+   activity lines. #6b7280 was 4.51:1 on a plain #f7f7f7 and 4.4:1 on the
+   blue-tinted card header, on the edge of the 4.5:1 ordinary text needs;
+   #4b5563 is 7.05:1 and 6.95:1 there. */
 .board-color-appleglasspastel .quiet,
 .board-color-appleglasspastel .quiet a,
 .board-color-appleglasspastel .activity-desc,
 .board-color-appleglasspastel .sidebar-list-item-description {
-  color: #6b7280;
+  color: #4b5563;
 }
 
 .board-color-appleglasspastel .list.list-composer,

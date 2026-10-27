@@ -141,7 +141,9 @@ test('glass has a rim of light and a sheen, and turns opaque when transparency i
 
 test('text, focus and status colours stay high-contrast and non-pastel', () => {
   const themeBlock = blockBetween('THEME - Apple Glass Pastel', 'END Apple Glass Pastel THEME');
-  for (const token of ['#111827', '#0f172a', '#6b7280', '#1e3a8a']) {
+  // Quiet text moved from #6b7280 (4.51:1 on #f7f7f7, under 4.5 on the tinted
+  // card header) to #4b5563 deliberately; see the .quiet rule.
+  for (const token of ['#111827', '#0f172a', '#4b5563', '#1e3a8a']) {
     assert.ok(themeBlock.includes(token), `${token} is used for readable UI text/state`);
   }
   assert.ok(themeBlock.includes('box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12)'),
