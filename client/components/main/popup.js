@@ -3,6 +3,7 @@ import { updatePopupMenuColumns } from '/client/lib/popupMenuLayout';
 import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 import { trapTabKey } from '/client/lib/accessibility';
+import { keptInside } from '/client/lib/popupBounds';
 
 // Anchor the opposite edge while dragging the bottom inline-end corner.
 function resizeDatePopup(element, width, height) {
@@ -213,6 +214,24 @@ Popup.template.onRendered(function () {
     });
     this._menuLayoutObserver.observe(this._popupElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     update();
+    // A movable popup that grows - Drawing replacing the card's menu in this
+    // same popup, at min(820px, 90vw) - is kept inside the window, by the
+    // rule a drag keeps it there (client/lib/popupBounds.js). Not when
+    // maximized: then it is the window.
+    if (typeof ResizeObserver !== 'undefined') {
+      const element = this._popupElement;
+      this._boundsObserver = new ResizeObserver(() => {
+        if (!MOVABLE_POPUPS.has(element.dataset.popup) || element.classList.contains('pop-over--maximized')) return;
+        const box = element.getBoundingClientRect();
+        const moved = keptInside(box, window.innerWidth, window.innerHeight);
+        if (!moved) return;
+        element.style.setProperty('inset-inline-start', 'auto', 'important');
+        element.style.setProperty('inset-inline-end', 'auto', 'important');
+        element.style.setProperty('left', `${moved.left}px`, 'important');
+        element.style.setProperty('top', `${moved.top}px`, 'important');
+      });
+      this._boundsObserver.observe(element);
+    }
   }
 
 
@@ -232,6 +251,7 @@ Popup.template.onRendered(function () {
 
 Popup.template.onDestroyed(function () {
   this._menuLayoutObserver?.disconnect();
+  this._boundsObserver?.disconnect();
   if (this._menuLayoutFrame != null) cancelAnimationFrame(this._menuLayoutFrame);
   this._popupElement?.removeEventListener('keydown', this._focusTrap);
 });

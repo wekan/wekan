@@ -49,11 +49,13 @@ test('dragging reads the allow-list, and never moves a maximized popup', () => {
   assert.doesNotMatch(js, /element\.dataset\.popup !== 'boardViewSettingsPopup'/, 'the old one-popup check');
 });
 
-test('maximizing keeps the dragged place to restore, and the drawing keeps its shape', () => {
+test('maximizing keeps the dragged place to restore, and the drawing takes the window', () => {
   assert.match(js, /dataset\.restoreStyle = element\.getAttribute\('style'\)/);
   assert.match(js, /element\.setAttribute\('style', element\.dataset\.restoreStyle/);
   assert.match(css, /\.pop-over\.pop-over--maximized \{[^}]*inset: 8px !important/);
-  assert.match(css, /\.pop-over--maximized \.card-drawing-surface \{[^}]*aspect-ratio: 8 \/ 5/);
+  // d5d027a6f2: maximized, the drawing takes the window (cardDrawing.js sizes it
+  // to its stage); the 800 x 500 shape this pinned drew it 784px wide.
+  assert.doesNotMatch(css.replace(/\/\*[\s\S]*?\*\//g, ''), /\.pop-over--maximized \.card-drawing-surface \{/);
 });
 
 test('negative: every locale has the three new strings, none left in English but English', () => {

@@ -1482,15 +1482,11 @@ body.mobile-mode .pop-over .content-wrapper {
   flex: 1 1 auto;
   max-height: none;
 }
-/* The drawing keeps its 800 x 500 shape - the pointer is mapped onto its whole
-   box (cardDrawing.js) - and grows to the width or the height of the window,
-   whichever runs out first. */
+/* A maximized drawing takes the room the window has: cardDrawing.js sizes the
+   drawing to its stage and gives the surface that width and height. The rule
+   that kept it at 800 x 500's shape here (min(100%, (100vh - 230px) * 1.6),
+   aspect-ratio 8 / 5) outlived that design and drew a 1212px drawing 784px
+   wide in a 1280 x 720 window (card-drawing-canvas.e2e.js). */
 .pop-over.pop-over--maximized .card-drawing {
   min-width: 0;
-}
-.pop-over.pop-over--maximized .card-drawing-surface {
-  width: min(100%, calc((100vh - 230px) * 1.6));
-  height: auto;
-  aspect-ratio: 8 / 5;
-  margin: 0 auto;
 }

@@ -3,8 +3,9 @@
 // The card's Drawing popup moves like the opened card - by its title bar or
 // its drag handle - and has the opened card's maximize / minimize button.
 // Minimizing puts it back where it was dragged, a maximized popup is not
-// dragged, and the drawing keeps its 800 x 500 shape so the pen lands under
-// the pointer.
+// dragged, and maximized the drawing takes the window (d5d027a6f2; it used to
+// keep an 800 x 500 shape). Opened from the card's menu at the right of the
+// window, it is kept inside the window as it grows (client/lib/popupBounds.js).
 
 const { test, expect } = require('../fixtures');
 const BoardPage = require('../pages/BoardPage');
@@ -36,6 +37,10 @@ async function drag(page, locator, dx, dy) {
 test('the Drawing popup is dragged by its title bar and its handle', async ({ boardPage: page, board }) => {
   await page.evaluate(() => { try { localStorage.removeItem('wekan-popup-maximized-cardDrawingPopup'); } catch (e) { /* none */ } });
   const popup = await openDrawing(page, board);
+  const viewport0 = page.viewportSize();
+  // Opened from the card's menu at the right, it is wholly inside the window.
+  await expect.poll(async () => { const b = await popup.boundingBox(); return b.x + b.width; })
+    .toBeLessThanOrEqual(viewport0.width - 11);
   const before = await popup.boundingBox();
 
   // Toward the middle of the window, so the popup is not stopped at an edge.
@@ -72,10 +77,9 @@ test('maximize fills the window, minimize puts it back, and maximized it is not 
   const max = await popup.boundingBox();
   expect(max.width).toBeGreaterThan(viewport.width - 40);
   expect(max.height).toBeGreaterThan(viewport.height - 40);
-  // The drawing keeps its shape: the pointer is mapped onto its whole box.
-  const surface = await popup.locator('.js-drawing-surface').boundingBox();
-  expect(Math.abs(surface.width / surface.height - 1.6)).toBeLessThan(0.02);
-  expect(surface.width).toBeGreaterThan(placed.width * 0.9);
+  // Maximized, the drawing takes the window, not an 800 x 500 shape.
+  await expect.poll(async () => (await popup.locator('.js-drawing-surface').boundingBox()).width)
+    .toBeGreaterThan(viewport.width * 0.85);
 
   // Negative: a maximized popup stays where it is.
   await drag(page, popup.locator('.header-title'), 100, 100);
