@@ -121,24 +121,6 @@ its reason.
 
 </details>
 
-<details>
-<summary>Needs a maintainer decision on the intended contract</summary>
-
-- A board member with write access but no admin rights can set a list's WIP
-  limit. Decide whether that is a board-admin setting.
-- REST: moving a card to another list of the same board does not check that
-  the swimlane given belongs to that board.
-- `validateAttachmentAndMoveToStorage` moves the file in a `Meteor.defer`,
-  where the caller's userId is lost, so the move runs without it.
-- The attachment REST API's JSON branch calls `insertAsync`, which exists only
-  on the client of Meteor-Files.
-- AuthBleed refusals (Admin Panel / authentication settings) are not
-  recorded in Admin Panel / Problems.
-- The Data health status "Never" in Admin Panel / Problems reuses List Sync's
-  "never synced" text; a key of its own needs translating into every language.
-
-</details>
-
 </details>
 
 # Upcoming WeKan ® release
@@ -150,7 +132,8 @@ column, **Select all** / **Select none** and **drag and drop** lists. A card
 opened from its link no longer vanishes behind a **reverse proxy**; minicards
 show only filled custom fields, lost cards reappear, card numbers stay unique, a
 [label] title prefix is opt-in, Problems gets a nightly **Data health** scan,
-and **database load** on many-pod installations drops.
+**database load** on many-pod installations drops, and the **API's JSON
+uploads** and the site logo are stored again.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -729,6 +712,82 @@ hour on one instance. A partial index holds only the cards that recur.
 
 </details>
 
+**Attachments** - files stored by the API, the site logo, and a validated move.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7505a4fef">The API's JSON uploads and copies, and the site logo, are stored again</a>. Thanks to xet7.</summary>
+
+The JSON branches of REST upload, upload-background and copy, their
+Meteor-method twins and Admin Panel's site logo upload called
+`Attachments.insertAsync`, which Meteor-Files has only on the client, so each
+failed with "is not a function". They use `writeAsync` now, whose after-upload
+hook also validates the file and moves it to the default or copy storage.
+`tests/attachmentApiServerWrite.test.cjs` fails on any server-side
+`insertAsync` of a Meteor-Files collection.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3e80af1ac">Validate and move to storage moves the file again</a>. Thanks to xet7.</summary>
+
+The method moved the file by calling `moveAttachmentToStorage` from
+`Meteor.defer`, where there is no user, so that method's login check refused
+every move. All its checks are made before the defer, so the deferred step moves
+the file itself, as the upload path does. `tests/moveStorageBleed.test.cjs`
+fails on any deferred or timed callback that calls a Meteor method.
+
+</details>
+
+**REST API** - where a new card goes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c355926767">A new card's list and swimlane must belong to the board in the URL</a>. Thanks to xet7.</summary>
+
+POST cards and POST cards/bulk wrote another board's list or swimlane onto a
+new card, which then showed on neither board - the #6572 shape the PUT route
+already refuses. Both answer 400 naming the field now, the bulk route per entry.
+`tests/restCardPlacement.test.cjs` fails on any REST handler that inserts a
+card without the check.
+
+</details>
+
+**Lists** - who sets a WIP limit.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a40c4495d4">A WIP limit is set by a board admin, on every path</a>. Thanks to xet7.</summary>
+
+The WIP limit methods required a board admin, but a member with write access
+could still set `wipLimit` with a plain list update or REST PUT. A deny rule and
+a REST admin check apply the methods' rule everywhere; title, color and starred
+stay with write access. `tests/wipLimitAdminOnly.test.cjs` runs the real deny
+rule.
+
+</details>
+
+**Admin Panel / Problems** - AuthBleed attempts, and Data health's wording.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/314c153c9b">AuthBleed attempts are recorded</a>. Thanks to xet7.</summary>
+
+[AuthBleed](https://wekan.fi/hall-of-fame/authbleed/): `copyBoard`, `copyCard`,
+`copySwimlane` and `createCardWithDueDate` refused without a trace. A
+signed-out caller of any of them, and any refusal of `createCardWithDueDate`,
+which no WeKan client calls, is recorded as `authz.copy` now. Membership
+refusals of the copy dialogs are not: a template or a stale dialog reaches them
+in ordinary use, and a high-severity record would disable that login.
+`tests/authBleedCopyMethods.test.cjs` pins both.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77956c98ed">Data health's "Never" has a key of its own</a>. Thanks to xet7.</summary>
+
+The status line reused List Sync's "never synced" key. `data-health-never-run`
+is filled in every locale from that locale's existing translation of the same
+English word, and a Transifex translation still replaces it.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Tests** - guards and specs that read the wrong thing.
@@ -820,6 +879,15 @@ Read switches and one after the connection fields; the spec matched one.
 Card Settings draws each row once per list and leaves the minicard list head
 empty; the Date section starts with the fixed Mark as complete row; the SMTP
 host field is shown only while email settings are on and SMTP is chosen.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02bb0814c3">linkedWritePolicy and webhookBleed read the code as it is now</a>. Thanks to xet7.</summary>
+
+One sliced up to a line the double-activity fix removed and so read the rest of
+the file; the other pinned copyBoard's signed-out refusal as one line, which now
+records an AuthBleed attempt first. Both keep their assertions.
 
 </details>
 
