@@ -58,8 +58,13 @@ const afterInsertStart = cardsServerHookSource.indexOf('Cards.after.insert(async
 assert.notEqual(afterInsertStart, -1);
 const afterInsertEnd = cardsServerHookSource.indexOf('\n});', afterInsertStart);
 const afterInsertBody = cardsServerHookSource.slice(afterInsertStart, afterInsertEnd);
-assert.match(afterInsertBody, /await cardCreation\(userId, doc\)/,
+// #6823: the hook falls back to the card's own author when it runs outside a
+// method (a REST route has no method user), so the "created" activity it
+// records is attributed instead of anonymous.
+assert.match(afterInsertBody, /await cardCreation\(userId \|\| doc\.userId, doc\)/,
   'positive: Cards.after.insert calls cardCreation once');
+assert.equal((afterInsertBody.match(/cardCreation\(/g) || []).length, 1,
+  'negative: and only once');
 assert.equal((afterInsertBody.match(/Activities\.insertAsync/g) || []).length, 0,
   'negative: Cards.after.insert itself never inserts an Activities document ' +
   '(only cardCreation does, exactly once)');

@@ -14,7 +14,6 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Cards from '/models/cards';
-import { cardCreation } from '/models/cards';
 import Lists from '/models/lists';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
@@ -67,8 +66,10 @@ Meteor.methods({
       sort: (siblings || []).length,
       cardNumber: await board.getNextCardNumber(),
     });
-    const created = await ReactiveCache.getCard(cardId);
-    if (created) await cardCreation(userId, created);
+    // The "created" activity comes from Cards.after.insert (server/models/
+    // cards.js), as for any card inserted through the collection. Recording
+    // it here as well gave every new issue two, and its watchers two
+    // notifications (#6823).
     return { cardId };
   },
 

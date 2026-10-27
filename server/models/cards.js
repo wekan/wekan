@@ -1014,7 +1014,9 @@ Cards.before.insert(async (userId, doc) => {
 });
 
 Cards.after.insert(async (userId, doc) => {
-  if (!deferSyncRecording('create', doc)) await cardCreation(userId, doc);
+  // Outside a method (a REST route, a server job) the hook has no user: the
+  // card's own author is who created it (#6823).
+  if (!deferSyncRecording('create', doc)) await cardCreation(userId || doc.userId, doc);
 
   Meteor.setTimeout(async () => {
     const card = await Cards.findOneAsync(doc._id);
@@ -1433,10 +1435,12 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
       return;
     }
     sendJsonResult(res, { code: 200, data: { _id: linkedNewId } });
-    const linkedCard = await ReactiveCache.getCard(linkedNewId);
     // GHSA-6jr3-42jf-vhm5: attribution comes from the session, not the body.
     noteAuthorSpoof(req, 'POST cards (linked)');
-    await cardCreation(req.userId, linkedCard);
+    // createLinkedCardFor inserts through the collection, so Cards.after.insert
+    // has already recorded the "created" activity; a second one here gave every
+    // linked card created over REST two, and its watchers two notifications
+    // (#6823).
     return;
   }
 

@@ -178,7 +178,12 @@ test('who did it comes from the session, not from the request body', () => {
   assert.strictEqual(reads, 1, 'cards.js reads it once, in noteAuthorSpoof');
 
   // The six paths the advisory named, by what each one records.
-  assert.ok(/await cardCreation\(req\.userId, linkedCard\)/.test(cards), 'linked-card create');
+  // #6823: the linked card's "created" activity is recorded once, by
+  // Cards.after.insert, from the card's userId - which createLinkedCardFor
+  // sets to the session user it is given.
+  assert.ok(/createLinkedCardFor\(req\.userId, /.test(cards), 'linked-card create');
+  assert.ok(/^\s+userId: userId,\n\s+\}\);\n\}/m.test(cards), 'linked-card create: the card author is that user');
+  assert.ok(/await cardCreation\(userId \|\| doc\.userId, doc\)/.test(cards), 'linked-card create: the hook attributes it');
   assert.ok(/await cardCreation\(req\.userId, card\)/.test(cards), 'single card create');
   assert.ok(/userId: req\.userId,\n\s+swimlaneId: req\.body\.swimlaneId/.test(cards),
     'the card document itself');
