@@ -900,6 +900,66 @@ switched to Scrum. Both failed in the Chromium stage of a full run.
 
 </details>
 
+**.tools/ and the editor sandboxes** - every file the scripts write stays in the
+checkout, and VSCodium can be confined to it on Linux, macOS and Windows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aeff4900df">Every file the scripts write stays in .tools/: temporary files, downloads, Meteor, Node.js, npm</a>. Thanks to xet7.</summary>
+
+They wrote to `/tmp`, `/var/folders`, `~/Downloads` or `~/Lataukset`,
+`~/.meteor`, `~/.nvm`, `~/.npm`, `/usr/local` and into `~/.zshrc`. Now
+`releases/tools-env.sh` keeps temporary files, downloads, release zips,
+Meteor, Node.js, the npm cache and Go in `.tools/`, and puts those tools on
+`PATH` without touching a shell rc file. Every `mktemp` names `.tools/tmp`,
+because macOS's ignores `TMPDIR` otherwise. Containers get `.tools/tmp` as
+their `/tmp`, verified with MariaDB's temporary tables.
+`tests/toolsDirOnly.test.cjs` keeps it so.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e79ec61bcc">build.bat and the releases\ batch files keep every file in .tools\ too</a>. Thanks to xet7.</summary>
+
+`releases\tools-env.bat` does on Windows what `tools-env.sh` does, and
+`build.bat` unpacks the Dockerfile's Node.js from nodejs.org's zip into
+`.tools`, verified against `SHASUMS256.txt`, instead of a system-wide
+Chocolatey install. Meteor goes into `.tools\.meteor`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42ed50413f">macOS: VSCodium under sandbox-exec, reaching only ~/Documents/repos/wekan</a>. Thanks to xet7.</summary>
+
+The macOS counterpart of the Linux Flatpak sandbox:
+`docs/Security/Sandboxes/macOS/sandbox.sh` refuses the home directory,
+`~/.ssh`, other users and other disks, and opens only the checkout.
+VSCodium's settings, `HOME` and temporary files are kept in `.tools`.
+Verified on macOS 27 with VSCodium running inside. The README explains the
+design, including why Chromium's own sandbox is off.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ac70c4cdd">Windows: VSCodium in Windows Sandbox, seeing only Downloads\repos\wekan</a>. Thanks to xet7.</summary>
+
+`docs/Security/Sandboxes/Windows/sandbox.bat` starts a disposable Hyper-V
+Windows Sandbox in which the checkout is the only mapped folder. VSCodium
+and PortableGit are downloaded once into `.tools`, each verified before it
+is unpacked. Not run on Windows yet; the README says what to check.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8af1e8aec8">mirror.sh uses the WeKan checkout as the source, not a second clone</a>. Thanks to xet7.</summary>
+
+Syncing wekan/wekan cloned all of GitHub's 500 MB into
+`.tools/wekan-github`, although that is this checkout. The source's
+branches and tags are fetched into it under a private namespace instead,
+which took 1.7 seconds, and deleted after the push. Only the destination
+mirrors are cloned.
+
+</details>
+
 **macOS** - the scripts and tests, run on a Mac with bash 3.2 and BSD tools.
 
 <details>
