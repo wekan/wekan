@@ -34,6 +34,7 @@ import Attachments from '../../models/attachments';
 import Checklists from '../../models/checklists';
 import ChecklistItems from '../../models/checklistItems';
 import SessionData from '../../models/usersessiondata';
+import { ensureIndex } from '/server/lib/mongoStartup';
 import CustomFields from '../../models/customFields';
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 const { myAttachmentsSelector, myAttachmentsPageOptions } = require('/models/lib/myAttachmentsQuery');
@@ -84,6 +85,17 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
+
+// Search sessions (global search, Due Cards and the other card reports) are
+// read, upserted and pruned by { userId, sessionId } and by modifiedAt on
+// every search. The collection had only its _id index, so each search scanned
+// every stored session - on one instance 4,751 sessions holding 10 GB, three
+// full scans per search (#6824).
+Meteor.startup(async () => {
+  await ensureIndex(SessionData, { userId: 1, sessionId: 1 });
+  await ensureIndex(SessionData, { modifiedAt: 1 });
+});
+
 const { boardCardScope, isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { retainRankedCard } = require('/models/lib/cardSearchRanking');
 const { withoutMembershipSelectors } = require('/models/lib/boardPermission');
@@ -1456,9 +1468,11 @@ async function findCards(sessionId, query, userId) {
   // Check if the session data was actually stored
   const storedSessionData = typeof SessionData.findOneAsync === 'function' ? await SessionData.findOneAsync({ userId, sessionId }) : SessionData.findOne({ userId, sessionId });
 
-  // remove old session data
+  // Remove search sessions older than a day - everybody's, not only this
+  // user's: a user who never searched again kept theirs forever (one instance
+  // held 4,751 of them, 10 GB, each with the pickled selector of every board
+  // the user can see). Cheap with the modifiedAt index above (#6824).
   const removeSelector = {
-    userId,
     modifiedAt: {
       $lt: new Date(
         subtract(now(), 1, 'day').toISOString(),
