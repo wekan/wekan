@@ -25,7 +25,7 @@ const { isRowVisible } = require('/models/lib/cardFieldVisibility');
 const cardSettingsSections = require('/models/lib/cardSettingsSections');
 const cardShownFields = require('/models/lib/cardShownFields');
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
-import { cardFieldCounts } from '/client/components/cards/cardAddFields';
+import { shownFieldsOf } from '/client/components/cards/cardAddFields';
 import { filterSubtasksOf } from '/client/lib/filterSubtasks';
 import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
@@ -2130,8 +2130,8 @@ function sectionSideRows(tpl, data, side) {
   const section = cardSettingsSections.SECTIONS.find(s => s.id === id);
   const keys = new Set(section ? section.keys : []);
   const board = ReactiveCache.getBoard(Session.get('currentBoard'));
-  const thisCard = settingsCard();
-  const counts = thisCard ? cardFieldCounts(thisCard) : {};
+  // A linked card's data is on its source card; its own choices are its own.
+  const { card: thisCard, counts } = shownFieldsOf(settingsCard());
   const writable = Boolean(board && Utils.canModifyBoard && Utils.canModifyBoard());
   const animatingKey = tpl.animating.get();
   const showDragHandles = Utils.showDragHandles();
@@ -2818,9 +2818,9 @@ Template.boardCardSettingsPopup.events({
     const key = evt.currentTarget.dataset.key;
     if (!card || !cardShownFields.FIELD_KEYS.includes(key) || !Utils.canModifyCard(card)) return;
     tpl.animating.set(key);
-    const counts = cardFieldCounts(card);
+    const { card: view, counts } = shownFieldsOf(card);
     const board = ReactiveCache.getBoard(card.boardId);
-    const next = cardShownFields.cardFieldsAfter(card, key, !cardShownFields.isShown(key, card, counts, board), counts, board);
+    const next = cardShownFields.cardFieldsAfter(view, key, !cardShownFields.isShown(key, view, counts, board), counts, board);
     await Cards.updateAsync(card._id, { $set: next });
   },
   // Select all / Select none under a column's heading: that column's rows of
@@ -2842,10 +2842,10 @@ Template.boardCardSettingsPopup.events({
       if (column === 'this') {
         const card = settingsCard();
         if (!card || !Utils.canModifyCard(card)) return;
-        const counts = cardFieldCounts(card);
+        const { card: view, counts } = shownFieldsOf(card);
         let next = { shownFields: card.shownFields || [], hiddenFields: card.hiddenFields || [] };
         keysOf('.js-card-add-field').forEach(key => {
-          next = cardShownFields.cardFieldsAfter({ ...card, ...next }, key, on, counts, board);
+          next = cardShownFields.cardFieldsAfter({ ...view, ...next }, key, on, counts, board);
         });
         await Cards.updateAsync(card._id, { $set: next });
         return;

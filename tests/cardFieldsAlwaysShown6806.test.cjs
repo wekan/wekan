@@ -132,9 +132,10 @@ test('Board Settings / Card and + Add: a Show empty column, for every per-card f
   assert.match(js, /alwaysShown: cardShownFields\.boardAlwaysShows\(board, built\.key\),/);
   assert.match(js, /'click \.js-card-always-show'\(evt, tpl\) \{[\s\S]{0,400}if \(!\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;[\s\S]{0,200}board\.setCardFieldAlwaysShown\(key, !cardShownFields\.boardAlwaysShows\(board, key\)\)/);
   assert.match(js, /cardShownFields\.isShown\(built\.key, thisCard, counts, board\)/);
-  assert.match(js, /cardShownFields\.cardFieldsAfter\(card, key, !cardShownFields\.isShown\(key, card, counts, board\), counts, board\)/);
+  // (A linked card's data is its source's: shownFieldsOf, tests/linkedCardShownFields.test.cjs.)
+  assert.match(js, /cardShownFields\.cardFieldsAfter\(view, key, !cardShownFields\.isShown\(key, view, counts, board\), counts, board\)/);
   const add = read('client/components/cards/cardAddFields.js');
-  assert.match(add, /f\.isShown\(key, card, cardFieldCounts\(card\), Utils\.getCurrentBoard\(\)\)/);
+  assert.match(add, /f\.isShown\(key, view\.card, view\.counts, Utils\.getCurrentBoard\(\)\)/);
   // The default four unticked need their counts.
   assert.match(add, /attachments: typeof card\.attachments === 'function' \? countOf\(card\.attachments\(\)\) : 0,/);
   assert.match(add, /comments: typeof card\.comments === 'function' \? countOf\(card\.comments\(\)\) : 0,/);

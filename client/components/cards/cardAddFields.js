@@ -32,12 +32,28 @@ function cardOf(data) {
   return ReactiveCache.getCard(data._id) || data;
 }
 
+// What decides which fields `card` shows: its DATA, which a linked card keeps
+// on its source card (members, labels, dates, custom fields, checklists ...),
+// and its own choices (shownFields / hiddenFields, set on the card opened).
+// Reading the linked card's own empty document hid every field its source
+// has (the #1946/#6613 browser test). Returns { card, counts }.
+export function shownFieldsOf(card) {
+  if (!card) return { card: null, counts: {} };
+  const real = typeof card.getRealCard === 'function' ? (card.getRealCard() || card) : card;
+  if (real === card) return { card, counts: cardFieldCounts(card) };
+  return {
+    card: { ...real, shownFields: card.shownFields, hiddenFields: card.hiddenFields },
+    counts: cardFieldCounts(real),
+  };
+}
+
 // The board as this card sees it (cardShownFields.js boardForCard).
 export function cardBoardView(data) {
   const board = Utils.getCurrentBoard();
   const card = cardOf(data);
   if (!board || !card || card.boardId !== board._id) return board;
-  return f.boardForCard(board, card, cardFieldCounts(card));
+  const view = shownFieldsOf(card);
+  return f.boardForCard(board, view.card, view.counts);
 }
 
 // The opened card and each of its section templates read `currentBoard`; this
@@ -62,7 +78,9 @@ CARD_FIELD_TEMPLATES.forEach(name => {
 // of its own to read (the Scrum fields, cardDetails.js orderedCardFieldSections).
 export function cardShowsField(data, key) {
   const card = cardOf(data);
-  return !card || f.isShown(key, card, cardFieldCounts(card), Utils.getCurrentBoard());
+  if (!card) return true;
+  const view = shownFieldsOf(card);
+  return f.isShown(key, view.card, view.counts, Utils.getCurrentBoard());
 }
 
 // "+ Add" opens Board Settings / Card - the same popup - for this card: its

@@ -54,7 +54,8 @@ test('the handler: each column as its own checkboxes would set it, gated the sam
   assert.ok(handler.length > 200, 'found');
   // On this card: one write of the card, through the same rule, with the board.
   assert.match(handler, /if \(!card \|\| !Utils\.canModifyCard\(card\)\) return;/);
-  assert.match(handler, /next = cardShownFields\.cardFieldsAfter\(\{ \.\.\.card, \.\.\.next \}, key, on, counts, board\);/);
+  // (The data from shownFieldsOf: a linked card's is its source's.)
+  assert.match(handler, /next = cardShownFields\.cardFieldsAfter\(\{ \.\.\.view, \.\.\.next \}, key, on, counts, board\);/);
   assert.match(handler, /await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
   // The board's columns: a board admin only.
   assert.ok(handler.indexOf('if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;') < handler.indexOf("column === 'always'"));

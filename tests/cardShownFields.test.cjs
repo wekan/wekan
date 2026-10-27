@@ -151,8 +151,9 @@ test('the popup is Board Settings / Card: sections on the left, Show on Minicard
   assert.match(popup, /\+leftMenu\(settingsMenuItems\)\n\s+\.main-body\n\s+\+paneTitle\(settingsPaneTitle\)/);
   assert.match(popup, /if settingsCardId\n\s+if row\.perCard\n\s+span\.card-settings-side\.card-settings-side-this\n\s+a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{row\.key\}\}" role="checkbox"/);
   const js = read('client/components/sidebar/sidebar.js');
-  // #6806: with the card's board, for its Show empty fields.
-  assert.match(js, /const next = cardShownFields\.cardFieldsAfter\(card, key, !cardShownFields\.isShown\(key, card, counts, board\), counts, board\);\n\s+await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
+  // #6806: with the card's board, for its Show empty fields; the data from
+  // shownFieldsOf, a linked card's being its source's.
+  assert.match(js, /const next = cardShownFields\.cardFieldsAfter\(view, key, !cardShownFields\.isShown\(key, view, counts, board\), counts, board\);\n\s+await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
   assert.match(js, /if \(!card \|\| !cardShownFields\.FIELD_KEYS\.includes\(key\) \|\| !Utils\.canModifyCard\(card\)\) return;/, 'negative: only a field key, only who may change the card');
   // The old "+ Add" popup is gone; one popup, one set of handlers.
   assert.ok(!fs.existsSync(path.join(root, 'client/components/cards/cardAddFields.jade')));
