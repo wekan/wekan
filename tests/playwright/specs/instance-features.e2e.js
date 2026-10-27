@@ -6,6 +6,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, waitForMeteor, navigateInApp } = require('../helpers/auth');
+const { FEATURE_KEYS } = require('../../../models/lib/instanceFeatures');
 
 const setting = () => db.findOne('settings', {}, { _id: 1, featureStates: 1, featureApprovalRequired: 1,
   featureKnownKeys: 1, featurePreviewAdmins: 1 });
@@ -45,7 +46,9 @@ test.describe('Instance features', () => {
       await waitForMeteor(page);
       const row = page.locator('.js-feature-row[data-feature="views-map"]');
       await expect(row).toBeVisible();
-      await expect(page.locator('.js-feature-row')).toHaveCount(8);
+      // One row per catalog feature. The catalog grows as features are added
+      // (8 when this was written, 16 now), so count it rather than a literal.
+      await expect(page.locator('.js-feature-row')).toHaveCount(FEATURE_KEYS.length);
       await row.locator('a.js-toggle-feature').click();
       await page.locator('#feature-approval-required').click();
       await page.locator('button.js-visibility-features-save').click();

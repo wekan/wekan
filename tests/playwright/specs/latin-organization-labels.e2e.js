@@ -21,7 +21,9 @@ test('Latin role settings explain global-admin rights and unsaved preview', asyn
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
   await navigateInApp(page, '/admin/people/roles');
   const pane = page.locator('.roles-settings');
-  await expect(pane.locator('.roles-description')).toContainText('semper omnia iura habent neque hic restringi possunt.');
+  // The pane has a second .roles-description now (custom roles, #3022); the
+  // global-admin explanation is the first one (roles-info).
+  await expect(pane.locator('.roles-description').first()).toContainText('semper omnia iura habent neque hic restringi possunt.');
   await expect(pane).toContainText('Tantum legitur: sequitur optiones supra electas');
   await expect(pane).toContainText('antequam serves.');
   await expect(pane.locator('.js-roles-save')).toBeVisible();
@@ -32,7 +34,9 @@ test('Latin shared-template settings explain scopes and nonempty template boards
   const { loginWithToken, navigateInApp } = require('../helpers/auth');
   await loginWithToken(page, adminUser.id, adminUser.token);
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'la'));
-  await navigateInApp(page, '/admin/people/templates');
+  // The pane's address is /admin/people/shared-templates (models/lib/adminUrls.js);
+  // /admin/people/templates is not a pane and leaves the default one open.
+  await navigateInApp(page, '/admin/people/shared-templates');
   const pane = page.locator('.templates-settings');
   await expect(pane.locator('.templates-description')).toContainText('Elige unum vel plures ambitus infra');
   await expect(pane.locator('.templates-description')).toContainText('Soli usores quorum tabula Exemplarium non est vacua enumerantur.');

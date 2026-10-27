@@ -36,6 +36,9 @@ test(`${locale} date triggers include both initial setting and later changes`, a
   await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
   await page.locator('#ruleTitle').fill('Date changes');
   await page.locator('.js-goto-trigger').click();
+  // The date-changed triggers are card triggers (cardTriggers.jade); the
+  // trigger page opens on the board-triggers tab, so open the card tab first.
+  await page.locator('.js-set-card-triggers').click();
   for (const kind of ['due', 'start', 'end', 'received']) {
     const row = page.locator('.trigger-item').filter({ has: page.locator(`.js-add-${kind}-date-changed-trigger`) });
     await expect(row).toContainText(strings[`r-when-a-${kind}-date-changed`]);

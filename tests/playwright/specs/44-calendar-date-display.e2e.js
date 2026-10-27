@@ -371,7 +371,11 @@ test('Corsican calendar settings retain Gregorian and ISO week meanings', async 
   await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
   const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
   await expect(selector).toBeVisible();
-  await expectCalendarOption(page, selector, 'gregory', 'Gregorianu');
+  // The Gregorian option's value is the stored profile id 'gregorian'
+  // (imports/lib/calendarSystems.js keeps it for saved preferences and
+  // always offers it); 'gregory' is only its Intl identifier, so no
+  // option ever has value="gregory".
+  await expect(selector.locator('option[value="gregorian"]')).toHaveText('Gregorianu');
   await expectCalendarOption(page, selector, 'iso8601', 'Calendariu gregorianu (simane ISO 8601)');
   expect(await selector.locator('option[value="iso8601"]').allTextContents()).not.toContain('ISO 8601');
 });
@@ -385,7 +389,11 @@ test('Haitian calendar settings replace French labels and preserve variants', as
   await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
   const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
   await expect(selector).toBeVisible();
-  await expectCalendarOption(page, selector, 'gregory', 'Gregoryen');
+  // The Gregorian option's value is the stored profile id 'gregorian'
+  // (imports/lib/calendarSystems.js keeps it for saved preferences and
+  // always offers it); 'gregory' is only its Intl identifier, so no
+  // option ever has value="gregory".
+  await expect(selector.locator('option[value="gregorian"]')).toHaveText('Gregoryen');
   await expectCalendarOption(page, selector, 'iso8601', 'Kalandriye gregoryen (semèn ISO 8601)');
   await expectCalendarOption(page, selector, 'indian', 'Kalandriye nasyonal peyi End');
   await expect(selector).not.toContainText('calendrier');

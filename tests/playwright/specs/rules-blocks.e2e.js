@@ -68,7 +68,12 @@ test('Blocks keeps rule writes restricted to board admins', async ({ page, board
     await expect(page.locator('.js-pop-over [class*="js-open-rules"]')).toHaveCount(0);
     await page.keyboard.press('Escape');
     await page.evaluate(() => { Session.set('rulesViewMode', 'blocks'); Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1); });
-    await expect(page.locator('.rules-blocks')).toContainText('administrator permission');
+    // #2217 moved the refusal up a level: rulesMain.jade renders a Rules view
+    // only for rulesAccess 'edit' (board or site admin, models/lib/rulesReadOnly.js),
+    // so a plain member never gets the Blocks template - and so never its own
+    // r-blocks-permission line - but the page's "only board admins" notice.
+    await expect(page.locator('.rules-page')).toContainText(require('../../../imports/i18n/data/en.i18n.json')['r-rules-not-shown']);
+    await expect(page.locator('.rules-blocks')).toHaveCount(0);
     await expect(page.locator('.blocklySvg')).toHaveCount(0);
     const result = await page.evaluate(async boardId=>{
       try { await Meteor.callAsync('rules.createRule',boardId,'Forbidden',{activityType:'createCard'},{actionType:'archive'}); return 'allowed'; }

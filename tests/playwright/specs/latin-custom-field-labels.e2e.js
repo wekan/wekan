@@ -5,7 +5,11 @@ test('Latin custom field form translates types and dropdown instructions', async
   await page.evaluate(async () => {
     await Meteor.callAsync('setLanguage', 'la');
     Popup.close();
-    Popup.open('createCustomField')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+    // Popup.open's handler takes its data context from `this`; called bare it
+    // was undefined and createCustomFieldPopup.onCreated threw reading
+    // data.type. Open it the way cardCustomFields.js does, with an empty
+    // (new-field) context.
+    Popup.open('createCustomField').call({}, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
   const pop = page.locator('.js-pop-over');
   await expect(pop.locator('.js-field-automatically-on-card')).toContainText('Adde campum chartis novis');

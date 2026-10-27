@@ -42,7 +42,12 @@ test('Malagasy time adjustments explain corrections and attribution limits', asy
   await expect(section.locator(':scope > p')).toHaveText(strings['time-adjustment-note']);
   await expect(section).toContainText('Tsy fotoam-piasana tsirairay ireo');
   await expect(section).toContainText('Fanitsiana ny sanda miiba');
-  await expect(section).not.toContainText('Δ');
+  // The guard is against the old symbol-only Malagasy strings
+  // ("ora — Δ — Anaram-pikambana"), so it reads the translated heading and
+  // note. The table's "Δ hours" column header is a language-neutral symbol
+  // in the template itself (timeView.jade) and is correct in every language.
+  await expect(section.locator('h2')).not.toContainText('Δ');
+  await expect(section.locator(':scope > p')).not.toContainText('Δ');
 });
 
 test('Malagasy card recurrence is distinct from resetting a card', async ({ boardPage: page }) => {

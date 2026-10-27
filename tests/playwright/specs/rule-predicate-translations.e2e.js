@@ -30,6 +30,9 @@ test(`Rule rows and saved descriptions omit the redundant linking verb in ${lang
   const description = db.find('triggers', { boardId: board.boardId }).map(item => item.desc).join('\n');
   expect(description.split(/\s+/)).not.toContain('is');
   expect(description.split(/\s+/)).not.toContain(strings['r-is']);
-  expect(description).toContain(strings['r-added-to']);
+  // Utils.getTriggerActionDesc lowercases a selected option's text when it
+  // saves the description, so compare lowercase: Irish "Curtha le" is saved
+  // as "curtha le" mid-sentence.
+  expect(description).toContain(strings['r-added-to'].toLowerCase());
 });
 }
