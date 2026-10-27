@@ -142,7 +142,11 @@ test('Template.cardDetails remembers which card it was opened for', () => {
 test('Template.cardDetails.onDestroyed closes a popup still showing the destroyed card\'s data', () => {
   const idx = cardDetails.indexOf('Template.cardDetails.onDestroyed(function () {');
   assert.ok(idx !== -1, 'onDestroyed handler must exist');
-  const body = cardDetails.slice(idx, idx + 900);
+  // The whole handler, up to the next top-level statement: #6808 put its
+  // gone-card check at the top, and a fixed 900-character window stopped
+  // short of the popup check below it.
+  const end = cardDetails.indexOf('\n});', idx);
+  const body = cardDetails.slice(idx, end === -1 ? idx + 3000 : end);
   assert.ok(/Popup\.isOpen\(\)/.test(body), 'must check whether a popup is currently open');
   assert.ok(/baseStackEntry\?\.dataContext\?\._id === openedCardId/.test(body),
     'must only close a popup whose base stack entry belongs to this destroyed card');

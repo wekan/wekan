@@ -211,7 +211,14 @@ test('desktop cards stay unpainted until initial placement, including fallback p
   const jade = read('client/components/cards/cardDetails.jade');
   const css = read('client/components/cards/cardDetails.css');
   const js = read('client/components/cards/cardDetails.js');
-  assert.match(jade, /section\.card-details[^\n]*\.card-details-position-pending\(/);
+  // Drawn from a reactive helper, not as a static class: Blaze re-adds a
+  // tag's static classes whenever its class attribute changes, so a static
+  // pending class came back after Maximize / Minimize and hid the card.
+  assert.match(jade, /section\.card-details\.js-card-details[^\n]*\(\s*class='\{\{#unless positionSettled\}\}card-details-position-pending\{\{\/unless\}\}'/);
+  assert.doesNotMatch(jade, /section\.card-details[^\n(]*\.card-details-position-pending/,
+    'negative: never a static class of the section');
+  assert.match(js, /positionSettled = new ReactiveVar\(false\)/);
+  assert.match(js, /element\.classList\.remove\('card-details-position-pending'\);[\s\S]*?tpl\.positionSettled\.set\(true\)/);
   assert.match(css, /body\.desktop-mode \.card-details\.card-details-position-pending:not\(\.card-details-popup\):not\(\.card-details-maximized\) \{\s*visibility: hidden;/);
   assert.match(js, /anchorCardDetailsX\(element\);\s*\} finally \{[\s\S]*?element\.classList\.remove\('card-details-position-pending'\)/);
 });

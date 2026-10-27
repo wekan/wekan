@@ -411,6 +411,13 @@ function confirmGoneCard(cardId, boardId) {
 Template.cardDetails.onCreated(function () {
   this.currentBoard = Utils.getCurrentBoard();
   this.isLoaded = new ReactiveVar(false);
+  // Whether the desktop window has been placed beside its minicard: until
+  // then it carries card-details-position-pending (unpainted). A reactive
+  // class rather than a static one that onRendered removes: Blaze writes a
+  // tag's static classes again whenever its class attribute changes, so the
+  // removed class came back on Maximize / Minimize and Collapse, and the
+  // opened card turned invisible (latin-card-archive.e2e.js).
+  this.positionSettled = new ReactiveVar(false);
   this.infiniteScrolling = new InfiniteScrolling();
   const openedCardId = this.data?._id;
   const openedBoardId = this.data?.boardId;
@@ -534,6 +541,7 @@ Template.cardDetails.onRendered(function () {
   // #6465: place the window beside its minicard (X only) once it has been laid
   // out, so the width measured here is the one the stylesheet gave it.
   const $cardDetails = this.$('.card-details').first();
+  const tpl = this;
   if ($cardDetails.length) {
     Tracker.afterFlush(() => {
       const element = $cardDetails.get(0);
@@ -543,6 +551,9 @@ Template.cardDetails.onRendered(function () {
         // The desktop window must never paint at the stylesheet's fallback
         // dock before its minicard-relative geometry has been measured.
         element.classList.remove('card-details-position-pending');
+        // And it stays removed: the class is drawn from this, so a later
+        // change of the window's classes does not bring it back.
+        tpl.positionSettled.set(true);
       }
     });
   }
@@ -951,6 +962,12 @@ Template.cardDetails.helpers({
   // heading goes, over all of them (docs/Features/Cards/Card-Fields.md).
   firstScrumSection() {
     return orderedSectionsOf(this).find(s => /^scrum[A-Z]/.test(s)) || null;
+  },
+
+  // Placed beside its minicard: card-details-position-pending is off for good.
+  positionSettled() {
+    const tpl = Template.instance();
+    return Boolean(tpl && tpl.positionSettled && tpl.positionSettled.get());
   },
 
   cardMaximized() {

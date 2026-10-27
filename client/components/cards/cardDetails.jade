@@ -7,7 +7,14 @@ template(name="cardDetails")
     minicard carries for the same reason: with a handle, the title is all edit
     target; without one, half of it is what the window is dragged by.
     client/components/cards/cardDetails.css
-  section.card-details.js-card-details.nodragscroll.card-details-position-pending(
+  //- `card-details-position-pending` (unpainted until placed beside its
+    minicard) is a reactive class, not a static one: Blaze writes a tag's
+    static classes again on every change of its class attribute, so a static
+    one came back when the window was maximized and minimized again (or
+    collapsed) and left the card open but invisible. cardDetails.js
+    positionSettled.
+  section.card-details.js-card-details.nodragscroll(
+    class='{{#unless positionSettled}}card-details-position-pending{{/unless}}'
     class='{{#if cardMaximized}}card-details-maximized{{/if}}'
     class='{{#if isPopup}}card-details-popup{{/if}}'
     class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}'
