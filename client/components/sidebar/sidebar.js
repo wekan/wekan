@@ -2137,7 +2137,9 @@ function sidePosition(board, side, key) {
 }
 
 const boardCardSettingsHelpers = {
-  askForMoveReason() { return Template.instance().currentBoard.askForMoveReason; },
+  // Read from the board, so the checkbox follows its own click (tpl.currentBoard
+  // is a plain property, which no helper re-runs for).
+  askForMoveReason() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.askForMoveReason === true; },
 
   settingsMenuItems() {
     return leftMenuData(settingsMenuOf(this), openSettingsSectionOf(Template.instance(), this), 'js-card-settings-menu');
@@ -2732,13 +2734,17 @@ function moveCardSettingsRow(evt, direction) {
 }
 
 Template.boardCardSettingsPopup.events({
+  // The same animated checkbox as Show empty fields; a board admin's.
   async 'click .js-ask-move-reason'(evt, tpl) {
     evt.preventDefault();
-    const value = !tpl.currentBoard.askForMoveReason;
-    await tpl.currentBoard.setAskForMoveReason(value);
-    tpl.currentBoard.askForMoveReason = value;
-    tpl.$('.js-ask-move-reason').toggleClass('is-checked', value);
-    tpl.$('.js-ask-move-reason i').toggleClass('fa-check', value).toggleClass('fa-square-o', !value);
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    if (!board || !(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+    tpl.animating.set('askForMoveReason');
+    try {
+      await board.setAskForMoveReason(board.askForMoveReason !== true);
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   'click .js-card-field-order-up'(evt) { moveCardSettingsRow(evt, 'up'); },
@@ -2842,13 +2848,6 @@ Template.boardCardSettingsPopup.events({
       console.error(error);
     } finally {
       tpl.animating.set(null);
-    }
-  },
-  // Keyboard: Enter or Space on a focused Select all / Select none.
-  'keydown .js-card-settings-select'(evt) {
-    if (evt.key === 'Enter' || evt.key === ' ') {
-      evt.preventDefault();
-      evt.currentTarget.click();
     }
   },
   // Card Settings / Card's "Show empty fields": every card shows all its

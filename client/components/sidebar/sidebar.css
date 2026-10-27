@@ -230,18 +230,14 @@
   margin: 0;
 }
 /* Select all / Select none under a column's heading, for that column's rows
-   of the open section. */
+   of the open section: the Draggable table's buttons
+   (boardSettingsColumnActions.css), a little closer to their heading. */
 .card-settings-select {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px 6px;
-  margin-block-start: 3px;
+  margin: 3px 0 0;
   font-weight: normal;
 }
-.card-settings-select-button {
+.card-settings-select button {
   white-space: nowrap;
-  text-decoration: underline;
-  cursor: pointer;
 }
 .card-settings-position {
   min-width: 1.6em;
@@ -264,7 +260,8 @@
 .card-settings-sections .card-add-field.is-animating .materialCheckBox,
 .card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox,
 .card-settings-sections .card-always-show.is-animating .materialCheckBox,
-.card-settings-sections .card-show-empty-fields.is-animating .materialCheckBox { transition: 0.2s; }
+.card-settings-sections .card-show-empty-fields.is-animating .materialCheckBox,
+.card-settings-sections .card-ask-move-reason.is-animating .materialCheckBox { transition: 0.2s; }
 
 .card-field-order-toggle,
 .card-field-order-move {
@@ -273,7 +270,8 @@
 .card-field-order-move.is-disabled,
 .card-field-order-toggle.is-disabled,
 .card-always-show.is-disabled,
-.card-show-empty-fields.is-disabled {
+.card-show-empty-fields.is-disabled,
+.card-ask-move-reason.is-disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
@@ -292,7 +290,7 @@
 .board-card-settings.show-empty-fields.has-card .card-settings-line {
   grid-template-columns: 7em 9em 9em minmax(10em, 1fr);
 }
-.card-settings-show-empty-fields { margin-block-end: 6px; }
+.card-settings-board-option { margin-block-end: 6px; }
 
 /* One side of the same popup: a menu that asks for one side hides the other
    side's cells, so there is still ONE set of rows and one set of handlers. */

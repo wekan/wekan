@@ -216,8 +216,15 @@ test('the popup: wide and high enough, moved and maximized, no tick animates on 
   const popupCss = read('client/components/main/popup.css');
   assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-wrapper,\n\s+\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-container \{\n\s+max-height: none;/, 'room for every menu entry');
   const css = read('client/components/sidebar/sidebar.css');
-  // #6806: Show empty and Show empty fields animate the same way, only when clicked.
-  assert.match(css, /\.card-settings-sections \.materialCheckBox \{ transition: none; \}\n\.card-settings-sections \.card-add-field\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-field-order-toggle\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-always-show\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-show-empty-fields\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
+  // Only a clicked checkbox animates: none by default, each kind in the one
+  // rule that turns it on while it is-animating. Each kind is required by
+  // name, not the rule's exact list - a new checkbox (Show empty, Show empty
+  // fields, Ask for a reason) is added to it without rewriting this.
+  assert.match(css, /\.card-settings-sections \.materialCheckBox \{ transition: none; \}/);
+  const on = css.slice(css.indexOf('.card-settings-sections .card-add-field.is-animating'), css.indexOf('{ transition: 0.2s; }'));
+  for (const cls of ['card-add-field', 'card-field-order-toggle', 'card-always-show', 'card-show-empty-fields', 'card-ask-move-reason']) {
+    assert.ok(on.includes(`.card-settings-sections .${cls}.is-animating .materialCheckBox`), cls);
+  }
   // A board-wide checkbox animates when clicked too, and only that one.
   assert.match(read('client/components/sidebar/sidebar.js'), /'click \.card-field-order-toggle'\(evt, tpl\) \{\n\s+const cell = evt\.currentTarget\.closest\('\.js-card-field-order-row'\);\n\s+if \(cell\) tpl\.animating\.set\(`\$\{cell\.dataset\.key\}:\$\{cell\.dataset\.side\}`\);/);
   const js = read('client/components/sidebar/sidebar.js');

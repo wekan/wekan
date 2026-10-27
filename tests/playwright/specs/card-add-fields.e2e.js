@@ -264,3 +264,32 @@ test('Card Settings: Select all / Select none per column, headings aligned with 
   // Negative: another section's rows are untouched.
   expect(db.findOne('boards', { _id: board.boardId }).allowsMembers).not.toBe(false);
 });
+
+// Ask for a reason is the same animated checkbox, in the same place, as Show
+// empty fields; Select all / Select none look like the Draggable table's buttons.
+test('Card Settings / Card: Ask for a reason lines up with Show empty fields, and the select buttons match Draggable\'s', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { askForMoveReason: false } });
+  const details = await openCard(page, board);
+  await details.locator('.js-open-card-add-fields').click();
+  const popup = addPopup(page);
+  const showEmpty = popup.locator('.js-show-empty-card-fields .materialCheckBox');
+  const ask = popup.locator('.js-ask-move-reason .materialCheckBox');
+  const a = await showEmpty.boundingBox();
+  const b = await ask.boundingBox();
+  expect(Math.abs(a.x - b.x)).toBeLessThan(1);
+  expect(Math.abs(a.width - b.width)).toBeLessThan(1);
+  const askLink = popup.locator('.js-ask-move-reason');
+  await expect(askLink).toHaveAttribute('aria-checked', 'false');
+  await askLink.click();
+  await expect(askLink).toHaveAttribute('aria-checked', 'true');
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).askForMoveReason).toBe(true);
+
+  // The same colours as the Draggable table's Select all.
+  const style = loc => loc.evaluate(el => {
+    const s = getComputedStyle(el);
+    return { color: s.color, background: s.backgroundColor };
+  });
+  const draggable = await style(popup.locator('.board-drag-settings .js-set-settings-column').first());
+  const select = await style(popup.locator('.js-card-settings-select').first());
+  expect(select).toEqual(draggable);
+});

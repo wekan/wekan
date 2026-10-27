@@ -314,13 +314,14 @@ template(name="boardCardSettingsPopup")
           if openSettingsSectionIsGeneral
             //- Every card shows all its fields, the empty ones too; the Show
               empty column is then set aside, its ticks kept.
-            div.check-div.card-settings-show-empty-fields
+            div.check-div.card-settings-board-option.card-settings-show-empty-fields
               a.flex.card-show-empty-fields(class="{{#if canModifyBoard}}js-show-empty-card-fields{{else}}is-disabled{{/if}} {{#if isAnimating 'showEmptyCardFields'}}is-animating{{/if}}" role="checkbox" aria-checked="{{#if showEmptyCardFields}}true{{else}}false{{/if}}")
                 .materialCheckBox(class="{{#if showEmptyCardFields}}is-checked{{/if}}")
                 span {{_ 'card-settings-show-empty-fields'}}
-            div.check-div
-              a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
-                i.fa(class="{{#if askForMoveReason}}fa-check{{else}}fa-square-o{{/if}}")
+            //- The same checkbox, in the same place, as Show empty fields.
+            div.check-div.card-settings-board-option.card-settings-ask-move-reason
+              a.flex.card-ask-move-reason(class="{{#if canModifyBoard}}js-ask-move-reason{{else}}is-disabled{{/if}} {{#if isAnimating 'askForMoveReason'}}is-animating{{/if}}" role="checkbox" aria-checked="{{#if askForMoveReason}}true{{else}}false{{/if}}")
+                .materialCheckBox(class="{{#if askForMoveReason}}is-checked{{/if}}")
                 span {{_ 'ask-move-reason'}}
             //- No select-all of Show on Minicard / Show on Card here: their
               checkboxes are in the sections, not under it.
@@ -430,9 +431,11 @@ template(name="boardCardSettingsPopup")
 //- Select all / Select none of one column of Card Settings' pane
   (boardCardSettingsPopup's 'click .js-card-settings-select').
 template(name="cardSettingsSelectButtons")
-  span.card-settings-select
-    a.card-settings-select-button.js-card-settings-select(data-column="{{column}}" data-value="all" role="button" tabindex="0") {{_ 'select-all'}}
-    a.card-settings-select-button.js-card-settings-select(data-column="{{column}}" data-value="none" role="button" tabindex="0") {{_ 'select-none'}}
+  //- The Draggable table's buttons (boardSettingsColumnActions): white text
+    on the theme's colour.
+  span.board-settings-column-actions.card-settings-select
+    button.js-card-settings-select(type="button" data-column="{{column}}" data-value="all") {{_ 'select-all'}}
+    button.js-card-settings-select(type="button" data-column="{{column}}" data-value="none") {{_ 'select-none'}}
 
 
 //- The board's Subtasks Settings. Its own template, because the same settings

@@ -197,7 +197,8 @@ test('Show empty fields: saved to the board, under the Card pane\'s title; on, t
   // In the Card pane, right under the title, before Ask for a reason.
   const general = popup.slice(popup.indexOf('if openSettingsSectionIsGeneral'));
   assert.ok(popup.indexOf('+paneTitle(settingsPaneTitle)') < popup.indexOf('if openSettingsSectionIsGeneral'));
-  assert.ok(general.indexOf('div.check-div.card-settings-show-empty-fields') < general.indexOf('js-ask-move-reason'));
+  const showEmptyAt = general.indexOf('div.check-div.card-settings-board-option.card-settings-show-empty-fields');
+  assert.ok(showEmptyAt !== -1 && showEmptyAt < general.indexOf('js-ask-move-reason'));
   assert.match(general, /a\.flex\.card-show-empty-fields\(class="\{\{#if canModifyBoard\}\}js-show-empty-card-fields\{\{else\}\}is-disabled\{\{\/if\}\}[^"]*" role="checkbox" aria-checked="\{\{#if showEmptyCardFields\}\}true\{\{else\}\}false\{\{\/if\}\}"\)/);
   assert.match(general, /span \{\{_ 'card-settings-show-empty-fields'\}\}/);
   const js = read('client/components/sidebar/sidebar.js');

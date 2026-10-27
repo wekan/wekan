@@ -32,8 +32,16 @@ test('Select all and Select none under every column heading, for who may change 
   assert.match(head, /if settingsCardId\n\s+span\.card-settings-side-head\.card-settings-side-head-this\n\s+span \{\{_ 'card-settings-this-card'\}\}\n\s+\+cardSettingsSelectButtons\(column="this"\)/);
   assert.strictEqual((head.match(/\+cardSettingsSelectButtons/g) || []).length, 4, 'one pair per column');
   const buttons = jade.slice(jade.indexOf('template(name="cardSettingsSelectButtons")')).split('\ntemplate(')[0];
-  assert.match(buttons, /js-card-settings-select\(data-column="\{\{column\}\}" data-value="all" role="button" tabindex="0"\) \{\{_ 'select-all'\}\}/);
-  assert.match(buttons, /js-card-settings-select\(data-column="\{\{column\}\}" data-value="none" role="button" tabindex="0"\) \{\{_ 'select-none'\}\}/);
+  // The Draggable table's buttons: real buttons in its container, so the same
+  // white text on the theme's colour (forms.css button,
+  // boardSettingsColumnActions.css) - and keyboard use comes with them.
+  assert.match(buttons, /span\.board-settings-column-actions\.card-settings-select\n/);
+  assert.match(buttons, /button\.js-card-settings-select\(type="button" data-column="\{\{column\}\}" data-value="all"\) \{\{_ 'select-all'\}\}/);
+  assert.match(buttons, /button\.js-card-settings-select\(type="button" data-column="\{\{column\}\}" data-value="none"\) \{\{_ 'select-none'\}\}/);
+  assert.match(read('client/components/main/boardDragSettings.jade') + read('client/components/main/boardSettingsColumnActions.jade'), /\.board-settings-column-actions\(data-section=section data-column=column\)\n\s+button\.js-set-settings-column\(type="button"/, 'the Draggable buttons are the same kind');
+  // Negative: no link-styled select (the first version) and no own colour.
+  assert.ok(!/card-settings-select-button|a\.[\w.-]*js-card-settings-select/.test(jade));
+  assert.ok(!/\.card-settings-select[^{]*\{[^}]*(background|color|text-decoration)/.test(css));
   // Both labels exist in every language.
   const dir = path.join(root, 'imports/i18n/data');
   for (const file of fs.readdirSync(dir)) {
@@ -58,6 +66,25 @@ test('the handler: each column as its own checkboxes would set it, gated the sam
   assert.match(handler, /await Meteor\.callAsync\('scrum\.configure', board\._id, \{ visibility: scrum \}, board\.scrumRevision \|\| 0\);/);
   assert.match(handler, /cells\.filter\(t => !t\.classList\.contains\('js-scrum-field-toggle'\)\)\.forEach\(toggle => toggle\.click\(\)\);/);
   assert.ok(!/js-scrum-field-toggle'\)\)\.forEach\(toggle => toggle\.click/.test(handler.replace("!t.classList.contains('js-scrum-field-toggle'))", '')), 'negative: no Scrum row clicked one by one');
+});
+
+test('Ask for a reason when moving cards: the same checkbox, in the same place, as Show empty fields', () => {
+  const general = popup.slice(popup.indexOf('if openSettingsSectionIsGeneral'));
+  const showEmpty = general.match(/div\.check-div\.card-settings-board-option\.card-settings-show-empty-fields\n\s+a\.flex\.card-show-empty-fields\(class="\{\{#if canModifyBoard\}\}js-show-empty-card-fields\{\{else\}\}is-disabled\{\{\/if\}\} \{\{#if isAnimating 'showEmptyCardFields'\}\}is-animating\{\{\/if\}\}" role="checkbox" aria-checked="\{\{#if showEmptyCardFields\}\}true\{\{else\}\}false\{\{\/if\}\}"\)\n\s+\.materialCheckBox\(class="\{\{#if showEmptyCardFields\}\}is-checked\{\{\/if\}\}"\)/);
+  const ask = general.match(/div\.check-div\.card-settings-board-option\.card-settings-ask-move-reason\n\s+a\.flex\.card-ask-move-reason\(class="\{\{#if canModifyBoard\}\}js-ask-move-reason\{\{else\}\}is-disabled\{\{\/if\}\} \{\{#if isAnimating 'askForMoveReason'\}\}is-animating\{\{\/if\}\}" role="checkbox" aria-checked="\{\{#if askForMoveReason\}\}true\{\{else\}\}false\{\{\/if\}\}"\)\n\s+\.materialCheckBox\(class="\{\{#if askForMoveReason\}\}is-checked\{\{\/if\}\}"\)/);
+  assert.ok(showEmpty && ask, 'both: a.flex, materialCheckBox, role and aria-checked');
+  assert.ok(general.indexOf(showEmpty[0]) < general.indexOf(ask[0]), 'right under it');
+  // Negative: no Font Awesome square left for it.
+  assert.ok(!/js-ask-move-reason[\s\S]{0,300}fa-square-o/.test(general));
+  // The same place: one class gives both the same margin, nothing else differs.
+  assert.match(css, /\.card-settings-board-option \{ margin-block-end: 6px; \}/);
+  assert.match(css, /\.card-settings-sections \.card-show-empty-fields\.is-animating \.materialCheckBox,\n\.card-settings-sections \.card-ask-move-reason\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
+  // Reactive from the board, written by a board admin, animating only when clicked.
+  assert.match(js, /askForMoveReason\(\) \{ return ReactiveCache\.getBoard\(Session\.get\('currentBoard'\)\)\?\.askForMoveReason === true; \},/);
+  const click = js.slice(js.indexOf("async 'click .js-ask-move-reason'"), js.indexOf("'click .js-card-field-order-up'"));
+  assert.match(click, /if \(!board \|\| !\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;\n\s+tpl\.animating\.set\('askForMoveReason'\);/);
+  assert.match(click, /await board\.setAskForMoveReason\(board\.askForMoveReason !== true\);/);
+  assert.ok(!/toggleClass/.test(click), 'negative: no hand-toggled classes');
 });
 
 test('Show empty: Select all and Select none set the whole list at once', () => {
