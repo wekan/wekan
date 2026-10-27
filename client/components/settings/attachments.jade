@@ -431,7 +431,9 @@ template(name="attachments")
                   small.form-text.cloud-input-desc {{_ 'gcs-credentials-description'}}
                   small.form-text.cloud-input-path Google Cloud Console → IAM & Admin → Service accounts → your service account → Keys → Add key → Create new key → JSON → Create (downloads the file). Paste its contents here, or save the file and set its path above.
                   small.form-text.cloud-input-path {{_ 'gcs-credentials-menu-path'}}
-                  small.form-text.text-muted {{_ 'gcs-credentials-description'}}
+                  //- The translated description is the cloud-input-desc above; a
+                  //- second text-muted copy (left from before the English+local
+                  //- pairs) showed the same sentence twice under the field.
 
                 .form-group
                   button.js-test-cloud-connection.btn.btn-secondary(data-provider="gcs") {{_ 'test-cloud-connection'}}
