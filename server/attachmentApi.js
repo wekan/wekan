@@ -3,7 +3,6 @@ import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
-import { moveToStorage } from '/models/lib/fileStoreStrategy';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import fs from 'fs';
@@ -209,8 +208,6 @@ Meteor.methods({
         if (fileBuffer.length > effectiveApiUploadMaxBytes) {
           throw new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit');
         }
-        const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
-
         // Create attachment metadata
         const fileId = new ObjectId().toString();
         const meta = {
@@ -223,26 +220,15 @@ Meteor.methods({
           storageBackend: targetStorage
         };
 
-        // Create attachment
-        const uploader = await Attachments.insertAsync({
-          file: file,
-          meta: meta,
-          isBase64: false,
-          transport: 'http'
-        });
+        // Create attachment. Meteor-Files has insertAsync only on the client;
+        // on the server it threw "Attachments.insertAsync is not a function".
+        // writeAsync stores the bytes, and its after-upload hook validates the
+        // file and moves it to the default storage, which is targetStorage.
+        const uploader = await Attachments.writeAsync(fileBuffer, {
+          fileName, type: fileType || 'application/octet-stream', userId: this.userId, meta,
+        }, true);
 
         if (uploader) {
-          // Move to target storage if not filesystem
-          if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
-            Meteor.defer(() => {
-              try {
-                moveToStorage(uploader, targetStorage, fileStoreStrategyFactory);
-              } catch (error) {
-                console.error('Error moving attachment to target storage:', error);
-              }
-            });
-          }
-
           return {
             success: true,
             attachmentId: uploader._id,
@@ -412,8 +398,6 @@ Meteor.methods({
         if (fileBuffer.length > effectiveApiUploadMaxBytes) {
           throw new Meteor.Error('file-too-large', 'Background exceeds API upload limit');
         }
-        const file = new File([fileBuffer], fileName, { type: fileType || 'image/png' });
-
         const fileId = new ObjectId().toString();
         const meta = {
           boardId,
@@ -421,23 +405,13 @@ Meteor.methods({
           source: 'api-background',
           storageBackend: targetStorage,
         };
-        const uploader = await Attachments.insertAsync({
-          file,
-          meta,
-          isBase64: false,
-          transport: 'http',
-        });
+        // writeAsync, not the client-only insertAsync; its after-upload hook
+        // validates the image and moves it to the default storage.
+        const uploader = await Attachments.writeAsync(fileBuffer, {
+          fileName, type: fileType || 'image/png', userId: this.userId, meta,
+        }, true);
         if (!uploader) {
           throw new Meteor.Error('upload-failed', 'Failed to upload background');
-        }
-        if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
-          Meteor.defer(() => {
-            try {
-              moveToStorage(uploader, targetStorage, fileStoreStrategyFactory);
-            } catch (error) {
-              console.error('Error moving background to target storage:', error);
-            }
-          });
         }
 
         // Make the uploaded image the board's active background.
@@ -692,8 +666,6 @@ Meteor.methods({
                 reject(new Meteor.Error('file-too-large', 'Attachment exceeds API upload limit'));
                 return;
               }
-              const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
-
               // Create new attachment metadata
               const fileId = new ObjectId().toString();
               const meta = {
@@ -707,13 +679,11 @@ Meteor.methods({
                 copyStorage: sourceStrategy.getStorageName()
               };
 
-              // Create new attachment
-              const uploader = await Attachments.insertAsync({
-                file: file,
-                meta: meta,
-                isBase64: false,
-                transport: 'http'
-              });
+              // Create new attachment: writeAsync, not the client-only
+              // insertAsync; the after-upload hook stores it in copyStorage.
+              const uploader = await Attachments.writeAsync(fileBuffer, {
+                fileName: sourceAttachment.name, type: sourceAttachment.type, userId: this.userId, meta,
+              }, true);
 
               if (uploader) {
                 resolve({

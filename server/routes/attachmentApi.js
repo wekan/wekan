@@ -362,8 +362,6 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
           if (fileBuffer.length > effectiveApiUploadMaxBytes) {
             return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
           }
-          const file = new File([fileBuffer], fileName, { type: fileType || 'application/octet-stream' });
-
           // Create attachment metadata
           const fileId = new ObjectId().toString();
           const meta = {
@@ -376,26 +374,16 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
             storageBackend: targetStorage
           };
 
-          // Create attachment
-          const uploader = await Attachments.insertAsync({
-            file: file,
-            meta: meta,
-            isBase64: false,
-            transport: 'http'
-          });
+          // Create attachment. Meteor-Files has insertAsync only on the client;
+          // on the server this JSON branch answered 500 "Attachments.insertAsync
+          // is not a function". writeAsync stores the bytes, and its after-upload
+          // hook validates the file and moves it to the default storage, which
+          // is targetStorage.
+          const uploader = await Attachments.writeAsync(fileBuffer, {
+            fileName, type: fileType || 'application/octet-stream', userId, meta,
+          }, true);
 
           if (uploader) {
-            // Move to target storage if not filesystem
-            if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
-              Meteor.defer(() => {
-                try {
-                  moveToStorage(uploader, targetStorage, fileStoreStrategyFactory);
-                } catch (error) {
-                  console.error('Error moving attachment to target storage:', error);
-                }
-              });
-            }
-
             sendJsonResponse(res, 200, {
               success: true,
               attachmentId: uploader._id,
@@ -561,23 +549,15 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
           if (fileBuffer.length > effectiveApiUploadMaxBytes) {
             return sendErrorResponse(res, 413, 'Background exceeds API upload limit');
           }
-          const file = new File([fileBuffer], fileName, { type: fileType || 'image/png' });
           const fileId = new ObjectId().toString();
           const meta = { boardId, fileId, source: 'api-background', storageBackend: targetStorage };
-          const uploader = await Attachments.insertAsync({
-            file, meta, isBase64: false, transport: 'http',
-          });
+          // writeAsync, not the client-only insertAsync; its after-upload hook
+          // validates the image and moves it to the default storage.
+          const uploader = await Attachments.writeAsync(fileBuffer, {
+            fileName, type: fileType || 'image/png', userId, meta,
+          }, true);
           if (!uploader) {
             return sendErrorResponse(res, 500, 'Failed to upload background');
-          }
-          if (targetStorage !== STORAGE_NAME_FILESYSTEM) {
-            Meteor.defer(() => {
-              try {
-                moveToStorage(uploader, targetStorage, fileStoreStrategyFactory);
-              } catch (error) {
-                console.error('Error moving background to target storage:', error);
-              }
-            });
           }
           await board.setBackgroundImage(uploader._id);
           const updated = await ReactiveCache.getBoard(boardId);
@@ -1043,8 +1023,6 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
               if (fileBuffer.length > effectiveApiUploadMaxBytes) {
                 return sendErrorResponse(res, 413, 'Attachment exceeds API upload limit');
               }
-              const file = new File([fileBuffer], sourceAttachment.name, { type: sourceAttachment.type });
-
               // Create new attachment metadata
               const fileId = new ObjectId().toString();
               const meta = {
@@ -1058,13 +1036,11 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
                 copyStorage: sourceStrategy.getStorageName()
               };
 
-              // Create new attachment
-              const uploader = await Attachments.insertAsync({
-                file: file,
-                meta: meta,
-                isBase64: false,
-                transport: 'http'
-              });
+              // Create new attachment: writeAsync, not the client-only
+              // insertAsync; the after-upload hook stores it in copyStorage.
+              const uploader = await Attachments.writeAsync(fileBuffer, {
+                fileName: sourceAttachment.name, type: sourceAttachment.type, userId, meta,
+              }, true);
 
               if (uploader) {
                 sendJsonResponse(res, 200, {

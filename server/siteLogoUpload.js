@@ -25,8 +25,9 @@ Meteor.methods({
     if (storageSetting?.limitSettings?.attachmentsUploadBlocked === true) throw new Meteor.Error('uploads-disabled');
     // Attachments.onAfterUpload validates the bytes and moves the file to the
     // administrator's Default Storage, just as it does for board backgrounds.
-    const file = new File([bytes], `site-${kind}-logo${type[1]}`, {type:type[0]});
-    const uploader = await Attachments.insertAsync({file, meta:{source:'site-logo', fileId:new ObjectId().toString()}, isBase64:false, transport:'http'});
+    // writeAsync runs it; insertAsync exists only on Meteor-Files' client, so
+    // on the server every logo upload failed with "is not a function".
+    const uploader = await Attachments.writeAsync(bytes, {fileName:`site-${kind}-logo${type[1]}`, type:type[0], userId:this.userId, meta:{source:'site-logo', fileId:new ObjectId().toString()}}, true);
     if (!uploader?._id) throw new Meteor.Error('upload-failed');
     const prefix = new URL(Meteor.absoluteUrl()).pathname.replace(/\/$/, '');
     const url = `${prefix}/cdn/storage/attachments/${encodeURIComponent(uploader._id)}`;
