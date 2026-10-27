@@ -43,14 +43,6 @@ jobs:
       - name: Use release npm version
         run: bash releases/use-release-npm.sh
 
-      - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
-        # Same as sandstorm.yml: Ubuntu 24.04's AppArmor blocks the unprivileged user
-        # namespaces the Sandstorm install relies on; relax it so the install (whose
-        # sandstorm-http-bridge build-deps.sh copies in) can run on the runner.
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
-          sudo sysctl -w kernel.unprivileged_userns_clone=1 2>/dev/null || true
-
       - name: Install system dependencies
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl libatomic1 build-essential g++ make python3 unzip xz-utils git zip
@@ -59,10 +51,10 @@ jobs:
         # build-deps.sh's [bridge] step copies the modern
         # /opt/sandstorm/latest/bin/sandstorm-http-bridge into the deps, so Sandstorm
         # must be installed first — same ordering as sandstorm.yml.
-        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+        run: curl https://install.sandstorm.org | sudo bash -s -- -d
 
       - name: Assemble modern meteor-spk.deps (Node 26 + FerretDB + Mongo 3.x CLIs)
-        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io; build-deps.sh swaps in
+        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.org; build-deps.sh swaps in
         # Node 26, FerretDB, the Mongo 3.x CLIs, the migration launcher/importer, keeps
         # niscud, and swaps in the modern sandstorm-http-bridge. Produces
         # $HOME/projects/meteor-spk/meteor-spk-0.6.0 (the meteor-spk tool + deps).

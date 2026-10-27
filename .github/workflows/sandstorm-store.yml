@@ -48,11 +48,6 @@ jobs:
       - name: Use release npm version
         run: bash releases/use-release-npm.sh
 
-      - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
-          sudo sysctl -w kernel.unprivileged_userns_clone=1 2>/dev/null || true
-
       - name: Install system dependencies
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl libatomic1 build-essential g++ make python3 unzip xz-utils git
@@ -60,7 +55,7 @@ jobs:
       - name: Install Sandstorm (dev, unattended)
         # Provides the `spk` command used to publish, and the sandstorm-http-bridge that
         # build-deps.sh copies into the meteor-spk deps.
-        run: curl https://install.sandstorm.io | sudo bash -s -- -d
+        run: curl https://install.sandstorm.org | sudo bash -s -- -d
 
       - name: Assemble modern meteor-spk.deps (same as sandstorm.yml)
         run: |
