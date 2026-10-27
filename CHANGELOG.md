@@ -397,6 +397,17 @@ translated pairs, showed the same sentence twice under the field.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e998651ea">A storage setting's English description is not shown twice</a>. Thanks to xet7.</summary>
+
+Each storage setting shows its description and menu path in English and in
+the user's language, and the English was typed into the template a second
+time: in English, and wherever a translation is missing, the same sentence
+stood twice. The English comes from en.i18n.json now, and the translation is
+shown only when it differs.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2799eb900f">Retention shows readable labels, choice names and the default of an empty variable</a>. Thanks to Raymond-Voogt and xet7.</summary>
 
 [#6819](https://github.com/wekan/wekan/issues/6819): the page showed only
@@ -574,6 +585,17 @@ selection is skipped once the field has changed;
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c0f408a00">Autofocus no longer takes the keyboard from a field being typed in</a>. Thanks to xet7.</summary>
+
+Whenever a re-render added a field marked autofocus, the last one on the
+page was focused and its text selected 50ms later - also while somebody was
+typing elsewhere. On the import page that moved the attachment token into the
+pasted Jira export, replacing it. Only a field just added is focused now, and
+never away from a field being typed in.
+
+</details>
+
 **Board visibility** - the Private and Public choices.
 
 <details>
@@ -594,6 +616,17 @@ descriptions came to Admin Panel / Settings / Visibility.
 A new drawing was fitted to the popup before it was maximized and kept that
 size. It is refitted whenever its room changes, until it is zoomed or resized
 by hand.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb614743fd">Maximized, a drawing takes the window, and opened at the right it is not cut off</a>. Thanks to xet7.</summary>
+
+The refit above was right, but a maximized drawing was still drawn 784px
+wide: popup.css kept the older design's 800 x 500 shape and overrode the
+drawing's own size. That rule is gone. Opened from the card's menu at the
+right of the window, the Drawing popup also grew past the window's edge,
+cutting off Save; a movable popup that grows is now kept inside the window.
 
 </details>
 
@@ -900,6 +933,35 @@ switched to Scrum. Both failed in the Chromium stage of a full run.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cbf9d2f843">The UploadBleed and StampBleed specs do the legitimate case first, and check the block</a>. Thanks to xet7.</summary>
+
+The attempt came first, and a signed-in account that attempts a
+vulnerability is blocked and signed out - so the legitimate upload and
+checklist that followed ran signed out and were refused. Each spec now does
+the legitimate case first and checks that the attempt blocked the account.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f72fcd7f9">The Move and Copy Card helpers wait for the destination picker before reading it</a>. Thanks to xet7.</summary>
+
+Asked while the popup was still rendering, the helper saw no boards select
+and moved the card within its own board; #6793's Move Card spec then waited
+for a board change that never came.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9549388dd0">The smaller font preset is measured on the Card Settings heading text</a>. Thanks to xet7.</summary>
+
+The headings' smaller font was moved from their line to their text, so the
+em-sized columns stay aligned with their cells; the spec still measured the
+line.
+
+</details>
+
+
 **.tools/ and the editor sandboxes** - every file the scripts write stays in the
 checkout, and VSCodium can be confined to it on Linux, macOS and Windows.
 
@@ -957,6 +1019,20 @@ Syncing wekan/wekan cloned all of GitHub's 500 MB into
 branches and tags are fetched into it under a private namespace instead,
 which took 1.7 seconds, and deleted after the push. Only the destination
 mirrors are cloned.
+
+</details>
+
+**Helm chart** - the chart's settings reference and its memory.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9994e82bae">values.yaml's settings reference is generated from docker-compose.yml</a>. Thanks to xet7.</summary>
+
+Copied by hand once, the chart's commented reference of every WeKan setting
+had fallen 74 settings behind. `releases/charts-values-reference.mjs`
+regenerates it, `release-charts.sh` runs it on every chart release, and a
+comment after a value no longer becomes part of it. In wekan/charts the
+WeKan pod now requests 512 MiB and is limited to 2 GiB, as #6606 had asked:
+the old 1 GiB gave a heap WeKan crash-looped in.
 
 </details>
 
