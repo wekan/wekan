@@ -32,7 +32,7 @@ async function dragOnto(page, source, target) {
 
 test('Board Settings / Card reorders each list by drag and drop and by the arrow keys', async ({ boardPage: page, board, user }) => {
   try {
-    setHandles(user._id, false);
+    setHandles(user.id, false);
     await openPopup(page, 'boardCardSettings');
     await page.locator('.js-card-settings-menu[data-id="date"]').click();
     const row = (key, side = 'card') => page.locator(`.card-settings-list-${side} .js-card-field-order-row[data-key="${key}"]`);
@@ -58,7 +58,7 @@ test('Board Settings / Card reorders each list by drag and drop and by the arrow
       return order.indexOf('dueDate') > order.indexOf('receivedDate');
     }).toBe(true);
     // The minicard's list, by the handle when drag handles are on.
-    setHandles(user._id, true);
+    setHandles(user.id, true);
     await expect(row('endDate', 'minicard').locator('a.js-card-field-order-handle')).toBeVisible();
     await dragOnto(page, row('endDate', 'minicard').locator('a.js-card-field-order-handle'), row('receivedDate', 'minicard'));
     await expect.poll(() => {
@@ -68,7 +68,7 @@ test('Board Settings / Card reorders each list by drag and drop and by the arrow
     // Negative: the arrows are gone.
     await expect(page.locator('.js-card-field-order-up, .js-card-field-order-down')).toHaveCount(0);
   } finally {
-    setHandles(user._id, false);
+    setHandles(user.id, false);
     db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '', minicardFieldOrder: '' } });
   }
 });
