@@ -142,6 +142,14 @@ const CATALOG = {
   // and *Bleed name cannot drift from the guard it sits next to.
   'authz.canary':    { category: 'authz', bleed: 'CanaryBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.checklist': { category: 'authz', bleed: 'ChecklistBleed', severity: 'high', cwe: 'CWE-863' },
+  // StampBleed: a checklist, checklist item or text note inserted on one's own
+  // card with ANOTHER board's id (or an item into another card's checklist) -
+  // published to that board and drawn in its checklists. server/lib/cardChildStamp.js
+  'authz.card-child-stamp': { category: 'authz', bleed: 'StampBleed', severity: 'high', cwe: 'CWE-639' },
+  // UploadBleed: an attachment upload through Meteor-Files' own pipeline, which
+  // inserts past the allow rules, by somebody not signed in or onto a card or
+  // board they cannot write to. models/lib/attachmentUploadAuth.js
+  'authz.attachment-upload': { category: 'authz', bleed: 'UploadBleed', severity: 'critical', cwe: 'CWE-862' },
   'authz.comment':   { category: 'authz', bleed: 'CommentBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.file-path': { category: 'authz', bleed: 'PathBleed', severity: 'high', cwe: 'CWE-22' },
   'authz.attachment-file-path': { category: 'authz', bleed: 'FilePathBleed', severity: 'high', cwe: 'CWE-22' },

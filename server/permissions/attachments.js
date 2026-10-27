@@ -26,6 +26,16 @@ async function canEditAttachmentCard(userId, fileObj) {
   );
 }
 
+// StampBleed: a direct insert on one's own card stamped with another board's
+// meta.boardId is refused and recorded (server/lib/cardChildStamp.js). The
+// upload pipeline is authorized in models/attachments.server.js (UploadBleed).
+Attachments.deny({
+  async insert(userId, fileObj) {
+    const { denyForgedAttachmentInsert } = require('/server/lib/cardChildStamp');
+    return await denyForgedAttachmentInsert(fileObj, { source: 'ddp:attachment-insert' });
+  },
+});
+
 Attachments.allow({
   async insert(userId, fileObj) {
     // Block attempts to inject server-managed storage metadata.

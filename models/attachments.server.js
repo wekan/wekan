@@ -104,6 +104,58 @@ Attachments.storagePath = function () {
   return fileStoreStrategyFactory.storagePath;
 };
 
+// UploadBleed: the upload pipeline inserts server-side, past the allow rules,
+// so this is where an upload is authorized - on every chunk, after the shared
+// file-name sanitizing (models/attachments.js). The decision is
+// models/lib/attachmentUploadAuth.js; a card attachment's board, list and
+// swimlane are its card's, whatever the client sent (StampBleed).
+const sharedOnBeforeUpload = Attachments.onBeforeUpload;
+Attachments.onBeforeUpload = async function (file) {
+  const shared = sharedOnBeforeUpload ? sharedOnBeforeUpload.call(this, file) : true;
+  if (shared !== true) return shared;
+  const { uploadDecision } = require('/models/lib/attachmentUploadAuth');
+  const { canEditCardOrLinkedCard } = require('/server/lib/linkedCardPermission');
+  const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
+  const Cards = require('/models/cards').default;
+  const meta = (file && file.meta && typeof file.meta === 'object') ? file.meta : {};
+  let uploadsBlocked = false;
+  try {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    uploadsBlocked = settings?.limitSettings?.attachmentsUploadBlocked === true;
+  } catch (e) { /* unreadable setting: uploads stay as they were */ }
+  const card = this.userId && typeof meta.cardId === 'string' && meta.cardId
+    ? await Cards.findOneAsync(meta.cardId) : null;
+  const board = this.userId && !meta.cardId && typeof meta.boardId === 'string' && meta.boardId
+    ? await Boards.findOneAsync(meta.boardId) : null;
+  const decision = uploadDecision({
+    userId: this.userId,
+    meta,
+    card,
+    // Recorded below once per upload, not by the helper on every chunk.
+    mayEditCard: Boolean(card) && await canEditCardOrLinkedCard(this.userId, card, undefined, { recordDenial: false }),
+    board,
+    mayWriteBoard: Boolean(board) && allowIsBoardMemberWithWriteAccess(this.userId, board),
+    uploadsBlocked,
+  });
+  if (!decision.allow) {
+    // Recorded once per upload, at its start (chunk -1), not per chunk.
+    if (decision.key && this.chunkId === -1) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: decision.key, action: 'blocked', source: 'upload:attachments',
+          userId: this.userId || undefined,
+          detail: `Upload refused: ${decision.reason}`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
+    return decision.reason;
+  }
+  if (decision.stamp) {
+    file.meta = { ...meta, ...decision.stamp };
+  }
+  return true;
+};
+
 Attachments.onAfterUpload = async function (fileObj) {
   // Detect and sanitize known exploits from the uploaded file IN PLACE, while it
   // is still on the local filesystem staging area and BEFORE it is validated or
