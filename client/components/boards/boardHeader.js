@@ -692,13 +692,16 @@ Template.boardVisibilityList.helpers({
   // Settings / Visibility (Settings.customPrivateBoardDesc /
   // customPublicBoardDesc); empty/unset falls back to the i18n default,
   // byte-identical to before this setting existed.
+  // TAPi18n.__ reads `this` (its reactive language dependency), so it is
+  // passed bound: handed over bare it threw inside the helper and both
+  // descriptions rendered as an empty span in every language.
   privateDesc() {
     const setting = ReactiveCache.getCurrentSetting();
-    return visibilityDesc(setting?.customPrivateBoardDesc, TAPi18n.__, 'private-desc');
+    return visibilityDesc(setting?.customPrivateBoardDesc, key => TAPi18n.__(key), 'private-desc');
   },
   publicDesc() {
     const setting = ReactiveCache.getCurrentSetting();
-    return visibilityDesc(setting?.customPublicBoardDesc, TAPi18n.__, 'public-desc');
+    return visibilityDesc(setting?.customPublicBoardDesc, key => TAPi18n.__(key), 'public-desc');
   },
 });
 

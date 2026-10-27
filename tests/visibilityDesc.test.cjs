@@ -60,4 +60,39 @@ test('an existing user/org that never touched the setting sees byte-identical be
   assert.strictEqual(visibilityDesc(settingsDoc.customPublicBoardDesc, translate, 'public-desc'), 'Default public description.');
 });
 
+test('the popup passes a BOUND translator (TAPi18n.__ reads this)', () => {
+  // boardHeader.js handed TAPi18n.__ over bare; it reads this.current, so it
+  // threw inside the helper and the Private/Public descriptions rendered as an
+  // empty span in every language (Playwright azerbaijani-board-terminology).
+  const fs = require('fs');
+  const source = fs.readFileSync(path.join(__dirname, '..', 'client/components/boards/boardHeader.js'), 'utf8');
+  assert.match(source, /visibilityDesc\(setting\?\.customPrivateBoardDesc, key => TAPi18n\.__\(key\), 'private-desc'\)/);
+  assert.match(source, /visibilityDesc\(setting\?\.customPublicBoardDesc, key => TAPi18n\.__\(key\), 'public-desc'\)/);
+});
+
+test('negative: no app file passes TAPi18n.__ unbound as a value', () => {
+  const fs = require('fs');
+  const root = path.join(__dirname, '..');
+  const offenders = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (['node_modules', '.meteor', '_build', '.build', '.tools'].includes(entry.name)) continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.(c|m)?js$/.test(entry.name)) {
+        fs.readFileSync(full, 'utf8').split('\n').forEach((line, index) => {
+          if (/^\s*\/\//.test(line)) return;
+          if (/TAPi18n\.__\s*[,)\]};]/.test(line) || /[=:]\s*TAPi18n\.__\s*$/.test(line)) {
+            offenders.push(`${path.relative(root, full)}:${index + 1}`);
+          }
+        });
+      }
+    }
+  };
+  ['client', 'models', 'imports', 'server', 'config'].forEach(dir => {
+    if (fs.existsSync(path.join(root, dir))) walk(path.join(root, dir));
+  });
+  assert.deepStrictEqual(offenders, []);
+});
+
 console.log(`\nvisibilityDesc: ${passed} tests passed`);
