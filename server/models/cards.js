@@ -1401,6 +1401,23 @@ WebApp.handlers.get(
   },
 );
 
+// A card created over REST is placed on the board in the URL, so its list and
+// its swimlane must be that board's. Neither was checked: a list or swimlane id
+// of ANOTHER board was written onto the new card, which then pointed at a list
+// and a swimlane its own board does not have - the #6572 shape, a card that
+// shows on neither board. The PUT route has refused this since #6572; these
+// are its create siblings. Returns the error to answer with, or null.
+async function restPlacementError(boardId, listId, swimlaneId) {
+  if (typeof listId !== 'string' || !(await ReactiveCache.getList({ _id: listId, boardId }))) {
+    return 'listId does not belong to this board.';
+  }
+  if (swimlaneId === undefined || swimlaneId === null || swimlaneId === '') return null;
+  if (typeof swimlaneId !== 'string' || !(await ReactiveCache.getSwimlane({ _id: swimlaneId, boardId }))) {
+    return 'swimlaneId does not belong to this board.';
+  }
+  return null;
+}
+
 WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(req, res) {
   Authentication.checkLoggedIn(req.userId);
   const paramBoardId = req.params.boardId;
@@ -1449,6 +1466,12 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   // allowed when the caller may see that board; otherwise creating one card
   // would publish that board's ancestor cards to everyone subscribed here.
   await assertParentCardIsVisible(req.userId, paramParentId);
+
+  const placementError = await restPlacementError(paramBoardId, paramListId, req.body.swimlaneId);
+  if (placementError) {
+    sendJsonResult(res, { code: 400, data: { error: placementError } });
+    return;
+  }
 
   const nextCardNumber = await board.getNextCardNumber();
 
@@ -1544,6 +1567,12 @@ WebApp.handlers.post(
     await assertListNotRefused(req.userId, board, req.params.listId); // #4527
     const paramListId = req.params.listId;
 
+    const listError = await restPlacementError(paramBoardId, paramListId);
+    if (listError) {
+      sendJsonResult(res, { code: 400, data: { error: listError } });
+      return;
+    }
+
     const cardsInput = req.body.cards;
     if (!Array.isArray(cardsInput) || cardsInput.length === 0) {
       sendJsonResult(res, { code: 400, data: { error: 'cards must be a non-empty array' } });
@@ -1579,6 +1608,11 @@ WebApp.handlers.post(
       noteAuthorSpoof(req, 'POST cards/bulk');
       const authorId = req.userId;
       const swimlaneId = input.swimlaneId || req.body.swimlaneId;
+      const swimlaneError = await restPlacementError(paramBoardId, paramListId, swimlaneId);
+      if (swimlaneError) {
+        results.push({ index: i, error: swimlaneError });
+        continue;
+      }
       const checkUser = await ReactiveCache.getUser(authorId);
       if (typeof checkUser === 'undefined') {
         results.push({ index: i, error: 'authorId not found' });
