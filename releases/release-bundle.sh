@@ -1,27 +1,32 @@
 #!/bin/bash
+# The checkout is wherever this script is: ~/repos/wekan on Linux,
+# ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 if [ "$#" -ne 1 ]; then
   echo "Usage: ./release-bundle.sh <version>"
   exit 1
 fi
 
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
+# in every language (Finder only shows it translated).
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
 
-cd ~/repos/wekan
+cd "$REPO_DIR"
 #sudo apt-get -y install parallel
 ./releases/rebuild-release.sh
 #./releases/delete-phantomjs.sh
-cd ~/repos/wekan/.build
+cd "$REPO_DIR/.build"
 zip -r wekan-$1-amd64.zip bundle
 
 mkdir -p "$DOWNLOAD_DIR"
 mv -f "wekan-$1-amd64.zip" "$DOWNLOAD_DIR/"
 
 #{
-  #scp ~/repos/wekan/releases/build-bundle-arm64.sh a:/home/wekan/
-  #scp ~/repos/wekan/releases/build-bundle-s390x.sh s:/home/linux1/
-  #scp ~/repos/wekan/releases/build-bundle-ppc64el.sh o:/home/ubuntu/
-  #scp ~/repos/wekan/releases/release-x2.sh 20i:/data/websites/
+  #scp "$REPO_DIR/releases/build-bundle-arm64.sh" a:/home/wekan/
+  #scp "$REPO_DIR/releases/build-bundle-s390x.sh" s:/home/linux1/
+  #scp "$REPO_DIR/releases/build-bundle-ppc64el.sh" o:/home/ubuntu/
+  #scp "$REPO_DIR/releases/release-x2.sh" 20i:/data/websites/
   #scp wekan-$1-amd64.zip 20i:/data/websites/releases.wekan.team/
   #scp wekan-$1-amd64.zip a:/home/wekan/
   #scp wekan-$1-amd64.zip s:/home/linux1/

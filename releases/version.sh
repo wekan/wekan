@@ -12,7 +12,9 @@ cd "$REPO_ROOT"
 
 # Local copy of dependency artifacts, used only for the optional
 # USE_LOCAL_DEP_VERSIONS offline mode. Builds themselves fetch from upstream.
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
+# in every language (Finder only shows it translated).
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
 
 # Portable sedi function for macOS/Linux compatibility
 sedi() {

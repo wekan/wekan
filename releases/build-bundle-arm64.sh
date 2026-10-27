@@ -9,7 +9,9 @@ if [ $# -ne 1 ]
 fi
 
 
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
+# in every language (Finder only shows it translated).
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
 
 git pull
 cd .build

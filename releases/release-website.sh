@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Release website with new WeKan version number and new API $HOME/repos/wekan/docs.
+# Release website with new WeKan version number and new API docs.
 #
 # Usage:
 #   ./releases/release-website.sh 8.42 8.43

@@ -12,6 +12,9 @@ if [ $# -ne 1 ]
 fi
 # 2) Install GNU parallel with the current platform package manager.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# The checkout is wherever this script is: ~/repos/wekan on Linux,
+# ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 . "$SCRIPT_DIR/ensure-tools.sh"
 ensure_tools parallel
 
@@ -20,8 +23,8 @@ ensure_tools parallel
 #    all at the same time in parallel.
 
 {
-  ~/repos/wekan/releases/up-a.sh $1
-  ~/repos/wekan/releases/up-s.sh $1
-  #~/repos/wekan/releases/up-o.sh $1
-  ~/repos/wekan/releases/up-w.sh $1
+  "$REPO_DIR/releases/up-a.sh" $1
+  "$REPO_DIR/releases/up-s.sh" $1
+  #"$REPO_DIR/releases/up-o.sh" $1
+  "$REPO_DIR/releases/up-w.sh" $1
 } | parallel -k

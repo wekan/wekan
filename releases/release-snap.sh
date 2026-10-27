@@ -1,4 +1,7 @@
 #!/bin/bash
+# The checkout is wherever this script is: ~/repos/wekan on Linux,
+# ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # Usage: ./release-snap.sh 1.36
 
 if [ "$#" -ne 1 ]; then
@@ -7,23 +10,23 @@ if [ "$#" -ne 1 ]; then
 fi
 
 # Cleanup
-cd ~/repos/wekan/releases
+cd "$REPO_DIR/releases"
 ./release-cleanup.sh
 
 # Build Source
-cd ~/repos/wekan
+cd "$REPO_DIR"
 ./releases/rebuild-release.sh
 
 # Build Snap
-cd ~/repos/wekan
+cd "$REPO_DIR"
 sudo snapcraft
 
 # Cleanup
-cd ~/repos/wekan
+cd "$REPO_DIR"
 ./releases/release-cleanup.sh
 
 # Push snap
-cd ~/repos/wekan
+cd "$REPO_DIR"
 sudo snap install --dangerous wekan_$1_amd64.snap
 echo "Now you can test local installed snap."
 snapcraft push wekan_$1_amd64.snap

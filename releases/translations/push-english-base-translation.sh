@@ -1,2 +1,2 @@
-#cd ~/repos/wekan
+#cd "$(dirname "$0")/../.."
 ../tx push -s

@@ -41,7 +41,7 @@ SANDSTORM_NODE=~/projects/meteor-spk/meteor-spk-0.5.1/meteor-spk.deps/bin/node
 
 #if [[ -f "$SANDSTORM_NODE" ]]; then
 #  echo "9) Installing local Sandstorm develoment version"
-#  ~/repos/wekan/releases/install-sandstorm.sh
+#  "$(dirname "$0")/install-sandstorm.sh"
 #else
 #  echo "9) Local Sandstorm is already installed"
 #fi

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 set -euo pipefail
+# The checkout is wherever this script is: ~/repos/wekan on Linux,
+# ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Release script for wekan.
 
@@ -15,9 +18,11 @@ if [ $# -ne 2 ]
 fi
 
 # 2) Commit and push version number changes
-cd ~/repos/wekan
+cd "$REPO_DIR"
 
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
+# in every language (Finder only shows it translated).
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
 if compgen -G "$DOWNLOAD_DIR/node-v*-linux-*.tar.*" > /dev/null && compgen -G "$DOWNLOAD_DIR/mongodb-*.tgz" > /dev/null; then
   read -r -p "Check the latest Node.js and MongoDB versions from the internet? (y/n) " CHECK_LATEST
   case "$CHECK_LATEST" in
@@ -30,15 +35,15 @@ if compgen -G "$DOWNLOAD_DIR/node-v*-linux-*.tar.*" > /dev/null && compgen -G "$
   esac
 fi
 
-~/repos/wekan/releases/rebuild-docs.sh "$2"
+"$REPO_DIR/releases/rebuild-docs.sh" "$2"
 
-~/repos/wekan/releases/version.sh "$1" "$2"
+"$REPO_DIR/releases/version.sh" "$1" "$2"
 
 # 3) Build bundle first so generated artifacts (for example package-lock.json)
 # are ready before commit/tag steps.
-~/repos/wekan/releases/release-bundle.sh "$2"
+"$REPO_DIR/releases/release-bundle.sh" "$2"
 
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$HOME/Lataukset}"
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
 ZIP_PATH="$DOWNLOAD_DIR/wekan-$2-amd64.zip"
 if [ ! -f "$ZIP_PATH" ]; then
   echo "Error: Expected bundle not found: $ZIP_PATH"
@@ -57,7 +62,7 @@ git commit -m "v$2"
 git push
 
 # 4) Add release tag
-~/repos/wekan/releases/add-tag.sh "v$2"
+"$REPO_DIR/releases/add-tag.sh" "v$2"
 
 # 5) Push to repo
 git push
@@ -65,10 +70,10 @@ git push
 # 6) Update wekan.fi website: bump version numbers in .tools/wekan.fi and copy the
 # freshly built API docs (public/api/wekan.html -> api/v$2/index.html,
 # public/api/wekan.yml -> api/v$2/wekan.yml).
-~/repos/wekan/releases/release-website.sh "$1" "$2"
+"$REPO_DIR/releases/release-website.sh" "$1" "$2"
 
 # 7) Build Sandstorm
-#~/repos/wekan/releases/release-sandstorm.sh $2
+#"$REPO_DIR/releases/release-sandstorm.sh" $2
 
 # Build Snap
 #./release-snap.sh $2

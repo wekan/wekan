@@ -3,6 +3,9 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
 echo "INSTALLING WEKAN SANDSTORM VERSION RELATED FILES:"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# The checkout is wherever this script is: ~/repos/wekan on Linux,
+# ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 . "$SCRIPT_DIR/ensure-tools.sh"
 ensure_archive_tools
 cd ~
@@ -13,4 +16,4 @@ echo "export PATH=\$PATH:~/projects/meteor-spk/meteor-spk-0.6.0" >> ~/.bashrc
 source ~/.bashrc
 echo "INSTALL DEV VERSION OF SANDSTORM:"
 curl https://install.sandstorm.io | bash
-cd ~/repos/wekan
+cd "$REPO_DIR"

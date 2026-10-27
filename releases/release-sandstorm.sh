@@ -1,4 +1,7 @@
 #!/bin/bash
+# The checkout is wherever this script is: ~/repos/wekan on Linux,
+# ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Release Sandstorm Wekan.
 
@@ -16,7 +19,7 @@ fi
 sudo echo .
 
 # Delete old temporary build directory
-rm -rf ~/repos/wekan/.meteor-spk
+rm -rf "$REPO_DIR/.meteor-spk"
 
 # Start and update local Sandstorm dev version
 sudo systemctl enable sandstorm
@@ -24,7 +27,7 @@ sudo sandstorm start
 sudo sandstorm update
 
 # Build Sandstorm Wekan
-cd ~/repos/wekan
+cd "$REPO_DIR"
 meteor-spk pack wekan-$1.spk
 
 # Publish Sandstorm Wekan to exprimental App Market
@@ -34,4 +37,4 @@ spk publish wekan-$1.spk
 scp wekan-$1.spk x2:/data/websites/releases.wekan.team/dev/sandstorm/
 
 # Delete old temporary build directory
-rm -rf ~/repos/wekan/.meteor-spk
+rm -rf "$REPO_DIR/.meteor-spk"
