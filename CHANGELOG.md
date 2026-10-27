@@ -903,6 +903,26 @@ switched to Scrum. Both failed in the Chromium stage of a full run.
 **macOS** - the scripts and tests, run on a Mac with bash 3.2 and BSD tools.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/96ad680cd4">The release scripts find the checkout on every system</a>. Thanks to xet7.</summary>
+
+They hard-coded Linux's `~/repos/wekan`, so on a Mac, where the checkout is
+`~/Documents/repos/wekan`, they changed into nothing or a stale copy. Each finds
+the checkout from its own location now, and the download folder is `Lataukset`
+only where it exists. `tests/repoLocationPerOs.test.cjs` pins the three places.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9927adcb44">Companion repositories are read from .tools/ only, never from ../w/</a>. Thanks to xet7.</summary>
+
+The Hall of Fame tests, the Helm chart scripts and the Docker cleanup still fell
+back to an old `../w/` beside the repository; a stale `../w/wekan.fi` failed a
+test with markup the site no longer has. `tests/noLegacySiblingRepos.test.cjs`
+keeps `../w/` from coming back.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/283e51eac0">The root and releases/ shell scripts run on macOS too</a>. Thanks to xet7.</summary>
 
 Every script was checked with macOS's bash 3.2 and for GNU-only options: an
