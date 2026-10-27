@@ -26,7 +26,7 @@ test.describe('Checklists', () => {
     await cp.waitForOpen();
 
     // Bottom trigger: a.add-checklist.js-open-inlined-form
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     if (await trigger.count() > 0) {
       await trigger.last().click();
       // The inlined form should appear: form.js-add-checklist
@@ -48,7 +48,7 @@ test.describe('Checklists', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     if (await trigger.count() > 0) {
       await cp.addChecklist('My Checklist');
       // A .js-checklist element with the title should now be visible
@@ -67,7 +67,7 @@ test.describe('Checklists', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     if (await trigger.count() > 0) {
       await cp.addChecklist('Task List');
       // Now add a checklist item
@@ -88,7 +88,7 @@ test.describe('Checklists', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     if (await trigger.count() > 0) {
       await cp.addChecklist('Progress Checklist');
       await cp.addChecklistItem('Progress Checklist', 'Completable item');
@@ -114,7 +114,7 @@ test.describe('Checklists', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     if (await trigger.count() > 0) {
       await cp.addChecklist('Bar Checklist');
       await cp.addChecklistItem('Bar Checklist', 'Item A');
@@ -139,7 +139,7 @@ test.describe('Checklists', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     if (await trigger.count() > 0) {
       await cp.addChecklist('Delete Me');
       const checklist = cp.root.locator('.js-checklist').filter({ hasText: 'Delete Me' });

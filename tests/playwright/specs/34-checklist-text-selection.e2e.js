@@ -66,7 +66,7 @@ test.describe('Checklist text selection (#5686)', () => {
     await boardPage.waitForFunction(id => Package.session.Session.get('currentCard') === id, card._id);
     await cp.waitForOpen();
 
-    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
+    const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form');
     await expect(trigger).toBeVisible();
 
     await cp.addChecklist('Selectable List');

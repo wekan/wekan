@@ -10,7 +10,7 @@ for (const submit of ['click', 'Enter', 'Control+Enter']) {
     const cp = new CardPage(page);
     await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();
-    await cp.root.locator('a.add-checklist.js-open-inlined-form').last().click();
+    await cp.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form').last().click();
     const form = cp.root.locator('form.js-add-checklist');
     await form.locator('textarea').fill('Single submission');
     if (submit === 'click') await form.locator('button[type="submit"]').click();

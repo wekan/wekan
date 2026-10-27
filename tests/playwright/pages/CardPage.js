@@ -460,8 +460,10 @@ class CardPage {
    * textarea, and submits — which calls Checklists.insert on the server.
    */
   async addChecklist(title) {
-    // inlinedForm else-block: a.add-checklist.js-open-inlined-form (bottom trigger)
-    const trigger = this.root.locator('a.add-checklist.js-open-inlined-form').last();
+    // #6796: a card with no checklist has only the title line's "+"
+    // (a.add-checklist-top); the bottom a.add-checklist appears once there is
+    // one. Either opens the same form; .last() prefers the bottom one.
+    const trigger = this.root.locator('a.add-checklist.js-open-inlined-form, a.add-checklist-top.js-open-inlined-form').last();
     await trigger.click({ timeout: 10_000 });
     // After click the form becomes visible: form.inlined-form.js-add-checklist
     const form = this.root.locator('form.js-add-checklist').last();
