@@ -60,7 +60,24 @@ function elfWithDebug(name) {
   const out = path.join(tmp, name);
   // -rdynamic exports napi_like into .dynsym, as node exports its N-API.
   const r = spawnSync('gcc', ['-g', '-rdynamic', '-o', out, src]);
-  return r.status === 0 ? out : null;
+  // On macOS `gcc` is clang and writes a Mach-O, not an ELF: that is the
+  // Mach-O test below, not this one.
+  return r.status === 0 && magicOf(out) === '7f454c46' ? out : null;
+}
+
+const magicOf = (file) => fs.readFileSync(file).subarray(0, 4).toString('hex');
+
+// A Mach-O with local symbols, signed ad hoc as node for macOS is: only where
+// the compiler writes Mach-O and codesign exists, i.e. on a Mac.
+function machoWithLocals(name) {
+  if (!have('cc') || !have('codesign') || !have('nm')) return null;
+  const src = path.join(tmp, `${name}.c`);
+  fs.writeFileSync(src, '#include <stdio.h>\nstatic int local_helper(int x) { return x * 2; }\nint napi_like(void) { return local_helper(21); }\nint main(void) { printf("%d\\n", napi_like()); return 0; }\n');
+  const out = path.join(tmp, name);
+  if (spawnSync('cc', ['-O0', '-o', out, src]).status !== 0) return null;
+  if (!['cffaedfe', 'cefaedfe'].includes(magicOf(out))) return null;
+  spawnSync('codesign', ['--force', '--sign', '-', out]);
+  return out;
 }
 
 console.log('stripNode:');
@@ -113,6 +130,19 @@ test('a Mach-O is stripped of locals only, and re-signed', () => {
   assert.match(s, /codesign --verify --strict "\$f"/);
 });
 
+test('on a Mac: a real Mach-O loses its local symbols, keeps the exported one, and still runs', () => {
+  const bin = machoWithLocals('machobin');
+  if (!bin) return 'skip';
+  const nm = () => spawnSync('nm', [bin], { encoding: 'utf8' }).stdout;
+  assert.match(nm(), /\bt _local_helper\b/, 'the fixture has a local symbol');
+  const r = run(bin);
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.doesNotMatch(nm(), /_local_helper/, 'local symbols are gone');
+  assert.match(nm(), /\bT _napi_like\b/, 'the exported symbol stays');
+  assert.strictEqual(spawnSync('codesign', ['--verify', '--strict', bin]).status, 0, 're-signed');
+  assert.strictEqual(spawnSync(bin, { encoding: 'utf8' }).stdout.trim(), '42', 'and still runs');
+});
+
 test('every place a node enters a bundle strips it, after it is verified', () => {
   const embed = code(read('releases/embed-verified-node.sh'));
   const check = embed.indexOf('"$got" != "$node_sha256"');
@@ -131,4 +161,4 @@ test('every place a node enters a bundle strips it, after it is verified', () =>
   }
 });
 
-console.log(`\nstripNode: ${passed} passed${skipped ? `, ${skipped} skipped (no gcc/objcopy here)` : ''}`);
+console.log(`\nstripNode: ${passed} passed${skipped ? `, ${skipped} skipped (no ELF toolchain or no Mac here)` : ''}`);
