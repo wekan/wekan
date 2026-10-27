@@ -178,6 +178,19 @@ it, the latter measuring the headings, cells and labels.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37b3c8f599">Card Settings: Ask for a reason matches Show empty fields, and the select buttons match Draggable's</a>. Thanks to xet7.</summary>
+
+Ask for a reason when moving cards was a Font Awesome square a few pixels off
+Show empty fields above it; it is the same animated checkbox now, in the same
+place, read reactively from the board. Select all and Select none under the
+columns' headings were links; they are the Draggable table's buttons, white
+text on the theme's colour. `tests/cardSettingsSelectAllAligned.test.cjs` pins
+both, and `card-add-fields.e2e.js` measures the checkboxes and compares the
+buttons' colours.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Tests** - a guard that read the wrong part of a file.
