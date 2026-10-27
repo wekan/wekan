@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 # The checkout is wherever this script is: ~/repos/wekan on Linux,
 # ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -20,9 +21,9 @@ fi
 # 2) Commit and push version number changes
 cd "$REPO_DIR"
 
-# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
-# in every language (Finder only shows it translated).
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
+# Downloads and release zips stay in .tools/tmp (releases/tools-env.sh), not
+# in ~/Downloads or ~/Lataukset.
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$WEKAN_DOWNLOADS}"
 if compgen -G "$DOWNLOAD_DIR/node-v*-linux-*.tar.*" > /dev/null && compgen -G "$DOWNLOAD_DIR/mongodb-*.tgz" > /dev/null; then
   read -r -p "Check the latest Node.js and MongoDB versions from the internet? (y/n) " CHECK_LATEST
   case "$CHECK_LATEST" in
@@ -43,7 +44,9 @@ fi
 # are ready before commit/tag steps.
 "$REPO_DIR/releases/release-bundle.sh" "$2"
 
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
+# Downloads and release zips stay in .tools/tmp (releases/tools-env.sh), not
+# in ~/Downloads or ~/Lataukset.
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$WEKAN_DOWNLOADS}"
 ZIP_PATH="$DOWNLOAD_DIR/wekan-$2-amd64.zip"
 if [ ! -f "$ZIP_PATH" ]; then
   echo "Error: Expected bundle not found: $ZIP_PATH"

@@ -60,6 +60,7 @@
 # step and its embed step agree and only one of them asks.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_SLUG="wekan/FerretDB"
@@ -100,7 +101,7 @@ full_asset="ferretdb-${platform}${ext}"
 
 valid_tag() { case "$1" in v[0-9]*) case "$1" in *[!A-Za-z0-9._+-]*) return 1 ;; esac; return 0 ;; *) return 1 ;; esac; }
 
-cache_dir="${FERRETDB_ASSET_CACHE:-${RUNNER_TEMP:-${TMPDIR:-/tmp}}}"
+cache_dir="${FERRETDB_ASSET_CACHE:-${RUNNER_TEMP:-$TMPDIR}}"
 cache="$cache_dir/ferretdb-asset-${variant}-${platform}${FERRETDB_TAG:+-$FERRETDB_TAG}"
 
 # url_for <tag> <asset>: that release's asset, or /latest/ when the tag is not
@@ -243,7 +244,7 @@ if [ "$mode" = download ]; then
         exit 3
     fi
     chmod +x "$out" 2>/dev/null || true
-    sumfile="$(mktemp "${TMPDIR:-/tmp}/ferretdb-sha.XXXXXX")"
+    sumfile="$(mktemp "$TMPDIR/ferretdb-sha.XXXXXX")"
     if bash "$here/fetch.sh" --optional -o "$sumfile" "${FERRET_URL}.sha256sum"; then
         want="$(awk '{print $1; exit}' "$sumfile")"
         got="$(sha_of "$out")"

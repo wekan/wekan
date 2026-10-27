@@ -3,12 +3,13 @@
 # (.github/workflows/bun-single-file.yml). Run on the target's own platform:
 #   ZIP=<bundle.zip> BUN=<the bundle's own bun> OUT=<file> VERSION=<v> TARGET=<t>
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/../../tools-env.sh"   # temporary files and downloads go to .tools/tmp
 : "${ZIP:?}" "${BUN:?}" "${OUT:?}" "${VERSION:?}" "${TARGET:?}"
 
 "$BUN" releases/single-file/bun/build.mjs --zip "$ZIP" --target "$TARGET" --version "$VERSION" --out "$OUT"
 
 exe="./$OUT"
-cache="$(mktemp -d)"
+cache="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -rf "$cache"' EXIT
 
 # It names itself.

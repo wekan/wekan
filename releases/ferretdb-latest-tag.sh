@@ -25,8 +25,9 @@
 # one request rather than six.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
-cache="${FERRETDB_TAG_CACHE:-${RUNNER_TEMP:-${TMPDIR:-/tmp}}/ferretdb-latest-tag}"
+cache="${FERRETDB_TAG_CACHE:-${RUNNER_TEMP:-$TMPDIR}/ferretdb-latest-tag}"
 
 if [ -s "$cache" ]; then
     cat "$cache"

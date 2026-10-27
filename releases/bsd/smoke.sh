@@ -5,9 +5,10 @@
 #
 #   bash releases/bsd/smoke.sh <bundle dir> [port]
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/../tools-env.sh"   # temporary files and downloads go to .tools/tmp
 bundle="$(cd "${1:?usage: smoke.sh <bundle dir> [port]}" && pwd)"
 port="${2:-3123}"
-work="$(mktemp -d "${TMPDIR:-/tmp}/wekan-smoke.XXXXXX")"
+work="$(mktemp -d "$TMPDIR/wekan-smoke.XXXXXX")"
 log="$work/start-wekan.log"
 (
   cd "$bundle"

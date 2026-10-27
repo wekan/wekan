@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
   echo "Usage: $0 <snap-file> [channels]" >&2

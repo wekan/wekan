@@ -5,6 +5,7 @@
 # =================================================================
 
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -12,9 +13,9 @@ cd "$REPO_ROOT"
 
 # Local copy of dependency artifacts, used only for the optional
 # USE_LOCAL_DEP_VERSIONS offline mode. Builds themselves fetch from upstream.
-# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
-# in every language (Finder only shows it translated).
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
+# Downloads and release zips stay in .tools/tmp (releases/tools-env.sh), not
+# in ~/Downloads or ~/Lataukset.
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$WEKAN_DOWNLOADS}"
 
 # Portable sedi function for macOS/Linux compatibility
 sedi() {

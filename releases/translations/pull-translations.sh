@@ -1,5 +1,6 @@
 #!/bin/sh
 set -eu
+. "$(dirname "${BASH_SOURCE[0]}")/../tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 translation_repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 cd "$translation_repo_dir"

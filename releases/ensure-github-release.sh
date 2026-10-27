@@ -22,6 +22,7 @@
 # The notes go file to file, never through a shell variable or argv: see
 # releases/release-notes.sh for the two ways that broke a release.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 if [ "$#" -ne 2 ]; then
   echo "Usage: $0 <repository> <version>" >&2
   exit 2

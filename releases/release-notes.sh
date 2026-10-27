@@ -26,6 +26,7 @@
 # file, and only file PATHS are passed around - which has no size limit, and
 # leaves the text as data that no shell ever parses.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 VERSION="${1:-}"
 CHANGELOG_FILE="${2:-CHANGELOG.md}"
@@ -42,7 +43,7 @@ fi
 # Prefer a version-specific "# v<version> …" section; otherwise the topmost
 # "# Upcoming/Upcomig WeKan ® release" one. The python reads the file itself and
 # writes to stdout, so the notes never pass through the shell.
-NOTES_FILE="$(mktemp)"
+NOTES_FILE="$(mktemp "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -f "$NOTES_FILE"' EXIT
 
 VERSION="$VERSION" CHANGELOG_FILE="$CHANGELOG_FILE" python3 - > "$NOTES_FILE" <<'PYEOF'

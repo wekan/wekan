@@ -35,6 +35,9 @@
 #               the newest release: a CPU can lag a version or two behind.
 
 set -eux
+# The caller (repack-bundle-for-arch.sh) mounts this repository's .tools/tmp as
+# the container's /tmp and sets TMPDIR: the container's own /tmp is tiny.
+: "${TMPDIR:?TMPDIR must be the mounted .tools/tmp}"
 # Older macOS has no sha256sum; shasum -a 256 prints the same "hash  file" lines and takes -c.
 command -v sha256sum >/dev/null 2>&1 || sha256sum() { shasum -a 256 "$@"; }
 
@@ -118,22 +121,22 @@ download_and_verify() {
 # distribution, node-patches publishes the BARE binary. NODE_KIND says which and
 # NODE_MEMBER names the node inside an archive - both resolved on the host, so
 # nothing is guessed from the URL here.
-download_and_verify "$NODE_URL" /tmp/node-download
+download_and_verify "$NODE_URL" "$TMPDIR/node-download"
 
 case "${NODE_KIND:-binary}" in
     binary)
-        cp /tmp/node-download /opt/node/bin/node
+        cp "$TMPDIR/node-download" /opt/node/bin/node
         ;;
     tar.xz|tar.gz|tar)
-        mkdir -p /tmp/nodedist
+        mkdir -p "$TMPDIR/nodedist"
         # -xf and let tar detect the compression: unofficial-builds publishes
         # .tar.gz beside .tar.xz and either may be what was resolved.
-        if ! tar -xf /tmp/node-download -C /tmp/nodedist "${NODE_MEMBER}"; then
+        if ! tar -xf "$TMPDIR/node-download" -C "$TMPDIR/nodedist" "${NODE_MEMBER}"; then
             echo "install-node-for-arch.sh: ${NODE_MEMBER} is not in the archive" \
                  "from ${NODE_FROM} (${NODE_URL})." >&2
             exit 1
         fi
-        cp "/tmp/nodedist/${NODE_MEMBER}" /opt/node/bin/node
+        cp "$TMPDIR/nodedist/${NODE_MEMBER}" /opt/node/bin/node
         ;;
     *)
         echo "install-node-for-arch.sh: unknown NODE_KIND '${NODE_KIND}'. The" \
@@ -143,16 +146,18 @@ case "${NODE_KIND:-binary}" in
         ;;
 esac
 chmod +x /opt/node/bin/node
-rm -f /tmp/node-download
+rm -f "$TMPDIR/node-download"
 # npm from the official amd64 tarball of the same version - JavaScript, so it runs
 # on this arch's node just as well. The tarball is a build-time tool, not what
 # WeKan ships; the shipped node is the target CPU's, above.
-bash "$(dirname "$0")/fetch.sh" -o /tmp/npm.tar.xz \
+bash "$(dirname "$0")/fetch.sh" -o "$TMPDIR/npm.tar.xz" \
     "https://nodejs.org/dist/${NODE_FULL}/node-${NODE_FULL}-linux-x64.tar.xz"
-mkdir -p /tmp/npm
-tar -xJf /tmp/npm.tar.xz -C /tmp/npm --strip-components=1
-cp -a /tmp/npm/lib /opt/node/
-cp -a /tmp/npm/bin/npm /tmp/npm/bin/npx /opt/node/bin/
+mkdir -p "$TMPDIR/npm"
+tar -xJf "$TMPDIR/npm.tar.xz" -C "$TMPDIR/npm" --strip-components=1
+cp -a "$TMPDIR/npm"/lib /opt/node/
+cp -a "$TMPDIR/npm"/bin/npm "$TMPDIR/npm"/bin/npx /opt/node/bin/
+# Removed here, in the container: on Linux the host could not, they are root's.
+rm -rf "$TMPDIR/nodedist" "$TMPDIR/npm" "$TMPDIR/npm.tar.xz"
 
 export PATH=/opt/node/bin:$PATH
 

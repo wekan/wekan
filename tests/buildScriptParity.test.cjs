@@ -430,6 +430,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // container for musl, Termux-like Android builders, the Bun builders).
   SKIP['musl/build-bundle.sh'] = 'musl bundle build run by musl.yml inside Alpine';
   SKIP['android/build-bundle.sh'] = 'Android bundle build run by android.yml';
+  SKIP['tools-env.sh'] = 'sourced by build.sh and the releases/ scripts: keeps every file they write in .tools/';
   SKIP['nextcloud-pack.sh'] = 'Nextcloud ExApp packer run by nextcloud.yml before signing; tested by tests/nextcloudRelease.test.py';
   SKIP['single-file/bun/build-and-check.sh'] = 'Bun single-file build run by bun-single-file.yml';
   SKIP['single-file/bun/build.mjs'] = 'Bun single-file builder run by bun-single-file.yml and releases/bun/build-target.sh';

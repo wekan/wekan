@@ -164,7 +164,8 @@ test('the base-image preflight compares the ARM variant, not just the architectu
 test('the base-image manifest probe retries transient registry failures safely', () => {
   assert.ok(/for attempt in 1 2 3 4 5/.test(preflight),
     'one transient Docker Hub response must not fail an otherwise complete build');
-  assert.ok(/>"\$manifest_tmp"[\s\S]*?mv "\$manifest_tmp" \/tmp\/manifest\.json/.test(preflight),
+  // In .tools/tmp, not /tmp: every file the scripts write stays in .tools/.
+  assert.ok(/>"\$manifest_tmp"[\s\S]*?mv "\$manifest_tmp" "\$TMPDIR\/manifest\.json"/.test(preflight),
     'only a complete successful response may replace the manifest being parsed');
   assert.ok(/\[ "\$manifest_ok" = true \]/.test(preflight),
     'five failed attempts must still fail closed');
@@ -179,7 +180,7 @@ test('the preflight platform match answers correctly for the manifests it meets'
   const os = require('os');
 
   const script = preflight
-    .split("if ! WANT_ARCH=\"$want_arch\" WANT_VARIANT=\"$want_variant\" python3 - <<'PYEOF'\n")[1]
+    .split("if ! MANIFEST=\"$TMPDIR/manifest.json\" WANT_ARCH=\"$want_arch\" WANT_VARIANT=\"$want_variant\" python3 - <<'PYEOF'\n")[1]
     .split('\nPYEOF\n')[0];
   assert.ok(script.includes('want_variant'), 'could not extract the preflight python block');
 
@@ -187,15 +188,16 @@ test('the preflight platform match answers correctly for the manifests it meets'
   const scriptPath = path.join(tmp, 'match.py');
   fs.writeFileSync(scriptPath, script);
 
-  const manifestPath = '/tmp/manifest.json';
-  const saved = fs.existsSync(manifestPath) ? fs.readFileSync(manifestPath) : null;
+  // The script reads the manifest from MANIFEST ($TMPDIR/manifest.json), in
+  // .tools/tmp: this test writes its own copy there, never into /tmp.
+  const manifestPath = path.join(tmp, 'manifest.json');
 
   function matches(manifest, platform) {
     fs.writeFileSync(manifestPath, JSON.stringify(manifest));
     const [, arch, variant = ''] = platform.split('/');
     try {
       execFileSync('python3', [scriptPath], {
-        env: { ...process.env, WANT_ARCH: arch, WANT_VARIANT: variant },
+        env: { ...process.env, MANIFEST: manifestPath, WANT_ARCH: arch, WANT_VARIANT: variant },
         stdio: 'pipe',
       });
       return true;
@@ -232,8 +234,6 @@ test('the preflight platform match answers correctly for the manifests it meets'
     assert.strictEqual(matches(singlePlatform, 'linux/arm/v7'), false,
       'and it must not answer for a variant it is not');
   } finally {
-    if (saved !== null) fs.writeFileSync(manifestPath, saved);
-    else fs.rmSync(manifestPath, { force: true });
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 });

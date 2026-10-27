@@ -81,11 +81,13 @@ assert.deepStrictEqual(meteorInstalls.filter(({ text }) => !/--allow-scripts=met
   'npm 12 blocks the meteor installer\'s install script without --allow-scripts=meteor');
 
 // Positive: every script that installs Meteor does it with `npx -y meteor`.
-// build.sh has it twice: the Linux and the macOS branch.
+// build.sh has it twice: the Linux and the macOS branch. On Linux and macOS
+// HOME is .tools for the installer only, so Meteor lands in .tools/.meteor:
+// every file WeKan's scripts write stays in .tools/ (releases/tools-env.sh).
 for (const [file, line, count] of [
-  ['build.sh', 'npx -y meteor', 2],
+  ['build.sh', 'HOME="$WEKAN_TOOLS_DIR" npx -y meteor', 2],
   ['build.bat', 'call npx -y meteor', 1],
-  ['releases/rebuild-release.sh', 'npx -y meteor', 1],
+  ['releases/rebuild-release.sh', 'HOME="$WEKAN_TOOLS_DIR" npx -y meteor', 1],
 ]) {
   assert.strictEqual(lines(path.join(root, file)).filter(({ text }) => text.trim() === line).length,
     count, `${file} installs Meteor with: ${line}`);

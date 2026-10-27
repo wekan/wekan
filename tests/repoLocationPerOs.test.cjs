@@ -5,8 +5,8 @@
 // macOS, Downloads\repos\wekan on Windows. The release scripts hard-coded
 // Linux's ~/repos/wekan, so on a Mac they cd'd into nothing - or into a stale
 // copy. They find the checkout from their own location now, which is right on
-// every system, and the Finnish Linux download folder "Lataukset" is no longer
-// assumed on macOS, where ~/Downloads keeps its English name.
+// every system. Downloads and release zips are in .tools/tmp, not ~/Downloads
+// or the Finnish Linux ~/Lataukset (tests/toolsDirOnly.test.cjs).
 // Run: node tests/repoLocationPerOs.test.cjs
 
 const assert = require('assert');
@@ -57,10 +57,10 @@ test('a script that needs the checkout finds it from its own location', () => {
   }
 });
 
-test('the download folder is not assumed to be the Finnish Linux one', () => {
-  const offenders = scripts().filter(rel => /DOWNLOAD_DIR="\$\{DOWNLOAD_DIR:-\$HOME\/Lataukset\}"/.test(read(rel)));
+test('downloads go to .tools/tmp, not a folder in the home directory', () => {
+  const offenders = scripts().filter(rel => /DOWNLOAD_DIR="\$\{DOWNLOAD_DIR:-[^}]*\$HOME/.test(read(rel)));
   assert.deepStrictEqual(offenders, []);
-  assert.match(read('releases/version.sh'), /\[ -d "\$HOME\/Lataukset" \] && echo "\$HOME\/Lataukset" \|\| echo "\$HOME\/Downloads"/);
+  assert.match(read('releases/version.sh'), /DOWNLOAD_DIR="\$\{DOWNLOAD_DIR:-\$WEKAN_DOWNLOADS\}"/);
 });
 
 test('negative: the pattern catches each system\'s hard-coded path', () => {

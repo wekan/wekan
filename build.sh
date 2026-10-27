@@ -103,6 +103,10 @@ WEKAN_TOOLS_DIR="$WEKAN_DIR/.tools"
 export WEKAN_DIR WEKAN_TOOLS_DIR
 export PATH="$WEKAN_TOOLS_DIR/bin:${GOBIN:+$GOBIN:}$PATH"
 . "$WEKAN_DIR/releases/ensure-tools.sh"
+# Everything this script and the releases/ scripts write - temporary files,
+# downloads, Meteor, Node.js, the npm cache - stays in .tools/, on Linux, macOS
+# and Windows alike (releases/tools-env.sh).
+. "$WEKAN_DIR/releases/tools-env.sh"
 
 # Prefer the repository-local toolchain installed under .tools. A fresh shell
 # does not normally have .tools/.meteor on PATH, which made unattended test and
@@ -1216,7 +1220,7 @@ function run_all_tests(){
 	PW_FAILURES=""
 	TEST_SERVER_PID=""
 	MONGOD_PID=""
-	STATDIR="$(mktemp -d)"
+	STATDIR="$(mktemp -d "$TMPDIR/wekan-stat.XXXXXX")"
 	BPIDS=""
 
 	# STOP WHAT THIS RUN STARTED, on EVERY way out - not only the happy path.
@@ -2972,15 +2976,20 @@ for _once in 1; do
 					;;
 				*) echo "Unsupported Linux distribution; install a C/C++ toolchain, git, curl, wget, 7zip, zip, unzip, file and npm." >&2; exit 1 ;;
 			esac
-			sudo npm -g install n
-			sudo n "$_wekan_node_version"
-			sudo npm install -g "npm@${_wekan_npm_version:-latest}"
+			# Node.js into .tools/n with n's N_PREFIX, as this user: not into
+			# /usr/local with sudo. releases/tools-env.sh puts .tools/n/bin on
+			# PATH, and npm's global installs go to that same prefix.
+			N_PREFIX="$WEKAN_TOOLS_DIR/n" npx -y n "$_wekan_node_version"
+			export PATH="$WEKAN_TOOLS_DIR/n/bin:$PATH"
+			hash -r
+			npm install -g "npm@${_wekan_npm_version:-latest}"
 			hash -r
 			# Meteor the way https://docs.meteor.com/about/install.html installs
 			# it on Linux, macOS and Windows alike: `npx meteor`, as this user and
 			# never with sudo. The meteor npm package is only an installer; npx
-			# runs its cli.js, which installs into ~/.meteor and adds that to
-			# PATH in the shell rc files. `sudo npm -g install meteor` ran the
+			# runs its cli.js, which installs into $HOME/.meteor and adds that to
+			# PATH in the shell rc files - so HOME is .tools for the installer
+			# only, and Meteor and those rc lines land in .tools/. `sudo npm -g install meteor` ran the
 			# same installer as an install script instead, which npm 12 refuses
 			# to run (and which also refused --unsafe-perm and the documented
 			# --foreground-script).
@@ -2988,16 +2997,14 @@ for _once in 1; do
 			# The global meteor package such a setup left behind is only that
 			# installer, never Meteor itself (~/.meteor is not touched).
 			sudo npm -g uninstall meteor >/dev/null 2>&1 || true
-			# npx caches in ~/.npm, which an old `sudo npm` could leave root-owned.
-			if [ -d "$HOME/.npm" ] && [ ! -w "$HOME/.npm" ]; then
-				sudo chown -R "$(id -u):$(id -g)" "$HOME/.npm"
-			fi
-			if [ -x "$HOME/.meteor/meteor" ]; then
-				echo "Meteor is already installed in $HOME/.meteor"
+			# npx caches in npm_config_cache (.tools/npm-cache).
+			mkdir -p "$npm_config_cache"
+			if [ -x "$WEKAN_TOOLS_DIR/.meteor/meteor" ]; then
+				echo "Meteor is already installed in $WEKAN_TOOLS_DIR/.meteor"
 			else
-				npx -y meteor
+				HOME="$WEKAN_TOOLS_DIR" npx -y meteor
 			fi
-			export PATH="$HOME/.meteor:$PATH"
+			. "$WEKAN_DIR/releases/tools-env.sh"
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
 			# Node comes from nvm, not from Homebrew's node@26 keg.
@@ -3009,13 +3016,14 @@ for _once in 1; do
 			# puts that on PATH itself, so this does not go stale the way a
 			# pinned version does. npm comes with the Node it installs, so
 			# there is no `brew install npm` either.
-			export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+			# NVM_DIR is .tools/nvm (releases/tools-env.sh).
 			mkdir -p "$NVM_DIR"
 			if [ ! -s "$NVM_DIR/nvm.sh" ]; then
 				echo "Installing nvm into $NVM_DIR ..."
 				# A PINNED tag, not master: this pipes a downloaded script into
 				# a shell, so it must be a revision somebody has looked at.
-				curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | bash
+				# PROFILE=/dev/null: the installer edits no shell rc file.
+				curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | PROFILE=/dev/null bash
 			fi
 			# nvm is a shell FUNCTION, not a binary, so it has to be sourced -
 			# `command -v nvm` finds nothing until this line has run.
@@ -3037,23 +3045,18 @@ for _once in 1; do
 			nvm use 26
 			npm install -g "npm@${_wekan_npm_version:-latest}"
 			echo "Node $(node --version), npm $(npm --version)"
-			# Let new shells find nvm too. Its installer appends these itself,
-			# but only to the rc file it detects and only when IT did the
-			# install - so a machine that already had nvm keeps working.
-			touch "$HOME/.zshrc"
-			for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
-				[ -e "$rc" ] || continue
-				grep -qxF 'export NVM_DIR="$HOME/.nvm"' "$rc" || echo 'export NVM_DIR="$HOME/.nvm"' >> "$rc"
-				grep -qxF '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' "$rc" || echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> "$rc"
-			done
+			# No shell rc file is edited: build.sh and the releases/ scripts put
+			# .tools/nvm's Node.js and .tools/.meteor on PATH themselves
+			# (releases/tools-env.sh).
 			# Meteor as https://docs.meteor.com/about/install.html installs it:
-			# `npx meteor`, as this user, never sudo (see the Linux branch).
-			if [ -x "$HOME/.meteor/meteor" ]; then
-				echo "Meteor is already installed in $HOME/.meteor"
+			# `npx meteor`, as this user, never sudo, with HOME=.tools for the
+			# installer only (see the Linux branch).
+			if [ -x "$WEKAN_TOOLS_DIR/.meteor/meteor" ]; then
+				echo "Meteor is already installed in $WEKAN_TOOLS_DIR/.meteor"
 			else
-				npx -y meteor
+				HOME="$WEKAN_TOOLS_DIR" npx -y meteor
 			fi
-			export PATH="$HOME/.meteor:$PATH"
+			. "$WEKAN_DIR/releases/tools-env.sh"
 			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows

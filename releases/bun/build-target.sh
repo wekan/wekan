@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/../tools-env.sh"   # temporary files and downloads go to .tools/tmp
 root=$(pwd)
 export TMPDIR="$root/.tools/tmp"
 mkdir -p "$TMPDIR"

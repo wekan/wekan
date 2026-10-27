@@ -39,6 +39,7 @@
 # and 1 when something went wrong.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 dest="${1:?dest path is required}"
 platform="${2:?platform is required (e.g. amd64, win64, mac-arm64)}"
@@ -65,7 +66,7 @@ if [ "$node_found" != "true" ] || [ -z "$node_url" ] || [ -z "$node_sha256" ]; t
 fi
 
 mkdir -p "$(dirname "$dest")"
-work="$(mktemp -d)"
+work="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -rf "$work"' EXIT
 
 # ── 2. Download it ────────────────────────────────────────────────────────────

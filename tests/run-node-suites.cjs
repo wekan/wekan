@@ -48,6 +48,12 @@ const EXCLUDED = new Map([
 // A suite that hangs would otherwise hang the whole run. Generous, because some
 // suites parse the entire client tree.
 const SUITE_TIMEOUT_MS = Number(process.env.WEKAN_SUITE_TIMEOUT_MS) || 300000;
+// Every file a suite writes goes to .tools/tmp, never /tmp or macOS's
+// /var/folders: os.tmpdir() reads TMPDIR (TEMP and TMP on Windows), the same
+// variables releases/tools-env.sh sets for the shell scripts.
+const TOOLS_TMP = path.join(ROOT, '.tools', 'tmp');
+fs.mkdirSync(TOOLS_TMP, { recursive: true });
+const SUITE_ENV = { ...process.env, TMPDIR: TOOLS_TMP, TMP: TOOLS_TMP, TEMP: TOOLS_TMP };
 
 function discoverSuites() {
   const found = [];
@@ -100,6 +106,7 @@ function main(argv) {
 
     const r = spawnSync(process.execPath, [suite], {
       cwd: ROOT,
+      env: SUITE_ENV,
       stdio: 'inherit',
       timeout: SUITE_TIMEOUT_MS,
     });

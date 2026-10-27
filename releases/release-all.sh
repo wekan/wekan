@@ -56,6 +56,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 # documented in, and can be created with: ./releases/create-github-secrets.sh
 
 set -e
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 CHECK_ONLY=false
 if [ "${1:-}" = --check ]; then CHECK_ONLY=true; shift; fi
 
@@ -124,7 +125,7 @@ bash "$(dirname "$0")/fix-changelog-hashes.sh" || true
 # ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────
 DATE="$(date +%F)"
 echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
-_tmp="$(mktemp)"
+_tmp="$(mktemp "$TMPDIR/wekan.XXXXXX")"
 sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
 
 # Keep CHANGELOG.md small enough for GitHub to show it: older releases move to

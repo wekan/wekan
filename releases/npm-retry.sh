@@ -28,6 +28,7 @@
 # Tunables (env): NPM_RETRY_ATTEMPTS (default 5), NPM_RETRY_SLEEPS (the backoff,
 # default "15 30 60 120" seconds; set to "0" in tests).
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 if [ "$#" -eq 0 ]; then
     echo "npm-retry.sh: give it a command to run, e.g. npm install" >&2
@@ -49,7 +50,7 @@ export npm_config_fetch_retry_maxtimeout="${npm_config_fetch_retry_maxtimeout:-1
 # Kept as one grep -E so it can be read as the list it is.
 TRANSIENT='E(50[0-9]|429)|"?(429|50[0-24])"? ?(Too Many Requests|Internal Server Error|Bad Gateway|Service Unavailable|Gateway Time-?out)|ECONNRESET|ECONNREFUSED|ETIMEDOUT|ESOCKETTIMEDOUT|ERR_SOCKET_TIMEOUT|EAI_AGAIN|ENOTFOUND|EPROTO|socket hang up|network socket disconnected|network timeout|Could not resolve host|TLS connection|remote end hung up|early EOF|RPC failed'
 
-log=$(mktemp)
+log=$(mktemp "$TMPDIR/wekan.XXXXXX")
 trap 'rm -f "$log"' EXIT
 
 attempt=1

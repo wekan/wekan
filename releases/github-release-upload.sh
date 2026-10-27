@@ -14,6 +14,7 @@
 # `timeout` on PATH can be System32's "wait N seconds" command, which takes
 # different arguments.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 if [ "$#" -lt 3 ]; then
   echo "Usage: $0 <repository> <tag> <artifact> [artifact ...]" >&2
   exit 2

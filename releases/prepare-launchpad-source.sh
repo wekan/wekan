@@ -2,6 +2,7 @@
 # Snapcraft hashes every file in its project directory, including .git. Keep
 # mutable Git metadata outside that directory so --recover finds the same recipe.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 arch=${1:?Usage: prepare-launchpad-source.sh <architecture>}
 case "$arch" in armhf|ppc64el|s390x|riscv64) ;; *) echo "Unsupported Launchpad architecture: $arch" >&2; exit 2 ;; esac
 root=$(git rev-parse --show-toplevel)

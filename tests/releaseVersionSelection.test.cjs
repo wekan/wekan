@@ -13,7 +13,7 @@ function fixture(fn) {
   try {
     fs.mkdirSync(path.join(dir, 'releases'));
     fs.mkdirSync(path.join(dir, 'bin'));
-    for (const name of ['latest-release-version.sh', 'check-upcoming-release.sh']) {
+    for (const name of ['latest-release-version.sh', 'check-upcoming-release.sh', 'tools-env.sh']) {
       fs.copyFileSync(path.join(root, 'releases', name), path.join(dir, 'releases', name));
     }
     // Run the actual preflight only. Never include the publishing portion.

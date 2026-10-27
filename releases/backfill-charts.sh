@@ -46,6 +46,7 @@
 # defaults to .tools/charts in this repo.
 
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 APPLY=false
 PUSH=false
@@ -97,7 +98,7 @@ fi
 # its answer can change the outcome.
 mkdir -p "$REPO_DIR/.tools/tmp"
 export TMPDIR="$REPO_DIR/.tools/tmp"
-PLAN_JSON="$(mktemp)"
+PLAN_JSON="$(mktemp "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -f "$PLAN_JSON"' EXIT
 
 CHART_BASE_URL="$CHART_BASE_URL" LIMIT="$LIMIT" python3 - "$PLAN_JSON" <<'PYEOF'
@@ -265,7 +266,7 @@ cd "$CHARTS_DIR"
 # are needed, so the source is copied out before the branch is switched.
 git checkout main
 git pull --ff-only || true
-SRC="$(mktemp -d)"
+SRC="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -f "$PLAN_JSON"; rm -rf "$SRC"' EXIT
 cp -a wekan "$SRC/wekan"
 
@@ -284,7 +285,7 @@ for VERSION in $(jq -r '.build[]' "$PLAN_JSON"); do
   if [ -f "wekan-${CHART_VERSION}.tgz" ]; then
     continue
   fi
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
   cp -a "$SRC/wekan" "$work/wekan"
   sedi -E "s|^appVersion: \"[^\"]*\"|appVersion: \"${VERSION}\"|" "$work/wekan/Chart.yaml"
   sedi -E "s|^version: [0-9]+\.[0-9]+\.[0-9]+|version: ${CHART_VERSION}|" "$work/wekan/Chart.yaml"

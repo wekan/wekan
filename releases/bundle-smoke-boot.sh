@@ -27,6 +27,7 @@
 # the question the two crashes above were.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 BUNDLE="${1:?usage: bundle-smoke-boot.sh <bundle-dir> [node-binary]}"
 NODE_BIN="${2:-node}"
@@ -73,7 +74,7 @@ run_with_timeout() {
 # Verify the architecture-independent engine and WASM/database asset before boot.
 run_with_timeout "$TIMEOUT" "$NODE_BIN" "$(dirname "$0")/verify-mime-runtime.cjs" "$BUNDLE" || exit 1
 
-log="$(mktemp)"
+log="$(mktemp "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -f "$log"' EXIT
 
 echo "--- smoke: starting the bundle with a database that cannot answer"

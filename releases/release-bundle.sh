@@ -1,4 +1,5 @@
 #!/bin/bash
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 # The checkout is wherever this script is: ~/repos/wekan on Linux,
 # ~/Documents/repos/wekan on macOS, Downloads\repos\wekan on Windows.
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -8,9 +9,9 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-# Lataukset is the Finnish Linux name of Downloads; macOS keeps ~/Downloads
-# in every language (Finder only shows it translated).
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-$([ -d "$HOME/Lataukset" ] && echo "$HOME/Lataukset" || echo "$HOME/Downloads")}"
+# Downloads and release zips stay in .tools/tmp (releases/tools-env.sh), not
+# in ~/Downloads or ~/Lataukset.
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$WEKAN_DOWNLOADS}"
 
 cd "$REPO_DIR"
 #sudo apt-get -y install parallel

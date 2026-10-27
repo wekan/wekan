@@ -160,7 +160,8 @@ test('the sync preserves snap, npm and container package identities', () => {
   assert.ok(/rm -f "\$TARGET_DIR\/\.github\/dependabot\.yml"/.test(prepareVariant)
     && /"\$TARGET_DIR\/\.github\/dependabot\.yaml"/.test(prepareVariant),
   'variant mirrors do not inherit duplicate Dependabot version updates');
-  assert.ok(/WORKFLOWS_BACKUP="\$\(mktemp -d\)"/.test(prepareVariant),
+  // In .tools/tmp: macOS's mktemp ignores TMPDIR without a template.
+  assert.ok(/WORKFLOWS_BACKUP="\$\(mktemp -d "\$TMPDIR\/[a-z.-]+XXXXXX"\)"/.test(prepareVariant),
     'the variant workflow directory is saved before replacing its tree');
   assert.ok(/cp -a "\$WORKFLOWS_BACKUP\/\." "\$TARGET_DIR\/\.github\/workflows\/"/.test(prepareVariant),
     'and the variant-owned workflows are restored after copying WeKan');

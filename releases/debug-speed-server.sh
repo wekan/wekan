@@ -8,11 +8,9 @@ WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 FERRET_DIR="$WEKAN_DIR/.tools/FerretDB"
 METEOR_BIN="${METEOR_BIN:-}"
 if [ -z "$METEOR_BIN" ]; then
-  if [ -x "$HOME/.meteor/meteor" ]; then
-    METEOR_BIN="$HOME/.meteor/meteor"
-  elif [ -x "$WEKAN_DIR/.tools/.meteor/meteor" ]; then
-    # The repository sandbox instructions keep HOME-owned toolchains isolated
-    # here. It is the same Meteor distribution, including its development MongoDB.
+  # Meteor lives in .tools/.meteor (releases/tools-env.sh); an older install
+  # still in ~/.meteor is used until build.sh's install-dependencies moves it.
+  if [ -x "$WEKAN_DIR/.tools/.meteor/meteor" ]; then
     METEOR_BIN="$WEKAN_DIR/.tools/.meteor/meteor"
   else
     METEOR_BIN="$HOME/.meteor/meteor"
@@ -37,7 +35,7 @@ fi
 
 if [ ! -x "$METEOR_BIN" ]; then
   echo "Meteor executable not found at $METEOR_BIN" >&2
-  echo 'Install Meteor under ~/.meteor or set METEOR_BIN.' >&2
+  echo 'Install Meteor with build.sh (Install dependencies), into .tools/.meteor, or set METEOR_BIN.' >&2
   exit 1
 fi
 

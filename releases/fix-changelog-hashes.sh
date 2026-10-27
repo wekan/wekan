@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 # ── Repoint stale commit links in the CHANGELOG ──────────────────────────────
 #
 # Every CHANGELOG bullet links the commit it describes. Those links are written
@@ -65,7 +66,7 @@ CHANGELOG_FILE="${ARG_FILE:-${CHANGELOG_FILE:-CHANGELOG.md}}"
 # The set is listed ONCE (`git rev-list --all` walks the history once; asking
 # `for-each-ref --contains` per link would walk it again for every link, which
 # --all-sections turns into thousands of walks).
-REACHABLE_LIST="$(mktemp)"
+REACHABLE_LIST="$(mktemp "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -f "$REACHABLE_LIST"' EXIT
 git rev-list --all 2>/dev/null | sort > "$REACHABLE_LIST"
 
@@ -171,7 +172,7 @@ fix_commit_hashes() {
       fixed=$((fixed + 1))
       continue
     fi
-    _tmp="$(mktemp)"
+    _tmp="$(mktemp "$TMPDIR/wekan.XXXXXX")"
     awk -v s="$start" -v e="$end" -v old="$h" -v repl="$short" '
       NR>=s && NR<=e { gsub("commit/" old, "commit/" repl) } { print }
     ' "$CHANGELOG_FILE" > "$_tmp" && mv "$_tmp" "$CHANGELOG_FILE"

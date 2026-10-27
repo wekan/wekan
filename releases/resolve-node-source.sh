@@ -71,6 +71,7 @@
 # are curl, grep, sed and awk.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 platform="${1:?usage: resolve-node-source.sh <platform> <major|version>}"
 want="${2:?usage: resolve-node-source.sh <platform> <major|version>}"
@@ -200,7 +201,7 @@ esac
 # It is fetched at most once per version per source; the cache matters because a
 # platform nobody publishes (i386, armhf, win32) would otherwise re-fetch both
 # files for every version it walks back through.
-cache="$(mktemp -d)"
+cache="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -rf "$cache"' EXIT
 
 shasums() {   # <base-url> <version> <tag-for-the-cache-file>

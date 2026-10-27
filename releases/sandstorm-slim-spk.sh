@@ -29,6 +29,7 @@
 #   METEOR   the meteor command              [meteor]
 #   SANDSTORM_SLIM_NO_PACK=1  stop after the trimmed bundle is verified
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
@@ -40,7 +41,7 @@ if [ -z "$OUT" ] && [ "${SANDSTORM_SLIM_NO_PACK:-}" != "1" ]; then
 fi
 [ $# -gt 0 ] && shift
 
-DEPS="${DEPS:-$HOME/projects/meteor-spk/meteor-spk-0.6.0/meteor-spk.deps}"
+DEPS="${DEPS:-$WEKAN_METEOR_SPK_DIR/meteor-spk-0.6.0/meteor-spk.deps}"
 METEOR="${METEOR:-meteor}"
 SPK_BIN="${SPK:-}"
 if [ -z "$SPK_BIN" ]; then

@@ -18,6 +18,8 @@ const oldValue = '{"board":"Монгол самбар"}\n';
 try {
   fs.copyFileSync(path.join(root, 'releases/translations/pull-translations.sh'),
     path.join(scripts, 'pull-translations.sh'));
+  // It sources ../tools-env.sh, which keeps its temporary files in .tools/tmp.
+  fs.copyFileSync(path.join(root, 'releases/tools-env.sh'), path.join(scripts, '..', 'tools-env.sh'));
   fs.writeFileSync(path.join(data, 'mn.i18n.json'), oldValue);
   fs.writeFileSync(path.join(data, 'en.i18n.json'), '{"board":"Board"}\n');
   const tx = path.join(fixture, 'tx');

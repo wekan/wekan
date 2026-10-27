@@ -17,6 +17,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
+const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 const sh = fs.readFileSync(path.join(__dirname, '..', 'build.sh'), 'utf8');
 
 // The INSTALL branch specifically: `darwin` also appears in the branches that
@@ -68,8 +69,11 @@ test('nvm is sourced before it is used', () => {
   const sourced = code.indexOf('. "$NVM_DIR/nvm.sh"');
   assert.ok(sourced !== -1, 'nvm.sh must be sourced');
   assert.ok(sourced < code.indexOf('nvm install 26'), 'before the first nvm call');
-  assert.ok(/NVM_DIR="\$\{NVM_DIR:-\$HOME\/\.nvm\}"/.test(code),
-    'and an NVM_DIR the caller already set must be honoured');
+  // NVM_DIR is .tools/nvm (releases/tools-env.sh, sourced at the top of
+  // build.sh): every file WeKan's scripts write stays in .tools/ (2026-10-27).
+  assert.ok(/NVM_DIR="\$WEKAN_TOOLS_DIR\/nvm"/.test(read('releases/tools-env.sh')),
+    'nvm and its Node.js live in .tools/nvm');
+  assert.ok(/mkdir -p "\$NVM_DIR"/.test(code));
   assert.ok(/if ! command -v nvm/.test(code), 'a failed install is reported, not run into');
 });
 
@@ -93,29 +97,30 @@ test('the Homebrew node@24 keg and its hand-exported flags are gone', () => {
   }
 });
 
-test('a new shell finds nvm too', () => {
-  assert.ok(/export NVM_DIR="\$HOME\/\.nvm"/.test(code), 'NVM_DIR is exported in the rc file');
-  assert.ok(/for rc in "\$HOME\/\.zshrc" "\$HOME\/\.bashrc"/.test(code),
-    'zsh (the macOS default) and bash both');
-  // Appended once, however many times this menu entry is run.
-  assert.strictEqual((code.match(/grep -qxF/g) || []).length, 2,
-    'each line is added only if it is not already there');
-  assert.ok(/touch "\$HOME\/\.zshrc"/.test(code),
-    'and .zshrc is created if the machine has none');
+test('a new shell finds nvm\'s Node.js without any rc file being edited', () => {
+  // It used to append NVM_DIR to ~/.zshrc and ~/.bashrc. Every file WeKan
+  // writes stays in .tools/ now (2026-10-27): the installer is told to edit no
+  // profile, and build.sh and the releases/ scripts put the newest Node.js in
+  // .tools/nvm on PATH themselves (releases/tools-env.sh).
+  assert.ok(/install\.sh \| PROFILE=\/dev\/null bash/.test(code), 'the nvm installer edits no rc file');
+  assert.ok(!/>>\s*"\$rc"|\.zshrc|\.bashrc/.test(code.replace(/^\s*#.*$/gm, '')), 'nor does build.sh');
+  assert.ok(/\$NVM_DIR"\/versions\/node\/v\*\/bin/.test(read('releases/tools-env.sh')), 'tools-env.sh puts it on PATH');
 });
 
-test('Meteor is still installed the same way afterwards', () => {
-  // The point of the branch is Node; everything after it is unchanged.
-  assert.ok(/npx -y meteor/.test(code));
-  // Spelled with "$HOME" since 0dbf9d8502, the same line as the Linux branch.
-  assert.ok(/export PATH="\$HOME\/\.meteor:\$PATH"/.test(code));
+test('Meteor is still installed with npx, into .tools/.meteor', () => {
+  // `npx meteor` installs into $HOME/.meteor, so HOME is .tools for the
+  // installer only, the same line as the Linux branch; tools-env.sh then puts
+  // .tools/.meteor on PATH and points METEOR_WAREHOUSE_DIR at it.
+  assert.ok(/HOME="\$WEKAN_TOOLS_DIR" npx -y meteor/.test(code));
+  assert.ok(/\. "\$WEKAN_DIR\/releases\/tools-env\.sh"/.test(code));
 });
 
 test('and Linux is untouched - it installs Node its own way', () => {
-  // Only macOS was asked to move to nvm. Linux uses `n` from npm, which needs
-  // sudo and is what the Debian/Ubuntu instructions say.
+  // Only macOS was asked to move to nvm. Linux uses `n`, now into .tools/n with
+  // N_PREFIX and without sudo, as everything WeKan writes stays in .tools/.
   const linux = sh.slice(sh.indexOf('if [[ "$OSTYPE" == "linux-gnu" ]]; then'), start);
-  assert.ok(/sudo npm -g install n\b/.test(linux), 'Linux still uses n');
+  assert.ok(/N_PREFIX="\$WEKAN_TOOLS_DIR\/n" npx -y n "\$_wekan_node_version"/.test(linux), 'Linux still uses n');
+  assert.ok(!/sudo n /.test(linux), 'not into /usr/local with sudo');
   assert.ok(!/nvm/.test(linux), 'and not nvm');
 });
 

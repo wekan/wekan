@@ -14,7 +14,7 @@ function fixture() {
   for (const file of ['Dockerfile', 'snapcraft.yaml', 'Stackerfile.yml', 'package.json', 'package-lock.json',
     'sandstorm-pkgdef.capnp', '.meteor/release', 'docs/Platforms/Propietary/OS/Windows/Offline.md',
     'releases/version.sh', 'releases/dependency-versions.py', 'releases/update-website-version-info.sh',
-    'releases/use-release-npm.sh']) {
+    'releases/use-release-npm.sh', 'releases/tools-env.sh']) {
     fs.mkdirSync(path.dirname(path.join(dir, file)), {recursive: true});
     fs.copyFileSync(path.join(root, file), path.join(dir, file));
   }

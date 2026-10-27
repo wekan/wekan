@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 # Update node version.
 
@@ -24,9 +25,9 @@ else
   ensure_tools curl
   if ! command -v volta >/dev/null 2>&1; then
     echo "volta not found. Installing Volta with its official installer..."
-    curl -fsSL https://get.volta.sh | bash
+    curl -fsSL https://get.volta.sh | bash -s -- --skip-setup
   fi
-  export VOLTA_HOME="${VOLTA_HOME:-$HOME/.volta}"
+  export VOLTA_HOME="${VOLTA_HOME:-$WEKAN_TOOLS_DIR/volta}"
   export PATH="$VOLTA_HOME/bin:$PATH"
 fi
 if [ $NODE_VERSION != v$2 ]; then
@@ -37,7 +38,7 @@ else
 fi
 
 # If Sandstorm node does not exist
-SANDSTORM_NODE=~/projects/meteor-spk/meteor-spk-0.5.1/meteor-spk.deps/bin/node
+SANDSTORM_NODE="$WEKAN_METEOR_SPK_DIR/meteor-spk-0.5.1/meteor-spk.deps/bin/node"
 
 #if [[ -f "$SANDSTORM_NODE" ]]; then
 #  echo "9) Installing local Sandstorm develoment version"
@@ -47,12 +48,12 @@ SANDSTORM_NODE=~/projects/meteor-spk/meteor-spk-0.5.1/meteor-spk.deps/bin/node
 #fi
 
 SANDSTORM_NODE_VERSION=$($SANDSTORM_NODE -v)
-PROJECTS_ARCHIVE=~/projects.7z
+PROJECTS_ARCHIVE="$WEKAN_TOOLS_DIR/projects.7z"
 
 # If installed Sandstorm node is not newest version
 if [ $SANDSTORM_NODE != v$2 ]; then
   echo "9) Copy previously updated local node to Sandstorm node"
-  cp ~/.volta/bin/node ~/projects/meteor-spk/meteor-spk-0.5.1/meteor-spk.deps/bin/
+  cp "$VOLTA_HOME/bin/node" "$WEKAN_METEOR_SPK_DIR/meteor-spk-0.5.1/meteor-spk.deps/bin/"
 #  echo "11) Install 7zip"
 #  sudo apt-get -y install p7zip-full
 #  # If projects.7z exists, delete it

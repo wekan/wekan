@@ -14,6 +14,7 @@
 # Never packed: .git, .tools, .env, node_modules. COPYFILE_DISABLE keeps
 # macOS's tar from adding ._* AppleDouble files for extended attributes.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 if [ "$#" -ne 3 ]; then
 	echo "Usage: $0 <source dir> <app id> <archive.tar.gz>" >&2
@@ -36,7 +37,7 @@ case "$archive" in
 esac
 
 export COPYFILE_DISABLE=1
-stage=$(mktemp -d "${TMPDIR:-/tmp}/nextcloud-pack.XXXXXX")
+stage=$(mktemp -d "$TMPDIR/nextcloud-pack.XXXXXX")
 trap 'rm -rf -- "$stage"' EXIT
 mkdir "$stage/$app_id"
 tar --exclude=.git --exclude=.tools --exclude=.env --exclude=node_modules \

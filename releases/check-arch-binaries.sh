@@ -42,6 +42,7 @@
 # is a warning.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 arch="${1:?arch is required}"
 node_arch="${2:?node_arch is required}"
@@ -110,10 +111,10 @@ if [ -n "$image" ] && [ -n "$platform" ]; then
     # manifest. The bounded loop still fails closed when the registry remains
     # unavailable.
     manifest_ok=false
-    manifest_tmp="/tmp/manifest.$$.json"
+    manifest_tmp="$TMPDIR/manifest.$$.json"
     for attempt in 1 2 3 4 5; do
         if docker manifest inspect "$image" >"$manifest_tmp" 2>/dev/null; then
-            mv "$manifest_tmp" /tmp/manifest.json
+            mv "$manifest_tmp" "$TMPDIR/manifest.json"
             manifest_ok=true
             break
         fi
@@ -121,13 +122,13 @@ if [ -n "$image" ] && [ -n "$platform" ]; then
     done
     rm -f "$manifest_tmp"
     if [ "$manifest_ok" = true ]; then
-        if ! WANT_ARCH="$want_arch" WANT_VARIANT="$want_variant" python3 - <<'PYEOF'
+        if ! MANIFEST="$TMPDIR/manifest.json" WANT_ARCH="$want_arch" WANT_VARIANT="$want_variant" python3 - <<'PYEOF'
 import json, os, sys
 
 want_arch    = os.environ["WANT_ARCH"]
 want_variant = os.environ["WANT_VARIANT"]
 
-with open("/tmp/manifest.json", encoding="utf-8") as fh:
+with open(os.environ["MANIFEST"], encoding="utf-8") as fh:
     doc = json.load(fh)
 
 # A single-platform image has no "manifests" list; its own config names the

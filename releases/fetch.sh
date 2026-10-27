@@ -38,6 +38,7 @@
 # Tunables (env): FETCH_ATTEMPTS (default 7), FETCH_SLEEPS (default
 # "15 30 60 120 240 480"; set to "0" in tests), FETCH_CONNECT_TIMEOUT (30).
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 attempts=${FETCH_ATTEMPTS:-7}
 sleeps=${FETCH_SLEEPS:-"15 30 60 120 240 480"}
@@ -67,7 +68,7 @@ if [ -z "$url" ] || { [ "$mode" = download ] && [ -z "$out" ]; }; then
     exit 2
 fi
 
-tmp=$(mktemp)
+tmp=$(mktemp "$TMPDIR/wekan.XXXXXX")
 trap 'rm -f "$tmp"' EXIT
 
 attempt=1

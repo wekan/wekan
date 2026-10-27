@@ -54,6 +54,7 @@
 # speed test, and docs/Databases/FerretDB/1/SpeedTest/speedtest.sh, set it.
 
 set -uo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 cd "$(dirname "$0")/.." || exit 1
 WEKAN_DIR="$(pwd)"
@@ -335,22 +336,41 @@ fi
 # stopped or reused by this.
 CONTAINER="wekan-conformance-db-$RUN_TS"
 
+# A container's own /tmp is a few hundred megabytes of its writable layer, and
+# a database writes its temporary files there (MySQL's and MariaDB's on-disk
+# temporary tables, sort files). Each container's /tmp is this run's own
+# directory under .tools/tmp instead, mode 1777 like /tmp, so the database's
+# own user can write it. The container empties it before it is removed: on
+# Linux the files belong to that user, whom the host cannot remove them as.
+container_tmp() {
+  local dir="$WEKAN_DIR/.tools/tmp/$PREFIX-$1-tmp"
+  mkdir -p "$dir" && chmod 1777 "$dir"
+  printf '%s\n' "$dir"
+}
+CONTAINER_TMP="$(container_tmp db)"
+remove_container() {
+  docker_exec exec "$1" sh -c 'rm -rf /tmp/* /tmp/.[!.]* 2>/dev/null' >/dev/null 2>&1
+  docker_exec rm -fv "$1" >/dev/null 2>&1
+}
+
 echo "Ports:      FerretDB on 127.0.0.1:$FERRET_PORT (nothing else is using it)"
 echo
 
 cleanup() {
   [ -n "${FERRET_PID:-}" ] && kill "$FERRET_PID" 2>/dev/null
-  docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+  remove_container "$CONTAINER"
   remove_ferretdb2
   remove_sqlite_data
+  rmdir "$CONTAINER_TMP" "$FERRET2_TMP" 2>/dev/null
 }
 
 # FerretDB 2 runs as a container of its own beside its database, on a network
 # of this run's own: wekan-conformance-db-<run>-ferretdb, -net.
 FERRET2_CONTAINER="$CONTAINER-ferretdb"
 FERRET2_NETWORK="$CONTAINER-net"
+FERRET2_TMP="$(container_tmp ferretdb2)"
 remove_ferretdb2() {
-  docker_exec rm -fv "$FERRET2_CONTAINER" >/dev/null 2>&1
+  remove_container "$FERRET2_CONTAINER"
   docker_exec network rm "$FERRET2_NETWORK" >/dev/null 2>&1
 }
 
@@ -506,7 +526,7 @@ for entry in "${BACKENDS[@]}"; do
 
   echo
   echo "---- $name: starting the database ----"
-  docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+  remove_container "$CONTAINER"
 
   # Start the container, and when the published port turns out to be taken after
   # all, move to the next free one and try again. `free_port` looks a moment
@@ -516,7 +536,7 @@ for entry in "${BACKENDS[@]}"; do
   start_db_container() {
     local attempt
     for attempt in 1 2 3 4 5; do
-      if docker_exec run -d --label "$OWNER_LABEL" --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
+      if docker_exec run -d --label "$OWNER_LABEL" --name "$CONTAINER" -v "$CONTAINER_TMP:/tmp" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
         return 0
       fi
 
@@ -524,7 +544,7 @@ for entry in "${BACKENDS[@]}"; do
         return 1                      # a real failure: report it as one
       fi
 
-      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+      remove_container "$CONTAINER"
       hostport=$((hostport + 1))
       hostport="$(free_port "$hostport")"
       echo "  port was taken; retrying on 127.0.0.1:$hostport" | tee -a "$log"
@@ -632,7 +652,7 @@ for entry in "${BACKENDS[@]}"; do
       echo "SKIP  $name: MongoDB refuses to start on this Linux kernel ($kernel), 6.19-7.0.13"
       echo "SKIP  $name  MongoDB refuses Linux kernel $kernel (6.19-7.0.13; upgrade the kernel)" >> "$SUMMARY"
       docker_exec logs "$CONTAINER" >>"$log" 2>&1
-      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+      remove_container "$CONTAINER"
       skipped=$((skipped + 1))
       continue
     fi
@@ -641,7 +661,7 @@ for entry in "${BACKENDS[@]}"; do
       docker_exec logs "$CONTAINER" >>"$log" 2>&1
       echo "ERROR $name  database never ready" >> "$SUMMARY"
       stop_on_failure
-      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+      remove_container "$CONTAINER"
       continue
     fi
   fi
@@ -650,12 +670,12 @@ for entry in "${BACKENDS[@]}"; do
   # port this run's FerretDB would use. Then it is asked like MongoDB is.
   if [ "$handler" = ferretdb2 ]; then
     if ! docker_exec run -d --label "$OWNER_LABEL" --name "$FERRET2_CONTAINER" --network "$FERRET2_NETWORK" \
-         -p "127.0.0.1:$FERRET_PORT:27017" \
+         -v "$FERRET2_TMP:/tmp" -p "127.0.0.1:$FERRET_PORT:27017" \
          -e "FERRETDB_POSTGRESQL_URL=postgres://ferretdb:ferretdb_secret@$CONTAINER:5432/postgres" \
          -e FERRETDB_TELEMETRY=disable "$FERRET2_IMAGE" >>"$log" 2>&1; then
       echo "ERROR $name  FerretDB 2 container did not start" >> "$SUMMARY"
       stop_on_failure
-      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1; remove_ferretdb2
+      remove_container "$CONTAINER"; remove_ferretdb2
       continue
     fi
     echo -n "waiting for FerretDB 2 "
@@ -675,7 +695,7 @@ for entry in "${BACKENDS[@]}"; do
       docker_exec logs "$FERRET2_CONTAINER" >>"$log" 2>&1
       echo "ERROR $name  FerretDB 2 did not start" >> "$SUMMARY"
       stop_on_failure
-      docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1; remove_ferretdb2
+      remove_container "$CONTAINER"; remove_ferretdb2
       continue
     fi
     engine="$(engine_name)"
@@ -691,7 +711,7 @@ for entry in "${BACKENDS[@]}"; do
     echo "---- $name: stopping ----"
     docker_exec logs "$FERRET2_CONTAINER" >>"$log" 2>&1
     docker_exec logs "$CONTAINER" >>"$log" 2>&1
-    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+    remove_container "$CONTAINER"
     remove_ferretdb2
     echo
     continue
@@ -711,7 +731,7 @@ for entry in "${BACKENDS[@]}"; do
     fi
     echo "---- $name: stopping ----"
     docker_exec logs "$CONTAINER" >>"$log" 2>&1
-    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+    remove_container "$CONTAINER"
     echo
     if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
       compare_suite 2>&1 | tee -a "$SUMMARY"
@@ -761,7 +781,7 @@ for entry in "${BACKENDS[@]}"; do
     echo "ERROR $name  FerretDB did not start on this backend" >> "$SUMMARY"
     stop_on_failure
     kill "$FERRET_PID" 2>/dev/null; FERRET_PID=""
-    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+    remove_container "$CONTAINER"
     continue
   fi
 
@@ -781,7 +801,7 @@ for entry in "${BACKENDS[@]}"; do
   remove_sqlite_data
   if [ -n "$service" ]; then
     docker_exec logs "$CONTAINER" >>"$log" 2>&1
-    docker_exec rm -fv "$CONTAINER" >/dev/null 2>&1
+    remove_container "$CONTAINER"
   fi
   echo
   # Compare each completed backend before starting the next one in bail mode.

@@ -121,7 +121,9 @@ test('it is db-conformance.sh\'s databases, started the same way, and both menus
   assert.ok(sh.includes('SUITE="${WEKAN_DB_SUITE:-conformance}"'));
   assert.match(sh, /node docs\/Databases\/FerretDB\/1\/SpeedTest\/run\.cjs --uri "\$uri" --label "\$label"/);
   assert.match(sh, /node docs\/Databases\/FerretDB\/1\/SpeedTest\/report\.cjs --dir "\$LOGDIR"/);
-  assert.match(sh, /docker_exec rm -fv "\$CONTAINER"/, 'containers go with their volumes - the speed test writes gigabytes');
+  // remove_container empties the container's /tmp (.tools/tmp, mounted) first.
+  assert.match(sh, /remove_container\(\) \{[\s\S]*?docker_exec rm -fv "\$1"/, 'containers go with their volumes - the speed test writes gigabytes');
+  assert.match(sh, /remove_container "\$CONTAINER"/);
   assert.match(sh, /SQLITE_DATA="\$\(mktemp -d "\$WEKAN_DIR\/\.tools\/tmp\//, 'SQLite data on disk under .tools/tmp, not /tmp');
   assert.ok(read('docs/Databases/FerretDB/1/SpeedTest/speedtest.sh').includes('export WEKAN_DB_SUITE=speedtest'));
   assert.ok(read('build.sh').includes('./docs/Databases/FerretDB/1/SpeedTest/speedtest.sh'));

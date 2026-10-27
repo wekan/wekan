@@ -3,6 +3,7 @@
 # Replace a variant repository's working tree with WeKan while retaining the
 # package identity by which users install that variant.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 if [ "$#" -ne 4 ]; then
   echo "Usage: $0 SOURCE_DIR TARGET_DIR VARIANT_NAME VARIANT_TITLE" >&2
@@ -29,7 +30,7 @@ esac
 # running WeKan's release pipeline, retaining them means the ordinary Contents
 # token can update source without GitHub requiring the additional `workflow`
 # PAT scope merely because WeKan changed a workflow file.
-WORKFLOWS_BACKUP="$(mktemp -d)"
+WORKFLOWS_BACKUP="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -rf "$WORKFLOWS_BACKUP"' EXIT
 HAD_VARIANT_WORKFLOWS=false
 if [ -d "$TARGET_DIR/.github/workflows" ]; then

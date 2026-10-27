@@ -89,6 +89,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -u
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TIMESTAMP="$(date +%Y-%m-%d_%H-%M-%S)"
@@ -189,7 +190,7 @@ create_snap() {
     echo "  snapcraft login failed; skipping SNAP_AUTH."
     return
   fi
-  local tmp; tmp="$(mktemp)"
+  local tmp; tmp="$(mktemp "$TMPDIR/wekan.XXXXXX")"
   if snapcraft export-login --snaps=wekan \
        --acls=package_access,package_push,package_update,package_release \
        --channels=edge,beta "$tmp"; then

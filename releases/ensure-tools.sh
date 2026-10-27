@@ -1,4 +1,5 @@
 #!/bin/bash
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 #
 # Shared helper: install required CLI tools for the current platform if missing.
 # Supports Debian/Ubuntu, Fedora, RHEL/Oracle Linux, Alpine, Arch, and macOS.

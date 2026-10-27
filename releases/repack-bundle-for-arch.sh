@@ -27,6 +27,7 @@
 # Produces  wekan-$VERSION-$ARCH.zip, its .sha256sum, and provenance/$ARCH.tsv.
 
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 # Older macOS has no sha256sum; shasum -a 256 prints the same "hash  file" lines and takes -c.
 command -v sha256sum >/dev/null 2>&1 || sha256sum() { shasum -a 256 "$@"; }
 
@@ -49,12 +50,12 @@ command -v sha256sum >/dev/null 2>&1 || sha256sum() { shasum -a 256 "$@"; }
 # in the middle of an npm install.
 bash releases/check-arch-binaries.sh \
   "$ARCH" "$NODE_ARCH" "$FERRETDB_ARCH" "$NODE_VERSION" "$IMAGE" "$PLATFORM" \
-  | tee /tmp/preflight.txt
+  | tee "$TMPDIR/preflight.txt"
 
-NODE_FULL="$(sed -n 's/^node_full=//p'   /tmp/preflight.txt)"
-NODE_FROM="$(sed -n 's/^node_from=//p'   /tmp/preflight.txt)"
-NODE_URL="$(sed -n 's/^node_url=//p'     /tmp/preflight.txt)"
-NODE_SHA256="$(sed -n 's/^node_sha256=//p' /tmp/preflight.txt)"
+NODE_FULL="$(sed -n 's/^node_full=//p'   "$TMPDIR/preflight.txt")"
+NODE_FROM="$(sed -n 's/^node_from=//p'   "$TMPDIR/preflight.txt")"
+NODE_URL="$(sed -n 's/^node_url=//p'     "$TMPDIR/preflight.txt")"
+NODE_SHA256="$(sed -n 's/^node_sha256=//p' "$TMPDIR/preflight.txt")"
 
 bash releases/record-provenance.sh "$ARCH" 'Node.js' \
   "$NODE_FROM" "$NODE_FULL" "$NODE_URL" "${NODE_SHA256:-}"
@@ -83,6 +84,11 @@ echo "Using Node ${NODE_FULL} (${NODE_ARCH}) for ${ARCH}, from ${NODE_FROM}"
 # "node-v24.18.1-linux-.tar.xz", with an empty architecture, and died on the 404
 # - four of the six failures in the v10.57 run. A file has no quoting layer to
 # get wrong, and `bash -n` can check it.
+# The container's own /tmp is a small part of its writable layer: its /tmp is
+# this repository's .tools/tmp/repack-<arch>-tmp, where the Node.js download
+# and its unpacking happen (releases/install-node-for-arch.sh uses $TMPDIR).
+CONTAINER_TMP="$TMPDIR/repack-$ARCH-tmp"
+mkdir -p "$CONTAINER_TMP" && chmod 1777 "$CONTAINER_TMP"
 docker run --rm --platform "$PLATFORM" \
   -e NODE_FULL="$NODE_FULL" \
   -e NODE_FROM="$NODE_FROM" \
@@ -90,11 +96,14 @@ docker run --rm --platform "$PLATFORM" \
   -e NODE_SHA256="$NODE_SHA256" \
   -e ARCH="$ARCH" \
   -e NODE_ARCH="$NODE_ARCH" \
+  -e TMPDIR=/tmp \
+  -v "$CONTAINER_TMP:/tmp" \
   -v "$(pwd)/bundle:/bundle" \
   -v "$(pwd)/releases:/releases:ro" \
   -w /bundle/programs/server \
   "$IMAGE" \
   bash /releases/install-node-for-arch.sh
+rmdir "$CONTAINER_TMP" 2>/dev/null || true
 
 # ── FerretDB, this architecture's own ────────────────────────────────────────
 # These arches have no MongoDB server, so FerretDB is their default DB. The

@@ -25,6 +25,7 @@
 #                      `capnp` schema compiler and the C++ RPC libraries
 #   .tools/sandstorm   sandstorm-io/sandstorm at the commit pinned below
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 # Older macOS has no sha256sum; shasum -a 256 prints the same "hash  file" lines and takes -c.
 command -v sha256sum >/dev/null 2>&1 || sha256sum() { shasum -a 256 "$@"; }
 
@@ -47,7 +48,7 @@ MOCK_SCHEMAS="sandstorm-http-bridge grain identity powerbox util activity"
 CAPNP_PREFIX="$TOOLS/capnproto"
 if [ ! -x "$CAPNP_PREFIX/bin/capnp" ] || [ ! -f "$CAPNP_PREFIX/lib/libcapnp-rpc.a" ]; then
   echo "==> Building Cap'n Proto $CAPNP_VERSION into $CAPNP_PREFIX"
-  work="$(mktemp -d)"
+  work="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
   bash "$FETCH" -o "$work/capnproto.tar.gz" "https://capnproto.org/capnproto-c++-$CAPNP_VERSION.tar.gz"
   echo "$CAPNP_SHA256  $work/capnproto.tar.gz" | sha256sum -c -
   tar -xzf "$work/capnproto.tar.gz" -C "$work"
@@ -75,7 +76,7 @@ SRC="$TOOLS/sandstorm/src"
 # Its type check cannot see the other generated files (it resolves imports in
 # memory only), so its diagnostics are reported but do not stop the emit; the
 # load check at the end is what decides whether the output is usable.
-gen="$(mktemp -d)"
+gen="$(mktemp -d "$TMPDIR/wekan.XXXXXX")"
 trap 'rm -rf "$gen"' EXIT
 cp -r "$REPO/npm-packages/capnp-es" "$gen/capnp-es"
 (cd "$gen/capnp-es" && npm install --no-save --no-package-lock --ignore-scripts \
