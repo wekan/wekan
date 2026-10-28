@@ -29,9 +29,13 @@
 
 WEKAN_DIR="${WEKAN_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 WEKAN_TOOLS_DIR="${WEKAN_TOOLS_DIR:-$WEKAN_DIR/.tools}"
-# Only a real checkout gets a .tools/: scripts mounted into a build container
+# Only a WeKan source tree gets a .tools/: scripts mounted into a build container
 # without one (/releases) must not make a /.tools/tmp in the container's layer.
-if [ -e "$WEKAN_DIR/.git" ] || [ -d "$WEKAN_TOOLS_DIR" ]; then
+# A copy of the tree without .git is one too - the snap variants' project dir
+# (/root/project) is, and without a .tools/tmp there every fetch.sh in their
+# snapcraft.yaml stopped at "TMPDIR: unbound variable" (v12.66).
+if [ -e "$WEKAN_DIR/.git" ] || [ -d "$WEKAN_TOOLS_DIR" ] \
+  || { [ -f "$WEKAN_DIR/package.json" ] && [ -f "$WEKAN_DIR/releases/tools-env.sh" ]; }; then
   mkdir -p "$WEKAN_TOOLS_DIR/tmp" 2>/dev/null || true
 fi
 
