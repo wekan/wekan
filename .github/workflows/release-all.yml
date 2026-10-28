@@ -3427,7 +3427,16 @@ jobs:
           # architecture, and died on the 404 - four of the six failures in the
           # v10.57 run. A file has no quoting layer to get wrong, and `bash -n`
           # can check it.
+          # install-node-for-arch.sh refuses to run without TMPDIR: the
+          # container's own /tmp is a small part of its writable layer, so its
+          # /tmp is this checkout's .tools/tmp/repack-<arch>-tmp, as in
+          # releases/repack-bundle-for-arch.sh. Without it every emulated arch
+          # failed at "TMPDIR must be the mounted .tools/tmp" (v12.66).
+          CONTAINER_TMP="$(pwd)/.tools/tmp/repack-${MATRIX_ARCH}-tmp"
+          mkdir -p "$CONTAINER_TMP" && chmod 1777 "$CONTAINER_TMP"
           docker run --rm --platform "${MATRIX_PLATFORM}" \
+            -e TMPDIR=/tmp \
+            -v "$CONTAINER_TMP:/tmp" \
             -e NODE_FULL="$NODE_FULL" \
             -e NODE_FROM="$NODE_FROM" \
             -e NODE_URL="$NODE_URL" \
