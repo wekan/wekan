@@ -123,6 +123,34 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Data health** in Admin Panel / Problems can now clean up custom
+fields whose boards were all deleted, which its Repair button could never
+reduce before.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9dc3fc3f31">Data health: custom fields whose boards were all deleted get their own check</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+"Custom fields listing a board that does not exist" also counted fields whose
+boards were ALL deleted, which its Repair skips on purpose, since removing the
+dead boards would leave the field on no board. The count could therefore never
+go down: one instance showed 510 fields and "Repaired: 0" after every click
+([#6829](https://github.com/wekan/wekan/issues/6829)). Those fields now have a
+check of their own, "Custom fields whose boards were all deleted", whose
+Repair deletes the definitions after the confirming second click. No existing
+board shows them; a value a card on a live board still holds is left alone and
+stays listed under "Cards with values for a custom field that is not on their
+board". The old check counts only fields with a live board left, so its Repair
+brings it to zero. `tests/dataHealth6818.test.cjs` pins both checks, the
+confirmation, and that live fields and card values are not touched.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.67 2026-10-28 WeKan ® release
 
 **In short:** a list's **Add card** form closes once the card is added, unless
