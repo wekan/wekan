@@ -324,4 +324,23 @@ test('the design is documented, and Card Fields points to it', () => {
   assert.ok(read('docs/Features/Cards/Card-Fields.md').includes('Card-Settings-On-Card.md'));
 });
 
+// A space's width between a checkbox and its label - on the rows and in the
+// hamburgers' popups. Without it the box touched the field's icon.
+test('a checkbox and its label are a space apart, on the rows and in the hamburgers', () => {
+  const css = read('client/components/cards/cardAddFields.css');
+  const rule = selector => {
+    const at = css.indexOf(`${selector} {`);
+    assert.ok(at >= 0, selector);
+    return css.slice(at, css.indexOf('}', at));
+  };
+  assert.match(rule('.card-settings-inline .card-settings-line'), /column-gap: 0\.3em;/);
+  assert.match(rule('.card-settings-section-menu .card-settings-board-option > a.flex'), /column-gap: 0\.3em;/);
+  assert.match(css, /\.card-settings-item-menu \.card-settings-board-option > a\.flex,\n\.card-settings-section-menu \.card-settings-board-option > a\.flex \{/);
+  // A tick reaches past its box: left to right it is drawn 3px further left,
+  // so a ticked box keeps the space too; right to left it leans away.
+  assert.match(css, /:root:not\(\[dir="rtl"\]\) \.card-settings-inline \.materialCheckBox\.is-checked,\n:root:not\(\[dir="rtl"\]\) \.card-settings-item-menu \.materialCheckBox\.is-checked,\n:root:not\(\[dir="rtl"\]\) \.card-settings-section-menu \.materialCheckBox\.is-checked \{\n  left: -6px;\n\}/);
+  // Negative: the row's own grid has no zero gap overriding it.
+  assert.doesNotMatch(rule('.card-settings-inline .card-settings-line'), /column-gap: 0;/);
+});
+
 console.log(`cardSettingsOnCard: ${passed} passed`);

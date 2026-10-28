@@ -179,6 +179,34 @@ test('a field with data is shown without adding it, unless the board turns it of
   await expect(itemOf(inline, 'dueDate').locator('.card-field-order-toggle')).not.toHaveClass(/is-checked/);
 });
 
+// A space's width between a checkbox and its label, ticked or not, on the
+// rows and in a hamburger - and the label stays put when the box is ticked.
+test('a checkbox and its label are a space apart, on the rows and in the hamburgers', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsStartDate: false } });
+  const details = await openCard(page, board);
+  const inline = await openCardSettings(details);
+  const gaps = (selector, label) => page.evaluate(([selector, label]) => [...document.querySelectorAll(selector)].map(row => {
+    const box = row.querySelector('.materialCheckBox');
+    return {
+      checked: box.classList.contains('is-checked'),
+      gap: row.querySelector(label).getBoundingClientRect().left - box.getBoundingClientRect().right,
+      left: Math.round(row.querySelector(label).getBoundingClientRect().left),
+    };
+  }), [selector, label]);
+  await expect(itemOf(inline, 'dueDate').locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'true');
+  const rows = await gaps('.js-card-settings-inline .js-card-settings-section[data-section="date"] .js-card-field-order-row', '.card-settings-line-label');
+  expect(rows.some(r => r.checked) && rows.some(r => !r.checked)).toBe(true);
+  for (const row of rows) expect(row.gap).toBeGreaterThanOrEqual(3);
+  // Negative: ticking moves no label.
+  expect(new Set(rows.map(r => r.left)).size).toBe(1);
+  const menu = await openSectionMenu(page, inline, 'card');
+  await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
+  const options = await gaps('.card-settings-section-menu .card-settings-board-option > a.flex', 'span:last-child');
+  expect(options.length).toBeGreaterThanOrEqual(2);
+  for (const option of options) expect(option.gap).toBeGreaterThanOrEqual(3);
+  await closePopup(page);
+});
+
 test('sections drag like checklists, rows within their section; sections collapse', async ({ boardPage: page, board, user }) => {
   db.updateOne('users', { _id: user.id }, { $set: { 'profile.showDesktopDragHandles': false } });
   const details = await openCard(page, board);

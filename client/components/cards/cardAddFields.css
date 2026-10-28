@@ -85,6 +85,8 @@
    (sidebar.css .card-settings-line is the line itself). */
 .card-settings-inline .card-settings-line {
   grid-template-columns: auto minmax(0, 1fr) auto;
+  /* A space's width between the checkbox and the name, as in text. */
+  column-gap: 0.3em;
   border-bottom: 0;
   padding-inline-start: 22px;
 }
@@ -108,3 +110,20 @@
 }
 .card-settings-item-menu,
 .card-settings-section-menu { min-width: 16em; }
+/* The hamburgers' checkboxes: a space's width before their label, as on
+   the rows. */
+.card-settings-item-menu .card-settings-board-option > a.flex,
+.card-settings-section-menu .card-settings-board-option > a.flex {
+  align-items: center;
+  column-gap: 0.3em;
+}
+/* A tick is drawn rotated (forms.css #6786) and reaches about 3px past its
+   box toward the label, which ate the space: drawn 3px further left, it keeps
+   it - the box, and so the label, do not move when it is ticked. Right to
+   left the label is on the other side of the box and the tick leans away
+   from it, so it stays as it is. */
+:root:not([dir="rtl"]) .card-settings-inline .materialCheckBox.is-checked,
+:root:not([dir="rtl"]) .card-settings-item-menu .materialCheckBox.is-checked,
+:root:not([dir="rtl"]) .card-settings-section-menu .materialCheckBox.is-checked {
+  left: -6px;
+}
