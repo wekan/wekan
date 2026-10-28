@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.66
+  version: v12.67
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -8770,6 +8770,11 @@ definitions:
            #1273: when a #label or @member is picked while typing a new card's
            title, keep the "#label" / "@member" text in the title too. Off by
            default: the text is replaced by the label or member, as before.
+        type: boolean
+      keepAddCardFormOpen:
+        description: |
+           #6827: keep a list's Add card form open after a card is added, to type
+           the next one. Off by default: the form closes once the card is added.
         type: boolean
       titleBracketLabel:
         description: |
