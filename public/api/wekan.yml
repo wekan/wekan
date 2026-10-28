@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.65
+  version: v12.66
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5463,6 +5463,8 @@ definitions:
         type: boolean
       askForMoveReason:
         type: boolean
+      showEmptyCardFields:
+        type: boolean
       cardAging:
         description: |
            #3984: Visually fade cards that have not been touched for a while
@@ -5631,6 +5633,14 @@ definitions:
       minicardFieldOrder:
         description: |
            The order of the minicard's fields (models/lib/cardFieldOrder.js keys)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      cardFieldsAlwaysShown:
+        description: |
+           The opened card's fields shown on every card, even when empty
         type: array
         items:
           type: string
@@ -6181,6 +6191,7 @@ definitions:
       - color
       - allowsCardCounterList
       - askForMoveReason
+      - showEmptyCardFields
       - cardAging
       - showDependencies
       - cardAgingDays1
@@ -8759,6 +8770,12 @@ definitions:
            #1273: when a #label or @member is picked while typing a new card's
            title, keep the "#label" / "@member" text in the title too. Off by
            default: the text is replaced by the label or member, as before.
+        type: boolean
+      titleBracketLabel:
+        description: |
+           #6810: turn a leading "[Text] " of a new card's title into the label
+           "Text" (#3986). Off by default: a title pasted from a ticket system or
+           a mail ("[EXTERNAL] ...") stays as it was, and no label is created.
         type: boolean
       checklistDingSound:
         description: |
