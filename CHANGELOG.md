@@ -630,6 +630,17 @@ cutting off Save; a movable popup that grows is now kept inside the window.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58751aa339">The Drawing popup is as wide as its drawing, so nothing in it is cut off</a>. Thanks to xet7.</summary>
+
+The fix above was not the whole story: measured in the rebuilt app, the
+popup never grew. Every popup is at most 380px wide, the 820px drawing
+overflowed inside it and the popup clipped the larger pen sizes and Save. The
+Drawing popup is now up to 860px wide, so the rule that keeps a growing popup
+inside the window has a size change to act on.
+
+</details>
+
 **Apple Glass Pastel** - muted text on light glass.
 
 <details>
@@ -821,9 +832,30 @@ English word, and a Transifex translation still replaces it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35ba67ee69">File status lists every kind of finding, not 500 rows of one</a>. Thanks to xet7.</summary>
+
+The report lists 500 findings and counts the rest, first come first served:
+14358 integrity baseline move candidates took every row, and the wrong file
+extension a type check is run to find was only a number in the totals. A
+kind with fewer rows listed now takes the place of one from the kind with the
+most. `tests/fileStatusAudit.test.cjs` pins it.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Tests** - guards and specs that read the wrong thing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c40503a2b">Three Firefox specs wait for what they test, and drag inside the window</a>. Thanks to xet7.</summary>
+
+The search phrases spec searched before the browser had the setting it had
+just written, the Card Settings column spec counted a pane that had not
+rendered yet, and the drawing spec dragged a corner handle past the window's
+edge, which Firefox does not deliver.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/21b2da9ad2">The title heading colour guard reads the heading block itself</a>. Thanks to xet7.</summary>
