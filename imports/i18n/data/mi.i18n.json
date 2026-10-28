@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ina kōwhiri koe i tētahi tapanga mā te #, i tētahi mema rānei mā te @ i a koe e patopato ana i te taitara o tētahi kāri hou, puritia anō taua kuputuhi ki te taitara. Weto: ka whakakapia te kuputuhi ki te tapanga, ki te mema rānei.",
   "title-bracket-label": "Hurihia te [tapanga] i te tīmatanga o te taitara kāri hou hei tapanga",
   "title-bracket-label-description": "Ina tīmata te taitara o tētahi kāri hou ki te [Kuputuhi] ā ka whai mai anō he kuputuhi, ka noho a Kuputuhi hei tapanga mō te kāri (ka waihangatia mēnā kāore he tapanga pērā te ingoa i te papa) ā ka tangohia i te taitara. Weto: ka waiho te taitara kia pērā tonu.",
+  "keep-add-card-form-open": "Waiho kia tuwhera te puka Tāpiri kāri i muri i te tāpiri kāri",
+  "keep-add-card-form-open-description": "Kā: i muri i te tāpiritanga o tētahi kāri, ka noho tuwhera tonu te puka me tētahi taitara wātea mō te kāri e whai ake ana. Weto: ka kati te puka ina tāpirihia te kāri.",
   "checklist-ding-sound": "Tākiritia he oro ka oti te tūemi checklist",
   "checklist-ding-sound-description": "Ka tākiritia he oro poto ina tohu koe i tētahi tūemi checklist. Ka weto i te taunoa.",
   "assignee": "Kaiwhiwhi mahi",

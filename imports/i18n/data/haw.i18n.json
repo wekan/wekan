@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ke koho ʻoe i kekahi lepili me # a i ʻole kekahi lālā me @ i ka wā e kikokiko ai i ke poʻo inoa o kekahi kāleka hou, mālama pū ʻia ia kikokikona ma ke poʻo inoa. Pio: ua pani ʻia ke kikokikona e ka lepili a i ʻole ka lālā.",
   "title-bracket-label": "E hoʻolilo i ka [lepili] ma ka hoʻomaka o ke poʻo inoa o ke kāleka hou i lepili",
   "title-bracket-label-description": "Ke hoʻomaka ke poʻo inoa o kekahi kāleka hou me [Kikokikona] a ma hope he kikokikona hou aʻe, lilo ʻo Kikokikona i lepili o ke kāleka (hana ʻia inā ʻaʻohe lepili o ia inoa ma ka papa) a wehe ʻia mai ke poʻo inoa. Pio: mālama ʻia ke poʻo inoa e like me ia.",
+  "keep-add-card-form-open": "E mālama i ka palapala hoʻohui kāleka me ka wehe ʻia ma hope o ka hoʻohui ʻana i kāleka",
+  "keep-add-card-form-open-description": "Ā: ma hope o ka hoʻohui ʻia ʻana o kekahi kāleka, noho wehe ʻia ka palapala me ke poʻo inoa hakahaka no ke kāleka aʻe. Pio: pani ʻia ka palapala ke hoʻohui ʻia ke kāleka.",
   "checklist-ding-sound": "Pāʻani i kahi kani ke pau kekahi mea papa nānā",
   "checklist-ding-sound-description": "Pāʻani i kahi kani pōkole i ka manawa i kaha ai i kekahi mea papa nānā. Pio ma ke ʻano paʻa.",
   "assignee": "Mea i hāʻawi ʻia",

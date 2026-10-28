@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Cãndu alezh unã etichetã cu # i un membru cu @ cãndu scrii titlul a unei cartã nauã, aestu text armãne shi tu titlu. Astins: textul easte alãxit cu eticheta i membrul.",
   "title-bracket-label": "Fã [etichetã] di la ahurhita a titlului a unei cartã nauã etichetã",
   "title-bracket-label-description": "Cãndu titlul a unei cartã nauã ahurheashti cu [Text] shi dupã el yini altu text, Text s-fatsi etichetã a cartãljei (s-adarã ma s-nu ari tabela vãrã cu aestu numã) shi easte scos dit titlu. Astins: titlul armãne ashi cum easte.",
+  "keep-add-card-form-open": "Tsãne dishcljisã forma tra s-adavgã cartã dupã ţi adavgã unã cartã",
+  "keep-add-card-form-open-description": "Dishcljisã: dupã ţi s-adavgã unã cartã, forma armâni dishcljisã cu un titlu goal tra cartã ţi yini. Ncljisã: forma s-ncljidi cãndu cartã easti adavgatã.",
   "checklist-ding-sound": "Bati un son cãndu un element dit lista di verificari s-bitiseashti",
   "checklist-ding-sound-description": "Bati un son scurtu cãndu bifedz un element dit lista di verificari. Dizactivat di ahurhitã.",
   "assignee": "Responsabil",

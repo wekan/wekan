@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Gdy podczas wpisywania tytułu nowej karty wybierzesz etykietę za pomocą # lub użytkownika za pomocą @, ten tekst pozostanie również w tytule. Wyłączone: tekst zostaje zastąpiony etykietą lub użytkownikiem.",
   "title-bracket-label": "Zamieniaj [etykieta] na początku tytułu nowej karty w etykietę",
   "title-bracket-label-description": "Gdy tytuł nowej karty zaczyna się od [Tekst], po którym następuje dalszy tekst, Tekst staje się etykietą karty (zostaje utworzona, jeśli tablica nie ma etykiety o tej nazwie) i jest usuwany z tytułu. Wyłączone: tytuł pozostaje bez zmian.",
+  "keep-add-card-form-open": "Pozostaw formularz dodawania karty otwarty po dodaniu karty",
+  "keep-add-card-form-open-description": "Włączone: po dodaniu karty formularz pozostaje otwarty z pustym tytułem dla następnej karty. Wyłączone: formularz zamyka się po dodaniu karty.",
   "checklist-ding-sound": "Odtwórz dźwięk po ukończeniu elementu listy kontrolnej",
   "checklist-ding-sound-description": "Odtwarza krótki dźwięk po zaznaczeniu elementu listy kontrolnej. Domyślnie wyłączone.",
   "assignee": "Przypisani",

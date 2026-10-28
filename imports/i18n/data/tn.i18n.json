@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Fa o tlhopha setshwao ka # kgotsa leloko ka @ fa o kwala setlhogo sa karata e ntšhwa, mokwalo oo o sala le mo setlhogong. Go timilwe: mokwalo o emisediwa ka setshwao kgotsa leloko.",
   "title-bracket-label": "Fetola [setshwao] kwa tshimologong ya setlhogo sa karata e ntšhwa go nna setshwao",
   "title-bracket-label-description": "Fa setlhogo sa karata e ntšhwa se simolola ka [Mokwalo] mme sa latelwa ke mokwalo o mongwe, Mokwalo o nna setshwao sa karata (se a dirwa fa boto e se na setshwao sa leina leo) mme o tlosiwa mo setlhogong. Go timilwe: setlhogo se nna jaaka se ntse.",
+  "keep-add-card-form-open": "Tlogela foromo ya Tsenya karata e butswe morago ga go tsenya karata",
+  "keep-add-card-form-open-description": "E buletswe: morago ga gore karata e tsenngwe, foromo e nna e butswe ka setlhogo se se se nang sepe sa karata e e latelang. E tswetswe: foromo e a tswala fa karata e sena go tsenngwa.",
   "checklist-ding-sound": "Tshameka modumo fa ntlha ya lenaane la tlhomamiso e fedile",
   "checklist-ding-sound-description": "E tshameka modumo o mokhutshwane fa o tshwaya ntlha ya lenaane la tlhomamiso. E timeditswe ka tlhago.",
   "assignee": "Yo o neetsweng tiro",

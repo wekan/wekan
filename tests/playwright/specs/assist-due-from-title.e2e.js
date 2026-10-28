@@ -15,9 +15,13 @@ const tomorrowAt = (hour, minute = 0) => {
 };
 
 test.describe('Due date from the title', () => {
-  test('the add-card form reads a due date from the end of the title', async ({ boardPage, board }) => {
+  test('the add-card form reads a due date from the end of the title', async ({ boardPage, board, user }) => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
+    // #6827: the form closes after a card unless Member Settings keeps it
+    // open; kept open, the next card's form must not carry the old hint.
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.keepAddCardFormOpen': true } });
+    await expect.poll(() => boardPage.evaluate(() => Meteor.user()?.profile?.keepAddCardFormOpen === true)).toBe(true);
     await bp.openAddCardTop(listA);
     const form = bp.list(listA).locator('.js-inlined-form');
     const textarea = form.locator('textarea.js-card-title');

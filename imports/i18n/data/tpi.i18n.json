@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Taim yu makim wanpela mak wantaim # o wanpela memba wantaim @ taim yu raitim het tok bilong nupela kat, holim dispela tok long het tok tu. Op: mak o memba i kisim ples bilong dispela tok.",
   "title-bracket-label": "Senisim [mak] long stat bilong het tok bilong nupela kat i kamap mak",
   "title-bracket-label-description": "Taim het tok bilong nupela kat i stat long [Tok] na moa tok i kam bihain, Tok i kamap mak bilong kat (ol i wokim sapos bot i no gat mak long dispela nem) na ol i rausim long het tok. Op: het tok i stap olsem em i stap.",
+  "keep-add-card-form-open": "Larim fom bilong Putim kat i stap op bihain long putim kat",
+  "keep-add-card-form-open-description": "On: bihain long yu putim kat, fom i stap op wantaim nem i nogat samting long narapela kat. Of: fom i pas taim kat i go insait pinis.",
   "checklist-ding-sound": "Pilai wanpela nois taim wanpela samting long checklist i pinis",
   "checklist-ding-sound-description": "Pilai sotpela nois taim yu makim wanpela samting long lis bilong sekim olsem pinis. Long stat dispela i no wok.",
   "assignee": "Man i gat wok",

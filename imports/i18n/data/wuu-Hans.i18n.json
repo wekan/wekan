@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "勒拉打新卡片标题个辰光用 # 拣标签或者用 @ 拣成员，搿段文字也留勒标题里向。关脱：文字会得换成标签或者成员。",
   "title-bracket-label": "拿新卡片标题开头个 [标签] 变成标签",
   "title-bracket-label-description": "新卡片个标题用 [文本] 开头、后头还有别个文字个辰光，文本会变成搿张卡片个标签（看板里向呒没搿个名字个标签就会新建），并且从标题里向拿脱。关脱：标题保持原样。",
+  "keep-add-card-form-open": "添加卡片以后让添加卡表单保持打开",
+  "keep-add-card-form-open-description": "开：添加卡片以后，表单保持打开，标题空个，好添下一张卡片。关：卡片添好以后表单就关脱。",
   "checklist-ding-sound": "勾清单项目辰光播放声音",
   "checklist-ding-sound-description": "勾清单项目辰光播放一声短促个叮咚提示音。默认关闭。",
   "assignee": "负责人",

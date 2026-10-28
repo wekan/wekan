@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Musuq kartapa uma sutinta qillqachkaspa # nisqawan unanchata utaq @ nisqawan ayllumasita akllaspaqa, chay qillqatapas uma sutipi waqaychay. Wañuchisqa: qillqaqa unanchawan utaq ayllumasiwan rantinchasqa.",
   "title-bracket-label": "Musuq kartapa uma sutinpa qallariyninpi [unancha] unanchaman tukuchiy",
   "title-bracket-label-description": "Musuq kartapa uma sutin [Qillqa] nisqawan qallarispa aswan qillqa qatiptinqa, Qillqa kartapa unanchanmi tukun (pirqapi chay sutiyuq unancha mana kaptinqa ruwakun) hinaspa uma sutimanta qichusqa. Wañuchisqa: uma sutiqa imaynas kasqanpi qhipan.",
+  "keep-add-card-form-open": "Kartata yapaspa kartata yapanapaq formulariota kichasqata saqiy",
+  "keep-add-card-form-open-description": "Kichasqa: huk karta yapasqa kaptinqa, formularioqa kichasqalla qhepan ch'usaq sutiwan qatiq kartapaq. Wichqasqa: kartata yapasqa kaptinkama formularioqa wichqakun.",
   "checklist-ding-sound": "Uyarichiy huk kunkata checklist ruway tukusqanmanta",
   "checklist-ding-sound-description": "Huk kunka kunkata uyarichin checklist ruway señalasqaykipi. Manam kachkanchu ñawpaqmanta.",
   "assignee": "Ruranapaq churasqa",

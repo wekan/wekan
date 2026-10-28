@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "chu' 'echletHom pong DaghItlhtaHvIS # lo'taHvIS per DawIvchugh, pagh @ lo'taHvIS chuDpu' DawIvchugh, pong Daq ghItlh lupol je. Qotlh: per pagh chuDpu' ghItlh tam.",
   "title-bracket-label": "chu' 'echletHom pong taghDaq [per] per yIchoHmoH",
   "title-bracket-label-description": "chu' 'echletHom pong [ghItlh] lutaghchugh 'ej latlh ghItlh tlha'chugh, 'echletHom per moj ghItlh ('echlet Daq per pong rap tu'lu'be'chugh, chenmoHlu') 'ej pong vo' teqlu'. Qotlh: pong choHlu'be'.",
+  "keep-add-card-form-open": "'echletHom chellu'DI' 'echletHom chelmeH nav yIpoSmoHtaHmoH",
+  "keep-add-card-form-open-description": "chu'lu'DI': 'echletHom chellu'DI', 'echletHom veb chelmeH nav poStaH, pong chIm ghaj. chu'Ha'lu'DI': 'echletHom chellu'DI' nav SoQmoHlu'.",
   "checklist-ding-sound": "checklist Doch chav DaH ghogh chu'",
   "checklist-ding-sound-description": "checklist Doch DaqIp DaH mach ghogh wa' poH. wa'DIch ghogh Qotlh.",
   "assignee": "Qu' Hevbogh lo'wI'",

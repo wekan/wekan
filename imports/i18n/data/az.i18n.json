@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Yeni kartın başlığını yazarkən # ilə etiket və ya @ ilə üzv seçdikdə, həmin mətn başlıqda da saxlanılır. Söndürülüb: mətn etiket və ya üzv ilə əvəz olunur.",
   "title-bracket-label": "Yeni kart başlığının əvvəlindəki [etiket] mətnini etiketə çevir",
   "title-bracket-label-description": "Yeni kartın başlığı [Mətn] ilə başlayıb ardınca başqa mətn gəldikdə, Mətn kartın etiketi olur (lövhədə bu adda etiket yoxdursa, yaradılır) və başlıqdan silinir. Söndürülüb: başlıq olduğu kimi saxlanılır.",
+  "keep-add-card-form-open": "Kart əlavə edildikdən sonra Kart əlavə et formasını açıq saxla",
+  "keep-add-card-form-open-description": "Aktiv: kart əlavə edildikdən sonra forma növbəti kart üçün boş başlıqla açıq qalır. Deaktiv: kart əlavə edilən kimi forma bağlanır.",
   "checklist-ding-sound": "Yoxlama siyahısı elementi tamamlandıqda səs çal",
   "checklist-ding-sound-description": "Yoxlama siyahısı elementini işarələyəndə qısa siqnal səsi çal. Standart olaraq söndürülüb.",
   "assignee": "Təyin edilmiş şəxs",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Canche te tles fora na eticheta cun # o n mëmber cun @ tl scrì l titul de na ciarta nueva, tegnì chel test nce tl titul. Destudà: l test vën sostituì da la eticheta o dal mëmber.",
   "title-bracket-label": "Muda [eticheta] al scumenciamënt dl titul de na ciarta nueva te na eticheta",
   "title-bracket-label-description": "Canche l titul de na ciarta nueva scumëncia cun [Test] y do iel mo d'autri test, Test doventa na eticheta dla ciarta (la vën creeda sce la tofla ne n'à degun cun chël inuem) y vën tëut ora dl titul. Destudà: l titul resta coche l ie.",
+  "keep-add-card-form-open": "Tegnì davert le formular per jonté na ciarta do avëi jonté na ciarta",
+  "keep-add-card-form-open-description": "Ativ: do che na ciarta é gnüda jontada, resta le formular davert cun n titul vet por la ciarta dedô. Destudé: le formular vëgn stlüt sciöch la ciarta é jontada.",
   "checklist-ding-sound": "Fé n sun canche n elemënt dla lista de control ie fenì",
   "checklist-ding-sound-description": "Fé n sun curt canche te marches n elemënt dla lista de control. Desativà da standard.",
   "assignee": "Respunsabl",

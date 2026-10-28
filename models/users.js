@@ -520,6 +520,14 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.keepAddCardFormOpen': {
+      /**
+       * #6827: keep a list's Add card form open after a card is added, to type
+       * the next one. Off by default: the form closes once the card is added.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.titleBracketLabel': {
       /**
        * #6810: turn a leading "[Text] " of a new card's title into the label
@@ -2214,6 +2222,11 @@ Users.helpers({
   // #1273: keep the #label / @member text in a new card's title.
   hasKeepTitleTags() {
     return !!((this.profile || {}).keepTitleTags);
+  },
+
+  // #6827: keep the Add card form open after adding a card (off by default).
+  hasKeepAddCardFormOpen() {
+    return (this.profile || {}).keepAddCardFormOpen === true;
   },
 
   // #6810: turn a leading "[Text] " of a new card's title into a label (off by default).

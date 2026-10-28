@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Czej wëbierzesz etikétã z # abò nôleżnika z @ przë pisanim titla nowi kôrtë, ten tekst òstanie téż w titlu. Wëłączoné: tekst je zastąpiony etikétą abò nôleżnikã.",
   "title-bracket-label": "Zmieni [etikéta] na zôczątkù titla nowi kôrtë w etikétã",
   "title-bracket-label-description": "Czej titel nowi kôrtë zaczinô sã òd [Tekst], a pò nim je wiele tekstu, Tekst stôwô sã etikétą kôrtë (je ùsôdzonô, jeżlë tôfla ni mô etikétë z tim mionã) ë je rëmniãti z titla. Wëłączoné: titel òstôwô taczi, jaczi je.",
+  "keep-add-card-form-open": "Òstawiôj òtemkłi fòrmùlôr dodôwaniô kôrtë pò dodanim kôrtë",
+  "keep-add-card-form-open-description": "Włączoné: pò dodanim kôrtë fòrmùlôr òstôwô òtemkłi z pùstim titlã dlô pòstãpny kôrtë. Wëłączoné: fòrmùlôr sã zamikô, czedë kôrta òstanie dodónô.",
   "checklist-ding-sound": "Zagrôj zwãk czej element lëstë sprôwdzeniô òstanié zakùńczony",
   "checklist-ding-sound-description": "Zagrôj krotczi zwãk czej zaznaczysz element lëstë sprôwdzeniô. Domëslno wëłączoné.",
   "assignee": "Òdpòwiedzalny",

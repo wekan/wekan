@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Lè ou chwazi yon etikèt ak # oswa yon manm ak @ pandan w ap tape tit yon nouvo kat, tèks sa a rete nan tit la tou. Etenn: tèks la ranplase pa etikèt la oswa manm lan.",
   "title-bracket-label": "Transfòme [etikèt] nan kòmansman tit yon nouvo kat an yon etikèt",
   "title-bracket-label-description": "Lè tit yon nouvo kat kòmanse ak [Tèks] epi plis tèks vin apre, Tèks vin yon etikèt kat la (yo kreye l si tablo a pa gen youn ak non sa a) epi yo retire l nan tit la. Etenn: tit la rete jan li ye a.",
+  "keep-add-card-form-open": "Kenbe fòm pou ajoute kat la ouvè apre ou fin ajoute yon kat",
+  "keep-add-card-form-open-description": "Aktive: apre ou fin ajoute yon kat, fòm nan rete ouvè ak yon tit vid pou pwochen kat la. Dezaktive: fòm nan fèmen yon fwa kat la ajoute.",
   "checklist-ding-sound": "Jwe yon son lè yon eleman lis verifikasyon fini",
   "checklist-ding-sound-description": "Jwe yon ti son kout lè ou tcheke yon eleman lis verifikasyon. Li dezaktive pa defo.",
   "assignee": "Moun ki asiyen",

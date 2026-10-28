@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Kortsip nutaap qulequtaa allakkaangakku # atorlugu nalunaaqutsersuummik imaluunniit @ atorlugu ilaasortamik toqqaagaangavit, allagaq taanna qulequtami aamma tigummiuk. Matuneqarpat: allagaq nalunaaqutsersuummik imaluunniit ilaasortamik taarserneqassaaq.",
   "title-bracket-label": "Kortsip nutaap qulequtaata aallartinnerani [nalunaaqutsersuut] nalunaaqutsersuutinngortiguk",
   "title-bracket-label-description": "Kortsip nutaap qulequtaa [Allagaq] aallarteqqaarpat allagaqqaarlu malippat, Allagaq kortsimut nalunaaqutsersuutinngorpoq (pilersinneqassaaq ilisarnaammi taamatut ateqartumik nalunaaqutsersuuteqanngippat) qulequtamiillu peerneqarluni. Matuneqarpat: qulequtaq allanngortinneqanngilaq.",
+  "keep-add-card-form-open": "Kortsip ilanngunneqarnerata kingorna kortsimik ilanngussinermut immersugassaq ammasoq qimallugu",
+  "keep-add-card-form-open-description": "Ikitaq: kortsi ilanngunneqareerpat immersugassaq ammasoq qimaneqassaaq qulequtaa imaqanngitsoq kortsimut tullermut. Qamitaq: kortsi ilanngunneqareerpat immersugassaq matuneqassaaq.",
   "checklist-ding-sound": "Nipilerit atortikkit checklist-imi allaaserisap naammassinerani",
   "checklist-ding-sound-description": "Nipi naatsooq atortikkit checklist-imi allaaserineq ilanngussakkut. Aallartitaanera atugassaanngilaq.",
   "assignee": "Akisussaasoq",

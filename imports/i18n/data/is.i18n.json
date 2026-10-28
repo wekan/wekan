@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Þegar þú velur merki með # eða meðlim með @ meðan þú skrifar titil nýs spjalds helst sá texti einnig í titlinum. Af: textanum er skipt út fyrir merkið eða meðliminn.",
   "title-bracket-label": "Breyta [merki] í upphafi titils nýs spjalds í merki",
   "title-bracket-label-description": "Þegar titill nýs spjalds byrjar á [Texti] og meiri texti fylgir, verður Texti að merki spjaldsins (búið til ef taflan hefur ekkert merki með því nafni) og er fjarlægt úr titlinum. Af: titillinn helst óbreyttur.",
+  "keep-add-card-form-open": "Halda eyðublaðinu til að bæta við spjaldi opnu eftir að spjaldi er bætt við",
+  "keep-add-card-form-open-description": "Kveikt: eftir að spjaldi er bætt við helst eyðublaðið opið með tómum titli fyrir næsta spjald. Slökkt: eyðublaðinu er lokað um leið og spjaldinu hefur verið bætt við.",
   "checklist-ding-sound": "Spila hljóð þegar verkefni í gátlista er lokið",
   "checklist-ding-sound-description": "Spilar stutt hljóð þegar þú hakar við atriði í gátlista. Slökkt sjálfgefið.",
   "assignee": "Ábyrgðaraðili",

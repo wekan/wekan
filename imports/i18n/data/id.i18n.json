@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Saat Anda memilih label dengan # atau anggota dengan @ ketika mengetik judul kartu baru, teks tersebut juga dipertahankan di judul. Nonaktif: teks diganti dengan label atau anggota.",
   "title-bracket-label": "Ubah [label] di awal judul kartu baru menjadi label",
   "title-bracket-label-description": "Saat judul kartu baru diawali dengan [Teks] lalu diikuti teks lain, Teks menjadi label kartu (dibuat jika papan belum memiliki label dengan nama itu) dan dihapus dari judul. Nonaktif: judul dibiarkan apa adanya.",
+  "keep-add-card-form-open": "Biarkan formulir Tambah Kartu tetap terbuka setelah menambahkan kartu",
+  "keep-add-card-form-open-description": "Aktif: setelah kartu ditambahkan, formulir tetap terbuka dengan judul kosong untuk kartu berikutnya. Nonaktif: formulir ditutup setelah kartu ditambahkan.",
   "checklist-ding-sound": "Putar suara saat item daftar periksa selesai",
   "checklist-ding-sound-description": "Memutar suara ding singkat saat Anda mencentang item daftar periksa. Nonaktif secara default.",
   "assignee": "Penerima tugas",

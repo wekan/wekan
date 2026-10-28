@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ja, rakstot jaunas kartiņas nosaukumu, izvēlaties birku ar # vai dalībnieku ar @, šis teksts paliek arī nosaukumā. Izslēgts: teksts tiek aizstāts ar birku vai dalībnieku.",
   "title-bracket-label": "Pārvērst [birka] jaunas kartiņas nosaukuma sākumā par birku",
   "title-bracket-label-description": "Ja jaunas kartiņas nosaukums sākas ar [Teksts], kam seko vēl teksts, Teksts kļūst par kartiņas birku (tā tiek izveidota, ja dēlī nav birkas ar šādu nosaukumu) un tiek noņemts no nosaukuma. Izslēgts: nosaukums paliek nemainīts.",
+  "keep-add-card-form-open": "Pēc kartiņas pievienošanas atstāt kartiņas pievienošanas formu atvērtu",
+  "keep-add-card-form-open-description": "Ieslēgts: pēc kartiņas pievienošanas forma paliek atvērta ar tukšu nosaukumu nākamajai kartiņai. Izslēgts: forma tiek aizvērta, tiklīdz kartiņa ir pievienota.",
   "checklist-ding-sound": "Atskaņot skaņu, kad kontrolsaraksta vienums ir pabeigts",
   "checklist-ding-sound-description": "Atskaņo īsu skaņu, kad atzīmējat kontrolsaraksta vienumu. Pēc noklusējuma izslēgts.",
   "assignee": "Īpašnieks",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Nuair a thaghas tu leubail le # no ball le @ fhad 's a bhios tu a' sgrìobhadh tiotal cairt ùir, cùm an teacsa sin san tiotal cuideachd. Dheth: thèid an leubail no am ball an àite an teacsa.",
   "title-bracket-label": "Dèan leubail de [leubail] aig toiseach tiotal cairt ùir",
   "title-bracket-label-description": "Nuair a thòisicheas tiotal cairt ùir le [Teacsa] agus barrachd teacsa às a dhèidh, thèid Teacsa na leubail aig a' chairt (cruthaichear i mur eil tè air a' bhòrd air a bheil an t-ainm sin) agus thèid a thoirt air falbh on tiotal. Dheth: cumar an tiotal mar a tha e.",
+  "keep-add-card-form-open": "Cùm am foirm airson cairt a chur ris fosgailte às dèidh cairt a chur ris",
+  "keep-add-card-form-open-description": "Air: às dèidh cairt a chur ris, fanaidh am foirm fosgailte le tiotal falamh airson na h-ath chairt. Dheth: dùinidh am foirm cho luath 's a bhios a' chairt air a cur ris.",
   "checklist-ding-sound": "Cluich fuaim nuair a thèid nì liosta-sgrùdaidh a choileanadh",
   "checklist-ding-sound-description": "Cluichidh e fuaim ghoirid nuair a chuireas tu cromag ri nì liosta-sgrùdaidh. Dheth a ghnàth.",
   "assignee": "Neach-obrach",

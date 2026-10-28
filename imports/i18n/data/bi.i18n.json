@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Taem yu jusum wan mak wetem # o wan memba wetem @ taem yu stap raetem taetol blong wan niu kad, kipim tekis ia long taetol tu. Of: mak o memba i tekem ples blong tekis ia.",
   "title-bracket-label": "Tanem [mak] long stat blong taetol blong niu kad i kam wan mak",
   "title-bracket-label-description": "Taem taetol blong wan niu kad i stat wetem [Tekis] mo i gat moa tekis biaen, Tekis i kam wan mak blong kad (oli mekem sapos bod i no gat mak wetem nem ia) mo oli tekemaot long taetol. Of: taetol i stap olsem we i stap.",
+  "keep-add-card-form-open": "Livim fom blong Adem kad i stap open afta we yu adem wan kad",
+  "keep-add-card-form-open-description": "On: afta we yu adem wan kad, fom i stap open wetem wan taetel we i emti blong nekis kad. Of: fom i satem stret taem we kad i kam insaed.",
   "checklist-ding-sound": "Plei wan saon taem wan samting long jeklis i finis",
   "checklist-ding-sound-description": "Plei wan sotfala saon taem yu makem wan samting long jeklis. Long stat, hem i of.",
   "assignee": "Man we i gat wok",

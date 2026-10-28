@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Keď pri písaní názvu novej karty vyberiete štítok pomocou # alebo člena pomocou @, tento text zostane aj v názve. Vypnuté: text sa nahradí štítkom alebo členom.",
   "title-bracket-label": "Premeniť [štítok] na začiatku názvu novej karty na štítok",
   "title-bracket-label-description": "Keď názov novej karty začína textom [Text], po ktorom nasleduje ďalší text, Text sa stane štítkom karty (vytvorí sa, ak nástenka nemá štítok s týmto názvom) a odstráni sa z názvu. Vypnuté: názov zostane taký, aký je.",
+  "keep-add-card-form-open": "Ponechať formulár na pridanie karty otvorený po pridaní karty",
+  "keep-add-card-form-open-description": "Zapnuté: po pridaní karty zostane formulár otvorený s prázdnym názvom pre ďalšiu kartu. Vypnuté: formulár sa zatvorí hneď po pridaní karty.",
   "checklist-ding-sound": "Prehrať zvuk po dokončení položky kontrolného zoznamu",
   "checklist-ding-sound-description": "Prehrá krátky zvuk pri začiarknutí položky kontrolného zoznamu. V predvolenom nastavení vypnuté.",
   "assignee": "Riešiteľ",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Pa zibabit un dikedenn gant # pe un ezel gant @ en ur skrivañ titl ur gartenn nevez, e vez miret an destenn-se en titl ivez. Lazhet: an destenn a vez erlec'hiet gant an dikedenn pe an ezel.",
   "title-bracket-label": "Treiñ [tikedenn] e penn-kentañ titl ur gartenn nevez en un dikedenn",
   "title-bracket-label-description": "Pa grog titl ur gartenn nevez gant [Testenn] heuliet gant muioc'h a destenn, e teu Testenn da vezañ un dikedenn eus ar gartenn (krouet ma n'eus hini ebet gant an anv-se en daolenn) hag e vez lamet eus an titl. Lazhet: miret e vez an titl evel m'emañ.",
+  "keep-add-card-form-open": "Derc'hel digor ar furmskrid Ouzhpennañ ur gartenn goude bezañ ouzhpennet ur gartenn",
+  "keep-add-card-form-open-description": "Enaouet: goude ouzhpennañ ur gartenn e chom digor ar furmskrid gant un titl goullo evit ar gartenn war-lerc'h. Lazhet: serret e vez ar furmskrid kerkent ha ma vez ouzhpennet ar gartenn.",
   "checklist-ding-sound": "Seniñ ur son pa vez echuet un elfenn eus roll gwiriañ",
   "checklist-ding-sound-description": "Seniñ ur son berr pa vez merket un elfenn eus roll gwiriañ. Diweredekaet dre ziouer.",
   "assignee": "Den deverket",

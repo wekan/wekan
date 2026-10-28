@@ -28,3 +28,18 @@ For developers: the setting is `profile.titleBracketLabel`, toggled by the
 `toggleTitleBracketLabel` method; the title is parsed by
 `quickAddTitleParts()` in `models/lib/quickAddCardLabel.js`, pinned by
 `tests/titleBracketLabel6810.test.cjs`.
+
+## The Add card form after adding a card
+
+**Keep the Add card form open after adding a card** is personal and off by
+default. Off, a list's **Add card** form closes once the card - or every card
+of a multi-line paste - is added
+([#6827](https://github.com/wekan/wekan/issues/6827)). On, it stays open with
+an empty title, ready for the next card, as it used to for everyone. Esc or the
+form's x closes it either way.
+
+For developers: the switch is `profile.keepAddCardFormOpen`, toggled by the
+`toggleKeepAddCardFormOpen` method; `addCard` in
+`client/components/lists/listBody.js` closes the form after its last title,
+pinned by `tests/keepAddCardFormOpen6827.test.cjs` and
+`tests/playwright/specs/keep-add-card-form-open-6827.e2e.js`.

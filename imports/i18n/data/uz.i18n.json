@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Yangi karta sarlavhasini yozayotganda # bilan yorliq yoki @ bilan a'zo tanlasangiz, bu matn sarlavhada ham qoladi. O'chiq: matn yorliq yoki a'zo bilan almashtiriladi.",
   "title-bracket-label": "Yangi karta sarlavhasi boshidagi [yorliq] so'zini yorliqqa aylantirish",
   "title-bracket-label-description": "Yangi karta sarlavhasi [Matn] bilan boshlanib, undan keyin yana matn kelsa, Matn kartaning yorlig'iga aylanadi (taxtada shu nomli yorliq bo'lmasa, yaratiladi) va sarlavhadan olib tashlanadi. O'chiq: sarlavha qanday bo'lsa, shunday qoladi.",
+  "keep-add-card-form-open": "Karta qo'shilgandan keyin Karta qo'shish formasini ochiq qoldirish",
+  "keep-add-card-form-open-description": "Yoqilgan: karta qo'shilgandan so'ng forma keyingi karta uchun bo'sh sarlavha bilan ochiq qoladi. O'chirilgan: karta qo'shilishi bilan forma yopiladi.",
   "checklist-ding-sound": "Nazorat ro'yxati bandi tugallanganda tovush chalish",
   "checklist-ding-sound-description": "Nazorat ro'yxati bandini belgilaganingizda qisqa tovush chalinadi. Sukut bo'yicha o'chirilgan.",
   "assignee": "Tayinlangan shaxs",

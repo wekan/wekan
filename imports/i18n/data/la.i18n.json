@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Cum titellum per # aut sodalem per @ eligis dum titulum chartae novae scribis, ille textus etiam in titulo servatur. Inactivum: textus titello aut sodali substituitur.",
   "title-bracket-label": "Converte [titellus] in initio tituli chartae novae in titellum",
   "title-bracket-label-description": "Cum titulus chartae novae incipit a [Textus] et alius textus sequitur, Textus fit titellus chartae (creatur si tabula nullum eo nomine habet) et e titulo removetur. Inactivum: titulus servatur ut est.",
+  "keep-add-card-form-open": "Formam chartae addendae apertam serva postquam charta addita est",
+  "keep-add-card-form-open-description": "Activum: postquam charta addita est, forma aperta manet cum titulo vacuo ad chartam proximam. Inactivum: forma clauditur simul ac charta addita est.",
   "checklist-ding-sound": "Sonum reproduce cum elementum indicis inspectionis perficitur",
   "checklist-ding-sound-description": "Sonum brevem reproducit cum elementum indicis inspectionis notas. Per defectum inactivum.",
   "assignee": "Delegatus",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Když při psaní názvu nové karty vyberete štítek pomocí # nebo člena pomocí @, tento text zůstane také v názvu. Vypnuto: text je nahrazen štítkem nebo členem.",
   "title-bracket-label": "Převést [štítek] na začátku názvu nové karty na štítek",
   "title-bracket-label-description": "Když název nové karty začíná textem [Text], za nímž následuje další text, stane se Text štítkem karty (vytvoří se, pokud tablo nemá štítek s tímto názvem) a odstraní se z názvu. Vypnuto: název zůstane tak, jak je.",
+  "keep-add-card-form-open": "Ponechat formulář Přidat kartu otevřený po přidání karty",
+  "keep-add-card-form-open-description": "Zapnuto: po přidání karty zůstane formulář otevřený s prázdným názvem pro další kartu. Vypnuto: formulář se zavře, jakmile je karta přidána.",
   "checklist-ding-sound": "Přehrát zvuk při dokončení položky seznamu úkolů",
   "checklist-ding-sound-description": "Přehraje krátké cinknutí při zaškrtnutí položky seznamu úkolů. Ve výchozím nastavení vypnuto.",
   "assignee": "Řešitel",

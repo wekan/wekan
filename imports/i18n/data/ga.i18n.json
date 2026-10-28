@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Nuair a roghnaíonn tú lipéad le # nó ball le @ agus teideal cárta nua á chlóscríobh agat, coinnigh an téacs sin sa teideal freisin. As: cuirtear an lipéad nó an ball in ionad an téacs.",
   "title-bracket-label": "Iompaigh [lipéad] ag tús theideal cárta nua ina lipéad",
   "title-bracket-label-description": "Nuair a thosaíonn teideal cárta nua le [Téacs] agus tuilleadh téacs ina dhiaidh, déantar lipéad den chárta de Théacs (cruthaítear é mura bhfuil lipéad leis an ainm sin ar an gclár) agus baintear den teideal é. As: coimeádtar an teideal mar atá.",
+  "keep-add-card-form-open": "Coinnigh an fhoirm chun cárta a chur leis oscailte tar éis cárta a chur leis",
+  "keep-add-card-form-open-description": "Air: tar éis cárta a chur leis, fanann an fhoirm oscailte le teideal folamh don chéad chárta eile. As: dúntar an fhoirm a luaithe a chuirtear an cárta leis.",
   "checklist-ding-sound": "Seinn fuaim nuair a chríochnaítear mír seicliosta",
   "checklist-ding-sound-description": "Seinneann sé fuaim ghairid nuair a sheiceálann tú mír seicliosta. Múchta de réir réamhshocraithe.",
   "assignee": "Sannaí",

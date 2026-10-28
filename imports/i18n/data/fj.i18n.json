@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ni o digitaka e dua na ivakatakilakila ena # se dua na lewe ni soqosoqo ena @ ni o vola tiko na ulutaga ni dua na kadi vou, maroroya talega na vosa oya ena ulutaga. Sogo: na vosa e veisosomitaki ena ivakatakilakila se na lewe ni soqosoqo.",
   "title-bracket-label": "Vukica na [ivakatakilakila] e na itekivu ni ulutaga ni kadi vou me ivakatakilakila",
   "title-bracket-label-description": "Ni tekivu na ulutaga ni kadi vou ena [Vosa] ka muria e so tale na vosa, na Vosa e yaco me ivakatakilakila ni kadi (e buli ke sega ni dua ena vola e yacana vakakina) ka kau tani mai na ulutaga. Sogo: na ulutaga e tiko ga vakataki koya.",
+  "keep-add-card-form-open": "Me dola tiko ga na fomu ni kuria e dua na kadi ni oti na kuri ni dua na kadi",
+  "keep-add-card-form-open-description": "Vakayagataki: ni oti na kuri ni dua na kadi, ena dola tiko ga na fomu kei na ulutaga lala me baleta na kadi tarava. Sega ni vakayagataki: ena sogo na fomu ni sa kuri oti na kadi.",
   "checklist-ding-sound": "Vakayagataka na domo ni sa vakaoti na iulutaga ni checklist",
   "checklist-ding-sound-description": "Vakayagataka e dua na domo lekaleka ni o sa vakadinadinataka na iulutaga ni checklist. E sega ni vakayagataki ena imatai ni ivakarau.",
   "assignee": "E lesi kina",

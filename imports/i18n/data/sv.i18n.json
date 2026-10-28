@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "När du väljer en etikett med # eller en medlem med @ medan du skriver titeln på ett nytt kort, behålls den texten även i titeln. Av: texten ersätts av etiketten eller medlemmen.",
   "title-bracket-label": "Gör [etikett] i början av en ny korttitel till en etikett",
   "title-bracket-label-description": "När ett nytt korts titel börjar med [Text] följt av mer text blir Text en etikett på kortet (skapas om tavlan inte har någon med det namnet) och tas bort från titeln. Av: titeln behålls som den är.",
+  "keep-add-card-form-open": "Håll formuläret Lägg till kort öppet efter att ett kort lagts till",
+  "keep-add-card-form-open-description": "På: när ett kort har lagts till förblir formuläret öppet med en tom titel för nästa kort. Av: formuläret stängs när kortet har lagts till.",
   "checklist-ding-sound": "Spela upp ett ljud när en checklisteobjekt slutförs",
   "checklist-ding-sound-description": "Spelar upp ett kort pling-ljud när du bockar av ett checklisteobjekt. Avstängt som standard.",
   "assignee": "Tilldelad till",

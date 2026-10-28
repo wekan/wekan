@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Sche Vus tschernais ina etichetta cun # u in commember cun @ durant che Vus scrivais il titel d'ina nova carta, resta quest text er en il titel. Deactivà: il text vegn remplazzà da l'etichetta u dal commember.",
   "title-bracket-label": "Transfurmar [etichetta] al cumenzament dal titel d'ina nova carta en ina etichetta",
   "title-bracket-label-description": "Sch'il titel d'ina nova carta cumenza cun [Text] suandà dad auter text, daventa Text ina etichetta da la carta (creada sche la tabella n'ha nagina cun quest num) ed è allontanà dal titel. Deactivà: il titel resta sco ch'el è.",
+  "keep-add-card-form-open": "Laschar avert il formular per agiuntar ina carta suenter avair agiuntà ina carta",
+  "keep-add-card-form-open-description": "Activà: suenter che ina carta è vegnida agiuntada, resta il formular avert cun in titel vid per la proxima carta. Deactivà: il formular vegn serrà uschespert che la carta è agiuntada.",
   "checklist-ding-sound": "Sunar in tun cur ch'in element da la glista da controlla vegn cumplettà",
   "checklist-ding-sound-description": "Sunar in tun curt cur ch'in element da la glista da controlla vegn marcà. Deactivà tenor standard.",
   "assignee": "Persuna incumbensada",

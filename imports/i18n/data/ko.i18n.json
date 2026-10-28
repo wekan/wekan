@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "새 카드의 제목을 입력하는 중에 #으로 라벨을 또는 @로 멤버를 선택하면 해당 텍스트도 제목에 남겨 둡니다. 끄기: 텍스트가 라벨이나 멤버로 바뀝니다.",
   "title-bracket-label": "새 카드 제목 앞의 [라벨]을 라벨로 바꾸기",
   "title-bracket-label-description": "새 카드의 제목이 [텍스트]로 시작하고 그 뒤에 다른 텍스트가 이어지면, 텍스트가 카드의 라벨이 되고(보드에 그 이름의 라벨이 없으면 새로 만듭니다) 제목에서 제거됩니다. 끄기: 제목이 그대로 유지됩니다.",
+  "keep-add-card-form-open": "카드를 추가한 후에도 카드 추가 양식을 열어 두기",
+  "keep-add-card-form-open-description": "켜짐: 카드를 추가한 후 다음 카드를 위해 제목이 비어 있는 상태로 양식이 열려 있습니다. 꺼짐: 카드가 추가되면 양식이 닫힙니다.",
   "checklist-ding-sound": "체크리스트 항목이 완료되면 소리 재생",
   "checklist-ding-sound-description": "체크리스트 항목을 체크하면 짧은 딩동 소리를 재생합니다. 기본적으로 꺼져 있습니다.",
   "assignee": "담당자",

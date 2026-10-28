@@ -431,6 +431,13 @@ template(name="changeSettingsPopup")
         | {{_ 'keep-title-tags'}}
         if isKeepTitleTags
           i.fa.fa-check
+    //- #6827: the Add card form stays open after a card is added.
+    li
+      a.js-toggle-keep-add-card-form-open(title="{{_ 'keep-add-card-form-open-description'}}")
+        i.fa.fa-plus-square
+        | {{_ 'keep-add-card-form-open'}}
+        if isKeepAddCardFormOpen
+          i.fa.fa-check
     //- #6810: a leading "[Text] " of a new card's title becomes a label (#3986).
     li
       a.js-toggle-title-bracket-label(title="{{_ 'title-bracket-label-description'}}")

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ao escolher uma etiqueta com # ou um membro com @ enquanto digita o título de um novo cartão, esse texto também é mantido no título. Desligado: o texto é substituído pela etiqueta ou pelo membro.",
   "title-bracket-label": "Transformar [etiqueta] no início do título de um cartão novo em etiqueta",
   "title-bracket-label-description": "Quando o título de um cartão novo começa com [Texto] seguido de mais texto, Texto passa a ser uma etiqueta do cartão (criada se o quadro não tiver nenhuma com esse nome) e é removido do título. Desligado: o título é mantido como está.",
+  "keep-add-card-form-open": "Manter o formulário Adicionar Cartão aberto após adicionar um cartão",
+  "keep-add-card-form-open-description": "Ligado: depois que um cartão é adicionado, o formulário permanece aberto com um título vazio para o próximo cartão. Desligado: o formulário fecha assim que o cartão é adicionado.",
   "checklist-ding-sound": "Reproduzir um som quando um item da lista de verificação for concluído",
   "checklist-ding-sound-description": "Reproduz um som curto ao marcar um item da lista de verificação. Desativado por padrão.",
   "assignee": "Administrador",

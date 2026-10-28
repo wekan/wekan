@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Konz sinä valičed znamad #-nübastmel vai ühtnikan @-nübastmel uden kartan nimen kirjutamižen aigan, necen tekst jääb mugažo nimehe. Saubatud: tekst vajehtase znamal vai ühtnikal.",
   "title-bracket-label": "Muttä [znam] uden kartan nimen augotižes znamaks",
   "title-bracket-label-description": "Konz uden kartan nimi augotase [Tekst]-sanaspäi i sen jäl'ghe om enamba tekstad, Tekst lugeb kartan znamaks (se sädas, ku laudal ei ole znamad mugoman nimenke) i se heittas nimespäi. Sambutadud: nimi jäb ičeze.",
+  "keep-add-card-form-open": "Pidä kartan ližadusen forma avaitud kartan ližadusen jäl'ghe",
+  "keep-add-card-form-open-description": "Päl: kartan ližadusen jäl'ghe forma jäb avaitud tühjän nimenke jäl'gmäižen kartan täht. Pois: forma saubase, konz kart om ližatud.",
   "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
   "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "Märitud kävutai",

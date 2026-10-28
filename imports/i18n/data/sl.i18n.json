@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ko med vnašanjem naslova nove kartice izberete oznako z # ali člana z @, se to besedilo ohrani tudi v naslovu. Izklopljeno: besedilo se nadomesti z oznako ali članom.",
   "title-bracket-label": "Pretvori [oznaka] na začetku naslova nove kartice v oznako",
   "title-bracket-label-description": "Ko se naslov nove kartice začne z [Besedilo], ki mu sledi še besedilo, Besedilo postane oznaka kartice (ustvari se, če tabla nima oznake s tem imenom) in se odstrani iz naslova. Izklopljeno: naslov ostane takšen, kot je.",
+  "keep-add-card-form-open": "Po dodajanju kartice pusti obrazec za dodajanje kartice odprt",
+  "keep-add-card-form-open-description": "Vklopljeno: po dodajanju kartice obrazec ostane odprt s praznim naslovom za naslednjo kartico. Izklopljeno: obrazec se zapre, ko je kartica dodana.",
   "checklist-ding-sound": "Predvajaj zvok, ko je element kontrolnega seznama dokončan",
   "checklist-ding-sound-description": "Predvaja kratek zvok, ko označite element kontrolnega seznama. Privzeto izklopljeno.",
   "assignee": "Dodeljen član",

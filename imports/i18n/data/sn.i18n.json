@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Paunosarudza reberu ne # kana nhengo ne @ uchinyora musoro wekadhi nyowani, mavara iwayo anosara mumusoro futi. Kudzimwa: mavara anotsiviwa nereberu kana nhengo.",
   "title-bracket-label": "Shandura [reberu] pakutanga kwemusoro wekadhi nyowani kuita reberu",
   "title-bracket-label-description": "Kana musoro wekadhi nyowani uchitanga ne [Mavara] uye mamwe mavara achitevera, Mavara anova reberu yekadhi (inogadzirwa kana bhodhi risina reberu yezita iroro) uye anobviswa mumusoro. Kudzimwa: musoro unoramba wakadaro.",
+  "keep-add-card-form-open": "Siya fomu yekuwedzera kadhi yakavhurika mushure mekuwedzera kadhi",
+  "keep-add-card-form-open-description": "Yakabatidzwa: kana kadhi rawedzerwa, fomu inoramba yakavhurika ine musoro usina chinhu wekadhi rinotevera. Yakadzimwa: fomu inovharwa kadhi kana rangowedzerwa.",
   "checklist-ding-sound": "Ridza ruzha kana chinhu che checklist chapera",
   "checklist-ding-sound-description": "Inoridza ruzha rudiki kana wachecker chinhu che checklist. Zvakadzimwa nemazvo.",
   "assignee": "Wapiwa basa",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Cando ses iscriende su tìtulu de una carta noa e seletzionas un'eticheta cun # o unu sòtziu cun @, mantene cussu testu fintzas in su tìtulu. Disativadu: su testu benit sostituidu dae s'eticheta o dae su sòtziu.",
   "title-bracket-label": "Trasforma [eticheta] a su cumintzu de su tìtulu de una carta noa in un'eticheta",
   "title-bracket-label-description": "Cando su tìtulu de una carta noa cumintzat cun [Testu] sighidu dae àteru testu, Testu diventat un'eticheta de sa carta (creada si sa tàula non nd'at peruna cun cussu nùmene) e benit bogadu dae su tìtulu. Disativadu: su tìtulu abarrat comente est.",
+  "keep-add-card-form-open": "Mantene abertu su mòdulu pro agiùnghere una carta a pustis de àere agiuntu una carta",
+  "keep-add-card-form-open-description": "Ativu: a pustis chi una carta est agiunta, su mòdulu abarrat abertu cun unu tìtulu bòidu pro sa carta imbeniente. Disativadu: su mòdulu si serrat comente sa carta est agiunta.",
   "checklist-ding-sound": "Sona unu sonu candu un'elementu de sa lista de controllu si cumpletat",
   "checklist-ding-sound-description": "Sonat un sonu curtzu candu marcas un'elementu de sa lista de controllu. Disativadu in manera predefinida.",
   "assignee": "Assignadu",

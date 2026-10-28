@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Musi ni tshi khetha ḽeibuḽu nga # kana muraḓo nga @ ni tshi khou ṅwala ṱhoho ya garaṱa ntswa, vhulungani na ḽeŋwalwa ḽeneḽo kha ṱhoho. Zwo dzimiwa: ḽeŋwalwa ḽi dzhielwa vhudzulo nga ḽeibuḽu kana muraḓo.",
   "title-bracket-label": "Shandukisani [ḽeibuḽu] mathomoni a ṱhoho ya garaṱa ntswa i vhe ḽeibuḽu",
   "title-bracket-label-description": "Musi ṱhoho ya garaṱa ntswa i tshi thoma nga [Maipfi] nahone ha tevhela maṅwe maipfi, Maipfi a vha ḽeibuḽu ḽa garaṱa (ḽi a sikwa arali bodo i si na ḽeibuḽu ḽa eneo dzina) nahone a bviswa kha ṱhoho. Zwo dzimiwa: ṱhoho i dzula i tshi nga ngauri i nga.",
+  "keep-add-card-form-open": "Siani fomo ya u engedza garaṱa yo vulea musi no no engedza garaṱa",
+  "keep-add-card-form-open-description": "Yo vulwa: musi garaṱa yo no engedzwa, fomo i dzula yo vulea i na ṱhoho i si na tshithu ya garaṱa i tevhelaho. Yo valwa: fomo i a vala musi garaṱa yo no engedzwa.",
   "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
   "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "O avhelwaho mushumo",

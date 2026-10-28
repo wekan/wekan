@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Apabila anda memilih label dengan # atau ahli dengan @ semasa menaip tajuk kad baharu, teks itu turut dikekalkan dalam tajuk. Mati: teks digantikan dengan label atau ahli.",
   "title-bracket-label": "Tukar [label] di awal tajuk kad baharu menjadi label",
   "title-bracket-label-description": "Apabila tajuk kad baharu bermula dengan [Teks] diikuti teks lain, Teks menjadi label kad tersebut (dicipta jika papan tiada label dengan nama itu) dan dibuang daripada tajuk. Mati: tajuk dikekalkan seperti asal.",
+  "keep-add-card-form-open": "Biarkan borang Tambah Kad terbuka selepas menambah kad",
+  "keep-add-card-form-open-description": "Hidup: selepas kad ditambah, borang kekal terbuka dengan tajuk kosong untuk kad seterusnya. Mati: borang ditutup sebaik sahaja kad ditambah.",
   "checklist-ding-sound": "Mainkan bunyi apabila item senarai semak selesai",
   "checklist-ding-sound-description": "Memainkan bunyi ding pendek apabila anda menanda item senarai semak. Dimatikan secara lalai.",
   "assignee": "Penerima Tugas",

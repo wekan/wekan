@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Markaad doorato calaamad adigoo isticmaalaya # ama xubin adigoo isticmaalaya @ intaad qorayso cinwaanka kaar cusub, qoraalkaas sidoo kale cinwaanka ku hay. Dansan: qoraalka waxaa beddela calaamadda ama xubinta.",
   "title-bracket-label": "U beddel [calaamad] bilowga cinwaanka kaarka cusub calaamad",
   "title-bracket-label-description": "Marka cinwaanka kaar cusub uu ku bilaabmo [Qoraal] oo uu ka daba yimaado qoraal kale, Qoraal wuxuu noqdaa calaamad kaarka (waa la abuuraa haddii sabuuradda aysan lahayn calaamad magacaas leh) waana laga saaraa cinwaanka. Dansan: cinwaanka sidiisa ayuu ahaanayaa.",
+  "keep-add-card-form-open": "Ka dhig foomka Ku dar kaar mid furan kadib marka kaar lagu daro",
+  "keep-add-card-form-open-description": "Shidan: kadib marka kaar lagu daro, foomku wuxuu ahaanayaa mid furan oo leh cinwaan madhan oo loogu talagalay kaarka xiga. Damsan: foomku wuu xirmaa marka kaarka lagu daro.",
   "checklist-ding-sound": "Ku ciyaar dhawaaq marka shay checklist ah dhammaado",
   "checklist-ding-sound-description": "Ku ciyaarta dhawaaq gaaban marka aad calaamadeyso shay checklist ah. Wuu damanyahay si caadi ah.",
   "assignee": "Loo xilsaaray",

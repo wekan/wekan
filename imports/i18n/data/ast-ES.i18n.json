@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Cuando escueyes una etiqueta con # o un miembru con @ mientres escribes el títulu d'una tarxeta nueva, caltién esi testu tamién nel títulu. Desactiváu: el testu sustitúyese pola etiqueta o pol miembru.",
   "title-bracket-label": "Convertir [etiqueta] al entamu del títulu d'una tarxeta nueva nuna etiqueta",
   "title-bracket-label-description": "Cuando'l títulu d'una tarxeta nueva entama con [Testu] siguíu de más testu, Testu conviértese nuna etiqueta de la tarxeta (críase si'l tableru nun tien nenguna con esi nome) y quítase del títulu. Desactiváu: el títulu caltiénse como ta.",
+  "keep-add-card-form-open": "Caltener abiertu'l formulariu d'amestar tarxeta dempués d'amestar una tarxeta",
+  "keep-add-card-form-open-description": "Activáu: dempués d'amestar una tarxeta, el formulariu sigue abiertu con un títulu baleru pa la tarxeta siguiente. Desactiváu: el formulariu ciérrase en cuantes s'amiesta la tarxeta.",
   "checklist-ding-sound": "Sonar cuando se completa un elementu de llista de verificación",
   "checklist-ding-sound-description": "Sonar un tonu curtiu cuando marques un elementu de llista de verificación. Desactiváu por defeutu.",
   "assignee": "Asignado",

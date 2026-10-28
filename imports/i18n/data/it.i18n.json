@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Quando scegli un'etichetta con # o un membro con @ mentre digiti il titolo di una nuova scheda, quel testo viene mantenuto anche nel titolo. Disattivato: il testo viene sostituito dall'etichetta o dal membro.",
   "title-bracket-label": "Trasforma [etichetta] all'inizio del titolo di una nuova scheda in un'etichetta",
   "title-bracket-label-description": "Quando il titolo di una nuova scheda inizia con [Testo] seguito da altro testo, Testo diventa un'etichetta della scheda (creata se la bacheca non ne ha una con quel nome) e viene rimosso dal titolo. Disattivato: il titolo viene mantenuto così com'è.",
+  "keep-add-card-form-open": "Mantieni aperto il modulo Aggiungi scheda dopo l'aggiunta di una scheda",
+  "keep-add-card-form-open-description": "Attivo: dopo l'aggiunta di una scheda, il modulo resta aperto con un titolo vuoto per la scheda successiva. Disattivo: il modulo si chiude una volta aggiunta la scheda.",
   "checklist-ding-sound": "Riproduci un suono quando un elemento della lista di controllo viene completato",
   "checklist-ding-sound-description": "Riproduce un breve suono quando selezioni un elemento della lista di controllo. Disattivato per impostazione predefinita.",
   "assignee": "Assegnatario",

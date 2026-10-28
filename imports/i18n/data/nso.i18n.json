@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ge o kgetha leswayo ka # goba leloko ka @ ge o ngwala sehlogo sa karata ye mpsha, boloka sengwalwa seo le ka sehlogong. Go timilwe: sengwalwa se tšeelwa legato ke leswayo goba leloko.",
   "title-bracket-label": "Fetola [leswayo] mathomong a sehlogo sa karata ye mpsha go ba leswayo",
   "title-bracket-label-description": "Ge sehlogo sa karata ye mpsha se thoma ka [Sengwalwa] gomme sa latelwa ke sengwalwa se sengwe, Sengwalwa se ba leswayo la karata (le a hlolwa ge poto e se na leswayo la leina leo) gomme sa tlošwa sehlogong. Go timilwe: sehlogo se dula bjalo ka ge se le.",
+  "keep-add-card-form-open": "Tlogela foromo ya go oketša karata e butšwe ka morago ga go oketša karata",
+  "keep-add-card-form-open-description": "Bulegile: ka morago ga ge karata e okeditšwe, foromo e dula e butšwe ka thaetlele ye e se nago selo bakeng sa karata ye e latelago. Tswaletšwe: foromo e a tswalega ge karata e okeditšwe.",
   "checklist-ding-sound": "Bapala modumo ge selo sa lenaneo la tlhahlobo se feditšwe",
   "checklist-ding-sound-description": "E bapala modumo o mokopana ge o tshwaya selo sa lenaneo la tlhahlobo. E timilwe ka tlhago.",
   "assignee": "Yo a filwego mošomo",

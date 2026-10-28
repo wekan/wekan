@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ora bo skohe un etiketa ku # òf un miembro ku @ miéntras bo ta tek e título di un karchi nobo, e teksto ei ta keda den e título tambe. Pagá: e teksto ta wòrdu remplasá pa e etiketa òf e miembro.",
   "title-bracket-label": "Kambia [etiketa] na kuminsamentu di título di un karchi nobo den un etiketa",
   "title-bracket-label-description": "Ora título di un karchi nobo kuminsá ku [Teksto] sigui pa mas teksto, Teksto ta bira un etiketa di e karchi (e ta wòrdu krea si e tabla no tin niun ku e nòmber ei) i ta wòrdu kitá for di e título. Pagá: e título ta keda manera e ta.",
+  "keep-add-card-form-open": "Tene e formulario di agregá karchi habri despues di agregá un karchi",
+  "keep-add-card-form-open-description": "Prendí: despues ku un karchi a wòrdu agregá, e formulario ta keda habri ku un título bashí pa e siguiente karchi. Pagá: e formulario ta sera apenas e karchi a wòrdu agregá.",
   "checklist-ding-sound": "Toka un zonido ora un item di checklist ta kompletá",
   "checklist-ding-sound-description": "Ta toka un zonido kortiku ora bo marka un item di checklist. Apagá pa default.",
   "assignee": "Enkargá",

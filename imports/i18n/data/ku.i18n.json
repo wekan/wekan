@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Dema ku tu di nivîsandina sernavê kartek nû de bi # etîketekê an bi @ endamekî hilbijêrî, ew nivîs di sernavê de jî dimîne. Girtî: nivîs bi etîket an endam tê guhertin.",
   "title-bracket-label": "[etîket] li destpêka sernavê karta nû bike etîket",
   "title-bracket-label-description": "Dema ku sernavê karteke nû bi [Nivîs] dest pê dike û pişt re nivîsa din tê, Nivîs dibe etîketa kartê (heke depo etîketeke bi wî navî tune be, tê afirandin) û ji sernavê tê rakirin. Girtî: sernav wekî xwe dimîne.",
+  "keep-add-card-form-open": "Forma zêdekirina kartê piştî zêdekirina kartekê vekirî bihêle",
+  "keep-add-card-form-open-description": "Çalak: piştî ku kartek tê zêdekirin, form bi sernavekî vala ji bo karta din vekirî dimîne. Neçalak: form piştî zêdekirina kartê tê girtin.",
   "checklist-ding-sound": "Dema hêmaneke checklistê temam dibe dengekî lêbide",
   "checklist-ding-sound-description": "Dema hêmaneke checklistê nîşan dikî dengekî kurt lêbide. Bi eslê xwe girtî ye.",
   "assignee": "Berpirsyar",

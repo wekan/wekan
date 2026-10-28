@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Wenn du beim Eingeben des Titels einer neuen Karte eine Kennzeichnung mit # oder ein Mitglied mit @ auswählst, bleibt dieser Text auch im Titel. Aus: Der Text wird durch die Kennzeichnung oder das Mitglied ersetzt.",
   "title-bracket-label": "[Kennzeichnung] am Anfang eines neuen Kartentitels in eine Kennzeichnung umwandeln",
   "title-bracket-label-description": "Wenn der Titel einer neuen Karte mit [Text] beginnt, gefolgt von weiterem Text, wird Text zu einer Kennzeichnung der Karte (sie wird erstellt, falls die Arbeitstafel noch keine mit diesem Namen hat) und aus dem Titel entfernt. Aus: Der Titel bleibt unverändert.",
+  "keep-add-card-form-open": "Formular «Karte hinzufügen» nach dem Hinzufügen einer Karte geöffnet lassen",
+  "keep-add-card-form-open-description": "Ein: Nach dem Hinzufügen einer Karte bleibt das Formular mit einem leeren Titel für die nächste Karte geöffnet. Aus: Das Formular wird geschlossen, sobald die Karte hinzugefügt wurde.",
   "checklist-ding-sound": "Einen Ton abspielen, wenn ein Checklistenelement erledigt wird",
   "checklist-ding-sound-description": "Spielt einen kurzen Ton ab, wenn ein Checklistenelement abgehakt wird. Standardmässig deaktiviert.",
   "assignee": "Zugewiesen",

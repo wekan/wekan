@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Quandu sceglite un'etichetta cù # o un membru cù @ scrivendu u titulu d'una carta nova, tene ancu stu testu in u titulu. Spentu: u testu hè rimpiazzatu da l'etichetta o da u membru.",
   "title-bracket-label": "Trasfurmà [etichetta] à u principiu di u titulu di una carta nova in un'etichetta",
   "title-bracket-label-description": "Quandu u titulu di una carta nova principia cù [Testu] seguitu da altru testu, Testu diventa un'etichetta di a carta (creata s'è a tavula ùn ne hà micca cù stu nome) è hè cacciatu da u titulu. Spentu: u titulu ferma cum'ellu hè.",
+  "keep-add-card-form-open": "Tene apertu u furmulariu Aghjunghje una carta dopu avè aghjuntu una carta",
+  "keep-add-card-form-open-description": "Attivatu: dopu chì una carta hè aghjunta, u furmulariu ferma apertu cù un titulu viotu per a carta seguente. Disattivatu: u furmulariu si chjode appena chì a carta hè aghjunta.",
   "checklist-ding-sound": "Ghjucà un sonu quandu un elementu di a lista di verificazione hè cumpletatu",
   "checklist-ding-sound-description": "Ghjucà un sonu cortu quandu marcate un elementu di a lista di verificazione. Disattivatu per difettu.",
   "assignee": "Assignatu",

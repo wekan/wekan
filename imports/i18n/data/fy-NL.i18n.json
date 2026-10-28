@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "As jo by it typen fan de titel fan in nije kaart in oantsjuttingsetiket mei # of in lid mei @ kieze, bliuwt dy tekst ek yn de titel stean. Ut: de tekst wurdt ferfongen troch it oantsjuttingsetiket of it lid.",
   "title-bracket-label": "[oantsjuttingsetiket] oan it begjin fan in nije kaarttitel omsette yn in oantsjuttingsetiket",
   "title-bracket-label-description": "As de titel fan in nije kaart begjint mei [Tekst] folge troch mear tekst, wurdt Tekst in oantsjuttingsetiket fan de kaart (oanmakke as it boerd gjin etiket mei dy namme hat) en wurdt it út de titel wei helle. Ut: de titel bliuwt sa't er is.",
+  "keep-add-card-form-open": "It formulier foar kaart tafoegje iepen hâlde nei it tafoegjen fan in kaart",
+  "keep-add-card-form-open-description": "Oan: nei't in kaart tafoege is, bliuwt it formulier iepen mei in lege titel foar de folgjende kaart. Út: it formulier slút sa gau't de kaart tafoege is.",
   "checklist-ding-sound": "Spylje in lûd ôf as in kontrôlelist-item ôfrûne wurdt",
   "checklist-ding-sound-description": "Spylje in koart pingûdsje ôf as jo in kontrôlelist-item ôfmerke. Standert út.",
   "assignee": "Oanwêzige",

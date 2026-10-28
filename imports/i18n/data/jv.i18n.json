@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Nalika sampeyan milih label nganggo # utawa anggota nganggo @ nalika ngetik irah-irahan kertu anyar, teks kasebut uga tetep ana ing irah-irahan. Mati: teks diganti karo label utawa anggota.",
   "title-bracket-label": "Owahi [label] ing wiwitan irah-irahan kertu anyar dadi label",
   "title-bracket-label-description": "Yen irah-irahan kertu anyar diwiwiti karo [Teks] lan banjur ana teks liyane, Teks dadi label kertu (digawe yen papan durung duwe label kanthi jeneng kuwi) lan dibusak saka irah-irahan. Mati: irah-irahan tetep kaya asline.",
+  "keep-add-card-form-open": "Formulir tambah kertu tetep dibukak sawise nambah kertu",
+  "keep-add-card-form-open-description": "Urip: sawise kertu ditambahake, formulir tetep kabukak kanthi irah-irahan kosong kanggo kertu sabanjure. Mati: formulir ditutup sawise kertu ditambahake.",
   "checklist-ding-sound": "Muter swara nalika item checklist rampung",
   "checklist-ding-sound-description": "Muter swara cekak nalika sampeyan nyentang item checklist. Standhare mati.",
   "assignee": "Sing ditugasi",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Når du velger en etikett med # eller et medlem med @ mens du skriver tittelen på et nytt kort, beholdes teksten også i tittelen. Av: teksten erstattes av etiketten eller medlemmet.",
   "title-bracket-label": "Gjør [etikett] i starten av en ny korttittel til en etikett",
   "title-bracket-label-description": "Når tittelen på et nytt kort starter med [Tekst] etterfulgt av mer tekst, blir Tekst en etikett på kortet (opprettes hvis tavlen ikke har en med det navnet) og fjernes fra tittelen. Av: tittelen beholdes som den er.",
+  "keep-add-card-form-open": "Hold skjemaet for å legge til kort åpent etter at et kort er lagt til",
+  "keep-add-card-form-open-description": "På: etter at et kort er lagt til, forblir skjemaet åpent med en tom tittel for neste kort. Av: skjemaet lukkes når kortet er lagt til.",
   "checklist-ding-sound": "Spill av en lyd når et sjekkliste-element fullføres",
   "checklist-ding-sound-description": "Spiller av en kort ding-lyd når du haker av et sjekklisteelement. Skrudd av som standard.",
   "assignee": "Tildelt",

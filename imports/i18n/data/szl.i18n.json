@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Kej przi pisaniu tytułu nowyj karty wybieresz etykieta bez # abo czōnka bez @, tyn tekst ôstanie tyż we tytule. Zastawiōne: tekst je zastōmpiōny etykietōm abo czōnkym.",
   "title-bracket-label": "Zmiyniej [etykieta] na poczōntku tytułu nowyj karty w etykieta",
   "title-bracket-label-description": "Kej tytuł nowyj karty zaczyno sie ôd [Tekst], a po nim je jeszcze tekst, Tekst stowo sie etykietōm karty (je zrobiōno, jeźli tabula niy mo etykiety ô tym mianie) i je wyciepany z tytułu. Zastawiōne: tytuł ôstowo taki, jaki je.",
+  "keep-add-card-form-open": "Trzimej formular przidowanio karty ôtwarty po przidaniu karty",
+  "keep-add-card-form-open-description": "Załōnczōne: po przidaniu karty formular ôstowo ôtwarty z prōznym tytułym do nastympnyj karty. Wyłōnczōne: formular sie zawiyro, jak ino karta je przidano.",
   "checklist-ding-sound": "Grej źwynk, kej pozycyjo listy do zaznaczaniŏ je gotowo",
   "checklist-ding-sound-description": "Grŏ krotki źwynk, kej ôbznaczisz pozycyjo listy do zaznaczaniŏ. Wyłōnczōne wedle dōmyślnego sztalōnku.",
   "assignee": "Ôdpowiedzialny",

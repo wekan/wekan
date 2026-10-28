@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Rehefa misafidy marika amin'ny # na mpikambana amin'ny @ ianao eo am-panoratana ny lohatenin'ny karatra vaovao, tazomy ao amin'ny lohateny koa io soratra io. Maty: soloin'ny marika na ny mpikambana ilay soratra.",
   "title-bracket-label": "Avadiho ho marika ny [marika] eo am-piandohan'ny lohatenin'ny karatra vaovao",
   "title-bracket-label-description": "Rehefa manomboka amin'ny [Soratra] ny lohatenin'ny karatra vaovao ary arahin'ny soratra hafa, dia lasa marika ho an'ny karatra ny Soratra (noforonina raha tsy manana marika mitondra io anarana io ny solaitra) ary esorina amin'ny lohateny. Maty: tazonina tahaka ny misy azy ny lohateny.",
+  "keep-add-card-form-open": "Avelao hisokatra ny fisoratana Hanampy karatra aorian'ny fanampiana karatra",
+  "keep-add-card-form-open-description": "Mandeha: rehefa nampiana karatra, mijanona misokatra ny fisoratana miaraka amin'ny lohateny foana ho an'ny karatra manaraka. Tsy mandeha: mihidy ny fisoratana raha vao nampiana ny karatra.",
   "checklist-ding-sound": "Alefaso ny feo rehefa vita ny singa iray amin'ny checklist",
   "checklist-ding-sound-description": "Mamerina feo fohy rehefa mametaka marika amin'ny singa checklist iray. Maty amin'ny fomba tsy miova.",
   "assignee": "Voatendry",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Lorsque vous choisissez une étiquette avec # ou un participant avec @ en saisissant le titre d'une nouvelle carte, ce texte est aussi conservé dans le titre. Désactivé : le texte est remplacé par l'étiquette ou le participant.",
   "title-bracket-label": "Transformer [étiquette] au début du titre d'une nouvelle carte en étiquette",
   "title-bracket-label-description": "Lorsque le titre d'une nouvelle carte commence par [Texte] suivi d'autre texte, Texte devient une étiquette de la carte (créée si le tableau n'en a aucune portant ce nom) et est retiré du titre. Désactivé : le titre est conservé tel quel.",
+  "keep-add-card-form-open": "Garder le formulaire d'ajout de carte ouvert après l'ajout d'une carte",
+  "keep-add-card-form-open-description": "Activé : après l'ajout d'une carte, le formulaire reste ouvert avec un titre vide pour la carte suivante. Désactivé : le formulaire se ferme une fois la carte ajoutée.",
   "checklist-ding-sound": "Jouer un son lorsqu'un élément de la liste de contrôle est terminé",
   "checklist-ding-sound-description": "Joue un court signal sonore lorsque vous cochez un élément de la liste de contrôle. Désactivé par défaut.",
   "assignee": "Intervenant",

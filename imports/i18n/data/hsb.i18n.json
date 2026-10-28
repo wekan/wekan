@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Hdyž při pisanju titula noweje karty etiketu z # abo čłona z @ wuběraće, wostanje tutón tekst tež w titulu. Wupinjene: tekst so přez etiketu abo čłona naruna.",
   "title-bracket-label": "[etiketa] na spočatku titula noweje karty do etikety přetworić",
   "title-bracket-label-description": "Hdyž so titul noweje karty z [Tekst] započina a dalši tekst sćěhuje, stanje so Tekst z etiketu karty (wutwori so, jeli tafla žanu etiketu z tym mjenom nima) a wotstroni so z titula. Wupinjene: titul wostanje, kaž je.",
+  "keep-add-card-form-open": "Formular za přidawanje karty po přidaću karty wočinjeny wostajić",
+  "keep-add-card-form-open-description": "Zapinjeny: po přidaću karty wostanje formular z prózdnym titulom za přichodnu kartu wočinjeny. Wupinjeny: formular so začini, hdyž je so karta přidała.",
   "checklist-ding-sound": "Zynk wothrać, hdyž so zapisk kontrolneje lisćiny dokónči",
   "checklist-ding-sound-description": "Krótki zynk wothrać, hdyž zapisk kontrolneje lisćiny woznamjeniće. Po standardźe wupinjene.",
   "assignee": "Přirjadowana wosoba",

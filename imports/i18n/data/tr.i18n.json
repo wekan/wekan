@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Yeni bir kartın başlığını yazarken # ile bir etiket veya @ ile bir üye seçtiğinizde, bu metin başlıkta da korunur. Kapalı: metin etiket veya üye ile değiştirilir.",
   "title-bracket-label": "Yeni kart başlığının başındaki [etiket] ifadesini etikete dönüştür",
   "title-bracket-label-description": "Yeni bir kartın başlığı [Metin] ile başlayıp ardından başka metin geldiğinde, Metin kartın etiketi olur (panoda bu adda etiket yoksa oluşturulur) ve başlıktan kaldırılır. Kapalı: başlık olduğu gibi korunur.",
+  "keep-add-card-form-open": "Kart ekledikten sonra Kart Ekle formunu açık tut",
+  "keep-add-card-form-open-description": "Açık: bir kart eklendikten sonra form, sonraki kart için boş bir başlıkla açık kalır. Kapalı: kart eklendiğinde form kapanır.",
   "checklist-ding-sound": "Kontrol listesi öğesi tamamlandığında ses çal",
   "checklist-ding-sound-description": "Bir kontrol listesi öğesini işaretlediğinizde kısa bir ding sesi çalar. Varsayılan olarak kapalıdır.",
   "assignee": "Atanan",

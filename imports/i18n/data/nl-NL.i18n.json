@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Wanneer je tijdens het typen van de titel van een nieuwe kaart een aanduidingsmarkering met # of een lid met @ kiest, blijft die tekst ook in de titel staan. Uit: de tekst wordt vervangen door de markering of het lid.",
   "title-bracket-label": "[markering] aan het begin van een nieuwe kaarttitel omzetten in een markering",
   "title-bracket-label-description": "Als de titel van een nieuwe kaart begint met [Tekst] gevolgd door meer tekst, wordt Tekst een markering van de kaart (aangemaakt als het bord er geen met die naam heeft) en wordt het uit de titel verwijderd. Uit: de titel blijft zoals hij is.",
+  "keep-add-card-form-open": "Houd het formulier Kaart toevoegen open na het toevoegen van een kaart",
+  "keep-add-card-form-open-description": "Aan: nadat een kaart is toegevoegd, blijft het formulier open met een lege titel voor de volgende kaart. Uit: het formulier sluit zodra de kaart is toegevoegd.",
   "checklist-ding-sound": "Speel een geluid af wanneer een checklist-item is voltooid",
   "checklist-ding-sound-description": "Speelt een kort belgeluid af wanneer u een checklist-item afvinkt. Standaard uitgeschakeld.",
   "assignee": "Toegewezen aan",

@@ -179,6 +179,13 @@ Template.listBody.onCreated(function () {
     return undefined;
   };
 
+  // #6827: Member Settings' "Keep the Add card form open" - off unless the
+  // user turned it on, so the form closes once its cards are added.
+  const keepAddCardFormOpen = () => {
+    const user = ReactiveCache.getCurrentUser();
+    return Boolean(user && typeof user.hasKeepAddCardFormOpen === 'function' && user.hasKeepAddCardFormOpen());
+  };
+
   // #6810: Member Settings' "[Text] at the start of a new card title becomes
   // a label" - off unless the user turned it on.
   const titleBracketLabelOn = () => {
@@ -208,6 +215,7 @@ Template.listBody.onCreated(function () {
     this.creatingCards = true;
     textarea[0].disabled = true;
     let titleIndex = 0;
+    let closeAfterAdd = false;
     try {
       for (const rawTitle of titles) {
         // #3986: a leading "[LabelName] " prefix on the typed title applies (and,
@@ -374,12 +382,16 @@ Template.listBody.onCreated(function () {
           // See https://github.com/wekan/wekan/issues/80
           Filter.addException(_id);
 
-          // We keep the form opened and scroll to it.
+          // Kept open (Member Settings), the form is scrolled to.
           if (position === 'bottom') {
             this.scrollToBottom();
           }
         }
       }
+      // #6827: once every title of the form is added, it closes, unless the
+      // user keeps it open to type the next card. Not before: the loop above
+      // still reads the form between the titles of a multi-line paste.
+      closeAfterAdd = titleIndex > 0 && !keepAddCardFormOpen();
     } catch (error) {
       textarea.val(titles.slice(titleIndex).join('\n'));
       autosize.update(textarea);
@@ -389,6 +401,10 @@ Template.listBody.onCreated(function () {
       textarea[0].disabled = false;
       textarea[0].focus();
       textarea[0].dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    if (closeAfterAdd) {
+      // The form's own close: it also clears the one-open-form tracker.
+      submittedForm.querySelector('.js-close-inlined-form')?.click();
     }
   };
 

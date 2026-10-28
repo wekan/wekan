@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "在輸入新卡片標題時以 # 選擇標籤或以 @ 選擇成員後，該文字也會保留在標題中。關閉：該文字會被標籤或成員取代。",
   "title-bracket-label": "將新卡片標題開頭的 [標籤] 轉換為標籤",
   "title-bracket-label-description": "當新卡片的標題以 [文字] 開頭且後面還有其他文字時，文字會成為該卡片的標籤（如果看板中沒有該名稱的標籤則會建立），並從標題中移除。關閉：標題保持原樣。",
+  "keep-add-card-form-open": "新增卡片後保持「新增卡片」表單開啟",
+  "keep-add-card-form-open-description": "開：新增卡片後，表單保持開啟，並為下一張卡片留下空白標題。關：卡片新增後表單即關閉。",
   "checklist-ding-sound": "當待辦清單項目完成時播放音效",
   "checklist-ding-sound-description": "在勾選待辦清單項目時，播放一段短促的叮聲。預設為關閉。",
   "assignee": "承辦人",

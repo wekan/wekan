@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Nawukhetsa ilebula nge-# nobe lilunga nge-@ ngesikhatsi ubhala sihloko selikhadi lelisha, gcina lombhalo nasesihlokweni. Kucishiwe: lombhalo ushintjwa ngelebula nobe ngelilunga.",
   "title-bracket-label": "Shintja [ilebula] ekucaleni kwesihloko selikhadi lelisha libe yilebula",
   "title-bracket-label-description": "Nangabe sihloko selikhadi lelisha sicala nga-[Umbhalo] bese kulandzela lomunye umbhalo, Umbhalo uba yilebula lelikhadi (liyakhiwa nangabe libhodi lingenalo lebula lelinalelo libito) futsi ususwa esihlokweni. Kucishiwe: sihloko sisala sinjalo.",
+  "keep-add-card-form-open": "Gcina lifomu lekungeta likhadi livulekile ngemuva kwekungeta likhadi",
+  "keep-add-card-form-open-description": "Kuvuliwe: ngemuva kwekungeta likhadi, lifomu lihlala livulekile linesihloko lesingenalutfo selikhadi lelilandzelako. Kuvaliwe: lifomu liyavaleka nangabe likhadi selingetiwe.",
   "checklist-ding-sound": "Dlala umsindvo nangabe intfo ye-checklist icedziwe",
   "checklist-ding-sound-description": "Idlala umsindvo lomncane nangabe uphawula intfo ye-checklist. Icishiwe ngalokwendlalelo.",
   "assignee": "Lonikwe umsebenti",

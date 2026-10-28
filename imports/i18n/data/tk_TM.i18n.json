@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Täze kartyň adyny ýazýarkaňyz # bilen bellik ýa-da @ bilen agza saýlasaňyz, şol tekst adda hem saklanýar. Öçük: tekst bellik ýa-da agza bilen çalşyrylýar.",
   "title-bracket-label": "Täze kartyň adynyň başyndaky [bellik] sözüni bellige öwür",
   "title-bracket-label-description": "Täze kartyň ady [Tekst] bilen başlanyp, yzyndan başga tekst gelse, Tekst kartyň belligi bolýar (tagtada şu atly bellik ýok bolsa, döredilýär) we atdan aýrylýar. Öçük: ady bolşy ýaly galýar.",
+  "keep-add-card-form-open": "Kart goşulandan soň Kart goşmak formasyny açyk sakla",
+  "keep-add-card-form-open-description": "Açyk: kart goşulandan soň forma indiki kart üçin boş at bilen açyk galýar. Ýapyk: kart goşulan badyna forma ýapylýar.",
   "checklist-ding-sound": "Barlaýyş sanawynyň maddasy tamamlananda ses çal",
   "checklist-ding-sound-description": "Barlaýyş sanawynyň maddasyny bellände gysga ses çalýar. Deslapky ýagdaýda öçürilen.",
   "assignee": "Bellenen",

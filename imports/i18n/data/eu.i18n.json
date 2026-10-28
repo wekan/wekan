@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Txartel berri baten izenburua idaztean # bidez etiketa bat edo @ bidez kide bat aukeratzen duzunean, testu hori izenburuan ere mantentzen da. Desaktibatuta: testua etiketak edo kideak ordezten du.",
   "title-bracket-label": "Bihurtu txartel berri baten izenburuaren hasierako [etiketa] etiketa",
   "title-bracket-label-description": "Txartel berri baten izenburua [Testua] hitzarekin hasten denean eta ondoren testu gehiago dagoenean, Testua txartelaren etiketa bihurtzen da (sortu egiten da arbelak izen hori duen etiketarik ez badu) eta izenburutik kentzen da. Desaktibatuta: izenburua dagoen bezala mantentzen da.",
+  "keep-add-card-form-open": "Mantendu txartela gehitzeko inprimakia irekita txartel bat gehitu ondoren",
+  "keep-add-card-form-open-description": "Aktibatuta: txartel bat gehitu ondoren, inprimakia irekita geratzen da hurrengo txartelerako izenburu hutsarekin. Desaktibatuta: inprimakia itxi egiten da txartela gehitu bezain laster.",
   "checklist-ding-sound": "Jo soinu bat egiaztapen-zerrendako elementu bat osatzean",
   "checklist-ding-sound-description": "Egiaztapen-zerrendako elementu bat markatzean soinu labur bat jotzen du. Berez desaktibatuta.",
   "assignee": "Esleitua",

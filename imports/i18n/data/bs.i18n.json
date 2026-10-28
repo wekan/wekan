@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Kada pri upisivanju naslova nove kartice odabereš oznaku sa # ili člana sa @, taj tekst ostaje i u naslovu. Isključeno: tekst se zamjenjuje oznakom ili članom.",
   "title-bracket-label": "Pretvori [oznaka] na početku naslova nove kartice u oznaku",
   "title-bracket-label-description": "Kada naslov nove kartice počinje sa [Tekst] nakon čega slijedi još teksta, Tekst postaje oznaka kartice (kreira se ako tabla nema oznaku s tim imenom) i uklanja se iz naslova. Isključeno: naslov ostaje kakav jeste.",
+  "keep-add-card-form-open": "Zadrži obrazac za dodavanje kartice otvorenim nakon dodavanja kartice",
+  "keep-add-card-form-open-description": "Uključeno: nakon dodavanja kartice obrazac ostaje otvoren s praznim naslovom za sljedeću karticu. Isključeno: obrazac se zatvara čim se kartica doda.",
   "checklist-ding-sound": "Reproduciraj zvuk kada se stavka kontrolne liste dovrši",
   "checklist-ding-sound-description": "Reproduciraj kratak zvuk kada označite stavku kontrolne liste. Podrazumevano isključeno.",
   "assignee": "Zaduženi",

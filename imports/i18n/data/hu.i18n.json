@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Ha egy új kártya címének gépelése közben # jellel címkét vagy @ jellel tagot választasz, a szöveg a címben is megmarad. Kikapcsolva: a szöveget a címke vagy a tag váltja fel.",
   "title-bracket-label": "Az új kártya címének elején lévő [címke] címkévé alakítása",
   "title-bracket-label-description": "Ha egy új kártya címe [Szöveg] elemmel kezdődik, és utána további szöveg következik, a Szöveg a kártya címkéje lesz (létrejön, ha a táblán nincs ilyen nevű címke), és kikerül a címből. Kikapcsolva: a cím változatlan marad.",
+  "keep-add-card-form-open": "Kártya hozzáadása űrlap nyitva tartása kártya hozzáadása után",
+  "keep-add-card-form-open-description": "Be: kártya hozzáadása után az űrlap nyitva marad üres címmel a következő kártyához. Ki: az űrlap bezárul, amint a kártya hozzá lett adva.",
   "checklist-ding-sound": "Hang lejátszása, ha egy ellenőrzőlista-elem befejeződik",
   "checklist-ding-sound-description": "Rövid csengőhangot játszik le, amikor bejelölsz egy ellenőrzőlista-elemet. Alapértelmezés szerint kikapcsolva.",
   "assignee": "Felelős",

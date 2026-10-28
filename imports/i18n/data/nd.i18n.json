@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Nxa ukhetha ilebula ngo-# kumbe ilunga ngo-@ ubhala isihloko sekhadi elitsha, gcina lowo umbhalo lesihlokweni futhi. Kuvaliwe: umbhalo uphathelwa yilebula kumbe yilunga.",
   "title-bracket-label": "Phendula [ilebula] ekuqaleni kwesihloko sekhadi elitsha libe yilebula",
   "title-bracket-label-description": "Nxa isihloko sekhadi elitsha siqala ngo-[Umbhalo] kulandele omunye umbhalo, uMbhalo uba yilebula lekhadi (liyadalwa nxa ibhodi lingelalo lebula lelo bizo) njalo ususwa esihlokweni. Kuvaliwe: isihloko sihlala sinjalo.",
+  "keep-add-card-form-open": "Gcina ifomu lokwengeza ikhadi livuliwe ngemva kokwengeza ikhadi",
+  "keep-add-card-form-open-description": "Kuvuliwe: ngemva kokwengezwa kwekhadi, ifomu lihlala livuliwe lilesihloko esingelalutho sekhadi elilandelayo. Kuvaliwe: ifomu liyavalwa nxa ikhadi selingeziwe.",
   "checklist-ding-sound": "Dlalisa umsindo nxa into ye-checklist isiphelile",
   "checklist-ding-sound-description": "Idlalisa umsindo omfitshane nxa uphawula into ye-checklist. Icinyiwe ngokuzenzakalelayo.",
   "assignee": "Onikwe umsebenzi",

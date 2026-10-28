@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Quand causissètz una etiqueta amb # o un membre amb @ en escriure lo títol d'una carta novèla, aqueste tèxte es tanben gardat dins lo títol. Desactivat : lo tèxte es remplaçat per l'etiqueta o lo membre.",
   "title-bracket-label": "Convertir [etiqueta] al començament del títol d'una carta novèla en etiqueta",
   "title-bracket-label-description": "Quand lo títol d'una carta novèla comença per [Tèxte] seguit d'autre tèxte, Tèxte ven una etiqueta de la carta (creada se lo tablèu ne'n a pas cap amb aqueste nom) e es levat del títol. Desactivat : lo títol es gardat tal coma es.",
+  "keep-add-card-form-open": "Gardar dobèrt lo formulari d'apondon de carta aprèp aver apondut una carta",
+  "keep-add-card-form-open-description": "Activat: aprèp l'apondon d'una carta, lo formulari demòra dobèrt amb un títol void per la carta seguenta. Desactivat: lo formulari se tampa tre que la carta es aponduda.",
   "checklist-ding-sound": "Jogar un son quand un element de la lista de verificacion es acabat",
   "checklist-ding-sound-description": "Jòga un son cort quand marcatz un element de la lista de verificacion. Desactivat per defaut.",
   "assignee": "Responsable",

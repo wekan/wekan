@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Cuant che tu sielzis une etichete cun # o un membri cun @ intant che tu scrivis il titul di une gnove cjarte, chel test al reste ancje tal titul. Distudât: il test al ven sostituît de etichete o dal membri.",
   "title-bracket-label": "Trasforme [etichete] al inizi dal titul di une gnove cjarte intune etichete",
   "title-bracket-label-description": "Cuant che il titul di une gnove cjarte al scomence cun [Test] daûr dal quâl al ven altri test, Test al devente une etichete de cjarte (creade se la taule no 'nd à nissune cun chel non) e al ven gjavât dal titul. Distudât: il titul al reste come che al è.",
+  "keep-add-card-form-open": "Ten viert il formulari par zontâ une cjarte dopo vê zontade une cjarte",
+  "keep-add-card-form-open-description": "Ativât: dopo che une cjarte e je stade zontade, il formulari al reste viert cuntun titul vueit pe cjarte sucessive. Disativât: il formulari si siere une volte zontade la cjarte.",
   "checklist-ding-sound": "Sune un sun cuant che un element de liste di control al ven completât",
   "checklist-ding-sound-description": "Sune un sun curt cuant che tu marchis un element de liste di control. Disativât in maniere predefinide.",
   "assignee": "Assegnât",

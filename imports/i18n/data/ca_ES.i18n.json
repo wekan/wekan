@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Quan tries una etiqueta amb # o un membre amb @ mentre escrius el títol d'una fitxa nova, conserva aquest text també al títol. Desactivat: el text se substitueix per l'etiqueta o el membre.",
   "title-bracket-label": "Converteix [etiqueta] a l'inici del títol d'una fitxa nova en una etiqueta",
   "title-bracket-label-description": "Quan el títol d'una fitxa nova comença amb [Text] seguit de més text, Text esdevé una etiqueta de la fitxa (es crea si el tauler no en té cap amb aquest nom) i s'elimina del títol. Desactivat: el títol es conserva tal com és.",
+  "keep-add-card-form-open": "Mantén obert el formulari d'afegir fitxa després d'afegir una fitxa",
+  "keep-add-card-form-open-description": "Activat: després d'afegir una fitxa, el formulari roman obert amb un títol buit per a la fitxa següent. Desactivat: el formulari es tanca tan bon punt s'afegeix la fitxa.",
   "checklist-ding-sound": "Reprodueix un so quan es completa un element de la llista de verificació",
   "checklist-ding-sound-description": "Reprodueix un so breu quan marqueu un element de la llista de verificació. Desactivat per defecte.",
   "assignee": "Assignat",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Wann Dir beim Tippe vum Titel vun enger neier Kaart eng Etikett mat # oder e Member mat @ auswielt, bleift dësen Text och am Titel. Aus: den Text gëtt duerch d'Etikett oder de Member ersat.",
   "title-bracket-label": "[Etikett] um Ufank vun engem neie Kaartentitel an eng Etikett ëmwandelen",
   "title-bracket-label-description": "Wann den Titel vun enger neier Kaart mat [Text] ufänkt an duerno nach méi Text kënnt, gëtt Text eng Etikett vun der Kaart (se gëtt erstallt, wann d'Tafel keng mat deem Numm huet) an aus dem Titel ewechgeholl. Aus: den Titel bleift esou wéi en ass.",
+  "keep-add-card-form-open": "De Formulaire fir eng Kaart derbäizesetzen no dem Derbäisetze vun enger Kaart op loossen",
+  "keep-add-card-form-open-description": "Un: nodeems eng Kaart derbäigesat gouf, bleift de Formulaire mat engem eidelen Titel fir déi nächst Kaart op. Aus: de Formulaire gëtt zougemaach, soubal d'Kaart derbäigesat ass.",
   "checklist-ding-sound": "E Kloen ofspillen wann en Checklist-Element ofgeschloss ass",
   "checklist-ding-sound-description": "Spillt e kuerze Kloen of wann Dir en Checklist-Element ofhakt. Standardméisseg aus.",
   "assignee": "Zoustänneg",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Tá ið tú velur eitt merki við # ella ein lim við @, meðan tú skrivar heitið á einum nýggjum korti, verður tekstin eisini verandi í heitinum. Sløkt: tekstin verður skiftur út við merkið ella limin.",
   "title-bracket-label": "Ger [merki] í byrjanini av heitinum á nýggjum korti til eitt merki",
   "title-bracket-label-description": "Tá ið heitið á nýggjum korti byrjar við [Tekst] og meiri tekstur fylgir eftir, verður Tekst eitt merki á kortinum (stovnað, um talvan ikki hevur eitt við tí navninum) og verður strikað úr heitinum. Sløkt: heitið verður verandi sum tað er.",
+  "keep-add-card-form-open": "Hald formin at leggja kort afturat opnan, eftir at eitt kort er lagt afturat",
+  "keep-add-card-form-open-description": "Á: tá ið eitt kort er lagt afturat, verður formurin verandi opin við tómum heiti til næsta kortið. Av: formurin verður latin aftur, tá ið kortið er lagt afturat.",
   "checklist-ding-sound": "Spæl ein ljóð tá ein checklist-lutur verður liðugur",
   "checklist-ding-sound-description": "Spælur eitt stutt ljóð, tá tú merkir ein checklist-lut sum liðugan. Sløkt sum sjálvvirkjandi.",
   "assignee": "Ábyrgdari",

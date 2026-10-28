@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Tra t'ou reih lipaid lesh # ny olt lesh @ choud as t'ou screeu ard-ennym kaart noa, freill y text shen ayns yn ard-ennym myrgeddin. Jeant magh: ta'n lipaid ny'n olt goaill ynnyd y text.",
   "title-bracket-label": "Caghlaa [lipaid] ec toshiaght ard-enmys kaart noa gys lipaid",
   "title-bracket-label-description": "Tra ta ard-ennym kaart noa goaill toshiaght lesh [Text] as text elley ny yei, ta Text jannoo lipaid jeh'n kaart (er ny chroo mannagh vel lipaid lesh yn ennym shen er y voayrd) as t'eh er ny scughey ass yn ard-ennym. Jeant magh: ta'n ard-ennym freayll myr t'eh.",
+  "keep-add-card-form-open": "Freill yn form son kaart y chur rish foshlit lurg da kaart ve currit rish",
+  "keep-add-card-form-open-description": "Er: lurg da kaart ve currit rish, nee yn form fuirraght foshlit lesh ard-ennym follym son yn nah kaart. Jeh: nee yn form dooney tra ta'n kaart currit rish.",
   "checklist-ding-sound": "Cloie sheean tra ta reih-lettyrn checklist jeant",
   "checklist-ding-sound-description": "Cloie sheean giare tra t'ou cur cross er reih-lettyr checklist. Ass jeh liorish daanjys.",
   "assignee": "Currit da",

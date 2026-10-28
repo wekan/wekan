@@ -3119,6 +3119,14 @@
     {
       "key": "data-health-never-run",
       "since": "2026-10-27"
+    },
+    {
+      "key": "keep-add-card-form-open",
+      "since": "2026-10-28"
+    },
+    {
+      "key": "keep-add-card-form-open-description",
+      "since": "2026-10-28"
     }
   ]
 }

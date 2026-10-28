@@ -38,6 +38,10 @@ test('#6714 cards offer one multiline title or separate cards in paste order', a
   await form.locator('.js-multiline-title-mode[value=separate]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('cards', { boardId: board.boardId, listId: list }).filter(c => ['First', 'Second', 'Third'].includes(c.title)).sort((a,b) => a.sort-b.sort).map(c => c.title)).toEqual(['First', 'Second', 'Third']);
+  // #6827: the form closes once its cards are added - after the last insert,
+  // so wait for that before opening it again for the next.
+  await expect(bp.list(list).locator('.js-inlined-form textarea.js-card-title')).toHaveCount(0);
+  await bp.openAddCardTop(list);
   await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.js-card-title').fill('One\nmultiline card');
   await form.locator('.js-multiline-title-mode[value=one]').check();

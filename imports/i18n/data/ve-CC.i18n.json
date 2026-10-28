@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Co te sielzi na eticheta co # o un membro co @ intanto che te scrivi el titolo de na scheda nova, tien anca quel testo inte'l titolo. Stuà: el testo el vien sostituìo da l'eticheta o dal membro.",
   "title-bracket-label": "Trasforma [eticheta] al scomìnsio del tìtoło de na scheda nova in na eticheta",
   "title-bracket-label-description": "Co el tìtoło de na scheda nova el scumìsia co [Testo] seguìo da altro testo, Testo el deventa na eticheta de ła scheda (creada se ła tołe no ła ghe ne ga nissuna co sto nome) e el vien cavà dal tìtoło. Destudà: el tìtoło el resta come che'l xe.",
+  "keep-add-card-form-open": "Tien verta la forma Zonta na scheda dopo aver zontà na scheda",
+  "keep-add-card-form-open-description": "Ativo: dopo che na scheda la xe stà zontà, la forma la resta verta co un titolo vodo par la scheda dopo. Disativo: la forma la se sera co la scheda la xe stà zontà.",
   "checklist-ding-sound": "Sona un son co na voze de ła lista de controło ła xe finìa",
   "checklist-ding-sound-description": "Sona un \"din\" curto co te segni na voze de ła lista de controło. Destacà de predefinìo.",
   "assignee": "Asegnatario",

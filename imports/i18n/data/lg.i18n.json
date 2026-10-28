@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Bw'olonda akabonero ne # oba memba ne @ ng'owandiika omutwe gw'ekaadi empya, kuuma ebigambo ebyo ne mu mutwe. Kiggale: ebigambo bikyusibwamu akabonero oba memba.",
   "title-bracket-label": "Fuula [akabonero] ku ntandikwa y'omutwe gw'ekaadi empya okubeera akabonero",
   "title-bracket-label-description": "Omutwe gw'ekaadi empya bwe gutandika ne [Ebigambo] era ne wabaawo ebigambo ebirala oluvannyuma, Ebigambo bifuuka akabonero k'ekaadi (kakolebwa singa olubaawo terulina kabonero ka linnya eryo) era biggibwa mu mutwe. Kiggale: omutwe gusigala nga bwe guli.",
+  "keep-add-card-form-open": "Kuuma foomu ya Yongerako ekaadi nga nzigule oluvannyuma lw'okwongerako ekaadi",
+  "keep-add-card-form-open-description": "Kiggule: ekaadi bw'emala okwongerebwako, foomu esigala nga nzigule n'omutwe omwereere ku kaadi eddako. Kiggale: foomu eggalwawo ekaadi bw'emala okwongerebwako.",
   "checklist-ding-sound": "Kuba oluyimba nga ekintu kya checklist kimazeeko",
   "checklist-ding-sound-description": "Kuba oluyimba olutono ng'oteekako akabonero ku kintu kya checklist. Kizikiddwa ku mutindo ogw'obulijjo.",
   "assignee": "Aweereddwa omulimu",

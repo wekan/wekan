@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Iyo uhisemwo ikimenyetso ukoresheje # canke umunywanyi ukoresheje @ igihe wandika umutwe w'ikarata nshasha, iyo nyandiko iguma no mu mutwe. Bihagaritswe: iyo nyandiko isubirizwa n'ikimenyetso canke umunywanyi.",
   "title-bracket-label": "Hindura [ikimenyetso] kiri mu ntango y'umutwe w'ikarata nshasha kibe ikimenyetso",
   "title-bracket-label-description": "Igihe umutwe w'ikarata nshasha utanguye na [Inyandiko] hagakurikira iyindi nyandiko, Inyandiko ihinduka ikimenyetso c'ikarata (kiraremwa nimba icapa kidafise ikimenyetso c'iryo zina) kandi ikurwa mu mutwe. Bihagaritswe: umutwe uguma uko uri.",
+  "keep-add-card-form-open": "Reka ifishi yo kwongerako ikarata yuguruye umaze kwongerako ikarata",
+  "keep-add-card-form-open-description": "Bifunguye: iyo ikarata imaze kwongerwako, ifishi iguma yuguruye ifise umutwe utarimwo ikintu ku ikarata ikurikira. Bifunze: ifishi iriyugara ikarata ikimara kwongerwako.",
   "checklist-ding-sound": "Cana amajwi igihe ikintu ca checklist kirangiye",
   "checklist-ding-sound-description": "Icana ijwi rigufi igihe umenyesha ikintu ca checklist. Birazimye ku bwoko busanzwe.",
   "assignee": "Uwahawe igikorwa",

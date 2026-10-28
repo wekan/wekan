@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Kui valid uue kaardi pealkirja kirjutades märgise # abil või liikme @ abil, jääb see tekst ka pealkirja alles. Väljas: tekst asendatakse märgise või liikmega.",
   "title-bracket-label": "Muuda uue kaardi pealkirja alguses olev [märgis] märgiseks",
   "title-bracket-label-description": "Kui uue kaardi pealkiri algab tekstiga [Tekst], millele järgneb veel teksti, saab Tekstist kaardi märgis (see luuakse, kui tahvlil sellise nimega märgist pole) ja see eemaldatakse pealkirjast. Väljas: pealkiri jääb nii, nagu see on.",
+  "keep-add-card-form-open": "Hoia kaardi lisamise vorm pärast kaardi lisamist avatud",
+  "keep-add-card-form-open-description": "Sees: pärast kaardi lisamist jääb vorm avatuks tühja pealkirjaga järgmise kaardi jaoks. Väljas: vorm suletakse, kui kaart on lisatud.",
   "checklist-ding-sound": "Esita heli, kui kontrollnimekirja üksus lõpetatakse",
   "checklist-ding-sound-description": "Esitab lühikese helina, kui märgid kontrollnimekirja üksuse tehtuks. Vaikimisi väljas.",
   "assignee": "Vastuvõtja",

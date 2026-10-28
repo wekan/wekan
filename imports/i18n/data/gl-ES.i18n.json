@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Cando escolles unha etiqueta con # ou un membro con @ mentres escribes o título dunha tarxeta nova, ese texto mantense tamén no título. Desactivado: o texto substitúese pola etiqueta ou o membro.",
   "title-bracket-label": "Converter [etiqueta] ao comezo do título dunha tarxeta nova nunha etiqueta",
   "title-bracket-label-description": "Cando o título dunha tarxeta nova comeza por [Texto] seguido de máis texto, Texto convértese nunha etiqueta da tarxeta (créase se o taboleiro non ten ningunha con ese nome) e quítase do título. Desactivado: o título mantense tal como está.",
+  "keep-add-card-form-open": "Manter aberto o formulario de engadir tarxeta despois de engadir unha tarxeta",
+  "keep-add-card-form-open-description": "Activado: despois de engadir unha tarxeta, o formulario segue aberto cun título baleiro para a seguinte tarxeta. Desactivado: o formulario péchase unha vez engadida a tarxeta.",
   "checklist-ding-sound": "Reproducir un son cando se completa un elemento da lista de verificación",
   "checklist-ding-sound-description": "Reproduce un son curto ao marcar un elemento da lista de verificación. Desactivado por defecto.",
   "assignee": "Asignado",

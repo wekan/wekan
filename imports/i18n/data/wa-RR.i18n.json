@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Kon pumili ka hin label gamit an # o hin membro gamit an @ samtang nagsusurat han titulo han bag-o nga kard, itipig liwat ito nga teksto ha titulo. Pinaso: an teksto igbabalyo han label o han membro.",
   "title-bracket-label": "Himoa nga label an [label] ha sinbagan han titulo han bag-o nga kard",
   "title-bracket-label-description": "Kon an titulo han bag-o nga kard nagsisinbag ha [Teksto] nga sinusundan hin dugang nga teksto, an Teksto magigin label han kard (hihimoon kon waray label ha pisara nga may-ada hito nga ngaran) ngan kukuhaon tikang ha titulo. Patay: an titulo magpapabilin sugad hiton.",
+  "keep-add-card-form-open": "Igpabilin nga bukas an porma han Idugang an Card katapos magdugang hin kard",
+  "keep-add-card-form-open-description": "Naka-on: katapos madugang an kard, nagpapabilin nga bukas an porma nga may waray sulod nga titulo para han sunod nga kard. Naka-off: nasisira an porma kon nadugang na an kard.",
   "checklist-ding-sound": "Magpatunog kon natatapos an usa nga butang ha lista han sususihon",
   "checklist-ding-sound-description": "Magpatunog hin halipot kon ginmamarkahan mo nga tapos an usa nga butang ha lista han sususihon. Daan nga nakaparong.",
   "assignee": "Gin-asignaran",

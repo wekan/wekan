@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Iyo uhisemo ikirango ukoresheje # cyangwa umunyamuryango ukoresheje @ mu gihe wandika umutwe w'ikarita nshya, iyo nyandiko igumamo no mu mutwe. Bizimye: inyandiko isimburwa n'ikirango cyangwa umunyamuryango.",
   "title-bracket-label": "Hindura [ikirango] kiri mu ntangiriro y'umutwe w'ikarita nshya kibe ikirango",
   "title-bracket-label-description": "Iyo umutwe w'ikarita nshya utangiranye na [Inyandiko] igakurikirwa n'indi nyandiko, Inyandiko iba ikirango cy'ikarita (gihangwa niba ikibaho kidafite ikirango cy'iryo zina) kandi ikavanwa mu mutwe. Bizimye: umutwe uguma uko uri.",
+  "keep-add-card-form-open": "Reka ifishi yo kongeraho ikarita ifunguye nyuma yo kongeraho ikarita",
+  "keep-add-card-form-open-description": "Bifunguye: nyuma yo kongeraho ikarita, ifishi iguma ifunguye ifite umutwe ubusa ku ikarita ikurikira. Bifunze: ifishi irafunga ikarita ikimara kongerwaho.",
   "checklist-ding-sound": "Kina ijwi iyo ikintu cy'urutonde rw'igenzura kirangiye",
   "checklist-ding-sound-description": "Kina ijwi rigufi igihe ushyize akamenyetso ku kintu cy'urutonde rw'igenzura. Mu buryo busanzwe birazimye.",
   "assignee": "Uwahawe akazi",

@@ -1986,6 +1986,8 @@
   "keep-title-tags-description": "Kai rašydami naujos kortelės pavadinimą pasirenkate etiketę su # arba narį su @, tas tekstas paliekamas ir pavadinime. Išjungta: tekstas pakeičiamas etikete arba nariu.",
   "title-bracket-label": "Paversti [etiketė] naujos kortelės pavadinimo pradžioje etikete",
   "title-bracket-label-description": "Kai naujos kortelės pavadinimas prasideda [Tekstas], po kurio eina daugiau teksto, Tekstas tampa kortelės etikete (sukuriama, jei lentoje nėra tokio pavadinimo etiketės) ir pašalinamas iš pavadinimo. Išjungta: pavadinimas paliekamas toks, koks yra.",
+  "keep-add-card-form-open": "Pridėjus kortelę, palikti kortelės pridėjimo formą atidarytą",
+  "keep-add-card-form-open-description": "Įjungta: pridėjus kortelę, forma lieka atidaryta su tuščiu pavadinimu kitai kortelei. Išjungta: forma uždaroma, kai tik kortelė pridedama.",
   "checklist-ding-sound": "Groti garsą, kai patikros sąrašo elementas užbaigiamas",
   "checklist-ding-sound-description": "Groja trumpą garsą, kai pažymite patikros sąrašo elementą. Pagal numatytuosius nustatymus išjungta.",
   "assignee": "Perėmėjas",

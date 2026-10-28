@@ -489,6 +489,10 @@ Template.changeSettingsPopup.helpers({
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasKeepTitleTags() : false;
   },
+  isKeepAddCardFormOpen() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser ? currentUser.hasKeepAddCardFormOpen() : false;
+  },
   isTitleBracketLabel() {
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasTitleBracketLabel() : false;
@@ -550,6 +554,9 @@ Template.changeSettingsPopup.events({
   },
   'click .js-toggle-unread-changes'() {
     if (ReactiveCache.getCurrentUser()) Meteor.call('toggleUnreadChanges');
+  },
+  'click .js-toggle-keep-add-card-form-open'() {
+    if (ReactiveCache.getCurrentUser()) Meteor.call('toggleKeepAddCardFormOpen');
   },
   'click .js-toggle-title-bracket-label'() {
     if (ReactiveCache.getCurrentUser()) Meteor.call('toggleTitleBracketLabel');
