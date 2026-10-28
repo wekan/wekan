@@ -30,6 +30,9 @@ function scripts() {
     }
   };
   walk('releases');
+  // sandstorm-src/build-deps.sh assembled meteor-spk in ~/projects while the
+  // pack step looked in .tools/projects, so the v12.66 .spk did not pack.
+  walk('sandstorm-src');
   return [...new Set(out)];
 }
 const code = src => src.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
@@ -91,6 +94,16 @@ test('no script writes to a folder in the home directory or edits a shell rc fil
   const bad = scripts().filter(r => !ELSEWHERE.test(r))
     .filter(rel => HOME_WRITE.test(code(read(rel)).replace(/METEOR_BIN="\$HOME\/\.meteor\/meteor"/g, '')));
   assert.deepStrictEqual(bad, []);
+});
+
+test('workflows look for the Sandstorm toolchain where the scripts put it, in .tools', () => {
+  // v12.66: the workflows put $HOME/projects/meteor-spk on PATH and zipped it
+  // from there, while the scripts had moved it to .tools/projects.
+  const dir = path.join(root, '.github/workflows');
+  const bad = fs.readdirSync(dir).filter(f => /\.ya?ml$/.test(f))
+    .filter(f => /(~|\$HOME|\$\{HOME\})\/projects\b/.test(code(read(path.join('.github/workflows', f)))));
+  assert.deepStrictEqual(bad, []);
+  assert.match('echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"', /(~|\$HOME|\$\{HOME\})\/projects\b/);
 });
 
 test('build.sh sources tools-env.sh and installs Node.js and Meteor into .tools', () => {

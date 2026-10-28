@@ -60,7 +60,7 @@ jobs:
       - name: Assemble modern meteor-spk.deps (same as sandstorm.yml)
         run: |
           bash sandstorm-src/build-deps.sh
-          echo "$HOME/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
+          echo "$GITHUB_WORKSPACE/.tools/projects/meteor-spk/meteor-spk-0.6.0" >> "$GITHUB_PATH"
 
       - name: Restore the Sandstorm signing keyring
         env:

@@ -24,7 +24,7 @@
 # (releases/ferretdb-asset.sh).
 #
 # Env:
-#   DEPS     the meteor-spk.deps directory   [$HOME/projects/meteor-spk/meteor-spk-0.6.0/meteor-spk.deps]
+#   DEPS     the meteor-spk.deps directory   [.tools/projects/meteor-spk/meteor-spk-0.6.0/meteor-spk.deps]
 #   SPK      the Sandstorm spk binary        [first of /opt/sandstorm/latest/bin/spk, spk]
 #   METEOR   the meteor command              [meteor]
 #   SANDSTORM_SLIM_NO_PACK=1  stop after the trimmed bundle is verified

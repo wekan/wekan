@@ -12,7 +12,7 @@
 # fetched from dl.sandstorm.org and the extra binaries from GitHub releases.
 #
 # Env (override as needed):
-#   OUT             work/output dir                    [$HOME/projects/meteor-spk]
+#   OUT             work/output dir                    [.tools/projects/meteor-spk]
 #   SANDSTORM_NODE_VERSION  exact Node to bundle   [the Dockerfile's NODE_VERSION]
 #   FERRETDB_TAG    wekan/FerretDB release to bundle   [newest one with ferretdb-sqlite-amd64]
 #   FERRETDB_SOURCE download (prebuilt SQLite-only) | build (from source, local only)   [download]
@@ -27,6 +27,7 @@
 # install the Dockerfile's NPM_VERSION through releases/use-release-npm.sh.
 #   MIGRATEMONGO    git URL of the Mongo 3.x CLIs      [github.com/wekan/migratemongo]
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/../releases/tools-env.sh"   # meteor-spk and downloads go to .tools/
 
 
 # Every download here goes through releases/fetch.sh, which waits out a 5xx or a
@@ -39,7 +40,7 @@ set -euo pipefail
 FETCH="$(cd "$(dirname "$0")/.." && pwd)/releases/fetch.sh"
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"     # wekan repo root
-OUT="${OUT:-$HOME/projects/meteor-spk}"
+OUT="${OUT:-$WEKAN_METEOR_SPK_DIR}"
 # Not $NODE_VERSION: the workflows set that to the bare major ('26') for
 # setup-node, and the grain must get the exact patch release, not "newest 26.x".
 NODE_PIN="${SANDSTORM_NODE_VERSION:-$(sed -n 's/.*NODE_VERSION=\(v[0-9][0-9.]*\).*/\1/p' "$REPO/Dockerfile" | head -1)}"

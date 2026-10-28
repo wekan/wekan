@@ -57,7 +57,7 @@ jobs:
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.org; build-deps.sh swaps in
         # Node 26, FerretDB, the Mongo 3.x CLIs, the migration launcher/importer, keeps
         # niscud, and swaps in the modern sandstorm-http-bridge. Produces
-        # $HOME/projects/meteor-spk/meteor-spk-0.6.0 (the meteor-spk tool + deps).
+        # $GITHUB_WORKSPACE/.tools/projects/meteor-spk/meteor-spk-0.6.0 (the meteor-spk tool + deps).
         run: bash sandstorm-src/build-deps.sh
 
       - name: Zip the meteor-spk bundle
@@ -66,7 +66,7 @@ jobs:
           set -euo pipefail
           STAMP="$(date +'%Y-%m-%d_%H_%M_%S')"
           ZIP="meteor-spk-${STAMP}.zip"
-          BUNDLE_DIR="$HOME/projects/meteor-spk"
+          BUNDLE_DIR="$GITHUB_WORKSPACE/.tools/projects/meteor-spk"
           if [ ! -d "$BUNDLE_DIR/meteor-spk-0.6.0" ]; then
             echo "::error::Expected meteor-spk bundle at $BUNDLE_DIR/meteor-spk-0.6.0 was not produced by build-deps.sh."
             exit 1
