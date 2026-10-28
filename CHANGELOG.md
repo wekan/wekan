@@ -203,7 +203,7 @@ client code decides a Scrum section by the card alone, and
 **Data health** - Admin Panel / Problems' checks of custom fields.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9dc3fc3f31">Data health: custom fields whose boards were all deleted get their own check</a>. Thanks to Raymond-Voogt and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9dc3fc3f31">Custom fields whose boards were all deleted get their own check</a>. Thanks to Raymond-Voogt and xet7.</summary>
 
 "Custom fields listing a board that does not exist" also counted fields whose
 boards were ALL deleted, which its Repair skips on purpose, since removing the
