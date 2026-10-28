@@ -123,6 +123,97 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the v12.66 release build is whole again. The **emulated-CPU
+Linux bundles** and **win32**, the **FreeBSD**, **OpenBSD** and **Mac app**
+bundles, the **Sandstorm** .spk, the **Ondra** and **Gantt GPL** snaps and the
+**Bun** bundles had failed to build or to start - most because build scripts
+had moved their files into `.tools/` and some callers had not.
+
+This release fixes the following bugs:
+
+**Linux bundles for emulated CPUs** - armhf, armv6, armv7, i386, ppc64le,
+riscv64 and s390x, and win32 built from the i386 one.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/427d212627">The container that installs their Node.js gets .tools/tmp as its /tmp again</a>. Thanks to xet7.</summary>
+
+`install-node-for-arch.sh` refuses to run without `TMPDIR`, because a
+container's own `/tmp` is a small part of its writable layer.
+`releases/repack-bundle-for-arch.sh` mounts this checkout's `.tools/tmp` there
+and sets it; the release workflow's own `docker run` did not, so every
+emulated arch stopped at "TMPDIR must be the mounted .tools/tmp" in v12.66,
+and win32, which builds from the i386 bundle's Node.js, had nothing to build
+with. The step now mounts `.tools/tmp/repack-<arch>-tmp` as `/tmp`.
+
+</details>
+
+**FreeBSD, OpenBSD and the Mac app** - bundles started by `start-wekan.sh`
+where there is no `/proc`.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/290e525b46">start-wekan.sh starts WeKan again where there is no /proc</a>. Thanks to xet7.</summary>
+
+Since the macOS shell-script work, the memory budget read `/proc/meminfo` with
+no fallback. `awk` fails where there is no `/proc`, and under `set -eu` an
+assignment from a failed substitution ends the script without a word - so in
+v12.66 the FreeBSD and OpenBSD bundles and the Mac app never started WeKan,
+with an empty log. The read has its `|| true` again and `sysctl` gives the
+memory. `tests/macosShellPortability.test.cjs` runs those lines under `set
+-eu` without `/proc` and requires a number, with the unguarded line as the
+negative case, and fails on any `set -e` script whose `/proc` read in `$(...)`
+has no fallback.
+
+</details>
+
+**Sandstorm** - the .spk and the meteor-spk toolchain it is packed with.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f68b130f15">meteor-spk is assembled where the .spk is packed from, in .tools</a>. Thanks to xet7.</summary>
+
+`sandstorm-src/build-deps.sh` still assembled `meteor-spk.deps` in
+`~/projects/meteor-spk`, and the workflows put that on PATH, while
+`releases/sandstorm-slim-spk.sh` looked in `.tools/projects/meteor-spk`: "no
+meteor-spk.deps", and the v12.66 .spk did not pack. `build-deps.sh` now uses
+the same `.tools` directory, as do the Sandstorm, Sandstorm store and
+meteor-spk workflows. `tests/toolsDirOnly.test.cjs` scans `sandstorm-src/`
+too, and fails on a workflow that names `~/projects`.
+
+</details>
+
+**Snaps** - the Ondra and Gantt GPL variants, built from a copy of the tree.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d24598ce25">A copy of the source tree without .git gets its own .tools/tmp</a>. Thanks to xet7.</summary>
+
+`releases/tools-env.sh` made `.tools/tmp` only in a git checkout, so that
+scripts mounted alone into a container do not make a `/.tools` there. The
+variant snaps build from a copy without `.git`, so no `TMPDIR` was found and
+every `fetch.sh` in `snapcraft.yaml` stopped at "TMPDIR: unbound variable" -
+which v12.66 reported as the Caddy download failing. A tree with
+`package.json` beside `releases/tools-env.sh` counts as a source tree.
+`tests/toolsDirOnly.test.cjs` checks such a copy, and `releases/` alone as the
+negative case, where no `.tools/` is made and no `TMPDIR` is invented.
+
+</details>
+
+**Bun bundles** - their Linux smoke tests.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1167cbd3b0">The smoke-test MongoDB starts on a 6.19+ kernel, and Chromium is found</a>. Thanks to xet7.</summary>
+
+linux-x64: `mongo:8` refused to start on the runner's newer kernel ("Linux
+kernel versions 6.19 and newer has a known incompatibility"); the smoke test
+pins `mongo:9.0.4`, which recognises Ubuntu kernels that have the fix
+([Supported databases](docs/Databases/Supported.md)). linux-arm64: Chromium
+was installed into `~/.cache/ms-playwright` while the build looked in
+`.tools/ms-playwright`; the install step now uses the same path.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.66 2026-10-28 WeKan ® release
 
 **In short:** two CRITICAL security fixes: **UploadBleed** - attachment uploads
