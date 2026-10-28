@@ -41,11 +41,12 @@ test.describe('#3823 legacy board creator visibility', () => {
     await boardPage.locator('.board-sidebar .js-open-board-menu').click();
     await boardPage.locator('.js-pop-over').waitFor();
     await boardPage.locator('.js-pop-over .js-open-board-card-settings').click();
-    // Card Settings opens on its first section, Card; Creator is a row of the
-    // Members section (models/lib/cardSettingsSections.js), so open it first.
-    await boardPage.locator('.js-pop-over .js-card-settings-menu[data-id="members"]').click();
+    // Board Settings / Card is the opened card's Card Settings (2026-10-28):
+    // Creator is a row of the Members section (models/lib/cardSettingsSections.js),
+    // and its minicard checkbox is drawn with Show on Minicard chosen.
+    await boardPage.locator('.js-pop-over .js-card-settings-show-side[value="minicard"]').check();
     const creatorSetting = boardPage.locator(
-      '.js-pop-over .js-field-has-creator-on-minicard',
+      '.js-pop-over .js-card-settings-section[data-section="members"] .js-field-has-creator-on-minicard',
     );
     await expect(creatorSetting).toBeVisible();
     await expect(creatorSetting).not.toHaveClass(/is-checked/);

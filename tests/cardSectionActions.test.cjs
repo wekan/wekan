@@ -2,8 +2,8 @@
 
 // docs/Features/Cards/Card-Fields.md: five actions of the opened card's actions
 // menu are in the section they act on - in the hamburger of that section on the
-// opened card, and in that section's pane of Card Settings when it is opened
-// from a card:
+// opened card, and in that section's hamburger of Card Settings (the same
+// cardSettingsInline template on the opened card and in Board Settings / Card):
 //   Filter: Subtasks      - Subtasks hamburger;  Card Settings / Subtasks
 //   Edit voting           - Voting hamburger;    Card Settings / Voting
 //   Edit Planning Poker   - Planning Poker hamburger; Card Settings / Planning Poker
@@ -62,39 +62,50 @@ test('the Scrum fields are one section under one heading, its fields without the
   assert.match(jade, /if isSectionOpen "scrum"\n\s+if \$eq section "scrumSprint"\n\s+\+cardFieldSectionScrumSprint/);
 });
 
-test('Card Settings, opened from a card: the actions in the pane of their section', () => {
+test('Card Settings: the actions in the hamburger of their section', () => {
   assert.deepStrictEqual(Object.keys(CARD_ACTIONS).sort(), ['customFields', 'poker', 'scrum', 'subtasks', 'time', 'vote']);
   for (const id of Object.keys(CARD_ACTIONS)) assert.ok(SECTIONS.some(s => s.id === id), id);
   assert.deepStrictEqual(cardActionsOf('vote').map(a => a.popup), ['cardStartVoting']);
   assert.deepStrictEqual(cardActionsOf('poker').map(a => a.popup), ['cardStartPlanningPoker']);
   assert.deepStrictEqual(cardActionsOf('date'), [], 'negative: a section without one has none');
   for (const action of Object.values(CARD_ACTIONS).flat()) for (const k of action.label) assert.ok(en[k], k);
-  const popup = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-  assert.match(popup, /if sectionCardActions\.length\n\s+ul\.pop-over-list\.card-settings-card-actions/);
-  // Under the title, above the column heads.
-  assert.ok(popup.indexOf('card-settings-card-actions') < popup.indexOf('.card-settings-pane-head'));
+  // Deliberate change: Board Settings / Card is now the SAME template as the
+  // opened card's Card Settings (boardCardSettingsPopup is only
+  // `+cardSettingsInline(inPopup=true)`), so there is no pane listing the
+  // section's actions under its title. They are in the section's hamburger,
+  // cardSettingsSectionPopup, from both places.
+  const tplOf = name => sidebarJade.slice(sidebarJade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
+  const popup = tplOf('boardCardSettingsPopup');
+  assert.ok(!popup.includes('sectionCardActions') && !popup.includes('card-settings-card-actions'),
+    'negative: no second list of the actions in the popup');
+  const sectionMenu = tplOf('cardSettingsSectionPopup');
+  assert.match(sectionMenu, /each action in sectionActions\n\s+li\n\s+a\.js-card-settings-action\(data-action="\{\{action\.id\}\}"\)/);
+  assert.match(sidebarJs, /sectionActions\(\) \{ return sectionCardActionsOf\(this\.sectionId\); \},/);
+  // The section menu runs the shared handlers (the js-card-settings-action click).
+  assert.match(sidebarJs, /Template\.cardSettingsSectionPopup\.events\(\{\n\s+\.\.\.cardSettingsEvents,/);
   assert.match(sidebarJs, /if \(id === 'filterSubtasks'\) \{\n\s+filterSubtasksOf\(card\);/);
   assert.match(sidebarJs, /if \(action\.board\) \{\n\s+Popup\.open\(action\.popup\)\(evt\);/, 'a board action works from Board Settings too');
-  // In the pane each is the form itself, not a link to a popup - all but
-  // Filter: Subtasks, which is an action, not a form.
+  // The table still names, for each action but Filter: Subtasks, the form
+  // it is (an action, not a form) - the popup it opens.
   for (const action of Object.values(CARD_ACTIONS).flat()) {
     if (action.id === 'filterSubtasks') assert.ok(!action.inline);
     else assert.ok(action.inline, `${action.id} is inline`);
   }
   assert.deepStrictEqual(cardActionsOf('time').map(a => a.inline), ['editCardSpentTimePopup']);
   // Edit custom fields, then Create Field and Link fields to another card -
-  // the two its buttons opened - as forms of their own under it.
+  // the two its buttons opened.
   assert.deepStrictEqual(cardActionsOf('customFields').map(a => a.inline), ['cardCustomFieldsPopup', 'createCustomFieldPopup', 'cardCustomFieldLinksPopup']);
   assert.strictEqual(cardActionsOf('customFields').find(a => a.id === 'createCustomField').board, true, 'creating a field is the board\'s, also from Board Settings');
-  // In the pane the list's own two buttons are not repeated.
   assert.match(read('client/components/cards/cardCustomFields.jade'), /\.card-custom-fields-more\n[\s\S]{0,400}a\.quiet-button\.full\.js-open-create-custom-field[\s\S]{0,200}a\.quiet-button\.full\.js-open-custom-field-links/);
-  assert.match(read('client/components/sidebar/sidebar.css'), /\.card-settings-inline-action \.card-custom-fields-more \{ display: none; \}/);
-  // Saved in the pane the create form stays, emptied; in its own popup it steps back.
-  assert.match(read('client/components/sidebar/sidebarCustomFields.js'), /if \(!backIfOwnPopup\(evt, \['createCustomFieldPopup', 'editCustomFieldPopup'\]\) && !editing\) \{/);
+  // Deliberate change (same as above): the pane drew these as forms in place
+  // (`+Template.dynamic(template=action.inline ...)` in .card-settings-inline-action);
+  // with the pane gone each is a link in the section's hamburger that opens
+  // its popup. Negative: no in-place form is left half-wired.
+  assert.ok(!/Template\.dynamic\(template=action\.inline/.test(sidebarJade), 'negative: no in-place action form');
+  assert.ok(!read('client/components/sidebar/sidebar.css').includes('.card-settings-inline-action'), 'negative: no CSS for the gone forms');
   assert.deepStrictEqual(cardActionsOf('scrum').map(a => a.inline), ['cardKindPopup']);
   assert.deepStrictEqual(cardActionsOf('subtasks').map(a => a.inline), [undefined, 'boardSubtaskSettingsBody']);
-  assert.match(popup, /if action\.inline\n\s+.card-settings-inline-action\n[\s\S]{0,400}\+Template\.dynamic\(template=action\.inline data=action\.inlineData\)/);
-  // Saved in the pane, Card Settings stays open; saved in their own popup, it steps back.
+  // Saved in their own popup (opened from a section hamburger), it steps back.
   assert.match(read('client/lib/popupBack.js'), /if \(popup && names\.includes\(popup\.dataset\.popup\)\) \{\n\s+Popup\.back\(\);\n\s+return true;/);
   assert.match(read('client/lib/popupBack.js'), /export function backIfOwnPopup\(evt, popupName\)/);
   assert.match(js, /backIfOwnPopup\(evt, 'cardStartVotingPopup'\);/);

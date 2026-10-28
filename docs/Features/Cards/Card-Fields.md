@@ -40,38 +40,28 @@ Minicard / Show on Card choosing what the checkboxes are, and On this card and
 Show empty in each row's hamburger. That design is
 [Card Settings on the opened card](Card-Settings-On-Card.md).
 
-[Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) opens the same
-settings as a popup. It looks and works like the Admin Panel: the same **left
-menu** and the same **pane title** (the shared templates of the
-[Left Menu](../All-Boards/Left-Menu.md) design), with the rows on the right.
+[Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) is the same
+Card Settings, drawn by the same templates, in a popup: **Show**, then the same
+sections as checklists, the same rows and the same hamburgers. There is no
+card there, so a row's hamburger has no **On this card**, and the popup's
+header is the title and the close button.
 
-- The **left menu** lists the sections, and the popup opens on the first,
-  **Card**. It holds what is not
-  a field - **Show empty fields** right under its title, Ask for a reason when
-  moving cards and the Draggable table, with its select-all - and the card's
-  own rows. Then Date, Time, Members,
-  Labels, Description, Checklists, Subtasks, Attachments, Custom Fields,
-  Voting, Planning Poker, Scrum settings and Comments.
-- The **right pane** lists the open section's rows twice: **Show on Card**, in
-  the opened card's order, and **Show on Minicard**, in the minicard's - each
-  row with the board-wide checkbox of that side, and reordered by **drag and
-  drop** (the Up and Down keys on a focused handle or name move it one row; a
-  row that only modifies another is not dragged).
-- In the Show on Card list, a **Show empty** cell, for every per-card field: ticked, every card of the
-  board shows the field, empty or not
+- A row's **checkbox** is the board-wide Show on Card or Show on Minicard,
+  whichever **Show** chooses.
+- **Show empty**, in a row's hamburger, for every per-card field: ticked,
+  every card of the board shows the field, empty or not
   ([#6806](https://github.com/wekan/wekan/issues/6806)). By default the
   description, attachments and comments are ticked.
-- Opened for a card, one more cell, **On this card**, says whether this card
-  shows the field (the per-card fields only); on the card itself it is in the
-  row's hamburger.
-- Under each column's heading, **Select all** and **Select none** set that
-  column for every row of the open section at once - the board's columns for a
-  board admin, On this card for who may change the card. A personal row
-  (Labels text, List title) is left as it is.
-
-Each heading and the cells under it start at the same place, and the popup is
-up to 1200px wide - as wide as the window allows - so that where there is room
-every row's whole label is shown; a label longer than its column wraps.
+- **On this card**, in a row's hamburger on a card, says whether this card
+  shows the field (the per-card fields only).
+- A section's hamburger has **Select all** and **Select none** of the chosen
+  side, of On this card and of Show empty, for that section's rows - the
+  board's for a board admin, On this card for who may change the card. A
+  personal row (Labels text, List title) is left as it is. Card's hamburger
+  also holds what is not a field: **Show empty fields**, Ask for a reason when
+  moving cards and the Draggable table.
+- Sections and rows are reordered by **drag and drop**, a row only within its
+  section (see [Card Settings on the opened card](Card-Settings-On-Card.md)).
 
 A row's name leaves out what its section already says: under **Scrum settings**
 the rows are Sprint, Past sprints, Release, Issue type, Acceptance criteria and
@@ -106,14 +96,14 @@ labels, a due date, a checklist - ticks those; a board that does not want an
 empty description or comments on every card unticks them, and they are shown
 when they have something in them. A card still hides an always-shown field by
 unticking **On this card**, and a field turned off in **Show on Card** stays
-off. It is the board's setting, for a board admin, and the minicard's own view
-of the popup does not show it.
+off. It is the board's setting, for a board admin; with Show on Minicard
+chosen it is not in the rows' hamburgers.
 
-**Show empty fields**, in the Card pane under its title, is off by default.
+**Show empty fields**, in Card's hamburger, is off by default.
 Ticked, every card of the board shows all its fields - the empty ones too, as
-far as Show on Card allows - and the **Show empty** columns are hidden, because
+far as Show on Card allows - and **Show empty** leaves the rows' hamburgers, because
 every field is then shown anyway. Their ticks are kept: unticked again, Show
-empty fields brings the columns back as they were. It is saved to the board
+empty fields brings them back as they were. It is saved to the board
 (`showEmptyCardFields`), for a board admin.
 
 **Card Settings** on the card is shown to whoever may change the card. Its board-wide checkboxes
@@ -122,17 +112,16 @@ and only **On this card** and their own rows (Labels text, List title) change.
 Below the **Card Settings** button there is one separator line, above the first section the card
 shows: a section the card does not show draws no line of its own.
 
-The popup moves by its title bar (or the drag handle, when drag handles are on)
-and has maximize / minimize beside its close button.
+Board Settings / Card moves by its title bar (or the drag handle, when drag
+handles are on) and has maximize / minimize beside its close button.
 
 ## Card actions in their sections
 
 Five actions that were in the opened card's actions menu are in the section
 they act on: in the **hamburger** at the end of that section's heading on the
-opened card, at the top of that section's pane in the popup, and in that
-section's hamburger in Card Settings on the card.
+opened card, and in that section's hamburger in Card Settings.
 
-| Action | Opened card | Card Settings pane |
+| Action | Opened card | Card Settings section |
 | --- | --- | --- |
 | Filter: Subtasks | Subtasks hamburger (with the subtask settings) | Subtasks |
 | Edit voting | Voting hamburger | Voting |
@@ -144,16 +133,13 @@ section's hamburger in Card Settings on the card.
 | Create Field | Custom Fields hamburger, then Create Field | Custom Fields - also from Board Settings, for a board admin |
 | Link fields to another card | Custom Fields hamburger, then Link fields | Custom Fields |
 
-In the Card Settings pane each of these is the **form itself**, right under the
-pane's title - not a link to a popup - except Filter: Subtasks, which is an
-action. Saved there, Card Settings stays open (a new custom field's form is
-emptied for the next one); the hamburger on the opened card still opens the
-same form as its own popup.
+Each opens its own popup, as from the opened card. A card's action is there
+only with a card; a board's (Subtask settings, Create Field) is also in Board
+Settings / Card, for a board admin.
 
-Everything in a section's hamburger on the opened card is also at the top of
-that section's pane in Card Settings, under its title and above Show on
-Minicard / Show on Card (`tests/cardSectionActions.test.cjs` fails for a
-hamburger that is not).
+Everything in a section's hamburger on the opened card is also in that
+section's hamburger in Card Settings (`tests/cardSectionActions.test.cjs` fails
+for a hamburger that is not).
 
 A section is on the opened card when the field is on in Card Settings and the
 card has data in it or shows it **On this card**: tick Voting "On this card" to
@@ -211,9 +197,9 @@ section order the same way.
 | --- | --- |
 | `models/lib/cardShownFields.js` | "Has data", what a card shows, the card's board view |
 | `models/lib/cardSettingsSections.js` | The popup's sections, and the row names within them |
-| `client/components/sidebar/sidebar.jade` | The popup (`boardCardSettingsPopup`): the left menu, the pane, the rows |
+| `client/components/sidebar/sidebar.jade` | Card Settings (`cardSettingsInline`), and Board Settings / Card (`boardCardSettingsPopup`), which is the same template |
 | `client/components/sidebar/sidebar.js` | Its sections, the two lists, checkboxes, drag and drop and On this card |
-| `client/components/sidebar/sidebar.css` | The pane's layout |
+| `client/components/sidebar/sidebar.css`, `client/components/cards/cardAddFields.css` | A row's line; the checklist look |
 | `client/components/cards/cardAddFields.js` | Card Settings opened on the card, and the card's own `currentBoard` |
 | `client/components/cards/cardDetails.jade` | The Card Settings button under the cover, the section hamburgers |
 | `client/lib/filterSubtasks.js` | Filter: Subtasks |

@@ -116,10 +116,99 @@ test('top to bottom: Card Settings with its X at the end, Show and its two choic
   assert.match(css, /\.card-settings-inline-head \{\s*display: flex;/);
   assert.match(css, /\.card-settings-inline-title \{ flex: 1 1 auto;/);
   // Radio buttons, one group, Show on Card chosen by default.
-  assert.equal((inline.match(/input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side"/g) || []).length, 2);
+  // Each Card Settings its own radio group: the opened card's and Board
+  // Settings / Card may be open together, and one name made them one group.
+  assert.equal((inline.match(/input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side-\{\{#if inPopup\}\}popup\{\{else\}\}card\{\{\/if\}\}"/g) || []).length, 2);
+  assert.doesNotMatch(inline, /name="card-settings-show-side"/, 'negative: no name shared by both');
   assert.match(sidebarJs, /this\.showSide = new ReactiveVar\('card'\);/);
   assert.match(sidebarJs, /tpl\.showSide\.set\(evt\.currentTarget\.value === 'minicard' \? 'minicard' : 'card'\);/);
   assert.match(sidebarJs, /'click \.js-close-card-settings'\(evt\) \{\s*evt\.preventDefault\(\);\s*closeCardSettings\(\);/);
+});
+
+// ── Board Settings / Card: the same template ────────────────────────────────
+
+test('Board Settings / Card is the opened card\'s Card Settings, in a popup', () => {
+  // Deliberate change: it used to be its own layout - the Admin Panel's left
+  // menu (`+leftMenu(settingsMenuItems)`) and a pane (`.card-settings-pane`)
+  // of two lists with column heads and per-column Select all / none. Now the
+  // popup's body is the opened card's template and nothing else, so the two
+  // cannot drift apart.
+  const popup = templateOf(sidebarJade, 'boardCardSettingsPopup');
+  // Its body: up to the next top-level comment (the next template's), its
+  // own `//-` comment and that comment's continuation lines left out.
+  const lines = popup.split('\n').slice(1);
+  const end = lines.findIndex(l => /^\/\/-/.test(l));
+  const body = lines.slice(0, end === -1 ? undefined : end)
+    .filter(l => l.trim() && !/^\s*\/\/-/.test(l) && !/^ {4}/.test(l));
+  assert.deepStrictEqual(body, ['  +cardSettingsInline(inPopup=true)'], 'the popup is only cardSettingsInline');
+  assert.match(cardJade, /\+cardSettingsInline\(card=this\)/, 'the same template as the opened card');
+  // With inPopup the popup's own header is the title and the X: no second.
+  assert.match(inline, /unless inPopup\n\s+\.card-settings-inline-head\n\s+h3\.card-settings-inline-title/);
+  // Negative: nothing of the old layout is left anywhere in sidebar.jade/js.
+  for (const gone of ['leftMenu(settingsMenuItems)', '.card-settings-pane', 'paneTitle(settingsPaneTitle)',
+    'cardSettingsSelectButtons', 'js-card-settings-select(', 'card-settings-list-card', 'card-settings-list-minicard',
+    'card-settings-side-head']) {
+    assert.ok(!sidebarJade.includes(gone), `negative: ${gone} is gone from sidebar.jade`);
+  }
+  for (const gone of ['settingsMenuItems', 'settingsPaneTitle', 'openSettingsSectionOf', "'click .js-card-settings-menu'",
+    "'click .js-card-settings-select'", 'personalOnly', 'leftMenuData']) {
+    assert.ok(!sidebarJs.includes(gone), `negative: ${gone} is gone from sidebar.js`);
+  }
+  // Whoever opens it gets the same view: no personal-only mode. Who may not
+  // change the board sees the board's rows disabled and may still set their
+  // own (Labels text, List title) - a row's `writable`.
+  assert.match(sidebarJs, /'click \.js-open-board-card-settings'\(event\) \{\n\s+Popup\.open\('boardCardSettings'\)\.call\(\{ currentData: \(\) => \(\{\}\) \}, event\);/);
+  assert.match(sidebarJs, /writable: writable \|\| Boolean\(built\.personal\),/);
+  assert.match(templateOf(sidebarJade, 'cardSettingsSideToggle'), /class="\{\{#if row\.writable\}\}\{\{row\.toggle\}\}\{\{else\}\}is-disabled\{\{\/if\}\}/);
+});
+
+test('with drag handles on only the handle drags; a row stays in its own section', () => {
+  // Deliberate change (user request): with drag handles on, the label and
+  // the section title are not drag handles - only the arrows handle is, so
+  // the rest of a row scrolls on a touch screen. With them off, the label
+  // and the title drag.
+  const label = templateOf(sidebarJade, 'cardSettingsRowLabel');
+  assert.match(label, /span\.card-settings-line-label\(class="\{\{#if row\.draggable\}\}\{\{#unless row\.showDragHandles\}\}js-card-field-order-handle card-field-order-drag-label\{\{\/unless\}\}\{\{\/if\}\}"/);
+  assert.match(label, /if row\.showDragHandles\n\s+a\.flex\.card-field-order-move\.card-field-order-handle\.js-card-field-order-handle/);
+  assert.match(section, /h4\.card-settings-inline-section-title\(class="\{\{#if section\.draggable\}\}\{\{#unless section\.showDragHandles\}\}js-card-settings-section-handle\{\{\/unless\}\}\{\{\/if\}\}"/);
+  // Negative: the handle class is never outside `unless showDragHandles` on
+  // the label or the title.
+  const labelClass = label.match(/span\.card-settings-line-label\(class="([^"]*)"/)[1];
+  assert.ok(!labelClass.replace(/\{\{#unless row\.showDragHandles\}\}[\s\S]*?\{\{\/unless\}\}/g, '').includes('js-card-field-order-handle'),
+    'negative: the label is a handle only without drag handles');
+  const titleClass = section.match(/h4\.card-settings-inline-section-title\(class="([^"]*)"/)[1];
+  assert.ok(!titleClass.replace(/\{\{#unless section\.showDragHandles\}\}[\s\S]*?\{\{\/unless\}\}/g, '').includes('js-card-settings-section-handle'),
+    'negative: the title is a handle only without drag handles');
+  // A row dropped on another section goes back and nothing is written.
+  const rows = sidebarJs.slice(sidebarJs.indexOf('Template.cardSettingsInlineSection.onRendered('));
+  assert.match(rows.slice(0, 400), /reorderOnDrop\(this\.\$\(list\), \{\n\s+ownListOnly: true,/);
+  const fn = sidebarJs.slice(sidebarJs.indexOf('function reorderOnDrop('));
+  assert.match(fn.slice(0, 200), /function reorderOnDrop\(\$list, \{ items, handle, keyOf, drop, axis = 'y', ownListOnly = false \}\)/);
+  // Driven, not read: reorderOnDrop from sidebar.js against a stand-in
+  // sortable that fires jQuery UI 1.14's events in its real order. On release
+  // jQuery UI's _clear() runs "beforeStop", then the delayed "out" of the list
+  // the item was over, then "stop" (node_modules/jquery-ui/ui/widgets/sortable.js)
+  // - so a flag read in stop always says "outside" and every drop in its own
+  // list would be thrown away. The decision must be taken before that "out".
+  const src = fn.slice(0, fn.indexOf('\n}\n') + 2);
+  const reorderOnDrop = new Function(`${src}\nreturn reorderOnDrop;`)();
+  const run = (events, ownListOnly) => {
+    let opts;
+    const dropped = [];
+    const $list = { length: 1, sortable(o) { if (typeof o === 'object') opts = o; }, find: () => ({ toArray: () => [{ k: 'b' }, { k: 'a' }] }) };
+    reorderOnDrop($list, { items: '> .x', handle: '.h', keyOf: el => el.k, drop: (key, keys) => dropped.push([key, keys]), ownListOnly });
+    for (const e of events) opts[e]({}, { item: [{ k: 'a' }] });
+    return dropped;
+  };
+  // Dropped in its own list: over, release -> beforeStop, delayed out, stop.
+  assert.deepStrictEqual(run(['start', 'over', 'beforeStop', 'out', 'stop'], true), [['a', ['b', 'a']]], 'a drop in its own list is written');
+  // Negative: dragged out onto another section and released there.
+  assert.deepStrictEqual(run(['start', 'over', 'out', 'beforeStop', 'stop'], true), [], 'negative: a drop outside its list writes nothing');
+  // Without ownListOnly (the sections' list) a drop is always written.
+  assert.deepStrictEqual(run(['start', 'over', 'out', 'beforeStop', 'stop'], false).length, 1);
+  // Negative: the sections' own sortable is not limited (it is one list).
+  const sectionsSort = sidebarJs.slice(sidebarJs.indexOf("reorderOnDrop(this.$('.js-card-settings-sections-sortable')"));
+  assert.ok(!/^[^}]*ownListOnly/.test(sectionsSort), 'negative: the section list does not pass ownListOnly');
 });
 
 test('a section is a checklist: a title, its count, its hamburger, its rows as items', () => {
@@ -133,7 +222,7 @@ test('a section is a checklist: a title, its count, its hamburger, its rows as i
   // An item's checkbox is the chosen side's: the popup's own side cell,
   // under data-side = the side shown, so the popup's handlers set it.
   const item = section.slice(items);
-  assert.match(item, /\.js-card-field-order-row\([^)]*data-key="\{\{row\.key\}\}" data-side="\{\{side\}\}"\)\n\s+\+cardSettingsSideToggle\(row=row\)\n\s+\+cardSettingsRowLabel\(row=row\)\n\s+if row\.hasMenu\n\s+a\.card-settings-inline-menu\.js-open-card-settings-item-menu/);
+  assert.match(item, /\.js-card-field-order-row\([^)]*data-key="\{\{row\.key\}\}" data-side="\{\{row\.side\}\}"\)\n\s+\+cardSettingsSideToggle\(row=row\)\n\s+\+cardSettingsRowLabel\(row=row\)\n\s+if row\.hasMenu\n\s+a\.card-settings-inline-menu\.js-open-card-settings-item-menu/);
   assert.match(sidebarJs, /const rows = sectionRowsOf\(section\.id, data, side, tpl\.animating\.get\(\)\)/);
   // Negative: On this card and Show empty are not the item's checkbox.
   assert.ok(!/js-card-add-field|js-card-always-show/.test(section), 'On this card and Show empty are in the hamburger');
@@ -174,7 +263,12 @@ test('the hamburgers: a section\'s selects, actions and Card\'s board options; a
   assert.match(general, /if sectionIsGeneral[\s\S]*js-show-empty-card-fields[\s\S]*js-ask-move-reason/);
   assert.match(sectionMenu, /if sectionIsGeneral\n\s+\+boardDragSettings\(section="card"\)/);
   // The selects run the popup's own Select all / Select none.
-  assert.match(sidebarJs, /await selectCardSettingsColumn\(tpl, inlineSectionEl\(data\.sectionId\), column, value === 'all', keys\);/);
+  assert.match(sidebarJs, /await selectCardSettingsColumn\(tpl, inlineSectionEl\(data\.sectionId, data\.inPopup\), column, value === 'all', keys\);/);
+  // The opened card's Card Settings and Board Settings / Card may both be
+  // open: Select all acts on the one its hamburger was opened from.
+  assert.match(sidebarJs, /inPopup: Boolean\(tpl\.data && tpl\.data\.inPopup\)/);
+  assert.match(sidebarJs, /const which = inPopup \? '\.card-settings-in-popup' : ':not\(\.card-settings-in-popup\)';/);
+  assert.doesNotMatch(sidebarJs, /document\.querySelector\(`\.js-card-settings-inline \.js-card-settings-section/, 'negative: no lookup that takes whichever Card Settings comes first');
   // A row's: On this card and Show empty, as the popup's cells.
   assert.match(itemMenu, /if menu\.thisCard[\s\S]*a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{key\}\}"/);
   assert.match(itemMenu, /if menu\.always[\s\S]*a\.flex\.card-always-show\.js-card-always-show\(data-key="\{\{key\}\}"/);
@@ -185,11 +279,18 @@ test('the hamburgers: a section\'s selects, actions and Card\'s board options; a
 
 test('negative: one set of handlers - every Card Settings template uses the popup\'s', () => {
   assert.match(sidebarJs, /const cardSettingsEvents = \{/);
-  assert.match(sidebarJs, /Template\.boardCardSettingsPopup\.events\(cardSettingsEvents\);/);
+  // Deliberate change: Board Settings / Card is now the SAME template as the
+  // opened card's Card Settings - boardCardSettingsPopup only renders
+  // `+cardSettingsInline(inPopup=true)`, whose own registration below carries
+  // the handlers. Registering them on the popup as well would run every click
+  // twice (the event bubbles from the inline to the popup), so the popup must
+  // register none (negative).
+  assert.ok(!/Template\.boardCardSettingsPopup\.(events|helpers|onCreated|onRendered)\(/.test(sidebarJs),
+    'negative: boardCardSettingsPopup registers no events/helpers of its own');
   assert.match(sidebarJs, /Template\.cardSettingsInline\.events\(\{\s*\.\.\.cardSettingsEvents,/);
   assert.match(sidebarJs, /Template\.cardSettingsSectionPopup\.events\(\{\s*\.\.\.cardSettingsEvents,/);
   assert.match(sidebarJs, /Template\.cardSettingsItemPopup\.events\(cardSettingsEvents\);/);
-  for (const name of ['boardCardSettingsPopup', 'cardSettingsSectionPopup', 'cardSettingsItemPopup']) {
+  for (const name of ['cardSettingsSectionPopup', 'cardSettingsItemPopup']) {
     assert.ok(sidebarJs.includes(`Template.${name}.onCreated(setUpCardSettings);`), name);
   }
   assert.match(sidebarJs, /function setUpCardSettingsInline\(\) \{\s*setUpCardSettings\.call\(this\);/);

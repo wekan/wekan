@@ -81,8 +81,8 @@
 /* Collapsed: the items hidden, not removed, so their drag stays bound. */
 .card-settings-inline-section.is-collapsed .card-settings-inline-items { display: none; }
 
-/* An item: the checkbox, the name, and its hamburger at the end - not the
-   popup's fixed columns (sidebar.css .card-settings-line). */
+/* An item: the checkbox, the name, and its hamburger at the end
+   (sidebar.css .card-settings-line is the line itself). */
 .card-settings-inline .card-settings-line {
   grid-template-columns: auto minmax(0, 1fr) auto;
   border-bottom: 0;
@@ -91,6 +91,11 @@
 .card-settings-inline .card-settings-line.ui-sortable-helper { background: #fff; }
 .card-settings-inline .materialCheckBox { transition: none; }
 .card-settings-inline .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }
+/* The hamburgers' checkboxes, likewise: only the one just clicked animates. */
+.card-settings-section-menu .materialCheckBox,
+.card-settings-item-menu .materialCheckBox { transition: none; }
+.card-settings-section-menu .is-animating .materialCheckBox,
+.card-settings-item-menu .is-animating .materialCheckBox { transition: 0.2s; }
 
 /* The hamburgers' popups. */
 .card-settings-section-menu .card-settings-section-menu-select {

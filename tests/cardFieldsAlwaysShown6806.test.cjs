@@ -6,9 +6,9 @@
 // comments; a board admin can untick those (then they are shown when they
 // have something in them) and tick any other per-card field - a board where
 // nearly every card gets labels, a due date and a checklist. "On this card"
-// still hides one from one card. And the Card pane's "Show empty fields"
-// (showEmptyCardFields, off by default): every field on every card, the Show
-// empty columns hidden with their ticks kept. The popup opens on Card.
+// still hides one from one card. And the Card section's "Show empty fields"
+// (showEmptyCardFields, off by default): every field on every card, Show
+// empty set aside with its ticks kept. Card Settings starts with Card.
 // docs/Features/Cards/Card-Fields.md
 // Run: node tests/cardFieldsAlwaysShown6806.test.cjs
 
@@ -117,16 +117,28 @@ test('stored on the board, through one normalising method, as a board admin', ()
   }
 });
 
-test('Board Settings / Card and + Add: a Show empty column, for every per-card field', () => {
+test('Board Settings / Card and + Add: a Show empty choice, for every per-card field', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
-  const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-  // Its text is a span of its own, with Select all / Select none under it.
-  assert.match(popup, /span\.card-settings-side-head\.card-settings-side-head-always\n\s+span \{\{_ 'card-settings-show-empty'\}\}/);
-  assert.match(popup, /if row\.alwaysShowable\n\s+span\.card-settings-side\.card-settings-side-always\n\s+a\.flex\.card-always-show\(class="\{\{#if canModifyBoard\}\}js-card-always-show\{\{else\}\}is-disabled\{\{\/if\}\}/);
-  assert.match(popup, /role="checkbox" aria-checked="\{\{#if row\.alwaysShown\}\}true\{\{else\}\}false\{\{\/if\}\}"/);
-  const head = popup.slice(popup.indexOf('.card-settings-pane-head'), popup.indexOf('each row in sectionSettingsRows'));
-  assert.ok(!/if settingsCardId\n\s+span\.card-settings-side-head\.card-settings-side-head-always/.test(head), 'the board\'s, in Board Settings too');
+  const tpl = name => jade.slice(jade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
+  // Deliberate change: Board Settings / Card is now the SAME template as the
+  // opened card's Card Settings (boardCardSettingsPopup is only
+  // `+cardSettingsInline(inPopup=true)`), so the pane's "Show empty" COLUMN
+  // is gone. Show empty is now in each row's hamburger (cardSettingsItemPopup)
+  // and its Select all / Select none in the section's (cardSettingsSectionPopup),
+  // the same in Board Settings and on the opened card.
+  assert.match(tpl('boardCardSettingsPopup'), /\+cardSettingsInline\(inPopup=true\)/);
+  const item = tpl('cardSettingsItemPopup');
+  assert.match(item, /if menu\.always\n\s+div\.check-div\.card-settings-board-option\n\s+a\.flex\.card-always-show\.js-card-always-show\(data-key="\{\{key\}\}"/);
+  assert.match(item, /role="checkbox" aria-checked="\{\{#if alwaysShown\}\}true\{\{else\}\}false\{\{\/if\}\}"/);
+  assert.match(item, /span \{\{_ 'card-settings-show-empty'\}\}/);
+  const section = tpl('cardSettingsSectionPopup');
+  assert.match(section, /if maySelectAlways\n\s+li\.card-settings-section-menu-select\n\s+span \{\{_ 'card-settings-show-empty'\}\}/);
+  assert.match(section, /button\.js-card-settings-inline-select\(type="button" data-column="always" data-value="all"\)/);
   const js = read('client/components/sidebar/sidebar.js');
+  // The board's, in Board Settings too: Show empty is offered for who may
+  // change the board, with or without a card (negative: not tied to a card).
+  assert.match(js, /always: Boolean\(row\.alwaysShowable && mayBoard && !cardShownFields\.boardShowsEmptyFields\(board\)\),/);
+  assert.ok(!/always: Boolean\([^)]*settingsCard/.test(js), 'Show empty is the board\'s, not only from a card');
   // In the Show on Card list, for every per-card field - the default four too.
   assert.match(js, /alwaysShowable: side === 'card' && cardShownFields\.FIELD_KEYS\.includes\(built\.key\),/, 'the default four too');
   assert.match(js, /alwaysShown: cardShownFields\.boardAlwaysShows\(board, built\.key\),/);
@@ -140,8 +152,9 @@ test('Board Settings / Card and + Add: a Show empty column, for every per-card f
   assert.match(add, /attachments: typeof card\.attachments === 'function' \? countOf\(card\.attachments\(\)\) : 0,/);
   assert.match(add, /comments: typeof card\.comments === 'function' \? countOf\(card\.comments\(\)\) : 0,/);
   assert.match(read('models/lib/cardShownFields.js'), /FIELD_KEYS\.filter\(k => !isShown\(k, card, counts, board\)\)/);
-  // The minicard's own view hides the card's list, Show empty with it.
-  assert.match(read('client/components/sidebar/sidebar.css'), /\.board-card-settings\.show-minicard-only \.card-settings-list-card \{/);
+  // The minicard side has no Show empty: alwaysShowable is the card side's
+  // only (asserted above), and Select all of Show empty only with side card.
+  assert.match(js, /maySelectAlways\(\) \{[\s\S]{0,200}return this\.side === 'card' && /);
 });
 
 test('negative: every caller of isShown and cardFieldsAfter passes the board', () => {
@@ -191,38 +204,50 @@ test('Show empty fields: every field on every card, off by default', () => {
   assert.ok(!f.boardShowsEmptyFields({ showEmptyCardFields: 'yes' }), 'negative: only true');
 });
 
-test('Show empty fields: saved to the board, under the Card pane\'s title; on, the Show empty columns hidden', () => {
+test('Show empty fields: saved to the board, in the Card section\'s hamburger; on, Show empty is set aside', () => {
   const boards = read('models/boards.js');
   assert.match(boards, /showEmptyCardFields: \{ type: Boolean, defaultValue: false \},/);
   assert.match(boards, /async setShowEmptyCardFields\(showEmptyCardFields\) \{\n\s+return Boards\.updateAsync\(this\._id, \{ \$set: \{ showEmptyCardFields: showEmptyCardFields === true \} \}\);/);
   const jade = read('client/components/sidebar/sidebar.jade');
-  const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-  // In the Card pane, right under the title, before Ask for a reason.
-  const general = popup.slice(popup.indexOf('if openSettingsSectionIsGeneral'));
-  assert.ok(popup.indexOf('+paneTitle(settingsPaneTitle)') < popup.indexOf('if openSettingsSectionIsGeneral'));
+  // Deliberate change: Board Settings / Card is now the SAME template as the
+  // opened card's Card Settings, so what sat under the Card pane's title is
+  // in the Card section's hamburger (cardSettingsSectionPopup, `sectionIsGeneral`),
+  // first, before Ask for a reason.
+  const menu = jade.slice(jade.indexOf('template(name="cardSettingsSectionPopup")')).split('\ntemplate(')[0];
+  const general = menu.slice(menu.indexOf('if sectionIsGeneral'));
+  assert.ok(menu.indexOf('if sectionIsGeneral') !== -1);
   const showEmptyAt = general.indexOf('div.check-div.card-settings-board-option.card-settings-show-empty-fields');
   assert.ok(showEmptyAt !== -1 && showEmptyAt < general.indexOf('js-ask-move-reason'));
   assert.match(general, /a\.flex\.card-show-empty-fields\(class="\{\{#if canModifyBoard\}\}js-show-empty-card-fields\{\{else\}\}is-disabled\{\{\/if\}\}[^"]*" role="checkbox" aria-checked="\{\{#if showEmptyCardFields\}\}true\{\{else\}\}false\{\{\/if\}\}"\)/);
   assert.match(general, /span \{\{_ 'card-settings-show-empty-fields'\}\}/);
+  const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
+  assert.ok(!popup.includes('openSettingsSectionIsGeneral'), 'negative: no second copy in the popup');
   const js = read('client/components/sidebar/sidebar.js');
   assert.match(js, /'click \.js-show-empty-card-fields'\(evt, tpl\) \{[\s\S]{0,300}if \(!board \|\| !\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;[\s\S]{0,200}board\.setShowEmptyCardFields\(!cardShownFields\.boardShowsEmptyFields\(board\)\)/);
-  assert.match(js, /if \(cardShownFields\.boardShowsEmptyFields\(ReactiveCache\.getBoard\(Session\.get\('currentBoard'\)\)\)\) classes\.push\('show-empty-fields'\);/);
-  const css = read('client/components/sidebar/sidebar.css');
-  assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-side-always,\n\.board-card-settings\.show-empty-fields \.card-settings-side-head-always \{\n\s+display: none;/);
-  // Its grid track goes too, or the field names would sit one column late.
-  // (In the Show on Card list, which has the column.)
-  assert.match(css, /\.board-card-settings\.show-empty-fields \.card-settings-list-card > \.card-settings-line \{\n\s+grid-template-columns: 9em minmax\(10em, 1fr\);/);
-  assert.match(css, /\.board-card-settings\.show-empty-fields\.has-card \.card-settings-list-card > \.card-settings-line \{\n\s+grid-template-columns: 7em 9em minmax\(10em, 1fr\);/);
-  // Negative: hidden by CSS only - turning it on does not clear the ticks.
+  // On, Show empty is set aside: the row hamburgers do not offer it and the
+  // section hamburger has no Select all / none for it - its ticks are kept.
+  // (It used to be a CSS-hidden column of the pane.)
+  assert.match(js, /settingsSideClass\(\) \{\n\s+return cardShownFields\.boardShowsEmptyFields\(ReactiveCache\.getBoard\(Session\.get\('currentBoard'\)\)\) \? 'show-empty-fields' : '';/);
+  assert.match(js, /always: Boolean\(row\.alwaysShowable && mayBoard && !cardShownFields\.boardShowsEmptyFields\(board\)\),/);
+  assert.match(js, /maySelectAlways\(\) \{[\s\S]{0,300}&& !cardShownFields\.boardShowsEmptyFields\(board\);/);
+  // Negative: set aside, not cleared - turning it on does not clear the ticks.
   assert.ok(!/setShowEmptyCardFields[\s\S]{0,300}cardFieldsAlwaysShown/.test(boards));
 });
 
-test('Card Settings opens on Card, the topmost entry - also from + Add', () => {
+test('Card Settings starts with Card, the topmost section - also from + Add', () => {
+  // Deliberate change: there is no left menu to "open on" a section any more
+  // (Board Settings / Card is the opened card's cardSettingsInline). Every
+  // section is a checklist, in the board's section order whose default
+  // starts with Card; Card is kept even with no row on the shown side,
+  // because its hamburger holds what is not a field.
   const js = read('client/components/sidebar/sidebar.js');
-  assert.match(js, /return \(sections\.find\(s => s\.id === chosen\) \|\| sections\[0\] \|\| \{\}\)\.id;/);
+  assert.match(js, /cardSettingsSections\.orderedSections\(cardSettingsSections\.SECTIONS, board && board\.cardSettingsSectionOrder\)/);
+  assert.match(js, /\.filter\(section => section\.rows\.length \|\| cardSettingsSections\.SECTIONS\.find\(s => s\.id === section\.id\)\?\.general\)/);
   assert.ok(!/sections\.length > 1 \? sections\[1\]/.test(js), 'negative: no longer the first section of fields');
-  const { SECTIONS } = require('../models/lib/cardSettingsSections.js');
-  assert.strictEqual(SECTIONS[0].id, 'card');
+  assert.ok(!/function openSettingsSectionOf/.test(js), 'negative: the left menu\'s open section is gone');
+  const sections = require('../models/lib/cardSettingsSections.js');
+  assert.strictEqual(sections.SECTIONS[0].id, 'card');
+  assert.strictEqual(sections.sectionOrder(undefined)[0], 'card');
 });
 
 test('the headings in every language, and the earlier names gone', () => {

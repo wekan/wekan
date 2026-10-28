@@ -25,11 +25,11 @@
 // Keep in step with the `@media screen and (max-width: 800px)` block there.
 const MOBILE_POPUP_MAX_WIDTH = 800;
 
-// #6796: Board Settings / Card's widest; popup.css says the same
-// (`.pop-over[data-popup='boardCardSettingsPopup']`).
-// A left menu and a pane of rows (docs/Features/Cards/Card-Fields.md): 1200px
-// is room for the menu, a row's four checkbox columns and its whole label.
-const CARD_SETTINGS_MAX_WIDTH = 1200;
+// Board Settings / Card's widest; popup.css says the same
+// (`.pop-over[data-popup='boardCardSettingsPopup']`). It is the opened
+// card's Card Settings (docs/Features/Cards/Card-Settings-On-Card.md) - one
+// column of checklists - so about as wide as an opened card.
+const CARD_SETTINGS_MAX_WIDTH = 600;
 
 function computePopupOffset(params) {
   const {
@@ -64,9 +64,9 @@ function computePopupOffset(params) {
     return { left: (viewportWidth - width) / 2, top: 12,
       maxHeight: Math.max(0, viewportHeight - 24) };
   }
-  // #6796: Board Settings / Card is a panel as wide and as tall as the window
-  // allows, centred, so its lists can spread into columns and be read without
-  // scrolling. Same width as popup.css.
+  // #6796: Board Settings / Card is a panel as tall as the window allows,
+  // centred, so its checklists are read with little scrolling. Same width
+  // as popup.css.
   if (popupName === 'boardCardSettingsPopup') {
     const width = Math.min(CARD_SETTINGS_MAX_WIDTH, viewportWidth * 0.96);
     return { left: (viewportWidth - width) / 2, top: 12,

@@ -11,35 +11,43 @@ const CardPage = require('../pages/CardPage');
 const { CARD_SETTINGS_ROWS } = require('../../../models/lib/cardSettingsRows');
 const { SECTIONS } = require('../../../models/lib/cardSettingsSections');
 
-test('both columns list every row of the table', async ({ boardPage: page }) => {
+test('both Show sides list every row of the table', async ({ boardPage: page }) => {
   await page.evaluate(() => {
     Popup.close();
-    Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+    Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
-  // The popup is a left menu of sections and a pane of the open section's rows
-  // (models/lib/cardSettingsSections.js, docs/Features/Cards/Card-Fields.md),
-  // so "every row" is every section's pane: each section lists its own rows,
-  // in both lists, and together they are the whole table.
-  const seen = { card: [], minicard: [] };
-  for (const section of SECTIONS) {
-    await page.locator(`.js-pop-over .js-card-settings-menu[data-id="${section.id}"]`).click();
-    for (const side of ['card', 'minicard']) {
-      // List title is the CARD's own row, only offered from a card's own menu;
+  const popup = page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
+  await expect(popup.locator('.js-card-settings-inline')).toBeVisible();
+  // Board Settings / Card is the opened card's Card Settings since 2026-10-28
+  // (cardSettingsInline): every section is a checklist of its rows, and the
+  // "Show" radio chooses which side - card or minicard - the rows are of. So
+  // "every row" is every section's checklist, once per Show side; each section
+  // lists its own rows, and together they are the whole table.
+  for (const side of ['card', 'minicard']) {
+    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    const seen = [];
+    for (const section of SECTIONS) {
+      // List title is the CARD's own row, only offered on an opened card;
       // and a row with no minicard side (Drawing, Action items, attachment
       // previews...) is listed only on the card side, as rowsForSide does.
       const expected = section.keys.filter(key => {
         const row = CARD_SETTINGS_ROWS.find(r => r.key === key);
         return row && row[side] && !row[side].needsCard;
       });
-      const rows = page.locator(`.js-pop-over .js-card-field-order-row[data-side="${side}"]`);
-      await expect.poll(async () => (await rows.evaluateAll(els => els.map(r => r.dataset.key))).sort(), { message: `${section.id} ${side}` })
-        .toEqual([...expected].sort());
-      seen[side].push(...expected);
+      const scope = popup.locator(`.js-card-settings-section[data-section="${section.id}"]`);
+      // A section with no row on this side is left out (Card, holding what is
+      // not a field, stays).
+      if (!expected.length && section.id !== 'card') {
+        await expect(scope).toHaveCount(0);
+        continue;
+      }
+      const rows = scope.locator('.js-card-field-order-row');
+      await expect.poll(async () => (await rows.evaluateAll(els => els.map(r => `${r.dataset.key}:${r.dataset.side}`))).sort(), { message: `${section.id} ${side}` })
+        .toEqual(expected.map(key => `${key}:${side}`).sort());
+      seen.push(...expected);
     }
-  }
-  for (const side of ['card', 'minicard']) {
     const expected = CARD_SETTINGS_ROWS.filter(row => row[side] && !row[side].needsCard).map(row => row.key);
-    expect(seen[side].sort()).toEqual(expected.sort());
+    expect(seen.sort()).toEqual(expected.sort());
   }
 });
 

@@ -4,7 +4,7 @@
 // has data in, plus its description, attachments and comments; "Card
 // Settings" under the cover (it was "+ Add") adds the rest - right on the
 // card, its sections as checklists (docs/Features/Cards/Card-Settings-On-Card.md).
-// Board Settings / Card still opens the same settings as a popup.
+// Board Settings / Card is the same template, cardSettingsInline, in a popup.
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
@@ -16,7 +16,8 @@ const settingsPopup = page => page.locator('.js-pop-over[data-popup="boardCardSe
 async function openBoardCardSettings(page) {
   await page.evaluate(() => {
     Popup.close();
-    Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+    // As the cog menu's entry does: Card Settings with no card.
+    Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
   await expect(settingsPopup(page)).toBeVisible();
 }
@@ -386,6 +387,23 @@ test('Card\'s hamburger: Ask for a reason lines up with Show empty fields, and t
 });
 
 // ── Board Settings / Card: the popup ────────────────────────────────────────
+// Since 2026-10-28 the popup is the opened card's Card Settings itself
+// (cardSettingsInline, inPopup=true): Show, the sections as checklists, the
+// rest in their hamburgers. Its old left menu and right pane are gone.
+
+// The rows the template draws, section by section, for the chosen Show side.
+async function sectionsAndRows(scope) {
+  return scope.locator('.js-card-settings-section').evaluateAll(els => els.map(el => ({
+    section: el.dataset.section,
+    keys: [...el.querySelectorAll('.js-card-field-order-row')].map(r => `${r.dataset.key}:${r.dataset.side}`),
+  })));
+}
+// "List title" is a card's own row (cardSettingsRows.js needsCard): drawn only
+// on an opened card, which Board Settings / Card has none of.
+const CARD_ONLY_KEYS = ['listTitle'];
+const withoutCardOnly = sections => sections.map(s => ({
+  section: s.section, keys: s.keys.filter(k => !CARD_ONLY_KEYS.includes(k.split(':')[0])),
+}));
 
 test('Board Settings / Card is still the popup: it moves by its title, maximizes beside its close button, shows the labels', async ({ boardPage: page }) => {
   await openBoardCardSettings(page);
@@ -396,6 +414,8 @@ test('Board Settings / Card is still the popup: it moves by its title, maximizes
   const popupBox = await popup.boundingBox();
   expect(labelBox.width).toBeGreaterThan(30);
   expect(labelBox.x + labelBox.width).toBeLessThanOrEqual(popupBox.x + popupBox.width + 1);
+  // As wide as Card Settings needs (600px), not the old 1200px left menu + pane.
+  expect(popupBox.width).toBeLessThanOrEqual(620);
   const max = popup.locator('.js-popup-maximize');
   await expect(max).toBeVisible();
   expect((await max.boundingBox()).x).toBeLessThan((await popup.locator('.js-close-pop-over').boundingBox()).x);
@@ -411,29 +431,222 @@ test('Board Settings / Card is still the popup: it moves by its title, maximizes
   await expect(popup).toHaveClass(/pop-over--maximized/);
   await popup.locator('.js-popup-minimize').click();
   await expect(popup).not.toHaveClass(/pop-over--maximized/);
-  // Negative: with no card, no On this card column.
-  await expect(popup.locator('.card-settings-side-head-this')).toHaveCount(0);
+  // Negative: with no card, no On this card - neither as a checkbox in the
+  // list nor in a row's hamburger, which still has Show empty.
+  await expect(popup.locator('.js-card-add-field')).toHaveCount(0);
+  const menu = await openItemMenu(page, popup, 'dueDate');
+  await expect(menu.locator('.js-card-always-show[data-key="dueDate"]')).toHaveCount(1);
+  await expect(menu.locator('.js-card-add-field')).toHaveCount(0);
 });
 
-test('Board Settings / Card: headings aligned with their cells, labels whole', async ({ boardPage: page }) => {
+// Was "headings aligned with their cells": the pane's column headings are
+// gone with the pane, so what is left to pin is that every label of either
+// Show side is whole inside the popup and nothing scrolls sideways.
+test('Board Settings / Card: labels whole on both Show sides, no sideways scroll', async ({ boardPage: page }) => {
   await page.setViewportSize({ width: 1400, height: 1000 });
   await openBoardCardSettings(page);
   const popup = settingsPopup(page);
-  await popup.locator('.js-card-settings-menu[data-id="date"]').click();
-  for (const side of ['minicard', 'card', 'always']) {
-    const head = await popup.locator(`.card-settings-side-head-${side}`).boundingBox();
-    const cell = await popup.locator(`.card-settings-line .card-settings-side-${side}`).first().boundingBox();
-    expect(Math.abs(head.x - cell.x)).toBeLessThan(2);
+  for (const side of ['card', 'minicard']) {
+    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    await expect(itemOf(popup, 'dueDate')).toHaveAttribute('data-side', side);
+    const box = await popup.locator('.js-card-settings-inline').boundingBox();
+    for (const label of await popup.locator('.card-settings-line-label').all()) {
+      const l = await label.boundingBox();
+      if (!l) continue; // a collapsed section's row
+      expect(l.x).toBeGreaterThanOrEqual(box.x - 1);
+      expect(l.x + l.width).toBeLessThanOrEqual(box.x + box.width + 1);
+    }
+    expect(await popup.locator('.content-wrapper').evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
   }
-  for (const list of ['card', 'minicard']) {
-    const scope = popup.locator(`.card-settings-list-${list}`);
-    const headLabel = await scope.locator('.card-settings-pane-head-label').boundingBox();
-    const rowLabel = await scope.locator('.card-settings-line-label').first().boundingBox();
-    expect(Math.abs(headLabel.x - rowLabel.x)).toBeLessThan(2);
+});
+
+test('Board Settings / Card and the opened card\'s Card Settings are the same template: same sections, rows and settings', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsDueDateOnMinicard: false } });
+  // The popup: no title and X of its own - the popup's header is both.
+  await openBoardCardSettings(page);
+  const popup = settingsPopup(page);
+  await expect(popup.locator('.js-card-settings-inline')).toHaveCount(1);
+  await expect(popup.locator('.card-settings-inline-head')).toHaveCount(0);
+  await expect(popup.locator('.js-close-card-settings')).toHaveCount(0);
+  await expect(popup.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
+  // A checkbox ticked here is the board's: Due on the minicard.
+  await popup.locator('.js-card-settings-show-side[value="minicard"]').check();
+  const toggle = itemOf(popup, 'dueDate').locator('.card-field-order-toggle');
+  await expect(toggle).toHaveAttribute('aria-checked', 'false');
+  await toggle.click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDateOnMinicard).toBe(true);
+  await expect(toggle).toHaveAttribute('aria-checked', 'true');
+  const fromPopup = {};
+  for (const side of ['card', 'minicard']) {
+    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    await expect(itemOf(popup, 'dueDate')).toHaveAttribute('data-side', side);
+    fromPopup[side] = await sectionsAndRows(popup);
   }
-  const pane = await popup.locator('.main-body').boundingBox();
-  for (const label of await popup.locator('.card-settings-line-label').all()) {
-    const box = await label.boundingBox();
-    expect(box.x + box.width).toBeLessThanOrEqual(pane.x + pane.width + 1);
+  await closePopup(page);
+
+  // The opened card: its own title and X, then the same sections and rows.
+  const details = await openCard(page, board);
+  const inline = await openCardSettings(details);
+  await expect(inline.locator('.card-settings-inline-head')).toHaveCount(1);
+  await expect(inline.locator('.js-close-card-settings')).toHaveCount(1);
+  const fromCard = {};
+  for (const side of ['card', 'minicard']) {
+    await inline.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    await expect(itemOf(inline, 'dueDate')).toHaveAttribute('data-side', side);
+    fromCard[side] = await sectionsAndRows(inline);
+  }
+  for (const side of ['card', 'minicard']) {
+    expect(fromPopup[side].length).toBeGreaterThan(5);
+    // Same sections, in the same order, with the same rows in the same order -
+    // apart from the card's own List title row, drawn only with a card.
+    expect(withoutCardOnly(fromCard[side])).toEqual(withoutCardOnly(fromPopup[side]));
+  }
+  // What was ticked in the popup reads back ticked on the card's Show on Minicard.
+  await expect(itemOf(inline, 'dueDate')).toHaveAttribute('data-side', 'minicard');
+  await expect(itemOf(inline, 'dueDate').locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'true');
+  expect(db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
+});
+
+// Both open at once: the opened card's Card Settings and Board Settings / Card.
+// A section hamburger acts on the Card Settings it was opened from (its
+// data carries inPopup), and the board setting it writes reads back in both.
+test('the card\'s Card Settings and Board Settings / Card open together: Select none in the popup is the board\'s', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsReceivedDate: true, allowsStartDate: true, allowsDueDate: true, allowsEndDate: true } });
+  const details = await openCard(page, board);
+  const inline = await openCardSettings(details);
+  await openBoardCardSettings(page);
+  const popup = settingsPopup(page);
+  const popupInline = popup.locator('.js-card-settings-inline');
+  // Two Card Settings, each with its own Show: neither radio group takes the
+  // other's choice.
+  await expect(inline.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
+  await expect(popupInline.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
+  const date = sectionOf(popupInline, 'date');
+  await expect(date.locator('.card-field-order-toggle[aria-checked="true"]')).not.toHaveCount(0);
+  const menu = await openSectionMenu(page, popupInline, 'date');
+  await menu.locator('.js-card-settings-inline-select[data-column="card"][data-value="none"]').click();
+  await expect.poll(() => {
+    const b = db.findOne('boards', { _id: board.boardId });
+    return [b.allowsReceivedDate, b.allowsStartDate, b.allowsDueDate, b.allowsEndDate];
+  }).toEqual([false, false, false, false]);
+  // Negative: another section is untouched.
+  expect(db.findOne('boards', { _id: board.boardId }).allowsMembers).not.toBe(false);
+  await closePopup(page);
+  // The card's view reads them unticked, and so does the popup's, reopened.
+  for (const key of ['receivedDate', 'startDate', 'dueDate', 'endDate']) {
+    await expect(itemOf(sectionOf(inline, 'date'), key).locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'false');
+  }
+  await openBoardCardSettings(page);
+  for (const key of ['receivedDate', 'startDate', 'dueDate', 'endDate']) {
+    await expect(itemOf(sectionOf(popup, 'date'), key).locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'false');
+  }
+});
+
+test('Board Settings / Card has no left menu and no pane any more (negative)', async ({ boardPage: page }) => {
+  await openBoardCardSettings(page);
+  const popup = settingsPopup(page);
+  await expect(popup.locator('.js-card-settings-section').first()).toBeVisible();
+  await expect(popup.locator('.js-card-settings-menu')).toHaveCount(0);
+  await expect(popup.locator('.card-settings-pane')).toHaveCount(0);
+  await expect(popup.locator('.card-settings-list-card, .card-settings-list-minicard')).toHaveCount(0);
+  await expect(popup.locator('.js-card-settings-select')).toHaveCount(0);
+  await expect(popup.locator('.board-card-settings, .side-menu')).toHaveCount(0);
+});
+
+// ── Dragging a row: by its handle, by its label, and only within its section ─
+
+const setHandles = (userId, on) => db.updateOne('users', { _id: userId }, { $set: { 'profile.showDesktopDragHandles': on } });
+const cardOrderOf = board => (db.findOne('boards', { _id: board.boardId }).cardFieldOrder || []).join(' ');
+// Both ends on screen: the target scrolled to the top, the source under it.
+async function dragTo(page, source, target) {
+  await target.evaluate(el => el.scrollIntoView({ block: 'start' }));
+  const from = await source.boundingBox();
+  const to = await target.boundingBox();
+  expect(to.y).toBeGreaterThanOrEqual(0);
+  expect(from.y + from.height).toBeLessThanOrEqual(page.viewportSize().height);
+  await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2 + 8, { steps: 3 });
+  await page.mouse.move(to.x + to.width / 2, to.y + 2, { steps: 12 });
+  await page.mouse.up();
+}
+// A drop that must write nothing: given the time a write would take.
+async function expectNoWrite(page, read, before) {
+  await page.waitForTimeout(1500);
+  expect(read()).toBe(before);
+}
+
+test('drag handles on: a row is dragged by its handle only, not by its label', async ({ boardPage: page, board, user }) => {
+  setHandles(user.id, true);
+  try {
+    await page.reload();
+    const details = await openCard(page, board);
+    const inline = await openCardSettings(details);
+    const date = sectionOf(inline, 'date');
+    const due = itemOf(date, 'dueDate');
+    await expect(due.locator('a.js-card-field-order-handle')).toBeVisible();
+    // The label is not a handle then: dragging it moves nothing.
+    await expect(due.locator('.card-settings-line-label.js-card-field-order-handle')).toHaveCount(0);
+    const before = cardOrderOf(board);
+    await dragTo(page, due.locator('.card-settings-line-label'), itemOf(date, 'receivedDate'));
+    await expectNoWrite(page, () => cardOrderOf(board), before);
+    // The handle does.
+    await dragTo(page, due.locator('a.js-card-field-order-handle'), itemOf(date, 'receivedDate'));
+    await expect.poll(() => {
+      const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
+      return order.indexOf('dueDate') !== -1 && order.indexOf('dueDate') < order.indexOf('receivedDate');
+    }).toBe(true);
+  } finally {
+    setHandles(user.id, false);
+    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '' } });
+  }
+});
+
+test('drag handles off: the row\'s label is its handle', async ({ boardPage: page, board, user }) => {
+  setHandles(user.id, false);
+  try {
+    await page.reload();
+    const details = await openCard(page, board);
+    const inline = await openCardSettings(details);
+    const date = sectionOf(inline, 'date');
+    const due = itemOf(date, 'dueDate');
+    // Negative: no separate handle is drawn.
+    await expect(due.locator('a.js-card-field-order-handle')).toHaveCount(0);
+    await expect(due.locator('.card-settings-line-label.js-card-field-order-handle')).toHaveCount(1);
+    await dragTo(page, due.locator('.card-settings-line-label'), itemOf(date, 'receivedDate'));
+    await expect.poll(() => {
+      const order = db.findOne('boards', { _id: board.boardId }).cardFieldOrder || [];
+      return order.indexOf('dueDate') !== -1 && order.indexOf('dueDate') < order.indexOf('receivedDate');
+    }).toBe(true);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '' } });
+  }
+});
+
+test('a row dropped on another section goes back to its own, and nothing is written', async ({ boardPage: page, board, user }) => {
+  setHandles(user.id, false);
+  try {
+    await page.reload();
+    const details = await openCard(page, board);
+    const inline = await openCardSettings(details);
+    const date = sectionOf(inline, 'date');
+    const members = sectionOf(inline, 'members');
+    const before = cardOrderOf(board);
+    // Creator (Members) dragged onto Due (Date), above it on screen.
+    await dragTo(page, itemOf(members, 'creator').locator('.card-settings-line-label'), itemOf(date, 'dueDate'));
+    await expectNoWrite(page, () => cardOrderOf(board), before);
+    await expect(itemOf(members, 'creator')).toHaveCount(1);
+    await expect(itemOf(date, 'creator')).toHaveCount(0);
+    // And a Date row onto the Card section above it.
+    const general = sectionOf(inline, 'card');
+    await dragTo(page, itemOf(date, 'endDate').locator('.card-settings-line-label'), itemOf(general, 'collapse'));
+    await expectNoWrite(page, () => cardOrderOf(board), before);
+    await expect(itemOf(date, 'endDate')).toHaveCount(1);
+    await expect(itemOf(general, 'endDate')).toHaveCount(0);
+    // A drop within its own section still writes: the drag itself works.
+    await dragTo(page, itemOf(date, 'dueDate').locator('.card-settings-line-label'), itemOf(date, 'receivedDate'));
+    await expect.poll(() => cardOrderOf(board)).not.toBe(before);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $unset: { cardFieldOrder: '' } });
   }
 });

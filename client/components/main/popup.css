@@ -367,19 +367,14 @@
     max-width: 90vw !important;
   }
 
-  /* Board Settings / Card: Draggable, Show on Minicard and Show on Card.
-     #6796: as wide as the window allows, up to 1800px - width buys COLUMNS
-     inside each list (sidebar.css), and enough of them means the whole of
-     both lists is read without scrolling. client/lib/popupOffset.js centres
-     it at this width (CARD_SETTINGS_MAX_WIDTH) and gives it the window's
-     height. */
-  /* Board Settings / Card, and the opened card's "+ Add": the Admin Panel's
-     left menu and right pane, wide enough for a row's label and both sides
-     (sidebar.css .card-settings-sections). */
+  /* Board Settings / Card: the opened card's Card Settings, one column of
+     checklists (sidebar.jade cardSettingsInline), about as wide as an opened
+     card. client/lib/popupOffset.js centres it at this width
+     (CARD_SETTINGS_MAX_WIDTH) and gives it the window's height (#6796). */
   .pop-over[data-popup='boardCardSettingsPopup'] {
     position: fixed;
     box-sizing: border-box;
-    width: min(96vw, 1200px) !important;
+    width: min(96vw, 600px) !important;
     max-width: 96vw !important;
     max-height: calc(100dvh - 24px) !important;
     margin-top: 0;

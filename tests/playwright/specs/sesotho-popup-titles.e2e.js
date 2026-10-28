@@ -61,16 +61,24 @@ test('Southern Sotho card linking names the destination without claiming the cur
 test('Southern Sotho card settings identify data fields', async ({ boardPage: page }) => {
   await page.evaluate(async () => {
     await Meteor.callAsync('setLanguage', 'st');
-    Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+    Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
-  // The label column's heading of a section pane (docs/Features/Cards/Card-Fields.md).
-  // A pane has two lists since 2026-10-27, Show on Card and Show on Minicard;
-  // the heading text is in the card list's head, the minicard list's head
-  // keeps an empty cell so the columns line up.
-  await page.locator('.js-pop-over .js-card-settings-menu[data-id="date"]').click();
-  const heading = page.locator('.js-pop-over .card-settings-list[data-side="card"] .card-settings-pane-head-label');
-  await expect(heading).toHaveText('Tatellano ya dikarolo tsa karete');
-  await expect(heading).not.toContainText('masimo');
+  // Board Settings / Card is the opened card's Card Settings since 2026-10-28
+  // (cardSettingsInline): the pane's "Card field order" heading went with the
+  // pane. What names the card's data fields now is "Show" and its two sides,
+  // the sections' titles, and Card's hamburger's "Show empty fields" - each
+  // in Southern Sotho, and none calling a data field "masimo" (farm fields).
+  const popup = page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
+  await expect(popup.locator('.card-settings-inline-show-label')).toHaveText('Bontsha');
+  const sides = popup.locator('.card-settings-inline-show-option');
+  await expect(sides.nth(0)).toHaveText('Bontsha kareteng e nyenyane');
+  await expect(sides.nth(1)).toHaveText('Bontsha kareteng');
+  await expect(popup.locator('.js-card-settings-section[data-section="date"] .card-settings-inline-section-title')).toHaveText('Letsatsi');
+  await expect(popup.locator('.js-card-settings-inline')).not.toContainText('masimo');
+  await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
+  const showEmpty = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"] .js-show-empty-card-fields');
+  await expect(showEmpty).toBeVisible();
+  await expect(showEmpty).not.toContainText('masimo');
   await page.evaluate(() => Popup.close());
 });
 

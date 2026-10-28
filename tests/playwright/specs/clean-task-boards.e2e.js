@@ -11,13 +11,22 @@ async function settings(page) {
   await page.locator('.js-pop-over .js-open-board-card-settings').click();
   return page.locator('.js-pop-over');
 }
-// Card Settings opens on its first section, Card (Collapse is there); a row of
-// another section - Labels above title, Labels - is in that section's pane
-// (models/lib/cardSettingsSections.js), so its menu entry is opened first.
+// Board Settings / Card is the opened card's Card Settings since 2026-10-28
+// (cardSettingsInline): every section at once, a row's checkbox being the
+// side the "Show" radio chooses. A minicard toggle (Collapse, Labels above
+// title) is only drawn with Show on Minicard, so the radio is set to the side
+// whose row carries the toggle, inside that row's section
+// (models/lib/cardSettingsSections.js).
 async function toggle(page, selector, section = 'card') {
   const popup = await settings(page);
-  if (section !== 'card') await popup.locator(`.js-card-settings-menu[data-id="${section}"]`).click();
-  await popup.locator(selector).click();
+  const scope = popup.locator(`.js-card-settings-section[data-section="${section}"]`);
+  await expect(scope).toBeVisible();
+  for (const side of ['card', 'minicard']) {
+    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    await expect(scope.locator('.js-card-field-order-row').first()).toHaveAttribute('data-side', side);
+    if (await scope.locator(selector).count()) break;
+  }
+  await scope.locator(selector).click();
   await popup.locator('.js-close-pop-over').click();
 }
 
@@ -132,11 +141,12 @@ test('clean boards: smaller font presets reduce checklist and settings spacing',
   await expect(cp.root.locator('.checklist-title')).toHaveCSS('padding-top', '8px');
   const popup = await settings(page);
   // A section's rows (docs/Features/Cards/Card-Fields.md): one line each.
-  await popup.locator('.js-card-settings-menu[data-id="date"]').click();
-  await expect(popup.locator('.card-settings-line').first()).toHaveCSS('padding-top', '3.2px');
+  const date = popup.locator('.js-card-settings-section[data-section="date"]');
+  await expect(date.locator('.card-settings-line').first()).toHaveCSS('padding-top', '3.2px');
   // Firefox rounds computed font sizes to layout units (9.59375px for 9.6px).
-  // The heading TEXT is the smaller font (sidebar.css), not its line: on the
-  // line, the em-sized columns shrank and the headings drifted off their cells.
-  await expect.poll(() => popup.locator('.card-settings-pane-head > span').first()
-    .evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeCloseTo(9.6, 1);
+  // The pane's column headings (12px * 0.8) went with the pane (2026-10-28);
+  // the smaller font is still pinned on what heads the rows now, the
+  // section's title (16px * the 0.8 scale, client/components/cards/cardAddFields.css).
+  await expect.poll(() => date.locator('.card-settings-inline-section-title')
+    .evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeCloseTo(12.8, 1);
 });

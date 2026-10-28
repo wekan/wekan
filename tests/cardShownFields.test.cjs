@@ -153,12 +153,22 @@ test('the opened card: "Card Settings" under the cover, the per-card currentBoar
   }
 });
 
-test('the popup is Board Settings / Card: sections on the left, Show on Minicard, Show on Card and On this card on the right', () => {
+test('the popup is Board Settings / Card: the opened card\'s Card Settings - Show on Minicard, Show on Card, On this card', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
-  const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-  assert.match(popup, /\+leftMenu\(settingsMenuItems\)\n\s+\.main-body\n\s+\+paneTitle\(settingsPaneTitle\)/);
-  assert.match(popup, /if settingsCardId\n\s+if row\.perCard\n\s+span\.card-settings-side\.card-settings-side-this\n\s+a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{row\.key\}\}" role="checkbox"/);
+  const tplOf = name => jade.slice(jade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
+  // Deliberate change: Board Settings / Card is now the SAME template as the
+  // opened card's Card Settings (`+cardSettingsInline(inPopup=true)`), not
+  // the Admin Panel's menu and pane. Show on Minicard / Show on Card are the
+  // Show radios; On this card is in a row's hamburger, only with a card.
+  assert.match(tplOf('boardCardSettingsPopup'), /\+cardSettingsInline\(inPopup=true\)/);
+  assert.ok(!jade.includes('+leftMenu(settingsMenuItems)'), 'negative: the left menu is gone');
+  const inline = tplOf('cardSettingsInline');
+  assert.ok(inline.includes("span {{_ 'show-on-minicard'}}") && inline.includes("span {{_ 'show-on-card'}}"));
+  assert.match(tplOf('cardSettingsItemPopup'), /if menu\.thisCard\n\s+div\.check-div\.card-settings-board-option\n\s+a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{key\}\}" role="checkbox"/);
   const js = read('client/components/sidebar/sidebar.js');
+  // On this card only with a card that may be changed (none in Board Settings).
+  assert.match(js, /perCard: side === 'card' && Boolean\(thisCard\) && cardShownFields\.FIELD_KEYS\.includes\(built\.key\),/);
+  assert.match(js, /thisCard: Boolean\(row\.perCard\),/);
   // #6806: with the card's board, for its Show empty fields; the data from
   // shownFieldsOf, a linked card's being its source's.
   assert.match(js, /const next = cardShownFields\.cardFieldsAfter\(view, key, !cardShownFields\.isShown\(key, view, counts, board\), counts, board\);\n\s+await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
@@ -221,23 +231,25 @@ test('the cover is on by default, and a new drawing is the cover', () => {
   assert.match(drawing, /\.\.\.\(isNew \? coverOf\(pngAttachmentId\) : \{\}\)/, 'an edit leaves the cover');
 });
 
-test('the popup: wide and high enough, moved and maximized, no tick animates on opening a pane', () => {
+test('the popup: high enough, moved and maximized, no tick animates on opening it', () => {
   const popupCss = read('client/components/main/popup.css');
-  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-wrapper,\n\s+\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-container \{\n\s+max-height: none;/, 'room for every menu entry');
-  const css = read('client/components/sidebar/sidebar.css');
-  // Only a clicked checkbox animates: none by default, each kind in the one
-  // rule that turns it on while it is-animating. Each kind is required by
-  // name, not the rule's exact list - a new checkbox (Show empty, Show empty
-  // fields, Ask for a reason) is added to it without rewriting this.
-  assert.match(css, /\.card-settings-sections \.materialCheckBox \{ transition: none; \}/);
-  const on = css.slice(css.indexOf('.card-settings-sections .card-add-field.is-animating'), css.indexOf('{ transition: 0.2s; }'));
-  for (const cls of ['card-add-field', 'card-field-order-toggle', 'card-always-show', 'card-show-empty-fields', 'card-ask-move-reason']) {
-    assert.ok(on.includes(`.card-settings-sections .${cls}.is-animating .materialCheckBox`), cls);
-  }
+  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-wrapper,\n\s+\.pop-over\[data-popup='boardCardSettingsPopup'\] \.content-container \{\n\s+max-height: none;/, 'room for every section');
+  // Deliberate change: Board Settings / Card is now cardSettingsInline, so
+  // the rule is the inline's (cardAddFields.css), not the old pane's
+  // `.card-settings-sections`: only a clicked checkbox animates, none by
+  // default. Its other checkboxes (On this card, Show empty, Show empty
+  // fields, Ask for a reason) are in the hamburger popups, drawn when one
+  // opens rather than re-drawn under the list.
+  const css = read('client/components/cards/cardAddFields.css');
+  assert.match(css, /\.card-settings-inline \.materialCheckBox \{ transition: none; \}/);
+  assert.match(css, /\.card-settings-inline \.card-field-order-toggle\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
+  assert.ok(!read('client/components/sidebar/sidebar.css').includes('.card-settings-sections'), 'negative: the pane\'s rules are gone');
   // A board-wide checkbox animates when clicked too, and only that one.
   assert.match(read('client/components/sidebar/sidebar.js'), /'click \.card-field-order-toggle'\(evt, tpl\) \{\n\s+const cell = evt\.currentTarget\.closest\('\.js-card-field-order-row'\);\n\s+if \(cell\) tpl\.animating\.set\(`\$\{cell\.dataset\.key\}:\$\{cell\.dataset\.side\}`\);/);
   const js = read('client/components/sidebar/sidebar.js');
-  assert.match(js, /tpl\.animating\.set\(null\);\n\s+tpl\.settingsSection\.set\(evt\.currentTarget\.dataset\.id\);/, 'opening a pane animates nothing');
+  // Switching Show (what replaced opening a pane) animates nothing.
+  assert.match(js, /'change \.js-card-settings-show-side'\(evt, tpl\) \{\n\s+tpl\.animating\.set\(null\);/, 'switching the side animates nothing');
+  assert.ok(!/tpl\.settingsSection\.set/.test(js), 'negative: no pane to open any more');
   assert.match(js, /tpl\.animating\.set\(key\);/, 'the clicked one does');
   const popup = read('client/components/main/popup.js');
   assert.match(popup, /MOVABLE_POPUPS = new Set\(\[[^\]]*'boardCardSettingsPopup'/);
@@ -254,18 +266,19 @@ test('a maximized card has its comments section in the right column', () => {
   assert.match(read('client/components/cards/cardDetails.css'), /\.card-details-right \.card-details-comments \.card-details-section-rule \{\n\s+display: none;/);
 });
 
-test('the pane lines up: fixed side columns on every line, and an inline form keeps its floats', () => {
+test('a row lines up: its checkbox, its name, its hamburger', () => {
+  // Deliberate change: the pane's fixed side columns (7em/9em/8em grids, the
+  // has-card and minicard list variants) went with the pane - Board Settings
+  // / Card is cardSettingsInline now. Each row is one grid of three tracks,
+  // the name taking the rest, in both places.
   const css = read('client/components/sidebar/sidebar.css');
-  // Each line is its own grid: sized by content, no two lines would agree.
-  // #6806 added the Show empty column (8em) before the field.
-  // Since 2026-10-27 two lists: the card's (On this card from a card, Show on
-  // Card, Show empty, the field) and the minicard's (Show on Minicard, the field).
-  assert.match(css, /grid-template-columns: 9em 8em minmax\(10em, 1fr\);/);
-  assert.match(css, /\.board-card-settings\.has-card \.card-settings-list-card > \.card-settings-line \{\n\s+grid-template-columns: 7em 9em 8em minmax\(10em, 1fr\);/);
-  assert.match(css, /\.card-settings-list-minicard > \.card-settings-line \{\n\s+grid-template-columns: 9em minmax\(10em, 1fr\);/);
+  const inlineCss = read('client/components/cards/cardAddFields.css');
+  assert.match(inlineCss, /\.card-settings-inline \.card-settings-line \{\n\s+grid-template-columns: auto minmax\(0, 1fr\) auto;/);
+  assert.match(css, /\n\.card-settings-line \{\n\s+display: grid;/);
   assert.doesNotMatch(css, /\.card-settings-line \{[^}]*max-content/, 'negative: no content-sized side column');
-  // Save floats left and Delete right in Change spent time and the others.
-  assert.match(css, /\.card-settings-inline-action \{[^}]*display: flow-root;/);
+  assert.ok(!/has-card|card-settings-list-(card|minicard)|grid-template-columns: 9em/.test(css), 'negative: the pane columns are gone');
+  // Negative: no in-place action form is left whose floats would need keeping.
+  assert.ok(!css.includes('.card-settings-inline-action'));
 });
 
 test('Select all / Unselect all are centred under Draggable', () => {

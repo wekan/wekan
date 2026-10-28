@@ -140,20 +140,23 @@ test('F14 V01 V07 A06: scaled headers fit and narrow settings stack without iner
     const header = el.querySelector('.header').getBoundingClientRect();
     return el.querySelector('.header-title').getBoundingClientRect().bottom <= header.bottom + 1;
   })).toBe(true);
-  // docs/Features/Cards/Card-Fields.md: the rows are grouped in sections, in
-  // a Show on Card and a Show on Minicard list. A row with no place of its
-  // own (it modifies another) is not dragged, and the popup stays open.
-  await popup.locator('.js-card-settings-menu[data-id="labels"]').click();
-  await expect(popup.locator('.js-card-field-order-row[data-key="labelText"][data-side="card"]')).not.toHaveClass(/is-positioned/);
-  await expect(popup.locator('.js-card-field-order-row[data-key="labelText"][data-side="card"] .js-card-field-order-handle')).toHaveCount(0);
+  // docs/Features/Cards/Card-Fields.md: the rows are grouped in sections,
+  // their checkboxes the side the "Show" radio chooses (Board Settings / Card
+  // is the opened card's Card Settings since 2026-10-28). A row with no place
+  // of its own (it modifies another) is not dragged, and the popup stays open.
+  const section = id => popup.locator(`.js-card-settings-section[data-section="${id}"]`);
+  const labelText = section('labels').locator('.js-card-field-order-row[data-key="labelText"][data-side="card"]');
+  await expect(labelText).toBeVisible();
+  await expect(labelText).not.toHaveClass(/is-positioned/);
+  await expect(labelText.locator('.js-card-field-order-handle')).toHaveCount(0);
   await expect(popup).toBeVisible();
   // These rows were inert on the minicard; since every Board Settings / Card
   // row can be shown on the card and the minicard (79b4467546), each has a
   // working toggle on both sides.
-  for (const [section, key] of [['members', 'requestedBy'], ['members', 'assignedBy'], ['description', 'descriptionTitle'], ['attachments', 'attachments']]) {
-    await popup.locator(`.js-card-settings-menu[data-id="${section}"]`).click();
-    for (const side of ['minicard', 'card']) {
-      await expect(popup.locator(`.js-card-field-order-row[data-key="${key}"][data-side="${side}"] .card-field-order-toggle`)).toHaveCount(1);
+  for (const side of ['minicard', 'card']) {
+    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    for (const [id, key] of [['members', 'requestedBy'], ['members', 'assignedBy'], ['description', 'descriptionTitle'], ['attachments', 'attachments']]) {
+      await expect(section(id).locator(`.js-card-field-order-row[data-key="${key}"][data-side="${side}"] .card-field-order-toggle`)).toHaveCount(1);
     }
   }
   await page.setViewportSize({ width: 375, height: 900 });

@@ -15,9 +15,8 @@
 //   small file button instead of a 144x96 box with "txt" in it; and two new
 //   Board Settings / Card / Show on Card rows, Attachments: Preview and
 //   Attachments: Details (uploader and date), turn the rest off.
-// - Board Settings / Card is a centred panel as wide (up to 1800px) and tall as
-//   the window, and each list spreads into as many columns as fit, read top to
-//   bottom, so on a 1920x1080 screen nothing is scrolled.
+// - Board Settings / Card is a centred panel as tall as the window. It is now
+//   the opened card's Card Settings template (cardSettingsInline), 600px wide.
 // Run: node tests/declutterCard6796.test.cjs
 
 const assert = require('assert');
@@ -152,29 +151,40 @@ test('Checklists: the bottom controls share a line, and the bottom "+" waits for
 const offsetSrc = read('client/lib/popupOffset.js');
 const offset = vm.runInNewContext(`(() => { ${offsetSrc.replace(/^export \{[^}]*\};?\s*$/m, '')}\n return { computePopupOffset, CARD_SETTINGS_MAX_WIDTH }; })()`);
 
-test('the popup is a centred panel as wide (up to 1200px) and tall as the window', () => {
-  // 1800px fitted two long lists side by side; the Admin Panel's menu and pane
-  // (docs/Features/Cards/Card-Fields.md) need a row's label and its two sides.
+test('the popup is a centred panel as wide (up to 600px) and tall as the window', () => {
+  // Deliberate change: Board Settings / Card is now the SAME template as the
+  // opened card's Card Settings (sidebar.jade boardCardSettingsPopup is only
+  // `+cardSettingsInline(inPopup=true)`) - one column of checklists, not the
+  // Admin Panel's menu and a pane of four checkbox columns - so it is about
+  // as wide as an opened card, 600px rather than 1200px. Still centred and
+  // as tall as the window (#6796), so it is read with little scrolling.
   const base = { popupName: 'boardCardSettingsPopup', viewportHeight: 1080, openerTopVp: 40, openerBottomVp: 60,
     openerLeftVp: 1700, scrollTop: 0, scrollLeft: 0 };
   const wide = offset.computePopupOffset({ ...base, viewportWidth: 1920 });
-  // 1200px since the Show empty column: the menu, four checkbox columns and
-  // the whole label of a row, nothing clipped.
-  assert.strictEqual(offset.CARD_SETTINGS_MAX_WIDTH, 1200);
-  assert.strictEqual(wide.left, 360);
+  assert.strictEqual(offset.CARD_SETTINGS_MAX_WIDTH, 600);
+  assert.strictEqual(wide.left, (1920 - 600) / 2, 'centred, whatever the opener');
   assert.strictEqual(wide.top, 12);
   assert.strictEqual(wide.maxHeight, 1056);
   const narrow = offset.computePopupOffset({ ...base, viewportWidth: 900, viewportHeight: 768 });
-  assert.ok(Math.abs(narrow.left - (900 - 900 * 0.96) / 2) < 0.01);
+  const narrowWidth = Math.min(600, 900 * 0.96);
+  assert.ok(Math.abs(narrow.left - (900 - narrowWidth) / 2) < 0.01);
+  assert.strictEqual(narrow.maxHeight, 768 - 24);
   // A phone is still the full-screen sheet.
   assert.deepStrictEqual({ ...offset.computePopupOffset({ ...base, viewportWidth: 600 }) }, { left: 0, top: 0 });
   // The CSS says the same width.
-  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 1200px\) !important;[^}]*max-height: calc\(100dvh - 24px\) !important;/);
+  assert.match(popupCss, /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 600px\) !important;[^}]*max-height: calc\(100dvh - 24px\) !important;/);
+  assert.ok(!/width: min\(96vw, 1200px\)/.test(popupCss), 'negative: the old 1200px pane width is gone');
 });
 
-test('each row is one line: its label, then the minicard cell and the card cell', () => {
-  assert.match(sidebarCss, /\.card-settings-pane-head,\n\.card-settings-line \{\n\s+display: grid;/);
+test('each row is one line: its checkbox, its name and its hamburger', () => {
+  // Deliberate change: the pane's column heads (.card-settings-pane-head) are
+  // gone with the pane; a row is the checklist item of cardSettingsInline,
+  // the same on the opened card and in Board Settings / Card.
+  assert.match(sidebarCss, /\n\.card-settings-line \{\n\s+display: grid;/);
+  assert.match(read('client/components/cards/cardAddFields.css'),
+    /\.card-settings-inline \.card-settings-line \{\s*grid-template-columns: auto minmax\(0, 1fr\) auto;/);
   assert.ok(!sidebarCss.includes('.card-field-order-column-minicard'), 'the column layout is gone (negative)');
+  assert.ok(!sidebarCss.includes('.card-settings-pane'), 'the pane layout is gone (negative)');
 });
 
 console.log(`\n${passed} passed`);

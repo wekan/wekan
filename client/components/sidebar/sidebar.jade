@@ -270,141 +270,16 @@ template(name="boardInfoOnMyBoardsPopup")
           | {{_ 'personal-list-width'}}
 
 //- Board Settings / Card - what the opened card and the minicard show, and
-  in what order. Opened from the board's cog menu (boardMenuPopup above); it
-  used to be split across the CARD's own menu ("Show on Card", side="card")
-  and the MINICARD's own menu ("Show on Minicard", side="minicard"), and
-  settingsSideClass() still hides one column when a side is passed.
-  "Labels text" - the one PERSONAL setting here - stays reachable by a
-  non-admin, who is passed `personalOnly=true` so every board-wide,
-  admin-only row is hidden and only that one shows. client/lib/minicardLabelText.js
-//- ONE heading, "Card field order", over TWO lists: "Show on Minicard" in
-  the board's minicard order and "Show on Card" in its card order. The lists
-  are independent because the orders are: a field can sit third on the
-  minicard and last on the card. Every row of either list is
-  `[checkbox] [up] [down] icon label` - the checkbox is whether that side
-  shows the field, the arrows move it on THAT side only, and the icon and
-  label are the field's own (models/lib/cardSettingsRows.js). The rows are
-  not written out here: the two `each` loops draw them from that table in
-  the order models/lib/cardFieldOrder.js resolves for the board, the SAME
-  source cardDetails.jade and minicard.jade render from, so what the popup
-  lists top to bottom is what the card and the minicard draw top to bottom.
-  A row whose arrows would do nothing (the card's title bar and its
-  galleries, a minicard row that modifies another element rather than being
-  one) keeps them, disabled, so every row reads the same.
-  Up/down buttons rather than a drag library: no sortable-based reorder of a
-  plain settings LIST exists elsewhere in this codebase to reuse, so buttons
-  are the simpler, safer mechanism. Keyboard-reachable: `href="#"` and
-  `role="button"`, titled with the existing move-up/move-down keys.
-  client/components/sidebar/sidebar.js, tests/cardSettingsCoverage.test.cjs
+  in what order. Opened from the board's cog menu (boardMenuPopup above).
+  Whoever may not change the board sees the board's rows disabled and may
+  still set their own ("Labels text", "List title"), as on the opened card.
 template(name="boardCardSettingsPopup")
-  //- Board Settings / Card, and the opened card's "+ Add": ONE popup, the Admin
-    Panel's left menu and right pane (docs/Features/Cards/Card-Fields.md). The
-    menu lists the sections (models/lib/cardSettingsSections.js); the pane the
-    open section's rows, each with its "Show on Minicard" and "Show on Card"
-    cell - a checkbox and the order arrows of that side - and, opened from a
-    card, whether THIS card shows the field. A side cell is the
-    `.js-card-field-order-row` the handlers read data-key and data-side from.
-  form.board-card-settings.card-settings-sections(class=settingsSideClass)
-    .setting-content
-      .content-body
-        +leftMenu(settingsMenuItems)
-        .main-body
-          +paneTitle(settingsPaneTitle)
-          //- The first entry, Card: what is not a field, then its rows.
-          if openSettingsSectionIsGeneral
-            //- Every card shows all its fields, the empty ones too; the Show
-              empty column is then set aside, its ticks kept.
-            div.check-div.card-settings-board-option.card-settings-show-empty-fields
-              a.flex.card-show-empty-fields(class="{{#if canModifyBoard}}js-show-empty-card-fields{{else}}is-disabled{{/if}} {{#if isAnimating 'showEmptyCardFields'}}is-animating{{/if}}" role="checkbox" aria-checked="{{#if showEmptyCardFields}}true{{else}}false{{/if}}")
-                .materialCheckBox(class="{{#if showEmptyCardFields}}is-checked{{/if}}")
-                span {{_ 'card-settings-show-empty-fields'}}
-            //- The same checkbox, in the same place, as Show empty fields.
-            div.check-div.card-settings-board-option.card-settings-ask-move-reason
-              a.flex.card-ask-move-reason(class="{{#if canModifyBoard}}js-ask-move-reason{{else}}is-disabled{{/if}} {{#if isAnimating 'askForMoveReason'}}is-animating{{/if}}" role="checkbox" aria-checked="{{#if askForMoveReason}}true{{else}}false{{/if}}")
-                .materialCheckBox(class="{{#if askForMoveReason}}is-checked{{/if}}")
-                span {{_ 'ask-move-reason'}}
-            //- No select-all of Show on Minicard / Show on Card here: their
-              checkboxes are in the sections, not under it.
-            +boardDragSettings(section="card")
-          .card-settings-pane
-            //- Under the title: everything in the hamburger of this section on
-              the opened card - Filter: Subtasks, Edit voting, Card kind, the
-              section's settings ... (docs/Features/Cards/Card-Fields.md). The
-              card's own actions only when opened from a card.
-            if sectionCardActions.length
-              ul.pop-over-list.card-settings-card-actions
-                each action in sectionCardActions
-                  li
-                    //- An inline action is its form, right here (Edit voting,
-                      Change spent time, Card kind, ...); the others open
-                      their popup.
-                    if action.inline
-                      .card-settings-inline-action
-                        h4
-                          i.fa(class=action.icon aria-hidden="true")
-                          | {{action.title}}
-                        +Template.dynamic(template=action.inline data=action.inlineData)
-                    else
-                      a.js-card-settings-action(data-action="{{action.id}}")
-                        i.fa(class=action.icon aria-hidden="true")
-                        | {{action.title}}
-            //- Two lists, each in its own order and reordered by drag and
-              drop (sidebar.js reorderOnDrop): Show on Card - the opened
-              card's fields of this section, in the card's order, with On
-              this card (opened from a card) and Show empty beside each - and
-              Show on Minicard, in the minicard's order. Under each heading,
-              Select all / Select none for that column. The columns are
-              mirrored in a right-to-left language by the grid itself.
-            .card-settings-list.card-settings-list-card.js-card-field-order-sortable(data-side="card")
-              .card-settings-pane-head
-                if settingsCardId
-                  span.card-settings-side-head.card-settings-side-head-this
-                    span {{_ 'card-settings-this-card'}}
-                    +cardSettingsSelectButtons(column="this")
-                span.card-settings-side-head.card-settings-side-head-card
-                  span {{_ 'show-on-card'}}
-                  if canModifyBoard
-                    +cardSettingsSelectButtons(column="card")
-                span.card-settings-side-head.card-settings-side-head-always
-                  span {{_ 'card-settings-show-empty'}}
-                  if canModifyBoard
-                    +cardSettingsSelectButtons(column="always")
-                span.card-settings-pane-head-label {{_ 'card-field-order'}}
-              each row in sectionCardRows
-                .card-settings-line.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}} {{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="card")
-                  //- Opened from a card: whether this card shows the field -
-                    the field with data is shown, an empty one when ticked
-                    here (models/lib/cardShownFields.js).
-                  if settingsCardId
-                    if row.perCard
-                      span.card-settings-side.card-settings-side-this
-                        a.flex.card-add-field.js-card-add-field(data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.shownOnThisCard}}true{{else}}false{{/if}}" class="{{#if isAnimating row.key}}is-animating{{/if}}" title="{{_ 'card-settings-this-card'}}")
-                          .materialCheckBox(class="{{#if row.shownOnThisCard}}is-checked{{/if}}")
-                    else
-                      span.card-settings-side.card-settings-side-this.card-settings-side-empty
-                  +cardSettingsSideToggle(row=row)
-                  //- #6806: Show empty - every card of the board shows the
-                    field, empty or not - by default the description,
-                    attachments and comments; "On this card" still hides it
-                    from one card. Hidden while Show empty fields is on.
-                  if row.alwaysShowable
-                    span.card-settings-side.card-settings-side-always
-                      a.flex.card-always-show(class="{{#if canModifyBoard}}js-card-always-show{{else}}is-disabled{{/if}} {{#if row.animatingAlways}}is-animating{{/if}}" data-key="{{row.key}}" role="checkbox" aria-checked="{{#if row.alwaysShown}}true{{else}}false{{/if}}" title="{{_ 'card-settings-show-empty'}}")
-                        .materialCheckBox(class="{{#if row.alwaysShown}}is-checked{{/if}}")
-                  else
-                    span.card-settings-side.card-settings-side-always.card-settings-side-empty
-                  +cardSettingsRowLabel(row=row)
-            .card-settings-list.card-settings-list-minicard.js-card-field-order-sortable(data-side="minicard")
-              .card-settings-pane-head
-                span.card-settings-side-head.card-settings-side-head-minicard
-                  span {{_ 'show-on-minicard'}}
-                  if canModifyBoard
-                    +cardSettingsSelectButtons(column="minicard")
-                span.card-settings-pane-head-label
-              each row in sectionMinicardRows
-                .card-settings-line.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}} {{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="minicard")
-                  +cardSettingsSideToggle(row=row)
-                  +cardSettingsRowLabel(row=row)
+  //- Board Settings / Card is the SAME template as the opened card's Card
+    Settings (cardSettingsInline below), with no card: Show, then the sections
+    as checklists, their rows as the items, the rest in their hamburgers
+    (docs/Features/Cards/Card-Settings-On-Card.md). The popup's own header is
+    its title and its close button.
+  +cardSettingsInline(inPopup=true)
 
 
 //- One side's checkbox of a row of Card Settings: the board's Show on Card or
@@ -417,12 +292,12 @@ template(name="cardSettingsSideToggle")
 
 
 //- A row's name in Card Settings, and what it is dragged by: with drag handles
-  on, its handle, its icon or its name; with them off, its icon or its name.
-  The Up and Down arrow keys move a focused row one step. A row with no place
-  of its own (one that only modifies another, or is drawn at a fixed place)
-  is not dragged.
+  on, ONLY its handle - the rest of the row then scrolls the page, as a touch
+  there means to; with them off, its icon and its name. The Up and Down arrow
+  keys move a focused row one step. A row with no place of its own (one that
+  only modifies another, or is drawn at a fixed place) is not dragged.
 template(name="cardSettingsRowLabel")
-  span.card-settings-line-label(class="{{#if row.draggable}}js-card-field-order-handle card-field-order-drag-label{{/if}}" tabindex="{{#if row.draggable}}{{#unless row.showDragHandles}}0{{/unless}}{{/if}}" title="{{#if row.draggable}}{{_ 'drag-to-reorder'}}{{/if}}")
+  span.card-settings-line-label(class="{{#if row.draggable}}{{#unless row.showDragHandles}}js-card-field-order-handle card-field-order-drag-label{{/unless}}{{/if}}" tabindex="{{#if row.draggable}}{{#unless row.showDragHandles}}0{{/unless}}{{/if}}" title="{{#if row.draggable}}{{#unless row.showDragHandles}}{{_ 'drag-to-reorder'}}{{/unless}}{{/if}}")
     if row.draggable
       if row.showDragHandles
         a.flex.card-field-order-move.card-field-order-handle.js-card-field-order-handle(href="#" draggable="false" role="button" tabindex="0" title="{{_ 'drag-to-reorder'}}" aria-label="{{_ 'drag-to-reorder'}}")
@@ -442,16 +317,6 @@ template(name="cardSettingsRowLabel")
         | &nbsp;({{_ 'label-text-follows-board'}})
 
 
-//- Select all / Select none of one column of Card Settings' pane
-  (boardCardSettingsPopup's 'click .js-card-settings-select').
-template(name="cardSettingsSelectButtons")
-  //- The Draggable table's buttons (boardSettingsColumnActions): white text
-    on the theme's colour.
-  span.board-settings-column-actions.card-settings-select
-    button.js-card-settings-select(type="button" data-column="{{column}}" data-value="all") {{_ 'select-all'}}
-    button.js-card-settings-select(type="button" data-column="{{column}}" data-value="none") {{_ 'select-none'}}
-
-
 //- Card Settings on the opened card (docs/Features/Cards/Card-Settings-On-Card.md).
   The card's "Card Settings" button, and everything below it, is replaced by
   this until its X closes it: the title, "Show" choosing whether the
@@ -462,21 +327,25 @@ template(name="cardSettingsSelectButtons")
   section or a row has is in its hamburger (cardSettingsSectionPopup,
   cardSettingsItemPopup). The rows, checkboxes and handlers are the popup's
   above (client/components/sidebar/sidebar.js sectionRowsOf,
-  cardSettingsEvents), so the two cannot disagree. Board Settings / Card
-  still opens the popup.
+  cardSettingsEvents), so the two cannot disagree. Board Settings / Card is
+  this same template, in a popup (boardCardSettingsPopup above).
 template(name="cardSettingsInline")
-  .card-settings-inline.js-card-settings-inline(class=settingsSideClass)
-    .card-settings-inline-head
-      h3.card-settings-inline-title {{_ 'card-settings'}}
-      a.card-settings-inline-close.js-close-card-settings(href="#" role="button" title="{{_ 'close'}}" aria-label="{{_ 'close'}}")
-        i.fa.fa-times(aria-hidden="true")
+  .card-settings-inline.js-card-settings-inline(class="{{settingsSideClass}} {{#if inPopup}}card-settings-in-popup{{/if}}")
+    //- In Board Settings / Card the popup's header is the title and the X.
+    unless inPopup
+      .card-settings-inline-head
+        h3.card-settings-inline-title {{_ 'card-settings'}}
+        a.card-settings-inline-close.js-close-card-settings(href="#" role="button" title="{{_ 'close'}}" aria-label="{{_ 'close'}}")
+          i.fa.fa-times(aria-hidden="true")
+    //- Its own radio name: the opened card's Card Settings and Board Settings /
+      Card may be open together, and one name would make them one group.
     .card-settings-inline-show(role="radiogroup" aria-label="{{_ 'card-settings-show'}}")
       span.card-settings-inline-show-label {{_ 'card-settings-show'}}
       label.card-settings-inline-show-option
-        input.js-card-settings-show-side(type="radio" name="card-settings-show-side" value="minicard" checked="{{showsSide 'minicard'}}")
+        input.js-card-settings-show-side(type="radio" name="card-settings-show-side-{{#if inPopup}}popup{{else}}card{{/if}}" value="minicard" checked="{{showsSide 'minicard'}}")
         span {{_ 'show-on-minicard'}}
       label.card-settings-inline-show-option
-        input.js-card-settings-show-side(type="radio" name="card-settings-show-side" value="card" checked="{{showsSide 'card'}}")
+        input.js-card-settings-show-side(type="radio" name="card-settings-show-side-{{#if inPopup}}popup{{else}}card{{/if}}" value="card" checked="{{showsSide 'card'}}")
         span {{_ 'show-on-card'}}
     .card-settings-inline-sections.js-card-settings-sections-sortable
       each section in inlineSections
@@ -497,7 +366,8 @@ template(name="cardSettingsInlineSection")
         if section.showDragHandles
           a.card-settings-inline-section-move.js-card-settings-section-handle(href="#" draggable="false" role="button" tabindex="0" title="{{_ 'drag-to-reorder'}}" aria-label="{{_ 'drag-to-reorder'}}")
             i.fa.fa-arrows(aria-hidden="true")
-      h4.card-settings-inline-section-title(class="{{#if section.draggable}}js-card-settings-section-handle{{/if}}" tabindex="{{#if section.draggable}}{{#unless section.showDragHandles}}0{{/unless}}{{/if}}" title="{{#if section.draggable}}{{_ 'drag-to-reorder'}}{{/if}}")
+      //- Like a row: with drag handles on, only the handle drags the section.
+      h4.card-settings-inline-section-title(class="{{#if section.draggable}}{{#unless section.showDragHandles}}js-card-settings-section-handle{{/unless}}{{/if}}" tabindex="{{#if section.draggable}}{{#unless section.showDragHandles}}0{{/unless}}{{/if}}" title="{{#if section.draggable}}{{#unless section.showDragHandles}}{{_ 'drag-to-reorder'}}{{/unless}}{{/if}}")
         i.fa(class=section.icon aria-hidden="true")
         | {{section.title}}
       span.card-settings-inline-section-count {{section.checkedCount}}/{{section.rows.length}}
@@ -505,7 +375,7 @@ template(name="cardSettingsInlineSection")
         i.fa.fa-bars(aria-hidden="true")
     .card-settings-inline-items.js-card-field-order-sortable(data-side="{{side}}")
       each row in section.rows
-        .card-settings-line.card-settings-inline-item.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}} {{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="{{side}}")
+        .card-settings-line.card-settings-inline-item.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}} {{#if row.positioned}}is-positioned{{/if}}" data-key="{{row.key}}" data-side="{{row.side}}")
           +cardSettingsSideToggle(row=row)
           +cardSettingsRowLabel(row=row)
           if row.hasMenu
@@ -869,8 +739,8 @@ template(name="boardMenuPopup")
       board-wide list of toggles behind two different places depending on
       what you were looking at, and which also let anyone open it for the one
       PERSONAL row in it ("Labels text" - stored on the user's own profile,
-      not the board). It is back here as one board setting, and keeps that
-      same personal-only fallback for a non-admin.
+      not the board). It is back here as one board setting; a non-admin sees
+      the board's rows disabled and may still set that personal row.
       client/components/cards/cardDetails.jade
     ul.pop-over-list
       if currentUser.isBoardAdmin

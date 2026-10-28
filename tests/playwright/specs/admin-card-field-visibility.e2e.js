@@ -15,15 +15,16 @@ const setting = () => db.findOne('settings', {}, { _id: 1, cardFieldStates: 1 })
 const restore = saved => (saved.cardFieldStates
   ? db.updateOne('settings', { _id: saved._id }, { $set: { cardFieldStates: saved.cardFieldStates } })
   : db.updateOne('settings', { _id: saved._id }, { $unset: { cardFieldStates: '' } }));
-// Card Settings opens on its first section, Card; Flowtime and Pomodoro are
-// rows of the Time section (models/lib/cardSettingsSections.js), so the pane
-// is switched to it - otherwise "no Pomodoro row" would hold for any board.
+// Board Settings / Card shows every section at once (cardSettingsInline);
+// Flowtime and Pomodoro are rows of the Time section
+// (models/lib/cardSettingsSections.js), so the Time section is waited for -
+// otherwise "no Pomodoro row" would hold for a popup not drawn yet.
 const openCardSettings = async page => {
   await page.evaluate(() => {
     Popup.close();
-    Popup.open('boardCardSettings')({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
+    Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
-  await page.locator('.js-pop-over .js-card-settings-menu[data-id="time"]').click();
+  await expect(page.locator('.js-pop-over .js-card-settings-section[data-section="time"]')).toBeVisible();
 };
 
 async function tickPomodoro(page) {
@@ -68,7 +69,8 @@ test.describe('Admin card field visibility', () => {
       await expect(minicard).toBeVisible();
       await expect(minicard.locator('.minicard-pomodoro')).toHaveCount(0);
       await openCardSettings(page);
-      await expect(page.locator('.js-card-field-order-row[data-key="flowtime"]').first()).toBeAttached();
+      const time = page.locator('.js-pop-over .js-card-settings-section[data-section="time"]');
+      await expect(time.locator('.js-card-field-order-row[data-key="flowtime"]')).toBeVisible();
       await expect(page.locator('.js-card-field-order-row[data-key="pomodoro"]')).toHaveCount(0);
       await page.evaluate(() => Popup.close());
       await bp.clickCard(listId, 'Pomodoro Card');
@@ -87,7 +89,7 @@ test.describe('Admin card field visibility', () => {
       await openBoard(page, seeded.boardId, seeded.slug);
       await expect(bp.minicard(listId, 'Pomodoro Card').locator('.minicard-pomodoro')).toBeVisible({ timeout: 15000 });
       await openCardSettings(page);
-      await expect(page.locator('.js-card-field-order-row[data-key="pomodoro"]').first()).toBeAttached();
+      await expect(page.locator('.js-pop-over .js-card-settings-section[data-section="time"] .js-card-field-order-row[data-key="pomodoro"]')).toBeVisible();
       await page.evaluate(() => Popup.close());
       await bp.clickCard(listId, 'Pomodoro Card');
       await cp.waitForOpen();

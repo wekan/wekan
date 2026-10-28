@@ -7,15 +7,33 @@ const valueOf = (doc, field) => field.split('.').reduce((value, key) => value?.[
 async function openSettings(page, section) {
   await page.evaluate(section => {
     Popup.close();
-    Popup.open(`board${section}Settings`)({currentTarget:document.body, target:document.body, preventDefault() {}, stopPropagation() {}});
+    const evt = {currentTarget:document.body, target:document.body, preventDefault() {}, stopPropagation() {}};
+    // Board Settings / Card is opened as the cog menu does: with no card.
+    if (section === 'Card') Popup.open('boardCardSettings').call({currentData: () => ({})}, evt);
+    else Popup.open(`board${section}Settings`)(evt);
   }, section);
+}
+// Board Settings / Card is the opened card's Card Settings since 2026-10-28
+// (cardSettingsInline): the Draggable table, with its column actions, is in
+// the Card section's hamburger, as on the opened card.
+async function openCardSectionMenu(page) {
+  const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
+  await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
+  const menu = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"]');
+  await expect(menu).toBeVisible();
+  return menu;
+}
+// Swimlane and List show their table in the popup; Card in Card's hamburger.
+async function openColumns(page, section) {
+  await openSettings(page, section);
+  if (section === 'Card') await openCardSectionMenu(page);
 }
 for (const section of ['Swimlane','List','Card']) test(`${section} column actions set all, unset all and persist without changing other columns`, async ({boardPage:page, board, user}) => {
   const other = db.seedBoard({ownerId:user.id});
   const otherBefore = db.findOne('boards',{_id:other.boardId});
   const profileBefore = db.findOne('users',{_id:user.id}).profile;
   try {
-    await openSettings(page, section);
+    await openColumns(page, section);
     // Card: only Draggable has a select-all; Show on Minicard and Show on Card
     // are checkboxes in the sections, with none under the first entry
     // (docs/Features/Cards/Card-Fields.md).
@@ -40,7 +58,7 @@ for (const section of ['Swimlane','List','Card']) test(`${section} column action
       const after = db.findOne('boards',{_id:board.boardId});
       for (const key of Object.keys(before).filter(key => /^(allows|showLabelText|labelsAbove|listWidthResizeLocked|swimlaneHeightResizeLocked|sameWidthForAllLists|.*FieldOrder)/.test(key) && !fields.includes(key))) expect(after[key],key).toEqual(before[key]);
       await page.reload();
-      await openSettings(page, section);
+      await openColumns(page, section);
       const saved = db.findOne('boards',{_id:board.boardId});
       expect(fields.every(field => valueOf(saved, field) === true)).toBe(true);
     }
@@ -64,46 +82,50 @@ test('column updates reject foreign boards, non-admin members and invalid column
     expect(db.findOne('boards',{_id:board.boardId}).allowsLabels).toEqual(before.allowsLabels);
     await page.reload();
     await openSettings(page,'Card');
-    // The pane first: a count of 0 taken before it rendered passed in Chromium
-    // without looking at anything. Then only the board-admin column actions
-    // (boardSettingsColumnActions, data-column) - Show on Card's Select all /
-    // Select none (cardSettingsSelectButtons) share the class and are a
-    // member's, like the checkboxes under them (canModifyBoard).
-    await expect(page.locator('.pop-over[data-popup="boardCardSettingsPopup"] .card-settings-pane-head').first()).toBeVisible();
+    // The sections first: a count of 0 taken before they rendered passed in
+    // Chromium without looking at anything. Then, in Card's hamburger where
+    // the Draggable table is, no board-admin column actions
+    // (boardSettingsColumnActions, data-column) for a non-admin member.
+    await expect(page.locator('.pop-over[data-popup="boardCardSettingsPopup"] .js-card-settings-section').first()).toBeVisible();
+    const menu = await openCardSectionMenu(page);
+    await expect(menu.locator('.card-settings-section-menu')).toBeVisible();
     await expect(page.locator('.board-settings-column-actions[data-column]')).toHaveCount(0);
   } finally { db.cleanup({boardIds:[other.boardId]}); }
 });
 
-test('Card settings are the Admin Panel left menu and pane: Draggable in the first entry, each section a line per row', async ({ boardPage: page, board }) => {
-  // docs/Features/Cards/Card-Fields.md (2026-10-25): it was three columns
-  // (Draggable, Show on Minicard, Show on Card); now a left menu of sections and
-  // a pane, the same popup the opened card's "+ Add" opens.
+test('Card settings are the opened card\'s Card Settings: Draggable in Card\'s hamburger, each section a line per row', async ({ boardPage: page, board }) => {
+  // docs/Features/Cards/Card-Fields.md: it was three columns (Draggable, Show
+  // on Minicard, Show on Card), then the Admin Panel's left menu and pane
+  // (2026-10-25); since 2026-10-28 it is the opened card's Card Settings
+  // template (cardSettingsInline) - Show, then every section as a checklist.
   await expect(page.locator(`#js-list-${board.listIds[0]}`)).toBeVisible();
   for (const width of [1280, 800, 375]) {
     await page.setViewportSize({ width, height: 900 });
     await openSettings(page, 'Card');
     const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
     await expect(popup).toBeVisible();
-    await expect(popup.locator('.setting-content .content-body .side-menu')).toBeVisible();
-    await expect(popup.locator('.board-drag-settings')).toBeVisible();
-    await popup.locator('.js-card-settings-menu[data-id="date"]').click();
+    await expect(popup.locator('.js-card-settings-inline')).toBeVisible();
+    await expect(popup.locator('.side-menu')).toHaveCount(0);
+    // Draggable is not in the list itself: it is in Card's hamburger.
     await expect(popup.locator('.board-drag-settings')).toHaveCount(0);
-    // Two lists per section now (Show on Card, then Show on Minicard under it,
-    // each dragged in its own order - docs/Features/Board-Sidebar/Board-Settings/Card.md),
-    // so a row is a line in each list, each with its own side's checkbox.
-    const lineOf = side => popup.locator(`.card-settings-line[data-key="dueDate"][data-side="${side}"]`);
+    // A row is one line per Show side, its checkbox that side's.
+    const line = popup.locator('.js-card-settings-section[data-section="date"] .card-settings-line[data-key="dueDate"]');
     for (const side of ['card', 'minicard']) {
-      await expect(lineOf(side)).toBeVisible();
-      await expect(lineOf(side).locator(`.card-settings-side-${side}`)).toBeVisible();
+      await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+      await expect(line).toHaveAttribute('data-side', side);
+      await expect(line).toHaveCount(1);
+      await expect(line.locator(`.card-settings-side-${side}`)).toBeVisible();
     }
-    const [mini, card] = await Promise.all(['minicard', 'card'].map(side => lineOf(side).boundingBox()));
-    expect(mini.y).toBeGreaterThan(card.y);
     expect(await popup.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    const menu = await openCardSectionMenu(page);
+    await expect(menu.locator('.board-drag-settings')).toBeVisible();
   }
 });
 
 test('Card settings have no select-all for Show on Minicard or Show on Card (negative)', async ({ boardPage: page }) => {
-  await openSettings(page, 'Card');
+  // In the Draggable table of Card's hamburger: Show on Minicard / Show on
+  // Card are each section's own Select all / Select none, not a table column.
+  await openColumns(page, 'Card');
   await expect(page.locator('.board-settings-column-actions[data-section="card"][data-column="draggable"]')).toBeVisible();
   await expect(page.locator('.board-settings-column-actions[data-section="card"][data-column="minicard"], .board-settings-column-actions[data-section="card"][data-column="card"]')).toHaveCount(0);
 });

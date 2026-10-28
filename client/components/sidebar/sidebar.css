@@ -147,55 +147,17 @@
   cursor: pointer;
 }
 
-/* Board Settings / Card - also the opened card's "+ Add" - is the Admin
-   Panel's left menu and right pane (sidebar.jade boardCardSettingsPopup,
-   docs/Features/Cards/Card-Fields.md): the sections on the left, the open
-   section's rows on the right, one line each - the label, then the
-   "Show on Minicard" cell and the "Show on Card" cell (a checkbox, the
-   position and the order arrows of that side), and opened from a card the
-   "On this card" checkbox. */
-.board-card-settings {
-  container-type: inline-size;
-}
-.card-settings-sections .setting-content {
-  position: relative;
-  /* High enough for every entry of the left menu - Card Settings and the
-     twelve sections - where the window has the room, so the menu does not
-     scroll; a shorter window caps it. */
-  height: 52em;
-  max-height: calc(100dvh - 7em);
-  background: transparent;
-}
-.card-settings-sections .setting-content .content-body { height: 100%; }
-.card-settings-sections .main-body { overflow: auto; flex: 1 1 auto; min-width: 16em; }
-.card-settings-pane-head,
+/* Card Settings - on the opened card and in Board Settings / Card, one
+   template (sidebar.jade cardSettingsInline; its checklist look is
+   client/components/cards/cardAddFields.css): a row's line, its checkbox and
+   its name. */
 .card-settings-line {
   display: grid;
-  /* Two lists: Show on Card - opened from a card On this card first, then
-     Show on Card, Show empty (#6806) and the field - and Show on Minicard,
-     then the field. Logical order: a right-to-left page mirrors it. Each
-     line is its own grid, so the side columns have FIXED widths - sized by
-     content, every line and the heading line would size them differently and
-     nothing would line up. */
-  grid-template-columns: 9em 8em minmax(10em, 1fr);
-  column-gap: 14px;
   align-items: center;
-  /* Every heading and every cell starts at its column's left edge (its start,
-     right-to-left), so a heading and the checkboxes under it line up. */
   justify-items: start;
   text-align: start;
-}
-.board-card-settings.has-card .card-settings-list-card > .card-settings-pane-head,
-.board-card-settings.has-card .card-settings-list-card > .card-settings-line {
-  grid-template-columns: 7em 9em 8em minmax(10em, 1fr);
-}
-.card-settings-list-minicard > .card-settings-pane-head,
-.card-settings-list-minicard > .card-settings-line {
-  grid-template-columns: 9em minmax(10em, 1fr);
-}
-/* The minicard's list under the card's, a little apart. */
-.card-settings-list + .card-settings-list {
-  margin-block-start: 14px;
+  padding: calc(4px * min(1, var(--wekan-ui-font-scale, 1))) 0;
+  border-bottom: 1px solid #eee;
 }
 /* What a row is dragged by: its handle (drag handles on), its icon or name. */
 .card-field-order-drag-label {
@@ -204,30 +166,6 @@
 .card-settings-line.ui-sortable-helper {
   background: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-.card-settings-pane-head {
-  font-weight: bold;
-  border-bottom: 1px solid #eee;
-  padding-block-end: 4px;
-  align-items: start;
-}
-/* The headings' smaller font is on the headings, not on their line: the
-   columns are in em, and a smaller font on the line made every column of the
-   heading narrower than the same column of the rows - each heading drifted
-   further left of its checkboxes, and the rows' labels past the pane. */
-.card-settings-pane-head > span {
-  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
-}
-.card-settings-line {
-  padding: calc(4px * min(1, var(--wekan-ui-font-scale, 1))) 0;
-  border-bottom: 1px solid #eee;
-}
-.card-settings-side-head {
-  /* A heading longer than its column, in another language, wraps in it. */
-  overflow-wrap: anywhere;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 .card-settings-line-label {
   display: inline-flex;
@@ -246,9 +184,8 @@
 .card-settings-side > a.flex {
   margin: 0;
 }
-/* Select all / Select none under a column's heading, for that column's rows
-   of the open section: the Draggable table's buttons
-   (boardSettingsColumnActions.css), a little closer to their heading. */
+/* Select all / Select none in a section's hamburger: the Draggable table's
+   buttons (boardSettingsColumnActions.css). */
 .card-settings-select {
   margin: 3px 0 0;
   font-weight: normal;
@@ -256,24 +193,6 @@
 .card-settings-select button {
   white-space: nowrap;
 }
-.card-settings-inline-action {
-  /* The forms float their buttons (Save left, Delete right); flow-root keeps
-     those floats inside the form, or the rows below wrapped around them. */
-  display: flow-root;
-  padding: 6px 0 10px;
-  border-bottom: 1px solid #eee;
-}
-.card-settings-inline-action h4 { margin: 0 0 6px; }
-/* Create Field and Link fields to another card are forms of their own in the
-   Custom Fields pane: the list's two buttons that open them are not repeated. */
-.card-settings-inline-action .card-custom-fields-more { display: none; }
-.card-settings-sections .materialCheckBox { transition: none; }
-.card-settings-sections .card-add-field.is-animating .materialCheckBox,
-.card-settings-sections .card-field-order-toggle.is-animating .materialCheckBox,
-.card-settings-sections .card-always-show.is-animating .materialCheckBox,
-.card-settings-sections .card-show-empty-fields.is-animating .materialCheckBox,
-.card-settings-sections .card-ask-move-reason.is-animating .materialCheckBox { transition: 0.2s; }
-
 .card-field-order-toggle,
 .card-field-order-move {
   flex-shrink: 0;
@@ -287,44 +206,7 @@
   cursor: not-allowed;
 }
 
-/* Show empty fields: every field is shown on every card, so the Show empty
-   column is set aside - hidden, and its track taken out of the grid. */
-.board-card-settings.show-empty-fields .card-settings-side-always,
-.board-card-settings.show-empty-fields .card-settings-side-head-always {
-  display: none;
-}
-.board-card-settings.show-empty-fields .card-settings-list-card > .card-settings-pane-head,
-.board-card-settings.show-empty-fields .card-settings-list-card > .card-settings-line {
-  grid-template-columns: 9em minmax(10em, 1fr);
-}
-.board-card-settings.show-empty-fields.has-card .card-settings-list-card > .card-settings-pane-head,
-.board-card-settings.show-empty-fields.has-card .card-settings-list-card > .card-settings-line {
-  grid-template-columns: 7em 9em minmax(10em, 1fr);
-}
 .card-settings-board-option { margin-block-end: 6px; }
-
-/* One side of the same popup: a menu that asks for one side hides the other
-   side's list, so there is still ONE set of lists and one set of handlers. */
-.board-card-settings.show-card-only .card-settings-list-minicard,
-.board-card-settings.show-minicard-only .card-settings-list-card {
-  display: none;
-}
-
-/* "Labels text" and "List title" are the user's or the card's own, not the
-   board's: they are not among the board-wide rows of Board Settings / Card,
-   but they are where they belong - opened from a card, from the minicard's
-   own view, and for a reader who may change only those. */
-.board-card-settings .card-settings-row-personal {
-  display: none;
-}
-.board-card-settings.show-minicard-only .card-settings-row-personal,
-.board-card-settings.has-card .card-settings-row-personal,
-.board-card-settings.show-personal-only .card-settings-row-personal {
-  display: grid;
-}
-.board-card-settings.show-personal-only .card-settings-line:not(.card-settings-row-personal) {
-  display: none;
-}
 
 /* Board Settings / Board View: the same table as Card Settings above, with
    FIVE columns (Default/Show on Public, Default/Show on Private, the view's
