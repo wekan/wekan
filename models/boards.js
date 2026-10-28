@@ -10,6 +10,7 @@ const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors
 const { normalizeAutoArchiveDays } = require('/models/lib/autoArchive');
 const { cardParentIds, parentFields } = require('/models/lib/cardParents');
 const { FIELD_KEYS: CARD_SHOWN_FIELD_KEYS } = require('/models/lib/cardShownFields');
+const { SECTION_IDS: CARD_SETTINGS_SECTION_IDS } = require('/models/lib/cardSettingsSections');
 const boardViewSettings = require('/models/lib/boardViewSettings');
 const { deliverySchemaFields } = require('/models/lib/notificationDelivery');
 import escapeForRegex from 'escape-string-regexp';
@@ -630,10 +631,10 @@ Boards.attachSchema(
       defaultValue: false,
     },
     askForMoveReason: { type: Boolean, defaultValue: false },
-    // Card Settings / Card's "Show empty fields": every opened card of the
-    // board shows all its fields, the empty ones too - and the per-field
-    // "Show empty" column (cardFieldsAlwaysShown) is set aside, kept as it
-    // was for when this is unticked (models/lib/cardShownFields.js).
+    // Was Card Settings / Card's "Show empty fields". Since 2026-10-28 every
+    // opened card shows every field its board shows on cards, empty or not
+    // (models/lib/cardShownFields.js), so nothing reads or writes this; kept
+    // so a board document that has it still validates.
     showEmptyCardFields: { type: Boolean, defaultValue: false },
     cardAging: {
       /**
@@ -945,10 +946,37 @@ Boards.attachSchema(
     'cardSettingsSectionOrder.$': {
       type: String,
     },
-    // #6806: the fields every card of the board shows, empty or not - Board
-    // Settings / Card's "Always show" (models/lib/cardShownFields.js). Never
-    // set: the description, attachments and comments. A card still hides one
-    // by unticking "On this card".
+    // The Card Settings sections hidden WHOLE on every opened card of the
+    // board (Show on Card) and on every minicard (Show on Minicard): the
+    // checkbox left of each section's title. The rows keep their own flags.
+    // models/lib/cardSettingsSections.js hiddenSectionsOf; written normalised
+    // by setCardSettingsSectionShown below.
+    cardSettingsHiddenOnCard: {
+      /**
+       * The Card Settings sections (models/lib/cardSettingsSections.js ids) not shown on the opened card
+       */
+      type: Array,
+      optional: true,
+    },
+    'cardSettingsHiddenOnCard.$': {
+      type: String,
+      allowedValues: CARD_SETTINGS_SECTION_IDS,
+    },
+    cardSettingsHiddenOnMinicard: {
+      /**
+       * The Card Settings sections (models/lib/cardSettingsSections.js ids) not shown on the minicard
+       */
+      type: Array,
+      optional: true,
+    },
+    'cardSettingsHiddenOnMinicard.$': {
+      type: String,
+      allowedValues: CARD_SETTINGS_SECTION_IDS,
+    },
+    // #6806: was Board Settings / Card's "Show empty" - the fields every card
+    // showed even when empty. Since 2026-10-28 every card shows every field
+    // its board shows on cards (models/lib/cardShownFields.js), so nothing
+    // reads or writes this; kept so a board document that has it validates.
     cardFieldsAlwaysShown: {
       /**
        * The opened card's fields shown on every card, even when empty
@@ -2353,12 +2381,15 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { cardSettingsSectionOrder: sectionOrder(order) } });
   },
 
-  // #6806: Board Settings / Card's "Show empty", normalised the same way
-  // (models/lib/cardShownFields.js alwaysShownAfter). `key` may be a list:
-  // Select all / Select none of the column.
-  async setCardFieldAlwaysShown(key, show) {
-    const { alwaysShownAfter } = require('/models/lib/cardShownFields');
-    return await Boards.updateAsync(this._id, { $set: { cardFieldsAlwaysShown: alwaysShownAfter(this, key, show) } });
+  // Card Settings' checkbox left of a section's title: whether the whole
+  // section is shown on `side` ('card' or 'minicard'), normalised the same way
+  // (models/lib/cardSettingsSections.js hiddenSectionsAfter). An unknown side
+  // writes nothing.
+  async setCardSettingsSectionShown(side, sectionId, shown) {
+    const { HIDDEN_SECTIONS_FIELD, hiddenSectionsAfter } = require('/models/lib/cardSettingsSections');
+    const field = HIDDEN_SECTIONS_FIELD[side];
+    if (!field) return 0;
+    return await Boards.updateAsync(this._id, { $set: { [field]: hiddenSectionsAfter(this[field], sectionId, shown === true) } });
   },
 
   async setMinicardFieldOrder(order) {
@@ -3484,9 +3515,6 @@ Boards.helpers({
 
   async setAskForMoveReason(askForMoveReason) {
     return Boards.updateAsync(this._id, { $set: { askForMoveReason } });
-  },
-  async setShowEmptyCardFields(showEmptyCardFields) {
-    return Boards.updateAsync(this._id, { $set: { showEmptyCardFields: showEmptyCardFields === true } });
   },
   async setCardAging(cardAging) {
     return await Boards.updateAsync(this._id, { $set: { cardAging } });

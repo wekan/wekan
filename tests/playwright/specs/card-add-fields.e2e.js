@@ -1,10 +1,16 @@
 'use strict';
 
-// docs/Features/Cards/Card-Fields.md: an opened card shows only the fields it
-// has data in, plus its description, attachments and comments; "Card
-// Settings" under the cover (it was "+ Add") adds the rest - right on the
-// card, its sections as checklists (docs/Features/Cards/Card-Settings-On-Card.md).
-// Board Settings / Card is the same template, cardSettingsInline, in a popup.
+// docs/Features/Cards/Card-Fields.md: an opened card shows EVERY field its
+// board shows on cards, empty or not; "Card Settings" under the cover (it was
+// "+ Add") opens Card Settings right on the card, its sections as checklists
+// (docs/Features/Cards/Card-Settings.md) - each with a checkbox of its
+// own for the whole section, a one-row section as one line, Custom Fields'
+// items the board's custom fields. Board Settings / Card is the same template,
+// cardSettingsInline, in a popup.
+//
+// Deliberate change (2026-10-28): "On this card", "Show empty" and "Show empty
+// fields" are gone, with the hamburger's Select all / Select none; the specs
+// of those are replaced below by the specs of what replaced them.
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
@@ -22,10 +28,9 @@ async function openBoardCardSettings(page) {
   await expect(settingsPopup(page)).toBeVisible();
 }
 
-// These are the specs of the empty-field rules: the seeded board shows every
-// field (helpers/db.js seedBoard, showEmptyCardFields), which they turn off.
+// Every spec starts from the board's own order and no section hidden.
 test.beforeEach(({ board }) => {
-  db.updateOne('boards', { _id: board.boardId }, { $set: { showEmptyCardFields: false }, $unset: { cardSettingsSectionOrder: '' } });
+  db.updateOne('boards', { _id: board.boardId }, { $unset: { cardSettingsSectionOrder: '', cardSettingsHiddenOnCard: '', cardSettingsHiddenOnMinicard: '' } });
 });
 
 async function openCard(page, board) {
@@ -36,10 +41,10 @@ async function openCard(page, board) {
   return page.locator('.card-details');
 }
 
-// Card Settings on the card: the button, then what replaced it.
-async function openCardSettings(details) {
-  await details.locator('.js-open-card-add-fields').click();
-  const inline = details.locator('.js-card-settings-inline');
+// Card Settings is Board Settings / Card: the popup's Card Settings.
+async function openCardSettings(page) {
+  await openBoardCardSettings(page);
+  const inline = settingsPopup(page).locator('.js-card-settings-inline');
   await expect(inline).toBeVisible();
   return inline;
 }
@@ -51,11 +56,16 @@ async function openItemMenu(page, inline, key) {
   await expect(menu).toBeVisible();
   return menu;
 }
-// A hamburger's popup closes by its X, as every popup does.
+// A hamburger opened from Card Settings takes the popup's place (its back
+// arrow returns to Card Settings); the X closes the popup, as every popup's does.
 async function closePopup(page) {
   const close = page.locator('.js-pop-over .js-close-pop-over');
   await close.first().click();
   await expect(page.locator('.js-pop-over')).toHaveCount(0);
+}
+async function backToCardSettings(page) {
+  await page.locator('.js-pop-over .js-back-view').first().click();
+  await expect(settingsPopup(page)).toBeVisible();
 }
 async function openSectionMenu(page, inline, id) {
   await sectionOf(inline, id).locator('.js-open-card-settings-section-menu').click();
@@ -64,65 +74,63 @@ async function openSectionMenu(page, inline, id) {
   return menu;
 }
 
-test('an empty card shows its description, attachments and comments - and no empty date or member', async ({ boardPage: page, board }) => {
+test('an empty card shows every field its board shows on cards - Due, Members, Labels - with no per-card action', async ({ boardPage: page, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsMembers: true, allowsLabels: true, allowsComments: true } });
   db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', startAt: '', receivedAt: '', endAt: '', shownFields: '', hiddenFields: '' }, $set: { members: [], assignees: [], labelIds: [] } });
   const details = await openCard(page, board);
-  await expect(details.locator('.card-details-group-description, .js-card-description, .card-description')).not.toHaveCount(0);
-  await expect(details.locator('.js-toggle-card-section[data-section="attachments"]')).toHaveCount(1);
+  await expect(details.locator('.card-details-item-due')).toHaveCount(1);
+  await expect(details.locator('.card-details-item-members')).toHaveCount(1);
+  await expect(details.locator('.card-details-item-labels')).toHaveCount(1);
   await expect(details.locator('.js-toggle-card-section[data-section="comments"]')).toHaveCount(1);
-  // Negative: no empty Date, Members or Labels section.
-  await expect(details.locator('.js-add-due-date, .card-details-item-due')).toHaveCount(0);
-  await expect(details.locator('.card-details-item-members')).toHaveCount(0);
-  await expect(details.locator('.card-details-item-labels')).toHaveCount(0);
-  // "Card Settings" - no longer "+ Add" - is under the cover, above the fields.
-  const add = details.locator('.js-open-card-add-fields');
-  await expect(add).toBeVisible();
-  await expect(add).toHaveText(/Card Settings/);
-  await expect(add).not.toHaveText(/\+ ?Add/);
-  const addBox = await add.boundingBox();
-  const descBox = await details.locator('.card-details-items').boundingBox();
-  expect(addBox.y).toBeLessThan(descBox.y + 1);
+  // A legacy per-card "hidden" choice is not read any more.
+  db.updateOne('cards', { _id: card._id }, { $set: { hiddenFields: ['dueDate'] } });
+  await page.waitForTimeout(500);
+  await expect(details.locator('.card-details-item-due')).toHaveCount(1);
+  // Negative: Show on Card off still hides it.
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: false } });
+  await expect(details.locator('.card-details-item-due')).toHaveCount(0);
+  db.updateOne('cards', { _id: card._id }, { $unset: { hiddenFields: '' } });
 });
 
-test('Card Settings replaces the button and the card below it: title and X, Show, the sections as checklists', async ({ boardPage: page, board }) => {
+// Deliberate change (2026-10-28): the opened card's "Card Settings" button,
+// which drew Card Settings on the card in place of everything below it, is
+// gone - Card Settings is only Board Settings / Card.
+test('negative: the opened card has no Card Settings button and no Card Settings of its own', async ({ boardPage: page, board }) => {
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
-  // The button and everything below it are replaced, not covered: no popup.
+  await expect(details.locator('.card-details-left')).toHaveCount(1);
+  await expect(details.locator('.card-details-items').first()).toBeVisible();
   await expect(details.locator('.js-open-card-add-fields')).toHaveCount(0);
-  await expect(details.locator('.card-details-left')).toHaveCount(0);
-  await expect(details.locator('.card-details-right')).toHaveCount(0);
-  await expect(settingsPopup(page)).toHaveCount(0);
-  // Top to bottom: the title with its X at the right of the same line, Show
-  // and its radios (Show on Card chosen), then the sections.
-  const title = await inline.locator('.card-settings-inline-title').boundingBox();
-  const close = await inline.locator('.js-close-card-settings').boundingBox();
-  expect(close.x).toBeGreaterThan(title.x);
-  expect(Math.abs((close.y + close.height / 2) - (title.y + title.height / 2))).toBeLessThan(title.height);
-  const show = await inline.locator('.card-settings-inline-show').boundingBox();
-  expect(show.y).toBeGreaterThan(title.y);
+  await expect(details.locator('.js-card-settings-inline')).toHaveCount(0);
+  await expect(page.locator('.card-details .js-card-settings-inline, .card-details-add-fields')).toHaveCount(0);
+});
+
+test('Card Settings is Board Settings / Card: Show, then the sections as checklists, each with its own checkbox', async ({ boardPage: page, board }) => {
+  const inline = await openCardSettings(page);
+  // The popup's header is the title and the X: no second title or X inside.
+  await expect(settingsPopup(page).locator('.js-close-pop-over')).toBeVisible();
+  await expect(inline.locator('.card-settings-inline-head, .js-close-card-settings')).toHaveCount(0);
   await expect(inline.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
   await expect(inline.locator('.js-card-settings-show-side[value="minicard"]')).not.toBeChecked();
+  const show = await inline.locator('.card-settings-inline-show').boundingBox();
   const first = await inline.locator('.js-card-settings-section').first().boundingBox();
   expect(first.y).toBeGreaterThan(show.y);
-  // The sections in the table's order, each a title with its count and hamburger.
+  // The sections in the table's order, each a title with its checkbox and count.
   await expect(inline.locator('.js-card-settings-section').first()).toHaveAttribute('data-section', 'card');
   const date = sectionOf(inline, 'date');
   await expect(date.locator('.card-settings-inline-section-title')).toBeVisible();
   await expect(date.locator('.card-settings-inline-section-count')).toHaveText(/^\d+\/\d+$/);
-  await expect(date.locator('.js-open-card-settings-section-menu')).toBeVisible();
+  await expect(date.locator('.js-card-settings-section-shown')).toBeVisible();
   await expect(itemOf(date, 'dueDate')).toBeVisible();
-  // The X puts the card back.
-  await inline.locator('.js-close-card-settings').click();
-  await expect(inline).toHaveCount(0);
-  await expect(details.locator('.js-open-card-add-fields')).toBeVisible();
-  await expect(details.locator('.card-details-left')).toHaveCount(1);
+  // List title is a card's own row: there is no card here, so it is not drawn.
+  await expect(itemOf(inline, 'listTitle')).toHaveCount(0);
+  await closePopup(page);
 });
 
 test('the checkbox is the chosen side\'s Show on Card / Show on Minicard, for the whole board', async ({ boardPage: page, board }) => {
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsDueDateOnMinicard: false } });
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   const toggle = () => itemOf(inline, 'dueDate').locator('.card-field-order-toggle');
   // Show on Card: Due is on for the board's cards.
   await expect(itemOf(inline, 'dueDate')).toHaveAttribute('data-side', 'card');
@@ -143,26 +151,30 @@ test('the checkbox is the chosen side\'s Show on Card / Show on Minicard, for th
   expect(db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
 });
 
-test('a row\'s hamburger: On this card shows an empty field, and hides one with data', async ({ boardPage: page, board }) => {
-  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsComments: true } });
-  db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '', hiddenFields: '' } });
+test('a hamburger is drawn only when it has something in it: none on Date or its rows, one on Card', async ({ boardPage: page, board, user }) => {
+  db.updateOne('users', { _id: user.id }, { $unset: { 'profile.showLabelTextOverride': '', 'profile.showCardLabelTextOverride': '' } });
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
-  const menu = await openItemMenu(page, inline, 'dueDate');
-  const thisCard = menu.locator('.js-card-add-field[data-key="dueDate"]');
-  await expect(thisCard).toHaveAttribute('aria-checked', 'false');
-  await thisCard.click();
-  await expect(thisCard).toHaveAttribute('aria-checked', 'true');
-  await expect.poll(() => db.findOne('cards', { _id: card._id }).shownFields).toEqual(['dueDate']);
-  // Unticking an always-shown field hides it from this card.
-  const comments = await openItemMenu(page, inline, 'comments');
-  await comments.locator('.js-card-add-field[data-key="comments"]').click();
-  await expect.poll(() => db.findOne('cards', { _id: card._id }).hiddenFields).toEqual(['comments']);
+  const inline = await openCardSettings(page);
+  const date = sectionOf(inline, 'date');
+  await expect(itemOf(date, 'dueDate')).toBeVisible();
+  await expect(date.locator('.js-open-card-settings-section-menu')).toHaveCount(0);
+  await expect(date.locator('.js-open-card-settings-item-menu')).toHaveCount(0);
+  // Card's hamburger: Ask for a reason and the Draggable table - and nothing
+  // of the removed On this card / Show empty / Show empty fields / Select all.
+  const menu = await openSectionMenu(page, inline, 'card');
+  await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
+  await expect(menu.locator('.board-drag-settings')).toBeVisible();
+  await expect(menu.locator('.js-show-empty-card-fields, .js-card-settings-inline-select, .js-card-add-field, .js-card-always-show')).toHaveCount(0);
+  // Its back arrow returns to Card Settings, on the side that was shown.
+  await backToCardSettings(page);
+  // Subtasks has the board's Subtask settings: a hamburger. Voting's Edit
+  // voting is the card's own (on the card's Voting heading): none here.
+  await expect(sectionOf(inline, 'subtasks').locator('.js-open-card-settings-section-menu')).toHaveCount(1);
+  await expect(sectionOf(inline, 'vote').locator('.js-open-card-settings-section-menu')).toHaveCount(0);
+  await expect(sectionOf(inline, 'customFields').locator('.js-open-card-settings-section-menu')).toHaveCount(0);
+  // Negative: no row of the whole Card Settings has an On this card menu.
+  await expect(inline.locator('.js-card-add-field, .js-card-always-show')).toHaveCount(0);
   await closePopup(page);
-  await inline.locator('.js-close-card-settings').click();
-  await expect(details.locator('.card-details-item-due')).toHaveCount(1);
-  await expect(details.locator('.js-toggle-card-section[data-section="comments"]')).toHaveCount(0);
 });
 
 test('a field with data is shown without adding it, unless the board turns it off', async ({ boardPage: page, board }) => {
@@ -175,7 +187,7 @@ test('a field with data is shown without adding it, unless the board turns it of
   // Card checkbox in Card Settings is unticked.
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: false } });
   await expect(details.locator('.card-details-item-due, .js-edit-due-date')).toHaveCount(0);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   await expect(itemOf(inline, 'dueDate').locator('.card-field-order-toggle')).not.toHaveClass(/is-checked/);
 });
 
@@ -184,7 +196,7 @@ test('a field with data is shown without adding it, unless the board turns it of
 test('a checkbox and its label are a space apart, on the rows and in the hamburgers', async ({ boardPage: page, board }) => {
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsStartDate: false } });
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   const gaps = (selector, label) => page.evaluate(([selector, label]) => [...document.querySelectorAll(selector)].map(row => {
     const box = row.querySelector('.materialCheckBox');
     return {
@@ -202,7 +214,8 @@ test('a checkbox and its label are a space apart, on the rows and in the hamburg
   const menu = await openSectionMenu(page, inline, 'card');
   await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
   const options = await gaps('.card-settings-section-menu .card-settings-board-option > a.flex', 'span:last-child');
-  expect(options.length).toBeGreaterThanOrEqual(2);
+  // Ask for a reason is the one checkbox left there (Show empty fields is gone).
+  expect(options.length).toBeGreaterThanOrEqual(1);
   for (const option of options) expect(option.gap).toBeGreaterThanOrEqual(3);
   await closePopup(page);
 });
@@ -210,7 +223,7 @@ test('a checkbox and its label are a space apart, on the rows and in the hamburg
 test('sections drag like checklists, rows within their section; sections collapse', async ({ boardPage: page, board, user }) => {
   db.updateOne('users', { _id: user.id }, { $set: { 'profile.showDesktopDragHandles': false } });
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   // Both ends on screen: the target scrolled to the top, the source (a few
   // sections below it) under it - scrolling each into view in turn could
   // leave the other above the window, and the drop then landed nowhere.
@@ -262,7 +275,7 @@ test('sections drag like checklists, rows within their section; sections collaps
 
 test('"Scrum settings" is the section title, not repeated before each Scrum row', async ({ boardPage: page, board }) => {
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   const scrum = sectionOf(inline, 'scrum');
   const scrumTitle = (await scrum.locator('.card-settings-inline-section-title').textContent()).trim();
   const labels = await scrum.locator('.card-settings-line-label').allTextContents();
@@ -270,168 +283,121 @@ test('"Scrum settings" is the section title, not repeated before each Scrum row'
   for (const text of labels) expect(text).not.toContain(scrumTitle);
 });
 
-// #6806: Show empty - the fields every card of the board shows, empty or not,
-// by default the description, attachments and comments - in a row's hamburger.
-test('"Show empty": an empty card shows the board\'s chosen fields, the default four can be unticked, and On this card still hides one', async ({ boardPage: page, board }) => {
-  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsLabels: true, allowsComments: true }, $unset: { cardFieldsAlwaysShown: '' } });
-  db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '', hiddenFields: '' }, $set: { labelIds: [] } });
-  db.deleteMany('card_comments', { cardId: card._id });
-  const details = await openCard(page, board);
-  // Negative: before it is ticked, the empty Due date is not on the card.
-  await expect(details.locator('.card-details-item-due')).toHaveCount(0);
-  const inline = await openCardSettings(details);
-  // The default: Comments is ticked.
-  let menu = await openItemMenu(page, inline, 'comments');
-  await expect(menu.locator('.js-card-always-show[data-key="comments"]')).toHaveAttribute('aria-checked', 'true');
-  // Due date: tick it, and every card shows it.
-  menu = await openItemMenu(page, inline, 'dueDate');
-  const due = menu.locator('.js-card-always-show[data-key="dueDate"]');
-  await expect(due).toHaveAttribute('aria-checked', 'false');
-  await due.click();
-  await expect(due).toHaveAttribute('aria-checked', 'true');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown)
-    .toEqual(['dueDate', 'descriptionTitle', 'descriptionText', 'attachments', 'comments']);
-  // The card follows the board: ticked On this card, nothing stored on the card.
-  await expect(menu.locator('.js-card-add-field[data-key="dueDate"]')).toHaveAttribute('aria-checked', 'true');
-  expect(db.findOne('cards', { _id: card._id }).shownFields || []).toEqual([]);
-  // On this card still hides it from this card alone.
-  await menu.locator('.js-card-add-field[data-key="dueDate"]').click();
-  await expect.poll(() => db.findOne('cards', { _id: card._id }).hiddenFields).toEqual(['dueDate']);
-  // Comments unticked: a card without comments has no comments section.
-  menu = await openItemMenu(page, inline, 'comments');
-  await menu.locator('.js-card-always-show[data-key="comments"]').click();
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).not.toContain('comments');
-  await closePopup(page);
-  await inline.locator('.js-close-card-settings').click();
-  await expect(details.locator('.card-details-item-due')).toHaveCount(0);
-  await expect(details.locator('.js-toggle-card-section[data-section="comments"]')).toHaveCount(0);
-});
+// ── The section's own checkbox ──────────────────────────────────────────────
 
-// Card's hamburger holds what is not a field: Show empty fields (off by
-// default), which shows every field and takes Show empty out of the rows'
-// hamburgers while keeping its ticks.
-test('Card\'s hamburger: "Show empty fields" shows every field while keeping the Show empty ticks', async ({ boardPage: page, board }) => {
-  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, cardFieldsAlwaysShown: ['labels', 'descriptionTitle', 'descriptionText', 'attachments', 'comments'] }, $unset: { showEmptyCardFields: '' } });
-  db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '', hiddenFields: '' } });
+test('Show on Card: unticking a section hides it whole from the opened card, its rows stay ticked; ticking restores', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsStartDate: true, allowsMembers: true, allowsDueDateOnMinicard: true } });
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
-  const menu = await openSectionMenu(page, inline, 'card');
-  const showEmpty = menu.locator('.js-show-empty-card-fields');
-  await expect(showEmpty).toHaveAttribute('aria-checked', 'false');
-  await showEmpty.click();
-  await expect(showEmpty).toHaveAttribute('aria-checked', 'true');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).showEmptyCardFields).toBe(true);
-  // Negative: the Show empty ticks are kept, and Show empty leaves the rows' hamburgers.
-  expect(db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).toContain('labels');
-  await closePopup(page);
-  const due = await openItemMenu(page, inline, 'dueDate');
-  await expect(due.locator('.js-card-always-show')).toHaveCount(0);
-  await closePopup(page);
-  // Unticked: Show empty is back, as it was.
-  const again = await openSectionMenu(page, inline, 'card');
-  await again.locator('.js-show-empty-card-fields').click();
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).showEmptyCardFields).toBe(false);
-  await closePopup(page);
-  const labels = await openItemMenu(page, inline, 'labels');
-  await expect(labels.locator('.js-card-always-show[data-key="labels"]')).toHaveAttribute('aria-checked', 'true');
-});
-
-// #6830: "Show empty fields" shows only what the board allows - with Board
-// Settings / Scrum all off, no "Scrum settings" on the card.
-test('"Show empty fields" shows no Scrum section while the board has Scrum off', async ({ boardPage: page, board }) => {
-  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('cards', { _id: card._id }, { $unset: { scrum: '', shownFields: '', hiddenFields: '' } });
-  db.updateOne('boards', { _id: board.boardId }, { $set: { showEmptyCardFields: true, 'scrum.visibility': {} } });
-  const scrumHeading = details => details.locator('.js-toggle-card-section[data-section="scrum"]');
-  let details = await openCard(page, board);
-  await expect(details.locator('.js-toggle-card-section[data-section="description"]')).toBeVisible();
-  await expect(scrumHeading(details)).toHaveCount(0);
-  // Negative: the field the board turns on is there, empty.
-  db.updateOne('boards', { _id: board.boardId }, { $set: { 'scrum.visibility': { cardSprint: true } } });
-  await page.reload({ waitUntil: 'domcontentloaded' });
-  details = await openCard(page, board);
-  await expect(scrumHeading(details)).toHaveCount(1);
-});
-
-// A section's hamburger: Select all / Select none of the shown side, of On
-// this card and of Show empty, for that section's rows only.
-test('a section\'s hamburger selects all or none of its rows, per column', async ({ boardPage: page, board }) => {
-  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsReceivedDate: true, allowsStartDate: true, allowsDueDate: true, allowsEndDate: true }, $unset: { showEmptyCardFields: '', cardFieldsAlwaysShown: '' } });
-  db.updateOne('cards', { _id: card._id }, { $unset: { shownFields: '', hiddenFields: '', receivedAt: '', startAt: '', dueAt: '', endAt: '' } });
-  const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   const date = sectionOf(inline, 'date');
-  const select = async (column, value) => {
-    const menu = await openSectionMenu(page, inline, 'date');
-    await menu.locator(`.js-card-settings-inline-select[data-column="${column}"][data-value="${value}"]`).click();
-    await closePopup(page);
-  };
-  // On this card: all four empty dates shown on the card, then none.
-  await select('this', 'all');
-  await expect.poll(() => (db.findOne('cards', { _id: card._id }).shownFields || []).length).toBeGreaterThanOrEqual(4);
-  await select('this', 'none');
-  await expect.poll(() => (db.findOne('cards', { _id: card._id }).shownFields || []).length).toBe(0);
-  // Show empty: one write of the board's list.
-  await select('always', 'all');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).toEqual(expect.arrayContaining(['receivedDate', 'startDate', 'dueDate', 'endDate']));
-  await select('always', 'none');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardFieldsAlwaysShown).not.toContain('dueDate');
-  // Show on Card: the section's checkboxes, through their own handlers.
-  await select('card', 'none');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(false);
-  await expect(date.locator('.card-field-order-toggle[aria-checked="true"]')).toHaveCount(0);
-  await select('card', 'all');
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
-  // Negative: another section's rows are untouched.
-  expect(db.findOne('boards', { _id: board.boardId }).allowsMembers).not.toBe(false);
+  const box = date.locator('.js-card-settings-section-shown');
+  await expect(box).toHaveAttribute('aria-checked', 'true');
+  // Left of the title, after the caret.
+  const caretBox = await date.locator('.js-toggle-card-settings-section').boundingBox();
+  const boxBox = await box.boundingBox();
+  const titleBox = await date.locator('.card-settings-inline-section-title').boundingBox();
+  expect(caretBox.x).toBeLessThan(boxBox.x);
+  expect(boxBox.x).toBeLessThan(titleBox.x);
+  await box.click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnCard).toEqual(['date']);
+  await expect(box).toHaveAttribute('aria-checked', 'false');
+  // The rows keep their own ticks, and the count stays.
+  await expect(itemOf(date, 'dueDate').locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'true');
+  await expect(date.locator('.card-settings-inline-section-count')).toHaveText(/^\d+\/\d+$/);
+  expect(db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
+  await closePopup(page);
+  await expect(details.locator('.card-details-item-due')).toHaveCount(0);
+  await expect(details.locator('.card-details-item-start')).toHaveCount(0);
+  await expect(details.locator('.card-details-item-members')).toHaveCount(1, { timeout: 5000 });
+  // The minicard is not affected: its side has its own list.
+  expect(db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnMinicard || []).toEqual([]);
+  // Ticking it back restores exactly what was shown.
+  const again = await openCardSettings(page);
+  await sectionOf(again, 'date').locator('.js-card-settings-section-shown').click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnCard).toEqual([]);
+  await closePopup(page);
+  await expect(details.locator('.card-details-item-due')).toHaveCount(1);
+  await expect(details.locator('.card-details-item-start')).toHaveCount(1);
 });
 
-// Card's hamburger: Ask for a reason is the same animated checkbox, in the
-// same place, as Show empty fields; the select buttons look like Draggable's.
-test('Card\'s hamburger: Ask for a reason lines up with Show empty fields, and the select buttons match Draggable\'s', async ({ boardPage: page, board }) => {
+test('Show on Minicard: unticking a section hides it from every minicard only, the opened card unaffected', async ({ boardPage: page, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsDueDateOnMinicard: true } });
+  db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date(Date.now() + 86400000) } });
+  const minicard = new BoardPage(page).minicard(board.listIds[0], 'Alpha Card');
+  await expect(minicard.locator('.due-date').first()).toBeVisible();
+  const details = await openCard(page, board);
+  const inline = await openCardSettings(page);
+  await inline.locator('.js-card-settings-show-side[value="minicard"]').check();
+  const date = sectionOf(inline, 'date');
+  await expect(itemOf(date, 'dueDate')).toHaveAttribute('data-side', 'minicard');
+  await date.locator('.js-card-settings-section-shown').click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnMinicard).toEqual(['date']);
+  await expect(itemOf(date, 'dueDate').locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'true');
+  await expect(minicard.locator('.due-date')).toHaveCount(0);
+  // Negative: the card side is untouched - its own checkbox still ticked.
+  expect(db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnCard || []).toEqual([]);
+  await inline.locator('.js-card-settings-show-side[value="card"]').check();
+  await expect(sectionOf(inline, 'date').locator('.js-card-settings-section-shown')).toHaveAttribute('aria-checked', 'true');
+  await closePopup(page);
+  await expect(details.locator('.card-details-item-due')).toHaveCount(1);
+  db.updateOne('boards', { _id: board.boardId }, { $unset: { cardSettingsHiddenOnMinicard: '' } });
+  await expect(minicard.locator('.due-date').first()).toBeVisible();
+});
+
+test('a section with one row is one line: one checkbox, its name, its hamburger when it has one - the field\'s own flag', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsVote: true } });
+  const details = await openCard(page, board);
+  const inline = await openCardSettings(page);
+  const vote = sectionOf(inline, 'vote');
+  await expect(vote).toHaveClass(/is-single/);
+  await expect(vote.locator('.js-toggle-card-settings-section')).toHaveCount(0);
+  await expect(vote.locator('.card-settings-inline-section-count')).toHaveCount(0);
+  await expect(vote.locator('.card-settings-inline-items')).toHaveCount(0);
+  const box = vote.locator('.js-card-settings-single-toggle');
+  await expect(box).toHaveCount(1);
+  await expect(box).toBeVisible();
+  // Voting's hamburger had only the card's Edit voting: nothing here, no icon.
+  await expect(vote.locator('.js-open-card-settings-section-menu')).toHaveCount(0);
+  // Subtasks is one line too, with the board's Subtask settings in its hamburger.
+  await expect(sectionOf(inline, 'subtasks')).toHaveClass(/is-single/);
+  await expect(sectionOf(inline, 'subtasks').locator('.js-open-card-settings-section-menu')).toHaveCount(1);
+  await expect(box).toHaveAttribute('aria-checked', 'true');
+  await box.click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsVote).toBe(false);
+  await expect(box).toHaveAttribute('aria-checked', 'false');
+  // Negative: no section hidden for it - it is the field's flag.
+  expect(db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnCard || []).toEqual([]);
+  await box.click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsVote).toBe(true);
+  // Hidden whole (as an older board may have it): unticked; ticking shows it again.
+  db.updateOne('boards', { _id: board.boardId }, { $set: { cardSettingsHiddenOnCard: ['vote'] } });
+  await expect(box).toHaveAttribute('aria-checked', 'false');
+  await box.click();
+  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnCard).toEqual([]);
+  expect(db.findOne('boards', { _id: board.boardId }).allowsVote).toBe(true);
+  await expect(box).toHaveAttribute('aria-checked', 'true');
+});
+
+test('Card\'s hamburger: Ask for a reason is the rows\' kind of checkbox, a board admin\'s', async ({ boardPage: page, board }) => {
   db.updateOne('boards', { _id: board.boardId }, { $set: { askForMoveReason: false } });
   const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
+  const inline = await openCardSettings(page);
   const menu = await openSectionMenu(page, inline, 'card');
-  const a = await menu.locator('.js-show-empty-card-fields .materialCheckBox').boundingBox();
-  const b = await menu.locator('.js-ask-move-reason .materialCheckBox').boundingBox();
-  expect(Math.abs(a.x - b.x)).toBeLessThan(1);
-  expect(Math.abs(a.width - b.width)).toBeLessThan(1);
   const askLink = menu.locator('.js-ask-move-reason');
+  await expect(askLink.locator('.materialCheckBox')).toBeVisible();
   await expect(askLink).toHaveAttribute('aria-checked', 'false');
   await askLink.click();
   await expect(askLink).toHaveAttribute('aria-checked', 'true');
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).askForMoveReason).toBe(true);
-  const style = loc => loc.evaluate(el => {
-    const s = getComputedStyle(el);
-    return { color: s.color, background: s.backgroundColor };
-  });
-  const draggable = await style(menu.locator('.board-drag-settings .js-set-settings-column').first());
-  const selectButton = await style(menu.locator('.js-card-settings-inline-select').first());
-  expect(selectButton).toEqual(draggable);
+  // Negative: Show empty fields, which it used to line up with, is gone.
+  await expect(menu.locator('.js-show-empty-card-fields')).toHaveCount(0);
 });
 
 // ── Board Settings / Card: the popup ────────────────────────────────────────
 // Since 2026-10-28 the popup is the opened card's Card Settings itself
 // (cardSettingsInline, inPopup=true): Show, the sections as checklists, the
 // rest in their hamburgers. Its old left menu and right pane are gone.
-
-// The rows the template draws, section by section, for the chosen Show side.
-async function sectionsAndRows(scope) {
-  return scope.locator('.js-card-settings-section').evaluateAll(els => els.map(el => ({
-    section: el.dataset.section,
-    keys: [...el.querySelectorAll('.js-card-field-order-row')].map(r => `${r.dataset.key}:${r.dataset.side}`),
-  })));
-}
-// "List title" is a card's own row (cardSettingsRows.js needsCard): drawn only
-// on an opened card, which Board Settings / Card has none of.
-const CARD_ONLY_KEYS = ['listTitle'];
-const withoutCardOnly = sections => sections.map(s => ({
-  section: s.section, keys: s.keys.filter(k => !CARD_ONLY_KEYS.includes(k.split(':')[0])),
-}));
 
 test('Board Settings / Card is still the popup: it moves by its title, maximizes beside its close button, shows the labels', async ({ boardPage: page }) => {
   await openBoardCardSettings(page);
@@ -459,12 +425,9 @@ test('Board Settings / Card is still the popup: it moves by its title, maximizes
   await expect(popup).toHaveClass(/pop-over--maximized/);
   await popup.locator('.js-popup-minimize').click();
   await expect(popup).not.toHaveClass(/pop-over--maximized/);
-  // Negative: with no card, no On this card - neither as a checkbox in the
-  // list nor in a row's hamburger, which still has Show empty.
-  await expect(popup.locator('.js-card-add-field')).toHaveCount(0);
-  const menu = await openItemMenu(page, popup, 'dueDate');
-  await expect(menu.locator('.js-card-always-show[data-key="dueDate"]')).toHaveCount(1);
-  await expect(menu.locator('.js-card-add-field')).toHaveCount(0);
+  // Negative: no On this card, no Show empty, and so no row hamburger on Due.
+  await expect(popup.locator('.js-card-add-field, .js-card-always-show')).toHaveCount(0);
+  await expect(itemOf(popup, 'dueDate').locator('.js-open-card-settings-item-menu')).toHaveCount(0);
 });
 
 // Was "headings aligned with their cells": the pane's column headings are
@@ -488,85 +451,128 @@ test('Board Settings / Card: labels whole on both Show sides, no sideways scroll
   }
 });
 
-test('Board Settings / Card and the opened card\'s Card Settings are the same template: same sections, rows and settings', async ({ boardPage: page, board }) => {
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true, allowsDueDateOnMinicard: false } });
-  // The popup: no title and X of its own - the popup's header is both.
-  await openBoardCardSettings(page);
-  const popup = settingsPopup(page);
-  await expect(popup.locator('.js-card-settings-inline')).toHaveCount(1);
-  await expect(popup.locator('.card-settings-inline-head')).toHaveCount(0);
-  await expect(popup.locator('.js-close-card-settings')).toHaveCount(0);
-  await expect(popup.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
-  // A checkbox ticked here is the board's: Due on the minicard.
-  await popup.locator('.js-card-settings-show-side[value="minicard"]').check();
-  const toggle = itemOf(popup, 'dueDate').locator('.card-field-order-toggle');
-  await expect(toggle).toHaveAttribute('aria-checked', 'false');
-  await toggle.click();
-  await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDateOnMinicard).toBe(true);
-  await expect(toggle).toHaveAttribute('aria-checked', 'true');
-  const fromPopup = {};
-  for (const side of ['card', 'minicard']) {
-    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
-    await expect(itemOf(popup, 'dueDate')).toHaveAttribute('data-side', side);
-    fromPopup[side] = await sectionsAndRows(popup);
-  }
-  await closePopup(page);
+// ── Custom Fields: the board's custom fields as items ──────────────────────
 
-  // The opened card: its own title and X, then the same sections and rows.
-  const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
-  await expect(inline.locator('.card-settings-inline-head')).toHaveCount(1);
-  await expect(inline.locator('.js-close-card-settings')).toHaveCount(1);
-  const fromCard = {};
-  for (const side of ['card', 'minicard']) {
-    await inline.locator(`.js-card-settings-show-side[value="${side}"]`).check();
-    await expect(itemOf(inline, 'dueDate')).toHaveAttribute('data-side', side);
-    fromCard[side] = await sectionsAndRows(inline);
-  }
-  for (const side of ['card', 'minicard']) {
-    expect(fromPopup[side].length).toBeGreaterThan(5);
-    // Same sections, in the same order, with the same rows in the same order -
-    // apart from the card's own List title row, drawn only with a card.
-    expect(withoutCardOnly(fromCard[side])).toEqual(withoutCardOnly(fromPopup[side]));
-  }
-  // What was ticked in the popup reads back ticked on the card's Show on Minicard.
-  await expect(itemOf(inline, 'dueDate')).toHaveAttribute('data-side', 'minicard');
-  await expect(itemOf(inline, 'dueDate').locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'true');
-  expect(db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
+const fieldsOf = board => db.find('customFields', { boardIds: board.boardId });
+function seedFields(board, names) {
+  db.deleteMany('customFields', { boardIds: board.boardId });
+  names.forEach((name, sort) => db.insertOne('customFields', {
+    _id: `cf-${board.boardId}-${sort}`, boardIds: [board.boardId], name, type: 'text', settings: {},
+    showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false, showLabelOnMiniCard: false,
+    showSumAtTopOfList: false, sort, createdAt: new Date(), modifiedAt: new Date(),
+  }));
+}
+const customItems = inline => sectionOf(inline, 'customFields').locator('.js-card-settings-custom-field');
+const itemNames = async inline => (await customItems(inline).allTextContents()).map(t => t.trim());
+
+test('Custom Fields: its items are the board\'s custom fields; + adds one, the last item', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCustomFields: true } });
+  seedFields(board, ['Priority', 'Estimate']);
+  const inline = await openCardSettings(page);
+  const cf = sectionOf(inline, 'customFields');
+  // Not one line, no "Custom Fields > Custom Fields" item; its own checkbox
+  // is the board's Custom Fields flag; no hamburger (the + replaced Create Field).
+  await expect(cf).not.toHaveClass(/is-single/);
+  await expect(itemOf(cf.locator('.card-settings-inline-items'), 'customFields')).toHaveCount(0);
+  await expect(cf.locator('.js-open-card-settings-section-menu')).toHaveCount(0);
+  await expect(cf.locator('.card-settings-section-toggle')).toHaveAttribute('aria-checked', 'true');
+  await expect.poll(() => itemNames(inline)).toEqual(['Priority', 'Estimate']);
+  // The + is under the items.
+  const plus = cf.locator('.js-card-settings-add-custom-field');
+  const last = await customItems(inline).last().boundingBox();
+  expect((await plus.boundingBox()).y).toBeGreaterThan(last.y);
+  await plus.click();
+  const form = page.locator('.js-pop-over[data-popup="createCustomFieldPopup"]');
+  await expect(form).toBeVisible();
+  await form.locator('.js-field-name').fill('Risk');
+  await form.locator('button.primary, .primary').first().click();
+  await expect.poll(() => fieldsOf(board).map(f => f.name).sort()).toEqual(['Estimate', 'Priority', 'Risk']);
+  const risk = fieldsOf(board).find(f => f.name === 'Risk');
+  expect(risk.sort).toBe(2);
+  const reopened = await openCardSettings(page);
+  await expect.poll(() => itemNames(reopened)).toEqual(['Priority', 'Estimate', 'Risk']);
+  await closePopup(page);
 });
 
-// Both open at once: the opened card's Card Settings and Board Settings / Card.
-// A section hamburger acts on the Card Settings it was opened from (its
-// data carries inPopup), and the board setting it writes reads back in both.
-test('the card\'s Card Settings and Board Settings / Card open together: Select none in the popup is the board\'s', async ({ boardPage: page, board }) => {
-  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsReceivedDate: true, allowsStartDate: true, allowsDueDate: true, allowsEndDate: true } });
-  const details = await openCard(page, board);
-  const inline = await openCardSettings(details);
-  await openBoardCardSettings(page);
-  const popup = settingsPopup(page);
-  const popupInline = popup.locator('.js-card-settings-inline');
-  // Two Card Settings, each with its own Show: neither radio group takes the
-  // other's choice.
-  await expect(inline.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
-  await expect(popupInline.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
-  const date = sectionOf(popupInline, 'date');
-  await expect(date.locator('.card-field-order-toggle[aria-checked="true"]')).not.toHaveCount(0);
-  const menu = await openSectionMenu(page, popupInline, 'date');
-  await menu.locator('.js-card-settings-inline-select[data-column="card"][data-value="none"]').click();
-  await expect.poll(() => {
-    const b = db.findOne('boards', { _id: board.boardId });
-    return [b.allowsReceivedDate, b.allowsStartDate, b.allowsDueDate, b.allowsEndDate];
-  }).toEqual([false, false, false, false]);
-  // Negative: another section is untouched.
-  expect(db.findOne('boards', { _id: board.boardId }).allowsMembers).not.toBe(false);
+test('Custom Fields: an item\'s checkbox per side - Show on Minicard is showOnCard, Show on Card is alwaysOnCard', async ({ boardPage: page, board }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCustomFields: true, allowsCustomFieldsOnMinicard: true } });
+  seedFields(board, ['Priority']);
+  const id = fieldsOf(board)[0]._id;
+  const inline = await openCardSettings(page);
+  const toggle = customItems(inline).first().locator('.card-field-order-toggle');
+  await expect(toggle).toHaveAttribute('aria-checked', 'false');
+  await toggle.click();
+  await expect.poll(() => db.findOne('customFields', { _id: id }).alwaysOnCard).toBe(true);
+  expect(db.findOne('customFields', { _id: id }).showOnCard).toBe(false);
+  // Added to every card of the board (server/models/customFields.js addToAllCards).
+  await expect.poll(() => db.find('cards', { boardId: board.boardId }).every(c => (c.customFields || []).some(f => f._id === id))).toBe(true);
+  await inline.locator('.js-card-settings-show-side[value="minicard"]').check();
+  await expect(customItems(inline).first()).toHaveAttribute('data-side', 'minicard');
+  await expect(toggle).toHaveAttribute('aria-checked', 'false');
+  await toggle.click();
+  await expect.poll(() => db.findOne('customFields', { _id: id }).showOnCard).toBe(true);
+  await expect(toggle).toHaveAttribute('aria-checked', 'true');
+  await toggle.click();
+  await expect.poll(() => db.findOne('customFields', { _id: id }).showOnCard).toBe(false);
+  // Its hamburger is the custom field's own edit form.
+  await customItems(inline).first().locator('.js-card-settings-edit-custom-field').click();
+  await expect(page.locator('.js-pop-over[data-popup="editCustomFieldPopup"] .js-field-name')).toHaveValue('Priority');
   await closePopup(page);
-  // The card's view reads them unticked, and so does the popup's, reopened.
-  for (const key of ['receivedDate', 'startDate', 'dueDate', 'endDate']) {
-    await expect(itemOf(sectionOf(inline, 'date'), key).locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'false');
-  }
-  await openBoardCardSettings(page);
-  for (const key of ['receivedDate', 'startDate', 'dueDate', 'endDate']) {
-    await expect(itemOf(sectionOf(popup, 'date'), key).locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'false');
+});
+
+test('Custom Fields: an item dragged above another changes sort, and the card follows', async ({ boardPage: page, board, user }) => {
+  setHandles(user.id, false);
+  await page.reload();
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCustomFields: true } });
+  seedFields(board, ['Priority', 'Estimate']);
+  const [priority, estimate] = ['Priority', 'Estimate'].map(n => fieldsOf(board).find(f => f.name === n)._id);
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('cards', { _id: card._id }, { $set: { customFields: [{ _id: priority, value: 'P' }, { _id: estimate, value: 'E' }] } });
+  const inline = await openCardSettings(page);
+  const items = customItems(inline);
+  await expect.poll(() => itemNames(inline)).toEqual(['Priority', 'Estimate']);
+  // Dropped on the upper part of the first item (its very top edge is the
+  // list's own edge, which jQuery UI counts as leaving the list).
+  await items.nth(0).evaluate(el => el.scrollIntoView({ block: 'center' }));
+  const from = await items.nth(1).locator('.card-settings-line-label').boundingBox();
+  const to = await items.nth(0).boundingBox();
+  await page.mouse.move(from.x + 20, from.y + from.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(from.x + 20, from.y + from.height / 2 + 8, { steps: 3 });
+  await page.mouse.move(from.x + 20, to.y + to.height * 0.3, { steps: 12 });
+  await page.mouse.up();
+  await expect.poll(() => db.findOne('customFields', { _id: estimate }).sort).toBeLessThan(db.findOne('customFields', { _id: priority }).sort);
+  await expect.poll(() => itemNames(inline)).toEqual(['Estimate', 'Priority']);
+  // The keyboard: Down on the focused name moves it back.
+  await items.first().locator('.js-card-settings-custom-field-handle').focus();
+  await page.keyboard.press('ArrowDown');
+  await expect.poll(() => db.findOne('customFields', { _id: priority }).sort).toBeLessThan(db.findOne('customFields', { _id: estimate }).sort);
+  await closePopup(page);
+  // The opened card draws them in that order.
+  const details = await openCard(page, board);
+  const names = await details.locator('.card-details-item-customfield .card-details-item-title').allTextContents();
+  expect(names.map(n => n.trim()).filter(Boolean).slice(0, 2)).toEqual(['Priority', 'Estimate']);
+});
+
+// Negative: who may not change the board (a read-only member) sees no + and
+// disabled boxes.
+test('Card Settings for a member who may not change the board: no +, disabled checkboxes', async ({ boardPage: page, board, user }) => {
+  db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCustomFields: true } });
+  seedFields(board, ['Priority']);
+  const b = db.findOne('boards', { _id: board.boardId });
+  const members = (b.members || []).map(m => (m.userId === user.id ? { ...m, isAdmin: false, isReadOnly: true } : m));
+  db.updateOne('boards', { _id: board.boardId }, { $set: { members } });
+  try {
+    await page.reload();
+    const inline = await openCardSettings(page);
+    await expect(sectionOf(inline, 'customFields').locator('.js-card-settings-add-custom-field')).toHaveCount(0);
+    await expect(customItems(inline).first().locator('.card-field-order-toggle')).toHaveClass(/is-disabled/);
+    await expect(customItems(inline).first().locator('.js-card-settings-edit-custom-field')).toHaveCount(0);
+    await expect(sectionOf(inline, 'date').locator('.card-settings-section-toggle')).toHaveClass(/is-disabled/);
+    await expect(sectionOf(inline, 'date').locator('.js-card-settings-section-shown')).toHaveCount(0);
+    await closePopup(page);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $set: { members: b.members } });
   }
 });
 
@@ -609,7 +615,7 @@ test('drag handles on: a row is dragged by its handle only, not by its label', a
   try {
     await page.reload();
     const details = await openCard(page, board);
-    const inline = await openCardSettings(details);
+    const inline = await openCardSettings(page);
     const date = sectionOf(inline, 'date');
     const due = itemOf(date, 'dueDate');
     await expect(due.locator('a.js-card-field-order-handle')).toBeVisible();
@@ -635,7 +641,7 @@ test('drag handles off: the row\'s label is its handle', async ({ boardPage: pag
   try {
     await page.reload();
     const details = await openCard(page, board);
-    const inline = await openCardSettings(details);
+    const inline = await openCardSettings(page);
     const date = sectionOf(inline, 'date');
     const due = itemOf(date, 'dueDate');
     // Negative: no separate handle is drawn.
@@ -656,7 +662,7 @@ test('a row dropped on another section goes back to its own, and nothing is writ
   try {
     await page.reload();
     const details = await openCard(page, board);
-    const inline = await openCardSettings(details);
+    const inline = await openCardSettings(page);
     const date = sectionOf(inline, 'date');
     const members = sectionOf(inline, 'members');
     const before = cardOrderOf(board);

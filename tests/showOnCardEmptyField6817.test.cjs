@@ -2,11 +2,15 @@
 
 // #6817 ("card setting not apply"): on v12.65 the reporter ticked Due in Board
 // Settings / Card's Show on Card, opened a card without a due date, and saw no
-// Due field. Show on Card says what a card CAN show; since v12.65 an opened
-// card shows a field when it has data in it. What shows an EMPTY field is,
-// since #6806: Card Settings / Card's "Show empty fields" (every field, every
-// card), the "Show empty" column (one field, every card), or "+ Add" / On this
-// card (one field, one card). This pins the reporter's board through each.
+// Due field - an opened card then showed a field only when it had data in it,
+// and an empty one only through "Show empty fields", "Show empty" or "On this
+// card".
+//
+// Deliberate change (2026-10-28): those three are gone and empty fields are
+// ALWAYS shown, so the reporter's expectation is now simply the rule: Show on
+// Card ticked draws Due on every card, empty or not. This suite used to pin
+// each of the three ways; it now pins the reporter's board directly, and that
+// Show on Card off still hides it.
 // Run: node tests/showOnCardEmptyField6817.test.cjs
 
 const assert = require('assert');
@@ -18,25 +22,18 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('showOnCardEmptyField6817:');
 
 const dueFlag = CARD_SETTINGS_ROWS.find(r => r.key === 'dueDate').card.field;
-const board = extra => ({ _id: 'b', [dueFlag]: true, ...extra });
-const card = { _id: 'c', boardId: 'b' }; // no due date
-const shows = (b, c = card) => f.isShown('dueDate', c, {}, b) && f.boardForCard(b, c, {})[dueFlag] === true;
+const shows = b => f.boardForCard(b)[dueFlag] === true && f.boardAllows(f.boardForCard(b), 'dueDate');
 
-test('the reporter\'s board: Show on Card ticked alone does not draw an empty Due', () => {
-  assert.strictEqual(shows(board()), false);
-  // ... and does once the card has a due date.
-  assert.strictEqual(shows(board(), { ...card, dueAt: new Date() }), true);
+test('the reporter\'s board: Show on Card ticked draws an empty Due on every card', () => {
+  assert.strictEqual(shows({ _id: 'b', [dueFlag]: true }), true);
 });
 
-test('each way to show it empty works', () => {
-  assert.strictEqual(shows(board({ showEmptyCardFields: true })), true, 'Show empty fields');
-  assert.strictEqual(shows(board({ cardFieldsAlwaysShown: ['dueDate'] })), true, 'Show empty for Due');
-  assert.strictEqual(shows(board(), { ...card, shownFields: ['dueDate'] }), true, 'On this card');
+test('negative: Show on Card off still hides it, whatever the legacy settings say', () => {
+  assert.strictEqual(shows({ _id: 'b', [dueFlag]: false, showEmptyCardFields: true, cardFieldsAlwaysShown: ['dueDate'] }), false);
 });
 
-test('negative: Show on Card off still wins over all three', () => {
-  const off = { _id: 'b', [dueFlag]: false, showEmptyCardFields: true, cardFieldsAlwaysShown: ['dueDate'] };
-  assert.strictEqual(f.boardForCard(off, { ...card, shownFields: ['dueDate'] }, {})[dueFlag], false);
+test('negative: the Date section hidden whole on Show on Card hides it too', () => {
+  assert.strictEqual(shows({ _id: 'b', [dueFlag]: true, cardSettingsHiddenOnCard: ['date'] }), false);
 });
 
 console.log(`showOnCardEmptyField6817: ${passed} passed`);

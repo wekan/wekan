@@ -33,6 +33,32 @@ const {
 } = require('/models/lib/cardFieldOrder');
 const { isCardFieldHiddenOnBoard } = require('/models/lib/cardFieldVisibility');
 
+// The board as every minicard of it sees it (models/lib/cardShownFields.js
+// boardForMinicard): the rows of a Card Settings section hidden whole on Show
+// on Minicard read false. Every helper below that decides whether the minicard
+// draws a field reads this, not the board itself; Card Settings reads the
+// board, so its checkboxes keep showing each row's own flag.
+const { boardForMinicard, hidesRow } = require('/models/lib/cardShownFields');
+
+function minicardBoardOf(data) {
+  const boardId = (data && (data.boardId || (data.card && data.card.boardId))) || null;
+  const board = boardId ? ReactiveCache.getBoard(boardId) : Utils.getCurrentBoard();
+  return boardForMinicard(board || Utils.getCurrentBoard());
+}
+
+// The minicard and its sub-templates read `currentBoard.allowsXOnMinicard`;
+// this template-level helper answers before the global one, as the opened
+// card's CARD_FIELD_TEMPLATES do (client/components/cards/cardAddFields.js).
+export const MINICARD_FIELD_TEMPLATES = Object.freeze(['minicard', 'minicardChecklist']);
+MINICARD_FIELD_TEMPLATES.forEach(name => {
+  Template[name].helpers({
+    currentBoard() {
+      const tpl = Template.instance();
+      return minicardBoardOf(tpl && tpl.data);
+    },
+  });
+});
+
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
   if (!board) return false;
   if (board[onMinicardField] !== null && board[onMinicardField] !== undefined) {
@@ -61,14 +87,14 @@ Template.minicard.helpers({
     return commentBadgeTitle(this.comments(), count => TAPi18n.__('card-comments-title', count));
   },
   // #1591: the whole-minicard fold, same shape as a list's collapsed() helper.
-  showCollapseControl() { return ReactiveCache.getBoard(this.boardId)?.allowsMinicardCollapse !== false; },
+  showCollapseControl() { return minicardBoardOf(this)?.allowsMinicardCollapse !== false; },
   showLabelsAboveTitle() {
-    const board = ReactiveCache.getBoard(this.boardId);
+    const board = minicardBoardOf(this);
     return board?.labelsAboveTitleOnMinicard === true && (board.allowsMinicardCollapse === false || !Utils.getCardCollapseState(this));
   },
-  labelsAboveTitle() { return ReactiveCache.getBoard(this.boardId)?.labelsAboveTitleOnMinicard === true; },
+  labelsAboveTitle() { return minicardBoardOf(this)?.labelsAboveTitleOnMinicard === true; },
   minicardCollapsed() {
-    return ReactiveCache.getBoard(this.boardId)?.allowsMinicardCollapse !== false && Utils.getCardCollapseState(this);
+    return minicardBoardOf(this)?.allowsMinicardCollapse !== false && Utils.getCardCollapseState(this);
   },
   // The minicard's field order from Board Settings / Card's "Show on
   // Minicard" column (board.minicardFieldOrder): the sections top to bottom,
@@ -76,19 +102,19 @@ Template.minicard.helpers({
   // `.badges` strip. A board that never set it gets the historical order.
   // models/lib/cardFieldOrder.js
   orderedMinicardSections() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return orderedMinicardSections(board?.minicardFieldOrder);
   },
   orderedMinicardDates() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return orderedMinicardFieldsOf(board?.minicardFieldOrder, 'dates');
   },
   orderedMinicardBadges() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return orderedMinicardFieldsOf(board?.minicardFieldOrder, 'badges');
   },
   showCustomFieldsOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return board?.allowsCustomFieldsOnMinicard === true;
   },
   // #3078: highlight the minicard when it has comments the current user has
@@ -118,7 +144,7 @@ Template.minicard.helpers({
     const card = this;
     if (!card || !card._id) return false;
     // Unread comments, Show on Minicard: on unless turned off.
-    if (Utils.getCurrentBoard()?.allowsUnreadCommentsOnMinicard === false) return false;
+    if (minicardBoardOf(this)?.allowsUnreadCommentsOnMinicard === false) return false;
     const comments = ReactiveCache.getCardComments({ cardId: card._id }) || [];
     if (!comments.length) return false;
     // #6745: only this card's own last-viewed time, so opening ANOTHER card
@@ -228,7 +254,7 @@ Template.minicard.helpers({
 
   showCreatorOnMinicard() {
     // cache "board" to reduce the mini-mongodb access
-    const board = this.board();
+    const board = minicardBoardOf(this);
     let ret = false;
     if (board) {
       ret = board.allowsCreatorOnMinicard ?? false;
@@ -240,54 +266,54 @@ Template.minicard.helpers({
   },
 
   showMembers() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsMembersOnMinicard', 'allowsMembers', true);
   },
 
   showAssignee() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsAssigneeOnMinicard', 'allowsAssignee', true);
   },
   showReceived() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsReceivedDateOnMinicard', 'allowsReceivedDate', true);
   },
   showStart() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsStartDateOnMinicard', 'allowsStartDate', true);
   },
   showDue() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsDueDateOnMinicard', 'allowsDueDate', true);
   },
   showEnd() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsEndDateOnMinicard', 'allowsEndDate', true);
   },
   // #2530: accumulated spent-time badge on the minicard. Defaults to true
   // (models/boards.js) since it was already shown unconditionally; this only
   // lets an admin turn it off via Card Settings.
   showSpentTime() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsSpentTimeOnMinicard', 'allowsSpentTime', true);
   },
   showLabels() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsLabelsOnMinicard', 'allowsLabels', true);
   },
   showCardNumber() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsCardNumberOnMinicard', 'allowsCardNumber', false);
   },
   // "Mark as complete" toggle on the minicard. No legacy fallback to the
   // card-details setting (allowsDueComplete): hidden by default so it only
   // appears when explicitly enabled in Card Settings > Show at Minicard.
   showDueComplete() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsDueCompleteOnMinicard', null, false);
   },
   showSubtasks() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsSubtasksOnMinicard', 'allowsSubtasks', true);
   },
   // #6688: the minicard badges that had no Board Settings / Card toggle.
@@ -296,23 +322,23 @@ Template.minicard.helpers({
   // flag is NOT a fallback here - hiding the Dependencies section of the
   // opened card is a different decision from hiding its badge.
   showDependenciesOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsDependenciesOnMinicard', null, true);
   },
   showStickersOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsStickersOnMinicard', null, true);
   },
   showCommentCountOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsCommentCountOnMinicard', null, true);
   },
   showVoteOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsVoteOnMinicard', null, true);
   },
   showPokerOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return getMinicardFlag(board, 'allowsPokerOnMinicard', null, true);
   },
   // #6431: compact checklist item-count badge (finished/total) on the minicard.
@@ -320,7 +346,7 @@ Template.minicard.helpers({
   // counting (checklistFinishedCount/checklistItemCount) is gated behind this in
   // the template, so a board with the badge off spends no resources counting.
   showChecklistCountBadge() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return !!(board && board.allowsChecklistCountBadgeOnMinicard);
   },
   // #4285: show a card's comments directly on the minicard. Opt-in and OFF by
@@ -329,7 +355,7 @@ Template.minicard.helpers({
   // built (and the comment badge's `comments` helper already runs
   // unconditionally for the count badge) when this returns true.
   showCommentsOnMinicard() {
-    const board = this.board();
+    const board = minicardBoardOf(this);
     return !!(board && board.allowsCommentsOnMinicard);
   },
   // Compact, truncated preview of the most recent comments for the minicard.
@@ -384,10 +410,10 @@ Template.minicard.helpers({
   // as it was on every board before it had a row.
   // Card color, Show on Minicard: on unless turned off.
   showCardColorOnMinicard() {
-    return Utils.getCurrentBoard()?.allowsCardColorOnMinicard !== false;
+    return minicardBoardOf(this)?.allowsCardColorOnMinicard !== false;
   },
   showIssueTypeOnMinicard() {
-    return Utils.getCurrentBoard()?.allowsIssueTypeOnMinicard !== false;
+    return minicardBoardOf(this)?.allowsIssueTypeOnMinicard !== false;
   },
   cover() {
     // #5666: for a linked card the cover lives on the real card it points at, so
@@ -429,12 +455,14 @@ Template.minicard.helpers({
     // Show list name if either:
     // 1. Board-wide setting is enabled, OR
     // 2. This specific card has the setting enabled
-    const currentBoard = this.board();
+    const currentBoard = minicardBoardOf(this);
     if (!currentBoard) return false;
     if (currentBoard.allowsShowListsOnMinicard) return true;
     // The card's own List title, unless unticked in Admin Panel / Settings /
     // Visibility / Features (models/lib/cardFieldVisibility.js).
-    return !isCardFieldHiddenOnBoard(currentBoard, 'listTitle') && Boolean(this.getRealCard().showListOnMinicard);
+    // ...and unless its section (Card) is hidden whole on Show on Minicard.
+    return !isCardFieldHiddenOnBoard(currentBoard, 'listTitle') && !hidesRow(currentBoard, 'minicard', 'listTitle')
+      && Boolean(this.getRealCard().showListOnMinicard);
   },
 
   // #2426: the swimlane a card belongs to isn't otherwise visible on its
@@ -442,7 +470,7 @@ Template.minicard.helpers({
   // swimlane), so this board-wide toggle shows the swimlane's name at the
   // bottom of the minicard, the same place/style as the list name above.
   shouldShowSwimlaneNameOnMinicard() {
-    const currentBoard = this.board();
+    const currentBoard = minicardBoardOf(this);
     if (!currentBoard) return false;
     return currentBoard.allowsSwimlaneNameOnMinicard === true;
   },
@@ -455,8 +483,11 @@ Template.minicard.helpers({
 
   shouldShowChecklistAtMinicard() {
     // Return checklists that should be shown on minicard
-    const currentBoard = this.board();
+    const currentBoard = minicardBoardOf(this);
     if (!currentBoard) return [];
+    // A checklist's own "Show at minicard" overrides the board's default, so
+    // the Checklists section hidden whole on Show on Minicard is asked first.
+    if (hidesRow(currentBoard, 'minicard', 'checklists')) return [];
 
     const checklists = this.checklists();
     const visibleChecklists = [];

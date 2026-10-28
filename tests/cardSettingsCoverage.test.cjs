@@ -58,8 +58,8 @@ const popupStart = sidebarJade.indexOf('template(name="boardCardSettingsPopup")'
 assert.ok(popupStart !== -1, 'boardCardSettingsPopup found');
 const popupEnd = sidebarJade.indexOf('\ntemplate(name=', popupStart + 1);
 const popup = sidebarJade.slice(popupStart, popupEnd);
-// Board Settings / Card is now the SAME template as the opened card's Card
-// Settings (a deliberate change): the popup is `+cardSettingsInline(inPopup=true)`,
+// Board Settings / Card is Card Settings (a deliberate change): the popup is
+// `+cardSettingsInline` - since 2026-10-28 the only Card Settings,
 // and its rows are drawn by cardSettingsInline / cardSettingsInlineSection.
 // What this suite asked of the popup's own template it asks of those.
 const inlineTpl = template(sidebarJade, 'cardSettingsInline');
@@ -205,6 +205,15 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
     for (const side of ['card', 'minicard']) {
       const spec = row[side];
       if (!spec) continue;
+      // Deliberate change (2026-10-28): a card's OWN row (`needsCard`, List
+      // title) is never drawn in Card Settings any more - Card Settings is
+      // Board Settings / Card, with no card - so it has no helper or handler
+      // there; the card sets it in its own menu (cardDetails.js).
+      if (spec.needsCard) {
+        assert.match(sidebarJs, /\.filter\(row => !row\[side\]\.needsCard\)/, 'never drawn in Card Settings');
+        assert.ok(!sidebarJs.includes(`'click .${spec.toggle}'`), `negative: no dead handler for .${spec.toggle}`);
+        continue;
+      }
       // A Scrum row's checkbox is its Scrum visibility flag, read by the row
       // builder itself; the others have a helper of their own.
       if (spec.scrum) assert.match(sidebarJs, /checked: spec\.scrum \? currentBoard\?\.scrum\?\.visibility\?\.\[spec\.scrum\] === true/);
@@ -223,7 +232,7 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
 });
 
 // ── the popup: the opened card's Card Settings ───────────────────────────────
-// docs/Features/Cards/Card-Settings-On-Card.md. Deliberate change: Board
+// docs/Features/Cards/Card-Settings.md. Deliberate change: Board
 // Settings / Card used to be the Admin Panel's left menu and a right pane of
 // two lists (Show on Card, Show on Minicard) with column heads. It is now the
 // opened card's own template, cardSettingsInline: "Show" radios pick the side
@@ -232,17 +241,23 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
 // drop - so both sides' orders are still independent, one shown at a time.
 
 test('Board Settings / Card is cardSettingsInline: Show picks the side, each section a checklist of its rows', () => {
-  assert.match(popup, /\+cardSettingsInline\(inPopup=true\)/);
+  // Since 2026-10-28 it is the ONLY Card Settings: the opened card has none.
+  assert.match(popup, /\n  \+cardSettingsInline\n/);
+  assert.ok(!cardJade.includes('cardSettingsInline'), 'negative: not on the opened card');
   // Negative: the old menu-and-pane layout is gone.
   for (const gone of ['+leftMenu(settingsMenuItems)', '+paneTitle(settingsPaneTitle)', 'card-settings-list-card',
     'card-settings-list-minicard', 'sectionCardRows', 'sectionMinicardRows', 'card-settings-pane-head']) {
     assert.ok(!sidebarJade.includes(gone), `negative: ${gone} is gone`);
   }
   // Both sides are still reachable: the two Show radios, Show on Card first chosen.
-  assert.match(inlineTpl, /input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side-\{\{#if inPopup\}\}popup\{\{else\}\}card\{\{\/if\}\}" value="minicard"/);
-  assert.match(inlineTpl, /input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side-\{\{#if inPopup\}\}popup\{\{else\}\}card\{\{\/if\}\}" value="card"/);
-  assert.match(sidebarJs, /this\.showSide = new ReactiveVar\('card'\);/);
-  assert.match(inlineTpl, /each section in inlineSections\n\s+\+cardSettingsInlineSection\(section=section card=card side=showSide\)/);
+  // (One Card Settings now, so one radio group name: there is no second one,
+  // on an opened card, to keep apart from.)
+  assert.match(inlineTpl, /input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side" value="minicard"/);
+  assert.match(inlineTpl, /input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side" value="card"/);
+  // Show on Card when it opens; the side chosen is kept on its popup-stack
+  // entry, so a hamburger's back arrow comes back to it.
+  assert.match(sidebarJs, /this\.showSide = new ReactiveVar\(kept === 'minicard' \? 'minicard' : 'card'\);/);
+  assert.match(inlineTpl, /each section in inlineSections\n\s+\+cardSettingsInlineSection\(section=section side=showSide\)/);
   // One sortable list per section, of the side shown.
   assert.match(inlineSection, /\.card-settings-inline-items\.js-card-field-order-sortable\(data-side="\{\{side\}\}"\)\n\s+each row in section\.rows/);
   // The line is what the handlers read: data-key and data-side on the row class.
@@ -263,7 +278,9 @@ test('Board Settings / Card is cardSettingsInline: Show picks the side, each sec
   assert.match(sidebarJs, /side === 'card' \? CARD_LAYOUT : MINICARD_LAYOUT/);
   assert.match(sidebarJs, /side === 'card' \? currentBoard\?\.cardFieldOrder : currentBoard\?\.minicardFieldOrder/);
   assert.match(sidebarJs, /rowsForSide\(side, order\)/);
-  assert.match(sidebarJs, /const rows = sectionRowsOf\(section\.id, data, side, tpl\.animating\.get\(\)\)/);
+  // (The checkbox just clicked is read once per redraw, for the rows and for the
+  // section checkboxes alike.)
+  assert.match(sidebarJs, /const animating = tpl\.animating\.get\(\);[\s\S]{0,300}const rows = sectionRowsOf\(section\.id, data, side, animating\)/);
   // Negative: the one-side views of the old popup (show-card-only /
   // show-minicard-only, hiding the other list) are gone with it - Show is the
   // one way to pick a side.
@@ -293,7 +310,7 @@ test('rows reorder by drag and drop and the keyboard, in the list as shown; a ro
   // The keyboard: one row up or down IN THE LIST, placed the same way as a drop.
   assert.match(sidebarJs, /'keydown \.js-card-field-order-handle'\(evt\) \{\s*const direction = ARROW_KEYS\[evt\.key\];\s*if \(direction\) moveCardSettingsRow\(evt, direction\);/);
   assert.match(sidebarJs, /const ARROW_KEYS = \{ ArrowUp: 'up', ArrowDown: 'down' \};/);
-  const move = sidebarJs.slice(sidebarJs.indexOf('function moveCardSettingsRow'), sidebarJs.indexOf('async function selectCardSettingsColumn'));
+  const move = sidebarJs.slice(sidebarJs.indexOf('function moveCardSettingsRow'), sidebarJs.indexOf('// The handlers of Card Settings:'));
   assert.ok(move.length > 0 && move.length < 2000, 'moveCardSettingsRow found');
   assert.match(move, /placeInListOrder\(list\.dataset\.side, rowEl\.dataset\.key, keys\);/);
   // Negative: the arrows and their numbers are gone, and nothing moves by
@@ -306,7 +323,8 @@ test('every locale has the column heading keys', () => {
   const dir = path.join(repoRoot, 'imports/i18n/data');
   for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.i18n.json'))) {
     const json = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
-    for (const k of ['show-on-card', 'show-on-minicard', 'card-settings-this-card']) {
+    // ('card-settings-this-card', On this card, was removed 2026-10-28.)
+    for (const k of ['show-on-card', 'show-on-minicard']) {
       assert.ok(typeof json[k] === 'string' && json[k].length > 0, `${file} has ${k}`);
     }
   }
@@ -389,10 +407,11 @@ test('the card layout\'s default order is the order cardDetails.jade renders (de
     const name = `cardFieldSection${key.charAt(0).toUpperCase()}${key.slice(1)}`;
     assert.ok(cardJade.includes(`template(name="${name}")`), `${name} is its own template`);
     // The Scrum fields sit one level deeper, under their one "Scrum settings"
-    // heading (docs/Features/Cards/Card-Fields.md). The card's body is one
-    // level deeper again since it sits under the `else` of Card Settings
-    // being open on the card (docs/Features/Cards/Card-Settings-On-Card.md).
-    const indent = /^scrum[A-Z]/.test(key) ? '                ' : '              ';
+    // heading (docs/Features/Cards/Card-Fields.md). Deliberate change
+    // (2026-10-28): the card's body is no longer under the `else` of Card
+    // Settings being open on the card - the opened card has no Card Settings -
+    // so it is one level shallower again.
+    const indent = /^scrum[A-Z]/.test(key) ? '              ' : '            ';
     assert.ok(main.includes(`if $eq section "${key}"\n${indent}+${name}`), `the loop renders ${key} through +${name}`);
     return gatesOf(template(cardJade, name));
   });
@@ -468,11 +487,11 @@ test('minicard-only rows sit beside the row they belong with', () => {
   // Deliberate change: there is no personal-only view any more (it hid
   // every row but the personal ones from a non-admin). Everybody gets the
   // same Card Settings; the board's rows are disabled for who may not change
-  // the board, a personal row stays usable (`writable`), and Select all /
-  // none leaves personal rows alone - by the class kept on the row.
+  // the board, and a personal row stays usable (`writable`) - by the class
+  // kept on the row. (Select all / none, which also skipped personal rows by
+  // that class, was removed 2026-10-28.)
   assert.ok(inlineSection.includes('{{#if row.personal}}card-settings-row-personal{{/if}}'), 'personal rows keep their class');
   assert.match(sidebarJs, /writable: writable \|\| Boolean\(built\.personal\),/);
-  assert.match(sidebarJs, /\.filter\(cell => !cell\.classList\.contains\('card-settings-row-personal'\)\)/);
   assert.ok(!sidebarCss.includes('show-personal-only'), 'negative: no personal-only view hiding rows');
   assert.ok(!sidebarJs.includes('personalOnly'), 'negative: no personal-only mode');
   assert.match(inlineSection, /\.card-settings-line\.card-settings-inline-item\.js-card-field-order-row\(class="\{\{#if row\.personal\}\}card-settings-row-personal\{\{\/if\}\}/);

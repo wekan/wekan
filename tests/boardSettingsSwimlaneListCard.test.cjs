@@ -226,9 +226,10 @@ test('the shared settings table itself still exists - Board Settings/Card includ
   assert.ok(sidebarJade.includes('template(name="boardCardSettingsPopup")'),
     'boardCardSettingsPopup was not deleted, only its two menu entry points were');
   // Deliberate change: the helper no longer hides a side (there is no
-  // second list to hide - "Show" picks the side); it only marks Show empty
-  // fields. Negative: no show-*-only class is ever produced.
-  assert.ok(/settingsSideClass\(\) \{/.test(sidebarJs), 'the helper still exists');
+  // second list to hide - "Show" picks the side), and since 2026-10-28 it is
+  // gone - it only marked "Show empty fields", which was removed.
+  // Negative: no show-*-only class is ever produced, nor the helper.
+  assert.ok(!/settingsSideClass/.test(sidebarJs + sidebarJade), 'the helper is gone with Show empty fields');
   assert.ok(!/show-card-only|show-minicard-only/.test(sidebarJs), 'negative: no side-hiding class');
 });
 
@@ -261,16 +262,17 @@ test('a non-admin still reaches the PERSONAL rows ("Labels text", "List title")'
 
 // ── the layout: the opened card's Card Settings ─────────────────────────────
 
-test('Board Settings / Card is the opened card\'s Card Settings, with Show on Minicard and Show on Card', () => {
+test('Board Settings / Card is Card Settings, with Show on Minicard and Show on Card', () => {
   // Deliberate change: it was the Admin Panel's left menu and a pane of two
   // lists (docs/Features/Cards/Card-Fields.md, 2026-10-25/27). It is now the
   // SAME template as the opened card's Card Settings,
-  // `+cardSettingsInline(inPopup=true)`: "Show" radios choose Show on
+  // `+cardSettingsInline` (since 2026-10-28 ONLY here - the opened card has
+  // no Card Settings of its own any more): "Show" radios choose Show on
   // Minicard or Show on Card, and each section is a checklist of that side's
   // rows, each side still in its own order (tests/cardSettingsCoverage.test.cjs).
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
-  assert.ok(form.includes('+cardSettingsInline(inPopup=true)'));
+  assert.match(form, /\n  \+cardSettingsInline\n/);
   assert.ok(!form.includes('+leftMenu(settingsMenuItems)') && !form.includes('+paneTitle(settingsPaneTitle)'),
     'negative: the menu and pane are gone');
   const inline = sidebarJade.slice(sidebarJade.indexOf('template(name="cardSettingsInline")')).split('\ntemplate(')[0];

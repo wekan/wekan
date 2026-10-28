@@ -260,12 +260,9 @@ function seedBoard({ ownerId, title, listCount = 3, cardTitlesPerList = [] } = {
         allowsStartDate: true, allowsEndDate: true, allowsDueDate: true,
         presentParentTask: 'no-parent', isOvertime: false,
         type: 'board', sort: -1, showActivities: false,
-        // Card Settings / Card's "Show empty fields": every field on every card,
-        // the empty ones too - what an opened card showed before it showed only
-        // the fields with data (docs/Features/Cards/Card-Fields.md). The specs
-        // were written for that; a spec of the empty-field rules turns it off
-        // (card-add-fields.e2e.js).
-        showEmptyCardFields: true,
+        // (No "Show empty fields" any more: since 2026-10-28 every opened card
+        // shows every field its board shows, empty or not -
+        // docs/Features/Cards/Card-Fields.md.)
       },
     },
     {

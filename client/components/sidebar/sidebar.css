@@ -184,23 +184,12 @@
 .card-settings-side > a.flex {
   margin: 0;
 }
-/* Select all / Select none in a section's hamburger: the Draggable table's
-   buttons (boardSettingsColumnActions.css). */
-.card-settings-select {
-  margin: 3px 0 0;
-  font-weight: normal;
-}
-.card-settings-select button {
-  white-space: nowrap;
-}
 .card-field-order-toggle,
 .card-field-order-move {
   flex-shrink: 0;
 }
 .card-field-order-move.is-disabled,
 .card-field-order-toggle.is-disabled,
-.card-always-show.is-disabled,
-.card-show-empty-fields.is-disabled,
 .card-ask-move-reason.is-disabled {
   opacity: 0.3;
   cursor: not-allowed;

@@ -263,8 +263,9 @@ test.describe('Labels & due dates', () => {
     const bp = new BoardPage(boardPage);
     const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
     db.updateOne('boards', { _id: board.boardId }, { $set: { allowsDueDate: true } });
-    // Shown on the card although empty, so its "+" is there to click.
-    db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '' }, $set: { shownFields: ['dueDate'] } });
+    // Empty: every opened card shows Due when the board does (since
+    // 2026-10-28, no per-card choice), so its "+" is there to click.
+    db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '', shownFields: '' } });
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();
     await cp.root.locator('a.js-due-date').first().click();

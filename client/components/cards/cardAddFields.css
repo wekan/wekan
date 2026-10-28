@@ -1,26 +1,6 @@
-/* "Card Settings" on the opened card (docs/Features/Cards/Card-Settings-On-Card.md):
-   it replaces itself, and everything below it, with Card Settings on the card. */
-.card-details-add-fields { padding: 4px 0 2px; }
-.card-details-add-fields-button { display: inline-flex; align-items: center; gap: 0.3em; padding: 2px 8px; border-radius: 3px; }
-.card-details-add-fields-button:hover { background: rgba(0, 0, 0, 0.06); }
-
-/* Card Settings on the card: the title with its X at the end of the line,
+/* Card Settings (Board Settings / Card, docs/Features/Cards/Card-Settings.md):
    "Show" and its two choices, then the sections drawn like checklists. */
 .card-settings-inline { padding: 4px 0 8px; }
-.card-settings-inline-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.card-settings-inline-title { flex: 1 1 auto; margin: 0; }
-.card-settings-inline-close {
-  padding: 2px 8px;
-  border-radius: 3px;
-  color: inherit;
-  text-decoration: none;
-}
-.card-settings-inline-close:hover,
-.card-settings-inline-close:focus-visible { background: rgba(0, 0, 0, 0.06); }
 .card-settings-inline-show {
   display: flex;
   flex-wrap: wrap;
@@ -78,8 +58,33 @@
 .card-settings-inline-collapse:focus-visible,
 .card-settings-inline-menu:hover,
 .card-settings-inline-menu:focus-visible { color: #2980b9; }
+/* The section's own checkbox, left of its title: the rows' look. A section
+   hidden whole on this side keeps its rows' ticks, drawn faded. */
+.card-settings-section-side { flex: 0 0 auto; }
+.card-settings-section-side > a.flex { margin: 0; }
+.card-settings-inline-section.is-section-hidden .card-settings-inline-items { opacity: 0.55; }
+/* One row on this side: one line, no caret - its checkbox where the other
+   sections' checkboxes are. */
+.card-settings-inline-section.is-single .card-settings-inline-section-head {
+  padding-inline-start: calc(0.5em + 8px);
+}
+/* "+" under Custom Fields' items: a new custom field. */
+.card-settings-add-custom-field { padding: 2px 0 0 22px; }
+.card-settings-add-custom-field-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 3px;
+  color: #808080;
+  text-decoration: none;
+}
+.card-settings-add-custom-field-button:hover,
+.card-settings-add-custom-field-button:focus-visible { background: rgba(0, 0, 0, 0.06); color: #2980b9; }
 /* Collapsed: the items hidden, not removed, so their drag stays bound. */
-.card-settings-inline-section.is-collapsed .card-settings-inline-items { display: none; }
+.card-settings-inline-section.is-collapsed .card-settings-inline-items,
+.card-settings-inline-section.is-collapsed .card-settings-add-custom-field { display: none; }
 
 /* An item: the checkbox, the name, and its hamburger at the end
    (sidebar.css .card-settings-line is the line itself). */
@@ -100,14 +105,6 @@
 .card-settings-item-menu .is-animating .materialCheckBox { transition: 0.2s; }
 
 /* The hamburgers' popups. */
-.card-settings-section-menu .card-settings-section-menu-select {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px 8px;
-  padding: 4px 0;
-}
 .card-settings-item-menu,
 .card-settings-section-menu { min-width: 16em; }
 /* The hamburgers' checkboxes: a space's width before their label, as on

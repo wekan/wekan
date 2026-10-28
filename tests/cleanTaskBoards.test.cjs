@@ -23,8 +23,11 @@ for (const [side, order] of [['card', DEFAULT_CARD_ORDER], ['minicard', DEFAULT_
 const source = read('client/components/cards/minicard.js');
 const body = source.match(/  minicardCollapsed\(\) \{([^]*?)\n  \},/)[1];
 let board = {}; let collapsed = true;
+// The helper reads the board as the minicard sees it (minicardBoardOf - a
+// Card Settings section hidden on Show on Minicard reads false there,
+// models/lib/cardShownFields.js boardForMinicard); here it is the board itself.
 const helper = vm.runInNewContext(`(function () {${body}})`, {
-  ReactiveCache: { getBoard: () => board }, Utils: { getCardCollapseState: () => collapsed },
+  minicardBoardOf: () => board, Utils: { getCardCollapseState: () => collapsed },
 });
 assert.equal(helper.call({ boardId: 'board' }), true);
 board.allowsMinicardCollapse = false;

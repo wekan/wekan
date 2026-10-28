@@ -1101,11 +1101,12 @@ Cards.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // Was the opened card's "On this card" choice. Since 2026-10-28 every
+    // card shows every field its board shows (models/lib/cardShownFields.js),
+    // so nothing reads or writes these two; kept so existing cards validate.
     shownFields: {
       /**
-       * the fields this card shows although they are empty, ticked in the opened
-       * card's "+ Add" (docs/Features/Cards/Card-Fields.md,
-       * models/lib/cardShownFields.js)
+       * legacy, not read: the fields this card once chose to show although empty
        */
       type: Array,
       optional: true,
@@ -1116,7 +1117,7 @@ Cards.attachSchema(
     },
     hiddenFields: {
       /**
-       * the fields this card hides although they have data, unticked in "+ Add"
+       * legacy, not read: the fields this card once chose to hide
        */
       type: Array,
       optional: true,

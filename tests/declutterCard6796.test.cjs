@@ -152,9 +152,9 @@ const offsetSrc = read('client/lib/popupOffset.js');
 const offset = vm.runInNewContext(`(() => { ${offsetSrc.replace(/^export \{[^}]*\};?\s*$/m, '')}\n return { computePopupOffset, CARD_SETTINGS_MAX_WIDTH }; })()`);
 
 test('the popup is a centred panel as wide (up to 600px) and tall as the window', () => {
-  // Deliberate change: Board Settings / Card is now the SAME template as the
-  // opened card's Card Settings (sidebar.jade boardCardSettingsPopup is only
-  // `+cardSettingsInline(inPopup=true)`) - one column of checklists, not the
+  // Deliberate change: Board Settings / Card is Card Settings (sidebar.jade
+  // boardCardSettingsPopup is only `+cardSettingsInline`) - one column of
+  // checklists, not the
   // Admin Panel's menu and a pane of four checkbox columns - so it is about
   // as wide as an opened card, 600px rather than 1200px. Still centred and
   // as tall as the window (#6796), so it is read with little scrolling.

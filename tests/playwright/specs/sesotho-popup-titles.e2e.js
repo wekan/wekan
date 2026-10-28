@@ -63,11 +63,12 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
     await Meteor.callAsync('setLanguage', 'st');
     Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
-  // Board Settings / Card is the opened card's Card Settings since 2026-10-28
-  // (cardSettingsInline): the pane's "Card field order" heading went with the
-  // pane. What names the card's data fields now is "Show" and its two sides,
-  // the sections' titles, and Card's hamburger's "Show empty fields" - each
-  // in Southern Sotho, and none calling a data field "masimo" (farm fields).
+  // Board Settings / Card is Card Settings (cardSettingsInline): the pane's
+  // "Card field order" heading went with the pane. What names the card's data
+  // fields now is "Show" and its two sides, the sections' titles, and Card's
+  // hamburger (whose "Show empty fields" was removed 2026-10-28; Ask for a
+  // reason is what is left there) - each in Southern Sotho, and none calling
+  // a data field "masimo" (farm fields).
   const popup = page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
   await expect(popup.locator('.card-settings-inline-show-label')).toHaveText('Bontsha');
   const sides = popup.locator('.card-settings-inline-show-option');
@@ -76,9 +77,10 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
   await expect(popup.locator('.js-card-settings-section[data-section="date"] .card-settings-inline-section-title')).toHaveText('Letsatsi');
   await expect(popup.locator('.js-card-settings-inline')).not.toContainText('masimo');
   await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
-  const showEmpty = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"] .js-show-empty-card-fields');
-  await expect(showEmpty).toBeVisible();
-  await expect(showEmpty).not.toContainText('masimo');
+  const menu = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"]');
+  await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
+  await expect(menu).not.toContainText('masimo');
+  await expect(menu.locator('.js-show-empty-card-fields')).toHaveCount(0);
   await page.evaluate(() => Popup.close());
 });
 

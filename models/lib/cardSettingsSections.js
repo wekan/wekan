@@ -4,7 +4,8 @@
 // Admin Panel's left menu and right pane (docs/Features/Cards/Card-Fields.md):
 // the left menu lists these sections, the right pane the rows of the open one,
 // each row with its "Show on Minicard" and "Show on Card" checkbox and order
-// arrows, and - opened from a card - whether THIS card shows the field.
+// arrows; each section with a checkbox of its own, whether it is shown at all
+// on that side (hiddenSectionsOf below).
 //
 // Every row of models/lib/cardSettingsRows.js is in exactly one section
 // (tests/cardSettingsCoverage.test.cjs). The first entry, Card (`general`),
@@ -49,30 +50,20 @@ const SECTIONS = Object.freeze([
 
 const sectionOf = key => SECTIONS.find(s => s.keys.includes(key)) || null;
 
-// Everything in the hamburger of a section of the opened card is also at the
-// top of that section's pane here, under its title: what the card's actions
-// menu had (Filter: Subtasks, Edit voting, ...) and the section's own settings.
-// `popup` is the popup it opens - with the card, or for `board: true` with the
-// board, which also works from Board Settings where there is no card;
-// `filterSubtasks` is client/lib/filterSubtasks.js.
-// tests/cardSectionActions.test.cjs checks every hamburger is here.
+// What a section's hamburger in Card Settings holds besides Card's own (Ask
+// for a reason, the Draggable table): the section's BOARD settings - Card
+// Settings is Board Settings / Card, about every card of the board, and has no
+// card. `popup` is the popup it opens, with the board.
+//
+// (Until 2026-10-28 Card Settings was also drawn on the opened card, and these
+// held that card's actions too - Filter: Subtasks, Edit voting, Card kind,
+// Edit custom fields, Link fields... Those live in the card's own section
+// hamburgers in cardDetails; Create Field is the "+" under Custom Fields'
+// items, cardSettingsCustomFields.js.) tests/cardSectionActions.test.cjs.
 const CARD_ACTIONS = Object.freeze({
-  // `inline`: in the pane it is the form itself, under the pane's title, not a
-  // link to its popup (the hamburger on the opened card still opens the popup).
   subtasks: [
-    { id: 'filterSubtasks', icon: 'fa-filter', label: ['filter', 'subtasks'], labelSeparator: ': ' },
-    { id: 'subtaskSettings', popup: 'boardSubtaskSettings', inline: 'boardSubtaskSettingsBody', icon: 'fa-cog', label: ['subtask-settings'], board: true },
+    { id: 'subtaskSettings', popup: 'boardSubtaskSettings', icon: 'fa-cog', label: ['subtask-settings'], board: true },
   ],
-  customFields: [
-    { id: 'customFields', popup: 'cardCustomFields', inline: 'cardCustomFieldsPopup', icon: 'fa-list-alt', label: ['cardCustomFieldsPopup-title'] },
-    // What that list's two buttons opened, right under it.
-    { id: 'createCustomField', popup: 'createCustomField', inline: 'createCustomFieldPopup', icon: 'fa-plus', label: ['createCustomField'], board: true },
-    { id: 'customFieldLinks', popup: 'cardCustomFieldLinks', inline: 'cardCustomFieldLinksPopup', icon: 'fa-link', label: ['custom-field-links'] },
-  ],
-  vote: [{ id: 'editVoting', popup: 'cardStartVoting', inline: 'cardStartVotingPopup', icon: 'fa-thumbs-up', label: ['card-edit-voting'] }],
-  poker: [{ id: 'editPoker', popup: 'cardStartPlanningPoker', inline: 'cardStartPlanningPokerPopup', icon: 'fa-check-square', label: ['card-edit-planning-poker'] }],
-  time: [{ id: 'spentTime', popup: 'editCardSpentTime', inline: 'editCardSpentTimePopup', icon: 'fa-clock-o', label: ['editCardSpentTimePopup-title'] }],
-  scrum: [{ id: 'cardKind', popup: 'cardKind', inline: 'cardKindPopup', icon: 'fa-book', label: ['cardKindPopup-title'] }],
 });
 
 function cardActionsOf(sectionId) {
@@ -132,7 +123,87 @@ function sectionOrderAfterDrop(stored, shownIds) {
   return order.map(id => (shownSet.has(id) ? shown[next++] : id));
 }
 
+// ── Whether a whole section is shown, per side ──────────────────────────────
+// Each section's title in Card Settings has a checkbox of its own, left of the
+// title: whether the WHOLE section is shown on the side Card Settings shows
+// (Show on Card or Show on Minicard). Unticked on Show on Card, the section is
+// missing from every opened card of the board, whatever its rows are ticked;
+// unticked on Show on Minicard, from every minicard. The two sides are
+// independent. The rows keep their own ticks while their section is hidden,
+// so ticking the section back shows exactly what was shown before. The board
+// stores the hidden sections of each side:
+//
+//   cardSettingsHiddenOnCard:     [sectionId]
+//   cardSettingsHiddenOnMinicard: [sectionId]
+//
+// models/lib/cardShownFields.js boardForCard / boardForMinicard apply them.
+
+const SIDES = Object.freeze(['card', 'minicard']);
+const HIDDEN_SECTIONS_FIELD = Object.freeze({
+  card: 'cardSettingsHiddenOnCard',
+  minicard: 'cardSettingsHiddenOnMinicard',
+});
+const SECTION_IDS = Object.freeze(SECTIONS.map(s => s.id));
+
+// A stored list of section ids, as it may be kept: only known ids, each once,
+// in the table's order.
+function normaliseHiddenSections(stored) {
+  const list = Array.isArray(stored) ? stored : [];
+  return SECTION_IDS.filter(id => list.includes(id));
+}
+
+// The sections `board` hides on `side` ('card' or 'minicard').
+function hiddenSectionsOf(board, side) {
+  const field = HIDDEN_SECTIONS_FIELD[side];
+  if (!field || !board) return [];
+  return normaliseHiddenSections(board[field]);
+}
+
+// Whether `board` shows section `id` on `side` at all.
+function sectionShown(board, side, id) {
+  return !hiddenSectionsOf(board, side).includes(id);
+}
+
+// The list to store after ticking (shown = true) or unticking section `id`.
+// An unknown id changes nothing.
+function hiddenSectionsAfter(stored, id, shown) {
+  const now = new Set(normaliseHiddenSections(stored));
+  if (SECTION_IDS.includes(id)) {
+    if (shown) now.delete(id);
+    else now.add(id);
+  }
+  return SECTION_IDS.filter(s => now.has(s));
+}
+
+// The row keys whose section `board` hides on `side` - only the rows that
+// have that side (cardSettingsRows.js), so a card-only helper is never
+// counted as hidden from the minicard.
+function rowKeysHiddenBySections(board, side) {
+  const hidden = hiddenSectionsOf(board, side);
+  if (!hidden.length) return [];
+  return hidden
+    .flatMap(id => rowsOfSection(id))
+    .filter(row => row && row[side])
+    .map(row => row.key);
+}
+
+// A section with exactly ONE row on the shown side is drawn as one line in
+// Card Settings: one checkbox, its name, one hamburger - no caret, no count,
+// no nested item.
+function isSingleRowSection(rows) {
+  return Array.isArray(rows) && rows.length === 1;
+}
+
+// That one line's checkbox: ticked when the row's own flag is on AND its
+// section is not hidden on that side - so it reads exactly "this field is
+// shown on this side".
+function singleLineChecked(board, side, id, rowChecked) {
+  return Boolean(rowChecked) && sectionShown(board, side, id);
+}
+
 module.exports = {
   SECTIONS, sectionOf, labelInSection, rowsOfSection, CARD_ACTIONS, cardActionsOf,
   sectionOrder, orderedSections, sectionOrderAfterDrop,
+  SIDES, HIDDEN_SECTIONS_FIELD, SECTION_IDS, normaliseHiddenSections, hiddenSectionsOf,
+  sectionShown, hiddenSectionsAfter, rowKeysHiddenBySections, isSingleRowSection, singleLineChecked,
 };

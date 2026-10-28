@@ -26,9 +26,9 @@
 const MOBILE_POPUP_MAX_WIDTH = 800;
 
 // Board Settings / Card's widest; popup.css says the same
-// (`.pop-over[data-popup='boardCardSettingsPopup']`). It is the opened
-// card's Card Settings (docs/Features/Cards/Card-Settings-On-Card.md) - one
-// column of checklists - so about as wide as an opened card.
+// (`.pop-over[data-popup='boardCardSettingsPopup']`). It is Card Settings
+// (docs/Features/Cards/Card-Settings.md) - one column of checklists - so
+// about as wide as an opened card.
 const CARD_SETTINGS_MAX_WIDTH = 600;
 
 function computePopupOffset(params) {

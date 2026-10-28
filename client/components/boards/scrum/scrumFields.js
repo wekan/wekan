@@ -52,8 +52,14 @@ const boardFor = context => ReactiveCache.getBoard(context?.record?.boardId || S
 // `field` (a definition suffix, 'Sprint') draws one field alone: on a card and
 // a minicard each Scrum field sits where the board's Board Settings / Card
 // order puts it (models/lib/cardFieldOrder.js SCRUM_FIELD_KEYS).
+// Read through the board as that side sees it (models/lib/cardShownFields.js
+// boardForSide): a Scrum section hidden whole on Show on Card or Show on
+// Minicard in Card Settings hides these fields there too. The settings above
+// (scrumFieldSettings) read the board itself.
 function visibleFields(context) {
-  const board = boardFor(context);
+  const { boardForSide } = require('/models/lib/cardShownFields');
+  const side = context?.kind === 'card' || context?.kind === 'minicard' ? context.kind : null;
+  const board = side ? boardForSide(boardFor(context), side) : boardFor(context);
   return (definitions[context?.kind] || []).filter(([suffix]) => (!context.field || context.field === suffix) &&
     board?.scrum?.visibility?.[`${context.kind}${suffix}`] === true);
 }

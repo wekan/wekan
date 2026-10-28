@@ -16,11 +16,13 @@ assert.match(jade,
 assert.doesNotMatch(jade, /^\s{4}\.card-details-canvas\s*$/m);
 assert.match(jade,
   /\): \.card-details-canvas\n[\s\S]*?^\s{4}\.card-details-header/m);
-// The left column is one level deeper than the header: it sits under the
-// `else` of Card Settings being open on the card, which replaces it
-// (docs/Features/Cards/Card-Settings-On-Card.md) - still inside the canvas.
+// The left column is at the header's level, inside the canvas. Deliberate
+// change (2026-10-28): it was one level deeper, under the `else` of Card
+// Settings being open on the card; the opened card has no Card Settings any
+// more (docs/Features/Cards/Card-Settings.md), so it is not wrapped.
 assert.match(jade,
-  /\): \.card-details-canvas\n[\s\S]*?^\s{4}else\n[\s\S]*?^\s{6}\.card-details-left\n[\s\S]*?^\s{8}\.card-details-items/m);
+  /\): \.card-details-canvas\n[\s\S]*?^\s{4}\.card-details-left\n[\s\S]*?^\s{6}\.card-details-items/m);
+assert.doesNotMatch(jade, /^\s{4}else\n\s{6}\.card-details-left/m, 'negative: no Card Settings else around it');
 
 // The wrapper contract includes a real, symmetric gutter and border-box sizing
 // so a widened card still fits those gutters inside its declared width.

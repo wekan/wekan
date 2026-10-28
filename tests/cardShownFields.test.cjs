@@ -1,9 +1,16 @@
 'use strict';
 
-// docs/Features/Cards/Card-Fields.md: an opened card shows only the fields it
-// has data in - plus its description, attachments and comments, empty or not,
-// and its cover when it has one - and "+ Add", under the cover, chooses the
-// rest for this card, in the Admin Panel's left menu and right pane.
+// docs/Features/Cards/Card-Fields.md: an opened card shows EVERY field its
+// board shows on cards (Board Settings / Card's Show on Card), empty or not.
+//
+// Deliberate change (2026-10-28): this suite used to pin the per-card rule -
+// a card showed only the fields it had data in, plus "Show empty" / "Show
+// empty fields", plus what it ticked "On this card" (card.shownFields /
+// hiddenFields). The maintainer removed all of that: empty fields are always
+// shown. So it now pins the new rule - the card's view of the board does not
+// depend on the card at all - plus negatives that the per-card rule, its
+// exports and its UI are gone. What a board can still take away besides a row
+// is a whole Card Settings section (tests/cardSettingsSectionShown.test.cjs).
 // Run: node tests/cardShownFields.test.cjs
 
 const assert = require('assert');
@@ -39,69 +46,33 @@ test('every section field is a Board Settings / Card row with a card side', () =
   for (const key of f.FIELD_KEYS) assert.ok(SECTIONS.some(s => s.keys.includes(key)), key);
 });
 
-test('an empty card shows only its description, attachments and comments', () => {
-  const card = { _id: 'c1' };
-  const shown = f.FIELD_KEYS.filter(k => f.isShown(k, card, {}));
-  assert.deepStrictEqual(shown.sort(), ['attachments', 'comments', 'descriptionText', 'descriptionTitle']);
-  const view = f.boardForCard(fullBoard(), card, {});
-  assert.strictEqual(view.allowsDueDate, false);
-  assert.strictEqual(view.allowsLabels, false);
-  assert.strictEqual(view.allowsCoverAttachmentOnCard, false, 'no cover set');
-  assert.strictEqual(view.allowsDescriptionText, true);
-  assert.strictEqual(view.allowsAttachments, true);
-  assert.strictEqual(view.allowsComments, true);
-  assert.strictEqual(view.scrum.visibility.cardSprint, false);
-});
-
-test('a field with data is shown: dates, people, labels, checklists, the cover, Scrum...', () => {
-  const card = {
-    _id: 'c1', dueAt: new Date(), labelIds: ['l1'], members: ['u1'], coverId: 'a1',
-    customFields: [{ _id: 'f1', value: 'x' }], vote: { question: 'Q?' }, scrum: { sprintId: 's1' },
-  };
-  const counts = { checklists: 2, subtasks: 0, textNotes: 1 };
-  for (const k of ['dueDate', 'labels', 'members', 'cover', 'customFields', 'vote', 'scrumSprint', 'checklists', 'textNotes']) {
-    assert.ok(f.isShown(k, card, counts), k);
+test('an empty card shows every field its board allows - no per-card rule', () => {
+  const board = fullBoard();
+  // The view does not depend on the card: an empty card and a full one see
+  // the same board, and with no section hidden that is the board itself.
+  assert.strictEqual(f.boardForCard(board), board);
+  assert.strictEqual(f.boardForCard(board, { _id: 'empty' }, {}), board, 'extra arguments change nothing');
+  for (const key of f.FIELD_KEYS) assert.ok(f.boardAllows(f.boardForCard(board), key), key);
+  // Negative: the per-card rule and its helpers are gone.
+  for (const gone of ['isShown', 'cardFieldsAfter', 'hasData', 'ALWAYS', 'alwaysShownOf', 'boardAlwaysShows',
+    'alwaysShownAfter', 'boardShowsEmptyFields']) {
+    assert.strictEqual(f[gone], undefined, gone);
   }
-  for (const k of ['startDate', 'assignee', 'stickers', 'subtasks', 'poker', 'scrumRelease', 'creator', 'cardNumber', 'activities']) {
-    assert.ok(!f.isShown(k, card, counts), `negative: ${k}`);
+  // Negative: a card's legacy shownFields / hiddenFields are not read anywhere
+  // in the client or the models' rules.
+  for (const file of ['client/components/cards/cardAddFields.js', 'client/components/cards/cardDetails.js',
+    'client/components/sidebar/sidebar.js', 'client/components/cards/minicard.js', 'models/lib/cardShownFields.js']) {
+    const code = read(file).replace(/\/\/[^\n]*/g, '');
+    assert.ok(!/\.(shownFields|hiddenFields)\b/.test(code), `${file} reads a card's shownFields/hiddenFields`);
   }
-  const view = f.boardForCard(fullBoard(), card, counts);
-  assert.strictEqual(view.allowsDueDate, true);
-  assert.strictEqual(view.allowsStartDate, false);
-  assert.strictEqual(view.allowsCoverAttachmentOnCard, true);
-  assert.strictEqual(view.scrum.visibility.cardSprint, true);
-  assert.strictEqual(view.scrum.visibility.cardRelease, false);
-  // An empty custom field value, or an empty list, is not data.
-  assert.ok(!f.hasData('customFields', { customFields: [{ _id: 'f', value: '' }, { _id: 'g', value: [] }, { _id: 'h', value: null }] }));
-});
-
-test('+ Add ticks an empty field onto the card, unticks one with data off it; only what differs is kept', () => {
-  let card = { _id: 'c1', dueAt: new Date() };
-  card = { ...card, ...f.cardFieldsAfter(card, 'startDate', true, {}) };
-  assert.deepStrictEqual(card.shownFields, ['startDate']);
-  assert.ok(f.isShown('startDate', card, {}));
-  card = { ...card, ...f.cardFieldsAfter(card, 'dueDate', false, {}) };
-  assert.deepStrictEqual(card.hiddenFields, ['dueDate']);
-  assert.ok(!f.isShown('dueDate', card, {}), 'hidden although it has a date');
-  card = { ...card, ...f.cardFieldsAfter(card, 'comments', false, {}) };
-  assert.ok(!f.isShown('comments', card, {}), 'even an always-shown one can be unticked');
-  // Ticking back what the data would show anyway leaves no entry behind.
-  card = { ...card, ...f.cardFieldsAfter(card, 'dueDate', true, {}) };
-  card = { ...card, ...f.cardFieldsAfter(card, 'startDate', false, {}) };
-  card = { ...card, ...f.cardFieldsAfter(card, 'comments', true, {}) };
-  assert.deepStrictEqual([card.shownFields, card.hiddenFields], [[], []]);
-  // Negative: a key that is not a per-card field is never stored.
-  const junk = f.cardFieldsAfter({ shownFields: ['$where', 'dueDate'] }, 'allowsX', true, {});
-  assert.deepStrictEqual(junk, { shownFields: ['dueDate'], hiddenFields: [] });
 });
 
 test('Board Settings / Card still decides what a card CAN show', () => {
   const board = fullBoard();
   board.allowsDueDate = false;
   board.scrum.visibility.cardSprint = false;
-  const card = { _id: 'c1', dueAt: new Date(), shownFields: ['dueDate'], scrum: { sprintId: 's' } };
-  const view = f.boardForCard(board, card, {});
-  assert.strictEqual(view.allowsDueDate, false, 'never turned back on by the card');
+  const view = f.boardForCard(board);
+  assert.strictEqual(view.allowsDueDate, false, 'never turned back on');
   assert.strictEqual(f.boardAllows(board, 'dueDate'), false);
   assert.strictEqual(f.boardAllows({ _id: 'b' }, 'scrumSprint'), false, 'Scrum fields are off until turned on');
   // A plain flag the board never set reads its row's default.
@@ -109,23 +80,12 @@ test('Board Settings / Card still decides what a card CAN show', () => {
   assert.strictEqual(f.boardAllows({ allowsCardNumber: true }, 'cardNumber'), true);
 });
 
-test('the same board object when the card shows everything; one cached view per set', () => {
-  const board = fullBoard();
-  const everything = { _id: 'c', shownFields: f.FIELD_KEYS.slice() };
-  assert.strictEqual(f.boardForCard(board, everything, {}), board);
-  const a = f.boardForCard(board, { _id: 'a' }, {});
-  assert.strictEqual(f.boardForCard(board, { _id: 'b' }, {}), a);
-  assert.strictEqual(Object.getPrototypeOf(a), Object.getPrototypeOf(board), 'board helpers still work');
-  assert.notStrictEqual(board.allowsDueDate, false, 'the board itself is unchanged');
-});
-
-test('the opened card: "Card Settings" under the cover, the per-card currentBoard, the Scrum sections', () => {
+test('the opened card: no Card Settings button, the card\'s currentBoard, the Scrum sections', () => {
   const jade = read('client/components/cards/cardDetails.jade');
-  const cover = jade.indexOf('img.card-details-cover-image');
-  const add = jade.indexOf('a.card-details-add-fields-button.js-open-card-add-fields');
-  const left = jade.indexOf('.card-details-left', cover);
-  assert.ok(cover !== -1 && cover < add && add < left, 'Card Settings is under the cover, above the fields');
-  assert.match(jade.slice(add - 300, add), /if canModifyCard\n\s+\.card-details-add-fields\n/, 'only for who may change the card');
+  // Deliberate change (2026-10-28): the "Card Settings" button under the
+  // cover (it was "+ Add") is gone - Card Settings is only Board Settings /
+  // Card (docs/Features/Cards/Card-Settings.md).
+  assert.ok(!/js-open-card-add-fields|card-details-add-fields|cardSettingsInline|cardSettingsOpen/.test(jade), 'negative: no Card Settings on the card');
   const js = read('client/components/cards/cardAddFields.js');
   for (const name of ['cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
     'cardFieldSectionDependencies', 'cardFieldSectionSort', 'cardFieldSectionCustomFields',
@@ -133,17 +93,10 @@ test('the opened card: "Card Settings" under the cover, the per-card currentBoar
     assert.ok(js.includes(`'${name}'`), name);
   }
   assert.match(js, /Template\[name\]\.helpers\(\{\n\s+currentBoard\(\)/);
-  // "Card Settings" (it was "+ Add") opens Card Settings ON the card, in
-  // place of the button and everything below it - no longer the popup
-  // (docs/Features/Cards/Card-Settings-On-Card.md).
-  assert.match(js, /'click \.js-open-card-add-fields'\(event\) \{[\s\S]*?cardSettingsOpenOn\.set\(card\._id\);/);
-  assert.ok(!/Popup\.open\('boardCardSettings'\)/.test(js), 'negative: the card no longer opens the popup');
-  assert.match(jade, /if cardSettingsOpen\n\s+\+cardSettingsInline\(card=this\)\n\s+else\n\s+if canModifyCard\n\s+\.card-details-add-fields\n/);
-  assert.match(jade.slice(add, left), /\{\{_ 'card-settings'\}\}/, 'the button is named Card Settings');
-  // A Scrum section is still decided by the card, but the board has to allow
-  // it first (#6830: Show empty fields showed Scrum on boards with it off) -
-  // tests/scrumSectionsShowEmpty6830.test.cjs.
-  assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\|\n\s+\(boardAllows\(board, s\) && cardShowsField\(card, s\)\)\)/);
+  assert.ok(!/js-open-card-add-fields|cardSettingsOpenOn|Popup\.open\('boardCardSettings'\)/.test(js), 'negative: nothing opens Card Settings from the card');
+  // A Scrum section only when the board allows it (#6830) -
+  // tests/scrumSectionsShowEmpty6830.test.cjs - read through the card's view.
+  assert.match(read('client/components/cards/cardDetails.js'), /return sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| boardAllows\(board, s\)\);/);
   // Negative: every section template of the opened card that reads a board
   // flag is in the list - a new one left out would show empty fields again.
   const sectionTemplates = [...jade.matchAll(/^template\(name="(cardFieldSection\w+)"\)/gm)].map(m => m[1]);
@@ -153,26 +106,25 @@ test('the opened card: "Card Settings" under the cover, the per-card currentBoar
   }
 });
 
-test('the popup is Board Settings / Card: the opened card\'s Card Settings - Show on Minicard, Show on Card, On this card', () => {
+test('the popup is Board Settings / Card: the opened card\'s Card Settings - Show on Minicard, Show on Card', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
   const tplOf = name => jade.slice(jade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
-  // Deliberate change: Board Settings / Card is now the SAME template as the
-  // opened card's Card Settings (`+cardSettingsInline(inPopup=true)`), not
-  // the Admin Panel's menu and pane. Show on Minicard / Show on Card are the
-  // Show radios; On this card is in a row's hamburger, only with a card.
-  assert.match(tplOf('boardCardSettingsPopup'), /\+cardSettingsInline\(inPopup=true\)/);
+  // Deliberate change: Board Settings / Card is cardSettingsInline, not the
+  // Admin Panel's menu and pane - and since 2026-10-28 the only Card
+  // Settings (not also on the card). Show on Minicard / Show on Card are the
+  // Show radios.
+  assert.match(tplOf('boardCardSettingsPopup'), /\n  \+cardSettingsInline\n/);
   assert.ok(!jade.includes('+leftMenu(settingsMenuItems)'), 'negative: the left menu is gone');
   const inline = tplOf('cardSettingsInline');
   assert.ok(inline.includes("span {{_ 'show-on-minicard'}}") && inline.includes("span {{_ 'show-on-card'}}"));
-  assert.match(tplOf('cardSettingsItemPopup'), /if menu\.thisCard\n\s+div\.check-div\.card-settings-board-option\n\s+a\.flex\.card-add-field\.js-card-add-field\(data-key="\{\{key\}\}" role="checkbox"/);
+  // Deliberate change (2026-10-28): "On this card" is gone from the row's
+  // hamburger - no per-card choice any more. Negative: neither its UI nor its
+  // handler nor its row state is left.
+  assert.ok(!/js-card-add-field|card-add-field|menu\.thisCard|menu\.always/.test(tplOf('cardSettingsItemPopup')));
   const js = read('client/components/sidebar/sidebar.js');
-  // On this card only with a card that may be changed (none in Board Settings).
-  assert.match(js, /perCard: side === 'card' && Boolean\(thisCard\) && cardShownFields\.FIELD_KEYS\.includes\(built\.key\),/);
-  assert.match(js, /thisCard: Boolean\(row\.perCard\),/);
-  // #6806: with the card's board, for its Show empty fields; the data from
-  // shownFieldsOf, a linked card's being its source's.
-  assert.match(js, /const next = cardShownFields\.cardFieldsAfter\(view, key, !cardShownFields\.isShown\(key, view, counts, board\), counts, board\);\n\s+await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
-  assert.match(js, /if \(!card \|\| !cardShownFields\.FIELD_KEYS\.includes\(key\) \|\| !Utils\.canModifyCard\(card\)\) return;/, 'negative: only a field key, only who may change the card');
+  for (const gone of ["'click .js-card-add-field'", 'perCard:', 'shownOnThisCard', 'alwaysShowable', 'thisCard: Boolean']) {
+    assert.ok(!js.includes(gone), gone);
+  }
   // The old "+ Add" popup is gone; one popup, one set of handlers.
   assert.ok(!fs.existsSync(path.join(root, 'client/components/cards/cardAddFields.jade')));
   assert.doesNotMatch(read('client/features/cards.js'), /cardAddFields\.jade/);
@@ -180,7 +132,6 @@ test('the popup is Board Settings / Card: the opened card\'s Card Settings - Sho
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   const { SECTIONS } = require('../models/lib/cardSettingsSections.js');
   for (const sec of SECTIONS) assert.ok(en[sec.labelKey], sec.labelKey);
-  assert.strictEqual(en['card-settings-this-card'], 'On this card');
 });
 
 test('"Scrum settings" is the section, not repeated before each of its rows', () => {
@@ -194,12 +145,14 @@ test('"Scrum settings" is the section, not repeated before each of its rows', ()
   assert.deepStrictEqual(labelInSection({ label: ['scrum-settings'] }, scrum), ['scrum-settings']);
 });
 
-test('the card keeps its choices, and only field keys', () => {
+test('the card\'s legacy lists stay in the schema, so old cards validate, and nothing writes them', () => {
   const cards = read('models/cards.js');
   for (const field of ['shownFields', 'hiddenFields']) {
     assert.match(cards, new RegExp(`'${field}\\.\\$': \\{\\s*type: String,\\s*allowedValues: CARD_SHOWN_FIELD_KEYS,`));
   }
   assert.match(cards, /const \{ FIELD_KEYS: CARD_SHOWN_FIELD_KEYS \} = require\('\/models\/lib\/cardShownFields'\);/);
+  // Negative: no client code writes them.
+  assert.ok(!/\$set: \{ (shownFields|hiddenFields)|\$set: next \}/.test(read('client/components/sidebar/sidebar.js')));
 });
 
 test('one rule under "+ Add": no section draws its rule for fields the card does not show', () => {
@@ -209,8 +162,10 @@ test('one rule under "+ Add": no section draws its rule for fields the card does
   const sort = js.slice(js.indexOf('hasVisibleSortFields()'), js.indexOf('hasVisibleSortFields()') + 400);
   assert.match(sort, /const board = cardBoardView\(this\);/);
   assert.doesNotMatch(sort, /const board = this\.board\(\);/, 'negative');
-  // Custom Fields: only on a card that shows them, not as an empty heading.
-  assert.match(js, /board\?\.allowsCustomFields !== false && cardShowsField\(this, 'customFields'\)/);
+  // Custom Fields: on every card the reader may change whose board shows them,
+  // empty or not, read through the card's view (a hidden section hides it).
+  assert.match(js, /const board = boardForCard\(this\?\.board\?\.\(\)\);\n\s+return Utils\.canModifyCard\(this\) && board\?\.allowsCustomFields !== false;/);
+  assert.ok(!js.includes('cardShowsField'), 'negative: the per-card gate is gone');
 });
 
 test('Similar cards: the section only when there are some', () => {
@@ -237,9 +192,8 @@ test('the popup: high enough, moved and maximized, no tick animates on opening i
   // Deliberate change: Board Settings / Card is now cardSettingsInline, so
   // the rule is the inline's (cardAddFields.css), not the old pane's
   // `.card-settings-sections`: only a clicked checkbox animates, none by
-  // default. Its other checkboxes (On this card, Show empty, Show empty
-  // fields, Ask for a reason) are in the hamburger popups, drawn when one
-  // opens rather than re-drawn under the list.
+  // default. Its other checkbox (Ask for a reason) is in Card's hamburger,
+  // drawn when it opens rather than re-drawn under the list.
   const css = read('client/components/cards/cardAddFields.css');
   assert.match(css, /\.card-settings-inline \.materialCheckBox \{ transition: none; \}/);
   assert.match(css, /\.card-settings-inline \.card-field-order-toggle\.is-animating \.materialCheckBox \{ transition: 0\.2s; \}/);
@@ -250,7 +204,7 @@ test('the popup: high enough, moved and maximized, no tick animates on opening i
   // Switching Show (what replaced opening a pane) animates nothing.
   assert.match(js, /'change \.js-card-settings-show-side'\(evt, tpl\) \{\n\s+tpl\.animating\.set\(null\);/, 'switching the side animates nothing');
   assert.ok(!/tpl\.settingsSection\.set/.test(js), 'negative: no pane to open any more');
-  assert.match(js, /tpl\.animating\.set\(key\);/, 'the clicked one does');
+  assert.match(js, /tpl\.animating\.set\(`section:\$\{id\}:\$\{side\}`\);/, 'the clicked section checkbox does');
   const popup = read('client/components/main/popup.js');
   assert.match(popup, /MOVABLE_POPUPS = new Set\(\[[^\]]*'boardCardSettingsPopup'/);
   assert.match(popup, /MAXIMIZABLE_POPUPS = new Set\(\[[^\]]*'boardCardSettingsPopup'/);

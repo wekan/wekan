@@ -754,14 +754,15 @@ Template.registerHelper('cardSwimlaneTitle', function cardSwimlaneTitle() {
   return swimlane && swimlane.title;
 });
 
-// The Custom Fields section: on a card that has a custom field value, or that
-// ticked Custom Fields in "+ Add" (docs/Features/Cards/Card-Fields.md) - not on
-// every card, where it was an empty heading. "+ Add" is how a card with none
-// gets the section, and its hamburger then adds the fields.
+// The Custom Fields section: on every card the reader may change whose board
+// shows Custom Fields on cards, empty or not (docs/Features/Cards/Card-Fields.md)
+// - its hamburger is where the fields are added. The board as its cards see it,
+// so a board that hides the whole Custom Fields section on Show on Card
+// (models/lib/cardShownFields.js boardForCard) hides it here too.
 Template.registerHelper('canShowCustomFieldsOnCard', function canShowCustomFieldsOnCard() {
-  const { cardShowsField } = require('/client/components/cards/cardAddFields');
-  const board = this?.board?.();
-  return Utils.canModifyCard(this) && board?.allowsCustomFields !== false && cardShowsField(this, 'customFields');
+  const { boardForCard } = require('/models/lib/cardShownFields');
+  const board = boardForCard(this?.board?.());
+  return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
 });
 
 Template.registerHelper('stickers', function stickers() {
@@ -909,13 +910,15 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
   Template.registerHelper('orderedVoteAndPokerFields', sectionHelper('voteAndPoker'));
 }
 
-// The card's sections in the board's order, less the Scrum fields this card
-// does not show - a Scrum field is its own section with no board flag in the
-// template to read (docs/Features/Cards/Card-Fields.md). The board has to
-// allow it first (Board Settings / Scrum): Show empty fields and Show empty
-// only show what the board allows, as they do for Members or Vote (#6830).
+// The card's sections in the board's order, less the Scrum fields the board
+// does not show on cards - a Scrum field is its own section with no board flag
+// in the template to read (docs/Features/Cards/Card-Fields.md). Only what the
+// board allows (Board Settings / Scrum), as for Members or Vote (#6830); and
+// read through the board as its cards see it (cardShownFields.js
+// boardForCard), so a Scrum section hidden whole on Show on Card is gone.
 function orderedSectionsOf(card) {
-  const board = card?.board?.();
+  const { boardAllows, boardForCard } = require('/models/lib/cardShownFields');
+  const board = boardForCard(card?.board?.());
   let sections;
   if (board && typeof board.getCardFieldOrder === 'function') {
     sections = board.getCardFieldOrder();
@@ -923,10 +926,7 @@ function orderedSectionsOf(card) {
     const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
     sections = applyCardFieldOrder(board?.cardFieldOrder);
   }
-  const { cardShowsField } = require('/client/components/cards/cardAddFields');
-  const { boardAllows } = require('/models/lib/cardShownFields');
-  return sections.filter(s => !/^scrum[A-Z]/.test(s) ||
-    (boardAllows(board, s) && cardShowsField(card, s)));
+  return sections.filter(s => !/^scrum[A-Z]/.test(s) || boardAllows(board, s));
 }
 
 Template.cardFieldSectionSort.helpers({
@@ -939,8 +939,7 @@ Template.cardFieldSectionSort.helpers({
     return !!(board && (
       board.allowsCardSortingByNumber || board.allowsShowLists ||
       board.allowsFlowtime || board.allowsPomodoro ||
-      // The card's own view already says whether Spent time is shown: with
-      // hours, or ticked "On this card" to be filled in.
+      // The card's view already says whether Spent time is shown.
       board.allowsSpentTime
     ));
   },
@@ -985,29 +984,35 @@ Template.cardDetails.helpers({
   // List title, Show on Card: the card's own choice, unless the
   // administrator unticked List title in Admin Panel / Settings / Visibility /
   // Features (models/lib/cardFieldVisibility.js). The card keeps its choice.
+  // Its section (Card) hidden whole on Show on Card hides it as well.
   showListOnCard() {
     const board = this?.board?.();
-    return Boolean(this?.showListOnCard) && !isCardFieldHiddenOnBoard(board, 'listTitle');
+    const { hidesRow } = require('/models/lib/cardShownFields');
+    return Boolean(this?.showListOnCard) && !isCardFieldHiddenOnBoard(board, 'listTitle')
+      && !hidesRow(board, 'card', 'listTitle');
   },
+  // The header's own flags, read through the board as its cards see it
+  // (cardBoardView), so a Card Settings section hidden whole on Show on Card
+  // takes them away too.
   // Card color, Show on Card: the header's color, on unless turned off.
   showCardColorOnCard() {
-    return Utils.getCurrentBoard()?.allowsCardColorOnCard !== false;
+    return cardBoardView(this)?.allowsCardColorOnCard !== false;
   },
   // Collapse, Show on Card: the header's collapse caret, on unless turned off.
   allowsCardCollapse() {
-    return Utils.getCurrentBoard()?.allowsCardCollapse !== false;
+    return cardBoardView(this)?.allowsCardCollapse !== false;
   },
   // Labels title, Show on Card: the labels above the title, as on a minicard.
   showLabelsAboveTitleOnCard() {
-    return Utils.getCurrentBoard()?.labelsAboveTitleOnCard === true;
+    return cardBoardView(this)?.labelsAboveTitleOnCard === true;
   },
   // ...as long as the board shows labels at all.
   labelsShownAboveTitle() {
-    return Utils.getCurrentBoard()?.allowsLabels !== false;
+    return cardBoardView(this)?.allowsLabels !== false;
   },
   cardCollapsed() {
     // A board that turned the caret off has no collapsed cards.
-    if (Utils.getCurrentBoard()?.allowsCardCollapse === false) return false;
+    if (cardBoardView(this)?.allowsCardCollapse === false) return false;
     const user = ReactiveCache.getCurrentUser();
     if (user && user.profile) {
       return !!user.profile.cardCollapsed;

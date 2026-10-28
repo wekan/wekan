@@ -4,10 +4,15 @@
 // opened card showed the "Scrum settings" heading and its sections although
 // Board Settings / Scrum had none of its fields turned on. The Scrum fields
 // are the card's only sections with no board flag in the template to read, so
-// cardDetails.js orderedSectionsOf decides them alone - and it asked only
-// whether the card shows the field, which Show empty fields answers yes for
-// every field. Like Members or Vote, a Scrum field is shown only when the
-// board allows it first (boardAllows: scrum.visibility).
+// cardDetails.js orderedSectionsOf decides them alone. Like Members or Vote, a
+// Scrum field is shown only when the board allows it (boardAllows:
+// scrum.visibility).
+//
+// Deliberate change (2026-10-28): "Show empty fields", "Show empty" and "On
+// this card" are gone - every card shows every field the board allows, empty
+// or not. That makes #6830's rule the whole rule, so this suite keeps it: a
+// Scrum section exactly when the board allows it (and its Card Settings
+// section is not hidden whole on Show on Card), whatever the card holds.
 // docs/Features/Cards/Card-Fields.md
 // Run: node tests/scrumSectionsShowEmpty6830.test.cjs
 
@@ -25,48 +30,34 @@ console.log('scrumSectionsShowEmpty6830:');
 const SCRUM = f.FIELD_KEYS.filter(k => /^scrum[A-Z]/.test(k));
 const emptyCard = { _id: 'c1', boardId: 'b1' };
 // The rule orderedSectionsOf applies to a Scrum section.
-const shownScrum = (board, card = emptyCard) =>
-  SCRUM.filter(k => f.boardAllows(board, k) && f.isShown(k, card, {}, board));
+const shownScrum = board => SCRUM.filter(k => f.boardAllows(f.boardForCard(board), k));
 
 test('all six Scrum fields are per-card fields', () => {
   assert.deepStrictEqual(SCRUM, ['scrumSprint', 'scrumPastSprints', 'scrumRelease',
     'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
 });
 
-test('the report: Show empty fields on, Scrum all off - no Scrum section', () => {
-  const board = { _id: 'b1', showEmptyCardFields: true };
-  // What the card alone says - the cause: every Scrum field "shown".
-  assert.deepStrictEqual(SCRUM.filter(k => f.isShown(k, emptyCard, {}, board)), SCRUM);
-  assert.deepStrictEqual(shownScrum(board), []);
-  assert.deepStrictEqual(shownScrum({ ...board, scrum: { visibility: {} } }), []);
+test('the report: Scrum all off - no Scrum section, whatever legacy settings remain', () => {
+  assert.deepStrictEqual(shownScrum({ _id: 'b1', showEmptyCardFields: true }), []);
+  assert.deepStrictEqual(shownScrum({ _id: 'b1', cardFieldsAlwaysShown: SCRUM, scrum: { visibility: {} } }), []);
 });
 
-test('Show empty (cardFieldsAlwaysShown) does not show a Scrum field the board has off', () => {
-  const board = { _id: 'b1', cardFieldsAlwaysShown: SCRUM, scrum: { visibility: { cardSprint: false } } };
-  assert.deepStrictEqual(shownScrum(board), []);
-});
-
-test('"On this card" does not show a Scrum field the board has off', () => {
-  const card = { ...emptyCard, shownFields: ['scrumSprint', 'scrumRelease'] };
-  assert.deepStrictEqual(shownScrum({ _id: 'b1' }, card), []);
-});
-
-test('a Scrum field the board turned on is still shown empty by Show empty fields', () => {
-  const board = { _id: 'b1', showEmptyCardFields: true, scrum: { visibility: { cardSprint: true, cardIssueType: true } } };
+test('a Scrum field the board turned on is shown, empty or not', () => {
+  const board = { _id: 'b1', scrum: { visibility: { cardSprint: true, cardIssueType: true } } };
   assert.deepStrictEqual(shownScrum(board), ['scrumSprint', 'scrumIssueType']);
 });
 
-test('negative: a turned-on Scrum field that is empty stays hidden without Show empty fields', () => {
-  const board = { _id: 'b1', scrum: { visibility: { cardSprint: true } } };
+test('negative: the Scrum section hidden whole on Show on Card hides them all', () => {
+  const board = { _id: 'b1', scrum: { visibility: { cardSprint: true } }, cardSettingsHiddenOnCard: ['scrum'] };
   assert.deepStrictEqual(shownScrum(board), []);
-  assert.deepStrictEqual(shownScrum(board, { ...emptyCard, scrum: { sprintId: 's1' } }), ['scrumSprint']);
 });
 
-test('orderedSectionsOf asks boardAllows before the card, for every Scrum section', () => {
+test('orderedSectionsOf asks boardAllows, through the card view, for every Scrum section', () => {
   const js = read('client/components/cards/cardDetails.js');
   const body = js.slice(js.indexOf('function orderedSectionsOf(card)'));
   const fn = body.slice(0, body.indexOf('\n}\n'));
-  assert.match(fn, /boardAllows\(board, s\) && cardShowsField\(card, s\)/);
+  assert.match(fn, /const board = boardForCard\(card\?\.board\?\.\(\)\);/);
+  assert.match(fn, /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| boardAllows\(board, s\)\)/);
   assert.match(fn, /require\('\/models\/lib\/cardShownFields'\)/);
 });
 

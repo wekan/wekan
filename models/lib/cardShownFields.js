@@ -1,56 +1,45 @@
 'use strict';
 
-// Which fields an opened card shows (docs/Features/Cards/Card-Fields.md).
+// Which fields an opened card and a minicard show
+// (docs/Features/Cards/Card-Fields.md).
 //
-// An opened card shows only what it HAS: a field with data in it - a due date,
-// labels, a checklist - is shown, an empty one is not - and what its board
-// ALWAYS shows, empty or not: Board Settings / Card's "Always show" column,
-// the board's
+// An opened card shows EVERY field its board shows on cards - Board Settings
+// / Card's "Show on Card" checkbox of the field's row - empty or not. There is
+// no per-card choice and no "Show empty" any more: an empty Due date, an empty
+// Members, an empty Custom Fields section are all drawn, ready to be filled
+// in, on every card of a board that shows them.
 //
-//   cardFieldsAlwaysShown: [key]
+// (Until 2026-10-28 a card showed only the fields it had data in, plus the
+// board's "Show empty" list `cardFieldsAlwaysShown` (#6806), plus every field
+// when "Show empty fields" `showEmptyCardFields` was on, plus what the card
+// itself ticked "On this card" `shownFields`/`hiddenFields`. Those schema
+// fields are kept so existing documents still validate, and nothing reads
+// them.)
 //
-// By default (a board that never set it) that is the four a card is for: the
-// description (its title and its text), the attachments with their Add
-// attachment, and the comments. A board admin can untick those - then they
-// are shown when they have something in them, like any other field - and
-// tick any other per-card field (#6806: a board where nearly every card gets
-// labels, a due date and a checklist) - the "Show empty" column. The cover is
-// shown when the card has one.
+// What Card Settings can hide besides a row is a whole SECTION, per side
+// (models/lib/cardSettingsSections.js hiddenSectionsOf): unticked on Show on
+// Card, every row of the section reads false on every opened card; unticked
+// on Show on Minicard, on every minicard.
 //
-// Card Settings / Card's "Show empty fields" (the board's
-// `showEmptyCardFields`, off by default) shows every field on every card,
-// empty or not. While it is on, the "Show empty" column is set aside - hidden,
-// its ticks kept for when it is turned off again.
-//
-// Above the card's fields, under its cover, "+ Add" opens Board Settings /
-// Card - the same popup - for this card: beside each row's board-wide "Show on
-// Minicard" and "Show on Card", whether THIS card shows the field. Ticking an
-// empty field shows it on this card, to be filled in; unticking a field with
-// data hides it from this card. The card keeps both choices:
-//
-//   shownFields:  [key]  shown although empty
-//   hiddenFields: [key]  hidden although it has data, or always shown
-//
-// Board Settings / Card still decides what a card of the board CAN show: a
-// field turned off there is shown on no card. The rows not in FIELD_KEYS
-// (Collapse, Labels text, the attachment previews, the badges, the helpers
-// such as Similar cards) change how a shown field looks or help to fill it;
-// they follow Board Settings / Card alone.
-//
-// HOW IT HIDES. The card's templates read `currentBoard.allowsDueDate` and so
-// on. The opened card and its section templates get their own `currentBoard`
-// (client/components/cards/cardDetails.js): this card's view of the board,
-// whose flags read false for the fields this card does not show - the same
-// overlay as Admin Panel / Visibility / Features (cardFieldVisibility.js), one
-// level down. The board document is never changed.
+// HOW IT HIDES. The card's and the minicard's templates read
+// `currentBoard.allowsDueDate` and so on. The opened card and its section
+// templates (client/components/cards/cardAddFields.js CARD_FIELD_TEMPLATES)
+// and the minicard's templates (client/components/cards/minicard.js) get their
+// own `currentBoard`: this side's view of the board, whose flags read false
+// for the rows of the sections hidden on that side - the same overlay as
+// Admin Panel / Visibility / Features (cardFieldVisibility.js), one level
+// down. The board document is never changed, and Card Settings itself reads
+// the board, so its checkboxes keep showing each row's own flag.
 //
 // Pure CommonJS: tests/cardShownFields.test.cjs.
 
 const { CARD_SETTINGS_ROWS } = require('./cardSettingsRows');
+const { rowKeysHiddenBySections } = require('./cardSettingsSections');
 
-// The fields a card shows by its own data or choice - the rest of Board
-// Settings / Card's rows (modifiers, badges, helpers) follow the board alone.
-// The popup's sections are models/lib/cardSettingsSections.js.
+// The opened card's fields - what the legacy per-card lists (`shownFields`,
+// `hiddenFields` on a card, `cardFieldsAlwaysShown` on a board) could name.
+// Kept as those schema fields' allowedValues (models/cards.js,
+// models/boards.js), so a document written before 2026-10-28 still validates.
 const FIELD_KEYS = Object.freeze([
   'receivedDate', 'startDate', 'dueDate', 'endDate', 'dueComplete',
   'members', 'assignee', 'creator', 'requestedBy', 'assignedBy',
@@ -66,119 +55,11 @@ const FIELD_KEYS = Object.freeze([
   'cardNumber', 'dependencies', 'cardSortingByNumber', 'showLists', 'swimlaneName',
 ]);
 
-// Always shown, empty or not, on a board that never chose its own.
-const ALWAYS = Object.freeze(['descriptionTitle', 'descriptionText', 'attachments', 'comments']);
-
-const filled = v => (Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null && v !== '' && v !== false);
-const scrumOf = card => (card && card.scrum && typeof card.scrum === 'object' ? card.scrum : {});
-
-// Whether `card` has data in the field `key`. What lives in other collections
-// (checklists, subtasks, text notes) comes as counts the caller looked up.
-function hasData(key, card, counts = {}) {
-  const c = card || {};
-  const scrum = scrumOf(c);
-  switch (key) {
-    case 'receivedDate': return filled(c.receivedAt);
-    case 'startDate': return filled(c.startAt);
-    case 'dueDate': return filled(c.dueAt);
-    case 'endDate': return filled(c.endAt);
-    case 'dueComplete': return c.dueComplete === true;
-    case 'members': return filled(c.members);
-    case 'assignee': return filled(c.assignees);
-    case 'requestedBy': return filled(c.requestedBy) || filled(c.requesters);
-    case 'assignedBy': return filled(c.assignedBy) || filled(c.assigners);
-    case 'labels': return filled(c.labelIds);
-    case 'stickers': return filled(c.stickers);
-    case 'location': return filled(c.locationName) || filled(c.locationAddress) || filled(c.locations)
-      || (Number.isFinite(c.locationLatitude) && Number.isFinite(c.locationLongitude));
-    case 'checklists': return (counts.checklists || 0) > 0;
-    case 'subtasks': return (counts.subtasks || 0) > 0;
-    case 'cover': return filled(c.coverId);
-    case 'textNotes': return (counts.textNotes || 0) > 0;
-    case 'spentTime': return Number(c.spentTime) > 0;
-    case 'flowtime': return filled(c.flowStartAt);
-    case 'pomodoro': return filled(c.pomodoroStartAt) || Number(c.pomodoroCount) > 0;
-    case 'customFields': return (Array.isArray(c.customFields) ? c.customFields : [])
-      .some(f => f && filled(f.value) && !(Array.isArray(f.value) && !f.value.length));
-    case 'vote': return filled(c.vote && c.vote.question);
-    case 'poker': return filled(c.poker && c.poker.question);
-    case 'dependencies': return filled(c.cardDependencies);
-    case 'scrumSprint': return filled(scrum.sprintId);
-    case 'scrumPastSprints': return filled(scrum.pastSprintIds);
-    case 'scrumRelease': return filled(scrum.releaseId) || filled(scrum.releaseIds);
-    case 'scrumIssueType': return filled(scrum.issueType);
-    case 'scrumAcceptanceCriteria': return filled(scrum.acceptanceCriteria);
-    case 'scrumBacklogRank': return Number.isFinite(scrum.backlogRank);
-    // Always shown by default; with that unticked, shown when there is some.
-    case 'descriptionTitle': case 'descriptionText': return filled(c.description) && String(c.description).trim() !== '';
-    case 'attachments': return (counts.attachments || 0) > 0;
-    case 'comments': return (counts.comments || 0) > 0;
-    // Shown only when added: a creator, a number, the history - every card has
-    // them, so having them is not a reason to show them.
-    default: return false;
-  }
-}
-
-const listOf = v => (Array.isArray(v) ? v.filter(k => FIELD_KEYS.includes(k)) : []);
-
-// The fields the board always shows: its own list once it has one - an empty
-// list too, every field then shown by its data alone - else ALWAYS.
-function alwaysShownOf(board) {
-  const own = board && board.cardFieldsAlwaysShown;
-  return Array.isArray(own) ? listOf(own) : [...ALWAYS];
-}
-
-// Whether the board shows `key` on every card, empty or not.
-function boardAlwaysShows(board, key) {
-  return FIELD_KEYS.includes(key) && alwaysShownOf(board).includes(key);
-}
-
-// The board's list after ticking (show = true) or unticking `key` - or a
-// list of keys, for Select all / Select none - in FIELD_KEYS' order, without
-// unknown or repeated keys.
-function alwaysShownAfter(board, key, show) {
-  const now = new Set(alwaysShownOf(board));
-  (Array.isArray(key) ? key : [key]).filter(k => FIELD_KEYS.includes(k)).forEach(k => {
-    if (show) now.add(k);
-    else now.delete(k);
-  });
-  return FIELD_KEYS.filter(k => now.has(k));
-}
-
-// Whether the board shows every field on every card, empty or not.
-function boardShowsEmptyFields(board) {
-  return Boolean(board) && board.showEmptyCardFields === true;
-}
-
-// What the card shows when it has made no choice of its own.
-const shownByDefault = (key, card, counts, board) =>
-  boardShowsEmptyFields(board) || hasData(key, card, counts) || boardAlwaysShows(board, key);
-
-// Whether this card shows `key` (before Board Settings / Card is asked).
-// `board` is the card's board, for its "Always show" fields.
-function isShown(key, card, counts, board) {
-  if (!FIELD_KEYS.includes(key)) return true; // not a per-card field: the board decides
-  if (listOf(card && card.hiddenFields).includes(key)) return false;
-  if (listOf(card && card.shownFields).includes(key)) return true;
-  return shownByDefault(key, card, counts, board);
-}
-
-// The card's two lists after ticking (show = true) or unticking `key`. Only
-// a choice that differs from what the data and the board would decide is kept.
-function cardFieldsAfter(card, key, show, counts, board) {
-  let shown = listOf(card && card.shownFields).filter(k => k !== key);
-  let hidden = listOf(card && card.hiddenFields).filter(k => k !== key);
-  if (!FIELD_KEYS.includes(key)) return { shownFields: shown, hiddenFields: hidden };
-  const byData = shownByDefault(key, card, counts, board);
-  if (show && !byData) shown = [...shown, key];
-  if (!show && byData) hidden = [...hidden, key];
-  return { shownFields: shown, hiddenFields: hidden };
-}
-
 const rowOf = key => CARD_SETTINGS_ROWS.find(r => r.key === key);
 
 // Whether the board lets its cards show `key` at all (Board Settings / Card,
-// as the board read returns it, Admin Panel / Visibility applied).
+// as the board read returns it, Admin Panel / Visibility applied). Given a
+// side's view (boardForCard below), a row of a hidden section reads false.
 function boardAllows(board, key) {
   const spec = rowOf(key) && rowOf(key).card;
   if (!board || !spec) return false;
@@ -194,23 +75,31 @@ function boardAllows(board, key) {
   return Boolean(value);
 }
 
+// Whether `board` hides the row `key` on `side` because its whole section is
+// hidden there - for what is not a board flag the templates read (a card's own
+// List title, a checklist's own Show at minicard).
+function hidesRow(board, side, key) {
+  return rowKeysHiddenBySections(board, side).includes(key);
+}
+
 const cache = typeof WeakMap === 'function' ? new WeakMap() : null;
 
-// The board as THIS card sees it: the flags of the fields the card does not
-// show read false. The same object when it shows everything the board allows;
+// The board as one SIDE ('card' or 'minicard') sees it: every row of a
+// section hidden on that side reads false - its board flag, or for a Scrum row
+// its Scrum visibility flag. The same object when no section is hidden;
 // otherwise a copy with the board's prototype, so every board helper still
-// works, cached per board and per set of hidden fields.
-function boardForCard(board, card, counts) {
+// works, cached per board, side and set of hidden rows.
+function boardForSide(board, side) {
   if (!board || typeof board !== 'object') return board;
-  const hidden = FIELD_KEYS.filter(k => !isShown(k, card, counts, board));
+  const hidden = rowKeysHiddenBySections(board, side);
   if (!hidden.length) return board;
-  const signature = hidden.join(',');
+  const signature = `${side}:${hidden.join(',')}`;
   const perBoard = cache && cache.get(board);
   if (perBoard && perBoard[signature]) return perBoard[signature];
   const overrides = {};
   let scrumVisibility = null;
   hidden.forEach(key => {
-    const spec = rowOf(key) && rowOf(key).card;
+    const spec = rowOf(key) && rowOf(key)[side];
     if (!spec) return;
     if (spec.scrum) {
       scrumVisibility = scrumVisibility || {};
@@ -228,7 +117,17 @@ function boardForCard(board, card, counts) {
   return view;
 }
 
+// The board as every opened card of it sees it: the same for every card, empty
+// or not - only the sections hidden on Show on Card are taken away.
+function boardForCard(board) {
+  return boardForSide(board, 'card');
+}
+
+// ...and as every minicard of it sees it.
+function boardForMinicard(board) {
+  return boardForSide(board, 'minicard');
+}
+
 module.exports = {
-  FIELD_KEYS, ALWAYS, hasData, isShown, cardFieldsAfter, boardAllows, boardForCard,
-  alwaysShownOf, boardAlwaysShows, alwaysShownAfter, boardShowsEmptyFields,
+  FIELD_KEYS, boardAllows, hidesRow, boardForSide, boardForCard, boardForMinicard,
 };
