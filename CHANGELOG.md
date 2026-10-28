@@ -178,6 +178,17 @@ neighbouring row. Docs:
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5adfc1b9db">A space between a checkbox and its label, on the rows and in the hamburgers</a>. Thanks to xet7.</summary>
+
+A checkbox touched its label on the rows of Card Settings and in their
+hamburgers' popups. Both now have a space's width between them. A tick is
+drawn rotated and reached past its box, so left to right it is drawn a little
+further left: a ticked box keeps the same space and its label does not move.
+`card-add-fields.e2e.js` measures it, ticked and unticked.
+
+</details>
+
 and updates the following dependencies:
 
 <details>
