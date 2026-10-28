@@ -41,6 +41,15 @@ test('popup.js keeps movable popups inside as they grow, and not when maximized'
   assert.match(src, /this\._boundsObserver\?\.disconnect\(\);/);
 });
 
+test('the Drawing popup is as wide as its drawing, not the default 380px that clipped it', () => {
+  const css = fs.readFileSync(path.join(root, 'client/components/main/popup.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  const rule = css.match(/\.pop-over\[data-popup='cardDrawingPopup'\]\s*\{([^}]*)\}/);
+  assert.ok(rule, 'popup.css has a width rule for the Drawing popup');
+  assert.match(rule[1], /width:\s*min\(860px,\s*calc\(100vw - 20px\)\)/);
+  // Negative: !important would beat the maximized `width: auto !important`.
+  assert.doesNotMatch(rule[1], /!important/);
+});
+
 test('negative: a maximized drawing is not squeezed into an 800 x 500 shape', () => {
   const css = fs.readFileSync(path.join(root, 'client/components/main/popup.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
   assert.doesNotMatch(css, /pop-over--maximized \.card-drawing-surface/);

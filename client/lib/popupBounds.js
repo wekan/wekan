@@ -2,9 +2,10 @@
 //
 // A popup is placed from its opener before its width is known. The card's
 // Drawing popup, opened from the card's menu at the right of the window,
-// replaces the menu in the same popup and then grows to its drawing's
-// min(820px, 90vw): it stayed where the narrow menu had been and its right
-// part - the larger pen sizes and Save - was cut off by the window. Only a
+// replaces the menu in the same popup and then grows to its drawing's width
+// (popup.css, data-popup='cardDrawingPopup'): it stayed where the narrow menu
+// had been and its right part - the larger pen sizes and Save - was cut off by
+// the window. Only a
 // drag, which keeps a popup 12px inside, brought it back (popup-drawing-window
 // .e2e.js measured that jump). The same rule is applied when the popup's size
 // changes. Pure, so it is tested without a browser (tests/popupBounds.test.cjs).

@@ -1482,6 +1482,15 @@ body.mobile-mode .pop-over .content-wrapper {
   flex: 1 1 auto;
   max-height: none;
 }
+/* The Drawing popup is as wide as its drawing (cardDrawing.css: min(820px,
+   90vw)) plus the popup's padding. At the default min(380px, 55vw) the drawing
+   overflowed a 380px popup that clipped it - the larger pen sizes and Save were
+   cut off - and the popup's own box never changed, so nothing moved it back
+   inside the window either (popup.js keeps a movable popup inside when its size
+   changes). Not !important: maximized, `width: auto !important` above wins. */
+.pop-over[data-popup='cardDrawingPopup'] {
+  width: min(860px, calc(100vw - 20px));
+}
 /* A maximized drawing takes the room the window has: cardDrawing.js sizes the
    drawing to its stage and gives the surface that width and height. The rule
    that kept it at 800 x 500's shape here (min(100%, (100vh - 230px) * 1.6),

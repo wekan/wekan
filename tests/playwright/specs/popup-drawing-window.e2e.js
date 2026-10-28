@@ -20,6 +20,20 @@ async function openDrawing(page, board) {
   await page.locator('.js-pop-over .js-card-drawing').click();
   const popup = page.locator('.js-pop-over[data-popup="cardDrawingPopup"]');
   await expect(popup).toBeVisible({ timeout: 15_000 });
+  // The Drawing popup is the card menu's popup element, renamed: for a moment
+  // it still had the 960px menu's place, a box measured then was the menu's,
+  // and the drag pressed outside the popup once it had moved - selecting the
+  // page's text and closing it (Chromium). So: its drawing, then a box that
+  // stays put.
+  await expect(popup.locator('.js-drawing-surface')).toBeVisible();
+  let last = '';
+  await expect.poll(async () => {
+    const b = await popup.boundingBox();
+    const now = b ? [b.x, b.y, b.width, b.height].map(Math.round).join() : '';
+    const settled = now !== '' && now === last;
+    last = now;
+    return settled;
+  }, { intervals: [150] }).toBe(true);
   return popup;
 }
 
@@ -43,9 +57,11 @@ test('the Drawing popup is dragged by its title bar and its handle', async ({ bo
     .toBeLessThanOrEqual(viewport0.width - 11);
   const before = await popup.boundingBox();
 
-  // Toward the middle of the window, so the popup is not stopped at an edge.
+  // Toward the side that has room, so the popup is not stopped at an edge: the
+  // 860px popup kept inside at the right starts left of the middle with no
+  // room to its right.
   const viewport = page.viewportSize();
-  const dx = before.x > viewport.width / 2 ? -80 : 80;
+  const dx = viewport.width - 12 - (before.x + before.width) >= 80 ? 80 : -80;
   const dy = before.y > viewport.height / 3 ? -40 : 40;
   await drag(page, popup.locator('.header-title'), dx, dy);
   const afterTitle = await popup.boundingBox();
