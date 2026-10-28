@@ -129,7 +129,8 @@ its reason.
 replaces the card's fields with the settings, drawn as checklists that drag
 and collapse. **Data health** in Admin Panel / Problems can now clean up
 custom fields whose boards were all deleted, which its Repair button could
-never reduce before.
+never reduce before, and **Show empty fields** no longer shows Scrum sections
+on boards that have Scrum turned off.
 
 This release adds the following new features:
 
@@ -154,6 +155,27 @@ per user. Board Settings / Card is still the popup. Design:
 </details>
 
 and fixes the following bugs:
+
+**The opened card** - its sections show only what the board allows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a224b3cea">Show empty fields shows no Scrum section the board has turned off</a>. Thanks to jullbo and xet7.</summary>
+
+With Board Settings / Card's "Show empty fields" on (since v12.66), every
+opened card showed the "Scrum settings" heading and its sections although
+Board Settings / Scrum had none of its fields turned on
+([#6830](https://github.com/wekan/wekan/issues/6830)). The Scrum fields are
+the card's only sections with no board flag in the template, and the card's
+section list asked only whether the card shows the field - which Show empty
+fields, Show empty and On this card answer yes. A Scrum section now needs the
+board's Scrum visibility first, as Members, Vote and Poker already did; a
+turned-on Scrum field is still shown empty. `tests/scrumSectionsShowEmpty6830.test.cjs`
+pins the rule and that no other client code decides a Scrum section by the
+card alone, and `card-add-fields.e2e.js` checks the card.
+
+</details>
+
+**Data health** - Admin Panel / Problems' checks of custom fields.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dc3fc3f31">Data health: custom fields whose boards were all deleted get their own check</a>. Thanks to Raymond-Voogt and xet7.</summary>
