@@ -6,6 +6,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import { computePopupOffset } from '/client/lib/popupOffset';
 import { focusFirstControl } from '/client/lib/accessibility';
+import { popupLayerPosition, popupLayerStyle } from '/models/lib/popupLayerPosition';
 
 window.Popup = new (class {
   constructor() {
@@ -30,7 +31,7 @@ window.Popup = new (class {
 
   focusCurrentPopup() {
     Tracker.afterFlush(() => {
-      const popup = document.querySelector('.js-pop-over');
+      const popup = document.querySelector('.js-pop-over .js-popup-layer') || document.querySelector('.js-pop-over');
       if (!popup) return;
       focusFirstControl(popup);
     });
@@ -49,6 +50,12 @@ window.Popup = new (class {
   /// adding the convention key would put a second copy of one phrase into all
   /// 147 language files - starting as English in every one of them, so most
   /// languages would show English for something they have already translated.
+  ///
+  /// `openOptions.layer`: opened from inside a popup, the new one is a LAYER on
+  /// top of it, next to the button that opened it, instead of sliding in its
+  /// place - the popup stays visible under it (Card Settings' hamburgers).
+  /// Popup.back() closes the layer alone; another layer from the same popup
+  /// replaces it, and its own button closes it again.
   open(name, openOptions = {}) {
     const self = this;
     const popupName = `${name}Popup`;
@@ -60,6 +67,22 @@ window.Popup = new (class {
      * @param options options (dataContextIfCurrentDataIsUndefined use this dataContext if this.currentData() is undefined)
      */
     return function(evt, options) {
+      const asLayer = Boolean(openOptions.layer) && self.isOpen() && clickFromPopup(evt);
+      if (asLayer) {
+        const top = self._getTopStack();
+        if (top && top.layer) {
+          // One layer at a time: the open one goes, and its own button only
+          // closes it.
+          self._stack.pop();
+          $(top.openerElement).removeClass('is-active');
+          if (top.openerElement === evt.currentTarget) {
+            evt.preventDefault();
+            self._dep.changed();
+            self.focusCurrentPopup();
+            return;
+          }
+        }
+      }
       // If a popup is already opened, clicking again on the opener element
       // should close it -- and interrupt the current `open` function.
       if (self.isOpen()) {
@@ -93,7 +116,9 @@ window.Popup = new (class {
       // has one. This allows us to position a sub-popup exactly at the same
       // position than its parent.
       let openerElement;
-      if (clickFromPopup(evt) && self._getTopStack()) {
+      if (asLayer) {
+        openerElement = evt.currentTarget;
+      } else if (clickFromPopup(evt) && self._getTopStack()) {
         openerElement = self._getTopStack().openerElement;
       } else {
         // For Member Settings sub-popups, always start fresh to avoid content mixing
@@ -117,10 +142,13 @@ window.Popup = new (class {
         depth: self._stack.length,
         offset: self._getOffset(openerElement, popupName),
         dataContext: openOptions.dataContext || (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
+        layer: asLayer,
+        layerStyle: asLayer ? self._layerStyle(openerElement) : '',
       });
 
       const $contentWrapper = $('.content-wrapper')
-      if ($contentWrapper.length > 0) {
+      // A layer leaves the popup under it where it was scrolled to.
+      if ($contentWrapper.length > 0 && !asLayer) {
         const contentWrapper = $contentWrapper[0];
         self._getTopStack().scrollTop = contentWrapper.scrollTop;
         // scroll from e.g. delete comment to the top (where the confirm button is)
@@ -145,7 +173,7 @@ window.Popup = new (class {
           self.template,
           () => {
             self._dep.depend();
-            return { ...self._getTopStack(), stack: self._stack };
+            return self._renderData();
           },
           document.body,
         );
@@ -196,7 +224,10 @@ window.Popup = new (class {
   back(n = 1) {
     if (this._stack.length > n) {
       const $contentWrapper = $('.content-wrapper')
-      if ($contentWrapper.length > 0) {
+      const top = this._getTopStack();
+      if (top && top.layer) $(top.openerElement).removeClass('is-active');
+      // Closing a layer leaves the popup under it as it is.
+      if ($contentWrapper.length > 0 && !(n === 1 && top && top.layer)) {
         const contentWrapper = $contentWrapper[0];
         const stack = this._stack[this._stack.length - n];
         // scrollTopMax and scrollLeftMax only available at Firefox (https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTopMax)
@@ -253,6 +284,27 @@ window.Popup = new (class {
   // An utility function that returns the top element of the internal stack
   _getTopStack() {
     return this._stack[this._stack.length - 1];
+  }
+
+  // What the popup template draws: the top of the stack - or, when that is a
+  // layer, the popup under it, with the layer drawn on top of it.
+  // `depth` counts the sliding popups only: a layer does not slide.
+  _renderData() {
+    const top = this._getTopStack();
+    const stack = this._stack.filter(entry => !entry.layer);
+    const depth = Math.max(0, stack.length - 1);
+    if (!top || !top.layer) return { ...top, depth, stack, layer: null };
+    return { ...this._stack[this._stack.length - 2], depth, stack, layer: top };
+  }
+
+  // A layer's place in the popup, next to its button (models/lib/popupLayerPosition.js).
+  _layerStyle(openerElement) {
+    const popover = openerElement && openerElement.closest('.js-pop-over');
+    if (!popover) return '';
+    return popupLayerStyle(popupLayerPosition({
+      opener: openerElement.getBoundingClientRect(),
+      popover: popover.getBoundingClientRect(),
+    }));
   }
 
   _cleanupPreviousPopupContent() {

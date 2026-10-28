@@ -19,7 +19,7 @@ async function openSettings(page, section) {
 async function openCardSectionMenu(page) {
   const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
   await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
-  const menu = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"]');
+  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsSectionPopup"]');
   await expect(menu).toBeVisible();
   return menu;
 }

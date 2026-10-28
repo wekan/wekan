@@ -1494,3 +1494,42 @@ body.mobile-mode .pop-over .content-wrapper {
 .pop-over.pop-over--maximized .card-drawing {
   min-width: 0;
 }
+
+/* A layer (client/lib/popup.js `layer`): a menu on top of its popup, next to
+   the button that opened it - Card Settings' hamburgers. Its place and its
+   max-height come from models/lib/popupLayerPosition.js; the popup under it
+   stays visible. */
+.pop-over .popup-layer {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 16em;
+  max-width: calc(100% - 16px);
+  background: #fff;
+  color: #4d4d4d;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+.pop-over .popup-layer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 12px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+}
+.pop-over .popup-layer-title { flex: 1 1 auto; }
+.pop-over .popup-layer-close {
+  color: #8c8c8c;
+  padding: 2px 4px;
+}
+.pop-over .popup-layer-close:hover,
+.pop-over .popup-layer-close:focus-visible { color: #4d4d4d; }
+.pop-over .popup-layer-content {
+  overflow: auto;
+  min-height: 0;
+  padding: 8px 12px;
+}

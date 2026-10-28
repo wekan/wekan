@@ -2662,7 +2662,7 @@ const cardSettingsEvents = {
     const id = evt.currentTarget.dataset.action;
     const action = Object.values(cardSettingsSections.CARD_ACTIONS).flat().find(a => a.id === id);
     if (!action || !action.board || !(Utils.canModifyBoard && Utils.canModifyBoard())) return;
-    Popup.open(action.popup)(evt);
+    Popup.open(action.popup, { layer: true })(evt);
   },
   // Only the checkbox just clicked animates; its own handler does the change.
   'click .card-field-order-toggle'(evt, tpl) {
@@ -3383,7 +3383,7 @@ Template.cardSettingsInline.events({
     evt.preventDefault();
     if (!cardSettingsSections.SECTIONS.some(s => s.id === id)) return;
     const data = { sectionId: id, side: tpl.showSide.get() };
-    Popup.open('cardSettingsSection', { dataContext: data })(evt);
+    Popup.open('cardSettingsSection', { dataContext: data, layer: true })(evt);
   },
   // Custom Fields' items: the checkbox is the definition's flag of this side.
   'click .js-card-settings-custom-field-toggle'(evt, tpl) {
@@ -3416,13 +3416,13 @@ Template.cardSettingsInline.events({
     const item = evt.currentTarget.closest('.js-card-settings-custom-field');
     const definition = item && ReactiveCache.getCustomField(item.dataset.id);
     if (!definition || !(Utils.canModifyBoard && Utils.canModifyBoard())) return;
-    Popup.open('editCustomField', { dataContext: definition })(evt);
+    Popup.open('editCustomField', { dataContext: definition, layer: true })(evt);
   },
   // "+" under the items: a new custom field of the board, the last item.
   'click .js-card-settings-add-custom-field'(evt) {
     evt.preventDefault();
     if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;
-    Popup.open('createCustomField', { dataContext: { boardId: Session.get('currentBoard') } })(evt);
+    Popup.open('createCustomField', { dataContext: { boardId: Session.get('currentBoard') }, layer: true })(evt);
   },
   'click .js-open-card-settings-item-menu'(evt, tpl) {
     const row = evt.currentTarget.closest('.js-card-field-order-row');
@@ -3430,7 +3430,7 @@ Template.cardSettingsInline.events({
     if (!row || !sectionEl) return;
     evt.preventDefault();
     const data = { key: row.dataset.key, sectionId: sectionEl.dataset.section, side: tpl.showSide.get() };
-    Popup.open('cardSettingsItem', { dataContext: data })(evt);
+    Popup.open('cardSettingsItem', { dataContext: data, layer: true })(evt);
   },
 });
 

@@ -77,7 +77,7 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
   await expect(popup.locator('.js-card-settings-section[data-section="date"] .card-settings-inline-section-title')).toHaveText('Letsatsi');
   await expect(popup.locator('.js-card-settings-inline')).not.toContainText('masimo');
   await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
-  const menu = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"]');
+  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsSectionPopup"]');
   await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
   await expect(menu).not.toContainText('masimo');
   await expect(menu.locator('.js-show-empty-card-fields')).toHaveCount(0);

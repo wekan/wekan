@@ -99,8 +99,10 @@ test('the section: definitions as items, its own checkbox the Custom Fields flag
   assert.match(js, /definitionToggleSet\(side,\n\s+evt\.currentTarget\.getAttribute\('aria-checked'\) !== 'true'\)/);
   assert.match(js, /Object\.entries\(sorts\)\.forEach\(\(\[id, sort\]\) => CustomFields\.update\(id, \{ \$set: \{ sort \} \}\)\);/);
   assert.match(js, /ownListOnly: true,\n\s+items: '> \.js-card-settings-custom-field\.is-positioned', handle: '\.js-card-settings-custom-field-handle',/);
-  assert.match(js, /Popup\.open\('createCustomField', \{ dataContext: \{ boardId: Session\.get\('currentBoard'\) \} \}\)\(evt\);/);
-  assert.match(js, /Popup\.open\('editCustomField', \{ dataContext: definition \}\)\(evt\);/);
+  // Opened as a layer on top of Card Settings, which stays visible under it
+  // (client/lib/popup.js `layer`), not in its place - a deliberate change.
+  assert.match(js, /Popup\.open\('createCustomField', \{ dataContext: \{ boardId: Session\.get\('currentBoard'\) \}, layer: true \}\)\(evt\);/);
+  assert.match(js, /Popup\.open\('editCustomField', \{ dataContext: definition, layer: true \}\)\(evt\);/);
   // The + is Create Field: it is not also a hamburger entry, so Custom Fields
   // has no hamburger at all.
   assert.deepStrictEqual(require('../models/lib/cardSettingsSections.js').cardActionsOf('customFields'), []);

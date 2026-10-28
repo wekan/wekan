@@ -141,7 +141,16 @@ Popup.template.events({
     const direction = window.getComputedStyle(element).direction === 'rtl' ? -1 : 1;
     resizeDatePopup(element, bounds.width + direction * width, bounds.height + height);
   },
-  'click .js-back-view'() {
+  'click .js-back-view'(evt) {
+    evt.preventDefault();
+    Popup.back();
+  },
+  // A layer is a menu: a press anywhere else in the popup under it closes it,
+  // except on the button that opened it, whose own click closes it.
+  'mousedown .content-wrapper'(evt) {
+    const top = Popup._getTopStack();
+    if (!top || !top.layer) return;
+    if (top.openerElement && top.openerElement.contains(evt.target)) return;
     Popup.back();
   },
   'click .js-close-pop-over'() {

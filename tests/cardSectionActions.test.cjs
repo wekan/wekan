@@ -88,7 +88,9 @@ test('Card Settings: only the board\'s actions, in the hamburger of their sectio
   assert.match(sidebarJs, /\.filter\(action => action\.board && mayBoard\)/);
   const click = sidebarJs.slice(sidebarJs.indexOf("'click .js-card-settings-action'(evt) {"));
   const handler = click.slice(0, click.indexOf('\n  },\n'));
-  assert.match(handler, /if \(!action \|\| !action\.board \|\| !\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;\n\s+Popup\.open\(action\.popup\)\(evt\);/);
+  // Opened as a layer on top of Card Settings, which stays visible under it
+  // (client/lib/popup.js `layer`), not in its place - a deliberate change.
+  assert.match(handler, /if \(!action \|\| !action\.board \|\| !\(Utils\.canModifyBoard && Utils\.canModifyBoard\(\)\)\) return;\n\s+Popup\.open\(action\.popup, \{ layer: true \}\)\(evt\);/);
   assert.ok(!/filterSubtasksOf|settingsCard|dataContext: card/.test(sidebarJs), 'negative: Card Settings has no card path left');
 });
 

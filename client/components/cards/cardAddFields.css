@@ -114,6 +114,12 @@
   align-items: center;
   column-gap: 0.3em;
 }
+/* A menu's options start at its edge, like its table: not .check-div's
+   indent for a form's checkboxes. */
+.card-settings-item-menu .card-settings-board-option,
+.card-settings-section-menu .card-settings-board-option {
+  margin-inline-start: 0;
+}
 /* A tick is drawn rotated (forms.css #6786) and reaches about 3px past its
    box toward the label, which ate the space: drawn 3px further left, it keeps
    it - the box, and so the label, do not move when it is ticked. Right to

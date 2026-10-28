@@ -52,27 +52,67 @@ const sectionOf = (inline, id) => inline.locator(`.js-card-settings-section[data
 const itemOf = (inline, key) => inline.locator(`.js-card-field-order-row[data-key="${key}"]`);
 async function openItemMenu(page, inline, key) {
   await itemOf(inline, key).locator('.js-open-card-settings-item-menu').click();
-  const menu = page.locator('.js-pop-over[data-popup="cardSettingsItemPopup"]');
+  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsItemPopup"]');
   await expect(menu).toBeVisible();
   return menu;
 }
-// A hamburger opened from Card Settings takes the popup's place (its back
-// arrow returns to Card Settings); the X closes the popup, as every popup's does.
+// A hamburger opened from Card Settings is a layer on top of it, next to its
+// button, Card Settings still visible under it (client/lib/popup.js `layer`);
+// the popup's X closes both, the layer's X the layer alone.
 async function closePopup(page) {
   const close = page.locator('.js-pop-over .js-close-pop-over');
   await close.first().click();
   await expect(page.locator('.js-pop-over')).toHaveCount(0);
 }
 async function backToCardSettings(page) {
-  await page.locator('.js-pop-over .js-back-view').first().click();
+  await page.locator('.js-pop-over .js-popup-layer .popup-layer-close').click();
+  await expect(page.locator('.js-pop-over .js-popup-layer')).toHaveCount(0);
   await expect(settingsPopup(page)).toBeVisible();
 }
 async function openSectionMenu(page, inline, id) {
   await sectionOf(inline, id).locator('.js-open-card-settings-section-menu').click();
-  const menu = page.locator('.js-pop-over[data-popup="cardSettingsSectionPopup"]');
+  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsSectionPopup"]');
   await expect(menu).toBeVisible();
   return menu;
 }
+
+// A hamburger opens ON TOP of Card Settings, next to its button, and Card
+// Settings stays visible and where it was scrolled; another hamburger replaces
+// it, its own button and a press elsewhere close it.
+test('a hamburger menu opens on top of Card Settings, next to its button, Card Settings still visible', async ({ boardPage: page }) => {
+  await openBoardCardSettings(page);
+  const popup = settingsPopup(page);
+  const inline = popup.locator('.js-card-settings-inline');
+  const button = sectionOf(inline, 'card').locator('.js-open-card-settings-section-menu');
+  await button.click();
+  const layer = popup.locator('.js-popup-layer[data-popup="cardSettingsSectionPopup"]');
+  await expect(layer).toBeVisible();
+  // Card Settings is still there and visible under it.
+  await expect(sectionOf(inline, 'date')).toBeVisible();
+  await expect(popup).toHaveAttribute('data-popup', 'boardCardSettingsPopup');
+  // Next to its button: just below it, its end edge at the button's, inside the popup.
+  const b = await button.boundingBox();
+  const l = await layer.boundingBox();
+  const p = await popup.boundingBox();
+  expect(Math.abs(l.y - (b.y + b.height))).toBeLessThan(8);
+  expect(Math.abs((l.x + l.width) - (b.x + b.width))).toBeLessThan(8);
+  expect(l.x).toBeGreaterThanOrEqual(p.x);
+  expect(l.y + l.height).toBeLessThanOrEqual(p.y + p.height + 1);
+  // Its own button closes it; Card Settings stays.
+  await button.click();
+  await expect(layer).toHaveCount(0);
+  await expect(sectionOf(inline, 'date')).toBeVisible();
+  // A press elsewhere in Card Settings closes it too.
+  await button.click();
+  await expect(layer).toBeVisible();
+  await sectionOf(inline, 'date').locator('.card-settings-inline-section-title').click();
+  await expect(layer).toHaveCount(0);
+  // Negative: the layer's X closes the layer alone, not Card Settings.
+  await button.click();
+  await popup.locator('.js-popup-layer .popup-layer-close').click();
+  await expect(layer).toHaveCount(0);
+  await expect(popup).toBeVisible();
+});
 
 test('an empty card shows every field its board shows on cards - Due, Members, Labels - with no per-card action', async ({ boardPage: page, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
@@ -482,8 +522,15 @@ test('Custom Fields: its items are the board\'s custom fields; + adds one, the l
   const last = await customItems(inline).last().boundingBox();
   expect((await plus.boundingBox()).y).toBeGreaterThan(last.y);
   await plus.click();
-  const form = page.locator('.js-pop-over[data-popup="createCustomFieldPopup"]');
+  const form = page.locator('.js-pop-over .js-popup-layer[data-popup="createCustomFieldPopup"]');
   await expect(form).toBeVisible();
+  // The + is at the left: the form opens rightward, inside Card Settings,
+  // which stays visible under it.
+  const box = await form.boundingBox();
+  const pop = await settingsPopup(page).boundingBox();
+  expect(box.x).toBeGreaterThanOrEqual(pop.x);
+  expect(box.x + box.width).toBeLessThanOrEqual(pop.x + pop.width + 1);
+  await expect(cf).toBeVisible();
   await form.locator('.js-field-name').fill('Risk');
   await form.locator('button.primary, .primary').first().click();
   await expect.poll(() => fieldsOf(board).map(f => f.name).sort()).toEqual(['Estimate', 'Priority', 'Risk']);
@@ -516,7 +563,7 @@ test('Custom Fields: an item\'s checkbox per side - Show on Minicard is showOnCa
   await expect.poll(() => db.findOne('customFields', { _id: id }).showOnCard).toBe(false);
   // Its hamburger is the custom field's own edit form.
   await customItems(inline).first().locator('.js-card-settings-edit-custom-field').click();
-  await expect(page.locator('.js-pop-over[data-popup="editCustomFieldPopup"] .js-field-name')).toHaveValue('Priority');
+  await expect(page.locator('.js-pop-over .js-popup-layer[data-popup="editCustomFieldPopup"] .js-field-name')).toHaveValue('Priority');
   await closePopup(page);
 });
 

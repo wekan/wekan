@@ -120,6 +120,16 @@ sees no + and disabled checkboxes.
 
 A hamburger is drawn **only when it has something in it**.
 
+A hamburger's menu - and the forms Card Settings opens, a custom field's edit
+form and the + under Custom Fields - opens **on top of Card Settings**, next
+to the button that opened it, and Card Settings stays visible under it,
+scrolled where it was. It opens toward the middle of Card Settings: a
+hamburger at the end of a line gets the menu's right edge at its own, the +
+on the left its left edge; below the button, or above it when there is more
+room there. Its X, its own button again, a press anywhere else in Card
+Settings, or Escape closes it; another hamburger replaces it. This is a popup
+**layer** (`client/lib/popup.js`, `Popup.open(name, { layer: true })`).
+
 | Hamburger | Holds |
 | --- | --- |
 | A row's | Labels text's way back to the board's default, while the user overrides it. Every other row has none. |
@@ -169,13 +179,14 @@ setting, as checklists do:
 | `client/components/sidebar/sidebar.jade` | `boardCardSettingsPopup` is `+cardSettingsInline`; `cardSettingsInlineSection`, `cardSettingsSectionPopup`, `cardSettingsItemPopup` |
 | `client/components/sidebar/sidebar.js` | The sections (`inlineSectionsOf`, `single`, `customFieldItems`), the rows (`sectionRowsOf`), the handlers (`cardSettingsEvents`, `js-card-settings-section-shown`, `js-card-settings-single-toggle`, the custom field ones), the drags (`reorderOnDrop`, `ownListOnly`) |
 | `client/components/cards/cardAddFields.css` | The checklist look |
+| `client/lib/popup.js`, `client/components/main/popup.tpl.jade`, `models/lib/popupLayerPosition.js` | The hamburgers' menus as layers on top of Card Settings, and where one sits |
 | `models/lib/cardSettingsSections.js` | The sections, their order, and whether one is shown: `hiddenSectionsOf`, `sectionShown`, `hiddenSectionsAfter`, `rowKeysHiddenBySections`, `isSingleRowSection`, `singleLineChecked` |
 | `models/lib/cardSettingsCustomFields.js` | Custom Fields' items: their order, their checkbox per side, their new `sort` after a drop |
 | `models/lib/cardShownFields.js` | `boardForCard` / `boardForMinicard`: the board as its cards / minicards see it, the rows of hidden sections reading false |
 | `client/components/cards/cardAddFields.js` | `cardBoardView`, `CARD_FIELD_TEMPLATES`: the opened card's templates read that view |
 | `client/components/cards/minicard.js` | `MINICARD_FIELD_TEMPLATES` and its helpers read the minicard's view |
 | `models/boards.js` | `cardSettingsSectionOrder`, `cardSettingsHiddenOnCard`, `cardSettingsHiddenOnMinicard`, `setCardSettingsSectionOrder`, `setCardSettingsSectionShown` |
-| `tests/cardSettingsSectionShown.test.cjs`, `tests/cardSettingsCustomFields.test.cjs`, `tests/cardSettingsOnCard.test.cjs` | The rules, the layout, the handlers |
+| `tests/cardSettingsSectionShown.test.cjs`, `tests/cardSettingsCustomFields.test.cjs`, `tests/cardSettingsOnCard.test.cjs`, `tests/popupLayer.test.cjs` | The rules, the layout, the handlers, the layers |
 | `tests/playwright/specs/card-add-fields.e2e.js` | The popup, the checkboxes, the hamburgers, Custom Fields, the drag and collapse |
 
 Card Settings itself reads the board as it is - its checkboxes show each
