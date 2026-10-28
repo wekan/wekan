@@ -69,6 +69,25 @@ function database(data) {
     'version cap must allow multiple versions per record');
   const bounded = await auditFiles({ ...options, limits: { findings: 1, bytes: 1 } });
   assert.equal(bounded.findings.length, 1); assert.ok(bounded.omittedFindings > 0); assert.equal(bounded.state, 'partial');
+  // The listed rows are shared between the kinds: one kind that comes first in
+  // numbers (14358 baseline-move-candidate rows on a test server) no longer
+  // takes the whole list and hides the extension-mismatch a type check is for.
+  const crowd = path.join(roots.attachments, 'crowd');
+  fs.mkdirSync(crowd);
+  for (let i = 0; i < 40; i += 1) fs.writeFileSync(path.join(crowd, `orphan-${i}.bin`), `orphan ${i}`);
+  const fair = await auditFiles({ ...options, limits: { findings: 8 } });
+  const listedKinds = fair.findings.map(row => row.kind);
+  assert.equal(fair.findings.length, 8);
+  assert.ok(fair.totals['file-without-live-reference'] >= 40);
+  assert.equal(new Set(listedKinds).size, 8, `8 rows, 8 kinds: ${listedKinds.join(', ')}`);
+  assert.ok(listedKinds.includes('extension-mismatch') || Object.keys(fair.totals).length > 8);
+  const total = Object.values(fair.totals).reduce((sum, n) => sum + n, 0);
+  assert.equal(fair.findings.length + fair.omittedFindings, total, 'every finding is listed or counted as omitted');
+  // Negative: with room for all of them, nothing is dropped or reordered away.
+  const roomy = await auditFiles({ ...options, limits: { findings: 100000 } });
+  assert.equal(roomy.omittedFindings, 0);
+  assert.equal(roomy.findings.filter(row => row.kind === 'file-without-live-reference').length, roomy.totals['file-without-live-reference']);
+  fs.rmSync(crowd, { recursive: true, force: true });
   const cancelled = await auditFiles({ ...options, cancelled: () => true });
   assert.equal(cancelled.state, 'cancelled');
   const inventory = await auditFiles({ ...options, mode: 'inventory', detect: () => { throw Error('inventory must not sniff'); } });

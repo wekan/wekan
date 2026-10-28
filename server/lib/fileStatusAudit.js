@@ -23,10 +23,29 @@ async function auditFiles({ db, roots, writablePath, detect, remoteRead, mode = 
     totals: {}, findings: [], limitations: [], roots: [], omittedFindings: 0,
     filesystemScanned: false });
   const note = text => { if (!report.limitations.includes(text)) report.limitations.push(text); };
+  // The listed rows are shared fairly between the kinds. First come, first
+  // listed, filled the list with one kind: 14358 baseline-move-candidate rows
+  // of an integrity baseline took all 500, and the one extension-mismatch a
+  // type check is run to find was only a number in the totals. When the list
+  // is full, a kind with fewer rows listed takes the place of the last row of
+  // the kind with the most; every kind still has its whole count in totals.
+  const listed = {};
   const finding = (kind, data = {}) => {
     report.totals[kind] = (report.totals[kind] || 0) + 1;
-    if (report.findings.length < cap.findings) report.findings.push({ kind, ...data });
-    else report.omittedFindings++;
+    const row = { kind, ...data };
+    if (report.findings.length < cap.findings) {
+      report.findings.push(row);
+      listed[kind] = (listed[kind] || 0) + 1;
+      return;
+    }
+    const most = Object.keys(listed).reduce((a, b) => (listed[b] > (listed[a] || 0) ? b : a), kind);
+    if (most !== kind && listed[most] > (listed[kind] || 0) + 1) {
+      report.findings.splice(report.findings.findLastIndex(r => r.kind === most), 1);
+      report.findings.push(row);
+      listed[most] -= 1;
+      listed[kind] = (listed[kind] || 0) + 1;
+    }
+    report.omittedFindings++;
   };
   const check = () => {
     if (cancelled()) throw Object.assign(new Error('Scan cancelled'), { code: 'CANCELLED' });
