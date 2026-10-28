@@ -244,6 +244,11 @@ floating tag that refused to start on the runner's kernel. It now requires
 
 </details>
 
+and updates the following documentation:
+
+- [WeKan vs Trello vs Jira says when WeKan added each feature it listed as missing](https://github.com/wekan/wekan/commit/cbdff47edb).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.66 2026-10-28 WeKan ® release
