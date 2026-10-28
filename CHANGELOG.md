@@ -125,13 +125,36 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the v12.66 release build is whole again. The **emulated-CPU
-Linux bundles** and **win32**, the **FreeBSD**, **OpenBSD** and **Mac app**
-bundles, the **Sandstorm** .spk, the **Ondra** and **Gantt GPL** snaps and the
-**Bun** bundles had failed to build or to start - most because build scripts
-had moved their files into `.tools/` and some callers had not.
+**In short:** a list's **Add card** form closes once the card is added, unless
+**Member Settings** keeps it open for the next one. And the v12.66 release build
+is whole again: the **emulated-CPU Linux bundles** and **win32**, **FreeBSD**,
+**OpenBSD**, the **Mac app**, the **Sandstorm** .spk, the **Ondra** and **Gantt
+GPL** snaps and the **Bun** bundles had failed to build or to start - most
+because build scripts had moved their files into `.tools/` and some callers had
+not.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Add card** - a list's form for new cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/70de255333">The form closes after the card is added, unless Member Settings keeps it open</a>. Thanks to brlin-tw and xet7.</summary>
+
+The form stayed open after every card for the next one, which
+[#6827](https://github.com/wekan/wekan/issues/6827) found unexpected. It now
+closes once the card - or every card of a multi-line paste - is added. Member
+Settings / Change Settings has a new switch, **Keep the Add card form open
+after adding a card**, off by default, for typing several cards in a row. The
+form is closed after the last title rather than at submit, because the paste
+loop still reads the form between titles, and a failed add keeps the form and
+its text. The two new strings are translated into every language, many with
+low confidence (listed in the commit). `tests/keepAddCardFormOpen6827.test.cjs`
+and `keep-add-card-form-open-6827.e2e.js` pin both settings, a paste and a
+failure.
+
+</details>
+
+and fixes the following bugs:
 
 **Linux bundles for emulated CPUs** - armhf, armv6, armv7, i386, ppc64le,
 riscv64 and s390x, and win32 built from the i386 one.
@@ -209,6 +232,15 @@ pins `mongo:9.0.4`, which recognises Ubuntu kernels that have the fix
 ([Supported databases](docs/Databases/Supported.md)). linux-arm64: Chromium
 was installed into `~/.cache/ms-playwright` while the build looked in
 `.tools/ms-playwright`; the install step now uses the same path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bce686ce46">Its guard pins mongo:9.0.4, not the mongo:8 that stopped starting</a>. Thanks to xet7.</summary>
+
+`tests/bunSmokeMongo.test.cjs` required the workflow to run `mongo:8`, the
+floating tag that refused to start on the runner's kernel. It now requires
+`mongo:9.0.4`, and fails if `mongo:8` comes back.
 
 </details>
 
