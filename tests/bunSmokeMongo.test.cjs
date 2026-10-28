@@ -43,8 +43,11 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
   await test('the workflow waits for MongoDB and keeps the container to show its log', () => {
     const wf = read('.github/workflows/bun.yml');
     const step = wf.slice(wf.indexOf('- name: Start an isolated MongoDB'), wf.indexOf('- name: Native Linux, macOS or Windows build'));
-    assert.match(step, /docker run -d --name bun-smoke-mongo -p 127\.0\.0\.1:27019:27017 mongo:8/);
+    // 9.0.4: a floating mongo:8 refused to start on the runner's 6.19+ kernel
+    // (v12.66); 9.0.4 recognises Ubuntu kernels that have the fix.
+    assert.match(step, /docker run -d --name bun-smoke-mongo -p 127\.0\.0\.1:27019:27017 mongo:9\.0\.4$/m);
     const run = step.split('\n').find(l => /docker run /.test(l));
+    assert.doesNotMatch(run, /mongo:8\b/, 'negative: not the floating tag that stopped starting');
     assert.doesNotMatch(run, /--rm/, 'negative: a container that dies must leave its log behind');
     assert.match(step, /mongosh --quiet --eval 'db\.runCommand\(\{ ping: 1 \}\)\.ok'/);
     assert.match(step, /docker logs bun-smoke-mongo/);
