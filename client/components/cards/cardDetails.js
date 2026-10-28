@@ -911,7 +911,9 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
 
 // The card's sections in the board's order, less the Scrum fields this card
 // does not show - a Scrum field is its own section with no board flag in the
-// template to read (docs/Features/Cards/Card-Fields.md).
+// template to read (docs/Features/Cards/Card-Fields.md). The board has to
+// allow it first (Board Settings / Scrum): Show empty fields and Show empty
+// only show what the board allows, as they do for Members or Vote (#6830).
 function orderedSectionsOf(card) {
   const board = card?.board?.();
   let sections;
@@ -922,7 +924,9 @@ function orderedSectionsOf(card) {
     sections = applyCardFieldOrder(board?.cardFieldOrder);
   }
   const { cardShowsField } = require('/client/components/cards/cardAddFields');
-  return sections.filter(s => !/^scrum[A-Z]/.test(s) || cardShowsField(card, s));
+  const { boardAllows } = require('/models/lib/cardShownFields');
+  return sections.filter(s => !/^scrum[A-Z]/.test(s) ||
+    (boardAllows(board, s) && cardShowsField(card, s)));
 }
 
 Template.cardFieldSectionSort.helpers({

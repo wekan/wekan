@@ -309,6 +309,23 @@ test('Card\'s hamburger: "Show empty fields" shows every field while keeping the
   await expect(labels.locator('.js-card-always-show[data-key="labels"]')).toHaveAttribute('aria-checked', 'true');
 });
 
+// #6830: "Show empty fields" shows only what the board allows - with Board
+// Settings / Scrum all off, no "Scrum settings" on the card.
+test('"Show empty fields" shows no Scrum section while the board has Scrum off', async ({ boardPage: page, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('cards', { _id: card._id }, { $unset: { scrum: '', shownFields: '', hiddenFields: '' } });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { showEmptyCardFields: true, 'scrum.visibility': {} } });
+  const scrumHeading = details => details.locator('.js-toggle-card-section[data-section="scrum"]');
+  let details = await openCard(page, board);
+  await expect(details.locator('.js-toggle-card-section[data-section="description"]')).toBeVisible();
+  await expect(scrumHeading(details)).toHaveCount(0);
+  // Negative: the field the board turns on is there, empty.
+  db.updateOne('boards', { _id: board.boardId }, { $set: { 'scrum.visibility': { cardSprint: true } } });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  details = await openCard(page, board);
+  await expect(scrumHeading(details)).toHaveCount(1);
+});
+
 // A section's hamburger: Select all / Select none of the shown side, of On
 // this card and of Show empty, for that section's rows only.
 test('a section\'s hamburger selects all or none of its rows, per column', async ({ boardPage: page, board }) => {
