@@ -127,10 +127,11 @@ its reason.
 
 **In short:** **Card Settings** moves onto the opened card: its button
 replaces the card's fields with the settings, drawn as checklists that drag
-and collapse. **Data health** in Admin Panel / Problems can now clean up
-custom fields whose boards were all deleted, which its Repair button could
-never reduce before, and **Show empty fields** no longer shows Scrum sections
-on boards that have Scrum turned off.
+and collapse. WeKan moves to **Meteor 3.6-rc.1**, keeping its own security
+additions to Meteor's packages. **Data health** in Admin Panel / Problems can
+now clean up custom fields whose boards were all deleted, which its Repair
+button could never reduce before, and **Show empty fields** no longer shows
+Scrum sections on boards that have Scrum turned off.
 
 This release adds the following new features:
 
@@ -151,6 +152,29 @@ order is the board's new `cardSettingsSectionOrder`. Sections collapse, kept
 per user. Board Settings / Card is still the popup. Design:
 [Card Settings on the opened card](docs/Features/Cards/Card-Settings-On-Card.md).
 `tests/cardSettingsOnCard.test.cjs` and `card-add-fields.e2e.js` pin it.
+
+</details>
+
+and updates the following dependencies:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/HASH_RC1">Meteor 3.6-rc.1, with WeKan's six Meteor package forks rebased onto it</a>. Thanks to xet7.</summary>
+
+[Meteor 3.6-rc.1](https://forums.meteor.com/t/meteor-3-6-rc-1-rspack-2-x-native-typescript-node-js-26-pnpm-monorepos-instrumentation-pwas-and-a-friendlier-cli/64773/18)
+carries the security fixes of Meteor 3.5.3 and 3.5.4. `meteor update
+--release 3.6-rc.1` first failed with "No version of shell-server satisfies
+all constraints": WeKan's forks of allow-deny, ddp-server, dynamic-import,
+facebook-oauth, google-oauth and shell-server in `packages/`, made because
+3.6-rc.0 lacked the 3.5.3 fixes, were pinned to rc.0's versions. They were not
+deleted, because rc.1 still lacks what is WeKan's own in them: the Admin Panel
+/ Problems reports of refused attempts, and the crypto-RNG keys of
+dynamic-import and meteor shell (rc.1 still uses `Math.random()`). Each fork
+is now rc.1's package with WeKan's changes merged onto it three-way, versioned
+rc.1's `_1`. The experimental Bun build's Meteor patch applies unchanged to
+rc.1 and is renamed for it; the Dockerfile's `METEOR_RELEASE` follows. See
+[Meteor 3.5.3 security fixes](docs/Security/Meteor-3.5.3-Security-Fixes-2026-10-22.md).
+`tests/meteor353SecurityFixes.test.cjs` and `meteorForkRandomKeys.test.cjs`
+pin the forks, and `meteor-353-security.e2e.js` passes on rc.1.
 
 </details>
 
