@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.66 2026-10-28 WeKan ® release
 
 **In short:** two CRITICAL security fixes: **UploadBleed** - attachment uploads
 were not authorized at all - and **StampBleed**, and a **FrameBleed** follow-up.
