@@ -84,6 +84,37 @@ test('/proc memory, load and command lines only with a macOS fallback', () => {
     && !/sysctl -n|ps -o command=/.test(c)).filter(rel => !linuxOnly.has(rel)), []);
 });
 
+test('under set -e, a /proc read in $(...) has a fallback, or the script stops there', () => {
+  // v12.66: start-wekan.sh read _memory_mb=$(awk ... /proc/meminfo) with no
+  // `|| ...`. awk fails where there is no /proc, and under set -e an
+  // assignment from a failed substitution ends the script without a word -
+  // so the FreeBSD, OpenBSD and Mac app bundles never started WeKan.
+  const setE = src => /^\s*set -[a-z]*e/m.test(src);
+  const bare = c => c.split('\n').some(l => /=\$\(.*\/proc\//.test(l) && !/\|\|/.test(l));
+  const scripts2 = [...scripts, ...['start-wekan.sh'].filter(f => !scripts.includes(f))];
+  assert.deepStrictEqual(scripts2.filter(rel => setE(read(rel)) && bare(code(read(rel)))), []);
+  // Negative: the v12.66 line is caught, the fixed one is not.
+  assert.ok(bare("_memory_mb=$(awk '/^MemTotal:/{print int($2/1024)}' /proc/meminfo 2>/dev/null)"));
+  assert.ok(!bare("_memory_mb=$(awk '/^MemTotal:/{print int($2/1024)}' /proc/meminfo 2>/dev/null || true)"));
+});
+
+test('start-wekan.sh finds the memory without /proc, under set -eu', () => {
+  for (const rel of ['releases/ferretdb/start-wekan.sh', 'start-wekan.sh']) {
+    const lines = read(rel).split('\n').filter(l => /_memory_mb=|\[ -n "\$_memory_mb" \]|\[ "\$_memory_mb" -gt 0 \]/.test(l)
+      && !/^\s*#/.test(l) && !/_heap_mb|_go_mb|_m\b/.test(l));
+    assert.ok(lines.length >= 3, `${rel}: the memory lines are found`);
+    const body = lines.map(l => l.trim().replace('/proc/meminfo', '/nonexistent/meminfo')).join('\n');
+    const r = spawnSync('bash', ['-c', `set -eu\n${body}\necho "mem=$_memory_mb"`], { encoding: 'utf8' });
+    assert.strictEqual(r.status, 0, `${rel}: stopped without /proc: ${r.stderr}`);
+    assert.match(r.stdout, /^mem=[1-9][0-9]*$/m, rel);
+    // Negative: the v12.66 line, without its fallback, stops right there.
+    const broken = body.replace(' || true)', ')');
+    const b = spawnSync('bash', ['-c', `set -eu\n${broken}\necho "mem=$_memory_mb"`], { encoding: 'utf8' });
+    assert.notStrictEqual(b.status, 0, `${rel}: the unguarded read is what stopped it`);
+    assert.doesNotMatch(b.stdout, /mem=/);
+  }
+});
+
 test('no GNU-only ln -T or stat -c', () => {
   assert.deepStrictEqual(offenders(c => /\bln -[a-zA-Z]*T\b|\bstat -c\b|\bstat --/.test(c)), []);
 });

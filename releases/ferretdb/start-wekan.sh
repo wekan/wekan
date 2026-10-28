@@ -46,7 +46,7 @@ NODE="$DIR/node"
 [ -n "$NODE" ] || { echo "ERROR: no bundled ./node and no node found on PATH" >&2; exit 1; }
 
 # Bound the two bundled runtimes relative to available RAM; explicit overrides win.
-_memory_mb=$(awk '/^MemTotal:/{print int($2/1024)}' /proc/meminfo 2>/dev/null)
+_memory_mb=$(awk '/^MemTotal:/{print int($2/1024)}' /proc/meminfo 2>/dev/null || true)
 # macOS and the BSDs have no /proc; hw.memsize (macOS) and hw.physmem (BSD) are bytes.
 [ -n "$_memory_mb" ] || _memory_mb=$(( $(sysctl -n hw.memsize 2>/dev/null || sysctl -n hw.physmem 2>/dev/null || echo 0) / 1048576 ))
 [ "$_memory_mb" -gt 0 ] 2>/dev/null || _memory_mb=2048
