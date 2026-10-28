@@ -127,13 +127,16 @@ its reason.
 
 **In short:** **Card Settings** moves onto the opened card: its button
 replaces the card's fields with the settings, drawn as checklists that drag
-and collapse. WeKan moves to **Meteor 3.6-rc.1**, keeping its own security
-additions to Meteor's packages. **Data health** in Admin Panel / Problems can
-now clean up custom fields whose boards were all deleted, which its Repair
-button could never reduce before, and **Show empty fields** no longer shows
-Scrum sections on boards that have Scrum turned off.
+and collapse, and Board Settings / Card shows the very same checklists. WeKan
+moves to **Meteor 3.6-rc.1**, keeping its own security additions to Meteor's
+packages. **Data health** in Admin Panel / Problems can now clean up custom
+fields whose boards were all deleted, and **Show empty fields** no longer
+shows Scrum sections on boards that have Scrum turned off.
 
 This release adds the following new features:
+
+**Card Settings** - one set of checklists for what cards and minicards show,
+on the opened card and in Board Settings / Card alike.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c0ec28e82f">Card Settings on the opened card, its sections as checklists</a>. Thanks to xet7.</summary>
@@ -152,6 +155,26 @@ order is the board's new `cardSettingsSectionOrder`. Sections collapse, kept
 per user. Board Settings / Card is still the popup. Design:
 [Card Settings on the opened card](docs/Features/Cards/Card-Settings-On-Card.md).
 `tests/cardSettingsOnCard.test.cjs` and `card-add-fields.e2e.js` pin it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52de57c844">Board Settings / Card shows the same checklists as the opened card, by the same templates</a>. Thanks to xet7.</summary>
+
+Board Settings / Card had its own layout - a left menu of sections and a pane
+of two lists with column headings. It now draws the opened card's Card
+Settings itself, with no card: Show on Minicard / Show on Card, the sections
+as checklists and the same hamburgers; only On this card is left out, and the
+popup's header is the title and X. It is 600px wide instead of 1200px. With
+drag handles on, a row or section is dragged only by its handle and the rest
+scrolls the page; with them off, by its icon and name. A row dropped on
+another section goes back and nothing is saved. Testing both open at once
+found three faults, now fixed: their Show radios were one group, Select all
+could act on the other one, and switching Show could put a click on the
+neighbouring row. Docs:
+[Card Settings on the opened card](docs/Features/Cards/Card-Settings-On-Card.md).
+`tests/cardSettingsOnCard.test.cjs` compares the templates and
+`card-add-fields.e2e.js` the two views, row by row, and the drag rules.
 
 </details>
 
@@ -217,6 +240,21 @@ stays listed under "Cards with values for a custom field that is not on their
 board". The old check counts only fields with a live board left, so its Repair
 brings it to zero. `tests/dataHealth6818.test.cjs` pins both checks, the
 confirmation, and that live fields and card values are not touched.
+
+</details>
+
+and fixes the following translation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/81e6988491">Southern Sotho: dikarolo, not masimo, for data fields</a>. Thanks to xet7.</summary>
+
+**Languages updated:** Southern Sotho.
+
+Three Southern Sotho strings called a data field "masimo", which means farm
+fields: Show empty fields, the fields of a cron schedule, and the webhook's
+optional fields. They now use "dikarolo", the word the file already uses for
+card and custom fields. `sesotho-popup-titles.e2e.js` caught the first; the
+other two are low confidence.
 
 </details>
 
