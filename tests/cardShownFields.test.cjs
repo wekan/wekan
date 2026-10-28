@@ -140,7 +140,10 @@ test('the opened card: "Card Settings" under the cover, the per-card currentBoar
   assert.ok(!/Popup\.open\('boardCardSettings'\)/.test(js), 'negative: the card no longer opens the popup');
   assert.match(jade, /if cardSettingsOpen\n\s+\+cardSettingsInline\(card=this\)\n\s+else\n\s+if canModifyCard\n\s+\.card-details-add-fields\n/);
   assert.match(jade.slice(add, left), /\{\{_ 'card-settings'\}\}/, 'the button is named Card Settings');
-  assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| cardShowsField\(card, s\)\)/);
+  // A Scrum section is still decided by the card, but the board has to allow
+  // it first (#6830: Show empty fields showed Scrum on boards with it off) -
+  // tests/scrumSectionsShowEmpty6830.test.cjs.
+  assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\|\n\s+\(boardAllows\(board, s\) && cardShowsField\(card, s\)\)\)/);
   // Negative: every section template of the opened card that reads a board
   // flag is in the list - a new one left out would show empty fields again.
   const sectionTemplates = [...jade.matchAll(/^template\(name="(cardFieldSection\w+)"\)/gm)].map(m => m[1]);
