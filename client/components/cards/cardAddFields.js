@@ -1,6 +1,7 @@
 import './cardDetails.jade';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { ReactiveVar } from 'meteor/reactive-var';
 
 // docs/Features/Cards/Card-Fields.md: an opened card shows only the fields it
 // has data in - and what its board always shows (by default its description,
@@ -83,16 +84,36 @@ export function cardShowsField(data, key) {
   return f.isShown(key, view.card, view.counts, Utils.getCurrentBoard());
 }
 
-// "+ Add" opens Board Settings / Card - the same popup - for this card: its
-// sections, each row's "Show on Minicard" and "Show on Card", and whether this
-// card shows the field (client/components/sidebar/sidebar.js). Overriding
-// `currentData` is what reaches the popup's data context (as Board Settings'
-// own opener does).
+// "Card Settings" on the opened card: the button and everything below it are
+// replaced by Card Settings itself, on the card (cardSettingsInline,
+// client/components/sidebar/sidebar.jade) - its sections as checklists, their
+// rows as checklist items - until its X closes it. The id of the card it is
+// open on; a card opened next has it closed.
+const cardSettingsOpenOn = new ReactiveVar(null);
+
+export function isCardSettingsOpen(cardId) {
+  return Boolean(cardId) && cardSettingsOpenOn.get() === cardId;
+}
+
+export function closeCardSettings() {
+  cardSettingsOpenOn.set(null);
+}
+
+Template.cardDetails.helpers({
+  cardSettingsOpen() {
+    return isCardSettingsOpen(this && this._id);
+  },
+});
+
+Template.cardDetails.onDestroyed(function () {
+  if (isCardSettingsOpen(this.data && this.data._id)) closeCardSettings();
+});
+
 Template.cardDetails.events({
   'click .js-open-card-add-fields'(event) {
+    event.preventDefault();
     const card = cardOf(Template.currentData());
     if (!card) return;
-    const data = { card };
-    Popup.open('boardCardSettings').call({ currentData: () => data }, event);
+    cardSettingsOpenOn.set(card._id);
   },
 });

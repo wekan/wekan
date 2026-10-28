@@ -3127,6 +3127,18 @@
     {
       "key": "keep-add-card-form-open-description",
       "since": "2026-10-28"
+    },
+    {
+      "key": "card-settings-show",
+      "since": "2026-10-28"
+    },
+    {
+      "key": "cardSettingsSectionPopup-title",
+      "since": "2026-10-28"
+    },
+    {
+      "key": "cardSettingsItemPopup-title",
+      "since": "2026-10-28"
     }
   ]
 }

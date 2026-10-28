@@ -119,12 +119,12 @@ test('the same board object when the card shows everything; one cached view per 
   assert.notStrictEqual(board.allowsDueDate, false, 'the board itself is unchanged');
 });
 
-test('the opened card: "+ Add" under the cover, the per-card currentBoard, the Scrum sections', () => {
+test('the opened card: "Card Settings" under the cover, the per-card currentBoard, the Scrum sections', () => {
   const jade = read('client/components/cards/cardDetails.jade');
   const cover = jade.indexOf('img.card-details-cover-image');
   const add = jade.indexOf('a.card-details-add-fields-button.js-open-card-add-fields');
   const left = jade.indexOf('.card-details-left', cover);
-  assert.ok(cover !== -1 && cover < add && add < left, '+ Add is under the cover, above the fields');
+  assert.ok(cover !== -1 && cover < add && add < left, 'Card Settings is under the cover, above the fields');
   assert.match(jade.slice(add - 300, add), /if canModifyCard\n\s+\.card-details-add-fields\n/, 'only for who may change the card');
   const js = read('client/components/cards/cardAddFields.js');
   for (const name of ['cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
@@ -133,8 +133,13 @@ test('the opened card: "+ Add" under the cover, the per-card currentBoard, the S
     assert.ok(js.includes(`'${name}'`), name);
   }
   assert.match(js, /Template\[name\]\.helpers\(\{\n\s+currentBoard\(\)/);
-  // "+ Add" opens Board Settings / Card - the same popup - for this card.
-  assert.match(js, /const data = \{ card \};\n\s+Popup\.open\('boardCardSettings'\)\.call\(\{ currentData: \(\) => data \}, event\);/);
+  // "Card Settings" (it was "+ Add") opens Card Settings ON the card, in
+  // place of the button and everything below it - no longer the popup
+  // (docs/Features/Cards/Card-Settings-On-Card.md).
+  assert.match(js, /'click \.js-open-card-add-fields'\(event\) \{[\s\S]*?cardSettingsOpenOn\.set\(card\._id\);/);
+  assert.ok(!/Popup\.open\('boardCardSettings'\)/.test(js), 'negative: the card no longer opens the popup');
+  assert.match(jade, /if cardSettingsOpen\n\s+\+cardSettingsInline\(card=this\)\n\s+else\n\s+if canModifyCard\n\s+\.card-details-add-fields\n/);
+  assert.match(jade.slice(add, left), /\{\{_ 'card-settings'\}\}/, 'the button is named Card Settings');
   assert.match(read('client/components/cards/cardDetails.js'), /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| cardShowsField\(card, s\)\)/);
   // Negative: every section template of the opened card that reads a board
   // flag is in the list - a new one left out would show empty fields again.

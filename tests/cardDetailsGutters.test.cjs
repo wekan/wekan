@@ -16,8 +16,11 @@ assert.match(jade,
 assert.doesNotMatch(jade, /^\s{4}\.card-details-canvas\s*$/m);
 assert.match(jade,
   /\): \.card-details-canvas\n[\s\S]*?^\s{4}\.card-details-header/m);
+// The left column is one level deeper than the header: it sits under the
+// `else` of Card Settings being open on the card, which replaces it
+// (docs/Features/Cards/Card-Settings-On-Card.md) - still inside the canvas.
 assert.match(jade,
-  /\): \.card-details-canvas\n[\s\S]*?^\s{4}\.card-details-left\n[\s\S]*?^\s{6}\.card-details-items/m);
+  /\): \.card-details-canvas\n[\s\S]*?^\s{4}else\n[\s\S]*?^\s{6}\.card-details-left\n[\s\S]*?^\s{8}\.card-details-items/m);
 
 // The wrapper contract includes a real, symmetric gutter and border-box sizing
 // so a widened card still fits those gutters inside its declared width.

@@ -8,9 +8,9 @@ labels.
 
 **Show on Card** says what the cards of the board CAN show. Each opened card
 then shows only the fields it has data in - plus its description, attachments
-and comments - and its own **+ Add** opens this same popup, with an **On this
-card** checkbox beside each field
-([Card fields](../../Cards/Card-Fields.md)).
+and comments - and its own **Card Settings** button shows these same
+settings on the card itself, as checklists, with **On this card** in each
+field's hamburger ([Card Settings on the opened card](../../Cards/Card-Settings-On-Card.md)).
 
 The popup is the Admin Panel's left menu and pane: the rows are grouped into
 sections (Card, Date, Time, Members, Labels, ... Voting, Planning Poker,
@@ -24,9 +24,11 @@ its pane ([Card fields](../../Cards/Card-Fields.md)).
 
 ## Where to find it
 
-**Board sidebar (hamburger menu) → Board Settings → Card**, or **+ Add** on
-an opened card. The left menu lists the sections; the right pane shows the
-open section's rows:
+**Board sidebar (hamburger menu) → Board Settings → Card**; on an opened
+card, its **Card Settings** button shows the same settings on the card
+([Card Settings on the opened card](../../Cards/Card-Settings-On-Card.md)).
+The left menu lists the sections; the right pane shows the open section's
+rows:
 
 **Show on Card**, in the opened card's order:
 
@@ -50,8 +52,8 @@ column for every row of the open section at once.
 
 ## Show empty fields
 
-The popup opens on **Card**, the first entry of its left menu, from Board
-Settings and from **+ Add** alike. Right under that pane's title is **Show
+The popup opens on **Card**, the first entry of its left menu. Right under
+that pane's title (on the card: in Card's hamburger) is **Show
 empty fields**, a board-wide switch, off by default, saved to the board
 (`showEmptyCardFields`):
 
@@ -72,7 +74,8 @@ the pane, as it does in the Admin Panel.
 ## Steps to use it
 
 1. Open a board you are an admin of, click the sidebar's hamburger menu,
-   then **Board Settings → Card** - or click **+ Add** on an opened card.
+   then **Board Settings → Card** - or click **Card Settings** on an opened
+   card, which shows the same settings on the card.
 2. Pick a section in the left menu.
 3. Drag a row of the **Show on Card** list to move the field on the opened
    card; a row of the **Show on Minicard** list, to move it on the minicard.

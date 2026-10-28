@@ -932,6 +932,19 @@ Boards.attachSchema(
     'minicardFieldOrder.$': {
       type: String,
     },
+    // The order of Card Settings' sections (Card, Date, Time, ...) on an
+    // opened card, dragged like checklists. sectionOrder() in
+    // models/lib/cardSettingsSections.js; missing means the table's order.
+    cardSettingsSectionOrder: {
+      /**
+       * The order of the Card Settings sections (models/lib/cardSettingsSections.js ids)
+       */
+      type: Array,
+      optional: true,
+    },
+    'cardSettingsSectionOrder.$': {
+      type: String,
+    },
     // #6806: the fields every card of the board shows, empty or not - Board
     // Settings / Card's "Always show" (models/lib/cardShownFields.js). Never
     // set: the description, attachments and comments. A card still hides one
@@ -2331,6 +2344,13 @@ Boards.helpers({
   async setCardFieldOrder(order) {
     const { applyCardOrder } = require('/models/lib/cardFieldOrder');
     return await Boards.updateAsync(this._id, { $set: { cardFieldOrder: applyCardOrder(order) } });
+  },
+
+  // Card Settings' sections dragged above one another, normalised the same
+  // way (models/lib/cardSettingsSections.js sectionOrder).
+  async setCardSettingsSectionOrder(order) {
+    const { sectionOrder } = require('/models/lib/cardSettingsSections');
+    return await Boards.updateAsync(this._id, { $set: { cardSettingsSectionOrder: sectionOrder(order) } });
   },
 
   // #6806: Board Settings / Card's "Show empty", normalised the same way

@@ -98,4 +98,41 @@ function rowsOfSection(sectionId) {
     .filter(Boolean);
 }
 
-module.exports = { SECTIONS, sectionOf, labelInSection, rowsOfSection, CARD_ACTIONS, cardActionsOf };
+// The order of the sections, as the board stores it (`cardSettingsSectionOrder`,
+// written when Card Settings on an opened card drags one section above
+// another, the way a checklist is dragged above another): the stored ids that
+// are sections, each once, then every section it does not name in the table's
+// order - so a section added later still appears, and a board that never
+// dragged one has the table's order. Returns the ids.
+function sectionOrder(stored) {
+  const known = SECTIONS.map(s => s.id);
+  const seen = new Set();
+  const ids = (Array.isArray(stored) ? stored : [])
+    .filter(id => typeof id === 'string' && known.includes(id) && !seen.has(id) && seen.add(id));
+  return [...ids, ...known.filter(id => !seen.has(id))];
+}
+
+// `sections` (SECTIONS, or a filtered list of them) in the stored order.
+function orderedSections(sections, stored) {
+  const order = sectionOrder(stored);
+  return [...sections].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+}
+
+// The order to store after a drop: `shownIds` are the sections Card Settings
+// shows, top to bottom as they were dropped. It may show only some (a field
+// turned off for the whole instance can leave a section with no row), so the
+// shown ones take the places the shown ones had and every other section keeps
+// its own place.
+function sectionOrderAfterDrop(stored, shownIds) {
+  const order = sectionOrder(stored);
+  const dropped = Array.isArray(shownIds) ? shownIds : [];
+  const shown = sectionOrder(dropped).filter(id => dropped.includes(id));
+  const shownSet = new Set(shown);
+  let next = 0;
+  return order.map(id => (shownSet.has(id) ? shown[next++] : id));
+}
+
+module.exports = {
+  SECTIONS, sectionOf, labelInSection, rowsOfSection, CARD_ACTIONS, cardActionsOf,
+  sectionOrder, orderedSections, sectionOrderAfterDrop,
+};

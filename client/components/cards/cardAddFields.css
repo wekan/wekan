@@ -1,5 +1,105 @@
-/* "+ Add" on the opened card (docs/Features/Cards/Card-Fields.md): it opens
-   Board Settings / Card for this card (sidebar.css .card-settings-sections). */
+/* "Card Settings" on the opened card (docs/Features/Cards/Card-Settings-On-Card.md):
+   it replaces itself, and everything below it, with Card Settings on the card. */
 .card-details-add-fields { padding: 4px 0 2px; }
 .card-details-add-fields-button { display: inline-flex; align-items: center; gap: 0.3em; padding: 2px 8px; border-radius: 3px; }
 .card-details-add-fields-button:hover { background: rgba(0, 0, 0, 0.06); }
+
+/* Card Settings on the card: the title with its X at the end of the line,
+   "Show" and its two choices, then the sections drawn like checklists. */
+.card-settings-inline { padding: 4px 0 8px; }
+.card-settings-inline-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-settings-inline-title { flex: 1 1 auto; margin: 0; }
+.card-settings-inline-close {
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: inherit;
+  text-decoration: none;
+}
+.card-settings-inline-close:hover,
+.card-settings-inline-close:focus-visible { background: rgba(0, 0, 0, 0.06); }
+.card-settings-inline-show {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  margin-block: 8px 10px;
+}
+.card-settings-inline-show-label { font-weight: bold; }
+.card-settings-inline-show-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.card-settings-inline-show-option input { margin: 0; }
+
+/* A section: the checklist's grey block, its title line and its items. */
+.card-settings-inline-section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  margin-block-end: 8px;
+  padding: 4px 8px 6px;
+}
+.card-settings-inline-section.ui-sortable-helper {
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.5);
+  cursor: grabbing;
+}
+.card-settings-inline-section-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-block: 4px;
+}
+.card-settings-inline-section-title {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card-settings-inline-section-title.js-card-settings-section-handle { cursor: grab; }
+.card-settings-inline-section-count { color: #808080; white-space: nowrap; }
+.card-settings-inline-collapse,
+.card-settings-inline-section-move,
+.card-settings-inline-menu {
+  padding: 2px 4px;
+  color: #808080;
+  text-decoration: none;
+  cursor: pointer;
+}
+.card-settings-inline-collapse:hover,
+.card-settings-inline-collapse:focus-visible,
+.card-settings-inline-menu:hover,
+.card-settings-inline-menu:focus-visible { color: #2980b9; }
+/* Collapsed: the items hidden, not removed, so their drag stays bound. */
+.card-settings-inline-section.is-collapsed .card-settings-inline-items { display: none; }
+
+/* An item: the checkbox, the name, and its hamburger at the end - not the
+   popup's fixed columns (sidebar.css .card-settings-line). */
+.card-settings-inline .card-settings-line {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  border-bottom: 0;
+  padding-inline-start: 22px;
+}
+.card-settings-inline .card-settings-line.ui-sortable-helper { background: #fff; }
+.card-settings-inline .materialCheckBox { transition: none; }
+.card-settings-inline .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }
+
+/* The hamburgers' popups. */
+.card-settings-section-menu .card-settings-section-menu-select {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 8px;
+  padding: 4px 0;
+}
+.card-settings-item-menu,
+.card-settings-section-menu { min-width: 16em; }

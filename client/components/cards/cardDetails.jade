@@ -159,163 +159,169 @@ template(name="cardDetails")
           .card-details-cover
             img.card-details-cover-image(alt="" src="{{attachmentPreviewUrl cover}}?dummyReloadAfterSessionEstablished={{sess}}" width="512" height="180" decoding="async")
 
-    //- "+ Add", under the cover: the card shows only the fields it has data
-      in - and its description, attachments and comments, empty or not - and
-      this chooses the rest, for this card (docs/Features/Cards/Card-Fields.md).
-    if canModifyCard
-      .card-details-add-fields
-        a.card-details-add-fields-button.js-open-card-add-fields(title="{{_ 'add'}}" aria-label="{{_ 'add'}}")
-          i.fa.fa-plus(aria-hidden="true")
-          |  {{_ 'add'}}
+    //- "Card Settings", under the cover: the card shows only the fields it has
+      data in - and its description, attachments and comments, empty or not -
+      and Card Settings chooses the rest. Opened, it REPLACES the button and
+      everything below it with Card Settings itself (cardSettingsInline,
+      client/components/sidebar/sidebar.jade) until its X closes it
+      (docs/Features/Cards/Card-Settings-On-Card.md).
+    if cardSettingsOpen
+      +cardSettingsInline(card=this)
+    else
+      if canModifyCard
+        .card-details-add-fields
+          a.card-details-add-fields-button.js-open-card-add-fields(href="#" role="button" aria-expanded="false" title="{{_ 'card-settings'}}" aria-label="{{_ 'card-settings'}}")
+            i.fa.fa-cog(aria-hidden="true")
+            |  {{_ 'card-settings'}}
 
-    .card-details-left
+      .card-details-left
 
-      //- At risk, Show on Card (docs/Features/Cards/At-Risk.md): every reason
-        that applied, the moves back included.
-      unless $eq currentBoard.allowsAtRiskOnCard false
-        with cardAtRisk
-          .card-details-at-risk.js-card-at-risk
-            i.fa.fa-exclamation-triangle
-            |  {{_ 'at-risk'}}: {{text}}
+        //- At risk, Show on Card (docs/Features/Cards/At-Risk.md): every reason
+          that applied, the moves back included.
+        unless $eq currentBoard.allowsAtRiskOnCard false
+          with cardAtRisk
+            .card-details-at-risk.js-card-at-risk
+              i.fa.fa-exclamation-triangle
+              |  {{_ 'at-risk'}}: {{text}}
 
-      .card-details-items
-        //- #4448: render the reorderable card-detail sections (Labels, Dates,
-          Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
-          in the board's stored order, falling back to the historical fixed
-          order - so a board that never touches the setting renders exactly
-          what it always has. Board Settings / Card writes the order per
-          FIELD; each section renders where its first field is, and the
-          fields inside it (the four dates, the people of Members, ...) in
-          their own order through the ordered*Fields helpers.
-          models/lib/cardFieldOrder.js, client/components/sidebar/sidebar.jade
-        //- `each section in ...`, not `each ...`: the plain form makes the
-          section NAME ("labels", "dates", ...) the data context, so every
-          section template - and every popup opened from one, e.g. the Labels
-          popup - saw a string where it expected the card. Clicking a label
-          then silently did nothing (`card.toggleLabel` was undefined) and
-          the card's own labels/stickers/locations lists rendered empty. The
-          `in` form keeps `this` as the card.
-        each section in orderedCardFieldSections
-          if $eq section "labels"
-            +cardFieldSectionLabels
-          if $eq section "dates"
-            +cardFieldSectionDates
-          if $eq section "members"
-            +cardFieldSectionMembers
-          if $eq section "dependencies"
-            +cardFieldSectionDependencies
-          if $eq section "sort"
-            +cardFieldSectionSort
-          if $eq section "customFields"
-            +cardFieldSectionCustomFields
-          if $eq section "voteAndPoker"
-            +cardFieldSectionVoteAndPoker
-          if $eq section "description"
-            +cardFieldSectionDescription
-          //- Each Scrum field where the board's order puts it ("Scrum settings:
-            Sprint" ... in Board Settings / Card).
-          //- The Scrum fields shown on this card are ONE section, "Scrum
-            settings", headed where the first of them is, with Card kind in its
-            hamburger (docs/Features/Cards/Card-Fields.md).
-          if $eq section firstScrumSection
-            +cardSectionHeader(section="scrum" icon="fa-repeat" label="scrum-settings" menuClass="js-section-card-kind" menuTitle="cardKindPopup-title")
-          if isSectionOpen "scrum"
-            if $eq section "scrumSprint"
-              +cardFieldSectionScrumSprint
-            if $eq section "scrumPastSprints"
-              +cardFieldSectionScrumPastSprints
-            if $eq section "scrumRelease"
-              +cardFieldSectionScrumRelease
-            if $eq section "scrumIssueType"
-              +cardFieldSectionScrumIssueType
-            if $eq section "scrumAcceptanceCriteria"
-              +cardFieldSectionScrumAcceptanceCriteria
-            if $eq section "scrumBacklogRank"
-              +cardFieldSectionScrumBacklogRank
+        .card-details-items
+          //- #4448: render the reorderable card-detail sections (Labels, Dates,
+            Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
+            in the board's stored order, falling back to the historical fixed
+            order - so a board that never touches the setting renders exactly
+            what it always has. Board Settings / Card writes the order per
+            FIELD; each section renders where its first field is, and the
+            fields inside it (the four dates, the people of Members, ...) in
+            their own order through the ordered*Fields helpers.
+            models/lib/cardFieldOrder.js, client/components/sidebar/sidebar.jade
+          //- `each section in ...`, not `each ...`: the plain form makes the
+            section NAME ("labels", "dates", ...) the data context, so every
+            section template - and every popup opened from one, e.g. the Labels
+            popup - saw a string where it expected the card. Clicking a label
+            then silently did nothing (`card.toggleLabel` was undefined) and
+            the card's own labels/stickers/locations lists rendered empty. The
+            `in` form keeps `this` as the card.
+          each section in orderedCardFieldSections
+            if $eq section "labels"
+              +cardFieldSectionLabels
+            if $eq section "dates"
+              +cardFieldSectionDates
+            if $eq section "members"
+              +cardFieldSectionMembers
+            if $eq section "dependencies"
+              +cardFieldSectionDependencies
+            if $eq section "sort"
+              +cardFieldSectionSort
+            if $eq section "customFields"
+              +cardFieldSectionCustomFields
+            if $eq section "voteAndPoker"
+              +cardFieldSectionVoteAndPoker
+            if $eq section "description"
+              +cardFieldSectionDescription
+            //- Each Scrum field where the board's order puts it ("Scrum settings:
+              Sprint" ... in Board Settings / Card).
+            //- The Scrum fields shown on this card are ONE section, "Scrum
+              settings", headed where the first of them is, with Card kind in its
+              hamburger (docs/Features/Cards/Card-Fields.md).
+            if $eq section firstScrumSection
+              +cardSectionHeader(section="scrum" icon="fa-repeat" label="scrum-settings" menuClass="js-section-card-kind" menuTitle="cardKindPopup-title")
+            if isSectionOpen "scrum"
+              if $eq section "scrumSprint"
+                +cardFieldSectionScrumSprint
+              if $eq section "scrumPastSprints"
+                +cardFieldSectionScrumPastSprints
+              if $eq section "scrumRelease"
+                +cardFieldSectionScrumRelease
+              if $eq section "scrumIssueType"
+                +cardFieldSectionScrumIssueType
+              if $eq section "scrumAcceptanceCriteria"
+                +cardFieldSectionScrumAcceptanceCriteria
+              if $eq section "scrumBacklogRank"
+                +cardFieldSectionScrumBacklogRank
 
-      .card-checklist-attachmentGalleries
-        .card-checklist-attachmentGallery.card-checklists
-          if currentBoard.allowsChecklists
-            unless $eq currentBoard.allowsChecklistTitle false
-              +cardSectionHeader(section="checklists" icon="fa-check" label="checklists")
-            if checklistSectionOpen
-              //- Total checklist item count (finished/total) shown above all
-                checklists. The board flag is a cheap boolean, so when it is off
-                the checklist counting below is never evaluated.
-              if currentBoard.allowsChecklistCountBadgeOnCard
-                if checklists.length
-                  h4.card-details-item-subtitle
-                    |  {{checklistFinishedCount}}/{{checklistItemCount}}
-              +checklists(cardId = _id card = this)
-          if currentBoard.allowsSubtasks
-            //- #4693: "Subtasks (1/3)", done/total (subtaskDoneCount in subtasks.js).
-            +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks"
-              count=subtaskDoneCount
-              menuClass="js-open-subtasks-menu" menuTitle="subtasks")
-            if isSectionOpen "subtasks"
-              +subtasks(cardId = _id)
-        if currentBoard.allowsAttachments
-          +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments"
-            count=attachmentCount)
-          if isSectionOpen "attachments"
-            //- #6796: the upload rules (size, types, what an invalid name
-              does) are read when uploading, so they are in the upload popup
-              (attachments.jade cardAttachmentsPopup), not above every list.
-            .card-checklist-attachmentGallery.card-attachmentGallery
-              +attachmentGallery
+        .card-checklist-attachmentGalleries
+          .card-checklist-attachmentGallery.card-checklists
+            if currentBoard.allowsChecklists
+              unless $eq currentBoard.allowsChecklistTitle false
+                +cardSectionHeader(section="checklists" icon="fa-check" label="checklists")
+              if checklistSectionOpen
+                //- Total checklist item count (finished/total) shown above all
+                  checklists. The board flag is a cheap boolean, so when it is off
+                  the checklist counting below is never evaluated.
+                if currentBoard.allowsChecklistCountBadgeOnCard
+                  if checklists.length
+                    h4.card-details-item-subtitle
+                      |  {{checklistFinishedCount}}/{{checklistItemCount}}
+                +checklists(cardId = _id card = this)
+            if currentBoard.allowsSubtasks
+              //- #4693: "Subtasks (1/3)", done/total (subtaskDoneCount in subtasks.js).
+              +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks"
+                count=subtaskDoneCount
+                menuClass="js-open-subtasks-menu" menuTitle="subtasks")
+              if isSectionOpen "subtasks"
+                +subtasks(cardId = _id)
+          if currentBoard.allowsAttachments
+            +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments"
+              count=attachmentCount)
+            if isSectionOpen "attachments"
+              //- #6796: the upload rules (size, types, what an invalid name
+                does) are read when uploading, so they are in the upload popup
+                (attachments.jade cardAttachmentsPopup), not above every list.
+              .card-checklist-attachmentGallery.card-attachmentGallery
+                +attachmentGallery
 
-        //- GitHub issue #595: markdown text notes, a card-level collection of
-          small editable markdown blocks - separate from the card's single
-          description - so a card is not limited to cramming everything into
-          one description field. Edited in a popup reusing the SAME editor/
-          viewer widget the description above already uses.
-        if currentBoard.allowsTextNotes
-          +cardSectionHeader(section="text-notes" icon="fa-file-text-o" label="text-notes")
-          if isSectionOpen "text-notes"
-            +cardTextNotes(_id = _id)
+          //- GitHub issue #595: markdown text notes, a card-level collection of
+            small editable markdown blocks - separate from the card's single
+            description - so a card is not limited to cramming everything into
+            one description field. Edited in a popup reusing the SAME editor/
+            viewer widget the description above already uses.
+          if currentBoard.allowsTextNotes
+            +cardSectionHeader(section="text-notes" icon="fa-file-text-o" label="text-notes")
+            if isSectionOpen "text-notes"
+              +cardTextNotes(_id = _id)
 
-        //- Similar cards, Show on Card: the cards of this board like this one
-          (docs/Features/Cards/Similar-Cards.md). Asked when the card opens, and
-          the section is there only when there are some
-          (docs/Features/Cards/Card-Fields.md).
-        unless $eq currentBoard.allowsSimilarCardsOnCard false
-          +cardSimilarCardsSection(cardId=_id)
+          //- Similar cards, Show on Card: the cards of this board like this one
+            (docs/Features/Cards/Similar-Cards.md). Asked when the card opens, and
+            the section is there only when there are some
+            (docs/Features/Cards/Card-Fields.md).
+          unless $eq currentBoard.allowsSimilarCardsOnCard false
+            +cardSimilarCardsSection(cardId=_id)
 
-      //- The comments: in this column, or - on a maximized card - at the top of
-        the right one (cardCommentsSection below).
-      unless cardMaximized
-        +cardCommentsSection
+        //- The comments: in this column, or - on a maximized card - at the top of
+          the right one (cardCommentsSection below).
+        unless cardMaximized
+          +cardCommentsSection
 
-    .card-details-right
+      .card-details-right
 
-      //- A maximized card has its comments here, beside the card's fields.
-      if cardMaximized
-        +cardCommentsSection
+        //- A maximized card has its comments here, beside the card's fields.
+        if cardMaximized
+          +cardCommentsSection
 
-      //- #6688: `allowsActivities` existed in the schema (default true) but
-        gated nothing; Board Settings / Card now has its row and this is what
-        the row hides.
-      if currentBoard.allowsActivities
-        if currentUser.isBoardAdmin
-          //- OUTSIDE .activity-title, which is `display: flex`: a rule inside it
-            becomes a flex item and renders as a short line beside the heading
-            instead of a separator above it.
-            The eye that used to sit here showed and hid exactly what the caret
-            shows and hides, so there were two controls for one thing and they
-            could disagree. The caret is the one that stayed, and this section is
-            the one that starts CLOSED - a card is opened to read the card, not
-            its history.
-          +cardSectionHeader(section="activities" icon="fa-history" label="activities")
+        //- #6688: `allowsActivities` existed in the schema (default true) but
+          gated nothing; Board Settings / Card now has its row and this is what
+          the row hides.
+        if currentBoard.allowsActivities
+          if currentUser.isBoardAdmin
+            //- OUTSIDE .activity-title, which is `display: flex`: a rule inside it
+              becomes a flex item and renders as a short line beside the heading
+              instead of a separator above it.
+              The eye that used to sit here showed and hid exactly what the caret
+              shows and hides, so there were two controls for one thing and they
+              could disagree. The caret is the one that stayed, and this section is
+              the one that starts CLOSED - a card is opened to read the card, not
+              its history.
+            +cardSectionHeader(section="activities" icon="fa-history" label="activities")
 
-        if currentUser.isBoardAdmin
-          if isSectionOpen "activities"
-            if isLoaded.get
-              if isLinkedCard
-                +activities(card=this mode="linkedcard")
-              else if isLinkedBoard
-                +activities(card=this mode="linkedboard")
-              else
-                +activities(card=this mode="card")
+          if currentUser.isBoardAdmin
+            if isSectionOpen "activities"
+              if isLoaded.get
+                if isLinkedCard
+                  +activities(card=this mode="linkedcard")
+                else if isLinkedBoard
+                  +activities(card=this mode="linkedboard")
+                else
+                  +activities(card=this mode="card")
 
 template(name="cardFieldSectionLabels")
     .card-details-group.card-details-group-labels

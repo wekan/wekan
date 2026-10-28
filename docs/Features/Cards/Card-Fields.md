@@ -1,4 +1,4 @@
-# Card fields: only what the card has, and "+ Add"
+# Card fields: only what the card has, and Card Settings
 
 An opened card shows **only the fields it has data in**. A card with a due date
 and two labels shows its due date and its labels, and not the empty start date,
@@ -23,25 +23,30 @@ any other field.
 
 Two sections are shown only when there is something in them: **Similar
 cards**, when the board has cards like this one, and **Custom Fields**, when
-the card has a custom field value (or Custom Fields is ticked in **+ Add**,
-which is how a card with none gets the section and its menu).
+the card has a custom field value (or Custom Fields is ticked **On this card**
+in Card Settings, which is how a card with none gets the section and its menu).
 
 Every other field is shown when it has data: a date that is set, labels,
 members, a checklist, a custom field with a value, a vote question, a Scrum
 sprint, and so on. A creator, a card number, the history and the other
 fields every card has anyway are shown only when added.
 
-## "+ Add" and Board Settings / Card: one popup
+## Card Settings on the card, and Board Settings / Card
 
-Under the cover, above the card's fields, **+ Add** opens
-[Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) - the same
-popup Board Settings opens - for this card. It looks and works like the Admin
-Panel: the same **left menu** and the same **pane title** (the shared templates
-of the [Left Menu](../All-Boards/Left-Menu.md) design), with the rows on the
-right.
+Under the cover, above the card's fields, the **Card Settings** button (it was
+**+ Add**) replaces itself and everything below it with Card Settings, on the
+card: its sections as checklists, their rows as checklist items, Show on
+Minicard / Show on Card choosing what the checkboxes are, and On this card and
+Show empty in each row's hamburger. That design is
+[Card Settings on the opened card](Card-Settings-On-Card.md).
+
+[Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) opens the same
+settings as a popup. It looks and works like the Admin Panel: the same **left
+menu** and the same **pane title** (the shared templates of the
+[Left Menu](../All-Boards/Left-Menu.md) design), with the rows on the right.
 
 - The **left menu** lists the sections, and the popup opens on the first,
-  **Card** - from Board Settings and from **+ Add** alike. It holds what is not
+  **Card**. It holds what is not
   a field - **Show empty fields** right under its title, Ask for a reason when
   moving cards and the Draggable table, with its select-all - and the card's
   own rows. Then Date, Time, Members,
@@ -56,8 +61,9 @@ right.
   board shows the field, empty or not
   ([#6806](https://github.com/wekan/wekan/issues/6806)). By default the
   description, attachments and comments are ticked.
-- Opened from a card, one more cell, **On this card**, says whether this card
-  shows the field (the per-card fields only).
+- Opened for a card, one more cell, **On this card**, says whether this card
+  shows the field (the per-card fields only); on the card itself it is in the
+  row's hamburger.
 - Under each column's heading, **Select all** and **Select none** set that
   column for every row of the open section at once - the board's columns for a
   board admin, On this card for who may change the card. A personal row
@@ -110,10 +116,10 @@ every field is then shown anyway. Their ticks are kept: unticked again, Show
 empty fields brings the columns back as they were. It is saved to the board
 (`showEmptyCardFields`), for a board admin.
 
-**+ Add** is shown to whoever may change the card. Its board-wide checkboxes
+**Card Settings** on the card is shown to whoever may change the card. Its board-wide checkboxes
 and dragging work for a board admin; for anybody else they are shown disabled,
 and only **On this card** and their own rows (Labels text, List title) change.
-Below **+ Add** there is one separator line, above the first section the card
+Below the **Card Settings** button there is one separator line, above the first section the card
 shows: a section the card does not show draws no line of its own.
 
 The popup moves by its title bar (or the drag handle, when drag handles are on)
@@ -123,8 +129,8 @@ and has maximize / minimize beside its close button.
 
 Five actions that were in the opened card's actions menu are in the section
 they act on: in the **hamburger** at the end of that section's heading on the
-opened card, and - when Card Settings is opened from the card with **+ Add** -
-at the top of that section's pane.
+opened card, at the top of that section's pane in the popup, and in that
+section's hamburger in Card Settings on the card.
 
 | Action | Opened card | Card Settings pane |
 | --- | --- | --- |
@@ -208,12 +214,13 @@ section order the same way.
 | `client/components/sidebar/sidebar.jade` | The popup (`boardCardSettingsPopup`): the left menu, the pane, the rows |
 | `client/components/sidebar/sidebar.js` | Its sections, the two lists, checkboxes, drag and drop and On this card |
 | `client/components/sidebar/sidebar.css` | The pane's layout |
-| `client/components/cards/cardAddFields.js` | "+ Add", and the card's own `currentBoard` |
-| `client/components/cards/cardDetails.jade` | The "+ Add" button under the cover, the section hamburgers |
+| `client/components/cards/cardAddFields.js` | Card Settings opened on the card, and the card's own `currentBoard` |
+| `client/components/cards/cardDetails.jade` | The Card Settings button under the cover, the section hamburgers |
 | `client/lib/filterSubtasks.js` | Filter: Subtasks |
 | `tests/cardSectionActions.test.cjs` | The five actions in their sections, none left in the actions menu |
 | `models/cards.js` | `shownFields`, `hiddenFields` |
 | `tests/cardShownFields.test.cjs` | The rules, the wiring, and that no card section template is left out |
 | `tests/cardFieldsAlwaysShown6806.test.cjs` | Show empty and Show empty fields: the defaults, the rule, its storage, its column, that every caller passes the board |
 | `tests/cardSettingsCoverage.test.cjs` | Every row in a section, a checkbox and a handler for each side |
-| `tests/playwright/specs/card-add-fields.e2e.js` | An empty card, "+ Add", a field with data, the popup |
+| `tests/playwright/specs/card-add-fields.e2e.js` | An empty card, Card Settings on the card, a field with data, the popup |
+| `docs/Features/Cards/Card-Settings-On-Card.md` | Card Settings on the opened card |

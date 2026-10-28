@@ -25,7 +25,7 @@ const { isRowVisible } = require('/models/lib/cardFieldVisibility');
 const cardSettingsSections = require('/models/lib/cardSettingsSections');
 const cardShownFields = require('/models/lib/cardShownFields');
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
-import { shownFieldsOf } from '/client/components/cards/cardAddFields';
+import { shownFieldsOf, closeCardSettings } from '/client/components/cards/cardAddFields';
 import { filterSubtasksOf } from '/client/lib/filterSubtasks';
 import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
@@ -2022,7 +2022,10 @@ Template.boardSubtaskSettingsBody.events({
   },
 });
 
-Template.boardCardSettingsPopup.onCreated(function() {
+// Every template that draws Card Settings - the popup, the opened card's own
+// Card Settings and its hamburgers - has the state its shared handlers read
+// (cardSettingsEvents below).
+function setUpCardSettings() {
   // The section open in the right pane (models/lib/cardSettingsSections.js),
   // and the one per-card checkbox that animates: the one just clicked.
   this.settingsSection = new ReactiveVar(null);
@@ -2036,7 +2039,8 @@ Template.boardCardSettingsPopup.onCreated(function() {
   this.autorun(() => {
     this.currentBoard = Utils.getCurrentBoard();
   });
-});
+}
+Template.boardCardSettingsPopup.onCreated(setUpCardSettings);
 
 // The card this popup was opened for, when it was opened for one. Board
 // Settings / Card Settings has no card - it is about every card of the board -
@@ -2126,14 +2130,19 @@ function settingsMenuOf(data) {
 }
 
 function sectionSideRows(tpl, data, side) {
-  const id = openSettingsSectionOf(tpl, data);
+  return sectionRowsOf(openSettingsSectionOf(tpl, data), data, side, tpl.animating.get());
+}
+
+// The rows of section `id` on one side, in that side's own order - the open
+// pane's rows in the popup, and each checklist of the opened card's Card
+// Settings. `animatingKey` is the checkbox just clicked.
+function sectionRowsOf(id, data, side, animatingKey) {
   const section = cardSettingsSections.SECTIONS.find(s => s.id === id);
   const keys = new Set(section ? section.keys : []);
   const board = ReactiveCache.getBoard(Session.get('currentBoard'));
   // A linked card's data is on its source card; its own choices are its own.
   const { card: thisCard, counts } = shownFieldsOf(settingsCard());
   const writable = Boolean(board && Utils.canModifyBoard && Utils.canModifyBoard());
-  const animatingKey = tpl.animating.get();
   const showDragHandles = Utils.showDragHandles();
   const rowOf = key => CARD_SETTINGS_ROWS.find(r => r.key === key);
   return buildCardSettingsRows(side, data)
@@ -2162,6 +2171,26 @@ function sectionSideRows(tpl, data, side) {
       alwaysShowable: side === 'card' && cardShownFields.FIELD_KEYS.includes(built.key),
       alwaysShown: cardShownFields.boardAlwaysShows(board, built.key),
       animatingAlways: animatingKey === `${built.key}:always`,
+    }));
+}
+
+// The card actions of section `id`: in the popup's pane when opened from a
+// card, and in that section's hamburger on the opened card's Card Settings.
+function sectionCardActionsOf(id) {
+  const card = settingsCard();
+  const mayCard = Boolean(card && Utils.canModifyCard(card));
+  const mayBoard = Boolean(Utils.canModifyBoard && Utils.canModifyBoard());
+  return cardSettingsSections.cardActionsOf(id)
+    // A board action for who may change the board; a card action only with
+    // a card, Filter: Subtasks for any reader of it, the edits for who may
+    // change it.
+    .filter(action => (action.board ? mayBoard : (action.id === 'filterSubtasks' ? Boolean(card) : mayCard)))
+    .map(action => ({
+      ...action,
+      // An inline form reads its card from its data (Card kind) or the
+      // opened card (the others); a board one has none.
+      inlineData: action.board ? {} : card,
+      title: action.label.map(k => TAPi18n.__(k)).join(action.labelSeparator || ' '),
     }));
 }
 
@@ -2195,22 +2224,7 @@ const boardCardSettingsHelpers = {
   },
   // The open section's card actions, opened from a card.
   sectionCardActions() {
-    const id = openSettingsSectionOf(Template.instance(), this);
-    const card = settingsCard();
-    const mayCard = Boolean(card && Utils.canModifyCard(card));
-    const mayBoard = Boolean(Utils.canModifyBoard && Utils.canModifyBoard());
-    return cardSettingsSections.cardActionsOf(id)
-      // A board action for who may change the board; a card action only with
-      // a card, Filter: Subtasks for any reader of it, the edits for who may
-      // change it.
-      .filter(action => (action.board ? mayBoard : (action.id === 'filterSubtasks' ? Boolean(card) : mayCard)))
-      .map(action => ({
-      ...action,
-      // An inline form reads its card from its data (Card kind) or the
-      // opened card (the others); a board one has none.
-      inlineData: action.board ? {} : card,
-      title: action.label.map(k => TAPi18n.__(k)).join(action.labelSeparator || ' '),
-    }));
+    return sectionCardActionsOf(openSettingsSectionOf(Template.instance(), this));
   },
   // The open section's rows of one side's list - Show on Card or Show on
   // Minicard - in that side's own order (buildCardSettingsRows, the builder
@@ -2764,7 +2778,66 @@ function moveCardSettingsRow(evt, direction) {
   placeInListOrder(list.dataset.side, rowEl.dataset.key, keys);
 }
 
-Template.boardCardSettingsPopup.events({
+// Select all / Select none of one column of Card Settings: the board's columns
+// for a board admin, On this card for who may change the card. `container`
+// holds the rows of the side columns (the popup's pane, or one checklist of
+// the opened card's Card Settings), each set through its own checkbox's
+// handler; `keys` are the rows of On this card and Show empty. A personal
+// row (Labels text, List title) is the user's or the card's own, not the
+// board's: left as it is.
+async function selectCardSettingsColumn(tpl, container, column, on, keys) {
+  const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+  if (!container || !board) return;
+  const isOn = el => el.getAttribute('aria-checked') === 'true';
+  tpl.animating.set(null);
+  try {
+    if (column === 'this') {
+      const card = settingsCard();
+      if (!card || !Utils.canModifyCard(card)) return;
+      const { card: view, counts } = shownFieldsOf(card);
+      let next = { shownFields: card.shownFields || [], hiddenFields: card.hiddenFields || [] };
+      keys.forEach(key => {
+        next = cardShownFields.cardFieldsAfter({ ...view, ...next }, key, on, counts, board);
+      });
+      await Cards.updateAsync(card._id, { $set: next });
+      return;
+    }
+    if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+    if (column === 'always') {
+      await board.setCardFieldAlwaysShown(keys, on);
+      return;
+    }
+    if (column !== 'minicard' && column !== 'card') return;
+    const cells = [...container.querySelectorAll(`.js-card-field-order-row[data-side="${column}"]`)]
+      .filter(cell => !cell.classList.contains('card-settings-row-personal'))
+      .map(cell => cell.querySelector('.card-field-order-toggle'))
+      .filter(toggle => toggle && !toggle.classList.contains('is-disabled') && isOn(toggle) !== on);
+    // The Scrum rows are one write of the board's Scrum visibility: one by
+    // one, each would carry the same revision and all but the first fail.
+    const scrum = {};
+    cells.filter(t => t.classList.contains('js-scrum-field-toggle')).forEach(toggle => {
+      const key = toggle.closest('.js-card-field-order-row').dataset.key;
+      const spec = CARD_SETTINGS_ROWS.find(r => r.key === key)?.[column];
+      if (spec?.scrum) scrum[spec.scrum] = on;
+    });
+    if (Object.keys(scrum).length) {
+      await Meteor.callAsync('scrum.configure', board._id, { visibility: scrum }, board.scrumRevision || 0);
+      invalidateScrumNames();
+    }
+    // Every other row through its own checkbox's handler, which knows the
+    // field it sets and its default.
+    cells.filter(t => !t.classList.contains('js-scrum-field-toggle')).forEach(toggle => toggle.click());
+  } catch (error) {
+    console.error(error);
+  } finally {
+    tpl.animating.set(null);
+  }
+}
+
+// The handlers of Card Settings: the popup Board Settings opens, and the same
+// handlers on the opened card's own Card Settings (cardSettingsInline) and its
+// hamburgers, so a checkbox does the same thing wherever it is drawn.
+const cardSettingsEvents = {
   // The same animated checkbox as Show empty fields; a board admin's.
   async 'click .js-ask-move-reason'(evt, tpl) {
     evt.preventDefault();
@@ -2831,55 +2904,12 @@ Template.boardCardSettingsPopup.events({
   async 'click .js-card-settings-select'(evt, tpl) {
     evt.preventDefault();
     const { column, value } = evt.currentTarget.dataset;
-    const on = value === 'all';
     const pane = evt.currentTarget.closest('.card-settings-pane');
-    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
-    if (!pane || !board) return;
-    const isOn = el => el.getAttribute('aria-checked') === 'true';
+    if (!pane) return;
     const keysOf = selector => [...pane.querySelectorAll(selector)].map(el => el.dataset.key).filter(Boolean);
-    tpl.animating.set(null);
-    try {
-      if (column === 'this') {
-        const card = settingsCard();
-        if (!card || !Utils.canModifyCard(card)) return;
-        const { card: view, counts } = shownFieldsOf(card);
-        let next = { shownFields: card.shownFields || [], hiddenFields: card.hiddenFields || [] };
-        keysOf('.js-card-add-field').forEach(key => {
-          next = cardShownFields.cardFieldsAfter({ ...view, ...next }, key, on, counts, board);
-        });
-        await Cards.updateAsync(card._id, { $set: next });
-        return;
-      }
-      if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;
-      if (column === 'always') {
-        await board.setCardFieldAlwaysShown(keysOf('.js-card-always-show'), on);
-        return;
-      }
-      if (column !== 'minicard' && column !== 'card') return;
-      const cells = [...pane.querySelectorAll(`.js-card-field-order-row[data-side="${column}"]`)]
-        .filter(cell => !cell.classList.contains('card-settings-row-personal'))
-        .map(cell => cell.querySelector('.card-field-order-toggle'))
-        .filter(toggle => toggle && !toggle.classList.contains('is-disabled') && isOn(toggle) !== on);
-      // The Scrum rows are one write of the board's Scrum visibility: one by
-      // one, each would carry the same revision and all but the first fail.
-      const scrum = {};
-      cells.filter(t => t.classList.contains('js-scrum-field-toggle')).forEach(toggle => {
-        const key = toggle.closest('.js-card-field-order-row').dataset.key;
-        const spec = CARD_SETTINGS_ROWS.find(r => r.key === key)?.[column];
-        if (spec?.scrum) scrum[spec.scrum] = on;
-      });
-      if (Object.keys(scrum).length) {
-        await Meteor.callAsync('scrum.configure', board._id, { visibility: scrum }, board.scrumRevision || 0);
-        invalidateScrumNames();
-      }
-      // Every other row through its own checkbox's handler, which knows the
-      // field it sets and its default.
-      cells.filter(t => !t.classList.contains('js-scrum-field-toggle')).forEach(toggle => toggle.click());
-    } catch (error) {
-      console.error(error);
-    } finally {
-      tpl.animating.set(null);
-    }
+    const keys = column === 'this' ? keysOf('.js-card-add-field')
+      : column === 'always' ? keysOf('.js-card-always-show') : [];
+    await selectCardSettingsColumn(tpl, pane, column, value === 'all', keys);
   },
   // Card Settings / Card's "Show empty fields": every card shows all its
   // fields, the empty ones too. A board admin's, like the rest.
@@ -3343,7 +3373,224 @@ Template.boardCardSettingsPopup.events({
     const newValue = !tpl.currentBoard.allowsCardSortingByNumberOnMinicard;
     Boards.update(tpl.currentBoard._id, { $set: { allowsCardSortingByNumberOnMinicard: newValue } });
   },
+};
+Template.boardCardSettingsPopup.events(cardSettingsEvents);
+
+// ── Card Settings on the opened card ────────────────────────────────────────
+// docs/Features/Cards/Card-Settings-On-Card.md. The opened card's "Card
+// Settings" button is replaced, with everything below it, by this: a title
+// with its X, "Show" with Show on Minicard / Show on Card, and the sections
+// as checklists - each a title with its rows as items, the checkbox the
+// chosen side's board-wide Show on Minicard or Show on Card. Sections and
+// rows are dragged like checklists and their items, and collapse like them;
+// what else a section or a row has is in its hamburger. The rows, their
+// checkboxes and their handlers are the popup's (sectionRowsOf,
+// cardSettingsEvents), so the two cannot disagree.
+
+// Where the collapsed sections are kept: the user's collapsed card sections
+// (models/users.js), under the BOARD's id, because Card Settings is the
+// board's and not one card's.
+const inlineCollapseKey = id => `card-settings-${id}`;
+
+function inlineSectionCollapsed(id) {
+  const user = ReactiveCache.getCurrentUser();
+  const boardId = Session.get('currentBoard');
+  return Boolean(user && boardId && user.getCollapsedCardSection(boardId, inlineCollapseKey(id)) === true);
+}
+
+// What a row's hamburger holds: On this card, Show empty, and the way back
+// to the board's Labels text. A row with none of them has no hamburger.
+function inlineRowMenu(row) {
+  const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+  const mayBoard = Boolean(Utils.canModifyBoard && Utils.canModifyBoard());
+  return {
+    thisCard: Boolean(row.perCard),
+    always: Boolean(row.alwaysShowable && mayBoard && !cardShownFields.boardShowsEmptyFields(board)),
+    labelTextReset: Boolean(row.labelTextOverride && row.labelTextOverridden),
+  };
+}
+
+function inlineSectionsOf(tpl, data) {
+  const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+  const side = tpl.showSide.get();
+  const mayBoard = Boolean(Utils.canModifyBoard && Utils.canModifyBoard());
+  const showDragHandles = Utils.showDragHandles();
+  return cardSettingsSections.orderedSections(settingsSectionsFor(data), board && board.cardSettingsSectionOrder)
+    .map(section => {
+      const rows = sectionRowsOf(section.id, data, side, tpl.animating.get()).map(row => {
+        const menu = inlineRowMenu(row);
+        return { ...row, menu, hasMenu: menu.thisCard || menu.always || menu.labelTextReset };
+      });
+      return {
+        // Blaze keeps a section's element (and the drag bound to it) by _id.
+        _id: section.id,
+        id: section.id,
+        icon: section.icon,
+        title: TAPi18n.__(section.labelKey),
+        rows,
+        checkedCount: rows.filter(r => r.checked).length,
+        collapsed: inlineSectionCollapsed(section.id),
+        draggable: mayBoard,
+        showDragHandles,
+      };
+    })
+    // A section with no row on this side is left out - except Card, whose
+    // hamburger holds what is not a field.
+    .filter(section => section.rows.length || cardSettingsSections.SECTIONS.find(s => s.id === section.id)?.general);
+}
+
+function setUpCardSettingsInline() {
+  setUpCardSettings.call(this);
+  // "Show": which side the checkboxes are - the opened card's, by default.
+  this.showSide = new ReactiveVar('card');
+}
+
+Template.cardSettingsInline.onCreated(setUpCardSettingsInline);
+Template.cardSettingsInline.helpers({
+  ...boardCardSettingsHelpers,
+  inlineSections() { return inlineSectionsOf(Template.instance(), Template.currentData()); },
+  showSide() { return Template.instance().showSide.get(); },
+  showsSide(side) { return Template.instance().showSide.get() === side; },
 });
+
+// A section dropped above or below another: the shown sections in their new
+// order, written to the board (models/lib/cardSettingsSections.js).
+function placeSectionOrder(ids) {
+  const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+  if (!board || !(Utils.canModifyBoard && Utils.canModifyBoard())) return;
+  const stored = board.cardSettingsSectionOrder;
+  const order = cardSettingsSections.sectionOrderAfterDrop(stored, ids);
+  if (order.join(' ') === cardSettingsSections.sectionOrder(stored).join(' ')) return;
+  board.setCardSettingsSectionOrder(order);
+}
+
+Template.cardSettingsInline.onRendered(function () {
+  reorderOnDrop(this.$('.js-card-settings-sections-sortable'), {
+    items: '> .js-card-settings-section.is-draggable', handle: '.js-card-settings-section-handle',
+    keyOf: el => el.dataset.section,
+    drop: (id, ids) => placeSectionOrder(ids),
+  });
+});
+
+// Each section's rows reorder within it, as checklist items do, through the
+// same placing as the popup's lists (placeInListOrder).
+Template.cardSettingsInlineSection.onRendered(function () {
+  const list = this.find('.js-card-field-order-sortable');
+  if (!list) return;
+  reorderOnDrop(this.$(list), {
+    items: '> .js-card-field-order-row.is-positioned', handle: '.js-card-field-order-handle',
+    keyOf: el => el.dataset.key,
+    drop: (key, keys) => placeInListOrder(list.dataset.side, key, keys),
+  });
+});
+
+Template.cardSettingsInline.events({
+  ...cardSettingsEvents,
+  'click .js-close-card-settings'(evt) {
+    evt.preventDefault();
+    closeCardSettings();
+  },
+  'change .js-card-settings-show-side'(evt, tpl) {
+    tpl.animating.set(null);
+    tpl.showSide.set(evt.currentTarget.value === 'minicard' ? 'minicard' : 'card');
+  },
+  async 'click .js-toggle-card-settings-section'(evt) {
+    evt.preventDefault();
+    const id = evt.currentTarget.closest('.js-card-settings-section')?.dataset.section;
+    const user = ReactiveCache.getCurrentUser();
+    const boardId = Session.get('currentBoard');
+    if (!id || !user || !boardId) return;
+    await user.setCollapsedCardSection(boardId, inlineCollapseKey(id), !inlineSectionCollapsed(id));
+  },
+  // A section is dragged by its handle or its title: a click there does nothing.
+  'click .js-card-settings-section-handle'(evt) { evt.preventDefault(); },
+  // The keyboard way to drag a section: Up and Down move it one step.
+  'keydown .js-card-settings-section-handle'(evt) {
+    const direction = ARROW_KEYS[evt.key];
+    if (!direction) return;
+    evt.preventDefault();
+    const sectionEl = evt.currentTarget.closest('.js-card-settings-section');
+    const list = sectionEl && sectionEl.closest('.js-card-settings-sections-sortable');
+    if (!list) return;
+    const ids = [...list.querySelectorAll(':scope > .js-card-settings-section')].map(el => el.dataset.section);
+    const at = ids.indexOf(sectionEl.dataset.section);
+    const to = direction === 'up' ? at - 1 : at + 1;
+    if (at < 0 || to < 0 || to >= ids.length) return;
+    ids.splice(at, 1);
+    ids.splice(to, 0, sectionEl.dataset.section);
+    placeSectionOrder(ids);
+  },
+  'click .js-open-card-settings-section-menu'(evt, tpl) {
+    const id = evt.currentTarget.closest('.js-card-settings-section')?.dataset.section;
+    evt.preventDefault();
+    if (!cardSettingsSections.SECTIONS.some(s => s.id === id)) return;
+    const data = { card: settingsCard(), sectionId: id, side: tpl.showSide.get() };
+    Popup.open('cardSettingsSection', { dataContext: data })(evt);
+  },
+  'click .js-open-card-settings-item-menu'(evt, tpl) {
+    const row = evt.currentTarget.closest('.js-card-field-order-row');
+    const sectionEl = evt.currentTarget.closest('.js-card-settings-section');
+    if (!row || !sectionEl) return;
+    evt.preventDefault();
+    const data = { card: settingsCard(), key: row.dataset.key, sectionId: sectionEl.dataset.section, side: tpl.showSide.get() };
+    Popup.open('cardSettingsItem', { dataContext: data })(evt);
+  },
+});
+
+// A section's hamburger: Select all / Select none of the shown side, of On
+// this card and of Show empty; the section's card actions; and, for Card,
+// what is not a field - Show empty fields, asking for a move reason and the
+// Draggable table.
+function inlineSectionEl(id) {
+  return document.querySelector(`.js-card-settings-inline .js-card-settings-section[data-section="${id}"]`);
+}
+
+Template.cardSettingsSectionPopup.onCreated(setUpCardSettings);
+Template.cardSettingsSectionPopup.helpers({
+  ...boardCardSettingsHelpers,
+  sectionIsGeneral() {
+    return Boolean(cardSettingsSections.SECTIONS.find(s => s.id === this.sectionId)?.general);
+  },
+  sectionActions() { return sectionCardActionsOf(this.sectionId); },
+  sideTitle() { return TAPi18n.__(this.side === 'minicard' ? 'show-on-minicard' : 'show-on-card'); },
+  maySelectSide() { return Boolean(Utils.canModifyBoard && Utils.canModifyBoard()); },
+  maySelectThisCard() {
+    const card = settingsCard();
+    return this.side === 'card' && Boolean(card && Utils.canModifyCard(card));
+  },
+  maySelectAlways() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return this.side === 'card' && Boolean(Utils.canModifyBoard && Utils.canModifyBoard())
+      && !cardShownFields.boardShowsEmptyFields(board);
+  },
+});
+Template.cardSettingsSectionPopup.events({
+  ...cardSettingsEvents,
+  async 'click .js-card-settings-inline-select'(evt, tpl) {
+    evt.preventDefault();
+    const { column, value } = evt.currentTarget.dataset;
+    const data = Template.currentData();
+    const rows = sectionRowsOf(data.sectionId, data, 'card', null);
+    const keys = column === 'this' ? rows.filter(r => r.perCard).map(r => r.key)
+      : column === 'always' ? rows.filter(r => r.alwaysShowable).map(r => r.key) : [];
+    await selectCardSettingsColumn(tpl, inlineSectionEl(data.sectionId), column, value === 'all', keys);
+  },
+});
+
+// A row's hamburger: On this card, Show empty, and Labels text's way back to
+// the board's default.
+Template.cardSettingsItemPopup.onCreated(setUpCardSettings);
+Template.cardSettingsItemPopup.helpers({
+  ...boardCardSettingsHelpers,
+  itemRow() {
+    const tpl = Template.instance();
+    const row = sectionRowsOf(this.sectionId, this, this.side, tpl.animating.get()).find(r => r.key === this.key);
+    // `card` too: inside `with itemRow` the row is the data the shared
+    // handlers read the card from (settingsCard).
+    return row ? { ...row, menu: inlineRowMenu(row), card: this.card } : null;
+  },
+});
+Template.cardSettingsItemPopup.events(cardSettingsEvents);
 
 // Use Session variables instead of global ReactiveVars
 Session.setDefault('addMemberPopup.searchResults', []);

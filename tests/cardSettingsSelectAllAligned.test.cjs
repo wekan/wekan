@@ -21,7 +21,13 @@ const jade = read('client/components/sidebar/sidebar.jade');
 const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
 const js = read('client/components/sidebar/sidebar.js');
 const css = read('client/components/sidebar/sidebar.css');
-const handler = js.slice(js.indexOf("async 'click .js-card-settings-select'"), js.indexOf("'keydown .js-card-settings-select'"));
+// The work of Select all / Select none is one function, shared by the popup's
+// column buttons and the section hamburgers of Card Settings on the opened
+// card (docs/Features/Cards/Card-Settings-On-Card.md); the popup's click
+// handler only gathers the keys of its pane.
+const selectFn = js.slice(js.indexOf('async function selectCardSettingsColumn('));
+const handler = selectFn.slice(0, selectFn.indexOf('\n}\n'));
+const clickHandler = js.slice(js.indexOf("async 'click .js-card-settings-select'")).split('\n  },\n')[0];
 
 test('Select all and Select none under every column heading, for who may change it', () => {
   const head = popup.slice(popup.indexOf('.card-settings-pane-head'), popup.indexOf('each row in sectionSettingsRows'));
@@ -59,7 +65,11 @@ test('the handler: each column as its own checkboxes would set it, gated the sam
   assert.match(handler, /await Cards\.updateAsync\(card\._id, \{ \$set: next \}\);/);
   // The board's columns: a board admin only.
   assert.ok(handler.indexOf('if (!(Utils.canModifyBoard && Utils.canModifyBoard())) return;') < handler.indexOf("column === 'always'"));
-  assert.match(handler, /await board\.setCardFieldAlwaysShown\(keysOf\('\.js-card-always-show'\), on\);/);
+  assert.match(handler, /await board\.setCardFieldAlwaysShown\(keys, on\);/);
+  // The popup's pane gives the rows it draws: On this card's and Show empty's.
+  assert.match(clickHandler, /column === 'this' \? keysOf\('\.js-card-add-field'\)/);
+  assert.match(clickHandler, /column === 'always' \? keysOf\('\.js-card-always-show'\)/);
+  assert.match(clickHandler, /await selectCardSettingsColumn\(tpl, pane, column, value === 'all', keys\);/);
   // Negative: a personal row, a disabled cell and one already as asked are left alone.
   assert.match(handler, /\.filter\(cell => !cell\.classList\.contains\('card-settings-row-personal'\)\)/);
   assert.match(handler, /\.filter\(toggle => toggle && !toggle\.classList\.contains\('is-disabled'\) && isOn\(toggle\) !== on\);/);
