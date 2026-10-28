@@ -172,6 +172,10 @@ jobs:
         run: |
           mkdir -p .tools/tmp
           export TMPDIR="$PWD/.tools/tmp"
+          # Where releases/tools-env.sh, which build-target.sh loads, looks for
+          # them. Installed in ~/.cache instead, the smoke test found no browser
+          # (linux-arm64, v12.66).
+          export PLAYWRIGHT_BROWSERS_PATH="$PWD/.tools/ms-playwright"
           npm ci --prefix tests/playwright --ignore-scripts
           tests/playwright/node_modules/.bin/playwright install --with-deps chromium
       - name: Start an isolated MongoDB for Linux HTTP and DDP tests
@@ -180,7 +184,11 @@ jobs:
           # Not --rm: a container that dies must leave its log behind. v12.56
           # linux-x64 found nothing on 27019 ("Topology is closed") and there
           # was no way to see why. Wait until it answers, or show why not.
-          docker run -d --name bun-smoke-mongo -p 127.0.0.1:27019:27017 mongo:8
+          # 9.0.4, not mongo:8: on the runner's 6.19+ kernel mongo:8 refused to
+          # start ("Linux kernel versions 6.19 and newer has a known
+          # incompatibility", v12.66). 9.0.4 recognises Ubuntu kernels that
+          # have the fix; see docs/Databases/Supported.md.
+          docker run -d --name bun-smoke-mongo -p 127.0.0.1:27019:27017 mongo:9.0.4
           for i in $(seq 1 60); do
             if docker exec bun-smoke-mongo mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok' 2>/dev/null | grep -qx 1; then
               echo "MongoDB answers on 127.0.0.1:27019 after ${i}s."; exit 0
