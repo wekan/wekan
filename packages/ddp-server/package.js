@@ -1,13 +1,14 @@
 Package.describe({
   summary: "Meteor's latency-compensated distributed data server",
-  version: '3.4.1-rc360.0_1',
+  version: '3.6.0-rc360.1_1',
   documentation: null,
 });
 
-// WeKan fork of Meteor 3.6-rc.0's ddp-server with the Meteor 3.5.3 security
-// fixes. uWebSockets.js is left out: Meteor's own published 3.4.1-rc360.0
-// isopack carries no copy of it either, it is only loaded for the opt-in
-// "uws" transport, and it would be fetched from a git URL at build time.
+// WeKan fork of Meteor 3.6-rc.1's ddp-server, for the Admin Panel / Problems
+// report of a refused DDP message. uWebSockets.js is left out, as Meteor's
+// published 3.4.1-rc360.0 isopack had no copy of it either: it is only loaded
+// for the opt-in "uws" transport, and it would be fetched from a git URL at
+// build time.
 Npm.depends({
   "permessage-deflate2": "0.1.8",
   sockjs: "0.3.24",
@@ -76,6 +77,7 @@ Package.onTest(function (api) {
   api.use("livedata", ["client", "server"]);
   api.use("mongo", ["client", "server"]);
   api.use("test-helpers", ["client", "server"]);
+  api.use(["socket-stream-client", "webapp"], "server");
   api.use([
     "tinytest",
     "random",

@@ -55,9 +55,10 @@ against its assets: new or removed OS/CPU targets fail planning visibly.
 Meteor's Bun/ESM support is still proposed in
 [meteor/meteor#14751](https://github.com/meteor/meteor/pull/14751).
 The workflow clones the app's exact Meteor release into `.tools/meteor-bun`.
-For Meteor 3.6-rc.0 it applies `meteor-3.6-rc.0.patch`, ported from
+For Meteor 3.6-rc.1 it applies `meteor-3.6-rc.1.patch`, ported from
 `dupontbertrand/meteor` commit `c0ab9318822f36f902da6124c1356ede58b71a4e` onto
-Meteor commit `cc8cf7d21d24da5f4a4fd456527225bc5ce0e721`.
+Meteor 3.6-rc.0 (`cc8cf7d21d24da5f4a4fd456527225bc5ce0e721`); it applies
+unchanged to 3.6-rc.1 (`311f5cd2d26f74ce187dc2e639bd57aab81929e4`).
 
 The port preserves the 3.6 transport documentation and Rspack's await of the
 server bundle's exported promise. It does not downgrade package pins, change

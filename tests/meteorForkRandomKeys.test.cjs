@@ -5,7 +5,7 @@
 // ?key= of /__meteor__/dynamic-import/fetch) came from Math.random(), whose
 // xorshift128+ state can be recovered from its earlier outputs, and was
 // compared with ===. meteor shell's connection key, which runs code in the
-// server process, was made the same way. Both forks (from Meteor 3.6-rc.0, see
+// server process, was made the same way. Both forks (rebased onto Meteor 3.6-rc.1, see
 // docs/Security/Meteor-3.5.3-Security-Fixes-2026-10-22.md) take their keys from
 // the crypto RNG now and compare them in constant time.
 // Run: node tests/meteorForkRandomKeys.test.cjs

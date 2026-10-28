@@ -103,7 +103,7 @@ jobs:
             app/.tools/meteor-bun/dev_bundle
             app/.tools/meteor-bun/.babel-cache
             app/.tools/meteor-bun/packages/*/.npm
-          key: bun-meteor-${{ runner.os }}-${{ hashFiles('app/.meteor/release', 'app/.meteor/versions', 'build-tools/releases/bun/meteor-3.6-rc.0.patch') }}
+          key: bun-meteor-${{ runner.os }}-${{ hashFiles('app/.meteor/release', 'app/.meteor/versions', 'build-tools/releases/bun/meteor-3.6-rc.1.patch') }}
       - name: Build the release's ESM application once
         working-directory: app
         env:

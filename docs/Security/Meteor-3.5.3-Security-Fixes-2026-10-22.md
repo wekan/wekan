@@ -81,15 +81,44 @@ them blocks an account:
 `meteor shell` and deploy have nothing to record: one is a local developer
 tool, the other a build-time command.
 
+## Meteor 3.6-rc.1
+
+Meteor 3.6-rc.1 (2026-10-28,
+[announcement](https://forums.meteor.com/t/meteor-3-6-rc-1-rspack-2-x-native-typescript-node-js-26-pnpm-monorepos-instrumentation-pwas-and-a-friendlier-cli/64773/18))
+carries the Meteor security fixes of both recent patch rounds, 3.5.3 and
+3.5.4. The forks were NOT deleted, because two things in them are WeKan's own
+and rc.1 does not have them: the Admin Panel → Problems reports below, and the
+crypto-RNG keys of `dynamic-import` and `shell-server` (rc.1 still makes them
+with `Math.random()`). So each fork was rebased: rc.1's package, with WeKan's
+changes over rc.0's package merged onto it three-way. The 3.5.3 hunks merged
+away, since rc.1 already had them; what is left over rc.1 is only the hooks
+and the keys. The fork versions are rc.1's with `_1`:
+
+| Package | Fork version |
+| --- | --- |
+| `allow-deny` | `2.1.2-rc360.1_1` |
+| `ddp-server` | `3.6.0-rc360.1_1` |
+| `dynamic-import` | `0.8.1-rc360.1_1` |
+| `facebook-oauth` | `1.12.1-rc360.1_1` |
+| `google-oauth` | `1.5.1-rc360.1_1` |
+| `shell-server` | `0.7.2-rc360.1_1` |
+
+Leaving the rc.0 forks in place is what made `meteor update --release
+3.6-rc.1` fail with *No version of shell-server satisfies all constraints*:
+a local package's exact version was required alongside the new release's.
+
 ## When Meteor is upgraded
 
 `tests/meteor353SecurityFixes.test.cjs` fails as soon as `.meteor/release` is
-no longer `METEOR@3.6-rc.0`, because a fork overrides the release's package
-silently and would keep 3.6-rc.0's code under the new release. Then, for each
+no longer `METEOR@3.6-rc.1`, because a fork overrides the release's package
+silently and would keep 3.6-rc.1's code under the new release. Then, for each
 of the six: if the new release's notes list the 3.5.3 fix (or a later one),
 delete `packages/<name>` and its `_1` line in `.meteor/versions`; otherwise
-rebase the fork onto the new release's package. When all six are gone, delete
-the test, the hook and this note's forks section.
+rebase the fork onto the new release's package. Before deleting one, also check
+that the release has what is WeKan's own in it - the Problems report, and for
+`dynamic-import` and `shell-server` the crypto-RNG key
+(`tests/meteorForkRandomKeys.test.cjs`) - or it is lost with the fork. When
+all six are gone, delete the test, the hook and this note's forks section.
 
 ## Tests
 
