@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.67 2026-10-28 WeKan ® release
 
 **In short:** a list's **Add card** form closes once the card is added, unless
 **Member Settings** keeps it open for the next one. And the v12.66 release build
