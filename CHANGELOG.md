@@ -158,7 +158,7 @@ per user. Board Settings / Card is still the popup. Design:
 and updates the following dependencies:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/HASH_RC1">Meteor 3.6-rc.1, with WeKan's six Meteor package forks rebased onto it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/120f484a30">Meteor 3.6-rc.1, with WeKan's six Meteor package forks rebased onto it</a>. Thanks to xet7.</summary>
 
 [Meteor 3.6-rc.1](https://forums.meteor.com/t/meteor-3-6-rc-1-rspack-2-x-native-typescript-node-js-26-pnpm-monorepos-instrumentation-pwas-and-a-friendlier-cli/64773/18)
 carries the security fixes of Meteor 3.5.3 and 3.5.4. `meteor update
@@ -193,9 +193,10 @@ the card's only sections with no board flag in the template, and the card's
 section list asked only whether the card shows the field - which Show empty
 fields, Show empty and On this card answer yes. A Scrum section now needs the
 board's Scrum visibility first, as Members, Vote and Poker already did; a
-turned-on Scrum field is still shown empty. `tests/scrumSectionsShowEmpty6830.test.cjs`
-pins the rule and that no other client code decides a Scrum section by the
-card alone, and `card-add-fields.e2e.js` checks the card.
+turned-on Scrum field is still shown empty.
+`tests/scrumSectionsShowEmpty6830.test.cjs` pins the rule and that no other
+client code decides a Scrum section by the card alone, and
+`card-add-fields.e2e.js` checks the card.
 
 </details>
 
