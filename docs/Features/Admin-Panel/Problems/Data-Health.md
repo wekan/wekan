@@ -57,7 +57,8 @@ example ids. **Last Run** under **Data health** says when it ran and, as
 | Checklist items whose checklist is gone | Confirm: deletes them |
 | Checklist items on another card than their checklist | - |
 | Attachments (not deleted) whose card is gone | - (attachment retention) |
-| Custom fields on no board, or listing a board that does not exist (`boardIds`, or the legacy `boardId`) | Safe: removes the deleted boards from the field |
+| Custom fields on no board, or listing a board that does not exist next to a live one (`boardIds`, or the legacy `boardId`) | Safe: removes the deleted boards from the field |
+| Custom fields whose boards were all deleted | Confirm: deletes the field definitions; no existing board shows them, and a value left on a card is listed under the card check above |
 | Accounts sharing an e-mail address, upper/lower case aside | - |
 
 **Safe** repairs put things where they belong and delete nothing anyone can see.

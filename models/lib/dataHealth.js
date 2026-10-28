@@ -108,6 +108,13 @@ const CHECKS = [
   { id: 'customfield-dead-board', title: 'Custom fields listing a board that does not exist',
     means: 'Deleting a board did not remove it from the custom fields it used.',
     todo: 'Repair removes the deleted boards from those fields; nothing else changes.', repair: 'safe' },
+  // A field whose boards were ALL deleted has nothing to keep: removing the dead
+  // boards would leave it on no board. It was counted above, where Repair could
+  // never change it ("Repaired: 0" with the count unchanged - 510 fields on one
+  // instance), so it is a check of its own.
+  { id: 'customfield-boards-deleted', title: 'Custom fields whose boards were all deleted',
+    means: 'The field belonged only to boards that no longer exist. It is shown nowhere.',
+    todo: 'Repair deletes these field definitions after you confirm. No existing board shows them; a value a card still holds is listed under "Cards with values for a custom field that is not on their board".', repair: 'confirm' },
   { id: 'user-duplicate-email', title: 'Accounts sharing an e-mail address (upper/lower case aside)',
     means: 'Logging in, inviting and password reset can pick the wrong account.',
     todo: 'Merge or rename one of the accounts in Admin Panel / People.', repair: null },
@@ -327,6 +334,7 @@ async function scanDataHealth(db, { pause = async () => {} } = {}) {
   // ---- custom fields and users ---------------------------------------------
   for (const [id, ids] of fieldBoards) {
     if (!ids.length) t.add('customfield-no-board', id);
+    else if (!ids.some(b => boards.has(b))) t.add('customfield-boards-deleted', id);
     else if (ids.some(b => !boards.has(b))) t.add('customfield-dead-board', id);
   }
   const emails = new Map();
@@ -428,12 +436,21 @@ const REPAIRS = {
     });
     return fixed;
   },
+  async 'customfield-boards-deleted'(db) {
+    const boards = new Set((await db.collection('boards').distinct('_id')).map(str));
+    const dead = (await db.collection('customFields').find({}, { projection: { boardIds: 1, boardId: 1 } }).toArray())
+      .filter(f => { const on = fieldBoardIds(f); return on.length && !on.some(b => boards.has(b)); })
+      .map(f => f._id);
+    if (!dead.length) return 0;
+    const r = await db.collection('customFields').deleteMany({ _id: { $in: dead } });
+    return (r && r.deletedCount) || 0;
+  },
   async 'customfield-dead-board'(db) {
     const boards = new Set((await db.collection('boards').distinct('_id')).map(str));
     let fixed = 0;
     for (const f of await db.collection('customFields').find({}, { projection: { boardIds: 1, boardId: 1 } }).toArray()) {
       const ids = fieldBoardIds(f);
-      // a field on deleted boards only is left for the admin (customfield-no-board after)
+      // a field on deleted boards only is customfield-boards-deleted's, which deletes it
       if (!ids.some(b => boards.has(b)) || ids.every(b => boards.has(b))) continue;
       const update = {};
       if (Array.isArray(f.boardIds)) {

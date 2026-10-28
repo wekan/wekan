@@ -260,7 +260,8 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
       { _id: 'fOnlyDead', boardId: 'deleted' },
     );
     const scan = await scanDataHealth(fakeDb(data));
-    assert.strictEqual(count(scan, 'customfield-dead-board'), 4);
+    assert.strictEqual(count(scan, 'customfield-dead-board'), 3, 'fields with a live board left');
+    assert.strictEqual(count(scan, 'customfield-boards-deleted'), 1, 'fOnlyDead: its own check');
     assert.strictEqual(await repairDataHealth(fakeDb(data), 'customfield-dead-board'), 3);
     const f = id => data.customFields.find(x => x._id === id);
     assert.deepStrictEqual(f('fDead'), { _id: 'fDead', boardIds: ['A'] });
@@ -536,6 +537,37 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
     const jade = read('client/components/settings/problemsSummary.jade');
     assert.match(jade, /button\.js-data-health-repair/);
     assert.match(jade, /button\.js-data-health-scan/);
+  });
+
+  // A field on deleted boards only was counted under customfield-dead-board,
+  // whose Repair keeps it - "Repaired: 0", 510 times on one instance.
+  await test('custom fields whose boards were all deleted: their own check, deleted after confirmation', async () => {
+    const data = sample();
+    data.customFields.push({ _id: 'fGone', boardIds: ['deleted', 'gone2'] }, { _id: 'fGoneLegacy', boardId: 'deleted' });
+    const scan = await scanDataHealth(fakeDb(data));
+    assert.deepStrictEqual(scan.results.find(r => r.id === 'customfield-boards-deleted').examples, ['fGone', 'fGoneLegacy']);
+    assert.strictEqual(count(scan, 'customfield-dead-board'), 1, 'only fDead, which keeps board A');
+    await assert.rejects(repairDataHealth(fakeDb(data), 'customfield-boards-deleted'), /needs confirmation/);
+    assert.strictEqual(await repairDataHealth(fakeDb(data), 'customfield-boards-deleted', { confirmed: true }), 2);
+    assert.deepStrictEqual(data.customFields.map(f => f._id).sort(), ['fA', 'fDead', 'fNone'],
+      'negative: a field with a live board and a field on no board are not deleted');
+    const after = await scanDataHealth(fakeDb(data));
+    assert.strictEqual(count(after, 'customfield-boards-deleted'), 0);
+  });
+
+  // A card on a live board can still hold a value of such a field (it was
+  // moved off the deleted board). Deleting the definition leaves the card
+  // alone; the value stays listed under card-dead-field-values.
+  await test('custom fields whose boards were all deleted: a value left on a live card is not touched', async () => {
+    const data = sample();
+    data.customFields.push({ _id: 'fGone', boardIds: ['deleted'] });
+    card(data, 'twin').customFields = [{ _id: 'fGone', value: 'hidden' }];
+    const before = count(await scanDataHealth(fakeDb(data)), 'card-dead-field-values');
+    assert.strictEqual(await repairDataHealth(fakeDb(data), 'customfield-boards-deleted', { confirmed: true }), 1);
+    assert.deepStrictEqual(card(data, 'twin').customFields, [{ _id: 'fGone', value: 'hidden' }]);
+    const after = await scanDataHealth(fakeDb(data));
+    assert.strictEqual(count(after, 'card-dead-field-values'), before, 'the card value is still reported, by the card check');
+    assert.strictEqual(count(after, 'customfield-dead-board'), 1, 'fDead only');
   });
 
   console.log(`\n${passed} tests passed`);
