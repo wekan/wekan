@@ -56,7 +56,12 @@ test('the drawing area fills the window, grows from its corner and zooms; Save i
   expect(save.y + save.height).toBeLessThanOrEqual(surface.y + 1);
   expect(save.x).toBeGreaterThan(eraser.x);
 
-  // The corner handle makes the drawing area larger.
+  // The corner handle makes the drawing area larger. Filling the window, the
+  // handle sits at the window's corner (x 1236 of 1280) and a drag past the
+  // window's edge is not delivered by every browser - Firefox stopped at the
+  // edge - so the drawing is zoomed out to 80% first, which leaves room.
+  await popup.locator('.js-drawing-zoom-out').click();
+  await expect(popup.locator('.card-drawing-zoom')).toHaveText('80%');
   const [, , w0, h0] = await viewBox(page);
   const handle = popup.locator('.js-drawing-canvas-resize');
   const hb = await handle.boundingBox();
@@ -71,6 +76,8 @@ test('the drawing area fills the window, grows from its corner and zooms; Save i
   const before = await page.locator('.js-drawing-surface').boundingBox();
   await popup.locator('.js-drawing-zoom-in').click();
   await expect.poll(async () => (await page.locator('.js-drawing-surface').boundingBox()).width).toBeGreaterThan(before.width * 1.2);
+  await expect(popup.locator('.card-drawing-zoom')).toHaveText('100%');
+  await popup.locator('.js-drawing-zoom-in').click();
   await expect(popup.locator('.card-drawing-zoom')).toHaveText('125%');
   await popup.locator('.js-drawing-zoom-out').click();
   await popup.locator('.js-drawing-zoom-out').click();

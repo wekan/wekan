@@ -31,8 +31,15 @@ test.describe('Search phrases', () => {
     try {
       const sp = new SearchPage(boardPage);
       await sp.navigateToGlobalSearch();
-      await sp.globalSearch('my cards');
-      await expect(boardPage.locator('.js-search-phrased')).toHaveCount(0);
+      // The setting is written straight to the database, and the browser has it
+      // when the published Settings document arrives - a search sent before that
+      // still ran the phrase (both browsers, now and then). So the search is
+      // repeated until the browser has it; a phrase that is never turned off
+      // still fails here.
+      await expect(async () => {
+        await sp.globalSearch('my cards');
+        await expect(boardPage.locator('.js-search-phrased')).toHaveCount(0, { timeout: 2000 });
+      }).toPass({ timeout: 20000 });
     } finally {
       db.updateOne('settings', { _id: setting._id }, { $set: { featureStates: { ...states, 'search-phrases': true } } });
     }

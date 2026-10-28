@@ -64,7 +64,13 @@ test('column updates reject foreign boards, non-admin members and invalid column
     expect(db.findOne('boards',{_id:board.boardId}).allowsLabels).toEqual(before.allowsLabels);
     await page.reload();
     await openSettings(page,'Card');
-    await expect(page.locator('.board-settings-column-actions')).toHaveCount(0);
+    // The pane first: a count of 0 taken before it rendered passed in Chromium
+    // without looking at anything. Then only the board-admin column actions
+    // (boardSettingsColumnActions, data-column) - Show on Card's Select all /
+    // Select none (cardSettingsSelectButtons) share the class and are a
+    // member's, like the checkboxes under them (canModifyBoard).
+    await expect(page.locator('.pop-over[data-popup="boardCardSettingsPopup"] .card-settings-pane-head').first()).toBeVisible();
+    await expect(page.locator('.board-settings-column-actions[data-column]')).toHaveCount(0);
   } finally { db.cleanup({boardIds:[other.boardId]}); }
 });
 
