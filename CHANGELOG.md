@@ -125,11 +125,35 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Data health** in Admin Panel / Problems can now clean up custom
-fields whose boards were all deleted, which its Repair button could never
-reduce before.
+**In short:** **Card Settings** moves onto the opened card: its button
+replaces the card's fields with the settings, drawn as checklists that drag
+and collapse. **Data health** in Admin Panel / Problems can now clean up
+custom fields whose boards were all deleted, which its Repair button could
+never reduce before.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0ec28e82f">Card Settings on the opened card, its sections as checklists</a>. Thanks to xet7.</summary>
+
+The opened card's "+ Add" is now **Card Settings**, and it no longer opens the
+Board Settings / Card popup: the button and everything below it are replaced
+by Card Settings itself until the X beside its title puts the card back. Under
+the title, **Show** chooses Show on Minicard or Show on Card, and the sections
+(Card, Date, Time, ... Comments) are drawn like checklists - the section is
+the checklist's title, its rows the items, each checkbox the board-wide Show
+on Card or Show on Minicard of that field. A row's hamburger holds On this
+card and Show empty; a section's holds Select all / Select none, its card
+actions and, for Card, Show empty fields, Ask for a reason and the Draggable
+table. Sections and rows drag like checklists and their items; a section's
+order is the board's new `cardSettingsSectionOrder`. Sections collapse, kept
+per user. Board Settings / Card is still the popup. Design:
+[Card Settings on the opened card](docs/Features/Cards/Card-Settings-On-Card.md).
+`tests/cardSettingsOnCard.test.cjs` and `card-add-fields.e2e.js` pin it.
+
+</details>
+
+and fixes the following bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dc3fc3f31">Data health: custom fields whose boards were all deleted get their own check</a>. Thanks to Raymond-Voogt and xet7.</summary>
