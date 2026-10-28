@@ -208,6 +208,19 @@ the card's own section hamburgers. See
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c9742e09d">Hamburger menus open on top of Card Settings, next to their button</a>. Thanks to xet7.</summary>
+
+A hamburger of Card Settings opened its menu in Card Settings' place, and
+Card Settings disappeared until the back arrow. Its menus and forms - a custom
+field's edit form, the + under Custom Fields - now open as a layer on top of
+Card Settings, next to their button, Card Settings still visible under it.
+Their X, their button again, a press elsewhere or Escape closes them. A layer
+opens toward the middle of Card Settings, so the + form no longer ran out of
+its left side. `tests/popupLayer.test.cjs` and `card-add-fields.e2e.js` pin it.
+
+</details>
+
 and updates the following dependencies:
 
 <details>
