@@ -125,13 +125,14 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Card Settings** moves onto the opened card: its button
-replaces the card's fields with the settings, drawn as checklists that drag
-and collapse, and Board Settings / Card shows the very same checklists. WeKan
-moves to **Meteor 3.6-rc.1**, keeping its own security additions to Meteor's
-packages. **Data health** in Admin Panel / Problems can now clean up custom
-fields whose boards were all deleted, and **Show empty fields** no longer
-shows Scrum sections on boards that have Scrum turned off.
+**In short:** **Card Settings**, in Board Settings / Card, becomes checklists
+that drag and collapse, with a checkbox per section on each side and the
+board's custom fields as items; every opened card shows every field its board
+allows, empty or not. WeKan moves to **Meteor 3.6-rc.1**, keeping its own
+security additions to Meteor's packages. **Data health** in Admin Panel /
+Problems can now clean up custom fields whose boards were all deleted, and
+empty fields no longer show **Scrum** sections on boards that have Scrum
+turned off.
 
 This release adds the following new features:
 
@@ -153,7 +154,7 @@ actions and, for Card, Show empty fields, Ask for a reason and the Draggable
 table. Sections and rows drag like checklists and their items; a section's
 order is the board's new `cardSettingsSectionOrder`. Sections collapse, kept
 per user. Board Settings / Card is still the popup. Design:
-[Card Settings on the opened card](docs/Features/Cards/Card-Settings-On-Card.md).
+[Card Settings](docs/Features/Cards/Card-Settings.md).
 `tests/cardSettingsOnCard.test.cjs` and `card-add-fields.e2e.js` pin it.
 
 </details>
@@ -172,7 +173,7 @@ another section goes back and nothing is saved. Testing both open at once
 found three faults, now fixed: their Show radios were one group, Select all
 could act on the other one, and switching Show could put a click on the
 neighbouring row. Docs:
-[Card Settings on the opened card](docs/Features/Cards/Card-Settings-On-Card.md).
+[Card Settings](docs/Features/Cards/Card-Settings.md).
 `tests/cardSettingsOnCard.test.cjs` compares the templates and
 `card-add-fields.e2e.js` the two views, row by row, and the drag rules.
 
@@ -186,6 +187,24 @@ hamburgers' popups. Both now have a space's width between them. A tick is
 drawn rotated and reached past its box, so left to right it is drawn a little
 further left: a ticked box keeps the same space and its label does not move.
 `card-add-fields.e2e.js` measures it, ticked and unticked.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e5bc58105">A checkbox per section, every field always shown, Card Settings only in Board Settings</a>. Thanks to xet7.</summary>
+
+The opened card has no Card Settings button any more; Card Settings is Board
+Settings / Card. A card shows every field its board shows on cards, empty or
+not, so On this card, Show empty and Show empty fields are gone. Each section
+has a checkbox before its title that hides the whole section on the chosen
+side - the card or the minicard - while its rows keep their ticks. A section
+with one row is one line, and a hamburger is drawn only when it holds
+something. Custom Fields lists the board's custom fields as items, reordered
+by drag and drop, with a + under them that creates one. Card actions stay in
+the card's own section hamburgers. See
+[Card Settings](docs/Features/Cards/Card-Settings.md).
+`tests/cardSettingsSectionShown.test.cjs`,
+`tests/cardSettingsCustomFields.test.cjs` and `card-add-fields.e2e.js` pin it.
 
 </details>
 
