@@ -83,8 +83,19 @@ class MacSmoke(unittest.TestCase):
                 self.assertLess(time.monotonic() - started, 3)
                 pid = int(pidfile.read_text())
                 # A killed descendant can briefly be a zombie until init reaps it.
-                status = subprocess.run(['ps', '-o', 'stat=', '-p', str(pid)], capture_output=True, text=True).stdout.strip()
-                self.assertTrue(not status or status.startswith('Z'), status)
+                # Wait for it to be gone without ps, which a sandboxed macOS
+                # app may not run ("Operation not permitted"); ps only decides
+                # whether a process that is still there is a zombie.
+                deadline = time.monotonic() + 2
+                while time.monotonic() < deadline:
+                    try:
+                        os.kill(pid, 0)
+                    except ProcessLookupError:
+                        break
+                    time.sleep(.02)
+                else:
+                    status = subprocess.run(['ps', '-o', 'stat=', '-p', str(pid)], capture_output=True, text=True).stdout.strip()
+                    self.assertTrue(not status or status.startswith('Z'), status)
 
     def test_early_exit_preserves_failure(self):
         with tempfile.TemporaryDirectory() as tmp:

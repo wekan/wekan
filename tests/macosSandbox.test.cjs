@@ -39,6 +39,14 @@ test('on macOS: the profile really refuses the home directory and allows the che
   if (process.platform !== 'darwin' || spawnSync('which', ['sandbox-exec']).status !== 0) return 'skip';
   const tmp = fs.mkdtempSync(path.join(root, '.tools', 'tmp', 'macos-sandbox-'));
   try {
+    // Inside the sandbox this test is about (VSCodium started by the script),
+    // macOS refuses to apply a second profile at all: "sandbox_apply:
+    // Operation not permitted", even for (allow default). Nothing can be
+    // measured there, so it is a skip - but only when that probe fails.
+    const probe = path.join(tmp, 'probe.sb');
+    fs.writeFileSync(probe, '(version 1)\n(allow default)\n');
+    const nested = spawnSync('sandbox-exec', ['-f', probe, '/usr/bin/true'], { encoding: 'utf8' });
+    if (nested.status !== 0 && /sandbox_apply/.test(nested.stderr)) return 'skip';
     const home = os.homedir();
     const profile = path.join(tmp, 'test.sb');
     fs.writeFileSync(profile, `(version 1)\n(allow default)\n(deny file-read* file-write* (subpath "/Users") (subpath "/Volumes"))\n`
