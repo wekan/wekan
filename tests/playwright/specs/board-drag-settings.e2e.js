@@ -5,8 +5,20 @@ async function openSettings(page, section) {
   await page.evaluate(section => {
     Popup.close();
     const opener = document.body;
-    Popup.open(`board${section}Settings`)({currentTarget: opener, target: opener, preventDefault() {}, stopPropagation() {}});
+    const evt = {currentTarget: opener, target: opener, preventDefault() {}, stopPropagation() {}};
+    // Board Settings / Card is opened as the cog menu does: with no card.
+    if (section === 'Card') Popup.open('boardCardSettings').call({currentData: () => ({})}, evt);
+    else Popup.open(`board${section}Settings`)(evt);
   }, section);
+  // Since 2026-10-28 Board Settings / Card is the card's Card Settings
+  // (cardSettingsInline): its Draggable table is in the Card section's
+  // hamburger, as in board-settings-columns.e2e.js, not in the popup itself.
+  if (section === 'Card') {
+    const pane = page.locator('.pop-over[data-popup="boardCardSettingsPopup"] .js-card-settings-pane[data-side="card"]');
+    const cardSection = pane.locator('.js-card-settings-section[data-section="card"]');
+    await cardSection.locator('.js-open-card-settings-section-menu').click();
+    await expect(cardSection.locator('.js-card-settings-panel[data-kind="section"] .board-drag-settings')).toBeVisible();
+  }
 }
 for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh', 'nah', 'wal', 'zgh', 'kl', 'iu', 'tig', 'chr']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
