@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.69 2026-10-29 WeKan ® release
 
 **In short:** **ImportPlacementBleed** is fixed: an import is placed only on its
 own board. **Invite via Email** adds the invited new user again, instead of
