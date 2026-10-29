@@ -128,6 +128,16 @@ test('a curl that cannot start is not retried as an outage (negative)', () => {
   assert.doesNotMatch(r.stderr, /::warning::|outage, not WeKan/, 'no retries, and not called an outage');
 });
 
+test('an unverifiable certificate is named as that, not as an outage (v12.69 Sandstorm)', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
+  const bin = path.join(dir, 'bin'); fs.mkdirSync(bin);
+  fs.writeFileSync(path.join(bin, 'curl'), '#!/bin/sh\necho "curl: (60) SSL certificate problem: certificate has expired" >&2\nprintf 000\nexit 60\n', { mode: 0o755 });
+  const r = run(['-o', path.join(dir, 'x'), `${base}/ok`], { PATH: `${bin}:${process.env.PATH}` });
+  assert.strictEqual(r.status, 60);
+  assert.match(r.stderr, /TLS certificate could not be verified/);
+  assert.doesNotMatch(r.stderr, /having an outage/);
+});
+
 test('a 404 fails at once - it is an answer, not an outage (negative)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'nope');

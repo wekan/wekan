@@ -118,7 +118,13 @@ while : ; do
 
     if [ "$attempt" -ge "$attempts" ]; then
         [ "$mode" = check ] && exit 2
-        echo "::error::$url could not be downloaded in $attempts attempts (last HTTP $code, curl exit $rc). The server is having an outage, not WeKan: re-run this job when it is over." >&2
+        if [ "$rc" -eq 60 ]; then
+            # v12.69 Sandstorm: install.sandstorm.io's certificate had expired,
+            # which is not an outage and is fixed only by that site's owner.
+            echo "::error::$url could not be downloaded in $attempts attempts: its TLS certificate could not be verified (curl exit 60 - expired, or not for this host). Only that server's owner can fix it; re-run this job once its certificate is renewed." >&2
+        else
+            echo "::error::$url could not be downloaded in $attempts attempts (last HTTP $code, curl exit $rc). The server is having an outage, not WeKan: re-run this job when it is over." >&2
+        fi
         exit "${rc:-1}"
     fi
 
