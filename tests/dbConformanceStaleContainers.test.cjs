@@ -35,6 +35,8 @@ test('negative: nothing is removed without asking whether its run has ended', ()
   assert.match(script, /stale="\$\(left_behind container /);
   assert.match(script, /stale_nets="\$\(left_behind network /);
   assert.doesNotMatch(script, /stale="\$\(docker_exec ps/, 'the old unconditional removal');
+  // Where ps is refused (a sandboxed macOS app), every live run looked dead.
+  assert.match(script, /ps -o command= -p "\$1" 2>\/dev\/null \|\|\s*\n\s*pgrep -lf/);
 });
 
 // The functions themselves, from the script, against a fake docker_exec.

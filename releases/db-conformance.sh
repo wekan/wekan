@@ -289,12 +289,14 @@ OWNER_LABEL_KEY="wekan.conformance.pid"
 OWNER_LABEL="$OWNER_LABEL_KEY=$$"
 # The command line comes from /proc on Linux; macOS and the BSDs have no /proc,
 # where every live run looked dead and a second run removed its containers.
-# ps -o command= gives the same line there.
+# ps -o command= gives the same line there. Where ps itself may not run (a
+# sandboxed macOS app: "operation not permitted"), pgrep -lf still lists it.
 command_line_of() {
   if [ -r "/proc/$1/cmdline" ]; then
     tr '\0' ' ' < "/proc/$1/cmdline" 2>/dev/null
   else
-    ps -o command= -p "$1" 2>/dev/null
+    ps -o command= -p "$1" 2>/dev/null ||
+      pgrep -lf '.' 2>/dev/null | awk -v pid="$1" '$1 == pid { sub(/^[0-9]+ /, ""); print; exit }'
   fi
 }
 run_still_going() {
