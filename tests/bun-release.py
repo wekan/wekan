@@ -112,8 +112,12 @@ class BunReleaseTests(unittest.TestCase):
     def test_checksum_file_is_lf_on_every_platform(self):
         # Windows text mode wrote CRLF, and `sha256sum -c` then looked for a
         # file named "<zip>\\r" (bun-single-file windows-arm64, v12.44).
+        # open(newline=), not Path.write_text(newline=): the latter is Python
+        # 3.10+, and macOS's python3 is 3.9, where it raised TypeError.
         source = (ROOT / 'releases/bun/assets.py').read_text()
-        self.assertIn("write_text(f'{digest}  {name}\\n', encoding='utf-8', newline='\\n')", source)
+        self.assertIn(".sha256sum')).open('w', encoding='utf-8', newline='\\n')", source)
+        self.assertNotIn('write_text(', source.split('def package', 1)[1].split('.sha256sum', 1)[1][:200])
+        self.assertNotIn('file_digest', source.replace('# hashlib.file_digest', ''))
 
     def test_download_retries_a_server_error_but_not_a_missing_asset(self):
         import urllib.error

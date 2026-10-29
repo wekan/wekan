@@ -15,6 +15,15 @@ ROOT = Path(__file__).resolve().parent
 TARGETS = json.loads((ROOT / 'targets.json').read_text(encoding='utf-8'))
 
 
+def sha256_file(path):
+    # hashlib.file_digest is Python 3.11+, and macOS still ships 3.9 as python3.
+    digest = hashlib.sha256()
+    with Path(path).open('rb') as source:
+        for chunk in iter(lambda: source.read(1 << 20), b''):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def api(path):
     headers = {'Accept': 'application/vnd.github+json', 'User-Agent': 'wekan-bun-build'}
     if os.environ.get('GH_TOKEN'):
@@ -97,8 +106,7 @@ def fetch_runtime(bun_tag, target):
     download(base + sums.name, sums)
     expected = next(line.split()[0] for line in sums.read_text(encoding='utf-8').splitlines()
                     if line.split()[-1].lstrip('*') == archive.name)
-    with archive.open('rb') as source:
-        actual = hashlib.file_digest(source, 'sha256').hexdigest()
+    actual = sha256_file(archive)
     if actual != expected:
         raise ValueError('Bun archive checksum mismatch')
     binary = 'bun.exe' if item['platform'] == 'win32' else 'bun'
@@ -132,11 +140,12 @@ def package(tag, target):
             archive.write(directory)
             for filename in sorted(files):
                 archive.write(Path(directory) / filename)
-    with (output / name).open('rb') as source:
-        digest = hashlib.file_digest(source, 'sha256').hexdigest()
+    digest = sha256_file(output / name)
     # LF on every platform: on Windows text mode wrote CRLF, and `sha256sum -c`
     # then looked for a file named "<zip>\r" (bun-single-file windows-arm64).
-    (output / (name + '.sha256sum')).write_text(f'{digest}  {name}\n', encoding='utf-8', newline='\n')
+    # Path's write_text takes newline= only from Python 3.10; open() takes it on 3.9 too.
+    with (output / (name + '.sha256sum')).open('w', encoding='utf-8', newline='\n') as sums:
+        sums.write(f'{digest}  {name}\n')
 
 
 if __name__ == '__main__':
