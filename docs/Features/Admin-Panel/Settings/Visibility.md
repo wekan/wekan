@@ -100,6 +100,31 @@ the person signed in. See [Optional APIs](../../../API/Optional-APIs.md).
   automatically in card text, one per line. Anything not listed is left as plain
   text, which is what stops `javascript:` and friends becoming clickable.
 
+  Each listed scheme opens the application the viewer's computer has for it, so
+  a link is something that runs on the machine of whoever clicks it, written by
+  anybody who can edit a card. Two kinds of scheme are never linked, even when
+  listed here:
+
+  - schemes that run code in the page or hide content in the URL: `javascript`,
+    `vbscript`, `data`, `blob`, `about`, `view-source`, `mhtml` and the like;
+  - operating-system handlers with a public code-execution history: `ms-msdt`
+    (Follina, CVE-2022-30190), `search-ms` and `search`, `ms-officecmd`,
+    `ms-appinstaller`, `ms-cxh` and `ms-cxh-full`, and `telnet` - the last step
+    of a 2026 browser full chain, where Windows ran a `telnet.exe` from a
+    directory any user can write to.
+
+  Somebody writing a link to one of the second kind in a card title or
+  description, a comment or a checklist is shown in **Admin Panel → Problems**
+  (HandlerLink, CWE-939): nobody needs such a link, because it is never
+  clickable. The text is saved as written, and nothing is said to the writer.
+
+  `file` is allowed, because linking a shared folder is what the setting is for
+  ([#3218](https://github.com/wekan/wekan/issues/3218)). On Windows a
+  `file://server/share` link is opened over SMB, and a link to a server
+  outside your network sends that server the clicker's Windows sign-in (an NTLM
+  hash). List `file` only where everybody who can edit cards is trusted, and
+  block outbound SMB (TCP 445) at the network edge.
+
 ## Product name
 
 The name WeKan calls itself: the browser tab title, and the branding on the sign-in

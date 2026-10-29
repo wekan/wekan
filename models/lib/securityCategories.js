@@ -101,6 +101,11 @@ const CATALOG = {
   'xss.source':      { category: 'xss', bleed: 'SourceBleed', severity: 'high', cwe: 'CWE-79' },
   'xss.mime':        { category: 'xss', bleed: 'MimeBleed', severity: 'high', cwe: 'CWE-79' },
   'xss.input':       { category: 'xss', bleed: 'InputBleed', severity: 'medium', cwe: 'CWE-79' },
+  // A card, comment or checklist link to an operating-system handler with a
+  // code-execution history (ms-msdt:, search-ms:, telnet: ...). Never linked
+  // (models/lib/urlSchemeAllowlist.js OS_HANDLERS), so writing one is an
+  // attempt on whoever would click it, not a use of the feature.
+  'xss.handler-link': { category: 'xss', bleed: 'HandlerLink', severity: 'medium', cwe: 'CWE-939' },
   'spoofing.xff':    { category: 'spoofing', bleed: 'MetricsBleed', severity: 'medium', cwe: 'CWE-290' },
   'authz.export':    { category: 'authz', bleed: 'ImpersonateBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.import':    { category: 'authn', bleed: 'ImportBleed', severity: 'critical', cwe: 'CWE-306' },

@@ -78,6 +78,7 @@ const WIRED = [
   ['sanitize.path-traversal',          'server/lib/filenameSanitizeLog.js',           'FileNameBleed'],
   ['sanitize.dangerous-content',       'models/lib/sanitizeUploadedFile.js',          'FileBleed'],
   ['sanitize.dangerous-text',          'models/cardComments.js',                      'InputBleed'],
+  ['sanitize.handler-link',            'server/lib/handlerLinkCanary.js',             'HandlerLink'],
   // Other common attacks.
   ['spoof.forwarded-header',           'models/server/metrics.js',                    'MetricsBleed'],
   ['brute.login-lockout',              'server/apiAuthRoutes.js',                     'LockoutBleed'],

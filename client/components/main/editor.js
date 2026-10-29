@@ -6,7 +6,7 @@ import { Markdown } from 'meteor/wekan-markdown';
 import { Utils } from '/client/lib/utils';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import { internalCardPath } from '/models/lib/internalCardLink';
-import { parseAllowedUrlSchemes, hrefScheme, BUILT_IN } from '/models/lib/urlSchemeAllowlist';
+import { parseAllowedUrlSchemes, hrefScheme, BUILT_IN, NEVER_LINKED } from '/models/lib/urlSchemeAllowlist';
 import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
 
@@ -348,6 +348,10 @@ Template.viewer.events({
         const scheme = hrefScheme(href);
         if (cardPath) {
           FlowRouter.go(cardPath);
+        } else if (NEVER_LINKED.has(scheme)) {
+          // The sanitizer never lets one of these be a link; should one reach
+          // the page some other way, a click still does not launch its
+          // handler (ms-msdt:, search-ms:, telnet: ...).
         } else if (scheme && !BUILT_IN.includes(scheme)) {
           // #3218: an allowed custom scheme (thunderlink:, onenote:, ...) is
           // handed to the application registered for it by following the

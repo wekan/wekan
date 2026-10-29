@@ -30,10 +30,14 @@ const MATHML_ATTR = [
 // package cannot import app code, so it keeps this copy, and
 // tests/urlSchemeAllowlist.test.cjs checks the two agree.
 const SCHEME_NAME = /^[a-z][a-z0-9+.-]{0,31}$/;
-// Never linked whatever the list says - the same set as the app's parser.
+// Never linked whatever the list says - the same set as the app's parser:
+// schemes that run code in the page, and operating-system handlers with a
+// code-execution history (ms-msdt, search-ms, telnet ... - see OS_HANDLERS in
+// models/lib/urlSchemeAllowlist.js for why each one is there).
 const NEVER_LINKED = [
   'javascript', 'vbscript', 'livescript', 'data', 'blob', 'about', 'filesystem',
   'view-source', 'jar', 'wyciwyg', 'ms-its', 'mhtml', 'res',
+  'ms-msdt', 'search-ms', 'search', 'ms-officecmd', 'ms-appinstaller', 'ms-cxh', 'ms-cxh-full', 'telnet',
 ];
 export function linkableSchemes(schemes) {
   return (Array.isArray(schemes) ? schemes : [])

@@ -239,6 +239,10 @@ const CANARIES = {
     key: 'xss.input',
     what: 'submitted text that had to have active markup removed',
   },
+  'sanitize.handler-link': {
+    key: 'xss.handler-link',
+    what: 'wrote a link that would launch an operating-system handler with a code-execution history (ms-msdt:, search-ms:, telnet: ...)',
+  },
 
   // --- Other common attacks -------------------------------------------------
   'spoof.forwarded-header': {

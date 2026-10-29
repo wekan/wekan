@@ -100,11 +100,74 @@ async function main() {
     '"render links as plain text" still wins');
   console.log('  ok - both sanitizer passes link only the listed schemes');
 
+  // Operating-system handlers with a code-execution history are never linked,
+  // even when an administrator lists them (Follina's ms-msdt:, search-ms:,
+  // the 2026 Edge full chain's telnet: ...).
+  const { OS_HANDLERS, handlerLinkSchemes } = allowlist;
+  assert.deepEqual([...OS_HANDLERS].sort(), ['ms-appinstaller', 'ms-cxh', 'ms-cxh-full', 'ms-msdt', 'ms-officecmd',
+    'search', 'search-ms', 'telnet']);
+  for (const name of OS_HANDLERS) assert.ok(NEVER_LINKED.has(name), name);
+  assert.deepEqual(parseAllowedUrlSchemes(OS_HANDLERS.join('\n') + '\nMS-MSDT:\ntelnet://\nthunderlink'), ['thunderlink']);
+  assert.deepEqual(linkableSchemes([...NEVER_LINKED]), [], 'the package copy refuses every scheme the app refuses');
+  const packageList = read('packages/markdown/src/secureDOMPurify.js').match(/const NEVER_LINKED = \[([\s\S]*?)\];/)[1]
+    .match(/'([^']+)'/g).map(name => name.slice(1, -1)).sort();
+  assert.deepEqual(packageList, [...NEVER_LINKED].sort(), 'the two NEVER_LINKED lists are identical');
+  const handlerHtml = OS_HANDLERS.map(name => `<a href="${name}:x">${name}</a>`).join('') + '<a href="thunderlink://m">t</a>';
+  const everything = [...OS_HANDLERS, 'thunderlink'];
+  assert.deepEqual(hrefs(secureSanitize(purifier, handlerHtml, getSecureDOMPurifyConfig(everything))), ['thunderlink://m'],
+    'listing them changes nothing');
+  for (const build of [allowedUriRegExp, packageRegExp]) {
+    const rule = build(everything);
+    for (const name of OS_HANDLERS) assert.ok(!rule.test(`${name}:x`) && !rule.test(`${name.toUpperCase()}:x`), name);
+  }
+  console.log('  ok - OS handlers with a code-execution history are never linked, listed or not');
+
+  // The detector behind Admin Panel -> Problems: a LINK to one is an attempt.
+  assert.deepEqual(handlerLinkSchemes('[open](ms-msdt:/id PCWDiagnostic /skip force)'), ['ms-msdt']);
+  assert.deepEqual(handlerLinkSchemes('[x]( <ms-appinstaller:?source=https://e/x.appx>)'), ['ms-appinstaller']);
+  assert.deepEqual(handlerLinkSchemes('see <search-ms:query=x&crumb=location:\\\\e\\s>'), ['search-ms']);
+  assert.deepEqual(handlerLinkSchemes('<a href="TELNET://host">t</a> <img src=\'ms-officecmd:{}\'>'), ['ms-officecmd', 'telnet']);
+  assert.deepEqual(handlerLinkSchemes('[r]: search:query=x\n\n[go][r]'), ['search']);
+  // Negative: prose, a URL that only contains the word, and ordinary links.
+  for (const text of ['ms-msdt: Follina was CVE-2022-30190', 'search: the box at the top', '[x](https://e/ms-msdt:)',
+    '[x](mailto:a@b.c) [y](thunderlink://m)', '', null, 42]) {
+    assert.deepEqual(handlerLinkSchemes(text), [], String(text));
+  }
+  assert.deepEqual(handlerLinkSchemes('a'.repeat(250000) + '[x](ms-msdt:y)'), [], 'only the first 200000 characters');
+  console.log('  ok - a link to one is detected; the word in prose is not');
+
+  // Wiring of the detector: four kinds of card text, only what a write adds,
+  // silent, and never able to break the write.
+  const canary = read('server/lib/handlerLinkCanary.js');
+  for (const [where, field] of [['card', "'title', 'description'"], ['comment', "'text'"], ['checklist', "'title'"],
+    ['checklist item', "'title'"]]) {
+    assert.ok(canary.includes(`['${where}', `) && canary.includes(`[${field}]`), where);
+  }
+  assert.match(canary, /collection\.before\.insert\(/);
+  assert.match(canary, /collection\.before\.update\(/);
+  assert.match(canary, /tripCanary\('sanitize\.handler-link'/);
+  assert.match(canary, /catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/);
+  assert.doesNotMatch(canary, /throw |doc\[[^\]]+\]\s*=[^=]|modifier\.\$set\[[^\]]+\]\s*=[^=]/, 'it changes nothing it is given');
+  assert.match(read('server/imports.js'), /^import '\/server\/lib\/handlerLinkCanary';$/m);
+  const added = (before, after) => {
+    const had = new Set(handlerLinkSchemes(before));
+    return handlerLinkSchemes(after).filter(scheme => !had.has(scheme));
+  };
+  assert.match(canary, /const had = new Set\(handlerLinkSchemes\(before\)\);\n  return handlerLinkSchemes\(after\)\.filter\(scheme => !had\.has\(scheme\)\);/);
+  assert.deepEqual(added('', '[x](telnet://h)'), ['telnet']);
+  assert.deepEqual(added('[x](telnet://h)', '[x](telnet://h) and more text'), [], 'editing an old card records nothing');
+  assert.deepEqual(added('[x](telnet://h)', '[x](telnet://h) [y](ms-msdt:z)'), ['ms-msdt']);
+  console.log('  ok - Problems sees a link a write adds, in cards, comments and checklists');
+
   // Wiring: the setting reaches both passes and the link filter.
   const editor = read('client/components/main/editor.js');
   assert.match(editor, /parseAllowedUrlSchemes\(setting && setting\.automaticLinkedUrlSchemes\)/);
   assert.equal((editor.match(/sanitizeHTML\(content, \{ stripLinks, urlSchemes \}\)/g) || []).length, 2);
   assert.match(editor, /else if \(scheme && !BUILT_IN\.includes\(scheme\)\) \{[\s\S]*?window\.location\.assign\(href\);/);
+  // Negative: a never-linked scheme is refused at the click too, BEFORE the
+  // branch that hands a custom scheme to its application.
+  assert.ok(editor.indexOf('} else if (NEVER_LINKED.has(scheme)) {') > 0);
+  assert.ok(editor.indexOf('} else if (NEVER_LINKED.has(scheme)) {') < editor.indexOf('window.location.assign(href)'));
   const pkg = read('packages/markdown/src/template-integration.js');
   assert.match(pkg, /const urlSchemes = linkableSchemes\(Markdown\.urlSchemes\.get\(\)\);\s*syncLinkifySchemes\(urlSchemes\);/);
   assert.match(pkg, /Markdown\.validateLink = function \(url\) \{\s*if \(defaultValidateLink\.call\(this, url\)\) return true;/);

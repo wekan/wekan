@@ -524,3 +524,6 @@ import '/server/publications/scrum';
 import '/server/methods/syncRuleEmailRecovery';
 
 import '/server/lib/storedHistoryChain';
+// Card text linking to an OS handler with a code-execution history (ms-msdt:,
+// search-ms:, telnet: ...) is shown in Admin Panel -> Problems.
+import '/server/lib/handlerLinkCanary';
