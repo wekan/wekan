@@ -92,7 +92,10 @@ function cipherFor(key) {
       }
     } catch (error) {
       await fsp.rm(to, { force: true });
-      if (error.code === 'continuous-backup-key' || /auth/i.test(String(error.message))) refuse('An encrypted backup file has changed or the key is wrong');
+      // A GCM tag mismatch is "unable to authenticate data" with OpenSSL 3 and
+      // ERR_OSSL_BAD_DECRYPT ("bad decrypt") with OpenSSL 4, which a Node
+      // linked to the system OpenSSL uses.
+      if (error.code === 'continuous-backup-key' || error.code === 'ERR_OSSL_BAD_DECRYPT' || /auth/i.test(String(error.message))) refuse('An encrypted backup file has changed or the key is wrong');
       throw error;
     }
   };
