@@ -213,6 +213,12 @@ const GUARDED = {
   filenamebleed: ['tests/canaryCoverage.test.cjs', 'tests/fileNameBleedRename.test.cjs'],
   inputbleed: ['tests/canaryCoverage.test.cjs'],
   spacebleed: ['tests/canaryCoverage.test.cjs'],
+  // Published with their names already linked, which the Hall of Fame match
+  // did not read until every name was linked (2026-10-30).
+  importplacementbleed: ['tests/importPlacementBleed.test.cjs', 'tests/playwright/specs/security-import-placement.e2e.js'],
+  samlsubjectbleed: ['tests/samlIdentityBinding.test.cjs'],
+  stampbleed: ['tests/stampBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
+  uploadbleed: ['tests/uploadBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -352,14 +358,17 @@ test('the whole published list is accounted for', () => {
   // 123 -> 124: EmailBleed, published since 2021 but missed by a case-sensitive
   // match of its "Emailbleed" spelling; guarded.
   // 124 -> 137: thirteen newly published 2026-10-02 names, all guarded.
-  assert.strictEqual(total, 137, 'the Hall of Fame and this list disagree on how many there are');
+  // 137 -> 141: ImportPlacementBleed, SamlSubjectBleed, StampBleed and
+  // UploadBleed, published with linked names the match below did not read
+  // until every Hall of Fame name became a link (2026-10-30); all guarded.
+  assert.strictEqual(total, 141, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
   if (!fs.existsSync(HOF)) return;
   const html = fs.readFileSync(HOF, 'utf8');
   const published = [...new Set(
-    [...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/gi)]
+    [...html.matchAll(/<td valign="top"><b>(?:<a href="[a-z0-9]+\/">)?(\w*Bleed)(?:<\/a>)?<\/b><\/td>/gi)]
       .map(match => match[1].toLowerCase()),
   )].sort();
   const inventoried = [...Object.keys(GUARDED), ...Object.keys(RECORDED)].sort();

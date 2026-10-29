@@ -124,7 +124,7 @@ const keyed = new Set([...catalog.matchAll(/bleed: '(\w+)'/g)].map(m => m[1]));
 const hallOfFameNames = () => {
   if (!HOF) return null;
   const html = fs.readFileSync(HOF, 'utf8');
-  return [...new Set([...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/gi)]
+  return [...new Set([...html.matchAll(/<td valign="top"><b>(?:<a href="[a-z0-9]+\/">)?(\w*Bleed)(?:<\/a>)?<\/b><\/td>/gi)]
     .map(m => m[1]))].sort();
 };
 
