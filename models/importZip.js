@@ -228,11 +228,17 @@ runOnServer(function () {
       const importer = new ScopedImporter(
         { boardId, ...scope },
         doc,
-        { userId: user._id, fields, attachmentStream },
+        { userId: user._id, fields, attachmentStream, source: 'import:zip' },
       );
       const counts = await importer.run();
       answer(200, { ok: true, counts });
     } catch (error) {
+      // ImportPlacementBleed: a list, swimlane or card of another board is a
+      // bad request, answered as the REST card create answers it.
+      if (error && error.error === 'error-import-placement') {
+        answer(400, { error: error.reason });
+        return;
+      }
       const message = error && error.message === 'import-zip-too-large'
         ? 'import-zip-too-large'
         : 'import-failed';

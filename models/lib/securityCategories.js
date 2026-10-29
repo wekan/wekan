@@ -38,6 +38,11 @@ const CATALOG = {
   'authn.cas-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.inactive': { category: 'authn', bleed: 'InactiveBleed', severity: 'critical', cwe: 'CWE-613' },
   'authz.subtask-deposit': { category: 'authz', bleed: 'SubtaskDepositBleed', severity: 'high', cwe: 'CWE-639' },
+  // ImportPlacementBleed: an import into a board placed beside a list,
+  // swimlane or card of ANOTHER board. blocksAccount: false - an import menu
+  // left open while its list moved to another board reaches it too; the
+  // import is still refused and recorded.
+  'authz.import-placement': { category: 'authz', bleed: 'ImportPlacementBleed', severity: 'medium', cwe: 'CWE-639', blocksAccount: false },
   // #6798: blocksAccount: false. This refusal also fires for a member of the
   // card's OWN board whose role there (read-only, comment-only, Worker) does
   // not write, linked card or not (server/lib/linkedCardPermission.js

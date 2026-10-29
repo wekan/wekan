@@ -647,6 +647,7 @@ Meteor.methods({
     const importer = new ScopedImporter(target, safeDoc, {
       userId,
       fields,
+      source: 'method:importScoped',
     });
     return withDeadline(
       importer.run(),

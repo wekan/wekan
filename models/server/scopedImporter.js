@@ -9,6 +9,7 @@ import ChecklistItems from '/models/checklistItems';
 import CustomFields from '/models/customFields';
 import { sortsAfter } from '/models/lib/insertPosition';
 import { CARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
+const { importPlacementError } = require('/models/lib/importPlacement');
 
 // Import a WeKan export INTO an existing board, beside the thing whose menu it
 // was started from (#1173).
@@ -46,6 +47,10 @@ class ScopedImporter {
     // stream for one attachment, so a large file is piped from the archive
     // instead of arriving as base64 in the document.
     this._attachmentStream = options.attachmentStream || null;
+    // Which route asked, for the Admin Panel → Problems record of a refusal.
+    this._source = options.source || 'import:scoped';
+    // The card whose menu was used, found ON the board by run().
+    this._targetCard = null;
     // Old id -> new id, so a card's checklists and comments find it again.
     this._cardIdMap = {};
     // Where each new card landed, so an attachment's meta points at the list and
@@ -73,6 +78,7 @@ class ScopedImporter {
   async run() {
     const board = await ReactiveCache.getBoard(this._target.boardId);
     if (!board) throw new Meteor.Error('board-not-found', 'Board not found');
+    await this._checkPlacement(board);
 
     if (this._target.cardId) await this._importCards(board);
     else if (this._target.listId) await this._importLists(board);
@@ -80,6 +86,31 @@ class ScopedImporter {
     else await this._importSwimlanes(board);
 
     return this._counts;
+  }
+
+  // ImportPlacementBleed: the list, swimlane and card the import is placed
+  // beside are looked up ON this board - the caller was authorized for the
+  // board, not for whatever ids came with it. An id of another board is
+  // refused before anything is written, as the REST card create refuses it.
+  async _checkPlacement(board) {
+    const t = this._target;
+    const found = {
+      list: t.listId ? await ReactiveCache.getList({ _id: t.listId, boardId: board._id }) : null,
+      swimlane: t.swimlaneId ? await ReactiveCache.getSwimlane({ _id: t.swimlaneId, boardId: board._id }) : null,
+      card: t.cardId ? await ReactiveCache.getCard({ _id: t.cardId, boardId: board._id }) : null,
+    };
+    const wrong = importPlacementError({ ...t, boardId: board._id }, found);
+    if (wrong) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.import-placement', action: 'blocked', source: this._source,
+          userId: this._userId || undefined,
+          detail: `Import into board ${board._id} refused: ${wrong} is not on that board`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('error-import-placement', `${wrong} does not belong to this board.`);
+    }
+    this._targetCard = found.card;
   }
 
   // ── swimlanes ─────────────────────────────────────────────────────────────
@@ -178,13 +209,19 @@ class ScopedImporter {
 
     // Where a card lands when the document does not say, or says something this
     // board does not have: the list and swimlane the menu was opened in.
-    const targetCard = this._target.cardId
-      ? await ReactiveCache.getCard(this._target.cardId)
+    // Each of these was found on THIS board by _checkPlacement(); a raw id
+    // from the request is never written onto a card.
+    const targetCard = this._targetCard;
+    const targetList = this._target.listId && !targetCard
+      ? await ReactiveCache.getList({ _id: this._target.listId, boardId: board._id })
       : null;
-    const fallbackListId = this._target.listId
+    const targetSwimlane = this._target.swimlaneId && !targetCard
+      ? await ReactiveCache.getSwimlane({ _id: this._target.swimlaneId, boardId: board._id })
+      : null;
+    const fallbackListId = (targetList && targetList._id)
       || (targetCard && targetCard.listId)
       || (await ReactiveCache.getLists({ boardId: board._id }, { sort: { sort: 1 } }))[0]?._id;
-    const fallbackSwimlaneId = this._target.swimlaneId
+    const fallbackSwimlaneId = (targetSwimlane && targetSwimlane._id)
       || (targetCard && targetCard.swimlaneId)
       || (await ReactiveCache.getSwimlanes({ boardId: board._id }, { sort: { sort: 1 } }))[0]?._id;
 
