@@ -64,3 +64,34 @@ test('search offers no disabled account, and finds a colleague behind five other
   expect(names.length).toBeLessThanOrEqual(5);
   db.deleteMany('users', { _id: { $in: disabled } });
 });
+
+// #6831: an address with no account yet. createUser was not awaited, so the
+// board got the first user of the database - the site administrator - and
+// the invitee nothing.
+test('a new address is invited as a new account, and nobody else joins the board', async ({ boardPage: page, board, user }) => {
+  const settings = db.findOne('settings', {});
+  const disabled = settings && settings.disableRegistration;
+  if (settings && disabled) db.updateOne('settings', { _id: settings._id }, { $set: { disableRegistration: false } });
+  const email = `e2e_new_${Date.now()}@wekan-test.invalid`;
+  const before = new Set((db.findOne('boards', { _id: board.boardId }).members || []).map(m => m.userId));
+  const firstUser = db.find('users', {})[0];
+  const sink = process.env.WEKAN_TEST_SMTP_PORT ? await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT)) : null;
+  let result;
+  try {
+    result = await call(page, 'inviteUserToBoard', email, board.boardId);
+  } finally {
+    if (sink) await sink.close();
+    if (settings && disabled) db.updateOne('settings', { _id: settings._id }, { $set: { disableRegistration: true } });
+  }
+  expect(result.error).toBeUndefined();
+  const invitee = db.findOne('users', { 'emails.address': email });
+  expect(invitee).toBeTruthy();
+  const added = (db.findOne('boards', { _id: board.boardId }).members || []).filter(m => !before.has(m.userId));
+  expect(added.map(m => m.userId)).toEqual([invitee._id]);
+  // negative: the first user of the database was not touched in its place
+  if (firstUser && firstUser._id !== user.id && firstUser._id !== invitee._id) {
+    const now = db.findOne('users', { _id: firstUser._id });
+    expect((now.profile && now.profile.invitedBoards) || []).not.toContain(board.boardId);
+  }
+  db.deleteMany('users', { _id: invitee._id });
+});

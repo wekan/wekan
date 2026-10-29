@@ -59,6 +59,8 @@ function loadReactiveCache({ isServer, cardsStub, dataCacheLog }) {
   // collections a test actually touches need to resolve.
   const requireStub = id => {
     if (id === '/models/cards') return { default: cardsStub };
+    // The real guard: ReactiveCacheServer's getters are wrapped by it (#6831).
+    if (id === '/models/lib/selectorGuard') return require('../models/lib/selectorGuard');
     return { default: {} };
   };
 

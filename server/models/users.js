@@ -1606,7 +1606,7 @@ Meteor.methods({
     if (typeof Accounts.setPasswordAsync === 'function') {
       await Accounts.setPasswordAsync(userId, newPassword);
     } else if (typeof Accounts.setPassword === 'function') {
-      Accounts.setPassword(userId, newPassword);
+      await Accounts.setPassword(userId, newPassword);
     } else {
       throw new Meteor.Error('set-password-unavailable', 'Accounts password API is not available');
     }
@@ -1707,13 +1707,23 @@ Meteor.methods({
       if (username.includes('/') || email.includes('/')) {
         return false;
       }
-      const newUserId = Accounts.createUser({ username, email });
+      // Meteor 3: createUser is async on the server. Without the await this was
+      // a Promise, which getUser() read as {} - the first user, the site admin,
+      // was added to the board instead of the invitee (#6831).
+      const newUserId = await Accounts.createUser({ username, email });
       if (!newUserId) throw new Meteor.Error('error-user-notCreated');
       if (inviter.profile && inviter.profile.language) {
         await Users.updateAsync(newUserId, { $set: { 'profile.language': inviter.profile.language } });
       }
-      Accounts.sendEnrollmentEmail(newUserId);
+      // Awaited so a failure is caught here, not an unhandled rejection; the
+      // invite itself still goes ahead, like the invitation email below.
+      try {
+        await Accounts.sendEnrollmentEmail(newUserId);
+      } catch (e) {
+        console.error('inviteUserToBoard: enrollment email failed', e && e.message ? e.message : e);
+      }
       user = await ReactiveCache.getUser(newUserId);
+      if (!user || user._id !== newUserId) throw new Meteor.Error('error-user-notCreated');
       isNewUser = true;
     }
 

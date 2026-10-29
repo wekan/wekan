@@ -5,6 +5,7 @@ import { KeyedGroupIndex } from '/imports/lib/keyedGroupIndex';
 import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
 const { publicCommentOptions } = require('/models/lib/commentPrivateFields');
 const { applyCardFieldVisibility } = require('/models/lib/cardFieldVisibility');
+const { guardSelectorMethods } = require('/models/lib/selectorGuard');
 
 function lazyCollectionProxy(loadCollection) {
   return new Proxy(
@@ -377,6 +378,8 @@ const ReactiveCacheServer = {
     return ret;
   },
 };
+// A Promise given for an id reads as {} and finds the first document (#6831).
+guardSelectorMethods(ReactiveCacheServer);
 
 // only the Client is reactive
 // saving the result has a big advantage if the query is big and often searched for the same data again and again
