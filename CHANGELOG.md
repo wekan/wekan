@@ -183,6 +183,20 @@ new build answered "Could not find repository at path".
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca2dc5fae5">The Sandstorm build installs Sandstorm from install.sandstorm.org</a>. Thanks to xet7.</summary>
+
+v12.69's Sandstorm build stopped because the certificate of
+install.sandstorm.io had expired. The Release All job fetches the installer
+from install.sandstorm.org, as the standalone Sandstorm workflows already did,
+and so does `releases/install-sandstorm.sh`. That installer downloads Sandstorm
+from dl.sandstorm.org and sets up a development server at local.sandstorm.org,
+so the docs and code comments link sandstorm.org too, each address checked;
+only the demo stays on sandstorm.io, which has no sandstorm.org name.
+`tests/sandstormOrgHosts.test.cjs` keeps it that way.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6bbb4d39bc">A download whose TLS certificate cannot be verified is named as that, not as an outage</a>. Thanks to xet7.</summary>
 
 v12.69's Sandstorm build stopped because the certificate of
