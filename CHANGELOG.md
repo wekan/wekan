@@ -123,6 +123,63 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A card link can no longer launch an operating-system handler with
+a code-execution history, such as **ms-msdt** (Follina) or **telnet**, even if
+an administrator lists it, and an attempt to write one shows in **Admin Panel →
+Problems**. The **Apache** guide follows the 2024 Confusion Attacks, and the
+Sandstorm store build publishes to **both app markets**.
+
+This release has the following security hardening:
+
+**Card links** - which custom URL schemes may become clickable.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4e5f90afb">A card link never launches an OS handler with a code-execution history, even when listed</a>. Thanks to xet7.</summary>
+
+Custom URL schemes link only when Admin Panel → Features → URL lists them, and
+never `javascript:` or another scheme that runs code in the page. A listed
+operating-system handler was linked, though, and some have a public
+code-execution history: `ms-msdt` (Follina, CVE-2022-30190), `search-ms`,
+`search`, `ms-officecmd`, `ms-appinstaller`, `ms-cxh`, `ms-cxh-full` and
+`telnet`, the last step of a 2026 browser full chain. They are never linked now,
+by the app and by the markdown package, and a click on one does nothing. A card,
+comment or checklist that adds a link to one shows in Admin Panel → Problems as
+HandlerLink, with who wrote it. The Visibility docs say what a listed `file:`
+does on Windows. `tests/urlSchemeAllowlist.test.cjs` and
+`custom-url-schemes.e2e.js` (Chromium and WebKit) pin it.
+
+</details>
+
+**Apache** - the reverse proxy guide.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a97c8bd86">The Apache guide asks for httpd 2.4.60 and builds no proxy target from the request</a>. Thanks to xet7.</summary>
+
+Checked against the 2024 Confusion Attacks on Apache httpd (CVE-2024-38472 to
+CVE-2024-38477 and CVE-2024-39573, fixed in 2.4.60). The examples passed the
+WebSocket with `ProxyPassMatch` and `$1`, a request capture in a proxy target,
+and the sub-URL one never matched its WebSocket at all. Both use
+`ProxyPass ... upgrade=websocket` now, and a new section lists what not to add.
+Verified with Apache 2.4.67 in front of a WebSocket server, at `/` and at
+`/wekan`; `tests/apacheReverseProxy.test.cjs` pins it.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Sandstorm** - publishing the Sandstorm package.
+
+- [The store build publishes WeKan to both Sandstorm app markets](https://github.com/wekan/wekan/commit/10851cd3f4),
+  apps.sandstorm.org and apps.sandstorm.io. Thanks to ocdtrekkie.
+- [Fix the publish command's argument order](https://github.com/wekan/wekan/commit/2c1fc39f61).
+  Thanks to ocdtrekkie and xet7.
+- [The sandstorm.org host test allows that publish step](https://github.com/wekan/wekan/commit/55b71ce19e),
+  and checks both markets are published to. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.71 2026-10-30 WeKan ® release
 
 **In short:** The **Sandstorm** build installs Sandstorm from
