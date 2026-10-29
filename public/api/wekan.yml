@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.67
+  version: v12.68
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5638,6 +5638,38 @@ definitions:
           type: string
           x-nullable: true
         x-nullable: true
+      cardSettingsSectionOrder:
+        description: |
+           The order of the Card Settings sections (models/lib/cardSettingsSections.js ids)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      minicardSettingsSectionOrder:
+        description: |
+           The order of the Card Settings sections on the minicard (models/lib/cardSettingsSections.js ids)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      cardSettingsHiddenOnCard:
+        description: |
+           The Card Settings sections (models/lib/cardSettingsSections.js ids) not shown on the opened card
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      cardSettingsHiddenOnMinicard:
+        description: |
+           The Card Settings sections (models/lib/cardSettingsSections.js ids) not shown on the minicard
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       cardFieldsAlwaysShown:
         description: |
            The opened card's fields shown on every card, even when empty
@@ -7011,9 +7043,7 @@ definitions:
         x-nullable: true
       shownFields:
         description: |
-           the fields this card shows although they are empty, ticked in the opened
-           card's "+ Add" (docs/Features/Cards/Card-Fields.md,
-           models/lib/cardShownFields.js)
+           legacy, not read: the fields this card once chose to show although empty
         type: array
         items:
           type: string
@@ -7021,7 +7051,7 @@ definitions:
         x-nullable: true
       hiddenFields:
         description: |
-           the fields this card hides although they have data, unticked in "+ Add"
+           legacy, not read: the fields this card once chose to hide
         type: array
         items:
           type: string
@@ -8746,6 +8776,12 @@ definitions:
            fifty workspaces with two folded is two keys.
            docs/Features/All-Boards/Workspaces.md
         type: object
+      cardSettingsSplit:
+        description: |
+           the share (0..1) of Card Settings' width the Minicard pane takes beside
+           the Card pane, set by dragging the splitter between them. Unset = half
+           and half. models/lib/cardSettingsSplit.js
+        type: number
       leftMenuWidth:
         description: |
            user-chosen width (px) of that same left menu, set by dragging its inner
