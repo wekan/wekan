@@ -230,7 +230,11 @@ test('nested dates survive JSON History transport without converting strings or 
     { _id: 'text', value: '1970-01-01T00:00:01.234Z' }, { _id: 'number', value: 1234 },
     { _id: 'nested', value: { dates: [new Date(0), null] } }];
   const content = contentForField('customFields', value);
-  assert.deepEqual(content.datePaths, [['0', 'value'], ['3', 'value', 'dates', '0']]);
+  // #6832: each path is a JSON string, so a row holds no array inside an
+  // array - FerretDB v1 refused the earlier [['0', 'value'], ...] and the
+  // History row was lost. (A deliberate change of the stored form.)
+  assert.deepEqual(content.datePaths, ['["0","value"]', '["3","value","dates","0"]']);
+  assert.ok(!content.datePaths.some(Array.isArray), 'negative: no nested array');
   const transported = JSON.parse(JSON.stringify(content));
   assert.deepEqual(valueFromContent(transported), value);
   assert.equal(typeof transported.value[0].value, 'number', 'restore must not mutate stored evidence');
@@ -241,7 +245,8 @@ test('nested dates survive JSON History transport without converting strings or 
 });
 test('malformed nested-date metadata cannot traverse inherited properties or coerce values', () => {
   for (const datePaths of [null, 'bad', [[]], [[0, 'value']], [['missing']], [['toString']],
-    [['0', 'value'], ['0', 'value']]]) {
+    [['0', 'value'], ['0', 'value']], ['bad'], ['[]'], ['[0,"value"]'], ['"0"'], ['{}'],
+    ['["0","value"]', ['0', 'value']]]) {
     assert.throws(() => valueFromContent({ value: [{ value: 0 }], datePaths }), /History date/);
   }
   for (const value of ['0', null, Infinity, 9e20]) {
@@ -253,6 +258,34 @@ test('malformed nested-date metadata cannot traverse inherited properties or coe
   assert.ok(result.__proto__.value instanceof Date);
   assert.equal(Object.prototype.value, undefined);
   assert.deepEqual(valueFromContent({ value: [{ value: '2026-01-01' }] }), [{ value: '2026-01-01' }]);
+});
+
+test('#6832: rows written before the string form still restore, and copy to FerretDB as strings', () => {
+  const { withStringDatePaths } = require('../models/lib/changeHistoryGroups');
+  // A MongoDB row from before: the path as an array.
+  const legacy = { value: [{ value: 1234 }], datePaths: [['0', 'value']] };
+  assert.deepEqual(valueFromContent(legacy), [{ value: new Date(1234) }]);
+  const row = { _id: 'h1', previousContent: { ...legacy }, newContent: { value: [{ value: 5 }], datePaths: [['0', 'value']] } };
+  const copied = withStringDatePaths(row);
+  assert.deepEqual(copied.previousContent.datePaths, ['["0","value"]']);
+  assert.deepEqual(copied.newContent.datePaths, ['["0","value"]']);
+  assert.deepEqual(valueFromContent(copied.newContent), [{ value: new Date(5) }]);
+  assert.deepEqual(row.newContent.datePaths, [['0', 'value']], 'the source row is not changed');
+  const deepArrays = JSON.stringify(copied).match(/\[\s*\[/);
+  assert.equal(deepArrays, null, 'negative: no array inside an array is left in the row');
+  // Rows with nothing to rewrite are returned as they are.
+  for (const plain of [{ _id: 'h2', newContent: { value: 'x' } }, { _id: 'h3', newContent: { value: [], datePaths: ['["0"]'] } }, null]) {
+    assert.equal(withStringDatePaths(plain), plain);
+  }
+});
+
+test('#6832: the text migration counts what the target refused, and does not report success then', () => {
+  const src = require('fs').readFileSync(require('path').join(__dirname, '..', 'server/methods/migrateTextDatabase.js'), 'utf8');
+  assert.ok(!/catch \(_\) \{\}\s*\}\s*\}/.test(src), 'negative: no per-document error swallowed');
+  assert.match(src, /progress\.failed \+= 1;/);
+  assert.match(src, /if \(progress\.failed\) \{[\s\S]{0,200}throw new Error/);
+  assert.ok(src.indexOf('if (progress.failed)') < src.indexOf("progress.success = true;"), 'checked before success');
+  assert.match(src, /direction === 'toFerretDB' && name === 'changeHistory' \? withStringDatePaths/);
 });
 
 console.log(`changeHistoryGroups: ${passed} tests passed`);

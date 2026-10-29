@@ -152,13 +152,16 @@ function contentForField(field, value) {
 
 // JSON invokes Date.toJSON before a replacer sees it. Visit the original tree
 // and record explicit paths instead; ISO-looking user strings remain strings.
+// Each path is stored as a JSON string, '["3","value"]': FerretDB v1 rejects an
+// array inside an array, and an array of path arrays lost the whole History row
+// there (#6832). A JSON string cannot be mistaken whatever the keys contain.
 function nestedContent(field, value) {
   const datePaths = [];
   const ancestors = new Set();
   function encode(item, path) {
     if (item instanceof Date) {
       if (!Number.isFinite(item.getTime())) throw new Error('Invalid History date');
-      datePaths.push(path);
+      datePaths.push(JSON.stringify(path));
       return item.getTime();
     }
     if (!item || typeof item !== 'object') return item;
@@ -174,6 +177,28 @@ function nestedContent(field, value) {
   return { field, value: encoded, ...(datePaths.length ? { datePaths } : {}) };
 }
 
+function parseDatePath(stored) {
+  try { return JSON.parse(stored); } catch (_) { throw new Error('Invalid History date path'); }
+}
+
+/*
+ * A changeHistory row with the pre-#6832 array-of-arrays datePaths, rewritten
+ * to the string form FerretDB v1 stores. Used when a database is copied to
+ * FerretDB; anything else is returned as it is, the same object.
+ */
+function withStringDatePaths(row) {
+  if (!row || typeof row !== 'object') return row;
+  let copy = row;
+  for (const side of ['previousContent', 'newContent']) {
+    const content = row[side];
+    if (!content || typeof content !== 'object' || !Array.isArray(content.datePaths)) continue;
+    if (!content.datePaths.some(Array.isArray)) continue;
+    if (copy === row) copy = { ...row };
+    copy[side] = { ...content, datePaths: content.datePaths.map(p => (Array.isArray(p) ? JSON.stringify(p) : p)) };
+  }
+  return copy;
+}
+
 /* Turn stored content back into the value to write. The inverse of the above. */
 function valueFromContent(content) {
   if (!content || typeof content !== 'object') return undefined;
@@ -185,7 +210,9 @@ function valueFromContent(content) {
     if (!Array.isArray(content.datePaths)) throw new Error('Invalid History date paths');
     const value = JSON.parse(JSON.stringify(content.value));
     const seen = new Set();
-    for (const path of content.datePaths) {
+    for (const stored of content.datePaths) {
+      // A row written before #6832 on MongoDB holds the path as an array.
+      const path = typeof stored === 'string' ? parseDatePath(stored) : stored;
       if (!Array.isArray(path) || !path.length || path.some(key => typeof key !== 'string')) {
         throw new Error('Invalid History date path');
       }
@@ -307,6 +334,7 @@ module.exports = {
   contentForField,
   contentForDirection,
   valueFromContent,
+  withStringDatePaths,
   changed,
   diffFields,
   FIELDS_BY_ENTITY,

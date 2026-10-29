@@ -19,7 +19,8 @@ test('History restores date-valued custom fields as BSON dates while preserving 
     await page.evaluate(({ cardId, checkboxId }) => Meteor.callAsync('setCardCustomFieldCheckbox', cardId, checkboxId, true),
       { cardId: card._id, checkboxId });
     const row = db.findOne('changeHistory', { cardId: card._id, group: 'customFields', changeType: 'edited' });
-    expect(row.newContent.datePaths).toEqual([['0', 'value']]);
+    // #6832: a JSON string per path, not an array inside an array (FerretDB v1).
+    expect(row.newContent.datePaths).toEqual(['["0","value"]']);
     // Change the saved card independently; restoring the recorded row must
     // decode its date metadata, not infer types from date-looking strings.
     db.updateOne('cards', { _id: card._id }, { $set: { customFields: [] } });

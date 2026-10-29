@@ -5,6 +5,7 @@ import { MongoClient } from 'mongodb';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { repairAllBoards } from '/server/lib/repairBoardData';
 import { setTextMigrationStatus } from '/server/lib/systemStatus';
+import { withStringDatePaths } from '/models/lib/changeHistoryGroups';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments: migrate the TEXT-based data (everything that is NOT
@@ -46,6 +47,7 @@ const progress = {
   collection: '', collDone: 0, collTotal: 0,
   collectionsDone: 0, collectionsTotal: 0,
   boardsDone: 0, boardsTotal: 0, repaired: null,
+  failed: 0, failedByCollection: {},
   startedAt: null, finishedAt: null, success: null, error: '',
 };
 
@@ -68,6 +70,8 @@ async function copyTextData(direction) {
   progress.boardsDone = 0; progress.boardsTotal = 0; progress.repaired = null;
   progress.startedAt = new Date().toISOString();
   progress.finishedAt = null; progress.success = null; progress.error = '';
+  progress.failed = 0; progress.failedByCollection = {};
+  let firstFailure = '';
   await setTextMigrationStatus(progress);
 
   const srcDb = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
@@ -109,16 +113,32 @@ async function copyTextData(direction) {
 
       const cursor = src.find({});
       let batch = [];
+      // A document the target refuses is COUNTED, not skipped in silence: the
+      // run reports success only when every document arrived (#6832, where 6
+      // History rows were lost and the migration still said it succeeded).
       const flush = async () => {
         if (!batch.length) return;
         const ops = batch.map(d => ({ replaceOne: { filter: { _id: d._id }, replacement: d, upsert: true } }));
         try { await tgt.bulkWrite(ops, { ordered: false }); }
-        catch (e) { /* fall back per-doc */ for (const d of batch) { try { await tgt.replaceOne({ _id: d._id }, d, { upsert: true }); } catch (_) {} } }
+        catch (e) {
+          /* fall back per-doc */
+          for (const d of batch) {
+            try { await tgt.replaceOne({ _id: d._id }, d, { upsert: true }); }
+            catch (err) {
+              progress.failed += 1;
+              progress.failedByCollection[name] = (progress.failedByCollection[name] || 0) + 1;
+              if (!firstFailure) firstFailure = `${name} ${d._id}: ${String(err && err.message ? err.message : err).slice(0, 300)}`;
+            }
+          }
+        }
         progress.collDone += batch.length;
         batch = [];
       };
+      // History rows written on MongoDB before #6832 hold datePaths as arrays
+      // of arrays, which FerretDB v1 rejects; they travel in the string form.
+      const prepare = direction === 'toFerretDB' && name === 'changeHistory' ? withStringDatePaths : d => d;
       for await (const doc of cursor) {
-        batch.push(doc);
+        batch.push(prepare(doc));
         if (batch.length >= BATCH) await flush();
       }
       await flush();
@@ -126,6 +146,10 @@ async function copyTextData(direction) {
       progress.collectionsDone += 1;
     }
 
+    if (progress.failed) {
+      const per = Object.entries(progress.failedByCollection).map(([c, n]) => `${c} ${n}`).join(', ');
+      throw new Error(`${progress.failed} documents were not copied (${per}). First: ${firstFailure}`);
+    }
     progress.phase = 'completed';
     progress.success = true;
   } catch (e) {

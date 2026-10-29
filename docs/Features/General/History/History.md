@@ -174,6 +174,14 @@ whatever the entity. One document per change:
 Field snapshots preserve nested Date values with millisecond values and explicit
 `datePaths` metadata inside the content. This keeps date-valued custom fields
 as dates after JSON transport and restore, while ISO-looking text remains text.
+Each path is stored as a JSON string, `'["3","value"]'`, not as an array:
+FerretDB v1 does not store an array inside an array, and a row with
+`[["3","value"]]` was refused there and the change was not recorded (#6832).
+Rows written in the array form on MongoDB still restore, and Admin Panel →
+Attachments → database migration rewrites them to strings on the way to
+FerretDB. That migration counts every document the target refuses and
+reports the run as failed, with the count per collection, instead of
+success.
 Malformed paths or values are rejected instead of coercing data during restore.
 Older rows without this metadata keep their original interpretation: dates
 already flattened to strings cannot safely be distinguished from actual text.
