@@ -125,9 +125,13 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the **OpenBSD** bundle starts again.
+**In short:** the **OpenBSD** bundle starts again, and **History** works on
+**FerretDB**: date custom field changes are recorded there, and the database
+migration says when documents did not arrive instead of reporting success.
 
 This release fixes the following bugs:
+
+**Bundles** - starting WeKan on the BSDs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec6cf66bff">The OpenBSD bundle starts again, start-wekan.sh takes only a number from sysctl</a>. Thanks to xet7.</summary>
@@ -140,6 +144,28 @@ answered (the v12.68 BSD bundles job). Both `start-wekan.sh` copies now try
 `hw.physmem` in turn and take the first numeric answer.
 `tests/macosShellPortability.test.cjs` runs those lines against fake OpenBSD,
 NetBSD and macOS `sysctl`s, and shows the old chain failing on the OpenBSD one.
+
+</details>
+
+**History on FerretDB** - what the History of a card keeps, and what the
+database migration copies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01968fc637">Date custom field changes are recorded on FerretDB, and the migration reports refused documents</a>. Thanks to vijlautens and xet7.</summary>
+
+A History row of a date-valued custom field held `datePaths` as an array of
+path arrays, `[["3","value"]]`. FerretDB v1 does not store an array inside an
+array, so on FerretDB the change was not recorded, and the text database
+migration to FerretDB dropped those rows while it swallowed the per-document
+error and still reported success
+([#6832](https://github.com/wekan/wekan/issues/6832)). Each path is now a JSON
+string, `'["3","value"]'`; rows already written in the array form on MongoDB
+still restore, and the migration to FerretDB rewrites them to strings. The
+migration counts every document the target refuses and ends as failed, with the
+count per collection and the first error. `tests/changeHistoryGroups.test.cjs`
+pins the string form, the legacy restore, the rewrite with no array left inside
+an array, and that a refused document is counted before success;
+`history-nested-dates.e2e.js` checks the stored row.
 
 </details>
 
