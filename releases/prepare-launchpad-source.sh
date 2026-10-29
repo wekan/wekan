@@ -19,12 +19,15 @@ snapshot_date=$(git -C "$root" show -s --format=%cI HEAD)
 # app comes from the release .zip. Uploading it, and the `wekan` part copying
 # it (source: .), cost every Launchpad leg time on its slowest builders.
 # tests/releaseSnapLaunchpadFlatten.test.cjs checks this list covers every
-# project path snapcraft.yaml refers to.
+# project path snapcraft.yaml refers to, and every releases/ file a listed
+# script sources or runs: v12.69's armhf and s390x builds had fetch.sh without
+# the tools-env.sh it sources, so it had no TMPDIR and curl got an empty -o.
 SNAP_SOURCE_PATHS=(
   snapcraft.yaml
   snap
   snap-src
   releases/fetch.sh
+  releases/tools-env.sh
   releases/check-telemetry.py
   releases/risk-baseline.json
   releases/migrate-mongodb-to-ferretdb.mjs

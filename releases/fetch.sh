@@ -68,7 +68,13 @@ if [ -z "$url" ] || { [ "$mode" = download ] && [ -z "$out" ]; }; then
     exit 2
 fi
 
-tmp=$(mktemp "$TMPDIR/wekan.XXXXXX")
+tmp=$(mktemp "${TMPDIR:-/nonexistent}/wekan.XXXXXX" 2>/dev/null) || tmp=""
+if [ -z "$tmp" ]; then
+    # v12.69's Launchpad builds went on with an empty name, and curl answered
+    # "option -o: is badly used here" seven times, called an outage.
+    echo "::error::fetch.sh has no temporary directory (TMPDIR '${TMPDIR:-}'): releases/tools-env.sh is missing or could not make .tools/tmp. Nothing was downloaded from $url." >&2
+    exit 2
+fi
 trap 'rm -f "$tmp"' EXIT
 
 attempt=1
@@ -81,6 +87,12 @@ while : ; do
             --connect-timeout "$connect_timeout" "$@" "$url")
     fi
     rc=$?
+    # curl exit 2 is "failed to initialize": it never reached the server, so a
+    # retry cannot change the answer and it is not an outage.
+    if [ "$rc" -eq 2 ]; then
+        echo "::error::curl could not start for $url (exit 2, a bad command line) - not an outage, nothing was retried." >&2
+        exit 2
+    fi
 
     # 000 is curl's "no HTTP response at all" - DNS, TLS, a dropped connection.
     case "$code" in

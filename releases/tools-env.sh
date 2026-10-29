@@ -34,8 +34,11 @@ WEKAN_TOOLS_DIR="${WEKAN_TOOLS_DIR:-$WEKAN_DIR/.tools}"
 # A copy of the tree without .git is one too - the snap variants' project dir
 # (/root/project) is, and without a .tools/tmp there every fetch.sh in their
 # snapcraft.yaml stopped at "TMPDIR: unbound variable" (v12.66).
+# The Launchpad snap source (releases/prepare-launchpad-source.sh) is only
+# snapcraft.yaml and the files it reads, with no package.json.
 if [ -e "$WEKAN_DIR/.git" ] || [ -d "$WEKAN_TOOLS_DIR" ] \
-  || { [ -f "$WEKAN_DIR/package.json" ] && [ -f "$WEKAN_DIR/releases/tools-env.sh" ]; }; then
+  || { [ -f "$WEKAN_DIR/package.json" ] && [ -f "$WEKAN_DIR/releases/tools-env.sh" ]; } \
+  || { [ -f "$WEKAN_DIR/snapcraft.yaml" ] && [ -f "$WEKAN_DIR/releases/tools-env.sh" ]; }; then
   mkdir -p "$WEKAN_TOOLS_DIR/tmp" 2>/dev/null || true
 fi
 

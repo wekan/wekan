@@ -106,3 +106,39 @@ test('the uploaded list covers every project path snapcraft.yaml refers to', () 
   for (const ref of refs) assert.ok(covered(ref), `snapcraft.yaml reads ${ref}, which is not uploaded to Launchpad`);
   for (const l of listed) assert.ok(fs.existsSync(path.join(root, l)), `${l} is listed but does not exist`);
 });
+
+// v12.69 armhf and s390x: fetch.sh was uploaded without the tools-env.sh it
+// sources, so in the Launchpad build it had no TMPDIR, mktemp made nothing and
+// curl got an empty -o seven times ("option -o: is badly used here"). A listed
+// script's own releases/ dependencies must be listed too.
+test('every releases/ file a listed script sources or runs is uploaded as well', () => {
+  const script = fs.readFileSync(helper, 'utf8');
+  const listed = script.split('SNAP_SOURCE_PATHS=(')[1].split(')')[0].split(/\s+/).filter(Boolean);
+  assert.ok(listed.includes('releases/tools-env.sh'));
+  for (const l of listed.filter(f => /\.(sh|mjs|py)$/.test(f))) {
+    const text = fs.readFileSync(path.join(root, l), 'utf8');
+    for (const m of text.matchAll(/(?:^|[\s;])(?:\.|source|bash|node|python3)\s+"?\$\(dirname "\$\{BASH_SOURCE\[0\]\}"\)\/([A-Za-z0-9_.-]+)"?/gm)) {
+      assert.ok(listed.includes(`releases/${m[1]}`), `${l} uses releases/${m[1]}, which is not uploaded to Launchpad`);
+    }
+  }
+});
+
+test('negative: in the uploaded tree, with no .git and no TMPDIR, tools-env.sh gives a TMPDIR inside it', () => {
+  const tmp = path.join(root, '.tools/tmp'); fs.mkdirSync(tmp, { recursive: true });
+  const dir = fs.mkdtempSync(path.join(tmp, 'launchpad-tree-test-'));
+  try {
+    // What Launchpad builds from: snapcraft.yaml and releases/, nothing else.
+    fs.writeFileSync(path.join(dir, 'snapcraft.yaml'), 'name: wekan\n');
+    fs.mkdirSync(path.join(dir, 'releases'));
+    for (const f of ['fetch.sh', 'tools-env.sh']) fs.copyFileSync(path.join(root, 'releases', f), path.join(dir, 'releases', f));
+    const env = { PATH: process.env.PATH, HOME: dir };
+    const r = spawnSync('bash', ['-c', '. releases/tools-env.sh && printf %s "$TMPDIR" && t=$(mktemp "$TMPDIR/x.XXXXXX") && test -n "$t"'],
+      { cwd: dir, encoding: 'utf8', env });
+    assert.equal(r.status, 0, r.stderr);
+    assert.equal(fs.realpathSync(r.stdout), fs.realpathSync(path.join(dir, '.tools/tmp')));
+    // fetch.sh itself gets past its TMPDIR: a missing URL is a clean answer.
+    const f = spawnSync('bash', ['releases/fetch.sh', '--optional', '-o', 'out', 'http://127.0.0.1:9/none'],
+      { cwd: dir, encoding: 'utf8', env: { ...env, FETCH_SLEEPS: '0' } });
+    assert.doesNotMatch(f.stderr, /unbound variable|No such file|badly used|blank argument/, f.stderr);
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});

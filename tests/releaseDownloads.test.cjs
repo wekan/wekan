@@ -107,6 +107,27 @@ test('a download still follows a stricter umask (negative)', () => {
   assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '600');
 });
 
+test('no temporary directory stops at once, with the reason (negative, v12.69 Launchpad)', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
+  // A TMPDIR inside .tools is kept as it is (tools-env.sh), so one that does
+  // not exist leaves mktemp nothing to make - as Launchpad's missing one did.
+  const r = run(['-o', path.join(dir, 'x'), `${base}/ok`], { TMPDIR: path.join(dir, 'missing'), FETCH_SLEEPS: '30' });
+  assert.strictEqual(r.status, 2);
+  assert.match(r.stderr, /has no temporary directory/);
+  assert.doesNotMatch(r.stderr, /badly used|blank argument|::warning::/, 'curl is never handed an empty -o');
+  assert.ok(!fs.existsSync(path.join(dir, 'x')));
+});
+
+test('a curl that cannot start is not retried as an outage (negative)', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
+  const bin = path.join(dir, 'bin'); fs.mkdirSync(bin);
+  fs.writeFileSync(path.join(bin, 'curl'), '#!/bin/sh\necho "curl: option -o: is badly used here" >&2\nexit 2\n', { mode: 0o755 });
+  const r = run(['-o', path.join(dir, 'x'), `${base}/ok`], { PATH: `${bin}:${process.env.PATH}`, FETCH_SLEEPS: '30' });
+  assert.strictEqual(r.status, 2);
+  assert.match(r.stderr, /could not start/);
+  assert.doesNotMatch(r.stderr, /::warning::|outage, not WeKan/, 'no retries, and not called an outage');
+});
+
 test('a 404 fails at once - it is an answer, not an outage (negative)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'nope');
