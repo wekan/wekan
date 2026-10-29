@@ -199,7 +199,11 @@ test('where the fields are drawn: card and minicard read the side\'s view', () =
   const scrum = read('client/components/boards/scrum/scrumFields.js');
   assert.match(scrum, /const board = side \? boardForSide\(boardFor\(context\), side\) : boardFor\(context\);/);
   const details = read('client/components/cards/cardDetails.js');
-  assert.match(details, /const board = boardForCard\(card\?\.board\?\.\(\)\);/, 'the Scrum sections of the opened card');
+  // 2026-10-28: the opened card's sections are listed from the board as its
+  // cards see it, and Scrum's fields from it too; the hidden sections are
+  // also left out of the list itself.
+  assert.match(details, /const board = boardForCard\(this\?\.board\?\.\(\)\);\n\s+return cardSectionFields\(this, 'scrum'\)\.filter\(key => boardAllows\(board, key\)\);/, 'the Scrum fields of the opened card');
+  assert.match(details, /const board = boardForCard\(raw\);\n\s+const hidden = cardSettingsSections\.hiddenSectionsOf\(raw, 'card'\);/, 'the sections of the opened card');
   for (const helper of ['showCardColorOnCard', 'allowsCardCollapse', 'showLabelsAboveTitleOnCard', 'labelsShownAboveTitle']) {
     assert.match(details, new RegExp(`  ${helper}\\(\\) \\{\\n\\s+return cardBoardView\\(this\\)`), helper);
   }

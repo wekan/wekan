@@ -78,15 +78,18 @@ test('Show on Card is "add to all cards": the server adds such a field to every 
 
 test('the section: definitions as items, its own checkbox the Custom Fields flag, a + under them', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
-  const tpl = jade.slice(jade.indexOf('template(name="cardSettingsInlineSection")'), jade.indexOf('template(name="cardSettingsSectionPopup")'));
+  const tpl = jade.slice(jade.indexOf('template(name="cardSettingsInlineSection")'), jade.indexOf('template(name="cardSettingsInlinePanel")'));
   assert.match(tpl, /if section\.customFields\n\s+\.card-settings-inline-items\.js-card-settings-custom-fields-sortable/);
   assert.match(tpl, /each field in section\.customFieldItems\n\s+\.card-settings-line\.card-settings-inline-item\.card-settings-custom-field\.js-card-settings-custom-field/);
   assert.match(tpl, /class="\{\{#if field\.writable\}\}js-card-settings-custom-field-toggle\{\{else\}\}is-disabled\{\{\/if\}\}/, 'disabled for a non-admin');
   assert.match(tpl, /if field\.hasMenu\n\s+a\.card-settings-inline-menu\.js-card-settings-edit-custom-field/);
+  // 2026-10-28: its form opens under the item, inside the pane.
+  assert.match(tpl, /if field\.menuOpen\n\s+\+cardSettingsInlinePanel\(kind="field" fieldId=field\.id side=side\)/);
   // The + is under the items (after the each), also with none; an admin's.
   const plus = tpl.indexOf('js-card-settings-add-custom-field(');
   assert.ok(plus > tpl.indexOf('each field in section.customFieldItems'));
-  assert.match(tpl, /if section\.writable\n\s+\.card-settings-add-custom-field\n\s+a\.card-settings-add-custom-field-button\.js-card-settings-add-custom-field\(href="#" role="button" title="\{\{_ 'createCustomField'\}\}"/);
+  assert.match(tpl, /if section\.writable\n\s+\.card-settings-add-custom-field\n\s+a\.card-settings-add-custom-field-button\.js-card-settings-add-custom-field\(href="#" role="button" class="\{\{#if section\.createOpen\}\}is-open\{\{\/if\}\}" aria-expanded="[^"]+" title="\{\{_ 'createCustomField'\}\}"/);
+  assert.match(tpl, /if section\.createOpen\n\s+\+cardSettingsInlinePanel\(kind="create" side=side\)/);
   const js = read('client/components/sidebar/sidebar.js');
   // Custom Fields is never a merged single line, and its flag row is the
   // section's checkbox, not an item: no "Custom Fields > Custom Fields".
@@ -99,10 +102,11 @@ test('the section: definitions as items, its own checkbox the Custom Fields flag
   assert.match(js, /definitionToggleSet\(side,\n\s+evt\.currentTarget\.getAttribute\('aria-checked'\) !== 'true'\)/);
   assert.match(js, /Object\.entries\(sorts\)\.forEach\(\(\[id, sort\]\) => CustomFields\.update\(id, \{ \$set: \{ sort \} \}\)\);/);
   assert.match(js, /ownListOnly: true,\n\s+items: '> \.js-card-settings-custom-field\.is-positioned', handle: '\.js-card-settings-custom-field-handle',/);
-  // Opened as a layer on top of Card Settings, which stays visible under it
-  // (client/lib/popup.js `layer`), not in its place - a deliberate change.
-  assert.match(js, /Popup\.open\('createCustomField', \{ dataContext: \{ boardId: Session\.get\('currentBoard'\) \}, layer: true \}\)\(evt\);/);
-  assert.match(js, /Popup\.open\('editCustomField', \{ dataContext: definition, layer: true \}\)\(evt\);/);
+  // 2026-10-28: opened BELOW the + and the item's hamburger, in a panel of
+  // the pane (sidebar.jade cardSettingsInlinePanel), not as a popup (layer).
+  assert.match(js, /togglePanel\(tpl, 'create'\);/);
+  assert.match(js, /togglePanel\(tpl, `field:\$\{definition\._id\}`\);/);
+  assert.ok(!/Popup\.open\('(createCustomField|editCustomField)'/.test(js), 'negative: no popup for them in Card Settings');
   // The + is Create Field: it is not also a hamburger entry, so Custom Fields
   // has no hamburger at all.
   assert.deepStrictEqual(require('../models/lib/cardSettingsSections.js').cardActionsOf('customFields'), []);

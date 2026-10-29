@@ -367,14 +367,16 @@
     max-width: 90vw !important;
   }
 
-  /* Board Settings / Card: the opened card's Card Settings, one column of
-     checklists (sidebar.jade cardSettingsInline), about as wide as an opened
-     card. client/lib/popupOffset.js centres it at this width
+  /* Board Settings / Card: Card Settings, TWO panes of checklists - the
+     Minicard's and the Card's (sidebar.jade boardCardSettingsPopup) - side by
+     side, each about as wide as the one column was (600px until 2026-10-28,
+     when the two sides became two panes instead of a Show switch).
+     client/lib/popupOffset.js centres it at this width
      (CARD_SETTINGS_MAX_WIDTH) and gives it the window's height (#6796). */
   .pop-over[data-popup='boardCardSettingsPopup'] {
     position: fixed;
     box-sizing: border-box;
-    width: min(96vw, 600px) !important;
+    width: min(96vw, 1100px) !important;
     max-width: 96vw !important;
     max-height: calc(100dvh - 24px) !important;
     margin-top: 0;
@@ -1495,41 +1497,35 @@ body.mobile-mode .pop-over .content-wrapper {
   min-width: 0;
 }
 
-/* A layer (client/lib/popup.js `layer`): a menu on top of its popup, next to
-   the button that opened it - Card Settings' hamburgers. Its place and its
-   max-height come from models/lib/popupLayerPosition.js; the popup under it
-   stays visible. */
-.pop-over .popup-layer {
-  position: absolute;
-  z-index: 20;
+/* Card Settings' panes scroll on their own (client/components/cards
+   /cardAddFields.css .card-settings-panes-container): the popup's content
+   does not scroll as a whole, it hands its height down to the panes. At every
+   width - stacked, the panes' container is the one scroller. Also after the
+   corner grip resized it (popup.js resizeDatePopup, `data-user-resized`,
+   whose rule above would make the wrapper scroll again). The bottom padding
+   keeps the grip in a strip of its own, under the panes' scrollbars rather
+   than over the Card pane's. */
+.pop-over[data-popup='boardCardSettingsPopup'] {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  min-width: 16em;
-  max-width: calc(100% - 16px);
-  background: #fff;
-  color: #4d4d4d;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  padding-bottom: 24px;
 }
-.pop-over .popup-layer-header {
+.pop-over[data-popup='boardCardSettingsPopup'] .content-wrapper,
+.pop-over[data-popup='boardCardSettingsPopup'][data-user-resized] > .content-wrapper {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 8px 6px 12px;
-  border-bottom: 1px solid #eee;
-  font-weight: bold;
-}
-.pop-over .popup-layer-title { flex: 1 1 auto; }
-.pop-over .popup-layer-close {
-  color: #8c8c8c;
-  padding: 2px 4px;
-}
-.pop-over .popup-layer-close:hover,
-.pop-over .popup-layer-close:focus-visible { color: #4d4d4d; }
-.pop-over .popup-layer-content {
-  overflow: auto;
+  flex-direction: column;
+  flex: 1 1 auto;
   min-height: 0;
-  padding: 8px 12px;
+  overflow: hidden !important;
+}
+.pop-over[data-popup='boardCardSettingsPopup'] .content-container,
+.pop-over[data-popup='boardCardSettingsPopup'] .content-container > .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+.pop-over[data-popup='boardCardSettingsPopup'] .content-container > .clearfix {
+  display: none;
 }

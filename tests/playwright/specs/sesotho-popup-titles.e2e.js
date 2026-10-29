@@ -70,14 +70,17 @@ test('Southern Sotho card settings identify data fields', async ({ boardPage: pa
   // reason is what is left there) - each in Southern Sotho, and none calling
   // a data field "masimo" (farm fields).
   const popup = page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
-  await expect(popup.locator('.card-settings-inline-show-label')).toHaveText('Bontsha');
-  const sides = popup.locator('.card-settings-inline-show-option');
+  // Two panes since 2026-10-28 instead of a "Show" radio: each pane's title is
+  // what the radio's option said.
+  const sides = popup.locator('.card-settings-pane-title');
   await expect(sides.nth(0)).toHaveText('Bontsha kareteng e nyenyane');
   await expect(sides.nth(1)).toHaveText('Bontsha kareteng');
-  await expect(popup.locator('.js-card-settings-section[data-section="date"] .card-settings-inline-section-title')).toHaveText('Letsatsi');
-  await expect(popup.locator('.js-card-settings-inline')).not.toContainText('masimo');
-  await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
-  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsSectionPopup"]');
+  const card = popup.locator('.js-card-settings-pane[data-side="card"]');
+  await expect(card.locator('.js-card-settings-section[data-section="date"] .card-settings-inline-section-title')).toHaveText('Letsatsi');
+  await expect(popup.locator('.js-card-settings-panes')).not.toContainText('masimo');
+  await card.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
+  // The hamburger opens under its line, inside the pane (no popup layer).
+  const menu = card.locator('.js-card-settings-section[data-section="card"] .js-card-settings-panel');
   await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
   await expect(menu).not.toContainText('masimo');
   await expect(menu.locator('.js-show-empty-card-fields')).toHaveCount(0);

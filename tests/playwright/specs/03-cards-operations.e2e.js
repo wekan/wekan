@@ -835,7 +835,8 @@ test.describe('Cards – operations', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
     const sectionHeader = cp.root.locator(
-      '.js-toggle-card-section[data-section="custom-fields"]',
+      // The section id is Card Settings' since 2026-10-28 (customFields).
+      '.js-toggle-card-section[data-section="customFields"]',
     );
     await expect(sectionHeader.locator('#toggleCustomFieldsGridButton')).toBeVisible();
     await sectionHeader.click({ position: { x: 10, y: 10 } });

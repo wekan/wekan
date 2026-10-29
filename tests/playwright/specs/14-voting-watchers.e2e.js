@@ -159,7 +159,8 @@ test('Corsican Planning Poker shows literal scores without progress prefixes', a
   const bp = new BoardPage(page), cp = new CardPage(page);
   await bp.clickCard(board.listIds[0], 'Alpha Card');
   await cp.waitForOpen();
-  await expect(cp.root.locator('.poker-title h3')).toHaveText('Planning Poker');
+  // The section's shared heading (cardSectionHeader), as every section of the card has.
+  await expect(cp.root.locator('.js-toggle-card-section[data-section="poker"]')).toContainText('Planning Poker');
   for (const [name, value] of [['one','1'],['two','2'],['three','3'],['five','5'],['eight','8'],['thirteen','13'],['twenty','20'],['forty','40'],['one-hundred','100'],['unsure','?']]) {
     await expect(cp.root.locator('.js-poker-vote-' + name)).toHaveText(value);
   }

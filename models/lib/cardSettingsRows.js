@@ -204,7 +204,10 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-board-card-flag', field: 'allowsLinkedCardOnCard', flag: true, default: true, after: 'cardNumber' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsLinkedCardOnMinicard', flag: true, default: true, after: 'cardNumber' } },
   { key: 'cardButtons', icons: ['fa-hand-pointer-o'], label: ['r-card-button'],
-    card: { toggle: 'js-board-card-flag', field: 'allowsCardButtonsOnCard', flag: true, default: true, after: 'location' },
+    // A place of its own in Card on the opened card (2026-10-28): dragged
+    // there like the other Card rows. On the minicard it follows the sorting
+    // number's badge, under the strip.
+    card: { toggle: 'js-board-card-flag', field: 'allowsCardButtonsOnCard', flag: true, default: true },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsCardButtonsOnMinicard', flag: true, default: false, after: 'cardSortingByNumber' } },
   { key: 'descriptionBadge', icons: ['fa-file-text-o'], label: ['card-settings-description-badge'],
     card: { toggle: 'js-board-card-flag', field: 'allowsDescriptionBadgeOnCard', flag: true, default: false, after: 'descriptionText' },
@@ -220,8 +223,11 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-board-card-flag', field: 'allowsDueFromTitleOnCard', flag: true, default: true, after: 'dueDate' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsDueFromTitleOnMinicard', flag: true, default: true, after: 'dueDate' } },
   { key: 'similarCards', icons: ['fa-clone'], label: ['similar-cards'],
-    card: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnCard', flag: true, default: true, after: 'textNotes' },
-    minicard: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnMinicard', flag: true, default: true, after: 'dueFromTitle' } },
+    // The opened card's similar cards have a place of their own in Card
+    // (2026-10-28). The minicard side is the hint while a card's title is
+    // typed - no element on the minicard - so it follows the last Card row.
+    card: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnCard', flag: true, default: true },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsSimilarCardsOnMinicard', flag: true, default: true, after: 'swimlaneName' } },
   { key: 'atRisk', icons: ['fa-exclamation-triangle'], label: ['at-risk'],
     card: { toggle: 'js-board-card-flag', field: 'allowsAtRiskOnCard', flag: true, default: true, after: 'dueDate' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsAtRiskOnMinicard', flag: true, default: true, after: 'dueDate' } },

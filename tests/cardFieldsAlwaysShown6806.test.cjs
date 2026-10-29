@@ -73,21 +73,31 @@ test('negative: no client code reads, writes or draws them', () => {
 });
 
 test('Card\'s hamburger keeps only what is not a field: Ask for a reason and the Draggable table', () => {
+  // 2026-10-28: a hamburger's content opens in a panel under its line
+  // (cardSettingsInlinePanel), not in the cardSettingsSectionPopup popup.
   const jade = read('client/components/sidebar/sidebar.jade');
-  const menu = jade.slice(jade.indexOf('template(name="cardSettingsSectionPopup")'), jade.indexOf('template(name="cardSettingsItemPopup")'));
+  const start = jade.indexOf('template(name="cardSettingsInlinePanel")');
+  assert.ok(start > 0, 'the panel template exists');
+  const menu = jade.slice(start, jade.indexOf('\ntemplate(', start + 1));
   assert.match(menu, /if sectionIsGeneral\n\s+\/\/- What is not a field\.\n\s+div\.check-div\.card-settings-board-option\.card-settings-ask-move-reason/);
   assert.match(menu, /if sectionIsGeneral\n\s+\+boardDragSettings\(section="card"\)/);
 });
 
-test('Card Settings starts with Card, the topmost section', () => {
+test('Card Settings lists the sections in each pane\'s side\'s order', () => {
+  // 2026-10-28: Card is no longer the topmost section. The opened card draws
+  // Card Settings' sections in their order, so the table's (and the card's
+  // default) order starts with Labels, which the opened card always showed
+  // first; and each pane (Minicard, Card) lists its own side's order.
   const js = read('client/components/sidebar/sidebar.js');
-  assert.match(js, /cardSettingsSections\.orderedSections\(cardSettingsSections\.SECTIONS, board && board\.cardSettingsSectionOrder\)/);
+  assert.match(js, /cardSettingsSections\.orderedSections\(cardSettingsSections\.SECTIONS,\n\s+board && board\[cardSettingsSections\.SECTION_ORDER_FIELD\[side\]\], side\)/);
   // Card is kept even with no row on the shown side: its hamburger holds what
   // is not a field.
   assert.match(js, /\.filter\(section => section\.rows\.length \|\| section\.flagRow\n\s+\|\| cardSettingsSections\.SECTIONS\.find\(s => s\.id === section\.id\)\?\.general\);/);
   const sections = require('../models/lib/cardSettingsSections.js');
-  assert.strictEqual(sections.SECTIONS[0].id, 'card');
-  assert.strictEqual(sections.sectionOrder(undefined)[0], 'card');
+  assert.strictEqual(sections.SECTIONS[0].id, 'labels');
+  assert.strictEqual(sections.sectionOrder(undefined)[0], 'labels');
+  assert.strictEqual(sections.sectionOrder(undefined, 'minicard')[0], 'scrum');
+  assert.ok(sections.SECTIONS.find(s => s.id === 'card').general, 'Card still holds what is not a field');
 });
 
 test('the removed strings are gone from every language, and the earlier names too', () => {

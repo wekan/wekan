@@ -14,6 +14,15 @@
 // from ONE template, `cardSectionHeader`, so eleven sections cannot end up with
 // ten separators and nine carets.
 //
+// 2026-10-28: the sections are Card Settings' sections (Labels, Date, Members,
+// Card, Time, Custom Fields, Description, Scrum settings, Checklists, Subtasks,
+// Attachments, Comments - models/lib/cardSettingsSections.js), each with ONE
+// heading of its own - the section's icon and title - and the fields under it
+// with plain titles. Before, a group's heading was its FIRST field's title
+// (Labels, Members, Sort); that cannot be when the fields of a section can be
+// dragged into any order. Vote and Planning Poker have the same heading, with
+// Edit voting / Edit Planning Poker as its hamburger and the end date under it.
+//
 // Activities starts CLOSED and everything else open: a card is opened to read
 // the card, and its history is the thing you go looking for.
 //
@@ -43,9 +52,17 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('cardSectionCollapse:');
 
 const SECTIONS = [
-  'labels', 'date-format', 'members', 'dependencies', 'sort', 'custom-fields',
-  'description', 'checklists', 'subtasks', 'attachments', 'comments', 'activities',
+  'labels', 'date', 'members', 'card', 'time', 'customFields', 'description', 'scrum',
+  'checklists', 'subtasks', 'attachments', 'comments', 'activities',
 ];
+const template = name => jade.slice(jade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
+// The section templates whose heading is the section's own and whose fields
+// all fold under it.
+const FOLDING = {
+  labels: 'cardFieldSectionLabels', date: 'cardFieldSectionDate', members: 'cardFieldSectionMembers',
+  card: 'cardFieldSectionCard', time: 'cardFieldSectionTime', scrum: 'cardFieldSectionScrum',
+  attachments: 'cardFieldSectionAttachments',
+};
 
 test('every named section has a caret header', () => {
   for (const section of SECTIONS) {
@@ -182,9 +199,9 @@ test('the GROUP is the full-width row, and its fields share rows inside it', () 
 
 test('the Custom Fields layout toggle switches grid and one-per-row classes', () => {
   const sectionAt = jade.indexOf(
-    '+cardSectionHeader(section="custom-fields"',
+    '+cardSectionHeader(section="customFields"',
   );
-  const section = jade.slice(sectionAt, jade.indexOf('\n      if getVoteQuestion', sectionAt));
+  const section = jade.slice(sectionAt, jade.indexOf('\ntemplate(', sectionAt));
   assert.match(section, /layoutToggle=true layoutOnePerRow=customFieldsGrid/,
     'Custom Fields asks its shared header for the selector');
   const headerAt = jade.indexOf('template(name="cardSectionHeader")');
@@ -238,71 +255,65 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
     'the layout toggle has no white background or dark border');
 });
 
-test('the group caret sits ON the first field\'s title, not on a line of its own', () => {
-  // "Can there be at one line Labels Stickers Location" - the group header was a
-  // second line repeating the first field's name. It IS that field's title now:
-  // one row of titles, the caret at the start of it, the + buttons on the row
-  // below.
-  for (const [key, field] of Object.entries({
-    labels: 'card-details-item-labels',
-    'date-format': 'card-details-item-date-format',
-    members: 'card-details-item-members',
-    dependencies: 'card-details-item-dependencies',
-    sort: 'card-details-sort-order',
-  })) {
-    const at = jade.indexOf(field);
-    assert.ok(at !== -1, `${field} is there`);
-    const block = jade.slice(at, at + 260);
-    assert.ok(new RegExp(`\\+cardSectionHeader\\(section="${key}"[^)]*noRule=true`).test(block),
-      `${key}: the header is the field's own title`);
-    assert.ok(!/h3\.card-details-item-title/.test(block),
-      `${key}: and there is no second title under it`);
+test('each section has ONE heading of its own, first in its template', () => {
+  // 2026-10-28: the section's heading, not its first field's title - the
+  // first field can be any of them since a field is dragged inside its section.
+  const { SECTIONS: CARD_SETTINGS } = require('../models/lib/cardSettingsSections');
+  for (const [id, name] of Object.entries(FOLDING)) {
+    const block = template(name);
+    const section = CARD_SETTINGS.find(sec => sec.id === id);
+    const first = block.split('\n').find(line => line.trim() && !line.startsWith('template(') && !line.trim().startsWith('//'));
+    assert.ok(first.includes(`+cardSectionHeader(section="${id}" icon="${section.icon}" label="${section.labelKey}"`),
+      `${id}: the heading is the first thing, with Card Settings' icon and title`);
+    assert.strictEqual((block.match(/\+cardSectionHeader\(/g) || []).length, 1, `${id}: one heading`);
   }
 });
 
-test('the other fields keep plain titles, on the same row', () => {
-  // Stickers and Location, Assignee and Creator: a title each, no caret, and
-  // their content on the line below - so the titles read as one row.
-  const group = jade.slice(jade.indexOf('card-details-group-members'),
-    jade.indexOf('card-details-group-dependencies'));
+test('the fields keep plain titles under it', () => {
+  // Assignee and Creator, and Card's dependencies and sorting number, which
+  // were headings of their own groups before: a title each, no caret.
+  const members = template('cardFieldSectionMembers');
   for (const field of ['card-details-item-assignees', 'card-details-item-creator']) {
-    const at = group.indexOf(field);
-    assert.ok(at !== -1, `${field} is in the group`);
-    const block = group.slice(at, at + 200);
+    const at = members.indexOf(field);
+    assert.ok(at !== -1, `${field} is in the section`);
+    const block = members.slice(at, at + 200);
     assert.ok(/h3\.card-details-item-title/.test(block), `${field} has a plain title`);
     assert.ok(!/cardSectionHeader/.test(block), `${field} has no caret of its own`);
   }
+  const card = template('cardFieldSectionCard');
+  for (const field of ['card-details-item-dependencies', 'card-details-sort-order']) {
+    const at = card.indexOf(field);
+    assert.ok(at !== -1, `${field} is in Card`);
+    assert.ok(/h3\.card-details-item-title/.test(card.slice(at, at + 200)), `${field} has a plain title`);
+  }
+  assert.ok(!/cardSectionHeader\(section="(dependencies|sort|date-format|text-notes)"/.test(jade),
+    'negative: no heading of the old groups is left');
 });
 
-test('the rule sits on the GROUP, above the row of titles', () => {
-  // It cannot be inside a field any more - that is what made it short.
-  for (const key of ['date-format', 'members', 'dependencies', 'sort']) {
-    const at = jade.indexOf(`card-details-group-${key}`);
-    const block = jade.slice(at, at + 200);
-    assert.ok(/hr\.card-details-section-rule/.test(block), `${key} has its rule at group level`);
-  }
-  // Labels is first and has none, as before.
-  const labels = jade.slice(jade.indexOf('card-details-group-labels'), jade.indexOf('card-details-group-date-format'));
-  assert.ok(!/hr\.card-details-section-rule/.test(labels), 'the first group has no rule above it');
+test('the rule comes with the heading, and the first section has none', () => {
+  // The header draws the rule; whichever section the board put first, its
+  // rule is hidden by the stylesheet - the template cannot know.
+  assert.match(css, /\.card-details-items > \.card-details-section:first-child > hr\.card-details-section-rule:first-child/);
+  assert.match(css, /\.card-details \.card-details-items > \.card-details-section \{\s+flex: 0 0 100%;/);
 });
 
 // ── groups ────────────────────────────────────────────────────────────────
 
-test('a group folds its whole family, from ONE caret', () => {
+test('a section folds its whole family, from ONE caret', () => {
   // "the caret at left side of Labels should hide what is below of text labels,
-  // like labels +, stickers, location". Labels, Stickers and Location are one
-  // group; the caret belongs to the group, not to each field in it.
-  for (const key of ['labels', 'date-format', 'members', 'dependencies', 'sort']) {
-    assert.ok(new RegExp(`\\.card-details-group\\.card-details-group-${key}`).test(jade),
-      `${key} is a group`);
+  // like labels +, stickers, location": every field of a section is inside
+  // its heading's fold.
+  for (const [id, name] of Object.entries(FOLDING)) {
+    const block = template(name);
+    const guard = block.indexOf(`if isSectionOpen "${id}"`);
+    assert.ok(guard !== -1 && guard > block.indexOf('+cardSectionHeader'), `${id} folds under its heading`);
+    const firstField = block.indexOf('if $eq field "');
+    assert.ok(firstField === -1 || firstField > guard, `${id}: every field is inside the fold`);
   }
-  const labels = jade.slice(jade.indexOf('card-details-group-labels'),
-    jade.indexOf('card-details-group-date-format'));
+  const labels = template('cardFieldSectionLabels');
   for (const member of ['card-details-item-stickers', 'card-details-item-location']) {
-    assert.ok(labels.includes(member), `${member} folds with Labels`);
+    assert.ok(labels.indexOf(member) > labels.indexOf('isSectionOpen "labels"'), `${member} folds with Labels`);
   }
-  assert.ok(labels.indexOf('isSectionOpen "labels"') < labels.indexOf('card-details-item-stickers'),
-    'and they are inside the fold, not beside it');
 });
 
 test('a field has no caret and no fold of its own (negative)', () => {
@@ -323,14 +334,13 @@ test('a field has no caret and no fold of its own (negative)', () => {
 });
 
 test('Date keeps its collapsible fields without a format selector', () => {
-  assert.match(jade, /cardSectionHeader\(section="date-format" icon="fa-calendar" label="date"/);
-  assert.match(jade, /if isSectionOpen "date-format"\s+each field in orderedDatesFields/);
+  assert.match(jade, /cardSectionHeader\(section="date" icon="fa-calendar" label="date"/);
+  assert.match(jade, /if isSectionOpen "date"\s+\.card-details-group-body\s+each field in orderedDateFields/);
   assert.doesNotMatch(jade, /js-date-format-selector/);
 });
 
 test('Members comes first in its group, then Assignee, then Creator', () => {
-  const group = jade.slice(jade.indexOf('card-details-group-members'),
-    jade.indexOf('card-details-group-dependencies'));
+  const group = template('cardFieldSectionMembers');
   const members = group.indexOf('allowsMembers');
   const assignee = group.indexOf('allowsAssignee');
   const creator = group.indexOf('allowsCreator');
@@ -339,24 +349,13 @@ test('Members comes first in its group, then Assignee, then Creator', () => {
     'Members, Assignee, Creator - in that order');
 });
 
-test('a collapsed group shows its caret, its icon and its name, and nothing else', () => {
-  // The header is the first field's title, and EVERYTHING after it folds: that
-  // field's own content, and every field beside it. So a closed group is one
-  // line - "only caret and icon and text Members".
-  for (const key of ['labels', 'date-format', 'members', 'dependencies', 'sort']) {
-    const at = jade.indexOf(`card-details-group-${key}`);
-    const next = jade.indexOf('.card-details-group.card-details-group-', at + 10);
-    const block = jade.slice(at, next === -1 ? at + 3000 : next);
-    const header = block.indexOf('+cardSectionHeader');
-    assert.ok(header !== -1, `${key} has its header`);
-    // The field's own content folds...
-    const firstGuard = block.indexOf(`isSectionOpen "${key}"`, header);
-    assert.ok(firstGuard > header, `${key}: the field's content is behind the switch`);
-    // ...and so does everything after it, when the group has more than one field.
-    const guards = (block.match(new RegExp(`isSectionOpen "${key}"`, 'g')) || []).length;
-    const fields = (block.match(/\.card-details-item\./g) || []).length;
-    assert.ok(key === 'date-format' || fields === 1 || guards >= 2,
-      `${key}: ${fields} fields need the siblings behind the switch too`);
+test('a collapsed section shows its caret, its icon and its name, and nothing else', () => {
+  // A closed section is one line - "only caret and icon and text Members":
+  // nothing but the heading is outside the fold.
+  for (const [id, name] of Object.entries(FOLDING)) {
+    const lines = template(name).split('\n//-')[0].split('\n').slice(1).filter(l => l.trim() && !l.trim().startsWith('//') && !/^ {4,}/.test(l));
+    assert.deepStrictEqual(lines.map(l => l.trim().split('(')[0]), ['+cardSectionHeader', 'if isSectionOpen "' + id + '"'],
+      `${id}: only the heading and the fold at the top level`);
   }
 });
 

@@ -34,11 +34,16 @@ function test(name, fn) {
 // per-field sequence is pinned in
 // tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs.
 test('no stored order at all falls back to the historical fixed order', () => {
-  // The Scrum fields became one section each on 2026-10-02, after the
-  // description, where the one Scrum block was drawn.
+  // 2026-10-28: the sections are Card Settings' sections (the opened card
+  // draws those), in the order closest to the historical one the new grouping
+  // allows: Labels, Date, Members, Card (the old Dependencies and the first
+  // half of Sort), Time (the rest of Sort), Custom Fields, Vote, Poker,
+  // Description, Scrum, and the old fixed tail as sections. The order the card
+  // DRAWS them in is the board's cardSettingsSectionOrder now; this is still
+  // what the REST cardFieldOrder API returns.
   assert.deepStrictEqual(DEFAULT_CARD_FIELD_ORDER,
-    ['labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description',
-      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
+    ['labels', 'date', 'members', 'card', 'time', 'customFields', 'vote', 'poker', 'description',
+      'scrum', 'checklists', 'subtasks', 'attachments', 'comments']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
   assert.deepStrictEqual(applyCardFieldOrder(null), DEFAULT_CARD_FIELD_ORDER);
   assert.deepStrictEqual(applyCardFieldOrder([]), DEFAULT_CARD_FIELD_ORDER);
@@ -56,10 +61,13 @@ test('#4448: description can be moved to third, with custom fields right after i
   // and Sort were a fixed appendage of Members then, Vote/Poker of Custom
   // Fields; they are sections now (Board Settings / Card orders per field),
   // so a legacy value expands to exactly what it rendered.
+  // 2026-10-28: the legacy keys expand to their FIELDS, which now sit in Card
+  // Settings' sections - Members' appendage is Card and Time, Custom Fields'
+  // is Vote and Poker - and the sections follow where their first field is.
   assert.deepStrictEqual(applyCardFieldOrder(stored),
-    ['labels', 'dates', 'description', 'customFields', 'voteAndPoker', 'members', 'dependencies', 'sort',
-      // the Scrum sections (2026-10-02), appended in default order
-      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
+    ['labels', 'date', 'description', 'customFields', 'vote', 'poker', 'members', 'card', 'time',
+      // the rest, appended in default order
+      'scrum', 'checklists', 'subtasks', 'attachments', 'comments']);
   const order = applyCardFieldOrder(stored);
   assert.strictEqual(order.indexOf('description'), 2, 'description is third (0-indexed 2)');
   assert.ok(
@@ -70,7 +78,7 @@ test('#4448: description can be moved to third, with custom fields right after i
 
 // --- robustness: unknown / duplicate / partial values -----------------------
 test('unknown keys in the stored order are dropped', () => {
-  const order = applyCardFieldOrder(['labels', 'bogus-section', 'dates']);
+  const order = applyCardFieldOrder(['labels', 'bogus-section', 'date']);
   assert.ok(!order.includes('bogus-section'));
   assert.strictEqual(order.length, DEFAULT_CARD_FIELD_ORDER.length);
 });
@@ -110,7 +118,10 @@ test('every known section is present exactly once, regardless of input', () => {
 test('isValidCardFieldKey recognises only the known section keys', () => {
   assert.strictEqual(isValidCardFieldKey('description'), true);
   assert.strictEqual(isValidCardFieldKey('customFields'), true);
-  assert.strictEqual(isValidCardFieldKey('checklists'), false);
+  // 2026-10-28: Checklists is a section of the card's order now (it was the
+  // fixed tail) - the sections are Card Settings'.
+  assert.strictEqual(isValidCardFieldKey('checklists'), true);
+  assert.strictEqual(isValidCardFieldKey('voteAndPoker'), false, 'a template group of before is not a section');
   assert.strictEqual(isValidCardFieldKey(''), false);
   assert.strictEqual(isValidCardFieldKey(undefined), false);
 });
@@ -132,8 +143,8 @@ test('moveCardFieldKey at the top boundary is a no-op going up', () => {
 });
 
 test('moveCardFieldKey at the bottom boundary is a no-op going down', () => {
-  // The last section is the last Scrum field since 2026-10-02.
-  const order = moveCardFieldKey(DEFAULT_CARD_FIELD_ORDER, 'scrumBacklogRank', 'down');
+  // The last section is Comments since 2026-10-28.
+  const order = moveCardFieldKey(DEFAULT_CARD_FIELD_ORDER, 'comments', 'down');
   assert.deepStrictEqual(order, DEFAULT_CARD_FIELD_ORDER);
 });
 
@@ -161,7 +172,9 @@ test('cardDetails.jade renders the reorderable sections from an order-driven loo
   // Each reorderable section must be reachable only through its own named
   // template (called from the order loop), not inlined at a fixed spot.
   CARD_FIELD_ORDER_KEYS.forEach(key => {
-    const templateName = `cardFieldSection${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+    // Comments keep their own template, drawn in the right column too.
+    const templateName = key === 'comments' ? 'cardCommentsSection'
+      : `cardFieldSection${key.charAt(0).toUpperCase()}${key.slice(1)}`;
     assert.ok(
       jade.includes(`template(name="${templateName}")`),
       `${templateName} must be its own template`,

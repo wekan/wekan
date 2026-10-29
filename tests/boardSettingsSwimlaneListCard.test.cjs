@@ -238,9 +238,10 @@ test('Board Settings/Card shows both sides - no side is passed', () => {
     sidebarJs.indexOf('});', sidebarJs.indexOf("'click .js-open-board-card-settings'")));
   assert.ok(!/side\s*[:=]\s*['"]card['"]/.test(handler) && !/side\s*[:=]\s*['"]minicard['"]/.test(handler),
     'no side is set');
-  // Both are reached through the Show radios of cardSettingsInline.
-  const inline = sidebarJade.slice(sidebarJade.indexOf('template(name="cardSettingsInline")')).split('\ntemplate(')[0];
-  assert.ok(inline.includes('value="minicard"') && inline.includes('value="card"'), 'Show on Minicard and Show on Card');
+  // Both are shown at once, as two cardSettingsInline panes (2026-10-28 -
+  // they were the Show radios of one).
+  const popup = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
+  assert.ok(popup.includes('+cardSettingsInline(side="minicard")') && popup.includes('+cardSettingsInline(side="card")'), 'Show on Minicard and Show on Card');
 });
 
 test('a non-admin still reaches the PERSONAL rows ("Labels text", "List title")', () => {
@@ -272,13 +273,13 @@ test('Board Settings / Card is Card Settings, with Show on Minicard and Show on 
   // rows, each side still in its own order (tests/cardSettingsCoverage.test.cjs).
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
-  assert.match(form, /\n  \+cardSettingsInline\n/);
+  // 2026-10-28: both sides at once - two panes, the Minicard pane first,
+  // each titled with its side's existing words.
+  assert.deepStrictEqual([...form.matchAll(/\+cardSettingsInline\(side="(\w+)"\)/g)].map(m => m[1]), ['minicard', 'card'],
+    'Show on Minicard, then Show on Card');
   assert.ok(!form.includes('+leftMenu(settingsMenuItems)') && !form.includes('+paneTitle(settingsPaneTitle)'),
     'negative: the menu and pane are gone');
-  const inline = sidebarJade.slice(sidebarJade.indexOf('template(name="cardSettingsInline")')).split('\ntemplate(')[0];
-  const minicard = inline.indexOf("span {{_ 'show-on-minicard'}}");
-  const card = inline.indexOf("span {{_ 'show-on-card'}}");
-  assert.ok(minicard !== -1 && card !== -1 && minicard < card, 'Show on Minicard, then Show on Card');
+  assert.match(sidebarJs, /'show-on-minicard' : 'show-on-card'/);
   assert.ok(en['show-on-card'] && en['show-on-minicard'], 'existing, translated keys');
   assert.ok(!form.includes('card-field-order-heading'), 'the old single heading is gone (negative)');
 });

@@ -112,31 +112,20 @@ test('Board Settings reveals Scrum minicard fields and preserves independent car
  // before it - the section's title says that once; the old separate Scrum
  // checkbox list is gone.
  await expect(popup.locator('input.js-scrum-visibility')).toHaveCount(0);
- // Board Settings / Card is the opened card's Card Settings since 2026-10-28:
- // every section at once, its rows the side the "Show" radio chooses, so a
- // label is read per side by switching Show.
- const scrum=popup.locator('.js-card-settings-section[data-section="scrum"]');
- // Switching Show changes every row's side and order in ONE render: the rows
- // were once drawn in the old side's order and reordered a flush later, and a
- // click in between hit the neighbouring row (Work item type instead of
- // Backlog rank). Right after the radio is checked the rows already hold the
- // new side and the order they keep.
- const order=()=>scrum.locator('.js-card-field-order-row').evaluateAll(els=>els.map(el=>`${el.dataset.key}:${el.dataset.side}`));
- const show=async side=>{
-  await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
-  await expect(scrum.locator(`.js-card-field-order-row[data-side="${side}"]`).first()).toBeAttached();
-  const first=await order();
-  expect(first.every(k=>k.endsWith(`:${side}`))).toBe(true);
-  await page.waitForTimeout(300);
-  expect(await order()).toEqual(first);
- };
+ // Board Settings / Card is Card Settings since 2026-10-28: every section at
+ // once, in a pane per side (the "Show" radio that switched one list between
+ // the sides is gone), so a label is read per side in that side's pane.
+ const scrumOf=side=>popup.locator(`.js-card-settings-pane[data-side="${side}"] .js-card-settings-section[data-section="scrum"]`);
  for(const side of ['card','minicard']){
-  await show(side);
+  const scrum=scrumOf(side);
+  // A pane's rows are all its own side's.
+  const sides=await scrum.locator('.js-card-field-order-row').evaluateAll(els=>els.map(el=>el.dataset.side));
+  expect(sides.length>0&&sides.every(s=>s===side)).toBe(true);
   await expect(scrum.locator(`.card-settings-line[data-side="${side}"][data-key="scrumBacklogRank"] .card-settings-line-label`)).toHaveText('Backlog rank');
   await expect(scrum.locator(`.card-settings-line[data-side="${side}"][data-key="scrumSprint"] .card-settings-line-label`)).toHaveText('Sprint');
   await expect(scrum.locator(`.js-card-field-order-row[data-side="${side}"][data-key="scrumBacklogRank"] .card-field-order-toggle`)).toHaveCount(1);
  }
- await show('minicard');
+ const scrum=scrumOf('minicard');
  await scrum.locator('.js-card-field-order-row[data-side="minicard"][data-key="scrumBacklogRank"] .card-field-order-toggle').click();
  await expect.poll(()=>db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.minicardBacklogRank).toBe(true);
  expect(db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.cardBacklogRank).not.toBe(true);

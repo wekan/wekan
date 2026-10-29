@@ -7,12 +7,18 @@ card title, or wants the minicard to lead with its due date rather than its
 labels.
 
 This is [Card Settings](../../Cards/Card-Settings.md) - the only place it is:
-the opened card has no Card Settings of its own. **Show on Card** says what
-every opened card of the board shows - every field ticked, empty or not -
-and **Show on Minicard** what every minicard shows. **Show** chooses which,
-then the sections (Card, Date, Time, Members, Labels, ... Voting, Planning
-Poker, Scrum settings, Comments) are checklists - a section is a checklist's
-title with a checkbox of its own, its fields the items.
+the opened card has no Card Settings of its own. It has two panes, side by
+side when there is room (stacked otherwise): **Show on Minicard** first, what
+every minicard shows, and **Show on Card**, what every opened card of the
+board shows - every field ticked, empty or not. In each the sections (Labels,
+Date, Members, Card, Time, ... Scrum settings, Checklists, Subtasks,
+Attachments, Comments) are checklists - a section is a checklist's title with
+a checkbox of its own, its fields the items.
+
+**What Card Settings shows is what the card and the minicard draw**: the
+opened card draws these sections, in the Show on Card pane's order, each with
+its heading, and each section's fields in the order of its rows there; the
+minicard does the same for the Show on Minicard pane, without headings.
 
 ## Where to find it
 
@@ -20,14 +26,14 @@ title with a checkbox of its own, its fields the items.
 
 | part | what it does |
 | --- | --- |
-| Show | which side the checkboxes and the order are: the minicard's or the opened card's |
+| the two panes | the minicard's (first) and the opened card's: each pane's checkboxes, order and drags are that side's; each collapses by the caret at its top and scrolls on its own; the splitter between them sets their widths |
 | a row's checkbox | whether that side shows the field at all - the same board toggles as before (`allowsLabels`, `allowsLabelsOnMinicard`, ...) |
 | a section's checkbox | whether that side shows the whole section at all (`cardSettingsHiddenOnCard`, `cardSettingsHiddenOnMinicard`); the rows keep their ticks |
 | a one-row section | one line: one checkbox - the field's own - its name, its hamburger (Subtasks, Voting, Planning Poker) |
 | Custom Fields | its items are the board's custom fields - Show on Card is *add to all cards*, Show on Minicard is *show on minicard* - dragged to reorder, **+** to create one |
 | a row's hamburger | only Labels text's way back to the board's default, while overridden; no other row has one |
-| a section's hamburger | Card: Ask for a reason when moving cards and the Draggable table; Subtasks: Subtask settings; no other section has one |
-| drag and drop | move a field earlier or later **on the chosen side only**, within its section; move a whole section above or below another |
+| a section's hamburger | Card: Ask for a reason when moving cards and the Draggable table; Subtasks: the Subtask settings; no other section has one. A hamburger opens under its line, not in a popup |
+| drag and drop | move a field earlier or later **on the pane's side only**, within its section; move a whole section above or below another - on that side only |
 
 What is dragged follows the member's drag handles setting: with drag handles
 on, only the handle - the rest of the row scrolls the page; with them off,
@@ -40,16 +46,18 @@ card**, **Show empty**, **Show empty fields** and the hamburgers' **Select
 all / Select none**. Every opened card shows every field its board shows,
 empty or not.
 
-The minicard order and the card order are independent: a field can be third
-on the minicard and last on the card.
+The minicard order and the card order are independent, the sections' order
+as well as the fields': a field can be third on the minicard and last on the
+card, and Description can be the minicard's first section and the card's last.
 
 ## Steps to use it
 
 1. Open a board you are an admin of, click the sidebar's hamburger menu,
    then **Board Settings → Card**.
-2. Choose **Show on Card** or **Show on Minicard**.
+2. Use the **Show on Card** pane for the opened card, the **Show on
+   Minicard** pane for the minicard.
 3. Drag a field within its section to move it on that side, or a section to
-   move the whole section.
+   move the whole section on that side.
 4. The change takes effect immediately on every card of this board; there
    is no separate save step.
 5. Untick a checkbox to hide the field on that side; tick it to show it.
@@ -61,72 +69,71 @@ below it, at the top).
 
 ## What moves, and how
 
-The card and the minicard are each a fixed **head**, a reorderable middle of
-**sections**, and (on the card) a fixed **tail**.
+Both the card and the minicard are a fixed **head** and Card Settings'
+**sections** (since 2026-10-28; `models/lib/cardFieldOrder.js` `CARD_LAYOUT`,
+`MINICARD_LAYOUT`).
 
 **On the opened card:**
 
-- *Head, fixed:* Mark as complete, Card number, Cover image - the title bar.
-- *Sections, reorderable:* Labels (Labels, Stickers, Location), Dates
-  (Received, Start, Due, End), Members (Members, Assignee, Creator,
-  Requested by, Assigned by), Dependencies, Sort (Sort number, Show lists,
-  Spent time, Flowtime, Pomodoro), Custom Fields, Vote and Planning Poker,
-  Description (title, text).
-- *Tail, fixed:* Checklists, Checklist count, Subtasks, Attachments,
-  Attachment count, Text notes, Comments, Activities - they live in the
-  card's galleries and its right column, not in the field list.
+- *Head, fixed:* the title bar - Mark as complete, Card number, the cover
+  above it (and the rows that only change it: Collapse, Parent card, Linked
+  card, Labels above the title, Card color).
+- *Sections, in the Show on Card pane's order:* Labels (Labels, Stickers,
+  Location), Date (Received, Start, Due, End; At risk follows Due, Forecast
+  End), Members (Members, Assignee, Creator, Requested by, Assigned by), Card
+  (Dependencies, Sort number, Show lists with Swimlane, Card buttons, Similar
+  cards), Time (Spent time, Flowtime, Pomodoro), Custom Fields, Voting,
+  Planning Poker, Description (title, text), Scrum settings, Checklists
+  (count, checklists), Subtasks, Attachments (attachments, text notes),
+  Comments.
+- *Fixed outside them:* the attachment count is on the Attachments heading;
+  the Activities are the right column of every opened card; on a maximized
+  card the Comments move to the top of the right column.
 
-**On the minicard:** the title bar (Mark as complete, Card number) is fixed;
-everything under it is reorderable - the dates line, Cover, Labels, Custom
-Fields, Assignees, Members, Creator, Checklists, the badge strip
-(Dependencies, Stickers, Comment count, Vote, Poker, Attachment count,
-Subtasks, Checklist count, Sort number), Description text, the comment
-preview, List name, Swimlane name. Inside the dates line and the badge strip
-the fields reorder among themselves too.
+**On the minicard:** the title row and the cover under it are fixed; the
+sections follow in the Show on Minicard pane's order, with no headings. What
+shares a container still does: the dates of Date and Time are one dates line
+(At risk and Forecast are badges in it), and badges next to each other - of
+one section or of neighbouring ones - one badge strip
+(`models/lib/minicardGroups.js`).
 
-Moving a field follows three rules:
+Moving a field follows two rules:
 
 1. **A field moves within its section.** *Start* dropped below *Due* goes
-   after it.
-2. **Leaving its section, a field takes the whole section along.** The
-   first row of Dates dragged up lifts the Dates section above the section
-   before it.
-3. **A section's header stays first.** Labels, Members, Sort number and
-   Description title head their sections (the fold caret is theirs), so
-   dragging them always moves the section, and no other field goes above
-   them.
+   after it, on that side.
+2. **A field cannot leave its section**; dropped on another, it goes back.
+   **Description title** is the Description heading on the card, so it
+   always stays first there.
 
-A few minicard rows have no element of their own there - *Labels text* (how
+A few rows have no element of their own on a side - *Labels text* (how
 labels are drawn), *List title* (the per-card switch under *Show lists*),
-*Requested by*, *Assigned by*, *Description title*, *Attachments* - so they
-sit under the row they modify and are not dragged.
+*Description title* and *Unread comments* on the minicard ... - so they sit
+under the row they modify and are not dragged.
 
 ## The default order
 
 The default - what a board that never touched the popup shows, and where any
-field a stored order does not name goes - is the order the card and the
-minicard had **before fields became orderable**: the templates as they were
-at commit `59f7d61df`, right before #4448's first commit, read top to
-bottom. It is not a tidied-up order; changing it would change the shape of
-every card on upgrade.
+field a stored order does not name goes - keeps the order the card and the
+minicard had **before fields became orderable** (the templates at commit
+`59f7d61df`, right before #4448's first commit, read top to bottom) as far as
+Card Settings' sections allow: each section where its first field was, its
+fields in their old order.
 
-**Card:** Mark as complete, Card number, Cover image; Labels, Stickers,
-Location; Received, Start, Due, End; Members, Assignee, Creator, Requested
-by, Assigned by; Dependencies; Sort number, Show lists, Spent time, Flowtime,
-Pomodoro; Custom Fields; Vote, Planning Poker; Description title,
-Description text; Checklists, Checklist count, Subtasks, Attachments,
-Attachment count, Text notes, Comments, Activities.
+**Card sections:** Labels, Date, Members, Card, Time, Custom Fields, Voting,
+Planning Poker, Description, Scrum settings, Checklists, Subtasks,
+Attachments, Comments.
 
-**Minicard:** Mark as complete, Card number; Received, Start, Due, End,
-Spent time; Cover image; Labels; Custom Fields; Assignees; Members; Creator;
-Checklists; Dependencies, Stickers, Comment count, Vote, Planning Poker,
-Attachment count, Subtasks, Checklist count, Sort number; Description text;
-Comments; List name; Swimlane name.
+**Minicard sections:** Scrum settings, Date, Time, Labels, Custom Fields,
+Members, Checklists, Card, Comments, Voting, Planning Poker, Attachments,
+Subtasks, Description.
 
-Two fields did not exist at that commit and sit beside their closest older
-neighbour: *Text notes* (card, between the attachment count and comments)
-and *Swimlane name* (minicard, last, under the list name).
-`tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs` pins both sequences.
+What moved: on the card, the card buttons and the similar cards are in Card,
+the timers in Time, Text notes in Attachments, the checklists ... comments
+are sections in the order instead of a fixed tail, and At risk is under Due;
+on the minicard, the cover is under the title, and the badges sit in their
+sections. A stored order from before keeps each field's relative order inside
+its section. `tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs` and
+`tests/cardSectionsOnCard.test.cjs` pin both.
 
 ## The helpers that need no AI
 
@@ -173,16 +180,23 @@ All are on by default except the minicard's forecast.
   board field, icons and label keys of every setting.
 - Stored on the board as `cardFieldOrder` and `minicardFieldOrder`, flat
   arrays of field keys, written through `board.setCardFieldOrder()` and
-  `board.setMinicardFieldOrder()`. The five section keys the first version
-  of #4448 stored (`labels, dates, members, customFields, description`)
-  stay valid and expand to what they rendered - Members carried
-  Dependencies and Sort then, Custom Fields carried Vote/Poker. The REST
-  endpoints `GET/PUT /api/boards/:boardId/cardFieldOrder` still speak in
-  section keys (eight now: `labels, dates, members, dependencies, sort,
-  customFields, voteAndPoker, description`).
+  `board.setMinicardFieldOrder()`, and the section orders
+  `cardSettingsSectionOrder` and `minicardSettingsSectionOrder`, written
+  through `board.setCardSettingsSectionOrder(order, side)`
+  (`models/lib/cardSettingsSections.js` `sectionOrder`, `sectionOrderOf`).
+  The five section keys the first version of #4448 stored (`labels, dates,
+  members, customFields, description`) stay valid and expand to the fields
+  they rendered; so do the template groups' keys of before 2026-10-28
+  (`dates`, `sort`, `voteAndPoker`, the minicard's `badges`). The REST
+  endpoints `GET/PUT /api/boards/:boardId/cardFieldOrder` speak in the
+  layout's section keys, which are Card Settings' section ids now (`labels,
+  date, members, card, time, customFields, vote, poker, description, scrum,
+  checklists, subtasks, attachments, comments`) - they read and write the
+  fields' order, not the order the card draws its sections in.
 - `cardDetails.jade` renders the sections through `each section in
-  orderedCardFieldSections` and the fields inside a section through
-  `orderedDatesFields`, `orderedMembersFields`, ...; `minicard.jade`
-  through `orderedMinicardSections`, `orderedMinicardDates` and
-  `orderedMinicardBadges`. `tests/cardSettingsCoverage.test.cjs` derives
-  each layout's default order from the templates and pins the popup.
+  orderedCardFieldSections` (`cardDetails.js` `orderedSectionsOf`) and the
+  fields inside a section through `orderedLabelsFields`, `orderedDateFields`,
+  ... (`cardSettingsSections.sectionFieldsOn('card', ...)`); `minicard.jade`
+  through `each group in minicardGroups`. `tests/cardSectionsOnCard.test.cjs`
+  pins that every field is drawn in its own section, and
+  `tests/cardSettingsCoverage.test.cjs` the popup.

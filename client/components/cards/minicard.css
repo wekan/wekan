@@ -1214,3 +1214,20 @@
 .minicard.minicard-unread-changes {
   box-shadow: inset 4px 0 0 #2b6cb0;
 }
+
+/* Card Settings' sections on the minicard (2026-10-28, models/lib/minicardGroups.js):
+   At risk and Forecast are badges drawn in the dates line, after the date
+   their row follows; and a section boundary can start a second badge strip,
+   which floats beside the first with the gap two badges have. */
+.minicard .dates .badge {
+  align-self: center;
+  margin-inline-end: 6px;
+  font-size: 0.9em;
+  color: #808080;
+}
+.minicard .dates .badge .badge-text {
+  padding-inline-start: 4px;
+}
+.minicard .badges + .badges {
+  margin-inline-start: 21px;
+}

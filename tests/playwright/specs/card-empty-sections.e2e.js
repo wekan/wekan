@@ -14,14 +14,17 @@ test('#6696 hidden fields remove their whole group and separator', async ({ boar
   await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
   const cp = new CardPage(page);
   await cp.waitForOpen();
-  for (const group of ['date-format', 'members', 'sort']) {
-    await expect(cp.root.locator(`.card-details-group-${group}`)).toHaveCount(0);
+  // Since 2026-10-28 the card's groups are Card Settings' sections: Date,
+  // Members, and Time (Flowtime was in the old Sort group).
+  const sectionOf = id => cp.root.locator(`.card-details-section[data-card-section="${id}"]`);
+  for (const group of ['date', 'members', 'time']) {
+    await expect(sectionOf(group)).toHaveCount(0);
   }
   db.updateOne('boards', { _id: board.boardId }, {
     $set: { allowsDueDate: true, allowsMembers: true, allowsFlowtime: true },
   });
-  for (const group of ['date-format', 'members', 'sort']) {
-    await expect(cp.root.locator(`.card-details-group-${group}`)).toBeVisible();
-    await expect(cp.root.locator(`.card-details-group-${group} > hr`)).toHaveCount(1);
+  for (const group of ['date', 'members', 'time']) {
+    await expect(sectionOf(group)).toBeVisible();
+    await expect(sectionOf(group).locator('> hr.card-details-section-rule')).toHaveCount(1);
   }
 });

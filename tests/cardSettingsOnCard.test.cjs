@@ -11,6 +11,13 @@
 // Settings / Card now. The suite keeps the section-order, drag, collapse and
 // shared-handler checks, and pins that the opened card has no Card Settings
 // (no button, no cardSettingsInline, no open state).
+//
+// Deliberate change (2026-10-28, later): Card Settings shows BOTH sides at
+// once, a Minicard pane and a Card pane - two instances of cardSettingsInline,
+// each with its fixed side and its own section order - instead of a Show
+// switch; and a hamburger opens its content in a panel under its line
+// (cardSettingsInlinePanel) instead of the cardSettingsSectionPopup /
+// cardSettingsItemPopup popups.
 // Run: node tests/cardSettingsOnCard.test.cjs
 
 const assert = require('assert');
@@ -34,8 +41,10 @@ const boardsModel = read('models/boards.js');
 const templateOf = (jade, name) => jade.slice(jade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
 const inline = templateOf(sidebarJade, 'cardSettingsInline');
 const section = templateOf(sidebarJade, 'cardSettingsInlineSection');
-const sectionMenu = templateOf(sidebarJade, 'cardSettingsSectionPopup');
-const itemMenu = templateOf(sidebarJade, 'cardSettingsItemPopup');
+// Both hamburgers' content is the one panel template now.
+const panel = templateOf(sidebarJade, 'cardSettingsInlinePanel');
+const sectionMenu = panel;
+const itemMenu = panel;
 
 // ── the section order ───────────────────────────────────────────────────────
 
@@ -78,7 +87,11 @@ test('a drop: the shown sections take their new order, the others keep their pla
 test('the board stores the order normalised, as a board admin\'s setting', () => {
   assert.match(boardsModel, /cardSettingsSectionOrder: \{[\s\S]*?type: Array,\s*optional: true/);
   assert.match(boardsModel, /'cardSettingsSectionOrder\.\$': \{\s*type: String/);
-  assert.match(boardsModel, /async setCardSettingsSectionOrder\(order\) \{\s*const \{ sectionOrder \} = require\('\/models\/lib\/cardSettingsSections'\);\s*return await Boards\.updateAsync\(this\._id, \{ \$set: \{ cardSettingsSectionOrder: sectionOrder\(order\) \} \}\);/);
+  // 2026-10-28: one setter for both sides' orders, the side as its second
+  // argument; the one-argument call still writes the opened card's.
+  assert.match(boardsModel, /minicardSettingsSectionOrder: \{[\s\S]*?type: Array,\s*optional: true/);
+  assert.match(boardsModel, /async setCardSettingsSectionOrder\(order, side\) \{\s*const \{ sectionOrder, SECTION_ORDER_FIELD \} = require\('\/models\/lib\/cardSettingsSections'\);\s*const which = side === 'minicard' \? 'minicard' : 'card';\s*return await Boards\.updateAsync\(this\._id, \{ \$set: \{ \[SECTION_ORDER_FIELD\[which\]\]: sectionOrder\(order, which\) \} \}\);/);
+  assert.deepStrictEqual(s.SECTION_ORDER_FIELD, { card: 'cardSettingsSectionOrder', minicard: 'minicardSettingsSectionOrder' });
   // Boards.update is a board admin's (server/permissions/boards.js), and the
   // drop is not even sent for anybody else.
   assert.match(read('server/permissions/boards.js'), /update: allowIsBoardAdminOrSiteAdmin/);
@@ -95,7 +108,9 @@ test('negative: the opened card has no Card Settings button and no Card Settings
   for (const gone of ['cardSettingsOpenOn', 'isCardSettingsOpen', 'closeCardSettings', "'click .js-open-card-add-fields'", 'onDestroyed']) {
     assert.ok(!addFieldsJs.includes(gone), `cardAddFields.js: ${gone}`);
   }
-  assert.ok(!/closeCardSettings|js-close-card-settings|settingsCard\(/.test(sidebarJs), 'sidebar.js: no card path');
+  // (`js-close-card-settings-panel`, since 2026-10-28, is a hamburger panel's
+  // X inside Card Settings, not a way out of Card Settings on a card.)
+  assert.ok(!/closeCardSettings(?!Panel)|js-close-card-settings(?!-panel)|settingsCard\(/.test(sidebarJs), 'sidebar.js: no card path');
   assert.ok(!css.includes('.card-details-add-fields'), 'negative: no CSS for the button');
   // The card's fields are drawn directly, not under an `else`: .card-details-left
   // is a direct child of the card's body.
@@ -105,19 +120,19 @@ test('negative: the opened card has no Card Settings button and no Card Settings
   assert.match(addFieldsJs, /CARD_FIELD_TEMPLATES\.forEach\(name => \{/);
 });
 
-test('top to bottom: Show and its two choices, the sections - the popup\'s header is the title and X', () => {
-  const show = inline.indexOf("span.card-settings-inline-show-label {{_ 'card-settings-show'}}");
-  const minicard = inline.indexOf('value="minicard"');
-  const card = inline.indexOf('value="card"');
+test('top to bottom: each pane its header (caret, side title), then the sections - the popup\'s header is the title and X', () => {
+  const head = inline.indexOf('.card-settings-pane-head');
+  const caret = inline.indexOf('a.card-settings-pane-collapse.js-toggle-card-settings-pane');
+  const title = inline.indexOf('h3.card-settings-pane-title {{paneTitle}}');
   const sections = inline.indexOf('each section in inlineSections');
-  assert.ok(show > 0 && show < minicard && minicard < card && card < sections, 'the order');
+  assert.ok(head > 0 && head < caret && caret < title && title < sections, 'the order');
+  assert.match(sidebarJs, /paneTitle\(\) \{\n\s+return TAPi18n\.__\(Template\.instance\(\)\.showSide\.get\(\) === 'minicard' \? 'show-on-minicard' : 'show-on-card'\);/);
   // Negative: no title and X of its own, no inPopup distinction left.
-  assert.ok(!/card-settings-inline-head|js-close-card-settings|\binPopup\b|card-settings-in-popup/.test(sidebarJade + sidebarJs));
+  assert.ok(!/card-settings-inline-head|js-close-card-settings(?!-panel)|\binPopup\b|card-settings-in-popup/.test(sidebarJade + sidebarJs));
   assert.ok(!/\.card-settings-inline-head|\.card-settings-inline-close/.test(css), 'negative: their CSS too');
-  // One radio group (there is one Card Settings), Show on Card chosen when it opens.
-  assert.equal((inline.match(/input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side"/g) || []).length, 2);
-  assert.match(sidebarJs, /this\.showSide = new ReactiveVar\(kept === 'minicard' \? 'minicard' : 'card'\);/);
-  assert.match(sidebarJs, /const side = evt\.currentTarget\.value === 'minicard' \? 'minicard' : 'card';\n\s+tpl\.showSide\.set\(side\);\n\s+if \(tpl\.popupEntry\) tpl\.popupEntry\.cardSettingsSide = side;/);
+  // Negative: no Show radio - both sides are shown.
+  assert.ok(!inline.includes('js-card-settings-show-side') && !sidebarJs.includes('js-card-settings-show-side'));
+  assert.match(sidebarJs, /this\.showSide = new ReactiveVar\(side === 'minicard' \? 'minicard' : 'card'\);/);
 });
 
 // ── Board Settings / Card: the same template ────────────────────────────────
@@ -130,11 +145,16 @@ test('Board Settings / Card is Card Settings, in a popup', () => {
   const popup = templateOf(sidebarJade, 'boardCardSettingsPopup');
   const lines = popup.split('\n').slice(1);
   const end = lines.findIndex(l => /^\/\/-/.test(l));
-  const body = lines.slice(0, end === -1 ? undefined : end)
-    .filter(l => l.trim() && !/^\s*\/\/-/.test(l) && !/^ {4}/.test(l));
-  assert.deepStrictEqual(body, ['  +cardSettingsInline'], 'the popup is only cardSettingsInline');
+  const body = lines.slice(0, end === -1 ? undefined : end).join('\n');
+  // 2026-10-28: two cardSettingsInline panes - Minicard first - and the
+  // splitter between them, nothing else.
+  assert.deepStrictEqual([...body.matchAll(/\+cardSettingsInline\(side="(\w+)"\)/g)].map(m => m[1]), ['minicard', 'card']);
+  assert.ok(body.indexOf('.card-settings-splitter') > body.indexOf('side="minicard"')
+    && body.indexOf('.card-settings-splitter') < body.indexOf('side="card"'), 'the splitter between the panes');
   // Negative: nothing of the old layout is left anywhere in sidebar.jade/js.
-  for (const gone of ['leftMenu(settingsMenuItems)', '.card-settings-pane', 'paneTitle(settingsPaneTitle)',
+  // (`.card-settings-pane` is a name again since 2026-10-28 - one side's pane
+  // of the new layout - so it is not in this list.)
+  for (const gone of ['leftMenu(settingsMenuItems)', 'paneTitle(settingsPaneTitle)',
     'cardSettingsSelectButtons', 'js-card-settings-select(', 'card-settings-list-card', 'card-settings-list-minicard',
     'card-settings-side-head']) {
     assert.ok(!sidebarJade.includes(gone), `negative: ${gone} is gone from sidebar.jade`);
@@ -215,7 +235,7 @@ test('a section is a checklist: a title, its count, its hamburger, its rows as i
   assert.match(item, /\.js-card-field-order-row\([^)]*data-key="\{\{row\.key\}\}" data-side="\{\{row\.side\}\}"\)\n\s+\+cardSettingsSideToggle\(row=row\)\n\s+\+cardSettingsRowLabel\(row=row\)\n\s+if row\.hasMenu\n\s+a\.card-settings-inline-menu\.js-open-card-settings-item-menu/);
   // (The checkbox just clicked is read once per redraw, for the rows and for the
   // section checkboxes alike.)
-  assert.match(sidebarJs, /const animating = tpl\.animating\.get\(\);[\s\S]{0,300}const rows = sectionRowsOf\(section\.id, data, side, animating\)/);
+  assert.match(sidebarJs, /const animating = tpl\.animating\.get\(\);[\s\S]{0,600}const rows = sectionRowsOf\(section\.id, data, side, animating\)/);
   // Negative: On this card and Show empty are gone (2026-10-28).
   assert.ok(!/js-card-add-field|js-card-always-show/.test(section));
 });
@@ -223,13 +243,16 @@ test('a section is a checklist: a title, its count, its hamburger, its rows as i
 test('sections and rows drag like checklists and their items, also by keyboard', () => {
   assert.match(inline, /\.card-settings-inline-sections\.js-card-settings-sections-sortable/);
   assert.match(sidebarJs, /reorderOnDrop\(this\.\$\('\.js-card-settings-sections-sortable'\), \{\s*items: '> \.js-card-settings-section\.is-draggable', handle: '\.js-card-settings-section-handle',/);
-  assert.match(sidebarJs, /drop: \(id, ids\) => placeSectionOrder\(ids\),/);
+  // Each pane writes its own side's section order (2026-10-28).
+  assert.match(sidebarJs, /drop: \(id, ids\) => placeSectionOrder\(ids, this\.showSide\.get\(\)\),/);
+  assert.match(sidebarJs, /placeSectionOrder\(ids, tpl\.showSide\.get\(\)\);/);
+  assert.match(sidebarJs, /board\.setCardSettingsSectionOrder\(order, which\);/);
   // Rows: the popup's placing, within their section, a list per section.
   const rows = sidebarJs.slice(sidebarJs.indexOf('Template.cardSettingsInlineSection.onRendered('));
   assert.match(rows.slice(0, 1400), /items: '> \.js-card-field-order-row\.is-positioned', handle: '\.js-card-field-order-handle',[\s\S]*?drop: \(key, keys\) => placeInListOrder\(list\.dataset\.side, key, keys\),/);
   assert.match(section, /\.card-settings-inline-items\.js-card-field-order-sortable\(data-side="\{\{side\}\}"\)/);
   // Up and Down on a focused section title or handle.
-  assert.match(sidebarJs, /'keydown \.js-card-settings-section-handle'\(evt\) \{\s*const direction = ARROW_KEYS\[evt\.key\];/);
+  assert.match(sidebarJs, /'keydown \.js-card-settings-section-handle'\(evt, tpl\) \{\s*const direction = ARROW_KEYS\[evt\.key\];/);
   // Only a board admin drags: the handle and is-draggable only then.
   assert.match(sidebarJs, /draggable: mayBoard,/);
   assert.match(section, /class="\{\{#if section\.collapsed\}\}is-collapsed\{\{\/if\}\} \{\{#if section\.draggable\}\}is-draggable\{\{\/if\}\}/);
@@ -237,7 +260,9 @@ test('sections and rows drag like checklists and their items, also by keyboard',
 
 test('a section collapses like a checklist, kept per user, hidden rather than removed', () => {
   assert.match(section, /a\.card-settings-inline-collapse\.js-toggle-card-settings-section/);
-  assert.match(sidebarJs, /await user\.setCollapsedCardSection\(boardId, inlineCollapseKey\(id\), !inlineSectionCollapsed\(id\)\);/);
+  // Per pane (2026-10-28): the Card pane keeps the key the one list had.
+  assert.match(sidebarJs, /await user\.setCollapsedCardSection\(boardId, inlineCollapseKey\(id, side\), !inlineSectionCollapsed\(id, side\)\);/);
+  assert.match(sidebarJs, /const inlineCollapseKey = \(id, side\) => \(side === 'minicard' \? `card-settings-minicard-\$\{id\}` : `card-settings-\$\{id\}`\);/);
   assert.match(css, /\.card-settings-inline-section\.is-collapsed \.card-settings-inline-items,\n\.card-settings-inline-section\.is-collapsed \.card-settings-add-custom-field \{ display: none; \}/);
   // Negative: an `if`/`unless` around the rows would drop the drag bound to them.
   assert.ok(!/(if|unless) section\.collapsed\n\s+\.card-settings-inline-items/.test(section));
@@ -247,34 +272,40 @@ test('the hamburgers: a section\'s board actions and Card\'s options; a row\'s L
   // Deliberate change (2026-10-28): the selects, On this card, Show empty and
   // Show empty fields are gone; a hamburger is drawn only when non-empty.
   assert.ok(!/js-card-settings-inline-select|js-show-empty-card-fields|js-card-add-field|js-card-always-show/.test(sectionMenu + itemMenu));
-  assert.match(sectionMenu, /if sectionActions\.length\n\s+ul\.pop-over-list\n\s+each action in sectionActions\n\s+li\n\s+a\.js-card-settings-action/);
+  // The action's settings themselves, in the panel (2026-10-28).
+  assert.match(sectionMenu, /each action in sectionActions\n\s+\.card-settings-section-action\.js-card-settings-panel-own-handlers/);
   assert.match(sidebarJs, /sectionActions\(\) \{ return sectionCardActionsOf\(this\.sectionId\); \},/);
   assert.match(sectionMenu, /if sectionIsGeneral\n\s+\/\/- What is not a field\.\n\s+div\.check-div\.card-settings-board-option\.card-settings-ask-move-reason/);
   assert.match(sectionMenu, /if sectionIsGeneral\n\s+\+boardDragSettings\(section="card"\)/);
   assert.match(itemMenu, /if menu\.labelTextReset\n\s+div\.check-div\.card-settings-board-option\n\s+a\(class=labelTextResetClass\)/);
   assert.match(sidebarJs, /return row \? \{ \.\.\.row, menu: inlineRowMenu\(row\) \} : null;/);
   assert.match(sidebarJs, /function inlineRowMenu\(row\) \{\n\s+return \{\n\s+labelTextReset: Boolean\(row\.labelTextOverride && row\.labelTextOverridden\),\n\s+\};/);
-  assert.match(sidebarJs, /return \{ \.\.\.row, _id: row\.key, menu, hasMenu: menu\.labelTextReset \};/);
+  assert.match(sidebarJs, /return \{ \.\.\.row, _id: row\.key, menu, hasMenu: menu\.labelTextReset, menuOpen: open === `row:\$\{row\.key\}` \};/);
 });
 
 test('negative: one set of handlers - every Card Settings template uses the popup\'s', () => {
   assert.match(sidebarJs, /const cardSettingsEvents = \{/);
-  // Deliberate change: boardCardSettingsPopup only renders
-  // `+cardSettingsInline`, whose own registration below carries
-  // the handlers. Registering them on the popup as well would run every click
-  // twice (the event bubbles from the inline to the popup), so the popup must
-  // register none (negative).
-  assert.ok(!/Template\.boardCardSettingsPopup\.(events|helpers|onCreated|onRendered)\(/.test(sidebarJs),
-    'negative: boardCardSettingsPopup registers no events/helpers of its own');
-  assert.match(sidebarJs, /Template\.cardSettingsInline\.events\(\{\s*\.\.\.cardSettingsEvents,/);
-  assert.match(sidebarJs, /Template\.cardSettingsSectionPopup\.events\(cardSettingsEvents\);/);
-  assert.match(sidebarJs, /Template\.cardSettingsItemPopup\.events\(cardSettingsEvents\);/);
+  // Deliberate change: boardCardSettingsPopup only renders the two
+  // `+cardSettingsInline` panes, whose own registration carries the handlers.
+  // Registering them on the popup as well would run every click twice (the
+  // event bubbles from the pane to the popup), so the popup registers no
+  // event map (negative). Since 2026-10-28 it has helpers and an onRendered
+  // of its own - the splitter between the panes - but still no events.
+  assert.ok(!/Template\.boardCardSettingsPopup\.events\(/.test(sidebarJs),
+    'negative: boardCardSettingsPopup registers no events of its own');
+  // The pane's events are cardSettingsEvents, each skipping what a panel's
+  // own templates handle (paneEvents).
+  assert.match(sidebarJs, /Template\.cardSettingsInline\.events\(\{\s*\.\.\.paneEvents,/);
+  assert.match(sidebarJs, /const paneEvents = Object\.fromEntries\(Object\.entries\(cardSettingsEvents\)/);
+  // The hamburgers' panel is inside the pane: an event map of its own would
+  // run every click twice (negative).
+  assert.ok(!/Template\.cardSettingsInlinePanel\.events\(/.test(sidebarJs), 'negative: the panel has no event map');
   for (const name of ['cardSettingsSectionPopup', 'cardSettingsItemPopup']) {
-    assert.ok(sidebarJs.includes(`Template.${name}.onCreated(setUpCardSettings);`), name);
+    assert.ok(!sidebarJs.includes(`Template.${name}.`), `negative: ${name} is gone`);
   }
   assert.match(sidebarJs, /function setUpCardSettingsInline\(\) \{\s*setUpCardSettings\.call\(this\);/);
   // No handler of a checkbox is written a second time for the card.
-  for (const cls of ['js-ask-move-reason', 'js-card-settings-action', 'js-card-settings-section-shown', 'js-card-settings-single-toggle']) {
+  for (const cls of ['js-ask-move-reason', 'js-card-settings-section-shown', 'js-card-settings-single-toggle']) {
     assert.strictEqual(sidebarJs.split(`'click .${cls}'`).length - 1, 1, `${cls} has one handler`);
   }
   for (const cls of ['js-card-add-field', 'js-card-always-show', 'js-show-empty-card-fields']) {
@@ -282,6 +313,9 @@ test('negative: one set of handlers - every Card Settings template uses the popu
   }
 });
 
+// (The Show radio is gone since 2026-10-28, and so are the two hamburger
+// popups; their strings stay translated in every language, as below, until a
+// translation pass removes them - nothing reads them.)
 test('"Show" is translated in every language, its placeholders none', () => {
   const dir = path.join(root, 'imports/i18n/data');
   const en = JSON.parse(fs.readFileSync(path.join(dir, 'en.i18n.json'), 'utf8'));

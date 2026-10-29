@@ -43,7 +43,11 @@ test('a field\'s add button is on its title\'s line, and the attachment list is 
   try {
     await openAlpha(page, board);
     const details = page.locator('.card-details');
-    for (const item of ['labels', 'start', 'members']) {
+    // Since 2026-10-28 Labels and Members are headed by their SECTION's
+    // heading (Card Settings' sections), and their items have no title of
+    // their own - so the rule is pinned on fields that carry their own title:
+    // Start, Stickers and Assignee.
+    for (const item of ['stickers', 'start', 'assignees']) {
       const row = details.locator(`.card-details-item-${item}`).first();
       const title = await row.locator('.card-details-item-title').boundingBox();
       const add = await row.locator('.add-label, .add-member, .add-assignee').first().boundingBox();
@@ -86,9 +90,9 @@ test('Board Settings / Card: the attachment rows are in the Attachments section,
   await page.locator('.js-toggle-page-sidebar').first().click();
   await page.locator('.board-sidebar .js-open-board-menu').click();
   await page.locator('.js-pop-over .js-open-board-card-settings').click();
-  // Board Settings / Card is the opened card's Card Settings since
-  // 2026-10-28 (cardSettingsInline): every section at once, Show on Card chosen.
-  const form = page.locator('.js-pop-over .js-card-settings-inline');
+  // Board Settings / Card is Card Settings since 2026-10-28 (cardSettingsInline):
+  // every section at once, in the Card pane (the Minicard pane beside it).
+  const form = page.locator('.js-pop-over .js-card-settings-pane[data-side="card"]');
   await form.waitFor();
   const attachments = form.locator('.js-card-settings-section[data-section="attachments"]');
   for (const [key, field] of [['attachmentPreviews', 'allowsAttachmentPreviewsOnCard'], ['attachmentDetails', 'allowsAttachmentDetailsOnCard']]) {
@@ -112,7 +116,8 @@ test('Card Settings: the keyboard moves a field on its own side, one row of its 
     await page.locator('.js-toggle-page-sidebar').first().click();
     await page.locator('.board-sidebar .js-open-board-menu').click();
     await page.locator('.js-pop-over .js-open-board-card-settings').click();
-    const form = page.locator('.js-pop-over .js-card-settings-inline');
+    // The Card pane (two panes since 2026-10-28).
+    const form = page.locator('.js-pop-over .js-card-settings-pane[data-side="card"]');
     await form.waitFor();
     const due = form.locator('.js-card-settings-section[data-section="date"]').locator('.js-card-field-order-row[data-key="dueDate"][data-side="card"]');
     const before = cardOrder(board);

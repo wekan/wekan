@@ -11,6 +11,13 @@
 // Deliberate change (2026-10-28): "On this card", "Show empty" and "Show empty
 // fields" are gone, with the hamburger's Select all / Select none; the specs
 // of those are replaced below by the specs of what replaced them.
+//
+// Deliberate change (2026-10-28, later): Board Settings / Card shows BOTH
+// sides at once, a Minicard pane and a Card pane, instead of a "Show" radio
+// choosing one - so a spec that switched the radio now uses the other pane
+// (paneOf); and a hamburger opens its content UNDER its line inside the pane
+// instead of as a popup layer on top of Card Settings - so the specs of the
+// layer are the specs of the panel now.
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
@@ -30,7 +37,7 @@ async function openBoardCardSettings(page) {
 
 // Every spec starts from the board's own order and no section hidden.
 test.beforeEach(({ board }) => {
-  db.updateOne('boards', { _id: board.boardId }, { $unset: { cardSettingsSectionOrder: '', cardSettingsHiddenOnCard: '', cardSettingsHiddenOnMinicard: '' } });
+  db.updateOne('boards', { _id: board.boardId }, { $unset: { cardSettingsSectionOrder: '', minicardSettingsSectionOrder: '', cardSettingsHiddenOnCard: '', cardSettingsHiddenOnMinicard: '' } });
 });
 
 async function openCard(page, board) {
@@ -41,10 +48,12 @@ async function openCard(page, board) {
   return page.locator('.card-details');
 }
 
-// Card Settings is Board Settings / Card: the popup's Card Settings.
-async function openCardSettings(page) {
+// Card Settings is Board Settings / Card: the popup's two panes. One side's
+// pane - the Card pane unless asked for the Minicard's.
+const paneOf = (page, side = 'card') => settingsPopup(page).locator(`.js-card-settings-pane[data-side="${side}"]`);
+async function openCardSettings(page, side = 'card') {
   await openBoardCardSettings(page);
-  const inline = settingsPopup(page).locator('.js-card-settings-inline');
+  const inline = paneOf(page, side);
   await expect(inline).toBeVisible();
   return inline;
 }
@@ -52,65 +61,64 @@ const sectionOf = (inline, id) => inline.locator(`.js-card-settings-section[data
 const itemOf = (inline, key) => inline.locator(`.js-card-field-order-row[data-key="${key}"]`);
 async function openItemMenu(page, inline, key) {
   await itemOf(inline, key).locator('.js-open-card-settings-item-menu').click();
-  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsItemPopup"]');
+  const menu = inline.locator('.js-card-settings-panel[data-kind="row"]');
   await expect(menu).toBeVisible();
   return menu;
 }
-// A hamburger opened from Card Settings is a layer on top of it, next to its
-// button, Card Settings still visible under it (client/lib/popup.js `layer`);
-// the popup's X closes both, the layer's X the layer alone.
+// A hamburger of Card Settings opens its content under its line, inside the
+// pane (sidebar.jade cardSettingsInlinePanel); the popup's X closes Card
+// Settings, the panel's X the panel alone.
 async function closePopup(page) {
   const close = page.locator('.js-pop-over .js-close-pop-over');
   await close.first().click();
   await expect(page.locator('.js-pop-over')).toHaveCount(0);
 }
 async function backToCardSettings(page) {
-  await page.locator('.js-pop-over .js-popup-layer .popup-layer-close').click();
-  await expect(page.locator('.js-pop-over .js-popup-layer')).toHaveCount(0);
+  await settingsPopup(page).locator('.js-close-card-settings-panel').first().click();
+  await expect(settingsPopup(page).locator('.js-card-settings-panel')).toHaveCount(0);
   await expect(settingsPopup(page)).toBeVisible();
 }
 async function openSectionMenu(page, inline, id) {
   await sectionOf(inline, id).locator('.js-open-card-settings-section-menu').click();
-  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsSectionPopup"]');
+  const menu = sectionOf(inline, id).locator('.js-card-settings-panel[data-kind="section"]');
   await expect(menu).toBeVisible();
   return menu;
 }
 
-// A hamburger opens ON TOP of Card Settings, next to its button, and Card
-// Settings stays visible and where it was scrolled; another hamburger replaces
-// it, its own button and a press elsewhere close it.
-test('a hamburger menu opens on top of Card Settings, next to its button, Card Settings still visible', async ({ boardPage: page }) => {
+// A hamburger opens its content UNDER its line, inside the pane, pushing the
+// rest down - no popup; it shows it is open; its own button, the panel's X,
+// another hamburger and Escape close it.
+test('a hamburger opens under its section\'s line inside the pane, not on top of Card Settings', async ({ boardPage: page }) => {
   await openBoardCardSettings(page);
   const popup = settingsPopup(page);
-  const inline = popup.locator('.js-card-settings-inline');
-  const button = sectionOf(inline, 'card').locator('.js-open-card-settings-section-menu');
+  const inline = paneOf(page);
+  const head = sectionOf(inline, 'card').locator('.card-settings-inline-section-head');
+  const button = head.locator('.js-open-card-settings-section-menu');
   await button.click();
-  const layer = popup.locator('.js-popup-layer[data-popup="cardSettingsSectionPopup"]');
-  await expect(layer).toBeVisible();
-  // Card Settings is still there and visible under it.
-  await expect(sectionOf(inline, 'date')).toBeVisible();
-  await expect(popup).toHaveAttribute('data-popup', 'boardCardSettingsPopup');
-  // Next to its button: just below it, its end edge at the button's, inside the popup.
-  const b = await button.boundingBox();
-  const l = await layer.boundingBox();
-  const p = await popup.boundingBox();
-  expect(Math.abs(l.y - (b.y + b.height))).toBeLessThan(8);
-  expect(Math.abs((l.x + l.width) - (b.x + b.width))).toBeLessThan(8);
-  expect(l.x).toBeGreaterThanOrEqual(p.x);
-  expect(l.y + l.height).toBeLessThanOrEqual(p.y + p.height + 1);
-  // Its own button closes it; Card Settings stays.
+  const panel = sectionOf(inline, 'card').locator('.js-card-settings-panel');
+  await expect(panel).toBeVisible();
+  await expect(button).toHaveAttribute('aria-expanded', 'true');
+  await expect(button).toHaveClass(/is-open/);
+  // No layer, no second popup.
+  await expect(popup.locator('.js-popup-layer')).toHaveCount(0);
+  await expect(page.locator('.js-pop-over')).toHaveCount(1);
+  // Under the section's line, inside the pane; the section below it pushed down.
+  const h = await head.boundingBox();
+  const l = await panel.boundingBox();
+  const p = await inline.boundingBox();
+  expect(Math.abs(l.y - (h.y + h.height))).toBeLessThan(14);
+  expect(l.x).toBeGreaterThanOrEqual(p.x - 1);
+  expect(l.x + l.width).toBeLessThanOrEqual(p.x + p.width + 1);
+  const next = await sectionOf(inline, 'time').boundingBox();
+  expect(next.y).toBeGreaterThan(l.y + l.height - 1);
+  // Its own button closes it.
   await button.click();
-  await expect(layer).toHaveCount(0);
-  await expect(sectionOf(inline, 'date')).toBeVisible();
-  // A press elsewhere in Card Settings closes it too.
+  await expect(panel).toHaveCount(0);
+  await expect(button).toHaveAttribute('aria-expanded', 'false');
+  // The panel's X closes the panel alone, not Card Settings.
   await button.click();
-  await expect(layer).toBeVisible();
-  await sectionOf(inline, 'date').locator('.card-settings-inline-section-title').click();
-  await expect(layer).toHaveCount(0);
-  // Negative: the layer's X closes the layer alone, not Card Settings.
-  await button.click();
-  await popup.locator('.js-popup-layer .popup-layer-close').click();
-  await expect(layer).toHaveCount(0);
+  await panel.locator('.js-close-card-settings-panel').click();
+  await expect(panel).toHaveCount(0);
   await expect(popup).toBeVisible();
 });
 
@@ -145,18 +153,21 @@ test('negative: the opened card has no Card Settings button and no Card Settings
   await expect(page.locator('.card-details .js-card-settings-inline, .card-details-add-fields')).toHaveCount(0);
 });
 
-test('Card Settings is Board Settings / Card: Show, then the sections as checklists, each with its own checkbox', async ({ boardPage: page, board }) => {
+test('Card Settings is Board Settings / Card: two panes, then the sections as checklists, each with its own checkbox', async ({ boardPage: page, board }) => {
   const inline = await openCardSettings(page);
   // The popup's header is the title and the X: no second title or X inside.
   await expect(settingsPopup(page).locator('.js-close-pop-over')).toBeVisible();
   await expect(inline.locator('.card-settings-inline-head, .js-close-card-settings')).toHaveCount(0);
-  await expect(inline.locator('.js-card-settings-show-side[value="card"]')).toBeChecked();
-  await expect(inline.locator('.js-card-settings-show-side[value="minicard"]')).not.toBeChecked();
-  const show = await inline.locator('.card-settings-inline-show').boundingBox();
+  // No Show radio: a pane per side, its title over its sections.
+  await expect(settingsPopup(page).locator('.js-card-settings-show-side')).toHaveCount(0);
+  await expect(paneOf(page, 'minicard')).toBeVisible();
+  const head = await inline.locator('.card-settings-pane-head').boundingBox();
   const first = await inline.locator('.js-card-settings-section').first().boundingBox();
-  expect(first.y).toBeGreaterThan(show.y);
-  // The sections in the table's order, each a title with its checkbox and count.
-  await expect(inline.locator('.js-card-settings-section').first()).toHaveAttribute('data-section', 'card');
+  expect(first.y).toBeGreaterThan(head.y);
+  // The sections in the Card side's default order - Labels first, as on the
+  // opened card - each a title with its checkbox and count.
+  await expect(inline.locator('.js-card-settings-section').first()).toHaveAttribute('data-section', 'labels');
+  await expect(paneOf(page, 'minicard').locator('.js-card-settings-section').first()).toHaveAttribute('data-section', 'scrum');
   const date = sectionOf(inline, 'date');
   await expect(date.locator('.card-settings-inline-section-title')).toBeVisible();
   await expect(date.locator('.card-settings-inline-section-count')).toHaveText(/^\d+\/\d+$/);
@@ -182,11 +193,12 @@ test('the checkbox is the chosen side\'s Show on Card / Show on Minicard, for th
   expect(db.findOne('boards', { _id: board.boardId }).allowsDueDateOnMinicard).toBe(false);
   await toggle().click();
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
-  // Show on Minicard: the same rows, now the minicard's checkboxes.
-  await inline.locator('.js-card-settings-show-side[value="minicard"]').check();
-  await expect(itemOf(inline, 'dueDate')).toHaveAttribute('data-side', 'minicard');
-  await expect(toggle()).toHaveAttribute('aria-checked', 'false');
-  await toggle().click();
+  // The Minicard pane: the same rows, the minicard's checkboxes.
+  const mini = paneOf(page, 'minicard');
+  const miniToggle = () => itemOf(mini, 'dueDate').locator('.card-field-order-toggle');
+  await expect(itemOf(mini, 'dueDate')).toHaveAttribute('data-side', 'minicard');
+  await expect(miniToggle()).toHaveAttribute('aria-checked', 'false');
+  await miniToggle().click();
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsDueDateOnMinicard).toBe(true);
   expect(db.findOne('boards', { _id: board.boardId }).allowsDueDate).toBe(true);
 });
@@ -205,7 +217,7 @@ test('a hamburger is drawn only when it has something in it: none on Date or its
   await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
   await expect(menu.locator('.board-drag-settings')).toBeVisible();
   await expect(menu.locator('.js-show-empty-card-fields, .js-card-settings-inline-select, .js-card-add-field, .js-card-always-show')).toHaveCount(0);
-  // Its back arrow returns to Card Settings, on the side that was shown.
+  // Its X closes it; Card Settings stays.
   await backToCardSettings(page);
   // Subtasks has the board's Subtask settings: a hamburger. Voting's Edit
   // voting is the card's own (on the card's Voting heading): none here.
@@ -246,14 +258,14 @@ test('a checkbox and its label are a space apart, on the rows and in the hamburg
     };
   }), [selector, label]);
   await expect(itemOf(inline, 'dueDate').locator('.card-field-order-toggle')).toHaveAttribute('aria-checked', 'true');
-  const rows = await gaps('.js-card-settings-inline .js-card-settings-section[data-section="date"] .js-card-field-order-row', '.card-settings-line-label');
+  const rows = await gaps('.js-card-settings-pane[data-side="card"] .js-card-settings-section[data-section="date"] .js-card-field-order-row', '.card-settings-line-label');
   expect(rows.some(r => r.checked) && rows.some(r => !r.checked)).toBe(true);
   for (const row of rows) expect(row.gap).toBeGreaterThanOrEqual(3);
   // Negative: ticking moves no label.
   expect(new Set(rows.map(r => r.left)).size).toBe(1);
   const menu = await openSectionMenu(page, inline, 'card');
   await expect(menu.locator('.js-ask-move-reason')).toBeVisible();
-  const options = await gaps('.card-settings-section-menu .card-settings-board-option > a.flex', 'span:last-child');
+  const options = await gaps('.js-card-settings-panel .card-settings-section-menu .card-settings-board-option > a.flex', 'span:last-child');
   // Ask for a reason is the one checkbox left there (Show empty fields is gone).
   expect(options.length).toBeGreaterThanOrEqual(1);
   for (const option of options) expect(option.gap).toBeGreaterThanOrEqual(3);
@@ -287,6 +299,8 @@ test('sections drag like checklists, rows within their section; sections collaps
     return order.indexOf('members') !== -1 && order.indexOf('members') < order.indexOf('date');
   }).toBe(true);
   const ids = await inline.locator('.js-card-settings-section').evaluateAll(els => els.map(el => el.dataset.section));
+  // Negative: the Minicard pane's own order is untouched.
+  expect(db.findOne('boards', { _id: board.boardId }).minicardSettingsSectionOrder).toBeFalsy();
   expect(ids.indexOf('members')).toBeLessThan(ids.indexOf('date'));
   // The keyboard: Down on the focused title moves it one step back.
   await sectionOf(inline, 'members').locator('.card-settings-inline-section-title').focus();
@@ -367,8 +381,7 @@ test('Show on Minicard: unticking a section hides it from every minicard only, t
   const minicard = new BoardPage(page).minicard(board.listIds[0], 'Alpha Card');
   await expect(minicard.locator('.due-date').first()).toBeVisible();
   const details = await openCard(page, board);
-  const inline = await openCardSettings(page);
-  await inline.locator('.js-card-settings-show-side[value="minicard"]').check();
+  const inline = await openCardSettings(page, 'minicard');
   const date = sectionOf(inline, 'date');
   await expect(itemOf(date, 'dueDate')).toHaveAttribute('data-side', 'minicard');
   await date.locator('.js-card-settings-section-shown').click();
@@ -377,8 +390,7 @@ test('Show on Minicard: unticking a section hides it from every minicard only, t
   await expect(minicard.locator('.due-date')).toHaveCount(0);
   // Negative: the card side is untouched - its own checkbox still ticked.
   expect(db.findOne('boards', { _id: board.boardId }).cardSettingsHiddenOnCard || []).toEqual([]);
-  await inline.locator('.js-card-settings-show-side[value="card"]').check();
-  await expect(sectionOf(inline, 'date').locator('.js-card-settings-section-shown')).toHaveAttribute('aria-checked', 'true');
+  await expect(sectionOf(paneOf(page, 'card'), 'date').locator('.js-card-settings-section-shown')).toHaveAttribute('aria-checked', 'true');
   await closePopup(page);
   await expect(details.locator('.card-details-item-due')).toHaveCount(1);
   db.updateOne('boards', { _id: board.boardId }, { $unset: { cardSettingsHiddenOnMinicard: '' } });
@@ -435,9 +447,9 @@ test('Card\'s hamburger: Ask for a reason is the rows\' kind of checkbox, a boar
 });
 
 // ── Board Settings / Card: the popup ────────────────────────────────────────
-// Since 2026-10-28 the popup is the opened card's Card Settings itself
-// (cardSettingsInline, inPopup=true): Show, the sections as checklists, the
-// rest in their hamburgers. Its old left menu and right pane are gone.
+// Since 2026-10-28 the popup is Card Settings itself (cardSettingsInline): a
+// Minicard pane and a Card pane, the sections as checklists, the rest in
+// their hamburgers. Its old left menu and right pane are gone.
 
 test('Board Settings / Card is still the popup: it moves by its title, maximizes beside its close button, shows the labels', async ({ boardPage: page }) => {
   await openBoardCardSettings(page);
@@ -448,8 +460,10 @@ test('Board Settings / Card is still the popup: it moves by its title, maximizes
   const popupBox = await popup.boundingBox();
   expect(labelBox.width).toBeGreaterThan(30);
   expect(labelBox.x + labelBox.width).toBeLessThanOrEqual(popupBox.x + popupBox.width + 1);
-  // As wide as Card Settings needs (600px), not the old 1200px left menu + pane.
-  expect(popupBox.width).toBeLessThanOrEqual(620);
+  // As wide as two panes need (1100px since the two sides became two panes
+  // side by side; it was 600px for one column), not the old 1200px left menu
+  // + pane.
+  expect(popupBox.width).toBeLessThanOrEqual(1120);
   const max = popup.locator('.js-popup-maximize');
   await expect(max).toBeVisible();
   expect((await max.boundingBox()).x).toBeLessThan((await popup.locator('.js-close-pop-over').boundingBox()).x);
@@ -470,24 +484,23 @@ test('Board Settings / Card is still the popup: it moves by its title, maximizes
   await expect(itemOf(popup, 'dueDate').locator('.js-open-card-settings-item-menu')).toHaveCount(0);
 });
 
-// Was "headings aligned with their cells": the pane's column headings are
-// gone with the pane, so what is left to pin is that every label of either
-// Show side is whole inside the popup and nothing scrolls sideways.
-test('Board Settings / Card: labels whole on both Show sides, no sideways scroll', async ({ boardPage: page }) => {
+// Was "headings aligned with their cells": what is left to pin is that every
+// label of either pane is whole inside its pane and nothing scrolls sideways.
+test('Board Settings / Card: labels whole in both panes, no sideways scroll', async ({ boardPage: page }) => {
   await page.setViewportSize({ width: 1400, height: 1000 });
   await openBoardCardSettings(page);
   const popup = settingsPopup(page);
   for (const side of ['card', 'minicard']) {
-    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
-    await expect(itemOf(popup, 'dueDate')).toHaveAttribute('data-side', side);
-    const box = await popup.locator('.js-card-settings-inline').boundingBox();
-    for (const label of await popup.locator('.card-settings-line-label').all()) {
+    const pane = paneOf(page, side);
+    await expect(itemOf(pane, 'dueDate')).toHaveAttribute('data-side', side);
+    const box = await pane.boundingBox();
+    for (const label of await pane.locator('.card-settings-line-label').all()) {
       const l = await label.boundingBox();
       if (!l) continue; // a collapsed section's row
       expect(l.x).toBeGreaterThanOrEqual(box.x - 1);
       expect(l.x + l.width).toBeLessThanOrEqual(box.x + box.width + 1);
     }
-    expect(await popup.locator('.content-wrapper').evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    expect(await pane.locator('.js-card-settings-pane-body').evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
   }
 });
 
@@ -522,18 +535,22 @@ test('Custom Fields: its items are the board\'s custom fields; + adds one, the l
   const last = await customItems(inline).last().boundingBox();
   expect((await plus.boundingBox()).y).toBeGreaterThan(last.y);
   await plus.click();
-  const form = page.locator('.js-pop-over .js-popup-layer[data-popup="createCustomFieldPopup"]');
+  // The form opens under the +, inside the pane - no popup of its own.
+  const form = cf.locator('.js-card-settings-panel[data-kind="create"]');
   await expect(form).toBeVisible();
-  // The + is at the left: the form opens rightward, inside Card Settings,
-  // which stays visible under it.
+  await expect(plus).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('.js-pop-over')).toHaveCount(1);
   const box = await form.boundingBox();
-  const pop = await settingsPopup(page).boundingBox();
-  expect(box.x).toBeGreaterThanOrEqual(pop.x);
-  expect(box.x + box.width).toBeLessThanOrEqual(pop.x + pop.width + 1);
-  await expect(cf).toBeVisible();
+  const pane = await inline.boundingBox();
+  expect(box.x).toBeGreaterThanOrEqual(pane.x - 1);
+  expect(box.x + box.width).toBeLessThanOrEqual(pane.x + pane.width + 1);
+  expect(box.y).toBeGreaterThan((await plus.boundingBox()).y);
   await form.locator('.js-field-name').fill('Risk');
   await form.locator('button.primary, .primary').first().click();
   await expect.poll(() => fieldsOf(board).map(f => f.name).sort()).toEqual(['Estimate', 'Priority', 'Risk']);
+  // Saved: the panel closes, Card Settings stays.
+  await expect(form).toHaveCount(0);
+  await expect(settingsPopup(page)).toBeVisible();
   const risk = fieldsOf(board).find(f => f.name === 'Risk');
   expect(risk.sort).toBe(2);
   const reopened = await openCardSettings(page);
@@ -553,17 +570,20 @@ test('Custom Fields: an item\'s checkbox per side - Show on Minicard is showOnCa
   expect(db.findOne('customFields', { _id: id }).showOnCard).toBe(false);
   // Added to every card of the board (server/models/customFields.js addToAllCards).
   await expect.poll(() => db.find('cards', { boardId: board.boardId }).every(c => (c.customFields || []).some(f => f._id === id))).toBe(true);
-  await inline.locator('.js-card-settings-show-side[value="minicard"]').check();
-  await expect(customItems(inline).first()).toHaveAttribute('data-side', 'minicard');
-  await expect(toggle).toHaveAttribute('aria-checked', 'false');
-  await toggle.click();
+  const mini = paneOf(page, 'minicard');
+  const miniToggle = customItems(mini).first().locator('.card-field-order-toggle');
+  await expect(customItems(mini).first()).toHaveAttribute('data-side', 'minicard');
+  await expect(miniToggle).toHaveAttribute('aria-checked', 'false');
+  await miniToggle.click();
   await expect.poll(() => db.findOne('customFields', { _id: id }).showOnCard).toBe(true);
-  await expect(toggle).toHaveAttribute('aria-checked', 'true');
-  await toggle.click();
+  await expect(miniToggle).toHaveAttribute('aria-checked', 'true');
+  await miniToggle.click();
   await expect.poll(() => db.findOne('customFields', { _id: id }).showOnCard).toBe(false);
-  // Its hamburger is the custom field's own edit form.
+  // Its hamburger is the custom field's own edit form, under the item.
   await customItems(inline).first().locator('.js-card-settings-edit-custom-field').click();
-  await expect(page.locator('.js-pop-over .js-popup-layer[data-popup="editCustomFieldPopup"] .js-field-name')).toHaveValue('Priority');
+  const edit = sectionOf(inline, 'customFields').locator('.js-card-settings-panel[data-kind="field"]');
+  await expect(edit.locator('form')).toBeVisible();
+  await expect(customItems(inline).first().locator('.js-card-settings-edit-custom-field')).toHaveAttribute('aria-expanded', 'true');
   await closePopup(page);
 });
 
@@ -623,12 +643,15 @@ test('Card Settings for a member who may not change the board: no +, disabled ch
   }
 });
 
-test('Board Settings / Card has no left menu and no pane any more (negative)', async ({ boardPage: page }) => {
+// The old left menu and its single right pane are gone; the two panes of
+// 2026-10-28 are one per SIDE (minicard, card), not a menu's content pane.
+test('Board Settings / Card has no left menu and no menu pane any more (negative)', async ({ boardPage: page }) => {
   await openBoardCardSettings(page);
   const popup = settingsPopup(page);
   await expect(popup.locator('.js-card-settings-section').first()).toBeVisible();
   await expect(popup.locator('.js-card-settings-menu')).toHaveCount(0);
-  await expect(popup.locator('.card-settings-pane')).toHaveCount(0);
+  await expect(popup.locator('.card-settings-pane')).toHaveCount(2);
+  await expect(popup.locator('.card-settings-pane:not([data-side="minicard"]):not([data-side="card"])')).toHaveCount(0);
   await expect(popup.locator('.card-settings-list-card, .card-settings-list-minicard')).toHaveCount(0);
   await expect(popup.locator('.js-card-settings-select')).toHaveCount(0);
   await expect(popup.locator('.board-card-settings, .side-menu')).toHaveCount(0);
@@ -718,9 +741,9 @@ test('a row dropped on another section goes back to its own, and nothing is writ
     await expectNoWrite(page, () => cardOrderOf(board), before);
     await expect(itemOf(members, 'creator')).toHaveCount(1);
     await expect(itemOf(date, 'creator')).toHaveCount(0);
-    // And a Date row onto the Card section above it.
-    const general = sectionOf(inline, 'card');
-    await dragTo(page, itemOf(date, 'endDate').locator('.card-settings-line-label'), itemOf(general, 'collapse'));
+    // And a Date row onto the Labels section above it.
+    const general = sectionOf(inline, 'labels');
+    await dragTo(page, itemOf(date, 'endDate').locator('.card-settings-line-label'), itemOf(general, 'stickers'));
     await expectNoWrite(page, () => cardOrderOf(board), before);
     await expect(itemOf(date, 'endDate')).toHaveCount(1);
     await expect(itemOf(general, 'endDate')).toHaveCount(0);

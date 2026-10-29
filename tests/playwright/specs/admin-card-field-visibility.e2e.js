@@ -24,7 +24,8 @@ const openCardSettings = async page => {
     Popup.close();
     Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
-  await expect(page.locator('.js-pop-over .js-card-settings-section[data-section="time"]')).toBeVisible();
+  // The Card pane's (both sides' panes are shown since 2026-10-28).
+  await expect(page.locator('.js-pop-over .js-card-settings-pane[data-side="card"] .js-card-settings-section[data-section="time"]')).toBeVisible();
 };
 
 async function tickPomodoro(page) {
@@ -69,7 +70,7 @@ test.describe('Admin card field visibility', () => {
       await expect(minicard).toBeVisible();
       await expect(minicard.locator('.minicard-pomodoro')).toHaveCount(0);
       await openCardSettings(page);
-      const time = page.locator('.js-pop-over .js-card-settings-section[data-section="time"]');
+      const time = page.locator('.js-pop-over .js-card-settings-pane[data-side="card"] .js-card-settings-section[data-section="time"]');
       await expect(time.locator('.js-card-field-order-row[data-key="flowtime"]')).toBeVisible();
       await expect(page.locator('.js-card-field-order-row[data-key="pomodoro"]')).toHaveCount(0);
       await page.evaluate(() => Popup.close());
@@ -89,7 +90,7 @@ test.describe('Admin card field visibility', () => {
       await openBoard(page, seeded.boardId, seeded.slug);
       await expect(bp.minicard(listId, 'Pomodoro Card').locator('.minicard-pomodoro')).toBeVisible({ timeout: 15000 });
       await openCardSettings(page);
-      await expect(page.locator('.js-pop-over .js-card-settings-section[data-section="time"] .js-card-field-order-row[data-key="pomodoro"]')).toBeVisible();
+      await expect(page.locator('.js-pop-over .js-card-settings-pane[data-side="card"] .js-card-settings-section[data-section="time"] .js-card-field-order-row[data-key="pomodoro"]')).toBeVisible();
       await page.evaluate(() => Popup.close());
       await bp.clickCard(listId, 'Pomodoro Card');
       await cp.waitForOpen();

@@ -24,6 +24,7 @@ import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 import { dueFromTitle } from '/client/components/forms/titleDueHint';
 import { riskOf } from '/client/lib/cardRiskOf';
+import Rules from '/models/rules';
 import { suggestedMembersFor } from '/client/lib/suggestedMembers';
 import '/client/components/cards/similarCards';
 
@@ -892,56 +893,122 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
   return data.listId == listId;
 });
 
-// #4448: the fields INSIDE a reorderable section (the four dates, the people
-// of Members, ...) render in the board's order too. One argument-less helper
-// per section, registered globally like isDateFormat above because each
-// section is its own template. The card is the data context (`each field in`
-// keeps it), so `this.board()` is the board. models/lib/cardFieldOrder.js
+// The opened card draws Card Settings' sections (models/lib/cardSettingsSections.js)
+// in the board's Show on Card section order, and the fields INSIDE each in the
+// order Card Settings lists that section's rows (board.cardFieldOrder through
+// models/lib/cardFieldOrder.js and cardSettingsSections.sectionFieldsOn) - one
+// order, so the card and Card Settings cannot disagree. One argument-less
+// helper per section, registered globally because each section is its own
+// template. The card is the data context (`each field in` keeps it), so
+// `this.board()` is the board.
+const cardSettingsSections = require('/models/lib/cardSettingsSections');
+const { applyCardOrder } = require('/models/lib/cardFieldOrder');
+
+function cardSectionFields(card, sectionId) {
+  const board = card?.board?.();
+  return cardSettingsSections.sectionFieldsOn('card', applyCardOrder(board?.cardFieldOrder), sectionId);
+}
 {
-  const { orderedCardFieldsOf } = require('/models/lib/cardFieldOrder');
+  const { boardAllows, boardForCard } = require('/models/lib/cardShownFields');
   const sectionHelper = section => function orderedFields() {
-    const board = this?.board?.();
-    return orderedCardFieldsOf(board?.cardFieldOrder, section);
+    return cardSectionFields(this, section);
   };
   Template.registerHelper('orderedLabelsFields', sectionHelper('labels'));
-  Template.registerHelper('orderedDatesFields', sectionHelper('dates'));
+  Template.registerHelper('orderedDateFields', sectionHelper('date'));
   Template.registerHelper('orderedMembersFields', sectionHelper('members'));
-  Template.registerHelper('orderedSortFields', sectionHelper('sort'));
-  Template.registerHelper('orderedVoteAndPokerFields', sectionHelper('voteAndPoker'));
+  Template.registerHelper('orderedCardFields', sectionHelper('card'));
+  Template.registerHelper('orderedTimeFields', sectionHelper('time'));
+  Template.registerHelper('orderedChecklistsFields', sectionHelper('checklists'));
+  Template.registerHelper('orderedAttachmentsFields', sectionHelper('attachments'));
+  // Only the Scrum fields the board shows on cards (Board Settings / Scrum,
+  // #6830): a Scrum field has no board flag in the template to read.
+  Template.registerHelper('orderedScrumFields', function orderedScrumFields() {
+    const board = boardForCard(this?.board?.());
+    return cardSectionFields(this, 'scrum').filter(key => boardAllows(board, key));
+  });
 }
 
-// The card's sections in the board's order, less the Scrum fields the board
-// does not show on cards - a Scrum field is its own section with no board flag
-// in the template to read (docs/Features/Cards/Card-Fields.md). Only what the
-// board allows (Board Settings / Scrum), as for Members or Vote (#6830); and
-// read through the board as its cards see it (cardShownFields.js
-// boardForCard), so a Scrum section hidden whole on Show on Card is gone.
-function orderedSectionsOf(card) {
-  const { boardAllows, boardForCard } = require('/models/lib/cardShownFields');
-  const board = boardForCard(card?.board?.());
-  let sections;
-  if (board && typeof board.getCardFieldOrder === 'function') {
-    sections = board.getCardFieldOrder();
-  } else {
-    const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
-    sections = applyCardFieldOrder(board?.cardFieldOrder);
+// Whether the card has anything to show in section `id`, read through the
+// board as its cards see it (cardShownFields.js boardForCard, which already
+// takes away the rows of a section hidden whole on Show on Card): a section
+// with nothing in it draws no heading. The same gates its template had before
+// the card used Card Settings' sections (docs/Features/Cards/Card-Fields.md).
+function cardSectionHasContent(card, board, id) {
+  const { boardAllows } = require('/models/lib/cardShownFields');
+  if (!board) return false;
+  const may = Utils.canModifyCard(card);
+  switch (id) {
+    case 'labels': return Boolean(board.allowsLabels || board.allowsStickers || board.allowsLocation);
+    case 'date':
+      return Boolean(board.allowsReceivedDate || board.allowsStartDate || board.allowsDueDate || board.allowsEndDate
+        || (board.allowsAtRiskOnCard !== false && riskOf(card, { withMoves: true })));
+    case 'members':
+      return Boolean(board.allowsMembers || board.allowsAssignee || board.allowsCreator
+        || board.allowsRequestedBy || board.allowsAssignedBy);
+    case 'card': {
+      const swimlane = typeof card?.swimlane === 'function' ? card.swimlane() : null;
+      return Boolean(board.allowsDependencies || board.allowsCardSortingByNumber || board.allowsShowLists
+        || (board.allowsSwimlaneNameOnCard && swimlane && swimlane.title)
+        || (board.allowsCardButtonsOnCard !== false && cardHasButtons(card)));
+    }
+    case 'time': return Boolean(board.allowsSpentTime || board.allowsFlowtime || board.allowsPomodoro);
+    case 'customFields': return may && board.allowsCustomFields !== false;
+    case 'vote': return Boolean(board.allowsVote);
+    case 'poker': return Boolean(board.allowsPoker);
+    case 'description': {
+      const shows = board.allowsDescriptionTitle || board.allowsDescriptionText;
+      const writer = may && !ReactiveCache.getCurrentUser()?.isWorker?.();
+      return Boolean(shows && (writer || (card && card.getDescription && card.getDescription())));
+    }
+    case 'scrum': return cardSectionFields(card, 'scrum').some(key => boardAllows(board, key));
+    case 'checklists': return Boolean(board.allowsChecklists);
+    case 'subtasks': return Boolean(board.allowsSubtasks);
+    case 'attachments': return Boolean(board.allowsAttachments || board.allowsTextNotes);
+    case 'comments': return Boolean(board.allowsComments);
+    default: return false;
   }
-  return sections.filter(s => !/^scrum[A-Z]/.test(s) || boardAllows(board, s));
 }
 
-Template.cardFieldSectionSort.helpers({
-  // The card's own view of the board (docs/Features/Cards/Card-Fields.md), as
-  // the fields inside read it: reading the board itself drew the group's rule
-  // for fields the card does not show - an empty group, and a second line
-  // under "+ Add".
-  hasVisibleSortFields() {
-    const board = cardBoardView(this);
-    return !!(board && (
-      board.allowsCardSortingByNumber || board.allowsShowLists ||
-      board.allowsFlowtime || board.allowsPomodoro ||
-      // The card's view already says whether Spent time is shown.
-      board.allowsSpentTime
-    ));
+// Whether the board has card buttons (rules) - what the cardButtons template
+// draws (client/components/rules/cardButtons.js buttonRulesForBoard); without
+// any, Card is not headed for them alone.
+function cardHasButtons(card) {
+  return Boolean(card && card.boardId && Rules.find({ boardId: card.boardId, buttonType: 'card' }).count());
+}
+
+// The card's sections, in the board's Show on Card section order
+// (cardSettingsSections.sectionOrderOf), less those hidden whole on Show on
+// Card and those with nothing to show for this card - and less Comments on a
+// maximized card, which has them at the top of the right column.
+function orderedSectionsOf(card, { maximized = false } = {}) {
+  const { boardForCard } = require('/models/lib/cardShownFields');
+  const raw = card?.board?.();
+  const board = boardForCard(raw);
+  const hidden = cardSettingsSections.hiddenSectionsOf(raw, 'card');
+  return cardSettingsSections.sectionOrderOf(raw, 'card')
+    .filter(id => !hidden.includes(id))
+    .filter(id => !(maximized && id === 'comments'))
+    .filter(id => cardSectionHasContent(card, board, id));
+}
+
+function isCardMaximized() {
+  const currentUser = ReactiveCache.getCurrentUser();
+  const maximized = currentUser
+    ? currentUser.hasCardMaximized()
+    : window.localStorage.getItem('cardMaximized') === 'true';
+  return !Utils.getPopupCardId() && maximized;
+}
+
+// What the Date and Checklists sections read that used to be the opened
+// card's own helpers.
+Template.cardFieldSectionDate.helpers({
+  cardAtRisk() {
+    return riskOf(Template.currentData(), { withMoves: true });
+  },
+});
+Template.cardFieldSectionChecklists.helpers({
+  checklistSectionOpen() {
+    return ReactiveCache.getBoard(this.boardId)?.allowsChecklistTitle === false || isCardSectionOpen('checklists');
   },
 });
 
@@ -953,18 +1020,10 @@ Template.cardDetails.helpers({
       ? Meteor.connection._lastSessionId
       : null;
   },
-  // #4448: the order the reorderable card-detail sections (Labels, Dates,
-  // Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
-  // render in, resolved from the board's stored setting - the section order
-  // of the flat field order Board Settings / Card writes.
-  // models/lib/cardFieldOrder.js
+  // The sections the card draws, in Card Settings' Show on Card section order
+  // (orderedSectionsOf above): the ids of models/lib/cardSettingsSections.js.
   orderedCardFieldSections() {
-    return orderedSectionsOf(this);
-  },
-  // The first Scrum field this card shows: where the one "Scrum settings"
-  // heading goes, over all of them (docs/Features/Cards/Card-Fields.md).
-  firstScrumSection() {
-    return orderedSectionsOf(this).find(s => /^scrum[A-Z]/.test(s)) || null;
+    return orderedSectionsOf(this, { maximized: isCardMaximized() });
   },
 
   // Placed beside its minicard: card-details-position-pending is off for good.
@@ -974,11 +1033,7 @@ Template.cardDetails.helpers({
   },
 
   cardMaximized() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const maximized = currentUser
-      ? currentUser.hasCardMaximized()
-      : window.localStorage.getItem('cardMaximized') === 'true';
-    return !Utils.getPopupCardId() && maximized;
+    return isCardMaximized();
   },
 
   // List title, Show on Card: the card's own choice, unless the
@@ -1054,10 +1109,6 @@ Template.cardDetails.helpers({
     return user && user.isVerticalScrollbars();
   },
 
-  checklistSectionOpen() {
-    return ReactiveCache.getBoard(this.boardId)?.allowsChecklistTitle === false || isCardSectionOpen('checklists');
-  },
-
   isLoaded() {
     return Template.instance().isLoaded;
   },
@@ -1065,9 +1116,9 @@ Template.cardDetails.helpers({
 
 // WHICH SECTIONS OF A CARD ARE OPEN.
 //
-// Every section of an opened card - Labels, Date Format, Members, Dependencies,
-// Sort, Custom Fields, Description, Checklists, Subtasks, Attachments, Comments
-// and Activities - carries a caret that collapses it, and one rule above it.
+// Every section of an opened card - Card Settings' sections, Labels, Date,
+// Members, Card, Time, Custom Fields, ..., Comments, and Activities - carries a
+// caret that collapses it, and one rule above it.
 // Before this there was one caret for the whole card and an EYE on Activities
 // that showed and hid exactly what a caret would: two controls for one idea,
 // able to disagree with each other.
@@ -1078,9 +1129,11 @@ Template.cardDetails.helpers({
 //
 // ACTIVITIES starts CLOSED and everything else open. A card is opened to read
 // the card; its history is the thing you go looking for.
+// The sections are Card Settings' (models/lib/cardSettingsSections.js ids,
+// 2026-10-28), plus the right column's Activities and the Similar cards list
+// inside Card.
 const CARD_SECTIONS = [
-  'labels', 'date-format', 'members', 'dependencies', 'sort', 'custom-fields',
-  'description', 'checklists', 'subtasks', 'attachments', 'comments', 'activities',
+  ...require('/models/lib/cardSettingsSections').SECTION_IDS, 'activities', 'similar-cards',
 ];
 const COLLAPSED_BY_DEFAULT = ['activities'];
 
@@ -1921,8 +1974,10 @@ Template.cardSubtasksMenuPopup.events({
     Popup.open('boardSubtaskSettings')(event);
   },
 });
-Template.cardFieldSectionVoteAndPoker.events({
+Template.cardFieldSectionVote.events({
   'click .js-section-edit-voting': Popup.open('cardStartVoting'),
+});
+Template.cardFieldSectionPoker.events({
   'click .js-section-edit-poker': Popup.open('cardStartPlanningPoker'),
 });
 Template.cardSpentTimeMenu.events({

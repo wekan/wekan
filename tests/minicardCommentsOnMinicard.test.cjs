@@ -204,8 +204,16 @@ test('negative: nothing keeps a minicard comment on one line, or lays avatars ov
   const assignees = jade.indexOf('.minicard-assignees.js-minicard-assignees');
   const comments = jade.indexOf('.minicard-comments');
   const between = jade.slice(assignees, comments);
-  assert.ok(/\n        if \$eq section "comments"/.test(between),
-    'the comments are a section of their own, not nested inside the avatar row');
+  // 2026-10-28: the minicard's loop places FIELDS of Card Settings' sections;
+  // the comment preview is a block field of its own, a sibling of the avatar
+  // rows at the same depth, not nested inside them.
+  const depth = at => at - jade.lastIndexOf('\n', at) - 1;
+  const commentsBranch = jade.indexOf('if $eq field "comments"');
+  const assigneeBranch = jade.indexOf('if $eq field "assignee"');
+  assert.ok(commentsBranch > assignees && commentsBranch < comments, 'the comments are drawn by their own branch, after the avatars');
+  assert.strictEqual(depth(commentsBranch), depth(assigneeBranch),
+    'the comments are a field of their own, not nested inside the avatar row');
+  assert.ok(!/minicard-assignees[^\n]*\n(?:[^\n]*\n){0,4}[^\n]*minicard-comments/.test(between.slice(0, 200)), 'negative');
 });
 
 console.log(`\nminicardCommentsOnMinicard: ${passed} tests passed`);

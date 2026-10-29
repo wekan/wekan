@@ -846,15 +846,6 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .voted {
   opacity: 0.7;
 }
-.vote-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.vote-title .js-edit-date {
-  align-self: flex-start;
-  margin-inline-start: 6px;
-}
 .vote-result {
   display: flex;
   gap: 6px;
@@ -864,15 +855,6 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .poker-voted {
   opacity: 0.7;
-}
-.poker-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.poker-title .js-edit-date {
-  align-self: flex-start;
-  margin-inline-start: 6px;
 }
 .poker-result {
   display: flex;
@@ -1449,3 +1431,27 @@ body.desktop-mode .card-details.card-details-position-pending:not(.card-details-
 /* Card kind: the selected one is marked, at the end of its line, and bold. */
 .card-kind-list .js-select-card-kind.is-active { font-weight: bold; }
 .card-kind-list .card-kind-selected { margin-inline-start: 0.5em; color: #3cb500; }
+
+/* ONE SECTION MODEL (2026-10-28): the opened card draws Card Settings'
+   sections (cardDetails.jade `.card-details-section`), each a full-width row
+   of the items, headed by cardSectionHeader with the rule above it. The FIRST
+   section has nothing above it to be separated from, so its rule is not drawn
+   - whichever section the board put first (the template cannot know). */
+.card-details .card-details-items > .card-details-section {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+}
+.card-details .card-details-items > .card-details-section:first-child > hr.card-details-section-rule:first-child,
+.card-details .card-details-items > .card-details-section:first-child > * > hr.card-details-section-rule:first-child,
+.card-details .card-details-items > .card-details-section:first-child > * > .comment-title > hr.card-details-section-rule:first-child,
+.card-details .card-details-items > .card-details-section:first-child > .card-details-group-vote-poker > hr:first-child {
+  display: none;
+}
+/* Lists that were sections of their own and are a field of one now: a row of
+   their own inside the section. */
+.card-details .card-details-group-body > .card-details-item-similar-cards,
+.card-details .card-details-group-body > .card-details-item-buttons,
+.card-details .card-details-section .card-details-item-text-notes {
+  flex: 0 0 100%;
+}

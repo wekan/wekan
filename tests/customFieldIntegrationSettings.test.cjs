@@ -5,9 +5,9 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const source=fs.readFileSync('client/components/sidebar/sidebarCustomFields.js','utf8');
 const start=source.indexOf("  'click .primary'(evt, tpl) {");
-// The save ends where it steps back from its own popup, or empties the form in
-// Card Settings' Custom Fields pane (client/lib/popupBack.js).
-const end=source.indexOf('\n    // Its own popup steps back;',start);
+// The save ends where it steps back from its own popup, closes its panel in
+// Card Settings (2026-10-28), or empties the form (client/lib/popupBack.js).
+const end=source.indexOf('\n    // Its own popup steps back.',start);
 assert.ok(start>=0&&end>start);
 const body=source.slice(source.indexOf('{',start)+1,end);
 function save(type,marker){

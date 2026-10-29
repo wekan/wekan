@@ -28,7 +28,8 @@ test('Date settings cascade from global to board to member through their own con
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     const cp = new CardPage(page);
     await cp.waitForOpen();
-    const heading = cp.root.locator('[data-section="date-format"]');
+    // The Date section's heading: its id is Card Settings' since 2026-10-28.
+    const heading = cp.root.locator('.js-toggle-card-section[data-section="date"]');
     await expect(heading).toHaveText('Date');
     await expect(cp.root.locator('.js-date-format-selector')).toHaveCount(0);
 
@@ -71,7 +72,7 @@ test('Date settings cascade from global to board to member through their own con
     const guestBoard = new BoardPage(guest);
     await expect(guestBoard.minicard(board.listIds[0], 'Alpha Card').locator('.due-date time').first()).toContainText('21-03-2026');
     await guestBoard.clickCard(board.listIds[0], 'Alpha Card');
-    await expect(new CardPage(guest).root.locator('[data-section="date-format"]')).toHaveText('Date');
+    await expect(new CardPage(guest).root.locator('.js-toggle-card-section[data-section="date"]')).toHaveText('Date');
     await expect(guest.locator('.js-date-format-selector')).toHaveCount(0);
 
     // Board Settings / Date: checked overrides the global default, including guests.

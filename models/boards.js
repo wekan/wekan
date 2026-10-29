@@ -933,8 +933,9 @@ Boards.attachSchema(
     'minicardFieldOrder.$': {
       type: String,
     },
-    // The order of Card Settings' sections (Card, Date, Time, ...) on an
-    // opened card, dragged like checklists. sectionOrder() in
+    // The order of Card Settings' sections (Labels, Date, Members, ...) on
+    // the opened card - which draws them in this order - dragged like
+    // checklists in Card Settings' Card pane. sectionOrder() in
     // models/lib/cardSettingsSections.js; missing means the table's order.
     cardSettingsSectionOrder: {
       /**
@@ -944,6 +945,19 @@ Boards.attachSchema(
       optional: true,
     },
     'cardSettingsSectionOrder.$': {
+      type: String,
+    },
+    // The same for the minicard (Card Settings' Minicard pane): the minicard
+    // draws Card Settings' sections in this order. Missing means the
+    // minicard's default (DEFAULT_SECTION_ORDER.minicard there).
+    minicardSettingsSectionOrder: {
+      /**
+       * The order of the Card Settings sections on the minicard (models/lib/cardSettingsSections.js ids)
+       */
+      type: Array,
+      optional: true,
+    },
+    'minicardSettingsSectionOrder.$': {
       type: String,
     },
     // The Card Settings sections hidden WHOLE on every opened card of the
@@ -2376,9 +2390,12 @@ Boards.helpers({
 
   // Card Settings' sections dragged above one another, normalised the same
   // way (models/lib/cardSettingsSections.js sectionOrder).
-  async setCardSettingsSectionOrder(order) {
-    const { sectionOrder } = require('/models/lib/cardSettingsSections');
-    return await Boards.updateAsync(this._id, { $set: { cardSettingsSectionOrder: sectionOrder(order) } });
+  // `side` is 'card' (the default, so the one-argument call still writes the
+  // opened card's order) or 'minicard'.
+  async setCardSettingsSectionOrder(order, side) {
+    const { sectionOrder, SECTION_ORDER_FIELD } = require('/models/lib/cardSettingsSections');
+    const which = side === 'minicard' ? 'minicard' : 'card';
+    return await Boards.updateAsync(this._id, { $set: { [SECTION_ORDER_FIELD[which]]: sectionOrder(order, which) } });
   },
 
   // Card Settings' checkbox left of a section's title: whether the whole

@@ -16,21 +16,41 @@ one place, [Card Settings](Card-Settings.md) - **Board Settings / Card**.
 
 | Decides | Where |
 | --- | --- |
-| Whether a field is shown on the board's cards | its row's checkbox with **Show on Card** chosen |
+| Whether a field is shown on the board's cards | its row's checkbox in the **Show on Card** pane |
+| In which section, and where in it | the row's section, and its place among that section's rows there |
+| In what order the sections are | the order of the sections in the Show on Card pane |
 | Whether a whole section (Date, Members, ...) is shown on them | the section's own checkbox, left of its title |
 | Whether the administrator offers the field at all | Admin Panel / Settings / Visibility / Features |
 
-Two sections still appear only when there is something to show: **Similar
-cards**, when the board has cards like this one, and the **cover**, when the
+## The card's sections
+
+The opened card is drawn in **Card Settings' sections**, in the order the Show
+on Card pane shows them, each headed with the section's icon and title (its
+caret collapses it), and the fields of a section in the order of its rows
+there - drag a section or a row in Card Settings and the card follows. The
+default is Labels, Date, Members, Card, Time, Custom Fields, Voting, Planning
+Poker, Description, Scrum settings, Checklists, Subtasks, Attachments,
+Comments; [Card Settings](Card-Settings.md) lists where each field is.
+
+Not in the order: the **title bar** (Mark complete, the number, the cover
+above it, Collapse, Parent and Linked card, Labels above the title, the card
+color), the **activities**, which are the right column of every opened card,
+and - on a **maximized** card - the **comments**, which move to the top of
+the right column. A section the card has nothing to show for draws no
+heading. The minicard follows the Show on Minicard pane the same way, without
+headings.
+
+Two things still appear only when there is something to show: **Similar
+cards** (in Card), when the board has cards like this one, and the **cover**, when the
 card has one (on by default in Board Settings / Card; a new drawing becomes
 the cover). **Custom Fields** is on every card the reader may change whose
 board shows it: its hamburger is where the fields are added to the card.
 
 ## Card Settings
 
-[Card Settings](Card-Settings.md) is Board Settings / Card: **Show**, then the
-sections as checklists, their rows as checklist items, Show on Minicard / Show
-on Card choosing what the checkboxes are. Each section has a checkbox of its
+[Card Settings](Card-Settings.md) is Board Settings / Card: two panes, Show on
+Minicard and Show on Card, each with the sections as checklists and their rows
+as checklist items, the checkboxes that pane's side. Each section has a checkbox of its
 own for the whole section; a section with one row is one line; Custom Fields'
 items are the board's custom fields with a **+** under them. A hamburger is
 drawn only when it has something in it.
@@ -41,19 +61,19 @@ Backlog rank.
 
 | Section | Rows |
 | --- | --- |
-| Card | Ask for a reason when moving cards, Draggable (in its hamburger); Card number, Collapse, Parent card, Linked card, Dependencies, Card sorting by number, Show lists, Swimlane, Card buttons, Similar cards |
-| Date | Received, Start, Due, End, Mark as complete, Due date from the title, At risk, Forecast |
-| Time | Spent time, Flowtime, Pomodoro |
-| Members | Members, Assignee, Creator, Requested by, Assigned by, Suggested members |
 | Labels | Labels, Labels above the title, Labels text (the board's and your own), Stickers, Location, Card color |
-| Description | Description title, Description text, Description badge |
-| Checklists | Checklists, Checklist title, Checklist due date, Checklist count, Checklist from description |
-| Subtasks | Subtasks (one line) |
-| Attachments | Cover image, Attachments, Attachment count, Previews, Details, Text notes, Drawing |
+| Date | Received, Start, Due, End, Mark as complete, Due date from the title, At risk, Forecast |
+| Members | Members, Assignee, Creator, Requested by, Assigned by, Suggested members |
+| Card | Ask for a reason when moving cards, Draggable (in its hamburger); Card number, Collapse, Parent card, Linked card, Dependencies, Card sorting by number, Show lists, Swimlane, Card buttons, Similar cards |
+| Time | Spent time, Flowtime, Pomodoro |
 | Custom Fields | the board's custom fields, and **+** |
 | Voting | Voting question (one line) |
 | Planning Poker | Planning Poker (one line) |
+| Description | Description title, Description text, Description badge |
 | Scrum settings | Sprint, Past sprints, Release, Issue type, Acceptance criteria, Backlog rank |
+| Checklists | Checklists, Checklist title, Checklist due date, Checklist count, Checklist from description |
+| Subtasks | Subtasks (one line) |
+| Attachments | Cover image, Attachments, Attachment count, Previews, Details, Text notes, Drawing |
 | Comments | Comments, Comment count, Unread comments, Activities, Action items |
 
 **List title** - a card's own choice to show its list's name - is not in Card
@@ -105,8 +125,10 @@ Panel / Visibility / Features (`models/lib/cardFieldVisibility.js`), one level
 down. It is the same for every card of the board: it does not depend on what
 the card holds. The minicard has its own (`boardForMinicard`,
 `client/components/cards/minicard.js`). The board itself is never changed. The
-Scrum fields, which are sections of their own, are left out of the card's
-section order the same way.
+Scrum fields the board does not show (Board Settings / Scrum) are left out of
+the Scrum settings section the same way, and a section with nothing to show
+draws no heading (`client/components/cards/cardDetails.js`
+`orderedSectionsOf`, `cardSectionHasContent`).
 
 The legacy fields - `shownFields` / `hiddenFields` on a card,
 `cardFieldsAlwaysShown` / `showEmptyCardFields` on a board - stay in the

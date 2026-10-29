@@ -26,7 +26,9 @@ console.log('cardSettingsSelectAllAligned:');
 
 const jade = read('client/components/sidebar/sidebar.jade');
 const popup = jade.slice(jade.indexOf('template(name="boardCardSettingsPopup")')).split('\ntemplate(')[0];
-const sectionMenu = jade.slice(jade.indexOf('template(name="cardSettingsSectionPopup")')).split('\ntemplate(')[0];
+// 2026-10-28: a section's hamburger opens its content in a panel under its
+// line (cardSettingsInlinePanel), not the cardSettingsSectionPopup popup.
+const sectionMenu = jade.slice(jade.indexOf('template(name="cardSettingsInlinePanel")')).split('\ntemplate(')[0];
 const js = read('client/components/sidebar/sidebar.js');
 const css = read('client/components/sidebar/sidebar.css');
 test('negative: no Select all / Select none anywhere in Card Settings', () => {
@@ -87,8 +89,10 @@ test('wide enough for every label where the window is', () => {
   // Deliberate change: 600px, about an opened card - Board Settings / Card is
   // the opened card's one column of checklists now, not a menu and a pane of
   // four checkbox columns (1200px). tests/declutterCard6796.test.cjs.
-  assert.match(read('client/lib/popupOffset.js'), /const CARD_SETTINGS_MAX_WIDTH = 600;/);
-  assert.match(read('client/components/main/popup.css'), /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 600px\) !important;/);
+  // Deliberate change (2026-10-28): 1100px - TWO panes of that column side
+  // by side, the Minicard's and the Card's, instead of a Show switch.
+  assert.match(read('client/lib/popupOffset.js'), /const CARD_SETTINGS_MAX_WIDTH = 1100;/);
+  assert.match(read('client/components/main/popup.css'), /\.pop-over\[data-popup='boardCardSettingsPopup'\] \{[^}]*width: min\(96vw, 1100px\) !important;/);
   // A label longer than its column wraps in it instead of being cut.
   assert.match(css, /\.card-settings-line-label \{[^}]*min-width: 0;[^}]*overflow-wrap: anywhere;/);
 });

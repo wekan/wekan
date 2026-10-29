@@ -128,6 +128,16 @@ function getSettings(tpl) {
   return settings;
 }
 
+// The form drawn inline in a Card Settings panel: tell the pane it is done
+// (sidebar.js listens for `cardsettingspaneldone`). Returns whether it was.
+function closeCardSettingsPanel(evt) {
+  const el = evt && (evt.currentTarget || evt.target);
+  const panel = el && el.closest && el.closest('.js-card-settings-panel');
+  if (!panel) return false;
+  panel.dispatchEvent(new CustomEvent('cardsettingspaneldone', { bubbles: true }));
+  return true;
+}
+
 Template.createCustomFieldPopup.onCreated(function () {
   const data = Template.currentData();
   this.type = new ReactiveVar(
@@ -374,8 +384,12 @@ Template.createCustomFieldPopup.events({
       CustomFields.update(currentData._id, { $set: data });
     }
 
-    // Its own popup steps back; in Card Settings' Custom Fields pane the form
-    // stays, emptied for the next field (docs/Features/Cards/Card-Fields.md).
+    // Its own popup steps back. In a Card Settings panel - under the field's
+    // hamburger or the + (sidebar.jade cardSettingsInlinePanel) - the panel
+    // closes and Card Settings stays open: Popup.back() there would close
+    // Card Settings itself.
+    if (closeCardSettingsPanel(evt)) return;
+    // Elsewhere inside another popup the form stays, emptied for the next field.
     if (!backIfOwnPopup(evt, ['createCustomFieldPopup', 'editCustomFieldPopup']) && !editing) {
       const name = tpl.find('.js-field-name');
       if (name) name.value = '';

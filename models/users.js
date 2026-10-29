@@ -483,6 +483,15 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
+    'profile.cardSettingsSplit': {
+      /**
+       * the share (0..1) of Card Settings' width the Minicard pane takes beside
+       * the Card pane, set by dragging the splitter between them. Unset = half
+       * and half. models/lib/cardSettingsSplit.js
+       */
+      type: Number,
+      optional: true,
+    },
     'profile.leftMenuWidth': {
       /**
        * user-chosen width (px) of that same left menu, set by dragging its inner
@@ -2209,6 +2218,13 @@ Users.helpers({
     return typeof width === 'number' ? width : undefined;
   },
 
+  // Card Settings' split between its Minicard and Card panes, or undefined
+  // for half and half (models/lib/cardSettingsSplit.js).
+  getCardSettingsSplit() {
+    const split = (this.profile || {}).cardSettingsSplit;
+    return typeof split === 'number' ? split : undefined;
+  },
+
   hasSubmitOnEnter() {
     const profile = this.profile || {};
     return profile.submitOnEnter || false;
@@ -3076,6 +3092,17 @@ Users.helpers({
     if (!current[boardId]) current[boardId] = {};
     current[boardId][swimlaneId] = !!collapsed;
     return await Users.updateAsync(this._id, { $set: { 'profile.collapsedSwimlanes': current } });
+  },
+
+  // The splitter between Card Settings' panes, dropped. `undefined` (the
+  // double-click) goes back to half and half.
+  async setCardSettingsSplit(fraction) {
+    const { normaliseSplit } = require('/models/lib/cardSettingsSplit');
+    const split = normaliseSplit(fraction);
+    const modifier = split === undefined
+      ? { $unset: { 'profile.cardSettingsSplit': '' } }
+      : { $set: { 'profile.cardSettingsSplit': split } };
+    return await Users.updateAsync(this._id, modifier);
   },
 
   async setCollapsedCardSection(cardId, sectionKey, collapsed) {

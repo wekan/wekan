@@ -42,7 +42,10 @@ test('the section loop uses the context-preserving `each section in ...` form', 
 
 test('every section branch compares the loop variable, not `this`', () => {
   const start = jade.indexOf('each section in orderedCardFieldSections');
-  const block = jade.slice(start, jade.indexOf('.card-checklist-attachmentGalleries', start));
+  // 2026-10-28: the loop is the last thing of the left column (the old fixed
+  // tail - checklists ... comments - is sections of it now), so the block ends
+  // at the right column.
+  const block = jade.slice(start, jade.indexOf('.card-details-right', start));
   const branches = [...block.matchAll(/if \$eq (\S+) "/g)].map(m => m[1]);
   assert.ok(branches.length >= 5, `expected the five section branches, found ${branches.length}`);
   assert.deepStrictEqual([...new Set(branches)], ['section']);

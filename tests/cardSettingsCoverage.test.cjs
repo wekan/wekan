@@ -83,15 +83,18 @@ const dedupe = list => list.filter((v, i) => list.indexOf(v) === i);
 
 // ── the fields that were missing ─────────────────────────────────────────────
 
+// 2026-10-28: Dependencies and Text notes are fields of Card and Attachments
+// (Card Settings' sections), not groups of their own: their gate is their
+// item there.
 const NEW_CARD_FIELDS = {
   allowsStickers: { row: 'js-field-has-stickers', gate: 'card-details-item-stickers' },
   allowsLocation: { row: 'js-field-has-location', gate: 'card-details-item-location' },
-  allowsDependencies: { row: 'js-field-has-dependencies', gate: 'card-details-group-dependencies' },
+  allowsDependencies: { row: 'js-field-has-dependencies', gate: 'card-details-item-dependencies' },
   allowsFlowtime: { row: 'js-field-has-flowtime', gate: 'card-details-item-flow' },
   allowsPomodoro: { row: 'js-field-has-pomodoro', gate: 'card-details-item-pomodoro' },
   allowsVote: { row: 'js-field-has-vote', gate: 'if getVoteQuestion' },
   allowsPoker: { row: 'js-field-has-poker', gate: 'if getPokerQuestion' },
-  allowsTextNotes: { row: 'js-field-has-text-notes', gate: 'section="text-notes"' },
+  allowsTextNotes: { row: 'js-field-has-text-notes', gate: 'card-details-item-text-notes' },
   allowsActivities: { row: 'js-field-has-activities', gate: 'section="activities"' },
 };
 const NEW_MINICARD_FIELDS = {
@@ -239,24 +242,29 @@ test('every row has a checkbox helper, a click handler, existing label keys and 
 // (Show on Minicard / Show on Card), and every section is a checklist of that
 // side's rows, each list in that side's own order and reordered by drag and
 // drop - so both sides' orders are still independent, one shown at a time.
+//
+// Deliberate change (2026-10-28): BOTH sides are shown at once, as two panes -
+// the Minicard pane first, the Card pane after it - two instances of the one
+// template cardSettingsInline, each with its own fixed side. The Show radios
+// are gone: there is nothing to switch.
 
-test('Board Settings / Card is cardSettingsInline: Show picks the side, each section a checklist of its rows', () => {
+test('Board Settings / Card is two cardSettingsInline panes, one per side, each section a checklist of its rows', () => {
   // Since 2026-10-28 it is the ONLY Card Settings: the opened card has none.
-  assert.match(popup, /\n  \+cardSettingsInline\n/);
+  assert.deepStrictEqual([...popup.matchAll(/\+cardSettingsInline\(side="(\w+)"\)/g)].map(m => m[1]), ['minicard', 'card']);
   assert.ok(!cardJade.includes('cardSettingsInline'), 'negative: not on the opened card');
   // Negative: the old menu-and-pane layout is gone.
+  // (`card-settings-pane-head` is a name again since 2026-10-28: each side's
+  // pane has a header line with its caret and title - not the Admin Panel
+  // style column heads it named before.)
   for (const gone of ['+leftMenu(settingsMenuItems)', '+paneTitle(settingsPaneTitle)', 'card-settings-list-card',
-    'card-settings-list-minicard', 'sectionCardRows', 'sectionMinicardRows', 'card-settings-pane-head']) {
+    'card-settings-list-minicard', 'sectionCardRows', 'sectionMinicardRows', 'card-settings-pane-head-cell']) {
     assert.ok(!sidebarJade.includes(gone), `negative: ${gone} is gone`);
   }
-  // Both sides are still reachable: the two Show radios, Show on Card first chosen.
-  // (One Card Settings now, so one radio group name: there is no second one,
-  // on an opened card, to keep apart from.)
-  assert.match(inlineTpl, /input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side" value="minicard"/);
-  assert.match(inlineTpl, /input\.js-card-settings-show-side\(type="radio" name="card-settings-show-side" value="card"/);
-  // Show on Card when it opens; the side chosen is kept on its popup-stack
-  // entry, so a hamburger's back arrow comes back to it.
-  assert.match(sidebarJs, /this\.showSide = new ReactiveVar\(kept === 'minicard' \? 'minicard' : 'card'\);/);
+  // Both sides are reachable at once: no Show radios (negative).
+  assert.ok(!sidebarJade.includes('js-card-settings-show-side'), 'negative: no Show radio left');
+  assert.ok(!sidebarJs.includes('js-card-settings-show-side'), 'negative: nor its handler');
+  // Each pane's side is the one boardCardSettingsPopup gave it.
+  assert.match(sidebarJs, /const side = Template\.currentData\(\) && Template\.currentData\(\)\.side;\n\s+this\.showSide = new ReactiveVar\(side === 'minicard' \? 'minicard' : 'card'\);/);
   assert.match(inlineTpl, /each section in inlineSections\n\s+\+cardSettingsInlineSection\(section=section side=showSide\)/);
   // One sortable list per section, of the side shown.
   assert.match(inlineSection, /\.card-settings-inline-items\.js-card-field-order-sortable\(data-side="\{\{side\}\}"\)\n\s+each row in section\.rows/);
@@ -280,7 +288,7 @@ test('Board Settings / Card is cardSettingsInline: Show picks the side, each sec
   assert.match(sidebarJs, /rowsForSide\(side, order\)/);
   // (The checkbox just clicked is read once per redraw, for the rows and for the
   // section checkboxes alike.)
-  assert.match(sidebarJs, /const animating = tpl\.animating\.get\(\);[\s\S]{0,300}const rows = sectionRowsOf\(section\.id, data, side, animating\)/);
+  assert.match(sidebarJs, /const animating = tpl\.animating\.get\(\);[\s\S]{0,600}const rows = sectionRowsOf\(section\.id, data, side, animating\)/);
   // Negative: the one-side views of the old popup (show-card-only /
   // show-minicard-only, hiding the other list) are gone with it - Show is the
   // one way to pick a side.
@@ -356,22 +364,32 @@ test('a dropped row lands where it was dropped in its list, on its own side only
   // Date: End dropped first.
   assert.deepStrictEqual(dropInto(undefined, CARD_LAYOUT, 'endDate', ['endDate', 'receivedDate', 'startDate', 'dueDate']),
     ['endDate', 'receivedDate', 'startDate', 'dueDate']);
-  // Time: its three fields share a card section with two of Card's rows -
-  // Pomodoro dropped first goes before Spent time, not before those two.
+  // Time: since 2026-10-28 a card section of its own (it shared the old Sort
+  // group with two of Card's rows) - Pomodoro dropped first goes first, and
+  // Card's rows keep their place.
   const time = dropInto(undefined, CARD_LAYOUT, 'pomodoro', ['pomodoro', 'spentTime', 'flowtime']);
   assert.deepStrictEqual(time, ['pomodoro', 'spentTime', 'flowtime']);
   assert.deepStrictEqual(fieldOrder.orderedCardFieldsOf(fieldOrder.placeKey(undefined, 'pomodoro',
-    dropTargetIndex(undefined, CARD_LAYOUT, 'pomodoro', ['pomodoro', 'spentTime', 'flowtime']), CARD_LAYOUT), 'sort').slice(0, 2),
-  ['cardSortingByNumber', 'showLists'], 'the rows of other sections keep their place');
+    dropTargetIndex(undefined, CARD_LAYOUT, 'pomodoro', ['pomodoro', 'spentTime', 'flowtime']), CARD_LAYOUT), 'card').slice(0, 3),
+  ['dependencies', 'cardSortingByNumber', 'showLists'], 'the rows of other sections keep their place');
+  // Negative: a row dropped in Date never leaves Date.
+  const date = fieldOrder.placeKey(undefined, 'dueDate', dropTargetIndex(undefined, CARD_LAYOUT, 'dueDate', ['dueDate', 'receivedDate', 'startDate', 'endDate']), CARD_LAYOUT);
+  assert.deepStrictEqual(fieldOrder.orderedCardFieldsOf(date, 'date'), ['dueDate', 'receivedDate', 'startDate', 'endDate']);
+  assert.deepStrictEqual(fieldOrder.orderedCardFieldsOf(date, 'members'), fieldOrder.orderedCardFieldsOf(undefined, 'members'));
   // A dropped last row goes last.
   assert.deepStrictEqual(dropInto(undefined, CARD_LAYOUT, 'receivedDate', ['startDate', 'dueDate', 'endDate', 'receivedDate']),
     ['startDate', 'dueDate', 'endDate', 'receivedDate']);
   // The minicard's own order, the card's untouched.
   const mini = dropInto(undefined, MINICARD_LAYOUT, 'endDate', ['endDate', 'receivedDate', 'startDate', 'dueDate']);
   assert.deepStrictEqual(mini, ['endDate', 'receivedDate', 'startDate', 'dueDate']);
-  // Negative: a pinned header stays first - Stickers dropped above Labels does not pass it.
+  // Negative: a pinned header stays first - Description's text dropped above
+  // its Title (the section's heading) does not pass it. (Labels is not pinned
+  // since 2026-10-28: the card's section heading is its own, so Stickers may
+  // lead.)
+  const desc = fieldOrder.placeKey(undefined, 'descriptionText', dropTargetIndex(undefined, CARD_LAYOUT, 'descriptionText', ['descriptionText', 'descriptionTitle']), CARD_LAYOUT);
+  assert.strictEqual(fieldOrder.orderedCardFieldsOf(desc, 'description')[0], 'descriptionTitle');
   const labels = fieldOrder.placeKey(undefined, 'stickers', dropTargetIndex(undefined, CARD_LAYOUT, 'stickers', ['stickers', 'labels', 'location']), CARD_LAYOUT);
-  assert.strictEqual(fieldOrder.orderedCardFieldsOf(labels, 'labels')[0], 'labels');
+  assert.strictEqual(fieldOrder.orderedCardFieldsOf(labels, 'labels')[0], 'stickers');
   // Negative: a list of one row has nowhere to go.
   assert.strictEqual(dropTargetIndex(undefined, CARD_LAYOUT, 'vote', ['vote']), -1);
   // Through the board's setters, the side the list says; nothing written when nothing moved.
@@ -399,71 +417,79 @@ test('the setters normalise what they store, the schema holds both orders, and o
 
 // ── order: the layouts' defaults ARE the templates' order ───────────────────
 
-test('the card layout\'s default order is the order cardDetails.jade renders (derived from the template)', () => {
+// 2026-10-28: the opened card and the minicard draw Card Settings' sections,
+// so what the templates are checked against is one loop over the section ids
+// and, inside each section template, its fields in the order of its rows in
+// Card Settings (cardSettingsSections.sectionFieldsOn) - no longer the
+// templates read top to bottom as the default flat order.
+const cardSettingsSections = require('../models/lib/cardSettingsSections');
+const SECTION_TEMPLATE = id => (id === 'comments' ? 'cardCommentsSection'
+  : `cardFieldSection${id.charAt(0).toUpperCase()}${id.slice(1)}`);
+
+test('the opened card draws every Card Settings section through its template, in one loop', () => {
   const main = template(cardJade, 'cardDetails');
   const leftAt = main.indexOf('.card-details-left');
   const header = gatesOf(main.slice(0, leftAt));
-  const middle = DEFAULT_CARD_FIELD_ORDER.flatMap(key => {
-    const name = `cardFieldSection${key.charAt(0).toUpperCase()}${key.slice(1)}`;
-    assert.ok(cardJade.includes(`template(name="${name}")`), `${name} is its own template`);
-    // The Scrum fields sit one level deeper, under their one "Scrum settings"
-    // heading (docs/Features/Cards/Card-Fields.md). Deliberate change
-    // (2026-10-28): the card's body is no longer under the `else` of Card
-    // Settings being open on the card - the opened card has no Card Settings -
-    // so it is one level shallower again.
-    const indent = /^scrum[A-Z]/.test(key) ? '              ' : '            ';
-    assert.ok(main.includes(`if $eq section "${key}"\n${indent}+${name}`), `the loop renders ${key} through +${name}`);
-    return gatesOf(template(cardJade, name));
-  });
-  const tail = gatesOf(main.slice(leftAt));
   const gateToKey = Object.fromEntries(cardRows.filter(r => !r.card.after).map(r => [r.card.field, r.key]));
-  const fromTemplate = dedupe([...header, ...middle, ...tail]).map(g => gateToKey[g]).filter(Boolean);
-  const fromLayout = DEFAULT_CARD_ORDER.filter(k => fromTemplate.includes(k));
-  assert.deepStrictEqual(fromLayout, fromTemplate, 'DEFAULT_CARD_ORDER is the template order');
-  // Head and tail are what the template draws outside the section loop.
-  // A modifier row's gate (card color, parent card, linked card, the
-  // description badge - `after` rows since 2026-10-02) is not a position.
-  assert.deepStrictEqual(CARD_LAYOUT.head, header.map(g => gateToKey[g]).filter(Boolean));
-  assert.deepStrictEqual(CARD_LAYOUT.tail.filter(k => fromTemplate.includes(k)),
-    dedupe(tail).map(g => gateToKey[g]).filter(Boolean));
+  assert.deepStrictEqual(CARD_LAYOUT.head, header.map(g => gateToKey[g]).filter(Boolean),
+    'the title bar draws the head, outside the loop');
+  const loop = main.slice(main.indexOf('each section in orderedCardFieldSections'), main.indexOf('.card-details-right'));
+  const drawn = [...loop.matchAll(/if \$eq section "([A-Za-z]+)"\n\s+\+([A-Za-z]+)/g)].map(m => [m[1], m[2]]);
+  assert.deepStrictEqual(drawn.map(d => d[0]), cardSettingsSections.SECTION_IDS, 'every section, in the table order');
+  for (const [id, name] of drawn) {
+    assert.strictEqual(name, SECTION_TEMPLATE(id), `${id} through +${name}`);
+    assert.ok(cardJade.includes(`template(name="${name}")`), `${name} is its own template`);
+  }
+  assert.deepStrictEqual(DEFAULT_CARD_FIELD_ORDER, CARD_LAYOUT.sections.map(sec => sec.key));
+  // The activities are the right column's, fixed.
+  assert.ok(CARD_LAYOUT.tail.includes('activities') && main.slice(main.indexOf('.card-details-right')).includes('allowsActivities'));
 });
 
-test('inside a card section the fields render through the ordered*Fields loop, in the layout\'s default order', () => {
-  const loops = { labels: 'orderedLabelsFields', dates: 'orderedDatesFields', members: 'orderedMembersFields',
-    sort: 'orderedSortFields', voteAndPoker: 'orderedVoteAndPokerFields' };
+test('inside a card section the fields render through its ordered*Fields loop, in Card Settings\' row order', () => {
+  const loops = { labels: 'orderedLabelsFields', date: 'orderedDateFields', members: 'orderedMembersFields',
+    card: 'orderedCardFields', time: 'orderedTimeFields', scrum: 'orderedScrumFields',
+    checklists: 'orderedChecklistsFields', attachments: 'orderedAttachmentsFields' };
   const gateToKey = Object.fromEntries(cardRows.filter(r => !r.card.after).map(r => [r.card.field, r.key]));
+  const js = read('client/components/cards/cardDetails.js');
   for (const [section, helper] of Object.entries(loops)) {
-    const name = `cardFieldSection${section.charAt(0).toUpperCase()}${section.slice(1)}`;
+    const name = SECTION_TEMPLATE(section);
     const tpl = template(cardJade, name);
     assert.ok(tpl.includes(`each field in ${helper}`), `${name} loops ${helper}`);
     const placed = [...tpl.matchAll(/if \$eq field "([A-Za-z]+)"/g)].map(m => m[1]);
-    const fields = CARD_LAYOUT.sections.find(s => s.key === section).fields;
-    const expected = fields.filter(f => placed.includes(f));
-    assert.deepStrictEqual(placed, expected, `${name} places its fields in default order`);
+    const rows = cardSettingsSections.sectionFieldsOn('card', DEFAULT_CARD_ORDER, section);
+    // Which branch comes first in the template does not decide anything - the
+    // loop draws them in Card Settings' order - but each is a row of THIS
+    // section, once (negative: no field drawn outside its section).
+    assert.deepStrictEqual([...placed].sort(), rows.filter(f => placed.includes(f)).sort(), `${name} places only its own rows`);
+    assert.strictEqual(new Set(placed).size, placed.length, `${name} places each field once`);
+    // Every positioned field of the section has its place in the template.
+    for (const f of CARD_LAYOUT.sections.find(s => s.key === section).fields) {
+      assert.ok(placed.includes(f), `${name} draws ${f}`);
+    }
     // The gates keep their fields: each `if $eq field` is followed by its gate.
     for (const m of tpl.matchAll(/if \$eq field "([A-Za-z]+)"\n\s+if currentBoard\.(allows[A-Za-z]+)/g)) {
       assert.strictEqual(gateToKey[m[2]], m[1], `${m[2]} gates field ${m[1]}`);
     }
-    // A pinned header is not in the loop: it stays first.
-    const s = CARD_LAYOUT.sections.find(x => x.key === section);
-    if (s.pinnedFirst) assert.ok(!placed.includes(s.fields[0]), `${s.fields[0]} is the header, outside the loop`);
-    assert.ok(cardJade.includes(`Template.registerHelper('${helper}'`) || read('client/components/cards/cardDetails.js').includes(`'${helper}'`),
-      `${helper} is registered globally (each section is its own template)`);
+    assert.ok(js.includes(`'${helper}'`), `${helper} is registered globally (each section is its own template)`);
   }
 });
 
-test('the minicard layout\'s default order is the order minicard.jade renders (derived from the template)', () => {
-  const body = minicardJade.slice(minicardJade.indexOf('each section in orderedMinicardSections'));
-  const sections = [...body.matchAll(/if \$eq section "([A-Za-z]+)"/g)].map(m => m[1]);
-  assert.deepStrictEqual(sections, MINICARD_LAYOUT.sections.map(s => s.key));
-  for (const group of ['dates', 'badges']) {
-    const at = body.indexOf(`if $eq section "${group}"`);
-    const next = body.indexOf('if $eq section "', at + 1);
-    const fields = [...body.slice(at, next).matchAll(/if \$eq field "([A-Za-z]+)"/g)].map(m => m[1]);
-    assert.deepStrictEqual(fields, MINICARD_LAYOUT.sections.find(s => s.key === group).fields, `${group} fields in default order`);
+test('the minicard draws Card Settings\' sections, grouped, every field once in its kind\'s container', () => {
+  const { DATE_FIELDS, BADGE_FIELDS, BLOCK_FIELDS } = require('../models/lib/minicardGroups');
+  const body = minicardJade.slice(minicardJade.indexOf('each group in minicardGroups'));
+  const part = (from, to) => body.slice(body.indexOf(from), to ? body.indexOf(to) : undefined);
+  const fieldsIn = text => [...text.matchAll(/if \$eq field "([A-Za-z]+)"/g)].map(m => m[1]);
+  assert.deepStrictEqual(fieldsIn(part('if group.dates', 'else if group.badges')).sort(), [...DATE_FIELDS].sort());
+  assert.deepStrictEqual(fieldsIn(part('else if group.badges', '\n        else\n')).sort(), [...BADGE_FIELDS].sort());
+  assert.deepStrictEqual(fieldsIn(part('\n        else\n')).sort(), [...BLOCK_FIELDS].sort());
+  // Every positioned minicard field is drawn by one of them.
+  for (const f of MINICARD_LAYOUT.sections.flatMap(sec => sec.fields)) {
+    assert.ok([...DATE_FIELDS, ...BADGE_FIELDS, ...BLOCK_FIELDS].includes(f), `${f} has a container`);
   }
-  assert.deepStrictEqual(MINICARD_LAYOUT.head, ['dueComplete', 'cardNumber'], 'the title bar is fixed');
-  assert.ok(minicardJade.indexOf('if showCardNumber') < minicardJade.indexOf('each section in orderedMinicardSections'));
+  // The head - the title row and the cover under it - is fixed.
+  assert.deepStrictEqual(MINICARD_LAYOUT.head, ['dueComplete', 'cardNumber', 'cover']);
+  assert.ok(minicardJade.indexOf('if showCardNumber') < minicardJade.indexOf('each group in minicardGroups'));
+  assert.ok(minicardJade.indexOf('.minicard-cover') < minicardJade.indexOf('each group in minicardGroups'));
   const gateToKey = Object.fromEntries(minicardRows.map(r => [r.minicard.field, r.key]));
   // Every helper/gate under an `if $eq field` belongs to that field's row.
   for (const m of body.matchAll(/if \$eq field "([A-Za-z]+)"\n\s+if (show[A-Za-z]+|currentBoard\.allows[A-Za-z]+)/g)) {

@@ -10,16 +10,14 @@
 //
 //   head      - fields drawn at a fixed place at the top (the card's title bar:
 //               Mark complete, number, cover) that the order cannot move;
-//   sections  - the reorderable middle, in default order. A section is a
-//               group of fields that render together (the card's Dates group,
-//               the minicard's `.badges` strip). The fields of a section are
-//               reorderable WITHIN it, and the section as a whole is
-//               reorderable among the sections. `pinnedFirst` marks a section
-//               whose first field is its fold header (Labels, Members, Sort,
-//               Description on the card) - that field stays first;
-//   tail      - fields drawn at a fixed place at the bottom (the card's
-//               checklists ... activities, which live in their own galleries
-//               and the right column).
+//   sections  - the reorderable middle, in default order: Card Settings'
+//               sections (see below). The fields of a section are
+//               reorderable WITHIN it. `pinnedFirst` marks a section whose
+//               first field is its heading (Description: Title on the card) -
+//               that field stays first;
+//   tail      - fields drawn at a fixed place outside the sections (the
+//               card's attachment count on its heading, the activities in the
+//               right column).
 //
 // What is STORED is one flat array of field keys (`board.cardFieldOrder`,
 // `board.minicardFieldOrder`). `applyLayoutOrder()` turns whatever is stored -
@@ -32,95 +30,132 @@
 // board that never touched the setting renders byte-for-byte what it always
 // has.
 //
-// THE DEFAULT ORDER of each layout - head, then the sections and their fields
-// as listed, then the tail - is the order the opened card and the minicard
-// rendered BEFORE fields became orderable: cardDetails.jade and minicard.jade
-// as they were at 59f7d61df, the parent of the first field-order commit
-// (#4448, 131514d61), read top to bottom. It is not a tidied-up order and it
-// must not become one, because that default is also what every board without
-// a stored order renders and what applyLayoutOrder() falls back to for the
-// keys a stored order does not name. A field added since then sits beside
-// its closest older neighbour (Text notes in the card's tail, Swimlane name
-// last on the minicard). tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs
-// pins both sequences literally.
+// THE SECTIONS ARE CARD SETTINGS' SECTIONS (2026-10-28). The reorderable
+// sections of both layouts are the sections of Board Settings / Card
+// (models/lib/cardSettingsSections.js), with the same ids, and each holds the
+// rows of that section that have a place of their own on that surface - so a
+// field is dragged in Card Settings inside its section and is drawn on the
+// card and the minicard inside the same section. Where the SECTIONS go is no
+// longer this file's: the opened card and the minicard draw them in the
+// board's section order of that side (cardSettingsSectionOrder,
+// minicardSettingsSectionOrder). The section order inside the flat array
+// below is still kept canonical, but nothing draws by it any more.
+//
+// THE DEFAULT ORDER inside each section is the order the opened card and the
+// minicard drew those fields in before (cardDetails.jade and minicard.jade as
+// they were at 59f7d61df, the parent of the first field-order commit, #4448,
+// 131514d61, read top to bottom), so a board that never set an order still
+// draws each section's fields in the order it always drew them. Until
+// 2026-10-28 the layouts' sections were the templates' own groups (the card's
+// "Sort" group, the minicard's `.badges` strip ...) and the default flat order
+// was those templates read top to bottom; it changed on purpose when the
+// surfaces started drawing Card Settings' sections.
+// tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs pins both sequences.
+//
+// A stored order from before keeps meaning what it can: its field keys keep
+// their relative order inside their new section, the first version's five
+// LEGACY section keys and the template groups' keys the REST API spoke in
+// (`dates`, `sort`, `voteAndPoker`, the minicard's `badges` ...) expand to
+// their fields (`aliases`).
 
 // ── the Scrum fields ─────────────────────────────────────────────────────────
 
-// One section per Scrum field, keyed by the row of Board Settings / Card that
-// shows it ("Scrum settings: Sprint" ...; models/lib/cardSettingsRows.js).
+// The rows of Board Settings / Card that show the Scrum fields ("Scrum
+// settings: Sprint" ...; models/lib/cardSettingsRows.js), all in the Scrum
+// section.
 const SCRUM_FIELD_KEYS = ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType',
   'scrumAcceptanceCriteria', 'scrumBacklogRank'];
-const SCRUM_SECTIONS = SCRUM_FIELD_KEYS.map(key => ({ key, fields: [key] }));
 
 // ── the opened card ──────────────────────────────────────────────────────────
 
+// The head is the card's title bar (Mark complete, the number, the cover
+// above it): fixed, never dragged. The tail holds what has a fixed place
+// outside the sections - the attachment count is on the Attachments heading,
+// and the activities are the right column of every opened card.
 const CARD_LAYOUT = {
   head: ['dueComplete', 'cardNumber', 'cover'],
   sections: [
-    { key: 'labels', fields: ['labels', 'stickers', 'location'], pinnedFirst: true },
-    { key: 'dates', fields: ['receivedDate', 'startDate', 'dueDate', 'endDate'] },
-    { key: 'members', fields: ['members', 'assignee', 'creator', 'requestedBy', 'assignedBy'], pinnedFirst: true },
-    { key: 'dependencies', fields: ['dependencies'] },
-    { key: 'sort', fields: ['cardSortingByNumber', 'showLists', 'spentTime', 'flowtime', 'pomodoro'], pinnedFirst: true },
+    { key: 'labels', fields: ['labels', 'stickers', 'location'] },
+    { key: 'date', fields: ['receivedDate', 'startDate', 'dueDate', 'endDate'] },
+    { key: 'members', fields: ['members', 'assignee', 'creator', 'requestedBy', 'assignedBy'] },
+    // The old Dependencies section and the first half of "Sort", then the
+    // card buttons (drawn after the labels before) and the similar cards
+    // (drawn after the text notes before).
+    { key: 'card', fields: ['dependencies', 'cardSortingByNumber', 'showLists', 'cardButtons', 'similarCards'] },
+    // The second half of the old "Sort" group.
+    { key: 'time', fields: ['spentTime', 'flowtime', 'pomodoro'] },
     { key: 'customFields', fields: ['customFields'] },
-    { key: 'voteAndPoker', fields: ['vote', 'poker'] },
+    { key: 'vote', fields: ['vote'] },
+    { key: 'poker', fields: ['poker'] },
+    // "Description: Title" is the section's heading, so it stays first.
     { key: 'description', fields: ['descriptionTitle', 'descriptionText'], pinnedFirst: true },
-    // The Scrum fields, each a section of its own so the board can put each
-    // where it wants. By default they sit where the one Scrum block was drawn,
-    // after the description (client/components/boards/scrum/scrumFields.js).
-    ...SCRUM_SECTIONS,
+    { key: 'scrum', fields: SCRUM_FIELD_KEYS.slice() },
+    // The old fixed tail, now sections: the checklist count was drawn above
+    // the checklists.
+    { key: 'checklists', fields: ['checklistCount', 'checklists'] },
+    { key: 'subtasks', fields: ['subtasks'] },
+    { key: 'attachments', fields: ['attachments', 'textNotes'] },
+    { key: 'comments', fields: ['comments'] },
   ],
-  tail: ['checklists', 'checklistCount', 'subtasks', 'attachments', 'attachmentCount',
-    'textNotes', 'comments', 'activities'],
-  // The first version of #4448 stored the five SECTION keys below. They stay
-  // valid: each expands to the fields the section rendered then - Members
-  // carried Dependencies and Sort as a fixed appendage, Custom Fields carried
-  // Vote/Poker - so a stored `['description', 'labels', ...]` still puts
-  // exactly what it put where it put it.
+  tail: ['attachmentCount', 'activities'],
+  // The first version of #4448 stored the five SECTION keys below; each
+  // expands to the fields that section rendered then - Members carried
+  // Dependencies and Sort as a fixed appendage, Custom Fields carried
+  // Vote/Poker - so the fields keep their relative order.
   legacy: {
-    labels: ['labels'],
-    dates: ['dates'],
-    members: ['members', 'dependencies', 'sort'],
-    customFields: ['customFields', 'voteAndPoker'],
-    description: ['description'],
+    labels: ['labels', 'stickers', 'location'],
+    dates: ['receivedDate', 'startDate', 'dueDate', 'endDate'],
+    members: ['members', 'assignee', 'creator', 'requestedBy', 'assignedBy', 'dependencies',
+      'cardSortingByNumber', 'showLists', 'spentTime', 'flowtime', 'pomodoro'],
+    customFields: ['customFields', 'vote', 'poker'],
+    description: ['descriptionTitle', 'descriptionText'],
+  },
+  // The section keys of the layout before 2026-10-28 that are not keys now
+  // (the REST cardFieldOrder API spoke in them), each standing for its fields.
+  aliases: {
+    dates: ['receivedDate', 'startDate', 'dueDate', 'endDate'],
+    sort: ['cardSortingByNumber', 'showLists', 'spentTime', 'flowtime', 'pomodoro'],
+    voteAndPoker: ['vote', 'poker'],
   },
 };
 
 // ── the minicard ─────────────────────────────────────────────────────────────
 
-// Top to bottom as minicard.jade renders it. `dates` and `badges` are the
-// two groups whose fields share a container (`.dates`, `.badges`); every
-// other section is a single element. Labels text, List title, Requested by,
-// Assigned by and Description title have Board Settings rows but no element
-// of their own on the minicard (they modify another element, or are read by
-// nothing there), so they have no position - see cardSettingsRows.js.
+// The head is the title row and the cover drawn under it: fixed. Labels
+// text, List title, Requested by's ... rows that only modify another element
+// have no position (cardSettingsRows.js `after`). Inside a section the
+// minicard groups what shares a container - the dates line, the badge strip
+// - so the minicard stays as compact as it was (client/components/cards
+// /minicard.js minicardGroups).
 const MINICARD_LAYOUT = {
-  head: ['dueComplete', 'cardNumber'],
+  head: ['dueComplete', 'cardNumber', 'cover'],
   sections: [
-    // The Scrum fields first, where the one Scrum block was drawn - except the
-    // work item type, which is the first badge of the strip below.
-    ...SCRUM_SECTIONS.filter(s => s.key !== 'scrumIssueType'),
-    { key: 'dates', fields: ['receivedDate', 'startDate', 'dueDate', 'endDate', 'spentTime'] },
-    { key: 'cover', fields: ['cover'] },
-    { key: 'labels', fields: ['labels'] },
+    // The Scrum blocks were first; the work item type was the first badge.
+    { key: 'scrum', fields: ['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumAcceptanceCriteria',
+      'scrumBacklogRank', 'scrumIssueType'] },
+    { key: 'date', fields: ['receivedDate', 'startDate', 'dueDate', 'endDate'] },
+    // Spent time was the last of the dates line; the timers came last of all.
+    { key: 'time', fields: ['spentTime', 'flowtime', 'pomodoro'] },
+    { key: 'labels', fields: ['labels', 'stickers', 'location'] },
     { key: 'customFields', fields: ['customFields'] },
-    { key: 'assignee', fields: ['assignee'] },
-    { key: 'members', fields: ['members'] },
-    { key: 'creator', fields: ['creator'] },
-    { key: 'checklists', fields: ['checklists'] },
-    { key: 'badges', fields: ['scrumIssueType', 'dependencies', 'stickers', 'commentCount', 'vote', 'poker',
-      'attachmentCount', 'subtasks', 'checklistCount', 'cardSortingByNumber'] },
-    { key: 'descriptionText', fields: ['descriptionText'] },
-    { key: 'comments', fields: ['comments'] },
-    { key: 'showLists', fields: ['showLists'] },
-    { key: 'swimlaneName', fields: ['swimlaneName'] },
-    // What the minicard gained on 2026-10-02 so every row has both sides;
-    // last by default, after everything it drew before.
-    ...['location', 'requestedBy', 'assignedBy', 'flowtime', 'pomodoro', 'attachments', 'textNotes', 'activities']
-      .map(key => ({ key, fields: [key] })),
+    { key: 'members', fields: ['assignee', 'members', 'creator', 'requestedBy', 'assignedBy'] },
+    { key: 'checklists', fields: ['checklists', 'checklistCount'] },
+    { key: 'card', fields: ['dependencies', 'cardSortingByNumber', 'showLists', 'swimlaneName'] },
+    { key: 'comments', fields: ['commentCount', 'comments', 'activities'] },
+    { key: 'vote', fields: ['vote'] },
+    { key: 'poker', fields: ['poker'] },
+    { key: 'attachments', fields: ['attachmentCount', 'attachments', 'textNotes'] },
+    { key: 'subtasks', fields: ['subtasks'] },
+    { key: 'description', fields: ['descriptionText'] },
   ],
   tail: [],
   legacy: {},
+  // The template groups the minicard order was made of before 2026-10-28.
+  aliases: {
+    dates: ['receivedDate', 'startDate', 'dueDate', 'endDate', 'spentTime'],
+    badges: ['scrumIssueType', 'dependencies', 'stickers', 'commentCount', 'vote', 'poker',
+      'attachmentCount', 'subtasks', 'checklistCount', 'cardSortingByNumber'],
+  },
 };
 
 // ── generic layout arithmetic ────────────────────────────────────────────────
@@ -151,10 +186,7 @@ function applyLayoutOrder(stored, layout) {
   const storedFields = [];
   entries.forEach(key => {
     if (isLegacy) {
-      layout.legacy[key].forEach(sectionKey => {
-        const s = layout.sections.find(x => x.key === sectionKey);
-        if (s) storedFields.push(...s.fields);
-      });
+      storedFields.push(...layout.legacy[key].filter(field => allFields.has(field)));
       return;
     }
     if (allFields.has(key)) {
@@ -164,7 +196,13 @@ function applyLayoutOrder(stored, layout) {
     // A section key (the REST cardFieldOrder API still speaks in sections)
     // stands for its fields; anything else is unknown and dropped.
     const section = layout.sections.find(s => s.key === key);
-    if (section) storedFields.push(...section.fields);
+    if (section) {
+      storedFields.push(...section.fields);
+      return;
+    }
+    // A key of the layout before 2026-10-28 (see the top of the file).
+    const alias = layout.aliases && layout.aliases[key];
+    if (alias) storedFields.push(...alias.filter(field => allFields.has(field)));
   });
 
   // Sections in the order their first stored field appears, then the rest in

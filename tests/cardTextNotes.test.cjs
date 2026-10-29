@@ -74,8 +74,11 @@ test('and a cross-board move is denied, mirroring the Checklists guard (GHSA-gv8
   assert.ok(/denyCrossBoardMoveByCard/.test(permissions));
 });
 
-test('the card detail view opens a text-notes section', () => {
-  assert.ok(/cardSectionHeader\(section="text-notes"/.test(cardDetailsJade));
+test('the card detail view shows the text notes, in Attachments', () => {
+  // 2026-10-28: a field of Card Settings' Attachments section - which the
+  // opened card draws - with a title of its own, not a section of its own.
+  assert.ok(/if \$eq field "textNotes"\n\s+if currentBoard\.allowsTextNotes\n\s+\.card-details-item\.card-details-item-text-notes/.test(cardDetailsJade));
+  assert.ok(cardDetailsJade.indexOf('card-details-item-text-notes') > cardDetailsJade.indexOf('template(name="cardFieldSectionAttachments")'));
   assert.ok(/\+cardTextNotes\(/.test(cardDetailsJade));
 });
 

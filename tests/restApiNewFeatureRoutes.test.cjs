@@ -225,12 +225,13 @@ test('PUT /api/boards/:boardId/cardFieldOrder needs board admin, normalises thro
   });
   // The helper it relies on drops unknown keys and appends missing ones.
   const { applyCardFieldOrder, DEFAULT_CARD_FIELD_ORDER } = require('../models/lib/cardFieldOrder');
-  // Eight sections since Board Settings / Card orders per field: Dependencies,
-  // Sort and Vote/Poker are sections of their own (models/lib/cardFieldOrder.js).
+  // 2026-10-28: the sections are Card Settings' sections (the opened card
+  // draws those) - the old group keys a client may still send (`dates`,
+  // `sort`, `voteAndPoker`) are read as their fields (models/lib/cardFieldOrder.js).
   assert.deepStrictEqual(applyCardFieldOrder(['description', 'bogus', 'labels', 'labels']),
-    ['description', 'labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker',
-      // the Scrum fields, one section each since 2026-10-02
-      'scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumIssueType', 'scrumAcceptanceCriteria', 'scrumBacklogRank']);
+    ['description', 'labels', 'date', 'members', 'card', 'time', 'customFields', 'vote', 'poker',
+      'scrum', 'checklists', 'subtasks', 'attachments', 'comments']);
+  assert.deepStrictEqual(applyCardFieldOrder(['voteAndPoker', 'dates']).slice(0, 3), ['vote', 'poker', 'date']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
 });
 

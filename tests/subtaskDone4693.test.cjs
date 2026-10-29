@@ -144,7 +144,8 @@ test('each subtask row has a checkbox, live only for those who may tick it', () 
 
 test('the Subtasks heading shows done/total', () => {
   const jade = read('client/components/cards/cardDetails.jade');
-  assert.match(jade, /\+cardSectionHeader\(section="subtasks"[^\n]*\n\s+count=subtaskDoneCount/);
+  // (2026-10-28: on one line, in the Subtasks section's template.)
+  assert.match(jade, /\+cardSectionHeader\(section="subtasks"[^\n]*\bcount=subtaskDoneCount/);
   assert.match(read('client/components/cards/subtasks.js'), /Template\.registerHelper\('subtaskDoneCount'/);
 });
 

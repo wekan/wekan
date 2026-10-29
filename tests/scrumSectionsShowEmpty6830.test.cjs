@@ -52,13 +52,18 @@ test('negative: the Scrum section hidden whole on Show on Card hides them all', 
   assert.deepStrictEqual(shownScrum(board), []);
 });
 
-test('orderedSectionsOf asks boardAllows, through the card view, for every Scrum section', () => {
+test('the opened card asks boardAllows, through the card view, for every Scrum field', () => {
+  // 2026-10-28: Scrum is ONE section of the opened card (Card Settings'), drawn
+  // when the board allows one of its fields, each field drawn when allowed.
   const js = read('client/components/cards/cardDetails.js');
-  const body = js.slice(js.indexOf('function orderedSectionsOf(card)'));
+  const body = js.slice(js.indexOf('function orderedSectionsOf(card'));
   const fn = body.slice(0, body.indexOf('\n}\n'));
-  assert.match(fn, /const board = boardForCard\(card\?\.board\?\.\(\)\);/);
-  assert.match(fn, /sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| boardAllows\(board, s\)\)/);
+  assert.match(fn, /const board = boardForCard\(raw\);/);
   assert.match(fn, /require\('\/models\/lib\/cardShownFields'\)/);
+  assert.match(fn, /\.filter\(id => cardSectionHasContent\(card, board, id\)\)/);
+  assert.match(js, /case 'scrum': return cardSectionFields\(card, 'scrum'\)\.some\(key => boardAllows\(board, key\)\);/);
+  assert.match(js, /const board = boardForCard\(this\?\.board\?\.\(\)\);\n\s+return cardSectionFields\(this, 'scrum'\)\.filter\(key => boardAllows\(board, key\)\);/);
+  assert.match(read('client/components/cards/cardDetails.jade'), /if isSectionOpen "scrum"\n\s+each field in orderedScrumFields/);
 });
 
 test('negative: nothing else in the client decides a Scrum section by the card alone', () => {

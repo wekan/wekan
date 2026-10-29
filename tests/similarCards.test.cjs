@@ -85,7 +85,9 @@ test('the card section and the add-card hint, each behind its Board Settings / C
   // The section is there only when there are similar cards
   // (docs/Features/Cards/Card-Fields.md): its heading is inside the template
   // that asks, behind `if results.length`.
-  assert.match(jade, /unless \$eq currentBoard\.allowsSimilarCardsOnCard false\n\s+\+cardSimilarCardsSection\(cardId=_id\)/);
+  // (2026-10-28: a field of Card Settings' Card section, which the opened
+  // card draws, inside an item of its own.)
+  assert.match(jade, /if \$eq field "similarCards"\n\s+unless \$eq currentBoard\.allowsSimilarCardsOnCard false\n\s+\.card-details-item\.card-details-item-similar-cards\n\s+\+cardSimilarCardsSection\(cardId=_id\)/);
   assert.match(read('client/components/cards/similarCards.jade'), /template\(name="cardSimilarCardsSection"\)\n\s+if results\.length\n\s+\+cardSectionHeader\(section="similar-cards"/);
   assert.doesNotMatch(jade, /\+cardSectionHeader\(section="similar-cards"/, 'negative: no heading of its own, drawn with nothing under it');
   assert.match(read('client/components/lists/listBody.jade'), /\+similarCardsHint\(selector="\.js-card-title"\)/);

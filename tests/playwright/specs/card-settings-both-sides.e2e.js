@@ -17,14 +17,15 @@ test('both Show sides list every row of the table', async ({ boardPage: page }) 
     Popup.open('boardCardSettings').call({ currentData: () => ({}) }, { currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
   });
   const popup = page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
-  await expect(popup.locator('.js-card-settings-inline')).toBeVisible();
+  // Two panes since 2026-10-28, one per side, instead of a Show radio.
+  await expect(popup.locator('.js-card-settings-inline')).toHaveCount(2);
   // Board Settings / Card is the opened card's Card Settings since 2026-10-28
   // (cardSettingsInline): every section is a checklist of its rows, and the
   // "Show" radio chooses which side - card or minicard - the rows are of. So
   // "every row" is every section's checklist, once per Show side; each section
   // lists its own rows, and together they are the whole table.
   for (const side of ['card', 'minicard']) {
-    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    const pane = popup.locator(`.js-card-settings-pane[data-side="${side}"]`);
     const seen = [];
     for (const section of SECTIONS) {
       // List title is the CARD's own row, only offered on an opened card;
@@ -34,7 +35,7 @@ test('both Show sides list every row of the table', async ({ boardPage: page }) 
         const row = CARD_SETTINGS_ROWS.find(r => r.key === key);
         return row && row[side] && !row[side].needsCard;
       });
-      const scope = popup.locator(`.js-card-settings-section[data-section="${section.id}"]`);
+      const scope = pane.locator(`.js-card-settings-section[data-section="${section.id}"]`);
       // A section with no row on this side is left out (Card, holding what is
       // not a field, stays).
       if (!expected.length && section.id !== 'card') {

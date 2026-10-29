@@ -17,15 +17,17 @@ async function settings(page) {
 // title) is only drawn with Show on Minicard, so the radio is set to the side
 // whose row carries the toggle, inside that row's section
 // (models/lib/cardSettingsSections.js).
+// Since 2026-10-28 both sides are shown at once, a pane each: the toggle is
+// looked for in the Card pane's section, then the Minicard pane's.
 async function toggle(page, selector, section = 'card') {
   const popup = await settings(page);
-  const scope = popup.locator(`.js-card-settings-section[data-section="${section}"]`);
-  await expect(scope).toBeVisible();
+  let scope = null;
   for (const side of ['card', 'minicard']) {
-    await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
-    await expect(scope.locator('.js-card-field-order-row').first()).toHaveAttribute('data-side', side);
-    if (await scope.locator(selector).count()) break;
+    const candidate = popup.locator(`.js-card-settings-pane[data-side="${side}"] .js-card-settings-section[data-section="${section}"]`);
+    await expect(candidate).toBeVisible();
+    if (await candidate.locator(selector).count()) { scope = candidate; break; }
   }
+  await scope.locator(selector).scrollIntoViewIfNeeded();
   await scope.locator(selector).click();
   await popup.locator('.js-close-pop-over').click();
 }
@@ -141,7 +143,8 @@ test('clean boards: smaller font presets reduce checklist and settings spacing',
   await expect(cp.root.locator('.checklist-title')).toHaveCSS('padding-top', '8px');
   const popup = await settings(page);
   // A section's rows (docs/Features/Cards/Card-Fields.md): one line each.
-  const date = popup.locator('.js-card-settings-section[data-section="date"]');
+  // The Card pane's (both panes are shown since 2026-10-28).
+  const date = popup.locator('.js-card-settings-pane[data-side="card"] .js-card-settings-section[data-section="date"]');
   await expect(date.locator('.card-settings-line').first()).toHaveCSS('padding-top', '3.2px');
   // Firefox rounds computed font sizes to layout units (9.59375px for 9.6px).
   // The pane's column headings (12px * 0.8) went with the pane (2026-10-28);

@@ -27,10 +27,9 @@ import {
   hiddenMinicardLabelText,
   toggleMinicardLabelText,
 } from '/client/lib/minicardLabelText';
-const {
-  orderedMinicardSections,
-  orderedMinicardFieldsOf,
-} = require('/models/lib/cardFieldOrder');
+const { applyMinicardOrder } = require('/models/lib/cardFieldOrder');
+const cardSettingsSections = require('/models/lib/cardSettingsSections');
+const { minicardGroups } = require('/models/lib/minicardGroups');
 const { isCardFieldHiddenOnBoard } = require('/models/lib/cardFieldVisibility');
 
 // The board as every minicard of it sees it (models/lib/cardShownFields.js
@@ -96,22 +95,20 @@ Template.minicard.helpers({
   minicardCollapsed() {
     return minicardBoardOf(this)?.allowsMinicardCollapse !== false && Utils.getCardCollapseState(this);
   },
-  // The minicard's field order from Board Settings / Card's "Show on
-  // Minicard" column (board.minicardFieldOrder): the sections top to bottom,
-  // and the fields inside the two grouped ones - the `.dates` line and the
-  // `.badges` strip. A board that never set it gets the historical order.
-  // models/lib/cardFieldOrder.js
-  orderedMinicardSections() {
-    const board = minicardBoardOf(this);
-    return orderedMinicardSections(board?.minicardFieldOrder);
-  },
-  orderedMinicardDates() {
-    const board = minicardBoardOf(this);
-    return orderedMinicardFieldsOf(board?.minicardFieldOrder, 'dates');
-  },
-  orderedMinicardBadges() {
-    const board = minicardBoardOf(this);
-    return orderedMinicardFieldsOf(board?.minicardFieldOrder, 'badges');
+  // Card Settings' sections in the board's Show on Minicard section order
+  // (minicardSettingsSectionOrder), less those hidden whole on Show on
+  // Minicard, each section's fields in its Show on Minicard row order
+  // (board.minicardFieldOrder, models/lib/cardFieldOrder.js) - grouped into
+  // the `.dates` line, the `.badges` strips and blocks
+  // (models/lib/minicardGroups.js). The raw board for the orders, the
+  // minicard's view of it for nothing here: the gates are in the template.
+  minicardGroups() {
+    const boardId = this && this.boardId;
+    const board = (boardId && ReactiveCache.getBoard(boardId)) || Utils.getCurrentBoard();
+    const hidden = cardSettingsSections.hiddenSectionsOf(board, 'minicard');
+    const flat = applyMinicardOrder(board?.minicardFieldOrder);
+    const ids = cardSettingsSections.sectionOrderOf(board, 'minicard').filter(id => !hidden.includes(id));
+    return minicardGroups(ids, id => cardSettingsSections.sectionFieldsOn('minicard', flat, id));
   },
   showCustomFieldsOnMinicard() {
     const board = minicardBoardOf(this);

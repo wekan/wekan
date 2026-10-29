@@ -34,7 +34,10 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
   test('the minicard draws a field only when it has a value', () => {
     const jade = read('client/components/cards/minicard.jade');
-    assert.match(jade, /each customFieldsWD\n\s+if definition\.showOnCard\n(\s+\/\/-[^\n]*\n(\s{20,}[^\n]*\n)*)?\s+if minicardCustomFieldHasValue\n\s+\.minicard-custom-field\n/);
+    // Spaces, not \s, between the lines: \s also matches a newline, and the
+    // nested repeat backtracked without end once the block sat deeper in the
+    // minicard (2026-10-28, its section loop) - the suite timed out.
+    assert.match(jade, /each customFieldsWD\n +if definition\.showOnCard\n( +\/\/-[^\n]*\n(?: +(?![ ]|if )[^\n]*\n)*)? +if minicardCustomFieldHasValue\n +\.minicard-custom-field\n/);
     assert.match(read('client/components/cards/minicard.js'),
       /minicardCustomFieldHasValue\(\) \{\n\s+const \{ hasCustomFieldValue \} = require\('\/models\/lib\/customFieldsWD'\);\n\s+return hasCustomFieldValue\(this && this\.value\);/);
   });

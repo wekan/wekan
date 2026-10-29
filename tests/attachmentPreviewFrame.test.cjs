@@ -51,7 +51,10 @@ test('the board cover is the attachment, drawn as an img only when it has a URL'
   assert.doesNotMatch(cover, /link\(\)\s*\{/, 'no link-only wrapper without _id');
   const jade = read('client/components/cards/minicard.jade');
   assert.match(jade, /if attachmentPreviewUrl cover\s+\.minicard-cover\s+img\.minicard-cover-image\(/);
-  assert.match(jade, /\$eq section "cover"/, 'the cover keeps its place in the minicard field order');
+  // 2026-10-28: the cover is fixed under the minicard's title (the head of
+  // MINICARD_LAYOUT), above Card Settings' sections, not a place of the order.
+  assert.ok(require('../models/lib/cardFieldOrder').MINICARD_LAYOUT.head.includes('cover'), 'the cover keeps a fixed place on the minicard');
+  assert.ok(jade.indexOf('.minicard-cover') < jade.indexOf('each group in minicardGroups'));
   const details = read('client/components/cards/cardDetails.jade');
   assert.match(details, /if currentBoard\.allowsCoverAttachmentOnCard[\s\S]*?if attachmentPreviewUrl cover\s+\.card-details-cover\s+img\.card-details-cover-image\(/);
   assert.match(read('client/components/cards/cardDetails.js'), /Template\.cardDetails\.helpers\(\{\s*\/\/[^\n]*\n[^\n]*\n\s*sess\(\) \{/);

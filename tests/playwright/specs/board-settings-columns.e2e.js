@@ -13,13 +13,15 @@ async function openSettings(page, section) {
     else Popup.open(`board${section}Settings`)(evt);
   }, section);
 }
-// Board Settings / Card is the opened card's Card Settings since 2026-10-28
-// (cardSettingsInline): the Draggable table, with its column actions, is in
-// the Card section's hamburger, as on the opened card.
+// Board Settings / Card is Card Settings since 2026-10-28 (cardSettingsInline):
+// the Draggable table, with its column actions, is in the Card section's
+// hamburger - since the two panes, the Card pane's, opened under its line
+// (cardSettingsInlinePanel), not as a popup layer.
 async function openCardSectionMenu(page) {
-  const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
-  await popup.locator('.js-card-settings-section[data-section="card"] .js-open-card-settings-section-menu').click();
-  const menu = page.locator('.js-pop-over .js-popup-layer[data-popup="cardSettingsSectionPopup"]');
+  const pane = page.locator('.pop-over[data-popup="boardCardSettingsPopup"] .js-card-settings-pane[data-side="card"]');
+  const section = pane.locator('.js-card-settings-section[data-section="card"]');
+  await section.locator('.js-open-card-settings-section-menu').click();
+  const menu = section.locator('.js-card-settings-panel[data-kind="section"]');
   await expect(menu).toBeVisible();
   return menu;
 }
@@ -104,14 +106,15 @@ test('Card settings are the opened card\'s Card Settings: Draggable in Card\'s h
     await openSettings(page, 'Card');
     const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
     await expect(popup).toBeVisible();
-    await expect(popup.locator('.js-card-settings-inline')).toBeVisible();
+    // Two panes since 2026-10-28, the Minicard's and the Card's, at once.
+    await expect(popup.locator('.js-card-settings-inline')).toHaveCount(2);
     await expect(popup.locator('.side-menu')).toHaveCount(0);
     // Draggable is not in the list itself: it is in Card's hamburger.
     await expect(popup.locator('.board-drag-settings')).toHaveCount(0);
-    // A row is one line per Show side, its checkbox that side's.
-    const line = popup.locator('.js-card-settings-section[data-section="date"] .card-settings-line[data-key="dueDate"]');
+    // A row is one line per side's pane, its checkbox that side's.
     for (const side of ['card', 'minicard']) {
-      await popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+      const line = popup.locator(`.js-card-settings-pane[data-side="${side}"] .js-card-settings-section[data-section="date"] .card-settings-line[data-key="dueDate"]`);
+      await line.scrollIntoViewIfNeeded();
       await expect(line).toHaveAttribute('data-side', side);
       await expect(line).toHaveCount(1);
       await expect(line.locator(`.card-settings-side-${side}`)).toBeVisible();

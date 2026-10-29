@@ -43,10 +43,10 @@ test.describe('#3823 legacy board creator visibility', () => {
     await boardPage.locator('.js-pop-over .js-open-board-card-settings').click();
     // Board Settings / Card is the opened card's Card Settings (2026-10-28):
     // Creator is a row of the Members section (models/lib/cardSettingsSections.js),
-    // and its minicard checkbox is drawn with Show on Minicard chosen.
-    await boardPage.locator('.js-pop-over .js-card-settings-show-side[value="minicard"]').check();
+    // and its minicard checkbox is in the Minicard pane (both panes are shown
+    // at once since 2026-10-28; there is no Show radio to choose one).
     const creatorSetting = boardPage.locator(
-      '.js-pop-over .js-card-settings-section[data-section="members"] .js-field-has-creator-on-minicard',
+      '.js-pop-over .js-card-settings-pane[data-side="minicard"] .js-card-settings-section[data-section="members"] .js-field-has-creator-on-minicard',
     );
     await expect(creatorSetting).toBeVisible();
     await expect(creatorSetting).not.toHaveClass(/is-checked/);

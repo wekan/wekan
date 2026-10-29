@@ -43,9 +43,13 @@ test('Board Settings / Card reorders each side by drag and drop and by the arrow
     // 2026-10-28 (cardSettingsInline): each section a checklist, its rows the
     // side the "Show" radio chooses, dragged within their section.
     const popup = page.locator('.js-pop-over[data-popup="boardCardSettingsPopup"]');
-    const section = id => popup.locator(`.js-card-settings-section[data-section="${id}"]`);
-    const row = key => popup.locator(`.js-card-field-order-row[data-key="${key}"]`);
-    const show = side => popup.locator(`.js-card-settings-show-side[value="${side}"]`).check();
+    // A pane per side since 2026-10-28 (no "Show" radio): `show` picks which
+    // pane the locators below look in.
+    let side = 'card';
+    const pane = () => popup.locator(`.js-card-settings-pane[data-side="${side}"]`);
+    const section = id => pane().locator(`.js-card-settings-section[data-section="${id}"]`);
+    const row = key => pane().locator(`.js-card-field-order-row[data-key="${key}"]`);
+    const show = async which => { side = which; await expect(pane()).toBeVisible(); };
     await expect(row('dueDate')).toBeVisible();
     // Negative: the head rows sit at a fixed place, so they are not dragged.
     await expect(section('card').locator('.js-card-field-order-row[data-key="cardNumber"] .js-card-field-order-handle')).toHaveCount(0);

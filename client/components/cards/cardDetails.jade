@@ -165,121 +165,55 @@ template(name="cardDetails")
       Settings of its own.
     .card-details-left
 
-      //- At risk, Show on Card (docs/Features/Cards/At-Risk.md): every reason
-        that applied, the moves back included.
-      unless $eq currentBoard.allowsAtRiskOnCard false
-        with cardAtRisk
-          .card-details-at-risk.js-card-at-risk
-            i.fa.fa-exclamation-triangle
-            |  {{_ 'at-risk'}}: {{text}}
-
       .card-details-items
-        //- #4448: render the reorderable card-detail sections (Labels, Dates,
-          Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
-          in the board's stored order, falling back to the historical fixed
-          order - so a board that never touches the setting renders exactly
-          what it always has. Board Settings / Card writes the order per
-          FIELD; each section renders where its first field is, and the
-          fields inside it (the four dates, the people of Members, ...) in
-          their own order through the ordered*Fields helpers.
-          models/lib/cardFieldOrder.js, client/components/sidebar/sidebar.jade
+        //- ONE SECTION MODEL (2026-10-28): the opened card draws Card Settings'
+          sections (models/lib/cardSettingsSections.js) in the board's
+          `cardSettingsSectionOrder` - the order Card Settings' Card pane shows
+          and drags - each headed with that section's icon and title, and each
+          section's fields in the order of its rows there (board.cardFieldOrder,
+          models/lib/cardFieldOrder.js, through the ordered*Fields helpers). Only
+          the sections this card has something to show for are listed
+          (cardDetails.js orderedSectionsOf). The title bar above is fixed; the
+          comments are the right column's on a maximized card, the activities
+          always are. docs/Features/Cards/Card-Fields.md
         //- `each section in ...`, not `each ...`: the plain form makes the
-          section NAME ("labels", "dates", ...) the data context, so every
-          section template - and every popup opened from one, e.g. the Labels
-          popup - saw a string where it expected the card. Clicking a label
-          then silently did nothing (`card.toggleLabel` was undefined) and
-          the card's own labels/stickers/locations lists rendered empty. The
-          `in` form keeps `this` as the card.
+          section NAME the data context, so every section template - and every
+          popup opened from one, e.g. the Labels popup - saw a string where it
+          expected the card. Clicking a label then silently did nothing
+          (`card.toggleLabel` was undefined). The `in` form keeps `this` as the
+          card.
         each section in orderedCardFieldSections
-          if $eq section "labels"
-            +cardFieldSectionLabels
-          if $eq section "dates"
-            +cardFieldSectionDates
-          if $eq section "members"
-            +cardFieldSectionMembers
-          if $eq section "dependencies"
-            +cardFieldSectionDependencies
-          if $eq section "sort"
-            +cardFieldSectionSort
-          if $eq section "customFields"
-            +cardFieldSectionCustomFields
-          if $eq section "voteAndPoker"
-            +cardFieldSectionVoteAndPoker
-          if $eq section "description"
-            +cardFieldSectionDescription
-          //- Each Scrum field where the board's order puts it ("Scrum settings:
-            Sprint" ... in Board Settings / Card).
-          //- The Scrum fields shown on this card are ONE section, "Scrum
-            settings", headed where the first of them is, with Card kind in its
-            hamburger (docs/Features/Cards/Card-Fields.md).
-          if $eq section firstScrumSection
-            +cardSectionHeader(section="scrum" icon="fa-repeat" label="scrum-settings" menuClass="js-section-card-kind" menuTitle="cardKindPopup-title")
-          if isSectionOpen "scrum"
-            if $eq section "scrumSprint"
-              +cardFieldSectionScrumSprint
-            if $eq section "scrumPastSprints"
-              +cardFieldSectionScrumPastSprints
-            if $eq section "scrumRelease"
-              +cardFieldSectionScrumRelease
-            if $eq section "scrumIssueType"
-              +cardFieldSectionScrumIssueType
-            if $eq section "scrumAcceptanceCriteria"
-              +cardFieldSectionScrumAcceptanceCriteria
-            if $eq section "scrumBacklogRank"
-              +cardFieldSectionScrumBacklogRank
-
-      .card-checklist-attachmentGalleries
-        .card-checklist-attachmentGallery.card-checklists
-          if currentBoard.allowsChecklists
-            unless $eq currentBoard.allowsChecklistTitle false
-              +cardSectionHeader(section="checklists" icon="fa-check" label="checklists")
-            if checklistSectionOpen
-              //- Total checklist item count (finished/total) shown above all
-                checklists. The board flag is a cheap boolean, so when it is off
-                the checklist counting below is never evaluated.
-              if currentBoard.allowsChecklistCountBadgeOnCard
-                if checklists.length
-                  h4.card-details-item-subtitle
-                    |  {{checklistFinishedCount}}/{{checklistItemCount}}
-              +checklists(cardId = _id card = this)
-          if currentBoard.allowsSubtasks
-            //- #4693: "Subtasks (1/3)", done/total (subtaskDoneCount in subtasks.js).
-            +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks"
-              count=subtaskDoneCount
-              menuClass="js-open-subtasks-menu" menuTitle="subtasks")
-            if isSectionOpen "subtasks"
-              +subtasks(cardId = _id)
-        if currentBoard.allowsAttachments
-          +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments"
-            count=attachmentCount)
-          if isSectionOpen "attachments"
-            //- #6796: the upload rules (size, types, what an invalid name
-              does) are read when uploading, so they are in the upload popup
-              (attachments.jade cardAttachmentsPopup), not above every list.
-            .card-checklist-attachmentGallery.card-attachmentGallery
-              +attachmentGallery
-
-        //- GitHub issue #595: markdown text notes, a card-level collection of
-          small editable markdown blocks - separate from the card's single
-          description - so a card is not limited to cramming everything into
-          one description field. Edited in a popup reusing the SAME editor/
-          viewer widget the description above already uses.
-        if currentBoard.allowsTextNotes
-          +cardSectionHeader(section="text-notes" icon="fa-file-text-o" label="text-notes")
-          if isSectionOpen "text-notes"
-            +cardTextNotes(_id = _id)
-
-        //- Similar cards, Show on Card: the cards of this board like this one
-          (docs/Features/Cards/Similar-Cards.md). Asked when the card opens, and
-          the section is there only when there are some
-          (docs/Features/Cards/Card-Fields.md).
-        unless $eq currentBoard.allowsSimilarCardsOnCard false
-          +cardSimilarCardsSection(cardId=_id)
-
-      //- The comments: in this column, or - on a maximized card - at the top of
-        the right one (cardCommentsSection below).
-      unless cardMaximized
-        +cardCommentsSection
+          .card-details-section(data-card-section="{{section}}" class="card-details-section-{{section}}")
+            if $eq section "labels"
+              +cardFieldSectionLabels
+            if $eq section "date"
+              +cardFieldSectionDate
+            if $eq section "members"
+              +cardFieldSectionMembers
+            if $eq section "card"
+              +cardFieldSectionCard
+            if $eq section "time"
+              +cardFieldSectionTime
+            if $eq section "customFields"
+              +cardFieldSectionCustomFields
+            if $eq section "vote"
+              +cardFieldSectionVote
+            if $eq section "poker"
+              +cardFieldSectionPoker
+            if $eq section "description"
+              +cardFieldSectionDescription
+            if $eq section "scrum"
+              +cardFieldSectionScrum
+            if $eq section "checklists"
+              +cardFieldSectionChecklists
+            if $eq section "subtasks"
+              +cardFieldSectionSubtasks
+            if $eq section "attachments"
+              +cardFieldSectionAttachments
+            //- The comments: here, or - on a maximized card - at the top of the
+              right column (below), where orderedSectionsOf leaves them out.
+            if $eq section "comments"
+              +cardCommentsSection
 
     .card-details-right
 
@@ -313,12 +247,15 @@ template(name="cardDetails")
                 +activities(card=this mode="card")
 
 template(name="cardFieldSectionLabels")
-    .card-details-group.card-details-group-labels
-      .card-details-group-body
-        if currentBoard.allowsLabels
-          .card-details-item.card-details-item-labels
-            +cardSectionHeader(section="labels" icon="fa-tags" label="labels" noRule=true)
-            if isSectionOpen "labels"
+  +cardSectionHeader(section="labels" icon="fa-tag" label="labels")
+  if isSectionOpen "labels"
+    .card-details-group-body
+      //- #6688: Stickers and Location each have their own Board Settings /
+        Card toggle (allowsStickers, allowsLocation).
+      each field in orderedLabelsFields
+        if $eq field "labels"
+          if currentBoard.allowsLabels
+            .card-details-item.card-details-item-labels
               a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
                 each labels
                   //- Labels text, Show on Card: the words, or coloured chips without them.
@@ -330,272 +267,263 @@ template(name="cardFieldSectionLabels")
                 unless currentUser.isWorker
                   a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
                     i.fa.fa-plus
-
-        //- #6688: Stickers and Location each have their own Board Settings /
-          Card toggle (allowsStickers, allowsLocation) - they used to be gated
-          only by the Labels fold, so a board that did not use them could not
-          hide them. client/components/sidebar/sidebar.jade
-        if isSectionOpen "labels"
-          each field in orderedLabelsFields
-            if $eq field "stickers"
-              if currentBoard.allowsStickers
-                .card-details-item.card-details-item-stickers
-                  h3.card-details-item-title
-                    i.fa.fa-sticky-note-o
-                    | {{_ 'stickers'}}
-                  .card-details-item-content.card-stickers
-                    each stickers
-                      span.card-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
-                        i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
-                        if canModifyCard
-                          a.card-sticker-remove.js-remove-sticker(data-index="{{@index}}" title="{{_ 'remove-sticker'}}")
-                            i.fa.fa-times
+        if $eq field "stickers"
+          if currentBoard.allowsStickers
+            .card-details-item.card-details-item-stickers
+              h3.card-details-item-title
+                i.fa.fa-sticky-note-o
+                | {{_ 'stickers'}}
+              .card-details-item-content.card-stickers
+                each stickers
+                  span.card-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
+                    i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
                     if canModifyCard
-                      unless currentUser.isWorker
-                        a.card-label.add-label.js-add-stickers(title="{{_ 'add-sticker'}}")
-                          i.fa.fa-plus
-
-            if $eq field "location"
-              if currentBoard.allowsLocation
-                .card-details-item.card-details-item-location
-                  h3.card-details-item-title
-                    i.fa.fa-map-marker
-                    | {{_ 'location'}}
-                  .card-details-item-content.card-locations
-                    each getLocations
-                      .card-location
-                        .card-location-info(class="{{#if canModifyCard}}js-edit-location{{/if}}" data-location-id="{{_id}}")
-                          if name
-                            .card-location-name= name
-                          if address
-                            .card-location-address= address
-                          if hasCoordinates
-                            a.card-location-map(href=mapUrl target="_blank" rel="noopener noreferrer")
-                              i.fa.fa-map-o
-                              = ' '
-                              | {{_ 'location-open-map'}}
-                        if canModifyCard
-                          a.card-location-remove.js-remove-location(data-location-id="{{_id}}" title="{{_ 'delete'}}")
-                            i.fa.fa-times
-                  if canModifyCard
-                    unless currentUser.isWorker
-                      a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
-                        i.fa.fa-plus
-
-    //- The card's button row - it sat here before the fields were grouped,
-      between the Labels group and the dates, and belongs to the card rather
-      than to any group.
-    //- Card buttons, Show on Card.
-    unless $eq currentBoard.allowsCardButtonsOnCard false
-      +cardButtons(_id=_id boardId=boardId)
-
-template(name="cardFieldSectionDates")
-  if currentBoard.hasAnyAllowsDate
-      .card-details-group.card-details-group-date-format
-        hr.card-details-section-rule
-        .card-details-group-body
-          if currentBoard.hasAnyAllowsDate
-            .card-details-item.card-details-item-date-format
-              +cardSectionHeader(section="date-format" icon="fa-calendar" label="date" noRule=true)
-
-          if isSectionOpen "date-format"
-            each field in orderedDatesFields
-              if $eq field "receivedDate"
-                if currentBoard.allowsReceivedDate
-                  .card-details-item.card-details-item-received
-                    h3.card-details-item-title
-                      i.fa.fa-sign-out
-                      | {{_ 'card-received'}}
-                    if getReceived
-                      +cardReceivedDate(card=this canModifyCard=canModifyCard)
-                    else
-                      if canModifyCard
-                        unless currentUser.isWorker
-                          a.card-label.add-label.js-received-date(title="{{_ 'card-received'}}")
-                            i.fa.fa-plus
-
-              if $eq field "startDate"
-                if currentBoard.allowsStartDate
-                  .card-details-item.card-details-item-start
-                    h3.card-details-item-title
-                      i.fa.fa-hourglass-start
-                      | {{_ 'card-start'}}
-                    if getStart
-                      +cardStartDate(card=this canModifyCard=canModifyCard)
-                    else
-                      if canModifyCard
-                        unless currentUser.isWorker
-                          a.card-label.add-label.js-start-date(title="{{_ 'card-start'}}")
-                            i.fa.fa-plus
-
-              if $eq field "dueDate"
-                if currentBoard.allowsDueDate
-                  .card-details-item.card-details-item-due
-                    h3.card-details-item-title
-                      i.fa.fa-clock-o
-                      | {{_ 'card-due'}}
-                    if getDue
-                      +cardDueDate(card=this canModifyCard=canModifyCard)
-                    else
-                      if canModifyCard
-                        unless currentUser.isWorker
-                          a.card-label.add-label.js-due-date(title="{{_ 'card-due'}}")
-                            i.fa.fa-plus
-                    if dueDateChangeCount
-                      .card-details-due-date-changes(title="{{_ 'due-date-changes'}}")
-                        | {{_ 'due-date-changed-times' dueDateChangeCount}}
-
-              if $eq field "endDate"
-                if currentBoard.allowsEndDate
-                  .card-details-item.card-details-item-end
-                    h3.card-details-item-title
-                      i.fa.fa-hourglass-end
-                      | {{_ 'card-end'}}
-                    if getEnd
-                      +cardEndDate(card=this canModifyCard=canModifyCard)
-                    else
-                      if canModifyCard
-                        unless currentUser.isWorker
-                          a.card-label.add-label.js-end-date(title="{{_ 'card-end'}}")
-                            i.fa.fa-plus
-            //- Forecast, Show on Card (docs/Features/Cards/Dates/Forecast.md).
-            unless $eq currentBoard.allowsForecastOnCard false
-              with cardForecastOf this
-                .card-details-item.card-details-forecast.js-card-forecast
-                  h3.card-details-item-title
-                    i.fa.fa-line-chart
-                    | {{_ 'forecast'}}
-                  if enough
-                    span.card-details-forecast-text {{_ 'forecast-done' p50=(forecastDate p50) p85=(forecastDate p85)}}
-                  else
-                    span.card-details-forecast-text.quiet {{_ 'forecast-not-enough'}}
-
-template(name="cardFieldSectionMembers")
-  if currentBoard.hasAnyAllowsUser
-      .card-details-group.card-details-group-members
-        hr.card-details-section-rule
-        .card-details-group-body
-          if currentBoard.allowsMembers
-            .card-details-item.card-details-item-members
-              +cardSectionHeader(section="members" icon="fa-users" label="members" noRule=true)
-              if isSectionOpen "members"
-                each userId in getMembers
-                  +userAvatar(userId=userId cardId=_id)
-                  | {{! XXX Hack to hide syntaxic coloration /// }}
+                      a.card-sticker-remove.js-remove-sticker(data-index="{{@index}}" title="{{_ 'remove-sticker'}}")
+                        i.fa.fa-times
                 if canModifyCard
                   unless currentUser.isWorker
-                    a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                    a.card-label.add-label.js-add-stickers(title="{{_ 'add-sticker'}}")
                       i.fa.fa-plus
 
-          if isSectionOpen "members"
-            each field in orderedMembersFields
-              if $eq field "assignee"
-                if currentBoard.allowsAssignee
-                  .card-details-item.card-details-item-assignees
-                    h3.card-details-item-title
-                      i.fa.fa-user
-                      | {{_ 'assignee'}}
-                    each userId in getAssignees
-                      +userAvatar(userId=userId cardId=_id assignee=true)
-                      | {{! XXX Hack to hide syntaxic coloration /// }}
+        if $eq field "location"
+          if currentBoard.allowsLocation
+            .card-details-item.card-details-item-location
+              h3.card-details-item-title
+                i.fa.fa-map-marker
+                | {{_ 'location'}}
+              .card-details-item-content.card-locations
+                each getLocations
+                  .card-location
+                    .card-location-info(class="{{#if canModifyCard}}js-edit-location{{/if}}" data-location-id="{{_id}}")
+                      if name
+                        .card-location-name= name
+                      if address
+                        .card-location-address= address
+                      if hasCoordinates
+                        a.card-location-map(href=mapUrl target="_blank" rel="noopener noreferrer")
+                          i.fa.fa-map-o
+                          = ' '
+                          | {{_ 'location-open-map'}}
                     if canModifyCard
-                      a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                      a.card-location-remove.js-remove-location(data-location-id="{{_id}}" title="{{_ 'delete'}}")
+                        i.fa.fa-times
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.card-label.add-label.js-add-location(title="{{_ 'add-location'}}")
+                    i.fa.fa-plus
+
+template(name="cardFieldSectionDate")
+  +cardSectionHeader(section="date" icon="fa-calendar" label="date")
+  if isSectionOpen "date"
+    .card-details-group-body
+      each field in orderedDateFields
+        if $eq field "receivedDate"
+          if currentBoard.allowsReceivedDate
+            .card-details-item.card-details-item-received
+              h3.card-details-item-title
+                i.fa.fa-sign-out
+                | {{_ 'card-received'}}
+              if getReceived
+                +cardReceivedDate(card=this canModifyCard=canModifyCard)
+              else
+                if canModifyCard
+                  unless currentUser.isWorker
+                    a.card-label.add-label.js-received-date(title="{{_ 'card-received'}}")
+                      i.fa.fa-plus
+
+        if $eq field "startDate"
+          if currentBoard.allowsStartDate
+            .card-details-item.card-details-item-start
+              h3.card-details-item-title
+                i.fa.fa-hourglass-start
+                | {{_ 'card-start'}}
+              if getStart
+                +cardStartDate(card=this canModifyCard=canModifyCard)
+              else
+                if canModifyCard
+                  unless currentUser.isWorker
+                    a.card-label.add-label.js-start-date(title="{{_ 'card-start'}}")
+                      i.fa.fa-plus
+
+        if $eq field "dueDate"
+          if currentBoard.allowsDueDate
+            .card-details-item.card-details-item-due
+              h3.card-details-item-title
+                i.fa.fa-clock-o
+                | {{_ 'card-due'}}
+              if getDue
+                +cardDueDate(card=this canModifyCard=canModifyCard)
+              else
+                if canModifyCard
+                  unless currentUser.isWorker
+                    a.card-label.add-label.js-due-date(title="{{_ 'card-due'}}")
+                      i.fa.fa-plus
+              if dueDateChangeCount
+                .card-details-due-date-changes(title="{{_ 'due-date-changes'}}")
+                  | {{_ 'due-date-changed-times' dueDateChangeCount}}
+
+        if $eq field "endDate"
+          if currentBoard.allowsEndDate
+            .card-details-item.card-details-item-end
+              h3.card-details-item-title
+                i.fa.fa-hourglass-end
+                | {{_ 'card-end'}}
+              if getEnd
+                +cardEndDate(card=this canModifyCard=canModifyCard)
+              else
+                if canModifyCard
+                  unless currentUser.isWorker
+                    a.card-label.add-label.js-end-date(title="{{_ 'card-end'}}")
+                      i.fa.fa-plus
+        //- At risk, Show on Card (docs/Features/Cards/At-Risk.md): every reason
+          that applied, the moves back included - under its row, Due.
+        if $eq field "atRisk"
+          unless $eq currentBoard.allowsAtRiskOnCard false
+            with cardAtRisk
+              .card-details-at-risk.js-card-at-risk
+                i.fa.fa-exclamation-triangle
+                |  {{_ 'at-risk'}}: {{text}}
+        //- Forecast, Show on Card (docs/Features/Cards/Dates/Forecast.md).
+        if $eq field "forecast"
+          unless $eq currentBoard.allowsForecastOnCard false
+            with cardForecastOf this
+              .card-details-item.card-details-forecast.js-card-forecast
+                h3.card-details-item-title
+                  i.fa.fa-line-chart
+                  | {{_ 'forecast'}}
+                if enough
+                  span.card-details-forecast-text {{_ 'forecast-done' p50=(forecastDate p50) p85=(forecastDate p85)}}
+                else
+                  span.card-details-forecast-text.quiet {{_ 'forecast-not-enough'}}
+
+template(name="cardFieldSectionMembers")
+  +cardSectionHeader(section="members" icon="fa-users" label="members")
+  if isSectionOpen "members"
+    .card-details-group-body
+      each field in orderedMembersFields
+        if $eq field "members"
+          if currentBoard.allowsMembers
+            .card-details-item.card-details-item-members
+              each userId in getMembers
+                +userAvatar(userId=userId cardId=_id)
+                | {{! XXX Hack to hide syntaxic coloration /// }}
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                    i.fa.fa-plus
+        if $eq field "assignee"
+          if currentBoard.allowsAssignee
+            .card-details-item.card-details-item-assignees
+              h3.card-details-item-title
+                i.fa.fa-user
+                | {{_ 'assignee'}}
+              each userId in getAssignees
+                +userAvatar(userId=userId cardId=_id assignee=true)
+                | {{! XXX Hack to hide syntaxic coloration /// }}
+              if canModifyCard
+                a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                  i.fa.fa-plus
+              if currentUser.isWorker
+                unless assigneeSelected
+                  a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                    i.fa.fa-plus
+
+        if $eq field "creator"
+          if currentBoard.allowsCreator
+            .card-details-item.card-details-item-creator
+              h3.card-details-item-title
+                i.fa.fa-user
+                | {{_ 'creator'}}
+
+              +userAvatar(userId=userId noRemove=true)
+              | {{! XXX Hack to hide syntaxic coloration /// }}
+
+
+          //.card-details-items
+          //if assigneeSelected
+          //.card-details-items
+        if $eq field "requestedBy"
+          if currentBoard.allowsRequestedBy
+            .card-details-item.card-details-item-name
+              h3.card-details-item-title
+                i.fa.fa-shopping-cart
+                | {{_ 'requested-by'}}
+              if canModifyCard
+                unless currentUser.isWorker
+                  +inlinedForm(classNames="js-card-details-requester")
+                    +editCardRequesterForm
+                  else
+                    each userId in getRequesters
+                      +userAvatar(userId=userId cardId=_id noRemove=true)
+                    if getRequestedBy
+                      +viewer
+                        = getRequestedBy
+                    .card-details-person-controls
+                      a.member.add-member.card-details-item-add-button.js-select-requester(title="{{_ 'requested-by'}}")
                         i.fa.fa-plus
-                    if currentUser.isWorker
-                      unless assigneeSelected
-                        a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-                          i.fa.fa-plus
-
-              if $eq field "creator"
-                if currentBoard.allowsCreator
-                  .card-details-item.card-details-item-creator
-                    h3.card-details-item-title
-                      i.fa.fa-user
-                      | {{_ 'creator'}}
-
-                    +userAvatar(userId=userId noRemove=true)
-                    | {{! XXX Hack to hide syntaxic coloration /// }}
-
-
-                //.card-details-items
-                //if assigneeSelected
-                //.card-details-items
-              if $eq field "requestedBy"
-                if currentBoard.allowsRequestedBy
-                  .card-details-item.card-details-item-name
-                    h3.card-details-item-title
-                      i.fa.fa-shopping-cart
-                      | {{_ 'requested-by'}}
-                    if canModifyCard
-                      unless currentUser.isWorker
-                        +inlinedForm(classNames="js-card-details-requester")
-                          +editCardRequesterForm
+                      a.js-open-inlined-form(
+                        title="{{#if getRequestedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}"
+                        aria-label="{{#if getRequestedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}")
+                        if getRequestedBy
+                          i.fa.fa-pencil-square-o(aria-hidden="true")
                         else
-                          each userId in getRequesters
-                            +userAvatar(userId=userId cardId=_id noRemove=true)
-                          if getRequestedBy
-                            +viewer
-                              = getRequestedBy
-                          .card-details-person-controls
-                            a.member.add-member.card-details-item-add-button.js-select-requester(title="{{_ 'requested-by'}}")
-                              i.fa.fa-plus
-                            a.js-open-inlined-form(
-                              title="{{#if getRequestedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}"
-                              aria-label="{{#if getRequestedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}")
-                              if getRequestedBy
-                                i.fa.fa-pencil-square-o(aria-hidden="true")
-                              else
-                                i.fa.fa-plus(aria-hidden="true")
-                    else
-                      each userId in getRequesters
-                        +userAvatar(userId=userId noRemove=true)
-                      if getRequestedBy
-                        +viewer
-                          = getRequestedBy
+                          i.fa.fa-plus(aria-hidden="true")
+              else
+                each userId in getRequesters
+                  +userAvatar(userId=userId noRemove=true)
+                if getRequestedBy
+                  +viewer
+                    = getRequestedBy
 
-              if $eq field "assignedBy"
-                if currentBoard.allowsAssignedBy
-                  .card-details-item.card-details-item-name
-                    h3.card-details-item-title
-                      i.fa.fa-user-plus
-                      | {{_ 'assigned-by'}}
-                    if canModifyCard
-                      unless currentUser.isWorker
-                        +inlinedForm(classNames="js-card-details-assigner")
-                          +editCardAssignerForm
+        if $eq field "assignedBy"
+          if currentBoard.allowsAssignedBy
+            .card-details-item.card-details-item-name
+              h3.card-details-item-title
+                i.fa.fa-user-plus
+                | {{_ 'assigned-by'}}
+              if canModifyCard
+                unless currentUser.isWorker
+                  +inlinedForm(classNames="js-card-details-assigner")
+                    +editCardAssignerForm
+                  else
+                    each userId in getAssigners
+                      +userAvatar(userId=userId cardId=_id noRemove=true)
+                    if getAssignedBy
+                      +viewer
+                        = getAssignedBy
+                    .card-details-person-controls
+                      a.member.add-member.card-details-item-add-button.js-select-assigner(title="{{_ 'assigned-by'}}")
+                        i.fa.fa-plus
+                      a.js-open-inlined-form(
+                        title="{{#if getAssignedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}"
+                        aria-label="{{#if getAssignedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}")
+                        if getAssignedBy
+                          i.fa.fa-pencil-square-o(aria-hidden="true")
                         else
-                          each userId in getAssigners
-                            +userAvatar(userId=userId cardId=_id noRemove=true)
-                          if getAssignedBy
-                            +viewer
-                              = getAssignedBy
-                          .card-details-person-controls
-                            a.member.add-member.card-details-item-add-button.js-select-assigner(title="{{_ 'assigned-by'}}")
-                              i.fa.fa-plus
-                            a.js-open-inlined-form(
-                              title="{{#if getAssignedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}"
-                              aria-label="{{#if getAssignedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}")
-                              if getAssignedBy
-                                i.fa.fa-pencil-square-o(aria-hidden="true")
-                              else
-                                i.fa.fa-plus(aria-hidden="true")
-                    else
-                      each userId in getAssigners
-                        +userAvatar(userId=userId noRemove=true)
-                      if getAssignedBy
-                        +viewer
-                          = getAssignedBy
+                          i.fa.fa-plus(aria-hidden="true")
+              else
+                each userId in getAssigners
+                  +userAvatar(userId=userId noRemove=true)
+                if getAssignedBy
+                  +viewer
+                    = getAssignedBy
 
-template(name="cardFieldSectionDependencies")
-    //- #6688: Board Settings / Card can hide the Dependencies section.
-    //- #6732: editable by roles that may edit OR move cards (dependencyLayers.js).
-    if currentBoard.allowsDependencies
-      .card-details-group.card-details-group-dependencies
-        hr.card-details-section-rule
-        .card-details-group-body
-          .card-details-item.card-details-item-dependencies
-            +cardSectionHeader(section="dependencies" icon="fa-link" label="card-dependencies" noRule=true)
-            if isSectionOpen "dependencies"
+//- Card: the card's own rows - the dependencies, the sorting number and the
+  list (the old Dependencies and Sort groups), the card buttons and the
+  similar cards. Its title-bar rows (the number, Collapse, Parent and Linked
+  card) are drawn in the title bar, where they always were.
+template(name="cardFieldSectionCard")
+  +cardSectionHeader(section="card" icon="fa-id-card-o" label="card")
+  if isSectionOpen "card"
+    .card-details-group-body
+      each field in orderedCardFields
+        //- #6732: editable by roles that may edit OR move cards (dependencyLayers.js).
+        if $eq field "dependencies"
+          if currentBoard.allowsDependencies
+            .card-details-item.card-details-item-dependencies
+              h3.card-details-item-title
+                i.fa.fa-link
+                | {{_ 'card-dependencies'}}
               .card-details-dependencies-list
                 each getDependencyCards
                   .card-dependency(data-target-id="{{card._id}}")
@@ -621,94 +549,102 @@ template(name="cardFieldSectionDependencies")
                 a.js-add-dependency(title="{{_ 'add-dependency'}}")
                   i.fa.fa-plus
                   | {{_ 'add-dependency'}}
-template(name="cardFieldSectionSort")
-  if hasVisibleSortFields
-      .card-details-group.card-details-group-sort
-        hr.card-details-section-rule
-        .card-details-group-body
+        if $eq field "cardSortingByNumber"
           if currentBoard.allowsCardSortingByNumber
             .card-details-item.card-details-sort-order
-              +cardSectionHeader(section="sort" icon="fa-sort-numeric-asc" label="sort" noRule=true)
-              if isSectionOpen "sort"
-                if canModifyCard
-                  +inlinedForm(classNames="js-card-details-sort")
-                    +editCardSortOrderForm
-                  else
-                    a.js-open-inlined-form
-                      +viewer
-                        = sort
+              h3.card-details-item-title
+                i.fa.fa-sort-numeric-asc
+                | {{_ 'sort'}}
+              if canModifyCard
+                +inlinedForm(classNames="js-card-details-sort")
+                  +editCardSortOrderForm
+                else
+                  a.js-open-inlined-form
+                    +viewer
+                      = sort
+        if $eq field "showLists"
+          if currentBoard.allowsShowLists
+            .card-details-item.card-details-show-lists
+              h3.card-details-item-title
+                i.fa.fa-list
+                | {{_ 'list'}}
+              if canModifyCard
+                details.card-details-list-picker
+                  summary
+                    each currentSwimlaneListsSorted
+                      if isCurrentListId _id
+                        +viewer
+                          = title
+                  div.card-details-list-options(role="listbox" aria-label="{{_ 'list'}}")
+                    each currentSwimlaneListsSorted
+                      div.js-select-card-details-list-option(role="option" tabindex="0" data-list-id="{{_id}}" aria-selected="{{#if isCurrentListId _id}}true{{else}}false{{/if}}")
+                        +viewer
+                          = title
+              else
+                each currentSwimlaneListsSorted
+                  if isCurrentListId _id
+                    +viewer
+                      = title
+          //- Swimlane, Show on Card: the swimlane this card is in.
+          if currentBoard.allowsSwimlaneNameOnCard
+            if cardSwimlaneTitle
+              .card-details-item.card-details-swimlane-name
+                h3.card-details-item-title
+                  i.fa.fa-list-alt
+                  | {{_ 'swimlane'}}
+                +viewer
+                  = cardSwimlaneTitle
+        //- Card buttons, Show on Card: the board's rule buttons.
+        if $eq field "cardButtons"
+          unless $eq currentBoard.allowsCardButtonsOnCard false
+            +cardButtons(_id=_id boardId=boardId)
+        //- Similar cards, Show on Card: the cards of this board like this one
+          (docs/Features/Cards/Similar-Cards.md), asked when the card opens and
+          drawn only when there are some.
+        if $eq field "similarCards"
+          unless $eq currentBoard.allowsSimilarCardsOnCard false
+            .card-details-item.card-details-item-similar-cards
+              +cardSimilarCardsSection(cardId=_id)
 
-          if isSectionOpen "sort"
-            each field in orderedSortFields
-              if $eq field "showLists"
-                if currentBoard.allowsShowLists
-                  .card-details-item.card-details-show-lists
-                    h3.card-details-item-title
-                      i.fa.fa-list
-                      | {{_ 'list'}}
-                    if canModifyCard
-                      details.card-details-list-picker
-                        summary
-                          each currentSwimlaneListsSorted
-                            if isCurrentListId _id
-                              +viewer
-                                = title
-                        div.card-details-list-options(role="listbox" aria-label="{{_ 'list'}}")
-                          each currentSwimlaneListsSorted
-                            div.js-select-card-details-list-option(role="option" tabindex="0" data-list-id="{{_id}}" aria-selected="{{#if isCurrentListId _id}}true{{else}}false{{/if}}")
-                              +viewer
-                                = title
-                    else
-                      each currentSwimlaneListsSorted
-                        if isCurrentListId _id
-                          +viewer
-                            = title
-                //- Swimlane, Show on Card: the swimlane this card is in.
-                if currentBoard.allowsSwimlaneNameOnCard
-                  if cardSwimlaneTitle
-                    .card-details-item.card-details-swimlane-name
-                      h3.card-details-item-title
-                        i.fa.fa-list-alt
-                        | {{_ 'swimlane'}}
-                      +viewer
-                        = cardSwimlaneTitle
+//- Time: Spent time and the two timers (the second half of the old Sort group).
+template(name="cardFieldSectionTime")
+  +cardSectionHeader(section="time" icon="fa-clock-o" label="time")
+  if isSectionOpen "time"
+    .card-details-group-body
+      each field in orderedTimeFields
+        if $eq field "spentTime"
+          if currentBoard.allowsSpentTime
+            //- Shown when it has hours, or ticked "On this card" - the
+              card's own view of the board decides (cardAddFields.js).
+            .card-details-item.card-details-item-spent
+              if getIsOvertime
+                h3.card-details-item-title
+                  | {{_ 'overtime-hours'}}
+                  +cardSpentTimeMenu
+              else
+                h3.card-details-item-title
+                  | {{_ 'spent-time-hours'}}
+                  +cardSpentTimeMenu
+              if getSpentTime
+                +cardSpentTime
 
-                //.card-details-items
-              if $eq field "spentTime"
-                if currentBoard.allowsSpentTime
-                  //- Shown when it has hours, or ticked "On this card" - the
-                    card's own view of the board decides (cardAddFields.js).
-                  .card-details-item.card-details-item-spent
-                    if getIsOvertime
-                      h3.card-details-item-title
-                        | {{_ 'overtime-hours'}}
-                        +cardSpentTimeMenu
-                    else
-                      h3.card-details-item-title
-                        | {{_ 'spent-time-hours'}}
-                        +cardSpentTimeMenu
-                    if getSpentTime
-                      +cardSpentTime
+          //- #6688: the two timers each have a Board Settings / Card toggle,
+            like Spent time above; before they rendered on every card.
+        if $eq field "flowtime"
+          if currentBoard.allowsFlowtime
+            .card-details-item.card-details-item-flow
+              h3.card-details-item-title
+                i.fa.fa-bolt
+                | {{_ 'flowtime'}}
+              +cardFlowtime
 
-                //- #6688: the two timers each have a Board Settings / Card toggle,
-                  like Spent time above; before they rendered on every card.
-              if $eq field "flowtime"
-                if currentBoard.allowsFlowtime
-                  .card-details-item.card-details-item-flow
-                    h3.card-details-item-title
-                      i.fa.fa-bolt
-                      | {{_ 'flowtime'}}
-                    +cardFlowtime
-
-              if $eq field "pomodoro"
-                if currentBoard.allowsPomodoro
-                  .card-details-item.card-details-item-pomodoro
-                    h3.card-details-item-title
-                      i.fa.fa-clock-o
-                      | {{_ 'pomodoro'}}
-                    +cardPomodoro
-
-                //.card-details-items
+        if $eq field "pomodoro"
+          if currentBoard.allowsPomodoro
+            .card-details-item.card-details-item-pomodoro
+              h3.card-details-item-title
+                i.fa.fa-clock-o
+                | {{_ 'pomodoro'}}
+              +cardPomodoro
 
 template(name="cardFieldSectionCustomFields")
     //- The heading is on EVERY card the reader may write to whose board shows
@@ -722,305 +658,274 @@ template(name="cardFieldSectionCustomFields")
         happen to share a caret and draw six rules. A group like the others,
         so its rule spans the card and its fields share rows inside it.
       .card-details-group.card-details-group-custom-fields
-        +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields"
+        +cardSectionHeader(section="customFields" icon="fa-list-alt" label="custom-fields"
           menuClass="js-open-custom-fields-settings" menuTitle="custom-fields"
           layoutToggle=true layoutOnePerRow=customFieldsGrid)
-        if isSectionOpen "custom-fields"
+        if isSectionOpen "customFields"
           .card-details-group-body(class="{{#if customFieldsGrid}}custom-fields-one-per-row{{else}}custom-fields-grid{{/if}}")
             each customFieldsWD
               .card-details-item.card-details-item-customfield
                 +cardCustomField
 
-template(name="cardFieldSectionVoteAndPoker")
-  .card-details-group.card-details-group-vote-poker
-    //- #6688: Board Settings / Card can hide a card's voting and its Planning
-      Poker (allowsVote, allowsPoker); both default on.
-    each field in orderedVoteAndPokerFields
-      if $eq field "vote"
-        if currentBoard.allowsVote
-          if getVoteQuestion
-              hr
-              .vote-title
-                div.flex
-                  h3
-                    i.fa.fa-thumbs-up
-                    | {{_ 'vote-question'}}
-                  if getVoteEnd
-                    +voteEndDate
-                  //- Edit voting is the section's own hamburger
-                    (docs/Features/Cards/Card-Fields.md).
-                  if canModifyCard
-                    a.card-details-section-menu.js-section-edit-voting(title="{{_ 'card-edit-voting'}}" aria-label="{{_ 'card-edit-voting'}}")
-                      i.fa.fa-navicon
-                .vote-result
-                  if votePublic
-                    a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
-                    a.card-label.card-label-red.js-show-negative-votes {{ voteCountNegative }}
-                  else
-                    .card-label.card-label-green {{ voteCountPositive }}
-                    .card-label.card-label-red {{ voteCountNegative }}
-                  unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
-                    .card-label.card-label-gray
-                      | {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
-              +viewer
-                = getVoteQuestion
-              if showVotingButtons
-                button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}")
-                  if voteState
-                    i.fa.fa-thumbs-up
-                  | {{_ 'vote-for-it'}}
-                button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}")
-                  if $eq voteState false
-                    i.fa.fa-thumbs-down
-                  | {{_ 'vote-against'}}
-          else
-            //- Shown on this card ("+ Add") but no question yet: the heading,
-              and its hamburger to ask one.
-            hr
-            .vote-title
-              div.flex
-                h3
-                  i.fa.fa-thumbs-up
-                  | {{_ 'vote-question'}}
-                if canModifyCard
-                  a.card-details-section-menu.js-section-edit-voting(title="{{_ 'card-edit-voting'}}" aria-label="{{_ 'card-edit-voting'}}")
-                    i.fa.fa-navicon
-      if $eq field "poker"
-          if currentBoard.allowsPoker
-            if getPokerQuestion
-              hr
-              .poker-title
-                div.flex
-                  h3
-                    i.fa.fa-thumbs-up
-                    | {{_ 'poker-question'}}
-                  if getPokerEnd
-                    +pokerEndDate
-                  //- Edit Planning Poker is the section's own hamburger.
-                  if canModifyCard
-                    a.card-details-section-menu.js-section-edit-poker(title="{{_ 'card-edit-planning-poker'}}" aria-label="{{_ 'card-edit-planning-poker'}}")
-                      i.fa.fa-navicon
-                div.flex
-                  .poker-result
-                    if expiredPoker
-                      unless ($and currentBoard.isPublic pokerAllowNonBoardMembers )
-                        .card-label.card-label-gray
-                          | {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
-              if showPlanningPokerButtons
-                .poker-result
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-one(class="{{#if $eq pokerState 'one'}}poker-voted{{/if}}") {{_ 'poker-one'}}
-                    if $eq pokerState "one"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-two(class="{{#if $eq pokerState 'two'}}poker-voted{{/if}}") {{_ 'poker-two'}}
-                    if $eq pokerState "two"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-three(class="{{#if $eq pokerState 'three'}}poker-voted{{/if}}") {{_ 'poker-three'}}
-                    if $eq pokerState "three"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-five(class="{{#if $eq pokerState 'five'}}poker-voted{{/if}}") {{_ 'poker-five'}}
-                    if $eq pokerState "five"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-eight(class="{{#if $eq pokerState 'eight'}}poker-voted{{/if}}") {{_ 'poker-eight'}}
-                    if $eq pokerState "eight"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-thirteen(class="{{#if $eq pokerState 'thirteen'}}poker-voted{{/if}}") {{_ 'poker-thirteen'}}
-                    if $eq pokerState "thirteen"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-twenty(class="{{#if $eq pokerState 'twenty'}}poker-voted{{/if}}") {{_ 'poker-twenty'}}
-                    if $eq pokerState "twenty"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-forty(class="{{#if $eq pokerState 'forty'}}poker-voted{{/if}}") {{_ 'poker-forty'}}
-                    if $eq pokerState "forty"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-one-hundred(class="{{#if $eq pokerState 'oneHundred'}}poker-voted{{/if}}") {{_ 'poker-oneHundred'}}
-                    if $eq pokerState "oneHundred"
-                      i.fa.fa-check
-                  .poker-deck
-                    .poker-card
-                      span.inner.js-poker.js-poker-vote-unsure(class="{{#if $eq pokerState 'unsure'}}poker-voted{{/if}}") {{_ 'poker-unsure'}}
-                    if $eq pokerState "unsure"
-                      i.fa.fa-check
-
-                if currentUser.isBoardAdmin
-                  button.card-details-blue.js-poker-finish(class="{{#if $eq voteState false}}poker-voted{{/if}}") {{_ 'poker-finish'}}
-
-              if expiredPoker
-                .poker-table
-                  .poker-table-side-left
-                    .poker-table-heading-left
-                      .poker-table-row
-                        .poker-table-cell
-                        .poker-table-cell
-                          | {{_ 'poker-result-votes' }}
-                        .poker-table-cell.poker-table-cell-who
-                          | {{_ 'poker-result-who' }}
-                    .poker-table-body
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 1}}winner{{else}}loser{{/if}}") {{_ 'poker-one'}}
-                        .poker-table-cell {{ pokerCountOne }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberOne
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 2}}winner{{else}}loser{{/if}}") {{_ 'poker-two'}}
-                        .poker-table-cell {{ pokerCountTwo }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberTwo
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 3}}winner{{else}}loser{{/if}}") {{_ 'poker-three'}}
-                        .poker-table-cell {{ pokerCountThree }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberThree
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 5}}winner{{else}}loser{{/if}}") {{_ 'poker-five'}}
-                        .poker-table-cell {{ pokerCountFive }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberFive
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 8}}winner{{else}}loser{{/if}}") {{_ 'poker-eight'}}
-                        .poker-table-cell {{ pokerCountEight }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberEight
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                  .poker-table-side-right
-                    .poker-table-heading-right
-                      .poker-table-row
-                        .poker-table-cell
-                        .poker-table-cell
-                          | {{_ 'poker-result-votes' }}
-                        .poker-table-cell.poker-table-cell-who
-                          | {{_ 'poker-result-who' }}
-                    .poker-table-body
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 13}}winner{{else}}loser{{/if}}") {{_ 'poker-thirteen'}}
-                        .poker-table-cell {{ pokerCountThirteen }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberThirteen
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 20}}winner{{else}}loser{{/if}}") {{_ 'poker-twenty'}}
-                        .poker-table-cell {{ pokerCountTwenty }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberTwenty
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 40}}winner{{else}}loser{{/if}}") {{_ 'poker-forty'}}
-                        .poker-table-cell {{ pokerCountForty }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberForty
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 100}}winner{{else}}loser{{/if}}") {{_ 'poker-oneHundred'}}
-                        .poker-table-cell {{ pokerCountOneHundred }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberOneHundred
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                      .poker-table-row
-                        .poker-table-cell
-                          button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 'unsure'}}winner{{else}}loser{{/if}}") {{_ 'poker-unsure'}}
-                        .poker-table-cell {{ pokerCountUnsure }}
-                        .poker-table-cell.poker-table-cell-who
-                          .poker-result
-                              each m in pokerMemberUnsure
-                                a.name
-                                  +userAvatar(userId=m._id noRemove=true)
-
-                if currentUser.isBoardAdmin
-                  div.estimation-add
-                    button.card-details-red.js-poker-replay(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'poker-replay'}}
-                  div.estimation-add
-                    button.js-poker-estimation
-                      i.fa.fa-plus
-                      | {{_ 'set-estimation'}}
-                    input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
+//- Vote and Planning Poker are a section each, as in Card Settings. Each keeps
+  its own heading - the section's icon and title with Edit voting / Edit
+  Planning Poker as its hamburger - and its rule. #6688: Board Settings / Card
+  can hide either (allowsVote, allowsPoker); both default on.
+template(name="cardFieldSectionVote")
+  //- A section like the others, with Card Settings' heading: its caret folds
+    it, Edit voting is its hamburger (docs/Features/Cards/Card-Fields.md).
+  .card-details-group.card-details-group-vote-poker.card-details-group-vote
+    if currentBoard.allowsVote
+      if canModifyCard
+        +cardSectionHeader(section="vote" icon="fa-thumbs-up" label="vote-question" menuClass="js-section-edit-voting" menuTitle="card-edit-voting")
+      else
+        +cardSectionHeader(section="vote" icon="fa-thumbs-up" label="vote-question")
+      if isSectionOpen "vote"
+        if getVoteQuestion
+          if getVoteEnd
+            +voteEndDate
+          .vote-result
+            if votePublic
+              a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
+              a.card-label.card-label-red.js-show-negative-votes {{ voteCountNegative }}
             else
-              //- Shown on this card ("+ Add") but no question yet.
-              hr
-              .poker-title
-                div.flex
-                  h3
-                    i.fa.fa-thumbs-up
-                    | {{_ 'poker-question'}}
-                  if canModifyCard
-                    a.card-details-section-menu.js-section-edit-poker(title="{{_ 'card-edit-planning-poker'}}" aria-label="{{_ 'card-edit-planning-poker'}}")
-                      i.fa.fa-navicon
+              .card-label.card-label-green {{ voteCountPositive }}
+              .card-label.card-label-red {{ voteCountNegative }}
+            unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
+              .card-label.card-label-gray
+                | {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+          +viewer
+            = getVoteQuestion
+          if showVotingButtons
+            button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}")
+              if voteState
+                i.fa.fa-thumbs-up
+              | {{_ 'vote-for-it'}}
+            button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}")
+              if $eq voteState false
+                i.fa.fa-thumbs-down
+              | {{_ 'vote-against'}}
 
-//- The Scrum fields, one template each like every other section of the
-  card's order: "Scrum settings: Sprint" ... in Board Settings / Card.
-template(name="cardFieldSectionScrumSprint")
-  +scrumMetadata(kind="card" record=this field="Sprint")
+template(name="cardFieldSectionPoker")
+  //- A section like the others, with Card Settings' heading: its caret folds
+    it, Edit Planning Poker is its hamburger.
+  .card-details-group.card-details-group-vote-poker.card-details-group-poker
+    if currentBoard.allowsPoker
+      if canModifyCard
+        +cardSectionHeader(section="poker" icon="fa-check-square" label="poker-question" menuClass="js-section-edit-poker" menuTitle="card-edit-planning-poker")
+      else
+        +cardSectionHeader(section="poker" icon="fa-check-square" label="poker-question")
+      if isSectionOpen "poker"
+        if getPokerQuestion
+          if getPokerEnd
+            +pokerEndDate
+          div.flex
+            .poker-result
+              if expiredPoker
+                unless ($and currentBoard.isPublic pokerAllowNonBoardMembers )
+                  .card-label.card-label-gray
+                    | {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+          if showPlanningPokerButtons
+            .poker-result
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-one(class="{{#if $eq pokerState 'one'}}poker-voted{{/if}}") {{_ 'poker-one'}}
+                if $eq pokerState "one"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-two(class="{{#if $eq pokerState 'two'}}poker-voted{{/if}}") {{_ 'poker-two'}}
+                if $eq pokerState "two"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-three(class="{{#if $eq pokerState 'three'}}poker-voted{{/if}}") {{_ 'poker-three'}}
+                if $eq pokerState "three"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-five(class="{{#if $eq pokerState 'five'}}poker-voted{{/if}}") {{_ 'poker-five'}}
+                if $eq pokerState "five"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-eight(class="{{#if $eq pokerState 'eight'}}poker-voted{{/if}}") {{_ 'poker-eight'}}
+                if $eq pokerState "eight"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-thirteen(class="{{#if $eq pokerState 'thirteen'}}poker-voted{{/if}}") {{_ 'poker-thirteen'}}
+                if $eq pokerState "thirteen"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-twenty(class="{{#if $eq pokerState 'twenty'}}poker-voted{{/if}}") {{_ 'poker-twenty'}}
+                if $eq pokerState "twenty"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-forty(class="{{#if $eq pokerState 'forty'}}poker-voted{{/if}}") {{_ 'poker-forty'}}
+                if $eq pokerState "forty"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-one-hundred(class="{{#if $eq pokerState 'oneHundred'}}poker-voted{{/if}}") {{_ 'poker-oneHundred'}}
+                if $eq pokerState "oneHundred"
+                  i.fa.fa-check
+              .poker-deck
+                .poker-card
+                  span.inner.js-poker.js-poker-vote-unsure(class="{{#if $eq pokerState 'unsure'}}poker-voted{{/if}}") {{_ 'poker-unsure'}}
+                if $eq pokerState "unsure"
+                  i.fa.fa-check
 
-template(name="cardFieldSectionScrumPastSprints")
-  +scrumMetadata(kind="card" record=this field="PastSprints")
+            if currentUser.isBoardAdmin
+              button.card-details-blue.js-poker-finish(class="{{#if $eq voteState false}}poker-voted{{/if}}") {{_ 'poker-finish'}}
 
-template(name="cardFieldSectionScrumRelease")
-  +scrumMetadata(kind="card" record=this field="Release")
+          if expiredPoker
+            .poker-table
+              .poker-table-side-left
+                .poker-table-heading-left
+                  .poker-table-row
+                    .poker-table-cell
+                    .poker-table-cell
+                      | {{_ 'poker-result-votes' }}
+                    .poker-table-cell.poker-table-cell-who
+                      | {{_ 'poker-result-who' }}
+                .poker-table-body
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 1}}winner{{else}}loser{{/if}}") {{_ 'poker-one'}}
+                    .poker-table-cell {{ pokerCountOne }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberOne
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
 
-template(name="cardFieldSectionScrumIssueType")
-  +scrumMetadata(kind="card" record=this field="IssueType")
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 2}}winner{{else}}loser{{/if}}") {{_ 'poker-two'}}
+                    .poker-table-cell {{ pokerCountTwo }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberTwo
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
 
-template(name="cardFieldSectionScrumAcceptanceCriteria")
-  +scrumMetadata(kind="card" record=this field="AcceptanceCriteria")
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 3}}winner{{else}}loser{{/if}}") {{_ 'poker-three'}}
+                    .poker-table-cell {{ pokerCountThree }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberThree
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
 
-template(name="cardFieldSectionScrumBacklogRank")
-  +scrumMetadata(kind="card" record=this field="BacklogRank")
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 5}}winner{{else}}loser{{/if}}") {{_ 'poker-five'}}
+                    .poker-table-cell {{ pokerCountFive }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberFive
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 8}}winner{{else}}loser{{/if}}") {{_ 'poker-eight'}}
+                    .poker-table-cell {{ pokerCountEight }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberEight
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-side-right
+                .poker-table-heading-right
+                  .poker-table-row
+                    .poker-table-cell
+                    .poker-table-cell
+                      | {{_ 'poker-result-votes' }}
+                    .poker-table-cell.poker-table-cell-who
+                      | {{_ 'poker-result-who' }}
+                .poker-table-body
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 13}}winner{{else}}loser{{/if}}") {{_ 'poker-thirteen'}}
+                    .poker-table-cell {{ pokerCountThirteen }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberThirteen
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 20}}winner{{else}}loser{{/if}}") {{_ 'poker-twenty'}}
+                    .poker-table-cell {{ pokerCountTwenty }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberTwenty
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 40}}winner{{else}}loser{{/if}}") {{_ 'poker-forty'}}
+                    .poker-table-cell {{ pokerCountForty }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberForty
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 100}}winner{{else}}loser{{/if}}") {{_ 'poker-oneHundred'}}
+                    .poker-table-cell {{ pokerCountOneHundred }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberOneHundred
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+                  .poker-table-row
+                    .poker-table-cell
+                      button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 'unsure'}}winner{{else}}loser{{/if}}") {{_ 'poker-unsure'}}
+                    .poker-table-cell {{ pokerCountUnsure }}
+                    .poker-table-cell.poker-table-cell-who
+                      .poker-result
+                          each m in pokerMemberUnsure
+                            a.name
+                              +userAvatar(userId=m._id noRemove=true)
+
+            if currentUser.isBoardAdmin
+              div.estimation-add
+                button.card-details-red.js-poker-replay(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'poker-replay'}}
+              div.estimation-add
+                button.js-poker-estimation
+                  i.fa.fa-plus
+                  | {{_ 'set-estimation'}}
+                input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
+
+template(name="cardFieldSectionScrum")
+  +cardSectionHeader(section="scrum" icon="fa-repeat" label="scrum-settings" menuClass="js-section-card-kind" menuTitle="cardKindPopup-title")
+  if isSectionOpen "scrum"
+    each field in orderedScrumFields
+      if $eq field "scrumSprint"
+        +scrumMetadata(kind="card" record=this field="Sprint")
+      if $eq field "scrumPastSprints"
+        +scrumMetadata(kind="card" record=this field="PastSprints")
+      if $eq field "scrumRelease"
+        +scrumMetadata(kind="card" record=this field="Release")
+      if $eq field "scrumIssueType"
+        +scrumMetadata(kind="card" record=this field="IssueType")
+      if $eq field "scrumAcceptanceCriteria"
+        +scrumMetadata(kind="card" record=this field="AcceptanceCriteria")
+      if $eq field "scrumBacklogRank"
+        +scrumMetadata(kind="card" record=this field="BacklogRank")
 
 template(name="cardFieldSectionDescription")
   .card-details-group.card-details-group-description
@@ -1056,6 +961,53 @@ template(name="cardFieldSectionDescription")
           if isSectionOpen "description"
             +viewer
               = getDescription
+
+//- Checklists: the heading (its row "Checklists: Title" can turn it off, and
+  then the section is always open), the count of finished items and the
+  checklists, in the order of their rows.
+template(name="cardFieldSectionChecklists")
+  .card-checklist-attachmentGallery.card-checklists
+    unless $eq currentBoard.allowsChecklistTitle false
+      +cardSectionHeader(section="checklists" icon="fa-check" label="checklists")
+    if checklistSectionOpen
+      each field in orderedChecklistsFields
+        //- Total checklist item count (finished/total) shown above all
+          checklists. The board flag is a cheap boolean, so when it is off the
+          checklist counting below is never evaluated.
+        if $eq field "checklistCount"
+          if currentBoard.allowsChecklistCountBadgeOnCard
+            if checklists.length
+              h4.card-details-item-subtitle
+                |  {{checklistFinishedCount}}/{{checklistItemCount}}
+        if $eq field "checklists"
+          +checklists(cardId = _id card = this)
+
+//- #4693: "Subtasks (1/3)", done/total (subtaskDoneCount in subtasks.js).
+template(name="cardFieldSectionSubtasks")
+  +cardSectionHeader(section="subtasks" icon="fa-sitemap" label="subtasks" count=subtaskDoneCount menuClass="js-open-subtasks-menu" menuTitle="subtasks")
+  if isSectionOpen "subtasks"
+    +subtasks(cardId = _id)
+
+//- Attachments: the gallery and - GitHub issue #595 - the text notes, small
+  editable markdown blocks of the card, edited in a popup with the
+  description's editor. "Attachments (3)" when the board shows the count.
+template(name="cardFieldSectionAttachments")
+  +cardSectionHeader(section="attachments" icon="fa-paperclip" label="attachments" count=attachmentCount)
+  if isSectionOpen "attachments"
+    each field in orderedAttachmentsFields
+      //- #6796: the upload rules are in the upload popup
+        (attachments.jade cardAttachmentsPopup), not above every list.
+      if $eq field "attachments"
+        if currentBoard.allowsAttachments
+          .card-checklist-attachmentGallery.card-attachmentGallery
+            +attachmentGallery
+      if $eq field "textNotes"
+        if currentBoard.allowsTextNotes
+          .card-details-item.card-details-item-text-notes
+            h3.card-details-item-title
+              i.fa.fa-file-text-o
+              | {{_ 'text-notes'}}
+            +cardTextNotes(_id = _id)
 
 //- #1173-adjacent: ONE header for every collapsible section of a card - the
   rule above it, the caret that collapses it, its icon and its name. Written

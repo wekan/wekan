@@ -31,7 +31,10 @@ const jade = read('client/components/cards/minicard.jade');
 // Since Board Settings / Card orders the minicard badges, the type is one of
 // them ("Scrum settings: Work item type"), behind its own board toggle, which
 // defaults on - so it stays first and shown on every board unless turned off.
-assert.match(jade, /each field in orderedMinicardBadges\n[\s\S]{0,400}if \$eq field "scrumIssueType"\n\s*if showIssueTypeOnMinicard\n\s*if issueTypeBadge\n\s*\.badge\.minicard-issue-type\(class="issue-type-\{\{issueTypeBadge\.tone\}\}" title="\{\{issueTypeBadge\.name\}\}"\)/);
+// (2026-10-28: a badge of the minicard's badge strips, drawn in Card
+// Settings' Scrum section - models/lib/minicardGroups.js.)
+assert.ok(require('../models/lib/minicardGroups').BADGE_FIELDS.includes('scrumIssueType'));
+assert.match(jade, /else if group\.badges\n\s+\.badges\n\s+each field in group\.fields\n[\s\S]{0,1200}if \$eq field "scrumIssueType"\n\s*if showIssueTypeOnMinicard\n\s*if issueTypeBadge\n\s*\.badge\.minicard-issue-type\(class="issue-type-\{\{issueTypeBadge\.tone\}\}" title="\{\{issueTypeBadge\.name\}\}"\)/);
 // (Read through the minicard's view of the board, so the Scrum settings
 // section hidden whole on Show on Minicard in Card Settings hides it too.)
 assert.match(read('client/components/cards/minicard.js'), /showIssueTypeOnMinicard\(\) \{\s*return minicardBoardOf\(this\)\?\.allowsIssueTypeOnMinicard !== false;/,

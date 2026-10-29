@@ -19,9 +19,11 @@ export function cardBoardView(data) { // eslint-disable-line no-unused-vars
 // listed here (the board, Card Settings itself) is unchanged. The minicard has
 // its own (client/components/cards/minicard.js MINICARD_FIELD_TEMPLATES).
 export const CARD_FIELD_TEMPLATES = Object.freeze([
-  'cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
-  'cardFieldSectionDependencies', 'cardFieldSectionSort', 'cardFieldSectionCustomFields',
-  'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription', 'cardCommentsSection',
+  // One per Card Settings section the opened card draws (cardDetails.jade).
+  'cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDate', 'cardFieldSectionMembers',
+  'cardFieldSectionCard', 'cardFieldSectionTime', 'cardFieldSectionCustomFields',
+  'cardFieldSectionVote', 'cardFieldSectionPoker', 'cardFieldSectionDescription', 'cardFieldSectionScrum',
+  'cardFieldSectionChecklists', 'cardFieldSectionSubtasks', 'cardFieldSectionAttachments', 'cardCommentsSection',
 ]);
 CARD_FIELD_TEMPLATES.forEach(name => {
   Template[name].helpers({

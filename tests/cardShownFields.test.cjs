@@ -87,16 +87,19 @@ test('the opened card: no Card Settings button, the card\'s currentBoard, the Sc
   // Card (docs/Features/Cards/Card-Settings.md).
   assert.ok(!/js-open-card-add-fields|card-details-add-fields|cardSettingsInline|cardSettingsOpen/.test(jade), 'negative: no Card Settings on the card');
   const js = read('client/components/cards/cardAddFields.js');
-  for (const name of ['cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDates', 'cardFieldSectionMembers',
-    'cardFieldSectionDependencies', 'cardFieldSectionSort', 'cardFieldSectionCustomFields',
-    'cardFieldSectionVoteAndPoker', 'cardFieldSectionDescription', 'cardCommentsSection']) {
+  // 2026-10-28: one template per Card Settings section.
+  for (const name of ['cardDetails', 'cardFieldSectionLabels', 'cardFieldSectionDate', 'cardFieldSectionMembers',
+    'cardFieldSectionCard', 'cardFieldSectionTime', 'cardFieldSectionCustomFields', 'cardFieldSectionVote',
+    'cardFieldSectionPoker', 'cardFieldSectionDescription', 'cardFieldSectionScrum', 'cardFieldSectionChecklists',
+    'cardFieldSectionSubtasks', 'cardFieldSectionAttachments', 'cardCommentsSection']) {
     assert.ok(js.includes(`'${name}'`), name);
   }
   assert.match(js, /Template\[name\]\.helpers\(\{\n\s+currentBoard\(\)/);
   assert.ok(!/js-open-card-add-fields|cardSettingsOpenOn|Popup\.open\('boardCardSettings'\)/.test(js), 'negative: nothing opens Card Settings from the card');
   // A Scrum section only when the board allows it (#6830) -
   // tests/scrumSectionsShowEmpty6830.test.cjs - read through the card's view.
-  assert.match(read('client/components/cards/cardDetails.js'), /return sections\.filter\(s => !\/\^scrum\[A-Z\]\/\.test\(s\) \|\| boardAllows\(board, s\)\);/);
+  // (2026-10-28: Scrum is one section; its fields are the allowed ones.)
+  assert.match(read('client/components/cards/cardDetails.js'), /case 'scrum': return cardSectionFields\(card, 'scrum'\)\.some\(key => boardAllows\(board, key\)\);/);
   // Negative: every section template of the opened card that reads a board
   // flag is in the list - a new one left out would show empty fields again.
   const sectionTemplates = [...jade.matchAll(/^template\(name="(cardFieldSection\w+)"\)/gm)].map(m => m[1]);
@@ -108,19 +111,19 @@ test('the opened card: no Card Settings button, the card\'s currentBoard, the Sc
 
 test('the popup is Board Settings / Card: the opened card\'s Card Settings - Show on Minicard, Show on Card', () => {
   const jade = read('client/components/sidebar/sidebar.jade');
+  const js0 = read('client/components/sidebar/sidebar.js');
   const tplOf = name => jade.slice(jade.indexOf(`template(name="${name}")`)).split('\ntemplate(')[0];
   // Deliberate change: Board Settings / Card is cardSettingsInline, not the
   // Admin Panel's menu and pane - and since 2026-10-28 the only Card
-  // Settings (not also on the card). Show on Minicard / Show on Card are the
-  // Show radios.
-  assert.match(tplOf('boardCardSettingsPopup'), /\n  \+cardSettingsInline\n/);
+  // Settings (not also on the card). Show on Minicard / Show on Card were the
+  // Show radios; since 2026-10-28 they are two panes, each titled with them.
+  assert.match(tplOf('boardCardSettingsPopup'), /\+cardSettingsInline\(side="minicard"\)[\s\S]*\+cardSettingsInline\(side="card"\)/);
   assert.ok(!jade.includes('+leftMenu(settingsMenuItems)'), 'negative: the left menu is gone');
-  const inline = tplOf('cardSettingsInline');
-  assert.ok(inline.includes("span {{_ 'show-on-minicard'}}") && inline.includes("span {{_ 'show-on-card'}}"));
+  assert.match(js0, /TAPi18n\.__\(Template\.instance\(\)\.showSide\.get\(\) === 'minicard' \? 'show-on-minicard' : 'show-on-card'\)/);
   // Deliberate change (2026-10-28): "On this card" is gone from the row's
   // hamburger - no per-card choice any more. Negative: neither its UI nor its
   // handler nor its row state is left.
-  assert.ok(!/js-card-add-field|card-add-field|menu\.thisCard|menu\.always/.test(tplOf('cardSettingsItemPopup')));
+  assert.ok(!/js-card-add-field|card-add-field|menu\.thisCard|menu\.always/.test(tplOf('cardSettingsInlinePanel')));
   const js = read('client/components/sidebar/sidebar.js');
   for (const gone of ["'click .js-card-add-field'", 'perCard:', 'shownOnThisCard', 'alwaysShowable', 'thisCard: Boolean']) {
     assert.ok(!js.includes(gone), gone);
@@ -157,11 +160,14 @@ test('the card\'s legacy lists stay in the schema, so old cards validate, and no
 
 test('one rule under "+ Add": no section draws its rule for fields the card does not show', () => {
   const js = read('client/components/cards/cardDetails.js');
-  // The Sort group's gate reads the card's view, as its fields do; reading the
+  // Every section's gate reads the card's view, as its fields do; reading the
   // board itself drew an empty group's rule - the second line under "+ Add".
-  const sort = js.slice(js.indexOf('hasVisibleSortFields()'), js.indexOf('hasVisibleSortFields()') + 400);
-  assert.match(sort, /const board = cardBoardView\(this\);/);
-  assert.doesNotMatch(sort, /const board = this\.board\(\);/, 'negative');
+  // (2026-10-28: one gate for all sections, cardSectionHasContent, given the
+  // view by orderedSectionsOf; the Sort group's own gate is gone with it.)
+  const list = js.slice(js.indexOf('function orderedSectionsOf('), js.indexOf('function orderedSectionsOf(') + 700);
+  assert.match(list, /const board = boardForCard\(raw\);/);
+  assert.match(list, /\.filter\(id => cardSectionHasContent\(card, board, id\)\)/);
+  assert.doesNotMatch(list, /cardSectionHasContent\(card, raw/, 'negative');
   // Custom Fields: on every card the reader may change whose board shows them,
   // empty or not, read through the card's view (a hidden section hides it).
   assert.match(js, /const board = boardForCard\(this\?\.board\?\.\(\)\);\n\s+return Utils\.canModifyCard\(this\) && board\?\.allowsCustomFields !== false;/);
@@ -201,8 +207,10 @@ test('the popup: high enough, moved and maximized, no tick animates on opening i
   // A board-wide checkbox animates when clicked too, and only that one.
   assert.match(read('client/components/sidebar/sidebar.js'), /'click \.card-field-order-toggle'\(evt, tpl\) \{\n\s+const cell = evt\.currentTarget\.closest\('\.js-card-field-order-row'\);\n\s+if \(cell\) tpl\.animating\.set\(`\$\{cell\.dataset\.key\}:\$\{cell\.dataset\.side\}`\);/);
   const js = read('client/components/sidebar/sidebar.js');
-  // Switching Show (what replaced opening a pane) animates nothing.
-  assert.match(js, /'change \.js-card-settings-show-side'\(evt, tpl\) \{\n\s+tpl\.animating\.set\(null\);/, 'switching the side animates nothing');
+  // Opening or closing a hamburger's panel animates nothing (2026-10-28:
+  // there is no Show switch any more - both sides are panes).
+  assert.match(js, /function togglePanel\(tpl, key\) \{\n\s+tpl\.animating\.set\(null\);/, 'opening a panel animates nothing');
+  assert.ok(!js.includes('js-card-settings-show-side'), 'negative: no Show switch');
   assert.ok(!/tpl\.settingsSection\.set/.test(js), 'negative: no pane to open any more');
   assert.match(js, /tpl\.animating\.set\(`section:\$\{id\}:\$\{side\}`\);/, 'the clicked section checkbox does');
   const popup = read('client/components/main/popup.js');
@@ -212,7 +220,11 @@ test('the popup: high enough, moved and maximized, no tick animates on opening i
 
 test('a maximized card has its comments section in the right column', () => {
   const jade = read('client/components/cards/cardDetails.jade');
-  assert.match(jade, /unless cardMaximized\n\s+\+cardCommentsSection/);
+  // 2026-10-28: in the left column the comments are a section of the loop,
+  // which leaves them out on a maximized card (orderedSectionsOf).
+  assert.match(jade, /if \$eq section "comments"\n\s+\+cardCommentsSection/);
+  assert.match(read('client/components/cards/cardDetails.js'), /\.filter\(id => !\(maximized && id === 'comments'\)\)/);
+  assert.match(read('client/components/cards/cardDetails.js'), /orderedSectionsOf\(this, \{ maximized: isCardMaximized\(\) \}\)/);
   assert.match(jade, /\.card-details-right\n\n\s+\/\/-[^\n]*\n\s+if cardMaximized\n\s+\+cardCommentsSection/);
   assert.strictEqual((jade.match(/\+commentForm/g) || []).length, 1, 'negative: one comments section, not two copies');
   assert.ok(read('client/components/cards/cardAddFields.js').includes("'cardCommentsSection'"), 'with the card\'s own view of the board');

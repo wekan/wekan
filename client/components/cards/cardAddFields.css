@@ -1,21 +1,115 @@
 /* Card Settings (Board Settings / Card, docs/Features/Cards/Card-Settings.md):
    "Show" and its two choices, then the sections drawn like checklists. */
 .card-settings-inline { padding: 4px 0 8px; }
-.card-settings-inline-show {
+
+/* Two panes, Minicard first (the start: left in a left-to-right page, right in
+   a right-to-left one) and Card after it (sidebar.jade boardCardSettingsPopup).
+   STACKED by default - Minicard above Card - and the container scrolls as one;
+   SIDE BY SIDE once the popup is wide enough for two panes of about 20em,
+   and then each pane's body scrolls on its own while the container does not.
+   A collapsed pane is its header only, and the other pane takes the width.
+   The popup's content wrapper does not scroll here (popup.css), so the
+   container is the one scroller in the stacked layout. */
+.card-settings-panes-container {
+  container-type: inline-size;
+  container-name: card-settings-panes;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 14px;
-  margin-block: 8px 10px;
+  flex-direction: column;
 }
-.card-settings-inline-show-label { font-weight: bold; }
-.card-settings-inline-show-option {
-  display: inline-flex;
+.card-settings-panes {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+.card-settings-pane { min-width: 0; }
+.card-settings-pane-head {
+  display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  padding-block: 4px 6px;
+  border-block-end: 1px solid #ddd;
+  margin-block-end: 8px;
+}
+.card-settings-pane-collapse {
+  padding: 2px 4px;
+  color: #808080;
+  text-decoration: none;
   cursor: pointer;
 }
-.card-settings-inline-show-option input { margin: 0; }
+.card-settings-pane-collapse:hover,
+.card-settings-pane-collapse:focus-visible { color: #2980b9; }
+.card-settings-pane-title {
+  margin: 0;
+  font-size: calc(17px * var(--wekan-ui-font-scale, 1));
+  font-weight: bold;
+}
+.card-settings-pane-body[hidden] { display: none !important; }
+/* The splitter: only side by side with neither pane collapsed (the container
+   query below shows it). A thin line with a wider grab area, the Admin Panel
+   left menu's grip (settingBody.css .left-menu-resize-handle) in look. */
+.card-settings-splitter {
+  display: none;
+  flex: 0 0 10px;
+  align-self: stretch;
+  cursor: col-resize;
+  touch-action: none;
+  position: relative;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+.card-settings-splitter::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 4px;
+  width: 2px;
+  background: #ddd;
+}
+.card-settings-splitter:hover,
+.card-settings-splitter:focus-visible {
+  background: rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+.card-settings-splitter:active { background: rgba(0, 123, 255, 0.6); }
+body.card-settings-splitting-active {
+  user-select: none;
+  cursor: col-resize;
+}
+.card-settings-pane.is-pane-collapsed .card-settings-pane-head { margin-block-end: 0; }
+@container card-settings-panes (min-width: 40em) {
+  .card-settings-panes {
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: 0;
+  }
+  .card-settings-pane {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  /* The Minicard pane takes its share of the width (the splitter between
+     them, models/lib/cardSettingsSplit.js); the Card pane takes the rest. */
+  .card-settings-panes:not(.has-collapsed-pane) > .card-settings-pane-minicard {
+    flex: 0 0 calc((100% - 10px) * var(--card-settings-split, 0.5));
+  }
+  .card-settings-pane.is-pane-collapsed { flex: 0 0 auto; }
+  .card-settings-panes:not(.has-collapsed-pane) > .card-settings-splitter { display: block; }
+  .card-settings-pane-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-inline-end: 4px;
+  }
+}
 
 /* A section: the checklist's grey block, its title line and its items. */
 .card-settings-inline-section {
@@ -129,4 +223,61 @@
 :root:not([dir="rtl"]) .card-settings-item-menu .materialCheckBox.is-checked,
 :root:not([dir="rtl"]) .card-settings-section-menu .materialCheckBox.is-checked {
   left: -6px;
+}
+
+/* A hamburger's panel (sidebar.jade cardSettingsInlinePanel): what the
+   hamburger holds, opened UNDER its line inside the pane, pushing the rest
+   down - not a popup. The open hamburger is tinted, and the panel hangs from
+   it in the same tint, with a notch pointing up at the line it belongs to. */
+.card-settings-inline-menu.is-open,
+.card-settings-add-custom-field-button.is-open {
+  background: rgba(41, 128, 185, 0.15);
+  color: #2980b9;
+  border-radius: 3px;
+}
+.card-settings-inline-panel {
+  position: relative;
+  margin-block: 6px 8px;
+  padding: 10px 12px 8px;
+  border: 1px solid rgba(41, 128, 185, 0.45);
+  border-radius: 4px;
+  background: rgba(41, 128, 185, 0.06);
+  /* Its own block, the width of what it hangs from. */
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+.card-settings-inline-panel::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -7px;
+  inset-inline-end: 10px;
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  border-inline-start: 1px solid rgba(41, 128, 185, 0.45);
+  border-block-start: 1px solid rgba(41, 128, 185, 0.45);
+  transform: rotate(45deg);
+  background-color: #eef4f9;
+}
+/* The + is at the start of its line: the notch is under it there. */
+.card-settings-inline-panel-create::before {
+  inset-inline-end: auto;
+  inset-inline-start: 6px;
+}
+.card-settings-inline-panel-close {
+  /* Above the notch, which is drawn at the same end of the panel's top. */
+  z-index: 1;
+  position: absolute;
+  inset-block-start: 4px;
+  inset-inline-end: 6px;
+  color: #808080;
+  padding: 2px 4px;
+}
+.card-settings-inline-panel-close:hover,
+.card-settings-inline-panel-close:focus-visible { color: #2980b9; }
+.card-settings-section-action-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
 }
