@@ -125,9 +125,10 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Card Settings**, in Board Settings / Card, becomes checklists
-that drag and collapse, with a checkbox per section on each side and the
-board's custom fields as items; every opened card shows every field its board
+**In short:** **Card Settings**, in Board Settings / Card, becomes two panes of
+checklists - the minicard's and the card's - with a checkbox per section and
+the board's custom fields as items, and the opened card and the minicard
+follow its sections and order; every opened card shows every field its board
 allows, empty or not. WeKan moves to **Meteor 3.6-rc.1**, keeping its own
 security additions to Meteor's packages. **Data health** in Admin Panel /
 Problems can now clean up custom fields whose boards were all deleted, and
@@ -218,6 +219,23 @@ Card Settings, next to their button, Card Settings still visible under it.
 Their X, their button again, a press elsewhere or Escape closes them. A layer
 opens toward the middle of Card Settings, so the + form no longer ran out of
 its left side. `tests/popupLayer.test.cjs` and `card-add-fields.e2e.js` pin it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bd5d1180a">Two panes; the card and the minicard follow Card Settings' order; menus open inline</a>. Thanks to xet7.</summary>
+
+The opened card and the minicard now draw Card Settings' sections in Card
+Settings' order, each section's fields in its rows' order, so dragging a
+section or a row there moves it on the card or the minicard; the order is per
+side, and a default board's card starts with Labels. Every section of the card
+has the same heading, Voting and Planning Poker included. Card Settings shows
+the minicard's pane and the card's side by side, each folding and scrolling on
+its own, with a splitter between them to change their widths, stacked when
+narrow; the Show radio is gone and the corner grip resizes the popup. A
+hamburger's content opens under its line instead of in a popup, the hamburger
+showing it is open, which replaces the layers of the entry above.
+`card-settings-sections-order.e2e.js` and the new node tests pin it.
 
 </details>
 
