@@ -272,13 +272,13 @@ Meteor.startup(() => {
 
 On the Sandstorm platform, Standalone WeKan features like the Admin Panel are turned off using environment variables, because Sandstorm platform provides SSO for all apps running on Sandstorm.
 
-[Sandstorm](https://sandstorm.io) is a separate Open Source platform that has been
-[security audited](https://sandstorm.io/news/2017-03-02-security-review) and found bugs fixed.
+[Sandstorm](https://sandstorm.org) is a separate Open Source platform that has been
+[security audited](https://sandstorm.org/news/2017-03-02-security-review) and found bugs fixed.
 Sandstorm also has passwordless login, LDAP, SAML, Google, and other auth options already.
 On Sandstorm, code is read-only and signed by app maintainers; only grain content can be modified.
 WeKan on Sandstorm runs in a sandboxed grain; it does not have access elsewhere without a user-visible PowerBox request or opening a randomly-generated API key URL.
-Also read [Sandstorm Security Practices](https://docs.sandstorm.io/en/latest/using/security-practices/) and
-[Sandstorm Security non-events](https://docs.sandstorm.io/en/latest/using/security-non-events/).
+Also read [Sandstorm Security Practices](https://docs.sandstorm.org/en/latest/using/security-practices/) and
+[Sandstorm Security non-events](https://docs.sandstorm.org/en/latest/using/security-non-events/).
 For Sandstorm specific security issues you can contact [kentonv](https://github.com/kentonv) by email.
 
 ## What WeKan bugs are eligible?

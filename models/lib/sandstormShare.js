@@ -5,7 +5,7 @@
 // with. So Copy card URL asks the Sandstorm shell to share the card instead:
 // a { startSharing: { pathname } } message opens Sandstorm's Share Access
 // dialog, whose sharing link opens the grain at that card
-// (https://docs.sandstorm.io/en/latest/developing/path/#helping-the-user-share-access).
+// (https://docs.sandstorm.org/en/latest/developing/path/#helping-the-user-share-access).
 // The shell requires the path to start with "/" and accepts only
 // { pathname, hash } (sandstorm shell grain-client.js). Pure:
 // tests/sandstormShare.test.cjs.

@@ -4,7 +4,7 @@
 
 ## 1. Backup Sandstorm
 
-1. Please first backup your Sandstorm https://docs.sandstorm.io/en/latest/administering/backups/
+1. Please first backup your Sandstorm https://docs.sandstorm.org/en/latest/administering/backups/
 2. Please first download all of your grains to .zip files from top menu row down arrow button, just in case.
 
 ## 2. Upgrade Sandstorm WeKan 
@@ -58,13 +58,13 @@ Download Official Version
 
 1. Please backup first.
 
-2. [Official Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
+2. [Official Sandstorm Store](https://apps.sandstorm.org/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h)
 
 Download Newest WeKan Test Version
 
 1. Please backup first.
 
-2. [Experimental Sandstorm Store](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
+2. [Experimental Sandstorm Store](https://apps.sandstorm.org/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true)
 
 About CloudFlare and uploading wekan.spk file
 
@@ -220,11 +220,11 @@ Source: https://groups.google.com/g/sandstorm-dev/c/4JFhr7B7QZU
 
 [Sandstorm Website](https://sandstorm.org)
 
-If you have any grains at Sandstorm's **Oasis montly paid service**, please move those to self-hosted, because [only **Oasis grain hosting** part is shutting down](https://sandstorm.io/news/2019-09-15-shutting-down-oasis) - [HN](https://news.ycombinator.com/item?id=20979428). This does not affect any other parts like self-hosting at sandcats.io, App Market, updates, etc.
+If you have any grains at Sandstorm's **Oasis montly paid service**, please move those to self-hosted, because [only **Oasis grain hosting** part is shutting down](https://sandstorm.org/news/2019-09-15-shutting-down-oasis) - [HN](https://news.ycombinator.com/item?id=20979428). This does not affect any other parts like self-hosting at sandcats.io, App Market, updates, etc.
 
 Works on Ubuntu 64bit, on Debian 64bit.
 
-[Security audited](https://sandstorm.io/news/2017-03-02-security-review), recommended for security critical use on public internet or internal network. [Sandstorm Security Features](https://docs.sandstorm.io/en/latest/using/security-practices/). Sandstorm is [completely Open Source](https://sandstorm.io/news/2017-02-06-sandstorm-returning-to-community-roots), including [Blackrock Clustering](https://github.com/sandstorm-io/blackrock).
+[Security audited](https://sandstorm.org/news/2017-03-02-security-review), recommended for security critical use on public internet or internal network. [Sandstorm Security Features](https://docs.sandstorm.org/en/latest/using/security-practices/). Sandstorm is [completely Open Source](https://sandstorm.org/news/2017-02-06-sandstorm-returning-to-community-roots), including [Blackrock Clustering](https://github.com/sandstorm-io/blackrock).
 
 Install to your own server. Automatic updates, tested before release. Sandstorm Wekan has different features than Standalone.
 
@@ -253,8 +253,8 @@ Install to your own server. Automatic updates, tested before release. Sandstorm 
 
 ## Wekan App
 
-Wekan at [experimental](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true) or
-[official](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h) Sandstorm App Market. Note: Only use official. Experimental versions are broken.
+Wekan at [experimental](https://apps.sandstorm.org/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h?experimental=true) or
+[official](https://apps.sandstorm.org/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h) Sandstorm App Market. Note: Only use official. Experimental versions are broken.
 
 Newest Wekap app .spk file download at https://releases.wekan.team/sandstorm/
 

@@ -63,7 +63,7 @@ mismatch fails.
 
 ## Sources
 
-- [Sandstorm: Powerbox](https://docs.sandstorm.io/en/latest/developing/powerbox/)
+- [Sandstorm: Powerbox](https://docs.sandstorm.org/en/latest/developing/powerbox/)
 - `src/sandstorm/api-session.capnp` and `src/sandstorm/bridge-proxy.c++` in
   [sandstorm-io/sandstorm](https://github.com/sandstorm-io/sandstorm)
 

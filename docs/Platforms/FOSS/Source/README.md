@@ -20,7 +20,7 @@ Wekan Meteor Bundle:
 
 Wekan for Sandstorm:
 - Install above Wekan from source
-- Install [Sandstorm locally](https://sandstorm.io/install) with `curl https://install.sandstorm.io | bash`, select dev install
+- Install [Sandstorm locally](https://sandstorm.org/install) with `curl https://install.sandstorm.org | bash`, select dev install
 - Install [meteor-spk](https://github.com/sandstorm-io/meteor-spk)
 - Get 100% CPU issue fibers fixed node, and copy it to spk directory:<br />
 `wget https://releases.wekan.team/node`<br />
@@ -29,7 +29,7 @@ Wekan for Sandstorm:
 - Add to your /home/username/.bashrc : <br /> `export PATH=$PATH:$HOME/projects/meteor-spk/meteor-spk-0.4.0`
 - Close and open your terminal, or read settings from .bashrc with<br />`source ~/.bashrc`
 - `cd wekan && meteor-spk dev`
-- Then Wekan will be visible at local sandstorm at http://local.sandstorm.io:6080/
+- Then Wekan will be visible at local sandstorm at http://local.sandstorm.org:6080/
 - Sandstorm commands: `sudo sandstorm`. [Release scripts](https://github.com/wekan/wekan-maintainer/tree/master/releases). Official releases require publishing key that only xet7 has.
 
 Docker:

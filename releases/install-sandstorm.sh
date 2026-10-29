@@ -17,5 +17,5 @@ rm projects.7z
 # and found there by sandstorm-slim-spk.sh. No shell rc file is edited.
 export PATH="$PATH:$WEKAN_METEOR_SPK_DIR/meteor-spk-0.6.0"
 echo "INSTALL DEV VERSION OF SANDSTORM:"
-curl https://install.sandstorm.io | bash
+curl https://install.sandstorm.org | bash
 cd "$REPO_DIR"

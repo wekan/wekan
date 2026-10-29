@@ -838,7 +838,7 @@ export class BridgeConfig extends $.Struct {
   /**
 * Specifies a path which will be prefixed to all API requests -- that is, requests coming in
 * through the API endpoint as described in:
-*     https://docs.sandstorm.io/en/latest/developing/http-apis/
+*     https://docs.sandstorm.org/en/latest/developing/http-apis/
 *
 * Note that this form of HTTP APIs is old and will eventually be deprecated. In the fantastic
 * future, available APIs should be defined by `powerboxApis`, below. However, as of this writing,
@@ -853,7 +853,7 @@ export class BridgeConfig extends $.Struct {
 * your UI's URL schema, which is often convenient. To actually restrict what an API token
 * holder is allowed to do, you MUST use permissions and enforce them for both API and UI
 * requests. See:
-*     https://docs.sandstorm.io/en/latest/developing/auth/
+*     https://docs.sandstorm.org/en/latest/developing/auth/
 *
 */
   get apiPath() {

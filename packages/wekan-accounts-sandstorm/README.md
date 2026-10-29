@@ -1,6 +1,6 @@
 # Sandstorm.io login integration for Meteor.js
 
-[Sandstorm](https://sandstorm.io) is a platform for personal clouds that makes
+[Sandstorm](https://sandstorm.org) is a platform for personal clouds that makes
 installing apps to your personal server as easy as installing apps to your
 phone.
 
@@ -22,7 +22,7 @@ package repository:
     meteor add kenton:accounts-sandstorm
 
 To package a Meteor app for Sandstorm, see
-[the Meteor app packaging guide](https://docs.sandstorm.io/en/latest/vagrant-spk/packaging-tutorial-meteor/).
+[the Meteor app packaging guide](https://docs.sandstorm.org/en/latest/vagrant-spk/packaging-tutorial-meteor/).
 
 Note that this package does nothing if the `SANDSTORM` environment variable is
 not set. Therefore, it is safe to include the package even in non-Sandstorm
@@ -58,7 +58,7 @@ Either of these will return an object containing the following fields:
 * `pronouns`: From `X-Sandstorm-User-Pronouns`, indicates the pronouns
   by which the user prefers to be referred.
 
-See [the Sandstorm docs](https://docs.sandstorm.io/en/latest/developing/auth/#headers-that-an-app-receives) for more information about these fields.
+See [the Sandstorm docs](https://docs.sandstorm.org/en/latest/developing/auth/#headers-that-an-app-receives) for more information about these fields.
 
 Note that `sandstormUser()` may return `null` on the client side if the login
 handshake has not completed yet (`Meteor.loggingIn()` returns `true` during

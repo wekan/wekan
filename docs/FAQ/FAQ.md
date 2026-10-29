@@ -40,7 +40,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 
 ## Requirements
 
-- 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.io) /
+- 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.org) /
   [Mac](../Platforms/Propietary/OS/Mac) / [Windows](../Platforms/Propietary/OS/Windows/Install-Wekan-from-source-on-Windows.md).
   [More Platforms](../Platforms). [ARM progress](https://github.com/wekan/wekan/issues/1053#issuecomment-410919264).
 - 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
@@ -105,7 +105,7 @@ Wekan:
 - Snap/Docker/Sandstorm versions runs inside sandbox and does not have any access to elsewhere on server filesystem.
   - Snap version of Wekan is built directly from https://github.com/wekan/wekan repo on Canonical's build service that does security checks etc.
   - Docker version of Wekan is built directly from https://github.com/wekan/wekan by [Quay](https://quay.io/wekan/wekan) and [Docker Hub](https://hub.docker.com/r/wekanteam/wekan/) and they do security checks etc.
-  - Sandstorm version is checked by [ocdtrekkie](https://github.com/ocdtrekkie) that it does not break anything, before he lets new version of Wekan into [Sandstorm App Market](https://apps.sandstorm.io/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h).
+  - Sandstorm version is checked by [ocdtrekkie](https://github.com/ocdtrekkie) that it does not break anything, before he lets new version of Wekan into [Sandstorm App Market](https://apps.sandstorm.org/app/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h).
 - Wekan does not load any files from Internet, when starting Wekan. For further restrictions, you could on internal server only allow incoming and outgoing traffic from
   on internal server firewall to those computers that need to use Wekan.
 - There is contributors to Wekan from all over the world, that add fixes and features to Wekan.
@@ -242,8 +242,8 @@ Add only one link to this FAQ. Do not in any way comment or feed the trolls.
 Not a Company, Not a Startup, Not a Product with Enterprise version. Everything is now [Open Source](https://en.wikipedia.org/wiki/Open-source_software) and [Free software](https://en.wikipedia.org/wiki/Free_software).
 
 ## What is Sandstorm?
-[Sandstorm](https://sandstorm.io) is a open-source and free software security audited platform with grains, logging, admin settings, server clustering and App Market. App Market has Wekan as installable App. SSO options like LDAP, passwordless email, SAML, GitHub and Google Auth are already available on Sandstorm. Sandstorm is preferred platform for Wekan, as it would take a lot of work to reimplement everything in standalone Wekan. 
+[Sandstorm](https://sandstorm.org) is a open-source and free software security audited platform with grains, logging, admin settings, server clustering and App Market. App Market has Wekan as installable App. SSO options like LDAP, passwordless email, SAML, GitHub and Google Auth are already available on Sandstorm. Sandstorm is preferred platform for Wekan, as it would take a lot of work to reimplement everything in standalone Wekan. 
 
 ## How can you contribute to Sandstorm?
-See [Sandstorm website about contributing pull requests](https://sandstorm.io) and [returning to Open Source community roots, including donation info](https://sandstorm.io/news/2017-02-06-sandstorm-returning-to-community-roots).
+See [Sandstorm website about contributing pull requests](https://sandstorm.org) and [returning to Open Source community roots, including donation info](https://sandstorm.org/news/2017-02-06-sandstorm-returning-to-community-roots).
 

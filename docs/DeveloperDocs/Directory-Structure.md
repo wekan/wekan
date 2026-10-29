@@ -234,7 +234,7 @@ Other files:
   * **[snap](../../snap)**;
   * **[snap-src](../../snap-src)**;
 * Sandstorm:
-  * **[sandstorm.js](../../sandstorm.js)**: [Sandstorm](https://sandstorm.io/) specific code;
+  * **[sandstorm.js](../../sandstorm.js)**: [Sandstorm](https://sandstorm.org/) specific code;
   * **[sandstorm-pkgdef.capnp](../../sandstorm-pkgdef.capnp)**: used the meteor-spk tool to generate a sandstorm package;
 * Node:
   * **[package.json](../../package.json)**;

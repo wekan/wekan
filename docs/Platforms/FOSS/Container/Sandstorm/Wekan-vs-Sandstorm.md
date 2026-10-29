@@ -6,7 +6,7 @@ This is totally oversimplified TLDR comparison that leaves out a lot of details.
 * Admin Panel
 * Wekan kanban board
 * Can be installed to Ubuntu 16.04 64bit without Docker
-* Can run inside Docker, see [Sandstorm within Docker](https://docs.sandstorm.io/en/latest/install/#option-6-using-sandstorm-within-docker)
+* Can run inside Docker, see [Sandstorm within Docker](https://docs.sandstorm.org/en/latest/install/#option-6-using-sandstorm-within-docker)
 
 ## Difference: User interface
 
@@ -20,7 +20,7 @@ This is totally oversimplified TLDR comparison that leaves out a lot of details.
 
 [Current Admin Panel / Authentication screenshots](https://discourse.wekan.io/t/sso-passing-variables-through-url/493/8).
 
-The user interface in Sandstorm is one of Sandstorm's [long list of high-end security features](https://docs.sandstorm.io/en/latest/using/security-practices/) protecting potentially malicious applications running on Sandstorm sandboxes/grains to hijack whole full screen interface and do phishing of information, stealing admin credentials when replacing admin menus, etc. It's black to be totally recognizable and different from other applications. Having it hidden or on not so dark would make new users to not find it. There has been usability testing of Sandstorm's user interface. Sandstorm has been fully security audited and found problems fixed already.
+The user interface in Sandstorm is one of Sandstorm's [long list of high-end security features](https://docs.sandstorm.org/en/latest/using/security-practices/) protecting potentially malicious applications running on Sandstorm sandboxes/grains to hijack whole full screen interface and do phishing of information, stealing admin credentials when replacing admin menus, etc. It's black to be totally recognizable and different from other applications. Having it hidden or on not so dark would make new users to not find it. There has been usability testing of Sandstorm's user interface. Sandstorm has been fully security audited and found problems fixed already.
 
 ## Difference: Hardware requirements
 

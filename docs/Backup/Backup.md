@@ -272,7 +272,7 @@ examples do not back up a FerretDB SQLite directory or external file storage.
 
 # Backup Sandstorm
 
-1. Please first backup your Sandstorm https://docs.sandstorm.io/en/latest/administering/backups/
+1. Please first backup your Sandstorm https://docs.sandstorm.org/en/latest/administering/backups/
 2. Please first download all of your grains to .zip files from top menu row down arrow button, just in case.
 
 # Upgrade Sandstorm WeKan

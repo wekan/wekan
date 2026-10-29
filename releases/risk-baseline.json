@@ -80,8 +80,8 @@
     "imports/sandstorm/capnp/package.mjs": [
       "http://choosealicense\\.com/no\\-license/",
       "http://opensource\\.org/licenses/",
-      "https://docs\\.sandstorm\\.io/en/latest/developing/auth/",
-      "https://docs\\.sandstorm\\.io/en/latest/developing/http\\-apis/",
+      "https://docs\\.sandstorm\\.org/en/latest/developing/auth/",
+      "https://docs\\.sandstorm\\.org/en/latest/developing/http\\-apis/",
       "https://keybase\\.io"
     ],
     "server/sandstorm.js": [
@@ -135,7 +135,7 @@
     ],
     "models/lib/sandstormShare.js": [
       "http://grain\\.invalid",
-      "https://docs\\.sandstorm\\.io/en/latest/developing/path/(#[a-z-]+)?"
+      "https://docs\\.sandstorm\\.org/en/latest/developing/path/(#[a-z-]+)?"
     ],
     "models/lib/activityPub.js": [
       "https://www\\.w3\\.org/ns/activitystreams(#Public)?",

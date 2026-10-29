@@ -54,12 +54,12 @@ From Devices / Install Guest Additions CD image...
 
 ## 6) Install Sandstorm dev version
 
-[Info source](https://sandstorm.io/install)
+[Info source](https://sandstorm.org/install)
 
 Start install:
 
 ```
-curl https://install.sandstorm.io | bash
+curl https://install.sandstorm.org | bash
 ```
 
 Use options for development / dev install.
@@ -85,7 +85,7 @@ sudo useradd -G sandstorm wekan
 
 ```
 cd ~/repos
-curl https://dl.sandstorm.io/meteor-spk-0.4.0.tar.xz | tar Jxf -
+curl https://dl.sandstorm.org/meteor-spk-0.4.0.tar.xz | tar Jxf -
 echo "export PATH=$PATH:~/repos/meteor-spk-0.4.0" >> ~/.bashrc
 ```
 

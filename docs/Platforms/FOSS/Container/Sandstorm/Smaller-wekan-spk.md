@@ -184,7 +184,7 @@ shown in a grain.
 ### Local test on Sandstorm
 
 Done on 2026-10-23 on the maintainer's machine: Sandstorm 0.308 at
-`http://local.sandstorm.io:6080`, dev accounts, driven with Playwright.
+`http://local.sandstorm.org:6080`, dev accounts, driven with Playwright.
 
 1. `releases/sandstorm-slim-spk.sh` built the bundle with the profile.
    `sandstorm-src/build-deps.sh` (`FERRETDB_SOURCE=build`) built the deps, and

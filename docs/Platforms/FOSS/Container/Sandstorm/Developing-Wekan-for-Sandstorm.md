@@ -12,7 +12,7 @@ Read:
 
 Start install:
 ```
-curl https://install.sandstorm.io | bash
+curl https://install.sandstorm.org | bash
 ```
 
 Use options for development / dev install.
@@ -38,7 +38,7 @@ sudo sandstorm start
 ```
 mkdir ~/repos
 cd ~/repos
-curl https://dl.sandstorm.io/meteor-spk-0.4.0.tar.xz | tar Jxf -
+curl https://dl.sandstorm.org/meteor-spk-0.4.0.tar.xz | tar Jxf -
 echo "export PATH=$PATH:~/repos/meteor-spk-0.4.0" >> ~/.bashrc
 ```
 
@@ -122,7 +122,7 @@ meteor-spk dev
 
 `App in now available from Sandstorm server. Ctrl-C to disconnect.`
 
-With Firefox/Chromium/Chrome/Edge/Chromium Edge browser, open http://local.sandstorm.io:6080/
+With Firefox/Chromium/Chrome/Edge/Chromium Edge browser, open http://local.sandstorm.org:6080/
 
 Login with premade local dev account Alice.
 

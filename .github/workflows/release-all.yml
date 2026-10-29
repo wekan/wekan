@@ -3672,7 +3672,7 @@ jobs:
         # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,
         # which blocks the unprivileged user namespaces that the Sandstorm install and
         # the spk supervisor rely on (the "fragile part" noted above). Relax it so
-        # `install.sandstorm.io` and meteor-spk can create sandboxes on the runner.
+        # `install.sandstorm.org` and meteor-spk can create sandboxes on the runner.
         # `|| true`: on kernels/runners without these knobs, setting them is a no-op.
         run: |
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
@@ -3696,11 +3696,11 @@ jobs:
         run: |
           # Downloaded, then run: a `curl | sh` cannot be retried, because by the
           # time the download fails sh is already half way through the script.
-          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/install-sandstorm.sh https://install.sandstorm.io
+          bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/install-sandstorm.sh https://install.sandstorm.org
           sudo bash /tmp/install-sandstorm.sh -d
 
       - name: Assemble modern meteor-spk.deps (Node 26 + FerretDB + Mongo 3.x CLIs)
-        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
+        # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.org (has mongod 3.0 +
         # niscud). build-deps.sh swaps in Node 26, adds FerretDB + the Mongo 3.x
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency

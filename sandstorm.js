@@ -194,7 +194,7 @@ if (isSandstorm && Meteor.isClient) {
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.
-  // See https://docs.sandstorm.io/en/latest/developing/path/
+  // See https://docs.sandstorm.org/en/latest/developing/path/
   function updateSandstormMetaData(msg) {
     return window.parent.postMessage(msg, '*');
   }

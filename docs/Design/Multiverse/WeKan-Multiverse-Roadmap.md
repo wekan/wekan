@@ -203,7 +203,7 @@ or have Javascript disabled for security reasons.
   - Pascal code with TRSE https://lemonspawn.com/turbo-rascal-syntax-error-expected-but-begin/
 - Embedded webserver, for example:
   - C https://github.com/wekan/hx/blob/main/prototypes/code/webserver/works/c/server.c
-  - Sandstorm https://sandstorm.io , https://github.com/sandstorm-io/sandstorm
+  - Sandstorm https://sandstorm.org , https://github.com/sandstorm-io/sandstorm
   - Rust https://github.com/dwrensha/sandstorm-rawapi-example-rust
     - C++ https://github.com/dwrensha/sandstorm-rawapi-example
 - Try to avoid strange NPM packages

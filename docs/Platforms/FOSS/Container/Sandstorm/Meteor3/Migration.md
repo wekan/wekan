@@ -13,7 +13,7 @@ WeKan **snap** already ships.
 
 ## 1. Why
 
-The current Sandstorm build uses **meteor‑spk 0.6.0** (`https://dl.sandstorm.io/meteor-spk-0.6.0.tar.xz`,
+The current Sandstorm build uses **meteor‑spk 0.6.0** (`https://dl.sandstorm.org/meteor-spk-0.6.0.tar.xz`,
 built 2021‑10‑23). Its `meteor-spk.deps` payload is a 2015‑era design:
 
 | Component | meteor‑spk 0.6.0 ships | WeKan needs |
@@ -381,7 +381,7 @@ and refreshes.
 
 ## 9. Build / CI ([.github/workflows/sandstorm.yml](../../../../../../.github/workflows/sandstorm.yml))
 
-- **Base = upstream meteor‑spk 0.6.0**, downloaded from `https://dl.sandstorm.io/meteor-spk-0.6.0.tar.xz`.
+- **Base = upstream meteor‑spk 0.6.0**, downloaded from `https://dl.sandstorm.org/meteor-spk-0.6.0.tar.xz`.
   It already contains `bin/mongod` (3.0.7), `bin/niscud` (2.x) and the old `node_modules` the
   niscu→3.0 stage needs. **Nothing is needed from the old `projects.7z`** (it only holds
   0.4.1/0.5.0/0.5.1, and its swapped node is ancient — we install Node 26 anyway). The dead

@@ -67,4 +67,4 @@ sudo systemclt start proxybouncer
 ```
 Question: Does this setup imply that everyone will be logged in to Wekan as 'proxybouncer'? Is there a way to pass username from Google via headers, etc.?
 
-Answer: First login to Proxybouncer can limit login domain of G Suite. Second login is using Wekan username and password. There is no integrated login yet for standalone Wekan like there is for https://sandstorm.io
+Answer: First login to Proxybouncer can limit login domain of G Suite. Second login is using Wekan username and password. There is no integrated login yet for standalone Wekan like there is for https://sandstorm.org
