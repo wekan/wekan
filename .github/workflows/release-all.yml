@@ -5061,11 +5061,20 @@ jobs:
           # infrastructure earns another one, up to this many, after a pause
           # that grows each time.
           max_attempts=6
+          # A Launchpad build log is THIS attempt's when its name did not exist
+          # before the attempt, or it was rewritten after the marker. The name
+          # alone decides it where -nt compares whole seconds (bash 3.2): a log
+          # written in the marker's second was not "newer", and was missed.
+          logs_before=" "
+          this_attempts_log() {
+            [ -e "$1" ] || return 1
+            case "$logs_before" in *" $1 "*) [ "$1" -nt "$attempt_marker" ] ;; *) return 0 ;; esac
+          }
           infra_failure() {   # did THIS attempt fail on Launchpad, not on WeKan?
             grep -qsE 'HTTP Error 5[0-9][0-9]|Error: Timeout|Service Unavailable' "$remote_log" && return 0
             local log
             for log in snapcraft-wekan-*.txt; do
-              [ -e "$log" ] && [ "$log" -nt "$attempt_marker" ] || continue
+              this_attempts_log "$log" || continue
               grep -qsE 'RPC failed;|GnuTLS recv error|fatal: early EOF|Gateway error \[IP: ' "$log" && return 0
             done
             return 1
@@ -5090,6 +5099,7 @@ jobs:
             # earlier attempts' logs stay in the directory for the diagnostics
             # below, but must not be printed again as if they were this one's.
             touch "$attempt_marker"
+            logs_before=" $(ls snapcraft-wekan-*.txt 2>/dev/null | tr '\n' ' ')"
             if [ "$fresh_next" = 1 ]; then
               echo "The previous attempt's Launchpad build finished without a snap; submitting a new build instead of recovering it."
               run_remote_build && rc=0 || rc=$?
@@ -5146,7 +5156,7 @@ jobs:
             # and threw it away.
             new_logs=0
             for log in snapcraft-wekan-*.txt; do
-              [ -e "$log" ] && [ "$log" -nt "$attempt_marker" ] || continue
+              this_attempts_log "$log" || continue
               new_logs=1
               echo "::group::Launchpad build log: $log (what failed, then the last 150 lines)"
               # The tail alone is not where the cause is. snapcraft's own error is

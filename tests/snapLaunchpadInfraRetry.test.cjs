@@ -22,8 +22,12 @@ let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 // The function exactly as the workflow has it, de-indented from the YAML block.
-const fnText = /\n( +)infra_failure\(\) \{[\s\S]*?\n\1\}\n/.exec(step)[0]
+// infra_failure() asks this_attempts_log() which logs are this attempt's.
+const fnOf = name => new RegExp(`\\n( +)${name}\\(\\) \\{[\\s\\S]*?\\n\\1\\}\\n`).exec(step)[0]
   .split('\n').map(l => l.replace(/^ {10}/, '')).join('\n');
+const fnText = fnOf('this_attempts_log') + fnOf('infra_failure');
+// The line that records which logs existed when the attempt started.
+const logsBefore = /\n *(logs_before=" \$\(ls [^\n]*)\n/.exec(step)[1];
 
 function infraFailure({ remoteLog = '', buildLogs = {}, oldBuildLogs = {} }) {
   const dir = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'lp-'));
@@ -34,9 +38,12 @@ function infraFailure({ remoteLog = '', buildLogs = {}, oldBuildLogs = {} }) {
     }
     fs.writeFileSync(path.join(dir, 'marker'), '');
     fs.utimesSync(path.join(dir, 'marker'), new Date(2010, 0, 1), new Date(2010, 0, 1));
-    for (const [name, text] of Object.entries(buildLogs)) fs.writeFileSync(path.join(dir, name), text);
+    // This attempt's logs arrive after logs_before is taken, as on Launchpad.
+    fs.mkdirSync(path.join(dir, 'new'));
+    for (const [name, text] of Object.entries(buildLogs)) fs.writeFileSync(path.join(dir, 'new', name), text);
     fs.writeFileSync(path.join(dir, 'remote.log'), remoteLog);
-    const script = `cd "${dir}"; remote_log=remote.log; attempt_marker=marker\n${fnText}\ninfra_failure`;
+    const script = `cd "${dir}"; remote_log=remote.log; attempt_marker=marker\n${logsBefore}\n`
+      + `for f in new/*; do [ -e "$f" ] && mv "$f" .; done\n${fnText}\ninfra_failure`;
     return spawnSync('bash', ['-c', script]).status === 0;
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -62,6 +69,28 @@ test('negative: a missing stage-package is WeKan\'s, and keeps three attempts', 
 
 test('negative: an earlier attempt\'s log does not count for this one', () => {
   assert.equal(infraFailure({ oldBuildLogs: { 'snapcraft-wekan-old_ppc64el.txt': 'error: RPC failed; curl 56' } }), false);
+});
+
+test('a new log counts even in the marker\'s own second (bash 3.2 -nt is whole seconds)', () => {
+  const dir = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'lp-'));
+  try {
+    const same = new Date(2010, 0, 1);
+    fs.writeFileSync(path.join(dir, 'snapcraft-wekan-old_s390x.txt'), 'Gateway error [IP: 10.10.10.1 8222]');
+    fs.writeFileSync(path.join(dir, 'marker'), '');
+    fs.utimesSync(path.join(dir, 'marker'), same, same);
+    const script = `cd "${dir}"; remote_log=remote.log; attempt_marker=marker; : > remote.log\n${logsBefore}\n`
+      + `echo 'Gateway error [IP: 10.10.10.1 8222]' > snapcraft-wekan-new_s390x.txt\n`
+      + `touch -r marker snapcraft-wekan-new_s390x.txt\n${fnText}\n`
+      + `this_attempts_log snapcraft-wekan-new_s390x.txt && echo new=yes\n`
+      + `touch -t 200001010000 snapcraft-wekan-old_s390x.txt; this_attempts_log snapcraft-wekan-old_s390x.txt || echo old=no\n`
+      + `touch snapcraft-wekan-old_s390x.txt; this_attempts_log snapcraft-wekan-old_s390x.txt && echo rewritten=yes\n`;
+    const out = spawnSync('bash', ['-c', script], { encoding: 'utf8' }).stdout;
+    assert.match(out, /new=yes/, 'a name that did not exist before is this attempt\'s');
+    assert.match(out, /old=no/, 'negative: an earlier attempt\'s log, untouched, is not');
+    assert.match(out, /rewritten=yes/, 'an earlier name rewritten after the marker is');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 });
 
 test('negative: a 4xx from Launchpad is not taken for an outage', () => {
