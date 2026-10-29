@@ -26,7 +26,17 @@ describe('Reply-by-email webhook (ReplyBleed)', function () {
   });
   const post = (body, { query = '', headers = {} } = {}) => fetch(Meteor.absoluteUrl(`api/inbound-email${query}`), {
     method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) });
-  const problems = () => EventLog.rawCollection().findOne({ stream: 'security', bleed: 'ReplyBleed' });
+  // ReplyBleed is one row per SOURCE (the fold's identity), and this route's
+  // source is the client address, so the bounce and board-address tests leave
+  // rows of their own in a test database that persists between runs. findOne
+  // picked one of those, whose count this attempt never moves: count them all.
+  const problems = async () => {
+    const [sum] = await EventLog.rawCollection().aggregate([
+      { $match: { stream: 'security', bleed: 'ReplyBleed' } },
+      { $group: { _id: null, count: { $sum: '$count' } } },
+    ]).toArray();
+    return sum ? { count: sum.count } : null;
+  };
   async function problemCountAfter(before) {
     for (let i = 0; i < 40; i++) {
       const row = await problems();
