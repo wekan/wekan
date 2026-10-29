@@ -140,4 +140,7 @@ jobs:
           fi
           echo "Publishing $SPK with $SPK_BIN ..."
           # Same command as releases/release-sandstorm.sh: spk publish wekan-<VERSION>.spk
-          "$SPK_BIN" publish "$SPK"
+          # Publish to apps.sandstorm.org
+          "$SPK_BIN" --webkey=https://api-b72c46193b266fd6c33e1299dccc9bfa.oasis.sandstorm.org#iCDu7VYl4qZxVbDLXLIE2XSU0bEadaBgApEMqgCkLmP publish "$SPK"
+          # Publish to apps.sandstorm.io
+          "$SPK_BIN" --webkey=https://alpha-api.sandstorm.io/#Rs-0TT13YrNSbv7Fiz5K9bBkLaJn3E5TB0PU1GSn1HE publish "$SPK"
