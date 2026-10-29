@@ -65,6 +65,11 @@ test('F02 F06: relative move uses a fractional gap and keyboard moves escape tie
   db.updateMany('cards', { boardId: board.boardId, listId: board.listIds[0] }, { $set: { sort: 0 } });
   const list = page.locator(`#js-list-${board.listIds[0]}`);
   const orderedIds = [alpha._id, beta._id, gamma._id].sort();
+  // The order alone does not show the reset arrived: gamma 0, alpha .125,
+  // beta .25 is already id order one time in six, and a move computed from
+  // those stale sorts landed the card last. Wait for the client's own copy.
+  await page.waitForFunction(ids => ids.every(id =>
+    Meteor.connection._mongo_livedata_collections.cards?.findOne({ _id: id })?.sort === 0), orderedIds);
   await expect.poll(() => list.locator('.js-minicard').evaluateAll(els => els.map(el => el.dataset.cardId))).toEqual(orderedIds);
   const first = list.locator('.js-minicard').first();
   const id = await first.getAttribute('data-card-id');
