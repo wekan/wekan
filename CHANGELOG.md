@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.70 2026-10-29 WeKan ® release
 
 **In short:** The **AppImages** and the **Launchpad** snaps build again: their
 FerretDB and mongo-tools are readable by every user, and the snap source
