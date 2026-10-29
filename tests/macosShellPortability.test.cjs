@@ -115,6 +115,42 @@ test('start-wekan.sh finds the memory without /proc, under set -eu', () => {
   }
 });
 
+test('start-wekan.sh takes only a NUMBER from sysctl (OpenBSD answers an unknown name with nothing)', () => {
+  // v12.68: the OpenBSD bundle died at `$(( / 1048576 ))` - its sysctl prints
+  // nothing for hw.memsize and exits 0, so `sysctl hw.memsize || sysctl
+  // hw.physmem` never got to the name OpenBSD has.
+  const tmp = fs.mkdtempSync(path.join(process.env.TMPDIR || path.join(root, '.tools', 'tmp'), 'sysctl-'));
+  const fake = (name, body) => { fs.writeFileSync(path.join(tmp, name), `#!/bin/sh\n${body}\n`, { mode: 0o755 }); };
+  const hosts = {
+    openbsd: 'case "$2" in hw.physmem) echo 4294967296;; esac; exit 0',
+    netbsd: 'case "$2" in hw.physmem64) echo 8589934592;; hw.physmem) echo 2147483648;; *) exit 1;; esac',
+    macos: 'case "$2" in hw.memsize) echo 17179869184;; *) exit 1;; esac',
+  };
+  const expected = { openbsd: 4096, netbsd: 8192, macos: 16384 };
+  try {
+    for (const rel of ['releases/ferretdb/start-wekan.sh', 'start-wekan.sh']) {
+      const lines = read(rel).split('\n').filter(l => /_memory_mb=|\[ -n "\$_memory_mb" \]/.test(l)
+        && !/^\s*#/.test(l) && !/_heap_mb|_go_mb|_m\b/.test(l) && !/-gt 0/.test(l));
+      const body = lines.map(l => l.trim().replace('/proc/meminfo', '/nonexistent/meminfo')).join('\n');
+      for (const [host, script] of Object.entries(hosts)) {
+        const dir = path.join(tmp, host);
+        fs.mkdirSync(dir, { recursive: true });
+        fake(path.join(host, 'sysctl'), script);
+        const r = spawnSync('sh', ['-c', `set -eu\n${body}\necho "mem=$_memory_mb"`],
+          { encoding: 'utf8', env: { ...process.env, PATH: `${dir}:/usr/bin:/bin` } });
+        assert.strictEqual(r.status, 0, `${rel} on ${host}: ${r.stderr}`);
+        assert.match(r.stdout, new RegExp(`^mem=${expected[host]}$`, 'm'), `${rel} on ${host}`);
+      }
+    }
+    // Negative: the v12.68 chain is what died on the OpenBSD fake.
+    const broken = 'set -eu\n_memory_mb=$(( $(sysctl -n hw.memsize 2>/dev/null || sysctl -n hw.physmem 2>/dev/null || echo 0) / 1048576 ))\necho "mem=$_memory_mb"';
+    const b = spawnSync('sh', ['-c', broken], { encoding: 'utf8', env: { ...process.env, PATH: `${path.join(tmp, 'openbsd')}:/usr/bin:/bin` } });
+    assert.notStrictEqual(b.status, 0, 'the old chain fails on an empty answer');
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
 test('no GNU-only ln -T or stat -c', () => {
   assert.deepStrictEqual(offenders(c => /\bln -[a-zA-Z]*T\b|\bstat -c\b|\bstat --/.test(c)), []);
 });
