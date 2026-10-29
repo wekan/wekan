@@ -125,12 +125,36 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Invite via Email** adds the invited new user again, instead of
+**In short:** **ImportPlacementBleed** is fixed: an import is placed only on its
+own board. **Invite via Email** adds the invited new user again, instead of
 the first user of the database. The **OpenBSD** bundle starts again, and
 **History** works on **FerretDB**: date custom field changes are recorded there,
 and the database migration says when documents did not arrive.
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of [ImportPlacementBleed](https://wekan.fi/hall-of-fame/importplacementbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d6d481fcb">An import into a board is placed only beside that board's own list, swimlane or card</a>. Thanks to Zachariah Mithani (AploSec) and xet7.</summary>
+
+The scoped importer, reached by `POST /api/import/zip` and the `importScoped`
+method, authorized the import on `boardId` alone. The `listId` and
+`swimlaneId` beside it were written onto the new cards as given, and a `cardId`
+was looked up with no board, so a writer of board A could create cards on A
+whose list and swimlane were board B's, and probe whether a card id existed on
+a board they cannot see. Before anything is written, the list, swimlane and
+card are now looked up together with the board's id; an id of another board is
+refused (400 over REST, `error-import-placement` from the method), with the
+same answer for a foreign card and a missing one. A refusal is shown in Admin
+Panel → Problems as ImportPlacementBleed, without blocking the account, since
+an import menu left open while its list moved can reach it.
+`tests/importPlacementBleed.test.cjs` pins the decision, the check before every
+write and a negative scan for a target id used without the board;
+`security-import-placement.e2e.js` runs the reporter's attack by both routes
+and fails on the previous code.
+
+</details>
+
+and fixes the following bugs:
 
 **Board members** - who an invitation adds to a board.
 
@@ -190,6 +214,21 @@ count per collection and the first error. `tests/changeHistoryGroups.test.cjs`
 pins the string form, the legacy restore, the rewrite with no array left inside
 an array, and that a refused document is counted before success;
 `history-nested-dates.e2e.js` checks the stored row.
+
+</details>
+
+and has the following release-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/99d9958e39">Release all missing builds the missing assets even when the rerun of failed jobs fails again</a>. Thanks to xet7.</summary>
+
+The planner needed `recover`, so one job failing again in the rerun of the full
+release skipped the planner and every build after it. For v12.68 the rerun
+failed on four Launchpad snaps (503 / timeout) and on the OpenBSD bundle, whose
+`start-wekan.sh` fault is in the tagged code and so in every rerun of it. The
+planner now runs unless the run is cancelled, each job after it checks the
+planner's own result, and `recover` stays red and names the jobs that failed
+again. `tests/retryFailedRelease.test.py` pins both.
 
 </details>
 
