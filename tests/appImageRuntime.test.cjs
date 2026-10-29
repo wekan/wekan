@@ -92,6 +92,16 @@ test('only orphaned mount directories are removed, never a live one (negative)',
     'rm -rf only runs inside the "not currently mounted" branch');
 });
 
+test('everything in the AppDir is readable by every user before it is packed (v12.69)', () => {
+  // appimagetool refuses an AppDir with a 0711 file, and a user other than the
+  // one who built it would get "Permission denied" from one.
+  const build = workflow.slice(workflow.indexOf('- name: Build the AppDir'), workflow.indexOf('- name: Pack the AppImage'));
+  assert.match(build, /chmod -R a\+rX AppDir/);
+  assert.ok(workflow.indexOf('chmod -R a+rX AppDir') < workflow.indexOf('./appimagetool AppDir'));
+  // ...and the downloads it is made of are not 0600 to begin with.
+  assert.match(fs.readFileSync('releases/fetch.sh', 'utf8'), /chmod "\$\(printf '%o' \$\(\( 0666 & ~\$\(umask\) \)\)\)" "\$tmp"/);
+});
+
 test('the full release waits for every bundle that an AppImage wraps', () => {
   const job = releaseAll.match(/^  appimage:\n([\s\S]*?)(?=^  \S)/m);
   assert.ok(job, 'release-all.yml must contain an appimage job');

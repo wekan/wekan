@@ -405,6 +405,10 @@ jobs:
           APPRUN
           sed -i "s/@APPIMAGE_ARCH@/$arch/" AppDir/AppRun
           chmod +x AppDir/AppRun
+          # The AppImage runs as whoever starts it, not as this runner, so
+          # everything in it must be readable by all. v12.69's FerretDB and
+          # mongo-tools were 0711 and appimagetool refused to pack them.
+          chmod -R a+rX AppDir
 
       - name: Pack the AppImage
         if: ${{ env.BUILD_THIS == 'true' }}

@@ -87,6 +87,26 @@ test('a 503 is waited out, and the file arrives', () => {
   assert.ok(/::warning::/.test(r.stderr), 'and the log says why the job paused');
 });
 
+test('a download is readable by everyone, as an AppImage needs (v12.69)', () => {
+  // mktemp's 0600 survived the mv, so FerretDB and mongo-tools were 0711
+  // after `chmod +x`, and appimagetool refused to pack them.
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
+  const out = path.join(dir, 'ferretdb');
+  const r = spawnSync('bash', ['-c', `umask 022; bash "${fetchSh}" -o "${out}" "${base}/ok" && chmod +x "${out}"`],
+    { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '755');
+});
+
+test('a download still follows a stricter umask (negative)', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
+  const out = path.join(dir, 'private');
+  const r = spawnSync('bash', ['-c', `umask 077; bash "${fetchSh}" -o "${out}" "${base}/ok"`],
+    { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '600');
+});
+
 test('a 404 fails at once - it is an answer, not an outage (negative)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'nope');

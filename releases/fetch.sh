@@ -86,7 +86,14 @@ while : ; do
     case "$code" in
         2??)
             if [ "$mode" = check ]; then exit 0; fi
-            if [ "$out" = "-" ]; then cat "$tmp"; else mv "$tmp" "$out"; fi
+            if [ "$out" = "-" ]; then cat "$tmp"; else
+                # mktemp made it 0600, and mv keeps that: a FerretDB or
+                # mongo-tools fetched here and then `chmod +x`ed was 0711,
+                # unreadable to anyone else, and appimagetool refused to pack
+                # it (v12.69). A download gets the mode the umask gives a file.
+                chmod "$(printf '%o' $(( 0666 & ~$(umask) )))" "$tmp"
+                mv "$tmp" "$out"
+            fi
             exit 0
             ;;
         401|403|404|410)
