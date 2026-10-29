@@ -271,6 +271,17 @@ language waiting for it in the popup. It opens Card as the cog menu does, as
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43c4d41877">The Hall of Fame guards read a linked vulnerability name too</a>. Thanks to xet7.</summary>
+
+The two suites that compare WeKan's security tests with the Hall of Fame read
+only names without a link, so the four whose names already linked to their
+pages - ImportPlacementBleed, SamlSubjectBleed, StampBleed and UploadBleed -
+were never checked. On wekan.fi every name is now a link; the suites read it,
+and list those four as guarded by the tests that name them.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.69 2026-10-29 WeKan ® release
