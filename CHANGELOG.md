@@ -123,6 +123,84 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Continuous backup** names a changed encrypted file as changed
+again when Node.js uses **OpenSSL 4**. The **Bun** release assets build with
+macOS's Python 3.9, a **Launchpad** snap attempt finds its own build log by
+name, and the test suites run on macOS inside the sandboxed editor.
+
+This release fixes the following bugs:
+
+**Continuous backup** - restoring an encrypted backup file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffe49dd2fd">A changed encrypted file is reported as changed, also with OpenSSL 4</a>. Thanks to xet7.</summary>
+
+A Node.js linked to OpenSSL 4 reports an AES-GCM tag mismatch as
+`ERR_OSSL_BAD_DECRYPT` ("bad decrypt"), where OpenSSL 3 says "Unsupported state
+or unable to authenticate data". `decryptFile()` matched only the second, so
+with OpenSSL 4 a changed backup file or a wrong key surfaced as a raw OpenSSL
+error instead of "An encrypted backup file has changed or the key is wrong".
+Both are recognised, and the partial output is still removed.
+`tests/continuousBackupEncryption.test.cjs` passes with OpenSSL 4.1.0 and
+3.5.9.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Releases** - the Bun assets and the Launchpad snap retries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dcccf0d4a">The Bun release assets build with Python 3.9, which macOS ships as python3</a>. Thanks to xet7.</summary>
+
+`hashlib.file_digest` is Python 3.11+ and `Path.write_text(newline=)` is
+3.10+, so `releases/bun/assets.py` stopped with AttributeError and TypeError on
+macOS's python3 3.9. It hashes in chunks and writes the LF-only `.sha256sum`
+through `open(newline='\n')`; `tests/bun-release.py` still pins LF on every
+platform and that neither newer call comes back.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48a8937ff0">A snap attempt finds its own Launchpad build log by name, not only by mtime</a>. Thanks to xet7.</summary>
+
+Whether a build log belonged to the current attempt was decided by `-nt`
+against the attempt's marker alone. bash 3.2 compares whole seconds, so a log
+written in the marker's second was not "newer": it was neither printed nor
+checked for a Launchpad infrastructure failure. `this_attempts_log()` counts a
+log whose name did not exist when the attempt started, or one rewritten after
+the marker, and an earlier attempt's untouched log still does not count.
+`tests/snapLaunchpadInfraRetry.test.cjs` covers all three cases.
+
+</details>
+
+**Tests on macOS** - the suites that need process listings and sandbox-exec.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf266fb4da">DB conformance recognises a live run where ps is not allowed</a>. Thanks to xet7.</summary>
+
+Inside a sandboxed macOS app `ps` fails with "operation not permitted", so
+every live conformance run looked dead and a second run would remove its
+containers. `command_line_of()` falls back to `pgrep -lf`, which still works
+there, and `tests/dbConformanceStaleContainers.test.cjs` pins the fallback.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5534c8830c">The macOS suites run inside the sandboxed editor too</a>. Thanks to xet7.</summary>
+
+`tests/mac-smoke-app.py` checked with `ps` that a killed descendant was gone;
+it waits for `os.kill(pid, 0)` to find it gone and uses `ps` only to tell a
+zombie from a live process. `tests/macosSandbox.test.cjs` skips its live
+`sandbox-exec` check only when even an `(allow default)` profile cannot be
+applied, which is the case inside the sandbox it tests.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.69 2026-10-29 WeKan ® release
 
 **In short:** **ImportPlacementBleed** is fixed: an import is placed only on its
