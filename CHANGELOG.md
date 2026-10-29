@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.71 2026-10-30 WeKan ® release
 
 **In short:** The **Sandstorm** build installs Sandstorm from
 **install.sandstorm.org**, as the Sandstorm workflows already did, and the
