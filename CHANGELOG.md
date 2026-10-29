@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.68 2026-10-29 WeKan ® release
 
 **In short:** **Card Settings**, in Board Settings / Card, becomes two panes of
 checklists - the minicard's and the card's - with a checkbox per section and
