@@ -29,7 +29,15 @@ because WeKan is NOT Big Tech. WeKan is FLOSS.
 - **Remediation**: Please wait for a new WeKan release that addresses the issue.
   Fixes are announced at the top of the [ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - **Recognition**: We will acknowledge your contribution by adding you to our
-  [Hall of Fame](https://wekan.fi/hall-of-fame/).
+  [Hall of Fame](https://wekan.fi/hall-of-fame/). The stars follow the
+  [Stars Audit](https://github.com/wekan/wekan.fi/blob/main/hall-of-fame/Audit-Stars.md):
+  a GitHub security advisory (GHSA) with details and a suggested fix gets 5 stars,
+  a report sent to security@wekan.fi or some other way, with a suggested fix, gets 3.
+- **Adding the GHSA later**: if you sent your report to security@wekan.fi, or some
+  other way, and are later able to add it as a "New draft security advisory" at
+  [WeKan Security Advisories](https://github.com/wekan/wekan/security/advisories),
+  please do. The maintainer of WeKan then requests the CVE through that GHSA, and
+  your Hall of Fame row is upgraded from 3 stars to 5.
 - **CVE Policy**: WeKan Security requests CVE at GitHub when releasing Security Advisory.
 
 ### 3. Post-Release and Public Disclosure:

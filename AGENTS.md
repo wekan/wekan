@@ -869,6 +869,21 @@ have cost a released section its accuracy:
   sizes them at 24px, and keeps the icon and its red drop on one line at every width
   (they are one icon) — the table itself stays percentage-sized with no fixed or
   minimum width, so it fills the page at every browser width.
+- **A report that arrives WITHOUT a GHSA is upgraded when its GHSA arrives.** The
+  stars follow `.tools/wekan.fi/hall-of-fame/Audit-Stars.md`: a GHSA with a
+  suggested fix is 5, a report sent to security@wekan.fi or any other way, with a
+  suggested fix, is 3. When that researcher is later able to add a GitHub security
+  advisory for the same report, the maintainer requests the CVE through the GHSA
+  process, and the row's 3 stars become 5. So whenever an AI updates or audits the
+  Hall of Fame, it checks each 3-star row whose Process says the report came
+  without a GHSA against [WeKan Security
+  Advisories](https://github.com/wekan/wekan/security/advisories): when a GHSA for
+  that report now exists, it sets the row to 5 stars on the index AND on the row's
+  own page, links the GHSA (and the CVE in the CVE cell once one is assigned),
+  rewrites the Process cell to say the report later arrived as a GHSA, and records
+  the change in Audit-Stars.md. Match by the report's subject and reporter, not by
+  a nearby advisory - a GHSA about something else is no upgrade. Until the GHSA
+  exists, the row stays at 3 and its Process cell says the GHSA is awaited.
 - **On the Hall of Fame index page, the Process and Vulnerabilities cells are
   collapsed.** Those two columns carry the prose — how the report arrived, and the
   whole story of the vulnerability — so the page would be one wall of text and the
