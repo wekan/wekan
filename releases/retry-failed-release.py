@@ -31,6 +31,21 @@ def gh_pages(text):
     return pages
 
 
+def failed_jobs(run_id, attempt, repo):
+    """The names of the jobs that did not succeed in that attempt, or [] when
+    GitHub cannot say. "ended failure" alone sent the reader to the web page to
+    find out which of ~130 jobs it was (v12.68: four Launchpad snaps that got
+    503s, and OpenBSD, whose start-wekan.sh fault is in the tagged code)."""
+    try:
+        pages = gh_pages(gh('api', '--paginate',
+                            f'repos/{repo}/actions/runs/{run_id}/attempts/{attempt}/jobs?per_page=100'))
+    except (subprocess.CalledProcessError, ValueError, OSError):
+        return []
+    return [job.get('name', '?') for page in pages if isinstance(page, dict)
+            for job in page.get('jobs', [])
+            if job.get('conclusion') not in (None, 'success', 'skipped')]
+
+
 def wait_for_rerun(run_id, attempt, repo, poll=30, max_errors=10, sleep=time.sleep):
     """Wait until the rerun (an attempt after `attempt`) of run `run_id` ends.
 
@@ -58,7 +73,12 @@ def wait_for_rerun(run_id, attempt, repo, poll=30, max_errors=10, sleep=time.sle
         errors = 0
         if state.get('attempt', 0) > attempt and state.get('status') == 'completed':
             if state.get('conclusion') != 'success':
-                raise ValueError(f'The rerun of the full release ended {state.get("conclusion")}.')
+                failed = failed_jobs(run_id, state['attempt'], repo)
+                named = f' Failed again: {", ".join(failed)}.' if failed else ''
+                raise ValueError(f'The rerun of the full release ended {state.get("conclusion")}.{named} '
+                                 'A rerun builds the TAGGED commit, so a fault in that code fails every '
+                                 'rerun and is fixed by the next release; the missing assets are planned '
+                                 'and built after this anyway.')
             print('The failed jobs of the full release succeeded on rerun.')
             return
         sleep(poll)

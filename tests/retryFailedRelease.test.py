@@ -32,6 +32,39 @@ class Recovery(unittest.TestCase):
         with patch.object(r,'gh',side_effect=err) as gh:
             with self.assertRaises(ValueError):r.wait_for_rerun(5,1,'wekan/wekan',max_errors=3,sleep=lambda s:None)
             self.assertEqual(gh.call_count,3)
+    def test_failed_rerun_names_the_jobs_that_failed_again(self):
+        # v12.68: the recovery said only "ended failure" - four snaps and OpenBSD.
+        jobs={'jobs':[{'name':'snap-launchpad (s390x)','conclusion':'failure'},
+                      {'name':'BSD bundles / BSD openbsd-x64','conclusion':'failure'},
+                      {'name':'build-amd64','conclusion':'success'},{'name':'charts','conclusion':'skipped'}]}
+        answers=[json.dumps({'attempt':2,'status':'completed','conclusion':'failure'}),json.dumps(jobs)]
+        with patch.object(r,'gh',side_effect=answers) as gh:
+            with self.assertRaises(ValueError) as ctx:r.wait_for_rerun(5,1,'wekan/wekan',sleep=lambda s:None)
+        self.assertIn('snap-launchpad (s390x), BSD bundles / BSD openbsd-x64',str(ctx.exception))
+        self.assertNotIn('build-amd64',str(ctx.exception))
+        self.assertIn('runs/5/attempts/2/jobs',' '.join(gh.call_args.args))
+        # negative: GitHub not answering about the jobs still ends the same way
+        err=r.subprocess.CalledProcessError(1,['gh'],'HTTP 502')
+        with patch.object(r,'gh',side_effect=[answers[0],err]):
+            with self.assertRaises(ValueError) as ctx:r.wait_for_rerun(5,1,'wekan/wekan',sleep=lambda s:None)
+        self.assertIn('ended failure',str(ctx.exception))
+    def test_planner_runs_after_a_failed_recovery(self):
+        # The planner and every build after it were skipped when one rerun job
+        # failed, so assets that COULD be built were not.
+        wf=(Path(__file__).resolve().parent.parent/'.github/workflows/release-all-missing.yml').read_text()
+        plan=wf[wf.index('  plan:\n'):wf.index('    timeout-minutes',wf.index('  plan:\n'))]
+        self.assertIn('needs: recover',plan)
+        self.assertIn("if: ${{ !cancelled() }}",plan)
+        import re
+        jobs=re.split(r'\n  (?=[a-z][a-z-]*:\n)',wf[wf.index('\njobs:\n'):])
+        for job in jobs:
+            name=job.split(':',1)[0].strip()
+            if name in ('recover','plan') or not re.search(r'\n    needs: (plan|\[plan)',job):continue
+            cond=re.search(r'\n    if: (.*)',job)
+            self.assertTrue(cond,f'{name} has a condition')
+            # An implicit success() also counts recover, an ancestor.
+            self.assertRegex(cond.group(1),r'!cancelled\(\)|always\(\)',name)
+            self.assertIn("needs.plan.result == 'success'",cond.group(1),name)
     def test_old_attempt_failure_is_not_the_answer(self):
         # Right after `rerun`, the run still shows attempt 1's failure.
         answers=[json.dumps({'attempt':1,'status':'completed','conclusion':'failure'}),

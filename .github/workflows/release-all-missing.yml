@@ -97,6 +97,12 @@ jobs:
 
   plan:
     needs: recover
+    # The planner runs whatever recover's rerun ended with. A rerun that still
+    # fails - Launchpad answering 503, a fault that is in the tagged code and
+    # so in every rerun of it (v12.68's OpenBSD start) - used to skip the
+    # planner and every build after it, so not even the assets that COULD be
+    # filled were. recover stays red and names the jobs; the rest goes on.
+    if: ${{ !cancelled() }}
     timeout-minutes: 15
     name: what the release is missing
     runs-on: ubuntu-latest
@@ -211,7 +217,7 @@ jobs:
       contents: write
     name: ${{ matrix.arch }}
     needs: plan
-    if: ${{ needs.plan.outputs.extra != '[]' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.extra != '[]' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 300
     strategy:
@@ -331,7 +337,7 @@ jobs:
   bun:
     name: Missing Bun runtime bundles
     needs: plan
-    if: ${{ needs.plan.outputs.bun != '[]' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.bun != '[]' }}
     uses: ./.github/workflows/bun.yml
     permissions:
       contents: write
@@ -345,7 +351,7 @@ jobs:
   appimage:
     name: AppImages
     needs: plan
-    if: ${{ needs.plan.outputs.appimage != '[]' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.appimage != '[]' }}
     uses: ./.github/workflows/AppImage.yml
     permissions:
       contents: write
@@ -357,7 +363,7 @@ jobs:
   mac:
     name: Mac apps
     needs: plan
-    if: ${{ needs.plan.outputs.mac != '[]' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.mac != '[]' }}
     uses: ./.github/workflows/mac.yml
     permissions:
       contents: write
@@ -369,7 +375,7 @@ jobs:
   flatpak:
     name: Flatpaks
     needs: plan
-    if: ${{ needs.plan.outputs.flatpak != '[]' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.flatpak != '[]' }}
     uses: ./.github/workflows/Flatpak.yml
     permissions:
       contents: write
@@ -381,7 +387,7 @@ jobs:
   windows-exe:
     name: Windows single EXE
     needs: plan
-    if: ${{ needs.plan.outputs.windows != '[]' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.windows != '[]' }}
     uses: ./.github/workflows/windows.yml
     permissions:
       contents: write
@@ -425,7 +431,7 @@ jobs:
     timeout-minutes: 30
     name: Helm chart
     needs: plan
-    if: ${{ !cancelled() && needs.plan.outputs.version != '' }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.version != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wekan (for releases/release-charts.sh)
