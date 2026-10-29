@@ -125,10 +125,11 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Continuous backup** names a changed encrypted file as changed
-again when Node.js uses **OpenSSL 4**. The **Bun** release assets build with
-macOS's Python 3.9, a **Launchpad** snap attempt finds its own build log by
-name, and the test suites run on macOS inside the sandboxed editor.
+**In short:** The **AppImages** and the **Launchpad** snaps build again: their
+FerretDB and mongo-tools are readable by every user, and the snap source
+carries what its downloads need. **Continuous backup** names a changed
+encrypted file as changed with **OpenSSL 4**, and the release and test tooling
+runs on macOS and reports a bad certificate as one.
 
 This release fixes the following bugs:
 
@@ -150,7 +151,46 @@ Both are recognised, and the partial output is still removed.
 
 and has the following developer-tooling fixes:
 
-**Releases** - the Bun assets and the Launchpad snap retries.
+**Releases** - the AppImages, the Launchpad snaps, the Bun assets and what a
+failed download says.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dfdadaa8ca">The AppImages are built again: FerretDB and mongo-tools are readable by every user</a>. Thanks to xet7.</summary>
+
+`releases/fetch.sh` downloaded into a `mktemp` file and moved it into place,
+so every download kept mktemp's 0600, and the bundled `ferretdb` and
+`mongo-tools` were 0711 after `chmod +x`. Since that day's appimagetool
+refuses such a file - a user other than the owner gets "Permission denied" -
+all six v12.69 AppImages failed. A download gets the mode its umask gives a
+new file, and the AppDir is made `a+rX` before it is packed;
+`tests/releaseDownloads.test.cjs` fails on the old `fetch.sh` with 711.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1f2c006b4">The Launchpad snap source carries the tools-env.sh that fetch.sh needs</a>. Thanks to xet7.</summary>
+
+Only the files the snap recipe reads are uploaded to Launchpad, and the list
+had `releases/fetch.sh` without the `releases/tools-env.sh` it sources. In the
+armhf build the caddy part's `fetch.sh` had no `TMPDIR`, and curl got an empty
+`-o` seven times, with pauses of up to 480 s, before it was called an outage.
+The file is uploaded, `tools-env.sh` makes `.tools/tmp` in such a tree, and
+`fetch.sh` stops at once without a temporary file or when curl cannot start.
+`tests/releaseSnapLaunchpadFlatten.test.cjs` requires every `releases/` file a
+listed script uses to be listed. s390x had failed on Launchpad itself: even a
+new build answered "Could not find repository at path".
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6bbb4d39bc">A download whose TLS certificate cannot be verified is named as that, not as an outage</a>. Thanks to xet7.</summary>
+
+v12.69's Sandstorm build stopped because the certificate of
+install.sandstorm.io expired that day, and `fetch.sh` reported "The server is
+having an outage" for curl's exit 60. It now says the certificate could not be
+verified and that only that server's owner can fix it.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2dcccf0d4a">The Bun release assets build with Python 3.9, which macOS ships as python3</a>. Thanks to xet7.</summary>
@@ -176,7 +216,8 @@ the marker, and an earlier attempt's untouched log still does not count.
 
 </details>
 
-**Tests on macOS** - the suites that need process listings and sandbox-exec.
+**Tests** - the suites that need process listings and sandbox-exec on macOS,
+and three that tested the wrong row, too early or the old layout.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf266fb4da">DB conformance recognises a live run where ps is not allowed</a>. Thanks to xet7.</summary>
@@ -196,6 +237,37 @@ it waits for `os.kill(pid, 0)` to find it gone and uses `ps` only to tell a
 zombie from a live process. `tests/macosSandbox.test.cjs` skips its live
 `sandbox-exec` check only when even an `(allow default)` profile cannot be
 applied, which is the case inside the sandbox it tests.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d06b468629">ReplyBleed's mocha test counts the attempt in every ReplyBleed row</a>. Thanks to xet7.</summary>
+
+ReplyBleed is one Admin Panel → Problems row per source, and the webhook's
+source is the client address, so in a test database that persists between
+runs the test's `findOne` read the bounce test's row, whose count the spoofed
+reply never moves. It sums the count over all ReplyBleed rows, as
+`emailBounces.tests.js` already does.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4b83d2274">The keyboard card move test waits for the reset sorts to reach the client</a>. Thanks to xet7.</summary>
+
+The test reset three cards to sort 0 in the database and waited only for id
+order on the page, which the old sorts already gave one time in six, so the
+move was sometimes computed from stale values and failed one run in three. It
+waits for the client's own copy of the three cards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/856a32968b">The board drag settings test opens Card's Draggable table in its section hamburger</a>. Thanks to xet7.</summary>
+
+Since Board Settings / Card became the card's Card Settings, its Draggable
+table is in the Card section's hamburger, and the test failed in every
+language waiting for it in the popup. It opens Card as the cog menu does, as
+`board-settings-columns.e2e.js` already does.
 
 </details>
 
