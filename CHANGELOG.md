@@ -125,11 +125,35 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the **OpenBSD** bundle starts again, and **History** works on
-**FerretDB**: date custom field changes are recorded there, and the database
-migration says when documents did not arrive instead of reporting success.
+**In short:** **Invite via Email** adds the invited new user again, instead of
+the first user of the database. The **OpenBSD** bundle starts again, and
+**History** works on **FerretDB**: date custom field changes are recorded there,
+and the database migration says when documents did not arrive.
 
 This release fixes the following bugs:
+
+**Board members** - who an invitation adds to a board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8556459f97">Invite via Email adds the invited new user, not the first user of the database</a>. Thanks to momosari and xet7.</summary>
+
+Meteor 3's server `Accounts.createUser` is `createUserAsync`, and
+`inviteUserToBoard` called it without `await`. The new user's id was a Promise,
+which `findOneAsync` read as the empty selector `{}`, so it returned the FIRST
+user - usually the site administrator - who was added to the board and got the
+invitee's language and invited boards
+([#6831](https://github.com/wekan/wekan/issues/6831)). It happened on any
+database, not only FerretDB. `createUser` and `sendEnrollmentEmail` are awaited,
+the user found must be the one just created, and every server `ReactiveCache`
+getter now refuses a Promise as its id or selector, so a missing `await` fails
+loudly instead of picking the first document.
+`tests/inviteNewUserByEmail.test.cjs`
+pins the guard, the reporter's case and that no server file calls an async
+Accounts API without `await`; `invite-member-email-case.e2e.js` invites a new
+address and checks that exactly that account joined - it fails on the previous
+code.
+
+</details>
 
 **Bundles** - starting WeKan on the BSDs.
 
