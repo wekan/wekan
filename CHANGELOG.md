@@ -123,6 +123,47 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Sandstorm** build installs Sandstorm from
+**install.sandstorm.org**, as the Sandstorm workflows already did, and the
+docs link sandstorm.org. The Hall of Fame guards read every vulnerability name
+now that each one links to its own page.
+
+This release has the following developer-tooling fixes:
+
+**Releases** - where the Sandstorm build gets Sandstorm.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca2dc5fae5">The Sandstorm build installs Sandstorm from install.sandstorm.org</a>. Thanks to xet7.</summary>
+
+v12.69's Sandstorm build stopped because the certificate of
+install.sandstorm.io had expired. The Release All job fetches the installer
+from install.sandstorm.org, as the standalone Sandstorm workflows already did,
+and so does `releases/install-sandstorm.sh`. That installer downloads Sandstorm
+from dl.sandstorm.org and sets up a development server at local.sandstorm.org,
+so the docs and code comments link sandstorm.org too, each address checked;
+only the demo stays on sandstorm.io, which has no sandstorm.org name.
+`tests/sandstormOrgHosts.test.cjs` keeps it that way.
+
+</details>
+
+**Tests** - the guards that compare WeKan's security tests with the Hall of
+Fame.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43c4d41877">The Hall of Fame guards read a linked vulnerability name too</a>. Thanks to xet7.</summary>
+
+The two suites that compare WeKan's security tests with the Hall of Fame read
+only names without a link, so the four whose names already linked to their
+pages - ImportPlacementBleed, SamlSubjectBleed, StampBleed and UploadBleed -
+were never checked. On wekan.fi every name is now a link; the suites read it,
+and list those four as guarded by the tests that name them.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.70 2026-10-29 WeKan ® release
 
 **In short:** The **AppImages** and the **Launchpad** snaps build again: their
@@ -179,20 +220,6 @@ The file is uploaded, `tools-env.sh` makes `.tools/tmp` in such a tree, and
 `tests/releaseSnapLaunchpadFlatten.test.cjs` requires every `releases/` file a
 listed script uses to be listed. s390x had failed on Launchpad itself: even a
 new build answered "Could not find repository at path".
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca2dc5fae5">The Sandstorm build installs Sandstorm from install.sandstorm.org</a>. Thanks to xet7.</summary>
-
-v12.69's Sandstorm build stopped because the certificate of
-install.sandstorm.io had expired. The Release All job fetches the installer
-from install.sandstorm.org, as the standalone Sandstorm workflows already did,
-and so does `releases/install-sandstorm.sh`. That installer downloads Sandstorm
-from dl.sandstorm.org and sets up a development server at local.sandstorm.org,
-so the docs and code comments link sandstorm.org too, each address checked;
-only the demo stays on sandstorm.io, which has no sandstorm.org name.
-`tests/sandstormOrgHosts.test.cjs` keeps it that way.
 
 </details>
 
@@ -282,17 +309,6 @@ Since Board Settings / Card became the card's Card Settings, its Draggable
 table is in the Card section's hamburger, and the test failed in every
 language waiting for it in the popup. It opens Card as the cog menu does, as
 `board-settings-columns.e2e.js` already does.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/43c4d41877">The Hall of Fame guards read a linked vulnerability name too</a>. Thanks to xet7.</summary>
-
-The two suites that compare WeKan's security tests with the Hall of Fame read
-only names without a link, so the four whose names already linked to their
-pages - ImportPlacementBleed, SamlSubjectBleed, StampBleed and UploadBleed -
-were never checked. On wekan.fi every name is now a link; the suites read it,
-and list those four as guarded by the tests that name them.
 
 </details>
 
