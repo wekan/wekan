@@ -123,6 +123,28 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **OpenBSD** bundle starts again.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec6cf66bff">The OpenBSD bundle starts again, start-wekan.sh takes only a number from sysctl</a>. Thanks to xet7.</summary>
+
+OpenBSD's `sysctl` prints nothing and exits 0 for a name it does not have, so
+`sysctl -n hw.memsize || sysctl -n hw.physmem` stopped at the empty
+`hw.memsize`, and `$(( / 1048576 ))` ended `start-wekan.sh` before WeKan
+answered (the v12.68 BSD bundles job). Both `start-wekan.sh` copies now try
+`hw.memsize`, `hw.physmem64` (NetBSD, whose `hw.physmem` is 32-bit) and
+`hw.physmem` in turn and take the first numeric answer.
+`tests/macosShellPortability.test.cjs` runs those lines against fake OpenBSD,
+NetBSD and macOS `sysctl`s, and shows the old chain failing on the OpenBSD one.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.68 2026-10-29 WeKan ® release
 
 **In short:** **Card Settings**, in Board Settings / Card, becomes two panes of
