@@ -1,9 +1,18 @@
-The 5 newest WeKan releases, in short. Everything each release
-changed, the upcoming release and the project status are in
+The upcoming WeKan release and the 5 newest, in short. Everything
+each one changed and the project status are in
 [CHANGELOG-big.md](CHANGELOG-big.md), and older releases in [old-CHANGELOG](old-CHANGELOG/).
 
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
+
+# Upcoming WeKan ® release
+
+**CHANGELOG.md** is now short: the In short of the five newest
+releases, in plain Markdown. Everything else - the status, the upcoming release
+and every change of each release - is in **CHANGELOG-big.md**, which is the one
+that is written.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
 # v12.72 2026-10-30 WeKan ® release
 

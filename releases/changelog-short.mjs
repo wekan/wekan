@@ -4,12 +4,15 @@
 //
 // CHANGELOG-big.md is the changelog that is written: # Status, # Upcoming and
 // every release in full, with its <details> entries (CLAUDE.md, "CHANGELOG").
-// CHANGELOG.md is only read: the "In short" paragraph of each of the five
+// CHANGELOG.md is only read: the "In short" paragraph of the unreleased
+// # Upcoming WeKan ® release, when there is one, and then of each of the five
 // newest releases, in plain Markdown - no <details>, <summary> or HTML links -
 // so it reads the same on GitHub, in the Sandstorm App Market (which shows it,
-// sandstorm-pkgdef.capnp) and in a terminal. It is never edited by hand:
-// releases/release-all.sh runs this after naming the new release, and
-// tests/changelogShort.test.cjs fails when it is not what this writes.
+// sandstorm-pkgdef.capnp) and in a terminal. It is never edited by hand: run
+// this after every change to CHANGELOG-big.md's Upcoming section ("update
+// wekan changelog", CLAUDE.md), releases/release-all.sh runs it after naming
+// the new release, and tests/changelogShort.test.cjs fails when it is not what
+// this writes.
 //
 //   node releases/changelog-short.mjs            # write CHANGELOG.md
 //   node releases/changelog-short.mjs --check    # exit 1 if it is out of date
@@ -22,6 +25,7 @@ export const SHORT = 'CHANGELOG.md';
 export const RELEASES = 5;
 
 const RELEASE_HEADING = /^# (v\d+\.\d+(?:\.\d+)? \d{4}-\d{2}-\d{2} WeKan ® release)\s*$/;
+export const UPCOMING_HEADING = 'Upcoming WeKan ® release';
 
 // The anchor GitHub gives a heading, as releases/release-notes.sh builds it:
 // lower case, without anything but letters, digits, spaces and hyphens, and
@@ -61,6 +65,17 @@ export function releasesOf(big) {
   return releases.map(r => ({ ...r, body: r.body.join('\n') }));
 }
 
+// The unreleased section's body, or null when there is none (right after a
+// release, until somebody adds the first entry).
+export function upcomingOf(big) {
+  const lines = big.split('\n');
+  const start = lines.indexOf(`# ${UPCOMING_HEADING}`);
+  if (start < 0) return null;
+  let end = start + 1;
+  while (end < lines.length && !/^# /.test(lines[end])) end += 1;
+  return lines.slice(start + 1, end).join('\n');
+}
+
 // A release's "In short" paragraph, without its label; '' when it has none.
 export function inShortOf(body) {
   // To the first blank line. Not `$` with the m flag: that is the end of the
@@ -71,13 +86,20 @@ export function inShortOf(body) {
 
 export function shortChangelog(big) {
   const parts = [
-    `The ${RELEASES} newest WeKan releases, in short. Everything each release`,
-    `changed, the upcoming release and the project status are in`,
+    `The upcoming WeKan release and the ${RELEASES} newest, in short. Everything`,
+    `each one changed and the project status are in`,
     `[${BIG}](${BIG}), and older releases in [old-CHANGELOG](old-CHANGELOG/).`,
     '',
     `Written by \`node releases/changelog-short.mjs\` from ${BIG}:`,
     'make changes there.',
   ];
+  const upcoming = upcomingOf(big);
+  if (upcoming !== null) {
+    const summary = inShortOf(upcoming);
+    parts.push('', `# ${UPCOMING_HEADING}`, '');
+    if (summary) parts.push(summary, '');
+    parts.push(`[All changes so far](${BIG}#${anchorOf(UPCOMING_HEADING)})`);
+  }
   for (const release of releasesOf(big).slice(0, RELEASES)) {
     const summary = inShortOf(release.body);
     parts.push('', `# ${release.heading}`, '');
@@ -101,7 +123,7 @@ function main() {
     return;
   }
   if (have !== want) fs.writeFileSync(file, want);
-  console.log(`${SHORT}: the ${RELEASES} newest releases from ${BIG}, in short.`);
+  console.log(`${SHORT}: the upcoming release and the ${RELEASES} newest from ${BIG}, in short.`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();

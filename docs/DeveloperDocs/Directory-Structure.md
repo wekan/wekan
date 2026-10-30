@@ -22,7 +22,7 @@ for years this page described four directories out of twenty and did not say so.
 | [sandstorm-src/](../../sandstorm-src) | the Sandstorm package |
 | [openapi/](../../openapi) | the REST API description, generated from the routes |
 | [meta/](../../meta) | signatures, icons, screenshots, project description |
-| [old-CHANGELOG/](../../old-CHANGELOG) | the CHANGELOG's history, by year and by month, a busy month in parts (`CHANGELOG-big.md` holds the Status, the upcoming release and the newest releases that fit GitHub's 500 KiB Markdown limit; `CHANGELOG.md` only the In short of the five newest) |
+| [old-CHANGELOG/](../../old-CHANGELOG) | the CHANGELOG's history, by year and by month, a busy month in parts (`CHANGELOG-big.md` holds the Status, the upcoming release and the newest releases that fit GitHub's 500 KiB Markdown limit; `CHANGELOG.md` only the In short of the upcoming release and the five newest) |
 | `.tools/` | NOT part of this repository: the companion repos and toolchains a build needs, ignored by git and by Meteor |
 | `node_modules/`, `.meteor/`, `.build/`, `_build/` | generated; never edited, never committed |
 
@@ -275,8 +275,8 @@ Other files:
   * **[changelog-archive.mjs](../../releases/changelog-archive.mjs)** - moves
     finished months out of `CHANGELOG-big.md` into `old-CHANGELOG/`.
   * **[changelog-short.mjs](../../releases/changelog-short.mjs)** - writes
-    `CHANGELOG.md`, the In short of the five newest releases, from
-    `CHANGELOG-big.md`.
+    `CHANGELOG.md`, the In short of the upcoming release and the five newest,
+    from `CHANGELOG-big.md`.
 * **[tests/](../../tests)** - `*.test.cjs` suites run by
   **[run-node-suites.cjs](../../tests/run-node-suites.cjs)** (all of them, with
   every failure listed at the end), plus the Playwright browser tests and the
@@ -289,7 +289,7 @@ Other files:
 # Info
 
 * **[meta](../../meta)**: binary signatures, project description, icons, screenshots and, oui, a French change-log;
-* **[CHANGELOG.md](../../CHANGELOG.md)** - the five newest releases, in short, and
+* **[CHANGELOG.md](../../CHANGELOG.md)** - the upcoming release and the five newest, in short, and
   **[CHANGELOG-big.md](../../CHANGELOG-big.md)** - every change, the upcoming release and the status;
 * **[Contributing.md](../../CONTRIBUTING.md)**;
 * **[LICENSE](../../LICENSE)**;

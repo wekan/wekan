@@ -315,7 +315,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      tests/changelogFormat.test.cjs names it when lines run long, and it\n'
       + '      only changes whitespace. Run by hand, never from a build menu',
     'changelog-short.mjs': 'a GENERATOR, not a build step: it writes\n'
-      + '      CHANGELOG.md, the In short of the five newest releases, from\n'
+      + '      CHANGELOG.md, the In short of the upcoming release and the five\n'
+      + '      newest, from\n'
       + '      CHANGELOG-big.md. release-all.sh and changelog.sh run it, and\n'
       + '      tests/changelogShort.test.cjs fails when CHANGELOG.md is not what\n'
       + '      it writes, so there is nothing for a menu entry to add',

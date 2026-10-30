@@ -435,8 +435,9 @@ directly after the merge.
 
   | | `CHANGELOG.md` |
   | --- | --- |
-  | Status, Upcoming, TODO Later | none |
-  | Releases | the five newest `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` |
+  | Status, TODO Later | none |
+  | First | the unreleased `# Upcoming WeKan ® release`, when there is one: its **In short** paragraph only, then `[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)` |
+  | Below it | the five newest `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` |
   | Per release | its **In short** paragraph only, then `[All changes in v…](CHANGELOG-big.md#anchor)` |
   | Markup | plain Markdown: no `<details>`, `<summary>`, `</summary>` or `</details>`, and every HTML link a Markdown link |
 
@@ -449,6 +450,28 @@ directly after the merge.
   when it is not exactly what the generator writes. So: write
   `CHANGELOG-big.md`, run the generator, commit both - and never edit
   `CHANGELOG.md` to fix something, because the next run overwrites it.
+- **"Update wekan changelog" means both files, in this order:**
+  1. Find what is not in the changelog yet: `git log` since the newest commit
+     `CHANGELOG-big.md`'s Upcoming section (or, when it has none, the newest
+     release's `Prepare v… release` commit) already covers, by anybody - a
+     merged pull request and the maintainer's own commits alike.
+  2. Check whether a release was cut since the last update (`release-all.sh`
+     renames Upcoming to `# v<NEW> …` and opens no new one). If there is no
+     `# Upcoming WeKan ® release` heading, add it from
+     [docs/DeveloperDocs/Changelog-Upcoming-Template.md](docs/DeveloperDocs/Changelog-Upcoming-Template.md)
+     above the newest release - never add an entry to a released section.
+  3. Write the entries into that Upcoming section of `CHANGELOG-big.md`, in the
+     format described below (subsections, topic groups, `<details>` entries
+     linking each commit), and update its **In short** paragraph so it still
+     names the release's main outcomes.
+  4. Run `node releases/changelog-short.mjs`: `CHANGELOG.md` then shows that
+     Upcoming **In short** first and the five newest releases below it, with the
+     longer details only in `CHANGELOG-big.md`.
+  5. Run the changelog tests - `tests/changelogShort.test.cjs`,
+     `tests/changelogFormat.test.cjs`,
+     `tests/changelogEntriesBelongToTheirRelease.test.cjs` (or
+     `node tests/run-node-suites.cjs changelog`) - and commit
+     `CHANGELOG-big.md` and `CHANGELOG.md` together.
 - During development, add entries under a new `# Upcoming WeKan ® release` section above
   the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
   `# Upcoming <repo> release`). Do **not** hand-edit

@@ -1,7 +1,8 @@
 'use strict';
-// CHANGELOG.md is the short changelog: the In short paragraph of each of the
-// five newest releases, in plain Markdown, written from CHANGELOG-big.md by
-// releases/changelog-short.mjs. CHANGELOG-big.md is the one that is written.
+// CHANGELOG.md is the short changelog: the In short paragraph of the
+// unreleased Upcoming section, then of each of the five newest releases, in
+// plain Markdown, written from CHANGELOG-big.md by releases/changelog-short.mjs.
+// CHANGELOG-big.md is the one that is written.
 // Run: node tests/changelogShort.test.cjs
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -37,17 +38,35 @@ const test = (name, fn) => tests.push([name, fn]);
     }
   });
 
+  test('the unreleased Upcoming comes first, with its In short, and links its section', () => {
+    const upcoming = short.upcomingOf(big);
+    assert.ok(upcoming !== null, 'CHANGELOG-big.md has an Upcoming section now');
+    const first = small.match(/^# .+$/m)[0];
+    assert.equal(first, '# Upcoming WeKan ® release', 'Upcoming is the first section');
+    const summary = short.inShortOf(upcoming);
+    assert.ok(summary.length > 40 && small.includes(summary), 'its In short, whole');
+    assert.ok(small.indexOf(summary) < small.indexOf('\n# v'), 'above the releases');
+    assert.match(small, /\[All changes so far\]\(CHANGELOG-big\.md#upcoming-wekan--release\)/);
+    assert.ok([...big.matchAll(/^# (.+)$/gm)].some(m => short.anchorOf(m[1]) === 'upcoming-wekan--release'));
+    // Right after a release there is no Upcoming yet, and none is invented.
+    const released = big.replace(/^# Upcoming WeKan ® release$/m, '# v99.99 2099-01-01 WeKan ® release');
+    assert.doesNotMatch(short.shortChangelog(released), /^# Upcoming/m);
+    assert.match(short.shortChangelog(released), /^# v99\.99 2099-01-01 WeKan ® release$/m, 'it becomes the newest release');
+  });
+
   test('each release links its full section in CHANGELOG-big.md, and the anchor exists', () => {
     const bigAnchors = new Set([...big.matchAll(/^# (.+)$/gm)].map(m => short.anchorOf(m[1])));
     const links = [...small.matchAll(/\[All changes in (v\S+)\]\(CHANGELOG-big\.md#([^)]+)\)/g)];
+    assert.equal(short.anchorOf('Upcoming WeKan ® release'), 'upcoming-wekan--release');
     assert.equal(links.length, 5);
     for (const [, version, anchor] of links) assert.ok(bigAnchors.has(anchor), `${version}: #${anchor}`);
     // The anchor GitHub gives, as releases/release-notes.sh builds it.
     assert.equal(short.anchorOf('v12.72 2026-10-30 WeKan ® release'), 'v1272-2026-10-30-wekan--release');
   });
 
-  test('negative: no Status, Upcoming or TODO Later, no details or summary tags, no HTML links', () => {
-    assert.doesNotMatch(small, /^# (?:Status|Upcoming|TODO Later)\b/m);
+  test('negative: no Status or TODO Later, no details or summary tags, no HTML links', () => {
+    assert.doesNotMatch(small, /^# (?:Status|TODO Later)\b/m);
+    assert.equal((small.match(/^# Upcoming/gm) || []).length, 1, 'one Upcoming, never two');
     assert.doesNotMatch(small, /More status info|Newest WeKan at these platforms|Carried to a future release/);
     for (const tag of ['<details>', '</details>', '<summary>', '</summary>']) assert.ok(!small.includes(tag), tag);
     assert.doesNotMatch(small, /<a\s|<\/a>|<details|<summary/i);
