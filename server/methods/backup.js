@@ -90,7 +90,11 @@ async function streamArchiveToCloud(archive, provider, key) {
       credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
     });
     // @aws-sdk/lib-storage streams the archive body as a multipart upload.
-    const up = new Upload({ client, params: { Bucket: cfg.bucket, Key: key, Body: archive, ContentType: 'application/zip' } });
+    // The backup holds the whole database: encrypted at rest like attachments.
+    const { s3EncryptionOptions } = require('/models/lib/s3Encryption');
+    const up = new Upload({ client, params: {
+      Bucket: cfg.bucket, Key: key, Body: archive, ContentType: 'application/zip', ...s3EncryptionOptions(cfg),
+    } });
     return { dest: `s3://${cfg.bucket}/${key}`, promise: up.done() };
   }
   if (provider === 'azure') {

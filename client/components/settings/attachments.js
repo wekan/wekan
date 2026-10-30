@@ -32,6 +32,8 @@ const CLOUD_FIELD_IDS = {
     accessKeyId: '#s3-access-key',
     secretAccessKey: '#s3-secret-key',
     forcePathStyle: '#s3-force-path-style',
+    serverSideEncryption: '#s3-sse',
+    sseKmsKeyId: '#s3-sse-kms-key-id',
   },
   azure: {
     enabled: '#azure-enabled',
@@ -858,6 +860,11 @@ Template.attachments.helpers({
     CLOUD_PROVIDERS.forEach(p => { out[p] = cloudConfigFromSettings(tpl, p).read !== false; });
     return out;
   },
+  // The S3 server-side encryption option that is stored (models/lib/s3Encryption.js).
+  s3SseSelected(mode) {
+    const stored = cloudConfigFromSettings(Template.instance(), 's3').serverSideEncryption || '';
+    return stored === mode ? 'selected' : null;
+  },
   cloudValue() {
     const tpl = Template.instance();
     const s3 = cloudConfigFromSettings(tpl, 's3');
@@ -872,6 +879,8 @@ Template.attachments.helpers({
         bucket: s3.bucket || '',
         accessKeyId: s3.accessKeyId || '',
         forcePathStyle: s3.forcePathStyle !== false,
+        serverSideEncryption: s3.serverSideEncryption || '',
+        sseKmsKeyId: s3.sseKmsKeyId || '',
       },
       azure: {
         accountName: azure.accountName || '',

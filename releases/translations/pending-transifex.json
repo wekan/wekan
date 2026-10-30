@@ -3187,6 +3187,22 @@
     {
       "key": "admin-audit-log-empty",
       "since": "2026-10-30"
+    },
+    {
+      "key": "s3-sse",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "s3-sse-none",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "s3-sse-description",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "s3-sse-kms-key-id",
+      "since": "2026-10-30"
     }
   ]
 }

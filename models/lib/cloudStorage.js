@@ -259,6 +259,8 @@ function buildAdapter(provider, cfg) {
     bucketName: cfg.bucket,
     read: cfg.read !== false,
     write: cfg.write !== false,
+    // S3 server-side encryption for every object written (models/lib/s3Encryption.js).
+    uploadOptions: provider === STORAGE_NAME_S3 ? require('./s3Encryption').s3EncryptionOptions(cfg) : {},
   };
 }
 

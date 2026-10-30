@@ -704,9 +704,13 @@ function cloudSpoolDir() {
 }
 
 // S3 needs the body length up front to stream a body; the other providers
-// stream a file without it.
-function cloudUploadOptions(provider, size) {
-  return provider === STORAGE_NAME_S3 ? { ContentLength: size } : {};
+// stream a file without it. S3 also gets the server-side encryption the
+// administrator chose (models/lib/s3Encryption.js), on every write.
+function cloudUploadOptions(provider, size, adapter) {
+  if (provider !== STORAGE_NAME_S3) return {};
+  const options = { ...((adapter && adapter.uploadOptions) || {}) };
+  if (size !== undefined) options.ContentLength = size;
+  return options;
 }
 
 export class FileStoreStrategyCloud extends FileStoreStrategy {
@@ -840,7 +844,7 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
             origPath: spoolPath,
             bucketName: adapter.bucketName,
             targetPath: this._key,
-            options: cloudUploadOptions(this.provider, stat.size),
+            options: cloudUploadOptions(this.provider, stat.size, adapter),
           }))
           .then(result => {
             if (result && result.error) {
@@ -953,6 +957,8 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
           stream: result.value,
           bucketName: adapter.bucketName,
           targetPath: newKey,
+          // A renamed object is a new object: it is encrypted like the old one.
+          options: cloudUploadOptions(this.provider, undefined, adapter),
         });
       })
       .then(() => adapter.storage.removeFile(adapter.bucketName, oldKey))

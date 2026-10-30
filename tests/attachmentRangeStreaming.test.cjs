@@ -83,11 +83,15 @@ test('a cloud upload is spooled to disk and streamed, never one Buffer', () => {
   const body = src.slice(at, src.indexOf('waitUntilStored() {', at));
   assert.match(body, /fs\.createWriteStream\(spoolPath\)/);
   assert.match(body, /adapter\.storage\.addFileFromPath\(\{\s*origPath: spoolPath,/);
-  assert.match(body, /options: cloudUploadOptions\(this\.provider, stat\.size\)/);
+  // The adapter argument carries the S3 server-side encryption the
+  // administrator chose (tests/s3Encryption.test.cjs); the size is still passed.
+  assert.match(body, /options: cloudUploadOptions\(this\.provider, stat\.size, adapter\)/);
   assert.match(body, /\.then\(removeSpool\)/);
   // negative: no whole-file buffer remains
   assert.doesNotMatch(body, /Buffer\.concat|addFileFromBuffer|chunks\.push/);
-  assert.match(src, /return provider === STORAGE_NAME_S3 \? \{ ContentLength: size \} : \{\};/);
+  // S3 only gets the length (and its encryption); the other providers nothing.
+  assert.match(src, /if \(provider !== STORAGE_NAME_S3\) return \{\};/);
+  assert.match(src, /if \(size !== undefined\) options\.ContentLength = size;/);
 });
 
 console.log('3-5. copies, migration, export');

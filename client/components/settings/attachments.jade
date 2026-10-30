@@ -281,6 +281,17 @@ template(name="attachments")
                       .materialCheckBox#s3-force-path-style(class="{{#if cloudValue.s3.forcePathStyle}}is-checked{{/if}}")
                       span {{_ 's3-force-path-style'}}
                   small.form-text.text-muted {{_ 's3-force-path-style-description'}}
+                //- Encryption at rest (models/lib/s3Encryption.js).
+                .form-group
+                  label(for="s3-sse") {{_ 's3-sse'}}
+                  select.wekan-form-control#s3-sse
+                    option(value="" selected="{{s3SseSelected ''}}") {{_ 's3-sse-none'}}
+                    option(value="AES256" selected="{{s3SseSelected 'AES256'}}") SSE-S3 (AES256)
+                    option(value="aws:kms" selected="{{s3SseSelected 'aws:kms'}}") SSE-KMS (aws:kms)
+                  small.form-text.text-muted {{_ 's3-sse-description'}}
+                .form-group
+                  label(for="s3-sse-kms-key-id") {{_ 's3-sse-kms-key-id'}}
+                  input.wekan-form-control#s3-sse-kms-key-id(type="text" value="{{cloudValue.s3.sseKmsKeyId}}" placeholder="arn:aws:kms:eu-north-1:111122223333:key/…")
 
                 .form-group
                   button.js-test-cloud-connection.btn.btn-secondary(data-provider="s3") {{_ 'test-cloud-connection'}}
