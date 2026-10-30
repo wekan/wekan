@@ -58,6 +58,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/people/organizations` | Organizations | `org-setting` |
 | `/admin/people/teams` | Teams | `team-setting` |
 | `/admin/people/locked-users` | Locked Users | `locked-users-setting` |
+| `/admin/people/audit-log` | Audit log | `audit-log-setting` |
 | `/admin/people/roles` | Roles | `roles-setting` |
 | `/admin/people/shared-templates` | Shared templates | `templates-setting` |
 | `/admin/people/login` | Login | `registration-setting` |
