@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.72 2026-10-30 WeKan ® release
 
 **In short:** A card link can no longer launch an operating-system handler with
 a code-execution history, such as **ms-msdt** (Follina) or **telnet**, even if
