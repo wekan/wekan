@@ -20,6 +20,8 @@ function fixture(fn) {
     const source = fs.readFileSync(path.join(root, 'releases/release-all.sh'), 'utf8');
     fs.writeFileSync(path.join(dir, 'releases/preflight.sh'), source.split('DATE="$(date +%F)"')[0] + '\nprintf "%s %s\\n" "$OLD" "$NEW"\n');
     fs.writeFileSync(path.join(dir, 'releases/ensure-tools.sh'), 'ensure_tools() { :; }\n');
+    // The release pulls first (build.sh git-pull); here that is all it may do.
+    fs.writeFileSync(path.join(dir, 'build.sh'), '#!/bin/sh\n[ "$1" = git-pull ] || exit 99\n', { mode: 0o755 });
     fs.writeFileSync(path.join(dir, 'releases/fix-changelog-hashes.sh'), 'exit 0\n');
     // Dependency checks are covered by releaseTelemetry/remoteRelease; this fixture
     // isolates version selection and refuses all other git/gh operations.

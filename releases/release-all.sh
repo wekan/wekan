@@ -86,6 +86,16 @@ esac
 ensure_tools git gh
 gh auth status
 
+# ── Release on top of what GitHub has ─────────────────────────────────────────
+# Somebody else - a merged pull request, the release bot's version bump - may
+# have pushed since the last pull. v12.73 was prepared on a stale main: its
+# push was refused, and the script stopped before dispatching the workflow, so
+# no release ran at all. Pull first, the same way build.sh's "git pull" does
+# (fetch, fast-forward or merge, repoint moved CHANGELOG links), so the version,
+# the rename and the push all start from origin/main.
+"$REPO_DIR/build.sh" git-pull || { echo "Error: git pull did not finish; nothing was released." >&2; exit 1; }
+bash "$REPO_DIR/releases/check-upcoming-release.sh" "$REPO_DIR/CHANGELOG-big.md"
+
 # ── Version helpers ─────────────────────────────────────────────────────────
 # WeKan versions are NN.MM with a 2-digit minor. Encode NN.MM as the integer
 # NN*100+MM so the release-to-release step (always +1) can be applied with
@@ -151,12 +161,16 @@ if [ -n "$(git status --porcelain)" ]; then
   git commit -m "Prepare v$NEW release"
 fi
 
-LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git rev-parse @{upstream} 2>/dev/null || echo "")
-if [ "$LOCAL" != "$REMOTE" ]; then
-  echo "--- Pushing to remote ---"
-  git push origin HEAD:refs/heads/main
-fi
+# build.sh's "git push": checks the CHANGELOG links, pushes, and when origin
+# moved meanwhile pulls once and pushes again - instead of stopping here with
+# the release commit made and no workflow dispatched.
+echo "--- Pushing to remote ---"
+"$REPO_DIR/build.sh" git-push || {
+  echo "Error: the push did not finish, so the release workflow was NOT dispatched." >&2
+  echo "       Fix what build.sh said, then run ./build.sh git-push and dispatch it:" >&2
+  echo "       gh workflow run release-all.yml --repo wekan/wekan --ref main -f old_version=$OLD -f new_version=$NEW" >&2
+  exit 1
+}
 echo ""
 
 # ── Step 2: Trigger the GitHub Actions release workflow ─────────────────────

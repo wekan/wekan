@@ -23,8 +23,8 @@ test('both releases and every repack path enforce the gates', () => {
   const launcher = read('releases/release-all.sh');
   const preflight = launcher.indexOf('python3 "$REPO_DIR/releases/check-telemetry.py" --source "$REPO_DIR"');
   assert.ok(preflight > 0);
-  for (const later of ['ensure_tools git gh', 'bash "$(dirname "$0")/fix-changelog-hashes.sh"',
-    'git add --all', '\n  git push', 'gh workflow run']) {
+  for (const later of ['ensure_tools git gh', '"$REPO_DIR/build.sh" git-pull', 'bash "$(dirname "$0")/fix-changelog-hashes.sh"',
+    'git add --all', '"$REPO_DIR/build.sh" git-push', 'gh workflow run']) {
     assert.ok(launcher.indexOf(later) > preflight, `${later} must follow the source audit`);
   }
   for (const file of ['release-all.yml', 'release-all-missing.yml']) {

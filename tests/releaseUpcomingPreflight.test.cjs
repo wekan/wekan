@@ -72,9 +72,19 @@ test('release notes are checked before tools, hash repairs, version overrides or
   const source = fs.readFileSync(path.join(root, 'releases/release-all.sh'), 'utf8');
   const guard = source.indexOf('bash "$REPO_DIR/releases/check-upcoming-release.sh"');
   assert.ok(guard > 0);
-  for (const later of ['ensure_tools git gh', 'bash "$(dirname "$0")/fix-changelog-hashes.sh"',
-    'if [ -n "${1:-}" ]', 'git add --all', '\n  git push', 'gh workflow run']) {
+  for (const later of ['ensure_tools git gh', '"$REPO_DIR/build.sh" git-pull', 'bash "$(dirname "$0")/fix-changelog-hashes.sh"',
+    'if [ -n "${1:-}" ]', 'git add --all', '"$REPO_DIR/build.sh" git-push', 'gh workflow run']) {
     assert.ok(source.indexOf(later) > guard, `${later} must follow successful preflight`);
   }
+  // v12.73: origin had moved, the bare push was refused and the workflow was
+  // never dispatched. The release pulls first, before the version is chosen,
+  // and pushes with build.sh's push, which pulls and retries once when refused.
+  const pull = source.indexOf('"$REPO_DIR/build.sh" git-pull');
+  assert.ok(pull < source.indexOf('LATEST="$(bash "$REPO_DIR/releases/latest-release-version.sh")"'), 'pull before choosing the version');
+  assert.ok(pull < source.indexOf('sed "s|^# Upcoming WeKan'), 'pull before renaming Upcoming');
+  assert.ok(source.indexOf('"$REPO_DIR/build.sh" git-push') < source.indexOf('gh workflow run'), 'pushed before dispatching');
+  assert.doesNotMatch(source.replace(/^\s*#.*$/gm, '').replace(/echo "[^"\n]*"/g, ''), /^\s*git push\b/m, 'no bare git push left');
+  assert.match(fs.readFileSync(path.join(root, 'build.sh'), 'utf8'), /"Git and repo\|git pull[^"]*\|!git_pull\|\|\|git-pull"/);
+  assert.match(fs.readFileSync(path.join(root, 'build.sh'), 'utf8'), /"Git and repo\|git push[^"]*\|!git_push\|\|\|git-push"/);
   assert.doesNotMatch(source, /NEW="\$\{RELEASED\[0\]/);
 });
