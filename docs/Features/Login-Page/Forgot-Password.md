@@ -2,8 +2,9 @@
 
 **a) Wekan Snap**
 ```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
-export PATH="$PATH:/snap/wekan/current/bin"
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
+export PATH="$PATH:$S/wekan/current/bin"
 mongo --port 27019
 ```
 If you have disabled new user registration at Admin Panel, you can enable it, and create new user your https://wekan.example.com/sign-up :
@@ -34,8 +35,9 @@ Then login to Wekan and change any users passwords at `Admin Panel / People / Pe
 
 **b) Wekan Gantt GPL Snap**
 ```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan-gantt-gpl/current/lib/x86_64-linux-gnu
-export PATH="$PATH:/snap/wekan-gantt-gpl/current/bin"
+S=/snap; [ -d /snap/wekan-gantt-gpl ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan-gantt-gpl/current/lib/$(uname -m)-linux-gnu"
+export PATH="$PATH:$S/wekan-gantt-gpl/current/bin"
 mongo --port 27019
 ```
 If you have disabled new user registration at Admin Panel, you can enable it, and create new user your https://wekan.example.com/sign-up :

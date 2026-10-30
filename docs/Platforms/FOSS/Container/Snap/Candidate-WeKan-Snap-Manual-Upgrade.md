@@ -131,9 +131,10 @@ sudo snap stop wekan.wekan
 ```
 #### 10. Use WeKan Stable Snap mongodump version for dumping database
 ```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
 
-export PATH="$PATH:/snap/wekan/current/bin"
+export PATH="$PATH:$S/wekan/current/bin"
 
 mongodump --port 27019
 ```

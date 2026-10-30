@@ -51,7 +51,8 @@ export PATH="/snap/wekan/current/migratemongo/bin:$PATH"
 export LD_LIBRARY_PATH="/snap/wekan/current/migratemongo/lib:$LD_LIBRARY_PATH"
 
 # MongoDB 7.x (default)
-export PATH="/snap/wekan/current/bin:$PATH"
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export PATH="$S/wekan/current/bin:$PATH"
 export LD_LIBRARY_PATH="/snap/wekan/current/usr/lib:$LD_LIBRARY_PATH"
 ```
 

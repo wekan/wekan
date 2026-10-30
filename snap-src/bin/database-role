@@ -28,7 +28,12 @@
 set -u
 
 SNAP_COMMON="${SNAP_COMMON:-/var/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/common}"
-SNAP="${SNAP:-/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/current}"
+# Run from a host shell, not by snapd: the snap is in /snap on Ubuntu and Debian,
+# in /var/lib/snapd/snap on Fedora, RHEL, AlmaLinux, Rocky Linux and Arch.
+if [ -z "${SNAP:-}" ]; then
+  SNAP="/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/current"
+  [ -d "$SNAP" ] || SNAP="/var/lib/snapd/snap/${SNAP_INSTANCE_NAME:-${SNAP_NAME:-wekan}}/current"
+fi
 MARKER="$SNAP_COMMON/.migration-to-ferretdb-done"
 SQLITE_DIR="$SNAP_COMMON/files/db"
 

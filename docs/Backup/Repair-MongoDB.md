@@ -5,9 +5,10 @@ sudo su
 
 snap stop wekan
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
 
-export PATH="/snap/wekan/current/bin:$PATH"
+export PATH="$S/wekan/current/bin:$PATH"
 
 mongod --dbpath "/var/snap/wekan/common" --repair >> /root/repairlog.txt
 

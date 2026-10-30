@@ -329,15 +329,20 @@ docker compose up -d
 # Backup Wekan Snap to directory dump
 ```bash
 sudo snap stop wekan.wekan
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
-export PATH="/snap/wekan/current/bin:$PATH"
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
+export PATH="$S/wekan/current/bin:$PATH"
 mongodump --port 27019
 sudo snap get wekan > snap-settings.sh
 ```
-NOTE for Arch Linux: Use this path instead. [Source](https://github.com/wekan/wekan/issues/3941).
-```bash
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/var/lib/snapd/snap/wekan/current/lib/x86_64-linux-gnu
-```
+The `S=` line picks where snapd keeps the snaps on this host. Ubuntu and Debian
+have `/snap`; Fedora, RHEL, AlmaLinux, Rocky Linux, CentOS Stream and Arch Linux
+keep them in `/var/lib/snapd/snap` and have no `/snap` unless somebody has made
+the symlink (`sudo ln -s /var/lib/snapd/snap /snap`). The data is in
+`/var/snap/wekan/common` on all of them. `$(uname -m)` picks the library
+directory of the CPU: `x86_64-linux-gnu` on amd64, `aarch64-linux-gnu` on arm64.
+[Arch Linux report](https://github.com/wekan/wekan/issues/3941).
+
 username is your /home/username
 ```bash
 sudo chown username:username snap-settings.sh
@@ -355,8 +360,9 @@ chmod +x snap-settings.sh
 # Restore Wekan Snap
 ```bash
 sudo snap stop wekan.wekan
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
-export PATH="$PATH:/snap/wekan/current/bin"
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
+export PATH="$PATH:$S/wekan/current/bin"
 mongorestore --drop --port 27019
 sudo snap start wekan.wekan
 ./snap-settings.sh
@@ -454,8 +460,9 @@ sudo snap refresh
 # Backup Wekan Gantt GPLv2 Snap to directory dump
 ```bash
 sudo snap stop wekan-gantt-gpl.wekan
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan-gantt-gpl/current/lib/x86_64-linux-gnu
-export PATH="$PATH:/snap/wekan-gantt-gpl/current/bin"
+S=/snap; [ -d /snap/wekan-gantt-gpl ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan-gantt-gpl/current/lib/$(uname -m)-linux-gnu"
+export PATH="$PATH:$S/wekan-gantt-gpl/current/bin"
 mongodump --port 27019
 sudo snap get wekan-gantt-gpl > snap-settings.sh
 ```
@@ -476,8 +483,9 @@ chmod +x snap-settings.sh
 # Restore Wekan Gantt GPLv2 Snap
 ```bash
 sudo snap stop wekan-gantt-gpl.wekan
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan-gantt-gpl/current/lib/x86_64-linux-gnu
-export PATH="$PATH:/snap/wekan-gantt-gpl/current/bin"
+S=/snap; [ -d /snap/wekan-gantt-gpl ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan-gantt-gpl/current/lib/$(uname -m)-linux-gnu"
+export PATH="$PATH:$S/wekan-gantt-gpl/current/bin"
 mongorestore --drop --port 27019
 sudo snap start wekan-gantt-gpl.wekan
 ./snap-settings.sh
@@ -820,8 +828,9 @@ You could use [daff](https://github.com/paulfitz/daff) to compare tables.
 
 Add to your `~/.bashrc`
 ```bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
-export PATH="$PATH:/snap/wekan/current/bin"
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
+export PATH="$PATH:$S/wekan/current/bin"
 ```
 Then you can backup:
 ```bash
@@ -838,7 +847,8 @@ mongoshell.sh
 ```bash
 #/bin/bash
 export LC_ALL=C
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
 version=$(snap list | grep wekan | awk -F ' ' '{print $3}')
 mongo=$"/snap/wekan/$version/bin/mongo"
 $mongo --port 27019
@@ -856,7 +866,8 @@ wekan-backup.sh
 ```bash
 #!/bin/bash
 export LC_ALL=C
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
 
 version=$(snap list | grep wekan | awk -F ' ' '{print $3}')
 now=$(date +"%Y%m%d-%H%M%S")
@@ -907,7 +918,8 @@ wekan-restore.sh
 ```bash
 #!/bin/bash
 export LC_ALL=C
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+S=/snap; [ -d /snap/wekan ] || S=/var/lib/snapd/snap
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}:$S/wekan/current/lib/$(uname -m)-linux-gnu"
 
 makesRestore()
 {
