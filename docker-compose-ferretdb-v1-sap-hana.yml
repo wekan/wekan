@@ -89,6 +89,8 @@ services:
     environment:
       DO_NOT_TRACK: "1"
       FERRETDB_TELEMETRY: disable
+      # CVE-2026-98432: no MPTCP listener (Go's default since 1.24).
+      GODEBUG: multipathtcp=0
       # Pin a specific release instead of the newest by setting e.g.
       #   FERRETDB_RELEASE=download/v1.24.2
       FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}

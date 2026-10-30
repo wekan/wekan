@@ -19,6 +19,16 @@
 # ─────────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
+# CVE-2026-98432 (Linux kernel, IPv4 TCP use-after-free; remote code execution
+# shown through an MPTCP listener, golang-announce 2026-10): Go enables MPTCP on
+# every Linux listen socket by default since Go 1.24, and FerretDB is a Go
+# server. Turn it off unless the operator chose a multipathtcp setting. The fix
+# is a patched kernel; this only takes WeKan's own listeners out of the way.
+case ",${GODEBUG:-}," in
+  *,multipathtcp=*) ;;
+  *) GODEBUG="${GODEBUG:+$GODEBUG,}multipathtcp=0"; export GODEBUG ;;
+esac
+
 # ── DDP transport ────────────────────────────────────────────────────────────
 # WeKan ships NO uWebSockets.js on any platform: ddp-server requires that module
 # only inside the uws transport's setup(), which a sockjs server never calls,

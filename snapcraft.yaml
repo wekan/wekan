@@ -47,6 +47,10 @@ website: https://wekan.fi
 
 environment:
   SNAP_DATA: "/var/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
+  # CVE-2026-98432: Go servers (Caddy, FerretDB) open MPTCP listeners by
+  # default since Go 1.24; the kernel bug is reachable through them. Off for
+  # every app of this snap. The real fix is a patched host kernel.
+  GODEBUG: "multipathtcp=0"
   SNAP_COMMON: "/var/snap/$SNAP_INSTANCE_NAME/common"
   SNAP: "/snap/$SNAP_INSTANCE_NAME/$SNAP_REVISION"
 

@@ -224,8 +224,9 @@ function startFerret(port, opts = {}) {
   if (opts.oplog && FERRET_OPLOG) args.push(`--repl-set-name=${REPL_SET_NAME}`);
   return spawn(...cpuExec(FERRETDB, args),
     { stdio: 'inherit',
+      // CVE-2026-98432: no MPTCP listener, Go's default since 1.24.
       env: { ...process.env, DO_NOT_TRACK: '1', FERRETDB_TELEMETRY: 'disable',
-             FERRETDB_STATE_DIR: STATE_DIR } });
+             FERRETDB_STATE_DIR: STATE_DIR, GODEBUG: 'multipathtcp=0' } });
 }
 
 // Wait until a mongod (3.x) answers a ping via the legacy mongo shell.

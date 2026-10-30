@@ -152,6 +152,8 @@ services:
   #  environment:
   #    # FerretDB stores everything in PostgreSQL
   #    - FERRETDB_POSTGRESQL_URL=postgresql://wekan:wekan@wekan-postgres:5432/wekan
+  #    # CVE-2026-98432: no MPTCP listener (Go's default since 1.24)
+  #    - GODEBUG=multipathtcp=0
   #    # Emulate MongoDB replica-set for Meteor OpLog (real-time updates)
   #    - FERRETDB_REPLICATION_SET_NAME=rs0
   #    # Suppress verbose debug output

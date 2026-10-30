@@ -43,6 +43,8 @@ services:
     restart: always
     environment:
       FERRETDB_POSTGRESQL_URL: postgres://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@postgres-documentdb/postgres
+      # CVE-2026-98432: no MPTCP listener (Go's default since 1.24).
+      GODEBUG: multipathtcp=0
     depends_on:
       - postgres-documentdb
     networks:
