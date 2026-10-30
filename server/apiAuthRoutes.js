@@ -231,6 +231,13 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       }
     }
 
+    // REQUIRE_2FA: an account that must have two-factor authentication gets
+    // no API token until it has set it up in the browser. The password was
+    // right, so saying why is no enumeration signal.
+    if (require('/server/lib/activeUser').missingRequiredTwoFactor(user)) {
+      Accounts._handleError('Two-factor authentication must be set up first', true, 'two-factor-required');
+    }
+
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
 
@@ -374,6 +381,10 @@ WebApp.handlers.post('/users/register', async function (req, res) {
     const userOptions = { password: options.password };
     if (options.username) userOptions.username = options.username;
     if (options.email) userOptions.email = options.email;
+
+    // PASSWORD_MIN_LENGTH / PASSWORD_CHECK_PWNED: the only sign-up whose
+    // password reaches the server as text (models/lib/passwordPolicy.js).
+    await require('/server/lib/passwordPolicy').assertNewPassword(options.password, options);
 
     const userId = await Accounts.createUserAsync(userOptions);
 

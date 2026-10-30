@@ -3139,6 +3139,26 @@
     {
       "key": "cardSettingsItemPopup-title",
       "since": "2026-10-28"
+    },
+    {
+      "key": "password-pwned",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "password-too-short",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "password-same-as-username",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "two-factor-required-title",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "two-factor-required-text",
+      "since": "2026-10-30"
     }
   ]
 }

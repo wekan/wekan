@@ -11,6 +11,7 @@ import { Email } from 'meteor/email';
 import { check, Match } from 'meteor/check';
 import { safeSelector } from '/server/lib/selectorGuard';
 import { authEnv } from '/server/lib/authConfig';
+import { assertNewPassword } from '/server/lib/passwordPolicy';
 import { EJSON } from 'meteor/ejson';
 import { Random } from 'meteor/random';
 import { CollectionHooks } from 'meteor/matb33:collection-hooks';
@@ -1511,6 +1512,8 @@ Meteor.methods({
       if (!['true', 'false'].includes(isAdmin) || !['true', 'false'].includes(isActive)) {
         throw new Meteor.Error('invalid-parameters');
       }
+      // PASSWORD_MIN_LENGTH / PASSWORD_CHECK_PWNED (models/lib/passwordPolicy.js).
+      await assertNewPassword(password, { username, email });
       // The form's Active select uses true for No (loginDisabled).
       const id = await adminCreation.withValue({
         isAdmin: isAdmin === 'true', loginDisabled: isActive === 'true',
@@ -1602,6 +1605,12 @@ Meteor.methods({
     if (!currentUser?.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
+
+    // PASSWORD_MIN_LENGTH / PASSWORD_CHECK_PWNED (models/lib/passwordPolicy.js).
+    const target = await Users.findOneAsync(userId, { fields: { username: 1, emails: 1 } });
+    await assertNewPassword(newPassword, {
+      username: target?.username, email: target?.emails?.[0]?.address,
+    });
 
     if (typeof Accounts.setPasswordAsync === 'function') {
       await Accounts.setPasswordAsync(userId, newPassword);

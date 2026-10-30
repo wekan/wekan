@@ -16,7 +16,12 @@ const context = vm.createContext({
     } }),
   }, Error: class extends Error {} },
   Accounts: { _hashLoginToken: token => `hash:${token}` },
-  require: () => ({ record: event => { if (loggerFails) throw Error('log unavailable'); events.push(event); } }),
+  require: p => {
+    // REQUIRE_2FA off: the two-factor check never refuses (tests/requireTwoFactor.test.cjs covers it on).
+    if (p === '/models/lib/twoFactorRequirement') return require('../models/lib/twoFactorRequirement');
+    if (p === '/server/lib/authConfig') return { authEnv: () => undefined };
+    return { record: event => { if (loggerFails) throw Error('log unavailable'); events.push(event); } };
+  },
 });
 vm.runInContext(read('server/lib/activeUser.js').replace(/^import .*;\n/gm, '').replace(/export /g, ''), context);
 (async () => {
@@ -66,10 +71,10 @@ vm.runInContext(read('server/lib/activeUser.js').replace(/^import .*;\n/gm, '').
   // Exercise the real attachment helper, including accounts-express's prefilled
   // identity and the legacy user-id/token pair, against the shared guard.
   context.findOrCreateHeaderLoginUser = async () => null;
-  context.require = () => ({
-    record: () => {}, activeUserById: context.activeUserById,
-    activeUserByToken: context.activeUserByToken,
-  });
+  const firstRequire = context.require;
+  context.require = p => (p === '/models/lib/twoFactorRequirement' || p === '/server/lib/authConfig'
+    ? firstRequire(p)
+    : { record: () => {}, activeUserById: context.activeUserById, activeUserByToken: context.activeUserByToken });
   const attachmentSource = read('server/routes/attachmentApi.js');
   vm.runInContext(attachmentSource.slice(attachmentSource.indexOf('async function authenticateApiRequest('),
     attachmentSource.indexOf('// Helper function to send JSON response')), context);

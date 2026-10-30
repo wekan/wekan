@@ -1,0 +1,23 @@
+/* REQUIRE_2FA: the set-up over everything, until it is done. */
+.two-factor-required {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.6);
+}
+.two-factor-required-box {
+  max-width: 32rem;
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 6px;
+  background: #fff;
+  color: #222;
+}
+.two-factor-required-box h2 {
+  margin-top: 0;
+}

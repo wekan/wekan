@@ -15,10 +15,19 @@ export function allowActiveUser(user, source, req) {
   return false;
 }
 
+// REQUIRE_2FA (models/lib/twoFactorRequirement.js): an account that has not
+// set up the two-factor authentication it must have is not signed in over
+// HTTP - files, exports, imports, the REST API. Not recorded in Admin Panel /
+// Problems: an account between signing in and enrolling is ordinary use.
+export function missingRequiredTwoFactor(user) {
+  const { requireTwoFactorMode, missingTwoFactor } = require('/models/lib/twoFactorRequirement');
+  const { authEnv } = require('/server/lib/authConfig');
+  return missingTwoFactor(user, requireTwoFactorMode(authEnv));
+}
 export async function activeUserById(id, source, req) {
   if (typeof id !== 'string' || !id) return null;
   const user = await Meteor.users.findOneAsync(id);
-  return allowActiveUser(user, source, req) ? user : null;
+  return allowActiveUser(user, source, req) && !missingRequiredTwoFactor(user) ? user : null;
 }
 
 export async function activeUserByToken(token, source, req) {
@@ -26,7 +35,7 @@ export async function activeUserByToken(token, source, req) {
   const user = await Meteor.users.findOneAsync({
     'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(token),
   });
-  return allowActiveUser(user, source, req) ? user : null;
+  return allowActiveUser(user, source, req) && !missingRequiredTwoFactor(user) ? user : null;
 }
 
 // Test the status in the same database operation that mints the token: a

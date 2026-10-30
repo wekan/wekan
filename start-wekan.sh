@@ -197,6 +197,15 @@
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       # Disable accounts unused for this many days (admins never). Unset or 0 = off.
       #export USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+      # REQUIRE_2FA : Compulsory two-factor authentication for accounts that sign in with a WeKan password:
+      # off (default), admins or all. They must set it up right after signing in.
+      #export REQUIRE_2FA=admins
+      # PASSWORD_MIN_LENGTH : Shortest new password allowed, in characters. Default 8.
+      # Signing in with an existing shorter password still works.
+      #export PASSWORD_MIN_LENGTH=12
+      # PASSWORD_CHECK_PWNED : true = refuse a new password found in a known data breach. Off by default.
+      # Only 5 hex digits of its SHA-1 are sent to api.pwnedpasswords.com.
+      #export PASSWORD_CHECK_PWNED=true
       # HSTS_MAX_AGE : Strict-Transport-Security max-age in seconds, sent only when ROOT_URL is https.
       # Default 15552000 (180 days). 0 = do not send it.
       #export HSTS_MAX_AGE=31536000

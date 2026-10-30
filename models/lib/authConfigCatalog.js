@@ -188,6 +188,13 @@ const SECTIONS = {
       // Disable accounts unused for this many days, nightly; empty or 0 is off
       // (models/lib/inactiveUsers.js, server/disableInactiveUsers.js, #6784).
       ['disableInactiveAfterDays', 'USERS_DISABLE_INACTIVE_AFTER_DAYS', 'number', { max: 36500 }],
+      // New passwords (models/lib/passwordPolicy.js): the shortest allowed, and
+      // whether to refuse one that appears in a known breach.
+      ['passwordMinLength', 'PASSWORD_MIN_LENGTH', 'number', { defaultValue: 8, max: 256 }],
+      ['passwordCheckPwned', 'PASSWORD_CHECK_PWNED', 'boolean', { defaultValue: false }],
+      // Compulsory two-factor authentication for password accounts
+      // (models/lib/twoFactorRequirement.js, server/requireTwoFactor.js).
+      ['require2fa', 'REQUIRE_2FA', 'choice', { choices: ['off', 'admins', 'all'], defaultValue: 'off' }],
     ],
   },
   // Not a login method, but the same contract: settings an environment variable

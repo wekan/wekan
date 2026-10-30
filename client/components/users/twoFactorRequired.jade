@@ -1,0 +1,13 @@
+template(name="twoFactorRequired")
+  //- REQUIRE_2FA (models/lib/twoFactorRequirement.js): an account that must
+  //- have two-factor authentication sees only this until it has set it up.
+  //- The server refuses everything else meanwhile (server/requireTwoFactor.js);
+  //- this is what the account can do about it. The set-up is the same
+  //- twoFactorAuthPopup Member Settings opens.
+  .two-factor-required(role="dialog" aria-modal="true" aria-labelledby="two-factor-required-title")
+    .two-factor-required-box
+      h2#two-factor-required-title {{_ 'two-factor-required-title'}}
+      p {{_ 'two-factor-required-text'}}
+      +twoFactorAuthPopup
+      .buttonsContainer
+        button.js-two-factor-required-logout(type="button") {{_ 'log-out'}}

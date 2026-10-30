@@ -858,6 +858,15 @@ REM # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts unused
 REM # for this many days. Admins never. Unset or 0 = off. Admin Panel / People /
 REM # Login can set it too, and its value there wins.
 REM SET USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+REM # REQUIRE_2FA : Compulsory two-factor authentication for accounts that sign in with a WeKan password:
+REM # off (default), admins or all. They must set it up right after signing in.
+REM SET REQUIRE_2FA=admins
+REM # PASSWORD_MIN_LENGTH : Shortest new password allowed, in characters. Default 8.
+REM # Signing in with an existing shorter password still works.
+REM SET PASSWORD_MIN_LENGTH=12
+REM # PASSWORD_CHECK_PWNED : true = refuse a new password found in a known data breach. Off by default.
+REM # Only 5 hex digits of its SHA-1 are sent to api.pwnedpasswords.com.
+REM SET PASSWORD_CHECK_PWNED=true
 REM # HSTS_MAX_AGE : Strict-Transport-Security max-age in seconds, sent only when ROOT_URL is https.
 REM # Default 15552000 (180 days). 0 = do not send it.
 REM SET HSTS_MAX_AGE=31536000

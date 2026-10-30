@@ -179,6 +179,9 @@
     ],
     "models/lib/importAttachmentAuth.js": [
       "https://app\\.asana\\.com(/.*)?"
+    ],
+    "server/lib/passwordPolicy.js": [
+      "https://api\\.pwnedpasswords\\.com/range/"
     ]
   },
   "files": {

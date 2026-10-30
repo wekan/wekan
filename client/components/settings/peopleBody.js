@@ -581,6 +581,15 @@ function peopleMenu(user) {
   return items;
 }
 
+// A password the server refused (server/lib/passwordPolicy.js), in the
+// reader's language; the popup that sent it has already closed.
+function passwordErrorMessage(error) {
+  const key = error && error.error;
+  if (key === 'password-too-short') return TAPi18n.__('password-too-short', { min: error.details?.min });
+  if (['password-pwned', 'password-same-as-username'].includes(key)) return TAPi18n.__(key);
+  return error.reason || error.message;
+}
+
 // People panes drawn from models/lib/authConfigCatalog.js, and the data the
 // catalog form (authProviderSettings) needs for one section.
 const AUTH_CONFIG_PANES = {
@@ -2354,7 +2363,9 @@ Template.editUserPopup.events({
     });
 
     if (isChangePassword) {
-      Meteor.call('setPassword', password, this.userId);
+      Meteor.call('setPassword', password, this.userId, error => {
+        if (error) alert(passwordErrorMessage(error));
+      });
     }
 
     if (isChangeEmailVerified) {
@@ -2653,6 +2664,8 @@ Template.newUserPopup.events({
           } else if (errorElement === 'email-already-taken') {
             usernameMessageElement.hide();
             emailMessageElement.show();
+          } else if (String(errorElement).startsWith('password-')) {
+            alert(passwordErrorMessage(error));
           }
         } else {
           usernameMessageElement.hide();

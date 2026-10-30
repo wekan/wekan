@@ -115,6 +115,35 @@ AccountsTemplates.addFields([
   },
 ]);
 
+// PASSWORD_MIN_LENGTH and PASSWORD_CHECK_PWNED (models/lib/passwordPolicy.js).
+// useraccounts checks a NEW password's minLength in the browser - sign-up,
+// Change Password, reset, enrolment; never sign-in - and reads it from the
+// field at submit time, so the server's value applies once it has arrived.
+// The breached-password check runs before useraccounts sees the submit.
+if (Meteor.isClient) {
+  const passwordPolicy = { minLength: 8, checkPwned: false };
+  Meteor.call('getPasswordPolicy', (error, result) => {
+    if (error || !result) return;
+    Object.assign(passwordPolicy, result);
+    for (const id of ['password', 'password_again']) {
+      const field = AccountsTemplates.getField(id);
+      if (field) field.minLength = passwordPolicy.minLength;
+    }
+  });
+  const { createNewPasswordSubmitHandler } = require('/client/lib/newPasswordCheck');
+  document.addEventListener('submit', createNewPasswordSubmitHandler({
+    policy: () => passwordPolicy,
+    range: prefix => Meteor.callAsync('passwordPwnedRange', prefix),
+    subtle: globalThis.crypto && globalThis.crypto.subtle,
+    pwnedMessage: () => tr('password-pwned'),
+    showError(message) {
+      AccountsTemplates.setDisabled(false);
+      AccountsTemplates.state.form.set('error', [message]);
+    },
+    replay: form => form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })),
+  }), true);
+}
+
 // The sign-in / register form field labels and placeholders were rendered through
 // accounts-t9n (`T9n.get`), whose per-language coverage is incomplete, and
 // useraccounts' `getPlaceholder()` never invokes a function placeholder (unlike

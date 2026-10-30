@@ -12,14 +12,14 @@
 // `labelKey` is a translation key every language already has, apart from
 // `instrumentation-other`.
 const AREAS = [
-  { id: 'login', labelKey: 'login', pattern: /login|logout|passkey|password|sqrl|saml|oauth|oidc|ldap|^_?is(cas|ldap|oauth2)|cas_|authconfig|authentication|lockout|impersonat|serviceconfiguration|sandstormclaim|disableregistration|disableforgot/i },
+  { id: 'login', labelKey: 'login', pattern: /login|logout|passkey|password|sqrl|saml|oauth|oidc|ldap|^_?is(cas|ldap|oauth2)|cas_|authconfig|authentication|lockout|impersonat|serviceconfiguration|sandstormclaim|disableregistration|disableforgot|twofactor|touchactivity/i },
   { id: 'migrations', labelKey: 'migrations', pattern: /migrat|fixavatar|fixallfile|fixduplicate|deleteduplicate|correctfileextension|compactmongo|schema|rawmongo/i },
   { id: 'backup', labelKey: 'backup', pattern: /backup|restorepoint|fetchfromcloud/i },
   { id: 'import', labelKey: 'import', pattern: /import|export|trello|github|csv|excel|ics|wrike|jira|listsync|caldav|syncdescriptor/i },
   { id: 'problems', labelKey: 'problems', pattern: /eventlog|problem|instrumentation|cpu|statistic|selfcheck|report|repair|recovery|integrity|filestatus|brokencard|systemstatus|checknewest|progress|status$/i },
   { id: 'rules', labelKey: 'rules', pattern: /rule|trigger|action|^bot|bots?run/i },
   { id: 'history', labelKey: 'history', pattern: /history|activities|activityfeed|position|timeline|undo|redo/i },
-  { id: 'people', labelKey: 'people', pattern: /user|people|member|org|team|domain|group|profile|language|setinitials|tenant|anonymiz|myadmin|invit|^setemail|usernameandemail|emailverified|customboardrole|avatar/i },
+  { id: 'people', labelKey: 'people', pattern: /user|people|member|org|team|domain|group|profile|language|setinitials|tenant|anonymiz|myadmin|invit|^setemail|usernameandemail|emailverified|customboardrole|avatar|audit/i },
   { id: 'notifications', labelKey: 'notifications', pattern: /notif|email|mail|ntfy|bounce|smtp|announcement|webpush|watch/i },
   { id: 'attachments', labelKey: 'attachments', pattern: /attachment|file|gridfs|s3|azure|gcs|background|storage(stats|paths|settings|locations)|(attachment|move)tostorage|attachmentstorage/i },
   { id: 'checklists', labelKey: 'checklists', pattern: /checklist/i },

@@ -211,6 +211,9 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // #687: WebDAV attachment storage, to the endpoint a SITE ADMIN set in
     // Admin Panel / Attachments - like an S3 endpoint - without redirects.
     'server/lib/webdavAdapter.js': 'only the WebDAV endpoint a site administrator configured',
+    // PASSWORD_CHECK_PWNED: Have I Been Pwned's range API, a constant URL plus
+    // a 5-hex-digit prefix checked by PWNED_PREFIX (models/lib/passwordPolicy.js).
+    'server/lib/passwordPolicy.js': 'only https://api.pwnedpasswords.com/range/<5 hex digits>',
     // Import from a service's API: a host a SITE ADMIN listed in
     // API_IMPORT_ALLOWED_PRIVATE_HOSTS, without redirects; every other
     // request goes through fetchSafe on the next line.
