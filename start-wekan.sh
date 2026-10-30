@@ -197,6 +197,13 @@
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       # Disable accounts unused for this many days (admins never). Unset or 0 = off.
       #export USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+      # HSTS_MAX_AGE : Strict-Transport-Security max-age in seconds, sent only when ROOT_URL is https.
+      # Default 15552000 (180 days). 0 = do not send it.
+      #export HSTS_MAX_AGE=31536000
+      # HSTS_INCLUDE_SUBDOMAINS : true = HSTS covers every subdomain too. Only when ALL of them have HTTPS.
+      #export HSTS_INCLUDE_SUBDOMAINS=false
+      # HSTS_PRELOAD : true = add the preload token (needs includeSubDomains and max-age >= 31536000).
+      #export HSTS_PRELOAD=false
       # Keep Admin Panel filesystem backups this many days (newest always kept).
       # Unset or 0 = all. Admin Panel / Attachments / Backup can set it too.
       #export BACKUP_KEEP_DAYS=7

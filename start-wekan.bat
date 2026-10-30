@@ -858,6 +858,13 @@ REM # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts unused
 REM # for this many days. Admins never. Unset or 0 = off. Admin Panel / People /
 REM # Login can set it too, and its value there wins.
 REM SET USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+REM # HSTS_MAX_AGE : Strict-Transport-Security max-age in seconds, sent only when ROOT_URL is https.
+REM # Default 15552000 (180 days). 0 = do not send it.
+REM SET HSTS_MAX_AGE=31536000
+REM # HSTS_INCLUDE_SUBDOMAINS : true = HSTS covers every subdomain too. Only when ALL of them have HTTPS.
+REM SET HSTS_INCLUDE_SUBDOMAINS=false
+REM # HSTS_PRELOAD : true = add the preload token (needs includeSubDomains and max-age >= 31536000).
+REM SET HSTS_PRELOAD=false
 REM # Keep Admin Panel filesystem backups this many days (newest always kept).
 REM # Unset or 0 = all. Admin Panel / Attachments / Backup can set it too.
 REM SET BACKUP_KEEP_DAYS=7

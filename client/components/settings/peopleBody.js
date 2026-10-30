@@ -899,6 +899,8 @@ Template.people.helpers({
   // The Login pane's own login settings (PASSWORD_LOGIN_ENABLED, ...).
   loginOptionsData() { return authConfigData('login'); },
   windowsSsoData() { return authConfigData('windowsSso'); },
+  // HSTS (HSTS_MAX_AGE, ...), below the login settings.
+  httpSecurityData() { return authConfigData('httpSecurity'); },
   ldapPane() { return Template.instance().activeMenuId.get() === 'ldap-setting'; },
   authenticationSection() {
     return {

@@ -36,6 +36,8 @@ template(name="people")
               +authProviderSettings(loginOptionsData)
               //- Windows SSO, which works only on a Windows server.
               +authProviderSettings(windowsSsoData)
+              //- Strict-Transport-Security, sent when ROOT_URL is https.
+              +authProviderSettings(httpSecurityData)
             else if samlSetting
               +authProviderSettings(samlSettingsData)
             else if authConfigSection

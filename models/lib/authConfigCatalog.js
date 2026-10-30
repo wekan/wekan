@@ -240,6 +240,18 @@ const SECTIONS = {
       ['mergeExistingUsers', 'WINDOWS_SSO_MERGE_EXISTING_USERS', 'boolean', { defaultValue: false }],
     ],
   },
+  // Strict-Transport-Security (models/lib/securityHeaders.js,
+  // server/securityHeaders.js): sent only when ROOT_URL is https, below Admin
+  // Panel / People / Login. 0 seconds stops it; a browser that already saw it
+  // keeps it for the max-age it saw.
+  httpSecurity: {
+    storage: 'httpSecurity',
+    fields: [
+      ['hstsMaxAge', 'HSTS_MAX_AGE', 'number', { defaultValue: 15552000, max: 63072000 }],
+      ['hstsIncludeSubdomains', 'HSTS_INCLUDE_SUBDOMAINS', 'boolean', { defaultValue: false }],
+      ['hstsPreload', 'HSTS_PRELOAD', 'boolean', { defaultValue: false }],
+    ],
+  },
   // Admin Panel / Attachments / Backup (#6790, models/lib/backupRuns.js).
   backup: {
     storage: 'backupOptions',

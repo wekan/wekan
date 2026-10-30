@@ -895,6 +895,16 @@ services:
       # it too, and its value there wins.
       #- USERS_DISABLE_INACTIVE_AFTER_DAYS=180
       #---------------------------------------------------------------
+      # HSTS_MAX_AGE : Strict-Transport-Security max-age in seconds, sent only when ROOT_URL is https.
+      # Default 15552000 (180 days). 0 = do not send it.
+      #- HSTS_MAX_AGE=31536000
+      #---------------------------------------------------------------
+      # HSTS_INCLUDE_SUBDOMAINS : true = HSTS covers every subdomain too. Only when ALL of them have HTTPS.
+      #- HSTS_INCLUDE_SUBDOMAINS=false
+      #---------------------------------------------------------------
+      # HSTS_PRELOAD : true = add the preload token (needs includeSubDomains and max-age >= 31536000).
+      #- HSTS_PRELOAD=false
+      #---------------------------------------------------------------
       # BACKUP_KEEP_DAYS : after each successful Admin Panel backup, delete
       # local (filesystem) backups older than this many days; the newest is
       # always kept. Unset or 0 = keep all (default). Admin Panel / Attachments
