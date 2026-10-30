@@ -169,7 +169,8 @@ Verified with Apache 2.4.67 in front of a WebSocket server, at `/` and at
 
 and has the following developer-tooling fixes:
 
-**Sandstorm** - publishing the Sandstorm package.
+**Sandstorm** - publishing the Sandstorm package, and how its app market listing
+looks.
 
 - [The store build publishes WeKan to both Sandstorm app markets](https://github.com/wekan/wekan/commit/10851cd3f4),
   apps.sandstorm.org and apps.sandstorm.io. Thanks to ocdtrekkie.
@@ -177,6 +178,8 @@ and has the following developer-tooling fixes:
   Thanks to ocdtrekkie and xet7.
 - [The sandstorm.org host test allows that publish step](https://github.com/wekan/wekan/commit/55b71ce19e),
   and checks both markets are published to. Thanks to xet7.
+- [New board view screenshots for the Sandstorm app market listing](https://github.com/wekan/wekan/commit/a086323a1f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
