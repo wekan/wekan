@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.75 2026-10-30 WeKan ® release
 
 **In short:** Changing a password signs the account out in every other browser,
 and now a test proves it in two real browsers.

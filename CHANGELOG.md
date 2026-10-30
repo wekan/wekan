@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.75 2026-10-30 WeKan ® release
 
 Changing a password signs the account out in every other browser,
 and now a test proves it in two real browsers.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.75](CHANGELOG-big.md#v1275-2026-10-30-wekan--release)
 
 # v12.74 2026-10-30 WeKan ® release
 
@@ -48,13 +48,3 @@ docs link sandstorm.org. The Hall of Fame guards read every vulnerability name
 now that each one links to its own page.
 
 [All changes in v12.71](CHANGELOG-big.md#v1271-2026-10-30-wekan--release)
-
-# v12.70 2026-10-29 WeKan ® release
-
-The **AppImages** and the **Launchpad** snaps build again: their
-FerretDB and mongo-tools are readable by every user, and the snap source
-carries what its downloads need. **Continuous backup** names a changed
-encrypted file as changed with **OpenSSL 4**, and the release and test tooling
-runs on macOS and reports a bad certificate as one.
-
-[All changes in v12.70](CHANGELOG-big.md#v1270-2026-10-29-wekan--release)
