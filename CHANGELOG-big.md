@@ -123,12 +123,13 @@ its reason.
 
 </details>
 
-# v12.73 2026-10-30 WeKan ® release
+# Upcoming WeKan ® release
 
 **In short:** **CHANGELOG.md** is now short: the In short of the upcoming
 release and of the five newest releases, in plain Markdown. The status and every
 change of each release are in **CHANGELOG-big.md**, which is the one that is
-written. **CodeQL** alert #598 in the Sandstorm host test is fixed.
+written. **CodeQL** alert #598 in the Sandstorm host test is fixed, and the
+release script pulls before releasing, so a moved main no longer stops it.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -148,6 +149,22 @@ Panel → Problems.
 </details>
 
 and has the following developer-tooling changes:
+
+**Publishing a release** - how the release script reaches GitHub.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e372016826">Release All pulls before releasing, and pulls and retries when its push is refused</a>. Thanks to xet7.</summary>
+
+v12.73 was prepared on a main that origin had moved past: the release bot's
+v12.72 version bump had landed meanwhile. The push of "Prepare v12.73 release"
+was refused and the script stopped before dispatching the workflow, so no
+release ran and no tag was made. `release-all.sh` now runs build.sh's git pull
+before it chooses the version or renames anything, and pushes with build.sh's
+git push, which pulls and pushes once more when origin moved meanwhile. If the
+push still does not finish, it says the workflow was not dispatched and how to
+dispatch it. `tests/releaseUpcomingPreflight.test.cjs` pins the order.
+
+</details>
 
 **Release history** - which file is written, and which is read.
 
