@@ -123,6 +123,39 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** An old **Sandstorm** grain migrated from MongoDB 3 no longer
+opens onto an empty All Boards page: boards from before the templates feature
+are shown again.
+
+This release fixes the following bugs:
+
+**Upgrading old data** - documents from old WeKan versions are brought to the
+current structure at startup, so nothing that is in the database stays hidden.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ab0afdc93">Boards from before the templates feature are shown on All Boards again</a>. Thanks to xet7.</summary>
+
+A Sandstorm grain migrated from MongoDB 3 to FerretDB copied every document -
+1 board, 31 cards, 8 lists - and then showed an empty All Boards page. Boards,
+swimlanes, lists and cards made before the templates feature have no `type`:
+the schemas fill it on insert only. All Boards publishes `type: 'board'` and
+the card queries ask for `cardType-card`, and a missing field matches neither.
+The new `type-defaults-backfill` startup step sets the schema default where
+`type` is missing, null or empty, and never changes an explicit type such as
+a template or a linked card. `tests/schemaUpgradeSteps.test.cjs` upgrades the
+grain's shape and checks that typed documents are left alone.
+
+The same log showed `merge-per-swimlane-lists FAILED ... missing schema for key
+"swimlaneId"`: FerretDB's SQLite `distinct` could not read documents without
+the fields it asked for. That is fixed in the FerretDB fork (Upcoming FerretDB
+release), which the next bundle includes.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.75 2026-10-30 WeKan ® release
 
 **In short:** Changing a password signs the account out in every other browser,

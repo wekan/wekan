@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+An old **Sandstorm** grain migrated from MongoDB 3 no longer
+opens onto an empty All Boards page: boards from before the templates feature
+are shown again.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.75 2026-10-30 WeKan ® release
 
 Changing a password signs the account out in every other browser,
