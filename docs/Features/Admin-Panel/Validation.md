@@ -79,6 +79,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Teams (`teams`) | [team.js](../../../models/team.js) | Team records and membership operations; scoped server permissions. |
 | People (`people`) | [users.js](../../../server/models/users.js) | Create/edit, roles, password/email operations, impersonation and removal. |
 | Locked Users (`locked-users`) | [lockedUsers.js](../../../server/methods/lockedUsers.js) | Locked-account listing and administrator unlock methods. |
+| Audit log (`audit-log`) | [adminAudit.js](../../../server/adminAudit.js) | New: every administrative method a site administrator calls, one document each for a year, secrets redacted; site administrators only. Real wrapper in [adminAudit.test.cjs](../../../tests/adminAudit.test.cjs). |
 | Roles (`roles`) | [inviteToBoardRolesSettings.js](../../../models/inviteToBoardRolesSettings.js) | Invitation-role defaults and per-role settings. |
 | Shared Templates (`shared-templates`) | [users.js](../../../server/models/users.js) | Shared-template administration with tenant boundaries. |
 

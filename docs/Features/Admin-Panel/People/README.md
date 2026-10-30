@@ -19,6 +19,7 @@ Who may sign in, who they belong to, and what they may do — in menu order.
 | People / Teams | `teams` | [Teams.md](Teams.md) | Teams, their per-team switches, and the same-Team board restriction. |
 | People / People | `people` | [People.md](People.md) | Every user: e-mail, admin flag, active state, lockout, created date. |
 | People / Locked Users | `locked-users` | [Locked-Users.md](Locked-Users.md) | Brute-force protection settings and who is locked out. |
+| People / Audit log | `audit-log` | [Audit-Log.md](Audit-Log.md) | What site administrators did, newest first; kept for a year. |
 | People / Roles | `roles` | [Roles.md](Roles.md) | Which board roles may invite people to a board. |
 | People / Shared templates | `shared-templates` | [Shared-Templates.md](Shared-Templates.md) | Which scopes may share template boards. |
 
