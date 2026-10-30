@@ -31,6 +31,9 @@
 // replacement in current WeKan, verified against `git show v8.00:server/migrations.js`):
 //   archived-flag-backfill   old docs missing `archived` never match the
 //                            archived:false view queries -> invisible
+//   type-defaults-backfill   docs from before the templates feature have no
+//                            `type`; All Boards asks for type:'board' -> an
+//                            old Sandstorm grain opened onto an empty page
 //   card-list-other-board    #6814 / #5874: cards whose list belongs to ANOTHER
 //                            board (moved before the move hook fixed that) are
 //                            shown nowhere -> the board's first unarchived list;
@@ -230,6 +233,15 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
 
 const MISSING_OR_EMPTY = { $in: [null, ''] };   // matches missing, null and ''
 
+// The `type` each collection's schema gives a new document (models/boards.js,
+// swimlanes.js, lists.js, cards.js), for documents older than the field.
+const TYPE_DEFAULTS = [
+  ['boards', 'board'],
+  ['swimlanes', 'swimlane'],
+  ['lists', 'list'],
+  ['cards', 'cardType-card'],
+];
+
 // #6481: match documents whose numeric `sort` is non-finite (+Infinity,
 // -Infinity or NaN). A finite double satisfies BOTH bounds; +Inf fails $lte,
 // -Inf fails $gte and NaN fails both, so the $nor selects exactly the non-finite
@@ -271,6 +283,35 @@ const steps = [
         const r = await db.collection(coll).updateMany(
           { archived: { $exists: false } },
           { $set: { archived: false } },
+        );
+        fixed += (r && r.modifiedCount) || 0;
+      }
+      return { fixed, unresolved: 0 };
+    },
+  },
+
+  {
+    // Documents made before the templates feature have no `type` at all: the
+    // schemas' defaultValue fills it on insert only. All Boards publishes
+    // `type: 'board'` (server/publications/boards.js) and the card queries ask
+    // for `type: 'cardType-card'`, which a MISSING field does not match - so a
+    // Sandstorm grain migrated from MongoDB 3 opened onto an empty All Boards
+    // page, its one board intact in the database but shown nowhere. A missing,
+    // null or empty type can only be an ordinary document from before types
+    // existed; an explicit type (templates, linked cards) is never touched.
+    name: 'type-defaults-backfill',
+    async check(db) {
+      for (const [coll] of TYPE_DEFAULTS) {
+        if (await db.collection(coll).findOne({ type: MISSING_OR_EMPTY }, { projection: { _id: 1 } })) return true;
+      }
+      return false;
+    },
+    async run(db) {
+      let fixed = 0;
+      for (const [coll, type] of TYPE_DEFAULTS) {
+        const r = await db.collection(coll).updateMany(
+          { type: MISSING_OR_EMPTY },
+          { $set: { type } },
         );
         fixed += (r && r.modifiedCount) || 0;
       }

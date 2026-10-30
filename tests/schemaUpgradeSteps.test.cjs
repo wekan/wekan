@@ -365,6 +365,53 @@ await test('negative: archived-flag-backfill never flips explicitly archived doc
   assert.strictEqual(db._dump('boards')[0].archived, true, 'archived board stays archived');
 });
 
+await test('type-defaults-backfill: a MongoDB 3 era board without `type` is published to All Boards again', async () => {
+  // The shape of the Sandstorm grain that opened onto an empty page: its board
+  // ('sandstorm', from before the templates feature) and everything on it had
+  // no `type`, and All Boards publishes { archived: false, type: 'board' }.
+  const db = fakeDb({
+    boards: [{ _id: 'sandstorm', slug: 'libreboard', archived: false }],
+    swimlanes: [{ _id: 's1', boardId: 'sandstorm', archived: false }],
+    lists: [{ _id: 'l1', boardId: 'sandstorm', archived: false, type: null }],
+    cards: [{ _id: 'c1', boardId: 'sandstorm', listId: 'l1', swimlaneId: 's1', archived: false, type: '' }],
+  });
+  const res = await runSchemaUpgrade(db, opts);
+  assert.ok(res.ran.includes('type-defaults-backfill'));
+  assert.strictEqual(db._dump('boards')[0].type, 'board', 'matches the All Boards publication');
+  assert.strictEqual(db._dump('swimlanes')[0].type, 'swimlane');
+  assert.strictEqual(db._dump('lists')[0].type, 'list', 'null type backfilled');
+  assert.strictEqual(db._dump('cards')[0].type, 'cardType-card', 'empty type backfilled');
+  const names = steps.map(st => st.name);
+  assert.ok(names.indexOf('type-defaults-backfill') < names.indexOf('swimlane-structure'),
+    'types are set before the visibility rescues read the data');
+});
+
+await test('negative: type-defaults-backfill never changes an explicit type, and is idle on typed data', async () => {
+  const db = fakeDb({
+    boards: [{ _id: 't', archived: false, type: 'template-container' }, { _id: 'b', archived: false, type: 'template-board' }],
+    swimlanes: [{ _id: 's1', boardId: 't', archived: false, type: 'template-container' }],
+    lists: [{ _id: 'l1', boardId: 'b', archived: false, type: 'template-list' }],
+    cards: [{ _id: 'c1', boardId: 'b', listId: 'l1', archived: false, type: 'cardType-linkedBoard' }],
+  });
+  const step = steps.find(st => st.name === 'type-defaults-backfill');
+  assert.strictEqual(await step.check(db), false, 'nothing to do');
+  await step.run(db);
+  assert.deepStrictEqual(db._dump('boards').map(b => b.type), ['template-container', 'template-board']);
+  assert.strictEqual(db._dump('swimlanes')[0].type, 'template-container');
+  assert.strictEqual(db._dump('lists')[0].type, 'template-list');
+  assert.strictEqual(db._dump('cards')[0].type, 'cardType-linkedBoard');
+});
+
+await test('negative: every schema default the backfill writes is the one the model inserts', () => {
+  // A backfill that wrote a different word than the model's defaultValue would
+  // hide the boards it was meant to show; read the defaults from the models.
+  for (const [file, value] of [['models/swimlanes.js', 'swimlane'], ['models/lists.js', 'list']]) {
+    assert.match(read(file), new RegExp(`defaultValue: '${value}'`), file);
+  }
+  assert.match(read('config/const.js'), /TYPE_BOARD = 'board'/);
+  assert.match(read('config/const.js'), /TYPE_CARD = 'cardType-card'/);
+});
+
 await test('#1959: card under a DELETED swimlane is rescued to the board\'s visible swimlane', async () => {
   const db = fakeDb({
     boards: [{ _id: 'b1', archived: false }],
