@@ -858,6 +858,9 @@ REM # USERS_DISABLE_INACTIVE_AFTER_DAYS : once a night, disable accounts unused
 REM # for this many days. Admins never. Unset or 0 = off. Admin Panel / People /
 REM # Login can set it too, and its value there wins.
 REM SET USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+REM # LOGOUT_IDLE_MINUTES : Sign a browser session out after this many minutes without a key press, click,
+REM # touch or scroll. Empty or 0 = off (default). REST API tokens are not affected.
+REM SET LOGOUT_IDLE_MINUTES=30
 REM # REQUIRE_2FA : Compulsory two-factor authentication for accounts that sign in with a WeKan password:
 REM # off (default), admins or all. They must set it up right after signing in.
 REM SET REQUIRE_2FA=admins

@@ -111,6 +111,28 @@ Meteor.startup(() => {
     }
   });
 
+  // LOGOUT_IDLE_MINUTES: report the user's activity while signed in, if the
+  // limit is set (models/lib/idleLogout.js).
+  const { createIdleActivityReporter } = require('/client/lib/idleActivity');
+  const idleReporter = createIdleActivityReporter({
+    target: document,
+    touch: () => Meteor.call('touchActivity', () => {}),
+  });
+  let idleCheckedFor = null;
+  Tracker.autorun(() => {
+    const userId = Meteor.userId();
+    if (!userId) {
+      idleCheckedFor = null;
+      idleReporter.stop();
+      return;
+    }
+    if (idleCheckedFor === userId) return;
+    idleCheckedFor = userId;
+    Meteor.call('getIdleLogout', (error, result) => {
+      if (!error && result && result.enabled && Meteor.userId() === userId) idleReporter.start();
+    });
+  });
+
   // Initialize mobile mode on startup for iOS devices
   // This ensures mobile mode is applied correctly on page load
   Tracker.afterFlush(() => {

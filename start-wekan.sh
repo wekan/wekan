@@ -197,6 +197,9 @@
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       # Disable accounts unused for this many days (admins never). Unset or 0 = off.
       #export USERS_DISABLE_INACTIVE_AFTER_DAYS=180
+      # LOGOUT_IDLE_MINUTES : Sign a browser session out after this many minutes without a key press, click,
+      # touch or scroll. Empty or 0 = off (default). REST API tokens are not affected.
+      #export LOGOUT_IDLE_MINUTES=30
       # REQUIRE_2FA : Compulsory two-factor authentication for accounts that sign in with a WeKan password:
       # off (default), admins or all. They must set it up right after signing in.
       #export REQUIRE_2FA=admins
