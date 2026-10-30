@@ -1,0 +1,11 @@
+.admin-audit-log-search { margin: 0.5rem 0; max-width: 24rem; }
+.admin-audit-log-table { width: 100%; border-collapse: collapse; }
+.admin-audit-log-table th, .admin-audit-log-table td {
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+  text-align: left;
+  vertical-align: top;
+}
+.admin-audit-args { white-space: pre-wrap; word-break: break-all; font-size: 0.85em; }
+.admin-audit-failed .admin-audit-error { color: #c0392b; }
+.admin-audit-log-pager { margin-top: 0.5rem; display: flex; gap: 0.5rem; align-items: center; }

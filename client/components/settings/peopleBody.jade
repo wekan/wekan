@@ -58,6 +58,8 @@ template(name="people")
               +peopleGeneral(peopleTablePageData)
             else if lockedUsersSetting.get
               +lockedUsersGeneral
+            else if auditLogSetting.get
+              +adminAuditLog
             else if rolesSetting.get
               +rolesGeneral
             else if templatesSetting.get

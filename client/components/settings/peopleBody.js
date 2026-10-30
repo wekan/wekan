@@ -142,6 +142,7 @@ Template.people.onCreated(function () {
   this.teamSetting = new ReactiveVar(false);
   this.peopleSetting = new ReactiveVar(false);
   this.lockedUsersSetting = new ReactiveVar(false);
+  this.auditLogSetting = new ReactiveVar(false);
   this.rolesSetting = new ReactiveVar(false);
   this.templatesSetting = new ReactiveVar(false);
   // #5850: Admin Panel > People > Domains tab. The domains table itself
@@ -434,6 +435,7 @@ Template.people.onCreated(function () {
       this.teamSetting.set('team-setting' === targetID);
       this.peopleSetting.set('people-setting' === targetID);
       this.lockedUsersSetting.set('locked-users-setting' === targetID);
+      this.auditLogSetting.set('audit-log-setting' === targetID);
       this.rolesSetting.set('roles-setting' === targetID);
       this.templatesSetting.set('templates-setting' === targetID);
       this.domainSetting.set('domains-setting' === targetID);
@@ -551,6 +553,9 @@ function peopleMenu(user) {
     { id: 'team-setting', icon: 'fa-users', labelKey: 'teams' },
     { id: 'people-setting', icon: 'fa-user', labelKey: 'people' },
     { id: 'locked-users-setting', icon: 'fa-lock', labelKey: 'accounts-lockout-locked-users', iconWrapCls: 'text-red' },
+    // What site administrators did (models/lib/adminAudit.js). Site admins only:
+    // tenantAdminPeopleMenu keeps a per-tenant admin's menu to its own panes.
+    { id: 'audit-log-setting', icon: 'fa-list-alt', labelKey: 'admin-audit-log' },
     { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
     { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
     { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
@@ -937,6 +942,9 @@ Template.people.helpers({
   },
   lockedUsersSetting() {
     return Template.instance().lockedUsersSetting;
+  },
+  auditLogSetting() {
+    return Template.instance().auditLogSetting;
   },
   rolesSetting() {
     return Template.instance().rolesSetting;

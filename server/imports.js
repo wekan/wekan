@@ -176,6 +176,7 @@ import '/server/cors';
 import '/server/securityHeaders';
 import '/server/crossSiteRequestGuard';
 import '/server/requireTwoFactor';
+import '/server/adminAudit';
 import '/server/header-login';
 import '/server/nextcloud';
 import '/server/max-image-pixel';

@@ -1,0 +1,39 @@
+template(name="adminAuditLog")
+  //- Admin Panel / People / Audit log (models/lib/adminAudit.js): every
+  //- administrative action of a site administrator, newest first. The
+  //- arguments are shown as stored - passwords and secrets never are.
+  .admin-audit-log
+    p {{_ 'admin-audit-log-info'}}
+    .admin-audit-log-search
+      input.wekan-form-control.js-admin-audit-search(type="search" placeholder="{{_ 'search'}}" value=search)
+    if loading
+      +spinner
+    else
+      table.admin-audit-log-table
+        thead
+          tr
+            th {{_ 'admin-audit-log-when'}}
+            th {{_ 'admin-audit-log-who'}}
+            th {{_ 'admin-audit-log-action'}}
+            th {{_ 'admin-audit-log-details'}}
+            th IP
+        tbody
+          each rows
+            tr(class="{{#unless ok}}admin-audit-failed{{/unless}}")
+              td {{when at}}
+              td {{actorUsername}}
+              td
+                code {{method}}
+                unless ok
+                  |  
+                  span.admin-audit-error {{error}}
+              td
+                code.admin-audit-args {{args}}
+              td {{ip}}
+          else
+            tr
+              td(colspan="5") {{_ 'admin-audit-log-empty'}}
+      .admin-audit-log-pager
+        button.js-admin-audit-prev(type="button" disabled=noPrev) ‹
+        span {{page}} / {{pages}} ({{total}})
+        button.js-admin-audit-next(type="button" disabled=noNext) ›

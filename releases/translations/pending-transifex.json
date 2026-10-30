@@ -3159,6 +3159,34 @@
     {
       "key": "two-factor-required-text",
       "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log-info",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log-when",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log-who",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log-action",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log-details",
+      "since": "2026-10-30"
+    },
+    {
+      "key": "admin-audit-log-empty",
+      "since": "2026-10-30"
     }
   ]
 }

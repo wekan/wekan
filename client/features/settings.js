@@ -1,4 +1,5 @@
 import '/client/components/settings/adminProblems.jade';
+import '/client/components/settings/adminAuditLog.jade';
 import '/client/components/settings/attachments.jade';
 // Backup status and history, shared by Attachments / Backup and Problems / Backup.
 import '/client/components/settings/backupRunsStatus.jade';
@@ -33,6 +34,7 @@ import '/client/components/settings/invitationCode.js';
 // the `collapsed` class either. docs/Features/All-Boards/Left-Menu.md
 import '/client/components/settings/leftMenu.js';
 import '/client/components/settings/lockedUsersBody.js';
+import '/client/components/settings/adminAuditLog.js';
 import '/client/components/settings/migrationProgress.js';
 import '/client/components/settings/notificationSettingsPopup.js';
 // #3695: notification delivery (content, grouping, schedule) per channel, in
@@ -59,6 +61,7 @@ import '/client/components/settings/adminProblems.css';
 import '/client/components/settings/attachments.css';
 import '/client/components/settings/informationBody.css';
 import '/client/components/settings/lockedUsersBody.css';
+import '/client/components/settings/adminAuditLog.css';
 import '/client/components/settings/migrationProgress.css';
 import '/client/components/settings/peopleBody.css';
 import '/client/components/settings/settingBody.css';
