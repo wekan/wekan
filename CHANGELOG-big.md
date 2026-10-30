@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.73 2026-10-30 WeKan ® release
 
 **In short:** **CHANGELOG.md** is now short: the In short of the upcoming
 release and of the five newest releases, in plain Markdown. The status and every

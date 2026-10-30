@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.73 2026-10-30 WeKan ® release
 
 **CHANGELOG.md** is now short: the In short of the upcoming
 release and of the five newest releases, in plain Markdown. The status and every
 change of each release are in **CHANGELOG-big.md**, which is the one that is
 written. **CodeQL** alert #598 in the Sandstorm host test is fixed.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.73](CHANGELOG-big.md#v1273-2026-10-30-wekan--release)
 
 # v12.72 2026-10-30 WeKan ® release
 
@@ -52,17 +52,3 @@ the first user of the database. The **OpenBSD** bundle starts again, and
 and the database migration says when documents did not arrive.
 
 [All changes in v12.69](CHANGELOG-big.md#v1269-2026-10-29-wekan--release)
-
-# v12.68 2026-10-29 WeKan ® release
-
-**Card Settings**, in Board Settings / Card, becomes two panes of
-checklists - the minicard's and the card's - with a checkbox per section and
-the board's custom fields as items, and the opened card and the minicard
-follow its sections and order; every opened card shows every field its board
-allows, empty or not. WeKan moves to **Meteor 3.6-rc.1**, keeping its own
-security additions to Meteor's packages. **Data health** in Admin Panel /
-Problems can now clean up custom fields whose boards were all deleted, and
-empty fields no longer show **Scrum** sections on boards that have Scrum
-turned off.
-
-[All changes in v12.68](CHANGELOG-big.md#v1268-2026-10-29-wekan--release)
