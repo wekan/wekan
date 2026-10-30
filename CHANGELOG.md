@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**Caddy** and **FerretDB**, the Go servers WeKan ships, no longer
+open MPTCP listeners, which Linux kernel bug **CVE-2026-98432** is reachable
+through. The real fix is a patched host kernel.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.73 2026-10-30 WeKan ® release
 
 **CHANGELOG.md** is now short: the In short of the upcoming

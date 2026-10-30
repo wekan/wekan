@@ -123,6 +123,36 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Caddy** and **FerretDB**, the Go servers WeKan ships, no longer
+open MPTCP listeners, which Linux kernel bug **CVE-2026-98432** is reachable
+through. The real fix is a patched host kernel.
+
+This release has the following security hardening:
+
+**Go servers** - Caddy and FerretDB, and the kernel bug behind their listeners.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9751b65d4">Caddy and FerretDB run with no MPTCP listener (CVE-2026-98432)</a>. Thanks to xet7.</summary>
+
+CVE-2026-98432 is a Linux kernel use-after-free in IPv4 TCP connection
+handling, shown to give remote code execution through an MPTCP listener, and
+since Go 1.24 every Linux listen socket of a Go program is MPTCP by default.
+Every place WeKan starts Caddy or FerretDB sets `GODEBUG=multipathtcp=0`: the
+snap, the Docker entrypoint, the bundle launcher, every docker-compose FerretDB
+and the Sandstorm grain. Caddy needs no rebuild, because Go reads `GODEBUG` at
+start, and wekan/FerretDB now builds with `godebug multipathtcp=0` too. An
+operator's own `multipathtcp` setting is kept. Checked on Linux: a Go server's
+default listener uses MPTCP, and with the setting it does not.
+`tests/goMptcpOff.test.cjs` pins every launcher. This is a kernel bug, not
+WeKan's, so there is no attempt to show in Admin Panel → Problems; upgrade the
+host kernel.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.73 2026-10-30 WeKan ® release
 
 **In short:** **CHANGELOG.md** is now short: the In short of the upcoming
