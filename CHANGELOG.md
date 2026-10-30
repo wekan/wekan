@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.74 2026-10-30 WeKan ® release
 
 **Caddy** and **FerretDB**, the Go servers WeKan ships, no longer
 open MPTCP listeners, which Linux kernel bug **CVE-2026-98432** is reachable
 through. The real fix is a patched host kernel.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.74](CHANGELOG-big.md#v1274-2026-10-30-wekan--release)
 
 # v12.73 2026-10-30 WeKan ® release
 
@@ -51,13 +51,3 @@ encrypted file as changed with **OpenSSL 4**, and the release and test tooling
 runs on macOS and reports a bad certificate as one.
 
 [All changes in v12.70](CHANGELOG-big.md#v1270-2026-10-29-wekan--release)
-
-# v12.69 2026-10-29 WeKan ® release
-
-**ImportPlacementBleed** is fixed: an import is placed only on its
-own board. **Invite via Email** adds the invited new user again, instead of
-the first user of the database. The **OpenBSD** bundle starts again, and
-**History** works on **FerretDB**: date custom field changes are recorded there,
-and the database migration says when documents did not arrive.
-
-[All changes in v12.69](CHANGELOG-big.md#v1269-2026-10-29-wekan--release)

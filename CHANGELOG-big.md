@@ -123,7 +123,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.74 2026-10-30 WeKan ® release
 
 **In short:** **Caddy** and **FerretDB**, the Go servers WeKan ships, no longer
 open MPTCP listeners, which Linux kernel bug **CVE-2026-98432** is reachable
