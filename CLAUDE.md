@@ -35,7 +35,7 @@ contributor — that offer is the mistake, not the rule.
 The maintainer's half is the release flow, not taste. Releases here are frequent —
 several a day when a fault is being chased — and `releases/release-all.sh` cuts one
 from whatever is on `main`, taking the version from the `# Upcoming WeKan ® release`
-section of `CHANGELOG.md`. Work parked on a branch is work that is not in the next
+section of `CHANGELOG-big.md`. Work parked on a branch is work that is not in the next
 release, and `tests/changelogEntriesBelongToTheirRelease.test.cjs` fails when a
 released section links a commit that release does not contain.
 
@@ -340,7 +340,7 @@ directly after the merge.
   the two patch repositories under `.tools/` — node-patches and mongo-tools-patches.
 - Directory structure:
   - `wekan` — this repo (https://github.com/wekan/wekan); see
-    `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root. It is at
+    `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG-big.md` and `CHANGELOG.md` at root. It is at
     `~/repos/wekan` on Linux, `~/Documents/repos/wekan` on macOS and
     `Downloads\repos\wekan` on Windows. The maintainer commits on `main`; a
     contributor works on a branch and opens a pull request — see "Where this
@@ -414,7 +414,7 @@ directly after the merge.
 
   | Repository | File | Format |
   | --- | --- | --- |
-  | `wekan/wekan` | `CHANGELOG.md` | the WeKan format this section describes: `# Status` (Platforms/Version/TODO Later nested as `<details>`), then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
+  | `wekan/wekan` | `CHANGELOG-big.md` (and the generated `CHANGELOG.md`, below) | the WeKan format this section describes: `# Status` (Platforms/Version/TODO Later nested as `<details>`), then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
   | `wekan/node-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming node-patches release` |
   | `wekan/mongo-tools-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming mongo-tools-patches release` |
   | `wekan/FerretDB` | `CHANGELOG.md` | **upstream FerretDB's** format, not WeKan's: `## [v1.48.0](tag URL) (YYYY-MM-DD)` and `### New Features 🎉` / `### Fixed 🐛` / `### Other Changes 🤖` bullets ending `by @xet7. Thanks to xet7.` |
@@ -426,6 +426,29 @@ directly after the merge.
   out and would break the tooling that parses them. When this file and the file being
   edited disagree, **the file being edited wins** — and everything below in this
   section is about the WeKan format specifically.
+- **WeKan has TWO changelogs, and only one is written.** `CHANGELOG-big.md` is
+  the changelog: `# Status`, `# Upcoming WeKan ® release` and every release in
+  full, in the `<details>` format below - every rule in the rest of this section
+  is about it, and every entry, fix and release goes into it. `CHANGELOG.md` is
+  the SHORT changelog, generated from it by `node releases/changelog-short.mjs`
+  and never edited by hand:
+
+  | | `CHANGELOG.md` |
+  | --- | --- |
+  | Status, Upcoming, TODO Later | none |
+  | Releases | the five newest `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` |
+  | Per release | its **In short** paragraph only, then `[All changes in v…](CHANGELOG-big.md#anchor)` |
+  | Markup | plain Markdown: no `<details>`, `<summary>`, `</summary>` or `</details>`, and every HTML link a Markdown link |
+
+  It exists because the big file is for whoever writes and audits a release,
+  and most readers - GitHub's front page, the Sandstorm App Market
+  (`sandstorm-pkgdef.capnp` embeds it), the Helm chart's changelog link - want
+  what changed lately, at a glance. `releases/release-all.sh` regenerates it
+  right after naming the new release, so it is in the same release commit, and
+  `releases/changelog.sh` does the same; `tests/changelogShort.test.cjs` fails
+  when it is not exactly what the generator writes. So: write
+  `CHANGELOG-big.md`, run the generator, commit both - and never edit
+  `CHANGELOG.md` to fix something, because the next run overwrites it.
 - During development, add entries under a new `# Upcoming WeKan ® release` section above
   the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
   `# Upcoming <repo> release`). Do **not** hand-edit
@@ -438,10 +461,10 @@ directly after the merge.
   add and syntax-check/register the test and state clearly what could not be run.
   Do not duplicate an existing test merely to satisfy the audit — extend it when
   that keeps one behavior in one suite.
-- **CHANGELOG.md stays small enough for GitHub to show it.** GitHub renders
+- **CHANGELOG-big.md stays small enough for GitHub to show it.** GitHub renders
   Markdown up to 500 KiB; above that it shows only plain source text, and above
   about 2 MB nothing at all ("we can't show files that are this big right
-  now"). CHANGELOG.md reached 2.6 MB over 1,100 releases back to 2015 (#6580),
+  now"). The changelog reached 2.6 MB over 1,100 releases back to 2015 (#6580),
   and keeping only the current month still came to 2.1 MB, because releases
   here are frequent and large. So the cut is by SIZE: 450,000 bytes
   (`BUDGET` in `releases/changelog-archive.mjs`), under GitHub's limit with
@@ -449,7 +472,7 @@ directly after the merge.
 
   | | |
   | --- | --- |
-  | `CHANGELOG.md` | `# Status` (Platforms/TODO Later inside it), `# Upcoming`, and the newest releases that fit the budget |
+  | `CHANGELOG-big.md` | `# Status` (Platforms/TODO Later inside it), `# Upcoming`, and the newest releases that fit the budget |
   | `old-CHANGELOG/<year>/<MM>.md` | a month's releases, newest first; a month over the budget continues in `<MM>-part2.md`, `<MM>-part3.md`, ... |
   | `old-CHANGELOG/<year>.md` | 2015–2025, whole |
 
@@ -464,11 +487,11 @@ directly after the merge.
   still in git (`gitk`, `git-gui`, `git log --follow`), and being small enough
   to open is worth more.
 
-  Run `node releases/changelog-archive.mjs` whenever CHANGELOG.md has grown -
+  Run `node releases/changelog-archive.mjs` whenever CHANGELOG-big.md has grown -
   after a release is the natural moment. It is idempotent — a run with nothing
   to move only refreshes the tables and parts — and it decides from the FILE
   rather than the clock, so two people running it agree.
-  `tests/changelogArchive.test.cjs` fails when CHANGELOG.md is over the budget.
+  `tests/changelogArchive.test.cjs` fails when CHANGELOG-big.md is over the budget.
   An archived section is never edited, for the same reason a released one is
   not.
 - **The file's shape, top to bottom** — keep it exactly as it is now. There is
@@ -564,7 +587,7 @@ directly after the merge.
   `<details>` blocks below carry that information. Keep the paragraph current as
   topics change, and shorten it when added commits make it grow. A finished release
   keeps the paragraph it was written with.
-- **Neither CHANGELOG.md nor release notes may contain a binaries provenance
+- **Neither changelog nor the release notes may contain a binaries provenance
   section or a Platform/Bundle/Binary/From/Version/Checked/SHA256 table.**
   Do not add "Binaries in these bundles" at the top or bottom of either.
   Release notes summarize each Translations group as only a list of updated
@@ -577,7 +600,7 @@ directly after the merge.
   no security fixes - is left out rather than added empty.
   Release notes have only In short, Security, Translations (language list),
   the standard thanks line and More details at ChangeLog with the release
-  anchor link. Other details stay in CHANGELOG.md. Keep download
+  anchor link into CHANGELOG-big.md. Other details stay in CHANGELOG-big.md. Keep download
   verification and `provenance.tsv` build artifacts for diagnostics; do not
   append their contents or `releases/provenance-table.sh` output to notes.
 - **Inside a subsection, entries are GROUPED BY TOPIC/AREA.** A release touches a handful
@@ -636,7 +659,7 @@ directly after the merge.
   Because CRITICAL comes first, it keeps the `This release ` prefix; a following non-security
   subsection becomes `and …` per the rule above.
 - **TODO Later** — a `<details>` nested inside `# Status` near the TOP of
-  `CHANGELOG.md` (above the version sections), a triage backlog for open
+  `CHANGELOG-big.md` (above the version sections), a triage backlog for open
   issues that were **investigated but not fixed here**, each
   recorded with a concrete REASON so whoever picks it up next knows why. Use it when working
   through open issues (the "Fix open issues" process): for each issue, either **fix it** (commit
@@ -717,7 +740,7 @@ have cost a released section its accuracy:
 - **Work continues immediately after a release**, so an entry written right
   after one has to go somewhere. `release-all.sh` renames `# Upcoming WeKan ®
   release` to `# v<NEW> …` and stops there — it does **not** create a new,
-  empty `# Upcoming` section. CHANGELOG.md never carries an
+  empty `# Upcoming` section. CHANGELOG-big.md never carries an
   `**In short:** nothing here yet.` placeholder sitting between releases; it
   used to (via a now-deleted `releases/changelog-open-next.mjs`), and that
   meant the file always had a section saying nothing, from the moment a

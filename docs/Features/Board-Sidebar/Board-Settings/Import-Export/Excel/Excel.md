@@ -219,7 +219,7 @@ embedding in `.xlsx` is a file-format/library limitation rather than an omitted
 font asset; PDF is the format to use when identical glyph rendering on every
 device is required.
 
-The design and progress live here rather than in `CHANGELOG.md`'s TODO list so
+The design and progress live here rather than in `CHANGELOG-big.md`'s TODO list so
 implementation details stay beside the format they describe.
 
 ## What is kept

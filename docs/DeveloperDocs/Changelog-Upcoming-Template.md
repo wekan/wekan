@@ -1,6 +1,6 @@
-# Adding a "# Upcoming WeKan ® release" section to CHANGELOG.md
+# Adding a "# Upcoming WeKan ® release" section to CHANGELOG-big.md
 
-`CHANGELOG.md` does **not** carry an empty `# Upcoming WeKan ® release`
+`CHANGELOG-big.md` does **not** carry an empty `# Upcoming WeKan ® release`
 placeholder between releases. `releases/release-all.sh` used to auto-create one
 immediately after every release, with an `**In short:** nothing here yet.`
 paragraph — so the file always had a section that said nothing, sitting there

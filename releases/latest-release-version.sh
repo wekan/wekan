@@ -16,7 +16,7 @@ package_version="$(sed -nE 's/^[[:space:]]*"version": "v?([0-9]+\.[0-9]+)(\.0)?"
 {
   printf '%s\n' "$package_version" "$local_tags"
   printf '%s\n' "$remote_tags" | sed -nE 's|.*refs/tags/(v[0-9]+\.[0-9]{2})(\^\{\})?$|\1|p'
-  sed -nE 's/^# v([0-9]+\.[0-9]{2}) .*/\1/p' CHANGELOG.md
+  sed -nE 's/^# v([0-9]+\.[0-9]{2}) .*/\1/p' CHANGELOG-big.md
 } | awk '
   /^v?[0-9]+\.[0-9][0-9]$/ {
     sub(/^v/, ""); split($0, v, "."); n = v[1] * 100 + v[2];

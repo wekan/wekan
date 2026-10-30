@@ -3,7 +3,7 @@
 // Guard: the CHANGELOG archives, and the count table at the top of each.
 // Run: node tests/changelogArchive.test.cjs
 //
-// CHANGELOG.md had reached 2.6 MB and 51,365 lines across 1,100 releases going
+// CHANGELOG-big.md had reached 2.6 MB and 51,365 lines across 1,100 releases going
 // back to 2015 (#6580), and one busy month later reached 2.1 MB - past what
 // GitHub shows at all. It now holds what fits in GitHub's Markdown rendering
 // limit (500 KiB; releases/changelog-archive.mjs BUDGET), and older releases are
@@ -52,7 +52,7 @@ const labelOf = f => (f.includes(path.sep)
   : path.basename(f, '.md'));
 // Part N of a split month (1 for a whole month or a year).
 const partOf = f => Number((/-part(\d+)\.md$/.exec(f) || [0, 1])[1]);
-const changelog = fs.readFileSync(path.join(ROOT, 'CHANGELOG.md'), 'utf8');
+const changelog = fs.readFileSync(path.join(ROOT, 'CHANGELOG-big.md'), 'utf8');
 
 // A release heading, in any of the wordings eleven years have used: 539 say
 // "Wekan release", 524 "WeKan ® release", and the rest are one-offs.
@@ -117,30 +117,30 @@ test('the table sits above the first release, not among them', () => {
   }
 });
 
-test('no release is in both CHANGELOG.md and an archive (negative)', () => {
+test('no release is in both CHANGELOG-big.md and an archive (negative)', () => {
   // The move must be a move. A section left in both places is two records of one
   // release that can then disagree.
   const current = new Set([...changelog.matchAll(HEADING)].map(m => m[0]));
   for (const f of files) {
     for (const m of read(f).matchAll(HEADING)) {
       assert.ok(!current.has(m[0]),
-        `${m[0].trim()} is in both CHANGELOG.md and ${f}`);
+        `${m[0].trim()} is in both CHANGELOG-big.md and ${f}`);
     }
   }
 });
 
 // GitHub renders Markdown up to 500 KiB; above it the file is plain text, and
 // above about 2 MB it is not shown at all ("we can't show files that are this
-// big right now" - what CHANGELOG.md at 2.1 MB showed).
+// big right now" - what CHANGELOG-big.md at 2.1 MB showed).
 const { BUDGET } = { BUDGET: Number(/export const BUDGET = (\d+);/.exec(
   fs.readFileSync(path.join(ROOT, 'releases/changelog-archive.mjs'), 'utf8'))[1]) };
 const GITHUB_RENDER_LIMIT = 500 * 1024;
 
-test('CHANGELOG.md fits GitHub\'s Markdown limit, and links every archive', () => {
+test('CHANGELOG-big.md fits GitHub\'s Markdown limit, and links every archive', () => {
   assert.ok(BUDGET < GITHUB_RENDER_LIMIT, 'the budget is under GitHub\'s 500 KiB render limit');
   const size = Buffer.byteLength(changelog);
   assert.ok(size <= BUDGET,
-    `CHANGELOG.md is ${size} bytes, over the ${BUDGET} budget - run node releases/changelog-archive.mjs`);
+    `CHANGELOG-big.md is ${size} bytes, over the ${BUDGET} budget - run node releases/changelog-archive.mjs`);
   for (const f of files) {
     const label = labelOf(f) + (partOf(f) > 1 ? ` part ${partOf(f)}` : '');
     const href = `old-CHANGELOG/${f.split(path.sep).join('/')}`;
@@ -182,7 +182,7 @@ test('the parts of a month are numbered without gaps, newest first (negative: no
   }
 });
 
-test('every release keeps CHANGELOG.md in budget: release-all.sh archives after the rename', () => {
+test('every release keeps CHANGELOG-big.md in budget: release-all.sh archives after the rename', () => {
   const sh = fs.readFileSync(path.join(ROOT, 'releases/release-all.sh'), 'utf8');
   const rename = sh.indexOf('s|^# Upcoming WeKan ® release.*|');
   const archive = sh.indexOf('node "$REPO_DIR/releases/changelog-archive.mjs"');

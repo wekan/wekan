@@ -27,7 +27,7 @@ let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
-const changelog = read('CHANGELOG.md');
+const changelog = read('CHANGELOG-big.md');
 const lines = changelog.split('\n');
 // TODO Later is nested as a <details> inside "# Status" now, not its own
 // top-level heading - this is the one place that boundary is found, reused
@@ -344,7 +344,7 @@ test('no CHANGELOG section carries a Platform/Binary/From/Version/SHA256 table (
   // times: it made every release's entry mostly a giant table nobody read.
   // Provenance stays in build artifacts; it is also excluded from release notes.
   assert.ok(!/^\| Platform \| Binary \| From \| Version \| SHA256 \|$/m.test(changelog),
-    'a Platform/Binary/From/Version/SHA256 table must not be in CHANGELOG.md');
+    'a Platform/Binary/From/Version/SHA256 table must not be in CHANGELOG-big.md');
   assert.ok(!/^\*\*Binaries in these bundles:\*\*$/m.test(changelog),
     'the retired "Binaries in these bundles" label must not reappear either');
 });

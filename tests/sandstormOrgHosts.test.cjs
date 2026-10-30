@@ -37,7 +37,7 @@ test('negative: no tracked file names a sandstorm.io host', () => {
   const KEPT = /(?:^|[^a-z0-9.-])demo\.sandstorm\.io\b|install\.sandstorm\.io's certificate had expired/;
   const KEPT_IN = { '.github/workflows/sandstorm-store.yml': /# Publish to apps\.sandstorm\.io$|--webkey=https:\/\/alpha-api\.sandstorm\.io\/#/ };
   const files = execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8' }).split('\n')
-    .filter(f => f && f !== 'CHANGELOG.md' && !f.startsWith('old-CHANGELOG/') && f !== 'tests/sandstormOrgHosts.test.cjs');
+    .filter(f => f && f !== 'CHANGELOG.md' && f !== 'CHANGELOG-big.md' && !f.startsWith('old-CHANGELOG/') && f !== 'tests/sandstormOrgHosts.test.cjs');
   const found = [];
   for (const f of files) {
     let text;

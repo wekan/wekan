@@ -65,7 +65,8 @@ try {
   assert.deepEqual(selected.stdout.match(/^## .+$/gm), ['## In short']);
   assert.doesNotMatch(selected.stdout, /No security changes|No translation updates|translators/);
   assert.doesNotMatch(selected.stdout, /Galician|Private translation details/);
-  assert.match(selected.stdout, /CHANGELOG\.md#v200-2026-09-14-wekan--release/);
+  // The full section is in CHANGELOG-big.md; CHANGELOG.md has only its In short.
+  assert.match(selected.stdout, /CHANGELOG-big\.md#v200-2026-09-14-wekan--release/);
   const security = run(intro + translations + 'This release fixes the following CRITICAL SECURITY ISSUES:\n\n**Security** - Board boundaries.\n\n<details>\n<summary>Security fix retained</summary>\nand wrapped security prose.\n</details>\n\n' + other);
   assert.equal(security.status, 0, security.stderr);
   assert.match(security.stdout, /Security fix retained|wrapped security prose/);
@@ -77,7 +78,7 @@ try {
   assert.match(securityOnly.stdout, /Authorization repaired/);
   assert.doesNotMatch(securityOnly.stdout, /No security changes|No translation updates|translators/);
   // Exercise the real notes that blocked all platform builds in v11.96.
-  const changelog = fs.readFileSync(path.join(root, 'CHANGELOG.md'), 'utf8');
+  const changelog = fs.readFileSync(path.join(root, 'CHANGELOG-big.md'), 'utf8');
   const newest = changelog.match(/^# v([0-9]+\.[0-9]+) /m)[1];
   const repaired = run(changelog, newest);
   assert.equal(repaired.status, 0, repaired.stderr);
@@ -96,7 +97,7 @@ try {
 // A prose mention of Upcoming inside Status is not a release heading. Linked
 // completed-change summaries belong below an actual top-level release heading.
 {
-  const changelog = require('node:fs').readFileSync(require('node:path').join(__dirname, '../CHANGELOG.md'), 'utf8');
+  const changelog = require('node:fs').readFileSync(require('node:path').join(__dirname, '../CHANGELOG-big.md'), 'utf8');
   const release = /^# (?:Upcoming WeKan ® release|v\d[^\n]*release)$/m.exec(changelog);
   require('node:assert/strict').ok(release, 'a top-level release heading exists');
   require('node:assert/strict').doesNotMatch(changelog.slice(0, release.index),

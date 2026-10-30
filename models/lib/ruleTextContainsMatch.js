@@ -3,7 +3,7 @@
 // #2194 "Card title/description contains {value}" rule trigger.
 //
 // WeKan's rules are single-trigger/single-condition today (see the #4294
-// investigation noted in CHANGELOG.md's TODO Later - combining several
+// investigation noted in CHANGELOG-big.md's TODO Later - combining several
 // conditions in one rule with AND is explicitly out of scope here and
 // deferred). This module is the pure, testable decision for a SINGLE new
 // trigger type: does a card's title or description contain a

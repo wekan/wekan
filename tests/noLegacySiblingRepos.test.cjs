@@ -33,11 +33,11 @@ function files() {
       if (['node_modules', '_build', '.build', '.git', '.tools', 'old-CHANGELOG', 'test-results'].includes(entry.name)) continue;
       const rel = dir ? path.join(dir, entry.name) : entry.name;
       if (entry.isDirectory()) { walk(rel); continue; }
-      if (/\.(sh|bat|ps1|cmd|py|mjs|cjs|js|md)$/.test(entry.name) && rel !== 'CHANGELOG.md') out.push(rel);
+      if (/\.(sh|bat|ps1|cmd|py|mjs|cjs|js|md)$/.test(entry.name) && !['CHANGELOG.md', 'CHANGELOG-big.md'].includes(rel)) out.push(rel);
     }
   };
   for (const dir of ['releases', 'tests', 'docs', 'tools']) if (fs.existsSync(path.join(root, dir))) walk(dir);
-  for (const f of fs.readdirSync(root)) if (/\.(sh|bat|md)$/.test(f) && f !== 'CHANGELOG.md') out.push(f);
+  for (const f of fs.readdirSync(root)) if (/\.(sh|bat|md)$/.test(f) && !['CHANGELOG.md', 'CHANGELOG-big.md'].includes(f)) out.push(f);
   return out;
 }
 

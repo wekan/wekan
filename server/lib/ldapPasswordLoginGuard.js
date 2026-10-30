@@ -6,7 +6,7 @@
 // password login to LDAP (Admin Panel sets `authenticationMethod: 'ldap'`),
 // the user's old `services.password` hash is left in place, so the stale —
 // possibly weaker — local password KEEPS working alongside the LDAP password.
-// The safe fix (per this repo's own triage in CHANGELOG.md "TODO Later") is to
+// The safe fix (per this repo's own triage in CHANGELOG-big.md "TODO Later") is to
 // reject password-service login attempts for such users at validation time
 // instead of destructively `$unset`-ing `services.password`.
 //

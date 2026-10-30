@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// changelog-wrap.mjs - wrap CHANGELOG.md prose at 80 columns, the way
+// changelog-wrap.mjs - wrap CHANGELOG-big.md prose at 80 columns, the way
 // tests/changelogFormat.test.cjs requires, without changing what it renders.
 //
-//   node releases/changelog-wrap.mjs [CHANGELOG.md]
+//   node releases/changelog-wrap.mjs [CHANGELOG-big.md]
 //
 // It touches only the lines that test counts: longer than 80 characters, with
 // no link, not a <summary>, not a "**Languages updated:**" list and not the
@@ -64,7 +64,7 @@ export function wrapChangelog(text) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const file = process.argv[2] || 'CHANGELOG.md';
+  const file = process.argv[2] || 'CHANGELOG-big.md';
   const before = fs.readFileSync(file, 'utf8');
   const after = wrapChangelog(before);
   if (after !== before) fs.writeFileSync(file, after);

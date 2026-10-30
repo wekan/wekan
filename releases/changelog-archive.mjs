@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-// changelog-archive.mjs - keep CHANGELOG.md small enough for GitHub to show it,
+// changelog-archive.mjs - keep CHANGELOG-big.md small enough for GitHub to show it,
 // and move older releases into old-CHANGELOG/.
 //
 // Usage: node releases/changelog-archive.mjs [--dry-run]
 //
-// WHY. CHANGELOG.md reached 2.6 MB and 51,365 lines across 1,070 releases going
+// WHY. CHANGELOG-big.md reached 2.6 MB and 51,365 lines across 1,070 releases going
 // back to 2015 (wekan/wekan#6580). Moving whole years out took it to 1.9 MB, and
 // keeping only the current month was still not enough: releases here are
 // FREQUENT and large, and October 2026's first ten days alone were 2.1 MB - more
@@ -20,7 +20,7 @@
 // So the cut is by SIZE, at BUDGET below - under 500 KiB with room for the
 // Status section and the archive links to grow between runs:
 //
-//   CHANGELOG.md                     # Status, # Upcoming and the newest
+//   CHANGELOG-big.md                     # Status, # Upcoming and the newest
 //                                    releases that fit in BUDGET
 //   old-CHANGELOG/<year>/<MM>.md     a month's releases, newest first; a month
 //   old-CHANGELOG/<year>/<MM>-partN.md  over BUDGET continues in part 2, 3, ...
@@ -30,7 +30,7 @@
 // can then not render as Markdown, but it is still shown as text.
 //
 // Nothing is deleted and no entry is rewritten. An archived section reads exactly
-// as it did in CHANGELOG.md, for the same reason a released section is never
+// as it did in CHANGELOG-big.md, for the same reason a released section is never
 // edited in place: it is a record. That `git blame` is less useful on the split
 // file is accepted - the history is still in git through gitk, git-gui or
 // `git log --follow`, and being small enough to open is worth more.
@@ -45,7 +45,7 @@ import { join } from 'path';
 
 const argv = process.argv.slice(2);
 const dryRun = argv.includes('--dry-run');
-const file = 'CHANGELOG.md';
+const file = 'CHANGELOG-big.md';
 const ARCHIVE = 'old-CHANGELOG';
 
 if (!existsSync(file)) {
@@ -102,7 +102,7 @@ for (const s of sections) {
   keepCount += 1;
 }
 // The newest release always stays, even over the budget: release-notes.sh reads
-// the section of the release being published from CHANGELOG.md.
+// the section of the release being published from CHANGELOG-big.md.
 if (!keepCount) {
   keepCount = 1;
   console.warn('changelog-archive: the newest release does not fit the budget; it stays anyway.');
@@ -156,7 +156,7 @@ function archiveHead(kind, label, table, part = 1, parts = 1) {
         : `[${i + 1}](${partFile(label.slice(5), i + 1)})`)).join(', ') + '.\n\n'
     : '';
   return `# WeKan ® ${label} releases${parts > 1 ? `, part ${part}` : ''}\n\n`
-    + `Moved out of [CHANGELOG.md](${kind === 'year' ? '..' : '../..'}/CHANGELOG.md) to keep that\n`
+    + `Moved out of [CHANGELOG-big.md](${kind === 'year' ? '..' : '../..'}/CHANGELOG-big.md) to keep that\n`
     + `file small enough to open (wekan/wekan#6580). Nothing here has been changed:\n`
     + `a release section is a record, and it reads the same as it did there.\n\n`
     + partNav
@@ -293,7 +293,7 @@ function refreshTables() {
 }
 
 // ── The pointer in # Platforms ──────────────────────────────────────────────
-// CLAUDE.md allows no other `#` heading in CHANGELOG.md, and a reader looking
+// CLAUDE.md allows no other `#` heading in CHANGELOG-big.md, and a reader looking
 // for an old release should not have to guess where it went.
 function pointerLines() {
   if (!existsSync(ARCHIVE)) return [];

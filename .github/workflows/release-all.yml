@@ -38,7 +38,7 @@ run-name: Release v${{ inputs.new_version }}
 #              only the ferretdb-<arch> binary it needs from the newest wekan/FerretDB
 #              release (FerretDB is built + released separately by its own build.sh —
 #              not compiled here) and embeds it
-#   - release: writes the newest CHANGELOG.md notes to the GitHub Release and
+#   - release: writes the newest CHANGELOG-big.md notes to the GitHub Release and
 #              checks the core wekan-<version>-{amd64,arm64}.zip bundles are on
 #              it. It uploads nothing: EVERY job that builds a release file
 #              attaches it itself, as its last step, the moment it is built and
@@ -281,8 +281,8 @@ jobs:
       # No `changelog:` output. The notes are 170 KB and more, which is past the
       # 128 KiB MAX_ARG_STRLEN a single environment variable may hold, so any job
       # consuming them through `env:` fails to start its shell. Jobs read
-      # CHANGELOG.md from their own checkout instead - see
-      # "Check the release notes exist in CHANGELOG.md" below.
+      # CHANGELOG-big.md from their own checkout instead - see
+      # "Check the release notes exist in CHANGELOG-big.md" below.
     steps:
       # Shallow: the only thing history was fetched for was finding out whether
       # the release tag already exists, which the tag step now asks GitHub.
@@ -310,8 +310,8 @@ jobs:
       # string at MAX_ARG_STRLEN - 128 KiB - so execve refused to start bash at
       # all ("Argument list too long") before a line of the step ran. Each job
       # that needs the notes now extracts them from its own checkout of
-      # CHANGELOG.md with the same script, straight into a file.
-      - name: Check the release notes exist in CHANGELOG.md
+      # CHANGELOG-big.md with the same script, straight into a file.
+      - name: Check the release notes exist in CHANGELOG-big.md
         env:
           STEP_VERSION_VERSION: ${{ steps.version.outputs.version }}
         run: |
@@ -1170,7 +1170,7 @@ jobs:
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
-      # ref: main, the same ref `prepare` read CHANGELOG.md from, so the notes
+      # ref: main, the same ref `prepare` read CHANGELOG-big.md from, so the notes
       # composed below are the ones prepare validated. (bump pushes to main and
       # prepare tags it; nothing else pushes during a release.)
       #
@@ -1203,7 +1203,7 @@ jobs:
         # published nothing, "Incorrect: command not found"); and `env:` put a
         # 172 KB string in envp, past the 128 KiB MAX_ARG_STRLEN, so execve
         # refused to start bash at all (v10.92, "Argument list too long"). Read
-        # from CHANGELOG.md, appended with cat, the text is data all the way.
+        # from CHANGELOG-big.md, appended with cat, the text is data all the way.
         run: |
           set -euo pipefail
           bash releases/release-notes.sh "$VERSION" > release-notes.md
@@ -5694,7 +5694,7 @@ jobs:
     # rewrites the notes of a release that is already published.
     timeout-minutes: 15
     steps:
-      # ref: main, so this job reads the same CHANGELOG.md the release job did.
+      # ref: main, so this job reads the same CHANGELOG-big.md the release job did.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main

@@ -1282,7 +1282,7 @@ if arguments >= 1:
 
 # ------- BOARD MEMBER / CARD FIELD API ENDPOINTS START -----------
 # These commands wrap REST endpoints that already exist in Wekan.
-# See CHANGELOG.md "Upcoming" section for related issues and design notes.
+# See CHANGELOG-big.md "Upcoming" section for related issues and design notes.
 
     # Map a human readable ROLE to the board member permission boolean flags
     # used by /api/boards/:boardId/members/:userId/add and .../members/:memberId
@@ -1472,7 +1472,7 @@ if arguments >= 1:
         edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
         # NOTE: this REPLACES the card's labels. Bulk add/remove (merge) is not yet
-        # implemented server-side, see Issue #5819 in CHANGELOG.md "Upcoming".
+        # implemented server-side, see Issue #5819 in CHANGELOG-big.md "Upcoming".
         put_data = {'labelIds': labelids if labelids else []}
         body = requests.put(edcard, json=put_data, headers=headers)
         print("=== SET CARD LABELS ===\n")

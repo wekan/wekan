@@ -43,7 +43,7 @@
 # (Setup → "Update git ..."), so the logic lives in ONE place.
 #
 # Usage: releases/fix-changelog-hashes.sh [--all-sections] [--dry-run] [CHANGELOG_FILE]
-#   CHANGELOG_FILE defaults to CHANGELOG.md at the repo root (env override
+#   CHANGELOG_FILE defaults to CHANGELOG-big.md at the repo root (env override
 #   CHANGELOG_FILE=... also works). Always exits 0.
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -60,7 +60,7 @@ for arg in "$@"; do
     *)              ARG_FILE="$arg" ;;
   esac
 done
-CHANGELOG_FILE="${ARG_FILE:-${CHANGELOG_FILE:-CHANGELOG.md}}"
+CHANGELOG_FILE="${ARG_FILE:-${CHANGELOG_FILE:-CHANGELOG-big.md}}"
 
 # A commit any ref can reach — branch or tag — is a link that works on GitHub.
 # The set is listed ONCE (`git rev-list --all` walks the history once; asking

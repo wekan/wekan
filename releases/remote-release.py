@@ -135,15 +135,22 @@ def audit(root, config):
           (' with warnings; release may continue.' if warnings else '; no metadata changes found.'), flush=True)
 
 
+# The changelog the release notes are in and the release heading is written to.
+# WeKan writes CHANGELOG-big.md (releases/remote-release.json); the other
+# repositories this script releases keep CHANGELOG.md.
+def changelog_of(config):
+    return config.get('changelog', 'CHANGELOG.md')
+
+
 def notes(root, config, missing=False):
-    text = (root / 'CHANGELOG.md').read_text(encoding='utf-8')
+    text = (root / changelog_of(config)).read_text(encoding='utf-8')
     heading = config['upcoming']
     if missing and heading not in text.splitlines():
         # Completing a release does not require new notes or a new version.
         if re.search(r'^#{1,2} (?:\[)?(?:v\d|main-|[0-9a-f]{40})', text, re.M):
             return text
     if text.splitlines().count(heading) != 1:
-        raise ValueError('CHANGELOG.md must have exactly one ' + heading)
+        raise ValueError(changelog_of(config) + ' must have exactly one ' + heading)
     rest = text.split(heading + '\n', 1)[1]
     body = re.split(r'^#{1,2} (?!#)', rest, maxsplit=1, flags=re.M)[0]
     if not re.search(r'<summary>.*?<a href=|^- \S', body, re.M):
@@ -241,7 +248,10 @@ def publish(root, config, text, version, missing):
             heading = f"## [{version}](https://github.com/{config['repo']}/releases/tag/{version}) ({date})"
         else:
             heading = f"# {version} {date} {config['repo'].split('/')[1]} release"
-        (root / 'CHANGELOG.md').write_text(text.replace(config['upcoming'], heading, 1), encoding='utf-8')
+        (root / changelog_of(config)).write_text(text.replace(config['upcoming'], heading, 1), encoding='utf-8')
+        # WeKan's CHANGELOG.md is the short changelog, written from CHANGELOG-big.md.
+        if (root / 'releases/changelog-short.mjs').exists():
+            subprocess.run(['node', 'releases/changelog-short.mjs'], cwd=root, check=True)
     run(root, 'git', 'add', '--all')
     if run(root, 'git', 'diff', '--cached', '--name-only'):
         subprocess.run(['git', 'commit', '-m', ('Complete ' if missing else 'Prepare ') + version + ' release'], cwd=root, check=True)

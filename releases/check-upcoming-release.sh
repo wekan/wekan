@@ -7,14 +7,14 @@
 # **Languages updated:** line. A missing one is reported as a warning and left
 # out of the release notes (releases/release-notes.sh), never a stop.
 set -e
-changelog="${1:-$(cd "$(dirname "$0")/.." && pwd)/CHANGELOG.md}"
+changelog="${1:-$(cd "$(dirname "$0")/.." && pwd)/CHANGELOG-big.md}"
 if [ ! -f "$changelog" ]; then
   echo "Error: changelog not found: $changelog" >&2
   exit 1
 fi
 headings="$(awk '/^# Upcoming WeKan ® release[[:space:]]*$/ { n++ } END { print n + 0 }' "$changelog")"
 if [ "$headings" -ne 1 ]; then
-  echo "Error: CHANGELOG.md must contain exactly one '# Upcoming WeKan ® release' heading (found $headings)." >&2
+  echo "Error: CHANGELOG-big.md must contain exactly one '# Upcoming WeKan ® release' heading (found $headings)." >&2
   echo "Add it from docs/DeveloperDocs/Changelog-Upcoming-Template.md before running releases/release-all.sh." >&2
   exit 1
 fi

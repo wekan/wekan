@@ -314,8 +314,13 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'changelog-wrap.mjs': 'an editing aid for whoever just wrote CHANGELOG prose;\n'
       + '      tests/changelogFormat.test.cjs names it when lines run long, and it\n'
       + '      only changes whitespace. Run by hand, never from a build menu',
+    'changelog-short.mjs': 'a GENERATOR, not a build step: it writes\n'
+      + '      CHANGELOG.md, the In short of the five newest releases, from\n'
+      + '      CHANGELOG-big.md. release-all.sh and changelog.sh run it, and\n'
+      + '      tests/changelogShort.test.cjs fails when CHANGELOG.md is not what\n'
+      + '      it writes, so there is nothing for a menu entry to add',
     'changelog-archive.mjs': 'a CALENDAR job, not a build one: it keeps the\n'
-      + '      current MONTH in CHANGELOG.md and moves earlier months to\n'
+      + '      current MONTH in CHANGELOG-big.md and moves earlier months to\n'
       + '      old-CHANGELOG/<year>/<MM>.md and finished years to\n'
       + '      old-CHANGELOG/<year>.md, so the file stays small enough to open\n'
       + '      (#6580). Run it at the start of a month; it is idempotent, so a\n'

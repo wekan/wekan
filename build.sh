@@ -2393,8 +2393,8 @@ function git_fix_changelog_links(){
 	local script="$WEKAN_DIR/releases/fix-changelog-hashes.sh"
 	[ -f "$script" ] || return 1
 	bash "$script" || return 1
-	if [ -n "$(git status --porcelain -- CHANGELOG.md 2>/dev/null)" ]; then
-		git add CHANGELOG.md
+	if [ -n "$(git status --porcelain -- CHANGELOG-big.md CHANGELOG.md 2>/dev/null)" ]; then
+		git add CHANGELOG-big.md CHANGELOG.md
 		git commit -q -m "CHANGELOG: repoint commit links after history moved.
 
 A rebase rewrote the commits these entries link to, so the links named commits
@@ -2605,7 +2605,7 @@ choose() {
 # snap/bundle, not on a maintainer's machine) and the superseded old-*.sh and
 # translations/fill_translations.py.
 # Release notes summarize translations as affected languages; other changelog
-# details stay in CHANGELOG.md. Notes include only In short, Security,
+# details stay in CHANGELOG-big.md. Notes include only In short, Security,
 # Translations language list, thanks and the changelog link. Binary provenance remains
 # a build artifact and must not be appended by any release entry point.
 RELEASE_SCRIPTS=(	"Release|Release All: audit, commit, push and build with Actions|releases/release-all.sh|||"

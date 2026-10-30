@@ -22,14 +22,14 @@
 #     too long". Nothing in the step is wrong; execve refuses to start it.
 #
 # So the notes never become an argument, an environment variable or a job
-# output. They are read from CHANGELOG.md in the workspace and written to a
+# output. They are read from CHANGELOG-big.md in the workspace and written to a
 # file, and only file PATHS are passed around - which has no size limit, and
 # leaves the text as data that no shell ever parses.
 set -euo pipefail
 . "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 
 VERSION="${1:-}"
-CHANGELOG_FILE="${2:-CHANGELOG.md}"
+CHANGELOG_FILE="${2:-CHANGELOG-big.md}"
 
 if [ -z "$VERSION" ]; then
   echo "usage: releases/release-notes.sh <version> [changelog-file]" >&2
@@ -122,7 +122,7 @@ for pat in patterns:
         output.extend([
             "Thanks to above GitHub users for their contributions" +
             (" and translators for their translations." if languages or counts or translated else "."),
-            f"[More details at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#{anchor})",
+            f"[More details at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG-big.md#{anchor})",
         ])
         print("\n\n".join(output))
         sys.exit(0)

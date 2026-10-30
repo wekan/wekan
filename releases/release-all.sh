@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
-# WeKan REMOTE release script — pushes your CHANGELOG.md edit and triggers the
+# WeKan REMOTE release script — pushes your CHANGELOG-big.md edit and triggers the
 # GitHub Actions release workflow, which does EVERYTHING else remotely.
 #
 # For a fully LOCAL release (build on this machine), use ./releases/release.sh.
@@ -10,7 +10,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #
 # Usage:
 #   1. Add your changes under a "# Upcoming WeKan ® release" section in
-#      CHANGELOG.md - there isn't one lying around empty between releases,
+#      CHANGELOG-big.md - there isn't one lying around empty between releases,
 #      so create it yourself from docs/DeveloperDocs/Changelog-Upcoming-Template.md
 #      the moment you have a real entry for it.
 #   2. Run (NO version number needed):
@@ -27,7 +27,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #      WeKan ® release" heading to the next version. A missing Upcoming heading
 #      stops the script; everything under it is optional. An explicit
 #      "PREVIOUS NEW" pair must match the next version.
-#   3. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
+#   3. Commits and pushes pending changes (your CHANGELOG-big.md edit) to main so the
 #      workflow can read them.
 #   4. Triggers .github/workflows/release-all.yml.
 #
@@ -45,7 +45,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 # Add **Languages updated:** metadata beneath the Translations group label
 # (optional; without it the notes do not list that group's languages).
 # Notes include only In short, Security, translation languages, thanks and
-# the changelog link. Other details stay in CHANGELOG.md. Never append
+# the changelog link. Other details stay in CHANGELOG-big.md. Never append
 # "Binaries in these bundles" or a provenance table; retain provenance.tsv
 # build artifacts and checksum verification separately.
 #
@@ -63,7 +63,7 @@ if [ "${1:-}" = --check ]; then CHECK_ONLY=true; shift; fi
 # Check release notes before installing tools, changing files or contacting forges.
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_DIR"
-bash "$REPO_DIR/releases/check-upcoming-release.sh" "$REPO_DIR/CHANGELOG.md"
+bash "$REPO_DIR/releases/check-upcoming-release.sh" "$REPO_DIR/CHANGELOG-big.md"
 mkdir -p "$REPO_DIR/.tools/tmp"
 export TMPDIR="$REPO_DIR/.tools/tmp"
 
@@ -126,11 +126,14 @@ bash "$(dirname "$0")/fix-changelog-hashes.sh" || true
 DATE="$(date +%F)"
 echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
 _tmp="$(mktemp "$TMPDIR/wekan.XXXXXX")"
-sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
+sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG-big.md > "$_tmp" && mv "$_tmp" CHANGELOG-big.md
 
-# Keep CHANGELOG.md small enough for GitHub to show it: older releases move to
-# old-CHANGELOG/ (the newest, this one, always stays). Committed with the rename.
+# Keep CHANGELOG-big.md small enough for GitHub to show it: older releases move
+# to old-CHANGELOG/ (the newest, this one, always stays). Committed with the rename.
 node "$REPO_DIR/releases/changelog-archive.mjs"
+# CHANGELOG.md is the short changelog - the In short of the five newest releases
+# - written from CHANGELOG-big.md, so it gains this release in the same commit.
+node "$REPO_DIR/releases/changelog-short.mjs"
 
 # Do not open an empty Upcoming section. Add real notes before the next release.
 
@@ -139,11 +142,11 @@ echo "    Previous version (changelog, package and local/remote tags): v$OLD"
 echo "    New version: v$NEW"
 echo ""
 
-# ── Step 1: Push your pending CHANGELOG.md edit so the workflow can read it ──
+# ── Step 1: Push your pending CHANGELOG-big.md edit so the workflow can read it ──
 # This is the only thing built/changed on your machine. version bumps, docs,
 # builds and cross-repo updates all happen remotely in GitHub Actions.
 if [ -n "$(git status --porcelain)" ]; then
-  echo "--- Committing and pushing pending changes (e.g. CHANGELOG.md) ---"
+  echo "--- Committing and pushing pending changes (e.g. CHANGELOG-big.md) ---"
   git add --all
   git commit -m "Prepare v$NEW release"
 fi

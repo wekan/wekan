@@ -1,6 +1,6 @@
 # WeKan ® 2026-10 releases, part 5
 
-Moved out of [CHANGELOG.md](../../CHANGELOG.md) to keep that
+Moved out of [CHANGELOG-big.md](../../CHANGELOG-big.md) to keep that
 file small enough to open (wekan/wekan#6580). Nothing here has been changed:
 a release section is a record, and it reads the same as it did there.
 

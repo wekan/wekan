@@ -122,5 +122,5 @@ coverage, not native-speaker verification; specialist terminology still needs
 review. Chromium coverage exercises Gujarati block dragging,
 field editing, saving and context menus. The editor
 remains available; remaining languages and native terminology review are
-tracked under TODO Later in [the changelog](../../../../CHANGELOG.md).
+tracked under TODO Later in [the changelog](../../../../CHANGELOG-big.md).
 Message coverage and placeholder checks do not imply complete translation.

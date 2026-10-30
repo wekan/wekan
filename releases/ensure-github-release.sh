@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Make sure the GitHub Release for a tag exists, creating it with the notes of
-# this version's CHANGELOG.md section when it does not.
+# this version's CHANGELOG-big.md section when it does not.
 #
 # Usage: releases/ensure-github-release.sh <repository> <version>
 #
@@ -41,7 +41,7 @@ fi
 
 notes=$(mktemp "$TMPDIR/release-notes.XXXXXX")
 trap 'rm -f "$notes"' EXIT
-bash "$repo_root/releases/release-notes.sh" "$version" "$repo_root/CHANGELOG.md" > "$notes"
+bash "$repo_root/releases/release-notes.sh" "$version" "$repo_root/CHANGELOG-big.md" > "$notes"
 
 for attempt in 1 2 3; do
   if gh release create --repo "$repository" "$tag" --verify-tag \

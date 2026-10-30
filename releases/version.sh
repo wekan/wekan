@@ -486,12 +486,12 @@ version_bump_logic() {
 
 # --- MAIN BLOCK ---
 
-# If manual arguments are missing, parse CHANGELOG.md
+# If manual arguments are missing, parse CHANGELOG-big.md
 if [ -z "${1:-}" ] || [ -z "${2:-}" ]; then
-  echo "No arguments. Detecting versions from CHANGELOG.md..."
+  echo "No arguments. Detecting versions from CHANGELOG-big.md..."
   # Portable read loop instead of `mapfile` (bash 4+ only; macOS ships bash 3.2).
   RELEASE_LINES=()
-  while IFS= read -r line; do RELEASE_LINES+=("$line"); done < <(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md | head -2)
+  while IFS= read -r line; do RELEASE_LINES+=("$line"); done < <(grep -E '^# v[0-9]+\.[0-9]+(\.[0-9]+)?[ -]+[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG-big.md | head -2)
   NEW_VERSION=$(echo "${RELEASE_LINES[0]:-}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
   OLD_VERSION=$(echo "${RELEASE_LINES[1]:-}" | grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/^v//')
   if [ -z "${NEW_VERSION:-}" ] || [ -z "${OLD_VERSION:-}" ]; then
