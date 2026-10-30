@@ -7,10 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**CHANGELOG.md** is now short: the In short of the five newest
-releases, in plain Markdown. Everything else - the status, the upcoming release
-and every change of each release - is in **CHANGELOG-big.md**, which is the one
-that is written.
+**CHANGELOG.md** is now short: the In short of the upcoming
+release and of the five newest releases, in plain Markdown. The status and every
+change of each release are in **CHANGELOG-big.md**, which is the one that is
+written.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

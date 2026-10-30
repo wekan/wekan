@@ -125,10 +125,10 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **CHANGELOG.md** is now short: the In short of the five newest
-releases, in plain Markdown. Everything else - the status, the upcoming release
-and every change of each release - is in **CHANGELOG-big.md**, which is the one
-that is written.
+**In short:** **CHANGELOG.md** is now short: the In short of the upcoming
+release and of the five newest releases, in plain Markdown. The status and every
+change of each release are in **CHANGELOG-big.md**, which is the one that is
+written.
 
 This release has the following developer-tooling changes:
 
@@ -147,6 +147,18 @@ to its full section, with no `<details>` or `<summary>` and only Markdown
 links. `release-all.sh` regenerates it in the release commit, the Sandstorm App
 Market shows it, and `tests/changelogShort.test.cjs` fails when it is not what
 the generator writes. CLAUDE.md and AGENTS.md describe both files.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1af642069c">The short CHANGELOG.md starts with the upcoming release's In short</a>. Thanks to xet7.</summary>
+
+What was about to be released was only in `CHANGELOG-big.md`. The short file
+now starts with the unreleased `# Upcoming WeKan ® release` - its In short and
+a link to its full section - with the five newest releases below it; right
+after a release, when there is no Upcoming yet, none is invented. CLAUDE.md and
+AGENTS.md say what "update wekan changelog" does to both files.
+`tests/changelogShort.test.cjs` pins it.
 
 </details>
 
