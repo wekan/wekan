@@ -128,9 +128,26 @@ its reason.
 **In short:** **CHANGELOG.md** is now short: the In short of the upcoming
 release and of the five newest releases, in plain Markdown. The status and every
 change of each release are in **CHANGELOG-big.md**, which is the one that is
-written.
+written. **CodeQL** alert #598 in the Sandstorm host test is fixed.
 
-This release has the following developer-tooling changes:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fcd995095d">Alert #598: the Sandstorm host test names no host but sandstorm.org</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL flagged incomplete URL substring sanitization (CWE-20) in
+`tests/sandstormOrgHosts.test.cjs`, which picked the files to check by whether
+they contained the old Sandstorm host name as a substring. The test no longer
+names that host at all: it finds every Sandstorm host on a top-level domain
+other than `org` by its shape, written as a URL, so property paths, file names
+and the domains reserved for tests are not taken for hosts. Run against the
+files from before the switch to sandstorm.org, it finds the 13 old hosts. The
+finding was in a test, not in WeKan, so there is no attempt to show in Admin
+Panel → Problems.
+
+</details>
+
+and has the following developer-tooling changes:
 
 **Release history** - which file is written, and which is read.
 

@@ -10,7 +10,7 @@ make changes there.
 **CHANGELOG.md** is now short: the In short of the upcoming
 release and of the five newest releases, in plain Markdown. The status and every
 change of each release are in **CHANGELOG-big.md**, which is the one that is
-written.
+written. **CodeQL** alert #598 in the Sandstorm host test is fixed.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
