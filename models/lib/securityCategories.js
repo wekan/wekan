@@ -26,6 +26,10 @@ const CATALOG = {
   // A Google or Facebook access token minted for another application (or a
   // Google ID token of another user) offered to the direct-token login.
   'authn.oauth-token-audience': { category: 'authn', bleed: 'Meteor OAuth', severity: 'critical', cwe: 'CWE-287', blocksAccount: false },
+  // A state-changing HTTP request whose only login is the cookie, sent from
+  // another site (models/lib/crossSiteRequest.js). blocksAccount: false - the
+  // cookie belongs to the victim, whose browser was made to send it.
+  'csrf.cross-site-cookie': { category: 'csrf', bleed: 'Cross-site request', severity: 'high', cwe: 'CWE-352', blocksAccount: false },
   'authz.card-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
   'authz.board-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
   'authz.admin-only-field': { category: 'authz', bleed: 'AdminFieldBleed', severity: 'high', cwe: 'CWE-863' },
