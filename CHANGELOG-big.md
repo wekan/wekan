@@ -123,6 +123,31 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Changing a password signs the account out in every other browser,
+and now a test proves it in two real browsers.
+
+This release adds the following security regression test:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc9a7bb1ac">A changed password signs the account out in every other browser</a>. Thanks to xet7.</summary>
+
+A report described a session that stayed signed in on a second browser after
+the password was changed on the first. WeKan does not do that: Member Settings
+/ Change Password is Meteor's changePassword, which removes every login token
+but the changing session's, the admin's Set password and a password reset
+remove them all, and a session whose token is gone is closed.
+`password-change-other-sessions.e2e.js` runs the report in two browsers - the
+other one is signed out within seconds, stays signed out after a reload, and
+only the new password works - three times in Chromium and in WebKit.
+`tests/passwordChangeSessions.test.cjs` pins those paths and fails on a password
+change that keeps the other sessions.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.74 2026-10-30 WeKan ® release
 
 **In short:** **Caddy** and **FerretDB**, the Go servers WeKan ships, no longer

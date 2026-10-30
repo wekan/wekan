@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Changing a password signs the account out in every other browser,
+and now a test proves it in two real browsers.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.74 2026-10-30 WeKan ® release
 
 **Caddy** and **FerretDB**, the Go servers WeKan ships, no longer
