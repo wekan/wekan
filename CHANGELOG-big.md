@@ -125,12 +125,136 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** An old **Sandstorm** grain migrated from MongoDB 3 no longer
-opens onto an empty All Boards page: boards from before the templates feature
-are shown again. The **Snap** backup and restore instructions work on
-**AlmaLinux, Rocky Linux** and Fedora too.
+**In short:** Security features: a **password policy** with an optional
+breached-password check, **compulsory two-factor authentication**, sign-out
+of **idle sessions**, an **audit log** of what administrators did, **HSTS**,
+a cross-site request guard, and **S3 encryption at rest**. An old
+**Sandstorm** grain migrated from MongoDB 3 shows its boards again, and the
+**Snap** backup instructions work on **AlmaLinux, Rocky Linux** and Fedora.
 
-This release fixes the following bugs:
+This release adds the following security features:
+
+**Signing in** - which passwords are accepted, who must have a second factor,
+and when an unattended session ends.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7abe9910a">New passwords have a minimum length, and a breached one can be refused</a>. Thanks to xet7.</summary>
+
+`PASSWORD_MIN_LENGTH` (default 8) and `PASSWORD_CHECK_PWNED` (off by default),
+in Admin Panel / People / Login and on every platform. The browser sends a
+password to Meteor hashed, so the server checks every password that reaches it
+as text - Admin Panel Set password and Add user, `POST /users/register` - and
+the sign-up, Change Password, reset and enrolment forms check in the browser.
+Signing in is never checked, so an existing shorter password keeps working
+until it is changed. A breached password is found with Have I Been Pwned's
+k-anonymity range API: only 5 hex digits of the SHA-1 leave WeKan, and an
+unreachable service never refuses a password. A refused password is ordinary
+use, not an attack, so it is not recorded in Admin Panel / Problems.
+`tests/passwordPolicy.test.cjs` checks every place a password reaches the
+server as text, and that nothing else sets one without the check.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7abe9910a">Two-factor authentication can be made compulsory, for administrators or for everybody</a>. Thanks to xet7.</summary>
+
+`REQUIRE_2FA`: `off` (default), `admins` or `all`. It covers the accounts that
+sign in with a WeKan password; LDAP, OAuth2, SAML, CAS and Sandstorm accounts
+sign in through an identity provider and are never asked. Such an account can
+still sign in - it has to, to enrol - and sees only the set-up until it has
+2FA. Until then the server refuses every method and publication but signing in
+and enrolling, HTTP routes do not accept its login and the REST API gives it no
+token; once required, 2FA cannot be switched off. An account between signing
+in and enrolling is ordinary use, so nothing is recorded in Problems.
+`tests/requireTwoFactor.test.cjs` runs the real wrappers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41173f0f6b">A browser session is signed out after LOGOUT_IDLE_MINUTES without activity</a>. Thanks to xet7.</summary>
+
+`LOGOUT_WITH_TIMER` ends a login at a deadline however busy its user is; nothing
+ended a session somebody walked away from. The browser now reports a key press,
+click, touch or scroll at most once a minute, the server keeps the time per
+login token in `idleSessions`, and once a minute every token idle past the
+limit is removed, which signs its connections out. A tab that reconnects by
+itself - a laptop waking up - is not activity, and REST API tokens are never
+removed. The time is kept beside the user rather than on the token, because
+updating one element of the token array needs the positional `$` operator,
+which not every database WeKan runs on supports. `tests/idleLogout.test.cjs`.
+
+</details>
+
+**HTTP** - what every response tells the browser, and which requests are
+accepted only from WeKan's own pages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4993242c5f">Strict-Transport-Security on every response of an HTTPS site</a>. Thanks to xet7.</summary>
+
+Without HSTS, a link typed as plain HTTP or a downgrade on a hostile network
+could strip TLS from the next visit unless the reverse proxy added the header.
+It is now sent whenever `ROOT_URL` is https: 180 days, this host only.
+`HSTS_MAX_AGE`, `HSTS_INCLUDE_SUBDOMAINS` and `HSTS_PRELOAD` change it; 0 stops
+it, and preload is sent only with includeSubDomains and at least a year. Every
+response also carries `X-Content-Type-Options: nosniff` and
+`Referrer-Policy: strict-origin-when-cross-origin`. A header has no attempt to
+record. `tests/securityHeaders.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48a2e97ea3">A state-changing request that logs in only with the cookie must come from WeKan itself</a>. Thanks to xet7.</summary>
+
+`POST /import-trello` and other routes accept the login cookie as the login.
+The cookie is SameSite=Strict, which keeps it off a cross-site request in
+today's browsers; this is the second line, for older browsers, same-site
+sibling hosts and routes added later. A POST, PUT, PATCH or DELETE whose only
+login is the cookie must carry an Origin, or Referer, naming `ROOT_URL`'s host
+or the Host / X-Forwarded-Host it was sent to - on Sandstorm, the grain's own
+host. A refusal is recorded in Admin Panel / Problems as
+`csrf.cross-site-cookie` and never blocks the account whose cookie it was.
+`tests/crossSiteRequest.test.cjs` also fails when a route registers a handler
+that runs before the guard.
+
+</details>
+
+**The Admin Panel** - a record of what administrators changed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d5b832499">People / Audit log shows what site administrators did</a>. Thanks to xet7.</summary>
+
+Nothing recorded who set somebody's password, made somebody an admin, changed
+a login setting or restored a backup. Every call of those administrative
+methods by a site administrator is now kept for a year, one document each:
+when, who, the action, its outcome - a refused call too - its arguments and
+the address. A password or a secret never reaches the trail: credential-named
+keys, password arguments by position and passwords inside URLs are replaced by
+`[redacted]`. An administrator editing cards is not in it, and a trail that
+cannot be written never changes what the method did.
+`tests/adminAudit.test.cjs`.
+
+</details>
+
+- [The audit log has its own URL, /admin/people/audit-log, a title, and right-to-left alignment](https://github.com/wekan/wekan/commit/2017f2871f).
+  Thanks to xet7.
+
+**Attachments** - where the files are kept, and how.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/482c2c29f4">Files and backups in S3 can be encrypted at rest</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments / S3 / Server-side encryption: SSE-S3 (AES256) or
+SSE-KMS, with a KMS key or the account's default. S3 encrypts each object as it
+is written and decrypts it for WeKan on read, so reads, range requests and
+moves are unchanged; every upload, renamed object and backup written to S3
+carries it. On the filesystem, encryption at rest stays with the disk or volume
+(LUKS, an encrypted cloud volume): exports, PDF, thumbnails, virus scans,
+backups and WebDAV all read the stored files directly.
+`tests/s3Encryption.test.cjs`.
+
+</details>
+
+and fixes the following bugs:
 
 **Upgrading old data** - documents from old WeKan versions are brought to the
 current structure at startup, so nothing that is in the database stays hidden.
@@ -170,6 +294,30 @@ the directory with one `S=` line and the CPU's library directory with
 `database-merge`, which can be run from a host shell, find the snap in either
 place. `tests/snapPathElLinux.test.cjs` fails on an export of a `/snap`-only
 path in any document and on a script that falls back to `/snap` alone.
+
+</details>
+
+and updates the following documentation:
+
+- [Security settings: every hardening option of a WeKan site on one page](https://github.com/wekan/wekan/commit/302b47db6f).
+  Thanks to xet7.
+
+and updates the following translations:
+
+**Languages updated:** 234 languages.
+
+**Security features** - the strings of the password policy, two-factor, the
+audit log and S3 encryption.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de23dece66">The 16 new security strings in every language, and Frisian two-factor text that was Dutch</a>. Thanks to xet7.</summary>
+
+Each string is in the language and script its locale tag names, with the terms
+the file already uses for password, account, attachment, backup and two-factor
+authentication, and `__min__` kept exactly. fy and fy-NL had Dutch two-factor
+strings, now Frisian (`tests/frisianTwoFactorLanguage.test.cjs`); Tigre spells
+storage መክዘን, not Tigrinya's መኽዘን. The commit lists the languages written
+with low confidence, for a speaker to correct on Transifex.
 
 </details>
 
