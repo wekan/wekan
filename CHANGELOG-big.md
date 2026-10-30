@@ -301,6 +301,8 @@ and updates the following documentation:
 
 - [Security settings: every hardening option of a WeKan site on one page](https://github.com/wekan/wekan/commit/302b47db6f).
   Thanks to xet7.
+- [Admin Panel / People / Audit log: what it records and what it never does](https://github.com/wekan/wekan/commit/f165a24192).
+  Thanks to xet7.
 
 and updates the following translations:
 
