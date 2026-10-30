@@ -123,6 +123,35 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **CHANGELOG.md** is now short: the In short of the five newest
+releases, in plain Markdown. Everything else - the status, the upcoming release
+and every change of each release - is in **CHANGELOG-big.md**, which is the one
+that is written.
+
+This release has the following developer-tooling changes:
+
+**Release history** - which file is written, and which is read.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1c0db247a">CHANGELOG.md is the In short of the five newest releases, written from CHANGELOG-big.md</a>. Thanks to xet7.</summary>
+
+The changelog is `CHANGELOG-big.md` now, renamed in a commit of its own
+(`61e838df46`) so its history follows it: `# Status`, `# Upcoming` and every
+release in full. The release tooling, the release workflow and its notes'
+link, the commit-link repair, the archive and the tests use it.
+`CHANGELOG.md` is generated from it by `releases/changelog-short.mjs`: no
+Status or Upcoming, only each of the five newest releases' In short and a link
+to its full section, with no `<details>` or `<summary>` and only Markdown
+links. `release-all.sh` regenerates it in the release commit, the Sandstorm App
+Market shows it, and `tests/changelogShort.test.cjs` fails when it is not what
+the generator writes. CLAUDE.md and AGENTS.md describe both files.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.72 2026-10-30 WeKan ® release
 
 **In short:** A card link can no longer launch an operating-system handler with
