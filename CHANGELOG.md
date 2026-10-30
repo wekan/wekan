@@ -9,7 +9,8 @@ make changes there.
 
 An old **Sandstorm** grain migrated from MongoDB 3 no longer
 opens onto an empty All Boards page: boards from before the templates feature
-are shown again.
+are shown again. The **Snap** backup and restore instructions work on
+**AlmaLinux, Rocky Linux** and Fedora too.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

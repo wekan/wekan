@@ -127,7 +127,8 @@ its reason.
 
 **In short:** An old **Sandstorm** grain migrated from MongoDB 3 no longer
 opens onto an empty All Boards page: boards from before the templates feature
-are shown again.
+are shown again. The **Snap** backup and restore instructions work on
+**AlmaLinux, Rocky Linux** and Fedora too.
 
 This release fixes the following bugs:
 
@@ -151,6 +152,24 @@ The same log showed `merge-per-swimlane-lists FAILED ... missing schema for key
 "swimlaneId"`: FerretDB's SQLite `distinct` could not read documents without
 the fields it asked for. That is fixed in the FerretDB fork (Upcoming FerretDB
 release), which the next bundle includes.
+
+</details>
+
+**Snap** - backing up, restoring and repairing a snap from the host's shell.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b5c855820">Backup and restore instructions find mongodump and mongorestore on AlmaLinux, Rocky Linux and Fedora</a>. Thanks to Group-Deed and xet7.</summary>
+
+snapd keeps the snaps in `/var/lib/snapd/snap` on Fedora, RHEL, AlmaLinux,
+Rocky Linux, CentOS Stream and Arch Linux, which have no `/snap`. The
+instructions exported `/snap/wekan/current/bin` and its `lib/x86_64-linux-gnu`,
+so restoring a backup on Rocky Linux failed until both were found by hand, and
+only Arch had a note - for the library path alone. Every instruction now picks
+the directory with one `S=` line and the CPU's library directory with
+`$(uname -m)`, so arm64 works too. `database-role`, `database-compare` and
+`database-merge`, which can be run from a host shell, find the snap in either
+place. `tests/snapPathElLinux.test.cjs` fails on an export of a `/snap`-only
+path in any document and on a script that falls back to `/snap` alone.
 
 </details>
 
