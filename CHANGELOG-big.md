@@ -332,6 +332,28 @@ unconditionally.
 
 </details>
 
+**Meteor in .tools** - starting the Meteor that build.sh and build.bat keep in
+the repository's own tools directory.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a118c83b2">Meteor starts with one springboard instead of springboarding forever</a>. Thanks to xet7.</summary>
+
+A build from the menu printed `uname -p` and `sysctl hw.cpu64bit_capable` over
+and over and never reached its first package. With `METEOR_WAREHOUSE_DIR` set
+and no `SANDBOX`, Meteor takes the running tool to be wherever the warehouse's
+`meteor` link points - 3.5.4, the release it was installed with - so with
+`.meteor/release` at 3.6-rc.1 every start springboarded to 3.6.0-rc.1, found
+itself the wrong tool again and springboarded again: 28 times in 20 seconds of
+`meteor --version`. The 1.1 GB build log above was the same loop, its module
+trace printed again on every exec. `releases/tools-env.sh` and `tools-env.bat`
+now set `SANDBOX=true` beside the warehouse, as Meteor's own self-test does,
+and so do the Nextcloud test scripts and the dev-source runner.
+`tests/meteorSpringboardLoop.test.cjs` checks both scripts, fails on any file
+that sets the warehouse without `SANDBOX`, and runs the installed Meteor to
+count its springboards.
+
+</details>
+
 and updates the following documentation:
 
 - [Security settings: every hardening option of a WeKan site on one page](https://github.com/wekan/wekan/commit/302b47db6f).
