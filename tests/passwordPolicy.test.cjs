@@ -165,7 +165,7 @@ test('negative: an unreachable breach service never stops a password', async () 
   assert.strictEqual(replayed.length, 1);
   const server = read('server/lib/passwordPolicy.js');
   assert.match(server, /if \(!response\.ok\) return null;/);
-  assert.match(server, /return suffixes \? isPwned\(sha1, suffixes\) : false;/);
+  assert.match(server, /return suffixes \? isPwned\(digest, suffixes\) : false;/);
 });
 
 test('the settings are in the catalog, and breach checks are off unless asked for', () => {
@@ -177,6 +177,37 @@ test('the settings are in the catalog, and breach checks are off unless asked fo
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   for (const key of ['password-pwned', 'password-too-short', 'password-same-as-username']) assert.ok(en[key], key);
   assert.match(en['password-too-short'], /__min__/);
+});
+
+test('CodeQL #599: one Web Crypto digest for the breach lookup, the same as SHA-1, never stored', async () => {
+  const { breachLookupDigest } = require('../models/lib/passwordPolicy');
+  assert.strictEqual(await breachLookupDigest('password'), sha1('password'));
+  assert.strictEqual(await breachLookupDigest('äöå €'), sha1('äöå €'), 'UTF-8, as the range API hashes it');
+  await assert.rejects(() => breachLookupDigest('x', null), /Web Crypto/);
+  const server = read('server/lib/passwordPolicy.js');
+  assert.match(server, /digest = await breachLookupDigest\(password\);/);
+  assert.match(server, /catch \(e\) \{\n\s+\/\/ Like an unreachable service: the check never stops a password\.\n\s+return false;/);
+  // The digest goes to the range lookup and the comparison, nowhere else.
+  const body = server.slice(server.indexOf('async function pwned('), server.indexOf('// Throws a Meteor.Error'));
+  assert.deepStrictEqual([...body.matchAll(/\bdigest\b/g)].length, 4, body);
+  assert.doesNotMatch(body, /insert|update|console|record\(/);
+  assert.match(read('client/lib/newPasswordCheck.js'), /await breachLookupDigest\(password, subtle\)/);
+});
+
+test('negative CodeQL #599: nothing in WeKan hashes a password with a fast hash of its own', () => {
+  const { execFileSync } = require('child_process');
+  let hits = '';
+  try {
+    hits = execFileSync('git', ['grep', '-n', '-E', "createHash\\(['\"](md5|md4|sha1|sha256|sha512)['\"]\\)|subtle\\.digest\\(", '--',
+      'server', 'models', 'client', 'packages', 'imports', 'config'], { cwd: repoRoot, encoding: 'utf8' });
+  } catch (e) { hits = ''; }
+  const offenders = hits.split('\n').filter(Boolean)
+    .filter(l => !/\/tests?\/|\.test\.|\.min\.js/.test(l))
+    // the breach lookup's single digest
+    .filter(l => !l.startsWith('models/lib/passwordPolicy.js:'))
+    // a fast hash of something else is fine; of a password it is not
+    .filter(l => /pass(word)?|pwd|secret/i.test(l));
+  assert.deepStrictEqual(offenders, []);
 });
 
 (async () => {

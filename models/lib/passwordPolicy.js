@@ -61,6 +61,19 @@ function passwordProblem(password, config, { username, email } = {}) {
 
 const PWNED_PREFIX = /^[0-9A-F]{5}$/;
 
+// The digest the breach lookup compares, as 40 upper-case hex digits. This is
+// NOT how WeKan stores passwords - accounts-password keeps those with bcrypt -
+// and it is never stored or logged: Have I Been Pwned's range API is keyed by
+// SHA-1, so its first 5 digits are the question and the rest is compared with
+// the answer, in memory, and dropped. One implementation for the browser and
+// the server (Web Crypto, in both), so the two cannot drift apart
+// (docs/Security/Password-Breach-Check-Digest-2026-10-31.md, CodeQL #599).
+async function breachLookupDigest(text, subtle = globalThis.crypto && globalThis.crypto.subtle) {
+  if (!subtle) throw new Error('Web Crypto is not available');
+  const digest = await subtle.digest('SHA-1', new TextEncoder().encode(String(text)));
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
 // The suffixes in a range answer ("SUFFIX:COUNT" lines). Padding lines, which
 // the API adds with a count of 0, are not breaches.
 function parsePwnedRange(body) {
@@ -84,6 +97,7 @@ module.exports = {
   passwordProblem,
   parsePwnedRange,
   isPwned,
+  breachLookupDigest,
   PWNED_PREFIX,
   DEFAULT_MIN_LENGTH,
   MAX_MIN_LENGTH,

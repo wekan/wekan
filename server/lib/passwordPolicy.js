@@ -5,9 +5,8 @@ import { authEnv } from '/server/lib/authConfig';
 
 // The server's half of the password policy: what it is, why the browser
 // checks most of it, and what "breached" means are in models/lib/passwordPolicy.js.
-const crypto = require('crypto');
 const {
-  passwordPolicyConfig, passwordProblem, parsePwnedRange, isPwned, PWNED_PREFIX,
+  passwordPolicyConfig, passwordProblem, parsePwnedRange, isPwned, breachLookupDigest, PWNED_PREFIX,
 } = require('/models/lib/passwordPolicy');
 
 const PWNED_RANGE_URL = 'https://api.pwnedpasswords.com/range/';
@@ -44,9 +43,15 @@ export async function fetchPwnedRange(prefix) {
 }
 
 async function pwned(password) {
-  const sha1 = crypto.createHash('sha1').update(password, 'utf8').digest('hex').toUpperCase();
-  const suffixes = await fetchPwnedRange(sha1.slice(0, 5));
-  return suffixes ? isPwned(sha1, suffixes) : false;
+  let digest;
+  try {
+    digest = await breachLookupDigest(password);
+  } catch (e) {
+    // Like an unreachable service: the check never stops a password.
+    return false;
+  }
+  const suffixes = await fetchPwnedRange(digest.slice(0, 5));
+  return suffixes ? isPwned(digest, suffixes) : false;
 }
 
 // Throws a Meteor.Error when a password that reached the server as text may
