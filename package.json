@@ -97,7 +97,7 @@
     "highlight.js": "^11.12.0",
     "hotkeys-js": "^4.0.8",
     "htmlparser2": "^12.0.0",
-    "i18next": "^26.5.4",
+    "i18next": "^26.5.11",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "imapflow": "2.9.1",
     "isomorphic-git": "1.44.3",
