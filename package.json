@@ -64,7 +64,7 @@
     "@fastify/busboy": "^3.2.4",
     "@google-cloud/storage": "^8.0.1",
     "@meteorjs/reify": "^0.25.4",
-    "@node-saml/node-saml": "^5.1.0",
+    "@node-saml/node-saml": "^5.2.0",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@simplewebauthn/server": "14.0.3",
     "@swc/helpers": "^0.5.23",
