@@ -58,6 +58,8 @@ template(name="adminProblems")
             +eventStreamReport(stream="api")
           else if isPane 'report-office'
             +officeReport
+          else if isPane 'report-password-length'
+            +passwordLengthReport
           else if tablePageData
             +tablePage(tablePageData)
 

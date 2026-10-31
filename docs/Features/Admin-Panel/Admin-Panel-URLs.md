@@ -81,6 +81,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/problems/backup` | Backup (status and history; settings stay in Attachments / Backup) | `features-backup` |
 | `/admin/problems/security-report` | Security Report | `report-security` |
 | `/admin/problems/impersonation` | Impersonation Report | `report-impersonation` |
+| `/admin/problems/password-length` | Password length | `report-password-length` |
 | `/admin/problems/performance` | Performance | `features-performance` |
 | `/admin/problems/speed` | Speed | `report-speed` |
 | `/admin/problems/tests` | Tests | `report-tests` |

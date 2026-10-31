@@ -111,6 +111,8 @@ const ADMIN_PAGES = {
       backup: 'features-backup',
       'security-report': 'report-security',
       impersonation: 'report-impersonation',
+      // Who signs in with a password shorter than PASSWORD_MIN_LENGTH.
+      'password-length': 'report-password-length',
       performance: 'features-performance',
       speed: 'report-speed',
       tests: 'report-tests',

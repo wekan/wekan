@@ -64,7 +64,7 @@ unsafe or noisy:
   failed or overdue backup is also listed on Summary
   ([Backup.md](../../../Backup/Backup.md)).
 
-**Reports** — Security Report, Impersonation Report, Performance, Speed, Tests, CPU
+**Reports** — Security Report, Impersonation Report, Password length, Performance, Speed, Tests, CPU
 usage, Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report,
 Cards Report, Recovery, Offices, API, Database problems, Filesystem integrity and
 Email.
@@ -127,6 +127,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Backup | `backup` | [Backup.md](../../../Backup/Backup.md#did-the-backup-work-history-health-and-monitoring) |
 | Problems / Security Report | `security-report` | — |
 | Problems / Impersonation Report | `impersonation` | — |
+| Problems / Password length | `password-length` | [Password-length.md](Password-length.md) |
 | Problems / Performance | `performance` | — |
 | Problems / Speed | `speed` | — |
 | Problems / Tests | `tests` | — |
@@ -146,7 +147,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Filesystem integrity | `integrity` | — |
 | Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
 
-15 of these 25 panes has no page of its own yet. A dash is a
+15 of these 26 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 

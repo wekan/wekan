@@ -11,7 +11,9 @@ import { Email } from 'meteor/email';
 import { check, Match } from 'meteor/check';
 import { safeSelector } from '/server/lib/selectorGuard';
 import { authEnv } from '/server/lib/authConfig';
-import { assertNewPassword } from '/server/lib/passwordPolicy';
+import { assertNewPassword, currentPasswordPolicy } from '/server/lib/passwordPolicy';
+const { isTooShort } = require('/models/lib/passwordPolicy');
+import { endPasswordChangeRequirement } from '/server/passwordChangeRequired';
 import { EJSON } from 'meteor/ejson';
 import { Random } from 'meteor/random';
 import { CollectionHooks } from 'meteor/matb33:collection-hooks';
@@ -1606,11 +1608,17 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    // PASSWORD_MIN_LENGTH / PASSWORD_CHECK_PWNED (models/lib/passwordPolicy.js).
-    const target = await Users.findOneAsync(userId, { fields: { username: 1, emails: 1 } });
-    await assertNewPassword(newPassword, {
-      username: target?.username, email: target?.emails?.[0]?.address,
+    // PASSWORD_MIN_LENGTH / PASSWORD_CHECK_PWNED (models/lib/passwordPolicy.js),
+    // for WeKan's own password accounts: an LDAP, OAuth2, SAML or other
+    // provider's account keeps its provider's policy.
+    const target = await Users.findOneAsync(userId, {
+      fields: { username: 1, emails: 1, authenticationMethod: 1 },
     });
+    if ((target?.authenticationMethod || 'password') === 'password') {
+      await assertNewPassword(newPassword, {
+        username: target?.username, email: target?.emails?.[0]?.address,
+      });
+    }
 
     if (typeof Accounts.setPasswordAsync === 'function') {
       await Accounts.setPasswordAsync(userId, newPassword);
@@ -1619,6 +1627,12 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('set-password-unavailable', 'Accounts password API is not available');
     }
+    // A new password from the administrator ends a "change your password"
+    // requirement; setPasswordAsync has signed every session out already. The
+    // text is here, so a short one does not count as fixing a short one.
+    await endPasswordChangeRequirement(userId, {
+      signOut: false, fixed: !isTooShort(newPassword, currentPasswordPolicy()),
+    });
   },
 
   async setEmailVerified(email, verified, userId) {

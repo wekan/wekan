@@ -1,10 +1,12 @@
 'use strict';
 // "Failure to invalidate session on password change": with the same account
 // signed in on two browsers, changing the password in one must sign the other
-// out - not leave it signed in. Meteor's changePassword removes every login
-// token but the one of the session that changed it, and a session whose token
-// is gone is closed by the server; the admin's setPassword and a reset remove
-// them all. This drives it in two real browser contexts.
+// out - not leave it signed in. And since WeKan signs EVERY session out on an
+// own password change, the browser that changed it too
+// (server/passwordChangeRequired.js): Meteor's changePassword kept that one,
+// and now its token goes with the rest. A session whose token is gone is
+// closed by the server; the admin's setPassword and a reset remove them all.
+// This drives it in two real browser contexts.
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, loginWithCredentials } = require('../helpers/auth');
@@ -16,7 +18,7 @@ const NEW = 'New-Pass-6842-b';
 const userIdIn = page => page.evaluate(() => (typeof Meteor !== 'undefined' ? Meteor.userId() : null));
 const tokensOf = id => (db.findOne('users', { _id: id }).services?.resume?.loginTokens || []).length;
 
-test('changing the password in one browser signs the other one out', async ({ page, browser, user }) => {
+test('changing one\'s own password signs every session out, and only the new one signs in', async ({ page, browser, user }) => {
   // The seeded user signs in with a token only; give it a password first. The
   // admin method does that and, by default, signs every session out.
   // Only an admin may set a password (the seeded user is not one).
@@ -46,10 +48,12 @@ test('changing the password in one browser signs the other one out', async ({ pa
     if (await again.count()) await again.fill(NEW);
     await page.locator('#at-btn').click();
 
-    // Only A's session is left, and B is signed out - not "updated".
-    await expect.poll(() => tokensOf(user.id), { timeout: 20_000 }).toBe(1);
+    // No session is left: B is signed out - not "updated" - and so is A, the
+    // browser that changed it, which is taken to the sign-in page.
+    await expect.poll(() => tokensOf(user.id), { timeout: 20_000 }).toBe(0);
     await expect.poll(() => userIdIn(pageB), { timeout: 30_000 }).toBe(null);
-    expect(await userIdIn(page)).toBe(user.id);
+    await expect.poll(() => userIdIn(page), { timeout: 30_000 }).toBe(null);
+    await expect(page).toHaveURL(/\/sign-in/, { timeout: 15_000 });
 
     // Negative: B's session - an HttpOnly cookie, which no page script can
     // read - no longer signs it in, not even after a reload.
@@ -62,6 +66,10 @@ test('changing the password in one browser signs the other one out', async ({ pa
     const contextC = await browser.newContext({ baseURL: BASE_URL });
     const pageC = await contextC.newPage();
     try {
+      // The old password does not sign in any more.
+      await expect(loginWithCredentials(pageC, user.username, OLD)).rejects.toThrow();
+      expect(await userIdIn(pageC)).toBe(null);
+      db.deleteMany('AccountsLockout.Connections', { clientAddress: { $in: ['127.0.0.1', '::1', '::ffff:127.0.0.1'] } });
       await loginWithCredentials(pageC, user.username, NEW);
       await expect.poll(() => userIdIn(pageC)).toBe(user.id);
     } finally { await contextC.close(); }

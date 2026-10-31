@@ -864,9 +864,12 @@ REM SET LOGOUT_IDLE_MINUTES=30
 REM # REQUIRE_2FA : Compulsory two-factor authentication for accounts that sign in with a WeKan password:
 REM # off (default), admins or all. They must set it up right after signing in.
 REM SET REQUIRE_2FA=admins
-REM # PASSWORD_MIN_LENGTH : Shortest new password allowed, in characters. Default 8.
-REM # Signing in with an existing shorter password still works.
+REM # PASSWORD_MIN_LENGTH : Minimum password length, in characters. Default 8. A sign-in with a shorter
+REM # password is listed in Admin Panel / Problems / Password length; nothing is refused unless enforced:
 REM SET PASSWORD_MIN_LENGTH=12
+REM # PASSWORD_MIN_LENGTH_ENFORCE : true = refuse a shorter new password, and make an account that
+REM # signs in with a shorter one change it; the change signs every session out. Off by default.
+REM SET PASSWORD_MIN_LENGTH_ENFORCE=true
 REM # PASSWORD_CHECK_PWNED : true = refuse a new password found in a known data breach. Off by default.
 REM # Only 5 hex digits of its SHA-1 are sent to api.pwnedpasswords.com.
 REM SET PASSWORD_CHECK_PWNED=true

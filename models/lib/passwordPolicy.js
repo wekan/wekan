@@ -12,8 +12,17 @@
 // password and Add user, and POST /users/register. A directory's password
 // (LDAP) is the directory's policy, and is not checked here.
 //
-// A longer minimum applies to NEW passwords only: signing in is never checked,
-// so an existing shorter password keeps working until it is next changed.
+// THE MINIMUM IS REPORTED BY DEFAULT, AND ENFORCED ONLY WHEN ASKED.
+// PASSWORD_MIN_LENGTH (default 8) is the length below which a sign-in is
+// listed in Admin Panel / Problems / Password length - nothing is refused for
+// it. PASSWORD_MIN_LENGTH_ENFORCE (off by default) is what makes it a rule: a
+// shorter NEW password is refused, and an account that signs in with an older
+// shorter one is asked to change it before anything else
+// (server/passwordChangeRequired.js). Signing in itself is never refused, so
+// nobody is locked out by a minimum set after their password. Only the browser
+// that typed a password knows how long it is, so it is the browser that tells.
+// It covers WeKan's own password accounts: an LDAP, OAuth2, OIDC, SAML, CAS or
+// Sandstorm account's password is its provider's, and so is the policy.
 //
 // BREACHED PASSWORDS (off by default: it asks a service on the Internet). Only
 // the first 5 hex digits of the password's SHA-1 leave WeKan - the "range" of
@@ -24,6 +33,8 @@
 //
 // Pure: no Meteor, no network. Loaded by the server, the client and tests.
 
+// The length below which a sign-in is reported; enforced only with
+// PASSWORD_MIN_LENGTH_ENFORCE.
 const DEFAULT_MIN_LENGTH = 8;
 const MAX_MIN_LENGTH = 256;
 // Hashing a password costs time in proportion to its length; nobody types more.
@@ -34,22 +45,30 @@ function passwordPolicyConfig(get) {
   let minLength = DEFAULT_MIN_LENGTH;
   if (raw !== undefined && raw !== null && String(raw).trim() !== '') {
     const n = Number(String(raw).trim());
-    // A broken value keeps the default rather than accepting any password.
+    // A broken value keeps the default.
     if (Number.isInteger(n) && n >= 1) minLength = Math.min(n, MAX_MIN_LENGTH);
   }
   return {
     minLength,
+    enforce: String(get('PASSWORD_MIN_LENGTH_ENFORCE') || '').trim() === 'true',
     checkPwned: String(get('PASSWORD_CHECK_PWNED') || '').trim() === 'true',
   };
 }
 
-// null when the password is acceptable, else { error, min? }. Length is
-// counted in characters (code points), as a person counts them.
+// Is this password shorter than the minimum - enforced or only reported?
+// Length is counted in characters (code points), as a person counts them.
+function isTooShort(password, config) {
+  return !!(config && config.minLength > 0 && typeof password === 'string'
+    && [...password].length < config.minLength);
+}
+
+// null when the password may be set, else { error, min? }. Unless the minimum
+// is enforced, only the length cap applies, as it always did.
 function passwordProblem(password, config, { username, email } = {}) {
   if (typeof password !== 'string') return { error: 'password-invalid' };
-  const length = [...password].length;
-  if (length < config.minLength) return { error: 'password-too-short', min: config.minLength };
-  if (length > MAX_LENGTH) return { error: 'password-too-long', max: MAX_LENGTH };
+  if (config.enforce && isTooShort(password, config)) return { error: 'password-too-short', min: config.minLength };
+  if ([...password].length > MAX_LENGTH) return { error: 'password-too-long', max: MAX_LENGTH };
+  if (!config.enforce) return null;
   const lower = password.toLowerCase();
   for (const name of [username, email, email && String(email).split('@')[0]]) {
     if (name && String(name).length >= 3 && lower === String(name).toLowerCase()) {
@@ -95,6 +114,7 @@ function isPwned(sha1Hex, suffixes) {
 module.exports = {
   passwordPolicyConfig,
   passwordProblem,
+  isTooShort,
   parsePwnedRange,
   isPwned,
   breachLookupDigest,

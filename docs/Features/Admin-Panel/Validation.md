@@ -112,6 +112,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Backup (`backup`) | [backup.js](../../../server/methods/backup.js) | Recorded backup runs, health of the instance backup and its history (backupHistory method); settings stay in Attachments / Backup. |
 | Security Report (`security-report`) | [eventLog.js](../../../models/eventLog.js) | Recorded security events, search, detail and acknowledgement. |
 | Impersonation Report (`impersonation`) | [impersonationReport.js](../../../server/publications/impersonationReport.js) | Scoped event publication and counts. |
+| Password length (`password-length`) | [shortPasswordLogins.js](../../../server/lib/shortPasswordLogins.js) | The minimum password length and whether it is enforced, saved as Login settings; one row per account that signed in with a shorter password, reported by its browser, with the Too short / Fixed / All filter. |
 | Performance (`performance`) | [adminProblems.js](../../../client/components/settings/adminProblems.js) | Persisted performance options; card loading uses the active loading policy. |
 | Speed (`speed`) | [eventLog.js](../../../models/eventLog.js) | Recorded speed events; no events is a valid empty report. |
 | Tests (`tests`) | [eventLog.js](../../../models/eventLog.js) | Recorded test results; opening the pane does not run every repository test. |

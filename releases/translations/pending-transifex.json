@@ -3203,6 +3203,78 @@
     {
       "key": "s3-sse-kms-key-id",
       "since": "2026-10-30"
+    },
+    {
+      "key": "password-length-report-title",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-report-desc",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-no-results",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-first-login",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-last-login",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-login-count",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-fixed",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-filter-short",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-filter-fixed",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-filter-all",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-min-length",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-min-length-description",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-min-length-enforce",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-min-length-enforce-description",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-saved",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-length-from-environment",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-change-required-title",
+      "since": "2026-10-31"
+    },
+    {
+      "key": "password-change-required-text",
+      "since": "2026-10-31"
     }
   ]
 }

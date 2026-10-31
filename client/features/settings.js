@@ -50,6 +50,8 @@ import '/client/components/settings/sharedLabelsSettings.js';
 import '/client/components/settings/settingHeader.js';
 import '/client/components/settings/problemsSummary.jade';
 import '/client/components/settings/problemsSummary.js';
+import '/client/components/settings/passwordLengthReport.jade';
+import '/client/components/settings/passwordLengthReport.js';
 import '/client/components/settings/translationBody.js';
 
 // adminProblems.css was missing here, so NONE of the Admin Panel report styling

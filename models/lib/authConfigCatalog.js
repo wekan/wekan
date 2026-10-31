@@ -191,9 +191,12 @@ const SECTIONS = {
       // Disable accounts unused for this many days, nightly; empty or 0 is off
       // (models/lib/inactiveUsers.js, server/disableInactiveUsers.js, #6784).
       ['disableInactiveAfterDays', 'USERS_DISABLE_INACTIVE_AFTER_DAYS', 'number', { max: 36500 }],
-      // New passwords (models/lib/passwordPolicy.js): the shortest allowed, and
-      // whether to refuse one that appears in a known breach.
+      // Passwords (models/lib/passwordPolicy.js): the length below which a
+      // sign-in is reported (Admin Panel / Problems / Password length), whether
+      // that minimum is enforced, and whether to refuse a password that
+      // appears in a known breach.
       ['passwordMinLength', 'PASSWORD_MIN_LENGTH', 'number', { defaultValue: 8, max: 256 }],
+      ['passwordMinLengthEnforce', 'PASSWORD_MIN_LENGTH_ENFORCE', 'boolean', { defaultValue: false }],
       ['passwordCheckPwned', 'PASSWORD_CHECK_PWNED', 'boolean', { defaultValue: false }],
       // Compulsory two-factor authentication for password accounts
       // (models/lib/twoFactorRequirement.js, server/requireTwoFactor.js).

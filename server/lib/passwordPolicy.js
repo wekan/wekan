@@ -69,8 +69,8 @@ Meteor.methods({
   // What the sign-up, Change Password and reset forms check before they send
   // the password, which they send hashed. Public: the sign-up form asks it.
   getPasswordPolicy() {
-    const { minLength, checkPwned } = currentPasswordPolicy();
-    return { minLength, checkPwned };
+    const { minLength, enforce, checkPwned } = currentPasswordPolicy();
+    return { minLength, enforce, checkPwned };
   },
 
   // The breached suffixes of one 5-hex-digit SHA-1 range, for the browser to

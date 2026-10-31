@@ -321,6 +321,9 @@ const PROBLEMS_MENU = [
   // Security, and the two sit in the same menu.
   { id: 'report-security', icon: 'fa-shield', labelKey: 'securityReportTitle' },
   { id: 'report-impersonation', icon: 'fa-user-secret', labelKey: 'impersonationReportTitle' },
+  // Who signs in with a password shorter than PASSWORD_MIN_LENGTH, and the two
+  // settings that decide it (passwordLengthReport.js).
+  { id: 'report-password-length', icon: 'fa-key', labelKey: 'password-length-report-title' },
   { id: 'features-performance', icon: 'fa-tachometer', labelKey: 'features-performance', emoji: true },
   { id: 'report-speed', icon: 'fa-tachometer', labelKey: 'speedReportTitle' },
   { id: 'report-tests', icon: 'fa-flask', labelKey: 'testsReportTitle' },
@@ -538,6 +541,8 @@ const SELF_LOADING_PANES = [
   'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-ram', 'report-disk',
   'report-instrumentation',
   'report-database', 'report-integrity', 'report-office', 'report-api', 'report-mail',
+  // passwordLengthReport.js loads its own rows and settings through methods.
+  'report-password-length',
 ];
 
 function openReportPane(tmpl, targetID) {

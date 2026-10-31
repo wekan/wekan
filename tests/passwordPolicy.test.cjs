@@ -24,7 +24,7 @@ const path = require('path');
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 const {
-  passwordPolicyConfig, passwordProblem, parsePwnedRange, isPwned,
+  passwordPolicyConfig, passwordProblem, isTooShort, parsePwnedRange, isPwned,
 } = require('../models/lib/passwordPolicy');
 const { AUTH_CONFIG_SECTIONS } = require('../models/lib/authConfigCatalog');
 
@@ -40,32 +40,49 @@ function test(name, fn) {
 const env = values => name => values[name];
 const sha1 = s => crypto.createHash('sha1').update(s, 'utf8').digest('hex').toUpperCase();
 
-test('the default refuses a password shorter than 8 characters', () => {
+// The minimum (8 by default) is REPORTED - Admin Panel / Problems / Password
+// length - and enforced only with PASSWORD_MIN_LENGTH_ENFORCE: a site that never
+// asked for a policy keeps accepting what WeKan always accepted.
+test('by default the minimum is 8 and reported, not enforced', () => {
   const config = passwordPolicyConfig(env({}));
-  assert.deepStrictEqual(config, { minLength: 8, checkPwned: false });
-  assert.deepStrictEqual(passwordProblem('1234567', config), { error: 'password-too-short', min: 8 });
-  assert.strictEqual(passwordProblem('12345678', config), null);
+  assert.deepStrictEqual(config, { minLength: 8, enforce: false, checkPwned: false });
+  assert.strictEqual(passwordProblem('1234567', config), null, 'a short new password is still accepted');
+  assert.strictEqual(passwordProblem('abc', config, { username: 'abc' }), null, 'nor the username rule');
+  assert.strictEqual(passwordProblem('x'.repeat(513), config).error, 'password-too-long', 'the length cap stays');
+  assert.strictEqual(isTooShort('1234567', config), true, 'but it is reported');
+  assert.strictEqual(isTooShort('12345678', config), false);
+});
+
+test('an enforced minimum refuses a shorter password and accepts one long enough', () => {
+  for (const min of [8, 12]) {
+    const config = passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH: String(min), PASSWORD_MIN_LENGTH_ENFORCE: 'true' }));
+    assert.deepStrictEqual(passwordProblem('x'.repeat(min - 1), config), { error: 'password-too-short', min });
+    assert.strictEqual(passwordProblem('x'.repeat(min), config), null);
+  }
 });
 
 test('the administrator sets the minimum; length counts characters, not bytes', () => {
-  const config = passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH: '12' }));
+  const config = passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH: '12', PASSWORD_MIN_LENGTH_ENFORCE: 'true' }));
   assert.strictEqual(config.minLength, 12);
   assert.strictEqual(passwordProblem('short-pass1', config).error, 'password-too-short');
   assert.strictEqual(passwordProblem('äöåäöåäöåäöå', config), null, '12 characters, 24 bytes');
   assert.strictEqual(passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH: '9999' })).minLength, 256);
 });
 
-test('the username, the email and a huge password are refused', () => {
-  const config = passwordPolicyConfig(env({}));
+test('enforced, the username, the email and a huge password are refused', () => {
+  const config = passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH_ENFORCE: 'true' }));
   assert.strictEqual(passwordProblem('Administrator', config, { username: 'administrator' }).error, 'password-same-as-username');
   assert.strictEqual(passwordProblem('maija.meikalainen', config, { email: 'maija.meikalainen@example.com' }).error, 'password-same-as-username');
   assert.strictEqual(passwordProblem('x'.repeat(513), config).error, 'password-too-long');
   assert.strictEqual(passwordProblem(undefined, config).error, 'password-invalid');
 });
 
-test('negative: a broken PASSWORD_MIN_LENGTH keeps the default instead of allowing any password', () => {
-  for (const bad of ['0', '-5', 'eight', '7.5']) {
-    assert.strictEqual(passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH: bad })).minLength, 8, bad);
+test('negative: a broken PASSWORD_MIN_LENGTH keeps the default 8; only "true" enforces it', () => {
+  for (const bad of ['', ' ', '0', '-5', 'eight', '7.5']) {
+    assert.strictEqual(passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH: bad })).minLength, 8, JSON.stringify(bad));
+  }
+  for (const no of ['', 'false', 'yes', '1', 'TRUE ']) {
+    assert.strictEqual(passwordPolicyConfig(env({ PASSWORD_MIN_LENGTH_ENFORCE: no })).enforce, no.trim() === 'true', JSON.stringify(no));
   }
 });
 
@@ -171,7 +188,8 @@ test('negative: an unreachable breach service never stops a password', async () 
 test('the settings are in the catalog, and breach checks are off unless asked for', () => {
   const login = AUTH_CONFIG_SECTIONS.login.fields.map(f => [f.envVar, f.defaultValue]);
   assert.deepStrictEqual(login.filter(([v]) => v.startsWith('PASSWORD_') && v !== 'PASSWORD_LOGIN_ENABLED'),
-    [['PASSWORD_MIN_LENGTH', 8], ['PASSWORD_CHECK_PWNED', false]]);
+    [['PASSWORD_MIN_LENGTH', 8], ['PASSWORD_MIN_LENGTH_ENFORCE', false], ['PASSWORD_CHECK_PWNED', false]],
+    'reported at 8, enforced only when asked');
   assert.match(read('server/lib/passwordPolicy.js'), /if \(!currentPasswordPolicy\(\)\.checkPwned\) return null;/);
   assert.match(read('server/lib/passwordPolicy.js'), /DDPRateLimiter\.addRule\(\{ type: 'method', name: 'passwordPwnedRange' \}/);
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

@@ -1429,6 +1429,14 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    passwordChangeRequired: {
+      /**
+       * the password is shorter than PASSWORD_MIN_LENGTH: change it before
+       * anything else (server/passwordChangeRequired.js)
+       */
+      type: Boolean,
+      optional: true,
+    },
     authenticationMethod: {
       /**
        * authentication method of the user
