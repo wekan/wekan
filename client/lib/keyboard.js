@@ -404,10 +404,30 @@ function clickDueDateControl(cardId) {
   control.click();
   return true;
 }
+// #6840: the card's details render a moment AFTER the route names it - a few
+// hundred milliseconds on a slow server. Pressing `d` right after opening a
+// card found no control yet and did nothing, while the previous card's details
+// were still on screen. So the click waits until THIS card's control is there,
+// both for an opened card and for one `d` opens itself (#6755), and clicks it
+// once; it gives up quietly after 3 seconds (no due dates on this board).
+function clickDueDateControlWhenRendered(cardId) {
+  const started = Date.now();
+  const tryClick = () => {
+    if (Utils.getCurrentCardId() !== cardId) return;
+    if (clickDueDateControl(cardId)) return;
+    if (Date.now() - started < 3000) setTimeout(tryClick, 50);
+  };
+  tryClick();
+}
 export function openDueDateEditorOfOpenedCard() {
   if (Meteor.userId() === null) return false;
   const cardId = Utils.getCurrentCardId();
-  if (cardId) return clickDueDateControl(cardId);
+  if (cardId) {
+    const card = ReactiveCache.getCard(cardId);
+    if (!card || !Utils.canModifyCard(card)) return false;
+    clickDueDateControlWhenRendered(cardId);
+    return true;
+  }
   // #6755: with no card opened, `d` on a hovered or selected minicard - the
   // card every other card shortcut here acts on - opens that card and then
   // its Due date editor, rather than doing nothing until the card is opened.
@@ -415,14 +435,7 @@ export function openDueDateEditorOfOpenedCard() {
   const minicard = minicardId && ReactiveCache.getCard(minicardId);
   if (!minicard || !Utils.canModifyCard(minicard)) return false;
   Utils.goCardId(minicardId);
-  // The card details render after the route changes; wait for its control,
-  // and give up quietly if it never comes (no due dates on this board).
-  const started = Date.now();
-  const tryClick = () => {
-    if (Utils.getCurrentCardId() === minicardId && clickDueDateControl(minicardId)) return;
-    if (Date.now() - started < 3000) setTimeout(tryClick, 50);
-  };
-  setTimeout(tryClick, 0);
+  setTimeout(() => clickDueDateControlWhenRendered(minicardId), 0);
   return true;
 }
 hotkeys('d, shift+d', (event) => {

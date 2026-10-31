@@ -117,14 +117,18 @@ test('d is bound once, through the shared filter, to the opened card with canMod
 
 test('#6755: with no card opened, d opens the hovered or selected minicard first', () => {
   const fn = keyboard.slice(keyboard.indexOf('export function openDueDateEditorOfOpenedCard'), keyboard.indexOf("hotkeys('d, shift+d'"));
-  assert.match(fn, /if \(cardId\) return clickDueDateControl\(cardId\);/, 'an opened card wins');
+  assert.match(fn, /if \(cardId\) \{\n\s+const card = ReactiveCache\.getCard\(cardId\);\n\s+if \(!card \|\| !Utils\.canModifyCard\(card\)\) return false;\n\s+clickDueDateControlWhenRendered\(cardId\);/,
+    'an opened card wins, and #6840: its click waits until its details are rendered');
   assert.match(fn, /Session\.get\('selectedCard'\) \|\| getHoveredCardId\(\)/, 'the same card the other card shortcuts use');
   assert.match(fn, /if \(!minicard \|\| !Utils\.canModifyCard\(minicard\)\) return false;/,
     'negative: a card the user may not edit is not even opened');
   assert.match(fn, /Utils\.goCardId\(minicardId\)/);
-  assert.match(fn, /Utils\.getCurrentCardId\(\) === minicardId && clickDueDateControl\(minicardId\)/,
-    'clicks only once that card is the opened one, through the same control and permission');
-  assert.match(fn, /Date\.now\(\) - started < 3000/, 'gives up rather than waiting forever');
+  assert.match(fn, /setTimeout\(\(\) => clickDueDateControlWhenRendered\(minicardId\), 0\)/);
+  const wait = keyboard.slice(keyboard.indexOf('function clickDueDateControlWhenRendered'), keyboard.indexOf('export function openDueDateEditorOfOpenedCard'));
+  assert.match(wait, /if \(Utils\.getCurrentCardId\(\) !== cardId\) return;/,
+    'negative: stops when another card was opened meanwhile - never clicks for a card no longer open');
+  assert.match(wait, /if \(clickDueDateControl\(cardId\)\) return;/, 'clicks once, through the same control and permission');
+  assert.match(wait, /Date\.now\(\) - started < 3000/, 'gives up rather than waiting forever');
 });
 
 test('the due date control it clicks is the one card details renders only for editors', () => {

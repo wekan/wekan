@@ -151,6 +151,9 @@ test('Template.cardDetails.onDestroyed closes a popup still showing the destroye
   assert.ok(/baseStackEntry\?\.dataContext\?\._id === openedCardId/.test(body),
     'must only close a popup whose base stack entry belongs to this destroyed card');
   assert.ok(/Popup\.close\(\)/.test(body), 'must actually close the stale popup');
+  // #6840: a re-render of the card that is still open is not a close.
+  assert.ok(/Popup\.isOpen\(\) && Utils\.getCurrentCardId\(\) !== openedCardId/.test(body),
+    'negative: must not close the popup of a card that is still the open one');
 });
 
 console.log(`\nAll ${passed} labels-popup stale-card-context tests passed`);

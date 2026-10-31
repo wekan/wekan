@@ -99,6 +99,41 @@ test.describe('#6750 due date keyboard shortcut', () => {
     await page.keyboard.press('Escape');
   });
 
+  // #6840: on a slow server the card's details render a few hundred
+  // milliseconds after the route names it. `d` pressed right after opening
+  // another card found no control yet and did nothing - or flashed a popup
+  // shut. It waits for that card's control now, and the popup stays open.
+  // #6840: on a slow server the card's details render a few hundred
+  // milliseconds after the click that opens it. `d` pressed right away found
+  // no control yet and did nothing - or flashed a popup shut. It waits for
+  // that card's control now, and the popup stays open.
+  test('d right after clicking a card open, on a slow connection, opens and keeps its Due date editor (#6840)', async ({ page, user, board, browserName }) => {
+    // The slow connection is emulated through the Chrome DevTools Protocol.
+    test.skip(browserName !== 'chromium', 'network emulation needs Chromium');
+    db.updateOne('users', { _id: user.id }, { $unset: { 'profile.keyboardShortcuts': '' } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await expect(page.locator('.js-minicard', { hasText: 'Gamma Card' })).toBeVisible();
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Network.enable');
+    await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 300, downloadThroughput: 500000, uploadThroughput: 500000 });
+    for (const title of ['Alpha Card', 'Beta Card', 'Gamma Card']) {
+      // A real click, and `d` at once - as a person does.
+      await page.locator('.js-minicard', { hasText: title }).first().click();
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
+      await page.keyboard.press('d');
+      await expect(page.locator(`section.js-card-details[aria-label$=": ${title}"]`)).toBeVisible({ timeout: 15_000 });
+      await expect(dueDatePopup(page)).toBeVisible({ timeout: 8_000 });
+      // Still open a moment later: not a flash.
+      await page.waitForTimeout(1500);
+      await expect(dueDatePopup(page)).toBeVisible();
+      // Negative (#6686): closing the card still closes a popup opened for it.
+      await page.locator('.js-card-details .js-close-card-details').first().evaluate(el => el.click());
+      await expect(dueDatePopup(page)).toHaveCount(0, { timeout: 8_000 });
+      await expect(page.locator('section.js-card-details')).toHaveCount(0, { timeout: 8_000 });
+    }
+  });
+
   test('negative: d over a minicard does nothing when shortcuts are disabled (#6755)', async ({ page, user, board }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.keyboardShortcuts': false } });
     await loginWithToken(page, user.id, user.token);

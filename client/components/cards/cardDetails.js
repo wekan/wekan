@@ -701,9 +701,12 @@ Template.cardDetails.onDestroyed(function () {
 
   // #6686: see the comment in onCreated above. Only close a popup that is
   // still showing THIS card's data at the base of its stack - a popup opened
-  // for an unrelated card/context must not be touched.
+  // for an unrelated card/context must not be touched. #6840: and only when
+  // this card is no longer the open one - closed, or another card opened. A
+  // card whose details are merely rendered again is still open, and its popup
+  // (the Due date one `d` just opened) must not flash shut.
   const openedCardId = this.openedCardId;
-  if (openedCardId && Popup.isOpen()) {
+  if (openedCardId && Popup.isOpen() && Utils.getCurrentCardId() !== openedCardId) {
     const baseStackEntry = Popup._stack?.[0];
     if (baseStackEntry?.dataContext?._id === openedCardId) {
       Popup.close();
