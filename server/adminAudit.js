@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { deferArgumentAudit, applyAudited } from '/server/lib/argumentChecks';
 
 // Admin Panel / People / Audit log: every call of an administrative method by
 // a site administrator, one document each. Which methods, and what of their
@@ -54,19 +55,26 @@ export function wrapAuditedMethods() {
   for (const name of AUDITED_METHODS) {
     const original = methods[name];
     if (!original || original[WRAPPED]) continue;
-    methods[name] = async function auditedMethod(...args) {
-      // Asked BEFORE the call: removing one's own admin rights is audited too.
-      const actor = this.userId && await Meteor.users.findOneAsync(
-        this.userId, { fields: { username: 1, isAdmin: 1 } });
-      if (!actor || actor.isAdmin !== true) return original.apply(this, args);
-      try {
-        const result = await original.apply(this, args);
-        await record(this, actor, name, args, null);
-        return result;
-      } catch (error) {
-        await record(this, actor, name, args, error);
-        throw error;
-      }
+    methods[name] = function auditedMethod(...args) {
+      if (!this.userId) return original.apply(this, args);
+      // Awaits the actor first, so it hands audit-argument-checks over
+      // (server/lib/argumentChecks.js).
+      deferArgumentAudit(args);
+      const call = () => applyAudited(original, this, args, `call to '${name}'`);
+      return (async () => {
+        // Asked BEFORE the call: removing one's own admin rights is audited too.
+        const actor = await Meteor.users.findOneAsync(
+          this.userId, { fields: { username: 1, isAdmin: 1 } });
+        if (!actor || actor.isAdmin !== true) return call();
+        try {
+          const result = await call();
+          await record(this, actor, name, args, null);
+          return result;
+        } catch (error) {
+          await record(this, actor, name, args, error);
+          throw error;
+        }
+      })();
     };
     // Keep the marks of any other wrapper (server/requireTwoFactor.js), so
     // neither wraps the other again on its second pass.

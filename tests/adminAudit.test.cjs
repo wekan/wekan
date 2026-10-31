@@ -70,6 +70,8 @@ function loadServer(storedUsers, { failInsert = false } = {}) {
     } },
     check() {}, Match: { ObjectIncluding: () => null, Optional: () => null, Integer: null },
     ensureIndex: async () => {},
+    // server/lib/argumentChecks.js; the audit itself is tests/wrappedHandlerArgumentChecks.test.cjs.
+    deferArgumentAudit() {}, applyAudited: (handler, self, args) => handler.apply(self, args),
     require: p => {
       if (p === '/models/lib/adminAudit') return audit;
       if (p === '/server/lib/loginAttemptThrottle') return { resolveClientKey: ({ socketAddress }) => socketAddress };

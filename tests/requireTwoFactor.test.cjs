@@ -76,6 +76,8 @@ function loadServer(mode, storedUsers) {
   const context = {
     Meteor, Symbol, Date, Object,
     authEnv: name => (name === 'REQUIRE_2FA' ? mode : undefined),
+    // server/lib/argumentChecks.js; the audit itself is tests/wrappedHandlerArgumentChecks.test.cjs.
+    deferArgumentAudit() {}, applyAudited: (handler, self, args) => handler.apply(self, args),
     require: p => (p === '/models/lib/twoFactorRequirement' ? req2fa : require(p)),
     module: { exports: {} },
   };

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { authEnv } from '/server/lib/authConfig';
+import { deferArgumentAudit, applyAudited } from '/server/lib/argumentChecks';
 
 // REQUIRE_2FA enforced over DDP: until an account the requirement covers has
 // two-factor authentication, it may only sign in and out and enrol. Who is
@@ -25,16 +26,22 @@ function mode() {
   return requireTwoFactorMode(authEnv);
 }
 
+// Allowed without reading the user: REQUIRE_2FA off, nobody signed in, a
+// server-internal call (no connection), or a "may" cached on the connection.
+function allowedWithoutLookup(invocation) {
+  const current = mode();
+  if (current === 'off' || !invocation || !invocation.userId || !invocation.connection) return true;
+  const cached = invocation.connection._wekanTwoFactor;
+  return !!(cached && cached.userId === invocation.userId && cached.mode === current
+    && Date.now() - cached.at < RECHECK_MS);
+}
+
 // Is this invocation (method or publication) from an account that still has to
 // enrol? Server-internal calls, which have no connection, are never refused.
 async function mustEnrol(invocation) {
+  if (allowedWithoutLookup(invocation)) return false;
   const current = mode();
-  if (current === 'off' || !invocation || !invocation.userId || !invocation.connection) return false;
   const conn = invocation.connection;
-  const cached = conn._wekanTwoFactor;
-  if (cached && cached.userId === invocation.userId && cached.mode === current && Date.now() - cached.at < RECHECK_MS) {
-    return false;
-  }
   const user = await Meteor.users.findOneAsync(invocation.userId, { fields: USER_FIELDS });
   const missing = missingTwoFactor(user, current);
   // Only "may" is kept: an account that has just enrolled must not wait a
@@ -66,6 +73,9 @@ function mark(wrapper, original) {
   wrapper[WRAPPED] = true;
 }
 
+// A handler is called at once when the answer needs no lookup, so
+// audit-argument-checks sees its own check() calls; only a lookup awaits first,
+// and then hands the audit over (server/lib/argumentChecks.js).
 // Idempotent, so it can run again after the startup hooks of files loaded
 // later than this one have defined their methods and publications too.
 function wrapAll() {
@@ -75,21 +85,27 @@ function wrapAll() {
     const original = methods[name];
     if (name === 'disableUser2fa') {
       // Once required, 2FA stays on.
-      methods[name] = async function disableUser2faUnlessRequired(...args) {
-        if (this.userId && mode() !== 'off') {
+      methods[name] = function disableUser2faUnlessRequired(...args) {
+        if (!this.userId || mode() === 'off') return original.apply(this, args);
+        deferArgumentAudit(args);
+        return (async () => {
           const user = await Meteor.users.findOneAsync(this.userId, { fields: USER_FIELDS });
           if (twoFactorApplies(user, mode())) {
             throw new Meteor.Error('two-factor-required', 'Two-factor authentication is required on this site.');
           }
-        }
-        return original.apply(this, args);
+          return applyAudited(original, this, args, `call to '${name}'`);
+        })();
       };
       mark(methods[name], original);
       continue;
     }
-    methods[name] = async function requireTwoFactorMethod(...args) {
-      if (await mustEnrol(this)) throw refuse();
-      return original.apply(this, args);
+    methods[name] = function requireTwoFactorMethod(...args) {
+      if (allowedWithoutLookup(this)) return original.apply(this, args);
+      deferArgumentAudit(args);
+      return (async () => {
+        if (await mustEnrol(this)) throw refuse();
+        return applyAudited(original, this, args, `call to '${name}'`);
+      })();
     };
     mark(methods[name], original);
   }
@@ -98,12 +114,16 @@ function wrapAll() {
   for (const name of Object.keys(publications)) {
     if (ALLOWED_PUBLICATIONS.has(name) || publications[name][WRAPPED]) continue;
     const original = publications[name];
-    publications[name] = async function requireTwoFactorPublication(...args) {
-      if (await mustEnrol(this)) {
-        this.ready();
-        return undefined;
-      }
-      return original.apply(this, args);
+    publications[name] = function requireTwoFactorPublication(...args) {
+      if (allowedWithoutLookup(this)) return original.apply(this, args);
+      deferArgumentAudit(args);
+      return (async () => {
+        if (await mustEnrol(this)) {
+          this.ready();
+          return undefined;
+        }
+        return applyAudited(original, this, args, `publisher '${name}'`);
+      })();
     };
     mark(publications[name], original);
   }
