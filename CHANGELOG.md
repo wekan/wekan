@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.76 2026-10-31 WeKan ® release
 
 Security features: a **password policy** with an optional
 breached-password check, **Admin Panel / Problems / Password length**,
@@ -16,7 +16,7 @@ did, **HSTS**, a cross-site request guard, and **S3 encryption at rest**.
 edits and **every popup can be moved**; and an old **Sandstorm** grain migrated
 from MongoDB 3 shows its boards again.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.76](CHANGELOG-big.md#v1276-2026-10-31-wekan--release)
 
 # v12.75 2026-10-30 WeKan ® release
 
@@ -52,12 +52,3 @@ Problems**. The **Apache** guide follows the 2024 Confusion Attacks, and the
 Sandstorm store build publishes to **both app markets**.
 
 [All changes in v12.72](CHANGELOG-big.md#v1272-2026-10-30-wekan--release)
-
-# v12.71 2026-10-30 WeKan ® release
-
-The **Sandstorm** build installs Sandstorm from
-**install.sandstorm.org**, as the Sandstorm workflows already did, and the
-docs link sandstorm.org. The Hall of Fame guards read every vulnerability name
-now that each one links to its own page.
-
-[All changes in v12.71](CHANGELOG-big.md#v1271-2026-10-30-wekan--release)

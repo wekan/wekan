@@ -131,7 +131,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.76 2026-10-31 WeKan ® release
 
 **In short:** Security features: a **password policy** with an optional
 breached-password check, **Admin Panel / Problems / Password length**,
