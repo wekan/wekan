@@ -100,7 +100,7 @@
     "i18next": "^26.5.11",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "imapflow": "2.9.1",
-    "isomorphic-git": "1.44.3",
+    "isomorphic-git": "1.44.8",
     "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2",
     "limax": "^4.2.3",
