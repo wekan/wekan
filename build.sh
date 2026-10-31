@@ -468,17 +468,17 @@ function build_wekan(){
 		echo "===== wekan build started $(date '+%F %T') ====="
 		export npm_config_loglevel=verbose npm_config_foreground_scripts=true
 		export METEOR_PROFILE="${METEOR_PROFILE:-100}"
-		# Node module resolution, one line per require. On by default for a build
-		# from the menu; EVERYTHING turns it off (WEKAN_BUILD_TRACE_MODULES=0),
-		# because a full Meteor build writes it at gigabytes a minute - over 12 GB
-		# in its first half hour on macOS, written twice through tee - and slows
-		# the build it is tracing. Set WEKAN_BUILD_TRACE_MODULES=1 to keep it.
-		if [ "${WEKAN_BUILD_TRACE_MODULES:-1}" = 1 ]; then
+		# Node module resolution, one line per require. OFF unless
+		# WEKAN_BUILD_TRACE_MODULES=1: a Meteor build writes it at gigabytes a
+		# minute - 1.1 GB in the first three minutes of a menu dev build, over
+		# 12 GB in the first half hour of EVERYTHING on macOS, written twice
+		# through tee - and slows the build it is tracing.
+		if [ "${WEKAN_BUILD_TRACE_MODULES:-0}" = 1 ]; then
 			export NODE_DEBUG="${NODE_DEBUG:+$NODE_DEBUG,}module"
 		fi
 		# NODE_OPTIONS parses quoted paths, including checkouts with spaces.
 		export NODE_OPTIONS="${NODE_OPTIONS:-} --require=\"$(pwd)/tools/build-command-output.cjs\""
-		echo "Build diagnostics: resolver command/output tracing, Node module resolution, npm verbose output, foreground install scripts, METEOR_PROFILE=$METEOR_PROFILE (milliseconds)."
+		echo "Build diagnostics: resolver command/output tracing, npm verbose output, foreground install scripts, METEOR_PROFILE=$METEOR_PROFILE (milliseconds), Node module resolution $([ "${WEKAN_BUILD_TRACE_MODULES:-0}" = 1 ] && echo on || echo 'off (WEKAN_BUILD_TRACE_MODULES=1 turns it on)')."
 		build_stage "1/4 Remove dependencies and build caches" rm -rf node_modules node_modules/.cache .meteor/local .build _build || return $?
 		# Updating npm metadata has historically been best effort; installation is required.
 		build_stage "2/4 Compile app to resolve Meteor plugin npm dependencies" meteor update --npm || echo "WARNING: Meteor plugin npm dependency compilation failed; trying dependency installation."
@@ -1762,9 +1762,6 @@ function run_everything(){
 	trap 'trap - EXIT INT TERM; cleanup_everything_processes own; release_everything_lock' EXIT
 	trap 'trap - EXIT INT TERM; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
 	local RUN_TS RUN_LOGDIR FAILED=0
-	# The build's per-require module tracing is gigabytes per run; the test
-	# stages need the build, not that trace (see build_wekan). An explicit 1 wins.
-	export WEKAN_BUILD_TRACE_MODULES="${WEKAN_BUILD_TRACE_MODULES:-0}"
 	# Bound Go package parallelism separately from Node so many compiler processes
 	# cannot drive the workstation into swap. Keep 1-4 workers and a proportional,
 	# at-most-4 GiB

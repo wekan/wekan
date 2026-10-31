@@ -989,15 +989,18 @@ exit /b %errorlevel%
 
 :buildcommon
 REM The same diagnostics as build.sh build_wekan: npm verbose output and
-REM foreground install scripts, METEOR_PROFILE, Node module resolution and the
-REM resolver command/output tracer, so a failed Windows build leaves the same
-REM evidence in its log. WEKAN_BUILD_HEAP_SNAPSHOT=1 caps the heap at
+REM foreground install scripts, METEOR_PROFILE and the resolver command/output
+REM tracer, so a failed Windows build leaves the same evidence in its log. Node
+REM module resolution (one line per require, gigabytes a minute) only with
+REM WEKAN_BUILD_TRACE_MODULES=1. WEKAN_BUILD_HEAP_SNAPSHOT=1 caps the heap at
 REM WEKAN_BUILD_HEAP_SNAPSHOT_MB (4096) and writes a heap snapshot near the limit.
 setlocal
 set "npm_config_loglevel=verbose"
 set "npm_config_foreground_scripts=true"
 if not defined METEOR_PROFILE set "METEOR_PROFILE=100"
-if defined NODE_DEBUG (set "NODE_DEBUG=%NODE_DEBUG%,module") else (set "NODE_DEBUG=module")
+if "%WEKAN_BUILD_TRACE_MODULES%"=="1" (
+  if defined NODE_DEBUG (set "NODE_DEBUG=!NODE_DEBUG!,module") else (set "NODE_DEBUG=module")
+)
 if "%WEKAN_BUILD_HEAP_SNAPSHOT%"=="1" (
   if not defined WEKAN_BUILD_HEAP_SNAPSHOT_MB set "WEKAN_BUILD_HEAP_SNAPSHOT_MB=4096"
   set "TOOL_NODE_FLAGS=--max-old-space-size=!WEKAN_BUILD_HEAP_SNAPSHOT_MB! --heapsnapshot-near-heap-limit=1"
@@ -1005,7 +1008,7 @@ if "%WEKAN_BUILD_HEAP_SNAPSHOT%"=="1" (
   echo Heap snapshot: ON, heap capped at !WEKAN_BUILD_HEAP_SNAPSHOT_MB! MB; the build will fail sooner and write Heap.*.heapsnapshot.
 )
 set "NODE_OPTIONS=%NODE_OPTIONS% --require="%REPO%\tools\build-command-output.cjs""
-echo Build diagnostics: resolver command/output tracing, Node module resolution, npm verbose output, foreground install scripts, METEOR_PROFILE=%METEOR_PROFILE% ^(milliseconds^).
+echo Build diagnostics: resolver command/output tracing, npm verbose output, foreground install scripts, METEOR_PROFILE=%METEOR_PROFILE% ^(milliseconds^).
 call :buildcommon_steps
 set "BUILD_RC=%errorlevel%"
 if not "%BUILD_RC%"=="0" if defined WEKAN_BUILD_LOG (

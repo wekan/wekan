@@ -257,9 +257,9 @@ plugin npm dependencies. `METEOR_PROFILE` defaults to 100 milliseconds, exposing
 Meteor tool timing diagnostics when available. Profiling output may appear only
 when a measured operation finishes; elapsed status still appears while it is quiet.
 
-During builds, Node module debugging prints module resolution as it happens
-(`WEKAN_BUILD_TRACE_MODULES=0` turns it off; the EVERYTHING test run does so by
-default, because a full build writes the trace at gigabytes a minute). The
+Node module debugging, which prints every module resolution as it happens, is
+off unless `WEKAN_BUILD_TRACE_MODULES=1` is set: a Meteor build writes that trace
+at gigabytes a minute (1.1 GB in the first three minutes of a dev build). The
 local `tools/build-command-output.cjs` preload prints resolver subprocess commands
 and echoes their captured stdout and stderr while preserving exit codes and callback
 results. Both terminal and build log receive this output. Command arguments redact
