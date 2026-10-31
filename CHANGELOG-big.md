@@ -181,6 +181,9 @@ on the page and checks what it does, in Chromium and WebKit.
 
 </details>
 
+- [The Password length pane names itself in the title bar, like every other Admin Panel pane](https://github.com/wekan/wekan/commit/85af731c1b).
+  Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c99aa7f845">Changing one's own password signs every session of the account out, this one too</a>. Thanks to xet7.</summary>
 
@@ -421,6 +424,19 @@ and updates the following documentation:
 and updates the following translations:
 
 **Languages updated:** 234 languages.
+
+**Password length** - the strings of Admin Panel / Problems / Password length
+and of the Change your password dialog.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f9379ac86">The 18 new password-length strings in every language</a>. Thanks to xet7.</summary>
+
+Each string is in the language and script its locale tag names, with the terms
+the file already uses for password, account, save and sign in, and `__min__`
+kept exactly; only those 18 keys changed in each file. The commit lists the
+languages written with low confidence, for a speaker to correct on Transifex.
+
+</details>
 
 **Security features** - the strings of the password policy, two-factor, the
 audit log and S3 encryption.
