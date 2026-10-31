@@ -12,8 +12,9 @@ breached-password check, **Admin Panel / Problems / Password length**,
 **compulsory two-factor authentication**, sign-out of **idle sessions** and of
 every session after a password change, an **audit log** of what administrators
 did, **HSTS**, a cross-site request guard, and **S3 encryption at rest**.
-**Sign-up** works again, and an old **Sandstorm** grain migrated from MongoDB 3
-shows its boards again.
+**Sign-up** works again; the date picker has **Today**, the whole card title
+edits and **every popup can be moved**; and an old **Sandstorm** grain migrated
+from MongoDB 3 shows its boards again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

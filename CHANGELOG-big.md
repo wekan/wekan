@@ -118,6 +118,14 @@ its reason.
   `node_modules`, so a clean install comes first.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its
   own sandbox, and turning that off is not allowed there. Run it on a host.
+- [#6834](https://github.com/wekan/wekan/issues/6834) (the minicard due date is fixed; the board header bar wrapping to a second row and the list header icons under the card count did not reproduce on the current code at the same window width, in Persian, with the card count on - which WeKan release and browser zoom showed them is asked; wrapping the header rather than hiding buttons is by design)
+
+</details>
+
+<details>
+<summary>Needs a maintainer decision on the intended contract</summary>
+
+- [#6837](https://github.com/wekan/wekan/issues/6837) (a Simple and an Advanced mode, or profiles an administrator defines and assigns, to hide features from new users: which features each mode or profile shows, who chooses it, and how it relates to the existing per-board Board Settings / Card and Show on Minicard switches and the Admin Panel feature toggles)
 
 </details>
 
@@ -130,8 +138,9 @@ breached-password check, **Admin Panel / Problems / Password length**,
 **compulsory two-factor authentication**, sign-out of **idle sessions** and of
 every session after a password change, an **audit log** of what administrators
 did, **HSTS**, a cross-site request guard, and **S3 encryption at rest**.
-**Sign-up** works again, and an old **Sandstorm** grain migrated from MongoDB 3
-shows its boards again.
+**Sign-up** works again; the date picker has **Today**, the whole card title
+edits and **every popup can be moved**; and an old **Sandstorm** grain migrated
+from MongoDB 3 shows its boards again.
 
 This release adds the following security features:
 
@@ -297,7 +306,89 @@ backups and WebDAV all read the stored files directly.
 
 </details>
 
+and adds the following new features:
+
+**Dates** - choosing a date in a date popup.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc21c901f4">The date picker has a Today button, back to today's month from wherever the arrows went</a>. Thanks to mimZD and xet7.</summary>
+
+The board Calendar view and Calendar mode already had Today; the date picker
+of every date popup had only « ‹ › ». Today shows today's month and focuses
+today, and changes nothing until a day is clicked and saved. Testing it found a
+picker bug that was already there: a month navigated back to was drawn wrong -
+October as "29, empty, 30, empty", without its 31st - because Blaze matched the
+weeks and days, which had no `_id`, by position. Every week and cell has one
+now. `calendarPickerControls.test.cjs` and `calendar-today-marker.e2e.js`,
+which checks every day of the month in order after Today.
+
+</details>
+
+**The opened card and popups** - editing a card's title, and moving windows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22a12dc7f8">The whole card title edits; the window and every popup move by their bar or drag handle</a>. Thanks to mimZD and xet7.</summary>
+
+The title was split like a minicard's: the leading half edited and the
+trailing half dragged the window, so a click on the right of the title did not
+edit. All of it edits now. With drag handles off the window is moved from the
+empty space of its header row above the title, between the collapse caret and
+the menu; with them on, by the drag handle alone. Every popup moves the same
+way - by its title bar, or its handle alone - where only four kinds moved
+before, and a drag no longer makes a popup placed from the right edge, or one
+with a margin, jump as it begins. `card-title-edit-and-move-6839.e2e.js` in
+Chromium and WebKit.
+
+</details>
+
+**Member Settings** - Change Settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffd5cbd2ad">Change Settings: icons in a column on the first line, compact wrapped lines, rows divided</a>. Thanks to mimZD and xet7.</summary>
+
+Its settings are sentences, and most wrap; on the shared popup list each line
+was 33px high with the icon centred between them and nothing between one
+setting and the next. Each row is an icon column, the words and the check mark
+now, the icon on the first line, a wrapped line an ordinary line high, and a
+rule between rows. `change-settings-popup-6835.e2e.js` in Persian and English.
+
+</details>
+
 and fixes the following bugs:
+
+**The d shortcut** - opening the Due date editor from the keyboard.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1403ca7af">d opens the Due date editor of a card that is still being opened, and it stays open</a>. Thanks to mimZD and xet7.</summary>
+
+On a slower server a card's details render a few hundred milliseconds after
+the click that opens it, and `d` pressed in that moment found no Due date
+control and did nothing; only the hovered-minicard path waited. Both wait now
+for that card's control. The card details also closed their card's popup when
+merely rendered again, so a popup could open and shut at once; they close it
+now only when the card is closed or another card opened. The Playwright test
+emulates a 300 ms connection, and fails on the code before this change.
+
+</details>
+
+- [Typing d in the card title types at the end of the title in WebKit too](https://github.com/wekan/wekan/commit/73c21dfe3e).
+  Thanks to xet7.
+
+**Minicards** - what a minicard shows, and where.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf4b48df09">A due date uses the minicard's width instead of three lines beside an empty strip</a>. Thanks to mimZD and xet7.</summary>
+
+The dates row reserved 84px at its trailing edge - a third of a narrow card -
+for nothing, and a due date with its "1 day left" was broken over three lines.
+It reserves the drag handle's 24px now. The rest of
+[#6834](https://github.com/wekan/wekan/issues/6834) is in TODO Later.
+`minicard-dates-width-6834.e2e.js` in English and Persian.
+
+</details>
+
+- [A card-button rule is a button on the minicard: Board Settings / Card, Card buttons, Show on Minicard, since v12.16, now with a test](https://github.com/wekan/wekan/commit/429fdc5319).
+  Thanks to mimZD and xet7.
 
 **Signing up** - registering a new account with the sign-up form.
 
