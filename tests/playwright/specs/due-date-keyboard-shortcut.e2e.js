@@ -68,6 +68,9 @@ test.describe('#6750 due date keyboard shortcut', () => {
     await cp.root.locator('.js-card-title .js-open-inlined-form, .card-details-title-edit-zone').first().click();
     const title = cp.root.locator('.js-card-details-title textarea, .js-card-details-title input').first();
     await title.focus();
+    // WebKit puts the caret at the start of the field on focus, Chromium at
+    // the end; type at the end in both.
+    await title.evaluate(el => el.setSelectionRange(el.value.length, el.value.length));
     await page.keyboard.type('dd');
     await page.waitForTimeout(500);
     await expect(dueDatePopup(page)).toHaveCount(0);
