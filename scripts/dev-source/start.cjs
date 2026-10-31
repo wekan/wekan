@@ -82,6 +82,8 @@ if (require.main === module) {
           TMP: temp
         } : {}),
         METEOR_WAREHOUSE_DIR: meteor.warehouse,
+        // As releases/tools-env.sh: the running tool, not the warehouse's launcher.
+        SANDBOX: 'true',
         WEKAN_SOURCE_TOOL: meteor.tool,
         WEKAN_SOURCE_TESTS: serverTests ? '1' : '0',
         WEKAN_SOURCE_VISUALIZE: visualize ? '1' : '0',

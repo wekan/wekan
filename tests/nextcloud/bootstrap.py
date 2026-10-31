@@ -69,6 +69,7 @@ if not meteor.exists():
         f'https://static.meteor.com/packages-bootstrap/{release}/meteor-bootstrap-os.linux.x86_64.tar.gz', '-o', archive)
     with tarfile.open(archive) as t: t.extractall(ROOT / '.tools', filter='data')
 env['METEOR_WAREHOUSE_DIR'] = str(ROOT / '.tools/.meteor')
+env['SANDBOX'] = 'true'  # as releases/tools-env.sh: or Meteor springboards forever
 run(meteor, '--version')
 
 for major in args.majors:

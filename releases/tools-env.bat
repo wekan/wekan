@@ -38,7 +38,13 @@ if not defined PLAYWRIGHT_BROWSERS_PATH set "PLAYWRIGHT_BROWSERS_PATH=%WEKAN_TOO
 REM Meteor reads its packages from METEOR_WAREHOUSE_DIR (default
 REM %LOCALAPPDATA%\.meteor). Pointed at .tools\.meteor only once Meteor is
 REM installed there (build.bat option 1), so an older install keeps working.
-if exist "%WEKAN_TOOLS_DIR%\.meteor\meteor.bat" set "METEOR_WAREHOUSE_DIR=%WEKAN_TOOLS_DIR%\.meteor"
+REM SANDBOX=true goes with it, as in tools-env.sh: without it Meteor takes the
+REM running tool to be the warehouse's own launcher, and springboards forever
+REM once .meteor\release names another release.
+if exist "%WEKAN_TOOLS_DIR%\.meteor\meteor.bat" (
+  set "METEOR_WAREHOUSE_DIR=%WEKAN_TOOLS_DIR%\.meteor"
+  set "SANDBOX=true"
+)
 
 REM The Node.js build.bat unpacked into .tools (the last one listed).
 set "WEKAN_NODE_DIR="

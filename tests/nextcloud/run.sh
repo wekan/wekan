@@ -16,6 +16,8 @@ node="${NODE_BINARY:-$PWD/.tools/node-v${node_version}-linux-x64/bin/node}"
 "$node" --test .tools/nextcloud/tests/*.test.mjs
 export PATH="$(dirname "$node"):$PWD/.tools/.meteor:$PATH"
 export METEOR_WAREHOUSE_DIR="$PWD/.tools/.meteor"
+# With the warehouse, as releases/tools-env.sh: Meteor otherwise springboards forever.
+export SANDBOX=true
 export npm_config_cache="$PWD/.tools/nextcloud-runtime/npm-cache"
 logdir="$PWD/.tools/log/nextcloud-build/$(date +%Y-%m-%d_%H-%M-%S)"
 mkdir -p "$logdir"

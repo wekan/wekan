@@ -64,9 +64,17 @@ WEKAN_DOWNLOADS="$TMPDIR"
 # is pointed at .tools/.meteor only once Meteor is installed there - build.sh's
 # install-dependencies option does that - so a Meteor still in ~/.meteor keeps
 # working until then instead of finding an empty warehouse.
+#
+# SANDBOX=true goes with it, as Meteor's own self-test sets it. With only
+# METEOR_WAREHOUSE_DIR, Meteor takes the running tool to be wherever the
+# warehouse's "meteor" link points - the release it was installed with - so
+# once .meteor/release names another one, every start springboards to that
+# release, finds itself "wrong" again and springboards forever. SANDBOX is read
+# by that one check alone and makes it ask the running tool instead.
 if [ -x "$WEKAN_TOOLS_DIR/.meteor/meteor" ]; then
   METEOR_WAREHOUSE_DIR="$WEKAN_TOOLS_DIR/.meteor"
-  export METEOR_WAREHOUSE_DIR
+  SANDBOX=true
+  export METEOR_WAREHOUSE_DIR SANDBOX
 fi
 NVM_DIR="$WEKAN_TOOLS_DIR/nvm"
 npm_config_cache="$WEKAN_TOOLS_DIR/npm-cache"
