@@ -22,6 +22,9 @@ template(name="calendarDateInput")
               | {{monthLabel}}
               if inline
                 span.selected-calendar-date {{headingDateText}}
+            //- #6838: back to today's month from wherever the arrows went. It only
+            //- shows the month; the date stays as it is until a day is clicked.
+            button.primary.js-calendar-today(type="button" aria-label="{{_ 'today'}}") {{_ 'today'}}
             button.primary.js-calendar-next(type="button" aria-label="{{_ 'next'}} {{_ 'month'}}") ›
             button.primary.js-calendar-year-next(type="button" aria-label="{{_ 'next'}} {{_ 'predicate-year'}}") »
           table
@@ -34,5 +37,5 @@ template(name="calendarDateInput")
                 tr
                   each days
                     td(class="{{#if this.today}}is-today-cell{{/if}}")
-                      if this
+                      unless this.empty
                         button.primary.js-calendar-day(type="button" class="{{#if today}}is-today{{/if}}" data-date=iso title=title aria-label=title aria-pressed=selected aria-current=ariaCurrent tabindex=tabIndex) {{label}}

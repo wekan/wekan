@@ -74,6 +74,38 @@ tpl.selectedDate.set(selectedBeforeEmpty);
 assert.doesNotMatch(read('client/components/forms/datepicker.jade'), /label \{\{_ 'date'\}\}/);
 assert.match(read('client/components/forms/calendarDateInput.jade'), /span\(aria-live="polite"\)[\s\S]*span.selected-calendar-date/);
 assert.equal(helpers.useNativeInput.call(data), false);
+// #6838: every week and every cell, empty ones too, has a unique _id that
+// names its month - Blaze reused cells by position without one, and a month
+// navigated back to was drawn "29, empty, 30, empty" without its 31st.
+{
+  const rows = helpers.weeks();
+  const ids = rows.flatMap(row => [row._id, ...row.days.map(day => day._id)]);
+  assert.equal(new Set(ids).size, ids.length, 'unique ids');
+  assert.ok(rows.flatMap(row => row.days).some(day => day.empty), 'empty cells are objects with their own id');
+  assert.ok(rows.flatMap(row => row.days).filter(day => !day.empty).every(day => day._id === day.iso));
+  const before = rows[0]._id;
+  events['click .js-calendar-next']({ preventDefault() {} }, tpl);
+  assert.notEqual(helpers.weeks()[0]._id, before, 'another month is other cells');
+  events['click .js-calendar-previous']({ preventDefault() {} }, tpl);
+  assert.equal(helpers.weeks()[0]._id, before);
+  assert.match(read('client/components/forms/calendarDateInput.jade'), /td\(class="\{\{#if this\.today\}\}is-today-cell\{\{\/if\}\}"\)\n\s+unless this\.empty/);
+}
+// #6838: Today shows today's month from wherever the arrows went, focuses
+// today, and selects nothing: the chosen date and the form value stay.
+{
+  const valueBefore = nativeInput.value;
+  const selectedBefore = tpl.selectedDate.get();
+  for (let i = 0; i < 14; i++) events['click .js-calendar-next']({ preventDefault() {} }, tpl);
+  assert.notEqual(iso(tpl.shownDate.get()).slice(0, 7), iso(new Date()).slice(0, 7));
+  focused = false;
+  events['click .js-calendar-today']({ preventDefault() {} }, tpl);
+  assert.equal(iso(tpl.shownDate.get()), iso(new Date()), 'today\'s month is shown');
+  assert.equal(focused, true, 'and today has the focus');
+  assert.equal(nativeInput.value, valueBefore, 'negative: the form value is unchanged');
+  assert.equal(tpl.selectedDate.get(), selectedBefore, 'negative: nothing is selected');
+  const jade = read('client/components/forms/calendarDateInput.jade');
+  assert.match(jade, /button\.primary\.js-calendar-today\(type="button" aria-label="\{\{_ 'today'\}\}"\) \{\{_ 'today'\}\}\n\s+button\.primary\.js-calendar-next/);
+}
 events['click .js-calendar-day']({ preventDefault() {}, currentTarget: { dataset: { date: '2026-03-23' } } }, tpl);
 assert.equal(helpers.expanded(), true, 'popup selection keeps the calendar visible');
 assert.equal(nativeInput.value, '2026-03-23');

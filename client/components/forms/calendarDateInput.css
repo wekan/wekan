@@ -102,6 +102,11 @@
   padding-inline: 4px;
 }
 
+/* #6838: a word, not an arrow - it may be wider than the arrows beside it. */
+.selected-calendar-heading .js-calendar-today {
+  white-space: nowrap;
+  padding-inline: 6px;
+}
 .selected-calendar-heading .selected-calendar-date {
   margin-inline-start: 4px;
 }

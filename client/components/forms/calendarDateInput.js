@@ -86,9 +86,17 @@ Template.calendarDateInput.helpers({
     // the browser's local day, the same local calendar day formatDate() gives
     // every other cell, so it is the cell the user means by "today".
     const todayIso = formatDate(new Date());
+    // #6838: every row and every cell - an empty one too - has its own _id.
+    // Blaze matches list items by _id; without one, going from one month to
+    // another reused cells by position and the empty cells, all alike, were
+    // moved around: October came back as "29, empty, 30, empty", without the
+    // 31st. The month is part of each id, so a new month is new cells.
+    const month = days.find(Boolean);
+    const monthId = month ? formatDate(month) : 'empty';
     const rows = [];
     for (let index = 0; index < days.length; index += 7) {
-      rows.push({ days: days.slice(index, index + 7).map(date => date && ({
+      rows.push({ _id: `${monthId}-week-${index / 7}`, days: days.slice(index, index + 7).map((date, cell) => (date ? {
+        _id: formatDate(date),
         iso: formatDate(date),
         today: formatDate(date) === todayIso,
         // null omits the attribute: only today's button carries aria-current.
@@ -97,7 +105,7 @@ Template.calendarDateInput.helpers({
         title: formatDateForDisplay(date, false),
         selected: tpl.selectedDate.get() && formatDate(tpl.selectedDate.get()) === formatDate(date),
         tabIndex: focusDate && formatDate(focusDate) === formatDate(date) ? 0 : -1,
-      })) });
+      } : { _id: `${monthId}-empty-${index + cell}`, empty: true })) });
     }
     return rows;
   },
@@ -120,6 +128,11 @@ Template.calendarDateInput.events({
   'click .js-calendar-next'(event, tpl) {
     event.preventDefault();
     tpl.shownDate.set(calendarMonthRange(tpl.shownDate.get(), selectedSystem().intl).end);
+  },
+  'click .js-calendar-today'(event, tpl) {
+    event.preventDefault();
+    tpl.shownDate.set(new Date());
+    Tracker.afterFlush(() => tpl.find('.js-calendar-day.is-today')?.focus());
   },
   'click .js-calendar-year-previous'(event, tpl) { event.preventDefault(); tpl.shownDate.set(shiftCalendarYear(tpl.shownDate.get(), -1, selectedSystem().intl)); },
   'click .js-calendar-year-next'(event, tpl) { event.preventDefault(); tpl.shownDate.set(shiftCalendarYear(tpl.shownDate.get(), 1, selectedSystem().intl)); },

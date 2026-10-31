@@ -109,3 +109,44 @@ test('board Calendar view marks today\'s day number', async ({ page, user, board
   expect(await background(other)).toBe('rgba(0, 0, 0, 0)');
   await expect(page.locator('.calendar-view .fc-daygrid-day.fc-day-today')).toHaveCount(1);
 });
+
+// #6838: from another month, Today goes back to today's month - and only shows
+// it: the card's date is not changed until a day is clicked and saved.
+test('due-date popup: Today goes back to today\'s month and changes nothing', async ({ page, user, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'en', 'profile.calendarSystem': 'gregorian' } });
+  db.updateOne('cards', { _id: card._id }, { $unset: { dueAt: '' } });
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+  const cp = new CardPage(page);
+  await cp.waitForOpen();
+  await cp.openDueDateEditor();
+  const pop = page.locator('.js-pop-over');
+  const todayIso = await localIso(page);
+  const today = pop.locator(`.js-calendar-day[data-date="${todayIso}"]`);
+  await expect(today).toBeVisible();
+
+  await pop.locator('.js-calendar-next').click();
+  await pop.locator('.js-calendar-next').click();
+  await expect(today).toHaveCount(0);
+  await pop.locator('.js-calendar-today').click();
+  await expect(today).toBeVisible();
+  await expect(today).toBeFocused();
+  // The whole month is back, in order - not a grid reused from the month
+  // before, which dropped the last day and moved empty cells (#6838).
+  const isos = await pop.locator('.js-calendar-day').evaluateAll(els => els.map(el => el.dataset.date));
+  const expected = await page.evaluate(() => {
+    const now = new Date();
+    const last = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    const pad = n => String(n).padStart(2, '0');
+    return Array.from({ length: last }, (_, i) => `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(i + 1)}`);
+  });
+  expect(isos).toEqual(expected);
+  const weekday = await page.evaluate(iso => new Date(`${iso}T12:00:00`).getDay(), expected[expected.length - 1]);
+  const lastCell = pop.locator(`.js-calendar-day[data-date="${expected[expected.length - 1]}"]`);
+  // In the column of its weekday (Monday first for this user).
+  expect(await lastCell.evaluate(el => el.closest('td').cellIndex)).toBe((weekday + 6) % 7);
+  // Negative: nothing was saved by it.
+  expect(db.findOne('cards', { _id: card._id }).dueAt).toBeUndefined();
+});
