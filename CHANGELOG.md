@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Ten **Dependabot** updates, checked for telemetry and tried at
+runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
+checks, and the AWS SDK's **logger redaction fix** is in.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.77 2026-10-31 WeKan ® release
 
 Two **node test guards** follow the movable popups and the date

@@ -131,6 +131,78 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Ten **Dependabot** updates, checked for telemetry and tried at
+runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
+checks, and the AWS SDK's **logger redaction fix** is in.
+
+This release updates the following dependencies:
+
+- **isomorphic-git 1.44.3 → 1.44.8** — the GitHub wiki sync
+  ([#6846](https://github.com/wekan/wekan/pull/6846)).
+- **@node-saml/node-saml 5.1.0 → 5.2.0** — SAML; see the fix below, without
+  which it changed nothing that runs ([#6850](https://github.com/wekan/wekan/pull/6850)).
+- **@typescript-eslint/eslint-plugin 8.72.0 → 8.72.1** — lint only
+  ([#6849](https://github.com/wekan/wekan/pull/6849)).
+- **@rspack/dev-server 2.2.1 → 2.2.2** — development server only
+  ([#6848](https://github.com/wekan/wekan/pull/6848)).
+- **mailparser 3.12.2 → 3.12.4** — inbound email and bounces
+  ([#6845](https://github.com/wekan/wekan/pull/6845)).
+- **i18next 26.5.4 → 26.5.11** — translations
+  ([#6847](https://github.com/wekan/wekan/pull/6847)).
+- **@aws-sdk/client-s3 3.1155.0 → 3.1159.0** — S3 backups; see the
+  @smithy/core fix below ([#6844](https://github.com/wekan/wekan/pull/6844)).
+- **imapflow 2.8.0 → 2.9.1** — the IMAP mailbox
+  ([#6842](https://github.com/wekan/wekan/pull/6842)).
+- **helm/chart-releaser-action 1.7.0 → 1.8.0** and **docker/login-action 4.6.0
+  → 4.7.0** — CI, each still pinned to the commit its tag names
+  ([#6843](https://github.com/wekan/wekan/pull/6843),
+  [#6841](https://github.com/wekan/wekan/pull/6841)).
+
+Thanks to dependabot.
+
+and fixes the following bugs:
+
+**Dependencies** - what the updates above did, and did not, change.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c50f38e25">SAML logins are verified by node-saml 5.2.0, as package.json says</a>. Thanks to xet7.</summary>
+
+The bump changed the app's `package.json`, but a login is verified by the
+`wekan-accounts-saml` package's own copy, still pinned to 5.1.0 - so nothing
+that runs changed. 5.2.0 rejects a message with more than one Issuer, checks
+`idpIssuer`, rejects a `RelayState` that is not the signed one, and checks a
+POST LogoutResponse's status and issuer. The package pins 5.2.0 now, and
+`samlLogin.test.cjs` requires both to name the same version. A login
+roundtrip with the package's copy logs in a signed Response and a signed
+Assertion, and refuses a changed NameID, another key, an unsigned response and
+an answer to a request WeKan never made.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/338afc15f8">@smithy/core 3.38.1, the AWS SDK's logger redaction fix</a>. Thanks to xet7.</summary>
+
+The S3 SDK bump resolved `@smithy/core` 3.37.0, deprecated for a bug that
+passed sensitive fields nested in lists or maps unredacted to a custom logger
+([aws-sdk-js-v3#8393](https://github.com/aws/aws-sdk-js-v3/issues/8393));
+3.36.2 before it had the bug too. WeKan's only AWS client, the S3 backup,
+passes no logger, so nothing leaked. Updated in the lockfile only, one
+package; the telemetry gate (`releases/check-telemetry.py`), which had failed
+on the deprecation note's new github.com link, passes again. The ten updates
+add no package, install script, network host or telemetry, and every tarball
+matches its lockfile hash.
+
+</details>
+
+and has the following developer-tooling fix:
+
+- [The short changelog guard holds between releases too, when there is no Upcoming section yet](https://github.com/wekan/wekan/commit/05cc2460ea).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.77 2026-10-31 WeKan ® release
 
 **In short:** Two **node test guards** follow the movable popups and the date
