@@ -52,7 +52,8 @@ assert.equal(tpl._dateResize, null);
 console.log('calendarPopupResize: captured dragging, keyboard resizing, content minimum and viewport limits passed');
 context.window.innerWidth = 1280;
 context.window.innerHeight = 900;
-element.querySelector = () => ({});
+// No drag handle (drag handles off): the title bar moves the popup (#6839).
+element.querySelector = selector => (selector === '.js-popup-drag-handle' ? null : {});
 const title = { closest: () => null };
 const moveEvent = { ...event, target: title };
 events['pointerdown .header'](moveEvent, tpl);
@@ -70,9 +71,19 @@ events['pointerup .header, pointercancel .header, lostpointercapture .header'](m
 assert.equal(tpl._dateMove, null);
 events['pointerdown .header']({ ...moveEvent, target: { closest: () => ({}) } }, tpl);
 assert.equal(tpl._dateMove, null, 'header links and buttons do not start dragging');
+// #6839 changed this on purpose: every popup moves by its title bar now, not
+// only a date popup - and with drag handles on, by its handle alone.
 element.querySelector = () => null;
 events['pointerdown .header'](moveEvent, tpl);
-assert.equal(tpl._dateMove, null, 'other popups retain their original behavior');
+assert.ok(tpl._dateMove, 'any popup drags by its title bar while drag handles are off');
+events['pointerup .header, pointercancel .header, lostpointercapture .header'](moveEvent, tpl);
+element.querySelector = selector => (selector === '.js-popup-drag-handle' ? {} : null);
+events['pointerdown .header'](moveEvent, tpl);
+assert.equal(tpl._dateMove, null, 'negative: with a drag handle, the title bar does not drag');
+events['pointerdown .header']({ ...moveEvent, target: { closest: s => (s === '.js-popup-drag-handle' ? {} : null) } }, tpl);
+assert.ok(tpl._dateMove, 'the handle does');
+events['pointerup .header, pointercancel .header, lostpointercapture .header'](moveEvent, tpl);
+element.querySelector = () => null;
 console.log('Date popup title dragging, viewport limits and interactive header exclusions passed');
 
 element.dataset.popup = 'boardViewSettingsPopup';

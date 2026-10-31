@@ -50,7 +50,7 @@ for (const system of ['gregorian', 'jalali']) {
   const { tpl, helpers } = loadPicker(system);
   // Midnight may pass between the two clocks; accept either side of it.
   const before = iso(new Date());
-  const cells = helpers.weeks().flatMap(row => row.days).filter(Boolean);
+  const cells = helpers.weeks().flatMap(row => row.days).filter(day => !day.empty);
   const after = iso(new Date());
   const marked = cells.filter(day => day.today);
   assert.equal(marked.length, 1, `${system}: exactly one cell of the current month is today`);
@@ -68,7 +68,7 @@ for (const system of ['gregorian', 'jalali']) {
   const yearAgo = new Date();
   yearAgo.setFullYear(yearAgo.getFullYear() - 1);
   tpl.shownDate.set(yearAgo);
-  const other = helpers.weeks().flatMap(row => row.days).filter(Boolean);
+  const other = helpers.weeks().flatMap(row => row.days).filter(day => !day.empty);
   assert.ok(other.length >= 28);
   assert.equal(other.filter(day => day.today || day.ariaCurrent).length, 0,
     `${system}: a month without today marks no cell`);
@@ -78,7 +78,7 @@ for (const system of ['gregorian', 'jalali']) {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   tpl.selectedDate.set(tomorrow);
-  const withSelection = helpers.weeks().flatMap(row => row.days).filter(Boolean);
+  const withSelection = helpers.weeks().flatMap(row => row.days).filter(day => !day.empty);
   const selected = withSelection.find(day => day.selected);
   if (selected) assert.equal(selected.today, false, `${system}: the selected day (tomorrow) is not today`);
   assert.ok(withSelection.filter(day => day.today).length <= 1);
