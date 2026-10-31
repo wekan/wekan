@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.77 2026-10-31 WeKan ® release
 
 Two **node test guards** follow the movable popups and the date
 picker of v12.76.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.77](CHANGELOG-big.md#v1277-2026-10-31-wekan--release)
 
 # v12.76 2026-10-31 WeKan ® release
 
@@ -49,13 +49,3 @@ written. **CodeQL** alert #598 in the Sandstorm host test is fixed, and the
 release script pulls before releasing, so a moved main no longer stops it.
 
 [All changes in v12.73](CHANGELOG-big.md#v1273-2026-10-30-wekan--release)
-
-# v12.72 2026-10-30 WeKan ® release
-
-A card link can no longer launch an operating-system handler with
-a code-execution history, such as **ms-msdt** (Follina) or **telnet**, even if
-an administrator lists it, and an attempt to write one shows in **Admin Panel →
-Problems**. The **Apache** guide follows the 2024 Confusion Attacks, and the
-Sandstorm store build publishes to **both app markets**.
-
-[All changes in v12.72](CHANGELOG-big.md#v1272-2026-10-30-wekan--release)

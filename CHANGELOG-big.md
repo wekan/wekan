@@ -131,7 +131,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.77 2026-10-31 WeKan ® release
 
 **In short:** Two **node test guards** follow the movable popups and the date
 picker of v12.76.
