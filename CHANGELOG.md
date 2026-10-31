@@ -8,11 +8,12 @@ make changes there.
 # Upcoming WeKan ® release
 
 Security features: a **password policy** with an optional
-breached-password check, **compulsory two-factor authentication**, sign-out
-of **idle sessions**, an **audit log** of what administrators did, **HSTS**,
-a cross-site request guard, and **S3 encryption at rest**. An old
-**Sandstorm** grain migrated from MongoDB 3 shows its boards again, and the
-**Snap** backup instructions work on **AlmaLinux, Rocky Linux** and Fedora.
+breached-password check, **Admin Panel / Problems / Password length**,
+**compulsory two-factor authentication**, sign-out of **idle sessions** and of
+every session after a password change, an **audit log** of what administrators
+did, **HSTS**, a cross-site request guard, and **S3 encryption at rest**.
+**Sign-up** works again, and an old **Sandstorm** grain migrated from MongoDB 3
+shows its boards again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

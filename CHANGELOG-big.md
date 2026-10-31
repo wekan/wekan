@@ -126,16 +126,17 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** Security features: a **password policy** with an optional
-breached-password check, **compulsory two-factor authentication**, sign-out
-of **idle sessions**, an **audit log** of what administrators did, **HSTS**,
-a cross-site request guard, and **S3 encryption at rest**. An old
-**Sandstorm** grain migrated from MongoDB 3 shows its boards again, and the
-**Snap** backup instructions work on **AlmaLinux, Rocky Linux** and Fedora.
+breached-password check, **Admin Panel / Problems / Password length**,
+**compulsory two-factor authentication**, sign-out of **idle sessions** and of
+every session after a password change, an **audit log** of what administrators
+did, **HSTS**, a cross-site request guard, and **S3 encryption at rest**.
+**Sign-up** works again, and an old **Sandstorm** grain migrated from MongoDB 3
+shows its boards again.
 
 This release adds the following security features:
 
-**Signing in** - which passwords are accepted, who must have a second factor,
-and when an unattended session ends.
+**Signing in** - which passwords are accepted and which are reported, who must
+have a second factor, and when sessions end.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7abe9910a">New passwords have a minimum length, and a breached one can be refused</a>. Thanks to xet7.</summary>
@@ -157,6 +158,42 @@ server as text, and that nothing else sets one without the check.
 
 - [The breached-password check computes its lookup digest once, with Web Crypto, in browser and server; it is never stored (CodeQL \#599)](https://github.com/wekan/wekan/commit/f406d46fe7).
   Thanks to GitHub CodeQL and xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c99aa7f845">Admin Panel / Problems / Password length lists who signs in with a too short password</a>. Thanks to xet7.</summary>
+
+The minimum above was enforced as soon as it existed. Now `PASSWORD_MIN_LENGTH`
+(default 8) is the length below which a sign-in is REPORTED, and the new
+`PASSWORD_MIN_LENGTH_ENFORCE` (off by default) makes it a rule: a shorter new
+password is refused, and an account that signs in with an older shorter one
+sees only "Change your password" until it has a long enough one. Signing in is
+never refused, so nobody is locked out by a minimum set after their password.
+LDAP, OAuth2, OIDC, SAML, CAS and Sandstorm passwords are their provider's, and
+are neither reported nor asked. Meteor sends a password hashed, so the browser
+that typed it says "it was short" after signing in - never the password or its
+length. The page has both settings and one row per account: username, first and
+last such login, the latest IPv4 and IPv6 address with flag and city when a CDN
+says where it is, the count and when it was fixed, filtered Too short (default),
+Fixed or All. Node suites `passwordPolicy`, `passwordChangeRequired` and
+`shortPasswordLogins`; Playwright `password-length-report` changes each setting
+on the page and checks what it does, in Chromium and WebKit.
+[Password length](docs/Features/Admin-Panel/Problems/Password-length.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c99aa7f845">Changing one's own password signs every session of the account out, this one too</a>. Thanks to xet7.</summary>
+
+Meteor's Change Password kept the session that changed it, and a reset link
+signed the reset in. Now Member Settings, the forced change and a reset link
+all end every session of the account, and only the new password signs in
+again; the browser goes to the sign-in page as soon as it is signed out, since
+the server closes the connection before the answer can arrive. An
+administrator's Set password already signed everything out.
+`password-change-other-sessions.e2e.js` changes it in one of two browsers:
+both are signed out, the old password is refused and the new one signs in.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7abe9910a">Two-factor authentication can be made compulsory, for administrators or for everybody</a>. Thanks to xet7.</summary>
@@ -258,6 +295,26 @@ backups and WebDAV all read the stored files directly.
 </details>
 
 and fixes the following bugs:
+
+**Signing up** - registering a new account with the sign-up form.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/508484ef1e">Registering no longer answers Internal server error, and signs the new user in</a>. Thanks to xet7.</summary>
+
+The REQUIRE_2FA wrapper of every method and publication, and the Audit log's
+wrapper of the administrators' methods, awaited before calling the handler -
+even with REQUIRE_2FA off. audit-argument-checks asks synchronously, the moment
+a handler returns, whether check() saw every argument, so the handler's own
+check() came too late: sign-up answered "Internal server error" while the
+account was created anyway (the next try said it already existed), and the
+starredPublicBoards and translation publications failed for everybody. A
+wrapper now calls the handler at once when it needs no lookup, and hands the
+audit over when it must await (`server/lib/argumentChecks.js`).
+`tests/wrappedHandlerArgumentChecks.test.cjs` runs both wrappers under a model
+of the audit, and the sign-up Playwright test registers - with no mail server
+configured - and checks that the new user is signed in.
+
+</details>
 
 **Upgrading old data** - documents from old WeKan versions are brought to the
 current structure at startup, so nothing that is in the database stays hidden.
