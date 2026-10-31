@@ -47,8 +47,16 @@ test('SAML uses the shared environment/Admin Panel resolver and awaited runtime 
 });
 
 test('the SAML package depends on the verified-MIT @node-saml/node-saml library, not a hand-rolled implementation', () => {
-  assert.match(samlPackageJs, /'@node-saml\/node-saml':\s*'5\.1\.0'/);
-  assert.strictEqual(pkgJson.dependencies['@node-saml/node-saml'], '^5.1.0');
+  // The Meteor package's own copy is the one saml_server.js loads, so it and
+  // the app's declaration must name the same version. A bump of the app's
+  // alone - Dependabot's 5.1.0 -> 5.2.0 - left logins verified by 5.1.0.
+  const pinned = (samlPackageJs.match(/'@node-saml\/node-saml':\s*'([\d.]+)'/) || [])[1];
+  assert.ok(pinned, 'the package pins an exact version');
+  assert.strictEqual(pkgJson.dependencies['@node-saml/node-saml'].replace(/^\^/, ''), pinned,
+    'the package and package.json name the same @node-saml/node-saml');
+  // 5.2.0: issuer, RelayState and LogoutResponse checks this login relies on.
+  const [major, minor] = pinned.split('.').map(Number);
+  assert.ok(major > 5 || (major === 5 && minor >= 2), `at least 5.2.0, not ${pinned}`);
 });
 
 test('the server never reimplements XML signature verification itself', () => {

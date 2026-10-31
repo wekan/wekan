@@ -29,7 +29,10 @@ Npm.depends({
   // it does not reimplement any SAML/XML-signature handling itself. License
   // verified directly from https://github.com/node-saml/node-saml/blob/master/LICENSE
   // (MIT, (c) Henri Bergius, Michael Bosworth).
-  '@node-saml/node-saml': '5.1.0',
+  // The SAME version as the app's package.json: this copy is the one that
+  // verifies a login, so a dependency bump of the app's alone (as Dependabot
+  // makes) changes nothing that runs. tests/samlLogin.test.cjs.
+  '@node-saml/node-saml': '5.2.0',
   // Parses the IdP's application/x-www-form-urlencoded POST to the ACS
   // endpoint (saml_server.js's urlEncodedParser). A local Meteor package
   // resolves npm dependencies only through its own Npm.depends - it happened
