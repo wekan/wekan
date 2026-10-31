@@ -300,7 +300,10 @@ path in any document and on a script that falls back to `/snap` alone.
 
 </details>
 
-and has the following developer-tooling fix:
+and has the following developer-tooling fixes:
+
+**The build log** - what a build from build.sh and build.bat writes while it
+runs, and how much of it.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6551062492">EVERYTHING builds without the per-require module trace, so it no longer fills the disk</a>. Thanks to xet7.</summary>
@@ -313,6 +316,19 @@ turns it off, and EVERYTHING sets that unless the caller asked for `1`. The
 other build diagnostics (resolver commands, npm verbose, `METEOR_PROFILE`) are
 unchanged. `tests/buildCommandOutput.test.cjs` checks that a menu build still
 traces and that nothing exports the module trace unconditionally.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a13e927bc">Every build traces module resolution only when WEKAN_BUILD_TRACE_MODULES=1 asks for it</a>. Thanks to xet7.</summary>
+
+Turning the trace off for EVERYTHING alone was not enough: a dev build from the
+menu wrote 1.1 GB, three million lines, in its first three minutes. So the
+trace is now opt-in in `build.sh` and `build.bat` alike, and the diagnostics
+line says whether it is on and how to turn it on. The entry above describes
+the menu default as it was then. `tests/buildCommandOutput.test.cjs` pins the
+opt-in in both scripts, and fails on a trace turned on by default or
+unconditionally.
 
 </details>
 
