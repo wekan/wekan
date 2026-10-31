@@ -104,7 +104,7 @@
     "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2",
     "limax": "^4.2.3",
-    "mailparser": "3.12.2",
+    "mailparser": "3.12.4",
     "markdown-it": "^15.0.3",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-math": "^6.0.0",
