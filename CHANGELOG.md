@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Two **node test guards** follow the movable popups and the date
+picker of v12.76.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.76 2026-10-31 WeKan ® release
 
 Security features: a **password policy** with an optional

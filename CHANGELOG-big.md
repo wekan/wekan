@@ -131,6 +131,26 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Two **node test guards** follow the movable popups and the date
+picker of v12.76.
+
+This release has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff2c0ed7f6">The date-popup guards follow movable popups and the date picker's empty cells</a>. Thanks to xet7.</summary>
+
+`calendarPopupResize.test.cjs` asserted that a popup without a date editor does
+not drag, and `calendarTodayMarker.test.cjs` picked a month's days with
+`filter(Boolean)`. Both described v12.76 before it changed on purpose: every
+popup drags by its title bar, or by its handle alone with drag handles on, and
+an empty picker cell is an object with its own `_id`. Both are pinned instead.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.76 2026-10-31 WeKan ® release
 
 **In short:** Security features: a **password policy** with an optional
