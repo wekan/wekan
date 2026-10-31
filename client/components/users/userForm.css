@@ -204,3 +204,57 @@ body.mobile-mode.userform-layout {
   #at-meteor-developer, #at-weibo, #at-meetup) {
   display: none;
 }
+
+/* #6835: Member Settings / Change Settings. Its rows are the shared popup list
+   (popup.css: a flex row, every line 33px high, the icon centred), which reads
+   well for one-line items and badly for these: a setting whose words wrap -
+   most of them, in Persian and German - became two 33px lines with its icon
+   floating between them and the next setting right below, with nothing to
+   tell one from the other. Here a row is an icon column, the words, and the
+   check mark at the end; the icon sits on the first line of the words, a
+   wrapped line is an ordinary line high, and a rule divides the rows. Scoped
+   to the list's own class: the member menu before it shares its .pop-over. */
+.pop-over-list.change-settings-list li + li {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.pop-over-list.change-settings-list li > a {
+  align-items: flex-start;
+  gap: 0;
+  line-height: 1.35;
+  padding: 8px 10px;
+}
+.pop-over-list.change-settings-list li > a > i.fa:first-child {
+  flex: 0 0 1.4em;
+  margin-inline-end: 0.6em;
+  line-height: inherit;
+  text-align: center;
+}
+.pop-over-list.change-settings-list li > a > i.fa-check {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  padding-inline-start: 0.6em;
+  line-height: inherit;
+}
+.pop-over-list.change-settings-list li > label.bold {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.35;
+  padding: 8px 10px 4px;
+}
+.pop-over-list.change-settings-list li > label.bold > i.fa {
+  flex: 0 0 1.4em;
+  margin-inline-end: 0.6em;
+  text-align: center;
+  line-height: inherit;
+}
+/* The Card settings checkbox row: the box on the first line of its words,
+   with the same space between them as an icon has. */
+.pop-over-list.change-settings-list .js-rescue-card-description {
+  align-items: flex-start;
+  gap: 0.6em;
+  line-height: 1.35;
+}
+.pop-over-list.change-settings-list .js-rescue-card-description .materialCheckBox {
+  flex: 0 0 auto;
+  margin-top: 0.15em;
+}

@@ -410,7 +410,10 @@ template(name="changeFontPopup")
       a.js-reset-text-color(class="{{#unless hasTextColor}}disabled{{/unless}}") {{_ 'remove-btn'}}
 
 template(name="changeSettingsPopup")
-  ul.pop-over-list
+  //- #6835: its own class - a popup keeps the screens before it (the member
+    menu) side by side in the same .pop-over, so the popup's data-popup would
+    restyle those too. userForm.css
+  ul.pop-over-list.change-settings-list
     li
       a.js-toggle-desktop-drag-handles
         i.fa.fa-arrows
