@@ -211,6 +211,7 @@ const ADMIN_PANE_TITLES = {
     backup: { titleKey: 'backup' },
     'security-report': { titleKey: 'securityReportTitle' },
     impersonation: { titleKey: 'impersonationReportTitle' },
+    'password-length': { titleKey: 'password-length-report-title' },
     performance: { titleKey: 'features-performance' },
     speed: { titleKey: 'speedReportTitle' },
     tests: { titleKey: 'testsReportTitle' },
