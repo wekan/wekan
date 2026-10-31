@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.75
+  version: v12.76
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -8648,6 +8648,12 @@ definitions:
       loginDisabled:
         description: |
            loginDisabled field of the user
+        type: boolean
+        x-nullable: true
+      passwordChangeRequired:
+        description: |
+           the password is shorter than PASSWORD_MIN_LENGTH: change it before
+           anything else (server/passwordChangeRequired.js)
         type: boolean
         x-nullable: true
       authenticationMethod:
