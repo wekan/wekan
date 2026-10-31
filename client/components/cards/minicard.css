@@ -374,7 +374,12 @@
   flex-wrap: wrap;
   position: relative;
   z-index: 5;
-  margin-inline-end: 84px;
+  /* #6834: room for the drag handle beside it (20px, 1px from the edge), and
+     no more. It reserved 84px - a third of a 250px minicard - for nothing:
+     the avatars float AFTER this row and `clear: both` starts it below the
+     menu, so a due date "1405-08-10 12:00 (1 day left)" was broken over three
+     lines beside an empty strip. */
+  margin-inline-end: 24px;
   clear: both;
 }
 .minicard .date {
