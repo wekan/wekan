@@ -155,6 +155,9 @@ server as text, and that nothing else sets one without the check.
 
 </details>
 
+- [The breached-password check computes its lookup digest once, with Web Crypto, in browser and server; it is never stored (CodeQL \#599)](https://github.com/wekan/wekan/commit/f406d46fe7).
+  Thanks to GitHub CodeQL and xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7abe9910a">Two-factor authentication can be made compulsory, for administrators or for everybody</a>. Thanks to xet7.</summary>
 
