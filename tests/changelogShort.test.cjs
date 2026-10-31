@@ -40,7 +40,15 @@ const test = (name, fn) => tests.push([name, fn]);
 
   test('the unreleased Upcoming comes first, with its In short, and links its section', () => {
     const upcoming = short.upcomingOf(big);
-    assert.ok(upcoming !== null, 'CHANGELOG-big.md has an Upcoming section now');
+    // Right after a release there is no Upcoming until the next real entry
+    // (CLAUDE.md, Making a release): then the short file opens with the newest
+    // release and links no section that does not exist. This asserted an
+    // Upcoming always, and failed after every release.
+    if (upcoming === null) {
+      assert.match(small.match(/^# .+$/m)[0], /^# v\d+\.\d+ \d{4}-\d{2}-\d{2} WeKan ® release$/, 'the newest release is first');
+      assert.doesNotMatch(small, /# Upcoming WeKan ® release|upcoming-wekan--release/, 'negative: no Upcoming, and no link to one');
+      return;
+    }
     const first = small.match(/^# .+$/m)[0];
     assert.equal(first, '# Upcoming WeKan ® release', 'Upcoming is the first section');
     const summary = short.inShortOf(upcoming);
@@ -66,7 +74,9 @@ const test = (name, fn) => tests.push([name, fn]);
 
   test('negative: no Status or TODO Later, no details or summary tags, no HTML links', () => {
     assert.doesNotMatch(small, /^# (?:Status|TODO Later)\b/m);
-    assert.equal((small.match(/^# Upcoming/gm) || []).length, 1, 'one Upcoming, never two');
+    // One Upcoming when there is one, never two; none right after a release.
+    assert.equal((small.match(/^# Upcoming/gm) || []).length, short.upcomingOf(big) === null ? 0 : 1,
+      'one Upcoming, never two');
     assert.doesNotMatch(small, /More status info|Newest WeKan at these platforms|Carried to a future release/);
     for (const tag of ['<details>', '</details>', '<summary>', '</summary>']) assert.ok(!small.includes(tag), tag);
     assert.doesNotMatch(small, /<a\s|<\/a>|<details|<summary/i);
