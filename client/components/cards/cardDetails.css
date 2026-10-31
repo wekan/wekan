@@ -366,43 +366,43 @@ body.desktop-mode .card-details.card-details-collapsed {
   position: relative;
 }
 
-/* The title is two things at once, split like a minicard's: the LEADING half
-   opens the editor, the trailing half drags the window. With drag handles OFF
-   there is no handle, so the title bar is what the window is moved by - and a
-   heading that is entirely an edit target leaves nothing to take hold of.
+/* #6839: the whole title edits - every word of it and the space beside a
+   short last line, which is what anybody clicks to change the title. The window
+   is moved from the empty space ABOVE the title, in the row of the collapse
+   caret and the menu (cardDetails.js), or by the drag handle when drag handles
+   are on. It was split like a minicard's - the trailing half dragged - and a
+   click on the right of the title did nothing anybody expected.
 
-   An overlay rather than a split of the text, because the text is a `.viewer`
-   and cutting it in two would cut the sentence in two. `inset-inline-start`, so
-   the edit half is the left in English and the right in Arabic from one rule.
-   The drag handler steps aside for this zone (cardDetails.js). */
+   An overlay rather than a link around the text, because the text is a
+   `.viewer` with its own links. */
 .card-details .card-details-header .card-details-title .card-details-title-edit-zone {
   position: absolute;
   top: 0;
   bottom: 0;
   inset-inline-start: 0;
-  /* Half of the heading - and the heading is stretched to the row below, so
-     this is half of the BAR however long the title happens to be. */
-  width: 50%;
+  width: 100%;
   cursor: text;
   z-index: 1;
 }
 
-/* The heading fills the row rather than shrinking to its text, so "half the
-   title" and "half the bar" are the same half however long the title is. A
-   heading only as wide as its words leaves the empty space beside it belonging
-   to nothing - and that space is where anybody would grab to move the window.
-   It stays inline-block so the complete-toggle beside it keeps its place; the
-   buttons floating at the trailing edge take their room out of this width. */
+/* The heading fills the row rather than shrinking to its text, so the edit
+   zone covers the space beside a short title too. It stays inline-block so
+   the complete-toggle beside it keeps its place. */
 .card-details .card-details-header .card-details-title {
   min-width: 60%;
 }
 
-/* With drag handles ON the handle is the only drag source, so the whole title
-   is the edit target - the same rule the minicard follows, from the same
-   question: `card-details-with-handle` is set by the template from
-   isTouchScreenOrShowDesktopDragHandles, which is Utils.showDragHandles(). */
-.card-details.card-details-with-handle .card-details-header .card-details-title .card-details-title-edit-zone {
-  width: 100%;
+/* The empty part of the header row is what moves the window when there is no
+   drag handle; with one, the handle alone does. */
+.card-details:not(.card-details-with-handle) .card-details-header {
+  cursor: move;
+}
+.card-details .card-details-header .card-details-title,
+.card-details .card-details-header a {
+  cursor: auto;
+}
+.card-details .card-details-header a {
+  cursor: pointer;
 }
 .card-details .card-details-header .linked-card-location {
   font-style: italic;

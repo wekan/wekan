@@ -44,8 +44,15 @@ test('the header has the drag handle and the maximize / minimize button, only wh
   for (const key of ['drag-to-move', 'maximize-window', 'minimize-window']) assert.ok(en[key], key);
 });
 
-test('dragging reads the allow-list, and never moves a maximized popup', () => {
-  assert.match(js, /classList\.contains\('pop-over--maximized'\)[\s\S]{0,200}MOVABLE_POPUPS\.has\(element\.dataset\.popup\)/);
+// #6839: every popup is movable now, like the opened card - by its title bar
+// while drag handles are off, by its handle alone while they are on. The
+// allow-list that remains is of popups kept inside the window as they grow.
+test('every popup drags, by the handle alone when there is one, and never a maximized one', () => {
+  const down = js.slice(js.indexOf("'pointerdown .header'"), js.indexOf("'pointermove .header'"));
+  assert.match(down, /classList\.contains\('pop-over--maximized'\)/);
+  assert.match(down, /\(handle && !evt\.target\.closest\('\.js-popup-drag-handle'\)\)/);
+  assert.doesNotMatch(down, /MOVABLE_POPUPS/, 'negative: no allow-list decides which popup moves');
+  assert.match(js, /popupMovable\(\) \{\n\s+return true;/);
   assert.doesNotMatch(js, /element\.dataset\.popup !== 'boardViewSettingsPopup'/, 'the old one-popup check');
 });
 

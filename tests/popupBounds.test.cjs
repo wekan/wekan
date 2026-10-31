@@ -37,7 +37,8 @@ test('negative: a popup that fits stays where it is', () => {
 test('popup.js keeps movable popups inside as they grow, and not when maximized', () => {
   const src = fs.readFileSync(path.join(root, 'client/components/main/popup.js'), 'utf8');
   assert.match(src, /this\._boundsObserver = new ResizeObserver\(/);
-  assert.match(src, /if \(!MOVABLE_POPUPS\.has\(element\.dataset\.popup\) \|\| element\.classList\.contains\('pop-over--maximized'\)\) return;/);
+  // #6839: and any popup the user dragged, now that every popup moves.
+  assert.match(src, /if \(!\(MOVABLE_POPUPS\.has\(element\.dataset\.popup\) \|\| element\.dataset\.userMoved\)\n\s+\|\| element\.classList\.contains\('pop-over--maximized'\)\) return;/);
   assert.match(src, /this\._boundsObserver\?\.disconnect\(\);/);
 });
 

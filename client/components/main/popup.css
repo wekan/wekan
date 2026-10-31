@@ -1446,8 +1446,17 @@ body.mobile-mode .pop-over .content-wrapper {
   cursor: move;
   color: #888;
 }
-.pop-over .header:has(.popup-drag-handle) {
+/* #6839: the title bar moves every popup while drag handles are off; with
+   them on, the handle does, and the bar is an ordinary title. */
+.pop-over .header {
   cursor: move;
+}
+.pop-over .header:has(.popup-drag-handle) {
+  cursor: auto;
+}
+.pop-over .header a,
+.pop-over .header button {
+  cursor: pointer;
 }
 .pop-over .header .popup-maximize-btn {
   position: absolute;

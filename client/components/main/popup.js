@@ -29,8 +29,11 @@ function resizeDatePopup(element, width, height) {
   Object.entries(styles).forEach(([key, value]) => element.style.setProperty(key, value, 'important'));
 }
 
-// Popups dragged by their title bar (or the drag handle beside it), as the
-// opened card is. A date popup is movable too, found by its .edit-date.
+// #6839: EVERY popup is moved like the opened card: by its title bar when drag
+// handles are off, by the drag handle before its title when they are on - the
+// handle alone, then, as the card's. These are the popups that may also GROW
+// past the window while open (Drawing replacing a menu), so they are kept
+// inside it as they grow; so is any popup the user has dragged.
 const MOVABLE_POPUPS = new Set(['boardViewSettingsPopup', 'cardDrawingPopup', 'boardCardSettingsPopup']);
 // Popups with the opened card's maximize / minimize button.
 const MAXIMIZABLE_POPUPS = new Set(['cardDrawingPopup', 'boardCardSettingsPopup']);
@@ -66,7 +69,7 @@ Popup.template.onCreated(function () {
 
 Popup.template.helpers({
   popupMovable() {
-    return MOVABLE_POPUPS.has(this.popupName);
+    return true;
   },
   popupMaximizable() {
     return MAXIMIZABLE_POPUPS.has(this.popupName);
@@ -87,21 +90,43 @@ Popup.template.events({
   'pointerdown .header'(evt, tpl) {
     const element = evt.currentTarget.closest('.pop-over');
     // A maximized popup has no place to be dragged to.
+    // With drag handles on, the handle is the only thing that moves it.
+    const handle = element.querySelector('.js-popup-drag-handle');
     if (evt.button !== 0 || element.classList.contains('pop-over--maximized') ||
-        (!element.querySelector('.edit-date') && !MOVABLE_POPUPS.has(element.dataset.popup)) ||
+        (handle && !evt.target.closest('.js-popup-drag-handle')) ||
         evt.target.closest('a, button, input, select')) return;
     evt.preventDefault(); evt.stopPropagation();
     const bounds = element.getBoundingClientRect();
+    // Pin it where it is before it moves. A popup is placed by its margins, by
+    // inset-inline-end (the member menu, at the right edge) or by left/top, so
+    // `left: bounds.left` alone put some of them elsewhere - one jumped across
+    // the window as the drag began. Set it, see where it went, and correct.
+    const place = (left, top) => {
+      element.style.setProperty('inset-inline-start', 'auto', 'important');
+      element.style.setProperty('inset-inline-end', 'auto', 'important');
+      element.style.setProperty('left', `${left}px`, 'important');
+      element.style.setProperty('top', `${top}px`, 'important');
+    };
+    place(bounds.left, bounds.top);
+    const placed = element.getBoundingClientRect();
+    const left = bounds.left + (bounds.left - placed.left);
+    const top = bounds.top + (bounds.top - placed.top);
+    place(left, top);
+    element.dataset.userMoved = 'true';
     tpl._dateMove = { element, pointerId: evt.pointerId, x: evt.clientX, y: evt.clientY,
-      left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height };
+      left, top, width: bounds.width, height: bounds.height,
+      // The clamp keeps the popup's VISIBLE box 12px inside the window.
+      dx: bounds.left - left, dy: bounds.top - top };
     evt.currentTarget.setPointerCapture(evt.pointerId);
   },
   'pointermove .header'(evt, tpl) {
     const drag = tpl._dateMove;
     if (!drag || drag.pointerId !== evt.pointerId) return;
     evt.preventDefault(); evt.stopPropagation();
-    const left = Math.max(12, Math.min(window.innerWidth - drag.width - 12, drag.left + evt.clientX - drag.x));
-    const top = Math.max(12, Math.min(window.innerHeight - drag.height - 12, drag.top + evt.clientY - drag.y));
+    const boxLeft = Math.max(12, Math.min(window.innerWidth - drag.width - 12, drag.left + drag.dx + evt.clientX - drag.x));
+    const boxTop = Math.max(12, Math.min(window.innerHeight - drag.height - 12, drag.top + drag.dy + evt.clientY - drag.y));
+    const left = boxLeft - drag.dx;
+    const top = boxTop - drag.dy;
     // Dragging uses physical pointer coordinates in either text direction.
     drag.element.style.setProperty('inset-inline-start', 'auto', 'important');
     drag.element.style.setProperty('inset-inline-end', 'auto', 'important');
@@ -221,7 +246,8 @@ Popup.template.onRendered(function () {
     if (typeof ResizeObserver !== 'undefined') {
       const element = this._popupElement;
       this._boundsObserver = new ResizeObserver(() => {
-        if (!MOVABLE_POPUPS.has(element.dataset.popup) || element.classList.contains('pop-over--maximized')) return;
+        if (!(MOVABLE_POPUPS.has(element.dataset.popup) || element.dataset.userMoved)
+          || element.classList.contains('pop-over--maximized')) return;
         const box = element.getBoundingClientRect();
         const moved = keptInside(box, window.innerWidth, window.innerHeight);
         if (!moved) return;

@@ -14,10 +14,10 @@
   .header
     a.back-btn.js-back-view(class="{{#unless hasPopupParent}}is-hidden{{/unless}}" aria-label="{{_ 'go-back'}}")
       i.fa.fa-caret-left(aria-hidden="true")
-    //- A movable popup (popup.js MOVABLE_POPUPS) is dragged by its title bar
-      or this handle, like the opened card - and, like the card's, the handle
-      is there only while drag handles are on; a maximizable one has the
-      card's maximize / minimize button beside its close button.
+    //- #6839: every popup is moved like the opened card - by its title bar
+      while drag handles are off, by this handle alone while they are on
+      (popup.js); a maximizable one has the card's maximize / minimize button
+      beside its close button.
     if popupMovable
       if isTouchScreenOrShowDesktopDragHandles
         span.popup-drag-handle.js-popup-drag-handle(title="{{_ 'drag-to-move'}}")

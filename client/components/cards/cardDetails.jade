@@ -49,10 +49,9 @@ template(name="cardDetails")
           a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             i.fa.fa-bars
           //- The handle appears only when drag handles are ON, like the
-            minicard's. With them off the window is dragged by its own title bar
-            - the trailing half of the title - so a handle would be a second way
-            to do what the bar already does; with them on it is the ONLY way, and
-            the title is all edit target.
+            minicard's. With them off the window is dragged by the empty space
+            of its header row, so a handle would be a second way to do what the
+            bar already does; with them on it is the ONLY way.
             client/components/cards/minicard.jade
           if canModifyCard
             if isTouchScreenOrShowDesktopDragHandles
@@ -80,12 +79,12 @@ template(name="cardDetails")
           if currentBoard.allowsDueComplete
             a.card-details-complete-toggle.js-toggle-due-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
               .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
-        //- The title is BOTH: the leading half opens the editor and the
-          trailing half drags the window, exactly as a minicard's title splits
-          between editing and dragging the card. `js-card-title-drag-handle`
-          stays on the whole heading - the drag handler is what steps aside for
-          the edit zone - so a reader who may not write can still drag the
-          window by any part of it, which is what that class was for.
+        //- #6839: the whole title opens the editor. The window is moved from
+          the empty space of the header row above it, or by the drag handle
+          when drag handles are on. `js-card-title-drag-handle` stays on the
+          whole header - the drag handler is what steps aside for the edit zone
+          - so a reader who may not write, who has no edit zone, can still drag
+          the window by the title.
         if showLabelsAboveTitleOnCard
           .card-details-labels-above-title
             +minicardLabels(show=labelsShownAboveTitle labels=labels hideText=hiddenCardLabelText)
