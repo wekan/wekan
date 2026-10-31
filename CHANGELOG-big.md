@@ -300,6 +300,22 @@ path in any document and on a script that falls back to `/snap` alone.
 
 </details>
 
+and has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6551062492">EVERYTHING builds without the per-require module trace, so it no longer fills the disk</a>. Thanks to xet7.</summary>
+
+The build's `NODE_DEBUG=module` trace wrote over 12 GB in the first half hour
+of an EVERYTHING run on macOS - twice, through tee - and slowed the build it
+traced, so the run would fill the disk before it reached the tests. A build
+from the `build.sh` menu still traces by default; `WEKAN_BUILD_TRACE_MODULES=0`
+turns it off, and EVERYTHING sets that unless the caller asked for `1`. The
+other build diagnostics (resolver commands, npm verbose, `METEOR_PROFILE`) are
+unchanged. `tests/buildCommandOutput.test.cjs` checks that a menu build still
+traces and that nothing exports the module trace unconditionally.
+
+</details>
+
 and updates the following documentation:
 
 - [Security settings: every hardening option of a WeKan site on one page](https://github.com/wekan/wekan/commit/302b47db6f).
