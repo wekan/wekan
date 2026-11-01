@@ -706,6 +706,11 @@ function run_playwright_docker(){
 	fi
 	# Mount the whole repo so specs that reach the repo-root node_modules
 	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
+	# The repo and the files root are mounted at their OWN host paths, so a path
+	# names the same file for the specs in here and for the server outside:
+	# admin-continuous-backup gives the server a key file it wrote and reads the
+	# stream the server wrote, and with the repo at /repo neither side found the
+	# other's file.
 	# Run as the host user (--user) with a writable HOME so the container does
 	# not leave root-owned files under test-results/ (which would later make
 	# native Chromium/Firefox runs fail with "EACCES: permission denied, mkdir
@@ -714,8 +719,8 @@ function run_playwright_docker(){
 		--name "$container_name" \
 		--label org.wekan.test-run=everything \
 		--user "$(id -u):$(id -g)" \
-		-e HOME=/repo/.tools/tmp \
-		-e TMPDIR=/repo/.tools/tmp \
+		-e HOME="$reporoot/.tools/tmp" \
+		-e TMPDIR="$reporoot/.tools/tmp" \
 		-e WEKAN_BASE_URL="$docker_base_url" \
 		-e WEKAN_DOCKER_HOST_PROXY_PORT="$docker_host_proxy_port" \
 		-e WEKAN_MONGO_URL="$docker_mongo_url" \
@@ -728,15 +733,15 @@ function run_playwright_docker(){
 		-e WEKAN_TEST_SERVER_MODE="${WEKAN_TEST_SERVER_MODE:-bundle}" \
 		-e WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-}" \
 		-e PLAYWRIGHT_HTML_OPEN=never \
-		-e WEKAN_FILES_PATH=/wekan-files \
+		-e WEKAN_FILES_PATH="$filesroot" \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
-		-v "$filesroot":/wekan-files \
-		-v "$reporoot":/repo -w /repo/tests/playwright \
+		-v "$filesroot":"$filesroot" \
+		-v "$reporoot":"$reporoot" -w "$pwdir" \
 		"$image" \
 		sh -c '
-			export PATH=/repo/tests/playwright/node_modules/.bin:$PATH
+			export PATH="$PWD/node_modules/.bin:$PATH"
 			if [ -n "$WEKAN_DOCKER_HOST_PROXY_PORT" ]; then
-				node /repo/tests/playwright/helpers/docker-host-proxy.cjs &
+				node "$PWD/helpers/docker-host-proxy.cjs" &
 				proxy_pid=$!
 				trap '\''kill "$proxy_pid" 2>/dev/null || true; wait "$proxy_pid" 2>/dev/null || true'\'' EXIT
 				ready=0
@@ -1555,7 +1560,7 @@ function run_all_tests(){
 	export WEKAN_FILES_PATH_HOST="$WRITABLE_ABS/files"
 	# ...and the same path for a LOCAL playwright run, not only the Docker one.
 	# Only WEKAN_FILES_PATH_HOST was exported, which is read when the browsers run
-	# in a container (it is mounted there as /wekan-files). A local run fell back
+	# in a container (it is mounted there at the same path). A local run fell back
 	# to the spec's own default of .build/bundle/files, so a spec that writes a
 	# stored attachment wrote it OUTSIDE the root this server reads - and then
 	# tested what WeKan does with a file it does not own.

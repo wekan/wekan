@@ -146,4 +146,39 @@ test('the macOS container uses the bridge network, Linux keeps the host network'
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
 });
 
+test('the container sees the repo and the files root at their own host paths', () => {
+  // A spec and the server share files by path: admin-continuous-backup writes
+  // a key file for the server and reads the stream the server wrote. With the
+  // repo mounted at /repo, each side was handed a path the other did not have.
+  const { execFileSync } = require('node:child_process');
+  const root = path.resolve(__dirname, '..');
+  const temp = fs.mkdtempSync(path.join(root, '.tools/tmp/playwright-docker-paths-'));
+  const files = path.join(temp, 'files');
+  const runner = build.slice(build.indexOf('function run_playwright_docker'),
+    build.indexOf('function run_node_e2e_docker'));
+  assert.doesNotMatch(runner, /:\/repo\b|\/wekan-files/, 'negative: no container-only path');
+  try {
+    for (const os of ['Darwin', 'Linux']) {
+      const script = `
+        docker_available() { return 0; }
+        ensure_playwright_test_dependencies() { return 0; }
+        uname() { printf ${os}; }
+        node() { printf 1.63.0; }
+        docker_exec() { printf '%s\\n' "$@"; }
+        ${runner}
+        run_playwright_docker firefox --list
+      `;
+      const out = execFileSync('bash', ['-c', script], { encoding: 'utf8',
+        env: { ...process.env, TMPDIR: temp, WEKAN_DIR: temp, WEKAN_FILES_PATH_HOST: files,
+          WEKAN_TEST_SMTP_PORT: '' } }).split('\n');
+      const after = flag => out.filter((v, i) => out[i - 1] === flag);
+      assert.ok(after('-v').includes(`${temp}:${temp}`), `${os}: the repo at its own path`);
+      assert.ok(after('-v').includes(`${files}:${files}`), `${os}: the files root at its own path`);
+      assert.ok(after('-e').includes(`WEKAN_FILES_PATH=${files}`), `${os}: the specs are told that path`);
+      assert.deepStrictEqual(after('-w'), [path.join(temp, 'tests', 'playwright')]);
+      assert.ok(after('-e').includes(`HOME=${temp}/.tools/tmp`));
+    }
+  } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+});
+
 console.log(`\n${passed} tests passed`);
