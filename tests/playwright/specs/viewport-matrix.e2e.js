@@ -146,6 +146,9 @@ for (const [name, use] of DEVICES) {
       ]);
     });
     test.afterAll(() => {
+      // Firefox and WebKit skip every test here, so beforeAll never ran; the
+      // afterAll still does, and failed each viewport on a board never seeded.
+      if (!board) return;
       db.deleteMany('positionHistory', { boardId: board.boardId });
       db.cleanup({ boardIds: [board.boardId], userIds: [user.id] });
     });
