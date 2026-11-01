@@ -107,3 +107,43 @@ test('settings: the key file must be absolute and outside the target and every s
   }
   assert.equal(validateSettings({ ...base, encrypt: false, encryptionKeyFile: '' }, { sources }).encrypt, false);
 });
+
+// A GCM tag mismatch is "Unsupported state or unable to authenticate data" with
+// OpenSSL 3 and ERR_OSSL_BAD_DECRYPT ("bad decrypt") with OpenSSL 4. Which one
+// the running Node reports depends on what it is linked to, so both are forced
+// here with a decipher that fails the way each one does - the test then means
+// the same on every machine, not only on one with OpenSSL 4.
+async function decryptFileFailingWith(t, failure) {
+  const dir = sandbox(); t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  const sealed = path.join(dir, 'sealed'), opened = path.join(dir, 'opened');
+  // Empty contents: decryptFile() checks only the tag, with decipher.final().
+  await pipeline(Readable.from([]), cipher.encryptStream(), fs.createWriteStream(sealed));
+  const real = crypto.createDecipheriv;
+  crypto.createDecipheriv = () => ({ setAuthTag() {}, final() { throw failure(); } });
+  t.after(() => { crypto.createDecipheriv = real; });
+  try { await cipher.decryptFile(sealed, opened); return { error: null, leftOutput: fs.existsSync(opened) }; }
+  catch (error) { return { error, leftOutput: fs.existsSync(opened) }; }
+}
+const opensslError = (message, code) => Object.assign(new Error(message), { code });
+
+test('a changed file is reported as changed with OpenSSL 4 (ERR_OSSL_BAD_DECRYPT) and OpenSSL 3', async t => {
+  for (const failure of [
+    () => opensslError('error:1C800064:Provider routines::bad decrypt', 'ERR_OSSL_BAD_DECRYPT'),
+    () => new Error('Unsupported state or unable to authenticate data'),
+  ]) {
+    const { error, leftOutput } = await decryptFileFailingWith(t, failure);
+    assert.ok(error, 'refused');
+    assert.match(error.message, /changed or the key is wrong/, `not the raw OpenSSL error: ${error.message}`);
+    assert.equal(error.code, 'continuous-backup-key');
+    assert.equal(leftOutput, false, 'no output is left behind');
+  }
+});
+
+test('NEGATIVE: an unrelated failure while decrypting is not reported as a changed file', async t => {
+  // A full disk or any other error is passed through as it is - calling it
+  // "changed or the key is wrong" would send the administrator after the key.
+  const { error, leftOutput } = await decryptFileFailingWith(t, () => opensslError('no space left on device', 'ENOSPC'));
+  assert.equal(error && error.code, 'ENOSPC');
+  assert.doesNotMatch(error.message, /changed or the key is wrong/);
+  assert.equal(leftOutput, false);
+});

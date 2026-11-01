@@ -163,6 +163,41 @@ for (const platform of ['darwin', 'linux']) {
   });
 }
 
+// NEGATIVE for the macOS catch-up scan: it belongs to a watching engine that
+// is still running. An engine stopped within the two seconds must not scan
+// afterwards (stop() clears the timer), and one started without watching has
+// no FSEvents gap to catch up on, so it scans once.
+for (const [label, options, stopAt] of [['stopped before it fires', {}, 'at once'], ['watching disabled', { watch: false }, 'later']]) {
+  test(`negative: no catch-up scan on macOS when ${label}`, { timeout: 30000 }, async t => {
+    const root = tmpRoot();
+    const watch = fs.watch;
+    const real = Object.getOwnPropertyDescriptor(process, 'platform');
+    const calls = [];
+    fs.watch = () => { calls.push('watch'); const w = new (require('node:events'))(); w.close = () => {}; return w; };
+    Object.defineProperty(process, 'platform', { value: 'darwin' });
+    t.after(() => { fs.watch = watch; Object.defineProperty(process, 'platform', real); fs.rmSync(root, { recursive: true, force: true }); });
+    const live = path.join(root, 'live');
+    fs.mkdirSync(live, { recursive: true });
+    fs.writeFileSync(path.join(live, 'one.txt'), 'one');
+    const target = await store.openTarget(path.join(root, 'target'));
+    const generation = await store.createGeneration(target, {});
+    const errors = [];
+    const engine = new FileEngine({ sources: [{ area: 'attachments', key: 'attachments', path: live }], target, generation,
+      scanMs: 3600000, sealMs: 100, onError: error => { errors.push(error); }, ...options });
+    const scan = engine.scan.bind(engine);
+    engine.scan = () => { calls.push('scan'); return scan(); };
+    await engine.start();
+    let stopped = false;
+    t.after(() => (stopped ? undefined : engine.stop()));
+    if (stopAt === 'at once') { await engine.stop(); stopped = true; }
+    fs.writeFileSync(path.join(live, 'two.txt'), 'two');
+    await sleep(2600); // past the two-second catch-up
+    assert.equal(calls.filter(c => c === 'scan').length, 1, 'only the start-up scan ran');
+    assert.equal(calls.includes('watch'), options.watch !== false, 'watching as configured');
+    assert.deepEqual(errors, []);
+  });
+}
+
 test('file streams: attachments, avatars and logs, with watching, restored to a moment', { timeout: 60000 }, async t => {
   const root = tmpRoot();
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
