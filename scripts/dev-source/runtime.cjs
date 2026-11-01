@@ -123,9 +123,24 @@ require(path.join(tool, "tools/utils/fiber-helpers")).makeGlobalAsyncLocalStorag
       await iso.initFromPath(name, standardPath(dir));
       cache._isopacks[name] = iso;
     }
-    for (const name of Object.keys(versions)) if (localCatalog.getPackageSource(name)) await cache._ensurePackageLoaded(name, {
-      [name]: true
-    });
+    // A prebuilt package can imply one of WeKan's local package forks -
+    // ecmascript implies the local dynamic-import - so compiling an earlier
+    // local package (ddp-server) can ask for a local one .meteor/versions lists
+    // after it: "isopack dynamic-import not yet loaded". Load that one first,
+    // then retry.
+    const loadLocal = async (name, asked = new Set()) => {
+      for (;;) {
+        try {
+          return await cache._ensurePackageLoaded(name, { [name]: true });
+        } catch (error) {
+          const missing = /isopack (\S+) not yet loaded/.exec(error && error.message);
+          if (!missing || asked.has(missing[1]) || !localCatalog.getPackageSource(missing[1])) throw error;
+          asked.add(missing[1]);
+          await loadLocal(missing[1], asked);
+        }
+      }
+    };
+    for (const name of Object.keys(versions)) if (localCatalog.getPackageSource(name)) await loadLocal(name);
     const use = fs.readFileSync('.meteor/packages', 'utf8').split('\n').map(x => x.split('#')[0].trim().split('@')[0]).filter(x => x && !['rspack', 'standard-minifier-css', 'standard-minifier-js', 'meteortesting:mocha', 'hot-module-replacement'].includes(x));
     const t = new mod.exports.SourceServer({
       packageMap,
