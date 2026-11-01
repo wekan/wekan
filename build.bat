@@ -1980,7 +1980,7 @@ netstat -ano | findstr /r /c:":3001 .*LISTENING" >nul 2>&1
 if not errorlevel 1 (
 	echo ==^> Reusing the MongoDB already listening on :3001 ^(not started or stopped by this run^).
 ) else (
-	for %%i in ("%REPO%\..\mongodb-test-3001") do set "DBPATH=%%~fi"
+	for %%i in ("%REPO%\.tools\mongodb-test-3001") do set "DBPATH=%%~fi"
 	if not exist "!DBPATH!" md "!DBPATH!"
 	echo ==^> Starting MongoDB ^(Meteor's mongod^) on :3001, dbpath !DBPATH!.
 	start "WekanTestMongo" /MIN "%MONGOD_BIN%" --port 3001 --dbpath "!DBPATH!" --bind_ip 127.0.0.1 --logpath "%RUN_LOGDIR%\wekan-test-mongod.log"

@@ -180,6 +180,16 @@ test('Windows: tools-env.bat puts each kind of file in .tools\\, and the batch f
   assert.match(read('releases/build-bundle-win64.bat'), /SET "WORK=%TEMP%\\win64-bundle-%VERSION%"/);
 });
 
+test('the test database of a whole-suite run is in .tools/, not beside the checkout', () => {
+  // It was ../mongodb-test-3001: outside the repository, which a sandboxed
+  // editor cannot write, so EVERYTHING's test mongod never started there.
+  const sh = read('build.sh');
+  assert.match(sh, /local DBPATH="\$WEKAN_DIR\/\.tools\/mongodb-test-\$TEST_DB_PORT"/);
+  assert.match(read('build.bat'), /set "DBPATH=%REPO%\\\.tools\\mongodb-test-3001"|"%REPO%\\\.tools\\mongodb-test-3001"/);
+  // Negative: nothing creates a test database beside the checkout any more.
+  for (const file of ['build.sh', 'build.bat']) assert.doesNotMatch(read(file), /\.\.[\\/]mongodb-test-/, file);
+});
+
 test('negative: the checks catch what they are for', () => {
   assert.match('x="$(mktemp)"', /\bmktemp(\s+-d)?\s*\)/);
   assert.match('d="$(mktemp -d)"', /\bmktemp(\s+-d)?\s*\)/);

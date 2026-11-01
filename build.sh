@@ -1513,7 +1513,11 @@ function run_all_tests(){
 			echo "ERROR: nothing is listening on :$TEST_DB_PORT and no mongod was found (Meteor dev_bundle or PATH)."
 			echo "       Meteor's bundled mongod is normally at <dev_bundle>/mongodb/bin/mongod."; rm -rf "$STATDIR"; return 1
 		fi
-		local DBPATH="../mongodb-test-$TEST_DB_PORT"
+		# In .tools/, where everything this script writes lives (CLAUDE.md;
+		# tests/toolsDirOnly.test.cjs). It was in the checkout's PARENT directory,
+		# which a sandboxed editor cannot write - the test database never
+		# started there.
+		local DBPATH="$WEKAN_DIR/.tools/mongodb-test-$TEST_DB_PORT"
 		mkdir -p "$DBPATH"
 		echo "==> Starting MongoDB (Meteor's mongod) on :$TEST_DB_PORT, dbpath $DBPATH."
 		{ echo "===== mongod :$TEST_DB_PORT - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; exec "$MONGOD_BIN" --port "$TEST_DB_PORT" --dbpath "$DBPATH" --bind_ip 127.0.0.1 --nounixsocket; } > "$RUN_LOGDIR/wekan-test-mongod.log" 2>&1 &
