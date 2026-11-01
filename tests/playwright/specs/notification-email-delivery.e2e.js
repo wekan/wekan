@@ -250,7 +250,10 @@ test('background recovery delivers a persisted plan without a new activity and p
     }
     await expect.poll(() => sink.messages.filter(mail => mail.recipients.includes(user2.email)).length,
       { timeout: 20000 }).toBe(1);
-    expect(sink.messages[0].data.replace(/=\r\n/g, '')).toContain('Frozen recovery body 0');
+    // The sink captures every mail the shared test server sends while it
+    // listens, another worker's comment notification too: read THIS one.
+    const recovered = sink.messages.find(mail => mail.recipients.includes(user2.email));
+    expect(recovered.data.replace(/=\r\n/g, '')).toContain('Frozen recovery body 0');
     await expect.poll(() => db.findOne('activityNotificationIntents', { _id: intentIds[0] })?.state).toBe('completed');
     await expect.poll(() => db.findOne('activityNotificationLeases', { _id: intentIds[0] })).toBeNull();
     expect(db.findOne('activityNotificationIntents', { _id: intentIds[1] }).state).toBe('pending');
