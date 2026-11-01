@@ -652,8 +652,18 @@ function run_playwright_docker(){
 	local docker_base_url="${WEKAN_BASE_URL:-http://127.0.0.1:3000}"
 	local docker_mongo_url="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}"
 	local docker_host_proxy_port=""
+	local docker_network="host"
 	# Docker Desktop on macOS keeps the host outside the container's loopback.
 	if [ "$(uname -s)" = Darwin ]; then
+		# Its host network loses connections to host.docker.internal: from a
+		# container on that network about 1 connect in 75 never completed, so a
+		# test page waited 60 s for a document that never came (Firefox, 2026-11-01:
+		# 8 of 600 direct connects, against 0 of 1000 from the bridge network).
+		# Nothing here needs the host network on macOS - WeKan and Mongo are reached
+		# through host.docker.internal and SMTP through docker exec - so the
+		# container uses Docker's bridge network, where the proxy below still
+		# serves localhost.
+		docker_network="bridge"
 		# Meteor's dynamic imports use ROOT_URL (localhost in the test server).
 		# Keep the browser on that same origin and bridge its loopback to the host.
 		# Browsing host.docker.internal while ROOT_URL is localhost makes Firefox
@@ -700,7 +710,7 @@ function run_playwright_docker(){
 	# not leave root-owned files under test-results/ (which would later make
 	# native Chromium/Firefox runs fail with "EACCES: permission denied, mkdir
 	# .../test-results/.playwright-artifacts-N").
-	docker_exec run --rm --init --ipc=host --network host \
+	docker_exec run --rm --init --ipc=host --network "$docker_network" \
 		--name "$container_name" \
 		--label org.wekan.test-run=everything \
 		--user "$(id -u):$(id -g)" \

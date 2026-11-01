@@ -108,4 +108,42 @@ test('macOS Docker pins only gateway Mongo connections and preserves URI options
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
 });
 
+test('the macOS container uses the bridge network, Linux keeps the host network', () => {
+  // Docker Desktop's host network lost about 1 connect in 75 to
+  // host.docker.internal, and a page whose document was one of them waited
+  // 60 s for nothing (three Firefox failures in one EVERYTHING run). From the
+  // bridge network: none in 1000. On Linux the host network is the real one.
+  const { execFileSync } = require('node:child_process');
+  const root = path.resolve(__dirname, '..');
+  const temp = fs.mkdtempSync(path.join(root, '.tools/tmp/playwright-docker-net-'));
+  const runner = build.slice(build.indexOf('function run_playwright_docker'),
+    build.indexOf('function run_playwright_webkit_docker'));
+  const own = runner.slice(0, runner.indexOf('function run_node_e2e_docker'));
+  assert.doesNotMatch(own, /--network host/, 'the network is chosen per platform, not written in');
+  const args = os => {
+    const script = `
+      docker_available() { return 0; }
+      ensure_playwright_test_dependencies() { return 0; }
+      uname() { printf ${os}; }
+      node() { printf 1.63.0; }
+      docker_exec() { printf '%s\\n' "$@"; }
+      ${runner}
+      run_playwright_docker firefox --list
+    `;
+    const out = execFileSync('bash', ['-c', script], { encoding: 'utf8',
+      env: { ...process.env, TMPDIR: temp, WEKAN_DIR: temp, WEKAN_FILES_PATH_HOST: temp,
+        WEKAN_BASE_URL: 'http://localhost:3000', WEKAN_TEST_SMTP_PORT: '' } }).split('\n');
+    return out;
+  };
+  try {
+    const mac = args('Darwin');
+    assert.strictEqual(mac[mac.indexOf('--network') + 1], 'bridge');
+    assert.ok(mac.includes('WEKAN_DOCKER_HOST_PROXY_PORT=3000'), 'the bridge container still proxies localhost');
+    assert.ok(!mac.includes('host'), 'negative: no host network on macOS');
+    const linux = args('Linux');
+    assert.strictEqual(linux[linux.indexOf('--network') + 1], 'host');
+    assert.ok(linux.includes('WEKAN_DOCKER_HOST_PROXY_PORT='), 'Linux needs no proxy');
+  } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+});
+
 console.log(`\n${passed} tests passed`);
