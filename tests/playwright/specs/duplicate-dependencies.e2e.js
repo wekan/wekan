@@ -2,6 +2,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
+const CardPage = require('../pages/CardPage');
 
 for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM', 'yi', 'bho', 'mai', 'or_IN', 'kok', 'pap', 'ary', 'st', 'tn', 'nso', 'zu', 'zu-ZA', 'xh', 'ss', 'nd', 'ts', 've', 'bi', 'tpi', 'fj', 'to', 'haw', 'om', 'rw', 'rn', 'lg', 'wa', 'wa-RR', 'ace', 'gv', 'se', 've-CC', 'rup', 'ak', 'bm', 'ee', 'wo', 'ff', 'ks', 'bua', 'cv', 'sah', 'bo', 'dz', 'ti', 'qu', 'ay', 'gn', 've-PP', 'vo', 'tlh', 'nah', 'wal', 'zgh', 'kl', 'iu', 'tig', 'chr']) {
 const locale = require(`../../../imports/i18n/data/${language}.i18n.json`);
@@ -12,7 +13,14 @@ test(`duplicate relation picker, editing and History undo/redo retain typed link
   db.setShowDependencies({ boardId: board.boardId, board: true });
   await openBoard(page, board.boardId, board.slug);
   await page.locator(`.js-minicard[data-card-id="${source._id}"]`).click();
-  await page.locator('.js-add-dependency').click();
+  await new CardPage(page).waitForOpen();
+  // A popup opened while the card is still opening is closed again when the
+  // card's route and details settle: under a whole-suite run in Firefox the
+  // picker never showed. Open it again until its type select is there.
+  await expect(async () => {
+    await page.locator('.js-add-dependency').click();
+    await expect(page.locator('.js-new-dependency-type')).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 20000 });
   await page.locator('.js-new-dependency-type').selectOption('duplicates');
   await page.locator(`.js-pick-dependency[data-target-id="${target._id}"]`).click();
   const type = () => db.findOne('cards', { _id: source._id }).cardDependencies?.[0]?.type;
