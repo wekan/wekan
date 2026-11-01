@@ -42,10 +42,26 @@ test.afterEach(() => {
   resetLockout();
 });
 
+// setMinimum writes the setting straight to the database, and the server
+// learns it from its settings observer - which, on the standalone test MongoDB
+// EVERYTHING runs, polls: for up to ten seconds it still answers the old
+// policy, and a form loaded meanwhile kept the old minimum for good. So wait
+// until the SERVER has it. `min` 0 is the default: 8, not enforced.
+async function untilServerHas(page, min) {
+  await expect.poll(async () => {
+    const p = await page.evaluate(() => Meteor.callAsync('getPasswordPolicy'));
+    return min ? p.minLength === min && p.enforce === true : p.enforce === false;
+  }, { timeout: 20_000 }).toBe(true);
+}
+
 async function signUp(browser, username, password, min = 0) {
   const context = await browser.newContext({ baseURL: BASE_URL });
   const page = await context.newPage();
   await page.goto(`${BASE_URL}/sign-up`);
+  await waitForMeteor(page);
+  await untilServerHas(page, min);
+  // ...and load the form again, so it asks for the policy the server has now.
+  await page.reload();
   await waitForMeteor(page);
   // The form learns the minimum from the server just after the page loads;
   // a person has not finished typing by then, so wait as they would.
@@ -116,10 +132,14 @@ test('a password shorter than a later minimum signs in, must be changed, and the
   // short password while no minimum is set (setPassword signs it out).
   db.updateOne('users', { _id: user.id }, { $set: { isAdmin: true } });
   await loginWithToken(page, user.id, user.token);
+  // Not the minimum the test before this one left enforced: then the short
+  // password would rightly be refused.
+  await untilServerHas(page, 0);
   await page.evaluate(async ({ id, pw }) => Meteor.callAsync('setPassword', pw, id), { id: user.id, pw: SHORT })
     .catch(() => {});
   await expect.poll(() => tokensOf(user.id)).toBe(0);
   setMinimum(12);
+  await untilServerHas(page, 12);
 
   const contextB = await browser.newContext({ baseURL: BASE_URL });
   const pageB = await contextB.newPage();
@@ -173,9 +193,11 @@ test('a password shorter than a later minimum signs in, must be changed, and the
 test('negative: not enforced, a short password signs in, is reported and is never asked to change', async ({ page, user }) => {
   db.updateOne('users', { _id: user.id }, { $set: { isAdmin: true } });
   await loginWithToken(page, user.id, user.token);
+  await untilServerHas(page, 0);
   await page.evaluate(async ({ id }) => Meteor.callAsync('setPassword', 'Short-7', id), { id: user.id }).catch(() => {});
   await expect.poll(() => tokensOf(user.id)).toBe(0);
   setMinimum(0);
+  await untilServerHas(page, 0);
   await loginWithCredentials(page, user.username, 'Short-7');
   await expect.poll(() => userIdIn(page)).toBe(user.id);
   await page.waitForTimeout(2000);
