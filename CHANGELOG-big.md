@@ -250,6 +250,20 @@ executable included.
 
 </details>
 
+**Release builds** - the bundles each platform downloads.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24a7270b7f">Android bundles start again: npm 12 runs argon2's and bcrypt's install scripts</a>. Thanks to xet7.</summary>
+
+npm 12 lets only declared dependencies run install scripts, and the rebuild
+directories declared none, so argon2 and bcrypt were never compiled. Prebuilds
+hid it everywhere except Android, whose bundles crash-looped on "No native build
+was found for platform=android". Each rebuild directory now declares the
+reviewed installers it holds, and the Android build loads both before starting
+WeKan.
+
+</details>
+
 **Filters** - the filter sidebar's date ranges.
 
 <details>
