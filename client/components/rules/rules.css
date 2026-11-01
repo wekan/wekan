@@ -247,6 +247,33 @@
 .rules-back .js-goback .fa-arrow-left {
   color: #fff !important;
 }
+/* #6852: Back to the board, at the top of the Rules page. */
+.rules-back-to-board {
+  margin-block: 8px;
+  margin-inline: 14px;
+}
+/* A link, so it opens the board as a link does (also in a new tab), drawn as
+   the primary buttons around it: forms.css styles only button.primary. */
+.rules-back-to-board .js-rules-back-to-board {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 20px;
+  border-radius: 3px;
+  background: var(--theme-accent, #005377);
+  box-shadow: 0 1px 0 #4d4d4d;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.rules-back-to-board .js-rules-back-to-board:hover,
+.rules-back-to-board .js-rules-back-to-board:focus {
+  background: var(--theme-accent, #004766);
+  color: #fff;
+}
+.rules-back-to-board .js-rules-back-to-board .fa-arrow-left {
+  color: #fff !important;
+}
 .flex,
 .triggers-content .triggers-body .triggers-side-menu ul li a {
   display: -webkit-box;

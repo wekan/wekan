@@ -6,6 +6,15 @@
 template(name="rulesMain")
   .wrapper
     .rules-page(class=currentBoard.colorClass)
+      //- #6852: the way back to the board. The trigger, action and rule
+        details pages have their own Back, to the rules list, so this one is
+        shown only where there is none - two Backs going to two places would
+        be one too many.
+      if showBackToBoard
+        .rules-back-to-board
+          a.js-rules-back-to-board(href="{{pathFor 'board' id=currentBoard._id slug=currentBoard.slug}}" title="{{currentBoard.title}}")
+            i.fa.fa-arrow-left
+            | {{_ 'back'}}
       //- #2217: who may edit sees every view; a member a board shows its Rules
         to reads the rules list and rule details, with no control that
         changes a rule; anybody else sees nothing (client/lib/rulesAccess.js).

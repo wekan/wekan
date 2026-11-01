@@ -44,6 +44,10 @@ Template.rulesMain.helpers({
   rulesCurrentTab() {
     return Template.instance().rulesCurrentTab;
   },
+  // #6852: every Rules page but the three that already go Back to the list.
+  showBackToBoard() {
+    return !['trigger', 'action', 'ruleDetails'].includes(Template.instance().rulesCurrentTab.get());
+  },
   ruleName() {
     return Template.instance().ruleName;
   },
