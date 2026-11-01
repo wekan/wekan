@@ -43,6 +43,9 @@ async function walk(root) {
 // single-file source is the file itself.
 const sourceFile = (source, relative) => (source.file ? source.path : path.join(source.path, ...relative.split('/')));
 
+// How long after start the macOS catch-up scan runs (see start()).
+const CATCH_UP_SCAN_MS = 2000;
+
 class FileEngine {
   // `sources`: [{ area, key, path, file }] - `key` names the source within
   // its area ('attachments', 'logs', 'recovery-events.jsonl', ...).
@@ -57,14 +60,25 @@ class FileEngine {
 
   async start() {
     this.log = await new SegmentLog(path.join(this.generation.dir, 'files'), 'ndjson', this.cipher).open();
+    // Watch BEFORE the first scan: a change made after the scan had passed a
+    // file but before watching began was missed until the next scan, five
+    // minutes later by default. A change seen by both is recorded once - the
+    // scan and the watcher share one queue.
+    if (this.watchEnabled) for (const source of this.sources) this.watch(source);
     await this.scan();
     this.scanTimer = setInterval(() => { this.scan().catch(this.onError); }, this.scanMs);
     this.sealTimer = setInterval(() => { this.flushDirty().catch(this.onError); }, this.sealMs);
-    if (this.watchEnabled) for (const source of this.sources) this.watch(source);
+    // macOS reports file events through FSEvents, which delivers nothing for a
+    // moment after a watcher is created: one more scan catches what changed
+    // then. Not elsewhere - inotify is watching when fs.watch returns, and a
+    // second full scan of a large store would double the start-up cost.
+    if (this.watchEnabled && process.platform === 'darwin') {
+      this.catchUpTimer = setTimeout(() => { this.scan().catch(this.onError); }, CATCH_UP_SCAN_MS);
+    }
     return this;
   }
   async stop() {
-    clearInterval(this.scanTimer); clearInterval(this.sealTimer);
+    clearInterval(this.scanTimer); clearInterval(this.sealTimer); clearTimeout(this.catchUpTimer);
     for (const watcher of this.watchers) watcher.close();
     await this.busy?.catch(() => {});
     await this.flushDirty();

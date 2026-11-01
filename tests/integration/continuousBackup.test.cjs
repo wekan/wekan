@@ -126,6 +126,43 @@ test('SQLite page engine: a WAL database written meanwhile, rebuilt at a moment 
   assert.equal(fs.existsSync(path.join(root, 'restore', 'tampered.sqlite')), false);
 });
 
+// The engine scanned FIRST and started watching after, so a change in between
+// waited for the next scan (five minutes by default); and macOS's FSEvents
+// delivers nothing for a moment after a watcher is created - an EVERYTHING
+// run on a loaded Mac lost the appended log line below that way.
+for (const platform of ['darwin', 'linux']) {
+  test(`watching starts before the first scan, and on macOS a catch-up scan follows (${platform})`, { timeout: 30000 }, async t => {
+    const root = tmpRoot();
+    const watch = fs.watch;
+    const real = Object.getOwnPropertyDescriptor(process, 'platform');
+    const calls = [];
+    // A watcher that never reports anything: FSEvents in its first moments.
+    fs.watch = () => { calls.push('watch'); const w = new (require('node:events'))(); w.close = () => {}; return w; };
+    Object.defineProperty(process, 'platform', { value: platform });
+    t.after(() => { fs.watch = watch; Object.defineProperty(process, 'platform', real); fs.rmSync(root, { recursive: true, force: true }); });
+    const live = path.join(root, 'live');
+    fs.mkdirSync(live, { recursive: true });
+    fs.writeFileSync(path.join(live, 'one.txt'), 'one');
+    const target = await store.openTarget(path.join(root, 'target'));
+    const generation = await store.createGeneration(target, {});
+    const engine = new FileEngine({ sources: [{ area: 'attachments', key: 'attachments', path: live }], target, generation,
+      scanMs: 3600000, sealMs: 100, onError: error => { throw error; } });
+    const scan = engine.scan.bind(engine);
+    engine.scan = () => { calls.push('scan'); return scan(); };
+    await engine.start();
+    t.after(() => engine.stop());
+    assert.deepEqual(calls.slice(0, 2), ['watch', 'scan'], 'the watcher is up before the first scan');
+    fs.writeFileSync(path.join(live, 'two.txt'), 'two');
+    for (let i = 0; i < 40 && engine.status().puts < 2; i += 1) await sleep(100);
+    if (platform === 'darwin') {
+      assert.equal(engine.status().puts, 2, 'the catch-up scan recorded what the silent watcher missed');
+    } else {
+      assert.equal(engine.status().puts, 1, 'negative: no second start-up scan where watching is live at once');
+      assert.equal(calls.filter(c => c === 'scan').length, 1);
+    }
+  });
+}
+
 test('file streams: attachments, avatars and logs, with watching, restored to a moment', { timeout: 60000 }, async t => {
   const root = tmpRoot();
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
