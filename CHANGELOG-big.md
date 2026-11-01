@@ -109,13 +109,6 @@ its reason.
 <details>
 <summary>Need the running app to reproduce/verify</summary>
 
-- The browser test fixes of 2026-10-27 are not verified in a browser yet: the
-  second EVERYTHING run was stopped during its build, before any browser
-  stage. The first run's Chromium stage reached 3212 of 3703 tests, and every
-  failure it reported is fixed in the source; Firefox, the database
-  conformance runs and FerretDB's own suites did not run. Run `./build.sh`'s
-  EVERYTHING option again. The stopped build had started reinstalling
-  `node_modules`, so a clean install comes first.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its
   own sandbox, and turning that off is not allowed there. Run it on a host.
 - [#6834](https://github.com/wekan/wekan/issues/6834) (the minicard due date is fixed; the board header bar wrapping to a second row and the list header icons under the card count did not reproduce on the current code at the same window width, in Persian, with the card count on - which WeKan release and browser zoom showed them is asked; wrapping the header rather than hiding buttons is by design)
