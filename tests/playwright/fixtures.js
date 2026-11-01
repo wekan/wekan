@@ -3,6 +3,8 @@
 const { test: base } = require('@playwright/test');
 const db = require('./helpers/db');
 const { loginWithToken, openBoard } = require('./helpers/auth');
+const { waitForLanguageOnSetLanguage } = require('./helpers/language.cjs');
+const { noPushSubscriptionInWebKit } = require('./helpers/webkit-push.cjs');
 
 /**
  * Extended Playwright test fixture that seeds a fresh user + board for every
@@ -13,6 +15,16 @@ const { loginWithToken, openBoard } = require('./helpers/auth');
  *   test('my test', async ({ page, user, board }) => { ... });
  */
 const test = base.extend({
+  // Every page of the test's context: a setLanguage call resolves once the
+  // page shows that language (helpers/language.cjs), so a spec that switches
+  // language and then clicks does not click into the redraw that follows.
+  context: async ({ context }, use) => {
+    await context.addInitScript(waitForLanguageOnSetLanguage);
+    // And WebKit does not freeze on asking for a push subscription.
+    await context.addInitScript(noPushSubscriptionInWebKit);
+    await use(context);
+  },
+
   // A freshly-seeded admin user available for every test.
   adminUser: async ({}, use) => {
     const user = db.seedUser({ isAdmin: true });

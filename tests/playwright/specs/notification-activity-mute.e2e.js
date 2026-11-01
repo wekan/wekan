@@ -2,6 +2,8 @@
 // #572: a member can stop notifications about one kind of card activity - here
 // labels - and keep the rest; the bell and email both follow it.
 const { test, expect } = require('../fixtures');
+const { untilLanguageShown } = require('../helpers/language.cjs');
+const { noPushSubscriptionInWebKit } = require('../helpers/webkit-push.cjs');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 
@@ -26,11 +28,14 @@ test(`muting label activity keeps labels out of the bell, and nothing else in ${
 
   // user2 mutes "Labels added or removed" in Member Settings.
   const context = await browser.newContext();
+  // Not the fixture's context, so its page scripts are added here.
+  await context.addInitScript(noPushSubscriptionInWebKit);
   const member = await context.newPage();
   try {
     await loginWithToken(member, user2.id, user2.token);
     await openBoard(member, board.boardId, board.slug);
     await member.evaluate(language => Meteor.callAsync('setLanguage', language), language);
+    await untilLanguageShown(member, language);
     await openMemberNotificationSettings(member);
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     const settings = member.locator('.notification-activity-settings');
