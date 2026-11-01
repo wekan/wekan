@@ -133,7 +133,7 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** Ten **Dependabot** updates, checked for telemetry and tried at
+**In short:** Eleven **Dependabot** updates, checked for telemetry and tried at
 runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
 checks, and the AWS SDK's **logger redaction fix** is in. **Continuous backup**
 no longer misses a change made right after it starts, the **single-file**
@@ -159,6 +159,9 @@ This release updates the following dependencies:
   @smithy/core fix below ([#6844](https://github.com/wekan/wekan/pull/6844)).
 - **imapflow 2.8.0 → 2.9.1** — the IMAP mailbox
   ([#6842](https://github.com/wekan/wekan/pull/6842)).
+- **glob 13.0.6 → 14.0.3** — no WeKan code loads it: it is only the target of
+  an `archiver-utils` override that archiver 8 no longer needs; @babel/cli and
+  rimraf keep their own copies ([#6851](https://github.com/wekan/wekan/pull/6851)).
 - **helm/chart-releaser-action 1.7.0 → 1.8.0** and **docker/login-action 4.6.0
   → 4.7.0** — CI, each still pinned to the commit its tag names
   ([#6843](https://github.com/wekan/wekan/pull/6843),
