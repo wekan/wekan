@@ -135,7 +135,10 @@ its reason.
 
 **In short:** Ten **Dependabot** updates, checked for telemetry and tried at
 runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
-checks, and the AWS SDK's **logger redaction fix** is in.
+checks, and the AWS SDK's **logger redaction fix** is in. **Continuous backup**
+no longer misses a change made right after it starts, the **single-file**
+build runs on macOS whatever its target is called, and the whole **EVERYTHING**
+test run passes again on a Mac.
 
 This release updates the following dependencies:
 
@@ -196,10 +199,102 @@ matches its lockfile hash.
 
 </details>
 
-and has the following developer-tooling fix:
+**Continuous backup** - what it sees right after it starts.
 
-- [The short changelog guard holds between releases too, when there is no Upcoming section yet](https://github.com/wekan/wekan/commit/05cc2460ea).
-  Thanks to xet7.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cbe2605fe">Files are watched before the first scan, and a macOS start catches up once</a>. Thanks to xet7.</summary>
+
+The file engine scanned its sources first and only then started watching, so
+a change made between the two waited for the next scan, five minutes by
+default. macOS FSEvents also delivers nothing for a moment after a watcher is
+created. The watchers start first now, sharing one queue with the scan so a
+change is recorded once, and on macOS one catch-up scan runs two seconds after
+the start; Linux's inotify needs none. A new test with a silent watcher pins
+the order, the macOS catch-up and that Linux runs no second scan.
+
+</details>
+
+**Single-file builds** - signing and the start/backup commands.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d4f4caa2f">A macOS build is signed whatever its target is called, and start/backup return once WeKan runs</a>. Thanks to xet7.</summary>
+
+Only a target named mac or darwin was ad-hoc signed, so a Mach-O built under
+another label had the signature its injected archive invalidated, and macOS
+killed it before it printed anything. Every Mach-O output is signed now, read
+from the file's magic number. `start --background` and `backup` returned
+before WeKan wrote its pid file, so a `stop` right after them said WeKan was
+not running and left it running; both wait now until the pid file names the
+process they started. `singleFile.test.cjs` passes 24 of 24, the real single
+executable included.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**The whole-suite run** - EVERYTHING, on a Mac and in a sandboxed editor.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16103f9ad2">The test database is kept in .tools/, not beside the checkout</a>. Thanks to xet7.</summary>
+
+`build.sh` and `build.bat` put the :3001 test database in the checkout's
+parent directory, the one thing a test run wrote outside the repository, and a
+sandboxed editor could not create it. It is `.tools/mongodb-test-<port>` now;
+`toolsDirOnly.test.cjs` pins it in both scripts.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5eb4ecf61">The Mac smoke test asks libproc, not ps, whether a process group still lives</a>. Thanks to xet7.</summary>
+
+When macOS refuses to signal a group of zombies, the smoke test asked `ps`
+whether a member was alive, and a Mac that does not let the build run `ps`
+failed a correct app. On macOS it asks the kernel through `proc_listpids` and
+`proc_pidinfo` now, starting no process; elsewhere it uses `ps` as before.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/897376ba54">The button theme test checks the Board Settings that still have action buttons</a>. Thanks to xet7.</summary>
+
+Card Settings has had no column actions since card actions moved into each
+section's own menu, so the test failed on Card in every theme. Swimlane and
+List are checked in all four themes, and the test says why Card is not.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5e3325e87">Card Settings section order waits for the published board before reading the card</a>. Thanks to xet7.</summary>
+
+The test writes the board straight to the database and reloads. The board
+publication's cursor has `limit: 1`, so on the standalone test MongoDB it
+polls and a reload could get the old board for up to ten seconds. The test
+waits for the published board, up to 15 seconds, before it reads the card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89b64966c6">The password minimum specs wait until the server has the policy they wrote</a>. Thanks to xet7.</summary>
+
+The specs write the password policy straight into the settings document, and
+on the standalone test MongoDB the server's settings observer polls, so for up
+to ten seconds it still enforced the old policy. `untilServerHas()` asks
+`getPasswordPolicy` until the server has it, then reloads the sign-up form; 6
+of 6 with two workers.
+
+</details>
+
+**The changelog** - its guards between releases.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05cc2460ea">The short changelog guard holds between releases too, when there is no Upcoming section yet</a>. Thanks to xet7.</summary>
+
+`changelogShort.test.cjs` assumed an Upcoming section was always there, so it
+failed right after every release, before anything new was written. With none
+it checks that the newest release comes first and that nothing links an
+Upcoming that does not exist.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
