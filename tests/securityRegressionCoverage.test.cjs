@@ -91,6 +91,7 @@ const GUARDED = {
   commentwritebleed: ['tests/restSecurityAdvisories.test.cjs'],
   cookietokenbleed: ['tests/httpOnlySessionCookie.test.cjs'],
   crashbleed: ['tests/exportTokenGuard.test.cjs'],
+  crossboardexportbleed: ['tests/crossBoardExportBleed.test.cjs', 'tests/playwright/specs/security-cross-board-export.e2e.js'],
   dnsbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   errorbleed: ['tests/restSecurityAdvisories.test.cjs'],
   exportbleed: ['tests/exportHTMLXss.test.cjs'],
@@ -218,6 +219,7 @@ const GUARDED = {
   importplacementbleed: ['tests/importPlacementBleed.test.cjs', 'tests/playwright/specs/security-import-placement.e2e.js'],
   samlsubjectbleed: ['tests/samlIdentityBinding.test.cjs'],
   stampbleed: ['tests/stampBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
+  unassignedattachbleed: ['tests/unassignedAttachBleed.test.cjs', 'tests/playwright/specs/unassigned-attach-bleed.e2e.js'],
   uploadbleed: ['tests/uploadBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
 };
 
@@ -361,7 +363,9 @@ test('the whole published list is accounted for', () => {
   // 137 -> 141: ImportPlacementBleed, SamlSubjectBleed, StampBleed and
   // UploadBleed, published with linked names the match below did not read
   // until every Hall of Fame name became a link (2026-10-30); all guarded.
-  assert.strictEqual(total, 141, 'the Hall of Fame and this list disagree on how many there are');
+  // 141 -> 143: CrossBoardExportBleed (2026-11-01) and UnassignedAttachBleed
+  // (GHSA-w26g-rc43-q6cm, 2026-11-01), both guarded.
+  assert.strictEqual(total, 143, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
