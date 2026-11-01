@@ -112,6 +112,12 @@ test('with every field allowed, the card draws exactly the Card pane\'s sections
     allowsSubtasks: true, allowsAttachments: true, allowsComments: true, 'scrum.visibility': visibility,
   } });
   await page.reload();
+  // Written straight to the database, the board reaches the page by the
+  // publication's next poll: its cursor has a limit, which change streams do
+  // not follow, so a reload can still be served the board as it was for up to
+  // ten seconds - and the card drew no Scrum section yet.
+  await expect.poll(() => page.evaluate(id => Boolean(Meteor.connection._mongo_livedata_collections.boards
+    .findOne(id)?.scrum?.visibility?.cardSprint), board.boardId), { timeout: 15_000 }).toBe(true);
   await openCard(page, board);
   const onCard = await cardSections(page);
   await openCardSettings(page);
