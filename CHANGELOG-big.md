@@ -291,6 +291,18 @@ until it can act; Forget stays usable.
 
 </details>
 
+**Sign-in** - the error shown on the sign-in page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a2fef4dc7">Login errors are rendered from template state, so a redraw of the form keeps them</a>. Thanks to xet7.</summary>
+
+The error region sits inside the form's loading switch, and an error written
+into it was lost whenever that part of the form was drawn again. The template
+now renders the message as escaped text from a reactive value. The SAML error
+test also waits for the finished form before it clicks.
+
+</details>
+
 **Whiteboard** - how its lines are drawn.
 
 <details>
@@ -477,6 +489,35 @@ opening; there the page answers that it has none.
 
 The matrix is Chromium-only. In Firefox and WebKit its setup never ran, but
 its cleanup did, and failed every viewport.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f241681e80">Background notification recovery checks its own mail</a>. Thanks to xet7.</summary>
+
+The shared SMTP sink had caught another worker's mail first.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c71c875649">The custom field settings popup is opened until its Create button shows</a>. Thanks to xet7.</summary>
+
+The opened card was still drawing and closed the popup again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a9c3f21d2">The drawing surface's width is waited for</a>. Thanks to xet7.</summary>
+
+The element's layout follows its viewBox a frame later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8ed3e0fd0">The bulk export popup is opened until it stays</a>. Thanks to xet7.</summary>
+
+All Boards was still drawing after the route changed, in all five Haitian
+Creole tests.
 
 </details>
 
