@@ -112,11 +112,16 @@ for (const language of ['ka','km','km-KH','km_KH','la','jv','kk','tg','sn','bn',
       // Right-to-left editors were always grabbed at the centre and drag fine
       // there; only left-to-right labels can put a field under the centre.
       if(document.documentElement.dir==='rtl')return x+width/2;
+      // The block's own body on both sides of the point, not its outline: a
+      // Khmer label overflows the block in Firefox and widens the box, and the
+      // first body point found was the block's edge, where a press dragged
+      // nothing.
+      const body=px=>{
+        const hit=document.elementFromPoint(px,y);
+        return hit&&element.contains(hit)&&!hit.closest('.blocklyEditableField, .blocklyText, .blocklyFieldRect')&&hit.closest('.blocklyDraggable')===element;
+      };
       for(let dx=4;dx<width;dx+=4){
-        for(const px of [x+dx]){
-          const hit=document.elementFromPoint(px,y);
-          if(hit&&element.contains(hit)&&!hit.closest('.blocklyEditableField, .blocklyText, .blocklyFieldRect')&&hit.closest('.blocklyDraggable')===element)return px;
-        }
+        if(body(x+dx-4)&&body(x+dx)&&body(x+dx+4))return x+dx;
       }
       return x+width/2;
     },{x:before.x,y:before.y+12,width:before.width});
