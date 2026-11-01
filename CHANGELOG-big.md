@@ -256,6 +256,17 @@ the container uses the bridge network; Linux keeps the host network.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffe207e191">The Docker test proxy dials the host again when a connect is never answered</a>. Thanks to xet7.</summary>
+
+On the bridge network too, Docker Desktop's gateway now and then left one
+connect to the host unanswered through nine retransmits while the next went
+straight through. The proxy reads nothing from the browser until a connection
+is up, drops a dial that has not connected in 1.5 seconds and dials again, up
+to five times, so no byte is lost or sent twice.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a1f7a14a9">The Playwright container sees the repo and the files root at their own host paths</a>. Thanks to xet7.</summary>
 
 Specs and the server share files by path. With the repository mounted at
