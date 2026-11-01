@@ -8,7 +8,11 @@ for (const theme of ['belize', 'nephritis', 'dark', 'cleanlight']) {
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
     await expect(page.locator(`#js-list-${board.listIds[0]}`)).toBeVisible();
-    for (const section of ['Swimlane', 'List', 'Card']) {
+    // Swimlane and List: their settings have a column-actions row. Card
+    // Settings has had none since 3e5bc58105 ("Card Settings: a checkbox per
+    // section ... Card actions live in the card's own section hamburgers"),
+    // so asking it for one failed in every theme.
+    for (const section of ['Swimlane', 'List']) {
       await page.evaluate(section => {
         Popup.close();
         Popup.open(`board${section}Settings`)({ currentTarget: document.body, target: document.body, preventDefault() {}, stopPropagation() {} });
