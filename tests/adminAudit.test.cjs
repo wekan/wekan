@@ -158,6 +158,26 @@ test('the trail is for site administrators, and the Admin Panel shows it', () =>
   assert.match(read('client/components/settings/peopleBody.jade'), /\+adminAuditLog/);
 });
 
+// Commit 2017f2871f: the pane has its own address and title, and the table
+// aligns to the START of the line so it reads right to left in RTL languages.
+test('the audit log has its own URL and title, and its table follows the text direction', () => {
+  const { ADMIN_PAGES, adminPath, adminPaneTitle } = require('../models/lib/adminUrls');
+  assert.strictEqual(ADMIN_PAGES.people.panes['audit-log'], 'audit-log-setting');
+  assert.strictEqual(adminPath('people', 'audit-log-setting'), '/admin/people/audit-log');
+  assert.deepStrictEqual(adminPaneTitle('people', 'audit-log'), { titleKey: 'admin-audit-log' });
+  assert.match(read('docs/Features/Admin-Panel/Admin-Panel-URLs.md'),
+    /`\/admin\/people\/audit-log` \| Audit log \| `audit-log-setting`/);
+  const css = read('client/components/settings/adminAuditLog.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  const cell = /\.admin-audit-log-table th, \.admin-audit-log-table td \{([^}]*)\}/.exec(css);
+  assert.ok(cell, 'the table cell rule exists');
+  assert.match(cell[1], /text-align:\s*start;/);
+  // negative: no physical direction anywhere in the audit log's styles - left
+  // or right would stay put when the page turns right to left.
+  assert.doesNotMatch(css, /text-align:\s*(left|right)\b/);
+  assert.doesNotMatch(css, /(margin|padding|border)-(left|right)\s*:/);
+  assert.doesNotMatch(css, /(^|[\s;{])(left|right)\s*:/);
+});
+
 (async () => {
   for (const run of pending) await run();
   console.log(`adminAudit: ${passed} tests passed`);

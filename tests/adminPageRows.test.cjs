@@ -166,6 +166,26 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       // (500: the boardsReport argument checks grew by the #3249 'instance' filter.)
       assert.ok(/isAdmin/.test(src.slice(at, at + 500)), `${marker} must be admin-only`);
     }
+    // Cards and Broken cards are instance-wide BY DECISION (maintainer,
+    // 2026-10-02, commit 69f3358154): a site admin manages every board, so they
+    // list cards of boards the admin is not a member of. The decision is written
+    // beside the code, and neither the publications nor their counts narrow to
+    // the admin's own boards, cards or memberships.
+    const cardsRaw = read('server/publications/cards.js');
+    assert.match(cardsRaw, /Instance-wide on purpose \(maintainer decision 2026-10-02\)/,
+      'the decision is recorded at the Cards report');
+    assert.match(cardsRaw, /The same holds\s*\n\/\/ for brokenCardsReport/,
+      'and names the Broken cards report too');
+    const cardsCode = code('server/publications/cards.js');
+    for (const marker of ["Meteor.publish('cardsReport'", "Meteor.publish('brokenCardsReport'",
+      'async getCardsReportCount(', 'async getBrokenCardsReportCount(']) {
+      const at = cardsCode.indexOf(marker);
+      assert.ok(at !== -1, `${marker} must exist`);
+      const body = cardsCode.slice(at, cardsCode.indexOf('\n});', at));
+      assert.ok(/isAdmin/.test(body.slice(0, 500)), `${marker} must be admin-only`);
+      assert.ok(!/userBoardIds|accessibleCardIds|accessibleBoardIds|members\.userId|'members'|isBoardMember|canSeeBoard/.test(body),
+        `${marker} must not narrow to the admin's own boards: instance-wide by decision`);
+    }
     for (const [file, method] of [
       ['server/publications/boards.js', 'getBoardsReportCount'],
       ['server/publications/attachments.js', 'getAttachmentsReportCount'],

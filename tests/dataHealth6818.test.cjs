@@ -460,6 +460,38 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
     assert.doesNotMatch(ay['data-health'], /qullqi/, 'negative: qullqi is money, not health');
   });
 
+  // Commit 77956c98ed: "Last Run: Never" used List Sync's
+  // list-sync-last-synced-never, so a locale that words that one as "never
+  // synced" made Data health read wrong. It has a key of its own now.
+  await test('Data health\'s "Never" has a key of its own, in every locale', () => {
+    const js = read('client/components/settings/problemsSummary.js');
+    const at = js.indexOf('dataHealthStatus() {');
+    assert.notStrictEqual(at, -1, 'the status helper exists');
+    const body = js.slice(at, js.indexOf('\n  },', at));
+    assert.match(body, /if \(!d \|\| !d\.at\) return TAPi18n\.__\('data-health-never-run'\);/,
+      'a scan that never ran says data-health-never-run');
+    const dir = path.join(ROOT, 'imports/i18n/data');
+    const en = JSON.parse(fs.readFileSync(path.join(dir, 'en.i18n.json'), 'utf8'));
+    assert.strictEqual(en['data-health-never-run'], 'Never');
+    const enKeys = Object.keys(en);
+    assert.strictEqual(enKeys.indexOf('data-health-never-run'), enKeys.indexOf('data-health-repair') + 1,
+      'added right after data-health-repair');
+    for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.i18n.json'))) {
+      const j = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
+      assert.ok(typeof j['data-health-never-run'] === 'string' && j['data-health-never-run'].trim(),
+        `${file}: data-health-never-run`);
+    }
+  });
+
+  await test('negative: the Problems / Summary page borrows no List Sync string', () => {
+    // Comments stripped: the helper's own note names the key it replaced.
+    const strip = s => s.replace(/\/\/[^\n]*/g, '').replace(/^\s*\/\/-.*$/gm, '');
+    for (const rel of ['client/components/settings/problemsSummary.js',
+      'client/components/settings/problemsSummary.jade']) {
+      assert.doesNotMatch(strip(read(rel)), /list-sync-/, `${rel} must not reuse a list-sync-* key`);
+    }
+  });
+
   // ---- 8. bounded lookups --------------------------------------------------------
   await test('linked cards and subtasks are looked up a CHUNK at a time inside the card loop', async () => {
     const data = sample();

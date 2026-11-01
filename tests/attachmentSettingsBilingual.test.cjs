@@ -42,6 +42,50 @@ test('each English line is followed by its translation, only when it differs', (
   assert.ok(pairs >= 26, `the storage settings' descriptions and menu paths, ${pairs} found`);
 });
 
+// Commit e6f7d226ca: a leftover `small.form-text.text-muted {{_
+// 'gcs-credentials-description'}}` from before the English+translated pairs
+// showed the Google Cloud Storage key help twice under the field.
+test('negative: a paired description is shown by its pair only, never by a leftover copy', () => {
+  const code = jade.filter(l => !/^\s*\/\/-/.test(l));
+  const paired = new Set();
+  for (const l of code) {
+    const m = l.match(/\{\{englishText '([^']+)'\}\}/);
+    if (m) paired.add(m[1]);
+  }
+  assert.ok(paired.has('gcs-credentials-description'), 'the GCS key help is a pair');
+  // Per .form-group: a field whose help is an English+translated pair shows the
+  // translation once, under the translatedDiffers guard, and no field shows one
+  // translated help string twice. (The same key on two fields - cloud-secret-keep-blank
+  // under every secret - is two fields, not a duplicate.)
+  const groups = [];
+  let current = null;
+  code.forEach((l, i) => {
+    if (/^\s*\.form-group\b/.test(l) || /^\s*template\(/.test(l)) { current = []; groups.push(current); }
+    if (current) current.push([l, i]);
+  });
+  const extra = [];
+  for (const group of groups) {
+    const seen = new Map();
+    // Help text only: a heading and the button under it may share a label.
+    for (const [l, i] of group.filter(([l]) => /^\s*(if \S+ '[^']+'\s*)?(small|p)\.form-text/.test(l))) {
+      for (const m of l.matchAll(/\{\{_ '([^']+)'\}\}/g)) {
+        seen.set(m[1], (seen.get(m[1]) || []).concat(i));
+      }
+    }
+    for (const [key, lines] of seen) {
+      if (lines.length > 1) extra.push(`${key}: shown ${lines.length} times in one field, line ${lines[0] + 1}`);
+      const pairedHere = group.some(([l]) => l.includes(`{{englishText '${key}'}}`));
+      if (pairedHere && !/^\s*if translatedDiffers '/.test(code[lines[0] - 1])) {
+        extra.push(`${key}: translated copy without its guard, line ${lines[0] + 1}`);
+      }
+    }
+  }
+  assert.ok(groups.length > 40, `the template's fields, ${groups.length} found`);
+  assert.deepStrictEqual(extra, []);
+  // The exact line the commit removed.
+  assert.ok(!code.some(l => /small\.form-text\.text-muted \{\{_ 'gcs-credentials-description'\}\}/.test(l)));
+});
+
 test('the helpers read English from en.i18n.json and follow the language', () => {
   assert.match(blaze, /Blaze\.registerHelper\('englishText', key => \{[\s\S]*?TAPi18n\.__\(key, \{\}, 'en'\)/);
   assert.match(blaze, /Blaze\.registerHelper\('translatedDiffers', key => \{\s*TAPi18n\.current\.get\(\);/);
