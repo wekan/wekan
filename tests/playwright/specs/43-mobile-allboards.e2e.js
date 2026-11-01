@@ -53,20 +53,18 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       await expect(invitation.getByText('You are just invited to this board')).toBeVisible();
       await expect(invitation.locator('.js-accept-invite')).toBeVisible();
       await expect(invitation.locator('.js-decline-invite')).toBeVisible();
-      const invitationBox = await invitation.boundingBox();
-      expect(invitationBox).toBeTruthy();
-      for (const control of [
-        invitation.getByText('You are just invited to this board'),
-        invitation.locator('.js-accept-invite'),
-        invitation.locator('.js-decline-invite'),
-      ]) {
-        const box = await control.boundingBox();
-        expect(box).toBeTruthy();
-        expect(box.y).toBeGreaterThanOrEqual(invitationBox.y);
-        expect(box.y + box.height).toBeLessThanOrEqual(
-          invitationBox.y + invitationBox.height + 1,
-        );
-      }
+      // The tile and its controls are measured in ONE layout: measured one at a
+      // time, a row drawn above the list in between (the board counts) moved
+      // the whole tile down, and a control was compared with where the tile had
+      // been - 23 px "outside" it in Firefox, which drew that row later.
+      const outside = () => invitation.evaluate(tile => {
+        const t = tile.getBoundingClientRect();
+        return ['.board-list-item-desc', '.js-accept-invite', '.js-decline-invite']
+          .map(selector => [selector, tile.querySelector(selector)?.getBoundingClientRect()])
+          .filter(([, box]) => !box || box.height === 0 || box.top < t.top || box.bottom > t.bottom + 1)
+          .map(([selector, box]) => `${selector} ${box ? `${box.top}-${box.bottom}` : 'missing'} in ${t.top}-${t.bottom}`);
+      });
+      await expect.poll(outside, { timeout: 10_000 }).toEqual([]);
 
       // At least 2 per row. Measure EVERY tile in the list (including the leading
       // "+ Add board" tile, which occupies the first grid cell and offsets the
