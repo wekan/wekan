@@ -244,6 +244,16 @@ editing the range or Clear takes it back.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ad13db5ef">The date-range forms are checked by WeKan, not refused by WebKit after Clear</a>. Thanks to xet7.</summary>
+
+After Clear, WebKit kept a half-edited date in the From field and silently
+refused the next submit, so a new range never applied. Both forms are
+`novalidate` now; WeKan's own check already marks a refused range and says
+why.
+
+</details>
+
 **History recovery** - an undo or redo that is still waiting for the server.
 
 <details>
@@ -422,6 +432,17 @@ the block's outline, where a press drags nothing.
 
 The language arriving after the click drew the header again and closed the
 popup.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efe0e9287c">A language switch is waited for, and WebKit does not freeze on asking for a push subscription</a>. Thanks to xet7.</summary>
+
+A spec that switched language and clicked at once clicked into the redraw
+that followed, which closed its popup; every page of the test context now
+waits until it shows the new language. Playwright's WebKit froze the page on
+asking for a push subscription, which Member Notification Settings does on
+opening; there the page answers that it has none.
 
 </details>
 
