@@ -50,6 +50,21 @@ test('the bundle is rebuilt by the Android Node.js itself, checked and started',
   assert.match(build, /releases\/bsd\/smoke\.sh" "\$root\/bundle"/);
 });
 
+test('argon2 and bcrypt are compiled for Android and must load before the bundle starts', () => {
+  // v12.78: npm 12 blocked their install scripts - allowScripts covers declared
+  // dependencies only - so nothing was compiled, check-addon-arch passed the
+  // Linux prebuilds, and every Android bundle crash-looped on "No native build
+  // was found for platform=android" until the 240 s smoke test gave up.
+  const build = read('releases/android/build-bundle.sh');
+  const prepare = build.indexOf('"$node" "$root/releases/prepare-bundle-npm.mjs" "$root/bundle"');
+  const install = build.indexOf('(cd "$server" && npm install)');
+  const loads = build.indexOf('for (const name of ["argon2", "bcrypt"])');
+  assert.ok(prepare > 0 && prepare < install, 'the bundle declares its installers before npm installs');
+  assert.ok(loads > install && loads < build.indexOf('check-addon-arch.mjs'), 'loaded with Android Node.js right after the install');
+  assert.match(build, /cd "\$server\/npm\/node_modules\/meteor\/accounts-password" && "\$node" -e/);
+  assert.match(build, /::error::\$\{name\} has no Android addon/);
+});
+
 test('negative: nothing is built from an unverified download, and a missing Node.js skips', () => {
   const wf = read('.github/workflows/android.yml');
   assert.match(wf, /sha256sum -c "\$zip\.sha256sum"/);

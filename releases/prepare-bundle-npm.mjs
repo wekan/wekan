@@ -69,8 +69,25 @@ export function prepareBundleNpm(bundle) {
       const manifest = join(directory, 'package.json');
       const data = existsSync(manifest) ? JSON.parse(readFileSync(manifest, 'utf8')) : { private: true };
       const policy = { argon2: true, bcrypt: true, 'useragent-ng': true };
-      if (JSON.stringify(data.allowScripts) !== JSON.stringify(policy)) {
+      // npm 12 applies allowScripts to the project's DEPENDENCIES only. A
+      // package that is installed but not declared is "extraneous", and its
+      // install script stays blocked whatever allowScripts says - so argon2
+      // and bcrypt were never compiled by Meteor's npm rebuild. Prebuilds hid
+      // it on Linux, macOS and Windows; Android has none, and its bundles did
+      // not start: "No native build was found for platform=android ...
+      // loaded from: .../accounts-password/node_modules/argon2". Declare each
+      // reviewed installer this directory has installed, at that version.
+      const declared = { ...data.dependencies, ...data.optionalDependencies };
+      const dependencies = { ...data.dependencies };
+      for (const name of Object.keys(policy)) {
+        const installed = join(directory, 'node_modules', name, 'package.json');
+        if (declared[name] || !existsSync(installed)) continue;
+        dependencies[name] = JSON.parse(readFileSync(installed, 'utf8')).version;
+      }
+      const sameDependencies = JSON.stringify(dependencies) === JSON.stringify(data.dependencies || {});
+      if (JSON.stringify(data.allowScripts) !== JSON.stringify(policy) || !sameDependencies) {
         data.allowScripts = policy;
+        if (!sameDependencies) data.dependencies = dependencies;
         if (existsSync(manifest)) makeWritable(manifest);
         writeFileSync(manifest, JSON.stringify(data, null, 2) + '\n');
         changed = true;

@@ -96,6 +96,25 @@ test('npm 12 rebuild policy is scoped to reviewed installers and bundle paths', 
       assert.equal(pkg.allowScripts['unreviewed-installer'], undefined);
       assert.equal(fs.existsSync(path.join(dir, '.npmrc')), false);
     }
+    // npm 12 applies allowScripts only to declared dependencies: an installed
+    // reviewed installer is declared at its installed version, so Meteor's
+    // npm rebuild runs its install script (Android bundles: argon2 was never
+    // compiled). Nothing else is declared, and a declared one is not changed.
+    const ap = path.join(server, 'npm/node_modules/meteor/accounts-password');
+    for (const [name, version] of [['argon2', '0.44.0'], ['bcrypt', '6.0.0'], ['left-pad', '1.0.0']]) {
+      fs.mkdirSync(path.join(ap, 'node_modules', name), { recursive: true });
+      fs.writeFileSync(path.join(ap, 'node_modules', name, 'package.json'), JSON.stringify({ name, version }));
+    }
+    fs.writeFileSync(rebuilds, '["npm/node_modules/meteor/accounts-password"]');
+    assert.equal(prepareBundleNpm(bundle), true);
+    assert.equal(prepareBundleNpm(bundle), false, 'idempotent');
+    const declared = JSON.parse(fs.readFileSync(path.join(ap, 'package.json'), 'utf8'));
+    assert.deepEqual(declared.dependencies, { argon2: '0.44.0', bcrypt: '6.0.0' });
+    assert.deepEqual(declared.allowScripts, { argon2: true, bcrypt: true, 'useragent-ng': true });
+    fs.writeFileSync(path.join(ap, 'package.json'), JSON.stringify({ private: true, dependencies: { argon2: '^0.44.0' } }));
+    prepareBundleNpm(bundle);
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(ap, 'package.json'), 'utf8')).dependencies,
+      { argon2: '^0.44.0', bcrypt: '6.0.0' }, 'a declared dependency is kept as it is');
     for (const dirs of [['../outside'], ['/outside'], [null], {}]) {
       fs.writeFileSync(rebuilds, JSON.stringify(dirs));
       assert.throws(() => prepareBundleNpm(bundle), /Invalid Meteor rebuild director/);

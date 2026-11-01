@@ -70,7 +70,21 @@ bcrypt="$server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
 if [ -d "$bcrypt" ]; then
   (cd "$bcrypt" && npm install --no-save node-addon-api@^8 >/dev/null 2>&1 || true)
 fi
+# Every rebuild directory declares the reviewed native installers it holds,
+# so npm 12 runs their install scripts (releases/prepare-bundle-npm.mjs). A
+# bundle released before that was declared blocked them: argon2 and bcrypt
+# have no Android prebuild, were never compiled, and WeKan did not start. It
+# is idempotent, so a bundle already prepared is left as it is.
+"$node" "$root/releases/prepare-bundle-npm.mjs" "$root/bundle"
 (cd "$server" && npm install)
+# accounts-password requires both at startup with no fallback. Load them here
+# with Android's Node.js, so a missing addon stops the build with its name -
+# check-addon-arch below passes Linux prebuilds, which Android does not load.
+(cd "$server/npm/node_modules/meteor/accounts-password" && "$node" -e '
+for (const name of ["argon2", "bcrypt"]) {
+  try { require(name); console.log(`${name} loads on Android`); }
+  catch (error) { console.error(`::error::${name} has no Android addon: ${error.message.split("\n")[0]}`); process.exit(1); }
+}')
 # sharp has no Android prebuilt: built from source against Termux's libvips.
 if ! (cd "$appmods/sharp" && npm install --no-save --omit=dev node-addon-api node-gyp && "$node" install/build.js); then
   echo "::warning::sharp could not be built against Termux's libvips here; it runs as WebAssembly (@img/sharp-wasm32)."
