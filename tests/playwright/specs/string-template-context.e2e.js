@@ -9,7 +9,13 @@ for (const language of ['en', 'ku', 'ckb', 'tt', 'so', 'ny', 'mi', 'sm', 'tk_TM'
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     await openBoard(page, board.boardId, board.slug);
     await page.locator('.js-minicard .minicard-title').first().click();
-    await page.locator('.js-open-custom-fields-settings').click();
+    // The opened card is still drawing: a popup opened in that moment closed
+    // again before its button could be clicked (ve-CC, Firefox, 1 in 67).
+    // Open it until its Create button is there.
+    await expect(async () => {
+      if (!await page.locator('.js-open-create-custom-field').isVisible()) await page.locator('.js-open-custom-fields-settings').click();
+      await expect(page.locator('.js-open-create-custom-field')).toBeVisible({ timeout: 3000 });
+    }).toPass({ timeout: 30000 });
     await page.locator('.js-open-create-custom-field').click();
     await page.locator('.js-field-type').selectOption('stringtemplate');
     const hint = page.locator('.js-field-settings-stringtemplate p.quiet');
