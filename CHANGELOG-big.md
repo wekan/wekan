@@ -328,6 +328,18 @@ key is a shortcut again ([#6755](https://github.com/wekan/wekan/issues/6755)).
 
 </details>
 
+**Rules** - the way back from the Rules page.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34d9817110">The Rules page has a Back to the board</a>. Thanks to mimZD and xet7.</summary>
+
+The page lost its Back with its old sidebar, and only the trigger, action and
+rule details pages kept one, to the rules list. The list and its Workflow,
+Bots, Blocks and History views now link back to the board; the three
+sub-pages keep only their own Back ([#6852](https://github.com/wekan/wekan/issues/6852)).
+
+</details>
+
 **Sign-in** - the error shown on the sign-in page.
 
 <details>
