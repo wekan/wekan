@@ -303,6 +303,7 @@ Template.userFormsLayout.onDestroyed(function () {
 });
 
 Template.userFormsLayout.helpers({
+  loginErrorText() { return loginErrorText.get(); },
   passkeysSupported() { return require('/client/lib/passkeys').passkeysSupported(); },
   passkeyMessage() { return Template.instance().passkeyMessage.get(); },
   windowsSsoOffered() { return Meteor.settings?.public?.windowsSsoEnabled === true; },
@@ -557,20 +558,23 @@ Tracker.autorun(() => {
   }
 });
 
+// The message in #login-error-message, rendered by the template as text. Not
+// written into the element: it is inside `if isLoading`, and when that flips
+// Blaze draws a new, empty element - a SAML popup error shown just before
+// then was gone (saml-popup-error.e2e.js, Firefox). Text, never HTML.
+const loginErrorText = new ReactiveVar('');
 function showLoginError(err) {
-  const errorDiv = document.getElementById('login-error-message');
-  if (!errorDiv) return;
   if (!err) {
-    errorDiv.textContent = '';
+    loginErrorText.set('');
     return;
   }
   const reason = err.reason || err.message || '';
   // #2460: an account its member locked to SQRL says so in their language.
   const translated = ['oauth-account-conflict', 'sqrl-only', 'sqrl-hardlock']
     .find(key => err.error === key || reason === key);
-  errorDiv.textContent = translated
+  loginErrorText.set(translated
     ? TAPi18n.__(translated)
-    : reason || String(err.error || err);
+    : reason || String(err.error || err));
 }
 
 Template.defaultLayout.events({

@@ -8,8 +8,15 @@ test('SAML sign-in displays callback errors as text and clears them before anoth
     document.getElementById('at-saml').classList.remove('hide');
     Meteor.loginWithSaml = (_options, callback) => { window.samlTestCallback = callback; callback(new Meteor.Error('saml-login-failed', '<b>SAML certificate validation failed</b>')); };
   });
-  await page.locator('#at-saml').click({ force: true });
-  await expect(page.locator('#login-error-message')).toHaveText('<b>SAML certificate validation failed</b>');
+  // The sign-in form is still drawing just after Meteor connects: in Firefox a
+  // forced click then landed on a button being replaced, or below the window,
+  // and no handler ran. Click once the form is there, until the error shows.
+  await expect(page.locator('#at-field-username_and_email')).toBeVisible();
+  await expect(async () => {
+    await page.locator('#at-saml').scrollIntoViewIfNeeded();
+    await page.locator('#at-saml').click({ force: true });
+    await expect(page.locator('#login-error-message')).toHaveText('<b>SAML certificate validation failed</b>', { timeout: 3000 });
+  }).toPass({ timeout: 20000 });
   await expect(page.locator('#login-error-message b')).toHaveCount(0);
   await expect(page).toHaveURL(/\/sign-in/);
   await page.evaluate(() => { Meteor.loginWithSaml = (_options, callback) => { window.samlTestCallback = callback; }; });

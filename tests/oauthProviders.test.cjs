@@ -320,13 +320,18 @@ test('the passwordless flow asks for the email, then the code, and logs in with 
 });
 
 test('errors go to the same #login-error-message region as the password form, translated for the conflict', () => {
-  assert.match(js, /document\.getElementById\('login-error-message'\)/);
+  // The region renders the message itself (text from loginErrorText), so a
+  // redraw of the sign-in form keeps it: written into the element, a SAML
+  // popup error vanished when `if isLoading` drew a new one.
+  const layout = fs.readFileSync(path.join(__dirname, '..', 'client/components/main/layouts.jade'), 'utf8');
+  assert.match(layout, /div#login-error-message\([^)]*\)= loginErrorText/, 'escaped text, never != HTML');
+  assert.match(js, /loginErrorText\(\) \{ return loginErrorText\.get\(\); \}/);
   // The conflict is one of the error codes shown translated (#2460 added
   // SQRL's sqrl-only and sqrl-hardlock to the same list): the code, matched
   // on err.error or the reason, is the translation key.
   assert.match(js, /const translated = \['oauth-account-conflict', [^\]]*\]\s*\.find\(key => err\.error === key \|\| reason === key\);/);
-  assert.match(js, /errorDiv\.textContent = translated\s*\? TAPi18n\.__\(translated\)/);
-  assert.match(js, /errorDiv\.textContent =/, 'text, never innerHTML, for a provider-supplied message');
+  assert.match(js, /loginErrorText\.set\(translated\s*\? TAPi18n\.__\(translated\)/);
+  assert.doesNotMatch(js, /login-error-message[^\n]*innerHTML|errorDiv\.innerHTML/, 'text, never innerHTML, for a provider-supplied message');
 });
 
 test('the i18n keys the form and the catalog use exist in English', () => {

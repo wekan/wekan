@@ -55,7 +55,7 @@ template(name="userFormsLayout")
         +loader
       else
         // ARIA live region for error messages
-        div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f; margin-bottom: 1em;")
+        div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f; margin-bottom: 1em;")= loginErrorText
         // Second sign-in step for accounts-2fa (issue #3058). Hidden unless a
         // password login comes back with the "no-2fa-code" / "invalid-2fa-code"
         // error - see decideTwoFactorLoginStep() in
