@@ -19,8 +19,15 @@ function section(page, scope, channel) {
   return page.locator(`.notification-delivery-settings[data-scope="${scope}"][data-channel="${channel}"]`).first();
 }
 
+// The test switches language just before it opens the popup, and when the
+// language arrives the popup draws again with every section closed: under a
+// whole-suite run in Firefox that came after the click, and the select it
+// then used was hidden (vi, zh_SG). Open the section until it stays open.
 async function expand(sectionLocator) {
-  await sectionLocator.locator('summary').click();
+  await expect(async () => {
+    if (!await sectionLocator.evaluate(details => details.open)) await sectionLocator.locator('summary').click();
+    await expect(sectionLocator.locator(':scope > :not(summary)').first()).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 20000 });
 }
 
 for (const language of ['ig', 'gd', 'ga', 'mg', 'ht', 'la', 'st', 'co', 'sw', 'mt', 'en', 'haw', 'lt', 'yi', 'wuu-Hans', 'xh', 'zu', 'zu-ZA', 'pap', 'eo', 'ar', 'fi', 'sv', 'nb', 'da', 'it', 'de', 'de-AT', 'de-CH', 'de_DE', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH', 'es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'pl', 'pl-PL', 'cs', 'cs-CZ', 'sk', 'hu', 'ro', 'ro-RO', 'ja', 'ja-JP', 'ja-HI', 'ko', 'ko-KR', 'id', 'ms', 'ms-MY', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia', 'gl', 'gl-ES', 'eu', 'vi', 'vi-VN', 'hr', 'sr', 'sl', 'sl_SI', 'bg', 'mk', 'lv', 'sq', 'bs', 'is', 'be', 'af', 'af_ZA', 'et-EE', 'fa', 'fa-IR', 'he', 'he-IL', 'ar-DZ', 'ar-EG', 'cmn', 'zh', 'zh-CN', 'zh-GB', 'zh-Hans', 'zh_SG', 'zh-TW', 'zh-HK', 'hi', 'hi-IN', 'gu-IN', 'ru', 'ru_RU', 'ru-UA', 'tr', 'uk', 'uk-UA', 'zh-Hant', 'tlh', 'vo', 've', 've-CC', 've-PP', 'wa-RR', 'zgh', 'chr', 'mr', 'bn', 'lg', 'tn', 'to', 'ts', 'ay', 'qu', 'wal', 'ace', 'ne', 'ta', 'th', 'kn', 'ur', 'ml', 'az', 'az-AZ', 'az-LA', 'uz', 'uz-UZ', 'uz-LA']) {
