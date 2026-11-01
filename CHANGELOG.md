@@ -11,8 +11,9 @@ Ten **Dependabot** updates, checked for telemetry and tried at
 runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
 checks, and the AWS SDK's **logger redaction fix** is in. **Continuous backup**
 no longer misses a change made right after it starts, the **single-file**
-build runs on macOS whatever its target is called, and the whole **EVERYTHING**
-test run passes again on a Mac.
+build runs on macOS whatever its target is called, and in **Firefox** a refused
+filter date range can be cleared again and **whiteboard** lines are drawn at
+their own width. The whole **EVERYTHING** test run passes again on a Mac.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

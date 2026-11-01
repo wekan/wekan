@@ -137,8 +137,9 @@ its reason.
 runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
 checks, and the AWS SDK's **logger redaction fix** is in. **Continuous backup**
 no longer misses a change made right after it starts, the **single-file**
-build runs on macOS whatever its target is called, and the whole **EVERYTHING**
-test run passes again on a Mac.
+build runs on macOS whatever its target is called, and in **Firefox** a refused
+filter date range can be cleared again and **whiteboard** lines are drawn at
+their own width. The whole **EVERYTHING** test run passes again on a Mac.
 
 This release updates the following dependencies:
 
@@ -230,6 +231,42 @@ executable included.
 
 </details>
 
+**Filters** - the filter sidebar's date ranges.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5f5ad2338">A refused date range says why in the form, so Clear still works in Firefox</a>. Thanks to xet7.</summary>
+
+A reversed card date or card movement range was reported with the browser's
+validation bubble, which Firefox opens over the Apply and Clear buttons and
+which took every click on them: the range could not be cleared. The end date
+is still marked invalid, and the reason is a `role="alert"` line in the form;
+editing the range or Clear takes it back.
+
+</details>
+
+**History recovery** - an undo or redo that is still waiting for the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96845f6f4b">Retry is enabled only once the board lets this person write on it</a>. Thanks to xet7.</summary>
+
+After a reload the notice showed before the board and its members arrived,
+and a Retry clicked then did nothing and the notice stayed. Retry is disabled
+until it can act; Forget stays usable.
+
+</details>
+
+**Whiteboard** - how its lines are drawn.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/40f60582b7">A line is drawn at its own width, not the whiteboard's 800</a>. Thanks to xet7.</summary>
+
+The line's `stroke-width=width` found the template's `width` helper - the
+drawing's width - before the line's own field, so every line was drawn 800
+wide, one black shape over the whole whiteboard. The lines use `strokeWidth`
+now, and a test fails if any of their fields shares a helper's name.
+
+</details>
+
 and has the following developer-tooling fixes:
 
 **The whole-suite run** - EVERYTHING, on a Mac and in a sandboxed editor.
@@ -252,6 +289,16 @@ came. Docker Desktop's host network lost about one connection in 75 to
 `host.docker.internal` (8 of 600 connects never completed), while the bridge
 network lost none in 1000. Nothing there needs the host network on macOS, so
 the container uses the bridge network; Linux keeps the host network.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9e48a909d">The list-sync specs' mock servers are reachable from WeKan when the browsers run in Docker on macOS</a>. Thanks to xet7.</summary>
+
+WeKan fetched from mock Jira and GitLab servers on the container's loopback,
+which Docker Desktop keeps from the host. build.sh already forwarded the test
+SMTP port into the container; it now forwards a small pool of ports the same
+way, and those specs take one of them.
 
 </details>
 
@@ -323,6 +370,66 @@ on the standalone test MongoDB the server's settings observer polls, so for up
 to ten seconds it still enforced the old policy. `untilServerHas()` asks
 `getPasswordPolicy` until the server has it, then reloads the sign-up form; 6
 of 6 with two workers.
+
+</details>
+
+**Browser tests** - specs that read the page before it had settled, in Firefox.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dbf07aadf9">The activity recovery report is searched again until no worker lease covers it</a>. Thanks to xet7.</summary>
+
+The report is a snapshot, and the live recovery worker's short lease could
+make it show a seeded orphan as being delivered. The test searches again
+until the snapshot falls between leases.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9188843369">The checklist drag tests drag once the opened card's rows hold still</a>. Thanks to xet7.</summary>
+
+Sections drawn above the checklist moved its rows 50 pixels between measuring
+and releasing, so the release opened an item's editor or dropped it in the
+wrong place.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0cea141702">The duplicate relation picker is opened once the card has opened</a>. Thanks to xet7.</summary>
+
+A picker opened while the card was still opening was closed again when the
+card settled.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0403e27c62">The notification delivery sections are opened until they stay open</a>. Thanks to xet7.</summary>
+
+The language arriving after the click drew the popup again with its sections
+closed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2042fd5102">The Blocks drag test grabs the block's body, not its edge</a>. Thanks to xet7.</summary>
+
+A Khmer label overflows its block in Firefox, and the first point found was
+the block's outline, where a press drags nothing.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a1f8584ee">The board view popup is opened until it stays open for the Product Backlog</a>. Thanks to xet7.</summary>
+
+The language arriving after the click drew the header again and closed the
+popup.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c8c254dc5">The viewport matrix cleans up only what it seeded</a>. Thanks to xet7.</summary>
+
+The matrix is Chromium-only. In Firefox and WebKit its setup never ran, but
+its cleanup did, and failed every viewport.
 
 </details>
 
