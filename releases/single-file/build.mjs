@@ -71,6 +71,23 @@ export function sha256(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
 
+// A Mach-O executable (macOS), thin or universal, read from its first four
+// bytes: 64-bit, 32-bit and fat magic numbers, either byte order.
+const MACHO_MAGIC = new Set(['feedfacf', 'cffaedfe', 'feedface', 'cefaedfe', 'cafebabe', 'bebafeca']);
+export function isMachO(file) {
+  try {
+    const fd = fs.openSync(file, 'r');
+    try {
+      const head = Buffer.alloc(4);
+      return fs.readSync(fd, head, 0, 4, 0) === 4 && MACHO_MAGIC.has(head.toString('hex'));
+    } finally {
+      fs.closeSync(fd);
+    }
+  } catch (e) {
+    return false;
+  }
+}
+
 export function isWindowsTarget(target) {
   return /^win/.test(target);
 }
@@ -260,7 +277,11 @@ export function build(opts) {
     fs.chmodSync(out, 0o755);
     // macOS will not run an arm64 binary whose signature no longer matches,
     // and injecting the archive invalidated it. Ad-hoc signing needs a Mac.
-    if (/^mac|^darwin/.test(opts.target)) {
+    // Decided by what the file IS - a Mach-O executable - and not only by the
+    // target's name: built from this Mac's own Node.js under another target
+    // label (tests/singleFile.test.cjs builds 'amd64'), it is still a macOS
+    // binary, and unsigned it was killed (SIGKILL) before printing anything.
+    if (/^mac|^darwin/.test(opts.target) || isMachO(out)) {
       if (process.platform === 'darwin') {
         execFileSync('codesign', ['--sign', '-', '--force', out], { stdio: 'inherit' });
       } else {

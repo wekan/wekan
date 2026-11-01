@@ -48,6 +48,25 @@ async function probe(url, timeoutMs = 5000) {
   }
 }
 
+/**
+ * Waits until the WeKan just started in the background (`pid`) has written
+ * its pid file - it does so only after reading its settings and, the first
+ * time, extracting FerretDB - so the command that started it can return with
+ * WeKan really running: a `stop` right after `start --background` or `backup`
+ * found no pid file yet, said "WeKan was not running" and left it running.
+ * True once the file names `pid`; false if that process ended or time ran out.
+ */
+async function waitUntilStarted(layout, pid, { timeoutMs = 30000, stepMs = 100, kill } = {}) {
+  const until = Date.now() + timeoutMs;
+  while (Date.now() < until) {
+    const info = readPid(layout);
+    if (info && info.pid === pid) return true;
+    if (!isAlive(pid, kill)) return false;
+    await new Promise(r => setTimeout(r, stepMs));
+  }
+  return false;
+}
+
 async function stop(layout, { platform = process.platform, waitMs = 30000, log = () => {} } = {}) {
   const info = running(layout);
   if (!info) return false;
@@ -86,4 +105,4 @@ async function stop(layout, { platform = process.platform, waitMs = 30000, log =
   return true;
 }
 
-module.exports = { readPid, isAlive, running, probe, stop };
+module.exports = { readPid, isAlive, running, probe, stop, waitUntilStarted };

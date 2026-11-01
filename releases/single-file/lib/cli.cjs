@@ -166,7 +166,13 @@ async function cmdBackup(c, out) {
   stack.prepareDirs(c.layout);
   const done = backup.backupTo(c.layout);
   out(`Backed up ${done.copied.join(', ')} to ${done.dest}`);
-  if (wasRunning) out(`Started WeKan again (pid ${stack.startBackground(c, c.layout)}).`);
+  if (!wasRunning) return 0;
+  const pid = stack.startBackground(c, c.layout);
+  if (!(await status.waitUntilStarted(c.layout, pid))) {
+    out(`WeKan did not start again; see ${c.layout.logFile}`);
+    return 1;
+  }
+  out(`Started WeKan again (pid ${pid}).`);
   return 0;
 }
 
@@ -218,7 +224,12 @@ async function startBackground(c, out) {
   }
   const pid = stack.startBackground(c, c.layout);
   const cfg = buildEnv({ file: readEnvFile(c.layout), layout: c.layout });
-  out(`Starting WeKan in the background (pid ${pid}) at ${cfg.rootUrl}. Log: ${c.layout.logFile}`);
+  // Returns once it is running, so `stop` or `status` right after it finds it.
+  if (!(await status.waitUntilStarted(c.layout, pid))) {
+    out(`WeKan did not start; see ${c.layout.logFile}`);
+    return 1;
+  }
+  out(`Started WeKan in the background (pid ${pid}) at ${cfg.rootUrl}. Log: ${c.layout.logFile}`);
   return 0;
 }
 

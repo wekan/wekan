@@ -530,6 +530,35 @@ ws.end(() => {
   fs.writeFileSync(path.join(dir, 'mongodump'), 'not carried');
 }
 
+// start --background and backup returned as soon as they had spawned WeKan,
+// before it wrote its pid file, so a `stop` right after them said "WeKan was
+// not running" and left it running (the real-executable test below, on a
+// Node.js with single executable applications). They wait for it now.
+test('waitUntilStarted: true once the pid file names the new process; false if it ends first (negative)', async () => {
+  const { waitUntilStarted } = lib('status.cjs');
+  const dir = tmp('sf-wait-');
+  const layout = { pidFile: path.join(dir, 'wekan.pid') };
+  const { spawn } = require('node:child_process');
+  const child = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 5000)'], { stdio: 'ignore' });
+  try {
+    setTimeout(() => fs.writeFileSync(layout.pidFile, JSON.stringify({ pid: child.pid })), 300);
+    assert.equal(await waitUntilStarted(layout, child.pid, { timeoutMs: 5000 }), true, 'written a moment later');
+    // Another process's pid file is not this one starting.
+    fs.writeFileSync(layout.pidFile, JSON.stringify({ pid: process.pid }));
+    assert.equal(await waitUntilStarted(layout, child.pid, { timeoutMs: 300 }), false, 'negative: someone else\'s pid');
+  } finally {
+    child.kill();
+  }
+  await new Promise(r => child.once('exit', r));
+  fs.rmSync(layout.pidFile, { force: true });
+  const started = Date.now();
+  assert.equal(await waitUntilStarted(layout, child.pid, { timeoutMs: 10000 }), false, 'negative: it ended without starting');
+  assert.ok(Date.now() - started < 2000, 'and that is known at once, not after the timeout');
+  const cli = read('releases/single-file/lib/cli.cjs');
+  assert.equal((cli.match(/await status\.waitUntilStarted\(c\.layout, pid\)/g) || []).length, 2, 'start --background and backup both wait');
+  fs.rmSync(dir, { recursive: true, force: true });
+});
+
 test('build, start, status, version, menu and stop a real single executable', {
   skip: (!HAS_VFS && 'needs --build-sea with useVfs (Node.js 26.11+)')
     || (!HAS_SEA && 'this Node.js was compiled without single executable applications (Homebrew\'s is)')
