@@ -6,7 +6,48 @@ import os
 from pathlib import Path
 import signal
 import subprocess
+import sys
 import time
+
+
+def live_group_members_darwin(pgid):
+    """The live (not zombie) members of a process group, from libproc.
+
+    Asked of the kernel directly rather than by running `ps`, which a sandboxed
+    or locked-down Mac may refuse to start ("Operation not permitted": the
+    smoke test then failed a correct app). A member whose BSD info cannot be
+    read is a zombie or already gone."""
+    import ctypes
+
+    lib = ctypes.CDLL('/usr/lib/libproc.dylib')
+    proc_pgrp_only, proc_pidtbsdinfo, szomb = 2, 3, 5
+
+    class BSDInfo(ctypes.Structure):
+        _fields_ = [('pbi_flags', ctypes.c_uint32), ('pbi_status', ctypes.c_uint32),
+                    ('rest', ctypes.c_byte * 128)]
+
+    size = lib.proc_listpids(proc_pgrp_only, pgid, None, 0)
+    pids = (ctypes.c_int * (max(size, 0) // 4 + 64))()
+    size = lib.proc_listpids(proc_pgrp_only, pgid, pids, ctypes.sizeof(pids))
+    live = []
+    for member in pids[:max(size, 0) // 4]:
+        if not member:
+            continue
+        info = BSDInfo()
+        got = lib.proc_pidinfo(member, proc_pidtbsdinfo, 0, ctypes.byref(info), ctypes.sizeof(info))
+        if got > 0 and info.pbi_status != szomb:
+            live.append(member)
+    return live
+
+
+def group_has_live_member_ps(pgid):
+    listing = subprocess.check_output(
+        ['ps', '-axo', 'pgid=,stat='], text=True, timeout=3)
+    for line in listing.splitlines():
+        group, state = line.split()
+        if int(group) == pgid and not state.startswith('Z'):
+            return True
+    return False
 
 
 def signal_group(pid, sig):
@@ -19,12 +60,12 @@ def signal_group(pid, sig):
         # Darwin can return EPERM for a group containing only zombies. Verify
         # that no live member remains before treating it as a stopped group;
         # a real permission failure must still fail the smoke test.
-        listing = subprocess.check_output(
-            ['ps', '-axo', 'pgid=,stat='], text=True, timeout=3)
-        for line in listing.splitlines():
-            group, state = line.split()
-            if int(group) == pid and not state.startswith('Z'):
-                raise
+        if sys.platform == 'darwin':
+            live = bool(live_group_members_darwin(pid))
+        else:
+            live = group_has_live_member_ps(pid)
+        if live:
+            raise
         return False
 
 

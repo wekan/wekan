@@ -30,7 +30,15 @@ class MacSmoke(unittest.TestCase):
         capture.__enter__()
         self.addCleanup(capture.__exit__, None, None, None)
 
+    def setUpPs(self):
+        # The ps fixtures below are the non-macOS path; on macOS the members
+        # come from libproc (live_group_members_darwin), tested further down.
+        platform = patch.object(smoke.sys, 'platform', 'linux')
+        platform.start()
+        self.addCleanup(platform.stop)
+
     def test_permission_error_only_ignored_for_dead_groups(self):
+        self.setUpPs()
         for sig in (0, signal.SIGTERM, signal.SIGKILL):
             for listing in ('', '123 Z\n123 Z+\n456 S\n'):
                 with self.subTest(sig=sig, listing=listing), \
@@ -44,13 +52,42 @@ class MacSmoke(unittest.TestCase):
                     smoke.signal_group(123, sig)
 
     def test_failed_process_inspection_is_not_success(self):
+        self.setUpPs()
         with patch.object(smoke.os, 'killpg', side_effect=PermissionError(1, 'denied')), \
              patch.object(smoke.subprocess, 'check_output',
                           side_effect=subprocess.CalledProcessError(1, ['ps'])):
             with self.assertRaises(subprocess.CalledProcessError):
                 smoke.signal_group(123, 0)
 
+    def test_darwin_permission_error_asks_libproc_not_ps(self):
+        # A Mac that will not run ps ("Operation not permitted") still tells a
+        # zombie-only group from a live one: libproc is asked, ps never.
+        with patch.object(smoke.sys, 'platform', 'darwin'), \
+             patch.object(smoke.os, 'killpg', side_effect=PermissionError(1, 'denied')), \
+             patch.object(smoke.subprocess, 'check_output', side_effect=PermissionError(1, 'ps')) as ps:
+            with patch.object(smoke, 'live_group_members_darwin', return_value=[]):
+                self.assertFalse(smoke.signal_group(123, 0))
+            with patch.object(smoke, 'live_group_members_darwin', return_value=[124]):
+                with self.assertRaises(PermissionError):
+                    smoke.signal_group(123, 0)
+            ps.assert_not_called()
+
+    @unittest.skipUnless(sys.platform == 'darwin', 'libproc is macOS')
+    def test_darwin_libproc_sees_live_members_and_not_zombies(self):
+        # A real group: the leader exits (a zombie until reaped) while its
+        # child sleeps on - live; killed, only the zombie leader is left.
+        process = subprocess.Popen(['sh', '-c', 'sleep 30 & sleep 0.2; exit 0'], start_new_session=True)
+        try:
+            time.sleep(0.8)
+            self.assertTrue(smoke.live_group_members_darwin(process.pid), 'the sleeping child is live')
+            os.killpg(process.pid, signal.SIGKILL)
+            time.sleep(0.5)
+            self.assertEqual(smoke.live_group_members_darwin(process.pid), [], 'negative: a zombie is not live')
+        finally:
+            process.wait(timeout=5)
+
     def test_darwin_shutdown_race_reaps_launcher(self):
+        self.setUpPs()
         process = Mock(pid=123)
         # TERM succeeds, then both the existence probe and KILL see zombies.
         with patch.object(smoke.os, 'killpg', side_effect=[None,
