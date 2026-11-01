@@ -126,19 +126,23 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **CrossBoardExportBleed** is fixed: a checklist scope stays on
-its board, and every export obeys Disable all export and Anonymize export
-users. Eleven **Dependabot** updates are checked for telemetry, **SAML** logins
-use **node-saml 5.2.0**, and **continuous backup** no longer misses a change
-made right after it starts. In **Firefox** and **WebKit** a refused filter date
-range can be cleared and applied again, and **whiteboard** lines are drawn at
-their own width. The whole **EVERYTHING** test run passes again on a Mac.
+**In short:** **CrossBoardExportBleed** and **UnassignedAttachBleed** are fixed:
+a checklist scope stays on its board, every export obeys Disable all export and
+Anonymize export users, and an assigned-only member changes attachments only on
+their own cards. Eleven **Dependabot** updates are checked for telemetry,
+**SAML** logins use **node-saml 5.2.0**, and **continuous backup** no longer
+misses a change made right after it starts. **Keyboard shortcuts** keep working
+after a popup closes, and the whole **EVERYTHING** test run passes again on a
+Mac.
 
-This release fixes the following CRITICAL SECURITY ISSUE of [CrossBoardExportBleed](https://wekan.fi/hall-of-fame/crossboardexportbleed/):
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**Exports** - what a board export may contain, and whether it runs at all.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be6727607c">A checklist scope stays on its board, and every export obeys Disable all export and Anonymize export users</a>. Thanks to ccsimplyspolit and xet7.</summary>
 
+[CrossBoardExportBleed](https://wekan.fi/hall-of-fame/crossboardexportbleed/),
 [GHSA-8885-xrq4-j47h](https://github.com/wekan/wekan/security/advisories/GHSA-8885-xrq4-j47h).
 A board export scoped with `?checklistId=` streamed a checklist of another,
 even private, board with its items and creator; it is now bound to the
@@ -147,6 +151,25 @@ export and Anonymize export users, and so did the Excel, PDF, chart, calendar
 and external-format exports: every export route now refuses with 403 when
 export is disabled, and every exporter that names people anonymizes. Refusals
 are shown in Admin Panel / Problems.
+
+</details>
+
+**Attachments** - who may add or delete a card's files through the API.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/532a96da11">An assigned-only member adds and deletes attachments only on cards assigned to them</a>. Thanks to Javier García Herrera and xet7.</summary>
+
+[UnassignedAttachBleed](https://wekan.fi/hall-of-fame/unassignedattachbleed/),
+[GHSA-w26g-rc43-q6cm](https://github.com/wekan/wekan/security/advisories/GHSA-w26g-rc43-q6cm).
+A member with the Normal, assigned only role whose card assignment was removed
+kept the card and attachment ids, and `POST /api/attachment/upload` and
+`DELETE /api/attachment/delete/:id` still added a file to that card and
+soft-deleted its existing one: both asked only for board write access. The
+DDP methods, and copy and move onto a target card, had the same gap. All
+eight handlers now apply the card rule the ordinary card Delete used, and a
+refusal is shown in Admin Panel / Problems.
+`tests/unassignedAttachBleed.test.cjs`
+fails if any attachment API write lacks it.
 
 </details>
 
@@ -288,6 +311,20 @@ why.
 After a reload the notice showed before the board and its members arrived,
 and a Retry clicked then did nothing and the notice stayed. Retry is disabled
 until it can act; Forget stays usable.
+
+</details>
+
+**Keyboard shortcuts** - when a focused button or link lets them through.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba0de93f79">Shortcuts keep working after a click on a minicard or a closed popup</a>. Thanks to mimZD and xet7.</summary>
+
+The shortcut filter refused every key while a link or button had the focus.
+The minicard is itself a link, so clicking its date badge or menu left it
+focused, and closing a popup returns focus to its opener: hovering a card and
+pressing d did nothing until a reload. A focused control now keeps only its
+own keys - Enter, Space for a button, the arrows for a tab - and every other
+key is a shortcut again ([#6755](https://github.com/wekan/wekan/issues/6755)).
 
 </details>
 
