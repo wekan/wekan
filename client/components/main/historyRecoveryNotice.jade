@@ -7,7 +7,7 @@ template(name="historyRecoveryNotice")
     .history-recovery-notice.js-history-recovery-notice(role="status" aria-live="polite")
       p {{_ pending.messageKey}}
       p.quiet {{_ 'history-request-hint'}}
-      button.primary.js-history-retry(type="button" disabled=busy) {{_ 'history-request-retry'}}
+      button.primary.js-history-retry(type="button" disabled=retryDisabled) {{_ 'history-request-retry'}}
       button.js-history-forget(type="button" disabled=busy) {{_ 'history-request-forget'}}
   if checkpoint
     .history-recovery-notice.history-checkpoint-notice.js-history-checkpoint-notice(role="status" aria-live="polite" class=checkpointPlacement)

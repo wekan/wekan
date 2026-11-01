@@ -42,6 +42,9 @@ for (const language of ['en', 'ku', 'ckb', 'tt', 'tk_TM', 'yi', 'ary', 'bho', 'm
     await plant(page, { boardId: board.boardId, direction: 'redo', requestId: 'key-retrythis000000000000000', at: Date.now() });
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(notice.locator('p').first()).toHaveText(locale['history-request-pending-redo']);
+    // Enabled once the board says this person may write on it: a Retry clicked
+    // before that did nothing, and the notice stayed (Firefox, EVERYTHING).
+    await expect(notice.locator('.js-history-retry')).toBeEnabled();
     await notice.locator('.js-history-retry').click();
     await expect(notice).toHaveCount(0);
     expect(await stored(page)).toBeNull();

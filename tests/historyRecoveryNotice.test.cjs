@@ -33,3 +33,20 @@ for (const file of ['client/lib/keyboard.js', 'client/lib/historyKeyRecovery.js'
   execFileSync(process.execPath, ['--input-type=module', '--check'], { input: read(file) });
 }
 console.log('  ok - an unanswered undo/redo is shown on its board, retried with its own ID or forgotten');
+
+// Retry acts only for someone who may write on the board (undoRedoLast returns
+// early otherwise), so it is enabled only then: right after a reload the notice
+// showed before the board's members arrived, and a Retry clicked in that window
+// was dropped without a word (history-recovery-notice.e2e.js, Firefox).
+{
+  const jade = read('client/components/main/historyRecoveryNotice.jade');
+  assert.match(jade, /button\.primary\.js-history-retry\(type="button" disabled=retryDisabled\)/);
+  assert.match(notice, /retryDisabled\(\) \{\n\s+return Template\.instance\(\)\.busy\.get\(\) \|\| !Utils\.canModifyBoard\(\);/);
+  assert.match(keyboard, /export function undoRedoLast\(direction\) \{\n\s+const boardId = Session\.get\('currentBoard'\);\n\s+if \(!boardId \|\| !Utils\.canModifyBoard\(\)\) \{/,
+    'the guard Retry mirrors');
+  // Negative: Forget needs no permission and stays usable; Retry is not left
+  // gated on busy alone.
+  assert.match(jade, /button\.js-history-forget\(type="button" disabled=busy\)/);
+  assert.doesNotMatch(jade, /js-history-retry\(type="button" disabled=busy\)/);
+  console.log('  ok - Retry is enabled only once the board lets this person write on it');
+}

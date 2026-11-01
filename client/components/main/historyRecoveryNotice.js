@@ -52,6 +52,13 @@ Template.historyRecoveryNotice.helpers({
   busy() {
     return Template.instance().busy.get();
   },
+  // undoRedoLast does nothing for someone who may not write on the board, and
+  // right after a reload that is everyone until the board and its members
+  // arrive: the notice shows first, and a Retry clicked then was dropped
+  // without a word. It is enabled once the retry can act.
+  retryDisabled() {
+    return Template.instance().busy.get() || !Utils.canModifyBoard();
+  },
 });
 
 async function resolve(tpl, action) {
