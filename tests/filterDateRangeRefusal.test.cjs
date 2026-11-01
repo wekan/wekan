@@ -37,6 +37,15 @@ test('Clear takes the refusal back for both forms', () => {
   }
 });
 
+test('the browser does not refuse a range submit itself: the handler decides', () => {
+  // WebKit kept a half-edited date segment after Clear emptied the From date
+  // and fired `invalid` on it at submit, though its validity read valid: the
+  // form never submitted and the range never applied (card-date-range.e2e.js).
+  for (const form of ['js-card-movement-range', 'js-card-date-range']) {
+    assert.match(jade, new RegExp(`\\n  form\\.${form}\\(novalidate\\)\\n`), form);
+  }
+});
+
 test('negative: no form with a Clear button in the filter sidebar opens the browser bubble', () => {
   const code = js.replace(/\/\/.*$/gm, '');
   assert.doesNotMatch(code, /reportValidity\s*\(/);

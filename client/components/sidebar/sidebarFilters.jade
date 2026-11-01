@@ -140,7 +140,10 @@ template(name="filterSidebar")
     | {{_ 'filter-dates-label' }}
   each dateFilterProviderViews
     +Template.dynamic(template=template data=data)
-  form.js-card-movement-range
+  //- novalidate: the range is checked in the submit handler (rangeRefused in
+    sidebarFilters.js). WebKit keeps a half-edited date segment after Clear
+    empties a field and then refused every submit of the form, with no message.
+  form.js-card-movement-range(novalidate)
     h4 {{_ 'filter-movement-range'}}
     label(for="filter-card-movement-from") {{_ 'filter-date-range-from'}}
     input.js-card-movement-from(id="filter-card-movement-from" type="date" value=movementFrom)
@@ -150,7 +153,7 @@ template(name="filterSidebar")
     button.js-clear-movement-range(type="button") {{_ 'filter-clear'}}
     if movementRangeError
       p.js-card-movement-range-error.filter-date-range-error(role="alert") {{_ 'filter-date-range-invalid'}}
-  form.js-card-date-range
+  form.js-card-date-range(novalidate)
     label(for="filter-card-date-field") {{_ 'filter-date-range-field'}}
     select.js-card-date-field(id="filter-card-date-field")
       each dateRangeFields
