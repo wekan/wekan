@@ -66,6 +66,8 @@ runOnServer(function() {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/exportExcel', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;

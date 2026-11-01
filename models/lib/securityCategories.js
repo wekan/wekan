@@ -112,6 +112,13 @@ const CATALOG = {
   'xss.handler-link': { category: 'xss', bleed: 'HandlerLink', severity: 'medium', cwe: 'CWE-939' },
   'spoofing.xff':    { category: 'spoofing', bleed: 'MetricsBleed', severity: 'medium', cwe: 'CWE-290' },
   'authz.export':    { category: 'authz', bleed: 'ImpersonateBleed', severity: 'high', cwe: 'CWE-863' },
+  // CrossBoardExportBleed (GHSA-8885-xrq4-j47h). A board export scoped to a
+  // checklist of ANOTHER board's card: no export menu asks for one.
+  'authz.export-checklist-scope': { category: 'authz', bleed: 'CrossBoardExportBleed', severity: 'medium', cwe: 'CWE-639' },
+  // An export asked for while Admin Panel turned all export off. The menus are
+  // hidden then, but a page opened before the switch still shows them, so it
+  // never costs the account.
+  'authz.export-disabled': { category: 'authz', bleed: 'CrossBoardExportBleed', severity: 'medium', cwe: 'CWE-863', blocksAccount: false },
   'authn.import':    { category: 'authn', bleed: 'ImportBleed', severity: 'critical', cwe: 'CWE-306' },
   'authn.miniprofile': { category: 'authn', bleed: 'MiniProfileBleed', severity: 'medium', cwe: 'CWE-306' },
   'authz.board':     { category: 'authz', bleed: 'BoardBleed', severity: 'high', cwe: 'CWE-863' },

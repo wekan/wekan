@@ -78,6 +78,8 @@ async function boardFile(board, format, user, req) {
 }
 
 WebApp.handlers.get('/api/export-all-boards/:format', safeRoute(async function (req, res) {
+  // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+  if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
   const format = req.params.format;
   if (!MASS_EXPORT_FORMATS.includes(format)) {
     sendJsonResult(res, { code: 404, data: { error: 'Unknown export format' } });

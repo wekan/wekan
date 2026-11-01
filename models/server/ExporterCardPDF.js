@@ -3,6 +3,7 @@ import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { BOARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
+import { anonymizeExportIdentities } from '/models/lib/importExportSecurity';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 // The layout, described once for both formats, and what a page makes of it.
 import {
@@ -397,6 +398,10 @@ class ExporterCardPDF extends PDFExporterBase {
           usersById[userId] = await ReactiveCache.getUser({ _id: userId });
         }),
     );
+    // Admin Panel / Anonymize export users (CrossBoardExportBleed - only the
+    // JSON export anonymized): the people named and the card's text.
+    await anonymizeExportIdentities({ boardId: this._boardId, users: Object.values(usersById).filter(Boolean),
+      cards: [card, ...subtasks], comments, language: this.userLanguage });
 
     return {
       board,
@@ -556,6 +561,9 @@ class ExporterBoardPDF extends PDFExporterBase {
     await Promise.all([...userIds].filter(Boolean).map(async userId => {
       usersById[userId] = await ReactiveCache.getUser({ _id: userId });
     }));
+    // Admin Panel / Anonymize export users (CrossBoardExportBleed).
+    await anonymizeExportIdentities({ boardId: this._boardId, users: Object.values(usersById).filter(Boolean),
+      cards: [...cards, ...subtasks], comments, language: this.userLanguage });
 
     const itemsByChecklist = byCard(checklistItems, 'checklistId');
 

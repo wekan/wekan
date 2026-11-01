@@ -3,6 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { createWorkbook, createWorkbookWriter } from './createWorkbook';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
+import { anonymizeExportIdentities, anonymizeBoardTextInPlace, rewriteMentionsInText } from '/models/lib/importExportSecurity';
 import { 
   formatDateTime, 
   formatDate, 
@@ -117,6 +118,10 @@ class ExporterExcel {
 
     const userFields = { fields: { _id: 1, username: 1, 'profile.initials': 1, 'profile.avatarUrl': 1 } };
     const users = await ReactiveCache.getUsers({ _id: { $in: Array.from(userIds).filter(Boolean) } }, userFields);
+    // Admin Panel / Anonymize export users: every name below comes from these
+    // docs, and each card's and comment's text is rewritten as it is streamed
+    // (CrossBoardExportBleed - only the JSON export anonymized).
+    const anonymized = await anonymizeExportIdentities({ boardId: this._boardId, users, language: this.userLanguage });
     // member/assignee username map + comma-joined member list, as before.
     const jmeml = {};
     let jmem = '';
@@ -553,6 +558,7 @@ class ExporterExcel {
     {
       const cursor = cardsRaw.find(cardSelector);
       for await (const jcard of cursor) {
+        if (anonymized) anonymizeBoardTextInPlace({ cards: [jcard] }, anonymized.byUsername);
         //get member info
         let jcmem = '';
         for (const j in jcard.members) {
@@ -805,6 +811,10 @@ class ExporterExcel {
       for await (const jcomment of cursor) {
         //card title (via id->title map, not an O(n²) scan)
         jcomment.cardTitle = cardTitleById[jcomment.cardId] || '';
+        if (anonymized) {
+          anonymizeBoardTextInPlace({ comments: [jcomment] }, anonymized.byUsername);
+          jcomment.cardTitle = rewriteMentionsInText(jcomment.cardTitle, anonymized.byUsername);
+        }
         if (jcomment.cardTitle == '') {
           continue;
         }

@@ -5,6 +5,7 @@ import { createWorkbookWriter } from './createWorkbook';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { ExporterExcelCard } from './ExporterExcelCard';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
+import { anonymizeExportIdentities } from '/models/lib/importExportSecurity';
 const { groupByParents } = require('/models/lib/cardParents');
 
 // A BOARD in the CARD export's layout (#1173).
@@ -147,6 +148,10 @@ class ExporterExcelBoard {
     const users = await ReactiveCache.getUsers(
       { _id: { $in: [...userIds].filter(Boolean) } },
       { fields: { _id: 1, username: 1 } });
+    // Admin Panel / Anonymize export users, before any name is mapped
+    // (CrossBoardExportBleed - only the JSON export anonymized).
+    await anonymizeExportIdentities({ boardId: this._boardId, users: users || [],
+      cards: [...cards, ...subtasks], comments, language: this.userLanguage });
     (users || []).forEach(u => { userMap[u._id] = u.username; });
 
     return {

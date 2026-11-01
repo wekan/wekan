@@ -44,7 +44,7 @@ class ExporterChartExcel {
     }
     const data = ['scrumVelocity', 'scrumSprint', 'scrumDaily'].includes(this._chartKey)
       ? await loadScrumChartData(this.userId, this._boardId, this._chartKey, this.options)
-      : await loadBoardChartData(this._boardId, this._chartKey, this.options);
+      : await loadBoardChartData(this._boardId, this._chartKey, { ...this.options, forExport: true });
     const { title, headers, rows, notices = [] } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
     const details = require('/models/lib/flowAnalyticsRows').flowDetailRows(

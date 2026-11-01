@@ -24,14 +24,40 @@ export async function getImportExportSecuritySettings() {
   };
 }
 
+// An export asked for while the admin has disabled all export: the menus are
+// hidden then, so it is recorded in Admin Panel / Problems (never costing the
+// account - see the catalog key). CrossBoardExportBleed (GHSA-8885-xrq4-j47h).
+function recordDisabledExport(source) {
+  try {
+    require('/server/lib/securityLog').record({ key: 'authz.export-disabled', action: 'blocked',
+      source, detail: 'export while all export is disabled' });
+  } catch (e) { /* logging must never break the guard */ }
+}
+
 // Throw if the admin has disabled ALL export. Call at every export entry point.
-export async function assertExportEnabled() {
+export async function assertExportEnabled(source = 'export') {
   const Settings = require('/models/settings').default;
   const s = (await Settings.findOneAsync({})) || {};
   if (s.disableAllExport) {
+    recordDisabledExport(source);
     const { Meteor } = require('meteor/meteor');
     throw new Meteor.Error('export-disabled', 'Export is disabled by the administrator.');
   }
+}
+
+// The same switch for an HTTP export route, answered before anything is
+// written: true when export is disabled and the 403 has been sent. Every export
+// route calls it first - the streaming CSV/TSV, Excel, PDF, chart, calendar
+// and external-format exporters did not ask at all, so "Disable all export"
+// left them working (CrossBoardExportBleed). tests/exportDisabledEverywhere
+// fails on an export route that does not call it.
+export async function refuseDisabledExport(res, source = 'export') {
+  const s = await getImportExportSecuritySettings();
+  if (!s.disableAllExport) return false;
+  recordDisabledExport(source);
+  if (!res.headersSent) res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+  res.end('Export is disabled by the administrator.');
+  return true;
 }
 
 // Throw if the admin has disabled ALL import. Call at every import entry point.
@@ -165,4 +191,30 @@ export function anonymizeBoardTextInPlace(board, byUsername) {
   dataRows(board.comments).forEach(comment => {
     if (comment) comment.text = rewriteMentionsInText(comment.text, byUsername);
   });
+}
+
+// Anonymize what one exporter is about to write, when Admin Panel says so:
+// the user docs it will name (username, full name, initials, avatar) and the
+// @mentions and requested-by / assigned-by text of its cards and comments. The
+// map is built as build() builds it - from the exported users and the board's
+// members - so a member only mentioned in a title is anonymized too. Returns
+// the map, or null when anonymization is off. Every exporter that writes a
+// user identity calls it: only build() and buildStream() did, so the CSV/TSV,
+// Excel, PDF and external formats carried real names (CrossBoardExportBleed).
+export async function anonymizeExportIdentities({ boardId, users = [], cards = [], comments = [], language = 'en' } = {}) {
+  const security = await getImportExportSecuritySettings();
+  if (!security.anonymizeExportUsers) return null;
+  const { ReactiveCache } = require('/imports/reactiveCache');
+  const known = new Map();
+  for (const u of users) if (u && u._id) known.set(String(u._id), u);
+  const board = boardId ? await ReactiveCache.getBoard(boardId) : null;
+  const memberIds = ((board && board.members) || []).map(m => m && m.userId)
+    .filter(id => id && !known.has(String(id)));
+  const members = memberIds.length
+    ? await ReactiveCache.getUsers({ _id: { $in: memberIds } }, { fields: { _id: 1, username: 1 } })
+    : [];
+  const map = buildUserAnonymizationMap([...known.values(), ...members], anonymizedUserWord(language));
+  for (const u of known.values()) anonymizeUserDoc(u, map);
+  anonymizeBoardTextInPlace({ cards, comments }, map.byUsername);
+  return map;
 }

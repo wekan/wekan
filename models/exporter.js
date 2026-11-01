@@ -11,6 +11,7 @@ const {
   buildUserAnonymizationMap,
   anonymizeUserDoc,
   anonymizeBoardTextInPlace,
+  anonymizeExportIdentities,
 } = require('./lib/importExportSecurity');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -134,6 +135,19 @@ export class Exporter {
     } else if (this._scope.checklistId) {
       const checklist = await ReactiveCache.getChecklist(this._scope.checklistId);
       selector._id = checklist ? checklist.cardId : '__no_such_card__';
+      // CrossBoardExportBleed (GHSA-8885-xrq4-j47h): a checklist on a card of
+      // ANOTHER board names nothing on this one. No WeKan screen asks for it -
+      // the export menus pass the open card's own checklist - so it is an
+      // attempt; a deleted checklist from an old link only matches nothing.
+      if (checklist) {
+        const card = await ReactiveCache.getCard(checklist.cardId);
+        if (!card || card.boardId !== boardId) {
+          try {
+            require('/server/lib/securityLog').record({ key: 'authz.export-checklist-scope', action: 'blocked',
+              source: 'export', detail: 'checklist scope from another board' });
+          } catch (e) { /* logging must never break the guard */ }
+        }
+      }
     } else {
       if (this._scope.swimlaneId) selector.swimlaneId = this._scope.swimlaneId;
       if (this._scope.listId) selector.listId = this._scope.listId;
@@ -673,16 +687,19 @@ export class Exporter {
         ? { cardId: { $in: cardIds } }
         : { $or: [{ boardId }, { cardId: { $in: cardIds } }] });
     await streamArray('activities', activitiesRaw, activitySelector, noBoardId, d => userIds.add(d.userId));
-    // A checklist scope exports THAT checklist, on the card that holds it.
+    // A checklist scope exports THAT checklist, on the card that holds it - and
+    // only when that card is one of this board's exported cards. Without the
+    // cardId bound a checklistId from another board, even a private one, was
+    // streamed with every item and its creator (CrossBoardExportBleed).
     const checklistSelector = !this.hasField('checklists')
       ? { _id: '__none__' }
       : (this._scope.checklistId
-        ? { _id: this._scope.checklistId }
+        ? { _id: this._scope.checklistId, cardId: { $in: cardIds } }
         : { cardId: { $in: cardIds } });
     const checklistItemSelector = !this.hasField('checklists')
       ? { _id: '__none__' }
       : (this._scope.checklistId
-        ? { checklistId: this._scope.checklistId }
+        ? { checklistId: this._scope.checklistId, cardId: { $in: cardIds } }
         : { cardId: { $in: cardIds } });
     await streamArray('checklists', checklistsRaw, checklistSelector, {}, d => userIds.add(d.userId));
     await streamArray('checklistItems', checklistItemsRaw, checklistItemSelector, {});
@@ -842,6 +859,9 @@ export class Exporter {
   // (strings only), pass 2 writes rows. Output matches buildCsv() exactly.
   async buildCsvStream(res, userDelimiter = ',', userLanguage = 'en') {
     await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
+    // CrossBoardExportBleed (GHSA-8885-xrq4-j47h): the streaming CSV/TSV asked
+    // neither the export switch nor the anonymization that build() applies.
+    await assertExportEnabled('export:csv');
     const cardsRaw = require('/models/cards').default.rawCollection();
     const cardSelector = { boardId: this._boardId, linkedId: { $in: ['', null] } };
 
@@ -909,11 +929,17 @@ export class Exporter {
       { _id: { $in: Array.from(userIds).filter(Boolean) } },
       { fields: { _id: 1, username: 1 } },
     );
+    // The usernames in the owner/members/assignee/... columns, and below each
+    // card's @mentions and requested-by / assigned-by, as build() does.
+    const anonymized = await anonymizeExportIdentities({
+      boardId: this._boardId, users: lookup.users, language: userLanguage,
+    });
 
     // Pass 2 — stream one row per card.
     {
       const cursor = cardsRaw.find(cardSelector);
       for await (const card of cursor) {
+        if (anonymized) anonymizeBoardTextInPlace({ cards: [card] }, anonymized.byUsername);
         await writeRow(applyMask(buildCsvCardRow(card, lookup, customFieldMap), columnMask));
       }
     }

@@ -88,6 +88,8 @@ runOnServer(function() {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
@@ -190,6 +192,8 @@ runOnServer(function() {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/exportPDF', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     let user = null;
 

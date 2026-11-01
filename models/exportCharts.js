@@ -118,6 +118,8 @@ runOnServer(function() {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/charts/:chartKey/exportPDF', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     if (!CHART_KEYS.has(req.params.chartKey)) {
       res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Unknown chart');
@@ -149,6 +151,8 @@ runOnServer(function() {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/charts/:chartKey/exportExcel', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     if (!CHART_KEYS.has(req.params.chartKey)) {
       res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Unknown chart');

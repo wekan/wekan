@@ -147,6 +147,13 @@ export async function loadBoardChartData(boardId, chartKey, options = {}) {
     await Promise.all([...userIds].map(async id => {
       usersById[id] = await ReactiveCache.getUser({ _id: id });
     }));
+    // A chart EXPORT (PDF / Excel) follows Admin Panel / Anonymize export
+    // users like every other export; the chart views keep the names
+    // (CrossBoardExportBleed - only the JSON export anonymized).
+    if (options.forExport) {
+      await require('/models/lib/importExportSecurity').anonymizeExportIdentities({
+        boardId, users: Object.values(usersById).filter(Boolean), cards: allCards });
+    }
     const nameOf = id => (usersById[id] && (usersById[id].profile?.fullname || usersById[id].username)) || id;
 
     if (chartKey === 'time') {

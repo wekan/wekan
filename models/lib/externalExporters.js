@@ -105,6 +105,10 @@ async function collect(boardId, fields, format) {
   if (want('people')) cards.forEach(c => [c.userId, ...(c.assignees || []), ...(c.members || [])].forEach(id => id && userIds.add(id)));
   comments.forEach(c => c.userId && userIds.add(c.userId));
   const users = userIds.size ? await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }) : [];
+  // Admin Panel / Anonymize export users, for every external format: the names
+  // and the cards' and comments' text (CrossBoardExportBleed - only the JSON
+  // export anonymized).
+  await require('./importExportSecurity').anonymizeExportIdentities({ boardId, users, cards, comments });
   const username = id => (users.find(u => u._id === id) || {}).username;
 
   const items = cards.map(c => {

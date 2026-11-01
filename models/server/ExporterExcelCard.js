@@ -10,6 +10,7 @@ import { buildExportCardDocument, formatExportFileSize } from '/models/lib/cardE
 import { renderCardDocumentExcel } from './renderCardDocumentExcel';
 import { accentOf } from '/models/lib/themeAccents';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
+import { anonymizeExportIdentities } from '/models/lib/importExportSecurity';
 const { childrenSelector } = require('/models/lib/cardParents');
 
 // ── Constants ────────────────────────────────────────────────────────────────
@@ -295,6 +296,7 @@ class ExporterExcelCard {
     const swimlane = needsBoardInfo ? await ReactiveCache.getSwimlane(card.swimlaneId)        : null;
 
     const userMap = {};
+    const userDocs = [];
     if (needsPeople || needsDates || needsComments || needsAttachments) {
       const userIds = new Set();
       if (card.userId) userIds.add(card.userId);
@@ -309,14 +311,8 @@ class ExporterExcelCard {
         { fields: { _id: 1, username: 1 } },
       );
       uDocs.forEach(u => { userMap[u._id] = u.username; });
+      userDocs.push(...uDocs);
     }
-
-    const creatorName   = userMap[card.userId] || '';
-    const ownerName     = (card.members && card.members.length > 0)
-      ? (userMap[card.members[0]] || creatorName)
-      : creatorName;
-    const memberNames   = (card.members   || []).map(id => userMap[id] || id).join(', ');
-    const assigneeNames = (card.assignees || []).map(id => userMap[id] || id).join(', ');
 
     const checklists    = needsChecklists  ? await ReactiveCache.getChecklists({ cardId: this._cardId })                                 : [];
     const checklistItems= needsChecklists  ? await ReactiveCache.getChecklistItems({ cardId: this._cardId })                             : [];
@@ -354,8 +350,24 @@ class ExporterExcelCard {
           { fields: { _id: 1, username: 1 } },
         );
         extra.forEach(u => { userMap[u._id] = u.username; });
+        userDocs.push(...extra);
       }
     }
+
+    // Admin Panel / Anonymize export users: the names, and the card's,
+    // subtasks' and comments' text (CrossBoardExportBleed - only the JSON
+    // export anonymized). The names below are built after it.
+    if (await anonymizeExportIdentities({ boardId: this._boardId, users: userDocs,
+      cards: [card, ...subtasks], comments, language: this.userLanguage })) {
+      userDocs.forEach(u => { userMap[u._id] = u.username; });
+    }
+
+    const creatorName   = userMap[card.userId] || '';
+    const ownerName     = (card.members && card.members.length > 0)
+      ? (userMap[card.members[0]] || creatorName)
+      : creatorName;
+    const memberNames   = (card.members   || []).map(id => userMap[id] || id).join(', ');
+    const assigneeNames = (card.assignees || []).map(id => userMap[id] || id).join(', ');
 
     // ── Workbook & worksheet setup ───────────────────────────────────────
     // Streamed to the response as it is written, so the headers go first.

@@ -78,6 +78,8 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/export', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
@@ -190,6 +192,8 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken (omit for a public board)
    */
   WebApp.handlers.get('/api/boards/:boardId/calendar.ics', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     let user = null;
 
@@ -241,6 +245,9 @@ if (Meteor.isServer) {
     const cardSelector = await exporter._scopedCardSelector(boardId);
     cardSelector.archived = false;
     const cards = await ReactiveCache.getCards(cardSelector);
+    // Admin Panel / Anonymize export users: @mentions in what the feed carries
+    // (CrossBoardExportBleed - only the JSON export anonymized).
+    await require('/models/lib/importExportSecurity').anonymizeExportIdentities({ boardId, cards });
     const cardShapes = cards
       .filter(card => card.startAt || card.dueAt || card.endAt || card.receivedAt)
       .map(card => ({
@@ -276,6 +283,8 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/exportZip', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     let user = null;
 
@@ -413,6 +422,8 @@ if (Meteor.isServer) {
      * @param {string} authToken the loginToken
      */
     WebApp.handlers.get(`/api/boards/:boardId/export/${format}`, safeRoute(async function (req, res) {
+      // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+      if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
       await serveExternalExport(req, res, format);
     }));
   });
@@ -440,6 +451,8 @@ if (Meteor.isServer) {
   WebApp.handlers.get(
     '/api/boards/:boardId/attachments/:attachmentId/export',
     safeRoute(async function (req, res) {
+      // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+      if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
       const boardId = req.params.boardId;
       const attachmentId = req.params.attachmentId;
       let user = null;
@@ -541,6 +554,8 @@ if (Meteor.isServer) {
    * @param {string} delimiter delimiter to use while building export. Default is comma ','
    */
   WebApp.handlers.get('/api/boards/:boardId/export/csv', safeRoute(async function (req, res) {
+    // Before anything else: Admin Panel can turn all export off (CrossBoardExportBleed).
+    if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
     const boardId = req.params.boardId;
     let user = null;
     let impersonateDone = false;
