@@ -53,7 +53,20 @@ hotkeys.filter = (event) => {
   if (currentElement instanceof HTMLInputElement || currentElement instanceof HTMLSelectElement || currentElement instanceof HTMLTextAreaElement)
     return false;
 
-  if (currentElement.closest('button, a[href], summary, [role="button"], [role="tab"], [role="checkbox"]'))
+  // A focused control keeps the keys it uses itself, and only those: Enter
+  // activates any of them, Space a button, summary or checkbox (not a link),
+  // and End, Home and the arrows move between tabs (A01). Every other key is
+  // still a shortcut. Refusing ALL keys left shortcuts dead after a click on
+  // a minicard - the minicard is a link, and clicking its date badge or its
+  // menu leaves that link focused - and after any popup closed, because
+  // closing returns focus to the button that opened it (#6755).
+  const keysOwnedBy = {
+    'button, a[href], summary, [role="button"], [role="tab"], [role="checkbox"]': [13],
+    'button, summary, [role="button"], [role="checkbox"]': [32],
+    '[role="tab"]': [35, 36, 37, 38, 39, 40],
+  };
+  if (Object.keys(keysOwnedBy).some(controls =>
+    keysOwnedBy[controls].includes(event.keyCode) && currentElement.closest(controls)))
     return false;
 
   // We can trigger events!

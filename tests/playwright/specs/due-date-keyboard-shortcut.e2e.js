@@ -137,6 +137,57 @@ test.describe('#6750 due date keyboard shortcut', () => {
     }
   });
 
+  // #6755 comment 6559698117: after a popup opened from a minicard was closed,
+  // shortcuts did nothing until a reload. The minicard is a link, so the click
+  // on its menu left that link focused, and the shortcut filter refused every
+  // key while a link or button had the focus. No blur here - that is the point.
+  test('d still works after a minicard popup is opened and closed, with its link focused (#6755)', async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $unset: { 'profile.keyboardShortcuts': '' } });
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    const minicard = page.locator('.js-minicard', { hasText: 'Alpha Card' }).first();
+    await minicard.hover();
+    await minicard.locator('.js-open-minicard-details-menu').click();
+    const menu = page.locator('.js-pop-over');
+    await expect(menu).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(menu).toHaveCount(0);
+    expect(await page.evaluate(() => !!document.activeElement?.closest('a[href], button')),
+      'the reported state: a link or button keeps the focus after the popup closed').toBe(true);
+    await minicard.hover();
+    await page.keyboard.press('d');
+    await expect(page).toHaveURL(new RegExp(`/${card._id}$`));
+    await expect(dueDatePopup(page)).toBeVisible({ timeout: 8_000 });
+    await page.keyboard.press('Escape');
+  });
+
+  // Negative (A01): Space on a focused BUTTON still activates the button and is
+  // not taken by the board's Space shortcut, which toggles the hovered card's
+  // member - the reason focused controls are guarded at all.
+  test('negative: Space on a focused button activates the button, not the Space shortcut (#6755)', async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $unset: { 'profile.keyboardShortcuts': '' } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    const membersBefore = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' }).members || [];
+    const clicked = await page.evaluate(() => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = 'probe';
+      button.addEventListener('click', () => { window.__probeClicks = (window.__probeClicks || 0) + 1; });
+      document.body.appendChild(button);
+      button.focus();
+      return document.activeElement === button;
+    });
+    expect(clicked).toBe(true);
+    await page.locator('.js-minicard', { hasText: 'Alpha Card' }).first().hover();
+    await page.evaluate(() => document.querySelector('body > button:last-of-type').focus());
+    await page.keyboard.press('Space');
+    await expect.poll(() => page.evaluate(() => window.__probeClicks || 0)).toBe(1);
+    await page.waitForTimeout(800);
+    expect(db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' }).members || []).toEqual(membersBefore);
+  });
+
   test('negative: d over a minicard does nothing when shortcuts are disabled (#6755)', async ({ page, user, board }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.keyboardShortcuts': false } });
     await loginWithToken(page, user.id, user.token);
