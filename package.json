@@ -93,7 +93,7 @@
     "file-type": "^22.2.0",
     "filesize": "^11.0.28",
     "frappe-gantt": "^1.2.2",
-    "glob": "^13.0.6",
+    "glob": "^14.0.3",
     "highlight.js": "^11.12.0",
     "hotkeys-js": "^4.0.8",
     "htmlparser2": "^12.0.0",
