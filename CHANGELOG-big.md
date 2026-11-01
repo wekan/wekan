@@ -245,6 +245,37 @@ sandboxed editor could not create it. It is `.tools/mongodb-test-<port>` now;
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f948bf438">On macOS the Playwright container uses Docker's bridge network, not the host network</a>. Thanks to xet7.</summary>
+
+Firefox tests waited the full 60 seconds for a page whose document never
+came. Docker Desktop's host network lost about one connection in 75 to
+`host.docker.internal` (8 of 600 connects never completed), while the bridge
+network lost none in 1000. Nothing there needs the host network on macOS, so
+the container uses the bridge network; Linux keeps the host network.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a1f7a14a9">The Playwright container sees the repo and the files root at their own host paths</a>. Thanks to xet7.</summary>
+
+Specs and the server share files by path. With the repository mounted at
+`/repo`, the continuous backup tests gave the server a key file it could not
+find and looked for a stream it wrote elsewhere. Both are mounted at their
+host paths now, so a path names the same file on both sides.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6bec88266">The phone invitation tile is measured in one layout with its buttons</a>. Thanks to xet7.</summary>
+
+Measured one at a time, the tile and its buttons were taken from two layouts:
+Firefox drew the row above the board list in between and moved the tile down
+29 pixels. They are measured together now, and the test still fails when the
+tile clips its buttons, the original #6488 bug.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f5eb4ecf61">The Mac smoke test asks libproc, not ps, whether a process group still lives</a>. Thanks to xet7.</summary>
 
 When macOS refuses to signal a group of zombies, the smoke test asked `ps`
