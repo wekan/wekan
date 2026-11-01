@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
+const { isAssignedOnlyMember, assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
 
 // An assigned-only member (isReadAssignedOnly, isNormalAssignedOnly,
 // isCommentAssignedOnly) sees only the cards assigned to them, and so only
@@ -51,6 +51,28 @@ export async function mayReadBoardAttachment(board, userId, attachment, source =
       require('/server/lib/securityLog').record({
         key: 'authz.assigned', action: 'blocked', source, userId,
         detail: 'Assigned-only member asked for an attachment of a card not assigned to them.',
+      });
+    } catch (e) { /* logging must never break the guard */ }
+  }
+  return allowed;
+}
+
+// May this member WRITE an attachment of this card - add one to it, soft-delete
+// one of it, or copy or move one onto it? Board write access is not enough: an
+// assigned-only member writes only on a card assigned to them, as on every
+// other card path. The REST routes asked only for board write access, so a
+// member whose assignment was removed kept adding and deleting files on that
+// card with the ids they had seen (UnassignedAttachBleed,
+// GHSA-w26g-rc43-q6cm). A board-level file has no card and is not theirs to
+// change either. `source` names the refusing route for Admin Panel -> Problems.
+export function mayWriteCardAttachment(board, userId, card, source) {
+  if (!isAssignedOnlyMember(board, userId)) return true;
+  const allowed = !!card && card.boardId === board._id && assignedOnlyAllowsCard(board, userId, card);
+  if (!allowed) {
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.assigned-attachment-write', action: 'blocked', source, userId,
+        detail: 'Assigned-only member tried to change an attachment of a card not assigned to them.',
       });
     } catch (e) { /* logging must never break the guard */ }
   }

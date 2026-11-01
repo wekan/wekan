@@ -15,7 +15,7 @@ import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { softDeleteAttachment } from '/server/attachmentSoftDelete';
-import { assignedOnlyAttachmentScope, mayReadBoardAttachment } from '/server/lib/assignedOnlyAttachments';
+import { assignedOnlyAttachmentScope, mayReadBoardAttachment, mayWriteCardAttachment } from '/server/lib/assignedOnlyAttachments';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
@@ -123,6 +123,7 @@ async function assertAttachmentTarget(boardId, swimlaneId, listId, cardId) {
       (swimlaneId && (!swimlane || swimlane.boardId !== boardId))) {
     throw new Meteor.Error('invalid-target', 'The target card, list or swimlane is not on the target board');
   }
+  return card;
 }
 
 Meteor.methods({
@@ -162,6 +163,10 @@ Meteor.methods({
       // Check permissions: uploading requires write access, not just membership
       // (read-only / comment-only / worker members cannot add attachments).
       if (!(await userHasBoardWriteAccess(board, this.userId))) {
+        throw new Meteor.Error('not-authorized', 'You do not have permission to modify this card');
+      }
+      // UnassignedAttachBleed: and the card itself, for an assigned-only member.
+      if (!mayWriteCardAttachment(board, this.userId, card, 'attachment-method:upload')) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify this card');
       }
 
@@ -617,7 +622,12 @@ Meteor.methods({
       // The target card, list and swimlane must be on the target board: they
       // were written unchecked, so a file could be planted on a card of a
       // board the caller cannot write (2026-10-02).
-      await assertAttachmentTarget(targetBoardId, targetSwimlaneId, targetListId, targetCardId);
+      const targetCard = await assertAttachmentTarget(targetBoardId, targetSwimlaneId, targetListId, targetCardId);
+      // UnassignedAttachBleed: an assigned-only member writes only onto a card
+      // assigned to them.
+      if (!mayWriteCardAttachment(targetBoard, this.userId, targetCard, 'attachment-method:copy')) {
+        throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
+      }
 
       // A copy creates a new attachment, so honour the admin API upload limits.
       const {
@@ -749,7 +759,12 @@ Meteor.methods({
       // The target card, list and swimlane must be on the target board: they
       // were written unchecked, so a file could be planted on a card of a
       // board the caller cannot write (2026-10-02).
-      await assertAttachmentTarget(targetBoardId, targetSwimlaneId, targetListId, targetCardId);
+      const targetCard = await assertAttachmentTarget(targetBoardId, targetSwimlaneId, targetListId, targetCardId);
+      // UnassignedAttachBleed: an assigned-only member writes only onto a card
+      // assigned to them.
+      if (!mayWriteCardAttachment(targetBoard, this.userId, targetCard, 'attachment-method:move')) {
+        throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
+      }
 
       try {
         // Update attachment metadata
@@ -794,6 +809,12 @@ Meteor.methods({
       // Check permissions: deleting requires write access, not just membership.
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !(await userHasBoardWriteAccess(board, this.userId))) {
+        throw new Meteor.Error('not-authorized', 'You do not have permission to delete this attachment');
+      }
+      // UnassignedAttachBleed: board write access is not the card's. An
+      // assigned-only member deletes only from a card assigned to them.
+      const card = attachment.meta.cardId ? await ReactiveCache.getCard(attachment.meta.cardId) : null;
+      if (!mayWriteCardAttachment(board, this.userId, card, 'attachment-method:delete')) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to delete this attachment');
       }
 

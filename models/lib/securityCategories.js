@@ -215,6 +215,10 @@ const CATALOG = {
   'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.calendar':  { category: 'authz', bleed: 'CalendarBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.assigned':  { category: 'authz', bleed: 'AssignedBleed', severity: 'medium', cwe: 'CWE-863' },
+  // UnassignedAttachBleed (GHSA-w26g-rc43-q6cm): an assigned-only member
+  // added or soft-deleted attachments, through the REST API, on a card that
+  // was no longer assigned to them. Only a caller with a kept card id reaches it.
+  'authz.assigned-attachment-write': { category: 'authz', bleed: 'UnassignedAttachBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.tenant':    { category: 'authz', bleed: 'TenantBleed', severity: 'medium', cwe: 'CWE-862' },
   'authz.search-session': { category: 'authz', bleed: 'SessionBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },

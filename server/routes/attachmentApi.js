@@ -18,7 +18,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { softDeleteAttachment } from '/server/attachmentSoftDelete';
-import { assignedOnlyAttachmentScope, mayReadBoardAttachment } from '/server/lib/assignedOnlyAttachments';
+import { assignedOnlyAttachmentScope, mayReadBoardAttachment, mayWriteCardAttachment } from '/server/lib/assignedOnlyAttachments';
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 const HARD_MAX_API_UPLOAD_BODY_BYTES = 96 * 1024 * 1024;
@@ -204,6 +204,8 @@ async function checkCardUploadTarget({ boardId, swimlaneId, listId, cardId }, us
   // Uploading requires write access, not just membership (read-only /
   // comment-only / worker members cannot add attachments).
   if (!(await userHasBoardWriteAccess(board, userId))) return { status: 403, message: 'You do not have permission to modify this card' };
+  // UnassignedAttachBleed: and the card itself, for an assigned-only member.
+  if (!mayWriteCardAttachment(board, userId, card, 'attachment-api:upload')) return { status: 403, message: 'You do not have permission to modify this card' };
   if (!board.allowsAttachments) return { status: 403, message: 'Attachments are not allowed on this board' };
   return { board, card };
 }
@@ -970,6 +972,11 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           if (targetCard.boardId !== targetBoardId) {
             return sendErrorResponse(res, 400, 'Target card does not belong to the specified board');
           }
+          // UnassignedAttachBleed: an assigned-only member writes only onto a
+          // card assigned to them.
+          if (!mayWriteCardAttachment(targetBoard, userId, targetCard, 'attachment-api:copy')) {
+            return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
+          }
 
           // Verify that the target swimlaneId and listId match the card's actual swimlane and list
           if (targetCard.swimlaneId !== targetSwimlaneId) {
@@ -1147,6 +1154,11 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           if (targetCard.boardId !== targetBoardId) {
             return sendErrorResponse(res, 400, 'Target card does not belong to the specified board');
           }
+          // UnassignedAttachBleed: an assigned-only member writes only onto a
+          // card assigned to them.
+          if (!mayWriteCardAttachment(targetBoard, userId, targetCard, 'attachment-api:move')) {
+            return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
+          }
 
           // Verify that the target swimlaneId and listId match the card's actual swimlane and list
           if (targetCard.swimlaneId !== targetSwimlaneId) {
@@ -1221,6 +1233,12 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
       // Check permissions: deleting requires write access, not just membership.
       const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !(await userHasBoardWriteAccess(board, userId))) {
+        return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
+      }
+      // UnassignedAttachBleed: board write access is not the card's. An
+      // assigned-only member deletes only from a card assigned to them.
+      const card = attachment.meta.cardId ? await ReactiveCache.getCard(attachment.meta.cardId) : null;
+      if (!mayWriteCardAttachment(board, userId, card, 'attachment-api:delete')) {
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
 

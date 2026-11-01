@@ -29,7 +29,7 @@ const scope = require('../models/lib/boardCardScope');
 
 function loadAttachments(cards) {
   const src = read('server/lib/assignedOnlyAttachments.js')
-    .replace(/^import [^\n]*\n/gm, '').replace(/^const \{ isAssignedOnlyMember \} = require[^\n]*\n/m, '')
+    .replace(/^import [^\n]*\n/gm, '').replace(/^const \{ isAssignedOnlyMember[^}]*\} = require[^\n]*\n/m, '')
     .replace(/^export /gm, '');
   const ReactiveCache = {
     getCards: async selector => cards.filter(c => c.boardId === selector.boardId && c.assignees.includes(selector.assignees)),
@@ -37,10 +37,10 @@ function loadAttachments(cards) {
   };
   const lib = { records: [] };
   // eslint-disable-next-line no-new-func
-  new Function('exports', 'ReactiveCache', 'isAssignedOnlyMember', 'require',
+  new Function('exports', 'ReactiveCache', 'isAssignedOnlyMember', 'assignedOnlyAllowsCard', 'require',
     `${src}\nexports.assignedOnlyAttachmentScope = assignedOnlyAttachmentScope;\nexports.mayReadBoardAttachment = mayReadBoardAttachment;` +
     `\nexports.assignedOnlyCardIds = assignedOnlyCardIds;\nexports.isBoardLevelFile = isBoardLevelFile;`)(
-    lib, ReactiveCache, scope.isAssignedOnlyMember, () => ({ record: r => lib.records.push(r) }));
+    lib, ReactiveCache, scope.isAssignedOnlyMember, scope.assignedOnlyAllowsCard, () => ({ record: r => lib.records.push(r) }));
   return lib;
 }
 
