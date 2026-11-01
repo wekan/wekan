@@ -19,8 +19,13 @@ test(`Product Backlog shows a page of rows at a time, in Scrum order, and more o
     await page.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
     await openBoard(page, board.boardId, board.slug);
-    await page.locator('.js-toggle-board-view').first().click();
-    await expect(page.locator('.pop-over .js-open-product-backlog-view')).toContainText(strings['board-view-product-backlog']);
+    // The language switched just before the board opened, and when it arrives
+    // the header draws again and closes a popup opened before that: in
+    // Firefox 2 of 6 runs found no popup at all. Open it until it stays.
+    await expect(async () => {
+      if (!await page.locator('.pop-over .js-open-product-backlog-view').count()) await page.locator('.js-toggle-board-view').first().click();
+      await expect(page.locator('.pop-over .js-open-product-backlog-view')).toContainText(strings['board-view-product-backlog'], { timeout: 3000 });
+    }).toPass({ timeout: 30000 });
     await page.locator('.pop-over .js-open-product-backlog-view').click();
     await expect(page.getByText(strings['scrum-backlog-help'], { exact: true })).toBeVisible();
     const estimateHeading = page.locator('.scrum-table thead th').nth(1);
