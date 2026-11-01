@@ -46,8 +46,11 @@ test('the drawing area fills the window, grows from its corner and zooms; Save i
 
   // The whole room: wider than the old 800 x 500 on a large window.
   await expect.poll(async () => (await viewBox(page))[2]).toBeGreaterThan(Math.min(800, viewport.width * 0.6));
+  // The viewBox grows first and the element's layout follows a frame later:
+  // read once, the surface was still the old 800 px (Firefox, full run).
+  await expect.poll(async () => (await page.locator('.js-drawing-surface').boundingBox()).width)
+    .toBeGreaterThan(viewport.width * 0.85);
   const surface = await page.locator('.js-drawing-surface').boundingBox();
-  expect(surface.width).toBeGreaterThan(viewport.width * 0.85);
   expect(surface.height).toBeGreaterThan(viewport.height * 0.5);
 
   // Save above the drawing, at the right end of the tools.
