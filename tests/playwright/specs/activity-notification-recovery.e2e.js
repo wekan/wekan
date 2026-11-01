@@ -49,9 +49,16 @@ test(`Recovery paginates pending activity summaries, disables orphan retries and
     const panel = page.locator('.activity-notification-recovery-reports');
     await expect(panel).toContainText(strings['activity-recovery-heading']);
     await panel.locator('.js-table-page-search').fill(prefix);
-    await panel.locator('.js-table-page-search').press('Enter');
-    await expect(panel.locator('tbody tr')).toHaveCount(10);
-    await expect(panel.locator('tbody tr').first()).toContainText(strings['activity-recovery-status-missing']);
+    // The report is a snapshot taken when the search runs, and the live
+    // one-second recovery worker leases each pending intent while it looks at
+    // it: a search made during that lease shows "Delivery reservation active",
+    // which is right, and keeps showing it. Search again until the snapshot
+    // falls between leases (Firefox in EVERYTHING caught one).
+    await expect(async () => {
+      await panel.locator('.js-table-page-search').press('Enter');
+      await expect(panel.locator('tbody tr')).toHaveCount(10, { timeout: 3000 });
+      await expect(panel.locator('tbody tr').first()).toContainText(strings['activity-recovery-status-missing'], { timeout: 3000 });
+    }).toPass({ timeout: 30000 });
     await expect(panel.locator('.js-retry-activity-notification').first()).toBeDisabled();
     await panel.locator('.js-table-page-next').click();
     await expect(panel.locator('tbody tr')).toHaveCount(3);
