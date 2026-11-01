@@ -250,6 +250,16 @@ test('the splitter: dragged it widens one pane, clamped, kept, reset by a double
   await expect(splitter).toHaveAttribute('role', 'separator');
   const mini = paneOf(page, 'minicard');
   const card = paneOf(page, 'card');
+  // The popup is still placing itself just after it opens: in WebKit the
+  // press landed where the splitter had been and dragged nothing. Measure once
+  // the splitter and the panes hold still, read twice 150 ms apart.
+  const layout = () => page.evaluate(() => [...document.querySelectorAll('.js-card-settings-splitter, .js-card-settings-pane')]
+    .map(el => { const r = el.getBoundingClientRect(); return `${Math.round(r.x)},${Math.round(r.y)},${Math.round(r.width)}`; }).join('|'));
+  await expect.poll(async () => {
+    const before = await layout();
+    await page.waitForTimeout(150);
+    return before === await layout();
+  }, { timeout: 15000 }).toBe(true);
   const m0 = (await mini.boundingBox()).width;
   const c0 = (await card.boundingBox()).width;
   const s = await splitter.boundingBox();
