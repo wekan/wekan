@@ -77,4 +77,33 @@ test('its Board Settings / Card row is called Drawing, in the existing translati
   assert.ok(!row.label.includes('whiteboard'));
 });
 
+test('a line is drawn at its own width, not the drawing\'s', () => {
+  // Inside `each strokes` Spacebars looks a name up among the template's
+  // helpers before the line's own fields, and the template's width helper is
+  // the drawing's: stroke-width=width drew every line 800 wide, one black
+  // shape over the whole whiteboard (whiteboard.e2e.js, Firefox).
+  const js = read('client/components/cards/whiteboard.js');
+  const jade = read('client/components/cards/whiteboard.jade');
+  const helpersBlock = js.slice(js.indexOf('Template.cardWhiteboard.helpers({'));
+  const helpers = new Set([...helpersBlock.slice(0, helpersBlock.indexOf('\n});')).matchAll(/^  (\w+)\(/gm)].map(m => m[1]));
+  assert.ok(helpers.has('width'), 'the drawing width helper the line used to pick up');
+  const mapped = js.match(/\.map\(s => \(\{ ([^}]*) \}\)\);/)[1];
+  const fields = new Set([...mapped.matchAll(/(\w+):/g)].map(m => m[1]));
+  const eachAt = jade.indexOf('each strokes');
+  const indent = jade.slice(jade.lastIndexOf('\n', eachAt) + 1, eachAt).length;
+  const body = [];
+  for (const line of jade.slice(jade.indexOf('\n', eachAt) + 1).split('\n')) {
+    if (line.trim() && line.length - line.trimStart().length <= indent) break;
+    body.push(line);
+  }
+  const used = [...body.join('\n').matchAll(/[\w-]+=(\w+)/g)].map(m => m[1]);
+  assert.ok(used.includes('strokeWidth') && used.includes('pathD'), used.join(','));
+  for (const name of used) {
+    assert.ok(fields.has(name), `${name} is a field of the line`);
+    // Negative: no line field shares a name with a helper, which would win.
+    assert.ok(!helpers.has(name), `${name} would be the template helper, not the line's`);
+  }
+  for (const w of d.WIDTHS) assert.ok(w < 800);
+});
+
 console.log(`\nwhiteboard: ${passed} tests passed`);

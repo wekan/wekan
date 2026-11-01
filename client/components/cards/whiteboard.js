@@ -116,7 +116,11 @@ Template.cardWhiteboard.helpers({
     const current = tpl.current.get();
     return [...saved, ...pending, ...(current ? [current] : [])]
       .filter(s => s && Array.isArray(s.points) && s.points.length)
-      .map(s => ({ color: s.color, width: s.width, pathD: pathD(s.points) }));
+      // strokeWidth, not width: inside `each strokes` Spacebars looks a name up
+      // among this template's helpers before the stroke's own fields, and the
+      // width helper is the drawing's (800) - every line was drawn 800 wide and
+      // covered the whiteboard.
+      .map(s => ({ color: s.color, strokeWidth: s.width, pathD: pathD(s.points) }));
   },
   saving() { return Template.instance().saving.get(); },
   message() { return Template.instance().message.get(); },

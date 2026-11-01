@@ -28,4 +28,4 @@ template(name="cardWhiteboard")
       svg.card-whiteboard-surface.js-whiteboard-surface(viewBox="0 0 {{width}} {{height}}" preserveAspectRatio="xMidYMid meet" class="{{#if canDraw}}can-draw{{/if}}")
         rect(width=width height=height fill="#ffffff")
         each strokes
-          path(d=pathD stroke=color stroke-width=width fill="none" stroke-linecap="round" stroke-linejoin="round")
+          path(d=pathD stroke=color stroke-width=strokeWidth fill="none" stroke-linecap="round" stroke-linejoin="round")

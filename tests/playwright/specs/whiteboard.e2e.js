@@ -46,7 +46,12 @@ test('two people draw on one whiteboard at once', async ({ boardPage, board, use
   expect(Math.round((await wb1.boundingBox()).y)).toBeGreaterThanOrEqual(Math.round(header.y + header.height) - 1);
   await expect(boardPage.locator('#header-quick-access')).toBeVisible();
 
-  const context = await browser.newContext();
+  // The other person in a browser of their own, as two people are. Two
+  // contexts of one Firefox share its pointer capture: the first pen down
+  // captured the mouse for both pages, and one line zig-zagged between both
+  // paths while the other page drew nothing.
+  const browser2 = await browser.browserType().launch();
+  const context = await browser2.newContext();
   const page2 = await context.newPage();
   try {
     await loginWithToken(page2, other.id, other.token);
@@ -59,6 +64,11 @@ test('two people draw on one whiteboard at once', async ({ boardPage, board, use
       { timeout: 15_000 }).toEqual([user.id, other.id].sort());
     await expect(wb1.locator('path')).toHaveCount(2, { timeout: 15_000 });
     await expect(wb2.locator('path')).toHaveCount(2, { timeout: 15_000 });
+    // Each line at the pen's own width, not the drawing's 800 (which drew one
+    // black shape over the whole whiteboard).
+    for (const wb of [wb1, wb2]) {
+      expect(await wb.locator('path').evaluateAll(paths => paths.map(p => p.getAttribute('stroke-width')))).toEqual(['4', '4']);
+    }
 
     // Undo takes away only one's own line, on both screens.
     await wb1.locator('.js-whiteboard-undo').click();
@@ -71,6 +81,7 @@ test('two people draw on one whiteboard at once', async ({ boardPage, board, use
     await expect(boardPage.locator('.js-card-whiteboard')).toHaveCount(0);
   } finally {
     await context.close();
+    await browser2.close();
   }
 });
 
