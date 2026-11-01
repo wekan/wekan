@@ -750,6 +750,12 @@ body.sidebar-resizing-active {
   margin-inline-end: 6px;
   appearance: auto;
 }
+/* Why a date range was refused, below its buttons (sidebarFilters.js,
+   rangeRefused): the browser's own bubble covered those buttons in Firefox. */
+.filter-date-range-error {
+  color: #c0392b;
+  margin: 6px 0 0;
+}
 .filter-native-group {
   border: 0;
   padding: 0;

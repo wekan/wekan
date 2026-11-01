@@ -148,6 +148,8 @@ template(name="filterSidebar")
     input.js-card-movement-to(id="filter-card-movement-to" type="date" value=movementTo)
     button.primary(type="submit") {{_ 'apply'}}
     button.js-clear-movement-range(type="button") {{_ 'filter-clear'}}
+    if movementRangeError
+      p.js-card-movement-range-error.filter-date-range-error(role="alert") {{_ 'filter-date-range-invalid'}}
   form.js-card-date-range
     label(for="filter-card-date-field") {{_ 'filter-date-range-field'}}
     select.js-card-date-field(id="filter-card-date-field")
@@ -162,6 +164,8 @@ template(name="filterSidebar")
       | {{_ 'filter-date-range-missing'}}
     button.primary(type="submit") {{_ 'apply'}}
     button.js-clear-date-range(type="button") {{_ 'filter-clear'}}
+    if dateRangeError
+      p.js-card-date-range-error.filter-date-range-error(role="alert") {{_ 'filter-date-range-invalid'}}
   hr
   fieldset.filter-native-group
     legend {{_ 'due-date'}}

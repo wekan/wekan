@@ -13,9 +13,23 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { CARD_DATE_RANGE_FIELDS, CARD_RECENCY_PRESETS } from '/models/lib/cardDateRange';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
+// A refused date range marks its end field invalid - so it is :invalid and
+// screen readers announce the reason - and says why in the form itself. Not
+// with reportValidity(): Firefox's validation bubble opens over the Apply and
+// Clear buttons below the field and takes every click on them while the field
+// has focus, so the range could not be cleared at all.
+function rangeRefused(end, error, refused) {
+  end.setCustomValidity(refused ? TAPi18n.__('filter-date-range-invalid') : '');
+  error.set(refused);
+}
+
 Template.filterSidebar.onCreated(function () {
   this.presetMessage = new ReactiveVar('');
   this.presetBusy = new ReactiveVar(false);
+  // Why a date range was refused, shown in the form rather than in the
+  // browser's own validation bubble (see rangeRefused below).
+  this.movementRangeError = new ReactiveVar(false);
+  this.dateRangeError = new ReactiveVar(false);
   this.autorun(() => {
     const boardId = Session.get('currentBoard');
     if (Meteor.userId() && boardId) this.subscribe('savedCardFilters', boardId);
@@ -28,6 +42,8 @@ Template.filterSidebar.helpers({
   },
   presetMessage() { return Template.instance().presetMessage.get(); },
   presetBusy() { return Template.instance().presetBusy.get(); },
+  movementRangeError() { return Template.instance().movementRangeError.get(); },
+  dateRangeError() { return Template.instance().dateRangeError.get(); },
   filterProviderViews() { return Filter.providers.views(); },
   dateFilterProviderViews() { return Filter.providers.views('dates'); },
   dueUnrestricted() { return Filter.dueAt.state() === null; },
@@ -102,15 +118,15 @@ Template.filterSidebar.events({
     const end = tpl.find('.js-card-movement-to');
     const valid = Filter.movementDate.set({ field: 'createdAt',
       from: tpl.find('.js-card-movement-from').value, to: end.value, includeMissing: false });
-    end.setCustomValidity(valid ? '' : TAPi18n.__('filter-date-range-invalid'));
-    if (!valid) end.reportValidity();
-    else Filter.resetExceptions();
+    rangeRefused(end, tpl.movementRangeError, !valid);
+    if (valid) Filter.resetExceptions();
   },
   'input .js-card-movement-range input'(event, tpl) {
-    tpl.find('.js-card-movement-to').setCustomValidity('');
+    rangeRefused(tpl.find('.js-card-movement-to'), tpl.movementRangeError, false);
   },
   'click .js-clear-movement-range'(event, tpl) {
-    event.preventDefault(); tpl.find('.js-card-movement-to').setCustomValidity('');
+    event.preventDefault();
+    rangeRefused(tpl.find('.js-card-movement-to'), tpl.movementRangeError, false);
     Filter.movementDate.reset(); Filter.resetExceptions();
   },
   'submit .js-card-date-range'(event, tpl) {
@@ -119,22 +135,20 @@ Template.filterSidebar.events({
     const valid = Filter.dateRange.set({ field: tpl.find('.js-card-date-field').value,
       from: tpl.find('.js-card-date-from').value, to: end.value,
       includeMissing: tpl.find('.js-card-date-missing').checked });
-    end.setCustomValidity(valid ? '' : TAPi18n.__('filter-date-range-invalid'));
-    if (!valid) end.reportValidity();
-    else Filter.resetExceptions();
+    rangeRefused(end, tpl.dateRangeError, !valid);
+    if (valid) Filter.resetExceptions();
   },
   'input .js-card-date-range input'(event, tpl) {
-    tpl.find('.js-card-date-to').setCustomValidity('');
+    rangeRefused(tpl.find('.js-card-date-to'), tpl.dateRangeError, false);
   },
   'click .js-clear-date-range'(event, tpl) {
     event.preventDefault();
     // Reset the native date controls as well as the reactive model. WebKit can
     // retain an edited date segment after Blaze changes the value attribute.
     for (const selector of ['.js-card-date-from', '.js-card-date-to']) {
-      const input = tpl.find(selector);
-      input.value = '';
-      input.setCustomValidity('');
+      tpl.find(selector).value = '';
     }
+    rangeRefused(tpl.find('.js-card-date-to'), tpl.dateRangeError, false);
     Filter.dateRange.reset(); Filter.resetExceptions();
   },
   'submit .js-column-age-filter'(event, tpl) {

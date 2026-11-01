@@ -28,10 +28,18 @@ test('historical movement picker finds earlier moves, refreshes recorded events,
   await from.fill('2026-09-01'); await to.fill('2026-09-02');
   await form.locator('[type="submit"]').click();
   await expect.poll(visible).toEqual([movedAgain._id, far._id].sort());
+  const refused = form.locator('.js-card-movement-range-error');
+  await expect(refused, 'negative: an accepted range says nothing').toHaveCount(0);
   await to.fill('2026-08-01'); await form.locator('[type="submit"]').click();
   await expect(to).toHaveJSProperty('validationMessage', 'Choose valid dates, with the end on or after the start.');
+  // Said in the form, not in the browser's bubble, which Firefox opened over
+  // the Apply and Clear buttons and which took their clicks.
+  await expect(refused).toHaveText('Choose valid dates, with the end on or after the start.');
+  await expect(refused).toHaveAttribute('role', 'alert');
   await expect.poll(visible).toEqual([movedAgain._id, far._id].sort());
-  await to.fill('2026-09-02'); await form.locator('[type="submit"]').click();
+  await to.fill('2026-09-02');
+  await expect(refused, 'editing the range takes the refusal back').toHaveCount(0);
+  await form.locator('[type="submit"]').click();
   db.insertOne('activities', event(unknown, 'new-history', '2026-09-02T14:00:00Z'));
   await expect.poll(visible).toEqual([movedAgain._id, far._id, unknown._id].sort());
   db.deleteOne('activities', { _id: `earlier-${board.boardId}` });

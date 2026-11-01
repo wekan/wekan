@@ -25,13 +25,20 @@ test('date pickers filter fields without expressions, include missing dates, rej
   await form.locator('.js-card-date-missing').check();
   await form.locator('[type="submit"]').click();
   await expectCards([match._id, missing._id]);
+  const refused = form.locator('.js-card-date-range-error');
+  await expect(refused, 'negative: an accepted range says nothing').toHaveCount(0);
   await form.locator('.js-card-date-to').fill('2026-08-01');
   await form.locator('[type="submit"]').click();
   await expectCards([match._id, missing._id]);
   await expect(form.locator('.js-card-date-to')).toHaveJSProperty('validationMessage', 'Choose valid dates, with the end on or after the start.');
+  // Said in the form, not in the browser's bubble: Firefox opened that over the
+  // Apply and Clear buttons, and Clear's clicks never reached the page.
+  await expect(refused).toHaveText('Choose valid dates, with the end on or after the start.');
+  await expect(refused).toHaveAttribute('role', 'alert');
   await form.locator('.js-clear-date-range').click();
   await expectCards(cards.map(card => card._id));
   await expect(form.locator('.js-card-date-to')).toHaveJSProperty('validationMessage', '');
+  await expect(refused).toHaveCount(0);
   await form.locator('select').selectOption('createdAt');
   await form.locator('.js-card-date-to').fill('2026-08-01');
   await form.locator('[type="submit"]').click();
