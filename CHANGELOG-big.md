@@ -133,15 +133,31 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** Eleven **Dependabot** updates, checked for telemetry and tried at
-runtime; **SAML** logins now really use **node-saml 5.2.0** and its stricter
-checks, and the AWS SDK's **logger redaction fix** is in. **Continuous backup**
-no longer misses a change made right after it starts, the **single-file**
-build runs on macOS whatever its target is called, and in **Firefox** a refused
-filter date range can be cleared again and **whiteboard** lines are drawn at
+**In short:** **CrossBoardExportBleed** is fixed: a checklist scope stays on
+its board, and every export obeys Disable all export and Anonymize export
+users. Eleven **Dependabot** updates are checked for telemetry, **SAML** logins
+use **node-saml 5.2.0**, and **continuous backup** no longer misses a change
+made right after it starts. In **Firefox** and **WebKit** a refused filter date
+range can be cleared and applied again, and **whiteboard** lines are drawn at
 their own width. The whole **EVERYTHING** test run passes again on a Mac.
 
-This release updates the following dependencies:
+This release fixes the following CRITICAL SECURITY ISSUE of [CrossBoardExportBleed](https://wekan.fi/hall-of-fame/crossboardexportbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be6727607c">A checklist scope stays on its board, and every export obeys Disable all export and Anonymize export users</a>. Thanks to ccsimplyspolit and xet7.</summary>
+
+[GHSA-8885-xrq4-j47h](https://github.com/wekan/wekan/security/advisories/GHSA-8885-xrq4-j47h).
+A board export scoped with `?checklistId=` streamed a checklist of another,
+even private, board with its items and creator; it is now bound to the
+exported board's cards. The streaming CSV/TSV export ignored Disable all
+export and Anonymize export users, and so did the Excel, PDF, chart, calendar
+and external-format exports: every export route now refuses with 403 when
+export is disabled, and every exporter that names people anonymizes. Refusals
+are shown in Admin Panel / Problems.
+
+</details>
+
+and updates the following dependencies:
 
 - **isomorphic-git 1.44.3 → 1.44.8** — the GitHub wiki sync
   ([#6846](https://github.com/wekan/wekan/pull/6846)).
