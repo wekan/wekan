@@ -6,9 +6,14 @@ test('Haitian Creole bulk export explains workbook and ZIP layouts', async ({ bo
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'ht'));
   await navigateInApp(page, '/');
   const settings = page.locator('.js-export-all-boards');
-  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
-  await settings.click();
   const popup = page.locator('.js-pop-over');
+  // All Boards is still drawing just after the route changes, and in Firefox
+  // the popup opened then was closed again (full run). Open it until it stays.
+  await expect(async () => {
+    if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+    if (!(await popup.locator('.header-title').count())) await settings.click();
+    await expect(popup.locator('.header-title')).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 30000 });
   await expect(popup.locator('.header-title')).toHaveText('Ekspòte tout tablo yo');
   await expect(popup.locator('p.quiet')).toContainText('Tout tablo ou gen dwa ekspòte');
   await expect(popup.locator('p.quiet')).toContainText('yon sèl liv travay ak yon fèy pou chak tablo');
@@ -20,9 +25,14 @@ test('Malagasy bulk export explains workbook and ZIP layouts', async ({ boardPag
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'mg'));
   await navigateInApp(page, '/');
   const settings = page.locator('.js-export-all-boards');
-  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
-  await settings.click();
   const popup = page.locator('.js-pop-over');
+  // All Boards is still drawing just after the route changes, and in Firefox
+  // the popup opened then was closed again (full run). Open it until it stays.
+  await expect(async () => {
+    if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+    if (!(await popup.locator('.header-title').count())) await settings.click();
+    await expect(popup.locator('.header-title')).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 30000 });
   await expect(popup.locator('.header-title')).toHaveText('Avoahy ny solaitra rehetra');
   await expect(popup.locator('p.quiet')).toContainText('Ny solaitra rehetra azonao avoaka');
   await expect(popup.locator('p.quiet')).toContainText('takelaka isaky ny solaitra');
@@ -34,9 +44,14 @@ test('Irish bulk export explains workbook and ZIP layouts', async ({ boardPage: 
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'ga'));
   await navigateInApp(page, '/');
   const settings = page.locator('.js-export-all-boards');
-  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
-  await settings.click();
   const popup = page.locator('.js-pop-over');
+  // All Boards is still drawing just after the route changes, and in Firefox
+  // the popup opened then was closed again (full run). Open it until it stays.
+  await expect(async () => {
+    if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+    if (!(await popup.locator('.header-title').count())) await settings.click();
+    await expect(popup.locator('.header-title')).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 30000 });
   await expect(popup.locator('.header-title')).toHaveText('Easpórtáil gach clár');
   await expect(popup.locator('p.quiet')).toContainText('Gach clár is féidir leat a easpórtáil');
   await expect(popup.locator('p.quiet')).toContainText('bileog do gach clár');
@@ -48,9 +63,14 @@ test('Scottish Gaelic bulk export explains workbook and ZIP layouts', async ({ b
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'gd'));
   await navigateInApp(page, '/');
   const settings = page.locator('.js-export-all-boards');
-  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
-  await settings.click();
   const popup = page.locator('.js-pop-over');
+  // All Boards is still drawing just after the route changes, and in Firefox
+  // the popup opened then was closed again (full run). Open it until it stays.
+  await expect(async () => {
+    if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+    if (!(await popup.locator('.header-title').count())) await settings.click();
+    await expect(popup.locator('.header-title')).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 30000 });
   await expect(popup.locator('.header-title')).toHaveText('Às-phortaich a h-uile bòrd');
   await expect(popup.locator('p.quiet')).toContainText('A h-uile bòrd as urrainn dhut às-phortadh');
   await expect(popup.locator('p.quiet')).toContainText('siota airson gach bòrd');
@@ -62,9 +82,14 @@ test('Igbo bulk export explains workbook and ZIP layouts', async ({ boardPage: p
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'ig'));
   await navigateInApp(page, '/');
   const settings = page.locator('.js-export-all-boards');
-  if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
-  await settings.click();
   const popup = page.locator('.js-pop-over');
+  // All Boards is still drawing just after the route changes, and in Firefox
+  // the popup opened then was closed again (full run). Open it until it stays.
+  await expect(async () => {
+    if (!(await settings.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+    if (!(await popup.locator('.header-title').count())) await settings.click();
+    await expect(popup.locator('.header-title')).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 30000 });
   await expect(popup.locator('.header-title')).toHaveText('Bupụ bọọdụ niile');
   await expect(popup.locator('p.quiet')).toContainText('Bọọdụ ọ bụla ị nwere ike ibupụ');
   await expect(popup.locator('p.quiet')).toContainText('mpempe akwụkwọ maka bọọdụ ọ bụla');
