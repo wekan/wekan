@@ -80,10 +80,21 @@ for (const handles of [false, true]) test(`disabled checklist items stay put on 
   for (let sort=0; sort<3; sort++) db.insertOne('checklistItems', {_id:db.uid('item'), cardId:card._id, boardId:board.boardId, checklistId:id, title:String(sort+1), sort, isFinished:false});
   await page.evaluate(boardId => Meteor.callAsync('setBoardDragging', boardId, 'item', false), board.boardId);
   await page.reload();
+  // Where the rows are, read twice 150 ms apart.
+  const rowsAt = items => items.evaluateAll(rows => rows.map(row => Math.round(row.getBoundingClientRect().top)).join(','));
   const drag = async items => {
     await expect(items).toHaveCount(3);
     await items.last().scrollIntoViewIfNeeded();
     await items.first().hover();
+    // The opened card is still drawing the sections above its checklist for a
+    // moment, and they push the rows down: in Firefox they moved 50 px between
+    // measuring and releasing, and the release landed on item 1's own title
+    // (opening its editor) or in the wrong slot. Drag once the rows hold still.
+    await expect.poll(async () => {
+      const before = await rowsAt(items);
+      await page.waitForTimeout(150);
+      return before === await rowsAt(items);
+    }, { timeout: 15000 }).toBe(true);
     const from = await (handles ? items.first().locator('.checklistitem-handle') : items.first()).boundingBox();
     const to = await items.last().boundingBox();
     await page.mouse.move(from.x+from.width/2, from.y+from.height/2);
