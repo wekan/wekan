@@ -1,5 +1,6 @@
 const http = require('node:http');
 const { test, expect } = require('../fixtures');
+const { listenReachable } = require('../helpers/reachable-server.cjs');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const call = (page, name, ...args) => page.evaluate(({ name, args }) => Meteor.callAsync(name, ...args), { name, args });
@@ -12,8 +13,8 @@ test.beforeAll(async () => {
       ...(value === undefined ? {} : { customfield_100: value }),
     } }] }));
   });
-  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  base = `http://127.0.0.1:${server.address().port}`;
+  // Where WeKan can reach it, in Docker on macOS too (helpers/reachable-server.cjs).
+  base = await listenReachable(server);
 });
 test.afterAll(async () => { await new Promise(resolve => server.close(resolve)); });
 

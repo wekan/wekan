@@ -687,22 +687,35 @@ function run_playwright_docker(){
 	mkdir -p "$filesroot"
 	echo "Running Playwright $browser in Docker ($image)."
 	echo "Expecting WeKan at $docker_base_url."
-	local smtp_proxy_pid="" smtp_proxy_ready="" container_name="wekan-playwright-${browser}-$$"
-	if [ "$(uname -s)" = Darwin ] && [ -n "${WEKAN_TEST_SMTP_PORT:-}" ]; then
-		smtp_proxy_ready="$(mktemp "$WEKAN_DIR/.tools/tmp/smtp-proxy.XXXXXX")"
-		node "$pwdir/helpers/docker-smtp-proxy.cjs" "$container_name" "$WEKAN_TEST_SMTP_PORT" "$smtp_proxy_ready" &
-		smtp_proxy_pid=$!
-		for i in 1 2 3 4 5 6 7 8 9 10; do
-			[ -s "$smtp_proxy_ready" ] && break
-			kill -0 "$smtp_proxy_pid" 2>/dev/null || break
-			sleep 0.1
+	local container_name="wekan-playwright-${browser}-$$"
+	# Docker Desktop keeps the container's loopback from the host, so a server a
+	# spec starts in the container cannot be reached by WeKan outside it. Each
+	# port below is forwarded from the host into the container through docker
+	# exec (helpers/docker-smtp-proxy.cjs, which carries any TCP): the test SMTP
+	# server, and a small pool for the mock Jira/GitLab servers of the list-sync
+	# specs, which take a free port from WEKAN_TEST_REVERSE_PORTS
+	# (helpers/reachable-server.cjs). Elsewhere they listen on any port.
+	local forward_pids="" forward_ready="" reverse_ports=""
+	if [ "$(uname -s)" = Darwin ]; then
+		reverse_ports="${WEKAN_TEST_REVERSE_PORTS:-39101 39102 39103 39104}"
+		local fport fready fpid i
+		for fport in ${WEKAN_TEST_SMTP_PORT:-} $reverse_ports; do
+			fready="$(mktemp "$WEKAN_DIR/.tools/tmp/docker-port-proxy.XXXXXX")"
+			node "$pwdir/helpers/docker-smtp-proxy.cjs" "$container_name" "$fport" "$fready" &
+			fpid=$!
+			forward_pids="$forward_pids $fpid"; forward_ready="$forward_ready $fready"
+			for i in 1 2 3 4 5 6 7 8 9 10; do
+				[ -s "$fready" ] && break
+				kill -0 "$fpid" 2>/dev/null || break
+				sleep 0.1
+			done
+			if [ ! -s "$fready" ]; then
+				kill $forward_pids 2>/dev/null; wait $forward_pids 2>/dev/null
+				rm -f $forward_ready
+				echo "ERROR: local test proxy for port $fport did not start."
+				return 1
+			fi
 		done
-		if [ ! -s "$smtp_proxy_ready" ]; then
-			kill "$smtp_proxy_pid" 2>/dev/null; wait "$smtp_proxy_pid" 2>/dev/null
-			rm -f "$smtp_proxy_ready"
-			echo "ERROR: local SMTP test proxy did not start."
-			return 1
-		fi
 	fi
 	# Mount the whole repo so specs that reach the repo-root node_modules
 	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
@@ -732,6 +745,7 @@ function run_playwright_docker(){
 		-e WEKAN_TEST_SERIAL="${WEKAN_TEST_SERIAL:-0}" \
 		-e WEKAN_TEST_SERVER_MODE="${WEKAN_TEST_SERVER_MODE:-bundle}" \
 		-e WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-}" \
+		-e WEKAN_TEST_REVERSE_PORTS="$reverse_ports" \
 		-e PLAYWRIGHT_HTML_OPEN=never \
 		-e WEKAN_FILES_PATH="$filesroot" \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
@@ -754,9 +768,9 @@ function run_playwright_docker(){
 			npx playwright test --project="$0" "$@"
 		' "$browser" "$@"
 	local playwright_rc=$?
-	if [ -n "$smtp_proxy_pid" ]; then
-		kill "$smtp_proxy_pid" 2>/dev/null; wait "$smtp_proxy_pid" 2>/dev/null
-		rm -f "$smtp_proxy_ready"
+	if [ -n "$forward_pids" ]; then
+		kill $forward_pids 2>/dev/null; wait $forward_pids 2>/dev/null
+		rm -f $forward_ready
 	fi
 	return "$playwright_rc"
 }

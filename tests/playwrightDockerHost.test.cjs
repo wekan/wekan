@@ -89,7 +89,9 @@ test('macOS Docker pins only gateway Mongo connections and preserves URI options
     docker_available() { return 0; }
     ensure_playwright_test_dependencies() { return 0; }
     uname() { printf Darwin; }
-    node() { printf 1.63.0; }
+    # A port forwarder is ready at once; anything else asks the Playwright version.
+    node() { case "$1" in *docker-smtp-proxy.cjs) printf 'ready\\n' > "$4"; echo "FORWARD $3" >> "$TMPDIR/forwarded";; *) printf 1.63.0;; esac; }
+    mkdir -p "$WEKAN_DIR/.tools/tmp"
     docker_exec() { printf '%s\\n' "$@"; }
     ${runner}
     run_playwright_docker firefox --list
@@ -125,7 +127,9 @@ test('the macOS container uses the bridge network, Linux keeps the host network'
       docker_available() { return 0; }
       ensure_playwright_test_dependencies() { return 0; }
       uname() { printf ${os}; }
-      node() { printf 1.63.0; }
+      # A port forwarder is ready at once; anything else asks the Playwright version.
+    node() { case "$1" in *docker-smtp-proxy.cjs) printf 'ready\\n' > "$4"; echo "FORWARD $3" >> "$TMPDIR/forwarded";; *) printf 1.63.0;; esac; }
+      mkdir -p "$WEKAN_DIR/.tools/tmp"
       docker_exec() { printf '%s\\n' "$@"; }
       ${runner}
       run_playwright_docker firefox --list
@@ -163,7 +167,9 @@ test('the container sees the repo and the files root at their own host paths', (
         docker_available() { return 0; }
         ensure_playwright_test_dependencies() { return 0; }
         uname() { printf ${os}; }
-        node() { printf 1.63.0; }
+        # A port forwarder is ready at once; anything else asks the Playwright version.
+    node() { case "$1" in *docker-smtp-proxy.cjs) printf 'ready\\n' > "$4"; echo "FORWARD $3" >> "$TMPDIR/forwarded";; *) printf 1.63.0;; esac; }
+        mkdir -p "$WEKAN_DIR/.tools/tmp"
         docker_exec() { printf '%s\\n' "$@"; }
         ${runner}
         run_playwright_docker firefox --list
@@ -179,6 +185,44 @@ test('the container sees the repo and the files root at their own host paths', (
       assert.ok(after('-e').includes(`HOME=${temp}/.tools/tmp`));
     }
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+});
+
+test('on macOS the SMTP port and the mock-server pool are forwarded into the container', () => {
+  // WeKan, outside the container, fetches from the list-sync specs' mock
+  // Jira/GitLab inside it; Docker Desktop keeps the container's loopback from
+  // the host, so those fetches failed until the ports were forwarded.
+  const { execFileSync } = require('node:child_process');
+  const root = path.resolve(__dirname, '..');
+  const runner = build.slice(build.indexOf('function run_playwright_docker'),
+    build.indexOf('function run_node_e2e_docker'));
+  for (const [os, smtp, pool, forwarded, named] of [
+    ['Darwin', '2525', '', ['2525', '39101', '39102', '39103', '39104'], '39101 39102 39103 39104'],
+    ['Darwin', '', '40001 40002', ['40001', '40002'], '40001 40002'],
+    ['Linux', '2525', '', [], ''],
+  ]) {
+    const temp = fs.mkdtempSync(path.join(root, '.tools/tmp/playwright-docker-fwd-'));
+    try {
+      const script = `
+        mkdir -p "$WEKAN_DIR/.tools/tmp"
+        docker_available() { return 0; }
+        ensure_playwright_test_dependencies() { return 0; }
+        uname() { printf ${os}; }
+        node() { case "$1" in *docker-smtp-proxy.cjs) printf 'ready\\n' > "$4"; echo "$3" >> "$WEKAN_DIR/forwarded";; *) printf 1.63.0;; esac; }
+        docker_exec() { printf '%s\\n' "$@"; }
+        ${runner}
+        run_playwright_docker firefox --list
+      `;
+      const env = { ...process.env, TMPDIR: temp, WEKAN_DIR: temp, WEKAN_FILES_PATH_HOST: temp, WEKAN_TEST_SMTP_PORT: smtp };
+      delete env.WEKAN_TEST_REVERSE_PORTS;
+      if (pool) env.WEKAN_TEST_REVERSE_PORTS = pool;
+      const out = execFileSync('bash', ['-c', script], { encoding: 'utf8', env }).split('\n');
+      const file = path.join(temp, 'forwarded');
+      const got = fs.existsSync(file) ? fs.readFileSync(file, 'utf8').trim().split('\n').filter(Boolean) : [];
+      assert.deepStrictEqual(got, forwarded, `${os}: the ports forwarded from the host`);
+      assert.ok(out.includes(`WEKAN_TEST_REVERSE_PORTS=${named}`), `${os}: the pool named to the specs`);
+      assert.deepStrictEqual(fs.readdirSync(path.join(temp, '.tools/tmp')), [], 'the ready files are removed');
+    } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+  }
 });
 
 console.log(`\n${passed} tests passed`);

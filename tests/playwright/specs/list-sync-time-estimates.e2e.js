@@ -1,5 +1,6 @@
 const http = require('node:http');
 const { test, expect } = require('../fixtures');
+const { listenReachable } = require('../helpers/reachable-server.cjs');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const call = (page, name, ...args) => page.evaluate(async ({ name, args }) => {
@@ -12,8 +13,8 @@ test.beforeAll(async () => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ startAt: 0, total: 1, issues: [{ key: 'TIME-1', fields: { summary: 'Time estimates', ...fields } }] }));
   });
-  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  base = `http://127.0.0.1:${server.address().port}`;
+  // Where WeKan can reach it, in Docker on macOS too (helpers/reachable-server.cjs).
+  base = await listenReachable(server);
 });
 test.afterAll(async () => { await new Promise(resolve => server.close(resolve)); });
 
