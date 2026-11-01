@@ -135,3 +135,25 @@ test('every write goes through the rule, and the client cannot write My Dependen
     assert.ok(doc.includes(phrase), phrase);
   }
 });
+
+test('both import results say how many lines were already there (8a6aeba7d1)', () => {
+  // All Boards / Import / Dependencies reported only imported and unmatched
+  // lines after the import began to combine; it says the skipped ones too, in
+  // the same message as Member Settings / Import.
+  const sidebar = read('client/components/sidebar/sidebar.js');
+  const allBoards = sidebar.slice(sidebar.indexOf("'submit .js-import-dependencies-form'"),
+    sidebar.indexOf('Template.labelsWidget.events'));
+  const memberSettings = read('client/components/users/dependencyMenu.js');
+  for (const [name, src] of [['All Boards', allBoards], ['Member Settings', memberSettings]]) {
+    assert.ok(src.length > 0, name);
+    assert.match(src, /TAPi18n\.__\('import-dependencies-merged',\s*\{\s*imported: res\.imported,\s*skipped: res\.skipped,\s*unmatched: res\.unmatched,?\s*\}/, name);
+    // Negative: the old two-number message is not used any more.
+    assert.doesNotMatch(src, /'import-dependencies-done'/, name);
+  }
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  for (const placeholder of ['__imported__', '__skipped__', '__unmatched__']) {
+    assert.ok(en['import-dependencies-merged'].includes(placeholder), placeholder);
+  }
+  // The server's answer carries all three.
+  assert.match(read('server/models/dependencies.js'), /return \{ imported, skipped, unmatched \};/);
+});

@@ -102,4 +102,64 @@ test('negative: every locale has Eraser, in its own language', () => {
   }
 });
 
+test('a new drawing is refitted when its room changes, until it is zoomed or resized by hand (2929b61c85)', () => {
+  // Opened from + Add or Add attachment, the popup was fitted at 820px and
+  // maximized only afterwards, so a new drawing kept ~784px of a 1280px window.
+  const js = read('client/components/cards/cardDrawing.js');
+  const start = js.indexOf("const stage = this.find('.js-drawing-stage');");
+  const end = js.indexOf('this.stageObserver.observe(stage);\n  }', start);
+  assert.ok(start > 0 && end > start, 'the observer block of onRendered');
+  const block = js.slice(start, end + 'this.stageObserver.observe(stage);\n  }'.length);
+  // Run the block itself with a stand-in ResizeObserver, room and fit.
+  const vm = require('vm');
+  let callback = null; let observed = null; const fits = [];
+  let room = { width: 784, height: 400 };
+  const tpl = {
+    view: { isDestroyed: false }, sizedByHand: false,
+    strokes: { value: [], get() { return this.value; } },
+    editingId: { value: null, get() { return this.value; } },
+    find: sel => (sel === '.js-drawing-stage' ? { stage: true } : null),
+  };
+  vm.runInNewContext(`(function () { const tpl = this; ${block} }).call(tpl);`, {
+    tpl,
+    ResizeObserver: class { constructor(cb) { callback = cb; } observe(el) { observed = el; } disconnect() {} },
+    stageRoom: () => room,
+    fitToStage: (t, size) => fits.push([t, size, `${room.width}x${room.height}`]),
+  });
+  assert.ok(callback && observed && observed.stage, 'the drawing stage is observed');
+  assert.ok(tpl.stageObserver, 'kept on the template, to disconnect');
+  callback();
+  assert.deepStrictEqual(fits.map(f => f[2]), ['784x400'], 'fitted to the room it has');
+  assert.strictEqual(fits[0][1], null, 'as a NEW drawing (no size of its own)');
+  callback();
+  assert.strictEqual(fits.length, 1, 'the same room is not fitted twice');
+  room = { width: 1240, height: 700 };
+  callback();
+  assert.deepStrictEqual(fits.map(f => f[2]), ['784x400', '1240x700'], 'maximized: refitted to the window');
+  // Negative: once there is a line, an edited drawing, a zoom or a resize by
+  // hand, a change of room keeps the size it has.
+  for (const [what, set, reset] of [
+    ['a line', () => { tpl.strokes.value = [{}]; }, () => { tpl.strokes.value = []; }],
+    ['an edited drawing', () => { tpl.editingId.value = 'd1'; }, () => { tpl.editingId.value = null; }],
+    ['sized by hand', () => { tpl.sizedByHand = true; }, () => { tpl.sizedByHand = false; }],
+    ['destroyed', () => { tpl.view.isDestroyed = true; }, () => { tpl.view.isDestroyed = false; }],
+  ]) {
+    set();
+    room = { width: room.width - 10, height: room.height };
+    callback();
+    assert.strictEqual(fits.length, 2, `not refitted: ${what}`);
+    reset();
+  }
+  // Each way of choosing a size by hand marks it: zoom in, zoom out, the
+  // corner handle and its keyboard steps.
+  const events = js.slice(js.indexOf('Template.cardDrawingPopup.events({'));
+  assert.match(events, /'click \.js-drawing-zoom-in'\(event, tpl\) \{ event\.preventDefault\(\); tpl\.sizedByHand = true;/);
+  assert.match(events, /'click \.js-drawing-zoom-out'\(event, tpl\) \{ event\.preventDefault\(\); tpl\.sizedByHand = true;/);
+  const resize = events.slice(events.indexOf("'pointerdown .js-drawing-canvas-resize'"), events.indexOf("'pointermove .js-drawing-canvas-resize'"));
+  assert.match(resize, /tpl\.sizedByHand = true;\n\s+tpl\.canvasResize = /);
+  assert.match(events, /if \(!step\) return;\n\s+event\.preventDefault\(\);\n\s+tpl\.sizedByHand = true;/);
+  assert.strictEqual((js.match(/tpl\.sizedByHand = true;/g) || []).length, 4, 'and nothing else does');
+  assert.match(js, /Template\.cardDrawingPopup\.onDestroyed\(function \(\) \{\n\s+if \(this\.stageObserver\) this\.stageObserver\.disconnect\(\);/);
+});
+
 console.log(`cardDrawingPen: ${passed} passed`);

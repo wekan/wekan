@@ -6,7 +6,7 @@
 const fs = require('fs');
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken, openBoard } = require('../helpers/auth');
+const { loginWithToken, openBoard, navigateInApp } = require('../helpers/auth');
 
 test.describe('Board and My Dependencies', () => {
   test.use({ storageState: undefined });
@@ -150,5 +150,49 @@ test.describe('My Dependencies on an instance board', () => {
     await expect(page.locator('.js-import-member-dependencies-result')).toContainText('1');
     await expect.poll(() => (db.findOne('users', { _id: outsider.id }).profile.myDependencies || []).length).toBe(1);
     expect(db.getCard(betaId).cardDependencies || []).toEqual([]);
+  });
+});
+
+// 8a6aeba7d1: All Boards / New / Import / Dependencies combines, as Member
+// Settings / Import does, and says how many lines were already there - it
+// reported only the imported and the unmatched ones.
+test.describe('All Boards dependency import', () => {
+  test.use({ storageState: undefined });
+  let owner, board, alphaId, betaId, gammaId;
+
+  test.beforeAll(() => {
+    owner = db.seedUser();
+    board = db.seedBoard({ ownerId: owner.id, title: 'Dependency import counts', listCount: 3,
+      cardTitlesPerList: [['Count Alpha'], ['Count Beta'], ['Count Gamma']] });
+    alphaId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Count Alpha' });
+    betaId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Count Beta' });
+    gammaId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Count Gamma' });
+    db.setCardDependencies({ cardId: alphaId, dependsOn: [{ cardId: betaId, type: 'blocks' }] });
+  });
+  test.beforeEach(() => { owner.token = db.addResumeToken(owner.id); });
+  test.afterAll(() => db.cleanup({ boardIds: [board.boardId], userIds: [owner.id] }));
+
+  test('the result counts the added, the already there and the unmatched lines', async ({ page }) => {
+    await page.addInitScript(() => { window.localStorage.setItem('wekan-all-boards-view', 'table'); });
+    await loginWithToken(page, owner.id, owner.token);
+    await navigateInApp(page, '/allboards/remaining');
+    await page.locator('.table-page-controls .js-add-board').click();
+    await page.locator('.pop-over .js-import-board').click();
+    await page.locator('.pop-over .js-import-dependencies').click();
+    await page.locator('.js-import-dependencies-board').selectOption(board.boardId);
+    await page.locator('.js-import-dependencies-text').fill(JSON.stringify({ lines: [
+      { fromTitle: 'Count Alpha', toTitle: 'Count Beta', type: 'fixes' },
+      { fromTitle: 'Count Beta', toTitle: 'Count Gamma', type: 'blocks' },
+      { fromTitle: 'No such card', toTitle: 'Count Alpha', type: 'blocks' },
+    ] }));
+    await page.locator('.js-import-dependencies-submit').click();
+    // en: "Added __imported__ line(s); __skipped__ already there, __unmatched__ unmatched"
+    await expect(page.locator('.js-import-dependencies-result'))
+      .toHaveText('Added 1 line(s); 1 already there, 1 unmatched');
+    // Negative: not the old message, which left the line already there out.
+    await expect(page.locator('.js-import-dependencies-result')).not.toContainText('Imported');
+    await expect.poll(() => (db.getCard(betaId).cardDependencies || []).map(d => d.cardId)).toEqual([gammaId]);
+    // The line already there is kept as it was, not replaced by the import's.
+    expect(db.getCard(alphaId).cardDependencies.map(d => [d.cardId, d.type])).toEqual([[betaId, 'blocks']]);
   });
 });

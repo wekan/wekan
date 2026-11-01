@@ -125,3 +125,31 @@ test('a Drawing popup left maximized opens maximized again', async ({ boardPage:
   await popup.locator('.js-popup-minimize').click();
   await expect(popup).not.toHaveClass(/pop-over--maximized/);
 });
+
+// 2929b61c85: a NEW drawing is refitted whenever its room changes - the test
+// above has it take the window once maximized - but not after it was zoomed
+// or resized by hand: that size is the user's choice.
+test('a new drawing zoomed by hand keeps its size and zoom when maximized', async ({ boardPage: page, board }) => {
+  await page.evaluate(() => { try { localStorage.removeItem('wekan-popup-maximized-cardDrawingPopup'); } catch (e) { /* none */ } });
+  const popup = await openDrawing(page, board);
+  await expect(popup).not.toHaveClass(/pop-over--maximized/);
+  const surface = popup.locator('.js-drawing-surface');
+  const zoom = popup.locator('.card-drawing-zoom');
+  const viewBox = () => surface.evaluate(svg => svg.getAttribute('viewBox'));
+  await expect(zoom).toHaveText(/^100\s*%$/);
+  await popup.locator('.js-drawing-zoom-out').click();
+  await expect(zoom).not.toHaveText(/^100\s*%$/);
+  const zoomed = (await zoom.textContent()).trim();
+  const box = await viewBox();
+
+  await popup.locator('.js-popup-maximize').click();
+  await expect(popup).toHaveClass(/pop-over--maximized/);
+  const viewport = page.viewportSize();
+  await expect.poll(async () => (await popup.boundingBox()).width).toBeGreaterThan(viewport.width - 40);
+  // Give a refit every chance to happen: the observer answers within a frame.
+  await page.waitForTimeout(800);
+  expect(await viewBox()).toBe(box);
+  await expect(zoom).toHaveText(zoomed);
+  // Negative of the test above: the drawing was not fitted to the window.
+  expect((await surface.boundingBox()).width).toBeLessThan(viewport.width * 0.85);
+});

@@ -95,6 +95,41 @@ test('the standard profile refuses an Assertion-only signature with the reported
   });
 });
 
+// 5c50f38e25: a login is verified by the wekan-accounts-saml package's own
+// copy of @node-saml/node-saml, now 5.2.0 like package.json. 5.2.0 refuses a
+// signed Response that carries more than one Issuer; 5.1.0 logged it in.
+test('a signed Response with two Issuers is refused; the same Response with one logs in', async ({ page, browser, adminUser }) => {
+  await withProvider(page, adminUser, { idpProfile: 'standard', loginFlow: 'redirect' }, async (provider, created) => {
+    // Positive control: the same identity provider and settings log in, so the
+    // refusal below is the second Issuer's and nothing else's.
+    provider.state.mode = 'allow';
+    const okContext = await browser.newContext();
+    try {
+      const ok = await okContext.newPage();
+      await startLogin(ok, page.url());
+      const userId = await (await ok.waitForFunction(
+        () => typeof Meteor !== 'undefined' && Meteor.userId(), null, { timeout: 30000 })).jsonValue();
+      created.push(userId);
+      expect(db.findOne('users', { _id: userId }).authenticationMethod).toBe('saml');
+    } finally { await okContext.close(); }
+
+    // Negative: a second Issuer, inside the signature - refused, said on the
+    // sign-in page, and nobody logged in.
+    provider.state.user = db.uid('saml-two-issuers');
+    provider.state.mode = 'two-issuers';
+    const samlUsers = db.countDocuments('users', { authenticationMethod: 'saml' });
+    const context = await browser.newContext();
+    try {
+      const client = await context.newPage();
+      await startLogin(client, page.url());
+      await client.waitForURL(url => url.pathname === '/sign-in' && !url.search.includes('samlError'));
+      await expect(client.locator('#login-error-message')).toContainText('Expected one SAML issuer');
+      expect(await client.evaluate(() => Meteor.userId())).toBeNull();
+      expect(db.countDocuments('users', { authenticationMethod: 'saml' })).toBe(samlUsers);
+    } finally { await context.close(); }
+  });
+});
+
 test('a samlToken link opened in another browser does not log it in', async ({ page, browser, adminUser }) => {
   await withProvider(page, adminUser, { idpProfile: 'signed-assertion-redirect' }, async provider => {
     provider.state.mode = 'assertion-only';
