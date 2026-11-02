@@ -1055,15 +1055,22 @@ template(name="cardSectionHeader")
     sits under a rule of the layout's own.
   unless noRule
     hr.card-details-section-rule
-  h3.card-details-item-title.js-toggle-card-section(data-section="{{section}}" role="button" tabindex="0")
-    i.fa(class="{{sectionCaret section}}")
-    if icon
-      i.fa(class="{{icon}}")
-    | {{_ label}}
-    //- An optional count after the name - "Attachments (3)" - for a section
-      whose size is worth knowing before it is opened.
-    if count
-      |  ({{count}})
+  //- A real heading with a real button in it (the WAI disclosure pattern): the h3
+    keeps the outline, the button is what the keyboard and a screen reader reach
+    and says whether the section is open. The section menu and the layout toggle
+    are beside the button, not inside it - a button must not contain controls
+    (WCAG 4.1.2; axe nested-interactive and aria-allowed-role). A click anywhere
+    on the heading still folds the section: the handler is on the h3.
+  h3.card-details-item-title.js-toggle-card-section(data-section="{{section}}")
+    button.card-details-section-toggle(type="button" aria-expanded="{{#if isSectionOpen section}}true{{else}}false{{/if}}")
+      i.fa(class="{{sectionCaret section}}")
+      if icon
+        i.fa(class="{{icon}}")
+      | {{_ label}}
+      //- An optional count after the name - "Attachments (3)" - for a section
+        whose size is worth knowing before it is opened.
+      if count
+        |  ({{count}})
     //- Custom Fields puts its layout selector on the heading row, between the
       title and hamburger. A collapsed section hides actions for content that
       is not visible, so the selector only exists while this section is open.

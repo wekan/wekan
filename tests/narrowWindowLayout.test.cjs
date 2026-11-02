@@ -202,7 +202,7 @@ test('the mode toggle shows which mode is on', () => {
   const at = headerCss.indexOf('/* Which mode is ON, at a glance.');
   assert.ok(at !== -1, 'the rules must be there');
   const block = headerCss.slice(at, at + 2000);
-  assert.ok(/background: var\(--theme-accent, #2980b9\) !important;/.test(block),
+  assert.ok(/background: var\(--theme-accent, #2573a7\) !important;/.test(block),
     'the current mode is a filled chip in the active theme');
   assert.ok(/\.mobile-active i\.mobile-icon,/.test(block)
     && /\.desktop-active i\.desktop-icon \{/.test(block)

@@ -1011,7 +1011,7 @@
 .minicard-list-name {
   clear: inline-start;
   font-size: 0.75em;
-  color: #8c8c8c;
+  color: #595959;
   margin-top: 2px;
   display: flex;
   align-items: center;
@@ -1023,7 +1023,7 @@
 .minicard-swimlane-name {
   clear: inline-start;
   font-size: 0.75em;
-  color: #8c8c8c;
+  color: #595959;
   margin-top: 2px;
   display: flex;
   align-items: center;

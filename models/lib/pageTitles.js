@@ -39,6 +39,11 @@ const PAGE_TITLE_KEYS = {
   accessibility: 'accessibility',
   // Import names its source, so this key is only the fallback.
   import: 'import',
+  // /import before a source is chosen, and the activity feed: pages with no name in
+  // the bar had no level-one heading either (WCAG 1.3.1, 2.4.6).
+  'import-start': 'import',
+  'activity-feed': 'activity-feed-title',
+  bookmarks: 'bookmarksPopup-title',
 };
 
 // A second segment, after the page's own name: "Admin Panel / Settings".

@@ -9,5 +9,5 @@ template(name="cardPomodoro")
         button.js-stop-pomodoro.pomodoro-btn.negate(type="button") {{_ 'stop'}}
     else
       if canControlPomodoro
-        input.js-pomodoro-work-minutes.pomodoro-minutes(type="number" min="1" value="{{workMinutesInput}}")
+        input.js-pomodoro-work-minutes.pomodoro-minutes(type="number" min="1" value="{{workMinutesInput}}" aria-label="{{_ 'pomodoro-work'}} ({{_ 'minutes'}})")
         button.js-start-pomodoro.pomodoro-btn.primary(type="button") {{_ 'pomodoro-start'}}

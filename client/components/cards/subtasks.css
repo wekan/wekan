@@ -1,5 +1,5 @@
 .js-add-subtask {
-  color: #8c8c8c;
+  color: #595959;
 }
 textarea.js-add-subtask-item,
 textarea.js-edit-subtask-item {
@@ -12,7 +12,7 @@ textarea.js-edit-subtask-item {
 .subtask-title .js-delete-subtask,
 .subtask-title .js-view-subtask,
 .js-delete-subtask-item {
-  color: #8c8c8c;
+  color: #595959;
   text-decoration: underline;
   word-wrap: break-word;
   flex-shrink: 0;
@@ -163,7 +163,7 @@ textarea.js-edit-subtask-item {
   padding-inline-start: 10px;
 }
 .subtasks-item .item-title.is-checked {
-  color: #8c8c8c;
+  color: #595959;
   font-style: italic;
 }
 .subtasks-item .item-title .viewer p {
@@ -186,7 +186,7 @@ textarea.js-edit-subtask-item {
    instead of disappearing — the same dimmed/italic treatment a checked
    checklist item gets (.subtasks-item .item-title.is-checked above). */
 .subtask.is-completed .subtask-title .title {
-  color: #8c8c8c;
+  color: #595959;
   font-style: italic;
   text-decoration: line-through;
 }
@@ -199,7 +199,7 @@ textarea.js-edit-subtask-item {
 .subtasks-hide-completed-toggle {
   display: inline-block;
   margin: 0.2em 0 0.5em 1.33em;
-  color: #8c8c8c;
+  color: #595959;
   cursor: pointer;
 }
 .subtasks-hide-completed-toggle:hover {
@@ -224,7 +224,7 @@ textarea.js-edit-subtask-item {
   flex-shrink: 0;
   margin: 0 0.5em;
   padding-top: 6px;
-  color: #8c8c8c;
+  color: #595959;
   font-size: 0.85em;
   white-space: nowrap;
   overflow: hidden;
@@ -251,5 +251,5 @@ textarea.js-edit-subtask-item {
 }
 .subtask-title.is-done .title {
   text-decoration: line-through;
-  color: #8c8c8c;
+  color: #595959;
 }

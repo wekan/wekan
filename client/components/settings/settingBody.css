@@ -10,7 +10,7 @@
   height: 100%;
 }
 .setting-content {
-  color: #727479;
+  color: #5a5c61;
   background: #dedede;
   width: 100%;
   height: 100%;
@@ -99,7 +99,7 @@
    selected entry back to white as soon as the pointer crossed it. */
 .setting-content .content-body .side-menu ul li.active,
 .setting-content .content-body .side-menu ul li.active:hover {
-  background: var(--theme-accent, #2980b9);
+  background: var(--theme-accent, #2573a7);
 }
 
 /* …and when a THEME is active, the row is painted by that theme's own #header rule
@@ -488,7 +488,7 @@ body.left-menu-resizing-active {
 }
 
 .setting-content label:has(> input[type="checkbox"]:focus-visible) {
-  outline: 2px solid #2980b9;
+  outline: 2px solid #2573a7;
   outline-offset: 2px;
   border-radius: 3px;
 }
@@ -511,7 +511,7 @@ body.left-menu-resizing-active {
 }
 
 .setting-content input[type="checkbox"]:focus-visible {
-  outline: 2px solid var(--theme-accent, #2980b9);
+  outline: 2px solid var(--theme-accent, #2573a7);
   outline-offset: 2px;
 }
 
@@ -562,13 +562,13 @@ body.left-menu-resizing-active {
 }
 
 .setting-content .schedule-day-btn.active {
-  background: var(--theme-accent, #2980b9);
-  border-color: var(--theme-accent, #2980b9);
+  background: var(--theme-accent, #2573a7);
+  border-color: var(--theme-accent, #2573a7);
   color: #fff;
 }
 
 .setting-content .schedule-day-btn:focus-visible {
-  outline: 2px solid var(--theme-accent, #2980b9);
+  outline: 2px solid var(--theme-accent, #2573a7);
   outline-offset: 2px;
 }
 

@@ -1190,16 +1190,6 @@ Template.cardSectionHeader.events({
     if (!section) return;
     cardSectionState.set(section, !isCardSectionOpen(section));
   },
-  // A heading that can be operated with the mouse can be operated with the
-  // keyboard: it carries role="button" and tabindex, so Enter and Space are
-  // what a screen reader user presses.
-  'keydown .js-toggle-card-section'(event) {
-    if (event.target !== event.currentTarget) return;
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    event.preventDefault();
-    const section = event.currentTarget.dataset.section;
-    if (section) cardSectionState.set(section, !isCardSectionOpen(section));
-  },
 });
 
 Template.cardDetails.events({

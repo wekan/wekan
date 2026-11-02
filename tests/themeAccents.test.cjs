@@ -135,7 +135,7 @@ test('the map holds no theme that does not exist', () => {
 
 test('accentOf answers for a known theme and refuses anything else', () => {
   assert.strictEqual(accentOf('pumpkin'), '#e67e22');
-  assert.strictEqual(accentOf('belize'), '#2980b9');
+  assert.strictEqual(accentOf('belize'), '#2573a7');
   assert.strictEqual(accentOf('no-such-theme'), '');
   assert.strictEqual(accentOf(''), '');
   assert.strictEqual(accentOf(null), '');

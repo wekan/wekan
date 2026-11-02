@@ -27,11 +27,12 @@ template(name="userFormsLayout")
   section.auth-layout
     if logoSettingsReady
       if currentSetting.hideLogo
-        h1.at-form-landing-logo
+        //- A spacer, not a heading: an empty h1 is announced as an empty heading.
+        div.at-form-landing-logo(aria-hidden="true")
           br
           br
       unless currentSetting.hideLogo
-        h1.at-form-landing-logo
+        div.at-form-landing-logo(aria-hidden="true")
         if currentSetting.customLoginLogoImageUrl
           if currentSetting.customLoginLogoLinkUrl
             a(href="{{currentSetting.customLoginLogoLinkUrl}}")
@@ -49,7 +50,9 @@ template(name="userFormsLayout")
       +viewer
         | {{currentSetting.textBelowCustomLoginLogo}}
     hr
-  section.auth-layout
+  //- role="main": the sign-in and register form is the page's main landmark
+    (WCAG 1.3.1 / 2.4.1), so the title, the links and the language picker are in one.
+  section.auth-layout(role="main")
     section.auth-dialog
       if isLoading
         +loader

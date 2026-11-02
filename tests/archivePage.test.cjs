@@ -331,9 +331,9 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   // The selected row is the theme accent with white text, in both menus.
   const activeAt = boards.indexOf('.boards-left-menu .menu-item.active a,');
   const active = boards.slice(activeAt, boards.indexOf('}', activeAt));
-  assert.ok(/background:\s*var\(--theme-accent, #2980b9\)/.test(active),
+  assert.ok(/background:\s*var\(--theme-accent, #2573a7\)/.test(active),
     'the selected row is the per-user accent, falling back to the header blue');
-  assert.ok(admin.includes('background: var(--theme-accent, #2980b9)'),
+  assert.ok(admin.includes('background: var(--theme-accent, #2573a7)'),
     "...which is what the Admin Panel's selected row uses");
   assert.ok(/\.menu-item\.active a:hover/.test(active),
     'hover is listed on the active rule too, or the white hover below washes '
@@ -347,7 +347,7 @@ test('and the All Boards menu is styled like the Admin Panel one', () => {
   const wsAt = boards.indexOf('.workspace-node.active > .workspace-node-content .js-select-space,');
   assert.notStrictEqual(wsAt, -1, 'the selected workspace is styled');
   const ws = boards.slice(wsAt, boards.indexOf('}', wsAt));
-  assert.ok(/background: var\(--theme-accent, #2980b9\)/.test(ws),
+  assert.ok(/background: var\(--theme-accent, #2573a7\)/.test(ws),
     'filled with the theme, like the menu row above it');
   assert.ok(/\.workspace-node\.active > \.workspace-node-content:hover/.test(ws),
     'hover listed on the active rule, or the white hover below washes it out');

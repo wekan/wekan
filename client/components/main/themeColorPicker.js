@@ -33,7 +33,7 @@ import {
 //   3. the user's own override
 // See docs/Features/General/Theme/Change-Color.md for the whole design.
 
-const DEFAULT_WHEEL = ['#2980b9', '#6dd5fa']; // stock flat accent / second slide stop
+const DEFAULT_WHEEL = ['#2573a7', '#6dd5fa']; // stock flat accent / second slide stop
 
 function readCurrent(scope) {
   if (scope === 'board') {

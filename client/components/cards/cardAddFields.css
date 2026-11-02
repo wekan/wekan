@@ -42,7 +42,7 @@
   cursor: pointer;
 }
 .card-settings-pane-collapse:hover,
-.card-settings-pane-collapse:focus-visible { color: #2980b9; }
+.card-settings-pane-collapse:focus-visible { color: #2573a7; }
 .card-settings-pane-title {
   margin: 0;
   font-size: calc(17px * var(--wekan-ui-font-scale, 1));
@@ -151,7 +151,7 @@ body.card-settings-splitting-active {
 .card-settings-inline-collapse:hover,
 .card-settings-inline-collapse:focus-visible,
 .card-settings-inline-menu:hover,
-.card-settings-inline-menu:focus-visible { color: #2980b9; }
+.card-settings-inline-menu:focus-visible { color: #2573a7; }
 /* The section's own checkbox, left of its title: the rows' look. A section
    hidden whole on this side keeps its rows' ticks, drawn faded. */
 .card-settings-section-side { flex: 0 0 auto; }
@@ -175,7 +175,7 @@ body.card-settings-splitting-active {
   text-decoration: none;
 }
 .card-settings-add-custom-field-button:hover,
-.card-settings-add-custom-field-button:focus-visible { background: rgba(0, 0, 0, 0.06); color: #2980b9; }
+.card-settings-add-custom-field-button:focus-visible { background: rgba(0, 0, 0, 0.06); color: #2573a7; }
 /* Collapsed: the items hidden, not removed, so their drag stays bound. */
 .card-settings-inline-section.is-collapsed .card-settings-inline-items,
 .card-settings-inline-section.is-collapsed .card-settings-add-custom-field { display: none; }
@@ -232,7 +232,7 @@ body.card-settings-splitting-active {
 .card-settings-inline-menu.is-open,
 .card-settings-add-custom-field-button.is-open {
   background: rgba(41, 128, 185, 0.15);
-  color: #2980b9;
+  color: #2573a7;
   border-radius: 3px;
 }
 .card-settings-inline-panel {
@@ -274,7 +274,7 @@ body.card-settings-splitting-active {
   padding: 2px 4px;
 }
 .card-settings-inline-panel-close:hover,
-.card-settings-inline-panel-close:focus-visible { color: #2980b9; }
+.card-settings-inline-panel-close:focus-visible { color: #2573a7; }
 .card-settings-section-action-title {
   display: flex;
   align-items: center;

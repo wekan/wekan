@@ -1,5 +1,5 @@
 .js-add-checklist {
-  color: #8c8c8c;
+  color: #595959;
 }
 textarea.js-add-checklist-item,
 textarea.js-edit-checklist-item {
@@ -11,7 +11,7 @@ textarea.js-edit-checklist-item {
 .delete-text,
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {
-  color: #8c8c8c;
+  color: #595959;
   text-decoration: underline;
   word-wrap: break-word;
   float: inline-end;
@@ -139,7 +139,7 @@ textarea.js-edit-checklist-item {
   overflow-wrap: anywhere;
 }
 .checklist-item .item-title.is-checked {
-  color: #8c8c8c;
+  color: #595959;
   font-style: italic;
   text-decoration: line-through;
 }
@@ -167,11 +167,11 @@ textarea.js-edit-checklist-item {
 .checklist-item .checklist-item-due-date-add {
   align-self: center;
   margin-inline-start: 6px;
-  color: #8c8c8c;
+  color: #595959;
   text-decoration: none;
 }
 .checklist-item .checklist-item-due-date-add:hover {
-  color: #2980b9;
+  color: #2573a7;
 }
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {
@@ -235,7 +235,7 @@ textarea.js-edit-checklist-item {
 
 .checklist-title .checklist-collapse:hover,
 .checklist-title .checklist-collapse:focus-visible {
-  color: #2980b9;
+  color: #2573a7;
 }
 
 .checklist-title .checklist-due-date-add {

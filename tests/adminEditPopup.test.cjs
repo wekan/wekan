@@ -98,7 +98,7 @@ test('the popup header follows the active theme', () => {
   assert.ok(/class=themeColorClass/.test(tpl), 'the popup carries the active theme class');
   assert.ok(!/class=currentBoard\.colorClass/.test(tpl),
     'and no longer the board colour alone');
-  assert.ok(/background: var\(--theme-accent, #2980b9\);/.test(css),
+  assert.ok(/background: var\(--theme-accent, #2573a7\);/.test(css),
     'the narrow-window header reads the theme accent, with the stock blue as fallback');
 });
 

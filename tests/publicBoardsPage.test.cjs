@@ -224,7 +224,7 @@ test('a row carries its board colours, like the All Boards tile', () => {
   assert.strictEqual(rowSelectors, listSelectors,
     'every board colour the All Boards tile has must also reach the /public row');
   assert.ok(rowSelectors > 10, `expected the board colours, found ${rowSelectors}`);
-  assert.ok(!/#[0-9a-f]{6}/i.test(css.replace(/#f6f6f6|#999|#fff/gi, '')),
+  assert.ok(!/#[0-9a-f]{6}/i.test(css.replace(/#f6f6f6|#767676|#fff/gi, '')),
     'publicBoards.css must not repeat any board colour hex of its own');
 
   // A board with NO colour matches none of those rules, so without a default the

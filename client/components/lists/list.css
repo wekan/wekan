@@ -470,7 +470,7 @@ form.inlined-form .list-composer {
 
 .list.list-composer .open-list-composer,
 .list .list-composer .open-list-composer {
-  color: #8c8c8c;
+  color: #595959;
 }
 .list.list-composer .list-name-input,
 .list .list-composer .list-name-input {
@@ -534,7 +534,7 @@ form.inlined-form .list-composer {
   padding: 0;
   border-radius: 0;
   background: transparent;
-  color: #8c8c8c;
+  color: #595959;
   font-weight: bold;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   vertical-align: middle;
@@ -722,7 +722,7 @@ form.inlined-form .list-composer {
 }
 
 .list-header .cardCount {
-  color: #8c8c8c;
+  color: #595959;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
 }
@@ -781,7 +781,7 @@ form.inlined-form .list-composer {
 }
 .list-body .open-minicard-composer {
   border-radius: 2px;
-  color: #8c8c8c;
+  color: #595959;
   display: block;
   /* Smaller than a card title, because it is not a card: it is the affordance
      for making one. At the inherited 16px it was the largest text in the list

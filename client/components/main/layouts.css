@@ -378,14 +378,14 @@ h6 {
 }
 .quiet,
 .quiet a {
-  color: #8c8c8c;
+  color: #595959;
 }
 .error,
 .error a {
   color: #eb3800;
 }
 .no-items-message {
-  color: #666;
+  color: #595959;
   margin: 36px 0;
   text-align: center;
 }

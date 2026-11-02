@@ -45,6 +45,16 @@ function syncMarkdownUrlSchemes(setting) {
   return schemes;
 }
 
+// WCAG 4.1.2: a field has a name. The including template passes the KEY of its
+// name (labelKey="comment"), and the editor translates it, as every included
+// template does (tests/jadeInclusionArgsNoMustache.test.cjs).
+Template.editor.helpers({
+  labelText() {
+    const data = Template.currentData() || {};
+    return data.labelKey ? TAPi18n.__(data.labelKey) : null;
+  },
+});
+
 const specialHandles = [
   {userId: 'board_members', username: 'board_members'},
   {userId: 'card_members', username: 'card_members'},

@@ -1096,7 +1096,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .card-details-item-location .card-location-remove {
   margin-inline-start: 8px;
-  color: #8c8c8c;
+  color: #595959;
   cursor: pointer;
 }
 .card-details-item-location .card-location-remove:hover {
@@ -1212,8 +1212,8 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    and Activities - has one rule above it and a caret in its heading that
    collapses it. The rule comes from the same template as the caret, so eleven
    sections cannot end up with ten separators.
-   The heading is a button: it says so to a screen reader (role/tabindex in the
-   template) and it looks like one to a mouse. */
+   The heading holds a real button (cardSectionHeader in the template) that a
+   screen reader and the keyboard reach, and it looks like one to a mouse. */
 /* The GROUP is the full-width row of the card, and the fields inside it share
    rows within it - which is what puts Assignee and Creator beside Members
    rather than under it. The class that made an individual field full width is
@@ -1248,10 +1248,31 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    changes length, so it gets a fixed box. `text-align: center` rather than a
    side, because the glyph itself differs between the open and closed states
    (down, and right or left) and a fixed side would make it jump. */
-.card-details h3.card-details-item-title.js-toggle-card-section > .fa:first-child {
+.card-details h3.card-details-item-title.js-toggle-card-section .card-details-section-toggle > .fa:first-child {
   width: 12px;
   text-align: center;
   flex: 0 0 auto;
+}
+/* The button inside the heading looks like the heading: no button chrome, the
+   heading's own size, weight and colour, the caret, icon and label in a row. */
+.card-details h3.card-details-item-title .card-details-section-toggle {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  text-align: start;
+  width: auto;
+}
+.card-details h3.card-details-item-title .card-details-section-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 .card-details h3.card-details-item-title.js-toggle-card-section:hover {
   opacity: 0.85;

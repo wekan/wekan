@@ -27,8 +27,8 @@
 }
 .ui-font-btn.active,
 .ui-font-size-btn.active {
-  background: #2980b9;
-  border-color: #2980b9;
+  background: #2573a7;
+  border-color: #2573a7;
   color: #fff;
 }
 /* The "Unset" colour reset links look like buttons. */
@@ -155,6 +155,7 @@
 }
 .card-label-green {
   background-color: #3cb500;
+  color: #000;
 }
 .card-label-green:hover {
   color: #000;
@@ -169,6 +170,7 @@
 }
 .card-label-red {
   background-color: #eb4646;
+  color: #000;
 }
 .card-label-purple {
   background-color: #a632db;
@@ -182,6 +184,7 @@
 }
 .card-label-sky {
   background-color: #00c2e0;
+  color: #000;
 }
 .card-label-black {
   background-color: #4d4d4d;
@@ -213,6 +216,7 @@
 }
 .card-label-magenta {
   background-color: #f0f;
+  color: #000;
 }
 .card-label-gold {
   background-color: #ffd700;
@@ -223,6 +227,7 @@
 }
 .card-label-gray {
   background-color: #808080;
+  color: #000;
 }
 .card-label-saddlebrown {
   background-color: #8b4513;

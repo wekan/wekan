@@ -17,7 +17,7 @@
 // parses that stylesheet and fails if the two ever disagree, so a new theme cannot
 // be added in CSS alone and quietly fall back to blue.
 const THEME_ACCENTS = {
-  belize: '#2980b9',
+  belize: '#2573a7',
   nephritis: '#27ae60',
   pomegranate: '#c0392b',
   pumpkin: '#e67e22',

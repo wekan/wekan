@@ -807,7 +807,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
    above pins every row's text to `#000 !important`; the icon is named separately
    for the same reason. */
 .pop-over-list li > a:not(.disabled):hover {
-  background-color: var(--theme-accent, #2980b9);
+  background-color: var(--theme-accent, #2573a7);
   color: #fff !important;
 }
 .pop-over-list li > a:not(.disabled):hover i,
@@ -822,7 +822,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
   background: #fff;
 }
 .pop-over-list li > a .sub-name {
-  color: #8c8c8c;
+  color: #595959;
   display: block;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
@@ -867,7 +867,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
   background-color: #2e85b8;
 }
 .pop-over-list li > a.disabled {
-  color: #8c8c8c;
+  color: #595959;
   cursor: default;
 }
 .pop-over-list li > a.disabled .vis-icon {
@@ -878,7 +878,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
 }
 .pop-over-list li > a.disabled:hover .sub-name,
 .pop-over-list li > a.disabled:hover .quiet {
-  color: #8c8c8c;
+  color: #595959;
 }
 .pop-over-list li > a.disabled:active {
   background: none;
@@ -972,7 +972,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
        user's own theme, the board's colour or the site theme - whichever is in
        force. The fallback is the stock WeKan blue, so an unthemed instance is
        unchanged. */
-    background: var(--theme-accent, #2980b9);
+    background: var(--theme-accent, #2573a7);
     height: calc(48px * var(--wekan-ui-font-scale, 1));
     padding: 0px 0px;
     border: 0px;

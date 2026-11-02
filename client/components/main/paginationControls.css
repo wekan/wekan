@@ -111,7 +111,7 @@
 /* Disabled = the same themed outline, faded. Not a grey block. */
 /* A disabled pager still has to look like the THEME. It is filled with the
    theme colour, and dimming it is what takes the theme back out: at 0.4 the
-   belize blue #2980b9 arrived on the page's grey as rgb(122,170,202), a pale
+   belize blue #2573a7 arrived on the page's grey as rgb(122,170,202), a pale
    wash with no family resemblance to the header above it - and on a one-page
    list, where BOTH arrows are disabled, that is the whole pager.
 

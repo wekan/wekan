@@ -106,6 +106,8 @@ code {
 }
 .list-title {
   background-color: #a9a9a9;
+  /* White on this grey was 2.35; black is 8.94 (WCAG 1.4.3). */
+  color: #000;
 }
 .global-search-footer {
   border: none;

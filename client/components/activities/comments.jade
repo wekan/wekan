@@ -15,7 +15,7 @@ template(name="commentForm")
         a.js-cancel-reply(title="{{_ 'close' }}")
           i.fa.fa-times-thin
     form.js-new-comment-form
-      +editor(class="js-new-comment-input")
+      +editor(class="js-new-comment-input" labelKey="comment")
         | {{getUnsavedValue 'cardComment' currentCard._id}}
       .add-controls
         button.primary.confirm.clear.js-add-comment(type="submit") {{_ 'comment'}}
@@ -40,7 +40,7 @@ template(name="comment")
               = parentComment.text
 
       +inlinedForm(classNames='js-edit-comment')
-        +editor(autofocus=true)
+        +editor(autofocus=true labelKey="comment")
           = text
         .edit-controls
           button.primary(type="submit" title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")

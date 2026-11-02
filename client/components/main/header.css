@@ -17,7 +17,7 @@
 #header {
   color: #fff;
   transition: background-color 0.4s;
-  background: #2980b9;
+  background: #2573a7;
   z-index: 17;
 }
 #header #header-main-bar {
@@ -298,7 +298,7 @@ body:not(.board-view) #header #header-main-bar h1 {
      of colour now, so the header reads as one header. The per-theme rules do
      the same, by naming this bar in the selector list the main bar already has
      (boardColors.css) rather than by restating each hex a second time. */
-  background: #2980b9;
+  background: #2573a7;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   display: flex;
   z-index: 1000;
@@ -745,7 +745,7 @@ body.mobile-mode #header-quick-access .allBoards {
   color: #fff !important;
   /* The active theme, like the rest of the bar; the stock blue where no theme
      has published an accent. */
-  background: var(--theme-accent, #2980b9) !important;
+  background: var(--theme-accent, #2573a7) !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon .fa,

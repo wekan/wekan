@@ -672,6 +672,28 @@ Template.userFormsLayout.onDestroyed(function () {
   this.removeAuthenticationSubmit?.();
 });
 
+// The form's title ("Sign In", "Create an Account") is an h3 of the useraccounts
+// package and the first heading of the page: a level-one heading, whatever the
+// package draws it as (WCAG 1.3.1; axe page-has-heading-one and heading-order).
+// The package redraws the form when the user moves between sign in and register,
+// so the title is marked again whenever the dialog changes.
+Template.userFormsLayout.onRendered(function () {
+  const dialog = this.find('.auth-dialog');
+  if (!dialog) return;
+  const mark = () => {
+    dialog.querySelectorAll('.at-title h1, .at-title h2, .at-title h3').forEach(heading => {
+      if (heading.getAttribute('aria-level') !== '1') heading.setAttribute('aria-level', '1');
+    });
+  };
+  mark();
+  this.titleObserver = new MutationObserver(mark);
+  this.titleObserver.observe(dialog, { childList: true, subtree: true });
+});
+
+Template.userFormsLayout.onDestroyed(function () {
+  if (this.titleObserver) this.titleObserver.disconnect();
+});
+
 function getAuthenticationMethod(
   settings,
   match,

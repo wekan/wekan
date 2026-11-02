@@ -417,14 +417,14 @@ body.swimlane-resizing-active * {
    `outline`, not `border` or `box-shadow`: it is drawn outside the box and so
    moves neither the swimlane's rows nor the list's cards by a pixel. */
 .is-revealed {
-  outline: 3px solid #2980b9;
+  outline: 3px solid #2573a7;
   outline-offset: -3px;
   animation: wekan-reveal-fade 2s ease-out forwards;
 }
 
 @keyframes wekan-reveal-fade {
-  0% { outline-color: #2980b9; }
-  70% { outline-color: #2980b9; }
+  0% { outline-color: #2573a7; }
+  70% { outline-color: #2573a7; }
   100% { outline-color: transparent; }
 }
 

@@ -44,7 +44,9 @@ template(name="header")
           that do the same job. Board admins only - everybody else gets the
           plain title. The `is-editable` class also gives the element a minimum
           width, so a board whose title is EMPTY still has an area to click.
-        span.header-page-title(title="{{headerTitleFullPath}}"
+        //- role="heading" aria-level="1": every page has one level-one heading, and this
+        //- is the page's name (WCAG 1.3.1 / 2.4.6; axe page-has-heading-one).
+        span.header-page-title(title="{{headerTitleFullPath}}" role="heading" aria-level="1"
           class="{{#if canEditBoardTitle}}js-edit-board-title is-editable{{/if}}")
           if headerTitleKey
             | {{_ headerTitleKey}}
@@ -119,7 +121,8 @@ template(name="header")
         //- One GROUP: the two adjacent buttons are about the same thing - how
           many items you have starred, and whether this one is among them.
         .header-star-group.js-header-collapsible-icon
-          a.board-header-btn.js-open-starred-boards(title="{{_ 'allboards.starred'}}")
+          //- aria-label: WCAG 2.5.3 Label in Name - the visible text is the star count.
+          a.board-header-btn.js-open-starred-boards(title="{{_ 'allboards.starred'}}" aria-label="{{starredBoardsCount}} {{_ 'allboards.starred'}}")
             i.fa.fa-caret-down
             span.board-star-counter {{starredBoardsCount}}
 

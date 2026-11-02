@@ -4,7 +4,8 @@ template(name="shortcutsModalTitle")
     | {{_ 'keyboard-shortcuts'}}
 
 template(name="keyboardShortcuts")
-  .wrapper.shortcuts-list
+  //- tabindex: the list scrolls when the window is short, and a scrolling region must be reachable by keyboard (WCAG 2.1.1; axe scrollable-region-focusable).
+  .wrapper.shortcuts-list(tabindex="0" role="region" aria-label="{{_ 'keyboard-shortcuts'}}")
     each mapping
       .shortcuts-list-item
         .shortcuts-list-item-keys

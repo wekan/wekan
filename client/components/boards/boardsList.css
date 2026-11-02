@@ -173,7 +173,7 @@
    crossed it - which is the bug that had to be fixed in the Admin Panel's. */
 .boards-left-menu .menu-item.active a,
 .boards-left-menu .menu-item.active a:hover {
-  background: var(--theme-accent, #2980b9);
+  background: var(--theme-accent, #2573a7);
 }
 /* The Admin Panel puts the selected background on the LI, not the anchor, so
    the fill reaches the row's full width. Here the anchor is what fills, so it
@@ -215,7 +215,7 @@
    docs/Features/Pages/Starred.md */
 .board-list .board-list-item-bookmark .board-list-item {
   border: 4px solid #fff;
-  background: var(--theme-accent, #2980b9);
+  background: var(--theme-accent, #2573a7);
   color: #fff;
   /* Room at the end for the unstar button, which sits over the tile. */
   padding-inline-end: 34px;
@@ -481,7 +481,7 @@
   content: '';
   display: block;
   height: 30px;
-  border: 2px dashed var(--theme-accent, #2980b9);
+  border: 2px dashed var(--theme-accent, #2573a7);
   border-radius: 4px;
   background: rgba(41, 128, 185, 0.08);
   margin: 2px 0;
@@ -694,7 +694,7 @@
    as the pointer crossed it. */
 .workspace-node.active > .workspace-node-content .js-select-space,
 .workspace-node.active > .workspace-node-content:hover .js-select-space {
-  background: var(--theme-accent, #2980b9);
+  background: var(--theme-accent, #2573a7);
 }
 .workspace-node.active > .workspace-node-content .js-select-space,
 .workspace-node.active > .workspace-node-content .js-select-space i {
@@ -1046,7 +1046,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #999; /* Darker background for better text contrast */
+  background-color: #767676; /* Grey with white text: 4.54, above the 4.5 of WCAG 1.4.3 (#999 gave 2.84) */
   border-radius: 3px;
   /* Same total vertical padding as .board-list-item (42px -> same tile height),
      but shifted up (top 24->18, bottom 18->24) so the "+ Add Board" text sits
@@ -1661,7 +1661,7 @@
 
 .js-board {
   display: block;
-  background-color: #999; /* Default gray background if no color class is applied */
+  background-color: #767676; /* Default gray background if no color class is applied */
   border-radius: 3px; /* Rounded corners for board items */
   overflow: hidden; /* Ensure children respect rounded corners */
   margin: 0; /* grid gap spaces the tiles now (#6523) */
@@ -1724,7 +1724,7 @@
    chose, not a colour, and painting over it would be losing something rather
    than calming it down. */
 body.has-theme-board-tiles .board-list > li.js-board {
-  background: var(--theme-accent-fill, var(--theme-accent, #2980b9));
+  background: var(--theme-accent-fill, var(--theme-accent, #2573a7));
 }
 body.has-theme-board-tiles .board-list > li.js-board .board-list-item:not(.has-background-image) {
   background-color: transparent;

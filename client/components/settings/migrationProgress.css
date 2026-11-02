@@ -36,8 +36,8 @@
 }
 
 .migration-progress-header {
-  /* WeKan blue (matches the main header #2980b9) */
-  background: linear-gradient(135deg, #2980b9 0%, #1a5276 100%);
+  /* WeKan blue (matches the main header #2573a7) */
+  background: linear-gradient(135deg, #2573a7 0%, #1a5276 100%);
   color: white;
   padding: 20px;
   display: flex;
@@ -87,7 +87,7 @@
 
 .migration-progress-overall-fill {
   /* WeKan blue */
-  background: linear-gradient(90deg, #2980b9, #3498db);
+  background: linear-gradient(90deg, #2573a7, #3498db);
   height: 100%;
   border-radius: 10px;
   transition: width 0.3s ease;
@@ -138,7 +138,7 @@
 
 .migration-progress-step-fill {
   /* WeKan blue */
-  background: linear-gradient(90deg, #3498db, #2980b9);
+  background: linear-gradient(90deg, #3498db, #2573a7);
   height: 100%;
   border-radius: 8px;
   transition: width 0.3s ease;
@@ -156,7 +156,7 @@
   padding: 15px;
   background: #f8f9fa;
   border-radius: 6px;
-  border-inline-start: 4px solid #2980b9;
+  border-inline-start: 4px solid #2573a7;
 }
 
 .migration-progress-status-label {

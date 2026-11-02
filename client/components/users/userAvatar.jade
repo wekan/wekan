@@ -1,5 +1,7 @@
 template(name="userAvatar")
-  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}} {{memberAccountClass}}" title="{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{#if isImportedMember}} — {{_ 'imported-member-no-account'}}{{else}}{{#if isInactiveMember}} — {{_ 'inactive-member'}}{{/if}}{{/if}}{{/if}}")
+  //- WCAG 2.5.3 Label in Name: the visible text of an initials avatar is its initials,
+  //- so the accessible name starts with them (initialsInName). A picture has no text.
+  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}} {{memberAccountClass}}" title="{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{#if isImportedMember}} — {{_ 'imported-member-no-account'}}{{else}}{{#if isInactiveMember}} — {{_ 'inactive-member'}}{{/if}}{{/if}}{{/if}}" aria-label="{{initialsInName}}{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{#if isImportedMember}} — {{_ 'imported-member-no-account'}}{{else}}{{#if isInactiveMember}} — {{_ 'inactive-member'}}{{/if}}{{/if}}{{/if}}")
     if userData
       if userData.profile.avatarUrl
         img.avatar.avatar-image(src="{{avatarUrl}}" alt="")

@@ -97,7 +97,7 @@ test('the rule and the caret come from ONE template', () => {
   const header = jade.slice(jade.indexOf('template(name="cardSectionHeader")'));
   assert.ok(/hr\.card-details-section-rule/.test(header.slice(0, 400)),
     'the separator is part of the header');
-  assert.ok(/js-toggle-card-section/.test(header.slice(0, 600)), 'and so is the toggle');
+  assert.ok(/js-toggle-card-section/.test(header.slice(0, 1400)), 'and so is the toggle');
   // Which is what stops a section from having a rule and no caret, or two rules.
   const headers = (jade.match(/\+cardSectionHeader\(section=/g) || []).length;
   assert.ok(headers >= SECTIONS.length,
@@ -127,9 +127,14 @@ test('the caret mirrors in RTL, and only when closed', () => {
 
 test('the heading is operable by keyboard, not only by mouse', () => {
   const header = jade.slice(jade.indexOf('template(name="cardSectionHeader")'));
-  assert.ok(/role="button"/.test(header.slice(0, 600)) && /tabindex="0"/.test(header.slice(0, 600)),
-    'it announces itself as a button and can be focused');
-  assert.ok(/'keydown \.js-toggle-card-section'/.test(js), 'and Enter/Space toggle it');
+  // The heading holds a real button (the WAI disclosure pattern): Enter and Space
+  // are its own, a screen reader gets its name and its state, and the controls of
+  // the heading are beside it, not inside it (WCAG 4.1.2). A click anywhere on the
+  // heading still folds the section: the handler is on the h3.
+  assert.ok(/button\.card-details-section-toggle\(type="button" aria-expanded=/.test(header.slice(0, 1800)),
+    'a button inside the heading, saying whether the section is open');
+  assert.ok(!/role="button"/.test(header.slice(0, 1800)), 'and no heading posing as a button');
+  assert.ok(/'click \.js-toggle-card-section'/.test(js), 'the heading folds the section');
   assert.ok(/cursor: pointer/.test(css), 'while a mouse sees a button too');
 });
 

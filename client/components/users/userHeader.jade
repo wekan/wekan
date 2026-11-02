@@ -1,6 +1,8 @@
 template(name="headerUserBar")
   #header-user-bar
-    a.header-user-bar-name.js-open-header-member-menu(title="{{_ 'memberMenuPopup-title'}}")
+    //- aria-label: WCAG 2.5.3 Label in Name - the name shown (and the initials of the
+    //- avatar) are part of the accessible name, followed by what the link opens.
+    a.header-user-bar-name.js-open-header-member-menu(title="{{_ 'memberMenuPopup-title'}}" aria-label="{{userBarLabel}}")
       .header-user-bar-avatar
         +userAvatar(userId=currentUser._id)
       unless isMiniScreen

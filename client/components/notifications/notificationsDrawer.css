@@ -22,7 +22,7 @@ section#notifications-drawer {
   padding-top: 36px;
 }
 section#notifications-drawer a:hover {
-  color: #2980b9 !important;
+  color: #2573a7 !important;
 }
 section#notifications-drawer .header {
   position: fixed;
@@ -47,7 +47,7 @@ section#notifications-drawer .header .notification-menu-toggle {
   line-height: calc(24px * var(--wekan-ui-font-scale, 1));
 }
 section#notifications-drawer .header .notification-menu-toggle:hover {
-  color: #2980b9;
+  color: #2573a7;
 }
 section#notifications-drawer .header .notification-menu {
   position: absolute;
@@ -90,7 +90,7 @@ section#notifications-drawer .header .notification-menu .menu-item .check-icon {
   min-width: 20px;
   margin-inline-end: 8px;
   text-align: center;
-  color: #2980b9;
+  color: #2573a7;
   font-weight: bold;
 }
 section#notifications-drawer .header .notification-menu .menu-item .menu-icon {

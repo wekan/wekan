@@ -77,7 +77,7 @@ test('a date that is not one of the 28 is refused', () => {
 
 test('the buttons look like the rest of the Admin Panel', () => {
   const active = css.slice(css.indexOf('.setting-content .schedule-day-btn.active {'));
-  assert.ok(/background: var\(--theme-accent, #2980b9\);/.test(active.slice(0, 200)),
+  assert.ok(/background: var\(--theme-accent, #2573a7\);/.test(active.slice(0, 200)),
     'the chosen one is filled with the theme colour, like the selected menu entry');
   const row = css.slice(css.indexOf('.setting-content .schedule-day-buttons {'));
   assert.ok(/flex-wrap: wrap;/.test(row.slice(0, 200)),

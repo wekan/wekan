@@ -102,7 +102,7 @@ test('the preference reaches the page as a body class', () => {
 test('tiles take the THEME accent itself - not a hard-coded colour', () => {
   const rule = boardsCss.slice(boardsCss.indexOf('body.has-theme-board-tiles .board-list > li.js-board {'));
   const block = rule.slice(0, rule.indexOf('}'));
-  assert.ok(/var\(--theme-accent-fill, var\(--theme-accent, #2980b9\)\)/.test(block),
+  assert.ok(/var\(--theme-accent-fill, var\(--theme-accent, #2573a7\)\)/.test(block),
     'the theme\'s own FILL - its slide where it has one, its accent where it does '
     + 'not - falling back to the WeKan header blue');
   // It used to be that accent under a flat white veil, one shade up. That made
@@ -110,7 +110,7 @@ test('tiles take the THEME accent itself - not a hard-coded colour', () => {
   // menu, and two shades of one accent on one page read as two colours.
   assert.ok(!/rgba\(255, 255, 255, 0\.22\)/.test(block), 'with no veil over it');
   const menu = boardsCss.slice(boardsCss.indexOf('.boards-left-menu .menu-item.active a,'));
-  assert.ok(/background: var\(--theme-accent, #2980b9\)/.test(menu.slice(0, menu.indexOf('}'))),
+  assert.ok(/background: var\(--theme-accent, #2573a7\)/.test(menu.slice(0, menu.indexOf('}'))),
     'so a tile is the same colour as the selected row in the left menu');
   assert.ok(/^\s*background: var/m.test(block),
     'set with the shorthand, so a slide theme\'s own gradient on the tile is '
@@ -127,7 +127,7 @@ test("the popup's own \"All Boards\" button is filled the same way", () => {
   const custom = read('client/components/main/customTheme.css');
   const at = custom.indexOf('.theme-color-picker ul.pop-over-list.theme-scope-row > li.active > a,');
   assert.ok(at > 0, 'the active scope button is styled');
-  assert.ok(/background: var\(--theme-accent-fill, var\(--theme-accent, #2980b9\)\)/
+  assert.ok(/background: var\(--theme-accent-fill, var\(--theme-accent, #2573a7\)\)/
     .test(custom.slice(at, custom.indexOf('}', at))), 'from the theme fill');
 });
 
@@ -156,7 +156,7 @@ test('boards keep their own colours when it is off (negative)', () => {
 test('a highlighted popup row looks like the selected left-menu row', () => {
   const hover = popupCss.slice(popupCss.indexOf('.pop-over-list li > a:not(.disabled):hover {'));
   const block = hover.slice(0, hover.indexOf('}'));
-  assert.ok(/var\(--theme-accent, #2980b9\)/.test(block),
+  assert.ok(/var\(--theme-accent, #2573a7\)/.test(block),
     'the theme accent, not the fixed #005377 that appeared nowhere else');
   assert.ok(!/#005377/.test(block), 'and the navy is gone (negative)');
   assert.ok(/color: #fff !important/.test(block),
@@ -170,7 +170,7 @@ test('the left menu it matches still uses the same fill', () => {
   // If the menu ever changes, this test is where the two are supposed to be
   // brought back together.
   const menu = boardsCss.slice(boardsCss.indexOf('.boards-left-menu .menu-item.active a,'));
-  assert.ok(/background: var\(--theme-accent, #2980b9\)/.test(menu.slice(0, 400)));
+  assert.ok(/background: var\(--theme-accent, #2573a7\)/.test(menu.slice(0, 400)));
 });
 
 console.log(`\nallBoardsThemeTiles: ${passed} tests passed`);

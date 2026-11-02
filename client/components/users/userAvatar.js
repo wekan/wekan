@@ -45,6 +45,18 @@ const AVATAR_USER_FIELDS = {
 };
 
 Template.userAvatar.helpers({
+  // WCAG 2.5.3 Label in Name: an avatar drawn as initials shows those letters as
+  // text, so the link's accessible name has to contain them. The name is the
+  // initials followed by the title, "AB Ann Brown (ann) Admin". A picture shows
+  // no text, so its name stays the title.
+  initialsInName() {
+    const user = ReactiveCache.getUser(this.userId, { fields: AVATAR_USER_FIELDS });
+    if (user && user.profile && user.profile.avatarUrl) return '';
+    const defaultAvatar = Template.userAvatar.__helpers.get('defaultAvatarUrl');
+    if (user && defaultAvatar && defaultAvatar.call(this)) return '';
+    const initials = (user && user.getInitials && user.getInitials()) || '';
+    return initials ? `${initials} ` : '';
+  },
   defaultAvatarUrl() {
     if (!(Meteor.settings.public && Meteor.settings.public.defaultAvatar)) return '';
     const userId = this.userId;

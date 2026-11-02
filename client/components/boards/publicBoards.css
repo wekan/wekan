@@ -23,9 +23,9 @@
  * so the row keeps the table's white background: with the light text below that
  * is white on white, and only the row's emoji was visible. The All Boards tile
  * has the same problem and solves it the same way — `.board-list-item` falls
- * back to a grey (#999) so its white text always has something to sit on. */
+ * back to a grey (#767676) so its white text always has something to sit on. */
 .public-board-row {
-  background-color: #999;
+  background-color: #767676;
   background-size: cover;
   background-position: center;
   cursor: pointer;

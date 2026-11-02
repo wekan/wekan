@@ -36,7 +36,10 @@
 }
 
 .board-color-belize {
-  --board-theme-accent: #2980b9;
+  /* The default theme. The earlier blue #2980b9 gave the header's white text a ratio of 4.30 and
+     its #f2f2f2 button labels 3.84, below the 4.5 WCAG 2.1 AA (1.4.3) asks of
+     small text; this blue keeps the hue and gives 5.14 and 4.59. */
+  --board-theme-accent: #2573a7;
   --board-theme-dark: #216694;
   --board-theme-hover: #2e90d0;
   --board-theme-emphasis: #b96229;
@@ -47,7 +50,7 @@
   --board-theme-selected-hover-bg: #f8fbfd;
   --board-theme-bright: #459cd6;
   --board-theme-canvas-scrollbar: #2573a7f2;
-  --board-theme-sidebar-scrollbar: #2980b9f2;
+  --board-theme-sidebar-scrollbar: #2573a7f2;
 }
 
 .board-color-wisteria {

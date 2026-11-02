@@ -12,6 +12,19 @@ import { detectAvailableFonts } from '/client/lib/fontDetector';
 import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES, isHexColor6, colorValue } from '/models/lib/uiFonts';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 
+// WCAG 2.5.3 Label in Name: the link shows the avatar's initials (when the avatar
+// is not a picture) and the name, so its accessible name starts with exactly
+// those, followed by what it opens.
+Template.headerUserBar.helpers({
+  userBarLabel() {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return TAPi18n.__('memberMenuPopup-title');
+    const initials = Template.userAvatar.__helpers.get('initialsInName').call({ userId: user._id });
+    const name = (user.profile && user.profile.fullname) || user.username || '';
+    return `${initials}${name} ${TAPi18n.__('memberMenuPopup-title')}`.replace(/\s+/g, ' ').trim();
+  },
+});
+
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
