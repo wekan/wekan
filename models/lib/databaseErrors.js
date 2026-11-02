@@ -19,7 +19,14 @@ const DATABASES = ['mongodb', 'sqlite', 'postgresql', 'mysql', 'mariadb', 'hana'
 // `act` is the thing WeKan can do BY ITSELF when it sees this - and only where
 // doing it is obviously right. Everything else is advice, because a database
 // that is out of disk is not something an application should "handle".
-const CONNECTION_LOST = /connection refused|ECONNREFUSED|server closed the connection|connection reset by peer|Topology is closed|no reachable servers|Socket '\w+' timed out|MongoNetworkTimeoutError|MongoNetworkError|Server selection timed out|MongoServerSelectionError|PoolClearedError|NotWritablePrimary|NotPrimaryNoSecondaryOk|NotPrimaryOrSecondary|not primary(?! key)/i;
+// "Connection pool for <host> was cleared" is the PoolClearedError's own text. A
+// wrapper (collection2's "ValidationError: Failed validation ...") carries the
+// text without the class name, and <host> is a replica set member's name from
+// the set's own configuration (wekan-mongodb-0.wekan-mongodb-internal in a
+// Kubernetes StatefulSet), which MONGO_URL does not list - so the
+// "getaddrinfo ENOTFOUND" behind it was not the database's either, and the
+// schema rule matched (#6860).
+const CONNECTION_LOST = /connection refused|ECONNREFUSED|server closed the connection|connection reset by peer|Topology is closed|no reachable servers|Socket '\w+' timed out|MongoNetworkTimeoutError|MongoNetworkError|Server selection timed out|MongoServerSelectionError|PoolClearedError|Connection pool for \S+ was cleared|NotWritablePrimary|NotPrimaryNoSecondaryOk|NotPrimaryOrSecondary|not primary(?! key)/i;
 
 // The hosts of a MongoDB connection string - mongodb://user:pw@a:27017,b/db or
 // mongodb+srv://host/db - lower case, without ports.

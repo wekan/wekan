@@ -71,4 +71,13 @@ test('the server reads the keys in use once, and writes only where there is stil
   assert.match(server, /\$regex: `\^\$\{escapeRegExp\(prefix\)\}`/);
 });
 
+test('#6860: the board key backfill finds boards without a key from the key index, not with a scan', () => {
+  const src = read('server/boardKeys.js');
+  const fn = src.slice(src.indexOf('async function backfillKeys'), src.indexOf('async function backfillKeys') + 1600);
+  assert.ok(/const missingSelector = \{ key: \{ \$in: \[null, ''\] \} \};/.test(fn), 'one $in on key');
+  // negative, anywhere in the file: no $exists: false branch on key
+  assert.ok(!/key: \{ \$exists: false \}/.test(src), 'no exists-false branch');
+  assert.ok(/filter: \{ _id, \.\.\.missingSelector \}/.test(fn), 'the same selector guards the writes');
+});
+
 console.log(`# ${passed} passed`);

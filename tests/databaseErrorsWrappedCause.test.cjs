@@ -42,6 +42,20 @@ test('the reported heartbeat error is a lost connection, and the guards treat it
   for (const { file, isTransient } of guards) assert.strictEqual(isTransient(new Error(REPORTED)), true, file);
 });
 
+test('#6860: a cleared pool behind collection2\'s wrapper, with a replica set member host, is a lost connection', () => {
+  const REPORTED_POOL = "Exception while invoking method 'usersHeartbeat' ValidationError: Failed validation Connection pool for "
+    + 'wekan-mongodb-0.wekan-mongodb-internal.wekan.svc.cluster.local:27017 was cleared because another operation failed with: '
+    + '"getaddrinfo ENOTFOUND wekan-mongodb-0.wekan-mongodb-internal.wekan.svc.cluster.local"';
+  // databaseHosts names the service only, as MONGO_URL does in a StatefulSet
+  const r = classify(REPORTED_POOL, { databaseHosts: ['wekan-mongodb'] });
+  assert.strictEqual(r.id, 'connection-lost');
+  for (const { file, isTransient } of guards) assert.strictEqual(isTransient(new Error(REPORTED_POOL)), true, file);
+  // negative: a message about a pool SETTING is not a lost connection
+  for (const message of ['connection pool size must be a number', 'maxPoolSize is not allowed', 'Connection pool for the report was archived']) {
+    assert.notStrictEqual(classify(message).id, 'connection-lost', message);
+  }
+});
+
 test("the MongoDB driver's own connection errors are recognised", () => {
   for (const message of [
     "MongoNetworkTimeoutError: Socket 'connect' timed out after 30000ms",

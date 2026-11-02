@@ -52,7 +52,11 @@ function assignKey(boardId) {
 // 32,500 boards, hours of slow queries.
 async function backfillKeys() {
   return serial(async () => {
-    const missingSelector = { $or: [{ key: { $exists: false } }, { key: null }, { key: '' }] };
+    // `key: null` also matches a board without the field, so one $in on the `key`
+    // index finds them all. The $or with an exists-false branch read every board,
+    // at every start of every server (#6860). The same selector guards the
+    // writes, so a key a board admin set meanwhile is never replaced.
+    const missingSelector = { key: { $in: [null, ''] } };
     const missing = await Boards.rawCollection().find(missingSelector, { projection: { title: 1 } }).toArray();
     if (!missing.length) return 0;
     const plan = planBoardKeys(missing, await takenKeys(null, ''));
