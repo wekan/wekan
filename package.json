@@ -49,6 +49,7 @@
     "chai-as-promised": "^8.0.2",
     "css-loader": "^7.1.4",
     "enhanced-resolve": "5.26.0",
+    "minimatch": "^11.0.1",
     "mongodb": "^7.7.0",
     "puppeteer": "^25.15.0",
     "sinon": "^22.1.0",
@@ -130,6 +131,15 @@
     "elliptic": "^6.6.1",
     "archiver-utils": {
       "glob": "$glob"
+    },
+    "readdir-glob": {
+      "minimatch": "^11.0.1"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    },
+    "@babel/cli": {
+      "minimatch": "^11.0.1"
     },
     "uuid": "^14.0.0",
     "webpack-dev-server": "^5.2.6",
