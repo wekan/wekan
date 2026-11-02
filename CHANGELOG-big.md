@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.82 2026-11-02 WeKan ® release
 
 **In short:** A card moved to another board, restored from the archive or given
 a number no longer takes a **card number** another card on that board has.

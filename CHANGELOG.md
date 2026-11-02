@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.82 2026-11-02 WeKan ® release
 
 A card moved to another board, restored from the archive or given
 a number no longer takes a **card number** another card on that board has.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.82](CHANGELOG-big.md#v1282-2026-11-02-wekan--release)
 
 # v12.81 2026-11-02 WeKan ® release
 
@@ -49,10 +49,3 @@ and **continuous backup** no longer misses a change made right after it starts.
 a way back to the board.
 
 [All changes in v12.78](CHANGELOG-big.md#v1278-2026-11-02-wekan--release)
-
-# v12.77 2026-10-31 WeKan ® release
-
-Two **node test guards** follow the movable popups and the date
-picker of v12.76.
-
-[All changes in v12.77](CHANGELOG-big.md#v1277-2026-10-31-wekan--release)
