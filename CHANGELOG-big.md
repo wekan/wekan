@@ -124,6 +124,36 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **database health** probe reports a finding once, not once
+per server.
+
+This release fixes the following bugs:
+
+**Database health** - the probe behind Admin Panel -> Problems -> Database.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/114e9ecd5a">One server probes the database per period, so a finding is reported once</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6857](https://github.com/wekan/wekan/issues/6857). Every server read the
+same MongoDB log and counters every five minutes and recorded each finding
+itself, so one collection scan became up to 24 identical rows with 24
+replicas - more than 400 warnings over 68 pages in the report. A probe now
+claims the period in one shared document (collection databaseHealthProbe);
+only the server that gets it probes, a duplicate key means another server has
+it. The state that compares one probe with the next - log lines seen, the
+scanned-documents counter, uptime, restarts, latencies - lives in that
+document, so the next probe on whichever server continues where the last one
+stopped. A server without the claim still checks its own data directory, and
+a claim that cannot be made at all does not stop the probe.
+`tests/databaseHealthProbeClaim.test.cjs` pins the claim, the shared state
+and that each finding is reported once.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.80 2026-11-02 WeKan ® release
 
 **In short:** **minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a

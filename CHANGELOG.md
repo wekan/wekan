@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **database health** probe reports a finding once, not once
+per server.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.80 2026-11-02 WeKan ® release
 
 **minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a
