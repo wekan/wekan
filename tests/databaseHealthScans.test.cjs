@@ -44,7 +44,7 @@ test('big collection scans are grouped by collection and filter fields', () => {
   assert.strictEqual(newestMs, Date.parse('2026-10-27T18:56:05.000+00:00'));
   const p = h.collectionScanProblem(groups);
   assert.strictEqual(p.type, 'db.collection-scan');
-  assert.match(p.detail, /wekan\.cards \(filter on archived,recurrenceInterval: 1x, up to 1108017 documents, 1155 ms\)/);
+  assert.match(p.detail, /wekan\.cards \(filter on archived,recurrenceInterval: 1x, up to 1108017 documents, 1155 ms; find archived:\$ne,recurrenceInterval:\$exists\)/);
 });
 
 test('negative: the values a query filtered on never reach the problem row', () => {
@@ -68,6 +68,23 @@ test('the filter is found in find, findAndModify, aggregate, update and delete c
   assert.strictEqual(scan({ update: 'x', updates: [{ q: { d: 1 }, u: {} }] }), 'd');
   assert.strictEqual(scan({ delete: 'x', deletes: [{ q: { e: 1 } }] }), 'e');
   assert.strictEqual(scan({ count: 'x' }), '');
+});
+
+test('the problem row names the command, the operators and the queryHash, never a value', () => {
+  const groups = h.collectionScans([line('2026-10-29T08:00:00.000+00:00', { ns: 'wekan.cards', planSummary: 'COLLSCAN',
+    docsExamined: 1108757, durationMillis: 1416, queryHash: '8E2A1F0C',
+    command: { find: 'cards', filter: { sort: { $type: 'number' }, $nor: [{ sort: { $gte: -1, $lte: 1 } }] }, $db: 'wekan' } })], 0).groups;
+  const p = h.collectionScanProblem(groups);
+  assert.match(p.detail, /find \$nor\[sort:\$gte\$lte\],sort:\$type, queryHash 8E2A1F0C\)/);
+  assert.strictEqual(h.queryShape({ userId: SECRET, archived: { $in: [SECRET] } }), 'archived:$in,userId:=');
+  assert.ok(!h.queryShape({ $or: [{ a: SECRET }, { b: { $exists: true } }] }).includes(SECRET));
+});
+
+test('a slow getMore is reported with the filter of the query it continues', () => {
+  const groups = h.collectionScans([line('2026-10-29T08:00:00.000+00:00', { ns: 'wekan.swimlanes', planSummary: 'COLLSCAN',
+    docsExamined: 178606, durationMillis: 146, command: { getMore: 123, collection: 'swimlanes' },
+    originatingCommand: { find: 'swimlanes', filter: { archived: { $exists: false } } } })], 0).groups;
+  assert.deepStrictEqual(groups.map(g => [g.fields, g.op, g.shape]), [['archived', 'find', 'archived:$exists']]);
 });
 
 test('documents read per second between two probes', () => {

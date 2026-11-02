@@ -211,6 +211,31 @@ const SCAN_RATE_PER_SEC = 50000;
 const fieldShape = filter => (filter && typeof filter === 'object' && !Array.isArray(filter)
   ? Object.keys(filter).sort().join(',') : '');
 
+// The query's shape: each field with the operators used on it, never a value
+// ({archived: {$exists: false}} -> "archived:$exists", {a: 'x'} -> "a:=").
+// $or / $nor / $and list their branches, so two queries on the same fields
+// that need different indexes can be told apart.
+function queryShape(filter, depth = 0) {
+  if (!filter || typeof filter !== 'object' || Array.isArray(filter) || depth > 3) return '';
+  return Object.keys(filter).sort().map(key => {
+    const value = filter[key];
+    if (/^\$(or|nor|and)$/.test(key) && Array.isArray(value)) {
+      return `${key}[${value.map(branch => queryShape(branch, depth + 1)).join('|')}]`;
+    }
+    const ops = value && typeof value === 'object' && !Array.isArray(value)
+      ? Object.keys(value).filter(k => k.startsWith('$')).sort() : [];
+    return `${key}:${ops.length ? ops.join('') : '='}`;
+  }).join(',');
+}
+
+// The command a slow getMore continues is in originatingCommand: without it a
+// cursor that scans in batches showed as "filter on nothing".
+const originOf = attr => {
+  const cmd = (attr && attr.command) || {};
+  return cmd.getMore !== undefined && attr.originatingCommand ? attr.originatingCommand : cmd;
+};
+const commandName = cmd => Object.keys(cmd || {}).find(k => !k.startsWith('$') && k !== 'lsid') || '';
+
 function slowQueryFilter(command) {
   const cmd = command || {};
   const first = list => (Array.isArray(list) && list[0]) || null;
@@ -236,9 +261,12 @@ function collectionScans(logLines, sinceMs = 0) {
     const a = entry.msg === 'Slow query' && entry.attr;
     if (!a || typeof a.ns !== 'string' || /^(local|config|admin)\./.test(a.ns)) continue;
     if (!/COLLSCAN/.test(String(a.planSummary || '')) || !(Number(a.docsExamined) >= SCAN_MIN_DOCS)) continue;
-    const fields = fieldShape(slowQueryFilter(a.command));
+    const command = originOf(a);
+    const filter = slowQueryFilter(command);
+    const fields = fieldShape(filter);
     const key = `${a.ns}|${fields}`;
-    const g = groups.get(key) || { ns: a.ns, fields, count: 0, maxDocs: 0, maxMs: 0 };
+    const g = groups.get(key) || { ns: a.ns, fields, count: 0, maxDocs: 0, maxMs: 0,
+      op: commandName(command), shape: queryShape(filter), queryHash: String(a.queryHash || a.planCacheShapeHash || '') };
     g.count += 1;
     g.maxDocs = Math.max(g.maxDocs, Number(a.docsExamined) || 0);
     g.maxMs = Math.max(g.maxMs, Number(a.durationMillis) || 0);
@@ -249,7 +277,8 @@ function collectionScans(logLines, sinceMs = 0) {
 
 function collectionScanProblem(groups) {
   const list = (groups || []).slice(0, 3).map(g => `${g.ns} (filter on ${g.fields || 'nothing'}: `
-    + `${g.count}x, up to ${g.maxDocs} documents, ${g.maxMs} ms)`).join('; ');
+    + `${g.count}x, up to ${g.maxDocs} documents, ${g.maxMs} ms`
+    + `${g.op ? `; ${g.op}` : ''}${g.shape ? ` ${g.shape}` : ''}${g.queryHash ? `, queryHash ${g.queryHash}` : ''})`).join('; ');
   return {
     type: 'db.collection-scan',
     kind: 'index',
@@ -306,6 +335,7 @@ module.exports = {
   SCAN_RATE_PER_SEC,
   collectionScans,
   collectionScanProblem,
+  queryShape,
   scanRate,
   scanRateProblem,
 };
