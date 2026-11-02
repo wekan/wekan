@@ -39,9 +39,7 @@ template(name="calendarDateInput")
                         button.primary.js-calendar-day(type="button" class="{{#if today}}is-today{{/if}}" data-date=iso title=title aria-label=title aria-pressed=selected aria-current=ariaCurrent tabindex=tabIndex) {{label}}
         //- #6853: any year, month and day by a pick, under the calendar.
         .selected-calendar-selects
-          select.js-calendar-year(aria-label="{{_ 'predicate-year'}}")
-            each yearOptions
-              option(value=value selected=selected) {{label}}
+          input.js-calendar-year(type="number" step="1" inputmode="numeric" value=yearValue aria-label="{{_ 'predicate-year'}}")
           select.js-calendar-month(aria-label="{{_ 'month'}}")
             each monthOptions
               option(value=value selected=selected) {{label}}

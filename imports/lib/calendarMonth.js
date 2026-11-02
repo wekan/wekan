@@ -82,28 +82,41 @@ function shiftCalendarYear(date, direction, calendar) {
   return sameDayInYear(date, next.start, calendar);
 }
 
-// #6853: every year a year drop-down offers, `span` years either side of
-// `date`, found in the calendar itself. A step of 300 days is shorter than any
-// year of any calendar (the shortest, the Islamic one, has 354 days), so no
-// year is skipped, and nothing is computed from an assumed year length.
-// `era` is set only when the list holds more than one (Japanese, ROC), since a
-// lone "AD" or "AP" would only be noise.
-function calendarYearOptions(date, calendar, span = 100) {
-  const found = new Map();
-  const last = shiftedDay(date, Math.round(span * 366));
-  for (let day = shiftedDay(date, -Math.round(span * 366)); day <= last; day = shiftedDay(day, 300)) {
-    const parts = nativeCalendarParts(day, calendar);
-    const key = `${parts.era || ''}|${parts.year}`;
-    if (!found.has(key)) found.set(key, { key, year: parts.year, era: parts.era || '', date: day });
-  }
-  const options = [...found.values()];
-  const showEra = new Set(options.map(option => option.era)).size > 1;
-  const current = calendarYearKey(date, calendar);
-  return options.map(option => ({
-    ...option,
-    label: showEra && option.era ? `${option.year} ${option.era}` : String(option.year),
-    selected: option.key === current,
-  }));
+// #6853: the year as a person counts it in this calendar, as a whole number
+// that may be zero or negative: 2026, then 1 for the first year of the era,
+// then 0 for the year before it (1 BC), -1 for 2 BC - so that any year, ancient
+// or far ahead, is one number to type or to step to. null when the calendar or
+// the date is unsupported.
+const BEFORE_ERA = /^(BC|BCE|BH|ERA0|Before)/i;
+function calendarSignedYear(date, calendar) {
+  const parts = nativeCalendarParts(date, calendar);
+  const year = parts && Number(parts.year);
+  if (!Number.isFinite(year)) return null;
+  return BEFORE_ERA.test(parts.era || '') ? 1 - year : year;
+}
+
+// A day in the year `target` (a signed year, see above) of the calendar, the
+// same day of the year as `date` has in its own year, or null when no such day
+// can be represented (a JavaScript date reaches about 275,000 years either
+// side of 1970). The year is not walked to: each step moves by the number of
+// years still missing times the mean year, which closes in within a handful of
+// steps even for a lunar calendar, whose year is 11 days shorter. That keeps a
+// jump of several thousand years as cheap as a jump of one.
+const MEAN_YEAR_DAYS = 365.2425;
+function dateInCalendarYear(date, target, calendar) {
+  if (!Number.isInteger(target)) return null;
+  try {
+    let guess = shiftedDay(date, 0);
+    for (let step = 0; step < 40; step += 1) {
+      const year = calendarSignedYear(guess, calendar);
+      if (year === null) return null;
+      if (year === target) return sameDayInYear(date, guess, calendar);
+      const next = shiftedDay(guess, Math.round((target - year) * MEAN_YEAR_DAYS) || (target > year ? 1 : -1));
+      if (Number.isNaN(next.getTime())) return null;
+      guess = next;
+    }
+  } catch (error) { /* out of the range a Date can hold */ }
+  return null;
 }
 
 // The months of the calendar year that holds `date`, each with its first day
@@ -130,5 +143,5 @@ function sameDayInMonth(date, monthStart, calendar) {
 
 module.exports = {
   calendarMonthRange, calendarMonthDays, shiftedDay, shiftCalendarMonth, shiftCalendarYear,
-  calendarYearRange, calendarYearOptions, calendarYearMonths, sameDayInYear, sameDayInMonth,
+  calendarYearRange, calendarSignedYear, dateInCalendarYear, calendarYearMonths, sameDayInYear, sameDayInMonth,
 };

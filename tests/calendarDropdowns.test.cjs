@@ -16,18 +16,25 @@ const day = (date, calendar) => Number(nativeCalendarParts(date, calendar).day);
 
 for (const calendar of ['gregory', 'persian', 'hebrew', 'islamic', 'japanese', 'chinese', 'roc', 'buddhist', 'coptic', 'ethiopic']) {
   const date = noon(2026, 10, 2);
-  const years = months.calendarYearOptions(date, calendar);
-  assert.ok(years.length >= 190, `${calendar}: about 100 years each side`);
-  assert.equal(new Set(years.map(y => y.key)).size, years.length, `${calendar}: no year twice`);
-  assert.equal(years.filter(y => y.selected).length, 1, `${calendar}: the shown year is selected`);
-  const at = years.findIndex(y => y.selected);
-  assert.ok(at > 80 && at < years.length - 80, `${calendar}: past and future years both offered`);
-  for (let i = 1; i < years.length; i += 1) assert.ok(years[i].date > years[i - 1].date, `${calendar}: ascending`);
-  // A pick lands in the year it names, on the same day of the year.
-  for (const option of [years[0], years[at - 1], years[at + 1], years[years.length - 1]]) {
-    const target = months.sameDayInYear(date, option.date, calendar);
-    const parts = nativeCalendarParts(target, calendar);
-    assert.equal(`${parts.era || ''}|${parts.year}`, option.key, `${calendar}: ${option.label}`);
+  // Any year, near or far, past or future, by its number: it lands in that
+  // year, on the same day of the year.
+  assert.notEqual(months.calendarSignedYear(date, calendar), null, calendar);
+  for (const year of [1, 0, -3000, 1500, 3000, 5000, 12000, ...(calendar === "gregory" ? [100000, 270000] : [])]) {
+    const target = months.dateInCalendarYear(date, year, calendar);
+    // Some calendars have no year before their era that a number can name (ROC,
+    // Coptic, Ethiopic switch eras there; Japanese eras restart their count):
+    // for them the year is refused, never guessed.
+    const eraBound = ['roc', 'coptic', 'ethiopic', 'ethioaa'].includes(calendar) && year <= 1;
+    if (eraBound || (calendar === 'japanese' && year >= 0 && year < 10)) {
+      if (target) assert.equal(months.calendarSignedYear(target, calendar), year);
+      continue;
+    }
+    assert.ok(target, `${calendar}: year ${year}`);
+    assert.equal(months.calendarSignedYear(target, calendar), year, `${calendar}: year ${year}`);
+  }
+  // Beyond what a date holds, or not a whole number: refused, not wrong.
+  for (const bad of [300000, -300000, 1.5, NaN, Infinity]) {
+    assert.equal(months.dateInCalendarYear(date, bad, calendar), null, `${calendar}: ${bad}`);
   }
   // The months of the year: one selected, each a different month, in order,
   // and a pick keeps the day or falls to the month's last day.
@@ -50,10 +57,11 @@ for (const calendar of ['gregory', 'persian', 'hebrew', 'islamic', 'japanese', '
   const list = months.calendarYearMonths(noon(2027, 0, 31), 'gregory');
   assert.equal(list.length, 12);
   assert.equal(months.sameDayInMonth(noon(2027, 0, 31), list[1].date, 'gregory').getDate(), 28);
-  const leap = noon(2028, 1, 29);
-  const common = months.calendarYearOptions(leap, 'gregory').find(y => y.year === '2027');
-  assert.equal(months.sameDayInYear(leap, common.date, 'gregory').getMonth(), 2);
-  assert.equal(months.sameDayInYear(leap, common.date, 'gregory').getDate(), 1);
+  const common = months.dateInCalendarYear(noon(2028, 1, 29), 2027, 'gregory');
+  assert.equal(common.getMonth(), 2);
+  assert.equal(common.getDate(), 1);
+  // 3000 BC is year -2999 here: 1 BC is 0.
+  assert.equal(months.calendarSignedYear(months.dateInCalendarYear(noon(2026, 10, 2), -2999, 'gregory'), 'gregory'), -2999);
 }
 
 // Negative: the heading carries no YYYY-MM-DD, the year is never left out, and
@@ -63,11 +71,13 @@ for (const calendar of ['gregory', 'persian', 'hebrew', 'islamic', 'japanese', '
   const js = read('client/components/forms/calendarDateInput.js');
   assert.doesNotMatch(jade, /selected-calendar-date|headingDateText/);
   assert.doesNotMatch(js, /headingDateText|inline \? \{\} : \{ year/);
+  assert.match(jade, /input\.js-calendar-year\(type="number" step="1"/, 'the year is a number field, not a list that ends');
+  assert.doesNotMatch(jade, /select\.js-calendar-year/);
   for (const name of ['js-calendar-year', 'js-calendar-month', 'js-calendar-day-select']) {
-    assert.match(jade, new RegExp(`select\\.${name}\\(aria-label`), `${name} is a select`);
+    if (name !== 'js-calendar-year') assert.match(jade, new RegExp(`select\\.${name}\\(aria-label`), `${name} is a select`);
     assert.match(js, new RegExp(`'change \\.${name}'`), `${name} has a handler`);
   }
   assert.doesNotMatch(read('client/components/forms/calendarDateInput.css'), /selected-calendar-date/);
 }
 
-console.log('calendarDropdowns: year, month and day lists for ten calendar systems, picks that stay in the named year and month, and no date text in the heading');
+console.log('calendarDropdowns: a year by number (thousands of years either way), month and day lists for ten calendar systems, picks that stay in the named year and month, and no date text in the heading');

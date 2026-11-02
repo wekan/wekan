@@ -76,11 +76,7 @@ assert.doesNotMatch(read('client/components/forms/calendarDateInput.js'), /inlin
   assert.match(jade, /\.selected-calendar-picker[\s\S]*\.selected-calendar-selects[\s\S]*js-calendar-year[\s\S]*js-calendar-month[\s\S]*js-calendar-day-select/,
     'the drop-downs come after the calendar, in year, month, day order');
   const selectedBefore = tpl.selectedDate.get(); const shownBefore = tpl.shownDate.get();
-  const years = helpers.yearOptions();
-  assert.ok(years.length >= 150, 'years in the past and in the future');
-  assert.equal(years.filter(option => option.selected).length, 1);
-  assert.match(years.find(option => option.selected).label, /^1405/);
-  assert.ok(years[0].label < '1405' && years[years.length - 1].label > '1405');
+  assert.equal(helpers.yearValue(), 1405, 'the year field shows the shown year');
   assert.equal(helpers.monthOptions().length, 12);
   assert.equal(helpers.monthOptions().filter(option => option.selected).length, 1);
   assert.equal(helpers.dayOptions().length, 31, 'Farvardin has 31 days');
@@ -89,9 +85,24 @@ assert.doesNotMatch(read('client/components/forms/calendarDateInput.js'), /inlin
   const change = (name, value) => events[`change .${name}`]({ currentTarget: { value } }, tpl);
   // A year pick keeps the day of the year; a month pick keeps the day of the
   // month; a day pick takes that day. Each selects the date and shows its month.
-  change('js-calendar-year', years.find(option => option.label.startsWith('1410')).value);
+  const yearInput = { value: '1410' };
+  const changeYear = value => { yearInput.value = value; events['change .js-calendar-year']({ currentTarget: yearInput }, tpl); };
+  changeYear('1410');
   assert.match(helpers.monthLabel(), /^Farvardin 1410/);
   assert.match(helpers.selectedDateText(), /^1410-01-02/);
+  // Any year by typing: far back and far ahead, in the calendar in use.
+  changeYear('4000'); assert.equal(helpers.yearValue(), 4000);
+  assert.match(helpers.monthLabel(), /^Farvardin 4000/);
+  changeYear('-2500'); assert.equal(helpers.yearValue(), -2500);
+  assert.match(helpers.monthLabel(), /2501 AP|BP|Farvardin/);
+  changeYear('1410');
+  // Nothing that is not a year changes the date; the field goes back.
+  const before = iso(tpl.shownDate.get());
+  for (const bad of ['', 'abc', '1.5', '99999999']) {
+    changeYear(bad);
+    assert.equal(iso(tpl.shownDate.get()), before, `"${bad}" is refused`);
+    assert.equal(yearInput.value, 1410, `"${bad}": the field shows the shown year again`);
+  }
   const month = helpers.monthOptions()[5].value;
   change('js-calendar-month', month);
   assert.match(helpers.monthLabel(), /^Shahrivar 1410/);

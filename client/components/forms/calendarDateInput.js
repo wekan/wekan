@@ -8,7 +8,7 @@ import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDi
 const { CALENDAR_SYSTEMS, nativeCalendarParts } = require('/imports/lib/calendarSystems');
 const {
   calendarMonthDays, calendarMonthRange, shiftedDay, shiftCalendarMonth, shiftCalendarYear,
-  calendarYearOptions, calendarYearMonths, sameDayInYear, sameDayInMonth,
+  calendarSignedYear, dateInCalendarYear, calendarYearMonths, sameDayInMonth,
 } = require('/imports/lib/calendarMonth');
 
 function fromInput(value) {
@@ -59,25 +59,9 @@ Template.calendarDateInput.helpers({
   // #6853: the year, month and day drop-downs under the calendar. Each option
   // carries a date as its value, found in the selected calendar system, so any
   // past, present or future year, month and day is one pick away.
-  yearOptions() {
-    const tpl = Template.instance();
-    const calendar = selectedSystem().intl;
-    const shown = tpl.shownDate.get();
-    // The list is made once and kept while the shown year is in it; the
-    // calendar is walked again only after a pick or an arrow went past it.
-    let options = tpl.yearList && tpl.yearList.calendar === calendar
-      ? tpl.yearList.options : null;
-    const parts = nativeCalendarParts(shown, calendar);
-    const shownKey = `${parts.era || ''}|${parts.year}`;
-    if (!options || !options.some(option => option.key === shownKey)) {
-      options = calendarYearOptions(shown, calendar);
-      tpl.yearList = { calendar, options };
-    }
-    return options.map(option => ({
-      _id: option.key, value: formatDate(option.date), label: option.label,
-      selected: option.key === shownKey,
-    }));
-  },
+  // The year as a number any year can be typed or stepped to, also one before
+  // the era (0 is 1 BC) or thousands of years away.
+  yearValue() { return calendarSignedYear(Template.instance().shownDate.get(), selectedSystem().intl); },
   monthOptions() {
     const tpl = Template.instance();
     const calendar = selectedSystem().intl;
@@ -121,6 +105,8 @@ Template.calendarDateInput.helpers({
         // #6853: the year is always shown, also in the popup: month and year
         // above the calendar, never the YYYY-MM-DD of the selected day.
         calendar: selectedSystem().intl, month: 'long', year: 'numeric', numberingSystem: 'latn',
+        // A year before the era needs its era, or 3000 BC reads as 3000.
+        ...(calendarSignedYear(date, selectedSystem().intl) <= 0 ? { era: 'short' } : {}),
       }).format(date);
     } catch (error) { return formatDateForDisplay(date, false); }
   },
@@ -194,8 +180,21 @@ Template.calendarDateInput.events({
   'click .js-calendar-year-next'(event, tpl) { event.preventDefault(); tpl.shownDate.set(shiftCalendarYear(tpl.shownDate.get(), 1, selectedSystem().intl)); },
   // #6853: a pick in a drop-down selects that date and shows its month.
   'change .js-calendar-year'(event, tpl) {
-    const target = sameDayInYear(tpl.shownDate.get(), fromInput(event.currentTarget.value), selectedSystem().intl);
+    const input = event.currentTarget;
+    const target = dateInCalendarYear(tpl.shownDate.get(), Number(input.value), selectedSystem().intl);
+    if (!target || input.value.trim() === '') {
+      // A year that is not a whole number, or beyond what a date can hold:
+      // the field goes back to the year being shown.
+      input.value = calendarSignedYear(tpl.shownDate.get(), selectedSystem().intl);
+      return;
+    }
     tpl.shownDate.set(target); tpl.focusedDate.set(target); writeValue(tpl, target);
+  },
+  // Enter in the year field applies the year, not the popup's Save.
+  'keydown .js-calendar-year'(event) {
+    if (event.key !== 'Enter') return;
+    event.preventDefault(); event.stopPropagation();
+    event.currentTarget.dispatchEvent(new Event('change', { bubbles: true }));
   },
   'change .js-calendar-month'(event, tpl) {
     const target = sameDayInMonth(tpl.selectedDate.get() || tpl.shownDate.get(), fromInput(event.currentTarget.value), selectedSystem().intl);
