@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.80 2026-11-02 WeKan ® release
 
 **In short:** **minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a
 glob pattern that used up CPU and memory.

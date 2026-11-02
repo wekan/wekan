@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.80 2026-11-02 WeKan ® release
 
 **minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a
 glob pattern that used up CPU and memory.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.80](CHANGELOG-big.md#v1280-2026-11-02-wekan--release)
 
 # v12.79 2026-11-02 WeKan ® release
 
@@ -55,10 +55,3 @@ edits and **every popup can be moved**; and an old **Sandstorm** grain migrated
 from MongoDB 3 shows its boards again.
 
 [All changes in v12.76](CHANGELOG-big.md#v1276-2026-10-31-wekan--release)
-
-# v12.75 2026-10-30 WeKan ® release
-
-Changing a password signs the account out in every other browser,
-and now a test proves it in two real browsers.
-
-[All changes in v12.75](CHANGELOG-big.md#v1275-2026-10-30-wekan--release)
