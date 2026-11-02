@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.86 2026-11-02 WeKan ® release
 
 **In short:** The daily **notification cleanup** and the **file integrity
 audit**

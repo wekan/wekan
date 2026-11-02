@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.86 2026-11-02 WeKan ® release
 
 The daily **notification cleanup** and the **file integrity
 audit**
 run once for the whole installation, not once per server.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.86](CHANGELOG-big.md#v1286-2026-11-02-wekan--release)
 
 # v12.85 2026-11-02 WeKan ® release
 
@@ -46,10 +46,3 @@ A card moved to another board, restored from the archive or given
 a number no longer takes a **card number** another card on that board has.
 
 [All changes in v12.82](CHANGELOG-big.md#v1282-2026-11-02-wekan--release)
-
-# v12.81 2026-11-02 WeKan ® release
-
-The **database health** probe reports a finding once, not once
-per server.
-
-[All changes in v12.81](CHANGELOG-big.md#v1281-2026-11-02-wekan--release)
