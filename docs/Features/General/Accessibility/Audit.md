@@ -13,29 +13,93 @@ finding here is a starting point, not a verdict.
 
 ## Status: fixed, and checked again
 
-The findings below were **fixed the same day** in the default theme, and the
-same scan was run again on 22 pages (the 7 above plus Templates, Remaining,
-Archive, Public, Activity, Support, Shortcuts, My cards, Due cards, My
-attachments, Starred items, Bookmarks, Import, and the Admin Panel's Settings,
-Information and Translation). Before the fixes those pages had between 0 and 45
-violating elements each; **after the fixes axe-core finds no violation on any
-of the 22 pages** for the same rule sets.
+The findings below were **fixed the same day** in the default theme and the scan
+was run again. The result: **axe-core finds no violation on any of 22 pages**,
+for the same rule sets (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`,
+`best-practice`). This is a floor, not a conformance claim; the limits at the end
+of this page still apply.
+
+### Before and after, page by page
+
+The first scan covered 7 pages. For the re-check the list grew to 22, so the
+"before" column for the 15 added pages is a scan made before any fix, with the
+same tool, browser and viewport.
+
+| Page | Violating elements before | After |
+|---|---|---|
+| Sign in | 6 | 0 |
+| Sign up | 6 | 0 |
+| All Boards (home) | 14 | 0 |
+| Templates | 13 | 0 |
+| Remaining | 14 | 0 |
+| Archive | 8 | 0 |
+| Public | 7 | 0 |
+| Activity | 7 | 0 |
+| Support | 7 | 0 |
+| Shortcuts | 7 | 0 |
+| My cards | 7 | 0 |
+| Due cards | 7 | 0 |
+| My attachments | 7 | 0 |
+| Starred items | 7 | 0 |
+| Global search | 15 | 0 |
+| Bookmarks | 8 | 0 |
+| Import | 6 | 0 |
+| Admin Panel: Settings | 17 | 0 |
+| Admin Panel: Information | 17 | 0 |
+| Admin Panel: Translation | 19 | 0 |
+| Accessibility page | 7 | 0 |
+| Board (swimlanes view) | 16 | 0 |
+| Board with a card open | 45 | 0 |
+
+### What was done
 
 | Finding | What was done |
 |---|---|
 | 1. Colour contrast | The default theme's blue is `#2573a7` (white 5.14, `#f2f2f2` 4.59) instead of `#2980b9`, everywhere the stylesheets, the theme accent table and the colour picker name it. The label colours green, red, sky, magenta and gray, and the Global search list chips, have black text instead of white. The quiet text greys `#8c8c8c` and `#727479` are `#595959` and `#5a5c61`; the grey board tiles are `#767676`; the "no items" text is `#595959`. |
-| 2. Label in Name | The Starred menu's name starts with the star count; the user menu link's name is the avatar's initials, the user's name and "Member Settings"; an avatar drawn as initials has the initials in its name. |
-| 3. Fields without a label | The Pomodoro minutes field and the comment, description and edit-comment editors have an `aria-label` (the editor takes a `label`). |
-| 4 and 5. Button holding controls, role not allowed | A section heading in the card details is a real `h3` holding a real `button` (the WAI disclosure pattern) with `aria-expanded`; the section menu and the layout toggle are beside the button. Enter, Space and a click on the heading still fold the section. |
-| 6. Sign in and register | The form is the page's `main` landmark; the empty logo `h1` is a spacer, not a heading; the form's title is the level-one heading. |
-| 7. No level-one heading | The page title in the header bar is a level-one heading (`role="heading"`); Activity and the import start page got a title; the "No Due Cards Found" heading is an `h2`. |
+| 2. Label in Name | The Starred menu's name starts with the star count; the user menu link's name is the avatar's initials, the user's name and "Member Settings"; an avatar drawn as initials has the initials in its name. axe reads the letters inside the avatar's SVG as visible text whatever `aria-hidden` says, so the name has to contain them. |
+| 3. Fields without a label | The Pomodoro minutes field and the comment, description and edit-comment editors have an `aria-label`. The editor takes the key of its name (`labelKey`) and translates it, like every included template. |
+| 4 and 5. Button holding controls, role not allowed | A section heading in the card details is a real `h3` holding a real `button` (the WAI disclosure pattern) with `aria-expanded="true"` or `"false"`; the section menu and the layout toggle are beside the button. Enter, Space and a click on the heading still fold the section; this was checked in the browser. |
+| 6. Sign in and register | The form is the page's `main` landmark; the empty logo `h1` is a spacer, not a heading; the form's title is the level-one heading (the package draws it as an `h3`, so it gets `aria-level="1"`, and again whenever the form is redrawn). |
+| 7. No level-one heading | The page title in the header bar is a level-one heading (`role="heading"`); Activity, the import start page and Bookmarks got a title (they had none, so their heading would have been empty); the "No Due Cards Found" heading is an `h2`. |
 
-`tests/accessibilityAuditFixes.test.cjs` pins each of these by the shape of the
-fault (contrast ratios are computed from the stylesheets), and
-`tests/playwright/specs/45-axe-accessibility.e2e.js` runs axe-core on the pages
-and fails on any violation. The rest of this page is the audit as it was found,
-kept as a record. The limits below still apply: one browser, one viewport, the
-default theme, light mode, and only what a program can decide.
+### Two more found while adding the scan to the test suite
+
+The Playwright spec runs in a 1280 x 720 window, shorter than the 1280 x 900 of
+the audit, and with a fresh user. It found two faults the audit had not:
+
+- **`/shortcuts`**: the list scrolls in a short window and had nothing
+  focusable, so a keyboard user could not scroll it (`scrollable-region-focusable`,
+  WCAG 2.1.1). The list now has `tabindex="0"`, a `region` role and a name.
+- **`/bookmarks`**: the page had no title in the header bar, so the new
+  level-one heading was empty (`empty-heading`). It is named "Starred boards".
+
+This is also why the viewport belongs in an audit: the result depends on it.
+
+### Checks that keep it fixed
+
+| Check | Result on 2026-11-02 |
+|---|---|
+| `tests/accessibilityAuditFixes.test.cjs`: each fault pinned by its shape; contrast ratios are computed from the stylesheets, for every label colour, the header blue and the greys | 7 tests pass |
+| `tests/playwright/specs/45-axe-accessibility.e2e.js`: axe-core on the pages, fails on any violation, and presses Enter and Space on a section heading | 4 tests pass (Chromium) |
+| Four existing Playwright specs that touch the card sections, the date format and subtasks, run against the changed UI | 43 tests pass (Chromium) |
+| All Node suites (`node tests/run-node-suites.cjs`) | 2118 suites, 0 failed |
+
+Five existing unit tests pinned the old markup (the old `#2980b9` in many
+stylesheets, a `role="button"` on the heading, `h3` in the title, a `#999`
+tile colour, an editor harness) and were updated to the new markup; each keeps
+the assertion that made it worth having.
+
+### Known side effects of the colour change
+
+- `#2980b9` was the default blue in 21 files; `#2573a7` is slightly darker and
+  was checked by eye on the card and the sign-in page only.
+- The quiet greys changed in 11 stylesheets for the light themes. The dark
+  themes have their own rules for the same text, and were not scanned, so a dark
+  theme could show these greys differently.
+- The PDF export's progress bar still draws `#2980b9`; it is not part of the
+  web pages.
+
+The rest of this page is the audit as it was found, kept as a record.
 
 ## How it was run
 
