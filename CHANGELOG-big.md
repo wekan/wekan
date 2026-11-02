@@ -124,6 +124,36 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A **REST API** "get one" that finds nothing answers **404**
+instead of 200 with an empty body.
+
+This release fixes the following bugs:
+
+**REST API** - what a request for one item answers when there is none.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ded34dfdd">A single-item GET that finds nothing answers 404, not an empty 200</a>. Thanks to AhmedLukman and xet7.</summary>
+
+[\#6862](https://github.com/wekan/wekan/pull/6862). The scoped card GET
+(`/api/boards/:boardId/lists/:listId/cards/:cardId`) sent HTTP 200 with no body
+for a missing, wrong-list, wrong-board or archived card, which a client cannot
+tell from a card with nothing in it. The pull request fixed that one route; the
+same shape was in the list, swimlane, custom field, comment and integration
+GETs, and the user GET threw a TypeError for an unknown name, which reached the
+caller as a server error. Each now answers 404 ("Card not found", "List not
+found" and so on). The board check stays first in each, so someone with no
+access gets the same answer for an existing and a missing id. The global card
+GET, which finds a card by id alone, already answered 404.
+`tests/restSingleItem404.test.cjs` runs every one of these routes from its own
+source with a cache that finds nothing, something, and a stranger, and fails if
+any single-item GET route under server/ has no not-found branch.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.86 2026-11-02 WeKan ® release
 
 **In short:** The daily **notification cleanup** and the **file integrity

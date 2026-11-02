@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+A **REST API** "get one" that finds nothing answers **404**
+instead of 200 with an empty body.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.86 2026-11-02 WeKan ® release
 
 The daily **notification cleanup** and the **file integrity
