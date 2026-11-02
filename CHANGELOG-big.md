@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.81 2026-11-02 WeKan ® release
 
 **In short:** The **database health** probe reports a finding once, not once
 per server.
