@@ -544,7 +544,7 @@ export default class LDAP {
     return result[0];
   }
 
-  async getUserByUsername(username) {
+  async getUserByUsername(username, { unique = false } = {}) {
     await this.bindIfNecessary();
 
     const searchOptions = {
@@ -563,6 +563,9 @@ export default class LDAP {
     }
 
     if (result.length > 1) {
+      if (unique) {
+        throw new Error(`Search by username ${username} returned ${result.length} records; refusing an ambiguous LDAP background-sync update`);
+      }
       Log.error(`Search by username ${username} returned ${result.length} records`);
     }
 

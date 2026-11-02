@@ -11,6 +11,7 @@ import { ALL_LDAP_USERS } from './userSearchValue';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 import { ldapPresenceUpdate } from './presenceSync';
 import { isKnownLdapGroup } from './entryKind';
+import { boundToAnotherEntry } from './accountBinding';
 import {
   ldapTextValue,
   ldapTextValues,
@@ -264,6 +265,23 @@ export function getDataToSyncUserData(ldapUser, user) {
 export async function syncUserData(user, ldapUser) {
   log_info('Syncing user data');
   log_debug('user', {'email': user.email, '_id': user._id});
+
+  // Record which directory entry this account belongs to. Only a NEW account
+  // got its identifier (addLdapUser); an existing one kept whatever it had, so
+  // accounts from before #4654 never got an idAttribute, and an account matched
+  // by username after LDAP_UNIQUE_IDENTIFIER_FIELD changed never got the new
+  // identifier - the login matched it by name every time. The login refuses an
+  // account bound to another entry before it gets here (accountBinding.js).
+  const uniqueId = getLdapUserUniqueID(ldapUser);
+  const bound = (user && user.services && user.services.ldap) || {};
+  if (user && user._id && uniqueId && uniqueId.value && (String(bound.id || '') !== String(uniqueId.value)
+      || String(bound.idAttribute || '').toLowerCase() !== String(uniqueId.attribute || '').toLowerCase())) {
+    log_info('Recording the directory identifier of', user.username, ':', uniqueId.attribute);
+    await Meteor.users.updateAsync({ _id: user._id }, { $set: {
+      'services.ldap.id': uniqueId.value,
+      'services.ldap.idAttribute': uniqueId.attribute,
+    } });
+  }
   // log_debug('ldapUser', ldapUser.object);
 
   if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
@@ -451,6 +469,12 @@ export async function importNewUsers(ldap) {
         log_debug('userQuery merge', userQuery);
 
         user = await Meteor.users.findOneAsync(userQuery);
+        if (user && boundToAnotherEntry(user, uniqueId)) {
+          // A reused login name: that account is another person's. Leave it,
+          // and do not create a second account with the same username either.
+          log_warn('LDAP import: username already belongs to another directory entry; skipping', username);
+          continue;
+        }
         if (user) {
           await syncUserData(user, ldapUser);
         }
@@ -552,7 +576,17 @@ async function sync() {
         if (user.services && user.services.ldap && user.services.ldap.id) {
           ldapUser = await ldap.getUserById(user.services.ldap.id, user.services.ldap.idAttribute);
         } else {
-          ldapUser = await ldap.getUserByUsername(user.username);
+          // An account without an identifier is matched by its username. Two
+          // directory entries answering to that name cannot be told apart:
+          // syncing the first one would bind the account to it for good
+          // (syncUserData stores its identifier). Skip the account instead -
+          // neither updated nor disabled.
+          try {
+            ldapUser = await ldap.getUserByUsername(user.username, { unique: true });
+          } catch (ambiguous) {
+            log_warn(ambiguous && ambiguous.message);
+            continue;
+          }
         }
 
         if (ldapUser) {

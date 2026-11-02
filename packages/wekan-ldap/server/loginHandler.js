@@ -4,6 +4,7 @@ import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { isAdminByGroups } from './adminGroups';
 import { requireUserCredentials } from './userCredentials';
+import { boundToAnotherEntry } from './accountBinding';
 
 // Org/team sync is optional enrichment; failed sync must not block login.
 async function syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, userId) {
@@ -148,15 +149,18 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
     if (!user) {
       if(email && LDAP.settings_get('LDAP_EMAIL_MATCH_REQUIRE') === true) {
+        // `username`, not `_id`: a user's _id is a random id, never the
+        // username, so this query never found anybody and LDAP_EMAIL_MATCH_REQUIRE
+        // made every existing user's login try to create the account again.
         if(LDAP.settings_get('LDAP_EMAIL_MATCH_VERIFIED') === true) {
           userQuery = {
-            '_id' : username,
+            username,
             'emails.0.address' : email,
             'emails.0.verified' : true
           };
         } else {
           userQuery = {
-            '_id' : username,
+            username,
             'emails.0.address' : email
           };
         }
@@ -192,6 +196,14 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
       user = await Meteor.users.findOneAsync(userQuery);
 
+    }
+
+    // A name or e-mail match that belongs to ANOTHER directory entry is not
+    // this person's account (accountBinding.js): a reused login name must not
+    // open the previous owner's boards.
+    if (user && boundToAnotherEntry(user, Unique_Identifier_Field)) {
+      log_warn('LDAP login matched an existing account by name or e-mail, but that account belongs to another directory entry; refusing', user._id);
+      throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
     }
 
     // Login user if they exist
