@@ -8,13 +8,12 @@ make changes there.
 # Upcoming WeKan ® release
 
 **CrossBoardExportBleed** and **UnassignedAttachBleed** are fixed:
-a checklist scope stays on its board, every export obeys Disable all export and
-Anonymize export users, and an assigned-only member changes attachments only on
-their own cards. Eleven **Dependabot** updates are checked for telemetry,
-**SAML** logins use **node-saml 5.2.0**, and **continuous backup** no longer
-misses a change made right after it starts. **Keyboard shortcuts** keep working
-after a popup closes, and the whole **EVERYTHING** test run passes again on a
-Mac.
+a checklist scope stays on its board, every export obeys Disable all
+export and Anonymize export users, and an assigned-only member changes
+attachments only on their own cards. **SAML** logins use **node-saml 5.2.0**,
+and **continuous backup** no longer misses a change made right after it starts.
+**Keyboard shortcuts** keep working after a popup closes, and the Rules page has
+a way back to the board.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

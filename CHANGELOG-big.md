@@ -126,14 +126,13 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **CrossBoardExportBleed** and **UnassignedAttachBleed** are fixed:
-a checklist scope stays on its board, every export obeys Disable all export and
-Anonymize export users, and an assigned-only member changes attachments only on
-their own cards. Eleven **Dependabot** updates are checked for telemetry,
-**SAML** logins use **node-saml 5.2.0**, and **continuous backup** no longer
-misses a change made right after it starts. **Keyboard shortcuts** keep working
-after a popup closes, and the whole **EVERYTHING** test run passes again on a
-Mac.
+**In short:** **CrossBoardExportBleed** and **UnassignedAttachBleed** are
+fixed: a checklist scope stays on its board, every export obeys Disable all
+export and Anonymize export users, and an assigned-only member changes
+attachments only on their own cards. **SAML** logins use **node-saml 5.2.0**,
+and **continuous backup** no longer misses a change made right after it starts.
+**Keyboard shortcuts** keep working after a popup closes, and the Rules page has
+a way back to the board.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -567,6 +566,54 @@ The element's layout follows its viewBox a frame later.
 
 All Boards was still drawing after the route changed, in all five Haitian
 Creole tests.
+
+</details>
+
+**Test coverage** - October changes that had no test of their own.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/148d18d456">Server changes are tested: OpenSSL 4 decrypt refusal, the Scrum rollover lease, the backup catch-up scan</a>. Thanks to xet7.</summary>
+
+Each with a negative test, and the lease with a tree-wide one: every lease
+field is written only by its claim.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79c40407d1">Admin Panel pane titles, audit log alignment, storage help, Data health and card reports are tested</a>. Thanks to xet7.</summary>
+
+Unit and negative tests, and a Chromium browser test of the titles, the
+right-to-left audit log, the storage help shown once and Data health's own
+"Never".
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/121f37be91">The drawing refit, Due Cards scope, dependency import counts and SAML's one Issuer are tested</a>. Thanks to xet7.</summary>
+
+A signed SAML Response with two Issuers is refused in the browser, which
+node-saml 5.1.0 accepted; an assigned-only member's Due Cards show only their
+own cards.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ccb465c3f">The keyboard shortcut browser test focuses the minicard link itself</a>. Thanks to mimZD and xet7.</summary>
+
+Chromium does not leave the focus on the minicard after its menu is closed,
+so the test makes the reported state directly; it passes in Chromium and
+WebKit.
+
+</details>
+
+**The source-loaded server** - starting WeKan from source for development.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15877dd1bc">A local package fork that a prebuilt package implies is loaded first</a>. Thanks to xet7.</summary>
+
+The source server stopped at "isopack dynamic-import not yet loaded". It now
+gets past that, and still stops later on "Cannot find module
+'meteor/accounts-base'"; the browser tests ran against the bundle server.
 
 </details>
 
