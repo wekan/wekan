@@ -130,7 +130,7 @@ its reason.
 default theme: header and label **colour contrast**, names that contain the
 visible text, named form fields, card section headings that are real buttons,
 and landmarks and headings on every page. axe-core now finds no violation on
-22 pages.
+22 pages. A cleared database connection pool is reported as a lost connection.
 
 This release fixes the following bugs:
 
@@ -169,6 +169,32 @@ ratios are computed from the stylesheets), and
 `tests/playwright/specs/45-axe-accessibility.e2e.js` runs axe-core on the pages
 and fails on any violation. Other board colours and themes, the phone width,
 dark mode, popups, and the views not scanned still need the same check.
+
+</details>
+
+**Database problems** - how Admin Panel -> Problems and the startup read the
+database.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/abc23a7eda">A cleared connection pool is a lost connection, and the board key backfill uses the key index</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6860](https://github.com/wekan/wekan/issues/6860). While a MongoDB pod
+restarted, a method's "Connection pool for <host> was cleared" reached Admin
+Panel -> Problems as "did not match its schema": collection2 wraps a failed
+write as "ValidationError: Failed validation" plus the driver's text, so the
+class name PoolClearedError was gone, and the host in the text is a replica set
+member's name (wekan-mongodb-0.wekan-mongodb-internal in a StatefulSet) that
+MONGO_URL does not list, so the "getaddrinfo ENOTFOUND" behind it did not count
+as the database's. The text itself is now a lost connection, for the Problems
+page and for both startup guards, and a message about a pool setting is not.
+The board key backfill looked for boards without a key with an `$or` that
+included an exists-false branch, a scan of every board at every start of every
+server (32,600 boards in the report); `key: null` already matches a missing
+field, so one `$in` on the `key` index finds the same boards, and the same
+selector still guards the writes, so a key a board admin set meanwhile is never
+replaced. `tests/databaseErrorsWrappedCause.test.cjs` and
+`tests/boardKeyBackfill.test.cjs` pin both, and that no exists-false branch on
+`key` is left.
 
 </details>
 

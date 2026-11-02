@@ -11,7 +11,7 @@ The findings of the **accessibility audit** are fixed in the
 default theme: header and label **colour contrast**, names that contain the
 visible text, named form fields, card section headings that are real buttons,
 and landmarks and headings on every page. axe-core now finds no violation on
-22 pages.
+22 pages. A cleared database connection pool is reported as a lost connection.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
