@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **macOS sandbox** for VSCodium no longer asks for a keychain,
+starts from the checkout, and can carry a **Claude Code** token so its login
+sticks.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.78 2026-11-02 WeKan ® release
 
 **CrossBoardExportBleed** and **UnassignedAttachBleed** are

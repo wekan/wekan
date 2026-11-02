@@ -124,6 +124,45 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **macOS sandbox** for VSCodium no longer asks for a keychain,
+starts from the checkout, and can carry a **Claude Code** token so its login
+sticks.
+
+This release has the following developer-tooling fixes:
+
+**The macOS sandbox** - running VSCodium and Claude Code in the sandbox on a
+Mac.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c58b2896d1">VSCodium no longer asks for a keychain in the macOS sandbox</a>. Thanks to xet7.</summary>
+
+The sandbox refuses `~/Library/Keychains`, so VSCodium's secret storage asked
+for a keychain to keep "VSCodium Key" in, with a "Reset To Defaults" button
+that would have replaced the login keychain. `sandbox.sh` now starts VSCodium
+with `--use-mock-keychain`, so the real Keychain is never touched. The README
+explains the price: extension secrets in `.tools/vscodium/user-data` are only
+obfuscated. `tests/macosSandbox.test.cjs` covers the sandbox script.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21c94ce098">Claude Code stays signed in inside the macOS sandbox, and the sandbox starts in the checkout</a>. Thanks to xet7.</summary>
+
+Claude Code keeps its login in the Keychain, which the sandbox cannot reach.
+`sandbox.sh --claude-token` now saves a token from `claude setup-token` to
+`.tools/secrets/claude-oauth-token` (read from the clipboard, line breaks
+joined, a cut-short token refused) and passes it as `CLAUDE_CODE_OAUTH_TOKEN`,
+with onboarding marked done and the extension's login prompt off. The script
+also changes to the checkout first, because Finder starts it in the home
+directory, which the sandbox refuses ("EPERM: process.cwd failed"), and starts
+VSCodium with `nohup` so closing the launcher's Terminal does not close it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.78 2026-11-02 WeKan ® release
 
 **In short:** **CrossBoardExportBleed** and **UnassignedAttachBleed** are
