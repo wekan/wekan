@@ -7,10 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **date picker** popup shows the year, and the **macOS
-sandbox** for VSCodium no longer asks for a keychain,
-starts from the checkout, and can carry a **Claude Code** token so its login
-sticks.
+The **date picker** popup shows the year and has year, month and
+day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
+asks for a keychain, starts from the checkout, and can carry a **Claude Code**
+token so its login sticks.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

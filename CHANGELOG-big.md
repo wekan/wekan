@@ -126,10 +126,10 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **date picker** popup shows the year, and the **macOS
-sandbox** for VSCodium no longer asks for a keychain,
-starts from the checkout, and can carry a **Claude Code** token so its login
-sticks.
+**In short:** The **date picker** popup shows the year and has year, month and
+day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
+asks for a keychain, starts from the checkout, and can carry a **Claude Code**
+token so its login sticks.
 
 This release fixes the following bugs:
 
@@ -145,6 +145,21 @@ not change when the month does. The heading now reads for example "January
 2027", in every calendar system. `tests/calendarPickerControls.test.cjs` pins
 the year in the heading and that no picker mode leaves it out again, and the
 Playwright date display spec expects it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/492895200b">Year, month and day drop-downs under the calendar pick any date</a>. Thanks to brlin-tw and xet7.</summary>
+
+[\\#6853](https://github.com/wekan/wekan/issues/6853). The heading above the
+calendar now shows only the month and the year, no longer the YYYY-MM-DD of
+the selected day. Under the calendar are three drop-downs: any year 100 years
+back and forward, any month of that year, and any day of that month; a pick
+selects the date and shows its month. The lists are read from the calendar
+system in use, so they hold for the Islamic, Hebrew, Japanese and every other
+system, including leap months and a short thirteenth month. A day that the
+new month lacks falls to its last day. `tests/calendarDropdowns.test.cjs`
+checks ten calendar systems and that no date text is left in the heading.
 
 </details>
 
