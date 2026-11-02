@@ -124,6 +124,28 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **REST API** now reports missing scoped cards clearly.
+Clients receive HTTP 404 instead of an empty success response.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00bf82850e">Missing scoped cards return HTTP 404</a>. Thanks to xet7.</summary>
+
+The single-card endpoint scoped by board and list returned HTTP 200 with an
+empty body when no active card matched. It now returns HTTP 404 with a
+`Card not found` JSON error, matching the global card endpoint. Board access
+is still checked first, and valid cards still include their checklists.
+Handler tests cover missing, wrong-scope and archived cards, valid responses,
+authorization and lookup failures. Live REST tests verify the status and body,
+unchanged card data, and archived-card access through the global endpoint.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.86 2026-11-02 WeKan ® release
 
 **In short:** The daily **notification cleanup** and the **file integrity
