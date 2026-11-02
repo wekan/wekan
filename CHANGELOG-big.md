@@ -124,6 +124,55 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** An **LDAP** login with a reused login name no longer opens the
+previous owner's account, and existing accounts record their directory
+identifier.
+
+This release fixes the following bugs:
+
+**LDAP** - matching a directory entry to a WeKan account at login, import and
+background sync.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e91c14cd9a">A reused login name no longer opens the previous owner's account</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6859](https://github.com/wekan/wekan/issues/6859). The login looked for the
+account by the entry's unique identifier, then by username, then with
+LDAP_EMAIL_MATCH_ENABLE by e-mail, and the last two did not check whether the
+account already belonged to another directory entry. When a directory gave a
+deleted employee's sAMAccountName to a new colleague, the new colleague logged
+into the old account and saw its boards, cards and comments; two entries
+sharing an e-mail address did the same, and so did the import with
+LDAP_MERGE_EXISTING_USERS. An account that records an identifier of the same
+attribute with a different value is now refused at login ("LDAP
+authentication failed") and skipped by the import. An account without an
+identifier, with an identifier of another attribute, or with an identifier
+without its attribute (made before \#4654) is still accepted, so switching
+LDAP_UNIQUE_IDENTIFIER_FIELD to objectGUID locks nobody out. When that field is
+empty the identifier is the login name itself, so a reused name cannot be
+detected: set it to objectGUID or entryUUID.
+
+Three more faults in the same matching are fixed. An existing account never
+recorded services.ldap.id and its attribute (only a new account did), so
+accounts from before \#4654 never got an attribute and a changed
+LDAP_UNIQUE_IDENTIFIER_FIELD never took effect; the login and the sync now
+record both. LDAP_EMAIL_MATCH_REQUIRE looked the user up with _id equal to the
+username, which never matches a random id, so every existing user's login
+tried to create the account again; it uses the username. The background sync
+bound an account without an identifier to the first of several entries with
+its name; it now skips that account, neither updating nor disabling it.
+`tests/ldapAccountBinding.test.cjs` pins each of these, and that no lookup by
+_id equal to the username is left in the package and no name or e-mail match
+reaches the login without the check. A refused login is not recorded in
+Admin Panel -> Problems: the LDAP package cannot reach the application's
+security log, and the new colleague who is refused is not an attacker.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.82 2026-11-02 WeKan ® release
 
 **In short:** A card moved to another board, restored from the archive or given

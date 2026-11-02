@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+An **LDAP** login with a reused login name no longer opens the
+previous owner's account, and existing accounts record their directory
+identifier.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.82 2026-11-02 WeKan ® release
 
 A card moved to another board, restored from the archive or given
