@@ -124,6 +124,25 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a
+glob pattern that used up CPU and memory.
+
+This release updates the following dependencies:
+
+- **minimatch 10.2.6 → 11.0.4** — Dependabot alerts #180 and #182,
+  [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249)
+  (CVE-2026-118764, CWE-405, moderate): before 11.0.1 a crafted glob pattern
+  made it grow its glob parts without bound and compare them pairwise, using
+  up CPU and memory. It came in through archiver, typescript-eslint and
+  Babel's CLI; all of them now use 11.0.4, and
+  `tests/minimatchGlobparts.test.cjs` fails if a 10.x copy returns
+  ([commit](https://github.com/wekan/wekan/commit/a3630d96ce)).
+  Thanks to dependabot.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.79 2026-11-02 WeKan ® release
 
 **In short:** A cluster of servers runs the **schema re-check** and the

@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a
+glob pattern that used up CPU and memory.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.79 2026-11-02 WeKan ® release
 
 A cluster of servers runs the **schema re-check** and the
