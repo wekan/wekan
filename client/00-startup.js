@@ -62,7 +62,10 @@ try {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     const swPath = new URL('pwa-service-worker.js', Meteor.absoluteUrl()).pathname;
-    navigator.serviceWorker.register(swPath);
+    navigator.serviceWorker.register(swPath).catch(error => {
+      // No service worker (a private window, an old browser): the app works without the offline cache.
+      if (process.env.DEBUG === 'true') console.warn('service worker registration failed:', error);
+    });
   });
 }
 

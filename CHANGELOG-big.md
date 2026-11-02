@@ -150,7 +150,9 @@ semicolons, unused imports in the card details, the exporters and the
 attachment API, unused Python imports, and a comment on each empty except
 clause. The list-sync scanner test cut its source at the last
 `Meteor.startup`, which the index startup of the schema-scan fix had moved;
-it now cuts at the first one after the scanner.
+it now cuts at the first one after the scanner. Two unhandled rejections are
+caught as well: the instance-editing
+hook's board lookup and the service worker registration.
 `tests/codeqlFindingsRegression.test.cjs` pins the shape of each fault.
 Findings in vendored bundles (the Office viewer, Jade, capnp-es, exceljs)
 and style-only ones are left as they are.

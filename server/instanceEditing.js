@@ -55,7 +55,14 @@ async function boardOf(doc) {
   }
   return null;
 }
-const join = (userId, doc) => { if (userId) boardOf(doc).then(boardId => joinOnEdit(userId, boardId)); };
+// boardOf reads the card of a checklist, and that read can fail: without the
+// catch a failed read was an unhandled rejection inside a collection hook.
+const join = (userId, doc) => {
+  if (!userId) return;
+  boardOf(doc)
+    .then(boardId => joinOnEdit(userId, boardId))
+    .catch(error => console.error('instance editing: could not find the board of an edit', error));
+};
 for (const collection of [Cards, Lists, Swimlanes, Checklists, ChecklistItems, CardComments]) {
   collection.after.insert(join);
   collection.after.update(join, { fetchPrevious: false });

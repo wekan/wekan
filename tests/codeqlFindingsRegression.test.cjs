@@ -51,4 +51,11 @@ test('Overwritten property and unreachable statement in tests are gone', () => {
   assert.doesNotMatch(read('tests/securityLog.test.cjs'), /if \(false\) \{/);
 });
 
+test('Unhandled rejection: the instance-editing hook and the service worker registration catch their failures', () => {
+  const hook = read('server/instanceEditing.js');
+  assert.match(hook, /boardOf\(doc\)\n\s+\.then\(boardId => joinOnEdit\(userId, boardId\)\)\n\s+\.catch\(/);
+  assert.doesNotMatch(hook, /boardOf\(doc\)\.then\([^)]*\)\); \};/, 'no .then without a catch');
+  assert.match(read('client/00-startup.js'), /serviceWorker\.register\(swPath\)\.catch\(/);
+});
+
 console.log(`codeqlFindingsRegression: ${passed} tests passed`);
