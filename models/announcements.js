@@ -85,4 +85,16 @@ export function shouldShowAnnouncement({ enabled, version, dismissedVersion }) {
   return dismissedVersion !== version;
 }
 
+// #6854: who the site announcement is for. A signed-in user on a page with no
+// board of its own - Home and every All Boards list: Remaining, Starred,
+// Templates, Archive - and a member of the board that is open on a board page.
+// It used to ask for membership of the current board on every page, and there
+// is none on those, so it showed only on boards. Nobody signed out sees it
+// (#1281).
+export function showAnnouncementToUser({ userId, board }) {
+  if (!userId) return false;
+  if (!board) return true;
+  return typeof board.hasMember === 'function' ? !!board.hasMember(userId) : false;
+}
+
 export default Announcements;

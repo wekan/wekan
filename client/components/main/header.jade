@@ -245,7 +245,8 @@ template(name="header")
   if appIsOffline
     +offlineWarning
 
-  if currentUser.isBoardMember
+  //- #6854: on Home and All Boards too, not only on a board.
+  if announcementForUser
     if hasAnnouncement
       .announcement(role="status" aria-live="polite")
         p

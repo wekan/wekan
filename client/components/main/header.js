@@ -7,6 +7,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Announcements, {
   announcementVersion,
   shouldShowAnnouncement,
+  showAnnouncementToUser,
 } from '/models/announcements';
 import { Utils } from '/client/lib/utils';
 // What this bar calls the page you are on. models/lib/pageTitles.js
@@ -314,6 +315,14 @@ Template.header.helpers({
   canReconnectNow() {
     const status = Meteor.status();
     return ['waiting', 'failed', 'offline'].includes(status.status);
+  },
+
+  announcementForUser() {
+    const user = ReactiveCache.getCurrentUser();
+    return showAnnouncementToUser({
+      userId: user && user._id,
+      board: Utils.getCurrentBoard(),
+    });
   },
 
   hasAnnouncement() {
