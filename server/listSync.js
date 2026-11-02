@@ -568,6 +568,16 @@ export async function scanListSync() {
   }
 }
 
+// scanListSync runs every 15 minutes. Most installations have no synced list
+// at all, yet without this index every pass read the whole lists collection to
+// find none (115,000 lists in one report). The partial index holds only synced
+// lists, so the pass reads just those. Its own startup, so the jobs below are
+// scheduled whatever happens to the index.
+Meteor.startup(async () => {
+  await ensureIndex(Lists, { archived: 1, 'syncSource.type': 1 },
+    { partialFilterExpression: { 'syncSource.type': { $exists: true } } });
+});
+
 Meteor.startup(async () => {
   try {
     await ensureIndex(ListSyncCredentials, { listId: 1, _id: 1 });

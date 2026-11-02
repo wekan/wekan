@@ -33,6 +33,9 @@ const {
   randomId,
   versionNeedsHeal,
   MARKER_ID,
+  CLAIM_ID,
+  CLAIM_STALE_MS,
+  RETRY_UNCLEAN_MS,
   steps,
 } = require('../server/lib/schemaUpgradeSteps');
 
@@ -68,8 +71,9 @@ function matchCond(value, cond) {
       return value.some(el => matches(el, cond.$elemMatch));
     }
     // numeric type/range (nonfinite-sort-repair). Multiple ops AND together.
-    if ('$type' in cond || '$gte' in cond || '$lte' in cond) {
+    if ('$type' in cond || '$gte' in cond || '$lte' in cond || '$lt' in cond) {
       let ok = true;
+      if ('$lt' in cond) ok = ok && (typeof value === 'number' && value < cond.$lt);
       if ('$type' in cond) ok = ok && (cond.$type === 'number' ? typeof value === 'number' : false);
       if ('$gte' in cond) ok = ok && (typeof value === 'number' && value >= cond.$gte);
       if ('$lte' in cond) ok = ok && (typeof value === 'number' && value <= cond.$lte);
@@ -162,7 +166,14 @@ function fakeDb(initial = {}) {
         if (i >= 0) { docs().splice(i, 1); return { deletedCount: 1 }; }
         return { deletedCount: 0 };
       },
-      async insertOne(doc) { ops.insertOne++; docs().push(JSON.parse(JSON.stringify(doc))); return { insertedId: doc._id }; },
+      async insertOne(doc) {
+        ops.insertOne++;
+        if (doc._id !== undefined && docs().some(d => String(d._id) === String(doc._id))) {
+          throw Object.assign(new Error('E11000 duplicate key error'), { code: 11000 });
+        }
+        docs().push(JSON.parse(JSON.stringify(doc)));
+        return { insertedId: doc._id };
+      },
       async insertMany(list) { ops.insertMany++; for (const d of list) docs().push(JSON.parse(JSON.stringify(d))); return { insertedCount: list.length }; },
       async updateOne(filter, update, opts = {}) {
         ops.updateOne++;
@@ -1040,11 +1051,76 @@ await test('force option overrides the version gate', async () => {
   assert.strictEqual(db._dump('boards')[0].permission, 'public');
 });
 
-await test('negative: unresolved work prevents the version stamp, so the SAME version re-checks next boot', async () => {
+await test('negative: unresolved work prevents the version stamp; the SAME version re-checks once a day, not at every start', async () => {
   const db = fakeDb({ avatars: [{ _id: 'av1', name: 'gone.png', versions: { original: { storage: 'fs', path: '/nonexistent/gone.png' } } }] });
   await runSchemaUpgrade(db, opts);                       // unresolved heal
-  const res2 = await runSchemaUpgrade(db, opts);          // same version
-  assert.strictEqual(res2.gated, false, 'must re-check because the previous run was not clean');
+  const marker = await db.collection('_wekan_migration').findOne({ _id: MARKER_ID });
+  assert.ok(!marker.lastCheck, 'version NOT stamped');
+  assert.strictEqual(marker.lastAttempt.version, opts.appVersion, 'the unclean attempt is recorded');
+  const before = { ...db._ops };
+  const res2 = await runSchemaUpgrade(db, opts);          // restart a minute later
+  assert.strictEqual(res2.gated, true, 'a restart within the retry period does not scan again');
+  assert.ok(db._ops.findOne - before.findOne <= 2 && db._ops.distinct === before.distinct && db._ops.find === before.find,
+    'gated retry costs the marker read only');
+  // a day later
+  await db.collection('_wekan_migration').updateOne({ _id: MARKER_ID },
+    { $set: { 'lastAttempt.atMs': Date.now() - RETRY_UNCLEAN_MS - 1000 } });
+  const res3 = await runSchemaUpgrade(db, opts);
+  assert.strictEqual(res3.gated, false, 'retried after the retry period');
+});
+
+await test('a clean run after an unclean one stamps the version and clears lastAttempt', async () => {
+  const db = fakeDb({ avatars: [{ _id: 'av1', name: 'gone.png', versions: { original: { storage: 'fs', path: '/nonexistent/gone.png' } } }] });
+  await runSchemaUpgrade(db, opts);
+  db._dump('avatars').length = 0;
+  await runSchemaUpgrade(db, { ...opts, force: true });
+  const marker = await db.collection('_wekan_migration').findOne({ _id: MARKER_ID });
+  assert.strictEqual(marker.lastCheck.version, opts.appVersion);
+  assert.ok(!marker.lastAttempt, 'lastAttempt cleared');
+});
+
+await test('one server at a time: while another server holds the claim, a start skips every scan', async () => {
+  const db = fakeDb({ boards: [{ _id: 'b1', permission: 'PUBLIC' }] });
+  await db.collection('_wekan_migration').insertOne({ _id: CLAIM_ID, sinceMs: Date.now(), version: opts.appVersion });
+  const before = { ...db._ops };
+  const res = await runSchemaUpgrade(db, opts);
+  assert.strictEqual(res.gated, true);
+  assert.strictEqual(res.ran.length, 0);
+  assert.strictEqual(db._dump('boards')[0].permission, 'PUBLIC', 'nothing touched: the claim holder does the work');
+  assert.strictEqual(db._ops.distinct, before.distinct);
+  assert.strictEqual(db._ops.find, before.find);
+  const claim = await db.collection('_wekan_migration').findOne({ _id: CLAIM_ID });
+  assert.ok(claim, "the other server's claim is left alone");
+});
+
+await test('a stale claim (server killed mid-run) is taken over, and released afterwards', async () => {
+  const db = fakeDb({ boards: [{ _id: 'b1', permission: 'PUBLIC' }] });
+  await db.collection('_wekan_migration').insertOne({ _id: CLAIM_ID, sinceMs: Date.now() - CLAIM_STALE_MS - 1000, version: opts.appVersion });
+  const res = await runSchemaUpgrade(db, opts);
+  assert.strictEqual(res.gated, false);
+  assert.strictEqual(db._dump('boards')[0].permission, 'public');
+  assert.strictEqual(await db.collection('_wekan_migration').findOne({ _id: CLAIM_ID }), null, 'claim released');
+});
+
+await test('a server that claims just after another finished reads the fresh marker and does not scan again', async () => {
+  const db = fakeDb({});
+  await runSchemaUpgrade(db, opts);                       // server A, clean
+  const stale = {};                                       // server B read the marker before A finished
+  const real = db.collection;
+  let first = true;
+  db.collection = name => {
+    const c = real(name);
+    if (name !== '_wekan_migration') return c;
+    return { ...c, findOne: async (f, o) => {
+      if (first && f && f._id === MARKER_ID) { first = false; return stale; }
+      return c.findOne(f, o);
+    } };
+  };
+  const before = { ...db._ops };
+  const res = await runSchemaUpgrade(db, opts);
+  assert.strictEqual(res.gated, true);
+  assert.strictEqual(db._ops.distinct, before.distinct, 'no step ran');
+  assert.strictEqual(await real('_wekan_migration').findOne({ _id: CLAIM_ID }), null, 'claim released');
 });
 
 // ── orchestrator semantics ───────────────────────────────────────────────────

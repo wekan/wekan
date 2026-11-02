@@ -89,6 +89,13 @@ const MARKER_ID = 'schema-upgrade';
 const CHECKLIST_MINICARD_MARKER_ID = 'checklist-minicard-unset';
 const COVER_ON_CARD_MARKER_ID = 'cover-on-card-on';
 const CUSTOM_FIELDS_MINICARD_MARKER_ID = 'custom-fields-minicard-on';
+// One server re-checks at a time (see runSchemaUpgrade).
+const CLAIM_ID = 'schema-upgrade-running';
+const CLAIM_STALE_MS = 2 * 60 * 60 * 1000;
+// A re-check that left work it could not do (a file missing from every old
+// location, an attachment whose kind cannot be told) is retried once a day,
+// not at every start: each retry scans the large collections again.
+const RETRY_UNCLEAN_MS = 24 * 60 * 60 * 1000;
 
 // Meteor-style random document ids (Random.id(): 17 chars, unmistakable set),
 // so upgraded documents look exactly like app-created ones.
@@ -1219,8 +1226,17 @@ async function healOne(db, ctx, { coll, doc, versionName, version }) {
  * re-check. While the running WeKan version is unchanged, the whole run is
  * ONE findOne — a full re-check is mandatory only after a release upgrade
  * (or with options.force / WEKAN_FORCE_SCHEMA_UPGRADE=true). A run that
- * leaves unresolved work (or a failed step) does NOT record the version, so
- * the next boot re-checks.
+ * leaves unresolved work (or a failed step) does NOT record the version; it
+ * records `lastAttempt` instead, and the same version re-checks once
+ * RETRY_UNCLEAN_MS has passed - not at every start of every server.
+ *
+ * ONE SERVER AT A TIME: the checks scan whole collections (a findOne for a
+ * shape that no longer exists reads every document to prove it), so a run
+ * claims CLAIM_ID first. With several WeKan servers on one database - a
+ * Kubernetes Deployment of 24 replicas rolling to a new version - only the
+ * first one re-checks; the others skip, and a later start reads the marker
+ * that run left. A claim older than CLAIM_STALE_MS (a server killed
+ * mid-run) is taken over.
  *
  * @param db mongodb driver Db (MongoDB or FerretDB — same wire protocol)
  * @param options {log?, writablePath?, appVersion?, force?}
@@ -1245,16 +1261,61 @@ async function runSchemaUpgrade(db, options = {}) {
     if (s && typeof s.productName === 'string' && s.productName.trim()) upgradeState.product = s.productName.trim();
   } catch { /* keep default */ }
 
-  // Version gate: unchanged release + previous re-check was clean -> one findOne, done.
-  if (!force && marker.lastCheck && marker.lastCheck.version === appVersion) {
-    log(`schema already re-checked for version ${appVersion} at ${marker.lastCheck.at}; skipping (set WEKAN_FORCE_SCHEMA_UPGRADE=true to force).`);
+  const skipAll = reason => {
+    log(reason);
     upgradeState.running = false;
     upgradeState.gated = true;
     upgradeState.finishedAt = new Date();
     for (const s of steps) upgradeState.steps[s.name].status = 'skipped';
     return { ran: [], skipped: steps.map(s => s.name), results: {}, gated: true };
-  }
+  };
 
+  // Version gate: unchanged release + previous re-check was clean -> one findOne, done.
+  const gateReason = m => {
+    if (force) return null;
+    if (m.lastCheck && m.lastCheck.version === appVersion) {
+      return `schema already re-checked for version ${appVersion} at ${m.lastCheck.at}; skipping (set WEKAN_FORCE_SCHEMA_UPGRADE=true to force).`;
+    }
+    const tried = m.lastAttempt;
+    if (tried && tried.version === appVersion && Date.now() - Number(tried.atMs) < RETRY_UNCLEAN_MS) {
+      return `schema re-check for version ${appVersion} left work unresolved at ${tried.at}; retrying after ${RETRY_UNCLEAN_MS / 3600000} hours (set WEKAN_FORCE_SCHEMA_UPGRADE=true to force).`;
+    }
+    return null;
+  };
+  const gated = gateReason(marker);
+  if (gated) return skipAll(gated);
+
+  const claimedAt = await claimRun(markerColl, appVersion);
+  if (!claimedAt) return skipAll(`another WeKan server is re-checking the schema for version ${appVersion}; skipping.`);
+  try {
+    // That other server may have finished between the read above and the claim.
+    const fresh = (await markerColl.findOne({ _id: MARKER_ID })) || {};
+    const gatedNow = gateReason(fresh);
+    if (gatedNow) return skipAll(gatedNow);
+    return await runSteps(db, ctx, markerColl, appVersion, log);
+  } finally {
+    await markerColl.deleteOne({ _id: CLAIM_ID, sinceMs: claimedAt }).catch(() => {});
+  }
+}
+
+// Returns the claim's time, or null when another server holds a live claim.
+async function claimRun(markerColl, appVersion) {
+  const now = Date.now();
+  const claim = { sinceMs: now, since: new Date(now), version: appVersion };
+  try {
+    await markerColl.insertOne({ _id: CLAIM_ID, ...claim });
+    return now;
+  } catch (e) {
+    if (!e || e.code !== 11000) throw e;
+  }
+  const r = await markerColl.updateOne(
+    { _id: CLAIM_ID, sinceMs: { $lt: now - CLAIM_STALE_MS } },
+    { $set: claim },
+  );
+  return r && r.modifiedCount ? now : null;
+}
+
+async function runSteps(db, ctx, markerColl, appVersion, log) {
   const ran = [], skipped = [], results = {};
   let clean = true;
 
@@ -1306,9 +1367,16 @@ async function runSchemaUpgrade(db, options = {}) {
     upgradeState.lastCheck = lastCheck;
     await markerColl.updateOne(
       { _id: MARKER_ID },
-      { $set: { lastCheck } },
+      { $set: { lastCheck }, $unset: { lastAttempt: '' } },
       { upsert: true },
     ).catch(e => log('marker lastCheck update failed: ' + e.message));
+  } else {
+    const now = Date.now();
+    await markerColl.updateOne(
+      { _id: MARKER_ID },
+      { $set: { lastAttempt: { version: appVersion, at: new Date(now), atMs: now } } },
+      { upsert: true },
+    ).catch(e => log('marker lastAttempt update failed: ' + e.message));
   }
   return { ran, skipped, results, gated: false };
 }
@@ -1322,4 +1390,7 @@ module.exports = {
   versionNeedsHeal,
   MARKER_COLL,
   MARKER_ID,
+  CLAIM_ID,
+  CLAIM_STALE_MS,
+  RETRY_UNCLEAN_MS,
 };

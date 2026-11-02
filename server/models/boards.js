@@ -805,6 +805,10 @@ Meteor.startup(async () => {
   // document-form $elemMatch; FerretDB v1 pushes those through json_each, so
   // simple dotted org/team/domain indexes cannot accelerate them.
   await ensureIndex(Boards, { archived: 1, type: 1, sort: 1 });
+  // The daily due-date reminder looks up the few boards with their own
+  // reminder days (Board Settings / Notifications). A sparse index holds only
+  // those boards, so the lookup no longer reads every board.
+  await ensureIndex(Boards, { dueReminderDays: 1 }, { sparse: true });
 });
 
 Boards.after.insert(async (userId, doc) => {

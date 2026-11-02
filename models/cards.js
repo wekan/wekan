@@ -4155,10 +4155,15 @@ const addCronJob = debounce(
         }
       }
       Meteor.setTimeout(scheduler, hour);
-    })(() => {
-      findDueCards(notifydays).catch(error => {
+    })(async () => {
+      try {
+        // Once per day for the whole installation, not once per server.
+        const { claimDueScanDay } = require('/models/lib/dueScanClaim');
+        if (!(await claimDueScanDay(Cards.rawDatabase()))) return;
+        await findDueCards(notifydays);
+      } catch (error) {
         console.error('Due card notification scan failed:', error);
-      });
+      }
     });
     scheduler();
   },
