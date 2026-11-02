@@ -18,7 +18,7 @@ Reading the output: a type with a huge total and a huge count is many small
 objects, and the name column says what they are. On the run this was written
 for, 14.3 million IgnoreRule objects held 980 MB.
 """
-import sys, json, collections, re
+import sys, json, collections
 
 path = sys.argv[1]
 

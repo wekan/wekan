@@ -71,7 +71,7 @@ vm.runInNewContext(src.replace(/^import .*;$/gm, ''), {
 });
 
 // A minimal subscription context.
-const sub = userId => ({ userId, readied: 0, added: [], ready() { this.readied += 1; return 'ready'; }, added(...a) { this.added.push(a); } });
+const sub = userId => ({ userId, readied: 0, addedDocs: [], ready() { this.readied += 1; return 'ready'; }, added(...a) { this.addedDocs.push(a); } });
 const subscribe = async (name, userId, ...args) => {
   const ctx = sub(userId);
   reads.length = 0;

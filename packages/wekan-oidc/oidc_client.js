@@ -64,7 +64,7 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
           first = false;
         }
         else {
-          loginUrl += '&'
+          loginUrl += '&';
         }
         loginUrl += encodeURIComponent(k) + '=' + encodeURIComponent(options[k]);
       }

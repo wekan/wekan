@@ -618,11 +618,11 @@ Tinytest.addAsync('livedata server - publish cursor is properly awaited', async 
   });
 
   for (let i = 0; i < 10; i++) {
-    await coll.removeAsync({ _id: `item_${i}` })
+    await coll.removeAsync({ _id: `item_${i}` });
     await coll.insertAsync({ _id: `item_${i}`, title: `Item #${i}` });
   }
 
-  const publicationName = `publication_${Random.id()}`
+  const publicationName = `publication_${Random.id()}`;
 
   delete Meteor.server.publish_handlers[publicationName];
 
@@ -642,18 +642,18 @@ Tinytest.addAsync('livedata server - publish cursor is properly awaited', async 
 
   await Meteor._sleepForMs(100);
 
-  const expectedMessages = ['sub', 'added', 'ready', 'sub', 'unsub', 'added', 'ready', 'nosub']
+  const expectedMessages = ['sub', 'added', 'ready', 'sub', 'unsub', 'added', 'ready', 'nosub'];
 
   /**
    * There shouldn't ever be `removed` messages here, otherwise the UI will glitch
    */
-  const parsedMessages = messages.map(m => m.msg)
+  const parsedMessages = messages.map(m => m.msg);
 
-  test.equal(parsedMessages, expectedMessages)
+  test.equal(parsedMessages, expectedMessages);
 
   computation.stop();
 
-  cleanup()
+  cleanup();
 });
 
 Tinytest.addAsync('livedata server - stopping a handle should preserve its context on callbacks', async function (test) {
@@ -664,11 +664,11 @@ Tinytest.addAsync('livedata server - stopping a handle should preserve its conte
   });
 
   for (let i = 0; i < 10; i++) {
-    await coll.removeAsync({ _id: `item_${i}` })
+    await coll.removeAsync({ _id: `item_${i}` });
     await coll.insertAsync({ _id: `item_${i}`, title: `Item #${i}` });
   }
 
-  const publicationName = `publication_${Random.id()}`
+  const publicationName = `publication_${Random.id()}`;
 
   delete Meteor.server.publish_handlers[publicationName];
 
@@ -676,7 +676,7 @@ Tinytest.addAsync('livedata server - stopping a handle should preserve its conte
     const user = {
       _id: 'user_id',
       customer: 'customer_id',
-    }
+    };
 
     if (user) {
       let count = 0;
@@ -702,8 +702,8 @@ Tinytest.addAsync('livedata server - stopping a handle should preserve its conte
 
       this.onStop(() => {
         // If stop is called and breaks for some reason, this will be false
-        test.isTrue(handle._stopped)
-      })
+        test.isTrue(handle._stopped);
+      });
 
       this.ready();
     }
@@ -751,7 +751,7 @@ function getTestConnections(test) {
     makeTestConnection(test, (clientConn, serverConn) => {
       resolve({ clientConn, serverConn });
     }, reject);
-  })
+  });
 }
 
 function sleep(ms) {

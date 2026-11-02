@@ -5,15 +5,6 @@
 # Trello API Python CLI
 # License: MIT / WeKan Team
 
-try:
-    # python 3
-    from urllib.parse import urlencode
-    from urllib.request import urlretrieve
-except ImportError:
-    # python 2
-    from urllib import urlencode
-
-import json
 import requests
 import sys
 
@@ -71,7 +62,7 @@ if arguments == 0:
     print("  python3 api.py reactions ACTIONID     # Reactions of ACTIONID")
     print("  python3 api.py attachments CARDID     # List attachments of CARDID")
     print("  python3 api.py download ATTACHMENTURL # Download file from attachment URL like https://.../image.png with streaming and minimal RAM usage")
-    exit
+    sys.exit()
 
 if arguments == 2:
 

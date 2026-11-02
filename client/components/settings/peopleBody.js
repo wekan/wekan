@@ -2029,7 +2029,7 @@ Template.modifyTeamsUsers.events({
         currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
         // Copy, so the cached minimongo document is not mutated in place.
         userTms = (currentUser.teams || []).slice();
-        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId;});
         if(currUserTeamIndex == -1){
           userTms.push({
             "teamId": selectedEltValueId,
@@ -2048,7 +2048,7 @@ Template.modifyTeamsUsers.events({
       for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
         currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
         userTms = (currentUser.teams || []).slice();
-        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId;});
         if(currUserTeamIndex != -1){
           userTms.splice(currUserTeamIndex, 1);
         }
@@ -2336,7 +2336,7 @@ Template.editUserPopup.events({
         userTms.push({
           "teamId": userTeamsIdsList[i],
           "teamDisplayName": userTeamsList[i],
-        })
+        });
       }
     }
 
@@ -2349,7 +2349,7 @@ Template.editUserPopup.events({
         userOrganizations.push({
           "orgId": userOrgsIdsList[i],
           "orgDisplayName": userOrgsList[i],
-        })
+        });
       }
     }
 
@@ -2553,7 +2553,7 @@ const UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
   }
   selectedElt.value = "-1";
   selectedElt.style.display = "none";
-}
+};
 
 Template.newOrgPopup.events({
   submit(event, templateInstance) {
@@ -2633,7 +2633,7 @@ Template.newUserPopup.events({
         userTms.push({
           "teamId": userTeamsIdsList[i],
           "teamDisplayName": userTeamsList[i],
-        })
+        });
       }
     }
 
@@ -2645,7 +2645,7 @@ Template.newUserPopup.events({
         userOrganizations.push({
           "orgId": userOrgsIdsList[i],
           "orgDisplayName": userOrgsList[i],
-        })
+        });
       }
     }
 

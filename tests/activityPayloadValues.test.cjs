@@ -22,7 +22,7 @@ function fixture() {
     deliverStoredActivityNotifications: (activity, userId, buildContext) => {
       const delivery = (async () => {
         const context = await buildContext();
-        for (const user of context.users) notifications.push(structuredClone(context.params));
+        for (let n = 0; n < context.users.length; n += 1) notifications.push(structuredClone(context.params));
       })();
       pendingDeliveries.push(delivery);
       return delivery;

@@ -3782,7 +3782,7 @@ Template.addMemberPopup.helpers({
     const board = ReactiveCache.getBoard(boardId);
     return board && board.hasMember(userId);
   }
-})
+});
 
 Template.addBoardOrgPopup.onCreated(function() {
   initGroupPickerState(this, 'org');
@@ -3823,7 +3823,7 @@ Template.addBoardOrgPopup.events({
         "orgId": selectedOrgId,
         "orgDisplayName": selectedOrgDisplayName,
         "isActive" : true,
-      })
+      });
 
       if (selectedOrgId != "-1") {
         Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
@@ -3994,7 +3994,7 @@ Template.addBoardTeamPopup.events({
         "teamId": selectedTeamId,
         "teamDisplayName": selectedTeamDisplayName,
         "isActive" : true,
-      })
+      });
 
       if (selectedTeamId != "-1") {
         let members = currentBoard.members;
@@ -4011,7 +4011,7 @@ Template.addBoardTeamPopup.events({
           let index;
           if (boardTeamUsers && boardTeamUsers.length > 0) {
             boardTeamUsers.forEach((u) => {
-              index = members.findIndex(function(m){ return m.userId == u._id});
+              index = members.findIndex(function(m){ return m.userId == u._id;});
               if(index == -1){
                 members.push({
                   "isActive": true,
@@ -4076,7 +4076,7 @@ Template.removeBoardTeamPopup.events({
       let index;
       if (boardTeamUsers && boardTeamUsers.length > 0) {
         boardTeamUsers.forEach((u) => {
-          index = members.findIndex(function(m){ return m.userId == u._id});
+          index = members.findIndex(function(m){ return m.userId == u._id;});
           if(index !== -1 && !members[index].isAdmin){
             members.splice(index, 1);
           }

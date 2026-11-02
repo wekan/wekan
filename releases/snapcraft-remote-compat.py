@@ -117,7 +117,7 @@ def main():
         import httplib2
         transient.append(httplib2.HttpLib2Error)
     except ImportError:
-        pass
+        pass  # httplib2 is optional: without it there is no extra transient error to retry
     apply_workarounds(RemoteBuildService, BadRequest, transient=tuple(transient))
     sys.argv[0] = "snapcraft"
     return snapcraft_main()

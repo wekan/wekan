@@ -119,7 +119,7 @@ window.Popup = new (class {
         dataContext: openOptions.dataContext || (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
       });
 
-      const $contentWrapper = $('.content-wrapper')
+      const $contentWrapper = $('.content-wrapper');
       if ($contentWrapper.length > 0) {
         const contentWrapper = $contentWrapper[0];
         self._getTopStack().scrollTop = contentWrapper.scrollTop;
@@ -195,7 +195,7 @@ window.Popup = new (class {
   /// steps back is greater than the popup stack size, the popup will be closed.
   back(n = 1) {
     if (this._stack.length > n) {
-      const $contentWrapper = $('.content-wrapper')
+      const $contentWrapper = $('.content-wrapper');
       if ($contentWrapper.length > 0) {
         const contentWrapper = $contentWrapper[0];
         const stack = this._stack[this._stack.length - n];

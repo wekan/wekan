@@ -55,7 +55,7 @@ const Attachments = new FilesCollection({
   allowClientCode: true,
   storagePath: storagePath,
   namingFunction(opts) {
-    let filenameWithoutExtension = ""
+    let filenameWithoutExtension = "";
     let fileId = "";
     if (opts?.name) {
       // Client

@@ -45,9 +45,8 @@ test('negative: no server code reads an attachment\'s card from a top-level card
   });
   for (const file of [...walk('server'), ...walk('models')]) {
     const src = read(file);
-    for (const m of src.matchAll(/getAttachments\(([^;]*?)\{ fields: \{ cardId: 1 \} \}/g)) {
-      assert.fail(`${file}: asks attachments for a top-level cardId - it is meta.cardId`);
-    }
+    assert.ok(!/getAttachments\(([^;]*?)\{ fields: \{ cardId: 1 \} \}/.test(src),
+      `${file}: asks attachments for a top-level cardId - it is meta.cardId`);
   }
 });
 

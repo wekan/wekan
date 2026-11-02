@@ -5,18 +5,12 @@ import Attachments from '/models/attachments';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
-import fs from 'fs';
-import path from 'path';
 import { ObjectId } from 'bson';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
-import { getFeatureFlags } from '/models/lib/featureFlags';
-import RecoveryEvents from '/models/recoveryEvents';
-import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { softDeleteAttachment } from '/server/attachmentSoftDelete';
 import { assignedOnlyAttachmentScope, mayReadBoardAttachment, mayWriteCardAttachment } from '/server/lib/assignedOnlyAttachments';
-const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 

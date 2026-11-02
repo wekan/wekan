@@ -50,8 +50,11 @@ test('the recurring scanner always selects the scheduled authorization path', as
   const calls = [];
   const context = { Lists: { find: () => ({ fetchAsync: async () => [{ _id: 'one' }, { _id: 'two' }] }) },
     syncOneList: async (list, options) => calls.push([list._id, options.scheduled]), console };
-  vm.runInNewContext(source.slice(source.indexOf('export async function scanListSync'),
-    source.lastIndexOf('Meteor.startup(')).replace('export async', 'async'), context);
+  // From the scanner to the first Meteor.startup after it (the index for its
+  // query, #6855): the function alone, not the startup blocks.
+  const start = source.indexOf('export async function scanListSync');
+  vm.runInNewContext(source.slice(start, source.indexOf('Meteor.startup(', start))
+    .replace('export async', 'async'), context);
   await context.scanListSync();
   assert.deepEqual(calls, [['one', true], ['two', true]]);
 });

@@ -12,7 +12,13 @@ export const createOnAfterUpload = bucket =>
     // then we read all versions we have got so far
     Object.keys(file.versions).forEach(versionName => {
       const metadata = { ...file.meta, versionName, fileId: file._id };
-      fs.createReadStream(file.versions[versionName].path)
+      const source = fs.createReadStream(file.versions[versionName].path);
+      // pipe() does not pass a read error on to the upload stream: without
+      // this a file that cannot be read left the upload open and the file in place.
+      source.on('error', () => {
+        self.unlink(file, versionName);
+      });
+      source
 
         // this is where we upload the binary to the bucket using bucket.openUploadStream
         // see http://mongodb.github.io/node-mongodb-native/3.2/api/GridFSBucket.html#openUploadStream

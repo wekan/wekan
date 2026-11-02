@@ -4243,8 +4243,8 @@ Cards.helpers({
   /**
    * Get a description of the original position
    */
-  getOriginalPositionDescription() {
-    const history = this.getOriginalPosition();
+  async getOriginalPositionDescription() {
+    const history = await this.getOriginalPosition();
     if (!history) return 'No original position data';
 
     const swimlaneInfo = history.originalSwimlaneId ?

@@ -10,8 +10,6 @@
 #   - There is hardcoded value of avatar URL example.com .
 #     Try to change it to use existing environment variables.
 
-import os
-
 import environs
 import ldap
 import hashlib

@@ -419,7 +419,7 @@ export default Popup => {
       const fileFullPath = `${zipDirName}/webfonts/${filename}`;
       zip.file(fileFullPath, responseBody);
     });
-  }
+  };
 
   const downloadFontAwesomeFonts = async (zip, zipDirName) => {
     // List of Font Awesome webfont files to include
@@ -476,7 +476,7 @@ export default Popup => {
     } catch (e) {
       console.log('Error in downloadFontAwesomeFonts:', e);
     }
-  }
+  };
 
   const downloadCardCovers = async (elements, zip, boardSlug, clonedHtmlElement, zipDirName) => {
     await asyncForEach(elements, async elem => {

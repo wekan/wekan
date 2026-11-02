@@ -652,7 +652,7 @@ if (Meteor.isServer) {
 
       let userLanguage = 'en';
       if (user && user.profile) {
-        userLanguage = user.profile.language
+        userLanguage = user.profile.language;
       }
 
       if( req.query.delimiter == "\t" ) {

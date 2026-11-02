@@ -377,7 +377,7 @@ Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all
         teamIds.push(team.teamId);
       });
     }
-  })
+  });
 
   const users = await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, false);
   const teams = await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, false);

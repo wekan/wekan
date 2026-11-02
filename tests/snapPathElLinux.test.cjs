@@ -40,7 +40,7 @@ test('no instruction exports a /snap-only bin or lib directory', () => {
   const bad = [];
   for (const file of markdownFiles()) {
     read(file).split('\n').forEach((line, i) => {
-      if (/^\s*export (PATH|LD_LIBRARY_PATH)=.*(^|[^A-Za-z_$])\/snap\/[a-z-]+\/current\/(bin|lib)/.test(line)) {
+      if (/^\s*export (PATH|LD_LIBRARY_PATH)=.*[^A-Za-z_$]\/snap\/[a-z-]+\/current\/(bin|lib)/.test(line)) {
         bad.push(`${file}:${i + 1}: ${line.trim()}`);
       }
     });

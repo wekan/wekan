@@ -98,7 +98,7 @@ def wait(url, seconds=120, expected=None):
             with urllib.request.urlopen(url, timeout=2) as response:
                 if response.status == 200:
                     if expected is None or json.load(response) == expected: return
-        except (OSError, urllib.error.URLError, ValueError): pass
+        except (OSError, urllib.error.URLError, ValueError): pass  # not up yet: retry until the timeout
         time.sleep(.25)
     raise TimeoutError(url)
 

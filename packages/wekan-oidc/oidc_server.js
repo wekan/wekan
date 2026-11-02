@@ -137,7 +137,7 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   // exist: a Nextcloud response with `ocs` but no `ocs.data` used to replace
   // userinfo with undefined and fail on the next line instead of this one.
   if (userinfo.ocs && userinfo.ocs.data) userinfo = userinfo.ocs.data; // Nextcloud hack
-  if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
+  if (userinfo.metadata) userinfo = userinfo.metadata; // Openshift hack
   if (!userinfo || typeof userinfo !== 'object') {
     throw new Error('OIDC: the provider response unwrapped to nothing usable '
       + '(ocs/metadata). Check the provider log.');
@@ -447,7 +447,7 @@ var getTokenContent = function (token) {
     }
   }
   return content;
-}
+};
 Meteor.methods({
   'groupRoutineOnLogin': async function(info, userId)
   {
@@ -543,16 +543,16 @@ Meteor.methods({
     check(oidcUserId, String);
 
     const defaultBoardParams = (process.env.DEFAULT_BOARD_ID || '').split(':');
-    const defaultBoardId = defaultBoardParams.shift()
-    if (!defaultBoardId) return
+    const defaultBoardId = defaultBoardParams.shift();
+    if (!defaultBoardId) return;
 
-    const board = await Boards.findOneAsync(defaultBoardId)
-    const user = await Users.findOneAsync({ 'services.oidc.id': oidcUserId })
-    const userId = user?._id
+    const board = await Boards.findOneAsync(defaultBoardId);
+    const user = await Users.findOneAsync({ 'services.oidc.id': oidcUserId });
+    const userId = user?._id;
     const memberIndex = (board?.members || []).map(m => m.userId).indexOf(userId);
-    if(!board || !userId || memberIndex > -1) return
+    if(!board || !userId || memberIndex > -1) return;
 
-    await board.addMember(userId)
+    await board.addMember(userId);
     // DEFAULT_BOARD_ID=<id>:isAdmin:isWorker... - Array has no .contains, so
     // this threw and the user got the default role whatever was configured.
     // isCommentsOnly is the spelling that has always been documented here;
@@ -563,7 +563,7 @@ Meteor.methods({
       defaultBoardParams.includes("isNoComments"),
       defaultBoardParams.includes("isCommentOnly") || defaultBoardParams.includes("isCommentsOnly"),
       defaultBoardParams.includes("isWorker")
-    )
+    );
   }
 });
 

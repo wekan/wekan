@@ -86,8 +86,6 @@ check('loggers insert into EventLog via Meteor JS query (fire-and-forget)', () =
   const fold = read('server/lib/eventLogFold.js');
   assert.ok(/p\.catch\(/.test(fold), 'the fold must swallow a rejected write');
   assert.ok(/catch \(e\) \{/.test(fold), 'and a throw from the call itself');
-  if (false) {
-  }
 });
 check('no new files/DBs are created under WRITABLE_PATH', () => {
   for (const f of ['server/lib/securityLog.js', 'server/lib/speedLog.js', 'server/lib/testLog.js']) {

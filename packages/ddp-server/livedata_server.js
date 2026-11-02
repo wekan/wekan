@@ -916,7 +916,7 @@ Object.assign(Session.prototype, {
     var forwardedFor = self.socket.headers["x-forwarded-for"];
     if (!isString(forwardedFor))
       return null;
-    forwardedFor = forwardedFor.split(',')
+    forwardedFor = forwardedFor.split(',');
 
     // Typically the first value in the `x-forwarded-for` header is
     // the original IP address of the client connecting to the first
@@ -1076,7 +1076,7 @@ Object.assign(Subscription.prototype, {
       try {
         await self._publishHandlerResult(await resultOrThenable);
       } catch(e) {
-        self.error(e)
+        self.error(e);
       }
     } else {
       await self._publishHandlerResult(resultOrThenable);
@@ -1775,7 +1775,7 @@ Object.assign(Server.prototype, {
    * @returns boolean
    */
   isAsyncCall: function(){
-    return DDP._CurrentMethodInvocation._isCallAsyncMethodRunning()
+    return DDP._CurrentMethodInvocation._isCallAsyncMethodRunning();
   },
 
   /**

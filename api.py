@@ -8,13 +8,6 @@
 # TODO:
 #   addcustomfieldtoboard: There is error: Settings must be object. So adding does not work yet.
 
-try:
-    # python 3
-    from urllib.parse import urlencode
-except ImportError:
-    # python 2
-    from urllib import urlencode
-
 import json
 import requests
 import sys
@@ -163,7 +156,7 @@ If *nix:  chmod +x api.py => ./api.py users
 
 if arguments == 0:
     print(syntax)
-    exit
+    sys.exit()
 
 # TODO:
 #   print("  python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64")
@@ -329,7 +322,7 @@ if arguments == 8:
             if new_card_id:
                 edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + new_card_id
                 put_data = {'labelIds': labelIds}
-                body = requests.put(edcard, data=put_data, headers=headers)
+                requests.put(edcard, data=put_data, headers=headers)
                 print("=== EDIT CARD ===\n")
                 body = requests.get(edcard, headers=headers)
                 data2 = body.text.replace('}', "}\n")
@@ -372,7 +365,7 @@ if arguments == 6:
         print(edcard)
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         put_data = {'title': '{}'.format(newcardtitle), 'description': '{}'.format(newcarddescription)}
-        body = requests.put(edcard, data=put_data, headers=headers)
+        requests.put(edcard, data=put_data, headers=headers)
         print("=== EDIT CARD ===\n")
         body = requests.get(edcard, headers=headers)
         data2 = body.text.replace('}',"}\n")
@@ -411,7 +404,7 @@ if arguments == 5:
         print(edcard)
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         put_data = {'labelIds': labelIds}
-        body = requests.put(edcard, data=put_data, headers=headers)
+        requests.put(edcard, data=put_data, headers=headers)
         print("=== ADD LABEL ===\n")
         body = requests.get(edcard, headers=headers)
         data2 = body.text.replace('}',"}\n")
@@ -437,7 +430,7 @@ if arguments == 5:
         print(edcard)
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         put_data = {'color': '{}'.format(newcolor)}  
-        body = requests.put(edcard, data=put_data, headers=headers)
+        requests.put(edcard, data=put_data, headers=headers)
         print("=== EDIT CARD COLOR ===\n")
         body = requests.get(edcard, headers=headers)
         data2 = body.text.replace('}', "}\n")
@@ -456,7 +449,7 @@ if arguments >= 4:
         print(edlist)
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         put_data = {'title': '{}'.format(newlisttitle)}
-        body = requests.put(edlist, data=put_data, headers=headers)
+        requests.put(edlist, data=put_data, headers=headers)
         print("=== EDIT LIST ===\n")
         body = requests.get(edlist, headers=headers)
         data2 = body.text.replace('}', "}\n")
@@ -482,7 +475,7 @@ if arguments >= 4:
         print(edlist)
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         put_data = {'color': '{}'.format(newcolor)}
-        body = requests.put(edlist, data=put_data, headers=headers)
+        requests.put(edlist, data=put_data, headers=headers)
         print("=== EDIT LIST COLOR ===\n")
         body = requests.get(edlist, headers=headers)
         data2 = body.text.replace('}', "}\n")
@@ -1050,7 +1043,7 @@ if arguments >= 1:
         if arguments < 6:
             print("Usage: python3 api.py uploadattachment BOARDID SWIMLANEID LISTID CARDID FILEPATH [STORAGE_BACKEND]")
             print("Storage backends: fs, gridfs, s3")
-            exit(1)
+            sys.exit(1)
         
         boardid = sys.argv[2]
         swimlaneid = sys.argv[3]
@@ -1064,7 +1057,7 @@ if arguments >= 1:
         import os, mimetypes
         if not os.path.isfile(filepath):
             print(f"Error: File '{filepath}' not found")
-            exit(1)
+            sys.exit(1)
         filename = os.path.basename(filepath)
         file_type = mimetypes.guess_type(filepath)[0] or 'application/octet-stream'
         params = {'boardId': boardid, 'swimlaneId': swimlaneid, 'listId': listid, 'cardId': cardid,
@@ -1092,7 +1085,7 @@ if arguments >= 1:
         # ------- DOWNLOAD ATTACHMENT START -----------
         if arguments < 3:
             print("Usage: python3 api.py downloadattachment ATTACHMENTID OUTPUTPATH")
-            exit(1)
+            sys.exit(1)
         
         attachmentid = sys.argv[2]
         outputpath = sys.argv[3]
@@ -1121,7 +1114,7 @@ if arguments >= 1:
         # ------- ATTACHMENT INFO START -----------
         if arguments < 2:
             print("Usage: python3 api.py attachmentinfo ATTACHMENTID")
-            exit(1)
+            sys.exit(1)
         
         attachmentid = sys.argv[2]
         
@@ -1160,7 +1153,7 @@ if arguments >= 1:
         # ------- LIST CARD ATTACHMENTS START -----------
         if arguments < 5:
             print("Usage: python3 api.py listcardattachments BOARDID SWIMLANEID LISTID CARDID")
-            exit(1)
+            sys.exit(1)
         
         boardid = sys.argv[2]
         swimlaneid = sys.argv[3]
@@ -1199,7 +1192,7 @@ if arguments >= 1:
         # ------- COPY/MOVE ATTACHMENT START -----------
         if arguments < 6:
             print("Usage: python3 api.py copymoveattachment ATTACHMENTID TARGETBOARDID TARGETSWIMLANEID TARGETLISTID TARGETCARDID [copy|move]")
-            exit(1)
+            sys.exit(1)
         
         attachmentid = sys.argv[2]
         targetboardid = sys.argv[3]
@@ -1210,7 +1203,7 @@ if arguments >= 1:
         
         if operation not in ['copy', 'move']:
             print("Operation must be 'copy' or 'move'")
-            exit(1)
+            sys.exit(1)
         
         # Prepare request data
         request_data = {
@@ -1253,7 +1246,7 @@ if arguments >= 1:
         # ------- DELETE ATTACHMENT START -----------
         if arguments < 2:
             print("Usage: python3 api.py deleteattachment ATTACHMENTID")
-            exit(1)
+            sys.exit(1)
         
         attachmentid = sys.argv[2]
         
@@ -1322,7 +1315,7 @@ if arguments >= 1:
         # ------- ADD BOARD MEMBER START -----------
         if arguments < 3:
             print("Usage: python3 api.py addboardmember BOARDID USERID ROLE")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         userid = sys.argv[3]
         role = sys.argv[4] if arguments > 3 else 'normal'
@@ -1339,7 +1332,7 @@ if arguments >= 1:
         # ------- REMOVE BOARD MEMBER START -----------
         if arguments < 3:
             print("Usage: python3 api.py removeboardmember BOARDID USERID")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         userid = sys.argv[3]
         remove_member_url = wekanurl + apiboards + boardid + s + 'members' + s + userid + s + 'remove'
@@ -1354,7 +1347,7 @@ if arguments >= 1:
         # ------- SET BOARD MEMBER ROLE START -----------
         if arguments < 4:
             print("Usage: python3 api.py setboardmemberrole BOARDID USERID ROLE")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         userid = sys.argv[3]
         role = sys.argv[4]
@@ -1370,7 +1363,7 @@ if arguments >= 1:
         # ------- LIST BOARD DOMAINS START -----------
         if arguments < 2:
             print("Usage: python3 api.py boarddomains BOARDID")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         domains_url = wekanurl + apiboards + boardid + s + 'domains'
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
@@ -1383,7 +1376,7 @@ if arguments >= 1:
         # ------- ADD BOARD DOMAIN START -----------
         if arguments < 3:
             print("Usage: python3 api.py addboarddomain BOARDID DOMAIN")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         domain = sys.argv[3]
         add_domain_url = wekanurl + apiboards + boardid + s + 'domains'
@@ -1398,7 +1391,7 @@ if arguments >= 1:
         # ------- REMOVE BOARD DOMAIN START -----------
         if arguments < 3:
             print("Usage: python3 api.py removeboarddomain BOARDID DOMAIN")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         domain = sys.argv[3]
         remove_domain_url = wekanurl + apiboards + boardid + s + 'domains' + s + domain
@@ -1413,7 +1406,7 @@ if arguments >= 1:
         if arguments < 4:
             print("Usage: python3 api.py {} BOARDID LISTID CARDID IDS".format(sys.argv[1]))
             print("IDS = comma-separated userIds, or '' to clear")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
@@ -1435,7 +1428,7 @@ if arguments >= 1:
             print("Usage: python3 api.py setcarddate BOARDID LISTID CARDID DATETYPE DATEVALUE")
             print("DATETYPE: received, start, due, end")
             print("DATEVALUE: ISO 8601, e.g. 2026-06-07T12:00:00.000Z")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
@@ -1453,7 +1446,7 @@ if arguments >= 1:
         edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         put_data = {datemap[datetype]: datevalue}
-        body = requests.put(edcard, data=put_data, headers=headers)
+        requests.put(edcard, data=put_data, headers=headers)
         print("=== SET CARD DATE {} ===\n".format(datetype.upper()))
         print(body.text)
         # ------- SET CARD DATE END -----------
@@ -1463,7 +1456,7 @@ if arguments >= 1:
         if arguments < 4:
             print("Usage: python3 api.py setcardlabels BOARDID LISTID CARDID LABELIDS")
             print("LABELIDS = comma-separated labelIds, or '' to clear")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
@@ -1483,7 +1476,7 @@ if arguments >= 1:
         # ------- MOVE CARD START -----------
         if arguments < 7:
             print("Usage: python3 api.py movecard BOARDID LISTID CARDID NEWBOARDID NEWSWIMLANEID NEWLISTID")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
@@ -1497,7 +1490,7 @@ if arguments >= 1:
             'newSwimlaneId': newswimlaneid,
             'newListId': newlistid,
         }
-        body = requests.put(edcard, data=put_data, headers=headers)
+        requests.put(edcard, data=put_data, headers=headers)
         print("=== MOVE CARD ===\n")
         print(body.text)
         # ------- MOVE CARD END -----------
@@ -1508,7 +1501,7 @@ if arguments >= 1:
             print("Usage: python3 api.py bulkaddcards BOARDID LISTID AUTHORID SWIMLANEID CARDSJSONFILE")
             print("CARDSJSONFILE = JSON file with a list of titles, e.g. [\"Card A\", \"Card B\"],")
             print("                or a list of card objects [{\"title\": \"Card A\", \"description\": \"...\"}, ...]")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         authorid = sys.argv[4]
@@ -1516,16 +1509,16 @@ if arguments >= 1:
         cardsjsonfile = sys.argv[6] if arguments > 5 else None
         if not cardsjsonfile:
             print("CARDSJSONFILE is required")
-            exit(1)
+            sys.exit(1)
         try:
             with open(cardsjsonfile, 'r') as f:
                 raw_cards = json.load(f)
         except Exception as e:
             print("Error reading CARDSJSONFILE: {}".format(e))
-            exit(1)
+            sys.exit(1)
         if not isinstance(raw_cards, list) or len(raw_cards) == 0:
             print("CARDSJSONFILE must contain a non-empty JSON list")
-            exit(1)
+            sys.exit(1)
         cards = []
         for item in raw_cards:
             if isinstance(item, str):
@@ -1534,7 +1527,7 @@ if arguments >= 1:
                 cards.append(item)
             else:
                 print("Each card must be a string (title) or an object")
-                exit(1)
+                sys.exit(1)
         bulk_url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + 'bulk'
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
         post_data = {'authorId': authorid, 'swimlaneId': swimlaneid, 'cards': cards}
@@ -1548,7 +1541,7 @@ if arguments >= 1:
         if arguments < 3:
             print("Usage: python3 api.py bulkdeletecards BOARDID CARDIDS")
             print("CARDIDS = comma-separated cardIds")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         cardids_raw = sys.argv[3]
         cardids = [x for x in cardids_raw.split(',') if x]
@@ -1565,7 +1558,7 @@ if arguments >= 1:
         if arguments < 5:
             print("Usage: python3 api.py bulkcardlabels BOARDID CARDIDS ADDLABELIDS REMOVELABELIDS")
             print("CARDIDS / ADDLABELIDS / REMOVELABELIDS = comma-separated, or '' for none")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         cardids = [x for x in sys.argv[3].split(',') if x]
         add_labelids = [x for x in sys.argv[4].split(',') if x]
@@ -1582,7 +1575,7 @@ if arguments >= 1:
         # ------- CREATE LINKED CARD START -----------
         if arguments < 6:
             print("Usage: python3 api.py linkcard BOARDID LISTID SWIMLANEID AUTHORID LINKEDCARDID")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         swimlaneid = sys.argv[4]
@@ -1600,7 +1593,7 @@ if arguments >= 1:
         # ------- ADD/REMOVE CARD MEMBER / ASSIGNEE START -----------
         if arguments < 5:
             print("Usage: python3 api.py {} BOARDID LISTID CARDID USERID".format(sys.argv[1]))
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
@@ -1620,14 +1613,14 @@ if arguments >= 1:
         # ------- COPY CARD START -----------
         if arguments < 4:
             print("Usage: python3 api.py copycard BOARDID LISTID CARDID TOSWIMLANEID [TOBOARDID] [TOLISTID] [POSITION]")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
         toswimlaneid = sys.argv[5] if arguments > 4 else None
         if not toswimlaneid:
             print("TOSWIMLANEID is required")
-            exit(1)
+            sys.exit(1)
         toboardid = sys.argv[6] if arguments > 5 else boardid
         tolistid = sys.argv[7] if arguments > 6 else listid
         url = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid + s + 'copy'
@@ -1644,7 +1637,7 @@ if arguments >= 1:
         # ------- COPY/MOVE SWIMLANE START -----------
         if arguments < 3:
             print("Usage: python3 api.py {} BOARDID SWIMLANEID [TOBOARDID] [POSITION]".format(sys.argv[1]))
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         swimlaneid = sys.argv[3]
         toboardid = sys.argv[4] if arguments > 3 else boardid
@@ -1663,7 +1656,7 @@ if arguments >= 1:
         # ------- COPY/MOVE LIST START -----------
         if arguments < 3:
             print("Usage: python3 api.py {} BOARDID LISTID [TOSWIMLANEID] [TOBOARDID] [POSITION]".format(sys.argv[1]))
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         listid = sys.argv[3]
         toswimlaneid = sys.argv[4] if arguments > 3 else None
@@ -1702,7 +1695,7 @@ if arguments >= 1:
         # ------- GET CARD SETTINGS START -----------
         if arguments < 2:
             print("Usage: python3 api.py getcardsettings BOARDID")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         url = wekanurl + apiboards + boardid + s + 'cardSettings'
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
@@ -1717,7 +1710,7 @@ if arguments >= 1:
         if arguments < 4:
             print("Usage: python3 api.py setcardsetting BOARDID KEY VALUE")
             print("e.g. python3 api.py setcardsetting BOARDID allowsDueDate true")
-            exit(1)
+            sys.exit(1)
         boardid = sys.argv[2]
         key = sys.argv[3]
         value = sys.argv[4]
@@ -1945,7 +1938,7 @@ if arguments >= 3 and sys.argv[1] == 'uploadbackground':
             response = requests.post(url, headers=headers, params=params, data=f)
     except Exception as e:
         print(f"Error reading file: {e}")
-        exit(1)
+        sys.exit(1)
     print(response.text)
 
 if arguments >= 3 and sys.argv[1] == 'downloadbackground':

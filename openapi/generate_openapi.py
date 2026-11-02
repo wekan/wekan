@@ -383,7 +383,7 @@ class EntryPoint(object):
                 try:
                     data = load_return_type_jsdoc_json(data)
                 except json.decoder.JSONDecodeError:
-                    pass
+                    pass  # not JSON: keep the text as it is
 
             # we should not have 2 identical tags but @param or @tag
             if tag in self._doc:

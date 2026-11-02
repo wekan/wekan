@@ -41,7 +41,7 @@ Meteor.initCas = function(callback) {
             }
         }
     });
-}
+};
 
 Meteor.loginWithCas = function(options, callback) {
 
@@ -69,7 +69,7 @@ Meteor.loginWithCas = function(options, callback) {
 
     var loginUrl = settings.loginUrl +
         "?" + (settings.serviceParam || "service") + "=" +
-        encodeURIComponent(serviceURL)
+        encodeURIComponent(serviceURL);
 
     if (!casUsesPopup(settings)) {
       window.location = loginUrl;

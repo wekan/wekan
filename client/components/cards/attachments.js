@@ -338,8 +338,8 @@ function openPrevAttachment() {
 
 function processTouch(){
 
-  xDist = touchEndCoords.x - touchStartCoords.x;
-  yDist = touchEndCoords.y - touchStartCoords.y;
+  const xDist = touchEndCoords.x - touchStartCoords.x;
+  const yDist = touchEndCoords.y - touchStartCoords.y;
 
   // Left swipe
   if (Math.abs(xDist) > Math.abs(yDist) && xDist < 0) {

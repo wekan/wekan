@@ -38,26 +38,7 @@ import {
   datePickerRendered,
   datePickerHelpers,
 } from '/client/lib/datepicker';
-import {
-  formatDateTime,
-  formatDate,
-  formatTime,
-  getISOWeek,
-  isValidDate,
-  isBefore,
-  isAfter,
-  isSame,
-  add,
-  subtract,
-  startOf,
-  endOf,
-  format,
-  parseDate,
-  now,
-  createDate,
-  fromNow,
-  calendar
-} from '/imports/lib/dateUtils';
+import { formatDateTime, add, now } from '/imports/lib/dateUtils';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
 import Checklists from '/models/checklists';
@@ -2396,7 +2377,7 @@ const filterMembers = (filterTerm) => {
       .map(({ member }) => member);
   }
   return members;
-}
+};
 
 Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));

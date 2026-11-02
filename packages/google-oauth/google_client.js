@@ -56,12 +56,12 @@ Google.requestCredential = (options, credentialRequestCompleteCallback) => {
 
   // backwards compatible options
   if (options.requestOfflineToken != null){
-    loginUrlParameters.access_type = options.requestOfflineToken ? 'offline' : 'online'
+    loginUrlParameters.access_type = options.requestOfflineToken ? 'offline' : 'online';
   }
   if (options.prompt != null) {
     loginUrlParameters.prompt = options.prompt;
   } else if (options.forceApprovalPrompt) {
-    loginUrlParameters.prompt = 'consent'
+    loginUrlParameters.prompt = 'consent';
   }
 
   if (options.loginHint) {

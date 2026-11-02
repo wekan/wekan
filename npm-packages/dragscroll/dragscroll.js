@@ -43,11 +43,11 @@
                     mousedown,
                     cont.md = function(e) {
 
-                        obj = e.target
-                        noteEditableChild = false
+                        let obj = e.target;
+                        let noteEditableChild = false;
                         while (obj != undefined && obj != null && obj.tagName.toUpperCase() != 'BODY'){
                             if (obj.classList.contains("note-editable")){
-                                noteEditableChild = true
+                                noteEditableChild = true;
                             }
                             obj = obj.parentNode;
                         }
@@ -57,7 +57,7 @@
                           || e.target.tagName === "TEXTAREA"
                           || noteEditableChild
                         ) {
-                            return true
+                            return true;
                         }
                         const elementsOfClick = _document.elementsFromPoint(e.clientX, e.clientY);
                         const hasNoDragScroll = elementsOfClick.every(elem => !elem.classList.contains('nodragscroll'));
@@ -102,7 +102,7 @@
                 );
              })(dragged[i++]);
         }
-    }
+    };
 
       
     if (_document.readyState == 'complete') {
