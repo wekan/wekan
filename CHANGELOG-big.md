@@ -149,17 +149,23 @@ Playwright date display spec expects it.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/492895200b">Year, month and day drop-downs under the calendar pick any date</a>. Thanks to brlin-tw and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dcaa316a01">Any year by number, and month and day drop-downs, under the calendar</a>. Thanks to brlin-tw and xet7.</summary>
 
 [\\#6853](https://github.com/wekan/wekan/issues/6853). The heading above the
 calendar now shows only the month and the year, no longer the YYYY-MM-DD of
-the selected day. Under the calendar are three drop-downs: any year 100 years
-back and forward, any month of that year, and any day of that month; a pick
-selects the date and shows its month. The lists are read from the calendar
+the selected day. Under the calendar are three controls: a year field, where
+any whole year can be typed or stepped to - thousands of years back or ahead,
+0 being 1 BC and -2999 3000 BC, as far as a date reaches (about 275,000 years
+either side of 1970) - a drop-down of the months of that year, and one of the
+days of that month. A pick selects the date and shows its month; Enter in the
+year field applies the year instead of saving the popup, and a value that is
+not a year puts the field back. The months and days are read from the calendar
 system in use, so they hold for the Islamic, Hebrew, Japanese and every other
-system, including leap months and a short thirteenth month. A day that the
-new month lacks falls to its last day. `tests/calendarDropdowns.test.cjs`
-checks ten calendar systems and that no date text is left in the heading.
+system, including leap months and a short thirteenth month. A day that the new
+month lacks falls to its last day. Calendars whose eras restart or switch the
+count (Japanese, ROC, Coptic, Ethiopic) refuse a year no number can name.
+`tests/calendarDropdowns.test.cjs` checks ten calendar systems and that no
+date text is left in the heading.
 
 </details>
 
