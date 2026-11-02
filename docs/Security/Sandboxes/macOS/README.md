@@ -96,6 +96,20 @@ with the checkout's real path:
   reach anything outside the checkout. That is the property this sandbox
   exists for. The Flatpak build of VSCodium makes the same trade with
   zypak.
+- **No Keychain: `--use-mock-keychain`.** The login keychain is in
+  `~/Library/Keychains`, which the sandbox refuses. Without this switch
+  VSCodium's secret storage (Electron `safeStorage`) asks for a keychain to
+  keep "VSCodium Key" in, with the dialog "A keychain cannot be found to store
+  'VSCodium Key'" (in Finnish "Avainnippua ei löydy"). Never press **Reset To
+  Defaults** (*Palauta oletuksiin*) there: it would replace the login keychain
+  with a new, empty one. Press **Cancel** (*Kumoa*) and start VSCodium again
+  with the updated `sandbox.sh`. With the switch, Chromium uses a built-in
+  mock keychain with a fixed, publicly known key and does not touch the real
+  Keychain; it is the macOS equivalent of `--password-store=basic`, which
+  works on Linux only. The price: what extensions store as secrets (sign-ins,
+  tokens) in `.tools/vscodium/user-data` is only obfuscated, readable by
+  anyone who can read the checkout. Keep long-lived credentials out of the
+  sandbox. Opening `~/Library/Keychains` to the sandbox instead would be worse.
 - **`sandbox-exec` is marked deprecated** in its man page, but it has been
   present and working in every macOS release since 10.5, including macOS 27,
   where this was tested. Apple uses the same profiles for its own services.

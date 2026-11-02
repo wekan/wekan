@@ -141,7 +141,14 @@ echo "Sandbox ready. Finder launcher: $LAUNCHER"
 #    initialization failed: Operation not permitted"), and every process
 #    VSCodium starts is inside this sandbox instead. Its settings and
 #    extensions are in .tools/vscodium, not in ~/Library and ~/.vscode-oss.
-sandboxed "$APP/Contents/MacOS/VSCodium" --no-sandbox \
+#    --use-mock-keychain: the login keychain is in ~/Library/Keychains, which
+#    the sandbox refuses, so Electron's safeStorage would ask for a keychain
+#    to store "VSCodium Key" in ("A keychain cannot be found", with a "Reset
+#    To Defaults" button that would replace the user's login keychain). With
+#    it, Chromium's OSCrypt uses a mock keychain with a fixed key and never
+#    touches the real one, so extension secrets in .tools/vscodium are only
+#    obfuscated. (--password-store=basic does the same on Linux only.)
+sandboxed "$APP/Contents/MacOS/VSCodium" --no-sandbox --use-mock-keychain \
 	--user-data-dir "$TOOLS/vscodium/user-data" \
 	--extensions-dir "$TOOLS/vscodium/extensions" \
 	"$REPO" >"$TOOLS/sandbox/vscodium.log" 2>&1 &
