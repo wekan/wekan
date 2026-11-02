@@ -89,9 +89,13 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   const popup = page.locator('.js-pop-over');
   await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
   await expect(popup.locator('.js-calendar-toggle')).toHaveCount(0);
-  await expect(popup.locator('.selected-calendar-date')).toContainText('1405-01-01');
+  // #6853: month and year above the calendar, no YYYY-MM-DD; year, month and
+  // day drop-downs under it.
+  await expect(popup.locator('.selected-calendar-heading')).not.toContainText('1405-01-01');
+  await expect(popup.locator('.selected-calendar-selects .js-calendar-year')).toHaveValue(/.+/);
+  await expect(popup.locator('.selected-calendar-selects .js-calendar-month option')).toHaveCount(12);
+  await expect(popup.locator('.selected-calendar-selects .js-calendar-day-select')).toHaveValue('2026-03-21');
   await expect(popup.locator('.selected-calendar-heading')).toContainText('Farvardin 1405');
-  await expect(popup.locator('.selected-calendar-heading .selected-calendar-date')).toHaveCount(1);
   await expect(popup.locator('.fields > .left > label')).toHaveCount(0);
   const calendarWidth = await popup.locator('.selected-calendar-picker').evaluate(el => el.getBoundingClientRect().width);
   const fieldsWidth = await popup.locator('.fields').evaluate(el => el.getBoundingClientRect().width);
@@ -131,7 +135,12 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   const nextDay = popup.locator('.js-calendar-day[data-date="2026-03-22"]');
   await expect(nextDay).toBeFocused();
   await nextDay.press('Enter');
-  await expect(popup.locator('.selected-calendar-date')).toContainText('1405-01-02');
+  await expect(popup.locator('.selected-calendar-selects .js-calendar-day-select')).toHaveValue('2026-03-22');
+  await popup.locator('.js-calendar-year').selectOption({ label: '1410' });
+  await expect(popup.locator('.selected-calendar-heading')).toContainText('Farvardin 1410');
+  await popup.locator('.js-calendar-year').selectOption({ label: '1405' });
+  await expect(popup.locator('.selected-calendar-heading')).toContainText('Farvardin 1405');
+  await expect(popup.locator('.js-calendar-day-select')).toHaveValue('2026-03-22');
   await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
   await popup.locator('.js-calendar-hour').selectOption('15');
   await popup.locator('.js-calendar-minute').selectOption('30');

@@ -67,13 +67,47 @@ data.inline = true;
 assert.equal(helpers.expanded(), true, 'popup calendar is visible immediately');
 assert.match(helpers.monthLabel(), /^Farvardin 1405/, 'the popup heading names the year too (#6853)');
 assert.doesNotMatch(read('client/components/forms/calendarDateInput.js'), /inline \? \{\} : \{ year/, 'no mode of the picker leaves the year out (#6853)');
-assert.match(helpers.headingDateText(), /^1405-01-02/);
-const selectedBeforeEmpty = tpl.selectedDate.get();
-tpl.selectedDate.set(null);
-assert.ok(helpers.headingDateText(), 'empty date shows the visible month date in the heading');
-tpl.selectedDate.set(selectedBeforeEmpty);
+// #6853: month and year above the calendar, never the YYYY-MM-DD of the day;
+// year, month and day drop-downs under it pick any date by a click.
+{
+  const jade = read('client/components/forms/calendarDateInput.jade');
+  assert.doesNotMatch(jade, /selected-calendar-date|headingDateText/, 'no date text in the heading');
+  assert.equal(helpers.headingDateText, undefined);
+  assert.match(jade, /\.selected-calendar-picker[\s\S]*\.selected-calendar-selects[\s\S]*js-calendar-year[\s\S]*js-calendar-month[\s\S]*js-calendar-day-select/,
+    'the drop-downs come after the calendar, in year, month, day order');
+  const selectedBefore = tpl.selectedDate.get(); const shownBefore = tpl.shownDate.get();
+  const years = helpers.yearOptions();
+  assert.ok(years.length >= 150, 'years in the past and in the future');
+  assert.equal(years.filter(option => option.selected).length, 1);
+  assert.match(years.find(option => option.selected).label, /^1405/);
+  assert.ok(years[0].label < '1405' && years[years.length - 1].label > '1405');
+  assert.equal(helpers.monthOptions().length, 12);
+  assert.equal(helpers.monthOptions().filter(option => option.selected).length, 1);
+  assert.equal(helpers.dayOptions().length, 31, 'Farvardin has 31 days');
+  assert.equal(helpers.dayOptions().filter(option => option.selected).length, 1);
+  assert.equal(helpers.noDaySelected(), false);
+  const change = (name, value) => events[`change .${name}`]({ currentTarget: { value } }, tpl);
+  // A year pick keeps the day of the year; a month pick keeps the day of the
+  // month; a day pick takes that day. Each selects the date and shows its month.
+  change('js-calendar-year', years.find(option => option.label.startsWith('1410')).value);
+  assert.match(helpers.monthLabel(), /^Farvardin 1410/);
+  assert.match(helpers.selectedDateText(), /^1410-01-02/);
+  const month = helpers.monthOptions()[5].value;
+  change('js-calendar-month', month);
+  assert.match(helpers.monthLabel(), /^Shahrivar 1410/);
+  assert.match(helpers.selectedDateText(), /^1410-06-02/);
+  change('js-calendar-day-select', helpers.dayOptions()[30].value);
+  assert.match(helpers.selectedDateText(), /^1410-06-31/);
+  // Shahrivar's 31st into Mehr (30 days) lands on Mehr's last day, not Aban.
+  change('js-calendar-month', helpers.monthOptions()[7].value);
+  assert.match(helpers.selectedDateText(), /^1410-08-30/);
+  change('js-calendar-day-select', '');
+  assert.match(helpers.selectedDateText(), /^1410-08-30/, 'the empty placeholder changes nothing');
+  tpl.selectedDate.set(null);
+  assert.equal(helpers.noDaySelected(), true, 'no day selected shows the placeholder');
+  tpl.selectedDate.set(selectedBefore); tpl.shownDate.set(shownBefore);
+}
 assert.doesNotMatch(read('client/components/forms/datepicker.jade'), /label \{\{_ 'date'\}\}/);
-assert.match(read('client/components/forms/calendarDateInput.jade'), /span\(aria-live="polite"\)[\s\S]*span.selected-calendar-date/);
 assert.equal(helpers.useNativeInput.call(data), false);
 // #6838: every week and every cell, empty ones too, has a unique _id that
 // names its month - Blaze reused cells by position without one, and a month

@@ -6,7 +6,10 @@ import { TAPi18n } from '/imports/i18n';
 import { formatDate } from '/imports/lib/dateUtils';
 import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDisplay';
 const { CALENDAR_SYSTEMS, nativeCalendarParts } = require('/imports/lib/calendarSystems');
-const { calendarMonthDays, calendarMonthRange, shiftedDay, shiftCalendarMonth, shiftCalendarYear } = require('/imports/lib/calendarMonth');
+const {
+  calendarMonthDays, calendarMonthRange, shiftedDay, shiftCalendarMonth, shiftCalendarYear,
+  calendarYearOptions, calendarYearMonths, sameDayInYear, sameDayInMonth,
+} = require('/imports/lib/calendarMonth');
 
 function fromInput(value) {
   if (!value) return null;
@@ -53,9 +56,61 @@ Template.calendarDateInput.helpers({
   useNativeInput() { return !this.inline && dateDisplayPreferences().calendarSystem === 'gregorian'; },
   inputType() { return this.withTime ? 'datetime-local' : 'date'; },
   selectedDateText() { return formatDateForDisplay(Template.instance().selectedDate.get(), false); },
-  headingDateText() {
+  // #6853: the year, month and day drop-downs under the calendar. Each option
+  // carries a date as its value, found in the selected calendar system, so any
+  // past, present or future year, month and day is one pick away.
+  yearOptions() {
     const tpl = Template.instance();
-    return formatDateForDisplay(tpl.selectedDate.get() || tpl.shownDate.get(), false);
+    const calendar = selectedSystem().intl;
+    const shown = tpl.shownDate.get();
+    // The list is made once and kept while the shown year is in it; the
+    // calendar is walked again only after a pick or an arrow went past it.
+    let options = tpl.yearList && tpl.yearList.calendar === calendar
+      ? tpl.yearList.options : null;
+    const parts = nativeCalendarParts(shown, calendar);
+    const shownKey = `${parts.era || ''}|${parts.year}`;
+    if (!options || !options.some(option => option.key === shownKey)) {
+      options = calendarYearOptions(shown, calendar);
+      tpl.yearList = { calendar, options };
+    }
+    return options.map(option => ({
+      _id: option.key, value: formatDate(option.date), label: option.label,
+      selected: option.key === shownKey,
+    }));
+  },
+  monthOptions() {
+    const tpl = Template.instance();
+    const calendar = selectedSystem().intl;
+    const language = TAPi18n.getLanguage() || 'en';
+    return calendarYearMonths(tpl.shownDate.get(), calendar).map(month => {
+      let label;
+      try {
+        label = new Intl.DateTimeFormat(language, { calendar, month: 'long', numberingSystem: 'latn' }).format(month.date);
+      } catch (error) { label = formatDateForDisplay(month.date, false); }
+      return { _id: formatDate(month.date), value: formatDate(month.date), label, selected: month.selected };
+    });
+  },
+  dayOptions() {
+    const tpl = Template.instance();
+    const calendar = selectedSystem().intl;
+    const { start, end } = calendarMonthRange(tpl.shownDate.get(), calendar);
+    const selected = tpl.selectedDate.get();
+    const selectedIso = selected ? formatDate(selected) : '';
+    const days = [];
+    for (let day = shiftedDay(start, 0); day < end; day = shiftedDay(day, 1)) {
+      days.push({
+        _id: formatDate(day), value: formatDate(day),
+        label: nativeCalendarParts(day, calendar).day, selected: formatDate(day) === selectedIso,
+      });
+    }
+    return days;
+  },
+  noDaySelected() {
+    const tpl = Template.instance();
+    const selected = tpl.selectedDate.get();
+    if (!selected) return true;
+    const { start, end } = calendarMonthRange(tpl.shownDate.get(), selectedSystem().intl);
+    return selected < start || selected >= end;
   },
   expanded() { return !!Template.instance().data.inline || Template.instance().expanded.get(); },
   calendarName() { return TAPi18n.__(selectedSystem().labelKey); },
@@ -63,8 +118,8 @@ Template.calendarDateInput.helpers({
     const date = Template.instance().shownDate.get();
     try {
       return new Intl.DateTimeFormat(TAPi18n.getLanguage() || 'en', {
-        // #6853: the year is always shown, also in the popup, where the arrows
-        // move the month and the year and the selected date beside it does not.
+        // #6853: the year is always shown, also in the popup: month and year
+        // above the calendar, never the YYYY-MM-DD of the selected day.
         calendar: selectedSystem().intl, month: 'long', year: 'numeric', numberingSystem: 'latn',
       }).format(date);
     } catch (error) { return formatDateForDisplay(date, false); }
@@ -137,6 +192,20 @@ Template.calendarDateInput.events({
   },
   'click .js-calendar-year-previous'(event, tpl) { event.preventDefault(); tpl.shownDate.set(shiftCalendarYear(tpl.shownDate.get(), -1, selectedSystem().intl)); },
   'click .js-calendar-year-next'(event, tpl) { event.preventDefault(); tpl.shownDate.set(shiftCalendarYear(tpl.shownDate.get(), 1, selectedSystem().intl)); },
+  // #6853: a pick in a drop-down selects that date and shows its month.
+  'change .js-calendar-year'(event, tpl) {
+    const target = sameDayInYear(tpl.shownDate.get(), fromInput(event.currentTarget.value), selectedSystem().intl);
+    tpl.shownDate.set(target); tpl.focusedDate.set(target); writeValue(tpl, target);
+  },
+  'change .js-calendar-month'(event, tpl) {
+    const target = sameDayInMonth(tpl.selectedDate.get() || tpl.shownDate.get(), fromInput(event.currentTarget.value), selectedSystem().intl);
+    tpl.shownDate.set(target); tpl.focusedDate.set(target); writeValue(tpl, target);
+  },
+  'change .js-calendar-day-select'(event, tpl) {
+    const target = fromInput(event.currentTarget.value);
+    if (!target) return;
+    tpl.shownDate.set(target); tpl.focusedDate.set(target); writeValue(tpl, target);
+  },
   'click .js-calendar-day'(event, tpl) {
     event.preventDefault();
     writeValue(tpl, fromInput(event.currentTarget.dataset.date));
