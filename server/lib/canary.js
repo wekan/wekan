@@ -223,7 +223,7 @@ function report(canaryId, context) {
   };
 
   const p = finish();
-  if (p && typeof p.catch === 'function') p.catch(() => {});
+  if (typeof p?.catch === 'function') p.catch(() => {});
 }
 
 /** For tests and the admin self-check: how many pairs are being tracked. */

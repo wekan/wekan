@@ -26,6 +26,7 @@
   "scripts": {
     "test": "EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000 WRITABLE_PATH=${WRITABLE_PATH:-..} meteor test --full-app --once --driver-package meteortesting:mocha",
     "test:unit:node": "node tests/run-node-suites.cjs",
+    "lint:promises": "eslint --no-eslintrc -c .eslintrc.promises.json --no-ignore --ext .js,.cjs --max-warnings 0 models/lib server/lib imports/lib",
     "test:unit:all": "npm run test:unit:node",
     "test:watch": "WRITABLE_PATH=${WRITABLE_PATH:-..} meteor test --full-app --driver-package meteortesting:mocha",
     "test:e2e": "node tests/e2e/list-regressions.js",

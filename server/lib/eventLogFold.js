@@ -130,7 +130,7 @@ export async function foldEvent(doc = {}) {
 export function foldEventFireAndForget(doc, name = 'eventlog') {
   try {
     const p = foldEvent(doc);
-    if (p && typeof p.catch === 'function') {
+    if (typeof p?.catch === 'function') {
       p.catch(e => {
         if (process.env.DEBUG === 'true') console.warn(`${name} fold failed:`, e && e.message);
       });

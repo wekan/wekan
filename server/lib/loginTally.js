@@ -96,7 +96,7 @@ export async function recordLogin(user, connection) {
 export function recordLoginFireAndForget(user, connection) {
   try {
     const p = recordLogin(user, connection);
-    if (p && typeof p.catch === 'function') {
+    if (typeof p?.catch === 'function') {
       p.catch(e => {
         if (process.env.DEBUG === 'true') console.warn('loginTally failed:', e && e.message);
       });

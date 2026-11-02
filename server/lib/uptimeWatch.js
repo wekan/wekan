@@ -175,7 +175,7 @@ if (Meteor.isServer) {
       };
       const timer = setTimeout(finish, MARK_TIMEOUT_MS);
       if (typeof timer.unref === 'function') timer.unref();
-      Promise.resolve()
+      void Promise.resolve()
         .then(() =>
           IntegrityKeys.updateAsync(
             { _id: 'heartbeat' },

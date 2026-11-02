@@ -833,13 +833,15 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
           this._uploadError = error instanceof Error ? error : new Error(String(error));
         }
         try { spool.destroy(); } catch (e) { /* already closed */ }
-        removeSpool().then(resolve);
+        // removeSpool() catches its own error, so it never rejects.
+        void removeSpool().then(resolve);
       };
       pass.on('error', fail);
       spool.on('error', fail);
       spool.on('finish', () => {
         if (this._uploadError) return;
-        fs.promises.stat(spoolPath)
+        // Every failure is caught below and the tail never rejects.
+        void fs.promises.stat(spoolPath)
           .then(stat => adapter.storage.addFileFromPath({
             origPath: spoolPath,
             bucketName: adapter.bucketName,

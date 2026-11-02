@@ -1,0 +1,19 @@
+{
+  "//": "Type information for `npm run lint:promises` (.eslintrc.promises.json) only. Nothing is compiled or type-checked: the files are read so ESLint can tell which calls return a promise. Meteor does not use this file.",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"],
+    "maxNodeModuleJsDepth": 0
+  },
+  "include": [
+    "models/lib/**/*.js", "models/lib/**/*.cjs",
+    "server/lib/**/*.js", "server/lib/**/*.cjs",
+    "imports/lib/**/*.js", "imports/lib/**/*.cjs"
+  ]
+}

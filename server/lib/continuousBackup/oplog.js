@@ -77,7 +77,7 @@ class OplogEngine {
     this.log = await new SegmentLog(path.join(this.generation.dir, 'db'), 'ndjson', this.cipher).open();
     this.position = position ? this.timestamp(position) : await this.writeBase();
     await this.onPosition(OplogEngine.saved(this.position));
-    this.timer = setInterval(() => { this.seal().catch(this.onError); }, this.sealMs);
+    this.timer = setInterval(() => { void this.seal().catch(this.onError); }, this.sealMs);
     this.loop = this.tail();
     return this;
   }

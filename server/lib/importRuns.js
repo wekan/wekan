@@ -294,7 +294,7 @@ function trackImport({ runs, boards, userId, source, creator, execute, heartbeat
       try { if (!await touchRun({ runs, runId: run._id, stage: state.stage, now })) state.fenced = true; }
       catch (_) { /* the next beat tries again; staleness decides */ }
     };
-    timer = timers.setInterval(beat, heartbeatMs);
+    timer = timers.setInterval(() => { void beat(); }, heartbeatMs);
     if (timer && typeof timer.unref === 'function') timer.unref();
     try {
       const boardId = await execute();

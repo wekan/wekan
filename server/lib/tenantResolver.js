@@ -63,9 +63,10 @@ async function startObserving() {
     // rebuilt wholesale - it is a handful of documents.
     const cursor = Org.find({}, { fields: TENANT_FIELDS });
     await cursor.observeChanges({
-      added: () => { refreshTenantOrgs(); },
-      changed: () => { refreshTenantOrgs(); },
-      removed: () => { refreshTenantOrgs(); },
+      // refreshTenantOrgs() catches its own errors, so it never rejects.
+      added: () => { void refreshTenantOrgs(); },
+      changed: () => { void refreshTenantOrgs(); },
+      removed: () => { void refreshTenantOrgs(); },
     });
   } catch (e) {
     console.error('[multitenancy] org observer failed, falling back to a one-shot read:', e && e.message ? e.message : e);
