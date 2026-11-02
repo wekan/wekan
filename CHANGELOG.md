@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.85 2026-11-02 WeKan ® release
 
 The findings of the **accessibility audit** are fixed in the
 default theme: header and label **colour contrast**, names that contain the
@@ -13,7 +13,7 @@ visible text, named form fields, card section headings that are real buttons,
 and landmarks and headings on every page. axe-core now finds no violation on
 22 pages. A cleared database connection pool is reported as a lost connection.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.85](CHANGELOG-big.md#v1285-2026-11-02-wekan--release)
 
 # v12.84 2026-11-02 WeKan ® release
 
@@ -45,10 +45,3 @@ The **database health** probe reports a finding once, not once
 per server.
 
 [All changes in v12.81](CHANGELOG-big.md#v1281-2026-11-02-wekan--release)
-
-# v12.80 2026-11-02 WeKan ® release
-
-**minimatch** is updated to 11.0.4 for GHSA-g3hv-75wg-m249, a
-glob pattern that used up CPU and memory.
-
-[All changes in v12.80](CHANGELOG-big.md#v1280-2026-11-02-wekan--release)

@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.85 2026-11-02 WeKan ® release
 
 **In short:** The findings of the **accessibility audit** are fixed in the
 default theme: header and label **colour contrast**, names that contain the
