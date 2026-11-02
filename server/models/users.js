@@ -2372,19 +2372,28 @@ const startNotificationCleanup = debounce(
       return;
     }
 
-    const oneDayMs = 24 * 60 * 60 * 1000;
+    // Once a day for the whole installation, not once per server and per
+    // rollout (#6861): the first server to claim today's run does it, the rest
+    // skip. The timer looks hourly whether today's run is still unclaimed, so
+    // the cleanup happens daily even when no server restarts.
+    const oneHourMs = 60 * 60 * 1000;
+    const runClaimed = async () => {
+      const { claimDailyJob } = require('/models/lib/dailyClaim');
+      if (!(await claimDailyJob(Users.rawDatabase(), 'notification-cleanup'))) return;
+      await runNotificationCleanup();
+    };
 
     Meteor.defer(() => {
-      runNotificationCleanup().catch(error => {
+      runClaimed().catch(error => {
         console.error('Notification cleanup failed:', error);
       });
     });
 
     notificationCleanupIntervalId = Meteor.setInterval(() => {
-      runNotificationCleanup().catch(error => {
+      runClaimed().catch(error => {
         console.error('Notification cleanup failed:', error);
       });
-    }, oneDayMs);
+    }, oneHourMs);
   },
   500,
 );

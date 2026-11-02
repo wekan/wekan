@@ -20,6 +20,18 @@ only what changes: documents, files and log lines. It writes them seconds after
 they happen, to a directory that can be another disk, an NFS share or an
 [rclone mount](Rclone/Rclone.md).
 
+## One server only, for now
+
+Continuous backup is for installations with **one WeKan server**. When it is
+switched on in the Admin Panel, every WeKan server that shares the database
+applies the setting, so with several servers (for example the replicas of a
+Kubernetes Deployment) each of them tails the oplog and writes its own archives
+into the same target directory: the same backup stream, many times, into one
+place. It has no leader: one server should run the stream and another take it
+over when that one stops (a lease), and that is not built yet
+([#6861](https://github.com/wekan/wekan/issues/6861)). With several servers, use
+the database's own backup instead.
+
 ## Licences: only copyfree code by default
 
 The built-in engines are part of WeKan and use the MIT licence. They depend

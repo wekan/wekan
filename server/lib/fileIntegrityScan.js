@@ -381,7 +381,12 @@ if (Meteor.isServer && process.env.WEKAN_INTEGRITY_SCAN !== 'false') {
         if (!isDue(last && last.at && new Date(last.at).getTime(), Date.now())) return;
         if (Number(cpuPercent()) >= PACING.maxCpuPercent) return;  // try again next hour
 
-        await IntegrityKeys.upsertAsync({ _id: 'lastRun' }, { $set: { at: new Date() } });
+        // One atomic update claims the run: the read above only avoids a write
+        // when it is plainly not due. Two servers whose hourly check falls at the
+        // same moment both read "due"; only the one whose update matches scans
+        // (#6861).
+        const { claimIntervalRun } = require('/models/lib/dailyClaim');
+        if (!(await claimIntervalRun(IntegrityKeys.rawCollection(), 'lastRun', PACING.intervalMs))) return;
         const { runWhenCpuLow } = require('/server/lib/cpuMonitor');
         await runWhenCpuLow('filesystem integrity audit',
           () => runIntegrityScan(), { maxWaitMs: 55 * 60 * 1000 });
