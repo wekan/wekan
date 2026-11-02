@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The daily **notification cleanup** and the **file integrity
+audit**
+run once for the whole installation, not once per server.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.85 2026-11-02 WeKan ® release
 
 The findings of the **accessibility audit** are fixed in the

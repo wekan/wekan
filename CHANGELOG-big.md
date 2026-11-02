@@ -124,6 +124,39 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The daily **notification cleanup** and the **file integrity
+audit**
+run once for the whole installation, not once per server.
+
+This release fixes the following bugs:
+
+**Database load** - work that every server of a cluster repeated.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e28465964">The notification cleanup and the file integrity audit run once, not on every server</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6861](https://github.com/wekan/wekan/issues/6861). The notification cleanup
+ran at every start and daily on every server, reading and rewriting the same
+18,000 users 24 times at a rollout, and a notification another server added
+between a read and its write was lost. A run now claims a document per job and
+day in the dailyJobRuns collection (a duplicate key means another server has
+it), and the timer looks hourly for an unclaimed day, so the cleanup still
+happens daily when no server restarts. The file integrity audit read its last
+run, checked it, and then wrote it, so two servers whose hourly check fell at
+the same moment both scanned every file; one atomic update, matching only while
+the last run is older than the interval, now claims the run. Continuous backup
+has no leader and every server writes its own stream into the same directory;
+that needs a lease, which is not built, so the documentation now says it is for
+one server, and item 3 of the issue stays open. `tests/dailyClaim.test.cjs`
+pins the claims with 24 servers at once, that other database errors are not
+swallowed, and that neither job runs unclaimed.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.85 2026-11-02 WeKan ® release
 
 **In short:** The findings of the **accessibility audit** are fixed in the
