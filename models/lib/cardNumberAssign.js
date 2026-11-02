@@ -32,4 +32,24 @@ function counterFloor(cardNumber, boardTop) {
   return isCardNumber(boardTop) ? Math.max(cardNumber, boardTop) : cardNumber;
 }
 
-module.exports = { counterName, isCardNumber, needsNewCardNumber, counterFloor };
+// #6815 follow-up: an UPDATE can bring a card into a board's numbering too.
+// - A move to another board: the browser computes the destination number
+//   itself (Boards.getNextCardNumber on the client is the highest number among
+//   the destination cards it has loaded, plus one - often none of them).
+// - A restore from the archive: an archived card may share its number with an
+//   open card from before the insert check existed.
+// - A $set of cardNumber: from the REST API or an import.
+// Returns { boardId, cardNumber } to check, or null when the update leaves the
+// card's place in the numbering alone.
+function numberToCheckOnUpdate(doc, set) {
+  if (!doc || !set || typeof set !== 'object') return null;
+  const movesBoard = set.boardId !== undefined && String(set.boardId) !== String(doc.boardId);
+  const restores = set.archived === false && doc.archived === true;
+  const setsNumber = set.cardNumber !== undefined;
+  if (!movesBoard && !restores && !setsNumber) return null;
+  const cardNumber = setsNumber ? set.cardNumber : doc.cardNumber;
+  if (!isCardNumber(cardNumber)) return null;
+  return { boardId: movesBoard ? set.boardId : doc.boardId, cardNumber };
+}
+
+module.exports = { counterName, isCardNumber, needsNewCardNumber, counterFloor, numberToCheckOnUpdate };

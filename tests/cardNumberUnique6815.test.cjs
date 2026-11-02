@@ -13,7 +13,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const { counterName, isCardNumber, needsNewCardNumber, counterFloor } = require('../models/lib/cardNumberAssign.js');
+const { counterName, isCardNumber, needsNewCardNumber, counterFloor, numberToCheckOnUpdate } = require('../models/lib/cardNumberAssign.js');
 const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const pending = [];
@@ -90,6 +90,78 @@ test('negative: "no number" is left alone, and an existing counter is only raise
   await a.hook('u', free);
   assert.strictEqual(free.cardNumber, 7);
   assert.strictEqual(a.store.counter, 50, 'never lowered');
+});
+
+// ---- updates: a move to another board, a restore, a number set ------------
+
+test('which updates bring a card into a board\'s numbering', () => {
+  const doc = { _id: 'c', boardId: 'a', cardNumber: 12, archived: false };
+  assert.deepStrictEqual(numberToCheckOnUpdate(doc, { boardId: 'b', cardNumber: 1 }), { boardId: 'b', cardNumber: 1 }, 'move: the browser\'s number on the destination');
+  assert.deepStrictEqual(numberToCheckOnUpdate({ ...doc, archived: true }, { archived: false }), { boardId: 'a', cardNumber: 12 }, 'restore');
+  assert.deepStrictEqual(numberToCheckOnUpdate(doc, { cardNumber: 40 }), { boardId: 'a', cardNumber: 40 }, 'number set');
+  assert.strictEqual(numberToCheckOnUpdate(doc, { title: 'x' }), null, 'negative: an ordinary edit');
+  assert.strictEqual(numberToCheckOnUpdate(doc, { boardId: 'a', listId: 'l2' }), null, 'negative: a move within the board');
+  assert.strictEqual(numberToCheckOnUpdate(doc, { archived: true }), null, 'negative: archiving');
+  assert.strictEqual(numberToCheckOnUpdate({ ...doc, cardNumber: 0 }, { archived: false, boardId: 'b' }), null, 'negative: no number');
+  assert.strictEqual(numberToCheckOnUpdate(doc, undefined), null);
+});
+
+function runUpdateHook(cards, counter) {
+  const src = read('server/models/cards.js');
+  const start = src.indexOf('Cards.before.update(async (userId, doc, fieldNames, modifier) => {\n  const { counterName, isCardNumber, counterFloor, numberToCheckOnUpdate }');
+  assert.ok(start > 0, 'the update hook exists');
+  const body = src.slice(start, src.indexOf('Cards.after.insert(', start));
+  const fn = body.slice(body.indexOf('async (userId, doc, fieldNames, modifier) =>'), body.lastIndexOf('});')) + '}';
+  const store = { counter };
+  const Counters = { rawCollection: () => ({
+    findOne: async () => (store.counter === undefined ? null : { _id: 'c' }),
+    updateOne: async (q, u) => { store.counter = Math.max(store.counter ?? -Infinity, u.$max.next_val); },
+  }) };
+  const others = sel => cards.filter(c => c.boardId === sel.boardId && (!sel._id || c._id !== sel._id.$ne));
+  const Cards = { findOneAsync: async (sel, opts) => {
+    const on = others(sel);
+    if ('cardNumber' in sel) return on.find(c => c.cardNumber === sel.cardNumber) || null;
+    if (opts && opts.sort) return on.sort((a, b) => b.cardNumber - a.cardNumber)[0] || null;
+    return null;
+  } };
+  const Boards = { findOneAsync: async () => ({ getNextCardNumber: async () => { store.counter += 1; return store.counter; } }) };
+  const requireStub = name => (name === '/models/counters' ? { Counters } : require(path.join(__dirname, '..', name.replace(/^\//, ''))));
+  const hook = new Function('Cards', 'Boards', 'require', `return (${fn});`)(Cards, Boards, requireStub);
+  return { hook, store };
+}
+
+test('a card moved from the browser to another board gets a free number there, not the browser\'s', async () => {
+  // the destination board: cards 1..3 and 200; the browser had none of them loaded
+  const cards = [1, 2, 3, 200].map(n => ({ _id: `d${n}`, boardId: 'dest', cardNumber: n }));
+  const { hook, store } = runUpdateHook(cards, 3);
+  const modifier = { $set: { boardId: 'dest', listId: 'l', cardNumber: 1 } };
+  await hook('u', { _id: 'moved', boardId: 'src', cardNumber: 57 }, ['boardId'], modifier);
+  assert.strictEqual(modifier.$set.cardNumber, 201);
+  assert.strictEqual(store.counter, 201);
+});
+
+test('a restored card that shares its number with an open card gets a new one', async () => {
+  const cards = [{ _id: 'open', boardId: 'b', cardNumber: 9 }, { _id: 'top', boardId: 'b', cardNumber: 50 }];
+  const { hook } = runUpdateHook(cards, 50);
+  const modifier = { $set: { archived: false } };
+  await hook('u', { _id: 'old', boardId: 'b', cardNumber: 9, archived: true }, ['archived'], modifier);
+  assert.strictEqual(modifier.$set.cardNumber, 51);
+});
+
+test('negative: a free number is kept on a move and a restore, and the card itself does not count as taken', async () => {
+  const cards = [{ _id: 'self', boardId: 'b', cardNumber: 9 }, { _id: 'x', boardId: 'dest', cardNumber: 4 }];
+  const a = runUpdateHook(cards, 4);
+  const restore = { $set: { archived: false } };
+  await a.hook('u', { _id: 'self', boardId: 'b', cardNumber: 9, archived: true }, ['archived'], restore);
+  assert.strictEqual(restore.$set.cardNumber, undefined, 'its own number is not a duplicate');
+  const d = runUpdateHook(cards, 4);   // the destination board's counter
+  const move = { $set: { boardId: 'dest', cardNumber: 5 } };
+  await d.hook('u', { _id: 'self', boardId: 'b', cardNumber: 9 }, ['boardId'], move);
+  assert.strictEqual(move.$set.cardNumber, 5, 'free on the destination: kept');
+  assert.strictEqual(d.store.counter, 5, 'and the counter raised past it');
+  const edit = { $set: { title: 'y' } };
+  await d.hook('u', { _id: 'self', boardId: 'b', cardNumber: 9 }, ['title'], edit);
+  assert.strictEqual(d.store.counter, 5, 'an ordinary edit does nothing');
 });
 
 (async () => {

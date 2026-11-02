@@ -1031,6 +1031,46 @@ Cards.before.insert(async (userId, doc) => {
   }
 });
 
+// #6815 follow-up: the same check for a card that ENTERS a board's numbering by
+// an update - moved from another board, restored from the archive, or given a
+// number (models/lib/cardNumberAssign.js numberToCheckOnUpdate). A number
+// another card on that board has is replaced by a fresh one from the counter;
+// a free one is kept, and the counter is raised past it.
+Cards.before.update(async (userId, doc, fieldNames, modifier) => {
+  const { counterName, isCardNumber, counterFloor, numberToCheckOnUpdate } = require('/models/lib/cardNumberAssign');
+  const set = modifier && modifier.$set;
+  const check = numberToCheckOnUpdate(doc, set);
+  if (!check) return;
+  const { boardId, cardNumber } = check;
+  const { Counters } = require('/models/counters');
+  const counters = Counters.rawCollection();
+  const counter = counterName(boardId);
+  const topNumber = async () => {
+    const top = await Cards.findOneAsync(
+      { boardId, _id: { $ne: doc._id } },
+      { sort: { cardNumber: -1 }, fields: { cardNumber: 1 } },
+    );
+    return top && top.cardNumber;
+  };
+  const taken = await Cards.findOneAsync(
+    { boardId, cardNumber, _id: { $ne: doc._id } },
+    { fields: { _id: 1 } },
+  );
+  if (taken) {
+    const board = await Boards.findOneAsync(boardId);
+    if (!board) return;
+    const top = await topNumber();
+    if (isCardNumber(top)) {
+      await counters.updateOne({ _id: counter }, { $max: { next_val: top } }, { upsert: true });
+    }
+    set.cardNumber = await board.getNextCardNumber();
+  } else {
+    const exists = await counters.findOne({ _id: counter }, { projection: { _id: 1 } });
+    const floor = counterFloor(cardNumber, exists ? null : await topNumber());
+    await counters.updateOne({ _id: counter }, { $max: { next_val: floor } }, { upsert: true });
+  }
+});
+
 Cards.after.insert(async (userId, doc) => {
   // Outside a method (a REST route, a server job) the hook has no user: the
   // card's own author is who created it (#6823).
