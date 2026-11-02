@@ -126,13 +126,36 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The site **announcement** shows on Home and All Boards too. The
-**date picker** popup shows the year and has year, month and
+**In short:** A cluster of servers runs the **schema re-check** and the
+**due-date reminders** once. The site **announcement** shows on Home and All
+Boards too. The **date picker** popup shows the year and has year, month and
 day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
 asks for a keychain, starts from the checkout, and can carry a **Claude Code**
 token so its login sticks.
 
 This release fixes the following bugs:
+
+**Database load** - work that every server of a cluster repeated.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d42369e96a">The schema re-check and the due-date reminders run once, not on every server</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6855](https://github.com/wekan/wekan/issues/6855). With 24 replicas on one
+database every start of every server re-checked the schema, reading 1.1
+million cards several times, and each server sent its own due-date reminder
+for every card. The re-check now claims a run in the migration collection, so
+one server does it and the others skip; a claim older than 2 hours, from a
+server killed mid-run, is taken over. A run that leaves work it cannot do
+(an attachment whose file is gone) is retried once a day instead of at every
+start, and a clean run clears that. The daily reminder scan is claimed per day
+in the dueReminderRuns collection, so the first server scans and the rest get
+a duplicate key and skip. A partial index on lists serves the 15-minute list
+sync scan, and a sparse index on boards.dueReminderDays the due-date lookup.
+`tests/schemaUpgradeSteps.test.cjs` and `tests/dueScanClaim.test.cjs` pin the
+claims, the stale takeover, the daily retry and that the scheduler claims
+before it scans.
+
+</details>
 
 **Announcement** - the site announcement of Admin Panel -> Announcement.
 
