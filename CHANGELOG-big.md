@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.83 2026-11-02 WeKan ® release
 
 **In short:** An **LDAP** login with a reused login name no longer opens the
 previous owner's account, and existing accounts record their directory

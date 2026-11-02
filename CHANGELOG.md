@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.83 2026-11-02 WeKan ® release
 
 An **LDAP** login with a reused login name no longer opens the
 previous owner's account, and existing accounts record their directory
 identifier.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.83](CHANGELOG-big.md#v1283-2026-11-02-wekan--release)
 
 # v12.82 2026-11-02 WeKan ® release
 
@@ -45,15 +45,3 @@ asks for a keychain, starts from the checkout, and can carry a **Claude Code**
 token so its login sticks.
 
 [All changes in v12.79](CHANGELOG-big.md#v1279-2026-11-02-wekan--release)
-
-# v12.78 2026-11-02 WeKan ® release
-
-**CrossBoardExportBleed** and **UnassignedAttachBleed** are
-fixed: a checklist scope stays on its board, every export obeys Disable all
-export and Anonymize export users, and an assigned-only member changes
-attachments only on their own cards. **SAML** logins use **node-saml 5.2.0**,
-and **continuous backup** no longer misses a change made right after it starts.
-**Keyboard shortcuts** keep working after a popup closes, and the Rules page has
-a way back to the board.
-
-[All changes in v12.78](CHANGELOG-big.md#v1278-2026-11-02-wekan--release)
