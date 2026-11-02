@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.84 2026-11-02 WeKan ® release
 
 GitHub code scanning's **code-quality** findings are fixed: a
 promise formatted as text, undeclared globals, an upload that hung on an
 unreadable file, and the lint around them. `npm run lint:promises`
 now finds promises that are not awaited or handled.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.84](CHANGELOG-big.md#v1284-2026-11-02-wekan--release)
 
 # v12.83 2026-11-02 WeKan ® release
 
@@ -42,15 +42,3 @@ per server.
 glob pattern that used up CPU and memory.
 
 [All changes in v12.80](CHANGELOG-big.md#v1280-2026-11-02-wekan--release)
-
-# v12.79 2026-11-02 WeKan ® release
-
-A cluster of servers runs the **schema re-check** and the
-**due-date reminders** once, and a slow-query warning says which query it is.
-The site **announcement** shows on Home and All
-Boards too. The **date picker** popup shows the year and has year, month and
-day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
-asks for a keychain, starts from the checkout, and can carry a **Claude Code**
-token so its login sticks.
-
-[All changes in v12.79](CHANGELOG-big.md#v1279-2026-11-02-wekan--release)

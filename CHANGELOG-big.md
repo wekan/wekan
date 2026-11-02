@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.84 2026-11-02 WeKan ® release
 
 **In short:** GitHub code scanning's **code-quality** findings are fixed: a
 promise formatted as text, undeclared globals, an upload that hung on an
