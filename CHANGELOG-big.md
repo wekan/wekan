@@ -124,6 +124,39 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A card moved to another board, restored from the archive or given
+a number no longer takes a **card number** another card on that board has.
+
+This release fixes the following bugs:
+
+**Card numbers** - the number each card has on its board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e68938698c">A moved, restored or renumbered card cannot take a number another card has</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6858](https://github.com/wekan/wekan/issues/6858). Follow-up to
+[\#6815](https://github.com/wekan/wekan/issues/6815), which checked the number
+of every new card. A card also enters a board's numbering through an update: a
+move to another board, where the browser computed the number from the
+destination cards it had loaded, usually none, so the card got 1 or another
+low number already taken; a restore from the archive, since an archived card
+may share its number with an open one; and a number set by the REST API or an
+import. Three card numbers used by more than one open card showed up again in
+Admin Panel -> Problems -> Data health two days after the renumbering. A
+before-update hook now does what the insert hook does: a number another card
+on that board has is replaced by a fresh one from the board's counter, after
+raising the counter to the board's highest number; a free number is kept and
+the counter raised past it. The card itself never counts as taken, and
+ordinary edits, moves within a board, archiving and cards without a number
+are left alone. `tests/cardNumberUnique6815.test.cjs` pins which updates are
+checked, the move, the restore and the free numbers.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.81 2026-11-02 WeKan ® release
 
 **In short:** The **database health** probe reports a finding once, not once
