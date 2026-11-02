@@ -3,11 +3,13 @@
 # sandbox.sh - install VSCodium and start it in a macOS sandbox that can read
 # and write only this WeKan checkout (~/Documents/repos/wekan).
 #
-#   Usage: docs/Security/Sandboxes/macOS/sandbox.sh [--setup-only] [--check]
+#   Usage: docs/Security/Sandboxes/macOS/sandbox.sh [--setup-only|--check|--claude-token]
 #
-#     (no option)   set up what is missing, then start VSCodium in the sandbox
-#     --setup-only  set up, and write the Finder launcher, but do not start it
-#     --check       show what the sandbox allows and refuses, then exit
+#     (no option)     set up what is missing, then start VSCodium in the sandbox
+#     --setup-only    set up, and write the Finder launcher, but do not start it
+#     --check         show what the sandbox allows and refuses, then exit
+#     --claude-token  save a token from `claude setup-token` for Claude Code
+#                     in the sandbox, then set up (see 2b below)
 #
 # The macOS counterpart of the Flatpak sandbox on Linux
 # (docs/Security/Sandboxes/vscodium). The design, what is and is not
@@ -28,7 +30,8 @@ case "${1:-}" in
 	'') ;;
 	--setup-only) MODE=setup ;;
 	--check) MODE=check ;;
-	*) echo "Usage: $0 [--setup-only] [--check]" >&2; exit 2 ;;
+	--claude-token) MODE=claude-token ;;
+	*) echo "Usage: $0 [--setup-only|--check|--claude-token]" >&2; exit 2 ;;
 esac
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
@@ -40,6 +43,11 @@ TOOLS="$REPO/.tools"
 APP="${VSCODIUM_APP:-/Applications/VSCodium.app}"
 PROFILE="$TOOLS/sandbox/vscodium-macos.sb"
 LAUNCHER="$TOOLS/sandbox/WeKan VSCodium.command"
+# Work from the checkout. Finder starts the launcher in the home directory,
+# which the sandbox refuses: VSCodium (Node.js) then fails at its first
+# process.cwd() with "EPERM: process.cwd failed with error operation not
+# permitted, uv_cwd", and so would any other program started in the sandbox.
+cd "$REPO"
 mkdir -p "$TOOLS/tmp" "$TOOLS/home" "$TOOLS/sandbox" \
 	"$TOOLS/vscodium/user-data" "$TOOLS/vscodium/extensions"
 
@@ -67,6 +75,65 @@ for key in user.name user.email; do
 		fi
 	fi
 done
+
+# 2b) Claude Code's sign-in. Claude Code keeps its login in the macOS Keychain,
+#     which the sandbox cannot reach ("A keychain cannot be found to store
+#     'user'"), so a login made inside the sandbox is lost at once. Instead a
+#     long-lived token, made with `claude setup-token` outside the sandbox, is
+#     kept in .tools/secrets/claude-oauth-token and given to the sandbox as
+#     CLAUDE_CODE_OAUTH_TOKEN. Save it with: sandbox.sh --claude-token
+CLAUDE_TOKEN_FILE="$TOOLS/secrets/claude-oauth-token"
+if [ "$MODE" = claude-token ]; then
+	(umask 077; mkdir -p "$TOOLS/secrets")
+	# `claude setup-token` prints the token wrapped over several lines, so
+	# reading one pasted line would keep only the first part of it ("401
+	# Invalid bearer token"). Take it from the clipboard, or read lines until
+	# an empty one, and drop the line breaks.
+	token="$(pbpaste 2>/dev/null | tr -d '[:space:]' || true)"
+	case "$token" in
+		sk-ant-*) echo "Token taken from the clipboard." ;;
+		*)
+			echo 'Paste the token from `claude setup-token` (not shown), then press Return twice:'
+			token=""
+			while IFS= read -rs line && [ -n "$line" ]; do token="$token$line"; done
+			token="$(printf '%s' "$token" | tr -d '[:space:]')"
+			;;
+	esac
+	case "$token" in
+		sk-ant-oat*) ;;
+		*) echo "That is not a token from \`claude setup-token\` (it starts with sk-ant-oat); nothing saved." >&2; exit 1 ;;
+	esac
+	if [ "${#token}" -lt 90 ]; then
+		echo "The token is only ${#token} characters, so part of it is missing; nothing saved." >&2
+		echo "Copy all of it, every line, and run this again." >&2
+		exit 1
+	fi
+	(umask 077; printf '%s\n' "$token" > "$CLAUDE_TOKEN_FILE")
+	echo "Saved to $CLAUDE_TOKEN_FILE (readable only by you)."
+	MODE=setup
+fi
+claude_env=()
+if [ -s "$CLAUDE_TOKEN_FILE" ]; then
+	claude_env=(CLAUDE_CODE_OAUTH_TOKEN="$(tr -d '[:space:]' < "$CLAUDE_TOKEN_FILE")")
+	# With a token Claude Code would still show its login screen until its
+	# onboarding is marked done, and the VS Code extension until its login
+	# prompt is turned off.
+	cj="$TOOLS/home/.claude.json"
+	if [ ! -s "$cj" ]; then
+		printf '{\n  "hasCompletedOnboarding": true\n}\n' > "$cj"
+	elif [ "$(plutil -extract hasCompletedOnboarding raw -o - "$cj" 2>/dev/null)" != true ]; then
+		cp "$cj" "$cj.bak"
+		plutil -replace hasCompletedOnboarding -bool YES "$cj" 2>/dev/null ||
+			echo "Note: add \"hasCompletedOnboarding\": true to $cj by hand." >&2
+	fi
+	vs="$TOOLS/vscodium/user-data/User/settings.json"
+	mkdir -p "$(dirname "$vs")"
+	if [ ! -s "$vs" ]; then
+		printf '{\n  "claudeCode.disableLoginPrompt": true\n}\n' > "$vs"
+	elif ! grep -q '"claudeCode.disableLoginPrompt"' "$vs"; then
+		echo "Note: add \"claudeCode.disableLoginPrompt\": true to VSCodium's settings ($vs)." >&2
+	fi
+fi
 
 # 3) The sandbox profile (Seatbelt, the language of sandbox-exec), written for
 #    this checkout's own path. Everything is allowed except the file system
@@ -113,6 +180,7 @@ sandboxed() {
 		WEKAN_DIR="$REPO" WEKAN_TOOLS_DIR="$TOOLS" \
 		npm_config_cache="$TOOLS/npm-cache" PLAYWRIGHT_BROWSERS_PATH="$TOOLS/ms-playwright" \
 		PATH="$TOOLS/bin:$TOOLS/.meteor:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin" \
+		${claude_env[@]+"${claude_env[@]}"} \
 		"$@"
 }
 
@@ -148,8 +216,10 @@ echo "Sandbox ready. Finder launcher: $LAUNCHER"
 #    it, Chromium's OSCrypt uses a mock keychain with a fixed key and never
 #    touches the real one, so extension secrets in .tools/vscodium are only
 #    obfuscated. (--password-store=basic does the same on Linux only.)
-sandboxed "$APP/Contents/MacOS/VSCodium" --no-sandbox --use-mock-keychain \
+#    nohup and </dev/null: the launcher's Terminal window may close as soon
+#    as this script exits, and VSCodium must not go with it.
+sandboxed /usr/bin/nohup "$APP/Contents/MacOS/VSCodium" --no-sandbox --use-mock-keychain \
 	--user-data-dir "$TOOLS/vscodium/user-data" \
 	--extensions-dir "$TOOLS/vscodium/extensions" \
-	"$REPO" >"$TOOLS/sandbox/vscodium.log" 2>&1 &
+	"$REPO" </dev/null >"$TOOLS/sandbox/vscodium.log" 2>&1 &
 echo "VSCodium started in the sandbox (log: $TOOLS/sandbox/vscodium.log)."

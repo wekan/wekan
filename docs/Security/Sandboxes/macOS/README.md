@@ -31,6 +31,32 @@ Install WeKan's tools into `.tools` once, from a normal terminal **outside**
 the sandbox (`./build.sh`, option 1). Inside the sandbox they are already on
 `PATH`.
 
+### Claude Code in the sandbox
+
+Claude Code keeps its login in the macOS Keychain, which the sandbox cannot
+reach, so signing in inside the sandbox does not stick: macOS asks for a
+keychain to store "user" in, and Claude Code shows its login screen again.
+Give it a long-lived token instead, once, from a normal terminal **outside**
+the sandbox:
+
+```bash
+claude setup-token                                   # sign in in the browser; prints a token valid for a year
+docs/Security/Sandboxes/macOS/sandbox.sh --claude-token   # copy the token first; saved to .tools/secrets/claude-oauth-token
+```
+
+The token is printed over several lines: copy all of them. `--claude-token`
+reads it from the clipboard, joins the lines, and refuses a token that is
+cut short, which Claude Code would answer with "401 Invalid bearer token".
+In zsh, paste the commands without the `#` comments.
+
+Then restart the sandboxed VSCodium. `sandbox.sh` passes the token as
+`CLAUDE_CODE_OAUTH_TOKEN`, marks Claude Code's onboarding done in
+`.tools/home/.claude.json`, and sets `"claudeCode.disableLoginPrompt": true`
+in VSCodium's settings, so neither the extension nor the `claude` command in
+the terminal asks for a login. Everything in the sandbox can read the token,
+as it could read any login made there; revoke it at claude.ai under
+Settings if it leaks, and make a new one when it expires.
+
 ## What the sandbox allows and refuses
 
 `sandbox.sh --check` runs these checks inside the sandbox and prints the
@@ -73,6 +99,10 @@ with the checkout's real path:
   `.tools/vscodium/user-data` and `.tools/vscodium/extensions`, given with
   `--user-data-dir` and `--extensions-dir`. They are not in `~/Library` or
   `~/.vscode-oss`, which the sandbox cannot reach.
+- **Started in the checkout:** `sandbox.sh` changes to the checkout before it
+  starts anything. Finder opens the launcher in the home directory, which the
+  sandbox refuses, and VSCodium then stopped at once with "EPERM:
+  process.cwd failed with error operation not permitted, uv_cwd".
 - **Temporary files:** `TMPDIR`, `TMP` and `TEMP` are `.tools/tmp`, as for every
   WeKan script (`releases/tools-env.sh`).
 - **A clean environment:** VSCodium starts with `env -i`. That drops
@@ -105,7 +135,8 @@ with the checkout's real path:
   with a new, empty one. Press **Cancel** (*Kumoa*) and start VSCodium again
   with the updated `sandbox.sh`. With the switch, Chromium uses a built-in
   mock keychain with a fixed, publicly known key and does not touch the real
-  Keychain; it is the macOS equivalent of `--password-store=basic`, which
+  Keychain (Claude Code's own login also lives in the Keychain; see
+  "Claude Code in the sandbox" above); it is the macOS equivalent of `--password-store=basic`, which
   works on Linux only. The price: what extensions store as secrets (sign-ins,
   tokens) in `.tools/vscodium/user-data` is only obfuscated, readable by
   anyone who can read the checkout. Keep long-lived credentials out of the
