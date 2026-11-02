@@ -140,14 +140,17 @@ WebApp.handlers.get(
       const paramCommentId = req.params.commentId;
       const paramCardId = req.params.cardId;
       await Authentication.checkBoardAccess(req.userId, paramBoardId);
-      sendJsonResult(res, {
-        code: 200,
-        data: await ReactiveCache.getCardComment({
-          _id: paramCommentId,
-          cardId: paramCardId,
-          boardId: paramBoardId,
-        }),
+      const comment = await ReactiveCache.getCardComment({
+        _id: paramCommentId,
+        cardId: paramCardId,
+        boardId: paramBoardId,
       });
+      // 404, not a 200 with an empty body (#6862).
+      if (!comment) {
+        sendJsonResult(res, { code: 404, data: { error: 'Comment not found' } });
+        return;
+      }
+      sendJsonResult(res, { code: 200, data: comment });
     } catch (error) {
       sendJsonResult(res, {
         code: httpStatusForError(error),

@@ -179,14 +179,17 @@ WebApp.handlers.get('/api/boards/:boardId/swimlanes/:swimlaneId', async function
     const paramSwimlaneId = req.params.swimlaneId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-    sendJsonResult(res, {
-      code: 200,
-      data: await ReactiveCache.getSwimlane({
-        _id: paramSwimlaneId,
-        boardId: paramBoardId,
-        archived: false,
-      }),
+    const swimlane = await ReactiveCache.getSwimlane({
+      _id: paramSwimlaneId,
+      boardId: paramBoardId,
+      archived: false,
     });
+    // 404, not a 200 with an empty body (#6862).
+    if (!swimlane) {
+      sendJsonResult(res, { code: 404, data: { error: 'Swimlane not found' } });
+      return;
+    }
+    sendJsonResult(res, { code: 200, data: swimlane });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
   }

@@ -1447,14 +1447,22 @@ WebApp.handlers.get(
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    // No active card of this board and list with that id: 404, as the global
+    // GET answers. It used to answer 200 with an empty body (#6862). The board
+    // check stays first, so a stranger learns nothing about which ids exist.
+    const card = await ReactiveCache.getCard({
+      _id: paramCardId,
+      listId: paramListId,
+      boardId: paramBoardId,
+      archived: false,
+    });
+    if (!card) {
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
     sendJsonResult(res, {
       code: 200,
-      data: await cardWithChecklists(await ReactiveCache.getCard({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      }), ReactiveCache),
+      data: await cardWithChecklists(card, ReactiveCache),
     });
   },
 );

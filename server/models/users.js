@@ -2672,8 +2672,14 @@ WebApp.handlers.get('/api/users/:userId', async function(req, res) {
     let user = await ReactiveCache.getUser({ _id: id });
     if (!user) {
       user = await ReactiveCache.getUser({ username: id });
-      id = user._id;
     }
+    // An unknown id or name: 404. `user._id` on null threw a TypeError that
+    // reached the caller as a server error (#6862).
+    if (!user) {
+      sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+      return;
+    }
+    id = user._id;
 
     let boards = await ReactiveCache.getBoards(
       { type: 'board', 'members.userId': id },

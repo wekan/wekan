@@ -118,13 +118,16 @@ WebApp.handlers.get('/api/boards/:boardId/custom-fields/:customFieldId', async f
   const paramBoardId = req.params.boardId;
   const paramCustomFieldId = req.params.customFieldId;
   await Authentication.checkBoardAccess(req.userId, paramBoardId);
-  sendJsonResult(res, {
-    code: 200,
-    data: await ReactiveCache.getCustomField({
-      _id: paramCustomFieldId,
-      boardIds: { $in: [paramBoardId] },
-    }),
+  const customField = await ReactiveCache.getCustomField({
+    _id: paramCustomFieldId,
+    boardIds: { $in: [paramBoardId] },
   });
+  // 404, not a 200 with an empty body (#6862).
+  if (!customField) {
+    sendJsonResult(res, { code: 404, data: { error: 'Custom field not found' } });
+    return;
+  }
+  sendJsonResult(res, { code: 200, data: customField });
 });
 
 WebApp.handlers.post('/api/boards/:boardId/custom-fields', async function(req, res) {

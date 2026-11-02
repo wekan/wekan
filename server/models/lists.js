@@ -882,14 +882,17 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId', async function(req, re
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
-    sendJsonResult(res, {
-      code: 200,
-      data: await ReactiveCache.getList({
-        _id: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      }),
+    const list = await ReactiveCache.getList({
+      _id: paramListId,
+      boardId: paramBoardId,
+      archived: false,
     });
+    // 404, not a 200 with an empty body (#6862).
+    if (!list) {
+      sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
+      return;
+    }
+    sendJsonResult(res, { code: 200, data: list });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
   }

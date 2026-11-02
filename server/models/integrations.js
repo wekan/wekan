@@ -59,13 +59,16 @@ WebApp.handlers.get('/api/boards/:boardId/integrations/:intId', async function(r
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
     const fields = await integrationFieldsFor(req.userId, paramBoardId);
 
-    sendJsonResult(res, {
-      code: 200,
-      data: await ReactiveCache.getIntegration(
-        { _id: paramIntId, boardId: paramBoardId },
-        { fields },
-      ),
-    });
+    const integration = await ReactiveCache.getIntegration(
+      { _id: paramIntId, boardId: paramBoardId },
+      { fields },
+    );
+    // 404, not a 200 with an empty body (#6862).
+    if (!integration) {
+      sendJsonResult(res, { code: 404, data: { error: 'Integration not found' } });
+      return;
+    }
+    sendJsonResult(res, { code: 200, data: integration });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
   }
