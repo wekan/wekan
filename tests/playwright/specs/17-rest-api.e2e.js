@@ -58,6 +58,61 @@ async function createLabel(request, token, boardId, name, color) {
 }
 
 test.describe('REST API: data + permissions', () => {
+  test('scoped card GET returns the card and reports missing or wrong-scope cards as 404', async ({ request, user, board }) => {
+    const card = listCards(board.boardId, board.listIds[0])[0];
+    const base = `/api/boards/${board.boardId}/lists`;
+    const headers = authHeaders(user.token);
+    const found = await request.get(`${base}/${card.listId}/cards/${card._id}`, { headers });
+    expect(found.status()).toBe(200);
+    expect(await found.json()).toMatchObject({ _id: card._id, title: card.title, checklists: [] });
+
+    // Both boards are readable, so the wrong-board case reaches the card lookup.
+    const otherBoard = db.seedBoard({ ownerId: user.id });
+    try {
+      for (const url of [
+        `${base}/${card.listId}/cards/missing-card`,
+        `${base}/${board.listIds[1]}/cards/${card._id}`,
+        `/api/boards/${otherBoard.boardId}/lists/${otherBoard.listIds[0]}/cards/${card._id}`,
+      ]) {
+        const missing = await request.get(url, { headers });
+        expect(missing.status()).toBe(404);
+        expect(await missing.json()).toEqual({ error: 'Card not found' });
+      }
+      expect(db.findOne('cards', { _id: card._id })).toEqual(card);
+    } finally {
+      db.cleanup({ boardIds: [otherBoard.boardId] });
+    }
+  });
+
+  test('scoped card GET hides archived cards while the global GET still returns them', async ({ request, user, board }) => {
+    const card = listCards(board.boardId, board.listIds[0])[0];
+    db.updateOne('cards', { _id: card._id }, { $set: { archived: true } });
+    const headers = authHeaders(user.token);
+    const scoped = await request.get(
+      `/api/boards/${board.boardId}/lists/${card.listId}/cards/${card._id}`,
+      { headers },
+    );
+    expect(scoped.status()).toBe(404);
+    expect(await scoped.json()).toEqual({ error: 'Card not found' });
+
+    const global = await request.get(`/api/cards/${card._id}`, { headers });
+    expect(global.status()).toBe(200);
+    expect(await global.json()).toMatchObject({ _id: card._id, archived: true });
+    expect(db.findOne('cards', { _id: card._id }).archived).toBe(true);
+  });
+
+  test('scoped card GET still rejects unauthenticated and nonmember requests', async ({ request, user2, board }) => {
+    const base = `/api/boards/${board.boardId}/lists/${board.listIds[0]}/cards`;
+    const card = listCards(board.boardId, board.listIds[0])[0];
+    // Missing and existing ids must both remain behind the board-access check.
+    for (const id of [card._id, 'missing-card']) {
+      expect((await request.get(`${base}/${id}`)).status()).toBe(401);
+      expect((await request.get(`${base}/${id}`, {
+        headers: authHeaders(user2.token),
+      })).status()).toBe(403);
+    }
+  });
+
   test('#1437 logout revokes the presented REST token', async ({ request, user, board }) => {
     const before = db.findOne('users', { _id: user.id });
     expect(before.services.resume.loginTokens.length).toBeGreaterThan(0);

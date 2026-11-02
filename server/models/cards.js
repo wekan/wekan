@@ -1447,14 +1447,19 @@ WebApp.handlers.get(
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const card = await ReactiveCache.getCard({
+      _id: paramCardId,
+      listId: paramListId,
+      boardId: paramBoardId,
+      archived: false,
+    });
+    if (!card) {
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
     sendJsonResult(res, {
       code: 200,
-      data: await cardWithChecklists(await ReactiveCache.getCard({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      }), ReactiveCache),
+      data: await cardWithChecklists(card, ReactiveCache),
     });
   },
 );
