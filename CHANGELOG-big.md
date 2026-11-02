@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.79 2026-11-02 WeKan ® release
 
 **In short:** A cluster of servers runs the **schema re-check** and the
 **due-date reminders** once, and a slow-query warning says which query it is.

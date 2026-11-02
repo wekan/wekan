@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.79 2026-11-02 WeKan ® release
 
 A cluster of servers runs the **schema re-check** and the
 **due-date reminders** once, and a slow-query warning says which query it is.
@@ -15,7 +15,7 @@ day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
 asks for a keychain, starts from the checkout, and can carry a **Claude Code**
 token so its login sticks.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.79](CHANGELOG-big.md#v1279-2026-11-02-wekan--release)
 
 # v12.78 2026-11-02 WeKan ® release
 
@@ -55,11 +55,3 @@ Changing a password signs the account out in every other browser,
 and now a test proves it in two real browsers.
 
 [All changes in v12.75](CHANGELOG-big.md#v1275-2026-10-30-wekan--release)
-
-# v12.74 2026-10-30 WeKan ® release
-
-**Caddy** and **FerretDB**, the Go servers WeKan ships, no longer
-open MPTCP listeners, which Linux kernel bug **CVE-2026-98432** is reachable
-through. The real fix is a patched host kernel.
-
-[All changes in v12.74](CHANGELOG-big.md#v1274-2026-10-30-wekan--release)
