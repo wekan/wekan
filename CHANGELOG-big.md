@@ -127,7 +127,8 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** A cluster of servers runs the **schema re-check** and the
-**due-date reminders** once. The site **announcement** shows on Home and All
+**due-date reminders** once, and a slow-query warning says which query it is.
+The site **announcement** shows on Home and All
 Boards too. The **date picker** popup shows the year and has year, month and
 day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
 asks for a keychain, starts from the checkout, and can carry a **Claude Code**
@@ -154,6 +155,22 @@ sync scan, and a sparse index on boards.dueReminderDays the due-date lookup.
 `tests/schemaUpgradeSteps.test.cjs` and `tests/dueScanClaim.test.cjs` pin the
 claims, the stale takeover, the daily retry and that the scheduler claims
 before it scans.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc79de8c57">A collection-scan row names the command, the operators per field and the queryHash</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6856](https://github.com/wekan/wekan/issues/6856). Admin Panel -> Problems
+-> Database named only the collection and the filtered fields, for example
+"wekan.lists (filter on archived,syncSource.enabled,syncSource.type)", which
+does not say which query it is, and a slow getMore read "filter on nothing".
+The row now shows the command (find, distinct, aggregate, ...), for a getMore
+the query it continues, each field with the operators used on it - for example
+`archived:$exists` or `$nor[sort:$gte$lte]` - and MongoDB's queryHash, so
+the query can be found in the code and with explain(). Values never reach the
+row. `tests/databaseHealthScans.test.cjs` pins the shape, the queryHash, the
+getMore origin and that no value leaks.
 
 </details>
 

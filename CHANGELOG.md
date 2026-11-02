@@ -8,7 +8,8 @@ make changes there.
 # Upcoming WeKan ® release
 
 A cluster of servers runs the **schema re-check** and the
-**due-date reminders** once. The site **announcement** shows on Home and All
+**due-date reminders** once, and a slow-query warning says which query it is.
+The site **announcement** shows on Home and All
 Boards too. The **date picker** popup shows the year and has year, month and
 day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
 asks for a keychain, starts from the checkout, and can carry a **Claude Code**
