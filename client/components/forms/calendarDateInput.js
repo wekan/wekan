@@ -63,8 +63,9 @@ Template.calendarDateInput.helpers({
     const date = Template.instance().shownDate.get();
     try {
       return new Intl.DateTimeFormat(TAPi18n.getLanguage() || 'en', {
-        calendar: selectedSystem().intl, month: 'long',
-        ...(Template.instance().data.inline ? {} : { year: 'numeric' }), numberingSystem: 'latn',
+        // #6853: the year is always shown, also in the popup, where the arrows
+        // move the month and the year and the selected date beside it does not.
+        calendar: selectedSystem().intl, month: 'long', year: 'numeric', numberingSystem: 'latn',
       }).format(date);
     } catch (error) { return formatDateForDisplay(date, false); }
   },
