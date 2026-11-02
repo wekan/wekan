@@ -310,6 +310,43 @@ function scanRateProblem(perSecond) {
   };
 }
 
+// ---- one probe for the whole installation ----------------------------------
+
+// Every WeKan server runs the probe, but they all look at the same database:
+// the same "Slow query" lines, the same counters. Each server reported each
+// finding itself, so 24 replicas wrote the same collection scan 24 times.
+// A probe first claims the period in one shared document; only the server
+// that gets it probes the database, and the state that compares one probe
+// with the next (log lines seen, counters, uptime) lives in that document, so
+// the next probe - on whichever server - continues where this one stopped.
+const PROBE_CLAIM_ID = 'database-health-probe';
+const SHARED_STATE = ['logSeenMs', 'scanned', 'uptime', 'restarts', 'opLatencies'];
+
+// coll: a mongodb driver Collection. Resolves { claimed, shared }: `shared`
+// is the state the previous probe left ({} the very first time).
+async function claimProbe(coll, now, periodMs) {
+  const due = now - Math.floor(periodMs * 0.8);   // timers on the servers drift
+  try {
+    const r = await coll.findOneAndUpdate(
+      { _id: PROBE_CLAIM_ID, $or: [{ claimedMs: { $lt: due } }, { claimedMs: { $exists: false } }] },
+      { $set: { claimedMs: now } },
+      { upsert: true, returnDocument: 'before' },
+    );
+    // driver 6 returns the document, older drivers { value }
+    const before = r && typeof r === 'object' && 'ok' in r && 'value' in r ? r.value : r;
+    return { claimed: true, shared: before || {} };
+  } catch (e) {
+    if (e && e.code === 11000) return { claimed: false, shared: null };   // claimed elsewhere this period
+    throw e;
+  }
+}
+
+function sharedState(state) {
+  const out = {};
+  for (const k of SHARED_STATE) if (state[k] !== undefined) out[k] = state[k];
+  return out;
+}
+
 module.exports = {
   DOCS,
   NETWORK_FS_TYPES,
@@ -336,6 +373,10 @@ module.exports = {
   collectionScans,
   collectionScanProblem,
   queryShape,
+  claimProbe,
+  sharedState,
+  PROBE_CLAIM_ID,
+  SHARED_STATE,
   scanRate,
   scanRateProblem,
 };

@@ -1,6 +1,8 @@
 // Database health probe, the Meteor half of models/lib/databaseHealth.js.
 //
-// Runs once at startup and then every five minutes, asks MongoDB what it can
+// Runs once at startup and then every five minutes - on one server of the
+// installation per period, see claimProbe in models/lib/databaseHealth.js -
+// asks MongoDB what it can
 // answer from WeKan's side of the socket - serverStatus, dbStats,
 // getCmdLineOpts - and, when the data directory is a path this process can
 // see, asks the kernel what filesystem it is on. Each finding is one row in
@@ -96,6 +98,19 @@ export async function probeDatabaseHealth() {
 
   const dbPath = await dataDirectory(db);
 
+  // One server probes the database per period; the others only check what is
+  // local to them (the data directory below).
+  const claims = db.collection('databaseHealthProbe');
+  const { claimed, shared } = await health.claimProbe(claims, Date.now(), PROBE_MS)
+    // A claim that cannot be made (a database that refuses it) must not stop
+    // the probe: this server then probes for itself, as before.
+    .catch(() => ({ claimed: true, shared: {} }));
+  if (!claimed) {
+    checkDataDirectory(dbPath);
+    return;
+  }
+  for (const k of health.SHARED_STATE) if (shared[k] !== undefined) state[k] = shared[k];
+
   const status = await serverStatus(db);
   if (status) {
     const uptime = Number(status.uptime);
@@ -138,6 +153,7 @@ export async function probeDatabaseHealth() {
   const space = health.diskSpace(stats);
   if (space && space.critical) recordDatabaseHealth(health.diskSpaceProblem(space, dbPath));
 
+  await claims.updateOne({ _id: health.PROBE_CLAIM_ID }, { $set: health.sharedState(state) }).catch(() => {});
   checkDataDirectory(dbPath);
 }
 
