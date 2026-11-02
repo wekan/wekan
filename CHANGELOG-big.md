@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.87 2026-11-03 WeKan ® release
 
 **In short:** A **REST API** "get one" that finds nothing answers **404**
 instead of 200 with an empty body.

@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.87 2026-11-03 WeKan ® release
 
 A **REST API** "get one" that finds nothing answers **404**
 instead of 200 with an empty body.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.87](CHANGELOG-big.md#v1287-2026-11-03-wekan--release)
 
 # v12.86 2026-11-02 WeKan ® release
 
@@ -46,10 +46,3 @@ previous owner's account, and existing accounts record their directory
 identifier.
 
 [All changes in v12.83](CHANGELOG-big.md#v1283-2026-11-02-wekan--release)
-
-# v12.82 2026-11-02 WeKan ® release
-
-A card moved to another board, restored from the archive or given
-a number no longer takes a **card number** another card on that board has.
-
-[All changes in v12.82](CHANGELOG-big.md#v1282-2026-11-02-wekan--release)
