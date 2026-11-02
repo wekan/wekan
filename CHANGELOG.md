@@ -5,17 +5,17 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.78 2026-11-02 WeKan ® release
 
-**CrossBoardExportBleed** and **UnassignedAttachBleed** are fixed:
-a checklist scope stays on its board, every export obeys Disable all
+**CrossBoardExportBleed** and **UnassignedAttachBleed** are
+fixed: a checklist scope stays on its board, every export obeys Disable all
 export and Anonymize export users, and an assigned-only member changes
 attachments only on their own cards. **SAML** logins use **node-saml 5.2.0**,
 and **continuous backup** no longer misses a change made right after it starts.
 **Keyboard shortcuts** keep working after a popup closes, and the Rules page has
 a way back to the board.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.78](CHANGELOG-big.md#v1278-2026-11-02-wekan--release)
 
 # v12.77 2026-10-31 WeKan ® release
 
@@ -51,13 +51,3 @@ open MPTCP listeners, which Linux kernel bug **CVE-2026-98432** is reachable
 through. The real fix is a patched host kernel.
 
 [All changes in v12.74](CHANGELOG-big.md#v1274-2026-10-30-wekan--release)
-
-# v12.73 2026-10-30 WeKan ® release
-
-**CHANGELOG.md** is now short: the In short of the upcoming
-release and of the five newest releases, in plain Markdown. The status and every
-change of each release are in **CHANGELOG-big.md**, which is the one that is
-written. **CodeQL** alert #598 in the Sandstorm host test is fixed, and the
-release script pulls before releasing, so a moved main no longer stops it.
-
-[All changes in v12.73](CHANGELOG-big.md#v1273-2026-10-30-wekan--release)

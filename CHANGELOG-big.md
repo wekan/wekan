@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.78 2026-11-02 WeKan ® release
 
 **In short:** **CrossBoardExportBleed** and **UnassignedAttachBleed** are
 fixed: a checklist scope stays on its board, every export obeys Disable all
