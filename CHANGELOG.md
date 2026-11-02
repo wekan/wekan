@@ -9,7 +9,8 @@ make changes there.
 
 GitHub code scanning's **code-quality** findings are fixed: a
 promise formatted as text, undeclared globals, an upload that hung on an
-unreadable file, and the lint around them.
+unreadable file, and the lint around them. `npm run lint:promises`
+now finds promises that are not awaited or handled.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

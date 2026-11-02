@@ -128,7 +128,8 @@ its reason.
 
 **In short:** GitHub code scanning's **code-quality** findings are fixed: a
 promise formatted as text, undeclared globals, an upload that hung on an
-unreadable file, and the lint around them.
+unreadable file, and the lint around them. `npm run lint:promises`
+now finds promises that are not awaited or handled.
 
 This release fixes the following bugs:
 
@@ -153,6 +154,25 @@ it now cuts at the first one after the scanner.
 `tests/codeqlFindingsRegression.test.cjs` pins the shape of each fault.
 Findings in vendored bundles (the Office viewer, Jade, capnp-es, exceljs)
 and style-only ones are left as they are.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1d2a497bc">npm run lint:promises finds promises that are not awaited, handled or marked void</a>. Thanks to xet7.</summary>
+
+GitHub code scanning's "Missing await" finding was a real fault in
+`models/cards.js` (a description formatted a promise), and a plain ESLint
+cannot see that kind of mistake because it does not know which calls return a
+promise. `npm run lint:promises` runs typescript-eslint's
+`no-floating-promises` and `no-misused-promises` over `models/lib`,
+`server/lib` and `imports/lib`, with the type information read from
+`tsconfig.lint.json`; the code stays JavaScript and nothing is type-checked.
+The eleven findings were promises that already catch their own errors, now
+marked `void`, and three checks that used a promise as a boolean.
+`tests/promiseLint.test.cjs` keeps the configuration in place and the tree
+clean.
 
 </details>
 
