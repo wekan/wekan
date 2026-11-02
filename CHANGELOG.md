@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+GitHub code scanning's **code-quality** findings are fixed: a
+promise formatted as text, undeclared globals, an upload that hung on an
+unreadable file, and the lint around them.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.83 2026-11-02 WeKan ® release
 
 An **LDAP** login with a reused login name no longer opens the

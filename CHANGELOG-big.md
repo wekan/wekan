@@ -124,6 +124,40 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** GitHub code scanning's **code-quality** findings are fixed: a
+promise formatted as text, undeclared globals, an upload that hung on an
+unreadable file, and the lint around them.
+
+This release fixes the following bugs:
+
+**Code quality** - findings of GitHub code scanning.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/582a22c291">The real faults among the code-quality findings, and the lint around them</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+A card's original-position description formatted a promise, because it did
+not await the history it reads. The attachment swipe distances and two
+drag-scroll locals were undeclared globals. A file that cannot be read during
+a GridFS upload now unlinks itself instead of leaving the upload open, since
+`pipe()` does not pass a read error on. `api.py` called `exit()`, which is
+missing when the site module is not loaded, and its usage branch never
+exited; it uses `sys.exit()`. A rules test redefined a property and a
+security-log test kept an unreachable branch. Besides these: 31 missing
+semicolons, unused imports in the card details, the exporters and the
+attachment API, unused Python imports, and a comment on each empty except
+clause. The list-sync scanner test cut its source at the last
+`Meteor.startup`, which the index startup of the schema-scan fix had moved;
+it now cuts at the first one after the scanner.
+`tests/codeqlFindingsRegression.test.cjs` pins the shape of each fault.
+Findings in vendored bundles (the Office viewer, Jade, capnp-es, exceljs)
+and style-only ones are left as they are.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.83 2026-11-02 WeKan ® release
 
 **In short:** An **LDAP** login with a reused login name no longer opens the
