@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The findings of the **accessibility audit** are fixed in the
+default theme: header and label **colour contrast**, names that contain the
+visible text, named form fields, card section headings that are real buttons,
+and landmarks and headings on every page. axe-core now finds no violation on
+22 pages.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.84 2026-11-02 WeKan ® release
 
 GitHub code scanning's **code-quality** findings are fixed: a
