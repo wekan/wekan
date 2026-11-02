@@ -126,11 +126,29 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **macOS sandbox** for VSCodium no longer asks for a keychain,
+**In short:** The **date picker** popup shows the year, and the **macOS
+sandbox** for VSCodium no longer asks for a keychain,
 starts from the checkout, and can carry a **Claude Code** token so its login
 sticks.
 
-This release has the following developer-tooling fixes:
+This release fixes the following bugs:
+
+**Date picker** - the calendar in the Received, Start, Due and End date popups.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45c291b406">The calendar heading shows the year as well as the month</a>. Thanks to brlin-tw and xet7.</summary>
+
+[\#6853](https://github.com/wekan/wekan/issues/6853). The popup calendar
+heading named only the month, so after the arrows had moved past December
+there was no sign of which year was shown; the selected date beside it does
+not change when the month does. The heading now reads for example "January
+2027", in every calendar system. `tests/calendarPickerControls.test.cjs` pins
+the year in the heading and that no picker mode leaves it out again, and the
+Playwright date display spec expects it.
+
+</details>
+
+and has the following developer-tooling fixes:
 
 **The macOS sandbox** - running VSCodium and Claude Code in the sandbox on a
 Mac.

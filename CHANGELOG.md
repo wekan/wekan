@@ -7,7 +7,8 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **macOS sandbox** for VSCodium no longer asks for a keychain,
+The **date picker** popup shows the year, and the **macOS
+sandbox** for VSCodium no longer asks for a keychain,
 starts from the checkout, and can carry a **Claude Code** token so its login
 sticks.
 
