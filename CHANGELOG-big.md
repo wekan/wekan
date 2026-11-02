@@ -126,12 +126,29 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **date picker** popup shows the year and has year, month and
+**In short:** The site **announcement** shows on Home and All Boards too. The
+**date picker** popup shows the year and has year, month and
 day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
 asks for a keychain, starts from the checkout, and can carry a **Claude Code**
 token so its login sticks.
 
 This release fixes the following bugs:
+
+**Announcement** - the site announcement of Admin Panel -> Announcement.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64b5762020">The announcement shows on Home and on every All Boards list</a>. Thanks to titver968 and xet7.</summary>
+
+[\#6854](https://github.com/wekan/wekan/issues/6854). The banner waited
+for the user to be a member of the current board, and Home, Remaining, Starred,
+Templates and the other All Boards pages have no current board, so it showed
+only on boards. It now shows to every signed-in user on those pages, and to the
+members of the open board on a board page; a visitor who is not signed in still
+does not see it (#1281).
+`tests/announcementAudience.test.cjs` pins the rule and that no membership test
+of a current board is left in front of the banner.
+
+</details>
 
 **Date picker** - the calendar in the Received, Start, Due and End date popups.
 

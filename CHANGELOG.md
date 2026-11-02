@@ -7,7 +7,8 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **date picker** popup shows the year and has year, month and
+The site **announcement** shows on Home and All Boards too. The
+**date picker** popup shows the year and has year, month and
 day drop-downs under the calendar. The **macOS sandbox** for VSCodium no longer
 asks for a keychain, starts from the checkout, and can carry a **Claude Code**
 token so its login sticks.
