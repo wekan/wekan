@@ -228,6 +228,27 @@ engines, the SQLite setup and the conclusion.
 
 </details>
 
+**The header bar** - what sits beside the logo.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f25957dcf3">A full screen button to the right of the logo in the header bar</a>. Thanks to xet7.</summary>
+
+A button puts the whole page in full screen and takes it out again with the
+Fullscreen API, in iPad Safari, desktop browsers and Android browsers. Its label
+is the existing Maximize, so no language file changes. It is drawn only where
+the
+browser offers the API and the page may use it: iPhone Safari does not have it
+for pages (use Add to Home Screen, the manifest says `display: standalone`), and
+neither does a page in an iframe without `allowfullscreen`. The icon follows the
+browser's own events, so leaving with Esc is understood.
+`tests/fullscreenButton.test.cjs`
+drives the pure part with fake documents, including a refusal, and
+`tests/playwright/specs/header-fullscreen.e2e.js` checks the position, the
+label,
+entering, leaving, Esc and the negative case in Chromium and WebKit.
+
+</details>
+
 and updates the following dependencies:
 
 - **minimatch 10.2.6 → 11.0.4** in the `npm-packages/exceljs` and vendored
