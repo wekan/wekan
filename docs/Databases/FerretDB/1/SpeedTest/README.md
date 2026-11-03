@@ -264,6 +264,16 @@ table.
 - **`distinct` works when documents lack the field** (v1.105.0), which a database
   migrated from MongoDB 3 needs on its first start.
 
+- **A membership test reads the array from the column, not from the text of `->`**
+  (found by profiling Due Cards, fixed after v1.105.0). `{members: {$elemMatch:
+  {userId: X}}}` was `json_each(col->"members")`: `->` renders the whole array as
+  JSON text and `json_each` parses that text again, for every row. It is now
+  `json_each(col, '$."members"')`, which SQLite walks in place. The visible-boards
+  query went from 26.2 to 15.7 ms on 2,308 boards, and in the speed test All Boards
+  count from 6.9 to 4.9 ms, All Boards page from 5.9 to 3.9 ms and Due Cards from
+  54.5 to 43.9 ms (the SQLite total 82.7 → 68.3 ms); the 169 answers of 12 queries
+  are identical to before.
+
 **FerretDB on PostgreSQL**
 
 - **Membership tests use a GIN index** (v1.100.0): an index whose leading key is
@@ -324,6 +334,26 @@ table.
   asking.
 
 ## What could still be improved
+
+- **Due Cards on SQLite, 44 ms of the 68 ms total.** A CPU profile of FerretDB
+  while it ran Due Cards (taken before the change above): half the CPU was inside
+  SQLite, and about a fifth of all of it converting JSON between binary and text
+  (`_jsonTranslateBlobToText` 10%, `_jsonTranslateTextToBlob` 10%, besides
+  `_jsonLookupStep`); another quarter was Go runtime (thread signalling,
+  `madvise`, the network poller). Of the cards query's 24 ms, 18 ms is the index
+  lookups (the 700-board `IN` list) and 6 ms the five per-user conditions
+  (`members`, `assignees`, `requesters`, `assigners`, `userId`), each of which
+  evaluates `->` three times per row. Reading each once, as
+  `json_type(col,'$."f"') = 'array' OR col->>'$."f"' = ?`, took that step from
+  24.4 to 20.5 ms with the same rows - **not done**, because it may only be applied
+  to a field no index covers (an index is matched by the expression `col->"f"`),
+  and FerretDB's WHERE builder does not know which fields are indexed.
+- **Tried on SQLite and not worth it, or not conclusive**: `ANALYZE` made no
+  difference (FerretDB chooses its indexes itself); a Unix socket instead of TCP
+  saves about 0.05 ms (20%) on a point read (0.24 → 0.19 ms), which is free when
+  WeKan and FerretDB share a machine (`--listen-unix`); `GOGC=400` gave 10-15% on
+  some queries in one test (board cards 5.3 → 4.4 ms) and nothing in another that
+  also set a memory limit, so it is a lead, not a result.
 
 - **The busiest users.** What remains of All Boards for a member of thousands of
   boards, and of Due Cards, is decoding those boards and sorting them in Go on
