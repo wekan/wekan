@@ -124,6 +124,38 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
+longer opens the Due date popup and closes it again on a Farsi layout.
+
+This release fixes the following bugs:
+
+**Keyboard shortcuts** - what a key does on each layout.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0110e84ce5">A shortcut runs once on a Farsi, Cyrillic or other non-Latin keyboard</a>. Thanks to mimZD and xet7.</summary>
+
+[\#6840](https://github.com/wekan/wekan/issues/6840). `d` opened the Due date
+popup and closed it at a glance, "sometimes", for a reporter whose keyboard was
+Farsi. `client/lib/keyboard.js` re-dispatched every key typed on another script
+as its Latin key, a leftover from Mousetrap, which read the typed character.
+hotkeys-js, which replaced it, resolves a key from `event.code` and `keyCode`
+and so already ran the shortcut for the physical d key on any layout; the copy
+ran
+every shortcut a second time, the due date editor opened and the repeat clicked
+the
+same control again, closing it. The same doubling was behind Shift+D on a Latin
+keyboard (#6750). The re-dispatch is gone. `tests/keyboardNonLatinOnce.test.cjs`
+pins that no handler turns a typed character back into a key, and reads
+hotkeys-js's own rule; `tests/playwright/specs/keyboard-nonlatin-once.e2e.js`
+sends
+real key events for Latin, Farsi and Cyrillic and counts one run each.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.88 2026-11-03 WeKan ® release
 
 **In short:** **Every board theme** and **every color a member chooses** is

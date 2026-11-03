@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
+longer opens the Due date popup and closes it again on a Farsi layout.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.88 2026-11-03 WeKan ® release
 
 **Every board theme** and **every color a member chooses** is
