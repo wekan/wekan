@@ -298,8 +298,16 @@ table.
   boards, and of Due Cards, is decoding those boards and sorting them in Go on
   the databases that do not sort in SQL.
 - **Sorting in the database on PostgreSQL, MySQL and MariaDB.** Only SQLite does
-  it so far; the others need MongoDB's ordering across types, missing fields
-  and arrays to be exact in their SQL.
+  it. PostgreSQL was tried (2026-11-03): an `ORDER BY` of type class, number and
+  text (`COLLATE "C"`, MongoDB's byte order) with the documents that cannot be
+  ordered first, as on SQLite, and the tests matched the Go sort over mixed
+  types. It was **not faster**: the ten newest of 30,116 users took 52 ms, against
+  38-49 ms for fetching, decoding and sorting them in Go, because the Go path is
+  already fast after the decoding changes and the sort expressions cost about as
+  much. It would only save memory and transfer, so it was not kept. A sort that
+  wins needs an expression index on the sort field, which has to know the field
+  in advance; MySQL and MariaDB have the same cost structure and no measurement
+  that says otherwise.
 - **MariaDB stores JSON as text** that every JSON function parses again, so it
   keeps only what an index answers (`$or` and `$elemMatch` are not pushed down).
 - **Existing MySQL/MariaDB tables** keep their case-insensitive index columns
