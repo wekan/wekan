@@ -207,6 +207,27 @@ scripts and the findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96d56ecc6c">Go databases that could be linked into FerretDB were compared with its SQLite: none is faster where it counts</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+`docs/Databases/FerretDB/1/SpeedTest/embedded` is a Go module of its own (pure
+Go,
+no cgo) that loads the speed test's cards into SQLite set up as FerretDB sets it
+and into Pebble, Badger, bbolt, BuntDB, Nutsdb and Clover, and asks each the
+questions WeKan asks of cards, at 15,377 and 153,768 cards. Every engine must
+give
+the right counts first. A board's cards take the same time on every engine that
+is
+not slower, because decoding the JSON dominates; the key-value stores win single
+reads and writes by microseconds that a FerretDB call hides, and would make the
+handler do in Go what SQL does in SQLite. Pebble is 12x slower on fetching a
+board, Clover 90-190x slower in total, and bbolt with its default fsync 100-160x
+slower on writes. The README accounts for every entry of the awesome-go
+databases section. `tests/embeddedEnginesBench.test.cjs` pins the export, the
+engines, the SQLite setup and the conclusion.
+
+</details>
+
 and has the following documentation change:
 
 **Database speed test** - what was improved, and what was tried and was not.
