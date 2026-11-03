@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.88 2026-11-03 WeKan ® release
 
 **In short:** **Every board theme** and **every color a member chooses** is
 readable: the dark themes' **Card Settings**, popups and sidebars, the header of

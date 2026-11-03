@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.88 2026-11-03 WeKan ® release
 
 **Every board theme** and **every color a member chooses** is
 readable: the dark themes' **Card Settings**, popups and sidebars, the header of
 eight themes, and a custom accent, text or label color made legible. A padded
 **REST label** name no longer creates a second label.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.88](CHANGELOG-big.md#v1288-2026-11-03-wekan--release)
 
 # v12.87 2026-11-03 WeKan ® release
 
@@ -47,11 +47,3 @@ unreadable file, and the lint around them. `npm run lint:promises`
 now finds promises that are not awaited or handled.
 
 [All changes in v12.84](CHANGELOG-big.md#v1284-2026-11-02-wekan--release)
-
-# v12.83 2026-11-02 WeKan ® release
-
-An **LDAP** login with a reused login name no longer opens the
-previous owner's account, and existing accounts record their directory
-identifier.
-
-[All changes in v12.83](CHANGELOG-big.md#v1283-2026-11-02-wekan--release)
