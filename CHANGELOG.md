@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.90 2026-11-03 WeKan ® release
 
 The login page can have its own **background color**, Member
 Settings
@@ -13,7 +13,7 @@ has a per-member switch, **Show focus outline**, to hide the blue focus ring,
 and
 **Escape closes the add-list composer**.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.90](CHANGELOG-big.md#v1290-2026-11-03-wekan--release)
 
 # v12.89 2026-11-03 WeKan ® release
 
@@ -45,13 +45,3 @@ audit**
 run once for the whole installation, not once per server.
 
 [All changes in v12.86](CHANGELOG-big.md#v1286-2026-11-02-wekan--release)
-
-# v12.85 2026-11-02 WeKan ® release
-
-The findings of the **accessibility audit** are fixed in the
-default theme: header and label **colour contrast**, names that contain the
-visible text, named form fields, card section headings that are real buttons,
-and landmarks and headings on every page. axe-core now finds no violation on
-22 pages. A cleared database connection pool is reported as a lost connection.
-
-[All changes in v12.85](CHANGELOG-big.md#v1285-2026-11-02-wekan--release)

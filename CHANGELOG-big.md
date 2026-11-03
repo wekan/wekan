@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.90 2026-11-03 WeKan ® release
 
 **In short:** The login page can have its own **background color**, Member
 Settings
