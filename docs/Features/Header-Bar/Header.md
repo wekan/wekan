@@ -82,8 +82,19 @@ early.
 
 ## What the bar holds
 
-In source order: the house and the page title, the logo, the phone/desktop
-toggle, the drag-handles toggle, and then everything else.
+In source order: the house and the page title, the logo, the full screen button,
+the phone/desktop toggle, the drag-handles toggle, and then everything else.
+
+**Full screen.** A button to the right of the logo puts the whole page in full
+screen and takes it out again, with the Fullscreen API (`models/lib/fullscreen.js`):
+the icon is an expand arrow, and a compress arrow while the page is in full screen,
+and it follows the browser's own way out (Esc) too. Its label is the existing
+"Maximize". It is drawn only where the browser offers the API and the page may use
+it - iPad Safari, desktop browsers and Android browsers do; **iPhone Safari does not**
+(the API is for video there) and neither does a page inside an `<iframe>` without
+`allowfullscreen`, so no dead button is shown. On an iPhone, "Add to Home Screen"
+opens WeKan without the browser's bars (the manifest says `display: standalone`).
+It sits before the first icon the fold button collects, so folding the icons keeps it.
 
 **The board's controls fold.** A caret leads the group, at its leading edge —
 left of the lock in a left-to-right page, right of it in Arabic. Folded, the

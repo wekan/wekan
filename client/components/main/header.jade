@@ -69,6 +69,19 @@ template(name="header")
             div.header-logo
               img(src="{{pathFor '/logo-header.png'}}" alt="{{headerLogoAlt}}" title="{{headerLogoAlt}}")
 
+      //- Full screen, to the right of the logo (iPad Safari, desktop and Android
+        browsers). Only drawn where the browser has the Fullscreen API and the page
+        may use it: not on iPhone, not in an iframe without allowfullscreen. The
+        label is the existing "Maximize" one. It stays before the first
+        .js-header-collapsible-icon, so "hide the icons" does not hide it.
+        models/lib/fullscreen.js
+      if fullscreenSupported
+        a.board-header-btn.js-toggle-fullscreen(href="#" role="button" title="{{_ 'maximize-window'}}" aria-label="{{_ 'maximize-window'}}" aria-pressed="{{#if isFullscreen}}true{{else}}false{{/if}}")
+          if isFullscreen
+            i.fa.fa-compress
+          else
+            i.fa.fa-expand
+
       // Mobile/desktop mode toggle (swapped with zoom)
       // #6680 follow-up: .js-header-collapsible-icon marks every icon the new
       // .js-toggle-header-icons-collapsed button (beside Home) hides as a

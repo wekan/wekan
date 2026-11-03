@@ -59,6 +59,7 @@ function customPageTitle(routeName) {
 // Drag-to-scroll on the two top header bars (they are not scroll containers
 // themselves, so the drag is forwarded to the board canvas / page scroller).
 import '/client/lib/headerDragscroll';
+const fullscreen = require('/models/lib/fullscreen');
 
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');
@@ -70,6 +71,10 @@ Meteor.subscribe('setting');
 Meteor.subscribe('announcements');
 Template.header.onCreated(function () {
   const templateInstance = this;
+  // Full screen: whether the browser offers it here, and whether the page is in it.
+  // Both are set when the header is drawn (onRendered), where there is a document.
+  templateInstance.fullscreenSupported = new ReactiveVar(false);
+  templateInstance.isFullscreen = new ReactiveVar(false);
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
   templateInstance.subscribe('setting');
@@ -83,6 +88,14 @@ Template.header.onCreated(function () {
 
 });
 Template.header.onRendered(function () {
+  // The Fullscreen API, where it exists and the page may use it (models/lib/fullscreen.js).
+  // The state follows the browser's own events, so leaving with Esc, or with the
+  // browser's own control, changes the icon too.
+  this.fullscreenSupported.set(fullscreen.isSupported(document));
+  this.isFullscreen.set(fullscreen.isFullscreen(document));
+  this.onFullscreenChange = () => this.isFullscreen.set(fullscreen.isFullscreen(document));
+  fullscreen.CHANGE_EVENTS.forEach(name => document.addEventListener(name, this.onFullscreenChange));
+
   this.autorun(() => {
     Meteor.userId();
     FlowRouter.watchPathChange();
@@ -92,7 +105,19 @@ Template.header.onRendered(function () {
   });
 });
 
+Template.header.onDestroyed(function () {
+  if (this.onFullscreenChange) {
+    fullscreen.CHANGE_EVENTS.forEach(name => document.removeEventListener(name, this.onFullscreenChange));
+  }
+});
+
 Template.header.helpers({
+  fullscreenSupported() {
+    return Template.instance().fullscreenSupported.get();
+  },
+  isFullscreen() {
+    return Template.instance().isFullscreen.get();
+  },
   logoSettingsReady() {
     return Template.instance().subscriptionsReady();
   },
@@ -365,6 +390,13 @@ Template.header.helpers({
 });
 
 Template.header.events({
+  // Full screen on and off. The request is made inside this click, which is the
+  // user gesture browsers require; a refusal is not an error (models/lib/fullscreen.js).
+  'click .js-toggle-fullscreen'(event) {
+    event.preventDefault();
+    fullscreen.toggle(document);
+  },
+
   // The starred boards, by name. They were listed inline in this bar; the bar
   // is one row now and the names are in the popup. docs/Features/Header-Bar/Header.md
   // Titled "Starred Boards", from the key the app already has for that phrase,
