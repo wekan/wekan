@@ -124,6 +124,32 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The database **speed test README** describes the FerretDB and
+WeKan
+improvements made since its last run.
+
+This release has the following documentation change:
+
+**Database speed test** - how fast the databases answer WeKan's queries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d05a42a5af">The speed test README lists the improvements since the last run</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+SQLite sorts in the database and stores JSONB, PostgreSQL answers membership
+from a GIN index and pushes down `$or`, `$elemMatch` and `$and`, MySQL and
+MariaDB read through their indexes with multikey side tables, and WeKan no
+longer scans whole collections every hour or at every start of every server. The
+figures are FerretDB's own, measured on smaller databases; the README says that
+Results.md still shows v1.99.0 and that the speed test needs a new run for
+full-scale numbers. The list of what could still be improved is updated to
+match.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.92 2026-11-03 WeKan ® release
 
 **In short:** A missing **REST checklist** answers a JSON 404 instead of an

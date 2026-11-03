@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The database **speed test README** describes the FerretDB and
+WeKan
+improvements made since its last run.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.92 2026-11-03 WeKan ® release
 
 A missing **REST checklist** answers a JSON 404 instead of an
