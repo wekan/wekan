@@ -2215,8 +2215,15 @@ Boards.helpers({
     return ReactiveCache.getUsers({ _id: { $in: this.members.map(x => x.userId) } });
   },
 
+  // A label by name and color. Names are compared as the schema stores them,
+  // trimmed: a padded " Bug " from the REST API, an import or a typed form must find
+  // the stored "Bug", or every repeat created another label with the same name and
+  // color (#6864). A legacy label stored with padding is found by its trimmed name too.
   getLabel(name, color) {
-    return findWhere(this.labels, { name, color });
+    const wanted = typeof name === 'string' ? name.trim() : name;
+    return (this.labels || []).find(label => label
+      && (typeof label.name === 'string' ? label.name.trim() : label.name) === wanted
+      && label.color === color);
   },
 
   getLabelById(labelId) {
