@@ -1,5 +1,5 @@
 .js-add-checklist {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
 }
 textarea.js-add-checklist-item,
 textarea.js-edit-checklist-item {
@@ -11,7 +11,7 @@ textarea.js-edit-checklist-item {
 .delete-text,
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   text-decoration: underline;
   word-wrap: break-word;
   float: inline-end;
@@ -139,7 +139,7 @@ textarea.js-edit-checklist-item {
   overflow-wrap: anywhere;
 }
 .checklist-item .item-title.is-checked {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   font-style: italic;
   text-decoration: line-through;
 }
@@ -167,7 +167,7 @@ textarea.js-edit-checklist-item {
 .checklist-item .checklist-item-due-date-add {
   align-self: center;
   margin-inline-start: 6px;
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   text-decoration: none;
 }
 .checklist-item .checklist-item-due-date-add:hover {

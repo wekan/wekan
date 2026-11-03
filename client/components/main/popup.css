@@ -822,7 +822,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
   background: #fff;
 }
 .pop-over-list li > a .sub-name {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   display: block;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
@@ -867,7 +867,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
   background-color: #2e85b8;
 }
 .pop-over-list li > a.disabled {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   cursor: default;
 }
 .pop-over-list li > a.disabled .vis-icon {
@@ -878,7 +878,7 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
 }
 .pop-over-list li > a.disabled:hover .sub-name,
 .pop-over-list li > a.disabled:hover .quiet {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
 }
 .pop-over-list li > a.disabled:active {
   background: none;

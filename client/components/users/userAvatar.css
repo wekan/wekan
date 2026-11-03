@@ -140,7 +140,7 @@
   display: flex;
   align-items: center;
   padding: 0 12px;
-  color: #595959 !important;
+  color: var(--wekan-quiet-text, #595959) !important;
 }
 /* Outweighs .pop-over-list li > a:not(.disabled):hover, which would otherwise
    paint the delete button with the generic blue row-hover colour. */
@@ -149,7 +149,7 @@
   background-color: #b04632;
 }
 .avatar-upload-hints {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   line-height: calc(16px * var(--wekan-ui-font-scale, 1));
   margin: 6px 0;

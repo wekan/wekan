@@ -100,7 +100,7 @@
 }
 /* Drag-and-drop workflow editor */
 .rules-workflow .workflow-help {
-  color: #5a5c61;
+  color: var(--wekan-quiet-text, #5a5c61);
   font-size: calc(13px * var(--wekan-ui-font-scale, 1));
   margin-bottom: 9px;
 }
@@ -284,7 +284,7 @@
   display: flex;
 }
 .triggers-content {
-  color: #5a5c61;
+  color: var(--wekan-quiet-text, #5a5c61);
   background: #dedede;
 }
 .triggers-content .triggers-body {
@@ -437,7 +437,7 @@
 }
 .rules-import-export .rules-ie-hint {
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
-  color: #5a5c61;
+  color: var(--wekan-quiet-text, #5a5c61);
   margin-bottom: 0.3em;
 }
 .rules-import-export .rules-ie-textarea {

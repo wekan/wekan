@@ -2382,7 +2382,7 @@ THEME - Modern Dark
 .board-color-moderndark button[type=submit].primary,
 .board-color-moderndark .board-color-modern input[type=submit].primary,
 .board-color-moderndark .selected-calendar-picker button.primary {
-  background-color: #777;
+  background-color: #6e6e6e;
   border-radius: 7px;
 }
 .board-color-moderndark .toggle-switch:checked~.toggle-label {
@@ -3015,7 +3015,15 @@ THEME - Exodark
 .pop-over.board-color-exodark {
   background: #2b2b2b;
   color: #fff;
+  --wekan-quiet-text: #b4b4b4;
+  /* Card Settings opens in this popup: dark sections for its white text. */
+  --card-settings-section-bg: rgba(255, 255, 255, 0.08);
+  --card-settings-helper-bg: #3a3a46;
+  --card-settings-notch-bg: #2c3340;
 }
+/* The popup's own links keep the light popup's black otherwise: black on
+   #2b2b2b was 1.48:1 (#6863). */
+
 .pop-over.board-color-exodark .header {
   background: #2b2b2b;
   color: #fff;
@@ -6093,3 +6101,98 @@ docs/Features/General/Theme/Change-Color.md
 }
 
 /* === END clearred THEME === */
+
+/* The quiet text colour (#595959 on the light themes' greys, WCAG 1.4.3) is a
+   variable, so the themes whose popups and sidebars are DARK can have a light
+   one: a dark grey on a dark surface was nearly invisible (#6863). cleandark and
+   moderndark are those; dark and exodark keep light popups and sidebars, where
+   the dark grey is right. Popups carry the theme class themselves, so the
+   variable reaches them. */
+:is(
+  .board-color-cleandark,
+  .board-color-moderndark
+) {
+  --wekan-quiet-text: #b4b4b4;
+  /* Card Settings: its sections are light grey blocks (cardAddFields.css), and
+     these themes' text on them is white (1.07:1 in cleandark). */
+  --card-settings-section-bg: rgba(255, 255, 255, 0.08);
+  --card-settings-helper-bg: #3a3a46;
+  --card-settings-notch-bg: #2c3340;
+}
+/* moderndark's surfaces are lighter greys (#545454): the quiet text needs more. */
+.board-color-moderndark {
+  --wekan-quiet-text: #dcdcdc;
+}
+/* The board sidebar's "Keyboard shortcuts" row is outside .sidebar-content, so
+   the white of its buttons does not reach it, and sidebar.css makes it black:
+   black on these sidebars was 1.34:1. */
+:is(
+  .board-color-cleandark,
+  .board-color-moderndark
+) .sidebar .sidebar-shortcuts {
+  color: #fff;
+}
+/* moderndark: grey (#808080) on its near-black sidebar was 4.02. */
+.board-color-moderndark :is(.js-open-board-menu, h3[data-fold], .activity-title) {
+  color: var(--wekan-quiet-text);
+}
+/* dark: the swimlane header's text was black on its #2c3e50 bar (1.91:1). */
+.board-color-dark .swimlane-header {
+  color: #fff;
+}
+/* dark and exodark: the board, the opened card and the sidebar are dark surfaces
+   (#222, #2b2b2b, #2c3e50). Their popups differ: exodark's is dark too (above),
+   dark's is light, so the dark theme's popups keep the dark quiet text. */
+:is(
+  .board-color-dark,
+  .board-color-exodark
+) :is(.board-canvas, .card-details, .sidebar) {
+  --wekan-quiet-text: #b4b4b4;
+}
+/* A "quiet button" (Add custom field, Link fields to another card, ...) is #222 in
+   forms.css, for a light surface; on a dark popup or sidebar it was 1.18:1 (#6863). */
+:is(
+  .board-color-cleandark,
+  .board-color-moderndark
+) .quiet-button,
+:is(
+  .board-color-cleandark,
+  .board-color-moderndark,
+  .board-color-exodark
+).pop-over .quiet-button {
+  color: #e0e0e0;
+}
+/* The board sidebar of the dark themes: what is not a button or a heading
+   (a form label, the list of swimlanes' lists and cards) kept the light
+   sidebar's black: 1.34:1 on cleandark's #23232b (#6863). */
+:is(
+  .board-color-cleandark,
+  .board-color-moderndark
+) .sidebar .sidebar-content :is(label, .minilists, .minicards) {
+  color: #fff;
+}
+/* Popup items and sidebar lists: popup.css forces `.pop-over-list li > a` to black
+   with !important, which is right on a light surface. moderndark's popups and
+   sidebar and exodark's popups are dark: black on #454545 was 2.19:1, on #2b2b2b
+   1.48:1 (#6863). */
+:is(
+  .board-color-moderndark,
+  .board-color-exodark
+).pop-over .pop-over-list li > a,
+:is(
+  .board-color-moderndark,
+  .board-color-exodark
+).pop-over .pop-over-list li > a *,
+.board-color-moderndark .sidebar .pop-over-list li > a,
+.board-color-moderndark .sidebar .pop-over-list li > a * {
+  color: #fff !important;
+}
+/* moderndark: the sidebar's headings were #808080 on #222 (4.02:1). */
+.board-color-moderndark .sidebar .sidebar-content h3 {
+  color: var(--wekan-quiet-text);
+}
+/* moderndark: the selected minicard's title was #ccc on #666 (3.57:1). */
+.board-color-moderndark .is-selected > .minicard .minicard-title,
+.board-color-moderndark .is-selected > .minicard .minicard-title * {
+  color: #fff;
+}

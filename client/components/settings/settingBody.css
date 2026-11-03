@@ -10,7 +10,7 @@
   height: 100%;
 }
 .setting-content {
-  color: #5a5c61;
+  color: var(--wekan-quiet-text, #5a5c61);
   background: #dedede;
   width: 100%;
   height: 100%;

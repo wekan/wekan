@@ -37,7 +37,7 @@
 }
 .card-settings-pane-collapse {
   padding: 2px 4px;
-  color: #808080;
+  color: var(--wekan-quiet-text, #595959);
   text-decoration: none;
   cursor: pointer;
 }
@@ -113,7 +113,9 @@ body.card-settings-splitting-active {
 
 /* A section: the checklist's grey block, its title line and its items. */
 .card-settings-inline-section {
-  background: #f7f7f7;
+  /* The checklist's grey block; a dark theme has its own (#6863: white text on
+     this light grey was 1.07:1 in cleandark). */
+  background: var(--card-settings-section-bg, #f7f7f7);
   border-radius: 3px;
   margin-block-end: 8px;
   padding: 4px 8px 6px;
@@ -139,12 +141,12 @@ body.card-settings-splitting-active {
   overflow-wrap: anywhere;
 }
 .card-settings-inline-section-title.js-card-settings-section-handle { cursor: grab; }
-.card-settings-inline-section-count { color: #808080; white-space: nowrap; }
+.card-settings-inline-section-count { color: var(--wekan-quiet-text, #595959); white-space: nowrap; }
 .card-settings-inline-collapse,
 .card-settings-inline-section-move,
 .card-settings-inline-menu {
   padding: 2px 4px;
-  color: #808080;
+  color: var(--wekan-quiet-text, #595959);
   text-decoration: none;
   cursor: pointer;
 }
@@ -171,7 +173,7 @@ body.card-settings-splitting-active {
   min-width: 28px;
   min-height: 28px;
   border-radius: 3px;
-  color: #808080;
+  color: var(--wekan-quiet-text, #595959);
   text-decoration: none;
 }
 .card-settings-add-custom-field-button:hover,
@@ -189,7 +191,7 @@ body.card-settings-splitting-active {
   border-bottom: 0;
   padding-inline-start: 22px;
 }
-.card-settings-inline .card-settings-line.ui-sortable-helper { background: #fff; }
+.card-settings-inline .card-settings-line.ui-sortable-helper { background: var(--card-settings-helper-bg, #fff); }
 .card-settings-inline .materialCheckBox { transition: none; }
 .card-settings-inline .card-field-order-toggle.is-animating .materialCheckBox { transition: 0.2s; }
 /* The hamburgers' checkboxes, likewise: only the one just clicked animates. */
@@ -257,7 +259,7 @@ body.card-settings-splitting-active {
   border-inline-start: 1px solid rgba(41, 128, 185, 0.45);
   border-block-start: 1px solid rgba(41, 128, 185, 0.45);
   transform: rotate(45deg);
-  background-color: #eef4f9;
+  background-color: var(--card-settings-notch-bg, #eef4f9);
 }
 /* The + is at the start of its line: the notch is under it there. */
 .card-settings-inline-panel-create::before {
@@ -270,7 +272,7 @@ body.card-settings-splitting-active {
   position: absolute;
   inset-block-start: 4px;
   inset-inline-end: 6px;
-  color: #808080;
+  color: var(--wekan-quiet-text, #595959);
   padding: 2px 4px;
 }
 .card-settings-inline-panel-close:hover,

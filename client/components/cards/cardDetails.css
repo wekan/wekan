@@ -1096,7 +1096,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .card-details-item-location .card-location-remove {
   margin-inline-start: 8px;
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   cursor: pointer;
 }
 .card-details-item-location .card-location-remove:hover {

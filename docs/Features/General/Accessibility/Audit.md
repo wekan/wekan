@@ -89,13 +89,54 @@ stylesheets, a `role="button"` on the heading, `h3` in the title, a `#999`
 tile colour, an editor harness) and were updated to the new markup; each keeps
 the assertion that made it worth having.
 
+### Dark themes (#6863), found after the fix above
+
+The colour change above made the quiet text greys dark for every theme, and the
+dark themes (`cleandark`, `moderndark`, `dark`, `exodark`) have dark surfaces:
+dark grey text on them was nearly invisible. [Issue #6863](https://github.com/wekan/wekan/issues/6863)
+reported it ("Dark Themes broken in 12.87"), together with faults that were
+older than the audit: Card Settings drew white text on light grey blocks
+(1.07:1), popup items, the sidebar's shortcuts row and the "quiet buttons" were
+black on dark (1.18 to 2.19:1), and a list header's `!important` light grey beat
+each theme's own and left its light text at 1.09:1 and 1.27:1. The audit had
+scanned the default theme only, which is why none of this showed.
+
+What was done:
+
+- The quiet text colour is a variable, `--wekan-quiet-text`: `#595959` on the
+  light themes (the fallback), `#b4b4b4` on `cleandark`, `#dcdcdc` on
+  `moderndark` (lighter greys), and on `dark` and `exodark` for the board, the
+  opened card and the sidebar (`exodark`'s popups too). `dark`'s popups are light,
+  so they keep the dark one.
+- Card Settings' sections take their background from a variable, a faint lift of
+  the dark surface instead of `#f7f7f7`; its muted text was `#808080` on
+  `#f7f7f7` (3.68:1) and is the quiet variable now, also on the light themes.
+- Popup items and the board sidebar's lists were forced black with `!important`
+  by popup.css; `moderndark` and `exodark` now force them white where their
+  surfaces are dark. Quiet buttons, the sidebar's labels and swimlane lists, the
+  shortcuts row, `dark`'s swimlane header and `moderndark`'s selected minicard
+  and primary buttons got light text or a darker fill.
+- The list header's `!important` background is gone, so each theme's own list
+  header applies.
+
+`tests/playwright/specs/46-axe-dark-themes.e2e.js` scans the four themes, in the
+board, the sidebar, Card Settings, an opened card and the custom fields popup,
+and finds nothing; `tests/darkThemeContrast6863.test.cjs` pins each rule. A
+crawl of more popups and sidebar tabs in `cleandark`, `moderndark`, `dark` and
+`exodark` also found nothing.
+
+Still failing, not fixed here, found while checking the other board colours with
+the same scan: the header text on `relax` (`#27ae61`, white 2.87), `nephritis`
+(`#27ae60`) and `modern` (`#2a80b8`, white 4.3), `clearblue`'s forecast text and
+Start Flow button, and `cleanlight`'s add-dependency link. Each theme has its
+own header colour and needs the check the default theme now passes.
+
 ### Known side effects of the colour change
 
 - `#2980b9` was the default blue in 21 files; `#2573a7` is slightly darker and
   was checked by eye on the card and the sign-in page only.
-- The quiet greys changed in 11 stylesheets for the light themes. The dark
-  themes have their own rules for the same text, and were not scanned, so a dark
-  theme could show these greys differently.
+- The quiet greys changed in 12 stylesheets. The dark themes were not scanned at
+  first and showed them dark on dark; that is fixed above (#6863).
 - The PDF export's progress bar still draws `#2980b9`; it is not part of the
   web pages.
 

@@ -192,9 +192,11 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   min-height: 30px !important;
   height: auto !important;
   padding: 28px 21px 6px !important;
-  /* Make sure the background covers the full height */
-  background-color: #e4e4e4 !important;
-  border-bottom: 8px solid #e4e4e4 !important;
+  /* Make sure the background covers the full height. Not !important: it beat
+     every theme's own list header (moderndark's #6a6a6a, exodark's #222), and
+     left their light text on this grey at 1.09:1 and 1.27:1 (#6863). */
+  background-color: #e4e4e4;
+  border-bottom: 8px solid #e4e4e4;
   /* Use original display for consistent button positioning */
   display: block !important;
   position: relative !important;
@@ -470,7 +472,7 @@ form.inlined-form .list-composer {
 
 .list.list-composer .open-list-composer,
 .list .list-composer .open-list-composer {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
 }
 .list.list-composer .list-name-input,
 .list .list-composer .list-name-input {
@@ -534,7 +536,7 @@ form.inlined-form .list-composer {
   padding: 0;
   border-radius: 0;
   background: transparent;
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   font-weight: bold;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   vertical-align: middle;
@@ -722,7 +724,7 @@ form.inlined-form .list-composer {
 }
 
 .list-header .cardCount {
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   font-weight: bold;
 }
@@ -781,7 +783,7 @@ form.inlined-form .list-composer {
 }
 .list-body .open-minicard-composer {
   border-radius: 2px;
-  color: #595959;
+  color: var(--wekan-quiet-text, #595959);
   display: block;
   /* Smaller than a card title, because it is not a card: it is the affordance
      for making one. At the inherited 16px it was the largest text in the list
