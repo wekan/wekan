@@ -22,10 +22,11 @@ the biggest board or the busiest user, who waits longest.
 | 4 | MongoDB 7.0.43 | 18.1 | 1.1x | 50.1 | 1.1x |
 | 5 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 57.9 | 3.5x | 154 | 3.4x |
 | 6 | FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | 82.7 | 5.0x | 240 | 5.3x |
-| 7 | FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | 99.3 | 6.0x | 399 | 8.8x |
+| 7 | FerretDB v1.105.0 (0db7b801) + MySQL 9.7.2 | 103 | 6.2x | 415 | 9.2x |
 | 8 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 145 | 8.7x | 483 | 11x |
 | 9 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 174 | 10x | 594 | 13x |
-| 10 | FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | 280 | 17x | 1,051 | 23x |
+| 10 | FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | 240 | 14x | 877 | 19x |
+| 11 | FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | 290 | 17x | 1,063 | 24x |
 
 ## Speed
 
@@ -42,10 +43,11 @@ fastest database at the top.
 | MongoDB 7.0.43 | **18.1** | 0.45 | 0.41 | 0.71 | 0.91 | 0.41 | 0.46 | 0.41 | 2.05 | 0.40 | 0.42 | 0.51 | 0.36 | 0.55 | 7.81 | 0.76 | 0.46 | 0.52 | 0.48 |
 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | **57.9** | 0.67 | 0.55 | 2.10 | 2.82 | 0.69 | 0.71 | 0.56 | 3.21 | 1.12 | 1.06 | 1.29 | 0.52 | 1.42 | 33.8 | 1.91 | 1.87 | 1.77 | 1.85 |
 | FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | **82.7** | 0.28 | 0.32 | 6.30 | 5.35 | 0.29 | 0.41 | 0.38 | 5.00 | 0.75 | 1.71 | 2.37 | 0.21 | 1.05 | 50.9 | 3.85 | 1.34 | 1.45 | 0.72 |
-| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | **99.3** | 0.93 | 0.90 | 6.05 | 6.30 | 0.93 | 0.97 | 0.89 | 7.75 | 1.02 | 4.80 | 4.91 | 0.83 | 5.56 | 34.7 | 15.8 | 2.50 | 2.71 | 1.82 |
+| FerretDB v1.105.0 (0db7b801) + MySQL 9.7.2 | **103** | 0.92 | 0.87 | 6.13 | 6.40 | 0.91 | 0.97 | 0.88 | 7.79 | 1.04 | 5.05 | 5.13 | 0.85 | 5.75 | 35.9 | 16.9 | 2.65 | 2.87 | 2.08 |
 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | **145** | 0.76 | 0.67 | 5.84 | 6.14 | 0.59 | 0.57 | 0.55 | 7.70 | 0.70 | 4.54 | 4.57 | 0.50 | 5.20 | 83.8 | 16.1 | 2.34 | 2.27 | 1.66 |
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | **174** | 0.75 | 0.62 | 6.00 | 6.39 | 0.70 | 0.68 | 0.61 | 7.49 | 0.73 | 4.75 | 4.70 | 0.57 | 5.29 | 112 | 15.3 | 2.59 | 2.58 | 1.95 |
-| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | **280** | 0.92 | 0.87 | 11.2 | 11.3 | 0.96 | 1.01 | 1.01 | 8.02 | 1.22 | 6.65 | 6.61 | 0.84 | 6.82 | 207 | 9.02 | 2.34 | 2.54 | 1.36 |
+| FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | **240** | 2.00 | 1.48 | 32.7 | 33.0 | 1.44 | 1.95 | 1.68 | 10.4 | 2.96 | 7.61 | 7.59 | 1.50 | 8.35 | 97.2 | 18.4 | 4.32 | 4.81 | 2.71 |
+| FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | **290** | 1.06 | 0.90 | 11.6 | 11.6 | 1.20 | 1.13 | 0.96 | 7.68 | 1.28 | 6.63 | 6.77 | 0.91 | 6.90 | 216 | 9.12 | 2.52 | 2.48 | 1.43 |
 
 ### The slowest parameter
 
@@ -61,10 +63,11 @@ total, so the order can differ from the table above.
 | MongoDB 6.0.28 | **50.2** | 0.48 | 0.52 | 2.49 | 5.59 | 0.49 | 0.52 | 0.50 | 14.6 | 0.42 | 0.66 | 1.33 | 0.39 | 2.05 | 17.6 | 0.87 | 0.54 | 0.55 | 0.59 |
 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | **154** | 0.74 | 0.59 | 2.40 | 3.22 | 0.88 | 0.91 | 0.65 | 20.4 | 1.65 | 1.43 | 2.17 | 0.57 | 2.74 | 107 | 2.01 | 2.28 | 2.17 | 2.06 |
 | FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | **240** | 0.36 | 0.47 | 26.8 | 15.9 | 0.47 | 0.82 | 0.62 | 45.1 | 3.42 | 14.0 | 20.4 | 0.24 | 5.80 | 94.9 | 6.55 | 1.45 | 1.58 | 0.80 |
-| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | **399** | 1.01 | 0.97 | 36.3 | 37.9 | 0.98 | 1.36 | 1.18 | 61.3 | 1.23 | 33.6 | 35.4 | 0.92 | 39.9 | 122 | 16.8 | 2.66 | 3.04 | 2.03 |
+| FerretDB v1.105.0 (0db7b801) + MySQL 9.7.2 | **415** | 1.00 | 0.93 | 36.7 | 38.9 | 1.05 | 1.43 | 1.11 | 61.6 | 1.26 | 36.6 | 37.1 | 0.93 | 41.5 | 128 | 18.3 | 3.26 | 3.21 | 2.63 |
 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | **483** | 0.87 | 0.73 | 38.3 | 39.1 | 0.68 | 0.97 | 0.79 | 66.7 | 1.22 | 36.7 | 37.0 | 0.57 | 41.4 | 193 | 16.9 | 2.65 | 2.86 | 1.91 |
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | **594** | 0.88 | 0.67 | 36.5 | 38.8 | 0.80 | 1.13 | 0.92 | 62.5 | 1.19 | 36.4 | 36.1 | 0.60 | 40.3 | 314 | 15.8 | 2.78 | 2.77 | 2.12 |
-| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | **1,051** | 1.01 | 0.93 | 102 | 102 | 1.08 | 1.46 | 1.39 | 56.0 | 1.40 | 50.7 | 51.4 | 0.89 | 51.1 | 613 | 9.33 | 2.68 | 2.76 | 1.60 |
+| FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | **877** | 2.12 | 1.52 | 77.1 | 77.7 | 1.58 | 2.64 | 2.11 | 76.4 | 4.03 | 51.1 | 49.9 | 1.62 | 55.6 | 442 | 18.9 | 4.53 | 5.05 | 2.86 |
+| FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | **1,063** | 1.19 | 0.98 | 104 | 104 | 1.39 | 1.66 | 1.34 | 54.4 | 1.39 | 49.9 | 50.7 | 0.98 | 51.3 | 622 | 9.26 | 2.84 | 2.63 | 1.61 |
 
 ## Loading the data
 
@@ -78,9 +81,10 @@ Ordered by the whole time, fastest first.
 | MongoDB 6.0.28 | 0.0 s | 0.0 s | 0.1 s | 0.0 s | 0.2 s | 0.6 s | none |
 | MongoDB 8.0.32 | 0.0 s | 0.0 s | 0.1 s | 0.0 s | 0.2 s | 0.7 s | none |
 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 0.0 s | 0.1 s | 0.1 s | 0.1 s | 0.3 s | 1.3 s | none |
-| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | 0.2 s | 0.5 s | 0.4 s | 0.3 s | 1.9 s | 1.7 s | none |
-| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | 0.1 s | 0.4 s | 0.3 s | 0.2 s | 1.3 s | 7.1 s | none |
+| FerretDB v1.105.0 (0db7b801) + MySQL 9.7.2 | 0.2 s | 0.5 s | 0.4 s | 0.4 s | 2.0 s | 1.7 s | none |
+| FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | 0.1 s | 0.3 s | 0.3 s | 0.2 s | 1.3 s | 7.2 s | none |
 | FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | 0.1 s | 0.5 s | 0.3 s | 0.2 s | 1.9 s | 7.4 s | none |
+| FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | 0.3 s | 0.6 s | 0.5 s | 0.5 s | 2.2 s | 7.9 s | none |
 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 0.1 s | 0.7 s | 0.5 s | 0.4 s | 3.0 s | 16.0 s | none |
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 0.1 s | 0.7 s | 0.5 s | 0.4 s | 3.2 s | 38.0 s | none |
 
@@ -98,10 +102,11 @@ sorted keys; a query whose order WeKan relies on must also return the same order
 | MongoDB 7.0.43 | 19 of 19 | none |
 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 19 of 19 | none |
 | FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | 19 of 19 | none |
-| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | 19 of 19 | none |
+| FerretDB v1.105.0 (0db7b801) + MySQL 9.7.2 | 19 of 19 | none |
 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 19 of 19 | none |
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 19 of 19 | none |
-| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | 19 of 19 | none |
+| FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | 19 of 19 | none |
+| FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | 19 of 19 | none |
 
 ## The queries
 

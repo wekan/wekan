@@ -104,6 +104,7 @@ BACKENDS=(
   "pgrust|image:malisper/pgrust:v0.4-beta|pgrust|5432|postgresql"
   "mysql|docker-compose-ferretdb-v1-mysql.yml|mysql|3306|mysql"
   "mariadb|docker-compose-ferretdb-v1-mariadb.yml|mariadb|3306|mysql"
+  "tidb|image:pingcap/tidb:latest|tidb|4000|mysql"
   "sap-hana|docker-compose-ferretdb-v1-sap-hana.yml|hana|39017|hana"
   "ferretdb2|docker-compose-ferretdb-v2-postgresql.yml|postgres-documentdb|5432|ferretdb2"
 )
@@ -425,6 +426,10 @@ engine_name() {
                 v="${v:-pgrust ?}" ;;
     mysql)      v="$(docker_exec exec "$CONTAINER" mysqld --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
                 v="MySQL ${v#Ver }" ;;
+    # `select version()` says 8.0.11-TiDB-v7.5.1. The image has no client, so the
+    # mysql image's is used, over the host network.
+    tidb)       v="$(docker_exec run --rm --network host mysql:9 mysql -h 127.0.0.1 -P "$hostport" -u root -N -e 'select version()' 2>/dev/null | grep -oE 'TiDB-v[0-9.]+' | head -1)"
+                v="TiDB ${v#TiDB-}" ;;
     mariadb)    v="$(docker_exec exec "$CONTAINER" mariadbd --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
                 v="MariaDB ${v#Ver }" ;;
     sqlite)     v="$(grep -m1 -oE 'modernc.org/sqlite v[0-9.]+' "$FERRET_DIR/go.mod" 2>/dev/null)"
@@ -487,6 +492,15 @@ for entry in "${BACKENDS[@]}"; do
   if [ "$name" = "pgrust" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_PGRUST:-0}" != "1" ]; then
     echo "SKIP  pgrust       (PostgreSQL in Rust; set WEKAN_CONFORMANCE_PGRUST=1 to include)"
     echo "SKIP  pgrust  not requested" >> "$SUMMARY"
+    skipped=$((skipped + 1))
+    continue
+  fi
+
+  # TiDB (MySQL wire, Apache-2.0) is a distributed SQL database run here as one
+  # process on its own storage; same reasoning as pgrust above.
+  if [ "$name" = "tidb" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_TIDB:-0}" != "1" ]; then
+    echo "SKIP  tidb         (TiDB, MySQL protocol; set WEKAN_CONFORMANCE_TIDB=1 to include)"
+    echo "SKIP  tidb  not requested" >> "$SUMMARY"
     skipped=$((skipped + 1))
     continue
   fi
@@ -608,6 +622,14 @@ for entry in "${BACKENDS[@]}"; do
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
+    tidb)
+      # One process with its own storage (unistore), no PD or TiKV: enough for a
+      # single-node comparison. It has no MYSQL_DATABASE variable, so the database
+      # FerretDB opens is created below, once it answers.
+      start_db_container "$image" --store=unistore --path="" --host=0.0.0.0 \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
+      url="mysql://root@127.0.0.1:$hostport/ferretdb"
+      ;;
     mongodb*)
       start_db_container "$image" \
         || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
@@ -653,6 +675,8 @@ for entry in "${BACKENDS[@]}"; do
                       "SELECT 1 FROM pg_extension WHERE extname = 'documentdb'" 2>/dev/null | grep -q 1 && up=1 ;;
         mysql)      docker_exec exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
         mariadb)    docker_exec exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
+        tidb)       docker_exec run --rm --network host mysql:9 mysql -h 127.0.0.1 -P "$hostport" -u root \
+                      -e 'CREATE DATABASE IF NOT EXISTS ferretdb' >/dev/null 2>&1 && up=1 ;;
         sap-hana)   docker_exec logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;
         mongodb*)
                     docker_exec exec "$CONTAINER" mongosh --quiet --eval 'db.runCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && up=1 ;;
