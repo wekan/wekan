@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+A missing **REST checklist** answers a JSON 404 instead of an
+empty 500.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.91 2026-11-03 WeKan ® release
 
 A **GitHub CodeQL** finding in a test is fixed, and the guard

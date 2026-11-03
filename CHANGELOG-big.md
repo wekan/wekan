@@ -124,6 +124,34 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A missing **REST checklist** answers a JSON 404 instead of an
+empty 500.
+
+This release fixes the following bugs:
+
+**REST API** - answers for things that are not there.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d231df56fc">A missing checklist, or one under another card, answers a JSON 404 instead of an empty 500</a>. Thanks to AhmedLukman and xet7.</summary>
+
+[\#6867](https://github.com/wekan/wekan/pull/6867). `GET
+/api/boards/:boardId/cards/:cardId/checklists/:checklistId` answered `500` with
+no body when the checklist did not exist or belonged to another card. It now
+answers `404` with `Checklist not found or does not belong to the specified
+card`, the text the update and delete routes already use; the board-access check
+and the parent-card check are unchanged. `tests/restChecklistGet.test.cjs`
+drives
+the registered handler (found, missing, another card, another board, access
+denied, and a failing lookup that must not become a false 404) and
+`tests/playwright/specs/rest-checklist-not-found.e2e.js` reads the checklist
+over REST and after a page reload.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.91 2026-11-03 WeKan ® release
 
 **In short:** A **GitHub CodeQL** finding in a test is fixed, and the guard
