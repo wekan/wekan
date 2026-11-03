@@ -1,11 +1,31 @@
 # WeKan database speed test results
 
-Run 2026-10-23 on Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz, 12 threads, 30 GiB RAM, Linux 7.2.6-070206-generic, by
+Run 2026-11-03 on Apple M2 Max, 12 threads, 32 GiB RAM, Darwin 27.2.0, by
 [speedtest.sh](speedtest.sh). How it works, and what was improved because of it:
 [the README](.).
 
-The data is twice a production WeKan: 30,116 users, 92,306 boards, 221,038 lists, 222,546 swimlanes, 615,070 cards (production: 307,535 cards). Every database got identical
+The data is 1/20 of a production WeKan: 753 users, 2,308 boards, 5,526 lists, 5,564 swimlanes, 15,377 cards (production: 307,535 cards). Every database got identical
 documents and WeKan's own indexes, and was asked identical questions.
+
+## At a glance
+
+One number per database: the time of one call of each of the common WeKan queries below,
+added together. **Times slower** is that sum divided by the fastest database's. Ordered
+from fastest to slowest. The second pair of columns is the same for the slowest parameter -
+the biggest board or the busiest user, who waits longest.
+
+| # | Database | Total (ms) | Times slower | Slowest user (ms) | Times slower |
+| ---: | --- | ---: | ---: | ---: | ---: |
+| 1 | MongoDB 9.0.2 | 16.6 | 1.0x | 45.1 | 1.0x |
+| 2 | MongoDB 8.0.32 | 17.4 | 1.0x | 48.8 | 1.1x |
+| 3 | MongoDB 6.0.28 | 18.0 | 1.1x | 50.2 | 1.1x |
+| 4 | MongoDB 7.0.43 | 18.1 | 1.1x | 50.1 | 1.1x |
+| 5 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 57.9 | 3.5x | 154 | 3.4x |
+| 6 | FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | 82.7 | 5.0x | 240 | 5.3x |
+| 7 | FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | 99.3 | 6.0x | 399 | 8.8x |
+| 8 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 145 | 8.7x | 483 | 11x |
+| 9 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 174 | 10x | 594 | 13x |
+| 10 | FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | 280 | 17x | 1,051 | 23x |
 
 ## Speed
 
@@ -16,66 +36,72 @@ fastest database at the top.
 
 | Database | Total | Login | User by id | All Boards count | All Boards page | Board by id | Board lists | Board swimlanes | Board cards | Card window | Card count | Cards per list | Card by id | Card search | Due Cards | People page | Edit card | Move card | Add card |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| MongoDB 9.0.4 | **495** | 0.75 | 0.66 | 5.76 | 16.4 | 0.68 | 1.06 | 0.98 | 47.7 | 0.77 | 1.61 | 2.62 | 0.66 | 5.34 | 394 | 13.6 | 0.77 | 1.16 | 1.00 |
-| MongoDB 6.0.28 | **562** | 0.78 | 0.73 | 5.49 | 21.0 | 0.83 | 1.01 | 0.93 | 48.2 | 0.89 | 2.01 | 4.38 | 0.74 | 4.76 | 447 | 20.9 | 0.83 | 0.90 | 0.77 |
-| MongoDB 7.0.45 | **565** | 0.86 | 0.74 | 6.29 | 23.7 | 0.79 | 1.07 | 1.00 | 48.9 | 0.87 | 2.00 | 4.35 | 0.72 | 5.52 | 445 | 20.7 | 0.79 | 0.77 | 0.76 |
-| MongoDB 8.0.34 | **577** | 0.81 | 0.69 | 6.83 | 16.8 | 0.77 | 1.19 | 1.01 | 48.5 | 0.88 | 1.90 | 2.87 | 0.69 | 6.28 | 470 | 15.6 | 0.78 | 0.89 | 0.78 |
-| FerretDB v1.99.0 (b6c494e9) + SQLite (modernc.org/sqlite v1.61.0) | **18,848** | 0.99 | 0.93 | 1,405 | 1,655 | 1.08 | 4.15 | 2.94 | 223 | 67.2 | 86.0 | 119 | 0.89 | 81.7 | 12,604 | 2,582 | 4.69 | 6.36 | 2.32 |
-| FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | **88,884** | 1.35 | 1.03 | 183 | 241 | 1.15 | 1.72 | 1.68 | 113 | 53.5 | 43.5 | 46.0 | 0.93 | 46.1 | 88,013 | 118 | 7.89 | 6.09 | 6.20 |
-| FerretDB v1.99.0 (b6c494e9) + MariaDB 12.3.3 | **97,536** | 1.76 | 2.05 | 11,389 | 11,396 | 1.82 | 3.41 | 2.43 | 189 | 2.43 | 171 | 173 | 1.79 | 171 | 73,217 | 791 | 9.24 | 8.49 | 6.68 |
-| FerretDB v1.99.0 (b6c494e9) + PostgreSQL 18.6 | **98,435** | 1.24 | 1.21 | 159 | 149 | 1.36 | 2.14 | 1.62 | 217 | 1.46 | 121 | 132 | 1.14 | 137 | 96,035 | 1,444 | 9.51 | 11.9 | 9.48 |
-| FerretDB v1.99.0 (b6c494e9) + MySQL 9.7.4 | **106,082** | 1.86 | 3.09 | 1,073 | 1,082 | 1.86 | 2.90 | 2.37 | 249 | 4.88 | 133 | 140 | 1.74 | 153 | 101,505 | 1,687 | 14.4 | 15.7 | 11.6 |
+| MongoDB 9.0.2 | **16.6** | 0.48 | 0.41 | 0.89 | 0.87 | 0.43 | 0.42 | 0.43 | 2.08 | 0.42 | 0.45 | 0.53 | 0.35 | 0.60 | 6.23 | 0.68 | 0.39 | 0.52 | 0.48 |
+| MongoDB 8.0.32 | **17.4** | 0.46 | 0.41 | 0.86 | 0.85 | 0.39 | 0.48 | 0.45 | 2.14 | 0.42 | 0.49 | 0.52 | 0.35 | 0.63 | 7.09 | 0.78 | 0.38 | 0.40 | 0.34 |
+| MongoDB 6.0.28 | **18.0** | 0.44 | 0.46 | 0.71 | 0.96 | 0.43 | 0.44 | 0.41 | 2.13 | 0.39 | 0.43 | 0.50 | 0.36 | 0.60 | 7.42 | 0.82 | 0.49 | 0.49 | 0.53 |
+| MongoDB 7.0.43 | **18.1** | 0.45 | 0.41 | 0.71 | 0.91 | 0.41 | 0.46 | 0.41 | 2.05 | 0.40 | 0.42 | 0.51 | 0.36 | 0.55 | 7.81 | 0.76 | 0.46 | 0.52 | 0.48 |
+| FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | **57.9** | 0.67 | 0.55 | 2.10 | 2.82 | 0.69 | 0.71 | 0.56 | 3.21 | 1.12 | 1.06 | 1.29 | 0.52 | 1.42 | 33.8 | 1.91 | 1.87 | 1.77 | 1.85 |
+| FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | **82.7** | 0.28 | 0.32 | 6.30 | 5.35 | 0.29 | 0.41 | 0.38 | 5.00 | 0.75 | 1.71 | 2.37 | 0.21 | 1.05 | 50.9 | 3.85 | 1.34 | 1.45 | 0.72 |
+| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | **99.3** | 0.93 | 0.90 | 6.05 | 6.30 | 0.93 | 0.97 | 0.89 | 7.75 | 1.02 | 4.80 | 4.91 | 0.83 | 5.56 | 34.7 | 15.8 | 2.50 | 2.71 | 1.82 |
+| FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | **145** | 0.76 | 0.67 | 5.84 | 6.14 | 0.59 | 0.57 | 0.55 | 7.70 | 0.70 | 4.54 | 4.57 | 0.50 | 5.20 | 83.8 | 16.1 | 2.34 | 2.27 | 1.66 |
+| FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | **174** | 0.75 | 0.62 | 6.00 | 6.39 | 0.70 | 0.68 | 0.61 | 7.49 | 0.73 | 4.75 | 4.70 | 0.57 | 5.29 | 112 | 15.3 | 2.59 | 2.58 | 1.95 |
+| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | **280** | 0.92 | 0.87 | 11.2 | 11.3 | 0.96 | 1.01 | 1.01 | 8.02 | 1.22 | 6.65 | 6.61 | 0.84 | 6.82 | 207 | 9.02 | 2.34 | 2.54 | 1.36 |
 
 ### The slowest parameter
 
 The same, for the slowest of the 15 parameters - nearly always the biggest board or the
-busiest user. This is how long the person who waits longest waits. Same row order.
+busiest user. This is how long the person who waits longest waits. Ordered by its own
+total, so the order can differ from the table above.
 
 | Database | Total | Login | User by id | All Boards count | All Boards page | Board by id | Board lists | Board swimlanes | Board cards | Card window | Card count | Cards per list | Card by id | Card search | Due Cards | People page | Edit card | Move card | Add card |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| MongoDB 9.0.4 | **1,110** | 0.78 | 0.69 | 28.1 | 187 | 0.72 | 1.89 | 1.63 | 297 | 0.83 | 4.48 | 9.99 | 0.68 | 28.1 | 525 | 19.9 | 0.85 | 1.48 | 1.02 |
-| MongoDB 6.0.28 | **1,257** | 0.80 | 0.78 | 29.6 | 256 | 0.95 | 1.82 | 1.43 | 300 | 0.98 | 7.77 | 22.4 | 0.78 | 24.9 | 585 | 21.1 | 0.87 | 1.11 | 0.79 |
-| MongoDB 7.0.45 | **1,303** | 0.88 | 0.77 | 34.1 | 291 | 0.83 | 1.83 | 1.65 | 304 | 0.89 | 7.95 | 22.1 | 0.77 | 29.6 | 583 | 20.8 | 0.84 | 1.04 | 0.79 |
-| MongoDB 8.0.34 | **1,212** | 0.87 | 0.71 | 33.7 | 184 | 0.82 | 2.09 | 1.66 | 301 | 0.93 | 5.14 | 11.0 | 0.73 | 33.8 | 611 | 22.1 | 0.84 | 1.12 | 0.80 |
-| FerretDB v1.99.0 (b6c494e9) + SQLite (modernc.org/sqlite v1.61.0) | **29,845** | 1.04 | 0.97 | 4,780 | 4,812 | 1.27 | 18.1 | 8.09 | 1,419 | 389 | 538 | 755 | 0.96 | 504 | 13,798 | 2,804 | 5.69 | 7.52 | 2.83 |
-| FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | **136,362** | 1.39 | 1.07 | 190 | 252 | 1.22 | 2.90 | 2.50 | 451 | 113 | 90.2 | 90.2 | 0.98 | 90.0 | 134,900 | 147 | 13.8 | 7.81 | 6.78 |
-| FerretDB v1.99.0 (b6c494e9) + MariaDB 12.3.3 | **130,784** | 1.87 | 2.46 | 15,784 | 15,689 | 2.05 | 9.24 | 5.17 | 1,192 | 2.71 | 1,101 | 1,079 | 2.63 | 1,079 | 93,914 | 891 | 11.3 | 10.5 | 7.36 |
-| FerretDB v1.99.0 (b6c494e9) + PostgreSQL 18.6 | **127,323** | 1.27 | 1.31 | 887 | 812 | 1.56 | 6.39 | 3.80 | 1,365 | 1.63 | 762 | 874 | 1.20 | 848 | 120,122 | 1,601 | 12.2 | 13.1 | 10.4 |
-| FerretDB v1.99.0 (b6c494e9) + MySQL 9.7.4 | **131,734** | 1.98 | 3.56 | 1,821 | 1,815 | 2.41 | 7.84 | 4.79 | 1,561 | 6.74 | 791 | 873 | 1.84 | 936 | 122,154 | 1,709 | 15.7 | 16.6 | 12.5 |
+| MongoDB 9.0.2 | **45.1** | 0.59 | 0.47 | 2.54 | 4.03 | 0.48 | 0.50 | 0.50 | 13.9 | 0.45 | 0.64 | 0.90 | 0.37 | 1.87 | 15.6 | 0.71 | 0.42 | 0.59 | 0.54 |
+| MongoDB 8.0.32 | **48.8** | 0.52 | 0.44 | 2.63 | 4.09 | 0.42 | 0.59 | 0.55 | 14.6 | 0.44 | 0.66 | 0.91 | 0.40 | 2.08 | 18.4 | 0.83 | 0.40 | 0.45 | 0.37 |
+| MongoDB 7.0.43 | **50.1** | 0.51 | 0.46 | 2.41 | 5.25 | 0.44 | 0.54 | 0.48 | 14.3 | 0.42 | 0.64 | 1.26 | 0.40 | 1.83 | 18.7 | 0.80 | 0.52 | 0.60 | 0.54 |
+| MongoDB 6.0.28 | **50.2** | 0.48 | 0.52 | 2.49 | 5.59 | 0.49 | 0.52 | 0.50 | 14.6 | 0.42 | 0.66 | 1.33 | 0.39 | 2.05 | 17.6 | 0.87 | 0.54 | 0.55 | 0.59 |
+| FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | **154** | 0.74 | 0.59 | 2.40 | 3.22 | 0.88 | 0.91 | 0.65 | 20.4 | 1.65 | 1.43 | 2.17 | 0.57 | 2.74 | 107 | 2.01 | 2.28 | 2.17 | 2.06 |
+| FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | **240** | 0.36 | 0.47 | 26.8 | 15.9 | 0.47 | 0.82 | 0.62 | 45.1 | 3.42 | 14.0 | 20.4 | 0.24 | 5.80 | 94.9 | 6.55 | 1.45 | 1.58 | 0.80 |
+| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | **399** | 1.01 | 0.97 | 36.3 | 37.9 | 0.98 | 1.36 | 1.18 | 61.3 | 1.23 | 33.6 | 35.4 | 0.92 | 39.9 | 122 | 16.8 | 2.66 | 3.04 | 2.03 |
+| FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | **483** | 0.87 | 0.73 | 38.3 | 39.1 | 0.68 | 0.97 | 0.79 | 66.7 | 1.22 | 36.7 | 37.0 | 0.57 | 41.4 | 193 | 16.9 | 2.65 | 2.86 | 1.91 |
+| FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | **594** | 0.88 | 0.67 | 36.5 | 38.8 | 0.80 | 1.13 | 0.92 | 62.5 | 1.19 | 36.4 | 36.1 | 0.60 | 40.3 | 314 | 15.8 | 2.78 | 2.77 | 2.12 |
+| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | **1,051** | 1.01 | 0.93 | 102 | 102 | 1.08 | 1.46 | 1.39 | 56.0 | 1.40 | 50.7 | 51.4 | 0.89 | 51.1 | 613 | 9.33 | 2.68 | 2.76 | 1.60 |
 
 ## Loading the data
 
 Inserting the documents in batches of 1,000, then creating every index WeKan creates.
+Ordered by the whole time, fastest first.
 
 | Database | users | boards | lists | swimlanes | cards | Indexes | Index errors |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| MongoDB 9.0.4 | 0.8 s | 3.4 s | 4.5 s | 4.1 s | 17.0 s | 43.6 s | none |
-| MongoDB 6.0.28 | 0.8 s | 3.3 s | 4.6 s | 4.2 s | 17.7 s | 41.6 s | none |
-| MongoDB 7.0.45 | 0.8 s | 3.3 s | 4.7 s | 4.2 s | 17.3 s | 42.8 s | none |
-| MongoDB 8.0.34 | 0.8 s | 3.2 s | 4.9 s | 4.3 s | 17.9 s | 45.3 s | none |
-| FerretDB v1.99.0 (b6c494e9) + SQLite (modernc.org/sqlite v1.61.0) | 10.5 s | 65.5 s | 59.6 s | 41.4 s | 315.3 s | 1157.0 s | none |
-| FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 1.5 s | 6.0 s | 7.7 s | 6.9 s | 32.3 s | 219.2 s | none |
-| FerretDB v1.99.0 (b6c494e9) + MariaDB 12.3.3 | 8.5 s | 35.9 s | 33.7 s | 28.3 s | 148.9 s | 900.9 s | none |
-| FerretDB v1.99.0 (b6c494e9) + PostgreSQL 18.6 | 15.2 s | 83.7 s | 74.6 s | 63.3 s | 376.9 s | 116.8 s | none |
-| FerretDB v1.99.0 (b6c494e9) + MySQL 9.7.4 | 11.2 s | 58.6 s | 58.0 s | 53.1 s | 254.2 s | 172.0 s | none |
+| MongoDB 9.0.2 | 0.0 s | 0.0 s | 0.1 s | 0.0 s | 0.2 s | 0.6 s | none |
+| MongoDB 7.0.43 | 0.0 s | 0.0 s | 0.1 s | 0.0 s | 0.2 s | 0.6 s | none |
+| MongoDB 6.0.28 | 0.0 s | 0.0 s | 0.1 s | 0.0 s | 0.2 s | 0.6 s | none |
+| MongoDB 8.0.32 | 0.0 s | 0.0 s | 0.1 s | 0.0 s | 0.2 s | 0.7 s | none |
+| FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 0.0 s | 0.1 s | 0.1 s | 0.1 s | 0.3 s | 1.3 s | none |
+| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | 0.2 s | 0.5 s | 0.4 s | 0.3 s | 1.9 s | 1.7 s | none |
+| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | 0.1 s | 0.4 s | 0.3 s | 0.2 s | 1.3 s | 7.1 s | none |
+| FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | 0.1 s | 0.5 s | 0.3 s | 0.2 s | 1.9 s | 7.4 s | none |
+| FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 0.1 s | 0.7 s | 0.5 s | 0.4 s | 3.0 s | 16.0 s | none |
+| FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 0.1 s | 0.7 s | 0.5 s | 0.4 s | 3.2 s | 38.0 s | none |
 
 ## Same data
 
 Every answer of every query, for every parameter, and the cards the writes left behind,
-compared with **MongoDB 8.0.34**. Answers are compared as typed values with
+compared with **MongoDB 8.0.32**. Answers are compared as typed values with
 sorted keys; a query whose order WeKan relies on must also return the same order.
 
 | Database | Same answers | Different |
 | --- | --- | --- |
-| MongoDB 9.0.4 | 19 of 19 | none |
+| MongoDB 9.0.2 | 19 of 19 | none |
+| MongoDB 8.0.32 | 19 of 19 | none |
 | MongoDB 6.0.28 | 19 of 19 | none |
-| MongoDB 7.0.45 | 19 of 19 | none |
-| MongoDB 8.0.34 | 19 of 19 | none |
-| FerretDB v1.99.0 (b6c494e9) + SQLite (modernc.org/sqlite v1.61.0) | 19 of 19 | none |
+| MongoDB 7.0.43 | 19 of 19 | none |
 | FerretDB v2.7.0 + PostgreSQL 17.6 with DocumentDB | 19 of 19 | none |
-| FerretDB v1.99.0 (b6c494e9) + MariaDB 12.3.3 | 19 of 19 | none |
-| FerretDB v1.99.0 (b6c494e9) + PostgreSQL 18.6 | 19 of 19 | none |
-| FerretDB v1.99.0 (b6c494e9) + MySQL 9.7.4 | 19 of 19 | none |
+| FerretDB v1.105.0 (f459ae07) + SQLite (modernc.org/sqlite v1.61.0) | 19 of 19 | none |
+| FerretDB v1.105.0 (0c784f2c) + MySQL 9.7.2 | 19 of 19 | none |
+| FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 19 of 19 | none |
+| FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 19 of 19 | none |
+| FerretDB v1.105.0 (0c784f2c) + MariaDB 12.3.3 | 19 of 19 | none |
 
 ## The queries
 
@@ -103,7 +129,7 @@ Each is the query WeKan itself sends; see [queries.cjs](queries.cjs).
 | Add card | cards.insertOne({ ...a new card }) | the 3 biggest boards + 12 others |
 
 Each query is first run once per parameter to warm up (those answers are the ones compared),
-then repeated for up to 5 passes or 10 seconds; 15-90 calls per query were timed.
+then repeated for up to 5 passes or the time budget (WEKAN_SPEEDTEST_BUDGET_MS); 20-90 calls per query were timed.
 A query too slow to be repeated in that time keeps its warm-up time.
-Raw results: `.tools/log/test-db-speedtest/2026-10-23_19-33-27/speedtest-<database>.json`.
+Raw results: `.tools/log/test-db-speedtest/2026-11-03_22-10-05/speedtest-<database>.json`.
 

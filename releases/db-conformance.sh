@@ -101,6 +101,7 @@ BACKENDS=(
   "mongodb8|image:mongo:8.0|mongodb|27017|mongodb"
   "mongodb9|image:mongo:9.0|mongodb|27017|mongodb"
   "postgresql|docker-compose-ferretdb-v1-postgresql.yml|postgres|5432|postgresql"
+  "pgrust|image:malisper/pgrust:v0.4-beta|pgrust|5432|postgresql"
   "mysql|docker-compose-ferretdb-v1-mysql.yml|mysql|3306|mysql"
   "mariadb|docker-compose-ferretdb-v1-mariadb.yml|mariadb|3306|mysql"
   "sap-hana|docker-compose-ferretdb-v1-sap-hana.yml|hana|39017|hana"
@@ -417,6 +418,11 @@ engine_name() {
                 echo "MongoDB ${v:-?}"; return ;;
     postgresql) v="$(docker_exec exec "$CONTAINER" postgres --version 2>/dev/null | grep -oE '[0-9]+(\.[0-9]+)+' | head -1)"
                 v="PostgreSQL ${v:-?}" ;;
+    # pgrust (https://github.com/malisper/pgrust): PostgreSQL rewritten in Rust,
+    # wire compatible, so FerretDB's postgresql handler talks to it unchanged.
+    # `postgres --version` says "pgrust 0.4-beta (PostgreSQL 18.6 compatible)".
+    pgrust)     v="$(docker_exec exec "$CONTAINER" postgres --version 2>/dev/null | head -1)"
+                v="${v:-pgrust ?}" ;;
     mysql)      v="$(docker_exec exec "$CONTAINER" mysqld --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
                 v="MySQL ${v#Ver }" ;;
     mariadb)    v="$(docker_exec exec "$CONTAINER" mariadbd --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
@@ -471,6 +477,16 @@ for entry in "${BACKENDS[@]}"; do
   if [ "$name" = "ferretdb2" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_FERRETDB2:-0}" != "1" ]; then
     echo "SKIP  ferretdb2    (FerretDB 2 + DocumentDB; set WEKAN_CONFORMANCE_FERRETDB2=1 to include)"
     echo "SKIP  ferretdb2  not requested" >> "$SUMMARY"
+    skipped=$((skipped + 1))
+    continue
+  fi
+
+  # pgrust is a young database (v0.4-beta): in the speed test it is one more row to
+  # compare, but a conformance case it answers differently is a finding about
+  # pgrust, not a failed EVERYTHING run - so there it is opt-in, like FerretDB 2.
+  if [ "$name" = "pgrust" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_PGRUST:-0}" != "1" ]; then
+    echo "SKIP  pgrust       (PostgreSQL in Rust; set WEKAN_CONFORMANCE_PGRUST=1 to include)"
+    echo "SKIP  pgrust  not requested" >> "$SUMMARY"
     skipped=$((skipped + 1))
     continue
   fi
@@ -565,7 +581,9 @@ for entry in "${BACKENDS[@]}"; do
       SQLITE_DATA="$(mktemp -d "$WEKAN_DIR/.tools/tmp/$PREFIX-sqlite.XXXXXX")"
       url="file:$SQLITE_DATA/"
       ;;
-    postgresql)
+    postgresql|pgrust)
+      # pgrust's image is a drop-in for postgres: the same variables and the same
+      # data directory, initialised by pgrust's own initdb.
       start_db_container \
         -e POSTGRES_USER=ferretdb -e POSTGRES_PASSWORD=ferretdb_secret \
         -e POSTGRES_DB=ferretdb "$image" \
@@ -628,6 +646,7 @@ for entry in "${BACKENDS[@]}"; do
       # confusing connection error.
       case "$name" in
         postgresql) docker_exec exec "$CONTAINER" pg_isready -U ferretdb -d ferretdb >/dev/null 2>&1 && up=1 ;;
+        pgrust)     docker_exec exec "$CONTAINER" psql -U ferretdb -d ferretdb -tAc 'SELECT 1' 2>/dev/null | grep -q 1 && up=1 ;;
         # Ready once the DocumentDB extension is installed, not merely accepting
         # connections - the entrypoint restarts the server after its init scripts.
         ferretdb2)  docker_exec exec "$CONTAINER" psql -U ferretdb -d postgres -tAc \

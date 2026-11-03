@@ -99,11 +99,42 @@ function compare(runs, reference) {
 function machine() {
   const cpus = os.cpus();
   return `${cpus[0] ? cpus[0].model.trim() : os.arch()}, ${cpus.length} threads, ` +
-    `${Math.round(os.totalmem() / 2 ** 30)} GiB RAM, Linux ${os.release()}`;
+    `${Math.round(os.totalmem() / 2 ** 30)} GiB RAM, ${os.type()} ${os.release()}`;
+}
+
+// What the scale means, in words: 2 is twice a production WeKan, 0.05 a twentieth.
+function sizeWords(scale) {
+  if (scale === 1) return 'as big as a production WeKan';
+  if (scale === 2) return 'twice a production WeKan';
+  if (scale > 1) return `${scale} times a production WeKan`;
+  const n = Math.round(1 / scale);
+  return Math.abs(1 / scale - n) < 0.01 ? `1/${n} of a production WeKan` : `${Math.round(scale * 100)}% of a production WeKan`;
+}
+
+// How many times slower than the fastest, as a person reads it: "1.0x", "4.9x",
+// "27x", "1,300x".
+function times(v, fastest) {
+  if (!Number.isFinite(v) || !fastest) return '-';
+  const r = v / fastest;
+  if (r < 10) return `${r.toFixed(1)}x`;
+  return `${Math.round(r).toLocaleString('en-US')}x`;
 }
 
 function render(runs, sameness, reference, dir) {
-  const sorted = [...runs].sort((a, b) => total(a) - total(b) || a.label.localeCompare(b.label));
+  // Fastest first, by the sum of a row. Every table below is ordered by ITS OWN
+  // numbers, so each reads from fastest to slowest.
+  const byTotal = (totalOf) => [...runs].sort((a, b) => totalOf(a) - totalOf(b) || a.label.localeCompare(b.label));
+  const slowestTotal = (run) => QUERIES.reduce((sum, q) => {
+    const r = run.queries[q.id];
+    return r && !r.error && r.slowest !== undefined ? sum + r.slowest : Infinity;
+  }, 0);
+  const loadTotal = (run) => {
+    const l = run.load || {};
+    const parts = ['users', 'boards', 'lists', 'swimlanes', 'cards'].map(c => l[c] && l[c].ms);
+    return parts.some(v => v === undefined) || run.indexTotalMs === undefined
+      ? Infinity : parts.reduce((a, b) => a + b, 0) + run.indexTotalMs;
+  };
+  const sorted = byTotal(total);
   const first = runs.map(r => r.started).sort()[0] || '';
   const sizes = (runs[0] && runs[0].sizes) || {};
   const lines = [];
@@ -111,16 +142,17 @@ function render(runs, sameness, reference, dir) {
   lines.push(`Run ${first.slice(0, 10)} on ${machine()}, by`);
   lines.push('[speedtest.sh](speedtest.sh). How it works, and what was improved because of it:');
   lines.push('[the README](.).', '');
-  lines.push(`The data is twice a production WeKan: ${['users', 'boards', 'lists', 'swimlanes', 'cards']
+  lines.push(`The data is ${sizeWords(runs[0] && runs[0].scale)}: ${['users', 'boards', 'lists', 'swimlanes', 'cards']
     .map(c => `${(sizes[c] || 0).toLocaleString('en-US')} ${c}`).join(', ')}` +
     ` (production: ${PRODUCTION.cards.toLocaleString('en-US')} cards). Every database got identical`);
   lines.push('documents and WeKan\'s own indexes, and was asked identical questions.', '');
 
   const table = (field, totalOf) => {
+    const order = byTotal(totalOf);
     const head = ['Database', 'Total', ...QUERIES.map(q => q.title)];
     lines.push(`| ${head.join(' | ')} |`);
     lines.push(`| ${head.map((_, i) => (i === 0 ? '---' : '---:')).join(' | ')} |`);
-    for (const run of sorted) {
+    for (const run of order) {
       const t = totalOf(run);
       const cells = QUERIES.map((q) => {
         const r = run.queries[q.id];
@@ -132,6 +164,22 @@ function render(runs, sameness, reference, dir) {
     }
     lines.push('');
   };
+  lines.push('## At a glance', '');
+  lines.push('One number per database: the time of one call of each of the common WeKan queries below,');
+  lines.push('added together. **Times slower** is that sum divided by the fastest database\'s. Ordered');
+  lines.push('from fastest to slowest. The second pair of columns is the same for the slowest parameter -');
+  lines.push('the biggest board or the busiest user, who waits longest.', '');
+  lines.push('| # | Database | Total (ms) | Times slower | Slowest user (ms) | Times slower |');
+  lines.push('| ---: | --- | ---: | ---: | ---: | ---: |');
+  const fastestAvg = Math.min(...runs.map(total));
+  const fastestSlow = Math.min(...runs.map(slowestTotal));
+  sorted.forEach((run, i) => {
+    const t = total(run);
+    const w = slowestTotal(run);
+    lines.push(`| ${i + 1} | ${mdCell(run.engine)} | ${Number.isFinite(t) ? ms(t) : 'incomplete'} | ${times(t, fastestAvg)} | ` +
+      `${Number.isFinite(w) ? ms(w) : 'incomplete'} | ${times(w, fastestSlow)} |`);
+  });
+  lines.push('');
   lines.push('## Speed', '');
   lines.push('Milliseconds for one call - smaller is faster. Each query is asked with 15 parameters (the');
   lines.push('3 biggest boards or busiest users and 12 ordinary ones, see below); a cell is the average of');
@@ -140,17 +188,16 @@ function render(runs, sameness, reference, dir) {
   table('average', total);
   lines.push('### The slowest parameter', '');
   lines.push('The same, for the slowest of the 15 parameters - nearly always the biggest board or the');
-  lines.push('busiest user. This is how long the person who waits longest waits. Same row order.', '');
-  table('slowest', (run) => QUERIES.reduce((sum, q) => {
-    const r = run.queries[q.id];
-    return r && !r.error && r.slowest !== undefined ? sum + r.slowest : Infinity;
-  }, 0));
+  lines.push('busiest user. This is how long the person who waits longest waits. Ordered by its own');
+  lines.push('total, so the order can differ from the table above.', '');
+  table('slowest', slowestTotal);
 
   lines.push('## Loading the data', '');
-  lines.push('Inserting the documents in batches of 1,000, then creating every index WeKan creates.', '');
+  lines.push('Inserting the documents in batches of 1,000, then creating every index WeKan creates.');
+  lines.push('Ordered by the whole time, fastest first.', '');
   lines.push('| Database | users | boards | lists | swimlanes | cards | Indexes | Index errors |');
   lines.push('| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |');
-  for (const run of sorted) {
+  for (const run of byTotal(loadTotal)) {
     const l = run.load || {};
     const ixErrors = Object.entries(run.indexes || {}).filter(([, v]) => v.error).map(([k]) => mdCell(k));
     lines.push(`| ${mdCell(run.engine)} | ${['users', 'boards', 'lists', 'swimlanes', 'cards'].map(c => seconds(l[c] && l[c].ms)).join(' | ')} | ` +
@@ -182,7 +229,7 @@ function render(runs, sameness, reference, dir) {
   lines.push('');
   const calls = runs.length ? Object.values(runs[0].queries).map(r => r.calls).filter(Boolean) : [];
   lines.push(`Each query is first run once per parameter to warm up (those answers are the ones compared),`);
-  lines.push(`then repeated for up to 5 passes or 10 seconds; ${calls.length ? `${Math.min(...calls)}-${Math.max(...calls)}` : 'the'} calls per query were timed.`);
+  lines.push(`then repeated for up to 5 passes or the time budget (WEKAN_SPEEDTEST_BUDGET_MS); ${calls.length ? `${Math.min(...calls)}-${Math.max(...calls)}` : 'the'} calls per query were timed.`);
   lines.push('A query too slow to be repeated in that time keeps its warm-up time.');
   lines.push(`Raw results: \`${path.relative(path.resolve(__dirname, '../../../../..'), dir) || dir}/speedtest-<database>.json\`.`, '');
   return `${lines.join('\n')}\n`;
