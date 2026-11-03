@@ -19,7 +19,7 @@ const { buildBoardLabel } = require('../models/lib/restLabel.js');
 const COLORS = ['green', 'red', 'blue'];
 const source = fs.readFileSync(path.join(__dirname, '../models/boards.js'), 'utf8');
 const start = source.indexOf('  getLabel(name, color) {');
-const getLabel = vm.runInNewContext(`(function ${source.slice(start + 2, source.indexOf('\n  },', start) + 4).replace(/^getLabel/, 'getLabel')})`);
+const getLabel = vm.runInNewContext(`(function ${source.slice(start + 2, source.indexOf('\n  },', start) + 4)})`);
 
 const board = labels => ({ labels, getLabel });
 
