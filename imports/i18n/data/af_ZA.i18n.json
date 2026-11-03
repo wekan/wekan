@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Wanneer 'n nuwe kaart se titel begin met [Teks] gevolg deur meer teks, word Teks 'n etiket van die kaart (geskep as die raad nog geen etiket met daardie naam het nie) en uit die titel verwyder. Af: die titel bly soos dit is.",
   "keep-add-card-form-open": "Hou die Voeg kaart by-vorm oop nadat 'n kaart bygevoeg is",
   "keep-add-card-form-open-description": "Aan: nadat 'n kaart bygevoeg is, bly die vorm oop met 'n leë titel vir die volgende kaart. Af: die vorm maak toe sodra die kaart bygevoeg is.",
+  "show-focus-outline": "Wys fokusomlyn",
   "checklist-ding-sound": "Speel 'n klank wanneer 'n kontrolelys-item voltooi word",
   "checklist-ding-sound-description": "Speel 'n kort klokkie wanneer jy 'n kontrolelysitem afmerk. Standaard af.",
   "assignee": "Gevolmagtigde",

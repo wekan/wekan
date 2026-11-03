@@ -529,6 +529,18 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.hideFocusOutline': {
+      /**
+       * #6755: Member Settings / Change Settings / "Show focus outline", turned
+       * off. The blue ring WeKan draws round the focused control (layouts.css,
+       * WCAG 2.4.7) is an accessibility feature and stays on by default; a member
+       * who does not want it - it also shows after a click on a minicard - can hide
+       * it, for themselves only. Stored as the exception, so an account that never
+       * touched the setting keeps the ring.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.keepAddCardFormOpen': {
       /**
        * #6827: keep a list's Add card form open after a card is added, to type
@@ -2246,6 +2258,11 @@ Users.helpers({
   // #1273: keep the #label / @member text in a new card's title.
   hasKeepTitleTags() {
     return !!((this.profile || {}).keepTitleTags);
+  },
+
+  // #6755: the focus outline is hidden for this member (off by default: it shows).
+  hasHideFocusOutline() {
+    return (this.profile || {}).hideFocusOutline === true;
   },
 
   // #6827: keep the Add card form open after adding a card (off by default).

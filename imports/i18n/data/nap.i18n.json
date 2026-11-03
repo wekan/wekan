@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Quanno 'o titolo 'e na carta nova accummencia cu [Testo] e po' vene ato testo, Testo addeventa n'etichetta d''a carta (se crea si 'a tavula nun ne tene nisciuna cu chillu nomme) e se leva d''o titolo. Stutato: 'o titolo resta comm'è.",
   "keep-add-card-form-open": "Tiene aràpe 'o modulo pe azzeccà na carta doppo c'aje azzeccato na carta",
   "keep-add-card-form-open-description": "Appicciato: doppo ca s'azzecca na carta, 'o modulo resta aràpe cu nu titolo vacante pe' 'a carta appriesso. Stutato: 'o modulo se chiure quanno 'a carta è stata azzeccata.",
+  "show-focus-outline": "Mosta o cuntorno d’o fuoco",
   "checklist-ding-sound": "Sunà nu suono quanno n'elemento d''a lista 'e verifica se completa",
   "checklist-ding-sound-description": "Sunà nu suono curto quanno marche n'elemento d''a lista 'e verifica. Disattivato 'e default.",
   "assignee": "Assignato",

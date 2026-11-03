@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "當新卡片嘅標題以 [文字] 開頭，後面仲有其他文字嘅時候，文字會變成呢張卡片嘅標籤（如果看板冇呢個名嘅標籤就會新建），並且喺標題度刪走。關閉：標題保持原樣。",
   "keep-add-card-form-open": "加咗卡片之後保持「添加卡」表單開住",
   "keep-add-card-form-open-description": "開：加咗卡片之後，表單會保持開住，標題留空俾下一張卡片。關：卡片加咗之後表單就會閂埋。",
+  "show-focus-outline": "顯示焦點輪廓",
   "checklist-ding-sound": "勾選清單項目時播放聲音",
   "checklist-ding-sound-description": "勾選清單項目時播放一聲短促嘅叮噹提示音。預設關閉。",
   "assignee": "受讓人",

@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "A de titel van e nieuwe kaart begunt mee [Tekst] en er kom nog tekst achter, wordt Tekst e markerienge van de kaart (angemakt as 't bord der gin ee mee die noame èt) en wordt 't uut de titel gehoald. Uut: de titel blyft zoals 'ij is.",
   "keep-add-card-form-open": "Het formulier Kaart toevoegen open laten na het toevoegen van een kaart",
   "keep-add-card-form-open-description": "Aan: nadat een kaart is toegevoegd, blijft het formulier open met een lege titel voor de volgende kaart. Uit: het formulier sluit zodra de kaart is toegevoegd.",
+  "show-focus-outline": "Toon focusomtrek",
   "checklist-ding-sound": "Play een klank wanneir e checklist-element voltraokken is",
   "checklist-ding-sound-description": "Speult ne kortn klank of wanneir gie e checklist-element aafvinkt. Standaard uit.",
   "assignee": "Toegewezen aan",

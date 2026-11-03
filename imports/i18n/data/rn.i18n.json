@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Igihe umutwe w'ikarata nshasha utanguye na [Inyandiko] hagakurikira iyindi nyandiko, Inyandiko ihinduka ikimenyetso c'ikarata (kiraremwa nimba icapa kidafise ikimenyetso c'iryo zina) kandi ikurwa mu mutwe. Bihagaritswe: umutwe uguma uko uri.",
   "keep-add-card-form-open": "Reka ifishi yo kwongerako ikarata yuguruye umaze kwongerako ikarata",
   "keep-add-card-form-open-description": "Bifunguye: iyo ikarata imaze kwongerwako, ifishi iguma yuguruye ifise umutwe utarimwo ikintu ku ikarata ikurikira. Bifunze: ifishi iriyugara ikarata ikimara kwongerwako.",
+  "show-focus-outline": "Erekana umurongo w’ubwitonzi",
   "checklist-ding-sound": "Cana amajwi igihe ikintu ca checklist kirangiye",
   "checklist-ding-sound-description": "Icana ijwi rigufi igihe umenyesha ikintu ca checklist. Birazimye ku bwoko busanzwe.",
   "assignee": "Uwahawe igikorwa",

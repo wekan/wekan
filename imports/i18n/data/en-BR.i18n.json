@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "When a new card's title starts with [Text] followed by more text, Text becomes a label of the card (created if the board has none by that name) and is removed from the title. Off: the title is kept as it is.",
   "keep-add-card-form-open": "Keep the Add card form open after adding a card",
   "keep-add-card-form-open-description": "On: after a card is added, the form stays open with an empty title for the next card. Off: the form closes once the card is added.",
+  "show-focus-outline": "Show focus outline",
   "checklist-ding-sound": "Play a sound when a checklist item is completed",
   "checklist-ding-sound-description": "Play a short ding when you check off a checklist item. Off by default.",
   "assignee": "Assignee",

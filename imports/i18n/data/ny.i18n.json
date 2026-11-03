@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Mutu wa khadi latsopano ukayamba ndi [Mawu] kenako n'kutsatiridwa ndi mawu ena, Mawu amakhala chilembo cha khadilo (chimapangidwa ngati bolodi lilibe chilembo cha dzina limenelo) ndipo amachotsedwa m'mutu. Kozimitsa: mutu umakhalabe momwe ulili.",
   "keep-add-card-form-open": "Siyani fomu yowonjezera khadi yotseguka mutawonjezera khadi",
   "keep-add-card-form-open-description": "Yayatsidwa: khadi likawonjezedwa, fomu imakhalabe yotseguka ndi mutu wopanda kanthu wa khadi lotsatira. Yazimitsidwa: fomu imatsekedwa khadi likangowonjezedwa.",
+  "show-focus-outline": "Onetsani mzere wa chidwi",
   "checklist-ding-sound": "Imba phokoso ndime ya checklist ikamaliza",
   "checklist-ding-sound-description": "Imba phokoso pang'ono mukamalizitsa chinthu pa checklist. Chazimitsidwa mwachizolowezi.",
   "assignee": "Woperekedwa ntchito",

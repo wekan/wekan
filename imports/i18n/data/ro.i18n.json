@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Când titlul unui card nou începe cu [Text] urmat de alt text, Text devine o etichetă a cardului (creată dacă panoul nu are niciuna cu acest nume) și este eliminat din titlu. Dezactivat: titlul este păstrat așa cum este.",
   "keep-add-card-form-open": "Păstrează formularul de adăugare card deschis după adăugarea unui card",
   "keep-add-card-form-open-description": "Activat: după ce un card este adăugat, formularul rămâne deschis cu un titlu gol pentru următorul card. Dezactivat: formularul se închide imediat ce cardul este adăugat.",
+  "show-focus-outline": "Afișează conturul de focalizare",
   "checklist-ding-sound": "Redă un sunet când un element din lista de verificare este finalizat",
   "checklist-ding-sound-description": "Redă un sunet scurt când bifezi un element din lista de verificare. Dezactivat implicit.",
   "assignee": "Responsabil",

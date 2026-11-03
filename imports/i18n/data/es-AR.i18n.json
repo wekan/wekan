@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Cuando el título de una tarjeta nueva empieza por [Texto] seguido de más texto, Texto se convierte en una etiqueta de la tarjeta (se crea si el tablero no tiene ninguna con ese nombre) y se quita del título. Desactivado: el título se mantiene tal cual.",
   "keep-add-card-form-open": "Mantener abierto el formulario de agregar tarjeta después de agregar una tarjeta",
   "keep-add-card-form-open-description": "Activado: después de agregar una tarjeta, el formulario permanece abierto con un título vacío para la siguiente tarjeta. Desactivado: el formulario se cierra en cuanto se agrega la tarjeta.",
+  "show-focus-outline": "Mostrar el contorno de enfoque",
   "checklist-ding-sound": "Reproducir un sonido cuando se completa un elemento de la lista de verificación",
   "checklist-ding-sound-description": "Reproduce un breve sonido al marcar un elemento de la lista de verificación. Desactivado de forma predeterminada.",
   "assignee": "Asignado",

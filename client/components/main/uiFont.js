@@ -38,6 +38,17 @@ Meteor.startup(() => {
     }
   }
 
+  // #6755: a member who hid the focus outline (Member Settings / Change Settings):
+  // a class on <body>, which layouts.css turns into no ring.
+  Tracker.autorun(() => {
+    const user = Meteor.user();
+    try {
+      document.body.classList.toggle('has-hide-focus-outline', !!(user && user.profile && user.profile.hideFocusOutline === true));
+    } catch (_) {
+      // document.body may not exist yet in exotic embeddings; ignore.
+    }
+  });
+
   Tracker.autorun(() => {
     const user = Meteor.user();
     const profile = (user && user.profile) || {};

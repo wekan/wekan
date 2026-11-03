@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Quannu lu titulu di na carta nova accumincia cu [Testu] e poi veni autru testu, Testu addiventa n'etichetta dâ carta (criata si la tavula nun n'havi nudda cu ddu nomu) e veni livatu dû titulu. Astutatu: lu titulu resta comu è.",
   "keep-add-card-form-open": "Teni apertu lu mòdulu pi aggiunciri na carta doppu ca s'aggiunci na carta",
   "keep-add-card-form-open-description": "Addumatu: doppu ca na carta è aggiunciuta, lu mòdulu resta apertu cu nu tìtulu vacanti pi la carta appressu. Astutatu: lu mòdulu si chiui appena ca la carta è aggiunciuta.",
+  "show-focus-outline": "Mustra u cuntornu dû focu",
   "checklist-ding-sound": "Sona un sonu quannu un elementu dâ lista di cuntrollu è cumplitatu",
   "checklist-ding-sound-description": "Sona un sonu curtu quannu marchi un elementu dâ lista di cuntrollu. Disattivatu pi difettu.",
   "assignee": "Assignatu",

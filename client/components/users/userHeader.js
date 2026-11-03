@@ -503,6 +503,11 @@ Template.changeSettingsPopup.helpers({
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasKeepTitleTags() : false;
   },
+  // #6755: the outline is shown unless this member hid it.
+  isShowFocusOutline() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser ? !currentUser.hasHideFocusOutline() : true;
+  },
   isKeepAddCardFormOpen() {
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasKeepAddCardFormOpen() : false;
@@ -568,6 +573,9 @@ Template.changeSettingsPopup.events({
   },
   'click .js-toggle-unread-changes'() {
     if (ReactiveCache.getCurrentUser()) Meteor.call('toggleUnreadChanges');
+  },
+  'click .js-toggle-hide-focus-outline'() {
+    if (ReactiveCache.getCurrentUser()) Meteor.call('toggleHideFocusOutline');
   },
   'click .js-toggle-keep-add-card-form-open'() {
     if (ReactiveCache.getCurrentUser()) Meteor.call('toggleKeepAddCardFormOpen');

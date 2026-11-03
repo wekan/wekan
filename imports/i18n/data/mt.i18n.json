@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Meta t-titlu ta' karta ġdida jibda b'[Test] segwit b'aktar test, Test isir tikketta tal-karta (tinħoloq jekk il-bord ma jkollux waħda b'dak l-isem) u jitneħħa mit-titlu. Mitfi: it-titlu jinżamm kif inhu.",
   "keep-add-card-form-open": "Żomm il-formola Żid karta miftuħa wara li żżid karta",
   "keep-add-card-form-open-description": "Mixgħul: wara li tiżdied karta, il-formola tibqa' miftuħa b'titlu vojt għall-karta li jmiss. Mitfi: il-formola tingħalaq hekk kif tiżdied il-karta.",
+  "show-focus-outline": "Uri l-kontorn tal-fokus",
   "checklist-ding-sound": "Idoqq ħoss meta oġġett tal-lista ta' verifika jitlesta",
   "checklist-ding-sound-description": "Idoqq ħoss qasir meta timmarka oġġett tal-lista ta' verifika. Mitfi b'mod prestabbilit.",
   "assignee": "Assenjat",

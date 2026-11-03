@@ -439,6 +439,13 @@ template(name="changeSettingsPopup")
         | {{_ 'keep-title-tags'}}
         if isKeepTitleTags
           i.fa.fa-check
+    //- #6755: the blue focus outline (an accessibility feature, so on by default).
+    li
+      a.js-toggle-hide-focus-outline
+        i.fa.fa-square-o
+        | {{_ 'show-focus-outline'}}
+        if isShowFocusOutline
+          i.fa.fa-check
     //- #6827: the Add card form stays open after a card is added.
     li
       a.js-toggle-keep-add-card-form-open(title="{{_ 'keep-add-card-form-open-description'}}")

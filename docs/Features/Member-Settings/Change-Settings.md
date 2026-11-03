@@ -43,3 +43,20 @@ For developers: the switch is `profile.keepAddCardFormOpen`, toggled by the
 `client/components/lists/listBody.js` closes the form after its last title,
 pinned by `tests/keepAddCardFormOpen6827.test.cjs` and
 `tests/playwright/specs/keep-add-card-form-open-6827.e2e.js`.
+
+## The focus outline
+
+**Show focus outline** is personal and **on** by default. The blue ring round the
+focused control is an accessibility feature (WCAG 2.4.7, Focus Visible): it tells
+a keyboard user where they are, and it also shows after a click on a minicard,
+which some members find distracting
+([#6755](https://github.com/wekan/wekan/issues/6755)). Untick it and the ring - the
+outline and its halo - is hidden for you, on every board; other members keep
+theirs. Field borders and the colour a button takes on focus are not the ring and
+stay. If you use the keyboard to move through WeKan, leave it on.
+
+For developers: the switch is `profile.hideFocusOutline` (stored as the exception,
+so an account that never touched it keeps the ring), toggled by the
+`toggleHideFocusOutline` method; `client/components/main/uiFont.js` puts the class
+`has-hide-focus-outline` on `<body>` and `client/components/main/layouts.css` turns
+it into no ring. Pinned by `tests/hideFocusOutline6755.test.cjs`.

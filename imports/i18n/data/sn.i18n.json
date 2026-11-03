@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Kana musoro wekadhi nyowani uchitanga ne [Mavara] uye mamwe mavara achitevera, Mavara anova reberu yekadhi (inogadzirwa kana bhodhi risina reberu yezita iroro) uye anobviswa mumusoro. Kudzimwa: musoro unoramba wakadaro.",
   "keep-add-card-form-open": "Siya fomu yekuwedzera kadhi yakavhurika mushure mekuwedzera kadhi",
   "keep-add-card-form-open-description": "Yakabatidzwa: kana kadhi rawedzerwa, fomu inoramba yakavhurika ine musoro usina chinhu wekadhi rinotevera. Yakadzimwa: fomu inovharwa kadhi kana rangowedzerwa.",
+  "show-focus-outline": "Ratidza mutsetse wekutarisa",
   "checklist-ding-sound": "Ridza ruzha kana chinhu che checklist chapera",
   "checklist-ding-sound-description": "Inoridza ruzha rudiki kana wachecker chinhu che checklist. Zvakadzimwa nemazvo.",
   "assignee": "Wapiwa basa",

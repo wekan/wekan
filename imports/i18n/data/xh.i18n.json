@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Xa isihloko sekhadi elitsha siqala ngo-[Umbhalo] kulandele omnye umbhalo, uMbhalo uba yileyibhile yekhadi (iyenziwa ukuba ibhodi ayinayo ileyibhile enelo gama) kwaye ususwa kwisihloko. Kuvaliwe: isihloko sihlala sinjalo.",
   "keep-add-card-form-open": "Gcina ifomu yokuYongeza iKhadi ivulekile emva kokongeza ikhadi",
   "keep-add-card-form-open-description": "Ivuliwe: emva kokuba ikhadi longeziwe, ifomu ihlala ivulekile inesihloko esingenanto sekhadi elilandelayo. Ivaliwe: ifomu iyavalwa nje ukuba ikhadi longezwe.",
+  "show-focus-outline": "Bonisa ulwandlalo lokugxila",
   "checklist-ding-sound": "Dlala isandi xa into ye-checklist igqityiwe",
   "checklist-ding-sound-description": "Idlala isandi esifutshane xa uphawula into ye-checklist. Ivaliwe ngokungagqibekanga.",
   "assignee": "Owabelweyo",

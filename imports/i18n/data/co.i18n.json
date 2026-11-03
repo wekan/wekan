@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Quandu u titulu di una carta nova principia cù [Testu] seguitu da altru testu, Testu diventa un'etichetta di a carta (creata s'è a tavula ùn ne hà micca cù stu nome) è hè cacciatu da u titulu. Spentu: u titulu ferma cum'ellu hè.",
   "keep-add-card-form-open": "Tene apertu u furmulariu Aghjunghje una carta dopu avè aghjuntu una carta",
   "keep-add-card-form-open-description": "Attivatu: dopu chì una carta hè aghjunta, u furmulariu ferma apertu cù un titulu viotu per a carta seguente. Disattivatu: u furmulariu si chjode appena chì a carta hè aghjunta.",
+  "show-focus-outline": "Mustrà u cuntornu di u focu",
   "checklist-ding-sound": "Ghjucà un sonu quandu un elementu di a lista di verificazione hè cumpletatu",
   "checklist-ding-sound-description": "Ghjucà un sonu cortu quandu marcate un elementu di a lista di verificazione. Disattivatu per difettu.",
   "assignee": "Assignatu",

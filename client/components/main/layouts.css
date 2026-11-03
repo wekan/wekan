@@ -49,6 +49,20 @@ summary:focus-visible,
   box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.35);
   border-radius: 2px;
 }
+/* #6755: a member who turned off "Show focus outline" (Member Settings / Change
+ * Settings) sees no ring: the outline and its halo, for keyboard focus and for the
+ * fallback below. Field borders and the colour a button takes on focus are not the
+ * ring and stay. The ring is an accessibility feature, so it is on unless hidden. */
+body.has-hide-focus-outline :focus-visible,
+body.has-hide-focus-outline a:focus,
+body.has-hide-focus-outline button:focus,
+body.has-hide-focus-outline [tabindex]:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+body.has-hide-focus-outline :is(a, button, input, select, textarea, summary, [tabindex], [role="button"], [contenteditable="true"]):focus-visible {
+  box-shadow: none !important;
+}
 /* Browsers that do not support :focus-visible fall back to :focus so keyboard
  * users are never left without an indicator. */
 .no-focus-visible-support a:focus,

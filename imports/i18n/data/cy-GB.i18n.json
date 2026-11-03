@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Pan fydd teitl cerdyn newydd yn dechrau gyda [Testun] ac yna ragor o destun, daw Testun yn label ar y cerdyn (caiff ei greu os nad oes gan y bwrdd un o'r enw hwnnw) a chaiff ei dynnu o'r teitl. I ffwrdd: cedwir y teitl fel y mae.",
   "keep-add-card-form-open": "Cadw'r ffurflen Ychwanegu Cerdyn ar agor ar ôl ychwanegu cerdyn",
   "keep-add-card-form-open-description": "Ymlaen: ar ôl ychwanegu cerdyn, mae'r ffurflen yn aros ar agor gyda theitl gwag ar gyfer y cerdyn nesaf. I ffwrdd: mae'r ffurflen yn cau cyn gynted ag yr ychwanegir y cerdyn.",
+  "show-focus-outline": "Dangos amlinelliad ffocws",
   "checklist-ding-sound": "Chwarae sain pan gwblheir eitem rhestr wirio",
   "checklist-ding-sound-description": "Chwarae ping byr wrth ticio eitem rhestr wirio. I ffwrdd yn ddiofyn.",
   "assignee": "Aseinai",

@@ -1991,6 +1991,7 @@
   "title-bracket-label-description": "Ora título di un karchi nobo kuminsá ku [Teksto] sigui pa mas teksto, Teksto ta bira un etiketa di e karchi (e ta wòrdu krea si e tabla no tin niun ku e nòmber ei) i ta wòrdu kitá for di e título. Pagá: e título ta keda manera e ta.",
   "keep-add-card-form-open": "Tene e formulario di agregá karchi habri despues di agregá un karchi",
   "keep-add-card-form-open-description": "Prendí: despues ku un karchi a wòrdu agregá, e formulario ta keda habri ku un título bashí pa e siguiente karchi. Pagá: e formulario ta sera apenas e karchi a wòrdu agregá.",
+  "show-focus-outline": "Mustra kontorno di enfoke",
   "checklist-ding-sound": "Toka un zonido ora un item di checklist ta kompletá",
   "checklist-ding-sound-description": "Ta toka un zonido kortiku ora bo marka un item di checklist. Apagá pa default.",
   "assignee": "Enkargá",

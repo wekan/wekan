@@ -988,6 +988,15 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.keepTitleTags': !((user.profile || {}).keepTitleTags) } });
   },
 
+  // #6755: hide or show the focus outline for this member (Member Settings /
+  // Change Settings / Show focus outline). Per user; shown unless hidden.
+  async toggleHideFocusOutline() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    await Users.updateAsync(this.userId, { $set: { 'profile.hideFocusOutline': (user.profile || {}).hideFocusOutline !== true } });
+  },
+
   // #6827: keep the Add card form open after adding a card (Member Settings;
   // off by default).
   async toggleKeepAddCardFormOpen() {
