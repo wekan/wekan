@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Member Settings has a per-member switch, **Show focus outline**,
+to
+hide the blue focus ring, and **Escape closes the add-list composer**.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.89 2026-11-03 WeKan ® release
 
 Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no

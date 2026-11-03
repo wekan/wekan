@@ -124,6 +124,70 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Member Settings has a per-member switch, **Show focus outline**,
+to
+hide the blue focus ring, and **Escape closes the add-list composer**.
+
+This release adds the following new features:
+
+**Member Settings** - what each member can set for themselves.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/144777ae6b">Change Settings has Show focus outline, to hide the blue focus ring for yourself</a>. Thanks to mimZD and xet7.</summary>
+
+[\#6755](https://github.com/wekan/wekan/issues/6755). The blue ring WeKan draws
+round the focused control is an accessibility feature (WCAG 2.4.7) and stays on
+by
+default, but it also shows after a click on a minicard, and a member asked
+whether
+it can be turned off. Change Settings now has **Show focus outline**, ticked
+while
+the ring shows. Unticking it stores `profile.hideFocusOutline` for the signed-in
+member (a method that takes no user id from the client) and puts a class on the
+page that hides the outline and its halo for that member only; field borders and
+the colour a button takes on focus stay. The label is translated into every
+language file; the translations of these were written without a native speaker
+and
+are the least certain: Akan, Aymara, Bambara, Tibetan, Breton, Cherokee,
+Dzongkha,
+Ewe, Fulah, Fijian, Guarani, Manx, Hausa, Hawaiian, Igbo, Inuktitut,
+Kalaallisut,
+Kashmiri, Cornish, Luganda, Ladin, Nahuatl, Neapolitan, Northern Ndebele,
+Northern
+Sotho, Chichewa, Oromo, Quechua, Kirundi, Aromanian, Kinyarwanda, Northern Sami,
+Samoan, Shona, Swati, Southern Sotho, Tigrinya, Tigre, Klingon, Tswana, Tongan,
+Tsonga, Venda, Volapük, Walamo, Wolof, Xhosa and Tamazight.
+`tests/hideFocusOutline6755.test.cjs` and
+`tests/playwright/specs/hide-focus-outline-6755.e2e.js` pin it, including that
+one
+member hiding the ring does not hide it for another.
+
+</details>
+
+and fixes the following bugs:
+
+**Lists** - the add-list composer.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4b5025a7b">Escape closes the inline add-list composer</a>. Thanks to mimZD and xet7.</summary>
+
+[\#6865](https://github.com/wekan/wekan/issues/6865). The composer that opens after
+a list (or in an empty swimlane) stays open once a list is created, so several
+can
+be added, and only its X closed it: Escape did nothing. Escape now closes it,
+with
+the same reset as the X, at the level of an inlined form, and a click elsewhere
+still does not. `tests/addListEscape6865.test.cjs` and
+`tests/playwright/specs/add-list-escape-6865.e2e.js` pin it before and after a
+list
+is created.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.89 2026-11-03 WeKan ® release
 
 **In short:** Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
