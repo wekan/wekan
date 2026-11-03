@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.92 2026-11-03 WeKan ® release
 
 A missing **REST checklist** answers a JSON 404 instead of an
 empty 500.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.92](CHANGELOG-big.md#v1292-2026-11-03-wekan--release)
 
 # v12.91 2026-11-03 WeKan ® release
 
@@ -45,10 +45,3 @@ eight themes, and a custom accent, text or label color made legible. A padded
 **REST label** name no longer creates a second label.
 
 [All changes in v12.88](CHANGELOG-big.md#v1288-2026-11-03-wekan--release)
-
-# v12.87 2026-11-03 WeKan ® release
-
-A **REST API** "get one" that finds nothing answers **404**
-instead of 200 with an empty body.
-
-[All changes in v12.87](CHANGELOG-big.md#v1287-2026-11-03-wekan--release)

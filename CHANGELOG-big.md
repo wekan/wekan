@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.92 2026-11-03 WeKan ® release
 
 **In short:** A missing **REST checklist** answers a JSON 404 instead of an
 empty 500.
