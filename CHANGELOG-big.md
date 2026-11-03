@@ -266,6 +266,33 @@ and updates the following dependencies:
 
 Thanks to dependabot.
 
+and fixes the following bugs:
+
+**Opened cards** - where a card opens.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84b0480aa8">A card opened as a popup covers the header bars instead of opening below them</a>. Thanks to xet7.</summary>
+
+On an iPad, a card opened from the Roadmap view (and from search results and the
+table view) opened below the top header, and collapsed it was a bar floating
+over
+the swimlane. A card opened as a popup got the generic wide-layout rule
+`top: 97px` and `z-index: 30`, because the desktop-mode rules that dock an
+opened
+card at the top skip a popup, while the popup wrapper rule in the same file says
+it must cover the header bars. It now docks at `top: 8px` with `z-index: 2001`
+in
+the wide layout; mobile mode keeps its full-window rule. This was reproduced in
+Chromium and in WebKit with an iPad profile; whether it is the whole of what an
+iPad shows is for the iPad to say.
+`tests/cardPopupOverHeader.test.cjs` pins the rule and
+`tests/playwright/specs/card-popup-over-header.e2e.js` shows the card over the
+header, open and collapsed, and fails without the fix (top 97 against a header
+88
+high).
+
+</details>
+
 and has the following documentation change:
 
 **Database speed test** - what was improved, and what was tried and was not.
