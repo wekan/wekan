@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.93 2026-11-04 WeKan ® release
 
 The database **speed test** has a new small-scale result, ordered
 from fastest to slowest with how many times slower each database is, and two
 more databases: **pgrust** (PostgreSQL in Rust) and **TiDB**. Noria, YugabyteDB
 and CockroachDB were looked at and cannot be used, for reasons the README gives.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.93](CHANGELOG-big.md#v1293-2026-11-04-wekan--release)
 
 # v12.92 2026-11-03 WeKan ® release
 
@@ -45,12 +45,3 @@ Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
 longer opens the Due date popup and closes it again on a Farsi layout.
 
 [All changes in v12.89](CHANGELOG-big.md#v1289-2026-11-03-wekan--release)
-
-# v12.88 2026-11-03 WeKan ® release
-
-**Every board theme** and **every color a member chooses** is
-readable: the dark themes' **Card Settings**, popups and sidebars, the header of
-eight themes, and a custom accent, text or label color made legible. A padded
-**REST label** name no longer creates a second label.
-
-[All changes in v12.88](CHANGELOG-big.md#v1288-2026-11-03-wekan--release)

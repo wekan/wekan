@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.93 2026-11-04 WeKan ® release
 
 **In short:** The database **speed test** has a new small-scale result, ordered
 from fastest to slowest with how many times slower each database is, and two
