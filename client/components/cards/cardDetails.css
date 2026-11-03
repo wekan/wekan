@@ -536,6 +536,19 @@ body.desktop-mode .card-details.card-details-collapsed {
     resize: both;
   }
 
+  /* A card opened as a POPUP (Session popupCardId: from a search result, a table
+     or a Roadmap/Gantt bar) docks at the very top of the window like every other
+     opened card, and covers the header bars, as the .pop-over[data-popup=
+     "cardDetailsPopup"] rule near the end of this file says it must. The 97px
+     above is the room the header takes for a card that is NOT docked by the
+     desktop-mode rules (those skip popups), and it opened the popup BELOW the
+     header: collapsed, it was a bar floating over the swimlane. Mobile mode keeps
+     its own full-window rule (top: 0 !important). */
+  .card-details.card-details-popup {
+    top: 8px;
+    z-index: 2001;
+  }
+
   /* Override for mobile mode even on larger screens */
   body.mobile-mode .card-details {
     width: 100vw !important;
