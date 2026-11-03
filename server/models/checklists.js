@@ -241,7 +241,8 @@ WebApp.handlers.get(
       });
     } else {
       sendJsonResult(res, {
-        code: 500,
+        code: 404,
+        data: { error: 'Checklist not found or does not belong to the specified card' },
       });
     }
   },
