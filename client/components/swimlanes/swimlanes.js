@@ -1039,11 +1039,29 @@ Template.addListInline.events({
   // #2809
   'click .js-link-list': Popup.open('linkList'),
   'click .js-close-add-list-inline'() {
-    Session.set('wekan-add-list-after', null);
-    Session.set('wekan-add-list-swimlane', null);
-    Session.set('wekan-add-list-empty', null);
+    closeAddListComposer();
   },
 });
+
+// Close the inline add-list composer (the one opened after a list, or in an empty
+// swimlane). The X in the composer and Escape do the same thing.
+function closeAddListComposer() {
+  Session.set('wekan-add-list-after', null);
+  Session.set('wekan-add-list-swimlane', null);
+  Session.set('wekan-add-list-empty', null);
+}
+
+// #6865: Escape closes the add-list composer. Only the X did: the composer stays
+// open after a list is created, so one can add several, and then Escape did
+// nothing. It is closed at the level of an inlined form (below popups and modals,
+// above the card's details and the sidebar), and not by a click elsewhere, as an
+// inlined form is not.
+EscapeActions.register(
+  'inlinedForm',
+  closeAddListComposer,
+  () => !!(Session.get('wekan-add-list-after') || Session.get('wekan-add-list-empty')),
+  { enabledOnClick: false },
+);
 
 Template.listsGroup.helpers({
   // #6745: board-role checks only (see listHeader.js) - not the whole user.
