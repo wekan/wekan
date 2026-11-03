@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.91 2026-11-03 WeKan ® release
 
 A **GitHub CodeQL** finding in a test is fixed, and the guard
 against
 replacing text with itself now also sees patterns with a `^` or `$` anchor.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.91](CHANGELOG-big.md#v1291-2026-11-03-wekan--release)
 
 # v12.90 2026-11-03 WeKan ® release
 
@@ -45,11 +45,3 @@ A **REST API** "get one" that finds nothing answers **404**
 instead of 200 with an empty body.
 
 [All changes in v12.87](CHANGELOG-big.md#v1287-2026-11-03-wekan--release)
-
-# v12.86 2026-11-02 WeKan ® release
-
-The daily **notification cleanup** and the **file integrity
-audit**
-run once for the whole installation, not once per server.
-
-[All changes in v12.86](CHANGELOG-big.md#v1286-2026-11-02-wekan--release)

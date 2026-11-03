@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.91 2026-11-03 WeKan ® release
 
 **In short:** A **GitHub CodeQL** finding in a test is fixed, and the guard
 against
