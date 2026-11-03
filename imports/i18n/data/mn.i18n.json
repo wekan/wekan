@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Нэвтрэх хуудасны тусгай логоны холбоосын URL",
   "custom-help-link-url": "Тусламжийн тусгай холбоосын URL",
   "text-below-custom-login-logo": "Нэвтрэх хуудасны тусгай логоны доорх текст",
+  "login-background-color": "Нэвтрэх хуудасны дэвсгэр өнгө",
   "automatic-linked-url-schemes": "Автоматаар дарагдах боломжтой байх тусгай URL схемүүд. Мөр бүрд нэг URL схем",
   "automatic-linked-url-schemes-hint": "Анхдагчаар хоосон тул зөвхөн веб болон имэйлийн холбоосыг дарж болно. Жагсаасан схем бүр, жишээлбэл thunderlink эсвэл onenote, түүнд бүртгэгдсэн программыг нээнэ. javascript, data, vbscript болон төстэй схемүүдийг хэзээ ч холбоос болгохгүй.",
   "external-link-pattern": "Гадаад асуудал хөтлөгчид автомат холбоос",

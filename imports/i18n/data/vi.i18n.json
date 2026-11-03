@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Đăng nhập tùy chỉnh - Url liên kết Logo",
   "custom-help-link-url": "URL liên kết trợ giúp tùy chỉnh",
   "text-below-custom-login-logo": "Đăng nhập tùy chỉnh - Văn bản bên dưới Logo",
+  "login-background-color": "Màu nền của trang đăng nhập",
   "automatic-linked-url-schemes": "Lược đồ URL tùy chỉnh sẽ tự động có thể nhấp được. Một Lược đồ URL trên mỗi dòng",
   "automatic-linked-url-schemes-hint": "Mặc định để trống, nên chỉ có liên kết web và thư điện tử là nhấp được. Mỗi giao thức được liệt kê, chẳng hạn thunderlink hoặc onenote, sẽ mở ứng dụng đã đăng ký xử lý giao thức đó. javascript, data, vbscript và các giao thức tương tự không bao giờ được tạo liên kết.",
   "external-link-pattern": "Tự động liên kết với trình theo dõi vấn đề bên ngoài",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Maalum ya Kiungo cha Nembo ya Kuingia",
   "custom-help-link-url": "URL Maalum ya Kiungo cha Usaidizi",
   "text-below-custom-login-logo": "Maandishi hapa chini Nembo Maalum ya Kuingia",
+  "login-background-color": "Rangi ya mandharinyuma ya ukurasa wa kuingia",
   "automatic-linked-url-schemes": "Mipango ya URL Maalum ambayo inapaswa kubofya kiotomatiki. Mpango wa URL moja kwa kila mstari",
   "automatic-linked-url-schemes-hint": "Kwa chaguomsingi ni tupu, hivyo ni viungo vya wavuti na barua pepe tu vinavyobofyekeka. Kila mpangilio ulioorodheshwa, kwa mfano thunderlink au onenote, hufungua programu iliyosajiliwa kwa ajili yake. javascript, data, vbscript na mipangilio inayofanana kamwe haifanywi viungo.",
   "external-link-pattern": "Uunganishaji wa kiotomatiki kwenye mfumo wa nje wa kufuatilia matatizo",

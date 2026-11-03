@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ya xihlanganisi xa logo yo tiendlela ya ku nghena",
   "custom-help-link-url": "URL ya xihlanganisi xo tiendlela xa mpfuno",
   "text-below-custom-login-logo": "Tsalwa ehansi ka logo yo tiendlela ya ku nghena",
+  "login-background-color": "Muhlovo wa le ndzhaku wa tluka ra ku nghena",
   "automatic-linked-url-schemes": "Swikimi swa URL swo tiendlela leswi faneleke ku tshikileleka hi swoxe. Xikimi xin'we xa URL eka layini yin'wana na yin'wana",
   "automatic-linked-url-schemes-hint": "Eka malulamiselo yo sungula a ku na ntxumu, kutani ku nga tlimbiwa ntsena swihlanganisi swa webu na imeyili. Muxaka wun’wana ni wun’wana wa xihlanganisi lowu nga eka nxaxamelo, ku fana na thunderlink kumbe onenote, wu pfula nongonoko lowu tsarisiweke ku wu tirhisa. javascript, data, vbscript ni mixaka leyi fanaka na yona a swi endliwi swihlanganisi nikatsongo.",
   "external-link-pattern": "Vuxaka bya ku tibula xiyimo eka nhlangano wa vuxaka wa le handle",

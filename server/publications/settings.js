@@ -94,6 +94,7 @@ const SETTING_FIELDS = {
   customPrivateBoardDesc: 1,
   customPublicBoardDesc: 1,
   textBelowCustomLoginLogo: 1,
+  loginBackgroundColor: 1,
   automaticLinkedUrlSchemes: 1,
   externalLinkPatternPrefix: 1,
   externalLinkPatternUrl: 1,

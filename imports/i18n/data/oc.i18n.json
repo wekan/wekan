@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL del ligam del lògo de connexion personalizat",
   "custom-help-link-url": "URL del ligam d’ajuda personalizat",
   "text-below-custom-login-logo": "Tèxte jos lo lògo de connexion personalizat",
+  "login-background-color": "Color de fons de la pagina de connexion",
   "automatic-linked-url-schemes": "Esquèmas d’URL personalizats que devon venir automaticament clicables. Un esquèma d’URL per linha",
   "automatic-linked-url-schemes-hint": "Void per defaut, doncas sonque los ligams web e de corrièl son clicables. Cada esquèma listat, per exemple thunderlink o onenote, dobrís l'aplicacion enregistrada per el. javascript, data, vbscript e los esquèmas semblables venon pas jamai de ligams.",
   "external-link-pattern": "Ligam automatic cap a un seguidor de problèmas extèrn",

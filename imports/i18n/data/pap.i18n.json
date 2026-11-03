@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL di enlase di e logo personalizado di kuminsamentu di sesión",
   "custom-help-link-url": "Enlase URL di ayuda personalizada",
   "text-below-custom-login-logo": "Teksto debaho di e logo personalizado di kuminsamentu di sesión",
+  "login-background-color": "Koló di fondo di página di login",
   "automatic-linked-url-schemes": "Eskemas di URL personalizados ku deberían ser clicables automáticamente. Un eskema di URL pa línea.",
   "automatic-linked-url-schemes-hint": "Pa defecto ta bashi, pues solamente lenknan di web i email ta klikabel. Kada skema di lenk den e lista, por ehèmpel thunderlink òf onenote, ta habri e aplikashon registrá pa dje. javascript, data, vbscript i skemanan similar nunka ta bira lenk.",
   "external-link-pattern": "Konekshon outomátiko na un rastreador di problema di afó",

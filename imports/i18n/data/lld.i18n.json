@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL dl link dl logo persunalisà per jì ite",
   "custom-help-link-url": "URL dl link de aiut persunalisà",
   "text-below-custom-login-logo": "Test sot al logo persunalisà per jì ite",
+  "login-background-color": "Color dl fondal dla pagina de login",
   "automatic-linked-url-schemes": "Schemes URL persunalisei che muessa vester da cliché da së nstës. Un scheme URL per riga",
   "automatic-linked-url-schemes-hint": "Vueit per impostazion, y per chël ie mé i culiamënc web y email clicabli. Vigni schema tla lista, per ejëmpl thunderlink o onenote, vierj l'aplicazion registrada per ël. javascript, data, vbscript y schemi sëmiei ne vën mai culiei.",
   "external-link-pattern": "Link automatich a n tracker de problems da ora",

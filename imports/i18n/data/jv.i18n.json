@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Pranala Logo Mlebu Kustom",
   "custom-help-link-url": "URL Pranala Pitulung Kustom",
   "text-below-custom-login-logo": "Teks ing ngisor Logo Mlebu Kustom",
+  "login-background-color": "Warna latar kaca mlebu",
   "automatic-linked-url-schemes": "Skema URL Kustom sing kudu bisa diklik kanthi otomatis. Siji Skema URL saben larik",
   "automatic-linked-url-schemes-hint": "Kanthi gawan kosong, mula mung pranala web lan layang sing bisa diklik. Saben skema ing dhaptar, kayata thunderlink utawa onenote, mbukak aplikasi sing kadhaptar kanggo skema kasebut. javascript, data, vbscript lan skema sing padha ora tau digawe pranala.",
   "external-link-pattern": "Tautan otomatis menyang pelacak masalah njaba",

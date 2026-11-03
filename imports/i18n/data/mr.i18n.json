@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "सानुकूल लॉगिन लोगो दुवा URL",
   "custom-help-link-url": "सानुकूल मदत दुवा URL",
   "text-below-custom-login-logo": "सानुकूल लॉगिन लोगोखालील मजकूर",
+  "login-background-color": "लॉगिन पृष्ठाचा पार्श्वभूमी रंग",
   "automatic-linked-url-schemes": "स्वयंचलितपणे क्लिक करण्यायोग्य असाव्यात अशा सानुकूल URL योजना. प्रत्येक ओळीत एक URL योजना",
   "automatic-linked-url-schemes-hint": "पूर्वनिर्धारितपणे रिकामे असते, त्यामुळे फक्त वेब आणि ईमेल दुव्यांवर क्लिक करता येते. यादीतील प्रत्येक योजना, उदाहरणार्थ thunderlink किंवा onenote, तिच्यासाठी नोंदवलेला अनुप्रयोग उघडते. javascript, data, vbscript आणि तत्सम योजनांचे दुवे कधीही तयार केले जात नाहीत.",
   "external-link-pattern": "बाह्य इश्यू ट्रॅकरशी स्वयं-लिंक",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "ئىختىيارى كىرىش بەلگىسى ئۇلىنىش URL",
   "custom-help-link-url": "ئىختىيارى ياردەم ئۇلىنىش ئادرېسى",
   "text-below-custom-login-logo": "ئاستىدىكى كىرىش بەلگىسى Logo Logo",
+  "login-background-color": "كىرىش بېتىنىڭ تەگلىك رەڭگى",
   "automatic-linked-url-schemes": "ئاپتوماتىك چېكىشكە بولىدىغان URL لايىھەلىرى. ھەر بىر قۇرغا بىر URL لايىھىسى",
   "automatic-linked-url-schemes-hint": "سۈكۈتتىكى ھالەتتە بوش، شۇڭا پەقەت تور ۋە ئېلخەت ئۇلانمىلىرىنىلا باسقىلى بولىدۇ. تىزىملىكتىكى ھەر بىر لايىھە، مەسىلەن thunderlink ياكى onenote، ئۇنىڭغا تىزىملاتقان ئەپنى ئاچىدۇ. javascript، data، vbscript ۋە شۇنىڭغا ئوخشاش لايىھەلەر ھەرگىز ئۇلانمىغا ئايلاندۇرۇلمايدۇ.",
   "external-link-pattern": "سىرتقى مەسىلە ئىزلىغۇچقا ئاپتوماتىك ئۇلىنىش",

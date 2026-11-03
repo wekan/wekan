@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL-n'ny rohin'ny famantarana fidirana namboarina",
   "custom-help-link-url": "URL-n'ny rohy fanampiana namboarina",
   "text-below-custom-login-logo": "Soratra eo ambanin'ny famantarana fidirana namboarina",
+  "login-background-color": "Loko aoriana ny pejy fidirana",
   "automatic-linked-url-schemes": "Tetika URL namboarina tokony ho azo kitihina ho azy. Tetika URL iray isaky ny andalana",
   "automatic-linked-url-schemes-hint": "Banga amin'ny voalohany, ka rohy tranonkala sy mailaka ihany no azo kitihina. Ny rafitra tsirairay voatanisa, ohatra thunderlink na onenote, dia manokatra ny rindranasa voasoratra ho azy. Tsy atao rohy mihitsy ny javascript, data, vbscript ary ny rafitra mitovitovy amin'ireo.",
   "external-link-pattern": "Rohy tsy tapaka ho amin'ny mpanara-maso olana ivelany",

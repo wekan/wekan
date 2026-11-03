@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Custom Login Logo chinu URL",
   "custom-help-link-url": "Custom Help chinu URL",
   "text-below-custom-login-logo": "qillqa below Custom Login Logo",
+  "login-background-color": "Login panka qhipa color",
   "automatic-linked-url-schemes": "Aymar aruna: Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "automatic-linked-url-schemes-hint": "Qalltanxa chʼusawa, ukatwa web ukat correo electrónico chinuwinakaki limtʼasma. Listankir sapa esquema, sañäni thunderlink jan ukax onenote, jupatak qillqantat programa jistʼari. javascript, data, vbscript ukat ukham esquemanakax janipuniw chinuwir tukuyatäkiti.",
   "external-link-pattern": "Autoenlace hacia jach'a tracker jan p'ampachaña",

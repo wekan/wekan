@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "କଷ୍ଟମ୍ ଲଗଇନ୍ ଲୋଗୋ ଲିଙ୍କ୍ URL |",
   "custom-help-link-url": "କଷ୍ଟମ୍ ହେଲପ୍ ଲିଙ୍କ୍ URL |",
   "text-below-custom-login-logo": "କଷ୍ଟମ୍ ଲଗଇନ୍ ଲୋଗୋ ତଳେ ପାଠ |",
+  "login-background-color": "ଲଗଇନ୍ ପୃଷ୍ଠାର ପୃଷ୍ଠଭୂମି ରଙ୍ଗ",
   "automatic-linked-url-schemes": "କଷ୍ଟମ୍ URL ସ୍କିମ୍ ଯାହା ସ୍ୱୟଂଚାଳିତ ଭାବରେ କ୍ଲିକ୍ ହେବା ଉଚିତ | ପ୍ରତି ଧାଡିରେ ଗୋଟିଏ URL ସ୍କିମ୍ |",
   "automatic-linked-url-schemes-hint": "ଡିଫଲ୍ଟ ଭାବରେ ଖାଲି ଥାଏ, ତେଣୁ କେବଳ ୱେବ୍ ଓ ଇମେଲ୍ ଲିଙ୍କରେ କ୍ଲିକ୍ କରିହୁଏ। ତାଲିକାରେ ଥିବା ପ୍ରତ୍ୟେକ ଲିଙ୍କ ସ୍କିମ୍, ଯଥା thunderlink କିମ୍ବା onenote, ସେଥିପାଇଁ ପଞ୍ଜୀକୃତ ଆପ୍ଲିକେସନ୍ ଖୋଲେ। javascript, data, vbscript ଓ ସେହିଭଳି ସ୍କିମ୍‌ଗୁଡ଼ିକୁ କେବେବି କ୍ଲିକ୍ କରିହେବା ଲିଙ୍କରେ ପରିଣତ କରାଯାଏ ନାହିଁ।",
   "external-link-pattern": "ବାହ୍ୟ ସମସ୍ୟା ଟ୍ରାକରକୁ ସ୍ୱୟଂ-ଲିଙ୍କ",

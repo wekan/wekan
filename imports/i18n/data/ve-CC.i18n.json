@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL del łigamento del logo de acesso personałizà",
   "custom-help-link-url": "URL del łigamento de juto personałizà",
   "text-below-custom-login-logo": "Testo soto el logo de acesso personałizà",
+  "login-background-color": "Mmala wa murahu wa phetheni ya u dzhena",
   "automatic-linked-url-schemes": "Schemi de URL personałizà che i ga da èsar strucàbiłi in automàtego. Un schema de URL par riga",
   "automatic-linked-url-schemes-hint": "De partensa el xe vodo, parciò se pol clicar soło sui cołegamenti web e de posta ełetrònega. Ogni schema de cołegamento inte ła lista, par esempio thunderlink o onenote, el verze el programa rejistrà par quel schema. javascript, data, vbscript e i schemi simiłi no vien mai trasformài in cołegamenti.",
   "external-link-pattern": "Cołegamento automàtego a un tracker de problemi esterno",

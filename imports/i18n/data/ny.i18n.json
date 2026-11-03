@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ya ulalo wa logo yapadera yolowera",
   "custom-help-link-url": "URL ya ulalo wapadera wa thandizo",
   "text-below-custom-login-logo": "Mawu pansi pa logo yapadera yolowera",
+  "login-background-color": "Mtundu wakumbuyo wa tsamba lolowera",
   "automatic-linked-url-schemes": "Mitundu yapadera ya URL yomwe iyenera kudinika yokha. Mtundu umodzi wa URL pa mzere",
   "automatic-linked-url-schemes-hint": "Poyambira pamakhala popanda kanthu, choncho maulalo a pa intaneti ndi imelo okha ndi amene mungadina. Mtundu uliwonse wa ulalo womwe uli pa mndandanda, monga thunderlink kapena onenote, umatsegula pulogalamu yolembetsedwa kuti igwire nawo ntchito. javascript, data, vbscript ndi mitundu yofanana nayo sizisandulidwa kukhala maulalo odinika konse.",
   "external-link-pattern": "Kulumikizana kwaokha ndi chotsata mavuto akunja",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL bilong link bilong logo long pes bilong go insait yu yet i makim",
   "custom-help-link-url": "URL bilong link bilong helpim yu yet i makim",
   "text-below-custom-login-logo": "Rait aninit long logo yu makim yet long pes bilong go insait",
+  "login-background-color": "Kala bilong baksait bilong pes bilong login",
   "automatic-linked-url-schemes": "Ol kain stat bilong URL yu makim yet bai ol i kamap link yu ken klikim. Wanpela kain stat bilong URL long wan wan lain",
   "automatic-linked-url-schemes-hint": "Long namba wan seting dispela i stap nating, olsem na yu ken klikim ol link bilong web na imel tasol. Olgeta kain link long lista, olsem thunderlink o onenote, i opim program ol i bin makim bilong en. javascript, data, vbscript na ol kain olsem i no save kamap link long wanpela taim.",
   "external-link-pattern": "Otomatik lingk i go long ausait tracker bilong problem",

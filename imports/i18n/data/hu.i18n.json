@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Egyedi bejelentkezési Logo Link URL-je",
   "custom-help-link-url": "Egyéni súgó hivatkozás URL-je",
   "text-below-custom-login-logo": "Egyedi szöveg-alatti bejelentkezési Logo",
+  "login-background-color": "A bejelentkezési oldal háttérszíne",
   "automatic-linked-url-schemes": "Egyedi URL sémák, melyek automatikusan kattinthatóak. Soronként egy URL per séma.",
   "automatic-linked-url-schemes-hint": "Alapértelmezés szerint üres, így csak a webes és e-mail-hivatkozások kattinthatók. Minden felsorolt séma, például a thunderlink vagy az onenote, a hozzá rendelt alkalmazást nyitja meg. A javascript, data, vbscript és hasonló sémákból soha nem lesz hivatkozás.",
   "external-link-pattern": "Automatikus hivatkozás külső hibakövetőre",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Iešmearriduvvon sisačálihanlogo liŋkka URL",
   "custom-help-link-url": "Iešmearriduvvon veahkkeliŋkka URL",
   "text-below-custom-login-logo": "Teaksta iešmearriduvvon sisačálihanlogo vuolábealde",
+  "login-background-color": "Sisačáliheami siidu duogášvuolggaš",
   "automatic-linked-url-schemes": "Iešmearriduvvon URL-skemaid mat galget leat automáhtalaččat coahkkalanláhkái. Okta URL-skema juohke ráiddus",
   "automatic-linked-url-schemes-hint": "Álggus guorus, nu ahte duš neahtta- ja e-poastaliŋkkaid sáhttá deaddilit. Juohke listtus namuhuvvon skema, ovdamearkka dihtii thunderlink dahje onenote, rahpá dan várás registrerejuvvon prográmma. javascript, data, vbscript ja sullasaš skemaid ii goassege dahkko liŋkan.",
   "external-link-pattern": "Automáhtalaš liŋka olggobeale áššečuovvunvuogádahkii",

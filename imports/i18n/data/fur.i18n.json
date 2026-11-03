@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Link dell'immagine dal logo personalizât par il login",
   "custom-help-link-url": "Link URL di aiuto personalizât",
   "text-below-custom-login-logo": "Testo sotto il logo personalizât par il login",
+  "login-background-color": "Colôr dal fondâl de pagjine di acès",
   "automatic-linked-url-schemes": "Schemi URL personalizzati che devono essere automaticamente cliccabili. Uno schema URL par riga",
   "automatic-linked-url-schemes-hint": "Vueit par impostazion predefinide, duncje si pues clicâ dome sui colegaments web e di pueste. Ogni scheme elencât, par esempli thunderlink o onenote, al vierç la aplicazion regjistrade par chel scheme. javascript, data, vbscript e schemis simii no vegnin mai trasformâts in colegaments.",
   "external-link-pattern": "Leam automatic a un tracker di problemis esterni",

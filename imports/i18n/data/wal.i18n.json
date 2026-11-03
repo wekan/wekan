@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Geliyo logo gattiyaa URL (dumma)",
   "custom-help-link-url": "Maaduwaa gattiyaa URL (dumma)",
   "text-below-custom-login-logo": "Geliyo logoppe garssan de'iya xaafuwaa",
+  "login-background-color": "ጋርሴ ዓርሴ ባዕዳ ሐጋ",
   "automatic-linked-url-schemes": "Bessaa xiqqiyan oottettana bessiya URL wogata (dumma). Issi xiqiyan issi URL wogaa",
   "automatic-linked-url-schemes-hint": "Koyro melashi de7ees; hegaa gishshau webiyaa gattiyaabaanne iimeeliyaa gattiyaabaa xalla klik oottana danddayettees. Mazgabiyan xaafettida URL qommoy ubbay, leemisuwaa thunderlink woy onenote, baassi mazgabettida porogiraamiyaa dooyyees. javascript, data, vbscript nne hegaadan hanida qommoti muleka gattiyaabaa gididi oosettokkona.",
   "external-link-pattern": "Kare gujjuwa balggo issue tracker'era wodhdhide caqqishe",

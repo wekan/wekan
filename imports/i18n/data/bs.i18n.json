@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL poveznice prilagođenog logotipa za prijavu",
   "custom-help-link-url": "URL prilagođene poveznice za pomoć",
   "text-below-custom-login-logo": "Tekst ispod prilagođenog logotipa za prijavu",
+  "login-background-color": "Boja pozadine stranice za prijavu",
   "automatic-linked-url-schemes": "Prilagođene URL sheme koje automatski trebaju biti poveznice na koje se može kliknuti. Jedna URL shema po redu",
   "automatic-linked-url-schemes-hint": "Podrazumijevano je prazno, pa je moguće kliknuti samo web-veze i veze e-pošte. Svaka navedena shema, naprimjer thunderlink ili onenote, otvara aplikaciju registrovanu za nju. Za sheme javascript, data, vbscript i slične nikada se ne prave veze.",
   "external-link-pattern": "Automatsko povezivanje s vanjskim praćenjem problema",

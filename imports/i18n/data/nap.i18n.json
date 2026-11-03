@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Link dell'immagine d' 'o logo personalizzato pe il login",
   "custom-help-link-url": "URL d'o cullegamento 'e aiuto personalizzato",
   "text-below-custom-login-logo": "Testo sotto il logo personalizzato pe il login",
+  "login-background-color": "Culore 'e fonno d'a paggena 'e login",
   "automatic-linked-url-schemes": "Schemi URL personalizzati che devono essere automatecamente cliccabili. Uno schema URL pe riga",
   "automatic-linked-url-schemes-hint": "Vacante pe difetto, accussì sulo 'e cullegamiente web e 'e posta se ponno cliccà. Ogne schema elencato, pe esempio thunderlink o onenote, apre ll'applicazzione registrata pe chillo schema. javascript, data, vbscript e schemi sìmmele nun addeventano maje cullegamiente.",
   "external-link-pattern": "Collegamento automatico a nu tracker 'e prubbleme esterno",

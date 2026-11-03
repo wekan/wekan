@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL di u ligame di u logò di cunnessione persunalizatu",
   "custom-help-link-url": "URL di u ligame d’aiutu persunalizatu",
   "text-below-custom-login-logo": "Testu sottu à u logò di cunnessione persunalizatu",
+  "login-background-color": "Culore di fondu di a pagina d'accessu",
   "automatic-linked-url-schemes": "Schemi URL persunalizati chì devenu esse clicchevuli autumaticamente. Un schema URL per linea",
   "automatic-linked-url-schemes-hint": "Viotu per difettu, dunque solu i ligami web è di posta sò clicchevuli. Ogni schema elencatu, per esempiu thunderlink o onenote, apre l'applicazione arregistrata per ellu. javascript, data, vbscript è i schemi simili ùn diventanu mai ligami.",
   "external-link-pattern": "Ligame autumaticu à un tracker di prublemi esternu",

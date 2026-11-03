@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL-ya girêdana logoya taybet a têketinê",
   "custom-help-link-url": "URL-ya girêdana alîkariya taybet",
   "text-below-custom-login-logo": "Nivîsa di bin logoya taybet a têketinê de",
+  "login-background-color": "Rengê paşxaneya rûpela têketinê",
   "automatic-linked-url-schemes": "Şemayên URL yên taybet ku divê bixweber bên tikandin. Di her rêzê de yek Şemaya URL",
   "automatic-linked-url-schemes-hint": "Bi awayê standard vala ye, ji ber vê yekê tenê li girêdanên webê û e-nameyê dikare bê tikandin. Her şemaya girêdanê ya di lîsteyê de, wek thunderlink an onenote, sepanê ku ji bo wê hatiye tomarkirin vedike. javascript, data, vbscript û şemayên bi vî rengî tu carî nabin girêdan.",
   "external-link-pattern": "پەیوەندی خۆکار بە شوێنپێگری کێشەی دەرەکی",

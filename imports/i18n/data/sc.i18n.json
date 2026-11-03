@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Link dell'immagine de su logo personalizzadu pro il login",
   "custom-help-link-url": "Link URL di aiuto personalizzadu",
   "text-below-custom-login-logo": "Testo sotto il logo personalizzadu pro il login",
+  "login-background-color": "Colore de isfundu de sa pàgina de intrada",
   "automatic-linked-url-schemes": "Schemi URL personalizzados che devono essere automaticamente cliccabili. Uno schema URL pro riga",
   "automatic-linked-url-schemes-hint": "Bòidu in manera predefinida, duncas si podet clicare isceti in is ligàmenes web e de posta. Cada ischema in sa lista, pro esempru thunderlink o onenote, aberit s'aplicatzione registrada pro issu. javascript, data, vbscript e is ischemas sìmiles non diventant mai ligàmenes.",
   "external-link-pattern": "Ligàmene automàticu a unu tracker de problemas esternu",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Gepasmaakte aanmeldlogo-skakel-URL",
   "custom-help-link-url": "Gepasmaakte hulpskakel-URL",
   "text-below-custom-login-logo": "Teks onder Custom Login Logo",
+  "login-background-color": "Agtergrondkleur van aanmeldblad",
   "automatic-linked-url-schemes": "Pasgemaakte URL-skemas wat outomaties klikbaar moet wees. Een URL-skema per reël",
   "automatic-linked-url-schemes-hint": "By verstek leeg, sodat slegs web- en posskakels klikbaar is. Elke gelyste skema, byvoorbeeld thunderlink of onenote, open die toepassing wat daarvoor geregistreer is. javascript, data, vbscript en soortgelyke skemas word nooit skakels nie.",
   "external-link-pattern": "Outomatiese skakel na eksterne kwessie-opspoorder",

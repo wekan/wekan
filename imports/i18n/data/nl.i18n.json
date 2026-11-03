@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Voor Maatwerk Aanmeld Logo Link",
   "custom-help-link-url": "Maatwerk Help Link URL",
   "text-below-custom-login-logo": "Tekst onder Maatwerk Aanmeld Logo",
+  "login-background-color": "Achtergrondkleur aanmeldpagina",
   "automatic-linked-url-schemes": "Maatwerk URL-schema's die automatisch klikbaar zouden moeten zijn. Een URL per regel.",
   "automatic-linked-url-schemes-hint": "Standaard leeg, zodat alleen web- en e-maillinks aanklikbaar zijn. Elk vermeld schema, bijvoorbeeld thunderlink of onenote, opent de daarvoor geregistreerde toepassing. javascript, data, vbscript en vergelijkbare schema’s worden nooit in links omgezet.",
   "external-link-pattern": "Automatische link naar externe issuetracker",

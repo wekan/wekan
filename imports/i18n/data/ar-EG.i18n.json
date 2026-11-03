@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "عنوان URL لرابط شعار تسجيل الدخول المخصص",
   "custom-help-link-url": "رابط صفحة المساعدة المخصص URL",
   "text-below-custom-login-logo": "النص أسفل شعار تسجيل الدخول المخصص",
+  "login-background-color": "لون خلفية صفحة تسجيل الدخول",
   "automatic-linked-url-schemes": "مخططات URL المخصصة التي يجب أن تكون قابلة للنقر تلقائياً. مخطط URL واحد لكل سطر",
   "automatic-linked-url-schemes-hint": "تكون فارغة افتراضيًا، لذا يمكن النقر على روابط الويب والبريد فقط. يفتح كل مخطط مدرج، مثل thunderlink أو onenote، التطبيق المسجل له. لا تُحوَّل مخططات javascript وdata وvbscript والمخططات المشابهة إلى روابط أبدًا.",
   "external-link-pattern": "الربط التلقائي بمتتبع مشاكل خارجي",

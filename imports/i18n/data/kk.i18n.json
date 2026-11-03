@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Арнайы кіру логотипі сілтемесінің URL мекенжайы",
   "custom-help-link-url": "Арнайы көмек сілтемесінің URL мекенжайы",
   "text-below-custom-login-logo": "Арнайы кіру логотипінің астындағы мәтін",
+  "login-background-color": "Кіру бетінің фон түсі",
   "automatic-linked-url-schemes": "Автоматты басылатын арнайы URL схемалары. Әр жолға бір URL схемасы",
   "automatic-linked-url-schemes-hint": "Әдепкіде бос, сондықтан тек веб және пошта сілтемелерін басуға болады. Көрсетілген әрбір схема, мысалы thunderlink немесе onenote, оған тіркелген қолданбаны ашады. javascript, data, vbscript және ұқсас схемалар ешқашан сілтемеге айналмайды.",
   "external-link-pattern": "Сыртқы мәселе трекеріне автосілтеме",

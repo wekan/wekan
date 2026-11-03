@@ -631,6 +631,10 @@ template(name='tableVisibilityModeSettings')
         .form-group
           textarea#text-below-custom-login-logo.wekan-form-control(data-editor-submit=".js-visibility-logo-save")= currentSetting.textBelowCustomLoginLogo
       li.tableVisibilityMode-form
+        .title {{_ 'login-background-color'}}
+        .form-group
+          input.wekan-form-control#login-background-color(type="text", placeholder="#1b365d" value="{{currentSetting.loginBackgroundColor}}")
+      li.tableVisibilityMode-form
         .title {{_ 'custom-top-left-corner-logo-image-url'}}
         .form-group
           input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")

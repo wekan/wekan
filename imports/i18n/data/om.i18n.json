@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Geessituu Asxaa Seensaa Dhuunfaa",
   "custom-help-link-url": "URL Geessituu Gargaarsaa Dhuunfaa",
   "text-below-custom-login-logo": "Barruu Asxaa Seensaa Dhuunfaa jalaa",
+  "login-background-color": "Halluu duubbee fuula seensaa",
   "automatic-linked-url-schemes": "Sirna URL dhuunfaa ofumaan cuqaasamuu qabu. Tokkoon tokkoon sararaatti Sirna URL tokko",
   "automatic-linked-url-schemes-hint": "Durtii duwwaa dha; kanaaf geessitoota weebii fi imeelii qofa cuqaasuun ni danda’ama. Gosti geessituu tarree keessa jiru hundi, fakkeenyaaf thunderlink yookaan onenote, sagantaa isaaf galmaa’e bana. javascript, data, vbscript fi gosoonni isaan fakkaatan matumaa geessitoota cuqaafamanitti hin jijjiiraman.",
   "external-link-pattern": "Hidhaa ofumaa gara hordoffii rakkoo alaa",

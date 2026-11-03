@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL wotkaza swójskeho loga přizjewjenja",
   "custom-help-link-url": "URL swójskeho wotkaza pomocy",
   "text-below-custom-login-logo": "Tekst pod swójskim logom přizjewjenja",
+  "login-background-color": "Pozadkowa barba přizjewjenskeje strony",
   "automatic-linked-url-schemes": "Swójske URL-šemy, kotrež maja być awtomatisce kliknjomne. Jedna URL-šema na linku",
   "automatic-linked-url-schemes-hint": "Po standardźe prózdne, tak zo jenož webowe a e-mejlowe wotkazy kliknjomne su. Kóžda nalistowana šema, na přikład thunderlink abo onenote, nałoženje wočini, kotrež je za nju registrowane. Šemy javascript, data, vbscript a podobne so ženje njewotkazuja.",
   "external-link-pattern": "Awtomatiski wotkaz na eksterny slědowak problemow",

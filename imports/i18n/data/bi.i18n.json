@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL blong Link blong Spesel Logo blong Go insaed",
   "custom-help-link-url": "URL blong Spesel Link blong Help",
   "text-below-custom-login-logo": "Raeting aninit long Spesel Logo blong Go insaed",
+  "login-background-color": "Kala blong baksaed blong pej blong login",
   "automatic-linked-url-schemes": "Ol Spesel Fasin blong URL we yu save klik otomatik. Wan Fasin blong URL long wanwan laen",
   "automatic-linked-url-schemes-hint": "Long fas seting, hem i emti, mekem se yu save klik long ol link blong web mo imel nomo. Evri kaen link long lis, olsem thunderlink o onenote, i openem program we oli rejistarem blong hem. javascript, data, vbscript mo ol kaen olsem oli neva kam ol link we yu save klik long olgeta.",
   "external-link-pattern": "Otomatik link i go long wan aotsaed traka blong problem",

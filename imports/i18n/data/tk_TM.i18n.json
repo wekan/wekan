@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Logörite giriş logosy Link URL",
   "custom-help-link-url": "Helpörite kömek baglanyşygy URL",
   "text-below-custom-login-logo": "Customörite giriş logotipiniň aşagyndaky tekst",
+  "login-background-color": "Giriş sahypasynyň fon reňki",
   "automatic-linked-url-schemes": "Awtomatiki basyp bolýan URLörite URL shemalary. Her setirde bir URL shemasy",
   "automatic-linked-url-schemes-hint": "Deslapdan boş bolýar, şonuň üçin diňe web we e-poçta baglanyşyklaryna basyp bolýar. Sanawdaky her bir URL shemasy, mysal üçin thunderlink ýa-da onenote, onuň üçin bellige alnan programmany açýar. javascript, data, vbscript we şular ýaly shemalar hiç haçan baglanyşyga öwrülmeýär.",
   "external-link-pattern": "Daşky mesele yzarlaýja awtomatik baglanyşyk",

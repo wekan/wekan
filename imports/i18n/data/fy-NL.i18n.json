@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Oanpaste Login Logo Link URL",
   "custom-help-link-url": "Oanpaste Help Link URL",
   "text-below-custom-login-logo": "Tekst ûnder Custom Login Logo",
+  "login-background-color": "Eftergrûnkleur fan de oanmeldside",
   "automatic-linked-url-schemes": "Oanpaste URL-skema's dy't automatysk klikber wêze moatte. Ien URL-skema per rigel",
   "automatic-linked-url-schemes-hint": "Standert leech, sadat allinnich web- en e-mailkeppelings oanklikber binne. Elk neamd skema, bygelyks thunderlink of onenote, iepenet de applikaasje dy’t dêrfoar registrearre is. javascript, data, vbscript en ferlykbere skema’s wurde nea keppelings.",
   "external-link-pattern": "Automatyske keppeling nei eksterne probleemtrekker",

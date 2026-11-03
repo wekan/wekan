@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL-ka Xiriiriyaha Astaanta Gelitaanka Gaarka ah",
   "custom-help-link-url": "URL-ka Xiriiriyaha Caawinta Gaarka ah",
   "text-below-custom-login-logo": "Qoraalka ka hooseeya Astaanta Gelitaanka Gaarka ah",
+  "login-background-color": "Midabka asalka bogga gelitaanka",
   "automatic-linked-url-schemes": "Qaababka URL Gaarka ah ee si toos ah loo gujin karo. Hal Qaab URL safkiiba",
   "automatic-linked-url-schemes-hint": "Dejinta caadiga ah waa madhan tahay, sidaas darteed keliya xiriiriyeyaasha webka iyo iimaylka ayaa la gujin karaa. Nooc kasta oo xiriiriye ah oo liiska ku jira, tusaale ahaan thunderlink ama onenote, wuxuu furaa barnaamijka loo diiwaangeliyey. javascript, data, vbscript iyo noocyada la midka ah weligood looma beddelo xiriiriyeyaal la gujin karo.",
   "external-link-pattern": "Xiriirinta otomaatig ee la socodka dhibaatooyinka dibadda",

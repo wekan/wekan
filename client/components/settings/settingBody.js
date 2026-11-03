@@ -811,6 +811,7 @@ Template.tableVisibilityModeSettings.events({
       ['#custom-login-logo-image-url', 'customLoginLogoImageUrl'],
       ['#custom-login-logo-link-url', 'customLoginLogoLinkUrl'],
       ['#text-below-custom-login-logo', 'textBelowCustomLoginLogo'],
+      ['#login-background-color', 'loginBackgroundColor'],
       ['#custom-top-left-corner-logo-image-url', 'customTopLeftCornerLogoImageUrl'],
       ['#custom-top-left-corner-logo-link-url', 'customTopLeftCornerLogoLinkUrl'],
       ['#custom-top-left-corner-logo-height', 'customTopLeftCornerLogoHeight'],

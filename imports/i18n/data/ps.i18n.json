@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "د دوديز ننوتلو لوګو تړوني URL",
   "custom-help-link-url": "د دوديزې مرستې تړوني URL",
   "text-below-custom-login-logo": "د دوديز ننوتلو لوګو لاندې متن",
+  "login-background-color": "د ننوتلو پاڼې د شالید رنګ",
   "automatic-linked-url-schemes": "دوديز URL Scheme چې بايد په اوتومات ډول د ټک وړ وي. په هره کرښه کې يو URL Scheme",
   "automatic-linked-url-schemes-hint": "په تلواله توګه تش دی، نو يوازې د وېب او برېښناليک تړوني د کليک وړ دي. په لړ کې هر پروتوکول، لکه thunderlink يا onenote، هغه کاریال پرانيزي چې ورته ثبت شوی وي. javascript، data، vbscript او ورته پروتوکولونه هېڅکله په تړونو نه بدلېږي.",
   "external-link-pattern": "بهرني د مسئلې تعقیب کوونکي ته اتومات لینک",

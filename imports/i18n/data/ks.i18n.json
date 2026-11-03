@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "مخصوص لاگ اِن لوگو لنک URL",
   "custom-help-link-url": "مخصوص مدد لنک URL",
   "text-below-custom-login-logo": "مخصوص لاگ اِن لوگو بۄن متن",
+  "login-background-color": "لاگ اِن صفحہ کٲ پسِ منظر رنگ",
   "automatic-linked-url-schemes": "مخصوص URL سکیم یِم خودکار کلک کرنہٕ یِن۔ ہر سطرس منٛز اکھ URL سکیم",
   "automatic-linked-url-schemes-hint": "شروٗعس منٛز چھُ یہِ خٲلی، تٔمۍ کِنۍ ہیکو صرف ویب تہٕ ای میل لنکن پؠٹھ کلِک کٔرِتھ۔ فہرستس منٛز درج کٔرِمژ ہر سکیٖم، مِثالہٕ پٲٹھۍ thunderlink یا onenote، چھِ تَتھ خٲطرٕ رجسٹر کٔرِمژ ایپلی کیشن کھولان۔ javascript، data، vbscript تہٕ تِمن ہِشہٕ سکیٖمہٕ چھِ نہٕ زانہہ لنک بناونہٕ یوان۔",
   "external-link-pattern": "بیرنی مسئلہٕ ٹریکَرَس منٛز خودکار لِنک",

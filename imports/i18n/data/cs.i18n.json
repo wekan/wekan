@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL odkazu vlastního loga přihlášení",
   "custom-help-link-url": "URL vlastního odkazu nápovědy",
   "text-below-custom-login-logo": "Text pod vlastním logem přihlášení",
+  "login-background-color": "Barva pozadí přihlašovací stránky",
   "automatic-linked-url-schemes": "Vlastní URL schémata, která by automaticky měla být klikatelná.\nJedno schéma na řádek",
   "automatic-linked-url-schemes-hint": "Ve výchozím nastavení je pole prázdné, takže lze kliknout pouze na webové a e-mailové odkazy. Každé uvedené schéma, například thunderlink nebo onenote, otevře aplikaci, která je k němu přiřazena. Schémata javascript, data, vbscript a podobná se nikdy nemění na odkazy.",
   "external-link-pattern": "Automatické odkazování na externí sledování požadavků",

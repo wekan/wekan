@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL de enlace d'o logo personalizado de inicio de sesión",
   "custom-help-link-url": "URL d’o vinclo d’aduya personalizau",
   "text-below-custom-login-logo": "Texto debajo d'o logo personalizado de inicio de sesión",
+  "login-background-color": "Color de fondo d'a pachina d'inicio de sesión",
   "automatic-linked-url-schemes": "Esquemas d’URL personalizaus que han de poder clicar-se automaticament. Un esquema d’URL por linia.",
   "automatic-linked-url-schemes-hint": "Vuedo por defecto, asinas que nomás se puede fer clic en os vinclos web y de correu. Cada esquema d'a lista, por eixemplo thunderlink u onenote, ubre l'aplicación rechistrada ta ell. javascript, data, vbscript y esquemas pareixius nunca no se tornan vinclos.",
   "external-link-pattern": "Vinclo automatico ta un rastrexador de problemas externo",

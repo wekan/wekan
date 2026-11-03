@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL yüma sümbola lönik nunädama",
   "custom-help-link-url": "URL yüma yufa lönik",
   "text-below-custom-login-logo": "Vödem donü sümbol lönik nunädama",
+  "login-background-color": "Fonakölöd pada nüdama",
   "automatic-linked-url-schemes": "Skemats URL lönik, kels mutonsöv binön itjäfidiko klikovik. Skemat URL bal pro lien alik",
   "automatic-linked-url-schemes-hint": "In prim binon vagik, klu te vüyümäds vüretoda e pota leäktronik kanons pavälön me musaparat. Skemat alik palisedöl, samo thunderlink u onenote, maifükon programi peregistaröl pro on. javascript, data, vbscript e skemats sümik neai vedons vüyümäds.",
   "external-link-pattern": "Yümükam itjäfidik lü sit plödik säkas",

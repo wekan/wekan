@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL do link do logo customizado de login",
   "custom-help-link-url": "URL do link de ajuda customizado",
   "text-below-custom-login-logo": "Texto abaixo do logo customizado de login",
+  "login-background-color": "Cor de fundo da página de login",
   "automatic-linked-url-schemes": "Esquemas de URL personalizados que devem ser clicáveis automaticamente. Um esquema de URL por linha",
   "automatic-linked-url-schemes-hint": "Vazio por padrão, portanto apenas os links da web e de e-mail são clicáveis. Cada esquema listado, por exemplo thunderlink ou onenote, abre o aplicativo registrado para ele. Os esquemas javascript, data, vbscript e semelhantes nunca são convertidos em links.",
   "external-link-pattern": "Link automático para rastreador externo",

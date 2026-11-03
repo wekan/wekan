@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "شخصی کیریش لاگاتیپی حواله‌سی URL",
   "custom-help-link-url": "مخصوص یاردم حواله‌سی URL",
   "text-below-custom-login-logo": "مخصوص کیریش لاگاتیپی آستیدگی متن",
+  "login-background-color": "Kirish sahifasining fon rangi",
   "automatic-linked-url-schemes": "اوتاماتیک روشده باسیلیشی کیرک بۉلگن مخصوص URL سخیمه‌لری. هر بیر سترده بیتته URL سخیمه‌سی",
   "automatic-linked-url-schemes-hint": "سکوت بۉییچه بۉش، شونینگ اوچون فقط ویب و پاچته حواله‌لرینی باسیش ممکن. رۉیخت‌دگی هر بیر سخیما، مثلاً thunderlink یا onenote، اونگه رۉیختدن اۉتکزیلگن ایلاوه‌نی آچه‌دی. javascript، data، vbscript و اۉخشاش سخیما‌لر هیچ قچان حواله‌گه ایلنتیریلمیدی.",
   "external-link-pattern": "تشقی معما کوزتووچیسیگه اوتاماتیک حواله",

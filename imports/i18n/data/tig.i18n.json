@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "ብሕታዊ URL መራኸቢ ምልክት ምእታው",
   "custom-help-link-url": "ብሕታዊ URL መራኸቢ ሓገዝ",
   "text-below-custom-login-logo": "ጽሑፍ ኣብ ታሕቲ ብሕታዊ ምልክት ምእታው",
+  "login-background-color": "ሕብሪ ድሕሪት ገጽ ምእታው",
   "automatic-linked-url-schemes": "ብራስ-ሰር ክጥወቑ ዘለዎም ብሕታዊ ቅርጽታት URL። ኣብ ነፍሲ ወከፍ መስመር ሓደ ቅርጺ URL",
   "automatic-linked-url-schemes-hint": "እት ቀዳም ባዶ ቱ። ናይ ወብ ወናይ ኢመይል መራኸቢ ሌጣ እግል ልትጠቀው ልትከል። እት ሊስታ ለትከተበ ኩል URL ዓይነት፣ ምስል thunderlink አው onenote፣ ሎቱ ለትመዝገበ ፕሮግራም ልፈትሕ። javascript ወ data ወ vbscript ወከምኦም ለመስሎ ዓይነት አበደን መራኸቢ ኢልገብኦ።",
   "external-link-pattern": "ናብ ናይ ደገ ናይ ጸገማት ተከታታሊ ብቐጥታ ምትእስሳር",

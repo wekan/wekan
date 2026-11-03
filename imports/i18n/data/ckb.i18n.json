@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URLی بەستەری لۆگۆی تایبەتی چوونەژوورەوە",
   "custom-help-link-url": "URLی بەستەری یارمەتی تایبەت",
   "text-below-custom-login-logo": "دەق لەژێر لۆگۆی تایبەتی چوونەژوورەوە",
+  "login-background-color": "ڕەنگی پاشخانی پەڕەی چوونەژوورەوە",
   "automatic-linked-url-schemes": "شێوازە تایبەتییەکانی URL کە دەبێت خۆکارانە کرتەیان لێبکرێت. هەر دێڕێک یەک شێوازی URL",
   "automatic-linked-url-schemes-hint": "بە بنەڕەت بەتاڵە، بۆیە تەنها بەستەرەکانی وێب و ئیمەیڵ کلیکیان لەسەر دەکرێت. هەر شێوەی بەستەرێکی ناو لیستەکە، بۆ نموونە thunderlink یان onenote، ئەو بەرنامەیە دەکاتەوە کە بۆی تۆمار کراوە. javascript و data و vbscript و شێوە هاوشێوەکان هەرگیز ناکرێن بە بەستەر.",
   "external-link-pattern": "پەیوەندی خۆکار بە شوێنپێگری کێشەی دەرەکی",

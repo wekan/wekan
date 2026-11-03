@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "စိတ်ကြိုက် ဝင်ရောက်မှုလိုဂိုလင့်ခ် URL",
   "custom-help-link-url": "စိတ်ကြိုက် အကူအညီလင့်ခ် URL",
   "text-below-custom-login-logo": "စိတ်ကြိုက် ဝင်ရောက်မှုလိုဂိုအောက်ရှိ စာသား",
+  "login-background-color": "လော့ဂ်အင်စာမျက်နှာ နောက်ခံအရောင်",
   "automatic-linked-url-schemes": "အလိုအလျောက် နှိပ်နိုင်ရမည့် စိတ်ကြိုက် URL Scheme များ။ တစ်ကြောင်းလျှင် URL Scheme တစ်ခု",
   "automatic-linked-url-schemes-hint": "ပုံမှန်အားဖြင့် ကွက်လပ်ဖြစ်သောကြောင့် ဝဘ်နှင့် အီးမေးလ်လင့်ခ်များကိုသာ နှိပ်နိုင်သည်။ စာရင်းထည့်ထားသော scheme တစ်ခုစီ၊ ဥပမာ thunderlink သို့မဟုတ် onenote သည် ၎င်းအတွက် မှတ်ပုံတင်ထားသော အက်ပ်ကို ဖွင့်သည်။ javascript၊ data၊ vbscript နှင့် အလားတူ scheme များကို မည်သည့်အခါမျှ လင့်ခ်မလုပ်ပါ။",
   "external-link-pattern": "ပြင်ပပြဿနာခြေရာခံစနစ်သို့ အလိုအလျောက်လင့်ခ်ချိတ်ခြင်း",

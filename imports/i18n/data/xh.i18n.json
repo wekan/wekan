@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "I-URL yokuNgena ngokweSiko lokuNgena",
   "custom-help-link-url": "I-URL yoNcedo oluSiko loNcedo",
   "text-below-custom-login-logo": "Okubhaliweyo ngezantsi kweLogo yokuNgena ngokweSiko",
+  "login-background-color": "Umbala wangasemva wephepha lokungena",
   "automatic-linked-url-schemes": "Izicwangciso ze-URL yesiko ekufuneka zicofeke ngokuzenzekelayo. Isicwangciso se-URL enye ngomgca ngamnye",
   "automatic-linked-url-schemes-hint": "Ngokungagqibekanga akunanto, ngoko ngamakhonkco ewebhu ne-imeyile kuphela anokucofwa. Uhlobo ngalunye lwekhonkco olukuluhlu, olufana ne-thunderlink okanye i-onenote, luvula usetyenziso olubhaliselwe lona. Iintlobo javascript, data, vbscript nezinye ezifana nazo azize zenziwe amakhonkco.",
   "external-link-pattern": "Umkhondo ozenzekelayo kwisilandeli sengxaki yangaphandle",

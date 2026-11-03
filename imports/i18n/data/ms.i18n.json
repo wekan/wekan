@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL khas bagi Pautan Logo Log Masuk",
   "custom-help-link-url": "URL Pautan Bantuan Tersuai",
   "text-below-custom-login-logo": "Teks di bawah Logo Khas Log Masuk",
+  "login-background-color": "Warna latar belakang halaman log masuk",
   "automatic-linked-url-schemes": "Skim URL Khas yang seharusnya boleh diklik. Satu URL setiap baris",
   "automatic-linked-url-schemes-hint": "Kosong secara lalai, jadi hanya pautan web dan e-mel boleh diklik. Setiap skema yang disenaraikan, contohnya thunderlink atau onenote, membuka aplikasi yang didaftarkan untuknya. Skema javascript, data, vbscript dan yang serupa tidak pernah dijadikan pautan.",
   "external-link-pattern": "Pautan automatik ke penjejak isu luaran",

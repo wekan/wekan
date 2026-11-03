@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL di ligãturã a logo-lui personalizat ti intrari",
   "custom-help-link-url": "URL di ligãturã personalizatã ti agiutor",
   "text-below-custom-login-logo": "Text di ma njos di logo-lu personalizat ti intrari",
+  "login-background-color": "Culoarea di fundal a peljii di intrari",
   "automatic-linked-url-schemes": "Scheme URL personalizati tsi lipsescu s-hibã automat ti clic. Unã schemã URL pi cathi linii",
   "automatic-linked-url-schemes-hint": "Tu arãnduseala di ninti easti gol, di-aclo numa ligãturli di web shi di poștã electronicã pot s-hibã clicati. Cadhunã schemã di ligãturã tu listã, ca thunderlink icã onenote, dishcljidi programa înregistratã ti ea. javascript, data, vbscript shi schemili di-același soi nu s-fac nica oarã ligãturi.",
   "external-link-pattern": "Ligãtura automata cãtã un tracker di problemi din nafoarã",

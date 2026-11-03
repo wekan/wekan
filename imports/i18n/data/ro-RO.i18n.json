@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL-ul legăturii siglei personalizate pentru autentificare",
   "custom-help-link-url": "URL-ul legăturii de ajutor personalizate",
   "text-below-custom-login-logo": "Text sub sigla personalizată pentru autentificare",
+  "login-background-color": "Culoarea de fundal a paginii de autentificare",
   "automatic-linked-url-schemes": "Scheme URL personalizate care ar trebui să fie automat clicabile. O schemă URL pe rând.",
   "automatic-linked-url-schemes-hint": "Gol în mod implicit, astfel încât doar linkurile web și de e-mail pot fi accesate prin clic. Fiecare schemă listată, de exemplu thunderlink sau onenote, deschide aplicația înregistrată pentru ea. Schemele javascript, data, vbscript și cele similare nu sunt niciodată transformate în linkuri.",
   "external-link-pattern": "Legare automată către un tracker extern de probleme",

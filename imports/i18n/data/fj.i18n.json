@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ni iSema ni iVakatakilakila ni Curu Digitaki",
   "custom-help-link-url": "URL ni iSema ni Veivuke Digitaki",
   "text-below-custom-login-logo": "iTukutuku ena ruku ni iVakatakilakila ni Curu Digitaki",
+  "login-background-color": "Roka ni muri ni peji ni curu",
   "automatic-linked-url-schemes": "iTuvatuva URL digitaki me kiliki vakataki koya. Dua na iTuvatuva URL ena dua na laini",
   "automatic-linked-url-schemes-hint": "E lala ena ituvatuva taumada, o koya gona na isema ni mataveilawa kei na imeli wale ga e rawa ni kilikitaki. Na mataqali isema yadua ena lisi, me vaka na thunderlink se onenote, e dolava na porokaramu sa volai me vakayagataki kina. Na javascript, data, vbscript kei na mataqali vakaoqo ena sega sara ni veisautaki me isema.",
   "external-link-pattern": "Isema vakaisemata ki na dauveiraurau ni leqa mai vaka",

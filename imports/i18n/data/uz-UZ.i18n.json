@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Shaxsiy kirish logotipi havolasi URL",
   "custom-help-link-url": "Maxsus yordam havolasi URL",
   "text-below-custom-login-logo": "Maxsus kirish logotipi ostidagi matn",
+  "login-background-color": "Kirish sahifasining fon rangi",
   "automatic-linked-url-schemes": "Avtomatik ravishda bosilishi kerak bo'lgan maxsus URL sxemalari. Har bir satrda bitta URL sxemasi",
   "automatic-linked-url-schemes-hint": "Sukut boʻyicha boʻsh, shuning uchun faqat veb va pochta havolalarini bosish mumkin. Roʻyxatdagi har bir sxema, masalan thunderlink yoki onenote, unga roʻyxatdan oʻtkazilgan ilovani ochadi. javascript, data, vbscript va oʻxshash sxemalar hech qachon havolaga aylantirilmaydi.",
   "external-link-pattern": "Tashqi muammo kuzatuvchisiga avtomatik havola",

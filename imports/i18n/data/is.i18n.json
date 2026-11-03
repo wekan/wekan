@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Tengilslóð sérsniðins innskráningarmerkis",
   "custom-help-link-url": "Slóð sérsniðins hjálpartengils",
   "text-below-custom-login-logo": "Texti undir sérsniðnu innskráningarmerki",
+  "login-background-color": "Bakgrunnslitur innskráningarsíðu",
   "automatic-linked-url-schemes": "Sérsniðin URL-skemu sem eiga sjálfkrafa að verða smellanleg. Eitt URL-skema í hverri línu",
   "automatic-linked-url-schemes-hint": "Sjálfgefið tómt, svo aðeins vef- og pósttenglar eru smellanlegir. Hvert skráð skema, til dæmis thunderlink eða onenote, opnar forritið sem er skráð fyrir það. javascript, data, vbscript og svipuð skemu eru aldrei gerð að tenglum.",
   "external-link-pattern": "Sjálfvirk tenging við ytra villueftirlitskerfi",

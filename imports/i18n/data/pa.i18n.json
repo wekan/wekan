@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "ਕਸਟਮ ਲੌਗਇਨ ਲੋਗੋ ਲਿੰਕ URL",
   "custom-help-link-url": "ਕਸਟਮ ਮਦਦ ਲਿੰਕ URL",
   "text-below-custom-login-logo": "ਕਸਟਮ ਲੌਗਇਨ ਲੋਗੋ ਦੇ ਹੇਠਾਂ ਟੈਕਸਟ",
+  "login-background-color": "ਲਾਗਇਨ ਪੰਨੇ ਦਾ ਪਿਛੋਕੜ ਰੰਗ",
   "automatic-linked-url-schemes": "ਕਸਟਮ URL ਸਕੀਮਾਂ ਜੋ ਆਪਣੇ ਆਪ ਕਲਿੱਕ ਕਰਨ ਯੋਗ ਹੋਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ। ਪ੍ਰਤੀ ਲਾਈਨ ਇੱਕ URL ਸਕੀਮ",
   "automatic-linked-url-schemes-hint": "ਮੂਲ ਰੂਪ ਵਿੱਚ ਖਾਲੀ ਹੈ, ਇਸ ਲਈ ਸਿਰਫ਼ ਵੈੱਬ ਅਤੇ ਈਮੇਲ ਲਿੰਕਾਂ 'ਤੇ ਕਲਿੱਕ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ। ਹਰ ਸੂਚੀਬੱਧ ਸਕੀਮ, ਜਿਵੇਂ thunderlink ਜਾਂ onenote, ਉਸ ਲਈ ਰਜਿਸਟਰ ਕੀਤੀ ਐਪਲੀਕੇਸ਼ਨ ਖੋਲ੍ਹਦੀ ਹੈ। javascript, data, vbscript ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਦੀਆਂ ਸਕੀਮਾਂ ਕਦੇ ਲਿੰਕ ਨਹੀਂ ਬਣਾਈਆਂ ਜਾਂਦੀਆਂ।",
   "external-link-pattern": "ਬਾਹਰੀ ਮੁੱਦਾ ਟਰੈਕਰ ਨਾਲ ਆਟੋਲਿੰਕ",

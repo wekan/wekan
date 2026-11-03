@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "අභිරුචි පිවිසුම් ලාංඡන සබැඳි URL",
   "custom-help-link-url": "අභිරුචි උදව් සබැඳි URL",
   "text-below-custom-login-logo": "අභිරුචි පිවිසුම් ලාංඡනයට පහළ පෙළ",
+  "login-background-color": "පිවිසුම් පිටුවේ පසුබිම් වර්ණය",
   "automatic-linked-url-schemes": "ස්වයංක්‍රීයව ක්ලික් කළ හැකි අභිරුචි URL Schemes. එක් පේළියකට එක් URL Scheme එකක්",
   "automatic-linked-url-schemes-hint": "පෙරනිමියෙන් හිස් බැවින් වෙබ් සහ තැපැල් සබැඳි පමණක් ක්ලික් කළ හැක. ලැයිස්තුගත එක් එක් යෝජනා ක්‍රමය, උදාහරණයක් ලෙස thunderlink හෝ onenote, ඒ සඳහා ලියාපදිංචි යෙදුම විවෘත කරයි. javascript, data, vbscript සහ එවැනි යෝජනා ක්‍රම සඳහා කිසිවිටෙක සබැඳි සාදන්නේ නැත.",
   "external-link-pattern": "බාහිර ගැටලු ලුහුබැඳීමට ස්වයංක්‍රීය සබැඳුම",

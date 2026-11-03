@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Pertsonalizatutako saioa hasteko logotipoaren estekaren URLa",
   "custom-help-link-url": "Laguntza-esteka pertsonalizatuaren URLa",
   "text-below-custom-login-logo": "Pertsonalizatutako saioa hasteko logotipoaren azpiko testua",
+  "login-background-color": "Saio-hasierako orriaren atzeko planoaren kolorea",
   "automatic-linked-url-schemes": "Automatikoki klikagarriak izan behar duten URL eskema pertsonalizatuak. URL eskema bat lerroko",
   "automatic-linked-url-schemes-hint": "Hutsik dago lehenespenez; beraz, web eta posta esteketan soilik egin daiteke klik. Zerrendatutako eskema bakoitzak, adibidez thunderlink edo onenote, harentzat erregistratutako aplikazioa irekitzen du. javascript, data, vbscript eta antzeko eskemak ez dira inoiz esteka bihurtzen.",
   "external-link-pattern": "Kanpoko arazo-jarraipenerako esteka automatikoa",

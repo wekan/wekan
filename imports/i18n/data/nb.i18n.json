@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Tilpass URL logo-link innlogging",
   "custom-help-link-url": "URL til egendefinert hjelpelenke",
   "text-below-custom-login-logo": "Tekst under tilpasset logo innlogging",
+  "login-background-color": "Bakgrunnsfarge på påloggingssiden",
   "automatic-linked-url-schemes": "Egendefinerte URL-tilordninger som automatisk skal kunne klikkes på. Kun én URL-tilordning per linje",
   "automatic-linked-url-schemes-hint": "Tomt som standard, slik at bare nett- og e-postlenker kan klikkes på. Hvert oppførte skjema, for eksempel thunderlink eller onenote, åpner programmet som er registrert for det. javascript, data, vbscript og lignende skjemaer blir aldri gjort om til lenker.",
   "external-link-pattern": "Automatisk lenke til ekstern sakssporing",

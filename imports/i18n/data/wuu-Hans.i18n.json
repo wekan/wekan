@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "自定义登录徽标链接 URL",
   "custom-help-link-url": "自定义帮助链接 URL",
   "text-below-custom-login-logo": "自定义登录徽标下方的文字",
+  "login-background-color": "登录页面背景颜色",
   "automatic-linked-url-schemes": "要自动变成可点击链接个自定义 URL 协议。每行一只 URL 协议",
   "automatic-linked-url-schemes-hint": "默认留空，所以只有网页搭邮件链接好点。列出来个每种协议，比方讲 thunderlink 或者 onenote，会打开为伊注册个应用。javascript、data、vbscript 搭类似个协议绝勿会变成链接。",
   "external-link-pattern": "自动链接到外部问题跟踪系统",

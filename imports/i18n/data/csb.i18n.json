@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL lënkù swòjégò logò na stronie logòwaniô",
   "custom-help-link-url": "Niestandardowi URL łącza pomocy",
   "text-below-custom-login-logo": "Tekst pòd swòjim logo logòwaniô",
+  "login-background-color": "Farwa tła starnë logòwaniô",
   "automatic-linked-url-schemes": "Schematy adresòw URL, ktòre powinny być automatycznié przekształcane w aktywne. Wpisz jeden schemat URL w każdej linii",
   "automatic-linked-url-schemes-hint": "Domëslnie pùsté, przez co klikalné są blós lënczi WWW i pòcztë. Kòżdi wëpisóny schemat, na przëmiôr thunderlink abò onenote, òtmikô aplikacjã dlô niegò zaregistrowóną. javascript, data, vbscript i pòdobné schematë nigdë nie stôwają sã lënkama.",
   "external-link-pattern": "Aùtomatné lëkòwanié do zewnãtrznégò tracera problemów",

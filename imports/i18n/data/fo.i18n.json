@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Egið leinkju-URL til innritanarbúmerki",
   "custom-help-link-url": "Egið URL til hjálparleinkju",
   "text-below-custom-login-logo": "Tekstur undir egna innritanarbúmerkinum",
+  "login-background-color": "Bakgrundslitur á innritanarsíðuni",
   "automatic-linked-url-schemes": "Egin URL-snið, sum sjálvvirkandi skulu kunna trýstast á. Eitt URL-snið á hvørjari reglu",
   "automatic-linked-url-schemes-hint": "Tómt sum standard, so bert vev- og teldupostleinki kunnu klikkjast. Hvørt skema á listanum, til dømis thunderlink ella onenote, letur forritið upp, sum er skrásett til tað. javascript, data, vbscript og líknandi skema verða ongantíð gjørd til leinki.",
   "external-link-pattern": "Sjálvvirkandi leinkjan til uttanhýsis feilamerkingar",

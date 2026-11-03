@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL lyen logo koneksyon pèsonalize",
   "custom-help-link-url": "URL lyen èd pèsonalize",
   "text-below-custom-login-logo": "Tèks anba logo koneksyon pèsonalize",
+  "login-background-color": "Koulè dèyè paj koneksyon an",
   "automatic-linked-url-schemes": "Chema URL pèsonalize ki dwe vin lyen ou ka klike otomatikman. Yon chema URL sou chak liy",
   "automatic-linked-url-schemes-hint": "Sa vid pa defo, kidonk se sèlman lyen entènèt ak lyen imèl ki ka klike. Chak pwotokòl ki nan lis la, tankou thunderlink oswa onenote, ouvri aplikasyon ki asosye avèk li a. Yo pa janm kreye lyen pou javascript, data, vbscript ak pwotokòl menm jan yo.",
   "external-link-pattern": "Lyen otomatik pou sistèm swivi pwoblèm ekstèn",

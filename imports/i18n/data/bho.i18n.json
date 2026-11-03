@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "मनपसंद लॉग इन लोगो कड़ी URL",
   "custom-help-link-url": "मनपसंद मदद कड़ी URL",
   "text-below-custom-login-logo": "मनपसंद लॉग इन लोगो के नीचे लिखाई",
+  "login-background-color": "लॉगिन पन्ना के पृष्ठभूमि रंग",
   "automatic-linked-url-schemes": "मनपसंद URL योजना जे अपने-आप क्लिक करे लायक होखे। हर पाँति में एगो URL योजना",
   "automatic-linked-url-schemes-hint": "डिफॉल्ट रूप से खाली बा, एहसे खाली वेब आ ईमेल के लिंक पर क्लिक कइल जा सकेला। सूची में दिहल हर लिंक स्कीम, जइसे thunderlink भा onenote, अपना खातिर पंजीकृत ऐप खोलेला। javascript, data, vbscript आ एह तरह के स्कीम के कबो क्लिक करे लायक लिंक ना बनावल जाला।",
   "external-link-pattern": "बाहरी इश्यू ट्रैकर से खुदे-खुद लिंक",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "ብጁ የመግቢያ አርማ አገናኝ URL",
   "custom-help-link-url": "ብጁ የእገዛ አገናኝ URL",
   "text-below-custom-login-logo": "ከብጁ የመግቢያ አርማ በታች ያለ ጽሑፍ",
+  "login-background-color": "የመግቢያ ገጽ የጀርባ ቀለም",
   "automatic-linked-url-schemes": "በራስ-ሰር ሊጫኑ የሚገባቸው ብጁ የURL መርሃግብሮች። በእያንዳንዱ መስመር አንድ የURL መርሃግብር",
   "automatic-linked-url-schemes-hint": "በነባሪ ባዶ ነው፣ ስለዚህ የድር እና የኢሜይል አገናኞች ብቻ ጠቅ ሊደረጉ ይችላሉ። እያንዳንዱ የተዘረዘረ ስኪማ፣ ለምሳሌ thunderlink ወይም onenote፣ ለእሱ የተመዘገበውን መተግበሪያ ይከፍታል። javascript፣ data፣ vbscript እና ተመሳሳይ ስኪማዎች ፈጽሞ አገናኝ አይሆኑም።",
   "external-link-pattern": "ወደ ውጫዊ ችግር መከታተያ ራስ-ሰር አገናኝ",

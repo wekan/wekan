@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Włŏsny URL linku logo logowaniŏ",
   "custom-help-link-url": "Włŏsny URL linku pōmocy",
   "text-below-custom-login-logo": "Tekst pod włŏsnym logo logowaniŏ",
+  "login-background-color": "Farba tła zajty logowanio",
   "automatic-linked-url-schemes": "Schematy adresów URL, kere powinny być automatycznie przekształcane we aktywne. Wpisz jeden schemat URL we każdej linii",
   "automatic-linked-url-schemes-hint": "Dōmyślnie prōżne, tōż ino linki do strōn i poczty idzie kliknōńć. Kożdy wypisany schemat, na przikłŏd thunderlink abo onenote, ôtwiyrŏ aplikacyjŏ zaregistrowanŏ dlŏ niego. javascript, data, vbscript i podobne schematy nigdy niy sōm linkowane.",
   "external-link-pattern": "Autōmatyczne linkowanie do zewnyntrznego tracera problymōw",

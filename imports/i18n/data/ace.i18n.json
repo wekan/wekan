@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL tautan logo login khusus",
   "custom-help-link-url": "URL Tautan Bantu Khusuih",
   "text-below-custom-login-logo": "Teks di miyup logo login khusus",
+  "login-background-color": "Warna latar halaman login",
   "automatic-linked-url-schemes": "Skema URL khusus nyang haroh jeuet geuklik ngon otomatis. Saboh skema URL bak tiep bareh",
   "automatic-linked-url-schemes-hint": "Bak atôran awai mantöng soh, jadi nyang jeuet teuklik cit tautan web ngon imèl. Tiep jeunéh tautan nyang na lam dapeuta, lagee thunderlink atawa onenote, jipeuhah aplikasi nyang ka teudaftar keu jeunéh nyan. javascript, data, vbscript ngon jeunéh nyang saban hana tom jeuet keu tautan.",
   "external-link-pattern": "Tautan Keudroe u Peuturi Masalah Luwa",

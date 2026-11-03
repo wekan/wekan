@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "آدرس لینک لوگوی سفارشی در لاگین",
   "custom-help-link-url": "نشانی URL پیوند راهنمای سفارشی",
   "text-below-custom-login-logo": "متن پایین لوگوی سفارشی در فرم لاگین",
+  "login-background-color": "رنگ پس‌زمینه صفحه ورود",
   "automatic-linked-url-schemes": "طرح‌های URL سفارشی که باید به‌طور خودکار قابل کلیک باشند. هر طرح URL در یک خط",
   "automatic-linked-url-schemes-hint": "به‌طور پیش‌فرض خالی است، پس فقط پیوندهای وب و ایمیل قابل کلیک هستند. هر طرح فهرست‌شده، مانند thunderlink یا onenote، برنامهٔ ثبت‌شده برای آن را باز می‌کند. طرح‌های javascript، data، vbscript و مشابه آن‌ها هرگز به پیوند تبدیل نمی‌شوند.",
   "external-link-pattern": "پیوند خودکار به ردیاب مشکلات خارجی",

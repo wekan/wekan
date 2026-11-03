@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL njikọ Logo nbanye ahaziri",
   "custom-help-link-url": "URL njikọ enyemaka omenala",
   "text-below-custom-login-logo": "Ederede n'okpuru Logo nbanye omenala",
+  "login-background-color": "Agba ọdịnaya ibe nbanye",
   "automatic-linked-url-schemes": "Atụmatụ URL omenala nke kwesịrị ịpịpị na-akpaghị aka. Otu atụmatụ URL kwa ahịrị",
   "automatic-linked-url-schemes-hint": "Ọ bụ efu na mbụ, ya mere naanị njikọ weebụ na ozi eletrọnịkị ka a pụrụ ịpị. Usoro njikọ ọ bụla edepụtara, dịka thunderlink ma ọ bụ onenote, na-emepe ngwa edebanyere aha maka ya. A naghị eme javascript, data, vbscript na usoro yiri ha ka ha bụrụ njikọ.",
   "external-link-pattern": "Njikọ akpaka na ngwa nchọpụta nsogbu dị na mpụga",

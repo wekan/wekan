@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "حسب ضرورت لاگ ان لوگو ڪڙي URL",
   "custom-help-link-url": "حسب ضرورت مدد ڪڙي URL",
   "text-below-custom-login-logo": "حسب ضرورت لاگ ان لوگو هيٺ متن",
+  "login-background-color": "لاگ ان صفحي جي پس منظر جو رنگ",
   "automatic-linked-url-schemes": "حسب ضرورت URL اسڪيمون جيڪي پاڻمرادو ڪلڪ لائق هجن. هر قطار ۾ هڪ URL اسڪيم",
   "automatic-linked-url-schemes-hint": "ڊفالٽ طور خالي آهي، تنهنڪري رڳو ويب ۽ ميل جون لنڪون ڪلڪ ڪري سگهجن ٿيون. فهرست ۾ ڏنل هر اسڪيم، مثال طور thunderlink يا onenote، ان لاءِ رجسٽر ٿيل ايپليڪيشن کولي ٿي. javascript، data، vbscript ۽ اهڙيون ٻيون اسڪيمون ڪڏهن به لنڪ نٿيون بڻجن.",
   "external-link-pattern": "ٻاهرين مسئلن جي ٽريڪر سان خودڪار لنڪ",

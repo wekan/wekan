@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "అనుకూల లాగిన్ లోగో లింక్ URL",
   "custom-help-link-url": "కస్టమ్ సహాయం లింక్ URL",
   "text-below-custom-login-logo": "కస్టమ్ లాగిన్ లోగో క్రింద టెక్స్ట్ చేయండి",
+  "login-background-color": "లాగిన్ పేజీ నేపథ్య రంగు",
   "automatic-linked-url-schemes": "స్వయంచాలకంగా క్లిక్ చేయగల అనుకూల URL స్కీమ్‌లు. ఒక్కో పంక్తికి ఒక URL పథకం",
   "automatic-linked-url-schemes-hint": "అప్రమేయంగా ఖాళీగా ఉంటుంది, కాబట్టి వెబ్ మరియు మెయిల్ లింక్‌లను మాత్రమే క్లిక్ చేయవచ్చు. జాబితాలోని ప్రతి స్కీమ్, ఉదాహరణకు thunderlink లేదా onenote, దానికి నమోదైన అప్లికేషన్‌ను తెరుస్తుంది. javascript, data, vbscript మరియు ఇలాంటి స్కీమ్‌లకు ఎప్పుడూ లింక్‌లు సృష్టించబడవు.",
   "external-link-pattern": "బాహ్య సమస్య ట్రాకర్‌కు ఆటోలింక్",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Kohandatud sisselogimise logo link URL",
   "custom-help-link-url": "Kohandatud abilingi URL",
   "text-below-custom-login-logo": "Tekst allpool kohandatud sisselogimise logo",
+  "login-background-color": "Sisselogimislehe taustavärv",
   "automatic-linked-url-schemes": "Kohandatud URL-skeemid, mis peaksid olema automaatselt klõpsatavad. Üks URL-skeem rea kohta",
   "automatic-linked-url-schemes-hint": "Vaikimisi tühi, seega on klõpsatavad ainult veebi- ja meililingid. Iga loetletud skeem, näiteks thunderlink või onenote, avab sellele registreeritud rakenduse. Skeemidest javascript, data, vbscript ja muudest sarnastest ei tehta kunagi linke.",
   "external-link-pattern": "Automaatne link välisele probleemijälgijale",

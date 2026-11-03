@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "I-URL Yesixhumanisi Selogo Yokungena Ngokwezifiso",
   "custom-help-link-url": "I-URL Yesixhumanisi Sosizo Ngokwezifiso",
   "text-below-custom-login-logo": "Umbhalo ngezansi Ilogo Yokungena Ngokwezifiso",
+  "login-background-color": "Umbala wangemuva wekhasi lokungena",
   "automatic-linked-url-schemes": "Izikimu ze-URL yangokwezifiso okufanele zichofozeke ngokuzenzakalelayo. Isikimu se-URL esisodwa ngomugqa ngamunye",
   "automatic-linked-url-schemes-hint": "Ngokuzenzakalelayo akunanto, ngakho izixhumanisi zewebhu ne-imeyili kuphela ezingachofozwa. Uhlobo ngalunye lwesixhumanisi olusohlwini, njenge-thunderlink noma i-onenote, luvula uhlelo lokusebenza olubhaliselwe lona. Izinhlobo javascript, data, vbscript nezinye ezifanayo aziguqulwa zibe izixhumanisi nanini.",
   "external-link-pattern": "Ukuxhumana ngokuzenzakalelayo nesishayimthetho sezinkinga zangaphandle",

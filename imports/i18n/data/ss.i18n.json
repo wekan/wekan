@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "I-URL Yesichumanisi Seluphawu Lwekungena Lolukhetsekile",
   "custom-help-link-url": "I-URL Yesichumanisi Selusito Lolukhetsekile",
   "text-below-custom-login-logo": "Umbhalo ngaphansi Kweluphawu Lwekungena Lolukhetsekile",
+  "login-background-color": "Umbala wangemuva wekhasi lekungena",
   "automatic-linked-url-schemes": "Tinhlelo te-URL letikhetsekile lokufanele tichafateke ngekutentakalela. Luhlelo lunye lwe-URL emgceni ngamunye",
   "automatic-linked-url-schemes-hint": "Ekucaleni kute lokubhaliwe, ngako tichumanisi tewebhu ne-imeyili kuphela letingachofozwa. Luhlobo ngalunye lwesichumanisi loluseluhlwini, njenge-thunderlink noma i-onenote, luvula luhlelo lolubhaliselwe lona. Tinhlobo javascript, data, vbscript naletinye letifana nato atentiwa tichumanisi nanini.",
   "external-link-pattern": "Kuhlanganiswa ngokutiphetsa kubukeli bwetinkinga tangale",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "কাস্টম প্রবেশ লোগো লিংকের URL",
   "custom-help-link-url": "কাস্টম সহায়তা লিংকের URL",
   "text-below-custom-login-logo": "কাস্টম প্রবেশ লোগোর নিচের লেখা",
+  "login-background-color": "লগইন পৃষ্ঠার পটভূমির রং",
   "automatic-linked-url-schemes": "স্বয়ংক্রিয়ভাবে ক্লিকযোগ্য কাস্টম URL স্কিম। প্রতি লাইনে একটি URL স্কিম",
   "automatic-linked-url-schemes-hint": "ডিফল্টভাবে ফাঁকা, তাই শুধু ওয়েব ও মেইল লিংক ক্লিক করা যায়। তালিকাভুক্ত প্রতিটি স্কিম, যেমন thunderlink বা onenote, তার জন্য নিবন্ধিত অ্যাপ খোলে। javascript, data, vbscript ও একই ধরনের স্কিম কখনো লিংক করা হয় না।",
   "external-link-pattern": "বহিরাগত ইস্যু ট্র্যাকারে স্বয়ংক্রিয় লিঙ্ক",

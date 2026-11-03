@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL de propra ensaluta emblema ligilo",
   "custom-help-link-url": "URL de propra helpa ligilo",
   "text-below-custom-login-logo": "Teksto sub la propra ensaluta emblemo",
+  "login-background-color": "Fonkoloro de la ensaluta paĝo",
   "automatic-linked-url-schemes": "Propraj URL-skemoj, kiuj estu aŭtomate alklakeblaj. Unu URL-skemo por linio",
   "automatic-linked-url-schemes-hint": "Defaŭlte malplena, do nur retaj kaj retpoŝtaj ligiloj estas alklakeblaj. Ĉiu listigita skemo, ekzemple thunderlink aŭ onenote, malfermas la aplikaĵon registritan por ĝi. javascript, data, vbscript kaj similaj skemoj neniam fariĝas ligiloj.",
   "external-link-pattern": "Aŭtomata ligo al ekstera problemo-spurilo",

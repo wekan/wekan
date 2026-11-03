@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "કસ્ટમ લૉગિન લોગો લિંક URL",
   "custom-help-link-url": "કસ્ટમ હેલ્પ લિંક URL",
   "text-below-custom-login-logo": "કસ્ટમ લૉગિન લોગોની નીચે ટેક્સ્ટ",
+  "login-background-color": "લૉગિન પૃષ્ઠનો પૃષ્ઠભૂમિ રંગ",
   "automatic-linked-url-schemes": "કસ્ટમ URL યોજનાઓ જે આપમેળે ક્લિક કરી શકાય તેવી હોવી જોઈએ. લાઇન દીઠ એક URL યોજના",
   "automatic-linked-url-schemes-hint": "મૂળભૂત રીતે ખાલી છે, તેથી ફક્ત વેબ અને મેલ લિંક પર ક્લિક કરી શકાય છે. યાદીમાંની દરેક સ્કીમ, જેમ કે thunderlink અથવા onenote, તેના માટે નોંધાયેલી ઍપ ખોલે છે. javascript, data, vbscript અને તેના જેવી સ્કીમની લિંક ક્યારેય બનાવાતી નથી.",
   "external-link-pattern": "બાહ્ય ઇશ્યુ ટ્રેકર સાથે સ્વયં-લિંક",

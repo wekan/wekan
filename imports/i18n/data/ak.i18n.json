@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Wo ankasa kɔ-mu agyiraehyɛde link URL",
   "custom-help-link-url": "W’ankasa mmoa link URL",
   "text-below-custom-login-logo": "Nsɛm a ɛwɔ wo ankasa kɔ-mu agyiraehyɛde no ase",
+  "login-background-color": "Login kratafa no akyi ahosu",
   "automatic-linked-url-schemes": "URL akwan a woahyɛ da ayɛ a ɛsɛ sɛ wotumi mia so ankasa. URL kwan biako wɔ nkyerɛw no ɔfa biara so",
   "automatic-linked-url-schemes-hint": "Mfitiaseɛ no, ɛyɛ hunu, enti wɛb ne ɛmɛl nkitahodie nko ara na wobɛtumi aklika so. Scheme biara a ɛwɔ din no mu, sɛ nhwɛsoɔ no thunderlink anaa onenote, bue app a wɔakyerɛw ne din ama no no. Wɔnyɛ javascript, data, vbscript ne scheme a ɛte saa no nkitahodie da.",
   "external-link-pattern": "Ntoatoaso ahomaso a ɛkɔ nsɛnnennennee foforo so",

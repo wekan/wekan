@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL bu lëkkalekaayu logo bu dugg bu ñu def ci soxla",
   "custom-help-link-url": "URL bu lëkkalekaayu ndimbal bu ñu def ci soxla",
   "text-below-custom-login-logo": "Mbind ci suufu logo bu dugg bu ñu def ci soxla",
+  "login-background-color": "Melokaanu gannaaw xëtu duggu",
   "automatic-linked-url-schemes": "Tëralinu URL yi ñu def ci soxla te ñu war a man a bës ci boppam. Benn tëralinu URL ci rëdd bu nekk",
   "automatic-linked-url-schemes-hint": "Ci njëlbéen, dafa neen, moo tax lëkkalekaayi web ak e-mail rekk lañu mën a bës. Xeetu màkkaane bu nekk ci lim bi, ci misaal thunderlink walla onenote, day ubbi jëfekaay bi ñu bindal ko. javascript, data, vbscript ak xeet yi ni mel, duñu leen def lëkkalekaay mukk.",
   "external-link-pattern": "Jaay pa ci njëfëndikat mbir yu biti",

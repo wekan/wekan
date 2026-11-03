@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Tinkinto prisijungimo logotipo nuorodos URL",
   "custom-help-link-url": "Tinkintas pagalbos nuorodos URL",
   "text-below-custom-login-logo": "Tekstas po tinkinto prisijungimo logotipu",
+  "login-background-color": "Prisijungimo puslapio fono spalva",
   "automatic-linked-url-schemes": "Tinkintos URL schemos, kurias turėtų būti galima spustelėti automatiškai. Viena URL schema eilutėje",
   "automatic-linked-url-schemes-hint": "Pagal numatytuosius nustatymus tuščia, todėl spustelėti galima tik žiniatinklio ir pašto nuorodas. Kiekviena įrašyta schema, pavyzdžiui, thunderlink arba onenote, atveria jai registruotą programą. javascript, data, vbscript ir panašios schemos niekada nepaverčiamos nuorodomis.",
   "external-link-pattern": "Automatinis susiejimas su išorine problemų sekimo sistema",

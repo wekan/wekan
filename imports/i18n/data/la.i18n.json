@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ligaminis insignis proprii in pagina ingressus",
   "custom-help-link-url": "URL ligaminis auxilii proprii",
   "text-below-custom-login-logo": "Textus infra insigne proprium paginae ingressus",
+  "login-background-color": "Color fundi paginae ingressus",
   "automatic-linked-url-schemes": "Schemata URL propria quae automatice premi possint. Unum schema URL in quaque linea",
   "automatic-linked-url-schemes-hint": "Initio vacuum est, itaque solum nexus interretiales et epistularum premi possunt. Quodlibet schema enumeratum, exempli gratia thunderlink vel onenote, applicationem ei assignatam aperit. Schemata javascript, data, vbscript et similia numquam in nexus convertuntur.",
   "external-link-pattern": "Nexus automaticus ad tracker externum quaestionum",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Ceangal Suaicheantais Logaidh A-steach Gnàthaichte",
   "custom-help-link-url": "URL Ceangal Cobhair Gnàthaichte",
   "text-below-custom-login-logo": "Teacsa fo Shuaicheantas Logaidh A-steach Gnàthaichte",
+  "login-background-color": "Dath cùlaibh an duilleag in-logaidh",
   "automatic-linked-url-schemes": "Sgeamaichean URL Gnàthaichte a bu chòir a bhith inchliogte gu fèin-obrachail. Aon Sgeama URL gach loidhne",
   "automatic-linked-url-schemes-hint": "Bàn a ghnàth, mar sin chan urrainnear briogadh ach air ceanglaichean-lìn is puist. Fosglaidh gach sgeama air an liosta, mar eisimpleir thunderlink no onenote, an aplacaid a tha clàraichte air a shon. Cha dèanar ceanglaichean de javascript, data, vbscript no sgeamaichean coltach riutha gu bràth.",
   "external-link-pattern": "Ceangal fèin-obrachail ri lorgaire dhuilgheadasan bhon taobh a-muigh",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "सानुकूल प्रवेश लोगो दुवो URL",
   "custom-help-link-url": "सानुकूल मदत दुवो URL",
   "text-below-custom-login-logo": "सानुकूल प्रवेश लोगो सकयलो मजकूर",
+  "login-background-color": "लॉगिन पानाचो फाटीभूंय रंग",
   "automatic-linked-url-schemes": "आपोआप क्लिक करपायोग्य आसपाच्यो सानुकूल URL पद्दती. दरेक वळेर एक URL पद्दत",
   "automatic-linked-url-schemes-hint": "मूळ मांडावळींत रिकामें आसता, देखून फकत वेब आनी ईमेल दुव्यांचेर क्लिक करूं येता. वळेरींतली दरेक दुव्याची योजना, देखीक thunderlink वा onenote, ताचे खातीर नोंद केल्लें ॲप्लिकेशन उगडटा. javascript, data, vbscript आनी तशेंच हेर योजनांक केन्नाच क्लिक करपाचे दुवे करिनात.",
   "external-link-pattern": "भायल्या इश्यू ट्रॅकरा कडेन स्वयं-लिंक",

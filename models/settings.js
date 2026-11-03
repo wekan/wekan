@@ -408,6 +408,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    loginBackgroundColor: {
+      type: String,
+      optional: true,
+    },
     automaticLinkedUrlSchemes: {
       type: String,
       optional: true,

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Saincheaptha Nasc Lógó Logála Isteach",
   "custom-help-link-url": "URL Saincheaptha Nasc Cabhrach",
   "text-below-custom-login-logo": "Téacs faoi Lógó Saincheaptha Logála Isteach",
+  "login-background-color": "Dath cúlra an leathanaigh logála isteach",
   "automatic-linked-url-schemes": "Scéimeanna URL saincheaptha ar cheart a bheith inchliceáilte go huathoibríoch. Scéim URL amháin in aghaidh na líne",
   "automatic-linked-url-schemes-hint": "Folamh de réir réamhshocraithe, mar sin ní féidir cliceáil ach ar naisc ghréasáin agus ríomhphoist. Osclaíonn gach scéim liostaithe, mar shampla thunderlink nó onenote, an feidhmchlár atá cláraithe di. Ní dhéantar naisc de javascript, data, vbscript ná scéimeanna cosúla riamh.",
   "external-link-pattern": "Nasc uathoibríoch le rianaitheoir eachtrach saincheisteanna",

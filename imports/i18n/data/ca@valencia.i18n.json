@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL de l'enllaç del logotip d'inici de sessió personalitzat",
   "custom-help-link-url": "URL d'enllaç d'ajuda personalitzat",
   "text-below-custom-login-logo": "Text a sota del logotip d'inici de sessió personalitzat",
+  "login-background-color": "Color de fons de la pàgina d'inici de sessió",
   "automatic-linked-url-schemes": "Esquemes d'URL personalitzats que haurien de poder fer clic automàticament. Un esquema d'URL per línia",
   "automatic-linked-url-schemes-hint": "Buit per defecte, de manera que només es poden clicar els enllaços web i de correu. Cada esquema indicat, per exemple thunderlink o onenote, obre l'aplicació registrada per gestionar-lo. javascript, data, vbscript i esquemes semblants no es converteixen mai en enllaços.",
   "external-link-pattern": "Enllaç automàtic a un rastrejador d'incidències extern",

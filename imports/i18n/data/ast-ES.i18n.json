@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL del enllaz del logotipu personalizáu d’aniciu de sesión",
   "custom-help-link-url": "URL del enllaz d’ayuda personalizáu",
   "text-below-custom-login-logo": "Testu debaxo del logotipu personalizáu d’aniciu de sesión",
+  "login-background-color": "Color de fondu de la páxina d'aniciu de sesión",
   "automatic-linked-url-schemes": "Esquemes d’URL personalizaos que tienen de poder calcase automáticamente. Un esquema d’URL per llinia.",
   "automatic-linked-url-schemes-hint": "Balero por defeutu, polo que namás se pue calcar nos enllaces web y de corréu. Cada esquema llistáu, por exemplu thunderlink o onenote, abre l'aplicación rexistrada pa él. javascript, data, vbscript y esquemes asemeyaos nunca se convierten n'enllaces.",
   "external-link-pattern": "Enllaz automáticu a un rastreador d'asuntos esternu",

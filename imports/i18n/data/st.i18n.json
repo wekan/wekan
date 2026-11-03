@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL e ikgethileng ya lehokelo la logo sa ho kena",
   "custom-help-link-url": "URL e ikgethileng ya lehokelo la thuso",
   "text-below-custom-login-logo": "Mongolo o ka tlase ho logo e ikgethileng ya ho kena",
+  "login-background-color": "Mmala wa morao wa leqephe la ho kena",
   "automatic-linked-url-schemes": "Mefuta e ikgethileng ya URL e lokelang ho etswa mahokelo a ka tobetsoang ka boiketsetso. Mofuta o le mong wa URL moleng ka mong",
   "automatic-linked-url-schemes-hint": "Ka tlhophiso ea pele ha ho letho, kahoo ke lihokelo tsa webo le imeile feela tse ka tobetsoang. Mofuta ka mong oa sehokelo o lethathamong, joalo ka thunderlink kapa onenote, o bula lenaneo le ngolisitsoeng bakeng sa oona. Mefuta ea javascript, data, vbscript le e tšoanang le eona ha e etsoe lihokelo le ka mohla.",
   "external-link-pattern": "Mahokelo a iketsang ho tsamaiso ya kantle ya ho sala ditaba morao",

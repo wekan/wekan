@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Isernermi logop linkiata URL-ia nammineq toqqagaq",
   "custom-help-link-url": "Ikiuinermut linkip URL-ia nammineq toqqagaq",
   "text-below-custom-login-logo": "Isernermi logop nammineq toqqakkap ataani allagaq",
+  "login-background-color": "Ikkussuinermi qupperneq tunuliaqutaa kulaava",
   "automatic-linked-url-schemes": "URL Schemes nammineq toqqakkat nammineerlutik toorneqarsinnaasussat. Titarneq ataaseq URL Scheme-mut ataatsimut",
   "automatic-linked-url-schemes-hint": "Aallaqqaataani imaqanngilaq, taamaattumik webimut e-mailimullu linkit kisimik toorneqarsinnaapput. Skema allattorsimaffimmiittoq sunaluunnit, assersuutigalugu thunderlink imaluunniit onenote, programimik skemamut nalunaarsorneqarsimasumik ammaassaaq. javascript, data, vbscript aamma skemat taakkununnga assingusut linkinngortinneqanngisaannarput.",
   "external-link-pattern": "Naatsorsuutit avataaneersut aqqutigalugit killiffimmut aallaqqaataasumik attaveqarneq",

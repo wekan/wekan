@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ⵏ ⵓⵙⵖⵏ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⵏ ⵓⴽⵛⵛⵓⵎ",
   "custom-help-link-url": "URL ⵏ ⵓⵙⵖⵏ ⵉⵥⵍⵉⵏ ⵏ ⵜⵡⵉⵙⵉ",
   "text-below-custom-login-logo": "ⴰⴹⵕⵉⵚ ⴷⴷⴰⵡ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⵏ ⵓⴽⵛⵛⵓⵎ",
+  "login-background-color": "ⴰⵍⵓⵏ ⵏ ⵓⵙⵏⵓⴱⴳ ⵏ ⵜⴰⵙⵏⴰ ⵏ ⵓⴽⵛⵎ",
   "automatic-linked-url-schemes": "ⵉⵙⵖⴰⵏ URL ⵉⵥⵍⵉⵏ ⵏⵏⴰ ⵉⵇⵇⴰⵏ ⴰⴷ ⵜⵜⵓⵙⵙⵉⵜⵏ ⵙ ⵓⵡⵓⵔⵎⴰⵏ. ⵢⴰⵏ ⵓⵙⵖⵏ URL ⴳ ⵢⴰⵍ ⵉⵣⵉⵔⵉⴳ",
   "automatic-linked-url-schemes-hint": "ⵉⵍⵍⴰ ⴷ ⵉⵍⵎ ⴳ ⵜⴰⵣⵡⴰⵔⴰ, ⵉⵀⵉ ⵉⵙⵖⴰⵏ ⵏ ⵡⵉⴱ ⴷ ⵉⵎⴰⵢⵍ ⴽⴰⵏ ⴰⵢ ⵉⵣⵎⵔⵏ ⴰⴷ ⵜⵜⵡⴰⵙⵉⵜⵏ. ⴽⵓ ⴰⵏⴰⵡ ⵏ URL ⵉⵜⵜⵡⴰⵢⴰⵔⴰⵏ ⴳ ⵜⴰⴱⴷⴰⵔⵜ, ⵣⵓⵏⴷ thunderlink ⵏⵖ onenote, ⴰⵔ ⵉⵔⵥⵥⵎ ⴰⵙⵏⴰⵙ ⵉⵜⵜⵡⴰⵣⵎⵎⴻⵎⵏ ⴷⴰⵔⵙ. javascript, data, vbscript ⴷ ⵡⴰⵏⴰⵡⵏ ⵉⵜⵏ ⵉⵔⵡⴰⵙⵏ ⵓⵔ ⴷⴰ ⵜⵜⵓⵖⴰⵍⵏ ⴷ ⵉⵙⵖⴰⵏ ⵄⵎⵎⴰⵔ.",
   "external-link-pattern": "ⴰⵣⴷⴰⵢ ⴰⵡⵓⵔⵎⴰⵏ ⵖⵔ ⵓⵎⴹⴼⴰⵕ ⴰⴱⵕⵕⴰⵏⵉ ⵏ ⵉⵎⵓⴽⵔⵉⵙⵏ",

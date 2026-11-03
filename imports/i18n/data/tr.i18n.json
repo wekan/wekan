@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Özel Oturum Açma Logosu Bağlantı URL'si",
   "custom-help-link-url": "Özel Yardım Bağlantısı URL'si",
   "text-below-custom-login-logo": "Özel Oturum Açma Logosunun altındaki metin",
+  "login-background-color": "Giriş sayfası arka plan rengi",
   "automatic-linked-url-schemes": "Otomatik olarak tıklanabilir olması gereken Özel URL Şemaları. Satır başına bir URL Şeması",
   "automatic-linked-url-schemes-hint": "Varsayılan olarak boştur; bu nedenle yalnızca web ve e-posta bağlantıları tıklanabilir. Listelenen her şema, örneğin thunderlink veya onenote, kendisi için kayıtlı uygulamayı açar. javascript, data, vbscript ve benzeri şemalar hiçbir zaman bağlantıya dönüştürülmez.",
   "external-link-pattern": "Harici sorun izleyiciye otomatik bağlantı",

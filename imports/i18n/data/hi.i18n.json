@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "लॉगिन लोगो के लिंक का URL",
   "custom-help-link-url": "सहायता लिंक का URL",
   "text-below-custom-login-logo": "लॉगिन लोगो के नीचे का पाठ",
+  "login-background-color": "लॉगिन पृष्ठ का पृष्ठभूमि रंग",
   "automatic-linked-url-schemes": "कस्टम URL स्कीम जो स्वतः क्लिक करने योग्य होनी चाहिए। प्रति पंक्ति एक स्कीम",
   "automatic-linked-url-schemes-hint": "डिफ़ॉल्ट रूप से खाली है, इसलिए केवल वेब और मेल लिंक क्लिक किए जा सकते हैं। हर सूचीबद्ध स्कीम, जैसे thunderlink या onenote, उसके लिए पंजीकृत ऐप खोलती है। javascript, data, vbscript और ऐसी अन्य स्कीम कभी लिंक नहीं बनाई जातीं।",
   "external-link-pattern": "बाहरी इश्यू ट्रैकर से स्वतः-लिंकिंग",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "ಕಸ್ಟಮ್ ಲಾಗಿನ್ ಲೋಗೋ ಲಿಂಕ್ URL",
   "custom-help-link-url": "ಕಸ್ಟಮ್ ಸಹಾಯ ಲಿಂಕ್ URL",
   "text-below-custom-login-logo": "ಕಸ್ಟಮ್ ಲಾಗಿನ್ ಲೋಗೋ ಕೆಳಗಿನ ಪಠ್ಯ",
+  "login-background-color": "ಲಾಗಿನ್ ಪುಟದ ಹಿನ್ನೆಲೆ ಬಣ್ಣ",
   "automatic-linked-url-schemes": "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಕ್ಲಿಕ್ ಮಾಡಬಹುದಾದ ಕಸ್ಟಮ್ URL ಸ್ಕೀಮ್‌ಗಳು. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL ಸ್ಕೀಮ್",
   "automatic-linked-url-schemes-hint": "ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ಖಾಲಿಯಾಗಿದೆ, ಆದ್ದರಿಂದ ವೆಬ್ ಮತ್ತು ಮೇಲ್ ಕೊಂಡಿಗಳನ್ನು ಮಾತ್ರ ಕ್ಲಿಕ್ ಮಾಡಬಹುದು. ಪಟ್ಟಿಯಲ್ಲಿನ ಪ್ರತಿಯೊಂದು ಸ್ಕೀಮ್, ಉದಾಹರಣೆಗೆ thunderlink ಅಥವಾ onenote, ಅದಕ್ಕೆ ನೋಂದಾಯಿಸಿದ ಅಪ್ಲಿಕೇಶನ್ ತೆರೆಯುತ್ತದೆ. javascript, data, vbscript ಮತ್ತು ಅಂತಹ ಸ್ಕೀಮ್‌ಗಳಿಗೆ ಎಂದಿಗೂ ಕೊಂಡಿ ಸೃಷ್ಟಿಸುವುದಿಲ್ಲ.",
   "external-link-pattern": "ಬಾಹ್ಯ ಸಮಸ್ಯೆ ಟ್ರ್ಯಾಕರ್‌ಗೆ ಸ್ವಯಂ-ಲಿಂಕ್",

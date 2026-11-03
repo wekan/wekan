@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Custom Okuyingira Logo Kakwate URL",
   "custom-help-link-url": "Custom Help Kakwate URL",
   "text-below-custom-login-logo": "Bigambo below Custom Okuyingira Logo",
+  "login-background-color": "Langi y'omugongo gw'olupapula lw'okuyingira",
   "automatic-linked-url-schemes": "Custom URL Schemes ki should kyokka ba clickable. One URL Scheme per line",
   "automatic-linked-url-schemes-hint": "Mu nteekateeka esookerwako kiba kyereere, kale ennyunzi za webu ne yimeyiro zokka ze zisobola okunyigibwako. Buli kika kya nnyunzi ekiri ku lukalala, gamba nga thunderlink oba onenote, kiggulawo pulogulaamu eyawandiisibwa okukikozesa. javascript, data, vbscript n’ebika ebifaanana nabyo tebifuulibwa nnyunzi n’akatono.",
   "external-link-pattern": "Enkolo eyeekola yokka ku ekyuma eky'ebweru ekigoberera obuzibu",

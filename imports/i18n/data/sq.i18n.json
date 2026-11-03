@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL-ja e personalizuar e lidhjes së logos së hyrjes",
   "custom-help-link-url": "URL-ja e personalizuar e lidhjes së ndihmës",
   "text-below-custom-login-logo": "Teksti poshtë logos së personalizuar të hyrjes",
+  "login-background-color": "Ngjyra e sfondit të faqes së hyrjes",
   "automatic-linked-url-schemes": "Skemat e personalizuara URL që duhet të bëhen automatikisht të klikueshme. Një skemë URL për rresht",
   "automatic-linked-url-schemes-hint": "Si parazgjedhje është bosh, kështu që vetëm lidhjet e uebit dhe të postës elektronike mund të klikohen. Çdo skemë e renditur, për shembull thunderlink ose onenote, hap aplikacionin e regjistruar për të. javascript, data, vbscript dhe skemat e ngjashme nuk kthehen kurrë në lidhje.",
   "external-link-pattern": "Lidhje automatike me një gjurmues jashtëm çështjesh",

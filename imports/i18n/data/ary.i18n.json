@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "آدرس لینک لوگوی سفارشی در لاگین",
   "custom-help-link-url": "رابط صفحة المساعدة المخصص URL",
   "text-below-custom-login-logo": "متن پایین لوگوی سفارشی در فرم لاگین",
+  "login-background-color": "لون خلفية صفحة تسجيل الدخول",
   "automatic-linked-url-schemes": "مخططات URL المخصصة التي يجب أن تكون قابلة للنقر تلقائياً. مخطط URL واحد لكل سطر",
   "automatic-linked-url-schemes-hint": "كتكون خاوية فالإعدادات الأصلية، وداكشي علاش غير روابط الويب والإيميل اللي كتقدر تكليكي عليها. كل نوع رابط فاللائحة، بحال thunderlink ولا onenote، كيفتح التطبيق المسجل ديالو. javascript وdata وvbscript والأنواع المشابهة ما كيتحوّلوش لروابط نهائياً.",
   "external-link-pattern": "الربط التلقائي بمتتبع مشاكل خارجي",

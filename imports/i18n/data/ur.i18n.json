@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "لاگ ان لوگو کا حسب ضرورت لنک URL",
   "custom-help-link-url": "مدد کا حسب ضرورت لنک URL",
   "text-below-custom-login-logo": "حسب ضرورت لاگ ان لوگو کے نیچے متن",
+  "login-background-color": "لاگ ان صفحے کا پس منظر کا رنگ",
   "automatic-linked-url-schemes": "حسب ضرورت URL اسکیمیں جن پر خودکار طور پر کلک کیا جا سکے۔ ہر سطر میں ایک URL اسکیم",
   "automatic-linked-url-schemes-hint": "پہلے سے خالی ہے، اس لیے صرف ویب اور میل روابط پر کلک کیا جا سکتا ہے۔ ہر درج شدہ اسکیم، مثلاً thunderlink یا onenote، اس کے لیے رجسٹر شدہ ایپ کھولتی ہے۔ javascript، data، vbscript اور ایسی اسکیموں کے روابط کبھی نہیں بنائے جاتے۔",
   "external-link-pattern": "بیرونی مسئلہ ٹریکر سے خودکار ربط",

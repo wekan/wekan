@@ -887,6 +887,7 @@ const REST_SETTINGS_FIELDS = [
   'customLoginLogoLinkUrl',
   'customHelpLinkUrl',
   'textBelowCustomLoginLogo',
+  'loginBackgroundColor',
   'automaticLinkedUrlSchemes',
   'customTopLeftCornerLogoImageUrl',
   'customTopLeftCornerLogoLinkUrl',

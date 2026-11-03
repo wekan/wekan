@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Киирии туспа логотун сигэ URL-а",
   "custom-help-link-url": "Туспа көмө сигэтин URL-а",
   "text-below-custom-login-logo": "Киирии туспа логотун аллараа тиэкис",
+  "login-background-color": "Киирии сирэйин фоно күлүүрэ",
   "automatic-linked-url-schemes": "Бэйэлэрэ баттанар туспа URL сиэмэлэрэ. Хас устуруокаҕа биир URL сиэмэтэ",
   "automatic-linked-url-schemes-hint": "Саҕаланыытыгар кураанах, онон веб уонна электроннай почта сигэлэрин эрэ баттыырга сөп. Испииһэккэ баар схемата аайы, холобур thunderlink эбэтэр onenote, бэйэтигэр бэлиэтэммит программаны аһар. javascript, data, vbscript уонна кинилэргэ майгынныыр схемалар хаһан да сигэ буолбаттар.",
   "external-link-pattern": "Тас проблема батыытыгар автомайын сыһыаран",

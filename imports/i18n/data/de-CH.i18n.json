@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Benutzerdefiniertes Login Logo Link URL",
   "custom-help-link-url": "Benutzerdefinierter URL-Link zur Hilfe",
   "text-below-custom-login-logo": "Text unterhalb benutzerdefiniertem Login Logo",
+  "login-background-color": "Hintergrundfarbe der Anmeldeseite",
   "automatic-linked-url-schemes": "Spezielle URL-Schemas, die durch Klick automatisch öffenbar sein sollen. Ein URL-Schema pro Zeile",
   "automatic-linked-url-schemes-hint": "Standardmässig leer, sodass nur Web- und E-Mail-Links anklickbar sind. Jedes aufgeführte Schema, zum Beispiel thunderlink oder onenote, öffnet die dafür registrierte Anwendung. javascript, data, vbscript und ähnliche Schemata werden niemals in Links umgewandelt.",
   "external-link-pattern": "Externer Issue-Tracker Autolink",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "შესვლის გვერდის ლოგოს ბმულის URL",
   "custom-help-link-url": "დახმარების ბმულის URL",
   "text-below-custom-login-logo": "ტექსტი შესვლის ლოგოს ქვემოთ",
+  "login-background-color": "შესვლის გვერდის ფონის ფერი",
   "automatic-linked-url-schemes": "URL სქემები, რომლებიც ავტომატურად უნდა გახდეს დაწკაპუნებადი. თითო სქემა ცალკე ხაზზე",
   "automatic-linked-url-schemes-hint": "ნაგულისხმევად ცარიელია, ამიტომ მხოლოდ ვებ- და ელფოსტის ბმულებზე შეიძლება დაწკაპუნება. ჩამოთვლილი თითოეული სქემა, მაგალითად thunderlink ან onenote, ხსნის მისთვის რეგისტრირებულ აპს. javascript, data, vbscript და მსგავსი სქემები არასოდეს იქცევა ბმულებად.",
   "external-link-pattern": "ავტომატური ბმული გარე პრობლემების თრექერთან",

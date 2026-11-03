@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ya kgokaganyo ya logo ya tlwaelo sa go tsena",
   "custom-help-link-url": "URL ya kgokaganyo ya thušo ya tlwaelo",
   "text-below-custom-login-logo": "Sengwalwa ka fase ga logo ya tlwaelo ya go tsena",
+  "login-background-color": "Mmala wa morago wa letlakala la go tsena",
   "automatic-linked-url-schemes": "Dikema tša URL tša tlwaelo tšeo di swanetšego go kgotlegega ka go itiriša. Sekema se tee sa URL mothalading",
   "automatic-linked-url-schemes-hint": "Ka peakanyo ya mathomo ga go na selo, ka gona ke dikgokagano tša wepe le imeile fela tšeo di ka kgotlwago. Mohuta o mongwe le o mongwe wa kgokagano wo o lego lenaneong, bjalo ka thunderlink goba onenote, o bula lenaneo le le ngwadišitšwego bakeng sa wona. Mehuta ya javascript, data, vbscript le ye e swanago le yona ga e dirwe dikgokagano le gatee.",
   "external-link-pattern": "Kgokagano ya go itirela go ba latedi ba mathata a ka ntle",

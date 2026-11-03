@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL na mahaɗin tambarin shiga na musamman",
   "custom-help-link-url": "URL na mahaɗin taimako na musamman",
   "text-below-custom-login-logo": "Rubutu ƙarƙashin tambarin shiga na musamman",
+  "login-background-color": "Launin bangon shafin shiga",
   "automatic-linked-url-schemes": "Tsarukan URL na musamman da ya kamata a danna ta atomatik. Tsarin URL ɗaya a kowane layi",
   "automatic-linked-url-schemes-hint": "Babu komai a nan bisa tsohon saiti, don haka hanyoyin yanar gizo da imel kawai za a iya dannawa. Kowane tsarin hanyar haɗi da aka jera, misali thunderlink ko onenote, yana buɗe manhajar da aka yi masa rajista. Ba a taɓa mayar da javascript, data, vbscript da makamantansu zuwa hanyoyin haɗi ba.",
   "external-link-pattern": "Hanyar haɗi ta atomatik zuwa na'urar bin diddigin matsala ta waje",

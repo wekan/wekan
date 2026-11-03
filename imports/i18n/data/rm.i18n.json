@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL da la colliaziun dal logo d'annunzia persunalisà",
   "custom-help-link-url": "URL da la colliaziun d’agid persunalisada",
   "text-below-custom-login-logo": "Text sut il logo d’annunzia persunalisà",
+  "login-background-color": "Colur dal fund da la pagina d'annunzia",
   "automatic-linked-url-schemes": "Schemas URL persunalisads che duain esser cliccabels automaticamain. In schema URL per lingia",
   "automatic-linked-url-schemes-hint": "Vid sco standard, uschia che mo colliaziuns da web e dad e-mail pon vegnir cliccadas. Mintga schema inditgà, per exempel thunderlink u onenote, avra l’applicaziun registrada per el. javascript, data, vbscript e schemas sumegliants na vegnan mai transfurmads en colliaziuns.",
   "external-link-pattern": "Colliaziun automatica cun in tracker extern da problems",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL ya ḽinki ya ḽogo ya u dzhena yo dzudzanywaho",
   "custom-help-link-url": "URL ya ḽinki ya thuso yo dzudzanywaho",
   "text-below-custom-login-logo": "Maṅwalwa nga fhasi ha ḽogo ya u dzhena yo dzudzanywaho",
+  "login-background-color": "Mmala wa murahu wa phetheni ya u dzhena",
   "automatic-linked-url-schemes": "Zwikimu zwa URL zwo dzudzanywaho zwi fanela u kiḽikea nga zwoṱhe. Tshikimu tshithihi tsha URL kha mutaladzi muṅwe na muṅwe",
   "automatic-linked-url-schemes-hint": "Kha nzudzanyo ya u thoma a hu na tshithu, ngauralo ndi vhuṱumanyi ha webu na imeili fhedzi vhune ha nga puṱedzwa. Lushaka luṅwe na luṅwe lwa vhuṱumanyi lu re kha mutevhe, sa thunderlink kana onenote, lu vula mbekanyamushumo yo ṅwaliselwaho u lu shumisa. javascript, data, vbscript na dziṅwe tshaka dzi fanaho nazwo a zwi shandulwi zwa vha vhuṱumanyi na luthihi.",
   "external-link-pattern": "Vhuthihi ha u ḓidzudzanya na muṱoli wa thaidzo dza nnḓa",

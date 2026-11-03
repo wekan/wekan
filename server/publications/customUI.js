@@ -9,6 +9,7 @@ Meteor.publish('customUI', function() {
       customLoginLogoLinkUrl: 1,
       customHelpLinkUrl: 1,
       textBelowCustomLoginLogo: 1,
+      loginBackgroundColor: 1,
       customTopLeftCornerLogoImageUrl: 1,
       customTopLeftCornerLogoLinkUrl: 1,
       customTopLeftCornerLogoHeight: 1,

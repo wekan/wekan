@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Pasadya Mag-login Logo Ugnay URL",
   "custom-help-link-url": "Pasadya Tulong Ugnay URL",
   "text-below-custom-login-logo": "Teksto below Pasadya Mag-login Logo",
+  "login-background-color": "Kulay ng background ng pahina ng pag-login",
   "automatic-linked-url-schemes": "Pasadya URL Schemes which dapat awtomatiko maging clickable. One URL Scheme per line",
   "automatic-linked-url-schemes-hint": "Walang laman bilang default, kaya mga link sa web at email lamang ang maaaring i-click. Binubuksan ng bawat nakalistang scheme, halimbawa thunderlink o onenote, ang application na nakarehistro para rito. Hindi kailanman ginagawang link ang javascript, data, vbscript at mga katulad na scheme.",
   "external-link-pattern": "Awtomatikong pag-link sa panlabas na issue tracker",

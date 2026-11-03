@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL liamm al logo kennaskañ personelaet",
   "custom-help-link-url": "URL al liamm skoazell personelaet",
   "text-below-custom-login-logo": "Testenn dindan al logo kennaskañ personelaet",
+  "login-background-color": "Liv drekleur ar bajenn kevreañ",
   "automatic-linked-url-schemes": "Steuñvioù URL personelaet a rank bezañ klikadus ent emgefre. Ur steuñv URL dre linenn",
   "automatic-linked-url-schemes-hint": "Goullo dre ziouer, setu al liammoù web ha postel hepken zo klikadus. Pep skouerenn listennet, da skouer thunderlink pe onenote, a zigor an arload enrollet eviti. Ne vez ket krouet liammoù evit javascript, data, vbscript pe skouerennoù heñvel morse.",
   "external-link-pattern": "Liamm emgefre ouzh un heuliad kudennoù diavaez",

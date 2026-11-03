@@ -1147,6 +1147,77 @@ a:not(.disabled).is-active i.fa {
   align-items: center;
   justify-content: center;
 }
+/* The administrator's login page background colour (layouts.js sets the two
+   custom properties and the class while the sign-in layout is shown). The
+   foreground is white on a dark colour and black on a light one. */
+body.has-login-background {
+  background: var(--login-background);
+}
+body.has-login-background .textBelowCustomLoginLogo,
+body.has-login-background .textBelowCustomLoginLogo a {
+  color: var(--login-foreground);
+}
+body.has-login-background hr {
+  border-color: var(--login-foreground);
+  opacity: 0.4;
+}
+/* The text under the login logo: one column, real headings, space between
+   paragraphs. It has no card or background of its own, so the page colour shows
+   through. */
+.textBelowCustomLoginLogo > * {
+  width: 100%;
+  max-width: 860px;
+  box-sizing: border-box;
+  padding: 0 16px;
+}
+.textBelowCustomLoginLogo h1,
+.textBelowCustomLoginLogo h2,
+.textBelowCustomLoginLogo h3,
+.support-page-content h1,
+.support-page-content h2,
+.support-page-content h3 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 1em 0 0.5em;
+}
+.textBelowCustomLoginLogo h1,
+.support-page-content h1 { font-size: 1.8em; }
+.textBelowCustomLoginLogo h2,
+.support-page-content h2 { font-size: 1.45em; }
+.textBelowCustomLoginLogo h3,
+.support-page-content h3 { font-size: 1.2em; }
+.textBelowCustomLoginLogo p,
+.textBelowCustomLoginLogo ul,
+.textBelowCustomLoginLogo ol,
+.support-page-content p,
+.support-page-content ul,
+.support-page-content ol {
+  margin: 0 0 1em;
+}
+/* The support page: a centred column instead of text flush against the window's
+   left edge. */
+.support-page {
+  padding: 24px 16px;
+}
+.support-page-content {
+  box-sizing: border-box;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 28px;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .support-page {
+    padding: 8px;
+  }
+  .support-page-content {
+    padding: 16px;
+  }
+}
 .auth-layout .auth-dialog {
   margin: 0 !important;
 }

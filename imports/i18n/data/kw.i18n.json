@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL kevren logo omgelmi a-vusur",
   "custom-help-link-url": "URL kevren gweres a-vusur",
   "text-below-custom-login-logo": "Tekst a-woles dhe logo omgelmi a-vusur",
+  "login-background-color": "Liw fondh an folen kevrenna",
   "automatic-linked-url-schemes": "Shemow URL a-vusur res bos klyckadow yn awtomatek. Unn shem URL dre linenn",
   "automatic-linked-url-schemes-hint": "Gwag dre dhefowt, rag henna kevrennow gwi ha post hepken a yll bos klyckys. Pub towlen y'n rol, rag ensampel thunderlink po onenote, a ygor an app kovskrifys ragdhi. javascript, data, vbscript ha towlenyow haval ny vydh byth kevrennys.",
   "external-link-pattern": "Kesskyans awtomatek dhe hylor dhefredans a-ves",

@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 const { OAUTH_PROVIDERS, providerByKey } = require('/models/lib/oauthProviders');
 const { loginOriginMismatch, offersProviderLogin } = require('/models/lib/loginOriginMismatch');
+const { loginBackgroundStyle } = require('/models/lib/loginBackground');
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Accounts } from 'meteor/accounts-base';
 import Users from '/models/users';
@@ -671,6 +672,34 @@ Template.userFormsLayout.onRendered(function () {
 Template.userFormsLayout.onDestroyed(function () {
   this.removeAuthenticationSubmit?.();
 });
+
+// The administrator's login page background colour (Admin Panel -> Lay-out).
+// It is put on <body> only while the sign-in layout is shown, as two custom
+// properties and a class, and taken off again when it closes so the pages after
+// sign-in keep their own background. loginBackgroundStyle accepts a hex colour
+// only, so the value can never carry CSS of its own.
+const LOGIN_BACKGROUND_PROPERTIES = ['--login-background', '--login-foreground'];
+
+function clearLoginBackground() {
+  document.body.classList.remove('has-login-background');
+  LOGIN_BACKGROUND_PROPERTIES.forEach(name => document.body.style.removeProperty(name));
+}
+
+Template.userFormsLayout.onRendered(function () {
+  this.autorun(() => {
+    const setting = this.currentSetting.get();
+    const style = loginBackgroundStyle(setting && setting.loginBackgroundColor);
+    if (!style) {
+      clearLoginBackground();
+      return;
+    }
+    document.body.style.setProperty('--login-background', style.background);
+    document.body.style.setProperty('--login-foreground', style.foreground);
+    document.body.classList.add('has-login-background');
+  });
+});
+
+Template.userFormsLayout.onDestroyed(clearLoginBackground);
 
 // The form's title ("Sign In", "Create an Account") is an h3 of the useraccounts
 // package and the first heading of the page: a level-one heading, whatever the

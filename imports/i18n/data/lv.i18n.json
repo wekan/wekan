@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Logo saite pierakstīšanās ekrānā - URL",
   "custom-help-link-url": "Pielāgotās palīdzības saites URL",
   "text-below-custom-login-logo": "Teksts zem logo pierakstīšanās lapā",
+  "login-background-color": "Pieteikšanās lapas fona krāsa",
   "automatic-linked-url-schemes": "Pielāgotās URL shēmas, kurām automātiski jākļūst klikšķināmām. Viena URL shēma katrā rindā",
   "automatic-linked-url-schemes-hint": "Pēc noklusējuma tukšs, tāpēc klikšķināmas ir tikai tīmekļa un pasta saites. Katra norādītā shēma, piemēram, thunderlink vai onenote, atver tai reģistrēto lietotni. javascript, data, vbscript un līdzīgas shēmas nekad netiek pārvērstas saitēs.",
   "external-link-pattern": "Automātiska saite uz ārēju problēmu izsekotāju",

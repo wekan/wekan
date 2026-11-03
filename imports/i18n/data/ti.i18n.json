@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "ብሕታዊ URL መላግቦ ኣርማ መእተዊ",
   "custom-help-link-url": "ብሕታዊ URL መላግቦ ሓገዝ",
   "text-below-custom-login-logo": "ጽሑፍ ኣብ ትሕቲ ብሕታዊ ኣርማ መእተዊ",
+  "login-background-color": "ሕብሪ ድሕሪት ገጽ ምእታው",
   "automatic-linked-url-schemes": "ብራስ-ሰር ክጥወቑ ዝግብኦም ብሕታዊ URL Schemes። ኣብ ነፍሲ ወከፍ መስመር ሓደ URL Scheme",
   "automatic-linked-url-schemes-hint": "ብነባሪ ባዶ እዩ፣ ስለዚ ናይ ድረ-ገጽን ኢመይልን መላግቦታት ጥራይ ክጥወቑ ይኽእሉ። ነፍሲ ወከፍ ኣብ ዝርዝር ዘሎ ስኪም፣ ንኣብነት thunderlink ወይ onenote፣ ነቲ ንዕኡ ዝተመዝገበ መተግበሪ ይኸፍት። javascript፣ data፣ vbscriptን ተመሳሰልቲ ስኪማትን ፈጺሞም ናብ መላግቦታት ኣይቅየሩን።",
   "external-link-pattern": "ናብ ናይ ደገ ናይ ጸገማት ተከታታሊ ብቐጥታ ምትእስሳር",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "URL Cyswllt Logo Mewngofnodi Custom",
   "custom-help-link-url": "URL Cyswllt Cymorth Personol",
   "text-below-custom-login-logo": "Testun isod Logo Mewngofnodi Personol",
+  "login-background-color": "Lliw cefndir y dudalen mewngofnodi",
   "automatic-linked-url-schemes": "Cynlluniau URL personol y dylid eu clicio'n awtomatig. Un Cynllun URL fesul llinell",
   "automatic-linked-url-schemes-hint": "Yn wag yn ddiofyn, felly dim ond dolenni gwe a phost y gellir eu clicio. Mae pob cynllun a restrir, er enghraifft thunderlink neu onenote, yn agor y rhaglen sydd wedi'i chofrestru ar ei gyfer. Ni chaiff javascript, data, vbscript na chynlluniau tebyg eu troi'n ddolenni byth.",
   "external-link-pattern": "Cysylltu'n awtomatig â thraciwr materion allanol",

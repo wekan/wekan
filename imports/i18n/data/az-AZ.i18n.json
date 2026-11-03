@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Fərdi Giriş Loqo Linki URL",
   "custom-help-link-url": "Fərdi Yardım Linki URL",
   "text-below-custom-login-logo": "Xüsusi Giriş Loqosunun altındakı mətn",
+  "login-background-color": "Giriş səhifəsinin fon rəngi",
   "automatic-linked-url-schemes": "Avtomatik olaraq klik edilə bilən fərdi URL sxemləri. Hər sətir üçün bir URL sxemi",
   "automatic-linked-url-schemes-hint": "Standart olaraq boşdur, buna görə yalnız veb və poçt keçidləri kliklənə bilər. Siyahıdakı hər sxem, məsələn, thunderlink və ya onenote, onun üçün qeydiyyatdan keçmiş tətbiqi açır. javascript, data, vbscript və oxşar sxemlər heç vaxt keçidə çevrilmir.",
   "external-link-pattern": "Xarici xəta izləyicisinə avtomatik keçid",

@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Link dell'immagine del logo personalizzato pi lu login",
   "custom-help-link-url": "Link URL di aiuto personalizzato",
   "text-below-custom-login-logo": "Testo sutta lu logo personalizzato pi lu login",
+  "login-background-color": "Culuri di sfunnu da pàggina d'accessu",
   "automatic-linked-url-schemes": "Schemi URL personalizzati che devono èssiri automaticamenti cliccabili. Uno schema URL pi riga",
   "automatic-linked-url-schemes-hint": "Vacanti pi difettu, perciò si pò cliccari sulu supra li lijami web e di posta. Ogni schema elincatu, pi esempiu thunderlink o onenote, grapi l'applicazzioni riggistrata pi iddu. javascript, data, vbscript e li schemi sìmili nun addivèntanu lijami mai.",
   "external-link-pattern": "Linku automàticu a nu tracker di prubblemi esternu",

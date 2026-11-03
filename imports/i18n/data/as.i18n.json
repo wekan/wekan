@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "স্বনিৰ্বাচিত লগইন ল'গ' সংযোগৰ URL",
   "custom-help-link-url": "স্বনিৰ্বাচিত সহায় সংযোগৰ URL",
   "text-below-custom-login-logo": "স্বনিৰ্বাচিত লগইন ল'গ'ৰ তলৰ পাঠ",
+  "login-background-color": "লগইন পৃষ্ঠাৰ পটভূমিৰ ৰং",
   "automatic-linked-url-schemes": "স্বয়ংক্ৰিয়ভাৱে ক্লিক কৰিব পৰা স্বনিৰ্বাচিত URL আঁচনি। প্ৰতি শাৰীত এটা URL আঁচনি",
   "automatic-linked-url-schemes-hint": "অবিকল্পিতভাৱে খালী থাকে, সেয়ে কেৱল ৱেব আৰু মেইল লিংকত ক্লিক কৰিব পাৰি। তালিকাভুক্ত প্ৰতিটো স্কীমে, যেনে thunderlink বা onenote, তাৰ বাবে পঞ্জীয়ন কৰা এপ্লিকেচন খোলে। javascript, data, vbscript আৰু একেধৰণৰ স্কীম কেতিয়াও লিংক কৰা নহয়।",
   "external-link-pattern": "বাহিৰৰ সমস্যা ট্ৰেকাৰলৈ স্বয়ংক্ৰিয় লিংক",

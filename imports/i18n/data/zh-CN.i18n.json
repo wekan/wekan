@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "设置登录图标链接",
   "custom-help-link-url": "自定义帮助链接",
   "text-below-custom-login-logo": "设置登录图标下方文字",
+  "login-background-color": "登录页面背景颜色",
   "automatic-linked-url-schemes": "自定义URL模式下URL链接默认为可点击。每行仅限一种URL模式。",
   "automatic-linked-url-schemes-hint": "默认为空，因此只有网页和邮件链接可以点击。列出的每个协议（例如 thunderlink 或 onenote）都会打开为其注册的应用程序。javascript、data、vbscript 及类似协议永远不会转换为链接。",
   "external-link-pattern": "自动链接到外部问题跟踪系统",

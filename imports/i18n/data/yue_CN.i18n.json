@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "自訂登入徽標連結 URL",
   "custom-help-link-url": "自訂幫助連結 URL",
   "text-below-custom-login-logo": "自訂登入徽標下方的文字",
+  "login-background-color": "登入頁面背景顏色",
   "automatic-linked-url-schemes": "應自動可點選的自訂 URL 方案。每行一個 URL 方案",
   "automatic-linked-url-schemes-hint": "預設留空，所以只有網頁同電郵連結可以撳。每個列出嘅通訊協定，例如 thunderlink 或 onenote，都會開啟已為佢註冊嘅應用程式。javascript、data、vbscript 同類似嘅通訊協定永遠唔會變成連結。",
   "external-link-pattern": "自动链接到外部问题跟踪系统",

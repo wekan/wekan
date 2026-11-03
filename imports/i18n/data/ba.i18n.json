@@ -1311,6 +1311,7 @@
   "custom-login-logo-link-url": "Махсус инеү логотип һылтанмаһының URL-ы",
   "custom-help-link-url": "Махсус ярҙам һылтанмаһының URL-ы",
   "text-below-custom-login-logo": "Махсус инеү логотибы аҫтындағы текст",
+  "login-background-color": "Керү битенең фон төсө",
   "automatic-linked-url-schemes": "Автоматик баҫыла торған махсус URL схемалары. Һәр юлға бер URL схемаһы",
   "automatic-linked-url-schemes-hint": "Ғәҙәттә буш, шуға күрә веб һәм почта һылтанмаларына ғына баҫып була. Исемлектәге һәр схема, мәҫәлән thunderlink йәки onenote, уның өсөн теркәлгән ҡушымтаны аса. javascript, data, vbscript һәм оҡшаш схемалар бер ҡасан да һылтанмаға әйләндерелмәй.",
   "external-link-pattern": "Тышҡы проблема күҙәтеүсеһенә автоматик һылтанма",
