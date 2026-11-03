@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The speed test now measures where the time goes when a **WeKan
+board is
+opened**, on FerretDB and on MongoDB: the Meteor server is not the bottleneck,
+and a
+5,000-card board takes FerretDB (SQLite) 400-600 ms longer to open.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.93 2026-11-04 WeKan ® release
 
 The database **speed test** has a new small-scale result, ordered
