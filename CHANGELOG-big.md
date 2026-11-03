@@ -293,6 +293,37 @@ high).
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b05673200">The opened card and every popup move under a finger, on an iPad</a>. Thanks to xet7.</summary>
+
+On an iPad the opened card did not move when dragged from the collapse caret,
+the
+space beside it, the card number, or the drag handle, while the page behind it
+scrolled. The card window was moved by mouse events only, which a finger does
+not
+send while it moves, and its drag areas did not say `touch-action: none`, so the
+browser took the gesture for a scroll. It is moved by Pointer Events now: the
+header row or the handle starts the drag; a link or button in the row (the
+caret,
+close, the menu) still does its job when tapped and moves the window when
+dragged,
+without also collapsing or closing; the title still edits when tapped; and with
+drag handles on only the handle moves it. The card number is above the title's
+edit
+zone, so it drags too. The window is kept within reach, and `touch-action: none`
+is
+on the card header, its handle and every popup's title bar and handle, so popups
+move by finger as well.
+`tests/windowDragTouch.test.cjs` pins the decisions and the wiring, and
+`tests/playwright/specs/card-window-touch-drag.e2e.js` drags with a real touch
+from
+each place with handles on and off, taps the caret, drags with a mouse and moves
+a
+popup; the finger tests fail without the fix. Tested in Chromium; an iPad is the
+final check.
+
+</details>
+
 and has the following documentation change:
 
 **Database speed test** - what was improved, and what was tried and was not.
