@@ -135,6 +135,8 @@ Things to know when reading the numbers:
   That costs FerretDB some load and write time MongoDB does not pay here.
 - Each database runs with its image's default settings - what an administrator
   gets - not tuned.
+- The tables in Results.md are FerretDB v1.99.0. The sort, JSONB and index
+  changes listed under "Improvements since the last run" came after.
 - A row's FerretDB commit is in its name: the databases were measured as their
   FerretDB fixes went in (the PostgreSQL row after its index fix, MySQL and
   MariaDB after their `_id` fix).
@@ -208,28 +210,103 @@ and its board scope is a plain `boardId` list when no board is assigned-only. It
 docker-compose for FerretDB 2 could not start with the current DocumentDB image
 (`POSTGRES_DB` must be `postgres`).
 
+## Improvements since the last run
+
+[Results.md](Results.md) was measured on 2026-10-23 with FerretDB v1.99.0. Every
+change below came after it (FerretDB v1.100.0 to v1.105.0, 2026-10-24 to
+2026-10-31, and WeKan up to 2026-11-02), so **the tables in Results.md do not
+show them yet** - run the speed test again for full-scale numbers. The figures
+quoted here are the ones in FerretDB's own
+[CHANGELOG](https://github.com/wekan/FerretDB/blob/main-v1/CHANGELOG.md), each
+measured on a smaller database (61,507 cards, 92,000 boards or the 615,070 cards
+of this test, as stated), so they show the size of a change, not a place in the
+table.
+
+**FerretDB on SQLite**
+
+- **SQLite sorts in the database** (v1.100.0). A sorted query used to read,
+  decode and keep every matching document in Go to return a few - People's ten
+  newest users, the first page of a list. SQLite now orders the row ids by a key
+  that reproduces MongoDB's order for simple values, and documents are fetched a
+  batch at a time in that order: the ten newest of 30,000 users allocate 2.6 MB
+  instead of 264 MB. A document whose sort field holds an array, a document, NaN
+  or an infinity comes first, and then everything is sorted in Go as before, so
+  the answer is the same. The key is read once per row, in one JSON path.
+- **Documents are stored as SQLite JSONB** (v1.101.0). Every filter, sort key,
+  index and multikey trigger used to parse the JSON text of a document again.
+  New collections are binary, and an existing database is converted once when
+  it is opened, table by table in a transaction (204,212 documents took 81 s; a
+  table that fails stays text and keeps working). On 61,507 cards, due cards went
+  from 1,003 to 519 ms, All Boards from 95 to 42 ms and creating the 44 indexes
+  from 107 to 70 s. After the conversion an older FerretDB cannot read the
+  database.
+- **`distinct` works when documents lack the field** (v1.105.0), which a database
+  migrated from MongoDB 3 needs on its first start.
+
+**FerretDB on PostgreSQL**
+
+- **Membership tests use a GIN index** (v1.100.0): an index whose leading key is
+  `ARRAY.FIELD` (`members.userId`) also gets a `jsonb_path_ops` GIN index of the
+  array, and `{members: {$elemMatch: {userId: X}}}` uses it.
+- **`$or` and `$elemMatch` are conditions in the database** (v1.101.0), so Due
+  Cards' query went from 2,031 to 815 ms on 61,507 cards.
+- **A top-level `$and` is pushed down** (v1.100.0). WeKan's Due Cards wraps its
+  conditions in one, and every document was read.
+
+**FerretDB on MySQL and MariaDB**
+
+- **Reads use their indexes** (v1.100.0): an equality or `$in` narrows through
+  the index's generated column. A card by `_id` among 615,070 went from 3.4 s
+  (MySQL) and 18.7 s (MariaDB) to 1.8 ms. Generated columns are `VIRTUAL`, so
+  adding the 44 indexes of a 600,000-document database takes 157 s, not 20
+  minutes; an index of four or more fields indexes prefixes, so it fits the
+  3,072-byte key limit that three of WeKan's compound indexes used to exceed;
+  and a path with a dash or a digit (`services.accounts-lockout.unlockTime`, `profile.emailBuffer.0`) no longer
+  fails with "Invalid JSON path expression".
+- **Multikey side tables** (v1.100.0), as on SQLite, so a membership test reads
+  only the matching documents. Without the right to create triggers (MySQL with
+  binary logging and no SUPER) nothing is created and queries read as before.
+- **An `$or` of `_id` sets is one `UNION ALL`** (v1.100.0): All Boards for a user
+  with a starred board went from 900 ms (MySQL) and 5.7 s (MariaDB) among 92,000
+  boards to 6-7 ms.
+- **A long `$in` is one `IN`** (v1.101.0), not 2,596 `JSON_CONTAINS` in an OR
+  (52 million comparisons over 20,000 cards).
+- **Updates and deletes by `_id` use the `_id` index** (v1.99.0, listed above).
+
+**WeKan** - less work for the database, which matters more the bigger it is:
+
+- **Collection scans are gone from the hourly and startup paths.** The recurring
+  cards job has a partial index on `recurrenceInterval` (it read 1,108,017 cards
+  in 1,155 ms every hour); search sessions have the indexes their upsert and
+  lookup use, and the stale sessions of every user are removed (one instance had
+  4,751 taking 10 GB); the board key backfill is one `$in` on the key index; the
+  list sync scan and the due-date lookup have partial and sparse indexes.
+- **One server does it, not all of them.** The startup schema re-check is claimed
+  in `_wekan_migration`, the daily due-date reminder scan and the database
+  health probe are claimed per period, so 24 replicas no longer scan, send or
+  report 24 times.
+- **Admin Panel / Problems / Database** reports what makes an instance slow: a
+  query that read a whole collection of at least 10,000 documents (which
+  collection, the command, the operators per field and the `queryHash`), and a
+  high read rate. The speed test's Due Cards and All Boards numbers say what a
+  query costs on one database; this says which query an instance is actually
+  asking.
+
 ## What could still be improved
 
-- **Sorting and `limit` in the database.** FerretDB v1 sorts in Go: People's ten
-  newest users, All Boards' first page and a card window read and sort every
-  matching document. Pushing an ORDER BY down needs MongoDB's ordering across
-  types, missing fields and arrays to be exact in SQL.
 - **The busiest users.** What remains of All Boards for a member of thousands of
-  boards, and of Due Cards, is decoding those boards and sorting them in Go.
-- **SQLite stores JSON as text.** Every `->` parses the document again - which is
-  also why creating an index takes 19 minutes for SQLite and 115 s for PostgreSQL,
-  whose `jsonb` is binary. Storing SQLite's JSONB would remove that, but changes
-  the storage format and needs a migration.
-- **Multikey indexes for PostgreSQL, MySQL and MariaDB.** Only SQLite has the side
-  tables; All Boards takes 8-9 s on the others.
-- **MySQL and MariaDB reads do not use their indexes**: equality is
-  `JSON_CONTAINS(JSON_EXTRACT(doc, ?))`, so a card by `_id` takes 3.4 s and 18.7 s
-  (and an edit as long - it reads the card first). Their indexes are generated
-  `VARCHAR(255)` columns added with a table rebuild each (20 and 40 minutes for
-  44 indexes; VIRTUAL columns would avoid the rebuild), and three of WeKan's
-  compound indexes exceed the 3,072-byte key limit and are not created.
+  boards, and of Due Cards, is decoding those boards and sorting them in Go on
+  the databases that do not sort in SQL.
+- **Sorting in the database on PostgreSQL, MySQL and MariaDB.** Only SQLite does
+  it so far; the others need MongoDB's ordering across types, missing fields
+  and arrays to be exact in their SQL.
+- **MariaDB stores JSON as text** that every JSON function parses again, so it
+  keeps only what an index answers (`$or` and `$elemMatch` are not pushed down).
 - **Existing MySQL/MariaDB tables** keep their case-insensitive index columns
   until rebuilt.
+- **Measuring it again.** Results.md still shows v1.99.0. Running
+  `speedtest.sh` now, and `run.cjs --queries` with the old Due Cards query for a
+  "before" column, would turn the figures above into the same full-scale table.
 
 ## FerretDB 2
 
