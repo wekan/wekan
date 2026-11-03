@@ -127,7 +127,7 @@ Not tested, and why:
 | Bitcask, pogreb, moss, LotusDB, RoseDB, Coffer, tempdb | more key-value stores of the same kind; they would also need the handler to do what SQL does |
 | gedb, [minisql](https://github.com/RichardKnop/minisql) (54 stars) | not looked at beyond their descriptions: a MongoDB-like store and a young single-file SQL database |
 | [rqlite](https://github.com/rqlite/rqlite), [redka](https://github.com/nalgeon/redka) | they are SQLite underneath, so not faster by construction |
-| [Dolt](https://github.com/dolthub/dolt), [TiDB](https://github.com/pingcap/tidb) | tested as servers in the [speed test](../README.md) (Dolt the slowest of all, TiDB 2.3x MySQL's total); embedding their engines (go-mysql-server) would bring the same engines and far more code |
+| [Dolt](https://github.com/dolthub/dolt), [TiDB](https://github.com/pingcap/tidb) | tested as servers in the [speed test](../) (Dolt the slowest of all, TiDB 2.3x MySQL's total); embedding their engines (go-mysql-server) would bring the same engines and far more code |
 | CockroachDB | not open source (proprietary licence) |
 | immudb | GitHub does not recognise its licence as an open-source one (`NOASSERTION`); an immutable ledger |
 | DiceDB, godis, rotom, Vasto, ledisdb | Redis-style servers, not libraries |

@@ -36,7 +36,7 @@ v1.105.0, and TerminusDB 12.0.9. Both are open source (Apache-2.0).
 | The board as it was | **Yes**, in SQL: `SELECT ... AS OF '<commit>'`. FerretDB does not offer it over the MongoDB protocol. | **Yes**: `GET /api/document/.../local/commit/<id>`. |
 | Undo "my last change" or "this board's last change" | **No.** `HEAD` is the last commit of anyone on anything. A scope means choosing commits by their diff. | The log is per database; a scope is also chosen by the diff. |
 | Cost per write | **+0.4 ms**: `updateOne` took 2.34 ms with commits off and 2.77 ms with them on (200 calls each), +18%. 223 commits for 200 updates. | About 25 ms per `PUT` of a card, an HTTP call and a commit each. |
-| Can WeKan run on it | **Yes**: it is a MySQL-protocol database that FerretDB's MySQL handler already runs (it is in the [speed test](../SpeedTest/README.md)). | **No.** It has neither the MongoDB protocol nor SQL; WeKan would need a new data layer. |
+| Can WeKan run on it | **Yes**: it is a MySQL-protocol database that FerretDB's MySQL handler already runs (it is in the [speed test](../SpeedTest/)). | **No.** It has neither the MongoDB protocol nor SQL; WeKan would need a new data layer. |
 
 ## What it means for WeKan
 
