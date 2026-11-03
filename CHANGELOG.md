@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Repeated **REST API** requests reuse an existing board label even
+when its name has surrounding whitespace.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.87 2026-11-03 WeKan ® release
 
 A **REST API** "get one" that finds nothing answers **404**

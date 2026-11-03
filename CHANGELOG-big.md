@@ -124,6 +124,32 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Repeated **REST API** requests reuse an existing board label even
+when its name has surrounding whitespace.
+
+This release fixes the following bugs:
+
+**REST API** - board label creation.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43379f732">Reuse board labels when REST requests pad their names with whitespace</a>. Thanks to AhmedLukman and xet7.</summary>
+
+The board-label endpoint compared the incoming name before schema
+cleaning trimmed it. Repeating a padded name therefore created another label
+with the same stored name and color. Normalize the name before looking for an
+existing label, for both object and string requests, so each returns the same
+label ID. Different colors, letter case and internal spaces remain distinct.
+`tests/restLabel.test.cjs` covers normalization and its boundaries;
+`tests/playwright/specs/rest-label-whitespace.e2e.js` verifies reuse, rejected
+requests without mutations, and a single label in the picker that can still be
+applied to a card.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.87 2026-11-03 WeKan ® release
 
 **In short:** A **REST API** "get one" that finds nothing answers **404**
