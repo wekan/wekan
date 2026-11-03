@@ -124,6 +124,31 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **REST checklist API** returns a descriptive 404 when a
+checklist is missing or belongs to another card, instead of an empty server
+error.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/934e43bd41d46e2d73f80b6c99f39d04694fa9ef">Missing or wrongly scoped REST checklist reads return 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+A single-checklist GET returned HTTP 500 with an empty body when
+its scoped lookup found nothing. It now returns HTTP 404 and the same JSON
+error as checklist updates and deletions. Board access and card ownership are
+checked first; valid reads still include the checklist's items and deadline.
+`tests/restChecklistGet.test.cjs` covers valid reads, missing and mismatched
+parents, denied access and real lookup errors.
+`tests/playwright/specs/rest-checklist-not-found.e2e.js` covers the HTTP
+responses and verifies that the real checklist and item remain visible after
+a failed read and page reload.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.90 2026-11-03 WeKan ® release
 
 **In short:** The login page can have its own **background color**, Member
