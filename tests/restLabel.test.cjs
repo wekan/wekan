@@ -31,6 +31,35 @@ test('valid { name, color } object builds the expected label doc', () => {
   assert.deepStrictEqual(r, { ok: true, name: 'Bug', color: 'red' });
 });
 
+// Schema cleaning trims stored strings. The lookup must receive that
+// same name, or repeating a padded name creates another identical stored label.
+test('padded object names are trimmed before looking up an existing label', () => {
+  const r = buildBoardLabel({ name: '  Bug \t\n', color: 'red' }, COLORS);
+  assert.deepStrictEqual(r, { ok: true, name: 'Bug', color: 'red' });
+});
+
+test('bare strings and objects use the same whitespace normalization', () => {
+  for (const name of [' Bug ', '\tBug\n', '\u00a0Bug\u00a0']) {
+    assert.deepStrictEqual(buildBoardLabel(name, COLORS), buildBoardLabel('Bug', COLORS));
+    assert.deepStrictEqual(buildBoardLabel({ name }, COLORS), buildBoardLabel('Bug', COLORS));
+  }
+});
+
+test('normalization preserves internal whitespace, case, and the requested color', () => {
+  assert.deepStrictEqual(buildBoardLabel({ name: '  Bug  Fix  ', color: 'blue' }, COLORS), {
+    ok: true, name: 'Bug  Fix', color: 'blue',
+  });
+  assert.strictEqual(buildBoardLabel('bug', COLORS).name, 'bug');
+});
+
+test('empty, missing, null, and whitespace-only names remain valid color-only labels', () => {
+  for (const name of ['', undefined, null, ' \t\n ']) {
+    assert.deepStrictEqual(buildBoardLabel({ name, color: 'red' }, COLORS), {
+      ok: true, name: '', color: 'red',
+    });
+  }
+});
+
 // --- missing color is defaulted, not rejected/thrown ------------------------
 test('object with a name but no color defaults the color sensibly', () => {
   const r = buildBoardLabel({ name: 'Bug' }, COLORS);

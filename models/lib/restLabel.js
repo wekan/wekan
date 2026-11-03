@@ -54,8 +54,9 @@ function buildBoardLabel(rawLabel, allowedColors) {
     };
   }
 
-  // name is optional in the schema; coerce a provided value to a string, else ''.
-  name = name === undefined || name === null ? '' : String(name);
+  // Match schema cleaning before the caller looks up an existing label. Otherwise
+  // padded names miss that lookup and create duplicate, trimmed labels.
+  name = name === undefined || name === null ? '' : String(name).trim();
 
   // color is required in the schema (allowedValues LABEL_COLORS). Default when
   // absent; reject an explicit but unknown color rather than pushing an invalid doc.
