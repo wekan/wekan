@@ -126,9 +126,11 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** Member Settings has a per-member switch, **Show focus outline**,
-to
-hide the blue focus ring, and **Escape closes the add-list composer**.
+**In short:** The login page can have its own **background color**, Member
+Settings
+has a per-member switch, **Show focus outline**, to hide the blue focus ring,
+and
+**Escape closes the add-list composer**.
 
 This release adds the following new features:
 
@@ -163,6 +165,27 @@ Tsonga, Venda, Volapük, Walamo, Wolof, Xhosa and Tamazight.
 `tests/playwright/specs/hide-focus-outline-6755.e2e.js` pin it, including that
 one
 member hiding the ring does not hide it for another.
+
+</details>
+
+**The login page** - how the sign-in page and the support page look.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b27764452">Admin Panel / Lay-out has a Login page background color, and the login text and the support page have a readable layout</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[\#6866](https://github.com/wekan/wekan/issues/6866). The login page stayed
+grey whatever the Admin Panel said: the custom HTML fields only render after
+sign-in and the text below the login logo is sanitised. The new setting
+`loginBackgroundColor` takes a hex colour only (`#rgb` or `#rrggbb`); anything
+else means "not set", so the value in the CSS custom property can never carry
+CSS of its own. The text under the logo is white on a dark colour and black on a
+light one. It is put on the page only while the sign-in layout is shown and
+removed when it closes. The support page was text flush against the window edge
+with no headings: it is now a centred white column of at most 860px, and the
+text under the login logo gets the same column without a card of its own, both
+with sized bold headings and space between paragraphs. The label is translated
+into every language file. `tests/loginBackground6866.test.cjs` pins the colour
+decision, that nothing but the validated value reaches the page, and the layout.
 
 </details>
 

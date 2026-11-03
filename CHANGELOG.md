@@ -7,9 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-Member Settings has a per-member switch, **Show focus outline**,
-to
-hide the blue focus ring, and **Escape closes the add-list composer**.
+The login page can have its own **background color**, Member
+Settings
+has a per-member switch, **Show focus outline**, to hide the blue focus ring,
+and
+**Escape closes the add-list composer**.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
