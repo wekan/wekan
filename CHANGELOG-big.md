@@ -228,6 +228,23 @@ engines, the SQLite setup and the conclusion.
 
 </details>
 
+and updates the following dependencies:
+
+- **minimatch 10.2.6 → 11.0.4** in the `npm-packages/exceljs` and vendored
+  `jade` lockfiles ([GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249),
+  Dependabot alerts \#180 and \#182), through overrides on `readdir-glob`,
+  `glob` 13 and
+  `test-exclude`, as the root lockfile has; a test reads every
+  `package-lock.json`.
+- **klauspost/compress 1.18.0 → 1.18.7**, **golang.org/x/net 0.23.0 → 0.62.0**,
+  **golang.org/x/text 0.14.0 → 0.43.0**, **golang/glog 1.0.0 → 1.2.4** and
+  **OpenTelemetry 1.41.0 → 1.42.0** in the Go module of the embedded-engine
+  benchmark (Dependabot alerts \#183-\#187; `govulncheck` reports none). A test
+  holds
+  every `go.mod` at or above these floors.
+
+Thanks to dependabot.
+
 and has the following documentation change:
 
 **Database speed test** - what was improved, and what was tried and was not.
@@ -243,8 +260,12 @@ small run found one more: **PostgreSQL planned from no statistics** until
 autovacuum analyzed a freshly indexed table, so a Due Cards query took 407 ms
 and
 84 ms after; FerretDB now analyzes the table when its indexes are created (the
-PostgreSQL row went from 454 to 145 ms, and from last place to eighth). Tried
-and
+PostgreSQL row went from 454 to 145 ms, and from last place to eighth). A
+profile of Due Cards on SQLite found another: a membership test made SQLite turn
+the whole `members` array into JSON text and parse it again for every row, and
+reading it from the column instead cut the visible-boards query from 26 to 16 ms
+(All Boards 6.9 → 4.9 and 5.9 → 3.9 ms, Due Cards 54.5 → 43.9 ms, the SQLite
+total 82.7 → 68.3 ms) with identical answers. Tried and
 not kept, with the numbers: sorting in the database on PostgreSQL (52 ms against
 38-49 ms decoded in Go) and `ANALYZE TABLE` on MySQL and MariaDB (no change).
 
