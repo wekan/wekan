@@ -410,6 +410,16 @@ FerretDB's builds do not use) and SingleStore (not open source, and its image
 needs a licence key). A MongoDB-protocol database needs no FerretDB and joins the
 MongoDB rows; FerretDB 2 with DocumentDB is already there.
 
+## Opening a board in WeKan
+
+The same databases, one level up: [app/](app/) opens a WeKan board of 200, 2,000 and
+5,000 cards on FerretDB (SQLite) and on MongoDB 8 and profiles both the Meteor server
+and FerretDB. The Meteor server's CPU is the same on both (0.1-0.5 s); on a 5,000-card
+board FerretDB (SQLite) takes **400-600 ms longer** (to the first card +42-48%), a
+small board only 70-100 ms, and it uses about 4 s of CPU to open the 5,000-card board,
+a third of it filtering in Go what it read; the browser receives the same ~210 KB at
+every size.
+
 ## Go databases linked into FerretDB
 
 Could a database implemented in Go be linked into the FerretDB binary beside its
