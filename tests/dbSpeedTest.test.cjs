@@ -210,6 +210,8 @@ test('pgrust and TiDB are speed test rows, and opt-in in the conformance run (ne
   const sh = read('releases/db-conformance.sh');
   assert.match(sh, /"pgrust\|image:malisper\/pgrust:v0\.4-beta\|pgrust\|5432\|postgresql"/);
   assert.match(sh, /"tidb\|image:pingcap\/tidb:latest\|tidb\|4000\|mysql"/);
+  assert.match(sh, /"dolt\|image:dolthub\/dolt-sql-server:latest\|dolt\|3306\|mysql"/);
+  assert.match(sh, /\[ "\$name" = "dolt" \] && \[ "\$SUITE" != speedtest \] && \[ "\${WEKAN_CONFORMANCE_DOLT:-0}" != "1" \]/);
   // Not in a plain conformance run: only the speed test, or the variable.
   assert.match(sh, /\[ "\$name" = "pgrust" \] && \[ "\$SUITE" != speedtest \] && \[ "\$\{WEKAN_CONFORMANCE_PGRUST:-0\}" != "1" \]/);
   assert.match(sh, /\[ "\$name" = "tidb" \] && \[ "\$SUITE" != speedtest \] && \[ "\$\{WEKAN_CONFORMANCE_TIDB:-0\}" != "1" \]/);
@@ -223,10 +225,14 @@ test('pgrust and TiDB are speed test rows, and opt-in in the conformance run (ne
 test('the README records the databases that were tried and why the others cannot be', () => {
   const md = read('docs/Databases/FerretDB/1/SpeedTest/README.md');
   const section = md.slice(md.indexOf('## Other databases tried'), md.indexOf('## FerretDB 2'));
-  for (const name of ['pgrust', 'TiDB', 'Noria', 'YugabyteDB', 'CockroachDB']) assert.ok(section.includes(name), name);
+  for (const name of ['pgrust', 'TiDB', 'Dolt', 'Noria', 'YugabyteDB', 'CockroachDB']) assert.ok(section.includes(name), name);
+  assert.match(section, /Dolt\]\(https:\/\/github\.com\/dolthub\/dolt\) 2\.6\.2[\s\S]{0,200}no new handler/);
   assert.match(section, /INDEX on column of type 'JSONB' not yet supported/);
   assert.match(section, /no `JSON` type/);
   assert.match(section, /not open source/);
+  // The ones that need a handler of their own, with the error that shows it.
+  assert.match(section, /sql: expected 0 arguments, got 2/);
+  assert.match(section, /Data type of first column cannot be JSON/);
 });
 
 console.log(`\n${passed} passed`);

@@ -27,6 +27,7 @@ the biggest board or the busiest user, who waits longest.
 | 9 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 174 | 10x | 594 | 13x |
 | 10 | FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | 240 | 14x | 877 | 19x |
 | 11 | FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | 290 | 17x | 1,063 | 24x |
+| 12 | FerretDB v1.105.0 (0db7b801) + Dolt 2.6.2 | 20,470 | 1,230x | 20,904 | 464x |
 
 ## Speed
 
@@ -48,6 +49,7 @@ fastest database at the top.
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | **174** | 0.75 | 0.62 | 6.00 | 6.39 | 0.70 | 0.68 | 0.61 | 7.49 | 0.73 | 4.75 | 4.70 | 0.57 | 5.29 | 112 | 15.3 | 2.59 | 2.58 | 1.95 |
 | FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | **240** | 2.00 | 1.48 | 32.7 | 33.0 | 1.44 | 1.95 | 1.68 | 10.4 | 2.96 | 7.61 | 7.59 | 1.50 | 8.35 | 97.2 | 18.4 | 4.32 | 4.81 | 2.71 |
 | FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | **290** | 1.06 | 0.90 | 11.6 | 11.6 | 1.20 | 1.13 | 0.96 | 7.68 | 1.28 | 6.63 | 6.77 | 0.91 | 6.90 | 216 | 9.12 | 2.52 | 2.48 | 1.43 |
+| FerretDB v1.105.0 (0db7b801) + Dolt 2.6.2 | **20,470** | 42.6 | 1.87 | 852 | 847 | 2.09 | 188 | 84.7 | 2,876 | 2,846 | 2,857 | 2,836 | 2.06 | 2,834 | 4,126 | 56.6 | 6.94 | 6.92 | 4.75 |
 
 ### The slowest parameter
 
@@ -68,6 +70,7 @@ total, so the order can differ from the table above.
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | **594** | 0.88 | 0.67 | 36.5 | 38.8 | 0.80 | 1.13 | 0.92 | 62.5 | 1.19 | 36.4 | 36.1 | 0.60 | 40.3 | 314 | 15.8 | 2.78 | 2.77 | 2.12 |
 | FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | **877** | 2.12 | 1.52 | 77.1 | 77.7 | 1.58 | 2.64 | 2.11 | 76.4 | 4.03 | 51.1 | 49.9 | 1.62 | 55.6 | 442 | 18.9 | 4.53 | 5.05 | 2.86 |
 | FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | **1,063** | 1.19 | 0.98 | 104 | 104 | 1.39 | 1.66 | 1.34 | 54.4 | 1.39 | 49.9 | 50.7 | 0.98 | 51.3 | 622 | 9.26 | 2.84 | 2.63 | 1.61 |
+| FerretDB v1.105.0 (0db7b801) + Dolt 2.6.2 | **20,904** | 43.8 | 1.99 | 875 | 887 | 2.36 | 192 | 88.5 | 2,912 | 2,890 | 2,895 | 2,908 | 2.57 | 2,860 | 4,262 | 61.4 | 8.81 | 8.48 | 4.91 |
 
 ## Loading the data
 
@@ -87,6 +90,7 @@ Ordered by the whole time, fastest first.
 | FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | 0.3 s | 0.6 s | 0.5 s | 0.5 s | 2.2 s | 7.9 s | none |
 | FerretDB v1.105.0 (0c784f2c) + PostgreSQL 18.6 | 0.1 s | 0.7 s | 0.5 s | 0.4 s | 3.0 s | 16.0 s | none |
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 0.1 s | 0.7 s | 0.5 s | 0.4 s | 3.2 s | 38.0 s | none |
+| FerretDB v1.105.0 (0db7b801) + Dolt 2.6.2 | 0.2 s | 0.8 s | 0.8 s | 0.6 s | 4.2 s | 105.7 s | none |
 
 ## Same data
 
@@ -107,6 +111,7 @@ sorted keys; a query whose order WeKan relies on must also return the same order
 | FerretDB v1.105.0 (0c784f2c) + pgrust 0.4-beta (PostgreSQL 18.6 compatible) | 19 of 19 | none |
 | FerretDB v1.105.0 (0db7b801) + TiDB v7.5.1 | 19 of 19 | none |
 | FerretDB v1.105.0 (0db7b801) + MariaDB 12.3.3 | 19 of 19 | none |
+| FerretDB v1.105.0 (0db7b801) + Dolt 2.6.2 | 19 of 19 | none |
 
 ## The queries
 
@@ -134,7 +139,7 @@ Each is the query WeKan itself sends; see [queries.cjs](queries.cjs).
 | Add card | cards.insertOne({ ...a new card }) | the 3 biggest boards + 12 others |
 
 Each query is first run once per parameter to warm up (those answers are the ones compared),
-then repeated for up to 5 passes or the time budget (WEKAN_SPEEDTEST_BUDGET_MS); 20-90 calls per query were timed.
+then repeated for up to 5 passes or the time budget (WEKAN_SPEEDTEST_BUDGET_MS); 15-90 calls per query were timed.
 A query too slow to be repeated in that time keeps its warm-up time.
 Raw results: `.tools/log/test-db-speedtest/2026-11-03_22-10-05/speedtest-<database>.json`.
 

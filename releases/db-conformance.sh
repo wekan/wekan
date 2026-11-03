@@ -105,6 +105,7 @@ BACKENDS=(
   "mysql|docker-compose-ferretdb-v1-mysql.yml|mysql|3306|mysql"
   "mariadb|docker-compose-ferretdb-v1-mariadb.yml|mariadb|3306|mysql"
   "tidb|image:pingcap/tidb:latest|tidb|4000|mysql"
+  "dolt|image:dolthub/dolt-sql-server:latest|dolt|3306|mysql"
   "sap-hana|docker-compose-ferretdb-v1-sap-hana.yml|hana|39017|hana"
   "ferretdb2|docker-compose-ferretdb-v2-postgresql.yml|postgres-documentdb|5432|ferretdb2"
 )
@@ -428,6 +429,8 @@ engine_name() {
                 v="MySQL ${v#Ver }" ;;
     # `select version()` says 8.0.11-TiDB-v7.5.1. The image has no client, so the
     # mysql image's is used, over the host network.
+    dolt)       v="$(docker_exec run --rm --network host mysql:9 mysql -h 127.0.0.1 -P "$hostport" -u root -pferretdb_root_secret -N -e 'select dolt_version()' 2>/dev/null | head -1)"
+                v="Dolt ${v:-?}" ;;
     tidb)       v="$(docker_exec run --rm --network host mysql:9 mysql -h 127.0.0.1 -P "$hostport" -u root -N -e 'select version()' 2>/dev/null | grep -oE 'TiDB-v[0-9.]+' | head -1)"
                 v="TiDB ${v#TiDB-}" ;;
     mariadb)    v="$(docker_exec exec "$CONTAINER" mariadbd --version 2>/dev/null | grep -oE 'Ver [0-9.]+' | head -1)"
@@ -501,6 +504,16 @@ for entry in "${BACKENDS[@]}"; do
   if [ "$name" = "tidb" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_TIDB:-0}" != "1" ]; then
     echo "SKIP  tidb         (TiDB, MySQL protocol; set WEKAN_CONFORMANCE_TIDB=1 to include)"
     echo "SKIP  tidb  not requested" >> "$SUMMARY"
+    skipped=$((skipped + 1))
+    continue
+  fi
+
+  # Dolt (git for data, MySQL protocol) is run as it comes: without
+  # dolt_transaction_commit, so it makes no commit per write and is measured as a
+  # database. Same reasoning as pgrust above.
+  if [ "$name" = "dolt" ] && [ "$SUITE" != speedtest ] && [ "${WEKAN_CONFORMANCE_DOLT:-0}" != "1" ]; then
+    echo "SKIP  dolt         (Dolt, MySQL protocol; set WEKAN_CONFORMANCE_DOLT=1 to include)"
+    echo "SKIP  dolt  not requested" >> "$SUMMARY"
     skipped=$((skipped + 1))
     continue
   fi
@@ -622,6 +635,14 @@ for entry in "${BACKENDS[@]}"; do
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
       ;;
+    dolt)
+      # DOLT_ROOT_HOST=% lets root in from outside the container; the image
+      # creates the database FerretDB opens.
+      start_db_container -e DOLT_ROOT_PASSWORD=ferretdb_root_secret -e DOLT_ROOT_HOST=% \
+        -e DOLT_DATABASE=ferretdb "$image" \
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
+      url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
+      ;;
     tidb)
       # One process with its own storage (unistore), no PD or TiKV: enough for a
       # single-node comparison. It has no MYSQL_DATABASE variable, so the database
@@ -675,6 +696,8 @@ for entry in "${BACKENDS[@]}"; do
                       "SELECT 1 FROM pg_extension WHERE extname = 'documentdb'" 2>/dev/null | grep -q 1 && up=1 ;;
         mysql)      docker_exec exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
         mariadb)    docker_exec exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
+        dolt)       docker_exec run --rm --network host mysql:9 mysql -h 127.0.0.1 -P "$hostport" -u root -pferretdb_root_secret \
+                      -D ferretdb -e 'SELECT 1' >/dev/null 2>&1 && up=1 ;;
         tidb)       docker_exec run --rm --network host mysql:9 mysql -h 127.0.0.1 -P "$hostport" -u root \
                       -e 'CREATE DATABASE IF NOT EXISTS ferretdb' >/dev/null 2>&1 && up=1 ;;
         sap-hana)   docker_exec logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;

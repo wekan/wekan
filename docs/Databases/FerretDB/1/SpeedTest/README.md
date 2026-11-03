@@ -36,6 +36,7 @@ exist, which images they use or how they are started:
 | FerretDB v1 + MariaDB | `mariadb:12`, from [docker-compose-ferretdb-v1-mariadb.yml](../../../../../docker-compose-ferretdb-v1-mariadb.yml) |
 | FerretDB v1 + pgrust | `malisper/pgrust:v0.4-beta`: [PostgreSQL rewritten in Rust](https://github.com/malisper/pgrust), wire compatible, so FerretDB's PostgreSQL handler talks to it unchanged. In the conformance run only with `WEKAN_CONFORMANCE_PGRUST=1` |
 | FerretDB v1 + TiDB | `pingcap/tidb:latest` (Apache-2.0, MySQL protocol) as one process on its own storage, no PD or TiKV. In the conformance run only with `WEKAN_CONFORMANCE_TIDB=1` |
+| FerretDB v1 + Dolt | `dolthub/dolt-sql-server:latest`: [git for data](https://github.com/dolthub/dolt), MySQL protocol, run as it comes (no commit per write). In the conformance run only with `WEKAN_CONFORMANCE_DOLT=1`. What its version history gives WeKan's undo is in [VersionHistory](../VersionHistory/README.md) |
 | MongoDB 6, 7, 8, 9 | `mongo:6.0`, `mongo:7` ([docker-compose-mongodb-v7.yml](../../../../../docker-compose-mongodb-v7.yml)), `mongo:8.0`, `mongo:9.0` - queried directly, no FerretDB |
 | FerretDB v1 + SAP HANA | only with `WEKAN_CONFORMANCE_HANA=1` (amd64, ~16 GB RAM, SAP's licence) |
 | FerretDB 2 + PostgreSQL with DocumentDB | `ghcr.io/ferretdb/ferretdb:2` and `ghcr.io/ferretdb/postgres-documentdb:17`, the images of [docker-compose-ferretdb-v2-postgresql.yml](../../../../../docker-compose-ferretdb-v2-postgresql.yml), on a network of their own; in the conformance run only with `WEKAN_CONFORMANCE_FERRETDB2=1` |
@@ -358,14 +359,25 @@ writes: `jsonb` expression indexes, `@>` and GIN on PostgreSQL; `JSON`,
 | --- | --- |
 | [pgrust](https://github.com/malisper/pgrust) v0.4-beta (PostgreSQL in Rust, AGPL-3.0) | **Works**, same answers as MongoDB, and is in Results.md. It is not faster than PostgreSQL for WeKan's queries: 174 ms against 145 ms in total, and creating the 47 indexes takes 38 s against 1 s. |
 | [TiDB](https://github.com/pingcap/tidb) 7.5 (Apache-2.0, MySQL protocol) | **Works**, same answers, and is in Results.md (240 ms, between pgrust and MariaDB). It needed one change in FerretDB: its metadata table's generated columns are `VIRTUAL`, because TiDB refuses `ALTER TABLE ... ADD COLUMN ... STORED`. This is one process with its own storage; a real cluster (PD and TiKV) is a different test. |
+| [Dolt](https://github.com/dolthub/dolt) 2.6.2 (git for data, Apache-2.0, MySQL protocol) | **Works with the existing MySQL handler, no new handler**, same answers as MongoDB, and is in Results.md - and is **by far the slowest: 20,470 ms in total, 1,230x MongoDB**. Every query over cards takes about 2.8 s on 15,377 cards (a whole-table scan, about 187 µs a document: the generated-column indexes the handler relies on do not narrow a read there), All Boards 850 ms, and creating the indexes 106 s. Its point is version history, not speed; see [VersionHistory](../VersionHistory/README.md). |
 | [Noria](https://github.com/mit-pdos/noria) (MIT research prototype, Apache-2.0) | **Cannot run FerretDB.** It is a streaming dataflow system that precomputes the results of a fixed set of prepared queries. Its SQL has no `JSON` type (the parser's type list is `INT`, `VARCHAR`, `TEXT`, `BLOB`, `DATE`, ...), no triggers and no generated columns, and the MySQL handler needs all three: it uses `JSON` 79 times, `JSON_EXTRACT` 74 times and 7 generated columns. It also needs unpinned nightly Rust (2021) and ZooKeeper, and has not changed since October 2021. Not built or run. |
 | [YugabyteDB](https://github.com/yugabyte/yugabyte-db) 2026.1.2 (core Apache-2.0, PostgreSQL 15 compatible) | **Cannot run FerretDB.** Started, and FerretDB's first `CREATE INDEX` fails: `INDEX on column of type 'JSONB' not yet supported`. Every FerretDB v1 index on PostgreSQL is an expression of type `jsonb`, and so is every query that uses one; YugabyteDB can index a `jsonb` column only with GIN. Supporting it means writing the indexes and conditions as `->>` text, which is a different handler. |
 | [CockroachDB](https://github.com/cockroachdb/cockroach) | **Not tried: not open source.** Its LICENSE is the proprietary CockroachDB Software License, not an open-source one. |
 
-Not tried: databases with no handler FerretDB v1 can use at all (ClickHouse,
-DuckDB, StarRocks, Dolt, SingleStore) - the four handlers are PostgreSQL, MySQL,
-SQLite and SAP HANA - and databases that were not checked for the SQL the
-handlers write. A MongoDB-protocol database needs no FerretDB and joins the
+Tried with the MySQL handler, to see how far it gets (both speak the MySQL protocol):
+
+| Database | Result |
+| --- | --- |
+| [ClickHouse](https://github.com/ClickHouse/ClickHouse) 26.10 (Apache-2.0) | **Needs a handler of its own.** The first statement FerretDB sends through its MySQL interface fails: `sql: expected 0 arguments, got 2`. Behind that it has no `JSON_EXTRACT`, `JSON_CONTAINS`, triggers or generated columns as the handler uses them (it has `JSONExtract*`), and a row update is an asynchronous mutation, which is not what WeKan's edits and moves are. |
+| [StarRocks](https://github.com/StarRocks/starrocks) 4.1 (Apache-2.0) | **Needs a handler of its own.** The first `CREATE TABLE` fails: `Data type of first column cannot be JSON`; its tables need a key column and a distribution. An analytical engine again, with no triggers. |
+
+A handler for either is a new backend of the size of the SAP HANA one (about
+2,000 lines of Go: query, insert, update, delete, indexes, statistics) plus its own
+SQL for every filter FerretDB can push down; without the pushdown a query reads
+the whole collection, which the speed test would measure as slow. That has not
+been written. Not tried at all: DuckDB (no server; the Go driver needs cgo, which
+FerretDB's builds do not use) and SingleStore (not open source, and its image
+needs a licence key). A MongoDB-protocol database needs no FerretDB and joins the
 MongoDB rows; FerretDB 2 with DocumentDB is already there.
 
 ## FerretDB 2
