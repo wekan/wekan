@@ -22,7 +22,9 @@ const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
-const RED = '#eb144c';
+// The stored colour is #eb144c; the overlay draws it as the darker #dd1347 that
+// readableAccent() picks so the line keeps 3:1 contrast on the board (WCAG 1.4.11).
+const RED = '#dd1347';
 
 test.describe('Red Strings – card dependency overlay', () => {
   test.use({ storageState: undefined });
@@ -162,7 +164,7 @@ test.describe('Red Strings – card dependency overlay', () => {
 
     const line = page.locator('.js-dependency-overlay .dependency-line').first();
     await line.waitFor({ timeout: 15_000 });
-    await expect(line).toHaveAttribute('stroke', '#2196f3');
+    await expect(line).toHaveAttribute('stroke', '#0b74c7'); // #2196f3 as darkened by readableAccent()
     // Directed relation => arrowhead marker is referenced.
     await expect(line).toHaveAttribute('marker-end', /url\(#/);
   });

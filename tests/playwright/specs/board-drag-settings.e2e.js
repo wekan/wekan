@@ -99,7 +99,9 @@ for (const handles of [false, true]) test(`disabled checklist items stay put on 
     const to = await items.last().boundingBox();
     await page.mouse.move(from.x+from.width/2, from.y+from.height/2);
     await page.mouse.down();
-    await page.mouse.move(from.x+from.width/2, to.y+to.height-2, {steps:20});
+    // Release a little below the last row, not 2 px inside its bottom edge: that
+    // edge is the sortable's own boundary and the drop landed one slot short.
+    await page.mouse.move(from.x+from.width/2, to.y+to.height+30, {steps:20});
     await page.mouse.up();
   };
   const titles = items => items.locator('.item-title').allTextContents().then(values => values.map(value => value.trim()));

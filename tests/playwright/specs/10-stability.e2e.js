@@ -108,7 +108,7 @@ test.describe('Stability & connectivity', () => {
     const avatar = page.locator('#header-user-bar img.avatar-image');
     await expect(memberMenu).toContainText('E2E Test User');
     await expect(page.locator('#header-quick-access')).toHaveClass(/board-color-limegreen/);
-    await expect(page.locator('#header-quick-access')).toHaveCSS('background-color', 'rgb(75, 191, 107)');
+    await expect(page.locator('#header-quick-access')).toHaveCSS('background-color', 'rgb(39, 124, 72)');
     await expect(avatar).toBeVisible();
     await expect.poll(() => avatar.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
 

@@ -20,7 +20,9 @@ for (const theme of ['belize', 'nephritis', 'dark', 'cleanlight']) {
       const button = page.locator('.board-settings-column-actions button').first();
       await expect(button).toBeVisible();
       const foreground = theme === 'cleanlight' ? 'rgb(26, 26, 26)' : 'rgb(255, 255, 255)';
-      const backgrounds = { belize: 'rgb(41, 128, 185)', nephritis: 'rgb(39, 174, 96)', dark: 'rgb(44, 62, 81)', cleanlight: 'rgb(190, 190, 190)' };
+      // belize and nephritis are the accessibility-audit shades: white text on the
+      // original #2980b9 / #27ae60 was under 4.5:1 (WCAG 1.4.3).
+      const backgrounds = { belize: 'rgb(37, 115, 167)', nephritis: 'rgb(33, 125, 73)', dark: 'rgb(44, 62, 81)', cleanlight: 'rgb(190, 190, 190)' };
       for (const state of ['normal', 'hover', 'focus', 'active']) {
         if (state === 'hover') await button.hover();
         if (state === 'focus') { await page.mouse.move(0, 0); await button.focus(); }
