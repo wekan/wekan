@@ -380,6 +380,19 @@ FerretDB's builds do not use) and SingleStore (not open source, and its image
 needs a licence key). A MongoDB-protocol database needs no FerretDB and joins the
 MongoDB rows; FerretDB 2 with DocumentDB is already there.
 
+## Go databases linked into FerretDB
+
+Could a database implemented in Go be linked into the FerretDB binary beside its
+SQLite, and be faster? [embedded/](embedded/README.md) asks that of the
+[awesome-go list](https://github.com/avelino/awesome-go#databases-implemented-in-go):
+Pebble, Badger, bbolt, BuntDB, Nutsdb and Clover against SQLite set up as FerretDB
+sets it, on the speed test's cards, in minutes. **None is faster where it counts**:
+a board's cards take the same time on every engine that is not slower, because
+decoding the JSON dominates; the key-value stores win single reads and writes by
+microseconds that the 0.2 ms floor of a FerretDB call hides, and would make the
+handler do in Go what SQL does in SQLite. bbolt with its default fsync is 100-160x
+slower on writes, Pebble 12x slower on fetching a board, Clover 90-190x slower.
+
 ## FerretDB 2
 
 FerretDB 2.7 with PostgreSQL 17 and the DocumentDB extension stores documents as
