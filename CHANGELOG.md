@@ -7,9 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **dark board themes** are readable again: **Card Settings**,
-popups, the sidebar and the quiet text, in cleandark, moderndark, dark and
-exodark.
+**Every board theme** and **every color a member chooses** is
+readable: the dark themes' **Card Settings**, popups and sidebars, the header of
+eight themes, and a custom accent, text or label color made legible. A padded
+**REST label** name no longer creates a second label.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

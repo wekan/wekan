@@ -126,9 +126,10 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **dark board themes** are readable again: **Card Settings**,
-popups, the sidebar and the quiet text, in cleandark, moderndark, dark and
-exodark.
+**In short:** **Every board theme** and **every color a member chooses** is
+readable: the dark themes' **Card Settings**, popups and sidebars, the header of
+eight themes, and a custom accent, text or label color made legible. A padded
+**REST label** name no longer creates a second label.
 
 This release fixes the following bugs:
 
@@ -151,12 +152,72 @@ exodark on the board, the card and the sidebar); Card Settings' sections, its
 muted text, the popup items, the quiet buttons, the shortcuts row, the sidebar
 labels, dark's swimlane header and moderndark's selected minicard and primary
 buttons follow the theme; and the list header's `!important` is gone.
-`tests/playwright/specs/46-axe-dark-themes.e2e.js` runs axe-core's colour
+`tests/playwright/specs/46-axe-theme-contrast.e2e.js` runs axe-core's colour
 contrast rule on the four themes (the board, the sidebar, Card Settings, an
 opened card and the custom fields popup) and finds nothing;
 `tests/darkThemeContrast6863.test.cjs` pins each rule. The header colours of
 relax, nephritis and modern, and a few lines of clearblue and cleanlight, are
 still below 4.5 and are listed in the accessibility audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b2114cd0f">Every board theme, and every color a member chooses, is readable</a>. Thanks to Samunosuke and xet7.</summary>
+
+[\#6863](https://github.com/wekan/wekan/issues/6863) asked to check the other
+themes too, and the same scan was run on all 25. White text on the accent was
+2.1 to 4.3:1 in nephritis, pumpkin, moderatepink, strongcyan, limegreen, relax,
+corteza and modern, and their dark, hover and emphasis shades were as low: the
+accents are darkened, with the same hue, until white text and the header's
+`#f2f2f2` labels read at 4.5:1, and the hover and selected shades follow
+(limegreen
+is a forest green now, strongcyan a teal: white at 4.5:1 cannot be had on a
+bright
+accent). The colour-slide themes that end in the same colours read too. The
+filter sidebar's headings (`#808080`, in every theme), the clear themes' quiet
+text and cleanlight's add-dependency link are darker. No colour contrast failure
+is left on the board, the sidebars, Card Settings, an opened card and its popups
+in any theme. axe-core cannot measure text over a gradient, so the six
+colour-slide headers are not covered by it.
+
+A color a member chooses is one half of a pair, and the other half is worked out
+(`models/lib/contrastColor.js`). A custom theme accent, or the two ends of a
+custom
+slide, is darkened under the header's white text until it reads, and the
+picker's
+preview shows the color that will be drawn. The text color from Member Settings
+is
+moved, with its hue, until it reads at 4.5:1 on the surfaces of the theme in
+use,
+says so when it changed, and no longer reaches the header bars, labels and
+primary
+buttons, which sit on a color of their own (`#626262` was 1.18:1 on the blue
+header). A dependency line is drawn at 3:1 against the surface. Kanri's tag text
+is the better of dark and light, which the brightness test it replaces was not.
+A
+custom label, card, list or swimlane color already derived its text, black or
+white, and that is now pinned at 4.5:1 for every color.
+`tests/playwright/specs/46-axe-theme-contrast.e2e.js` scans every theme and four
+colors that do not read; `tests/customColorContrast.test.cjs` pins the rules.
+
+</details>
+
+**REST API** - board labels.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0426c7741a">A padded label name finds the stored label instead of creating another</a>. Thanks to AhmedLukman and xet7.</summary>
+
+[\#6864](https://github.com/wekan/wekan/pull/6864). A label is looked up by name
+and color before one is added, and the lookup compared the name as it was sent
+while the schema stores it trimmed, so a padded " Bug " missed the stored "Bug"
+and every repeat of the request created another label with the same name and
+color. The pull request trimmed the name in the REST builder; the lookup is
+shared
+by the card's label form, the importers and the list sync, so it trims too, and
+a
+legacy label stored with padding is still found. A different color, letter case
+or inner space stays a different label. `tests/boardLabelLookup.test.cjs` pins
+it.
 
 </details>
 
