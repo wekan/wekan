@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+A **GitHub CodeQL** finding in a test is fixed, and the guard
+against
+replacing text with itself now also sees patterns with a `^` or `$` anchor.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.90 2026-11-03 WeKan ® release
 
 The login page can have its own **background color**, Member

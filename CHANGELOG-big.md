@@ -124,6 +124,32 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A **GitHub CodeQL** finding in a test is fixed, and the guard
+against
+replacing text with itself now also sees patterns with a `^` or `$` anchor.
+
+This release has the following developer-tooling fix:
+
+**Code scanning** - the tests that guard the tree.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62da564a1e">A test no longer replaces getLabel with itself, and the identity-replacement guard knows anchored patterns</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Code scanning alert #600 (`js/identity-replacement`, CWE-116):
+`tests/boardLabelLookup.test.cjs` cut the `getLabel` method out of
+`models/boards.js` and then ran `.replace(/^getLabel/, 'getLabel')` on it, which
+does nothing because the slice already starts at `getLabel`. The line is gone.
+`tests/noIdentityReplacement.test.cjs` skipped every regular expression with an
+anchor, so it could not see the shape; a leading `^` or a trailing `$` over
+plain characters is now compared like any other, with samples of both for the
+guard to detect and the existing samples that must not be reported.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.90 2026-11-03 WeKan ® release
 
 **In short:** The login page can have its own **background color**, Member
