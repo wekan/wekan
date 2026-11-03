@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.89 2026-11-03 WeKan ® release
 
 Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
 longer opens the Due date popup and closes it again on a Farsi layout.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.89](CHANGELOG-big.md#v1289-2026-11-03-wekan--release)
 
 # v12.88 2026-11-03 WeKan ® release
 
@@ -45,12 +45,3 @@ and landmarks and headings on every page. axe-core now finds no violation on
 22 pages. A cleared database connection pool is reported as a lost connection.
 
 [All changes in v12.85](CHANGELOG-big.md#v1285-2026-11-02-wekan--release)
-
-# v12.84 2026-11-02 WeKan ® release
-
-GitHub code scanning's **code-quality** findings are fixed: a
-promise formatted as text, undeclared globals, an upload that hung on an
-unreadable file, and the lint around them. `npm run lint:promises`
-now finds promises that are not awaited or handled.
-
-[All changes in v12.84](CHANGELOG-big.md#v1284-2026-11-02-wekan--release)

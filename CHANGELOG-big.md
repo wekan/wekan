@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.89 2026-11-03 WeKan ® release
 
 **In short:** Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
 longer opens the Due date popup and closes it again on a Farsi layout.
