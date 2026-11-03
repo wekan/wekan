@@ -250,6 +250,24 @@ body.desktop-mode .card-details.card-details-collapsed {
   color: #b3b3b3;
   display: inline-block;
   margin-inline-end: 6px;
+  /* Above the title's edit zone (z-index 1, over the whole title): a press on the
+     card number moves the window like the rest of the header row; only the title
+     itself edits. */
+  position: relative;
+  z-index: 2;
+}
+
+/* The areas that move the window by a finger. Without touch-action: none the browser
+   takes a finger drag for a scroll and cancels the pointer, so the window never moves
+   (the page behind it scrolls instead). Only in desktop mode, where the card is a
+   window; the full-screen card of mobile mode is not moved. */
+body.desktop-mode .card-details .card-details-header,
+body.desktop-mode .card-details .card-details-header .card-drag-handle {
+  touch-action: none;
+}
+body.card-window-dragging {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Collapse toggle triangle */

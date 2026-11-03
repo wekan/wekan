@@ -248,19 +248,99 @@ test('the bottom-right handle can make the opened card wider or narrower', () =>
 
 test('a window the user dragged keeps its place, and is only kept on screen', () => {
   const js = read('client/components/cards/cardDetails.js');
-  // Both drag handles — the header handle and the title — must mark it.
-  const handles = [...js.matchAll(/'mousedown \.js-card-(?:title-)?drag-handle'\(event\) \{/g)];
+  // Both drag handles - the header handle and the title - must mark it. They are
+  // Pointer Events now (a finger sends no mouse events while it moves, so the mouse-only
+  // handlers left the card fixed on an iPad); both start the same drag, beginCardWindowDrag,
+  // and THAT marks the window as user-placed once it really moves.
+  const handles = [...js.matchAll(/'pointerdown \.js-card-(?:title-)?drag-handle'\(event\) \{/g)];
   assert.strictEqual(handles.length, 2, 'both drag handles exist');
   for (const handle of handles) {
-    // The whole handler, not a byte window: each of them starts with guards -
-    // the title one steps aside for links and for the half of the title that
-    // edits - and a fixed slice silently stops covering the thing being checked
-    // the first time one of those grows.
     const end = js.indexOf('\n  },', handle.index);
     const body = js.slice(handle.index, end === -1 ? js.length : end);
-    assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(body),
-      'dragging must mark the window as user-placed');
+    assert.ok(/beginCardWindowDrag\(event, /.test(body), 'each starts the shared drag');
   }
+  const drag = js.slice(js.indexOf('function beginCardWindowDrag('), js.indexOf('Template.cardDetails.events({'));
+  assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(drag),
+    'dragging must mark the window as user-placed');
+  const at = js.indexOf('function anchorCardDetailsX(');
+  assert.notStrictEqual(at, -1, 'the DOM half must exist');
+  const body = js.slice(at, js.indexOf('\n}', at));
+  for (const prop of ['top', 'bottom', 'height']) {
+    assert.ok(!new RegExp(`el\\.style\\.${prop}\\s*=`).test(body),
+      `it must not write style.${prop} — Y is already correct (#6465)`);
+  }
+  for (const prop of ['left', 'right', 'width']) {
+    assert.ok(new RegExp(`el\\.style\\.${prop}\\s*=`).test(body), `it writes style.${prop}`);
+  }
+});
+
+// ── wiring ──────────────────────────────────────────────────────────────────
+
+test('it runs when a card is opened, and again when the viewport changes', () => {
+  const js = read('client/components/cards/cardDetails.js');
+  assert.ok(/Tracker\.afterFlush\(\(\) => \{\s*const element = \$cardDetails\.get\(0\);\s*try \{\s*anchorCardDetailsX\(element\)/.test(js),
+    'placed after the flush that renders it, so the measured width is the real one');
+  assert.ok(/addEventListener\('resize'/.test(js) && /anchorAllCardDetailsX\(\)/.test(js),
+    'and re-placed on resize — a viewport that shrank is the other way to lose it');
+  assert.ok(/requestAnimationFrame/.test(js),
+    'coalesced into a frame: a window drag-resize fires resize continuously');
+});
+
+test('desktop cards stay unpainted until initial placement, including fallback paths', () => {
+  const jade = read('client/components/cards/cardDetails.jade');
+  const css = read('client/components/cards/cardDetails.css');
+  const js = read('client/components/cards/cardDetails.js');
+  // Drawn from a reactive helper, not as a static class: Blaze re-adds a
+  // tag's static classes whenever its class attribute changes, so a static
+  // pending class came back after Maximize / Minimize and hid the card.
+  assert.match(jade, /section\.card-details\.js-card-details[^\n]*\(\s*class='\{\{#unless positionSettled\}\}card-details-position-pending\{\{\/unless\}\}'/);
+  assert.doesNotMatch(jade, /section\.card-details[^\n(]*\.card-details-position-pending/,
+    'negative: never a static class of the section');
+  assert.match(js, /positionSettled = new ReactiveVar\(false\)/);
+  assert.match(js, /element\.classList\.remove\('card-details-position-pending'\);[\s\S]*?tpl\.positionSettled\.set\(true\)/);
+  assert.match(css, /body\.desktop-mode \.card-details\.card-details-position-pending:not\(\.card-details-popup\):not\(\.card-details-maximized\) \{\s*visibility: hidden;/);
+  assert.match(js, /anchorCardDetailsX\(element\);\s*\} finally \{[\s\S]*?element\.classList\.remove\('card-details-position-pending'\)/);
+});
+
+test('the bottom-right handle can make the opened card wider or narrower', () => {
+  const css = read('client/components/cards/cardDetails.css');
+  const desktopAt = css.indexOf(
+    'body.desktop-mode .card-details:not(.card-details-popup) {',
+  );
+  const desktopRule = css.slice(desktopAt, css.indexOf('\n}', desktopAt));
+  assert.match(desktopRule, /max-width: calc\(100vw - 16px\)/,
+    'the desktop card can grow to the viewport edge');
+  assert.doesNotMatch(desktopRule, /max-width: 520px/,
+    'the initial width must not also be the resize ceiling');
+
+  const defaultAt = css.indexOf(
+    'body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"])',
+  );
+  const defaultRule = css.slice(defaultAt, css.indexOf('\n}', defaultAt));
+  assert.match(defaultRule, /width: min\(520px, 90vw\)/,
+    'the card still opens at its established compact width');
+  assert.match(css, /@media screen and \(min-width: 801px\)[\s\S]*?\.card-details \{[\s\S]*?resize: both;/,
+    'desktop users retain the two-way native resize handle');
+  assert.match(css, /body\.mobile-mode \.card-details \{[\s\S]*?resize: none !important;/,
+    'mobile remains full-screen rather than resizable');
+});
+
+test('a window the user dragged keeps its place, and is only kept on screen', () => {
+  const js = read('client/components/cards/cardDetails.js');
+  // Both drag handles - the header handle and the title - must mark it. They are
+  // Pointer Events now (a finger sends no mouse events while it moves, so the mouse-only
+  // handlers left the card fixed on an iPad); both start the same drag, beginCardWindowDrag,
+  // and THAT marks the window as user-placed once it really moves.
+  const handles = [...js.matchAll(/'pointerdown \.js-card-(?:title-)?drag-handle'\(event\) \{/g)];
+  assert.strictEqual(handles.length, 2, 'both drag handles exist');
+  for (const handle of handles) {
+    const end = js.indexOf('\n  },', handle.index);
+    const body = js.slice(handle.index, end === -1 ? js.length : end);
+    assert.ok(/beginCardWindowDrag\(event, /.test(body), 'each starts the shared drag');
+  }
+  const drag = js.slice(js.indexOf('function beginCardWindowDrag('), js.indexOf('Template.cardDetails.events({'));
+  assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(drag),
+    'dragging must mark the window as user-placed');
   const at = js.indexOf('function anchorCardDetailsX(');
   const body = js.slice(at, js.indexOf('\n}', at));
   assert.ok(/USER_MOVED_ATTR\) === '1'/.test(body), 'and the placement must honour it');

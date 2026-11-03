@@ -39,6 +39,10 @@
    first row of a popup, and it must match the space beside it: `.content` has 18px of
    side padding, so 6 + 12 = 18 makes the top gap and the left gutter the same. */
 .pop-over .header {
+  /* A popup is moved by its title bar (popup.js, Pointer Events). Without this a
+     finger drag on it is taken for a scroll and the pointer is cancelled, so only a
+     mouse could move it. */
+  touch-action: none;
   height: calc(41px * var(--wekan-ui-font-scale, 1));
   position: relative;
   margin-bottom: 6px;
@@ -1441,6 +1445,7 @@ body.mobile-mode .pop-over .content-wrapper {
    button (popup.js MOVABLE_POPUPS / MAXIMIZABLE_POPUPS), placed like the opened
    card's: the handle before the title, the button beside the close button. */
 .pop-over .header .popup-drag-handle {
+  touch-action: none;
   float: inline-start;
   padding: 12px 0 12px 12px;
   cursor: move;

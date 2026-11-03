@@ -81,6 +81,7 @@ const editingLocationId = new ReactiveVar(null);
 // Shared with Admin Panel, which links the places accounts log in from the same
 // way - models/lib/mapLink.js.
 const { mapLinkFor, GCJ } = require('/models/lib/mapLink');
+const { cardHeaderPress, dragThreshold, passedThreshold, clampWindow } = require('/models/lib/windowDrag');
 
 
 
@@ -1192,6 +1193,66 @@ Template.cardSectionHeader.events({
   },
 });
 
+// Moves the card window under a finger or a mouse. `press` is cardHeaderPress's answer.
+// A press on a control waits until the pointer has really moved, so a tap still
+// collapses, closes or opens the menu; once it moved, the click that follows the drag
+// is swallowed.
+function beginCardWindowDrag(jqEvent, press) {
+  // Blaze hands over a jQuery event, which does not copy `isPrimary`; the browser's
+  // own event has it.
+  const event = jqEvent.originalEvent || jqEvent;
+  if (!press.start || !event.isPrimary) return;
+  if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+  const $card = $(event.target).closest('.card-details');
+  if (!$card.length) return;
+
+  const startX = event.clientX;
+  const startY = event.clientY;
+  const offset = $card.offset();
+  const startLeft = offset.left - window.scrollX;
+  const startTop = offset.top - window.scrollY;
+  const threshold = dragThreshold(event.pointerType, press.deferred);
+  const pointerId = event.pointerId;
+  let moving = false;
+
+  const onMove = (e) => {
+    if (e.pointerId !== pointerId) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (!moving) {
+      if (!passedThreshold(dx, dy, threshold)) return;
+      moving = true;
+      // #6465: where the user put it wins over where the minicard is, so a later
+      // resize re-places every other window but only clamps this one into view.
+      markCardDetailsUserMoved($card);
+      document.body.classList.add('card-window-dragging');
+    }
+    e.preventDefault();
+    const placed = clampWindow(startLeft + dx, startTop + dy, $card.outerWidth(),
+      { width: window.innerWidth, height: window.innerHeight });
+    $card.css({ left: `${placed.left}px`, top: `${placed.top}px` });
+  };
+
+  const onEnd = (e) => {
+    if (e.pointerId !== pointerId) return;
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onEnd);
+    document.removeEventListener('pointercancel', onEnd);
+    document.body.classList.remove('card-window-dragging');
+    if (moving && press.deferred) {
+      // The drag started on a link or a button: its click is not a tap.
+      const swallow = (click) => { click.preventDefault(); click.stopPropagation(); };
+      document.addEventListener('click', swallow, { capture: true, once: true });
+      setTimeout(() => document.removeEventListener('click', swallow, { capture: true }), 400);
+    }
+  };
+
+  document.addEventListener('pointermove', onMove, { passive: false });
+  document.addEventListener('pointerup', onEnd);
+  document.addEventListener('pointercancel', onEnd);
+}
+
 Template.cardDetails.events({
   // #1591 folded each FIELD by its own title, storing a class per card in the
   // profile. The section carets replaced it: one handle per section, on the
@@ -1221,86 +1282,31 @@ Template.cardDetails.events({
       Users.setPublicCardCollapsed(!currentState);
     }
   },
-  'mousedown .js-card-drag-handle'(event) {
-    event.preventDefault();
-    const $card = $(event.target).closest('.card-details');
-    // #6465: where the user put it wins over where the minicard is, so a later
-    // resize re-places every other window but only clamps this one into view.
-    markCardDetailsUserMoved($card);
-    const startX = event.clientX;
-    const startY = event.clientY;
-    const startLeft = $card.offset().left;
-    const startTop = $card.offset().top;
-
-    const onMouseMove = (e) => {
-      const deltaX = e.clientX - startX;
-      const deltaY = e.clientY - startY;
-      $card.css({
-        left: startLeft + deltaX + 'px',
-        top: startTop + deltaY + 'px'
-      });
-    };
-
-    const onMouseUp = () => {
-      $(document).off('mousemove', onMouseMove);
-      $(document).off('mouseup', onMouseUp);
-    };
-
-    $(document).on('mousemove', onMouseMove);
-    $(document).on('mouseup', onMouseUp);
+  // The opened card's window is moved by a finger as well as a mouse, so these are
+  // Pointer Events (a finger sends no mouse events while it moves, which left the card
+  // fixed on an iPad while the page behind it scrolled) and the areas that start a
+  // drag are `touch-action: none` (cardDetails.css). With drag handles ON the handle
+  // is the only thing that moves the window; with them off the header row moves it,
+  // except the title (it edits). A link or button in the row - the collapse caret, the
+  // menu, the card number's neighbours - still does its job when tapped, and moves the
+  // window when dragged. models/lib/windowDrag.js
+  'pointerdown .js-card-drag-handle'(event) {
+    beginCardWindowDrag(event, { start: true, deferred: false });
   },
-  'mousedown .js-card-title-drag-handle'(event) {
-    // The title bar drags the window. Don't interfere with text selection.
-    if (
-      $(event.target).closest(
-        'a, input, textarea, button, select, option, .js-card-details-title',
-      ).length > 0
-    ) {
-      // #6641: while the editor replaces the header, a textarea press still
-      // bubbles to this drag bar. Leave it to the browser so mouse dragging
-      // selects text instead of moving the card window.
-      return;
-    }
-    // #6839: ...and never from the title, which edits - all of it
-    // (cardDetails.css). The window is moved from the empty space of the
-    // header row above it, beside the collapse caret and the menu.
-    if ($(event.target).closest('.card-details-title-edit-zone').length > 0) {
-      return;
-    }
-    // The drag handle has its own handler; without this both would run and the
-    // window would be moved twice by one press. And when there IS a handle -
-    // drag handles on - it is the only thing that moves the window, which is
-    // what turning handles on means.
-    if ($(event.target).closest('.js-card-drag-handle').length > 0
-      || $(event.target).closest('.card-details').find('.js-card-drag-handle').length > 0) {
-      return;
-    }
-
-    event.preventDefault();
-    const $card = $(event.target).closest('.card-details');
-    // #6465: same as the drag handle above — a dragged window keeps its place.
-    markCardDetailsUserMoved($card);
-    const startX = event.clientX;
-    const startY = event.clientY;
-    const startLeft = $card.offset().left;
-    const startTop = $card.offset().top;
-
-    const onMouseMove = (e) => {
-      const deltaX = e.clientX - startX;
-      const deltaY = e.clientY - startY;
-      $card.css({
-        left: startLeft + deltaX + 'px',
-        top: startTop + deltaY + 'px'
-      });
-    };
-
-    const onMouseUp = () => {
-      $(document).off('mousemove', onMouseMove);
-      $(document).off('mouseup', onMouseUp);
-    };
-
-    $(document).on('mousemove', onMouseMove);
-    $(document).on('mouseup', onMouseUp);
+  'pointerdown .js-card-title-drag-handle'(event) {
+    const target = event.target;
+    const closest = selector => (target.closest ? target.closest(selector) : null);
+    const press = cardHeaderPress({
+      onEditable: !!closest('input, textarea, select, option, .js-card-details-title'),
+      onTitleEditZone: !!closest('.card-details-title-edit-zone'),
+      // The handle has its own handler above; this one steps aside for it.
+      onHandle: false,
+      cardHasHandle: !!closest('.js-card-drag-handle')
+        || !!(closest('.card-details') && closest('.card-details').querySelector('.js-card-drag-handle')),
+      onControl: !!closest('a, button'),
+    });
+    if (closest('.js-card-drag-handle')) return;
+    beginCardWindowDrag(event, press);
   },
   'click .js-close-card-details'(event) {
     event.preventDefault();
