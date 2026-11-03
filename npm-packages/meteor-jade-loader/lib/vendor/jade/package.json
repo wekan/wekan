@@ -61,5 +61,13 @@
   "_id": "jade@1.3.0",
   "_shasum": "1d2afc59de1a0ee9c06d3b364833ac0d009886ac",
   "_from": "https://github.com/mquandalle/jade/tarball/f3f956fa1031e05f85be7bc7b67f12e9ec80ba37",
-  "_resolved": "https://github.com/mquandalle/jade/tarball/f3f956fa1031e05f85be7bc7b67f12e9ec80ba37"
+  "_resolved": "https://github.com/mquandalle/jade/tarball/f3f956fa1031e05f85be7bc7b67f12e9ec80ba37",
+  "overrides": {
+    "glob@^13.0.0": {
+      "minimatch": "^11.0.1"
+    },
+    "test-exclude": {
+      "minimatch": "^11.0.1"
+    }
+  }
 }
