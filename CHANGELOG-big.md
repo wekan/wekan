@@ -124,6 +124,44 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **dark board themes** are readable again: **Card Settings**,
+popups, the sidebar and the quiet text, in cleandark, moderndark, dark and
+exodark.
+
+This release fixes the following bugs:
+
+**Dark themes** - cleandark, moderndark, dark and exodark.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6b10e3592">Card Settings, popups, sidebars and the quiet text are readable in the dark themes</a>. Thanks to Samunosuke and xet7.</summary>
+
+[\#6863](https://github.com/wekan/wekan/issues/6863). Card Settings drew white
+text on light grey blocks (1.07:1 in cleandark); popup items, the board
+sidebar's Keyboard shortcuts row, "Add custom field" and its sister buttons and
+the sidebar's labels were black on dark (1.18 to 2.19:1); and a list header's
+`!important` light grey beat each theme's own and left its light text on it
+(1.09:1 in moderndark, 1.27:1 in exodark). Part of it was new: the accessibility
+audit made the quiet text greys dark for every theme, so the dark themes showed
+dark grey on dark; the rest was older, rules that never followed the dark
+themes. The quiet text is now a variable, `#595959` on the light themes and a
+light grey where the surface is dark (cleandark, moderndark, and dark and
+exodark on the board, the card and the sidebar); Card Settings' sections, its
+muted text, the popup items, the quiet buttons, the shortcuts row, the sidebar
+labels, dark's swimlane header and moderndark's selected minicard and primary
+buttons follow the theme; and the list header's `!important` is gone.
+`tests/playwright/specs/46-axe-dark-themes.e2e.js` runs axe-core's colour
+contrast rule on the four themes (the board, the sidebar, Card Settings, an
+opened card and the custom fields popup) and finds nothing;
+`tests/darkThemeContrast6863.test.cjs` pins each rule. The header colours of
+relax, nephritis and modern, and a few lines of clearblue and cleanlight, are
+still below 4.5 and are listed in the accessibility audit.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.87 2026-11-03 WeKan ® release
 
 **In short:** A **REST API** "get one" that finds nothing answers **404**

@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **dark board themes** are readable again: **Card Settings**,
+popups, the sidebar and the quiet text, in cleandark, moderndark, dark and
+exodark.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.87 2026-11-03 WeKan ® release
 
 A **REST API** "get one" that finds nothing answers **404**
