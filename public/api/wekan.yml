@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.89
+  version: v12.90
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -8235,6 +8235,9 @@ definitions:
       textBelowCustomLoginLogo:
         type: string
         x-nullable: true
+      loginBackgroundColor:
+        type: string
+        x-nullable: true
       automaticLinkedUrlSchemes:
         type: string
         x-nullable: true
@@ -8812,6 +8815,15 @@ definitions:
            #1273: when a #label or @member is picked while typing a new card's
            title, keep the "#label" / "@member" text in the title too. Off by
            default: the text is replaced by the label or member, as before.
+        type: boolean
+      hideFocusOutline:
+        description: |
+           #6755: Member Settings / Change Settings / "Show focus outline", turned
+           off. The blue ring WeKan draws round the focused control (layouts.css,
+           WCAG 2.4.7) is an accessibility feature and stays on by default; a member
+           who does not want it - it also shows after a click on a minicard - can hide
+           it, for themselves only. Stored as the exception, so an account that never
+           touched the setting keeps the ring.
         type: boolean
       keepAddCardFormOpen:
         description: |
