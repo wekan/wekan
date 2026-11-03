@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
-import { fontFamilyValue, fontSizeValue, fontScaleValue, colorValue } from '/models/lib/uiFonts';
+import { fontFamilyValue, fontSizeValue, fontScaleValue, readableUiTextColor } from '/models/lib/uiFonts';
+import { activeThemeName } from '/client/lib/activeTheme';
 
 // #4759: apply the user's chosen UI font AND font-size preset to the whole UI by
 // setting CSS variables on :root and toggling marker classes on <body> (uiFont.css
@@ -50,7 +51,9 @@ Meteor.startup(() => {
     // of it that happened to be written in rem. No class goes with it - a
     // variable that is not set falls back to 1 in the calc itself.
     toggle('--wekan-ui-font-scale', null, fontScaleValue(profile.uiFontSize));
-    toggle('--wekan-ui-text-color', 'has-ui-text-color', colorValue(profile.uiTextColor));
+    // The chosen colour, made legible on the surface of the theme in use (4.5:1,
+    // WCAG 1.4.3): a colour that already reads is applied as chosen.
+    toggle('--wekan-ui-text-color', 'has-ui-text-color', readableUiTextColor(profile.uiTextColor, activeThemeName()));
     // There was a `--wekan-ui-bg-color` here, for "text background color". It is
     // removed: a colour behind the text needs elements to sit on, and there is no
     // set of them that looks right - on the boxes it painted the page, on the text

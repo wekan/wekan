@@ -43,3 +43,6 @@ template(name="themeColorPicker")
           input.js-theme-wheel(type="color" data-index="{{index}}" value="{{value}}" title="{{_ 'custom-color'}}")
       .theme-preview
         span.background-box(class="{{previewClass}}" style="{{previewStyle}}")
+      //- WCAG 1.4.3: a colour that white text cannot be read on is darkened; this says so.
+      if customAdjusted
+        p.theme-custom-adjusted.js-theme-custom-adjusted {{_ 'custom-color'}}: {{customAdjusted}} (4.5:1)

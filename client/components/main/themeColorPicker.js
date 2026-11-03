@@ -2,7 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
-import { isHexColor, toHex } from '/models/lib/contrastColor';
+import { isHexColor, toHex, readableAccent } from '/models/lib/contrastColor';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import {
   THEME_CATEGORY_ORDER,
@@ -138,13 +138,23 @@ Template.themeColorPicker.helpers({
     const tpl = Template.instance();
     const cat = customCategory(tpl);
     if (!allowsCustomColor(cat)) return '';
-    const cc = tpl.customColors.get();
+    // The colours as the theme applies them: made readable under white text
+    // (models/lib/themeAccents.js activeAccent), so the preview is what the header
+    // will be, not what the wheel showed.
+    const cc = tpl.customColors.get().map(c => (c ? readableAccent(c) : c));
     if (!cc.some(Boolean)) return '';
     if (customColorCount(cat) === 2 && cc[0] && cc[1]) {
       return `background: linear-gradient(135deg, ${cc[0]}, ${cc[1]}) !important;`;
     }
     if (cc[0]) return `background: ${cc[0]} !important;`;
     return '';
+  },
+  // The colours that had to change to be readable, for the note under the preview.
+  customAdjusted() {
+    const tpl = Template.instance();
+    const chosen = tpl.customColors.get().filter(Boolean).map(c => toHex(c)).filter(Boolean);
+    const changed = chosen.map(c => readableAccent(c)).filter((c, i) => c !== chosen[i]);
+    return changed.join(' ');
   },
 });
 

@@ -221,8 +221,8 @@ async function main() {
     assert.equal(first.isDueDateCompleted, true);
     assert.deepEqual(first.tasks.map(t => [t.name, t.finished]), [['Intro', true], ['Outro', false]], 'checklists flatten into one task list');
     assert.deepEqual(first.tags, [
-      { id: 'L1', text: 'copy', color: '#eb4646', style: 'background-color: #eb4646; color: #f4f4f5' },
-      { id: 'L2', text: 'web', color: '#e44057', style: 'background-color: #e44057; color: #f4f4f5' },
+      { id: 'L1', text: 'copy', color: '#eb4646', style: 'background-color: #eb4646; color: #000000' },
+      { id: 'L2', text: 'web', color: '#e44057', style: 'background-color: #e44057; color: #000000' },
     ], 'an unnamed label has no Kanri tag text and is left out');
     assert.deepEqual(out.globalTags.map(t => t.text), ['copy', 'web'], 'globalTags are the tags the exported cards use');
     assert.equal(out.columns[1].cards[0].color, '#000080', 'a WeKan color Kanri has no class for is written as hex');

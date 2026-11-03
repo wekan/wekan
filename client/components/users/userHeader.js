@@ -9,7 +9,8 @@ import Users from '/models/users';
 import { Utils } from '/client/lib/utils';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { detectAvailableFonts } from '/client/lib/fontDetector';
-import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES, isHexColor6, colorValue } from '/models/lib/uiFonts';
+import { fontFamilyValue, fontSizeValue, UI_FONT_SIZES, isHexColor6, colorValue, readableUiTextColor } from '/models/lib/uiFonts';
+import { activeThemeName } from '/client/lib/activeTheme';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 
 // WCAG 2.5.3 Label in Name: the link shows the avatar's initials (when the avatar
@@ -666,12 +667,22 @@ Template.changeFontPopup.helpers({
   hasTextColor() {
     return !!Template.instance().textColor.get();
   },
+  // The chosen text color as it is applied: made legible on the theme's surface
+  // (4.5:1), and whether that changed it, so the member is told why the page does
+  // not show exactly what the wheel did.
+  readableTextColor() {
+    return readableUiTextColor(Template.instance().textColor.get(), activeThemeName());
+  },
+  textColorAdjusted() {
+    const chosen = colorValue(Template.instance().textColor.get());
+    return !!chosen && readableUiTextColor(chosen, activeThemeName()) !== chosen.toLowerCase();
+  },
   // Preview reflects the chosen font, size and text color.
   previewStyle() {
     const tpl = Template.instance();
     const family = fontFamilyValue(tpl.selected.get());
     const size = fontSizeValue(tpl.selectedSize.get());
-    const color = colorValue(tpl.textColor.get());
+    const color = readableUiTextColor(tpl.textColor.get(), activeThemeName());
     return [
       family && `font-family: ${family};`,
       size && `font-size: ${size};`,

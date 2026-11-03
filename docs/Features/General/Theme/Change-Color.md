@@ -116,7 +116,7 @@ were wrong once it moved:
 
 - **clearblue** is a colour *slide*, and the slide was only ever on
   `#header #header-main-bar`, the inner element of the second bar. The first bar
-  took the flat `background-color: #00aecc` from the rule beside it — which is
+  took the flat `background-color: #00798d` from the rule beside it — which is
   **strongcyan's colour exactly**, so choosing clearblue painted the header
   strongcyan. The slide is on `#header-quick-access` now.
 - **natural** and **modern** each had a *later* rule repainting the first bar the
@@ -136,7 +136,7 @@ right for the eighteen flat themes. clearblue cannot be carried by it: a variabl
 holds a colour, and a gradient is not one. So the rows that must *slide* are
 named in clearblue's own rule — the Admin Panel's selected left-menu row, which
 always was, and the All Boards one, which now is. Without that, All Boards' row
-sat flat `#00aecc` beside an Admin Panel row that slid.
+sat flat `#00798d` beside an Admin Panel row that slid.
 
 `tests/themeAccents.test.cjs` pins all of it: every theme paints the first bar,
 paints it its *own* colour, and **no two themes paint it the same** — which is
@@ -156,10 +156,10 @@ categories cover the same colour families:
 
 | Theme | Slide | Base is |
 | --- | --- | --- |
-| `clearblue` | `#499bea` → `#00aecc` | (hand-tuned, the original) |
-| `cleargreen` | `#8ad59f` → `#4bbf6b` | limegreen |
-| `clearorange` | `#efab6f` → `#e67e22` | pumpkin |
-| `clearpink` | `#df94b8` → `#cd5a91` | moderatepink |
+| `clearblue` | `#499bea` → `#00798d` | (hand-tuned, the original) |
+| `cleargreen` | `#8ad59f` → `#277c48` | limegreen |
+| `clearorange` | `#efab6f` → `#a75919` | pumpkin |
+| `clearpink` | `#df94b8` → `#bd3a79` | moderatepink |
 | `clearpurple` | `#b685ca` → `#8e44ad` | wisteria |
 | `clearred` | `#d67e75` → `#c0392b` | pomegranate |
 

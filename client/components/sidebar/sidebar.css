@@ -43,7 +43,7 @@
   display: none;
 }
 .sidebar .sidebar-content h3 {
-  color: #808080;
+  color: var(--wekan-quiet-text, #595959);
   font-size: 1em;
   margin-bottom: 10px;
   font-weight: bold;

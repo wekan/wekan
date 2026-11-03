@@ -6,9 +6,9 @@
 /* Ordinary solid-colour themes. */
 
 .board-color-nephritis {
-  --board-theme-accent: #27ae60;
-  --board-theme-dark: #1f8b4d;
-  --board-theme-hover: #2cc66d;
+  --board-theme-accent: #217d49;
+  --board-theme-dark: #1c6c3f;
+  --board-theme-hover: #1f7645;
   --board-theme-emphasis: #ae2775;
   --board-theme-emphasis-hover: #9d2369;
   --board-theme-emphasis-close: #8b1f5e;
@@ -84,12 +84,12 @@
 }
 
 .board-color-pumpkin {
-  --board-theme-accent: #e67e22;
-  --board-theme-dark: #be6415;
-  --board-theme-hover: #e98b38;
-  --board-theme-emphasis: #228ae6;
-  --board-theme-emphasis-hover: #187dd5;
-  --board-theme-emphasis-close: #156fbe;
+  --board-theme-accent: #a75919;
+  --board-theme-dark: #904d15;
+  --board-theme-hover: #9d5417;
+  --board-theme-emphasis: #196ec2;
+  --board-theme-emphasis-hover: #1765b2;
+  --board-theme-emphasis-close: #155ca3;
   --board-theme-checklist-bg: #f9e5d1;
   --board-theme-selected-bg: #fdf2e9;
   --board-theme-selected-hover-bg: #fefbf8;
@@ -99,12 +99,12 @@
 }
 
 .board-color-moderatepink {
-  --board-theme-accent: #cd5a91;
-  --board-theme-dark: #b53773;
-  --board-theme-hover: #d26b9c;
-  --board-theme-emphasis: #5acd96;
-  --board-theme-emphasis-hover: #43c688;
-  --board-theme-emphasis-close: #37b579;
+  --board-theme-accent: #bd3a79;
+  --board-theme-dark: #a33268;
+  --board-theme-hover: #b23772;
+  --board-theme-emphasis: #217b54;
+  --board-theme-emphasis-hover: #1e714d;
+  --board-theme-emphasis-close: #1c6747;
   --board-theme-checklist-bg: #f4dde8;
   --board-theme-selected-bg: #faeef4;
   --board-theme-selected-hover-bg: #fefafc;
@@ -114,9 +114,9 @@
 }
 
 .board-color-strongcyan {
-  --board-theme-accent: #00aecc;
-  --board-theme-dark: #008ba3;
-  --board-theme-hover: #00c8eb;
+  --board-theme-accent: #00798d;
+  --board-theme-dark: #006879;
+  --board-theme-hover: #007285;
   --board-theme-emphasis: #cc1e00;
   --board-theme-emphasis-hover: #b81b00;
   --board-theme-emphasis-close: #a31800;
@@ -129,12 +129,12 @@
 }
 
 .board-color-limegreen {
-  --board-theme-accent: #4bbf6b;
-  --board-theme-dark: #389d54;
-  --board-theme-hover: #5dc57a;
-  --board-theme-emphasis: #bf4b9f;
-  --board-theme-emphasis-hover: #b13f91;
-  --board-theme-emphasis-close: #9d3881;
+  --board-theme-accent: #277c48;
+  --board-theme-dark: #226b3e;
+  --board-theme-hover: #257544;
+  --board-theme-emphasis: #b34093;
+  --board-theme-emphasis-hover: #a53b87;
+  --board-theme-emphasis-close: #96367b;
   --board-theme-checklist-bg: #daf4de;
   --board-theme-selected-bg: #edf9f0;
   --board-theme-selected-hover-bg: #fafdfb;
@@ -144,12 +144,12 @@
 }
 
 .board-color-corteza {
-  --board-theme-accent: #568ba2;
-  --board-theme-dark: #456f82;
-  --board-theme-hover: #6597ad;
-  --board-theme-emphasis: #a26d56;
-  --board-theme-emphasis-hover: #92624d;
-  --board-theme-emphasis-close: #825745;
+  --board-theme-accent: #4a738a;
+  --board-theme-dark: #406377;
+  --board-theme-hover: #466c82;
+  --board-theme-emphasis: #94614f;
+  --board-theme-emphasis-hover: #885949;
+  --board-theme-emphasis-close: #7c5142;
   --board-theme-checklist-bg: #dce6ec;
   --board-theme-selected-bg: #eef3f6;
   --board-theme-selected-hover-bg: #fafcfc;
@@ -904,10 +904,10 @@ THEME - Relax
 .board-list li.board-color-relax,
 .board-color-relax .setting-content .content-body .side-menu ul li.active,
 .board-color-relax .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #27ae61;
+  background-color: #217d4a;
 }
 .board-color-relax .is-selected .minicard {
-  border-inline-start: 3px solid #27ae61;
+  border-inline-start: 3px solid #217d4a;
 }
 .board-color-relax .minicard {
   border-radius: 7px;
@@ -918,17 +918,17 @@ THEME - Relax
 .board-color-relax input[type=submit].primary,
 .board-color-relax .sidebar .sidebar-content .sidebar-btn,
 .board-color-relax .selected-calendar-picker button.primary {
-  background-color: #1f8b4e;
+  background-color: #1c6c40;
   border-radius: 7px;
 }
 .board-color-relax.pop-over .pop-over-list li a:not(.disabled):hover,
 .board-color-relax .sidebar .sidebar-content .sidebar-btn:hover,
 .board-color-relax .sidebar-list li a:hover {
-  background-color: #2cc66f;
+  background-color: #1f7646;
 }
 .board-color-relax#header ul li.current,
 .board-color-relax#header-quick-access ul li.current {
-  border-bottom: 2px solid #2cc66f;
+  border-bottom: 2px solid #1f7646;
 }
 .board-color-relax#header-quick-access {
   color: #fff;
@@ -944,14 +944,14 @@ THEME - Relax
   background: #8b1f5d;
 }
 .board-color-relax .materialCheckBox.is-checked {
-  border-bottom: 2px solid #27ae61;
-  border-right: 2px solid #27ae61;
+  border-bottom: 2px solid #217d4a;
+  border-right: 2px solid #217d4a;
 }
 .board-color-relax .checklist-progress-bar {
   background-color: #d4f1dd !important;
 }
 .board-color-relax .checklist-progress-bar .checklist-progress {
-  background-color: #27ae61 !important;
+  background-color: #217d4a !important;
 }
 .board-color-relax .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
   background: #e7faef;
@@ -960,17 +960,17 @@ THEME - Relax
   background: #f8fdfa;
 }
 .board-color-relax .toggle-label:after {
-  background-color: #1f8b4e;
+  background-color: #1c6c40;
 }
 .board-color-relax .toggle-switch:checked ~ .toggle-label {
   background-color: #3dd37e;
 }
 .board-color-relax .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #1f8b4e;
+  background-color: #1c6c40;
 }
 @media screen and (max-width: 800px) {
   .board-color-relax.pop-over .header {
-    background: #27ae61;
+    background: #217d4a;
     color: #fff;
   }
 }
@@ -1557,7 +1557,7 @@ THEME - Clear Blue
 .board-backgrounds-list .board-color-clearblue.background-box,
 .public-board-row.board-color-clearblue,
 .board-list li.board-color-clearblue {
-  background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
+  background: linear-gradient(180deg, #499bea 0%, #00798d 100%);
 }
 .board-color-clearblue .is-selected .minicard {
   border-inline-start: 3px solid #499bea;
@@ -1569,7 +1569,7 @@ THEME - Clear Blue
 }
 .board-color-clearblue#header ul li.current,
 .board-color-clearblue#header-quick-access ul li.current {
-  border-bottom: 4px solid #00c8eb;
+  border-bottom: 4px solid #007285;
 }
 .board-color-clearblue#header-quick-access {
   color: #fff;
@@ -1588,14 +1588,14 @@ THEME - Clear Blue
 .board-color-clearblue#header-quick-access,
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active,
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #00aecc;
-  border-bottom: 1px solid #008ba3;
+  background-color: #00798d;
+  border-bottom: 1px solid #006879;
   border-top: 1px solid #00687a;
 }
 /* clearblue's bar is a colour SLIDE, and the slide has to be on the bar that is
    actually on screen. It was only ever on `#header #header-main-bar` - the
    inner element of the SECOND bar - because that is where the theme used to
-   live. The first bar got the flat `background-color: #00aecc` from the rule
+   live. The first bar got the flat `background-color: #00798d` from the rule
    above instead, which is exactly strongcyan's colour: picking clearblue
    painted the header strongcyan.
    `#header-quick-access` has no inner bar of its own, so the slide goes
@@ -1604,7 +1604,7 @@ THEME - Clear Blue
    The All Boards left menu's selected row is named here too. Every other theme
    paints that row through `--theme-accent`, which is one colour and is exactly
    right for them; a slide is not a colour, so the variable cannot carry it and
-   clearblue's row came out flat #00aecc while the Admin Panel's row beside it
+   clearblue's row came out flat #00798d while the Admin Panel's row beside it
    slid. The Admin Panel's row has always been named in this rule; this is the
    All Boards row joining it. docs/Features/General/Theme/Change-Color.md */
 .board-color-clearblue#header #header-main-bar,
@@ -1613,13 +1613,13 @@ THEME - Clear Blue
 .board-color-clearblue .setting-content .content-body .side-menu ul li.active:hover,
 .board-color-clearblue .boards-left-menu .menu-item.active a,
 .board-color-clearblue .boards-left-menu .menu-item.active a:hover {
-  background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
+  background: linear-gradient(180deg, #499bea 0%, #00798d 100%);
 }
 .board-color-clearblue#header #header-main-bar p {
   margin-bottom: 6px;
 }
 .board-color-clearblue#header #header-main-bar .board-header-btn.emphasis {
-  background: #00c8eb;
+  background: #007285;
 }
 .board-color-clearblue#header #header-main-bar .board-header-btn.emphasis:hover,
 .board-color-clearblue#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
@@ -1651,7 +1651,7 @@ THEME - Clear Blue
   background-color: #197ddc;
 }
 .board-color-clearblue.board-wrapper {
-  background: linear-gradient(135deg, #499bea 0%, #00aecc 100%);
+  background: linear-gradient(135deg, #499bea 0%, #00798d 100%);
 }
 .board-color-clearblue .swimlane {
   background: none;
@@ -1743,7 +1743,7 @@ THEME - Clear Blue
 }
 .board-color-clearblue .quiet,
 .board-color-clearblue .quiet a {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.68);
 }
 .board-color-clearblue .list-header .list-header-watch-icon {
   color: rgba(0,0,0,0.5);
@@ -1770,7 +1770,7 @@ THEME - Clear Blue
 }
 .board-color-clearblue .sidebar-shadow {
   box-shadow: none;
-  border-inline-start: 9px solid #00aecc;
+  border-inline-start: 9px solid #00798d;
 }
 .board-color-clearblue .is-open .sidebar-shadow {
   box-shadow: -10px 0 8px rgba(0,0,0,0.3);
@@ -1836,7 +1836,7 @@ THEME - Clear Blue
 
 /* Apply scrollbar to sidebar content*/
 .board-color-clearblue .sidebar .sidebar-content {
-   scrollbar-color: #00aecc #ffffff00;
+   scrollbar-color: #00798d #ffffff00;
 }
 
 /* Remove margins in between columns/fix spacing */
@@ -1987,10 +1987,10 @@ THEME - Modern
 .board-list li.board-color-modern,
 .board-color-modern .setting-content .content-body .side-menu ul li.active,
 .board-color-modern .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #2a80b8;
+  background-color: #2372a4;
 }
 .board-color-modern .is-selected .minicard {
-  border-inline-start: 3px solid #2a80b8;
+  border-inline-start: 3px solid #2372a4;
 }
 .board-color-modern .minicard {
   border-radius: 7px;
@@ -2001,40 +2001,40 @@ THEME - Modern
 .board-color-modern input[type=submit].primary,
 .board-color-modern .sidebar .sidebar-content .sidebar-btn,
 .board-color-modern .selected-calendar-picker button.primary {
-  background-color: #226693;
+  background-color: #1e628d;
   border-radius: 7px;
 }
 .board-color-modern.pop-over .pop-over-list li a:not(.disabled):hover,
 .board-color-modern .sidebar .sidebar-content .sidebar-btn:hover,
 .board-color-modern .sidebar-list li a:hover {
-  background-color: #2f90cf;
+  background-color: #216b9a;
 }
 .board-color-modern#header ul li.current,
 .board-color-modern#header-quick-access ul li.current {
-  border-bottom: 2px solid #2f90cf;
+  border-bottom: 2px solid #216b9a;
 }
 .board-color-modern#header-quick-access {
   color: #fff;
 }
 .board-color-modern#header #header-main-bar .board-header-btn.emphasis {
-  background: #b8622a;
+  background: #a45b23;
 }
 .board-color-modern#header #header-main-bar .board-header-btn.emphasis:hover,
 .board-color-modern#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #a65826;
+  background: #975420;
 }
 .board-color-modern#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #934e22;
+  background: #8a4c1d;
 }
 .board-color-modern .materialCheckBox.is-checked {
-  border-bottom: 2px solid #2a80b8;
-  border-right: 2px solid #2a80b8;
+  border-bottom: 2px solid #2372a4;
+  border-right: 2px solid #2372a4;
 }
 .board-color-modern .checklist-progress-bar {
   background-color: #d1e7f5 !important;
 }
 .board-color-modern .checklist-progress-bar .checklist-progress {
-  background-color: #2a80b8 !important;
+  background-color: #2372a4 !important;
 }
 .board-color-modern .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
   background: #e8f3fa;
@@ -2043,17 +2043,17 @@ THEME - Modern
   background: #f8fbfd;
 }
 .board-color-modern .toggle-label:after {
-  background-color: #226693;
+  background-color: #1e628d;
 }
 .board-color-modern .toggle-switch:checked ~ .toggle-label {
   background-color: #469cd5;
 }
 .board-color-modern .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #226693;
+  background-color: #1e628d;
 }
 @media screen and (max-width: 800px) {
   .board-color-modern.pop-over .header {
-    background: #2a80b8;
+    background: #2372a4;
     color: #fff;
   }
 }
@@ -3802,7 +3802,7 @@ THEME - Clean Light
   font-size:  calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
   line-height: calc(24px * var(--wekan-ui-font-scale, 1));
-  color: rgba(10, 10, 20, 0.5);
+  color: rgba(10, 10, 20, 0.7);
 }
 
 .board-color-cleanlight .card-details-header,
@@ -4625,7 +4625,7 @@ THEME - Clean Light
 /* ===============
 THEME - cleargreen
 
-A colour SLIDE, like clearblue: #8ad59f down to #4bbf6b.
+A colour SLIDE, like clearblue: #8ad59f down to #277c48.
 The base is limegreen's own colour, so the flat theme and the slide theme are
 the same colour family and a reader picking either gets what they expected.
 
@@ -4642,7 +4642,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-backgrounds-list .board-color-cleargreen.background-box,
 .public-board-row.board-color-cleargreen,
 .board-list li.board-color-cleargreen {
-  background: linear-gradient(180deg, #8ad59f 0%, #4bbf6b 100%);
+  background: linear-gradient(180deg, #8ad59f 0%, #277c48 100%);
 }
 .board-color-cleargreen .is-selected .minicard {
   border-inline-start: 3px solid #8ad59f;
@@ -4669,7 +4669,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-color-cleargreen#header-quick-access,
 .board-color-cleargreen .setting-content .content-body .side-menu ul li.active,
 .board-color-cleargreen .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #4bbf6b;
+  background-color: #277c48;
   border-bottom: 1px solid #3c9956;
   border-top: 1px solid #2d7340;
 }
@@ -4680,7 +4680,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-color-cleargreen .setting-content .content-body .side-menu ul li.active:hover,
 .board-color-cleargreen .boards-left-menu .menu-item.active a,
 .board-color-cleargreen .boards-left-menu .menu-item.active a:hover {
-  background: linear-gradient(180deg, #8ad59f 0%, #4bbf6b 100%);
+  background: linear-gradient(180deg, #8ad59f 0%, #277c48 100%);
 }
 .board-color-cleargreen#header #header-main-bar p {
   margin-bottom: 6px;
@@ -4718,7 +4718,7 @@ docs/Features/General/Theme/Change-Color.md
   background-color: #42a85e;
 }
 .board-color-cleargreen.board-wrapper {
-  background: linear-gradient(135deg, #8ad59f 0%, #4bbf6b 100%);
+  background: linear-gradient(135deg, #8ad59f 0%, #277c48 100%);
 }
 .board-color-cleargreen .swimlane {
   background: none;
@@ -4810,7 +4810,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-cleargreen .quiet,
 .board-color-cleargreen .quiet a {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.68);
 }
 .board-color-cleargreen .list-header .list-header-watch-icon {
   color: rgba(0,0,0,0.5);
@@ -4837,7 +4837,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-cleargreen .sidebar-shadow {
   box-shadow: none;
-  border-inline-start: 9px solid #4bbf6b;
+  border-inline-start: 9px solid #277c48;
 }
 .board-color-cleargreen .is-open .sidebar-shadow {
   box-shadow: -10px 0 8px rgba(0,0,0,0.3);
@@ -4902,7 +4902,7 @@ docs/Features/General/Theme/Change-Color.md
 
 /* Apply scrollbar to sidebar content*/
 .board-color-cleargreen .sidebar .sidebar-content {
-   scrollbar-color: #4bbf6b #ffffff00;
+   scrollbar-color: #277c48 #ffffff00;
 }
 
 /* Remove margins in between columns/fix spacing */
@@ -4921,7 +4921,7 @@ docs/Features/General/Theme/Change-Color.md
 /* ===============
 THEME - clearorange
 
-A colour SLIDE, like clearblue: #efab6f down to #e67e22.
+A colour SLIDE, like clearblue: #efab6f down to #a75919.
 The base is pumpkin's own colour, so the flat theme and the slide theme are
 the same colour family and a reader picking either gets what they expected.
 
@@ -4938,7 +4938,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-backgrounds-list .board-color-clearorange.background-box,
 .public-board-row.board-color-clearorange,
 .board-list li.board-color-clearorange {
-  background: linear-gradient(180deg, #efab6f 0%, #e67e22 100%);
+  background: linear-gradient(180deg, #efab6f 0%, #a75919 100%);
 }
 .board-color-clearorange .is-selected .minicard {
   border-inline-start: 3px solid #efab6f;
@@ -4965,7 +4965,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-color-clearorange#header-quick-access,
 .board-color-clearorange .setting-content .content-body .side-menu ul li.active,
 .board-color-clearorange .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #e67e22;
+  background-color: #a75919;
   border-bottom: 1px solid #b8651b;
   border-top: 1px solid #8a4c14;
 }
@@ -4976,7 +4976,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-color-clearorange .setting-content .content-body .side-menu ul li.active:hover,
 .board-color-clearorange .boards-left-menu .menu-item.active a,
 .board-color-clearorange .boards-left-menu .menu-item.active a:hover {
-  background: linear-gradient(180deg, #efab6f 0%, #e67e22 100%);
+  background: linear-gradient(180deg, #efab6f 0%, #a75919 100%);
 }
 .board-color-clearorange#header #header-main-bar p {
   margin-bottom: 6px;
@@ -5014,7 +5014,7 @@ docs/Features/General/Theme/Change-Color.md
   background-color: #ca6f1e;
 }
 .board-color-clearorange.board-wrapper {
-  background: linear-gradient(135deg, #efab6f 0%, #e67e22 100%);
+  background: linear-gradient(135deg, #efab6f 0%, #a75919 100%);
 }
 .board-color-clearorange .swimlane {
   background: none;
@@ -5106,7 +5106,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-clearorange .quiet,
 .board-color-clearorange .quiet a {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.68);
 }
 .board-color-clearorange .list-header .list-header-watch-icon {
   color: rgba(0,0,0,0.5);
@@ -5133,7 +5133,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-clearorange .sidebar-shadow {
   box-shadow: none;
-  border-inline-start: 9px solid #e67e22;
+  border-inline-start: 9px solid #a75919;
 }
 .board-color-clearorange .is-open .sidebar-shadow {
   box-shadow: -10px 0 8px rgba(0,0,0,0.3);
@@ -5198,7 +5198,7 @@ docs/Features/General/Theme/Change-Color.md
 
 /* Apply scrollbar to sidebar content*/
 .board-color-clearorange .sidebar .sidebar-content {
-   scrollbar-color: #e67e22 #ffffff00;
+   scrollbar-color: #a75919 #ffffff00;
 }
 
 /* Remove margins in between columns/fix spacing */
@@ -5217,7 +5217,7 @@ docs/Features/General/Theme/Change-Color.md
 /* ===============
 THEME - clearpink
 
-A colour SLIDE, like clearblue: #df94b8 down to #cd5a91.
+A colour SLIDE, like clearblue: #df94b8 down to #bd3a79.
 The base is moderatepink's own colour, so the flat theme and the slide theme are
 the same colour family and a reader picking either gets what they expected.
 
@@ -5234,7 +5234,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-backgrounds-list .board-color-clearpink.background-box,
 .public-board-row.board-color-clearpink,
 .board-list li.board-color-clearpink {
-  background: linear-gradient(180deg, #df94b8 0%, #cd5a91 100%);
+  background: linear-gradient(180deg, #df94b8 0%, #bd3a79 100%);
 }
 .board-color-clearpink .is-selected .minicard {
   border-inline-start: 3px solid #df94b8;
@@ -5261,7 +5261,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-color-clearpink#header-quick-access,
 .board-color-clearpink .setting-content .content-body .side-menu ul li.active,
 .board-color-clearpink .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #cd5a91;
+  background-color: #bd3a79;
   border-bottom: 1px solid #a44874;
   border-top: 1px solid #7b3657;
 }
@@ -5272,7 +5272,7 @@ docs/Features/General/Theme/Change-Color.md
 .board-color-clearpink .setting-content .content-body .side-menu ul li.active:hover,
 .board-color-clearpink .boards-left-menu .menu-item.active a,
 .board-color-clearpink .boards-left-menu .menu-item.active a:hover {
-  background: linear-gradient(180deg, #df94b8 0%, #cd5a91 100%);
+  background: linear-gradient(180deg, #df94b8 0%, #bd3a79 100%);
 }
 .board-color-clearpink#header #header-main-bar p {
   margin-bottom: 6px;
@@ -5310,7 +5310,7 @@ docs/Features/General/Theme/Change-Color.md
   background-color: #b44f80;
 }
 .board-color-clearpink.board-wrapper {
-  background: linear-gradient(135deg, #df94b8 0%, #cd5a91 100%);
+  background: linear-gradient(135deg, #df94b8 0%, #bd3a79 100%);
 }
 .board-color-clearpink .swimlane {
   background: none;
@@ -5402,7 +5402,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-clearpink .quiet,
 .board-color-clearpink .quiet a {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.68);
 }
 .board-color-clearpink .list-header .list-header-watch-icon {
   color: rgba(0,0,0,0.5);
@@ -5429,7 +5429,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-clearpink .sidebar-shadow {
   box-shadow: none;
-  border-inline-start: 9px solid #cd5a91;
+  border-inline-start: 9px solid #bd3a79;
 }
 .board-color-clearpink .is-open .sidebar-shadow {
   box-shadow: -10px 0 8px rgba(0,0,0,0.3);
@@ -5494,7 +5494,7 @@ docs/Features/General/Theme/Change-Color.md
 
 /* Apply scrollbar to sidebar content*/
 .board-color-clearpink .sidebar .sidebar-content {
-   scrollbar-color: #cd5a91 #ffffff00;
+   scrollbar-color: #bd3a79 #ffffff00;
 }
 
 /* Remove margins in between columns/fix spacing */
@@ -5698,7 +5698,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-clearpurple .quiet,
 .board-color-clearpurple .quiet a {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.68);
 }
 .board-color-clearpurple .list-header .list-header-watch-icon {
   color: rgba(0,0,0,0.5);
@@ -5994,7 +5994,7 @@ docs/Features/General/Theme/Change-Color.md
 }
 .board-color-clearred .quiet,
 .board-color-clearred .quiet a {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.68);
 }
 .board-color-clearred .list-header .list-header-watch-icon {
   color: rgba(0,0,0,0.5);

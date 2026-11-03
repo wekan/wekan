@@ -61,9 +61,20 @@ html.has-ui-font-size {
  * follow this anyway; the ones with a colour of their own - a red alert, a
  * green tick - keep saying what they mean. */
 body.has-ui-text-color,
-body.has-ui-text-color *:not(.fa) {
+body.has-ui-text-color *:not(.fa):not(
+  #header, #header *,
+  #header-quick-access, #header-quick-access *,
+  .card-label, .card-label *,
+  button.primary, button.primary *
+) {
   color: var(--wekan-ui-text-color) !important;
 }
+/* The elements left out of the rule above sit on a COLOUR of their own - the
+ * theme's header bars, a label's colour, a primary button's accent - with a text
+ * colour that is chosen to read on it (4.5:1, WCAG 1.4.3). The member's colour is
+ * made legible on the page's surfaces (models/lib/uiFonts.js readableUiTextColor),
+ * which is not the same as legible on those: #626262 on the blue header was
+ * 1.18:1. */
 
 /* There was a "text background color" here (#4759), a colour painted behind the
  * text. It is REMOVED. A background needs elements to sit on, and neither choice

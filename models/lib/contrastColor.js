@@ -105,6 +105,102 @@ function contrastText(bgHexOrNamed) {
   return luminance > 0.179 ? '#000000' : '#ffffff';
 }
 
+// WCAG contrast ratio (1..21) between two colors (hex or named), or null when
+// either cannot be parsed.
+function contrastRatio(a, b) {
+  const la = relativeLuminance(a);
+  const lb = relativeLuminance(b);
+  if (la === null || lb === null) return null;
+  const hi = Math.max(la, lb);
+  const lo = Math.min(la, lb);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+function hexToHsl(hex) {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return [0, 0, l];
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h;
+  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+  else if (max === g) h = (b - r) / d + 2;
+  else h = (r - g) / d + 4;
+  return [h / 6, s, l];
+}
+
+function hslToHex(h, s, l) {
+  const hue = (p, q, t) => {
+    let x = t;
+    if (x < 0) x += 1;
+    if (x > 1) x -= 1;
+    if (x < 1 / 6) return p + (q - p) * 6 * x;
+    if (x < 1 / 2) return q;
+    if (x < 2 / 3) return p + (q - p) * (2 / 3 - x) * 6;
+    return p;
+  };
+  let r;
+  let g;
+  let b;
+  if (s === 0) {
+    r = l; g = l; b = l;
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue(p, q, h + 1 / 3);
+    g = hue(p, q, h);
+    b = hue(p, q, h - 1 / 3);
+  }
+  const part = v => Math.max(0, Math.min(255, Math.round(v * 255))).toString(16).padStart(2, '0');
+  return `#${part(r)}${part(g)}${part(b)}`;
+}
+
+// Make a color readable against the given background(s): the same hue and
+// saturation, with its lightness moved - away from the background's lightness -
+// by the smallest step that reaches `min` (4.5 is WCAG 1.4.3 AA for text) against
+// EVERY background in the list. The color is returned unchanged when it already
+// does. When the backgrounds lie on both sides of it (a light one and a dark one)
+// no color can reach `min` against both; then the better of black and white for
+// the worst background is returned, which is the best that can be done.
+//
+// This is the one place a user's free color choice is turned into one that is
+// legible: a custom theme accent against the header's white text, the text color
+// a member picks against the surface it is drawn on. (A custom label, card, list
+// or swimlane color is the other way round - its TEXT is derived, by contrastText.)
+// Returns the input (normalized) when it cannot be parsed.
+function ensureContrast(color, backgrounds, min = 4.5) {
+  const hex = toHex(color);
+  if (!hex) return typeof color === 'string' ? color : '';
+  const list = (Array.isArray(backgrounds) ? backgrounds : [backgrounds]).filter(b => toHex(b));
+  if (!list.length) return hex;
+  const worst = candidate => Math.min(...list.map(b => contrastRatio(candidate, b)));
+  if (worst(hex) >= min) return hex;
+  const [h, s, l0] = hexToHsl(hex);
+  // Which way: toward black when the backgrounds are lighter than the color's
+  // own lightness would reach, toward white otherwise.
+  const meanLum = list.reduce((sum, b) => sum + relativeLuminance(b), 0) / list.length;
+  const direction = meanLum > 0.179 ? -1 : 1;
+  for (let step = 1; step <= 100; step += 1) {
+    const l = Math.max(0, Math.min(1, l0 + direction * step * 0.01));
+    const candidate = hslToHex(h, s, l);
+    if (worst(candidate) >= min) return candidate;
+  }
+  const black = worst('#000000');
+  const white = worst('#ffffff');
+  return black >= white ? '#000000' : '#ffffff';
+}
+
+// A custom accent (a theme's header and buttons) is drawn with white text on it,
+// and the header's button labels are #f2f2f2, a shade below: darken the accent,
+// if it needs, until both are at AA.
+function readableAccent(color, min = 4.5) {
+  return ensureContrast(color, ['#ffffff', '#f2f2f2'], min);
+}
+
 // The one rule for what a card's `color` may hold, shared by the Cards schema
 // (models/cards.js, enforced on the server for every write) and the color
 // popups: empty, one of the named palette colors, or a strict '#rrggbb' hex.
@@ -147,4 +243,7 @@ export {
   toHex,
   relativeLuminance,
   contrastText,
+  contrastRatio,
+  ensureContrast,
+  readableAccent,
 };

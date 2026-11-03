@@ -9,6 +9,7 @@
 // safe to interpolate into a quoted `font-family` value.
 //
 // Pure + CommonJS: unit-testable and importable on both client and server.
+import { ensureContrast } from './contrastColor.js';
 
 const UI_FONTS = [
   // Windows / cross-platform
@@ -125,6 +126,27 @@ function colorValue(value) {
   return isHexColor6(value) ? value : '';
 }
 
+// The text color a member picks is drawn on the surface of the theme in use, and it
+// has to be legible there (WCAG 1.4.3, 4.5:1): the same hue, lightened or darkened
+// by the smallest step that is. The surfaces are the page and panel greys of the
+// light themes, and the dark surfaces of the four themes with a dark board (their
+// popups differ; one color cannot read on a light and a dark surface at once, so
+// the board's is the one that counts).
+const DARK_SURFACE_THEMES = ['cleandark', 'moderndark', 'dark', 'exodark'];
+const LIGHT_SURFACES = ['#cccccc', '#dedede', '#e4e4e4', '#f7f7f7', '#ffffff'];
+const DARK_SURFACES = ['#222222', '#23232b', '#2b2b2b', '#2e2e39', '#454545', '#545454'];
+
+function surfacesFor(themeName) {
+  return DARK_SURFACE_THEMES.includes(themeName) ? DARK_SURFACES : LIGHT_SURFACES;
+}
+
+// The color to apply for a member's chosen text color: '' when none or not a hex,
+// else the chosen color made readable on the theme's surfaces.
+function readableUiTextColor(value, themeName) {
+  const color = colorValue(value);
+  return color ? ensureContrast(color, surfacesFor(themeName), 4.5) : '';
+}
+
 export {
   UI_FONTS,
   SAFE_FONT_RE,
@@ -138,4 +160,7 @@ export {
   fontScaleValue,
   isHexColor6,
   colorValue,
+  readableUiTextColor,
+  surfacesFor,
+  DARK_SURFACE_THEMES,
 };

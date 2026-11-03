@@ -4,6 +4,7 @@ import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Template } from 'meteor/templating';
 import { activeAccent, activeFill } from '/models/lib/themeAccents';
+import { readableAccent } from '/models/lib/contrastColor';
 
 // #5778 + docs/Theme/Theme.md: apply the theme color to the whole UI (All Boards,
 // Search, Admin Panel, My Cards, etc.) via a `board-color-<name>` class on <body>,
@@ -99,7 +100,8 @@ Meteor.startup(() => {
         document.body.classList.remove('has-custom-theme-color');
       }
       if (c2) {
-        root.style.setProperty('--theme-accent-2', c2);
+        // Made readable like the first end: white text is drawn across the slide.
+        root.style.setProperty('--theme-accent-2', readableAccent(c2));
         document.body.classList.add('has-custom-theme-slide');
       } else {
         root.style.removeProperty('--theme-accent-2');

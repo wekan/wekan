@@ -134,7 +134,7 @@ test('the map holds no theme that does not exist', () => {
 });
 
 test('accentOf answers for a known theme and refuses anything else', () => {
-  assert.strictEqual(accentOf('pumpkin'), '#e67e22');
+  assert.strictEqual(accentOf('pumpkin'), '#a75919');
   assert.strictEqual(accentOf('belize'), '#2573a7');
   assert.strictEqual(accentOf('no-such-theme'), '');
   assert.strictEqual(accentOf(''), '');
@@ -149,10 +149,10 @@ test('a custom colour always wins over the theme it sits on', () => {
   assert.strictEqual(activeAccent('pumpkin', ['#112233']), '#112233');
   assert.strictEqual(activeAccent('pumpkin', ['#112233', '#445566']), '#112233');
   // …and an empty/absent custom set falls back to the theme.
-  assert.strictEqual(activeAccent('pumpkin', []), '#e67e22');
-  assert.strictEqual(activeAccent('pumpkin', null), '#e67e22');
-  assert.strictEqual(activeAccent('pumpkin', ['']), '#e67e22');
-  assert.strictEqual(activeAccent('pumpkin', undefined), '#e67e22');
+  assert.strictEqual(activeAccent('pumpkin', []), '#a75919');
+  assert.strictEqual(activeAccent('pumpkin', null), '#a75919');
+  assert.strictEqual(activeAccent('pumpkin', ['']), '#a75919');
+  assert.strictEqual(activeAccent('pumpkin', undefined), '#a75919');
   // No theme at all: nothing to publish, so the stylesheets keep their fallbacks.
   assert.strictEqual(activeAccent(null, []), '');
   assert.strictEqual(activeAccent(undefined, undefined), '');
@@ -284,7 +284,7 @@ test('the FIRST header bar carries each theme, and the theme it should', () => {
 test('and clearblue keeps its colour SLIDE on the bar you can see', () => {
   // Its bar is a gradient, and the gradient was only ever on
   // `#header #header-main-bar` - the inner element of the second bar - because
-  // that is where the theme lived. The first bar got the flat #00aecc from the
+  // that is where the theme lived. The first bar got the flat #00798d from the
   // rule beside it, which is strongcyan's colour exactly: choosing clearblue
   // painted the header strongcyan.
   const css = read('client/components/boards/boardColors.css');
@@ -292,7 +292,7 @@ test('and clearblue keeps its colour SLIDE on the bar you can see', () => {
   // gradient rule share their first two selector lines, so an `indexOf` on
   // those matched the flat one and the guard passed while reading the wrong
   // rule entirely.
-  const SLIDE = 'linear-gradient(180deg, #499bea 0%, #00aecc 100%)';
+  const SLIDE = 'linear-gradient(180deg, #499bea 0%, #00798d 100%)';
   let gradientRule = null;
   let gradientAt = -1;
   for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
@@ -332,7 +332,7 @@ test('and clearblue keeps its colour SLIDE on the bar you can see', () => {
 test('every theme in the "clear" category actually slides', () => {
   // A slide theme whose bar is one flat colour is a flat theme filed in the
   // wrong drawer - and that is not hypothetical: clearblue's own first bar was
-  // flat #00aecc, which is strongcyan's colour, until it was fixed.
+  // flat #00798d, which is strongcyan's colour, until it was fixed.
   const css = read('client/components/boards/boardColors.css');
   const { THEME_CATEGORIES } = require('../models/lib/themeCategories.js');
 

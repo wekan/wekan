@@ -247,7 +247,7 @@
   float: inline-start;
   display: block;
   line-height: calc(28px * var(--wekan-ui-font-scale, 1));
-  color: #27ae60;
+  color: #217d49;
   margin: 0 10px;
   cursor: pointer;
 }

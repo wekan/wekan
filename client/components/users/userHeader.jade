@@ -410,6 +410,9 @@ template(name="changeFontPopup")
     .color-wheel-wrap
       input.js-ui-text-color(type="color" value=textColorHex title="{{_ 'text-color'}}")
       a.js-reset-text-color(class="{{#unless hasTextColor}}disabled{{/unless}}") {{_ 'remove-btn'}}
+    //- WCAG 1.4.3: the colour is made legible on the theme's surface; this says so.
+    if textColorAdjusted
+      p.ui-text-color-adjusted.js-ui-text-color-adjusted {{_ 'text-color'}}: {{readableTextColor}} (4.5:1)
 
 template(name="changeSettingsPopup")
   //- #6835: its own class - a popup keeps the screens before it (the member

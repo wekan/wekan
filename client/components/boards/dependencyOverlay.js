@@ -1,6 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Utils } from '/client/lib/utils';
+import { ensureContrast } from '/models/lib/contrastColor';
+import { surfacesFor } from '/models/lib/uiFonts';
+import { activeThemeName } from '/client/lib/activeTheme';
 import {
   DEPENDENCY_ICON_CHOICES,
   DEPENDENCY_TYPES,
@@ -138,13 +141,17 @@ Template.dependencyOverlay.onCreated(function () {
         const y2 = dependent.y + dependent.h / 2;
         const dx = Math.max(40, Math.abs(x2 - x1) / 2);
         const path = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
-        const markerId = markerIdForColor(dep.color);
+        // The colour is the member's free choice (a colour wheel), drawn over the
+        // board: made visible against the theme's surface - a line is a graphic
+        // that says something, 3:1 (WCAG 1.4.11). The stored colour is untouched.
+        const drawColor = ensureContrast(dep.color, surfacesFor(activeThemeName()), 3);
+        const markerId = markerIdForColor(drawColor);
         if (meta.directed) {
-          markerColors.add(dep.color);
+          markerColors.add(drawColor);
         }
         lines.push({
           path,
-          color: dep.color,
+          color: drawColor,
           type: dep.type,
           icon: dep.icon,
           directed: meta.directed,

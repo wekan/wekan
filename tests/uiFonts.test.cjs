@@ -300,8 +300,12 @@ test('the text colour reaches all text, not the text that had none of its own', 
   // buttons, the left menu's rows, a minicard's title, a list header. Choosing
   // green recoloured the heading and the menu and left the rest as it was.
   const css = read('client/components/main/uiFont.css');
-  assert.ok(/body\.has-ui-text-color \*:not\(\.fa\) \{/.test(css),
-    'every element takes it');
+  // Every element takes it - except the few that sit on a colour of their own (the
+  // theme's header bars, a label, a primary button), whose text colour is chosen to
+  // read on THAT: the member's colour is made legible on the page's surfaces, and
+  // #626262 on the blue header was 1.18:1 (customColorContrast.test.cjs).
+  assert.ok(/body\.has-ui-text-color \*:not\(\.fa\):not\(\s*#header, #header \*,\s*#header-quick-access, #header-quick-access \*,\s*\.card-label, \.card-label \*,\s*button\.primary, button\.primary \*\s*\) \{/.test(css),
+    'every element takes it, but the ones on a colour of their own');
   const at = css.indexOf('body.has-ui-text-color,');
   assert.ok(/color: var\(--wekan-ui-text-color\) !important/.test(css.slice(at, css.indexOf('}', at))),
     'from the validated variable');

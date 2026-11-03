@@ -255,16 +255,29 @@ export function kanriCardColorOf(color) {
   return kanriHex(value) || WEKAN_COLOR_HEX[value] || '';
 }
 
+// Kanri writes a dark or a light text color for a tag; WeKan keeps those two
+// (#1e293b, #f4f4f5) when one of them reads on the background (WCAG 4.5:1), and
+// otherwise uses plain black or white - the better of those two is at least 4.5:1
+// on every background. The perceived-brightness test this replaces picked
+// #f4f4f5 on #eb4646 at 3.5:1 and #1e293b on #808080 at 3.9:1.
+function kanriTagText(hex) {
+  const lin = c => { const v = c / 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+  const lum = h => [1, 3, 5].map(i => lin(parseInt(h.slice(i, i + 2), 16)))
+    .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+  const ratio = (a, b) => (Math.max(lum(a), lum(b)) + 0.05) / (Math.min(lum(a), lum(b)) + 0.05);
+  const best = (dark, light) => (ratio(hex, dark) >= ratio(hex, light) ? dark : light);
+  const kanri = best('#1e293b', '#f4f4f5');
+  return ratio(hex, kanri) >= 4.5 ? kanri : best('#000000', '#ffffff');
+}
+
 function tagFor(label) {
   const hex = kanriHex(label.color) || WEKAN_COLOR_HEX[text(label.color).toLowerCase()];
   // The style Kanri itself writes when a tag's color is set (stores/boards.ts):
   // a dark or light text color for contrast.
   const tag = { id: text(label._id) || text(label.name), text: text(label.name) };
   if (hex) {
-    const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
-    const light = (r * 299 + g * 587 + b * 114) / 1000 >= 128;
     tag.color = hex;
-    tag.style = `background-color: ${hex}; color: ${light ? '#1e293b' : '#f4f4f5'}`;
+    tag.style = `background-color: ${hex}; color: ${kanriTagText(hex)}`;
   }
   return tag;
 }
