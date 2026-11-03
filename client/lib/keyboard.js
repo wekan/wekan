@@ -74,35 +74,16 @@ hotkeys.filter = (event) => {
 };
 
 // Handle non-Latin keyboards
-window.addEventListener('keydown', (e) => {
-  // Only handle event if coming from body
-  if (e.target !== document.body) return;
-
-  // Only a character typed on a non-Latin layout: one non-ASCII character.
-  // Comparing it with the key code's lowercase letter also matched every
-  // SHIFTED Latin key ('D', '!', and 'Shift' itself), and re-dispatched it, so
-  // each Shift shortcut ran twice: Shift+D opened the due date editor and the
-  // copy clicked the same control again, closing it (#6750).
-  if (typeof e.key !== 'string' || e.key.length !== 1 || e.key.charCodeAt(0) < 128) return;
-
-  // Trigger the corresponding action by dispatching a new event with the ASCII key
-  const key = String.fromCharCode(e.which).toLowerCase();
-  if (!/^[a-z0-9]$/.test(key)) return;
-  // Create a synthetic event for hotkeys to handle, with the same modifiers,
-  // so Shift shortcuts keep working on non-Latin layouts.
-  const syntheticEvent = new KeyboardEvent('keydown', {
-    key: key,
-    keyCode: e.which,
-    which: e.which,
-    shiftKey: e.shiftKey,
-    ctrlKey: e.ctrlKey,
-    altKey: e.altKey,
-    metaKey: e.metaKey,
-    bubbles: true,
-    cancelable: true,
-  });
-  document.dispatchEvent(syntheticEvent);
-});
+//
+// Nothing to do here, on purpose (#6840). This used to re-dispatch a key typed on
+// another script (a Farsi or Cyrillic letter) as its Latin key, for the old
+// Mousetrap, which read the typed character. hotkeys-js does not: it resolves a
+// key from `event.code` ('KeyD') and `keyCode`, whatever character the layout
+// types, so it already runs the shortcut for the physical d key on any layout.
+// The copy then ran every shortcut a SECOND time - the due date editor opened
+// and the repeat clicked the same control, closing it again, so `d` "opens the
+// popup and closes it at a glance" on a Farsi keyboard (and Shift+D did the same
+// on a Latin one, #6750). tests/keyboardNonLatinOnce.test.cjs.
 
 function getHoveredCardId() {
   const card = $('.js-minicard:hover').get(0);
