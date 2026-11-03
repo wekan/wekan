@@ -184,6 +184,29 @@ reasons.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c44876beb">The speed test includes Dolt, and VersionHistory tests what version history would give undo and redo</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[Dolt](https://github.com/dolthub/dolt) (git for data, MySQL protocol) runs under
+FerretDB's existing MySQL handler and gives the same answers, but is by far the
+slowest: 20,470 ms in total, 1,230x MongoDB, because every query over cards is a
+2.8 s whole-table scan. `docs/Databases/FerretDB/1/VersionHistory` drives
+WeKan-shaped changes through FerretDB onto Dolt and through the REST API of
+TerminusDB. Dolt makes a commit per FerretDB write for +0.4 ms, undoes and
+redoes
+with `DOLT_REVERT` and reads any earlier state with `AS OF`, but names the SQL
+user and not the WeKan user, and cannot restore one field of a document that
+changed again (a conflict). TerminusDB records the author and message of every
+commit and restores one field while later changes stay, but speaks neither the
+MongoDB protocol nor SQL. WeKan's own History remains the undo; Dolt would be a
+backup and audit layer under it. ClickHouse and StarRocks were tried with the
+MySQL handler and need a handler of their own, which has not been written.
+`tests/versionHistoryExperiment.test.cjs` and `tests/dbSpeedTest.test.cjs` pin
+the
+scripts and the findings.
+
+</details>
+
 and has the following documentation change:
 
 **Database speed test** - what was improved, and what was tried and was not.
