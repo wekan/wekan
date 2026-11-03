@@ -117,7 +117,7 @@ function value(literal) {
 // replacement holding a $, which can name what was matched.
 const REGEX_IDENTITY = new RegExp(
   '\\.replace(?:All)?\\(\\s*' +
-  '/((?:[^/\\\\\\n.*+?^$|()[\\]{}]|\\\\[^a-zA-Z0-9\\n])+)/([a-z]*)' +
+  '/(\\^?(?:[^/\\\\\\n.*+?^$|()[\\]{}]|\\\\[^a-zA-Z0-9\\n])+\\$?)/([a-z]*)' +
   '\\s*,\\s*' +
   "(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\")" +
   '\\s*\\)',
@@ -128,7 +128,10 @@ function regexIdentity(m) {
   const [, source, flags] = m;
   const replacement = m[3] !== undefined ? m[3] : m[4];
   if (flags.includes('i') || replacement.includes('$')) return false;
-  return source.replace(/\\(.)/g, '$1') === value(replacement);
+  // A leading ^ or trailing $ only anchors the match; replacing the anchored text
+  // with itself is still a no-op (tests/boardLabelLookup.test.cjs: /^getLabel/).
+  const literal = source.replace(/^\^|(?<!\\)\$$/g, '');
+  return literal.replace(/\\(.)/g, '$1') === value(replacement);
 }
 
 // Comments are stripped before scanning. This file and the one it was written
@@ -185,6 +188,8 @@ test('the pattern really does catch the shape CodeQL reported (negative)', () =>
     "new RegExp(`^## ${h.replace(/ /g, ' ')}$`, 'm')",
     "s.replace(/-/g, '-')",
     "s.replace(/\\./g, '.')",
+    "src.replace(/^getLabel/, 'getLabel')",
+    "src.replace(/end$/, 'end')",
     "raw.replace(/\"/g, '\\\"')",
   ]) {
     assert.strictEqual([...sample.matchAll(REGEX_IDENTITY)].filter(regexIdentity).length, 1, `not detected: ${sample}`);
