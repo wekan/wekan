@@ -76,7 +76,7 @@ template(name="header")
         .js-header-collapsible-icon, so "hide the icons" does not hide it.
         models/lib/fullscreen.js
       if fullscreenSupported
-        a.board-header-btn.js-toggle-fullscreen(href="#" role="button" title="{{_ 'maximize-window'}}" aria-label="{{_ 'maximize-window'}}" aria-pressed="{{#if isFullscreen}}true{{else}}false{{/if}}")
+        a.board-header-btn.js-toggle-fullscreen(href="#" role="button" title="{{#if isFullscreen}}{{_ 'minimize-window'}}{{else}}{{_ 'maximize-window'}}{{/if}}" aria-label="{{#if isFullscreen}}{{_ 'minimize-window'}}{{else}}{{_ 'maximize-window'}}{{/if}}" aria-pressed="{{#if isFullscreen}}true{{else}}false{{/if}}")
           if isFullscreen
             i.fa.fa-compress
           else

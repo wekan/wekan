@@ -89,7 +89,8 @@ the phone/desktop toggle, the drag-handles toggle, and then everything else.
 screen and takes it out again, with the Fullscreen API (`models/lib/fullscreen.js`):
 the icon is an expand arrow, and a compress arrow while the page is in full screen,
 and it follows the browser's own way out (Esc) too. Its label is the existing
-"Maximize". It is drawn only where the browser offers the API and the page may use
+"Maximize", and "Minimize" while the page is in full screen, so the same button
+says how to leave (Esc and the browser's own control work too). It is drawn only where the browser offers the API and the page may use
 it - iPad Safari, desktop browsers and Android browsers do; **iPhone Safari does not**
 (the API is for video there) and neither does a page inside an `<iframe>` without
 `allowfullscreen`, so no dead button is shown. On an iPhone, "Add to Home Screen"

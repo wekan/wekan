@@ -85,7 +85,7 @@ test('negative: a refusal is an answer, not an error, and an unsupported page is
 test('the button is drawn only where supported, beside the logo, with the existing Maximize label', () => {
   const jade = read('client/components/main/header.jade');
   const block = jade.slice(jade.indexOf('if fullscreenSupported'));
-  assert.match(block, /^if fullscreenSupported\n\s+a\.board-header-btn\.js-toggle-fullscreen\(href="#" role="button" title="\{\{_ 'maximize-window'\}\}" aria-label="\{\{_ 'maximize-window'\}\}" aria-pressed=/);
+  assert.match(block, /^if fullscreenSupported\n\s+a\.board-header-btn\.js-toggle-fullscreen\(href="#" role="button" title="\{\{#if isFullscreen\}\}\{\{_ 'minimize-window'\}\}\{\{else\}\}\{\{_ 'maximize-window'\}\}\{\{\/if\}\}" aria-label="\{\{#if isFullscreen\}\}\{\{_ 'minimize-window'\}\}\{\{else\}\}\{\{_ 'maximize-window'\}\}\{\{\/if\}\}" aria-pressed=/);
   assert.match(block, /i\.fa\.fa-compress[\s\S]{0,60}i\.fa\.fa-expand/);
   // After the logo, before the first collapsible icon, so hiding the icons keeps it.
   assert.ok(jade.indexOf('div.header-logo') < jade.indexOf('js-toggle-fullscreen'), 'after the logo');
@@ -95,6 +95,7 @@ test('the button is drawn only where supported, beside the logo, with the existi
   assert.doesNotMatch(jade, /_ 'fullscreen|_ 'full-screen/);
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   assert.equal(en['maximize-window'], 'Maximize');
+  assert.equal(en['minimize-window'], 'Minimize', 'the label while in full screen is the existing Minimize');
   assert.ok(!Object.keys(en).some(k => /full-?screen/i.test(k)), 'no full screen key was added');
 });
 

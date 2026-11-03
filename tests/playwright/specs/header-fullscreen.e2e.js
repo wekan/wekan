@@ -32,12 +32,16 @@ test('the header has a full screen button beside the logo that enters and leaves
   await expect.poll(() => inFullscreen(page), { message: 'the click enters full screen' }).toBe(true);
   await expect(button).toHaveAttribute('aria-pressed', 'true');
   await expect(button.locator('.fa-compress')).toBeVisible();
+  // In full screen the same button says how to leave: the existing "Minimize".
+  await expect(button).toHaveAttribute('title', 'Minimize');
+  await expect(button).toHaveAttribute('aria-label', 'Minimize');
 
   // Leaving by the button...
   await button.click();
   await expect.poll(() => inFullscreen(page)).toBe(false);
   await expect(button).toHaveAttribute('aria-pressed', 'false');
   await expect(button.locator('.fa-expand')).toBeVisible();
+  await expect(button, 'and back to Maximize').toHaveAttribute('title', 'Maximize');
 
   // ...and by the browser's own way out (Esc), which the icon must follow.
   await button.click();
