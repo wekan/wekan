@@ -7,9 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The database **speed test README** describes the FerretDB and
-WeKan
-improvements made since its last run.
+The database **speed test** has a new small-scale result, ordered
+from fastest to slowest with how many times slower each database is, and two
+more databases: **pgrust** (PostgreSQL in Rust) and **TiDB**. Noria, YugabyteDB
+and CockroachDB were looked at and cannot be used, for reasons the README gives.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

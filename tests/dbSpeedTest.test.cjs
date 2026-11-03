@@ -148,4 +148,85 @@ test('Due Cards reads only what it uses, and keeps assigned-only boards narrowed
   assert.match(pub, /\$and: \[boardScope\],/);
 });
 
+// A run whose slowest parameter is set apart from its average, and which says
+// the scale it was measured at.
+function runWith(label, engine, average, slowest, scale = 0.05) {
+  const r = fakeRun(label, engine, average);
+  for (const q of QUERIES) r.queries[q.id].slowest = slowest;
+  r.scale = scale;
+  return r;
+}
+
+test('Results.md opens with an At a glance table: rank, total and how many times slower than the fastest', () => {
+  const runs = [runWith('mysql', 'FerretDB + MySQL', 5, 10), runWith('mongodb8', 'MongoDB 8.0.32', 1, 2), runWith('sqlite', 'FerretDB + SQLite', 3, 30)];
+  const md = render(runs, compare(runs, 'mongodb8'), 'mongodb8', '.');
+  const glance = md.slice(md.indexOf('## At a glance'), md.indexOf('## Speed'));
+  assert.ok(md.indexOf('## At a glance') < md.indexOf('## Speed'), 'the summary comes before the long tables');
+  const rows = glance.split('\n').filter(l => /^\| \d+ \|/.test(l)).map(l => l.split('|').map(c => c.trim()));
+  assert.deepStrictEqual(rows.map(r => r[1]), ['1', '2', '3']);
+  assert.deepStrictEqual(rows.map(r => r[2]), ['MongoDB 8.0.32', 'FerretDB + SQLite', 'FerretDB + MySQL'], 'fastest first');
+  // MongoDB is 1.0x; SQLite's total is 3x the fastest's, MySQL's 5x.
+  assert.deepStrictEqual(rows.map(r => r[4]), ['1.0x', '3.0x', '5.0x']);
+  // The slowest-user column is relative to the fastest slowest-user total (2).
+  assert.deepStrictEqual(rows.map(r => r[6]), ['1.0x', '15x', '5.0x']);
+});
+
+test('every table is ordered by its OWN numbers: the slowest-parameter table can differ from the average one', () => {
+  // A is fastest on average, B has the better slowest user.
+  const runs = [runWith('a', 'Database A', 1, 50), runWith('b', 'Database B', 2, 5)];
+  const md = render(runs, compare(runs, 'a'), 'a', '.');
+  const average = md.slice(md.indexOf('## Speed'), md.indexOf('### The slowest parameter'));
+  const slowest = md.slice(md.indexOf('### The slowest parameter'), md.indexOf('## Loading the data'));
+  assert.ok(average.indexOf('| Database A |') < average.indexOf('| Database B |'), 'A first on average');
+  assert.ok(slowest.indexOf('| Database B |') < slowest.indexOf('| Database A |'), 'B first for the slowest user');
+  // negative: the old "same row order" claim is gone.
+  assert.ok(!md.includes('Same row order'));
+});
+
+test('the header tells the real data size and the real operating system, not a fixed text', () => {
+  const small = render([runWith('a', 'A', 1, 2, 0.05)], {}, 'a', '.');
+  assert.ok(small.includes('The data is 1/20 of a production WeKan'), 'scale 0.05');
+  assert.ok(render([runWith('a', 'A', 1, 2, 2)], {}, 'a', '.').includes('The data is twice a production WeKan'), 'scale 2');
+  assert.ok(render([runWith('a', 'A', 1, 2, 1)], {}, 'a', '.').includes('as big as a production WeKan'), 'scale 1');
+  // negative: a small run must not claim to be twice production, and the machine
+  // line is the host's, not "Linux" on a Mac.
+  assert.ok(!small.includes('twice a production WeKan'));
+  assert.ok(small.includes(`${require('os').type()} ${require('os').release()}`));
+});
+
+test('the loading table is ordered by the whole load time, fastest first', () => {
+  const slowLoad = runWith('slow', 'Slow loader', 1, 2);
+  const fastLoad = runWith('fast', 'Fast loader', 9, 18);
+  for (const [run, ms] of [[slowLoad, 5000], [fastLoad, 100]]) {
+    run.load = Object.fromEntries(['users', 'boards', 'lists', 'swimlanes', 'cards'].map(c => [c, { ms }]));
+    run.indexTotalMs = ms;
+  }
+  const md = render([slowLoad, fastLoad], {}, 'slow', '.');
+  const load = md.slice(md.indexOf('## Loading the data'), md.indexOf('## Same data'));
+  assert.ok(load.indexOf('| Fast loader |') < load.indexOf('| Slow loader |'));
+});
+
+test('pgrust and TiDB are speed test rows, and opt-in in the conformance run (negative)', () => {
+  const sh = read('releases/db-conformance.sh');
+  assert.match(sh, /"pgrust\|image:malisper\/pgrust:v0\.4-beta\|pgrust\|5432\|postgresql"/);
+  assert.match(sh, /"tidb\|image:pingcap\/tidb:latest\|tidb\|4000\|mysql"/);
+  // Not in a plain conformance run: only the speed test, or the variable.
+  assert.match(sh, /\[ "\$name" = "pgrust" \] && \[ "\$SUITE" != speedtest \] && \[ "\$\{WEKAN_CONFORMANCE_PGRUST:-0\}" != "1" \]/);
+  assert.match(sh, /\[ "\$name" = "tidb" \] && \[ "\$SUITE" != speedtest \] && \[ "\$\{WEKAN_CONFORMANCE_TIDB:-0\}" != "1" \]/);
+  // TiDB has no MYSQL_DATABASE variable: the database is created once it answers.
+  assert.match(sh, /CREATE DATABASE IF NOT EXISTS ferretdb/);
+  // The two FerretDB changes they needed are in the FerretDB source when present.
+  const registry = path.join(ROOT, '.tools/FerretDB/internal/backends/mysql/metadata/registry.go');
+  if (fs.existsSync(registry)) assert.ok(!/ADD COLUMN %s VARCHAR\(255\) GENERATED ALWAYS AS \(\(%s\)\) STORED/.test(fs.readFileSync(registry, 'utf8')), 'TiDB refuses STORED generated columns');
+});
+
+test('the README records the databases that were tried and why the others cannot be', () => {
+  const md = read('docs/Databases/FerretDB/1/SpeedTest/README.md');
+  const section = md.slice(md.indexOf('## Other databases tried'), md.indexOf('## FerretDB 2'));
+  for (const name of ['pgrust', 'TiDB', 'Noria', 'YugabyteDB', 'CockroachDB']) assert.ok(section.includes(name), name);
+  assert.match(section, /INDEX on column of type 'JSONB' not yet supported/);
+  assert.match(section, /no `JSON` type/);
+  assert.match(section, /not open source/);
+});
+
 console.log(`\n${passed} passed`);

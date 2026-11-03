@@ -126,25 +126,83 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The database **speed test README** describes the FerretDB and
-WeKan
-improvements made since its last run.
+**In short:** The database **speed test** has a new small-scale result, ordered
+from fastest to slowest with how many times slower each database is, and two
+more databases: **pgrust** (PostgreSQL in Rust) and **TiDB**. Noria, YugabyteDB
+and CockroachDB were looked at and cannot be used, for reasons the README gives.
 
-This release has the following documentation change:
+This release adds the following new features:
 
 **Database speed test** - how fast the databases answer WeKan's queries.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d05a42a5af">The speed test README lists the improvements since the last run</a>. Thanks to Raymond-Voogt and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/46c0ad43e8">Results.md is a quick small-scale run, fastest first, with how many times slower each is</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The speed test was only ever run at twice a production WeKan, which takes hours.
+`WEKAN_SPEEDTEST_SCALE=0.05` is 1/20 of one and the whole run takes under half
+an
+hour. Results.md opens with an **At a glance** table: rank, the total of all
+queries, and **how many times slower** than the fastest database, for the
+average
+user and for the slowest one (the biggest board or the busiest user). Every
+table
+is ordered by its own numbers, so the slowest-user table can rank differently,
+the
+loading table is ordered by the whole load time, and the header says the real
+data
+size and the real operating system (it said "twice a production WeKan" and
+"Linux" whatever was measured). `tests/dbSpeedTest.test.cjs` pins the ranks, the
+ratios, the per-table order and the header, with a negative test for each.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46c0ad43e8">The speed test includes pgrust, PostgreSQL rewritten in Rust</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[pgrust](https://github.com/malisper/pgrust) v0.4-beta is wire compatible with
+PostgreSQL 18, so FerretDB's PostgreSQL handler uses it unchanged, and it gives
+the
+same answers as MongoDB. It is **not faster** than PostgreSQL for WeKan's
+queries
+(174 ms against 145 ms in total), and creating WeKan's 47 indexes takes 38 s
+against 1 s. In the conformance run it is opt-in (`WEKAN_CONFORMANCE_PGRUST=1`).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f576a0cca9">The speed test includes TiDB, and the README says which other databases cannot run FerretDB and why</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+TiDB 7.5 (Apache-2.0, MySQL protocol, one process on its own storage) runs
+FerretDB's MySQL handler and gives the same answers as MongoDB, after one change
+in FerretDB: its metadata table's generated columns are `VIRTUAL`, because TiDB
+refuses `ALTER TABLE ... ADD COLUMN ... STORED`. Opt-in in the conformance run
+(`WEKAN_CONFORMANCE_TIDB=1`). Noria has no JSON type, triggers or generated
+columns, which the MySQL handler needs; YugabyteDB refuses a `CREATE INDEX` on a
+`jsonb` expression, which every FerretDB v1 PostgreSQL index is; CockroachDB is
+under a proprietary licence. The README's **Other databases tried** has the
+reasons.
+
+</details>
+
+and has the following documentation change:
+
+**Database speed test** - what was improved, and what was tried and was not.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d05a42a5af">The speed test README lists the improvements since the last run, and what did not help</a>. Thanks to Raymond-Voogt and xet7.</summary>
 
 SQLite sorts in the database and stores JSONB, PostgreSQL answers membership
 from a GIN index and pushes down `$or`, `$elemMatch` and `$and`, MySQL and
 MariaDB read through their indexes with multikey side tables, and WeKan no
 longer scans whole collections every hour or at every start of every server. The
-figures are FerretDB's own, measured on smaller databases; the README says that
-Results.md still shows v1.99.0 and that the speed test needs a new run for
-full-scale numbers. The list of what could still be improved is updated to
-match.
+small run found one more: **PostgreSQL planned from no statistics** until
+autovacuum analyzed a freshly indexed table, so a Due Cards query took 407 ms
+and
+84 ms after; FerretDB now analyzes the table when its indexes are created (the
+PostgreSQL row went from 454 to 145 ms, and from last place to eighth). Tried
+and
+not kept, with the numbers: sorting in the database on PostgreSQL (52 ms against
+38-49 ms decoded in Go) and `ANALYZE TABLE` on MySQL and MariaDB (no change).
 
 </details>
 
