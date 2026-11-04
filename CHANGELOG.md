@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.94 2026-11-04 WeKan ® release
 
 On an iPad the **opened card covers the header bar** instead of
 sitting
 behind it, and the speed test measures where the time goes when a WeKan board is
 opened, on FerretDB and on MongoDB.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.94](CHANGELOG-big.md#v1294-2026-11-04-wekan--release)
 
 # v12.93 2026-11-04 WeKan ® release
 
@@ -47,10 +47,3 @@ and
 **Escape closes the add-list composer**.
 
 [All changes in v12.90](CHANGELOG-big.md#v1290-2026-11-03-wekan--release)
-
-# v12.89 2026-11-03 WeKan ® release
-
-Keyboard **shortcuts run once on a non-Latin keyboard**: `d` no
-longer opens the Due date popup and closes it again on a Farsi layout.
-
-[All changes in v12.89](CHANGELOG-big.md#v1289-2026-11-03-wekan--release)

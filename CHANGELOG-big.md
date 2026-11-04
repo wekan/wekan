@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.94 2026-11-04 WeKan ® release
 
 **In short:** On an iPad the **opened card covers the header bar** instead of
 sitting
