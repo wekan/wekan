@@ -20,17 +20,29 @@ only what changes: documents, files and log lines. It writes them seconds after
 they happen, to a directory that can be another disk, an NFS share or an
 [rclone mount](Rclone/Rclone.md).
 
-## One server only, for now
+## Several servers: one of them streams
 
-Continuous backup is for installations with **one WeKan server**. When it is
-switched on in the Admin Panel, every WeKan server that shares the database
-applies the setting, so with several servers (for example the replicas of a
-Kubernetes Deployment) each of them tails the oplog and writes its own archives
-into the same target directory: the same backup stream, many times, into one
-place. It has no leader: one server should run the stream and another take it
-over when that one stops (a lease), and that is not built yet
-([#6861](https://github.com/wekan/wekan/issues/6861)). With several servers, use
-the database's own backup instead.
+When WeKan runs as several servers on one database (for example the replicas of a Kubernetes
+Deployment), **one of them runs the stream** and the others stand by
+([#6861](https://github.com/wekan/wekan/issues/6861)). They coordinate through a *lease*: one
+document, `continuousBackupLease`, holding the leader's id and an expiry.
+
+- Every server with the feature switched on tries to take the lease. Taking it is one atomic
+  database operation, so two servers can never both lead.
+- The leader renews it every 15 seconds. It lapses 45 seconds after the last renewal, so when the
+  leader stops (a pod restart, a rollout, a crash) another server takes over within about a minute
+  and continues from the position the stream saved in the target.
+- A server that finds it has lost the lease stops its stream, so two never write one target.
+- Saving the settings, switching the feature off and on, and a change saved on another server all
+  converge through the same loop: the leader follows the change on its next tick.
+- A restore, and *fetch from the cloud*, must be the only writer: they take the lease from whoever
+  holds it and wait one renewal, so the former leader has stopped before anything is written. The
+  stream resumes through the loop afterwards.
+
+An installation with one server is always its own leader, so nothing changes for it. The target
+directory is still one place: with several servers it must be on storage they all reach (a shared
+volume, NFS, an [rclone mount](Rclone/Rclone.md)), or the server that takes over starts a new
+generation instead of continuing.
 
 ## Licences: only copyfree code by default
 
