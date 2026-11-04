@@ -116,6 +116,15 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
     const paramIntId = req.params.intId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
 
+    const integration = await ReactiveCache.getIntegration(
+      { _id: paramIntId, boardId: paramBoardId },
+      { fields: { _id: 1 } },
+    );
+    if (!integration) {
+      sendJsonResult(res, { code: 404, data: { error: 'Integration not found' } });
+      return;
+    }
+
     // #3695: how this webhook delivers - { webhook: { text, fields, grouping,
     // schedule, ... } }, or null to inherit the board / Admin Panel default
     // (models/lib/notificationDelivery.js). Validated before ANY field is
