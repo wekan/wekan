@@ -126,9 +126,10 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** Missing-board **exports** now answer 404 instead of 200, and the
-Docker image's **nodemailer** (10.3.1), **body-parser**, **qs**, **uuid** and
-**postcss-selector-parser** are raised past the advisories a Grype scan found.
+**In short:** Missing-board **exports** and unmatched **integration updates**
+now answer 404 instead of 200. The Docker image's **nodemailer** (10.3.1),
+**body-parser**, **qs**, **uuid** and **postcss-selector-parser** are raised
+past the advisories a Grype scan found.
 
 This release fixes the following bugs:
 
@@ -146,6 +147,25 @@ the same way.
 `tests/exportErrorStatuses.test.cjs` scans every `models/export*.js` route for a
 text answer without a status, so the fault cannot return anywhere there; the
 PR's route and browser tests stay.
+
+</details>
+
+**Integrations** - updates report whether the requested webhook exists.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68b1d4631e1f03bd0ac17bba53f26fc5ce095dec">Updates return 404 when the integration does not belong to the board</a>. Thanks to AhmedLukman and xet7.</summary>
+
+An integration PUT returned HTTP 200 with the requested ID even when no
+integration matched that ID and board. It now checks the scoped integration
+after board-admin authorization and returns the same JSON 404 as the GET route
+before validating or writing any fields. Existing integrations still accept
+empty and unchanged updates.
+
+`tests/restIntegrationUpdate.test.cjs` covers valid updates, missing and
+wrong-board IDs, authorization order and lookup errors. The Playwright
+`rest-integration-update.e2e.js` suite verifies the real HTTP responses and
+database state, including ordinary-member and unauthenticated denials, and
+checks that retained webhook settings remain visible in the browser.
 
 </details>
 

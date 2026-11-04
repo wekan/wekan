@@ -7,9 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-Missing-board **exports** now answer 404 instead of 200, and the
-Docker image's **nodemailer** (10.3.1), **body-parser**, **qs**, **uuid** and
-**postcss-selector-parser** are raised past the advisories a Grype scan found.
+Missing-board **exports** and unmatched **integration updates**
+now answer 404 instead of 200. The Docker image's **nodemailer** (10.3.1),
+**body-parser**, **qs**, **uuid** and **postcss-selector-parser** are raised
+past the advisories a Grype scan found.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
