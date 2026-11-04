@@ -126,11 +126,30 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The Docker image's **nodemailer** (10.3.1), **body-parser**,
-**qs**, **uuid** and **postcss-selector-parser** are raised past the advisories
-a Grype scan found in them.
+**In short:** Missing-board **exports** now answer 404 instead of 200, and the
+Docker image's **nodemailer** (10.3.1), **body-parser**, **qs**, **uuid** and
+**postcss-selector-parser** are raised past the advisories a Grype scan found.
 
-This release updates the following dependencies:
+This release fixes the following bugs:
+
+**Exports** - what the export routes answer when something is wrong.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c0d666ffa">Missing-board exports return 404, and an over-long export token returns 400</a>. Thanks to AhmedLukman and xet7.</summary>
+
+The board Excel export answered a missing board with HTTP 200 and only the text
+`Board not found` (PR #6869). The two PDF export routes had the same fault, and
+the Excel and PDF routes answered an over-long auth token with 200 as well,
+while `export.js` already used 404 and 400. All of them now choose their status
+the same way.
+
+`tests/exportErrorStatuses.test.cjs` scans every `models/export*.js` route for a
+text answer without a status, so the fault cannot return anywhere there; the
+PR's route and browser tests stay.
+
+</details>
+
+and updates the following dependencies:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dad03959d9">nodemailer 10.3.1, body-parser 1.20.9 and 2.4.0, qs 6.16.1, uuid 11.1.1 and postcss-selector-parser 6.1.5 in the bundle</a>. Thanks to the Grype scan reporter and xet7.</summary>
