@@ -126,13 +126,43 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The speed test now measures where the time goes when a **WeKan
-board is
-opened**, on FerretDB and on MongoDB: the Meteor server is not the bottleneck,
-and a
-5,000-card board takes FerretDB (SQLite) 400-600 ms longer to open.
+**In short:** On an iPad the **opened card covers the header bar** instead of
+sitting
+behind it, and the speed test measures where the time goes when a WeKan board is
+opened, on FerretDB and on MongoDB.
 
-This release has the following documentation change:
+This release fixes the following bugs:
+
+**Opened cards** - where a card opens.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/006d24502c">The opened card covers the header bar on an iPad instead of sitting behind it</a>. Thanks to xet7.</summary>
+
+On iPad Chrome (and Safari) the opened card's top row - the collapse caret, the
+card
+number, the menu, maximize and X - was behind the header bar, although the
+card's
+`z-index` is 2001 and the header's 1000. iOS WebKit makes every scrolling
+element
+(`#content`, the board wrapper) a stacking context of its own, so the card's
+`z-index`
+is compared only inside it, and the header bar, itself a stacking context, is
+painted
+over all of it. While a card is open the header bar is now at the level of the
+content,
+which comes after it in the page and paints over it; with no card open it keeps
+its
+own level. A browser spec makes the same trap with `isolation: isolate` on
+`#content`
+and the board wrapper and shows the card over the header, open and collapsed,
+with its
+close button reachable, in Chromium and WebKit; without the rule it fails as the
+screenshot shows. `tests/cardOverHeaderStacking.test.cjs` pins the rule and its
+selector. An iPad is the final check.
+
+</details>
+
+and has the following documentation change:
 
 **Database speed test** - how fast the databases answer WeKan's queries.
 

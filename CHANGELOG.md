@@ -7,11 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The speed test now measures where the time goes when a **WeKan
-board is
-opened**, on FerretDB and on MongoDB: the Meteor server is not the bottleneck,
-and a
-5,000-card board takes FerretDB (SQLite) 400-600 ms longer to open.
+On an iPad the **opened card covers the header bar** instead of
+sitting
+behind it, and the speed test measures where the time goes when a WeKan board is
+opened, on FerretDB and on MongoDB.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
