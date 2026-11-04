@@ -124,6 +124,29 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Missing-board **Excel exports** now return HTTP 404. Saved export
+links correctly report when their board no longer exists.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43e7f56e4ab321b9f483203467f81af66c1cf655">Missing-board Excel exports return 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+A missing board's Excel endpoint returned HTTP 200 with only `Board not found`
+as its content. It now uses the same HTTP 404 and UTF-8 plain-text response as
+the card Excel export route.
+
+Route regressions cover missing boards, normal exports, access checks,
+disabled exports and lookup failures. Browser coverage follows the export
+menu link before and after its board is deleted, reads both workbook layouts,
+and verifies that an unrelated member cannot export a private board.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.94 2026-11-04 WeKan ® release
 
 **In short:** On an iPad the **opened card covers the header bar** instead of
