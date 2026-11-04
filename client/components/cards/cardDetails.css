@@ -185,6 +185,23 @@ body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-colla
   bottom: 8px;
 }
 
+/* A phone in desktop mode: the header bar wraps to several rows (up to five with
+   the board controls open), far taller than the 8px the floating window docks
+   at, so the card's own top row (caret, number, menu, X) sat among the header's
+   rows and was only seen by dragging the card down. Below 801px the card starts
+   BELOW the header, at the height Utils publishes as --wekan-header-height.
+   Only a card WITHOUT an inline top matches (`:not([style*="top"])`), so the
+   place a finger dragged it to is an inline top and is kept when the finger is
+   lifted - this rule never competes with it. */
+@media screen and (max-width: 800px) {
+  body.desktop-mode .card-details:not(.card-details-popup):not([style*="top"]),
+  /* a card opened as a popup (search result, table, Roadmap bar) docks the same way */
+  body.desktop-mode .card-details.card-details-popup:not([style*="top"]),
+  body.desktop-mode .card-details.card-details-maximized:not(.card-details-popup):not(.card-details-collapsed) {
+    top: calc(var(--wekan-header-height, 0px) + 8px) !important;
+  }
+}
+
 /* #4822: the MAXIMIZED card must be anchored to the VIEWPORT (position: fixed
    with viewport insets), never laid out inside — or measured from — the
    scrolled swimlane/board container. Historically the maximized pane was an
