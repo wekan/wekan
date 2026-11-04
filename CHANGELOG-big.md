@@ -149,6 +149,30 @@ PR's route and browser tests stay.
 
 </details>
 
+**Attachments** - what a card offers when the administrator blocked uploads.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8b3579117">A card no longer offers the attachment "+" when uploads are blocked for the whole site</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+Admin Panel / Attachments / Transfer limits already has "Attachments upload" and
+"API upload" set to
+Blocked, and the server refuses on every path: the upload pipeline,
+`api.attachment.upload` and
+`.copy`, and the `/api/attachment` upload, upload-background and copy routes.
+The card still showed
+the "+" button and accepted a drop or paste for an upload that would then be
+refused. It now asks
+the server one boolean, at most once a minute, and hides both. No second setting
+was added
+(\#6870 proposed a `disableAttachments`), so nothing can disagree with what the
+server enforces.
+
+`tests/attachmentUploadPolicy.test.cjs` pins the client, the method, the server
+enforcement it relies
+on, and that no `disableAttachments` setting exists.
+
+</details>
+
 **REST API** - what the integration routes answer for an integration that is not
 there.
 
