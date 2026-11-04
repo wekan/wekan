@@ -149,6 +149,30 @@ PR's route and browser tests stay.
 
 </details>
 
+**REST API** - what the integration routes answer for an integration that is not
+there.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6012521ccc">An integration update for a missing or wrong-board integration returns 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`PUT /api/boards/:boardId/integrations/:intId` answered 200 with the requested
+id when no
+integration matched that id and board (PR #6871). The two activities routes
+(`POST` and `DELETE`
+`.../activities`) updated nothing and answered 200 with `data: null`. All three
+now look the
+integration up on that board after board-admin authorization and answer the JSON
+404 the `GET`
+route already uses, before validating or writing anything.
+
+`tests/restIntegrationWriteRoutes404.test.cjs` pins, for the whole file, that
+every handler that
+updates an integration looks it up first and only after authorization; the PR's
+route and browser
+tests stay.
+
+</details>
+
 and updates the following dependencies:
 
 <details>
