@@ -149,6 +149,35 @@ PR's route and browser tests stay.
 
 </details>
 
+**Continuous backup** - which server streams it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/880ec2d707">Only one server streams it at a time, holding a lease</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+With several WeKan servers on one database, every server applied the continuous
+backup setting, so
+each of them tailed the oplog and wrote its own archives into the same target
+directory
+(\#6861). The leader now holds a lease, one `continuousBackupLease` document
+with its id and an
+expiry. Taking it is one atomic operation, the leader renews it every 15 seconds
+and it lapses after
+45, so another server takes over within a minute when the leader stops, and a
+server that loses the
+lease stops its stream. Startup, saving the settings and a change saved on
+another server converge
+through that loop; a restore or a fetch from the cloud takes the lease and waits
+one renewal so it
+is the only writer. One server is always its own leader.
+
+Checked against the real driver on FerretDB (SQLite): 24 clients at once give
+exactly one leader, and
+renewal, expiry, the old leader losing the lease and release behave.
+`tests/continuousBackupLease.test.cjs`
+pins the same and the wiring.
+
+</details>
+
 **Attachments** - what a card offers when the administrator blocked uploads.
 
 <details>
