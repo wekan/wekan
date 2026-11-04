@@ -110,11 +110,29 @@ WebApp.handlers.post('/api/boards/:boardId/integrations', async function(req, re
   }
 });
 
+// An integration that is not on THIS board (a wrong id, or the id of another board's
+// integration) answers 404, as GET does (#6862). The write routes used to answer 200 -
+// PUT with the requested id, the activities routes with `data: null` - for an update
+// that changed nothing, so a client could not tell it from a success. Checked after
+// board-admin authorization, so it tells nobody without that right anything.
+async function integrationOr404(res, boardId, intId) {
+  const integration = await ReactiveCache.getIntegration(
+    { _id: intId, boardId },
+    { fields: { _id: 1 } },
+  );
+  if (!integration) {
+    sendJsonResult(res, { code: 404, data: { error: 'Integration not found' } });
+    return null;
+  }
+  return integration;
+}
+
 WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
     const paramIntId = req.params.intId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+    if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
 
     // #3695: how this webhook delivers - { webhook: { text, fields, grouping,
     // schedule, ... } }, or null to inherit the board / Admin Panel default
@@ -201,6 +219,7 @@ WebApp.handlers.delete(
       const paramIntId = req.params.intId;
       const newActivities = req.body.activities;
       await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+      if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
 
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
@@ -228,6 +247,7 @@ WebApp.handlers.post(
       const paramIntId = req.params.intId;
       const newActivities = req.body.activities;
       await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+      if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
 
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
