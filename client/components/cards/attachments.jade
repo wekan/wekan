@@ -87,7 +87,7 @@ template(name="attachmentGallery")
   .attachment-gallery
 
     //- #6796: a small "+" like every other section's, not a full-width box.
-    if canModifyCard
+    if canAddAttachment
       a.card-label.add-label.add-attachment.js-add-attachment(title="{{_ 'add-attachment'}}" aria-label="{{_ 'add-attachment'}}")
         i.fa.fa-plus
 

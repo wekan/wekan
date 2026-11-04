@@ -16,6 +16,7 @@ import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManag
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
 import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig';
+import { attachmentUploadsBlocked } from '/client/lib/attachmentUploadPolicy';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { attachmentTileCompact } = require('/models/lib/attachmentTile.cjs');
 import { formatDateTime } from '/imports/lib/dateUtils';
@@ -467,6 +468,10 @@ Template.attachmentGallery.onCreated(function () {
 });
 
 Template.attachmentGallery.helpers({
+  // #6870: the "+" button - a card the user may edit, unless uploads are blocked site-wide
+  canAddAttachment() {
+    return Utils.canModifyCard() && !attachmentUploadsBlocked();
+  },
   // #6796: the small file button instead of the preview tile
   // (models/lib/attachmentTile.cjs).
   attachmentTileCompact(file) {
@@ -671,6 +676,9 @@ export async function handleFileUpload(card, files) {
   if (!files || files.length === 0) {
     return [];
   }
+
+  // #6870: the administrator blocked uploads for the whole site; the server refuses them too
+  if (attachmentUploadsBlocked()) return [];
 
   // Check if board allows attachments
   const board = card.board();
