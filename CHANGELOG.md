@@ -7,9 +7,15 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-Missing-board **exports** now answer 404 instead of 200, and the
-Docker image's **nodemailer** (10.3.1), **body-parser**, **qs**, **uuid** and
-**postcss-selector-parser** are raised past the advisories a Grype scan found.
+**Continuous backup** now runs on one server at a time, with a
+lease, when WeKan has
+several servers. Missing-board **exports** and **integration updates** answer
+404 instead of 200, a
+card stops offering the attachment "+" when uploads are blocked, and the Docker
+image's **nodemailer**,
+**body-parser**, **qs**, **uuid** and **postcss-selector-parser** are raised
+past the advisories a Grype
+scan found.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
