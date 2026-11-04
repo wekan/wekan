@@ -100,6 +100,7 @@ runOnServer(function() {
     // First check if board exists and is public to avoid unnecessary authentication
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Board not found');
       return;
     }
@@ -129,6 +130,7 @@ runOnServer(function() {
         if (process.env.DEBUG === 'true') {
           console.warn('Suspiciously long auth token received, rejecting to prevent resource abuse');
         }
+        res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('Invalid token');
         return;
       }
@@ -199,6 +201,7 @@ runOnServer(function() {
 
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Board not found');
       return;
     }
@@ -218,6 +221,7 @@ runOnServer(function() {
     const loginToken = req.query && req.query.authToken;
     if (loginToken) {
       if (loginToken.length > 10000) {
+        res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('Invalid token');
         return;
       }
