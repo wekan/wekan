@@ -139,7 +139,15 @@ for (const platform of ['darwin', 'linux']) {
     // A watcher that never reports anything: FSEvents in its first moments.
     fs.watch = () => { calls.push('watch'); const w = new (require('node:events'))(); w.close = () => {}; return w; };
     Object.defineProperty(process, 'platform', { value: platform });
-    t.after(() => { fs.watch = watch; Object.defineProperty(process, 'platform', real); fs.rmSync(root, { recursive: true, force: true }); });
+    // node:test runs after-hooks in the order they were registered, not last-in first-out. The engine
+    // must be stopped BEFORE its directory is removed: a hook that removed the directory first let
+    // stop() seal into a path that no longer existed, and the ENOENT surfaced after the test as
+    // "generated asynchronous activity after the test ended".
+    let stopEngine;
+    t.after(async () => {
+      await stopEngine?.();
+      fs.watch = watch; Object.defineProperty(process, 'platform', real); fs.rmSync(root, { recursive: true, force: true });
+    });
     const live = path.join(root, 'live');
     fs.mkdirSync(live, { recursive: true });
     fs.writeFileSync(path.join(live, 'one.txt'), 'one');
@@ -150,7 +158,7 @@ for (const platform of ['darwin', 'linux']) {
     const scan = engine.scan.bind(engine);
     engine.scan = () => { calls.push('scan'); return scan(); };
     await engine.start();
-    t.after(() => engine.stop());
+    stopEngine = () => engine.stop();
     assert.deepEqual(calls.slice(0, 2), ['watch', 'scan'], 'the watcher is up before the first scan');
     fs.writeFileSync(path.join(live, 'two.txt'), 'two');
     for (let i = 0; i < 40 && engine.status().puts < 2; i += 1) await sleep(100);
@@ -175,7 +183,15 @@ for (const [label, options, stopAt] of [['stopped before it fires', {}, 'at once
     const calls = [];
     fs.watch = () => { calls.push('watch'); const w = new (require('node:events'))(); w.close = () => {}; return w; };
     Object.defineProperty(process, 'platform', { value: 'darwin' });
-    t.after(() => { fs.watch = watch; Object.defineProperty(process, 'platform', real); fs.rmSync(root, { recursive: true, force: true }); });
+    // node:test runs after-hooks in the order they were registered, not last-in first-out. The engine
+    // must be stopped BEFORE its directory is removed: a hook that removed the directory first let
+    // stop() seal into a path that no longer existed, and the ENOENT surfaced after the test as
+    // "generated asynchronous activity after the test ended".
+    let stopEngine;
+    t.after(async () => {
+      await stopEngine?.();
+      fs.watch = watch; Object.defineProperty(process, 'platform', real); fs.rmSync(root, { recursive: true, force: true });
+    });
     const live = path.join(root, 'live');
     fs.mkdirSync(live, { recursive: true });
     fs.writeFileSync(path.join(live, 'one.txt'), 'one');
@@ -188,7 +204,7 @@ for (const [label, options, stopAt] of [['stopped before it fires', {}, 'at once
     engine.scan = () => { calls.push('scan'); return scan(); };
     await engine.start();
     let stopped = false;
-    t.after(() => (stopped ? undefined : engine.stop()));
+    stopEngine = () => (stopped ? undefined : engine.stop());
     if (stopAt === 'at once') { await engine.stop(); stopped = true; }
     fs.writeFileSync(path.join(live, 'two.txt'), 'two');
     await sleep(2600); // past the two-second catch-up
@@ -200,7 +216,8 @@ for (const [label, options, stopAt] of [['stopped before it fires', {}, 'at once
 
 test('file streams: attachments, avatars and logs, with watching, restored to a moment', { timeout: 60000 }, async t => {
   const root = tmpRoot();
-  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  let stopEngine;
+  t.after(async () => { await stopEngine?.(); fs.rmSync(root, { recursive: true, force: true }); }); // engine first: hooks run in registration order
   const live = path.join(root, 'live');
   const sources = [
     { area: 'attachments', key: 'attachments', path: path.join(live, 'attachments') },
@@ -223,7 +240,7 @@ test('file streams: attachments, avatars and logs, with watching, restored to a 
     onError: error => { throw error; }, onState: async s => { state = s; } }).start();
   // Its seal and scan timers keep the process alive: stop it however this test
   // ends, or a failed assertion below becomes a 300 s suite timeout.
-  t.after(() => engine.stop());
+  stopEngine = () => engine.stop();
   assert.equal(engine.status().files, 4, 'the symbolic link is skipped');
   // Watching notices a change without a rescan (the scan runs hourly here).
   // File-system events can lag by seconds on a loaded machine: allow 20 s.
