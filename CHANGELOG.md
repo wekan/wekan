@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The Docker image's **nodemailer** (10.3.1), **body-parser**,
+**qs**, **uuid** and **postcss-selector-parser** are raised past the advisories
+a Grype scan found in them.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.94 2026-11-04 WeKan ® release
 
 On an iPad the **opened card covers the header bar** instead of

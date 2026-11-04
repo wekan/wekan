@@ -124,6 +124,52 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The Docker image's **nodemailer** (10.3.1), **body-parser**,
+**qs**, **uuid** and **postcss-selector-parser** are raised past the advisories
+a Grype scan found in them.
+
+This release updates the following dependencies:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dad03959d9">nodemailer 10.3.1, body-parser 1.20.9 and 2.4.0, qs 6.16.1, uuid 11.1.1 and postcss-selector-parser 6.1.5 in the bundle</a>. Thanks to the Grype scan reporter and xet7.</summary>
+
+A Grype scan of the image found High and Medium advisories in packages that
+Meteor's own packages carry inside `programs/server/npm/node_modules/meteor/`,
+where `package.json` and its `overrides` cannot reach.
+`releases/bump-bundle-npm-deps.mjs` raises them after `meteor build`.
+
+- **nodemailer 8.0.11 to 10.3.1** (GHSA-2x7j-588g-ccc2, GHSA-v53p-9fqp-m79j,
+  GHSA-p6gq-j5cr-w38f and the rest fixed in 10.1.4 or later). It was listed as
+  not fixable because the fix is a new major. `meteor/email` only calls
+  `createTransport`, the `stream` plugin hook, `nodemailer/lib/well-known` and
+  `nodemailer/lib/mail-composer`, and all four were run against 10.3.1 through
+  the bundle's own package specifiers.
+- **body-parser 1.20.6 and 1.20.8 to 1.20.9, and 2.3.0 to 2.4.0**
+  (GHSA-27r3-jxmh-p828). A minimum may now be written `body-parser@2`, which
+  applies to copies of that major only, so each major is raised inside itself.
+- **qs to 6.16.1** (GHSA-6pq8-jhm2-2vcw) and **postcss-selector-parser 6.1.4 to
+  6.1.5** (GHSA-rj75-hqrm-r3gf).
+- **uuid 8.3.2 and 9.0.1 to 11.1.1** (GHSA-w5hq-g745-h8pq). uuid 11 moved its
+  entry point from `dist/index.js` to `dist/cjs/index.js`, which killed the
+  server on boot the one time it was tried. The bumper now writes the old
+  `dist/index.js` back as `export * from './esm/index.js'`: it is an ES module
+  because uuid is `"type": "module"`, and Node 26 `require()`s it.
+
+glob 14 and minimatch 11 were already in `package.json`; the scanned image
+predates them. The runtime image installs no compiler (`gcc-14-base` is Debian's
+one-file package), so the multi-stage build the report asks for is already how
+it is built. Run against a copy of the published image's bundle, the bumper
+raised all of the above and every raised copy loaded.
+`tests/bundleNpmSecurityBumps.test.cjs` pins the minimums, the per-major
+rule and the shim, and runs the bumper with `--dry-run` on a bundle of
+body-parser, uuid and nodemailer copies at, below and above their minimums.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.94 2026-11-04 WeKan ® release
 
 **In short:** On an iPad the **opened card covers the header bar** instead of
