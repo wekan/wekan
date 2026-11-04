@@ -136,6 +136,19 @@ This release fixes the following bugs:
 **Opened cards** - where a card opens.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/efaf94242e">On a phone in desktop mode the opened card starts below the header bar</a>. Thanks to xet7.</summary>
+
+The header wraps to several rows on a phone, far taller than the 8px the
+floating card docks at, so the card's top row was among the header's rows and
+was only seen by dragging it down. Below 801px a card without an inline top,
+popup cards included, now starts at `--wekan-header-height` + 8px. A dragged
+place is an inline top, so it is kept when the finger is lifted.
+`tests/cardBelowHeaderOnPhone.test.cjs` pins the rule and that it never
+matches a dragged card.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/006d24502c">The opened card covers the header bar on an iPad instead of sitting behind it</a>. Thanks to xet7.</summary>
 
 On iPad Chrome (and Safari) the opened card's top row - the collapse caret, the
