@@ -7,10 +7,20 @@
     "be raised is the bundle, after `meteor build` has produced it.",
     "",
     "Every entry is a version that FIXES a published advisory in the version the",
-    "bundle would otherwise ship, and stays INSIDE THE SAME MAJOR. That is not",
-    "caution for its own sake: a Meteor bundle records the file a package resolves",
-    "to when it is built, so a major that moves its entry point cannot be swapped",
-    "in afterwards - see uuid under notFixable, which is what taught us that.",
+    "bundle would otherwise ship. A minimum stays inside the same major WHEN a fix",
+    "exists there. When the fix is only in a newer major it is still taken, but only",
+    "after the new major was run the way the Meteor package uses it: nodemailer 10",
+    "against the calls meteor/email makes, uuid 11 through a shim (see \"shims\").",
+    "",
+    "A key may be \"name@MAJOR\" (body-parser@2): the minimum then applies only to",
+    "copies of that major, so body-parser 1.x and 2.x are each raised inside their",
+    "own major and neither is dragged across it.",
+    "",
+    "A bundle records the file a package resolves to when it is built, so a major",
+    "that moved its entry point cannot just be swapped in: uuid 11 moved it from",
+    "dist/index.js to dist/cjs/index.js and the server died on boot (\"Cannot find",
+    "module .../uuid/dist/index.js\"). \"shims\" writes the old entry file back,",
+    "re-exporting the new one.",
     "",
     "Applied by releases/bump-bundle-npm-deps.mjs, pinned by",
     "tests/bundleNpmSecurityBumps.test.cjs. A package NOT listed here is a package",
@@ -21,7 +31,8 @@
   "minimums": {
     "@babel/runtime": "7.29.7",
     "baseline-browser-mapping": "2.11.0",
-    "body-parser": "1.20.6",
+    "body-parser": "1.20.9",
+    "body-parser@2": "2.4.0",
     "browserslist": "4.28.7",
     "colord": "2.9.4",
     "compression": "1.8.2",
@@ -30,43 +41,30 @@
     "lodash": "4.18.1",
     "lodash.template": "4.18.1",
     "nanoid": "3.3.18",
-    "nodemailer": "8.0.11",
+    "nodemailer": "10.3.1",
     "on-headers": "1.1.0",
     "openpgp": "5.11.3",
     "picomatch": "4.0.5",
     "postcss": "8.5.26",
-    "qs": "6.16.0",
+    "postcss-selector-parser": "6.1.5",
+    "qs": "6.16.1",
     "source-map-js": "1.2.2",
     "svgo": "2.8.4",
     "tmp": "0.2.7",
-    "underscore": "1.13.8"
+    "underscore": "1.13.8",
+    "uuid": "11.1.1"
   },
   "notFixable": {
-    "nodemailer": [
-      "8.0.11 is the newest 8.x. CVE-2026-82659 (fixed in 9.0.1), GHSA-2x7j-588g-ccc2,",
-      "GHSA-cc9r-2j5m-2m83 and GHSA-wmmp-3585-3rmp (9.1.0), GHSA-8m3c-c648-2xjj (9.1.1),",
-      "GHSA-6vj9-mwq6-2f5v and GHSA-8vvx-rff5-p5rq (10.0.2) and GHSA-v53p-9fqp-m79j",
-      "(10.0.6) are fixed only in majors the Meteor email package is not written",
-      "against. They move when meteor/email moves."
-    ],
     "postcss-selector-parser": [
-      "CVE-2026-104844 in the 6.1.4 meteor/minifier-css brings (through cssnano) is",
-      "fixed only in 7.1.6, a new major its dependents are not written against.",
-      "minifier-css runs at build time; it moves when Meteor's minifier-css moves."
-    ],
-    "uuid": [
-      "CVE-2026-41907 affects the 8.3.2 in meteor/ddp-server and",
-      "meteor/inter-process-messaging and the 9.0.1 ldapts brings to wekan-ldap,",
-      "and the lowest fixed release is 11.1.1 - a major that MOVED its entry",
-      "point from dist/index.js to dist/cjs/index.js. The bundle resolves the old",
-      "path, so putting 11.1.1 in its place stops the server before it starts:",
-      "",
-      "  error on boot.js Error: Cannot find module",
-      "  \"/node_modules/meteor/inter-process-messaging/node_modules/uuid/dist/index.js\"",
-      "",
-      "It was tried, it failed exactly there, and it is left at the version the",
-      "packages were built against. It moves when those packages move: Meteor's",
-      "for ddp-server and inter-process-messaging, ldapts' for wekan-ldap."
+      "6.1.5 fixes GHSA-rj75-hqrm-r3gf and is taken. CVE-2026-104844 in the copy",
+      "meteor/minifier-css brings (through cssnano) is fixed only in 7.1.6, a new major",
+      "its dependents are not written against. minifier-css runs at build time; it",
+      "moves when Meteor's minifier-css moves."
     ]
+  },
+  "shims": {
+    "uuid": {
+      "dist/index.js": "export * from './esm/index.js';\n"
+    }
   }
 }

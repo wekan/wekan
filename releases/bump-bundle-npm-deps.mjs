@@ -155,14 +155,20 @@ const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-bundle-bump-'));
 const bumped = [];
 const skipped = [];
 
-for (const [name, minimum] of Object.entries(manifest.minimums)) {
-  const outdated = copiesOf(name).filter(c => compare(c.version, minimum) < 0);
+for (const [key, minimum] of Object.entries(manifest.minimums)) {
+  // "body-parser@2" limits the minimum to copies of that major; "@babel/runtime"
+  // is a scoped name, not a major, so only an @ after the first character counts.
+  const at = key.lastIndexOf('@');
+  const name = at > 0 ? key.slice(0, at) : key;
+  const major = at > 0 ? key.slice(at + 1) : null;
+  const outdated = copiesOf(name).filter(c =>
+    (major === null || c.version.split('.')[0] === major) && compare(c.version, minimum) < 0);
   if (!outdated.length) {
-    skipped.push(name);
+    skipped.push(key);
     continue;
   }
 
-  const prefix = path.join(tmpRoot, name.replace('/', '+'));
+  const prefix = path.join(tmpRoot, key.replace(/[\/@]/g, '+') + '-' + minimum);
   if (!dryRun) {
     fs.mkdirSync(prefix, { recursive: true });
     // A prefix with no package.json is what we want: npm installs the one
@@ -180,6 +186,15 @@ for (const [name, minimum] of Object.entries(manifest.minimums)) {
 
     fs.rmSync(copy.dir, { recursive: true, force: true });
     fs.cpSync(path.join(prefix, 'node_modules', name), copy.dir, { recursive: true });
+    // The entry file the bundle recorded for the OLD version, written back so it
+    // resolves again (uuid 11 moved dist/index.js to dist/cjs/index.js).
+    for (const [rel, body] of Object.entries((manifest.shims || {})[name] || {})) {
+      const file = path.join(copy.dir, rel);
+      if (fs.existsSync(file)) continue;
+      fs.mkdirSync(path.dirname(file), { recursive: true });
+      fs.writeFileSync(file, body);
+      console.log(`    + ${rel} (shim for the entry point ${name} ${copy.version} was built against)`);
+    }
 
     // Whatever the new version needs that this node_modules does not have. An
     // existing sibling is left as it is - it is some other package's choice.
