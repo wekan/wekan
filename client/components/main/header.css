@@ -20,6 +20,18 @@
   background: #2573a7;
   z-index: 17;
 }
+/* An opened card covers the header bars, in every browser. iOS WebKit - iPad Safari and
+   iPad Chrome, which is WebKit too - makes every SCROLLING element (#content, the board
+   wrapper) a stacking context of its own. The card is inside them, so its z-index (2001)
+   is only compared there, while the header bar (#header-quick-access, z-index 1000, a
+   flex item of body and so a stacking context itself) is painted over all of it: the
+   card's top row - the collapse caret, the card number, the menu, maximize and X - sat
+   BEHIND the header bar. While a card is open the header drops to the level of the
+   content, which comes after it in the page and so paints over it; a browser without that
+   trap shows no difference. */
+body:has(.card-details) #header-quick-access {
+  z-index: 0;
+}
 #header #header-main-bar {
   /* Flex row (was float-based) so the right button group — which ends with the
      sidebar hamburger — is always pinned to the right edge at every window width,
