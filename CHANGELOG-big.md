@@ -124,6 +124,34 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The release **bundle starts again**: v12.95's build stopped on
+boot because the **nodemailer** 10 raised inside Meteor's email package no
+longer had the files that package was built against.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8754ab4c08">The bundle starts again, with nodemailer 10 inside Meteor's email package</a>. Thanks to xet7.</summary>
+
+v12.95 raised the nodemailer in `meteor/email` from 8.0.3 to 10.3.1, and
+nodemailer 10 moved `lib/` to `dist/cjs/`. `packages/email.js`, compiled
+against 8.0.3, links `lib/nodemailer.js` and `lib/well-known/index.js` and
+`Npm.require`s `lib/mail-composer` by path, so build-amd64 failed its smoke
+boot. `releases/bundle-npm-security-bumps.json` now shims nodemailer as it
+already shims uuid 11: `lib/nodemailer.js` and every `lib/<name>` directory the
+exports map lists are written back, forwarding to `dist/cjs`, with a
+`lib/package.json` marking them CommonJS because nodemailer is `"type":
+"module"`. A fresh local bundle taken through build-amd64's install, bump, trim
+and prune steps passes `releases/bundle-smoke-boot.sh`.
+`tests/bundleNpmSecurityBumps.test.cjs` requires the recorded paths through the
+shim, checks every exported `lib/<name>`, and fails without the CommonJS marker.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.95 2026-11-05 WeKan ® release
 
 **In short:** **Continuous backup** now runs on one server at a time, with a
@@ -313,6 +341,13 @@ predates them. The runtime image installs no compiler (`gcc-14-base` is Debian's
 one-file package), so the multi-stage build the report asks for is already how
 it is built. Run against a copy of the published image's bundle, the bumper
 raised all of the above and every raised copy loaded.
+
+**This release's bundle did not start.** "Every raised copy loaded" was checked
+by loading each package, not by booting the bundle: nodemailer 10 moved `lib/`
+to `dist/cjs/`, Meteor's `email` package still links the `lib/` paths of 8.0.3,
+and build-amd64 failed its smoke boot with "Cannot find module
+.../meteor/email/node_modules/nodemailer/lib/nodemailer.js". The fix is in the
+next release.
 `tests/bundleNpmSecurityBumps.test.cjs` pins the minimums, the per-major
 rule and the shim, and runs the bumper with `--dry-run` on a bundle of
 body-parser, uuid and nodemailer copies at, below and above their minimums.

@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The release **bundle starts again**: v12.95's build stopped on
+boot because the **nodemailer** 10 raised inside Meteor's email package no
+longer had the files that package was built against.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.95 2026-11-05 WeKan ® release
 
 **Continuous backup** now runs on one server at a time, with a
