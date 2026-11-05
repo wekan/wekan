@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.95 2026-11-05 WeKan ® release
 
 **In short:** **Continuous backup** now runs on one server at a time, with a
 lease, when WeKan has several servers. Missing-board **exports** and REST
