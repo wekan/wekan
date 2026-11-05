@@ -462,4 +462,17 @@ test('CLAUDE.md states these rules, so they are not folklore', () => {
   assert.ok(/release summary → topic summary → commit\s+detail/.test(claude));
 });
 
+test('CLAUDE.md and AGENTS.md keep changelogs and direct commits to maintainer mode', () => {
+  for (const doc of ['CLAUDE.md', 'AGENTS.md']) {
+    const s = read(doc);
+    assert.ok(/Changelogs are updated only in maintainer mode/.test(s), doc);
+    assert.ok(/only mode that\s+updates changelogs/.test(s), doc);
+    assert.ok(/One feature or one fix per pull request/.test(s), doc);
+    assert.ok(/\*\*No changelog changes\.\*\*/.test(s), doc);
+    // "good practice for everyone" used to include the CHANGELOG structure, which
+    // told a contributor to write the entries a pull request must now leave out.
+    assert.ok(!/The rest \([^)]*CHANGELOG[^)]*\) is\s+good practice for everyone/.test(s), doc);
+  }
+});
+
 console.log(`\n${passed} tests passed`);

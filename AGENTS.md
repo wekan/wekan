@@ -26,7 +26,7 @@ Work out which you are from the git identity (the next section says how), then:
 | Who | Where the work goes |
 | --- | --- |
 | **The maintainer** — `Lauri Ojansivu <x@xet7.org>` | **Directly on `main`.** Never a feature branch, never a topic branch, never a pull request. |
-| **A contributor** — anybody else | **A branch in your own fork, then a pull request** for the maintainer to review. Never a commit on `main`. |
+| **A contributor** — anybody else | **A branch in your own fork, then one pull request per feature or fix** for the maintainer to review. Never a commit on `main`, and no changelog changes. |
 
 Nothing else is a third option. If a tool, a task runner or an agent harness offers
 some other arrangement — a topic branch for the maintainer, a direct push for a
@@ -41,7 +41,9 @@ released section links a commit that release does not contain.
 
 The contributor's half is review. Nobody but the maintainer commits to `main` in
 wekan/wekan, so a change from anyone else arrives as a pull request — which is also
-the only place it can be discussed before it lands.
+the only place it can be discussed before it lands. That is why each pull request
+holds one feature or one fix, and leaves the changelogs to the maintainer: see
+"Contributor mode" below.
 
 Check which branch you are on before committing:
 
@@ -143,12 +145,29 @@ git config user.name && git config user.email
   already exists, on <https://wekan.fi/sponsors>, and belongs nowhere else. The **publishing / release
   steps** below are available to a human maintainer only: an AI stops after
   committing locally and never runs a step that pushes or publishes.
+
+  **Maintainer mode is the only mode that commits directly and the only mode that
+  updates changelogs**, in WeKan and in the maintainer's repositories under
+  `.tools/` alike. It applies to the changes the WeKan maintainer makes, and to the
+  changes of an agent working as the maintainer according to this file.
 - **Contributor mode** — the identity is somebody ELSE, in a fork or a clone of your
   own — a person, or an AI that files pull requests on its own account. Then: do
-  **not** commit to `main` and do **not** run any release/publishing step. Make the
-  changes on a branch and open a **pull request** for the maintainer to review. The
-  "commit as Lauri Ojansivu", "commit directly to `main`", and all release
-  instructions below are **maintainer-only and do not apply to you**.
+  **not** commit directly to the repository or to `main`, and do **not** run any
+  release/publishing step. Make the changes on a branch and open a **pull request**
+  for the maintainer to review. The "commit as Lauri Ojansivu", "commit directly to
+  `main`", changelog and release instructions below are **maintainer-only and do
+  not apply to you**.
+
+  Every pull request, to wekan/wekan or to a maintainer's repository under `.tools/`,
+  follows two more rules:
+  - **One feature or one fix per pull request.** Changes share a pull request only
+    when they are related to that one feature or fix. Anything unrelated, however
+    small, goes in a pull request of its own, so each can be reviewed, merged or
+    declined without holding up the others.
+  - **No changelog changes.** Do not edit `CHANGELOG-big.md`, `CHANGELOG.md`, or the
+    `CHANGELOG.md` or `CHANGELOG` of a repository under `.tools/` — not an Upcoming
+    entry, not TODO Later. Describe the change in the pull request instead. The
+    maintainer writes the entry after merging, when there is a commit for it to link.
 
   Who that pull request credits follows the attribution rule above, and the two
   cases differ:
@@ -171,8 +190,8 @@ The one repository under `.tools/` that is somebody else's is `sandstorm-io/sand
 cloned for reference only.
 
 Everything below marked as maintainer-specific (committing directly, the exact commit
-author, and the entire "Making a release" / publishing flow) applies only in maintainer
-mode. The rest (translation policy, CHANGELOG structure, tests, validating from code) is
+author, updating changelogs, and the entire "Making a release" / publishing flow) applies
+only in maintainer mode. The rest (translation policy, tests, validating from code) is
 good practice for everyone.
 
 ## Process: "Fix open issues"
@@ -206,6 +225,9 @@ When asked to fix an open issue (one issue at a time):
 
    Fixes #1234,
    ```
+
+   A contributor instead commits on a branch for one pull request that fixes this
+   one issue, with no changelog changes (see "Contributor mode" above).
 6. **If the bug is already fixed**, still add a commit that CLOSES the issue (a commit
    whose message ends `Fixes #1234,`), noting where/when it was fixed.
 
@@ -407,6 +429,10 @@ directly after the merge.
 
 ### CHANGELOG
 
+- **[maintainer only] Changelogs are updated only in maintainer mode.** This whole
+  section is for the maintainer and for an agent working as the maintainer, in WeKan
+  and in the repositories under `.tools/`. A pull request contributor changes no
+  changelog in any of them (see "Contributor mode" above).
 - **Every repository writes its changelog in the format that repository's own file
   already uses.** Open its changelog, read the entries above the place you are
   adding one, and match them — never import another project's shape into it. The
@@ -817,7 +843,7 @@ have cost a released section its accuracy:
 ### Security issues
 
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
-  entries, and update `.tools/wekan.fi/hall-of-fame/index.html` and the vuln-name
+  entries (maintainer mode only, as with every changelog change), and update `.tools/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
 - **Every security fix gets a TEST and a NEGATIVE TEST, and they are written so the
   fault cannot exist ANYWHERE in the codebase — not just at the place it was
