@@ -360,6 +360,10 @@ WebApp.handlers.put('/api/admin/teams/:teamId/features', async function(req, res
       await Team.updateAsync(teamId, { $set });
     }
     const updated = await Team.findOneAsync(teamId);
+    if (!updated) {
+      sendJsonResult(res, { code: 404, data: { error: 'Team not found' } });
+      return;
+    }
     sendJsonResult(res, { code: 200, data: updated });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));

@@ -397,6 +397,10 @@ WebApp.handlers.put('/api/admin/orgs/:orgId/features', async function(req, res) 
       await Org.updateAsync(orgId, { $set });
     }
     const updated = await Org.findOneAsync(orgId);
+    if (!updated) {
+      sendJsonResult(res, { code: 404, data: { error: 'Organization not found' } });
+      return;
+    }
     sendJsonResult(res, { code: 200, data: updated });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
