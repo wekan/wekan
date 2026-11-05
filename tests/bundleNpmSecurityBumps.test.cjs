@@ -74,6 +74,54 @@ test('uuid is bumped to 11.1.1 and the entry point the bundle recorded is writte
   }
 });
 
+test('nodemailer 10 gets back the lib/ files meteor/email was built against', () => {
+  // v12.95's bundle failed its smoke boot: nodemailer 10 moved lib/ to dist/cjs/,
+  // and packages/email.js links the paths it recorded for 8.0.3 - "Cannot find
+  // module .../meteor/email/node_modules/nodemailer/lib/nodemailer.js" - and
+  // Npm.requires nodemailer/lib/mail-composer, which Meteor resolves by path.
+  const shim = (manifest.shims || {}).nodemailer || {};
+  const os = require('os');
+  const src = path.join(repoRoot, 'node_modules/nodemailer');
+  const pkg = JSON.parse(fs.readFileSync(path.join(src, 'package.json'), 'utf8'));
+  assert.ok(Number(pkg.version.split('.')[0]) >= 10, `node_modules/nodemailer ${pkg.version} has the 10 layout`);
+  // every lib/<name> directory nodemailer 10 still exports has its old file back,
+  // so no path a nodemailer 8 caller could have recorded is left unresolvable
+  const dirs = Object.entries(pkg.exports)
+    .filter(([key, target]) => /^\.\/lib\/[a-z0-9-]+$/.test(key)
+      && target && target.require === `./dist/cjs/${key.slice(6)}/index.js`)
+    .map(([key]) => `lib/${key.slice(6)}/index.js`);
+  assert.ok(dirs.includes('lib/mail-composer/index.js') && dirs.includes('lib/well-known/index.js'));
+  for (const rel of ['lib/package.json', 'lib/nodemailer.js', ...dirs]) {
+    assert.ok(rel in shim, `nodemailer shim for ${rel}`);
+  }
+  const tmp = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'nodemailer-shim-'));
+  try {
+    const shimmed = path.join(tmp, 'with', 'nodemailer');
+    const bare = path.join(tmp, 'without', 'nodemailer');
+    for (const [dir, files] of [[shimmed, Object.keys(shim)], [bare, ['lib/nodemailer.js']]]) {
+      fs.cpSync(src, dir, { recursive: true });
+      for (const rel of files) {
+        fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
+        fs.writeFileSync(path.join(dir, rel), shim[rel]);
+      }
+    }
+    // the two paths the bundle recorded, required by file as Meteor's runtime does
+    assert.strictEqual(typeof require(path.join(shimmed, 'lib/nodemailer.js')).createTransport, 'function');
+    assert.strictEqual(typeof require(path.join(shimmed, 'lib/well-known/index.js')), 'function');
+    assert.strictEqual(typeof require(path.join(shimmed, 'lib/mail-composer')), 'function');
+    // and each forward is the module the exports map gives a require() caller
+    for (const rel of dirs) {
+      assert.strictEqual(require(path.join(shimmed, rel)),
+        require(path.join(shimmed, 'dist/cjs', rel.slice(4))), rel);
+    }
+    // negative: without lib/package.json the CommonJS shim is parsed as ESM
+    // (nodemailer is "type": "module") and does not load
+    assert.throws(() => require(path.join(bare, 'lib/nodemailer.js')));
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
 test('body-parser 1.x and 2.x are each raised inside their own major', () => {
   assert.strictEqual(manifest.minimums['body-parser'], '1.20.9');
   assert.strictEqual(manifest.minimums['body-parser@2'], '2.4.0');

@@ -20,7 +20,12 @@
     "that moved its entry point cannot just be swapped in: uuid 11 moved it from",
     "dist/index.js to dist/cjs/index.js and the server died on boot (\"Cannot find",
     "module .../uuid/dist/index.js\"). \"shims\" writes the old entry file back,",
-    "re-exporting the new one.",
+    "re-exporting the new one. nodemailer 10 moved lib/ to dist/cjs/, while",
+    "meteor/email, built against 8.0.3, links lib/nodemailer.js and",
+    "lib/well-known/index.js and Npm.requires lib/mail-composer by path: v12.95's",
+    "bundle failed its smoke boot on the first. nodemailer is \"type\": \"module\",",
+    "so its shim marks lib/ as CommonJS and forwards lib/nodemailer.js and every",
+    "lib/<name> directory its exports map lists to dist/cjs.",
     "",
     "Applied by releases/bump-bundle-npm-deps.mjs, pinned by",
     "tests/bundleNpmSecurityBumps.test.cjs. A package NOT listed here is a package",
@@ -63,6 +68,30 @@
     ]
   },
   "shims": {
+    "nodemailer": {
+      "lib/package.json": "{ \"type\": \"commonjs\" }\n",
+      "lib/nodemailer.js": "module.exports = require('../dist/cjs/nodemailer.js');\n",
+      "lib/addressparser/index.js": "module.exports = require('../../dist/cjs/addressparser/index.js');\n",
+      "lib/base64/index.js": "module.exports = require('../../dist/cjs/base64/index.js');\n",
+      "lib/dkim/index.js": "module.exports = require('../../dist/cjs/dkim/index.js');\n",
+      "lib/fetch/index.js": "module.exports = require('../../dist/cjs/fetch/index.js');\n",
+      "lib/json-transport/index.js": "module.exports = require('../../dist/cjs/json-transport/index.js');\n",
+      "lib/mail-composer/index.js": "module.exports = require('../../dist/cjs/mail-composer/index.js');\n",
+      "lib/mailer/index.js": "module.exports = require('../../dist/cjs/mailer/index.js');\n",
+      "lib/mime-funcs/index.js": "module.exports = require('../../dist/cjs/mime-funcs/index.js');\n",
+      "lib/mime-node/index.js": "module.exports = require('../../dist/cjs/mime-node/index.js');\n",
+      "lib/punycode/index.js": "module.exports = require('../../dist/cjs/punycode/index.js');\n",
+      "lib/qp/index.js": "module.exports = require('../../dist/cjs/qp/index.js');\n",
+      "lib/sendmail-transport/index.js": "module.exports = require('../../dist/cjs/sendmail-transport/index.js');\n",
+      "lib/ses-transport/index.js": "module.exports = require('../../dist/cjs/ses-transport/index.js');\n",
+      "lib/shared/index.js": "module.exports = require('../../dist/cjs/shared/index.js');\n",
+      "lib/smtp-connection/index.js": "module.exports = require('../../dist/cjs/smtp-connection/index.js');\n",
+      "lib/smtp-pool/index.js": "module.exports = require('../../dist/cjs/smtp-pool/index.js');\n",
+      "lib/smtp-transport/index.js": "module.exports = require('../../dist/cjs/smtp-transport/index.js');\n",
+      "lib/stream-transport/index.js": "module.exports = require('../../dist/cjs/stream-transport/index.js');\n",
+      "lib/well-known/index.js": "module.exports = require('../../dist/cjs/well-known/index.js');\n",
+      "lib/xoauth2/index.js": "module.exports = require('../../dist/cjs/xoauth2/index.js');\n"
+    },
     "uuid": {
       "dist/index.js": "export * from './esm/index.js';\n"
     }
