@@ -261,6 +261,13 @@ Template.minicard.helpers({
   isWatching() {
     return this.getRealCard().findWatcher(Meteor.userId());
   },
+  // #6872: a picked member (requesters / assigners) or a free-text name.
+  hasRequestedByOnMinicard() {
+    return !!this.getRequestedBy() || (this.getRequesters() || []).length > 0;
+  },
+  hasAssignedByOnMinicard() {
+    return !!this.getAssignedBy() || (this.getAssigners() || []).length > 0;
+  },
 
   showMembers() {
     const board = minicardBoardOf(this);

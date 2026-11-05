@@ -100,10 +100,10 @@ const CARD_SETTINGS_ROWS = [
   { key: 'creator', icons: ['fa-user'], label: ['creator'],
     card: { toggle: 'js-field-has-creator', field: 'allowsCreator' },
     minicard: { toggle: 'js-field-has-creator-on-minicard', field: 'allowsCreatorOnMinicard' } },
-  { key: 'requestedBy', icons: ['fa-user', 'fa-plus'], label: ['requested-by'],
+  { key: 'requestedBy', icons: ['fa-shopping-cart'], label: ['requested-by'],
     card: { toggle: 'js-field-has-requested-by', field: 'allowsRequestedBy' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsRequestedByOnMinicard', flag: true, default: true } },
-  { key: 'assignedBy', icons: ['fa-shopping-cart'], label: ['assigned-by'],
+  { key: 'assignedBy', icons: ['fa-user-plus'], label: ['assigned-by'],
     card: { toggle: 'js-field-has-assigned-by', field: 'allowsAssignedBy' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsAssignedByOnMinicard', flag: true, default: true } },
 

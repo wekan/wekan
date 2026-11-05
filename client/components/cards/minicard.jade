@@ -419,18 +419,27 @@ template(name="minicard")
                   .minicard-location
                     i.fa.fa-map-marker
                     | {{#if name}}{{name}}{{else}}{{address}}{{/if}}
+            //- #6872: the + button on the opened card picks board members into
+              requesters / assigners; the free-text name is optional. Show both,
+              as the opened card does, or a picked member never reached here.
             if $eq field "requestedBy"
               unless $eq currentBoard.allowsRequestedByOnMinicard false
-                if getRequestedBy
+                if hasRequestedByOnMinicard
                   .minicard-requested-by(title="{{_ 'requested-by'}}")
                     i.fa.fa-shopping-cart
-                    | {{ getRequestedBy }}
+                    each userId in getRequesters
+                      +userAvatar(userId=userId noRemove=true)
+                    if getRequestedBy
+                      span {{ getRequestedBy }}
             if $eq field "assignedBy"
               unless $eq currentBoard.allowsAssignedByOnMinicard false
-                if getAssignedBy
+                if hasAssignedByOnMinicard
                   .minicard-assigned-by(title="{{_ 'assigned-by'}}")
                     i.fa.fa-user-plus
-                    | {{ getAssignedBy }}
+                    each userId in getAssigners
+                      +userAvatar(userId=userId noRemove=true)
+                    if getAssignedBy
+                      span {{ getAssignedBy }}
             if $eq field "flowtime"
               if currentBoard.allowsFlowtimeOnMinicard
                 if isFlowActive
