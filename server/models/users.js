@@ -2714,28 +2714,30 @@ WebApp.handlers.put('/api/users/:userId', async function(req, res) {
     const id = req.params.userId;
     const action = req.body.action;
     let data = await ReactiveCache.getUser({ _id: id });
-    if (data !== undefined) {
-      if (action === 'takeOwnership') {
-        const boards = await ReactiveCache.getBoards(
-          { 'members.userId': id, 'members.isAdmin': true },
-          { sort: { sort: 1 } },
-        );
-        data = [];
-        for (const board of boards) {
-          if (board.hasMember(req.userId)) {
-            await board.removeMember(req.userId);
-          }
-          board.changeOwnership(id, req.userId);
-          data.push({ _id: board._id, title: board.title });
+    if (!data) {
+      sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+      return;
+    }
+    if (action === 'takeOwnership') {
+      const boards = await ReactiveCache.getBoards(
+        { 'members.userId': id, 'members.isAdmin': true },
+        { sort: { sort: 1 } },
+      );
+      data = [];
+      for (const board of boards) {
+        if (board.hasMember(req.userId)) {
+          await board.removeMember(req.userId);
         }
-      } else {
-        if (action === 'disableLogin' && id !== req.userId) {
-          await Users.updateAsync({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': [] } });
-        } else if (action === 'enableLogin') {
-          await Users.updateAsync({ _id: id }, { $set: { loginDisabled: false } });
-        }
-        data = withoutSecrets(await ReactiveCache.getUser(id));
+        board.changeOwnership(id, req.userId);
+        data.push({ _id: board._id, title: board.title });
       }
+    } else {
+      if (action === 'disableLogin' && id !== req.userId) {
+        await Users.updateAsync({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': [] } });
+      } else if (action === 'enableLogin') {
+        await Users.updateAsync({ _id: id }, { $set: { loginDisabled: false } });
+      }
+      data = withoutSecrets(await ReactiveCache.getUser(id));
     }
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
