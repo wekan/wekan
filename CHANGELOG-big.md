@@ -127,11 +127,14 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** **Continuous backup** now runs on one server at a time, with a
-lease, when WeKan has several servers. Missing-board **exports** and
-missing-resource **REST updates** answer 404 instead of 200. A card stops
-offering the attachment "+" when uploads are blocked, and the Docker image's
-**nodemailer**, **body-parser**, **qs**, **uuid** and
-**postcss-selector-parser** are raised past the advisories a Grype scan found.
+lease, when WeKan has
+several servers. Missing-board **exports** and **integration updates** answer
+404 instead of 200, a
+card stops offering the attachment "+" when uploads are blocked, and the Docker
+image's **nodemailer**,
+**body-parser**, **qs**, **uuid** and **postcss-selector-parser** are raised
+past the advisories a Grype
+scan found.
 
 This release fixes the following bugs:
 
@@ -205,7 +208,8 @@ on, and that no `disableAttachments` setting exists.
 
 </details>
 
-**REST API** - how updates answer when the requested resource does not exist.
+**REST API** - what the integration routes answer for an integration that is not
+there.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6012521ccc">An integration update for a missing or wrong-board integration returns 404</a>. Thanks to AhmedLukman and xet7.</summary>
@@ -225,21 +229,6 @@ every handler that
 updates an integration looks it up first and only after authorization; the PR's
 route and browser
 tests stay.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0766a65fefaa151fea1d9ba316f3514d7b9d82e2">Updates to a missing user return JSON 404</a>. Thanks to AhmedLukman and xet7.</summary>
-
-`PUT /api/users/:userId` returned an empty HTTP 200 response when no user
-matched, for login changes and ownership transfers alike. It now returns
-`{"error":"User not found"}` with HTTP 404, matching the user GET and DELETE
-routes. Site-admin authorization still runs before the lookup.
-
-`tests/restUserUpdate.test.cjs` covers missing lookup results, authorization,
-successful updates and response sanitization. Live REST and People page tests
-in `tests/playwright/specs/rest-user-update.e2e.js` verify rejected updates,
-persisted login changes and their visible status.
 
 </details>
 
