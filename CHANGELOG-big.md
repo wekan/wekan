@@ -204,6 +204,10 @@ server enforces.
 enforcement it relies
 on, and that no `disableAttachments` setting exists.
 
+The method was not imported at first, so the call failed and the "+" stayed;
+[a follow-up](https://github.com/wekan/wekan/commit/3aaa46fdae) loads it, and
+`tests/serverModulesLoaded.test.cjs` now passes.
+
 </details>
 
 **REST API** - what the integration, user, organization and team update routes
