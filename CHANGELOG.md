@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+`build.sh` and the `releases/` scripts now work on **Arch Linux**
+and **Omarchy**, installing with pacman without partial upgrades, getting snapd
+from the AUR, and installing Playwright's browsers without the apt-only
+`--with-deps`.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.96 2026-11-05 WeKan ® release
 
 The release **bundle starts again**: v12.95's build stopped on

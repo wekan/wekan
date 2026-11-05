@@ -124,6 +124,35 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** `build.sh` and the `releases/` scripts now work on **Arch Linux**
+and **Omarchy**, installing with pacman without partial upgrades, getting snapd
+from the AUR, and installing Playwright's browsers without the apt-only
+`--with-deps`.
+
+This release has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c61a1b7f41">build.sh and releases scripts work on Arch Linux and Omarchy</a>. Thanks to xet7.</summary>
+
+Omarchy is Arch with Hyprland: pacman, the Arch repositories and yay for the
+AUR. `releases/ensure-tools.sh` names it and the other Arch derivatives
+explicitly. Packages are installed with `pacman -S --needed` instead of the
+unsupported `-Sy` partial upgrade; a full `-Syu` runs only on a never-synced
+pacman or with `WEKAN_PACMAN_SYU=1`, and a failed install says to update first
+(`omarchy-update` on Omarchy). 7zip replaces Arch's retired p7zip, snapcraft
+gets snapd from the AUR with yay or paru, the SSH server menu entries use
+`sshd.service` outside Debian/Ubuntu, and Playwright's browser libraries come
+from pacman (or dnf) instead of the apt-only `--with-deps`, with WebKit in the
+Playwright Docker image on Arch. `tests/archOmarchyScripts.test.cjs` drives
+the helpers offline, and its negative test fails if any shell script does a
+`pacman -Sy` partial upgrade or installs p7zip.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.96 2026-11-05 WeKan ® release
 
 **In short:** The release **bundle starts again**: v12.95's build stopped on
