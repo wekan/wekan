@@ -133,7 +133,7 @@ longer had the files that package was built against.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8754ab4c08">The bundle starts again, with nodemailer 10 inside Meteor's email package</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5a21b074d4">The bundle starts again, with nodemailer 10 inside Meteor's email package</a>. Thanks to xet7.</summary>
 
 v12.95 raised the nodemailer in `meteor/email` from 8.0.3 to 10.3.1, and
 nodemailer 10 moved `lib/` to `dist/cjs/`. `packages/email.js`, compiled
