@@ -251,6 +251,8 @@ import '/server/lib/utils';
 // ----------------------------------------------------------------------------
 // 10. Server — methods
 // ----------------------------------------------------------------------------
+// #6870: the card's attachment "+" asks this whether uploads are blocked.
+import '/server/methods/attachmentUploadPolicy';
 import '/server/methods/backup';
 // Admin Panel / Attachments / Continuous backup (docs/Backup/Continuous-Backup.md).
 import '/server/continuousBackup';
