@@ -2,7 +2,8 @@
 . "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files and downloads go to .tools/tmp
 #
 # Shared helper: install required CLI tools for the current platform if missing.
-# Supports Debian/Ubuntu, Fedora, RHEL/Oracle Linux, Alpine, Arch, and macOS.
+# Supports Debian/Ubuntu, Fedora, RHEL/Oracle Linux, Alpine, Arch (and the
+# Arch-based Omarchy, EndeavourOS, CachyOS, Manjaro ...), and macOS.
 # The package-manager commands are architecture independent.
 #
 # Usage (source it, then call ensure_tools with the tools you need):
@@ -27,7 +28,10 @@ _et_linux_family() {
     . "$os_release"
     case "${ID:-} ${ID_LIKE:-}" in
       *alpine*) echo alpine; return ;;
-      *arch*) echo arch; return ;;
+      # Omarchy (https://omarchy.org) is Arch with Hyprland on top: pacman,
+      # the Arch repositories and yay for the AUR. Named explicitly so it is
+      # recognised whether its os-release says ID=omarchy, ID=arch or ID_LIKE=arch.
+      *omarchy*|*arch*|*manjaro*|*endeavouros*|*cachyos*) echo arch; return ;;
       *ol*|*oracle*|*rhel*|*centos*|*rocky*|*almalinux*) echo rhel; return ;;
       *fedora*) echo fedora; return ;;
       *debian*|*ubuntu*) echo debian; return ;;
@@ -42,6 +46,68 @@ _et_linux_family() {
 }
 
 _et_have() { command -v "$1" >/dev/null 2>&1; }
+
+# Omarchy is detected by its own tooling, for the messages that name its
+# update command; everything else treats it as the Arch family it is.
+_et_is_omarchy() {
+  _et_have omarchy-update || [ -d "${HOME:-/nonexistent}/.local/share/omarchy" ]
+}
+
+# Install Arch packages WITHOUT a partial upgrade. `pacman -Sy <pkg>` refreshes
+# the package lists but upgrades nothing else, which Arch does not support: the
+# new package can be linked against libraries newer than the installed ones
+# (https://wiki.archlinux.org/title/System_maintenance#Partial_upgrades_are_unsupported).
+# So: `-S --needed` against the lists the system already has. A container that
+# has never synced (archlinux:latest ships with no sync databases) gets a full
+# `-Syu`, which is the supported way to sync, and so does WEKAN_PACMAN_SYU=1.
+_et_pacman() {
+  local sync_dir="${WEKAN_PACMAN_SYNC_DIR:-/var/lib/pacman/sync}"
+  if [ "${WEKAN_PACMAN_SYU:-0}" = 1 ] || ! ls "$sync_dir"/*.db >/dev/null 2>&1; then
+    sudo pacman -Syu --needed --noconfirm "$@"
+    return
+  fi
+  if ! sudo pacman -S --needed --noconfirm "$@"; then
+    echo "pacman could not install: $*" >&2
+    if _et_is_omarchy; then
+      echo "  The package lists are probably older than the mirrors. Update first with omarchy-update" >&2
+    else
+      echo "  The package lists are probably older than the mirrors. Update first with sudo pacman -Syu" >&2
+    fi
+    echo "  (or rerun with WEKAN_PACMAN_SYU=1 to do that full upgrade here), then run this again." >&2
+    return 1
+  fi
+}
+
+# Install from the AUR with the helper that is there: Omarchy ships yay, other
+# Arch installs often have paru. Neither runs as root, so no sudo here.
+_et_aur() {
+  local helper
+  for helper in yay paru; do
+    if _et_have "$helper"; then
+      "$helper" -S --needed --noconfirm "$@"
+      return
+    fi
+  done
+  echo "No AUR helper (yay or paru) found; install $* from https://aur.archlinux.org manually." >&2
+  return 1
+}
+
+# The OpenSSH server unit is ssh.service on Debian/Ubuntu and sshd.service on
+# Arch/Omarchy, Fedora, RHEL and Alpine.
+_et_ssh_unit() {
+  if [ "$(_et_linux_family)" = debian ]; then echo ssh; else echo sshd; fi
+}
+
+# How to make en_US.UTF-8 available, per distribution, for the build notes.
+_et_locale_hint() {
+  case "$(_et_linux_family)" in
+    debian) echo "run sudo dpkg-reconfigure locales." ;;
+    fedora|rhel) echo "install glibc-langpack-en and enable en_US.UTF-8." ;;
+    arch) echo "uncomment en_US.UTF-8 in /etc/locale.gen and run sudo locale-gen." ;;
+    alpine) echo "Alpine uses musl; install musl-locales if the build requires locale data." ;;
+    *) echo "generate the en_US.UTF-8 locale with your distribution's tools." ;;
+  esac
+}
 
 # Ensure Homebrew exists and is on PATH (Apple Silicon: /opt/homebrew, Intel: /usr/local).
 _et_brew_ensure() {
@@ -129,11 +195,19 @@ ensure_tools() {
               g++) package=gcc ;;
               awk) package=gawk ;;
               pip3|python3-pip) package=python-pip ;;
-              7zip) package=p7zip ;;
-              snapcraft) echo "Install snapd from AUR, enable snapd.socket, then install snapcraft." >&2; return 1 ;;
+              # Arch replaced p7zip with 7zip (7-Zip itself) in its repositories.
+              7zip) package=7zip ;;
+              snapcraft)
+                # snapd is in the AUR, not the Arch repositories.
+                _et_aur snapd || return 1
+                sudo systemctl enable --now snapd.socket
+                sudo ln -sfn /var/lib/snapd/snap /snap
+                sudo snap install snapcraft --classic
+                continue
+                ;;
               *) package="$tool" ;;
             esac
-            sudo pacman -Sy --needed --noconfirm "$package"
+            _et_pacman "$package"
             ;;
           debian)
             case "$tool" in
@@ -220,7 +294,7 @@ ensure_build_toolchain() {
   local pm
   case "$(_et_os):$(_et_linux_family)" in
     linux:alpine) sudo apk add --no-cache bash build-base python3 curl wget p7zip zip unzip ;;
-    linux:arch) sudo pacman -Sy --needed --noconfirm base-devel python curl wget p7zip zip unzip ;;
+    linux:arch) _et_pacman base-devel python curl wget 7zip zip unzip ;;
     linux:fedora) sudo dnf group install -y development-tools; sudo dnf install -y gcc gcc-c++ make python3 curl wget 7zip zip unzip ;;
     linux:rhel) pm=dnf; _et_have dnf || pm=yum; sudo "$pm" groupinstall -y "Development Tools"; sudo "$pm" install -y gcc gcc-c++ make python3 curl wget p7zip zip unzip ;;
     linux:debian) sudo apt-get update; sudo apt-get install -y libatomic1 build-essential g++ make python3 curl wget p7zip-full zip unzip ;;
@@ -234,11 +308,33 @@ ensure_archive_tools() {
   local pm
   case "$(_et_os):$(_et_linux_family)" in
     linux:alpine) sudo apk add --no-cache curl wget p7zip zip unzip ;;
-    linux:arch) sudo pacman -Sy --needed --noconfirm curl wget p7zip zip unzip ;;
+    linux:arch) _et_pacman curl wget 7zip zip unzip ;;
     linux:fedora) sudo dnf install -y curl wget 7zip zip unzip ;;
     linux:rhel) pm=dnf; _et_have dnf || pm=yum; sudo "$pm" install -y curl wget p7zip zip unzip ;;
     linux:debian) sudo apt-get update; sudo apt-get install -y curl wget p7zip-full zip unzip ;;
     macos:*) _et_brew_ensure; brew install curl wget sevenzip zip ;;
     *) echo "Unsupported platform: install curl, wget, 7zip, zip and unzip." >&2; return 1 ;;
+  esac
+}
+
+# The shared libraries Playwright's Chromium and Firefox load, for the
+# distributions where `playwright install --with-deps` cannot install them
+# (it runs apt-get). Debian/Ubuntu keep using --with-deps.
+ensure_playwright_system_deps() {
+  local pm
+  case "$(_et_os):$(_et_linux_family)" in
+    linux:arch)
+      # Arch and Omarchy. A desktop Omarchy already has nearly all of these;
+      # --needed makes that a no-op rather than a reinstall.
+      _et_pacman nss at-spi2-core libcups libdrm libxkbcommon libxcomposite \
+        libxdamage libxrandr libxfixes mesa pango cairo alsa-lib gtk3 dbus-glib ;;
+    linux:fedora|linux:rhel)
+      pm=dnf; _et_have dnf || pm=yum
+      sudo "$pm" install -y nss atk at-spi2-atk cups-libs libdrm libxkbcommon \
+        libXcomposite libXdamage libXrandr libXfixes mesa-libgbm pango cairo \
+        alsa-lib gtk3 dbus-glib ;;
+    linux:alpine)
+      echo "Playwright publishes no musl browsers; use WEKAN_PLAYWRIGHT_DOCKER=1 on Alpine." >&2 ;;
+    *) : ;;
   esac
 }

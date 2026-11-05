@@ -23,6 +23,9 @@ const zshScripts = [
 const fixtures = {
   alpine: 'ID=alpine\n',
   arch: 'ID=arch\n',
+  omarchy: 'ID=omarchy\nID_LIKE=arch\n',
+  omarchyAlone: 'NAME="Omarchy"\nID=omarchy\n',
+  endeavouros: 'ID=endeavouros\nID_LIKE=arch\n',
   fedora: 'ID=fedora\n',
   rhel: 'ID=rhel\n',
   oracle: 'ID=ol\nID_LIKE="fedora rhel"\n',
@@ -44,7 +47,8 @@ for (const [name, contents] of Object.entries(fixtures)) {
     });
     fs.rmSync(dir, { recursive: true, force: true });
     assert.strictEqual(result.status, 0, result.stderr);
-    const expected = name === 'oracle' ? 'rhel' : name;
+    const expected = name === 'oracle' ? 'rhel'
+      : ['omarchy', 'omarchyAlone', 'endeavouros'].includes(name) ? 'arch' : name;
     assert.strictEqual(result.stdout.trim(), expected);
   });
 }
@@ -81,7 +85,9 @@ test('Homebrew uses macOS formula names', () => {
 
 test('every Linux family has an explicit package-manager command', () => {
   const src = fs.readFileSync(helper, 'utf8');
-  for (const command of ['apk add --no-cache', 'pacman -Sy --needed --noconfirm',
+  // Arch's command is `pacman -S --needed` inside _et_pacman: a bare `-Sy` is
+  // a partial upgrade, which Arch does not support (archOmarchyScripts.test.cjs).
+  for (const command of ['apk add --no-cache', 'pacman -S --needed --noconfirm',
     'dnf', 'yum', 'apt-get']) assert.ok(src.includes(command), command);
 });
 

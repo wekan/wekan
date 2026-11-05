@@ -20,12 +20,7 @@ if [ ! -x "$WEKAN_TOOLS_DIR/.meteor/meteor" ]; then
 fi
 
 echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
-case "$(_et_linux_family)" in
-  fedora|rhel) echo "      install glibc-langpack-en and enable en_US.UTF-8." ;;
-  debian) echo "      run sudo dpkg-reconfigure locales." ;;
-  arch) echo "      enable en_US.UTF-8 in /etc/locale.gen and run locale-gen." ;;
-  alpine) echo "      Alpine uses musl; install musl-locales if the build requires locale data." ;;
-esac
+[ "$(_et_os)" = linux ] && echo "      $(_et_locale_hint)"
 echo "      You can still use any other locale as your main locale."
 
 echo "Building Wekan."

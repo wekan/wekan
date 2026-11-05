@@ -7,7 +7,7 @@ ensure_tools git
 if ! command -v awk >/dev/null 2>&1; then
   case "$(_et_linux_family)" in
     alpine) sudo apk add --no-cache gawk ;;
-    arch) sudo pacman -Sy --needed --noconfirm gawk ;;
+    arch) _et_pacman gawk ;;
     fedora|rhel) pm=dnf; command -v dnf >/dev/null 2>&1 || pm=yum; sudo "$pm" install -y gawk ;;
     *) ensure_tools awk ;;
   esac

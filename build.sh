@@ -1,9 +1,10 @@
 #!/bin/bash
 if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
-echo "Recommended for development: Newest Debian or Ubuntu amd64 based distro, directly to SSD disk or dual boot, not VM. Works fast."
+echo "Recommended for development: Newest Debian, Ubuntu, Fedora or Arch/Omarchy amd64 based distro, directly to SSD disk or dual boot, not VM. Works fast."
 echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
-echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
+echo "       so that MongoDB works correctly: Debian/Ubuntu 'sudo dpkg-reconfigure locales',"
+echo "       Arch/Omarchy: uncomment en_US.UTF-8 in /etc/locale.gen and run 'sudo locale-gen'."
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to the operation-specific path printed below."
 echo "Note3: All logs use .tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/."
@@ -605,6 +606,14 @@ function browser_needs_docker(){
 	if [ "$PLATFORM_OS" = "linux" ] && [ "$PLATFORM_ARCH" = "arm64" ]; then
 		return 0
 	fi
+	# Playwright builds WebKit for Debian/Ubuntu only. On Arch and Omarchy its
+	# WebKit is linked against other ICU/libjpeg/libwebp versions than the
+	# rolling release has and does not launch, while Chromium and Firefox do.
+	# So WebKit alone goes to the Docker image there, when Docker is installed.
+	if [ "$browser" = webkit ] && [ "$PLATFORM_OS" = "linux" ] && \
+		[ "$(_et_linux_family)" = arch ] && docker_available; then
+		return 0
+	fi
 	return 1
 }
 
@@ -825,8 +834,17 @@ function install_playwright_browsers(){
 		browser_needs_docker "$b" || nativeList="$nativeList $b"
 	done
 	if [ -n "$nativeList" ]; then
-		echo "Installing native Playwright browsers:$nativeList (with system deps; may use sudo)."
-		( cd "$pwdir" && export HOME="$reporoot/.tools" && npx playwright install --with-deps $nativeList )
+		if [ "$PLATFORM_OS" = "linux" ] && [ "$(_et_linux_family)" != debian ]; then
+			# `--with-deps` runs apt-get, which only Debian/Ubuntu have. Elsewhere
+			# install the libraries the browsers load with the native package
+			# manager, then the browsers themselves without --with-deps.
+			echo "Installing native Playwright browsers:$nativeList (system deps from the distribution's packages; may use sudo)."
+			ensure_playwright_system_deps
+			( cd "$pwdir" && export HOME="$reporoot/.tools" && npx playwright install $nativeList )
+		else
+			echo "Installing native Playwright browsers:$nativeList (with system deps; may use sudo)."
+			( cd "$pwdir" && export HOME="$reporoot/.tools" && npx playwright install --with-deps $nativeList )
+		fi
 	else
 		echo "All browsers are configured to run via Docker; skipping native browser install."
 	fi
@@ -2732,8 +2750,8 @@ RELEASE_SCRIPTS=(	"Release|Release All: audit, commit, push and build with Actio
 	"Git and repo|Migrate a MongoDB database to FerretDB (--help first)|releases/migrate-mongodb-to-ferretdb.mjs|Arguments, e.g. --help||"
 	"Git and repo|Export local Git history to a new Fossil repository|releases/fossil.sh|||fossil-export"
 	"Git and repo|Open the local Fossil repository UI|releases/fossil-ui.sh|||fossil-ui"
-	"Server and VM|Enable and start the SSH server|!sudo systemctl enable ssh && sudo systemctl start ssh||linux|ssh-start"
-	"Server and VM|Disable and stop the SSH server|!sudo systemctl disable ssh && sudo systemctl stop ssh||linux|ssh-stop"
+	"Server and VM|Enable and start the SSH server|!sudo systemctl enable \"\$(_et_ssh_unit)\" && sudo systemctl start \"\$(_et_ssh_unit)\"||linux|ssh-start"
+	"Server and VM|Disable and stop the SSH server|!sudo systemctl disable \"\$(_et_ssh_unit)\" && sudo systemctl stop \"\$(_et_ssh_unit)\"||linux|ssh-stop"
 	"Server and VM|Enable the ufw firewall|!sudo ufw enable||linux|ufw-enable"
 	"Server and VM|Disable the ufw firewall|!sudo ufw disable||linux|ufw-disable"
 	"Server and VM|Remove the Multipass VM|!multipass stop --all && multipass delete --all && multipass purge && sudo snap remove multipass||linux|multipass-remove"
@@ -2999,7 +3017,8 @@ for _once in 1; do
 					sudo apk add --no-cache bash build-base git curl wget p7zip zip unzip file npm
 					;;
 				arch)
-					sudo pacman -Sy --needed --noconfirm base-devel git curl wget p7zip zip unzip file npm
+					# Arch and Omarchy: no `pacman -Sy` partial upgrade (see _et_pacman).
+					_et_pacman base-devel git curl wget 7zip zip unzip file npm
 					;;
 				fedora)
 					sudo dnf group install -y development-tools

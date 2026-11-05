@@ -89,8 +89,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   }
 
   # Snapcraft is available natively on Debian, Fedora and RHEL families.
-  # Alpine has no snapd package; Arch requires snapd from AUR, so the shared
-  # helper reports the required manual prerequisite instead of running apt.
+  # Alpine has no snapd package. Arch and Omarchy get snapd from the AUR with
+  # yay or paru (Omarchy ships yay); the shared helper does that, or says what
+  # to install when there is no AUR helper.
   SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   . "$SCRIPT_DIR/ensure-tools.sh"
   ensure_tools snapcraft

@@ -37,7 +37,8 @@ const { verify } = require('../releases/verify-mime-runtime.cjs');
     const snap = fs.readFileSync(path.resolve('snapcraft.yaml'), 'utf8');
     assert.match(snap, /stage-packages:\s*- file\s*- libmagic-mgc/);
     const setup = fs.readFileSync(path.resolve('build.sh'), 'utf8');
-    for (const command of ['apk add', 'pacman -Sy', 'dnf install', 'apt-get install']) {
+    // Arch/Omarchy installs through _et_pacman (no `pacman -Sy` partial upgrade).
+    for (const command of ['apk add', '_et_pacman', 'dnf install', 'apt-get install']) {
       assert.ok(setup.split('\n').some(line => line.includes(command) && /\bfile\b/.test(line)), command);
     }
     for (const filename of ['models/fileValidation.js', 'models/lib/fileTypeCorrection.js', 'server/methods/fileStatusAudit.js']) {
