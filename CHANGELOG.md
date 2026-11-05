@@ -8,14 +8,12 @@ make changes there.
 # Upcoming WeKan ® release
 
 **Continuous backup** now runs on one server at a time, with a
-lease, when WeKan has
-several servers. Missing-board **exports** and **integration updates** answer
-404 instead of 200, a
-card stops offering the attachment "+" when uploads are blocked, and the Docker
-image's **nodemailer**,
-**body-parser**, **qs**, **uuid** and **postcss-selector-parser** are raised
-past the advisories a Grype
-scan found.
+lease, when WeKan has several servers. Missing-board **exports** and REST
+updates of missing **integrations**, **users**, **organizations** and **teams**
+answer 404 instead of 200, the **minicard** shows a picked Requested by and
+Assigned by, a card stops offering the attachment "+" when uploads are blocked,
+and the Docker image's **nodemailer**, **body-parser**, **qs**, **uuid** and
+**postcss-selector-parser** are raised past the advisories a Grype scan found.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

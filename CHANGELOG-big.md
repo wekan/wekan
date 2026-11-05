@@ -127,14 +127,12 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** **Continuous backup** now runs on one server at a time, with a
-lease, when WeKan has
-several servers. Missing-board **exports** and **integration updates** answer
-404 instead of 200, a
-card stops offering the attachment "+" when uploads are blocked, and the Docker
-image's **nodemailer**,
-**body-parser**, **qs**, **uuid** and **postcss-selector-parser** are raised
-past the advisories a Grype
-scan found.
+lease, when WeKan has several servers. Missing-board **exports** and REST
+updates of missing **integrations**, **users**, **organizations** and **teams**
+answer 404 instead of 200, the **minicard** shows a picked Requested by and
+Assigned by, a card stops offering the attachment "+" when uploads are blocked,
+and the Docker image's **nodemailer**, **body-parser**, **qs**, **uuid** and
+**postcss-selector-parser** are raised past the advisories a Grype scan found.
 
 This release fixes the following bugs:
 
@@ -208,8 +206,8 @@ on, and that no `disableAttachments` setting exists.
 
 </details>
 
-**REST API** - what the integration routes answer for an integration that is not
-there.
+**REST API** - what the integration, user, organization and team update routes
+answer for something that is not there.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6012521ccc">An integration update for a missing or wrong-board integration returns 404</a>. Thanks to AhmedLukman and xet7.</summary>
@@ -229,6 +227,53 @@ every handler that
 updates an integration looks it up first and only after authorization; the PR's
 route and browser
 tests stay.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3edc56170">An update of a missing user returns 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`PUT /api/users/:userId` answered 200 with no data when no user had that id,
+for every action (PR #6873). After the admin check it now answers a JSON 404
+`User not found` before taking ownership, disabling or enabling a login.
+`tests/restUserUpdate.test.cjs` runs the handler for every action against a
+missing user, and checks that authorization still comes first, that
+self-disable stays a no-op and that a database failure stays a safe 500;
+`tests/playwright/specs/rest-user-update.e2e.js` drives it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d44349ab6">A feature update of a missing organization or team returns 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`PUT /api/admin/orgs/:orgId/features` and `PUT
+/api/admin/teams/:teamId/features`
+answered 200 with `data: undefined` when there was no such organization or team
+(PR #6874). They now answer a JSON 404 `Organization not found` / `Team not
+found`. `tests/restPeopleFeatures.test.cjs` runs both handlers for missing and
+existing records, empty bodies, denied authorization and database failures;
+`tests/playwright/specs/rest-people-features.e2e.js` checks the Admin Panel /
+People feature checkboxes.
+
+</details>
+
+**The minicard** - who requested and who assigned a card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22e5df55d7">Requested by and Assigned by show when a member was picked, with one icon per field everywhere</a>. Thanks to mueschel and xet7.</summary>
+
+The opened card's + button picks board members into `requesters` /
+`assigners`, and the free-text name is optional, but the minicard drew only the
+free text: a requester picked the usual way never showed although Show on
+Minicard was on (#6872). The minicard now shows the picked members as avatars
+beside any typed name. Card Settings also had the icons swapped - a head with a
+plus for Requested by and a cart for Assigned by - and now uses the cart and
+user-plus that the opened card and the minicard use.
+`tests/minicardRequestedAssignedBy6872.test.cjs` pins the avatars, the
+either-or condition and one icon per field, and fails on a minicard block gated
+on the free text alone;
+`tests/playwright/specs/minicard-requested-by-6872.e2e.js`
+drives it.
 
 </details>
 
@@ -267,6 +312,20 @@ raised all of the above and every raised copy loaded.
 `tests/bundleNpmSecurityBumps.test.cjs` pins the minimums, the per-major
 rule and the shim, and runs the bumper with `--dry-run` on a bundle of
 body-parser, uuid and nodemailer copies at, below and above their minimums.
+
+</details>
+
+and has the following documentation change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/016b4bf3bd">Only maintainer mode commits directly and updates changelogs, and a pull request has one feature or fix</a>. Thanks to xet7.</summary>
+
+CLAUDE.md and AGENTS.md now say that a pull request contributor, to wekan/wekan
+or to the maintainer's repositories under `.tools/`, sends each feature or fix
+as its own pull request with only related changes in it, and changes no
+changelog. The maintainer, or an agent working as the maintainer, writes the
+entry after merging, when there is a commit to link.
+`tests/changelogFormat.test.cjs` checks both files.
 
 </details>
 
