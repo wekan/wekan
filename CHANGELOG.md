@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.96 2026-11-05 WeKan ® release
 
 The release **bundle starts again**: v12.95's build stopped on
 boot because the **nodemailer** 10 raised inside Meteor's email package no
 longer had the files that package was built against.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.96](CHANGELOG-big.md#v1296-2026-11-05-wekan--release)
 
 # v12.95 2026-11-05 WeKan ® release
 
@@ -49,11 +49,3 @@ A missing **REST checklist** answers a JSON 404 instead of an
 empty 500.
 
 [All changes in v12.92](CHANGELOG-big.md#v1292-2026-11-03-wekan--release)
-
-# v12.91 2026-11-03 WeKan ® release
-
-A **GitHub CodeQL** finding in a test is fixed, and the guard
-against
-replacing text with itself now also sees patterns with a `^` or `$` anchor.
-
-[All changes in v12.91](CHANGELOG-big.md#v1291-2026-11-03-wekan--release)

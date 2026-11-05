@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.96 2026-11-05 WeKan ® release
 
 **In short:** The release **bundle starts again**: v12.95's build stopped on
 boot because the **nodemailer** 10 raised inside Meteor's email package no
