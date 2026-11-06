@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.00 2026-11-07 WeKan ® release
 
 **In short:** **CreateBleed** is fixed: "Only admins can create boards" now
 holds on every path that creates a board - the browser console, the REST API,

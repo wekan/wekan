@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.00 2026-11-07 WeKan ® release
 
 **CreateBleed** is fixed: "Only admins can create boards" now
 holds on every path that creates a board - the browser console, the REST API,
@@ -13,7 +13,7 @@ imports, copies, clones and cards - not only on the Add Board form. The **REST
 API documentation** spells the name **WeKan**, so the API pages published on
 wekan.fi pass its brand-spelling check again.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.00](CHANGELOG-big.md#v1300-2026-11-07-wekan--release)
 
 # v12.99 2026-11-06 WeKan ® release
 
@@ -53,15 +53,3 @@ boot because the **nodemailer** 10 raised inside Meteor's email package no
 longer had the files that package was built against.
 
 [All changes in v12.96](CHANGELOG-big.md#v1296-2026-11-05-wekan--release)
-
-# v12.95 2026-11-05 WeKan ® release
-
-**Continuous backup** now runs on one server at a time, with a
-lease, when WeKan has several servers. Missing-board **exports** and REST
-updates of missing **integrations**, **users**, **organizations** and **teams**
-answer 404 instead of 200, the **minicard** shows a picked Requested by and
-Assigned by, a card stops offering the attachment "+" when uploads are blocked,
-and the Docker image's **nodemailer**, **body-parser**, **qs**, **uuid** and
-**postcss-selector-parser** are raised past the advisories a Grype scan found.
-
-[All changes in v12.95](CHANGELOG-big.md#v1295-2026-11-05-wekan--release)
