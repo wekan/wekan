@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.97
+  version: v12.98
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3014,19 +3014,9 @@ paths:
           description: the title value
           type: string
           required: true
-        - name: sort
-          in: formData
-          description: the sort value
-          type: string
-          required: true
         - name: parentId
           in: formData
           description: the parentId value
-          type: string
-          required: true
-        - name: description
-          in: formData
-          description: the description value
           type: string
           required: true
         - name: color
@@ -3062,11 +3052,6 @@ paths:
         - name: spentTime
           in: formData
           description: the spentTime value
-          type: string
-          required: true
-        - name: isOverTime
-          in: formData
-          description: the isOverTime value
           type: string
           required: true
         - name: customFields
