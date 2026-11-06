@@ -47,6 +47,23 @@ test('the generated public/api/wekan.yml spells the name WeKan', () => {
   assert.match(read('public/api/wekan.yml'), /^ {2}title: WeKan REST API$/m);
 });
 
+test('the built public/api/wekan.html spells the name WeKan', () => {
+  // releases/release-website.sh copies this file to wekan.fi as
+  // api/v<version>/index.html, so what it says is what the site shows. The
+  // v12.99 version bump rebuilt it before the generator was fixed. Redoc's
+  // data-text attribute and the search index are not shown text; the visible
+  // text and the JSON Redoc rebuilds the page from are.
+  const html = read('public/api/wekan.html')
+    .replace(/data-text="[^"]*"/g, '')
+    .replace(/"searchIndex":\{[\s\S]*$/, '');
+  const hits = [];
+  WRONG.lastIndex = 0;
+  for (let m; (m = WRONG.exec(html));) {
+    hits.push(html.slice(Math.max(0, m.index - 30), m.index + 30));
+  }
+  assert.deepStrictEqual(hits, []);
+});
+
 test('the generator header spells the name WeKan', () => {
   const generator = read('openapi/generate_openapi.py');
   const start = generator.indexOf("print('''swagger: '2.0'");
