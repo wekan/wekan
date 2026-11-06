@@ -1800,7 +1800,8 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (req.body.sort) {
+    // Zero is a valid sort value, so check for a supplied field rather than truthiness.
+    if (req.body.sort !== undefined) {
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { sort: req.body.sort } },
