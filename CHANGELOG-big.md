@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.99 2026-11-06 WeKan ® release
 
 **In short:** The **mac-arm64** release bundle builds again: its job asked for
 GitHub's retired **macos-14** runner and was cancelled in the v12.98 release

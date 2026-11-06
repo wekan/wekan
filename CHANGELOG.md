@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.99 2026-11-06 WeKan ® release
 
 The **mac-arm64** release bundle builds again: its job asked for
 GitHub's retired **macos-14** runner and was cancelled in the v12.98 release
 run. The **weba** instructions now live in the weba repository itself.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.99](CHANGELOG-big.md#v1299-2026-11-06-wekan--release)
 
 # v12.98 2026-11-06 WeKan ® release
 
@@ -55,12 +55,3 @@ and the Docker image's **nodemailer**, **body-parser**, **qs**, **uuid** and
 **postcss-selector-parser** are raised past the advisories a Grype scan found.
 
 [All changes in v12.95](CHANGELOG-big.md#v1295-2026-11-05-wekan--release)
-
-# v12.94 2026-11-04 WeKan ® release
-
-On an iPad the **opened card covers the header bar** instead of
-sitting
-behind it, and the speed test measures where the time goes when a WeKan board is
-opened, on FerretDB and on MongoDB.
-
-[All changes in v12.94](CHANGELOG-big.md#v1294-2026-11-04-wekan--release)
