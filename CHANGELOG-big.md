@@ -124,6 +124,35 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **GroupLinkBleed** is fixed: a board admin can no longer skip the
+board methods by writing the board directly, to attach an organization or team
+they do not belong to or to add a member past the invitation checks.
+
+This release fixes the following CRITICAL SECURITY ISSUE of [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87c4501ced">Board admins can no longer attach foreign teams or add members by direct board writes</a>. Thanks to bhaswanthc and xet7.</summary>
+
+[GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/),
+[GHSA-v544-rmr5-38gx](https://github.com/wekan/wekan/security/advisories/GHSA-v544-rmr5-38gx).
+The board allow rule lets a board admin update any field, and two checks lived
+only in Meteor methods: adding only the organizations and teams the admin
+belongs to ([#5141](https://github.com/wekan/wekan/issues/5141)), and the
+invitation's checks, including the same organization/team policy
+([#6116](https://github.com/wekan/wekan/issues/6116)). A client writing the
+board over DDP skipped both, so a whole team could be given an attacker's
+board and any user added to it. Client writes naming `orgs`, `teams` or
+`domains`, and client updates that add or reactivate a member, are now
+refused and shown in Admin Panel / Problems; role changes and removals still
+pass. `tests/groupLinkBleed.test.cjs` runs the real deny rules and fails if a
+method-guarded board field is client-writable.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.97 2026-11-06 WeKan ® release
 
 **In short:** `build.sh` and the `releases/` scripts now work on **Arch Linux**

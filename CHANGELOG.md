@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**GroupLinkBleed** is fixed: a board admin can no longer skip the
+board methods by writing the board directly, to attach an organization or team
+they do not belong to or to add a member past the invitation checks.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.97 2026-11-06 WeKan ® release
 
 `build.sh` and the `releases/` scripts now work on **Arch Linux**
