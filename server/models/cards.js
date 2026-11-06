@@ -11,7 +11,7 @@ import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMember, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
-import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
+import { computeTopSort, normalizeMoveParams, parseCardDate, parseCardScalarFields } from '/server/lib/restCardHelpers';
 const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
 const { stampCardListEntry } = require('/models/lib/cardListEntry');
@@ -1787,6 +1787,13 @@ WebApp.handlers.put(
       sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
       return;
     }
+    // sort 0, isOverTime false and '' are values, not absences (#6877); checked
+    // before the first write, so a bad one leaves the card as it was.
+    const scalars = parseCardScalarFields(req.body);
+    if (scalars.error) {
+      sendJsonResult(res, { code: 400, data: { error: scalars.error } });
+      return;
+    }
 
     if (req.body.title) {
       const newTitle =
@@ -1800,11 +1807,10 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    // Zero is a valid sort value, so check for a supplied field rather than truthiness.
-    if (req.body.sort !== undefined) {
+    if ('sort' in scalars.set) {
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { sort: req.body.sort } },
+        { $set: { sort: scalars.set.sort } },
       );
       updated = true;
     }
@@ -1827,10 +1833,10 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (req.body.description) {
+    if ('description' in scalars.set) {
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { description: req.body.description } },
+        { $set: { description: scalars.set.description } },
       );
       updated = true;
     }
@@ -1944,10 +1950,10 @@ WebApp.handlers.put(
       );
       updated = true;
     }
-    if (req.body.isOverTime) {
+    if ('isOverTime' in scalars.set) {
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { isOverTime: req.body.isOverTime } },
+        { $set: { isOverTime: scalars.set.isOverTime } },
       );
       updated = true;
     }

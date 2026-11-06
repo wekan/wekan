@@ -4,6 +4,7 @@
 //   #5398 normalizeMoveParams  - one consistent set of board-move params
 //   #5399 computeTopSort        - sort value that lands a card on TOP of a list
 //   #5537 parseCardDate         - parse an ISO date string into a Date that persists
+//   #6877 parseCardScalarFields - sort 0, isOverTime false, an empty description
 
 /**
  * #5399 Moving a card to another list via the API must put it on TOP of the
@@ -102,4 +103,43 @@ export function parseCardDate(value) {
     return Number.isNaN(d.getTime()) ? null : d;
   }
   return null;
+}
+
+/**
+ * The card PUT fields whose valid values include a falsy one: sort 0,
+ * isOverTime false and an empty description (#6877). A truthiness check
+ * skipped them, so 0 could not be written, an overtime flag could not be
+ * turned off and a description could not be cleared. Presence decides now,
+ * and the value is checked before the handler writes anything, so a bad
+ * value is a 400 rather than a half-applied edit.
+ *
+ * Form-encoded clients send strings, so '0' is a number and 'true'/'false'
+ * are booleans here, as in JSON.
+ *
+ * @param {object} body the request body
+ * @returns {{ error: string } | { set: object }} what to $set, or why not
+ */
+export function parseCardScalarFields(body) {
+  const has = key => !!body && Object.prototype.hasOwnProperty.call(body, key) && body[key] !== undefined;
+  const set = {};
+  if (has('sort')) {
+    const raw = body.sort;
+    const sort = typeof raw === 'number' ? raw
+      : (typeof raw === 'string' && raw.trim() !== '' ? Number(raw) : NaN);
+    if (!Number.isFinite(sort)) return { error: 'Invalid sort' };
+    set.sort = sort;
+  }
+  if (has('isOverTime')) {
+    const raw = body.isOverTime;
+    if (raw === true || raw === 'true') set.isOverTime = true;
+    else if (raw === false || raw === 'false') set.isOverTime = false;
+    else return { error: 'Invalid isOverTime' };
+  }
+  if (has('description')) {
+    const raw = body.description;
+    if (raw === null) set.description = '';
+    else if (typeof raw === 'string') set.description = raw;
+    else return { error: 'Invalid description' };
+  }
+  return { set };
 }
