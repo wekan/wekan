@@ -126,11 +126,47 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **REST API documentation** spells the name **WeKan**, so the
-API pages published on wekan.fi with each release pass its brand-spelling
-check again.
+**In short:** **CreateBleed** is fixed: "Only admins can create boards" now
+holds on every path that creates a board - the browser console, the REST API,
+imports, copies, clones and cards - not only on the Add Board form. The **REST
+API documentation** spells the name **WeKan**, so the API pages published on
+wekan.fi pass its brand-spelling check again.
 
-This release fixes the following documentation bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of [CreateBleed](https://wekan.fi/hall-of-fame/createbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c1f6088f4">Only admins create boards on every path, not only through Add Board</a>. Thanks to tsurutanmen and xet7.</summary>
+
+[CreateBleed](https://wekan.fi/hall-of-fame/createbleed/),
+[GHSA-qcfm-2g4w-wqcc](https://github.com/wekan/wekan/security/advisories/GHSA-qcfm-2g4w-wqcc).
+Admin Panel / Settings / Visibility / "Only admins can create boards"
+([#4475](https://github.com/wekan/wekan/issues/4475)) was checked only inside
+`createBoardWithInitialSwimlanes`, the Add Board form. A user who is not an
+admin still created working boards with a console `Boards.insert` - the
+board collection's allow rule approves any signed-in user - with
+`POST /api/boards` and with both board import routes, as reported, and also
+with `importBoard`, `cloneBoard`, `copyBoard`, `POST /api/boards/:boardId/copy`
+and `createBoardFromCard`. The boards belonged to their creator; no other
+user's data was read or changed.
+
+One decision (`models/lib/boardCreationPolicy.js`) and one guard
+(`server/lib/boardCreationGuard.js`) are now asked by every one of those paths
+before they write, and by a new `Boards.deny` insert rule. A board template
+stays every member's own, and boards WeKan makes by itself - a user's
+Templates board, a board's subtasks board - are not user creations. A refused
+REST call answers 403. A refusal is recorded in Admin Panel / Problems as
+CreateBleed (`authz.board-creation`, low, CWE-863, never disables the
+account), and Duplicate and "Create board from card" are hidden like Add
+Board, so only a client bypassing the interface reaches it.
+`tests/createBleed.test.cjs` drives the decision, the guard and the real deny
+rule against the reporter's console insert, and fails if any path that creates
+a board for a user does not ask the guard, or if anything else reads the
+setting; `tests/playwright/specs/createbleed-board-creation-admin-only.e2e.js`
+replays the report against a running server.
+
+</details>
+
+and fixes the following documentation bugs:
 
 **REST API documentation** - the name is WeKan in the API reference, from the
 generator to the page wekan.fi publishes.

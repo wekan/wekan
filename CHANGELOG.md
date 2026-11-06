@@ -7,9 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **REST API documentation** spells the name **WeKan**, so the
-API pages published on wekan.fi with each release pass its brand-spelling
-check again.
+**CreateBleed** is fixed: "Only admins can create boards" now
+holds on every path that creates a board - the browser console, the REST API,
+imports, copies, clones and cards - not only on the Add Board form. The **REST
+API documentation** spells the name **WeKan**, so the API pages published on
+wekan.fi pass its brand-spelling check again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
