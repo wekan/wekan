@@ -321,7 +321,7 @@ async function request(store, at, fields, { id, previous, unlock, ip = '203.0.11
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${entry.name}`;
-      if (entry.isDirectory()) { if (!['node_modules', '_build', '.build', 'tests'].includes(entry.name)) walk(rel); }
+      if (entry.isDirectory()) { if (!(['node_modules', '_build', '.build', 'tests'].includes(entry.name) || entry.name.startsWith('_build'))) walk(rel); }
       else if (/\.js$/.test(entry.name) && /Accounts\._generateStampedLoginToken\(\)/.test(read(rel))) minters.push(rel);
     }
   };

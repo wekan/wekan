@@ -147,7 +147,7 @@ test('negative: an admin of the board moves files, a member validates them', asy
 test('negative: no method moves a file to a caller-named storage unchecked', () => {
   const skip = new Set(['node_modules', '_build', '.build', '.tools', '.git', 'tests', '.meteor', 'client']);
   const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(entry => {
-    if (skip.has(entry.name)) return [];
+    if (skip.has(entry.name) || entry.name.startsWith('_build')) return [];
     const rel = path.join(dir, entry.name);
     return entry.isDirectory() ? walk(rel) : /\.(c|m)?js$/.test(entry.name) ? [rel] : [];
   });

@@ -22,7 +22,7 @@ const SKIP = new Set(['node_modules', '.tools', '_build', '.build', '.git', '.me
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (SKIP.has(entry.name)) continue;
+    if (SKIP.has(entry.name) || entry.name.startsWith('_build')) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(full, out);
     else if (/\.(sh|bat|cmd|py|cjs|mjs|js)$/.test(entry.name) && !/\.test\.cjs$/.test(entry.name)) out.push(full);

@@ -190,7 +190,7 @@ test('the server saves it in the site-admin-only Features method (negative: no o
   const writers = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (['node_modules', '.meteor', '_build', '.build', '.tools'].includes(entry.name)) continue;
+      if ((['node_modules', '.meteor', '_build', '.build', '.tools'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(rel);
       // A projection - `cardFieldStates: 1` in a fields/publication list - only

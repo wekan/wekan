@@ -137,7 +137,7 @@ test('negative: no rules publication reads before its guard, here or elsewhere',
   }
   const skip = new Set(['node_modules', '_build', '.build', '.tools', '.git', 'tests', '.meteor', 'client']);
   const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(entry => {
-    if (skip.has(entry.name)) return [];
+    if (skip.has(entry.name) || entry.name.startsWith('_build')) return [];
     const rel = path.join(dir, entry.name);
     return entry.isDirectory() ? walk(rel) : /\.(c|m)?js$/.test(entry.name) ? [rel] : [];
   });

@@ -78,7 +78,7 @@ test('negative: no second {token}-substitution implementation was added near the
   const suspiciousFiles = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (['node_modules', '.git', '_build', '.build', '.tools', '.meteor'].includes(entry.name)) continue;
+      if ((['node_modules', '.git', '_build', '.build', '.tools', '.meteor'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) { walk(full); continue; }
       if (!/\.(js|jsx)$/.test(entry.name)) continue;

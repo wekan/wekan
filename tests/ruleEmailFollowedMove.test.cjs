@@ -50,7 +50,7 @@ test('NEGATIVE: nothing else passes followedFrom, so no other caller can move an
   const files = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (['node_modules', 'tests', '_build', '.build', '.meteor', '.tools', '.git'].includes(entry.name)) continue;
+      if ((['node_modules', 'tests', '_build', '.build', '.meteor', '.tools', '.git'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
       else if (/\.(c|m)?js$/.test(entry.name)) files.push(full);

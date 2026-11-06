@@ -57,7 +57,7 @@ test('nothing else in the tree still calls archiver as a v7 factory (negative)',
   const offenders = [];
   (function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (skipDirs.has(entry.name)) continue;
+      if (skipDirs.has(entry.name) || entry.name.startsWith('_build')) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) { walk(full); continue; }
       if (!/\.(js|cjs|mjs)$/.test(entry.name)) continue;

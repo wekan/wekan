@@ -108,7 +108,7 @@ test('negative: secureTransfer is the only caller of the boundary, so no other c
   const callers = [];
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (['node_modules', '.npm', '_build', '.build', 'tests'].includes(e.name)) continue;
+      if ((['node_modules', '.npm', '_build', '.build', 'tests'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const rel = path.join(dir, e.name);
       if (e.isDirectory()) walk(rel);
       else if (/\.(c?m?js)$/.test(e.name) && /\bsanitizeTransferValue\(/.test(read(rel))) callers.push(rel);

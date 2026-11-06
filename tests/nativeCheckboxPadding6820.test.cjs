@@ -35,7 +35,7 @@ test('the Draggable table draws a native checkbox without text-field padding', (
 test('negative: no stylesheet brings back a native checkbox with text-field padding', () => {
   const skip = new Set(['node_modules', '_build', '.build', '.tools', '.git']);
   const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => {
-    if (skip.has(e.name)) return [];
+    if (skip.has(e.name) || e.name.startsWith('_build')) return [];
     const p = path.join(dir, e.name);
     return e.isDirectory() ? walk(p) : e.name.endsWith('.css') ? [p] : [];
   });

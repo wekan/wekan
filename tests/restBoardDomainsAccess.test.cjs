@@ -132,7 +132,7 @@ const BOARD_CHECKS = [
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(path.join(ROOT, dir), {withFileTypes: true})) {
-    if (['node_modules', '_build', '.build', '.tools', '.meteor', 'tests'].includes(entry.name)) continue;
+    if ((['node_modules', '_build', '.build', '.tools', '.meteor', 'tests'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
     const rel = `${dir}/${entry.name}`;
     if (entry.isDirectory()) walk(rel, out);
     else if (/\.(js|cjs|mjs)$/.test(entry.name)) out.push(rel);

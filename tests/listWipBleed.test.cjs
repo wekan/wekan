@@ -113,7 +113,7 @@ test('negative: no server-side WIP-limit write without a board-admin check', () 
   const files = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
-      if (skip.has(entry.name)) continue;
+      if (skip.has(entry.name) || entry.name.startsWith('_build')) continue;
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(rel);
       else if (/\.(c|m)?js$/.test(entry.name)) files.push(rel);

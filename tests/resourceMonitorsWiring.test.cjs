@@ -96,7 +96,7 @@ test('one intEnv and one recorder, no copies (negative)', () => {
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = path.join(dir, e.name);
-      if (e.isDirectory()) { if (!['_build', 'node_modules'].includes(e.name)) walk(rel); }
+      if (e.isDirectory()) { if (!(['_build', 'node_modules'].includes(e.name) || e.name.startsWith('_build'))) walk(rel); }
       else if (rel.endsWith('.js')) {
         const src = read(rel);
         if (/function intEnv\(/.test(src) && rel !== path.join('models', 'lib', 'intEnv.js')) copies.push(`${rel}: intEnv`);

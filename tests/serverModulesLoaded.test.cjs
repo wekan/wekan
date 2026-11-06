@@ -68,7 +68,7 @@ test('negative: no server module that registers something at load time is left u
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${e.name}`;
-      if (e.isDirectory()) { if (!['node_modules', 'tests', '_build', '.build'].includes(e.name)) walk(rel); }
+      if (e.isDirectory()) { if (!(['node_modules', 'tests', '_build', '.build'].includes(e.name) || e.name.startsWith('_build'))) walk(rel); }
       else if (e.name.endsWith('.js') && SIDE_EFFECT.test(fs.readFileSync(path.join(ROOT, rel), 'utf8')) &&
         !loaded.has(path.join(ROOT, rel))) unloaded.push(rel);
     }

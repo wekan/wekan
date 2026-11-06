@@ -78,7 +78,7 @@ test('no other app-wide handler sets a Content-Security-Policy a 304 could carry
   const skip = new Set(['node_modules', '.git', '.build', '_build', '.tools', 'tests', 'public']);
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (skip.has(entry.name)) continue;
+      if (skip.has(entry.name) || entry.name.startsWith('_build')) continue;
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(rel);
       else if (/\.(c|m)?js$/.test(entry.name)) {

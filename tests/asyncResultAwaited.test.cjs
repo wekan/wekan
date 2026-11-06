@@ -28,7 +28,7 @@ const SKIP = new Set(['_build', 'node_modules', '.npm', 'tests']);
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (SKIP.has(e.name)) continue;
+    if (SKIP.has(e.name) || e.name.startsWith('_build')) continue;
     const full = path.join(dir, e.name);
     if (e.isDirectory()) walk(full, out);
     else if (e.name.endsWith('.js')) out.push(full);

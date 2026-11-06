@@ -38,7 +38,7 @@ const VARS = authConfigEnvVars();
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(path.join(ROOT, dir), {withFileTypes: true})) {
-    if (['_build', '.build', 'node_modules', '.tools', '.meteor', '.npm', 'tests'].includes(entry.name)) continue;
+    if ((['_build', '.build', 'node_modules', '.tools', '.meteor', '.npm', 'tests'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
     const rel = `${dir}/${entry.name}`;
     if (entry.isDirectory()) walk(rel, out);
     else if (/\.(js|cjs|mjs)$/.test(entry.name)) out.push(rel);

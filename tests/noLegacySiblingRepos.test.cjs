@@ -30,7 +30,7 @@ function files() {
   const out = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
-      if (['node_modules', '_build', '.build', '.git', '.tools', 'old-CHANGELOG', 'test-results'].includes(entry.name)) continue;
+      if ((['node_modules', '_build', '.build', '.git', '.tools', 'old-CHANGELOG', 'test-results'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const rel = dir ? path.join(dir, entry.name) : entry.name;
       if (entry.isDirectory()) { walk(rel); continue; }
       if (/\.(sh|bat|ps1|cmd|py|mjs|cjs|js|md)$/.test(entry.name) && !['CHANGELOG.md', 'CHANGELOG-big.md'].includes(rel)) out.push(rel);

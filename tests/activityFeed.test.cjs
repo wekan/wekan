@@ -97,7 +97,7 @@ const stored = new Set();
 const walk = dir => {
   for (const item of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
     const rel = `${dir}/${item.name}`;
-    if (item.isDirectory()) { if (!['node_modules', '_build', 'tests'].includes(item.name)) walk(rel); continue; }
+    if (item.isDirectory()) { if (!(['node_modules', '_build', 'tests'].includes(item.name) || item.name.startsWith('_build'))) walk(rel); continue; }
     if (!/\.js$/.test(item.name)) continue;
     for (const m of read(rel).matchAll(/activityType: '([a-zA-Z]+)'/g)) stored.add(m[1]);
   }

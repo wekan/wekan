@@ -246,7 +246,7 @@ async function streamThrough(chunks) {
     const offenders = [];
     (function walk(dir) {
       for (const e of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
-        if (['node_modules', '.tools', '_build', '.build', '.git', 'tests', 'public', 'packages'].includes(e.name)) continue;
+        if ((['node_modules', '.tools', '_build', '.build', '.git', 'tests', 'public', 'packages'].includes(e.name) || e.name.startsWith('_build'))) continue;
         const rel = dir ? `${dir}/${e.name}` : e.name;
         if (e.isDirectory()) walk(rel);
         else if (/\.(c|m)?js$/.test(e.name) && !['models/lib/svgSanitizer.js', 'models/lib/sanitizeSvg.js'].includes(rel)) {

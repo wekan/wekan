@@ -74,7 +74,7 @@ test('negative: nothing closes the opened card on Minimongo\'s word alone', () =
   assert.strictEqual((details.match(/closeGoneCard\(/g) || []).length, 2, 'its definition and that one call');
   const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(e => {
     const rel = path.join(dir, e.name);
-    if (e.isDirectory()) return ['node_modules', '_build', '.build', '.tools'].includes(e.name) ? [] : walk(rel);
+    if (e.isDirectory()) return (['node_modules', '_build', '.build', '.tools'].includes(e.name) || e.name.startsWith('_build')) ? [] : walk(rel);
     return /\.js$/.test(e.name) ? [rel] : [];
   });
   for (const file of walk('client')) {

@@ -48,7 +48,7 @@ test('NEGATIVE: every place that copies subtasks filters them, nowhere copies th
   const files = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (['node_modules', '.meteor', '.tools', '_build', '.build', 'tests', '.git'].includes(entry.name)) continue;
+      if ((['node_modules', '.meteor', '.tools', '_build', '.build', 'tests', '.git'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
       else if (entry.name.endsWith('.js')) files.push(full);

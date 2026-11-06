@@ -253,7 +253,7 @@ await test('every retireCardDropPreview call passes the node to hide', async () 
   const files = [];
   (function walk(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (['node_modules', '_build', '.build', '.tools', '.git', '.meteor', 'tests'].includes(e.name)) continue;
+      if ((['node_modules', '_build', '.build', '.tools', '.git', '.meteor', 'tests'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const f = path.join(dir, e.name);
       if (e.isDirectory()) walk(f);
       else if (/\.js$/.test(e.name)) files.push(f);

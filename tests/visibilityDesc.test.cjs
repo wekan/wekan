@@ -76,7 +76,7 @@ test('negative: no app file passes TAPi18n.__ unbound as a value', () => {
   const offenders = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (['node_modules', '.meteor', '_build', '.build', '.tools'].includes(entry.name)) continue;
+      if ((['node_modules', '.meteor', '_build', '.build', '.tools'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
       else if (/\.(c|m)?js$/.test(entry.name)) {

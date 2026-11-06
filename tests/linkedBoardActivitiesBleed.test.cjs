@@ -106,7 +106,7 @@ test('the private board\'s own member still sees its linked boards\' activities'
 // --- negative, whole tree ----------------------------------------------------
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-    if (['node_modules', '_build', '.build', '.tools', '.meteor', 'tests'].includes(e.name)) continue;
+    if ((['node_modules', '_build', '.build', '.tools', '.meteor', 'tests'].includes(e.name) || e.name.startsWith('_build'))) continue;
     const rel = `${dir}/${e.name}`;
     if (e.isDirectory()) walk(rel, out);
     else if (/\.(js|cjs|mjs)$/.test(e.name)) out.push(rel);

@@ -38,7 +38,7 @@ const skip = new Set(['.git', '.tools', 'node_modules', '_build', '.build', '.me
 const scripts = [];
 (function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (skip.has(entry.name)) continue;
+    if (skip.has(entry.name) || entry.name.startsWith('_build')) continue;
     const file = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(file);
     else if (/\.(sh|bat|cmd|ps1|ya?ml)$|^Dockerfile|^Makefile$|^snapcraft/.test(entry.name)) scripts.push(file);

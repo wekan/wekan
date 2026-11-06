@@ -17,7 +17,7 @@
 const assert = require('assert');
 const fs=require('fs'),path=require('path');const {parse}=require('@babel/parser');
 const ROOT=path.join(__dirname,'..');const files=[];
-function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){if(['_build','node_modules','.npm','tests'].includes(e.name))continue;const f=path.join(d,e.name);if(e.isDirectory())walk(f);else if(f.endsWith('.js')||f.endsWith('.cjs'))files.push(f);}}
+function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){if((['_build','node_modules','.npm','tests'].includes(e.name) || e.name.startsWith('_build')))continue;const f=path.join(d,e.name);if(e.isDirectory())walk(f);else if(f.endsWith('.js')||f.endsWith('.cjs'))files.push(f);}}
 ['client','server','models','imports','config'].forEach(t=>walk(path.join(ROOT,t)));
 const cache=new Map();
 function resolve(from,spec){let b;if(spec.startsWith('/'))b=path.join(ROOT,spec);else if(spec.startsWith('.'))b=path.resolve(path.dirname(from),spec);else return null;for(const c of [b,b+'.js',b+'.cjs',path.join(b,'index.js')])if(fs.existsSync(c)&&fs.statSync(c).isFile())return c;return null;}

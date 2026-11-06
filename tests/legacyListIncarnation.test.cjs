@@ -18,7 +18,7 @@ assert.match(config, /listId: list\._id, sourceKey: credential\.sourceKey, gener
 
 // Negative, tree-wide: nothing else writes the field on an existing list.
 const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
-  if (['node_modules', 'tests', '_build', '.build'].includes(entry.name)) return [];
+  if ((['node_modules', 'tests', '_build', '.build'].includes(entry.name) || entry.name.startsWith('_build'))) return [];
   const full = path.join(dir, entry.name);
   return entry.isDirectory() ? walk(full) : full.endsWith('.js') ? [full] : [];
 });

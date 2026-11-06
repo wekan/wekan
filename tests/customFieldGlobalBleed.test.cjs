@@ -103,7 +103,7 @@ test('CustomFieldBleed: the selector logic itself refuses a field of another boa
 
 test('CustomFieldBleed negative: no REST handler anywhere writes a custom field by _id alone', () => {
   const walk = dir => fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap(e => {
-    if (['tests', 'node_modules', '_build', '.build'].includes(e.name)) return [];
+    if ((['tests', 'node_modules', '_build', '.build'].includes(e.name) || e.name.startsWith('_build'))) return [];
     const rel = `${dir}/${e.name}`;
     return e.isDirectory() ? walk(rel) : (/\.(c|m)?js$/.test(rel) ? [rel] : []);
   });

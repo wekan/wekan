@@ -86,7 +86,7 @@ test('GHSA-7w2h-g83c-jqrp negative: every server path that copies a whole board 
   const files = [];
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (['tests', 'node_modules', '_build', '.build'].includes(e.name)) continue;
+      if ((['tests', 'node_modules', '_build', '.build'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const rel = `${dir}/${e.name}`;
       if (e.isDirectory()) walk(rel);
       else if (rel.endsWith('.js')) files.push(rel);
@@ -151,7 +151,7 @@ test('GHSA-35j7-h385-2q9g negative: no other file reaches a shell through child_
   const files = [];
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (['tests', 'node_modules', '_build', '.build', '.npm', '.tools'].includes(e.name)) continue;
+      if ((['tests', 'node_modules', '_build', '.build', '.npm', '.tools'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const rel = `${dir}/${e.name}`;
       if (e.isDirectory()) walk(rel);
       else if (/\.(c|m)?js$/.test(rel)) files.push(rel);

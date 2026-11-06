@@ -83,7 +83,7 @@ test('negative: every FilesCollection authorizes its uploads on the server', () 
   // look at who uploads is an open door, whatever the allow rules say.
   const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(e => {
     const rel = path.join(dir, e.name);
-    if (e.isDirectory()) return ['node_modules', '_build', '.build', '.tools', 'tests'].includes(e.name) ? [] : walk(rel);
+    if (e.isDirectory()) return (['node_modules', '_build', '.build', '.tools', 'tests'].includes(e.name) || e.name.startsWith('_build')) ? [] : walk(rel);
     return /\.js$/.test(e.name) ? [rel] : [];
   });
   const collections = [];

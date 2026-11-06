@@ -24,7 +24,7 @@ function operationNames() {
   const names = new Set();
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (['_build', 'node_modules', '.npm', 'tests'].includes(e.name)) continue;
+      if ((['_build', 'node_modules', '.npm', 'tests'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const rel = path.join(dir, e.name);
       // Meteor's own packages, with their own test methods, are not WeKan's.
       if (isMeteorPackageFork(rel)) continue;

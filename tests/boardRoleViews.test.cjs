@@ -163,7 +163,7 @@ test('negative: every server path that returns card data applies the board role,
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${e.name}`;
-      if (e.isDirectory()) { if (!['node_modules', '_build', '.build', 'tests'].includes(e.name)) walk(rel); }
+      if (e.isDirectory()) { if (!(['node_modules', '_build', '.build', 'tests'].includes(e.name) || e.name.startsWith('_build'))) walk(rel); }
       else if (e.name.endsWith('.js')) files.push(rel);
     }
   };
@@ -203,7 +203,7 @@ test('activities, Chat view, the All Boards feed and position history read by th
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${e.name}`;
-      if (e.isDirectory()) { if (!['node_modules', '_build', '.build', 'tests'].includes(e.name)) walk(rel); }
+      if (e.isDirectory()) { if (!(['node_modules', '_build', '.build', 'tests'].includes(e.name) || e.name.startsWith('_build'))) walk(rel); }
       else if (e.name.endsWith('.js') && /\$or: \[\{ assignees: [\w.]+ \}, \{ members: [\w.]+ \}\]/.test(read(rel))) offenders.push(rel);
     }
   };
@@ -300,7 +300,7 @@ test('custom roles: nothing sets the role flags without the custom role followin
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${e.name}`;
-      if (e.isDirectory()) { if (!['node_modules', '_build', '.build', 'tests'].includes(e.name)) walk(rel); }
+      if (e.isDirectory()) { if (!(['node_modules', '_build', '.build', 'tests'].includes(e.name) || e.name.startsWith('_build'))) walk(rel); }
       else if (e.name.endsWith('.js') && /`members\.\$\{\w+\}\.is(NormalAssignedOnly|CommentAssignedOnly|ReadAssignedOnly|NoComments|CommentOnly|Worker|ReadOnly)`/.test(read(rel))) writers.push(rel);
     }
   };

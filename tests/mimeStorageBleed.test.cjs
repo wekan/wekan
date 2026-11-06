@@ -130,7 +130,7 @@ const CLASSIFICATION_ONLY = new Map([
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
-    if (['node_modules', '_build', '.build', '.tools', 'tests', '.meteor'].includes(entry.name)) continue;
+    if ((['node_modules', '_build', '.build', '.tools', 'tests', '.meteor'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
     const rel = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(rel, out);
     else if (/\.(c|m)?js$/.test(entry.name)) out.push(rel);

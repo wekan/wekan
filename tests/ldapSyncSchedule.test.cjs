@@ -151,7 +151,7 @@ test('sync.js schedules through it, and nowhere hands a setting to parser.text d
   const files = [];
   const walk = dir => {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (['node_modules', '.build', '_build', '.tools', '.meteor', '.git'].includes(e.name)) continue;
+      if ((['node_modules', '.build', '_build', '.tools', '.meteor', '.git'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const p = path.join(dir, e.name);
       if (e.isDirectory()) walk(p); else if (/\.(js|mjs|cjs)$/.test(e.name)) files.push(p);
     }

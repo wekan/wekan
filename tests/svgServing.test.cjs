@@ -149,7 +149,7 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
     const offenders = [];
     (function walk(dir) {
       for (const e of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
-        if (['node_modules', '.tools', '_build', '.build', 'tests', '.git'].includes(e.name)) continue;
+        if ((['node_modules', '.tools', '_build', '.build', 'tests', '.git'].includes(e.name) || e.name.startsWith('_build'))) continue;
         const rel = `${dir}/${e.name}`;
         if (e.isDirectory()) walk(rel);
         else if (/\.(c|m)?js$/.test(e.name) && rel !== 'server/lib/svgResponse.js') {

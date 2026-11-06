@@ -122,7 +122,7 @@ test('negative: no server or model file joins a raw name into a path', () => {
   const offenders = [];
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
-      if (['node_modules', '_build', '.build', '.tools', 'tests', '.meteor'].includes(entry.name)) continue;
+      if ((['node_modules', '_build', '.build', '.tools', 'tests', '.meteor'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) { walk(rel); continue; }
       if (!rel.endsWith('.js')) continue;

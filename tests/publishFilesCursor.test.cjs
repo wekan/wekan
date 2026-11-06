@@ -21,7 +21,7 @@ const SKIP = new Set(['node_modules', '_build', '.build', '.tools', '.meteor', '
 
 function sourceFiles(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (SKIP.has(entry.name)) continue;
+    if (SKIP.has(entry.name) || entry.name.startsWith('_build')) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) sourceFiles(full, out);
     else if (/\.(js|mjs|cjs)$/.test(entry.name)) out.push(full);

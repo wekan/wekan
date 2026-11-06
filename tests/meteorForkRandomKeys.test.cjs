@@ -102,7 +102,7 @@ test('negative: no key, secret, token, nonce, salt, password or code is made fro
   const hits = [];
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
-      if (['node_modules', '.npm', '_build', '.build', 'tests', 'fontawesome-free'].includes(e.name)) continue;
+      if ((['node_modules', '.npm', '_build', '.build', 'tests', 'fontawesome-free'].includes(e.name) || e.name.startsWith('_build'))) continue;
       const rel = path.join(dir, e.name);
       if (e.isDirectory()) walk(rel);
       else if (/\.(c?m?js|ts)$/.test(e.name) && !/_tests?\.js$|-tests?\.js$|\.tests\.js$/.test(e.name)) {

@@ -27,7 +27,7 @@ const SKIP = new Set(['node_modules', '_build', '.build', '.tools', '.meteor']);
 
 function jsFiles(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (SKIP.has(entry.name)) continue;
+    if (SKIP.has(entry.name) || entry.name.startsWith('_build')) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) jsFiles(full, out);
     else if (entry.name.endsWith('.js')) out.push(full);

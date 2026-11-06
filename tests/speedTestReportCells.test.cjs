@@ -55,7 +55,7 @@ test('negative: nowhere in the tree escapes a pipe without the backslash', () =>
   const offenders = [];
   (function walk(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (skip.has(e.name)) continue;
+      if (skip.has(e.name) || e.name.startsWith('_build')) continue;
       const p = path.join(dir, e.name);
       if (e.isDirectory()) walk(p);
       else if (/\.(c|m)?js$/.test(e.name)) {

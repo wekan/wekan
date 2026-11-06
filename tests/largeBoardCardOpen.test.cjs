@@ -224,7 +224,7 @@ function sourceFiles(dirs) {
     fs.readdirSync(path.join(repoRoot, dir), { withFileTypes: true }).forEach(entry => {
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) {
-        if (!['node_modules', '_build', '.build', '.tools'].includes(entry.name)) walk(rel);
+        if (!(['node_modules', '_build', '.build', '.tools'].includes(entry.name) || entry.name.startsWith('_build'))) walk(rel);
       } else if (/\.js$/.test(entry.name)) out.push(rel);
     });
   };

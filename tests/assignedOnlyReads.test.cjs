@@ -190,7 +190,7 @@ test('negative: every file that serves attachment or document data applies the r
   const walk = dir => {
     for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${e.name}`;
-      if (e.isDirectory()) { if (!['node_modules', '_build', '.build'].includes(e.name)) walk(rel); }
+      if (e.isDirectory()) { if (!(['node_modules', '_build', '.build'].includes(e.name) || e.name.startsWith('_build'))) walk(rel); }
       else if (/\.js$/.test(e.name)) files.push(rel);
     }
   };

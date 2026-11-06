@@ -50,7 +50,7 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
     // No other caller turns a typed title's prefix into a label behind its back.
     const walk = dir => fs.readdirSync(path.join(__dirname, '..', dir), { withFileTypes: true }).flatMap(e => {
       const rel = path.join(dir, e.name);
-      if (e.isDirectory()) return ['node_modules', '_build', '.build', '.tools'].includes(e.name) ? [] : walk(rel);
+      if (e.isDirectory()) return (['node_modules', '_build', '.build', '.tools'].includes(e.name) || e.name.startsWith('_build')) ? [] : walk(rel);
       return /\.js$/.test(e.name) ? [rel] : [];
     });
     for (const file of walk('client')) {

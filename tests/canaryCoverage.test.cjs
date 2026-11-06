@@ -355,7 +355,7 @@ function trippedCanaryIds() {
   const found = new Map();
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(repoRoot, dir), { withFileTypes: true })) {
-      if (['node_modules', '_build', '.npm', '.build'].includes(entry.name)) continue;
+      if ((['node_modules', '_build', '.npm', '.build'].includes(entry.name) || entry.name.startsWith('_build'))) continue;
       const rel = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(rel);
       else if (/\.(js|mjs|cjs)$/.test(entry.name)) {

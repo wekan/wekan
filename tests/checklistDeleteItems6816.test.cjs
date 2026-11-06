@@ -35,7 +35,7 @@ test('negative: every delete path goes through the collection, so the hook sees 
   // removes the card's items itself in the same breath.
   const walk = dir => fs.readdirSync(path.join(__dirname, '..', dir), { withFileTypes: true }).flatMap(e => {
     const rel = path.join(dir, e.name);
-    if (e.isDirectory()) return ['node_modules', '_build', '.build', '.tools', 'tests'].includes(e.name) ? [] : walk(rel);
+    if (e.isDirectory()) return (['node_modules', '_build', '.build', '.tools', 'tests'].includes(e.name) || e.name.startsWith('_build')) ? [] : walk(rel);
     return /\.js$/.test(e.name) ? [rel] : [];
   });
   for (const file of [...walk('client'), ...walk('server'), ...walk('models')]) {

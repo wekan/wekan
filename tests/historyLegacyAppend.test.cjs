@@ -115,7 +115,7 @@ const change = n => ({ _id: `r${n}`, boardId: 'b1', entityType: 'card', entityId
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${entry.name}`;
-      if (entry.isDirectory()) { if (!['node_modules', '_build', 'tests'].includes(entry.name)) walk(rel); continue; }
+      if (entry.isDirectory()) { if (!(['node_modules', '_build', 'tests'].includes(entry.name) || entry.name.startsWith('_build'))) walk(rel); continue; }
       if (!/\.(c|m)?js$/.test(entry.name)) continue;
       const src = read(rel);
       if (/previousHash:\s*previous/.test(src) && !/historyChainTip\(|appendLegacyHistoryRow|appendHistoryChain/.test(src)) offenders.push(rel);
