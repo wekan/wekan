@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **REST API documentation** spells the name **WeKan**, so the
+API pages published on wekan.fi with each release pass its brand-spelling
+check again.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.99 2026-11-06 WeKan ® release
 
 The **mac-arm64** release bundle builds again: its job asked for

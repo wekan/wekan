@@ -124,6 +124,30 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **REST API documentation** spells the name **WeKan**, so the
+API pages published on wekan.fi with each release pass its brand-spelling
+check again.
+
+This release fixes the following documentation bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d5fe63fc4">The REST API documentation spells the name WeKan</a>. Thanks to xet7.</summary>
+
+The header of `openapi/generate_openapi.py` and the JSDoc of six models said
+"Wekan REST API", "extend Wekan", "a production Wekan server" and "in the
+Wekan board", so every `public/api/wekan.yml` and the API pages built from it
+said Wekan too, and the v12.95, v12.96 and v12.97 pages on wekan.fi failed its
+`tests/brand-spelling.test.cjs`. The generator, the model comments and
+`wekan.yml` now say WeKan. `tests/openapiBrandSpelling.test.cjs` checks the
+generated file, the generator header and every model JSDoc block, and fails on
+the files before this change.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.99 2026-11-06 WeKan ® release
 
 **In short:** The **mac-arm64** release bundle builds again: its job asked for
