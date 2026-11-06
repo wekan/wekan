@@ -11,9 +11,14 @@ function fixture() {
   const methods = vm.runInNewContext(`({${source.slice(start, end)}})`, {
     Date, Cards: { updateAsync: async (selector, modifier) => { writes.push({ selector, modifier }); return 1; } },
   });
+  // getSpentTime() is null: the linked board or card has not reached the
+  // client yet, the race the e2e spec hit. A session must still credit its
+  // own length - it is added on the server (addSpentTime, an $inc), never
+  // computed from what the client happens to have.
   const card = { ...methods, _id: 'wrapper', linkedId: 'source', spentTime: 999,
-    getRealId: () => 'source', getSpentTime: () => 4,
-    setSpentTime: async value => { credits.push(value); } };
+    getRealId: () => 'source', getSpentTime: () => null,
+    setSpentTime: async () => { throw new Error('a session must not $set a total read on the client'); },
+    addSpentTime: async hours => { credits.push(hours); } };
   return { card, writes, credits };
 }
 test('every timer session write targets the displayed wrapper, not its source', async () => {
@@ -28,20 +33,41 @@ test('every timer session write targets the displayed wrapper, not its source', 
   assert.equal(writes.length, 7);
   for (const { selector } of writes) assert.equal(selector._id, 'wrapper');
 });
-test('completed work credits the displayed source total, never the stale wrapper total', async () => {
+test('a session credits its own length, even before the client has the source total', async () => {
   const { card, credits } = fixture();
   card.pomodoroStartAt = new Date(); card.pomodoroPhase = 'work'; card.pomodoroWorkMinutes = 30;
-  await card.completePomodoroWorkInterval(); assert.equal(credits[0], 4.5);
+  await card.completePomodoroWorkInterval(); assert.equal(credits[0], 0.5);
   card.flowStartAt = new Date(Date.now() - 3600000);
-  await card.stopFlowSession(); assert.ok(credits[1] >= 5 && credits[1] < 5.01);
+  await card.stopFlowSession(); assert.ok(credits[1] >= 1 && credits[1] < 1.01);
   card.pomodoroStartAt = new Date(Date.now() - 1800000);
-  await card.stopPomodoro(); assert.ok(credits[2] >= 4.5 && credits[2] < 4.51);
+  await card.stopPomodoro(); assert.ok(credits[2] >= 0.5 && credits[2] < 0.51);
+});
+test('addSpentTime adds on the server copy of the linked board, the linked card or the card', async () => {
+  const body = source.match(/  addSpentTime\(hours\) \{([\s\S]*?)\n  \},/);
+  assert.ok(body, 'models/cards.js has addSpentTime(hours)');
+  const calls = [];
+  const add = vm.runInNewContext(`(function(hours) {${body[1]}})`, {
+    Number,
+    Boards: { updateAsync: (selector, modifier) => calls.push(['board', selector._id, modifier]) },
+    Cards: { updateAsync: (selector, modifier) => calls.push(['card', selector._id, modifier]) },
+  });
+  add.call({ isLinkedBoard: () => true, linkedId: 'board' }, 1);
+  add.call({ isLinkedBoard: () => false, getRealId: () => 'source' }, 0.5);
+  assert.deepEqual(JSON.parse(JSON.stringify(calls)), [['board', 'board', { $inc: { spentTime: 1 } }], ['card', 'source', { $inc: { spentTime: 0.5 } }]]);
+  // Negative: nothing, a negative or a non-number adds nothing.
+  for (const bad of [0, -1, NaN, 'x', undefined]) add.call({ isLinkedBoard: () => false, getRealId: () => 'source' }, bad);
+  assert.equal(calls.length, 2);
+});
+test('negative: no timer helper computes a new total from the client copy', () => {
+  const timers = source.slice(start, end);
+  assert.doesNotMatch(timers, /getSpentTime\(\)/,
+    'a Flowtime or Pomodoro credit read getSpentTime() and $set the sum - with the source not yet on the client that replaced the total');
 });
 test('failed credit leaves the active timer available instead of clearing it', async () => {
   for (const method of ['stopFlowSession', 'completePomodoroWorkInterval', 'stopPomodoro']) {
     const { card, writes } = fixture();
     card.flowStartAt = card.pomodoroStartAt = new Date(); card.pomodoroPhase = 'work';
-    card.setSpentTime = async () => { throw new Error('credit denied'); };
+    card.addSpentTime = async () => { throw new Error('credit denied'); };
     await assert.rejects(card[method](), /credit denied/); assert.equal(writes.length, 0);
   }
 });

@@ -2300,6 +2300,22 @@ Cards.helpers({
     }
   },
 
+  // Adds a finished session to the total, where the total is kept: the linked
+  // board, the linked card, or this card. An $inc, not read-and-$set: the
+  // client's copy of a linked board or card can still be on its way (it is
+  // published after the card that links to it), and getSpentTime() then reads
+  // null - a Stop at that moment replaced a board's 4 logged hours with the 1
+  // hour of the session. The server adds to what it has, whatever the client
+  // has seen.
+  addSpentTime(hours) {
+    const amount = Number(hours);
+    if (!Number.isFinite(amount) || amount <= 0) return null;
+    if (this.isLinkedBoard()) {
+      return Boards.updateAsync({ _id: this.linkedId }, { $inc: { spentTime: amount } });
+    }
+    return Cards.updateAsync({ _id: this.getRealId() }, { $inc: { spentTime: amount } });
+  },
+
   // Flowtime (#3919) session helpers. These mirror the shape of
   // setSpentTime()/setIsOvertime() above, but do not follow linked
   // cards/boards - a Flowtime session belongs to one person working on one
@@ -2341,8 +2357,7 @@ Cards.helpers({
     if (!this.flowStartAt) return null;
     const elapsedHours =
       (Date.now() - new Date(this.flowStartAt).getTime()) / (1000 * 60 * 60);
-    const newSpentTime = (this.getSpentTime() || 0) + elapsedHours;
-    await this.setSpentTime(newSpentTime);
+    await this.addSpentTime(elapsedHours);
     return Cards.updateAsync(
       { _id: this._id },
       { $set: { flowStartAt: null, flowInterruptions: 0, flowUserId: null } },
@@ -2403,13 +2418,13 @@ Cards.helpers({
   },
 
   // Called when a work interval's countdown reaches zero: adds the interval
-  // duration (in hours) into the existing spentTime field via setSpentTime()
-  // - the same method the manual time-entry popup uses - increments the
+  // duration (in hours) into the existing spentTime field - the one the
+  // manual time-entry popup edits - with addSpentTime(), increments the
   // completed-interval count, and switches to a break interval.
   async completePomodoroWorkInterval() {
     if (!this.pomodoroStartAt || this.pomodoroPhase !== 'work') return null;
     const workHours = this.getPomodoroWorkMinutes() / 60;
-    await this.setSpentTime((this.getSpentTime() || 0) + workHours);
+    await this.addSpentTime(workHours);
     const newCount = this.getPomodoroCount() + 1;
     return Cards.updateAsync(
       { _id: this._id },
@@ -2443,7 +2458,7 @@ Cards.helpers({
       const elapsedHours =
         (Date.now() - new Date(this.pomodoroStartAt).getTime()) /
         (1000 * 60 * 60);
-      await this.setSpentTime((this.getSpentTime() || 0) + elapsedHours);
+      await this.addSpentTime(elapsedHours);
     }
     return Cards.updateAsync(
       { _id: this._id },

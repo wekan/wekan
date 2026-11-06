@@ -41,14 +41,17 @@ assert.match(cardsSrc, /stopPomodoro\(\) \{/);
 assert.match(cardsSrc, /isPomodoroActive\(\) \{/);
 assert.match(cardsSrc, /getPomodoroBreakMinutes\(\) \{/);
 
-// A completed work interval reuses setSpentTime() - the SAME helper the
-// manual time-entry popup and Flowtime already use - rather than a
-// duplicate accumulator.
+// A completed work interval adds to the SAME spentTime field the manual
+// time-entry popup edits, with addSpentTime() - the helper Flowtime uses too -
+// rather than a duplicate accumulator. Changed on purpose from read-and-$set
+// through setSpentTime(): an $inc on the server does not replace the total
+// when the client's copy of a linked board or card has not arrived yet
+// (tests/linkedTimerSessions.test.cjs).
 const workIntervalBody = cardsSrc.match(
   /completePomodoroWorkInterval\(\) \{([\s\S]*?)\n  \},/,
 )[1];
-assert.match(workIntervalBody, /this\.setSpentTime\(/,
-  'a completed work interval must add its duration via the existing setSpentTime() helper');
+assert.match(workIntervalBody, /this\.addSpentTime\(workHours\)/,
+  'a completed work interval must add its duration via addSpentTime()');
 assert.match(workIntervalBody, /pomodoroPhase: 'break'/,
   'a completed work interval must switch the card to the break phase');
 assert.match(workIntervalBody, /pomodoroCount: newCount/,
@@ -59,7 +62,7 @@ assert.match(workIntervalBody, /pomodoroCount: newCount/,
 const breakIntervalBody = cardsSrc.match(
   /completePomodoroBreakInterval\(\) \{([\s\S]*?)\n  \},/,
 )[1];
-assert.doesNotMatch(breakIntervalBody, /setSpentTime/,
+assert.doesNotMatch(breakIntervalBody, /(set|add)SpentTime/,
   'completing a break interval must add no time');
 assert.match(breakIntervalBody, /pomodoroPhase: null/,
   'completing a break interval must go back to ready-to-start, not auto-start the next work interval');
@@ -70,7 +73,7 @@ assert.doesNotMatch(breakIntervalBody, /pomodoroPhase: 'work'/,
 // and clears every Pomodoro field back to its empty/null default.
 const stopBody = cardsSrc.match(/stopPomodoro\(\) \{([\s\S]*?)\n  \},/)[1];
 assert.match(stopBody, /if \(this\.pomodoroPhase === 'work'\) \{/);
-assert.match(stopBody, /this\.setSpentTime\(/);
+assert.match(stopBody, /this\.addSpentTime\(elapsedHours\)/);
 assert.match(stopBody, /pomodoroStartAt: null,/);
 assert.match(stopBody, /pomodoroPhase: null,/);
 assert.match(stopBody, /pomodoroCount: 0,/);

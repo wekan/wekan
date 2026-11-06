@@ -64,9 +64,17 @@ assert.doesNotMatch(addBody[1], /spentTime/,
 // the session fields.
 const stopBody = cardsModel.match(/stopFlowSession\(\)\s*\{([\s\S]*?)\n  \},/);
 assert.ok(stopBody, 'stopFlowSession has a body');
-assert.match(stopBody[1], /this\.setSpentTime\(newSpentTime\)/,
-  'stopping a session must add its duration through setSpentTime(), the same method the manual popup uses');
-assert.match(stopBody[1], /\(this\.getSpentTime\(\) \|\| 0\) \+ elapsedHours/,
+// Changed on purpose: the duration is ADDED on the server (addSpentTime, an
+// $inc on the same spentTime field the manual popup edits) instead of
+// read-and-$set through setSpentTime(), because the client's copy of a linked
+// board or card can still be on its way and a Stop then replaced the total
+// with the session alone (tests/linkedTimerSessions.test.cjs).
+assert.match(stopBody[1], /this\.addSpentTime\(elapsedHours\)/,
+  'stopping a session must add its duration to the same spentTime field, with addSpentTime()');
+assert.doesNotMatch(stopBody[1], /getSpentTime\(\)/, 'and must not compute the total from the client copy');
+const addSpentTimeBody = cardsModel.match(/  addSpentTime\(hours\) \{([\s\S]*?)\n  \},/);
+assert.ok(addSpentTimeBody, 'models/cards.js has addSpentTime(hours)');
+assert.match(addSpentTimeBody[1], /\$inc: \{ spentTime: amount \}/,
   'the session duration is ADDED to the existing spentTime total, not a separate one');
 assert.match(stopBody[1], /flowStartAt:\s*null/);
 assert.match(stopBody[1], /flowInterruptions:\s*0/);
