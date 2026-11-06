@@ -397,7 +397,7 @@ export class WekanCreator {
   }
 
   /**
-   * Create the Wekan cards corresponding to the supplied Wekan cards,
+   * Create the WeKan cards corresponding to the supplied WeKan cards,
    * as well as all linked data: activities, comments, and attachments
    * @param wekanCards
    * @param boardId
@@ -660,7 +660,7 @@ export class WekanCreator {
   }
 
   /**
-   * Create the Wekan custom fields corresponding to the supplied Wekan
+   * Create the WeKan custom fields corresponding to the supplied WeKan
    * custom fields.
    * @param wekanCustomFields
    * @param boardId

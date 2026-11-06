@@ -86,7 +86,7 @@ export function normalizeListColor(color) {
 }
 
 /**
- * A list (column) in the Wekan board.
+ * A list (column) in the WeKan board.
  */
 Lists.attachSchema(
   new SimpleSchema({

@@ -412,7 +412,7 @@ export class TrelloCreator {
   }
 
   /**
-   * Create the Wekan cards corresponding to the supplied Trello cards,
+   * Create the WeKan cards corresponding to the supplied Trello cards,
    * as well as all linked data: activities, comments, and attachments
    * @param trelloCards
    * @param boardId

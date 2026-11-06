@@ -1140,7 +1140,7 @@ def extract_route(call):
 def iter_route_calls(node):
     '''Recursively yield CallExpression nodes that may register a route, in
     source order. Routes appear at the top level (Meteor 3 style) or wrapped in
-    one of the server-only guards Wekan uses — `if (Meteor.isServer) { ... }`,
+    one of the server-only guards WeKan uses — `if (Meteor.isServer) { ... }`,
     `runOnServer(function () { ... })`, `Meteor.startup(...)`, try blocks — so we
     descend through those constructs and into callback function bodies.'''
     if node is None:
@@ -1295,17 +1295,17 @@ def parse_schemas(schemas_dirs):
 def generate_openapi(schemas, entry_points, version):
     print('''swagger: '2.0'
 info:
-  title: Wekan REST API
+  title: WeKan REST API
   version: {0}
   description: |
-    The REST API allows you to control and extend Wekan with ease.
+    The REST API allows you to control and extend WeKan with ease.
 
     If you are an end-user and not a dev or a tester, [create an issue](https://github.com/wekan/wekan/issues/new) to request new APIs.
 
     > All API calls in the documentation are made using `curl`.  However, you are free to use Java / Python / PHP / Golang / Ruby / Swift / Objective-C / Rust / Scala / C# or any other programming languages.
 
     # Production Security Concerns
-    When calling a production Wekan server, ensure it is running via HTTPS and has a valid SSL Certificate. The login method requires you to post your username and password in plaintext, which is why we highly suggest only calling the REST login api over HTTPS. Also, few things to note:
+    When calling a production WeKan server, ensure it is running via HTTPS and has a valid SSL Certificate. The login method requires you to post your username and password in plaintext, which is why we highly suggest only calling the REST login api over HTTPS. Also, few things to note:
 
     * Only call via HTTPS
     * Implement a timed authorization token expiration strategy

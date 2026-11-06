@@ -6,7 +6,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 const SessionData = new Mongo.Collection('sessiondata');
 
 /**
- * A UserSessionData in Wekan. Organization in Trello.
+ * A UserSessionData in WeKan. Organization in Trello.
  */
 SessionData.attachSchema(
   new SimpleSchema({

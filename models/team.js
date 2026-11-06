@@ -5,7 +5,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 const Team = new Mongo.Collection('team');
 
 /**
- * A Team in Wekan. Organization in Trello.
+ * A Team in WeKan. Organization in Trello.
  */
 Team.attachSchema(
   new SimpleSchema({

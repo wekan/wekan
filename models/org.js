@@ -5,7 +5,7 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 const Org = new Mongo.Collection('org');
 
 /**
- * A Organization in Wekan. A Enterprise in Trello.
+ * A Organization in WeKan. A Enterprise in Trello.
  */
 Org.attachSchema(
   new SimpleSchema({
