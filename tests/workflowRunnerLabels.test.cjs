@@ -15,8 +15,8 @@
 //
 // So the label is checked here, where it costs a second, instead of being
 // discovered as a two-hour queue during a release. Intel macOS did not go away -
-// it was RENAMED: macos-15-intel and macos-26-intel. macos-14/15/26 without the
-// suffix are Apple Silicon.
+// it was RENAMED: macos-15-intel and macos-26-intel. macos-15/26 without the
+// suffix are Apple Silicon (macos-14 is retired as well).
 //
 // This list is GitHub's hosted-runner set (docs.github.com "GitHub-hosted
 // runners"). When GitHub adds an image, add the label here too - a label this
@@ -39,13 +39,16 @@ const CURRENT = new Set([
   'windows-latest', 'windows-2025', 'windows-2025-vs2026', 'windows-2022',
   'windows-11-arm', 'windows-11-vs2026-arm',
   // macOS arm64, then macOS Intel
-  'macos-latest', 'macos-26', 'macos-15', 'macos-14',
+  'macos-latest', 'macos-26', 'macos-15',
   'macos-26-intel', 'macos-15-intel',
 ]);
 
 // Labels GitHub has REMOVED. Kept by name so the failure can say what replaced
 // them rather than only "unknown label".
 const RETIRED = new Map([
+  // The v12.98 release's build-mac-arm64 was cancelled with "The configuration
+  // 'macos-14-arm64-us-default' is not supported".
+  ['macos-14', 'retired - Apple Silicon macOS is now macos-15 / macos-26'],
   ['macos-15-large', 'a larger-runner label, not available here'],
   ['macos-13', 'retired - Intel macOS is now macos-15-intel / macos-26-intel'],
   ['macos-13-xl', 'retired - Intel macOS is now macos-15-intel / macos-26-intel'],
@@ -126,6 +129,27 @@ test('build-mac-x64 asks for an Intel macOS runner, not an Apple Silicon one', (
   assert.ok(/-intel$/.test(m[1]),
     `build-mac-x64 builds the x86_64 macOS bundle, so it needs an Intel runner ` +
     `(macos-15-intel / macos-26-intel); it asks for "${m[1]}", which is Apple Silicon`);
+});
+
+function jobRunsOn(job) {
+  const workflow = fs.readFileSync(path.join(workflowDir, 'release-all.yml'), 'utf8');
+  const start = workflow.indexOf(`\n  ${job}:\n`);
+  assert.notStrictEqual(start, -1, `release-all.yml has no ${job} job`);
+  const rest = workflow.slice(start + 1);
+  const next = rest.search(/\n  [a-z0-9-]+:\n/);
+  const body = next === -1 ? rest : rest.slice(0, next);
+  const m = body.match(/^\s*runs-on:\s*(\S+)/m);
+  assert.ok(m, `${job} has no runs-on`);
+  return m[1];
+}
+
+test('build-mac-arm64 asks for a current Apple Silicon runner, not Intel or retired', () => {
+  const label = jobRunsOn('build-mac-arm64');
+  assert.ok(/^macos-(latest|\d+)$/.test(label),
+    `build-mac-arm64 builds the arm64 macOS bundle, so it needs an Apple Silicon ` +
+    `runner (macos-15 / macos-26); it asks for "${label}"`);
+  assert.ok(CURRENT.has(label) && !RETIRED.has(label),
+    `build-mac-arm64 asks for "${label}", which GitHub does not currently offer`);
 });
 
 console.log(`\n${passed} passed`);

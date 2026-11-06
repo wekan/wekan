@@ -2624,7 +2624,12 @@ jobs:
     permissions:
       contents: write
     needs: [prepare, build-amd64, release]
-    runs-on: macos-14   # macos-14 runners are Apple Silicon (arm64)
+    # Apple Silicon (arm64). It was `macos-14`, and GitHub RETIRED that image:
+    # the v12.98 run's build-mac-arm64 was cancelled with "The configuration
+    # 'macos-14-arm64-us-default' is not supported", so v12.98 shipped no
+    # mac-arm64 bundle. macos-15 is Apple Silicon too (the same label mac.yml
+    # already builds on).
+    runs-on: macos-15
     timeout-minutes: 60
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -2900,7 +2905,8 @@ jobs:
       contents: write
     needs: [prepare, build-amd64, release]
     # Intel (x86_64) macOS. It was `macos-13`, and GitHub RETIRED that image -
-    # actions/runner-images publishes macos-14, macos-15 and macos-26 only, and
+    # actions/runner-images publishes macos-15 and macos-26 only (macos-14 was
+    # retired later too), and
     # macos-13 is gone from the hosted-runner table. A retired label does not
     # fail: the job QUEUES FOREVER waiting for a runner that will never come, so
     # every release since then had a build-mac-x64 sitting there for hours until
@@ -2908,7 +2914,7 @@ jobs:
     # what skipped the charts jobs (they had not started yet).
     # No release has ever carried a wekan-<version>-mac-x64.zip because of it.
     # Intel macOS is still offered, under new labels: macos-15-intel and
-    # macos-26-intel (macos-14/15/26 without the suffix are Apple Silicon). This
+    # macos-26-intel (macos-15/26 without the suffix are Apple Silicon). This
     # is the same label .tools/TSC already builds its Intel Mac on.
     runs-on: macos-15-intel
     timeout-minutes: 60
