@@ -725,6 +725,11 @@ a:not(.disabled).is-active i.fa {
 .viewer code {
   padding: 10px 12px 7px;
   background: #dedede;
+  /* Its own text colour with its own light background: a dark theme's light
+     text (#bbb in the dark theme's opened card) was inherited onto #dedede,
+     1.42:1 (46-axe-theme-contrast). #222 on #dedede is 11.8:1, and
+     codeHighlight.css's token colours are chosen for this background too. */
+  color: #222;
   overflow-y: auto;
 }
 .viewer a {
