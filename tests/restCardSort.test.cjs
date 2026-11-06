@@ -77,17 +77,22 @@ for (const sort of [null, '', 'abc', true, {}, [], 'Infinity', Number.NaN]) {
 }
 
 for (const [isOverTime, written] of [[false, false], ['false', false], [true, true], ['true', true]]) {
-  test(`card PUT writes isOverTime ${JSON.stringify(isOverTime)}`, async () => {
+  test(`card PUT stores isOverTime ${JSON.stringify(isOverTime)} in the schema's isOvertime field`, async () => {
     const f = await fixture();
     assert.equal((await f.put({ isOverTime })).code, 200);
-    assert.deepEqual(f.writes.map(w => w.modifier), [{ $set: { isOverTime: written } }]);
+    // The API spelling differs from the schema and UI. Checking only the
+    // request spelling allowed successful responses with no persisted change.
+    assert.deepEqual(f.writes, [{
+      selector: { _id: 'card', listId: 'list', boardId: 'board', archived: false },
+      modifier: { $set: { isOvertime: written } },
+    }]);
   });
 }
 
 for (const isOverTime of [null, 0, 'yes', {}]) {
   test(`card PUT refuses isOverTime ${JSON.stringify(isOverTime)} with 400`, async () => {
     const f = await fixture();
-    assert.deepEqual(await f.put({ isOverTime }), { code: 400, data: { error: 'Invalid isOverTime' } });
+    assert.deepEqual(await f.put({ isOverTime, title: 'Renamed' }), { code: 400, data: { error: 'Invalid isOverTime' } });
     assert.deepEqual(f.writes, []);
   });
 }

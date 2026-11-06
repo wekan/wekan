@@ -1953,7 +1953,8 @@ WebApp.handlers.put(
     if ('isOverTime' in scalars.set) {
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { isOverTime: scalars.set.isOverTime } },
+        // Keep the REST parameter spelling; the schema and UI use isOvertime.
+        { $set: { isOvertime: scalars.set.isOverTime } },
       );
       updated = true;
     }
