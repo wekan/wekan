@@ -2450,7 +2450,8 @@ WebApp.handlers.post(
       archived: false,
     });
     if (!card) {
-      throw new Meteor.Error(404, 'Card not found');
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
     }
     const updatedCustomFields = (card.customFields || []).map(cf =>
       cf._id === paramCustomFieldId ? { _id: cf._id, value: paramCustomFieldValue } : cf,
