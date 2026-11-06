@@ -8,9 +8,9 @@ make changes there.
 # Upcoming WeKan ® release
 
 `build.sh` and the `releases/` scripts now work on **Arch Linux**
-and **Omarchy**, installing with pacman without partial upgrades, getting snapd
-from the AUR, and installing Playwright's browsers without the apt-only
-`--with-deps`.
+and **Omarchy**, and the release builds no longer lose the **OpenBSD arm64
+bundle** to a smoke test that left WeKan running, or the **s390x snap** to
+Launchpad outages that were counted as build failures.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
