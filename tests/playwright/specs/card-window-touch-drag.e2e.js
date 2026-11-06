@@ -32,7 +32,7 @@ const centre = async locator => {
   return { x: Math.round(b.x + b.width / 2), y: Math.round(b.y + b.height / 2) };
 };
 
-async function openCardWindow(page, board, user, { handles }) {
+async function openCardWindow(page, board, user, { handles, touch = true }) {
   db.updateOne('users', { _id: user.id }, { $set: { 'profile.showDesktopDragHandles': handles } });
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCardNumber: true } });
   await page.evaluate(() => localStorage.setItem('wekan-mobile-mode', 'false'));
@@ -42,6 +42,10 @@ async function openCardWindow(page, board, user, { handles }) {
   await expect(page.locator('body')).toHaveClass(/desktop-mode/);
   if (handles) await expect(page.locator('.js-card-drag-handle')).toBeVisible();
   else await expect(page.locator('.js-card-drag-handle')).toHaveCount(0);
+  // Touch comes from the DevTools protocol, which only Chromium has; the mouse
+  // test asks for none, so it runs in Firefox and WebKit too (it failed there
+  // with "CDP session is only available in Chromium" before it had moved).
+  if (!touch) return null;
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 1 });
   return cdp;
@@ -141,7 +145,7 @@ test('with drag handles on, the handle moves the window under a finger and the h
 });
 
 test('a mouse still moves the window by the header row', async ({ boardPage: page, board, user }) => {
-  await openCardWindow(page, board, user, { handles: false });
+  await openCardWindow(page, board, user, { handles: false, touch: false });
   const before = await cardBox(page);
   const header = await page.locator('.card-details .card-details-header').boundingBox();
   const title = await page.locator('.card-details .card-details-title').boundingBox();
