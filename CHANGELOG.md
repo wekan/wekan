@@ -10,6 +10,9 @@ make changes there.
 **GroupLinkBleed** is fixed: a board admin can no longer skip the
 board methods by writing the board directly, to attach an organization or team
 they do not belong to or to add a member past the invitation checks.
+**Public board CSV and TSV exports** honour the selected columns, and the REST
+**card archive, restore and custom-field** endpoints answer an unmatched card
+with a JSON 404 instead of 500.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

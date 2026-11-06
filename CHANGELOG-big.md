@@ -129,11 +129,14 @@ its reason.
 **In short:** **GroupLinkBleed** is fixed: a board admin can no longer skip the
 board methods by writing the board directly, to attach an organization or team
 they do not belong to or to add a member past the invitation checks.
+**Public board CSV and TSV exports** honour the selected columns, and the REST
+**card archive, restore and custom-field** endpoints answer an unmatched card
+with a JSON 404 instead of 500.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/):
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/87c4501ced">Board admins can no longer attach foreign teams or add members by direct board writes</a>. Thanks to bhaswanthc and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aa2e27b0cb">Board admins can no longer attach foreign teams or add members by direct board writes</a>. Thanks to bhaswanthc and xet7.</summary>
 
 [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/),
 [GHSA-v544-rmr5-38gx](https://github.com/wekan/wekan/security/advisories/GHSA-v544-rmr5-38gx).
@@ -148,6 +151,77 @@ board and any user added to it. Client writes naming `orgs`, `teams` or
 refused and shown in Admin Panel / Problems; role changes and removals still
 pass. `tests/groupLinkBleed.test.cjs` runs the real deny rules and fails if a
 method-guarded board field is client-writable.
+
+</details>
+
+and fixes the following bugs:
+
+**Exports** - the CSV and TSV columns a public board exports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4762bed8c1">Public board CSV and TSV exports honour the selected fields</a>. Thanks to AhmedLukman and xet7.</summary>
+
+On a public board the CSV and TSV export ignored `fields=` and wrote all 20
+columns, while a private board wrote only the selected ones (PR
+[#6875](https://github.com/wekan/wekan/pull/6875)). The validated selection is
+now parsed once, before the public/private branch, so both get the same
+columns; a missing, empty or unrecognised selection still exports all of them,
+and the export guards are unchanged. `tests/publicCsvExportFields.test.cjs`
+drives the route for comma, semicolon and tab, and a Playwright spec checks the
+export menu's checkboxes on a public board.
+
+</details>
+
+**REST API** - what the card endpoints answer when no card matches.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b33c7d7ba">Card archive and restore answer a JSON 404 for an unmatched card instead of 500</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`POST …/cards/:cardId/archive` and `…/unarchive` threw `Meteor.Error(404)`
+when no card matched the board, list, id and archive state. A WebApp handler is
+a plain connect handler, so that reached the client as HTTP 500 (PR
+[#6876](https://github.com/wekan/wekan/pull/6876)). They now answer through
+`sendJsonResult` with `{ error: 'Card not found' }` and 404, writing nothing.
+`tests/restCardArchive.test.cjs` and a Playwright spec cover a missing card,
+the wrong list, the wrong board, the wrong state and refused callers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb026ada0e">The card custom-field update answers a JSON 404 for an unmatched card instead of 500</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`POST …/cards/:cardId/customFields/:customFieldId` had the same
+`throw new Meteor.Error(404)` as the archive endpoints, and now answers the
+same JSON 404. `tests/restHandlerNotFound.test.cjs` drives it for a matching,
+missing, wrong-list, wrong-board and archived card, and scans every
+`WebApp.handlers` route in the tree so no REST handler answers not-found by
+throwing again.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Tests** - guards that had drifted from the code they pin.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e9d9d80e6">Three client guards follow the code they pin again</a>. Thanks to xet7.</summary>
+
+`sidebarBelowHeader`, `maximizedCardPosition` and `titleClickToEdit` read
+source that the full screen button, the phone-below-header rule and the
+Pointer Events drag had since moved. The behaviour had not changed; the guards
+now read the new places, `titleClickToEdit` calls `cardHeaderPress()` from
+`models/lib/windowDrag.js`, and each still fails when its behaviour is removed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69ee31c48d">The real single executable test says why it cannot run on a kernel with large pages</a>. Thanks to xet7.</summary>
+
+`--build-sea` injects the SEA blob with LIEF, which adds 4 KiB-aligned
+segments; a Linux kernel with 16 KiB or 64 KiB pages cannot map them, and the
+executable dies with SIGSEGV - a one-line `console.log` SEA does too. The test
+failed there as `null !== 0`; it is now skipped on such a kernel with that
+reason. Release builders have 4 KiB pages and still run it.
 
 </details>
 
