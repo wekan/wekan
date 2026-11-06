@@ -96,6 +96,12 @@ const CATALOG = {
   'ssrf.webhook-forge': { category: 'ssrf', bleed: 'HookBleed', severity: 'high', cwe: 'CWE-345' },
   'authz.board-owner': { category: 'authz', bleed: 'OwnerBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.background': { category: 'authz', bleed: 'BackgroundBleed', severity: 'high', cwe: 'CWE-639' },
+  // GroupLinkBleed (GHSA-v544-rmr5-38gx): a client board write naming orgs,
+  // teams or domains, which the UI changes only through the board methods.
+  'authz.group-link': { category: 'authz', bleed: 'GroupLinkBleed', severity: 'medium', cwe: 'CWE-863' },
+  // GroupLinkBleed, member variant: a client board update adding a member
+  // instead of going through inviteUserToBoard.
+  'authz.member-add': { category: 'authz', bleed: 'GroupLinkBleed', severity: 'medium', cwe: 'CWE-863' },
   'injection.prototype': { category: 'injection', bleed: 'PrototypeBleed', severity: 'high', cwe: 'CWE-1321' },
   'authz.notification-tray': { category: 'authz', bleed: 'TrayBleed', severity: 'high', cwe: 'CWE-639' },
   'authn.cas-state': { category: 'authn', bleed: 'CasTokenBleed', severity: 'high', cwe: 'CWE-352' },

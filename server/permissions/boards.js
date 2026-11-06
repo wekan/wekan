@@ -108,6 +108,52 @@ Boards.allow({
   fetch: ['members'],
 });
 
+// GroupLinkBleed (GHSA-v544-rmr5-38gx): orgs, teams and domains are written
+// only by the methods setBoardOrgs, setBoardTeams and setBoardDomains, which
+// let a board admin add only the organizations and teams they belong to
+// (#5141) and validate domains (#5850). The allow rule above admits any field
+// for a board admin, so a client collection write would skip those checks. The
+// UI never writes these fields directly; the methods write server-side, which
+// allow/deny does not see.
+const { isGroupLinkField, groupLinksInInsert, addsBoardMember } = require('/models/lib/boardWriteGuards');
+function recordBoardWriteDenial(key, userId, source, detail) {
+  try {
+    require('/server/lib/securityLog').record({ key, action: 'blocked', source, userId, detail });
+  } catch (e) { /* logging must never break the guard */ }
+}
+Boards.deny({
+  insert(userId, doc) {
+    if (!groupLinksInInsert(doc)) return false;
+    recordBoardWriteDenial('authz.group-link', userId, 'ddp:boards.insert',
+      'A client board insert named organizations, teams or domains.');
+    return true;
+  },
+  update(userId, doc, fieldNames, modifier) {
+    const fields = [...(fieldNames || [])];
+    if (modifier && modifier.$rename) fields.push(...Object.values(modifier.$rename));
+    if (!fields.some(isGroupLinkField)) return false;
+    recordBoardWriteDenial('authz.group-link', userId, 'ddp:boards.update',
+      'A client board update named organizations, teams or domains outside the board methods.');
+    return true;
+  },
+  fetch: [],
+});
+
+// GroupLinkBleed, member variant: a board admin adding a user straight into
+// `members` skips inviteUserToBoard (who may invite, disabled accounts, the
+// #6116 same organization/team policy). Client code only changes a member's
+// role or removes one (Boards.helpers removeMember, setMemberPermission), so
+// any client write that ADDS a member is refused.
+Boards.deny({
+  update(userId, doc, fieldNames, modifier) {
+    if (!(fieldNames || []).includes('members') || !addsBoardMember(doc, modifier)) return false;
+    recordBoardWriteDenial('authz.member-add', userId, 'ddp:boards.update',
+      'A client board update added a member outside inviteUserToBoard.');
+    return true;
+  },
+  fetch: ['members'],
+});
+
 // The number of users that have starred this board is managed by trusted code
 // and the user is not allowed to update it
 Boards.deny({

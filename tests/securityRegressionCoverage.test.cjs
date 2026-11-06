@@ -216,6 +216,7 @@ const GUARDED = {
   spacebleed: ['tests/canaryCoverage.test.cjs'],
   // Published with their names already linked, which the Hall of Fame match
   // did not read until every name was linked (2026-10-30).
+  grouplinkbleed: ['tests/groupLinkBleed.test.cjs', 'tests/playwright/specs/group-link-bleed.e2e.js'],
   importplacementbleed: ['tests/importPlacementBleed.test.cjs', 'tests/playwright/specs/security-import-placement.e2e.js'],
   samlsubjectbleed: ['tests/samlIdentityBinding.test.cjs'],
   stampbleed: ['tests/stampBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
@@ -365,7 +366,8 @@ test('the whole published list is accounted for', () => {
   // until every Hall of Fame name became a link (2026-10-30); all guarded.
   // 141 -> 143: CrossBoardExportBleed (2026-11-01) and UnassignedAttachBleed
   // (GHSA-w26g-rc43-q6cm, 2026-11-01), both guarded.
-  assert.strictEqual(total, 143, 'the Hall of Fame and this list disagree on how many there are');
+  // 143 -> 144: GroupLinkBleed (GHSA-v544-rmr5-38gx, 2026-11-06), guarded.
+  assert.strictEqual(total, 144, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
