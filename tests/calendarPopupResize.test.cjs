@@ -116,3 +116,29 @@ assert.equal(element.style.left, '400px');
 events['keydown .js-date-popup-resize']({ ...event, key: 'ArrowRight' });
 assert.equal(element.style.width, '420px', 'right arrow shrinks the left-hand RTL grip');
 console.log('RTL resize reverses horizontal input and keeps the right edge anchored');
+
+// A popup that GROWS while it is dragged stays inside the window. A long menu
+// (the member menu) gets its 960px column layout a frame after it is drawn
+// (client/lib/popupMenuLayout.js); a drag begun in that frame clamped with the
+// 380px it started at, so the grown popup ended at left 850 and mostly outside
+// a 1280px window (card-title-edit-and-move-6839.e2e.js, memberMenuPopup).
+context.window.getComputedStyle = () => ({ direction: 'ltr' });
+element.querySelector = () => null;
+element.style.width = '380px';
+element.style.height = '400px';
+events['pointerdown .header'](moveEvent, tpl);
+assert.ok(tpl._dateMove, 'the drag begins at the narrow size');
+element.style.width = '960px'; // the column layout arrives mid-drag
+events['pointermove .header']({ ...moveEvent, clientX: moveEvent.clientX + 1000 }, tpl);
+assert.equal(element.style.left, `${1280 - 960 - 12}px`,
+  'the clamp uses the size the popup has now, so all of it stays in the window');
+events['pointermove .header']({ ...moveEvent, clientX: moveEvent.clientX - 10000 }, tpl);
+assert.equal(element.style.left, '12px', 'and the left edge too');
+events['pointerup .header, pointercancel .header, lostpointercapture .header'](moveEvent, tpl);
+// Negative: a popup that does not change size moves exactly as dragged.
+element.style.width = '400px';
+events['pointerdown .header'](moveEvent, tpl);
+events['pointermove .header']({ ...moveEvent, clientX: moveEvent.clientX - 40 }, tpl);
+assert.equal(element.style.left, `${440 - 40}px`, 'an unchanged popup follows the pointer');
+events['pointerup .header, pointercancel .header, lostpointercapture .header'](moveEvent, tpl);
+console.log('A popup that grows during a drag is clamped by its current size');

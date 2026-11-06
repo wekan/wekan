@@ -123,8 +123,16 @@ Popup.template.events({
     const drag = tpl._dateMove;
     if (!drag || drag.pointerId !== evt.pointerId) return;
     evt.preventDefault(); evt.stopPropagation();
-    const boxLeft = Math.max(12, Math.min(window.innerWidth - drag.width - 12, drag.left + drag.dx + evt.clientX - drag.x));
-    const boxTop = Math.max(12, Math.min(window.innerHeight - drag.height - 12, drag.top + drag.dy + evt.clientY - drag.y));
+    // The popup's size NOW, not when the drag began: a long menu gets its
+    // 960px column layout a frame after it is drawn (popupMenuLayout.js), so a
+    // drag that starts in that frame would keep clamping for the narrow size
+    // and push the grown popup most of the way out of the window - and undo
+    // the ResizeObserver that had just put it back inside.
+    const size = drag.element.getBoundingClientRect();
+    const width = size.width || drag.width;
+    const height = size.height || drag.height;
+    const boxLeft = Math.max(12, Math.min(window.innerWidth - width - 12, drag.left + drag.dx + evt.clientX - drag.x));
+    const boxTop = Math.max(12, Math.min(window.innerHeight - height - 12, drag.top + drag.dy + evt.clientY - drag.y));
     const left = boxLeft - drag.dx;
     const top = boxTop - drag.dy;
     // Dragging uses physical pointer coordinates in either text direction.

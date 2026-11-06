@@ -57,6 +57,19 @@ async function emptyHeaderPoint(details) {
 const box = locator => locator.boundingBox();
 // Where it is, not how tall: the window settles its height as it renders.
 const at = async locator => { const b = await locator.boundingBox(); return { x: Math.round(b.x), y: Math.round(b.y) }; };
+// A long menu gets its column layout a frame after it is drawn, and grows to
+// 960px; measure the popup only once its box has stopped changing, so the test
+// drags the popup the user sees rather than the one drawn a frame earlier.
+async function settled(locator) {
+  let previous = '';
+  await expect.poll(async () => {
+    const b = await locator.boundingBox();
+    const now = b ? [b.x, b.y, b.width, b.height].map(Math.round).join(',') : '';
+    const same = now !== '' && now === previous;
+    previous = now;
+    return same;
+  }, { intervals: [100, 100, 200, 300], timeout: 5000 }).toBe(true);
+}
 
 test('handles off: any part of the title edits, the empty header row moves the window', async ({ page, user, board }) => {
   const cp = await openCard(page, user, board, false);
@@ -114,6 +127,7 @@ for (const handles of [false, true]) {
       await open();
       const pop = page.locator('.js-pop-over').last();
       await expect(pop).toBeVisible();
+      await settled(pop);
       const titleBar = pop.locator('.header-title');
       const handle = pop.locator('.js-popup-drag-handle');
       await expect(handle).toHaveCount(handles ? 1 : 0);
