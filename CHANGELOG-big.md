@@ -132,7 +132,8 @@ they do not belong to or to add a member past the invitation checks.
 **Public board CSV and TSV exports** honour the selected columns, and the REST
 **card archive, restore and custom-field** endpoints answer an unmatched card
 with a JSON 404 instead of 500, and a REST **card update** can set sort 0, turn
-overTime off and clear a description.
+overTime off and clear a description. The **notifications drawer** gets its
+attachments again.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/):
 
@@ -221,6 +222,21 @@ same JSON 404. `tests/restHandlerNotFound.test.cjs` drives it for a matching,
 missing, wrong-list, wrong-board and archived card, and scans every
 `WebApp.handlers` route in the tree so no REST handler answers not-found by
 throwing again.
+
+</details>
+
+**Notifications** - what the notifications drawer receives.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/adb73fd8ee">The notifications drawer receives its attachments again, without a server exception</a>. Thanks to xet7.</summary>
+
+Every `notificationAttachments` subscription failed with `Publish function can
+only return a Cursor or an array of Cursors`: Attachments is an ostrio:files
+FilesCollection, and the publication returned its FilesCursor instead of the
+Mongo cursor it wraps. It now returns `.cursor`, as every other attachment
+publication does. `tests/publishFilesCursor.test.cjs` runs the publication and
+scans every publishing file so no attachment or avatar cursor query is
+published without it.
 
 </details>
 

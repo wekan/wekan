@@ -13,7 +13,8 @@ they do not belong to or to add a member past the invitation checks.
 **Public board CSV and TSV exports** honour the selected columns, and the REST
 **card archive, restore and custom-field** endpoints answer an unmatched card
 with a JSON 404 instead of 500, and a REST **card update** can set sort 0, turn
-overTime off and clear a description.
+overTime off and clear a description. The **notifications drawer** gets its
+attachments again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
