@@ -641,8 +641,14 @@ function docker_exec(){
 # Run a Playwright browser project (chromium / firefox / webkit) inside the
 # official Playwright container. First arg is the browser; any extra args are
 # passed through to `playwright test`. WeKan must already be running on the host
-# (default http://127.0.0.1:3000, Meteor's bundled Mongo on 3001); the container
+# (default http://localhost:3000, Meteor's bundled Mongo on 3001); the container
 # shares the host network so it can reach both.
+#
+# The browser must use the test server's ROOT_URL origin, http://localhost:3000.
+# Meteor-Files sends every upload to ROOT_URL + /cdn/storage/.../__upload, and
+# answers no CORS preflight for another origin, so a page opened on
+# http://127.0.0.1:3000 could not upload anything: the drawing specs' Save never
+# finished. Health checks with curl may still use 127.0.0.1; a browser may not.
 function run_playwright_docker(){
 	local browser="$1"; shift
 	local reporoot="$WEKAN_DIR"
@@ -658,7 +664,7 @@ function run_playwright_docker(){
 	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 	[ -z "$pwver" ] && pwver="1.60.0"
 	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
-	local docker_base_url="${WEKAN_BASE_URL:-http://127.0.0.1:3000}"
+	local docker_base_url="${WEKAN_BASE_URL:-http://localhost:3000}"
 	local docker_mongo_url="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}"
 	local docker_host_proxy_port=""
 	local docker_network="host"
@@ -807,7 +813,7 @@ function run_node_e2e_docker(){
 		-e HOME=/repo/.tools/tmp \
 		-e TMPDIR=/repo/.tools/tmp \
 		-e NODE_OPTIONS="${NODE_OPTIONS:-}" \
-		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
+		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://localhost:3000}" \
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
 		-v "$reporoot":/repo -w /repo \
 		"$image" \
