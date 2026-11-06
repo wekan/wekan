@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.98 2026-11-06 WeKan ® release
 
 **In short:** **GroupLinkBleed** is fixed: a board admin can no longer skip the
 board methods by writing the board directly, to attach an organization or team
