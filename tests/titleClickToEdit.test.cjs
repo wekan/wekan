@@ -129,28 +129,42 @@ test('the opened card\'s whole title edits (#6839)', () => {
   assert.ok(/position: absolute/.test(body), 'as an overlay, so the sentence is not cut in two');
 });
 
+// Since 1b05673200 the window moves with Pointer Events (a finger too), and the
+// decision of what a press on the header row does is the pure cardHeaderPress()
+// in models/lib/windowDrag.js. The handler only describes the pressed element.
+const { cardHeaderPress } = require('../models/lib/windowDrag');
+const titleHandler = () => {
+  const handler = cardJs.slice(cardJs.indexOf("'pointerdown .js-card-title-drag-handle'"));
+  assert.ok(handler.length < cardJs.length, 'the title row has a pointerdown handler');
+  return handler.slice(0, handler.indexOf('\n  },'));
+};
+const press = { onEditable: false, onTitleEditZone: false, onHandle: false, cardHasHandle: false, onControl: false };
+
 test('the drag handler steps aside for the half that edits (negative)', () => {
   // Both live on the same heading, so the one that must NOT fire has to say so.
-  const handler = cardJs.slice(cardJs.indexOf("'mousedown .js-card-title-drag-handle'"));
-  const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/closest\('\.card-details-title-edit-zone'\)\.length > 0/.test(body),
+  const body = titleHandler();
+  assert.ok(/onTitleEditZone: !!closest\('\.card-details-title-edit-zone'\)/.test(body),
+    'the handler tells the decision when the press is inside the zone');
+  assert.deepEqual(cardHeaderPress({ ...press, onTitleEditZone: true }), { start: false, deferred: false },
     'a press inside the zone is not a drag');
-  assert.ok(/closest\([\s\S]*a, input, textarea, button, select, option/.test(body),
+  assert.ok(/onControl: !!closest\('a, button'\)/.test(body), 'it tells links and buttons apart');
+  assert.deepEqual(cardHeaderPress({ ...press, onControl: true }), { start: true, deferred: true },
     'and a link is still a link - which is what the close, maximise and menu '
-    + 'buttons in that row are');
-  assert.ok(/closest\('\.js-card-drag-handle'\)\.length > 0/.test(body),
+    + 'buttons in that row are: a tap does its job, only a drag moves the window');
+  assert.ok(/if \(closest\('\.js-card-drag-handle'\)\) return;/.test(body),
     'and the drag handle keeps its own handler, so one press moves the window once');
-  assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(body),
+  assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(cardJs.slice(cardJs.indexOf('function beginCardWindowDrag'))),
     'while a real drag still marks the window as user-placed');
 });
 
 test('#6641: the opened-card drag bar steps aside for its live title editor', () => {
-  const handler = cardJs.slice(cardJs.indexOf("'mousedown .js-card-title-drag-handle'"));
-  const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.match(body, /a, input, textarea, button, select, option, \.js-card-details-title/);
-  assert.ok(/return;/.test(body), 'native mouse text selection returns before preventDefault');
-  assert.ok(body.indexOf('return;') < body.indexOf('event.preventDefault()'),
-    'the editor guard runs before the window drag suppresses browser selection');
+  const body = titleHandler();
+  assert.match(body, /onEditable: !!closest\('input, textarea, select, option, \.js-card-details-title'\)/);
+  assert.deepEqual(cardHeaderPress({ ...press, onEditable: true, onControl: true }), { start: false, deferred: false },
+    'native text selection in the editor is never a window drag');
+  const begin = cardJs.slice(cardJs.indexOf('function beginCardWindowDrag'));
+  assert.ok(begin.indexOf('if (!press.start') < begin.indexOf('preventDefault()'),
+    'the editor guard returns before the window drag suppresses browser selection');
 });
 
 test('the handle appears only when drag handles are on', () => {
@@ -160,8 +174,9 @@ test('the handle appears only when drag handles are on', () => {
     .test(header), 'the handle is behind that question');
   // ...and then it is the only drag source: the bar steps aside when the
   // card has a handle (#6839).
-  const handler = cardJs.slice(cardJs.indexOf("'mousedown .js-card-title-drag-handle'"));
-  assert.ok(/closest\('\.card-details'\)\.find\('\.js-card-drag-handle'\)\.length > 0/.test(handler.slice(0, handler.indexOf('\n  },'))),
+  assert.ok(/closest\('\.card-details'\)\.querySelector\('\.js-card-drag-handle'\)/.test(titleHandler()),
+    'the handler tells the decision when this card has a handle');
+  assert.deepEqual(cardHeaderPress({ ...press, cardHasHandle: true, onControl: true }), { start: false, deferred: false },
     'with handles on, only the handle moves the window');
   assert.ok(/\.card-details:not\(\.card-details-with-handle\) \.card-details-header \{\s*cursor: move;/.test(cardCss),
     'and the bar shows it moves the window only while there is no handle');

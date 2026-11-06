@@ -386,8 +386,11 @@ test('cardDetails.css: .card-details-maximized block contains position: fixed an
 });
 
 test('cardDetails.css: desktop-mode maximized override exists with !important viewport insets', () => {
+  // The TOP-LEVEL rule, at the start of a line: since efaf94242e the same
+  // selector is also in a narrow-screen @media rule (indented) that only moves
+  // `top` below the header bar on a phone, and must not be mistaken for this one.
   const m = stripComments(css).match(
-    /body\.desktop-mode \.card-details\.card-details-maximized[^{]*\{([^}]*)\}/,
+    /^body\.desktop-mode \.card-details\.card-details-maximized[^{]*\{([^}]*)\}/m,
   );
   assert.ok(m, 'desktop-mode maximized rule exists');
   for (const decl of ['position: fixed', 'top: 8px', 'inset-inline-start: 8px', 'inset-inline-end: 8px', 'bottom: 8px']) {

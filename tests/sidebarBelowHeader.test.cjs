@@ -86,6 +86,8 @@ test('a header rendered after startup is measured and observed after Blaze flush
     document: {
       readyState: 'complete',
       getElementById: id => bars[id],
+      // The full screen button's listeners, added in the same onRendered.
+      addEventListener() {},
       documentElement: { style: { setProperty: (_key, value) => { height = value; } } },
     },
     ResizeObserver: class {
@@ -95,6 +97,9 @@ test('a header rendered after startup is measured and observed after Blaze flush
     $: () => ({ on() {} }),
     setTimeout: callback => callback(),
     Template: { header: { onRendered: callback => { rendered = callback; } } },
+    // onRendered also wires the full screen button (f25957dcf3); it is not
+    // what this test pins, so it gets an inert Fullscreen API.
+    fullscreen: { isSupported: () => false, isFullscreen: () => false, CHANGE_EVENTS: [] },
     Meteor: { userId: () => 'late-login' },
     FlowRouter: { watchPathChange() {} },
     Tracker: { afterFlush: callback => pending.push(callback) },
@@ -104,8 +109,12 @@ test('a header rendered after startup is measured and observed after Blaze flush
   assert.strictEqual(height, '0px', 'no header exists during startup');
   const header = read('client/components/main/header.js');
   const start = header.indexOf('Template.header.onRendered(');
-  vm.runInNewContext(header.slice(start, header.indexOf('Template.header.helpers(', start)), context);
-  const instance = { view: { isDestroyed: false }, autorun: callback => callback() };
+  vm.runInNewContext(header.slice(start, header.indexOf('Template.header.onDestroyed(', start)), context);
+  const reactive = () => ({ set() {} });
+  const instance = {
+    view: { isDestroyed: false }, autorun: callback => callback(),
+    fullscreenSupported: reactive(), isFullscreen: reactive(),
+  };
   rendered.call(instance);
   let bottom = 168;
   bars['header-quick-access'] = { getBoundingClientRect: () => ({ bottom }) };
