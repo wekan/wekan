@@ -5070,12 +5070,28 @@ jobs:
             [ -e "$1" ] || return 1
             case "$logs_before" in *" $1 "*) [ "$1" -nt "$attempt_marker" ] ;; *) return 0 ;; esac
           }
+          # snapcraft's execution logs. v12.96 s390x: every attempt printed only
+          # "Could not find repository at path ...", because snapcraft reports
+          # the LAST exception; the cause before it - "HTTP Error 503: Service
+          # Unavailable" / "Error: Timeout" creating that repository - was in
+          # the "Full execution log" alone. Unread, three Launchpad outages
+          # counted as three WeKan failures and the arch was not published.
+          snapcraft_log_dir="$HOME/.local/state/snapcraft/log"
           infra_failure() {   # did THIS attempt fail on Launchpad, not on WeKan?
             grep -qsE 'HTTP Error 5[0-9][0-9]|Error: Timeout|Service Unavailable' "$remote_log" && return 0
+            # The same v12.96 s390x run's last attempt: the repository the
+            # timed-out requests had half-created refused our push with
+            # "You do not have permission to create refs/heads/main" - the
+            # same credentials pushed every other architecture in that run.
+            grep -qsE 'remote: You do not have permission to create refs/' "$remote_log" && return 0
             local log
             for log in snapcraft-wekan-*.txt; do
               this_attempts_log "$log" || continue
               grep -qsE 'RPC failed;|GnuTLS recv error|fatal: early EOF|Gateway error \[IP: ' "$log" && return 0
+            done
+            for log in "$snapcraft_log_dir"/*.log; do
+              this_attempts_log "$log" || continue
+              grep -qsE 'HTTP Error 5[0-9][0-9]|Error: Timeout|Service Unavailable' "$log" && return 0
             done
             return 1
           }
@@ -5099,7 +5115,7 @@ jobs:
             # earlier attempts' logs stay in the directory for the diagnostics
             # below, but must not be printed again as if they were this one's.
             touch "$attempt_marker"
-            logs_before=" $(ls snapcraft-wekan-*.txt 2>/dev/null | tr '\n' ' ')"
+            logs_before=" $(ls snapcraft-wekan-*.txt "$snapcraft_log_dir"/*.log 2>/dev/null | tr '\n' ' ')"
             if [ "$fresh_next" = 1 ]; then
               echo "The previous attempt's Launchpad build finished without a snap; submitting a new build instead of recovering it."
               run_remote_build && rc=0 || rc=$?

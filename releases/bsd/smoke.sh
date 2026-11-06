@@ -17,7 +17,29 @@ log="$work/start-wekan.log"
     exec ./start-wekan.sh
 ) > "$log" 2>&1 &
 pid=$!
-stop() { kill "$pid" 2>/dev/null || true; pkill -f "$bundle/ferretdb" 2>/dev/null || true; }
+# Stop the whole stack, WAIT for it to be gone, and then remove its files.
+# start-wekan.sh runs WeKan in the foreground, and bash runs a TERM trap only
+# after the foreground command returns - so killing the script alone left
+# node and FerretDB running after this test said OK. v12.96 openbsd-arm64:
+# FerretDB closed its database while the VM's copyback rsync was walking the
+# workspace, wekan.sqlite-wal and -shm vanished under it, and rsync's exit 24
+# failed a bundle that had built and started fine. Nothing may still be
+# running, or still be on disk under .tools/tmp, when this script returns.
+running() { kill -0 "$pid" 2>/dev/null || pgrep -f "$bundle/(ferretdb|main\.js)" >/dev/null 2>&1; }
+stop() {
+  kill "$pid" 2>/dev/null || true
+  pkill -f "$bundle/main\.js" 2>/dev/null || true
+  pkill -f "$bundle/ferretdb" 2>/dev/null || true
+  local n=0
+  while running && [ "$n" -lt 30 ]; do sleep 1; n=$((n + 1)); done
+  if running; then
+    kill -9 "$pid" 2>/dev/null || true
+    pkill -9 -f "$bundle/(ferretdb|main\.js)" 2>/dev/null || true
+    sleep 1
+  fi
+  wait "$pid" 2>/dev/null || true
+  rm -rf "$work"
+}
 trap stop EXIT
 for i in $(seq 1 120); do
   if ! kill -0 "$pid" 2>/dev/null; then

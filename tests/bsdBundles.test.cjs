@@ -111,6 +111,51 @@ test('the smoke test fails when WeKan never answers, and passes when it does (ru
   }
 });
 
+// v12.96 openbsd-arm64: smoke.sh said OK and returned with WeKan and FerretDB
+// still running - start-wekan.sh defers its TERM trap until the foreground
+// node exits - and FerretDB removed wekan.sqlite-wal/-shm while the VM's
+// copyback rsync walked the workspace, failing the job with rsync exit 24.
+// This launcher has start-wekan.sh's shape: FerretDB in the background, WeKan
+// in the foreground, a TERM trap, a restart loop.
+test('the smoke test leaves nothing running and nothing on disk when it returns (runs here)', () => {
+  const tmp = fs.mkdtempSync(path.join(ROOT, '.tools', 'tmp', 'bsd-smoke-'));
+  const bundle = path.join(tmp, 'bundle');
+  const tdir = path.join(tmp, 't');
+  const alive = () => spawnSync('pgrep', ['-f', `${bundle}/(ferretdb|main\\.js)`]).status === 0;
+  try {
+    fs.mkdirSync(bundle); fs.mkdirSync(tdir);
+    fs.writeFileSync(path.join(bundle, 'ferretdb'),
+      "const fs=require('fs'),p=require('path');const d=p.join(process.env.WRITABLE_PATH,'files','db');fs.mkdirSync(d,{recursive:true});"
+      + "for(const s of ['','-wal','-shm'])fs.writeFileSync(p.join(d,'wekan.sqlite'+s),'x');"
+      + "process.on('SIGTERM',()=>setTimeout(()=>{for(const s of ['-wal','-shm'])fs.rmSync(p.join(d,'wekan.sqlite'+s),{force:true});process.exit(0)},500));"
+      + 'setInterval(()=>{},1000);\n');
+    fs.writeFileSync(path.join(bundle, 'main.js'),
+      "require('http').createServer((q,r)=>r.end('ok')).listen(process.env.PORT,'127.0.0.1');\n");
+    fs.writeFileSync(path.join(bundle, 'start-wekan.sh'), [
+      '#!/usr/bin/env bash',
+      'DIR="$(cd "$(dirname "$0")" && pwd)"',
+      'FERRET_PID=""',
+      'stop_ferret() { [ -n "$FERRET_PID" ] && kill "$FERRET_PID" 2>/dev/null || true; }',
+      "trap 'stop_ferret; exit 0' INT TERM",
+      'while true; do',
+      '  "$NODE" "$DIR/ferretdb" &',
+      '  FERRET_PID=$!',
+      '  "$NODE" "$DIR/main.js" || true',
+      '  stop_ferret; FERRET_PID=""; sleep 1',
+      'done', ''].join('\n'), { mode: 0o755 });
+    const res = spawnSync('bash', [path.join(ROOT, 'releases/bsd/smoke.sh'), bundle, '3199'],
+      { encoding: 'utf8', env: { ...process.env, TMPDIR: tdir, NODE: process.execPath }, timeout: 120000 });
+    assert.equal(res.status, 0, res.stdout + res.stderr);
+    assert.match(res.stdout, /WeKan answered HTTP 200/);
+    assert.equal(alive(), false, 'negative: no WeKan or FerretDB left running after smoke.sh returned');
+    assert.deepEqual(fs.readdirSync(tdir).filter(n => n.startsWith('wekan-smoke.')), [],
+      'negative: no smoke-test files left for a copyback to find');
+  } finally {
+    spawnSync('pkill', ['-9', '-f', `${bundle}/(ferretdb|main\\.js)`]);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
 test('the resolver answers "not built" for a BSD nobody publishes yet (negative), without failing', () => {
   const res = spawnSync('bash', [path.join(ROOT, 'releases/resolve-node-source.sh'), 'netbsd-x64', 'v26.11.1'], { encoding: 'utf8', timeout: 120000 });
   if (res.error || /Could not resolve host|curl: \(6\)/.test(res.stderr)) return; // offline: nothing to check

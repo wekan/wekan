@@ -29,21 +29,30 @@ const fnText = fnOf('this_attempts_log') + fnOf('infra_failure');
 // The line that records which logs existed when the attempt started.
 const logsBefore = /\n *(logs_before=" \$\(ls [^\n]*)\n/.exec(step)[1];
 
-function infraFailure({ remoteLog = '', buildLogs = {}, oldBuildLogs = {} }) {
+function infraFailure({ remoteLog = '', buildLogs = {}, oldBuildLogs = {}, execLogs = {}, oldExecLogs = {} }) {
   const dir = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'lp-'));
   try {
     for (const [name, text] of Object.entries(oldBuildLogs)) {
       fs.writeFileSync(path.join(dir, name), text);
       fs.utimesSync(path.join(dir, name), new Date(2000, 0, 1), new Date(2000, 0, 1));
     }
+    // snapcraft's execution logs live in their own directory, not the cwd.
+    fs.mkdirSync(path.join(dir, 'sclog'));
+    for (const [name, text] of Object.entries(oldExecLogs)) {
+      fs.writeFileSync(path.join(dir, 'sclog', name), text);
+      fs.utimesSync(path.join(dir, 'sclog', name), new Date(2000, 0, 1), new Date(2000, 0, 1));
+    }
     fs.writeFileSync(path.join(dir, 'marker'), '');
     fs.utimesSync(path.join(dir, 'marker'), new Date(2010, 0, 1), new Date(2010, 0, 1));
     // This attempt's logs arrive after logs_before is taken, as on Launchpad.
     fs.mkdirSync(path.join(dir, 'new'));
     for (const [name, text] of Object.entries(buildLogs)) fs.writeFileSync(path.join(dir, 'new', name), text);
+    fs.mkdirSync(path.join(dir, 'newsc'));
+    for (const [name, text] of Object.entries(execLogs)) fs.writeFileSync(path.join(dir, 'newsc', name), text);
     fs.writeFileSync(path.join(dir, 'remote.log'), remoteLog);
-    const script = `cd "${dir}"; remote_log=remote.log; attempt_marker=marker\n${logsBefore}\n`
-      + `for f in new/*; do [ -e "$f" ] && mv "$f" .; done\n${fnText}\ninfra_failure`;
+    const script = `cd "${dir}"; remote_log=remote.log; attempt_marker=marker; snapcraft_log_dir="${dir}/sclog"\n${logsBefore}\n`
+      + `for f in new/*; do [ -e "$f" ] && mv "$f" .; done\n`
+      + `for f in newsc/*; do [ -e "$f" ] && mv "$f" sclog/; done\n${fnText}\ninfra_failure`;
     return spawnSync('bash', ['-c', script]).status === 0;
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -91,6 +100,37 @@ test('a new log counts even in the marker\'s own second (bash 3.2 -nt is whole s
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
+});
+
+// v12.96 s390x: snapcraft printed only its last exception; the 503 that caused
+// it was in the "Full execution log" file alone.
+const V1296_STDOUT = 'Recovering build snapcraft-wekan-5326\n'
+  + 'Could not find repository at path ~xet7/xet7-craft-remote-build/+git/snapcraft-wekan-5326\n'
+  + "Full execution log: '/home/runner/.local/state/snapcraft/log/snapcraft-20261105-201734.420875.log'\n";
+const V1296_EXEC = 'lazr.restfulclient.errors.ServerError: HTTP Error 503: Service Unavailable\n'
+  + "b'<html><head><title>Error: Timeout</title>'\n"
+  + 'craft_application.launchpad.errors.NotFoundError: Could not find repository at path ~xet7/x\n';
+
+test('v12.96 s390x: a 503 only in this attempt\'s snapcraft execution log is infrastructure', () => {
+  assert.equal(infraFailure({ remoteLog: V1296_STDOUT, execLogs: { 'snapcraft-20261105-201734.420875.log': V1296_EXEC } }), true);
+});
+
+test('negative: an earlier attempt\'s execution log does not count for this one', () => {
+  assert.equal(infraFailure({ remoteLog: V1296_STDOUT, oldExecLogs: { 'snapcraft-20261105-201734.420875.log': V1296_EXEC } }), false);
+});
+
+test('negative: an execution log with no outage in it is not infrastructure', () => {
+  assert.equal(infraFailure({ remoteLog: V1296_STDOUT, execLogs: { 'snapcraft-x.log': 'Stage package not found in part \'wekan\': libssl3\n' } }), false);
+});
+
+test('v12.96 s390x attempt 3: a half-created repository refusing our push is infrastructure', () => {
+  assert.equal(infraFailure({ remoteLog: 'remote: You do not have permission to create refs/heads/main.\n'
+    + "Git operation failed with: Could not push 'HEAD' to 'git.launchpad.net/~xet7/x' with refspec 'refs/heads/master:refs/heads/main'\n" }), true);
+});
+
+test('the execution logs that existed before the attempt are recorded with the build logs', () => {
+  assert.match(logsBefore, /"\$snapcraft_log_dir"\/\*\.log/);
+  assert.match(step, /\n\s+snapcraft_log_dir="\$HOME\/\.local\/state\/snapcraft\/log"\n/);
 });
 
 test('negative: a 4xx from Launchpad is not taken for an outage', () => {
