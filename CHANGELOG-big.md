@@ -124,6 +124,33 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **mac-arm64** release bundle builds again: its job asked for
+GitHub's retired **macos-14** runner and was cancelled in the v12.98 release
+run. The **weba** instructions now live in the weba repository itself.
+
+This release fixes the following release build bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e4483b1a9">The mac-arm64 bundle is built on macos-15, because GitHub retired macos-14</a>. Thanks to xet7.</summary>
+
+In the v12.98 release run, build-mac-arm64 was cancelled with "The
+configuration 'macos-14-arm64-us-default' is not supported", so v12.98 has no
+mac-arm64 bundle. The job now runs on `macos-15`, which is Apple Silicon too
+and is what `mac.yml` already uses. `tests/workflowRunnerLabels.test.cjs` lists
+`macos-14` as retired, so no workflow can ask for it again, and checks that
+build-mac-arm64 asks for a current Apple Silicon runner.
+
+</details>
+
+and has the following developer documentation change:
+
+- [The weba instructions moved from AGENTS.md and CLAUDE.md into the weba repository](https://github.com/wekan/wekan/commit/b4cb989391).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.98 2026-11-06 WeKan ® release
 
 **In short:** **GroupLinkBleed** is fixed: a board admin can no longer skip the

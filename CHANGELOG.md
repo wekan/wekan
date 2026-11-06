@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **mac-arm64** release bundle builds again: its job asked for
+GitHub's retired **macos-14** runner and was cancelled in the v12.98 release
+run. The **weba** instructions now live in the weba repository itself.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v12.98 2026-11-06 WeKan ® release
 
 **GroupLinkBleed** is fixed: a board admin can no longer skip the
