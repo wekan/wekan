@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v12.97 2026-11-06 WeKan ® release
 
 `build.sh` and the `releases/` scripts now work on **Arch Linux**
 and **Omarchy**, and the release builds no longer lose the **OpenBSD arm64
 bundle** to a smoke test that left WeKan running, or the **s390x snap** to
 Launchpad outages that were counted as build failures.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v12.97](CHANGELOG-big.md#v1297-2026-11-06-wekan--release)
 
 # v12.96 2026-11-05 WeKan ® release
 
@@ -51,10 +51,3 @@ more databases: **pgrust** (PostgreSQL in Rust) and **TiDB**. Noria, YugabyteDB
 and CockroachDB were looked at and cannot be used, for reasons the README gives.
 
 [All changes in v12.93](CHANGELOG-big.md#v1293-2026-11-04-wekan--release)
-
-# v12.92 2026-11-03 WeKan ® release
-
-A missing **REST checklist** answers a JSON 404 instead of an
-empty 500.
-
-[All changes in v12.92](CHANGELOG-big.md#v1292-2026-11-03-wekan--release)

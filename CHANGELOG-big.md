@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v12.97 2026-11-06 WeKan ® release
 
 **In short:** `build.sh` and the `releases/` scripts now work on **Arch Linux**
 and **Omarchy**, and the release builds no longer lose the **OpenBSD arm64
