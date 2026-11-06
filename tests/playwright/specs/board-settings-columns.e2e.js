@@ -20,9 +20,15 @@ async function openSettings(page, section) {
 async function openCardSectionMenu(page) {
   const pane = page.locator('.pop-over[data-popup="boardCardSettingsPopup"] .js-card-settings-pane[data-side="card"]');
   const section = pane.locator('.js-card-settings-section[data-section="card"]');
-  await section.locator('.js-open-card-settings-section-menu').click();
   const menu = section.locator('.js-card-settings-panel[data-kind="section"]');
-  await expect(menu).toBeVisible();
+  // Under the load of a full two-worker run a click right after the popup is
+  // drawn can come before its events are bound, and the panel never opened
+  // (Firefox, the non-admin test). The button toggles the panel, so click
+  // again only while it is still closed.
+  await expect(async () => {
+    if (!(await menu.isVisible())) await section.locator('.js-open-card-settings-section-menu').click();
+    await expect(menu).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
   return menu;
 }
 // Swimlane and List show their table in the popup; Card in Card's hamburger.
