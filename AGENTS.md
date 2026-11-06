@@ -427,6 +427,48 @@ directly after the merge.
     application-specific names (say "the client" / "a Meteor 3 driver" / a bare
     `#NNNN`); its `CHANGELOG.md` may use `wekan/wekan#NNNN`.
 
+### Gambas Web Kanban companion: `.tools/weba`
+
+- `.tools/weba` is the separate `wekan/weba` repository, a Gambas Web UI
+  Kanban application with SQLite by default. Its project is `.tools/weba/WeKan`,
+  its entry form is `WeKan/.src/WebformLogin.class`, and its logged-in UI is
+  `WeKan/.src/WebformMain.class` / `.webform`. Custom browser reports live in
+  `WeKan/.public/kanban.js` and `kanban.css`; database access lives in
+  `WebDatabase.module` and `KanbanStore.module`. These files belong to weba,
+  never to a WeKan commit.
+- Apply this repository's author, local-commit-only and no-push rules there too:
+  check weba's own identity and branch, commit as Lauri Ojansivu on `main`, update
+  its own `CHANGELOG.md` in its existing format. Do not add instruction files to
+  weba. Track active work, limitations and remaining WeKan page parity in its
+  `TODO.md`, keeping completed work distinct from unverified work.
+- The user-provided Gambas installation and source are under
+  `.tools/bin/gambas3`: IDE archives in `bin/`, components in `lib/gambas3/`,
+  class metadata in `usr/share/gambas3/info/`, and upstream source in
+  `src/gambas/`. Inspect the actual files before use: the initial copy contains
+  the IDE archives but no `bin/gbc3` or `bin/gbx3`. An IDE archive requires the
+  Gambas interpreter and is not itself the compiler. Do not assume a complete
+  runtime or a particular CPU architecture from the directory name.
+- Gambas tools are `gbc3` (compiler), `gbx3` (project runner), and `gba3`
+  (archiver). Compile with `gbc3 -j 1 -a .tools/weba/WeKan`; `-j 1` avoids
+  restricted process-group errors in the sandbox. A relocated compiler accepts
+  `-r <installation-prefix>`; a relocated runner may need `GB_PATH` pointing
+  at its component directory and `LD_LIBRARY_PATH` for local native dependencies.
+  Keep these settings scoped to the command. Place downloaded test toolchains
+  under `.tools/` and set repository-local `TMPDIR` before builds and tests.
+- Run `tests/run-store.sh` from weba with `TMPDIR` set; it copies the project and
+  SQLite database before CRUD and authentication tests, so never run its test
+  modules directly against the real database. `GBC` and `GBX` can select local
+  executables. Run `node tests/reports.test.cjs` with `jsdom` available (the
+  parent WeKan `node_modules` can supply it through `NODE_PATH`). A successful
+  compile or DOM test does not establish a working browser login session.
+- Prefer Gambas `Connection.Tables` / `Fields` for schema creation and driver
+  `Find`, `Create`, `Edit`, `LastInsertId` and parameterized `Exec` for data.
+  Do not introduce SQLite-specific DDL, PRAGMA, SQL date functions, conflict
+  clauses or driver-specific generated-key SQL. SQLite is the tested default;
+  other writable Gambas drivers need separate conformance runs and their driver
+  components enabled. Connection overrides are `WEBA_DB_TYPE`, `WEBA_DB_HOST`,
+  `WEBA_DB_NAME`, `WEBA_DB_USER` and `WEBA_DB_PASSWORD`; never log credentials.
+
 ### CHANGELOG
 
 - **[maintainer only] Changelogs are updated only in maintainer mode.** This whole
