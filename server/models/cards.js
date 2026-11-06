@@ -2483,7 +2483,8 @@ WebApp.handlers.post(
       archived: false,
     });
     if (!card) {
-      throw new Meteor.Error(404, 'Card not found');
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
     }
     await card.archive();
     sendJsonResult(res, {
@@ -2508,7 +2509,8 @@ WebApp.handlers.post(
       archived: true,
     });
     if (!card) {
-      throw new Meteor.Error(404, 'Card not found');
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
     }
     await card.restore();
     sendJsonResult(res, {
