@@ -14,6 +14,11 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, loginWithCredentials, logout, waitForMeteor } = require('../helpers/auth');
+const { holdSharedSetting } = require('../helpers/sharedSettingLock');
+
+// The password policy is one setting for every worker: hold it for this whole
+// file, so the other password spec cannot change it in between.
+holdSharedSetting(test, 'password-policy');
 
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
@@ -29,8 +34,12 @@ test.beforeEach(() => {
   resetLockout();
 });
 test.afterEach(() => {
+  // Back to the DEFAULT policy, not to what beforeEach saw: a snapshot taken
+  // after an earlier test was interrupted already carries its enforced
+  // minimum, and restoring it kept that minimum on for every later test.
   db.updateOne('settings', { _id: setting._id }, {
-    $set: { loginOptions: setting.loginOptions || {}, disableRegistration: !!setting.disableRegistration },
+    $set: { disableRegistration: !!setting.disableRegistration },
+    $unset: { 'loginOptions.passwordMinLength': '', 'loginOptions.passwordMinLengthEnforce': '' },
   });
   resetLockout();
 });
