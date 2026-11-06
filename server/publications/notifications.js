@@ -23,7 +23,11 @@ Meteor.publish('notificationAttachments', async function() {
     {},
     true,
   );
-  return ret;
+  // Attachments is an ostrio:files FilesCollection: its find() is a FilesCursor,
+  // which a publication cannot return ("Publish function can only return a
+  // Cursor"). The Mongo cursor it wraps is .cursor, as every other attachment
+  // publication returns.
+  return ret.cursor || ret;
 });
 
 // gets all cards associated with activities associated with the current user
