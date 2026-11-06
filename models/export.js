@@ -569,10 +569,15 @@ if (Meteor.isServer) {
       return;
     }
 
+    // The same column selection applies to public and private boards.
+    const exportOptions = {
+      fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
+    };
+
     // If board is public, skip expensive authentication operations
     if (board.isPublic()) {
       // Public boards don't require authentication - skip hash operations
-      const exporter = new Exporter(boardId);
+      const exporter = new Exporter(boardId, undefined, exportOptions);
 
       if( req.query.delimiter == "\t" ) {
         // TSV file
@@ -632,11 +637,7 @@ if (Meteor.isServer) {
       });
     }
 
-    // #1173: the same selection every other board export honours - on a CSV it
-    // lands on COLUMNS, since that is what a CSV has.
-    const exporter = new Exporter(boardId, undefined, {
-      fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
-    });
+    const exporter = new Exporter(boardId, undefined, exportOptions);
     if (await exporter.canExport(user)) {
       if (impersonateDone) {
         let exportType = 'exportCSV';
