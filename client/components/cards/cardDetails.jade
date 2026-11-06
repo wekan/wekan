@@ -1270,10 +1270,11 @@ template(name="cardDetailsActionsPopup")
                 i.fa.fa-link
               | {{_ 'cardMorePopup-title'}}
           unless canModifyCard
-            li
-              a.js-create-board-from-card
-                i.fa.fa-external-link
-                | {{_ 'linkCardToNewBoard'}}
+            if boardCreationAllowed
+              li
+                a.js-create-board-from-card
+                  i.fa.fa-external-link
+                  | {{_ 'linkCardToNewBoard'}}
   span.copied-tooltip {{_ 'copied'}}
 
 //- #1173: the card export popup IS the shared export body - the same checkbox

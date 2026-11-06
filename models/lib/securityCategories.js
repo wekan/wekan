@@ -102,6 +102,13 @@ const CATALOG = {
   // GroupLinkBleed, member variant: a client board update adding a member
   // instead of going through inviteUserToBoard.
   'authz.member-add': { category: 'authz', bleed: 'GroupLinkBleed', severity: 'medium', cwe: 'CWE-863' },
+  // CreateBleed (GHSA-qcfm-2g4w-wqcc): a non-admin creating a working board
+  // while "Only admins can create boards" is on, on a path other than the
+  // Add Board form - a client Boards.insert, POST /api/boards, an import, a
+  // clone, a copy or a card turned into a board. blocksAccount: false - a
+  // browser tab opened before the admin switched it on still shows the
+  // buttons, and that member is no attacker.
+  'authz.board-creation': { category: 'authz', bleed: 'CreateBleed', severity: 'low', cwe: 'CWE-863', blocksAccount: false },
   'injection.prototype': { category: 'injection', bleed: 'PrototypeBleed', severity: 'high', cwe: 'CWE-1321' },
   'authz.notification-tray': { category: 'authz', bleed: 'TrayBleed', severity: 'high', cwe: 'CWE-639' },
   'authn.cas-state': { category: 'authn', bleed: 'CasTokenBleed', severity: 'high', cwe: 'CWE-352' },

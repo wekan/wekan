@@ -56,12 +56,19 @@ test('the server method rejects a non-admin when the setting is on', () => {
   const at = server.indexOf("async createBoardWithInitialSwimlanes(payload) {");
   assert.notStrictEqual(at, -1, 'the method exists');
   const body = server.slice(at, server.indexOf('\n  },', at));
-  assert.ok(/TableVisibilityModeSettings\.findOneAsync\(\s*\n?\s*'tableVisibilityMode-boardCreationAdminOnly'/.test(body),
-    'the guard reads the global setting');
-  assert.ok(/creator\.isAdmin !== true/.test(body),
-    'a non-admin creator is rejected while the setting is on');
-  assert.ok(body.indexOf('boardCreationAdminOnly') < body.indexOf('Boards.insertAsync'),
+  // Changed on purpose (CreateBleed, GHSA-qcfm-2g4w-wqcc): the check was
+  // here alone, so every other path that creates a board skipped it. It is
+  // now one guard, server/lib/boardCreationGuard.js, called from this method
+  // and from all the others (tests/createBleed.test.cjs).
+  assert.ok(/await assertMayCreateBoard\(this\.userId, \{ source: 'createBoardWithInitialSwimlanes', type \}\)/.test(body),
+    'the method asks the shared guard');
+  assert.ok(body.indexOf('assertMayCreateBoard') < body.indexOf('Boards.insertAsync'),
     'the guard runs before the board is inserted');
+  const guard = read('server/lib/boardCreationGuard.js');
+  assert.ok(/'tableVisibilityMode-boardCreationAdminOnly'/.test(guard) && /TableVisibilityModeSettings\.findOneAsync\(SETTING_ID\)/.test(guard),
+    'the guard reads the global setting');
+  assert.ok(/isAdmin === true/.test(read('models/lib/boardCreationPolicy.js')),
+    'a non-admin creator is rejected while the setting is on');
 });
 
 test('client hides the "Add board" entry points the same way, but only as a UI convenience', () => {

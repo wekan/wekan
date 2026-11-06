@@ -112,9 +112,10 @@ template(name="allBoardsMultiSelectionSidebar")
       a.sidebar-btn.js-archive-selected-boards
         i.fa.fa-archive
         span {{_ 'archive-board'}}
-      a.sidebar-btn.js-duplicate-selected-boards
-        i.fa.fa-clipboard
-        span {{_ 'duplicate-board'}}
+      if boardCreationAllowed
+        a.sidebar-btn.js-duplicate-selected-boards
+          i.fa.fa-clipboard
+          span {{_ 'duplicate-board'}}
       a.sidebar-btn.js-export-selected-boards
         i.fa.fa-download
         span {{_ 'export-selected-boards'}}

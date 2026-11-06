@@ -162,6 +162,9 @@ Meteor.methods({
     if (!sourceBoard || !allowIsBoardMemberWithWriteAccess(this.userId, sourceBoard)) {
       throw new Meteor.Error('not-authorized');
     }
+    // CreateBleed: the card becomes a new working board.
+    const { assertMayCreateBoard } = require('/server/lib/boardCreationGuard');
+    await assertMayCreateBoard(this.userId, { source: 'method:createBoardFromCard', type: 'board' });
 
     const boardTitle = (title && title.trim()) || card.title || '';
     if (!boardTitle) throw new Meteor.Error('invalid-title');

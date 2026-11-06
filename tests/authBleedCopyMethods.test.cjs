@@ -126,6 +126,9 @@ const requireStub = name => {
   if (name === '/models/lib/cardCopyOverrides') return { cardWithCopyOverrides: card => card };
   if (name === '/server/lib/cardCopyDestination') return { requireCardCopyDestination: async () => {} };
   if (name === '/models/lib/scrumCopy') return { copiedScrumMetadata: () => ({}) };
+  // CreateBleed's guard (tests/createBleed.test.cjs): creating is allowed here,
+  // so these tests see the copy methods' own checks.
+  if (name === '/server/lib/boardCreationGuard') return { assertMayCreateBoard: async () => {} };
   throw new Error(`unexpected require ${name}`);
 };
 

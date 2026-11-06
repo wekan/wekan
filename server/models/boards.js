@@ -29,6 +29,7 @@ import Lists from '/models/lists';
 import Rules from '/models/rules';
 import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import { assertMayCreateBoard } from '/server/lib/boardCreationGuard';
 import Triggers from '/models/triggers';
 import Users from '/models/users';
 import { ensureIndex } from '/server/lib/mongoStartup';
@@ -179,21 +180,10 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    // #4475: an admin can restrict board creation to admins only. The
-    // setting lives beside its sibling tableVisibilityMode-allowPrivateOnly
-    // in Admin Panel -> Settings -> Visibility, so it is read the same way.
-    const boardCreationAdminOnly = await TableVisibilityModeSettings.findOneAsync(
-      'tableVisibilityMode-boardCreationAdminOnly',
-    );
-    if (boardCreationAdminOnly && boardCreationAdminOnly.booleanValue) {
-      const creator = await ReactiveCache.getUser(this.userId);
-      if (!creator || creator.isAdmin !== true) {
-        throw new Meteor.Error(
-          'not-authorized',
-          'Board creation is restricted to admins.',
-        );
-      }
-    }
+    // #4475: an admin can restrict board creation to admins only. One check,
+    // shared with every other path that creates a board (CreateBleed,
+    // server/lib/boardCreationGuard.js).
+    await assertMayCreateBoard(this.userId, { source: 'createBoardWithInitialSwimlanes', type });
 
     // Apply the instance visibility policy on this server-side insert too.
     // Collection allow/deny does not run for insertAsync inside a method.
@@ -1063,6 +1053,8 @@ WebApp.handlers.get('/api/boards/:boardId', async function(req, res) {
 WebApp.handlers.post('/api/boards', async function(req, res) {
   try {
     Authentication.checkLoggedIn(req.userId);
+    // CreateBleed: "Only admins can create boards" holds for the API too.
+    await assertMayCreateBoard(req.userId, { source: 'rest:POST /api/boards', type: 'board' });
     const allowPrivateOnly =
       (await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly'))?.booleanValue;
     const permission = allowPrivateOnly ? 'private' : (req.body.permission || 'private');
@@ -1539,6 +1531,8 @@ WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
     // could still copy the board, and an unknown id answered 500.
     await Authentication.checkBoardAdmin(req.userId, id);
     const board = await ReactiveCache.getBoard(id);
+    // CreateBleed: a copy is a new board of the source's type.
+    await assertMayCreateBoard(req.userId, { source: 'rest:POST /api/boards/:boardId/copy', type: board && board.type });
     // Only a string title is taken from the request, and it is applied to a
     // separate object so the cached source board is not changed.
     const title = typeof req.body?.title === 'string' && req.body.title ? req.body.title : await Boards.uniqueTitle(board.title);

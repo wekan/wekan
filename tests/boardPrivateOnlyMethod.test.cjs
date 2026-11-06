@@ -11,13 +11,15 @@ const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 // #3249: "private boards only" refuses 'instance' boards as well as public
 // ones; the server code asks isOpenPermission() for both.
 const { isOpenPermission } = require('../models/lib/boardPermission.js');
-const run = new AsyncFunction('payload', 'check', 'Match', 'Meteor', 'TableVisibilityModeSettings', 'ReactiveCache', 'require', 'isOpenPermission', prefix + '\nreturn permission;');
+// assertMayCreateBoard is CreateBleed's guard (tests/createBleed.test.cjs);
+// here creating is allowed, so the private-only policy is seen alone.
+const run = new AsyncFunction('payload', 'check', 'Match', 'Meteor', 'TableVisibilityModeSettings', 'ReactiveCache', 'require', 'isOpenPermission', 'assertMayCreateBoard', prefix + '\nreturn permission;');
 (async () => {
   for (const privateOnly of [false, true]) {
     for (const requested of ['private', 'public', 'instance']) {
       const logs = [];
       const settings = { findOneAsync: async key => ({ booleanValue: key === 'tableVisibilityMode-allowPrivateOnly' && privateOnly }) };
-      const result = await run.call({ userId: 'creator' }, { title: 'T', slug: 't', permission: requested }, () => {}, { ObjectIncluding: x => x, Maybe: x => x }, {}, settings, {}, () => ({ record: x => logs.push(x) }), isOpenPermission);
+      const result = await run.call({ userId: 'creator' }, { title: 'T', slug: 't', permission: requested }, () => {}, { ObjectIncluding: x => x, Maybe: x => x }, {}, settings, {}, () => ({ record: x => logs.push(x) }), isOpenPermission, async () => {});
       assert.equal(result, privateOnly ? 'private' : requested);
       assert.equal(logs.length, privateOnly && requested !== 'private' ? 1 : 0, 'only blocked public or instance requests are logged');
     }

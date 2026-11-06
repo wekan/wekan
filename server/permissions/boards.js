@@ -3,6 +3,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
 import { allowIsBoardAdminOrSiteAdmin, canUpdateBoardSort, canUpdateBoardSameWidthValue } from '/server/lib/utils';
 import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
+import { mayCreateBoard } from '/server/lib/boardCreationGuard';
 const { isOpenPermission } = require('/models/lib/boardPermission');
 
 Boards.deny({
@@ -21,6 +22,12 @@ Boards.deny({
       } catch (e) { /* logging must never break the guard */ }
       return true;
     }
+    // CreateBleed (GHSA-qcfm-2g4w-wqcc): "Only admins can create boards"
+    // held only in createBoardWithInitialSwimlanes, and a client insert
+    // reached Boards.allow.insert, which approves any signed-in user. The one
+    // client insert WeKan makes is a board template in the Templates board,
+    // which the setting leaves to every member.
+    if (!(await mayCreateBoard(userId, { source: 'ddp:boards.insert', type: doc.type }))) return true;
     if (!doc.subtasksDefaultBoardId) return false;
     if (await canWriteSubtaskDeposit(userId, doc.subtasksDefaultBoardId)) return false;
     recordSubtaskDepositDenial('ddp:board-insert');

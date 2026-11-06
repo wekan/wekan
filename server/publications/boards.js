@@ -1440,6 +1440,10 @@ Meteor.methods({
       catch (error) { throw new Meteor.Error('invalid-copy-options', error.message); }
     }
     const copy = boardWithCopyProperties(board, values);
+    // CreateBleed: a copy is a new board - unless it is a board template, and
+    // a template made a working board again is a copy of type 'board'.
+    const { assertMayCreateBoard } = require('/server/lib/boardCreationGuard');
+    await assertMayCreateBoard(this.userId, { source: 'method:copyBoard', type: values.type || board.type });
 
     if (selection) return copy.copy(!selection.cards, selection);
     return copy.copy(!!values.withoutCards);

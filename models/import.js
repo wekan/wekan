@@ -61,6 +61,14 @@ function sanitizeImported(value, source, invocation) {
 // have their board replaced; for anyone else the import still runs and simply
 // leaves that board alone. No Problems record: a member who is not an admin
 // reaches this by importing from a board page, which is ordinary use.
+// CreateBleed (GHSA-qcfm-2g4w-wqcc): this file is shared with the client, and
+// the guard reads server-only settings, so it is required on the server only.
+async function assertMayCreateBoardOnServer(userId, source) {
+  if (!Meteor.isServer) return;
+  const { assertMayCreateBoard } = require('/server/lib/boardCreationGuard');
+  await assertMayCreateBoard(userId, { source, type: 'board' });
+}
+
 async function replaceableBoardId(userId, boardId) {
   if (!boardId || !userId) return undefined;
   const board = await ReactiveCache.getBoard(boardId);
@@ -98,6 +106,9 @@ Meteor.methods({
     }
     // Admin Panel / Features / Security: master switch to disable all import.
     await assertImportEnabled();
+    // CreateBleed: every import makes a new board - the UI's, and POST
+    // /api/boards/import and /api/boards/import/:source, which call this.
+    await assertMayCreateBoardOnServer(this.userId, 'method:importBoard');
     try { validateImportSourceShape(importSource, board); }
     catch (error) { throw new Meteor.Error('invalid-import-format', error.message); }
     let creator;
@@ -675,6 +686,8 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('error-notAuthorized');
     }
+    // CreateBleed: a clone is a new board.
+    await assertMayCreateBoardOnServer(this.userId, 'method:cloneBoard');
     // The board's export without its file data: the attachments' rows only.
     // Their files are streamed from the source board's own storage into the
     // copy as the importer reaches them, one at a time, instead of every file

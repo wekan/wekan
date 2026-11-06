@@ -46,7 +46,11 @@ function loadRules() {
       'const allowIsBoardAdminOrSiteAdmin = () => true; const canUpdateBoardSort = () => false;'
       + 'const canUpdateBoardSameWidthValue = () => false;')
     .replace(/^import \{[^}]*\} from '\/server\/lib\/subtaskDepositAccess';$/m,
-      'const canWriteSubtaskDeposit = async () => true; const recordSubtaskDepositDenial = () => {};');
+      'const canWriteSubtaskDeposit = async () => true; const recordSubtaskDepositDenial = () => {};')
+    // CreateBleed's rule (tests/createBleed.test.cjs): creating a board is
+    // allowed here, so these tests see the group and member rules alone.
+    .replace(/^import \{ mayCreateBoard \} from '\/server\/lib\/boardCreationGuard';$/m,
+      'const mayCreateBoard = async () => true;');
   assert.ok(!/^import /m.test(src), 'every import of server/permissions/boards.js is stubbed');
   vm.runInNewContext(src, { Boards, require: resolve, console });
   return { denies, recorded };
