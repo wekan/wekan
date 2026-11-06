@@ -130,7 +130,10 @@ its reason.
 API pages published on wekan.fi with each release pass its brand-spelling
 check again.
 
-This release fixes the following documentation bug:
+This release fixes the following documentation bugs:
+
+**REST API documentation** - the name is WeKan in the API reference, from the
+generator to the page wekan.fi publishes.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d5fe63fc4">The REST API documentation spells the name WeKan</a>. Thanks to xet7.</summary>
@@ -143,6 +146,17 @@ said Wekan too, and the v12.95, v12.96 and v12.97 pages on wekan.fi failed its
 `wekan.yml` now say WeKan. `tests/openapiBrandSpelling.test.cjs` checks the
 generated file, the generator header and every model JSDoc block, and fails on
 the files before this change.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0275363043">The built API page says WeKan, so the v12.99 page on wekan.fi does too</a>. Thanks to xet7.</summary>
+
+The v12.99 version bump rebuilt `public/api/wekan.html` with the generator from
+before the fix, and `releases/release-website.sh` copies that file to wekan.fi
+as `api/v12.99/index.html`. Its visible text and the JSON Redoc rebuilds the
+page from now say WeKan, and `tests/openapiBrandSpelling.test.cjs` checks the
+built page as well.
 
 </details>
 
