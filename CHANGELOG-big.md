@@ -131,12 +131,13 @@ board methods by writing the board directly, to attach an organization or team
 they do not belong to or to add a member past the invitation checks.
 **Public board CSV and TSV exports** honour the selected columns, and the REST
 **card archive, restore and custom-field** endpoints answer an unmatched card
-with a JSON 404 instead of 500.
+with a JSON 404 instead of 500, and a REST **card update** can set sort 0, turn
+overTime off and clear a description.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/):
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/aa2e27b0cb">Board admins can no longer attach foreign teams or add members by direct board writes</a>. Thanks to bhaswanthc and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e3458004ec">Board admins can no longer attach foreign teams or add members by direct board writes</a>. Thanks to bhaswanthc and xet7.</summary>
 
 [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/),
 [GHSA-v544-rmr5-38gx](https://github.com/wekan/wekan/security/advisories/GHSA-v544-rmr5-38gx).
@@ -172,7 +173,7 @@ export menu's checkboxes on a public board.
 
 </details>
 
-**REST API** - what the card endpoints answer when no card matches.
+**REST API** - what the card endpoints accept, and answer when no card matches.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b33c7d7ba">Card archive and restore answer a JSON 404 for an unmatched card instead of 500</a>. Thanks to AhmedLukman and xet7.</summary>
@@ -188,7 +189,31 @@ the wrong list, the wrong board, the wrong state and refused callers.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/eb026ada0e">The card custom-field update answers a JSON 404 for an unmatched card instead of 500</a>. Thanks to AhmedLukman and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b0a71ba57b">A card update can set sort to 0</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`PUT …/cards/:cardId` with `{ "sort": 0 }` answered 404 and left the card
+where it was, because the handler read `sort` by truthiness (PR
+[#6877](https://github.com/wekan/wekan/pull/6877)). It now writes any sort that
+is present. `tests/restCardSort.test.cjs` and a Playwright spec check 0, other
+numbers, form-encoded `'0'`, an omitted sort and refused callers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b895e61237">A card update checks sort, isOverTime and description, so false and empty work</a>. Thanks to AhmedLukman and xet7.</summary>
+
+Writing `sort` whenever it is present would also have written `null`, `''` or
+`'abc'` as the card's position, and the same handler read `isOverTime` and
+`description` by truthiness, so overtime could not be turned off and a
+description could not be cleared. `parseCardScalarFields()` decides all three
+by presence before the first write: sort a finite number, isOverTime a boolean
+(`'true'`/`'false'` from a form too), description a string or `null` to clear.
+Anything else is a 400 and the card is unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d5f660c27">The card custom-field update answers a JSON 404 for an unmatched card instead of 500</a>. Thanks to AhmedLukman and xet7.</summary>
 
 `POST …/cards/:cardId/customFields/:customFieldId` had the same
 `throw new Meteor.Error(404)` as the archive endpoints, and now answers the
@@ -204,7 +229,7 @@ and has the following developer-facing changes:
 **Tests** - guards that had drifted from the code they pin.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1e9d9d80e6">Three client guards follow the code they pin again</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/68b575637d">Three client guards follow the code they pin again</a>. Thanks to xet7.</summary>
 
 `sidebarBelowHeader`, `maximizedCardPosition` and `titleClickToEdit` read
 source that the full screen button, the phone-below-header rule and the
@@ -215,7 +240,7 @@ now read the new places, `titleClickToEdit` calls `cardHeaderPress()` from
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/69ee31c48d">The real single executable test says why it cannot run on a kernel with large pages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/081690875d">The real single executable test says why it cannot run on a kernel with large pages</a>. Thanks to xet7.</summary>
 
 `--build-sea` injects the SEA blob with LIEF, which adds 4 KiB-aligned
 segments; a Linux kernel with 16 KiB or 64 KiB pages cannot map them, and the
