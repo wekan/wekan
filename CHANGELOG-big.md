@@ -132,8 +132,9 @@ they do not belong to or to add a member past the invitation checks.
 **Public board CSV and TSV exports** honour the selected columns, and the REST
 **card archive, restore and custom-field** endpoints answer an unmatched card
 with a JSON 404 instead of 500, and a REST **card update** can set sort 0, turn
-overTime off and clear a description. The **notifications drawer** gets its
-attachments again.
+overtime off and clear a description. The **notifications drawer** gets its
+attachments again, and the developer instructions cover the **weba** Gambas
+companion repository.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [GroupLinkBleed](https://wekan.fi/hall-of-fame/grouplinkbleed/):
 
@@ -263,6 +264,21 @@ segments; a Linux kernel with 16 KiB or 64 KiB pages cannot map them, and the
 executable dies with SIGSEGV - a one-line `console.log` SEA does too. The test
 failed there as `null !== 0`; it is now skipped on such a kernel with that
 reason. Release builders have 4 KiB pages and still run it.
+
+</details>
+
+**Developer instructions** - what an assistant working in this repository is
+told.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ef7a57ce4">AGENTS.md and CLAUDE.md describe the weba companion repository</a>. Thanks to xet7.</summary>
+
+`.tools/weba` is the separate `wekan/weba` repository, a Gambas Web UI Kanban
+with SQLite by default. The instructions say where its project, forms, browser
+reports and database modules are, that WeKan's author, local-commit and no-push
+rules apply there too, how to compile and run it with `gbc3`/`gbx3` from the
+local Gambas under `.tools/bin/gambas3`, how its tests run on a copy of the
+database, and to keep its SQL portable across Gambas database drivers.
 
 </details>
 
