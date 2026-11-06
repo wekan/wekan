@@ -18,7 +18,10 @@ const { test, expect } = require('@playwright/test');
 const hotkeysSource = fs.readFileSync(
   path.join(__dirname, '../../../node_modules/hotkeys-js/dist/hotkeys-js.umd.cjs'), 'utf8');
 
-test('a shortcut runs once for the d key on a Latin, a Farsi and a Cyrillic layout', async ({ page }) => {
+test('a shortcut runs once for the d key on a Latin, a Farsi and a Cyrillic layout', async ({ page, browserName }) => {
+  // The key events come from the DevTools protocol, which only Chromium has
+  // (Firefox failed with "CDP session is only available in Chromium").
+  test.skip(browserName !== 'chromium', 'the key events come from the DevTools protocol');
   await page.setContent('<body></body>');
   await page.evaluate(source => {
     const module = { exports: {} };
