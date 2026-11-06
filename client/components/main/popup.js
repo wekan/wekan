@@ -238,13 +238,16 @@ Popup.template.onRendered(function () {
   this._focusTrap = event => trapTabKey(event, this._popupElement);
   this._popupElement?.addEventListener('keydown', this._focusTrap);
   if (this._popupElement) {
-    const update = () => {
-      this._menuLayoutFrame = null;
-      updatePopupMenuColumns(this._popupElement);
-    };
-    this._menuLayoutObserver = new MutationObserver(() => {
-      if (this._menuLayoutFrame == null) this._menuLayoutFrame = requestAnimationFrame(update);
-    });
+    const update = () => updatePopupMenuColumns(this._popupElement);
+    // At once, not on the next animation frame: a MutationObserver callback
+    // already runs before the browser paints, and a frame later the popup had
+    // been drawn - and could be clicked or dragged - at its narrow size, then
+    // jumped to the 960px column layout under the pointer. A click aimed at
+    // Board View's "Lists" landed on "Calendar"'s place, and a drag clamped
+    // for the narrow size (06-views-layout, card-title-edit-and-move-6839).
+    // update() toggles a class only when it changes, so the attribute it
+    // observes settles after one more call.
+    this._menuLayoutObserver = new MutationObserver(update);
     this._menuLayoutObserver.observe(this._popupElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     update();
     // A movable popup that grows - Drawing replacing the card's menu in this
@@ -286,6 +289,5 @@ Popup.template.onRendered(function () {
 Popup.template.onDestroyed(function () {
   this._menuLayoutObserver?.disconnect();
   this._boundsObserver?.disconnect();
-  if (this._menuLayoutFrame != null) cancelAnimationFrame(this._menuLayoutFrame);
   this._popupElement?.removeEventListener('keydown', this._focusTrap);
 });
