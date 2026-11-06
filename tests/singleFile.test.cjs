@@ -47,6 +47,15 @@ const HAS_VFS = spawnSync(process.execPath, ['--no-warnings', '--experimental-vf
 // seaSupported() asks it.
 const HAS_SEA = !/Single executable application is disabled/.test(
   spawnSync(process.execPath, ['--build-sea', path.join(__dirname, 'no-such-sea-config.json')], { encoding: 'utf8' }).stderr || '');
+// And on Linux, LIEF (inside --build-sea) adds the SEA segments aligned to
+// 4 KiB pages. A kernel with larger pages - 16 KiB on Apple-silicon Linux, 64
+// KiB on some ARM servers - cannot map them, and the executable it writes dies
+// with SIGSEGV before running a line: even a one-line `console.log` SEA does,
+// so it is Node.js's injection and not WeKan's. The release builders have
+// 4 KiB pages; elsewhere the real-executable test says why it did not run.
+const PAGE_SIZE = process.platform === 'linux'
+  ? Number(spawnSync('getconf', ['PAGESIZE'], { encoding: 'utf8' }).stdout) || 4096
+  : 4096;
 
 // --- where files go --------------------------------------------------------
 
@@ -562,7 +571,8 @@ test('waitUntilStarted: true once the pid file names the new process; false if i
 test('build, start, status, version, menu and stop a real single executable', {
   skip: (!HAS_VFS && 'needs --build-sea with useVfs (Node.js 26.11+)')
     || (!HAS_SEA && 'this Node.js was compiled without single executable applications (Homebrew\'s is)')
-    || (process.platform === 'win32' && 'the stand-in FerretDB is a shell script'),
+    || (process.platform === 'win32' && 'the stand-in FerretDB is a shell script')
+    || (PAGE_SIZE > 4096 && `--build-sea writes 4 KiB-aligned segments, which this kernel's ${PAGE_SIZE / 1024} KiB pages cannot map`),
   timeout: 240000,
 }, async () => {
   const dir = tmp('sf-e2e-');
