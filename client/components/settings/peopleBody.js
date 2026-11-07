@@ -35,7 +35,6 @@ import Users from '/models/users';
 // Multitenancy option D: the per-tenant Global Admin rules, the same module the
 // publications and methods use (docs/Design/Multitenancy/Multitenancy.md).
 import * as tenantAdmin from '/models/lib/tenantAdmin';
-import { cloudStatus } from '/client/lib/cloudStatus';
 // Is this account locked, and why. The lockout is per source address
 // (GHSA-rf3w-rj48-jxcc), so one place knows the shape.
 const { isUserLocked: lockoutIsUserLocked } = require('/models/lib/accountLockout');
@@ -149,7 +148,6 @@ Template.people.onCreated(function () {
   // #5850: Admin Panel > People > Domains tab. The domains table itself
   // (domainGeneral) now owns its data via getDomainsWithUserCountsPage.
   this.domainSetting = new ReactiveVar(false);
-  this.cloudSetting = new ReactiveVar(false);
   this.subscribe('inviteToBoardRolesSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
@@ -441,7 +439,6 @@ Template.people.onCreated(function () {
       this.rolesSetting.set('roles-setting' === targetID);
       this.templatesSetting.set('templates-setting' === targetID);
       this.domainSetting.set('domains-setting' === targetID);
-      this.cloudSetting.set('cloud-setting' === targetID);
 
       // The Domains table (domainGeneral) now fetches its own single page from
       // getDomainsWithUserCountsPage (server-side search / sort / pagination), so
@@ -571,9 +568,6 @@ function peopleMenu(user) {
     { id: 'header-login-setting', icon: 'fa-id-card', labelKey: 'header-login' },
     { id: 'oauth-setting', icon: 'fa-key', labelKey: 'oauth-providers-title' },
     { id: 'passwordless-setting', icon: 'fa-unlock-alt', labelKey: 'passwordless-title' },
-    // The Cloud Panel's settings (models/lib/cloudPanel.js): removed below where
-    // Cloud does not exist. A per-tenant admin's menu is a whitelist without it.
-    { id: 'cloud-setting', icon: 'fa-cloud', labelKey: 'cloud' },
   ];
   // Sandstorm: the grain's login is Sandstorm's own, its mail is the grain's
   // address, and the .spk is built without the login packages these panes
@@ -588,12 +582,6 @@ function peopleMenu(user) {
   // publications and methods ask again server-side.
   if (user !== undefined && !tenantAdmin.isSiteAdmin(user)) {
     return tenantAdmin.tenantAdminPeopleMenu(items, user);
-  }
-  // The Cloud Panel's settings: only in the WeKan of Weddy's first domain, never in
-  // a customer's (models/lib/cloudPanel.js), and only for a site admin - a
-  // per-tenant admin returned above.
-  if (!cloudStatus.get().enabled) {
-    items = items.filter(item => item.id !== 'cloud-setting');
   }
   return items;
 }
@@ -966,9 +954,6 @@ Template.people.helpers({
   },
   domainSetting() {
     return Template.instance().domainSetting;
-  },
-  cloudSetting() {
-    return Template.instance().cloudSetting;
   },
   orgList() {
     const tpl = Template.instance();

@@ -15,7 +15,6 @@ Who may sign in, who they belong to, and what they may do — in menu order.
 | People / E-mail | `email` | [E-mail.md](E-mail.md) | SMTP, the invite domain, and whether users may change their address. |
 | People / Notifications | `notifications` | [Notifications.md](Notifications.md) | The site-wide notification default, overridable per board and per member. |
 | People / Domains | `domains` | [Domains.md](Domains.md) | The e-mail domains in use, with a user count each. |
-| People / Cloud | `cloud` | [Cloud.md](Cloud.md) | Only in the WeKan of Weddy's first domain: the Cloud Panel Domain and the SuperAdmin Username. |
 | People / Organizations | `organizations` | [Organizations.md](Organizations.md) | Organizations, their per-organization switches, and the same-Organization board restriction. |
 | People / Teams | `teams` | [Teams.md](Teams.md) | Teams, their per-team switches, and the same-Team board restriction. |
 | People / People | `people` | [People.md](People.md) | Every user: e-mail, admin flag, active state, lockout, created date. |

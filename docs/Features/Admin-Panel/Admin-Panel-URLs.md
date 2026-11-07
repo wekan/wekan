@@ -55,7 +55,6 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/people/email` | Email | `email-setting` |
 | `/admin/people/notifications` | Notifications | `notify-setting` |
 | `/admin/people/domains` | Domains | `domains-setting` |
-| `/admin/people/cloud` | Cloud | `cloud-setting` |
 | `/admin/people/organizations` | Organizations | `org-setting` |
 | `/admin/people/teams` | Teams | `team-setting` |
 | `/admin/people/locked-users` | Locked Users | `locked-users-setting` |

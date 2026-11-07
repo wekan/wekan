@@ -924,18 +924,6 @@ FlowRouter.route('/information', {
   action() {},
 });
 
-// The Cloud Panel (docs/Platforms/FOSS/Weddy/Cloud-Panel.md): the SuperAdmin's, on
-// the Cloud Panel Domain. The page itself says so to anybody else, and the server
-// refuses its methods to them.
-FlowRouter.route('/cloud', {
-  name: 'cloud-panel',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    this.render('defaultLayout', { content: 'cloudPanel' });
-  },
-});
-
 FlowRouter.route(adminRoutePath('people'), {
   name: 'people',
   triggersEnter: [
