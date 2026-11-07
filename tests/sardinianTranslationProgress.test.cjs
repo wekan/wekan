@@ -49,3 +49,27 @@ assert.deepEqual(tokens(sardinian['act-deleteCard']),
 assert.deepEqual(tokens(sardinian['email-invite-text']),
   ['__board__', '__inviter__', '__url__', '__user__']);
 assert.deepEqual(tags(sardinian['board-private-info']), ['</strong>', '<strong>']);
+
+// Sardinian (sc) must be Sardinian, not Italian. Many values were Italian or
+// Italian/Sardinian mixtures ("Il monitoraggio ... è disattivadu dall'..."),
+// which are not translations for this locale. Pin the repaired values and
+// scan every value for words that exist in Italian but not in Sardinian.
+assert.equal(sardinian.cancel, 'Annulla'); // annullare is Sardinian (LSC) too
+assert.equal(sardinian['error-username-taken'],
+  'Custu nùmene de utente est giai impreadu');
+assert.match(sardinian['error-watch-disabled'], /^S'amministradore at disativadu/);
+assert.equal(sardinian['account-creation-failed'],
+  'Impossìbile creare su contu');
+assert.equal(sardinian['r-when-a-card'], 'Cando una carta');
+
+const italianOnly = /(?<![\p{L}'’])(il|gli|della|delle|dei|degli|dello|dall|dalla|nel|nella|nelle|è|già|sono|questo|questa|questi|queste|perché|può|puoi|nessun|nessuna|più|sei|sicuro|verranno|saranno|quando|dopo|impostazioni|scheda|bacheca|elimina|aggiungi|nascondi|chiudi|caricamento)(?![\p{L}'’])/iu;
+const italianLeft = Object.entries(sardinian)
+  .filter(([key, value]) => value !== english[key] && italianOnly.test(value))
+  .map(([key, value]) => `${key}: ${value}`);
+assert.deepEqual(italianLeft, [], 'no Italian-only words remain in sc');
+
+// Negative: the detector really finds the Italian that used to be here.
+assert.ok(italianOnly.test("Il monitoraggio di tàulas e cartas è disattivadu dall'amministradore"));
+assert.ok(italianOnly.test('Custu username è già utilizzadu'));
+assert.ok(!italianOnly.test(sardinian['error-watch-disabled']));
+console.log('Sardinian: placeholders, tags and no Italian-only words pass');
