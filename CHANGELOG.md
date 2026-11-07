@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+One **Weddy** binary can serve many WeKan domains: each customer
+domain is a WeKan with its own directory and database, and the **Cloud Panel** -
+for the SuperAdmin, at the Cloud Panel Domain - keeps the table of domains with
+their hosting dates and a write-only **CloudFlare** API key, from which Weddy
+gets each domain a CloudFlare Origin or **Let's Encrypt** certificate.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.00 2026-11-07 WeKan ® release
 
 **CreateBleed** is fixed: "Only admins can create boards" now

@@ -124,6 +124,41 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** One **Weddy** binary can serve many WeKan domains: each customer
+domain is a WeKan with its own directory and database, and the **Cloud Panel** -
+for the SuperAdmin, at the Cloud Panel Domain - keeps the table of domains with
+their hosting dates and a write-only **CloudFlare** API key, from which Weddy
+gets each domain a CloudFlare Origin or **Let's Encrypt** certificate.
+
+This release adds the following new features:
+
+**The Cloud Panel** - many WeKan domains from one Weddy.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb13be8b0a137995d34b5bc4934d97bf6767ec2b">Domains and CloudFlare, kept by the SuperAdmin, for every WeKan in one Weddy</a>. Thanks to xet7.</summary>
+
+Weddy runs a WeKan for every domain, each in `files/domains/<domain>/`, and the
+first domain's WeKan gets Admin Panel / People / Cloud: the Cloud Panel Domain
+and the SuperAdmin Username. At that domain the SuperAdmin gets the Cloud
+Panel -
+Settings with Domains (Domain, Customer name, Customer email address, Billing
+email address, Start Date, End Date) and CloudFlare (a write-only API key, saved
+with mode 0600 and never sent back). Every method checks again that the caller
+is
+the SuperAdmin and the request's Host is the Cloud Panel Domain; customers'
+WeKans show none of it. `tests/cloudPanel.test.cjs` pins the rules and these
+properties; [Cloud Panel](docs/Platforms/FOSS/Weddy/Cloud-Panel.md) is the design.
+
+</details>
+
+and has the following developer-facing changes:
+
+- [Companion repositories are found in .tools/w, .tools/xet7 and .tools/Secretchronicles](https://github.com/wekan/wekan/commit/91bb9c93e233ce10212b1989d8ec5dda84f97143). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.00 2026-11-07 WeKan ® release
 
 **In short:** **CreateBleed** is fixed: "Only admins can create boards" now
