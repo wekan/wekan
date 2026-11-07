@@ -116,7 +116,7 @@ export function recordDatabaseProblem(error, options = {}) {
     // A DATABASE CANARY first: the database refuses operations WeKan never
     // issues - server-side JavaScript, an aggregation writing into a collection,
     // dropping a database, a server-admin command - and marks the refusal
-    // `canary:<id>` (.tools/FerretDB internal/util/canary). One of those arriving
+    // `canary:<id>` (.tools/w/FerretDB internal/util/canary). One of those arriving
     // means something spoke to the database socket that was not WeKan, so it is
     // a SECURITY event with an actor, not a database problem to be triaged. It
     // goes to the security stream and does not fall through to this one, which

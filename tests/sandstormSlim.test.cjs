@@ -262,9 +262,9 @@ function test(name, fn) { tests.push([name, fn]); }
   });
 
   test('FerretDB has a build tag for each handler the grain leaves out', () => {
-    const ferret = path.join(ROOT, '.tools/FerretDB');
+    const ferret = path.join(ROOT, '.tools/w/FerretDB');
     if (!fs.existsSync(path.join(ferret, 'internal/handler/registry'))) {
-      console.log('    (skipped: .tools/FerretDB is not cloned here)');
+      console.log('    (skipped: .tools/w/FerretDB is not cloned here)');
       return;
     }
     const tag = rel => fs.readFileSync(path.join(ferret, rel), 'utf8');

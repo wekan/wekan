@@ -1,7 +1,7 @@
 'use strict';
 
 // The WeKan Helm chart (wekan/charts), which lives beside this repo in
-// .tools/charts and is cloned by build.sh.
+// .tools/w/charts and is cloned by build.sh.
 // Run: node tests/chartsFerretdb.test.cjs
 //
 // charts#54 "wrong MONGO_URL": the chart built the database address out of names
@@ -34,13 +34,13 @@ const fs = require('fs');
 const path = require('path');
 
 const repoRoot = path.resolve(__dirname, '..');
-const CHART = path.join(repoRoot, '.tools/charts/wekan');
+const CHART = path.join(repoRoot, '.tools/w/charts/wekan');
 const present = fs.existsSync(path.join(CHART, 'Chart.yaml'));
 
 let passed = 0;
 let skipped = 0;
 function test(name, fn) {
-  if (!present) { skipped += 1; console.log('  -- skipped (no .tools/charts clone) -', name); return; }
+  if (!present) { skipped += 1; console.log('  -- skipped (no .tools/w/charts clone) -', name); return; }
   fn(); passed += 1; console.log('  ok -', name);
 }
 const read = rel => fs.readFileSync(path.join(CHART, rel), 'utf8');
@@ -360,4 +360,4 @@ releaseTest('backfilling old releases does not hand them today\'s FerretDB chart
 });
 
 console.log(`\nchartsFerretdb: ${passed} tests passed`
-  + (skipped ? `, ${skipped} skipped (no .tools/charts clone)` : ''));
+  + (skipped ? `, ${skipped} skipped (no .tools/w/charts clone)` : ''));

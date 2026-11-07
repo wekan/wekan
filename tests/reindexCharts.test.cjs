@@ -62,12 +62,12 @@ test('it writes nothing unless asked', () => {
 
 test('it looks for the charts checkout where the repo keeps companion repos', () => {
   const src = fs.readFileSync(script, 'utf8');
-  assert.ok(/\.tools", "charts"/.test(src),
-    '.tools/charts is where companion repositories are cloned (CLAUDE.md)');
+  assert.ok(/\.tools", "w", "charts"/.test(src),
+    '.tools/w/charts is where companion repositories are cloned (CLAUDE.md)');
   // negative: the old ../w/charts beside the repo is not used any more.
-  assert.ok(!/"w", "charts"/.test(src), 'the old sibling w/charts checkout is no longer a location');
+  assert.ok(!/"\.\.", "w", "charts"/.test(src), 'the old sibling checkout beside the repository is no longer a location');
   const sh = fs.readFileSync(path.join(repoRoot, 'releases/backfill-charts.sh'), 'utf8');
-  assert.ok(/\$REPO_DIR\/\.tools\/charts/.test(sh),
+  assert.ok(/\$REPO_DIR\/\.tools\/w\/charts/.test(sh),
     'backfill-charts.sh must look in the same places');
 });
 

@@ -218,7 +218,7 @@ test('pgrust and TiDB are speed test rows, and opt-in in the conformance run (ne
   // TiDB has no MYSQL_DATABASE variable: the database is created once it answers.
   assert.match(sh, /CREATE DATABASE IF NOT EXISTS ferretdb/);
   // The two FerretDB changes they needed are in the FerretDB source when present.
-  const registry = path.join(ROOT, '.tools/FerretDB/internal/backends/mysql/metadata/registry.go');
+  const registry = path.join(ROOT, '.tools/w/FerretDB/internal/backends/mysql/metadata/registry.go');
   if (fs.existsSync(registry)) assert.ok(!/ADD COLUMN %s VARCHAR\(255\) GENERATED ALWAYS AS \(\(%s\)\) STORED/.test(fs.readFileSync(registry, 'utf8')), 'TiDB refuses STORED generated columns');
 });
 

@@ -61,7 +61,7 @@ test('the workflow: skip without a Node.js, verify every download, build and sta
   const pin = workflow.match(/uses: vmactions\/freebsd-vm@([0-9a-f]{40})/);
   assert.ok(pin, 'FreeBSD VM pinned to a commit');
   assert.equal(pin[1], 'c46abacb49f09938ca4e1702d15d836285d694cc', 'FreeBSD VM pinned to the commit node-patches uses');
-  const np = path.join(__dirname, '..', '.tools', 'node-patches', '.github', 'workflows', 'release-all.yml');
+  const np = path.join(__dirname, '..', '.tools', 'w', 'node-patches', '.github', 'workflows', 'release-all.yml');
   if (fs.existsSync(np)) {
     assert.match(fs.readFileSync(np, 'utf8'), new RegExp(`uses: vmactions/freebsd-vm@${pin[1]}`), 'node-patches uses the same commit');
   }

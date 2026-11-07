@@ -111,7 +111,7 @@ async function main() {
     assert.ok(Date.now() - start < 1000, 'linear, not polynomial');
     assert.ok(!read('npm-packages/exceljs/lib/utils/col-cache.js').includes("[^'^ !]*"), 'negative: the expression is gone');
     // The vendored copy and the fork it comes from say the same thing.
-    const fork = path.join(ROOT, '.tools/exceljs/lib/utils/col-cache.js');
+    const fork = path.join(ROOT, '.tools/w/exceljs/lib/utils/col-cache.js');
     if (fs.existsSync(fork)) assert.equal(fs.readFileSync(fork, 'utf8'), read('npm-packages/exceljs/lib/utils/col-cache.js'));
   });
 

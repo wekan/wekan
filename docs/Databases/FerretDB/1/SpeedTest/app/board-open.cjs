@@ -38,7 +38,7 @@ const INSPECT = arg('inspect', '');
 const PPROF = arg('ferret-pprof', '');
 const LABEL = arg('label', 'run');
 const GO = arg('go', path.join(ROOT, '.tools/go/bin/go'));
-const FERRET_BIN = arg('ferret-bin', path.join(ROOT, '.tools/FerretDB/bin/ferretdb'));
+const FERRET_BIN = arg('ferret-bin', path.join(ROOT, '.tools/w/FerretDB/bin/ferretdb'));
 const QUIET_MS = 1500;
 
 // ── seeding ─────────────────────────────────────────────────────────────────

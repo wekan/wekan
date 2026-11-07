@@ -435,15 +435,15 @@ version_bump_logic() {
   # 8. Update Wekan website (manual/local flow only; the remote flow handles the
   # wekan.fi and charts repos in dedicated parallel GitHub Actions jobs). These
   # blocks no-op in CI because the sibling repos are not checked out there.
-  if [ -d ".tools/wekan.fi" ]; then
-    INSTALL_PAGE=".tools/wekan.fi/install/index.html"
+  if [ -d ".tools/w/wekan.fi" ]; then
+    INSTALL_PAGE=".tools/w/wekan.fi/install/index.html"
     METEOR_VER=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1 | sed 's/.*@//')
     NPM_VER=$(grep -o 'NPM_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
     NODE_VER=$(grep -o 'NODE_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
-    (cd .tools/wekan.fi && git pull)
+    (cd .tools/w/wekan.fi && git pull)
     bash releases/update-website-version-info.sh \
-      ".tools/wekan.fi" "$PWD" "$NEW_VERSION"
+      ".tools/w/wekan.fi" "$PWD" "$NEW_VERSION"
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VER</span>|g" "$INSTALL_PAGE"
@@ -457,10 +457,10 @@ version_bump_logic() {
     # the page still gets re-normalized to v$NEW_VERSION (see release-website.sh).
     sedi -E "s#(<span class=\"version-number\">)v[0-9][^<]*(</span>)#\1v${NEW_VERSION}\2#g" "$INSTALL_PAGE"
     (
-      cd .tools/wekan.fi
+      cd .tools/w/wekan.fi
       git add --all
       if git diff --cached --quiet; then
-        echo "[INFO] No website changes to commit in .tools/wekan.fi."
+        echo "[INFO] No website changes to commit in .tools/w/wekan.fi."
       else
         git commit -m "Updates"
         git push
@@ -472,9 +472,9 @@ version_bump_logic() {
   fi
 
   # 9. Update and publish the WeKan Helm chart in the separate wekan/charts repo
-  # at .tools/charts. release-charts.sh bumps only the WeKan version numbers in the
+  # at .tools/w/charts. release-charts.sh bumps only the WeKan version numbers in the
   # chart, packages it, and publishes it to the gh-pages Helm repo index.
-  if [ -d ".tools/charts/wekan" ]; then
+  if [ -d ".tools/w/charts/wekan" ]; then
     ./releases/release-charts.sh "${NEW_VERSION}"
   fi
 

@@ -357,7 +357,7 @@ test('every Tests option writes its log to .tools/log/<datetime>/', () => {
   assert.ok(fs.existsSync(path.join(ROOT, 'releases/run-everything.sh')));
 
   // FerretDB is expected inside this repo, and its own runner writes beside ours.
-  const fdb = path.join(ROOT, '.tools', 'FerretDB', 'build.sh');
+  const fdb = path.join(ROOT, '.tools', 'w', 'FerretDB', 'build.sh');
   if (fs.existsSync(fdb)) {
     const src = fs.readFileSync(fdb, 'utf8');
     assert.ok(/test-all\)\s*act_test_all/.test(src), 'FerretDB: the test-all command');

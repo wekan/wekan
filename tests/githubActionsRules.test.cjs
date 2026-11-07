@@ -111,7 +111,7 @@ test('negative: a mixed script is not half-enabled', () => {
 });
 
 test('every workflow file here becomes rules without throwing', () => {
-  const dirs = ['.github/workflows', '.tools/gitea/.github/workflows', '.tools/git-bug/.github/workflows'];
+  const dirs = ['.github/workflows', '.tools/w/gitea/.github/workflows', '.tools/git-bug/.github/workflows'];
   let n = 0;
   for (const dir of dirs) {
     const abs = path.join(__dirname, '..', dir);

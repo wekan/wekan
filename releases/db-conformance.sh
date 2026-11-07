@@ -83,12 +83,12 @@ fi
 mkdir -p "$LOGDIR"
 LOGDIR="$(cd "$LOGDIR" && pwd)"
 
-# .tools/FerretDB: companion repos live in one ignored directory inside the
+# .tools/w/FerretDB: companion repos live in one ignored directory inside the
 # checkout, instead of one ignored subdirectory each at the repo root.
-FERRET_DIR="$WEKAN_DIR/.tools/FerretDB"
+FERRET_DIR="$WEKAN_DIR/.tools/w/FerretDB"
 # The binary this script BUILDS and tests with: FerretDB/bin/ferretdb, never a
 # downloaded release.
-FERRET_BIN="$WEKAN_DIR/.tools/FerretDB/bin/ferretdb"
+FERRET_BIN="$WEKAN_DIR/.tools/w/FerretDB/bin/ferretdb"
 FERRET_REPO_SSH="git@github.com:wekan/FerretDB"
 FERRET_REPO_HTTPS="https://github.com/wekan/FerretDB"
 

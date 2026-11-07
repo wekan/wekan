@@ -1,10 +1,10 @@
 'use strict';
 
-// Companion repositories live under .tools/ (CLAUDE.md): .tools/wekan.fi,
-// .tools/charts, .tools/FerretDB and the rest. They used to be checked out in
+// Companion repositories live under .tools/ (CLAUDE.md): .tools/w/wekan.fi,
+// .tools/w/charts, .tools/w/FerretDB and the rest. They used to be checked out in
 // ../w/ beside the repository, and several scripts and tests kept that as a
 // fallback - so a stale ../w/wekan.fi was read in place of a missing
-// .tools/wekan.fi and failed tests/hallOfFameProblemsCoverage.test.cjs with
+// .tools/w/wekan.fi and failed tests/hallOfFameProblemsCoverage.test.cjs with
 // markup the site no longer has. Nothing looks in ../w/ any more.
 // Run: node tests/noLegacySiblingRepos.test.cjs
 
@@ -53,16 +53,16 @@ test('no script, test or document looks for a companion repository in ../w/', ()
 
 test('the Hall of Fame and charts are read from .tools/', () => {
   assert.match(fs.readFileSync(path.join(root, 'tests/hallOfFameProblemsCoverage.test.cjs'), 'utf8'),
-    /path\.join\(ROOT, '\.tools', 'wekan\.fi', 'hall-of-fame', 'index\.html'\)/);
+    /path\.join\(ROOT, '\.tools', 'w', 'wekan\.fi', 'hall-of-fame', 'index\.html'\)/);
   assert.match(fs.readFileSync(path.join(root, 'releases/release-charts.sh'), 'utf8'),
-    /for candidate in "\$REPO_DIR\/\.tools\/charts"; do/);
+    /for candidate in "\$REPO_DIR\/\.tools\/w\/charts"; do/);
 });
 
 test('negative: the pattern catches every form of the old path', () => {
   for (const s of ['../w/charts', '..\\w\\wekan.fi', "path.join(ROOT, '..', 'w', 'x')", 'os.path.join(repo, "..", "w", "charts")']) {
     assert.match(s, LEGACY, s);
   }
-  for (const s of ['.tools/charts', '../wekan', '/api/compat/github/repos/w/DEV']) assert.doesNotMatch(s, LEGACY, s);
+  for (const s of ['.tools/w/charts', '../wekan', '/api/compat/github/repos/w/DEV']) assert.doesNotMatch(s, LEGACY, s);
 });
 
 console.log(`\n${passed} tests passed`);

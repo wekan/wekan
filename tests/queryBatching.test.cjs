@@ -124,9 +124,9 @@ test('the selectors built from the resolved ids are unchanged', () => {
 // ─────────────────────────────────── FerretDB: the $or that never pushed down ─
 
 test('FerretDB pushes a top-level $or down when every branch can be', () => {
-  const go = path.join(repoRoot, '.tools/FerretDB/internal/backends/sqlite/query.go');
+  const go = path.join(repoRoot, '.tools/w/FerretDB/internal/backends/sqlite/query.go');
   if (!fs.existsSync(go)) {
-    console.log('  -- .tools/FerretDB not cloned; skipping the Go side');
+    console.log('  -- .tools/w/FerretDB not cloned; skipping the Go side');
     return;
   }
   const src = fs.readFileSync(go, 'utf8');
@@ -141,7 +141,7 @@ test('FerretDB pushes a top-level $or down when every branch can be', () => {
 });
 
 test('negative: unsupported top-level operators still stay in Go', () => {
-  const go = path.join(repoRoot, '.tools/FerretDB/internal/backends/sqlite/query.go');
+  const go = path.join(repoRoot, '.tools/w/FerretDB/internal/backends/sqlite/query.go');
   if (!fs.existsSync(go)) return;
   const src = fs.readFileSync(go, 'utf8');
   const block = src.match(/if strings\.HasPrefix\(k, "\$"\) \{[\s\S]*?continue\n\t\t\}/)[0];

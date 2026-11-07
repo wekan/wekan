@@ -518,7 +518,7 @@ Two ratchets keep that distinction reviewable. `tests/securityRegressionCoverage
 accounts for every published Hall of Fame name and requires each named regression
 suite to remain present. As of the 2026-09-05 audit, 71 of 93 have named coverage and
 22 older fixes remain explicit test gaps. `tests/hallOfFameProblemsCoverage.test.cjs`
-reads the real `.tools/wekan.fi` Hall of Fame and requires every name to be either a
+reads the real `.tools/w/wekan.fi` Hall of Fame and requires every name to be either a
 Problems catalog entry, a reasoned non-attributable case, or an explicit pending
 review. A missing companion checkout may skip the website comparison, but the
 obsolete `~/repos/w/wekan.fi` location is never read.

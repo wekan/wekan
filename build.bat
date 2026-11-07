@@ -2068,7 +2068,7 @@ exit /b 0
 REM ===========================================================================
 :test_all_databases
 REM The same thing build.sh's "All databases (sequential)" runs: build the newest
-REM FerretDB v1 from .tools\FerretDB (cloning wekan/FerretDB there if it is not
+REM FerretDB v1 from .tools\w\FerretDB (cloning wekan/FerretDB there if it is not
 REM there, and installing Go and the module dependencies if they are
 REM missing), then run the whole FerretDB v1 query catalogue against every
 REM database that has a Docker image for THIS CPU - one at a time, because they
@@ -2105,7 +2105,7 @@ REM ===========================================================================
 :test_ferretdb
 REM All of FerretDB's own tests, one at a time: unit, vet, integration.
 REM
-REM FerretDB lives in .tools\FerretDB - companion repos are kept in one directory
+REM FerretDB lives in .tools\w\FerretDB - companion repos are kept in one directory
 REM that .gitignore and .meteorignore already exclude, instead of one ignored
 REM subdirectory each at the repo root. It is cloned here when it is not there,
 REM the same as build.sh's ensure_tool_repo does, so neither script depends on
@@ -2117,27 +2117,27 @@ if errorlevel 1 (
   echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
   goto end
 )
-if not exist "%REPO%\.tools\FerretDB\build.sh" (
+if not exist "%REPO%\.tools\w\FerretDB\build.sh" (
   where git >nul 2>&1
   if errorlevel 1 (
-    echo ERROR: git was not found, so .tools\FerretDB cannot be cloned.
+    echo ERROR: git was not found, so .tools\w\FerretDB cannot be cloned.
     echo        Install Git for Windows, or clone it by hand:
-    echo          git clone git@github.com:wekan/FerretDB .tools/FerretDB
+    echo          git clone git@github.com:wekan/FerretDB .tools/w/FerretDB
     goto end
   )
   if not exist "%REPO%\.tools" md "%REPO%\.tools"
   echo ==^> FerretDB is not in .tools\ yet; cloning wekan/FerretDB
-  git clone git@github.com:wekan/FerretDB "%REPO%\.tools\FerretDB"
+  git clone git@github.com:wekan/FerretDB "%REPO%\.tools\w\FerretDB"
   if errorlevel 1 (
     echo ==^> SSH clone failed ^(no key for github.com?^); trying HTTPS.
-    git clone https://github.com/wekan/FerretDB "%REPO%\.tools\FerretDB"
+    git clone https://github.com/wekan/FerretDB "%REPO%\.tools\w\FerretDB"
   )
 )
-if not exist "%REPO%\.tools\FerretDB\build.sh" (
-  echo ERROR: .tools\FerretDB\build.sh is still missing after cloning.
+if not exist "%REPO%\.tools\w\FerretDB\build.sh" (
+  echo ERROR: .tools\w\FerretDB\build.sh is still missing after cloning.
   goto end
 )
-bash -c "cd .tools/FerretDB && ./build.sh test-all"
+bash -c "cd .tools/w/FerretDB && ./build.sh test-all"
 goto end
 
 REM ===========================================================================

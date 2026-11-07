@@ -20,8 +20,8 @@ let jsYaml = null;
 try { jsYaml = require('js-yaml'); } catch (e) { /* not installed */ }
 
 function workflowFiles() {
-  const dirs = ['.github/workflows', '.tools/gitea/.github/workflows', '.tools/git-bug/.github/workflows',
-    '.tools/FerretDB/.github/workflows', '.tools/node-patches/.github/workflows'];
+  const dirs = ['.github/workflows', '.tools/w/gitea/.github/workflows', '.tools/git-bug/.github/workflows',
+    '.tools/w/FerretDB/.github/workflows', '.tools/w/node-patches/.github/workflows'];
   return dirs.flatMap((dir) => {
     const abs = path.join(ROOT, dir);
     return fs.existsSync(abs) ? fs.readdirSync(abs).filter(f => /\.ya?ml$/.test(f)).map(f => path.join(abs, f)) : [];

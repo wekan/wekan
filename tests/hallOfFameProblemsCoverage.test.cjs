@@ -35,7 +35,7 @@ const ROOT = path.join(__dirname, '..');
 // at ../w/wekan.fi is not read: a stale copy there failed this test with markup
 // the site no longer has.
 const HOF_CANDIDATES = [
-  path.join(ROOT, '.tools', 'wekan.fi', 'hall-of-fame', 'index.html'),
+  path.join(ROOT, '.tools', 'w', 'wekan.fi', 'hall-of-fame', 'index.html'),
 ];
 const HOF = HOF_CANDIDATES.find(candidate => fs.existsSync(candidate));
 
@@ -131,7 +131,7 @@ const hallOfFameNames = () => {
 test('every hall-of-fame name is keyed, deliberate, or pending', () => {
   const names = hallOfFameNames();
   if (!names) {
-    console.log('    (.tools/wekan.fi is not checked out here - nothing to check)');
+    console.log('    (.tools/w/wekan.fi is not checked out here - nothing to check)');
     return;
   }
   assert.ok(names.length > 50, `expected the hall of fame, found ${names.length} names`);

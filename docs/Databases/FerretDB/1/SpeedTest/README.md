@@ -30,7 +30,7 @@ exist, which images they use or how they are started:
 
 | Database | How it runs |
 | --- | --- |
-| FerretDB v1 + SQLite | FerretDB built from `.tools/FerretDB` (the newest source), data under `.tools/tmp` |
+| FerretDB v1 + SQLite | FerretDB built from `.tools/w/FerretDB` (the newest source), data under `.tools/tmp` |
 | FerretDB v1 + PostgreSQL | `postgres:18`, the image of [docker-compose-ferretdb-v1-postgresql.yml](../../../../../docker-compose-ferretdb-v1-postgresql.yml) |
 | FerretDB v1 + MySQL | `mysql:9`, from [docker-compose-ferretdb-v1-mysql.yml](../../../../../docker-compose-ferretdb-v1-mysql.yml) |
 | FerretDB v1 + MariaDB | `mariadb:12`, from [docker-compose-ferretdb-v1-mariadb.yml](../../../../../docker-compose-ferretdb-v1-mariadb.yml) |

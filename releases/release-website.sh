@@ -24,14 +24,14 @@ sedi() {
   fi
 }
 
-# The website lives in the separate wekan.fi repo at .tools/wekan.fi. The remote
+# The website lives in the separate wekan.fi repo at .tools/w/wekan.fi. The remote
 # (GitHub Actions) flow sets WEBDIR and WEKANREPODIR explicitly to point at the
 # repos it checked out; otherwise use the repository-local companion checkout.
 if [ -n "${WEBDIR:-}" ] && [ -n "${WEKANREPODIR:-}" ]; then
   echo "Using WEBDIR=$WEBDIR and WEKANREPODIR=$WEKANREPODIR from environment."
 else
   WEKANREPODIR="$(cd "$(dirname "$0")/.." && pwd)"
-  WEBDIR="$WEKANREPODIR/.tools/wekan.fi"
+  WEBDIR="$WEKANREPODIR/.tools/w/wekan.fi"
   if [ ! -d "$WEBDIR" ]; then
     echo "Website directory ($WEBDIR) not found, ignoring."
     exit 0
@@ -99,18 +99,18 @@ sedi -E "s#node-v[0-9]+\.[0-9]+\.[0-9]+-linux-#node-${NODE_VERSION}-linux-#g" $W
 #   A second expression handles the rare case of the version at end of line.
 sedi "s|v$OLD\([^0-9]\)|v$NEW\1|g; s|v$OLD$|v$NEW|g" $WEBDIR/api/index.html
 
-# Create directory for the new API version under .tools/wekan.fi/api/v$NEW, copy
+# Create directory for the new API version under .tools/w/wekan.fi/api/v$NEW, copy
 # the freshly built docs from public/api (wekan.html + wekan.yml), and rename
 # the HTML entry point to index.html:
-#   .tools/wekan.fi/api/v$NEW/index.html   (from public/api/wekan.html)
-#   .tools/wekan.fi/api/v$NEW/wekan.yml    (from public/api/wekan.yml)
+#   .tools/w/wekan.fi/api/v$NEW/index.html   (from public/api/wekan.html)
+#   .tools/w/wekan.fi/api/v$NEW/wekan.yml    (from public/api/wekan.yml)
 mkdir -p "$WEBDIR/api/v$NEW"
 cp "$WEKANREPODIR/public/api/"* "$WEBDIR/api/v$NEW/"
 mv "$WEBDIR/api/v$NEW/wekan.html" "$WEBDIR/api/v$NEW/index.html"
 
 # Commit and push website changes live. Enabled in the remote (GitHub Actions)
 # flow via RELEASE_PUSH_WEBSITE=1; the manual flow leaves publishing to the
-# maintainer (who reviews and pushes .tools/wekan.fi by hand).
+# maintainer (who reviews and pushes .tools/w/wekan.fi by hand).
 if [ "${RELEASE_PUSH_WEBSITE:-0}" = "1" ]; then
   (
     cd "$WEBDIR"

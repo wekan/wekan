@@ -70,7 +70,7 @@ git push
 # 5) Push to repo
 git push
 
-# 6) Update wekan.fi website: bump version numbers in .tools/wekan.fi and copy the
+# 6) Update wekan.fi website: bump version numbers in .tools/w/wekan.fi and copy the
 # freshly built API docs (public/api/wekan.html -> api/v$2/index.html,
 # public/api/wekan.yml -> api/v$2/wekan.yml).
 "$REPO_DIR/releases/release-website.sh" "$1" "$2"

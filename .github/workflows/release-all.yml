@@ -2915,7 +2915,7 @@ jobs:
     # No release has ever carried a wekan-<version>-mac-x64.zip because of it.
     # Intel macOS is still offered, under new labels: macos-15-intel and
     # macos-26-intel (macos-15/26 without the suffix are Apple Silicon). This
-    # is the same label .tools/TSC already builds its Intel Mac on.
+    # is the same label .tools/Secretchronicles/TSC already builds its Intel Mac on.
     runs-on: macos-15-intel
     timeout-minutes: 60
     env:

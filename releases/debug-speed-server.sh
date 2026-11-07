@@ -5,7 +5,7 @@
 set -euo pipefail
 
 WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-FERRET_DIR="$WEKAN_DIR/.tools/FerretDB"
+FERRET_DIR="$WEKAN_DIR/.tools/w/FerretDB"
 METEOR_BIN="${METEOR_BIN:-}"
 if [ -z "$METEOR_BIN" ]; then
   # Meteor lives in .tools/.meteor (releases/tools-env.sh); an older install
@@ -173,7 +173,7 @@ if [ "$DB_CHOICE" = ferretdb ]; then
   FERRET_PORT="${DEBUGSPEED_FERRETDB_PORT:-37017}"
   FERRET_STATE="${DEBUGSPEED_FERRETDB_STATE:-$FERRET_DIR/state-debug-speed}"
   mkdir -p "$FERRET_STATE"
-  echo 'Building FerretDB from .tools/FerretDB ...'
+  echo 'Building FerretDB from .tools/w/FerretDB ...'
   "$FERRET_DIR/build.sh" build 2>&1 | tee "$LOG_DIR/ferretdb-build.log"
   echo "Starting FerretDB at 127.0.0.1:$FERRET_PORT (state: $FERRET_STATE)"
   echo "FerretDB diagnostics: $LOG_DIR/ferretdb.log"

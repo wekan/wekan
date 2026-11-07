@@ -112,9 +112,9 @@ test('armv7 is recorded as not-a-snap, with the reason', () => {
 
 test('the reason matches what node-patches actually builds', () => {
   // The single thing that would make the note above a story rather than a fact.
-  const wf = path.join(repoRoot, '.tools/node-patches/.github/workflows/release-all.yml');
+  const wf = path.join(repoRoot, '.tools/w/node-patches/.github/workflows/release-all.yml');
   if (!fs.existsSync(wf)) {
-    console.log('  -- .tools/node-patches not cloned; skipping the cross-check');
+    console.log('  -- .tools/w/node-patches not cloned; skipping the cross-check');
     return;
   }
   const src = fs.readFileSync(wf, 'utf8');

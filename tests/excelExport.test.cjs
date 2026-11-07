@@ -50,7 +50,7 @@ test('archiver is the version WeKan uses, and exceljs cannot call it', () => {
       'archiver 8 exports classes, which is why the streaming writer broke');
     assert.strictEqual(typeof archiver.ZipArchive, 'function', 'and ZipArchive is the zip one');
   }
-  // The fork fixed it (createZipArchive, .tools/exceljs commit 7b2f939); until
+  // The fork fixed it (createZipArchive, wekan/exceljs commit 7b2f939); until
   // that release is installed, the installed exceljs still calls the factory.
   const writerSource = read('node_modules/@wekanteam/exceljs/lib/stream/xlsx/workbook-writer.js');
   assert.ok(/Archiver\('zip'/.test(writerSource) || /function createZipArchive\(/.test(writerSource),
@@ -116,17 +116,18 @@ test('the installed exceljs gets the writer it can use for pictures', async () =
   }
 });
 
-// The fork itself, when it is checked out under .tools: pictures given as
-// functions are opened one after another, only when the workbook commits.
+// The fork WeKan ships (npm-packages/exceljs, linked as @wekanteam/exceljs):
+// pictures given as functions are opened one after another, only when the
+// workbook commits. This used to read a separate clone of the fork under .tools,
+// which is not what the build uses: a clone without its own node_modules resolved
+// readable-stream from WeKan's and failed for a reason unrelated to the fork, and
+// a missing clone skipped the test. The shipped copy is always here.
 test('the @wekanteam/exceljs fork streams pictures one at a time', async () => {
-  const forkPath = path.join(repoRoot, '.tools/exceljs/lib/exceljs.nodejs.js');
-  if (!fs.existsSync(forkPath)) { console.log('    (skipped: no .tools/exceljs)'); return; }
-  let Excel;
-  try { Excel = require(forkPath); } catch (e) { console.log(`    (skipped: ${e.message})`); return; }
-  if (typeof Excel.stream.xlsx.WorkbookWriter.prototype._addDrawing !== 'function') {
-    console.log('    (skipped: .tools/exceljs is older than the streaming pictures)');
-    return;
-  }
+  const forkPath = path.join(repoRoot, 'npm-packages/exceljs/lib/exceljs.nodejs.js');
+  assert.ok(fs.existsSync(forkPath), 'npm-packages/exceljs is part of the repository');
+  const Excel = require(forkPath);
+  assert.strictEqual(typeof Excel.stream.xlsx.WorkbookWriter.prototype._addDrawing, 'function',
+    'the shipped fork has the streaming pictures');
   const { Readable } = require('stream');
   const png = Buffer.from('89504e470d0a1a0a0000000d4948445200000001000000010806000000'
     + '1f15c4890000000d4944415478da63f8ffff3f0005fe02fea7a6c5e10000000049454e44ae426082', 'hex');

@@ -521,7 +521,7 @@ checked on the page itself.
   does recursive search (`startWith`, `connectFromField`, `connectToField`,
   `maxDepth`), spills to disk above 100 MB, returns results unsorted.
 - **WeKan's FerretDB v1 fork does not implement `$graphLookup`** (verified in
-  source: `.tools/FerretDB/internal/handler/common/aggregations/stages/stages.go`
+  source: `.tools/w/FerretDB/internal/handler/common/aggregations/stages/stages.go`
   `unsupportedStages`; `docs/reference/supported-commands.md`; `ROADMAP.md`).
   Its `$lookup` is the basic equality join only. Upstream FerretDB v2's
   [compatibility page](https://docs.ferretdb.io/migration/compatibility/) does
@@ -707,8 +707,8 @@ MongoDB documents the standard patterns in
 | Closure table (separate collection of ancestor/descendant pairs) | 1 query | 1 query | many rows | heavy; SQL idiom |
 
 `$graphLookup` is **not implemented** in WeKan's FerretDB v1 fork:
-`.tools/FerretDB/internal/handler/common/aggregations/stages/stages.go` lists it
-in `unsupportedStages`, and `.tools/FerretDB/ROADMAP.md` marks it
+`.tools/w/FerretDB/internal/handler/common/aggregations/stages/stages.go` lists it
+in `unsupportedStages`, and `.tools/w/FerretDB/ROADMAP.md` marks it
 `ErrNotImplemented`. Since FerretDB on SQLite is a default WeKan database, any
 design that needs `$graphLookup` would break there. **Array of ancestors** needs
 only plain equality queries on an indexed array, which every backend supports.

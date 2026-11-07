@@ -32,7 +32,7 @@ export const createWorkbook = function() {
 // question is answered before anything is constructed, by what archiver
 // exports: callable means exceljs's writer works, an object means it cannot.
 //
-// The @wekanteam/exceljs fork fixed both (.tools/exceljs commit 7b2f939): its
+// The @wekanteam/exceljs fork fixed both (wekan/exceljs commit 7b2f939): its
 // writer builds archiver 8's ZipArchive itself, and StreamBuf.pipe returns its
 // destination as archiver 8 needs. The same change gave the streaming worksheet
 // addImage, so WorkbookWriter._addDrawing marks an exceljs that streams with

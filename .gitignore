@@ -72,8 +72,8 @@ test-results/
 # of them - it replaced an entry per clone (/FerretDB/, /node/, /mongo-tools/,
 # /mongosh/, /sandstorm/, /projects/, and the WeKan variants), which had to be
 # extended by hand for every new one. build.sh's ensure_tool_repo clones what a
-# test run needs into here: .tools/FerretDB, .tools/node-patches,
-# .tools/mongo-tools-patches. Nothing in here is WeKan's source, and Meteor is
+# test run needs into here: .tools/w/FerretDB, .tools/w/node-patches,
+# .tools/w/mongo-tools-patches. Nothing in here is WeKan's source, and Meteor is
 # told the same by /.tools/ in .meteorignore.
 .tools/
 

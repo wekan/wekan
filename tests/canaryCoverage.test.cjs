@@ -330,9 +330,9 @@ test('an unrecognised database canary id is recorded generically, not trusted', 
 });
 
 test('FerretDB refuses these operations and marks the refusal', () => {
-  const go = path.join(repoRoot, '.tools/FerretDB/internal/util/canary/canary.go');
+  const go = path.join(repoRoot, '.tools/w/FerretDB/internal/util/canary/canary.go');
   if (!fs.existsSync(go)) {
-    console.log('  -- .tools/FerretDB not cloned; skipping the Go side');
+    console.log('  -- .tools/w/FerretDB not cloned; skipping the Go side');
     return;
   }
   const src = fs.readFileSync(go, 'utf8');

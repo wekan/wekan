@@ -99,7 +99,7 @@ check('FerretDB self-regulates its own CPU and reports its operations summary', 
   // moment it moved; the path comes from the layout now, and a checkout that has
   // not cloned it yet is skipped rather than failed - it is another repository,
   // and not every checkout has it.
-  const FERRET = '.tools/FerretDB';
+  const FERRET = '.tools/w/FerretDB';
   if (!fs.existsSync(path.join(__dirname, '..', FERRET, 'internal/handler/selfregulate.go'))) {
     console.log(`    (${FERRET} is not cloned here - ./build.sh clones it on demand)`);
     return;

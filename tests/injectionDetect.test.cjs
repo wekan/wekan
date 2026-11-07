@@ -181,9 +181,9 @@ test('the old $where-only check is still honoured, not replaced', () => {
 // ----------------------------------------------- SQL: the database reports it
 
 test('the SQL guard marks its refusal so the attempt reaches the admin', () => {
-  const go = path.join(repoRoot, '.tools/FerretDB/internal/util/sqlguard/sqlguard.go');
+  const go = path.join(repoRoot, '.tools/w/FerretDB/internal/util/sqlguard/sqlguard.go');
   if (!fs.existsSync(go)) {
-    console.log('  -- .tools/FerretDB not cloned; skipping the Go side');
+    console.log('  -- .tools/w/FerretDB not cloned; skipping the Go side');
     return;
   }
   const src = fs.readFileSync(go, 'utf8');

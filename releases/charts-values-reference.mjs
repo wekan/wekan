@@ -24,7 +24,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const valuesFile = process.argv[2] || path.join(root, '.tools/charts/wekan/values.yaml');
+const valuesFile = process.argv[2] || path.join(root, '.tools/w/charts/wekan/values.yaml');
 const compose = fs.readFileSync(path.join(root, 'docker-compose.yml'), 'utf8').split('\n');
 
 // The wekan service's environment list: from its "environment:" to the next

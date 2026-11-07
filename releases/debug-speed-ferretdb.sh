@@ -5,7 +5,7 @@
 set -euo pipefail
 
 WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-FERRET_DIR="$WEKAN_DIR/.tools/FerretDB"
+FERRET_DIR="$WEKAN_DIR/.tools/w/FerretDB"
 STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
 LOG_DIR="${DEBUGSPEED_LOG_DIR:-$WEKAN_DIR/.tools/log/debug-speed/$STAMP}"
 FERRET_PORT="${DEBUGSPEED_FERRETDB_PORT:-37017}"
@@ -77,7 +77,7 @@ export FERRETDB_SQLITE_URL="file:$FERRET_STATE/"
 export FERRETDB_LISTEN_ADDR="127.0.0.1:$FERRET_PORT"
 export FERRETDB_TELEMETRY=disable
 
-echo 'Building FerretDB from .tools/FerretDB ...'
+echo 'Building FerretDB from .tools/w/FerretDB ...'
 "$FERRET_DIR/build.sh" build 2>&1 | tee "$LOG_DIR/ferretdb-build.log"
 
 echo "Starting FerretDB at 127.0.0.1:$FERRET_PORT (state: $FERRET_STATE)"

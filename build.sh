@@ -140,25 +140,39 @@ if [ -n "$_wekan_node_version" ] && [ -n "$_wekan_node_arch" ] && [ -x "$_wekan_
 fi
 export PATH
 
-# ensure_tool_repo <name> [git-url] - the path to .tools/<name>, cloning it if it
-# is not there yet. Prints the path on stdout; everything else goes to stderr, so
-# a caller can do `dir="$(ensure_tool_repo FerretDB)"`.
+# ensure_tool_repo <name> [git-url] - the path to .tools/<owner>/<name>, cloning
+# it if it is not there yet. Prints the path on stdout; everything else goes to
+# stderr, so a caller can do `dir="$(ensure_tool_repo FerretDB)"`.
+#
+# The companion repositories are grouped by their GitHub owner, the way they are
+# cloned: github.com/wekan/* in .tools/w/, github.com/xet7/* in .tools/xet7/ and
+# github.com/Secretchronicles/* in .tools/Secretchronicles/. tool_repo_dir says
+# which directory that is, so every script finds a repo in the same place.
 #
 # SSH first, HTTPS second: a maintainer has a key and wants to push, and anyone
 # else still gets a working clone. Returns non-zero when neither works, so the
 # caller can say what it cannot do rather than cd into nothing.
+function tool_repo_dir(){
+	local owner="$1" name="$2"
+	[ "$owner" = "wekan" ] && owner="w"
+	printf '%s\n' "$WEKAN_TOOLS_DIR/$owner/$name"
+}
+
 function ensure_tool_repo(){
 	local name="$1"
 	local url="${2:-git@github.com:wekan/$name}"
 	local https_url="${url/git@github.com:/https://github.com/}"
-	local dir="$WEKAN_TOOLS_DIR/$name"
+	local owner="${url#*github.com[:/]}"
+	owner="${owner%%/*}"
+	local dir
+	dir="$(tool_repo_dir "$owner" "$name")"
 
 	if [ -d "$dir/.git" ]; then
 		printf '%s\n' "$dir"
 		return 0
 	fi
-	mkdir -p "$WEKAN_TOOLS_DIR" || { echo "ERROR: cannot create $WEKAN_TOOLS_DIR" >&2; return 1; }
-	echo "==> $name is not in .tools/ yet; cloning $url" >&2
+	mkdir -p "$(dirname "$dir")" || { echo "ERROR: cannot create $(dirname "$dir")" >&2; return 1; }
+	echo "==> $name is not in ${dir#"$WEKAN_DIR"/} yet; cloning $url" >&2
 	if ! git clone "$url" "$dir" >&2; then
 		echo "==> SSH clone failed (no key for github.com?); trying HTTPS." >&2
 		if ! git clone "$https_url" "$dir" >&2; then
@@ -1810,7 +1824,7 @@ function floating_promises_checks(){
 # not: "Install Playwright browsers" (setup, and the browser stages install what
 # they need), and "Count tests by category" (a report, not a check).
 #
-# FerretDB lives in .tools/FerretDB, cloned on demand by ensure_tool_repo (and by
+# FerretDB lives in .tools/w/FerretDB, cloned on demand by ensure_tool_repo (and by
 # releases/db-conformance.sh, which needs it a stage earlier). .tools/ is ignored
 # by git and by Meteor, so a companion repo cannot reach a commit or a rebuild.
 function run_everything(){
@@ -1882,7 +1896,7 @@ function run_everything(){
 
 	echo
 	echo "### 4/4 FerretDB tests ########################################################"
-	# .tools/FerretDB, cloned here if this is the first run on this machine -
+	# .tools/w/FerretDB, cloned here if this is the first run on this machine -
 	# stage 3 usually got there first, but EVERYTHING must not depend on the
 	# order of its own stages.
 	ferret_dir="$(ensure_tool_repo FerretDB)" || ferret_dir=""
@@ -1892,8 +1906,8 @@ function run_everything(){
 			GOFLAGS="$FERRET_GOFLAGS" GOMEMLIMIT="$FERRET_GOMEMLIMIT" \
 			./build.sh test-all ) || ferret_rc=$?
 	else
-		echo "ERROR: .tools/FerretDB/build.sh is missing and could not be cloned."
-		echo "       Clone it by hand: git clone git@github.com:wekan/FerretDB .tools/FerretDB"
+		echo "ERROR: .tools/w/FerretDB/build.sh is missing and could not be cloned."
+		echo "       Clone it by hand: git clone git@github.com:wekan/FerretDB .tools/w/FerretDB"
 		ferret_rc=1
 	fi
 
@@ -3425,7 +3439,7 @@ for _once in 1; do
 	if [ -n "$ferret_dir" ] && [ -x "$ferret_dir/build.sh" ]; then
 		( cd "$ferret_dir" && ./build.sh test-all )
 	else
-		echo "ERROR: .tools/FerretDB/build.sh is missing and could not be cloned."
+		echo "ERROR: .tools/w/FerretDB/build.sh is missing and could not be cloned."
 	fi
 	;;
     "Run EVERYTHING sequentially: the floating-promises guard (seconds), then WeKan's own tests (mocha, the node suites, import regression, node E2E and all three browsers), then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/")

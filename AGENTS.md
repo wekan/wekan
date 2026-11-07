@@ -379,7 +379,7 @@ directly after the merge.
     tool that reads it sees every file twice and reports the bundler's rewritten
     code as if it were source. That is not hypothetical — a source-scanning test
     did exactly that and failed on generated code nobody can edit.
-  - `.tools/wekan.fi` — the WeKan website companion repository.
+  - `.tools/w/wekan.fi` — the WeKan website companion repository.
   - `.tools/` — everything that is NOT part of this repository but is needed to
     build, test and release it, in ONE directory that `.gitignore` and
     `.meteorignore` already exclude (each used to need its own ignore entry at
@@ -393,10 +393,10 @@ directly after the merge.
 
     | Path | Repository | Branch | What it is |
     | --- | --- | --- | --- |
-    | `.tools/FerretDB` | wekan/FerretDB | `main-v1` | the FerretDB v1 fork WeKan ships as its default database |
-    | `.tools/node-patches` | wekan/node-patches | `main` | patches to upstream Node.js; builds the `node-<platform>` binaries the bundles, the Docker image and the snap embed |
-    | `.tools/mongo-tools-patches` | wekan/mongo-tools-patches | `main` | patches to the MongoDB Database Tools; builds `mongo-tools-<arch>`, all eight tools as one program |
-    | `.tools/TSC` | Secretchronicles/TSC | `devel` | the game xet7 also maintains — same author and maintainer mode, its own GNU ChangeLog and release process |
+    | `.tools/w/FerretDB` | wekan/FerretDB | `main-v1` | the FerretDB v1 fork WeKan ships as its default database |
+    | `.tools/w/node-patches` | wekan/node-patches | `main` | patches to upstream Node.js; builds the `node-<platform>` binaries the bundles, the Docker image and the snap embed |
+    | `.tools/w/mongo-tools-patches` | wekan/mongo-tools-patches | `main` | patches to the MongoDB Database Tools; builds `mongo-tools-<arch>`, all eight tools as one program |
+    | `.tools/Secretchronicles/TSC` | Secretchronicles/TSC | `devel` | the game xet7 also maintains — same author and maintainer mode, its own GNU ChangeLog and release process |
     | `.tools/sandstorm` | sandstorm-io/sandstorm | — | upstream Sandstorm, when present — somebody else's project, cloned for reference |
 
     **Unpacked toolchains and caches.** Downloads, not repositories — put there by
@@ -423,7 +423,7 @@ directly after the merge.
     of those repositories goes in that repository's own `README.md` or `docs/`,
     never in a new instruction file — and if you find one there, remove it rather
     than updating it.
-  - `.tools/FerretDB` specifics — FerretDB `.go` files must contain **no**
+  - `.tools/w/FerretDB` specifics — FerretDB `.go` files must contain **no**
     application-specific names (say "the client" / "a Meteor 3 driver" / a bare
     `#NNNN`); its `CHANGELOG.md` may use `wekan/wekan#NNNN`.
 
@@ -834,7 +834,7 @@ have cost a released section its accuracy:
     during ordinary development, and the next run takes the next number.
   What decides it is the GitHub Release, not the tag: `prepare` pushes the tag early,
   so a tag can exist for a release that never published.
-- FerretDB: run `./build.sh release-ferretdb` from `.tools/FerretDB` (no
+- FerretDB: run `./build.sh release-ferretdb` from `.tools/w/FerretDB` (no
   version). It renames `## Upcoming FerretDB release` to the next version with the
   correct git-tag link, commits + tags + pushes, then triggers `release-all.yml` (which
   in turn triggers `docker.yml` for the multi-arch image). It refuses to re-release an
@@ -843,7 +843,7 @@ have cost a released section its accuracy:
 ### Security issues
 
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
-  entries (maintainer mode only, as with every changelog change), and update `.tools/wekan.fi/hall-of-fame/index.html` and the vuln-name
+  entries (maintainer mode only, as with every changelog change), and update `.tools/w/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
 - **Every security fix gets a TEST and a NEGATIVE TEST, and they are written so the
   fault cannot exist ANYWHERE in the codebase — not just at the place it was
@@ -942,7 +942,7 @@ have cost a released section its accuracy:
   (they are one icon) — the table itself stays percentage-sized with no fixed or
   minimum width, so it fills the page at every browser width.
 - **A report that arrives WITHOUT a GHSA is upgraded when its GHSA arrives.** The
-  stars follow `.tools/wekan.fi/hall-of-fame/Audit-Stars.md`: a GHSA with a
+  stars follow `.tools/w/wekan.fi/hall-of-fame/Audit-Stars.md`: a GHSA with a
   suggested fix is 5, a report sent to security@wekan.fi or any other way, with a
   suggested fix, is 3. When that researcher is later able to add a GitHub security
   advisory for the same report, the maintainer requests the CVE through the GHSA

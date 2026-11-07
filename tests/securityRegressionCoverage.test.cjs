@@ -37,7 +37,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const SUITE_DIRS = ['tests', 'server/lib/tests', 'client/lib/tests'];
-const HOF = path.join(ROOT, '.tools', 'wekan.fi', 'hall-of-fame', 'index.html');
+const HOF = path.join(ROOT, '.tools', 'w', 'wekan.fi', 'hall-of-fame', 'index.html');
 
 // Files that mention a vulnerability name for bookkeeping rather than testing
 // it. They must not be accepted as coverage, or this guard would pass itself.
@@ -216,6 +216,7 @@ const GUARDED = {
   spacebleed: ['tests/canaryCoverage.test.cjs'],
   // Published with their names already linked, which the Hall of Fame match
   // did not read until every name was linked (2026-10-30).
+  createbleed: ['tests/createBleed.test.cjs', 'tests/playwright/specs/createbleed-board-creation-admin-only.e2e.js'],
   grouplinkbleed: ['tests/groupLinkBleed.test.cjs', 'tests/playwright/specs/group-link-bleed.e2e.js'],
   importplacementbleed: ['tests/importPlacementBleed.test.cjs', 'tests/playwright/specs/security-import-placement.e2e.js'],
   samlsubjectbleed: ['tests/samlIdentityBinding.test.cjs'],
@@ -367,7 +368,10 @@ test('the whole published list is accounted for', () => {
   // 141 -> 143: CrossBoardExportBleed (2026-11-01) and UnassignedAttachBleed
   // (GHSA-w26g-rc43-q6cm, 2026-11-01), both guarded.
   // 143 -> 144: GroupLinkBleed (GHSA-v544-rmr5-38gx, 2026-11-06), guarded.
-  assert.strictEqual(total, 144, 'the Hall of Fame and this list disagree on how many there are');
+  // 144 -> 145: CreateBleed (GHSA-qcfm-2g4w-wqcc, 2026-11-07), guarded. It went
+  // unnoticed until the companion checkout moved to .tools/w/wekan.fi and this
+  // file looked there: at the old path the comparison was skipped.
+  assert.strictEqual(total, 145, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
