@@ -9,8 +9,9 @@ make changes there.
 
 Translations: the strings still in English are written in **33
 more languages**, **Sardinian** is Sardinian instead of Italian and **Moroccan
-Arabic** is Darija instead of Persian, and the S3 client is brought to the
-version the upload library needs.
+Arabic** is Darija instead of Persian. Dependabot's updates of **mailparser**,
+**isomorphic-git**, **pdfjs-dist** and the S3 libraries are checked and kept,
+with the S3 client brought to the version the upload library needs.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

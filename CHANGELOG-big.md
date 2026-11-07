@@ -128,12 +128,38 @@ its reason.
 
 **In short:** Translations: the strings still in English are written in **33
 more languages**, **Sardinian** is Sardinian instead of Italian and **Moroccan
-Arabic** is Darija instead of Persian, and the S3 client is brought to the
-version the upload library needs.
+Arabic** is Darija instead of Persian. Dependabot's updates of **mailparser**,
+**isomorphic-git**, **pdfjs-dist** and the S3 libraries are checked and kept,
+with the S3 client brought to the version the upload library needs.
 
 This release updates the following dependencies:
 
-- **@aws-sdk/client-s3 3.1159.0 → 3.1161.0** - [the version @aws-sdk/lib-storage 3.1161.0 requires as a peer](https://github.com/wekan/wekan/commit/e33b3f26d3db1f15fcea20542c6143d142e84f65); only AWS SDK packages changed version. Thanks to xet7.
+- **mailparser 3.12.4 → 3.14.2** — inbound email and bounces; it brings
+  nodemailer 10.3.1, libmime 5.6.4 and @zone-eu/mailsplit 5.4.30, the same
+  authors' packages ([#6886](https://github.com/wekan/wekan/pull/6886)).
+- **isomorphic-git 1.44.8 → 1.44.10** — the GitHub wiki sync; reads commit and
+  tag headers the way git does ([#6885](https://github.com/wekan/wekan/pull/6885)).
+- **@aws-sdk/lib-storage 3.1155.0 → 3.1161.0** — S3 uploads
+  ([#6884](https://github.com/wekan/wekan/pull/6884)); it needs the
+  client-s3 below.
+- **filesize 11.0.28 → 11.0.30** — file sizes shown
+  ([#6883](https://github.com/wekan/wekan/pull/6883)).
+- **pdfjs-dist 6.4.299 → 6.5.438** — PDF previews
+  ([#6882](https://github.com/wekan/wekan/pull/6882)).
+- **mongodb 7.7.0 → 7.8.0** in tests/playwright — the browser tests' seeding
+  only ([#6880](https://github.com/wekan/wekan/pull/6880)).
+- **helm/chart-releaser-action 1.8.0 → 1.9.0** and **vmactions/netbsd-vm
+  1.5.2 → 1.5.3** — CI, each still pinned to the commit its tag names
+  ([#6881](https://github.com/wekan/wekan/pull/6881),
+  [#6879](https://github.com/wekan/wekan/pull/6879)).
+
+Each was checked before it was kept: every package's integrity matches its
+lockfile entry, none has an install script, the action pins are the commits of
+their tags, and the new versions add no network calls or telemetry.
+
+Thanks to dependabot.
+
+- **@aws-sdk/client-s3 3.1159.0 → 3.1161.0** - [the version @aws-sdk/lib-storage 3.1161.0 requires as a peer](https://github.com/wekan/wekan/commit/e33b3f26d3db1f15fcea20542c6143d142e84f65); tests/dependencySecurityUpdates.test.cjs caught the mismatch, and only AWS SDK packages changed version. Thanks to xet7.
 
 and updates the following translations:
 
