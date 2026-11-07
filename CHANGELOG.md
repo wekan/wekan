@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.01 2026-11-08 WeKan ® release
 
 Translations: the strings still in English are written in **33
 more languages**, **Sardinian** is Sardinian instead of Italian and **Moroccan
@@ -13,7 +13,7 @@ Arabic** is Darija instead of Persian. Dependabot's updates of **mailparser**,
 **isomorphic-git**, **pdfjs-dist** and the S3 libraries are checked and kept,
 with the S3 client brought to the version the upload library needs.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.01](CHANGELOG-big.md#v1301-2026-11-08-wekan--release)
 
 # v13.00 2026-11-07 WeKan ® release
 
@@ -55,11 +55,3 @@ bundle** to a smoke test that left WeKan running, or the **s390x snap** to
 Launchpad outages that were counted as build failures.
 
 [All changes in v12.97](CHANGELOG-big.md#v1297-2026-11-06-wekan--release)
-
-# v12.96 2026-11-05 WeKan ® release
-
-The release **bundle starts again**: v12.95's build stopped on
-boot because the **nodemailer** 10 raised inside Meteor's email package no
-longer had the files that package was built against.
-
-[All changes in v12.96](CHANGELOG-big.md#v1296-2026-11-05-wekan--release)

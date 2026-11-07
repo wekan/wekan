@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.01 2026-11-08 WeKan ® release
 
 **In short:** Translations: the strings still in English are written in **33
 more languages**, **Sardinian** is Sardinian instead of Italian and **Moroccan
