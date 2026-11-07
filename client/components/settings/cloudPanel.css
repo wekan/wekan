@@ -1,0 +1,7 @@
+/* The Cloud Panel and Admin Panel / People / Cloud (cloudPanel.jade). The layout is
+   the Admin Panel's; only the Domains form is its own. */
+.cloud-domain-form { margin-bottom: 1em; }
+.cloud-domain-fields { display: flex; flex-wrap: wrap; gap: 0.5em; margin-bottom: 0.5em; }
+.cloud-domain-fields input { flex: 1 1 12em; min-width: 10em; }
+.cloud-domain-fields label { display: flex; flex-direction: column; flex: 1 1 10em; }
+.cloud-message { margin-inline-start: 1em; }

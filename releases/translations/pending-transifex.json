@@ -3279,6 +3279,66 @@
     {
       "key": "login-background-color",
       "since": "2026-11-03"
+    },
+    {
+      "key": "cloud",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-settings-desc",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-panel-domain",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-superadmin-username",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-saved",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-panel-not-allowed",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-customer-name",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-customer-email",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-billing-email",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-start-date",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloud-end-date",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloudflare-api-key",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloudflare-api-key-desc",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloudflare-api-key-set",
+      "since": "2026-11-07"
+    },
+    {
+      "key": "cloudflare-api-key-not-set",
+      "since": "2026-11-07"
     }
   ]
 }

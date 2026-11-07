@@ -31,6 +31,7 @@ const OWN_PANE = {
 };
 
 const ENV_ONLY = {
+  WEDDY_CLOUD_DIR: { platforms: false, reason: "set by Weddy for its first domain's WeKan: where the Cloud Panel writes domains.json and the CloudFlare key (docs/Platforms/FOSS/Weddy/Cloud-Panel.md)" },
   INBOUND_IMAP_DISABLED: { platforms: true, reason: 'stops IMAP in ONE process of a multi-pod deployment; an Admin Panel value is shared by every pod' },
   WEKAN_DISK_MONITOR: { platforms: true, reason: "this server's own disk monitor, per process" },
   WEKAN_DISK_WATCH_PATHS: { platforms: true, reason: "paths on this server's disk, per host" },

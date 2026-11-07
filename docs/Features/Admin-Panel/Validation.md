@@ -75,6 +75,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | E-mail (`email`) | [settings.js](../../../server/models/settings.js) | Mail service settings, secret masking and test-email method; delivery needs a configured SMTP/provider account. |
 | Notifications (`notifications`) | [settings.js](../../../server/models/settings.js) | Site defaults through setAdminNotifyDefault; used by notification resolution. |
 | Domains (`domains`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | Server-backed domain membership counts, search and pagination. |
+| Cloud (`cloud`) | [cloudPanel.js](../../../server/methods/cloudPanel.js) | Only in the WeKan of Weddy's first domain (`WEDDY_CLOUD_DIR`, not `WEDDY_TENANT`): the Cloud Panel Domain and the SuperAdmin Username, saved by a site admin and written to `domains.json` for Weddy. The Cloud Panel itself answers only the SuperAdmin at that domain; the CloudFlare key is never sent back. |
 | Organizations (`organizations`) | [tenant.js](../../../server/methods/tenant.js) | Organization membership, tenant fields and administrator scope. |
 | Teams (`teams`) | [team.js](../../../models/team.js) | Team records and membership operations; scoped server permissions. |
 | People (`people`) | [users.js](../../../server/models/users.js) | Create/edit, roles, password/email operations, impersonation and removal. |

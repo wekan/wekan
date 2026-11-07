@@ -281,6 +281,8 @@ import '/server/methods/openCardAvailability';
 import '/server/methods/whiteboard';
 import '/server/methods/sandstormMigration';
 import '/server/methods/tenant';
+// The Cloud Panel: many WeKan domains from one Weddy (models/lib/cloudPanel.js).
+import '/server/methods/cloudPanel';
 import '/server/startup/repairBoardsOnStartup';
 
 // ----------------------------------------------------------------------------

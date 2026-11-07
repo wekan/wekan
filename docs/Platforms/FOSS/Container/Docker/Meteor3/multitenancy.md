@@ -15,6 +15,12 @@ proxy sets `X-Forwarded-Host`). What it isolates — and what it deliberately do
 which is why the per-process topology below stays supported — is
 [Multitenancy design](../../../../../Design/Multitenancy/Multitenancy.md), option D.
 
+**One executable can also do all of this**: [Weddy](https://github.com/wekan/weddy)
+runs a WeKan per domain, each in its own directory with its own database, and its
+Cloud Panel keeps the table of customer domains and their CloudFlare or Let's Encrypt
+certificates - no containers, ports or Caddyfile per customer. See
+[Cloud Panel](../../../Weddy/Cloud-Panel.md).
+
 ## a) Recommended — one host, many WeKan domains, `sockjs` + `changeStreams`
 
 Highest DDP throughput and lowest reactive latency.

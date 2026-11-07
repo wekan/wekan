@@ -1,0 +1,97 @@
+//- Admin Panel / People / Cloud: where the Cloud Panel is, and who may use it.
+//- docs/Platforms/FOSS/Weddy/Cloud-Panel.md
+template(name="cloudSettings")
+  .cloud-settings
+    p.quiet {{_ 'cloud-settings-desc'}}
+    ul#cloud-setting.setting-detail
+      li
+        .title {{_ 'cloud-panel-domain'}}
+        .form-group
+          input.wekan-form-control.js-cloud-panel-domain(type="text" placeholder="cloud.wekan.team" value="{{status.cloudPanelDomain}}" autocomplete="off")
+      li
+        .title {{_ 'cloud-superadmin-username'}}
+        .form-group
+          input.wekan-form-control.js-cloud-superadmin(type="text" placeholder="lauri.ojansivu@wekan.fi" value="{{status.superAdminUsername}}" autocomplete="off")
+      li
+        button.js-cloud-save.primary {{_ 'save'}}
+        if message
+          span.cloud-message {{message}}
+
+//- The Cloud Panel, on the Cloud Panel Domain, for the SuperAdmin: Settings, with
+//- the left menus Domains and CloudFlare - the Admin Panel's layout.
+template(name="cloudPanel")
+  .setting-content.cloud-panel
+    unless status.cloudPanel
+      | {{_ 'cloud-panel-not-allowed'}}
+    else
+      .content-body
+        +leftMenu(menuItems)
+        .main-body
+          +paneTitle(paneTitleData)
+          if domainsOpen
+            +cloudDomainsPane
+          else
+            +cloudflarePane
+
+template(name="cloudDomainsPane")
+  .cloud-domain-form
+    .cloud-domain-fields
+      input.wekan-form-control.js-cloud-field(data-field="domain" type="text" placeholder="{{_ 'domain'}}" value="{{editing.domain}}")
+      input.wekan-form-control.js-cloud-field(data-field="customerName" type="text" placeholder="{{_ 'cloud-customer-name'}}" value="{{editing.customerName}}")
+      input.wekan-form-control.js-cloud-field(data-field="customerEmail" type="email" placeholder="{{_ 'cloud-customer-email'}}" value="{{editing.customerEmail}}")
+      input.wekan-form-control.js-cloud-field(data-field="billingEmail" type="email" placeholder="{{_ 'cloud-billing-email'}}" value="{{editing.billingEmail}}")
+      label {{_ 'cloud-start-date'}}
+        input.wekan-form-control.js-cloud-field(data-field="startDate" type="date" value="{{editing.startDate}}")
+      label {{_ 'cloud-end-date'}}
+        input.wekan-form-control.js-cloud-field(data-field="endDate" type="date" value="{{editing.endDate}}")
+    button.js-cloud-domain-save.primary
+      if editing._id
+        | {{_ 'save'}}
+      else
+        | {{_ 'add'}}
+    if editing._id
+      button.js-cloud-domain-cancel {{_ 'cancel'}}
+    if message
+      span.cloud-message {{message}}
+  +tablePage(tablePageData)
+
+template(name="cloudDomainRow")
+  tr
+    td {{domain}}
+    td {{customerName}}
+    td {{customerEmail}}
+    td {{billingEmail}}
+    td {{startDate}}
+    td {{endDate}}
+    td
+      if error
+        span.text-red(title="{{error}}") {{tls}} !
+      else
+        | {{tls}}
+    td
+      a.js-cloud-domain-edit(data-id="{{_id}}" title="{{_ 'edit'}}")
+        i.fa.fa-pencil-square-o
+      | &nbsp;
+      a.js-cloud-domain-remove(data-id="{{_id}}" title="{{_ 'delete'}}")
+        i.fa.fa-trash
+
+template(name="cloudflarePane")
+  .cloudflare-pane
+    p.quiet {{_ 'cloudflare-api-key-desc'}}
+    p
+      if status.cloudflareTokenSet
+        | {{_ 'cloudflare-api-key-set'}}
+      else
+        | {{_ 'cloudflare-api-key-not-set'}}
+    ul.setting-detail
+      li
+        .title {{_ 'cloudflare-api-key'}}
+        .form-group
+          //- Write only: what is saved is never sent back to the browser.
+          input.wekan-form-control.js-cloudflare-token(type="password" autocomplete="new-password" value="")
+      li
+        button.js-cloudflare-save.primary {{_ 'save'}}
+        if status.cloudflareTokenSet
+          button.js-cloudflare-remove {{_ 'delete'}}
+        if message
+          span.cloud-message {{message}}
