@@ -126,30 +126,47 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** One **Weddy** binary can serve many WeKan domains: each customer
-domain is a WeKan with its own directory and database, and the **Cloud Panel** -
-for the SuperAdmin, at the Cloud Panel Domain - keeps the table of domains with
-their hosting dates and a write-only **CloudFlare** API key, from which Weddy
-gets each domain a CloudFlare Origin or **Let's Encrypt** certificate.
+**In short:** Translations: the strings still in English are written in **33
+more languages**, **Sardinian** is Sardinian instead of Italian and **Moroccan
+Arabic** is Darija instead of Persian, and the S3 client is brought to the
+version the upload library needs.
 
-This release adds the following new features:
+This release updates the following dependencies:
 
-**The Cloud Panel** - many WeKan domains from one Weddy.
+- **@aws-sdk/client-s3 3.1159.0 → 3.1161.0** - [the version @aws-sdk/lib-storage 3.1161.0 requires as a peer](https://github.com/wekan/wekan/commit/e33b3f26d3db1f15fcea20542c6143d142e84f65); only AWS SDK packages changed version. Thanks to xet7.
+
+and updates the following translations:
+
+**Languages updated:** 31 languages.
+
+**Every string in the language** - what was still English, or another language.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/73db2a28c3390308415eb0f4083827617e30e737">Domains and CloudFlare, kept by the SuperAdmin, for every WeKan in one Weddy</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1211221a0fe35a9be4b41ef2954935df1c71e62a">The strings still in English, written in 33 more languages</a>. Thanks to xet7.</summary>
 
-Weddy runs a WeKan for every domain, each in `files/domains/<domain>/`, and the
-first domain's WeKan gets Admin Panel / People / Cloud: the Cloud Panel Domain
-and the SuperAdmin Username. At that domain the SuperAdmin gets the Cloud
-Panel -
-Settings with Domains (Domain, Customer name, Customer email address, Billing
-email address, Start Date, End Date) and CloudFlare (a write-only API key, saved
-with mode 0600 and never sent back). Every method checks again that the caller
-is
-the SuperAdmin and the request's Host is the Cloud Panel Domain; customers'
-WeKans show none of it. `tests/cloudPanel.test.cjs` pins the rules and these
-properties; [Cloud Panel](docs/Platforms/FOSS/Weddy/Cloud-Panel.md) is the design.
+Every value still equal to English was written in the locale's language from
+its existing translations and kanban terms; only English placeholders were
+filled, human translations were not touched and every `__x__` and `%s` is
+English's. The commit names the languages written with low confidence.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1d3beb12d62f245ca8f044e5d389e4edb950b92">Sardinian is Sardinian, not Italian</a>. Thanks to xet7.</summary>
+
+1772 values of `sc.i18n.json` were Italian or Italian/Sardinian mixtures; the
+locale tag is authoritative, so they are Sardinian now.
+`tests/sardinianTranslationProgress.test.cjs` scans every value for words only
+Italian has, and proves the scan catches the old strings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe0e187fa0907cf77017e7029eeabdb2450ef1f1">Moroccan Arabic is Darija, not Persian</a>. Thanks to xet7.</summary>
+
+374 values of `ary.i18n.json` were Persian, Persian words in Arabic text, or
+English left in. `tests/moroccanArabicNotPersian.test.cjs` scans every value for
+words only Persian has, pins repaired values and checks every placeholder.
 
 </details>
 

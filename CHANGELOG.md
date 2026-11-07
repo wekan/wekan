@@ -7,11 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-One **Weddy** binary can serve many WeKan domains: each customer
-domain is a WeKan with its own directory and database, and the **Cloud Panel** -
-for the SuperAdmin, at the Cloud Panel Domain - keeps the table of domains with
-their hosting dates and a write-only **CloudFlare** API key, from which Weddy
-gets each domain a CloudFlare Origin or **Let's Encrypt** certificate.
+Translations: the strings still in English are written in **33
+more languages**, **Sardinian** is Sardinian instead of Italian and **Moroccan
+Arabic** is Darija instead of Persian, and the S3 client is brought to the
+version the upload library needs.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
