@@ -137,7 +137,7 @@ This release adds the following new features:
 **The Cloud Panel** - many WeKan domains from one Weddy.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fb13be8b0a137995d34b5bc4934d97bf6767ec2b">Domains and CloudFlare, kept by the SuperAdmin, for every WeKan in one Weddy</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/73db2a28c3390308415eb0f4083827617e30e737">Domains and CloudFlare, kept by the SuperAdmin, for every WeKan in one Weddy</a>. Thanks to xet7.</summary>
 
 Weddy runs a WeKan for every domain, each in `files/domains/<domain>/`, and the
 first domain's WeKan gets Admin Panel / People / Cloud: the Cloud Panel Domain
@@ -155,7 +155,7 @@ properties; [Cloud Panel](docs/Platforms/FOSS/Weddy/Cloud-Panel.md) is the desig
 
 and has the following developer-facing changes:
 
-- [Companion repositories are found in .tools/w, .tools/xet7 and .tools/Secretchronicles](https://github.com/wekan/wekan/commit/91bb9c93e233ce10212b1989d8ec5dda84f97143). Thanks to xet7.
+- [Companion repositories are found in .tools/w, .tools/xet7 and .tools/Secretchronicles](https://github.com/wekan/wekan/commit/11bed267889c77ffc6651e858a6eb6ec1e4c83a1). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
