@@ -859,7 +859,7 @@
   "filter-due-previous-week": "In der Vorwoche fällig",
   "filter-due-next-month": "Im nächsten Monat fällig",
   "filter-due-this-week": "diese Woche fällig",
-  "filter-due-next-week": "Diese Woche fällig",
+  "filter-due-next-week": "nächste Woche fällig",
   "filter-due-tomorrow": "morgen fällig",
   "list-filter-label": "Liste nach Titel filtern",
   "filter-clear": "Filter entfernen",
