@@ -72,6 +72,18 @@ function getTranslatedString(key, fallback, options) {
 // route used to check only READ access on the source board and clone the whole
 // source card, so a read-only or assigned-only member could link - and copy -
 // cards the method refuses them.
+// GHSA-6xqf-jh8x-4wxc: an assigned-only member's write on a card not assigned
+// to them. No view shows them such a card, so it is an attempt: recorded in
+// Admin Panel -> Problems as UnassignedArchiveBleed (medium: never disables).
+function recordUnassignedCardWrite(userId, source) {
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'authz.assigned-card-write', action: 'blocked', source, userId,
+      detail: 'Assigned-only member changed a card not assigned to them.',
+    });
+  } catch (e) { /* logging must never break the guard */ }
+}
+
 async function createLinkedCardFor(userId, sourceCardId, boardId, swimlaneId, listId, sort, source) {
   check(sourceCardId, String);
   check(boardId, String);
@@ -162,6 +174,13 @@ Meteor.methods({
     if (!sourceBoard || !allowIsBoardMemberWithWriteAccess(this.userId, sourceBoard)) {
       throw new Meteor.Error('not-authorized');
     }
+    // GHSA-6xqf-jh8x-4wxc: the board's write capability is not enough. An
+    // assigned-only member converts only a card assigned to them, as copyCard
+    // allows them only theirs (models/lib/boardCardScope.js).
+    if (!require('/models/lib/boardCardScope').assignedOnlyAllowsCard(sourceBoard, this.userId, card)) {
+      recordUnassignedCardWrite(this.userId, 'method:createBoardFromCard');
+      throw new Meteor.Error('not-authorized');
+    }
     // CreateBleed: the card becomes a new working board.
     const { assertMayCreateBoard } = require('/server/lib/boardCreationGuard');
     await assertMayCreateBoard(this.userId, { source: 'method:createBoardFromCard', type: 'board' });
@@ -250,6 +269,16 @@ Meteor.methods({
     }).fetchAsync();
     if (cards.length !== ids.length) {
       throw new Meteor.Error('invalid-card-selection');
+    }
+
+    // GHSA-6xqf-jh8x-4wxc: the board's write capability is not enough. An
+    // assigned-only member archives only cards assigned to them - every card
+    // of the selection is checked before the first is archived, so a refused
+    // selection changes nothing.
+    const { assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
+    if (!cards.every(card => assignedOnlyAllowsCard(board, this.userId, card))) {
+      recordUnassignedCardWrite(this.userId, 'method:archiveSelectedCards');
+      throw new Meteor.Error('not-authorized');
     }
 
     // Validate the complete selection before changing the first card. Preserve

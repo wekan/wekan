@@ -232,6 +232,9 @@ const CATALOG = {
   // added or soft-deleted attachments, through the REST API, on a card that
   // was no longer assigned to them. Only a caller with a kept card id reaches it.
   'authz.assigned-attachment-write': { category: 'authz', bleed: 'UnassignedAttachBleed', severity: 'medium', cwe: 'CWE-863' },
+  // GHSA-6xqf-jh8x-4wxc: an assigned-only member archiving or converting a card
+  // not assigned to them through archiveSelectedCards / createBoardFromCard.
+  'authz.assigned-card-write': { category: 'authz', bleed: 'UnassignedArchiveBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.tenant':    { category: 'authz', bleed: 'TenantBleed', severity: 'medium', cwe: 'CWE-862' },
   'authz.search-session': { category: 'authz', bleed: 'SessionBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },
