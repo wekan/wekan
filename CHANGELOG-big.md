@@ -124,6 +124,32 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **UnassignedArchiveBleed** is fixed: a member with the
+**Normal, assigned only** role archives and converts only the cards assigned
+to them, through every card method.
+
+This release fixes the following CRITICAL SECURITY ISSUE of [UnassignedArchiveBleed](https://wekan.fi/hall-of-fame/unassignedarchivebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1513b2e98c">An assigned-only member archives and converts only the cards assigned to them</a>. Thanks to tsurutanmen and xet7.</summary>
+
+[UnassignedArchiveBleed](https://wekan.fi/hall-of-fame/unassignedarchivebleed/),
+[GHSA-6xqf-jh8x-4wxc](https://github.com/wekan/wekan/security/advisories/GHSA-6xqf-jh8x-4wxc).
+The DDP methods `archiveSelectedCards` and `createBoardFromCard` asked only
+for the board's write capability, which the Normal, assigned only role has, so
+such a member who knew a card's id archived any card of the board - and its
+subtasks - and turned any card into a linked-board card. Both now also ask
+the card, as `copyCard` does; a selection is checked whole before the first
+card is archived. A refusal is shown in Admin Panel / Problems.
+`tests/assignedCardMethods.test.cjs` fails for any server method that takes a
+card id and decides by the board's write access alone.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.01 2026-11-08 WeKan ® release
 
 **In short:** Translations: the strings still in English are written in **33

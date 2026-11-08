@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**UnassignedArchiveBleed** is fixed: a member with the
+**Normal, assigned only** role archives and converts only the cards assigned
+to them, through every card method.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.01 2026-11-08 WeKan ® release
 
 Translations: the strings still in English are written in **33
