@@ -9,7 +9,8 @@ make changes there.
 
 **ListLockBleed** is fixed: when a list refuses a role write
 access, that refusal now also holds for the checklist and checklist-item REST
-routes.
+routes. The **Sandstorm** and **Android** bundles retry their npm install when
+github.com is briefly unavailable.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
