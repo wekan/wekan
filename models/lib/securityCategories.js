@@ -235,6 +235,10 @@ const CATALOG = {
   // GHSA-6xqf-jh8x-4wxc: an assigned-only member archiving or converting a card
   // not assigned to them through archiveSelectedCards / createBoardFromCard.
   'authz.assigned-card-write': { category: 'authz', bleed: 'UnassignedArchiveBleed', severity: 'medium', cwe: 'CWE-863' },
+  // GHSA-4734-8vrg-8j3w: a REST write in a list whose exception refuses the
+  // caller's role (#4527). The web UI offers no such write, so it is the lock
+  // being stepped round with a token. Medium: recorded, never disables.
+  'authz.list-locked': { category: 'authz', bleed: 'ListLockBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.tenant':    { category: 'authz', bleed: 'TenantBleed', severity: 'medium', cwe: 'CWE-862' },
   'authz.search-session': { category: 'authz', bleed: 'SessionBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },

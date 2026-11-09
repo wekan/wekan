@@ -1,6 +1,7 @@
 import { parseDueAt, checklistWithItems } from '/server/lib/checklistDeadlines';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import { assertListNotRefused } from '/server/lib/listPermissionGate';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -266,6 +267,8 @@ WebApp.handlers.post(
       });
       return;
     }
+    // ListLockBleed (GHSA-4734-8vrg-8j3w): the list's refusal holds over REST too (#4527).
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:checklist');
 
     const deadline = parseDueAt(req.body);
     if (deadline.error) {
@@ -335,6 +338,8 @@ WebApp.handlers.put(
       });
       return;
     }
+    // ListLockBleed (GHSA-4734-8vrg-8j3w): the list's refusal holds over REST too (#4527).
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:checklist');
 
     const checklist = await ReactiveCache.getChecklist({
       _id: paramChecklistId,
@@ -390,6 +395,8 @@ WebApp.handlers.delete(
       });
       return;
     }
+    // ListLockBleed (GHSA-4734-8vrg-8j3w): the list's refusal holds over REST too (#4527).
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:checklist');
 
     const checklist = await ReactiveCache.getChecklist({
       _id: paramChecklistId,

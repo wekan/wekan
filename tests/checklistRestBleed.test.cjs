@@ -57,7 +57,11 @@ function fixture() {
       getChecklistItems: async () => [],
       getCard: async id => cards[id] || null,
       getChecklist: async q => (checklists[q._id] && checklists[q._id].cardId === q.cardId ? checklists[q._id] : null),
+      getBoard: async id => ({ _id: id }),
     },
+    // ListLockBleed's list check (tests/listPermissions.test.cjs pins it); the
+    // lists of this fixture refuse nobody.
+    assertListNotRefused: async () => {},
     ChecklistItems: {
       insertAsync: async doc => { inserted.push(doc); return 'new'; },
       direct: {

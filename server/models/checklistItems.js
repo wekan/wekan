@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
+import { assertListNotRefused } from '/server/lib/listPermissionGate';
 import { ReactiveCache } from '/imports/reactiveCache';
 import ChecklistItems, {
   itemCreation,
@@ -145,6 +146,8 @@ WebApp.handlers.post(
     if (checklist) {
       const card = await ReactiveCache.getCard(paramCardId);
       if (card && card.boardId === paramBoardId) {
+        // ListLockBleed (GHSA-4734-8vrg-8j3w): the list's refusal holds over REST too (#4527).
+        await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:checklist-item');
         // Append, like the UI does. Every item created over REST used to be given
         // `sort: 0`, so a checklist filled through the API came out in an order
         // nobody chose - and every item after the first shared the first one's
@@ -214,6 +217,8 @@ WebApp.handlers.put(
       });
       return;
     }
+    // ListLockBleed (GHSA-4734-8vrg-8j3w): the list's refusal holds over REST too (#4527).
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:checklist-item');
 
     const deadline = parseDueAt(req.body);
     if (deadline.error) {
@@ -277,6 +282,8 @@ WebApp.handlers.delete(
       });
       return;
     }
+    // ListLockBleed (GHSA-4734-8vrg-8j3w): the list's refusal holds over REST too (#4527).
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:checklist-item');
 
     await ChecklistItems.direct.removeAsync({ _id: paramItemId });
     sendJsonResult(res, {

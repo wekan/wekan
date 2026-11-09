@@ -30,7 +30,9 @@ assert.equal(parseDueAt({ dueAt: '2026-09-15T14:30:00+02:00' }).dueAt.toISOStrin
  vm.runInNewContext(src.slice(start, end), {
   WebApp: { handlers: { put: (route, fn) => { handler = fn; } } }, parseDueAt,
   Authentication: { checkBoardWriteAccess: async () => { if (denied) throw Error('denied'); } },
-  ReactiveCache: { getCard: async () => wrongCard ? null : card, getChecklist: async () => ({ _id: 'check' }) },
+  ReactiveCache: { getCard: async () => wrongCard ? null : card, getChecklist: async () => ({ _id: 'check' }), getBoard: async () => ({ _id: 'board' }) },
+  // ListLockBleed's list check: tests/listPermissions.test.cjs pins it; here the list allows.
+  assertListNotRefused: async () => {},
   Checklists: { direct: { updateAsync: async (...args) => updates.push(args) } },
   sendJsonResult: (res, data) => { response = data; },
  });
@@ -51,7 +53,8 @@ assert.equal(parseDueAt({ dueAt: '2026-09-15T14:30:00+02:00' }).dueAt.toISOStrin
  vm.runInNewContext(itemSource.slice(itemStart, itemEnd), {
   WebApp: { handlers: { put: (route, fn) => { itemHandler = fn; } } }, parseDueAt,
   Authentication: { checkBoardWriteAccess: async () => {} },
-  ReactiveCache: { getChecklistItem: async () => ({ _id: 'item', cardId: 'card', checklistId: 'check' }), getCard: async () => ({ _id: 'card', boardId: 'board' }) },
+  ReactiveCache: { getChecklistItem: async () => ({ _id: 'item', cardId: 'card', checklistId: 'check' }), getCard: async () => ({ _id: 'card', boardId: 'board' }), getBoard: async () => ({ _id: 'board' }) },
+  assertListNotRefused: async () => {},
   ChecklistItems: { direct: { updateAsync: async (...args) => itemUpdates.push(args) } },
   sendJsonResult: (res, data) => { itemResponse = data; },
  });

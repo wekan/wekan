@@ -130,6 +130,73 @@ test('the REST API honours a list\'s refusal on every per-list card route', () =
   assert.match(read('server/models/cardComments.js'), /canCommentInList\(req\.userId, board, card\.listId\)/, 'comments too');
 });
 
+// ListLockBleed (GHSA-4734-8vrg-8j3w): the checklist and checklist-item REST
+// routes asked only the board, so a member a list refused still wrote its
+// cards' checklists with a token. Not one route at a time: EVERY REST write in
+// the tree that names a card must ask the list - or be named here, with why.
+test('negative: every REST write that names a card asks the list (ListLockBleed)', () => {
+  const unrelated = {
+    // A comment's edit and deletion follow the comment's own rule (its author,
+    // or a board admin: assertCanMutateComment), on DDP as over REST; a list's
+    // comment refusal stops NEW comments, which the POST route asks.
+    'PUT /api/boards/:boardId/cards/:cardId/comments/:commentId': 'comment rule',
+    'DELETE /api/boards/:boardId/cards/:cardId/comments/:commentId': 'comment rule',
+    // Dependency lines have their own board-wide rule (canEditBoardDependencies),
+    // the same on DDP (setBoardDependency) as over REST.
+    'POST /api/boards/:boardId/cards/:cardId/dependencies': 'dependency rule',
+    'PUT /api/boards/:boardId/cards/:cardId/dependencies/:targetId': 'dependency rule',
+    'DELETE /api/boards/:boardId/cards/:cardId/dependencies/:targetId': 'dependency rule',
+    // A bot runner's report of its own run, written to BotRuns, not the card.
+    'POST /api/boards/:boardId/cards/:cardId/bot-runs/:runId': 'bot run report',
+  };
+  const found = [], missing = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) { if (!['tests', 'node_modules'].includes(entry.name)) walk(rel); continue; }
+      if (!/\.js$/.test(entry.name)) continue;
+      const src = read(rel);
+      for (const m of src.matchAll(/WebApp\.handlers\.(post|put|delete|patch)\(\s*['"`]([^'"`]*:cardId[^'"`]*)['"`]/g)) {
+        const route = `${m[1].toUpperCase()} ${m[2]}`;
+        found.push(route);
+        const next = src.indexOf('WebApp.handlers.', m.index + 1);
+        let body = src.slice(m.index, next < 0 ? undefined : next);
+        const delegate = /await (\w+)\(req, res\b/.exec(body);
+        if (delegate) {
+          const start = src.indexOf(`async function ${delegate[1]}(`);
+          if (start >= 0) body += src.slice(start, src.indexOf('\n}\n', start));
+        }
+        if (!/assertListNotRefused\(|canWriteInList\(|canCommentInList\(/.test(body) && !unrelated[route]) missing.push(`${route} (${rel})`);
+      }
+    }
+  };
+  walk('server');
+  walk('models');
+  assert.ok(found.length >= 20, `the REST card write routes are found (${found.length})`);
+  for (const route of ['POST /api/boards/:boardId/cards/:cardId/checklists', 'PUT /api/boards/:boardId/cards/:cardId/checklists/:checklistId',
+    'DELETE /api/boards/:boardId/cards/:cardId/checklists/:checklistId', 'POST /api/boards/:boardId/cards/:cardId/checklists/:checklistId/items',
+    'PUT /api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
+    'DELETE /api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId']) {
+    assert.ok(found.includes(route), `${route} is scanned`);
+  }
+  assert.deepEqual(missing, []);
+  // The exceptions are real routes: a renamed one must be looked at again.
+  for (const route of Object.keys(unrelated)) assert.ok(found.includes(route), `${route} still exists`);
+});
+
+test('the refusal is recorded in Admin Panel -> Problems, and never breaks the guard (ListLockBleed)', () => {
+  const gate = read('server/lib/listPermissionGate.js');
+  const fn = gate.slice(gate.indexOf('export async function assertListNotRefused('));
+  assert.match(fn, /record\(\{ key: 'authz\.list-locked', action: 'blocked'/);
+  assert.match(fn, /catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/);
+  // Recorded only on the refusal: after the early return of an allowed write.
+  assert.ok(fn.indexOf("!== false) return;") < fn.indexOf('record('), 'an allowed write records nothing');
+  const { categoryFor } = require('../models/lib/securityCategories');
+  const cat = categoryFor('authz.list-locked');
+  assert.equal(cat.bleed, 'ListLockBleed');
+  assert.equal(cat.severity, 'medium', 'recorded, never disables the account');
+});
+
 test('the client offers what the list allows', () => {
   const utils = read('client/lib/utils.js');
   assert.match(utils, /canModifyCard\([\s\S]*?return Utils\.currentUserCanInList\('write', card, board\);/);
