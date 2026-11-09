@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.03 2026-11-09 WeKan ® release
 
 The amd64 **snaps** no longer fail the release when the Ubuntu
 archive is briefly unreachable: the build waits for it and retries once.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.03](CHANGELOG-big.md#v1303-2026-11-09-wekan--release)
 
 # v13.02 2026-11-09 WeKan ® release
 
@@ -47,17 +47,3 @@ GitHub's retired **macos-14** runner and was cancelled in the v12.98 release
 run. The **weba** instructions now live in the weba repository itself.
 
 [All changes in v12.99](CHANGELOG-big.md#v1299-2026-11-06-wekan--release)
-
-# v12.98 2026-11-06 WeKan ® release
-
-**GroupLinkBleed** is fixed: a board admin can no longer skip the
-board methods by writing the board directly, to attach an organization or team
-they do not belong to or to add a member past the invitation checks.
-**Public board CSV and TSV exports** honour the selected columns, and the REST
-**card archive, restore and custom-field** endpoints answer an unmatched card
-with a JSON 404 instead of 500, and a REST **card update** can set sort 0, turn
-overtime off and clear a description. The **notifications drawer** gets its
-attachments again, and the developer instructions cover the **weba** Gambas
-companion repository.
-
-[All changes in v12.98](CHANGELOG-big.md#v1298-2026-11-06-wekan--release)

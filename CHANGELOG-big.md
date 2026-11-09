@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.03 2026-11-09 WeKan ® release
 
 **In short:** The amd64 **snaps** no longer fail the release when the Ubuntu
 archive is briefly unreachable: the build waits for it and retries once.
