@@ -4714,7 +4714,7 @@ jobs:
         with:
           snapcraft-args: pack
 
-      - name: Refresh stale managed APT indexes after a package 404
+      - name: Refresh managed APT after a package 404 or a failed apt update
         if: steps.build-first.outcome == 'failure'
         run: sudo -u "$(id -un)" -E python3 "$GITHUB_WORKSPACE/releases/snap-refresh-managed-apt.py"
 
@@ -5610,7 +5610,7 @@ jobs:
           snapcraft-args: pack
           path: variant
 
-      - name: Refresh stale managed APT indexes after a package 404
+      - name: Refresh managed APT after a package 404 or a failed apt update
         if: steps.build-first.outcome == 'failure'
         run: sudo -u "$(id -un)" -E python3 "$GITHUB_WORKSPACE/wekan/releases/snap-refresh-managed-apt.py"
 

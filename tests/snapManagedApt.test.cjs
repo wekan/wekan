@@ -5,7 +5,7 @@ const path = require('node:path');
 const { test } = require('node:test');
 const root = path.resolve(__dirname, '..');
 
-test('managed APT recovery handles package 404s and rejects unrelated failures', () => {
+test('managed APT recovery handles package 404s and apt update outages, and rejects unrelated failures', () => {
   const result = spawnSync('python3', ['-B', 'tests/snap-managed-apt.py'], {
     cwd: root, encoding: 'utf8', timeout: 10000,
   });
@@ -20,7 +20,7 @@ test('native and variant Snap jobs allow exactly one guarded recovery', () => {
     // Pinned to a commit of v1 (tests/workflowHardening.test.cjs).
     assert.equal((job.match(/uses: snapcore\/action-build@[0-9a-f]{40} # v1\./g) || []).length, 2);
     assert.match(job, /id: build-first\s+continue-on-error: true/);
-    assert.match(job, /Refresh stale managed APT indexes after a package 404\s+if: steps.build-first.outcome == 'failure'\s+run: sudo .*snap-refresh-managed-apt.py/);
+    assert.match(job, /Refresh managed APT after a package 404 or a failed apt update\s+if: steps.build-first.outcome == 'failure'\s+run: sudo .*snap-refresh-managed-apt.py/);
     assert.match(job, /id: build-retry\s+if: steps.build-first.outcome == 'failure'\s+uses:/);
     assert.match(job, /BUILT_SNAP: \$\{\{ steps.build-first.outputs.snap \|\| steps.build-retry.outputs.snap \}\}/);
     assert.match(job, /test -n "\$BUILT_SNAP"\s+test -f "\$BUILT_SNAP"/);

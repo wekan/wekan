@@ -22,6 +22,16 @@ STAGE_LOG = (LOG.split('* Command standard error')[0]
              "Failed to fetch package: The item '/root/.cache/snapcraft/download/"
              "libcurl4t64_8.5.0-2ubuntu10.15_amd64.deb' could not be fetched: "
              '404  Not Found [IP: 91.189.91.82 80].\nFailed to run snapcraft in instance\n')
+# v13.02 amd64: build-packages could not run apt update in the project
+# instance while the amd64 archive was unreachable.
+UPDATE_LOG = ('Executing in container: /snap/bin/lxc --project snapcraft exec local:' + BUILD
+              + ' --cwd /root/project --mode non-interactive -- env CRAFT_MANAGED_MODE=1 snapcraft pack\n'
+              ':: Installing build-packages\n'
+              ':: E: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble-updates/InRelease  '
+              'Could not connect to archive.ubuntu.com:80 (185.125.190.81), connection timed out\n'
+              ':: W: Some index files failed to download. They have been ignored, or old ones used instead.\n'
+              'Failed to refresh package list: failed to run apt update.\n'
+              'Failed to run snapcraft in instance\n')
 
 
 class RecoveryTests(unittest.TestCase):
@@ -45,6 +55,72 @@ class RecoveryTests(unittest.TestCase):
                      STAGE_LOG.replace('Failed to run snapcraft in instance', '')]:
             with self.subTest(text=text), self.assertRaises(ValueError):
                 recovery.failed_instance(text)
+
+    def test_apt_update_failure_selects_project_instance(self):
+        self.assertEqual(recovery.failed_instance(UPDATE_LOG), BUILD)
+        self.assertEqual(recovery.failed_instance(UPDATE_LOG.replace('\n', '\\n')), BUILD)
+        for text in [UPDATE_LOG.replace('Failed to run snapcraft in instance', ''),
+                     UPDATE_LOG.replace(BUILD, 'other-container'),
+                     UPDATE_LOG + 'lxc --project snapcraft exec local:snapcraft-other-123 -- env\n',
+                     UPDATE_LOG.replace('failed to run apt update', 'failed to run apt upgrade'),
+                     'Build failed\nFailed to run snapcraft in instance\n'
+                     'lxc --project snapcraft exec local:' + BUILD + ' -- env\n']:
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                recovery.failed_instance(text)
+
+    def test_apt_diagnostics_say_why(self):
+        lines = recovery.apt_diagnostics(UPDATE_LOG)
+        self.assertEqual(len(lines), 2)
+        self.assertIn('Could not connect to archive.ubuntu.com', lines[0])
+        self.assertIn('Some index files failed', lines[1])
+        self.assertEqual(recovery.apt_diagnostics('Building\nStaged\n'), [])
+
+    def exercise_update(self, failures, status='Stopped'):
+        """apt-get update fails `failures` times, then succeeds."""
+        calls, sleeps, left = [], [], [failures]
+        def run(args, **kwargs):
+            self.assertTrue(kwargs['check'])
+            calls.append(args[3:])
+            if args[3] == 'list':
+                return subprocess.CompletedProcess(args, 0, json.dumps([{'name': BUILD, 'status': status}]))
+            if args[3] == 'exec':
+                self.assertEqual(args[-1], 'update')
+                if left[0]:
+                    left[0] -= 1
+                    raise subprocess.CalledProcessError(100, args, 'E: Could not connect')
+            return subprocess.CompletedProcess(args, 0, '')
+        with patch.object(recovery.subprocess, 'run', side_effect=run):
+            if failures > len(recovery.UPDATE_BACKOFF):
+                with self.assertRaises(subprocess.CalledProcessError):
+                    recovery.refresh(UPDATE_LOG, sleep=sleeps.append)
+            else:
+                recovery.refresh(UPDATE_LOG, sleep=sleeps.append)
+        return [c[0] for c in calls], sleeps
+
+    def test_apt_update_outage_waits_until_the_archive_answers(self):
+        self.assertEqual(self.exercise_update(0), (['list', 'start', 'exec', 'stop'], []))
+        calls, sleeps = self.exercise_update(2)
+        self.assertEqual(calls, ['list', 'start', 'exec', 'exec', 'exec', 'stop'])
+        self.assertEqual(sleeps, list(recovery.UPDATE_BACKOFF[:2]))
+
+    def test_apt_update_outage_that_never_ends_is_fatal_and_bounded(self):
+        calls, sleeps = self.exercise_update(len(recovery.UPDATE_BACKOFF) + 1)
+        self.assertEqual(calls.count('exec'), len(recovery.UPDATE_BACKOFF) + 1)
+        self.assertEqual(calls[-1], 'stop')
+        self.assertEqual(sleeps, list(recovery.UPDATE_BACKOFF))
+        # Bounded well inside the 90-minute snap-variants job.
+        self.assertLess(sum(recovery.UPDATE_BACKOFF), 15 * 60)
+
+    def test_package_404_is_refreshed_once_without_waiting(self):
+        sleeps = []
+        def run(args, **kwargs):
+            if args[3] == 'list':
+                return subprocess.CompletedProcess(args, 0, json.dumps([{'name': NAME, 'status': 'Running'}]))
+            raise subprocess.CalledProcessError(100, args)
+        with patch.object(recovery.subprocess, 'run', side_effect=run):
+            with self.assertRaises(subprocess.CalledProcessError):
+                recovery.refresh(LOG, sleep=sleeps.append)
+        self.assertEqual(sleeps, [])
 
     def exercise(self, status='Stopped', fail=False, name=NAME, log=LOG):
         calls = []
