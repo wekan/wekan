@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**ListLockBleed** is fixed: when a list refuses a role write
+access, that refusal now also holds for the checklist and checklist-item REST
+routes.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.03 2026-11-09 WeKan ® release
 
 The amd64 **snaps** no longer fail the release when the Ubuntu
