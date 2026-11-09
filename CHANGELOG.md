@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.02 2026-11-09 WeKan ® release
 
 **UnassignedArchiveBleed** is fixed: a member with the
 **Normal, assigned only** role archives and converts only the cards assigned
 to them, through every card method.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.02](CHANGELOG-big.md#v1302-2026-11-09-wekan--release)
 
 # v13.01 2026-11-08 WeKan ® release
 
@@ -54,12 +54,3 @@ attachments again, and the developer instructions cover the **weba** Gambas
 companion repository.
 
 [All changes in v12.98](CHANGELOG-big.md#v1298-2026-11-06-wekan--release)
-
-# v12.97 2026-11-06 WeKan ® release
-
-`build.sh` and the `releases/` scripts now work on **Arch Linux**
-and **Omarchy**, and the release builds no longer lose the **OpenBSD arm64
-bundle** to a smoke test that left WeKan running, or the **s390x snap** to
-Launchpad outages that were counted as build failures.
-
-[All changes in v12.97](CHANGELOG-big.md#v1297-2026-11-06-wekan--release)

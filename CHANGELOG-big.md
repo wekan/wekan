@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.02 2026-11-09 WeKan ® release
 
 **In short:** **UnassignedArchiveBleed** is fixed: a member with the
 **Normal, assigned only** role archives and converts only the cards assigned
