@@ -76,7 +76,7 @@ fi
 # have no Android prebuild, were never compiled, and WeKan did not start. It
 # is idempotent, so a bundle already prepared is left as it is.
 "$node" "$root/releases/prepare-bundle-npm.mjs" "$root/bundle"
-(cd "$server" && npm install)
+(cd "$server" && bash "$root/releases/npm-retry.sh" npm install)
 # accounts-password requires both at startup with no fallback. Load them here
 # with Android's Node.js, so a missing addon stops the build with its name -
 # check-addon-arch below passes Linux prebuilds, which Android does not load.
@@ -86,7 +86,7 @@ for (const name of ["argon2", "bcrypt"]) {
   catch (error) { console.error(`::error::${name} has no Android addon: ${error.message.split("\n")[0]}`); process.exit(1); }
 }')
 # sharp has no Android prebuilt: built from source against Termux's libvips.
-if ! (cd "$appmods/sharp" && npm install --no-save --omit=dev node-addon-api node-gyp && "$node" install/build.js); then
+if ! (cd "$appmods/sharp" && bash "$root/releases/npm-retry.sh" npm install --no-save --omit=dev node-addon-api node-gyp && "$node" install/build.js); then
   echo "::warning::sharp could not be built against Termux's libvips here; it runs as WebAssembly (@img/sharp-wasm32)."
 fi
 "$node" "$root/releases/prune-build-only-modules.mjs" "$root/bundle"

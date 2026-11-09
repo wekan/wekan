@@ -141,6 +141,46 @@ test('every npm install in the release goes through it', () => {
     'these npm commands can lose a release to a five-minute outage');
 });
 
+test('every npm install in a script a workflow runs goes through it too', () => {
+  // The test above read only release-all.yml, so a bare install one level down
+  // passed it: v13.03's Sandstorm .spk died on a 504 from github.com inside
+  // releases/sandstorm-slim-spk.sh, and the Android bundle had the same line.
+  // So read every releases/ script any workflow names, and the scripts those
+  // name in turn.
+  const wfDir = path.join(repoRoot, '.github/workflows');
+  const seen = new Set();
+  const queue = [];
+  // Only command lines name a script that runs: a commented-out `scp` of one
+  // does not run it.
+  const scan = text => {
+    const code = text.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+    for (const m of code.matchAll(/releases\/[\w./-]+\.sh\b/g)) {
+      const rel = m[0];
+      if (!seen.has(rel) && fs.existsSync(path.join(repoRoot, rel))) { seen.add(rel); queue.push(rel); }
+    }
+  };
+  fs.readdirSync(wfDir).filter(f => /\.ya?ml$/.test(f))
+    .forEach(f => scan(fs.readFileSync(path.join(wfDir, f), 'utf8')));
+  const bare = [];
+  while (queue.length) {
+    const rel = queue.shift();
+    const text = fs.readFileSync(path.join(repoRoot, rel), 'utf8');
+    scan(text);
+    text.split('\n').forEach((line, i) => {
+      if (/^\s*#/.test(line)) return;
+      if (!/\bnpm (install|ci)\b/.test(line)) return;
+      if (line.includes('npm-retry.sh')) return;
+      if (line.includes('|| true')) return;          // best-effort, as above
+      if (/\bgrep\b/.test(line)) return;               // looking for the line, not running it
+      if (/^\s*(echo|printf)\b|"[^"]*\bnpm (install|ci)\b[^"]*"\s*(>&2|;|\)|$)/.test(line) && !/\(cd /.test(line)) return; // a message, not a command
+      bare.push(`${rel}:${i + 1}: ${line.trim()}`);
+    });
+  }
+  assert.ok(seen.has('releases/sandstorm-slim-spk.sh'), 'the Sandstorm pack script is among the scripts read');
+  assert.deepStrictEqual(bare, [],
+    'these npm commands, run by a workflow, can lose a release to a five-minute outage');
+});
+
 test('the containers can reach the script that retries for them', () => {
   // Two of these installs run inside `docker run`, where the repository is not
   // present unless it is mounted. A call to /releases/npm-retry.sh in a

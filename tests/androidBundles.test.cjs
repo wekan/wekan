@@ -37,7 +37,7 @@ test('the bundle is rebuilt by the Android Node.js itself, checked and started',
   // happened in programs/server/node_modules, where sharp is not.
   assert.match(build, /appmods="\$server\/npm\/node_modules"\nrm -rf "\$appmods\/@img\/sharp-linux-"\*/);
   assert.doesNotMatch(build, /rm -rf "\$server\/node_modules\/@img/, 'not the wrong directory');
-  assert.match(build, /cd "\$appmods\/sharp" && npm install --no-save --omit=dev node-addon-api node-gyp && "\$node" install\/build\.js/);
+  assert.match(build, /cd "\$appmods\/sharp" && bash "\$root\/releases\/npm-retry\.sh" npm install --no-save --omit=dev node-addon-api node-gyp && "\$node" install\/build\.js/);
   assert.match(build, /::warning::sharp could not be built[^\n]*WebAssembly/);
   // Termux's user does not own the bind mount: chmod only what is not
   // already executable (v12.43-v12.44 stopped at "Operation not permitted").
@@ -57,7 +57,9 @@ test('argon2 and bcrypt are compiled for Android and must load before the bundle
   // was found for platform=android" until the 240 s smoke test gave up.
   const build = read('releases/android/build-bundle.sh');
   const prepare = build.indexOf('"$node" "$root/releases/prepare-bundle-npm.mjs" "$root/bundle"');
-  const install = build.indexOf('(cd "$server" && npm install)');
+  // Through npm-retry.sh since v13.03's Sandstorm .spk was lost to a 504 from
+  // github.com (tests/npmRetry.test.cjs): the same install, retried on outage.
+  const install = build.indexOf('(cd "$server" && bash "$root/releases/npm-retry.sh" npm install)');
   const loads = build.indexOf('for (const name of ["argon2", "bcrypt"])');
   assert.ok(prepare > 0 && prepare < install, 'the bundle declares its installers before npm installs');
   assert.ok(loads > install && loads < build.indexOf('check-addon-arch.mjs'), 'loaded with Android Node.js right after the install');
@@ -103,7 +105,7 @@ test('termux-exec is preloaded before npm, so #!/usr/bin/env scripts run', () =>
   assert(preload > 0, 'LD_PRELOAD is exported');
   assert.match(build, /"\$PREFIX\/lib\/libtermux-exec-ld-preload\.so" "\$PREFIX\/lib\/libtermux-exec\.so"/, 'both termux-exec generations, newest first, as login does');
   assert.match(build, /LD_PRELOAD="\$lib" sh -c true/, 'kept only if a program still starts with it');
-  assert(preload < build.indexOf('(cd "$server" && npm install)'), 'before npm runs any install script');
+  assert(preload < build.indexOf('(cd "$server" && bash "$root/releases/npm-retry.sh" npm install)'), 'before npm runs any install script');
 });
 
 test('negative: an LD_PRELOAD already set is not replaced', () => {

@@ -67,7 +67,9 @@ echo "==> [2/5] meteor build (Sandstorm profile)"
 rm -rf .meteor-spk/bundle
 mkdir -p .meteor-spk
 "$METEOR" build --directory .meteor-spk
-(cd .meteor-spk/bundle/programs/server && "$METEOR" npm install)
+# Through npm-retry.sh, as every other bundle's install: v13.03's .spk died
+# here on a 504 from github.com for meteor/node-source-map-support's tarball.
+(cd .meteor-spk/bundle/programs/server && bash "$REPO/releases/npm-retry.sh" "$METEOR" npm install)
 
 echo "==> [3/5] trim the bundle to a linux/x64 sockjs grain"
 # A grain is linux/x64, always, and talks DDP over sockjs (sandstorm-pkgdef.capnp
