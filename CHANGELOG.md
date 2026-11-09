@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.04 2026-11-09 WeKan ® release
 
 **ListLockBleed** is fixed: when a list refuses a role write
 access, that refusal now also holds for the checklist and checklist-item REST
 routes. The **Sandstorm** and **Android** bundles retry their npm install when
 github.com is briefly unavailable.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.04](CHANGELOG-big.md#v1304-2026-11-09-wekan--release)
 
 # v13.03 2026-11-09 WeKan ® release
 
@@ -48,11 +48,3 @@ API documentation** spells the name **WeKan**, so the API pages published on
 wekan.fi pass its brand-spelling check again.
 
 [All changes in v13.00](CHANGELOG-big.md#v1300-2026-11-07-wekan--release)
-
-# v12.99 2026-11-06 WeKan ® release
-
-The **mac-arm64** release bundle builds again: its job asked for
-GitHub's retired **macos-14** runner and was cancelled in the v12.98 release
-run. The **weba** instructions now live in the weba repository itself.
-
-[All changes in v12.99](CHANGELOG-big.md#v1299-2026-11-06-wekan--release)

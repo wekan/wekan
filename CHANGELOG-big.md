@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.04 2026-11-09 WeKan ® release
 
 **In short:** **ListLockBleed** is fixed: when a list refuses a role write
 access, that refusal now also holds for the checklist and checklist-item REST
