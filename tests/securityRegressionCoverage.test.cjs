@@ -221,6 +221,7 @@ const GUARDED = {
   importplacementbleed: ['tests/importPlacementBleed.test.cjs', 'tests/playwright/specs/security-import-placement.e2e.js'],
   samlsubjectbleed: ['tests/samlIdentityBinding.test.cjs'],
   stampbleed: ['tests/stampBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
+  unassignedarchivebleed: ['tests/assignedCardMethods.test.cjs', 'tests/playwright/specs/assigned-card-methods.e2e.js'],
   unassignedattachbleed: ['tests/unassignedAttachBleed.test.cjs', 'tests/playwright/specs/unassigned-attach-bleed.e2e.js'],
   uploadbleed: ['tests/uploadBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
 };
@@ -371,7 +372,8 @@ test('the whole published list is accounted for', () => {
   // 144 -> 145: CreateBleed (GHSA-qcfm-2g4w-wqcc, 2026-11-07), guarded. It went
   // unnoticed until the companion checkout moved to .tools/w/wekan.fi and this
   // file looked there: at the old path the comparison was skipped.
-  assert.strictEqual(total, 145, 'the Hall of Fame and this list disagree on how many there are');
+  // 145 -> 146: UnassignedArchiveBleed (GHSA-6xqf-jh8x-4wxc, 2026-11-08), guarded.
+  assert.strictEqual(total, 146, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

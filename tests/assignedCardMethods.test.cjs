@@ -1,6 +1,6 @@
 'use strict';
 
-// Guard: GHSA-6xqf-jh8x-4wxc (2026-11-08). The DDP methods archiveSelectedCards
+// Guard: UnassignedArchiveBleed, GHSA-6xqf-jh8x-4wxc (2026-11-08). The DDP methods archiveSelectedCards
 // and createBoardFromCard asked only for the board's `write` capability. The
 // normal-assigned-only role has write: true but sees only its own cards, so a
 // member with that role archived - and hid - cards not assigned to them, and

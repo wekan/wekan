@@ -1,5 +1,5 @@
 'use strict';
-// GHSA-6xqf-jh8x-4wxc (2026-11-08): an assigned-only member passed the
+// UnassignedArchiveBleed, GHSA-6xqf-jh8x-4wxc (2026-11-08): an assigned-only member passed the
 // board-level write check of archiveSelectedCards and createBoardFromCard for
 // every card on the board, so they archived - and hid - cards not assigned to
 // them, and turned any card into a linked-board card. Both methods now ask the
