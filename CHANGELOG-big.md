@@ -124,6 +124,46 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The amd64 **snaps** no longer fail the release when the Ubuntu
+archive is briefly unreachable: the build waits for it and retries once.
+
+This release fixes the following bugs:
+
+**Release builds** - what the release workflow does when a build fails.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7ace18af8">The amd64 snaps wait out an Ubuntu archive outage instead of failing</a>. Thanks to xet7.</summary>
+
+v13.02's native amd64 snap and both amd64 snap variants failed within eight
+minutes of each other with "Failed to refresh package list: failed to run apt
+update" while Snapcraft installed build-packages; the arm64 snaps, served by
+`ports.ubuntu.com`, built. `releases/snap-refresh-managed-apt.py` recovered
+only a stale `.deb` 404, so the one guarded retry never ran. It now also
+recognises a failed apt update in the managed build instance, retries
+`apt-get update` there with a 30/60/120/240 s backoff, and lets the Snapcraft
+retry run only once the archive answers; a longer outage stays fatal. It
+prints apt's own error lines first, so a failing job says why apt failed.
+`tests/snap-managed-apt.py` pins the recovery, its bound, and that unrelated
+failures are still refused.
+
+</details>
+
+and has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cc84a07cd">The security regression inventory counts UnassignedArchiveBleed as guarded</a>. Thanks to tsurutanmen and xet7.</summary>
+
+`tests/securityRegressionCoverage.test.cjs` failed once the Hall of Fame
+published UnassignedArchiveBleed, because its inventory did not have the name.
+It is guarded now by `tests/assignedCardMethods.test.cjs` and
+`tests/playwright/specs/assigned-card-methods.e2e.js`, which name it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.02 2026-11-09 WeKan ® release
 
 **In short:** **UnassignedArchiveBleed** is fixed: a member with the

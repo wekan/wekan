@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The amd64 **snaps** no longer fail the release when the Ubuntu
+archive is briefly unreachable: the build waits for it and retries once.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.02 2026-11-09 WeKan ® release
 
 **UnassignedArchiveBleed** is fixed: a member with the
