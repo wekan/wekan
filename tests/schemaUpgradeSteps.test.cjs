@@ -956,6 +956,53 @@ await test('nonfinite-sort-repair: repairs every sorted collection (lists/swimla
   assert.strictEqual(db._dump('checklistItems')[1].sort, 2);
 });
 
+// ── card-overtime-field (#6888) ──────────────────────────────────────────────
+const overtimeStep = steps.find(s => s.name === 'card-overtime-field');
+
+await test('card-overtime-field: a REST isOverTime becomes isOvertime, the shown one wins, the stray field goes', async () => {
+  const db = liveSortDb({ cards: [
+    { _id: 'on', isOverTime: true },
+    { _id: 'off', isOverTime: false },
+    { _id: 'both', isOverTime: true, isOvertime: false },
+    { _id: 'ui', isOvertime: true },
+    { _id: 'plain' },
+  ] });
+  assert.strictEqual(await overtimeStep.check(db), true);
+  const r = await overtimeStep.run(db);
+  assert.strictEqual(r.fixed, 2);
+  const byId = Object.fromEntries(db._dump('cards').map(c => [c._id, c]));
+  assert.deepStrictEqual(byId.on, { _id: 'on', isOvertime: true });
+  assert.deepStrictEqual(byId.off, { _id: 'off', isOvertime: false });
+  assert.deepStrictEqual(byId.both, { _id: 'both', isOvertime: false }, 'the value the UI showed is kept');
+  assert.deepStrictEqual(byId.ui, { _id: 'ui', isOvertime: true });
+  assert.deepStrictEqual(byId.plain, { _id: 'plain' });
+  assert.strictEqual(await overtimeStep.check(db), false, 'idempotent: nothing left after one pass');
+});
+
+await test('negative: card-overtime-field does not run on cards without the stray field', async () => {
+  const db = liveSortDb({ cards: [{ _id: 'ui', isOvertime: true }, { _id: 'plain' }] });
+  assert.strictEqual(await overtimeStep.check(db), false);
+});
+
+// Negative, tree-wide: nothing writes the request spelling into a card again.
+await test('negative: no server code writes isOverTime into a card document', () => {
+  const offenders = [];
+  const walk = dir => {
+    for (const e of fs.readdirSync(path.join(repoRoot, dir), { withFileTypes: true })) {
+      if (['node_modules', '.meteor', 'tests', 'packages'].includes(e.name) || e.name.startsWith('_build') || e.name.startsWith('.')) continue;
+      const rel = path.join(dir, e.name);
+      if (e.isDirectory()) walk(rel);
+      else if (rel.endsWith('.js')) {
+        read(rel).split('\n').forEach((line, i) => {
+          if (/\$(set|setOnInsert)\s*:\s*\{[^}]*\bisOverTime\s*:/.test(line)) offenders.push(`${rel}:${i + 1}`);
+        });
+      }
+    }
+  };
+  for (const dir of ['server', 'models', 'client', 'imports']) walk(dir);
+  assert.deepStrictEqual(offenders, []);
+});
+
 await test('negative: nonfinite-sort-repair does not run on healthy finite sorts', async () => {
   const db = liveSortDb({ cards: [{ _id: 'c1', sort: 0 }, { _id: 'c2', sort: 1e300 }, { _id: 'c3', sort: -1e300 }] });
   assert.strictEqual(await sortStep.check(db), false);

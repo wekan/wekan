@@ -59,6 +59,10 @@
 //                            rejected by FerretDB ("infinity values are not
 //                            allowed"), aborting MongoDB->FerretDB migration ->
 //                            reset to a finite 0
+//   card-overtime-field      #6888: REST PUT stored isOverTime, which nothing
+//                            reads; the schema and UI field is isOvertime ->
+//                            folded into isOvertime where that is unset, and
+//                            the stray field removed
 //   card-children-boardid    #6793: comments/reactions/text notes/attachments
 //                            still carrying the board their card was moved
 //                            AWAY from -> the card's current board id
@@ -859,6 +863,30 @@ const steps = [
         const r = await db.collection(coll).updateMany(NON_FINITE_SORT, { $set: { sort: 0 } });
         fixed += (r && r.modifiedCount) || 0;
       }
+      return { fixed, unresolved: 0 };
+    },
+  },
+
+  {
+    // card-overtime-field (#6888): the REST card PUT stored its isOverTime
+    // parameter under that spelling (b895e61237 until #6888), while the
+    // schema, the UI and every reader use isOvertime - so an overtime set
+    // through the API answered 200 and was seen nowhere. #6888 writes the
+    // right field from now on; this carries over what was written before.
+    // Where a card has both, isOvertime - the one shown - is kept. Two
+    // updateMany batches and an $unset; idempotent, nothing left after.
+    name: 'card-overtime-field',
+    async check(db) {
+      return !!(await db.collection('cards').findOne({ isOverTime: { $exists: true } }, { projection: { _id: 1 } }));
+    },
+    async run(db) {
+      const cards = db.collection('cards');
+      let fixed = 0;
+      for (const value of [true, false]) {
+        const r = await cards.updateMany({ isOverTime: value, isOvertime: { $exists: false } }, { $set: { isOvertime: value } });
+        fixed += (r && r.modifiedCount) || 0;
+      }
+      await cards.updateMany({ isOverTime: { $exists: true } }, { $unset: { isOverTime: '' } });
       return { fixed, unresolved: 0 };
     },
   },
