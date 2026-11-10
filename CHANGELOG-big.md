@@ -126,11 +126,27 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **Android** bundles build again, after v13.04's npm retry
-broke their install, and the **Super Productivity** export no longer fails for
-a board with a card whose list is archived.
+**In short:** WeKan is updated to **Meteor 3.6**. The **Android** bundles
+build again, after v13.04's npm retry broke their install, and the **Super
+Productivity** export no longer fails for a board with a card whose list is
+archived.
 
-This release fixes the following bugs:
+This release updates the following dependencies:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fbef8936fa2524d21048669e4c41be15e4e3f38">Updated to Meteor 3.6</a>. Thanks to xet7.</summary>
+
+From 3.6-rc.1. `meteor update` refused it, because WeKan's forks of six Meteor
+packages in `packages/` declared 3.6-rc.1's versions, and a local package
+overrides the release's. Meteor 3.6 changed those six only in their version
+line, so each fork now declares 3.6's version with its `_1` wrap number. The
+Dockerfile builds with Meteor 3.6, and the Bun build's patch applies unchanged
+to it as `meteor-3.6.patch`. WeKan builds with Meteor 3.6, and the node suites
+pass.
+
+</details>
+
+and fixes the following bugs:
 
 **Release builds** - what the release workflow builds.
 
