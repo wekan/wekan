@@ -61,6 +61,10 @@ npm_cli="$(dirname "$(readlink -f "$(command -v npm)")")/npm-cli.js"
 [ -f "$npm_cli" ] || npm_cli="$PREFIX/lib/node_modules/npm/bin/npm-cli.js"
 npm() { "$node" "$npm_cli" "$@"; }
 export -f npm 2>/dev/null || true
+# npm-retry.sh is a new bash: it is given the command itself, "$node"
+# "$npm_cli", never the npm function above. The function reaches it through
+# export -f, but $node and $npm_cli do not, and under its set -u v13.04's
+# Android bundles all died there with "environment: node: unbound variable".
 
 server="$root/bundle/programs/server"
 appmods="$server/npm/node_modules"
@@ -76,7 +80,7 @@ fi
 # have no Android prebuild, were never compiled, and WeKan did not start. It
 # is idempotent, so a bundle already prepared is left as it is.
 "$node" "$root/releases/prepare-bundle-npm.mjs" "$root/bundle"
-(cd "$server" && bash "$root/releases/npm-retry.sh" npm install)
+(cd "$server" && bash "$root/releases/npm-retry.sh" "$node" "$npm_cli" install)
 # accounts-password requires both at startup with no fallback. Load them here
 # with Android's Node.js, so a missing addon stops the build with its name -
 # check-addon-arch below passes Linux prebuilds, which Android does not load.
@@ -86,7 +90,7 @@ for (const name of ["argon2", "bcrypt"]) {
   catch (error) { console.error(`::error::${name} has no Android addon: ${error.message.split("\n")[0]}`); process.exit(1); }
 }')
 # sharp has no Android prebuilt: built from source against Termux's libvips.
-if ! (cd "$appmods/sharp" && bash "$root/releases/npm-retry.sh" npm install --no-save --omit=dev node-addon-api node-gyp && "$node" install/build.js); then
+if ! (cd "$appmods/sharp" && bash "$root/releases/npm-retry.sh" "$node" "$npm_cli" install --no-save --omit=dev node-addon-api node-gyp && "$node" install/build.js); then
   echo "::warning::sharp could not be built against Termux's libvips here; it runs as WebAssembly (@img/sharp-wasm32)."
 fi
 "$node" "$root/releases/prune-build-only-modules.mjs" "$root/bundle"

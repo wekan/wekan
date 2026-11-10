@@ -181,6 +181,53 @@ test('every npm install in a script a workflow runs goes through it too', () => 
     'these npm commands, run by a workflow, can lose a release to a five-minute outage');
 });
 
+test('npm-retry.sh is given a program, never a shell function of the caller', () => {
+  // npm-retry.sh is a new bash with set -u. A function of the script that
+  // calls it reaches it only through export -f, and the variables that
+  // function reads do not: v13.04's Android bundles all died with
+  // "environment: node: unbound variable" when build-bundle.sh handed it its
+  // npm() { "$node" "$npm_cli" ...; }. So, for every releases/ script, no
+  // function it defines is the command it gives npm-retry.sh.
+  const dir = path.join(repoRoot, 'releases');
+  const scripts = [];
+  const walk = d => fs.readdirSync(d, { withFileTypes: true }).forEach(e => {
+    const p = path.join(d, e.name);
+    if (e.isDirectory()) walk(p); else if (/\.sh$/.test(e.name)) scripts.push(p);
+  });
+  walk(dir);
+  const bad = [];
+  for (const file of scripts) {
+    const text = fs.readFileSync(file, 'utf8');
+    const functions = [...text.matchAll(/^\s*(?:function\s+)?([A-Za-z_][\w-]*)\s*\(\)\s*\{/gm)].map(m => m[1]);
+    text.split('\n').forEach((line, i) => {
+      if (/^\s*#/.test(line)) return;
+      const m = /npm-retry\.sh"?\s+"?([^\s"]+)/.exec(line);
+      if (m && functions.includes(m[1])) bad.push(`${path.relative(repoRoot, file)}:${i + 1}: ${line.trim()}`);
+    });
+  }
+  assert.deepStrictEqual(bad, [], 'npm-retry.sh runs these as a program in a new bash, where the function has no variables');
+  // The Android installs still go through it, as the program they are.
+  const android = fs.readFileSync(path.join(dir, 'android/build-bundle.sh'), 'utf8');
+  assert.strictEqual((android.match(/npm-retry\.sh" "\$node" "\$npm_cli" install/g) || []).length, 2,
+    'both Android npm installs are retried, given Android\'s node and npm-cli.js');
+});
+
+test('a caller\'s function in npm-retry.sh fails as it did, and its program works', () => {
+  // The failure itself, so the rule above has a reason a test shows: a
+  // function exported with export -f reaches npm-retry.sh, its variable does not.
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'npmretry-'));
+  const prog = path.join(dir, 'fake-npm');
+  fs.writeFileSync(prog, '#!/bin/sh\necho "installed $*"\n', { mode: 0o755 });
+  const run = body => spawnSync('bash', ['-c', `set -u; node_bin=${JSON.stringify(prog)}; npm() { "$node_bin" "$@"; }; export -f npm; ${body}`],
+    { encoding: 'utf8', env: { ...process.env, NPM_RETRY_SLEEPS: '0' } });
+  const viaFunction = run(`bash ${JSON.stringify(script)} npm install`);
+  assert.notStrictEqual(viaFunction.status, 0, 'the function, without its variable, fails');
+  assert.match(viaFunction.stdout + viaFunction.stderr, /node_bin: unbound variable/);
+  const viaProgram = run(`bash ${JSON.stringify(script)} "$node_bin" install`);
+  assert.strictEqual(viaProgram.status, 0, viaProgram.stdout + viaProgram.stderr);
+  assert.match(viaProgram.stdout, /installed install/);
+});
+
 test('the containers can reach the script that retries for them', () => {
   // Two of these installs run inside `docker run`, where the repository is not
   // present unless it is mounted. A call to /releases/npm-retry.sh in a
