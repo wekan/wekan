@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.05
+  version: v13.06
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
