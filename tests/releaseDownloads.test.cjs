@@ -92,7 +92,8 @@ test('a download is readable by everyone, as an AppImage needs (v12.69)', () => 
   // after `chmod +x`, and appimagetool refused to pack them.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'ferretdb');
-  const r = spawnSync('bash', ['-c', `umask 022; bash "${fetchSh}" -o "${out}" "${base}/ok" && chmod +x "${out}"`],
+  // Arguments, not script text: the paths cannot change the command (CodeQL #601's shape).
+  const r = spawnSync('bash', ['-c', 'umask 022; bash "$1" -o "$2" "$3" && chmod +x "$2"', '_', fetchSh, out, `${base}/ok`],
     { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
   assert.strictEqual(r.status, 0, r.stderr);
   assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '755');
@@ -101,7 +102,7 @@ test('a download is readable by everyone, as an AppImage needs (v12.69)', () => 
 test('a download still follows a stricter umask (negative)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'private');
-  const r = spawnSync('bash', ['-c', `umask 077; bash "${fetchSh}" -o "${out}" "${base}/ok"`],
+  const r = spawnSync('bash', ['-c', 'umask 077; bash "$1" -o "$2" "$3"', '_', fetchSh, out, `${base}/ok`],
     { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
   assert.strictEqual(r.status, 0, r.stderr);
   assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '600');

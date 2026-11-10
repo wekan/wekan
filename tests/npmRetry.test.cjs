@@ -218,12 +218,16 @@ test('a caller\'s function in npm-retry.sh fails as it did, and its program work
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'npmretry-'));
   const prog = path.join(dir, 'fake-npm');
   fs.writeFileSync(prog, '#!/bin/sh\necho "installed $*"\n', { mode: 0o755 });
-  const run = body => spawnSync('bash', ['-c', `set -u; node_bin=${JSON.stringify(prog)}; npm() { "$node_bin" "$@"; }; export -f npm; ${body}`],
-    { encoding: 'utf8', env: { ...process.env, NPM_RETRY_SLEEPS: '0' } });
-  const viaFunction = run(`bash ${JSON.stringify(script)} npm install`);
+  // The paths go in through the environment, never into the script text
+  // (CodeQL alert #601, js/shell-command-injection-from-environment): a
+  // temporary directory with a quote, `$(` or a backtick would change it.
+  // NODE_BIN is not node_bin, so npm-retry.sh's bash still lacks the variable.
+  const run = body => spawnSync('bash', ['-c', `set -u; node_bin="$NODE_BIN"; npm() { "$node_bin" "$@"; }; export -f npm; ${body}`],
+    { encoding: 'utf8', env: { ...process.env, NPM_RETRY_SLEEPS: '0', NODE_BIN: prog, NPM_RETRY_SCRIPT: script } });
+  const viaFunction = run('bash "$NPM_RETRY_SCRIPT" npm install');
   assert.notStrictEqual(viaFunction.status, 0, 'the function, without its variable, fails');
   assert.match(viaFunction.stdout + viaFunction.stderr, /node_bin: unbound variable/);
-  const viaProgram = run(`bash ${JSON.stringify(script)} "$node_bin" install`);
+  const viaProgram = run('bash "$NPM_RETRY_SCRIPT" "$node_bin" install');
   assert.strictEqual(viaProgram.status, 0, viaProgram.stdout + viaProgram.stderr);
   assert.match(viaProgram.stdout, /installed install/);
 });

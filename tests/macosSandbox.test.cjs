@@ -51,9 +51,10 @@ test('on macOS: the profile really refuses the home directory and allows the che
     const profile = path.join(tmp, 'test.sb');
     fs.writeFileSync(profile, `(version 1)\n(allow default)\n(deny file-read* file-write* (subpath "/Users") (subpath "/Volumes"))\n`
       + `(allow file-read* file-write* (subpath ${JSON.stringify(root)}))\n`);
+    // The paths are arguments, not script text (CodeQL #601's shape).
     const r = spawnSync('sandbox-exec', ['-f', profile, '/bin/bash', '-c',
-      `ls ${JSON.stringify(home + '/Desktop')} >/dev/null 2>&1 && echo home=read || echo home=refused;`
-      + `touch ${JSON.stringify(tmp + '/ok')} && echo checkout=written`], { encoding: 'utf8' });
+      'ls "$1" >/dev/null 2>&1 && echo home=read || echo home=refused; touch "$2" && echo checkout=written',
+      '_', home + '/Desktop', tmp + '/ok'], { encoding: 'utf8' });
     assert.match(r.stdout, /home=refused/);
     assert.match(r.stdout, /checkout=written/);
   } finally {
