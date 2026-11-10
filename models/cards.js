@@ -3912,7 +3912,7 @@ async function cardMembers(userId, doc, fieldNames, modifier) {
   if (modifier.$addToSet && modifier.$addToSet.members) {
     memberId = modifier.$addToSet.members;
     const user = await ReactiveCache.getUser(memberId);
-    const username = user.username;
+    const username = user && user.username;
     if (!(doc.members || []).includes(memberId)) {
       await Activities.insertAsync({
         userId,
@@ -3955,7 +3955,7 @@ async function cardAssignees(userId, doc, fieldNames, modifier) {
   if (modifier.$addToSet && modifier.$addToSet.assignees) {
     assigneeId = modifier.$addToSet.assignees;
     const user = await ReactiveCache.getUser(assigneeId);
-    const username = user.username;
+    const username = user && user.username;
     if (!(doc.assignees || []).includes(assigneeId)) {
       await Activities.insertAsync({
         userId,

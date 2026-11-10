@@ -62,3 +62,46 @@ for (const [field, hook, idKey, joined, removed] of [
     assert.equal(h.activities.length, 2);
   });
 }
+
+// The join halves had the same unguarded user.username (#6889 follow-up):
+// REST checks the user before adding, but a client $addToSet, a copied or
+// imported card, or a rule can add an id whose account is gone.
+for (const [field, hook, idKey, joined] of [
+  ['members', 'cardMembers', 'memberId', 'joinMember'],
+  ['assignees', 'cardAssignees', 'assigneeId', 'joinAssignee'],
+]) {
+  test(`${field}: adding a user whose account is gone does not throw, and records the id`, async () => {
+    const h = hooks(undefined);
+    const card = { _id: 'card', boardId: 'board', listId: 'list', swimlaneId: 'lane' };
+    await assert.doesNotReject(() => h[hook]('actor', { ...card, [field]: [] }, [field], { $addToSet: { [field]: 'gone' } }));
+    assert.equal(h.activities.length, 1);
+    assert.equal(h.activities[0].activityType, joined);
+    assert.equal(h.activities[0][idKey], 'gone');
+    assert.equal(h.activities[0].username, undefined);
+  });
+}
+
+// Negative, tree-wide: a user looked up is never dereferenced before it is
+// known to exist - the shape both halves of #6889 had.
+test('nowhere: `const x = user.field;` straight after getUser() without a guard', () => {
+  const root = path.join(__dirname, '..');
+  const offenders = [];
+  const walk = dir => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (['node_modules', '.meteor', 'tests', 'packages', 'public'].includes(e.name) || e.name.startsWith('_build') || e.name.startsWith('.')) continue;
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (p.endsWith('.js')) {
+        const lines = fs.readFileSync(p, 'utf8').split('\n');
+        lines.forEach((line, i) => {
+          const m = /const (\w+) = await ReactiveCache\.getUser\(/.exec(line);
+          if (!m) return;
+          const next = (lines.slice(i + 1).find(l => l.trim()) || '').trim();
+          if (new RegExp(`^const \\w+ = ${m[1]}\\.\\w+;`).test(next)) offenders.push(`${path.relative(root, p)}:${i + 2}`);
+        });
+      }
+    }
+  };
+  for (const dir of ['server', 'models', 'client', 'imports']) walk(path.join(root, dir));
+  assert.deepEqual(offenders, []);
+});
