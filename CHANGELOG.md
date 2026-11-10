@@ -7,8 +7,9 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **Super Productivity** export no longer fails for a board
-with a card whose list is archived.
+The **Android** bundles build again, after v13.04's npm retry
+broke their install, and the **Super Productivity** export no longer fails for
+a board with a card whose list is archived.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

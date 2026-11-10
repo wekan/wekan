@@ -126,10 +126,30 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** The **Super Productivity** export no longer fails for a board
-with a card whose list is archived.
+**In short:** The **Android** bundles build again, after v13.04's npm retry
+broke their install, and the **Super Productivity** export no longer fails for
+a board with a card whose list is archived.
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Release builds** - what the release workflow builds.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d08f658deae3b8369b75f1c54371ad8c1cf9367d">The Android bundles build again: npm-retry.sh is given Android's node and npm</a>. Thanks to xet7.</summary>
+
+v13.04's four Android bundle jobs all failed with "environment: node: unbound
+variable". v13.04 sent the Android npm installs through
+`releases/npm-retry.sh` by the name of `build-bundle.sh`'s own `npm` shell
+function. `npm-retry.sh` is a new bash with `set -u`: the exported function
+reached it, but the `$node` and `$npm_cli` it reads did not, so it failed before
+npm ran. The two installs now give `npm-retry.sh` the program itself, still
+retried on a network error. `tests/npmRetry.test.cjs` fails when any
+`releases/` script gives `npm-retry.sh` one of its own shell functions, and
+reproduces the failure.
+
+</details>
+
+**Exports** - a board in another tool's format.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/45ea501d86294c83dd510c342f1099aa5efe9002">The Super Productivity export no longer fails on a card whose list is archived</a>. Thanks to xet7.</summary>
