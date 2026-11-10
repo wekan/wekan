@@ -352,6 +352,10 @@ export function formatSuperProductivity({ board, lists, swimlanes, items } = {},
     }
     return tagIdByTitle.get(name);
   };
+  // A list's own tag. A list with no title - a card whose list is archived
+  // is collected with listTitle '' - is "Untitled", as its panel is named,
+  // so the panel shows its cards and every task's tags exist.
+  const listTag = title => tagFor(String(title || '').trim() || 'Untitled');
   const inProgressTag = () => {
     if (!tagState.entities[SP_IN_PROGRESS_TAG_ID]) {
       tagState.ids.push(SP_IN_PROGRESS_TAG_ID);
@@ -398,7 +402,7 @@ export function formatSuperProductivity({ board, lists, swimlanes, items } = {},
     const isDone = kind === 'done' || ended !== undefined;
     const tagIds = (Array.isArray(item.labels) ? item.labels : []).map(tagFor).filter(Boolean);
     if (kind === 'progress' && !isDone) tagIds.push(inProgressTag());
-    if (kind === 'other') tagIds.push(tagFor(item.listTitle));
+    if (kind === 'other') tagIds.push(listTag(item.listTitle));
     const notes = [String(item.description || '').trim(), checklistMarkdown(item.checklists)].filter(Boolean).join('\n\n');
     const created = msOf(item.createdAt) || now;
     const spent = Number(item.spentTime);
@@ -449,7 +453,7 @@ export function formatSuperProductivity({ board, lists, swimlanes, items } = {},
   });
 
   // One board, one panel per list, filtering the way the list decides.
-  const otherTags = listTitles.filter(title => listKind(title) === 'other').map(tagFor);
+  const otherTags = listTitles.filter(title => listKind(title) === 'other').map(listTag);
   const panel = (title, index, filter) => ({
     id: `wekan-panel-${index + 1}`, title: title || 'Untitled', taskIds: panelTasks.get(title) || [],
     includedTagIds: [], excludedTagIds: [], projectIds: [''],
@@ -464,7 +468,7 @@ export function formatSuperProductivity({ board, lists, swimlanes, items } = {},
         excludedTagIds: [...(tagState.entities[SP_IN_PROGRESS_TAG_ID] ? [SP_IN_PROGRESS_TAG_ID] : []), ...otherTags],
         backlogState: backlogUsed ? 2 : 1,
       });
-      default: return panel(title, index, { includedTagIds: [tagFor(title)] });
+      default: return panel(title, index, { includedTagIds: [listTag(title)] });
     }
   });
 

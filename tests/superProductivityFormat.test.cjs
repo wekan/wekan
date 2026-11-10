@@ -297,6 +297,29 @@ async function main() {
     assert.equal(empty.data.project.entities['wekan-project-1'].title, 'Empty');
   });
 
+  // A card whose list is archived is collected with listTitle '': the export
+  // threw "Cannot read properties of undefined (reading 'taskIds')" on its
+  // missing tag. It is the "Untitled" list now, its tag and its panel alike.
+  test('a card with no list title exports into the Untitled list', () => {
+    const backup = JSON.parse(formatSuperProductivity({ board: { title: 'B' }, lists: [{ title: 'Doing' }], swimlanes: [],
+      items: [{ cardId: 'a', title: 'Orphan', listTitle: '', labels: [] }, { cardId: 'b', title: 'Kept', listTitle: 'Doing', labels: [] }] }, { now: 1 }));
+    assertSuperProductivityAccepts(backup);
+    const orphan = backup.data.task.entities.a;
+    const untitled = Object.values(backup.data.tag.entities).find(t => t.title === 'Untitled');
+    assert.ok(untitled, 'the Untitled list has its tag');
+    assert.deepEqual(orphan.tagIds, [untitled.id]);
+    assert.deepEqual(untitled.taskIds, ['a']);
+    const panel = backup.data.boards.boardCfgs[0].panels.find(p => p.title === 'Untitled');
+    assert.deepEqual(panel.includedTagIds, [untitled.id], 'its panel filters by that tag');
+    // Negative: no task names a tag that does not exist, and no panel a null tag.
+    for (const task of Object.values(backup.data.task.entities)) {
+      for (const id of task.tagIds) assert.ok(backup.data.tag.entities[id], `${task.id} names ${id}`);
+    }
+    for (const p of backup.data.boards.boardCfgs[0].panels) {
+      assert.ok(!p.includedTagIds.includes(null) && !p.excludedTagIds.includes(null), `${p.title} names no null tag`);
+    }
+  });
+
   test('the format is wired into import, export, the import page and the export menu', () => {
     assert.equal(EXTERNAL_PARSERS.superproductivity, parseSuperProductivity);
     assert.equal(typeof formatters.superproductivity, 'function');
