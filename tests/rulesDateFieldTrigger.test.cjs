@@ -57,15 +57,18 @@ test('negative: the 4 date triggers are distinct activityType keys, none shared'
 // reuses actually exists and is not something this change invents.
 
 test('the Cards.before.update timing-field hook logs a-receivedAt/a-startAt/a-dueAt/a-endAt', () => {
-  const block = serverCardsSrc.slice(
-    serverCardsSrc.indexOf("const timingaction = ['receivedAt', 'dueAt', 'startAt', 'endAt'];"),
-  );
+  const block = serverCardsSrc.slice(serverCardsSrc.indexOf('const change = timingChange(fieldNames, modifier);'));
   const body = block.slice(0, block.indexOf('\n});') + 4);
   assert.ok(/activityType = `a-\$\{action\}`;/.test(body));
   assert.ok(/await Activities\.insertAsync\(/.test(body));
-  // Reads modifier.$set - only fires for a real SET, not for an $unset clear
-  // (unsetDue/unsetStart/unsetEnd/unsetReceived), matching "set or changed".
-  assert.ok(/modifier\.\$set\[action\]/.test(body));
+  // It read modifier.$set[action] to "only fire for a real SET", but a cleared
+  // date ($unset) went through it too - throwing, or writing timeValue:
+  // undefined. Now a set carries timeValue and a clear only timeOldValue
+  // (tests/cardTimingActivity.test.cjs), and "set or changed" still means a
+  // real value: the rules skip a clear before matching any trigger.
+  assert.ok(/\.\.\.\(change\.set \? \{ timeValue: change\.value \} : \{\}\)/.test(body));
+  assert.ok(!/modifier\.\$set\[action\]/.test(body), 'negative: no read of a $set that may not be there');
+  assert.ok(/if \(isTimingClear\(activity\)\) return \[\];/.test(fs.readFileSync(path.join(__dirname, '../server/rulesHelper.js'), 'utf8')));
 });
 
 // --- server/rulesHelper.js: the matcher works generically off TriggersDef --

@@ -52,7 +52,11 @@ test('#4912: description changes log activityType a-changedDescription', () => {
 });
 
 test('#4912: due/start/end/received date changes log activityType a-${action}', () => {
-  assert.match(cardsSrc, /const timingaction = \[\s*'receivedAt',\s*'dueAt',\s*'startAt',\s*'endAt',?\s*\];/);
+  // The four dates moved from an inline list into server/lib/timingChangeActivity.js
+  // when the hook stopped reading a $set a cleared date does not have.
+  const timingSrc = fs.readFileSync(path.join(__dirname, '../server/lib/timingChangeActivity.js'), 'utf8');
+  assert.match(timingSrc, /export const TIMING_FIELDS = \[\s*'receivedAt',\s*'dueAt',\s*'startAt',\s*'endAt',?\s*\];/);
+  assert.match(cardsSrc, /const change = timingChange\(fieldNames, modifier\);/);
   assert.match(cardsSrc, /const activityType = `a-\$\{action\}`;/);
 });
 

@@ -27,6 +27,7 @@ import { relativeDateOffset } from '/models/lib/relativeDateOffset';
 import { resolveRuleSwimlaneId, resolveRuleListId } from '/models/lib/ruleActionResolve';
 import { cardTitleMatchList, cardTitleFilterMatches } from '/models/lib/ruleCardTitleFilter';
 import { triggerMatchesWithVars } from '/models/lib/ruleTriggerVars';
+import { isTimingClear } from '/server/lib/timingChangeActivity';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { substituteVars, recipientVars } from '/models/lib/ruleVarsSubstitute';
@@ -424,6 +425,8 @@ export const RulesHelper = {
     return { activity: { ...activity, boardId: card.boardId }, followedFrom: activity.boardId };
   },
   async findMatchingRules(activity) {
+    // A card date cleared is not "a card's date is set or changed" (#2474).
+    if (isTimingClear(activity)) return [];
     const activityType = activity.activityType;
     const matchingRules = [];
     if (TriggersDef[activityType] !== undefined) {

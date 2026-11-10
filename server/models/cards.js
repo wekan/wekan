@@ -17,6 +17,7 @@ const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency'
 const { stampCardListEntry } = require('/models/lib/cardListEntry');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
+import { timingChange } from '/server/lib/timingChangeActivity';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 const { deferSyncRecording, deferSyncLabelActivities } = require('/server/lib/syncRecordingScope');
 const { movedScrumMetadata } = require('/models/lib/scrumCopy');
@@ -1264,13 +1265,15 @@ Cards.after.update(async function(userId, doc, fieldNames) {
 });
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {
-  const fields = fieldNames.filter(name => name !== 'dateLastActivity');
-  const timingaction = ['receivedAt', 'dueAt', 'startAt', 'endAt'];
-  const action = fields[0];
-  if (fields.length > 0 && timingaction.includes(action)) {
+  // A date set carries timeValue, a date cleared ($unset) timeOldValue alone;
+  // neither reads a $set that is not there (server/lib/timingChangeActivity.js).
+  const change = timingChange(fieldNames, modifier);
+  if (change) {
     // A durable rule date action writes this activity from its saved plan.
     if (deferSyncRecording('timing', doc)) return;
-    const value = modifier.$set[action];
+    const action = change.field;
+    // Clearing a date the card does not have changes nothing.
+    if (!change.set && !doc[action]) return;
     const oldvalue = doc[action] || '';
     const activityType = `a-${action}`;
     const card = await ReactiveCache.getCard(doc._id);
@@ -1296,7 +1299,7 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
       cardId: doc._id,
       cardTitle: doc.title,
       timeKey: action,
-      timeValue: value,
+      ...(change.set ? { timeValue: change.value } : {}),
       timeOldValue: oldvalue,
       listId: card.listId,
       swimlaneId: card.swimlaneId,

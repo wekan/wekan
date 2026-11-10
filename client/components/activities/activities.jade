@@ -195,7 +195,10 @@ template(name="activity")
       if(currentData.timeKey)
         | {{_ activity.activityType }}
         = ' '
-        i(title=currentData.timeValue).activity-meta {{ displayDate currentData.timeValue 'LLL' }}
+        //- A date cleared has no new value (server/lib/timingChangeActivity.js):
+          only the one it had, below, rather than an empty date.
+        if currentData.timeValue
+          i(title=currentData.timeValue).activity-meta {{ displayDate currentData.timeValue 'LLL' }}
         if (currentData.timeOldValue)
           = ' '
             | {{{activityMessage "previous_as" }}}
