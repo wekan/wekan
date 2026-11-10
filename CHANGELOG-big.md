@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.06 2026-11-11 WeKan ® release
 
 **In short:** **CodeQL** alert #601 in a test is fixed, with two more tests
 that had the same fault. A card's **overtime** set through the REST API is
