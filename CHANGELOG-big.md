@@ -152,7 +152,7 @@ reproduces the failure.
 **Exports** - a board in another tool's format.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/45ea501d86294c83dd510c342f1099aa5efe9002">The Super Productivity export no longer fails on a card whose list is archived</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8b4fe0e7376194c498219a0b496340a94020098a">The Super Productivity export no longer fails on a card whose list is archived</a>. Thanks to xet7.</summary>
 
 A card whose list is archived is collected with an empty list title. The
 Super Productivity formatter tagged that card with a tag that did not exist, so
