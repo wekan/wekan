@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **Super Productivity** export no longer fails for a board
+with a card whose list is archived.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.04 2026-11-09 WeKan ® release
 
 **ListLockBleed** is fixed: when a list refuses a role write

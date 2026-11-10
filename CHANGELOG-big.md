@@ -124,6 +124,29 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Super Productivity** export no longer fails for a board
+with a card whose list is archived.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45ea501d86294c83dd510c342f1099aa5efe9002">The Super Productivity export no longer fails on a card whose list is archived</a>. Thanks to xet7.</summary>
+
+A card whose list is archived is collected with an empty list title. The
+Super Productivity formatter tagged that card with a tag that did not exist, so
+the export threw "Cannot read properties of undefined (reading 'taskIds')" and
+the whole board's export failed. That list is now "Untitled", for its tag and
+its panel alike, so the panel shows its cards and every tag a task names
+exists. `tests/superProductivityFormat.test.cjs` fails with that error on the
+old formatter. It was found while checking Weddy's Super Productivity export
+against WeKan's formatter.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.04 2026-11-09 WeKan ® release
 
 **In short:** **ListLockBleed** is fixed: when a list refuses a role write
