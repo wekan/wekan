@@ -3931,7 +3931,7 @@ async function cardMembers(userId, doc, fieldNames, modifier) {
   if (modifier.$pull && modifier.$pull.members) {
     memberId = modifier.$pull.members;
     const user = await ReactiveCache.getUser(memberId);
-    const username = user?.username;
+    const username = user && user.username;
     // Check that the former member is member of the card
     if ((doc.members || []).includes(memberId)) {
       await Activities.insertAsync({
@@ -3973,7 +3973,7 @@ async function cardAssignees(userId, doc, fieldNames, modifier) {
   if (modifier.$pull && modifier.$pull.assignees) {
     assigneeId = modifier.$pull.assignees;
     const user = await ReactiveCache.getUser(assigneeId);
-    const username = user?.username;
+    const username = user && user.username;
     // Check that the former assignee is assignee of the card
     if ((doc.assignees || []).includes(assigneeId)) {
       await Activities.insertAsync({
