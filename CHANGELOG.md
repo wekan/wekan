@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+A card's **overtime** set through the REST API is saved where
+WeKan reads it, and cards that lost it before are repaired at startup. Card
+**members and assignees** whose account was deleted can be removed and added
+without an error, and clearing a card **date** no longer passes as a date set
+to the rules, the due date count and the activity feed.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.05 2026-11-10 WeKan ® release
 
 WeKan is updated to **Meteor 3.6**. The **Android** bundles

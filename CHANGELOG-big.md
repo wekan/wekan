@@ -124,6 +124,90 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A card's **overtime** set through the REST API is saved where
+WeKan reads it, and cards that lost it before are repaired at startup. Card
+**members and assignees** whose account was deleted can be removed and added
+without an error, and clearing a card **date** no longer passes as a date set
+to the rules, the due date count and the activity feed.
+
+This release fixes the following bugs:
+
+**Card overtime** - what the REST API stores, and what it stored before.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f74ef4c40d85f9f6b91b8f4ecfc7372f67d32100">A REST card update saves isOverTime as the isOvertime WeKan reads</a>. Thanks to AhmedLukman.</summary>
+
+A PUT with `{"isOverTime": true}` answered 200 and changed nothing anyone saw:
+the handler wrote `isOverTime`, while the schema and the UI use `isOvertime`.
+The request keeps its spelling and the validated value is stored in
+`isOvertime`. Browser tests cover JSON and form updates, the stored value, a
+REST read, the open card, a reload, and refused requests, and the unit test
+pins the stored field name.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/569756b66c0fc3e3c41aba93fa8311994c6fa754">An isOverTime stored before that fix becomes isOvertime at startup</a>. Thanks to AhmedLukman and xet7.</summary>
+
+Every overtime set through the API since `b895e61237` was stored under the
+field nothing reads. The `card-overtime-field` schema upgrade step folds it
+into `isOvertime` where the card has none, keeps the value the UI already shows
+where it has both, and removes the stray field - version-gated and idempotent
+like the steps beside it. Tests pin the fold, the precedence and a second pass
+finding nothing; as negatives, no work on cards without the field, and no
+server code writing `isOverTime` into a card.
+
+</details>
+
+**Card members and assignees** - people whose account is gone.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e9d1cb6305a4a36f9cb890c7f5babb66ab4f43c">A member or assignee whose account is gone can be removed</a>. Thanks to AhmedLukman.</summary>
+
+Removing a card member or assignee whose user account no longer exists read
+`user.username` of nobody and answered HTTP 500, so the stale id could never
+be removed. Both removal hooks now look the name up safely and still record
+the removed id. Unit tests run the real hooks, and browser tests cover stale,
+missing, repeated and normal removals with their authentication and scope
+checks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32590ee7ab89b41ca6f764a58ec0f43d56d48ab8">Adding a member or assignee whose account is gone no longer throws either</a>. Thanks to AhmedLukman and xet7.</summary>
+
+The joining halves of the same two hooks had the same read. The REST route
+checks the user before adding, but a client update, a copied or imported card,
+or a rule can still add such an id. Both now record the join with the id and
+no username. Tests run the real hooks, and a tree-wide test finds no
+`const x = user.field;` straight after a user lookup without a guard.
+
+</details>
+
+**Card dates** - what clearing a date records.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50334816caf227237124b007c53a467c8f6919f5">Clearing a card date no longer passes through the timing hook as a date set</a>. Thanks to xet7.</summary>
+
+The hook that records `a-dueAt` and the other date activities read
+`modifier.$set[field]` for every date update, but clearing a date sends only a
+`$unset`: without a `$set` the hook threw, and with one beside it an `a-dueAt`
+without a value was written - counted as a due date change (#6081), matched by
+the "date set or changed" rule triggers (#2474) and shown as an empty date in
+the activity feed. Now a date set records its value, a date cleared records
+only the date it had - as a rule's removeDate does, and as the board timeline
+rewinds - and clearing a date the card does not have records nothing. The rules
+skip a cleared date, and the feed shows only the date it had. Tests run the real
+hook with a set, a `$unset` alone and a `$unset` beside a `$set`, and a
+tree-wide test finds no `modifier.$set[...]` read that assumes the `$set` is
+there.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.05 2026-11-10 WeKan ® release
 
 **In short:** WeKan is updated to **Meteor 3.6**. The **Android** bundles
