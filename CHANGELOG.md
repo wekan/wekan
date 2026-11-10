@@ -7,11 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-A card's **overtime** set through the REST API is saved where
-WeKan reads it, and cards that lost it before are repaired at startup. Card
-**members and assignees** whose account was deleted can be removed and added
-without an error, and clearing a card **date** no longer passes as a date set
-to the rules, the due date count and the activity feed.
+**CodeQL** alert #601 in a test is fixed, with two more tests
+that had the same fault. A card's **overtime** set through the REST API is
+saved where WeKan reads it, and cards that lost it before are repaired at
+startup. Card **members and assignees** whose account was deleted can be removed
+and added without an error, and clearing a card **date** no longer passes as a
+date set to the rules, the due date count and the activity feed.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
