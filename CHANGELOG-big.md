@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.05 2026-11-10 WeKan ® release
 
 **In short:** WeKan is updated to **Meteor 3.6**. The **Android** bundles
 build again, after v13.04's npm retry broke their install, and the **Super

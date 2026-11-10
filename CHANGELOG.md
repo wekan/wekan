@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.05 2026-11-10 WeKan ® release
 
 WeKan is updated to **Meteor 3.6**. The **Android** bundles
 build again, after v13.04's npm retry broke their install, and the **Super
 Productivity** export no longer fails for a board with a card whose list is
 archived.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.05](CHANGELOG-big.md#v1305-2026-11-10-wekan--release)
 
 # v13.04 2026-11-09 WeKan ® release
 
@@ -47,13 +47,3 @@ Arabic** is Darija instead of Persian. Dependabot's updates of **mailparser**,
 with the S3 client brought to the version the upload library needs.
 
 [All changes in v13.01](CHANGELOG-big.md#v1301-2026-11-08-wekan--release)
-
-# v13.00 2026-11-07 WeKan ® release
-
-**CreateBleed** is fixed: "Only admins can create boards" now
-holds on every path that creates a board - the browser console, the REST API,
-imports, copies, clones and cards - not only on the Add Board form. The **REST
-API documentation** spells the name **WeKan**, so the API pages published on
-wekan.fi pass its brand-spelling check again.
-
-[All changes in v13.00](CHANGELOG-big.md#v1300-2026-11-07-wekan--release)
