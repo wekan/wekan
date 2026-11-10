@@ -3,7 +3,8 @@
 // Meteor 3.5.3's six security fixes, in WeKan's forks of Meteor's own
 // packages in packages/ (a local package overrides the release's). The forks
 // were made because Meteor 3.6-rc.0 lacked the fixes; 3.6-rc.1 carries them,
-// and the forks are rebased onto it for what is WeKan's own: the Admin Panel /
+// and the forks are rebased onto it - and onto Meteor 3.6, whose six packages
+// differ from 3.6-rc.1's only in their version line - for what is WeKan's own: the Admin Panel /
 // Problems reports and the crypto-RNG keys (tests/meteorForkRandomKeys.test.cjs).
 // This suite keeps checking that the fixes are there, whichever side has them.
 // Run: node tests/meteor353SecurityFixes.test.cjs
@@ -25,9 +26,9 @@ const { METEOR_SECURITY_KEYS, meteorSecurityEvent } = require('../models/lib/met
 const { CATALOG } = require('../models/lib/securityCategories.js');
 
 const { METEOR_PACKAGE_FORKS: FORKS } = require('./lib/meteorPackageForks.cjs');
-const BASE_RELEASE = 'METEOR@3.6-rc.1';
+const BASE_RELEASE = 'METEOR@3.6';
 // The wrap number a fork adds to the release's own version of the package.
-const FORK_VERSION = /-rc360\.1_1$/;
+const FORK_VERSION = /^\d+\.\d+\.\d+_1$/;
 
 let passed = 0;
 let failed = 0;
@@ -70,7 +71,7 @@ const SOURCES = ['packages', 'server', 'models', 'imports', 'client']
 
 test(`the forks are for ${BASE_RELEASE}, and none outlives it`, () => {
   // A local package overrides the release's own SILENTLY. Moved to another
-  // Meteor release, these would keep 3.6-rc.1's code under the new release's
+  // Meteor release, these would keep 3.6's code under the new release's
   // name. So this fails the moment .meteor/release changes: check whether the
   // new release has the 3.5.3 fixes (the GitHub release notes list them) and
   // delete packages/<name> for each that does, or rebase the fork onto it.
@@ -83,7 +84,7 @@ test('every fork is marked as one, and .meteor/versions resolves to it', () => {
   const versions = read('.meteor/versions');
   for (const name of FORKS) {
     const version = read(`packages/${name}/package.js`).match(/version:\s*'([^']+)'/)[1];
-    assert.match(version, FORK_VERSION, `${name}'s fork keeps 3.6-rc.1's version with a _1 wrap number: ${version}`);
+    assert.match(version, FORK_VERSION, `${name}'s fork keeps 3.6's version with a _1 wrap number: ${version}`);
     assert.ok(versions.split('\n').includes(`${name}@${version}`),
       `.meteor/versions must resolve ${name} to the fork ${version}`);
   }

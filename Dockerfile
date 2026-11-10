@@ -149,7 +149,7 @@ ENV \
     DEBUG=false \
     DDP_TRANSPORT=sockjs \
     NODE_VERSION=v26.13.0 \
-    METEOR_RELEASE=METEOR@3.6-rc.1 \
+    METEOR_RELEASE=METEOR@3.6 \
     USE_EDGE=false \
     NPM_VERSION=12.2.2 \
     SRC_PATH=./ \

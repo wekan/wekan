@@ -1,10 +1,10 @@
 Package.describe({
   summary: "Meteor's latency-compensated distributed data server",
-  version: '3.6.0-rc360.1_1',
+  version: '3.6.0_1',
   documentation: null,
 });
 
-// WeKan fork of Meteor 3.6-rc.1's ddp-server, for the Admin Panel / Problems
+// WeKan fork of Meteor 3.6's ddp-server, for the Admin Panel / Problems
 // report of a refused DDP message. uWebSockets.js is left out, as Meteor's
 // published 3.4.1-rc360.0 isopack had no copy of it either: it is only loaded
 // for the opt-in "uws" transport, and it would be fetched from a git URL at
