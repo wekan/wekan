@@ -143,3 +143,44 @@ test('the postinstall replacement refuses to pass without a patched top-level pb
   assert.equal(pbkdf2Patch.run(patchedBundle).removed, false);
   assert.ok(fs.existsSync(path.join(patchedBundle, 'node_modules/meteor-node-stubs/node_modules/pbkdf2')));
 });
+
+// Dependabot alert #188 (CWE-407): fast-xml-parser <= 5.11.2, with the
+// stopNodes option, rescans the whole rest of the input from every "<" of a
+// stop node's body when no ">" follows - n fragments cost O(n^2). The Azure
+// and Google Cloud storage clients bring it in; 5.12.0 throws at the first
+// failed scan. Every tracked lockfile resolves 5.12.0 or later.
+function vulnerableFastXmlParser(lockfile) {
+  return Object.entries(lockfile.packages || {})
+    .filter(([key, entry]) => /(^|\/)node_modules\/fast-xml-parser$/.test(key) && entry.version && semver.lt(entry.version, '5.12.0'))
+    .map(([key, entry]) => `${key}@${entry.version}`);
+}
+
+test('no tracked lockfile resolves fast-xml-parser < 5.12.0 (Dependabot #188)', () => {
+  const files = trackedLockfiles();
+  assert.ok(files.includes('package-lock.json'));
+  for (const file of files) {
+    assert.deepEqual(vulnerableFastXmlParser(JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'))), [], file);
+  }
+  const parser = lock.packages['node_modules/fast-xml-parser'];
+  assert.ok(parser && semver.gte(parser.version, '5.12.0'), 'the storage clients share 5.12.0 or later');
+  // Negative: the finder does find the version the alert named, at any depth.
+  assert.deepEqual(vulnerableFastXmlParser({ packages: {
+    'node_modules/fast-xml-parser': { version: '5.11.2' },
+    'node_modules/@google-cloud/storage/node_modules/fast-xml-parser': { version: '5.3.4' },
+    'node_modules/other': { version: '1.0.0' },
+  } }), ['node_modules/fast-xml-parser@5.11.2', 'node_modules/@google-cloud/storage/node_modules/fast-xml-parser@5.3.4']);
+});
+
+test('fast-xml-parser gives up on an unterminated stop-node body at once (Dependabot #188)', () => {
+  let XMLParser;
+  try { ({ XMLParser } = require('fast-xml-parser')); } catch (e) { return; } // node_modules not installed
+  const parser = new XMLParser({ stopNodes: ['*.script'] });
+  // The alert's input: a stop node whose body is many "<a " and no ">" at all.
+  // 5.11.2 rescans the remaining input from each one - quadratic; 5.12.0
+  // stops at the first failed scan, so 40,000 fragments take milliseconds.
+  const xml = `<root><script>${'<a '.repeat(40000)}`;
+  const started = process.hrtime.bigint();
+  try { parser.parse(xml); } catch (e) { /* it rejects the input - what matters is how soon */ }
+  const ms = Number(process.hrtime.bigint() - started) / 1e6;
+  assert.ok(ms < 2000, `an unterminated stop node took ${ms} ms`);
+});
