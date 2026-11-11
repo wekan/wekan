@@ -3,7 +3,7 @@ import Cards from '/models/cards';
 import { getCurrentCardIdFromContext } from '/client/lib/currentCard';
 import { backIfOwnPopup } from '/client/lib/popupBack';
 // #6890: the badge shows a duration, the tooltip hours to two decimals.
-const { formatSpentTime, roundedSpentHours } = require('/models/lib/spentTimeFormat');
+import { formatSpentTime, roundedSpentHours } from '/models/lib/spentTimeFormat';
 
 function getCardId() {
   return getCurrentCardIdFromContext();
