@@ -7,11 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**CodeQL** alerts #602 and #603 in the tests are fixed - no
-test hands a path to a shell any more - and **fast-xml-parser** is updated to
-5.12.0 for Dependabot alert #188. A new script, **releases/sec**, downloads a
-GitHub organization's Security and quality alerts per repository, to be read
-and fixed from the files.
+**ListLockAttachBleed** is fixed: when a list refuses a role
+write access, that refusal now also holds for the attachment API's upload,
+delete, copy and move. **CodeQL** alerts #602 and #603 in the tests are fixed,
+**fast-xml-parser** is updated to 5.12.0, spent time reads as a **duration**,
+and the **indexes** that LDAP, card member and History queries need are added.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

@@ -126,13 +126,36 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **CodeQL** alerts #602 and #603 in the tests are fixed - no
-test hands a path to a shell any more - and **fast-xml-parser** is updated to
-5.12.0 for Dependabot alert #188. A new script, **releases/sec**, downloads a
-GitHub organization's Security and quality alerts per repository, to be read
-and fixed from the files.
+**In short:** **ListLockAttachBleed** is fixed: when a list refuses a role
+write access, that refusal now also holds for the attachment API's upload,
+delete, copy and move. **CodeQL** alerts #602 and #603 in the tests are fixed,
+**fast-xml-parser** is updated to 5.12.0, spent time reads as a **duration**,
+and the **indexes** that LDAP, card member and History queries need are added.
 
-This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+This release fixes the following CRITICAL SECURITY ISSUE of [ListLockAttachBleed](https://wekan.fi/hall-of-fame/listlockattachbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7bb3e13ba9">A list that refuses a role write access refuses its attachment API writes too</a>. Thanks to Furkan Derse and xet7.</summary>
+
+[ListLockAttachBleed](https://wekan.fi/hall-of-fame/listlockattachbleed/),
+reported by email, its GitHub security advisory awaited. A board admin can
+refuse a role write access in one list (#4527). The card screen, the card and
+checklist routes ([ListLockBleed](https://wekan.fi/hall-of-fame/listlockbleed/))
+and the interface's own attachment upload and delete applied that refusal, but
+the attachment API's upload, delete, copy and move, over REST and DDP, asked
+only for board write access and the assigned-only rule. A normal member the
+list refused could therefore still add and remove files on its cards. Every
+attachment write that names a card now asks that card's list as well, a move
+both the card it takes the file from and the one it puts it on, and the
+refusal shows in Admin Panel / Problems. `tests/listLockAttachments.test.cjs`
+runs the guard on the reported case and fails on any attachment write in the
+tree without the list check beside it, and
+`tests/playwright/specs/list-lock-attachments.e2e.js` replays the writes
+against a running server.
+
+</details>
+
+and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b65b713a0f7b537efbe7c25bb2a8b454e88d1ad">Alerts #602 and #603: no test hands a path to a shell at all</a>. Thanks to GitHub CodeQL and xet7.</summary>
@@ -158,6 +181,51 @@ and updates the following dependencies:
   failed scan. Brought in by the Azure and Google Cloud storage clients. The
   test runs the alert's input and pins that no lockfile resolves an older
   version. Thanks to dependabot.
+
+and fixes the following bugs:
+
+**Cards** - how spent time is shown.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e8e8039ff">Spent time is shown as a duration, not decimal hours</a>. Thanks to brlin-tw and xet7.</summary>
+
+A card's spent time showed as decimal hours, such as 12.58 for 12 hours and
+35 minutes, which reads as twelve hours and fifty-eight minutes. The badge now
+shows `12h35m`, drops the units that are zero and shows `0s` for none, and its
+tooltip keeps the rounded hours. The formatter is
+`models/lib/spentTimeFormat.js`; `tests/spentTimeFormat.test.cjs` pins it and
+`tests/playwright/specs/spent-time-format.e2e.js` checks the badge. A
+follow-up imports it the way `cardTime.js` imports its other helpers.
+
+</details>
+
+**The REST API** - logging out a token.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd59a8ff70">POST /api/deletetoken waits for the token to be deleted before answering</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`Accounts.destroyToken` was not awaited, so the route answered success before
+the token was gone, and a failed database write never reached its error
+handler. It is awaited now. `tests/restTokenRevocation.test.cjs` covers a slow
+and a failed deletion, authorization and session isolation, and
+`tests/playwright/specs/rest-token-revocation.e2e.js` logs a browser out with
+it.
+
+</details>
+
+**Database indexes** - the queries that scanned whole collections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8dc77a89d8">Indexes for the LDAP id, cards' assignees and members, and History by entity and hash</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+An LDAP login looked the user up by `services.ldap.id`, a member's cards were
+found by `assignees` and `members`, and the card history by entity and by
+integrity hash, all without an index, so each scanned its whole collection on
+a large installation. They have indexes now, the LDAP one sparse.
+`tests/cardQueryIndexes.test.cjs` and `tests/ldapAndHistoryIndexes.test.cjs`
+pin them.
+
+</details>
 
 and adds the following developer tool:
 
