@@ -2380,6 +2380,7 @@
   "databaseReportTitle": "데이터베이스 문제",
   "new-problems": "개의 새 문제",
   "acknowledge": "확인",
+  "clear-problems": "지우기",
   "rulesReportTitle": "규칙 보고서",
   "boardsReportTitle": "보드 보고서",
   "cardsReportTitle": "카드 보고서",

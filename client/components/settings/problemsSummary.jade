@@ -100,5 +100,6 @@ template(name="problemsSummary")
             span.admin-problem-count {{area.count}} {{_ 'new-problems'}}
         .admin-problem-actions
           button.js-ack-checked.primary {{_ 'acknowledge'}}
+          button.js-clear-checked {{_ 'clear-problems'}}
     else
       p {{_ 'no-new-problems'}}

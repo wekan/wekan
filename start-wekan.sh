@@ -246,6 +246,8 @@
       #export WEKAN_RAM_MONITOR=false
       # WEKAN_IMPORT_RUN_STALE_MS: Milliseconds after which an import with no progress counts as interrupted and can be resumed or discarded (at least 60000).
       #export WEKAN_IMPORT_RUN_STALE_MS=600000
+      # EVENTLOG_RETENTION_DAYS: Days after which an Admin Panel / Problems event is deleted by the daily sweep, so resolved problems age out; a recurring problem keeps a recent date and stays. Default 90, 0 = keep forever.
+      #export EVENTLOG_RETENTION_DAYS=90
       # Attachment retention, off unless set (docs/Features/Cards/Attachments/Attachments.md):
       #export ATTACHMENTS_RETENTION_DAYS=730
       #export ATTACHMENTS_RETENTION_MODE=uploaded

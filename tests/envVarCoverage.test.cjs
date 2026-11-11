@@ -36,6 +36,7 @@ const ENV_ONLY = {
   WEKAN_DISK_WATCH_PATHS: { platforms: true, reason: "paths on this server's disk, per host" },
   WEKAN_RAM_MONITOR: { platforms: true, reason: "this server's own memory monitor, per process" },
   WEKAN_IMPORT_RUN_STALE_MS: { platforms: true, reason: 'operational tuning of interrupted-import detection' },
+  EVENTLOG_RETENTION_DAYS: { platforms: true, reason: 'how long the Problems report keeps its own rows (#6893); the Clear button is its Admin Panel side' },
   DEFAULT_AVATAR_URL: { platforms: true, reason: 'maintainer decision (#824): "There should be no UI in Admin Panel"' },
   NEXTCLOUD_EXAPP: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },
   NEXTCLOUD_URL: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },

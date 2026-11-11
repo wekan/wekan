@@ -113,6 +113,44 @@ EventLogAcks.attachSchema(
 export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'ram', 'disk', 'database', 'integrity', 'mail'];
 
 if (Meteor.isServer) {
+  // Retention (#6893). The problem streams are append-only, so a problem that
+  // was fixed long ago stayed in the table forever and buried the ones that are
+  // live now. Events older than EVENTLOG_RETENTION_DAYS (default 90) are
+  // deleted, so stale, resolved problems age out on their own, while anything
+  // still happening stays: a recurring problem is folded onto one row whose
+  // `at` is refreshed every time it happens again (eventLogFold), so it keeps a
+  // recent date and is never swept. EVENTLOG_RETENTION_DAYS=0 keeps events
+  // forever, as a pure audit log. No guard reads these rows - they are the
+  // report - so removing one changes what the page shows, never a decision.
+  const EVENTLOG_RETENTION_DAYS = (() => {
+    const raw = parseInt(process.env.EVENTLOG_RETENTION_DAYS, 10);
+    return Number.isFinite(raw) && raw >= 0 ? raw : 90;
+  })();
+
+  async function runEventLogRetention() {
+    if (EVENTLOG_RETENTION_DAYS <= 0) return;
+    const cutoff = new Date(Date.now() - EVENTLOG_RETENTION_DAYS * 24 * 60 * 60 * 1000);
+    await EventLog.rawCollection().deleteMany({ at: { $lt: cutoff } });
+  }
+
+  // Once a day for the whole installation, not once per server or per rollout:
+  // the first server to claim today's run does it, the rest skip, and the
+  // hourly timer keeps it daily even when no server restarts - the same claim
+  // the notification cleanup uses (#6861).
+  let eventLogRetentionTimerId = null;
+  function startEventLogRetention() {
+    if (eventLogRetentionTimerId || EVENTLOG_RETENTION_DAYS <= 0) return;
+    const runClaimed = async () => {
+      const { claimDailyJob } = require('/models/lib/dailyClaim');
+      if (!(await claimDailyJob(EventLog.rawDatabase(), 'eventlog-retention'))) return;
+      await runEventLogRetention();
+    };
+    Meteor.defer(() => { runClaimed().catch(error => console.error('Event log retention failed:', error)); });
+    eventLogRetentionTimerId = Meteor.setInterval(() => {
+      runClaimed().catch(error => console.error('Event log retention failed:', error));
+    }, 60 * 60 * 1000);
+  }
+
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`
   // descending (streamSelector + eventLogPage). This compound index makes that a
   // bounded index scan instead of a full-collection scan + in-memory sort as the
@@ -121,6 +159,7 @@ if (Meteor.isServer) {
   Meteor.startup(async () => {
     await ensureIndex(EventLog, { stream: 1, at: -1 });
     await ensureIndex(EventLogAcks, { stream: 1 });
+    startEventLogRetention();
   });
 
   async function requireAdmin(context) {
@@ -196,6 +235,31 @@ if (Meteor.isServer) {
         await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: now } });
       }
       return true;
+    },
+
+    // Admin-only: CLEAR the given stream(s) (#6893) - delete every event up to
+    // now and stamp the acknowledgement, so a problem the admin has resolved
+    // stops showing instead of lingering in the table (Acknowledge only resets
+    // the "new" count; the rows stay). Anything that happens AFTER the click is
+    // newer than `now`, so it is kept and shows as a new problem again:
+    // clearing a resolved problem does not hide it if it comes back. Every
+    // stream is checked before anything is deleted, so an unknown name clears
+    // nothing. Returns how many events were removed.
+    async clearEventLog(streams) {
+      check(streams, Match.OneOf(String, [String]));
+      await requireAdmin(this);
+      const list = Array.isArray(streams) ? streams : [streams];
+      if (list.some(stream => !EVENT_STREAMS.includes(stream))) {
+        throw new Meteor.Error('invalid-stream', 'Unknown event stream');
+      }
+      const now = new Date();
+      let removed = 0;
+      for (const stream of list) {
+        const result = await EventLog.rawCollection().deleteMany({ stream, at: { $lte: now } });
+        removed += (result && result.deletedCount) || 0;
+        await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: now } });
+      }
+      return removed;
     },
 
     // Admin-only, READ-ONLY: total count of events in a stream (optional search),

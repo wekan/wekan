@@ -232,4 +232,14 @@ Template.problemsSummary.events({
     if (!streams.length) return;
     Meteor.call('acknowledgeEventLog', streams, () => templateInstance.reload());
   },
+
+  // Clear (#6893) removes the checked streams' events up to now, so a resolved
+  // problem stops showing, where Acknowledge only resets the count.
+  'click .js-clear-checked'(event, templateInstance) {
+    const streams = Array.from(templateInstance.findAll('.js-problem-check:checked'))
+      .map(el => el.getAttribute('data-stream'))
+      .filter(Boolean);
+    if (!streams.length) return;
+    Meteor.call('clearEventLog', streams, () => templateInstance.reload());
+  },
 });

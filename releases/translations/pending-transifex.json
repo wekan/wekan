@@ -3339,6 +3339,10 @@
     {
       "key": "cloudflare-api-key-not-set",
       "since": "2026-11-07"
+    },
+    {
+      "key": "clear-problems",
+      "since": "2026-11-11"
     }
   ]
 }
