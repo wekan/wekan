@@ -222,6 +222,7 @@ const GUARDED = {
   samlsubjectbleed: ['tests/samlIdentityBinding.test.cjs'],
   stampbleed: ['tests/stampBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
   listlockbleed: ['tests/listPermissions.test.cjs', 'tests/playwright/specs/list-lock-checklists.e2e.js'],
+  listlockattachbleed: ['tests/listLockAttachments.test.cjs', 'tests/playwright/specs/list-lock-attachments.e2e.js'],
   unassignedarchivebleed: ['tests/assignedCardMethods.test.cjs', 'tests/playwright/specs/assigned-card-methods.e2e.js'],
   unassignedattachbleed: ['tests/unassignedAttachBleed.test.cjs', 'tests/playwright/specs/unassigned-attach-bleed.e2e.js'],
   uploadbleed: ['tests/uploadBleed.test.cjs', 'tests/playwright/specs/upload-stamp-bleed.e2e.js'],
@@ -375,7 +376,8 @@ test('the whole published list is accounted for', () => {
   // file looked there: at the old path the comparison was skipped.
   // 145 -> 146: UnassignedArchiveBleed (GHSA-6xqf-jh8x-4wxc, 2026-11-08), guarded.
   // 146 -> 147: ListLockBleed (GHSA-4734-8vrg-8j3w, 2026-11-09), guarded.
-  assert.strictEqual(total, 147, 'the Hall of Fame and this list disagree on how many there are');
+  // 147 -> 148: ListLockAttachBleed (by email, GHSA awaited, 2026-11-11), guarded.
+  assert.strictEqual(total, 148, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

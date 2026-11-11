@@ -18,7 +18,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { softDeleteAttachment } from '/server/attachmentSoftDelete';
-import { assignedOnlyAttachmentScope, mayReadBoardAttachment, mayWriteCardAttachment } from '/server/lib/assignedOnlyAttachments';
+import { assignedOnlyAttachmentScope, mayReadBoardAttachment, mayWriteCardAttachment, mayWriteInCardList } from '/server/lib/assignedOnlyAttachments';
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 const HARD_MAX_API_UPLOAD_BODY_BYTES = 96 * 1024 * 1024;
@@ -206,6 +206,8 @@ async function checkCardUploadTarget({ boardId, swimlaneId, listId, cardId }, us
   if (!(await userHasBoardWriteAccess(board, userId))) return { status: 403, message: 'You do not have permission to modify this card' };
   // UnassignedAttachBleed: and the card itself, for an assigned-only member.
   if (!mayWriteCardAttachment(board, userId, card, 'attachment-api:upload')) return { status: 403, message: 'You do not have permission to modify this card' };
+  // ListLockAttachBleed: and the card's list, when it refuses the role.
+  if (!(await mayWriteInCardList(board, userId, card, 'attachment-api:upload'))) return { status: 403, message: 'You do not have permission to modify this card' };
   if (!board.allowsAttachments) return { status: 403, message: 'Attachments are not allowed on this board' };
   return { board, card };
 }
@@ -974,7 +976,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           }
           // UnassignedAttachBleed: an assigned-only member writes only onto a
           // card assigned to them.
-          if (!mayWriteCardAttachment(targetBoard, userId, targetCard, 'attachment-api:copy')) {
+          if (!mayWriteCardAttachment(targetBoard, userId, targetCard, 'attachment-api:copy') ||
+              // ListLockAttachBleed: and the target card's list.
+              !(await mayWriteInCardList(targetBoard, userId, targetCard, 'attachment-api:copy'))) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
@@ -1137,6 +1141,12 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
               !(await mayReadBoardAttachment(sourceBoard, userId, sourceAttachment, 'attachment-api:move'))) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
+          // ListLockAttachBleed: a move takes the file off its card, which its
+          // list may refuse the caller's role.
+          const moveSourceCard = sourceAttachment.meta.cardId ? await ReactiveCache.getCard(sourceAttachment.meta.cardId) : null;
+          if (!(await mayWriteInCardList(sourceBoard, userId, moveSourceCard, 'attachment-api:move'))) {
+            return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
+          }
 
           // Check target permissions: a move adds the attachment to the target
           // board, so it requires write access there too.
@@ -1156,7 +1166,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
           }
           // UnassignedAttachBleed: an assigned-only member writes only onto a
           // card assigned to them.
-          if (!mayWriteCardAttachment(targetBoard, userId, targetCard, 'attachment-api:move')) {
+          if (!mayWriteCardAttachment(targetBoard, userId, targetCard, 'attachment-api:move') ||
+              // ListLockAttachBleed: and the target card's list.
+              !(await mayWriteInCardList(targetBoard, userId, targetCard, 'attachment-api:move'))) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
@@ -1238,7 +1250,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
       // UnassignedAttachBleed: board write access is not the card's. An
       // assigned-only member deletes only from a card assigned to them.
       const card = attachment.meta.cardId ? await ReactiveCache.getCard(attachment.meta.cardId) : null;
-      if (!mayWriteCardAttachment(board, userId, card, 'attachment-api:delete')) {
+      if (!mayWriteCardAttachment(board, userId, card, 'attachment-api:delete') ||
+          // ListLockAttachBleed: and the card's list, when it refuses the role.
+          !(await mayWriteInCardList(board, userId, card, 'attachment-api:delete'))) {
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
 

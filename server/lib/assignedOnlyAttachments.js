@@ -78,3 +78,28 @@ export function mayWriteCardAttachment(board, userId, card, source) {
   }
   return allowed;
 }
+
+// May this user write an attachment of this card, as its LIST sees it? A board
+// admin can refuse a role write access in one list (#4527); the attachment
+// API asked only for board write access and mayWriteCardAttachment above, so
+// a member the list refused still added, deleted, copied and moved files on
+// that list's cards (ListLockAttachBleed, a sibling of ListLockBleed,
+// GHSA-4734-8vrg-8j3w). Every attachment write that names a card asks this
+// too, beside the board and assigned-only checks. As for the REST card
+// routes, only a list's REFUSAL counts: its grant does not open the API to a
+// role the board does not let write. The card's own board decides, whatever
+// board the caller named. A board-level file has no card and no list.
+// `source` names the refusing route for Admin Panel -> Problems.
+export async function mayWriteInCardList(board, userId, card, source) {
+  if (!card) return true;
+  const { listException } = require('/server/lib/listPermissionGate');
+  const cardBoard = board && board._id === card.boardId ? board : await ReactiveCache.getBoard(card.boardId);
+  if ((await listException(userId, cardBoard, card.listId, 'write')) !== false) return true;
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'authz.list-locked-attachment', action: 'blocked', source, userId,
+      detail: 'An attachment write on a card in a list whose exception refuses the caller\'s role.',
+    });
+  } catch (e) { /* logging must never break the guard */ }
+  return false;
+}

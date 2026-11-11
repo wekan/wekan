@@ -239,6 +239,10 @@ const CATALOG = {
   // caller's role (#4527). The web UI offers no such write, so it is the lock
   // being stepped round with a token. Medium: recorded, never disables.
   'authz.list-locked': { category: 'authz', bleed: 'ListLockBleed', severity: 'medium', cwe: 'CWE-863' },
+  // ListLockAttachBleed: the same list refusal, for the attachment API's
+  // upload, delete, copy and move (server/lib/assignedOnlyAttachments.js). The
+  // card's screen hides those in such a list, so it is an attempt. Medium.
+  'authz.list-locked-attachment': { category: 'authz', bleed: 'ListLockAttachBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.tenant':    { category: 'authz', bleed: 'TenantBleed', severity: 'medium', cwe: 'CWE-862' },
   'authz.search-session': { category: 'authz', bleed: 'SessionBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },
