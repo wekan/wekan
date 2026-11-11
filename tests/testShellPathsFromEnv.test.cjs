@@ -1,5 +1,6 @@
 'use strict';
-// CodeQL js/shell-command-injection-from-environment (alerts #549, #550, #601):
+// CodeQL js/shell-command-injection-from-environment (alerts #549, #550, #601,
+// #602, #603):
 // tests ran `bash -c` with a script that interpolated an absolute path built
 // from __dirname or the temporary directory, e.g. `source "${helper}"`,
 // `node_bin=${JSON.stringify(prog)}` or `bash "${fetchSh}" -o "${out}"`. A path
@@ -51,4 +52,32 @@ assert.deepEqual(quotedValues("spawnSync('bash', ['-c', 'bash \"$1\" -o \"$2\"',
 assert.deepEqual(quotedValues("spawnSync('bash', ['-c', `set -u; node_bin=\"$NODE_BIN\"; ${body}`])").length, 0);
 assert.deepEqual(quotedValues("spawnSync('bash', ['-c', `${functions}\ntool_repo_dir ${args}`])").length, 0);
 
-console.log('testShellPathsFromEnv: no test sources an interpolated path, nor quotes a value into a -c script');
+// #602, #603: a value given to a shell's -c script as an argument ("$1") is
+// still a path handed to a shell, so it is flagged too. A test runs the
+// program itself with its arguments, or passes the value in the environment.
+// A shell - spawned, or as the program of a wrapper such as sandbox-exec.
+const SHELL_C_ARGS = /['"](?:\/bin\/|\/usr\/bin\/)?(?:ba|da|z)?sh['"]\s*,\s*\[?\s*['"]-c['"]\s*,\s*(?:'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`[^`]*`)\s*,(?!\s*\])/;
+function shellArgs(src) {
+  const found = [];
+  for (const line of src.split(/(?=spawnSync\(|spawn\(|execFileSync\(|execFile\()/)) {
+    const m = line.match(SHELL_C_ARGS);
+    if (m) found.push(m[0].slice(0, 80));
+  }
+  return found;
+}
+const withArgs = fs.readdirSync(path.join(root, 'tests'))
+  .filter(name => /\.(c?js|mjs)$/.test(name) && name !== path.basename(__filename))
+  .flatMap(name => shellArgs(fs.readFileSync(path.join(root, 'tests', name), 'utf8')).map(s => `${name}: ${s}`))
+  .sort();
+assert.deepEqual(withArgs, [], 'run the program itself with its arguments, or pass the value in the environment');
+// Negative: the guard catches #602's and #603's shape...
+assert.equal(shellArgs("spawnSync('bash', ['-c', 'umask 022; bash \"$1\" -o \"$2\"', '_', fetchSh, out])").length, 1);
+assert.equal(shellArgs("spawnSync('/bin/sh', ['-c', `x \"$1\"`, '_', dir])").length, 1);
+assert.equal(shellArgs("spawnSync('sandbox-exec', ['-f', profile, '/bin/bash', '-c', 'ls \"$1\"', '_', home])").length, 1);
+// ...and not a script alone, the program run itself, or another tool's -c.
+assert.equal(shellArgs("spawnSync('bash', ['-c', 'conformance_result \"$COMPARISON\"'], { env })").length, 0);
+assert.equal(shellArgs("spawnSync('bash', [fetchSh, '-o', out, url])").length, 0);
+assert.equal(shellArgs("spawnSync('python3', ['-c', 'import sys', file])").length, 0);
+assert.equal(shellArgs("spawnSync('bash', ['-c', `x`, ], { env })").length, 0); // a trailing comma is no argument
+
+console.log('testShellPathsFromEnv: no test sources an interpolated path, quotes a value into a -c script, or hands one to it');

@@ -47,16 +47,17 @@ test('on macOS: the profile really refuses the home directory and allows the che
     fs.writeFileSync(probe, '(version 1)\n(allow default)\n');
     const nested = spawnSync('sandbox-exec', ['-f', probe, '/usr/bin/true'], { encoding: 'utf8' });
     if (nested.status !== 0 && /sandbox_apply/.test(nested.stderr)) return 'skip';
-    const home = os.homedir();
+    const homeDir = os.homedir();
     const profile = path.join(tmp, 'test.sb');
     fs.writeFileSync(profile, `(version 1)\n(allow default)\n(deny file-read* file-write* (subpath "/Users") (subpath "/Volumes"))\n`
       + `(allow file-read* file-write* (subpath ${JSON.stringify(root)}))\n`);
-    // The paths are arguments, not script text (CodeQL #601's shape).
-    const r = spawnSync('sandbox-exec', ['-f', profile, '/bin/bash', '-c',
-      'ls "$1" >/dev/null 2>&1 && echo home=read || echo home=refused; touch "$2" && echo checkout=written',
-      '_', home + '/Desktop', tmp + '/ok'], { encoding: 'utf8' });
-    assert.match(r.stdout, /home=refused/);
-    assert.match(r.stdout, /checkout=written/);
+    // No shell at all (CodeQL alerts #601-#603): each probe is its own
+    // program under the profile, its path an argument.
+    const home = spawnSync('sandbox-exec', ['-f', profile, '/bin/ls', homeDir + '/Desktop'], { encoding: 'utf8' });
+    assert.notStrictEqual(home.status, 0, 'the home directory is refused');
+    const written = spawnSync('sandbox-exec', ['-f', profile, '/usr/bin/touch', tmp + '/ok'], { encoding: 'utf8' });
+    assert.strictEqual(written.status, 0, written.stderr);
+    assert.ok(fs.existsSync(tmp + '/ok'), 'the checkout is written');
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
   }

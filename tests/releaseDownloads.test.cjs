@@ -87,23 +87,35 @@ test('a 503 is waited out, and the file arrives', () => {
   assert.ok(/::warning::/.test(r.stderr), 'and the log says why the job paused');
 });
 
+// fetch.sh run as bash's program under a umask: the child inherits the
+// process's umask, set here and put back, so no shell script is written.
+function fetchWithUmask(mask, out) {
+  const before = process.umask(mask);
+  try {
+    return spawnSync('bash', [fetchSh, '-o', out, `${base}/ok`],
+      { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
+  } finally {
+    process.umask(before);
+  }
+}
+
 test('a download is readable by everyone, as an AppImage needs (v12.69)', () => {
   // mktemp's 0600 survived the mv, so FerretDB and mongo-tools were 0711
   // after `chmod +x`, and appimagetool refused to pack them.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'ferretdb');
-  // Arguments, not script text: the paths cannot change the command (CodeQL #601's shape).
-  const r = spawnSync('bash', ['-c', 'umask 022; bash "$1" -o "$2" "$3" && chmod +x "$2"', '_', fetchSh, out, `${base}/ok`],
-    { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
+  // No shell at all (CodeQL alerts #601-#603): fetch.sh runs as a program
+  // with its arguments, the umask is the process's, and chmod +x is Node's.
+  const r = fetchWithUmask(0o022, out);
   assert.strictEqual(r.status, 0, r.stderr);
+  fs.chmodSync(out, (fs.statSync(out).mode & 0o777) | 0o111);
   assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '755');
 });
 
 test('a download still follows a stricter umask (negative)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-'));
   const out = path.join(dir, 'private');
-  const r = spawnSync('bash', ['-c', 'umask 077; bash "$1" -o "$2" "$3"', '_', fetchSh, out, `${base}/ok`],
-    { encoding: 'utf8', env: Object.assign({}, process.env, { FETCH_SLEEPS: '0' }) });
+  const r = fetchWithUmask(0o077, out);
   assert.strictEqual(r.status, 0, r.stderr);
   assert.strictEqual((fs.statSync(out).mode & 0o777).toString(8), '600');
 });

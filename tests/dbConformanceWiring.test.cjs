@@ -389,8 +389,10 @@ test('backend and build failures cannot be hidden by successful comparisons or s
       ['RAN   sqlite\n', 1, 1],
     ]) {
       fs.writeFileSync(summary, content);
-      const result = spawnSync('bash', ['-c', `${resultHelper}\nconformance_result "$1"`, '_', String(comparison)],
-        { env: { ...process.env, SUMMARY: summary, TMPDIR: parent }, encoding: 'utf8' });
+      // The value through the environment, never an argument of the script
+      // (tests/testShellPathsFromEnv.test.cjs).
+      const result = spawnSync('bash', ['-c', `${resultHelper}\nconformance_result "$COMPARISON"`],
+        { env: { ...process.env, SUMMARY: summary, TMPDIR: parent, COMPARISON: String(comparison) }, encoding: 'utf8' });
       assert.equal(result.status, expected, result.stderr);
     }
     fs.unlinkSync(summary);
