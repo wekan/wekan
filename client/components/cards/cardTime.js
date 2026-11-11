@@ -2,6 +2,8 @@ import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { getCurrentCardIdFromContext } from '/client/lib/currentCard';
 import { backIfOwnPopup } from '/client/lib/popupBack';
+// #6890: the badge shows a duration, the tooltip hours to two decimals.
+const { formatSpentTime, roundedSpentHours } = require('/models/lib/spentTimeFormat');
 
 function getCardId() {
   return getCurrentCardIdFromContext();
@@ -63,17 +65,17 @@ Template.cardSpentTime.helpers({
     if (card.getIsOvertime && card.getIsOvertime()) {
       return `${TAPi18n.__(
         'overtime',
-      )} ${card.getSpentTime()} ${TAPi18n.__('hours')}`;
+      )} ${roundedSpentHours(card.getSpentTime())} ${TAPi18n.__('hours')}`;
     } else if (card.getSpentTime) {
       return `${TAPi18n.__(
         'card-spent',
-      )} ${card.getSpentTime()} ${TAPi18n.__('hours')}`;
+      )} ${roundedSpentHours(card.getSpentTime())} ${TAPi18n.__('hours')}`;
     }
     return '';
   },
   showTime() {
     const card = Cards.findOne(this._id) || this;
-    return card.getSpentTime ? card.getSpentTime() : '';
+    return card.getSpentTime ? formatSpentTime(card.getSpentTime()) : '';
   },
   getIsOvertime() {
     const card = Cards.findOne(this._id) || this;
