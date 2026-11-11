@@ -166,6 +166,11 @@ Meteor.startup(async () => {
   // Finding a row's successor: the legacy Sync append walks to the chain tip
   // (server/lib/storedHistoryChain.js appendSyncHistoryRow).
   await ensureIndex(ChangeHistory, { boardId: 1, previousHash: 1 });
+  // An entity's own History (changeHistory.page with entityType and entityId)
+  // and the integrity check's lookups by hash read the whole append-only
+  // collection without these - 120,000+ documents, and growing (#6892).
+  await ensureIndex(ChangeHistory, { entityType: 1, entityId: 1, createdAt: -1 });
+  await ensureIndex(ChangeHistory, { integrityHash: 1 });
 });
 
 const requireBoardVisible = async (userId, boardId) => {

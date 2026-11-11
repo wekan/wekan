@@ -2498,6 +2498,11 @@ Meteor.startup(async () => {
   await ensureIndex(Users, { isAdmin: 1, createdAt: -1 });
   await ensureIndex(Users, { 'orgs.orgId': 1, createdAt: -1 });
   await ensureIndex(Users, { 'services.accounts-lockout.unlockTime': 1 });
+  // Every LDAP login and background sync pass looks a user up by their LDAP id
+  // (packages/wekan-ldap loginHandler.js, sync.js); unindexed, each one scanned
+  // every user - 13,000+ documents, ~430 ms, per login (#6892). Sparse: only
+  // LDAP accounts carry the field.
+  await ensureIndex(Users, { 'services.ldap.id': 1 }, { sparse: true });
   Meteor.defer(() => {
     repairLegacyAvatarUrls();
   });

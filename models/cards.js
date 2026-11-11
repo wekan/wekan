@@ -4291,6 +4291,11 @@ if (Meteor.isServer) {
   //                        one - without this it was a collection scan on every
   //                        card removal, copy and export
   //   boardId + cardNumber searching by card number (#5006)
+  //   assignees, members   "My Cards" and the assignee and member filters ask
+  //                        across every board, which no boardId-prefixed index
+  //                        serves: on 1.1M cards each was a scan of 1-3.7 s,
+  //                        dozens of times a minute (#6892). Both, so the
+  //                        $or [assignees, members] uses an index on each branch.
   const { ensureIndex } = require('/server/lib/mongoStartup');
   Meteor.startup(async () => {
     await ensureIndex(Cards, { boardId: 1, archived: 1 });
@@ -4299,6 +4304,8 @@ if (Meteor.isServer) {
     await ensureIndex(Cards, { parentId: 1 });
     await ensureIndex(Cards, { parentIds: 1 });
     await ensureIndex(Cards, { boardId: 1, cardNumber: 1 });
+    await ensureIndex(Cards, { assignees: 1 });
+    await ensureIndex(Cards, { members: 1 });
   });
 }
 

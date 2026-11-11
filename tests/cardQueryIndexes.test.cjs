@@ -43,6 +43,8 @@ const WANTED = {
     '{ parentId: 1 }',               // subtasks
     '{ parentIds: 1 }',              // subtasks of several parents (#6770)
     '{ boardId: 1, cardNumber: 1 }', // search by card number (#5006)
+    '{ assignees: 1 }',              // My Cards and the assignee filter, across boards (#6892)
+    '{ members: 1 }',                // and the member filter, each branch of their $or
   ],
   'models/activities.js': [
     '{ cardId: 1, createdAt: -1 }',  // the card's Activities feed
