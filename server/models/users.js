@@ -3001,7 +3001,7 @@ WebApp.handlers.post('/api/deletetoken', async function(req, res) {
     };
 
     if (token && userId) {
-      Accounts.destroyToken(userId, token);
+      await Accounts.destroyToken(userId, token);
       data.message = `Delete token: [${token}] from user: ${userId}`;
     } else if (userId) {
       check(userId, String);
