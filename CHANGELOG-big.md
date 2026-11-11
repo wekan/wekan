@@ -130,7 +130,8 @@ its reason.
 write access, that refusal now also holds for the attachment API's upload,
 delete, copy and move. **CodeQL** alerts #602 and #603 in the tests are fixed,
 **fast-xml-parser** is updated to 5.12.0, spent time reads as a **duration**,
-and the **indexes** that LDAP, card member and History queries need are added.
+the **indexes** that LDAP, card member and History queries need are added, and
+Admin Panel → Problems can **Clear** resolved problems, which also age out.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ListLockAttachBleed](https://wekan.fi/hall-of-fame/listlockattachbleed/):
 
@@ -170,6 +171,29 @@ runs its probes as programs the same way. The guard now refuses any value
 given to a shell's `-c` script as an argument, and found one more test doing
 it. The findings were in tests, not in WeKan, so there is no attempt to show in
 Admin Panel → Problems.
+
+</details>
+
+and adds the following new features:
+
+**The Admin Panel** - Problems, and getting rid of the ones that are handled.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fefabbf113">Problems has a Clear button, and resolved problems age out on their own</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The problem streams were append-only, and Acknowledge only reset the "new"
+count, so a problem fixed long ago stayed in the table and buried the ones
+that are live now. Clear, beside Acknowledge, calls the admin-only
+`clearEventLog`, which deletes the checked streams' events up to now and
+stamps the acknowledgement. Anything that happens after the click shows as a
+new problem again, and an unknown stream in the list clears nothing. A daily
+sweep, claimed once per installation, deletes events older than
+`EVENTLOG_RETENTION_DAYS` (default 90, `0` keeps them forever); a recurring
+problem's folded row keeps a recent date, so it stays. The setting is listed
+on every platform and in the Helm chart, and the button is translated to
+every language. `tests/eventLogClearAndRetention.test.cjs` runs Clear and the
+sweep on an in-memory log, including a non-admin and an unknown stream, and
+`tests/playwright/specs/problems-clear.e2e.js` clears one stream in the UI.
 
 </details>
 

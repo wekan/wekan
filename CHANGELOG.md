@@ -11,7 +11,8 @@ make changes there.
 write access, that refusal now also holds for the attachment API's upload,
 delete, copy and move. **CodeQL** alerts #602 and #603 in the tests are fixed,
 **fast-xml-parser** is updated to 5.12.0, spent time reads as a **duration**,
-and the **indexes** that LDAP, card member and History queries need are added.
+the **indexes** that LDAP, card member and History queries need are added, and
+Admin Panel → Problems can **Clear** resolved problems, which also age out.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
