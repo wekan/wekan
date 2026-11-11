@@ -124,6 +124,42 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **CodeQL** alerts #602 and #603 in the tests are fixed - no
+test hands a path to a shell any more - and **fast-xml-parser** is updated to
+5.12.0 for Dependabot alert #188, its quadratic scan of an unterminated stop
+node.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b65b713a0f7b537efbe7c25bb2a8b454e88d1ad">Alerts #602 and #603: no test hands a path to a shell at all</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+The fix for #601 passed the paths to `bash -c` as arguments rather than
+pasting them into the script, but that still hands a temporary path to a
+shell, and CodeQL flagged the two umask tests in
+`tests/releaseDownloads.test.cjs` again. They no longer use a shell: `fetch.sh`
+runs as bash's program with its arguments, the umask is set on the test's
+process and put back, and `chmod +x` is `fs.chmodSync`. The macOS sandbox test
+runs its probes as programs the same way. The guard now refuses any value
+given to a shell's `-c` script as an argument, and found one more test doing
+it. The findings were in tests, not in WeKan, so there is no attempt to show in
+Admin Panel → Problems.
+
+</details>
+
+and updates the following dependencies:
+
+- [**fast-xml-parser 5.11.2 → 5.12.0**](https://github.com/wekan/wekan/commit/a76a19058ac896651ccd30311c36d48ee7f47b86) — Dependabot
+  alert #188: with `stopNodes`, an unterminated stop node made it rescan the
+  rest of the input from every `<`, O(n²) CPU; 5.12.0 stops at the first
+  failed scan. Brought in by the Azure and Google Cloud storage clients. The
+  test runs the alert's input and pins that no lockfile resolves an older
+  version. Thanks to dependabot.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.06 2026-11-11 WeKan ® release
 
 **In short:** **CodeQL** alert #601 in a test is fixed, with two more tests

@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**CodeQL** alerts #602 and #603 in the tests are fixed - no
+test hands a path to a shell any more - and **fast-xml-parser** is updated to
+5.12.0 for Dependabot alert #188, its quadratic scan of an unterminated stop
+node.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.06 2026-11-11 WeKan ® release
 
 **CodeQL** alert #601 in a test is fixed, with two more tests
