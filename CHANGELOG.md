@@ -9,8 +9,9 @@ make changes there.
 
 **CodeQL** alerts #602 and #603 in the tests are fixed - no
 test hands a path to a shell any more - and **fast-xml-parser** is updated to
-5.12.0 for Dependabot alert #188, its quadratic scan of an unterminated stop
-node.
+5.12.0 for Dependabot alert #188. A new script, **releases/sec**, downloads a
+GitHub organization's Security and quality alerts per repository, to be read
+and fixed from the files.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

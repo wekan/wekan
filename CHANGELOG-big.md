@@ -128,8 +128,9 @@ its reason.
 
 **In short:** **CodeQL** alerts #602 and #603 in the tests are fixed - no
 test hands a path to a shell any more - and **fast-xml-parser** is updated to
-5.12.0 for Dependabot alert #188, its quadratic scan of an unterminated stop
-node.
+5.12.0 for Dependabot alert #188. A new script, **releases/sec**, downloads a
+GitHub organization's Security and quality alerts per repository, to be read
+and fixed from the files.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -157,6 +158,24 @@ and updates the following dependencies:
   failed scan. Brought in by the Azure and Google Cloud storage clients. The
   test runs the alert's input and pins that no lockfile resolves an older
   version. Thanks to dependabot.
+
+and adds the following developer tool:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/801f8956fe813a5da0264abf660c18363d2d3bc2">releases/sec downloads a GitHub organization's Security and quality alerts with gh</a>. Thanks to xet7.</summary>
+
+`releases/sec/download-github-security.sh wekan` saves every repository's
+Dependabot, code scanning, secret scanning and security advisory alerts to
+`.tools/log/sec/<organization>/<repository>/<YYYY-MM-DD_HH-MM-SS>/`, a
+directory per kind with a file per alert and a `SUMMARY.md` of the open ones.
+It runs the GitHub CLI outside the editor's sandbox, where `gh` and its login
+are, so the alerts can be read and fixed from the files inside it. A kind
+GitHub does not answer is recorded with its reason, a secret scanning alert's
+secret is redacted unless asked for, and a name that is not a GitHub name is
+refused before it becomes a path. The test runs it against a stand-in `gh`;
+see `releases/sec/README.md`.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
