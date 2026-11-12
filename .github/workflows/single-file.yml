@@ -150,27 +150,46 @@ jobs:
           node-version: ${{ steps.fetch.outputs.node_version }}
 
       # A 32-bit target's SEA blob must be written by a 32-bit Node.js: the blob
-      # stores its lengths as size_t (build.mjs refuses otherwise). The i386
-      # bundle's Node.js, of the same version, writes it for every 32-bit
-      # target - win32, i386 and 32-bit ARM read the same little-endian format.
+      # stores its lengths as size_t (build.mjs refuses otherwise). An i386
+      # Node.js writes it for every 32-bit target - win32, i386 and 32-bit ARM
+      # read the same little-endian format - but it has to be the SAME VERSION
+      # the target's bundle embeds (build.mjs checks that too). v13.07 took the
+      # i386 bundle's own Node.js, and the bundles resolve the newest Node.js of
+      # the pinned major per platform: i386 got v26.13.1 while 32-bit ARM still
+      # had v26.13.0, and armhf, armv6 and armv7 all stopped on "The bundle's
+      # Node.js is v26.13.0 but this is v26.13.1". So the host is resolved at
+      # the target bundle's exact version, from the same three sources and with
+      # the same published SHA256 as a bundle's Node.js.
       - name: A 32-bit Node.js to build a 32-bit target
         id: host32
         if: steps.fetch.outputs.skip != 'true' && contains(fromJSON('["win32","i386","armv7","armhf","armv6"]'), matrix.target)
         env:
-          GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.fetch.outputs.version }}
+          NODE_VERSION: ${{ steps.fetch.outputs.node_version }}
         run: |
           set -euo pipefail
-          zip="wekan-${VERSION}-i386.zip"
-          mkdir -p host32
-          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$zip" --pattern "$zip.sha256sum" --dir host32 \
-            || { echo "::error::$TARGET needs the i386 bundle's Node.js to build, and $TAG has no $zip."; exit 1; }
-          (cd host32 && sha256sum -c "$zip.sha256sum" && unzip -q "$zip" 'bundle/node' 'bundle/node-runtime/*' && rm -f "$zip")
+          mkdir -p host32 .tools/tmp
+          export TMPDIR="$PWD/.tools/tmp"
+          rc=0
+          src="$(bash releases/resolve-node-source.sh i386 "$NODE_VERSION")" || rc=$?
+          [ "$rc" = 0 ] || { echo "::error::$TARGET needs an i386 Node.js $NODE_VERSION to build its single file, and none of the three Node.js sources has one."; exit 1; }
+          node_url="$(printf '%s\n' "$src" | sed -n 's/^node_url=//p')"
+          node_kind="$(printf '%s\n' "$src" | sed -n 's/^node_kind=//p')"
+          node_member="$(printf '%s\n' "$src" | sed -n 's/^node_member=//p')"
+          node_sha256="$(printf '%s\n' "$src" | sed -n 's/^node_sha256=//p')"
+          bash releases/fetch.sh -o host32/download "$node_url"
+          echo "$node_sha256  host32/download" | sha256sum -c -
+          case "$node_kind" in
+            binary) mv host32/download host32/node ;;
+            tar.xz) tar -xJf host32/download -C host32 "$node_member" && mv "host32/$node_member" host32/node && rm -f host32/download ;;
+            *) echo "::error::An i386 Node.js comes as a binary or a tar.xz, not $node_kind."; exit 1 ;;
+          esac
+          chmod +x host32/node
           sudo dpkg --add-architecture i386
           sudo apt-get update -qq
-          sudo apt-get install -y -qq libc6:i386 libstdc++6:i386 >/dev/null
-          host="$PWD/host32/bundle/node"
-          [ -d host32/bundle/node-runtime ] && echo "libs=$PWD/host32/bundle/node-runtime" >> "$GITHUB_OUTPUT"
+          sudo apt-get install -y -qq libc6:i386 libstdc++6:i386 libatomic1:i386 >/dev/null
+          host="$PWD/host32/node"
+          got="$("$host" -p process.version)"
+          [ "$got" = "$NODE_VERSION" ] || { echo "::error::The i386 Node.js resolved for $NODE_VERSION reports $got."; exit 1; }
           echo "node=$host" >> "$GITHUB_OUTPUT"
           # A 32-bit ELF target's blob is injected in a 64-bit process, by
           # LIEF 1.0.0 - the version Node.js vendors - not inside this 32-bit
@@ -187,20 +206,16 @@ jobs:
         env:
           VERSION: ${{ steps.fetch.outputs.version }}
           HOST_NODE: ${{ steps.host32.outputs.node }}
-          HOST_LIBS: ${{ steps.host32.outputs.libs }}
           SEA_PYTHON: ${{ steps.host32.outputs.python }}
         run: |
           set -euo pipefail
           case "$TARGET" in win*) ext=.exe ;; *) ext= ;; esac
           out="wekan-${VERSION}-${TARGET}-single-file${ext}"
-          # The i386 Node.js finds its own libraries; the libraries are ignored by
-          # the x64 Node.js that runs build.mjs (another architecture).
           # Exit 3: this Node.js is one LIEF cannot inject the SEA into
           # correctly (releases/single-file/sea-inject.mjs says which and why).
           # That is a missing single file, not a failed release.
           rc=0
-          LD_LIBRARY_PATH="${HOST_LIBS:-${LD_LIBRARY_PATH:-}}" \
-            node releases/single-file/build.mjs --bundle bundle --target "$TARGET" --version "$VERSION" --out "$out" \
+          node releases/single-file/build.mjs --bundle bundle --target "$TARGET" --version "$VERSION" --out "$out" \
             ${HOST_NODE:+--host-node "$HOST_NODE"} 2> build.err || rc=$?
           cat build.err >&2
           rm -rf bundle

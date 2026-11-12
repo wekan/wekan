@@ -816,6 +816,21 @@ test('a 32-bit target is built only by a 32-bit Node.js (negative: win32 from x6
   }
   const wf = read('.github/workflows/single-file.yml');
   assert.match(wf, /contains\(fromJSON\('\["win32","i386","armv7","armhf","armv6"\]'\), matrix\.target\)/);
-  assert.match(wf, /wekan-\$\{VERSION\}-i386\.zip[\s\S]*?sha256sum -c "\$zip\.sha256sum"/, 'the i386 Node.js is checked before it builds anything');
+  // The 32-bit host is an i386 Node.js of the TARGET BUNDLE'S exact version,
+  // verified against its published SHA256 before it builds anything. v13.07
+  // borrowed the i386 bundle's own Node.js instead: i386 had resolved v26.13.1
+  // and 32-bit ARM v26.13.0, so armhf, armv6 and armv7 all stopped on the
+  // version check in build.mjs.
+  const host = wf.slice(wf.indexOf('id: host32'), wf.indexOf('- name: Build the single file'));
+  assert.match(host, /NODE_VERSION: \$\{\{ steps\.fetch\.outputs\.node_version \}\}/, 'the host version is the target bundle\'s');
+  assert.match(host, /resolve-node-source\.sh i386 "\$NODE_VERSION"/, 'resolved at that exact version');
+  assert.match(host, /sha256sum -c -/, 'the i386 Node.js is checked before it builds anything');
+  assert.match(host, /"\$host" -p process\.version\)"[\s\S]*?= "\$NODE_VERSION"/, 'and it reports that version');
+  assert.ok(host.indexOf('sha256sum -c -') < host.indexOf('"$host" -p process.version'), 'checked before it is run');
+  // Negative: the host is never taken from another platform's bundle, whose
+  // Node.js may be a different patch release of the same major.
+  assert.doesNotMatch(host, /wekan-\$\{VERSION\}-i386\.zip|gh release download/);
+  assert.doesNotMatch(host, /resolve-node-source\.sh i386 "?(2[0-9]|\$NODE_MAJOR)/, 'not the newest of a major');
+  assert.doesNotMatch(wf, /HOST_LIBS/);
   assert.match(wf, /\$\{HOST_NODE:\+--host-node "\$HOST_NODE"\}/);
 });
