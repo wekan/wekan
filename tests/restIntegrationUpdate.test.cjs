@@ -13,7 +13,7 @@ const { publicErrorData } = require('../server/lib/apiResponseHelpers');
 const route = '/api/boards/:boardId/integrations/:intId';
 const plain = value => JSON.parse(JSON.stringify(value));
 
-function fixture({ deny = false, lookupError } = {}) {
+function fixture({ deny = false, lookupError, urlValid = false, internalAllowed = false } = {}) {
   const calls = [];
   const documents = [
     { _id: 'integration', boardId: 'board', title: 'Webhook', enabled: true, activities: ['all'] },
@@ -43,6 +43,13 @@ function fixture({ deny = false, lookupError } = {}) {
       return 1;
     } } },
     normalizeDeliverySettings,
+    require(name) {
+      assert.equal(name, '/server/webhookInternalHosts');
+      return { async webhookHostIsInternalAllowed() { return internalAllowed; } };
+    },
+    async validateAttachmentUrl() {
+      return { valid: urlValid, reason: 'Invalid URL format' };
+    },
     publicErrorData,
     sendJsonResult(res, result) { res.responses.push(plain(result)); },
   };
@@ -122,3 +129,24 @@ test('invalid delivery settings still reject an existing integration before writ
   assert.equal(f.documents[0].title, 'Webhook');
   assert.ok(!f.calls.some(([name]) => name === 'update'));
 });
+
+test('an invalid URL rejects all accompanying changes before any write', async () => {
+  const f = fixture();
+  const before = plain(f.documents);
+  const response = await f.put({ title: 'Changed', enabled: false, url: 'invalid-url', token: 'changed', activities: [] });
+  assert.equal(response.code, 400);
+  assert.equal(response.data.error, 'invalid-webhook-url');
+  assert.deepEqual(f.documents, before);
+  assert.ok(!f.calls.some(([name]) => name === 'update'));
+});
+
+for (const options of [{ urlValid: true }, { internalAllowed: true }]) {
+  test(`an accepted URL still saves accompanying fields ${JSON.stringify(options)}`, async () => {
+    const f = fixture(options);
+    const response = await f.put({ title: 'Changed', enabled: false, url: 'https://example.com/webhook' });
+    assert.equal(response.code, 200);
+    assert.equal(f.documents[0].title, 'Changed');
+    assert.equal(f.documents[0].enabled, false);
+    assert.equal(f.documents[0].url, 'https://example.com/webhook');
+  });
+}
