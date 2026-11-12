@@ -180,7 +180,7 @@ Playwright spec pin the order.
 
 </details>
 
-and has the following developer-tooling fix:
+and has the following developer-tooling fixes:
 
 **Release builds** - the single-file executables.
 
@@ -198,6 +198,12 @@ that version. `tests/singleFile.test.cjs` pins all three, and that the host is
 never taken from another platform's bundle.
 
 </details>
+
+**Browser tests** - what a spec may rely on from the database.
+
+- [list-sync-estimate's checkbox test no longer depends on the order an index returns](https://github.com/wekan/wekan/commit/af76406d127568b45b0e76659160a8821cdf00a2) -
+  it expected an unsorted find of activities in insertion order, which
+  activities' cardId/createdAt index returns newest first. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
