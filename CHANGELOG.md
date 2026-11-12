@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **REST API** creates a card under the **parent** it is given,
+and a refused **integration URL** no longer leaves the other fields of the same
+update written. The **single-file** WeKan for **32-bit ARM** builds again, with
+an i386 Node.js of the exact version its bundle embeds.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.07 2026-11-12 WeKan ® release
 
 **ListLockAttachBleed** is fixed: when a list refuses a role
