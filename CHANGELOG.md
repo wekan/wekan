@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.08 2026-11-12 WeKan ® release
 
 The **REST API** creates a card under the **parent** it is given,
 and a refused **integration URL** no longer leaves the other fields of the same
@@ -13,7 +13,7 @@ update written. The **single-file** WeKan for **32-bit ARM** builds again, with
 an i386 Node.js of the exact version its bundle embeds. A **GitHub CodeQL**
 alert in the security alert download script is fixed.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.08](CHANGELOG-big.md#v1308-2026-11-12-wekan--release)
 
 # v13.07 2026-11-12 WeKan ® release
 
@@ -54,10 +54,3 @@ routes. The **Sandstorm** and **Android** bundles retry their npm install when
 github.com is briefly unavailable.
 
 [All changes in v13.04](CHANGELOG-big.md#v1304-2026-11-09-wekan--release)
-
-# v13.03 2026-11-09 WeKan ® release
-
-The amd64 **snaps** no longer fail the release when the Ubuntu
-archive is briefly unreachable: the build waits for it and retries once.
-
-[All changes in v13.03](CHANGELOG-big.md#v1303-2026-11-09-wekan--release)

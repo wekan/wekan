@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.08 2026-11-12 WeKan ® release
 
 **In short:** The **REST API** creates a card under the **parent** it is given,
 and a refused **integration URL** no longer leaves the other fields of the same
