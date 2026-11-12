@@ -129,9 +129,27 @@ its reason.
 **In short:** The **REST API** creates a card under the **parent** it is given,
 and a refused **integration URL** no longer leaves the other fields of the same
 update written. The **single-file** WeKan for **32-bit ARM** builds again, with
-an i386 Node.js of the exact version its bundle embeds.
+an i386 Node.js of the exact version its bundle embeds. A **GitHub CodeQL**
+alert in the security alert download script is fixed.
 
-This release fixes the following bugs:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed19817433e14ef4f8cb7d9623f5d8b84a1794ff">The security alert download summary carries no secret scanning field, and kept secrets are owner-only</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Code scanning alert #604 (`py/clear-text-storage-sensitive-data`, CWE-312):
+`releases/sec/download_github_security.py` wrote a secret scanning alert's type
+name into `SUMMARY.md`. That was the type of the secret, not the secret, but
+`SUMMARY.md` is never redacted, so it now names only the kind of finding and
+points at `secret-scanning/`. With `--include-secret-values` the files that hold
+the secrets are created readable by their owner only.
+`tests/securityDownloadScript.test.cjs` pins both, and that no secret scanning
+field reaches the summary. This is a maintainer tool, not WeKan's server, so
+there is no attempt for Admin Panel → Problems to record.
+
+</details>
+
+and fixes the following bugs:
 
 **The REST API** - creating cards and updating integrations.
 

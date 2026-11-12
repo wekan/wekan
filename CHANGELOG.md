@@ -10,7 +10,8 @@ make changes there.
 The **REST API** creates a card under the **parent** it is given,
 and a refused **integration URL** no longer leaves the other fields of the same
 update written. The **single-file** WeKan for **32-bit ARM** builds again, with
-an i386 Node.js of the exact version its bundle embeds.
+an i386 Node.js of the exact version its bundle embeds. A **GitHub CodeQL**
+alert in the security alert download script is fixed.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
