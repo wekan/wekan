@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.09 2026-11-12 WeKan ® release
 
 **In short:** The release's **Snap Store** credential check retries installing
 snapcraft, so one Snap Store timeout no longer stops a release.

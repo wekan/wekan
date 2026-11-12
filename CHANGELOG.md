@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.09 2026-11-12 WeKan ® release
 
 The release's **Snap Store** credential check retries installing
 snapcraft, so one Snap Store timeout no longer stops a release.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.09](CHANGELOG-big.md#v1309-2026-11-12-wekan--release)
 
 # v13.08 2026-11-12 WeKan ® release
 
@@ -52,12 +52,3 @@ Productivity** export no longer fails for a board with a card whose list is
 archived.
 
 [All changes in v13.05](CHANGELOG-big.md#v1305-2026-11-10-wekan--release)
-
-# v13.04 2026-11-09 WeKan ® release
-
-**ListLockBleed** is fixed: when a list refuses a role write
-access, that refusal now also holds for the checklist and checklist-item REST
-routes. The **Sandstorm** and **Android** bundles retry their npm install when
-github.com is briefly unavailable.
-
-[All changes in v13.04](CHANGELOG-big.md#v1304-2026-11-09-wekan--release)
