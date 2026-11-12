@@ -124,6 +124,29 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The release's **Snap Store** credential check retries installing
+snapcraft, so one Snap Store timeout no longer stops a release.
+
+This release has the following developer-tooling fix:
+
+**Release builds** - the snap jobs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/534646347c4b6467f539cb01171487d27fc7ddc7">snap-auth-check retries installing snapcraft, as the snap build job does</a>. Thanks to xet7.</summary>
+
+The v13.08 release stopped in snap-auth-check before it asked the Snap Store
+anything: the one `snap install snapcraft` timed out reaching api.snapcraft.io,
+while the snap build job already retried five times. The check retries the
+same way now, and when every attempt fails it says the store did not answer
+rather than that SNAP_AUTH is wrong. `tests/snapAuthPreflight.test.cjs` fails on
+any snapcraft install in any workflow without the retry.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.08 2026-11-12 WeKan ® release
 
 **In short:** The **REST API** creates a card under the **parent** it is given,
