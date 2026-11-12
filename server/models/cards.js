@@ -1530,7 +1530,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   await Authentication.checkAdminOrCondition(req.userId, addPermission);
   await assertListNotRefused(req.userId, board, req.params.listId); // #4527
   const paramListId = req.params.listId;
-  const paramParentId = req.params.parentId;
+  const paramParentId = req.body.parentId;
 
   // Issue #5897: create a Linked Card. When linkedId is provided, the new card
   // references an existing card (type cardType-linkedCard) instead of holding
@@ -1559,6 +1559,11 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
     // has already recorded the "created" activity; a second one here gave every
     // linked card created over REST two, and its watchers two notifications
     // (#6823).
+    return;
+  }
+
+  if (paramParentId !== undefined && paramParentId !== null && typeof paramParentId !== 'string') {
+    sendJsonResult(res, { code: 400, data: { error: 'Invalid parentId' } });
     return;
   }
 
