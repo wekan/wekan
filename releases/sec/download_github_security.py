@@ -116,8 +116,16 @@ def redact_secrets(alert):
     return alert
 
 
-def write_json(path, value):
-    with open(path, "w", encoding="utf-8") as fh:
+def write_json(path, value, private=False):
+    """value as JSON at path; private=True creates it readable by its owner only,
+    for a file that holds the secrets --include-secret-values kept."""
+    if private:
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        os.chmod(path, 0o600)  # an existing file keeps its old mode otherwise
+        fh = os.fdopen(fd, "w", encoding="utf-8")
+    else:
+        fh = open(path, "w", encoding="utf-8")
+    with fh:
         json.dump(value, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
 
@@ -143,7 +151,11 @@ def describe(kind, alert):
         sev = rule.get("security_severity_level") or rule.get("severity") or ""
         return sev, f"{rule.get('id', '')}: {rule.get('description', '')}", where
     if kind == "secret-scanning":
-        return "", alert.get("secret_type_display_name") or alert.get("secret_type", ""), ""
+        # Nothing from the alert itself: SUMMARY.md is never redacted and is the
+        # file most likely to be pasted somewhere, so it says only what kind of
+        # finding this is. The secret's type is in alert-<n>.json, beside it
+        # (CodeQL py/clear-text-storage-sensitive-data, code scanning alert #604).
+        return "", "Secret scanning alert - details in secret-scanning/", ""
     return alert.get("severity", ""), alert.get("summary", ""), ""
 
 
@@ -169,14 +181,15 @@ def download_repo(org, repo, run_dir, state, include_secrets, log):
             continue
         if kind == "secret-scanning" and not include_secrets:
             alerts = [redact_secrets(a) for a in alerts]
-        write_json(os.path.join(kind_dir, "alerts.json"), alerts)
+        private = kind == "secret-scanning" and include_secrets
+        write_json(os.path.join(kind_dir, "alerts.json"), alerts, private)
         n_open = 0
         for alert in alerts:
             ident = str(alert.get(key, "")).strip()
             if not re.match(r"^[A-Za-z0-9-]+$", ident):
                 continue
             name = f"advisory-{ident}.json" if kind == "security-advisories" else f"alert-{ident}.json"
-            write_json(os.path.join(kind_dir, name), alert)
+            write_json(os.path.join(kind_dir, name), alert, private)
             if is_open(kind, alert):
                 n_open += 1
                 sev, what, where = describe(kind, alert)

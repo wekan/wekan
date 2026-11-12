@@ -126,9 +126,36 @@ test('a secret is redacted unless asked for', { skip: !python }, () => {
     const kept = path.join(t.dir, 'kept');
     assert.equal(run({}, ['acme', '--repo', 'app', '--out', kept, '--include-secret-values'], t).status, 0);
     assert.match(fs.readFileSync(path.join(runDir(kept, 'app'), 'secret-scanning', 'alert-3.json'), 'utf8'), /ghp_SHOULDNOTBEWRITTEN/);
+    // Kept secrets are readable by their owner only (CWE-312), and the redacted
+    // download keeps the ordinary mode.
+    if (process.platform !== 'win32') {
+      for (const f of ['alerts.json', 'alert-3.json']) {
+        assert.equal(fs.statSync(path.join(runDir(kept, 'app'), 'secret-scanning', f)).mode & 0o777, 0o600, f);
+        assert.notEqual(fs.statSync(path.join(app, 'secret-scanning', f)).mode & 0o077, 0, f + ' redacted');
+      }
+    }
+    // SUMMARY.md, which is never redacted, carries no field of a secret
+    // scanning alert - not the secret, and not its type either (CodeQL
+    // py/clear-text-storage-sensitive-data, code scanning alert #604).
+    for (const dir of [app, runDir(kept, 'app')]) {
+      const summary = fs.readFileSync(path.join(dir, 'SUMMARY.md'), 'utf8');
+      assert.match(summary, /\| secret-scanning \| 3 \|  \| Secret scanning alert - details in secret-scanning\/ \|/);
+      assert.doesNotMatch(summary, /ghp_SHOULDNOTBEWRITTEN|GitHub Token|github_pat/);
+    }
   } finally {
     fs.rmSync(t.dir, { recursive: true, force: true });
   }
+});
+
+test('negative: no secret scanning field is written to SUMMARY.md, anywhere', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'releases/sec/download_github_security.py'), 'utf8');
+  const branch = src.slice(src.indexOf('if kind == "secret-scanning":\n        #'), src.indexOf('return alert.get("severity"'));
+  assert.ok(branch.length > 0, 'the secret scanning branch of describe()');
+  const code = branch.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+  assert.doesNotMatch(code, /alert\.|alert\[|secret_/, 'describe() reads nothing from a secret scanning alert');
+  // Every write of a secret scanning download passes the private flag.
+  assert.match(src, /private = kind == "secret-scanning" and include_secrets/);
+  assert.equal((src.match(/write_json\(os\.path\.join\(kind_dir, [^)]*\), alerts?, private\)/g) || []).length, 2);
 });
 
 test('negative: a name that is not a GitHub name, no gh, or gh signed out, writes nothing', { skip: !python }, () => {
