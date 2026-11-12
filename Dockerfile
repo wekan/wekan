@@ -38,7 +38,7 @@ FROM --platform=$BUILDPLATFORM debian:trixie AS bundle
 
 ARG TARGETARCH
 ARG TARGETVARIANT
-ARG VERSION=13.06
+ARG VERSION=13.07
 ARG DEBIAN_FRONTEND=noninteractive
 
 COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
@@ -148,7 +148,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV \
     DEBUG=false \
     DDP_TRANSPORT=sockjs \
-    NODE_VERSION=v26.13.0 \
+    NODE_VERSION=v26.13.1 \
     METEOR_RELEASE=METEOR@3.6 \
     USE_EDGE=false \
     NPM_VERSION=12.2.2 \
