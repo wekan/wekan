@@ -127,7 +127,10 @@ test('dotted checkbox writes emit false once and removing a valued field emits a
     await expect(call(page, 'setCardCustomFieldCheckbox', card._id, 'foreign', true)).rejects.toThrow();
     expect(activities()).toHaveLength(1);
     await call(page, 'setCardCustomFieldAssigned', card._id, fieldId, false);
-    expect(activities().map(a => a.activityType)).toEqual(['setCustomField', 'unsetCustomField']);
+    // One set and one unset. Not in insertion order: an unsorted find walks
+    // whatever index serves it, and activities' { cardId: 1, createdAt: -1 }
+    // returns the newest first.
+    expect(activities().map(a => a.activityType).sort()).toEqual(['setCustomField', 'unsetCustomField']);
     await call(page, 'setCardCustomFieldAssigned', card._id, fieldId, true);
     expect(activities()).toHaveLength(2);
   } finally {
