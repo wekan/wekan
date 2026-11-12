@@ -151,18 +151,8 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
       }
     }
 
-    if (req.body.hasOwnProperty('enabled')) {
-      await Integrations.direct.updateAsync(
-        { _id: paramIntId, boardId: paramBoardId },
-        { $set: { enabled: req.body.enabled } },
-      );
-    }
-    if (req.body.hasOwnProperty('title')) {
-      await Integrations.direct.updateAsync(
-        { _id: paramIntId, boardId: paramBoardId },
-        { $set: { title: req.body.title } },
-      );
-    }
+    // Validate the URL before writing any accompanying fields, just as delivery
+    // settings are validated above. A rejected URL must leave the integration intact.
     if (req.body.hasOwnProperty('url')) {
       // SSRF protection: this update path uses Integrations.direct, which
       // bypasses the schema's url validator, so validate explicitly here.
@@ -176,6 +166,21 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
         });
         return;
       }
+    }
+
+    if (req.body.hasOwnProperty('enabled')) {
+      await Integrations.direct.updateAsync(
+        { _id: paramIntId, boardId: paramBoardId },
+        { $set: { enabled: req.body.enabled } },
+      );
+    }
+    if (req.body.hasOwnProperty('title')) {
+      await Integrations.direct.updateAsync(
+        { _id: paramIntId, boardId: paramBoardId },
+        { $set: { title: req.body.title } },
+      );
+    }
+    if (req.body.hasOwnProperty('url')) {
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
         { $set: { url: req.body.url } },

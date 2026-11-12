@@ -73,17 +73,30 @@ test('integration PUT preserves authentication and board-admin requirements', as
   expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
 });
 
-test('successful REST updates appear in webhook settings after a wrong-board update is rejected', async ({ request, user, board, integration, boardPage }) => {
+test('successful REST updates appear in webhook settings after invalid updates are rejected', async ({ request, user, board, integration, boardPage }) => {
   const other = db.seedBoard({ ownerId: user.id });
   try {
     const response = await request.put(integration.path, {
-      headers: headers(user.token), data: { title: 'Retained webhook', enabled: false, activities: [] },
+      headers: headers(user.token),
+      data: { title: 'Retained webhook', enabled: false, activities: [], url: 'https://example.com/webhook' },
     });
     expect(response.status()).toBe(200);
     const rejected = await request.put(integrationPath(other.boardId, integration.id), {
       headers: headers(user.token), data: { title: 'Wrong-board overwrite', enabled: true },
     });
     expect(rejected.status()).toBe(404);
+
+    const before = db.findOne('integrations', { _id: integration.id });
+    const invalid = await request.put(integration.path, {
+      headers: headers(user.token),
+      data: { title: 'Invalid URL overwrite', enabled: true, url: 'invalid-url' },
+    });
+    expect(invalid.status()).toBe(400);
+    expect(await invalid.json()).toMatchObject({ error: 'invalid-webhook-url' });
+    expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
+    const read = await request.get(integration.path, { headers: headers(user.token) });
+    expect(read.status()).toBe(200);
+    expect(await read.json()).toMatchObject({ title: 'Retained webhook', enabled: false });
 
     const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
     if (!(await menu.isVisible())) await boardPage.locator('.js-toggle-page-sidebar').first().click();
