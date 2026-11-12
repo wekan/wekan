@@ -4557,7 +4557,19 @@ jobs:
               ;;
           esac
 
-          sudo snap install snapcraft --classic
+          # The Snap Store has bad minutes - a rate limit, or (v13.07) a refresh
+          # that timed out - so the install is retried as the build job's is;
+          # an outage is said as one, not as a broken credential.
+          installed=""
+          for i in 1 2 3 4 5; do
+            if sudo snap install snapcraft --classic; then installed=1; break; fi
+            echo "snapcraft install attempt $i/5 failed (Snap Store unreachable or throttling); retrying in 30s..."
+            sleep 30
+          done
+          if [ -z "$installed" ]; then
+            echo "::error::snapcraft could not be installed after 5 attempts: the Snap Store did not answer. That is the store, not SNAP_AUTH - re-run the job."
+            exit 1
+          fi
 
           # whoami writes its answer to stdout and its complaint to stderr; both
           # matter, so both are captured.

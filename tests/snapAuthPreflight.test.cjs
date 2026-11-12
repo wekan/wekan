@@ -101,6 +101,24 @@ test('the credential itself is never printed', () => {
   assert.ok(/echo "\$out"/.test(job), "only whoami's answer is");
 });
 
+test('every snapcraft install in the workflows is retried', () => {
+  // v13.07: snap-auth-check installed snapcraft once, the Snap Store timed out
+  // ("Client.Timeout exceeded while awaiting headers") and the whole release
+  // check failed, while the build job's install already retried five times.
+  const dir = path.join(__dirname, '..', '.github', 'workflows');
+  for (const f of fs.readdirSync(dir).filter(n => /\.ya?ml$/.test(n))) {
+    const lines = fs.readFileSync(path.join(dir, f), 'utf8').split('\n');
+    lines.forEach((line, i) => {
+      if (!/snap install snapcraft/.test(line) || /^\s*#/.test(line)) return;
+      const before = lines.slice(Math.max(0, i - 3), i).join('\n');
+      assert.ok(/for i in 1 2 3 4 5; do/.test(before),
+        `${f}:${i + 1} installs snapcraft without the five-attempt retry`);
+    });
+  }
+  assert.ok(/the Snap Store did not answer. That is the store, not SNAP_AUTH/.test(job),
+    'an outage is not reported as a credential problem');
+});
+
 test('a shell that keeps going long enough to classify the failure', () => {
   // `set -e` around the whoami call would kill the step at the failure, before
   // the case that says WHICH failure it was.
