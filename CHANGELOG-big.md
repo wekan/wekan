@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.07 2026-11-12 WeKan ® release
 
 **In short:** **ListLockAttachBleed** is fixed: when a list refuses a role
 write access, that refusal now also holds for the attachment API's upload,

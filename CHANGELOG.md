@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.07 2026-11-12 WeKan ® release
 
 **ListLockAttachBleed** is fixed: when a list refuses a role
 write access, that refusal now also holds for the attachment API's upload,
@@ -14,7 +14,7 @@ delete, copy and move. **CodeQL** alerts #602 and #603 in the tests are fixed,
 the **indexes** that LDAP, card member and History queries need are added, and
 Admin Panel → Problems can **Clear** resolved problems, which also age out.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.07](CHANGELOG-big.md#v1307-2026-11-12-wekan--release)
 
 # v13.06 2026-11-11 WeKan ® release
 
@@ -51,11 +51,3 @@ The amd64 **snaps** no longer fail the release when the Ubuntu
 archive is briefly unreachable: the build waits for it and retries once.
 
 [All changes in v13.03](CHANGELOG-big.md#v1303-2026-11-09-wekan--release)
-
-# v13.02 2026-11-09 WeKan ® release
-
-**UnassignedArchiveBleed** is fixed: a member with the
-**Normal, assigned only** role archives and converts only the cards assigned
-to them, through every card method.
-
-[All changes in v13.02](CHANGELOG-big.md#v1302-2026-11-09-wekan--release)
