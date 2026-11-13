@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The release's **Snap Store** credential check bounds each
+snapcraft install attempt, so a Snap Store that hangs no longer stops a release.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.09 2026-11-12 WeKan ® release
 
 The release's **Snap Store** credential check retries installing

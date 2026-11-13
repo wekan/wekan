@@ -124,6 +124,32 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The release's **Snap Store** credential check bounds each
+snapcraft install attempt, so a Snap Store that hangs no longer stops a release.
+
+This release has the following developer-tooling fix:
+
+**Release builds** - the snap jobs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/560ff74a79f8c998bd0aa4fd63664155eecd5f28">Every snapcraft install attempt is bounded, and snap-auth-check has room for all five</a>. Thanks to xet7.</summary>
+
+In the v13.09 release the Snap Store failed snap-auth-check's first two
+snapcraft install attempts and then let the third hang with no output, until
+the job's 10-minute timeout cancelled it - the retry never got its remaining
+turns. Each `snap install snapcraft` in the release workflow now runs under
+`timeout 180`, an attempt cut short is aborted (`snap abort --last=install`)
+so the next one does not meet snapd's change still in progress, and
+snap-auth-check's job timeout is 25 minutes, enough for all five attempts.
+`tests/snapAuthPreflight.test.cjs` fails on an unbounded install, a retry
+without the abort, or a job timeout that cannot hold five attempts.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.09 2026-11-12 WeKan ® release
 
 **In short:** The release's **Snap Store** credential check retries installing
