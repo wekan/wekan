@@ -18,7 +18,7 @@ metadata:
   area: migration
   tagline: "Migrate a Meteor 2.x app to 3.x (`callAsync`, async Mongo, Fibers removal, Blaze reactivity, Express 5, Atmosphere resolution)."
   bundle: ["migration"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 
@@ -30,6 +30,9 @@ Atmosphere packages often need forking or replacement. Approach the migration
 in phases. Do not flip the framework version flag first.
 
 ## Recommended strategy
+
+For Meteor 3.6, [prepare retained local data](references/other-breaking-changes.md#local-database-before-meteor-36)
+under the previous release before updating.
 
 1. Update the project to the latest 2.x release.
 2. Run the app with `WARN_WHEN_USING_OLD_API=true meteor run`. The console
@@ -48,7 +51,7 @@ in phases. Do not flip the framework version flag first.
    pin `api.versionsFrom(['2.x', '3.0'])`. See
    `references/package-triage.md`. Save `.meteor/versions` and npm lockfile
    checkpoints so package-major changes remain distinguishable from Meteor.
-5. Upgrade to Meteor 3.x.
+5. Upgrade to the selected Meteor 3.x release.
 6. Sweep implicit globals; rewrite to `const` or `export` / `import`.
    See `references/module-system.md`.
 7. Audit Blaze helpers and `Tracker.autorun` blocks for lost reactivity
@@ -66,7 +69,7 @@ in phases. Do not flip the framework version flag first.
    `references/other-breaking-changes.md`.
 10. For TypeScript projects, inspect the target release and existing declaration
     provider. Keep working `@types/meteor` or `zodern:types` setups. Meteor
-    3.6-beta.1 adds explicit native opt-in through `meteor types`; earlier
+    3.6 adds explicit native opt-in through `meteor types`; earlier
     releases retain the legacy workflow. See
     `references/typescript-migration.md`, then use `meteor-typescript` for
     provider changes and checking.
@@ -141,9 +144,5 @@ in phases. Do not flip the framework version flag first.
   `react-migration.md`, `eval-cases.md`.
 - Current Meteor React integration after the upgrade: `meteor-react`.
 
-## Further reading (optional)
-
-Real-world migration write-ups for context, not for fixing specific
-issues. The symptom router above is sufficient on its own. Open
-`references/community-case-studies.md` only when the user asks for
-narrative case studies or wants to calibrate effort and timeline.
+For requested case studies, read
+`references/community-case-studies.md`; use the symptom router for fixes.

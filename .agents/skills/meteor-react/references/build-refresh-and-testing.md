@@ -62,10 +62,11 @@ Meteor's parser, helper, and refresh defaults unless reconstructed exactly.
 
 ## React Compiler
 
-Meteor 3.6-beta.0 pairs Atmosphere `rspack@1.4.0-beta360.0` with npm
-`@meteorjs/rspack@3.0.0-beta.1` and Rspack 2.2.0. Beta.1 pairs
-`rspack@1.4.0-beta360.1` with `@meteorjs/rspack@3.0.0-beta.2` and retains
-that Rspack minimum. Both pairings support the
+Meteor 3.6 pairs Atmosphere `rspack@1.4.0` with npm
+`@meteorjs/rspack@3.0.0`, core/CLI 2.2.7 and React Refresh plugin/runtime
+2.0.2/0.19.0. Use the
+[coordinated table](../../meteor-modern-build-stack/references/meteor-3.6-workspaces.md#rspack-2-dependency-set)
+for the complete set. Do not inject a duplicate refresh stack. This supports the
 SWC React Compiler path introduced upstream in Rspack 2.1. Inspect the resolved
 packages and React major before selecting it. Earlier Meteor/Rspack pairings
 can keep `babel-plugin-react-compiler` with `babel-loader`; do not copy the

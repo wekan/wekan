@@ -13,7 +13,7 @@ meteor create --release <release> <path>
 
 Update an existing project and its pin:
 
-Before selecting Meteor 3.6-beta.3 for a project with local data, complete
+Before selecting Meteor 3.6 for a project with local data, complete
 [MongoDB 7 to 8 preparation](local-database-upgrade.md) under the previous
 release. The same precaution applies to an explicit `--release` run override.
 
@@ -31,6 +31,14 @@ meteor --release <release> run
 Do not edit `.meteor/release` alone as an upgrade workflow. `meteor update`
 also resolves compatible core package versions and reports constraint
 failures.
+
+## Preserve local data before MongoDB 8
+
+Before selecting Meteor 3.6 for retained local data,
+follow [local database preparation](local-database-upgrade.md): verify backup
+and recovery, inspect the previous server and FCV, complete required MongoDB
+7 preparation before updating, and distinguish local from external databases.
+Do not use `meteor reset --db` to migrate data you intend to keep.
 
 ## Reset project state
 

@@ -53,9 +53,9 @@ Use the React or Blaze skill after evidence identifies the framework boundary.
 
 ## Dynamic import after browser suspension
 
-Meteor 3.6-beta.3's `dynamic-import@0.7.5-beta360.3` recovers from closed or
+Meteor 3.6's `dynamic-import@0.8.1` recovers from closed or
 version-changed IndexedDB connections, treats failed transactions as cache
-misses and contains failed cache writes. Beta.1 lacks this fix.
+misses and contains failed cache writes. Earlier packages can lack this fix.
 
 Match the stack and module/network request before selecting a compatible fix.
 Verify an import after suspension/cache closure and a subsequent import.

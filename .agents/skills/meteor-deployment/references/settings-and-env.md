@@ -63,11 +63,11 @@ change streams without this variable, with oplog and polling as fallbacks.
 Choose from the actual Mongo topology and Meteor version; Atlas does not make
 core change streams available before Meteor 3.5.
 
-Meteor 3.6-beta.3 bundles MongoDB 8 for local development. It neither upgrades
+Meteor 3.6 bundles MongoDB 8 for local development. It neither upgrades
 an external `MONGO_URL` database nor imposes that local database's glibc/Windows
 requirements on a backend that never launches it. Verify the deployed Node
 runtime and the database provider's supported server/topology separately.
-Local retained data needs MongoDB 7 FCV preparation before beta.3 startup;
+Local retained data needs MongoDB 7 FCV preparation before 3.6 startup;
 use `meteor-cli-installation` for that workflow.
 
 ## Secrets

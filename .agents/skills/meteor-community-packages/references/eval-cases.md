@@ -146,14 +146,14 @@ client simulation performs a real database transaction.
 
 ## Case 14: interactive versus scripted adoption
 
-Prompt: "On Meteor 3.6-beta.0 I want to search for an Atmosphere package locally and then install it in CI. Should both environments run meteor add --search?"
+Prompt: "On Meteor 3.6 I want to search for an Atmosphere package locally and then install it in CI. Should both environments run meteor add --search?"
 
 Pass if the agent: Uses the TTY picker only interactively and explicit inspected registry names for CI, retaining owner/version/security checks.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 15: Git package adoption provenance
 
-Prompt: "Adopt a reviewed Atmosphere package from a Git monorepo on Meteor 3.6-beta.0. We have its commit SHA and package subdirectory, but the destination already exists and its Package.describe name differs from the repo name."
+Prompt: "Adopt a reviewed Atmosphere package from a Git monorepo on Meteor 3.6. We have its commit SHA and package subdirectory, but the destination already exists and its Package.describe name differs from the repo name."
 
 Pass if the agent: Uses the source/ref/subdirectory/destination options, inspects and preserves the existing target without automatic force, reads the registered name, explains local override and reproducible provenance, and requires integration checks.
 Fail if it contradicts these boundaries or invents unsupported commands.

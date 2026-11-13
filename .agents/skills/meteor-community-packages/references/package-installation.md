@@ -6,7 +6,7 @@ or a successful clone does not establish compatibility or trust.
 
 ## Registry discovery and scripts
 
-Meteor 3.6-beta.0 adds an interactive picker to bare `meteor add`,
+Meteor 3.6 adds an interactive picker to bare `meteor add`,
 `meteor add --search <term>`, and bare `meteor remove`. These require a TTY.
 Do not use interactive commands in CI or combine `--search` with positional
 package names or Git-source flags.
@@ -25,7 +25,7 @@ Review `.meteor/packages` and `.meteor/versions` after the solver runs.
 
 ## Git-hosted Atmosphere packages
 
-Meteor 3.6-beta.0 accepts a Git URL or `owner/repo` as the sole positional
+Meteor 3.6 accepts a Git URL or `owner/repo` as the sole positional
 argument to `meteor add`, or an explicit `--from` source. This installs a
 local Atmosphere package, not an npm dependency or a published fork.
 

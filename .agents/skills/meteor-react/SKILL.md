@@ -19,7 +19,7 @@ metadata:
   area: data
   tagline: "Build and debug Meteor 3 React interfaces (Rspack scaffold, reactive data hooks, Suspense, Fast Refresh, and testing)."
   bundle: ["react"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-10-07"
 license: MIT
 ---
 
@@ -156,7 +156,7 @@ an optional SVGR rule; the TypeScript skeleton demonstrates type checking.
 Compose custom rules through `defineConfig` from `@meteorjs/rspack` without
 replacing Meteor's SWC defaults.
 
-For React Compiler, the Meteor 3.6-beta.0 pairing supports SWC; older pairings
+For React Compiler, the Meteor 3.6 pairing supports SWC; older pairings
 can retain Babel. Read [compiler setup](references/build-refresh-and-testing.md#react-compiler)
 for React-version targets and runtime requirements.
 

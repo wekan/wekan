@@ -19,10 +19,27 @@ binary and preserve backend compatibility for old installations. Do not make
 silence a platform/plugin mismatch. Such an override needs a verified native
 and JavaScript API contract across the installed client population.
 
+## Rejected asset manifests
+
+Meteor 3.4.4, 3.5.5 and 3.6.1 select `cordova-plugin-meteor-webapp@2.0.5`,
+which validates native asset paths and version directories. Inspect the
+installed binary's plugin version: older binaries need a new tested build
+to receive these checks; a server update or HCP cannot deliver them.
+
+For a rejected manifest, inspect the specific asset or version value. Asset
+paths must be nonempty, relative and free of traversal/null components;
+version values must be safe single directory names, excluding reserved
+download directories. Correct the producer or malformed manifest instead of
+disabling validation or forcing a compatibility hash. Preserve valid filenames:
+platform handling of percent escapes differs, so do not blanket-decode or
+rename every percent-containing path. Verify download, activation and rollback
+on each target platform.
+
 ## Find the failed stage
 
 Inspect `.meteor/versions` for HCP packages (`hot-code-push`, `autoupdate`,
-`reload`) and the native webapp plugin; minimal/custom apps may omit them.
+`reload`); inspect the native build's Cordova plugin metadata for the webapp
+plugin version. Minimal/custom apps may omit HCP packages.
 The default `meteor-base` setup supplies HCP. Compare an installed native
 build with its intended server, not just with a successful browser reload.
 

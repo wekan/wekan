@@ -22,6 +22,17 @@ loads every file eagerly and Rspack has nothing to anchor on.
 Loading order belongs in the entry file. Imports cascade from there. See
 [Modular application structure](https://docs.meteor.com/packages/modules).
 
+### Architecture preservation
+
+On the 3.6 pairing, preserve explicit `legacy`, `web.browser`,
+`web.browser.legacy` and `web.cordova` entries and matching test entries.
+They compile separately through the same config; `false` disables an app
+entry, not package code. Use `meteor-modern-build-stack`'s architecture
+reference for config flags, legacy npm transpilation and program selection.
+Earlier Meteor integrations lack this complete flow. Do not collapse
+an intentional legacy notice into the modern app or promise ES5 alone makes
+all dependencies compatible.
+
 ### Server-only apps
 
 If the app has no client UI (API servers, microservices, workers), set

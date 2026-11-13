@@ -63,7 +63,7 @@ builds, or deployment.
    Atmosphere package and `meteor npm install` for an npm package. Do not invent
    a version constraint. After installation, confirm the resolved version in
    `.meteor/versions` or the npm lockfile.
-   For Meteor 3.6-beta.0 interactive or Git-based Atmosphere adoption, read
+   For Meteor 3.6 interactive or Git-based Atmosphere adoption, read
    [package installation](references/package-installation.md). Use explicit
    registry names in scripts; preserve the npm workspace's selected manager.
 8. Apply every relevant required check from the selected package guide. Do not

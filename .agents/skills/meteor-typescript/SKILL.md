@@ -17,7 +17,7 @@ metadata:
   meteor: ">=3.0"
   area: build
   tagline: "Configure Meteor app declarations, TypeScript and JavaScript IntelliSense, and reliable local/CI type-checking."
-  docs_synced_at: "2026-09-29"
+  docs_synced_at: "2026-10-07"
 license: MIT
 ---
 
@@ -48,15 +48,15 @@ runs just because SWC itself only transpiles.
 
 ## Choose the provider
 
-Native declarations start with 3.6-beta.1; this workflow is verified through
-3.6-beta.3. Beta.3 adds the declaration corrections linked below.
+Native package declarations are available on Meteor 3.6+.
 
 | Target and intent | Decision |
 |---|---|
-| Meteor 3 before 3.6-beta.1 | Native `meteor types` is unavailable. Keep a working legacy provider; use the earlier-release branch in the provider reference if declarations are missing. |
-| New or existing 3.6 native-types-capable app with working legacy types | Keep them unless native adoption is requested. Beta.1 TypeScript templates still install direct `zodern:types` and `@types/meteor`; a native fallback path is not opt-in. |
-| Explicit native adoption on 3.6-beta.1 through beta.3 | Root config required. Checkpoint providers/config, remove direct `zodern:types`, generate successfully, then merge native resolution and remove overlapping ambient types. |
-| JavaScript-only 3.6 beta app wanting IntelliSense | Use `jsconfig.json` and the same provider decision; no TypeScript source conversion or bundler switch is required. |
+| Meteor 3 before 3.6 | Native `meteor types` is unavailable. Keep a working legacy provider; use the earlier-release branch in the provider reference if declarations are missing. |
+| New Meteor 3.6 TypeScript, TypeScript + Tailwind, Svelte or Angular app | The scaffold selects native declarations and `meteor create` generates them. Keep that provider; regenerate after cloning or changing packages. |
+| Existing app upgraded to 3.6 with working legacy types | Keep its provider and paths unless native adoption is requested. A runtime upgrade does not migrate them. |
+| Explicit native adoption on 3.6+ | Root config required. Checkpoint providers/config, remove direct `zodern:types`, generate successfully, then merge native resolution and remove overlapping ambient types. |
+| JavaScript-only 3.6+ app wanting IntelliSense | Use `jsconfig.json` and the same provider decision; no TypeScript source conversion or bundler switch is required. |
 
 Read [declaration providers](references/declaration-providers.md) for the
 ordered switch, native adapter/barrel distinction, inherited configuration,
@@ -66,8 +66,9 @@ TypeScript 7 compatibility, earlier providers and rollback. Read
 ## Verify the effective project
 
 1. Confirm generation actually ran. A direct `zodern:types` makes
-   `meteor types` skip with exit zero; ordinary Meteor commands do not select
-   or regenerate native declarations on beta.1 through beta.3.
+   `meteor types` skip with exit zero; `meteor create` generates for the four native
+   scaffolds above. After cloning or changing packages, run `meteor types`
+   explicitly; normal `run`, `build`, `test` and `lint` do not regenerate them.
 2. Use the app's local compiler. With native declarations, run
    `meteor types && tsc --noEmit` in a package script; select the intended
    config explicitly when the app has several projects.
@@ -91,8 +92,9 @@ TypeScript 7 compatibility, earlier providers and rollback. Read
 | Ordinary imports work, scoped/sub-path imports fail | Explicit native barrel in `files` plus wildcard mapping to per-package adapters, not to the barrel. |
 | Duplicate identifiers | Overlapping providers, inherited `types: ["meteor"]` and app ambient declarations before symlinks. |
 | Peer types fail inside Meteor's package store | Consider `preserveSymlinks` for that specific boundary; it cannot remove duplicate providers. |
+| User service fields are `unknown`, or OAuth signatures disagree | Use [application augmentation and provider signatures](references/declaration-providers.md#application-user-services-and-oauth-signatures); keep generated types unedited. |
 | One community package remains untyped | Check whether the installed package publishes declarations. No generator can promise coverage for every Atmosphere package. |
-| Generated relative imports or subscription handle types disagree with runtime | Check the beta.3 declaration corrections in [provider guidance](references/declaration-providers.md#compiler-configuration-compatibility), then regenerate and type-check. Keep generated files unedited and structural handles usable. |
+| Generated relative imports or subscription handle types disagree with runtime | Check the native declaration contract in [provider guidance](references/declaration-providers.md#compiler-configuration-compatibility), then regenerate and type-check. Keep generated files unedited and structural handles usable. |
 
 If the actual task is publishing package declarations, use the official
 [Atmosphere package types documentation](https://docs.meteor.com/packages/7.writing-atmosphere-packages#typescript-types).

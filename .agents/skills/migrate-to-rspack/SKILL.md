@@ -2,7 +2,7 @@
 name: migrate-to-rspack
 description: >
   Use when migrating an existing Meteor app to Rspack (Meteor 3.4+), or
-  upgrading Rspack 1 to 2 on Meteor 3.6 beta. Triggers on nested imports,
+  upgrading Rspack 1 to 2 on Meteor 3.6. Triggers on nested imports,
   mainModule entry points, server-only apps, replacing fourseven:scss /
   meteor/less / coffeescript / jorgenvatle:vite / zodern:melte with loaders,
   Svelte/TypeScript preprocessing or Lingui SWC plugin failures after upgrade,
@@ -21,7 +21,7 @@ metadata:
   area: migration
   tagline: "Migrate an existing Meteor 3 app to the Rspack bundler integration (`mainModule`, replacing legacy build plugins with loaders)."
   bundle: ["migration"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 
@@ -30,9 +30,8 @@ license: MIT
 Rspack compiles app code; Meteor builds Atmosphere packages and assembles the
 bundle. Keep packages, but audit their architecture and browser dependencies.
 
-Prerequisite: Meteor 3.4+. Recommended before activation: enable
-`"meteor": { "modern": true }` and fix Babel fallbacks. For setup and helpers,
-use `meteor-modern-build-stack`.
+Meteor 3.4+ required. Prefer enabling `"meteor": { "modern": true }` and
+fixing Babel fallbacks first. For setup/helpers, use `meteor-modern-build-stack`.
 
 Match `@meteorjs/rspack` to the Meteor release, not to
 `@rspack/core` or `@rspack/cli`:
@@ -43,15 +42,14 @@ Match `@meteorjs/rspack` to the Meteor release, not to
 | 3.4.1 and 3.5 | `1.1.0` | `2.0.1` | Adds v2 helpers and inherited `TOOL_NODE_FLAGS`. |
 | 3.5.1 | `1.2.0` | `2.1.0` | Revised client polyfills and extension discovery. |
 | 3.5.2 | `1.3.0` | `2.2.0` | Dependency diagnostics, mode isolation, full-app/TLA and cache fixes. |
-| 3.6-beta.0 | `1.4.0-beta360.0` | `3.0.0-beta.1` | Rspack 2.2.0 and workspace-aware installs. |
-| 3.6-beta.1 | `1.4.0-beta360.1` | `3.0.0-beta.2` | TypeScript rebuild-loop fix; Node 26.8.2. |
+| 3.6 | `1.4.0` | `3.0.0` | Rspack core/CLI 2.2.7+, dev server 2.2.1+, React Compiler, workspace installs and separate architecture graphs. |
 
 Inspect `.meteor/versions`, `package.json`, and the lockfile: Atmosphere,
 Meteor npm integration and Rspack core versions are independent. With automatic
 installs enabled, startup aligns dependencies; review and commit the changes.
 `meteor update --npm` is an alternative. Keep the release pairing.
 
-Already using Rspack? For the Meteor 3.6 beta upgrade, follow
+Already using Rspack? For the Meteor 3.6 upgrade, follow
 [Rspack 1 to 2](references/rspack-2-upgrade.md) and its toolchain checks.
 Keep valid entries/configuration; skip the first-activation steps below.
 
@@ -102,39 +100,14 @@ Without `mainModule`, Rspack has no entry. Meteor's eager-loading model
 does not apply: Rspack does not auto-discover modules. See
 `references/framework-and-css.md` for CSS and HTML routing.
 
+For Meteor 3.6 separate legacy/native entries and earlier-version limits,
+read [architecture preservation](references/code-migrations.md#architecture-preservation).
+
 ## Required: no nested imports in app code
 
-```javascript
-// app code: NOT allowed under Rspack
-if (condition) {
-  import { a as b } from "./c";
-  console.log(b);
-}
-```
-
-Three fixes:
-
-```javascript
-// 1. Move to top
-import { a as b } from "./c";
-if (condition) console.log(b);
-
-// 2. Dynamic import (standardized, supported)
-if (condition) {
-  const { a: b } = await import("./c");
-  console.log(b);
-}
-
-// 3. require (CommonJS interop)
-if (condition) {
-  const { a: b } = require("./c");
-  console.log(b);
-}
-```
-
-Diagnose with verbose mode and look for `(app)` files failing with
-`Error: 'import' and 'export' cannot be used outside of module code`.
-`(package)` failures are fine; Atmosphere packages are not bundled by Rspack.
+Apply the [nested-import rewrites](references/code-migrations.md#nested-imports)
+to app code. Adapt callers when using Promise-returning `import()`;
+Atmosphere package code stays on Meteor's bundler.
 
 ## Required: reserve build folders
 
@@ -173,36 +146,16 @@ See `references/framework-and-css.md`.
 | `meteor/coffeescript`     | `coffee-loader` (optionally chained with `swc-loader`).              |
 | `zodern:melte` (Svelte)   | Official Rspack Svelte loader.                                       |
 | `jorgenvatle:vite` (Vue/Solid) | Native Rspack Vue/Solid loaders.                                |
-| `babel-plugin-react-compiler` | SWC on the 3.6 beta pairing; earlier integrations retain Babel. See framework reference. |
-| `zodern:types` | Keep the working declaration provider during bundler migration; beta.1 native adoption is a separate explicit choice. |
+| `babel-plugin-react-compiler` | SWC on the 3.6 pairing; earlier integrations retain Babel. See framework reference. |
+| `zodern:types` | Keep the working declaration provider during bundler migration; 3.6 native adoption is a separate explicit choice. |
 
 Plugins acting only on Atmosphere package files can stay. Plugins acting on
 app-folder files (entry folder excluded) must move to Rspack.
 
 ## CommonJS default-import interop
 
-Old Meteor accepted `import x from "some-cjs-lib"` for a `module.exports = ...`
-package. Rspack + SWC do not by default. Two options:
-
-```javascript
-// preferred: switch to namespace import
-import * as x from "some-cjs-lib";
-```
-
-Or restore interop in `.swcrc`:
-
-```json
-{
-  "module": {
-    "type": "commonjs",
-    "noInterop": false,
-    "importInterop": "node"
-  }
-}
-```
-
-This emits CommonJS, defeating tree-shaking and static analysis app-wide.
-Migrate imports instead unless you cannot.
+Prefer namespace imports. For the interop override and its app-wide
+CommonJS/tree-shaking cost, read `references/code-migrations.md`.
 
 ## CI and Docker
 

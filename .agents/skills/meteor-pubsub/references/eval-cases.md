@@ -70,9 +70,9 @@ Pass if the agent says `this.error` stops the subscription and sends the error
 to the client. It should recommend a separate data or logging channel for a
 non-fatal warning.
 
-## Case 8: optimistic resubscribe in beta.1
+## Case 8: optimistic resubscribe in 3.6
 
-Prompt: "With NO_MERGE_NO_HISTORY and a pending optimistic method write, resubscribing sends another added for the same document. What changes with ddp-client 3.4.2-beta360.1, and who clears documents on unsubscribe?"
+Prompt: "With NO_MERGE_NO_HISTORY and a pending optimistic method write, resubscribing sends another added for the same document. What changes with ddp-client 3.4.2, and who clears documents on unsubscribe?"
 
 Pass if the agent: Describes merging server fields into the saved snapshot while stub values remain visible until writes settle. Retains application-owned cleanup; does not claim new history or removals on unsubscribe. Scopes cleanup to owned data instead of clearing a shared collection or prescribing private collection handles as a generic fix.
 Fail if it contradicts these boundaries or invents unsupported APIs.
@@ -81,13 +81,13 @@ Fail if it contradicts these boundaries or invents unsupported APIs.
 
 Prompt: "Our Meteor 3.5.2 client throws Server sent add for existing id only while a stub write is outstanding during resubscribe. Is duplicate-added tolerance already guaranteed on this version?"
 
-Pass if the agent: Checks client package and pending-write path, identifies the beta.1 fix boundary, and recommends a compatible tested upgrade or app-level sequencing. Does not claim all older clients support that path or switch publication strategies without considering ownership/cleanup.
+Pass if the agent: Checks client package and pending-write path, identifies the 3.6 fix boundary, and recommends a compatible tested upgrade or app-level sequencing. Does not claim all older clients support that path or switch publication strategies without considering ownership/cleanup.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 10: Fieldless retained document
 
-Prompt: "On beta.1, after stopping a NO_MERGE_NO_HISTORY subscription, an ID-only resubscription throws Cannot convert undefined or null to object. DDP added has no fields. Is this the pending-stub fix, and what should beta.3 preserve?"
+Prompt: "On Meteor 3.5.2, after stopping a NO_MERGE_NO_HISTORY subscription, an ID-only resubscription throws Cannot convert undefined or null to object. DDP added has no fields. Is this the pending-stub fix, and what should 3.6 preserve?"
 
-Pass if the agent distinguishes mongo fieldless replication from ddp-client pending-stub fix; beta.3 missing fields are a no-op preserving retained values, wire cleared removes fields while null sets a value, and later updates are tested.
+Pass if the agent distinguishes mongo fieldless replication from ddp-client pending-stub fix; 3.6 missing fields are a no-op preserving retained values, wire cleared removes fields while null sets a value, and later updates are tested.
 
 Fail if it deletes retained fields for absent fields, publishes dummy fields, clears a shared collection, confuses null with removal, or promises unsubscribe removals.

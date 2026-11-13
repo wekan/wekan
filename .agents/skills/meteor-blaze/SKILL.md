@@ -1,16 +1,18 @@
 ---
 name: meteor-blaze
 description: >
-  Use when building or debugging Blaze interfaces in Meteor 3: meteor create
-  --blaze, Spacebars templates, Template helpers and events, lifecycle hooks,
-  Tracker, ReactiveVar or ReactiveDict, template subscriptions, Promise
-  helpers, #let async states, Template.dynamic, Blaze.render, and blaze-hot
-  HMR with the Meteor bundler. Triggers on stale async helper results, lost
-  reactivity after await, data-context lookup surprises, duplicate DOM
-  integrations after HMR, Rspack full reloads, or raw
-  HTML in triple braces. Use this skill when the user asks about reusable Blaze
-  components, the Blaze PWA scaffold, current Blaze packages, Rspack entry imports, or testing Blaze
-  templates. For Meteor 2 to 3 upgrades, use migrate-to-meteor-3 instead.
+  Use when building or debugging Meteor 3 Blaze interfaces: meteor create
+  --blaze, Spacebars, helpers/events, lifecycle, Tracker, ReactiveVar/ReactiveDict,
+  subscriptions, Promise helpers, #let states, Template.dynamic, Blaze.render,
+  and blaze-hot HMR. Triggers on stale async results, lost reactivity after await,
+  data-context lookup surprises, duplicate DOM integrations, Rspack full reloads,
+  raw HTML in triple braces, jQuery not found, Expected template or null,
+  Template.instance() is null after await, missing event.dataTransfer,
+  Reactive HTML attributes, BLOCKOPEN, TRIPLE template tag,
+  Expected "li" end tag, or Template can't be named. Use this skill when asked
+  about reusable Blaze components, the Blaze PWA scaffold, package/backend
+  selection, Rspack entry imports, or template tests. For Meteor 2 to 3 upgrades,
+  use migrate-to-meteor-3; for unexplained cross-layer failures, meteor-debugging.
 metadata:
   author: meteor
   kind: knowledge
@@ -18,7 +20,7 @@ metadata:
   area: data
   tagline: "Build and debug Meteor 3 Blaze interfaces (Spacebars, Tracker state, async helpers, lifecycle, bundler-specific HMR, and components)."
   bundle: ["blaze"]
-  docs_synced_at: "2026-09-11"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 
@@ -61,18 +63,19 @@ Meteor 3.4+ creates Blaze apps with Rspack by default. Earlier Meteor 3
 releases may use the Meteor bundler. The current scaffold declares explicit
 client and server `meteor.mainModule` entries, imports `.html` from the client
 entry, enables the modern build stack, and includes `blaze-html-templates`,
-`tracker`, `reactive-var`, `hot-module-replacement`, `blaze-hot`, and `rspack`.
+`jquery`, `tracker`, `reactive-var`, `hot-module-replacement`, `blaze-hot`, and
+`rspack`, plus npm `jquery`.
 Treat the generated files for the selected Meteor release as the baseline.
 Those packages do not enable Blaze HMR in the Rspack graph. Blaze edits there
 trigger a fast full page reload and reset page-local state. `blaze-hot`
 replacement behavior applies when the Meteor bundler owns the module.
 
-Do not infer the installed Blaze runtime from the release name alone. Inspect
-`.meteor/versions`, then use the
-[Blaze history](https://github.com/meteor/blaze/blob/master/HISTORY.md) for
-feature floors and compatibility changes.
+Inspect `.meteor/versions` before selecting runtime features. Blaze 3.0.3
+requires jQuery; native DOM support starts at `blaze@3.1.0-alpha.0`
+(prerelease). Read [backend selection](references/jquery-backends.md) before
+removing either jQuery dependency; upgrading Meteor alone does not select it.
 
-Meteor 3.6-beta.0's `meteor create --pwa <name>` provides a Blaze/Rspack
+Meteor 3.6's `meteor create --pwa <name>` provides a Blaze/Rspack
 installable web app with a dependency-free service worker. It does not supply
 offline Meteor data or native binaries. Read
 [PWA boundaries](references/pwa-scaffold.md) before changing caching or scope.
@@ -145,10 +148,11 @@ Use `#let` when loading, rejection, and empty results must be distinct:
 {{/let}}
 ```
 
-Spacebars stores the latest resolved value, not necessarily the result of the
-latest Promise. If reactive input can launch overlapping requests, use an
-abort signal, generation token, or serialized queue. Do not assume `#let`
-orders results. See `references/spacebars-and-async.md`.
+Persistent `#let` bindings can accept an older request's late result. Protect
+overlapping requests with cancellation, a generation token, or a justified
+queue. Direct Promise content in `{{helper}}` replaces its awaiting View on
+reactive rerender; do not apply the binding rule universally. See
+[Promise ordering](references/spacebars-and-async.md#prevent-stale-promise-results).
 
 ## Lifecycle ownership
 
@@ -163,6 +167,9 @@ orders results. See `references/spacebars-and-async.md`.
 
 Read `references/lifecycle-and-components.md` for data-context rules,
 callbacks, dynamic templates, DOM scoping, and cleanup patterns.
+
+For compiler messages, helper/template collisions, post-await instance loss,
+or wrapped drag events, read [template diagnostics](references/template-diagnostics.md).
 
 ## Routing boundaries
 

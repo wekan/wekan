@@ -1,6 +1,6 @@
 # JavaScript IntelliSense
 
-Native Meteor-import declarations require Meteor 3.6-beta.1 or later; on an
+Native Meteor-import declarations require Meteor 3.6 or later; on an
 earlier Meteor 3 app retain the existing legacy declarations. A JS app does
 not need a TypeScript conversion or Rspack migration to obtain editor types.
 
@@ -9,7 +9,7 @@ already owns these files, configure that project instead of creating a
 competing `jsconfig.json`. Otherwise create or merge a root `jsconfig.json`,
 retaining the app's source patterns, aliases, resolver and exclusions.
 
-For beta.1 native opt-in, follow the generation-before-switch and rollback
+For Meteor 3.6 native opt-in, follow the generation-before-switch and rollback
 sequence in [declaration providers](declaration-providers.md). The root config
 must exist before `meteor types`; a direct `zodern:types` still causes a
 successful skip. Once generation succeeds, merge:

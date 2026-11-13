@@ -131,6 +131,16 @@ per-connection vs per-user keys.
 
 ## Error handling
 
+Own every client `callAsync` result: await it inside `try`/`catch`, return it
+to a caller that handles rejection, or attach an explicit `.catch` for
+intentional background work. Show a confirmed-save message only after the
+awaited call succeeds; keep pending/optimistic UI distinct from confirmation.
+The client async-stub queue attaches no-op rejection handlers, so an ignored
+call can reject without console output or an `unhandledrejection` event.
+Awaiting the returned Promise still exposes the error. This queue behavior
+does not imply that server logs or every derived Promise are silent. See the
+[client queue implementation](https://github.com/meteor/meteor/blob/4c94e92457c06cb73082a8d59908257bf6b518d1/packages/ddp-client/client/queue_stub_helpers.js).
+
 Throw `Meteor.Error(code, reason, details?)` for an intentional client-visible
 failure. A plain `Error` is logged on the server and sanitized for the client
 as `Meteor.Error(500, "Internal server error")`; its original message and
@@ -141,6 +151,8 @@ errors. Narrow the caught value before reading Meteor-specific fields.
 
 ## Anti-patterns
 
+- Fire `Meteor.callAsync` without handling or deliberately forwarding its
+  Promise, then display success or rely on global rejection logging.
 - Methods without `check()` on every argument. Reject the method in code
   review.
 - Reusing a method for both authenticated and unauthenticated calls. Split

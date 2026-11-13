@@ -1,15 +1,18 @@
 # Meteor 3.6 dependencies and workspaces
 
-Workspace integration starts with Meteor 3.6-beta.0; the current target is
-beta.3. Select the [release pairing](rspack-config.md); `tools-core` has the
-same version as `rspack` for these betas. Inspect the manifest and workspace
-lockfile. Earlier 3.x releases retain their manually managed workspace setup.
+Workspace integration starts with Meteor 3.6. Select the
+[release pairing](rspack-config.md); `tools-core` and `rspack` both resolve
+to 1.4.0. Inspect the manifest and workspace lockfile. Earlier 3.x releases
+retain their manually managed workspace setup.
 
 ## Rspack 2 dependency set
 
-| Package | Minimum selected by 3.6-beta.3 | Dependency category |
+Meteor 3.6 pairs Atmosphere `rspack@1.4.0` and `tools-core@1.4.0` with npm
+`@meteorjs/rspack@3.0.0`. Inspect the actual release and resolved packages.
+
+| Package | Meteor 3.6 minimum | Category |
 |---|---|---|
-| `@meteorjs/rspack` | `3.0.0-beta.3` | Development |
+| `@meteorjs/rspack` | `3.0.0` | Development |
 | `@rspack/core`, `@rspack/cli` | `2.2.7` each | Development |
 | `@rspack/dev-server` | `2.2.1` | Development |
 | `@swc/core` | `1.16.2` | Development |
@@ -17,15 +20,10 @@ lockfile. Earlier 3.x releases retain their manually managed workspace setup.
 | `@swc/helpers` | `0.5.23` | Runtime |
 | React only: `@rspack/plugin-react-refresh`, `react-refresh` | `2.0.2`, `0.19.0` | Development |
 
-Beta.0/beta.1 retain core/CLI/dev-server 2.2.0, SWC 1.15.32,
-Rsdoctor 1.5.9, refresh plugin/runtime 2.0.0/0.17.0 and
-`@meteorjs/rspack` 3.0.0-beta.1/beta.2 respectively. Do not copy beta.3's
-minimums into a deliberately pinned earlier target.
-
-`swc-loader@0.2.7` is a separately selected dependency when the beta.3 integration
-needs it. Do not confuse the Meteor npm integration's major 3 with Rspack's
-major 2. Do not substitute unreleased stable `@meteorjs/rspack@3.0.0` for this
-beta's pin. Later releases require checking their own resolved pairing.
+The Meteor npm integration's major 3 is distinct from Rspack's major 2.
+`swc-loader` is not selected by the dependency manager; add a compatible
+version only for an actual app-owned loader path. Later Meteor releases
+require their resolved pairing.
 
 Automatic installation updates the coordinated set. With
 `meteor.autoInstallDeps: false`, inspect the warnings and prepare the changes
@@ -33,8 +31,8 @@ locally with the detected manager. `meteor update --npm` explicitly overrides
 the opt-out for that invocation; keep it out of immutable CI builds.
 
 On npm apps with installed Rspack 1.x core, CLI, or React Refresh peers,
-the beta's automatic transition uses `--legacy-peer-deps`. Its manual warning
-can omit that flag. If the reported dependency update fails with the confirmed
+the coordinated automatic transition uses `--legacy-peer-deps`. The manual npm
+command includes it. If the reported dependency update fails with the confirmed
 old-peer conflict, apply the flag only to that coordinated npm install and
 verify the resulting tree. Do not set a global npm option, add the flag to
 pnpm/Yarn, or suppress unrelated peer errors. Prove the locked CI install
@@ -44,7 +42,7 @@ CI command and revisit it after the transition.
 ## Create a pnpm workspace
 
 ```bash
-meteor create --release 3.6-beta.3 --pnpm my-workspace
+meteor create --release 3.6.1 --pnpm my-workspace
 cd my-workspace
 meteor npm start
 ```
@@ -102,20 +100,21 @@ app-local source symlink that needs its apparent location calls for
 linked package, client/server suite counts, and an extracted production bundle.
 
 Move the bundle outside the checkout and test used workspace `.bin` commands
-and adjacent resource reads without source access. Beta.3 repairs copied
+and adjacent resource reads without source access. 3.6 repairs copied
 command links, including cross-workspace links; verify older tools explicitly.
 Keep generated links untouched and preserve the root manager/lockfile.
 
 ## Test selection and generated ignores
 
-Verified on the beta.3 pairing; beta.0/beta.1 lack the complete fixes.
+These rules apply to the Meteor 3.6 pairing. Earlier integrations need
+their supported test-discovery workflow.
 
 | Rule source | Decision |
 |---|---|
 | `.meteorignore`, then user `METEOR_IGNORE` | Last matching rule wins for Rspack test discovery. `!` can re-include a file only when its parents remain included. |
 | Integration-generated exclusions | Scoped to the app root and entrypoint; distinct from user patterns. A root `test/` folder must not hide `_build/test/`. Do not set private `METEOR_IGNORE_*` variables to repair this. |
 | Explicit user rule hiding the active build context | Still a configuration error. Keep Meteor-facing generated entries readable. |
-| Edited ignore file during watch | Beta.3 invalidates the cached source scan. Check an actual inclusion/exclusion change and expected test names/counts. A zero-test exit is not success. |
+| Edited ignore file during watch | 3.6 invalidates the cached source scan. Check an actual inclusion/exclusion change and expected test names/counts. A zero-test exit is not success. |
 
 Use `meteor-testing` for setup. On a constrained earlier integration, use a
 verified explicit test entry/import graph when eager discovery fails; keep

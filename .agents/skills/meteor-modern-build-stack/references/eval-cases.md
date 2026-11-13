@@ -215,23 +215,23 @@ from computed or out-of-app paths, verifies the next build before cleanup,
 and does not extend the TypeScript tracking fix to older integrations. Fail if
 it disables persistent cache by default or guarantees arbitrary path tracking.
 
-## Case 22: 3.6 beta dependency pairing
+## Case 22: 3.6 dependency pairing
 
-Prompt: "We are on Meteor 3.6-beta.0 with autoInstallDeps false. Which Rspack integration versions should we reconcile before our frozen CI build?"
+Prompt: "We are on Meteor 3.6 with autoInstallDeps false. Which Rspack integration versions should we reconcile before our frozen CI build?"
 
-Pass if the agent: Checks the resolved Atmosphere/npm pairing, uses rspack 1.4.0-beta360.0 and @meteorjs/rspack 3.0.0-beta.1 rather than a presumed stable 3.0.0, reconciles the coordinated dependencies locally, and preserves the lockfile in CI.
+Pass if the agent: Checks the resolved Atmosphere/npm pairing, uses rspack 1.4.0 and @meteorjs/rspack 3.0.0 with core/CLI 2.2.7+ and dev server 2.2.1+, reconciles the coordinated dependencies locally, and preserves the lockfile in CI.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 23: pnpm workspace install ownership
 
-Prompt: "Meteor 3.6-beta.0 runs from apps/app in a pnpm workspace. The root pins pnpm but the app has an old npm packageManager hint. Where should required Rspack installs run, and which lockfile should change?"
+Prompt: "Meteor 3.6 runs from apps/app in a pnpm workspace. The root pins pnpm but the app has an old npm packageManager hint. Where should required Rspack installs run, and which lockfile should change?"
 
 Pass if the agent: Uses the root manager and shared pnpm lockfile with the app as install cwd; does not create an app package-lock or require global pnpm when Corepack is available. Preserves existing locks and local work while investigating conflicting hints, rather than prescribing deletion from the hint alone. Does not forbid pnpm-managed links under apps/app/node_modules.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 24: local protocol dependencies
 
-Prompt: "Our 3.6 beta workspace declares a required Rspack helper with workspace: and another with file:. Should the tool treat these strings as bad semver and replace them with registry versions?"
+Prompt: "Our 3.6 workspace declares a required Rspack helper with workspace: and another with file:. Should the tool treat these strings as bad semver and replace them with registry versions?"
 
 Pass if the agent: Inspects installed package versions and protocol targets, preserves intentional local sources, and does not apply registry semver parsing to protocol strings.
 Fail if it contradicts these boundaries or invents unsupported commands.
@@ -240,12 +240,12 @@ Fail if it contradicts these boundaries or invents unsupported commands.
 
 Prompt: "We are pinned to Meteor 3.5.2 and want the new pnpm monorepo scaffold and automatic workspace dependency handling without upgrading. Can we use the 3.6 commands unchanged?"
 
-Pass if the agent: States the 3.6 beta boundary; offers existing/manual workspace setup or an explicitly scoped upgrade, not unsupported flags or guaranteed new automatic behavior.
+Pass if the agent: States the 3.6 boundary; offers existing/manual workspace setup or an explicitly scoped upgrade, not unsupported flags or guaranteed new automatic behavior.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 26: React PWA with Workbox and offline data
 
-Prompt: "Our Meteor 3.6-beta.0 React app already uses Rspack. We want a PWA
+Prompt: "Our Meteor 3.6 React app already uses Rspack. We want a PWA
 like Notes Offline. Should we convert to the new Blaze skeleton, copy its
 worker, or use Workbox? Will the worker save Minimongo and replay edits?"
 
@@ -259,11 +259,11 @@ private traffic indiscriminately, or promises worker-provided method replay.
 
 ## Case 27: new pnpm workspace starter
 
-Prompt: "Start a Meteor 3.6-beta.0 pnpm workspace with shared client and server
+Prompt: "Start a Meteor 3.6 pnpm workspace with shared client and server
 packages. Where is the Meteor app, how do I start it, and does the pnpm
 skeleton include PWA offline behavior?"
 
-Pass if the agent uses `meteor create --release 3.6-beta.0 --pnpm <name>`,
+Pass if the agent uses `meteor create --release 3.6 --pnpm <name>`,
 identifies `apps/app` and `packages/`, and explains the root start script
 without switching dependency ownership to npm. It preserves the root pnpm
 pin and lockfile, runs direct Meteor commands from the app, and treats PWA
@@ -272,7 +272,7 @@ when Corepack supplies the pinned version.
 
 ## Case 28: skeleton selection is not flag composition
 
-Prompt: "For a new Meteor 3.6-beta.0 app, should I use --react, --typescript,
+Prompt: "For a new Meteor 3.6 app, should I use --react, --typescript,
 --svelte, --pnpm or --pwa? Can I combine --react --pnpm --pwa to get all three?
 Does meteor create --list show every skeleton?"
 
@@ -309,16 +309,16 @@ actual registration and avoids unnecessarily broad control or an automatic
 prefix rewrite. Fail if it requires moving a root worker to narrow its scope
 or treats broader-than-directory scope as always impossible or unrestricted.
 
-## Case 31: beta.1 pairing and declaration boundary
+## Case 31: 3.6 pairing and declaration boundary
 
-Prompt: "Configure Rspack on a new Meteor 3.6-beta.1 TypeScript app with autoInstallDeps false. Does SWC generate native Meteor declarations and type-check it automatically?"
+Prompt: "Configure Rspack on a new Meteor 3.6 TypeScript app with autoInstallDeps false. Does SWC generate native Meteor declarations and type-check it automatically?"
 
-Pass if the agent: Uses rspack 1.4.0-beta360.1/@meteorjs/rspack 3.0.0-beta.2 and Rspack core/CLI/dev-server 2.2.0 minimums, prepares dependencies with the existing manager and keeps frozen CI. Separates transpilation, explicit native opt-in and local tsc; new templates retain legacy providers. Does not remove zodern:types as a bundler requirement.
+Pass if the agent: Uses rspack 1.4.0/@meteorjs/rspack 3.0.0 and Rspack core/CLI 2.2.7 and dev server 2.2.1 minimums, prepares dependencies with the existing manager and keeps frozen CI. Separates SWC transpilation, native generation during creation of the TypeScript scaffold, explicit regeneration after cloning/package changes, and local type-checking. Existing app upgrades preserve their provider. Does not remove zodern:types as a bundler requirement.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 32: standalone declaration resolution near miss
 
-Prompt: "Our Meteor 3.6-beta.1 bundler works, but meteor/random is any in the editor and local tsc skips our app files. We want type resolution repaired, with no SWC or Rspack migration."
+Prompt: "Our Meteor 3.6 bundler works, but meteor/random is any in the editor and local tsc skips our app files. We want type resolution repaired, with no SWC or Rspack migration."
 
 Pass if the agent hands provider/configuration and source-set checking to
 meteor-typescript, preserves working build/checker integration and does not
@@ -326,15 +326,15 @@ change loaders merely because the app uses TypeScript.
 
 ## Case 33: Current 3.6 dependency set
 
-Prompt: "Configure the dependencies for our existing Meteor 3.6-beta.3 React app in a pnpm workspace. autoInstallDeps is false. Give the correct minimums and where to prepare the lockfile; native types already work."
+Prompt: "Configure the dependencies for our existing Meteor 3.6 React app in a pnpm workspace. autoInstallDeps is false. Give the correct minimums and where to prepare the lockfile; native types already work."
 
-Pass if the agent uses rspack 1.4.0-beta360.3 / @meteorjs/rspack 3.0.0-beta.3, core/CLI 2.2.7, dev server 2.2.1, SWC 1.16.2, Rsdoctor 1.6.4, helpers 0.5.23 and refresh 2.0.2/0.19.0; respects opt-out and workspace ownership.
+Pass if the agent uses rspack 1.4.0 / @meteorjs/rspack 3.0.0, core/CLI 2.2.7, dev server 2.2.1, SWC 1.16.2, Rsdoctor 1.6.4, helpers 0.5.23 and refresh 2.0.2/0.19.0; respects opt-out and workspace ownership.
 
-Fail if it copies beta.1 minimums, creates an app npm lockfile, rewrites CI dependencies, or changes declaration providers.
+Fail if it copies earlier integration minimums, creates an app npm lockfile, rewrites CI dependencies, or changes declaration providers.
 
 ## Case 34: Separate legacy program
 
-Prompt: "On Meteor 3.6-beta.3 with its paired Rspack packages, create a small legacy-browser notice beside our modern app. The notice imports one npm dependency. Explain config, compilation, reload behavior and how to test it."
+Prompt: "On Meteor 3.6 with its paired Rspack packages, create a small legacy-browser notice beside our modern app. The notice imports one npm dependency. Explain config, compilation, reload behavior and how to test it."
 
 Pass if the agent selects explicit legacy mainModule with shared config, distinguishes callback arch/isLegacy from runtime flags, enables legacy development, addresses npm transpilation separately from ES5/polyfills and tests delivery plus actual engines.
 
@@ -342,16 +342,43 @@ Fail if it overwrites reserved entry/output, invents rspack.legacy.config.js dis
 
 ## Case 35: Earlier architecture near miss
 
-Prompt: "We are pinned to Meteor 3.6-beta.1 and cannot update. Can copying beta.3 mainModule.legacy and Meteor.isLegacy guidance provide a separate Rspack legacy application?"
+Prompt: "We are pinned to Meteor 3.5.2 and cannot update. Can copying 3.6 mainModule.legacy and Meteor.isLegacy guidance provide a separate Rspack legacy application?"
 
-Pass if the agent explains the complete flow is not present on beta.1 and preserves the constrained shared-client behavior; may describe a future compatible upgrade separately.
+Pass if the agent explains the complete flow is not present on 3.5.2 and preserves the constrained shared-client behavior; may describe a future compatible upgrade separately.
 
-Fail if it promises the beta.3 architecture flow or silently updates the app.
+Fail if it promises the 3.6 architecture flow or silently updates the app.
 
 ## Case 36: Root generated ignores and live rules
 
-Prompt: "Beta.3 Rspack tests report zero cases. We have root test/ data, generated _build/test/ and edited .meteorignore exceptions while meteor test was running. How should we inspect the rules?"
+Prompt: "3.6 Rspack tests report zero cases. We have root test/ data, generated _build/test/ and edited .meteorignore exceptions while meteor test was running. How should we inspect the rules?"
 
 Pass if the agent separates generated root exclusions from user last-match rules and included parents, checks actual versions and rule invalidation, preserves handoff visibility and expected test names/counts.
 
 Fail if it copies internal METEOR_IGNORE variables, ignores _build, or accepts zero tests as green.
+
+## Case 37: Explicit native types with existing configuration
+
+Prompt: "Our Meteor 3.6 TypeScript app explicitly wants native Meteor types. It directly lists zodern:types and @types/meteor, extends another tsconfig and excludes .meteor/**. Rspack builds pass but scoped meteor imports are any. How do we switch safely?"
+
+Pass if the agent separates declarations from transpilation, removes direct zodern only for the authorized choice, generates explicitly, retains prior output on failure, merges per-package paths plus barrel files, removes competing ambient meteor types only after success, and keeps existing config/TypeScript version. Fail if it maps imports to the barrel or overwrites unrelated settings.
+
+
+## Case 38: Existing provider stays selected
+
+Prompt: "Our Meteor 3.6 app uses zodern:types directly and we do not want a type migration. Does meteor run regenerate native types? What about meteor types with a direct versus transitive zodern dependency, or our JS-only app with no config?"
+
+Pass if the agent preserves provider choice, says ordinary commands do not mutate native declarations, explains successful skip for direct zodern versus generation with transitive-only presence and no-op without tsconfig/jsconfig. Fail if it removes providers or makes native generation part of every build.
+
+
+## Case 39: Legacy architecture configuration and tests
+
+Prompt: "On the Meteor 3.6 paired Rspack integration, we need a small legacy bootstrap and separate legacy tests while retaining the modern client. Where should entries and config conditions live, and how do rebuilds behave for each program? Does a passing modern headless run prove legacy support?"
+
+Pass if the agent uses mainModule/testModule maps, gates isLegacy/arch as config callback flags, preserves shared entry behavior, enables webArchOnly false and checks exclude-archs, distinguishes legacy watched reload from modern HMR and selects the legacy test program explicitly. Fail if it invents runtime flags/automatic legacy config files or treats user-agent override as old-engine emulation.
+
+
+## Case 40: 3.6 dependencies and immutable pnpm ownership
+
+Prompt: "Our Meteor 3.6 pnpm workspace app has rspack@1.4.0, tools-core@1.4.0, outdated npm dependencies and autoInstallDeps false. Which minimums and categories must we reconcile before immutable CI?"
+
+Pass if the agent uses integration 3.0.0, core/CLI 2.2.7, dev-server 2.2.1, SWC 1.16.2, Rsdoctor 1.6.4, runtime helpers 0.5.23 and detected React refresh 2.0.2/0.19.0, preserves nested app manifest/root pnpm lockfile and frozen installs, and avoids unnecessary swc-loader/global peer flags or CI mutation.

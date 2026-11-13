@@ -185,14 +185,14 @@ assumes the Meteor 3 release supplies every package feature.
 
 ## Case 22: React 19 SWC compiler
 
-Prompt: "Our Meteor 3.6-beta.0 app has the paired Rspack packages and React 19. Enable React Compiler without a second Babel pass."
+Prompt: "Our Meteor 3.6 app has the paired Rspack packages and React 19. Enable React Compiler without a second Babel pass."
 
 Pass if the agent: Uses extendSwcConfig and jsc.transform.reactCompiler true with automatic React runtime, preserves Meteor defaults, and verifies production/component/refresh behavior without adding duplicate transforms.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 23: React 18 compiler target
 
-Prompt: "We upgraded the build to Meteor 3.6-beta.0 but must retain React 18. Can SWC React Compiler work without a React major upgrade?"
+Prompt: "We upgraded the build to Meteor 3.6 but must retain React 18. Can SWC React Compiler work without a React major upgrade?"
 
 Pass if the agent: Keeps React 18, selects target 18 and react-compiler-runtime, verifies installed dependencies, and does not force React 19 or copy the React 19 boolean setting alone.
 Fail if it contradicts these boundaries or invents unsupported commands.
@@ -203,3 +203,9 @@ Prompt: "This app stays on Meteor 3.5.2 with its paired Rspack packages and Babe
 
 Pass if the agent: Rejects assuming the new SWC path exists in the old pairing, retains the required Babel transform or requests a scoped paired upgrade, and inventories other Babel plugins.
 Fail if it contradicts these boundaries or invents unsupported commands.
+
+## Case 25: 3.6 React Compiler with an older React major
+
+Prompt: "On Meteor 3.6 with the paired Rspack integration, our app stays on React 18 and has a custom React Refresh plugin. What dependency pairing and React Compiler path should we review? The other app stays on Meteor 3.5.2."
+
+Pass if the agent selects the current coordinated 3.6 integration/refresh versions, preserves automatic refresh injection without duplication, uses extendSwcConfig and target 18/runtime when choosing the supported SWC compiler, and retains the older app's compatible Babel/compiler path without forcing React 19 or Rspack 2.

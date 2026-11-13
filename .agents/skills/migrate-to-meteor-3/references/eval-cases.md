@@ -409,32 +409,59 @@ offers the Linux and macOS shell installer on Windows.
 
 ## Case 29: native provider handoff during runtime migration
 
-Prompt: "Migrate our Meteor 2 TypeScript app to 3.6-beta.1, including async APIs and an explicit native declaration switch. Which workflow owns each part?"
+Prompt: "Migrate our Meteor 2 TypeScript app to 3.6, including async APIs and an explicit native declaration switch. Which workflow owns each part?"
 
 Pass if the agent keeps runtime/async migration in this skill, preserves the
 provider through that upgrade, then hands explicit native adoption to
 meteor-typescript. It checkpoints dependencies and config and stops the
 provider switch if generation fails. It must not replace async migration with
-only a type configuration edit or select native declarations before beta.1.
+only a type configuration edit or select native declarations before 3.6.
 
 ## Case 30: preserve providers during runtime upgrade
 
-Prompt: "Upgrade our existing Meteor app to 3.6-beta.1 but keep the working TypeScript provider. meteor types exits zero saying zodern:types is installed. Did it generate native types, and should we remove the provider?"
+Prompt: "Upgrade our existing Meteor app to 3.6 but keep the working TypeScript provider. meteor types exits zero saying zodern:types is installed. Did it generate native types, and should we remove the provider?"
 
 Pass if the agent: Keeps the explicit existing-provider preference, explains successful skip and direct dependency precedence, and distinguishes runtime upgrade, native generation and type-checking. Does not remove working providers.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 33: native Node boundary during upgrade
 
-Prompt: "For our deliberate Meteor 2 to 3.6-beta.1 migration, can the existing Node 24 production image stay unchanged?"
+Prompt: "For our deliberate Meteor 2 to 3.6 migration, the target project's meteor node/npm commands report 26.13.0/11.20.0. Can the existing Node 24 production image stay unchanged?"
 
-Pass if the agent: Uses Node 26.8.2/npm 11.19.0 for beta.1 after checking target runtime, rebuilds native modules and hands deployment details to meteor-deployment. Retains older-release mappings rather than generalizing Node 26 to all Meteor 3.
+Pass if the agent: Uses Node 26.13.0/npm 11.20.0 for 3.6 after checking target runtime, rebuilds native modules and hands deployment details to meteor-deployment. Retains older-release mappings rather than generalizing Node 26 to all Meteor 3.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 
 ## Case 36: standalone declarations near miss
 
-Prompt: "The app already runs on Meteor 3.6-beta.1. Only meteor/* editor types and our tsc check are broken; no framework or bundler upgrade is requested."
+Prompt: "The app already runs on Meteor 3.6. Only meteor/* editor types and our tsc check are broken; no framework or bundler upgrade is requested."
 
 Pass if the agent chooses meteor-typescript for provider/resolution/checking
 and does not start a Meteor 2-to-3 conversion or bundler migration.
+
+## Case 37: Meteor 2 local database to 3.6
+
+Prompt: "We are preparing a Meteor 2 app for Meteor 3.6 with valuable local data on a MongoDB server older than 7. Async conversion is planned. Can we just change the Meteor release then set FCV 7.0?"
+
+Pass if the agent keeps async/package migration stages, requires verified backup, old server/version/FCV inspection and intermediate Mongo major upgrades before MongoDB 8; stops old app before update and rejects a release rollback as database rollback.
+
+Fail if it starts 3.6 against retained older data, runs FCV 7.0 on an incompatible server or suggests reset --db as migration.
+
+## Case 38: Provider choice and local data before framework upgrade
+
+Prompt: "We are migrating a Meteor 2 TypeScript app to Meteor 3.6, but want to keep its existing type provider and preserve the local database. Production uses an external MONGO_URL. What migration order should we follow? Should we run meteor types automatically or update Meteor before checking the old Mongo version?"
+
+Pass if the agent preserves declaration choice, performs existing async/package migration work, inspects and backs up the local DB before updating, handles required intermediate Mongo upgrades/FCV instead of treating an older server as 7, and separates external DB management. Fail if it requires native generation, removes providers or deletes local data.
+
+## Case 39: migrated fire-and-forget call hides rejection
+
+Prompt: "While migrating our client to Meteor 3.5.1, I replaced a callback
+Meteor.call with `Meteor.callAsync('orders.create', input); showSaved();`.
+The server rejects with Meteor.Error, but no unhandledrejection appears.
+Can I remove the migration example's catch and rely on our global listener?"
+
+Pass if the agent keeps explicit rejection ownership, explains the client's
+internal queue handlers, and awaits the result before showing confirmed
+success. It preserves a catch for intentional background work and does not
+claim the server always logs or every derived Promise is handled. Fail if it
+approves the listener as a replacement for handling this call.

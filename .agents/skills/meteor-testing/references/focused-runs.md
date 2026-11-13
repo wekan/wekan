@@ -49,8 +49,8 @@ the normal affected suite. Never commit a narrowed test graph or a focus marker.
 
 ## Rspack architecture and ignore boundaries
 
-Meteor 3.6-beta.3 with `rspack@1.4.0-beta360.3` and
-`@meteorjs/rspack@3.0.0-beta.3` supports separate `testModule.legacy` and
+Meteor 3.6 with `rspack@1.4.0` and
+`@meteorjs/rspack@3.0.0` supports separate `testModule.legacy` and
 exact `web.browser`, `web.browser.legacy`, `web.cordova` entries. Preserve the
 matching app entries in `--full-app` mode. Enable legacy development/test
 programs with `modern.webArchOnly: false` and do not exclude that architecture.
@@ -58,11 +58,11 @@ Use `meteor-modern-build-stack` for graph/config details.
 
 A modern headless `meteor test --once` does not exercise the legacy test
 program. Select it explicitly and check test names/counts for both programs.
-A user-agent override tests delivery, not an old JS engine. Beta.0/beta.1
+A user-agent override tests delivery, not an old JS engine. Earlier integrations
 and older Rspack integrations lack this complete flow; retain their supported
 test graph or select a compatible paired upgrade.
 
-For beta.3 eager Rspack test selection, `.meteorignore` precedes user
+For Meteor 3.6 eager Rspack test selection, `.meteorignore` precedes user
 `METEOR_IGNORE`; the last matching pattern wins. Keep parent directories
 included before a file exception:
 

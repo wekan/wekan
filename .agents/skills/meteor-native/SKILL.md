@@ -14,7 +14,7 @@ metadata:
   meteor: ">=3.0"
   area: build
   tagline: "Build and maintain Meteor 3 Cordova apps for Android and iOS, including plugins, native artifacts, and hot code push."
-  docs_synced_at: "2026-09-08"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 

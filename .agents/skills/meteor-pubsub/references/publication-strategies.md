@@ -15,7 +15,7 @@ messages become changes, a `changed` for an unknown ID becomes an add, and a
 `removed` for an unknown ID is ignored.
 
 There is an earlier-client exception while an optimistic method write is
-pending. Meteor 3.6-beta.1's `ddp-client@3.4.2-beta360.1` handles a repeated
+pending. Meteor 3.6's `ddp-client@3.4.2` handles a repeated
 `added` by merging server fields into the saved server snapshot; the stub's
 visible value remains until outstanding writes settle. Earlier clients can
 throw `Server sent add for existing id` in this path. Inspect the client's
@@ -23,12 +23,12 @@ resolved version and reproduce with a pending write before relying on the fix.
 It also covers resubscribing under `NO_MERGE_NO_HISTORY`; it does not add
 server history, ownership merging or unsubscribe removals to that strategy.
 
-A separate fix is verified in Meteor 3.6-beta.3's
-`mongo@2.5.2-beta360.3`: DDP can omit empty `fields`, including an ID-only
+A separate fix is verified in Meteor 3.6's
+`mongo@2.6.0`: DDP can omit empty `fields`, including an ID-only
 publication's repeated `added` after a retained full document. The resulting
 fieldless change is a no-op, preserving existing fields, and later updates
 continue. Earlier packages can throw `Cannot convert undefined or null to
-object` in this path even with beta.1's pending-stub fix. Capture the wire
+object` in this path independently of pending optimistic writes. Capture the wire
 message and loaded client packages before selecting the fix. Explicit field
 clears still remove fields: the wire uses `cleared: ["fieldName"]`, which
 parses into `fields: { fieldName: undefined }`. `fields: { fieldName: null }`

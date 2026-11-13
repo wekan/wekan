@@ -237,37 +237,37 @@ diagnosis or treats a permission change as an HCP-only update.
 
 ## Case 25: package shrinkwrap migration
 
-Prompt: "After our first Meteor 3.6-beta.0 build a local Atmosphere package reinstalled npm dependencies and changed .npm/package/npm-shrinkwrap.json to lockfileVersion 5. Should we delete this and the app lockfile?"
+Prompt: "After our first Meteor 3.6 build a local Atmosphere package reinstalled npm dependencies and changed .npm/package/npm-shrinkwrap.json to lockfileVersion 5. Should we delete this and the app lockfile?"
 
 Pass if the agent: Distinguishes package shrinkwrap migration from app lockfiles, reviews meteorNpmDependencies and exact pins, repeats an unchanged build, and preserves committed locks rather than clearing everything.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 26: Rspack proxy log deduplication
 
-Prompt: "Our Meteor 3.6 beta Rspack asset proxy logs ECONNREFUSED once while many requests return 502, and its development WebSocket closes. Is the missing logging proof that DDP recovered?"
+Prompt: "Our Meteor 3.6 Rspack asset proxy logs ECONNREFUSED once while many requests return 502, and its development WebSocket closes. Is the missing logging proof that DDP recovered?"
 
 Pass if the agent: Identifies separate asset/WS proxy scopes and five-second deduplication, checks target and Rspack child, preserves per-request failure semantics, and does not infer DDP recovery.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 27: HMR excluded from native and builds
 
-Prompt: "Meteor 3.6-beta.0 has no Rspack HMR client in my native target or meteor build output even with NODE_ENV=development. Should I inject the client manually?"
+Prompt: "Meteor 3.6 has no Rspack HMR client in my native target or meteor build output even with NODE_ENV=development. Should I inject the client manually?"
 
 Pass if the agent: Checks command/mode/architecture, recognizes the development web app-run boundary, and rejects manual injection as a repair for expected absence.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 28: SWC temporary path versus application failure
 
-Prompt: "On the 3.6 beta a SWC temporary cache write races with cleanup and gets ENOENT. Our application also reports ENOENT while reading a required configuration file. Can we ignore both?"
+Prompt: "On Meteor 3.6 a SWC temporary cache write races with cleanup and gets ENOENT. Our application also reports ENOENT while reading a required configuration file. Can we ignore both?"
 
 Pass if the agent: Scopes non-fatal missing-path handling to compiler cache writes, checks compile outcome and verbose warnings, and separately diagnoses the application error.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 29: Git cache and Windows isolated argon2
 
-Prompt: "For the 3.6 beta, should we switch a pinned git+https npm dependency to a branch to improve caching, and install cross-env globally for isolated argon2 builds on Windows?"
+Prompt: "For Meteor 3.6, should we switch a pinned git+https npm dependency to a branch to improve caching, and install cross-env globally for isolated argon2 builds on Windows?"
 
-Pass if the agent: Rejects both blanket fixes, compares exact Git spec/recorded/installed source, checks the beta tool's isolated cross-env dependency, and does not change accounts libraries.
+Pass if the agent: Rejects both blanket fixes, compares exact Git spec/recorded/installed source, checks the Meteor 3.6 tool's isolated cross-env dependency, and does not change accounts libraries.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 30: older package cache boundary
@@ -279,21 +279,21 @@ Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 31: lifecycle observation
 
-Prompt: "Our Meteor 3.6-beta.1 methods are slow and subscriptions sometimes never become ready. Show temporary supported lifecycle instrumentation without monkey-patching Meteor or collecting payloads."
+Prompt: "Our Meteor 3.6 methods are slow and subscriptions sometimes never become ready. Show temporary supported lifecycle instrumentation without monkey-patching Meteor or collecting payloads."
 
 Pass if the agent: Selects meteor-debugging, checks instrumentation package version, imports only server-side, registers relevant method/publication events and correlates invocation traceId. Keeps capture off, uses durationMs/phase and stop handles, and does not claim an installed APM backend.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 32: instrumentation is not authorization
 
-Prompt: "On Meteor 3.6-beta.1, can a method.start listener throw to reject unauthorized calls and await a database audit write before the method proceeds?"
+Prompt: "On Meteor 3.6, can a method.start listener throw to reject unauthorized calls and await a database audit write before the method proceeds?"
 
 Pass if the agent: States listeners are read-only, best-effort and never awaited; throws/rejections cannot enforce access or durable writes. Routes authorization to method/security guidance and keeps required work in the actual handler.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 33: preview privacy and scope
 
-Prompt: "With instrumentation 0.0.1-beta360.1, enable previews for an app method and a publication with the same name. Will configureMethod redact both, and can it expose login tokens for debugging?"
+Prompt: "With instrumentation 0.0.1, enable previews for an app method and a publication with the same name. Will configureMethod redact both, and can it expose login tokens for debugging?"
 
 Pass if the agent: Distinguishes per-method projection from publication global capture policy, bounded previews from secret redaction, and the Accounts denylist from app-specific privacy. Does not expose tokens; explains safe field projection and cleanup/disable controls.
 Fail if it contradicts these boundaries or invents unsupported APIs.
@@ -302,33 +302,33 @@ Fail if it contradicts these boundaries or invents unsupported APIs.
 
 Prompt: "We must keep Meteor 3.5.2. Add the new core Instrumentation method/publication listeners to investigate a slow method."
 
-Pass if the agent: States the beta.1 availability boundary, retains targeted redacted logs or existing compatible instrumentation, and does not add unavailable core hooks or force a release upgrade.
+Pass if the agent: States the 3.6 availability boundary, retains targeted redacted logs or existing compatible instrumentation, and does not add unavailable core hooks or force a release upgrade.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 35: TypeScript server restart loop
 
-Prompt: "On Meteor 3.6-beta.0 our TypeScript Rspack server restarts continuously without app edits. Would deleting the generated build marker or ignoring _build fix it? Which beta.1 packages and checks matter?"
+Prompt: "On Meteor 3.6 our TypeScript Rspack server restarts continuously without app edits. Would deleting the generated build marker or ignoring _build fix it? Which 3.6 packages and checks matter?"
 
-Pass if the agent: Rejects generated-file edits and handoff ignores. Checks paired rspack 1.4.0-beta360.1/@meteorjs/rspack 3.0.0-beta.2, observes generated-only churn and hashes, then validates one restart for a successful source rebuild plus compile failure/recovery preserving the last good entry.
+Pass if the agent: Rejects generated-file edits and handoff ignores. Checks paired rspack 1.4.0/@meteorjs/rspack 3.0.0, observes generated-only churn and hashes, then validates one restart for a successful source rebuild plus compile failure/recovery preserving the last good entry.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 36: host-prefixed port and inspector output
 
-Prompt: "On Meteor 3.6-beta.1, can we keep --port localhost:3060 with Rspack? Beta.0 produced NaN and ERR_SOCKET_BAD_PORT. Also --inspect no longer prints the full Rspack config."
+Prompt: "On Meteor 3.6, can we keep --port localhost:3060 with Rspack? Our previous release produced NaN and ERR_SOCKET_BAD_PORT. Also --inspect no longer prints the full Rspack config."
 
-Pass if the agent: Checks tools-core 1.4.0-beta360.1 numeric port parsing and paired npm integration, preserves valid host syntax, and uses --verbose for full configuration while distinguishing server inspection from build diagnostics.
+Pass if the agent: Checks tools-core 1.4.0 numeric port parsing and paired npm integration, preserves valid host syntax, and uses --verbose for full configuration while distinguishing server inspection from build diagnostics.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 37: uWS negotiation loop
 
-Prompt: "Our uWebSockets DDP connection repeatedly reconnects during version negotiation and never receives the failed frame. Is there a Meteor 3.6-beta.1 fix, and does it fix all reconnects?"
+Prompt: "Our uWebSockets DDP connection repeatedly reconnects during version negotiation and never receives the failed frame. Is there a Meteor 3.6 fix, and does it fix all reconnects?"
 
-Pass if the agent: Checks selected transport and frame sequence, identifies ddp-server 3.4.1-beta360.1 graceful flush/close, and does not generalize to all proxy/session/application disconnects or immediately replace transport.
+Pass if the agent: Checks selected transport and frame sequence, identifies ddp-server 3.4.1 graceful flush/close, and does not generalize to all proxy/session/application disconnects or immediately replace transport.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 38: Closed dynamic import cache
 
-Prompt: "On beta.1 a lazy import fails with an IndexedDB transaction error after browser suspension. Another route has a Rspack chunk HTTP 404. Will beta.3 fix both, and should I erase all browser storage?"
+Prompt: "On Meteor 3.5.2 a lazy import fails with an IndexedDB transaction error after browser suspension. Another route has a Rspack chunk HTTP 404. Will 3.6 fix both, and should I erase all browser storage?"
 
 Pass if the agent separates Meteor dynamic-import closed cache recovery from Rspack HTTP failures; checks exact package/stack/network, tests closure and subsequent import, preserves application storage and offline limits.
 
@@ -336,7 +336,7 @@ Fail if it deletes all storage, promises cache fix repairs missing chunks or tre
 
 ## Case 39: Rapid restart and prefixed dev script
 
-Prompt: "Our beta.1 Rspack app hangs during rapid server rebuilds waiting on IPC, and a dev script URL loses our /app ROOT_URL prefix. Describe beta.3 checks without changing deployment URLs."
+Prompt: "Our Meteor 3.5.2 Rspack app hangs during rapid server rebuilds waiting on IPC, and a dev script URL loses our /app ROOT_URL prefix. Describe 3.6 checks without changing deployment URLs."
 
 Pass if the agent separates IPC/tool race and boilerplate dev-script fixes, captures resolved versions/order/URL, verifies rapid edits plus later client refresh, page/rebuild and production chunks separately.
 
@@ -344,8 +344,68 @@ Fail if it suppresses every IPC error, disables HCP or removes the requested pre
 
 ## Case 40: Instrumentation reporter and preview boundary
 
-Prompt: "On instrumentation 0.0.1-beta360.1, our async onListenerError rejects and custom error/array/date previews behave unexpectedly. What is safe to rely on in beta.3, and can previews export secrets automatically redacted?"
+Prompt: "On instrumentation 0.0.1, our async onListenerError rejects and custom error/array/date previews behave unexpectedly. What is safe to rely on in 3.6, and can previews export secrets automatically redacted?"
 
-Pass if the agent separates listener isolation from beta.3 reporter rejection containment and nested preview hardening, prefers metadata, retains older self-handled reporter failures, requires redaction and checks no unhandled rejection.
+Pass if the agent separates listener isolation from 3.6 reporter rejection containment and nested preview hardening, prefers metadata, retains older self-handled reporter failures, requires redaction and checks no unhandled rejection.
 
 Fail if it promises arbitrary accessor safety, automatic application-secret redaction or authorization/durable writes from listeners.
+
+## Case 41: Server lifecycle correlation with older fallback
+
+Prompt: "For a Meteor 3.6 server, correlate slow concurrent methods, publication readiness and DDP reconnects without patching internals or logging credentials. We also have a Meteor 3.4 service. Show the smallest temporary diagnostic and cleanup."
+
+Pass if the agent offers optional server-only instrumentation with event/context correlation and stop handles, keeps payload/address capture off or narrowly approved/redacted, retains original errors and older manual/logger fallback, and does not promise an installed APM backend.
+
+
+## Case 42: Native SWC cache versus build cache
+
+Prompt: "In a Linux container, the actual loaded SWC distribution unpacks its native addon and fails with ERR_SWC_NATIVE_CACHE. Its declared dependency minimum is 1.16.2. The root process has a host-owned home, and /tmp is writable but mounted noexec. Should we clear Rspack cache, use a relative SWC_NATIVE_BINDING_CACHE or disable ownership checks? How should we verify the fix using the same container process?"
+
+Pass if the agent verifies the loaded carrier rather than inferring it from minimum 1.16.2, inspects UID/ownership/mounts, selects an absolute owned writable cache on an executable filesystem, verifies the same load path and retains integrity checks. Fail if it treats build reset as a native-cache repair, uses the noexec path anyway, disables protections or generalizes to old distributions without evidence.
+
+## Case 43: browser error page mirrors a Blaze compile failure
+
+Prompt: "The browser says 'Meteor App - Error'. The terminal says 'Errors
+prevented startup', then client/editor.html: 'TRIPLE template tag is not
+allowed in an HTML attribute'. Should I debug browser events or replace the
+Rspack configuration? What should own the repair?"
+
+Pass if the agent identifies the build boundary from the terminal, explains
+the development page's log display, and hands the attribute interpolation
+repair to `meteor-blaze`. It verifies compilation and rendering. Fail if it
+starts browser tracing, reinstalls packages or changes Rspack first.
+
+## Case 44: browser error page with a server startup failure
+
+Prompt: "The browser says 'Meteor App - Error', but compilation succeeded.
+The terminal's first failure is a server startup exception from our payment
+client: 'Missing API key'. There is no template compiler error. Should we
+rewrite Blaze attributes because the page looks like a build error?"
+
+Pass if the agent uses `meteor-debugging` to follow the server startup and
+configuration boundary, avoids exposing the key, and does not infer a Blaze
+compile failure from the browser page alone. Fail if it changes templates or
+asks to print secret configuration values.
+
+## Case 45: HMR authentication on patched Cordova tools
+
+Prompt: "After Meteor 3.5.5, our custom development HMR client registers web.cordova using only an Origin header and gets wrong-secret. A separate malformed message closes the socket. Should we remove secret validation or disable production hot code push?"
+
+Pass if the agent: Checks current app/run ID and tool-provided secret, keeps Cordova authentication and message validation, distinguishes development HMR from DDP/production HCP and avoids logging secrets or spoofing Origin.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+
+## Case 46: Backported Rspack asset lifecycle
+
+Prompt: "Our Meteor 3.5.4 Rspack 1 app returns HTML for a missing JS asset and headers look stale after rebuild. Does the 3.5.5 patch require Rspack 2 or disabling reload? A 3.4.3 app has the same symptom."
+
+Pass if the agent: Checks compatible 3.5.5 rspack@1.3.2/webapp@2.3.1 and 3.4.4 rspack@1.1.1/webapp@2.1.4 backports, retains Rspack 1 and validates missing-asset 404/no-store plus real rebuild metadata. Does not force a bundler migration or edit generated manifests.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+
+## Case 47: DDP protocol versus method checks
+
+Prompt: "On Meteor 3.4.4 with ddp-server@3.2.3, malformed ping and unsub IDs are rejected. Can we remove method argument checks now? Is this the same fix as HMR socket registration?"
+
+Pass if the agent: Separates protocol validation/handler-throw containment from application check/auth guards and HMR. Retains method/publication validation, and does not promise the patch behavior on older packages.
+Fail if it contradicts these boundaries or invents unsupported APIs.

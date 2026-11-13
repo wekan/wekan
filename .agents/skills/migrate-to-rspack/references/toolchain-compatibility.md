@@ -1,7 +1,7 @@
 # Rspack 2 application toolchain compatibility
 
 Use for an existing Rspack app upgrading to the Meteor 3.6 pairing, verified
-on `3.6-beta.0`. Earlier releases retain their paired Rspack/integration
+on `3.6`. Earlier releases retain their paired Rspack/integration
 versions. Third-party packages have independent compatibility ranges; these
 examples are not universal minimums or instructions to install `latest`.
 

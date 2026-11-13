@@ -17,6 +17,8 @@ Pass if the agent uses
 with a stubbed userId and awaits the Mongo result. Avoids
 `Meteor.call`/`callAsync` from the test (which goes over the wire and
 adds DDP overhead).
+Any example that can reach the browser uses a compatible assertion import
+and strict equality; a server guard alone does not isolate static imports.
 
 ## Case 3: publication test
 
@@ -28,6 +30,7 @@ Pass if the agent uses
 { userId: "u1" }, [])`, calls `.fetchAsync()` on the resolved cursor, and
 asserts on the returned `_id`s. The `await` is required so the test also
 works when the publication handler is async.
+Keep array comparison strict when using the portable `assert` import.
 
 ## Case 4: --full-app DDP test
 
@@ -180,25 +183,25 @@ whether the browser UI starts. It offers an invocation-only extra package or
 compatible fixed driver for a failing 1.6.0 harness, not for working 1.5.x.
 Fail if it claims jQuery-free tests prove driver 1.6.0 cannot need jQuery.
 
-## Case 19: restored driver in the 3.6 beta
+## Case 19: restored driver in Meteor 3.6
 
-Prompt: "Meteor 3.6-beta.0 resolves test-in-browser 1.6.1-beta360.0. My package
+Prompt: "Meteor 3.6 resolves test-in-browser 1.6.2. My package
 tests do not use jQuery. Should I add it to the app before running test-packages?"
 
 Pass if the agent recognizes the restored driver dependency, adds no app or
 unneeded package-test dependency, and verifies the UI and expected client/server
 assertions. Fail if it repeats the 1.6.0 workaround unconditionally.
 
-## Case 20: CI runtime for beta.1
+## Case 20: CI runtime for 3.6
 
-Prompt: "Adapt our Node 24 Meteor 3.5.2 test job for a deliberate upgrade to 3.6-beta.1. What runtime and native dependency checks belong in CI?"
+Prompt: "Adapt our Node 24 Meteor 3.5.2 test job for a deliberate upgrade to 3.6. The target project's meteor node/npm commands report 26.13.0/11.20.0. What runtime and native dependency checks belong in CI?"
 
-Pass if the agent: Verifies the selected Meteor runtime, uses Node 26.8.2/npm 11.19.0 for beta.1, rebuilds native deps and preserves frozen dependency installation and actual client/server test execution. Does not claim existing 3.5.2 jobs need Node 26.
+Pass if the agent: Verifies the selected Meteor runtime, uses Node 26.13.0/npm 11.20.0 for 3.6, rebuilds native deps and preserves frozen dependency installation and actual client/server test execution. Does not claim existing 3.5.2 jobs need Node 26.
 Fail if it contradicts these boundaries or invents unsupported APIs.
 
 ## Case 21: Rspack test file exceptions
 
-Prompt: "In beta.3 our Rspack CI should load *.tests.js only directly under imports/accounts, while excluding other *.tests.js. We also have a root test/ data directory. How should the file selection and pass check work?"
+Prompt: "In 3.6 our Rspack CI should load *.tests.js only directly under imports/accounts, while excluding other *.tests.js. We also have a root test/ data directory. How should the file selection and pass check work?"
 
 Pass if the agent uses ordered file/environment negation with included parents, distinguishes file selection from Mocha title filtering, preserves generated entries and checks expected names/counts.
 
@@ -206,8 +209,34 @@ Fail if it uses only MOCHA_GREP to prevent module evaluation, ignores _build/tes
 
 ## Case 22: Legacy program coverage
 
-Prompt: "On beta.3 our testModule maps client and legacy separately. meteor test --once with current Chromium passes. Have we covered legacy browsers? What about the same setup pinned to beta.1?"
+Prompt: "On Meteor 3.6 our testModule maps client and legacy separately. meteor test --once with current Chromium passes. Have we covered legacy browsers? What about the same setup pinned to 3.5.2?"
 
-Pass if the agent requires explicit legacy program selection with webArchOnly false/no exclusion, expected cases per program and actual engine tests; explains beta.1 lacks the complete separate-graph flow.
+Pass if the agent requires explicit legacy program selection with webArchOnly false/no exclusion, expected cases per program and actual engine tests; explains 3.5.2 lacks the complete separate-graph flow.
 
-Fail if it claims a modern headless pass or user-agent spoof alone proves old-engine compatibility, or promises beta.3 behavior on beta.1.
+Fail if it claims a modern headless pass or user-agent spoof alone proves old-engine compatibility, or promises 3.6 behavior on 3.5.2.
+
+## Case 23: shared Rspack test entry cannot resolve assert/strict
+
+Prompt: "On Meteor 3.5.1 with Rspack, meteor.testModule is 'tests/main.js'.
+The method test imports assert from 'node:assert/strict' and guards its suite
+with Meteor.isServer. The client build fails with Cannot find module
+'assert/strict' for matched aliased key 'assert'. Fix it without weakening
+assert.equal/assert.deepEqual checks or disabling browser tests."
+
+Pass if the agent uses `import assert from "assert"`, changes equality calls
+to `strictEqual`/`deepStrictEqual`, retains rejection assertions, and explains
+why shared static imports reach the client despite runtime guards. It checks
+both client and server execution and full-app mode if configured. Fail if it
+installs `assert/strict`, suppresses the client build, or retains coercive
+equality after changing the import.
+
+## Case 24: isolated server assertion import near miss
+
+Prompt: "Our Meteor 3.5.1 Rspack app maps meteor.testModule.client to
+'client/tests.js' and meteor.testModule.server to 'server/tests.js'. Only the
+server graph imports node:assert/strict, and both suites pass. Must we replace
+it because a shared Blaze test example uses assert?"
+
+Pass if the agent preserves the valid server import after checking no client
+entry reaches it. Fail if it bans Node assertions everywhere or suggests a
+runtime guard alone establishes server isolation.

@@ -8,7 +8,9 @@ bundler files before adding my feature."
 Pass if the agent uses `meteor create --blaze`, inspects the generated
 `package.json`, `.meteor/packages`, client entry, and `rspack.config.js`, and
 recognizes Rspack as the Meteor 3.4+ default without claiming every Meteor 3
-release generated the same tree. Fail if it copies a historical skeleton or
+release generated the same tree. It retains the scaffold's Meteor and npm
+jQuery dependencies until the resolved Blaze runtime and other consumers
+support removal. Fail if it copies a historical skeleton or
 adds a custom Rspack config without a requirement.
 
 ## Case 2: template is undefined under Rspack
@@ -46,8 +48,9 @@ empty.
 Prompt: "Switching users quickly sometimes shows the profile for the previous
 user. `{{#let profile=loadProfile}}` receives a Promise on each userId change."
 
-Pass if the agent explains that Blaze stores the latest resolved value rather
-than synchronizing to the latest started Promise, then uses cancellation, a
+Pass if the agent explains that this persistent `#let` binding stores the
+latest resolved value rather than synchronizing to the latest started
+Promise, then uses cancellation, a
 generation token, or a justified serial queue. Fail if it claims `#let`
 automatically rejects stale results.
 
@@ -121,6 +124,8 @@ Pass if the agent imports the registration module, renders into an isolated DOM
 host with `Blaze.renderWithData`, changes the actual reactive source, waits for
 `Tracker.afterFlush`, asserts observable DOM, and calls `Blaze.remove` in
 cleanup. Test-driver setup should route to `meteor-testing`.
+Use a browser-compatible assertion import with strict assertions. Fail if it
+imports `node:assert/strict` into the client test or silently weakens equality.
 
 ## Case 13: migration near miss
 
@@ -182,16 +187,16 @@ state preservation from `blaze-hot`. It may offer the Meteor bundler when hot
 template replacement is a hard requirement. Fail if it treats installed
 package names as proof that Rspack supports Blaze HMR.
 
-## Case 19: new beta PWA
+## Case 19: new Meteor 3.6 PWA
 
-Prompt: "Create a Meteor 3.6-beta.0 Blaze PWA. Does the scaffold need Workbox, and will it keep my Minimongo data and queued methods offline?"
+Prompt: "Create a Meteor 3.6 Blaze PWA. Does the scaffold need Workbox, and will it keep my Minimongo data and queued methods offline?"
 
 Pass if the agent: Selects the PWA scaffold with Blaze/Rspack, explains its dependency-free worker and shell/offline page, and excludes automatic offline data or method replay.
 Fail if it contradicts these boundaries or invents unsupported commands.
 
 ## Case 20: PWA prefix and update behavior
 
-Prompt: "Our 3.6 beta PWA is hosted below /portal. Offline navigation works differently in dev and production, and users sometimes retain an old shell. What should we inspect?"
+Prompt: "Our 3.6 PWA is hosted below /portal. Offline navigation works differently in dev and production, and users sometimes retain an old shell. What should we inspect?"
 
 Pass if the agent: Checks ROOT_URL prefix, worker registration/scope and manifest, static-only development caching versus production navigation fallback, owned cache version/activation, and a real update test without caching DDP or private responses. Recognizes the scaffold already accounts for the prefix instead of assuming a manual registration rewrite is necessary.
 Fail if it contradicts these boundaries or invents unsupported commands.
@@ -202,3 +207,121 @@ Prompt: "We must stay on Meteor 3.5.2. Can the new --pwa scaffold both upgrade o
 
 Pass if the agent: Rejects the new-scaffold version assumption and in-place overwrite, preserves an existing/manual worker path, and routes native binary delivery to meteor-native.
 Fail if it contradicts these boundaries or invents unsupported commands.
+
+## Case 22: direct Promise content versus a persistent binding
+
+Prompt: "On Blaze 3.0.3, my helper reads a ReactiveVar and returns a Promise.
+An old request resolves after the new request. Compare `{{loadProfile}}` with
+`{{#let profile=loadProfile}}{{profile}}{{/let}}`. Neither helper writes any
+other state. Does each need a generation token? What if it writes a shared
+ReactiveVar instead?"
+
+Pass if the agent distinguishes replaced direct-content Views from persistent
+`#let` bindings, protects the binding and shared-state races, and does not
+require a token solely for direct Promise content. Fail if it promises request
+cancellation or general race immunity from direct mustache rendering.
+
+## Case 23: removing jQuery on Blaze 3.0.3
+
+Prompt: "Our Meteor 3.5.1 app resolves blaze 3.0.3. We removed both jquery
+dependencies because our own code never calls $. Now the console starts with
+'jQuery not found', followed by Blaze and meteorInstall errors. Fix startup."
+
+Pass if the agent restores jQuery for the resolved runtime, diagnoses the
+later errors as possible cascades, and makes native-backend adoption a
+separate deliberate package upgrade. Fail if it changes Rspack loaders first
+or claims a Meteor release alone selects the native backend.
+
+## Case 24: native backend on the alpha
+
+Prompt: "We deliberately pinned blaze and blaze-html-templates to
+3.1.0-alpha.0. Can we remove the Meteor and npm jquery dependencies? We use
+nested #if templates with delegated click selectors."
+
+Pass if the agent recognizes the alpha's native capability and prerelease
+status, audits other jQuery consumers before removal, and flags the alpha
+selector defect with the fix included in 3.1.0-beta.0. It verifies the
+resolved package set, startup and actual delegated events. Fail if it says
+PR 513 is still open or considers absent console messages sufficient proof.
+
+## Case 25: native backend on the beta with a jQuery widget
+
+Prompt: "Our app resolves blaze 3.1.0-beta.0 and blaze-html-templates
+3.1.0-beta.0. The console reports jQuery as the DOM backend. Can I remove it
+now? A widget calls instance.$('.chart').addClass('ready')."
+
+Pass if the agent explains that the beta includes the delegated-selector fix
+but a loaded jQuery still selects that backend. It keeps jQuery until the
+widget is ported, explains the array return type in native mode, then checks
+both dependency sources, rendering, events and teardown. Fail if it promises
+the jQuery method chain works on a native array or mandates a Meteor upgrade
+without a package compatibility requirement.
+
+## Case 26: helper shadows an included template
+
+Prompt: "On Blaze 3.0.3, `<template name=\"page\">{{> panel}}</template>`
+throws 'Expected template or null, found: true'. The panel template exists
+and is imported. Template.page.helpers contains `panel: () => true`."
+
+Pass if the agent selects `meteor-blaze`, identifies helper precedence in the
+inclusion, and renames the helper without changing template loading or
+installing packages. Fail if it treats the boolean as missing template data.
+
+## Case 27: template instance lost after await
+
+Prompt: "In a Blaze 3.0.3 async click handler, Template.instance() is present
+before await Meteor.callAsync('save'), but null afterward. How do I safely
+update this template's state after saving? The user can leave while it waits."
+
+Pass if the agent retains the supplied `instance` or captures it before await,
+handles the method rejection and possible destruction, and separates template
+scope from Tracker computation scope. Fail if its repair is only
+`Tracker.withComputation` or a post-await call to `Template.instance()`.
+
+## Case 28: wrapped versus native drag event
+
+Prompt: "On Blaze 3.0.3 with jQuery 3.7.1, event.dataTransfer is undefined in
+dragstart. The same handler works on a 3.1.0-beta.0 app without jQuery. Make
+the handler work in both, including synthetic events in tests."
+
+Pass if the agent reads `(event.originalEvent || event).dataTransfer`, checks
+for a missing transfer object, and explains the backend difference. Fail if
+it always dereferences `originalEvent`, changes dependencies unnecessarily,
+or assumes every synthetic event supplies a native DataTransfer.
+
+## Case 29: Spacebars compiler signatures
+
+Prompt: "Fix these independent Blaze template build errors: a checkbox with
+`{{#if flag}}checked{{/if}}` in its start tag reports 'Reactive HTML attributes'
+and 'BLOCKOPEN'; `class=\"small {{{raw}}}\"` reports 'TRIPLE template tag is not
+allowed in an HTML attribute'; `<ul><li>a<li>b</ul>` reports 'Expected \"li\"
+end tag'; and `<template name=\"let\">` reports 'Template can't be named'."
+
+Pass if the agent selects `meteor-blaze`, uses a boolean named attribute or
+dictionary, double braces in the attribute, explicit list-item closing tags,
+and a non-reserved template name. It verifies compilation before runtime
+debugging. Fail if it recommends new loaders, raw HTML attributes, or cache
+deletion instead of repairing the syntax.
+
+## Case 30: valid template syntax near miss
+
+Prompt: "Should I rewrite `class=\"small {{#if flag}}on{{/if}}\"` because Blaze
+rejects BLOCKOPEN in attributes? Also, does literal `import x from 'x'` inside
+`<pre><code>` trigger module loading? These templates currently compile."
+
+Pass if the agent preserves the valid built-in block inside the quoted value
+and treats the import as literal text. Fail if it applies the start-tag block
+restriction to every attribute value or changes build configuration.
+
+## Case 31: with condition versus rendered data
+
+Prompt: "On Blaze 3.1.0-beta.0, `{{#with load}}{{this}}{{else}}empty{{/with}}`
+gets overlapping Promises. New resolves to 'new', then old resolves to 'old',
+and the UI stays 'new'. Does that prove #with rejects stale requests? What if
+the old Promise resolves to false instead?"
+
+Pass if the agent distinguishes the inner data context from the persistent
+condition, explains that a stale falsy resolution can switch to `else`, and
+protects request ordering when correctness depends on that branch. Fail if
+it promises immunity from the two-truthy experiment or insists stale truthy
+data must always overwrite the new rendered data.

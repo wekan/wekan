@@ -89,6 +89,33 @@ meteor reset --db      # clears build cache AND local Mongo
 Update any CI or development scripts that rely on `meteor reset` wiping
 the database.
 
+## Local database before Meteor 3.6
+
+Meteor 3.6 ships MongoDB 8.0.29 locally. Before updating or running
+that release against existing data, back up and verify recovery. Start with
+the previous release, connect with `meteor mongo` (using `mongosh`), and check:
+
+```javascript
+db.version()
+db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })
+```
+
+MongoDB 8 requires MongoDB 7 with FCV `"7.0"`. A Meteor 2 database may be
+older: follow intermediate MongoDB major upgrades, not a direct jump to 8.
+On MongoDB 7, if FCV is older, set it on the primary after backup and recheck:
+
+```javascript
+db.adminCommand({ setFeatureCompatibilityVersion: "7.0", confirm: true })
+```
+
+Stop the app before selecting 3.6. Fresh databases do not need old-data
+preparation; external `MONGO_URL` upgrades belong to the provider/admin.
+`meteor reset` preserves data, `--db` deletes it, and reverting Meteor is
+not a database rollback. FCV `7.0` alone does not guarantee a supported
+MongoDB 8-to-7 binary downgrade. Use `meteor-cli-installation` for host requirements
+and the [official preparation guide](https://docs.meteor.com/about/install#updating-local-database).
+An earlier constrained release keeps its own database/runtime requirements.
+
 ## Release-specific Node baseline
 
 Meteor 3 does not have one Node baseline across every minor release:
@@ -97,12 +124,13 @@ Meteor 3 does not have one Node baseline across every minor release:
 |----------------|--------------|
 | 3.0             | Node 20     |
 | 3.1 through 3.4 | Node 22     |
-| 3.5.x and 3.6-beta.0 | Node 24 |
-| 3.6-beta.1 | Node 26.8.2 (npm 11.19.0) |
+| 3.5.x | Node 24 |
+| 3.6.x | Node 26 |
 
 Run `meteor node --version` in the target app and use that version in CI,
 native dependency builds, and container images. Audit `engines.node` and
 native packages whenever the target Meteor release changes Node major.
+Use `meteor-deployment` for container rollout and environment configuration.
 
 ## "Cannot enlarge memory array" during `meteor update`
 
@@ -201,3 +229,4 @@ bundle earlier Node majors as shown above.
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/v3-migration-docs/breaking-changes/index.md
+Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/about/install.md

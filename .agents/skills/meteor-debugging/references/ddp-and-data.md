@@ -58,23 +58,40 @@ the first divergence is a change-stream observer replay. `mongo@2.5.1` in
 3.5.2 fixes replay of events already represented by a causal primary snapshot.
 Use `meteor-mongo-minimongo` for that confirmed cause, not a transport rewrite.
 
-Meteor 3.6-beta.1 adds two narrower fixes. Inspect resolved packages and
+Meteor 3.6 adds two narrower fixes. Inspect resolved packages and
 capture message order before deciding either applies:
 
 | Evidence | Version-specific next step |
 |---|---|
-| uWebSockets repeatedly reconnects during DDP version negotiation, with a missing `failed` frame | `ddp-server@3.4.1-beta360.1` flushes queued frames before closing. Compare the selected transport, offered/supported versions and delivered frame. Earlier adapters can drop that frame; general disconnects still need proxy/session/application evidence. |
-| `Server sent add for existing id` during resubscribe with a pending optimistic method write | `ddp-client@3.4.2-beta360.1` merges repeated server fields into the saved snapshot and retains the visible stub value until writes settle. Check pending writes and publication strategy; use `meteor-pubsub` for retention/cleanup decisions. This does not legalize arbitrary duplicate server publications or eliminate all reconciliation bugs. |
+| uWebSockets repeatedly reconnects during DDP version negotiation, with a missing `failed` frame | `ddp-server@3.6.0` flushes queued frames before closing. Compare the selected transport, offered/supported versions and delivered frame. Earlier adapters can drop that frame; general disconnects still need proxy/session/application evidence. |
+| `Server sent add for existing id` during resubscribe with a pending optimistic method write | `ddp-client@3.4.2` merges repeated server fields into the saved snapshot and retains the visible stub value until writes settle. Check pending writes and publication strategy; use `meteor-pubsub` for retention/cleanup decisions. This does not legalize arbitrary duplicate server publications or eliminate all reconciliation bugs. |
+
+For oversized events, lost history or a reconnect between fragments, inspect
+`mongo@2.6.0` (Meteor 3.6) and MongoDB 6.0.9+/7+ before changing transports.
+Use `meteor-mongo-minimongo` for split-event recovery and observer resync;
+verify resulting DDP/Minimongo state instead of clearing client collections.
+
+Meteor 3.4.4 (`ddp-server@3.2.3`), 3.5.5 (`3.5.1`) and 3.6.1 (`3.6.1`)
+harden malformed control frames and contain handler failures. Inspect the frame and resolved
+package before adding retries; earlier packages lack these guards. Keep
+argument validation and authorization in application methods/publications.
+DDP protocol checks do not protect the separate development HMR socket.
 
 ## Mongo and Minimongo inspection
 
-On Meteor 3.6-beta.3, `mongo@2.5.2-beta360.3` separately fixes fieldless
+On Meteor 3.6, `mongo@2.6.0` separately fixes fieldless
 replication. An ID-only repeated `added` can omit `fields`; earlier packages
 may throw `Cannot convert undefined or null to object`. Capture that message
-and distinguish it from beta.1's pending-stub duplicate-add fix. Use
+and distinguish it from 3.6's pending-stub duplicate-add fix. Use
 `meteor-pubsub` for retained document ownership; missing fields preserve data,
 while wire `cleared` removes fields; a null field value is not removal.
 Do not clear shared Minimongo data.
+
+After a 3.4.4, 3.5.5 or 3.6.1 update, a query can legitimately switch to
+polling because its live selector differs from MongoDB semantics. For `$type`,
+negated `$elemMatch`, PCRE-only regexes or divergent collation, use
+`meteor-mongo-minimongo` to check package pairing and fallback. Do not strip
+the selector, clear Minimongo or force a live driver as a diagnostic shortcut.
 
 Use the local shells for read-first evidence:
 

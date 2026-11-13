@@ -18,7 +18,7 @@ skips adding React-only dependencies (no `react-refresh`). No extra config.
 
 ## React Compiler
 
-On Meteor 3.6-beta.0's Rspack 2.2.0 / `@meteorjs/rspack@3.0.0-beta.1`
+On Meteor 3.6's Rspack 2.2.7 / `@meteorjs/rspack@3.0.0`
 pairing, prefer the built-in SWC compiler through `Meteor.extendSwcConfig`.
 Use `meteor-react` for React 19 and React 17/18 target/runtime setup.
 Earlier integrations retain a Babel loader scoped to `.jsx`/`.tsx`; Babel
@@ -156,7 +156,7 @@ and remove the workaround immediately after upgrading. Never ignore the active
 Rspack build context.
 
 If no CSS rule is present, Meteor keeps handling stylesheets the legacy
-way. Meteor 3.6-beta.0's paired integration supplies a `css/auto` rule by
+way. Meteor 3.6's paired integration supplies a `css/auto` rule by
 default; inspect the effective rules before diagnosing duplicate CSS owners.
 
 ## CSS Modules
@@ -255,7 +255,7 @@ Skeleton: `meteor create --tailwind`.
 ## Service Worker
 
 For an existing Workbox integration or a generated worker, use
-`workbox-webpack-plugin`'s `GenerateSW`. Meteor 3.6-beta.0 also supplies a
+`workbox-webpack-plugin`'s `GenerateSW`. Meteor 3.6 also supplies a
 dependency-free Blaze worker via `meteor create --pwa`; use `meteor-blaze`
 for that scaffold and preserve an existing worker when migrating. Neither
 approach supplies offline data synchronization. For Workbox:

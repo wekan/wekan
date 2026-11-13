@@ -1,124 +1,124 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
     "meteor-accounts": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-accounts/SKILL.md",
-      "computedHash": "08ffb942bbd984990d5b0094c57fdae9c6e6b18f371565011f1f3a8797cebe05"
+      "computedHash": "3815426747a3cf74dbde60cc3fde6a9c89a9e4411d0c47486fca6d4b15cc2eea"
     },
     "meteor-blaze": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-blaze/SKILL.md",
-      "computedHash": "1d86eb4b8f59726dece03cca6e118a6f3e145316e6d9884b66e0f55249f15471"
+      "computedHash": "600371d67e1259792f7f93ffaf972eba222714bba5601178d48d089982ccc100"
     },
     "meteor-cli-installation": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-cli-installation/SKILL.md",
-      "computedHash": "bf29dcd70a5a4cad54bc7bae483f325abf5d12d94e673b9f6d8e7a8241546fb4"
+      "computedHash": "4f1d3ef87d322f7dd0412c8e99d9e47712f5740d20d2eada692a52be8211ff1c"
     },
     "meteor-community-packages": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-community-packages/SKILL.md",
-      "computedHash": "596aabe692daaaf405d5718821589203586daeec83f62fefd0786be1eff01658"
+      "computedHash": "7197579980cb1a6377c4e60a80ebfceaf120f89391587868bed0ab60dd3b0446"
     },
     "meteor-debugging": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-debugging/SKILL.md",
-      "computedHash": "501225332145cebeb52e413986f67e21b816be9e6d227b6f2fce30fc4c4e51a3"
+      "computedHash": "cac195c8d570643a7cfd78c6e2f6f5cc1f85de9f387f73b4753b2edab6f75cfc"
     },
     "meteor-deployment": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-deployment/SKILL.md",
-      "computedHash": "493a461728277de976a9667c7f7b13766a0287114d97707d082c7d0fc1c835c6"
+      "computedHash": "a4f63193df3426a308e6b626be106765e2f484681c91ec9f3c9be46b0ad8f12c"
     },
     "meteor-methods": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-methods/SKILL.md",
-      "computedHash": "1db922aa63baae87ba2d665f4500ad5fc60de12749323ebb9bf86c6c8e66334a"
+      "computedHash": "89de784b61e9af6a56c25a967a81f4b2d34a9792d0298d5272d914424ab43a2d"
     },
     "meteor-modern-build-stack": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-modern-build-stack/SKILL.md",
-      "computedHash": "bb9e7b8d684fed189fe163bff03a57c74b42e8003f430d3017d71ca13b4db4fe"
+      "computedHash": "d6effd524afd9b65a2b01008a51814a9bd02c8f3c8be02192d2c70b9a0944f00"
     },
     "meteor-mongo-minimongo": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-mongo-minimongo/SKILL.md",
-      "computedHash": "169aa503276f6c832582b34dd14020620e85e4861308be15c8ea26073435777e"
+      "computedHash": "b35982848350a9b012b24e49f2aa7dc8e0265d939df09092aefc908204922e6c"
     },
     "meteor-native": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.1",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-native/SKILL.md",
-      "computedHash": "cee15a6c8a0cd1b213869532f5adcd8d1592dc133ef5fdebcb5d70dcb0f5d5da"
+      "computedHash": "d6c8e1f3025677839e5632506283afb3a5546aa162aa428a08bf49b4848286ce"
     },
     "meteor-pubsub": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-pubsub/SKILL.md",
-      "computedHash": "36e6a5f47c7fb6b4e8f10b523ed5ac2a0eff86cf9f387ae8b45c69a56fa113a1"
+      "computedHash": "80ff22bc24d1316362655adaf01cf45b1d2a2a23969aff0dafb0cc1c54628e39"
     },
     "meteor-react": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.1",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-react/SKILL.md",
-      "computedHash": "621c1fb9ab812eb933a2e4b32a9fc6e816aad671ac17024f3633a78f7993ccdf"
+      "computedHash": "42539d9e690a538965b5f6b5f353d5377be61d75853c3d835609471010d16387"
     },
     "meteor-security": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-security/SKILL.md",
-      "computedHash": "dcfdbe07cc3f4f47e460f07ab33aa8cb543a85455ee03cb3fe1c6336aa9c052e"
+      "computedHash": "15c1a8733bfe357f709a629d04f2a42f12ec37503731720ec1671b5aea20c38f"
     },
     "meteor-testing": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-testing/SKILL.md",
-      "computedHash": "a8b2539b674ba04f2054bb36d45de0a5e5fa761854d197a175be3062ec195314"
+      "computedHash": "f1c7e30bb02d2de6cd7fdbff7f7958ce357abc3d5e2f989722608d3fa5407fe7"
     },
     "meteor-typescript": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.3",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-typescript/SKILL.md",
-      "computedHash": "15804f1da3d8d2695db0eb7b63da67086c60a7f4c770bc9c33d5ca3bffb2c29d"
+      "computedHash": "f956df609d3ec11f4f8d9ee799a39e62e560b9dd0790e27c0663e14134ad9519"
     },
     "migrate-to-meteor-3": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.1",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/migrate-to-meteor-3/SKILL.md",
-      "computedHash": "8044b4a210c64d1c74480a0346e631252920bdf85aecee8ef3e1154c1fd47b88"
+      "computedHash": "cdfa99d69734785cc7e8885f39ae9048b110b8d03ae7e82e28ec6112f7094969"
     },
     "migrate-to-rspack": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.1",
+      "ref": "v1.1.1",
       "sourceType": "github",
       "skillPath": "skills/migrate-to-rspack/SKILL.md",
-      "computedHash": "a737adb53b8905cbf9f207dd3dbd6a6311884f238f2fcab6a7df58c88a692d8c"
+      "computedHash": "1470e48a02b44c38097dca132a403513c4c30617f6e93d32e4639d1cfda87ac4"
     }
   }
 }

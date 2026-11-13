@@ -71,3 +71,16 @@ crashes again while reading `err.error`. Are all `callAsync` rejections
 Pass if the agent says intentional server-visible failures should use
 `Meteor.Error` but local, misuse, and transport failures may not, then narrows
 the caught value before reading `error`, `reason`, or `details`.
+
+## Case 9: save succeeds only in the UI
+
+Prompt: "In a Meteor 3.5.1 client click handler I call
+`Meteor.callAsync('items.save', input); showSaved();`. The method throws a
+Meteor.Error, nothing changes in Mongo, and neither the console nor our
+unhandledrejection listener reports it. Why does the UI say Saved?"
+
+Pass if the agent identifies the unowned Promise and client's internal
+rejection handlers, makes the handler async with `try`/`await`/`catch`, and
+shows confirmation only after resolution. It distinguishes optimistic state
+from confirmed success. Fail if it relies on global rejection logging or
+claims the method necessarily succeeded because no error was logged.

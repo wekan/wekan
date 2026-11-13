@@ -103,7 +103,7 @@ disables change streams without evaluating the release fix.
 
 ## Case 10: Reactive selector fallback
 
-Prompt: "Our Meteor 3.6-beta.3 app uses mongo 2.5.2-beta360.3, Change Streams first, and reactive $near and $where queries. Should I remove these selectors and projections so all queries use Change Streams?"
+Prompt: "Our Meteor 3.6 app uses mongo 2.6.0, Change Streams first, and reactive $near and $where queries. Should I remove these selectors and projections so all queries use Change Streams?"
 
 Pass if the agent preserves semantics, explains local matcher limitations and Change Streams/oplog rejection, verifies polling fallback plus initial and live results; retains skip/limit/projection eligibility checks.
 
@@ -111,8 +111,61 @@ Fail if it forces Change Streams by stripping constraints or says configuring MO
 
 ## Case 11: Older selector near miss
 
-Prompt: "The same $near reactive query is wrong on Meteor 3.5.2 and we must stay pinned. Does the beta.3 fix already apply, and what can we try without changing results?"
+Prompt: "The same $near reactive query is wrong on Meteor 3.5.2 and we must stay pinned. Does the 3.6 fix already apply, and what can we try without changing results?"
 
 Pass if the agent checks resolved package/backports, does not claim the fix ships in 3.5.2 and offers supported polling configuration with query/live-update verification.
 
 Fail if it promises fixed automatic eligibility or rewrites away the selector.
+
+## Case 12: Change-stream selector fallback
+
+Prompt: "Our Meteor 3.6 app resolves mongo@2.6.0 and uses $where and $near queries. MongoDB accepts them but Change Streams are not selected. Would adding MONGO_OPLOG_URL force realtime support? A second app is pinned to 3.4."
+
+Pass if the agent distinguishes query validity from observer eligibility, explains both driver limitations and polling fallback, preserves older oplog/polling behavior and avoids forcing core Change Streams or rewriting the DB without need.
+
+## Case 13: MongoDB version floor
+
+Prompt: "Our Meteor 3.6 app resolves mongo@2.6.0 on a MongoDB 6.0.8 replica set. Change Streams stopped being selected. Should I force the driver or remove publication limits?"
+
+Pass if the agent checks the 6.0.9+/7+ floor, preserves query semantics, verifies eligible oplog/polling fallback and plans any database upgrade with backup/compatibility checks. Fail if it forces Change Streams or treats all MongoDB 6 releases as eligible.
+
+## Case 14: Large events and interrupted recovery
+
+Prompt: "On Meteor 3.6 with mongo@2.6.0 and MongoDB 8, an event is split and the connection drops between fragments. Another run logs ChangeStreamHistoryLost or BSONObjectTooLarge. Should we release pending writes immediately or drop old events?"
+
+Pass if the agent distinguishes retained partial-event resume from non-resumable reopen/resync, waits for reassembly/reconciliation before pending write completion and verifies observer/DDP state. Fail if it delivers fragments, drops events by timestamp, expands the document limit or bypasses fences.
+
+## Case 15: Earlier Change Streams package
+
+Prompt: "Our Meteor 3.5.3 app resolves mongo@2.5.1 on MongoDB 6.0.8. Does the 3.6 split-event recovery contract apply already?"
+
+Pass if the agent checks the resolved package/backport, preserves the earlier MongoDB 6+ eligibility branch and does not promise the full 2.6.0 split-event/fence contract on 2.5.1. It recognizes existing 3.5.3 history-loss resync. Fail if it claims no earlier recovery exists, imposes the new server floor on unchanged older packages or claims their recovery is identical.
+
+## Case 16: pagination does not rule out every fallback
+
+Prompt: "On Meteor 3.6, skip/limit disqualifies our query from Change Streams. We have MONGO_OPLOG_URL. Does that automatically mean polling is the only option?"
+
+Pass if the agent checks oplog's separate cursor eligibility and retains it when eligible, then polling as fallback. Fail if it treats every Change Streams limitation as an oplog limitation or removes pagination to force a driver.
+
+## Case 17: Patched live-selector fallback
+
+Prompt: "After Meteor 3.6.1 (mongo@2.6.1/minimongo@2.2.2), a publication using $type and $not with $elemMatch polls even though Change Streams worked before. We also use PCRE regexes and collation strength 4. Should we remove those filters or force the old driver?"
+
+Pass if the agent: Recognizes semantic-divergence guards, preserves authorization/query semantics and a usable polling fallback, checks initial/live/removal results and performance without bypassing guards. Distinguishes ordinary supported selectors/collation.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+
+## Case 18: 3.4 backport does not add Change Streams
+
+Prompt: "On Meteor 3.4.4 with mongo@2.3.2 and minimongo@2.1.2, $type causes an oplog query to poll. Should I set METEOR_REACTIVITY_ORDER=changeStreams,polling? Another app is still on 3.4.3."
+
+Pass if the agent: Recognizes the patched selector guard but no core Change Streams/order settings on 3.4.4. Uses its existing oplog/polling path, checks the older app package pairing and does not assume the guard was already present.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+
+## Case 19: Ordinary selector near miss
+
+Prompt: "We use Meteor 3.5.5 with mongo@2.5.2/minimongo@2.2.0_2, a plain equality selector and collation {locale:"en",strength:2}, without caseLevel. Must every query now poll?"
+
+Pass if the agent: Does not generalize divergence guards to every selector or collation. Checks actual driver eligibility and configuration, preserving a supported live driver when eligible.
+Fail if it contradicts these boundaries or invents unsupported APIs.

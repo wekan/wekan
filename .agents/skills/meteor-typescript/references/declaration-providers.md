@@ -8,19 +8,22 @@ changing providers. Keep compiler upgrades separate from declaration changes.
 
 | Project state | Action |
 |---|---|
-| Meteor 3 before 3.6-beta.1 | Native `meteor types` is unavailable. Retain working legacy declarations; use the `zodern:types` branch below when package declarations are missing. |
-| Upgrading to 3.6-beta.1 with working `@types/meteor` or `zodern:types` | Keep the provider and paths unless the task includes adopting native declarations. Runtime upgrade alone does not switch providers. |
-| Explicit native adoption on 3.6-beta.1 | Follow the ordered migration below. The command needs a root `tsconfig.json` or `jsconfig.json`. |
+| Meteor 3 before 3.6 | Native `meteor types` is unavailable. Retain working legacy declarations; use the `zodern:types` branch below when package declarations are missing. |
+| Upgrading to 3.6 with working `@types/meteor` or `zodern:types` | Keep the provider and paths unless the task includes adopting native declarations. Runtime upgrade alone does not switch providers. |
+| Explicit native adoption on 3.6 | Follow the ordered migration below. The command needs a root `tsconfig.json` or `jsconfig.json`. |
 | Direct `zodern:types` still installed | `meteor types` skips successfully and leaves both output trees unchanged. A zero exit is not proof of native generation. A transitive dependency alone does not select the legacy provider. |
 
 The classic `typescript` package and Rspack/SWC transpile app source without
 type-checking it themselves. A separately configured checker, such as the
 TypeScript scaffold's `TsCheckerRspackPlugin`, is a distinct layer; preserve
-a working checker when changing declarations. On beta.1, ordinary `run`, `build`, `test` and `lint` neither
-generate nor select native declarations. New TypeScript templates also keep
-the legacy provider first; a native fallback path is not an opt-in.
+a working checker when changing declarations. On Meteor 3.6, ordinary `run`,
+`build`, `test` and `lint` neither generate nor select native declarations.
+New TypeScript, TypeScript + Tailwind, Svelte and Angular scaffolds select
+native declarations and generate them during `meteor create`. Existing app
+upgrades preserve their configured provider. After cloning or changing
+packages, regenerate with `meteor types` before checking.
 
-## Native adoption on Meteor 3.6-beta.1
+## Native adoption on Meteor 3.6
 
 1. Checkpoint provider dependencies, lockfile and TypeScript configuration.
    Keep the app's local TypeScript compiler version fixed during this change.
@@ -93,25 +96,23 @@ Ordinary Meteor commands and a skipped native run do not delete either tree.
 
 ## Compiler configuration compatibility
 
-For Meteor 3.6, the workflow above is verified through beta.3. Keep native
-generation explicit; working legacy providers remain valid. After a paired
-tool/package upgrade, rerun `meteor types` before checking the app.
-If reaching beta.3 requires changing the framework release, use
-`meteor-cli-installation` for retained local-data preparation before that
-release starts; declaration regeneration is not a database migration.
+On Meteor 3.6+, keep generation explicit after cloning or changing packages;
+working legacy providers remain valid. If adopting native declarations also
+requires a framework upgrade, use `meteor-cli-installation` for retained
+local-data preparation before starting the new release.
 
-| Native declaration symptom | Beta.3 verification and earlier-version boundary |
+| Native declaration symptom | Meteor 3.6 behavior and checks |
 |---|---|
-| Relative imports/re-exports or ambient declarations break inside a generated package | Beta.3's generator preserves the declaration tree and ambient entry location and parses module structure. Beta.1 lacks these layout fixes. Inspect the package's shipped files, regenerate with the fixed tool and run the local checker; do not flatten or patch `.meteor/types`. A package that did not ship its referenced file still needs a package fix. |
-| DDP imports or subscription handles disagree with runtime | Beta.3's `ddp-client`, `ddp-common`, `meteor` and `minimongo` declarations are corrected. Match resolved package versions and regenerate. Real `Meteor.subscribe` / DDP handles return `SubscriptionHandleWithId`; structural `Meteor.SubscriptionHandle` still requires only `ready()` and `stop()`. Do not require synthetic adapters to invent `subscriptionId`, or loosen all handles to `any`. |
+| Relative imports/re-exports or ambient declarations break inside a generated package | Meteor 3.6's generator preserves the declaration tree and ambient entry location and parses module structure. Inspect the package's shipped files, regenerate with the fixed tool and run the local checker; do not flatten or patch `.meteor/types`. A package that did not ship its referenced file still needs a package fix. |
+| DDP imports or subscription handles disagree with runtime | Meteor 3.6's `ddp-client`, `ddp-common`, `meteor` and `minimongo` declarations are corrected. Match resolved package versions and regenerate. Real `Meteor.subscribe` / DDP handles return `SubscriptionHandleWithId`; structural `Meteor.SubscriptionHandle` still requires only `ready()` and `stop()`. Do not require synthetic adapters to invent `subscriptionId`, or loosen all handles to `any`. |
 
 These are declaration corrections, not new runtime methods. Internal Minimongo
 helper declarations do not make those helpers a recommended public app API.
-Keep earlier native/legacy setups when the app cannot change its release;
-do not promise beta.3 declaration fixes on beta.1 or force a provider switch.
+Keep a working legacy setup when the app cannot change its release;
+Meteor before 3.6 does not provide native generation. Do not force a provider switch.
 
 Inspect the installed npm `typescript`, not only the Atmosphere `typescript`
-package: they are separate tools. Beta.1's TypeScript scaffold selects npm
+package: they are separate tools. Meteor 3.6's TypeScript scaffold selects npm
 TypeScript 7 and `moduleResolution: "bundler"`. Do not copy older docs'
 `baseUrl` or `moduleResolution: "node"` into it.
 [TypeScript 7 removes both options](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/).
@@ -119,6 +120,46 @@ TypeScript 7 and `moduleResolution: "bundler"`. Do not copy older docs'
 targets, preserving aliases and their previous base directory. Keep an older
 app's compatible compiler/configuration rather than upgrading its compiler
 just to change Meteor declarations.
+
+For `TS2882` on stylesheet side-effect imports with TypeScript 6+, inspect
+`noUncheckedSideEffectImports`. Meteor 3.6 TypeScript templates set it to
+`false`. Existing apps can select that setting or include explicit stylesheet
+module declarations such as `declare module '*.css';` in a `.d.ts` file.
+Do not disable unrelated checks or edit generated Meteor declarations.
+
+## Application user services and OAuth signatures
+
+Meteor 3.6 native declarations expose the mergeable `Meteor.UserServices`
+interface. Extend it in an application-owned `.d.ts` file included by the
+active config, preserving `Meteor.User.services` and its optionality:
+
+```typescript
+// imports/types/user-services.d.ts
+import "meteor/meteor";
+
+declare module "meteor/meteor" {
+  namespace Meteor {
+    interface UserServices {
+      internalSso?: { subject: string; tenantId: string };
+    }
+  }
+}
+```
+
+Then `user.services?.internalSso?.tenantId` is typed without replacing all
+services with `any`. Declare the actual stored shape and retain optional
+fields; types do not publish private service data or authorize client access.
+Do not add access tokens to client publications to satisfy a type error.
+Regenerate after package changes, include the application declaration in
+`tsc --listFiles --noEmit`, and check with the project's compiler. Do not edit
+the generated adapter or native barrel.
+
+For OAuth method/return-type errors, inspect the installed provider's native
+declarations and API locus, regenerate and check the real call signature.
+Corrected declarations do not convert a callback API into a Promise. On an
+earlier Meteor release or a working legacy provider, inspect that provider's
+augmentation contract instead of assuming native `UserServices` exists or
+forcing a provider switch.
 
 ## Earlier-release legacy declarations
 

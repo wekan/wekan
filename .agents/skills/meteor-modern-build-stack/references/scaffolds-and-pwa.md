@@ -6,7 +6,7 @@ Enabling `meteor.modern` or adding Rspack does not itself make an app a PWA.
 
 ## Choose a starting point
 
-These starters are documented for `3.6-beta.0`. Check the selected release's
+These starters are documented for `3.6`. Check the selected release's
 [CLI documentation](https://docs.meteor.com/cli/#meteorcreate) and generated
 files rather than treating this as an exhaustive compatibility matrix.
 

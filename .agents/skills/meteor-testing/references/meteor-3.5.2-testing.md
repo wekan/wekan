@@ -1,4 +1,4 @@
-# Meteor 3.5.2 and 3.6 beta testing boundaries
+# Meteor 3.5.2 and 3.6 testing boundaries
 
 ## Rspack full-app tests
 
@@ -38,8 +38,8 @@ known regression. Do not remove the actual app `private/` asset exclusion.
 
 `test-in-browser@1.6.0`, shipped with Meteor 3.5.2, removes transitive jQuery.
 Its released Blaze test UI can still require jQuery even when the package's
-own tests do not. Meteor 3.6-beta.0 restores the driver's client dependency in
-`test-in-browser@1.6.1-beta360.0`. Inspect the resolved driver independently of
+own tests do not. Meteor 3.6 restores the driver's client dependency in
+`test-in-browser@1.6.2`. Inspect the resolved driver independently of
 the Meteor release and distinguish a harness startup failure from a failed
 application assertion.
 
@@ -65,7 +65,7 @@ the tests themselves are jQuery-free. Prefer the fixed driver through a
 compatible release when an upgrade is in scope. Do not add a production app
 dependency to repair the test harness.
 
-Earlier 1.5.x and the fixed 1.6.1 beta driver supply jQuery themselves; a
+Earlier 1.5.x and the fixed 1.6.2 driver supply jQuery themselves; a
 jQuery-free package does not need a new test dependency there. Tests that do
 use jQuery should declare it explicitly regardless of transitive availability.
 Confirm the browser UI loads and expected client and server assertions run;

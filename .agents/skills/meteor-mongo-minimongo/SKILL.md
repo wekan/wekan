@@ -13,7 +13,7 @@ metadata:
   area: data
   tagline: "Write and debug Mongo queries in Meteor 3 (server async vs Minimongo, oplog vs change streams, indexes, selectors, modifiers)."
   bundle: ["essentials", "fullstack"]
-  docs_synced_at: "2026-09-29"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 
@@ -119,12 +119,23 @@ Meteor 3.5+ defaults to:
 changeStreams -> oplog -> polling
 ```
 
-Change streams require MongoDB 6+ on a replica set or sharded cluster, an
-unordered observer, no `skip` or `limit`, and a selector Minimongo can compile.
-An ineligible query falls through to the next configured driver. Oplog is
-available only when `MONGO_OPLOG_URL` is configured.
+With `mongo@2.6.0` (Meteor 3.6), change streams require MongoDB 6.0.9+
+or 7+ on a replica set or sharded cluster. Earlier Meteor 3.5 packages accept
+MongoDB 6+ but lack split-event handling and the new resync fence holds.
+History-loss resynchronization already exists in the 3.5.3 source. Check
+`.meteor/versions` for package updates/backports before selecting guidance.
+All versions require an unordered observer, no `skip` or `limit`, and a
+selector Minimongo can compile. An ineligible query or server falls through
+to the next configured driver. Oplog requires `MONGO_OPLOG_URL` and its own
+query eligibility check. A paginated query rejected by Change Streams is not
+automatically polling-only; retain eligible oplog fallback.
 
-Meteor 3.6, verified on beta.3's `mongo@2.5.2-beta360.3`, also declines
+On MongoDB 6.0.8, do not force 3.6's Change Streams driver. Verify the selected
+oplog/polling fallback or plan a database upgrade with backups and compatibility
+checks. See [large events and recovery](references/change-streams.md) for
+fragmented events, lost history and write-fence reconciliation.
+
+Meteor 3.6 with `mongo@2.6.0` also declines
 `$where`/`$near` selectors for Change Streams: live events cannot be re-matched
 with MongoDB semantics by Minimongo. Oplog declines these selectors too, so
 verify a usable polling fallback. Minimongo-incompatible projections also
@@ -132,9 +143,15 @@ require fallback. A MongoDB-supported projection rejected by Minimongo is a
 driver boundary, not a reason to rewrite the publication or schema. Verify
 fallback before proposing that broader change. Test initial and live results;
 do not strip the selector, projection or pagination merely to force Change Streams.
-Earlier 3.5/beta.1 packages can choose the wrong driver for `$where`/`$near`;
+The 3.5.5 backport (`mongo@2.5.2`) also declines `$where`/`$near`.
+Earlier 3.5 packages can choose the wrong driver;
 on a constrained release, use a supported polling configuration or an
 authorized compatible upgrade and rerun the exact query.
+
+Meteor 3.4.4, 3.5.5 and 3.6.1 add further live-selector guards for `$type`,
+negated `$elemMatch`, PCRE-only regexes and divergent collations. Preserve
+the query and verify polling, using the exact package pairs and earlier-version
+branches in [selector compatibility](references/selectors-modifiers.md#live-selector-compatibility).
 
 On Meteor 3.5+, override the app-wide order with
 `METEOR_REACTIVITY_ORDER=oplog,polling` or:

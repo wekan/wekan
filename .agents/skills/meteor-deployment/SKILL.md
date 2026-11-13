@@ -18,7 +18,7 @@ metadata:
   area: ops
   tagline: "Ship Meteor 3 apps to production (meteor build, Galaxy, Docker/Kubernetes, settings.json, env vars, Node version matching)."
   bundle: ["ops"]
-  docs_synced_at: "2026-09-29"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 
@@ -39,14 +39,16 @@ Match the Node version to the bundled Meteor Node:
 |---|---|
 | 3.0 | 20 |
 | 3.1 through 3.4 | 22 |
-| 3.5.x and 3.6-beta.0 | 24 |
-| 3.6-beta.1 through beta.3 | 26 (26.8.2) |
+| 3.5.x | 24 |
+| 3.6.x | 26 |
 
 Run `meteor node -v` and `meteor npm -v` in the target app to confirm.
-Meteor 3.6-beta.1 through beta.3 bundle npm 11.19.0. Match the deployed runtime and native
+Match the deployed runtime and native
 dependency build environment to that release; rebuild and test native npm
-modules for Node 26 and the production architecture before deploying these betas.
-The host installer prerequisite does not select the bundled runtime.
+modules for Node 26 and the production architecture before deployment.
+An extracted bundle records its exact Node version in
+`bundle/.node_version.txt`; use that metadata when the source tool is
+unavailable. The host installer prerequisite does not select the bundled runtime.
 
 ## Decision flow
 
@@ -63,10 +65,10 @@ The host installer prerequisite does not select the bundled runtime.
 
 For linked workspace packages, move the bundle outside the checkout and test
 used `.bin` commands and adjacent resource reads without source access.
-3.6-beta.3 fixes copied command links; verify older tools before relying on
+3.6 fixes copied command links; verify older tools before relying on
 them. Preserve the manager/lockfile and do not patch generated links.
 See [database boundaries](references/settings-and-env.md#mongo-connection-strings)
-for beta.3's local MongoDB 8 versus an external database.
+for 3.6's local MongoDB 8 versus an external database.
 
 ## Required environment
 
@@ -121,7 +123,8 @@ Choose one deployment path:
 | Push to Deploy | Galaxy should build a connected GitHub or Bitbucket branch. | Every push to the selected branch. |
 | Meteor CLI | A person or CI pipeline controls each upload. | `meteor deploy <app-name>`. |
 
-For a Free app, pass a simple app name, not a custom domain:
+Check `meteor whoami`; add `--owner my-account` to select a specific user or
+organization. For a new Free app, pass a simple app name, not a custom domain:
 
 ```bash
 meteor login
@@ -134,6 +137,13 @@ DEPLOY_HOSTNAME=eu-west-1.galaxy-deploy.meteor.com \
 Galaxy assigns a `myapp.sandbox.galaxycloud.app` hostname on Free or a
 regional `myapp.<region>.galaxycloud.app` hostname on paid plans. Add custom
 domains in the dashboard. The active primary domain controls `ROOT_URL`.
+
+For an existing app, confirm its current hostname, region, and owner before
+redeploying. `--plan` and `--container-size` select creation settings; change
+an existing app's plan or size in the dashboard. Optionally add `--mongo` to
+provision free shared MongoDB for testing, following the
+[Mongo TLS guidance](references/galaxy.md#mongodb-on-galaxy). It has no backups
+and is not recommended for production.
 
 Galaxy injects `PORT`, `ROOT_URL`, and `METEOR_SETTINGS`. Put `MONGO_URL`,
 `MAIL_URL`, and other server environment values under

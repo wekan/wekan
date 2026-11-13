@@ -134,6 +134,12 @@ from a route, method result, or stored user data.
 Scope component lookup to `this.find`, `this.findAll`, or `this.$`. Initialize
 imperative libraries only after the relevant nodes exist, then destroy them:
 
+`this.$` has jQuery semantics only with the jQuery backend. Native DOM support
+starts in Blaze 3.1.0-alpha.0 (prerelease), where it returns an array. See
+[backend selection](jquery-backends.md) before porting widgets or removing
+jQuery, and [runtime traps](template-diagnostics.md#runtime-traps) for event
+wrappers and retaining the handler's instance across `await`.
+
 ```javascript
 import { Tracker } from "meteor/tracker";
 

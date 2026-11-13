@@ -43,12 +43,12 @@ wrappers, binary values, and large documents need different handling.
 - Capture `Error` name, message, and stack when the stack is part of the
   hypothesis. Do not swallow or downgrade the original failure.
 
-## Server lifecycle events on Meteor 3.6-beta.1
+## Server lifecycle events on Meteor 3.6
 
-See the tagged [package guide](https://github.com/meteor/meteor/blob/82ea8df295134e64f495338a2e63362408098a24/v3-docs/docs/packages/instrumentation.md)
-and [API reference](https://github.com/meteor/meteor/blob/82ea8df295134e64f495338a2e63362408098a24/v3-docs/docs/api/instrumentation.md).
+See the tagged [package guide](https://github.com/meteor/meteor/blob/e730097ce42a0dbc4c134aeb1706147b02112844/v3-docs/docs/packages/instrumentation.md)
+and [API reference](https://github.com/meteor/meteor/blob/e730097ce42a0dbc4c134aeb1706147b02112844/v3-docs/docs/api/instrumentation.md).
 
-With the beta's `instrumentation@0.0.1-beta360.1`, prefer supported lifecycle
+With Meteor 3.6's `instrumentation@0.0.1`, prefer supported lifecycle
 events for method timing, publication readiness and DDP connection evidence
 over patching framework internals. Inspect `.meteor/versions` first. Earlier
 Meteor releases do not supply these hooks; retain targeted redacted logs or
@@ -93,10 +93,10 @@ Do not enforce authorization, reject a method, or promise durable audit writes
 from a listener. Keep validation and access checks in the actual handler.
 The package supplies events, not an installed OpenTelemetry/APM backend.
 
-For Meteor 3.6-beta.3's `instrumentation@0.0.1-beta360.3`, a rejected Promise
+For Meteor 3.6's `instrumentation@0.0.1`, a rejected Promise
 from `onListenerError` is also contained without recursively invoking the
-reporter. Beta.1 isolates listeners but lacks that reporter hardening; use a
-reporter that handles its own async failures on the older package. Verify the
+reporter. Keep application reporters responsible for their own error handling
+and verify the resolved package when using a custom or older integration. Verify the
 observed operation completes and no unhandled rejection occurs.
 
 Arguments, results and IP addresses are off by default. Prefer selected
@@ -116,11 +116,9 @@ does not protect a same-named publication. `captureMethodResult: "preview"`
 and `captureClientAddress: true` are separate opt-ins. Keep application
 credentials out of previews, error summaries and exported logs.
 
-Beta.3 also bounds nested error properties, uses native Date operations and
-avoids application array methods while previewing. Beta.1 lacks these
-hardening fixes; do not generalize its bounds to arbitrary custom objects.
-Even on beta.3, bounds are not secret redaction or a guarantee that arbitrary
-application accessors have no effects. Prefer metadata and test the actual
+Meteor 3.6 also bounds nested error properties, uses native Date operations
+and avoids application array methods while previewing. These bounds are not
+secret redaction or a guarantee that arbitrary application accessors have no effects. Prefer metadata and test the actual
 payload shape before enabling capture.
 
 Stop temporary handles during cleanup. `METEOR_INSTRUMENTATION_DISABLED=1`
@@ -167,3 +165,4 @@ appropriate level, and a reason to exist after the fix.
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/packages/logging.md
+Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/packages/instrumentation.md

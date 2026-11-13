@@ -12,6 +12,14 @@ returns a `Promise`.
 | `Meteor.call('m', a, b)` (fire-and-forget)       | `Meteor.callAsync('m', a, b).catch(console.error)`   |
 | `Meteor.apply('m', args, opts, cb)`              | `await Meteor.applyAsync('m', args, opts)`           |
 
+Keep the background call's `.catch`: the client async-stub queue attaches
+internal rejection handlers, so an ignored `callAsync` can fail without a
+console error or `unhandledrejection`. If later UI depends on success, await
+inside `try`/`catch` and confirm only after resolution. Returning the Promise
+is sufficient only when its caller handles rejection. Server logging and
+derived Promises have separate behavior; do not assume all errors are silent.
+See the [client queue](https://github.com/meteor/meteor/blob/4c94e92457c06cb73082a8d59908257bf6b518d1/packages/ddp-client/client/queue_stub_helpers.js).
+
 ## Server-side rewrites
 
 On the server, `Meteor.call` runs inline (no DDP round trip). Use `callAsync`

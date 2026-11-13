@@ -11,14 +11,16 @@ Check the host before selecting a command:
 | Existing project | Read `.meteor/release`. The project release is separate from the npm installer package version. |
 | Existing executable | Run `meteor --version`. Do not reinstall only to replace a project-specific release. |
 
-Current Meteor 3.5 installation documentation requires host Node 24 or newer.
+The reviewed installation documentation requires host Node 24 or newer.
+Meteor bundles its own runtime; inspect it with `meteor node -v` in the
+target project. Its version does not set the installer's host prerequisite.
 Earlier Meteor 3 installers can have earlier host requirements. Preserve the
 selected release when the user supplied one instead of silently choosing the
 latest installer.
 
 ## Install
 
-For Meteor 3.6-beta.3's bundled MongoDB 8, also check
+For Meteor 3.6's bundled MongoDB 8, also check
 [local database platform requirements](local-database-upgrade.md#bundled-mongodb-host-requirements).
 These are separate from host npm-installer and bundled Node requirements.
 
@@ -48,7 +50,7 @@ Do not offer the shell installer on Windows. If `npx` installation still fails
 after cache recovery, use the documented npm fallback:
 
 ```bash
-npm install -g meteor --foreground-scripts --allow-scripts=meteor
+npm install -g meteor --foreground-script
 ```
 
 Do not place `meteor` in an application's dependencies or devDependencies.

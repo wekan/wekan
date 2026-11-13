@@ -10,11 +10,11 @@ compatible Meteor release before assuming those protections exist.
 ## Configure both runtimes
 
 Set `Accounts.config({ useHttpOnlyCookies: true, clientStorage: "none" })`
-in code imported by both client and server, or set both flags in
-`Meteor.settings.public.packages.accounts` using a loaded settings file.
-The public values are feature flags, not credentials. Client-only configuration
-does not enable the server. Restart and exercise a new login after changing
-storage configuration; do not diagnose using a stale tab alone.
+in code imported by both client and server. For settings-only configuration,
+set the server flags in `Meteor.settings.packages.accounts` and mirror the
+client flags in `Meteor.settings.public.packages.accounts`.
+Public flags do not enable the server. Restart and test a fresh login after
+changing storage configuration.
 
 When opted in, the server handles:
 
@@ -29,11 +29,12 @@ handler. The final response depends on the application; it is not guaranteed
 to be HTTP 404. Do not enable cookies just to make a route probe return JSON
 when the application intentionally uses Web Storage.
 
-## Meteor 3.6-beta.1 protections
+## Hardened cookie endpoints
 
-These checks require the beta's `accounts-base@3.4.0-beta360.1`. Inspect
-`.meteor/versions`; 3.5.2's server opt-in and size limit alone do not provide
-this full behavior.
+These checks ship in Meteor 3.6's `accounts-base@3.4.0` and are backported
+in Meteor 3.5.5's `accounts-base@3.3.2`. Inspect `.meteor/versions`;
+3.5.2's server opt-in and size limit alone do not provide this full behavior.
+The 3.4.4 security release does not imply the same cookie backport.
 
 | Endpoint / response | Check and action |
 |---|---|
@@ -80,6 +81,16 @@ the DDP default rule to address HTTP 429. `httpOnlyCookieRateLimit: false`
 disables the separate HTTP limit; use only with an intentional replacement.
 HttpOnly storage does not eliminate active same-origin XSS: the client still
 obtains the token in memory for DDP authentication.
+
+## Session validity and transient failures
+
+On `accounts-base@3.4.0` (3.6) and the `3.3.2` backport (3.5.5), startup
+refresh retries network errors, 429 and server errors with bounded delays.
+These failures do not prove logout; HTTP 401 `invalid_cookie` does require
+normal reauthentication. Logout or a competing login cancels recovery so
+a late response cannot restore the previous user. Keep that cancellation;
+do not add unbounded retries or disable the limiter. Check earlier packages
+before relying on this retry policy.
 
 ## Diagnose failures on earlier packages
 

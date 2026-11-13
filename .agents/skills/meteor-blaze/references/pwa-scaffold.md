@@ -1,10 +1,10 @@
 # Blaze PWA scaffold
 
-Meteor 3.6-beta.0 supplies a Blaze/Rspack PWA skeleton with a dependency-free
+Meteor 3.6 supplies a Blaze/Rspack PWA skeleton with a dependency-free
 service worker, manifest, icons, and offline page:
 
 ```bash
-meteor create --release 3.6-beta.0 --pwa my-pwa
+meteor create --release 3.6.1 --pwa my-pwa
 cd my-pwa
 meteor
 ```

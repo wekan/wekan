@@ -19,7 +19,7 @@ customizing them:
 |------|--------------------------|
 | `package.json` | `meteor.mainModule.client` reaches every UI module; `meteor.modern` is enabled |
 | `client/main.js` | Imports the root `.html` or a UI JavaScript module that imports it |
-| `.meteor/packages` | Includes `blaze-html-templates`, `tracker`, `hot-module-replacement`, `blaze-hot`, and `rspack`; package presence does not make Blaze HMR work in the Rspack graph |
+| `.meteor/packages` | Includes `blaze-html-templates`, `jquery`, `tracker`, `hot-module-replacement`, `blaze-hot`, and `rspack`; package presence does not make Blaze HMR work in the Rspack graph |
 | `rspack.config.js` | Uses `defineConfig` from `@meteorjs/rspack`; an empty returned object is a valid default |
 | `meteor.testModule` | Points at the explicit test entry when the project uses one |
 
@@ -119,7 +119,7 @@ registration module, render into a dedicated host, wait for Tracker, assert
 observable DOM or lifecycle behavior, and always remove the View.
 
 ```javascript
-import assert from "node:assert/strict";
+import assert from "assert";
 import { Blaze } from "meteor/blaze";
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
@@ -150,11 +150,17 @@ if (Meteor.isClient) {
       );
 
       await new Promise((resolve) => Tracker.afterFlush(resolve));
-      assert.equal(host.querySelector(".js-title").textContent, "Ship");
+      assert.strictEqual(host.querySelector(".js-title").textContent, "Ship");
     });
   });
 }
 ```
+
+The browser assertion polyfill supports `assert` with `strictEqual`,
+`deepStrictEqual` and `rejects`; it does not supply the Node `assert/strict`
+subpath. A runtime `Meteor.isClient`/`Meteor.isServer` guard cannot hide a
+static import from the bundler. Keep Node-only imports in an isolated server
+entry graph. Use `meteor-testing` for shared test-entry configuration.
 
 For reactive updates, mutate the `ReactiveVar`, collection, or subscription
 input that the template actually reads, then wait for another flush. Do not

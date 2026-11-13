@@ -8,8 +8,8 @@ configs, including `extends`.
 | Target and intent | Migration decision |
 |---|---|
 | Earlier Meteor 3 release, including 3.5.2 | Native `meteor types` is unavailable. Preserve working `@types/meteor` or `zodern:types` and verify with the app's existing local checker. |
-| Meteor 3.6-beta.1 runtime upgrade only | Keep the provider, compiler and config. The upgrade does not select native declarations. |
-| Explicit native adoption on beta.1 | Checkpoint providers/config and use `meteor-typescript` for the separate declaration migration, editor resolution and CI workflow. |
+| Meteor 3.6 runtime upgrade only | Keep the provider, compiler and config. The upgrade does not select native declarations. |
+| Explicit native adoption on 3.6 | Checkpoint providers/config and use `meteor-typescript` for the separate declaration migration, editor resolution and CI workflow. |
 
 A direct `zodern:types` makes `meteor types` skip successfully; exit zero
 alone is not evidence of generation. When explicitly switching, remove only

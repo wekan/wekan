@@ -14,10 +14,11 @@ results. Run the applicable rows after Rspack activation.
 | Full-app initialization | App-test modules or server top-level await exist | On Meteor 3.5.2, configured app client/server bundles remain present with server-only test entries; awaited module initialization settles and the expected tests execute. Earlier integrations need a release-specific reproduction. |
 | Production build | Always | Command exits nonzero on failure and the expected artifact exists. |
 | Extracted bundle boot | Deployable app | Server reaches readiness from the production artifact. |
+| Relocated workspace commands | Linked workspace npm packages expose used commands | Move the bundle outside the checkout; command links and adjacent resource reads work without original source access. 3.6 fixes copied links; verify earlier tools explicitly. |
 | Browser against production bundle | Client app | The real page starts; HTTP 200 from the server alone is insufficient. |
 | Dynamic import | Lazy feature exists | The chunk loads and executes when the feature is invoked. |
 | Non-root `ROOT_URL` | Subpath deployment | Assets and chunks load without duplicated or missing prefixes. |
-| Legacy web architecture | Still supported | A legacy-targeted browser or equivalent bundle smoke starts. |
+| Legacy web architecture | Still supported | On the 3.6 pairing, preserve explicit main/test architecture graphs and load the intended program, assets and lazy chunks. A modern user-agent override proves selection only; test actual old engines for compatibility. Earlier pairings retain their supported shared-client behavior. |
 | Custom loader | Custom loader exists | Representative input passes parsing, transformation, and code generation through the actual loader entry. |
 | Framework preprocessing | Svelte/TypeScript, PostCSS/SCSS or UI-library inputs changed | An affected component compiles, renders and responds to interaction; expected styles survive development rebuild and production output. |
 | Compiler plugins | Lingui or another SWC plugin is configured | The actual bundler-hosted compiler transforms a representative input; translated output or the equivalent feature works in development and production. Run catalog extraction/generation when used. |

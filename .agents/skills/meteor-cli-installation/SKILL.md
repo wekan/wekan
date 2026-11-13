@@ -16,7 +16,7 @@ metadata:
   area: ops
   tagline: "Install, locate, repair, reset, or cleanly reinstall the Meteor 3 CLI with correct version and PATH handling."
   bundle: ["essentials", "migration", "fullstack", "ops", "blaze", "react"]
-  docs_synced_at: "2026-09-29"
+  docs_synced_at: "2026-11-13"
 license: MIT
 ---
 
@@ -50,7 +50,7 @@ installer permanently to global npm packages.
      `.meteor/release`.
    Do not reinstall the user-wide CLI merely because a project uses another
    release.
-   Before selecting Meteor 3.6-beta.3 for existing local data, read
+   Before selecting Meteor 3.6 for existing local data, read
    [local database preparation](references/local-database-upgrade.md).
    Its bundled MongoDB 8 requires host checks and MongoDB 7 FCV preparation
    under the previous release before the new release starts.
@@ -72,7 +72,7 @@ installer permanently to global npm packages.
 | Latest supported CLI | Run `npx meteor`. |
 | Pinned installer package | Run `npx meteor@<version> install`, then verify the reported Meteor release. |
 | Linux or macOS alternative | `curl https://install.meteor.com/ \| sh` remains documented. Keep `npx meteor` as the primary cross-platform command. |
-| npm fallback | Run `npm install -g meteor --foreground-scripts --allow-scripts=meteor` only after the documented `npx` recovery steps fail. |
+| npm fallback | Run `npm install -g meteor --foreground-script` only after the documented `npx` recovery steps fail. |
 | Existing project needs another release | Use the project's pin or a Meteor `--release` command. Do not replace the user-wide installation first. |
 
 Never run `npx install meteor`. Never add the npm `meteor` installer to an
