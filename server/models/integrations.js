@@ -277,6 +277,7 @@ WebApp.handlers.delete('/api/boards/:boardId/integrations/:intId', async functio
     const paramBoardId = req.params.boardId;
     const paramIntId = req.params.intId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+    if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
 
     await Integrations.direct.removeAsync({ _id: paramIntId, boardId: paramBoardId });
     sendJsonResult(res, {
