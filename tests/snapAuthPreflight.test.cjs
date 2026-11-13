@@ -119,6 +119,29 @@ test('every snapcraft install in the workflows is retried', () => {
     'an outage is not reported as a credential problem');
 });
 
+test('every snapcraft install attempt is bounded, and the job has room for all five', () => {
+  // v13.09: the third attempt hung with no output until snap-auth-check's
+  // 10-minute timeout cancelled the job - the retry never got its turn.
+  const dir = path.join(__dirname, '..', '.github', 'workflows');
+  for (const f of fs.readdirSync(dir).filter(n => /\.ya?ml$/.test(n))) {
+    const lines = fs.readFileSync(path.join(dir, f), 'utf8').split('\n');
+    lines.forEach((line, i) => {
+      if (!/snap install snapcraft/.test(line) || /^\s*#/.test(line)) return;
+      const m = line.match(/timeout (\d+) sudo snap install snapcraft/);
+      assert.ok(m, `${f}:${i + 1} installs snapcraft without a time limit per attempt`);
+      const after = lines.slice(i + 1, i + 3).join('\n');
+      assert.ok(/snap abort --last=install/.test(after),
+        `${f}:${i + 1} retries without aborting the attempt that was cut short`);
+    });
+  }
+  // Negative: the job's own limit must not end the retry before five attempts.
+  const perAttempt = Number((job.match(/timeout (\d+) sudo snap install snapcraft/) || [])[1]);
+  const minutes = Number((job.match(/timeout-minutes: (\d+)/) || [])[1]);
+  assert.ok(perAttempt > 0 && minutes > 0, 'both limits are set');
+  assert.ok(minutes * 60 >= 5 * (perAttempt + 30) + 120,
+    `snap-auth-check's ${minutes} minutes cannot hold five ${perAttempt}-second attempts`);
+});
+
 test('a shell that keeps going long enough to classify the failure', () => {
   // `set -e` around the whoami call would kill the step at the failure, before
   // the case that says WHICH failure it was.

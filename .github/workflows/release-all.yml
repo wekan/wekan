@@ -4533,7 +4533,10 @@ jobs:
   snap-auth-check:
     needs: [prepare]
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    # Room for all five snapcraft install attempts (each at most 3 minutes,
+    # 30 s apart) and the whoami after them: at 10 minutes (v13.09) the job
+    # was cancelled during the third.
+    timeout-minutes: 25
     steps:
       - name: Ask the Snap Store whether SNAP_AUTH is usable
         env:
@@ -4559,11 +4562,15 @@ jobs:
 
           # The Snap Store has bad minutes - a rate limit, or (v13.07) a refresh
           # that timed out - so the install is retried as the build job's is;
-          # an outage is said as one, not as a broken credential.
+          # an outage is said as one, not as a broken credential. Each attempt
+          # is bounded: in v13.09 the third hung silently until the job was
+          # cancelled. An attempt cut short leaves snapd's install change
+          # running, so it is aborted before the next.
           installed=""
           for i in 1 2 3 4 5; do
-            if sudo snap install snapcraft --classic; then installed=1; break; fi
-            echo "snapcraft install attempt $i/5 failed (Snap Store unreachable or throttling); retrying in 30s..."
+            if timeout 180 sudo snap install snapcraft --classic; then installed=1; break; fi
+            sudo snap abort --last=install >/dev/null 2>&1 || true
+            echo "snapcraft install attempt $i/5 failed (Snap Store unreachable, throttling or hanging); retrying in 30s..."
             sleep 30
           done
           if [ -z "$installed" ]; then
@@ -4966,8 +4973,11 @@ jobs:
         run: |
           set -uo pipefail
           for i in 1 2 3 4 5; do
-            sudo snap install snapcraft --classic && exit 0
-            echo "snapcraft install attempt $i/5 failed (Snap Store throttle?); retrying in 30s..."
+            # Bounded, as snap-auth-check's: a hanging store is a failed
+            # attempt, not a job that waits until it is cancelled.
+            timeout 180 sudo snap install snapcraft --classic && exit 0
+            sudo snap abort --last=install >/dev/null 2>&1 || true
+            echo "snapcraft install attempt $i/5 failed (Snap Store throttle or hang?); retrying in 30s..."
             sleep 30
           done
           echo "::error::snapcraft install failed after 5 attempts (Snap Store rate limit)."
