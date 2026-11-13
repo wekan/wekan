@@ -390,6 +390,11 @@ if (Meteor.isServer) {
   Meteor.startup(async () => {
     await ensureIndex(Checklists, { cardId: 1, sort: 1 });
     await ensureIndex(Checklists, { boardId: 1 });
+    // #6899: the recurring-checklist reset cron reads the checklists with a
+    // resetInterval on every tick. Without an index that was a full scan of
+    // every checklist; a partial index holds only the recurring ones.
+    await ensureIndex(Checklists, { resetInterval: 1 },
+      { partialFilterExpression: { resetInterval: { $exists: true } } });
   });
 }
 
