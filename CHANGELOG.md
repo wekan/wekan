@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.11 2026-11-13 WeKan ® release
 
 The **file-integrity scan** stops reporting attachments and
 avatars that WeKan deleted itself as missing, which had buried real
@@ -14,7 +14,7 @@ reset no longer scans every **checklist** on each tick. In the **REST API**, a
 refused custom-field update changes nothing, ownership transfer takes only the
 boards the user administers, and deleting a missing integration answers 404.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.11](CHANGELOG-big.md#v1311-2026-11-13-wekan--release)
 
 # v13.10 2026-11-13 WeKan ® release
 
@@ -50,14 +50,3 @@ the **indexes** that LDAP, card member and History queries need are added, and
 Admin Panel → Problems can **Clear** resolved problems, which also age out.
 
 [All changes in v13.07](CHANGELOG-big.md#v1307-2026-11-12-wekan--release)
-
-# v13.06 2026-11-11 WeKan ® release
-
-**CodeQL** alert #601 in a test is fixed, with two more tests
-that had the same fault. A card's **overtime** set through the REST API is
-saved where WeKan reads it, and cards that lost it before are repaired at
-startup. Card **members and assignees** whose account was deleted can be removed
-and added without an error, and clearing a card **date** no longer passes as a
-date set to the rules, the due date count and the activity feed.
-
-[All changes in v13.06](CHANGELOG-big.md#v1306-2026-11-11-wekan--release)
