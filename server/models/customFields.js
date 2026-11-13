@@ -183,29 +183,19 @@ WebApp.handlers.put('/api/boards/:boardId/custom-fields/:customFieldId', async f
     boardIds: { $in: [paramBoardId] },
   };
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'name')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { name: req.body.name } });
+  // Validate and save the requested fields together so a rejected value cannot
+  // leave earlier fields persisted from the same request.
+  const set = {};
+  for (const field of [
+    'name', 'type', 'settings', 'showOnCard', 'automaticallyOnCard',
+    'alwaysOnCard', 'showLabelOnMiniCard', 'showSumAtTopOfList',
+  ]) {
+    if (Object.prototype.hasOwnProperty.call(req.body, field)) {
+      set[field] = req.body[field];
+    }
   }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'type')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { type: req.body.type } });
-  }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'settings')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { settings: req.body.settings } });
-  }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'showOnCard')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { showOnCard: req.body.showOnCard } });
-  }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'automaticallyOnCard')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { automaticallyOnCard: req.body.automaticallyOnCard } });
-  }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'alwaysOnCard')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { alwaysOnCard: req.body.alwaysOnCard } });
-  }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'showLabelOnMiniCard')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { showLabelOnMiniCard: req.body.showLabelOnMiniCard } });
-  }
-  if (Object.prototype.hasOwnProperty.call(req.body, 'showSumAtTopOfList')) {
-    await CustomFields.direct.updateAsync(boardScopedField, { $set: { showSumAtTopOfList: req.body.showSumAtTopOfList } });
+  if (Object.keys(set).length > 0) {
+    await CustomFields.direct.updateAsync(boardScopedField, { $set: set });
   }
 
   sendJsonResult(res, {
