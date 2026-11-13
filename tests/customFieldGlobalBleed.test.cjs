@@ -88,7 +88,10 @@ test('CustomFieldBleed: every REST custom-field write is scoped to the URL board
   // The PUT route still applies its fields through the scoped selector.
   const put = sections.find(s => s.startsWith("WebApp.handlers.put('/api/boards/:boardId/custom-fields/:customFieldId'"));
   assert.ok(put, 'the custom-field PUT route exists');
-  assert.ok(customFieldWrites(put).length >= 8, 'PUT updates each supported field');
+  // PUT now saves the supported fields together so validation cannot leave a
+  // partial update. Field coverage lives in restCustomFieldUpdate.test.cjs;
+  // this guard still checks the selector of every write.
+  assert.equal(customFieldWrites(put).length, 1, 'PUT saves its fields in one update');
   assert.ok(customFieldWrites(put).every(w => w.selector === 'boardScopedField'));
 });
 
