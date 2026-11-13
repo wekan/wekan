@@ -73,6 +73,91 @@ test('integration PUT preserves authentication and board-admin requirements', as
   expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
 });
 
+test('integration DELETE rejects missing and wrong-board IDs and removes only its own integration', async ({ request, user, board, integration }) => {
+  const other = db.seedBoard({ ownerId: user.id });
+  try {
+    const before = db.findOne('integrations', { _id: integration.id });
+    for (const path of [
+      integrationPath(board.boardId, 'missing-integration'),
+      integrationPath(other.boardId, integration.id),
+    ]) {
+      const response = await request.delete(path, { headers: headers(user.token) });
+      expect(response.status()).toBe(404);
+      expect(response.headers()['content-type']).toContain('application/json');
+      expect(await response.json()).toEqual({ error: 'Integration not found' });
+      expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
+    }
+    const response = await request.delete(integration.path, { headers: headers(user.token) });
+    expect(response.status()).toBe(200);
+    expect(await response.json()).toEqual({ _id: integration.id });
+    expect(db.findOne('integrations', { _id: integration.id })).toBeNull();
+    const read = await request.get(integration.path, { headers: headers(user.token) });
+    expect(read.status()).toBe(404);
+    const repeated = await request.delete(integration.path, { headers: headers(user.token) });
+    expect(repeated.status()).toBe(404);
+    expect(await repeated.json()).toEqual({ error: 'Integration not found' });
+  } finally {
+    db.cleanup({ boardIds: [other.boardId] });
+  }
+});
+
+test('integration DELETE preserves authentication and board-admin requirements', async ({ request, board, integration }) => {
+  const before = db.findOne('integrations', { _id: integration.id });
+  for (const id of [integration.id, 'missing-integration']) {
+    const path = integrationPath(board.boardId, id);
+    expect((await request.delete(path)).status()).toBe(401);
+    const member = db.seedUser();
+    try {
+      db.updateOne('boards', { _id: board.boardId }, { $push: { members: {
+        userId: member.id, isActive: true, isAdmin: false, isNoComments: false, isCommentOnly: false,
+      } } });
+      expect((await request.delete(path, { headers: headers(member.token) })).status()).toBe(403);
+      expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
+    } finally {
+      db.cleanup({ userIds: [member.id] });
+    }
+  }
+});
+
+test('webhook settings retain a rejected deletion and react to a successful REST deletion', async ({ request, user, board, integration, boardPage }) => {
+  const other = db.seedBoard({ ownerId: user.id });
+  let siblingId;
+  try {
+    const created = await request.post(`/api/boards/${board.boardId}/integrations`, {
+      headers: headers(user.token), data: { url: 'https://example.com/other-webhook' },
+    });
+    expect(created.status()).toBe(200);
+    siblingId = (await created.json())._id;
+    const sibling = db.findOne('integrations', { _id: siblingId });
+    const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
+    if (!(await menu.isVisible())) await boardPage.locator('.js-toggle-page-sidebar').first().click();
+    await menu.click();
+    await boardPage.locator('.js-outgoing-webhooks').click();
+    const form = boardPage.locator('form.integration-form').filter({
+      has: boardPage.locator(`input[name="id"][value="${integration.id}"]`),
+    });
+    await expect(form).toBeVisible();
+    const before = db.findOne('integrations', { _id: integration.id });
+    const rejected = await request.delete(integrationPath(other.boardId, integration.id), {
+      headers: headers(user.token),
+    });
+    expect(rejected.status()).toBe(404);
+    expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
+    await expect(form).toBeVisible();
+
+    const response = await request.delete(integration.path, { headers: headers(user.token) });
+    expect(response.status()).toBe(200);
+    expect(await response.json()).toEqual({ _id: integration.id });
+    expect(db.findOne('integrations', { _id: integration.id })).toBeNull();
+    await expect(form).toHaveCount(0);
+    expect(db.findOne('integrations', { _id: siblingId })).toEqual(sibling);
+    await expect(boardPage.locator(`form.integration-form input[name="id"][value="${siblingId}"]`)).toHaveCount(1);
+  } finally {
+    if (siblingId) db.deleteOne('integrations', { _id: siblingId });
+    db.cleanup({ boardIds: [other.boardId] });
+  }
+});
+
 test('successful REST updates appear in webhook settings after invalid updates are rejected', async ({ request, user, board, integration, boardPage }) => {
   const other = db.seedBoard({ ownerId: user.id });
   try {
