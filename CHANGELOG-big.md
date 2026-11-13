@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.10 2026-11-13 WeKan ® release
 
 **In short:** The release's **Snap Store** credential check bounds each
 snapcraft install attempt, so a Snap Store that hangs no longer stops a release.

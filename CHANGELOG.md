@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.10 2026-11-13 WeKan ® release
 
 The release's **Snap Store** credential check bounds each
 snapcraft install attempt, so a Snap Store that hangs no longer stops a release.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.10](CHANGELOG-big.md#v1310-2026-11-13-wekan--release)
 
 # v13.09 2026-11-12 WeKan ® release
 
@@ -50,12 +50,3 @@ and added without an error, and clearing a card **date** no longer passes as a
 date set to the rules, the due date count and the activity feed.
 
 [All changes in v13.06](CHANGELOG-big.md#v1306-2026-11-11-wekan--release)
-
-# v13.05 2026-11-10 WeKan ® release
-
-WeKan is updated to **Meteor 3.6**. The **Android** bundles
-build again, after v13.04's npm retry broke their install, and the **Super
-Productivity** export no longer fails for a board with a card whose list is
-archived.
-
-[All changes in v13.05](CHANGELOG-big.md#v1305-2026-11-10-wekan--release)
