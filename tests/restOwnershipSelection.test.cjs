@@ -71,3 +71,38 @@ test('denied callers and missing users do not select boards', async () => {
     assert.ok(!f.calls.some(([name]) => name === 'boards'));
   }
 });
+
+test('ownership changes finish before the response, and their failures are reported', async () => {
+  let finished = false;
+  const board = {
+    _id: 'owned', title: 'Owned board',
+    hasMember() { return false; },
+    async changeOwnership() { await new Promise(r => setImmediate(r)); finished = true; },
+  };
+  const f = fixture({ boards: [board] });
+  assert.equal((await f.put()).code, 200);
+  // The response used to be sent before the board update had run.
+  assert.equal(finished, true);
+
+  const failing = fixture({ boards: [{
+    _id: 'owned', title: 'Owned board', hasMember() { return false; },
+    async changeOwnership() { throw Object.assign(new Error('update failed'), { statusCode: 500 }); },
+  }] });
+  // Previously an unhandled rejection with a 200 reply; now a reported error.
+  assert.notEqual((await failing.put()).code, 200);
+});
+
+test('every board ownership change in the server code is awaited', () => {
+  const root = path.join(__dirname, '..');
+  for (const dir of ['server', 'models']) {
+    const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e =>
+      e.isDirectory() ? walk(path.join(d, e.name)) : e.name.endsWith('.js') ? [path.join(d, e.name)] : []);
+    for (const file of walk(path.join(root, dir))) {
+      const text = fs.readFileSync(file, 'utf8');
+      for (const m of text.matchAll(/^.*\.changeOwnership\(.*$/gm)) {
+        if (/async\s+changeOwnership\(/.test(m[0])) continue;
+        assert.match(m[0], /\b(await|return)\s+\S*\.changeOwnership\(/, `${path.relative(root, file)}: ${m[0].trim()}`);
+      }
+    }
+  }
+});

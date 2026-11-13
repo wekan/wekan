@@ -3097,7 +3097,7 @@ Boards.helpers({
     // never be a meaningful (active) admin and the deactivate-by-index flow
     // below would only leave it lingering, so hard-remove it by userId. This
     // works whether or not the user still exists since matching is by userId.
-    if (memberIndex < 0 || !ReactiveCache.getUser(memberId)) {
+    if (memberIndex < 0 || !(await ReactiveCache.getUser(memberId))) {
       return await Boards.updateAsync(this._id, {
         $set: { members: pullMemberById(this.members, memberId) },
       });
