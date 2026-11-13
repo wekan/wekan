@@ -1,4 +1,5 @@
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
+import { forgetIntegrityBaselinesOfFiles } from '/server/lib/fileIntegrityForget';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
@@ -301,6 +302,10 @@ Attachments.interceptDownload = function (http, fileObj, versionName) {
 
 Attachments.onAfterRemove = function (filesInput) {
   const files = normalizeRemovedFiles(filesInput);
+  // #6898: Meteor-Files unlinks the version paths itself after this hook
+  // (it returns nothing, so the default unlink runs), so this is where a
+  // removed file's integrity baseline is forgotten.
+  forgetIntegrityBaselinesOfFiles(files);
 
   files.forEach(fileObj => {
     if (!fileObj || !fileObj.versions) {

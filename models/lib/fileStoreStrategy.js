@@ -42,6 +42,14 @@ const { hasEnoughDiskSpace } = require('./diskSpace');
 // exporter uses it too and where plain Node can test it.
 const { isPathInsideBase: isPathInside } = require('./storagePathContainment');
 
+// #6898: drop the integrity baselines of files this module deletes or moves.
+function forgetBaselines(paths) {
+  if (!Meteor.isServer) return;
+  try {
+    require('/server/lib/fileIntegrityForget').forgetIntegrityBaselinesSoon(paths);
+  } catch (e) { /* bookkeeping must never break a delete */ }
+}
+
 function tryRealPath(inputPath) {
   try {
     return fs.realpathSync(inputPath);
@@ -643,7 +651,12 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     // candidatePaths(). A delete that misses leaves the bytes on disk forever.
     const filePath = this.resolveExistingPath()
       || this.version().path;
-    if (filePath) fs.unlink(filePath, () => {});
+    if (filePath) {
+      fs.unlink(filePath, () => {});
+      // #6898: a file WeKan deleted is accounted for; without this the daily
+      // integrity scan reported it as missing on every run from then on.
+      forgetBaselines([filePath, this.version().path]);
+    }
   }
 
   /** rename the file (physical)
@@ -666,6 +679,9 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     }
     if (path.resolve(current) === path.resolve(newFilePath)) return;
     fs.renameSync(current, newFilePath);
+    // #6898: the old path is gone on purpose; the scan records the new one as
+    // a first sighting instead of reporting the old one missing forever.
+    forgetBaselines([current, this.version().path]);
   }
 
   /** return the storage name

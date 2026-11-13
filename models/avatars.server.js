@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { forgetIntegrityBaselinesOfFiles } from '/server/lib/fileIntegrityForget';
 import { Meteor } from 'meteor/meteor';
 import { isFileValid } from './fileValidation';
 import { createBucket } from './lib/grid/createBucket';
@@ -295,6 +296,9 @@ Avatars.onAfterRemove = async function (filesInput) {
     console.error('normalizeRemovedFiles did not return an array in onAfterRemove, got:', typeof files);
     files = [];
   }
+
+  // #6898: see Attachments.onAfterRemove - forget the removed files' baselines.
+  forgetIntegrityBaselinesOfFiles(files);
 
   files.forEach(fileObj => {
     if (!fileObj || !fileObj.versions) {
