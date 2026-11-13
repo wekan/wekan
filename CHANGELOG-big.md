@@ -130,8 +130,8 @@ its reason.
 avatars that WeKan deleted itself as missing, which had buried real
 **StorageBleed** findings under thousands of false ones. The recurring-checklist
 reset no longer scans every **checklist** on each tick. In the **REST API**, a
-refused custom-field update changes nothing, and ownership transfer takes only
-the boards the user administers and finishes before it replies.
+refused custom-field update changes nothing, ownership transfer takes only the
+boards the user administers, and deleting a missing integration answers 404.
 
 This release fixes the following bugs:
 
@@ -172,7 +172,7 @@ and a selector that can use it.
 
 </details>
 
-**The REST API** - custom fields and ownership transfer.
+**The REST API** - custom fields, ownership transfer and integrations.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a81ec6ecdfea8a0b0709d7c0cd463cfd051ca80f">A refused custom-field update leaves the whole field unchanged</a>. Thanks to AhmedLukman and xet7.</summary>
@@ -194,6 +194,20 @@ necessarily the user, was an administrator. The user and the administrator flag
 are now matched on the same member, so a board where the user is an ordinary
 member is left as it is. `tests/restOwnershipSelection.test.cjs` and
 `tests/playwright/specs/rest-ownership-selection.e2e.js` cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab685a7f6fe0450a31b9150a14b17b909933c86f">Deleting a missing or another board's integration answers 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`DELETE /api/boards/:boardId/integrations/:intId` answered 200 for an
+integration that did not exist, was on another board or was already deleted,
+because the removal matched nothing and the reply did not check. It now looks
+the integration up on that board first, after the board-admin check, like PUT
+and the activities routes, and answers the same JSON 404. Server errors still
+answer 500. `tests/restIntegrationWriteRoutes404.test.cjs` and
+`tests/playwright/specs/rest-integration-update.e2e.js` cover it, including
+the board's webhook settings.
 
 </details>
 

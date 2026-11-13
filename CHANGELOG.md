@@ -11,8 +11,8 @@ The **file-integrity scan** stops reporting attachments and
 avatars that WeKan deleted itself as missing, which had buried real
 **StorageBleed** findings under thousands of false ones. The recurring-checklist
 reset no longer scans every **checklist** on each tick. In the **REST API**, a
-refused custom-field update changes nothing, and ownership transfer takes only
-the boards the user administers and finishes before it replies.
+refused custom-field update changes nothing, ownership transfer takes only the
+boards the user administers, and deleting a missing integration answers 404.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
