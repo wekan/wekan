@@ -5,6 +5,17 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **file-integrity scan** stops reporting attachments and
+avatars that WeKan deleted itself as missing, which had buried real
+**StorageBleed** findings under thousands of false ones. The recurring-checklist
+reset no longer scans every **checklist** on each tick. In the **REST API**, a
+refused custom-field update changes nothing, and ownership transfer takes only
+the boards the user administers and finishes before it replies.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.10 2026-11-13 WeKan ® release
 
 The release's **Snap Store** credential check bounds each

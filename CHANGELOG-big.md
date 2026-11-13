@@ -124,6 +124,95 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **file-integrity scan** stops reporting attachments and
+avatars that WeKan deleted itself as missing, which had buried real
+**StorageBleed** findings under thousands of false ones. The recurring-checklist
+reset no longer scans every **checklist** on each tick. In the **REST API**, a
+refused custom-field update changes nothing, and ownership transfer takes only
+the boards the user administers and finishes before it replies.
+
+This release fixes the following bugs:
+
+**The file-integrity scan** - what it counts as a missing file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec05ff008928c390b11fec225c564f2dd209ec7f">Files WeKan deleted or moved itself are no longer reported missing</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The daily scan keeps one baseline per stored file and reports a baseline whose
+file is gone as a StorageBleed. Nothing removed a baseline, so every attachment
+the retention purge deleted and every avatar a user deleted was reported on
+every run from then on; one finding was folded 1,164 times. The baseline is now
+forgotten in Attachments and Avatars `onAfterRemove`, for every version path.
+That is the retention purge's path: Meteor-Files unlinks the files itself after
+that hook, without going through the store strategy. It is also forgotten in
+the filesystem strategy's `unlink()` and, for the old path, in `rename()`. A
+file that vanishes any other way keeps its baseline and is still reported.
+Baselines orphaned before this fix stay until removed, as
+[#6898](https://github.com/wekan/wekan/issues/6898) describes.
+`tests/integrityBaselineForgottenOnDelete.test.cjs` fails on a delete or rename
+in the filesystem strategy that does not forget its baseline, and
+`tests/playwright/specs/integrity-baseline-on-delete.e2e.js` deletes an avatar
+in the UI.
+
+</details>
+
+**Database indexes** - the queries the background jobs make.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c37575f1faff4e8ca518c7eae0ba7e50d05c1fae">The recurring-checklist reset reads only recurring checklists</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The reset cron asks for every checklist with a `resetInterval` on each tick,
+and with no index that read the whole collection (about 45,000 documents on the
+reporting instance), shown as a collection scan on Admin Panel / Problems. A
+partial index on `resetInterval`, like the one recurring cards got, holds only
+the recurring checklists. `tests/checklistResetIndex.test.cjs` pins the index
+and a selector that can use it.
+
+</details>
+
+**The REST API** - custom fields and ownership transfer.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a81ec6ecdfea8a0b0709d7c0cd463cfd051ca80f">A refused custom-field update leaves the whole field unchanged</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`PUT /api/boards/:boardId/custom-fields/:customFieldId` wrote each property
+with its own update, so a refused `type` or `settings` left the name and flags
+sent before it already saved. The properties are now saved in one board-scoped
+update that the schema accepts or refuses as a whole. Authorization, the field
+allowlist and the reply are unchanged. `tests/restCustomFieldUpdate.test.cjs`
+and `tests/playwright/specs/rest-custom-field-update.e2e.js` cover both.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b4db92a1b97eae43770e56082012073d87c4c9a">Ownership transfer takes only the boards the user administers</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`takeOwnership` selected boards where the user was a member and somebody, not
+necessarily the user, was an administrator. The user and the administrator flag
+are now matched on the same member, so a board where the user is an ordinary
+member is left as it is. `tests/restOwnershipSelection.test.cjs` and
+`tests/playwright/specs/rest-ownership-selection.e2e.js` cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8e25952aa6b244b76891c3fa3cdc1779d35a78f">Ownership transfer finishes before it replies, and a deleted account leaves the board when removed</a>. Thanks to xet7.</summary>
+
+`takeOwnership` called the async `changeOwnership()` without `await`, so the
+reply was sent before the board changed and a failed update was an unhandled
+rejection behind a 200. `Boards.removeMember` tested
+`!ReactiveCache.getUser(id)`, which on the server is a Promise and always
+truthy. Because of that, the branch that removes a member whose account was
+deleted never ran there, and that member only lingered as inactive. Both
+calls are awaited now. `tests/reactiveCacheNegatedAwait.test.cjs` fails on any
+negated un-awaited `ReactiveCache` lookup in `server/` or `models/`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.10 2026-11-13 WeKan ® release
 
 **In short:** The release's **Snap Store** credential check bounds each
