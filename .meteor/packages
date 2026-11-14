@@ -19,12 +19,12 @@ blaze@3.0.2
 aldeed:collection2
 aldeed:schema-index@4.0.0-beta.5
 reywood:publish-composite
-mongo@2.6.0
+mongo@2.6.1
 
 # Account system
-accounts-password@3.3.2
+accounts-password@3.3.3
 accounts-2fa@3.1.1
-accounts-express@1.0.0
+accounts-express@1.0.1
 communitypackages:core
 communitypackages:unstyled
 communitypackages:flow-routing

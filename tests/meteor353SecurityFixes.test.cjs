@@ -26,7 +26,7 @@ const { METEOR_SECURITY_KEYS, meteorSecurityEvent } = require('../models/lib/met
 const { CATALOG } = require('../models/lib/securityCategories.js');
 
 const { METEOR_PACKAGE_FORKS: FORKS } = require('./lib/meteorPackageForks.cjs');
-const BASE_RELEASE = 'METEOR@3.6';
+const BASE_RELEASE = 'METEOR@3.6.1';
 // The wrap number a fork adds to the release's own version of the package.
 const FORK_VERSION = /^\d+\.\d+\.\d+_1$/;
 
@@ -71,8 +71,9 @@ const SOURCES = ['packages', 'server', 'models', 'imports', 'client']
 
 test(`the forks are for ${BASE_RELEASE}, and none outlives it`, () => {
   // A local package overrides the release's own SILENTLY. Moved to another
-  // Meteor release, these would keep 3.6's code under the new release's
-  // name. So this fails the moment .meteor/release changes: check whether the
+  // Meteor release, these would keep the old release's code under the new
+  // release's name (3.6.1 is why ddp-server is 3.6.1_1: 3.6.1 changed only
+  // ddp-server of the six, and its fixes were rebased onto the fork). So this fails the moment .meteor/release changes: check whether the
   // new release has the 3.5.3 fixes (the GitHub release notes list them) and
   // delete packages/<name> for each that does, or rebase the fork onto it.
   assert.strictEqual(read('.meteor/release').trim(), BASE_RELEASE,
@@ -84,10 +85,27 @@ test('every fork is marked as one, and .meteor/versions resolves to it', () => {
   const versions = read('.meteor/versions');
   for (const name of FORKS) {
     const version = read(`packages/${name}/package.js`).match(/version:\s*'([^']+)'/)[1];
-    assert.match(version, FORK_VERSION, `${name}'s fork keeps 3.6's version with a _1 wrap number: ${version}`);
+    assert.match(version, FORK_VERSION, `${name}'s fork keeps the release's version with a _1 wrap number: ${version}`);
     assert.ok(versions.split('\n').includes(`${name}@${version}`),
       `.meteor/versions must resolve ${name} to the fork ${version}`);
   }
+});
+
+test('the ddp-server fork carries Meteor 3.6.1\'s malformed-message fixes', () => {
+  // Rebasing the fork onto 3.6.1 is what lets the 3.6.1 release resolve at
+  // all (it pins ddp-server@~3.6.1), and a fork that only bumped its version
+  // would hide 3.6.1's own fixes under 3.6.1's name.
+  const src = read('packages/ddp-server/livedata_server.js');
+  const unsub = cut(src, 'unsub: function (msg)');
+  assert.match(unsub, /typeof \(msg\.id\) !== "string"[\s\S]*Malformed unsubscription[\s\S]*return;/,
+    'unsub refuses a non-string id before stopping a subscription');
+  assert.match(src, /'id' in msg_in && typeof msg_in\.id !== "string"[\s\S]{0,80}Malformed ping/,
+    'a ping with a non-string id is refused, not echoed into a pong');
+  assert.match(src, /try \{\s*result = self\.protocol_handlers\[msg\.msg\]\.call\(self, msg, unblock\);\s*\} catch \(e\) \{\s*result = Promise\.reject\(e\);/,
+    'a protocol handler that throws synchronously is contained like a rejected one');
+  // Negative: the pre-3.6.1 shapes are gone.
+  assert.ok(!/self\._respondToPings\)\s*self\.send\(\{msg: "pong"/.test(src), 'no unconditional pong');
+  assert.ok(!/const result = self\.protocol_handlers\[msg\.msg\]\.call\(/.test(src), 'no uncontained handler call');
 });
 
 test('ddp-server leaves out the git-fetched uWebSockets.js, as Meteor\'s published package does', () => {
