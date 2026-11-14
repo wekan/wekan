@@ -52,7 +52,7 @@
     "enhanced-resolve": "5.26.0",
     "minimatch": "^11.0.1",
     "mongodb": "^7.7.0",
-    "puppeteer": "^25.15.0",
+    "puppeteer": "^25.17.0",
     "sinon": "^22.1.0",
     "sinon-chai": "^4.0.1",
     "style-loader": "^4.0.0"
