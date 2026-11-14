@@ -118,7 +118,7 @@
     "pdfkit": "^0.20.2",
     "pretty-ms": "^10.0.0",
     "qrcode-generator": "2.0.4",
-    "sanitize-html": "^2.18.1",
+    "sanitize-html": "^2.18.2",
     "sharp": "^0.35.5",
     "temml": "^0.14.0",
     "underscore": "^1.13.8",
