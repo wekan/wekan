@@ -127,11 +127,54 @@ its reason.
 # Upcoming WeKan ® release
 
 **In short:** WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses
-malformed messages without stalling the connection. The embedded-engine
-benchmark's Go module takes **OpenTelemetry 1.47.0** and **klauspost/compress
-1.20.2** for Dependabot and govulncheck findings.
+malformed messages without stalling the connection. **One shared list header
+row** now shows the same lists in every swimlane, scrolling together, and
+**Shift+M** and **Shift+C** open Move Card and Copy Card. Those popups
+remember the swimlane and list, not only the board. The embedded-engine
+benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert.
 
-This release updates the following dependencies:
+This release adds the following new features:
+
+**Keyboard shortcuts** - the opened card's actions from the keyboard.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8508c150159a160b13b45505065ff788171a777a">Shift+M opens Move Card and Shift+C opens Copy Card</a>. Thanks to mimZD and xet7.</summary>
+
+They act on the opened card, or on the hovered or selected minicard, which is
+opened first, as the `d` due date shortcut does. They click the card's menu and
+then its Move Card or Copy Card item, so the menu's permissions decide: Move
+Card for board admins, Copy Card for everyone who is not a Worker, and a menu
+without the item is closed again. Shift keeps them apart from `m` (assign
+yourself) and `c` (archive). The shortcut list names them with the already
+translated popup titles. User-defined shortcuts, also asked in
+[#6904](https://github.com/wekan/wekan/issues/6904), are not part of this.
+`tests/cardMenuKeyboardShortcut.test.cjs` drives the DOM logic, and
+`tests/playwright/specs/move-copy-keyboard-shortcut-6904.e2e.js` presses the
+keys, with shortcuts off, while typing, and as a non-admin member.
+
+</details>
+
+**The Swimlanes view** - swimlanes that share their lists.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/67321dcb6c071e1d9572fb79eb344349178d274b">One shared list header row shows the same lists in every swimlane, scrolling together</a>. Thanks to mimZD and xet7.</summary>
+
+The setting only hid the list headers of every swimlane but the first, while
+each swimlane kept lists of its own: a new swimlane showed no lists, and each
+scrolled sideways alone. With it on, every swimlane now shows all of the
+board's lists under the one header row, as swimlanes were before lists belonged
+to one, and the swimlanes scroll sideways together. Each list still holds the
+cards of the swimlane it is shown in. Nothing is written to a list or a card, so
+on a board whose swimlanes have different lists, turning the setting off shows
+each swimlane's own lists again. While it is on, a list dropped under another
+swimlane is reordered, never moved there with its cards.
+`tests/sharedListRow6902.test.cjs` and
+`tests/playwright/specs/shared-list-row-6902.e2e.js` cover it, with the setting
+on and off.
+
+</details>
+
+and updates the following dependencies:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed5a5349416b4e6374b2c19db480b64a7793a25c">Updated to Meteor 3.6.1</a>. Thanks to xet7.</summary>
@@ -166,9 +209,49 @@ accepted, pinned to its commit.
 
 Thanks to dependabot.
 
-and has the following developer-tooling fix:
+and fixes the following bugs:
 
-- [The Meteor skills' npm fallback install works with npm 12](https://github.com/wekan/wekan/commit/58273d2bf8d43bcd6a4ef36cbe657668db1569aa). Thanks to xet7.
+**Move and Copy card** - where their popups open.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b47ec81a72aab1ab8d04addb8fe41b7e0181841">They open on the swimlane and list chosen last time, not only the board</a>. Thanks to mimZD and xet7.</summary>
+
+The remembered swimlane and list were checked right after subscribing to the
+remembered board. For another board than the open one, its swimlanes and lists
+had not arrived yet, so both were reset to the first. That check now waits for
+the board's documents, and falls back to the first swimlane and list only when
+a remembered one is really gone. The same picker serves Move, Copy, Link to
+board, Copy many and Convert checklist item to card.
+`tests/moveCopyRemembersDestination6901.test.cjs` runs the real dialog classes
+with the board arriving later, and
+`tests/playwright/specs/move-copy-remembers-destination-6901.e2e.js` opens the
+popups.
+
+</details>
+
+**The Swimlanes view** - the swimlane resize line.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d5109b4b9d7f77205e6ba8fd2c581a9c4720ff9">The resize line reaches the right edge of a swimlane scrolled to the right</a>. Thanks to mimZD and xet7.</summary>
+
+The swimlane-height resize handle sits in the swimlane that scrolls its row of
+lists sideways, so it moved with the lists, and after scrolling right by some
+distance the line stopped that far short of the right edge. It now follows the
+swimlane's scroll, in right-to-left boards too.
+`tests/swimlaneResizeHandleScroll6903.test.cjs` and
+`tests/playwright/specs/swimlane-resize-handle-scroll-6903.e2e.js` measure it.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Meteor skills** - the agent notes for installing Meteor.
+
+- [The npm fallback install works with npm 12](https://github.com/wekan/wekan/commit/58273d2bf8d43bcd6a4ef36cbe657668db1569aa). Thanks to xet7.
+
+**Node test suites** - tests that depended on the machine.
+
+- [The npmRetry test passes with a localized bash](https://github.com/wekan/wekan/commit/e95596c3b0c7a71f235bcb16ba2b703c41fc648e). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

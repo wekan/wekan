@@ -8,9 +8,11 @@ make changes there.
 # Upcoming WeKan ® release
 
 WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses
-malformed messages without stalling the connection. The embedded-engine
-benchmark's Go module takes **OpenTelemetry 1.47.0** and **klauspost/compress
-1.20.2** for Dependabot and govulncheck findings.
+malformed messages without stalling the connection. **One shared list header
+row** now shows the same lists in every swimlane, scrolling together, and
+**Shift+M** and **Shift+C** open Move Card and Copy Card. Those popups
+remember the swimlane and list, not only the board. The embedded-engine
+benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
