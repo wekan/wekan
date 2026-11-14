@@ -279,14 +279,22 @@ WebApp.handlers.delete(
     const paramDropdownItemId = req.params.dropdownItemId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
-    await CustomFields.direct.updateAsync(
-      { _id: paramCustomFieldId, boardIds: { $in: [paramBoardId] } },
+    const updated = await CustomFields.direct.updateAsync(
+      {
+        _id: paramCustomFieldId,
+        boardIds: { $in: [paramBoardId] },
+        'settings.dropdownItems._id': paramDropdownItemId,
+      },
       {
         $pull: {
           'settings.dropdownItems': { _id: paramDropdownItemId },
         },
       },
     );
+    if (updated === 0) {
+      sendJsonResult(res, { code: 404, data: { error: 'Dropdown item not found' } });
+      return;
+    }
 
     sendJsonResult(res, {
       code: 200,
