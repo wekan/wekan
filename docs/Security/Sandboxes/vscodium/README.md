@@ -411,7 +411,7 @@ IMPORTANT — use the SAME versions WeKan/FerretDB use, not whatever is newest:
 - Node.js: the exact `NODE_VERSION` from `Dockerfile` (currently `v26.9.0`).
 - npm: the `NPM_VERSION` from `Dockerfile` (currently `12.0.2`; the npm bundled with the
   pinned Node is acceptable if pinning fails).
-- Meteor: the release in `.meteor/release` (currently `METEOR@3.6-beta.1`).
+- Meteor: the release in `.meteor/release` (currently `METEOR@3.6.1`).
 - Go (for FerretDB ONLY): the NEWEST Go release (`https://go.dev/VERSION?m=text`) — this
   is intentionally newer than `FerretDB/build.sh`'s pinned `GO_VERSION`.
 
