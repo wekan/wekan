@@ -124,6 +124,54 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses
+malformed messages without stalling the connection. The embedded-engine
+benchmark's Go module takes **OpenTelemetry 1.47.0** and **klauspost/compress
+1.20.2** for Dependabot and govulncheck findings.
+
+This release updates the following dependencies:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5a5349416b4e6374b2c19db480b64a7793a25c">Updated to Meteor 3.6.1</a>. Thanks to xet7.</summary>
+
+`meteor update --release METEOR@3.6.1` refused it: Meteor 3.6.1 pins
+`ddp-server@~3.6.1`, and WeKan's local fork of ddp-server was `3.6.0_1`. Of
+WeKan's six Meteor package forks only ddp-server changed in 3.6.1, so its fixes
+are rebased onto the fork, now `3.6.1_1`: a non-string unsubscription or ping
+id is refused, and a protocol handler that throws synchronously is contained.
+The packages 3.6.1 bumps (accounts-base, accounts-express, accounts-password,
+minimongo, mongo, webapp) are updated. WeKan configures OAuth services on the
+server only, so 3.6.1's restriction on client-side configuration does not
+affect it. `tests/meteor353SecurityFixes.test.cjs` checks that the fork carries
+the 3.6.1 fixes and not the older code.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0566bf6ec8b40d5af0ff317babfced7072424d57">The Docker image and the Bun build use Meteor 3.6.1</a>. Thanks to xet7.</summary>
+
+The Dockerfile's `METEOR_RELEASE` is `METEOR@3.6.1`. The Bun build refused
+every release but 3.6; its patch applies unchanged to 3.6.1, so 3.6.1 is
+accepted, pinned to its commit.
+
+</details>
+
+- [OpenTelemetry 1.42.0 → 1.47.0 and klauspost/compress 1.18.7 → 1.20.2 in the Go module of the embedded-engine benchmark](https://github.com/wekan/wekan/commit/e0eb6c64dbd976f2195563c59f169e8129855a34).
+  Dependabot alert \#189: attribute values made of U+FFFD runes bypassed
+  OpenTelemetry's AttributeValueLengthLimit. govulncheck then reported
+  GO-2026-6865 in klauspost/compress. A test holds every `go.mod` at or above
+  these floors.
+
+Thanks to dependabot.
+
+and has the following developer-tooling fix:
+
+- [The Meteor skills' npm fallback install works with npm 12](https://github.com/wekan/wekan/commit/58273d2bf8d43bcd6a4ef36cbe657668db1569aa). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.11 2026-11-13 WeKan ® release
 
 **In short:** The **file-integrity scan** stops reporting attachments and

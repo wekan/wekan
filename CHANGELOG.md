@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses
+malformed messages without stalling the connection. The embedded-engine
+benchmark's Go module takes **OpenTelemetry 1.47.0** and **klauspost/compress
+1.20.2** for Dependabot and govulncheck findings.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.11 2026-11-13 WeKan ® release
 
 The **file-integrity scan** stops reporting attachments and
