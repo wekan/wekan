@@ -86,22 +86,18 @@ export class BoardSwimlaneListDialog {
       }
     }
     this.getBoardData(this.selectedBoardId.get());
-    if (
-      !this.selectedSwimlaneId.get() ||
-      !ReactiveCache.getSwimlane({
-        _id: this.selectedSwimlaneId.get(),
-        boardId: this.selectedBoardId.get(),
-      })
-    ) {
+    // #6901: the remembered swimlane and list are NOT checked against the
+    // client's documents here. getBoardData has only just subscribed to the
+    // remembered board, so when it is another board than the open one its
+    // swimlanes and lists have not arrived yet: checking now found neither,
+    // replaced both with the first of nothing (''), and only the board was
+    // remembered. getBoardData's onReady makes the same check once the board's
+    // documents are there, and falls back to the first swimlane and list only
+    // when a remembered one is really gone.
+    if (!this.selectedSwimlaneId.get()) {
       this.setFirstSwimlaneId();
     }
-    if (
-      !this.selectedListId.get() ||
-      !ReactiveCache.getList({
-        _id: this.selectedListId.get(),
-        boardId: this.selectedBoardId.get(),
-      })
-    ) {
+    if (!this.selectedListId.get()) {
       this.setFirstListId();
     }
   }
