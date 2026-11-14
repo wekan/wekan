@@ -20,7 +20,8 @@ permitted move/copy/archive actions. Resize with the lane's resize handle when
 the board administrator has not locked resizing.
 
 - [Board Settings / Swimlane](../Board-Sidebar/Board-Settings/Swimlane.md):
-  resize locking and WIP Limit Groups
+  resize locking, WIP Limit Groups, and **One shared list header row** for the
+  same lists in every swimlane
 - [Lists](../Lists/Lists.md): create a first list with the empty lane's **+**
 - [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md)
 
