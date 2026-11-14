@@ -131,7 +131,8 @@ malformed messages without stalling the connection. **One shared list header
 row** now shows the same lists in every swimlane, scrolling together, and
 **Shift+M** and **Shift+C** open Move Card and Copy Card. Those popups
 remember the swimlane and list, not only the board. The embedded-engine
-benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert.
+benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert. Deleting a
+missing custom field or dropdown item through the **REST API** answers 404.
 
 This release adds the following new features:
 
@@ -240,6 +241,34 @@ distance the line stopped that far short of the right edge. It now follows the
 swimlane's scroll, in right-to-left boards too.
 `tests/swimlaneResizeHandleScroll6903.test.cjs` and
 `tests/playwright/specs/swimlane-resize-handle-scroll-6903.e2e.js` measure it.
+
+</details>
+
+**The REST API** - deleting a custom field or one of its dropdown items.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2733c8ba65342dfb0bdfbbddff03f366ac8756b5">Deleting a missing or another board's custom field answers 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`DELETE /api/boards/:boardId/custom-fields/:customFieldId` answered 200 for a
+custom field that did not exist, was on another board or was already deleted,
+because the removal matched nothing and the reply did not check. It now answers
+a JSON 404 when the board-scoped removal removes nothing. A real deletion still
+answers 200 and its `before.remove` hook still clears the field's values from
+the board's cards and its activities. `tests/restCustomFieldDelete.test.cjs`
+and `tests/playwright/specs/rest-custom-field-delete.e2e.js` cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cefb6771cbde23a468526448256f182309c49bdd">Deleting a missing dropdown item of a custom field answers 404</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`DELETE` of a custom field's `dropdown-items/:dropdownItemId` answered 200
+even when the custom field had no such item, because `$pull` of an absent item
+still matched the field. The update now also requires the item
+to be in `settings.dropdownItems`, so a missing item, a missing field or one
+on another board matches nothing and answers a JSON 404, while the other items
+stay. `tests/restDropdownItemDelete.test.cjs` and
+`tests/playwright/specs/rest-dropdown-item-delete.e2e.js` cover it.
 
 </details>
 
