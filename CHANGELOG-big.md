@@ -131,10 +131,33 @@ malformed messages without stalling the connection. **One shared list header
 row** now shows the same lists in every swimlane, scrolling together, and
 **Shift+M** and **Shift+C** open Move Card and Copy Card. Those popups
 remember the swimlane and list, not only the board. The embedded-engine
-benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert. Deleting a
-missing custom field or dropdown item through the **REST API** answers 404.
+benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert. A **REST
+API** write that changes nothing answers 404, and a card deletion naming the
+wrong list no longer strips the card's checklists (**ListLockBleed**).
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUE of [ListLockBleed](https://wekan.fi/hall-of-fame/listlockbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4c0d3e8820520dc7b1cef5b27e9e3e516a67158">A card deletion naming another list no longer strips the card's checklists and comments</a>. Thanks to xet7.</summary>
+
+A follow-up to [ListLockBleed](https://wekan.fi/hall-of-fame/listlockbleed/),
+[GHSA-4734-8vrg-8j3w](https://github.com/wekan/wekan/security/advisories/GHSA-4734-8vrg-8j3w),
+found while checking the REST deletions. `DELETE
+/api/boards/:boardId/lists/:listId/cards/:cardId` found the card by board
+alone, removed its checklists, checklist items, comments and attachments, and
+only then removed the card by board AND list. With the wrong list id the card
+stayed, emptied, and the reply was 200. Only the list in the URL was asked
+whether the caller may write, so a member a list refuses could strip the cards
+of that list by naming one they may write. The card now has to be in the named
+list, its own list is asked as well, and the refusal shows in Admin Panel /
+Problems as `authz.list-locked`. `tests/restWriteRoutes404.test.cjs` runs the
+handler on both cases and requires the list check before anything is removed,
+and `tests/playwright/specs/rest-write-routes-404.e2e.js` checks that the
+checklist survives against a running server.
+
+</details>
+
+and adds the following new features:
 
 **Keyboard shortcuts** - the opened card's actions from the keyboard.
 
@@ -244,7 +267,7 @@ swimlane's scroll, in right-to-left boards too.
 
 </details>
 
-**The REST API** - deleting a custom field or one of its dropdown items.
+**The REST API** - a write that changes nothing answers 404, not 200.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2733c8ba65342dfb0bdfbbddff03f366ac8756b5">Deleting a missing or another board's custom field answers 404</a>. Thanks to AhmedLukman and xet7.</summary>
@@ -269,6 +292,30 @@ to be in `settings.dropdownItems`, so a missing item, a missing field or one
 on another board matches nothing and answers a JSON 404, while the other items
 stay. `tests/restDropdownItemDelete.test.cjs` and
 `tests/playwright/specs/rest-dropdown-item-delete.e2e.js` cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4c0d3e8820520dc7b1cef5b27e9e3e516a67158">The other deletions and updates of a record that is not there answer 404 too</a>. Thanks to xet7.</summary>
+
+The two entries above, and the integrations of #6900, had siblings that
+answered 200 for a change that changed nothing: deleting a swimlane, a list
+(also an already deleted one), a card, a card dependency or a board domain
+that is not there; renaming a missing custom field (even with an empty body),
+adding dropdown items to one, or renaming a dropdown item it does not have;
+updating a dependency the card does not have; adding or removing a member of a
+board that does not exist, a user that does not exist, or a user who is not a
+member; and deleting the tokens of a user that does not exist. Each now looks
+the record up on its board first and answers a JSON 404, and removing a
+board's last admin, which the board keeps, answers 409. Member removal also
+deactivates the active entry of a user listed twice, not the first entry. An
+unknown token of a real user still answers 200: revoking makes sure it is
+gone. `tests/restWriteRoutes404.test.cjs` runs each handler with the record
+missing and present, and fails for any REST write in `server/` whose path
+names a record and that has no 404; `DELETE /api/boards/:boardId` was already
+right, because the board check answers 404 first.
+`tests/playwright/specs/rest-write-routes-404.e2e.js` replays them against a
+running server.
 
 </details>
 

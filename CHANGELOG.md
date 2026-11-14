@@ -12,8 +12,9 @@ malformed messages without stalling the connection. **One shared list header
 row** now shows the same lists in every swimlane, scrolling together, and
 **Shift+M** and **Shift+C** open Move Card and Copy Card. Those popups
 remember the swimlane and list, not only the board. The embedded-engine
-benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert. Deleting a
-missing custom field or dropdown item through the **REST API** answers 404.
+benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert. A **REST
+API** write that changes nothing answers 404, and a card deletion naming the
+wrong list no longer strips the card's checklists (**ListLockBleed**).
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
