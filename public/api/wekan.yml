@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.11
+  version: v13.12
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -1828,6 +1828,14 @@ paths:
             properties:
               _id:
                 type: string
+        '404':
+          description: |-
+            The card, or its dependency on that target, was not found.
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
   /api/boards/{board}/cards/bulk:
     delete:
       operationId: delete_board_cards_bulk
@@ -2371,7 +2379,7 @@ paths:
         #5850: remove a single email domain from a board's `domains`
          array. The domain in the path is trimmed and lowercased before matching.
          Requires the caller to be a board admin (or site admin). Returns the updated
-         domains array.
+         domains array; a domain the board does not have is HTTP 404.
       tags:
         - Boards
         - Boards
@@ -2405,6 +2413,14 @@ paths:
                   type: string
                 isActive:
                   type: boolean
+        '404':
+          description: |-
+            The board does not have that domain.
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
   /api/boards/{board}/export:
     get:
       operationId: exportJson
