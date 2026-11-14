@@ -222,8 +222,10 @@ test('a caller\'s function in npm-retry.sh fails as it did, and its program work
   // (CodeQL alert #601, js/shell-command-injection-from-environment): a
   // temporary directory with a quote, `$(` or a backtick would change it.
   // NODE_BIN is not node_bin, so npm-retry.sh's bash still lacks the variable.
+  // LC_ALL=C: the assertion below reads bash's own message, which a localized
+  // bash words in its language ("sitomaton muuttuja" in Finnish).
   const run = body => spawnSync('bash', ['-c', `set -u; node_bin="$NODE_BIN"; npm() { "$node_bin" "$@"; }; export -f npm; ${body}`],
-    { encoding: 'utf8', env: { ...process.env, NPM_RETRY_SLEEPS: '0', NODE_BIN: prog, NPM_RETRY_SCRIPT: script } });
+    { encoding: 'utf8', env: { ...process.env, LC_ALL: 'C', LANGUAGE: '', NPM_RETRY_SLEEPS: '0', NODE_BIN: prog, NPM_RETRY_SCRIPT: script } });
   const viaFunction = run('bash "$NPM_RETRY_SCRIPT" npm install');
   assert.notStrictEqual(viaFunction.status, 0, 'the function, without its variable, fails');
   assert.match(viaFunction.stdout + viaFunction.stderr, /node_bin: unbound variable/);
