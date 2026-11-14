@@ -72,7 +72,7 @@ installer permanently to global npm packages.
 | Latest supported CLI | Run `npx meteor`. |
 | Pinned installer package | Run `npx meteor@<version> install`, then verify the reported Meteor release. |
 | Linux or macOS alternative | `curl https://install.meteor.com/ \| sh` remains documented. Keep `npx meteor` as the primary cross-platform command. |
-| npm fallback | Run `npm install -g meteor --foreground-script` only after the documented `npx` recovery steps fail. |
+| npm fallback | Run `npm install -g meteor --foreground-scripts --allow-scripts=meteor` only after the documented `npx` recovery steps fail. |
 | Existing project needs another release | Use the project's pin or a Meteor `--release` command. Do not replace the user-wide installation first. |
 
 Never run `npx install meteor`. Never add the npm `meteor` installer to an
