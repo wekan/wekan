@@ -16,6 +16,7 @@ import { currentUserWith } from '/client/lib/currentUserWith';
 import { TAPi18n } from '/imports/i18n';
 import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpers';
 import { errorMessage } from '/client/lib/errorMessage';
+import { keepResizeHandleInView } from '/client/components/swimlanes/resizeHandleScroll';
 const { calculateIndex } = Utils;
 
 // #4223 (Bigboard): normally exactly one board's lists are ever on the page,
@@ -742,6 +743,10 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
   $resizeHandle.on('mousedown', (e) => {
     e.stopPropagation();
   });
+
+  // #6903: the handle spans the whole visible width of the swimlane however
+  // far its row of lists is scrolled (resizeHandleScroll.js).
+  keepResizeHandleInView($resizeHandle[0], $swimlane[0]);
 }
 
 Template.swimlane.helpers({

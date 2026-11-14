@@ -312,7 +312,9 @@
   cursor: row-resize;
   z-index: 20;
   border-top: 2px solid transparent;
-  transition: all 0.2s ease;
+  /* #6903: not `all` - the handle is shifted with the row's horizontal scroll
+     (resizeHandleScroll.js), and an animated transform trailed behind it. */
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   border-radius: 2px;
   /* Ensure the handle is clickable */
   pointer-events: auto;
