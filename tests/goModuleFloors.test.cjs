@@ -10,6 +10,14 @@
 // so the floors are the versions that report none: x/net 0.62.0, x/text 0.43.0 (which
 // x/net 0.62.0 requires) and OpenTelemetry 1.42.0.
 //
+// Dependabot alert #189 (Go): go.opentelemetry.io/otel/trace >= 1.35.0, < 1.47.0
+// in the same module - AttributeValueLengthLimit is bypassed by attribute values
+// made of valid U+FFFD runes (an incomplete fix of GHSA-p9f8-wvj8-2fg8; the same
+// truncation code is in otel/sdk and otel/sdk/log). OpenTelemetry's modules are
+// released together, so the 1.47.0 floor holds for every one of them.
+// govulncheck then reported GO-2026-6865 in github.com/klauspost/compress
+// 1.18.7 (fixed in 1.20.2), so that floor moved too.
+//
 // The floors hold for EVERY go.mod in the repository, not only the one that was
 // reported, so the same old version cannot return in another Go module.
 //
@@ -22,11 +30,16 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 
 const FLOORS = {
-  'github.com/klauspost/compress': '1.18.7',
+  'github.com/klauspost/compress': '1.20.2',
   'golang.org/x/net': '0.62.0',
   'golang.org/x/text': '0.43.0',
   'github.com/golang/glog': '1.2.4',
-  'go.opentelemetry.io/otel': '1.42.0',
+  'go.opentelemetry.io/otel': '1.47.0',
+  'go.opentelemetry.io/otel/trace': '1.47.0',
+  'go.opentelemetry.io/otel/metric': '1.47.0',
+  'go.opentelemetry.io/otel/log': '1.47.0',
+  'go.opentelemetry.io/otel/sdk': '1.47.0',
+  'go.opentelemetry.io/otel/sdk/log': '1.47.0',
 };
 
 function versionParts(v) {
@@ -85,7 +98,8 @@ for (const file of files) {
 
 // 2. The reported module requires the patched modules, not merely does not name old ones.
 const reported = requires(fs.readFileSync(path.join(ROOT, 'docs/Databases/FerretDB/1/SpeedTest/embedded/go.mod'), 'utf8'));
-for (const module of ['github.com/klauspost/compress', 'golang.org/x/net', 'github.com/golang/glog']) {
+for (const module of ['github.com/klauspost/compress', 'golang.org/x/net', 'github.com/golang/glog',
+  'go.opentelemetry.io/otel', 'go.opentelemetry.io/otel/trace']) {
   const r = reported.find(x => x.module === module);
   assert.ok(r, `${module} is required`);
   assert.notEqual(compare(r.version, FLOORS[module]), -1, `${module} ${r.version}`);
@@ -93,16 +107,23 @@ for (const module of ['github.com/klauspost/compress', 'golang.org/x/net', 'gith
 
 // 3. Negative: the check does reject what the alerts named, in both forms of go.mod.
 assert.deepEqual(violations('module m\n\nrequire (\n\tgithub.com/klauspost/compress v1.18.6 // indirect\n\tgolang.org/x/net v0.54.0\n)\n'), [
-  'github.com/klauspost/compress v1.18.6 is below 1.18.7',
+  'github.com/klauspost/compress v1.18.6 is below 1.20.2',
   'golang.org/x/net v0.54.0 is below 0.62.0',
 ]);
+// Alert #189: the otel/trace version it named, and a stale sibling, are rejected.
+assert.deepEqual(violations('module m\n\nrequire (\n\tgo.opentelemetry.io/otel/trace v1.42.0 // indirect\n\tgo.opentelemetry.io/otel/sdk v1.46.0\n\tgo.opentelemetry.io/otel v1.47.0\n)\n'), [
+  'go.opentelemetry.io/otel/trace v1.42.0 is below 1.47.0',
+  'go.opentelemetry.io/otel/sdk v1.46.0 is below 1.47.0',
+]);
+assert.deepEqual(violations('module m\nrequire go.opentelemetry.io/otel/trace v1.47.0\n'), []);
 assert.deepEqual(violations('module m\nrequire github.com/golang/glog v1.0.0\n'), ['github.com/golang/glog v1.0.0 is below 1.2.4']);
-assert.deepEqual(violations('module m\nrequire (\n\tgithub.com/klauspost/compress v1.18.7\n\tgolang.org/x/net v0.62.0\n\tgolang.org/x/text v0.43.0\n)\n'), []);
+assert.deepEqual(violations('module m\nrequire github.com/klauspost/compress v1.18.7\n'), ['github.com/klauspost/compress v1.18.7 is below 1.20.2'], 'GO-2026-6865');
+assert.deepEqual(violations('module m\nrequire (\n\tgithub.com/klauspost/compress v1.20.2\n\tgolang.org/x/net v0.62.0\n\tgolang.org/x/text v0.43.0\n)\n'), []);
 // A v0.0.0 pseudo-version (an old commit of a module) is below every floor; a
 // version that is not a number at all cannot be judged.
 assert.equal(compare('v0.0.0-20230626212559-97b1e661b5df', '0.62.0'), -1);
 assert.equal(compare('latest', '0.62.0'), null);
-assert.equal(compare('v1.18.7', '1.18.7'), 0);
-assert.equal(compare('v1.18.10', '1.18.7'), 1, 'numeric, not lexical: 10 > 7');
+assert.equal(compare('v1.20.2', '1.20.2'), 0);
+assert.equal(compare('v1.20.10', '1.20.2'), 1, 'numeric, not lexical: 10 > 2');
 
 console.log(`goModuleFloors: ${files.length} go.mod file(s) at or above every floor, and the check rejects the versions the alerts named`);
