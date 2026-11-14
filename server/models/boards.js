@@ -1732,11 +1732,12 @@ WebApp.handlers.post('/api/boards/:boardId/domains', async function(req, res) {
  * @description #5850: remove a single email domain from a board's `domains`
  * array. The domain in the path is trimmed and lowercased before matching.
  * Requires the caller to be a board admin (or site admin). Returns the updated
- * domains array.
+ * domains array; a domain the board does not have is HTTP 404.
  *
  * @param {string} boardId the board ID
  * @param {string} domain the email domain to remove, e.g. "example.com"
  * @return_type [{domain: string, isActive: boolean}]
+ * @response 404 {error: string} The board does not have that domain.
  */
 WebApp.handlers.delete('/api/boards/:boardId/domains/:domain', async function(req, res) {
   try {
@@ -1760,6 +1761,12 @@ WebApp.handlers.delete('/api/boards/:boardId/domains/:domain', async function(re
     }
     const normalized = String(req.params.domain || '').trim().toLowerCase();
     const filtered = (authBoard.domains || []).filter(d => d.domain !== normalized);
+    // A domain the board does not have is 404, not a 200 for a removal that
+    // removed nothing.
+    if (filtered.length === (authBoard.domains || []).length) {
+      sendJsonResult(res, { code: 404, data: { error: 'Domain not found' } });
+      return;
+    }
     // Reuse the existing setBoardDomains method (same auth + validation).
     await Meteor.callAsync('setBoardDomains', filtered, boardId);
     const updated = await ReactiveCache.getBoard(boardId);

@@ -2765,6 +2765,10 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
       return;
     }
     const authBoard = await ReactiveCache.getBoard(boardId);
+    if (!authBoard) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
     const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
     const isSiteAdmin = isBoardAdmin
       ? true
@@ -2803,6 +2807,11 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
       return;
     }
     const target = await ReactiveCache.getUser(userId);
+    // An unknown user is 404: it used to answer 200 with no data, as if added.
+    if (!target) {
+      sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+      return;
+    }
     let data;
     // #1894: do not add a deactivated account to a board.
     if (target !== undefined && action === 'add' && target.loginDisabled) {
@@ -2865,6 +2874,10 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async functi
       return;
     }
     const authBoard = await ReactiveCache.getBoard(boardId);
+    if (!authBoard) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
     const isBoardAdmin = allowIsBoardAdmin(req.userId, authBoard);
     const isSiteAdmin = isBoardAdmin
       ? true
@@ -2881,34 +2894,33 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async functi
       sendJsonResult(res, { code: 400, data: { error: 'action must be "remove"' } });
       return;
     }
+    // A removal that removes nothing is not a 200: an unknown user or one who
+    // is not an active member is 404, and the board's last active admin, whom
+    // the board keeps, is 409. Each used to answer 200, so a script could not
+    // tell a removed member from one that was still there.
     const target = await ReactiveCache.getUser(userId);
-    let data;
-    if (target !== undefined && action === 'remove') {
-      const boards = await ReactiveCache.getBoards({ _id: boardId });
-      data = [];
-      for (const board of boards) {
-        const hasMember = board.members.some(m => m.userId === userId && m.isActive);
-        if (hasMember) {
-          const memberIndex = board.members.findIndex(m => m.userId === userId);
-          if (memberIndex >= 0) {
-            const member = board.members[memberIndex];
-            const activeAdmins = board.members.filter(m => m.isActive && m.isAdmin);
-            const allowRemove = !member.isAdmin || activeAdmins.length > 1;
-            if (!allowRemove) {
-              await Boards.updateAsync(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
-            } else {
-              await Boards.updateAsync(boardId, {
-                $set: {
-                  [`members.${memberIndex}.isActive`]: false,
-                  [`members.${memberIndex}.isAdmin`]: false,
-                },
-              });
-            }
-          }
-        }
-        data.push({ _id: board._id, title: board.title });
-      }
+    if (!target) {
+      sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+      return;
     }
+    const memberIndex = authBoard.members.findIndex(m => m.userId === userId && m.isActive);
+    if (memberIndex < 0) {
+      sendJsonResult(res, { code: 404, data: { error: 'Member not found' } });
+      return;
+    }
+    const member = authBoard.members[memberIndex];
+    const activeAdmins = authBoard.members.filter(m => m.isActive && m.isAdmin);
+    if (member.isAdmin && activeAdmins.length <= 1) {
+      sendJsonResult(res, { code: 409, data: { error: 'The last board admin cannot be removed' } });
+      return;
+    }
+    await Boards.updateAsync(boardId, {
+      $set: {
+        [`members.${memberIndex}.isActive`]: false,
+        [`members.${memberIndex}.isAdmin`]: false,
+      },
+    });
+    const data = [{ _id: authBoard._id, title: authBoard.title }];
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
@@ -3006,6 +3018,17 @@ WebApp.handlers.post('/api/deletetoken', async function(req, res) {
     let data = {
       message: 'Expected a userId to be set but received none.',
     };
+
+    // A user that does not exist is 404, not a 200 saying its tokens were
+    // deleted. An unknown TOKEN of a real user stays 200: revoking makes sure
+    // it is gone, which it is.
+    if (userId) {
+      check(userId, String);
+      if (!(await Users.findOneAsync({ _id: userId }, { fields: { _id: 1 } }))) {
+        sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+        return;
+      }
+    }
 
     if (token && userId) {
       await Accounts.destroyToken(userId, token);

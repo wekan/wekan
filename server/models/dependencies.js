@@ -57,6 +57,12 @@ async function dependencyLine(sourceCard, dep) {
 // Cards are matched in imports by _id first, then cardNumber, then exact title
 // - so a file exported from one board can be re-applied to a copy of it - and
 // an import only ADDS lines that are not there yet.
+// Whether the card has a dependency line to targetId - what the REST update
+// and delete of one dependency act on.
+function hasDependencyOn(card, targetId) {
+  return (card.cardDependencies || []).some(dep => dep && dep.cardId === targetId);
+}
+
 function forbidden() {
   const error = new Meteor.Error('not-authorized', 'Not authorized');
   error.statusCode = 403;
@@ -427,6 +433,11 @@ if (Meteor.isServer) {
       if (Object.keys(modifier).length === 0) {
         throw new Meteor.Error('bad-request', 'Provide at least one of type, color, icon');
       }
+      // A card with no dependency on that target is 404, not a 200 for an
+      // update that matched nothing.
+      if (!hasDependencyOn(card, paramTargetId)) {
+        throw new Meteor.Error('not-found', 'Dependency not found');
+      }
       await Cards.updateAsync(
         { _id: paramCardId, 'cardDependencies.cardId': paramTargetId },
         { $set: modifier },
@@ -446,6 +457,7 @@ if (Meteor.isServer) {
    * @param {string} cardId the source card ID
    * @param {string} targetId the target card ID of the dependency to remove
    * @return_type {_id: string}
+   * @response 404 {error: string} The card, or its dependency on that target, was not found.
    */
   WebApp.handlers.delete('/api/boards/:boardId/cards/:cardId/dependencies/:targetId', async function(req, res) {
     try {
@@ -457,6 +469,11 @@ if (Meteor.isServer) {
         boardId: paramBoardId,
       });
       if (!card) throw new Meteor.Error('not-found', 'Card not found');
+      // Pulling a dependency the card does not have still matches the card, so
+      // it answered 200 for a deletion that did nothing.
+      if (!hasDependencyOn(card, req.params.targetId)) {
+        throw new Meteor.Error('not-found', 'Dependency not found');
+      }
       await Cards.updateAsync(paramCardId, {
         $pull: { cardDependencies: { cardId: req.params.targetId } },
       });

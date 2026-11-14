@@ -981,9 +981,13 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
       await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     // Soft delete (docs/Features/Undo/Undo.md): mark deleted + cascade, don't destroy.
     const list = await Lists.findOneAsync({ _id: paramListId, boardId: paramBoardId });
-    if (list && !list.deletedAt) {
-      await softRemoveList({ userId: req.userId, list });
+    // A list that is not on this board, or is already deleted, is 404 - not a
+    // 200 for a deletion that did nothing.
+    if (!list || list.deletedAt) {
+      sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
+      return;
     }
+    await softRemoveList({ userId: req.userId, list });
     sendJsonResult(res, { code: 200, data: { _id: paramListId } });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));

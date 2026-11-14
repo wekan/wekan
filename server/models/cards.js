@@ -2285,15 +2285,27 @@ WebApp.handlers.delete(
         } catch (e) { /* logging must never break the guard */ }
       }
     }
+    // The card has to be in the list the URL names: the removal below is keyed
+    // on that list, and cardRemover used to run on a card found by board alone,
+    // so a card id with the wrong list id lost its checklists, comments and
+    // attachments while the card stayed and the reply was 200. That also let a
+    // member who may write the named list strip the children of a card in a
+    // list that refuses them (ListLockBleed, GHSA-4734-8vrg-8j3w), so the
+    // card's own list is asked first, which records that attempt.
+    if (card && card.listId !== paramListId) {
+      await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), card.listId, 'write', 'rest:card-delete-other-list');
+    }
+    if (!card || card.listId !== paramListId) {
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
     // Remove the card's checklists, checklist items, comments and attachments
     // BEFORE removing the card itself, so their before.remove hooks still find
     // the parent card (otherwise they dereference an undefined card and crash
     // SyncedCron with an unhandled rejection). `Cards.direct.removeAsync`
     // bypasses Cards.before.remove, so cardRemover is not run twice.
-    if (card) {
-      noteAuthorSpoof(req, 'DELETE card');
-      await cardRemover(req.userId, card);
-    }
+    noteAuthorSpoof(req, 'DELETE card');
+    await cardRemover(req.userId, card);
     await Cards.direct.removeAsync({
       _id: paramCardId,
       listId: paramListId,
@@ -2301,18 +2313,16 @@ WebApp.handlers.delete(
     });
     // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
     // the deleteCard activity here too (outgoing-webhook fires on delete).
-    if (card) {
-      await Activities.insertAsync(
-        buildDeleteCardActivity({
-          userId: req.userId,
-          cardId: card._id,
-          boardId: card.boardId,
-          listId: card.listId,
-          swimlaneId: card.swimlaneId,
-          cardTitle: card.title,
-        }),
-      );
-    }
+    await Activities.insertAsync(
+      buildDeleteCardActivity({
+        userId: req.userId,
+        cardId: card._id,
+        boardId: card.boardId,
+        listId: card.listId,
+        swimlaneId: card.swimlaneId,
+        cardTitle: card.title,
+      }),
+    );
     sendJsonResult(res, { code: 200, data: { _id: paramCardId } });
   },
 );

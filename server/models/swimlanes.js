@@ -258,6 +258,15 @@ WebApp.handlers.delete('/api/boards/:boardId/swimlanes/:swimlaneId', async funct
     const paramBoardId = req.params.boardId;
     const paramSwimlaneId = req.params.swimlaneId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    // A swimlane that is not on this board - missing, another board's, or
+    // already deleted - is 404, not a 200 for a removal that matched nothing.
+    const swimlane = await ReactiveCache.getSwimlane({
+      _id: paramSwimlaneId,
+      boardId: paramBoardId,
+    });
+    if (!swimlane) {
+      throw new Meteor.Error('not-found', 'Swimlane not found');
+    }
     await Swimlanes.removeAsync({ _id: paramSwimlaneId, boardId: paramBoardId });
     sendJsonResult(res, {
       code: 200,

@@ -22,6 +22,12 @@ function fixture({ deny = false } = {}) {
       calls.push(['access', userId, boardId]);
       if (deny) throw new Error('Forbidden');
     } },
+    // The handler looks the field up on the board first, so a field that is not
+    // there is 404 rather than a 200 for an update that matched nothing.
+    ReactiveCache: { async getCustomField(selector) {
+      calls.push(['find', plain(selector)]);
+      return selector._id === document._id && selector.boardIds.$in.some(id => document.boardIds.includes(id)) ? document : undefined;
+    } },
     CustomFields: { direct: { async updateAsync(selector, modifier) {
       calls.push(['update', plain(selector), plain(modifier)]);
       const fields = plain(modifier.$set);
@@ -66,6 +72,7 @@ test('accepted fields are saved together, including false values, with the exist
   assert.deepEqual(f.document, { _id: 'field', boardIds: ['board'], ...body });
   assert.deepEqual(f.calls, [
     ['access', 'member', 'board'],
+    ['find', { _id: 'field', boardIds: { $in: ['board'] } }],
     ['update', { _id: 'field', boardIds: { $in: ['board'] } }, { $set: body }],
   ]);
 });
@@ -76,7 +83,7 @@ test('empty or unsupported updates retain the successful response without a writ
     const before = plain(f.document);
     assert.deepEqual(await f.put(body), { code: 200, data: { _id: 'field' } });
     assert.deepEqual(f.document, before);
-    assert.deepEqual(f.calls, [['access', 'member', 'board']]);
+    assert.deepEqual(f.calls, [['access', 'member', 'board'], ['find', { _id: 'field', boardIds: { $in: ['board'] } }]]);
   }
 });
 
@@ -93,8 +100,9 @@ test('the update stays scoped to its board and field', async () => {
   for (const params of [{ boardId: 'other' }, { customFieldId: 'missing' }]) {
     const f = fixture();
     const before = plain(f.document);
-    await f.put({ name: 'Changed' }, params);
+    assert.deepEqual(await f.put({ name: 'Changed' }, params), { code: 404, data: { error: 'Custom field not found' } });
     assert.deepEqual(f.document, before);
+    assert.equal(f.calls.some(([op]) => op === 'update'), false, 'nothing is written');
   }
 });
 

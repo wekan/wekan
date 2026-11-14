@@ -84,11 +84,18 @@ test('cardRemover only ever runs on a card that lookup returned', () => {
   const body = handler(cards, 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId');
   const at = body.indexOf('cardRemover(');
   assert.ok(at !== -1, 'it is still called');
-  // Guarded by the constrained lookup having found something: everything between
-  // `if (card) {` and the call is comment or the attempt note, never another
-  // lookup that could reintroduce a foreign card.
-  const guard = body.slice(body.indexOf('if (card) {'), body.indexOf('await cardRemover('));
-  assert.ok(guard.length > 0 && guard.length < 400, 'cardRemover sits inside the if (card) guard');
+  // Guarded by the constrained lookup having found something: the handler
+  // returns 404 when the board-scoped lookup found nothing - or found the card
+  // in another list than the one the removal is keyed on, which used to strip
+  // its children while the card stayed (tests/restWriteRoutes404.test.cjs).
+  // That early return replaced the `if (card) {` block around the call, so this
+  // pins it: everything between the return and the call is comment or the
+  // attempt note, never another lookup that could reintroduce a foreign card.
+  const start = body.indexOf('if (!card || card.listId !== paramListId) {');
+  assert.ok(start !== -1, 'a missing card, or one in another list, is turned away');
+  const guard = body.slice(start, body.indexOf('await cardRemover('));
+  assert.match(guard, /code: 404[\s\S]*return;/, 'with a 404 and a return before cardRemover');
+  assert.ok(guard.length > 0 && guard.length < 700, 'cardRemover follows the guard directly');
   assert.ok(!/getCard\(/.test(guard), 'with no lookup between the guard and the call (negative)');
 });
 
@@ -299,7 +306,11 @@ test('HashBleed siblings: the member routes never answer with the user document'
     const route = users.slice(at, users.indexOf('\nWebApp.handlers.', at + 10));
     const refuse = route.indexOf(`if (action !== '${action}') {`);
     assert.ok(refuse > 0 && refuse < route.indexOf('ReactiveCache.getUser(userId)'), `${action}: unknown actions are refused first`);
-    assert.match(route, /const target = await ReactiveCache\.getUser\(userId\);\s*let data;/);
+    // The user is read into `target`, to decide - never into what is answered.
+    // (An unknown user now answers 404 right after the read, so `let data` no
+    // longer follows it directly; what matters is that target is never sent.)
+    assert.match(route, /const target = await ReactiveCache\.getUser\(userId\);/);
+    assert.doesNotMatch(route, /data(?:\s*:\s*|\s*=\s*)target\b|sendJsonResult\([^)]*\btarget\b/, `${action}: target is never the answer`);
   }
 });
 

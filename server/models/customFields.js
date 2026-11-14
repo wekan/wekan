@@ -182,6 +182,12 @@ WebApp.handlers.put('/api/boards/:boardId/custom-fields/:customFieldId', async f
     _id: paramFieldId,
     boardIds: { $in: [paramBoardId] },
   };
+  // A custom field that is not on this board is 404, whatever the body holds -
+  // not a 200 for an update that matched nothing.
+  if (!(await ReactiveCache.getCustomField(boardScopedField))) {
+    sendJsonResult(res, { code: 404, data: { error: 'Custom field not found' } });
+    return;
+  }
 
   // Validate and save the requested fields together so a rejected value cannot
   // leave earlier fields persisted from the same request.
@@ -209,6 +215,10 @@ WebApp.handlers.post('/api/boards/:boardId/custom-fields/:customFieldId/dropdown
   const paramCustomFieldId = req.params.customFieldId;
   await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
   const paramItems = req.body.items;
+  if (!(await ReactiveCache.getCustomField({ _id: paramCustomFieldId, boardIds: { $in: [paramBoardId] } }))) {
+    sendJsonResult(res, { code: 404, data: { error: 'Custom field not found' } });
+    return;
+  }
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'items') && Array.isArray(paramItems)) {
     await CustomFields.direct.updateAsync(
@@ -245,6 +255,13 @@ WebApp.handlers.put(
     const paramCustomFieldId = req.params.customFieldId;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const paramName = req.body.name;
+    // The item has to be one of this board's field's items: the update below
+    // matches nothing otherwise, and that was answered 200.
+    const field = await ReactiveCache.getCustomField({ _id: paramCustomFieldId, boardIds: { $in: [paramBoardId] } });
+    if (!field || !((field.settings && field.settings.dropdownItems) || []).some(item => item && item._id === paramDropdownItemId)) {
+      sendJsonResult(res, { code: 404, data: { error: 'Dropdown item not found' } });
+      return;
+    }
 
     if (Object.prototype.hasOwnProperty.call(req.body, 'name')) {
       await CustomFields.direct.updateAsync(

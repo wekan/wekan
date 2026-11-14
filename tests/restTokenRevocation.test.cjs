@@ -49,7 +49,11 @@ function fixture({ denied, failure, waitForWrite } = {}) {
         if (users[id]) users[id] = users[id].filter(entry => entry.hashedToken !== token && entry.token !== token);
       },
     },
-    Users: { async updateAsync(selector, modifier) {
+    Users: { async findOneAsync(selector, options) {
+      calls.push('find');
+      assert.deepEqual(plain(options), { fields: { _id: 1 } });
+      return users[selector._id] ? { _id: selector._id } : undefined;
+    }, async updateAsync(selector, modifier) {
       calls.push('clear');
       assert.deepEqual(plain(modifier), { $set: { 'services.resume.loginTokens': [] } });
       users[selector._id] = [];
@@ -74,7 +78,7 @@ test('deletes the supplied stored hash without clearing other sessions or users'
   assert.equal((await f.remove({ userId: 'target', token: hash(f.issued) })).code, 200);
   assert.deepEqual(f.users.target, [{ hashedToken: hash(f.other) }]);
   assert.deepEqual(f.users.unrelated, unrelated);
-  assert.deepEqual(f.calls, ['authorize', 'destroy', 'respond']);
+  assert.deepEqual(f.calls, ['authorize', 'find', 'destroy', 'respond']);
 });
 
 test('does not acknowledge until token deletion has completed', async () => {
@@ -84,7 +88,7 @@ test('does not acknowledge until token deletion has completed', async () => {
   const pending = f.remove({ userId: 'target', token: hash(f.issued) });
   await new Promise(resolve => setImmediate(resolve));
   try {
-    assert.deepEqual(f.calls, ['authorize', 'destroy']);
+    assert.deepEqual(f.calls, ['authorize', 'find', 'destroy']);
   } finally {
     release();
   }
@@ -126,4 +130,14 @@ test('unknown tokens are harmless and omitting a token still clears all target s
   assert.equal((await f.remove({ userId: 'target' })).code, 200);
   assert.deepEqual(f.users.target, []);
   assert.deepEqual(f.users.unrelated, before.unrelated);
+});
+
+test('negative: a user that does not exist is 404, and nothing is deleted or cleared', async () => {
+  const f = fixture();
+  const before = plain(f.users);
+  for (const body of [{ userId: 'missing', token: hash(f.issued) }, { userId: 'missing' }]) {
+    assert.deepEqual(await f.remove(body), { code: 404, data: { error: 'User not found' } });
+  }
+  assert.deepEqual(f.users, before);
+  assert.equal(f.calls.includes('destroy') || f.calls.includes('clear'), false);
 });
