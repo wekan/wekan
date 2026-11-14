@@ -27,8 +27,12 @@ function dataCardId(data) {
   return null;
 }
 
-export function findDueDateControl(root, { cardId, canModifyCard, dataOf } = {}) {
-  if (!root || !cardId || !canModifyCard) return null;
+// The `.js-card-details` of the OPENED card. A details element whose card
+// cannot be read is used only when it is the ONLY card details on the page -
+// then it is the opened card - never when another card's details could be
+// meant. Shared with the Move / Copy shortcuts (client/lib/cardMenuHotkey.js).
+export function findOpenedCardDetails(root, { cardId, dataOf } = {}) {
+  if (!root || !cardId) return null;
   const details = Array.from(root.querySelectorAll('.js-card-details'));
   const known = details.map(element => {
     try {
@@ -37,11 +41,14 @@ export function findDueDateControl(root, { cardId, canModifyCard, dataOf } = {})
       return null;
     }
   });
-  // The opened card's own details. A details element whose card cannot be
-  // read is used only when it is the ONLY card details on the page - then it
-  // is the opened card - never when another card's details could be meant.
   let target = details.find((element, i) => known[i] === cardId);
   if (!target && details.length === 1 && known[0] === null) target = details[0];
+  return target || null;
+}
+
+export function findDueDateControl(root, { cardId, canModifyCard, dataOf } = {}) {
+  if (!root || !cardId || !canModifyCard) return null;
+  const target = findOpenedCardDetails(root, { cardId, dataOf });
   if (!target) return null;
   return target.querySelector(DUE_DATE_CONTROL_SELECTOR) || null;
 }

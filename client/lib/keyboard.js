@@ -10,6 +10,7 @@ import { Utils } from '/client/lib/utils';
 import { newHistoryRequestId, runKeystroke } from '/client/lib/historyKeyRequest';
 import { historyRequestStorage, refreshPendingHistoryRequest } from '/client/lib/historyKeyRecovery';
 import { findDueDateControl } from '/client/lib/dueDateHotkey';
+import { cardMenuStep } from '/client/lib/cardMenuHotkey';
 
 // Late-bind Sidebar to avoid circular dependency (sidebar.js needs its template first)
 let _Sidebar;
@@ -437,6 +438,52 @@ hotkeys('d, shift+d', (event) => {
   openDueDateEditorOfOpenedCard();
 });
 
+// #6904: Shift+M opens Move card and Shift+C opens Copy card, through the
+// opened card's own hamburger menu (client/lib/cardMenuHotkey.js), so the
+// menu's permissions decide whether there is anything to open. With no card
+// opened, the hovered or selected minicard is opened first, as for `d`.
+// Shift keeps them apart from `m` (assign yourself) and `c` (archive).
+function runCardMenuActionWhenRendered(cardId, action) {
+  const started = Date.now();
+  let menuOpened = false;
+  const step = () => {
+    if (Utils.getCurrentCardId() !== cardId) return;
+    const result = cardMenuStep(document, {
+      cardId, action, menuOpened, dataOf: element => Blaze.getData(element),
+    });
+    if (result === 'clicked-item') return;
+    if (result === 'no-item') {
+      Popup.close();
+      return;
+    }
+    if (result === 'opened-menu') menuOpened = true;
+    if (Date.now() - started < 3000) setTimeout(step, 50);
+  };
+  step();
+}
+export function openCardMenuActionOfOpenedCard(action) {
+  if (Meteor.userId() === null || !Utils.canModifyBoard()) return false;
+  const cardId = Utils.getCurrentCardId();
+  if (cardId) {
+    if (!ReactiveCache.getCard(cardId)) return false;
+    runCardMenuActionWhenRendered(cardId, action);
+    return true;
+  }
+  const minicardId = Session.get('selectedCard') || getHoveredCardId();
+  if (!minicardId || !ReactiveCache.getCard(minicardId)) return false;
+  Utils.goCardId(minicardId);
+  setTimeout(() => runCardMenuActionWhenRendered(minicardId, action), 0);
+  return true;
+}
+hotkeys('shift+m', (event) => {
+  event.preventDefault();
+  openCardMenuActionOfOpenedCard('move');
+});
+hotkeys('shift+c', (event) => {
+  event.preventDefault();
+  openCardMenuActionOfOpenedCard('copy');
+});
+
 Template.keyboardShortcuts.helpers({
   mapping: [
     {
@@ -490,6 +537,14 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['d'],
       action: 'shortcut-edit-due-date',
+    },
+    {
+      keys: ['SHIFT + m'],
+      action: 'moveCardPopup-title',
+    },
+    {
+      keys: ['SHIFT + c'],
+      action: 'copyCardPopup-title',
     },
     {
       keys: ['c', '\xf7', '-'],
