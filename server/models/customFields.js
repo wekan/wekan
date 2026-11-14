@@ -299,7 +299,11 @@ WebApp.handlers.delete('/api/boards/:boardId/custom-fields/:customFieldId', asyn
   const paramBoardId = req.params.boardId;
   await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
   const id = req.params.customFieldId;
-  await CustomFields.removeAsync({ _id: id, boardIds: { $in: [paramBoardId] } });
+  const removed = await CustomFields.removeAsync({ _id: id, boardIds: { $in: [paramBoardId] } });
+  if (removed === 0) {
+    sendJsonResult(res, { code: 404, data: { error: 'Custom field not found' } });
+    return;
+  }
   sendJsonResult(res, {
     code: 200,
     data: {
