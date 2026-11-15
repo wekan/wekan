@@ -347,7 +347,7 @@ template(name="copyAndMoveChecklist")
       option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{title}}
 
   .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+    button.primary.confirm.js-done(type="button" disabled=doneDisabled) {{_ 'done'}}
 
 //- Due date on a single checklist item (#4755). The badge and its edit popup
   reuse the card's own date-badge markup (dateBadgeBody) and date-picker form

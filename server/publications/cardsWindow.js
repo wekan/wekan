@@ -20,6 +20,12 @@ const {
   mergeCardScope,
 } = require('/models/lib/boardCardScope');
 const { sortWithIdTiebreaker } = require('/models/lib/cardSortTiebreaker');
+import { otherSwimlaneIdsForFirstActive } from '/models/lib/swimlaneFilter';
+import {
+  DESTINATION_CARD_FIELDS,
+  MAX_DESTINATION_CARDS,
+  destinationCardsSelector,
+} from '/models/lib/destinationCards';
 const { diffCardWindow } = require('/models/lib/cardWindowDiff');
 const {
   effectiveBoardCardsMode,
@@ -407,4 +413,54 @@ Meteor.publish('boardCardsLoadingMode', async function(boardId) {
 
   this.added('boardCardLoadingModes', boardId, { lazy });
   this.ready();
+});
+
+// #6917: the cards a destination picker lists - Copy / Move checklist, Copy
+// checklist from a template card, Move / Copy card, Link card, and the
+// parent-card picker - whatever the board's card-loading mode. A lazily
+// loaded board's `board` publication ships no cards, and a picker opens no
+// list that would fetch its window, so the card dropdown stayed empty however
+// long one waited. This ships only what the dropdown shows
+// (models/lib/destinationCards.js) for one list in one swimlane, or for the
+// whole board when `listId` is empty, scoped like every other card
+// publication: the board must be readable, and an assigned-only member gets
+// only the cards assigned to them.
+Meteor.publish('destinationCards', async function(boardId, listId, swimlaneId) {
+  // Match.Any marks each argument checked for audit-argument-checks; a bad
+  // argument ends this subscription, never the server.
+  check(boardId, Match.Any);
+  check(listId, Match.Any);
+  check(swimlaneId, Match.Any);
+  const optionalId = Match.OneOf(String, null, undefined);
+  if (!Match.test(boardId, String) || !boardId) return this.ready();
+  if (!Match.test(listId, optionalId) || !Match.test(swimlaneId, optionalId)) return this.ready();
+
+  const board = await boardVisibleTo(this.userId, boardId);
+  if (!board) return this.ready();
+
+  // The first swimlane also lists the list's orphaned cards, as the board view
+  // and list.cardsUnfiltered() do (#6443); archived swimlanes stay excluded
+  // (#6659).
+  let otherSwimlaneIds;
+  if (listId && swimlaneId) {
+    const swimlanes = await ReactiveCache.getSwimlanes(
+      { boardId: board._id },
+      { sort: { sort: 1 }, fields: { _id: 1, archived: 1 } },
+    );
+    otherSwimlaneIds = otherSwimlaneIdsForFirstActive(swimlanes, swimlaneId);
+  }
+
+  const selector = mergeCardScope(
+    destinationCardsSelector(listId, swimlaneId, otherSwimlaneIds),
+    {
+      boardId: board._id,
+      archived: false,
+      ...assignedOnlyCardScope(board, this.userId),
+    },
+  );
+  return Cards.find(selector, {
+    fields: DESTINATION_CARD_FIELDS,
+    sort: { sort: 1, _id: 1 },
+    limit: MAX_DESTINATION_CARDS,
+  });
 });

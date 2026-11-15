@@ -56,7 +56,7 @@ function world() {
     getSwimlane: q => docs.swimlanes.find(d => match(d, q)) || null,
     getList: q => {
       const l = docs.lists.find(d => match(d, q));
-      return l ? { ...l, cards: sl => docs.cards.filter(c => c.listId === l._id && c.swimlaneId === sl) } : null;
+      return l ? { ...l, cardsUnfiltered: sl => docs.cards.filter(c => c.listId === l._id && c.swimlaneId === sl) } : null;
     },
     getCurrentUser: () => ({ getTemplatesBoardId: () => 'T' }),
   };

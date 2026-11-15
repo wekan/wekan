@@ -841,6 +841,11 @@ Template.copyAndMoveChecklist.helpers({
     const dialog = getParentDialog(Template.instance());
     return dialog ? dialog.isTitleDefault(title) : title;
   },
+  // #6917: Done waits for the destination list's cards.
+  doneDisabled() {
+    const dialog = getParentDialog(Template.instance());
+    return !dialog || dialog.loading.get() || dialog.cardsLoading.get() || dialog.cards().length === 0;
+  },
 });
 
 /**
@@ -865,6 +870,11 @@ function registerChecklistDialogEvents(templateName) {
         ? cardSelect.options[cardSelect.selectedIndex].value
         : null;
 
+      // #6917: every checklist dialog needs a card, and the dropdown may still
+      // be filling: Done does nothing until a card of the list is chosen.
+      if (dialog.loading.get() || dialog.cardsLoading.get()) return;
+      if (!cardId || !dialog.cards().some(card => card._id === cardId)) return;
+
       const options = { boardId, swimlaneId, listId, cardId };
       try {
         await dialog.setDone(cardId, options);
@@ -879,6 +889,7 @@ function registerChecklistDialogEvents(templateName) {
     'change .js-select-swimlanes'(event, tpl) {
       tpl.dialog.selectedSwimlaneId.set($(event.currentTarget).val());
       tpl.dialog.setFirstListId();
+      tpl.dialog.selectedCardId.set('');
     },
     'change .js-select-lists'(event, tpl) {
       tpl.dialog.selectedListId.set($(event.currentTarget).val());

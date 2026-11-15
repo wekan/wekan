@@ -159,10 +159,15 @@ check('both the window and its COUNT are narrowed', () => {
   // guard that counts its own explanation counts wrong.
   const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
   const uses = code.match(/\.\.\.assignedOnlyCardScope\(/g) || [];
-  assert.strictEqual(uses.length, 2,
-    'boardCardsWindow AND boardListCardCount — an unrestricted count would still '
-    + 'tell the member how many cards the list really holds, and offer to scroll '
-    + 'in cards that never arrive');
+  // #6917 added a third card publication, destinationCards (the card titles a
+  // destination picker lists); it is narrowed the same way.
+  assert.strictEqual(uses.length, 3,
+    'boardCardsWindow, boardListCardCount AND destinationCards — an unrestricted '
+    + 'count would still tell the member how many cards the list really holds, '
+    + 'and an unrestricted picker would list the titles of cards they may not see');
+  const picker = code.slice(code.indexOf("Meteor.publish('destinationCards'"));
+  assert.ok(/\.\.\.assignedOnlyCardScope\(board, this\.userId\)/.test(picker),
+    'destinationCards narrows its cards for an assigned-only member');
 
   // The children (comments/attachments/checklists/items) hang off windowCardIds,
   // which builds on the same selector — so they cannot leak past the restriction.

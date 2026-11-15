@@ -2400,7 +2400,10 @@ Template.cardDestinationPicker.helpers({
   destinationError() { return Template.instance().dialog.error.get(); },
   destinationDisabled() {
     const dialog = Template.instance().dialog;
-    return dialog.loading.get() || dialog.saving.get() || !dialog.selectedSwimlaneId.get() || !dialog.selectedListId.get();
+    // #6917: and until the chosen list's cards are there, so a move or copy
+    // never places the card against a dropdown that has not filled yet.
+    return dialog.loading.get() || dialog.saving.get() || !!dialog.cardsLoading?.get()
+      || !dialog.selectedSwimlaneId.get() || !dialog.selectedListId.get();
   },
   boards() {
     return Template.instance().dialog.boards();
@@ -2465,7 +2468,7 @@ function registerCardDialogTemplate(templateName) {
     async 'click .js-done'(event, tpl) {
       event.preventDefault();
       const dialog = tpl.dialog;
-      if (dialog.loading.get() || dialog.saving.get()) return;
+      if (dialog.loading.get() || dialog.saving.get() || dialog.cardsLoading?.get()) return;
       // Read the target board/swimlane/list from the dialog's live reactive
       // selection rather than the DOM <select> elements.  A reactive re-render
       // (e.g. the boards() helper transiently returning [] while a 'board'
@@ -2934,6 +2937,7 @@ Template.cardMorePopup.onCreated(function () {
   // is no longer blank the first time another board is picked (the cards()
   // helper queries minimongo, which was empty before the subscription arrived).
   this.parentBoardReady = new ReactiveVar(true);
+  this.view.onViewDestroyed(() => this.parentCardsSubscription?.stop());
   this.parentCard = this.currentCard?.parentCard();
   if (this.parentCard) {
     const list = $('.js-field-parent-card');
@@ -3080,11 +3084,17 @@ Template.cardMorePopup.events({
       // #3745: wait for the board subscription to be ready before showing its
       // cards, so the parent-card list is populated on the first selection.
       tpl.parentBoardReady.set(false);
-      Meteor.subscribe('board', selection, false, {
-        onReady() {
-          tpl.parentBoardReady.set(true);
-        },
-      });
+      // #6917: a lazily loaded board's `board` publication ships no cards, so
+      // the parent-card list also subscribes to the board's card titles, and
+      // is ready when both are.
+      tpl.parentCardsSubscription?.stop();
+      let pending = 2;
+      const ready = () => {
+        pending -= 1;
+        if (pending === 0 && tpl.parentBoard.get() === selection) tpl.parentBoardReady.set(true);
+      };
+      Meteor.subscribe('board', selection, false, { onReady: ready });
+      tpl.parentCardsSubscription = Meteor.subscribe('destinationCards', selection, null, null, { onReady: ready });
       tpl.parentBoard.set(selection);
       list.prop('disabled', false);
     }

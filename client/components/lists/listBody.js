@@ -1209,6 +1209,17 @@ Template.linkCardPopup.onCreated(function () {
   else if (Utils.boardView() === 'board-view-lists' || !Utils.boardView)
     this.swimlaneId = listData.swimlaneId || ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
 
+  // #6917: the cards offered for linking come from their own subscription. A
+  // lazily loaded board's `board` publication ships no cards, so a large board
+  // picked here listed none. Inside the autorun, the previous selection's
+  // subscription stops when another board, swimlane or list is chosen.
+  this.autorun(() => {
+    const boardId = this.selectedBoardId.get();
+    if (!boardId) return;
+    this.subscribe('destinationCards', boardId,
+      this.selectedListId.get() || null, this.selectedSwimlaneId.get() || null);
+  });
+
   this.getSortIndex = () => {
     let ret;
     if (this.position === 'top') {

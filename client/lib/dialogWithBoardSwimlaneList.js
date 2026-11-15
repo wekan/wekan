@@ -265,9 +265,6 @@ export class BoardSwimlaneListDialog {
         const lanes = this.swimlanes();
         if (!lanes.some(lane => lane._id === this.selectedSwimlaneId.get())) this.setFirstSwimlaneId();
         if (!this.lists().some(list => list._id === this.selectedListId.get())) this.setFirstListId();
-        if (this.selectedCardId && !this.cards().some(card => card._id === this.selectedCardId.get())) {
-          this.selectedCardId.set('');
-        }
         this.loading.set(false);
       },
       onStop: error => {
