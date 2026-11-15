@@ -4088,8 +4088,15 @@ async function cardRemover(userId, doc) {
     await Cards.direct.updateAsync(shared._id, { $set: withParentRemoved(shared, doc._id) });
   }
   await Cards.removeAsync(onlyChildrenSelector(doc._id));
-  // Attachments keep the normal remove so the underlying file is deleted from the
-  // configured storage backend.
+  // Normal attachments store their card id in meta. Use the same recoverable
+  // deletion as the attachment UI/API so files and history remain restorable.
+  if (Meteor.isServer) {
+    const { softDeleteAttachment } = require('/server/attachmentSoftDelete');
+    for (const attachment of await Attachments.collection.find(liveAttachments({ 'meta.cardId': doc._id })).fetchAsync()) {
+      await softDeleteAttachment({ userId, attachment });
+    }
+  }
+  // Keep the existing hard purge for legacy top-level cardId records.
   await Attachments.removeAsync({ cardId: doc._id });
 }
 
