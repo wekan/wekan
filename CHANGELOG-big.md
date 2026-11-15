@@ -124,6 +124,71 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Copy Checklist** and the other destination pickers list the
+cards of a large board again: a board that loads its cards lazily used to leave
+the card dropdown empty. Dependabot's updates, among them **i18next 27** and
+the **mongodb** driver 7.8.0, are kept.
+
+This release fixes the following bugs:
+
+**Destination pickers** - choosing a card on another board, whatever that
+board's size.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e46d7a2376ebfa413cec15843d8b7fc374fe63e0">The card dropdown lists the cards of a board that loads lazily</a>. Thanks to ChrisMagnuson and xet7.</summary>
+
+Copy Checklist's card dropdown stayed empty for a board with more cards than
+the lazy-loading threshold (Card loading `auto` above 500 cards, or `lazy`),
+however long one waited ([#6917](https://github.com/wekan/wekan/issues/6917)).
+The pickers read the chosen board's cards from the `board` publication, which
+ships no cards for a lazy board, and a picker opens no list that would fetch
+its own window. A new `destinationCards` publication ships the titles and
+places of one list's cards in one swimlane, or of the whole board for the
+parent-card picker, whatever the card-loading mode. It is scoped like the
+other card publications: the board must be readable, and an assigned-only
+member gets only the cards assigned to them.
+
+Copy / Move checklist, Copy checklist from a template card, Move / Copy card,
+Link card and the parent-card picker use it. Done waits until the chosen
+list's cards are there, a remembered card is checked against them rather than
+against the board, and the open board's Filter no longer empties the
+destination list. `tests/destinationCards6917.test.cjs` runs the publication
+on a 1,144-card board, an assigned-only member, an unreadable board and bad
+arguments, and the dialog with a lazy destination;
+`tests/playwright/specs/copy-checklist-lazy-destination.e2e.js` copies a
+checklist to such a board.
+
+</details>
+
+and updates the following dependencies:
+
+- **mongodb 7.7.0 → 7.8.0** — the server's database driver
+  ([#6914](https://github.com/wekan/wekan/pull/6914)).
+- **i18next 26.5.11 → 27.1.1** — translations
+  ([#6915](https://github.com/wekan/wekan/pull/6915)). 27 changes defaults
+  WeKan does not rely on: it sets `fallbackLng` and `cleanCode` itself, turns
+  escaping off and registers sprintf on its own instance. An empty translation
+  now falls back to English instead of showing nothing.
+- **sanitize-html 2.18.1 → 2.18.2** — HTML sanitizing
+  ([#6916](https://github.com/wekan/wekan/pull/6916)).
+- **puppeteer 25.15.0 → 25.17.0** and **@typescript-eslint/parser 8.72.1 →
+  8.72.2** — tooling ([#6909](https://github.com/wekan/wekan/pull/6909),
+  [#6913](https://github.com/wekan/wekan/pull/6913)).
+- **@playwright/test 1.64.1 → 1.65.0** in tests/playwright — the browser tests
+  ([#6911](https://github.com/wekan/wekan/pull/6911)).
+- **softprops/action-gh-release 3.0.3 → 3.0.4**, **docker/login-action 4.7.0
+  → 4.8.0**, **azure/setup-helm 5.0.1 → 5.1.0** and **vmactions/freebsd-vm
+  1.5.9 → 1.6.0** — CI ([#6912](https://github.com/wekan/wekan/pull/6912),
+  [#6910](https://github.com/wekan/wekan/pull/6910),
+  [#6908](https://github.com/wekan/wekan/pull/6908),
+  [#6907](https://github.com/wekan/wekan/pull/6907)).
+
+Thanks to dependabot.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.12 2026-11-14 WeKan ® release
 
 **In short:** WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses

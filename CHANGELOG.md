@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**Copy Checklist** and the other destination pickers list the
+cards of a large board again: a board that loads its cards lazily used to leave
+the card dropdown empty. Dependabot's updates, among them **i18next 27** and
+the **mongodb** driver 7.8.0, are kept.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.12 2026-11-14 WeKan ® release
 
 WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses
