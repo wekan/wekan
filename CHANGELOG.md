@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.13 2026-11-15 WeKan ® release
 
 **Copy Checklist** and the other destination pickers list the
 cards of a large board again: a board that loads its cards lazily used to leave
 the card dropdown empty. Dependabot's updates, among them **i18next 27** and
 the **mongodb** driver 7.8.0, are kept.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.13](CHANGELOG-big.md#v1313-2026-11-15-wekan--release)
 
 # v13.12 2026-11-14 WeKan ® release
 
@@ -51,13 +51,3 @@ The release's **Snap Store** credential check retries installing
 snapcraft, so one Snap Store timeout no longer stops a release.
 
 [All changes in v13.09](CHANGELOG-big.md#v1309-2026-11-12-wekan--release)
-
-# v13.08 2026-11-12 WeKan ® release
-
-The **REST API** creates a card under the **parent** it is given,
-and a refused **integration URL** no longer leaves the other fields of the same
-update written. The **single-file** WeKan for **32-bit ARM** builds again, with
-an i386 Node.js of the exact version its bundle embeds. A **GitHub CodeQL**
-alert in the security alert download script is fixed.
-
-[All changes in v13.08](CHANGELOG-big.md#v1308-2026-11-12-wekan--release)

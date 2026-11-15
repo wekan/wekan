@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.13 2026-11-15 WeKan ® release
 
 **In short:** **Copy Checklist** and the other destination pickers list the
 cards of a large board again: a board that loads its cards lazily used to leave
