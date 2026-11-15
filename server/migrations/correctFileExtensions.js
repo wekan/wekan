@@ -38,7 +38,7 @@ async function correctBatch(collection, factory, limit) {
       const { name, changed, detectedMime } = await correctedNameForStoredFile(fileObj, factory);
       if (changed && name) {
         const from = fileObj.name;
-        rename(fileObj, name, factory);
+        await rename(fileObj, name, factory);
         result.corrected++;
         if (result.examples.length < 20) {
           result.examples.push({ from, to: name });

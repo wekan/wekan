@@ -1345,7 +1345,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
   })));
 };
 
-export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
+export const rename = async function(fileObj, newName, fileStoreStrategyFactory) {
   // Sanitize the new name to prevent path traversal
   const safeName = sanitizeFilename(newName);
 
@@ -1353,18 +1353,28 @@ export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
   const extension = lastDot === -1 ? '' : safeName.substring(lastDot + 1).toLowerCase();
   const extensionWithDot = extension ? `.${extension}` : '';
 
-  Object.keys(fileObj.versions).forEach(versionName => {
+  for (const versionName of Object.keys(fileObj.versions)) {
     const strategy = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, safeName);
     strategy.rename(newFilePath);
 
-    (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileObj._id }, { $set: {
+    // Upload hooks keep using this object and persist its versions again before
+    // validation. Keep it in sync with the renamed bytes and database record.
+    fileObj.versions[versionName].path = newFilePath;
+    const set = {
       "name": safeName,
       "extension": extension,
       "extensionWithDot": extensionWithDot,
       [`versions.${versionName}.path`]: newFilePath,
-    } }).catch(error => {
-      console.error('Failed to persist renamed attachment path:', error);
-    });
-  });
+    };
+    // Meteor-Files also records the original at the top level; the upload
+    // validator reads that path rather than versions.original.path.
+    if (versionName === 'original') {
+      fileObj.path = newFilePath;
+      set.path = newFilePath;
+    }
+    await (fileStoreStrategyFactory.collection || Attachments).updateAsync(
+      { _id: fileObj._id }, { $set: set },
+    );
+  }
 };
