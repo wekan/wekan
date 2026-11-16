@@ -208,6 +208,11 @@ require(path.join(tool, "tools/utils/fiber-helpers")).makeGlobalAsyncLocalStorag
     const resolve = Module._resolveFilename;
     Module._resolveFilename = function (id, parent, ...args) {
       if (id.startsWith('meteor/') && Package[id.slice(7)]) return path.join(state, 'meteor', id.slice(7) + '.js');
+      // `meteor/<package>/main` (server/main.js loads aldeed:collection2 that
+      // way, before the models) names the package's main module. image.load
+      // above already ran every package, so it is the same exports object.
+      const mainModule = /^meteor\/([^/]+)\/main$/.exec(id);
+      if (mainModule && Package[mainModule[1]]) return path.join(state, 'meteor', mainModule[1] + '.js');
       if (id.startsWith('/') && !id.startsWith(root + '/') && (fs.existsSync(root + id) || fs.existsSync(root + id + '.js'))) id = root + id;
       return resolve.call(this, id, parent, ...args);
     };
