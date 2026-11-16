@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+the **description and comment editors** no longer show the text
+"comment-placeholder", which the **i18next 27** update brought. **Deleting a
+card** keeps its attachments recoverable, and a **renamed upload** keeps its
+paths consistent. A browser-console write of an **avatar URL** now follows the
+same rule as the avatar dialog.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.13 2026-11-15 WeKan ® release
 
 **Copy Checklist** and the other destination pickers list the
