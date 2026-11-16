@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { canReadBoard } from '/models/lib/boardVisibility';
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
 const { assignedOnlyAllowsCard } = require('/models/lib/boardCardScope');
 
 // We use these when displaying notifications in the notificationsDrawer
@@ -135,14 +136,15 @@ Meteor.publish('notificationSwimlanes', async function() {
 // gets all users associated with activities associated with the current user
 Meteor.publish('notificationUsers', async function() {
   const activityEntries = await activityDocs();
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
   const ret = await ReactiveCache.getUsers(
-    {
+    notCurrentUser({
       _id: {
         $in: activityEntries
           .map(v => v.userId)
           .filter(v => !!v),
       },
-    },
+    }, this.userId),
     {
       fields: {
         username: 1,

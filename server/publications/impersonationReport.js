@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { impersonationQuery } from '/models/lib/impersonationReportQuery';
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
 
 // Admin Panel / Reports / Impersonation. Impersonation events are already written
 // to the impersonatedUsers collection whenever an admin impersonates a user (e.g.
@@ -35,8 +36,9 @@ Meteor.publish('impersonationReport', async function(searchTerm = '', limit, ski
     if (r.userId) userIds.push(r.userId);
   });
 
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
   const users = await ReactiveCache.getUsers(
-    { _id: { $in: [...new Set(userIds)] } },
+    notCurrentUser({ _id: { $in: [...new Set(userIds)] } }, this.userId),
     {
       fields: {
         username: 1,

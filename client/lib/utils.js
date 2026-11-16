@@ -884,9 +884,12 @@ export const Utils = {
   // never chosen. The three states matter — see showDragHandles() below.
   dragHandlesPreference() {
     // #6745: read by every minicard - one field, not the whole user document.
-    const currentUser = currentUserWith(['profile.showDesktopDragHandles']);
+    // #6919: the profile's own value when the client has the profile, else the
+    // one userDesktopDragHandles publishes under a top-level field of its own.
+    const currentUser = currentUserWith(['profile.showDesktopDragHandles', 'desktopDragHandlesPreference']);
+    const fromProfile = currentUser && (currentUser.profile || {}).showDesktopDragHandles;
     const stored = currentUser
-      ? (currentUser.profile || {}).showDesktopDragHandles
+      ? (fromProfile !== undefined ? fromProfile : currentUser.desktopDragHandlesPreference)
       // Not logged in: the same three states, kept in localStorage. A MISSING
       // key is "never chosen"; the string 'false' is a deliberate "off".
       : window.localStorage.getItem('showDesktopDragHandles');

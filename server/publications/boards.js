@@ -22,6 +22,7 @@ import {
   countCardsByListId,
   buildBoardTileData,
 } from '/models/lib/boardTileData';
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
 const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
@@ -379,7 +380,8 @@ Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all
     }
   });
 
-  const users = await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, false);
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
+  const users = await ReactiveCache.getUsers(notCurrentUser({ _id: { $in: userIds } }, this.userId), { fields: Users.safeFields }, false);
   const teams = await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, false);
   const orgs = await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, false);
 

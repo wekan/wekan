@@ -85,6 +85,7 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
 
 // Search sessions (global search, Due Cards and the other card reports) are
 // read, upserted and pruned by { userId, sessionId } and by modifiedAt on
@@ -1535,7 +1536,8 @@ async function findCards(sessionId, query, userId) {
         await ReactiveCache.getSwimlanes({ _id: { $in: swimlanes } }, { fields: { ...fields, color: 1 } }, true),
         await ReactiveCache.getLists({ _id: { $in: lists } }, { fields: { ...fields, color: 1 } }, true),
         await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
-        await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
+        // #6919: never the current user - see server/lib/notCurrentUser.js.
+        await ReactiveCache.getUsers(notCurrentUser({ _id: { $in: users } }, userId), { fields: Users.safeFields }, true),
         await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true),
         await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true),
         attachmentsResult.cursor || attachmentsResult,
@@ -1620,7 +1622,8 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
   const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
   const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
   const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
-  const users = await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }, { fields: Users.safeFields }, false);
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
+  const users = await ReactiveCache.getUsers(notCurrentUser({ _id: { $in: [...userIds] } }, this.userId), { fields: Users.safeFields }, false);
 
   for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
   for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }

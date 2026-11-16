@@ -7,6 +7,7 @@ import { safeSelector } from '/server/lib/selectorGuard';
 // models/lib/tenantAdmin.js, which merges the restriction with the caller's query
 // under $and so a crafted query cannot argue it away.
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
 
 Meteor.publish('people', async function(query, limit, skip = 0) {
   check(query, Match.OneOf(Object, null));
@@ -22,7 +23,9 @@ Meteor.publish('people', async function(query, limit, skip = 0) {
   // execution operator, with the same "match nothing" the card window uses.
   const safeQuery = safeSelector(query, 'people');
   if (tenantAdmin.canOpenAdminPanel(user)) {
-    ret = await ReactiveCache.getUsers(tenantAdmin.peopleScopeSelector(user, safeQuery), {
+    // #6919: never the current user - see server/lib/notCurrentUser.js. Their
+    // own row reads createdAt, loginDisabled and the rest from user-admin.
+    ret = await ReactiveCache.getUsers(notCurrentUser(tenantAdmin.peopleScopeSelector(user, safeQuery), this.userId), {
       limit,
       skip: skip || 0,
       sort: { createdAt: -1 },

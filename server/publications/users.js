@@ -10,6 +10,8 @@ DDPRateLimiter.addRule(
   10 * 1000,
 );
 
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
+
 Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
 
@@ -22,13 +24,14 @@ Meteor.publish('user-miniprofile', async function (usernames) {
 
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
   const ret = await ReactiveCache.getUsers(
-    {
+    notCurrentUser({
       $or: [
         { username: { $in: usernames } },
         { importUsernames: { $in: usernames } },
       ],
-    },
+    }, this.userId),
     {
       fields: {
         ...Users.safeFields,
@@ -49,6 +52,12 @@ Meteor.publish('user-admin', function () {
       authenticationMethod: 1,
       // #6736: whether this user previews disabled features. Own document only.
       featurePreview: 1,
+      // #6919: the People / impersonation pages leave the current user out of
+      // their narrow-profile publications; their own row reads these here.
+      createdAt: 1,
+      loginDisabled: 1,
+      lastConnectionDate: 1,
+      importUsernames: 1,
     },
   });
   return ret;
@@ -99,13 +108,14 @@ Meteor.publish('user-search', async function (searchTerm) {
 
   // This general publication deliberately exposes only public identity fields.
   // Board-authorized email lookup is handled by the bounded searchUsers method.
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
   const ret = await ReactiveCache.getUsers(
-    {
+    notCurrentUser({
       $or: [
         { username: searchRegex },
         { 'profile.fullname': searchRegex },
       ],
-    },
+    }, this.userId),
     {
       fields: {
         _id: 1,

@@ -16,6 +16,7 @@ import Swimlanes from '/models/swimlanes';
 import Boards from '/models/boards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { visibleAllBoards } from '/server/allBoardsFacets';
+const { notCurrentUser } = require('/server/lib/notCurrentUser');
 
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 
@@ -144,7 +145,8 @@ Meteor.publish('chatViewCardComments', async function (cardId) {
   if (isAssignedOnlyMember(board, this.userId) && !(card.assignees || []).includes(this.userId)) return this.ready();
   const comments = CardComments.find({ cardId, boardId: card.boardId });
   const authors = [...new Set((await comments.fetchAsync()).map(c => c.userId).filter(Boolean))];
-  return [comments, Meteor.users.find({ _id: { $in: authors } },
+  // #6919: never the current user - see server/lib/notCurrentUser.js.
+  return [comments, Meteor.users.find(notCurrentUser({ _id: { $in: authors } }, this.userId),
     { fields: { username: 1, 'profile.fullname': 1, 'profile.avatarUrl': 1, 'profile.initials': 1 } })];
 });
 
