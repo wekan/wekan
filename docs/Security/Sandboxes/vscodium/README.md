@@ -500,13 +500,36 @@ PATH="$T/node-v26.9.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:2701
 # -> http://localhost:8080 serves once startup finishes (~10-30s).
 ```
 
-### Docker is NOT available inside this Flatpak sandbox
+### Docker: the host's, through `flatpak-spawn --host`
 
-`docker` / `docker-compose` / `podman` are not present in the VSCodium Flatpak sandbox, so
-`docker compose up` cannot be run here. To reproduce a `docker-compose.yml`-style setup,
-run FerretDB and the bundle manually as shown above (the compose `ferretdb` service just
-downloads and runs the same `ferretdb-<arch>` binary; the `wekan` service just runs the
-same bundle). The Docker-only startup race in #6500 (WeKan starting before FerretDB is
+`docker` / `docker-compose` / `podman` are not installed inside the VSCodium Flatpak
+sandbox. `vscodium-sandbox.sh` grants `--talk-name=org.freedesktop.Flatpak`, so the
+HOST's Docker can be reached as `flatpak-spawn --host docker ...`. `build.sh`'s
+`docker_available` and `docker_exec` use exactly that when `docker` is not in `PATH`,
+which is how Playwright Firefox and WebKit run in the official Playwright image when
+they cannot start inside the sandbox (Firefox needs user namespaces the sandbox
+refuses; WebKit needs `libgtk-4`):
+
+```bash
+flatpak-spawn --host docker version     # check: the host's Docker answers
+WEKAN_PLAYWRIGHT_DOCKER=1 ./build.sh    # all browsers in the Playwright image
+```
+
+Docker must be installed on the host, and the host user must be in the `docker`
+group (`sudo usermod -aG docker $USER`, then log in again).
+
+**This is a hole in the sandbox, on purpose.** `flatpak-spawn --host` runs ANY
+command on the host, outside every restriction above, and the Docker socket is
+root-equivalent on the host. An AI assistant's own permission settings should
+therefore allow only `flatpak-spawn --host docker ...`, never `flatpak-spawn
+--host` in general. To keep the sandbox closed, launch it with
+`WEKAN_SANDBOX_HOST_DOCKER=0 ./vscodium-sandbox.sh`; then `flatpak-spawn --host`
+fails, and the browsers that need Docker have to be run on the host.
+
+Without Docker, reproduce a `docker-compose.yml`-style setup by running FerretDB and
+the bundle manually as shown above (the compose `ferretdb` service just downloads and
+runs the same `ferretdb-<arch>` binary; the `wekan` service just runs the same
+bundle). The Docker-only startup race in #6500 (WeKan starting before FerretDB is
 ready) is fixed in `docker-compose.yml` with a ferretdb healthcheck + `depends_on:
 condition: service_healthy`; when running manually, always start FerretDB first.
 
