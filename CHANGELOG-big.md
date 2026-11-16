@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.14 2026-11-16 WeKan ® release
 
 **In short:** a **checklist folded on a minicard** stays folded, and every
 profile preference survives a reconnect. The **card shortcuts** open only their

@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.14 2026-11-16 WeKan ® release
 
 a **checklist folded on a minicard** stays folded, and every
 profile preference survives a reconnect. The **card shortcuts** open only their
@@ -13,7 +13,7 @@ popup, **one shared list header row** really hides the other swimlanes'
 headers, and the editors no longer show "comment-placeholder" after the
 **i18next 27** update. **Deleting a card** keeps its attachments recoverable.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.14](CHANGELOG-big.md#v1314-2026-11-16-wekan--release)
 
 # v13.13 2026-11-15 WeKan ® release
 
@@ -54,10 +54,3 @@ The release's **Snap Store** credential check bounds each
 snapcraft install attempt, so a Snap Store that hangs no longer stops a release.
 
 [All changes in v13.10](CHANGELOG-big.md#v1310-2026-11-13-wekan--release)
-
-# v13.09 2026-11-12 WeKan ® release
-
-The release's **Snap Store** credential check retries installing
-snapcraft, so one Snap Store timeout no longer stops a release.
-
-[All changes in v13.09](CHANGELOG-big.md#v1309-2026-11-12-wekan--release)
