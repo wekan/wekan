@@ -42,8 +42,12 @@ check('#1 setAvatarUrl validates the URL scheme at write time', () => {
   assert.ok(/assertSafeAvatarUrl\(avatarUrl\)/.test(setter), 'setAvatarUrl must validate');
   const adminSetter = src.slice(src.indexOf('async adminSetAvatarUrl('));
   assert.ok(/assertSafeAvatarUrl\(avatarUrl\)/.test(adminSetter), 'adminSetAvatarUrl must validate');
-  // the validator must reject a javascript: scheme (only http/https/data:image/local allowed)
-  assert.ok(/scheme === 'http' \|\| scheme === 'https'/.test(src));
+  // the validator must reject a javascript: scheme (only http/https/data:image/local allowed).
+  // The rule moved to models/lib/avatarUrlScheme.js so the Users deny rule can
+  // apply it to a direct client write too (tests/avatarUrlDirectWrite.test.cjs).
+  assert.ok(/require\('\/models\/lib\/avatarUrlScheme'\)/.test(src), 'assertSafeAvatarUrl uses the shared rule');
+  assert.ok(/scheme === 'http' \|\| scheme === 'https'/.test(read('models/lib/avatarUrlScheme.js')));
+  assert.equal(require('../models/lib/avatarUrlScheme').isStorableAvatarUrl('javascript:alert(1)'), false);
 });
 
 // ── #2 Trello import source URL stored XSS — SourceBleed ────────────────────

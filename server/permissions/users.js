@@ -1,4 +1,5 @@
 import Users, { isUserUpdateAllowed, hasForbiddenUserUpdateField, writesNotificationList } from '/models/users';
+const { writesUnsafeAvatarUrl } = require('/models/lib/avatarUrlScheme');
 
 Users.allow({
   update(userId, doc, fields, modifier) {
@@ -47,6 +48,18 @@ Users.deny({
           detail: 'Client write of server-issued notification entries denied.',
         });
       } catch (e) { /* logging must never break the guard */ }
+    }
+    // The allow rule above permits every profile.* field, and WeKan's client
+    // sets an avatar only through the setAvatarUrl method. A direct write of an
+    // avatar URL that method refuses is an attempt, never ordinary use.
+    if (writesUnsafeAvatarUrl(modifier)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'file.avatar-url', action: 'blocked', source: 'ddp:user-profile-avatar', userId,
+          detail: 'Client write of a profile.avatarUrl that setAvatarUrl refuses denied.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      return true;
     }
     return denied;
   },

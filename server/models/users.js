@@ -84,14 +84,12 @@ if (Meteor.isServer) {
 // http(s) URL, a data:image URI, an empty value (clearing), or a WeKan-local
 // relative path (e.g. /cdn/storage/avatars/…). Reject javascript:, data:text/html,
 // file:, protocol-relative //host and every other active/foreign scheme at write
-// time so a hostile scheme can never be stored.
+// time. The rule is models/lib/avatarUrlScheme.js, which the Users deny rule
+// (server/permissions/users.js) applies to a direct client write too.
 function assertSafeAvatarUrl(avatarUrl) {
-  if (avatarUrl === '') return;
-  if (avatarUrl.startsWith('/') && !avatarUrl.startsWith('//')) return;
-  const m = /^([a-z][a-z0-9+.\-]*):/i.exec(avatarUrl);
-  const scheme = m ? m[1].toLowerCase() : '';
-  if (scheme === 'http' || scheme === 'https') return;
-  if (scheme === 'data' && /^data:image\//i.test(avatarUrl)) return;
+  const { isStorableAvatarUrl, avatarUrlScheme } = require('/models/lib/avatarUrlScheme');
+  if (isStorableAvatarUrl(avatarUrl)) return;
+  const scheme = avatarUrlScheme(avatarUrl);
   try {
     require('/server/lib/securityLog').record({
       key: 'file.avatar-url', action: 'blocked', source: 'setAvatarUrl',
