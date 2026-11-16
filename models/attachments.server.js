@@ -203,7 +203,7 @@ Attachments.onAfterUpload = async function (fileObj) {
     const originalName = fileObj.name;
     const correctedName = sanitizeUploadFileName(originalName, detectedMime || fileObj.type);
     if (correctedName && correctedName !== originalName) {
-      rename(fileObj, correctedName, fileStoreStrategyFactory);
+      await rename(fileObj, correctedName, fileStoreStrategyFactory);
       fileObj.name = correctedName;
       // Log to Admin Panel / Problems: who uploaded, why, when, where.
       try {
@@ -464,7 +464,7 @@ Meteor.methods({
     const cleanName = cleanFileName(newName);
     if (!cleanName) throw new Meteor.Error('invalid-filename', 'This file name is not allowed.');
 
-    rename(fileObj, cleanName, fileStoreStrategyFactory);
+    await rename(fileObj, cleanName, fileStoreStrategyFactory);
   },
   async validateAttachment(fileObjId) {
     check(fileObjId, String);

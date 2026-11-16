@@ -107,7 +107,7 @@ Avatars.onAfterUpload = async function (fileObj) {
       const originalName = fileObj.name;
       const correctedName = sanitizeUploadFileName(originalName, detectedMime || fileObj.type);
       if (correctedName && correctedName !== originalName) {
-        rename(fileObj, correctedName, fileStoreStrategyFactory);
+        await rename(fileObj, correctedName, fileStoreStrategyFactory);
         fileObj.name = correctedName;
         try {
           await require('/server/lib/filenameSanitizeLog').logFilenameSanitized({
