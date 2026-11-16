@@ -646,7 +646,7 @@
   "unset-color": "Net festgelegt",
   "comments": "Kommentaren",
   "comment": "Kommentar",
-  "comment-placeholder": "Optioun: ",
+  "comment-placeholder": "",
   "comment-only": "Nur Kommentaren",
   "comment-only-desc": "Kann Kaarten nëmmen kommentieren.",
   "comment-assigned-only": "Nur zugewiesener Kommentar",

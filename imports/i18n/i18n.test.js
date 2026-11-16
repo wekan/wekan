@@ -320,6 +320,14 @@ describe('TAPi18n', () => {
       expect(result).to.be.equal('Hello');
     });
 
+    it('keeps an empty translation empty instead of returning its key (#6921)', () => {
+      TAPi18n.i18n.addResourceBundle('fr', 'translation', { 'empty-on-purpose': '' });
+      TAPi18n.i18n.addResourceBundle('en', 'translation', { 'empty-on-purpose': '' });
+      expect(TAPi18n.__('empty-on-purpose')).to.be.equal('');
+      expect(TAPi18n.__('empty-on-purpose', null, 'en')).to.be.equal('');
+      expect(TAPi18n.__('comment-placeholder', null, 'en')).to.be.equal('');
+    });
+
     it('works with simple keys and custom language', async () => {
       TAPi18n.i18n.addResourceBundle('de', 'translation', {
         'simple': 'Hola',

@@ -646,7 +646,7 @@
   "unset-color": "unakeka",
   "comments": "Nā manaʻo",
   "comment": "Manaʻo",
-  "comment-placeholder": "Ma ka ʻōlelo Hawaiʻi: ",
+  "comment-placeholder": "",
   "comment-only": "manaʻo wale nō",
   "comment-only-desc": "hiki manaʻo ma nā kāleka wale nō.",
   "comment-assigned-only": "wale nō akakikaneka manaʻo",

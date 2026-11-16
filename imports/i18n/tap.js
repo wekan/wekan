@@ -62,6 +62,13 @@ export const TAPi18n = {
     await this.i18n.init({
       fallbackLng: DEFAULT_LANGUAGE,
       cleanCode: true,
+      // i18next 27 changed this default to false, and an empty translation then
+      // falls back to the KEY: the description and comment editors showed the
+      // text "comment-placeholder" (#6921), and Blockly's empty suffixes showed
+      // their keys. Every empty value in en.i18n.json is empty on purpose, and
+      // no other language has an empty value where English has text
+      // (tests/i18nEmptyString.test.cjs), so an empty string stays empty.
+      returnEmptyString: true,
       // Show translations debug messages only when DEBUG=true
       // OLD: debug: Meteor.isDevelopment,
       debug: process.env.DEBUG === 'true',

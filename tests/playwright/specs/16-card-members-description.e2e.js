@@ -138,6 +138,15 @@ test.describe('Card members & description', () => {
       // The description form inside: .js-new-description with form.js-new-description-form
       const descForm = cp.root.locator('.js-card-description, .js-new-description').first();
       await expect(descForm).toBeVisible({ timeout: 6_000 });
+
+      // #6921: the placeholder is empty in en.i18n.json on purpose. i18next 27
+      // turned an empty translation into its key, so the editor showed the
+      // text "comment-placeholder"; it has no placeholder text at all.
+      const editor = descForm.locator('textarea.editor').first();
+      await expect(editor).toBeVisible({ timeout: 6_000 });
+      const placeholder = await editor.getAttribute('placeholder');
+      expect(placeholder || '').not.toContain('comment-placeholder');
+      expect(placeholder || '').toBe('');
     } else {
       console.log('Note: description pencil-open trigger not found');
       await expect(cp.root).toBeVisible({ timeout: 3_000 });
