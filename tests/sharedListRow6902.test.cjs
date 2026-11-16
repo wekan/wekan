@@ -111,3 +111,45 @@ test('the Swimlanes view uses it: lists, empty state, opened list, list drop and
   assert.match(read('client/components/lists/listBody.jade'), /each \(cardsWithLimit \(idOrNull containerSwimlaneId\)\)/);
   assert.match(read('models/lists.js'), /return cardSwimlaneId === swimlaneId;/);
 });
+
+// The setting's whole point is ONE header row, and a plain `display: none` lost
+// to the desktop list header layout's `display: block !important`, so every
+// swimlane kept its headers. Every !important display rule on a .list-header
+// anywhere in the client CSS must be outranked by the hiding rule.
+test('the other swimlanes\' list headers stay hidden: the hiding rule outranks every !important header display', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const root = path.join(__dirname, '..');
+  const css = [];
+  const walk = dir => {
+    for (const e of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+      const rel = path.join(dir, e.name);
+      if (e.isDirectory() && !e.name.startsWith('_build') && e.name !== 'node_modules') walk(rel);
+      else if (e.name.endsWith('.css')) css.push([rel, fs.readFileSync(path.join(root, rel), 'utf8')]);
+    }
+  };
+  walk('client');
+  const specificity = sel => {
+    const s = sel.replace(/:not\(([^)]*)\)/g, ' $1');
+    return (s.match(/#[\w-]+/g) || []).length * 100 + (s.match(/\.[\w-]+|\[[^\]]+\]|:[\w-]+/g) || []).length * 10
+      + (s.replace(/[.#][\w-]+|\[[^\]]+\]|:[\w-]+/g, ' ').match(/(^|[\s>+~])[a-z][\w-]*/gi) || []).length;
+  };
+  const HIDE = '.board-canvas.shared-list-headers .js-swimlane:not(.is-first-swimlane) .list-header';
+  let hide = null;
+  const rivals = [];
+  for (const [file, src] of css) {
+    for (const m of src.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const body = m[2];
+      for (const sel of m[1].split(',').map(x => x.trim())) {
+        if (sel === HIDE) hide = body;
+        else if (/\.list-header$/.test(sel) && /display\s*:[^;]*!important/.test(body)) rivals.push([file, sel]);
+      }
+    }
+  }
+  assert.ok(hide, 'the hiding rule exists');
+  assert.match(hide, /display\s*:\s*none\s*!important/, 'it must be !important to beat them');
+  assert.ok(rivals.length >= 1, 'the scan finds the !important header display rules');
+  for (const [file, sel] of rivals) {
+    assert.ok(specificity(HIDE) > specificity(sel), `${file}: "${sel}" (${specificity(sel)}) must not outrank ${specificity(HIDE)}`);
+  }
+});

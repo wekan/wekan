@@ -463,7 +463,13 @@ body.swimlane-resizing-active * {
 /* #2805: one shared list header row for all swimlanes (Board Settings /
    Swimlane). The other swimlanes do not repeat the first swimlane's list
    headers; those stay at the top through the same sticky rule as Sticky list
-   headers (#3847, lists/list.css), which the setting turns on. */
+   headers (#3847, lists/list.css), which the setting turns on.
+   !important: the desktop list header layout sets `display: block !important`
+   (lists/list.css `.list:not(.list-collapsed):not(.mobile-view) .list-header`,
+   boardHeader.css `.desktop-mode .list-header`), and a plain `display: none`
+   loses to any !important one, so every swimlane kept its headers. Between
+   !important declarations specificity decides, and this selector (0,5,0)
+   outranks those (0,4,0 at most). tests/sharedListRow6902.test.cjs. */
 .board-canvas.shared-list-headers .js-swimlane:not(.is-first-swimlane) .list-header {
-  display: none;
+  display: none !important;
 }
