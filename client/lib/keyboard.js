@@ -10,7 +10,8 @@ import { Utils } from '/client/lib/utils';
 import { newHistoryRequestId, runKeystroke } from '/client/lib/historyKeyRequest';
 import { historyRequestStorage, refreshPendingHistoryRequest } from '/client/lib/historyKeyRecovery';
 import { findDueDateControl } from '/client/lib/dueDateHotkey';
-import { cardMenuStep } from '/client/lib/cardMenuHotkey';
+import { findCardMenuOpener } from '/client/lib/cardMenuHotkey';
+import { cardShortcutPopup, findMinicard } from '/client/lib/cardShortcutPopup';
 
 // Late-bind Sidebar to avoid circular dependency (sidebar.js needs its template first)
 let _Sidebar;
@@ -424,39 +425,67 @@ export function openDueDateEditorOfOpenedCard() {
     return true;
   }
   // #6755: with no card opened, `d` on a hovered or selected minicard - the
-  // card every other card shortcut here acts on - opens that card and then
-  // its Due date editor, rather than doing nothing until the card is opened.
-  const minicardId = Session.get('selectedCard') || getHoveredCardId();
-  const minicard = minicardId && ReactiveCache.getCard(minicardId);
-  if (!minicard || !Utils.canModifyCard(minicard)) return false;
-  Utils.goCardId(minicardId);
-  setTimeout(() => clickDueDateControlWhenRendered(minicardId), 0);
-  return true;
+  // card every other card shortcut here acts on - opens its Due date editor.
+  // #6924: only the editor, next to the minicard, as a click on the
+  // minicard's due date does; the card itself stays closed.
+  return openCardShortcutPopupAtMinicard('due');
 }
 hotkeys('d, shift+d', (event) => {
   event.preventDefault();
   openDueDateEditorOfOpenedCard();
 });
 
-// #6904: Shift+M opens Move card and Shift+C opens Copy card, through the
-// opened card's own hamburger menu (client/lib/cardMenuHotkey.js), so the
-// menu's permissions decide whether there is anything to open. With no card
-// opened, the hovered or selected minicard is opened first, as for `d`.
-// Shift keeps them apart from `m` (assign yourself) and `c` (archive).
-function runCardMenuActionWhenRendered(cardId, action) {
+// #6904: Shift+M opens Move card and Shift+C opens Copy card. Shift keeps them
+// apart from `m` (assign yourself) and `c` (archive).
+// #6924: each opens ONLY its popup. The popup is opened directly, so
+// cardShortcutPopup (client/lib/cardShortcutPopup.js) applies the rules the
+// controls a click would use are rendered under - the hamburger menu's Move
+// card / Copy card items, the due date badge and its `+` - and without them
+// nothing opens.
+function cardShortcutFacts(card) {
+  const user = ReactiveCache.getCurrentUser();
+  const board = ReactiveCache.getBoard(card.boardId);
+  return {
+    canModifyCard: Utils.canModifyCard(card),
+    isBoardAdmin: Boolean(user && user.isBoardAdmin && user.isBoardAdmin()),
+    isWorker: Boolean(user && user.isWorker && user.isWorker()),
+    isReadOnly: Boolean(user && user.isReadOnly && user.isReadOnly()),
+    isReadAssignedOnly: Boolean(user && user.isReadAssignedOnly && user.isReadAssignedOnly()),
+    allowsDueDate: !board || board.allowsDueDate !== false,
+    hasDue: Boolean(card.getDue && card.getDue()),
+  };
+}
+// Opens the popup next to `anchor`, with the card as its data context - as
+// the minicard's own menu and date badges open theirs (minicard.js,
+// cardDate.js openDateEditor).
+function openCardShortcutPopup(action, card, anchor) {
+  const name = cardShortcutPopup(action, cardShortcutFacts(card));
+  if (!name || !anchor) return false;
+  Popup.open(name).call(card, { currentTarget: anchor, target: anchor, preventDefault() {} });
+  return true;
+}
+// With no card opened: the hovered or selected minicard, the card every other
+// card shortcut here acts on. The card is not opened.
+function openCardShortcutPopupAtMinicard(action) {
+  const minicardId = Session.get('selectedCard') || getHoveredCardId();
+  const minicard = minicardId && ReactiveCache.getCard(minicardId);
+  if (!minicard) return false;
+  const anchor = findMinicard(document, minicardId, $('.js-minicard:hover').get(0));
+  return openCardShortcutPopup(action, minicard, anchor);
+}
+// #6840: an opened card's details render a moment after the route names it,
+// so the popup waits for the card's hamburger to anchor to, and gives up
+// after 3 seconds.
+function openCardShortcutPopupWhenRendered(cardId, action) {
   const started = Date.now();
-  let menuOpened = false;
   const step = () => {
     if (Utils.getCurrentCardId() !== cardId) return;
-    const result = cardMenuStep(document, {
-      cardId, action, menuOpened, dataOf: element => Blaze.getData(element),
-    });
-    if (result === 'clicked-item') return;
-    if (result === 'no-item') {
-      Popup.close();
+    const card = ReactiveCache.getCard(cardId);
+    const anchor = card && findCardMenuOpener(document, { cardId, dataOf: element => Blaze.getData(element) });
+    if (anchor) {
+      openCardShortcutPopup(action, card, anchor);
       return;
     }
-    if (result === 'opened-menu') menuOpened = true;
     if (Date.now() - started < 3000) setTimeout(step, 50);
   };
   step();
@@ -466,14 +495,10 @@ export function openCardMenuActionOfOpenedCard(action) {
   const cardId = Utils.getCurrentCardId();
   if (cardId) {
     if (!ReactiveCache.getCard(cardId)) return false;
-    runCardMenuActionWhenRendered(cardId, action);
+    openCardShortcutPopupWhenRendered(cardId, action);
     return true;
   }
-  const minicardId = Session.get('selectedCard') || getHoveredCardId();
-  if (!minicardId || !ReactiveCache.getCard(minicardId)) return false;
-  Utils.goCardId(minicardId);
-  setTimeout(() => runCardMenuActionWhenRendered(minicardId, action), 0);
-  return true;
+  return openCardShortcutPopupAtMinicard(action);
 }
 hotkeys('shift+m', (event) => {
   event.preventDefault();

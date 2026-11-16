@@ -115,15 +115,20 @@ test('d is bound once, through the shared filter, to the opened card with canMod
   assert.doesNotMatch(fn, /Popup\.open/, 'never opens the popup past the rendered control');
 });
 
-test('#6755: with no card opened, d opens the hovered or selected minicard first', () => {
+// #6924 changed the minicard half: `d` on a hovered or selected minicard used
+// to open the card and then click its Due date control (#6755); now it opens
+// only the Due date popup next to the minicard, as a click on the minicard's
+// date does, and the card stays closed. The permission it needs is the
+// control's own, in client/lib/cardShortcutPopup.js
+// (tests/cardShortcutPopup.test.cjs). An opened card still clicks its control.
+test('#6755 / #6924: with no card opened, d opens only the popup of the hovered or selected minicard', () => {
   const fn = keyboard.slice(keyboard.indexOf('export function openDueDateEditorOfOpenedCard'), keyboard.indexOf("hotkeys('d, shift+d'"));
   assert.match(fn, /if \(cardId\) \{\n\s+const card = ReactiveCache\.getCard\(cardId\);\n\s+if \(!card \|\| !Utils\.canModifyCard\(card\)\) return false;\n\s+clickDueDateControlWhenRendered\(cardId\);/,
     'an opened card wins, and #6840: its click waits until its details are rendered');
-  assert.match(fn, /Session\.get\('selectedCard'\) \|\| getHoveredCardId\(\)/, 'the same card the other card shortcuts use');
-  assert.match(fn, /if \(!minicard \|\| !Utils\.canModifyCard\(minicard\)\) return false;/,
-    'negative: a card the user may not edit is not even opened');
-  assert.match(fn, /Utils\.goCardId\(minicardId\)/);
-  assert.match(fn, /setTimeout\(\(\) => clickDueDateControlWhenRendered\(minicardId\), 0\)/);
+  assert.match(fn, /return openCardShortcutPopupAtMinicard\('due'\);/);
+  assert.doesNotMatch(fn, /Utils\.goCardId/, 'negative: #6924 - the minicard\'s card is not opened');
+  const atMinicard = keyboard.slice(keyboard.indexOf('function openCardShortcutPopupAtMinicard'), keyboard.indexOf('function openCardShortcutPopupWhenRendered'));
+  assert.match(atMinicard, /Session\.get\('selectedCard'\) \|\| getHoveredCardId\(\)/, 'the same card the other card shortcuts use');
   const wait = keyboard.slice(keyboard.indexOf('function clickDueDateControlWhenRendered'), keyboard.indexOf('export function openDueDateEditorOfOpenedCard'));
   assert.match(wait, /if \(Utils\.getCurrentCardId\(\) !== cardId\) return;/,
     'negative: stops when another card was opened meanwhile - never clicks for a card no longer open');

@@ -107,13 +107,20 @@ test('Shift+M and Shift+C are bound once, and the plain m and c keep their own a
   assert.deepEqual(bindings.filter(b => keysOf(b).includes('m')), ['m'], 'm stays assign yourself');
   assert.deepEqual(bindings.filter(b => keysOf(b).includes('c')), ['c'], 'c stays archive');
 
-  const fn = keyboard.slice(keyboard.indexOf('function runCardMenuActionWhenRendered'), keyboard.indexOf("hotkeys('shift+m'"));
+  // #6924 changed the route, not the permission: Shift+M / Shift+C no longer
+  // click the card's hamburger menu and then its item - which showed the card,
+  // the menu and the popup - but open only the Move card / Copy card popup.
+  // It is allowed exactly when the menu would render the item
+  // (client/lib/cardShortcutPopup.js, tests/cardShortcutPopup.test.cjs), and
+  // without the item nothing opens, so no menu is left open either.
+  const fn = keyboard.slice(keyboard.indexOf('function cardShortcutFacts'), keyboard.indexOf("hotkeys('shift+m'"));
   assert.match(fn, /if \(Utils\.getCurrentCardId\(\) !== cardId\) return;/,
     'negative: stops when another card was opened meanwhile');
   assert.match(fn, /Date\.now\(\) - started < 3000/, 'gives up rather than waiting forever');
-  assert.match(fn, /result === 'no-item'\) \{\s*\n\s*Popup\.close\(\);/, 'a menu without the item is closed again');
+  assert.match(fn, /const name = cardShortcutPopup\(action, cardShortcutFacts\(card\)\);\s*\n\s*if \(!name \|\| !anchor\) return false;/,
+    'nothing opens where the menu has no such item');
   assert.match(fn, /Meteor\.userId\(\) === null \|\| !Utils\.canModifyBoard\(\)\) return false;/);
-  assert.doesNotMatch(fn, /Popup\.open/, 'never opens the popup past the menu item');
+  assert.doesNotMatch(fn, /cardMenuStep|Utils\.goCardId/, 'negative: #6924 - no menu first, no card opened');
   assert.match(fn, /Session\.get\('selectedCard'\) \|\| getHoveredCardId\(\)/, 'with no opened card, the same card as d');
 });
 

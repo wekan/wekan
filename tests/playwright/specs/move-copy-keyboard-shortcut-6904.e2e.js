@@ -48,9 +48,11 @@ test.describe('#6904 Move and Copy card keyboard shortcuts', () => {
     expect(db.getCard(card._id).archived).not.toBe(true);
 
     await page.goto('/shortcuts');
-    const items = page.locator('.shortcuts-list-item');
-    await expect(items.filter({ hasText: 'Move Card' })).toHaveCount(1);
-    await expect(items.filter({ hasText: 'Copy Card' })).toHaveCount(1);
+    // Exact action text: "Move Card to Archive" (the c shortcut) also contains
+    // "Move Card", so a substring match counted two.
+    const actions = page.locator('.shortcuts-list-item .shortcuts-list-item-action');
+    await expect(actions.filter({ hasText: /^\s*Move Card\s*$/ })).toHaveCount(1);
+    await expect(actions.filter({ hasText: /^\s*Copy Card\s*$/ })).toHaveCount(1);
   });
 
   test('negative: nothing opens when keyboard shortcuts are disabled', async ({ page, user, board }) => {
@@ -84,5 +86,64 @@ test.describe('#6904 Move and Copy card keyboard shortcuts', () => {
     await page.evaluate(() => document.activeElement && document.activeElement.blur());
     await page.keyboard.press('Shift+C');
     await expect(picker(page)).toBeVisible({ timeout: 8_000 });
+  });
+
+  // #6924: the shortcut opens ONLY its popup. On an opened card, the hamburger
+  // menu is not shown first; on a hovered minicard, the card is not opened.
+  const cardMenu = page => page.locator('.js-pop-over .pop-over-list .js-move-card, .js-pop-over .pop-over-list .js-copy-card');
+
+  test('on an opened card, Shift+M opens Move card without showing the card menu (#6924)', async ({ page, user, board }) => {
+    await openAlphaCard(page, user, board, true);
+    await page.keyboard.press('Shift+M');
+    await expect(picker(page)).toBeVisible({ timeout: 8_000 });
+    await expect(cardMenu(page)).toHaveCount(0);
+    await expect(page.locator('.js-pop-over')).toHaveCount(1);
+  });
+
+  async function hoverAlpha(page, who, board, shortcutsOn = true) {
+    db.updateOne('users', { _id: who.id }, { $set: { 'profile.keyboardShortcuts': shortcutsOn } });
+    await loginWithToken(page, who.id, who.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-minicard', { hasText: 'Alpha Card' }).first().hover();
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    return page.url();
+  }
+
+  test('on a hovered minicard, Shift+M and Shift+C open only their popup, and the card stays closed (#6924)', async ({ page, user, board }) => {
+    const url = await hoverAlpha(page, user, board);
+    await page.keyboard.press('Shift+M');
+    await expect(picker(page)).toBeVisible({ timeout: 8_000 });
+    await expect(picker(page).locator('#move-card-title')).toHaveValue('Alpha Card');
+    expect(page.url(), 'the card is not opened').toBe(url);
+    await expect(page.locator('.js-card-details')).toHaveCount(0);
+    await expect(cardMenu(page)).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await expect(picker(page)).toHaveCount(0);
+
+    await page.locator('.js-minicard', { hasText: 'Alpha Card' }).first().hover();
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    await page.keyboard.press('Shift+C');
+    await expect(picker(page)).toBeVisible({ timeout: 8_000 });
+    await expect(picker(page).locator('#copy-card-title')).toHaveValue('Alpha Card');
+    expect(page.url()).toBe(url);
+    await expect(page.locator('.js-card-details')).toHaveCount(0);
+  });
+
+  test('negative: on a hovered minicard, a member who is not a board admin gets no Move card (#6924)', async ({ page, user2, board }) => {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id, isAdmin: false });
+    const url = await hoverAlpha(page, user2, board);
+    await page.keyboard.press('Shift+M');
+    await page.waitForTimeout(1500);
+    await expect(page.locator('.js-pop-over')).toHaveCount(0);
+    expect(page.url()).toBe(url);
+  });
+
+  test('negative: on a hovered minicard, nothing opens when keyboard shortcuts are disabled (#6924)', async ({ page, user, board }) => {
+    const url = await hoverAlpha(page, user, board, false);
+    await page.keyboard.press('Shift+M');
+    await page.keyboard.press('Shift+C');
+    await page.waitForTimeout(800);
+    await expect(page.locator('.js-pop-over')).toHaveCount(0);
+    expect(page.url()).toBe(url);
   });
 });
