@@ -7,11 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-the **description and comment editors** no longer show the text
-"comment-placeholder", which the **i18next 27** update brought. **Deleting a
-card** keeps its attachments recoverable, and a **renamed upload** keeps its
-paths consistent. A browser-console write of an **avatar URL** now follows the
-same rule as the avatar dialog.
+a **checklist folded on a minicard** stays folded, and every
+profile preference survives a reconnect. The **card shortcuts** open only their
+popup, **one shared list header row** really hides the other swimlanes'
+headers, and the editors no longer show "comment-placeholder" after the
+**i18next 27** update. **Deleting a card** keeps its attachments recoverable.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

@@ -111,7 +111,6 @@ its reason.
 
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its
   own sandbox, and turning that off is not allowed there. Run it on a host.
-- [#6919](https://github.com/wekan/wekan/issues/6919) (the minicard checklist caret does nothing for the reporter; the handler, helper, stored key and allow rule are correct, and the existing Playwright spec folds a checklist on a minicard. Meteor 3.6's ddp-server re-runs every named subscription before the universal ones on each login, so a named one sending the current user a narrow `profile` - `userDesktopDragHandles`, or `user-miniprofile` with the user's own name - can win the merge box and hide `profile.collapsedCardSections` from the client, as [#6691](https://github.com/wekan/wekan/issues/6691) found for `userBoardView`. Confirm in the running app whether the client's profile lacks that map before changing those publications)
 - [#6834](https://github.com/wekan/wekan/issues/6834) (the minicard due date is fixed; the board header bar wrapping to a second row and the list header icons under the card count did not reproduce on the current code at the same window width, in Persian, with the card count on - which WeKan release and browser zoom showed them is asked; wrapping the header rather than hiding buttons is by design)
 
 </details>
@@ -127,13 +126,64 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** the **description and comment editors** no longer show the text
-"comment-placeholder", which the **i18next 27** update brought. **Deleting a
-card** keeps its attachments recoverable, and a **renamed upload** keeps its
-paths consistent. A browser-console write of an **avatar URL** now follows the
-same rule as the avatar dialog.
+**In short:** a **checklist folded on a minicard** stays folded, and every
+profile preference survives a reconnect. The **card shortcuts** open only their
+popup, **one shared list header row** really hides the other swimlanes'
+headers, and the editors no longer show "comment-placeholder" after the
+**i18next 27** update. **Deleting a card** keeps its attachments recoverable.
 
 This release fixes the following bugs:
+
+**Minicards** - folding a checklist, and the preferences it is stored with.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b05972c4c88e108526c85ad3598867d781395e98">A checklist folded on a minicard stays folded: no publication sends the current user a partial profile</a>. Thanks to mimZD and xet7.</summary>
+
+The fold was stored, and half a second later the checklist unfolded again
+([#6919](https://github.com/wekan/wekan/issues/6919)). DDP merges only
+top-level fields, and Meteor re-runs named subscriptions before the accounts
+publication of the whole profile on every login, a reconnect included.
+`userDesktopDragHandles` and ten other publications sent the current user a
+few `profile` fields; when one won, the client's profile shrank to them until a
+reload and every preference in it went back to its default -
+[#6691](https://github.com/wekan/wekan/issues/6691) had found the same for the
+board view. The drag-handle preference is now published under its own field,
+and the others leave the current user out (`server/lib/notCurrentUser.js`).
+`tests/noNarrowProfileForCurrentUser6919.test.cjs` finds every such query; the
+browser spec folds checklists in Persian after a page load and a reconnect, and
+24 of 24 reconnect runs pass where 4 of 24 unfolded before.
+
+</details>
+
+**Keyboard shortcuts** - what `d`, Shift+M and Shift+C open.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/138f727ebbfc30d395fbcfa18ca244e58abe91d7">Card shortcuts open only their popup, next to the minicard or the card menu</a>. Thanks to mimZD and xet7.</summary>
+
+On a hovered minicard, `d`, Shift+M and Shift+C opened the card first, and
+Move / Copy went through the card's hamburger menu as well
+([#6924](https://github.com/wekan/wekan/issues/6924)). Now only the Due date,
+Move card or Copy card popup opens, next to the minicard, and the card stays
+closed; on an opened card Move / Copy no longer show the menu first.
+`client/lib/cardShortcutPopup.js` allows exactly what a click on the rendered
+control would, and `tests/cardShortcutPopup.test.cjs` ties each rule to that
+template condition; the browser specs check a non-admin and disabled shortcuts
+open nothing.
+
+</details>
+
+**Swimlanes** - one shared list header row.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/39ee1d9512ef0c5c5aec94fe9842c00c7b00da1d">One shared list header row hides the other swimlanes' list headers</a>. Thanks to mimZD and xet7.</summary>
+
+The hiding rule was a plain `display: none`, which loses to the desktop list
+header layout's `display: block !important`, so every swimlane kept its headers
+and the setting's own browser spec failed. It is `!important` now and outranks
+those rules; `tests/sharedListRow6902.test.cjs` checks that against every
+`!important` header display rule in the client CSS.
+
+</details>
 
 **Translations** - what a string that is empty on purpose shows.
 
@@ -222,9 +272,11 @@ checks no client code writes it directly.
 
 </details>
 
-and has the following developer-facing fix:
+and has the following developer-facing fixes:
 
 - [The FreeBSD bundle guard follows dependabot's freebsd-vm 1.6.0, which node-patches now uses too](https://github.com/wekan/wekan/commit/5ec3aaf85f4edb605a7180593486c5edd24ac713).
+  Thanks to xet7.
+- [build.sh's source test mode starts again: meteor/package/main imports resolve](https://github.com/wekan/wekan/commit/495a6faa634841f5fbb50fc1dd535d42f1c57a52).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
