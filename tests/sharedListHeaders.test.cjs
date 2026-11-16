@@ -34,7 +34,10 @@ console.log('  ok - the first swimlane\'s headers stay at the top');
 // Negative: the one rule is scoped to the setting, so a board without it is
 // drawn exactly as before, and no second sticky mechanism exists.
 const rules = css.slice(css.indexOf('/* #2805: one shared'));
-assert.match(rules, /\*\/\n\.board-canvas\.shared-list-headers \.js-swimlane:not\(\.is-first-swimlane\) \.list-header \{\s*display: none;\s*\}\s*$/);
+// `!important` on purpose (#6902): a plain `display: none` lost to the desktop
+// list header's `display: block !important`, so every swimlane kept its
+// headers. tests/sharedListRow6902.test.cjs pins why it must win.
+assert.match(rules, /\*\/\n\.board-canvas\.shared-list-headers \.js-swimlane:not\(\.is-first-swimlane\) \.list-header \{\s*display: none !important;\s*\}\s*$/);
 assert.doesNotMatch(rules, /position: sticky/);
 console.log('  ok - only boards with the setting change');
 console.log('\nsharedListHeaders: all tests passed');
