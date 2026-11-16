@@ -57,10 +57,11 @@ test('the workflow: skip without a Node.js, verify every download, build and sta
   assert.match(workflow, /mount -u -o wxallowed "\$\(df -P \. \| awk 'NR==2 \{print \$6\}'\)"/);
   assert.match(workflow, /CC=\/usr\/pkg\/gcc14\/bin\/gcc CXX=\/usr\/pkg\/gcc14\/bin\/g\+\+/);
   // The same FreeBSD VM that built the Node.js builds the native modules. A
-  // dependabot bump of one (v1.5.9, #6781) has to be made in the other too.
+  // dependabot bump of one (v1.5.9, #6781; v1.6.0, #6907) has to be made in
+  // the other too.
   const pin = workflow.match(/uses: vmactions\/freebsd-vm@([0-9a-f]{40})/);
   assert.ok(pin, 'FreeBSD VM pinned to a commit');
-  assert.equal(pin[1], 'c46abacb49f09938ca4e1702d15d836285d694cc', 'FreeBSD VM pinned to the commit node-patches uses');
+  assert.equal(pin[1], '811efaaac0668df8bfb8308c3ec997b5ab50037b', 'FreeBSD VM pinned to the commit node-patches uses');
   const np = path.join(__dirname, '..', '.tools', 'w', 'node-patches', '.github', 'workflows', 'release-all.yml');
   if (fs.existsSync(np)) {
     assert.match(fs.readFileSync(np, 'utf8'), new RegExp(`uses: vmactions/freebsd-vm@${pin[1]}`), 'node-patches uses the same commit');
