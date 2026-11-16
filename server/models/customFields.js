@@ -258,27 +258,32 @@ WebApp.handlers.put(
     // The item has to be one of this board's field's items: the update below
     // matches nothing otherwise, and that was answered 200.
     const field = await ReactiveCache.getCustomField({ _id: paramCustomFieldId, boardIds: { $in: [paramBoardId] } });
-    if (!field || !((field.settings && field.settings.dropdownItems) || []).some(item => item && item._id === paramDropdownItemId)) {
+    const itemIndex = ((field && field.settings && field.settings.dropdownItems) || []).findIndex(item => item && item._id === paramDropdownItemId);
+    if (itemIndex === -1) {
       sendJsonResult(res, { code: 404, data: { error: 'Dropdown item not found' } });
       return;
     }
 
     if (Object.prototype.hasOwnProperty.call(req.body, 'name')) {
-      await CustomFields.direct.updateAsync(
+      // An explicit index also works when validation previews the modifier
+      // without positional match information. Match the ID at that index so
+      // a concurrent removal/reorder cannot rename a different option.
+      const updated = await CustomFields.direct.updateAsync(
         {
           _id: paramCustomFieldId,
           boardIds: { $in: [paramBoardId] },
-          'settings.dropdownItems._id': paramDropdownItemId,
+          [`settings.dropdownItems.${itemIndex}._id`]: paramDropdownItemId,
         },
         {
           $set: {
-            'settings.dropdownItems.$': {
-              _id: paramDropdownItemId,
-              name: paramName,
-            },
+            [`settings.dropdownItems.${itemIndex}.name`]: paramName,
           },
         },
       );
+      if (updated === 0) {
+        sendJsonResult(res, { code: 404, data: { error: 'Dropdown item not found' } });
+        return;
+      }
     }
 
     sendJsonResult(res, {
