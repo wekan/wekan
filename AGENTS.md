@@ -166,7 +166,7 @@ git config user.name && git config user.email
     declined without holding up the others.
   - **No changelog changes.** Do not edit `CHANGELOG-big.md`, `CHANGELOG.md`, or the
     `CHANGELOG.md` or `CHANGELOG` of a repository under `.tools/` — not an Upcoming
-    entry, not TODO Later. Describe the change in the pull request instead. The
+    entry, and not `TODO.md` either. Describe the change in the pull request instead. The
     maintainer writes the entry after merging, when there is a commit for it to link.
 
   Who that pull request credits follows the attribution rule above, and the two
@@ -440,7 +440,7 @@ directly after the merge.
 
   | Repository | File | Format |
   | --- | --- | --- |
-  | `wekan/wekan` | `CHANGELOG-big.md` (and the generated `CHANGELOG.md`, below) | the WeKan format this section describes: `# Status` (Platforms/Version/TODO Later nested as `<details>`), then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
+  | `wekan/wekan` | `CHANGELOG-big.md` (and the generated `CHANGELOG.md`, below) | the WeKan format this section describes: `# Status` (Platforms/Version nested as `<details>`), then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
   | `wekan/node-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming node-patches release` |
   | `wekan/mongo-tools-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming mongo-tools-patches release` |
   | `wekan/FerretDB` | `CHANGELOG.md` | **upstream FerretDB's** format, not WeKan's: `## [v1.48.0](tag URL) (YYYY-MM-DD)` and `### New Features 🎉` / `### Fixed 🐛` / `### Other Changes 🤖` bullets ending `by @xet7. Thanks to xet7.` |
@@ -461,7 +461,7 @@ directly after the merge.
 
   | | `CHANGELOG.md` |
   | --- | --- |
-  | Status, TODO Later | none |
+  | Status | none |
   | First | the unreleased `# Upcoming WeKan ® release`, when there is one: its **In short** paragraph only, then `[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)` |
   | Below it | the five newest `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` |
   | Per release | its **In short** paragraph only, then `[All changes in v…](CHANGELOG-big.md#anchor)` |
@@ -521,7 +521,7 @@ directly after the merge.
 
   | | |
   | --- | --- |
-  | `CHANGELOG-big.md` | `# Status` (Platforms/TODO Later inside it), `# Upcoming`, and the newest releases that fit the budget |
+  | `CHANGELOG-big.md` | `# Status` (Platforms/Version inside it), `# Upcoming`, and the newest releases that fit the budget |
   | `old-CHANGELOG/<year>/<MM>.md` | a month's releases, newest first; a month over the budget continues in `<MM>-part2.md`, `<MM>-part3.md`, ... |
   | `old-CHANGELOG/<year>.md` | 2015–2025, whole |
 
@@ -544,24 +544,22 @@ directly after the merge.
   An archived section is never edited, for the same reason a released one is
   not.
 - **The file's shape, top to bottom** — keep it exactly as it is now. There is
-  exactly ONE `#` heading before the releases: `# Status`. Platforms, Version
-  and TODO Later are `<details>` blocks nested inside it, not headings of
-  their own (they used to be `# Platforms` and `# TODO Later`; both were
-  folded under `# Status` so the file opens with a single top-level section
-  rather than three):
+  exactly ONE `#` heading before the releases: `# Status`. Platforms and Version
+  are `<details>` blocks nested inside it, not headings of their own (they used
+  to be `# Platforms` and `# TODO Later`; Platforms was folded under `# Status`
+  so the file opens with a single top-level section, and TODO Later moved out
+  to `TODO.md`, below):
   1. `# Status` — opens with a `<details>` whose `<summary>` is `More status
-     info`, holding a link to <https://wekan.fi/status/>. Then a `<details>`
+     info`, holding a link to <https://wekan.fi/status/> and the line pointing
+     to [TODO.md](TODO.md). Then a `<details>`
      whose `<summary>` is `Newest WeKan at these platforms`, holding the line
      `Newest WeKan at these platforms:` and the Install / Upgrade / Docs / Mac
      ChangeLog bullets, plus the `Older releases:` bullet linking the per-year
      archives. Then a `<details>` whose `<summary>` is `Databases` listing
      which databases WeKan supports and how each is tested, kept in step with
      `docs/Databases/Supported.md`. Then a `<details>` whose `<summary>` is `Version` holding
-     "which WeKan version uses what". Then a `<details>` whose `<summary>` is
-     `TODO Later`, itself holding a `<details>` whose `<summary>` is `Carried
-     to a future release.` explaining the list, then one `<details>` per
-     category (below). There is no `# Version` or `# TODO Later` heading of
-     its own.
+     "which WeKan version uses what". There is no `# Version` heading of its
+     own, and no TODO Later block: what is not done is in `TODO.md`.
   2. The releases, newest first, each `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release`.
 
   Nothing else is an `#` heading. A `##`/`###` inside a release would break the
@@ -605,10 +603,6 @@ directly after the merge.
   A `<details>` whose body only
   repeats its summary is noise; use one when there IS a longer story to reveal, which
   is most fixes.
-- **TODO Later's own blocks are the same shape with two differences:** the `<summary>` is
-  the short category text (no `<a>`, because nothing was committed), and there is **no
-  `Thanks to`** — nothing is done yet, so there is nobody to thank. The body lists the
-  issues as `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line reason)`.
 - **The hash is never the link text.** `[f1c89548e](…)` shows a hash to a reader who
   cannot do anything with it; the link text says what changed. Same for `[merge
   commit](…)` and for a bare URL — see the next rule.
@@ -707,27 +701,27 @@ directly after the merge.
   `This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:`.
   Because CRITICAL comes first, it keeps the `This release ` prefix; a following non-security
   subsection becomes `and …` per the rule above.
-- **TODO Later** — a `<details>` nested inside `# Status` near the TOP of
-  `CHANGELOG-big.md` (above the version sections), a triage backlog for open
-  issues that were **investigated but not fixed here**, each
-  recorded with a concrete REASON so whoever picks it up next knows why. Use it when working
-  through open issues (the "Fix open issues" process): for each issue, either **fix it** (commit
-  ending `Fixes #NNNN,`), **close it** if already fixed in current code (commit `Close #NNNN` /
-  `Fixes #NNNN,`), or — when it can't be fixed/verified in this environment — **add it to `TODO
-  Later` under the matching category with the reason**. Group issues by category bullet, e.g.:
-  *Need specific infrastructure / a running server stack* (LDAP/WebHooks/Sandstorm/proxy —
-  environment owners), *Need the running app to reproduce/verify* (runtime UI / publication /
-  mergebox / router state, not unit-testable), *Already correct in the current code* (verified by
-  reading; could not reproduce), *Feature requests / behaviour-by-design rather than bugs*, and
-  *Needs a maintainer decision on the intended contract*. Each category is a `<details>`
-  whose `<summary>` is the SHORT category text and whose body lists the issues with their
-  reasons — and with **no `Thanks to` line**, because nothing is done yet, so there is
-  nobody to thank. Each entry is a normal issue link
-  `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line reason)` — issue links here, NOT
-  commit links (nothing was committed). **Keep it current:** when an issue in `TODO Later` gets
-  fixed, REMOVE it from the list (its fix commit's `Fixes #NNNN` closes it); do not leave fixed
-  issues in the backlog. This is the only CHANGELOG place that uses issue links and lives above
-  the releases; everything else uses the per-release commit-link bullets above.
+- **`TODO.md`** — at the repository root, NOT in the changelog (it was the TODO
+  Later block inside `# Status` until 2026-11-18, when it moved out so the
+  changelog says only what changed). A triage backlog of work and open issues
+  that were **investigated but not done here**, each recorded with a concrete
+  REASON so whoever picks it up next knows why. Use it when working through open
+  issues (the "Fix open issues" process): for each issue, either **fix it**
+  (commit ending `Fixes #NNNN,`), **close it** if already fixed in current code
+  (commit `Close #NNNN` / `Fixes #NNNN,`), or — when it can't be fixed/verified
+  in this environment — **add it to `TODO.md` under the matching category with
+  the reason**. Categories are `##` headings there, e.g. *Need specific
+  infrastructure / a running server stack*, *Need the running app to
+  reproduce/verify*, *Already correct in the current code*, *Feature requests /
+  behaviour-by-design rather than bugs* and *Needs a maintainer decision on the
+  intended contract*; an emptied category is removed. Each entry is a bullet with
+  a normal issue link `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line
+  reason)` when there is an issue — never a commit link, and **no `Thanks to`**,
+  because nothing is done yet, so there is nobody to thank. **When an item is
+  done, MOVE it:** remove it from `TODO.md` and write its entry in `# Upcoming
+  WeKan ® release` of `CHANGELOG-big.md`, linking the commit (its `Fixes #NNNN`
+  closes the issue). A done item never stays in `TODO.md`.
+  `tests/todoFile.test.cjs` checks the file.
 - FerretDB Upcoming structure — `### New Features 🎉`, `### Fixed 🐛`, `### Other Changes
   🤖`; entries end `... by @xet7. Thanks to xet7.`
 - Word-wrap both CHANGELOGs at 80 chars, but never break a long link across lines (a

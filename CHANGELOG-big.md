@@ -5,6 +5,8 @@
 
 https://wekan.fi/status/
 
+What is not done yet, and why, is in [TODO.md](TODO.md).
+
 </details>
 
 <details>
@@ -90,37 +92,6 @@ Which databases WeKan supports
   /var/snap/wekan/common/wekan and some cards were not visible, it was fixed at
   WeKan 8.07 where database directory is back to /var/snap/wekan/common and all
   cards are visible.
-
-</details>
-
-<details>
-<summary>TODO Later</summary>
-
-<details>
-<summary>Carried to a future release.</summary>
-
-What is not built yet, checked against the code on 2026-10-17: nothing. The
-helpers that need no AI and the whiteboard are built and in the Upcoming
-release. New work that cannot be done here is added below by category, with
-its reason.
-
-</details>
-
-<details>
-<summary>Need the running app to reproduce/verify</summary>
-
-- The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its
-  own sandbox, and turning that off is not allowed there. Run it on a host.
-- [#6834](https://github.com/wekan/wekan/issues/6834) (the minicard due date is fixed; the board header bar wrapping to a second row and the list header icons under the card count did not reproduce on the current code at the same window width, in Persian, with the card count on - which WeKan release and browser zoom showed them is asked; wrapping the header rather than hiding buttons is by design)
-
-</details>
-
-<details>
-<summary>Needs a maintainer decision on the intended contract</summary>
-
-- [#6837](https://github.com/wekan/wekan/issues/6837) (a Simple and an Advanced mode, or profiles an administrator defines and assigns, to hide features from new users: which features each mode or profile shows, who chooses it, and how it relates to the existing per-board Board Settings / Card and Show on Minicard switches and the Admin Panel feature toggles)
-
-</details>
 
 </details>
 

@@ -8,13 +8,12 @@
 // <details>/<summary>, and clicking it reveals the long text below.
 //
 // These are the rules CLAUDE.md states, checked against the file:
-//   * the file opens with Status (Platforms/Version/TODO Later nested inside
-//     it as <details>), then the releases;
+//   * the file opens with Status (Platforms/Version nested inside it as
+//     <details>), then the releases - what is not done is in TODO.md;
 //   * an entry's summary is a SHORT description, never a paragraph;
 //   * no commit hash is ever the visible text of a link;
 //   * no long URL is ever shown as visible text;
 //   * a <summary> holds no markdown link (it cannot nest inside the <a>);
-//   * TODO Later says what is not done, and thanks nobody for it;
 //   * lines are wrapped at 80 columns, except a line carrying a link.
 //
 // Run: node tests/changelogFormat.test.cjs
@@ -29,10 +28,10 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const changelog = read('CHANGELOG-big.md');
 const lines = changelog.split('\n');
-// TODO Later is nested as a <details> inside "# Status" now, not its own
-// top-level heading - this is the one place that boundary is found, reused
-// everywhere below that used to say `lines.indexOf('# TODO Later')`.
-const todoAt = lines.indexOf('<summary>TODO Later</summary>');
+// Where Status ends: the Upcoming section when there is one, else the newest
+// release. TODO Later used to be the last block of Status and marked this
+// boundary; it moved to TODO.md (tests/todoFile.test.cjs).
+const statusEnd = lines.findIndex(line => /^# (?:v\d|Upcoming WeKan)/.test(line));
 
 // Every <details> block, with the summary line and the body below it.
 function blocks() {
@@ -55,7 +54,7 @@ const ALL = blocks();
 
 console.log('changelogFormat:');
 
-test('the file opens with Status, holding Platforms/Version/TODO Later, then the releases', () => {
+test('the file opens with Status, holding Platforms/Version, then the releases', () => {
   // Platforms, Version and TODO Later used to be their own top-level `#`
   // headings; they are now <details> nested inside a single `# Status`
   // heading (which also gained a "More status info" block linking
@@ -73,16 +72,13 @@ test('the file opens with Status, holding Platforms/Version/TODO Later, then the
     `nothing else is a heading: ${rest.filter(h => !/^# v\d/.test(h)).join(', ')}`);
   assert.ok(!rest.includes('# Upcoming WeKan ® release'),
     'there is only ONE Upcoming section, and it is above the newest release');
-  assert.ok(todoAt !== -1, 'TODO Later must still exist, nested under Status');
+  // What is not done lives in TODO.md, and Status points there.
+  assert.ok(!lines.slice(0, statusEnd).includes('<summary>TODO Later</summary>'), 'TODO Later moved to TODO.md');
+  assert.ok(lines.slice(0, statusEnd).some(l => l.includes('[TODO.md](TODO.md)')), 'Status links TODO.md');
   // "which WeKan version uses what" is a block inside Status, not a heading.
-  const platforms = lines.slice(0, todoAt);
+  const platforms = lines.slice(0, statusEnd);
   assert.ok(platforms.includes('<summary>Version</summary>'));
   assert.ok(platforms.some(l => /^- \[Install\]/.test(l)), 'and the platform links');
-});
-
-test('TODO Later opens by saying what the list is', () => {
-  assert.strictEqual(lines[todoAt + 2], '<details>');
-  assert.strictEqual(lines[todoAt + 3], '<summary>Carried to a future release.</summary>');
 });
 
 test('a change is a short description, with the long one behind it', () => {
@@ -148,51 +144,13 @@ test('no long URL is shown as visible text', () => {
     `${bare.length} long bare URLs: ${bare.slice(0, 3).join(' | ')}`);
 });
 
-test('Status contains no completed release entries, including before TODO Later', () => {
-  const end = lines.findIndex(line => /^# (?:v\d|Upcoming WeKan)/.test(line));
-  assert.ok(end > todoAt);
+test('Status contains no completed release entries', () => {
+  const end = statusEnd;
+  assert.ok(end > 0);
   for (const block of ALL.filter(block => block.line < end)) {
     assert.doesNotMatch(block.summary, /Thanks to |wekan\/commit\//,
       `line ${block.line}: completed work belongs under its release, not Status`);
   }
-});
-
-test('TODO Later says what is NOT done, and thanks nobody for it', () => {
-  const start = todoAt;
-  // The backlog ends at whatever comes next: the not-yet-released section when
-  // there is one, otherwise the newest release. Ending it at `# v` alone counted
-  // every Upcoming entry as a backlog entry - and those DO thank people.
-  const end = lines.findIndex((l, i) => i > start &&
-    (/^# v\d/.test(l) || l === '# Upcoming WeKan ® release'));
-  const section = lines.slice(start, end);
-  const inSection = ALL.filter(b => b.line > start && b.line < end);
-  // At least the opening block that says what the list is. The categories
-  // shrink as the backlog is built (2026-10-15: down to translations), and an
-  // emptied category is removed rather than kept as an empty heading.
-  assert.ok(inSection.length >= 1, 'the backlog opens by saying what it is');
-  for (const b of inSection) {
-    assert.ok(!/Thanks to /.test(b.summary),
-      `line ${b.line}: nothing is done yet, so there is nobody to thank`);
-    assert.ok(!/<a href=/.test(b.summary),
-      `line ${b.line}: a category is not a commit - the issues are linked in the body`);
-  }
-  // This was "at least half of the categories link issues". It was a proxy for
-  // "an issue the backlog is about is linked", and it stopped holding when the
-  // decided issues were built (2026-10-14: #802 to #2460 fixed, their category
-  // gone): what remains is mostly status records no single issue tracks -
-  // translations, backups, an e-mailed report. So the rule is now the thing
-  // itself: the issue triage categories exist, and no category names an issue
-  // without linking it.
-  // On 2026-10-14 and 2026-10-15 the built issues left it too (#5758, #2698,
-  // #337, #2208, #4790 closed), and with Jira sync from a Sandstorm grain
-  // working the last category naming an issue went: what is left is work no
-  // single issue tracks. The rule that stays is the one below.
-  for (const b of inSection) {
-    const bare = /(^|[^\[\/\w])#\d{3,5}\b/.exec(b.body.replace(/\[#\d+\]\([^)]*\)/g, ''));
-    assert.ok(!bare, `line ${b.line}: an issue named without its link: ${bare && bare[0]}`);
-  }
-  assert.ok(!section.some(l => /wekan\/commit\//.test(l)),
-    'nothing here was committed, so nothing here links a commit');
 });
 
 test('a markdown heading never appears inside an entry', () => {
@@ -232,7 +190,7 @@ test('the newest release follows the rules to the letter', () => {
   // whatever has been done since - one entry some days, a dozen on others - so
   // measuring "the release" against it fails on the size of the current day's
   // work. The Upcoming section's own entries are checked by the test below.
-  const start = lines.findIndex((l, i) => i > todoAt && /^# v\d/.test(l));
+  const start = lines.findIndex((l, i) => i > statusEnd - 1 && /^# v\d/.test(l));
   // CHANGELOG.md keeps the current month only, so on the month's first release
   // the newest release is also the LAST section and runs to the end of the file.
   const next = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
@@ -456,7 +414,7 @@ test('CLAUDE.md states these rules, so they are not folklore', () => {
   assert.ok(/The hash is never the link text/.test(claude));
   assert.ok(/Never show a long URL as visible text/.test(claude));
   assert.ok(/Word-wrap both CHANGELOGs at 80 chars/.test(claude));
-  assert.ok(/no `Thanks to` line/.test(claude), 'including the TODO Later exception');
+  assert.ok(/TODO\.md/.test(claude), 'and where what is not done is kept');
   assert.ok(/The Upcoming section opens with an `\*\*In short:\*\*` paragraph/.test(claude));
   assert.ok(/Inside a subsection, entries are GROUPED BY TOPIC\/AREA/.test(claude));
   assert.ok(/release summary → topic summary → commit\s+detail/.test(claude));
