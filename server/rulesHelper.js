@@ -751,6 +751,25 @@ export const RulesHelper = {
     return { mail, sourceBinding: source.binding };
   },
 
+  // Decided 2026-11-18 (TODO.md): a rule's action that would write into a list
+  // refusing the triggering user's role (#4527) is skipped - the caller returns
+  // from that action, and the rest of the rule still runs. The skip shows in
+  // Admin Panel -> Problems as ListLockRule (detected, low; summary row).
+  async ruleListRefuses(activity, action, boardId, listIds) {
+    const { listException } = require('/server/lib/listPermissionGate');
+    const board = await ReactiveCache.getBoard(boardId);
+    for (const listId of listIds) {
+      if (!listId || (await listException(activity.userId, board, listId, 'write')) !== false) continue;
+      try {
+        require('/server/lib/securityLog').record({ key: 'authz.rule-list-locked', action: 'detected',
+          source: `rule:${action.actionType}`, userId: activity.userId,
+          detail: 'A rule action was skipped: its list refuses the triggering user\'s role.' });
+      } catch (e) { /* logging must never break the rule */ }
+      return true;
+    }
+    return false;
+  },
+
   async performAction(activity, action, ruleRun) {
     const card = await ReactiveCache.getCard(activity.cardId);
     if (activity.activityType === 'button') {
@@ -801,6 +820,8 @@ export const RulesHelper = {
       action.actionType === 'moveCardToBottom'
     ) {
       const target = await this.moveCardTarget(activity, card, action);
+      if (target && (await this.ruleListRefuses(activity, action, card.boardId, [card.listId])
+        || await this.ruleListRefuses(activity, action, target.boardId, [target.listId]))) return;
       if (target) {
         await withUserId(activity.userId, () => card.move(target.boardId, target.swimlaneId, target.listId, target.sort));
         if (ruleRun && target.boardId !== here) ruleRun.movedTo = target.boardId;
@@ -913,6 +934,8 @@ export const RulesHelper = {
         }
       }
     }
+    if ((action.actionType === 'archive' || action.actionType === 'unarchive')
+      && await this.ruleListRefuses(activity, action, card.boardId, [card.listId])) return;
     if (action.actionType === 'archive') {
       if (!card.archived) {
         await card.archive();
@@ -1110,6 +1133,7 @@ export const RulesHelper = {
     if (action.actionType === 'createCard') {
       // The same target the durable command captures (createCardTarget).
       const target = await this.createCardTarget(activity, card, action);
+      if (await this.ruleListRefuses(activity, action, target.boardId, [target.listId])) return;
       // The card's author is whoever ran the rule. A scheduled rule runs
       // outside any method, where the schema's autoValue has no user to take,
       // so it is passed explicitly ("User ID is required in cards insertAsync").
@@ -1143,12 +1167,14 @@ export const RulesHelper = {
       }
     }
     if (action.actionType === 'copyCard') {
-      return await copyRuleCard({ activity, action, cache: ReactiveCache, canWrite: allowIsBoardMemberWithWriteAccess });
+      return await copyRuleCard({ activity, action, cache: ReactiveCache, canWrite: allowIsBoardMemberWithWriteAccess,
+        listWritable: async (board, listId) => !(await this.ruleListRefuses(activity, action, board._id, [listId])) });
     }
     if (action.actionType === 'linkCard') {
       const card = await ReactiveCache.getCard(activity.cardId);
       // The same target the durable command captures (linkCardTarget).
       const { listId, swimlaneId } = await this.linkCardTarget(action);
+      if (await this.ruleListRefuses(activity, action, action.boardId, [listId])) return;
       await card.link(action.boardId, swimlaneId, listId);
     }
     if (
@@ -1176,6 +1202,7 @@ export const RulesHelper = {
       if (action.listName && action.listName !== '*') {
         list = await ReactiveCache.getList({ title: action.listName, boardId: here });
       }
+      if (list && await this.ruleListRefuses(activity, action, list.boardId, [list._id])) return;
       if (list) {
         const cards = await list.cardsUnfiltered(card.swimlaneId);
         // The same order the durable command captures (models/lib/ruleSortList.js).
@@ -1188,6 +1215,10 @@ export const RulesHelper = {
     if (action.actionType === 'moveAllCardsInList') {
       const fromList = await ReactiveCache.getList({ title: action.fromListName, boardId: here });
       const toList = await ReactiveCache.getList({ title: action.listName, boardId: actionBoardId });
+      if (fromList && toList
+        && await this.ruleListRefuses(activity, action, here, [fromList._id])) return;
+      if (fromList && toList
+        && await this.ruleListRefuses(activity, action, actionBoardId, [toList._id])) return;
       if (fromList && toList) {
         const cards = await fromList.cardsUnfiltered();
         for (const c of cards) {

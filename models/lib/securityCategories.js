@@ -247,6 +247,12 @@ const CATALOG = {
   // REST bulk delete and bulk label routes, which take their cards from the
   // body. No screen calls them, so a refusal is an attempt. Medium.
   'authz.list-locked-bulk': { category: 'authz', bleed: 'ListLockBulkBleed', severity: 'medium', cwe: 'CWE-863' },
+  // Decided 2026-11-18 (TODO.md): a rule action that would write into a list
+  // refusing the triggering user's role is skipped, and the rest of the rule
+  // runs. Not an attack - a rule a board admin wrote met a list somebody locked
+  // - so it is only `detected`, low, and never disables anyone: the summary row
+  // is where an admin sees which rules keep skipping.
+  'authz.rule-list-locked': { category: 'authz', bleed: 'ListLockRule', severity: 'low', cwe: 'CWE-863', blocksAccount: false },
   'authz.tenant':    { category: 'authz', bleed: 'TenantBleed', severity: 'medium', cwe: 'CWE-862' },
   'authz.search-session': { category: 'authz', bleed: 'SessionBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },

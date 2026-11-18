@@ -5,7 +5,9 @@ const copies = new AsyncLocalStorage();
 // Copies insert cards and activities, which can trigger another copy rule.
 // A copy action may run once per causal copy chain; independent events
 // have separate contexts and may copy the same source again.
-export async function copyRuleCard({ activity, action, cache, canWrite }) {
+// `listWritable(board, listId)`: the per-list role exception of the copy's
+// destination (decided 2026-11-18, TODO.md); a refusing list skips the copy.
+export async function copyRuleCard({ activity, action, cache, canWrite, listWritable = async () => true }) {
   const destinationId = action.boardId || activity.boardId;
   if (![activity.cardId, activity.boardId, activity.userId, destinationId,
     action.listId, action.swimlaneId].every(value => typeof value === 'string' && value)) return null;
@@ -23,6 +25,7 @@ export async function copyRuleCard({ activity, action, cache, canWrite }) {
       !canWrite(activity.userId, source) || !canWrite(activity.userId, destination) ||
       !list || list.archived || list.boardId !== destinationId ||
       !swimlane || swimlane.archived || swimlane.boardId !== destinationId) return null;
+    if (!(await listWritable(destination, list._id))) return null;
     // Keep the cached source unchanged, including its placement and sort order.
     const copy = Object.assign(Object.create(Object.getPrototypeOf(card)), card);
     copy.sort = (await card.getSort(list._id, swimlane._id, false)) + 1;

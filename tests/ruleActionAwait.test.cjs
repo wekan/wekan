@@ -31,10 +31,13 @@ function fixture(action, method) {
     // The rule-loop depth guard (BypassBleed DoS): one level, pass-through.
     ruleDepth: { get: () => 0, withValue: (value, fn) => fn() }, MAX_RULE_DEPTH: 5,
     buildRuleVars: async () => ({}),
+    // The per-list exception asked before a rule's write (decided 2026-11-18,
+    // tests/listLockRules.test.cjs): no list here refuses.
+    require: name => (name === '/server/lib/listPermissionGate' ? { listException: async () => undefined } : { record() {} }),
     relativeDateOffset: () => new Date(1234),
     resolveRuleListId: row => row._id, resolveRuleSwimlaneId: row => row._id,
     getDestBoardDefaultSwimlane: async () => ({ _id: 'lane' }),
-    ReactiveCache: { getCard: async () => card, getList: async () => ({ _id: 'list' }),
+    ReactiveCache: { getCard: async () => card, getList: async () => ({ _id: 'list' }), getBoard: async () => null,
       getSwimlane: async () => ({ _id: 'lane' }) },
   });
   helper.findMatchingRules = async () => [{ getAction: async () => action }, { getAction: async () => action }];
