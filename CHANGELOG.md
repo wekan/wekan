@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**Card Excel export** works again when only Description or only
+Labels is selected. The browser suite now runs much more of the upstream REST,
+attachment, custom-field and webhook specs against **WeLite**, including
+right-to-left Arabic captions.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.15 2026-11-18 WeKan ® release
 
 **RaceBleed** is fixed: deleting a card while somebody moves it

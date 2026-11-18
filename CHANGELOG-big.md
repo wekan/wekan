@@ -124,6 +124,83 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Card Excel export** works again when only Description or only
+Labels is selected. The browser suite now runs much more of the upstream REST,
+attachment, custom-field and webhook specs against **WeLite**, including
+right-to-left Arabic captions.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/997c6d88ad4c67850831aa99de1f874765c90a41">Card Excel export works with only Description or only Labels selected</a>. Thanks to AhmedLukman and xet7.</summary>
+
+The card Excel exporter loads the board, list and swimlane only when the
+selected fields need them, and passes `null` for the rest. The shared card
+document builder defaulted them with `board = {}`, which applies only to
+`undefined`, so it read `.title` of `null` and the download ended in "Export
+failed". The titles are optional now (`board?.title || ''`), which also covers
+a PDF card export of a card with no swimlane.
+`tests/cardExportDocument.test.cjs`
+fails on the old code with that TypeError, and
+`tests/playwright/specs/card-excel-field-selection.e2e.js` downloads both
+workbooks from the real route and checks that each holds only its own field.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Card Excel export** - the browser test for the fix above.
+
+- [A Playwright spec drives the card Excel export with one field selected](https://github.com/wekan/wekan/commit/7d10047dfa2775a1b54f010d7b2934d0669d76b0).
+  Thanks to AhmedLukman and xet7.
+
+**WeLite REST API** - the upstream REST specs, run against the native WeLite
+target as well.
+
+- [Ownership selection](https://github.com/wekan/wekan/commit/049b628a0310a33026de423a590a6c33489d5b41). Thanks to xet7.
+- [Board card sorting](https://github.com/wekan/wekan/commit/5f06b28aef680d2682e7fa4e965a0e797b502214). Thanks to xet7.
+- [Archive and restore](https://github.com/wekan/wekan/commit/11fc468ff77f9126b97d1eca72de9c2d90314022). Thanks to xet7.
+- [Subtasks](https://github.com/wekan/wekan/commit/db3f489ab27f672c9d1ab4db5feaf3a116eba928). Thanks to xet7.
+- [Overtime](https://github.com/wekan/wekan/commit/2033c177ce452f59bc6cb9d3d07a6566169ed015). Thanks to xet7.
+- [People features](https://github.com/wekan/wekan/commit/72ee1c8b231896586086ac7067ea6dd96135506c). Thanks to xet7.
+- [User update](https://github.com/wekan/wekan/commit/e4115e68905f4b9a2d521a749a9fe77dde322aa9). Thanks to xet7.
+- [Checklists](https://github.com/wekan/wekan/commit/ede46c7a9873f20864a77eeda7cb5007762824ff). Thanks to xet7.
+- [Write-route scope](https://github.com/wekan/wekan/commit/399a8defec10165e1cf7fa18faa5113d5bb7176f). Thanks to xet7.
+- [Assignment removal](https://github.com/wekan/wekan/commit/8abb9504bb1f714873419f7b481650d758294ef7). Thanks to xet7.
+- [Dropdown item rename](https://github.com/wekan/wekan/commit/b8fd94a7e70bf65e85b8d06b491e4d3d13e3a9ec). Thanks to xet7.
+- [Dropdown item deletion](https://github.com/wekan/wekan/commit/f1adc7982eca4aebf8831403f6b4bd219cec51b9). Thanks to xet7.
+- [Custom-field lifecycle](https://github.com/wekan/wekan/commit/6bf2d53d756e59f494ea50587f62bc467afb7b77). Thanks to xet7.
+- [Webhook settings](https://github.com/wekan/wekan/commit/f34fee658206ab4d90583f58746067793f10d12a). Thanks to xet7.
+- [Native Playwright credentials are seeded before an API token is used](https://github.com/wekan/wekan/commit/a9059b7b155aaea4bf9ccb1647a492bab251bb10).
+  Thanks to xet7.
+
+**WeLite attachments** - the attachment workflows in the native browser.
+
+- [The upstream card attachment cascade spec](https://github.com/wekan/wekan/commit/26e27f62c4b6b9e2bcd1e10623de7dd3e0b31b5e). Thanks to xet7.
+- [Attachment rename, and a missing form token is refused](https://github.com/wekan/wekan/commit/7c3b798a1d0ff6e26b6afa8f49c3359a73ba526a). Thanks to xet7.
+- [Direct attachment removal in Chromium](https://github.com/wekan/wekan/commit/c060c6d2db51b2fc22fab72dadecd90ab173bd8f). Thanks to xet7.
+- [The Version Control Attachments workflow](https://github.com/wekan/wekan/commit/b6bc2b200ce7545ca43b2f6b3a3ac39874227812). Thanks to xet7.
+- [The Finnish attachment preview](https://github.com/wekan/wekan/commit/c5344761d856cf5234e5a12ccc61f336c6a9a0e8). Thanks to xet7.
+- [The cascade spec reuses its browser session](https://github.com/wekan/wekan/commit/bd6b00c5f437237a3cab8bf7d51172d948e45462). Thanks to xet7.
+- [The attachment browser workflow gets the time it needs](https://github.com/wekan/wekan/commit/333928f123f9dd061042c8b18b0e44663dc76d04). Thanks to xet7.
+
+**WeLite boards and sessions** - export links and session revocation.
+
+- [Both export links on the board](https://github.com/wekan/wekan/commit/075e6dbe730291543c8a384ce58429167976741c). Thanks to xet7.
+- [Revoking one browser session](https://github.com/wekan/wekan/commit/e30c439fa7f4e82bb2f4f949513aa1fcc4287953). Thanks to xet7.
+
+**WeLite right-to-left captions** - Arabic table captions read in their own
+direction.
+
+- [People table captions](https://github.com/wekan/wekan/commit/f1fe22ac16254fa3d7f14df6c09dd3f250c7d61a). Thanks to xet7.
+- [Regional Arabic People table captions](https://github.com/wekan/wekan/commit/8c1152f23468e76d07c964b5f1358900372c8248). Thanks to xet7.
+- [Arabic webhook field captions](https://github.com/wekan/wekan/commit/6f7292cffdfb42a7accf4955735bbd8a43d4472a). Thanks to xet7.
+- [Regional Arabic attachment captions](https://github.com/wekan/wekan/commit/ba9504d6db8dbd2adf8e72b98cb10c991a379cda). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.15 2026-11-18 WeKan ® release
 
 **In short:** **RaceBleed** is fixed: deleting a card while somebody moves it
