@@ -7,12 +7,13 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**ListLockBulkBleed** is fixed: a list that refuses a role write
-access now also refuses that role's bulk REST deletes and label changes and
-every server-side card write. A server no longer runs out of memory in the
-hourly **History integrity audit**, **scheduled rules** can create cards again,
-**Card Excel export** works with one field selected, and a cleared card title
-or description can be undone and redone.
+**ListLockBulkBleed** is fixed, and a list that refuses a role
+now also refuses that role's bulk writes, dependency lines, rule actions and
+changes to the list or swimlane itself. Administrators can give chosen users,
+teams and organizations a smaller WeKan with opt-in **feature profiles**. A
+server no longer runs out of memory in the hourly **History integrity audit**,
+**scheduled rules** can create cards again, and **Card Excel export** and
+clearing a card's text work again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

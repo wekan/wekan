@@ -97,12 +97,13 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** **ListLockBulkBleed** is fixed: a list that refuses a role write
-access now also refuses that role's bulk REST deletes and label changes and
-every server-side card write. A server no longer runs out of memory in the
-hourly **History integrity audit**, **scheduled rules** can create cards again,
-**Card Excel export** works with one field selected, and a cleared card title
-or description can be undone and redone.
+**In short:** **ListLockBulkBleed** is fixed, and a list that refuses a role
+now also refuses that role's bulk writes, dependency lines, rule actions and
+changes to the list or swimlane itself. Administrators can give chosen users,
+teams and organizations a smaller WeKan with opt-in **feature profiles**. A
+server no longer runs out of memory in the hourly **History integrity audit**,
+**scheduled rules** can create cards again, and **Card Excel export** and
+clearing a card's text work again.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ListLockBulkBleed](https://wekan.fi/hall-of-fame/listlockbulkbleed/):
 
@@ -133,6 +134,22 @@ card's rule button. Dependency lines keep their own board-wide rule.
 `tests/listLockBulkBleed.test.cjs` runs the gate on the reporter's board and
 pins every path; `tests/playwright/specs/list-lock-bulk.e2e.js` replays the
 proof of concept.
+
+</details>
+
+and adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc21b0b177dc8f8902efa39d0f89c8b041c7cf2d">Feature profiles hide features from the users, teams and organizations an administrator chooses</a>. Thanks to mimZD and xet7.</summary>
+
+[#6837](https://github.com/wekan/wekan/issues/6837): Admin Panel / Settings /
+Visibility / Features gains feature profiles - a name, the optional features it
+hides, and the users, teams and organizations it applies to. It is strictly
+opt-in: a user with no profile sees everything, a profile only hides and changes
+no data or permission, and the member menu tells the user which profile hides
+how many features, so nothing looks missing. Every place that hides a disabled
+feature follows it. The new strings are in every language.
+`tests/featureProfiles.test.cjs` and `feature-profiles.e2e.js` cover it.
 
 </details>
 

@@ -19,10 +19,3 @@ the changelog only says what changed.
 
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
-
-## Decided, to build
-
-- [#6837](https://github.com/wekan/wekan/issues/6837) - decided 2026-11-18:
-  administrator-defined feature profiles. An administrator defines named
-  profiles in the Admin Panel, each saying which features it shows, and assigns
-  them to users, organizations or teams, to hide features from new users.
