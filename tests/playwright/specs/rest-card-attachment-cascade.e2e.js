@@ -118,6 +118,7 @@ for (const bulk of [false, true]) {
 }
 
 test('deleting a card through its UI soft-deletes uploaded attachments and preserves sibling files', async ({ request, user, board, boardPage: page }) => {
+  test.slow(targetsWeLite, 'The HTML workflow includes upload, rename and direct removal before the card cascade');
   const boardUrl = page.url();
   const details = new CardPage(page);
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
