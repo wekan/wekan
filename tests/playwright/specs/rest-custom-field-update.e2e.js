@@ -73,7 +73,8 @@ test('custom-field updates preserve authorization, board scope, false values and
     const response = await request.put(`/api/boards/${other.boardId}/custom-fields/${field.id}`, {
       headers: headers(user.token), data: { name: 'Wrong board' },
     });
-    expect(response.status()).toBe(200);
+    expect(response.status()).toBe(404);
+    expect(await response.json()).toEqual({ error: 'Custom field not found' });
     expect(db.findOne('customFields', { _id: field.id })).toEqual(before);
   } finally { db.cleanup({ boardIds: [other.boardId] }); }
 
