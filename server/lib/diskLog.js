@@ -3,7 +3,7 @@
 import { resourceRecorder } from '/server/lib/resourceLog';
 
 export const record = resourceRecorder({
-  stream: 'disk', category: 'disk', bleed: 'DiskBleed', source: 'diskMonitor',
+  stream: 'disk', category: 'disk', bleed: 'HighDiskUsage', legacyBleed: 'DiskBleed', source: 'diskMonitor',
 });
 
 export default { record };

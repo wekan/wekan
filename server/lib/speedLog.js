@@ -11,6 +11,11 @@
 import EventLog from '/models/eventLog';
 // One row per problem, not per event - see server/lib/eventLogFold.js.
 import { foldEventFireAndForget } from '/server/lib/eventLogFold';
+import { Meteor } from 'meteor/meteor';
+import { renameLegacyRows } from '/server/lib/resourceLog';
+
+// Speed rows stored under the old name join the new one (resourceLog.js).
+if (Meteor.isServer) Meteor.startup(() => { renameLegacyRows('speed', 'SlowBleed', 'SlowRequest'); });
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
 // Record one performance event. Never throws.
@@ -24,7 +29,9 @@ export function record(evt = {}) {
       at: new Date(),
       severity: evt.severity || 'low',
       category: evt.category || 'performance',
-      bleed: evt.bleed || 'SlowBleed',
+      // A slow request, not a vulnerability: named for what happened
+      // (resourceLog.js renames the rows stored as 'SlowBleed').
+      bleed: evt.bleed || 'SlowRequest',
       action: evt.action || 'detected',
       source: evt.source || '',
       cwe: evt.cwe || '',

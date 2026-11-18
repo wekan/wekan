@@ -42,9 +42,14 @@ function memoryUsage({ totalmem, freemem, meminfo = {} }) {
 }
 
 // Start/end of sustained memory pressure. High begins after `enterSamples`
-// samples in a row with RAM at/above `highPct` OR swap at/above `swapHighPct`;
-// it ends after `exitSamples` in a row with RAM below `lowPct` AND swap below
-// `swapHighPct`. Tracks the peak of both.
+// samples in a row with RAM at/above `highPct`, OR swap at/above `swapHighPct`
+// while RAM is also at/above `lowPct`; it ends after `exitSamples` in a row
+// with RAM below `lowPct`. Tracks the peak of both.
+//
+// Swap alone is not pressure (2026-11-19): a machine running many programs
+// keeps their idle pages in swap while plenty of RAM is free - a developer
+// laptop at RAM 52% and swap 60% was reported as "high RAM usage started
+// (>= 90%)". Swap counts only when RAM is tight as well.
 class HighRamTracker {
   constructor(opts = {}) {
     this.highPct = opts.highPct != null ? opts.highPct : 90;
@@ -67,7 +72,7 @@ class HighRamTracker {
   update(sample, now) {
     const ram = Number(sample && sample.ramPct) || 0;
     const swap = sample && Number.isFinite(sample.swapPct) ? sample.swapPct : null;
-    const pressured = ram >= this.highPct || (swap != null && swap >= this.swapHighPct);
+    const pressured = ram >= this.highPct || (ram >= this.lowPct && swap != null && swap >= this.swapHighPct);
     if (!this.high) {
       this.aboveCount = pressured ? this.aboveCount + 1 : 0;
       if (this.aboveCount >= this.enterSamples) {
@@ -82,7 +87,7 @@ class HighRamTracker {
     }
     if (ram > this.peakRam) this.peakRam = ram;
     if (swap != null && (this.peakSwap == null || swap > this.peakSwap)) this.peakSwap = swap;
-    const calm = ram < this.lowPct && (swap == null || swap < this.swapHighPct);
+    const calm = ram < this.lowPct;
     this.belowCount = calm ? this.belowCount + 1 : 0;
     if (this.belowCount >= this.exitSamples) {
       const res = { event: 'end', at: now, startedAt: this.startedAt,

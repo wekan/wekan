@@ -3,7 +3,7 @@
 import { resourceRecorder } from '/server/lib/resourceLog';
 
 export const record = resourceRecorder({
-  stream: 'cpu', category: 'cpu', bleed: 'CpuBleed', source: 'cpuMonitor',
+  stream: 'cpu', category: 'cpu', bleed: 'HighCpuUsage', legacyBleed: 'CpuBleed', source: 'cpuMonitor',
 });
 
 export default { record };

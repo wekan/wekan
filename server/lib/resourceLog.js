@@ -7,10 +7,23 @@
 // throws. cpuLog.js, ramLog.js and diskLog.js are this with their stream.
 // ============================================================================
 
+import { Meteor } from 'meteor/meteor';
 import EventLog from '/models/eventLog';
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 
+// A resource monitor reports how busy the machine is, not a vulnerability. Its
+// rows were named like the Hall of Fame entries - RamBleed, CpuBleed, DiskBleed,
+// with CWE-400 - and a laptop with many programs open read as an attack
+// (2026-11-19). They are named for what happened now, carry no CWE, and the
+// rows already stored under the old name are renamed once, at startup.
+export function renameLegacyRows(stream, from, to) {
+  if (!from || from === to) return Promise.resolve();
+  return EventLog.rawCollection().updateMany({ stream, bleed: from }, { $set: { bleed: to }, $unset: { cwe: '' } })
+    .catch(() => {});
+}
+
 export function resourceRecorder(defaults) {
+  if (Meteor.isServer) Meteor.startup(() => { renameLegacyRows(defaults.stream, defaults.legacyBleed, defaults.bleed); });
   return function record(evt = {}) {
     try {
       const doc = {
@@ -21,7 +34,7 @@ export function resourceRecorder(defaults) {
         bleed: evt.bleed || defaults.bleed,
         action: evt.action || 'detected',
         source: evt.source || defaults.source,
-        cwe: evt.cwe || 'CWE-400',
+        ...(evt.cwe ? { cwe: evt.cwe } : {}),
         detail: sanitizeDetail(evt.detail),
       };
       const p = EventLog.insertAsync(doc);

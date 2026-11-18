@@ -3,7 +3,7 @@
 import { resourceRecorder } from '/server/lib/resourceLog';
 
 export const record = resourceRecorder({
-  stream: 'ram', category: 'ram', bleed: 'RamBleed', source: 'ramMonitor',
+  stream: 'ram', category: 'ram', bleed: 'HighRamUsage', legacyBleed: 'RamBleed', source: 'ramMonitor',
 });
 
 export default { record };

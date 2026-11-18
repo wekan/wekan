@@ -76,10 +76,15 @@ if (Meteor.isServer && ENABLED) {
         const now = Date.now();
         const res = tracker.update(sample, now);
         if (res.event === 'start') {
+          // Say what started it: RAM over its threshold, or swap while RAM is
+          // also tight. Only RAM near full is `high`; swap is not (ramHighTracker.js).
+          const reason = sample.ramPct >= HIGH_PCT
+            ? `RAM >= ${HIGH_PCT}%`
+            : `swap >= ${SWAP_HIGH_PCT}% with RAM >= ${LOW_PCT}%`;
           record({
             action: 'detected',
-            severity: sample.ramPct >= 95 || (sample.swapPct != null && sample.swapPct >= SWAP_HIGH_PCT) ? 'high' : 'medium',
-            detail: `high RAM usage started (>= ${HIGH_PCT}%): ${describe(sample)}`,
+            severity: sample.ramPct >= 95 ? 'high' : 'medium',
+            detail: `high RAM usage started (${reason}): ${describe(sample)}`,
           });
         } else if (res.event === 'end') {
           const secs = Math.round((res.durationMs || 0) / 1000);

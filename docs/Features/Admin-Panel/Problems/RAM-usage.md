@@ -58,11 +58,17 @@ sample stream into just two events per episode, with **hysteresis** to prevent
 flapping:
 
 - enter the high state after `WEKAN_RAM_HIGH_SAMPLES` (3) consecutive samples at/above
-  `WEKAN_RAM_HIGH_PERCENT` (default 90% RAM used) **OR** at/above
-  `WEKAN_SWAP_HIGH_PERCENT` (default 25% swap used — any real swapping is already a
-  performance problem);
+  `WEKAN_RAM_HIGH_PERCENT` (default 90% RAM used), **or** with swap at/above
+  `WEKAN_SWAP_HIGH_PERCENT` (default 25% swap used) **while RAM is also** at/above
+  `WEKAN_RAM_LOW_PERCENT` (default 80%);
 - leave it after `WEKAN_RAM_LOW_SAMPLES` (3) consecutive samples with RAM below
-  `WEKAN_RAM_LOW_PERCENT` (default 80%) and swap below the swap threshold;
+  `WEKAN_RAM_LOW_PERCENT`.
+
+Swap alone is not memory pressure. A machine running many programs keeps their
+idle pages in swap while plenty of RAM is free; a developer laptop at RAM 52% and
+swap 60% used to be reported as "high RAM usage started (>= 90%)", high severity.
+Swap now counts only when RAM is tight as well, and the start row says which of
+the two started it: `(RAM >= 90%)` or `(swap >= 25% with RAM >= 80%)`.
 - it tracks the peak RAM% and peak swap% seen during the episode for the end row.
 
 ### Report — Admin Panel → Problems → Memory Usage
@@ -71,13 +77,15 @@ Episodes are written to the `eventLog` collection on the **`ram`** stream (a new
 `securityCategories`-style stream alongside `cpu`), and shown by the existing
 `eventStreamReport` template (paginated, searchable, read-only). Two rows per episode:
 
-- **start** (`detected`): `high RAM usage started (>= 90%): RAM 7.4/8.0 GB (92%),
+- **start** (`detected`): `high RAM usage started (RAM >= 90%): RAM 7.4/8.0 GB (92%),
   swap 0.6/2.0 GB (30%), load …, WeKan: <activity>`
 - **end** (`remediated`): `high RAM usage ended after 42s (peak RAM 96%, peak swap
   41%, back under 80%): RAM 5.1/8.0 GB (64%), swap 0.1/2.0 GB (5%)`
 
-Severity: `high` when RAM is at ≥ 95% or swap is at/above its threshold when the
-period starts, else `medium`. The end row is `info`, so it does not count as a new
+Severity: `high` when RAM is at ≥ 95% when the period starts, else `medium`. The
+rows are named `HighRamUsage` (they were `RamBleed`, as if they were a
+vulnerability; the old rows are renamed at startup) and carry no CWE: this is how
+busy the machine is, not an attack. The end row is `info`, so it does not count as a new
 problem.
 
 Above the rows, a live line shows the current RAM use (percentage and used / total

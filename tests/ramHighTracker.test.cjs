@@ -63,11 +63,32 @@ test('a high period starts after N samples of high RAM, and ends after N calm on
   assert.strictEqual(t.isHigh(), false);
 });
 
-test('swap use alone starts a period, and keeps it open while RAM looks fine', () => {
+// 2026-11-19: this used to be "swap use alone starts a period". A developer
+// laptop with many programs open - RAM 52%, swap 60% - was reported as "high
+// RAM usage started (>= 90%)" with high severity, as RamBleed. Idle pages in
+// swap while RAM is free are not pressure; swap counts when RAM is tight too.
+test('negative: swap use alone, with RAM free, is not memory pressure', () => {
   const t = new HighRamTracker({ enterSamples: 1, exitSamples: 1 });
-  assert.strictEqual(t.update({ ramPct: 50, swapPct: 30 }, 1).event, 'start');
-  assert.strictEqual(t.update({ ramPct: 50, swapPct: 30 }, 2).event, null, 'still swapping: not over');
-  assert.strictEqual(t.update({ ramPct: 50, swapPct: 5 }, 3).event, 'end');
+  for (const [i, sample] of [{ ramPct: 52, swapPct: 60 }, { ramPct: 79, swapPct: 100 }, { ramPct: 50, swapPct: 30 }].entries()) {
+    assert.strictEqual(t.update(sample, i).event, null, JSON.stringify(sample));
+  }
+  assert.strictEqual(t.isHigh(), false);
+});
+
+test('swap while RAM is tight starts a period, and it ends when RAM is back', () => {
+  const t = new HighRamTracker({ highPct: 90, lowPct: 80, swapHighPct: 25, enterSamples: 1, exitSamples: 1 });
+  assert.strictEqual(t.update({ ramPct: 85, swapPct: 30 }, 1).event, 'start');
+  assert.strictEqual(t.update({ ramPct: 85, swapPct: 30 }, 2).event, null, 'still tight: not over');
+  // RAM back under the low mark ends it, even with pages still in swap.
+  assert.strictEqual(t.update({ ramPct: 60, swapPct: 30 }, 3).event, 'end');
+});
+
+test('the monitor says what started a period, and only RAM near full is high severity', () => {
+  const src = require('fs').readFileSync(require('path').join(__dirname, '..', 'server/lib/ramMonitor.js'), 'utf8');
+  assert.match(src, /`RAM >= \$\{HIGH_PCT\}%`/);
+  assert.match(src, /`swap >= \$\{SWAP_HIGH_PCT\}% with RAM >= \$\{LOW_PCT\}%`/);
+  assert.match(src, /severity: sample\.ramPct >= 95 \? 'high' : 'medium',/);
+  assert.doesNotMatch(src, /\(>= \$\{HIGH_PCT\}%\): \$\{describe/, 'no fixed ">= 90%" for a swap start');
 });
 
 test('a value hovering between low and high does not flap (negative)', () => {
