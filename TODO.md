@@ -22,13 +22,6 @@ the changelog only says what changed.
 
 ## Decided, to build
 
-- Per-list role exceptions and List Sync's durable rule replay
-  (`server/notifications/storedRulePlans.js`, `server/lib/syncRuleExecution.js`):
-  the ordinary rules engine now skips an action into a list that refuses the
-  triggering user's role, but the journaled List Sync replay still checks board
-  write access only. A skip there needs a receipt of its own, so that the
-  replayed plan completes instead of failing; until then a sync-triggered rule
-  can still write into such a list.
 - [#6837](https://github.com/wekan/wekan/issues/6837) - decided 2026-11-18:
   administrator-defined feature profiles. An administrator defines named
   profiles in the Admin Panel, each saying which features it shows, and assigns

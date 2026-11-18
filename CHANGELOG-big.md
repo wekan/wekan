@@ -174,8 +174,18 @@ A rule's move, archive, create-card, copy, link and list actions checked only
 board write access. Each now asks the lists it writes in as the user who
 triggered the rule; a refusing list skips that action and shows in Admin Panel /
 Problems as ListLockRule (detected, low), since a rule meeting a locked list is
-not an attack. List Sync's journaled replay is still to do (TODO.md).
-`tests/listLockRules.test.cjs` pins it.
+not an attack. `tests/listLockRules.test.cjs` pins it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0f36819610e6d0aa9c170340f8421c1b7fc2bbe">List Sync's rule replay skips such an action too</a>. Thanks to xet7.</summary>
+
+The journaled List Sync replay still wrote with board write access only. Each of
+its list-writing runners now decides before saving its command, records a
+durable skip and lets the rest of the plan run; a replay reads the saved skip,
+so it never re-decides and never skips a half-finished action.
+`tests/listSyncRuleListSkip.test.cjs` pins it.
 
 </details>
 
