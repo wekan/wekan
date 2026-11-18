@@ -2,6 +2,9 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 test('ownership transfer leaves ordinary memberships unchanged and transfers administered boards', async ({ page, request, adminUser, user, user2 }) => {
   const owned = db.seedBoard({ ownerId: user.id, title: 'Owned board' });
@@ -12,9 +15,16 @@ test('ownership transfer leaves ordinary memberships unchanged and transfers adm
   const ordinaryBefore = db.findOne('boards', { _id: ordinary.boardId });
   const absentBefore = db.findOne('boards', { _id: absent.boardId });
   try {
-    await loginWithToken(page, user.id, user.token);
-    await openBoard(page, ordinary.boardId, ordinary.slug);
-    await expect(page.locator('.minicard-title').filter({ hasText: 'Retained card' })).toBeVisible();
+    if (targetsWeLite) {
+      await openWeLiteBoard(page, user, ordinary.boardId);
+    } else {
+      await loginWithToken(page, user.id, user.token);
+      await openBoard(page, ordinary.boardId, ordinary.slug);
+    }
+    const retainedCard = targetsWeLite
+      ? page.getByRole('link', { name: 'Retained card', exact: true })
+      : page.locator('.minicard-title').filter({ hasText: 'Retained card' });
+    await expect(retainedCard).toBeVisible();
     const response = await request.put(`/api/users/${user.id}`, {
       headers: { Authorization: `Bearer ${adminUser.token}` }, data: { action: 'takeOwnership' },
     });
@@ -31,7 +41,8 @@ test('ownership transfer leaves ordinary memberships unchanged and transfers adm
     expect(await repeated.json()).toEqual([]);
     expect(db.findOne('boards', { _id: ordinary.boardId })).toEqual(ordinaryBefore);
     await page.reload();
-    await expect(page.locator('.minicard-title').filter({ hasText: 'Retained card' })).toBeVisible();
+    await expect(retainedCard).toBeVisible();
+    if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
   } finally {
     db.cleanup({ boardIds: [owned.boardId, ordinary.boardId, absent.boardId] });
   }
