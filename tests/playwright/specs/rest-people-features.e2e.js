@@ -101,7 +101,16 @@ for (const [kind, label] of [['org', 'Organization'], ['team', 'Team']]) {
         await expect(checkbox).toBeChecked({ checked: value });
         expect(db.findOne(kind, { _id: id })[fields[0]]).toBe(value);
       }
-      if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
+      if (targetsWeLite) {
+        const url = new URL(page.url());
+        url.searchParams.set('lang', 'ar');
+        const localized = await page.goto(url.href);
+        expect(localized.headers()['content-language']).toBe('ar');
+        await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+        const table = page.locator('table').filter({ has: row });
+        await expect(table.getByRole('columnheader', { name: 'الاسم المختصر', exact: true })).toBeVisible();
+        expect(await page.context().cookies()).toEqual([]);
+      }
     });
   });
 }
