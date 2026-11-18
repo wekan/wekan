@@ -267,6 +267,32 @@ replaced with the language named by that tag.**
   misrepresent machine/LLM translations as human. Push only separately reviewed,
   provenance-known human translations with an explicit push command.
 
+### Shared translation source for WeKan prototypes under `.tools/`
+
+The WeKan catalogs in `imports/i18n/data/` are the source of truth for
+translations in every WeKan prototype under `.tools/`, including WeLite,
+Weddy, Wami, and any future WeKan prototype with its own catalog.
+
+1. Before adding a translation key in a prototype, search WeKan's English
+   catalog for a key with the same meaning and usage. Reuse that key and its
+   existing translations. A different key name or catalog format does not
+   require a new translation.
+2. If no suitable key exists, add it to WeKan's English catalog first, even if
+   the string is currently used only by a prototype. Fill the key for every
+   supported language in the WeKan repository using the translation rules
+   below. Preserve existing human translations and verify the placeholders
+   against the English source.
+3. Once the key is complete in WeKan, copy the canonical translations into
+   the applicable WeKan prototype repositories under `.tools/`. Use each
+   prototype's catalog format, filename and locale mapping as needed, while
+   preserving the translated text and placeholders. Verify that the prototype
+   loads the synced catalogs and renders the intended strings.
+
+Apply the same workflow to existing prototype-only keys and translation
+corrections. Resolve equivalent keys and bring genuinely new strings into
+WeKan before syncing them back out. Maintain translation text in WeKan so the
+prototypes share the same translations and receive subsequent updates.
+
 ### Filling the remaining untranslated strings — directly, no translation service
 
 The strings still equal to the English source after the merge are the ones untranslated
