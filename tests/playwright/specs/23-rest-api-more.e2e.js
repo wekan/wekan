@@ -18,6 +18,10 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 function authHeaders(token, json = false) {
   const h = { Authorization: `Bearer ${token}` };
@@ -184,18 +188,35 @@ test.describe('REST API: rules + card sub-resources + core CRUD', () => {
     }
   });
 
-  test('board menu downloads complete JSON in both attachment modes', async ({ boardPage, board }) => {
+  test('board menu downloads complete JSON in both attachment modes', async ({ page: boardPage, request, user, board }) => {
+    if (!targetsWeLite) {
+      await loginWithToken(boardPage, user.id, user.token);
+      await openBoard(boardPage, board.boardId, board.slug);
+    }
     const cardId = listCards(board.boardId, board.listIds[0])[0]._id;
     db.updateOne('cards', { _id: cardId }, { $set: {
       description: '<b>Meteor 3 roadmap</b><script>alert(1)</script>',
     } });
-    const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
-    if (!(await menu.isVisible())) {
-      await boardPage.locator('.js-toggle-page-sidebar').first().click();
+    const attachmentBytes = Buffer.from([0, 13, 127, 255]);
+    if (targetsWeLite) {
+      const query = new URLSearchParams({ boardId: board.boardId, listId: board.listIds[0],
+        swimlaneId: board.swimlaneId, cardId, fileName: 'export-fixture.bin' });
+      const uploaded = await request.post(`/api/attachment/upload?${query}`, {
+        headers: { ...authHeaders(user.token), 'Content-Type': 'application/octet-stream' }, data: attachmentBytes,
+      });
+      expect(uploaded.status()).toBe(200);
+      await openWeLiteBoard(boardPage, user, board.boardId);
+    } else {
+      const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
+      if (!(await menu.isVisible())) {
+        await boardPage.locator('.js-toggle-page-sidebar').first().click();
+      }
+      await menu.click();
+      await boardPage.locator('.js-export-board').click();
     }
-    await menu.click();
-    await boardPage.locator('.js-export-board').click();
-    const links = boardPage.locator('.export-board-pane-formats a[download]');
+    const links = targetsWeLite
+      ? boardPage.locator('a[href^="/board/export?"]')
+      : boardPage.locator('.export-board-pane-formats a[download]');
     await expect(links.first()).toBeVisible();
     for (const withoutAttachments of [false, true]) {
       const findHref = async () => {
@@ -222,7 +243,14 @@ test.describe('REST API: rules + card sub-resources + core CRUD', () => {
       const exported = JSON.parse(Buffer.concat(chunks).toString('utf8'));
       expect(exported.cards.find(card => card._id === cardId).description).toBe('Meteor 3 roadmap');
       expect(Array.isArray(exported.users)).toBe(true);
+      if (targetsWeLite) {
+        const exportedAttachment = exported.attachments.find(entry => entry.name === 'export-fixture.bin');
+        expect(exportedAttachment).toBeDefined();
+        if (withoutAttachments) expect(exportedAttachment).not.toHaveProperty('file');
+        else expect(Buffer.from(exportedAttachment.file, 'base64')).toEqual(attachmentBytes);
+      }
     }
+    if (targetsWeLite) expect(await boardPage.context().cookies()).toEqual([]);
   });
 
   // ---- Card stickers / locations / dueComplete via PUT --------------------
