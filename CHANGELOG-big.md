@@ -209,6 +209,19 @@ so it never re-decides and never skips a half-finished action.
 **Server memory and timed jobs** - what runs on its own, every hour.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfd9a62466a64b58d514d46c3c6560f003704523">Swap alone is not high RAM usage, and resource monitors are not named like vulnerabilities</a>. Thanks to xet7.</summary>
+
+A laptop with many programs open showed "RamBleed, high: high RAM usage started
+(>= 90%)" at RAM 52% and swap 60%: swap at 25% started a period by itself. Swap
+now counts only while RAM is also tight, the row says what started it, and only
+RAM near full is high severity. The RAM, CPU, disk and speed rows are named for
+what happened (HighRamUsage, HighCpuUsage, HighDiskUsage, SlowRequest) without a
+CWE, and old rows are renamed at startup. `tests/ramHighTracker.test.cjs` and
+`tests/resourceStreamNames.test.cjs` cover it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7459c5bde66ea22966526a7179eede62b5233f0e">The History integrity audit streams each board instead of loading it whole</a>. Thanks to xet7.</summary>
 
 A production server died twice with "JavaScript heap out of memory", 42 and 74
