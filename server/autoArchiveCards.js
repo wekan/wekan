@@ -33,7 +33,7 @@ export async function autoArchiveBoard(board, now = new Date()) {
     try {
       // card.archive() also archives its subtasks and records archivedCard.
       // eslint-disable-next-line no-await-in-loop
-      await asUser(board.createdBy, () => card.archive());
+      await asUser(require('/models/lib/boardActor').boardActorId(board), () => card.archive());
       archived += 1;
     } catch (e) {
       // One card that cannot be archived must not stop the rest.

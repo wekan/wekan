@@ -1,3 +1,4 @@
+import { boardActorId } from '/models/lib/boardActor';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { SyncedCron } from '/server/cron/syncedCron';
@@ -98,7 +99,9 @@ async function runDueTrigger(trigger, slotKey, now) {
   if (!actions.length) return;
 
   const board = await ReactiveCache.getBoard(trigger.boardId);
-  const userId = board ? board.createdBy : undefined;
+  // Boards have no createdBy: this was undefined, and a scheduled rule ran as
+  // nobody (models/lib/boardActor.js).
+  const userId = boardActorId(board) || undefined;
   const cards = await selectCards(trigger);
   // One run per card: an email follows the card where this rule's own move
   // took it (RulesHelper.emailActivity).

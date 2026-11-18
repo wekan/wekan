@@ -67,11 +67,13 @@ test('scheduled email failure retains an unfinished slot while other triggers ru
   const f = fixture(), failure = new Error('SMTP unavailable'), writes = [];
   f.cache.getRule = async () => ({ actionId: 'action' });
   f.cache.getAction = async () => action;
-  f.cache.getBoard = async () => ({ createdBy: 'actor' });
+  // The board acts as its first active admin (models/lib/boardActor.js).
+  f.cache.getBoard = async () => ({ members: [{ userId: 'actor', isActive: true, isAdmin: true }] });
   f.cache.getCards = async () => [{ _id: 'card' }];
   const triggers = ['failed', 'healthy'].map(_id => ({ _id, boardId: 'board', scheduleKind: 'calendar', scheduleType: 'daily' }));
   // scheduledRules.js's imports are stripped below; provide the pure helpers it uses.
   const context = { ...require('../models/lib/ruleParts.js'), ...require('../models/lib/scheduledDueFilter.js'),
+    ...require('../models/lib/boardActor.js'),
     Meteor: { startup() {} }, ReactiveCache: f.cache, RulesHelper: f.helper,
     console: { error() {} }, Triggers: { find: () => ({ fetchAsync: async () => triggers }),
       updateAsync: async (id, update) => writes.push({ id, update }) } };

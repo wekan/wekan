@@ -147,11 +147,12 @@ function isPurgeable({ attachment, days, now = new Date() }) {
 }
 
 // Who the soft delete is recorded as: the card history needs a user to show the
-// row and offer Restore. The board's creator, the same attribution auto-archive
-// and the scheduled rules use for what a board does on a timer; else the
-// uploader.
+// row and offer Restore. The board's own actor (models/lib/boardActor.js), the
+// same attribution auto-archive and the scheduled rules use for what a board
+// does on a timer; else the uploader. (`board.createdBy` was read here before,
+// but boards have no such field.)
 function retentionActorId({ attachment, board }) {
-  return (board && board.createdBy) || (attachment && attachment.userId) || null;
+  return require('./boardActor').boardActorId(board) || (attachment && attachment.userId) || null;
 }
 
 module.exports = {

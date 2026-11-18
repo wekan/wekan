@@ -1110,12 +1110,17 @@ export const RulesHelper = {
     if (action.actionType === 'createCard') {
       // The same target the durable command captures (createCardTarget).
       const target = await this.createCardTarget(activity, card, action);
+      // The card's author is whoever ran the rule. A scheduled rule runs
+      // outside any method, where the schema's autoValue has no user to take,
+      // so it is passed explicitly ("User ID is required in cards insertAsync").
+      const authorId = resolveActingUserId(activity);
       await Cards.insertAsync({
         title: target.title,
         listId: target.listId,
         swimlaneId: target.swimlaneId,
         sort: 0,
         boardId: target.boardId,
+        ...(authorId ? { userId: authorId } : {}),
       });
     }
     // Board Settings / Bots: hand the card to a bot of its own board

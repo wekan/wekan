@@ -32,7 +32,8 @@ console.log('  ok - only whole days from 1 to 3650 turn it on, and only stale no
 const job = read('server/autoArchiveCards.js');
 assert.match(job, /name: 'wekan-card-auto-archive',[\s\S]*?parser\.text\('every 1 hour'\)/);
 assert.match(job, /const days = normalizeAutoArchiveDays\(board\.autoArchiveInactiveDays\);\s*if \(!days\) return 0;/);
-assert.match(job, /await asUser\(board\.createdBy, \(\) => card\.archive\(\)\);/, 'archived with its subtasks and activity');
+// As the board's own actor: boards have no createdBy (models/lib/boardActor.js).
+assert.match(job, /await asUser\(require\('\/models\/lib\/boardActor'\)\.boardActorId\(board\), \(\) => card\.archive\(\)\);/, 'archived with its subtasks and activity');
 assert.match(job, /limit: AUTO_ARCHIVE_BATCH/);
 assert.match(read('server/imports.js'), /import '\/server\/autoArchiveCards';/);
 const boards = read('models/boards.js');

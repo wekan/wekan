@@ -18,7 +18,9 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 const NOW = new Date('2026-10-20T03:45:00Z');
 const daysAgo = n => new Date(NOW.getTime() - n * R.DAY_MS);
 const att = (over = {}) => ({ _id: 'a1', name: 'f.pdf', meta: { cardId: 'c1', boardId: 'b1' }, uploadedAtOstrio: daysAgo(800), ...over });
-const board = { _id: 'b1', type: 'board', createdBy: 'creator' };
+// Boards have no createdBy; the board's actor is its first active admin
+// (models/lib/boardActor.js).
+const board = { _id: 'b1', type: 'board', members: [{ userId: 'creator', isActive: true, isAdmin: true }] };
 
 test('settings: off unless a positive whole number of days', () => {
   assert.strictEqual(R.normalizeRetentionDays('730'), 730);
@@ -107,7 +109,7 @@ test('purge: only attachments soft-deleted at least N days ago', () => {
   assert.strictEqual(R.isPurgeable({ attachment: att({ deletedAt: daysAgo(99) }), days: 0, now: NOW }), false);
 });
 
-test('the soft delete is recorded as the board creator, else the uploader', () => {
+test('the soft delete is recorded as the board\'s admin, else the uploader', () => {
   assert.strictEqual(R.retentionActorId({ attachment: att({ userId: 'up' }), board }), 'creator');
   assert.strictEqual(R.retentionActorId({ attachment: att({ userId: 'up' }), board: null }), 'up');
 });
