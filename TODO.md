@@ -22,10 +22,6 @@ the changelog only says what changed.
 
 ## Decided, to build
 
-- Per-list role exceptions (#4527) and dependency lines - decided 2026-11-18: a
-  list that refuses a role write access refuses that role's dependency-line
-  writes on its cards too (`setBoardDependency`, `removeBoardDependency`,
-  `importBoardDependencies` and the REST `/cards/:cardId/dependencies` routes).
 - Per-list role exceptions and the rules engine's own actions - decided
   2026-11-18: a move, copy, create-card or archive action that would write into a
   list refusing the triggering user's role is skipped, the rest of the rule still

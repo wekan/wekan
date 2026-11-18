@@ -138,6 +138,22 @@ proof of concept.
 
 and fixes the following bugs:
 
+**Per-list role exceptions** - what else a list that refuses a role refuses,
+as decided after ListLockBulkBleed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/da6d9d39b8bd209006fc02fe735f1c277a2be693">Dependency lines follow the card's list</a>. Thanks to xet7.</summary>
+
+A dependency line is stored on its source card, but it followed only the
+board-wide dependency rule, so a role a list refused could still add, change and
+remove lines on that list's cards. Now the methods answer `not-authorized`, the
+REST dependency routes answer 403 recorded as ListLockBleed, and the import
+skips such lines; board and site admins are not restricted.
+`tests/listLockDependencies.test.cjs` and `tests/listPermissions.test.cjs` pin
+it, and `list-lock-bulk.e2e.js` replays it over REST.
+
+</details>
+
 **Server memory and timed jobs** - what runs on its own, every hour.
 
 <details>
