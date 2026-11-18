@@ -2,6 +2,29 @@
 
 const { test: base, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+async function openWebhookSettings(page, user, board) {
+  if (targetsWeLite) {
+    await openWeLiteBoard(page, user, board.boardId);
+    await page.getByRole('link', { name: 'Outgoing Webhooks', exact: true }).click();
+  } else {
+    const menu = page.locator('.board-sidebar .js-open-board-menu');
+    if (!(await menu.isVisible())) await page.locator('.js-toggle-page-sidebar').first().click();
+    await menu.click();
+    await page.locator('.js-outgoing-webhooks').click();
+  }
+}
+
+function webhookForm(page, id) {
+  return targetsWeLite
+    ? page.locator('form[action="/board/webhooks"]').filter({
+      has: page.locator('input[name="operation"][value="save"]'),
+    }).filter({ has: page.locator(`input[name="integrationId"][value="${id}"]`) })
+    : page.locator('form.integration-form').filter({ has: page.locator(`input[name="id"][value="${id}"]`) });
+}
+
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const integrationPath = (boardId, id) => `/api/boards/${boardId}/integrations/${id}`;
@@ -119,7 +142,13 @@ test('integration DELETE preserves authentication and board-admin requirements',
   }
 });
 
-test('webhook settings retain a rejected deletion and react to a successful REST deletion', async ({ request, user, board, integration, boardPage }) => {
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
+test('webhook settings retain a rejected deletion and react to a successful REST deletion', async ({ request, user, board, integration, page }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const other = db.seedBoard({ ownerId: user.id });
   let siblingId;
   try {
@@ -129,13 +158,8 @@ test('webhook settings retain a rejected deletion and react to a successful REST
     expect(created.status()).toBe(200);
     siblingId = (await created.json())._id;
     const sibling = db.findOne('integrations', { _id: siblingId });
-    const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
-    if (!(await menu.isVisible())) await boardPage.locator('.js-toggle-page-sidebar').first().click();
-    await menu.click();
-    await boardPage.locator('.js-outgoing-webhooks').click();
-    const form = boardPage.locator('form.integration-form').filter({
-      has: boardPage.locator(`input[name="id"][value="${integration.id}"]`),
-    });
+    await openWebhookSettings(page, user, board);
+    const form = webhookForm(page, integration.id);
     await expect(form).toBeVisible();
     const before = db.findOne('integrations', { _id: integration.id });
     const rejected = await request.delete(integrationPath(other.boardId, integration.id), {
@@ -143,22 +167,29 @@ test('webhook settings retain a rejected deletion and react to a successful REST
     });
     expect(rejected.status()).toBe(404);
     expect(db.findOne('integrations', { _id: integration.id })).toEqual(before);
+    if (targetsWeLite) await page.reload();
     await expect(form).toBeVisible();
 
     const response = await request.delete(integration.path, { headers: headers(user.token) });
     expect(response.status()).toBe(200);
     expect(await response.json()).toEqual({ _id: integration.id });
     expect(db.findOne('integrations', { _id: integration.id })).toBeNull();
+    if (targetsWeLite) await page.reload();
     await expect(form).toHaveCount(0);
     expect(db.findOne('integrations', { _id: siblingId })).toEqual(sibling);
-    await expect(boardPage.locator(`form.integration-form input[name="id"][value="${siblingId}"]`)).toHaveCount(1);
+    await expect(webhookForm(page, siblingId)).toHaveCount(1);
+    if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
   } finally {
     if (siblingId) db.deleteOne('integrations', { _id: siblingId });
     db.cleanup({ boardIds: [other.boardId] });
   }
 });
 
-test('successful REST updates appear in webhook settings after invalid updates are rejected', async ({ request, user, board, integration, boardPage }) => {
+test('successful REST updates appear in webhook settings after invalid updates are rejected', async ({ request, user, board, integration, page }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const other = db.seedBoard({ ownerId: user.id });
   try {
     const response = await request.put(integration.path, {
@@ -183,15 +214,16 @@ test('successful REST updates appear in webhook settings after invalid updates a
     expect(read.status()).toBe(200);
     expect(await read.json()).toMatchObject({ title: 'Retained webhook', enabled: false });
 
-    const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
-    if (!(await menu.isVisible())) await boardPage.locator('.js-toggle-page-sidebar').first().click();
-    await menu.click();
-    await boardPage.locator('.js-outgoing-webhooks').click();
-    const form = boardPage.locator('form.integration-form').filter({
-      has: boardPage.locator(`input[name="id"][value="${integration.id}"]`),
-    });
-    await expect(form.locator('.js-outgoing-webhooks-title')).toHaveValue('Retained webhook');
-    await expect(form.locator('.js-toggle-webhook-enabled .materialCheckBox')).toHaveClass(/is-checked/);
+    await openWebhookSettings(page, user, board);
+    const form = webhookForm(page, integration.id);
+    if (targetsWeLite) {
+      await expect(form.locator('input[name="title"]')).toHaveValue('Retained webhook');
+      await expect(form.locator('input[name="enabled"]')).not.toBeChecked();
+      expect(await page.context().cookies()).toEqual([]);
+    } else {
+      await expect(form.locator('.js-outgoing-webhooks-title')).toHaveValue('Retained webhook');
+      await expect(form.locator('.js-toggle-webhook-enabled .materialCheckBox')).toHaveClass(/is-checked/);
+    }
     expect(db.findOne('integrations', { _id: integration.id })).toMatchObject({ title: 'Retained webhook', enabled: false });
   } finally {
     db.cleanup({ boardIds: [other.boardId] });
