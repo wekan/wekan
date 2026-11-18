@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Szukaj bloków",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Zacznij pisać, aby wyszukać bloki",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 pasujących bloków",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 pasujący blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 pasujący blok",
+  "enrollment-password-instructions": "Potwierdź hasło, aby rozpocząć konfigurację. Ten krok nie powoduje zalogowania. Nie można tutaj zastąpić aktywnego składnika uwierzytelniania.",
+  "enrollment-setup-denied": "Nie można rozpocząć konfiguracji. Sprawdź dane logowania i upewnij się, czy kody jednorazowe nie są już włączone.",
+  "enrollment-code-instructions": "Używaj kodów opartych na czasie: SHA1, sześć cyfr i okres 30 sekund. Nie udostępniaj klucza. Konfiguracja wygasa po pięciu minutach.",
+  "enrollment-confirmed-instructions": "Kod potwierdzający został już użyty. Przed zalogowaniem poczekaj, aż aplikacja uwierzytelniająca wyświetli nowy kod.",
+  "enrollment-account-created": "Konto utworzone",
+  "registration-first-admin": "Pierwsze konto otrzyma uprawnienia administratora globalnego tej domeny.",
+  "auth-too-many-attempts": "Zbyt wiele prób logowania. Spróbuj ponownie później.",
+  "enrollment-setup-failed": "Nie udało się rozpocząć konfiguracji.",
+  "registration-global-admin-disabled": "Konta administratorów globalnych są tworzone lokalnie. Rejestracja publiczna jest wyłączona.",
+  "auth-session-create-failed": "Nie udało się utworzyć sesji.",
+  "registration-password-unavailable": "Rejestracja za pomocą hasła jest niedostępna."
 }

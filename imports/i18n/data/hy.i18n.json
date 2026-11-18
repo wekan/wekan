@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Որոնել բլոկներ",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Մուտքագրեք՝ բլոկներ որոնելու համար",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 համապատասխան բլոկ",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 համապատասխան բլոկ"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 համապատասխան բլոկ",
+  "enrollment-password-instructions": "Կարգավորումը սկսելու համար հաստատեք ձեր գաղտնաբառը։ Այս քայլով մուտք չեք գործում։ Արդեն ակտիվ նույնականացման գործոնն այստեղ փոխարինել հնարավոր չէ։",
+  "enrollment-setup-denied": "Հնարավոր չէ սկսել կարգավորումը։ Ստուգեք մուտքի տվյալները և պարզեք, թե արդյոք միանգամյա կոդերն արդեն միացված են։",
+  "enrollment-code-instructions": "Օգտագործեք ժամանակի վրա հիմնված կոդեր՝ SHA1, վեց թվանշան և 30 վայրկյան պարբերություն։ Գաղտնի պահեք բանալին։ Կարգավորման ժամկետը լրանում է հինգ րոպեից։",
+  "enrollment-confirmed-instructions": "Հաստատման կոդն արդեն օգտագործվել է։ Մուտք գործելուց առաջ սպասեք, մինչև նույնականացման հավելվածը ցուցադրի նոր կոդ։",
+  "enrollment-account-created": "Հաշիվը ստեղծվեց",
+  "registration-first-admin": "Առաջին հաշիվը կստանա այս տիրույթի ընդհանուր ադմինիստրատորի իրավունքներ։",
+  "auth-too-many-attempts": "Մուտքի չափազանց շատ փորձեր։ Կրկին փորձեք ավելի ուշ։",
+  "enrollment-setup-failed": "Չհաջողվեց սկսել կարգավորումը։",
+  "registration-global-admin-disabled": "Ընդհանուր ադմինիստրատորների հաշիվները ստեղծվում են տեղային եղանակով։ Հանրային գրանցումն անջատված է։",
+  "auth-session-create-failed": "Չհաջողվեց ստեղծել աշխատաշրջանը։",
+  "registration-password-unavailable": "Գաղտնաբառով գրանցումը հասանելի չէ։"
 }

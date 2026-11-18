@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Zoeken naar blokken",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Typ om naar blokken te zoeken",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 overeenkomende blokken",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 overeenkomend blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 overeenkomend blok",
+  "enrollment-password-instructions": "Bevestig je wachtwoord om de configuratie te starten. Je wordt hiermee niet aangemeld. Je kunt hier geen actieve authenticatiefactor vervangen.",
+  "enrollment-setup-denied": "De configuratie kan niet worden gestart. Controleer je aanmeldgegevens en kijk of eenmalige codes al zijn ingeschakeld.",
+  "enrollment-code-instructions": "Gebruik tijdgebonden codes: SHA1, zes cijfers en een interval van 30 seconden. Houd de sleutel geheim. De configuratie verloopt na vijf minuten.",
+  "enrollment-confirmed-instructions": "De bevestigingscode is al gebruikt. Wacht met aanmelden tot je authenticatie-app een nieuwe code toont.",
+  "enrollment-account-created": "Account aangemaakt",
+  "registration-first-admin": "Het eerste account krijgt globale beheerdersrechten voor dit domein.",
+  "auth-too-many-attempts": "Te veel aanmeldpogingen. Probeer het later opnieuw.",
+  "enrollment-setup-failed": "De configuratie kon niet worden gestart.",
+  "registration-global-admin-disabled": "Accounts voor globale beheerders worden lokaal aangemaakt. Openbare registratie is uitgeschakeld.",
+  "auth-session-create-failed": "De sessie kon niet worden aangemaakt.",
+  "registration-password-unavailable": "Registratie met een wachtwoord is niet beschikbaar."
 }

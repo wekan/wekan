@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cuardaigh bloic",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Clóscríobh chun bloic a chuardach",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bloic chomhoiriúnacha: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bhloc comhoiriúnach"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bhloc comhoiriúnach",
+  "enrollment-password-instructions": "Deimhnigh do phasfhocal chun an socrú a thosú. Ní shíníonn an chéim seo isteach thú. Ní féidir fachtóir fíordheimhnithe atá gníomhach cheana a athsholáthar anseo.",
+  "enrollment-setup-denied": "Ní féidir an socrú a thosú. Seiceáil do shonraí sínithe isteach agus an bhfuil cóid aonuaire cumasaithe cheana féin.",
+  "enrollment-code-instructions": "Úsáid cóid atá bunaithe ar am: SHA1, sé dhigit agus eatramh 30 soicind. Coinnigh an eochair faoi rún. Rachaidh an socrú in éag i gceann cúig nóiméad.",
+  "enrollment-confirmed-instructions": "Úsáideadh an cód deimhnithe cheana. Fan go dtaispeánfaidh an aip fíordheimhnithe cód nua sula síneoidh tú isteach.",
+  "enrollment-account-created": "Cruthaíodh an cuntas",
+  "registration-first-admin": "Beidh ceadanna riarthóra dhomhanda don fhearann seo ag an gcéad chuntas.",
+  "auth-too-many-attempts": "An iomarca iarrachtaí ar shíniú isteach. Bain triail eile as níos déanaí.",
+  "enrollment-setup-failed": "Níorbh fhéidir an socrú a thosú.",
+  "registration-global-admin-disabled": "Cruthaítear cuntais riarthóirí domhanda go logánta. Tá clárú poiblí díchumasaithe.",
+  "auth-session-create-failed": "Níorbh fhéidir an seisiún a chruthú.",
+  "registration-password-unavailable": "Níl clárú le pasfhocal ar fáil."
 }

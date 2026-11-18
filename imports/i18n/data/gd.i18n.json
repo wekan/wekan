@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Lorg blocaichean",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Sgrìobh gus blocaichean a lorg",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Blocaichean co-fhreagarrach: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bhloca co-fhreagarrach"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bhloca co-fhreagarrach",
+  "enrollment-password-instructions": "Dearbhaich am facal-faire agad gus an rèiteachadh a thòiseachadh. Cha chlàraich an ceum seo a-steach thu. Chan urrainn dhut factar dearbhaidh a tha gnìomhach atharrachadh an seo.",
+  "enrollment-setup-denied": "Chan urrainn dhuinn an rèiteachadh a thòiseachadh. Thoir sùil air an fhiosrachadh clàraidh agad agus a bheil còdan aon-chleachdaidh an comas mu thràth.",
+  "enrollment-code-instructions": "Cleachd còdan stèidhichte air ùine: SHA1, sia àireamhan agus eadar-ama de 30 diog. Cùm an iuchair dìomhair. Thig an rèiteachadh gu crìch an ceann còig mionaidean.",
+  "enrollment-confirmed-instructions": "Chaidh an còd dearbhaidh a chleachdadh mu thràth. Fuirich gus an nochd còd ùr san aplacaid dearbhaidh mus clàraich thu a-steach.",
+  "enrollment-account-created": "Chaidh an cunntas a chruthachadh",
+  "registration-first-admin": "Gheibh a’ chiad chunntas ceadan rianaire uile-choitcheann airson an àrainn seo.",
+  "auth-too-many-attempts": "Cus oidhirpean air clàradh a-steach. Feuch ris a-rithist nas anmoiche.",
+  "enrollment-setup-failed": "Cha b’ urrainn dhuinn an rèiteachadh a thòiseachadh.",
+  "registration-global-admin-disabled": "Thèid cunntasan nan rianairean uile-choitcheann a chruthachadh gu h-ionadail. Tha clàradh poblach à comas.",
+  "auth-session-create-failed": "Cha b’ urrainn dhuinn an seisean a chruthachadh.",
+  "registration-password-unavailable": "Chan eil clàradh le facal-faire ri fhaighinn."
 }

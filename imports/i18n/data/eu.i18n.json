@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bilatu blokeak",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Idatzi blokeak bilatzeko",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bat datozen %1 bloke",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bat datorren bloke 1"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bat datorren bloke 1",
+  "enrollment-password-instructions": "Berretsi pasahitza konfigurazioa hasteko. Urrats honek ez du saioa hasten. Ezin da hemen dagoeneko aktibo dagoen autentifikazio-faktorerik ordeztu.",
+  "enrollment-setup-denied": "Ezin da konfigurazioa hasi. Egiaztatu saioa hasteko datuak eta erabilera bakarreko kodeak dagoeneko gaituta dauden.",
+  "enrollment-code-instructions": "Erabili denboran oinarritutako kodeak: SHA1, sei digitu eta 30 segundoko tartea. Gorde gakoa isilpean. Konfigurazioa bost minuturen buruan iraungiko da.",
+  "enrollment-confirmed-instructions": "Berrespen-kodea dagoeneko erabili da. Saioa hasi aurretik, itxaron autentifikazio-aplikazioak kode berri bat erakutsi arte.",
+  "enrollment-account-created": "Kontua sortu da",
+  "registration-first-admin": "Lehen kontuak domeinu honetako administratzaile globalaren baimenak izango ditu.",
+  "auth-too-many-attempts": "Saioa hasteko saiakera gehiegi. Saiatu berriro geroago.",
+  "enrollment-setup-failed": "Ezin izan da konfigurazioa hasi.",
+  "registration-global-admin-disabled": "Administratzaile globalen kontuak lokalean sortzen dira. Erregistro publikoa desgaituta dago.",
+  "auth-session-create-failed": "Ezin izan da saioa sortu.",
+  "registration-password-unavailable": "Pasahitz bidezko erregistroa ez dago erabilgarri."
 }

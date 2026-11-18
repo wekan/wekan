@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Fittex blokki",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Ikteb biex tfittex blokki",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blokki li jaqblu",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Blokka 1 li taqbel"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Blokka 1 li taqbel",
+  "enrollment-password-instructions": "Ikkonferma l-password tiegħek biex tibda s-setup. Dan il-pass ma jilloggjakx. Fattur ta’ awtentikazzjoni li diġà huwa attiv ma jistax jinbidel hawn.",
+  "enrollment-setup-denied": "Ma jistax jinbeda s-setup. Iċċekkja l-kredenzjali tiegħek u jekk il-kodiċijiet li jintużaw darba biss humiex diġà attivi.",
+  "enrollment-code-instructions": "Uża kodiċijiet ibbażati fuq il-ħin: SHA1, sitt ċifri u intervall ta’ 30 sekonda. Żomm iċ-ċavetta sigrieta. Is-setup jiskadi wara ħames minuti.",
+  "enrollment-confirmed-instructions": "Il-kodiċi ta’ konferma diġà ntuża. Stenna sakemm l-app tal-awtentikazzjoni turi kodiċi ġdid qabel tilloggja.",
+  "enrollment-account-created": "Il-kont inħoloq",
+  "registration-first-admin": "L-ewwel kont se jingħata l-permessi ta’ amministratur globali għal dan id-dominju.",
+  "auth-too-many-attempts": "Wisq tentattivi ta’ login. Erġa’ pprova aktar tard.",
+  "enrollment-setup-failed": "Is-setup ma setax jinbeda.",
+  "registration-global-admin-disabled": "Il-kontijiet tal-amministraturi globali jinħolqu lokalment. Ir-reġistrazzjoni pubblika hija diżattivata.",
+  "auth-session-create-failed": "Is-sessjoni ma setgħetx tinħoloq.",
+  "registration-password-unavailable": "Ir-reġistrazzjoni b’password mhix disponibbli."
 }

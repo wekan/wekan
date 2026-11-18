@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Iskanje blokov",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Tipkajte za iskanje blokov",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Ustrezni bloki: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ustrezen blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 ustrezen blok",
+  "enrollment-password-instructions": "Za začetek nastavitve potrdite geslo. S tem korakom se ne prijavite. Že dejavnega načina preverjanja pristnosti tukaj ni mogoče zamenjati.",
+  "enrollment-setup-denied": "Nastavitve ni mogoče začeti. Preverite podatke za prijavo in ali so enkratne kode že omogočene.",
+  "enrollment-code-instructions": "Uporabite časovno omejene kode: SHA1, šest števk in interval 30 sekund. Ključ naj ostane skrivnost. Nastavitev poteče po petih minutah.",
+  "enrollment-confirmed-instructions": "Potrditvena koda je bila že uporabljena. Pred prijavo počakajte, da aplikacija za preverjanje pristnosti prikaže novo kodo.",
+  "enrollment-account-created": "Račun je ustvarjen",
+  "registration-first-admin": "Prvi račun bo dobil pravice globalnega skrbnika za to domeno.",
+  "auth-too-many-attempts": "Preveč poskusov prijave. Poskusite znova pozneje.",
+  "enrollment-setup-failed": "Nastavitve ni bilo mogoče začeti.",
+  "registration-global-admin-disabled": "Računi globalnih skrbnikov se ustvarijo lokalno. Javna registracija je onemogočena.",
+  "auth-session-create-failed": "Seje ni bilo mogoče ustvariti.",
+  "registration-password-unavailable": "Registracija z geslom ni na voljo."
 }

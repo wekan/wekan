@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Søk etter blokker",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Skriv for å søke etter blokker",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 samsvarende blokker",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 samsvarende blokk"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 samsvarende blokk",
+  "enrollment-password-instructions": "Bekreft passordet ditt for å starte oppsettet. Dette trinnet logger deg ikke inn. En aktiv autentiseringsfaktor kan ikke byttes ut her.",
+  "enrollment-setup-denied": "Oppsettet kan ikke startes. Kontroller påloggingsopplysningene dine og om engangskoder allerede er aktivert.",
+  "enrollment-code-instructions": "Bruk tidsbaserte koder: SHA1, seks sifre og et intervall på 30 sekunder. Hold nøkkelen hemmelig. Oppsettet utløper etter fem minutter.",
+  "enrollment-confirmed-instructions": "Bekreftelseskoden er allerede brukt. Vent til autentiseringsappen viser en ny kode før du logger inn.",
+  "enrollment-account-created": "Kontoen er opprettet",
+  "registration-first-admin": "Den første kontoen får globale administratorrettigheter for dette domenet.",
+  "auth-too-many-attempts": "For mange innloggingsforsøk. Prøv igjen senere.",
+  "enrollment-setup-failed": "Oppsettet kunne ikke startes.",
+  "registration-global-admin-disabled": "Kontoer for globale administratorer opprettes lokalt. Offentlig registrering er deaktivert.",
+  "auth-session-create-failed": "Økten kunne ikke opprettes.",
+  "registration-password-unavailable": "Registrering med passord er ikke tilgjengelig."
 }

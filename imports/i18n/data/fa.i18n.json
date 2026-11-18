@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "جستجوی بلوک‌ها",
   "blockly-TOOLBOX_SEARCH_PROMPT": "برای جستجوی بلوک‌ها تایپ کنید",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 بلوک منطبق",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 بلوک منطبق"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 بلوک منطبق",
+  "enrollment-password-instructions": "برای شروع راه‌اندازی، گذرواژهٔ خود را تأیید کنید. با این مرحله وارد حساب نمی‌شوید. عامل احراز هویت فعال را نمی‌توان در اینجا جایگزین کرد.",
+  "enrollment-setup-denied": "راه‌اندازی ممکن نیست. اطلاعات ورود را بررسی کنید و ببینید آیا کدهای یک‌بارمصرف از قبل فعال‌اند.",
+  "enrollment-code-instructions": "از کدهای مبتنی بر زمان استفاده کنید: SHA1، شش رقم و بازهٔ ۳۰ ثانیه. کلید را محرمانه نگه دارید. این راه‌اندازی پس از پنج دقیقه منقضی می‌شود.",
+  "enrollment-confirmed-instructions": "کد تأیید قبلاً استفاده شده است. پیش از ورود، منتظر بمانید تا برنامهٔ احراز هویت کد جدیدی نشان دهد.",
+  "enrollment-account-created": "حساب ایجاد شد",
+  "registration-first-admin": "نخستین حساب مجوزهای مدیر کل این دامنه را خواهد داشت.",
+  "auth-too-many-attempts": "تعداد تلاش‌های ورود بیش از حد است. بعداً دوباره تلاش کنید.",
+  "enrollment-setup-failed": "راه‌اندازی شروع نشد.",
+  "registration-global-admin-disabled": "حساب‌های مدیر کل به‌صورت محلی ایجاد می‌شوند. ثبت‌نام عمومی غیرفعال است.",
+  "auth-session-create-failed": "نشست ایجاد نشد.",
+  "registration-password-unavailable": "ثبت‌نام با گذرواژه در دسترس نیست."
 }

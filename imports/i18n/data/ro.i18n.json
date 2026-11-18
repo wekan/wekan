@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Caută blocuri",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Tastează pentru a căuta blocuri",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocuri potrivite",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc potrivit"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc potrivit",
+  "enrollment-password-instructions": "Confirmați parola pentru a începe configurarea. Acest pas nu vă autentifică. Un factor de autentificare deja activ nu poate fi înlocuit aici.",
+  "enrollment-setup-denied": "Configurarea nu poate fi pornită. Verificați datele de autentificare și dacă sunt deja activate codurile de unică folosință.",
+  "enrollment-code-instructions": "Folosiți coduri bazate pe timp: SHA1, șase cifre și un interval de 30 de secunde. Păstrați cheia secretă. Configurarea expiră după cinci minute.",
+  "enrollment-confirmed-instructions": "Codul de confirmare a fost deja folosit. Înainte de autentificare, așteptați ca aplicația de autentificare să afișeze un cod nou.",
+  "enrollment-account-created": "Cont creat",
+  "registration-first-admin": "Primul cont va avea drepturi de administrator global pentru acest domeniu.",
+  "auth-too-many-attempts": "Prea multe încercări de autentificare. Încercați din nou mai târziu.",
+  "enrollment-setup-failed": "Configurarea nu a putut fi pornită.",
+  "registration-global-admin-disabled": "Conturile administratorilor globali sunt create local. Înregistrarea publică este dezactivată.",
+  "auth-session-create-failed": "Sesiunea nu a putut fi creată.",
+  "registration-password-unavailable": "Înregistrarea cu parolă nu este disponibilă."
 }

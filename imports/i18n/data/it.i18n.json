@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cerca blocchi",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Digita per cercare blocchi",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocchi corrispondenti",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blocco corrispondente"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blocco corrispondente",
+  "enrollment-password-instructions": "Conferma la password per avviare la configurazione. Questo passaggio non ti fa accedere. Qui non puoi sostituire un fattore già attivo.",
+  "enrollment-setup-denied": "Impossibile avviare la configurazione. Verifica le credenziali e controlla se i codici monouso sono già attivi.",
+  "enrollment-code-instructions": "Usa codici basati sul tempo: SHA1, sei cifre e 30 secondi. Mantieni segreta la chiave. La configurazione scade dopo cinque minuti.",
+  "enrollment-confirmed-instructions": "Il codice di conferma è già stato utilizzato. Prima di accedere, attendi un nuovo codice nell’app di autenticazione.",
+  "enrollment-account-created": "Account creato",
+  "registration-first-admin": "Il primo account avrà i privilegi di amministratore globale per questo dominio.",
+  "auth-too-many-attempts": "Troppi tentativi di accesso. Riprova più tardi.",
+  "enrollment-setup-failed": "Non è stato possibile avviare la configurazione.",
+  "registration-global-admin-disabled": "Gli account degli amministratori globali vengono creati in locale. La registrazione pubblica è disattivata.",
+  "auth-session-create-failed": "Non è stato possibile creare la sessione.",
+  "registration-password-unavailable": "La registrazione con password non è disponibile."
 }

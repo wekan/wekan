@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ব্লক অনুসন্ধান করুন",
   "blockly-TOOLBOX_SEARCH_PROMPT": "ব্লক অনুসন্ধান করতে টাইপ করুন",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1টি মিলে যাওয়া ব্লক",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1টি মিলে যাওয়া ব্লক"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1টি মিলে যাওয়া ব্লক",
+  "enrollment-password-instructions": "সেটআপ শুরু করতে আপনার পাসওয়ার্ড নিশ্চিত করুন। এই ধাপে আপনি সাইন ইন করবেন না। এখানে সক্রিয় কোনো প্রমাণীকরণ উপাদান বদলানো যায় না।",
+  "enrollment-setup-denied": "সেটআপ শুরু করা যাচ্ছে না। সাইন ইন করার তথ্য পরীক্ষা করুন এবং একবার ব্যবহারযোগ্য কোড আগে থেকেই চালু আছে কি না দেখুন।",
+  "enrollment-code-instructions": "সময়ভিত্তিক কোড ব্যবহার করুন: SHA1, ছয় অঙ্ক ও ৩০ সেকেন্ডের ব্যবধান। চাবিটি গোপন রাখুন। পাঁচ মিনিট পরে এই সেটআপের মেয়াদ শেষ হবে।",
+  "enrollment-confirmed-instructions": "নিশ্চিতকরণ কোডটি ইতিমধ্যে ব্যবহার করা হয়েছে। সাইন ইন করার আগে প্রমাণীকরণ অ্যাপে নতুন কোড আসা পর্যন্ত অপেক্ষা করুন।",
+  "enrollment-account-created": "অ্যাকাউন্ট তৈরি হয়েছে",
+  "registration-first-admin": "প্রথম অ্যাকাউন্টটি এই ডোমেইনের সার্বিক প্রশাসকের অনুমতি পাবে।",
+  "auth-too-many-attempts": "সাইন ইন করার চেষ্টা অনেকবার হয়েছে। পরে আবার চেষ্টা করুন।",
+  "enrollment-setup-failed": "সেটআপ শুরু করা যায়নি।",
+  "registration-global-admin-disabled": "সার্বিক প্রশাসকের অ্যাকাউন্ট স্থানীয়ভাবে তৈরি করা হয়। সবার জন্য নিবন্ধন বন্ধ আছে।",
+  "auth-session-create-failed": "সেশন তৈরি করা যায়নি।",
+  "registration-password-unavailable": "পাসওয়ার্ড দিয়ে নিবন্ধন করা যাচ্ছে না।"
 }

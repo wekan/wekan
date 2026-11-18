@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Търсене на блокове",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Пишете, за да търсите блокове",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 съвпадащи блока",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 съвпадащ блок"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 съвпадащ блок",
+  "enrollment-password-instructions": "Потвърдете паролата си, за да започнете настройването. Тази стъпка не ви вписва. Тук не може да замените вече активен фактор за удостоверяване.",
+  "enrollment-setup-denied": "Настройването не може да започне. Проверете данните си за вход и дали еднократните кодове вече са активирани.",
+  "enrollment-code-instructions": "Използвайте кодове, базирани на време: SHA1, шест цифри и интервал от 30 секунди. Пазете ключа в тайна. Настройката изтича след пет минути.",
+  "enrollment-confirmed-instructions": "Кодът за потвърждение вече е използван. Изчакайте приложението за удостоверяване да покаже нов код, преди да влезете.",
+  "enrollment-account-created": "Профилът е създаден",
+  "registration-first-admin": "Първият профил ще получи права на глобален администратор за този домейн.",
+  "auth-too-many-attempts": "Твърде много опити за вход. Опитайте отново по-късно.",
+  "enrollment-setup-failed": "Настройването не можа да започне.",
+  "registration-global-admin-disabled": "Профилите на глобалните администратори се създават локално. Публичната регистрация е изключена.",
+  "auth-session-create-failed": "Сесията не можа да бъде създадена.",
+  "registration-password-unavailable": "Регистрацията с парола не е достъпна."
 }

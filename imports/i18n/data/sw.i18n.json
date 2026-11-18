@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Tafuta bloku",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Andika ili kutafuta bloku",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Bloku %1 zinazolingana",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bloku 1 inayolingana"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Bloku 1 inayolingana",
+  "enrollment-password-instructions": "Thibitisha nenosiri lako ili kuanza usanidi. Hatua hii haitakuingiza kwenye akaunti. Huwezi kubadilisha hapa njia ya uthibitishaji ambayo tayari inatumika.",
+  "enrollment-setup-denied": "Usanidi hauwezi kuanza. Kagua taarifa zako za kuingia na kama misimbo ya matumizi ya mara moja tayari imewashwa.",
+  "enrollment-code-instructions": "Tumia misimbo inayotegemea muda: SHA1, tarakimu sita na kipindi cha sekunde 30. Weka ufunguo kuwa siri. Usanidi utaisha baada ya dakika tano.",
+  "enrollment-confirmed-instructions": "Msimbo wa uthibitisho tayari umetumiwa. Subiri programu ya uthibitishaji ionyeshe msimbo mpya kabla ya kuingia.",
+  "enrollment-account-created": "Akaunti imeundwa",
+  "registration-first-admin": "Akaunti ya kwanza itapewa ruhusa za msimamizi mkuu wa kikoa hiki.",
+  "auth-too-many-attempts": "Majaribio mengi mno ya kuingia. Jaribu tena baadaye.",
+  "enrollment-setup-failed": "Usanidi haukuweza kuanza.",
+  "registration-global-admin-disabled": "Akaunti za wasimamizi wakuu huundwa kwenye seva yenyewe. Usajili wa umma umezimwa.",
+  "auth-session-create-failed": "Kipindi cha kuingia hakikuweza kuundwa.",
+  "registration-password-unavailable": "Usajili kwa kutumia nenosiri haupatikani."
 }

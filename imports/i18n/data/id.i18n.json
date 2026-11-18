@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Cari blok",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Ketik untuk mencari blok",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blok yang cocok",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok yang cocok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 blok yang cocok",
+  "enrollment-password-instructions": "Konfirmasikan kata sandi Anda untuk memulai penyiapan. Langkah ini tidak membuat Anda masuk. Faktor autentikasi yang aktif tidak dapat diganti di sini.",
+  "enrollment-setup-denied": "Penyiapan tidak dapat dimulai. Periksa kredensial Anda dan pastikan apakah kode sekali pakai sudah diaktifkan.",
+  "enrollment-code-instructions": "Gunakan kode berbasis waktu: SHA1, enam digit, dan interval 30 detik. Jaga kerahasiaan kunci. Penyiapan ini kedaluwarsa setelah lima menit.",
+  "enrollment-confirmed-instructions": "Kode konfirmasi sudah digunakan. Tunggu hingga aplikasi autentikasi menampilkan kode baru sebelum masuk.",
+  "enrollment-account-created": "Akun berhasil dibuat",
+  "registration-first-admin": "Akun pertama akan mendapat hak administrator global untuk domain ini.",
+  "auth-too-many-attempts": "Terlalu banyak percobaan masuk. Coba lagi nanti.",
+  "enrollment-setup-failed": "Penyiapan gagal dimulai.",
+  "registration-global-admin-disabled": "Akun administrator global dibuat secara lokal. Pendaftaran publik dinonaktifkan.",
+  "auth-session-create-failed": "Sesi gagal dibuat.",
+  "registration-password-unavailable": "Pendaftaran dengan kata sandi tidak tersedia."
 }

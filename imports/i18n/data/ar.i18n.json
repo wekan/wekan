@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "البحث عن الكتل",
   "blockly-TOOLBOX_SEARCH_PROMPT": "اكتب للبحث عن الكتل",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 كتلة مطابقة",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "كتلة مطابقة واحدة"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "كتلة مطابقة واحدة",
+  "enrollment-password-instructions": "أكّد كلمة مرورك للبدء. لا تؤدي هذه الخطوة إلى تسجيل دخولك. لا يمكنك استبدال وسيلة مصادقة مفعّلة من هنا.",
+  "enrollment-setup-denied": "تعذّر بدء الإعداد. تحقّق من بيانات اعتمادك ومما إذا كانت رموز الاستخدام لمرة واحدة مفعّلة بالفعل.",
+  "enrollment-code-instructions": "استخدم رموزًا تستند إلى الوقت: SHA1 وستة أرقام ومدة 30 ثانية. حافظ على سرية المفتاح. تنتهي صلاحية هذا الإعداد بعد خمس دقائق.",
+  "enrollment-confirmed-instructions": "تم استخدام رمز التأكيد. انتظر رمزًا جديدًا في تطبيق المصادقة قبل تسجيل الدخول.",
+  "enrollment-account-created": "تم إنشاء الحساب",
+  "registration-first-admin": "سيكون هذا الحساب الأول هو حساب المسؤول العام للنطاق.",
+  "auth-too-many-attempts": "محاولات تسجيل دخول كثيرة جدًا. حاول مجددًا لاحقًا.",
+  "enrollment-setup-failed": "تعذّر بدء الإعداد",
+  "registration-global-admin-disabled": "تُنشأ حسابات المسؤولين العامّين محليًا. التسجيل العام معطّل.",
+  "auth-session-create-failed": "تعذّر إنشاء جلسة",
+  "registration-password-unavailable": "التسجيل باستخدام كلمة مرور غير متاح."
 }

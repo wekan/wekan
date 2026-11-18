@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blok ara",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Blok aramak için yazın",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 eşleşen blok",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 eşleşen blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 eşleşen blok",
+  "enrollment-password-instructions": "Kurulumu başlatmak için parolanızı doğrulayın. Bu adım oturum açmaz. Etkin bir kimlik doğrulama yöntemi burada değiştirilemez.",
+  "enrollment-setup-denied": "Kurulum başlatılamıyor. Giriş bilgilerinizi ve tek kullanımlık kodların zaten etkin olup olmadığını kontrol edin.",
+  "enrollment-code-instructions": "Zamana dayalı kodlar kullanın: SHA1, altı basamak ve 30 saniyelik aralık. Anahtarı gizli tutun. Kurulumun süresi beş dakika sonra dolar.",
+  "enrollment-confirmed-instructions": "Onay kodu zaten kullanıldı. Oturum açmadan önce kimlik doğrulama uygulamanızın yeni bir kod göstermesini bekleyin.",
+  "enrollment-account-created": "Hesap oluşturuldu",
+  "registration-first-admin": "İlk hesap bu alan adı için genel yönetici yetkilerine sahip olacak.",
+  "auth-too-many-attempts": "Çok fazla oturum açma denemesi. Daha sonra tekrar deneyin.",
+  "enrollment-setup-failed": "Kurulum başlatılamadı.",
+  "registration-global-admin-disabled": "Genel yönetici hesapları yerel olarak oluşturulur. Herkese açık kayıt devre dışı.",
+  "auth-session-create-failed": "Oturum oluşturulamadı.",
+  "registration-password-unavailable": "Parolayla kayıt kullanılamıyor."
 }

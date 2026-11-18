@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Sök efter block",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Skriv för att söka efter block",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 matchande block",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 matchande block"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 matchande block",
+  "enrollment-password-instructions": "Bekräfta ditt lösenord för att påbörja konfigureringen. Det här steget loggar inte in dig. En aktiv autentiseringsfaktor kan inte ersättas här.",
+  "enrollment-setup-denied": "Det går inte att påbörja konfigureringen. Kontrollera dina inloggningsuppgifter och om engångskoder redan är aktiverade.",
+  "enrollment-code-instructions": "Använd tidsbaserade koder: SHA1, sex siffror och 30 sekunder. Håll nyckeln hemlig. Konfigureringen upphör att gälla efter fem minuter.",
+  "enrollment-confirmed-instructions": "Bekräftelsekoden har redan använts. Vänta tills autentiseringsappen visar en ny kod innan du loggar in.",
+  "enrollment-account-created": "Kontot har skapats",
+  "registration-first-admin": "Det första kontot får globala administratörsbehörigheter för den här domänen.",
+  "auth-too-many-attempts": "För många inloggningsförsök. Försök igen senare.",
+  "enrollment-setup-failed": "Det gick inte att påbörja konfigureringen.",
+  "registration-global-admin-disabled": "Konton för globala administratörer skapas lokalt. Offentlig registrering är inaktiverad.",
+  "auth-session-create-failed": "Det gick inte att skapa sessionen.",
+  "registration-password-unavailable": "Registrering med lösenord är inte tillgänglig."
 }

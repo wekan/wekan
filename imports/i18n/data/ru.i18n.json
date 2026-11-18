@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Поиск блоков",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Начните вводить для поиска блоков",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Найдено блоков: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Найден 1 блок"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "Найден 1 блок",
+  "enrollment-password-instructions": "Подтвердите пароль, чтобы начать настройку. Этот шаг не выполняет вход. Здесь нельзя заменить уже активный фактор аутентификации.",
+  "enrollment-setup-denied": "Не удалось начать настройку. Проверьте данные для входа и убедитесь, что одноразовые коды ещё не включены.",
+  "enrollment-code-instructions": "Используйте коды на основе времени: SHA1, шесть цифр и интервал 30 секунд. Храните ключ в секрете. Срок действия настройки истекает через пять минут.",
+  "enrollment-confirmed-instructions": "Код подтверждения уже использован. Прежде чем войти, дождитесь нового кода в приложении для аутентификации.",
+  "enrollment-account-created": "Учётная запись создана",
+  "registration-first-admin": "Первая учётная запись получит права глобального администратора этого домена.",
+  "auth-too-many-attempts": "Слишком много попыток входа. Попробуйте позже.",
+  "enrollment-setup-failed": "Не удалось начать настройку.",
+  "registration-global-admin-disabled": "Учётные записи глобальных администраторов создаются локально. Публичная регистрация отключена.",
+  "auth-session-create-failed": "Не удалось создать сеанс.",
+  "registration-password-unavailable": "Регистрация с паролем недоступна."
 }

@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Leita að kubbum",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Skrifaðu til að leita að kubbum",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 samsvarandi kubbar",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 samsvarandi kubbur"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 samsvarandi kubbur",
+  "enrollment-password-instructions": "Staðfestu lykilorðið þitt til að hefja uppsetningu. Þú skráir þig ekki inn í þessu skrefi. Ekki er hægt að skipta hér um virkan auðkenningarþátt.",
+  "enrollment-setup-denied": "Ekki er hægt að hefja uppsetningu. Athugaðu innskráningarupplýsingarnar og hvort einnota kóðar séu þegar virkir.",
+  "enrollment-code-instructions": "Notaðu tímabundna kóða: SHA1, sex tölustafi og 30 sekúndna bil. Haltu lyklinum leyndum. Uppsetningin rennur út eftir fimm mínútur.",
+  "enrollment-confirmed-instructions": "Staðfestingarkóðinn hefur þegar verið notaður. Bíddu eftir að auðkenningarforritið sýni nýjan kóða áður en þú skráir þig inn.",
+  "enrollment-account-created": "Notandareikningur stofnaður",
+  "registration-first-admin": "Fyrsti notandareikningurinn fær almenn stjórnandaréttindi fyrir þetta lén.",
+  "auth-too-many-attempts": "Of margar innskráningartilraunir. Reyndu aftur síðar.",
+  "enrollment-setup-failed": "Ekki tókst að hefja uppsetningu.",
+  "registration-global-admin-disabled": "Reikningar almennra stjórnenda eru stofnaðir á staðnum. Opinber nýskráning er óvirk.",
+  "auth-session-create-failed": "Ekki tókst að stofna setu.",
+  "registration-password-unavailable": "Nýskráning með lykilorði er ekki í boði."
 }

@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ბლოკების ძებნა",
   "blockly-TOOLBOX_SEARCH_PROMPT": "აკრიფეთ ბლოკების მოსაძებნად",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 შესაბამისი ბლოკი",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 შესაბამისი ბლოკი"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 შესაბამისი ბლოკი",
+  "enrollment-password-instructions": "დაყენების დასაწყებად დაადასტურეთ პაროლი. ამ ნაბიჯით ანგარიშში არ შეხვალთ. უკვე აქტიური ავთენტიფიკაციის ფაქტორის შეცვლა აქ შეუძლებელია.",
+  "enrollment-setup-denied": "დაყენება ვერ დაიწყება. შეამოწმეთ შესვლის მონაცემები და გაარკვიეთ, უკვე ჩართულია თუ არა ერთჯერადი კოდები.",
+  "enrollment-code-instructions": "გამოიყენეთ დროზე დაფუძნებული კოდები: SHA1, ექვსი ციფრი და 30-წამიანი ინტერვალი. გასაღები საიდუმლოდ შეინახეთ. დაყენების ვადა ხუთ წუთში იწურება.",
+  "enrollment-confirmed-instructions": "დადასტურების კოდი უკვე გამოყენებულია. შესვლამდე დაელოდეთ, სანამ ავთენტიფიკაციის აპი ახალ კოდს აჩვენებს.",
+  "enrollment-account-created": "ანგარიში შეიქმნა",
+  "registration-first-admin": "პირველი ანგარიში ამ დომენის გლობალური ადმინისტრატორის უფლებებს მიიღებს.",
+  "auth-too-many-attempts": "შესვლის მცდელობა მეტისმეტად ბევრჯერ განმეორდა. მოგვიანებით სცადეთ ხელახლა.",
+  "enrollment-setup-failed": "დაყენების დაწყება ვერ მოხერხდა.",
+  "registration-global-admin-disabled": "გლობალური ადმინისტრატორების ანგარიშები ადგილობრივად იქმნება. საჯარო რეგისტრაცია გამორთულია.",
+  "auth-session-create-failed": "სესიის შექმნა ვერ მოხერხდა.",
+  "registration-password-unavailable": "პაროლით რეგისტრაცია მიუწვდომელია."
 }

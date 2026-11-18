@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Hledat bloky",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Pište pro hledání bloků",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Počet odpovídajících bloků: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 odpovídající blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 odpovídající blok",
+  "enrollment-password-instructions": "Potvrďte heslo a zahajte nastavení. Tímto krokem se nepřihlásíte. Aktivní ověřovací faktor zde nelze nahradit.",
+  "enrollment-setup-denied": "Nastavení nelze zahájit. Zkontrolujte přihlašovací údaje a ověřte, zda již nejsou jednorázové kódy aktivní.",
+  "enrollment-code-instructions": "Používejte časové kódy: SHA1, šest číslic a interval 30 sekund. Klíč nikomu nesdělujte. Platnost nastavení vyprší za pět minut.",
+  "enrollment-confirmed-instructions": "Potvrzovací kód již byl použit. Před přihlášením počkejte, až ověřovací aplikace zobrazí nový kód.",
+  "enrollment-account-created": "Účet byl vytvořen",
+  "registration-first-admin": "První účet získá oprávnění globálního správce této domény.",
+  "auth-too-many-attempts": "Příliš mnoho pokusů o přihlášení. Zkuste to znovu později.",
+  "enrollment-setup-failed": "Nastavení se nepodařilo zahájit.",
+  "registration-global-admin-disabled": "Účty globálních správců se vytvářejí místně. Veřejná registrace je vypnuta.",
+  "auth-session-create-failed": "Relaci se nepodařilo vytvořit.",
+  "registration-password-unavailable": "Registrace pomocí hesla není dostupná."
 }

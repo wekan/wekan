@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Барај блокови",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Пишувајте за да барате блокови",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 соодветни блокови",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 соодветен блок"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 соодветен блок",
+  "enrollment-password-instructions": "Потврдете ја лозинката за да почнете со поставувањето. Овој чекор нема да ве најави. Веќе активен фактор за автентикација не може да се замени тука.",
+  "enrollment-setup-denied": "Поставувањето не може да започне. Проверете ги податоците за најава и дали еднократните кодови се веќе овозможени.",
+  "enrollment-code-instructions": "Користете кодови засновани на време: SHA1, шест цифри и интервал од 30 секунди. Чувајте го клучот во тајност. Поставувањето истекува по пет минути.",
+  "enrollment-confirmed-instructions": "Кодот за потврда веќе е искористен. Пред да се најавите, почекајте апликацијата за автентикација да прикаже нов код.",
+  "enrollment-account-created": "Сметката е создадена",
+  "registration-first-admin": "Првата сметка ќе добие права на глобален администратор за овој домен.",
+  "auth-too-many-attempts": "Премногу обиди за најава. Обидете се повторно подоцна.",
+  "enrollment-setup-failed": "Поставувањето не можеше да започне.",
+  "registration-global-admin-disabled": "Сметките на глобалните администратори се создаваат локално. Јавната регистрација е оневозможена.",
+  "auth-session-create-failed": "Не можеше да се создаде сесија.",
+  "registration-password-unavailable": "Регистрацијата со лозинка не е достапна."
 }

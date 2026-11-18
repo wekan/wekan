@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Etsi lohkoja",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Kirjoita etsiäksesi lohkoja",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 vastaavaa lohkoa",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 vastaava lohko"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 vastaava lohko",
+  "enrollment-password-instructions": "Aloita vahvistamalla salasanasi. Tämä ei kirjaa sinua sisään. Käytössä olevaa todennustapaa ei voi vaihtaa täällä.",
+  "enrollment-setup-denied": "Käyttöönottoa ei voi aloittaa. Tarkista kirjautumistietosi ja se, ovatko kertakäyttökoodit jo käytössä.",
+  "enrollment-code-instructions": "Käytä aikapohjaisia koodeja: SHA1, kuusi numeroa, 30 sekuntia. Pidä salainen avain omana tietonasi. Käyttöönotto vanhenee viidessä minuutissa.",
+  "enrollment-confirmed-instructions": "Vahvistuskoodi on käytetty. Odota todennussovelluksen uutta koodia ennen kirjautumista.",
+  "enrollment-account-created": "Tili luotu",
+  "registration-first-admin": "Ensimmäisestä tilistä tulee verkkotunnuksen pääkäyttäjä.",
+  "auth-too-many-attempts": "Liian monta kirjautumisyritystä. Yritä myöhemmin uudelleen.",
+  "enrollment-setup-failed": "Käyttöönottoa ei voitu aloittaa",
+  "registration-global-admin-disabled": "Järjestelmänvalvojien tilit luodaan paikallisesti. Julkinen rekisteröityminen on poissa käytöstä.",
+  "auth-session-create-failed": "Istuntoa ei voitu luoda",
+  "registration-password-unavailable": "Salasanalla rekisteröityminen ei ole käytettävissä."
 }

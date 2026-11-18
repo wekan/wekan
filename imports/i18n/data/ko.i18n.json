@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "블록 검색",
   "blockly-TOOLBOX_SEARCH_PROMPT": "블록을 검색하려면 입력하세요",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "일치하는 블록 %1개",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "일치하는 블록 1개"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "일치하는 블록 1개",
+  "enrollment-password-instructions": "설정을 시작하려면 비밀번호를 확인하세요. 이 단계에서는 로그인되지 않습니다. 이미 활성화된 인증 수단은 여기서 교체할 수 없습니다.",
+  "enrollment-setup-denied": "설정을 시작할 수 없습니다. 로그인 정보와 일회용 코드가 이미 활성화되어 있는지 확인하세요.",
+  "enrollment-code-instructions": "시간 기반 코드를 사용하세요. 알고리즘은 SHA1, 코드는 6자리, 갱신 간격은 30초입니다. 키를 비밀로 유지하세요. 이 설정은 5분 후 만료됩니다.",
+  "enrollment-confirmed-instructions": "확인 코드는 이미 사용되었습니다. 인증 앱에 새 코드가 표시된 후 로그인하세요.",
+  "enrollment-account-created": "계정이 생성되었습니다",
+  "registration-first-admin": "첫 번째 계정에는 이 도메인의 전역 관리자 권한이 부여됩니다.",
+  "auth-too-many-attempts": "로그인 시도 횟수가 너무 많습니다. 나중에 다시 시도하세요.",
+  "enrollment-setup-failed": "설정을 시작하지 못했습니다.",
+  "registration-global-admin-disabled": "전역 관리자 계정은 로컬에서 생성됩니다. 공개 가입은 비활성화되어 있습니다.",
+  "auth-session-create-failed": "세션을 생성하지 못했습니다.",
+  "registration-password-unavailable": "비밀번호를 사용한 가입은 지원되지 않습니다."
 }

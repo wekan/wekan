@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Претрага блокова",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Куцајте за претрагу блокова",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Пронађено блокова: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 одговарајући блок"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 одговарајући блок",
+  "enrollment-password-instructions": "Потврдите лозинку да бисте започели подешавање. Овај корак вас неће пријавити. Овде није могуће заменити већ активан фактор аутентификације.",
+  "enrollment-setup-denied": "Подешавање не може да почне. Проверите податке за пријаву и да ли су једнократни кодови већ омогућени.",
+  "enrollment-code-instructions": "Користите временске кодове: SHA1, шест цифара и интервал од 30 секунди. Чувајте кључ у тајности. Подешавање истиче после пет минута.",
+  "enrollment-confirmed-instructions": "Потврдни код је већ искоришћен. Пре пријаве сачекајте да апликација за аутентификацију прикаже нови код.",
+  "enrollment-account-created": "Налог је направљен",
+  "registration-first-admin": "Први налог ће добити овлашћења глобалног администратора за овај домен.",
+  "auth-too-many-attempts": "Превише покушаја пријаве. Покушајте поново касније.",
+  "enrollment-setup-failed": "Подешавање није могло да почне.",
+  "registration-global-admin-disabled": "Налози глобалних администратора праве се локално. Јавна регистрација је онемогућена.",
+  "auth-session-create-failed": "Није било могуће направити сесију.",
+  "registration-password-unavailable": "Регистрација помоћу лозинке није доступна."
 }

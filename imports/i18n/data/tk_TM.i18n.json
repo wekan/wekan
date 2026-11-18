@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Bloklary gözle",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Bloklary gözlemek üçin ýazyň",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 gabat gelýän blok",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 gabat gelýän blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 gabat gelýän blok",
+  "enrollment-password-instructions": "Confirm your password to start. This does not sign you in. An existing active factor cannot be replaced here.",
+  "enrollment-setup-denied": "Cannot start setup. Check your credentials and whether one-time codes are already enabled.",
+  "enrollment-code-instructions": "Use time-based codes: SHA1, six digits, 30 seconds. Keep the secret private. This setup expires in five minutes.",
+  "enrollment-confirmed-instructions": "The confirmation code has been used. Wait for a new code in your authenticator before signing in.",
+  "enrollment-account-created": "Account created",
+  "registration-first-admin": "This first account will be the Domain Global Admin.",
+  "auth-too-many-attempts": "Too many login attempts. Try again later.",
+  "enrollment-setup-failed": "Could not start setup",
+  "registration-global-admin-disabled": "Global Admin accounts are initialized locally. Public registration is disabled.",
+  "auth-session-create-failed": "Could not create session",
+  "registration-password-unavailable": "Registration with a password is unavailable."
 }

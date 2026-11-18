@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Rechercher des blocs",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Tapez pour rechercher des blocs",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blocs correspondants",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc correspondant"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bloc correspondant",
+  "enrollment-password-instructions": "Confirmez votre mot de passe pour commencer la configuration. Cette étape ne vous connecte pas. Vous ne pouvez pas remplacer ici un facteur déjà actif.",
+  "enrollment-setup-denied": "Impossible de lancer la configuration. Vérifiez vos identifiants et si les codes à usage unique sont déjà activés.",
+  "enrollment-code-instructions": "Utilisez des codes temporaires : SHA1, six chiffres, 30 secondes. Gardez la clé secrète. Cette configuration expire au bout de cinq minutes.",
+  "enrollment-confirmed-instructions": "Le code de confirmation a déjà été utilisé. Attendez que votre application d’authentification affiche un nouveau code avant de vous connecter.",
+  "enrollment-account-created": "Compte créé",
+  "registration-first-admin": "Le premier compte disposera des droits d’administration globale pour ce domaine.",
+  "auth-too-many-attempts": "Trop de tentatives de connexion. Réessayez plus tard.",
+  "enrollment-setup-failed": "Impossible de lancer la configuration.",
+  "registration-global-admin-disabled": "Les comptes des administrateurs globaux sont créés localement. L’inscription publique est désactivée.",
+  "auth-session-create-failed": "Impossible de créer la session.",
+  "registration-password-unavailable": "L’inscription avec un mot de passe est indisponible."
 }

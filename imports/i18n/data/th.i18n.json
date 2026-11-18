@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "ค้นหาบล็อก",
   "blockly-TOOLBOX_SEARCH_PROMPT": "พิมพ์เพื่อค้นหาบล็อก",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "พบบล็อกที่ตรงกัน %1 บล็อก",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "พบบล็อกที่ตรงกัน 1 บล็อก"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "พบบล็อกที่ตรงกัน 1 บล็อก",
+  "enrollment-password-instructions": "ยืนยันรหัสผ่านเพื่อเริ่มการตั้งค่า ขั้นตอนนี้จะไม่ลงชื่อเข้าใช้บัญชี และไม่สามารถเปลี่ยนปัจจัยการยืนยันตัวตนที่เปิดใช้งานอยู่ได้ที่นี่",
+  "enrollment-setup-denied": "ไม่สามารถเริ่มการตั้งค่าได้ โปรดตรวจสอบข้อมูลการลงชื่อเข้าใช้และดูว่าเปิดใช้งานรหัสแบบใช้ครั้งเดียวอยู่แล้วหรือไม่",
+  "enrollment-code-instructions": "ใช้รหัสตามเวลาโดยเลือก SHA1 รหัส 6 หลัก และรอบเวลา 30 วินาที เก็บคีย์ไว้เป็นความลับ การตั้งค่านี้จะหมดอายุใน 5 นาที",
+  "enrollment-confirmed-instructions": "ใช้รหัสยืนยันนี้ไปแล้ว โปรดรอให้แอปยืนยันตัวตนแสดงรหัสใหม่ก่อนลงชื่อเข้าใช้",
+  "enrollment-account-created": "สร้างบัญชีแล้ว",
+  "registration-first-admin": "บัญชีแรกจะได้รับสิทธิ์ผู้ดูแลระบบส่วนกลางของโดเมนนี้",
+  "auth-too-many-attempts": "พยายามลงชื่อเข้าใช้หลายครั้งเกินไป โปรดลองอีกครั้งในภายหลัง",
+  "enrollment-setup-failed": "ไม่สามารถเริ่มการตั้งค่าได้",
+  "registration-global-admin-disabled": "บัญชีผู้ดูแลระบบส่วนกลางจะสร้างบนเครื่องโดยตรง การลงทะเบียนสาธารณะถูกปิดใช้งาน",
+  "auth-session-create-failed": "ไม่สามารถสร้างเซสชันได้",
+  "registration-password-unavailable": "ไม่สามารถลงทะเบียนด้วยรหัสผ่านได้"
 }

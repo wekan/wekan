@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blokkok keresése",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Gépelj a blokkok kereséséhez",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 megfelelő blokk",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 megfelelő blokk"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 megfelelő blokk",
+  "enrollment-password-instructions": "A beállítás megkezdéséhez erősítse meg a jelszavát. Ez a lépés nem jelentkezteti be. Az aktív hitelesítési tényező itt nem cserélhető le.",
+  "enrollment-setup-denied": "A beállítás nem indítható el. Ellenőrizze a bejelentkezési adatokat, és nézze meg, hogy az egyszer használatos kódok már engedélyezve vannak-e.",
+  "enrollment-code-instructions": "Használjon időalapú kódokat: SHA1, hat számjegy és 30 másodperces időköz. Tartsa titokban a kulcsot. A beállítás öt perc múlva lejár.",
+  "enrollment-confirmed-instructions": "A megerősítő kódot már felhasználták. Bejelentkezés előtt várja meg, amíg a hitelesítő alkalmazás új kódot jelenít meg.",
+  "enrollment-account-created": "A fiók létrejött",
+  "registration-first-admin": "Az első fiók globális rendszergazdai jogosultságot kap ezen a tartományon.",
+  "auth-too-many-attempts": "Túl sok bejelentkezési kísérlet. Próbálja meg később.",
+  "enrollment-setup-failed": "Nem sikerült elindítani a beállítást.",
+  "registration-global-admin-disabled": "A globális rendszergazdai fiókok helyben hozhatók létre. A nyilvános regisztráció le van tiltva.",
+  "auth-session-create-failed": "Nem sikerült létrehozni a munkamenetet.",
+  "registration-password-unavailable": "A jelszavas regisztráció nem érhető el."
 }

@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Serĉi blokojn",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Tajpu por serĉi blokojn",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 kongruaj blokoj",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 kongrua bloko"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 kongrua bloko",
+  "enrollment-password-instructions": "Konfirmu vian pasvorton por komenci la agordon. Ĉi tiu paŝo ne ensalutas vin. Ĉi tie ne eblas anstataŭigi jam aktivan aŭtentigan faktoron.",
+  "enrollment-setup-denied": "Ne eblas komenci la agordon. Kontrolu viajn ensalutajn informojn kaj ĉu unufojaj kodoj jam estas aktivigitaj.",
+  "enrollment-code-instructions": "Uzu tempobazitajn kodojn: SHA1, ses ciferoj kaj intervalo de 30 sekundoj. Tenu la ŝlosilon sekreta. La agordo eksvalidiĝos post kvin minutoj.",
+  "enrollment-confirmed-instructions": "La konfirmkodo jam estis uzita. Antaŭ ol ensaluti, atendu ĝis la aŭtentiga aplikaĵo montros novan kodon.",
+  "enrollment-account-created": "Konto kreita",
+  "registration-first-admin": "La unua konto ricevos rajtojn de tutmonda administranto por ĉi tiu domajno.",
+  "auth-too-many-attempts": "Tro multaj ensalutprovoj. Provu denove poste.",
+  "enrollment-setup-failed": "Ne eblis komenci la agordon.",
+  "registration-global-admin-disabled": "Kontoj de tutmondaj administrantoj estas kreataj loke. Publika registrado estas malŝaltita.",
+  "auth-session-create-failed": "Ne eblis krei seancon.",
+  "registration-password-unavailable": "Registrado per pasvorto ne estas disponebla."
 }

@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Meklēt blokus",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Rakstiet, lai meklētu blokus",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Atbilstošo bloku skaits: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 atbilstošs bloks"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 atbilstošs bloks",
+  "enrollment-password-instructions": "Apstipriniet paroli, lai sāktu iestatīšanu. Šī darbība jūs nepierakstīs. Šeit nevar aizstāt jau aktīvu autentifikācijas faktoru.",
+  "enrollment-setup-denied": "Nevar sākt iestatīšanu. Pārbaudiet pierakstīšanās datus un to, vai vienreizējie kodi jau ir iespējoti.",
+  "enrollment-code-instructions": "Izmantojiet laikatkarīgus kodus: SHA1, seši cipari un 30 sekunžu intervāls. Glabājiet atslēgu slepenībā. Iestatījuma derīgums beidzas pēc piecām minūtēm.",
+  "enrollment-confirmed-instructions": "Apstiprinājuma kods jau ir izmantots. Pirms pierakstīšanās sagaidiet jaunu kodu autentifikācijas lietotnē.",
+  "enrollment-account-created": "Konts ir izveidots",
+  "registration-first-admin": "Pirmais konts saņems globālā administratora tiesības šim domēnam.",
+  "auth-too-many-attempts": "Pārāk daudz pierakstīšanās mēģinājumu. Mēģiniet vēlāk.",
+  "enrollment-setup-failed": "Neizdevās sākt iestatīšanu.",
+  "registration-global-admin-disabled": "Globālo administratoru konti tiek izveidoti lokāli. Publiskā reģistrācija ir atspējota.",
+  "auth-session-create-failed": "Neizdevās izveidot sesiju.",
+  "registration-password-unavailable": "Reģistrācija ar paroli nav pieejama."
 }

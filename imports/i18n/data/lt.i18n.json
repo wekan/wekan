@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Ieškoti blokų",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Rašykite, kad ieškotumėte blokų",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "Atitinkančių blokų: %1",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 atitinkantis blokas"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 atitinkantis blokas",
+  "enrollment-password-instructions": "Patvirtinkite slaptažodį, kad pradėtumėte sąranką. Atlikę šį veiksmą neprisijungsite. Jau aktyvaus tapatybės patvirtinimo veiksnio čia pakeisti negalima.",
+  "enrollment-setup-denied": "Nepavyksta pradėti sąrankos. Patikrinkite prisijungimo duomenis ir ar vienkartiniai kodai jau įjungti.",
+  "enrollment-code-instructions": "Naudokite laiku pagrįstus kodus: SHA1, šeši skaitmenys ir 30 sekundžių intervalas. Saugokite raktą paslaptyje. Sąranka nustos galioti po penkių minučių.",
+  "enrollment-confirmed-instructions": "Patvirtinimo kodas jau panaudotas. Prieš prisijungdami palaukite naujo kodo tapatybės patvirtinimo programėlėje.",
+  "enrollment-account-created": "Paskyra sukurta",
+  "registration-first-admin": "Pirmajai paskyrai bus suteiktos šio domeno visuotinio administratoriaus teisės.",
+  "auth-too-many-attempts": "Per daug bandymų prisijungti. Bandykite vėliau.",
+  "enrollment-setup-failed": "Nepavyko pradėti sąrankos.",
+  "registration-global-admin-disabled": "Visuotinių administratorių paskyros kuriamos vietoje. Viešoji registracija išjungta.",
+  "auth-session-create-failed": "Nepavyko sukurti seanso.",
+  "registration-password-unavailable": "Registruotis naudojant slaptažodį negalima."
 }

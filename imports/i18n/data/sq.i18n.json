@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Kërko blloqe",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Shkruaj për të kërkuar blloqe",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 blloqe që përputhen",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bllok që përputhet"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 bllok që përputhet",
+  "enrollment-password-instructions": "Konfirmoni fjalëkalimin për të nisur konfigurimin. Ky hap nuk ju fut në llogari. Një faktor aktiv i vërtetimit nuk mund të zëvendësohet këtu.",
+  "enrollment-setup-denied": "Konfigurimi nuk mund të nisë. Kontrolloni të dhënat e hyrjes dhe nëse kodet njëpërdorimëshe janë tashmë të aktivizuara.",
+  "enrollment-code-instructions": "Përdorni kode të bazuara në kohë: SHA1, gjashtë shifra dhe interval prej 30 sekondash. Mbajeni çelësin sekret. Konfigurimi skadon pas pesë minutash.",
+  "enrollment-confirmed-instructions": "Kodi i konfirmimit është përdorur tashmë. Prisni që aplikacioni i vërtetimit të shfaqë një kod të ri përpara se të hyni.",
+  "enrollment-account-created": "Llogaria u krijua",
+  "registration-first-admin": "Llogaria e parë do të marrë lejet e administratorit global për këtë domen.",
+  "auth-too-many-attempts": "Shumë përpjekje për të hyrë. Provoni përsëri më vonë.",
+  "enrollment-setup-failed": "Konfigurimi nuk mund të nisej.",
+  "registration-global-admin-disabled": "Llogaritë e administratorëve globalë krijohen lokalisht. Regjistrimi publik është çaktivizuar.",
+  "auth-session-create-failed": "Sesioni nuk mund të krijohej.",
+  "registration-password-unavailable": "Regjistrimi me fjalëkalim nuk është i disponueshëm."
 }

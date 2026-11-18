@@ -4778,5 +4778,16 @@
   "blockly-TOOLBOX_SEARCH_PLACEHOLDER": "Blokları axtar",
   "blockly-TOOLBOX_SEARCH_PROMPT": "Blokları axtarmaq üçün yazın",
   "blockly-TOOLBOX_SEARCH_RESULT_COUNT": "%1 uyğun blok",
-  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 uyğun blok"
+  "blockly-TOOLBOX_SEARCH_RESULT_COUNT_ONE": "1 uyğun blok",
+  "enrollment-password-instructions": "Quraşdırmaya başlamaq üçün parolunuzu təsdiqləyin. Bu addım hesabınıza daxil olmur. Artıq aktiv olan autentifikasiya amilini burada əvəz etmək mümkün deyil.",
+  "enrollment-setup-denied": "Quraşdırmaya başlamaq mümkün deyil. Giriş məlumatlarınızı yoxlayın və birdəfəlik kodların artıq aktiv olub-olmadığını müəyyən edin.",
+  "enrollment-code-instructions": "Vaxta əsaslanan kodlardan istifadə edin: SHA1, altı rəqəm və 30 saniyəlik interval. Açarı gizli saxlayın. Quraşdırmanın müddəti beş dəqiqədən sonra bitir.",
+  "enrollment-confirmed-instructions": "Təsdiq kodu artıq istifadə edilib. Daxil olmamışdan əvvəl autentifikasiya tətbiqinin yeni kod göstərməsini gözləyin.",
+  "enrollment-account-created": "Hesab yaradıldı",
+  "registration-first-admin": "İlk hesab bu domen üçün qlobal inzibatçı icazələri alacaq.",
+  "auth-too-many-attempts": "Həddindən artıq giriş cəhdi. Bir qədər sonra yenidən cəhd edin.",
+  "enrollment-setup-failed": "Quraşdırmaya başlamaq alınmadı.",
+  "registration-global-admin-disabled": "Qlobal inzibatçı hesabları yerli olaraq yaradılır. İctimai qeydiyyat söndürülüb.",
+  "auth-session-create-failed": "Sessiya yaratmaq alınmadı.",
+  "registration-password-unavailable": "Parolla qeydiyyat mümkün deyil."
 }
