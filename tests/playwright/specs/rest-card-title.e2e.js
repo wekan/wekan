@@ -39,8 +39,15 @@ test('REST clears a card title in JSON and form requests and updates the board',
     const read = await request.get(path, { headers });
     expect(read.status()).toBe(200);
     expect((await read.json()).title).toBe('');
-    if (targetsWeLite) await page.reload();
-    await expect(titles).toHaveText(['']);
+    if (targetsWeLite) {
+      await page.reload();
+      await expect(titles).toHaveText(['Card']);
+      await titles.click();
+      await expect(page.getByRole('heading', { name: 'Card', exact: true })).toBeVisible();
+      await page.goBack();
+    } else {
+      await expect(titles).toHaveText(['']);
+    }
   }
 
   if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
