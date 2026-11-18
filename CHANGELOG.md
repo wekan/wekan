@@ -7,10 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**Card Excel export** works again when only Description or only
-Labels is selected. The browser suite now runs much more of the upstream REST,
-attachment, custom-field and webhook specs against **WeLite**, including
-right-to-left Arabic captions.
+**ListLockBulkBleed** is fixed: a list that refuses a role write
+access now also refuses that role's bulk REST deletes and label changes and
+every server-side card write. A server no longer runs out of memory in the
+hourly **History integrity audit**, **scheduled rules** can create cards again,
+**Card Excel export** works with one field selected, and a cleared card title
+or description can be undone and redone.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

@@ -126,12 +126,77 @@ its reason.
 
 # Upcoming WeKan ® release
 
-**In short:** **Card Excel export** works again when only Description or only
-Labels is selected. The browser suite now runs much more of the upstream REST,
-attachment, custom-field and webhook specs against **WeLite**, including
-right-to-left Arabic captions.
+**In short:** **ListLockBulkBleed** is fixed: a list that refuses a role write
+access now also refuses that role's bulk REST deletes and label changes and
+every server-side card write. A server no longer runs out of memory in the
+hourly **History integrity audit**, **scheduled rules** can create cards again,
+**Card Excel export** works with one field selected, and a cleared card title
+or description can be undone and redone.
 
-This release fixes the following bug:
+This release fixes the following CRITICAL SECURITY ISSUE of [ListLockBulkBleed](https://wekan.fi/hall-of-fame/listlockbulkbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba3d94390ba724344a2d5cfe50e9dee3cc6f8d89">Bulk REST card writes and server-side card writes ask the list's role exception</a>. Thanks to immanuwell and xet7.</summary>
+
+[GHSA-83w9-74mx-7v83](https://github.com/wekan/wekan/security/advisories/GHSA-83w9-74mx-7v83),
+CWE-863. A board admin can refuse a role write access in one list (#4527).
+`DELETE /api/boards/:boardId/cards/bulk` and
+`POST /api/boards/:boardId/cards/labels` take their cards from the body, so no
+URL names a list, and asked only for board write access; the methods
+`archiveSelectedCards`, `copyCard` and `createLinkedCard` write from server
+code, past the Cards allow/deny rules. A normal member the list refused could
+permanently delete its cards in one request, relabel and archive them, and copy
+or link new cards into it.
+
+The bulk routes now read every card and ask each list before the first write:
+any refusal is a 403 and nothing changes, and each removal and relabel is keyed
+on the list that was checked. The refusal shows in Admin Panel / Problems as
+ListLockBulkBleed (`authz.list-locked-bulk`, medium, never disables). The
+methods answer `not-authorized` and are not recorded, because Copy Card and
+Multi-Selection reach them in ordinary use. The same shape was fixed in twelve
+more paths: converting a card to a board, adding a subtask,
+`createCardWithDueDate`, the iCalendar import, sending and receiving board
+email, creating a version-control issue, moving board objects, History and
+position-history undo and redo, renaming an attachment, the scoped import and a
+card's rule button. Dependency lines keep their own board-wide rule.
+`tests/listLockBulkBleed.test.cjs` runs the gate on the reporter's board and
+pins every path; `tests/playwright/specs/list-lock-bulk.e2e.js` replays the
+proof of concept.
+
+</details>
+
+and fixes the following bugs:
+
+**Server memory and timed jobs** - what runs on its own, every hour.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7459c5bde66ea22966526a7179eede62b5233f0e">The History integrity audit streams each board instead of loading it whole</a>. Thanks to xet7.</summary>
+
+A production server died twice with "JavaScript heap out of memory", 42 and 74
+seconds after the hourly History integrity audit started, both times in its
+first run after a restart. The audit fetched each board's whole History - every
+row with its full previous and new content - into memory. It now streams each
+board through a cursor and keeps only hashes and small summaries; the findings
+are the same, in the same order. `tests/historyIntegrityStreaming.test.cjs`
+compares both on forked, tampered and orphaned chains and fails if a board is
+fetched whole.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f23695cc1bf6447fb38693ea8fe2e1ce4ab51f8f">Scheduled rules act as the board's admin, so a created card has an author</a>. Thanks to xet7.</summary>
+
+Every run of a scheduled rule with a "create card" action failed with "User ID
+is required in cards insertAsync". Scheduled rules, auto-archive and attachment
+retention acted as `board.createdBy`, but boards have no such field, so they ran
+as nobody. They now act as the board's first active admin
+(`models/lib/boardActor.js`), and the rule's new card names its author.
+`tests/boardActor.test.cjs` scans the tree so nothing reads `board.createdBy`
+again.
+
+</details>
+
+**Cards** - exporting a card, and clearing its text.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/997c6d88ad4c67850831aa99de1f874765c90a41">Card Excel export works with only Description or only Labels selected</a>. Thanks to AhmedLukman and xet7.</summary>
@@ -149,17 +214,49 @@ workbooks from the real route and checks that each holds only its own field.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c59c751547aa36fabda088eed4cfd7b8ce6b37e4">REST card update can clear a card title</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`PUT` with `{"title":""}` answered 404 and kept the old title, because the
+handler read the title by truthiness. An empty title is a value now, a title
+that is not a string is a 400 before anything is written, and
+[an update that matches no card](https://github.com/wekan/wekan/commit/79a98822cbe6f1aaa0da0ad2646c7b2cb4fb2726)
+is a 404 again. `tests/restCardSort.test.cjs` and
+`tests/playwright/specs/rest-card-title.e2e.js` cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aacb2fd4d68c4873bd01685dceee172c24e48379">A cleared card title or description can be undone and redone</a>. Thanks to AhmedLukman and xet7.</summary>
+
+Clearing a value is an edit kept in History, not a deletion, so it is
+restorable whatever Admin Panel / Problems / Delete says. Undo already put the
+old text back, but redo and Restore of the clearing threw: collection2 removes
+`''` from `$set` and then refuses the empty modifier. History, the card details,
+the board description and the REST card update now write `''` as it is, and a
+REST title of only spaces no longer fails with a 500.
+`tests/emptyStringClearWrites.test.cjs` and
+`tests/playwright/specs/card-clear-undo-redo.e2e.js` cover it.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Card Excel export** - the browser test for the fix above.
 
-- [A Playwright spec drives the card Excel export with one field selected](https://github.com/wekan/wekan/commit/7d10047dfa2775a1b54f010d7b2934d0669d76b0).
+- [A Playwright spec drives the card Excel export with one field selected](https://github.com/wekan/wekan/commit/320a3ca8672b6a70867baa0c3f657d3a5eb53536).
   Thanks to AhmedLukman and xet7.
+
+**Node test suites** - a sandbox that resolves its helpers.
+
+- [The attachment cleanup test resolves the Playwright helpers' own requires](https://github.com/wekan/wekan/commit/74dd0b705e21ecb4723dcb8a6055c7edc5aae9aa).
+  Thanks to xet7.
 
 **WeLite REST API** - the upstream REST specs, run against the native WeLite
 target as well.
 
 - [Ownership selection](https://github.com/wekan/wekan/commit/049b628a0310a33026de423a590a6c33489d5b41). Thanks to xet7.
+- [Card title edits](https://github.com/wekan/wekan/commit/22dae19a64325695a17dd90ea7f4675ffeecfbed). Thanks to xet7.
 - [Board card sorting](https://github.com/wekan/wekan/commit/5f06b28aef680d2682e7fa4e965a0e797b502214). Thanks to xet7.
 - [Archive and restore](https://github.com/wekan/wekan/commit/11fc468ff77f9126b97d1eca72de9c2d90314022). Thanks to xet7.
 - [Subtasks](https://github.com/wekan/wekan/commit/db3f489ab27f672c9d1ab4db5feaf3a116eba928). Thanks to xet7.
