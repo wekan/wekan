@@ -253,7 +253,11 @@ async function applyFieldContent(collection, row, content) {
   if (value === undefined) return false;
   const existing = await collection.findOneAsync(row.entityId);
   if (!existing) return false;
-  await collection.updateAsync(row.entityId, { $set: { [content.field]: value } });
+  // The value is put back exactly as it was recorded. collection2's default
+  // clean removes '' and trims strings, so redo or Restore of a CLEARED title
+  // or description left an empty modifier and threw instead of clearing it.
+  await collection.updateAsync(row.entityId, { $set: { [content.field]: value } },
+    { removeEmptyStrings: false, trimStrings: false });
   return true;
 }
 

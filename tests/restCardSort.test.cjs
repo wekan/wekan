@@ -109,6 +109,8 @@ for (const [description, written] of [['', ''], [null, ''], ['New text', 'New te
     const f = await fixture();
     assert.equal((await f.put({ description })).code, 200);
     assert.deepEqual(f.writes.map(w => w.modifier), [{ $set: { description: written } }]);
+    // collection2's default clean removes '' from $set; #6877's clear needs this.
+    assert.deepEqual(f.writes.map(w => w.options), [{ removeEmptyStrings: false }]);
   });
 }
 
@@ -127,7 +129,8 @@ for (const [title, written] of [['', ''], ['Renamed', 'Renamed'], ['x'.repeat(10
     assert.deepEqual(f.writes, [{
       selector: { _id: 'card', listId: 'list', boardId: 'board', archived: false },
       modifier: { $set: { title: written } },
-      options: { removeEmptyStrings: title !== '' },
+      // Always false: a title of spaces is trimmed to '' and would be removed.
+      options: { removeEmptyStrings: false },
     }]);
   });
 }

@@ -2935,7 +2935,9 @@ Boards.helpers({
   },
 
   async setDescription(description) {
-    return await Boards.updateAsync(this._id, { $set: { description } });
+    // '' clears it: collection2's default clean would remove it from $set and
+    // fail on the empty modifier (tests/emptyStringClearWrites.test.cjs).
+    return await Boards.updateAsync(this._id, { $set: { description } }, { removeEmptyStrings: false });
   },
 
   // #1566: the board admin's announcement (Boards.allow limits it to admins).

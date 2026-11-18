@@ -1853,7 +1853,10 @@ WebApp.handlers.put(
       const matchedCount = await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { title: newTitle } },
-        { removeEmptyStrings: newTitle !== '' },
+        // Always: '' is a value here, and a title of only spaces is trimmed to
+        // '' by the default clean, which would then remove it and leave an
+        // empty modifier (a 500).
+        { removeEmptyStrings: false },
       );
       updated = matchedCount > 0;
     }
@@ -1887,6 +1890,8 @@ WebApp.handlers.put(
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { description: scalars.set.description } },
+        // #6877: '' clears the description; the default clean would remove it.
+        { removeEmptyStrings: false },
       );
       updated = true;
     }

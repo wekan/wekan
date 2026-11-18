@@ -60,6 +60,11 @@ import Lists from '/models/lists';
 import { debounce } from '/imports/lib/collectionHelpers';
 const { SimpleSchema } = require('/imports/simpleSchema');
 const { formatCardKey } = require('/models/lib/boardKey');
+// A title or description cleared in the card details is the value '', not an
+// absence. collection2's default clean removes '' from $set, and a $set left
+// empty is an error ("your modifier is now empty"), so clearing one failed.
+// Strings are still trimmed, as before.
+const keepEmptyStrings = () => ({ removeEmptyStrings: false });
 
 // #6800: a field's definition as it is NOW, not from ReactiveCache - a copy may
 // just have shared the field with the destination board (mapCustomFieldsToBoard)
@@ -1983,9 +1988,9 @@ Cards.helpers({
     // places would put two rows on one edit - and the hook also catches the
     // REST API, the importers and the rules engine, none of which call this.
     if (this.isLinkedBoard()) {
-      await Boards.updateAsync({ _id: this.linkedId }, { $set: { description } });
+      await Boards.updateAsync({ _id: this.linkedId }, { $set: { description } }, keepEmptyStrings());
     } else {
-      await Cards.updateAsync({ _id: this.getRealId() }, { $set: { description } });
+      await Cards.updateAsync({ _id: this.getRealId() }, { $set: { description } }, keepEmptyStrings());
     }
   },
 
@@ -2853,7 +2858,7 @@ Cards.helpers({
     let last;
     for (const t of targets) {
       const collection = t.collection === 'boards' ? Boards : Cards;
-      last = collection.updateAsync({ _id: t.id }, { $set: { title: sanitizedTitle } });
+      last = collection.updateAsync({ _id: t.id }, { $set: { title: sanitizedTitle } }, keepEmptyStrings());
     }
     return last;
   },
