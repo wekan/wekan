@@ -4,6 +4,7 @@ import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { listException, assertListNotRefused, assertListsWritable } from '/server/lib/listPermissionGate';
 import Cards from '/models/cards';
 // ErrorBleed: refusals answer with their real status and a safe message.
 const { publicErrorData } = require('/server/lib/apiResponseHelpers');
@@ -85,7 +86,13 @@ async function boardDependencyContext(userId, sourceCardId, targetCardId) {
   if (!board || (target !== undefined && (!target || target.boardId !== source.boardId || target._id === source._id))) {
     throw new Meteor.Error('dependency-invalid', 'Both cards must be different cards of the same board.');
   }
-  if (!canEditCardDependency(board, userId, source, target) && !await isSiteAdmin(userId)) throw forbidden();
+  const siteAdmin = await isSiteAdmin(userId);
+  if (!canEditCardDependency(board, userId, source, target) && !siteAdmin) throw forbidden();
+  // Decided 2026-11-18 (TODO.md): a dependency line is stored on its source
+  // card, so a list that refuses this role a write refuses the line too
+  // (#4527). The board's own exemptions stay: a board admin is never
+  // restricted, and a site admin passes the board rule above as before.
+  if (!siteAdmin) await assertListsWritable(userId, board, [source.listId]);
   return { board, source, target };
 }
 async function writeBoardDependencies(cardId, next) {
@@ -171,7 +178,9 @@ Meteor.methods({
     for (const line of lines) {
       const from = resolve(line.from, line.fromCardNumber, line.fromTitle);
       const to = resolve(line.to, line.toCardNumber, line.toTitle);
-      if (!from || !to || from._id === to._id || (!admin && !canEditCardDependency(board, this.userId, from, to))) {
+      if (!from || !to || from._id === to._id || (!admin && !canEditCardDependency(board, this.userId, from, to))
+        // A line on a card whose list refuses this role is not imported (#4527).
+        || (!admin && (await listException(this.userId, board, from.listId, 'write')) === false)) {
         unmatched += 1;
         continue;
       }
@@ -265,6 +274,12 @@ async function checkRestDependencyAccess(userId, boardId, cardId, targetId) {
   if (!card || target === null) return;
   await Authentication.checkAdminOrCondition(userId,
     canEditCardDependency(board, userId, card, target || undefined));
+  // The card's list may refuse this role a write (#4527, decided 2026-11-18):
+  // over REST that is an attempt, a 403 recorded as ListLockBleed. Site admins
+  // pass the board rule above and are not asked, as on DDP.
+  if (!await isSiteAdmin(userId)) {
+    await assertListNotRefused(userId, board, card.listId, 'write', 'rest:card-dependency');
+  }
 }
 
 if (Meteor.isServer) {

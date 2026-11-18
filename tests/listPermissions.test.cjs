@@ -141,11 +141,8 @@ test('negative: every REST write that names a card asks the list (ListLockBleed)
     // comment refusal stops NEW comments, which the POST route asks.
     'PUT /api/boards/:boardId/cards/:cardId/comments/:commentId': 'comment rule',
     'DELETE /api/boards/:boardId/cards/:cardId/comments/:commentId': 'comment rule',
-    // Dependency lines have their own board-wide rule (canEditBoardDependencies),
-    // the same on DDP (setBoardDependency) as over REST.
-    'POST /api/boards/:boardId/cards/:cardId/dependencies': 'dependency rule',
-    'PUT /api/boards/:boardId/cards/:cardId/dependencies/:targetId': 'dependency rule',
-    'DELETE /api/boards/:boardId/cards/:cardId/dependencies/:targetId': 'dependency rule',
+    // (Dependency lines were listed here as following their own board-wide
+    // rule. Decided 2026-11-18: the card's list refuses them too - TODO.md.)
     // A bot runner's report of its own run, written to BotRuns, not the card.
     'POST /api/boards/:boardId/cards/:cardId/bot-runs/:runId': 'bot run report',
   };
@@ -161,9 +158,10 @@ test('negative: every REST write that names a card asks the list (ListLockBleed)
         found.push(route);
         const next = src.indexOf('WebApp.handlers.', m.index + 1);
         let body = src.slice(m.index, next < 0 ? undefined : next);
-        const delegate = /await (\w+)\(req, res\b/.exec(body);
-        if (delegate) {
-          const start = src.indexOf(`async function ${delegate[1]}(`);
+        // Follow the helpers the route awaits in its own file - a shared
+        // handler (req, res) or an access check such as checkRestDependencyAccess.
+        for (const call of new Set([...body.matchAll(/await (\w+)\(/g)].map(c => c[1]))) {
+          const start = src.indexOf(`async function ${call}(`);
           if (start >= 0) body += src.slice(start, src.indexOf('\n}\n', start));
         }
         if (!/assertListNotRefused\(|canWriteInList\(|canCommentInList\(/.test(body) && !unrelated[route]) missing.push(`${route} (${rel})`);

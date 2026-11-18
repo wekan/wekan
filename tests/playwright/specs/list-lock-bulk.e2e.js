@@ -66,3 +66,23 @@ test('a list refusing a role write refuses its bulk and method writes (ListLockB
   expect(adminDel.status()).toBe(200);
   expect((await adminDel.json()).deleted).toEqual([locked._id]);
 });
+
+// Decided 2026-11-18 (TODO.md): dependency lines follow the card's list too.
+test('a list refusing a role write refuses its cards\' dependency lines', async ({ request, board, user, user2 }) => {
+  const original = db.getBoard(board.boardId).members;
+  const [lockedListId, openListId, otherListId] = board.listIds;
+  const card = id => db.find('cards', { boardId: board.boardId, listId: id })[0];
+  const locked = card(lockedListId), open = card(openListId), other = card(otherListId);
+  db.updateOne('boards', { _id: board.boardId }, { $set: {
+    members: [...original.filter(m => m.userId !== user2.id), { userId: user2.id, isActive: true, isAdmin: false }],
+  } });
+  db.updateOne('lists', { _id: lockedListId }, { $set: { roleExceptions: { normal: { write: false } } } });
+  const route = c => `/api/boards/${board.boardId}/cards/${c._id}/dependencies`;
+  const refused = await request.post(route(locked), json(user2.token, { cardId: other._id }));
+  expect(refused.status()).toBe(403);
+  expect(db.findOne('cards', { _id: locked._id }).cardDependencies || []).toEqual([]);
+  await expect.poll(() => db.findOne('eventlog', { bleed: 'ListLockBleed', source: 'rest:card-dependency' })?.count || 0).toBeGreaterThan(0);
+  // Negative: the same member links a card in the open list, and the board admin in the locked one.
+  expect((await request.post(route(open), json(user2.token, { cardId: other._id }))).status()).toBe(200);
+  expect((await request.post(route(locked), json(user.token, { cardId: other._id }))).status()).toBe(200);
+});
