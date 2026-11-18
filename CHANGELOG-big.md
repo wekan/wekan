@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.17 2026-11-19 WeKan ® release
 
 **In short:** The **Admin Panel** answers one question per tab: Settings gains
 **Appearance**, **Features**, **Feature profiles**, Security, Activities and

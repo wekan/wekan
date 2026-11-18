@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.17 2026-11-19 WeKan ® release
 
 The **Admin Panel** answers one question per tab: Settings gains
 **Appearance**, **Features**, **Feature profiles**, Security, Activities and
@@ -14,7 +14,7 @@ old
 address redirects. The docs now have a page for every menu entry, and cards of
 an archived swimlane no longer appear in the first swimlane.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.17](CHANGELOG-big.md#v1317-2026-11-19-wekan--release)
 
 # v13.16 2026-11-19 WeKan ® release
 
@@ -56,16 +56,3 @@ the card dropdown empty. Dependabot's updates, among them **i18next 27** and
 the **mongodb** driver 7.8.0, are kept.
 
 [All changes in v13.13](CHANGELOG-big.md#v1313-2026-11-15-wekan--release)
-
-# v13.12 2026-11-14 WeKan ® release
-
-WeKan is updated to **Meteor 3.6.1**, whose DDP server refuses
-malformed messages without stalling the connection. **One shared list header
-row** now shows the same lists in every swimlane, scrolling together, and
-**Shift+M** and **Shift+C** open Move Card and Copy Card. Those popups
-remember the swimlane and list, not only the board. The embedded-engine
-benchmark takes **OpenTelemetry 1.47.0** for a Dependabot alert. A **REST
-API** write that changes nothing answers 404, and a card deletion naming the
-wrong list no longer strips the card's checklists (**ListLockBleed**).
-
-[All changes in v13.12](CHANGELOG-big.md#v1312-2026-11-14-wekan--release)
