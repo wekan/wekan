@@ -162,6 +162,33 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
     const renamed = await request.get(`/api/attachment/download/${before._id}?raw=1`, { headers: headers(user.token) });
     expect(renamed.status()).toBe(200);
     expect(await renamed.body()).toEqual(png);
+
+    const file = page.locator('#attachment-file');
+    await file.setInputFiles({ name: 'direct.png', mimeType: 'image/png', buffer: png });
+    await page.locator('form').filter({ has: file }).getByRole('button', { name: 'Upload', exact: true }).click();
+    const direct = attachment(page, 'direct.png');
+    await expect(direct).toBeVisible();
+    const stored = db.findOne('attachments', { 'meta.cardId': card._id, name: 'direct.png' });
+    const remove = page.locator('li').filter({ has: direct }).locator('form[action^="/board/attachment/delete"]');
+    const target = new URL(await remove.getAttribute('action'), page.url());
+    const fields = Object.fromEntries(await remove.locator('input[type="hidden"]').evaluateAll(
+      inputs => inputs.map(input => [input.name, input.value])));
+    expect((await request.post(target.href, { form: fields })).status()).toBe(400);
+    expect(db.findOne('attachments', { _id: stored._id })).toEqual(stored);
+    await remove.getByRole('checkbox').check();
+    const [removed] = await Promise.all([
+      page.waitForResponse(response => response.url() === target.href && response.request().method() === 'POST'),
+      remove.getByRole('button', { name: 'Delete', exact: true }).click(),
+    ]);
+    expect(removed.status()).toBe(303);
+    await expect(direct).toHaveCount(0);
+    const directlyRemoved = db.findOne('attachments', { _id: stored._id });
+    expect(directlyRemoved.deletedBy).toBe(user.id);
+    expect(directlyRemoved.deletedAt).toBeTruthy();
+    expect(db.findOne('cards', { _id: card._id })).toBeTruthy();
+    const recovery = await request.get(`/api/attachment/download/${stored._id}?raw=1`, { headers: headers(user.token) });
+    expect(recovery.status()).toBe(200);
+    expect(await recovery.body()).toEqual(png);
     await returnToBoard(page, user, board);
     await page.locator(`input[name="sel_card"][value="${card._id}"]`).check();
     await page.locator('input[name="action_delete"]').click();
