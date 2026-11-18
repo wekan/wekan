@@ -11,7 +11,8 @@ const { isBoardViewAvailable, isFeatureAvailable } = require('/models/lib/instan
 // calls this, and every list's card loop reads boardView(): with the whole user
 // document here, a card open (a user write) re-ran every list and Blaze then
 // re-evaluated every minicard.
-const PREVIEW_USER_FIELDS = ['featurePreview', 'isAdmin'];
+// #6837: and the three that pick the user's feature profile.
+const PREVIEW_USER_FIELDS = ['featurePreview', 'isAdmin', 'featureProfileId', 'teams', 'orgs'];
 
 export function allowBoardView(view) {
   return isBoardViewAvailable(ReactiveCache.getCurrentSetting(), currentUserWith(PREVIEW_USER_FIELDS), view);
@@ -25,3 +26,11 @@ export function allowFeature(key) {
 
 // {{#if allowFeature 'board-summary'}} in a template.
 Template.registerHelper('allowFeature', key => allowFeature(key));
+
+// #6837: the profile that hides features for the signed-in user, so the
+// interface can say so - a hidden feature must never look like a missing one.
+export function featureProfileNotice() {
+  return require('/models/lib/featureProfiles').featureProfileNotice(
+    ReactiveCache.getCurrentSetting(), currentUserWith(PREVIEW_USER_FIELDS));
+}
+Template.registerHelper('featureProfileNotice', () => featureProfileNotice());

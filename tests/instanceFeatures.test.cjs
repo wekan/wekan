@@ -143,10 +143,13 @@ test('wiring: every place that draws or picks a board view asks the instance', (
 test('storage: site admin only, published without secrets, pilots not writable by users', () => {
   const method = read('server/methods/instanceFeatures.js');
   assert.match(method, /async requireSiteAdmin\(\)|async function requireSiteAdmin\(\) \{\s*const user = await Meteor\.userAsync\(\);\s*if \(user\?\.isAdmin !== true\) throw/);
-  // Four since saveOptionalApis and saveRulesReadOnlyForMembers (#2217)
-  // joined the two feature methods: each checks.
-  assert.equal((method.match(/await requireSiteAdmin\(\);/g) || []).length, 4, 'every method checks the admin');
-  assert.equal((method.match(/^  async [a-zA-Z]+\(/gm) || []).length, 4, 'and there is no method without the check');
+  // One check per method, however many there are: saveOptionalApis and
+  // saveRulesReadOnlyForMembers (#2217) joined the two feature methods, and
+  // getFeatureProfiles / saveFeatureProfiles (#6837) after them.
+  const methods = (method.match(/^  async \w+\(/gm) || []).length;
+  assert.ok(methods >= 6, `the methods are found (${methods})`);
+  assert.equal((method.match(/await requireSiteAdmin\(\);/g) || []).length, methods, 'every method checks the admin');
+  // (The count of methods is the count of checks above: none is without one.)
   assert.match(method, /featureSettingsModifier\(decisions\)/);
   assert.match(read('server/imports.js'), /import '\/server\/methods\/instanceFeatures';/);
   const settingsPub = read('server/publications/settings.js');

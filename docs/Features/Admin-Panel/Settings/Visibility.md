@@ -82,6 +82,36 @@ Stored on the settings document as `cardFieldStates` (`{ field: true|false }`;
 a missing field is shown), saved by the site-admin-only Features save. The catalog
 and the decisions are `models/lib/cardFieldVisibility.js`.
 
+### Feature profiles
+
+[#6837](https://github.com/wekan/wekan/issues/6837): below the Features **Save**, a
+site admin can define **feature profiles** - a name and a tick for each feature
+above that the profile hides - and assign each to users (usernames), teams and
+organizations (their names, one per line). **Add profile**, **Remove profile** and
+the section's own **Save** edit them; a name that matches nobody is reported after
+saving instead of being dropped.
+
+Which profile a user has: the one assigned to them directly, else the first
+profile in the list naming one of their teams, else one naming one of their
+organizations, else none.
+
+Profiles are **opt-in**. A Simple/Advanced mode that hid features by default was
+tried and removed, because a feature missing by default is a support nightmare.
+So:
+
+- a user with no profile sees everything this WeKan offers - nothing changes for
+  anybody until a profile is assigned;
+- a profile only hides, like the ticks above: no data is removed and no
+  permission changes, so it never grants or takes away access;
+- the user is told: the member menu opens with *Your feature profile ... hides N
+  features*, so a hidden feature is never taken for a missing one.
+
+A profile applies to a pilot user too, because it was assigned on purpose.
+Stored on the settings document as `featureProfiles`
+(`[{ _id, name, hidden, teamIds, orgIds }]`) and on a user as `featureProfileId`
+(published to that user only, and not writable by them). The decisions are
+`models/lib/featureProfiles.js`.
+
 ## Optional APIs
 
 Below Features: one tick each for the **Trello**, **Jira**, **GitHub** and

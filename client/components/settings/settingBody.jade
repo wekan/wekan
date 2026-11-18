@@ -440,6 +440,38 @@ template(name='tableVisibilityModeSettings')
         button.js-visibility-features-save.primary {{_ 'save'}}
         span.js-visibility-features-status
 
+      //- #6837: feature profiles - named sets of the features above that their
+        users do not see, assigned to users, teams or organizations. Opt-in: a
+        user with no profile sees everything, and a user with one is told so
+        (models/lib/featureProfiles.js). Visibility only, like the ticks above.
+      li.tableVisibilityMode-form
+        .title {{_ 'feature-profiles'}}
+        .feature-desc {{_ 'feature-profiles-desc'}}
+      each profile in featureProfileRows
+        li.tableVisibilityMode-form.js-feature-profile(data-profile-id=profile._id)
+          .form-group
+            label {{_ 'feature-profile-name'}}
+            input.wekan-form-control.js-feature-profile-name(type="text" value=profile.name maxlength="100")
+          .title {{_ 'feature-profile-hides'}}
+          each row in profile.rows
+            a.flex.js-toggle-feature.js-feature-profile-hide(data-feature=row.key)
+              .materialCheckBox(class="{{#if row.hidden}}is-checked{{/if}}")
+              span {{_ row.labelKey}}
+          .form-group
+            label {{_ 'feature-profile-users'}}
+            textarea.wekan-form-control.js-feature-profile-users(rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= profile.usernames
+          .form-group
+            label {{_ 'feature-profile-teams'}}
+            textarea.wekan-form-control.js-feature-profile-teams(rows="2")= profile.teams
+          .form-group
+            label {{_ 'feature-profile-orgs'}}
+            textarea.wekan-form-control.js-feature-profile-orgs(rows="2")= profile.orgs
+          button.js-feature-profile-remove(type="button") {{_ 'feature-profile-remove'}}
+      li
+        button.js-feature-profile-add(type="button") {{_ 'feature-profile-add'}}
+        button.js-feature-profiles-save.primary(type="button") {{_ 'save'}}
+        span.js-feature-profiles-status
+
       //- #2460: SQRL sign-in, and #4198: public boards on the fediverse
         (ActivityPub) - optional features this WeKan offers, each off by
         default and saved as soon as it is switched.

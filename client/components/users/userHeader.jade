@@ -13,6 +13,12 @@ template(name="headerUserBar")
             = currentUser.username
 
 template(name="memberMenuPopup")
+  //- #6837: a feature profile hides features on purpose, and says so, so a
+    hidden feature is never taken for a missing one (models/lib/featureProfiles.js).
+  with featureProfileNotice
+    p.feature-profile-notice.quiet(role="note")
+      i.fa.fa-eye-slash(aria-hidden="true")
+      |  {{_ 'feature-profile-notice' name=name count=hiddenCount}}
   ul.pop-over-list
     with currentUser
       //- #6732: at the top - Show My / Show Board Dependencies, Import, Export.

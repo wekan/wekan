@@ -88,3 +88,79 @@ Meteor.methods({
     return { saved: true, unknownUsernames };
   },
 });
+
+// #6837: feature profiles (models/lib/featureProfiles.js). Site admin only.
+// The page names teams, organizations and users; they are resolved here, and a
+// name that matches nothing is returned rather than silently dropped.
+const { cleanProfiles, storedProfiles, parseNames } = require('/models/lib/featureProfiles');
+const { FEATURE_KEYS } = require('/models/lib/instanceFeatures');
+
+Meteor.methods({
+  // The profiles with the names of what they apply to, for the page.
+  async getFeatureProfiles() {
+    await requireSiteAdmin();
+    const Org = require('/models/org').default;
+    const Team = require('/models/team').default;
+    const setting = await Settings.findOneAsync({});
+    const profiles = storedProfiles(setting);
+    const allTeamIds = profiles.flatMap(p => p.teamIds || []);
+    const allOrgIds = profiles.flatMap(p => p.orgIds || []);
+    const [teams, orgs, users] = await Promise.all([
+      Team.find({ _id: { $in: allTeamIds } }, { fields: { teamDisplayName: 1 } }).fetchAsync(),
+      Org.find({ _id: { $in: allOrgIds } }, { fields: { orgDisplayName: 1 } }).fetchAsync(),
+      Meteor.users.find({ featureProfileId: { $in: profiles.map(p => p._id) } },
+        { fields: { username: 1, featureProfileId: 1 }, sort: { username: 1 }, limit: 5000 }).fetchAsync(),
+    ]);
+    const teamName = new Map(teams.map(t => [t._id, t.teamDisplayName]));
+    const orgName = new Map(orgs.map(o => [o._id, o.orgDisplayName]));
+    return profiles.map(p => ({
+      _id: p._id, name: p.name, hidden: p.hidden || [],
+      teams: (p.teamIds || []).map(id => teamName.get(id)).filter(Boolean),
+      orgs: (p.orgIds || []).map(id => orgName.get(id)).filter(Boolean),
+      usernames: users.filter(u => u.featureProfileId === p._id).map(u => u.username).filter(Boolean),
+    }));
+  },
+
+  // Saves every profile: [{ _id?, name, hidden: [key], teams, orgs, usernames }]
+  // with teams/orgs/usernames as text, one name per line or comma. A user is in
+  // at most one profile directly: listed in two, the later one wins.
+  async saveFeatureProfiles(input) {
+    await requireSiteAdmin();
+    check(input, [Match.ObjectIncluding({ name: String, hidden: [String],
+      teams: Match.Optional(String), orgs: Match.Optional(String), usernames: Match.Optional(String) })]);
+    const Org = require('/models/org').default;
+    const Team = require('/models/team').default;
+    const { Random } = require('meteor/random');
+    const setting = await Settings.findOneAsync({});
+    if (!setting) throw new Meteor.Error('settings-not-found');
+    const unknown = { teams: [], orgs: [], usernames: [] };
+    const resolve = async (names, collection, field, missing) => {
+      if (!names.length) return [];
+      const found = await collection.find({ [field]: { $in: names } }, { fields: { [field]: 1 } }).fetchAsync();
+      for (const name of names) if (!found.some(doc => doc[field] === name)) missing.push(name);
+      return found.map(doc => doc._id);
+    };
+    const prepared = [];
+    for (const row of input) {
+      prepared.push({ _id: row._id, name: row.name, hidden: row.hidden,
+        teamIds: await resolve(parseNames(row.teams), Team, 'teamDisplayName', unknown.teams),
+        orgIds: await resolve(parseNames(row.orgs), Org, 'orgDisplayName', unknown.orgs),
+        usernames: parseNames(row.usernames) });
+    }
+    const cleaned = cleanProfiles(prepared, FEATURE_KEYS, () => Random.id());
+    if (cleaned.error) throw new Meteor.Error(cleaned.error, cleaned.keys ? cleaned.keys.join(', ') : cleaned.name);
+    // Users: who is in which profile now. Everybody else loses a direct one.
+    const assigned = new Map();
+    cleaned.profiles.forEach((profile, i) => { for (const name of prepared[i].usernames) assigned.set(name, profile._id); });
+    const users = assigned.size
+      ? await Meteor.users.find({ username: { $in: [...assigned.keys()] } }, { fields: { username: 1 } }).fetchAsync() : [];
+    for (const name of assigned.keys()) if (!users.some(u => u.username === name)) unknown.usernames.push(name);
+    await Settings.updateAsync(setting._id, { $set: { featureProfiles: cleaned.profiles } });
+    await Meteor.users.updateAsync({ featureProfileId: { $exists: true }, _id: { $nin: users.map(u => u._id) } },
+      { $unset: { featureProfileId: '' } }, { multi: true });
+    for (const user of users) {
+      await Meteor.users.updateAsync(user._id, { $set: { featureProfileId: assigned.get(user.username) } });
+    }
+    return { profiles: cleaned.profiles.length, unknown };
+  },
+});

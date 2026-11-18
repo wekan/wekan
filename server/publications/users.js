@@ -52,6 +52,8 @@ Meteor.publish('user-admin', function () {
       authenticationMethod: 1,
       // #6736: whether this user previews disabled features. Own document only.
       featurePreview: 1,
+      // #6837: this user's own feature profile. Own document only.
+      featureProfileId: 1,
       // #6919: the People / impersonation pages leave the current user out of
       // their narrow-profile publications; their own row reads these here.
       createdAt: 1,

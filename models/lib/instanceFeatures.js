@@ -112,7 +112,11 @@ function canPreviewFeatures(setting, user) {
   return user.isAdmin === true && !!(setting && setting.featurePreviewAdmins === true);
 }
 
+// #6837: and not hidden by the user's feature profile (models/lib/
+// featureProfiles.js). A profile is assigned on purpose, so it applies to a
+// pilot user too; a user with no profile is never affected.
 function isFeatureAvailable(setting, user, key) {
+  if (require('./featureProfiles').hiddenByProfile(setting, user, key)) return false;
   return isFeatureEnabled(setting, key) || canPreviewFeatures(setting, user);
 }
 

@@ -1427,6 +1427,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    featureProfileId: {
+      /**
+       * #6837: the feature profile assigned to this user directly (Admin
+       * Panel / Settings / Visibility / Features). Set only by the site admin's
+       * saveFeatureProfiles method; published to this user only.
+       */
+      type: String,
+      optional: true,
+    },
     createdThroughApi: {
       /**
        * was the user created through the API?

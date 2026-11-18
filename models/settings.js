@@ -290,6 +290,16 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // #6837: feature profiles - [{ _id, name, hidden: [featureKey], teamIds,
+    // orgIds }], written only by saveFeatureProfiles (models/lib/featureProfiles.js).
+    featureProfiles: {
+      type: Array,
+      optional: true,
+    },
+    'featureProfiles.$': {
+      type: Object,
+      blackbox: true,
+    },
     // Admin Panel / Settings / Global Webhooks / Internal destinations
     // (models/lib/internalWebhookHosts.js): hosts on WeKan's own network that
     // outgoing webhooks may reach. Empty: none. Never published; read and

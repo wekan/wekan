@@ -72,6 +72,11 @@ const SETTING_FIELDS = {
   featureApprovalRequired: 1,
   featureKnownKeys: 1,
   featurePreviewAdmins: 1,
+  // #6837: the feature profiles - names, hidden features and the team and
+  // organization ids they apply to. Every client needs them to hide what its
+  // user's profile hides; they hold no secret. A user's own assignment is on
+  // their own document (user-admin), never here.
+  featureProfiles: 1,
   // The card fields every board shows (models/lib/cardFieldVisibility.js):
   // every client hides the unticked ones; no secret.
   cardFieldStates: 1,

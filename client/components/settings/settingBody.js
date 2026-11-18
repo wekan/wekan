@@ -524,12 +524,35 @@ Template.setting.events({
 // user, visible only to that user), so the site admin's page asks for them.
 Template.tableVisibilityModeSettings.onCreated(function () {
   this.featurePilotUsernames = new ReactiveVar('');
+  // #6837: the feature profiles, with the names of what they apply to. The
+  // page edits these rows; Save sends them all (saveFeatureProfiles).
+  this.featureProfiles = new ReactiveVar([]);
   if (tenantAdmin.isSiteAdmin(ReactiveCache.getCurrentUser())) {
     Meteor.callAsync('getFeaturePilotUsernames')
       .then(names => this.featurePilotUsernames.set(names.join(', ')))
       .catch(() => {});
+    Meteor.callAsync('getFeatureProfiles')
+      .then(profiles => this.featureProfiles.set(profiles.map(p => ({ ...p,
+        teams: p.teams.join('\n'), orgs: p.orgs.join('\n'), usernames: p.usernames.join(', ') }))))
+      .catch(() => {});
   }
 });
+
+// #6837: the profile rows as the page shows them now, edits included.
+function readFeatureProfiles(instance) {
+  return instance.$('.js-feature-profile').toArray().map(row => {
+    const $row = $(row);
+    return {
+      _id: row.dataset.profileId || undefined,
+      name: $row.find('.js-feature-profile-name').val() || '',
+      hidden: $row.find('.js-feature-profile-hide').toArray()
+        .filter(a => $(a).find('.materialCheckBox').hasClass('is-checked')).map(a => a.dataset.feature),
+      usernames: $row.find('.js-feature-profile-users').val() || '',
+      teams: $row.find('.js-feature-profile-teams').val() || '',
+      orgs: $row.find('.js-feature-profile-orgs').val() || '',
+    };
+  });
+}
 
 Template.tableVisibilityModeSettings.helpers({
   featureRows() {
@@ -550,6 +573,13 @@ Template.tableVisibilityModeSettings.helpers({
   },
   featurePilotUsernames() {
     return Template.instance().featurePilotUsernames.get();
+  },
+  featureProfileRows() {
+    return Template.instance().featureProfiles.get().map(profile => ({
+      ...profile,
+      rows: instanceFeatures.FEATURES.map(feature => ({ key: feature.key, labelKey: feature.labelKey,
+        hidden: (profile.hidden || []).includes(feature.key) })),
+    }));
   },
   isGlobalDateFormat(format) {
     return (ReactiveCache.getCurrentSetting()?.globalDateFormat || 'YYYY-MM-DD') === format;
@@ -692,6 +722,33 @@ Template.tableVisibilityModeSettings.events({
       status.text(error.reason || error.message);
     }
   },
+  // #6837: add a profile, remove one, and save them all.
+  'click button.js-feature-profile-add'(event, instance) {
+    event.preventDefault();
+    instance.featureProfiles.set([...readFeatureProfiles(instance),
+      { name: '', hidden: [], usernames: '', teams: '', orgs: '' }]);
+  },
+  'click button.js-feature-profile-remove'(event, instance) {
+    event.preventDefault();
+    const index = instance.$('.js-feature-profile').index($(event.currentTarget).closest('.js-feature-profile'));
+    instance.featureProfiles.set(readFeatureProfiles(instance).filter((p, i) => i !== index));
+  },
+  async 'click button.js-feature-profiles-save'(event, instance) {
+    event.preventDefault();
+    const status = instance.$('.js-feature-profiles-status');
+    try {
+      const result = await Meteor.callAsync('saveFeatureProfiles', readFeatureProfiles(instance)
+        .map(({ _id, ...rest }) => (_id ? { _id, ...rest } : rest)));
+      const profiles = await Meteor.callAsync('getFeatureProfiles');
+      instance.featureProfiles.set(profiles.map(p => ({ ...p,
+        teams: p.teams.join('\n'), orgs: p.orgs.join('\n'), usernames: p.usernames.join(', ') })));
+      const unknown = [...result.unknown.usernames, ...result.unknown.teams, ...result.unknown.orgs];
+      status.text(unknown.length ? `${TAPi18n.__('feature-profile-unknown')} ${unknown.join(', ')}` : TAPi18n.__('feature-saved'));
+    } catch (error) {
+      status.text(error.reason || error.error || error.message);
+    }
+  },
+
   async 'click button.js-visibility-features-save'(event, instance) {
     event.preventDefault();
     const states = {};

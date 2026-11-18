@@ -122,7 +122,9 @@ test('Utils.storedBoardView reads only the board-view fields', () => {
 
 test('allowBoardView reads only the feature-preview fields', () => {
   const src = read('client/lib/instanceFeatures.js');
-  assert.ok(/PREVIEW_USER_FIELDS = \['featurePreview', 'isAdmin'\]/.test(src));
+  // #6837 added the three that pick the user's feature profile; still narrow:
+  // a card open writes none of them.
+  assert.ok(/PREVIEW_USER_FIELDS = \['featurePreview', 'isAdmin', 'featureProfileId', 'teams', 'orgs'\]/.test(src));
   assert.ok(/isBoardViewAvailable\(ReactiveCache\.getCurrentSetting\(\), currentUserWith\(PREVIEW_USER_FIELDS\), view\)/.test(src));
   assert.ok(!WHOLE_USER.test(src), 'negative: not the whole user document');
   // ...and those ARE the fields the decision reads.
@@ -130,6 +132,9 @@ test('allowBoardView reads only the feature-preview fields', () => {
   const preview = bodyOf(lib, 'function canPreviewFeatures(setting, user) {');
   const read_ = (preview.match(/user\.([A-Za-z]+)/g) || []).map(m => m.slice(5)).sort();
   assert.deepStrictEqual([...new Set(read_)], ['featurePreview', 'isAdmin']);
+  const profiles = bodyOf(read('models/lib/featureProfiles.js'), 'function profileForUser(setting, user) {');
+  const profileFields = (profiles.match(/user\.([A-Za-z]+)/g) || []).map(m => m.slice(5));
+  assert.deepStrictEqual([...new Set(profileFields)].sort(), ['featureProfileId', 'orgs', 'teams']);
 });
 
 test('customFieldsWD decides "board admin" from the user id, not the user document', () => {
