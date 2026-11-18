@@ -5,19 +5,33 @@ const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const cardPath = card => `/api/boards/${card.boardId}/lists/${card.listId}/cards/${card._id}`;
 
-test('REST overtime persists and updates the open card for JSON and form edits', async ({ boardPage: page, request, user, board }) => {
+test('REST overtime persists and updates the open card for JSON and form edits', async ({ page, request, user, board }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsSpentTime: true } });
   db.updateOne('cards', { _id: card._id }, { $set: { spentTime: 2, isOvertime: false } });
   const bp = new BoardPage(page);
   const cp = new CardPage(page);
-  await bp.clickCard(card.listId, card.title);
-  await cp.waitForOpen();
-  const heading = cp.root.locator('.card-details-item-spent .card-details-item-title');
+  if (targetsWeLite) {
+    await openWeLiteBoard(page, user, board.boardId);
+    await page.getByRole('link', { name: card.title, exact: true }).click();
+  } else {
+    await bp.clickCard(card.listId, card.title);
+    await cp.waitForOpen();
+  }
+  const heading = targetsWeLite
+    ? page.getByRole('heading', { name: /^(Spent time|Overtime)/ })
+    : cp.root.locator('.card-details-item-spent .card-details-item-title');
   await expect(heading).toContainText('Spent time');
 
   for (const format of ['json', 'form']) {
@@ -35,6 +49,7 @@ test('REST overtime persists and updates the open card for JSON and form edits',
       const read = await request.get(cardPath(card), { headers: headers(user.token) });
       expect(read.status()).toBe(200);
       expect((await read.json()).isOvertime).toBe(isOverTime);
+      if (targetsWeLite) await page.reload();
       await expect(heading).toContainText(isOverTime ? 'Overtime' : 'Spent time');
     }
   }
@@ -48,10 +63,14 @@ test('REST overtime persists and updates the open card for JSON and form edits',
   await page.reload();
   // Token-based fixture sessions may be memory-only. Authenticate the new
   // page before reopening the private board to check the persisted display.
-  await loginWithToken(page, user.id, user.token);
-  await openBoard(page, board.boardId, board.slug);
-  await bp.clickCard(card.listId, card.title);
-  await cp.waitForOpen();
+  if (targetsWeLite) {
+    expect(await page.context().cookies()).toEqual([]);
+  } else {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await bp.clickCard(card.listId, card.title);
+    await cp.waitForOpen();
+  }
   await expect(heading).toContainText('Overtime');
 });
 
