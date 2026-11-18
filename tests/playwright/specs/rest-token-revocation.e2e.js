@@ -4,6 +4,10 @@ const crypto = require('node:crypto');
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const hash = token => crypto.createHash('sha256').update(token).digest('base64');
@@ -69,7 +73,50 @@ test('only site administrators can revoke tokens and unknown tokens leave sessio
   expect((await request.get('/api/user', { headers: headers(user.token) })).status()).toBe(401);
 });
 
-test('revoking a browser session signs it out while another session stays logged in', async ({ loggedInPage: page, browser, request, adminUser, user }) => {
+async function verifyWeLiteRevocation(page, browser, request, adminUser, user, board) {
+  const database = process.env.WELITE_TEST_DB;
+  if (!database) throw new Error('WELITE_TEST_DB must name the isolated WeLite fixture database');
+  const otherContext = await browser.newContext({ javaScriptEnabled: false });
+  try {
+    const otherPage = await otherContext.newPage();
+    await openWeLiteBoard(page, user, board.boardId);
+    await openWeLiteBoard(otherPage, user, board.boardId);
+    const title = page.getByRole('link', { name: 'Alpha Card', exact: true });
+    const survivorTitle = otherPage.getByRole('link', { name: 'Alpha Card', exact: true });
+    await expect(title).toBeVisible();
+    await expect(survivorTitle).toBeVisible();
+    const session = new URL(page.url()).searchParams.get('sessionId');
+    expect(new URL(otherPage.url()).searchParams.get('sessionId')).not.toBe(session);
+    const digest = crypto.createHash('sha256').update(['welite-token-v2', database, session].join('\0')).digest('hex');
+    const before = tokens(user);
+    async function revoke(token) {
+      const response = await request.post('/api/deletetoken', {
+        headers: headers(adminUser.token), data: { userId: user.id, token },
+      });
+      expect(response.status()).toBe(200);
+    }
+    await revoke(session);
+    expect((await page.reload()).status()).toBe(200);
+    await expect(title).toBeVisible();
+    await revoke('web:' + digest);
+    expect((await page.reload()).status()).toBe(404);
+    await expect(title).toHaveCount(0);
+    expect((await otherPage.reload()).status()).toBe(200);
+    await expect(survivorTitle).toBeVisible();
+    expect(tokens(user)).toEqual(before);
+    expect((await request.get('/api/user', { headers: headers(user.token) })).status()).toBe(200);
+    await page.goto('/sign-in?lang=en');
+    await expect(page.locator('input[name="username"]')).toBeVisible();
+    expect(await page.context().cookies()).toEqual([]);
+    expect(await otherContext.cookies()).toEqual([]);
+  } finally {
+    await otherContext.close();
+  }
+}
+
+test('revoking a browser session signs it out while another session stays logged in', async ({ page, browser, request, adminUser, user, board }) => {
+  if (targetsWeLite) return verifyWeLiteRevocation(page, browser, request, adminUser, user, board);
+  await loginWithToken(page, user.id, user.token);
   const survivorToken = db.addResumeToken(user.id);
   const otherContext = await browser.newContext();
   try {
