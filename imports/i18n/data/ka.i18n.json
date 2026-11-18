@@ -2836,6 +2836,8 @@
   "feature-profile-add": "პროფილის დამატება",
   "feature-profile-unknown": "შენახულია. ვერ მოიძებნა:",
   "feature-profile-notice": "თქვენი შესაძლებლობების პროფილი __name__ მალავს __count__ შესაძლებლობას. თუ რომელიმე მათგანი გჭირდებათ, მიმართეთ ადმინისტრატორს.",
+  "appearance": "იერსახე",
+  "activities-and-notifications": "აქტივობები და შეტყობინებები",
   "feature-pilot-users-unknown": "შენახულია. მომხმარებლის ეს სახელები ვერ მოიძებნა:",
   "feature-saved": "შენახულია.",
   "card-field-visibility": "ბარათის ველები",

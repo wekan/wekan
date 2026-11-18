@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Dodaj profil",
   "feature-profile-unknown": "Shranjeno. Ni najdeno:",
   "feature-profile-notice": "Vaš profil funkcij __name__ skrije __count__ funkcij. Če potrebujete katero od njih, vprašajte skrbnika.",
+  "appearance": "Videz",
+  "activities-and-notifications": "Aktivnosti in obvestila",
   "feature-pilot-users-unknown": "Shranjeno. Teh uporabniških imen ni bilo mogoče najti:",
   "feature-saved": "Shranjeno.",
   "card-field-visibility": "Polja kartic",

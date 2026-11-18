@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Shto profil",
   "feature-profile-unknown": "U ruajt. Nuk u gjet:",
   "feature-profile-notice": "Profili juaj i veçorive __name__ fsheh __count__ veçori. Pyetni një administrator nëse ju duhet ndonjë prej tyre.",
+  "appearance": "Pamja",
+  "activities-and-notifications": "Aktivitetet dhe njoftimet",
   "feature-pilot-users-unknown": "U ruajt. Këta emra përdoruesish nuk u gjetën:",
   "feature-saved": "U ruajt.",
   "card-field-visibility": "Fushat e kartave",

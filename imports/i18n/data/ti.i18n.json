@@ -2836,6 +2836,8 @@
   "feature-profile-add": "መግለጺ ወስኽ",
   "feature-profile-unknown": "ተቐሚጡ። ኣይተረኽበን፦",
   "feature-profile-notice": "መግለጺ ባህርያትካ __name__ __count__ ባህርያት ይሓብእ። ሓደ ካብኦም እንተ ደሊኻ ንኣመሓዳሪ ሕተት።",
+  "appearance": "መልክዕ",
+  "activities-and-notifications": "ንጥፈታትን መልእኽትታትን",
   "feature-pilot-users-unknown": "ተዓቂቡ። እዞም ኣስማት ተጠቀምቲ ኣይተረኽቡን፦",
   "feature-saved": "ተዓቂቡ።",
   "card-field-visibility": "ዓውድታት ካርድ",

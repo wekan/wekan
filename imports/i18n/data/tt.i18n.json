@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Профиль өстәү",
   "feature-profile-unknown": "Сакланды. Табылмады:",
   "feature-profile-notice": "Сезнең __name__ мөмкинлек профилегез __count__ мөмкинлекне яшерә. Аларның берсе кирәк булса, идарәчедән сорагыз.",
+  "appearance": "Тышкы күренеш",
+  "activities-and-notifications": "Эшчәнлекләр һәм хәбәрләр",
   "feature-pilot-users-unknown": "Сакланды. Бу кулланучы исемнәре табылмады:",
   "feature-saved": "Сакланды.",
   "card-field-visibility": "Карточка кырлары",

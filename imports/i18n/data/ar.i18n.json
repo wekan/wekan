@@ -2836,6 +2836,8 @@
   "feature-profile-add": "إضافة ملف",
   "feature-profile-unknown": "تم الحفظ. غير موجود:",
   "feature-profile-notice": "ملف الميزات الخاص بك __name__ يُخفي __count__ ميزات. اطلب من المسؤول إذا كنت تحتاج إلى إحداها.",
+  "appearance": "المظهر",
+  "activities-and-notifications": "الأنشطة والإشعارات",
   "feature-pilot-users-unknown": "تم الحفظ. لم يُعثر على أسماء المستخدمين التالية:",
   "feature-saved": "تم الحفظ.",
   "card-field-visibility": "حقول البطاقة",

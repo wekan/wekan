@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Tilføj profil",
   "feature-profile-unknown": "Gemt. Ikke fundet:",
   "feature-profile-notice": "Din funktionsprofil __name__ skjuler __count__ funktioner. Spørg en administrator, hvis du har brug for en af dem.",
+  "appearance": "Udseende",
+  "activities-and-notifications": "Aktiviteter og notifikationer",
   "feature-pilot-users-unknown": "Gemt. Disse brugernavne blev ikke fundet:",
   "feature-saved": "Gemt.",
   "card-field-visibility": "Kortfelter",

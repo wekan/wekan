@@ -2836,6 +2836,8 @@
   "feature-profile-add": "เพิ่มโปรไฟล์",
   "feature-profile-unknown": "บันทึกแล้ว ไม่พบ:",
   "feature-profile-notice": "โปรไฟล์คุณสมบัติ __name__ ของคุณซ่อนคุณสมบัติ __count__ รายการ หากคุณต้องการรายการใด โปรดสอบถามผู้ดูแลระบบ",
+  "appearance": "รูปลักษณ์",
+  "activities-and-notifications": "กิจกรรมและการแจ้งเตือน",
   "feature-pilot-users-unknown": "บันทึกแล้ว ไม่พบชื่อผู้ใช้เหล่านี้:",
   "feature-saved": "บันทึกแล้ว",
   "card-field-visibility": "ช่องข้อมูลของการ์ด",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Profil hinzufügen",
   "feature-profile-unknown": "Gespeichert. Nicht gefunden:",
   "feature-profile-notice": "Ihr Funktionsprofil __name__ blendet __count__ Funktionen aus. Wenden Sie sich an einen Administrator, wenn Sie eine davon benötigen.",
+  "appearance": "Erscheinungsbild",
+  "activities-and-notifications": "Aktivitäten und Benachrichtigungen",
   "feature-pilot-users-unknown": "Gespeichert. Diese Benutzernamen wurden nicht gefunden:",
   "feature-saved": "Gespeichert.",
   "card-field-visibility": "Kartenfelder",

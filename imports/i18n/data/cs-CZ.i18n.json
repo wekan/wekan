@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Přidat profil",
   "feature-profile-unknown": "Uloženo. Nenalezeno:",
   "feature-profile-notice": "Váš profil funkcí __name__ skrývá __count__ funkcí. Pokud některou z nich potřebujete, obraťte se na administrátora.",
+  "appearance": "Vzhled",
+  "activities-and-notifications": "Aktivity a upozornění",
   "feature-pilot-users-unknown": "Uloženo. Tato uživatelská jména nebyla nalezena:",
   "feature-saved": "Uloženo.",
   "card-field-visibility": "Pole karet",

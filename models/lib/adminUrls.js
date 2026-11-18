@@ -54,7 +54,13 @@ const ADMIN_PAGES = {
     defaultSlug: 'version',
     panes: {
       version: 'version-setting',
-      visibility: 'tableVisibilityMode-setting',
+      // Visibility became Appearance on 2026-11-19 (MOVED_PANES below).
+      appearance: 'tableVisibilityMode-setting',
+      features: 'features-setting',
+      'feature-profiles': 'feature-profiles-setting',
+      security: 'privacy-security-setting',
+      activities: 'activities-setting',
+      delete: 'delete-setting',
       announcement: 'announcement-setting',
       accessibility: 'accessibility-setting',
       translation: 'translation-setting',
@@ -104,9 +110,6 @@ const ADMIN_PAGES = {
     defaultSlug: 'summary',
     panes: {
       summary: 'report-summary',
-      security: 'features-security',
-      delete: 'features-delete',
-      notifications: 'features-notifications',
       // The Admin Panel backup's status and history (backupRunsStatus.jade).
       backup: 'features-backup',
       'security-report': 'report-security',
@@ -175,7 +178,12 @@ const ADMIN_PAGES = {
 const ADMIN_PANE_TITLES = {
   settings: {
     version: { titleKey: 'info' },
-    visibility: { titleKey: 'visibility' },
+    appearance: { titleKey: 'appearance' },
+    features: { titleKey: 'features' },
+    'feature-profiles': { titleKey: 'feature-profiles' },
+    security: { titleKey: 'features-security' },
+    activities: { titleKey: 'activities-and-notifications' },
+    delete: { titleKey: 'delete' },
     announcement: { titleKey: 'admin-announcement' },
     accessibility: { titleKey: 'accessibility' },
     translation: { titleKey: 'translation' },
@@ -205,9 +213,6 @@ const ADMIN_PANE_TITLES = {
   },
   problems: {
     summary: { titleKey: 'summary' },
-    security: { titleKey: 'features-security' },
-    delete: { titleKey: 'delete' },
-    notifications: { titleKey: 'features-notifications' },
     backup: { titleKey: 'backup' },
     'security-report': { titleKey: 'securityReportTitle' },
     impersonation: { titleKey: 'impersonationReportTitle' },
@@ -255,6 +260,27 @@ function adminPaneTitle(page, slug) {
   const byPage = ADMIN_PANE_TITLES[page];
   if (!byPage || !Object.prototype.hasOwnProperty.call(byPage, slug)) return {};
   return byPage[slug];
+}
+
+// Panes that moved, by their OLD page and slug -> [new page, new slug]. A
+// bookmark of the old address redirects to the new one (config/router.js), so
+// moving a pane never breaks a link. 2026-11-19: Settings / Visibility became
+// Appearance (its Features and Feature profiles groups are panes of their own),
+// and Problems / Security, Delete and Notifications moved to Settings.
+const MOVED_PANES = {
+  settings: { visibility: ['settings', 'appearance'] },
+  problems: {
+    security: ['settings', 'security'],
+    delete: ['settings', 'delete'],
+    notifications: ['settings', 'activities'],
+  },
+};
+
+// The new address of a moved pane, or null.
+function movedPanePath(page, slug) {
+  const moved = MOVED_PANES[page] && Object.prototype.hasOwnProperty.call(MOVED_PANES[page], slug)
+    ? MOVED_PANES[page][slug] : null;
+  return moved ? adminPath(moved[0], moved[1]) : null;
 }
 
 const ADMIN_PAGE_KEYS = Object.keys(ADMIN_PAGES);
@@ -325,4 +351,6 @@ module.exports = {
   resolvePaneId,
   adminPath,
   adminRoutePath,
+  MOVED_PANES,
+  movedPanePath,
 };

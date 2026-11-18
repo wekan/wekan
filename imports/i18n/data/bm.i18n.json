@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Kunnafoni sɛbɛn fara a kan",
   "feature-profile-unknown": "A marala. A ma sɔrɔ:",
   "feature-profile-notice": "I ka kɛcogow kunnafoni sɛbɛn __name__ bɛ kɛcogo __count__ dogo. Ni u dɔ wajibiyara i ma, ɲininka baarakɛla kuntigi.",
+  "appearance": "Cogoya",
+  "activities-and-notifications": "Baaraw ni kunnafoniw",
   "feature-pilot-users-unknown": "A marala. Nin baarakɛla tɔgɔw ma sɔrɔ:",
   "feature-saved": "A marala.",
   "card-field-visibility": "Karti forow",

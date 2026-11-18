@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Dodaj profil",
   "feature-profile-unknown": "Sačuvano. Nije pronađeno:",
   "feature-profile-notice": "Vaš profil značajki __name__ skriva __count__ značajki. Pitajte administratora ako vam treba neka od njih.",
+  "appearance": "Izgled",
+  "activities-and-notifications": "Aktivnosti i obavijesti",
   "feature-pilot-users-unknown": "Sačuvano. Ova korisnička imena nisu pronađena:",
   "feature-saved": "Sačuvano.",
   "card-field-visibility": "Polja kartica",

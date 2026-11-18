@@ -26,12 +26,6 @@ template(name="adminProblems")
             +problemsSummary
           else if isPane 'features-performance'
             +featuresPerformance
-          else if isPane 'features-security'
-            +featuresSecurity
-          else if isPane 'features-delete'
-            +featuresDelete
-          else if isPane 'features-notifications'
-            +featuresNotifications
           else if isPane 'features-backup'
             +backupRunsStatus(settingsLink=true)
           else if isPane 'report-security'
@@ -148,7 +142,7 @@ template(name="featuresPerformance")
       .title {{_ 'cards-loading'}}
       p.description {{_ 'cards-loading-description'}}
 
-//- Admin Panel / Problems / Security.
+//- Admin Panel / Settings / Security (moved from Problems on 2026-11-19).
 template(name="featuresSecurity")
   ul.setting-detail
     li
@@ -192,7 +186,7 @@ template(name="featuresSecurity")
         span {{_ 'anonymize-export-users'}}
       p.description {{_ 'anonymize-export-users-description'}}
 
-//- Admin Panel / Problems / Delete.
+//- Admin Panel / Settings / Delete (moved from Problems on 2026-11-19).
 template(name="featuresDelete")
   ul.setting-detail
     li
@@ -202,7 +196,7 @@ template(name="featuresDelete")
       p.description {{_ 'enable-permanent-delete-description'}}
       p.description {{permanentDeleteRecoveryDescription}}
 
-//- Admin Panel / Problems / Notifications.
+//- Admin Panel / Settings / Activities and notifications (moved from Problems on 2026-11-19).
 template(name="featuresNotifications")
   ul.setting-detail
     li

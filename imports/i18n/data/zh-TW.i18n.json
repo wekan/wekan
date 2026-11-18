@@ -2836,6 +2836,8 @@
   "feature-profile-add": "新增設定檔",
   "feature-profile-unknown": "已儲存。找不到：",
   "feature-profile-notice": "您的功能設定檔 __name__ 隱藏了 __count__ 項功能。如需使用其中某項功能，請洽詢管理員。",
+  "appearance": "外觀",
+  "activities-and-notifications": "活動與通知",
   "feature-pilot-users-unknown": "已儲存。找不到下列使用者名稱：",
   "feature-saved": "已儲存。",
   "card-field-visibility": "卡片欄位",

@@ -26,7 +26,20 @@ template(name="setting")
             //- templates are global, so the pane renders here.
             +statistics
           else if isTableVisibilityModeSetting
-            +tableVisibilityModeSettings
+            //- Security, Activities and notifications and Delete below moved
+              here from Admin Panel / Problems (2026-11-19); their templates and
+              handlers stay in adminProblems.jade / adminProblems.js.
+            +tableVisibilityModeSettings(part="appearance")
+          else if isFeaturesSetting
+            +tableVisibilityModeSettings(part="features")
+          else if isFeatureProfilesSetting
+            +tableVisibilityModeSettings(part="profiles")
+          else if isPrivacySecuritySetting
+            +featuresSecurity
+          else if isActivitiesSetting
+            +featuresNotifications
+          else if isDeleteSetting
+            +featuresDelete
           else if isAnnouncementSetting
             +announcementSettings
           else if isAccessibilitySetting
@@ -322,367 +335,371 @@ template(name='email')
 //- groups under it rather than as several pages.
 template(name='tableVisibilityModeSettings')
   ul#tableVisibilityMode-setting.setting-detail
-    //- Every group here writes the INSTANCE settings, so it is site-admin only.
-    //- The one exception is "Change color" below, which an Organization's own
-    //- admin sets for their Organization (models/lib/tenantAdmin.js themeTarget).
-    if isSiteAdmin
-      li
-        h2.admin-pane-group-title {{_ 'all-boards-hide'}}
-      //- One checkbox per setting instead of a Yes/No pair: each of these is on or
-      //- off, and the group's own title already says what ticking one means (All
-      //- Boards: Hide …). Same checkbox as everywhere else in the Admin Panel -
-      //- Announcement's "Active System-Wide Announcement" - so it has the plain
-      //- square when off, the green tick when on, and the animation between.
-      //- The Save button below reads the ticks, as it read the radios.
-      li.tableVisibilityMode-form
-        //- "Public boards", under the "All Boards: Hide" title above: ticked hides
-        //- them, which is what allowPrivateOnly does. The setting's own key keeps its
-        //- sentence - boardBody.jade shows it as the message on a board you may not
-        //- open, where a two-word label would say nothing.
-        a.flex.js-toggle-all-boards-hide
-          .materialCheckBox#accounts-allowPrivateOnly(class="{{#if allowPrivateOnly}}is-checked{{/if}}")
-          span {{_ 'public-boards'}}
-      li.tableVisibilityMode-form
-        //- #4475: ticked forbids anyone who is not a site admin from creating
-        //- new boards. Same Save button and same collection as the setting
-        //- above - only the checked key differs.
-        a.flex.js-toggle-all-boards-hide
-          .materialCheckBox#accounts-boardCreationAdminOnly(class="{{#if boardCreationAdminOnly}}is-checked{{/if}}")
-          span {{_ 'board-creation-admin-only'}}
-      li.tableVisibilityMode-form
-        //- #4575: ticked lets a board admin open an Instance or Public board
-        //- to editing by every signed-in user. Off: no board can.
-        a.flex.js-toggle-all-boards-hide
-          .materialCheckBox#accounts-allowInstanceEditing(class="{{#if allowInstanceEditing}}is-checked{{/if}}")
-          span {{_ 'instance-editing-allowed'}}
-      li.hideBoardActivities-form
-        a.flex.js-toggle-all-boards-hide
-          .materialCheckBox#hide-board-activities(class="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}is-checked{{/if}}")
-          span {{_ 'board-activities'}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-all-boards-hide
-          .materialCheckBox#hide-card-counter-list(class="{{#if currentSetting.hideCardCounterList}}is-checked{{/if}}")
-          span {{_ 'card-counter-list'}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-all-boards-hide
-          .materialCheckBox#hide-board-member-list(class="{{#if currentSetting.hideBoardMemberList}}is-checked{{/if}}")
-          span {{_ 'board-member-list'}}
-      li.tableVisibilityMode-form
-        .title {{_ 'wait-spinner'}}
-        +selectSpinnerName(spinnerName=currentSetting.spinnerName)
-      //- #4421: an org whose "Public" means "public within our organization"
-      //- rather than public on the internet can replace the wording shown
-      //- under Private/Public in the board visibility popup and the
-      //- create-board popup. Empty = unchanged i18n default text
-      //- (imports/i18n/lib/visibilityDesc.js).
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-private-desc'}}
-        .form-group
-          textarea.wekan-form-control#custom-private-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-private-desc-placeholder'}}")= currentSetting.customPrivateBoardDesc
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-public-desc'}}
-        .form-group
-          textarea.wekan-form-control#custom-public-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-public-desc-placeholder'}}")= currentSetting.customPublicBoardDesc
-      li
-        //- One Save per section, at its end, above the rule that closes it. It writes
-        //- this section's fields and nothing else, so saving one group can never
-        //- overwrite what you were editing in another.
-        button.js-visibility-all-boards-save.primary {{_ 'save'}}
-
-      li.admin-pane-group-separator
-        hr
-      //- #6736: which optional features this WeKan offers. A ticked feature is
-      //- on for everyone; an unticked one is hidden from the interface (not
-      //- greyed out), keeps its data, and changes no permission. The rows come
-      //- from models/lib/instanceFeatures.js, so the page and the places that
-      //- hide a feature read the same catalog.
-      li
-        h2.admin-pane-group-title {{_ 'features'}}
-      li.tableVisibilityMode-form
-        .title {{_ 'features-desc'}}
-      each featureRows
-        li.tableVisibilityMode-form.js-feature-row(data-feature=key)
-          a.flex.js-toggle-feature
-            .materialCheckBox.js-feature-enabled(class="{{#if enabled}}is-checked{{/if}}")
-            span {{_ labelKey}}
-            if awaitingApproval
-              span.feature-awaiting-approval  {{_ 'feature-awaiting-approval'}}
-          .feature-desc {{_ descKey}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-feature
-          .materialCheckBox#feature-approval-required(class="{{#if currentSetting.featureApprovalRequired}}is-checked{{/if}}")
-          span {{_ 'feature-approval-required'}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-feature
-          .materialCheckBox#feature-preview-admins(class="{{#if currentSetting.featurePreviewAdmins}}is-checked{{/if}}")
-          span {{_ 'feature-preview-admins'}}
-      li.tableVisibilityMode-form
-        .title {{_ 'feature-pilot-users'}}
-        .form-group
-          textarea.wekan-form-control#feature-pilot-users(data-editor-submit=".js-visibility-features-save" rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= featurePilotUsernames
-      //- The card fields every board shows: one tick per field type of Board
-      //- Settings / Card, all ticked by default. Unticked hides it on every
-      //- card, minicard and Board Settings / Card - visibility only, no data or
-      //- board setting changes. No ordering here: the order is each board's own.
-      //- models/lib/cardFieldVisibility.js
-      li.tableVisibilityMode-form
-        .title {{_ 'card-field-visibility'}}
-        .feature-desc {{_ 'card-field-visibility-desc'}}
-      each cardFieldRows
-        li.tableVisibilityMode-form.js-card-field-row(data-card-field=key)
-          a.flex.js-toggle-feature
-            .materialCheckBox.js-card-field-enabled(class="{{#if enabled}}is-checked{{/if}}")
-            span.card-field-visibility-label
-              each icon in icons
-                i.fa(class=icon)
-              |  {{title}}
-      li
-        button.js-visibility-features-save.primary {{_ 'save'}}
-        span.js-visibility-features-status
-
-      //- #6837: feature profiles - named sets of the features above that their
-        users do not see, assigned to users, teams or organizations. Opt-in: a
-        user with no profile sees everything, and a user with one is told so
-        (models/lib/featureProfiles.js). Visibility only, like the ticks above.
-      li.tableVisibilityMode-form
-        .title {{_ 'feature-profiles'}}
-        .feature-desc {{_ 'feature-profiles-desc'}}
-      each profile in featureProfileRows
-        li.tableVisibilityMode-form.js-feature-profile(data-profile-id=profile._id)
-          .form-group
-            label {{_ 'feature-profile-name'}}
-            input.wekan-form-control.js-feature-profile-name(type="text" value=profile.name maxlength="100")
-          .title {{_ 'feature-profile-hides'}}
-          each row in profile.rows
-            a.flex.js-toggle-feature.js-feature-profile-hide(data-feature=row.key)
-              .materialCheckBox(class="{{#if row.hidden}}is-checked{{/if}}")
-              span {{_ row.labelKey}}
-          .form-group
-            label {{_ 'feature-profile-users'}}
-            textarea.wekan-form-control.js-feature-profile-users(rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= profile.usernames
-          .form-group
-            label {{_ 'feature-profile-teams'}}
-            textarea.wekan-form-control.js-feature-profile-teams(rows="2")= profile.teams
-          .form-group
-            label {{_ 'feature-profile-orgs'}}
-            textarea.wekan-form-control.js-feature-profile-orgs(rows="2")= profile.orgs
-          button.js-feature-profile-remove(type="button") {{_ 'feature-profile-remove'}}
-      li
-        button.js-feature-profile-add(type="button") {{_ 'feature-profile-add'}}
-        button.js-feature-profiles-save.primary(type="button") {{_ 'save'}}
-        span.js-feature-profiles-status
-
-      //- #2460: SQRL sign-in, and #4198: public boards on the fediverse
-        (ActivityPub) - optional features this WeKan offers, each off by
-        default and saved as soon as it is switched.
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-sqrl
-          .materialCheckBox#sqrl-enabled(class="{{#if currentSetting.sqrlEnabled}}is-checked{{/if}}")
-          span {{_ 'sqrl-enabled'}}
-        .feature-desc {{_ 'sqrl-desc'}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-activity-pub
-          .materialCheckBox#activity-pub-enabled(class="{{#if currentSetting.activityPubEnabled}}is-checked{{/if}}")
-          span {{_ 'activity-pub-enabled'}}
-        .feature-desc {{_ 'activity-pub-desc'}}
-
-      li.admin-pane-group-separator
-        hr
-      //- #2217: boards may show their Rules to members, read-only. Off by
-        default; each board admin then decides on the board's Rules page.
-      li
-        h2.admin-pane-group-title {{_ 'rules'}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-rules-read-only
-          .materialCheckBox#rules-read-only-for-members(class="{{#if currentSetting.rulesReadOnlyForMembers}}is-checked{{/if}}")
-          span {{_ 'rules-read-only-for-members'}}
-        .feature-desc {{_ 'rules-read-only-for-members-desc'}}
-
-      li.admin-pane-group-separator
-        hr
-      //- Optional APIs (models/lib/optionalApis.js): REST APIs in the shape of
-        Trello's, Jira's, GitHub's and Gitea's, so their clients can use WeKan
-        as their backend. Each is off until ticked, and has no rights of its
-        own: it is WeKan's REST API, with the caller's own permissions.
-      li
-        h2.admin-pane-group-title {{_ 'optional-apis'}}
-      li.tableVisibilityMode-form
-        .title {{_ 'optional-apis-desc'}}
-      each optionalApiRows
-        li.tableVisibilityMode-form.js-optional-api-row(data-api=key)
-          a.flex.js-toggle-feature
-            .materialCheckBox.js-optional-api-enabled(class="{{#if enabled}}is-checked{{/if}}")
-            span {{_ labelKey}}
-          .feature-desc {{_ descKey}}
-          .feature-desc
-            code {{base}}
-      li
-        button.js-optional-apis-save.primary {{_ 'save'}}
-        span.js-optional-apis-status
-
-      li.admin-pane-group-separator
-        hr
-      li
-        h2.admin-pane-group-title {{_ 'date'}}
-      li.tableVisibilityMode-form
-        a.flex.js-toggle-date-format
-          .materialCheckBox#global-date-format-enabled(class="{{#if currentSetting.hideDateFormat}}is-checked{{/if}}")
-          span {{_ 'date-format'}}:
-        select.wekan-form-control#global-date-format(aria-label="{{_ 'date-format'}}")
-          option(value="YYYY-MM-DD" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}} · {{_ 'time'}}
-          option(value="DD-MM-YYYY" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}} · {{_ 'time'}}
-          option(value="MM-DD-YYYY" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}} · {{_ 'time'}}
-          option(value="YYYY-MM-DD-date-only" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-yyyy-mm-dd'}}
-          option(value="DD-MM-YYYY-date-only" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-dd-mm-yyyy'}}
-          option(value="MM-DD-YYYY-date-only" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-mm-dd-yyyy'}}
-      li
-        button.js-visibility-date-save.primary {{_ 'save'}}
-      li.admin-pane-group-separator
-        hr
-      li
-        h2.admin-pane-group-title {{_ 'settings-group-url'}}
-      li
-        a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
-      li
-        a.flex.js-toggle-support
-          .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
-
-          span {{_ 'support-page-enabled'}}
-      li
-        .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
-          ul
-            li
-              a.flex.js-toggle-support-public
-                .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
-
-                span {{_ 'public'}}
-            li
-              .title {{_ 'support-title'}}
-              textarea#support-title.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportTitle
-            li
-              .title {{_ 'support-content'}}
-              textarea#support-page-text.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportPageText
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-help-link-url'}}
-        .form-group
-          input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-legal-notice-link-url'}}
-        .form-group
-          input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'automatic-linked-url-schemes'}}
-        .description {{_ 'automatic-linked-url-schemes-hint'}}
-        .form-group
-          textarea#automatic-linked-url-schemes.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.automaticLinkedUrlSchemes
-      li
-        button.js-visibility-url-save.primary {{_ 'save'}}
-
-      li.admin-pane-group-separator
-        hr
-      li
-        //- wekan/wekan#3069: autolink bare "<prefix>NNNN" tokens (e.g. "#1234")
-        //- found in card descriptions/comments to an external issue tracker.
-        //- Leaving either field empty keeps this feature off (no-op).
-        h2.admin-pane-group-title {{_ 'external-link-pattern'}}
-        p.description {{_ 'external-link-pattern-description'}}
-      li.tableVisibilityMode-form
-        .title {{_ 'external-link-pattern-prefix'}}
-        .form-group
-          input.wekan-form-control#external-link-pattern-prefix(type="text", placeholder="#" value="{{currentSetting.externalLinkPatternPrefix}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'external-link-pattern-url'}}
-        .form-group
-          input.wekan-form-control#external-link-pattern-url(type="text", placeholder="https://issues.example.com/browse/PROJ-{number}" value="{{currentSetting.externalLinkPatternUrl}}")
-      //- #1463: more rules, with {identifier}, and abbreviations for it.
-      li.tableVisibilityMode-form
-        .title {{_ 'external-link-rules'}}
-        p.description {{_ 'external-link-rules-description'}}
-        .form-group
-          textarea.wekan-form-control#external-link-rules(rows="4" placeholder="[{identifier}:{number}] = https://spirateam.example.com/SpiraTeam/{identifier}/{number}.aspx")= currentSetting.externalLinkRules
-      li.tableVisibilityMode-form
-        .title {{_ 'external-link-identifier-aliases'}}
-        .form-group
-          input.wekan-form-control#external-link-identifier-aliases(type="text", placeholder="TK=Task, IN=Incident" value="{{currentSetting.externalLinkIdentifierAliases}}")
-      li
-        button.js-visibility-external-link-pattern-save.primary {{_ 'save'}}
-
-      li.admin-pane-group-separator
-        hr
-      li
-        //- The group title IS the field's label here: the group holds one field, so a
-        //- title above a label that says the same thing said it twice. The group title
-        //- keeps its size and takes the field's existing translation.
-        h2.admin-pane-group-title {{_ 'custom-product-name'}}
-      li.tableVisibilityMode-form
-        .form-group
-          textarea.wekan-form-control#product-name(data-editor-submit=".js-visibility-product-name-save" rows="2" placeholder="")= currentSetting.productName
-      li
-        button.js-visibility-product-name-save.primary {{_ 'save'}}
-
-    //- The site theme. Same picker as the per-user "Change color", one layer
-    //- below it: whoever has not chosen a theme of their own sees this one
-    //- (docs/Theme/Theme.md). It applies immediately - the picker has no Save
-    //- button, like the per-user one.
-    if isSiteAdmin
-      li.admin-pane-group-separator
-        hr
-    li
-      h2.admin-pane-group-title {{_ 'change-color'}}
-      //- The site admin's colour is the one every Organization that has not set
-      //- its own inherits, so their pane says so; an Organization's own admin is
-      //- setting only their own and needs no such line.
+    //- Three panes of Admin Panel / Settings share this template and its
+    //- handlers (2026-11-19): Appearance, Features and Feature profiles. `part`
+    //- says which groups this pane shows; every field keeps its id and its Save.
+    if isPart 'features'
       if isSiteAdmin
-        h3.admin-pane-subgroup-title {{_ 'theme-override-all-tenants'}}
-    li.tableVisibilityMode-form
-      +themeColorPicker(scope="admin")
+        //- #6736: which optional features this WeKan offers. A ticked feature is
+        //- on for everyone; an unticked one is hidden from the interface (not
+        //- greyed out), keeps its data, and changes no permission. The rows come
+        //- from models/lib/instanceFeatures.js, so the page and the places that
+        //- hide a feature read the same catalog.
+        li
+          h2.admin-pane-group-title {{_ 'features'}}
+        li.tableVisibilityMode-form
+          .title {{_ 'features-desc'}}
+        each featureRows
+          li.tableVisibilityMode-form.js-feature-row(data-feature=key)
+            a.flex.js-toggle-feature
+              .materialCheckBox.js-feature-enabled(class="{{#if enabled}}is-checked{{/if}}")
+              span {{_ labelKey}}
+              if awaitingApproval
+                span.feature-awaiting-approval  {{_ 'feature-awaiting-approval'}}
+            .feature-desc {{_ descKey}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-feature
+            .materialCheckBox#feature-approval-required(class="{{#if currentSetting.featureApprovalRequired}}is-checked{{/if}}")
+            span {{_ 'feature-approval-required'}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-feature
+            .materialCheckBox#feature-preview-admins(class="{{#if currentSetting.featurePreviewAdmins}}is-checked{{/if}}")
+            span {{_ 'feature-preview-admins'}}
+        li.tableVisibilityMode-form
+          .title {{_ 'feature-pilot-users'}}
+          .form-group
+            textarea.wekan-form-control#feature-pilot-users(data-editor-submit=".js-visibility-features-save" rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= featurePilotUsernames
+        //- The card fields every board shows: one tick per field type of Board
+        //- Settings / Card, all ticked by default. Unticked hides it on every
+        //- card, minicard and Board Settings / Card - visibility only, no data or
+        //- board setting changes. No ordering here: the order is each board's own.
+        //- models/lib/cardFieldVisibility.js
+        li.tableVisibilityMode-form
+          .title {{_ 'card-field-visibility'}}
+          .feature-desc {{_ 'card-field-visibility-desc'}}
+        each cardFieldRows
+          li.tableVisibilityMode-form.js-card-field-row(data-card-field=key)
+            a.flex.js-toggle-feature
+              .materialCheckBox.js-card-field-enabled(class="{{#if enabled}}is-checked{{/if}}")
+              span.card-field-visibility-label
+                each icon in icons
+                  i.fa(class=icon)
+                |  {{title}}
+        li
+          button.js-visibility-features-save.primary {{_ 'save'}}
+          span.js-visibility-features-status
 
-    if isSiteAdmin
-      li.admin-pane-group-separator
-        hr
+        //- #2460: SQRL sign-in, and #4198: public boards on the fediverse
+          (ActivityPub) - optional features this WeKan offers, each off by
+          default and saved as soon as it is switched.
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-sqrl
+            .materialCheckBox#sqrl-enabled(class="{{#if currentSetting.sqrlEnabled}}is-checked{{/if}}")
+            span {{_ 'sqrl-enabled'}}
+          .feature-desc {{_ 'sqrl-desc'}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-activity-pub
+            .materialCheckBox#activity-pub-enabled(class="{{#if currentSetting.activityPubEnabled}}is-checked{{/if}}")
+            span {{_ 'activity-pub-enabled'}}
+          .feature-desc {{_ 'activity-pub-desc'}}
+
+        li.admin-pane-group-separator
+          hr
+        //- #2217: boards may show their Rules to members, read-only. Off by
+          default; each board admin then decides on the board's Rules page.
+        li
+          h2.admin-pane-group-title {{_ 'rules'}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-rules-read-only
+            .materialCheckBox#rules-read-only-for-members(class="{{#if currentSetting.rulesReadOnlyForMembers}}is-checked{{/if}}")
+            span {{_ 'rules-read-only-for-members'}}
+          .feature-desc {{_ 'rules-read-only-for-members-desc'}}
+
+        li.admin-pane-group-separator
+          hr
+        //- Optional APIs (models/lib/optionalApis.js): REST APIs in the shape of
+          Trello's, Jira's, GitHub's and Gitea's, so their clients can use WeKan
+          as their backend. Each is off until ticked, and has no rights of its
+          own: it is WeKan's REST API, with the caller's own permissions.
+        li
+          h2.admin-pane-group-title {{_ 'optional-apis'}}
+        li.tableVisibilityMode-form
+          .title {{_ 'optional-apis-desc'}}
+        each optionalApiRows
+          li.tableVisibilityMode-form.js-optional-api-row(data-api=key)
+            a.flex.js-toggle-feature
+              .materialCheckBox.js-optional-api-enabled(class="{{#if enabled}}is-checked{{/if}}")
+              span {{_ labelKey}}
+            .feature-desc {{_ descKey}}
+            .feature-desc
+              code {{base}}
+        li
+          button.js-optional-apis-save.primary {{_ 'save'}}
+          span.js-optional-apis-status
+    else if isPart 'profiles'
+      if isSiteAdmin
+        //- #6837: feature profiles - named sets of the features above that their
+          users do not see, assigned to users, teams or organizations. Opt-in: a
+          user with no profile sees everything, and a user with one is told so
+          (models/lib/featureProfiles.js). Visibility only, like the ticks above.
+        li.tableVisibilityMode-form
+          .title {{_ 'feature-profiles'}}
+          .feature-desc {{_ 'feature-profiles-desc'}}
+        each profile in featureProfileRows
+          li.tableVisibilityMode-form.js-feature-profile(data-profile-id=profile._id)
+            .form-group
+              label {{_ 'feature-profile-name'}}
+              input.wekan-form-control.js-feature-profile-name(type="text" value=profile.name maxlength="100")
+            .title {{_ 'feature-profile-hides'}}
+            each row in profile.rows
+              a.flex.js-toggle-feature.js-feature-profile-hide(data-feature=row.key)
+                .materialCheckBox(class="{{#if row.hidden}}is-checked{{/if}}")
+                span {{_ row.labelKey}}
+            .form-group
+              label {{_ 'feature-profile-users'}}
+              textarea.wekan-form-control.js-feature-profile-users(rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= profile.usernames
+            .form-group
+              label {{_ 'feature-profile-teams'}}
+              textarea.wekan-form-control.js-feature-profile-teams(rows="2")= profile.teams
+            .form-group
+              label {{_ 'feature-profile-orgs'}}
+              textarea.wekan-form-control.js-feature-profile-orgs(rows="2")= profile.orgs
+            button.js-feature-profile-remove(type="button") {{_ 'feature-profile-remove'}}
+        li
+          button.js-feature-profile-add(type="button") {{_ 'feature-profile-add'}}
+          button.js-feature-profiles-save.primary(type="button") {{_ 'save'}}
+          span.js-feature-profiles-status
+    else
+      //- Every group here writes the INSTANCE settings, so it is site-admin only.
+      //- The one exception is "Change color" below, which an Organization's own
+      //- admin sets for their Organization (models/lib/tenantAdmin.js themeTarget).
+      if isSiteAdmin
+        li
+          h2.admin-pane-group-title {{_ 'all-boards-hide'}}
+        //- One checkbox per setting instead of a Yes/No pair: each of these is on or
+        //- off, and the group's own title already says what ticking one means (All
+        //- Boards: Hide …). Same checkbox as everywhere else in the Admin Panel -
+        //- Announcement's "Active System-Wide Announcement" - so it has the plain
+        //- square when off, the green tick when on, and the animation between.
+        //- The Save button below reads the ticks, as it read the radios.
+        li.tableVisibilityMode-form
+          //- "Public boards", under the "All Boards: Hide" title above: ticked hides
+          //- them, which is what allowPrivateOnly does. The setting's own key keeps its
+          //- sentence - boardBody.jade shows it as the message on a board you may not
+          //- open, where a two-word label would say nothing.
+          a.flex.js-toggle-all-boards-hide
+            .materialCheckBox#accounts-allowPrivateOnly(class="{{#if allowPrivateOnly}}is-checked{{/if}}")
+            span {{_ 'public-boards'}}
+        li.tableVisibilityMode-form
+          //- #4475: ticked forbids anyone who is not a site admin from creating
+          //- new boards. Same Save button and same collection as the setting
+          //- above - only the checked key differs.
+          a.flex.js-toggle-all-boards-hide
+            .materialCheckBox#accounts-boardCreationAdminOnly(class="{{#if boardCreationAdminOnly}}is-checked{{/if}}")
+            span {{_ 'board-creation-admin-only'}}
+        li.tableVisibilityMode-form
+          //- #4575: ticked lets a board admin open an Instance or Public board
+          //- to editing by every signed-in user. Off: no board can.
+          a.flex.js-toggle-all-boards-hide
+            .materialCheckBox#accounts-allowInstanceEditing(class="{{#if allowInstanceEditing}}is-checked{{/if}}")
+            span {{_ 'instance-editing-allowed'}}
+        li.hideBoardActivities-form
+          a.flex.js-toggle-all-boards-hide
+            .materialCheckBox#hide-board-activities(class="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}is-checked{{/if}}")
+            span {{_ 'board-activities'}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-all-boards-hide
+            .materialCheckBox#hide-card-counter-list(class="{{#if currentSetting.hideCardCounterList}}is-checked{{/if}}")
+            span {{_ 'card-counter-list'}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-all-boards-hide
+            .materialCheckBox#hide-board-member-list(class="{{#if currentSetting.hideBoardMemberList}}is-checked{{/if}}")
+            span {{_ 'board-member-list'}}
+        li.tableVisibilityMode-form
+          .title {{_ 'wait-spinner'}}
+          +selectSpinnerName(spinnerName=currentSetting.spinnerName)
+        //- #4421: an org whose "Public" means "public within our organization"
+        //- rather than public on the internet can replace the wording shown
+        //- under Private/Public in the board visibility popup and the
+        //- create-board popup. Empty = unchanged i18n default text
+        //- (imports/i18n/lib/visibilityDesc.js).
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-private-desc'}}
+          .form-group
+            textarea.wekan-form-control#custom-private-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-private-desc-placeholder'}}")= currentSetting.customPrivateBoardDesc
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-public-desc'}}
+          .form-group
+            textarea.wekan-form-control#custom-public-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-public-desc-placeholder'}}")= currentSetting.customPublicBoardDesc
+        li
+          //- One Save per section, at its end, above the rule that closes it. It writes
+          //- this section's fields and nothing else, so saving one group can never
+          //- overwrite what you were editing in another.
+          button.js-visibility-all-boards-save.primary {{_ 'save'}}
+
+        li.admin-pane-group-separator
+          hr
+        li
+          h2.admin-pane-group-title {{_ 'date'}}
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-date-format
+            .materialCheckBox#global-date-format-enabled(class="{{#if currentSetting.hideDateFormat}}is-checked{{/if}}")
+            span {{_ 'date-format'}}:
+          select.wekan-form-control#global-date-format(aria-label="{{_ 'date-format'}}")
+            option(value="YYYY-MM-DD" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}} · {{_ 'time'}}
+            option(value="DD-MM-YYYY" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}} · {{_ 'time'}}
+            option(value="MM-DD-YYYY" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}} · {{_ 'time'}}
+            option(value="YYYY-MM-DD-date-only" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-yyyy-mm-dd'}}
+            option(value="DD-MM-YYYY-date-only" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-dd-mm-yyyy'}}
+            option(value="MM-DD-YYYY-date-only" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-mm-dd-yyyy'}}
+        li
+          button.js-visibility-date-save.primary {{_ 'save'}}
+        li.admin-pane-group-separator
+          hr
+        li
+          h2.admin-pane-group-title {{_ 'settings-group-url'}}
+        li
+          a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
+        li
+          a.flex.js-toggle-support
+            .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
+
+            span {{_ 'support-page-enabled'}}
+        li
+          .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
+            ul
+              li
+                a.flex.js-toggle-support-public
+                  .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
+
+                  span {{_ 'public'}}
+              li
+                .title {{_ 'support-title'}}
+                textarea#support-title.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportTitle
+              li
+                .title {{_ 'support-content'}}
+                textarea#support-page-text.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportPageText
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-help-link-url'}}
+          .form-group
+            input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-legal-notice-link-url'}}
+          .form-group
+            input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'automatic-linked-url-schemes'}}
+          .description {{_ 'automatic-linked-url-schemes-hint'}}
+          .form-group
+            textarea#automatic-linked-url-schemes.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.automaticLinkedUrlSchemes
+        li
+          button.js-visibility-url-save.primary {{_ 'save'}}
+
+        li.admin-pane-group-separator
+          hr
+        li
+          //- wekan/wekan#3069: autolink bare "<prefix>NNNN" tokens (e.g. "#1234")
+          //- found in card descriptions/comments to an external issue tracker.
+          //- Leaving either field empty keeps this feature off (no-op).
+          h2.admin-pane-group-title {{_ 'external-link-pattern'}}
+          p.description {{_ 'external-link-pattern-description'}}
+        li.tableVisibilityMode-form
+          .title {{_ 'external-link-pattern-prefix'}}
+          .form-group
+            input.wekan-form-control#external-link-pattern-prefix(type="text", placeholder="#" value="{{currentSetting.externalLinkPatternPrefix}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'external-link-pattern-url'}}
+          .form-group
+            input.wekan-form-control#external-link-pattern-url(type="text", placeholder="https://issues.example.com/browse/PROJ-{number}" value="{{currentSetting.externalLinkPatternUrl}}")
+        //- #1463: more rules, with {identifier}, and abbreviations for it.
+        li.tableVisibilityMode-form
+          .title {{_ 'external-link-rules'}}
+          p.description {{_ 'external-link-rules-description'}}
+          .form-group
+            textarea.wekan-form-control#external-link-rules(rows="4" placeholder="[{identifier}:{number}] = https://spirateam.example.com/SpiraTeam/{identifier}/{number}.aspx")= currentSetting.externalLinkRules
+        li.tableVisibilityMode-form
+          .title {{_ 'external-link-identifier-aliases'}}
+          .form-group
+            input.wekan-form-control#external-link-identifier-aliases(type="text", placeholder="TK=Task, IN=Incident" value="{{currentSetting.externalLinkIdentifierAliases}}")
+        li
+          button.js-visibility-external-link-pattern-save.primary {{_ 'save'}}
+
+        li.admin-pane-group-separator
+          hr
+        li
+          //- The group title IS the field's label here: the group holds one field, so a
+          //- title above a label that says the same thing said it twice. The group title
+          //- keeps its size and takes the field's existing translation.
+          h2.admin-pane-group-title {{_ 'custom-product-name'}}
+        li.tableVisibilityMode-form
+          .form-group
+            textarea.wekan-form-control#product-name(data-editor-submit=".js-visibility-product-name-save" rows="2" placeholder="")= currentSetting.productName
+        li
+          button.js-visibility-product-name-save.primary {{_ 'save'}}
+
+      //- The site theme. Same picker as the per-user "Change color", one layer
+      //- below it: whoever has not chosen a theme of their own sees this one
+      //- (docs/Theme/Theme.md). It applies immediately - the picker has no Save
+      //- button, like the per-user one.
+      if isSiteAdmin
+        li.admin-pane-group-separator
+          hr
       li
-        h2.admin-pane-group-title {{_ 'settings-group-logo'}}
+        h2.admin-pane-group-title {{_ 'change-color'}}
+        //- The site admin's colour is the one every Organization that has not set
+        //- its own inherits, so their pane says so; an Organization's own admin is
+        //- setting only their own and needs no such line.
+        if isSiteAdmin
+          h3.admin-pane-subgroup-title {{_ 'theme-override-all-tenants'}}
       li.tableVisibilityMode-form
-        //- One checkbox, like the All Boards group above and like Announcement's
-        //- "Active System-Wide Announcement": ticked = the logo is hidden. The
-        //- group's Save below writes it, as it wrote the Yes/No pair.
-        a.flex.js-toggle-hide-logo
-          .materialCheckBox#hide-logo(class="{{#if currentSetting.hideLogo}}is-checked{{/if}}")
-          span {{_ 'hide-logo'}}
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-login-logo-image-url'}}
-        .form-group
-          input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
-          input.js-site-logo-upload(type="file" data-kind="login" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-login-logo-image-url'}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-login-logo-link-url'}}
-        .form-group
-          input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'text-below-custom-login-logo'}}
-        .form-group
-          textarea#text-below-custom-login-logo.wekan-form-control(data-editor-submit=".js-visibility-logo-save")= currentSetting.textBelowCustomLoginLogo
-      li.tableVisibilityMode-form
-        .title {{_ 'login-background-color'}}
-        .form-group
-          input.wekan-form-control#login-background-color(type="text", placeholder="#1b365d" value="{{currentSetting.loginBackgroundColor}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-top-left-corner-logo-image-url'}}
-        .form-group
-          input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
-          input.js-site-logo-upload(type="file" data-kind="header" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-top-left-corner-logo-image-url'}}")
-      li.tableVisibilityMode-form
-        span.js-site-logo-upload-status(role="status" aria-live="polite")
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-top-left-corner-logo-link-url'}}
-        .form-group
-          input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
-      li.tableVisibilityMode-form
-        .title {{_ 'custom-top-left-corner-logo-height'}}
-        .form-group
-          input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
-      li
-        button.js-visibility-logo-save.primary {{_ 'save'}}
+        +themeColorPicker(scope="admin")
+
+      if isSiteAdmin
+        li.admin-pane-group-separator
+          hr
+        li
+          h2.admin-pane-group-title {{_ 'settings-group-logo'}}
+        li.tableVisibilityMode-form
+          //- One checkbox, like the All Boards group above and like Announcement's
+          //- "Active System-Wide Announcement": ticked = the logo is hidden. The
+          //- group's Save below writes it, as it wrote the Yes/No pair.
+          a.flex.js-toggle-hide-logo
+            .materialCheckBox#hide-logo(class="{{#if currentSetting.hideLogo}}is-checked{{/if}}")
+            span {{_ 'hide-logo'}}
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-login-logo-image-url'}}
+          .form-group
+            input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
+            input.js-site-logo-upload(type="file" data-kind="login" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-login-logo-image-url'}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-login-logo-link-url'}}
+          .form-group
+            input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'text-below-custom-login-logo'}}
+          .form-group
+            textarea#text-below-custom-login-logo.wekan-form-control(data-editor-submit=".js-visibility-logo-save")= currentSetting.textBelowCustomLoginLogo
+        li.tableVisibilityMode-form
+          .title {{_ 'login-background-color'}}
+          .form-group
+            input.wekan-form-control#login-background-color(type="text", placeholder="#1b365d" value="{{currentSetting.loginBackgroundColor}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-top-left-corner-logo-image-url'}}
+          .form-group
+            input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
+            input.js-site-logo-upload(type="file" data-kind="header" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-top-left-corner-logo-image-url'}}")
+        li.tableVisibilityMode-form
+          span.js-site-logo-upload-status(role="status" aria-live="polite")
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-top-left-corner-logo-link-url'}}
+          .form-group
+            input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
+        li.tableVisibilityMode-form
+          .title {{_ 'custom-top-left-corner-logo-height'}}
+          .form-group
+            input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
+        li
+          button.js-visibility-logo-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')
   ul#announcement-setting.setting-detail

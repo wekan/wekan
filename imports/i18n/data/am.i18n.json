@@ -2836,6 +2836,8 @@
   "feature-profile-add": "መገለጫ ጨምር",
   "feature-profile-unknown": "ተቀምጧል። አልተገኘም፦",
   "feature-profile-notice": "የባህሪ መገለጫዎ __name__ __count__ ባህሪያትን ይደብቃል። ከእነሱ አንዱን ከፈለጉ አስተዳዳሪን ይጠይቁ።",
+  "appearance": "ገጽታ እና መልክ",
+  "activities-and-notifications": "እንቅስቃሴዎች እና ማሳወቂያዎች",
   "feature-pilot-users-unknown": "ተቀምጧል። እነዚህ የተጠቃሚ ስሞች አልተገኙም፦",
   "feature-saved": "ተቀምጧል።",
   "card-field-visibility": "የካርድ መስኮች",

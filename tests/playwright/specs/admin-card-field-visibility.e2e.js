@@ -29,7 +29,7 @@ const openCardSettings = async page => {
 };
 
 async function tickPomodoro(page) {
-  await navigateInApp(page, '/admin/settings/visibility');
+  await navigateInApp(page, '/admin/settings/features');
   await waitForMeteor(page);
   const row = page.locator('.js-card-field-row[data-card-field="pomodoro"]');
   await expect(row).toBeVisible();
@@ -52,7 +52,7 @@ test.describe('Admin card field visibility', () => {
       await loginWithToken(page, adminUser.id, adminUser.token);
 
       // The section: every field ticked by default, and no ordering UI.
-      await navigateInApp(page, '/admin/settings/visibility');
+      await navigateInApp(page, '/admin/settings/features');
       await waitForMeteor(page);
       const rows = page.locator('.js-card-field-row');
       await expect(rows.first()).toBeVisible();
@@ -102,7 +102,7 @@ test.describe('Admin card field visibility', () => {
   });
 
   test('an ordinary member does not see the card field ticks', async ({ loggedInPage: page }) => {
-    await navigateInApp(page, '/admin/settings/visibility');
+    await navigateInApp(page, '/admin/settings/features');
     await waitForMeteor(page);
     await expect(page.locator('.js-card-field-row')).toHaveCount(0);
   });

@@ -71,32 +71,34 @@ test('the report is called Security Report, in the source string', () => {
     'two entries in one menu must not both read "Security"');
 });
 
-test('the menu is two named groups: Settings, then Reports', () => {
-  // Summary, then a rule and a "Settings" title over the server-wide switches,
-  // then a rule and a "Reports" title over everything else.
+// 2026-11-19: this was "the menu is two named groups: Settings, then Reports".
+// Security, Delete and Notifications are settings, not problems - and an admin
+// looking for "who sees what" had to look in Settings, People AND Problems. They
+// moved to Admin Panel / Settings (Security, Activities and notifications,
+// Delete), their old addresses redirect there, and Problems keeps Summary, the
+// backup's status and the reports.
+test('the settings panes left Problems for Settings, and Problems is Summary, Backup, Reports', () => {
   for (const id of ['features-security', 'features-delete', 'features-notifications']) {
-    assert.ok(at(id) > -1, `${id} must be a Problems entry`);
-    assert.ok(at(id) > at('report-summary'), `${id} must be below Summary`);
+    assert.strictEqual(at(id), -1, `${id} is no longer a Problems entry`);
   }
-  assert.ok(headingAt('settings') > -1 && headingAt('reports') > -1,
-    'both group titles must exist, as headings rather than entries');
-  assert.ok(headingAt('settings') > at('report-summary'),
-    'the Settings title comes after Summary');
-  assert.ok(headingAt('settings') < at('features-security'),
-    'and above the settings panes it names');
-  assert.ok(at('features-security') < at('features-delete'),
-    'Delete is below Security');
-  assert.ok(at('features-delete') < at('features-notifications'),
-    'Delete is immediately above Notifications');
-  assert.ok(at('features-notifications') < headingAt('reports'),
-    'the Reports title comes after them');
-  assert.ok(headingAt('reports') < at('report-security'),
-    'and above Security Report, the first report');
-  // A rule before each title, so the groups read as groups: two in the menu.
-  assert.strictEqual((menu.match(/\{ separator: true \}/g) || []).length, 2,
-    'one horizontal rule above each group title');
-  // Existing i18n keys - a heading is a label like any other, not a new string.
-  assert.strictEqual(en.settings, 'Settings');
+  assert.strictEqual(headingAt('settings'), -1, 'no Settings group left on Problems');
+  assert.ok(at('report-summary') > -1 && at('report-summary') < at('features-backup'),
+    'Summary, then the backup status');
+  assert.ok(at('features-backup') < headingAt('reports') && headingAt('reports') < at('report-security'),
+    'then the Reports title over the reports');
+  assert.strictEqual((menu.match(/\{ separator: true \}/g) || []).length, 1, 'one rule, above Reports');
+  const settings = read('client/components/settings/settingBody.js');
+  for (const id of ['privacy-security-setting', 'activities-setting', 'delete-setting']) {
+    assert.match(settings, new RegExp(`\\{ id: '${id}'`), `${id} is a Settings entry`);
+  }
+  const jade = read('client/components/settings/settingBody.jade');
+  assert.match(jade, /else if isPrivacySecuritySetting\n\s+\+featuresSecurity/);
+  assert.match(jade, /else if isActivitiesSetting\n\s+\+featuresNotifications/);
+  assert.match(jade, /else if isDeleteSetting\n\s+\+featuresDelete/);
+  const urls = require('../models/lib/adminUrls');
+  assert.strictEqual(urls.movedPanePath('problems', 'security'), '/admin/settings/security');
+  assert.strictEqual(urls.movedPanePath('problems', 'delete'), '/admin/settings/delete');
+  assert.strictEqual(urls.movedPanePath('problems', 'notifications'), '/admin/settings/activities');
   assert.strictEqual(en.reports, 'Reports');
 });
 

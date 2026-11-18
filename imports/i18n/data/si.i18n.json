@@ -2836,6 +2836,8 @@
   "feature-profile-add": "පැතිකඩ එකතු කරන්න",
   "feature-profile-unknown": "සුරකින ලදී. හමු නොවීය:",
   "feature-profile-notice": "ඔබගේ විශේෂාංග පැතිකඩ __name__ විශේෂාංග __count__ ක් සඟවයි. ඔබට ඒවායින් එකක් අවශ්‍ය නම් පරිපාලකයෙකුගෙන් විමසන්න.",
+  "appearance": "පෙනුම",
+  "activities-and-notifications": "ක්‍රියාකාරකම් සහ දැනුම්දීම්",
   "feature-pilot-users-unknown": "සුරකින ලදී. මෙම පරිශීලක නාම හමු නොවීය:",
   "feature-saved": "සුරකින ලදී.",
   "card-field-visibility": "කාඩ්පත් ක්ෂේත්‍ර",

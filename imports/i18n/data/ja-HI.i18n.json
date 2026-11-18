@@ -2836,6 +2836,8 @@
   "feature-profile-add": "プロファイルを追加",
   "feature-profile-unknown": "保存しました。見つかりません：",
   "feature-profile-notice": "あなたの機能プロファイル __name__ は __count__ 個の機能を非表示にしています。必要な機能がある場合は管理者にお問い合わせください。",
+  "appearance": "外観",
+  "activities-and-notifications": "アクティビティと通知",
   "feature-pilot-users-unknown": "保存しました。次のユーザー名は見つかりませんでした：",
   "feature-saved": "保存しました。",
   "card-field-visibility": "カードの項目",

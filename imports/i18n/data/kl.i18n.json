@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Profili ilanngussuk",
   "feature-profile-unknown": "Toqqorneqarpoq. Nanineqanngilaq:",
   "feature-profile-notice": "Periarfissat profiliit __name__ periarfissanik __count__-nik toqqortaavoq. Ataatsimik pisariaqartitsiguit aqutsisoq apereqqaaruk.",
+  "appearance": "Isikkivik",
+  "activities-and-notifications": "Sulinerit nalunaarutillu",
   "feature-pilot-users-unknown": "Toqqorneqarpoq. Atuisut aqqi uku nassaarineqanngillat:",
   "feature-saved": "Toqqorneqarpoq.",
   "card-field-visibility": "Kortsip immikkoortui",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "சுயவிவரத்தைச் சேர்",
   "feature-profile-unknown": "சேமிக்கப்பட்டது. கிடைக்கவில்லை:",
   "feature-profile-notice": "உங்கள் அம்ச சுயவிவரம் __name__ __count__ அம்சங்களை மறைக்கிறது. அவற்றில் ஒன்று தேவைப்பட்டால் நிர்வாகியிடம் கேளுங்கள்.",
+  "appearance": "தோற்றம்",
+  "activities-and-notifications": "செயல்பாடுகள் மற்றும் அறிவிப்புகள்",
   "feature-pilot-users-unknown": "சேமிக்கப்பட்டது. இந்தப் பயனர்பெயர்கள் கிடைக்கவில்லை:",
   "feature-saved": "சேமிக்கப்பட்டது.",
   "card-field-visibility": "அட்டையின் புலங்கள்",

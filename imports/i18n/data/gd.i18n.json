@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Cuir pròifil ris",
   "feature-profile-unknown": "Air a shàbhaladh. Cha deach a lorg:",
   "feature-profile-notice": "Tha a’ phròifil fheartan agad, __name__, a’ falach __count__ feartan. Faighnich do rianaire ma tha feum agad air fear dhiubh.",
+  "appearance": "Coltas",
+  "activities-and-notifications": "Gnìomhachdan is brathan",
   "feature-pilot-users-unknown": "Air a shàbhaladh. Cha deach na h-ainmean-cleachdaiche seo a lorg:",
   "feature-saved": "Air a shàbhaladh.",
   "card-field-visibility": "Raointean nan cairtean",

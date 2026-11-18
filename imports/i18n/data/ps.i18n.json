@@ -2836,6 +2836,8 @@
   "feature-profile-add": "پېژندنه زياته کړئ",
   "feature-profile-unknown": "خوندي شو. ونه موندل شو:",
   "feature-profile-notice": "ستاسو د وړتياوو پېژندنه __name__ __count__ وړتياوې پټوي. که له دوی څخه يوې ته اړتيا لرئ، له مدير وپوښتئ.",
+  "appearance": "بڼه",
+  "activities-and-notifications": "فعالیتونه او خبرتیاوې",
   "feature-pilot-users-unknown": "خوندي شول. د کارنانو دا نومونه ونه موندل شول:",
   "feature-saved": "خوندي شول.",
   "card-field-visibility": "د کارت ډګرونه",

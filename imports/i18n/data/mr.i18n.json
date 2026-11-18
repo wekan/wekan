@@ -2836,6 +2836,8 @@
   "feature-profile-add": "प्रोफाइल जोडा",
   "feature-profile-unknown": "जतन केले. सापडले नाही:",
   "feature-profile-notice": "तुमचे वैशिष्ट्य प्रोफाइल __name__ __count__ वैशिष्ट्ये लपवते. त्यापैकी एखादे हवे असल्यास प्रशासकाला विचारा.",
+  "appearance": "स्वरूप",
+  "activities-and-notifications": "क्रियाकलाप आणि सूचना",
   "feature-pilot-users-unknown": "जतन केले. ही वापरकर्तानावे सापडली नाहीत:",
   "feature-saved": "जतन केले.",
   "card-field-visibility": "कार्डची फील्ड",

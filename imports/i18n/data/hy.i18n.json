@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Ավելացնել պրոֆիլ",
   "feature-profile-unknown": "Պահպանված է։ Չի գտնվել՝",
   "feature-profile-notice": "Ձեր __name__ հատկությունների պրոֆիլը թաքցնում է __count__ հատկություն։ Եթե դրանցից որևէ մեկը ձեզ պետք է, դիմեք ադմինիստրատորին։",
+  "appearance": "Արտաքին տեսք",
+  "activities-and-notifications": "Գործունեություն և ծանուցումներ",
   "feature-pilot-users-unknown": "Պահպանված է։ Այս օգտանունները չեն գտնվել՝",
   "feature-saved": "Պահպանված է։",
   "card-field-visibility": "Քարտի դաշտեր",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Thêm hồ sơ",
   "feature-profile-unknown": "Đã lưu. Không tìm thấy:",
   "feature-profile-notice": "Hồ sơ tính năng __name__ của bạn ẩn __count__ tính năng. Hãy hỏi quản trị viên nếu bạn cần một trong số đó.",
+  "appearance": "Giao diện",
+  "activities-and-notifications": "Hoạt động và thông báo",
   "feature-pilot-users-unknown": "Đã lưu. Không tìm thấy các tên người dùng này:",
   "feature-saved": "Đã lưu.",
   "card-field-visibility": "Các trường của thẻ",

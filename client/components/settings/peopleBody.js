@@ -661,6 +661,10 @@ function peopleDocs(tpl) {
       // that had no date and showed "-", although the people publication
       // sends it.
       lastConnectionDate: 1,
+      // #6837: the Feature profiles column decides from these three.
+      featureProfileId: 1,
+      teams: 1,
+      orgs: 1,
     },
   }).fetch();
   // The server's order, not minimongo's: `$in` does not preserve it.
@@ -672,6 +676,9 @@ const PEOPLE_COLUMNS = [
   { labelKey: 'username' },
   { labelKey: 'email' },
   { labelKey: 'admin' },
+  // #6837: which feature profile applies to the person - edited in Admin Panel
+  // / Settings / Feature profiles, shown here so it can be found from People.
+  { labelKey: 'feature-profiles' },
   { labelKey: 'active-person' },
   { labelKey: 'location' },
   { labelKey: 'accounts-lockout-status' },
@@ -697,6 +704,8 @@ const TEAM_COLUMNS = [
   { labelKey: 'website' },
   { labelKey: 'createdAt' },
   { labelKey: 'active-team' },
+  // #6837: the feature profiles assigned to this team (Settings / Feature profiles).
+  { labelKey: 'feature-profiles' },
   { headerTemplate: 'teamFeatureHeader',
     headerData: { labelKey: 'team-shared-templates', feature: 'teamSharedTemplates' } },
   { headerTemplate: 'teamFeatureHeader',
@@ -713,6 +722,8 @@ const ORG_COLUMNS = [
   { labelKey: 'website' },
   { labelKey: 'createdAt' },
   { labelKey: 'active-org' },
+  // #6837: the feature profiles assigned to this organization.
+  { labelKey: 'feature-profiles' },
   { headerTemplate: 'orgFeatureHeader',
     headerData: { labelKey: 'org-shared-templates', feature: 'orgSharedTemplates' } },
   { headerTemplate: 'orgFeatureHeader',
@@ -1599,9 +1610,22 @@ Template.templatesGeneral.events({
   },
 });
 
+// #6837: the names of the feature profiles a team or organization is named in,
+// in the page's order (the first applies to a member without their own), or '-'.
+function groupProfileNames(field, id) {
+  const { storedProfiles } = require('/models/lib/featureProfiles');
+  const names = storedProfiles(ReactiveCache.getCurrentSetting())
+    .filter(profile => id && (profile[field] || []).includes(id)).map(profile => profile.name);
+  return names.length ? names.join(', ') : '-';
+}
+
 Template.orgRow.helpers({
   orgData() {
     return this.org || ReactiveCache.getOrg(this.orgId);
+  },
+  featureProfileNames() {
+    const org = this.org || ReactiveCache.getOrg(this.orgId);
+    return groupProfileNames('orgIds', org && org._id);
   },
 });
 
@@ -1609,9 +1633,21 @@ Template.teamRow.helpers({
   teamData() {
     return this.team || ReactiveCache.getTeam(this.teamId);
   },
+  featureProfileNames() {
+    const team = this.team || ReactiveCache.getTeam(this.teamId);
+    return groupProfileNames('teamIds', team && team._id);
+  },
 });
 
 Template.peopleRow.helpers({
+  // #6837: the feature profile that applies to this person, or '-'.
+  featureProfileName() {
+    // The row's user, found the way userData below finds it.
+    const id = this._id || (this.user && this.user._id);
+    const doc = (id && ReactiveCache.getUser(id)) || this.user || null;
+    const profile = require('/models/lib/featureProfiles').profileForUser(ReactiveCache.getCurrentSetting(), doc);
+    return profile ? profile.name : '-';
+  },
   loginCountries() {
     const userId = this.user && this.user._id;
     return (this.countries || []).map(country => ({ ...country, userId }));

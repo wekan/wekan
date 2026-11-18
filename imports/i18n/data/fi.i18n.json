@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Lisää profiili",
   "feature-profile-unknown": "Tallennettu. Ei löytynyt:",
   "feature-profile-notice": "Ominaisuusprofiilisi __name__ piilottaa __count__ ominaisuutta. Kysy ylläpitäjältä, jos tarvitset jotain niistä.",
+  "appearance": "Ulkoasu",
+  "activities-and-notifications": "Aktiviteetit ja ilmoitukset",
   "feature-pilot-users-unknown": "Tallennettu. Näitä käyttäjätunnuksia ei löytynyt:",
   "feature-saved": "Tallennettu.",
   "card-field-visibility": "Kortin kentät",

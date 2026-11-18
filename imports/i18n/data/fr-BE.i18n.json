@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Ajouter un profil",
   "feature-profile-unknown": "Enregistré. Introuvable :",
   "feature-profile-notice": "Votre profil de fonctionnalités __name__ masque __count__ fonctionnalités. Demandez à un administrateur si vous avez besoin de l'une d'entre elles.",
+  "appearance": "Apparence",
+  "activities-and-notifications": "Activités et notifications",
   "feature-pilot-users-unknown": "Enregistré. Ces noms d’utilisateur sont introuvables :",
   "feature-saved": "Enregistré.",
   "card-field-visibility": "Champs des cartes",

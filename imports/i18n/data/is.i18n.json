@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Bæta við sniði",
   "feature-profile-unknown": "Vistað. Fannst ekki:",
   "feature-profile-notice": "Eiginleikasniðið þitt __name__ felur __count__ eiginleika. Spurðu kerfisstjóra ef þú þarft einhvern þeirra.",
+  "appearance": "Ásýnd",
+  "activities-and-notifications": "Virkni og tilkynningar",
   "feature-pilot-users-unknown": "Vistað. Þessi notendanöfn fundust ekki:",
   "feature-saved": "Vistað.",
   "card-field-visibility": "Reitir spjalda",

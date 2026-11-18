@@ -43,6 +43,10 @@ Meteor.publish('people', async function(query, limit, skip = 0) {
         // admin's own user document reached the client with the field.
         lastConnectionDate: 1,
         authenticationMethod: 1,
+        // #6837: the People table's Feature profiles column - the profile
+        // assigned to the user directly (with orgs and teams below, the one
+        // that applies). Admins only, like the rest of this publication.
+        featureProfileId: 1,
         importUsernames: 1,
         orgs: 1,
         teams: 1,

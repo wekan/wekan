@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Engeza iphrofayili",
   "feature-profile-unknown": "Kulondoloziwe. Akutholakalanga:",
   "feature-profile-notice": "Iphrofayili yakho yezici __name__ ifihla izici ezingu-__count__. Buza umphathi nxa udinga esinye sazo.",
+  "appearance": "Ukubukeka",
+  "activities-and-notifications": "Imisebenzi lezaziso",
   "feature-pilot-users-unknown": "Kugciniwe. La mabizo abasebenzisi awatholakalanga:",
   "feature-saved": "Kugciniwe.",
   "card-field-visibility": "Izikhala zekhadi",

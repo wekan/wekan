@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Προσθήκη προφίλ",
   "feature-profile-unknown": "Αποθηκεύτηκε. Δεν βρέθηκαν:",
   "feature-profile-notice": "Το προφίλ λειτουργιών σας __name__ κρύβει __count__ λειτουργίες. Ρωτήστε έναν διαχειριστή αν χρειάζεστε κάποια από αυτές.",
+  "appearance": "Εμφάνιση",
+  "activities-and-notifications": "Δραστηριότητες και ειδοποιήσεις",
   "feature-pilot-users-unknown": "Αποθηκεύτηκε. Αυτά τα ονόματα χρηστών δεν βρέθηκαν:",
   "feature-saved": "Αποθηκεύτηκε.",
   "card-field-visibility": "Πεδία καρτών",

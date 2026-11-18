@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Adde descriptionem",
   "feature-profile-unknown": "Servatum. Non inventum:",
   "feature-profile-notice": "Descriptio facultatum tua __name__ __count__ facultates celat. Roga administratorem si una earum tibi opus est.",
+  "appearance": "Species",
+  "activities-and-notifications": "Actiones et nuntii",
   "feature-pilot-users-unknown": "Servatum. Haec nomina usorum inventa non sunt:",
   "feature-saved": "Servatum.",
   "card-field-visibility": "Campi chartarum",

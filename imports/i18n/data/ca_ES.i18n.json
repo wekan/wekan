@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Afegeix un perfil",
   "feature-profile-unknown": "Desat. No s'ha trobat:",
   "feature-profile-notice": "El vostre perfil de funcionalitats __name__ amaga __count__ funcionalitats. Demaneu-ho a un administrador si en necessiteu alguna.",
+  "appearance": "Aparença",
+  "activities-and-notifications": "Activitats i notificacions",
   "feature-pilot-users-unknown": "Desat. No s'han trobat aquests noms d'usuari:",
   "feature-saved": "Desat.",
   "card-field-visibility": "Camps de les fitxes",

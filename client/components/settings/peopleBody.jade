@@ -187,6 +187,7 @@ template(name="orgRow")
         | {{_ 'yes'}}
       else
         | {{_ 'no'}}
+    td.org-feature-profile {{featureProfileNames}}
     td.text-center
       input.js-toggle-org-feature(type="checkbox", data-feature="orgSharedTemplates", checked=orgData.orgSharedTemplates)
     td.text-center
@@ -227,6 +228,7 @@ template(name="teamRow")
         | {{_ 'yes'}}
       else
         | {{_ 'no'}}
+    td.team-feature-profile {{featureProfileNames}}
     td.text-center
       input.js-toggle-team-feature(type="checkbox", data-feature="teamSharedTemplates", checked=teamData.teamSharedTemplates)
     td.text-center
@@ -285,6 +287,7 @@ template(name="peopleRow")
           | {{_ 'yes'}}
         else
           | {{_ 'no'}}
+    td.people-feature-profile {{featureProfileName}}
     td.account-active-status
       if userData.loginDisabled
         span.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}")

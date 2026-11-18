@@ -2836,6 +2836,8 @@
   "feature-profile-add": "ప్రొఫైల్‌ను జోడించు",
   "feature-profile-unknown": "సేవ్ చేయబడింది. కనుగొనబడలేదు:",
   "feature-profile-notice": "మీ ఫీచర్ ప్రొఫైల్ __name__ __count__ ఫీచర్లను దాచిపెడుతుంది. వాటిలో ఏదైనా అవసరమైతే నిర్వాహకుడిని అడగండి.",
+  "appearance": "రూపం",
+  "activities-and-notifications": "కార్యకలాపాలు మరియు నోటిఫికేషన్‌లు",
   "feature-pilot-users-unknown": "భద్రపరచబడింది. ఈ వినియోగదారు పేర్లు కనుగొనబడలేదు:",
   "feature-saved": "భద్రపరచబడింది.",
   "card-field-visibility": "కార్డు ఫీల్డ్‌లు",

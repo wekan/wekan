@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Magdagdag ng profile",
   "feature-profile-unknown": "Na-save. Hindi nahanap:",
   "feature-profile-notice": "Itinatago ng iyong profile ng tampok na __name__ ang __count__ na tampok. Magtanong sa isang tagapangasiwa kung kailangan mo ang isa sa mga ito.",
+  "appearance": "Itsura",
+  "activities-and-notifications": "Mga aktibidad at abiso",
   "feature-pilot-users-unknown": "Na-save. Hindi nahanap ang mga username na ito:",
   "feature-saved": "Na-save.",
   "card-field-visibility": "Mga field ng kard",

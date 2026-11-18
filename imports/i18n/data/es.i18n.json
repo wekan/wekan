@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Añadir perfil",
   "feature-profile-unknown": "Guardado. No encontrado:",
   "feature-profile-notice": "Tu perfil de funciones __name__ oculta __count__ funciones. Pídele a un administrador si necesitas alguna de ellas.",
+  "appearance": "Apariencia",
+  "activities-and-notifications": "Actividades y notificaciones",
   "feature-pilot-users-unknown": "Guardado. No se encontraron estos nombres de usuario:",
   "feature-saved": "Guardado.",
   "card-field-visibility": "Campos de las tarjetas",

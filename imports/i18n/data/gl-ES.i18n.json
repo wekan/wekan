@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Engadir perfil",
   "feature-profile-unknown": "Gardado. Non se atopou:",
   "feature-profile-notice": "O teu perfil de funcionalidades __name__ oculta __count__ funcionalidades. Pregunta a un administrador se necesitas algunha delas.",
+  "appearance": "Aparencia",
+  "activities-and-notifications": "Actividades e notificacións",
   "feature-pilot-users-unknown": "Gardado. Non se atoparon estes nomes de usuario:",
   "feature-saved": "Gardado.",
   "card-field-visibility": "Campos das tarxetas",

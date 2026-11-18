@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Pridať profil",
   "feature-profile-unknown": "Uložené. Nenájdené:",
   "feature-profile-notice": "Váš profil funkcií __name__ skrýva __count__ funkcií. Ak niektorú z nich potrebujete, požiadajte administrátora.",
+  "appearance": "Vzhľad",
+  "activities-and-notifications": "Aktivity a upozornenia",
   "feature-pilot-users-unknown": "Uložené. Tieto používateľské mená sa nenašli:",
   "feature-saved": "Uložené.",
   "card-field-visibility": "Polia kariet",

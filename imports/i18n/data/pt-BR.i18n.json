@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Adicionar perfil",
   "feature-profile-unknown": "Salvo. Não encontrado:",
   "feature-profile-notice": "Seu perfil de recursos __name__ oculta __count__ recursos. Peça a um administrador se precisar de algum deles.",
+  "appearance": "Aparência",
+  "activities-and-notifications": "Atividades e notificações",
   "feature-pilot-users-unknown": "Salvo. Estes nomes de usuário não foram encontrados:",
   "feature-saved": "Salvo.",
   "card-field-visibility": "Campos dos cartões",

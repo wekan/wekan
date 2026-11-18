@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Профиль кошуу",
   "feature-profile-unknown": "Сакталды. Табылган жок:",
   "feature-profile-notice": "Сиздин __name__ мүмкүнчүлүк профилиңиз __count__ мүмкүнчүлүктү жашырат. Алардын бири керек болсо, администратордон сураңыз.",
+  "appearance": "Сырткы көрүнүш",
+  "activities-and-notifications": "Аракеттер жана билдирүүлөр",
   "feature-pilot-users-unknown": "Сакталды. Бул колдонуучу аттары табылган жок:",
   "feature-saved": "Сакталды.",
   "card-field-visibility": "Картанын талаалары",

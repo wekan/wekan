@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Add profile",
   "feature-profile-unknown": "Saved. Not found:",
   "feature-profile-notice": "Your feature profile __name__ hides __count__ features. Ask an administrator if you need one of them.",
+  "appearance": "Appearance",
+  "activities-and-notifications": "Activities and notifications",
   "feature-pilot-users-unknown": "Saved. These usernames were not found:",
   "feature-saved": "Saved.",
   "card-field-visibility": "Card fields",

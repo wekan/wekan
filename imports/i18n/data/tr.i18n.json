@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Profil ekle",
   "feature-profile-unknown": "Kaydedildi. Bulunamadı:",
   "feature-profile-notice": "__name__ özellik profiliniz __count__ özelliği gizliyor. Bunlardan birine ihtiyacınız varsa bir yöneticiye sorun.",
+  "appearance": "Görünüm",
+  "activities-and-notifications": "Etkinlikler ve bildirimler",
   "feature-pilot-users-unknown": "Kaydedildi. Şu kullanıcı adları bulunamadı:",
   "feature-saved": "Kaydedildi.",
   "card-field-visibility": "Kart alanları",

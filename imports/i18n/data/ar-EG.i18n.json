@@ -2836,6 +2836,8 @@
   "feature-profile-add": "ضيف ملف",
   "feature-profile-unknown": "اتحفظ. مش موجود:",
   "feature-profile-notice": "ملف الميزات بتاعك __name__ بيخبّي __count__ ميزات. اسأل المسؤول لو محتاج واحدة منهم.",
+  "appearance": "المظهر",
+  "activities-and-notifications": "الأنشطة والإشعارات",
   "feature-pilot-users-unknown": "تم الحفظ. لم يُعثر على أسماء المستخدمين التالية:",
   "feature-saved": "تم الحفظ.",
   "card-field-visibility": "حقول البطاقة",

@@ -1798,7 +1798,7 @@ test('Excel: a WeKan export workbook in Finnish with a sheet per board imports a
 test('Trello HTTP import enforces the Admin Panel import switch and rejects invalid requests', async ({ page, adminUser, request }) => {
   const { loginWithToken } = require('../helpers/auth');
   await loginWithToken(page, adminUser.id, adminUser.token);
-  await navigateInApp(page, '/admin/problems/security');
+  await navigateInApp(page, '/admin/settings/security');
   const selector = page.locator('.js-toggle-disable-all-import');
   const settings = db.findOne('settings', {});
   const original = !!settings.disableAllImport;

@@ -89,10 +89,15 @@ test('the panes that moved off the removed Features page still resolve', () => {
   }
   const reports = fs.readFileSync(
     path.join(root, 'client/components/settings/adminProblems.jade'), 'utf8');
-  for (const name of ['featuresPerformance', 'featuresSecurity', 'featuresNotifications']) {
-    assert.ok(reports.includes(`template(name="${name}")`),
-      `${name} belongs with the page that renders it`);
-    assert.ok(reports.includes(`+${name}`), `and ${name} must be rendered there`);
+  // Security and Notifications (with Delete) moved on to Admin Panel / Settings
+  // on 2026-11-19; their templates and handlers stayed in adminProblems, and
+  // Settings renders them. Performance is still a Problems pane.
+  const settingsJade = fs.readFileSync(
+    path.join(root, 'client/components/settings/settingBody.jade'), 'utf8');
+  for (const [name, page] of [['featuresPerformance', reports], ['featuresSecurity', settingsJade],
+    ['featuresNotifications', settingsJade], ['featuresDelete', settingsJade]]) {
+    assert.ok(reports.includes(`template(name="${name}")`), `${name} is still defined in adminProblems.jade`);
+    assert.ok(page.includes(`+${name}`), `and ${name} must be rendered by the page that shows it`);
   }
 });
 

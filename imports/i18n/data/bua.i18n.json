@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Профиль нэмэхэ",
   "feature-profile-unknown": "Хадагалагдаба. Олдообгүй:",
   "feature-profile-notice": "Таны __name__ боломжонуудай профиль __count__ боломжо нюуна. Тэдэнэй нэгэниинь хэрэгтэй һаа, захирагшаһаа асуугты.",
+  "appearance": "Гадаад түхэл",
+  "activities-and-notifications": "Ажалнууд ба мэдээсэлнүүд",
   "feature-pilot-users-unknown": "Хадагалагдаа. Эдэ хэрэглэгчэдэй нэрэнүүд олдоогүй:",
   "feature-saved": "Хадагалагдаа.",
   "card-field-visibility": "Карточкын талмайнууд",

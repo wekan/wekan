@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Tambah profil",
   "feature-profile-unknown": "Tersimpan. Tidak ditemukan:",
   "feature-profile-notice": "Profil fitur Anda __name__ menyembunyikan __count__ fitur. Tanyakan kepada administrator jika Anda memerlukan salah satunya.",
+  "appearance": "Tampilan",
+  "activities-and-notifications": "Aktifitas dan pemberitahuan",
   "feature-pilot-users-unknown": "Disimpan. Nama pengguna berikut tidak ditemukan:",
   "feature-saved": "Disimpan.",
   "card-field-visibility": "Kolom kartu",

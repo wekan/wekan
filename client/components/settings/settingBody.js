@@ -147,6 +147,15 @@ Template.setting.onCreated(function () {
   this.layoutSetting = new ReactiveVar(false);
   this.webhookSetting = new ReactiveVar(false);
   this.sharedLabelsSetting = new ReactiveVar(false);
+  // 2026-11-19: what WeKan offers and who sees it, in one place - Features and
+  // Feature profiles split out of Visibility (now Appearance), and Security,
+  // Activities and notifications and Delete moved here from Admin Panel /
+  // Problems, where settings sat among the reports.
+  this.featuresSetting = new ReactiveVar(false);
+  this.featureProfilesSetting = new ReactiveVar(false);
+  this.privacySecuritySetting = new ReactiveVar(false);
+  this.activitiesSetting = new ReactiveVar(false);
+  this.deleteSetting = new ReactiveVar(false);
   // The pane the URL asks for. `/settings/global-webhooks` opens Global
   // Webhooks; the bare `/settings` opens the default, which the route resolved
   // for us, so this is always a real pane id. Reactive, so following a link to
@@ -186,6 +195,11 @@ Template.setting.onDestroyed(function () {
 const SETTINGS_PANE_VARS = {
   'version-setting': 'versionSetting',
   'tableVisibilityMode-setting': 'tableVisibilityModeSetting',
+  'features-setting': 'featuresSetting',
+  'feature-profiles-setting': 'featureProfilesSetting',
+  'privacy-security-setting': 'privacySecuritySetting',
+  'activities-setting': 'activitiesSetting',
+  'delete-setting': 'deleteSetting',
   'announcement-setting': 'announcementSetting',
   'accessibility-setting': 'accessibilitySetting',
   'translation-setting': 'translationSetting',
@@ -214,10 +228,19 @@ function settingsMenu(user) {
   const items = [
     // First, and open by default - see Template.setting.onCreated.
     { id: 'version-setting', icon: 'fa-info-circle', labelKey: 'info', emoji: true },
-    // Labelled just 'Visibility' now. The pane id and the tableVisibilityMode
-    // key are unchanged, so the 141 translations of the pane's own contents are
-    // untouched; only the menu label points at the new key.
-    { id: 'tableVisibilityMode-setting', icon: 'fa-eye', labelKey: 'visibility', emoji: true },
+    // Appearance (2026-11-19; it was Visibility): how this WeKan looks - what
+    // All Boards shows, dates, URLs, the product name, colours and logos. The
+    // pane id is unchanged, so an Organization admin's one pane (Change color)
+    // is still this one.
+    { id: 'tableVisibilityMode-setting', icon: 'fa-paint-brush', labelKey: 'appearance', emoji: true },
+    // What this WeKan offers and who sees it: the optional features, then the
+    // profiles that hide some of them from chosen people.
+    { id: 'features-setting', icon: 'fa-toggle-on', labelKey: 'features', emoji: true },
+    { id: 'feature-profiles-setting', icon: 'fa-eye-slash', labelKey: 'feature-profiles', emoji: true },
+    // Moved from Admin Panel / Problems: settings, not reports.
+    { id: 'privacy-security-setting', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
+    { id: 'activities-setting', icon: 'fa-bell', labelKey: 'activities-and-notifications', emoji: true },
+    { id: 'delete-setting', icon: 'fa-trash', labelKey: 'delete', emoji: true },
     { id: 'announcement-setting', icon: 'fa-bullhorn', labelKey: 'admin-announcement', emoji: true },
     { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
     // PWA is an acronym, not a translated string - a literal label, like the
@@ -245,6 +268,11 @@ function activeSettingId(inst) {
   const panes = [
     ['versionSetting', 'version-setting'],
     ['tableVisibilityModeSetting', 'tableVisibilityMode-setting'],
+    ['featuresSetting', 'features-setting'],
+    ['featureProfilesSetting', 'feature-profiles-setting'],
+    ['privacySecuritySetting', 'privacy-security-setting'],
+    ['activitiesSetting', 'activities-setting'],
+    ['deleteSetting', 'delete-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
     ['translationSetting', 'translation-setting'],
@@ -305,6 +333,26 @@ Template.setting.helpers({
   isSharedLabelsSetting() {
     const inst = Template.instance();
     return inst.sharedLabelsSetting && inst.sharedLabelsSetting.get();
+  },
+  isFeaturesSetting() {
+    const inst = Template.instance();
+    return inst.featuresSetting && inst.featuresSetting.get();
+  },
+  isFeatureProfilesSetting() {
+    const inst = Template.instance();
+    return inst.featureProfilesSetting && inst.featureProfilesSetting.get();
+  },
+  isPrivacySecuritySetting() {
+    const inst = Template.instance();
+    return inst.privacySecuritySetting && inst.privacySecuritySetting.get();
+  },
+  isActivitiesSetting() {
+    const inst = Template.instance();
+    return inst.activitiesSetting && inst.activitiesSetting.get();
+  },
+  isDeleteSetting() {
+    const inst = Template.instance();
+    return inst.deleteSetting && inst.deleteSetting.get();
   },
   isLoading() {
     const inst = Template.instance();
@@ -555,6 +603,12 @@ function readFeatureProfiles(instance) {
 }
 
 Template.tableVisibilityModeSettings.helpers({
+  // Which of the three panes this is: 'appearance' (the default), 'features'
+  // or 'profiles' (Template.setting renders it once per pane).
+  isPart(part) {
+    const data = Template.currentData() || {};
+    return (data.part || 'appearance') === part;
+  },
   featureRows() {
     return instanceFeatures.featureRows(ReactiveCache.getCurrentSetting());
   },

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Pievienot profilu",
   "feature-profile-unknown": "Saglabāts. Nav atrasts:",
   "feature-profile-notice": "Jūsu funkciju profils __name__ paslēpj __count__ funkcijas. Ja jums vajag kādu no tām, jautājiet administratoram.",
+  "appearance": "Izskats",
+  "activities-and-notifications": "Darbības un ziņojumi",
   "feature-pilot-users-unknown": "Saglabāts. Šie lietotājvārdi netika atrasti:",
   "feature-saved": "Saglabāts.",
   "card-field-visibility": "Kartīšu lauki",

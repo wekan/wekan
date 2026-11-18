@@ -33,7 +33,7 @@ test('Date settings cascade from global to board to member through their own con
     await expect(heading).toHaveText('Date');
     await expect(cp.root.locator('.js-date-format-selector')).toHaveCount(0);
 
-    await navigateInApp(admin, '/admin/settings/visibility');
+    await navigateInApp(admin, '/admin/settings/appearance');
     const logoChecked = await admin.locator('#hide-logo').evaluate(el => el.classList.contains('is-checked'));
     await admin.locator('#global-date-format').selectOption('DD-MM-YYYY');
     await admin.locator('#global-date-format-enabled').click();
@@ -64,7 +64,7 @@ test('Date settings cascade from global to board to member through their own con
 
     await admin.reload();
     await admin.waitForFunction(() => typeof Meteor !== 'undefined' && Meteor.user()?.isAdmin && !Meteor.loggingIn());
-    await navigateInApp(admin, '/admin/settings/visibility');
+    await navigateInApp(admin, '/admin/settings/appearance');
     await expect(admin.locator('#global-date-format-enabled')).toHaveClass(/is-checked/);
     await expect(admin.locator('#global-date-format')).toHaveValue('DD-MM-YYYY');
     await guest.addInitScript(() => localStorage.setItem('dateFormat', 'YYYY-MM-DD'));

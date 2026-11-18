@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Gehitu profila",
   "feature-profile-unknown": "Gordeta. Ez da aurkitu:",
   "feature-profile-notice": "Zure __name__ ezaugarri-profilak __count__ ezaugarri ezkutatzen ditu. Horietako bat behar baduzu, galdetu administratzaile bati.",
+  "appearance": "Itxura",
+  "activities-and-notifications": "Jarduerak eta jakinarazpenak",
   "feature-pilot-users-unknown": "Gordeta. Erabiltzaile-izen hauek ez dira aurkitu:",
   "feature-saved": "Gordeta.",
   "card-field-visibility": "Txartelen eremuak",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Lägg till profil",
   "feature-profile-unknown": "Sparat. Hittades inte:",
   "feature-profile-notice": "Din funktionsprofil __name__ döljer __count__ funktioner. Fråga en administratör om du behöver någon av dem.",
+  "appearance": "Utseende",
+  "activities-and-notifications": "Aktiviteter och notiser",
   "feature-pilot-users-unknown": "Sparat. Följande användarnamn hittades inte:",
   "feature-saved": "Sparat.",
   "card-field-visibility": "Kortfält",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Dodaj profil",
   "feature-profile-unknown": "Zapisano. Nie znaleziono:",
   "feature-profile-notice": "Twój profil funkcji __name__ ukrywa liczbę funkcji: __count__. Jeśli potrzebujesz którejś z nich, zapytaj administratora.",
+  "appearance": "Wygląd",
+  "activities-and-notifications": "Aktywność i powiadomienia",
   "feature-pilot-users-unknown": "Zapisano. Nie znaleziono tych nazw użytkowników:",
   "feature-saved": "Zapisano.",
   "card-field-visibility": "Pola kart",

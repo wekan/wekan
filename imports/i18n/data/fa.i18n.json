@@ -2836,6 +2836,8 @@
   "feature-profile-add": "افزودن نمایه",
   "feature-profile-unknown": "ذخیره شد. یافت نشد:",
   "feature-profile-notice": "نمایهٔ ویژگی شما __name__ تعداد __count__ ویژگی را پنهان می‌کند. اگر به یکی از آن‌ها نیاز دارید، از یک مدیر بپرسید.",
+  "appearance": "ظاهر",
+  "activities-and-notifications": "فعالیت‌ها و اعلان‌ها",
   "feature-pilot-users-unknown": "ذخیره شد. این نام‌های کاربری پیدا نشدند:",
   "feature-saved": "ذخیره شد.",
   "card-field-visibility": "فیلدهای کارت",

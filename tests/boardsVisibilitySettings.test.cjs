@@ -62,13 +62,18 @@ const pwa = template('pwaSettings');
 
 console.log('boardsVisibilitySettings:');
 
-test('the pane is the one shown as "Visibility"', () => {
-  // The menu label is the 'visibility' key; the pane id and its own
-  // tableVisibilityMode key are unchanged, so its 141 translations still apply.
-  assert.strictEqual(en.visibility, 'Visibility');
+test('the pane is the one shown as "Appearance" (it was "Visibility")', () => {
+  // 2026-11-19: Visibility held both how WeKan looks and which features it
+  // offers. The look stays here as Appearance; Features and Feature profiles are
+  // panes of their own. The pane id and its tableVisibilityMode key are
+  // unchanged, so the pane's own translations still apply, and
+  // /admin/settings/visibility redirects here.
+  assert.strictEqual(en.appearance, 'Appearance');
   const js = read('client/components/settings/settingBody.js');
-  assert.ok(/id: 'tableVisibilityMode-setting'[^}]*labelKey: 'visibility'/.test(js),
-    'the menu entry for this pane must be labelled with the visibility key');
+  assert.ok(/id: 'tableVisibilityMode-setting'[^}]*labelKey: 'appearance'/.test(js),
+    'the menu entry for this pane must be labelled with the appearance key');
+  assert.strictEqual(require('../models/lib/adminUrls').movedPanePath('settings', 'visibility'),
+    '/admin/settings/appearance');
 });
 
 test('both settings are now in the Visibility pane', () => {
@@ -240,7 +245,10 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
     // #2217 added "Rules" (boards may show their Rules to members, read-only)
     // between Features and Optional APIs, with the other switches of what
     // boards may offer.
-    ['all-boards-hide', 'features', 'rules', 'optional-apis', 'date', 'settings-group-url', 'external-link-pattern',
+    // 2026-11-19: one template, three panes (part="features" | "profiles" |
+    // "appearance"). The Features pane's groups come first in the source, then
+    // Appearance's - the old Visibility order with the feature groups taken out.
+    ['features', 'rules', 'optional-apis', 'all-boards-hide', 'date', 'settings-group-url', 'external-link-pattern',
       'custom-product-name', 'change-color', 'settings-group-logo'],
     'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with
@@ -284,12 +292,17 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   }
   // A rule above every group but the first - All Boards opens the pane directly
   // under its title, so a rule there would separate it from nothing.
+  // Two panes now (Features, Appearance), each opening with its first group
+  // directly under its title: a rule above every group but those two.
   assert.strictEqual((pane.match(/li\.admin-pane-group-separator/g) || []).length,
-    groups.length - 1,
-    'a horizontal rule above URL, Product name and Logo, but not above All Boards');
-  const firstRule = pane.indexOf('li.admin-pane-group-separator');
-  assert.ok(firstRule > pane.indexOf("_ 'all-boards-hide'") && firstRule < pane.indexOf("settings-group-url"),
-    'the first rule sits between the All Boards group and the URL title');
+    groups.length - 2,
+    'a horizontal rule above every group but the first of each pane');
+  // In the Appearance part (it follows the Features part in the source), the
+  // first rule sits between the All Boards group and the URL title.
+  const appearance = pane.slice(pane.indexOf("_ 'all-boards-hide'"));
+  const firstRule = appearance.indexOf('li.admin-pane-group-separator');
+  assert.ok(firstRule > 0 && firstRule < appearance.indexOf("settings-group-url"),
+    'the first rule of Appearance sits between the All Boards group and the URL title');
   // Look for the BUTTON, not the bare class: since 88e234f05 the login-logo
   // textarea names it in data-editor-submit=".js-visibility-logo-save" (so
   // Ctrl+Enter submits through it), and that reference sits above the fields.

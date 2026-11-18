@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Amestar perfil",
   "feature-profile-unknown": "Guardáu. Nun s'alcontró:",
   "feature-profile-notice": "El to perfil de carauterístiques __name__ anubre __count__ carauterístiques. Entrúga-y a un alministrador si precises dalguna d'elles.",
+  "appearance": "Aspeutu",
+  "activities-and-notifications": "Actividaes y notificaciones",
   "feature-pilot-users-unknown": "Guardóse. Nun s'atoparon estos nomes d'usuariu:",
   "feature-saved": "Guardóse.",
   "card-field-visibility": "Campos de les tarxetes",

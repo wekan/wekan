@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Legg til profil",
   "feature-profile-unknown": "Lagret. Ikke funnet:",
   "feature-profile-notice": "Funksjonsprofilen din __name__ skjuler __count__ funksjoner. Spør en administrator hvis du trenger en av dem.",
+  "appearance": "Utseende",
+  "activities-and-notifications": "Aktiviteter og varsler",
   "feature-pilot-users-unknown": "Lagret. Disse brukernavnene ble ikke funnet:",
   "feature-saved": "Lagret.",
   "card-field-visibility": "Kortfelter",

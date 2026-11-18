@@ -58,7 +58,7 @@ test.describe('Feature profiles', () => {
     try {
       db.updateOne('settings', { _id: saved._id }, { $set: { featureProfiles: [] } });
       await loginWithToken(page, adminUser.id, adminUser.token);
-      await navigateInApp(page, '/admin/settings/visibility');
+      await navigateInApp(page, '/admin/settings/feature-profiles');
       await waitForMeteor(page);
       await page.locator('button.js-feature-profile-add').click();
       const row = page.locator('.js-feature-profile').first();

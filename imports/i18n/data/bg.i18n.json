@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Добави профил",
   "feature-profile-unknown": "Запазено. Не са намерени:",
   "feature-profile-notice": "Вашият профил на функции __name__ скрива __count__ функции. Попитайте администратор, ако ви трябва някоя от тях.",
+  "appearance": "Външен вид",
+  "activities-and-notifications": "Действия и уведомления",
   "feature-pilot-users-unknown": "Запазено. Тези потребителски имена не бяха намерени:",
   "feature-saved": "Запазено.",
   "card-field-visibility": "Полета на картите",

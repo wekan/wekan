@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Tāpiri kōtaha",
   "feature-profile-unknown": "Kua tiakina. Kāore i kitea:",
   "feature-profile-notice": "Ka hunaia e tō kōtaha āheinga __name__ ngā āheinga __count__. Pātai atu ki tētahi kaiwhakahaere mēnā e hiahia ana koe ki tētahi o ērā.",
+  "appearance": "Āhua",
+  "activities-and-notifications": "Ngā mahi me ngā whakamōhiotanga",
   "feature-pilot-users-unknown": "Kua tiakina. Kāore ēnei ingoa kaiwhakamahi i kitea:",
   "feature-saved": "Kua tiakina.",
   "card-field-visibility": "Ngā āpure kāri",

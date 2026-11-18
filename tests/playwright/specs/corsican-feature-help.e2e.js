@@ -17,7 +17,7 @@ test('Corsican performance help explains automatic loading and environment overr
 test('Corsican security help preserves source identity removal and literal markup examples', async ({ page, adminUser }) => {
   await loginWithToken(page, adminUser.id, adminUser.token);
   await page.evaluate(() => Meteor.callAsync('setLanguage', 'co'));
-  await navigateInApp(page, '/admin/problems/security');
+  await navigateInApp(page, '/admin/settings/security');
   for (const key of ['anonymize-import-users-description', 'anonymize-export-users-description', 'render-links-as-plain-text-description', 'always-show-code-as-text-description']) {
     const description = page.getByText(strings[key], { exact: true });
     await expect(description).toBeVisible();

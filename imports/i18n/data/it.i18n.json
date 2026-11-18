@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Aggiungi profilo",
   "feature-profile-unknown": "Salvato. Non trovato:",
   "feature-profile-notice": "Il tuo profilo di funzionalità __name__ nasconde __count__ funzionalità. Chiedi a un amministratore se te ne serve una.",
+  "appearance": "Aspetto",
+  "activities-and-notifications": "Attività e notifiche",
   "feature-pilot-users-unknown": "Salvato. Questi nomi utente non sono stati trovati:",
   "feature-saved": "Salvato.",
   "card-field-visibility": "Campi delle schede",

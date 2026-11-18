@@ -2836,6 +2836,8 @@
   "feature-profile-add": "زیادکردنی پرۆفایل",
   "feature-profile-unknown": "پاشەکەوت کرا. نەدۆزرایەوە:",
   "feature-profile-notice": "پرۆفایلی تایبەتمەندییەکانت __name__ ژمارەی __count__ تایبەتمەندی دەشارێتەوە. ئەگەر پێویستت بە یەکێکیان هەیە، لە بەڕێوەبەرێک بپرسە.",
+  "appearance": "ڕووخسار",
+  "activities-and-notifications": "چالاکییەکان و ئاگادارکردنەوەکان",
   "feature-pilot-users-unknown": "پاشەکەوت کرا. ئەم ناوانەی بەکارهێنەر نەدۆزرانەوە:",
   "feature-saved": "پاشەکەوت کرا.",
   "card-field-visibility": "خانەکانی کارت",

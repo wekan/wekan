@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Yongerako ebikukwatako",
   "feature-profile-unknown": "Kiterekeddwa. Tekirabiddwa:",
   "feature-profile-notice": "Ebikukwatako byo eby'ebikozesebwa __name__ bikweka ebikozesebwa __count__. Buuza omuddukanya bw'oba weetaaga ekimu ku byo.",
+  "appearance": "Endabika",
+  "activities-and-notifications": "Emirimu n'obubaka",
   "feature-pilot-users-unknown": "Biterekeddwa. Amannya gano ag'abakozesa tegazuuliddwa:",
   "feature-saved": "Biterekeddwa.",
   "card-field-visibility": "Ennimiro za kaadi",

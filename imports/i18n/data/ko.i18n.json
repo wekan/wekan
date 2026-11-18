@@ -2836,6 +2836,8 @@
   "feature-profile-add": "프로파일 추가",
   "feature-profile-unknown": "저장되었습니다. 찾을 수 없음:",
   "feature-profile-notice": "기능 프로파일 __name__ 이(가) 기능 __count__개를 숨기고 있습니다. 그중 필요한 기능이 있으면 관리자에게 문의하세요.",
+  "appearance": "모양",
+  "activities-and-notifications": "활동 및 알림",
   "feature-pilot-users-unknown": "저장했습니다. 다음 사용자 이름을 찾을 수 없습니다:",
   "feature-saved": "저장했습니다.",
   "card-field-visibility": "카드 필드",

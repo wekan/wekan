@@ -2836,6 +2836,8 @@
   "feature-profile-add": "ངོ་སྤྲོད་སྣོན་པ།",
   "feature-profile-unknown": "ཉར་ཚགས་བྱས་ཟིན། རྙེད་མ་སོང་།:",
   "feature-profile-notice": "ཁྱེད་ཀྱི་ཁྱད་ཆོས་ངོ་སྤྲོད་ __name__ ཡིས་ཁྱད་ཆོས་ __count__ སྦས་ཡོད། དེ་དག་ལས་གཅིག་དགོས་ན་དོ་དམ་པར་དྲིས།",
+  "appearance": "མཐོང་སྣང་།",
+  "activities-and-notifications": "བྱ་བ་དང་བརྡ་ཐོ།",
   "feature-pilot-users-unknown": "ཉར་ཚགས་བྱས་ཟིན། སྤྱོད་མཁན་གྱི་མིང་འདི་དག་མ་རྙེད།",
   "feature-saved": "ཉར་ཚགས་བྱས་ཟིན།",
   "card-field-visibility": "བྱང་བུའི་ས་ཁོངས།",

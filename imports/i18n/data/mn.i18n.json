@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Профайл нэмэх",
   "feature-profile-unknown": "Хадгалагдлаа. Олдсонгүй:",
   "feature-profile-notice": "Таны онцлогийн профайл __name__ нь __count__ онцлогийг нууж байна. Тэдгээрийн аль нэг нь хэрэгтэй бол админаас асуугаарай.",
+  "appearance": "Гадаад төрх",
+  "activities-and-notifications": "Үйл ажиллагаа ба мэдэгдлүүд",
   "feature-pilot-users-unknown": "Хадгаллаа. Эдгээр хэрэглэгчийн нэр олдсонгүй:",
   "feature-saved": "Хадгаллаа.",
   "card-field-visibility": "Картын талбарууд",

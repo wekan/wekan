@@ -2836,6 +2836,8 @@
   "feature-profile-add": "प्रोफ़ाइल जोड़ें",
   "feature-profile-unknown": "सहेजा गया। नहीं मिला:",
   "feature-profile-notice": "आपकी विशेषता प्रोफ़ाइल __name__ __count__ विशेषताएं छिपाती है। यदि आपको इनमें से किसी की आवश्यकता है तो व्यवस्थापक से पूछें।",
+  "appearance": "रूप-रंग",
+  "activities-and-notifications": "गतिविधियां और सूचनाएँ",
   "feature-pilot-users-unknown": "सहेजा गया। ये उपयोगकर्ता नाम नहीं मिले:",
   "feature-saved": "सहेजा गया।",
   "card-field-visibility": "कार्ड के फ़ील्ड",

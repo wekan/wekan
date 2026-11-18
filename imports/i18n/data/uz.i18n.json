@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Profil qo'shish",
   "feature-profile-unknown": "Saqlandi. Topilmadi:",
   "feature-profile-notice": "Sizning __name__ xususiyat profilingiz __count__ ta xususiyatni yashiradi. Ulardan biri kerak bo'lsa, administratordan so'rang.",
+  "appearance": "Koʻrinish",
+  "activities-and-notifications": "Faoliyatlar va bildirishnomalar",
   "feature-pilot-users-unknown": "Saqlandi. Ushbu foydalanuvchi nomlari topilmadi:",
   "feature-saved": "Saqlandi.",
   "card-field-visibility": "Karta maydonlari",

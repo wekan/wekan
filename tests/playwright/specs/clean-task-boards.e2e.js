@@ -117,7 +117,7 @@ test('clean boards: personal and forced date-only formats suppress time without 
       try { await Meteor.callAsync('changeDateFormat', 'unsupported'); return false; } catch (error) { return true; }
     });
     expect(invalid).toBe(true);
-    await loginWithToken(admin, adminUser.id, adminUser.token); await navigateInApp(admin, '/admin/settings/visibility');
+    await loginWithToken(admin, adminUser.id, adminUser.token); await navigateInApp(admin, '/admin/settings/appearance');
     await page.evaluate(() => Meteor.callAsync('changeDateFormat', 'YYYY-MM-DD-date-only', false));
     await admin.locator('#global-date-format').selectOption('DD-MM-YYYY-date-only');
     await admin.locator('#global-date-format-enabled').click();

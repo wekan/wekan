@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Profiel toevoegen",
   "feature-profile-unknown": "Opgeslagen. Niet gevonden:",
   "feature-profile-notice": "Uw functieprofiel __name__ verbergt __count__ functies. Vraag het aan een beheerder als u er een van nodig hebt.",
+  "appearance": "Uiterlijk",
+  "activities-and-notifications": "Activiteiten en meldingen",
   "feature-pilot-users-unknown": "Opgeslagen. Deze gebruikersnamen zijn niet gevonden:",
   "feature-saved": "Opgeslagen.",
   "card-field-visibility": "Kaartvelden",

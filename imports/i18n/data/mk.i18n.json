@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Додај профил",
   "feature-profile-unknown": "Зачувано. Не е пронајдено:",
   "feature-profile-notice": "Вашиот профил на функции __name__ крие __count__ функции. Прашајте администратор ако ви треба некоја од нив.",
+  "appearance": "Изглед",
+  "activities-and-notifications": "Активности и известувања",
   "feature-pilot-users-unknown": "Зачувано. Овие кориснички имиња не се пронајдени:",
   "feature-saved": "Зачувано.",
   "card-field-visibility": "Полиња на картичките",

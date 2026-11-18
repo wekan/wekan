@@ -2836,6 +2836,8 @@
   "feature-profile-add": "زيد ملف",
   "feature-profile-unknown": "تسجّل. ما تلقاش:",
   "feature-profile-notice": "ملف الميزات ديالك __name__ كيخبّي __count__ ميزات. سوّل المسؤول إلا محتاج شي وحدة منهم.",
+  "appearance": "المظهر",
+  "activities-and-notifications": "الأنشطة والإشعارات",
   "feature-pilot-users-unknown": "تحفظات. ما تلقاوش هاد السميات ديال المستخدمين:",
   "feature-saved": "تحفظات.",
   "card-field-visibility": "خانات البطاقة",

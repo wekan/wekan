@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Lisa profiil",
   "feature-profile-unknown": "Salvestatud. Ei leitud:",
   "feature-profile-notice": "Teie funktsioonide profiil __name__ peidab __count__ funktsiooni. Kui vajate mõnda neist, pöörduge administraatori poole.",
+  "appearance": "Välimus",
+  "activities-and-notifications": "Tegevused ja teated",
   "feature-pilot-users-unknown": "Salvestatud. Neid kasutajanimesid ei leitud:",
   "feature-saved": "Salvestatud.",
   "card-field-visibility": "Kaardi väljad",

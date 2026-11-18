@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Yongeza iprofayile",
   "feature-profile-unknown": "Igciniwe. Ayifumanekanga:",
   "feature-profile-notice": "Iprofayile yakho yeempawu __name__ ifihla iimpawu ezi-__count__. Buza umlawuli ukuba ufuna enye yazo.",
+  "appearance": "Inkangeleko",
+  "activities-and-notifications": "Imisebenzi nezaziso",
   "feature-pilot-users-unknown": "Kugciniwe. La magama abasebenzisi akafunyanwanga:",
   "feature-saved": "Kugciniwe.",
   "card-field-visibility": "Iinkalo zekhadi",

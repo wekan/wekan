@@ -23,7 +23,16 @@ import {
   resolvePaneId,
   adminPath,
   adminRoutePath,
+  movedPanePath,
 } from '/models/lib/adminUrls';
+
+// A pane that moved (models/lib/adminUrls.js MOVED_PANES): its old address
+// redirects to the new one, so a bookmark keeps working. A trigger redirects
+// with the `redirect` it is handed, never FlowRouter.go() (see below).
+const redirectMovedPane = page => (context, redirect) => {
+  const to = movedPanePath(page, (context.params || {}).pane);
+  if (to) redirect(to);
+};
 // The All Boards page's URLs: /allboards/starred, /allboards/templates,
 // /allboards/remaining, /allboards/workspaces/<name>/<sub-name>.
 // docs/Features/All-Boards/URLs.md
@@ -843,6 +852,7 @@ FlowRouter.route('/import/:source', {
 FlowRouter.route(adminRoutePath('settings'), {
   name: 'setting',
   triggersEnter: [
+    redirectMovedPane('settings'),
     ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);
@@ -887,7 +897,8 @@ Object.keys(ADMIN_PAGES).forEach(page => {
   // unknown one falls back to the default rather than 404ing a bookmark.
   FlowRouter.route(`${cfg.legacyBase}/:pane`, {
     triggersEnter: [
-      (context, redirect) => redirect(adminPath(page, (context.params || {}).pane)),
+      (context, redirect) => redirect(movedPanePath(page, (context.params || {}).pane)
+        || adminPath(page, (context.params || {}).pane)),
     ],
     action() {},
   });
@@ -953,6 +964,7 @@ FlowRouter.route(adminRoutePath('people'), {
 FlowRouter.route(adminRoutePath('problems'), {
   name: 'problems',
   triggersEnter: [
+    redirectMovedPane('problems'),
     ensureSignedInUnlessSandstorm,
     () => {
       Session.set('currentBoard', null);

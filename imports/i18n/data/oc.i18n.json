@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Apondre un perfil",
   "feature-profile-unknown": "Salvat. Pas trobat:",
   "feature-profile-notice": "Vòstre perfil de foncionalitats __name__ amaga __count__ foncionalitats. Demandatz a un administrator se n'avètz besonh d'una.",
+  "appearance": "Aparéncia",
+  "activities-and-notifications": "Activitats e notificacions",
   "feature-pilot-users-unknown": "Enregistrat. Aquestes noms d'utilizaire son pas estats trobats:",
   "feature-saved": "Enregistrat.",
   "card-field-visibility": "Camps de las cartas",

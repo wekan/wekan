@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Додати профіль",
   "feature-profile-unknown": "Збережено. Не знайдено:",
   "feature-profile-notice": "Ваш профіль функцій __name__ приховує функцій: __count__. Зверніться до адміністратора, якщо вам потрібна одна з них.",
+  "appearance": "Зовнішній вигляд",
+  "activities-and-notifications": "Діяльність і сповіщення",
   "feature-pilot-users-unknown": "Збережено. Ці імена користувачів не знайдено:",
   "feature-saved": "Збережено.",
   "card-field-visibility": "Поля карток",

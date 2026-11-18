@@ -2836,6 +2836,8 @@
   "feature-profile-add": "प्रोफाइल थप्नुहोस्",
   "feature-profile-unknown": "सुरक्षित गरियो। फेला परेन:",
   "feature-profile-notice": "तपाईंको सुविधा प्रोफाइल __name__ ले __count__ सुविधाहरू लुकाउँछ। तीमध्ये कुनै चाहिएमा प्रशासकलाई सोध्नुहोस्।",
+  "appearance": "रूपरङ",
+  "activities-and-notifications": "गतिविधिहरू र सूचनाहरू",
   "feature-pilot-users-unknown": "सुरक्षित गरियो। यी प्रयोगकर्ता नामहरू फेला परेनन्:",
   "feature-saved": "सुरक्षित गरियो।",
   "card-field-visibility": "कार्डका फिल्डहरू",

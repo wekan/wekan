@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Pridėti profilį",
   "feature-profile-unknown": "Išsaugota. Nerasta:",
   "feature-profile-notice": "Jūsų funkcijų profilis __name__ paslepia __count__ funkcijas (-ų). Jei jums reikia kurios nors iš jų, kreipkitės į administratorių.",
+  "appearance": "Išvaizda",
+  "activities-and-notifications": "Veikla ir pranešimai",
   "feature-pilot-users-unknown": "Išsaugota. Šie naudotojų vardai nerasti:",
   "feature-saved": "Išsaugota.",
   "card-field-visibility": "Kortelių laukai",

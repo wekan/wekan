@@ -2836,6 +2836,8 @@
   "feature-profile-add": "प्रोफाइल जोड़ीं",
   "feature-profile-unknown": "सहेजल गइल। ना मिलल:",
   "feature-profile-notice": "राउर सुविधा प्रोफाइल __name__ __count__ सुविधा छिपावेला। अगर ओह में से कवनो के जरूरत होखे त प्रशासक से पूछीं।",
+  "appearance": "रूप-रंग",
+  "activities-and-notifications": "गतिविधि आ सूचना",
   "feature-pilot-users-unknown": "सहेजा गइल। इस्तेमाल करे वाला के ई नाम ना मिलल:",
   "feature-saved": "सहेजा गइल।",
   "card-field-visibility": "कार्ड के फील्ड",

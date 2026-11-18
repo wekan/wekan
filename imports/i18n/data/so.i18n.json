@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Ku dar muuqaal",
   "feature-profile-unknown": "Waa la kaydiyay. Lama helin:",
   "feature-profile-notice": "Muuqaalkaaga astaamaha __name__ wuxuu qariyaa __count__ astaamood. Weydii maamule haddii aad u baahan tahay mid ka mid ah.",
+  "appearance": "Muuqaalka",
+  "activities-and-notifications": "Dhaqdhaqaaqyo iyo ogeysiisyo",
   "feature-pilot-users-unknown": "Waa la kaydiyey. Magacyadan isticmaalayaasha lama helin:",
   "feature-saved": "Waa la kaydiyey.",
   "card-field-visibility": "Meelaha kaarka",

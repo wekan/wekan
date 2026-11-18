@@ -2836,6 +2836,8 @@
   "feature-profile-add": "प्रोफाइल जोड़ू",
   "feature-profile-unknown": "सुरक्षित भेल। नहि भेटल:",
   "feature-profile-notice": "अहाँक विशेषता प्रोफाइल __name__ __count__ विशेषता नुकबैत अछि। जँ ओहि मे सँ कोनो चाही तँ प्रशासक सँ पूछू।",
+  "appearance": "रूप",
+  "activities-and-notifications": "गतिविधि आ सूचना",
   "feature-pilot-users-unknown": "सुरक्षित कएल गेल। उपयोक्ताक ई नाम नहि भेटल:",
   "feature-saved": "सुरक्षित कएल गेल।",
   "card-field-visibility": "कार्डक फील्ड",

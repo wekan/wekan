@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Profil əlavə et",
   "feature-profile-unknown": "Saxlanıldı. Tapılmadı:",
   "feature-profile-notice": "Xüsusiyyət profiliniz __name__ __count__ xüsusiyyəti gizlədir. Onlardan birinə ehtiyacınız varsa, administratordan soruşun.",
+  "appearance": "Görünüş",
+  "activities-and-notifications": "Fəaliyyətlər və bildirişlər",
   "feature-pilot-users-unknown": "Saxlanıldı. Bu istifadəçi adları tapılmadı:",
   "feature-saved": "Saxlanıldı.",
   "card-field-visibility": "Kart sahələri",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "הוספת פרופיל",
   "feature-profile-unknown": "נשמר. לא נמצא:",
   "feature-profile-notice": "פרופיל התכונות שלך __name__ מסתיר __count__ תכונות. יש לפנות למנהל המערכת אם אחת מהן נחוצה לך.",
+  "appearance": "מראה",
+  "activities-and-notifications": "פעילויות והודעות",
   "feature-pilot-users-unknown": "נשמר. שמות המשתמש הבאים לא נמצאו:",
   "feature-saved": "נשמר.",
   "card-field-visibility": "שדות הכרטיס",

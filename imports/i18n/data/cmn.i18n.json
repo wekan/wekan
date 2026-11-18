@@ -2836,6 +2836,8 @@
   "feature-profile-add": "添加配置",
   "feature-profile-unknown": "已保存。未找到：",
   "feature-profile-notice": "您的功能配置 __name__ 隐藏了 __count__ 项功能。如需其中某项功能，请联系管理员。",
+  "appearance": "外观",
+  "activities-and-notifications": "活动与通知",
   "feature-pilot-users-unknown": "已保存。未找到以下用户名：",
   "feature-saved": "已保存。",
   "card-field-visibility": "卡片字段",

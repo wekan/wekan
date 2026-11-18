@@ -2836,6 +2836,8 @@
   "feature-profile-add": "প্রোফাইল যোগ করুন",
   "feature-profile-unknown": "সংরক্ষিত। পাওয়া যায়নি:",
   "feature-profile-notice": "আপনার বৈশিষ্ট্য প্রোফাইল __name__ __count__টি বৈশিষ্ট্য লুকিয়ে রাখে। এগুলোর কোনোটি দরকার হলে একজন অ্যাডমিনকে জিজ্ঞাসা করুন।",
+  "appearance": "চেহারা",
+  "activities-and-notifications": "কার্যকলাপ ও বিজ্ঞপ্তি",
   "feature-pilot-users-unknown": "সংরক্ষিত হয়েছে। এই ব্যবহারকারীর নামগুলো পাওয়া যায়নি:",
   "feature-saved": "সংরক্ষিত হয়েছে।",
   "card-field-visibility": "কার্ডের ক্ষেত্র",

@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Adhibir perfil",
   "feature-profile-unknown": "Alzau. No trobau:",
   "feature-profile-notice": "O tuyo perfil de funcions __name__ amaga __count__ funcions. Pregunta a un administrador si te fa falta bella una d'ellas.",
+  "appearance": "Aparencia",
+  "activities-and-notifications": "Actividatz y notificacions",
   "feature-pilot-users-unknown": "Alzau. No s'han trobau estes nombres d'usuario:",
   "feature-saved": "Alzau.",
   "card-field-visibility": "Campos d'as tarchetas",

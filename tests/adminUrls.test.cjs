@@ -153,7 +153,8 @@ test('every pane is named in the URL, the default one included', () => {
   assert.strictEqual(adminPath('settings', 'version-setting'), '/admin/settings/version');
   assert.strictEqual(ADMIN_PAGES.people.defaultSlug, 'email');
   assert.strictEqual(adminPath('people', 'registration-setting'), '/admin/people/login');
-  assert.strictEqual(adminPath('settings', 'tableVisibilityMode-setting'), '/admin/settings/visibility');
+  // Visibility became Appearance on 2026-11-19 (the old address redirects).
+  assert.strictEqual(adminPath('settings', 'tableVisibilityMode-setting'), '/admin/settings/appearance');
   assert.strictEqual(adminPath('settings', 'webhook-setting'), '/admin/settings/global-webhooks');
 });
 

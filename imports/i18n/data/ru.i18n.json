@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Добавить профиль",
   "feature-profile-unknown": "Сохранено. Не найдено:",
   "feature-profile-notice": "Ваш профиль функций __name__ скрывает функций: __count__. Обратитесь к администратору, если вам нужна одна из них.",
+  "appearance": "Внешний вид",
+  "activities-and-notifications": "Действия и уведомления",
   "feature-pilot-users-unknown": "Сохранено. Эти имена пользователей не найдены:",
   "feature-saved": "Сохранено.",
   "card-field-visibility": "Поля карточек",

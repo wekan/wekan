@@ -2836,6 +2836,8 @@
   "feature-profile-add": "បន្ថែមប្រវត្តិរូប",
   "feature-profile-unknown": "បានរក្សាទុក។ រកមិនឃើញ៖",
   "feature-profile-notice": "ប្រវត្តិរូបលក្ខណៈពិសេសរបស់អ្នក __name__ លាក់លក្ខណៈពិសេសចំនួន __count__។ សូមសួរអ្នកគ្រប់គ្រង ប្រសិនបើអ្នកត្រូវការណាមួយក្នុងចំណោមវា។",
+  "appearance": "រូបរាង",
+  "activities-and-notifications": "សកម្មភាព និងការជូនដំណឹង",
   "feature-pilot-users-unknown": "បានរក្សាទុក។ រកមិនឃើញឈ្មោះអ្នកប្រើប្រាស់ទាំងនេះទេ៖",
   "feature-saved": "បានរក្សាទុក។",
   "card-field-visibility": "វាលកាត",

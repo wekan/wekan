@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Профиль эбэр",
   "feature-profile-unknown": "Хаалларылынна. Көстүбэтэ:",
   "feature-profile-notice": "Эн __name__ функциялар профилыҥ __count__ функцияны кистиир. Ханныгын эмэ наадыйар буоллаххына салайааччыттан ыйыт.",
+  "appearance": "Тас көстүү",
+  "activities-and-notifications": "Дьайыылар уонна биллэриилэр",
   "feature-pilot-users-unknown": "Хараллан хаалла. Бу туһанааччылар ааттара көстүбэтилэр:",
   "feature-saved": "Хараллан хаалла.",
   "card-field-visibility": "Карточка паалалара",

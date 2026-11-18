@@ -298,19 +298,10 @@ Template.adminProblems.onDestroyed(function () {
 // are now the single .js-left-menu-item one below.
 const PROBLEMS_MENU = [
   { id: 'report-summary', icon: 'fa-list', labelKey: 'summary' },
-  { separator: true },
-  // Two groups, each named by a heading rather than by another entry: there is
-  // nothing to click on a group title (docs/Features/All-Boards/Left-Menu.md). Both use an
-  // i18n key the app already has.
-  { heading: true, labelKey: 'settings' },
-  // Moved here from Admin Panel / Features. They are settings rather than reports -
-  // which is what this heading says - but they are what an admin reaches for when
-  // something is unsafe or noisy, which is what this page is about. Performance
-  // sits with the reports below, beside the Speed / Tests / CPU usage streams it is
-  // about.
-  { id: 'features-security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
-  { id: 'features-delete', icon: 'fa-trash', labelKey: 'delete' },
-  { id: 'features-notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
+  // Security, Delete and Notifications were a "Settings" group here; they are
+  // settings, not problems, and moved to Admin Panel / Settings on 2026-11-19
+  // (Security, Activities and notifications, Delete). Their old addresses
+  // redirect there (models/lib/adminUrls.js MOVED_PANES).
   // Did last night's backup work? The status and history of the Admin Panel
   // backup (backupRunsStatus.jade), with a link to its settings in Attachments /
   // Backup. A failed or overdue backup is also listed on Summary.
@@ -535,7 +526,7 @@ function switchMenu(event, tmpl) {
 // nothing to fetch. Everything else falls through to loadReport().
 const SELF_LOADING_PANES = [
   'report-summary',
-  'features-performance', 'features-security', 'features-delete', 'features-notifications',
+  'features-performance',
   // backupRunsStatus.jade loads its own data (the backupHistory method).
   'features-backup',
   'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-ram', 'report-disk',

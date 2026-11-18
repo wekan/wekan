@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Ychwanegu proffil",
   "feature-profile-unknown": "Wedi'i gadw. Heb ei ganfod:",
   "feature-profile-notice": "Mae eich proffil nodweddion __name__ yn cuddio __count__ nodwedd. Gofynnwch i weinyddwr os oes angen un ohonynt arnoch.",
+  "appearance": "Golwg",
+  "activities-and-notifications": "Gweithgareddau a hysbysiadau",
   "feature-pilot-users-unknown": "Wedi cadw. Ni chanfuwyd yr enwau defnyddwyr hyn:",
   "feature-saved": "Wedi cadw.",
   "card-field-visibility": "Meysydd cardiau",

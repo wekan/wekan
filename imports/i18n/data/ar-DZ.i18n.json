@@ -2836,6 +2836,8 @@
   "feature-profile-add": "زيد ملف",
   "feature-profile-unknown": "تحفظ. ما لقيناش:",
   "feature-profile-notice": "ملف الميزات تاعك __name__ يخبّي __count__ ميزات. اسقسي المسؤول إذا تحتاج وحدة منهم.",
+  "appearance": "المظهر",
+  "activities-and-notifications": "الأنشطة والإشعارات",
   "feature-pilot-users-unknown": "تم الحفظ. لم يُعثر على أسماء المستخدمين التالية:",
   "feature-saved": "تم الحفظ.",
   "card-field-visibility": "حقول البطاقة",

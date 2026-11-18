@@ -42,7 +42,7 @@ test.describe('Instance features', () => {
     const saved = setting();
     try {
       await loginWithToken(page, adminUser.id, adminUser.token);
-      await navigateInApp(page, '/admin/settings/visibility');
+      await navigateInApp(page, '/admin/settings/features');
       await waitForMeteor(page);
       const row = page.locator('.js-feature-row[data-feature="views-map"]');
       await expect(row).toBeVisible();
@@ -61,7 +61,7 @@ test.describe('Instance features', () => {
   });
 
   test('an ordinary member does not see the Features group', async ({ loggedInPage: page }) => {
-    await navigateInApp(page, '/admin/settings/visibility');
+    await navigateInApp(page, '/admin/settings/features');
     await waitForMeteor(page);
     await expect(page.locator('.js-feature-row')).toHaveCount(0);
   });

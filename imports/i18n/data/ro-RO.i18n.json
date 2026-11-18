@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Adaugă profil",
   "feature-profile-unknown": "Salvat. Negăsit:",
   "feature-profile-notice": "Profilul tău de funcționalități __name__ ascunde __count__ funcționalități. Cere unui administrator dacă ai nevoie de una dintre ele.",
+  "appearance": "Aspect",
+  "activities-and-notifications": "Activități și notificări",
   "feature-pilot-users-unknown": "Salvat. Aceste nume de utilizator nu au fost găsite:",
   "feature-saved": "Salvat.",
   "card-field-visibility": "Câmpurile cardurilor",

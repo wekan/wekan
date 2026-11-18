@@ -2836,6 +2836,8 @@
   "feature-profile-add": "Ližada profil",
   "feature-profile-unknown": "Kaičetud. Ei löutud:",
   "feature-profile-notice": "Teiden ominazusiden profil __name__ peitab __count__ ominazust. Küzugat administratoralpäi, ku teile tarbiž üks niišpäi.",
+  "appearance": "Nägu",
+  "activities-and-notifications": "Tegendad i tedotuzed",
   "feature-pilot-users-unknown": "Kaičedud. Neciš kävutajiden nimiš ei löütnu:",
   "feature-saved": "Kaičedud.",
   "card-field-visibility": "Kartan pöudad",
