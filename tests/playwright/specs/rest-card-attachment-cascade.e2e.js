@@ -146,6 +146,22 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
   else await details.close();
   const before = await upload(card, 'removed.png');
   if (targetsWeLite) {
+    const rename = page.locator('form[action^="/board/attachment/rename"]');
+    const input = rename.getByRole('textbox', { name: 'Rename' });
+    await expect(input).toHaveValue('removed');
+    const action = new URL(await rename.getAttribute('action'), page.url());
+    action.searchParams.set('sessionId', new URL(page.url()).searchParams.get('sessionId'));
+    const rejected = await request.post(action.href, { form: { name: 'unapproved' } });
+    expect(rejected.status()).toBe(403);
+    expect(db.findOne('attachments', { _id: before._id })).toEqual(before);
+    await input.fill('renamed');
+    await rename.getByRole('button', { name: 'Save', exact: true }).click();
+    await expect(attachment(page, 'renamed.png')).toBeVisible();
+    await expect(attachment(page, 'removed.png')).toHaveCount(0);
+    expect(db.findOne('attachments', { _id: before._id })).toEqual({ ...before, name: 'renamed.png' });
+    const renamed = await request.get(`/api/attachment/download/${before._id}?raw=1`, { headers: headers(user.token) });
+    expect(renamed.status()).toBe(200);
+    expect(await renamed.body()).toEqual(png);
     await returnToBoard(page, user, board);
     await page.locator(`input[name="sel_card"][value="${card._id}"]`).check();
     await page.locator('input[name="action_delete"]').click();
