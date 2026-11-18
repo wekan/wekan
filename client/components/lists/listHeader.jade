@@ -253,10 +253,11 @@ template(name="listActionPopup")
               a.js-select-cards
                 i.fa.fa-select-square
                 | {{_ 'list-select-cards'}}
-            li
-              a.js-archive-list-cards
-                i.fa.fa-archive
-                | {{_ 'list-archive-cards'}}
+            if mayWriteList
+              li
+                a.js-archive-list-cards
+                  i.fa.fa-archive
+                  | {{_ 'list-archive-cards'}}
         if currentUser.isBoardAdmin
           ul.pop-over-list
             li
@@ -301,13 +302,14 @@ template(name="listActionPopup")
                 i.fa.fa-arrow-right
                 | {{_ 'moveListPopup-title'}}
         unless currentUser.isWorker
-          hr
-          ul.pop-over-list
-            li
-              a.js-close-list
-                i.fa.fa-arrow-right
-                i.fa.fa-archive
-                | {{_ 'archive-list'}}
+          if mayWriteList
+            hr
+            ul.pop-over-list
+              li
+                a.js-close-list
+                  i.fa.fa-arrow-right
+                  i.fa.fa-archive
+                  | {{_ 'archive-list'}}
         hr
         ul.pop-over-list
           li

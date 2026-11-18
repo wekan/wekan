@@ -6,7 +6,8 @@ import CardComments from '/models/cardComments';
 import Lists from '/models/lists';
 import { allowIsBoardAdminOrSiteAdmin } from '/server/lib/utils';
 import { tripCanaryDeny } from '/server/lib/canary';
-import { listException } from '/server/lib/listPermissionGate';
+import Swimlanes from '/models/swimlanes';
+import { listException, swimlaneRefusingListIds } from '/server/lib/listPermissionGate';
 
 // #4527 (decided 2026-10-14: per-list exceptions on top of the role matrix).
 // models/lib/listPermissions.js decides; these rules apply it to every way a
@@ -32,6 +33,38 @@ Lists.deny({
     return tripCanaryDeny('list.role-exceptions-direct', { userId });
   },
   fetch: [],
+});
+
+// Decided 2026-11-18 (TODO.md): archiving, restoring, deleting or moving a
+// list does the same to its cards, so a list that refuses this role a write
+// refuses those too. A rename, colour or reorder (sort) is not one of them. A
+// board admin is never restricted (exceptionFor). Deny only: the board's own
+// Lists rules decide everything else.
+const LIST_CARD_FIELDS = ['archived', 'archivedAt', 'deletedAt', 'deletedBy', 'deleteBatchId', 'swimlaneId', 'boardId'];
+Lists.deny({
+  async update(userId, doc, fieldNames) {
+    if (!fieldNames.some(field => LIST_CARD_FIELDS.includes(field))) return false;
+    return (await listException(userId, await boardOf(doc.boardId), doc._id, 'write')) === false;
+  },
+  async remove(userId, doc) {
+    return (await listException(userId, await boardOf(doc.boardId), doc._id, 'write')) === false;
+  },
+  fetch: ['boardId'],
+});
+
+// The same for a swimlane: archiving, deleting or moving it does the same to
+// the cards in it, so any list holding them - or bound to it - that refuses
+// this role refuses the swimlane change.
+const SWIMLANE_CARD_FIELDS = ['archived', 'archivedAt', 'boardId'];
+Swimlanes.deny({
+  async update(userId, doc, fieldNames) {
+    if (!fieldNames.some(field => SWIMLANE_CARD_FIELDS.includes(field))) return false;
+    return (await swimlaneRefusingListIds(userId, await boardOf(doc.boardId), doc._id)).length > 0;
+  },
+  async remove(userId, doc) {
+    return (await swimlaneRefusingListIds(userId, await boardOf(doc.boardId), doc._id)).length > 0;
+  },
+  fetch: ['boardId'],
 });
 
 Cards.allow({

@@ -19,6 +19,7 @@ import { listsToUnbind } from '/models/lib/listUnbindRepair';
 import ChangeHistory from '/models/changeHistory';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
+import { assertListNotRefused, assertListsWritable } from '/server/lib/listPermissionGate';
 // ErrorBleed: refusals answer with their real status and a safe message.
 const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
@@ -87,6 +88,9 @@ Meteor.methods({
     if (!hasBoardWriteAccess(this.userId, board)) {
       throw new Meteor.Error('not-authorized', 'You cannot modify this board.');
     }
+    // Decided 2026-11-18 (TODO.md): a list that refuses this role a write
+    // refuses deleting or restoring it, with its cards (#4527).
+    await assertListsWritable(this.userId, board, [list._id]);
     if (list.deletedAt) {
       return { deleted: true, batchId: list.deleteBatchId }; // already soft-deleted
     }
@@ -108,6 +112,9 @@ Meteor.methods({
     if (!hasBoardWriteAccess(this.userId, board)) {
       throw new Meteor.Error('not-authorized', 'You cannot modify this board.');
     }
+    // Decided 2026-11-18 (TODO.md): a list that refuses this role a write
+    // refuses deleting or restoring it, with its cards (#4527).
+    await assertListsWritable(this.userId, board, [list._id]);
     const batchId = list.deleteBatchId;
     await Lists.updateAsync(list._id, restoreModifier());
     if (batchId) {
@@ -399,6 +406,10 @@ Meteor.methods({
     if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId)) {
       throw new Meteor.Error('not-authorized', 'You cannot copy or move this list.');
     }
+
+    // Decided 2026-11-18 (TODO.md): a list that refuses this role a write
+    // refuses moving it, with its cards (#4527).
+    await assertListsWritable(this.userId, sourceBoard, [list._id]);
 
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
       ? title.trim()
@@ -987,6 +998,8 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
       sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
       return;
     }
+    // A list refusing this role refuses deleting it (decided 2026-11-18, #4527).
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), list._id, 'write', 'rest:list-delete');
     await softRemoveList({ userId: req.userId, list });
     sendJsonResult(res, { code: 200, data: { _id: paramListId } });
   } catch (error) {
@@ -1006,6 +1019,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/archive', async functio
       sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
       return;
     }
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), list._id, 'write', 'rest:list-archive');
     await list.archive();
     sendJsonResult(res, { code: 200, data: { _id: paramListId, archived: true } });
   } catch (error) {
@@ -1023,6 +1037,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/unarchive', async funct
       sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
       return;
     }
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), list._id, 'write', 'rest:list-unarchive');
     await list.restore();
     sendJsonResult(res, { code: 200, data: { _id: paramListId, archived: false } });
   } catch (error) {
@@ -1082,6 +1097,7 @@ WebApp.handlers.post(
       sendJsonResult(res, { code: 404, data: { error: 'List not found' } });
       return;
     }
+    await assertListNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId), list._id, 'write', 'rest:list-move');
     if (toBoardId === paramBoardId) {
       // Same-board move is purely a reposition (and optional swimlane change).
       if (req.body.toSwimlaneId) {

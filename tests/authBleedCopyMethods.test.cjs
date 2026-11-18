@@ -134,6 +134,8 @@ const requireStub = name => {
   // CreateBleed's guard (tests/createBleed.test.cjs): creating is allowed here,
   // so these tests see the copy methods' own checks.
   if (name === '/server/lib/boardCreationGuard') return { assertMayCreateBoard: async () => {} };
+  // The per-list exception passes here (tests/listLockStructure.test.cjs).
+  if (name === '/server/lib/listPermissionGate') return { assertSwimlaneListsWritable: async () => {} };
   throw new Error(`unexpected require ${name}`);
 };
 

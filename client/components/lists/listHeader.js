@@ -11,6 +11,7 @@ import { LIST_COLORS } from '/models/metadata/colors';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { listCan } from '/models/lib/listPermissions';
 import { lazyListCardCount } from '/client/lib/lazyCards';
 import { currentUserWith } from '/client/lib/currentUserWith';
 import {
@@ -453,6 +454,16 @@ Template.listHeader.events({
 Template.listActionPopup.helpers({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
+  },
+
+  // Decided 2026-11-18 (TODO.md): a list that refuses the viewer's role a
+  // write (#4527) also refuses archiving it and archiving its cards, so the
+  // menu does not offer them (server/listPermissions.js refuses them anyway).
+  mayWriteList() {
+    const list = Template.currentData();
+    if (!list || !list.roleExceptions) return true;
+    const board = ReactiveCache.getBoard(list.boardId);
+    return !!(board && listCan(board, list, Meteor.userId(), 'write'));
   },
 
   isWipLimitEnabled() {

@@ -1,4 +1,5 @@
 import Lists from '/models/lists';
+import Cards from '/models/cards';
 import { allowIsBoardMemberWithWriteAccess, allowIsBoardMemberCommentOnly } from '/server/lib/utils';
 
 // #4527: the server half of per-list exceptions (models/lib/listPermissions.js
@@ -86,5 +87,34 @@ export async function assertListsWritable(userId, board, listIds, capability = '
       const { Meteor } = require('meteor/meteor');
       throw new Meteor.Error('not-authorized', 'This list does not allow your role to do that.');
     }
+  }
+}
+
+/**
+ * Decided 2026-11-18 (TODO.md): deleting, archiving or moving a swimlane does
+ * the same to every card in it, so a list holding its cards - or bound to it -
+ * that refuses this user's role refuses the swimlane change too (#4527). The
+ * ids of the refusing lists; none for a board admin.
+ */
+export async function swimlaneRefusingListIds(userId, board, swimlaneId) {
+  if (!userId || !board || typeof swimlaneId !== 'string' || !swimlaneId) return [];
+  const withCards = await Cards.rawCollection().distinct('listId', { boardId: board._id, swimlaneId });
+  const bound = await Lists.rawCollection().distinct('_id', { boardId: board._id, swimlaneId });
+  const refusing = [];
+  for (const listId of new Set([...withCards, ...bound].filter(id => typeof id === 'string' && id))) {
+    if ((await listException(userId, board, listId, 'write')) === false) refusing.push(listId);
+  }
+  return refusing;
+}
+
+/** The method half: not-authorized, unrecorded (assertListsWritable). */
+export async function assertSwimlaneListsWritable(userId, board, swimlaneId) {
+  await assertListsWritable(userId, board, await swimlaneRefusingListIds(userId, board, swimlaneId));
+}
+
+/** The REST half: 403, recorded as ListLockBleed (assertListNotRefused). */
+export async function assertSwimlaneListsNotRefused(userId, board, swimlaneId, source) {
+  for (const listId of await swimlaneRefusingListIds(userId, board, swimlaneId)) {
+    await assertListNotRefused(userId, board, listId, 'write', source);
   }
 }

@@ -41,7 +41,7 @@ test('reported moveList attack is refused before any move or archive', async () 
   const end = source.indexOf('    // #6670:', at);
   const prefix = source.slice(source.indexOf('\n', at) + 1, end);
   const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
-  const run = new AsyncFunction('listId', 'boardId', 'swimlaneId', 'neighborListId', 'position', 'title', 'check', 'Match', 'Meteor', 'ReactiveCache', 'Boards', 'requireBoardMutation', 'require', prefix);
+  const run = new AsyncFunction('listId', 'boardId', 'swimlaneId', 'neighborListId', 'position', 'title', 'check', 'Match', 'Meteor', 'ReactiveCache', 'Boards', 'requireBoardMutation', 'require', 'assertListsWritable', prefix);
   // moveList also asks the copy-scope rule (AssignedBleed copy sibling).
   const appRequire = name => require(path.join(root, `${name}.js`));
   const board = flag => ({ members: [{ userId: 'u', isActive: true, ...flag }] });
@@ -52,7 +52,9 @@ test('reported moveList attack is refused before any move or archive', async () 
     const call = run.call({ userId: 'u' }, 'l', 'b', '', null, null, null,
       () => {}, { OneOf() {} }, Meteor,
       { getList: async () => ({ boardId: 'a', title: 'L' }), getBoard: async () => board(targetRole) },
-      { findOneAsync: async () => board(sourceRole) }, loadGuard(logs), appRequire);
+      { findOneAsync: async () => board(sourceRole) }, loadGuard(logs), appRequire,
+      // The per-list exception (decided 2026-11-18) passes: tests/listLockStructure.test.cjs.
+      async () => {});
     if (denied) await assert.rejects(call, { error: 'not-authorized' });
     else await call;
     assert.equal(logs.length, denied ? 1 : 0);

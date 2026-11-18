@@ -51,6 +51,9 @@ Meteor.methods({
     if (!swimlane) throw new Meteor.Error('not-found');
     const sourceBoard = await Boards.findOneAsync(swimlane.boardId);
     requireBoardMutation(this.userId, sourceBoard, 'moveSwimlane:source', Meteor);
+    // Moving a swimlane moves its cards: a list holding them that refuses this
+    // role refuses it (decided 2026-11-18, #4527).
+    await require('/server/lib/listPermissionGate').assertSwimlaneListsWritable(this.userId, sourceBoard, swimlaneId);
     // As copySwimlane: a swimlane holds cards an assigned-only member cannot
     // see, and moving it shows them on the destination (GHSA-r4gm-mjj9-g3x8).
     if (!require('/models/lib/boardCardScope').mayCopyFromBoard(sourceBoard, this.userId))

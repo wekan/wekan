@@ -104,7 +104,10 @@ async function call(file, verb, route, { params, body = {}, cache = {}, extra = 
     extractErrorMessage: error => String(error.message),
     sendJsonResult(_res, result) { responses.push(plain(result)); },
     check(value) { if (typeof value !== 'string') throw new Error('Match failed'); },
-    require: () => ({ record() {} }),
+    // The per-list role exception gates (decided 2026-11-18) pass here: these
+    // routes' list refusals are tested in tests/listLockStructure.test.cjs.
+    require: () => ({ record() {}, async assertSwimlaneListsNotRefused() {}, async assertListNotRefused() {} }),
+    async assertListNotRefused() {},
     Random: { id: () => 'rnd' },
     writes,
     ...extra(writes),

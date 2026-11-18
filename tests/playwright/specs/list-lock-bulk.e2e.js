@@ -86,3 +86,27 @@ test('a list refusing a role write refuses its cards\' dependency lines', async 
   expect((await request.post(route(open), json(user2.token, { cardId: other._id }))).status()).toBe(200);
   expect((await request.post(route(locked), json(user.token, { cardId: other._id }))).status()).toBe(200);
 });
+
+// Decided 2026-11-18 (TODO.md): a refusing list also refuses archiving and
+// deleting it, and deleting a swimlane that holds its cards.
+test('a list refusing a role write refuses archiving and deleting it, and its swimlane', async ({ request, board, user, user2 }) => {
+  const original = db.getBoard(board.boardId).members;
+  const [lockedListId, openListId] = board.listIds;
+  db.updateOne('boards', { _id: board.boardId }, { $set: {
+    members: [...original.filter(m => m.userId !== user2.id), { userId: user2.id, isActive: true, isAdmin: false }],
+  } });
+  db.updateOne('lists', { _id: lockedListId }, { $set: { roleExceptions: { normal: { write: false } } } });
+  const lists = `/api/boards/${board.boardId}/lists`;
+  expect((await request.post(`${lists}/${lockedListId}/archive`, { headers: auth(user2.token) })).status()).toBe(403);
+  expect((await request.delete(`${lists}/${lockedListId}`, { headers: auth(user2.token) })).status()).toBe(403);
+  expect((await request.delete(`/api/boards/${board.boardId}/swimlanes/${board.swimlaneId}`, { headers: auth(user2.token) })).status()).toBe(403);
+  expect(db.findOne('lists', { _id: lockedListId })).toMatchObject({ archived: false });
+  expect(db.findOne('lists', { _id: lockedListId }).deletedAt || null).toBe(null);
+  expect(db.findOne('swimlanes', { _id: board.swimlaneId })).toBeTruthy();
+  for (const source of ['rest:list-archive', 'rest:list-delete', 'rest:swimlane-delete']) {
+    await expect.poll(() => db.findOne('eventlog', { bleed: 'ListLockBleed', source })?.count || 0, source).toBeGreaterThan(0);
+  }
+  // Negative: the member archives the open list; the board admin archives the locked one.
+  expect((await request.post(`${lists}/${openListId}/archive`, { headers: auth(user2.token) })).status()).toBe(200);
+  expect((await request.post(`${lists}/${lockedListId}/archive`, { headers: auth(user.token) })).status()).toBe(200);
+});

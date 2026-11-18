@@ -267,6 +267,10 @@ WebApp.handlers.delete('/api/boards/:boardId/swimlanes/:swimlaneId', async funct
     if (!swimlane) {
       throw new Meteor.Error('not-found', 'Swimlane not found');
     }
+    // Deleting a swimlane removes its cards: a list holding them that refuses
+    // this role refuses it (decided 2026-11-18, #4527).
+    await require('/server/lib/listPermissionGate').assertSwimlaneListsNotRefused(req.userId,
+      await ReactiveCache.getBoard(paramBoardId), paramSwimlaneId, 'rest:swimlane-delete');
     await Swimlanes.removeAsync({ _id: paramSwimlaneId, boardId: paramBoardId });
     sendJsonResult(res, {
       code: 200,
