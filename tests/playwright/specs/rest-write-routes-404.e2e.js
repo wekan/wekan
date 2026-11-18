@@ -11,6 +11,9 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 
@@ -51,20 +54,34 @@ test('negative: a card named with the wrong list keeps its checklist and stays o
     const checklistId = db.uid('checklist');
     db.insertOne('checklists', { _id: checklistId, boardId: seeded.boardId, cardId, title: 'Steps', sort: 0, createdAt: new Date(), modifiedAt: new Date() });
     const wrong = `/api/boards/${seeded.boardId}/lists/${seeded.listIds[1]}/cards/${cardId}`;
+    if (targetsWeLite) await openWeLiteBoard(page, user, seeded.boardId);
     await expect404(await request.delete(wrong, h), 'Card not found');
     expect(db.findOne('cards', { _id: cardId })).not.toBeNull();
     expect(db.findOne('checklists', { _id: checklistId })).not.toBeNull();
 
-    const { loginWithToken, openBoard } = require('../helpers/auth');
-    await loginWithToken(page, user.id, user.token);
-    await openBoard(page, seeded.boardId, seeded.slug);
-    await expect(page.locator('.js-minicard', { hasText: 'Keep my checklist' })).toHaveCount(1);
+    const cardLink = page.getByRole('link', { name: 'Keep my checklist', exact: true });
+    if (targetsWeLite) {
+      await expect(cardLink).toHaveCount(1);
+      await cardLink.click();
+      await expect(page.getByRole('heading', { name: 'Steps', exact: true })).toBeVisible();
+      await page.getByRole('link', { name: 'Board', exact: true }).click();
+    } else {
+      const { loginWithToken, openBoard } = require('../helpers/auth');
+      await loginWithToken(page, user.id, user.token);
+      await openBoard(page, seeded.boardId, seeded.slug);
+      await expect(page.locator('.js-minicard', { hasText: 'Keep my checklist' })).toHaveCount(1);
+    }
 
     const right = `/api/boards/${seeded.boardId}/lists/${seeded.listIds[0]}/cards/${cardId}`;
     expect((await request.delete(right, h)).status()).toBe(200);
     expect(db.findOne('cards', { _id: cardId })).toBeNull();
     expect(db.findOne('checklists', { _id: checklistId })).toBeNull();
     await expect404(await request.delete(right, h), 'Card not found');
+    if (targetsWeLite) {
+      await page.reload();
+      await expect(cardLink).toHaveCount(0);
+      expect(await page.context().cookies()).toEqual([]);
+    }
   } finally { db.cleanup({ boardIds: [seeded.boardId] }); }
 });
 
