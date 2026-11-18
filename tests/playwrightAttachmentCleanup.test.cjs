@@ -10,6 +10,8 @@ const records = [
 ];
 const sandbox = { module: { exports: {} }, process, __dirname: require('node:path').resolve('tests/playwright/helpers'),
   require(name) {
+    // db.js requires its sibling helpers relative to itself, not to this test.
+    if (name.startsWith('./')) return require(require('node:path').join(sandbox.__dirname, name));
     if (name !== 'child_process') return require(name);
     return { execFileSync(_node, _args, options) {
       for (const op of EJSON.parse(options.input).ops) {
