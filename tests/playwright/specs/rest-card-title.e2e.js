@@ -3,19 +3,32 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const cardPath = card => `/api/boards/${card.boardId}/lists/${card.listId}/cards/${card._id}`;
 const auth = user => ({ Authorization: `Bearer ${user.token}` });
 
-test('REST clears a card title in JSON and form requests and updates the board', async ({ boardPage: page, request, user, board }) => {
+test('REST clears a card title in JSON and form requests and updates the board', async ({ page, request, user, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const path = cardPath(card);
   const headers = auth(user);
-  const titles = new BoardPage(page).cardTitlesInList(card.listId);
+  if (targetsWeLite) {
+    await openWeLiteBoard(page, user, board.boardId);
+  } else {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
+  const titles = targetsWeLite
+    ? page.locator(`a[href^="/board/card?"][href*="&card=${encodeURIComponent(card._id)}&"]`)
+    : new BoardPage(page).cardTitlesInList(card.listId);
 
   for (const format of ['data', 'form']) {
     const rename = await request.put(path, { headers, data: { title: 'Title to clear' } });
     expect(rename.status()).toBe(200);
+    if (targetsWeLite) await page.reload();
     await expect(titles).toHaveText(['Title to clear']);
 
     const clear = await request.put(path, { headers, [format]: { title: '' } });
@@ -26,8 +39,11 @@ test('REST clears a card title in JSON and form requests and updates the board',
     const read = await request.get(path, { headers });
     expect(read.status()).toBe(200);
     expect((await read.json()).title).toBe('');
+    if (targetsWeLite) await page.reload();
     await expect(titles).toHaveText(['']);
   }
+
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 
   const repeatClear = await request.put(path, { headers, data: { title: '' } });
   expect(repeatClear.status()).toBe(200);
