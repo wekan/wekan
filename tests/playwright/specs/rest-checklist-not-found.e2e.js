@@ -5,6 +5,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const checklistPath = (boardId, cardId, checklistId = '') =>
@@ -62,22 +66,41 @@ test('missing and existing checklist IDs preserve board access and authenticatio
   }
 });
 
-test('a failed checklist read leaves the real checklist and its item visible in the card', async ({ request, user, board, boardPage }) => {
+test('a failed checklist read leaves the real checklist and its item visible in the card', async ({ request, user, board, page }) => {
+  if (targetsWeLite) {
+    await openWeLiteBoard(page, user, board.boardId);
+  } else {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const checklist = await createChecklist(request, user, board);
-  const bp = new BoardPage(boardPage);
-  const cp = new CardPage(boardPage);
-  await bp.clickCard(board.listIds[0], 'Alpha Card');
-  await cp.waitForOpen();
-  await expect(cp.root.locator('.checklist-title').filter({ hasText: 'Retained REST checklist' })).toBeVisible();
-  await expect(cp.root.locator('.js-checklist-item').filter({ hasText: 'Retained REST item' })).toBeVisible();
+  const bp = new BoardPage(page);
+  const cp = new CardPage(page);
+  if (targetsWeLite) {
+    await page.getByRole('link', { name: 'Alpha Card', exact: true }).click();
+  } else {
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+  }
+  const title = targetsWeLite
+    ? page.getByRole('heading', { name: 'Retained REST checklist', exact: true })
+    : cp.root.locator('.checklist-title').filter({ hasText: 'Retained REST checklist' });
+  const item = targetsWeLite
+    ? page.getByText('Retained REST item', { exact: true })
+    : cp.root.locator('.js-checklist-item').filter({ hasText: 'Retained REST item' });
+  await expect(title).toBeVisible();
+  await expect(item).toBeVisible();
 
   const response = await request.get(checklistPath(board.boardId, checklist.card._id, 'missing-checklist'), { headers: headers(user.token) });
   expect(response.status()).toBe(404);
-  await boardPage.reload();
-  // Open-card state belongs to the page session, so reopen after a reload.
-  await bp.clickCard(board.listIds[0], 'Alpha Card');
-  await cp.waitForOpen();
-  await cp.root.locator('.checklist-title').filter({ hasText: 'Retained REST checklist' }).scrollIntoViewIfNeeded();
-  await expect(cp.root.locator('.checklist-title').filter({ hasText: 'Retained REST checklist' })).toBeVisible();
-  await expect(cp.root.locator('.js-checklist-item').filter({ hasText: 'Retained REST item' })).toBeVisible();
+  await page.reload();
+  if (!targetsWeLite) {
+    // Open-card state belongs to the page session.
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+    await title.scrollIntoViewIfNeeded();
+  }
+  await expect(title).toBeVisible();
+  await expect(item).toBeVisible();
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
