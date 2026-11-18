@@ -20,31 +20,22 @@ the changelog only says what changed.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 
-## Needs a maintainer decision on the intended contract
+## Decided, to build
 
-- [#6837](https://github.com/wekan/wekan/issues/6837) (a Simple and an Advanced
-  mode, or profiles an administrator defines and assigns, to hide features from
-  new users: which features each mode or profile shows, who chooses it, and how
-  it relates to the existing per-board Board Settings / Card and Show on Minicard
-  switches and the Admin Panel feature toggles)
-- Per-list role exceptions (#4527) and dependency lines: a list that refuses a
-  role write access does not stop that role from adding, changing or removing a
-  dependency line on one of its cards (`setBoardDependency`, the REST
-  `/cards/:cardId/dependencies` routes, `importBoardDependencies`). ListLockBleed
-  decided they follow their own board-wide rule (`canEditBoardDependencies`);
-  ListLockBulkBleed (GHSA-83w9-74mx-7v83) kept that. Should the card's list
-  refuse them too?
-- Per-list role exceptions and the rules engine's own actions: a rule's move,
-  copy, create-card and archive actions (`server/rulesHelper.js` performAction,
-  `server/lib/ruleCopyCard.js`, the replays in
-  `server/notifications/storedRulePlans.js`) check only board write access on a
-  destination. A card's rule button now asks the card's list; should the lists a
-  rule's actions write into be asked too, as the user who triggered the rule,
-  and is a refused action skipped or the whole rule run refused?
-- Per-list role exceptions and whole lists and swimlanes: deleting, archiving or
-  moving a list (`lists.softRemove`, `lists.restore`, `lists.purge`,
-  `moveList`, the REST list DELETE, archive and move) and deleting or moving a
-  swimlane (the REST swimlane DELETE and its remove hook, `moveSwimlane`) also
-  remove, archive or move the cards in a list that refuses the caller's role.
-  These are board structure, gated by board write access; should a refusing list
-  stop them, and the `Lists` allow/deny rules consult exceptions as well?
+- Per-list role exceptions (#4527) and dependency lines - decided 2026-11-18: a
+  list that refuses a role write access refuses that role's dependency-line
+  writes on its cards too (`setBoardDependency`, `removeBoardDependency`,
+  `importBoardDependencies` and the REST `/cards/:cardId/dependencies` routes).
+- Per-list role exceptions and the rules engine's own actions - decided
+  2026-11-18: a move, copy, create-card or archive action that would write into a
+  list refusing the triggering user's role is skipped, the rest of the rule still
+  runs, and the skip is visible (`server/rulesHelper.js` performAction,
+  `server/lib/ruleCopyCard.js`, `server/notifications/storedRulePlans.js`).
+- Per-list role exceptions and whole lists and swimlanes - decided 2026-11-18: a
+  refusing list stops that role from deleting, archiving or moving it, and from
+  deleting or moving a swimlane holding cards in it, on DDP, REST and the client
+  `Lists` allow/deny alike; board admins are never restricted.
+- [#6837](https://github.com/wekan/wekan/issues/6837) - decided 2026-11-18:
+  administrator-defined feature profiles. An administrator defines named
+  profiles in the Admin Panel, each saying which features it shows, and assigns
+  them to users, organizations or teams, to hide features from new users.
