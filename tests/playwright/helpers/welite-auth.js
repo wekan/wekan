@@ -4,7 +4,7 @@ const db = require('./db');
 
 const targetsWeLite = process.env.WEKAN_PLAYWRIGHT_TARGET === 'welite';
 
-async function openWeLiteBoard(page, user, boardId) {
+async function openWeLitePage(page, user, path) {
   // The shared fixture starts with a Mongo resume token. Give this isolated
   // test user a password so it can authenticate through the native HTML form.
   db.updateOne('users', { _id: user.id }, {
@@ -22,12 +22,15 @@ async function openWeLiteBoard(page, user, boardId) {
   await form.locator('input[name="username"]').fill(user.username);
   await form.locator('input[name="password"]').fill('test-password');
   await form.locator('input[type="submit"]').click();
-  const destination = new URL('/board', page.url());
+  const destination = new URL(path, page.url());
   const session = new URL(page.url()).searchParams.get('sessionId');
   if (!session) throw new Error('Native sign-in did not return a session');
-  destination.searchParams.set('id', boardId);
   destination.searchParams.set('sessionId', session);
   await page.goto(destination.href);
 }
 
-module.exports = { targetsWeLite, openWeLiteBoard };
+async function openWeLiteBoard(page, user, boardId) {
+  await openWeLitePage(page, user, '/board?id=' + encodeURIComponent(boardId));
+}
+
+module.exports = { targetsWeLite, openWeLiteBoard, openWeLitePage };

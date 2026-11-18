@@ -4,6 +4,9 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken } = require('../helpers/auth');
 const AdminPage = require('../pages/AdminPage');
+const { targetsWeLite, openWeLitePage } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 for (const [kind, label] of [['org', 'Organization'], ['team', 'Team']]) {
   test.describe(`REST ${label.toLowerCase()} features`, () => {
@@ -68,10 +71,16 @@ for (const [kind, label] of [['org', 'Organization'], ['team', 'Team']]) {
     });
 
     test('feature updates appear in the People table while a missing update leaves it unchanged', async ({ page, request, adminUser }) => {
-      await loginWithToken(page, adminUser.id, adminUser.token);
-      await new AdminPage(page).navigateToPeople();
-      await page.locator(`.js-left-menu-item[data-id="${kind}-setting"]`).click();
-      const row = page.locator('table tbody tr').filter({ hasText: id });
+      if (targetsWeLite) {
+        await openWeLitePage(page, adminUser, '/admin/people');
+      } else {
+        await loginWithToken(page, adminUser.id, adminUser.token);
+        await new AdminPage(page).navigateToPeople();
+        await page.locator('.js-left-menu-item[data-id="'+kind+'-setting"]').click();
+      }
+      const row = targetsWeLite
+        ? page.locator('tr[data-group-id="'+id+'"]')
+        : page.locator('table tbody tr').filter({ hasText: id });
       const checkbox = row.locator(`input[data-feature="${fields[0]}"]`);
       await expect(checkbox).not.toBeChecked();
 
@@ -80,6 +89,7 @@ for (const [kind, label] of [['org', 'Organization'], ['team', 'Team']]) {
       });
       expect(missing.status()).toBe(404);
       expect(await missing.json()).toEqual({ error: `${label} not found` });
+      if (targetsWeLite) await page.reload();
       await expect(checkbox).not.toBeChecked();
 
       for (const value of [true, false]) {
@@ -87,9 +97,11 @@ for (const [kind, label] of [['org', 'Organization'], ['team', 'Team']]) {
           headers: headers(adminUser.token), data: { [fields[0]]: value },
         });
         expect(response.status()).toBe(200);
+        if (targetsWeLite) await page.reload();
         await expect(checkbox).toBeChecked({ checked: value });
         expect(db.findOne(kind, { _id: id })[fields[0]]).toBe(value);
       }
+      if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
     });
   });
 }
