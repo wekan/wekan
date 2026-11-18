@@ -9,10 +9,11 @@ const { test } = require('node:test');
 const route = '/api/boards/:boardId/lists/:listId/cards/:cardId';
 const plain = value => JSON.parse(JSON.stringify(value));
 
-async function fixture() {
+async function fixture({ archived = false } = {}) {
   const { normalizeMoveParams, parseCardScalarFields } = await import('../server/lib/restCardHelpers.js');
   const writes = [];
-  const card = { _id: 'card', boardId: 'board', listId: 'list', archived: false, sort: 5 };
+  const card = { _id: 'card', boardId: 'board', listId: 'list', archived, sort: 5 };
+  const matches = selector => Object.entries(selector).every(([key, value]) => card[key] === value);
   let handler;
   const source = fs.readFileSync(path.join(__dirname, '../server/models/cards.js'), 'utf8');
   const start = source.indexOf(`WebApp.handlers.put(\n  '${route}'`);
@@ -31,9 +32,15 @@ async function fixture() {
     Cards: {
       async findOneAsync(selector) {
         if (typeof selector === 'string') return { ...card };
-        return Object.entries(selector).every(([key, value]) => card[key] === value) ? { ...card } : null;
+        return matches(selector) ? { ...card } : null;
       },
-      direct: { async updateAsync(selector, modifier, options) { writes.push(plain({ selector, modifier, options })); } },
+      direct: {
+        async updateAsync(selector, modifier, options) {
+          if (!matches(selector)) return 0;
+          writes.push(plain({ selector, modifier, options }));
+          return 1;
+        },
+      },
     },
     require(name) {
       assert.equal(name, '/server/models/changeHistoryHooks');
@@ -122,6 +129,14 @@ for (const [title, written] of [['', ''], ['Renamed', 'Renamed'], ['x'.repeat(10
       modifier: { $set: { title: written } },
       options: { removeEmptyStrings: title !== '' },
     }]);
+  });
+}
+
+for (const title of ['', 'Renamed']) {
+  test(`card PUT returns 404 when title ${JSON.stringify(title)} matches no active card`, async () => {
+    const f = await fixture({ archived: true });
+    assert.equal((await f.put({ title })).code, 404);
+    assert.deepEqual(f.writes, []);
   });
 }
 

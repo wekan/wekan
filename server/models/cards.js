@@ -1850,12 +1850,12 @@ WebApp.handlers.put(
       if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
         console.warn('Sanitized card title input:', req.body.title, '->', newTitle);
       }
-      await Cards.direct.updateAsync(
+      const matchedCount = await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { title: newTitle } },
         { removeEmptyStrings: newTitle !== '' },
       );
-      updated = true;
+      updated = matchedCount > 0;
     }
     if ('sort' in scalars.set) {
       await Cards.direct.updateAsync(

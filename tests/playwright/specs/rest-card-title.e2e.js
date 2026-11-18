@@ -28,6 +28,26 @@ test('REST clears a card title in JSON and form requests and updates the board',
     expect((await read.json()).title).toBe('');
     await expect(titles).toHaveText(['']);
   }
+
+  const repeatClear = await request.put(path, { headers, data: { title: '' } });
+  expect(repeatClear.status()).toBe(200);
+  expect(db.findOne('cards', { _id: card._id }).title).toBe('');
+});
+
+test('REST returns 404 without changing the title of an archived card', async ({ request, user, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  const path = cardPath(card);
+  const headers = auth(user);
+  const archive = await request.post(`${path}/archive`, { headers });
+  expect(archive.status()).toBe(200);
+  const archived = db.findOne('cards', { _id: card._id });
+  expect(archived).toMatchObject({ archived: true, title: card.title });
+
+  for (const title of ['', 'Renamed']) {
+    const response = await request.put(path, { headers, data: { title } });
+    expect(response.status()).toBe(404);
+    expect(db.findOne('cards', { _id: card._id })).toMatchObject({ archived: true, title: card.title });
+  }
 });
 
 test('REST refuses an invalid title before saving other fields and preserves an omitted title', async ({ request, user, board }) => {
