@@ -219,6 +219,18 @@ test('successful REST updates appear in webhook settings after invalid updates a
     if (targetsWeLite) {
       await expect(form.locator('input[name="title"]')).toHaveValue('Retained webhook');
       await expect(form.locator('input[name="enabled"]')).not.toBeChecked();
+      const localizedUrl = new URL(page.url());
+      for (const [locale, caption] of [
+        ['ar', 'اسم خطاف الويب'],
+        ['ar-DZ', 'اسم خطاف الويب'],
+        ['ar-EG', 'اسم خطاف الويب'],
+        ['ary', 'سمية الويبهوك'],
+      ]) {
+        localizedUrl.searchParams.set('lang', locale);
+        const localized = await page.goto(localizedUrl.href);
+        expect(localized.headers()['content-language']).toBe(locale);
+        await expect(form.getByRole('textbox', { name: caption, exact: true })).toHaveValue('Retained webhook');
+      }
       expect(await page.context().cookies()).toEqual([]);
     } else {
       await expect(form.locator('.js-outgoing-webhooks-title')).toHaveValue('Retained webhook');
