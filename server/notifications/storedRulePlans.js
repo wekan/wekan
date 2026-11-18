@@ -68,6 +68,42 @@ SyncRuleEmailOutcomes.deny({ insert: () => true, update: () => true, remove: () 
 export const SyncRuleEmailCommands = new Mongo.Collection('listSyncRuleEmailCommands');
 SyncRuleEmailCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
+
+// Decided 2026-11-18 (TODO.md): an action that would write into a list
+// refusing the actor's role (#4527) is skipped, as the ordinary engine skips it
+// (RulesHelper.ruleListRefuses), and the rest of the plan runs. The decision is
+// taken once, before the action saves its command, and saved here, so a replay
+// after a crash skips it again instead of re-deciding: a saved command is never
+// skipped, and a skipped action never gets a command. The runner then returns
+// the invocation id, which executeRulePlan confirms like any finished action.
+export const SyncRuleListSkips = new Mongo.Collection('listSyncRuleListSkips');
+SyncRuleListSkips.deny({ insert: () => true, update: () => true, remove: () => true });
+const listSkipId = invocationId => sha256(canonical(['sync-rule-list-skip', invocationId]));
+function listSkipper({ plan, invocation, guard }) {
+  const skips = SyncRuleListSkips.rawCollection(), _id = listSkipId(invocation.id);
+  return {
+    async recorded() { return !!await skips.findOne({ _id }); },
+    async when(board, listIds) {
+      const { listException } = require('/server/lib/listPermissionGate');
+      for (const listId of listIds) {
+        if (!listId || (await listException(plan.actorId, board, listId, 'write')) !== false) continue;
+        await guard();
+        try {
+          await skips.insertOne({ _id, invocationId: invocation.id, actionType: invocation.action.actionType,
+            boardId: board._id, listId, at: new Date() });
+        } catch (error) { if (!error || error.code !== 11000) throw error; }
+        if (!await skips.findOne({ _id })) throw new Error('sync-rule-list-skip-unconfirmed');
+        try {
+          require('/server/lib/securityLog').record({ key: 'authz.rule-list-locked', action: 'detected',
+            source: `sync-rule:${invocation.action.actionType}`, userId: plan.actorId,
+            detail: 'A List Sync rule action was skipped: its list refuses the actor\'s role.' });
+        } catch (e) { /* logging must never break the rule */ }
+        return true;
+      }
+      return false;
+    },
+  };
+}
 SyncRuleReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRulePlans.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRuleCompletions.deny({ insert: () => true, update: () => true, remove: () => true });
@@ -435,8 +471,18 @@ export async function runStoredSyncRuleArchive({ completeDelivery = runStoredSyn
   const captured = await archiveContext(options);
   // Compacted (syncRuleArchiveRetention.js): finished more than the retention
   // period ago; the invocation is done and nothing is rebuilt.
-  const commandId = sha256(canonical(['sync-rule-archive', captured.plan.actions[captured.index].id]));
+  const invocation = captured.plan.actions[captured.index];
+  const commandId = sha256(canonical(['sync-rule-archive', invocation.id]));
+  const skip = listSkipper({ plan: captured.plan, invocation, guard: captured.guard });
+  if (await skip.recorded()) { await captured.guard(); return invocation.id; }
   const existing = await SyncRuleArchiveCommands.rawCollection().findOne({ _id: commandId });
+  if (!existing) {
+    // The card where it is now, in the list that may refuse (listSkipper).
+    const now = await ruleCardNow(captured.plan, captured.context);
+    if (now && await skip.when(await Boards.findOneAsync(now.boardId), [now.listId])) {
+      await captured.guard(); return invocation.id;
+    }
+  }
   if (existing?.compactReceiptVersion !== undefined) {
     const done = await readCompactedArchive({ row: existing, completions: SyncRuleArchiveCompletions.rawCollection(),
       receipts: SyncRuleArchiveReceipts.rawCollection() });
@@ -594,6 +640,8 @@ export async function runStoredSyncRuleMove({ index, completeDelivery = runStore
   });
   const commands = SyncRuleMoveCommands.rawCollection(), id = ruleMoveCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The card where it is now: on the plan's board, or where a move of this
@@ -616,6 +664,9 @@ export async function runStoredSyncRuleMove({ index, completeDelivery = runStore
     const redoRows = await ChangeHistory.find({ boardId: onBoard, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     const raw = await Cards.rawCollection().findOne({ _id: plan.cardId, boardId: onBoard });
+    if (await skip.when(await Boards.findOneAsync(onBoard), [raw && raw.listId, target.listId])) {
+      await guard(); return invocation.id;
+    }
     const candidate = prepareRuleMoveCommand({ ...commandContext, card: raw, target, createdAt: new Date(), redoRows,
       cardBoardId: onBoard,
       titles: { listName: list ? list.title : '', swimlaneName: swimlane ? swimlane.title : '', cardTitle: raw?.title } });
@@ -680,7 +731,7 @@ const { RULE_MOVE_ACTIONS, commandId: ruleMoveCommandId, prepareRuleMoveCommand,
 export const SyncRuleMoveBoardCommands = new Mongo.Collection('listSyncRuleMoveBoardCommands');
 SyncRuleMoveBoardCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 
-async function captureRuleMoveBoard({ plan, saved, action, commandContext, context, trigger }) {
+async function captureRuleMoveBoard({ plan, saved, action, commandContext, context, trigger, skip }) {
   // From where the card is now: the plan's board, or the board an earlier
   // move of this same plan took it to (ruleCardNow, 2026-10-03).
   const now = await ruleCardNow(plan, context);
@@ -699,6 +750,8 @@ async function captureRuleMoveBoard({ plan, saved, action, commandContext, conte
     Cards.rawCollection().findOne({ _id: plan.cardId, boardId: fromBoardId }),
   ]);
   if (!fromBoard || !toBoard || !list || !swimlane || !raw) throw new Error('sync-rule-move-board-target-missing');
+  // A refusing list on either board skips the move (listSkipper): no command.
+  if (skip && (await skip.when(fromBoard, [raw.listId]) || await skip.when(toBoard, [list._id]))) return null;
   return prepareRuleMoveBoardCommand({ ...commandContext, fromBoardId,
     ...await boardMoveInputs({ raw, model: card, fromBoard, toBoard, target, swimlaneTitle: swimlane.title,
       actorId: plan.actorId }),
@@ -756,6 +809,8 @@ export async function runStoredSyncRuleMoveAllBoard({ index, completeDelivery = 
   });
   const commands = SyncRuleMoveAllBoardCommands.rawCollection(), id = ruleMoveAllBoardCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The ordinary action's own lookups (server/rulesHelper.js performAction):
@@ -768,6 +823,10 @@ export async function runStoredSyncRuleMoveAllBoard({ index, completeDelivery = 
     const [fromBoard, toBoard] = await Promise.all([Boards.findOneAsync(fromBoardId), Boards.findOneAsync(action.boardId)]);
     const from = await ReactiveCache.getList({ title: action.fromListName, boardId: fromBoardId });
     const to = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
+    if (from && to && fromBoard && toBoard
+      && (await skip.when(fromBoard, [from._id]) || await skip.when(toBoard, [to._id]))) {
+      await guard(); return invocation.id;
+    }
     const moves = [];
     if (from && to && fromBoard && toBoard) {
       // Each card's own swimlane is on the board it leaves, so the update's
@@ -813,11 +872,14 @@ export async function runStoredSyncRuleMoveBoard({ index, completeDelivery = run
   });
   const commands = SyncRuleMoveBoardCommands.rawCollection(), id = ruleMoveBoardCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The plan's last action: refused here, before anything is written, if not.
     const candidate = await captureRuleMoveBoard({ plan, saved: context.saved, action, commandContext, context,
-      trigger: options.trigger });
+      trigger: options.trigger, skip });
+    if (!candidate) { await guard(); return invocation.id; }
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -925,6 +987,8 @@ export async function runStoredSyncRuleMoveAll({ index, completeDelivery = runSt
   });
   const commands = SyncRuleMoveAllCommands.rawCollection(), id = ruleMoveAllCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The ordinary action's own lookups (server/rulesHelper.js performAction),
@@ -934,6 +998,9 @@ export async function runStoredSyncRuleMoveAll({ index, completeDelivery = runSt
     if (onBoard !== plan.boardId) await assertDestinationBoard(onBoard, plan, options.trigger);
     const from = await ReactiveCache.getList({ title: action.fromListName, boardId: onBoard });
     const to = await ReactiveCache.getList({ title: action.listName, boardId: onBoard });
+    if (from && to && await skip.when(await Boards.findOneAsync(onBoard), [from._id, to._id])) {
+      await guard(); return invocation.id;
+    }
     const cards = from && to ? (await from.cardsUnfiltered()).map(card => ({ _id: card._id, boardId: card.boardId,
       listId: card.listId, swimlaneId: card.swimlaneId, sort: card.sort, title: card.title,
       lastMoveReason: card.lastMoveReason })) : [];
@@ -1129,8 +1196,14 @@ export async function runStoredSyncRuleCopyCard({ index, completeDelivery = runS
   });
   const commands = SyncRuleCopyCardCommands.rawCollection(), id = ruleCopyCardCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
+    // The destination list, as the ordinary copy asks it (copyRuleCard).
+    if (await skip.when(await Boards.findOneAsync(action.boardId || plan.boardId), [action.listId])) {
+      await guard(); return invocation.id;
+    }
     const candidate = await captureRuleCopyCard({ plan, action, commandContext, commands });
     await guard();
     let failure;
@@ -1249,6 +1322,8 @@ export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runS
   const targetBoardId = action.boardId || plan.boardId;
   const commands = SyncRuleLinkCardCommands.rawCollection(), id = ruleLinkCardCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     const source = await ruleCardNow(plan, context, { raw: true });
@@ -1258,6 +1333,7 @@ export async function runStoredSyncRuleLinkCard({ index, completeDelivery = runS
       target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: targetBoardId }) : null,
       target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: targetBoardId }) : null,
     ]);
+    if (await skip.when(await Boards.findOneAsync(targetBoardId), [target.listId])) { await guard(); return invocation.id; }
     const candidate = prepareRuleLinkCardCommand({ ...commandContext, source, target, list, swimlane, createdAt: new Date(),
       cardBoardId: source?.boardId });
     await guard();
@@ -1380,6 +1456,8 @@ export async function runStoredSyncRuleCreateCard({ index, completeDelivery = ru
   });
   const commands = SyncRuleCreateCardCommands.rawCollection(), id = ruleCreateCardCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The card for the title's variables, wherever this plan left it.
@@ -1389,6 +1467,7 @@ export async function runStoredSyncRuleCreateCard({ index, completeDelivery = ru
       target.listId ? Lists.findOneAsync({ _id: target.listId, boardId: plan.boardId }) : null,
       target.swimlaneId ? Swimlanes.findOneAsync({ _id: target.swimlaneId, boardId: plan.boardId }) : null,
     ]);
+    if (await skip.when(await Boards.findOneAsync(plan.boardId), [target.listId])) { await guard(); return invocation.id; }
     const candidate = prepareRuleCreateCardCommand({ ...commandContext, target, list, swimlane, createdAt: new Date() });
     await guard();
     let failure;
@@ -1445,6 +1524,8 @@ export async function runStoredSyncRuleSortList({ index, ...options }) {
   });
   const commands = SyncRuleSortListCommands.rawCollection(), id = ruleSortListCommandId(invocation.id);
   await guard();
+  const skip = listSkipper({ plan, invocation, guard });
+  if (await skip.recorded()) { await guard(); return invocation.id; }
   let row = await commands.findOne({ _id: id });
   if (!row) {
     // The ordinary action's own lookups (server/rulesHelper.js performAction),
@@ -1462,6 +1543,7 @@ export async function runStoredSyncRuleSortList({ index, ...options }) {
       modifiedAt: c.modifiedAt, dueAt: c.dueAt, lastMoveReason: c.lastMoveReason })) : [];
     const redoRows = await ChangeHistory.find({ boardId: onBoard, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    if (list && await skip.when(await Boards.findOneAsync(onBoard), [list._id])) { await guard(); return invocation.id; }
     // No list: the ordinary action does nothing, and so does this command.
     const candidate = prepareRuleSortListCommand({ ...commandContext, listId: list ? list._id : (card?.listId || plan.cardId),
       swimlaneId: card?.swimlaneId, cards: list ? cards : [], sortField: action.sortField, createdAt: new Date(), redoRows,
