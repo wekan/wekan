@@ -103,12 +103,19 @@ for (const [kind, label] of [['org', 'Organization'], ['team', 'Team']]) {
       }
       if (targetsWeLite) {
         const url = new URL(page.url());
-        url.searchParams.set('lang', 'ar');
-        const localized = await page.goto(url.href);
-        expect(localized.headers()['content-language']).toBe('ar');
-        await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
-        const table = page.locator('table').filter({ has: row });
-        await expect(table.getByRole('columnheader', { name: 'الاسم المختصر', exact: true })).toBeVisible();
+        for (const [locale, caption] of [
+          ['ar', 'الاسم المختصر'],
+          ['ar-DZ', 'الاسم المختصر'],
+          ['ar-EG', 'الاسم المختصر'],
+          ['ary', 'السمية القصيرة'],
+        ]) {
+          url.searchParams.set('lang', locale);
+          const localized = await page.goto(url.href);
+          expect(localized.headers()['content-language']).toBe(locale);
+          await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+          const table = page.locator('table').filter({ has: row });
+          await expect(table.getByRole('columnheader', { name: caption, exact: true })).toBeVisible();
+        }
         expect(await page.context().cookies()).toEqual([]);
       }
     });
