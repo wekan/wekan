@@ -68,6 +68,22 @@ async function verifyWeLiteAttachments(page, request, board, user) {
   const localized = await page.goto(finnish.href);
   expect(localized.headers()['content-language']).toBe('fi');
   await expect(imageRow.getByRole('link', { name: 'Esikatsele', exact: true })).toBeVisible();
+  const localizedList = new URL(english);
+  const localizedCard = new URL('/board/card', english);
+  localizedCard.search = new URL(english).search;
+  localizedCard.searchParams.set('card', card._id);
+  for (const [locale, uploadLabel] of [['ar-DZ', 'رفع'], ['ar-EG', 'رفع'], ['ary', 'طلّع']]) {
+    localizedList.searchParams.set('lang', locale);
+    const listResponse = await page.goto(localizedList.href);
+    expect(listResponse.headers()['content-language']).toBe(locale);
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+    await expect(imageRow.getByRole('link', { name: 'معاينة', exact: true })).toBeVisible();
+    localizedCard.searchParams.set('lang', locale);
+    const cardResponse = await page.goto(localizedCard.href);
+    expect(cardResponse.headers()['content-language']).toBe(locale);
+    const uploadForm = page.locator('form').filter({ has: page.locator('#attachment-file') });
+    await expect(uploadForm.getByRole('button', { name: uploadLabel, exact: true })).toBeVisible();
+  }
   await page.goto(english);
   const preview = imageRow.getByRole('link', { name: 'Preview', exact: true });
   const previewUrl = new URL(await preview.getAttribute('href'), page.url());
