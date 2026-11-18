@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **Admin Panel** answers one question per tab: Settings gains
+**Appearance**, **Features**, **Feature profiles**, Security, Activities and
+notifications, and Delete, Problems keeps only what is going wrong, and every
+old
+address redirects. The docs now have a page for every menu entry.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.16 2026-11-19 WeKan ® release
 
 **ListLockBulkBleed** is fixed, and a list that refuses a role
