@@ -62,7 +62,14 @@ async function verifyWeLiteAttachments(page, request, board, user) {
   await page.getByRole('link', { name: 'Attachments', exact: true }).click();
   const imageRow = page.locator('li').filter({ has: page.getByRole('link', { name: 'diagram.png', exact: true }) });
   const other = page.locator('li').filter({ has: page.getByRole('link', { name: 'firmware.bin', exact: true }) });
-  const preview = imageRow.getByRole('link', { name: 'View', exact: true });
+  const english = page.url();
+  const finnish = new URL(english);
+  finnish.searchParams.set('lang', 'fi');
+  const localized = await page.goto(finnish.href);
+  expect(localized.headers()['content-language']).toBe('fi');
+  await expect(imageRow.getByRole('link', { name: 'Esikatsele', exact: true })).toBeVisible();
+  await page.goto(english);
+  const preview = imageRow.getByRole('link', { name: 'Preview', exact: true });
   const previewUrl = new URL(await preview.getAttribute('href'), page.url());
   const headers = { 'User-Agent': await page.evaluate(() => navigator.userAgent) };
   const withoutSession = new URL(previewUrl);
@@ -90,7 +97,7 @@ async function verifyWeLiteAttachments(page, request, board, user) {
   await expect(page.getByRole('link', { name: 'architecture.png', exact: true })).toBeVisible();
   expect(db.findOne('attachments', { _id: imageId }).name).toBe('architecture.png');
 
-  await expect(other.getByRole('link', { name: 'View', exact: true })).toHaveCount(0);
+  await expect(other.getByRole('link', { name: 'Preview', exact: true })).toHaveCount(0);
   const binaryUrl = new URL(await other.getByRole('link', { name: 'firmware.bin' }).getAttribute('href'), page.url());
   binaryUrl.searchParams.set('preview', '1');
   const binaryResponse = await request.get(binaryUrl.href, { headers });
