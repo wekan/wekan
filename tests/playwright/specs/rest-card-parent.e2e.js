@@ -2,11 +2,21 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const cardsPath = board => `/api/boards/${board.boardId}/lists/${board.listIds[0]}/cards`;
 
-test('REST creation persists a parent and shows the new card as its subtask', async ({ boardPage: page, request, user, board }) => {
+test('REST creation persists a parent and shows the new card as its subtask', async ({ page, request, user, board }) => {
+  if (targetsWeLite) {
+    await openWeLiteBoard(page, user, board.boardId);
+  } else {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const parent = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const response = await request.post(cardsPath(board), {
     headers: headers(user.token),
@@ -19,11 +29,15 @@ test('REST creation persists a parent and shows the new card as its subtask', as
   expect(read.status()).toBe(200);
   expect((await read.json()).parentId).toBe(parent._id);
 
-  await page.goto(`/b/${board.boardId}/${board.slug}/${parent._id}`);
-  const subtask = page.locator('.card-subtasks-items .js-subtasks').filter({ hasText: 'Created subtask' });
+  if (targetsWeLite) await page.getByRole('link', { name: 'Alpha Card', exact: true }).click();
+  else await page.goto(`/b/${board.boardId}/${board.slug}/${parent._id}`);
+  const subtask = targetsWeLite
+    ? page.getByRole('link', { name: 'Created subtask', exact: true })
+    : page.locator('.card-subtasks-items .js-subtasks').filter({ hasText: 'Created subtask' });
   await expect(subtask).toBeVisible();
   await page.reload();
   await expect(subtask).toBeVisible();
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
 
 test('REST creation accepts an omitted or empty parent', async ({ request, user, board }) => {
