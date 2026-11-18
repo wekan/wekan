@@ -50,7 +50,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Security"></a>Security
 
-* [Allow private boards only: Disable Public Boards](Features/Admin-Panel/Settings/Visibility.md)
+* [Allow private boards only: Disable Public Boards](Features/Admin-Panel/Settings/Appearance.md)
 * [Security Disclosure and details of Security in Wekan](../SECURITY.md)
 * [Password Hashing](./Features/Login-Page/Password-Hashing.md)
 
@@ -187,7 +187,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Planning Poker](Features/Cards/Planning-Poker.md)
 * [Using WeKan for Scrum](Features/Cards/Scrum.md)
 * [Scaling](./Platforms/Webserver/Scaling.md)
-* [Custom Logo](Features/Admin-Panel/Settings/Visibility.md)
+* [Custom Logo](Features/Admin-Panel/Settings/Appearance.md)
 * [Subtasks](Features/Cards/Subtasks.md)
 * [Templates](Features/All-Boards/Templates.md)
 * [Shared Templates (Admin view)](Features/All-Boards/Templates.md#shared-templates-admin-view)

@@ -1,7 +1,7 @@
 # Admin Panel / Settings / PWA
 
 Was called **Layout**. Everything that was in it about branding and All Boards moved
-to [Visibility](Visibility.md); what is left is what a browser reads about the app
+to [Appearance](Appearance.md); what is left is what a browser reads about the app
 itself:
 
 - **Custom head tags** — whether they are enabled, plus custom `<meta>` and `<link>`

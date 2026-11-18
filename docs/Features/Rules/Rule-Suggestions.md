@@ -28,7 +28,7 @@ Only board admins see the section, because only they may create rules.
 
 ## Hiding it
 
-Admin Panel / Settings / Visibility / Features: **Rule suggestions**. Rules
+Admin Panel / Settings / Features: **Rule suggestions**. Rules
 themselves are not affected.
 
 ## Implementation

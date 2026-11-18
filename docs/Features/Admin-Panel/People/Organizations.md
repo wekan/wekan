@@ -48,7 +48,7 @@ branding and its own administrators. It is off unless the server is started with
   corner logo, the custom help link and the legal notice URL. Each one that is set
   replaces the instance value on this Organization's domains; each one left empty
   keeps the instance value. The **theme colour** is set in
-  [Settings / Visibility / Change color](../Settings/Visibility.md) instead, by that
+  [Settings / Appearance / Change color](../Settings/Appearance.md#change-color) instead, by that
   Organization's own admin.
 
 Deactivating an Organization takes its domains off the air without losing any of this.

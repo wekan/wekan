@@ -38,15 +38,37 @@ table beside it.
 
 | Menu name | Menu path | Description |
 | --- | --- | --- |
-| Settings | Admin Panel / Settings | **Version** (first, and the pane that opens with the Admin Panel), Visibility, Announcement, Accessibility, Translation, PWA, Global Webhooks. |
-| People | Admin Panel / People | Login, E-mail, Domains, Organizations, Teams, People, Locked users, Roles, Shared templates. |
+| Settings | Admin Panel / Settings | **Version** (first, and the pane that opens with the Admin Panel), Appearance, Features, Feature profiles, Security, Activities and notifications, Delete, Announcement, Accessibility, Translation, PWA, Global Webhooks, Shared labels. |
+| People | Admin Panel / People | E-mail, Notifications, Domains, Organizations, Teams, People, Locked users, Audit log, Roles, Shared templates, Login, then the sign-in providers (SAML, LDAP, OAuth2, CAS, Header login, OAuth login providers, Passwordless login). |
 | Attachments | Admin Panel / Attachments | The storage backends and the attachment/avatar tools. |
-| Problems | Admin Panel / Problems | Summary, Security, Speed, Tests, CPU usage, then the reports — see [Table](../General/Table.md). |
+| Problems | Admin Panel / Problems | Summary, Backup, then a **Reports** heading over the reports — see [Table](../General/Table.md). |
 
-Four pages, not seven: **Translation** and **Version** became panes of Settings, and
-**Features** was removed (its three panes are in Problems). A page whose menu had a
-single entry was a page in name only — the entry belongs in the menu of the section
-it is part of, and the tab that led to it is one tab fewer in the bar above.
+Four pages, not seven: **Translation** and **Version** became panes of Settings,
+and so did **Features**. Security, Activities and notifications and Delete, which
+were settings listed in Problems, moved to Settings too, leaving Problems with
+Summary, Backup and the reports. A page whose menu had a single entry was a page
+in name only — the entry belongs in the menu of the section it is part of, and
+the tab that led to it is one tab fewer in the bar above.
+
+### All Boards
+
+`client/components/boards/boardsList.jade` uses the same caret, grip, width and
+pane title, with its own rows. From top to bottom:
+
+| Menu entry | Guide |
+| --- | --- |
+| Starred and Remaining (Starred first when anything is starred, Remaining first when nothing is) | [All Boards](All-Boards.md), [Starred](../Pages/Starred.md) |
+| Home | [Home](Home.md) |
+| Templates | [Templates](Templates.md) |
+| Share template with (under Templates, while it is selected) | [Share template with](Share-Template-With.md) |
+| Archive | [Archive](Archive.md) |
+| Workspaces | [Workspaces](Workspaces.md) |
+| One tab per organization and team you are in | [Group members](Group-Members.md) |
+| Teams / Organizations filter (when you are in any) | Filters the boards by the chosen teams and organizations |
+
+The row order comes from `menuSectionOrder()` in `models/lib/allBoardsUrls.js`.
+The facet bar above the boards, with your own board labels and **Apply
+label**, is described in [Board labels](Board-Labels.md).
 
 ## Which side the menu is on
 
@@ -269,7 +291,7 @@ heading, and the page would print the same words a second time.
 **Inside a pane, a group of settings may have its own title** —
 `.admin-pane-group-title`, deliberately **smaller** than the pane title, with a
 `<hr>` above it where a group needs separating from the one before. Admin Panel /
-Settings / Visibility is the example: All Boards, URL, Product name, Logo. The
+Settings / Appearance is the example: All Boards, URL, Product name, Logo. The
 page then reads as one heading with groups under it, rather than as several pages
 stacked.
 

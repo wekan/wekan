@@ -20,7 +20,7 @@ Currently:
 
 # Settings at Admin Panel
 
-Admin Panel / Settings / [Visibility](../../Admin-Panel/Settings/Visibility.md), in the
+Admin Panel / Settings / [Appearance](../../Admin-Panel/Settings/Appearance.md), in the
 **All Boards: Hide** group — the Layout pane it used to be in is
 [PWA](../../Admin-Panel/Settings/PWA.md) now, and holds only the PWA settings.
 

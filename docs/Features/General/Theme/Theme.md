@@ -127,11 +127,11 @@ injection surface.
   - The shared picker `client/components/main/themeColorPicker.{jade,js}` (categories of
     swatches + custom color wheels for flat/clear), used by Board Settings
     (`boardChangeColorPopup`), Member Settings (`changeColorPopup`) and Admin Panel /
-    Settings / Visibility via `scope="board"|"global"|"admin"`. Its design — the scopes, the
+    Settings / Appearance via `scope="board"|"global"|"admin"`. Its design — the scopes, the
     order of themes and how to add another place — is
     [docs/Features/General/Theme/Change-Color.md](Change-Color.md).
   - **The order of themes**, weakest first: 1) WeKan's default theme, 2) the **site theme**
-    set in Admin Panel / Settings / Visibility / Change color (on a multitenancy host, the
+    set in Admin Panel / Settings / Appearance / Change color (on a multitenancy host, the
     Organization's own value replaces the instance's — see
     [Multitenancy](../../../Design/Multitenancy/Multitenancy.md)), 3) the **user's own override**
     from Member Settings. A board's own colour owns the board page, so the site theme is not

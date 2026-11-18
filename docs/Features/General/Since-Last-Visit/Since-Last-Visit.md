@@ -18,7 +18,7 @@ A board you have never opened shows its last seven days.
 
 ## Hiding it
 
-Admin Panel / Settings / Visibility / Features: **Since your last visit**. The
+Admin Panel / Settings / Features: **Since your last visit**. The
 visit times are still kept while it is hidden, so turning it on again shows the
 right changes.
 

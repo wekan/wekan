@@ -52,7 +52,12 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Pane / URL slug | Implementation | Behavior and limits |
 | --- | --- | --- |
 | Version (`version`) | [informationBody.js](../../../client/components/settings/informationBody.js) | Live version/runtime information; read-only. |
-| Visibility (`visibility`) | [tableVisibilityModeSettings.js](../../../models/tableVisibilityModeSettings.js) | Saved visibility, branding and date defaults; server permissions apply. |
+| Appearance (`appearance`) | [tableVisibilityModeSettings.js](../../../models/tableVisibilityModeSettings.js) | Saved All Boards visibility, branding and date defaults; server permissions apply. Was Visibility (2026-11-19). |
+| Features (`features`) | [instanceFeatures.js](../../../server/methods/instanceFeatures.js) | Instance features, card fields, pilot users, SQRL, ActivityPub, Rules and Optional APIs; site-admin-only methods. |
+| Feature profiles (`feature-profiles`) | [featureProfiles.js](../../../models/lib/featureProfiles.js) | Opt-in profiles hiding features from users, teams and organizations; saved by the site-admin-only saveFeatureProfiles. |
+| Security (`security`) | [settings.js](../../../models/settings.js) | Rich-text and import/export policies, enforced by renderers and server guards. Was Problems / Security. |
+| Activities and notifications (`activities`) | [settings.js](../../../models/settings.js) | Activity, notification and watching switches; separate from delivery preferences. Was Problems / Notifications. |
+| Delete (`delete`) | [settings.js](../../../server/models/settings.js) | Explicit administrator permanent-delete setting; purge remains a separate action. Was Problems / Delete. |
 | Announcement (`announcement`) | [announcements.js](../../../models/announcements.js) | Saved banner content and visibility; rendered through announcement controls. |
 | Accessibility (`accessibility`) | [accessibilitySettings.js](../../../models/accessibilitySettings.js) | Saved accessibility content and configuration. |
 | Translation (`translation`) | [translation.js](../../../server/models/translation.js) | Add/edit/delete custom translation records with administrator checks. |
@@ -106,9 +111,6 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Pane / URL slug | Implementation | Behavior and limits |
 | --- | --- | --- |
 | Summary (`summary`) | [systemStatus.js](../../../server/methods/systemStatus.js) | Actual startup/login checks, active migrations and problem streams. |
-| Security (`security`) | [settings.js](../../../models/settings.js) | Rich-text and import/export policies, enforced by renderers and server guards. |
-| Delete (`delete`) | [settings.js](../../../server/models/settings.js) | Explicit administrator permanent-delete setting; purge remains a separate action. |
-| Notifications (`notifications`) | [settings.js](../../../models/settings.js) | Activity, notification and watching switches; separate from delivery preferences. |
 | Backup (`backup`) | [backup.js](../../../server/methods/backup.js) | Recorded backup runs, health of the instance backup and its history (backupHistory method); settings stay in Attachments / Backup. |
 | Security Report (`security-report`) | [eventLog.js](../../../models/eventLog.js) | Recorded security events, search, detail and acknowledgement. |
 | Impersonation Report (`impersonation`) | [impersonationReport.js](../../../server/publications/impersonationReport.js) | Scoped event publication and counts. |

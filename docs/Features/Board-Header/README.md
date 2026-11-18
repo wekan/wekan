@@ -8,6 +8,26 @@ The chooser is drawn from `BOARD_VIEWS` in `models/lib/boardViewSettings.js`
 board offers, and which one it opens in, is set in
 [Board Settings / Board View](../Board-Sidebar/Board-Settings/Board-View.md).
 
+## Header controls
+
+The board's controls in the first header bar, in their order
+(`boardHeaderButtons` in `client/components/boards/boardHeader.jade`). The
+caret before them folds all of them away except the buttons a board's Rules
+add; see [the header](../Header-Bar/Header.md).
+
+| Control | Guide | Who can use it |
+| --- | --- | --- |
+| Visibility (Private / Signed-in users / Public) | [Visibility](Visibility.md) | Board admin; others see it disabled |
+| Watch (Watching / Tracking / Muted) | [Watch](Watch.md) | Signed-in users; hidden when watching is disabled |
+| Sort Cards | [Sort Cards](Sort-Cards.md) | Signed-in users |
+| Filter | [Filter](../Board-Sidebar/Filter/README.md) | Signed-in users |
+| Search | [Search](Search.md) | Signed-in users |
+| Multi-Selection | [Multi-Selection](../General/Multi-Selection.md) | Users who can modify the board |
+
+Signed out, the bar shows only a **Log in** button.
+
+## More pages
+
 - [Search](Search.md)
 - [Board View Settings popup](Board-Views/Settings-Popup.md)
 - [Board-view titles](Board-Views/Title-Rendering.md) and [activity rendering](Board-Views/Activity-Rendering.md)

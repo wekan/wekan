@@ -18,60 +18,53 @@ stream, `GET /api/admin/problems/:stream` one page of a stream, and
 
 ## The Status overview (Problems → Summary)
 
-The **Summary** tab shows a **Status** overview at the top:
+The **Summary** pane ([Summary.md](Summary.md)) shows a **Status** overview at
+the top:
 
 - **In progress** — every migration or repair running right now (database text
-  migration, board data-repair, recovery/maintenance, cron migration, attachment
-  migration), gathered from the persisted status collections so it is accurate even
-  across a restart.
-- **Problems** — detected issues: broken cards, and any failing login-page check.
-- **Login page checks** — the known causes that make the login page show
-  **"Must be logged in"** or sit on the logo + **"Loading, please wait."** spinner
-  (see **[Login-Problems.md](Login-Problems.md)**).
+  migration, board data-repair, recovery/maintenance, attachment migration),
+  gathered from the persisted status collections so it is accurate even across
+  a restart.
+- **Problems** — detected issues: broken cards, lists missing their swimlane, a
+  failed or overdue backup, data health findings, and any failing login-page
+  check — the known causes that make the login page show **"Must be logged
+  in"** or sit on the logo + **"Loading, please wait."** spinner (see
+  **[Login-Problems.md](Login-Problems.md)**).
 
-Below that is the acknowledge list of the Security / Speed / Tests problem streams.
-The Security Report also records denied passwordless code requests after five
-requests per source address in one minute. Meteor's per-connection Accounts
-limit still applies independently.
-Attempts that Meteor 3.5.3's security fixes refuse - a crashing DDP message,
-a `__proto__` update field, a malformed `import()` request, an OAuth token of
-another application - are recorded as **Meteor DDP**, **Meteor allow-deny**,
-**Meteor dynamic-import** and **Meteor OAuth**
-([details](../../../Security/Meteor-3.5.3-Security-Fixes-2026-10-22.md)).
-An import or export refused by the transfer boundary (a cycle, a non-plain
-object, a size limit) is **ImportExportValidation**. One that failed for
-another reason - a library that threw, as sanitize-html 2.18.0 did on nested
-`<iframe>` - is **ImportExportFailure**: detected, never an attempt, and it
-never disables the account of the user whose import or export it was.
+Below that are the data health scan and the acknowledge / clear list of the
+problem streams. What each stream records is on its own page: the Security
+Report also records denied passwordless code requests, the Meteor 3.5.3
+refusals and import / export validation, see
+[Security-Report.md](Security-Report.md).
 
-## The menu, in two named groups
+## The menu
 
-**Settings** — the panes that hold server-wide feature switches, which are
-settings rather than reports but are what an admin reaches for when something is
-unsafe or noisy:
+Admin Panel / Problems opens on **Summary**, then **Backup**, then the
+**Reports** group.
 
-- **Security** — how rich text is rendered (links as plain text, all code as plain
-  text) and the import / export privacy switches (disable all import / export,
-  avatars, anonymize users). All enforced server-side.
-- **Delete** — allow Global Admins to permanently purge soft-deleted content.
-  The switch is off by default and enabling it deletes nothing by itself.
-- **Notifications** — disable all activities, all notifications, or watching, for
-  deployments that must limit activity tracking
-  ([#5820](https://github.com/wekan/wekan/issues/5820)).
+**Security**, **Delete** and **Notifications** used to be a "Settings" group
+here. They are settings, not problems, and on 2026-11-19 they moved to Admin
+Panel / Settings as [Security](../Settings/Security.md),
+[Delete](../Settings/Delete.md) and
+[Activities and notifications](../Settings/Activities-and-Notifications.md).
+Their old `/admin/problems/...` addresses redirect there.
+
+- **Summary** — what is running, what is wrong, and the new-problem count of
+  each stream, with the repair, acknowledge and clear buttons.
 - **Backup** — did the Admin Panel backup work: the last successful backup,
   the last failure and its error, the next scheduled run, and the history of
   the last runs. Its settings stay in Admin Panel / Attachments / Backup; a
   failed or overdue backup is also listed on Summary
   ([Backup.md](../../../Backup/Backup.md)).
 
-**Reports** — Security Report, Impersonation Report, Password length, Performance, Speed, Tests, CPU
-usage, Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report,
-Cards Report, Recovery, Offices, API, Database problems, Filesystem integrity and
-Email.
-Report tables use the shared [table page](../../General/Table.md):
-a search box, the total, `page X / N`, prev/next, and one page of rows fetched from
-the server at a time. **Performance** sits with the Speed / Tests / CPU usage streams
-it configures: card loading is automatic per board size, with
+**Reports** — Security Report, Impersonation Report, Password length,
+Performance, Speed, Tests, CPU usage, Memory Usage, Disk usage,
+Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report, Cards
+Report, Recovery, Offices, API, Database problems, Filesystem integrity and
+Email. Report tables use the shared [table page](../../General/Table.md): a
+search box, the total, `page X / N`, prev/next, and one page of rows fetched
+from the server at a time. **Performance** sits with the Speed / Tests / CPU
+usage streams: card loading is automatic per board size, with
 `CARDS_LOADING=all|lazy|auto` and `CARDS_LOADING_LAZY_THRESHOLD` for operators.
 
 ## Detailed pages in this directory
@@ -117,39 +110,38 @@ rather than what it shows.
 
 Every pane of this tab, in the order the menu shows them. The slug is what
 the address uses: `/admin/problems/<slug>`.
+Security, Delete and Notifications are no longer in this list: they moved to
+Admin Panel / Settings (see [The menu](#the-menu) above).
 
 | Menu path | URL slug | Page |
 | --- | --- | --- |
-| Problems / Summary | `summary` | — |
-| Problems / Security | `security` | — |
-| Problems / Delete | `delete` | — |
-| Problems / Notifications | `notifications` | — |
+| Problems / Summary | `summary` | [Summary.md](Summary.md) |
 | Problems / Backup | `backup` | [Backup.md](../../../Backup/Backup.md#did-the-backup-work-history-health-and-monitoring) |
-| Problems / Security Report | `security-report` | — |
-| Problems / Impersonation Report | `impersonation` | — |
+| Problems / Security Report | `security-report` | [Security-Report.md](Security-Report.md) |
+| Problems / Impersonation Report | `impersonation` | [Impersonation-Report.md](Impersonation-Report.md) |
 | Problems / Password length | `password-length` | [Password-length.md](Password-length.md) |
-| Problems / Performance | `performance` | — |
-| Problems / Speed | `speed` | — |
-| Problems / Tests | `tests` | — |
+| Problems / Performance | `performance` | [Performance.md](Performance.md) |
+| Problems / Speed | `speed` | [Speed.md](Speed.md) |
+| Problems / Tests | `tests` | [Tests.md](Tests.md) |
 | Problems / CPU usage | `cpu` | [CPU-usage.md](CPU-usage.md) |
 | Problems / Memory Usage | `ram` | [RAM-usage.md](RAM-usage.md) |
 | Problems / Disk usage | `disk` | [Disk-usage.md](Disk-usage.md) |
 | Problems / Instrumentation | `instrumentation` | [Instrumentation.md](Instrumentation.md) |
-| Problems / Broken Cards | `broken-cards` | — |
+| Problems / Broken Cards | `broken-cards` | [Broken-Cards.md](Broken-Cards.md) |
 | Problems / Files Report | `files` | [File-status.md](File-status.md) |
-| Problems / Rules Report | `rules` | — |
-| Problems / Boards Report | `boards` | — |
-| Problems / Cards Report | `cards` | — |
+| Problems / Rules Report | `rules` | [Rules-Report.md](Rules-Report.md) |
+| Problems / Boards Report | `boards` | [Boards-Report.md](Boards-Report.md) |
+| Problems / Cards Report | `cards` | [Cards-Report.md](Cards-Report.md) |
 | Problems / Recovery | `recovery` | [Recovery.md](Recovery.md) |
 | Problems / Offices | `office` | [Offices.md](Offices.md) |
 | Problems / API | `api` | [API.md](API.md) |
-| Problems / Database problems | `database` | — |
-| Problems / Filesystem integrity | `integrity` | — |
+| Problems / Database problems | `database` | [Database-problems.md](Database-problems.md) |
+| Problems / Filesystem integrity | `integrity` | [Filesystem-integrity.md](Filesystem-integrity.md) |
 | Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
 
-15 of these 26 panes has no page of its own yet. A dash is a
-gap to fill, not a pane that does nothing - what the pane shows is described in
-this README until somebody writes it up.
+0 of these 23 panes has no page of its own: every pane above links one. A pane
+added to the menu without a page gets a dash here and is counted in this
+sentence.
 
 [File status checks](File-status.md): inspect missing files, incomplete upload
 metadata, detected types, storage references and available recovery evidence.

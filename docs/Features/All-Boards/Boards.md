@@ -47,7 +47,7 @@ Archived boards are not deleted — you can restore them from the archive.
 ## Related
 
 - [Board Background Images](../Board-Sidebar/Board-Settings/Background-Image.md)
-- [Allow private boards only: Disable Public Boards](../Admin-Panel/Settings/Visibility.md)
+- [Allow private boards only: Disable Public Boards](../Admin-Panel/Settings/Appearance.md)
 - [Swimlanes](../Swimlanes/Swimlanes.md)
 - [WIP Limits](../Lists/WipLimit/WipLimit.md)
 - [Templates](Templates.md)

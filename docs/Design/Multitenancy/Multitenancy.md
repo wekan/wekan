@@ -364,7 +364,7 @@ never quietly narrowed.
 
 #### D.9 The singletons (problem 6)
 
-Per-tenant branding reuses the fields Admin Panel / Settings / Visibility already
+Per-tenant branding reuses the fields Admin Panel / Settings / Appearance already
 has: the org document carries an `org`-prefixed copy of each, and a non-empty one
 replaces the instance value for that tenant's requests
 (`tenantBranding()`), so no rendering code changed — the client reads the same
@@ -382,7 +382,7 @@ host.
 | `orgLegalNotice` | the legal notice URL |
 
 **The site theme** is the one branding field an Organization's own admin sets from
-the Admin Panel rather than from the org row: Admin Panel / Settings / Visibility /
+the Admin Panel rather than from the org row: Admin Panel / Settings / Appearance /
 **Change color**, the same shared picker as Board Settings and Member Settings
 ([Change color](../../Features/General/Theme/Change-Color.md)). The site admin's pane says under the title that
 their colour is the one every Organization without one of its own inherits; an

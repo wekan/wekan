@@ -14,7 +14,7 @@ WeKan (as an error/warning on the operation, or via its log stream), and **WeKan
 `eventlog` collection with a normal Meteor JavaScript query** ([WeKan.md](WeKan.md) §3). This keeps
 storage DB-agnostic — the feature works identically whether WeKan runs on FerretDB or MongoDB — and
 there is **no separate FerretDB UI or logger DB**; events appear in WeKan's
-**Admin Panel → Problems → Security / Speed**.
+**Admin Panel → Problems → Security Report / Speed**.
 
 ---
 

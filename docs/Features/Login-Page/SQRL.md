@@ -10,7 +10,7 @@ is nothing at WeKan that would let anybody sign in as you.
 
 ## Turning it on
 
-Admin Panel → Settings → Visibility → Features → **Sign in with SQRL**. It is
+Admin Panel → Settings → Features → **Sign in with SQRL**. It is
 off by default. WeKan must be at an `https://` address (`ROOT_URL`): SQRL's
 identity is per site, and over plain http the challenge could be read on the
 way.
@@ -77,7 +77,7 @@ Ways back, on purpose:
 - **Disable SQRL from your SQRL client.** It is the emergency stop for a lost
   or compromised identity, and while the identity is disabled, neither lock
   applies. Re-enabling it with your rescue code puts the locks back.
-- **The admin turns SQRL off** (Admin Panel → Settings → Visibility →
+- **The admin turns SQRL off** (Admin Panel → Settings →
   Features). Then no account is locked.
 - **An admin can still** change your e-mail address, set your password and
   create a token for you; the admin is the last resort.

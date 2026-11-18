@@ -36,7 +36,12 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | URL | Pane | Pane id |
 | --- | --- | --- |
 | `/admin/settings/version` | Version | `version-setting` |
-| `/admin/settings/visibility` | Visibility | `tableVisibilityMode-setting` |
+| `/admin/settings/appearance` | Appearance | `tableVisibilityMode-setting` |
+| `/admin/settings/features` | Features | `features-setting` |
+| `/admin/settings/feature-profiles` | Feature profiles | `feature-profiles-setting` |
+| `/admin/settings/security` | Security | `privacy-security-setting` |
+| `/admin/settings/activities` | Activities and notifications | `activities-setting` |
+| `/admin/settings/delete` | Delete | `delete-setting` |
 | `/admin/settings/announcement` | Announcement | `announcement-setting` |
 | `/admin/settings/accessibility` | Accessibility | `accessibility-setting` |
 | `/admin/settings/translation` | Translation | `translation-setting` |
@@ -75,9 +80,6 @@ OAuth providers and Passwordless login each have their own menu entry.
 | URL | Pane | Pane id |
 | --- | --- | --- |
 | `/admin/problems/summary` | Summary | `report-summary` |
-| `/admin/problems/security` | Security | `features-security` |
-| `/admin/problems/delete` | Delete | `features-delete` |
-| `/admin/problems/notifications` | Notifications | `features-notifications` |
 | `/admin/problems/backup` | Backup (status and history; settings stay in Attachments / Backup) | `features-backup` |
 | `/admin/problems/security-report` | Security Report | `report-security` |
 | `/admin/problems/impersonation` | Impersonation Report | `report-impersonation` |
@@ -178,6 +180,19 @@ showing whatever page it was on.
 They used to hand the pane over in a `Session` value the page consumed once.
 Every pane has an address now, so they redirect to it: the pane ends up in the
 URL, where it can be linked, bookmarked and gone back to.
+
+### Panes that moved
+
+A pane that moved keeps its old address as a redirect, decided by `MOVED_PANES`
+in `models/lib/adminUrls.js` (`movedPanePath`) and applied by the routes before
+anything renders - both on the new form and on the old two-segment form:
+
+| Old URL | Redirects to | Since |
+| --- | --- | --- |
+| `/admin/settings/visibility` | `/admin/settings/appearance` | 2026-11-19 |
+| `/admin/problems/security` | `/admin/settings/security` | 2026-11-19 |
+| `/admin/problems/delete` | `/admin/settings/delete` | 2026-11-19 |
+| `/admin/problems/notifications` | `/admin/settings/activities` | 2026-11-19 |
 
 ## How a page opens the pane
 

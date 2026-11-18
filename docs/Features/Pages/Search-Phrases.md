@@ -27,7 +27,7 @@ language; the English phrase works in every language too.
 
 ## Hiding it
 
-Admin Panel / Settings / Visibility / Features: **Search phrases**. The
+Admin Panel / Settings / Features: **Search phrases**. The
 operators keep working.
 
 ## Implementation

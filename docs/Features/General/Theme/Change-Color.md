@@ -12,7 +12,7 @@ template and says whose theme is being set:
 ```jade
 +themeColorPicker(scope="board")    //- Board Settings / Change Color
 +themeColorPicker(scope="global")   //- Member Settings / Change color
-+themeColorPicker(scope="admin")    //- Admin Panel / Settings / Visibility / Change color
++themeColorPicker(scope="admin")    //- Admin Panel / Settings / Appearance / Change color
 ```
 
 `scope` is the only difference between them.
@@ -28,7 +28,7 @@ template and says whose theme is being set:
 | `client/components/main/globalThemeColor.js` | `.js` startup | Applies the winning theme to `<body>` and the CSS variables — the layering below. |
 | `client/components/sidebar/sidebar.jade` | `.jade` template | Board Settings / Change Color — `scope="board"`. |
 | `client/components/users/userHeader.jade` | `.jade` template | Member Settings / Change color — `scope="global"`. |
-| `client/components/settings/settingBody.jade` | `.jade` template | Admin Panel / Settings / Visibility / Change color — `scope="admin"`. |
+| `client/components/settings/settingBody.jade` | `.jade` template | Admin Panel / Settings / Appearance / Change color — `scope="admin"`. |
 | `server/models/users.js` | `.js` methods | `setGlobalThemeColor` — the user's own override. |
 | `server/methods/tenant.js` | `.js` methods | `getAdminThemeColor` / `setAdminThemeColor` — the site theme, and which document it lands in. |
 | `models/lib/tenantAdmin.js` | `.js` module, pure helpers | `themeTarget()` — the instance's theme, or one Organization's. |
@@ -41,7 +41,7 @@ Weakest first. Each layer replaces the one under it, and only where it is set:
 | | Layer | Set in | Stored in |
 | --- | --- | --- | --- |
 | 1 | **Default theme** | — | nothing; WeKan's own stylesheet |
-| 2 | **Site theme** | Admin Panel / Settings / Visibility / Change color | `Settings.themeColor`, or an Organization's `orgThemeColor` on its own hosts |
+| 2 | **Site theme** | Admin Panel / Settings / Appearance / Change color | `Settings.themeColor`, or an Organization's `orgThemeColor` on its own hosts |
 | 3 | **User's own** | Member Settings / Change color | `user.profile.globalThemeColor` |
 
 A **board's own colour** is not one of these layers: it is what a board looks like.
@@ -67,7 +67,7 @@ value gets published in the instance's place.
 | --- | --- | --- | --- |
 | Board Settings / Change Color | `board` | `board.color` + `board.customThemeColors` | — (a board always has a colour, so there is no "Default theme" row) |
 | Member Settings / Change color | `global` | `setGlobalThemeColor` | fall back to the site theme, and to per-board colours |
-| Admin Panel / Settings / Visibility / Change color | `admin` | `setAdminThemeColor` | fall back to WeKan's default theme (or, for an Organization, to the instance's) |
+| Admin Panel / Settings / Appearance / Change color | `admin` | `setAdminThemeColor` | fall back to WeKan's default theme (or, for an Organization, to the instance's) |
 
 ## What the picker guarantees
 
@@ -178,7 +178,7 @@ it is and what it was derived from instead.
 
 ### Where they appear
 
-Board Settings, Member Settings and Admin Panel / Settings / Visibility are **one
+Board Settings, Member Settings and Admin Panel / Settings / Appearance are **one
 picker** with a `scope`, and it groups by `THEME_CATEGORIES`. So a theme added to
 the category and to `ALLOWED_BOARD_COLORS` appears in all three at once, takes
 the category's two custom colours (a slide has two ends), and validates on the

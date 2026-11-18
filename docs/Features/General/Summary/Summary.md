@@ -24,7 +24,7 @@ there. Cards the reader may not see are left out.
 
 ## Hiding it
 
-Admin Panel / Settings / Visibility / Features: **Summary**.
+Admin Panel / Settings / Features: **Summary**.
 
 ## Implementation
 

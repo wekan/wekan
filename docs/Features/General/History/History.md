@@ -85,7 +85,7 @@ time, provenance or chain link invalidates the row.
 
 Before restore, undo or redo applies content, the server verifies the selected row
 and its chain link. A mismatch refuses the operation, records
-`history-integrity-failed` in Problems → Security and Recovery, and schedules a
+`history-integrity-failed` in Problems → Security Report and Recovery, and schedules a
 low-load full-chain audit. It never attempts to infer or silently repair historical
 content. Concurrent appenders serialize the per-board chain head so two valid rows
 cannot claim the same predecessor unnoticed.
@@ -534,9 +534,9 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
   and the CollectionFS export in `attachmentBulkMove.js` converts a storage format and keeps
   the file. A source-reading test lists these and fails on any other.
 
-### 12.4 The only hard delete: Admin Panel / Problems / Delete → archive → delete
+### 12.4 The only hard delete: Admin Panel / Settings / Delete → archive → delete
 
-- With **Enable permanent delete** on (Admin Panel / Problems / Delete, `enablePermanentDelete`),
+- With **Enable permanent delete** on (Admin Panel / Settings / Delete, `enablePermanentDelete`),
   a global admin can archive a board and then delete it from the archive
   (`permanentlyDeleteArchivedBoards`). Removing the board removes **every attachment whose
   `meta.boardId` is that board — live and soft-deleted alike — and their files** from the

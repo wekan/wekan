@@ -1,6 +1,6 @@
 # Optional APIs: Trello, Jira, GitHub and Gitea compatible
 
-Admin Panel → Settings → Visibility → **Optional APIs** turns on REST APIs in
+Admin Panel → Settings → Features → **Optional APIs** turns on REST APIs in
 the shape of other trackers' APIs (#4930). An app or script written for Trello,
 Jira, GitHub or Gitea can then use this WeKan as its backend: what it saves is
 stored in WeKan's database, on WeKan boards, and is seen in WeKan like any

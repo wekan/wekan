@@ -9,7 +9,7 @@ performance problems WeKan can detect at runtime:
 
 1. **Remediates automatically** where possible (block / sanitize / pin / rate-limit / tune).
 2. **Logs** each event into the existing WeKan database, with **counts per category** and a **summary**.
-3. **Surfaces** it in **Admin Panel → Problems → Security** and **→ Speed**, using the same
+3. **Surfaces** it in **Admin Panel → Problems → Security Report** and **→ Speed**, using the same
    table + search + pagination design as [History.md](../../Features/General/History/History.md).
 
 The sibling [FerretDB.md](FerretDB.md) covers FerretDB. Both write to the
@@ -52,7 +52,7 @@ requests. A new class must add remediation, reporting and a regression.
   [hall-of-fame/index.html](https://wekan.fi/hall-of-fame/)**.
 - **Do not create new files or databases** under `WRITABLE_PATH` — use the existing WeKan DB via
   normal Meteor JavaScript queries (works on FerretDB, MongoDB, …).
-- Add **Admin Panel → Problems → Security** showing summary + details of these logs (pagination
+- Add **Admin Panel → Problems → Security Report** showing summary + details of these logs (pagination
   etc., History.md design).
 - Add **automatic remediation of all possible performance problems**; anything not
   auto-remediated is logged/summarized in the existing WeKan database and shown in
@@ -532,7 +532,7 @@ is now reported under that exact Hall of Fame name.
 
 ### 12.5 What the admin sees
 
-Admin Panel → **Problems → Security** (§8), unchanged except for three columns:
+Admin Panel → **Problems → Security Report** (§8), unchanged except for three columns:
 **Username**, **IP address** and **Attempts**. Both new columns are **searchable**,
 because the thing an admin does with one security event is pivot on it: every
 other event from this address, every other event from this account.
@@ -726,7 +726,7 @@ the app handles its own failures.
 ### 13.5 Where it appears
 
 Integrity findings use the `security` event stream and appear in Admin Panel →
-**Problems → Security**, with the Username / IP address / Attempts columns from
+**Problems → Security Report**, with the Username / IP address / Attempts columns from
 §12.3. They count towards the red **Problems** button like every other security
 finding. Recovery outcomes remain in Problems → Recovery; a recovery checksum
 mismatch is both a recovery failure and a security-integrity finding.

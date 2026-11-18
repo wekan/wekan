@@ -118,7 +118,7 @@ Each service's own categories become WeKan's:
 - a spam report is a **complaint**.
 
 A request with a wrong or missing signature or password is refused (HTTP 401)
-and shows in Admin Panel → Problems → Security. A service that is turned off
+and shows in Admin Panel → Problems → Security Report. A service that is turned off
 answers 404. Keys and passwords are written only when typed, and are never sent
 back to a browser.
 
@@ -155,7 +155,7 @@ Problems → Email**:
 - an email that could not be read;
 - an email for a board that no longer takes email.
 
-Attempts are listed in Problems → Security instead: a guessed board address, a
+Attempts are listed in Problems → Security Report instead: a guessed board address, a
 wrong webhook secret, a forged SNS message.
 
 ## Files

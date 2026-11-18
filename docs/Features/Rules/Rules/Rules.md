@@ -17,7 +17,7 @@ view in the **Board View** menu to go back to the board.
 admins only. Members can be shown them, read-only, so they know what happens
 when they move a card:
 
-1. **Admin Panel → Settings → Visibility → Rules**: tick **Boards may show their
+1. **Admin Panel → Settings → Features → Rules**: tick **Boards may show their
    Rules to members, read-only**. It is off by default.
 2. On the board's Rules page, a board admin ticks **Show these Rules to board
    members, read-only**.

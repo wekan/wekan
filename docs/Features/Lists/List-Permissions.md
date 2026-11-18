@@ -32,7 +32,30 @@ in** — people who are not members of the board.
 - A **board admin** is never restricted by an exception.
 - A member a board admin **removed** stays removed: an exception never gives
   them a role back.
-- Board settings, other lists and swimlanes are not affected.
+- Board settings and other lists are not affected; a swimlane is, as below.
+
+## What a refusing list also refuses
+
+Archiving, restoring, deleting or moving a list does the same to its cards,
+so a list whose **Edit** exception refuses a role also refuses that role
+(`server/listPermissions.js`, `server/lib/listPermissionGate.js`):
+
+- deleting, archiving, restoring or moving the list itself. Renaming it,
+  changing its colour or reordering it is still allowed;
+- deleting, archiving or moving a swimlane that holds cards of the list, or
+  that the list is bound to (`swimlaneRefusingListIds`);
+- REST bulk writes (bulk delete, bulk labels) naming a card of the list, and
+  the REST list delete, archive, unarchive and move routes: 403;
+- Meteor methods that write a card in or into the list, such as Copy Card,
+  Multi-Selection and **Archive all cards in this list**
+  (`assertListsWritable`);
+- a rule action that would write into the list: that action is skipped, the
+  rest of the rule runs, and the skip is shown in Admin Panel → Problems;
+- adding a dependency line from a card of the list.
+
+The list menu follows it: in such a list, **Move List to Archive** and
+[Archive all cards in this list](Archive-All-Cards.md) are not offered
+(helper `mayWriteList` in `client/components/lists/listHeader.js`).
 
 ## REST API
 

@@ -108,6 +108,10 @@ back when it was moved back. The startup schema upgrade (step
 `card-children-boardid`) moves rows that were left behind to their card's current
 board, once per new WeKan version.
 
+The card menu's own entries are described in
+[Card menu / Move Card](Move-Card.md) and
+[Card menu / Copy Card](Copy-Card.md).
+
 ## Filtered views
 
 Filter the board by member, label, due date, and more to focus on a subset of cards.

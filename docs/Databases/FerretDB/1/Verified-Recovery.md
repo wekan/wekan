@@ -114,7 +114,7 @@ may mark an abandoned redo branch `superseded`.
 The existing filesystem-integrity inventory covers attachments and avatars. The
 same paced audit also covers registered logs and verified recovery generations.
 Missing files, changed sizes, invalid signed baselines and changed checksums are
-reported in Admin Panel → Problems → Security. Intentional application deletion
+reported in Admin Panel → Problems → Security Report. Intentional application deletion
 removes its inventory entry as part of the authorized operation and is not called
 tampering.
 
