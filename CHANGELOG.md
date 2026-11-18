@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.16 2026-11-19 WeKan ® release
 
 **ListLockBulkBleed** is fixed, and a list that refuses a role
 now also refuses that role's bulk writes, dependency lines, rule actions and
@@ -15,7 +15,7 @@ server no longer runs out of memory in the hourly **History integrity audit**,
 **scheduled rules** can create cards again, and **Card Excel export** and
 clearing a card's text work again.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.16](CHANGELOG-big.md#v1316-2026-11-19-wekan--release)
 
 # v13.15 2026-11-18 WeKan ® release
 
@@ -58,14 +58,3 @@ API** write that changes nothing answers 404, and a card deletion naming the
 wrong list no longer strips the card's checklists (**ListLockBleed**).
 
 [All changes in v13.12](CHANGELOG-big.md#v1312-2026-11-14-wekan--release)
-
-# v13.11 2026-11-13 WeKan ® release
-
-The **file-integrity scan** stops reporting attachments and
-avatars that WeKan deleted itself as missing, which had buried real
-**StorageBleed** findings under thousands of false ones. The recurring-checklist
-reset no longer scans every **checklist** on each tick. In the **REST API**, a
-refused custom-field update changes nothing, ownership transfer takes only the
-boards the user administers, and deleting a missing integration answers 404.
-
-[All changes in v13.11](CHANGELOG-big.md#v1311-2026-11-13-wekan--release)
