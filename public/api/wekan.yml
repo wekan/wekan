@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.15
+  version: v13.16
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -8168,6 +8168,11 @@ definitions:
       featureStates:
         type: object
         x-nullable: true
+      featureProfiles:
+        type: array
+        items:
+          $ref: "#/definitions/SettingsFeatureprofiles"
+        x-nullable: true
       webhookInternalHosts:
         type: array
         items:
@@ -8427,6 +8432,8 @@ definitions:
         type: object
       passwordSet:
         type: object
+  SettingsFeatureprofiles:
+    type: object
   Swimlanes:
     type: object
     description:  A swimlane is an line in the kaban board.
@@ -8648,6 +8655,13 @@ definitions:
            (Admin Panel / Settings / Visibility / Features). Set only by the
            site admin's saveInstanceFeatures method.
         type: boolean
+        x-nullable: true
+      featureProfileId:
+        description: |
+           #6837: the feature profile assigned to this user directly (Admin
+           Panel / Settings / Visibility / Features). Set only by the site admin's
+           saveFeatureProfiles method; published to this user only.
+        type: string
         x-nullable: true
       createdThroughApi:
         description: |
