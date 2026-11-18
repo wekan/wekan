@@ -124,6 +124,68 @@ its reason.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **RaceBleed** is fixed: deleting a card while somebody moves it
+to another board no longer destroys its checklists, comments and attachments
+while the card itself survives there, and a member deleting a card that was
+just moved keeps their account. REST handlers now answer **404, not 500**, for
+a swimlane, user or board that is not there.
+
+This release fixes the following CRITICAL SECURITY ISSUE of [RaceBleed](https://wekan.fi/hall-of-fame/racebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7a496c9cfd8f30e5bda16515eedeaa2ec80dc65">A card's children are destroyed only for a card whose own removal happened</a>. Thanks to xingmuse and xet7.</summary>
+
+[GHSA-3vjg-3p4q-8fwh](https://github.com/wekan/wekan/security/advisories/GHSA-3vjg-3p4q-8fwh),
+CWE-367. The REST card delete looked the card up on the board the caller was
+authorised for, destroyed its checklists, checklist items, comments,
+attachments and subcards by card id, and removed the card itself last, keyed
+on that board and list. A move to another board landing in between left the
+card alive on a board the deleter cannot read, stripped of every child, with
+both requests answering 200. Every hooked removal had the same shape:
+collection-hooks runs `Cards.before.remove`, where the cascade was, and then
+removes by the caller's original selector - a swimlane, a delete batch, a
+parent - which a moved card no longer matches. The custom-field link clean-up
+did the same to the cards linked to it.
+
+The card document is now the claim (`models/lib/claimedCardRemoval.js`): the
+single and bulk REST deletes remove the card first and destroy its children
+only when that removal matched, and the hooked removals cascade from
+`Cards.after.remove`, only for a card that is really gone. A list deletion
+removes a card only while it is still in that list, and the REST board move
+that loses to a delete is a 404 instead of a 500.
+
+A delete that lost the race, or arrived after the card was moved away from
+the named board, is refused and shows in Admin Panel / Problems as RaceBleed
+(`authz.card-delete-race`, medium). It never disables the account: a stale
+view is not an attack, and PurgeBleed's critical record used to disable a
+member who deleted a card somebody had just moved.
+`tests/claimedCardRemoval.test.cjs` replays the reported race and scans
+`server/` for any cascade before or without the card's removal;
+`tests/playwright/specs/race-bleed.e2e.js` races twelve moves against
+deletes and checks that a surviving card always keeps its checklist.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/baaeea27e3dc6083b5d6a39d5b44a4e6d26ca088">REST API: a handler's not-found error is a 404, not a 500</a>. Thanks to xet7.</summary>
+
+`httpStatusForError` knew only `NotFound`, while about two hundred throw sites
+spell it Meteor's way - `not-found`, `board-not-found`, `user-not-found` and
+the rest. So deleting a missing swimlane, or adding a board member nobody is
+called, answered 500 "Internal server error" on a real server, though the
+unit test, which stubs the helper, saw the 404. Any name that is or ends in
+`not-found` is now a 404 with its message; anything unknown is still a 500
+carrying no detail. `tests/restNotFoundStatus.test.cjs` runs the real helper
+and fails on a spelling it would not map.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.14 2026-11-16 WeKan ® release
 
 **In short:** a **checklist folded on a minicard** stays folded, and every

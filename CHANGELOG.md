@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**RaceBleed** is fixed: deleting a card while somebody moves it
+to another board no longer destroys its checklists, comments and attachments
+while the card itself survives there, and a member deleting a card that was
+just moved keeps their account. REST handlers now answer **404, not 500**, for
+a swimlane, user or board that is not there.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.14 2026-11-16 WeKan ® release
 
 a **checklist folded on a minicard** stays folded, and every
