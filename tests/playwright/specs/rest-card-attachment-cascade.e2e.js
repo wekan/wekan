@@ -28,8 +28,8 @@ function attachment(page, name) {
     : page.locator('img.attachment-thumbnail').and(page.getByTitle(name, { exact: true }));
 }
 
-async function returnToBoard(page, user, board) {
-  if (targetsWeLite) await openWeLitePage(page, user, `/board?id=${encodeURIComponent(board.boardId)}&view=all`);
+async function returnToBoard(page, boardUrl) {
+  if (targetsWeLite) await page.goto(boardUrl);
   else await page.reload();
 }
 
@@ -42,6 +42,7 @@ test.afterEach(async ({ board }) => {
 
 for (const bulk of [false, true]) {
   test(`${bulk ? 'bulk' : 'single'} card deletion soft-deletes its attachments and keeps other cards' files`, async ({ request, user, user2, board, boardPage: page }) => {
+    const boardUrl = page.url();
     const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
     const sibling = db.findOne('cards', { boardId: board.boardId, title: 'Beta Card' });
     const png = await solidPng(page, 16, 16, '#3366aa');
@@ -109,7 +110,7 @@ for (const bulk of [false, true]) {
     const download = await request.get(`/api/attachment/download/${siblingId}?raw=1`, { headers: headers(user.token) });
     expect(download.status()).toBe(200);
     expect(await download.body()).toEqual(png);
-    await returnToBoard(page, user, board);
+    await returnToBoard(page, boardUrl);
     await expect(cardLink(page, 'Alpha Card')).toHaveCount(0);
     await cardLink(page, 'Beta Card').click();
     await expect(attachment(page, 'retained.png')).toBeVisible();
@@ -117,6 +118,7 @@ for (const bulk of [false, true]) {
 }
 
 test('deleting a card through its UI soft-deletes uploaded attachments and preserves sibling files', async ({ request, user, board, boardPage: page }) => {
+  const boardUrl = page.url();
   const details = new CardPage(page);
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const sibling = db.findOne('cards', { boardId: board.boardId, title: 'Beta Card' });
@@ -142,7 +144,7 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
     return uploaded;
   }
   const otherBefore = await upload(sibling, 'retained.png');
-  if (targetsWeLite) await returnToBoard(page, user, board);
+  if (targetsWeLite) await returnToBoard(page, boardUrl);
   else await details.close();
   const before = await upload(card, 'removed.png');
   if (targetsWeLite) {
@@ -189,7 +191,7 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
     const recovery = await request.get(`/api/attachment/download/${stored._id}?raw=1`, { headers: headers(user.token) });
     expect(recovery.status()).toBe(200);
     expect(await recovery.body()).toEqual(png);
-    await returnToBoard(page, user, board);
+    await returnToBoard(page, boardUrl);
     await page.locator(`input[name="sel_card"][value="${card._id}"]`).check();
     await page.locator('input[name="action_delete"]').click();
     await page.locator('input[name="action_confirm-delete"]').click();
@@ -217,7 +219,7 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
   const retained = await request.get(`/api/attachment/download/${before._id}?raw=1`, { headers: headers(user.token) });
   expect(retained.status()).toBe(200);
   expect(await retained.body()).toEqual(png);
-  await returnToBoard(page, user, board);
+  await returnToBoard(page, boardUrl);
   await expect(cardLink(page, 'Alpha Card')).toHaveCount(0);
   await cardLink(page, 'Beta Card').click();
   await expect(attachment(page, 'retained.png')).toBeVisible();
