@@ -2,15 +2,27 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const cardPath = card => `/api/boards/${card.boardId}/lists/${card.listId}/cards/${card._id}`;
 
-test('REST sort zero persists and moves the card to the top of its list', async ({ boardPage: page, request, user, board }) => {
+test('REST sort zero persists and moves the card to the top of its list', async ({ page, request, user, board }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const first = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const second = db.findOne('cards', { boardId: board.boardId, title: 'Beta Card' });
   db.updateOne('cards', { _id: second._id }, { $set: { listId: first.listId, sort: 200 } });
-  const cards = page.locator('.list').filter({ has: page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' }) }).locator('.minicard-title');
+  if (targetsWeLite) await openWeLiteBoard(page, user, board.boardId);
+  const cards = targetsWeLite
+    ? page.locator('td[data-list="'+first.listId+'"] a[href^="/board/card?"]')
+    : page.locator('.list').filter({ has: page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' }) }).locator('.minicard-title');
   await expect(cards).toHaveText(['Alpha Card', 'Beta Card']);
 
   const base = cardPath({ ...second, listId: first.listId });
@@ -21,9 +33,10 @@ test('REST sort zero persists and moves the card to the top of its list', async 
   const read = await request.get(base, { headers: headers(user.token) });
   expect(read.status()).toBe(200);
   expect((await read.json()).sort).toBe(0);
-  await expect(cards).toHaveText(['Beta Card', 'Alpha Card']);
+  if (!targetsWeLite) await expect(cards).toHaveText(['Beta Card', 'Alpha Card']);
   await page.reload();
   await expect(cards).toHaveText(['Beta Card', 'Alpha Card']);
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 
   for (const sort of [5, -1, 0.5]) {
     const update = await request.put(base, { headers: headers(user.token), data: { sort } });
