@@ -156,6 +156,11 @@ Meteor.methods({
         throw new Meteor.Error('not-found');
       }
     }
+    // ListLockBulkBleed: a reply writes on the card, a new email puts a card in
+    // the Inbox - either list may refuse this role (#4527). Asked before the
+    // mail goes out, so a refused send sends nothing.
+    await require('/server/lib/listPermissionGate').assertListsWritable(userId, board,
+      [card ? card.listId : await inboxListId(board)]);
     const thread = card && card.email && Array.isArray(card.email.threadIds) ? card.email.threadIds : [];
 
     const { Email } = require('meteor/email');

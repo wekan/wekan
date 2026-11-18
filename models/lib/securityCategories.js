@@ -243,6 +243,10 @@ const CATALOG = {
   // upload, delete, copy and move (server/lib/assignedOnlyAttachments.js). The
   // card's screen hides those in such a list, so it is an attempt. Medium.
   'authz.list-locked-attachment': { category: 'authz', bleed: 'ListLockAttachBleed', severity: 'medium', cwe: 'CWE-863' },
+  // ListLockBulkBleed (GHSA-83w9-74mx-7v83): the same list refusal, for the
+  // REST bulk delete and bulk label routes, which take their cards from the
+  // body. No screen calls them, so a refusal is an attempt. Medium.
+  'authz.list-locked-bulk': { category: 'authz', bleed: 'ListLockBulkBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.tenant':    { category: 'authz', bleed: 'TenantBleed', severity: 'medium', cwe: 'CWE-862' },
   'authz.search-session': { category: 'authz', bleed: 'SessionBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },

@@ -439,8 +439,31 @@ async function currentContentOf(row) {
  * change, restore reinstates a chosen one. They are different operations and
  * only look alike when the chosen row happens to be the last one.
  */
+// ListLockBulkBleed: undo, redo and Restore write the card again - in the list
+// it is in now, and for a move, into the list the row puts it in. Either may
+// refuse this user's role (#4527); the writes below run as server code, past
+// the Cards allow/deny rules. Lists and swimlanes are board structure and keep
+// the board's own rule.
+const CARD_ROW_TYPES = new Set(['card', 'checklist', 'checklistItem', 'comment', 'attachment']);
+async function assertRowListsWritable(row, direction, userId) {
+  if (!CARD_ROW_TYPES.has(row.entityType)) return;
+  const cardId = row.entityType === 'card' ? row.entityId : row.cardId;
+  const card = cardId ? await Cards.findOneAsync(cardId, { fields: { boardId: 1, listId: 1 } }) : null;
+  if (!card) return;
+  const { assertListsWritable } = require('/server/lib/listPermissionGate');
+  await assertListsWritable(userId, await Boards.findOneAsync(card.boardId), [card.listId],
+    row.entityType === 'comment' ? 'comment' : 'write');
+  const content = contentForDirection(row, direction);
+  if (row.entityType === 'card' && row.group === 'position' && content && typeof content.listId === 'string') {
+    // A move back may cross boards: the list is judged on its own board.
+    const boardId = content.boardId || card.boardId;
+    await assertListsWritable(userId, await Boards.findOneAsync(boardId), [content.listId]);
+  }
+}
+
 async function applyRow(row, direction) {
   await requireHistoryRowAccess(row, Meteor.userId());
+  await assertRowListsWritable(row, direction, Meteor.userId());
   if (row.entityType === 'scrum') {
     return applyScrumHistory(row, contentForDirection(row, direction), direction);
   }

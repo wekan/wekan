@@ -424,7 +424,8 @@ test('negative: the card deletion checks the list before it removes anything, an
   }
   assert.ok(callers.some(([route]) => route === '/api/boards/:boardId/cards/bulk'), 'the bulk deletion is checked');
   for (const [route, body] of callers) {
-    // RaceBleed: the removal is the claim, keyed on the board looked up with.
-    assert.match(body, /getCard\(\{ _id: cardId, boardId: paramBoardId \}\)[\s\S]*removeClaimedCard\(\{\s*card,\s*selector: \{ boardId: paramBoardId \}/, route);
+    // RaceBleed: the removal is the claim, keyed on the board looked up with -
+    // and, since ListLockBulkBleed, on the list that was checked as well.
+    assert.match(body, /getCard\(\{ _id: cardId, boardId: paramBoardId \}\)[\s\S]*removeClaimedCard\(\{\s*card,\s*selector: \{ boardId: paramBoardId(, listId: card\.listId)? \}/, route);
   }
 });

@@ -10,6 +10,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import { assertListNotRefused, assertListsWritable } from '/server/lib/listPermissionGate';
 
 // Shared import logic used by both the Meteor method and the REST endpoint.
 // Validates that the target list/swimlane belong to the board (no cross-board
@@ -23,6 +24,8 @@ async function importIcsCards(userId, boardId, listId, swimlaneId, icsText) {
   if (!swimlane || swimlane.boardId !== boardId) {
     throw new Meteor.Error('swimlane-not-found', 'Swimlane not found on this board.');
   }
+  // ListLockBulkBleed: the list may refuse this role new cards (#4527).
+  await assertListsWritable(userId, await ReactiveCache.getBoard(boardId), [listId]);
   const cardShapes = icsToCards(icsText, { boardId, listId, swimlaneId });
   const cardIds = [];
   for (const shape of cardShapes) {
@@ -122,6 +125,8 @@ WebApp.handlers.post(
       res.end(JSON.stringify({ error: 'not-authorized' }));
       return;
     }
+    // ListLockBulkBleed: over REST a refusal is an attempt (403, recorded).
+    await assertListNotRefused(req.userId, board, listId, 'write', 'rest:ics-import');
     const icsText = (req.body && (req.body.ics || req.body.icsText)) || '';
     if (typeof icsText !== 'string' || icsText.trim() === '') {
       res.writeHead(400, { 'Content-Type': 'application/json' });

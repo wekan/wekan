@@ -239,6 +239,12 @@ class ScopedImporter {
       cards.length,
     );
 
+    // ListLockBulkBleed: every list a card lands in may refuse the importing
+    // role new cards (#4527) - asked for all of them before the first insert.
+    // Lists this import created have no exception, so they never refuse.
+    await require('/server/lib/listPermissionGate').assertListsWritable(this._userId, board,
+      cards.map(card => this._listIdMap[card.listId] || fallbackListId));
+
     const customFieldMap = await this._customFieldMap(board);
 
     for (const [index, card] of cards.entries()) {

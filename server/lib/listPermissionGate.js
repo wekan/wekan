@@ -51,3 +51,40 @@ export async function assertListNotRefused(userId, board, listId, capability = '
   error.statusCode = 403;
   throw error;
 }
+
+/**
+ * GHSA-83w9-74mx-7v83: a REST write that takes its cards from the BODY (the
+ * bulk delete and bulk label routes) names no list in its URL, so it has to ask
+ * for the list of every card it is given - all of them before the first write,
+ * so a refused selection changes nothing.
+ */
+export async function assertCardListsNotRefused(userId, board, cards, capability = 'write', source = 'rest:cards/bulk') {
+  const listIds = new Set((cards || []).map(card => card && card.listId).filter(Boolean));
+  for (const listId of listIds) {
+    if ((await listException(userId, board, listId, capability)) !== false) continue;
+    try {
+      require('/server/lib/securityLog').record({ key: 'authz.list-locked-bulk', action: 'blocked', source, userId,
+        detail: `A REST bulk ${capability} naming cards in a list whose exception refuses the caller's role.` });
+    } catch (e) { /* logging must never break the guard */ }
+    const { Meteor } = require('meteor/meteor');
+    const error = new Meteor.Error('Forbidden', 'Forbidden');
+    error.statusCode = 403;
+    throw error;
+  }
+}
+
+/**
+ * The Meteor methods' half (GHSA-83w9-74mx-7v83): server code writes past the
+ * Cards allow/deny rules in server/listPermissions.js, so a method that writes a
+ * card in - or into - a list asks here. Not recorded in Admin Panel -> Problems:
+ * Copy Card's destination picker and Multi-Selection reach these methods in
+ * ordinary use, so a refusal is not evidence of an attempt.
+ */
+export async function assertListsWritable(userId, board, listIds, capability = 'write') {
+  for (const listId of new Set((listIds || []).filter(Boolean))) {
+    if ((await listException(userId, board, listId, capability)) === false) {
+      const { Meteor } = require('meteor/meteor');
+      throw new Meteor.Error('not-authorized', 'This list does not allow your role to do that.');
+    }
+  }
+}

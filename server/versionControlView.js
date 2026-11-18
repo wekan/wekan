@@ -54,6 +54,8 @@ Meteor.methods({
     const listId = await listFor(board, 'open');
     const swimlane = await board.getDefaultSwimlineAsync();
     if (!listId || !swimlane) throw new Meteor.Error('vcs-no-list');
+    // ListLockBulkBleed: the Open list may refuse this role a new card (#4527).
+    await require('/server/lib/listPermissionGate').assertListsWritable(userId, board, [listId]);
     const siblings = await ReactiveCache.getCards({ boardId: board._id, listId, archived: false });
     const cardId = await Cards.insertAsync({
       title: issue.title,

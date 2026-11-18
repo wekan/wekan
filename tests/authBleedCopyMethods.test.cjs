@@ -116,7 +116,12 @@ const ReactiveCache = {
 };
 const Boards = { findOneAsync: async id => boards[id] || null };
 const Cards = { insertAsync: wrote('Cards.insertAsync') };
-const Lists = { insertAsync: wrote('Lists.insertAsync'), updateAsync: wrote('Lists.updateAsync') };
+const Lists = { insertAsync: wrote('Lists.insertAsync'), updateAsync: wrote('Lists.updateAsync'),
+  findOneAsync: async q => (q && typeof q === 'object' && boards[q.boardId] ? { _id: q._id, boardId: q.boardId } : null) };
+// ListLockBulkBleed's list check: no list here has an exception, so it passes
+// (tests/listLockBulkBleed.test.cjs runs the real one).
+const assertListsWritable = async () => {};
+const listException = async () => undefined;
 // What the methods require after the guards: pass-through stubs.
 const requireStub = name => {
   if (name === '/models/lib/boardCardScope') return { mayCopyFromBoard: () => true };
@@ -144,9 +149,10 @@ function loadMethod(file, name) {
   const body = methodSource(file, name).replace(`async ${name}(`, `async function ${name}(`);
   return new Function('check', 'Match', 'Meteor', 'Boards', 'ReactiveCache', 'Cards', 'Lists',
     'require', 'allowIsBoardMember', 'allowIsBoardMemberWithWriteAccess', 'requireBoardMutation',
-    'normalizeBoardCopyOptions', `return ${body.trim().replace(/,$/, '')};`)(
+    'normalizeBoardCopyOptions', 'assertListsWritable', 'listException', `return ${body.trim().replace(/,$/, '')};`)(
     check, Match, Meteor, Boards, ReactiveCache, Cards, Lists, requireStub,
-    allowIsBoardMember, allowIsBoardMemberWithWriteAccess, requireBoardMutation, o => o);
+    allowIsBoardMember, allowIsBoardMemberWithWriteAccess, requireBoardMutation, o => o,
+    assertListsWritable, listException);
 }
 
 async function refused(fn, userId, args, expectedError = 'not-authorized') {

@@ -49,7 +49,7 @@ import { syncCardChildrenBoard } from '/server/lib/cardChildrenBoardSync';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
-import { assertListNotRefused } from '/server/lib/listPermissionGate';
+import { assertListNotRefused, assertCardListsNotRefused, assertListsWritable, listException } from '/server/lib/listPermissionGate';
 // #4693: setSubtaskDone - tick a subtask done from the parent's Subtasks list.
 import '/server/lib/subtaskDoneMethod';
 import getSlug from 'limax';
@@ -119,6 +119,9 @@ async function createLinkedCardFor(userId, sourceCardId, boardId, swimlaneId, li
   if (!allowIsBoardMemberWithWriteAccess(userId, destinationBoard)) {
     throw new Meteor.Error('not-authorized');
   }
+  // GHSA-83w9-74mx-7v83: a list that refuses this role refuses a new linked
+  // card in it too; the insert below is server code, past the allow/deny rules.
+  await assertListsWritable(userId, destinationBoard, [listId]);
   if (
     sourceCard.linkedId ||
     sourceCard.archived === true ||
@@ -183,6 +186,8 @@ Meteor.methods({
       recordUnassignedCardWrite(this.userId, 'method:createBoardFromCard');
       throw new Meteor.Error('not-authorized');
     }
+    // ListLockBulkBleed: converting the card is a write in its list.
+    await assertListsWritable(this.userId, sourceBoard, [card.listId]);
     // CreateBleed: the card becomes a new working board.
     const { assertMayCreateBoard } = require('/server/lib/boardCreationGuard');
     await assertMayCreateBoard(this.userId, { source: 'method:createBoardFromCard', type: 'board' });
@@ -282,6 +287,9 @@ Meteor.methods({
       recordUnassignedCardWrite(this.userId, 'method:archiveSelectedCards');
       throw new Meteor.Error('not-authorized');
     }
+    // GHSA-83w9-74mx-7v83: and every card's list - a list that refuses this
+    // role refuses the whole selection before the first card is archived.
+    await assertListsWritable(this.userId, board, cards.map(card => card.listId));
 
     // Validate the complete selection before changing the first card. Preserve
     // the board order used by Multi-Selection for deterministic activity order.
@@ -450,6 +458,8 @@ Meteor.methods({
       targetList = await Lists.findOneAsync(listId);
     }
     if (!targetList) return undefined;
+    // ListLockBulkBleed: the landing list may refuse this role a new card.
+    await assertListsWritable(this.userId, targetBoard, [targetList._id]);
 
     // #1953: the swimlane chosen in Board Settings / Subtasks (the main
     // board's on a shared deposit board, else the deposit board's own), else
@@ -531,6 +541,12 @@ Meteor.methods({
     if (!destBoard) throw new Meteor.Error('not-found');
     if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
       throw refuse('Card insert refused: no write access to the board');
+    // ListLockBulkBleed: the list must be this board's, and must not refuse
+    // this role a new card.
+    const destList = await Lists.findOneAsync({ _id: listId, boardId });
+    if (!destList) throw new Meteor.Error('not-found');
+    if ((await listException(this.userId, destBoard, listId, 'write')) === false)
+      throw refuse('Card insert refused: the list refuses this role');
 
     const card = {
       title,
@@ -896,6 +912,9 @@ Meteor.methods({
     const destBoard = await Boards.findOneAsync(boardId);
     if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
       throw new Meteor.Error('not-authorized');
+    // GHSA-83w9-74mx-7v83: the destination list may refuse this role; the copy
+    // is inserted by server code, past the Cards allow/deny rules.
+    await assertListsWritable(this.userId, destBoard, [listId]);
     // Reject a forged merge before copying children or emitting activities.
     await require('/server/lib/adminOnlyCustomFields').assertFieldWrite(
       this.userId, card, { ...card, ...mergeCardValues }, 'method:copyCard');
@@ -2404,10 +2423,21 @@ WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, re
     return;
   }
 
+  // GHSA-83w9-74mx-7v83: the cards come from the body, so no URL names their
+  // lists. Every card is read, and every list it is in asked, before the first
+  // removal: a list that refuses the caller's role refuses the whole request.
+  const found = new Map();
+  for (const cardId of cardIds) {
+    const card = await ReactiveCache.getCard({ _id: cardId, boardId: paramBoardId });
+    if (card) found.set(cardId, card);
+  }
+  await assertCardListsNotRefused(req.userId, await ReactiveCache.getBoard(paramBoardId),
+    [...found.values()], 'write', 'rest:cards/bulk-delete');
+
   const deleted = [];
   const notFound = [];
   for (const cardId of cardIds) {
-    const card = await ReactiveCache.getCard({ _id: cardId, boardId: paramBoardId });
+    const card = found.get(cardId);
     if (!card) {
       notFound.push(cardId);
       continue;
@@ -2415,10 +2445,12 @@ WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, re
     // RaceBleed (GHSA-3vjg-3p4q-8fwh): the card first, keyed on this board,
     // and its checklists, items, comments, attachments and subcards only when
     // that removal matched - a card moved away meanwhile keeps them all.
+    // Keyed on the list that was checked, too: a card moved into a refusing
+    // list since is not removed.
     noteAuthorSpoof(req, 'DELETE cards/bulk');
     const removed = await removeClaimedCard({
       card,
-      selector: { boardId: paramBoardId },
+      selector: { boardId: paramBoardId, listId: card.listId },
       removeCard: selector => Cards.direct.removeAsync(selector),
       cascade: claimed => cardRemover(req.userId, claimed),
     });
@@ -2496,9 +2528,11 @@ WebApp.handlers.post('/api/boards/:boardId/cards/labels', async function(req, re
   // waiting for the last.
   const cards = await ReactiveCache.getCards(
     { _id: { $in: cardIds }, boardId: paramBoardId, archived: false },
-    { fields: { _id: 1, labelIds: 1 } },
+    { fields: { _id: 1, labelIds: 1, listId: 1 } },
   );
   const cardById = new Map((cards || []).map(card => [card._id, card]));
+  // GHSA-83w9-74mx-7v83: every card's list, before the first write.
+  await assertCardListsNotRefused(req.userId, board, cards || [], 'write', 'rest:cards/labels');
 
   const updated = [];
   const notFound = [];
@@ -2515,7 +2549,8 @@ WebApp.handlers.post('/api/boards/:boardId/cards/labels', async function(req, re
     const merged = mergeLabelIds(card.labelIds, addLabelIds, removeLabelIds);
     writes.push(
       Cards.direct.updateAsync(
-        { _id: cardId, boardId: paramBoardId, archived: false },
+        // The list that was checked: a card moved since is not relabelled.
+        { _id: cardId, boardId: paramBoardId, listId: card.listId, archived: false },
         { $set: { labelIds: merged } },
       ),
     );

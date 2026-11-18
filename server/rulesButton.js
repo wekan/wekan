@@ -35,6 +35,11 @@ Meteor.methods({
     const board = await ReactiveCache.getBoard(rule.boardId);
     const card = cardId === undefined ? undefined : await ReactiveCache.getCard(cardId);
     requireButtonRuleContext(this.userId, board, cardId, card, Meteor);
+    // ListLockBulkBleed: a card button's actions write that card, so its list
+    // may refuse the role pressing it (#4527).
+    if (card) {
+      await require('/server/lib/listPermissionGate').assertListsWritable(this.userId, board, [card.listId]);
+    }
 
     // A rule runs each of its actions in order (models/lib/ruleParts.js).
     const actions = [];

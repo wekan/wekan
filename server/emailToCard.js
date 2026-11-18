@@ -208,7 +208,15 @@ export async function receiveBoardEmail(message, { source = 'webhook' } = {}) {
   const thread = threadKeys.length
     ? await Cards.findOneAsync({ boardId: board._id, archived: false, 'email.threadIds': { $in: threadKeys } })
     : null;
+  // ListLockBulkBleed: the address acts for its member, so a list that
+  // refuses that member's role refuses the mail too (#4527). An email somebody
+  // sent is not an attack: it bounces, and Problems -> Email shows why.
+  const { listException } = require('/server/lib/listPermissionGate');
+  const listRefuses = async listId => (await listException(user._id, board, listId, 'write')) === false;
+  const listRefused = () => refused('the list refuses the address\'s member a write',
+    { handled: true, code: 403, error: 'The list does not take email' });
   if (thread) {
+    if (await listRefuses(thread.listId)) return listRefused();
     // A reply in a conversation this board already has: a comment on that
     // card, the way Gmail shows it in the same thread.
     const commentId = await addEmailComment(thread, user._id, fields.description || fields.title);
@@ -226,6 +234,7 @@ export async function receiveBoardEmail(message, { source = 'webhook' } = {}) {
   if (!list || !swimlane) {
     return refused('the board has no list for new cards', { handled: true, code: 409, error: 'The board has no list' });
   }
+  if (await listRefuses(list._id)) return listRefused();
   const siblings = await ReactiveCache.getCards({ listId: list._id, archived: false });
   const customFields = await ReactiveCache.getCustomFields({ boardIds: board._id });
   const cardId = await Cards.direct.insertAsync({

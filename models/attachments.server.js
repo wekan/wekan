@@ -444,6 +444,14 @@ Meteor.methods({
     }
 
     requireBoardMutation(currentUserId, board, 'renameAttachment', Meteor);
+    // ListLockBulkBleed (ListLockAttachBleed's sibling): a rename is a write on
+    // the card, so the card's list may refuse it (#4527). The card's own board
+    // decides. The card's screen offers a rename, so a refusal is not recorded.
+    const card = fileObj.meta?.cardId ? await ReactiveCache.getCard(fileObj.meta.cardId) : null;
+    if (card) {
+      await require('/server/lib/listPermissionGate').assertListsWritable(currentUserId,
+        await ReactiveCache.getBoard(card.boardId), [card.listId]);
+    }
 
     // FileNameBleed, regressed (2023-02-21 to 2026-10-02): the server check
     // added by the original fix was deleted in "Try to fix build errors", and

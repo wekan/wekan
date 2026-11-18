@@ -148,6 +148,24 @@ Meteor.methods({
     const needsList = roots.some(doc => ['card', 'checklist', 'item'].includes(doc.kind));
     if ((needsLane && !dest.swimlane) || (needsList && !dest.list)) throw new Meteor.Error('invalid-destination', 'Choose a destination swimlane and list.');
     const grouped = Object.fromEntries(kinds.map(kind => [kind, roots.filter(doc => doc.kind === kind)]));
+    // ListLockBulkBleed: a card, checklist or item leaves its card's list and
+    // lands in the destination list or on the destination card; any of those
+    // lists may refuse this role a write (#4527). Whole lists and swimlanes are
+    // board structure and keep the board's own rule.
+    const { assertListsWritable } = require('/server/lib/listPermissionGate');
+    const sourceListIds = [];
+    for (const doc of roots) {
+      if (doc.kind === 'card') sourceListIds.push((await Cards.findOneAsync(doc._id, { fields: { listId: 1 } }))?.listId);
+      else if (doc.kind === 'checklist' || doc.kind === 'item') {
+        const owner = await collections[doc.kind].findOneAsync(doc._id, { fields: { cardId: 1 } });
+        sourceListIds.push(owner && (await Cards.findOneAsync(owner.cardId, { fields: { listId: 1 } }))?.listId);
+      }
+    }
+    await assertListsWritable(this.userId, sourceBoard, sourceListIds);
+    if (needsList) {
+      await assertListsWritable(this.userId, await Boards.findOneAsync(target.boardId),
+        [dest.list && dest.list._id, dest.card && dest.card.listId]);
+    }
     // All permissions and parent relationships above are checked before writes.
     for (const lane of grouped.swimlane) {
       // Card move hooks validate the destination lane against its board.

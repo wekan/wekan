@@ -236,7 +236,7 @@ UserPositionHistory.helpers({
    * move, on the board it moves to. History documents are data; this is the
    * check at execution time, whatever wrote them.
    */
-  async assertApplicable(destinationBoardIds = []) {
+  async assertApplicable(destinationBoardIds = [], destinationListId = null) {
     if (!Meteor.isServer) return;
     const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
     let entityBoardId = null;
@@ -265,7 +265,21 @@ UserPositionHistory.helpers({
       if (!allowed) break;
       allowed = allowIsBoardMemberWithWriteAccess(this.userId, await Boards.findOneAsync(boardId));
     }
-    if (allowed) return;
+    if (allowed) {
+      // ListLockBulkBleed: undoing or redoing a card move writes the card in the
+      // list it is in and into the list it goes to; either may refuse this
+      // role (#4527), and this runs as server code, past allow/deny.
+      if (this.entityType === 'card') {
+        const { assertListsWritable } = require('/server/lib/listPermissionGate');
+        const card = await ReactiveCache.getCard(this.entityId);
+        await assertListsWritable(this.userId, await Boards.findOneAsync(card.boardId), [card.listId]);
+        const destinationBoardId = destinationBoardIds.find(Boolean) || card.boardId;
+        if (destinationListId) {
+          await assertListsWritable(this.userId, await Boards.findOneAsync(destinationBoardId), [destinationListId]);
+        }
+      }
+      return;
+    }
     try {
       require('/server/lib/canary').tripCanary('history.cross-board', { userId: this.userId });
     } catch (e) { /* logging must never break the guard */ }
@@ -276,7 +290,8 @@ UserPositionHistory.helpers({
     if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-undo', 'Entity no longer exists');
     }
-    await this.assertApplicable([this.entityType === 'card' ? this.previousBoardId : null]);
+    await this.assertApplicable([this.entityType === 'card' ? this.previousBoardId : null],
+      this.entityType === 'card' ? this.previousListId : null);
 
     // Soft delete: undo of a 'delete' RESTORES the entity (+ batch); undo of a
     // 'restore' re-deletes it. (docs/Features/Undo/Undo.md)
@@ -401,7 +416,8 @@ UserPositionHistory.helpers({
     if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-redo', 'Entity no longer exists');
     }
-    await this.assertApplicable([this.entityType === 'card' ? this.newBoardId : null]);
+    await this.assertApplicable([this.entityType === 'card' ? this.newBoardId : null],
+      this.entityType === 'card' ? this.newListId : null);
 
     // Soft delete: redo of a 'delete' re-deletes; redo of a 'restore' restores.
     if (this.actionType === 'delete') {

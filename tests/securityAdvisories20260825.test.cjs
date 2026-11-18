@@ -79,14 +79,15 @@ test('history is never inserted by a client', () => {
 });
 
 test('undo and redo act only within the entry\'s boards, with write access', () => {
-  assert.match(historyModel, /async assertApplicable\(destinationBoardIds = \[\]\) \{/);
+  // ListLockBulkBleed added the list the card moves to as a second argument.
+  assert.match(historyModel, /async assertApplicable\(destinationBoardIds = \[\], destinationListId = null\) \{/);
   assert.match(historyModel, /const entryBoards = \[this\.boardId, this\.previousBoardId, this\.newBoardId\]\.filter\(Boolean\);/);
   assert.match(historyModel, /allowed = allowIsBoardMemberWithWriteAccess\(this\.userId, await Boards\.findOneAsync\(boardId\)\);/);
   // Both paths call it before touching anything, redo included - which had
   // no check at all.
   for (const [fn, field] of [['undo', 'previousBoardId'], ['redo', 'newBoardId']]) {
     const body = historyModel.slice(historyModel.indexOf(`async ${fn}() {`));
-    const check = body.indexOf(`await this.assertApplicable([this.entityType === 'card' ? this.${field} : null]);`);
+    const check = body.indexOf(`await this.assertApplicable([this.entityType === 'card' ? this.${field} : null],`);
     assert.ok(check > 0 && check < body.indexOf('_applyDeleted('), `${fn} checks first`);
   }
 });
