@@ -1838,23 +1838,22 @@ WebApp.handlers.put(
       sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
       return;
     }
-    // sort 0, isOverTime false and '' are values, not absences (#6877); checked
-    // before the first write, so a bad one leaves the card as it was.
+    // Validate supplied scalars before the first write, including empty strings.
     const scalars = parseCardScalarFields(req.body);
     if (scalars.error) {
       sendJsonResult(res, { code: 400, data: { error: scalars.error } });
       return;
     }
 
-    if (req.body.title) {
-      const newTitle =
-        req.body.title.length > 1000 ? req.body.title.substring(0, 1000) : req.body.title;
+    if ('title' in scalars.set) {
+      const newTitle = scalars.set.title;
       if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
         console.warn('Sanitized card title input:', req.body.title, '->', newTitle);
       }
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { title: newTitle } },
+        { removeEmptyStrings: newTitle !== '' },
       );
       updated = true;
     }

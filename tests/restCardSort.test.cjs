@@ -33,7 +33,7 @@ async function fixture() {
         if (typeof selector === 'string') return { ...card };
         return Object.entries(selector).every(([key, value]) => card[key] === value) ? { ...card } : null;
       },
-      direct: { async updateAsync(selector, modifier) { writes.push(plain({ selector, modifier })); } },
+      direct: { async updateAsync(selector, modifier, options) { writes.push(plain({ selector, modifier, options })); } },
     },
     require(name) {
       assert.equal(name, '/server/models/changeHistoryHooks');
@@ -113,13 +113,32 @@ for (const description of [5, {}, ['x']]) {
   });
 }
 
-// Every field of this handler that can be legitimately falsy goes through the
-// presence check; none is read with a bare `if (req.body.<field>)` again.
-test('sort, isOverTime and description are not read by truthiness', () => {
+for (const [title, written] of [['', ''], ['Renamed', 'Renamed'], ['x'.repeat(1001), 'x'.repeat(1000)]]) {
+  test(`card PUT writes a title of length ${title.length} with the existing length limit`, async () => {
+    const f = await fixture();
+    assert.deepEqual(await f.put({ title }), { code: 200, data: { _id: 'card' } });
+    assert.deepEqual(f.writes, [{
+      selector: { _id: 'card', listId: 'list', boardId: 'board', archived: false },
+      modifier: { $set: { title: written } },
+      options: { removeEmptyStrings: title !== '' },
+    }]);
+  });
+}
+
+for (const title of [null, false, 0, {}, ['text']]) {
+  test(`card PUT refuses title ${JSON.stringify(title)} before writing other fields`, async () => {
+    const f = await fixture();
+    assert.deepEqual(await f.put({ title, description: 'Other edit' }), { code: 400, data: { error: 'Invalid title' } });
+    assert.deepEqual(f.writes, []);
+  });
+}
+
+// These scalar fields accept falsy values through the shared presence check.
+test('title, sort, isOverTime and description use parsed values', () => {
   const source = fs.readFileSync(path.join(__dirname, '../server/models/cards.js'), 'utf8');
   const start = source.indexOf(`WebApp.handlers.put(\n  '${route}'`);
   const body = source.slice(start, source.indexOf('\n);', start));
-  for (const field of ['sort', 'isOverTime', 'description']) {
+  for (const field of ['title', 'sort', 'isOverTime', 'description']) {
     assert.ok(!new RegExp(`if \\(req\\.body\\.${field}\\)`).test(body), field);
     assert.ok(new RegExp(`'${field}' in scalars\\.set`).test(body), `${field} uses the parsed value`);
   }

@@ -4,7 +4,7 @@
 //   #5398 normalizeMoveParams  - one consistent set of board-move params
 //   #5399 computeTopSort        - sort value that lands a card on TOP of a list
 //   #5537 parseCardDate         - parse an ISO date string into a Date that persists
-//   #6877 parseCardScalarFields - sort 0, isOverTime false, an empty description
+//   #6877 parseCardScalarFields - sort 0, isOverTime false, empty titles and descriptions
 
 /**
  * #5399 Moving a card to another list via the API must put it on TOP of the
@@ -106,12 +106,9 @@ export function parseCardDate(value) {
 }
 
 /**
- * The card PUT fields whose valid values include a falsy one: sort 0,
- * isOverTime false and an empty description (#6877). A truthiness check
- * skipped them, so 0 could not be written, an overtime flag could not be
- * turned off and a description could not be cleared. Presence decides now,
- * and the value is checked before the handler writes anything, so a bad
- * value is a 400 rather than a half-applied edit.
+ * Validate card PUT fields whose valid values include sort 0, isOverTime
+ * false, and empty titles and descriptions. Check supplied values before
+ * the handler writes anything so invalid input cannot leave a partial edit.
  *
  * Form-encoded clients send strings, so '0' is a number and 'true'/'false'
  * are booleans here, as in JSON.
@@ -122,6 +119,10 @@ export function parseCardDate(value) {
 export function parseCardScalarFields(body) {
   const has = key => !!body && Object.prototype.hasOwnProperty.call(body, key) && body[key] !== undefined;
   const set = {};
+  if (has('title')) {
+    if (typeof body.title !== 'string') return { error: 'Invalid title' };
+    set.title = body.title.slice(0, 1000);
+  }
   if (has('sort')) {
     const raw = body.sort;
     const sort = typeof raw === 'number' ? raw
