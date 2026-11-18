@@ -54,6 +54,15 @@ test('one field selection removes a section before either renderer sees it', () 
   assert.deepStrictEqual(sections, ['description']);
 });
 
+test('selected fields render when board information was not loaded', () => {
+  for (const [field, board] of [['description', null], ['labels', data.board]]) {
+    const selection = { ...options, fields: [field] };
+    const records = { ...data, board, list: null, swimlane: null };
+    assert.deepStrictEqual(buildExportCardDocument(records, selection),
+      buildExportCardDocument(data, selection));
+  }
+});
+
 test('file sizes are identical in PDF and Excel data', () => {
   assert.strictEqual(formatExportFileSize(0), '0 B');
   assert.strictEqual(formatExportFileSize(1024), '1.0 KB');

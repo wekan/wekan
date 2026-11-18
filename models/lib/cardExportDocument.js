@@ -34,9 +34,9 @@ function buildExportCardDocument(data, options = {}) {
   const poker = card.poker || {};
 
   return buildCardDocument(card, {
-    boardTitle: board.title || '',
-    listTitle: list.title || '',
-    swimlaneTitle: swimlane.title || '',
+    boardTitle: board?.title || '',
+    listTitle: list?.title || '',
+    swimlaneTitle: swimlane?.title || '',
     cardNumber: card.cardNumber,
     labels: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean)
       .map(label => label.name || label.color || label._id),
