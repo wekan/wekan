@@ -4,6 +4,8 @@ const { test: base, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const fieldPath = (boardId, id) => `/api/boards/${boardId}/custom-fields/${id}`;
@@ -78,34 +80,51 @@ test('dropdown deletion preserves authorization and permits ordinary board write
   }
 });
 
-test('rejected dropdown deletion preserves browser choices and a successful deletion removes only its option', async ({ request, user, board, dropdown, boardPage: page }) => {
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
+test('rejected dropdown deletion preserves browser choices and a successful deletion removes only its option', async ({ request, user, board, dropdown, page }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('cards', { _id: card._id }, { $set: { customFields: [{ _id: dropdown.id, value: 'keep' }] } });
   const before = db.getCard(card._id);
-  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
   const cardPage = new CardPage(page);
-  await cardPage.waitForOpen();
-  const section = cardPage.root.locator('.card-details-group-custom-fields');
+  async function openCard() {
+    if (targetsWeLite) {
+      await page.getByRole('link', { name: 'Alpha Card', exact: true }).click();
+    } else {
+      await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+      await cardPage.waitForOpen();
+    }
+  }
+  if (targetsWeLite) await openWeLiteBoard(page, user, board.boardId);
+  await openCard();
+  const section = targetsWeLite
+    ? page.locator('.card-custom-fields')
+    : cardPage.root.locator('.card-details-group-custom-fields');
   await expect(section).toContainText('Keep option');
-  await section.locator('a.js-edit-card-custom-field-value').click();
-  const select = section.locator('.js-card-customfield-dropdown select');
+  if (!targetsWeLite) await section.locator('a.js-edit-card-custom-field-value').click();
+  const select = section.locator(targetsWeLite ? 'select[name="option"]' : '.js-card-customfield-dropdown select');
   await expect(select.locator('option[value="remove"]')).toHaveText('Remove option');
   await expect(select.locator('option[value="keep"]')).toHaveText('Keep option');
 
   const rejected = await request.delete(`${dropdown.path}/dropdown-items/missing`, { headers: headers(user.token) });
   expect(rejected.status()).toBe(404);
+  if (targetsWeLite) await page.reload();
   await expect(select.locator('option[value="remove"]')).toHaveText('Remove option');
   const response = await request.delete(`${dropdown.path}/dropdown-items/remove`, { headers: headers(user.token) });
   expect(response.status()).toBe(200);
   expect(db.getCard(card._id)).toEqual(before);
 
   await page.reload();
-  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
-  await cardPage.waitForOpen();
+  if (!targetsWeLite) await openCard();
   await expect(section).toContainText('Keep option');
-  await section.locator('a.js-edit-card-custom-field-value').click();
+  if (!targetsWeLite) await section.locator('a.js-edit-card-custom-field-value').click();
   await expect(select).toBeVisible();
   await expect(select.locator('option[value="remove"]')).toHaveCount(0);
   await expect(select.locator('option[value="keep"]')).toHaveText('Keep option');
   await expect(select).toHaveValue('keep');
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
