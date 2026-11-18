@@ -4,6 +4,9 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken } = require('../helpers/auth');
 const AdminPage = require('../pages/AdminPage');
+const { targetsWeLite, openWeLitePage } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const userPath = id => `/api/users/${id}`;
@@ -47,26 +50,40 @@ test('user PUT checks authentication and site-admin access before missing-user r
 });
 
 test('People shows valid REST login changes after a missing-user update is rejected', async ({ page, request, adminUser, user }) => {
-  await loginWithToken(page, adminUser.id, adminUser.token);
   const admin = new AdminPage(page);
-  await admin.navigateToPeople();
-  const row = admin.userRowByUsername(user.username);
-  const status = row.locator('.js-toggle-active-status');
-  await expect(status).toHaveAttribute('data-is-active', 'true');
+  if (targetsWeLite) {
+    await openWeLitePage(page, adminUser, '/admin/people');
+  } else {
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await admin.navigateToPeople();
+  }
+  async function expectActive(active) {
+    if (targetsWeLite) {
+      const row = page.getByRole('row').filter({ has: page.getByRole('cell', { name: user.username, exact: true }) });
+      await expect(row.getByRole('cell').nth(2)).toHaveText(active === 'true' ? 'enabled' : 'disabled');
+    } else {
+      await expect(admin.userRowByUsername(user.username).locator('.js-toggle-active-status'))
+        .toHaveAttribute('data-is-active', active);
+    }
+  }
+  await expectActive('true');
 
   const missing = await request.put(userPath(db.uid('missing')), {
     headers: headers(adminUser.token), data: { action: 'disableLogin' },
   });
   expect(missing.status()).toBe(404);
   expect(await missing.json()).toEqual({ error: 'User not found' });
-  await expect(status).toHaveAttribute('data-is-active', 'true');
+  if (targetsWeLite) await page.reload();
+  await expectActive('true');
 
   for (const [action, active] of [['disableLogin', 'false'], ['enableLogin', 'true']]) {
     const response = await request.put(userPath(user.id), {
       headers: headers(adminUser.token), data: { action },
     });
     expect(response.status()).toBe(200);
-    await expect(status).toHaveAttribute('data-is-active', active);
+    if (targetsWeLite) await page.reload();
+    await expectActive(active);
     expect(db.findOne('users', { _id: user.id }).loginDisabled).toBe(active === 'false');
   }
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
