@@ -172,32 +172,64 @@ function rowHashIsValid(row) {
   return cleanedEmptyStringMatches(row);
 }
 
-function verifyHistoryRows(rows) {
-  const list = Array.isArray(rows) ? rows.filter(row => row && row.integrityHash) : [];
-  const hashes = new Map(list.map(row => [`${row.boardId}:${row.integrityHash}`, row]));
-  const children = new Map();
+// The History integrity audit, one row at a time. The hourly scan used to
+// fetch a board's whole History - every row with its full previous and new
+// content - and verify the array; a board with a long History took the server
+// past its heap limit and it died (production log, v13.13: "JavaScript heap
+// out of memory" 42 and 74 seconds after the hourly audit started, both times
+// in a freshly started process). This keeps what the checks need: the hash of
+// every row seen, the first child of every predecessor, the root count per
+// board, and the few rows whose predecessor has not been seen yet. With
+// `keepRows` a failure carries the row itself, as verifyHistoryRows always did;
+// without it, a small summary (id, board, hashes, time, whether its checksum
+// held) - what the report and isConcurrentFork read.
+const REASON_ORDER = { 'checksum-mismatch': 0, 'predecessor-missing': 1, 'history-fork': 2, 'multiple-history-roots': 2 };
+function historyVerifier({ keepRows = false } = {}) {
+  const seen = new Set();
+  const waiting = [];
   const firstChild = new Map();
   const roots = new Map();
   const failures = [];
-  for (const row of list) {
-    if (!rowHashIsValid(row)) failures.push({ row, reason: 'checksum-mismatch' });
-    if (row.previousHash && !hashes.has(`${row.boardId}:${row.previousHash}`)) {
-      failures.push({ row, reason: 'predecessor-missing' });
-    }
-    if (row.previousHash) {
-      const key = `${row.boardId}:${row.previousHash}`;
-      const first = firstChild.get(key);
-      const count = (children.get(key) || 0) + 1;
-      children.set(key, count);
-      if (!first) firstChild.set(key, row);
-      else failures.push({ row, reason: 'history-fork', sibling: first });
-    } else {
-      const count = (roots.get(row.boardId) || 0) + 1;
-      roots.set(row.boardId, count);
-      if (count > 1) failures.push({ row, reason: 'multiple-history-roots' });
-    }
-  }
-  return failures;
+  let index = 0;
+  const fail = (at, row, reason, sibling) => failures.push({ at, row, reason, ...(sibling ? { sibling } : {}) });
+  return {
+    add(row) {
+      if (!row || !row.integrityHash) return;
+      const at = index;
+      index += 1;
+      const hashValid = rowHashIsValid(row);
+      const kept = keepRows ? row : {
+        _id: row._id, boardId: row.boardId, integrityHash: row.integrityHash,
+        previousHash: row.previousHash, createdAt: row.createdAt, hashValid,
+      };
+      if (!hashValid) fail(at, kept, 'checksum-mismatch');
+      seen.add(`${row.boardId}:${row.integrityHash}`);
+      if (row.previousHash) {
+        const key = `${row.boardId}:${row.previousHash}`;
+        if (!seen.has(key)) waiting.push({ at, key, row: kept });
+        const first = firstChild.get(key);
+        if (!first) firstChild.set(key, kept);
+        else fail(at, kept, 'history-fork', first);
+      } else {
+        const count = (roots.get(row.boardId) || 0) + 1;
+        roots.set(row.boardId, count);
+        if (count > 1) fail(at, kept, 'multiple-history-roots');
+      }
+    },
+    // The failures in row order, each row's in the order the checks run.
+    finish() {
+      for (const { at, key, row } of waiting) if (!seen.has(key)) fail(at, row, 'predecessor-missing');
+      return failures
+        .sort((a, b) => (a.at - b.at) || (REASON_ORDER[a.reason] - REASON_ORDER[b.reason]))
+        .map(({ at, ...failure }) => failure);
+    },
+  };
+}
+
+function verifyHistoryRows(rows) {
+  const verifier = historyVerifier({ keepRows: true });
+  for (const row of Array.isArray(rows) ? rows : []) verifier.add(row);
+  return verifier.finish();
 }
 
 // A fork whose two rows are both intact and were saved within moments of
@@ -208,10 +240,13 @@ function isConcurrentFork(failure, windowMs = CONCURRENT_FORK_MS) {
   if (!failure || failure.reason !== 'history-fork' || !failure.sibling) return false;
   const at = row => new Date(row.createdAt).getTime();
   const gap = Math.abs(at(failure.row) - at(failure.sibling));
-  return rowHashIsValid(failure.row) && rowHashIsValid(failure.sibling) && Number.isFinite(gap) && gap <= windowMs;
+  // A streamed audit's failure carries a summary whose checksum was checked
+  // while the row was at hand (historyVerifier).
+  const valid = row => (typeof row.hashValid === 'boolean' ? row.hashValid : rowHashIsValid(row));
+  return valid(failure.row) && valid(failure.sibling) && Number.isFinite(gap) && gap <= windowMs;
 }
 
 module.exports = {
-  canonical, sha256, hashHistoryRow, rowHashIsValid, verifyHistoryRows, isConcurrentFork, CONCURRENT_FORK_MS, PROTECTED,
+  canonical, sha256, hashHistoryRow, rowHashIsValid, verifyHistoryRows, historyVerifier, isConcurrentFork, CONCURRENT_FORK_MS, PROTECTED,
   storedShape,
 };

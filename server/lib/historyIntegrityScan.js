@@ -6,8 +6,10 @@ import { runWhenCpuLow, pauseIfBusy } from '/server/lib/cpuMonitor';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { SyncedCron } from '/server/cron/syncedCron';
 
-const { verifyHistoryRows, isConcurrentFork } = require('/models/lib/changeHistoryIntegrity');
+const { historyVerifier, isConcurrentFork } = require('/models/lib/changeHistoryIntegrity');
 const PAUSE_MS = 100;
+// Rows read between two pauses, and the cursor's batch: what is in memory at once.
+const BATCH = 500;
 
 // What this audit has already reported: { _id: '<row>:<reason>', reportedAt }.
 // A broken row stays broken, and the audit runs every hour; reporting it again
@@ -48,18 +50,29 @@ function report(failure) {
   });
 }
 
-// Board by board, so the whole History is never in memory at once.
+// Board by board, and within a board row by row: a board's History is never
+// in memory at once either. It used to be - fetchAsync() of every row with its
+// full content - and one board with a long History took a server past its heap
+// limit on the first hourly run after a restart (production log, v13.13). The
+// verifier keeps only hashes and small summaries (historyVerifier).
 export async function runHistoryIntegrityScan() {
-  const boardIds = await ChangeHistory.rawCollection().distinct('boardId', { integrityHash: { $nin: [null, ''] } });
+  const raw = ChangeHistory.rawCollection();
+  const boardIds = await raw.distinct('boardId', { integrityHash: { $nin: [null, ''] } });
   let checked = 0, failures = 0, reported = 0;
   for (const boardId of boardIds) {
     await pauseIfBusy(PAUSE_MS);
-    const rows = await ChangeHistory.find(
-      { boardId, integrityHash: { $nin: [null, ''] } },
-      { sort: { createdAt: 1 }, transform: null },
-    ).fetchAsync();
-    checked += rows.length;
-    for (const failure of verifyHistoryRows(rows)) {
+    const verifier = historyVerifier();
+    const cursor = raw.find({ boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: 1 }, batchSize: BATCH });
+    try {
+      for await (const row of cursor) {
+        verifier.add(row);
+        checked += 1;
+        if (checked % BATCH === 0) await pauseIfBusy(PAUSE_MS);
+      }
+    } finally {
+      await cursor.close().catch(() => {});
+    }
+    for (const failure of verifier.finish()) {
       failures += 1;
       if (await firstReport(failure)) { reported += 1; report(failure); }
     }
