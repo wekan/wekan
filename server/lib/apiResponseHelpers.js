@@ -80,6 +80,11 @@ export function httpStatusForError(error) {
     return error.code;
   }
   const name = error && (error.error || error.errorType || error.name);
+  // Meteor's own spelling, which the handlers throw - 'not-found' and
+  // 'board-not-found', 'list-not-found', 'user-not-found' ...: they were 500s,
+  // so a deletion of a missing swimlane or a member add naming nobody answered
+  // "Internal server error" instead of the 404 it is.
+  if (typeof name === 'string' && /(^|-)not-found$/.test(name)) return 404;
   switch (name) {
     case 'Unauthorized':
       return 401;
