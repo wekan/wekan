@@ -22,15 +22,13 @@ the changelog only says what changed.
 
 ## Decided, to build
 
-- Per-list role exceptions and the rules engine's own actions - decided
-  2026-11-18: a move, copy, create-card or archive action that would write into a
-  list refusing the triggering user's role is skipped, the rest of the rule still
-  runs, and the skip is visible (`server/rulesHelper.js` performAction,
-  `server/lib/ruleCopyCard.js`, `server/notifications/storedRulePlans.js`).
-- Per-list role exceptions and whole lists and swimlanes - decided 2026-11-18: a
-  refusing list stops that role from deleting, archiving or moving it, and from
-  deleting or moving a swimlane holding cards in it, on DDP, REST and the client
-  `Lists` allow/deny alike; board admins are never restricted.
+- Per-list role exceptions and List Sync's durable rule replay
+  (`server/notifications/storedRulePlans.js`, `server/lib/syncRuleExecution.js`):
+  the ordinary rules engine now skips an action into a list that refuses the
+  triggering user's role, but the journaled List Sync replay still checks board
+  write access only. A skip there needs a receipt of its own, so that the
+  replayed plan completes instead of failing; until then a sync-triggered rule
+  can still write into such a list.
 - [#6837](https://github.com/wekan/wekan/issues/6837) - decided 2026-11-18:
   administrator-defined feature profiles. An administrator defines named
   profiles in the Admin Panel, each saying which features it shows, and assigns

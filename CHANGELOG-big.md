@@ -154,6 +154,31 @@ it, and `list-lock-bulk.e2e.js` replays it over REST.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3202a1d7ac1027b41af5a5dfbe03893ccbc89c36">Deleting, archiving or moving a list or swimlane follows the list</a>. Thanks to xet7.</summary>
+
+These do the same to the cards in them, yet were gated by board write access
+alone. A list that refuses a role now also refuses that role deleting,
+restoring, archiving or moving it, and deleting, archiving or moving a swimlane
+holding its cards - on DDP, REST (403, recorded as ListLockBleed) and client
+writes alike. The list menu no longer offers its archive actions there.
+Renaming and reordering stay allowed, and board admins are never restricted.
+`tests/listLockStructure.test.cjs` pins it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee24453dcb5d9ed8af5c07b848cbd5bd8979ae28">A rule action into a refusing list is skipped, and the rest of the rule runs</a>. Thanks to xet7.</summary>
+
+A rule's move, archive, create-card, copy, link and list actions checked only
+board write access. Each now asks the lists it writes in as the user who
+triggered the rule; a refusing list skips that action and shows in Admin Panel /
+Problems as ListLockRule (detected, low), since a rule meeting a locked list is
+not an attack. List Sync's journaled replay is still to do (TODO.md).
+`tests/listLockRules.test.cjs` pins it.
+
+</details>
+
 **Server memory and timed jobs** - what runs on its own, every hour.
 
 <details>
