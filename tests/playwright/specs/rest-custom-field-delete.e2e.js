@@ -2,6 +2,8 @@
 
 const { test: base, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const fieldPath = (boardId, id) => `/api/boards/${boardId}/custom-fields/${id}`;
@@ -66,7 +68,13 @@ test('custom-field DELETE keeps authorization checks and permits ordinary board 
   }
 });
 
-test('rejected custom-field deletion preserves card values and successful deletion removes them from the board', async ({ request, user, board, customField, boardPage: page }) => {
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
+test('rejected custom-field deletion preserves card values and successful deletion removes them from the board', async ({ request, user, board, customField, page }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const other = db.seedBoard({ ownerId: user.id });
   const siblingId = db.uid('field');
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
@@ -79,7 +87,10 @@ test('rejected custom-field deletion preserves card values and successful deleti
       { _id: customField.id, value: 'Delete this value' },
       { _id: siblingId, value: 'Keep this value' },
     ] } });
-    const minicard = page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' });
+    if (targetsWeLite) await openWeLiteBoard(page, user, board.boardId);
+    const minicard = targetsWeLite
+      ? page.locator(`td[data-list="${card.listId}"]`)
+      : page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' });
     await expect(minicard).toContainText('Deletion field');
     await expect(minicard).toContainText('Delete this value');
     await expect(minicard).toContainText('Keep this value');
@@ -94,6 +105,7 @@ test('rejected custom-field deletion preserves card values and successful deleti
     expect(await response.json()).toEqual({ _id: customField.id });
     expect(db.findOne('customFields', { _id: customField.id })).toBeNull();
     expect(db.getCard(card._id).customFields).toEqual([{ _id: siblingId, value: 'Keep this value' }]);
+    if (targetsWeLite) await page.reload();
     await expect(minicard).not.toContainText('Deletion field');
     await expect(minicard).not.toContainText('Delete this value');
     await expect(minicard).toContainText('Retained field');
@@ -101,6 +113,7 @@ test('rejected custom-field deletion preserves card values and successful deleti
     await page.reload();
     await expect(minicard).not.toContainText('Deletion field');
     await expect(minicard).toContainText('Keep this value');
+    if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
   } finally {
     db.deleteOne('customFields', { _id: siblingId });
     db.cleanup({ boardIds: [other.boardId] });

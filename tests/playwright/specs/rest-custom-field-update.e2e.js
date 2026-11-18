@@ -2,6 +2,8 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 
@@ -31,12 +33,21 @@ for (const invalid of [{ settings: 'invalid' }, { type: 'invalid' }]) {
   });
 }
 
-test('custom-field updates persist together and the board displays the accepted name', async ({ boardPage: page, request, user, board }) => {
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
+test('custom-field updates persist together and the board displays the accepted name', async ({ page, request, user, board }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const field = await createField(request, user, board);
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCustomFieldsOnMinicard: true } });
   db.updateOne('cards', { _id: card._id }, { $set: { customFields: [{ _id: field.id, value: 'Visible value' }] } });
-  const minicard = page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' });
+  if (targetsWeLite) await openWeLiteBoard(page, user, board.boardId);
+  const minicard = targetsWeLite
+    ? page.locator(`td[data-list="${card.listId}"]`)
+    : page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' });
   await expect(minicard).toContainText('Original field');
   const body = {
     name: 'Updated field', type: 'text', settings: {}, showOnCard: true,
@@ -46,6 +57,7 @@ test('custom-field updates persist together and the board displays the accepted 
   expect(response.status()).toBe(200);
   expect(await response.json()).toEqual({ _id: field.id });
   expect(db.findOne('customFields', { _id: field.id })).toMatchObject(body);
+  if (targetsWeLite) await page.reload();
   await expect(minicard).toContainText('Updated field');
   await expect(minicard).not.toContainText('Original field');
   await expect(minicard).toContainText('Visible value');
@@ -58,6 +70,7 @@ test('custom-field updates persist together and the board displays the accepted 
   await page.reload();
   await expect(minicard).toContainText('Updated field');
   await expect(minicard).not.toContainText('Rejected field');
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
 
 test('custom-field updates preserve authorization, board scope, false values and omitted fields', async ({ request, user, user2, board }) => {
