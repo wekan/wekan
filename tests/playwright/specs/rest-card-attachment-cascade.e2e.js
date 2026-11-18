@@ -1,9 +1,37 @@
 'use strict';
 
-const { test, expect } = require('../fixtures');
+const { test: base, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { solidPng } = require('../helpers/images');
 const CardPage = require('../pages/CardPage');
+
+const { targetsWeLite, openWeLitePage } = require('../helpers/welite-auth');
+
+const test = targetsWeLite ? base.extend({
+  boardPage: async ({ page, user, board }, use) => {
+    await openWeLitePage(page, user, `/board?id=${encodeURIComponent(board.boardId)}&view=all`);
+    await use(page);
+    expect(await page.context().cookies()).toEqual([]);
+  },
+}) : base;
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
+function cardLink(page, title) {
+  return targetsWeLite
+    ? page.getByRole('link', { name: title, exact: true })
+    : page.locator('.minicard', { hasText: title }).first().locator('.minicard-title');
+}
+
+function attachment(page, name) {
+  return targetsWeLite
+    ? page.getByRole('link', { name, exact: true })
+    : page.locator('img.attachment-thumbnail').and(page.getByTitle(name, { exact: true }));
+}
+
+async function returnToBoard(page, user, board) {
+  if (targetsWeLite) await openWeLitePage(page, user, `/board?id=${encodeURIComponent(board.boardId)}&view=all`);
+  else await page.reload();
+}
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const cardPath = card => `/api/boards/${card.boardId}/lists/${card.listId}/cards/${card._id}`;
@@ -54,14 +82,15 @@ for (const bulk of [false, true]) {
     }
     expect(db.findOne('attachments', { _id: attachmentId })).toEqual(before);
 
-    await page.locator('.minicard', { hasText: 'Alpha Card' }).first().locator('.minicard-title').click();
-    await expect(page.locator('img.attachment-thumbnail[title="removed.png"]')).toBeVisible();
+    await cardLink(page, 'Alpha Card').click();
+    await expect(attachment(page, 'removed.png')).toBeVisible();
     const response = await request.delete(route, { headers: headers(user.token), data });
     expect(response.status()).toBe(200);
     expect(await response.json()).toEqual(bulk ? { deleted: [card._id], notFound: [] } : { _id: card._id });
     expect(db.findOne('cards', { _id: card._id })).toBeNull();
     const deleted = db.findOne('attachments', { _id: attachmentId });
-    expect(deleted).toMatchObject({ deletedBy: user.id, meta: before.meta, versions: before.versions });
+    expect(deleted).toMatchObject({ deletedBy: user.id, meta: before.meta });
+    expect(deleted.versions).toEqual(before.versions);
     expect(deleted.deletedAt).toBeTruthy();
     expect(deleted.deleteBatchId).toBeTruthy();
     expect(db.findOne('attachments', { _id: alreadyDeletedId })).toEqual(alreadyDeleted);
@@ -80,10 +109,10 @@ for (const bulk of [false, true]) {
     const download = await request.get(`/api/attachment/download/${siblingId}?raw=1`, { headers: headers(user.token) });
     expect(download.status()).toBe(200);
     expect(await download.body()).toEqual(png);
-    await page.reload();
-    await expect(page.locator('.minicard', { hasText: 'Alpha Card' })).toHaveCount(0);
-    await page.locator('.minicard', { hasText: 'Beta Card' }).first().locator('.minicard-title').click();
-    await expect(page.locator('img.attachment-thumbnail[title="retained.png"]')).toBeVisible();
+    await returnToBoard(page, user, board);
+    await expect(cardLink(page, 'Alpha Card')).toHaveCount(0);
+    await cardLink(page, 'Beta Card').click();
+    await expect(attachment(page, 'retained.png')).toBeVisible();
   });
 }
 
@@ -93,31 +122,47 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
   const sibling = db.findOne('cards', { boardId: board.boardId, title: 'Beta Card' });
   const png = await solidPng(page, 16, 16, '#3366aa');
   async function upload(target, name) {
-    await page.locator('.minicard', { hasText: target.title }).first().locator('.minicard-title').click();
-    await details.waitForOpen();
-    await details.openAttachmentPanel();
-    await page.locator('.js-pop-over input.js-attach-file').setInputFiles({ name, mimeType: 'image/png', buffer: png });
-    await expect(details.root.locator(`img.attachment-thumbnail[title="${name}"]`)).toBeVisible();
+    await cardLink(page, target.title).click();
+    const file = { name, mimeType: 'image/png', buffer: png };
+    if (targetsWeLite) {
+      const form = page.locator('form').filter({ has: page.locator('#attachment-file') });
+      await form.locator('#attachment-file').setInputFiles(file);
+      await form.getByRole('button', { name: 'Upload', exact: true }).click();
+    } else {
+      await details.waitForOpen();
+      await details.openAttachmentPanel();
+      await page.locator('.js-pop-over input.js-attach-file').setInputFiles(file);
+    }
+    await expect(attachment(page, name)).toBeVisible();
     await expect.poll(() => db.countDocuments('attachments', { 'meta.cardId': target._id, name })).toBe(1);
-    const attachment = db.findOne('attachments', { 'meta.cardId': target._id, name });
-    const download = await request.get(`/api/attachment/download/${attachment._id}?raw=1`, { headers: headers(user.token) });
+    const uploaded = db.findOne('attachments', { 'meta.cardId': target._id, name });
+    const download = await request.get(`/api/attachment/download/${uploaded._id}?raw=1`, { headers: headers(user.token) });
     expect(download.status()).toBe(200);
     expect(await download.body()).toEqual(png);
-    return attachment;
+    return uploaded;
   }
   const otherBefore = await upload(sibling, 'retained.png');
-  await details.close();
+  if (targetsWeLite) await returnToBoard(page, user, board);
+  else await details.close();
   const before = await upload(card, 'removed.png');
-  await details.openActionsMenu();
-  await details.clickAction('.js-more');
-  await details.clickAction('.js-delete');
-  await page.locator('.js-pop-over button.js-confirm').click();
+  if (targetsWeLite) {
+    await returnToBoard(page, user, board);
+    await page.locator(`input[name="sel_card"][value="${card._id}"]`).check();
+    await page.locator('input[name="action_delete"]').click();
+    await page.locator('input[name="action_confirm-delete"]').click();
+  } else {
+    await details.openActionsMenu();
+    await details.clickAction('.js-more');
+    await details.clickAction('.js-delete');
+    await page.locator('.js-pop-over button.js-confirm').click();
+  }
 
   await expect.poll(() => db.findOne('cards', { _id: card._id })).toBeNull();
-  await expect(page.locator('.minicard', { hasText: 'Alpha Card' })).toHaveCount(0);
-  await expect(details.root).toBeHidden();
+  await expect(cardLink(page, 'Alpha Card')).toHaveCount(0);
+  if (!targetsWeLite) await expect(details.root).toBeHidden();
   const deleted = db.findOne('attachments', { _id: before._id });
-  expect(deleted).toMatchObject({ deletedBy: user.id, meta: before.meta, versions: before.versions });
+  expect(deleted).toMatchObject({ deletedBy: user.id, meta: before.meta });
+  expect(deleted.versions).toEqual(before.versions);
   expect(deleted.deletedAt).toBeTruthy();
   expect(deleted.deleteBatchId).toBeTruthy();
   expect(db.findOne('attachments', { _id: otherBefore._id })).toEqual(otherBefore);
@@ -129,8 +174,8 @@ test('deleting a card through its UI soft-deletes uploaded attachments and prese
   const retained = await request.get(`/api/attachment/download/${before._id}?raw=1`, { headers: headers(user.token) });
   expect(retained.status()).toBe(200);
   expect(await retained.body()).toEqual(png);
-  await page.reload();
-  await expect(page.locator('.minicard', { hasText: 'Alpha Card' })).toHaveCount(0);
-  await page.locator('.minicard', { hasText: 'Beta Card' }).first().locator('.minicard-title').click();
-  await expect(details.root.locator('img.attachment-thumbnail[title="retained.png"]')).toBeVisible();
+  await returnToBoard(page, user, board);
+  await expect(cardLink(page, 'Alpha Card')).toHaveCount(0);
+  await cardLink(page, 'Beta Card').click();
+  await expect(attachment(page, 'retained.png')).toBeVisible();
 });
