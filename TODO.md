@@ -19,12 +19,6 @@ the changelog only says what changed.
 
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
-- [#6834](https://github.com/wekan/wekan/issues/6834) (the minicard due date is
-  fixed; the board header bar wrapping to a second row and the list header icons
-  under the card count did not reproduce on the current code at the same window
-  width, in Persian, with the card count on - which WeKan release and browser
-  zoom showed them is asked; wrapping the header rather than hiding buttons is by
-  design)
 
 ## Needs a maintainer decision on the intended contract
 
