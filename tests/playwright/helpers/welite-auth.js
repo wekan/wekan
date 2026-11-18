@@ -1,17 +1,8 @@
 'use strict';
 
-const db = require('./db');
-
 const targetsWeLite = process.env.WEKAN_PLAYWRIGHT_TARGET === 'welite';
 
 async function openWeLitePage(page, user, path) {
-  // The shared fixture starts with a Mongo resume token. Give this isolated
-  // test user a password so it can authenticate through the native HTML form.
-  db.updateOne('users', { _id: user.id }, {
-    $set: {
-      'services.password.bcrypt': '$2b$04$......................b8CYpLYfgS/XMWDCU3/.oCRJREnOf3y',
-    },
-  });
   await page.context().route('**/*', route => {
     const headers = { ...route.request().headers() };
     delete headers.cookie;

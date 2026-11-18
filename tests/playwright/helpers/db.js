@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 const path = require('path');
 const { EJSON } = require('bson');
+const { targetsWeLite } = require('./welite-auth');
 
 const MONGO_URL = process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor';
 const RUNNER = path.join(__dirname, 'mongo-runner.js');
@@ -111,6 +112,11 @@ function seedUser(overrides = {}) {
         },
         services: {
           resume: { loginTokens: [{ when: now, hashedToken: hashed }] },
+          // WeLite's native form needs a password. Seed it before the raw
+          // API token is used so credential binding does not change later.
+          ...(targetsWeLite && {
+            password: { bcrypt: '$2b$04$......................b8CYpLYfgS/XMWDCU3/.oCRJREnOf3y' },
+          }),
         },
       },
     },

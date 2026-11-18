@@ -54,13 +54,13 @@ test('negative: a card named with the wrong list keeps its checklist and stays o
     const checklistId = db.uid('checklist');
     db.insertOne('checklists', { _id: checklistId, boardId: seeded.boardId, cardId, title: 'Steps', sort: 0, createdAt: new Date(), modifiedAt: new Date() });
     const wrong = `/api/boards/${seeded.boardId}/lists/${seeded.listIds[1]}/cards/${cardId}`;
-    if (targetsWeLite) await openWeLiteBoard(page, user, seeded.boardId);
     await expect404(await request.delete(wrong, h), 'Card not found');
     expect(db.findOne('cards', { _id: cardId })).not.toBeNull();
     expect(db.findOne('checklists', { _id: checklistId })).not.toBeNull();
 
     const cardLink = page.getByRole('link', { name: 'Keep my checklist', exact: true });
     if (targetsWeLite) {
+      await openWeLiteBoard(page, user, seeded.boardId);
       await expect(cardLink).toHaveCount(1);
       await cardLink.click();
       await expect(page.getByRole('heading', { name: 'Steps', exact: true })).toBeVisible();
