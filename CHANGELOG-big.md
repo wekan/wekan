@@ -101,7 +101,8 @@ Which databases WeKan supports
 **Appearance**, **Features**, **Feature profiles**, Security, Activities and
 notifications, and Delete, Problems keeps only what is going wrong, and every
 old
-address redirects. The docs now have a page for every menu entry.
+address redirects. The docs now have a page for every menu entry, and cards of
+an archived swimlane no longer appear in the first swimlane.
 
 This release adds the following new features:
 
@@ -128,6 +129,21 @@ Every Admin Panel pane, the member menu, the board header, Board Settings, the
 All Boards left menu and the list, swimlane and card menus now have pages,
 written from the code, and `Who-Sees-What.md` explains which layer decides what
 is shown and what is allowed. What documenting them found is in TODO.md.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d9c8c1250d42c9c55d469d28384a14e59975eee">Cards of an archived swimlane stay hidden with the Archive sidebar closed</a>. Thanks to sro-lbohn, hmeunier95 and xet7.</summary>
+
+[#6927](https://github.com/wekan/wekan/issues/6927), a regression of #6659: on a
+board migrated from an old WeKan, cards of an archived swimlane appeared in the
+first swimlane and vanished while the Archive was open, because the client
+could only exclude archived swimlanes it had loaded. Their ids are now
+published on their own and excluded; the cards themselves are not changed.
+`tests/archivedSwimlaneCards6927.test.cjs` and
+`archived-swimlane-cards-6927.e2e.js` cover it.
 
 </details>
 
