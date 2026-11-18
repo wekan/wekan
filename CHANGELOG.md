@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.15 2026-11-18 WeKan ® release
 
 **RaceBleed** is fixed: deleting a card while somebody moves it
 to another board no longer destroys its checklists, comments and attachments
@@ -13,7 +13,7 @@ while the card itself survives there, and a member deleting a card that was
 just moved keeps their account. REST handlers now answer **404, not 500**, for
 a swimlane, user or board that is not there.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.15](CHANGELOG-big.md#v1315-2026-11-18-wekan--release)
 
 # v13.14 2026-11-16 WeKan ® release
 
@@ -57,10 +57,3 @@ refused custom-field update changes nothing, ownership transfer takes only the
 boards the user administers, and deleting a missing integration answers 404.
 
 [All changes in v13.11](CHANGELOG-big.md#v1311-2026-11-13-wekan--release)
-
-# v13.10 2026-11-13 WeKan ® release
-
-The release's **Snap Store** credential check bounds each
-snapcraft install attempt, so a Snap Store that hangs no longer stops a release.
-
-[All changes in v13.10](CHANGELOG-big.md#v1310-2026-11-13-wekan--release)

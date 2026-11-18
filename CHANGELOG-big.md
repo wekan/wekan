@@ -124,7 +124,7 @@ its reason.
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.15 2026-11-18 WeKan ® release
 
 **In short:** **RaceBleed** is fixed: deleting a card while somebody moves it
 to another board no longer destroys its checklists, comments and attachments
