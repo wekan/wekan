@@ -255,6 +255,13 @@ const CATALOG = {
   // in what the answer CARRIED, so a log line there would fire on normal use and
   // say nothing about an attacker.
   'authz.card-delete': { category: 'authz', bleed: 'PurgeBleed', severity: 'critical', cwe: 'CWE-639' },
+  // RaceBleed (GHSA-3vjg-3p4q-8fwh): a REST card delete whose card was moved to
+  // another board between the lookup and the removal. The delete now loses that
+  // race and touches nothing; before, it destroyed the moved card's children.
+  // A delete racing a move reaches this line - the spray-and-wait attack - and so
+  // does a member deleting a card somebody had just moved away, so it never
+  // disables the account (a stale view is not an attack).
+  'authz.card-delete-race': { category: 'authz', bleed: 'RaceBleed', severity: 'medium', cwe: 'CWE-367', blocksAccount: false },
   'authz.card-member': { category: 'authz', bleed: 'GuestBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.board-list':  { category: 'authz', bleed: 'StaleBleed', severity: 'medium', cwe: 'CWE-863' },
   'spoofing.author':   { category: 'spoofing', bleed: 'AuthorBleed', severity: 'medium', cwe: 'CWE-345' },

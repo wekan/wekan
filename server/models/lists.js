@@ -738,7 +738,7 @@ Lists.before.remove(async (userId, doc) => {
   if (cards) {
     for (const card of cards) {
       if (!doc.archived) {
-        await Cards.removeAsync(card._id);
+        await Cards.removeAsync({ _id: card._id, listId: doc._id }); // RaceBleed: only while it is still in this list
         continue;
       }
 
@@ -751,7 +751,7 @@ Lists.before.remove(async (userId, doc) => {
         cardArchivedAt >= listArchivedAt;
 
       if (shouldDeleteCard) {
-        await Cards.removeAsync(card._id);
+        await Cards.removeAsync({ _id: card._id, listId: doc._id }); // RaceBleed: only while it is still in this list
       }
     }
   }

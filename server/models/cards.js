@@ -15,6 +15,7 @@ import { computeTopSort, normalizeMoveParams, parseCardDate, parseCardScalarFiel
 const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
 const { stampCardListEntry } = require('/models/lib/cardListEntry');
+const { removeClaimedCard, cascadeIfRemoved } = require('/models/lib/claimedCardRemoval');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 import { timingChange } from '/server/lib/timingChangeActivity';
@@ -1372,19 +1373,11 @@ Cards.before.update((userId, doc, fieldNames, modifier) => {
 });
 
 Cards.before.remove(async (userId, doc) => {
-  // Must be awaited: cardRemover deletes the card's checklists, checklist items,
-  // comments and attachments. If not awaited, the card document is removed first
-  // and those cascade removals then run with the parent card already gone, whose
-  // before.remove hooks dereference an undefined card and crash SyncedCron with
-  // an unhandled rejection (TypeError: ... reading 'boardId'). Awaiting here
-  // removes the sub-items while the card still exists.
-  await cardRemover(userId, doc);
-
   // Issue #1587: permanently deleting a card must log an activity so the
   // Activities.after.insert outgoing-webhook hook fires (archiving already logs
   // an archivedCard activity, but a real delete previously logged nothing). The
   // card document still exists here (it is removed after this before.remove
-  // hook), so the notify hook can resolve the card title.
+  // hook), so the notify hook can resolve the card title, members and watchers.
   await Activities.insertAsync(
     buildDeleteCardActivity({
       userId,
@@ -1395,6 +1388,24 @@ Cards.before.remove(async (userId, doc) => {
       cardTitle: doc.title,
     }),
   );
+});
+
+// RaceBleed (GHSA-3vjg-3p4q-8fwh): the card's checklists, checklist items,
+// comments, attachments and subcards are destroyed AFTER the card, and only when
+// it is really gone. collection-hooks runs before.remove on the documents it
+// fetched and then removes by the caller's ORIGINAL selector - by swimlane, by
+// delete batch, by parent - so a card moved to another board in between no
+// longer matched, stayed, and had lost all its children in before.remove. Here
+// a card that is still stored was not removed, and keeps them. Must be awaited,
+// so the cascade has finished when the removal returns; the children's own
+// before.remove hooks already take a missing parent card (they skip their
+// activity), and cardRemover removes the rest directly.
+Cards.after.remove(async (userId, doc) => {
+  await cascadeIfRemoved({
+    doc,
+    exists: async id => !!(await Cards.findOneAsync({ _id: id }, { fields: { _id: 1 } })),
+    cascade: card => cardRemover(userId, card),
+  });
 });
 
 WebApp.handlers.get(
@@ -2155,10 +2166,18 @@ WebApp.handlers.put(
         { sort: ['sort'] },
       );
       const topSort = computeTopSort((destSiblings || []).map(c => c.sort));
-      await Cards.direct.updateAsync(
+      const movedCount = await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
         { $set: { boardId: newBoardId, swimlaneId: newSwimlaneId, listId: newListId, sort: topSort, lastMoveReason: moveReason } },
       );
+      // RaceBleed (GHSA-3vjg-3p4q-8fwh): a card deleted (or moved) by another
+      // request since it was looked up is no longer where this selector says,
+      // so the move matched nothing. That is a 404, not a 500 from cardMove
+      // dereferencing a card that is gone - and nothing below may run for it.
+      if (!movedCount) {
+        sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+        return;
+      }
       updated = true;
 
       const card = await ReactiveCache.getCard(paramCardId);
@@ -2276,11 +2295,24 @@ WebApp.handlers.delete(
     if (!card) {
       const elsewhere = await ReactiveCache.getCard(paramCardId);
       if (elsewhere) {
+        // RaceBleed (GHSA-3vjg-3p4q-8fwh): a card that was MOVED away from this
+        // board is a delete that arrived after the move - a stale view, or one
+        // that lost the race. It is refused all the same, but it is not
+        // PurgeBleed: that names a card that was never here, and its critical
+        // record disables the account, which a member deleting a card somebody
+        // had just moved must not lose.
+        const movedFromHere = await Activities.findOneAsync(
+          { activityType: 'moveCardBoard', cardId: paramCardId, oldBoardId: paramBoardId },
+          { fields: { _id: 1 } },
+        );
         try {
           require('/server/lib/securityLog').record({
-            key: 'authz.card-delete', action: 'blocked', source: 'DELETE /api/boards/:boardId/lists/:listId/cards/:cardId',
+            key: movedFromHere ? 'authz.card-delete-race' : 'authz.card-delete',
+            action: 'blocked', source: 'DELETE /api/boards/:boardId/lists/:listId/cards/:cardId',
             userId: req.userId,
-            detail: `refused delete of card ${paramCardId} on board ${elsewhere.boardId} via board ${paramBoardId}`,
+            detail: movedFromHere
+              ? `card ${paramCardId} was moved from board ${paramBoardId} to board ${elsewhere.boardId} before this delete; nothing removed`
+              : `refused delete of card ${paramCardId} on board ${elsewhere.boardId} via board ${paramBoardId}`,
           });
         } catch (e) { /* logging must never break the guard */ }
       }
@@ -2299,18 +2331,38 @@ WebApp.handlers.delete(
       sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
       return;
     }
-    // Remove the card's checklists, checklist items, comments and attachments
-    // BEFORE removing the card itself, so their before.remove hooks still find
-    // the parent card (otherwise they dereference an undefined card and crash
-    // SyncedCron with an unhandled rejection). `Cards.direct.removeAsync`
-    // bypasses Cards.before.remove, so cardRemover is not run twice.
+    // RaceBleed (GHSA-3vjg-3p4q-8fwh): the card is removed FIRST, keyed on the
+    // board and list the caller was authorised for, and its checklists,
+    // checklist items, comments, attachments and subcards only when that
+    // removal matched. They used to go first, and a move to another board that
+    // landed between the lookup above and the removal left the card alive on a
+    // board the caller cannot read, stripped of all its children. Now exactly
+    // one of the two wins. `Cards.direct.removeAsync` bypasses the hooks, so
+    // cardRemover runs once, here.
     noteAuthorSpoof(req, 'DELETE card');
-    await cardRemover(req.userId, card);
-    await Cards.direct.removeAsync({
-      _id: paramCardId,
-      listId: paramListId,
-      boardId: paramBoardId,
+    const removed = await removeClaimedCard({
+      card,
+      selector: { listId: paramListId, boardId: paramBoardId },
+      removeCard: selector => Cards.direct.removeAsync(selector),
+      cascade: claimed => cardRemover(req.userId, claimed),
     });
+    if (!removed) {
+      // The card left this board or list after it was looked up: the delete
+      // lost the race, so it touched nothing. Recorded like the refusal above
+      // when the card now lives elsewhere.
+      const moved = await ReactiveCache.getCard(paramCardId);
+      if (moved) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.card-delete-race', action: 'blocked', source: 'DELETE /api/boards/:boardId/lists/:listId/cards/:cardId',
+            userId: req.userId,
+            detail: `card ${paramCardId} moved to board ${moved.boardId} while it was being deleted via board ${paramBoardId}; nothing removed`,
+          });
+        } catch (e) { /* logging must never break the guard */ }
+      }
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
     // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
     // the deleteCard activity here too (outgoing-webhook fires on delete).
     await Activities.insertAsync(
@@ -2356,11 +2408,20 @@ WebApp.handlers.delete('/api/boards/:boardId/cards/bulk', async function(req, re
       notFound.push(cardId);
       continue;
     }
-    // Remove sub-items (checklists, items, comments, attachments) before the
-    // card itself so their before.remove hooks still find the parent card.
+    // RaceBleed (GHSA-3vjg-3p4q-8fwh): the card first, keyed on this board,
+    // and its checklists, items, comments, attachments and subcards only when
+    // that removal matched - a card moved away meanwhile keeps them all.
     noteAuthorSpoof(req, 'DELETE cards/bulk');
-    await cardRemover(req.userId, card);
-    await Cards.direct.removeAsync({ _id: cardId, boardId: paramBoardId });
+    const removed = await removeClaimedCard({
+      card,
+      selector: { boardId: paramBoardId },
+      removeCard: selector => Cards.direct.removeAsync(selector),
+      cascade: claimed => cardRemover(req.userId, claimed),
+    });
+    if (!removed) {
+      notFound.push(cardId);
+      continue;
+    }
     // Issue #1587: Cards.direct.removeAsync bypasses Cards.before.remove, so log
     // the deleteCard activity here too (outgoing-webhook fires on delete).
     await Activities.insertAsync(

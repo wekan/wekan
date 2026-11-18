@@ -74,7 +74,8 @@ test('negative: the bulk DELETE is deliberately NOT batched', () => {
   // Its per-card work is real - cardRemover runs the sub-item hooks and each
   // card gets its own activity - so batching the reads would save one query in
   // a loop that does far more than query. Left alone on purpose.
-  const del = cards.match(/const deleted = \[\];[\s\S]*?for \(const cardId of cardIds\) \{[\s\S]*?await cardRemover\(/);
+  // RaceBleed: cardRemover now runs through removeClaimedCard, card first.
+  const del = cards.match(/const deleted = \[\];[\s\S]*?for \(const cardId of cardIds\) \{[\s\S]*?await removeClaimedCard\([\s\S]*?cardRemover\(/);
   assert.ok(del, 'the delete handler still reads per card, and that is fine');
 });
 

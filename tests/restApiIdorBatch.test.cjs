@@ -66,8 +66,12 @@ test('the single-card DELETE fetches the card WITH the board it authorised', () 
   // found nothing, and only to tell an attempt apart from an ordinary 404 for
   // the Problems log. What matters is that its result never reaches the
   // destruction: `card` is what cardRemover is given, never `elsewhere`.
+  // RaceBleed (GHSA-3vjg-3p4q-8fwh) added a second bare lookup, `moved`, after
+  // a removal that matched nothing - again only to classify the lost race for
+  // the Problems log, and again never handed to the destruction.
   const bare = body.match(/getCard\(paramCardId\)/g) || [];
-  assert.ok(bare.length <= 1, `the bare lookup appears ${bare.length} times`);
+  assert.ok(bare.length <= 2, `the bare lookup appears ${bare.length} times`);
+  assert.ok(!/cardRemover\(req\.userId, moved\)/.test(body), 'the moved card is never handed to cardRemover (negative)');
   if (bare.length) {
     assert.ok(/const elsewhere = await ReactiveCache\.getCard\(paramCardId\)/.test(body),
       'and it is the classification lookup, named for what it is');
@@ -93,9 +97,14 @@ test('cardRemover only ever runs on a card that lookup returned', () => {
   // attempt note, never another lookup that could reintroduce a foreign card.
   const start = body.indexOf('if (!card || card.listId !== paramListId) {');
   assert.ok(start !== -1, 'a missing card, or one in another list, is turned away');
-  const guard = body.slice(start, body.indexOf('await cardRemover('));
+  // RaceBleed (GHSA-3vjg-3p4q-8fwh): cardRemover is now the cascade of
+  // removeClaimedCard, which runs it only after the card's own removal matched,
+  // so the guard is pinned up to that call, and the card it is given is `card`.
+  const guard = body.slice(start, body.indexOf('await removeClaimedCard('));
   assert.match(guard, /code: 404[\s\S]*return;/, 'with a 404 and a return before cardRemover');
-  assert.ok(guard.length > 0 && guard.length < 700, 'cardRemover follows the guard directly');
+  assert.ok(guard.length > 0 && guard.length < 1400, 'the claimed removal follows the guard directly');
+  assert.match(body, /await removeClaimedCard\(\{\s*card,\s*selector: \{ listId: paramListId, boardId: paramBoardId \}/,
+    'it is handed the board-scoped `card`, keyed on the board and list authorised');
   assert.ok(!/getCard\(/.test(guard), 'with no lookup between the guard and the call (negative)');
 });
 
@@ -195,7 +204,7 @@ test('who did it comes from the session, not from the request body', () => {
   assert.ok(/userId: req\.userId,\n\s+swimlaneId: req\.body\.swimlaneId/.test(cards),
     'the card document itself');
   assert.ok(/const authorId = req\.userId;/.test(cards), 'bulk create');
-  assert.ok((cards.match(/await cardRemover\(req\.userId, card\)/g) || []).length === 2,
+  assert.ok((cards.match(/cascade: claimed => cardRemover\(req\.userId, claimed\)/g) || []).length === 2,
     'both deletes - single and bulk');
   assert.ok(/await customFieldCreation\(req\.userId, customField\)/.test(customFields),
     'custom-field create');
@@ -227,7 +236,11 @@ test('the four attempts have catalog entries, named after their Bleed', () => {
 
 test('each refusal records its attempt', () => {
   const del = handler(cards, 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId');
-  assert.ok(/key: 'authz\.card-delete', action: 'blocked'/.test(del), 'PurgeBleed');
+  // RaceBleed (GHSA-3vjg-3p4q-8fwh): a card that was moved away from the named
+  // board is recorded as the race (medium, never disables the account) - only a
+  // card that was never on it is PurgeBleed, the critical record.
+  assert.ok(/key: movedFromHere \? 'authz\.card-delete-race' : 'authz\.card-delete',\s*action: 'blocked'/.test(del), 'PurgeBleed');
+  assert.ok(/activityType: 'moveCardBoard', cardId: paramCardId, oldBoardId: paramBoardId/.test(del), 'told apart by the move away from this board');
 
   const fn = cards.slice(cards.indexOf('async function assignableOnBoard'));
   assert.ok(/key: 'authz\.card-member', action: 'blocked'/.test(fn.slice(0, 1200)), 'GuestBleed');

@@ -38,6 +38,7 @@ import { buildCardRelativeUrl } from '/models/lib/cardUrl';
 import { tripCanaryDeny } from '/server/lib/canary';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
+const { cascadeIfRemoved } = require('/models/lib/claimedCardRemoval');
 const { mayWriteField } = require('/models/lib/adminOnlyCustomFields');
 const {
   MAX_FIELD_LINKS, CHOOSABLE_MODES, mirrorMode, sendsAlong, normalizeFieldLinks, isMirrored,
@@ -167,12 +168,21 @@ Cards.before.insert((userId, doc) => {
   if (doc && Object.hasOwn(doc, 'customFieldLinks')) delete doc.customFieldLinks;
 });
 
-// A deleted card leaves no link behind on the cards it was linked to.
-Cards.before.remove(async (userId, doc) => {
+// A deleted card leaves no link behind on the cards it was linked to - once it
+// is really deleted. RaceBleed (GHSA-3vjg-3p4q-8fwh): collection-hooks removes
+// by the caller's original selector after the before hooks, so a card moved
+// away in between stays, and must keep the links the other cards hold to it.
+Cards.after.remove(async (userId, doc) => {
   const ids = normalizeFieldLinks(doc && doc.customFieldLinks, doc && doc._id).map(link => link.cardId);
   if (!ids.length) return;
-  await Cards.direct.updateAsync({ _id: { $in: ids } },
-    { $pull: { customFieldLinks: { cardId: doc._id } } }, { multi: true });
+  await cascadeIfRemoved({
+    doc,
+    exists: async id => !!(await Cards.findOneAsync({ _id: id }, { fields: { _id: 1 } })),
+    cascade: async gone => {
+      await Cards.direct.updateAsync({ _id: { $in: ids } },
+        { $pull: { customFieldLinks: { cardId: gone._id } } }, { multi: true });
+    },
+  });
 });
 
 async function editableCard(userId, cardId) {

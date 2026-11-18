@@ -155,9 +155,15 @@ test('list deletion: a missing or already deleted list is 404 and nothing is sof
 
 // The card route keeps its board-scoped lookup and its security record; only
 // what happens after it is under test.
-function cardDelete(card, { refused = [] } = {}) {
+function cardDelete(card, { refused = [], movedTo = null } = {}) {
   const asked = [];
+  const recorded = [];
   const extra = writes => ({
+    removeClaimedCard: require('../models/lib/claimedCardRemoval').removeClaimedCard,
+    // `movedTo`: the card left for that board after the handler looked it up,
+    // so the board-and-list-keyed removal matches nothing (RaceBleed).
+    ...(movedTo ? { Cards: collection('Cards', writes, { count: 0 }) } : {}),
+    require: () => ({ record(evt) { recorded.push(evt); } }),
     async assertListNotRefused(_userId, _board, listId) {
       asked.push(listId);
       if (refused.includes(listId)) throw Object.assign(new Error('Forbidden'), { statusCode: 403 });
@@ -166,8 +172,11 @@ function cardDelete(card, { refused = [] } = {}) {
     noteAuthorSpoof() {},
     buildDeleteCardActivity: a => ({ activityType: 'deleteCard', cardId: a.cardId }),
   });
-  const cache = { getCard: sel => (card && sel._id === card._id && (!sel.boardId || sel.boardId === card.boardId) ? card : undefined) };
-  return { asked, run: params => call('server/models/cards.js', 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId', { params, cache, extra }) };
+  const cache = { getCard: sel => {
+    if (typeof sel === 'string') return card && sel === card._id ? { ...card, boardId: movedTo || card.boardId } : undefined;
+    return card && sel._id === card._id && (!sel.boardId || sel.boardId === card.boardId) ? card : undefined;
+  } };
+  return { asked, recorded, run: params => call('server/models/cards.js', 'delete', '/api/boards/:boardId/lists/:listId/cards/:cardId', { params, cache, extra }) };
 }
 
 test('card deletion: a missing card is 404 and nothing is removed', async () => {
@@ -192,15 +201,30 @@ test('negative: naming a writable list does not reach a card in a list that refu
   await assert.rejects(run({ boardId: 'b', listId: 'open', cardId: 'c' }), /Forbidden/);
 });
 
-test('card deletion in its own list still removes it, its children first, and records the activity', async () => {
+// RaceBleed (GHSA-3vjg-3p4q-8fwh): the card itself is removed FIRST, keyed on
+// the board and list authorised, and its children only once that matched. The
+// children used to go first, which is what a concurrent move exploited.
+test('card deletion in its own list removes the card, then its children, and records the activity', async () => {
   const card = { _id: 'c', boardId: 'b', listId: 'l', swimlaneId: 's', title: 'T' };
   const r = await cardDelete(card).run({ boardId: 'b', listId: 'l', cardId: 'c' });
   assert.deepEqual(r.response, { code: 200, data: { _id: 'c' } });
   assert.deepEqual(r.writes, [
+    ['Cards', 'remove', { listId: 'l', boardId: 'b', _id: 'c' }],
     ['Cards', 'cardRemover', 'c'],
-    ['Cards', 'remove', { _id: 'c', listId: 'l', boardId: 'b' }],
     ['Activities', 'insert', { activityType: 'deleteCard', cardId: 'c' }],
   ]);
+});
+
+test('negative: a card moved to another board mid-delete keeps its children, and the lost race is recorded', async () => {
+  const card = { _id: 'c', boardId: 'b', listId: 'l', swimlaneId: 's', title: 'T' };
+  const del = cardDelete(card, { movedTo: 'secret' });
+  const r = await del.run({ boardId: 'b', listId: 'l', cardId: 'c' });
+  assert.deepEqual(r.response, { code: 404, data: { error: 'Card not found' } });
+  assert.deepEqual(r.writes, [['Cards', 'remove', { listId: 'l', boardId: 'b', _id: 'c' }]],
+    'the keyed removal matched nothing: no cardRemover, no activity');
+  assert.equal(del.recorded.length, 1);
+  assert.equal(del.recorded[0].key, 'authz.card-delete-race');
+  assert.equal(del.recorded[0].action, 'blocked');
 });
 
 function dependencyRoute(verb, body) {
@@ -400,6 +424,7 @@ test('negative: the card deletion checks the list before it removes anything, an
   }
   assert.ok(callers.some(([route]) => route === '/api/boards/:boardId/cards/bulk'), 'the bulk deletion is checked');
   for (const [route, body] of callers) {
-    assert.match(body, /getCard\(\{ _id: cardId, boardId: paramBoardId \}\)[\s\S]*Cards\.direct\.removeAsync\(\{ _id: cardId, boardId: paramBoardId \}\)/, route);
+    // RaceBleed: the removal is the claim, keyed on the board looked up with.
+    assert.match(body, /getCard\(\{ _id: cardId, boardId: paramBoardId \}\)[\s\S]*removeClaimedCard\(\{\s*card,\s*selector: \{ boardId: paramBoardId \}/, route);
   }
 });

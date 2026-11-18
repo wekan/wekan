@@ -246,7 +246,11 @@ test('a propagation writes only while its creator can edit both cards, as that c
 test('the link field is the server\'s: client writes are refused and watched, copies start unlinked, deletes clean up', () => {
   assert.match(server, /fieldNames\.includes\('customFieldLinks'\)\) return tripCanaryDeny\('card\.field-link-direct'/);
   assert.match(server, /Cards\.before\.insert\([^)]*\) => \{\s*if \(doc && Object\.hasOwn\(doc, 'customFieldLinks'\)\) delete doc\.customFieldLinks;/);
-  assert.match(server, /Cards\.before\.remove[\s\S]*\$pull: \{ customFieldLinks: \{ cardId: doc\._id \} \}/);
+  // RaceBleed (GHSA-3vjg-3p4q-8fwh): the clean-up moved from before.remove to
+  // after.remove and runs only when the card is really gone - a card moved away
+  // while it was being deleted stays, and keeps the links held to it.
+  assert.match(server, /Cards\.after\.remove[\s\S]*cascadeIfRemoved\([\s\S]*\$pull: \{ customFieldLinks: \{ cardId: gone\._id \} \}/);
+  assert.ok(!/Cards\.before\.remove[^\n]*\n[^}]*customFieldLinks: \{ cardId/.test(server), 'not before the removal (negative)');
   assert.match(read('server/imports.js'), /import '\/server\/models\/customFieldLinks';/);
 });
 
