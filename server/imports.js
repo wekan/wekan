@@ -333,6 +333,7 @@ import '/server/publications/backgrounds';
 import '/server/publications/boards';
 import '/server/publications/cards';
 import '/server/publications/cardsWindow';
+import '/server/publications/archivedSwimlaneIds';
 import '/server/publications/boardTextMatches';
 import '/server/publications/boardMovementMatches';
 import '/server/publications/boardTablePage';

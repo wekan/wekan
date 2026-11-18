@@ -556,9 +556,12 @@ Lists.helpers({
     if (!swimlaneId) {
       return undefined;
     }
-    // Only the first swimlane surfaces orphaned cards.
+    // Only the first swimlane surfaces orphaned cards. #6927: with the
+    // archived swimlanes the client cache does not hold (they arrive only
+    // while the Archive sidebar is open), so their cards stay hidden with them.
+    const { archivedSwimlaneIdsOf, withArchivedSwimlanes } = require('./lib/archivedSwimlaneIds');
     const pick = swimlanes =>
-      otherSwimlaneIdsForFirstActive(swimlanes, swimlaneId);
+      otherSwimlaneIdsForFirstActive(withArchivedSwimlanes(swimlanes, archivedSwimlaneIdsOf(this.boardId)), swimlaneId);
     const swimlanes = ReactiveCache.getSwimlanes(
       // Include archived swimlanes in the exclusion list. A card on one still
       // has a valid home and must not surface as an orphan in the first active

@@ -665,6 +665,10 @@ Template.listBody.helpers({
     // just this list/swimlane window (grows with `limit` as the user scrolls)
     // plus its reactive total count. Default mode keeps everything in minimongo
     // already, so these subscriptions are skipped.
+    // #6927: the board's archived swimlane ids, so the first swimlane does not
+    // take their cards as orphans (models/lib/archivedSwimlaneIds.js). One
+    // tiny document per board; identical subscriptions are shared.
+    if (list.boardId) tpl.subscribe('boardArchivedSwimlaneIds', list.boardId);
     if (list.boardId && isLazyCards(list.boardId)) {
       tpl.subscribe('boardCardsWindow', list.boardId, mongoSelector, sortBy, limit);
       tpl.subscribe(
