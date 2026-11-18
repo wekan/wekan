@@ -4,6 +4,10 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const cardPath = card => `/api/boards/${card.boardId}/lists/${card.listId}/cards/${card._id}`;
@@ -46,23 +50,36 @@ for (const [field, idKey, join, unjoin, avatar] of [
     expect(db.countDocuments('activities', activity)).toBe(1);
   });
 
-  test(`${field}: normal assignment and removal update card details and retain activity usernames`, async ({ boardPage: page, request, user, board }) => {
+  test(`${field}: normal assignment and removal update card details and retain activity usernames`, async ({ page, request, user, board }) => {
     const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-    await new BoardPage(page).clickCard(card.listId, card.title);
     const details = new CardPage(page);
-    await details.waitForOpen();
-    const avatars = details.root.locator(avatar);
+    if (targetsWeLite) {
+      await openWeLiteBoard(page, user, board.boardId);
+      await page.getByRole('link', { name: card.title, exact: true }).click();
+    } else {
+      await loginWithToken(page, user.id, user.token);
+      await openBoard(page, board.boardId, board.slug);
+      await new BoardPage(page).clickCard(card.listId, card.title);
+      await details.waitForOpen();
+    }
+    const avatars = targetsWeLite
+      ? page.getByRole('listitem').filter({ hasText: user.username })
+      : details.root.locator(avatar);
     await expect(avatars).toHaveCount(0);
     const endpoint = `${cardPath(card)}/${field}/${user.id}`;
     const add = await request.post(endpoint, { headers: headers(user.token) });
     expect(add.status()).toBe(200);
+    if (targetsWeLite) await page.reload();
     await expect(avatars).toHaveCount(1);
-    await expect(avatars).toHaveAttribute('title', new RegExp(user.username));
+    if (targetsWeLite) await expect(avatars).toHaveText(user.username);
+    else await expect(avatars).toHaveAttribute('title', new RegExp(user.username));
     const remove = await request.delete(endpoint, { headers: headers(user.token) });
     expect(remove.status()).toBe(200);
     expect((await remove.json())[field]).toEqual([]);
     expect(db.findOne('cards', { _id: card._id })[field]).toEqual([]);
+    if (targetsWeLite) await page.reload();
     await expect(avatars).toHaveCount(0);
+    if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
     for (const activityType of [join, unjoin]) {
       expect(db.findOne('activities', { cardId: card._id, activityType, [idKey]: user.id }))
         .toMatchObject({ username: user.username, boardId: card.boardId });
