@@ -4,6 +4,8 @@ const { test: base, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const fieldPath = (boardId, id) => `/api/boards/${boardId}/custom-fields/${id}`;
@@ -105,26 +107,42 @@ test('URL-encoded option IDs can be renamed and invalid names remain rejected', 
   expect(db.findOne('customFields', { _id: dropdown.id })).toEqual(before);
 });
 
-test('renamed dropdown choices appear on the card while retaining the selected option', async ({ request, user, board, dropdown, boardPage: page }) => {
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
+
+test('renamed dropdown choices appear on the card while retaining the selected option', async ({ request, user, board, dropdown, page }) => {
+  if (!targetsWeLite) {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('cards', { _id: card._id }, { $set: { customFields: [{ _id: dropdown.id, value: 'second' }] } });
-  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
   const cardPage = new CardPage(page);
-  await cardPage.waitForOpen();
-  const section = cardPage.root.locator('.card-details-group-custom-fields');
+  async function openCard() {
+    if (targetsWeLite) {
+      await page.getByRole('link', { name: 'Alpha Card', exact: true }).click();
+    } else {
+      await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+      await cardPage.waitForOpen();
+    }
+  }
+  if (targetsWeLite) await openWeLiteBoard(page, user, board.boardId);
+  await openCard();
+  const section = targetsWeLite
+    ? page.locator('.card-custom-fields')
+    : cardPage.root.locator('.card-details-group-custom-fields');
   await expect(section).toContainText('Second option');
   const response = await request.put(`${dropdown.path}/dropdown-items/second`, {
     headers: headers(user.token), data: { name: 'Renamed option' },
   });
   expect(response.status()).toBe(200);
   await page.reload();
-  await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
-  await cardPage.waitForOpen();
+  if (!targetsWeLite) await openCard();
   await expect(section).toContainText('Renamed option');
-  await section.locator('a.js-edit-card-custom-field-value').click();
-  const select = section.locator('.js-card-customfield-dropdown select');
+  if (!targetsWeLite) await section.locator('a.js-edit-card-custom-field-value').click();
+  const select = section.locator(targetsWeLite ? 'select[name="option"]' : '.js-card-customfield-dropdown select');
   await expect(select.locator('option[value="first"]')).toHaveText('First option');
   await expect(select.locator('option[value="second"]')).toHaveText('Renamed option');
   await expect(select).toHaveValue('second');
   expect(db.getCard(card._id).customFields).toEqual([{ _id: dropdown.id, value: 'second' }]);
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
