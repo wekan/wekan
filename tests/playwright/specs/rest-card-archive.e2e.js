@@ -1,6 +1,10 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const { targetsWeLite, openWeLiteBoard } = require('../helpers/welite-auth');
+
+if (targetsWeLite) test.use({ javaScriptEnabled: false });
 
 const headers = token => ({ Authorization: `Bearer ${token}` });
 const cardPath = (boardId, listId, cardId) => `/api/boards/${boardId}/lists/${listId}/cards/${cardId}`;
@@ -40,10 +44,18 @@ for (const operation of ['archive', 'unarchive']) {
   });
 }
 
-test('REST archive and restore persist and update the board, while unauthorized and repeated requests do not write', async ({ boardPage: page, request, user, user2, board }) => {
+test('REST archive and restore persist and update the board, while unauthorized and repeated requests do not write', async ({ page, request, user, user2, board }) => {
+  if (targetsWeLite) {
+    await openWeLiteBoard(page, user, board.boardId);
+  } else {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+  }
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const base = cardPath(board.boardId, card.listId, card._id);
-  const minicard = page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' });
+  const minicard = targetsWeLite
+    ? page.getByRole('link', { name: 'Alpha Card', exact: true })
+    : page.locator('.minicard-wrapper').filter({ hasText: 'Alpha Card' });
   await expect(minicard).toBeVisible();
   for (const [operation, archived] of [['archive', true], ['unarchive', false]]) {
     const before = db.findOne('cards', { _id: card._id });
@@ -58,6 +70,7 @@ test('REST archive and restore persist and update the board, while unauthorized 
     expect(response.status()).toBe(200);
     expect(await response.json()).toMatchObject({ _id: card._id, archived });
     expect(db.findOne('cards', { _id: card._id }).archived).toBe(archived);
+    if (targetsWeLite) await page.reload();
     if (archived) await expect(minicard).toHaveCount(0);
     else await expect(minicard).toBeVisible();
     const after = db.findOne('cards', { _id: card._id });
@@ -68,4 +81,5 @@ test('REST archive and restore persist and update the board, while unauthorized 
     expect(db.findOne('cards', { _id: card._id })).toEqual(after);
     expect(db.find('activities', { cardId: card._id })).toEqual(afterActivities);
   }
+  if (targetsWeLite) expect(await page.context().cookies()).toEqual([]);
 });
