@@ -153,7 +153,15 @@ jobs:
           arch: ${{ matrix.vm_arch }}
           sync: rsync
           copyback: true
-          prepare: pkg install -y bash python3 gmake pkgconf curl
+          prepare: |
+            # A package mirror that is briefly unreachable ("No route to host",
+            # v13.18) is waited out instead of failing the build.
+            for i in 1 2 3 4 5; do
+              pkg install -y bash python3 gmake pkgconf curl && break
+              [ "$i" = 5 ] && { echo "::error::Installing the VM's packages failed 5 times: the package mirror is down, not WeKan. Re-run this job."; exit 1; }
+              echo "Package install failed (attempt $i/5), retrying."
+              sleep $((i * 30))
+            done
           run: bash releases/bsd/build-bundle.sh freebsd ${{ matrix.arch }}
 
       - name: Build and start in OpenBSD
@@ -164,7 +172,15 @@ jobs:
           arch: ${{ matrix.vm_arch }}
           sync: rsync
           copyback: true
-          prepare: pkg_add bash python%3 gmake curl
+          prepare: |
+            # A package mirror that is briefly unreachable ("No route to host",
+            # v13.18) is waited out instead of failing the build.
+            for i in 1 2 3 4 5; do
+              pkg_add bash python%3 gmake curl && break
+              [ "$i" = 5 ] && { echo "::error::Installing the VM's packages failed 5 times: the package mirror is down, not WeKan. Re-run this job."; exit 1; }
+              echo "Package install failed (attempt $i/5), retrying."
+              sleep $((i * 30))
+            done
           # V8 writes and runs machine code: OpenBSD allows that only from a
           # filesystem mounted wxallowed (/usr/local is, by default). The
           # bundle is started here, from the workspace, so that is mounted so.
@@ -180,8 +196,15 @@ jobs:
           sync: rsync
           copyback: true
           prepare: |
-            /usr/sbin/pkg_add pkgin
-            pkgin -y install bash python313 gmake curl gcc14
+            # A package mirror that is briefly unreachable ("No route to host",
+            # v13.18) is waited out instead of failing the build.
+            for i in 1 2 3 4 5; do
+              { command -v pkgin >/dev/null || /usr/sbin/pkg_add pkgin; } &&
+              pkgin -y install bash python313 gmake curl gcc14 && break
+              [ "$i" = 5 ] && { echo "::error::Installing the VM's packages failed 5 times: the package mirror is down, not WeKan. Re-run this job."; exit 1; }
+              echo "Package install failed (attempt $i/5), retrying."
+              sleep $((i * 30))
+            done
           # Node 26's headers need C++20, which NetBSD 10's own GCC lacks: the
           # native modules are compiled with pkgsrc's GCC 14, as Node.js itself
           # is (wekan/node-patches dist/netbsd).

@@ -232,8 +232,11 @@ jobs:
               "TARGET=$TARGET" "TARGET_PLATFORM=$TARGET_PLATFORM" \
               "TARGET_ARCH=$TARGET_ARCH" "RELEASE_TAG=$RELEASE_TAG" \
               DO_NOT_TRACK=1 bash -ec '
-              apt-get update
-              apt-get install -y nodejs-lts python make clang pkg-config libvips
+              # A Termux mirror mid-sync fails the index ("File has unexpected
+              # size ... Mirror sync in progress?", v13.18): apt-install.sh waits
+              # it out.
+              APT_ATTEMPTS=5 APT_SLEEPS="30 60 120 180" bash releases/apt-install.sh \
+                nodejs-lts python make clang pkg-config libvips
               bash releases/bun/build-target.sh'
       - name: FreeBSD VM build and smoke tests
         if: matrix.kind == 'freebsd'
@@ -245,7 +248,15 @@ jobs:
           sync: rsync
           copyback: true
           cache-after-prepare: true
-          prepare: pkg install -y bash node24 npm-node24 python3 gmake pkgconf vips
+          prepare: |
+            # A package mirror that is briefly unreachable ("No route to host",
+            # v13.18) is waited out instead of failing the build.
+            for i in 1 2 3 4 5; do
+              pkg install -y bash node24 npm-node24 python3 gmake pkgconf vips && break
+              [ "$i" = 5 ] && { echo "::error::Installing the VM's packages failed 5 times: the package mirror is down, not WeKan. Re-run this job."; exit 1; }
+              echo "Package install failed (attempt $i/5), retrying."
+              sleep $((i * 30))
+            done
           run: bash releases/bun/build-target.sh
       - name: Check finished archive exists
         id: ready

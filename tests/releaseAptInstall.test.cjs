@@ -124,13 +124,36 @@ test('a mirror that never comes back fails the job, saying so (negative)', () =>
     'the error must not read as a WeKan failure');
 });
 
+test('in Termux it runs apt as its own user and clears the lists under the prefix', () => {
+  // v13.18: Bun android-arm64 died on a Termux mirror mid-sync - "File has
+  // unexpected size (593235 != 593699). Mirror sync in progress?". Termux has
+  // no sudo, and its apt state is under $PREFIX, not /var/lib/apt.
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'apt-'));
+  const apt = fakeApt(dir, 1);
+  const prefix = path.join(dir, 'usr');
+  const lists = path.join(prefix, 'var/lib/apt/lists');
+  fs.mkdirSync(lists, { recursive: true });
+  fs.writeFileSync(path.join(lists, 'stale_Packages'), 'x');
+  const r = run(dir, ['nodejs-lts'], { APT_ROOT: prefix });
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.strictEqual(apt.updates(), 2, 'the mirror is waited out');
+  assert.strictEqual(apt.sudo(), '', 'no sudo: Termux has none');
+  assert.deepStrictEqual(fs.readdirSync(lists), [], 'its own stale lists are cleared');
+  assert.ok(/INSTALLED install -y nodejs-lts/.test(r.stdout));
+  // Negative: only Termux's prefix is taken as an apt root, not any directory
+  // an apt-get happens to be in.
+  assert.match(read('releases/apt-install.sh'), /\*\/com\.termux\/\*\/bin\/apt-get\)/);
+});
+
 test('every release job installs packages through it', () => {
   const bare = [];
-  for (const file of ['.github/workflows/release-all.yml',
-    '.github/workflows/release-all-missing.yml',
-    '.github/workflows/sandstorm.yml', '.github/workflows/sandstorm-store.yml',
-    '.github/workflows/meteor-spk.yml', '.github/workflows/Flatpak.yml',
-    'releases/install-node-for-arch.sh']) {
+  const workflows = fs.readdirSync(path.join(repoRoot, '.github/workflows'))
+    .filter(f => /\.ya?ml$/.test(f)).map(f => `.github/workflows/${f}`);
+  // Every workflow, so a new one cannot bring the bare call back: v13.18's
+  // Bun and Android Termux builds, and single-file's i386 libraries, were
+  // outside the list this used to check.
+  assert.ok(workflows.includes('.github/workflows/bun.yml'));
+  for (const file of workflows.concat(['releases/install-node-for-arch.sh'])) {
     read(file).split('\n').forEach((line, i) => {
       if (/^\s*#/.test(line.trim())) return;
       if (!/apt-get (update|install)/.test(line)) return;

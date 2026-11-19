@@ -16,7 +16,9 @@ function executable(file, source) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, source, { mode: 0o755 });
 }
-const env = { ...process.env, PATH: path.join(tmp, 'bin') + path.delimiter + process.env.PATH,
+// Termux's apt-get lives under its own prefix, where apt-install.sh finds it.
+const termuxBin = path.join(tmp, 'data/data/com.termux/files/usr/bin');
+const env = { ...process.env, PATH: [path.join(tmp, 'bin'), termuxBin, process.env.PATH].join(path.delimiter),
   GITHUB_ENV: path.join(tmp, 'github-env'), TARGET: 'android-arm64', TARGET_PLATFORM: 'android',
   TARGET_ARCH: 'arm64', RELEASE_TAG: 'v12.37', TERMUX_ARCH: 'aarch64' };
 try {
@@ -28,7 +30,9 @@ args = sys.argv[1:]
 index = next(i for i, arg in enumerate(args) if arg.startswith('termux/termux-docker:'))
 sys.exit(subprocess.run(args[index+1:], env={'PATH': os.environ['PATH']}).returncode)
 `);
-  executable(path.join(tmp, 'bin/apt-get'), '#!/bin/sh\nexit 0\n');
+  executable(path.join(termuxBin, 'apt-get'), '#!/bin/sh\nexit 0\n');
+  // The step installs through the real helper (v13.18 Termux mirror retry).
+  executable(path.join(tmp, 'releases/apt-install.sh'), read('releases/apt-install.sh'));
   executable(path.join(tmp, 'releases/bun/build-target.sh'), `#!/bin/bash
 set -eu
 [ "$TARGET" = android-arm64 ]

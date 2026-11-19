@@ -149,8 +149,8 @@ jobs:
           esac
           docker run --rm --security-opt seccomp=unconfined -v "$PWD:/work" -w /work \
             "termux/termux-docker:$TERMUX_ARCH" env "ARCH=$ARCH" DO_NOT_TRACK=1 bash -ec '
-              apt-get update
-              apt-get install -y nodejs-lts python make clang pkg-config libvips curl procps file
+              APT_ATTEMPTS=5 APT_SLEEPS="30 60 120 180" bash releases/apt-install.sh \
+                nodejs-lts python make clang pkg-config libvips curl procps file
               bash releases/android/build-bundle.sh "$ARCH"'
 
       - name: Package

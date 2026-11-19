@@ -185,8 +185,7 @@ jobs:
           esac
           chmod +x host32/node
           sudo dpkg --add-architecture i386
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq libc6:i386 libstdc++6:i386 libatomic1:i386 >/dev/null
+          bash releases/apt-install.sh libc6:i386 libstdc++6:i386 libatomic1:i386
           host="$PWD/host32/node"
           got="$("$host" -p process.version)"
           [ "$got" = "$NODE_VERSION" ] || { echo "::error::The i386 Node.js resolved for $NODE_VERSION reports $got."; exit 1; }

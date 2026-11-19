@@ -23,7 +23,8 @@
 # dropping the extras costs nothing - and the runner is thrown away afterwards.
 #
 # Tunables (env): APT_ATTEMPTS (default 3), APT_SLEEPS ("15 45"; "0" in tests),
-# APT_SOURCES_DIR (default /etc/apt/sources.list.d - the third-party lists).
+# APT_SOURCES_DIR (default /etc/apt/sources.list.d - the third-party lists;
+# under $PREFIX in Termux).
 set -uo pipefail
 
 if [ "$#" -eq 0 ]; then
@@ -34,9 +35,21 @@ fi
 attempts=${APT_ATTEMPTS:-3}
 sleeps=${APT_SLEEPS:-"15 45"}
 
+# Termux (the Android bundles, v13.18) keeps apt under its own prefix and runs
+# it as its unprivileged user with no sudo; where apt-get is installed says
+# which: /usr/bin/apt-get on Debian and Ubuntu, $PREFIX/bin/apt-get in Termux.
+# APT_ROOT overrides it (tests).
+apt_bin=$(command -v apt-get || true)
+apt_root=""
+case "$apt_bin" in
+    */com.termux/*/bin/apt-get) apt_root=${apt_bin%/bin/apt-get} ;;
+esac
+apt_root=${APT_ROOT:-$apt_root}
+
 # In a container this runs as root and there is no sudo; on a runner there is.
 SUDO=""
-if [ "$(id -u)" -ne 0 ]; then SUDO="sudo"; fi
+if [ "$(id -u)" -ne 0 ] && [ -z "$apt_root" ]; then SUDO="sudo"; fi
+lists_dir="$apt_root/var/lib/apt/lists"
 
 # Acquire::Retries covers a dropped connection inside one run; the loop covers
 # an index that is briefly inconsistent, which no number of retries inside a
@@ -51,19 +64,19 @@ while [ "$attempt" -le "$attempts" ]; do
     delay=$(printf '%s\n' $sleeps | sed -n "${attempt}p")
     [ -n "$delay" ] || delay=$(printf '%s\n' $sleeps | tail -n 1)
     echo "::warning::apt-get update failed (attempt $attempt/$attempts). Clearing the index and retrying in ${delay}s."
-    $SUDO rm -rf /var/lib/apt/lists/*
+    $SUDO rm -rf "$lists_dir"/*
     [ "$delay" -gt 0 ] && sleep "$delay"
     attempt=$((attempt + 1))
 done
 
-sources_dir=${APT_SOURCES_DIR:-/etc/apt/sources.list.d}
+sources_dir=${APT_SOURCES_DIR:-$apt_root/etc/apt/sources.list.d}
 if [ -z "$ok" ]; then
     echo "::warning::apt-get update still fails. Dropping the third-party repositories this release does not use (google-chrome, microsoft, docker ...) and updating from the distribution archive alone."
     if [ -d "$sources_dir" ]; then
       $SUDO mkdir -p "${sources_dir}.disabled"
       $SUDO sh -c "mv ${sources_dir}/* ${sources_dir}.disabled/ 2>/dev/null || true"
     fi
-    $SUDO rm -rf /var/lib/apt/lists/*
+    $SUDO rm -rf "$lists_dir"/*
     if update; then ok=yes; fi
 fi
 

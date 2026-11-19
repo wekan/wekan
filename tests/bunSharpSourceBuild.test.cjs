@@ -54,12 +54,14 @@ buildSharpFromSource(${JSON.stringify(sharp)}, ${JSON.stringify(server)}, proces
   write(path.join(sharp, 'package.json'), { name: 'sharp', version: '0.35.5' });
   assert.match(build({}).stderr, /does not declare node-addon-api/);
   const workflow = fs.readFileSync(path.join(root, '.github/workflows/bun.yml'), 'utf8');
-  assert.match(workflow, /apt-get install -y .*libvips/);
+  // Through apt-install.sh, which waits out a Termux mirror mid-sync (v13.18).
+  assert.match(workflow, /apt-install\.sh \\\n\s+[^\n]*\blibvips\b/);
   // FreeBSD builds Sharp the same way: its only prebuilt is WebAssembly with
   // Worker threads, which hung under Bun on FreeBSD (the v12.39 FreeBSD logs
   // stop at `native check: sharp`). The VM gets the system libvips to build
   // against, and nothing may fall back to the wasm build there.
-  assert.match(workflow, /prepare: pkg install -y [^\n]*\bvips\b/);
+  // Inside prepare's retry loop (v13.18).
+  assert.match(workflow, /prepare: \|[\s\S]{0,300}?\n\s+pkg install -y [^\n]*\bvips\b/);
   const rebuild = fs.readFileSync(path.join(root, 'releases/bun/rebuild.mjs'), 'utf8');
   assert.match(rebuild, /export const SHARP_SOURCE_PLATFORMS = \['android', 'freebsd'\];/);
   assert.match(rebuild, /name === 'sharp' && SHARP_SOURCE_PLATFORMS\.includes\(process\.platform\)/);
