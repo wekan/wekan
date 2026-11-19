@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.20 2026-11-19 WeKan ® release
 
 **In short:** The **REST API** card lists of a list and of a swimlane now carry
 what a syncing client needs - when a card changed, its labels, members and
