@@ -284,4 +284,44 @@ test('the write path does not read the row for every attempt', () => {
     'an actor added by this attempt must be remembered, or the next one reads again');
 });
 
+// .tools/log/wekan10 (2026-11-19): a row showed one person's IPv6 and its
+// location beside another person's IPv4 ("87.103.114.124 Vancouver, CA"), and
+// an older attempt's username beside a newer address. The latest fields
+// describe ONE occurrence: what the newest one does not carry is cleared.
+test('the newest occurrence replaces the latest fields, it does not mix with an older one', () => {
+  const update = summaryUpdate(event({ ip: '87.103.114.124' }), T1);
+  assert.strictEqual(update.$set.ipv4, '87.103.114.124');
+  for (const field of ['ipv6', 'location', 'username', 'userId', 'detail', 'message']) {
+    assert.ok(field in update.$unset, `${field} of an older occurrence is cleared`);
+    assert.ok(!(field in update.$set), `${field} is not both set and cleared`);
+  }
+  const v6 = summaryUpdate(event({ ip: '2604:3d08:7061:7d00::1', username: 'temrin',
+    location: { city: 'Vancouver', country: 'CA' } }), T2);
+  assert.ok('ipv4' in v6.$unset, 'an IPv6 occurrence clears the older IPv4');
+  assert.deepStrictEqual(v6.$set.location, { city: 'Vancouver', country: 'CA' });
+  for (const field of Object.keys(v6.$unset)) assert.ok(!(field in v6.$set), field);
+
+  const [row] = foldEvents([
+    event({ at: T0, username: 'gerald', ip: '2003:cf:70d:3300::1', location: { country: 'DE' } }),
+    event({ at: T1, ip: '81.174.148.37', detail: 'locked one address out of account trottola' }),
+  ]);
+  assert.strictEqual(row.ip, '81.174.148.37');
+  assert.ok(!('username' in row), 'negative: gerald was the older attempt, not this one');
+  assert.ok(!('location' in row), 'negative: the older address\'s location is not this one\'s');
+  assert.strictEqual(row.count, 2, 'and the row still counts both');
+});
+
+test('negative: an occurrence carrying every latest field clears nothing, and no update has an empty $unset', () => {
+  const full = {};
+  for (const f of LATEST_FIELDS) full[f] = f === 'location' ? { country: 'FI' } : 'x';
+  full.ip = '192.0.2.7'; delete full.ipv6; full.ipv4 = '192.0.2.7';
+  const update = summaryUpdate(event(full), T1);
+  assert.ok(!update.$unset || Object.keys(update.$unset).every(f => f === 'ipv6'),
+    'only the other address family is cleared');
+  const fs = require('fs');
+  const fold = fs.readFileSync(path.join(ROOT, 'server/lib/eventLogFold.js'), 'utf8');
+  assert.match(fold, /\.\.\.\(summary\.\$unset \? \{ \$unset: summary\.\$unset \} : \{\}\)/,
+    'the fold passes the clearing on to the database');
+});
+
 console.log(`\neventLogSummary: ${passed} tests passed`);

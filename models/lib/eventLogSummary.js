@@ -199,7 +199,19 @@ function summaryUpdate(evt = {}, now = new Date(), times = 1) {
     if (ipv4) { set.ipv4 = ipv4; set.ip = ipv4; delete set.ipv6; }
     if (ipv6) { set.ipv6 = ipv6; set.ip = ipv6; delete set.ipv4; }
   }
-  return { $set: set, $setOnInsert: setOnInsert, $inc: { count: times } };
+  // ONE occurrence, all of it. The latest fields are read together - this
+  // address, its location, this user, this detail - so a field the newest
+  // occurrence does not carry is CLEARED, not left from an older one. Leaving
+  // it put one person's IPv6 and location beside another person's IPv4, and an
+  // old username beside a new address: Admin Panel / Problems / Security showed
+  // a German IPv4 as "Vancouver, CA" and JamBleed's "gerald" beside a lockout of
+  // account trottola (.tools/log/wekan10, 2026-11-19).
+  const unset = {};
+  for (const field of LATEST_FIELDS) if (!(field in set)) unset[field] = '';
+  const update = { $set: set, $setOnInsert: setOnInsert, $inc: { count: times } };
+  // Mongo refuses an empty $unset.
+  if (Object.keys(unset).length) update.$unset = unset;
+  return update;
 }
 
 // Fold a list of per-event documents into summaries: the shape the migration
@@ -261,9 +273,13 @@ function foldEvents(docs = []) {
     existing.count += times;
     if (at < existing.firstAt) existing.firstAt = at;
     // The newest occurrence is the one whose actor and detail the summary keeps.
+    // All of its latest fields, and none of the older one's (see summaryUpdate).
     if (at >= existing.at) {
       existing.at = at;
-      for (const f of LATEST_FIELDS) if (doc[f] !== undefined) existing[f] = doc[f];
+      for (const f of LATEST_FIELDS) {
+        if (doc[f] !== undefined) existing[f] = doc[f];
+        else delete existing[f];
+      }
     }
   }
   return [...byKey.values()];

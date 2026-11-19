@@ -116,6 +116,8 @@ export async function foldEvent(doc = {}) {
     $set: { ...summary.$set, ...actors.$set },
     $setOnInsert: summary.$setOnInsert,
     $inc: { ...summary.$inc, ...actors.$inc },
+    // The latest fields this occurrence does not carry (summaryUpdate).
+    ...(summary.$unset ? { $unset: summary.$unset } : {}),
   });
 
   // Remember what this attempt added, so the next one from the same actor
