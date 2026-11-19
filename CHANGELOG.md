@@ -7,9 +7,9 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**Admin Panel / Problems / Summary** says what its numbers count:
-"New problems: 1" and "Checks with findings: 8 / 31", translated into every
-language, and "Memory usage" matches the other usage reports.
+**Admin Panel / Problems** says what its numbers count - "New
+problems: 1" and "Checks with findings: 8 / 31", in every language - and a
+report row's address, location and user always belong to the same occurrence.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
