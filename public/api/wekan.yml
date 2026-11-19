@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.19
+  version: v13.20
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -2916,17 +2916,26 @@ paths:
   /api/boards/{board}/lists/{list}/cards:
     get:
       operationId: get_board_list_cards
+      summary: Get the active cards of a list
+      description: |
+        Each card's swimlaneId, dates, assignees and sort, and also its
+         modifiedAt, dateLastActivity, labelIds, members and customFields
+         ([{_id, value}]), so a client can sync without a GET per card (#6928).
+         Admin-only custom field values are null unless the caller is a board admin.
       tags:
+        - Cards
         - Cards
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: list
           in: path
-          description: the list value
+          description: |
+            the list ID
           type: string
           required: true
       produces:
@@ -2937,6 +2946,8 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: [{_id: string, boardId: string, title: string, description: string, swimlaneId: string, receivedAt: string, startAt: string, dueAt: string, endAt: string, assignees: [string], sort: number, modifiedAt: string, dateLastActivity: string, labelIds: [string], members: [string], customFields: [{_id: string, value: string}]}]
     post:
       operationId: post_board_list_cards
       tags:
@@ -4102,17 +4113,26 @@ paths:
   /api/boards/{board}/swimlanes/{swimlane}/cards:
     get:
       operationId: get_board_swimlane_cards
+      summary: Get the active cards of a swimlane
+      description: |
+        Each card's listId, dates, assignees and sort, and also its
+         modifiedAt, dateLastActivity, labelIds, members and customFields
+         ([{_id, value}]), so a client can sync without a GET per card (#6928).
+         Admin-only custom field values are null unless the caller is a board admin.
       tags:
+        - Cards
         - Cards
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: swimlane
           in: path
-          description: the swimlane value
+          description: |
+            the swimlane ID
           type: string
           required: true
       produces:
@@ -4123,6 +4143,8 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: [{_id: string, boardId: string, title: string, description: string, listId: string, receivedAt: string, startAt: string, dueAt: string, endAt: string, assignees: [string], sort: number, modifiedAt: string, dateLastActivity: string, labelIds: [string], members: [string], customFields: [{_id: string, value: string}]}]
   /api/boards/{board}/swimlanes/{swimlane}/copy:
     post:
       operationId: post_board_swimlane_copy
