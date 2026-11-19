@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.19 2026-11-19 WeKan ® release
 
 **In short:** **Release builds** no longer fail when the **Snap Store** is slow
 to process an upload, or when a **Termux** or **BSD** package mirror has a bad

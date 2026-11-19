@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.19 2026-11-19 WeKan ® release
 
 **Release builds** no longer fail when the **Snap Store** is slow
 to process an upload, or when a **Termux** or **BSD** package mirror has a bad
 minute.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.19](CHANGELOG-big.md#v1319-2026-11-19-wekan--release)
 
 # v13.18 2026-11-19 WeKan ® release
 
@@ -53,13 +53,3 @@ just moved keeps their account. REST handlers now answer **404, not 500**, for
 a swimlane, user or board that is not there.
 
 [All changes in v13.15](CHANGELOG-big.md#v1315-2026-11-18-wekan--release)
-
-# v13.14 2026-11-16 WeKan ® release
-
-a **checklist folded on a minicard** stays folded, and every
-profile preference survives a reconnect. The **card shortcuts** open only their
-popup, **one shared list header row** really hides the other swimlanes'
-headers, and the editors no longer show "comment-placeholder" after the
-**i18next 27** update. **Deleting a card** keeps its attachments recoverable.
-
-[All changes in v13.14](CHANGELOG-big.md#v1314-2026-11-16-wekan--release)
