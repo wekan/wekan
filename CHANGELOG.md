@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.18 2026-11-19 WeKan ® release
 
 **Admin Panel / Problems** says what its numbers count - "New
 problems: 1" and "Checks with findings: 8 / 31", in every language - and a
 report row's address, location and user always belong to the same occurrence.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.18](CHANGELOG-big.md#v1318-2026-11-19-wekan--release)
 
 # v13.17 2026-11-19 WeKan ® release
 
@@ -55,12 +55,3 @@ headers, and the editors no longer show "comment-placeholder" after the
 **i18next 27** update. **Deleting a card** keeps its attachments recoverable.
 
 [All changes in v13.14](CHANGELOG-big.md#v1314-2026-11-16-wekan--release)
-
-# v13.13 2026-11-15 WeKan ® release
-
-**Copy Checklist** and the other destination pickers list the
-cards of a large board again: a board that loads its cards lazily used to leave
-the card dropdown empty. Dependabot's updates, among them **i18next 27** and
-the **mongodb** driver 7.8.0, are kept.
-
-[All changes in v13.13](CHANGELOG-big.md#v1313-2026-11-15-wekan--release)

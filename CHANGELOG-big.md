@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.18 2026-11-19 WeKan ® release
 
 **In short:** **Admin Panel / Problems** says what its numbers count - "New
 problems: 1" and "Checks with findings: 8 / 31", in every language - and a
