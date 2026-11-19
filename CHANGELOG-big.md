@@ -95,6 +95,40 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **REST API** card lists of a list and of a swimlane now carry
+what a syncing client needs - when a card changed, its labels, members and
+custom field values - so syncing a board needs no request per card.
+
+This release adds the following new features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97809cbb3373400992766826aa49349cf89539b7">REST API: the card lists of a list and of a swimlane carry modifiedAt, labelIds, members and customFields</a>. Thanks to rmb82 and xet7.</summary>
+
+`GET /api/boards/:boardId/lists/:listId/cards` and
+`GET /api/boards/:boardId/swimlanes/:swimlaneId/cards` returned only the
+title, description, placement, dates, assignees and sort of each card. A client
+keeping a copy of a dozen boards ([#6928](https://github.com/wekan/wekan/issues/6928))
+had to GET every card on its own to learn its labels, members or custom field
+values, or whether it had changed. Each item now also has `modifiedAt`,
+`dateLastActivity`, `labelIds`, `members` and `customFields`
+(`[{ _id, value }]`), and both routes build it in
+`models/lib/restCardListItem.js`, so they stay alike. The board access check
+is the same and there is no extra query. An admin-only custom field's value is
+still `null` for a member who is not a board admin, through the same
+redaction as the single-card GET. Each item carries its `boardId` so that
+redaction is scoped to this board, and an admin of it still reads a field
+shared with other boards. `tests/restCardListFields.test.cjs` pins the fields,
+that nothing else of the card is added, and the concealment;
+`tests/playwright/specs/rest-card-list-fields.e2e.js` checks both routes
+against a running server, as a board admin and as a member.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v13.19 2026-11-19 WeKan ® release
 
 **In short:** **Release builds** no longer fail when the **Snap Store** is slow

@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **REST API** card lists of a list and of a swimlane now carry
+what a syncing client needs - when a card changed, its labels, members and
+custom field values - so syncing a board needs no request per card.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.19 2026-11-19 WeKan ® release
 
 **Release builds** no longer fail when the **Snap Store** is slow
