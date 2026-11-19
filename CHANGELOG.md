@@ -9,7 +9,8 @@ make changes there.
 
 The **REST API** card lists of a list and of a swimlane now carry
 what a syncing client needs - when a card changed, its labels, members and
-custom field values - so syncing a board needs no request per card.
+custom field values - so syncing a board needs no request per card. **build.sh**
+and **build.bat** can run a single **Playwright** spec.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
