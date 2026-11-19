@@ -43,6 +43,8 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 ### Cards
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |
+| `GET` | `/api/boards/:boardId/lists/:listId/cards` | [The active cards of a list, with the fields for syncing.](Cards.md#retrieve-cards-by-list-id) |
+| `GET` | `/api/boards/:boardId/swimlanes/:swimlaneId/cards` | [The active cards of a swimlane, with the fields for syncing.](Cards.md#retrieve-cards-by-swimlane-id) |
 | `POST` | `/api/boards/:boardId/lists/:listId/cards` | [Add a card to a list, board, and swimlane.](Cards.md#add-card-to-list-board-swimlane) |
 | `PUT` | `/api/boards/:boardId/lists/:fromListId/cards/:cardId` | [Update a card.](Cards.md#update-a-card) |
 | `DELETE` | `/api/boards/:boardId/lists/:listId/cards/:cardId` | [Delete a card.](Cards.md#update-a-card) |

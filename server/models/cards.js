@@ -2,6 +2,7 @@ import { cardWithChecklists } from '/server/lib/checklistDeadlines';
 import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
 import { recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
+const { restCardListItem } = require('/models/lib/restCardListItem');
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { check, Match } from 'meteor/check';
@@ -1427,6 +1428,21 @@ Cards.after.remove(async (userId, doc) => {
   });
 });
 
+/**
+ * @operation get_board_swimlane_cards
+ * @tag Cards
+ *
+ * @summary Get the active cards of a swimlane
+ *
+ * @description Each card's listId, dates, assignees and sort, and also its
+ * modifiedAt, dateLastActivity, labelIds, members and customFields
+ * ([{_id, value}]), so a client can sync without a GET per card (#6928).
+ * Admin-only custom field values are null unless the caller is a board admin.
+ *
+ * @param {string} boardId the board ID
+ * @param {string} swimlaneId the swimlane ID
+ * @return_type [{_id: string, boardId: string, title: string, description: string, listId: string, receivedAt: string, startAt: string, dueAt: string, endAt: string, assignees: [string], sort: number, modifiedAt: string, dateLastActivity: string, labelIds: [string], members: [string], customFields: [{_id: string, value: string}]}]
+ */
 WebApp.handlers.get(
   '/api/boards/:boardId/swimlanes/:swimlaneId/cards',
   async function(req, res) {
@@ -1443,22 +1459,26 @@ WebApp.handlers.get(
     );
     sendJsonResult(res, {
       code: 200,
-      data: cards.map(doc => ({
-        _id: doc._id,
-        title: doc.title,
-        description: doc.description,
-        listId: doc.listId,
-        receivedAt: doc.receivedAt,
-        startAt: doc.startAt,
-        dueAt: doc.dueAt,
-        endAt: doc.endAt,
-        assignees: doc.assignees,
-        sort: doc.sort,
-      })),
+      data: cards.map(doc => restCardListItem(doc, 'swimlane')),
     });
   },
 );
 
+/**
+ * @operation get_board_list_cards
+ * @tag Cards
+ *
+ * @summary Get the active cards of a list
+ *
+ * @description Each card's swimlaneId, dates, assignees and sort, and also its
+ * modifiedAt, dateLastActivity, labelIds, members and customFields
+ * ([{_id, value}]), so a client can sync without a GET per card (#6928).
+ * Admin-only custom field values are null unless the caller is a board admin.
+ *
+ * @param {string} boardId the board ID
+ * @param {string} listId the list ID
+ * @return_type [{_id: string, boardId: string, title: string, description: string, swimlaneId: string, receivedAt: string, startAt: string, dueAt: string, endAt: string, assignees: [string], sort: number, modifiedAt: string, dateLastActivity: string, labelIds: [string], members: [string], customFields: [{_id: string, value: string}]}]
+ */
 WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards', async function(req, res) {
   const paramBoardId = req.params.boardId;
   const paramListId = req.params.listId;
@@ -1473,18 +1493,7 @@ WebApp.handlers.get('/api/boards/:boardId/lists/:listId/cards', async function(r
   );
   sendJsonResult(res, {
     code: 200,
-    data: cards.map(doc => ({
-      _id: doc._id,
-      title: doc.title,
-      description: doc.description,
-      swimlaneId: doc.swimlaneId,
-      receivedAt: doc.receivedAt,
-      startAt: doc.startAt,
-      dueAt: doc.dueAt,
-      endAt: doc.endAt,
-      assignees: doc.assignees,
-      sort: doc.sort,
-    })),
+    data: cards.map(doc => restCardListItem(doc, 'list')),
   });
 });
 
