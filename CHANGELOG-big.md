@@ -95,6 +95,53 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Release builds** no longer fail when the **Snap Store** is slow
+to process an upload, or when a **Termux** or **BSD** package mirror has a bad
+minute.
+
+This release fixes the following bugs:
+
+**Release builds** - an outside service having a slow moment no longer fails a
+target.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d49922a6da63e6b71c18521dcb630eb7559a698d">Snap uploads wait a bounded time for the store, and package mirrors are retried</a>. Thanks to xet7.</summary>
+
+In the v13.18 release run, every wekan and wekan-gantt-gpl snap uploaded and
+then sat in the Snap Store's "Status: processing" for hours. `snapcraft upload`
+polls that with no limit of its own, so GitHub cancelled the jobs at their
+`timeout-minutes` (2 hours native, 6 hours Launchpad) and reported a failed
+release. The wekan-ondra snaps, in the same run, were processed in five
+minutes. `releases/snap-upload-retry.sh` now gives one upload 30 minutes
+(`SNAP_UPLOAD_PROCESSING_BUDGET`). A revision the store has accepted is not
+uploaded again: the channels were sent with it, so the store releases it itself
+when processing finishes, and the job says so in a warning and in its summary.
+An upload cut off before the store accepted it is retried.
+
+Bun android-arm64 died on a Termux mirror mid-sync ("File has unexpected size
+... Mirror sync in progress?"), and Bun freebsd-x64 on a FreeBSD package mirror
+that was briefly unreachable ("No route to host"). The Termux installs of the
+Bun and Android bundles, and single-file's i386 libraries, now go through
+`releases/apt-install.sh`, which waits a mirror out. It now also works in
+Termux, which has no sudo and keeps apt under its own prefix. Every FreeBSD,
+OpenBSD and NetBSD VM `prepare` retries its package install five times, and
+says that the mirror is down when it gives up.
+
+`tests/snapUploadProcessingBudget.test.cjs` runs the upload script against a
+fake snapcraft: one that is still processing, one cut off before the store
+accepted it, and the normal and refused cases. It also checks that no workflow
+uploads around the script. `tests/vmPrepareRetry.test.cjs` checks the retry
+loop in every VM `prepare`, and that it gives up after its last attempt.
+`tests/releaseAptInstall.test.cjs` covers Termux mode and now checks every
+workflow for a bare `apt-get`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v13.18 2026-11-19 WeKan ® release
 
 **In short:** **Admin Panel / Problems** says what its numbers count - "New
@@ -8528,197 +8575,5 @@ and tidies the backlog:
   Thanks to xet7.
 - [No speaker review and no undocumented formats in TODO Later](https://github.com/wekan/wekan/commit/aad7e1414a).
   Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.46 2026-10-14 WeKan ® release
-
-**In short:** Accounts can be locked to **SQRL**, Windows domains can sign in
-with **Windows single sign-on**, **List Sync writes back to GitLab**, and boards
-import straight from **Planka, Microsoft To Do, KanbanFlow, Basecamp, Google
-Tasks and Google Keep**. The **Chat view** lists every conversation with unread
-counts, and titles render as **Markdown** in more views. Two changes at once
-no longer fork a board's **History**, and large sprint undo is faster.
-**Bosnian** says Tabla
-for board throughout, and **Tsonga** has its own word for the Archive.
-
-This release adds the following new features:
-
-**Signing in** - accounts locked to SQRL, and Windows domain sign-in.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a539429fce">SQRL's sqrlonly and hardlock lock an account to SQRL</a>. Thanks to xet7.</summary>
-
-The member's SQRL client sends both options with every sign-in, and WeKan
-follows the latest. sqrlonly refuses every other way of signing in - password,
-OIDC, LDAP, SAML, CAS, passkey, Nextcloud, the REST `/users/login` and header
-login. hardlock sends no password-reset e-mail (answering as if it did),
-refuses a reset link sent before, and refuses the member's own e-mail change.
-Disabling SQRL from the client, the admin switching SQRL off, and an admin's
-own changes are the ways back. `tests/sqrl.test.cjs` drives both through the
-protocol with a real Ed25519 client and lists every file that mints a login
-token, so a new one cannot skip the check.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a594a58117">Windows single sign-on with Kerberos or NTLM</a>. Thanks to nikalasmd and xet7.</summary>
-
-[#5758](https://github.com/wekan/wekan/issues/5758). On Windows, with
-`WINDOWS_SSO_ENABLED=true` and node-expose-sspi installed in the bundle,
-"Sign in with Windows" runs the browser's Negotiate handshake, and a one-time
-token signs the page in through the ordinary login checks. Only the domains in
-`WINDOWS_SSO_DOMAINS` are let in (empty means nobody), and a same-named local
-account is taken over only with `WINDOWS_SSO_MERGE_EXISTING_USERS=true`. Built
-without a Windows domain to test against: the decisions are tested in
-`tests/windowsSso.test.cjs`, the handshake is not, and
-[WindowsSSO.md](docs/Features/Login/WindowsSSO.md) says how to set it up.
-
-</details>
-
-**List Sync** - writing back to the tracker.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/d6c1d6fce1">WeKan's changes are written back to GitLab</a>. Thanks to gotjoshua and xet7.</summary>
-
-Part of [#2698](https://github.com/wekan/wekan/issues/2698). A GitLab list's
-Sync option "Write changes back to GitLab", off by default: every run first
-sends titles and descriptions edited in WeKan (never over a conflict),
-comments as notes, archiving as closing and restoring as reopening, then reads
-GitLab. Only what happens after it was switched on is sent, each write is
-fenced by the list's Sync reservation, and a refused write is shown in the
-popup while the read sync goes on. `tests/listSyncWriteBack.test.cjs` and a
-Meteor test against a fake GitLab cover it; build.sh / build.bat → Tests →
-Live tests runs it against gitlab.com with the mirror's glab login.
-
-</details>
-
-**Import** - boards fetched from other services' APIs.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/46e30f01e4">Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google Keep import from their APIs</a>. Thanks to xet7.</summary>
-
-On the import page each asks for what its service needs, lists what that
-account can import and fetches it; the credentials are used for that call
-only and never stored. The fetched JSON imports like a pasted export,
-through the service's parser and the members step. Every request goes
-through the SSRF guard (an administrator can allow a private host with
-`API_IMPORT_ALLOWED_PRIVATE_HOSTS`). Each service has its tests, a docs
-page, and a read-only live test in build.sh / build.bat → Tests → Live
-tests, not run here.
-
-</details>
-
-**Chat view** - every conversation, folded by workspace, board, swimlane and
-list.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2ee3e83793">Channels are the cards with a conversation on every board, with unread counts</a>. Thanks to xet7.</summary>
-
-The tree holds workspaces, boards, swimlanes, lists and the cards that have
-messages; boards without any are under Other boards until their first
-message. Each level has a caret before its icon (mirrored right to left)
-and slides open; a board folds instead of leaving the view. Every level
-shows what this member has not read, every name renders as Markdown, and
-only what the member may read is sent.
-
-</details>
-
-and makes the following faster:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5e671c7034">Batch undo and redo of a large sprint is 2.6 times faster</a>. Thanks to xet7.</summary>
-
-Undoing a 10,500-card sprint close took 282 s and redoing it 578 s, about
-thirty database round trips a card. A History row's records are now read in
-one query per type, with one ownership check before and one after the read,
-and every write is still fenced right before it. The 10,500-card test went
-from 14 min 27 s to 6 min 7 s; `tests/scrumHistoryWriteState.test.cjs` pins
-the bracketed read and that every write stays fenced.
-
-</details>
-
-and fixes the following bugs:
-
-**History** - one board, two changes at once.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/66dd9b0938">Two changes saved at the same moment no longer fork a board's History chain</a>. Thanks to xet7.</summary>
-
-The legacy append read the newest row and inserted after it in two steps,
-so two changes at once named the same previous row: Admin Panel → Problems
-called it critical HistoryIntegrity tampering, 89,062 times, and undo was
-refused for both rows. A board's appends now take turns and link after the
-chain's tip. The hourly audit reports each finding once, board by board,
-and a fork of two intact rows saved within a minute is reported as a
-writer race, not tampering. Existing forks stay as they are.
-
-</details>
-
-**Board views** - titles and activity that showed raw text.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5481268558">The email view renders its subjects and previews as Markdown</a>. Thanks to xet7.</summary>
-
-"# Demo card :thumbsup:" and "**Markdown**" showed as text. Subject and
-preview go through the viewer like every card title, the preview cut at a
-line end instead of inside a link, and two lines of it shown.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2cc6b93ed9">Version Control, the activity feed and the email list render titles as Markdown</a>. Thanks to xet7.</summary>
-
-Issues, labels, milestones, wiki pages, the feed's cards and boards, and
-the email folders render through inlineViewer, with the Admin Panel's
-security settings; clickable titles are spans with role=link, since a
-rendered link cannot sit inside a link.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f12b718d81">The activity feed names the checklist, item, lists and people it is about</a>. Thanks to xet7.</summary>
-
-It filled only the card, list and board, so it showed `__checklistItem__`,
-`__oldList__` and the like, and raw names for ten kinds of activity that had
-no sentence at all. Every name is filled now - never a field's value, a
-comment only for a member who may read comments - and those ten have
-sentences, translated, in the notifications too.
-
-</details>
-
-and has the following documentation:
-
-- [How WeKan, Rocket.Chat and a G Suite SAML login chain together](https://github.com/wekan/wekan/commit/03b83c14c1):
-  the redirect login style, Rocket.Chat's and Google's settings, and the
-  direct alternatives, in OAuth2.md. Fixes
-  [#6549](https://github.com/wekan/wekan/issues/6549). Thanks to timmy-mac and
-  xet7.
-
-and has the following developer-tooling fix:
-
-- [oauthProviders follows the translated login-error list](https://github.com/wekan/wekan/commit/b38532ed72):
-  the SQRL refusals joined the conflict in one list of translated codes.
-  Thanks to xet7.
-- [Three guards follow the History fork and GitLab write-back fixes](https://github.com/wekan/wekan/commit/5fee137f01):
-  Sync admission pins the tip walk, the write-back's read is not named
-  fetch, and the new card field is in the e-mail inventory. Thanks to xet7.
-- [Three more guards follow the importers and the feed](https://github.com/wekan/wekan/commit/a6a1d3c1a6):
-  the feed's stylesheet is imported, two importers strip tags to a fixed
-  point, and a guard escapes every special character. Thanks to xet7.
-
-and fixes the following translations:
-
-**Languages updated:** Bosnian, Tsonga, Croatian.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0502261090">Bosnian says Tabla for board, and Tsonga keeps the Archive apart from storage</a>. Thanks to xet7.</summary>
-
-Bosnian used both ploča and tabla for a board; every board string uses tabla
-now, with ploča left only for the dashboard and the Admin Panel, and the board
-search abbreviation is tb. Tsonga's Archive is "vuhlayiselo bya swa khale",
-while storage stays "vuhlayiselo". Bosnian and Croatian translate S3 port.
-
-</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.

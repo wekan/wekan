@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**Release builds** no longer fail when the **Snap Store** is slow
+to process an upload, or when a **Termux** or **BSD** package mirror has a bad
+minute.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.18 2026-11-19 WeKan ® release
 
 **Admin Panel / Problems** says what its numbers count - "New
