@@ -751,7 +751,12 @@ test('a test run stops the databases it started, on every way out', () => {
 
   // cmd has no trap, so the .bat does the same clearing on the way IN.
   assert.ok(/^:stop_test_databases$/m.test(bat), 'build.bat has the same label');
-  const calls = (bat.match(/call :stop_test_databases/g) || []).length;
+  // "Playwright single spec" (:test_pw_spec) is not an all-tests flow: it
+  // REUSES a server that already answers, so it must not clear one first, and
+  // it stops only what it started (tests/playwrightSingleSpec.test.cjs).
+  const spec = bat.slice(bat.indexOf('\n:test_pw_spec\n'), bat.indexOf('\n:test_pw_parallel'));
+  assert.ok(spec.length > 100, 'the single-spec block is found');
+  const calls = (bat.replace(spec, '').match(/call :stop_test_databases/g) || []).length;
   assert.strictEqual(calls, 4,
     'called at the start AND the end of both all-tests flows: starting from a '
     + 'clean slate is the batch answer to a trap it cannot have');

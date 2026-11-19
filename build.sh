@@ -1127,6 +1127,185 @@ function run_playwright_single(){
 	return "${PIPESTATUS[0]}"
 }
 
+# ---------------------------------------------------------------------------
+# One Playwright spec, on the browsers you choose.
+#
+#   ./build.sh --playwright-spec <spec> [chromium|firefox|webkit|all] [title filter]
+#   or Tests -> "Playwright single spec" (asks the same three things).
+#
+# <spec> is a file under tests/playwright/specs or a part of its name
+# ("feature-profiles" finds specs/feature-profiles.e2e.js). The title filter is
+# Playwright's --grep. When something already answers on :3000 it is used as it
+# is; otherwise this builds a fresh bundle and starts the test server exactly
+# like the whole-suite runs do (Meteor's mongod on :3001, the bundle on :3000),
+# and stops both when the spec is done. Each browser runs natively when it can
+# launch here and in the official Playwright container when it cannot (the
+# same choice as run_pw_all_browser). Logs in .tools/log/test-playwright-spec/.
+# ---------------------------------------------------------------------------
+
+# The spec files matching $1, relative to tests/playwright, one per line.
+function playwright_specs_matching(){
+	local want="${1#tests/playwright/}"
+	want="${want#specs/}"
+	local dir="$WEKAN_DIR/tests/playwright/specs"
+	if [ -n "$want" ] && [ -f "$dir/$want" ]; then
+		echo "specs/$want"; return 0
+	fi
+	( cd "$WEKAN_DIR/tests/playwright" && find specs -name '*.js' | sort | grep -F -- "$want" )
+}
+
+# Start the test server the way run_all_tests does, unless one answers already.
+# Sets SPEC_SERVER_PID / SPEC_MONGOD_PID for the processes it started.
+function start_spec_test_server(){
+	local logdir="$1" build="$2"
+	SPEC_SERVER_PID=""; SPEC_MONGOD_PID=""
+	if curl -fsS --max-time 3 -o /dev/null http://localhost:3000/sign-in 2>/dev/null; then
+		echo "==> Using the WeKan already running on http://localhost:3000 (not started or stopped here)."
+		echo "    It runs whatever code it was started with: after changing the source, stop it"
+		echo "    and run this again, so a fresh bundle is built."
+		return 0
+	fi
+	if [ "$build" = ask ]; then
+		local ans
+		read -r -p "Nothing answers on :3000. Build a fresh bundle and start the test server? [Y/n] " ans
+		case "$ans" in [Nn]*) echo "Nothing to test against."; return 1 ;; esac
+	fi
+	echo "==> Building WeKan, so the spec runs against the current source."
+	build_wekan || return 1
+	BUNDLE_DIR=".build/bundle"
+	NODE_BIN="$(meteor node -e 'process.stdout.write(process.execPath)' 2>/dev/null)"
+	local MONGOD_BIN=""
+	[ -n "$NODE_BIN" ] && MONGOD_BIN="$(dirname "$(dirname "$NODE_BIN")")/mongodb/bin/mongod"
+	[ -x "$MONGOD_BIN" ] || MONGOD_BIN="$(command -v mongod)"
+	[ -x "$NODE_BIN" ] || NODE_BIN="$(command -v node)"
+	if [ ! -d "$BUNDLE_DIR/programs/server/node_modules" ]; then
+		( cd "$BUNDLE_DIR/programs/server" && meteor npm install ) >> "$logdir/wekan-test-server.log" 2>&1 || {
+			echo "ERROR: npm install in $BUNDLE_DIR/programs/server failed (see $logdir/wekan-test-server.log)."; return 1; }
+	fi
+	local port="${WEKAN_TEST_DB_PORT:-3001}"
+	export WEKAN_MONGO_URL="mongodb://127.0.0.1:$port/meteor"
+	if mongo_answers "$port"; then
+		echo "==> Reusing the MongoDB already answering on :$port."
+	elif (exec 3<>/dev/tcp/127.0.0.1/"$port") 2>/dev/null; then
+		echo "ERROR: :$port is taken by something that does not answer as MongoDB. Set WEKAN_TEST_DB_PORT."; return 1
+	else
+		[ -x "$MONGOD_BIN" ] || { echo "ERROR: no mongod found (Meteor's dev_bundle or PATH)."; return 1; }
+		local dbpath="$WEKAN_DIR/.tools/mongodb-test-$port" i
+		mkdir -p "$dbpath"
+		"$MONGOD_BIN" --port "$port" --dbpath "$dbpath" --bind_ip 127.0.0.1 --nounixsocket > "$logdir/wekan-test-mongod.log" 2>&1 &
+		SPEC_MONGOD_PID=$!
+		for i in $(seq 1 60); do mongo_answers "$port" && break; sleep 1; done
+		mongo_answers "$port" || { echo "ERROR: MongoDB did not start on :$port (see $logdir/wekan-test-mongod.log)."; return 1; }
+	fi
+	local writable="$WEKAN_DIR/.tools/test-writable"
+	mkdir -p "$writable/files"
+	export WEKAN_FILES_PATH="$writable/files" WEKAN_FILES_PATH_HOST="$writable/files"
+	echo "==> Starting the WeKan test server on http://localhost:3000 (log: $logdir/wekan-test-server.log)."
+	MONGO_URL="$WEKAN_MONGO_URL" ROOT_URL="http://localhost:3000" PORT=3000 \
+	  WRITABLE_PATH="$writable" WITH_API=true \
+	  DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" \
+	  NODE_OPTIONS="${WEKAN_TEST_NODE_OPTIONS:---max-old-space-size=4096}" \
+	  "$NODE_BIN" "$BUNDLE_DIR/main.js" >> "$logdir/wekan-test-server.log" 2>&1 &
+	SPEC_SERVER_PID=$!
+	local i
+	for i in $(seq 1 300); do
+		curl -fsS --max-time 2 -o /dev/null http://localhost:3000/sign-in 2>/dev/null && { echo "==> Server is up."; return 0; }
+		kill -0 "$SPEC_SERVER_PID" 2>/dev/null || break
+		sleep 1
+	done
+	echo "ERROR: the test server did not answer on :3000. Last lines of its log:"
+	tail -n 30 "$logdir/wekan-test-server.log"
+	return 1
+}
+
+function stop_spec_test_server(){
+	[ -n "${SPEC_SERVER_PID:-}" ] && kill "$SPEC_SERVER_PID" 2>/dev/null && wait "$SPEC_SERVER_PID" 2>/dev/null
+	[ -n "${SPEC_MONGOD_PID:-}" ] && kill "$SPEC_MONGOD_PID" 2>/dev/null && wait "$SPEC_MONGOD_PID" 2>/dev/null
+	SPEC_SERVER_PID=""; SPEC_MONGOD_PID=""
+}
+
+# run_playwright_spec [spec] [browser] [title filter] - asks for what is missing
+# when run from the menu (interactive), and builds without asking from --playwright-spec.
+function run_playwright_spec(){
+	local spec="${1:-}" browser="${2:-}" grep="${3:-}" mode="${4:-ask}"
+	if [ -z "$spec" ]; then
+		read -r -p "Spec file or part of its name (e.g. feature-profiles): " spec
+	fi
+	local matches
+	matches="$(playwright_specs_matching "$spec")"
+	if [ -z "$matches" ]; then
+		echo "ERROR: no spec under tests/playwright/specs matches '$spec'."; return 1
+	fi
+	if [ "$(printf '%s\n' "$matches" | wc -l)" -gt 1 ]; then
+		if [ "$mode" != ask ]; then
+			echo "ERROR: '$spec' matches several specs - name one:"; printf '  %s\n' $matches; return 1
+		fi
+		echo "Several specs match '$spec':"
+		local pick
+		select pick in $matches; do [ -n "$pick" ] && break; done
+		matches="$pick"
+	fi
+	spec="$matches"
+	if [ -z "$browser" ]; then
+		echo "Which browser?"
+		select browser in chromium firefox webkit all; do [ -n "$browser" ] && break; done
+	fi
+	case "$browser" in chromium|firefox|webkit) local browsers=("$browser") ;;
+		all) local browsers=(chromium firefox webkit) ;;
+		*) echo "ERROR: browser must be chromium, firefox, webkit or all (got '$browser')."; return 2 ;;
+	esac
+	if [ -z "$grep" ] && [ "$mode" = ask ]; then
+		read -r -p "Only the tests whose title contains (empty = the whole spec): " grep
+	fi
+	local args=("$spec")
+	[ -n "$grep" ] && args+=(--grep "$grep")
+	local logdir
+	logdir="$(log_directory test-playwright-spec)" || return $?
+	mkdir -p "$logdir"; logdir="$(cd "$logdir" && pwd)"
+	echo "Spec: $spec  Browsers: ${browsers[*]}${grep:+  Title filter: $grep}"
+	echo "Logs: $logdir/"
+	ensure_playwright_test_dependencies || return 1
+	start_spec_test_server "$logdir" "$mode" || { stop_spec_test_server; return 1; }
+	local pwdir="$WEKAN_DIR/tests/playwright" b rc=0 one results=()
+	for b in "${browsers[@]}"; do
+		local log="$logdir/wekan-playwright-$b.log"
+		# Docker where this platform wants it or the native browser cannot start;
+		# native where Docker is missing but the browser starts (Chromium in the
+		# VSCodium Flatpak on arm64 does, although auto picks Docker there).
+		local use_docker=0
+		browser_needs_docker "$b" && use_docker=1
+		if [ "$use_docker" = 1 ] && ! docker_available; then
+			use_docker=0
+		elif [ "$use_docker" = 0 ]; then
+			ensure_native_playwright_browser "$b" >/dev/null 2>&1
+			native_browser_can_launch "$b" || { docker_available && use_docker=1; }
+		fi
+		if [ "$use_docker" = 0 ] && ! native_browser_can_launch "$b"; then
+			echo "SKIPPED $b: it cannot launch natively here and Docker is unavailable."
+			results+=("SKIPPED  $b"); rc=1; continue
+		fi
+		if [ "$use_docker" = 1 ]; then
+			( cd "$pwdir" && run_playwright_docker "$b" --output="test-results/spec-$b" --reporter=list "${args[@]}" ) 2>&1 | tee "$log"
+			one=${PIPESTATUS[0]}
+		else
+			(
+				cd "$pwdir"
+				export HOME="$WEKAN_DIR/.tools"
+				set_playwright_browser_path
+				unset CHROME_DEVEL_SANDBOX
+				export WEKAN_PLAYWRIGHT_ALL=1 WEKAN_PLAYWRIGHT_PROJECT="$b"
+				PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project="$b" \
+					--output="test-results/spec-$b" --reporter=list "${args[@]}"
+			) 2>&1 | tee "$log"
+			one=${PIPESTATUS[0]}
+		fi
+		[ "$one" -eq 0 ] && results+=("PASS     $b") || { results+=("FAIL     $b (exit $one, $log)"); rc=1; }
+	done
+	stop_spec_test_server
+	echo; echo "===== $spec ====="; printf '  %s\n' "${results[@]}"
+	return "$rc"
+}
+
 # Run the full test matrix (Mocha, import regression, Node E2E and the three
 # Playwright browser suites) against ONE WeKan server on http://localhost:3000,
 # then print a combined PASS/FAIL summary.
@@ -2909,6 +3088,8 @@ WeKan build.sh - menu, or a command line.
   ./build.sh --list                   every command name, with what it does
   ./build.sh <name> [arguments]       run one, without the menu
   ./build.sh --run-everything         every test WeKan and FerretDB have
+  ./build.sh --playwright-spec <spec> [chromium|firefox|webkit|all] [title filter]
+                                      one Playwright spec; starts the test server if needed
 
 Examples:
 
@@ -2952,6 +3133,9 @@ cli_run() {
 # the menu.
 case "${1:-}" in
 	--run-everything) run_everything "${2:-two-worker}"; exit $? ;;
+	--playwright-spec)
+		[ -n "${2:-}" ] || { echo "Usage: ./build.sh --playwright-spec <spec> [chromium|firefox|webkit|all] [title filter]" >&2; exit 2; }
+		run_playwright_spec "$2" "${3:-chromium}" "${4:-}" build; exit $? ;;
 	-h|--help|help)   cli_help; exit 0 ;;
 	-l|--list|list)   cli_help | head -8; echo; echo "Commands:"; cli_list; exit 0 ;;
 	"")               ;;                       # no arguments: the menu below
@@ -2995,6 +3179,7 @@ while [ -z "$opt" ]; do
 					"Playwright Firefox|Test Playwright Firefox" \
 					"Playwright WebKit|Test Playwright Webkit" \
 					"Playwright ALL browsers|Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000" \
+					"Playwright single spec|Test one Playwright spec on the browsers you choose; builds and starts the test server when none is running on :3000" \
 					"Floating-promises guard|Check floating promises guard (@typescript-eslint/no-floating-promises + auth await scan)" \
 					"Count tests by category|Count amount of tests by category" \
 					"Run all FerretDB tests - SEQUENTIAL|Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in log/<datetime>/" \
@@ -3380,6 +3565,11 @@ for _once in 1; do
 
     "Test Playwright ALL browsers sequentially (Chromium + Firefox + WebKit, one at a time), server already running on :3000")
 			run_playwright_parallel
+			break
+			;;
+
+    "Test one Playwright spec on the browsers you choose; builds and starts the test server when none is running on :3000")
+			run_playwright_spec
 			break
 			;;
 

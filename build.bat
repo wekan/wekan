@@ -203,6 +203,8 @@ echo       glab login ^(only scratch items it creates and removes^) and the API
 echo       imports, read only ^(releases\live-tests\README.md^)
 echo  18^) Database speed test: the common WeKan queries on every database with an
 echo       image for this CPU, compared, written to SpeedTest\Results.md
+echo  19^) Playwright single spec: one spec on the browsers you choose; builds and
+echo       starts the test server when none is running on :3000
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_everything_two
@@ -223,6 +225,7 @@ if "%choice%"=="15" goto test_ferretdb
 if "%choice%"=="16" goto test_everything_source
 if "%choice%"=="17" goto test_live
 if "%choice%"=="18" goto test_db_speed
+if "%choice%"=="19" goto test_pw_spec
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -1530,6 +1533,87 @@ REM tests\playwright\playwright.config.js reads WEKAN_PLAYWRIGHT_PROJECT to run
 REM only this browser's project, as build.sh run_playwright_single sets it.
 set "WEKAN_PLAYWRIGHT_PROJECT=%PW_PROJECT%"
 call meteor npm exec playwright test -- --project=%PW_PROJECT% 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '%ONELOG%'; exit $LASTEXITCODE"
+goto end
+
+REM ===========================================================================
+:test_pw_spec
+REM Parity with build.sh's "Playwright single spec" (run_playwright_spec): one
+REM spec, chosen by file name or a part of it, on the browsers you choose. A
+REM WeKan already answering on :3000 is used as it is; otherwise a fresh bundle
+REM is built and the test server started as the whole-suite runs do, and
+REM stopped again afterwards. Logs in .tools\log\test-playwright-spec\.
+set "PW_SPEC="
+set /p "PW_SPEC=Spec file or part of its name (e.g. feature-profiles): "
+if not defined PW_SPEC goto menu_tests
+set "PW_MATCH=" & set "PW_COUNT=0"
+for /f "delims=" %%f in ('dir /b "%REPO%\tests\playwright\specs\*.js" ^| findstr /i /l /c:"%PW_SPEC%"') do (
+	set /a PW_COUNT+=1
+	set "PW_MATCH=%%f"
+	echo   %%f
+)
+if "%PW_COUNT%"=="0" (
+	echo No spec under tests\playwright\specs matches "%PW_SPEC%".
+	goto test_pw_spec
+)
+if not "%PW_COUNT%"=="1" (
+	echo Several specs match - type more of the name.
+	goto test_pw_spec
+)
+echo Spec: specs/%PW_MATCH%
+echo Browser: 1^) chromium  2^) firefox  3^) webkit  4^) all
+set "PW_B="
+set /p "PW_B=Choose [1]: "
+set "PW_BROWSERS=chromium"
+if "%PW_B%"=="2" set "PW_BROWSERS=firefox"
+if "%PW_B%"=="3" set "PW_BROWSERS=webkit"
+if "%PW_B%"=="4" set "PW_BROWSERS=chromium firefox webkit"
+set "PW_GREP="
+set /p "PW_GREP=Only the tests whose title contains (empty = the whole spec): "
+call :logdir test-playwright-spec
+if errorlevel 1 goto end
+set "RUN_LOGDIR=%LOG_DIRECTORY%"
+if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
+echo Logs: %RUN_LOGDIR%\
+set "PW_STARTED=0"
+curl -fsS http://127.0.0.1:3000/sign-in >nul 2>&1
+if not errorlevel 1 (
+	echo ==^> Using the WeKan already running on http://localhost:3000 ^(not started or stopped here^).
+	echo     It runs whatever code it was started with: after changing the source, stop it and run this again.
+	goto test_pw_spec_run
+)
+set "PW_BUILD="
+set /p "PW_BUILD=Nothing answers on :3000. Build a fresh bundle and start the test server? [Y/n] "
+if /i "%PW_BUILD%"=="n" goto end
+call :rebuild_for_tests
+if errorlevel 1 goto end
+call :start_bundle_server
+if errorlevel 1 goto end
+set "PW_STARTED=1"
+if not "!SERVER_READY!"=="1" (
+	echo ERROR: the test server did not answer on :3000 ^(see %RUN_LOGDIR%\wekan-test-server.log^).
+	call :stop_test_databases
+	goto end
+)
+:test_pw_spec_run
+set "PW_RESULT="
+for %%b in (%PW_BROWSERS%) do (
+	echo ==^> Playwright %%b: specs/%PW_MATCH%
+	pushd "%REPO%\tests\playwright"
+	set "WEKAN_PLAYWRIGHT_ALL=1"
+	set "WEKAN_PLAYWRIGHT_PROJECT=%%b"
+	if defined PW_GREP (
+		call meteor npm exec playwright test -- --project=%%b --output=test-results\spec-%%b --reporter=list "specs/%PW_MATCH%" --grep "%PW_GREP%" > "%RUN_LOGDIR%\wekan-playwright-%%b.log" 2>&1
+	) else (
+		call meteor npm exec playwright test -- --project=%%b --output=test-results\spec-%%b --reporter=list "specs/%PW_MATCH%" > "%RUN_LOGDIR%\wekan-playwright-%%b.log" 2>&1
+	)
+	if errorlevel 1 (set "PW_RESULT=!PW_RESULT! FAIL:%%b") else (set "PW_RESULT=!PW_RESULT! PASS:%%b")
+	popd
+	type "%RUN_LOGDIR%\wekan-playwright-%%b.log"
+)
+if "%PW_STARTED%"=="1" call :stop_test_databases
+echo.
+echo ===== specs/%PW_MATCH% =====
+for %%r in (!PW_RESULT!) do echo   %%r
 goto end
 
 REM ===========================================================================

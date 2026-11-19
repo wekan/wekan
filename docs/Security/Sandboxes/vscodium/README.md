@@ -345,6 +345,23 @@ unset CHROME_DEVEL_SANDBOX
 
 ## 13) Quick copy-paste: prepare + run Chromium tests
 
+**Just one spec?** `build.sh` does all of the below for you, server included:
+
+```bash
+./build.sh --playwright-spec feature-profiles            # Chromium
+./build.sh --playwright-spec rest-card-list-fields all   # all three browsers
+./build.sh --playwright-spec feature-profiles chromium "team"   # titles containing "team"
+```
+
+The same is Tests -> **Playwright single spec** in the `build.sh` and
+`build.bat` menus. The spec is a file under `tests/playwright/specs` or a part of
+its name. A WeKan already answering on `:3000` is used as it is; otherwise a
+fresh bundle is built and the test server started exactly as the whole-suite
+runs do (mongod on `:3001`, the bundle on `:3000`), and both are stopped when
+the spec is done. In this sandbox Chromium runs natively; Firefox and WebKit
+need the Playwright container, so they are skipped when Docker is unavailable.
+Logs: `.tools/log/test-playwright-spec/<datetime>/`.
+
 Use this when you want one command block that prepares required paths/dependencies and runs Playwright Chromium tests.
 
 Note: this assumes Wekan app is already running at `http://localhost:3000` in another terminal.
