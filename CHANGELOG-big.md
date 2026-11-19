@@ -95,6 +95,37 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Admin Panel / Problems / Summary** says what its numbers count:
+"New problems: 1" and "Checks with findings: 8 / 31", translated into every
+language, and "Memory usage" matches the other usage reports.
+
+This release fixes the following bugs:
+
+**Admin Panel / Problems / Summary** - its counts read as sentences in every
+language.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c92cf3298bef9ec1199bef5edb48bd334b5fb21">New problems and Data health checks say what they count</a>. Thanks to xet7.</summary>
+
+"1 new problems" glued a number to a plural label, and Data health's
+"Last Run: ... - 8/31" did not say that 8 of 31 checks found something. Each is
+now one sentence with its numbers as placeholders, `new-problems-count` and
+`data-health-checks-found`, translated into all 244 locales; new keys rather
+than changed ones, so a Transifex pull does not bring the old wording back. The
+menu's "Memory Usage" is "Memory usage" like CPU usage and Disk usage, and
+broken translations of it are corrected: Aymara had an English wrapper, Latvian
+had Lithuanian, and Dutch, Frisian, Tagalog, Tswana, Yoruba and Hawaiian were
+split or in the wrong word order. `tests/problemsSummaryLabels.test.cjs` pins
+the placeholders and key order in every locale, and that no bare number is
+glued to a label any more.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v13.17 2026-11-19 WeKan ® release
 
 **In short:** The **Admin Panel** answers one question per tab: Settings gains

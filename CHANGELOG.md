@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**Admin Panel / Problems / Summary** says what its numbers count:
+"New problems: 1" and "Checks with findings: 8 / 31", translated into every
+language, and "Memory usage" matches the other usage reports.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.17 2026-11-19 WeKan ® release
 
 The **Admin Panel** answers one question per tab: Settings gains
