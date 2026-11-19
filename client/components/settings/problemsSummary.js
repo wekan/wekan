@@ -104,9 +104,11 @@ Template.problemsSummary.helpers({
     // A key of its own: List Sync's "never synced" may be translated as
     // "never synced", which reads wrong beside "Last Run".
     if (!d || !d.at) return TAPi18n.__('data-health-never-run');
-    // "<when> - <checks that found something>/<checks>"
+    // "<when> - Checks with findings: <found> / <checks>". A bare "8/31"
+    // left the admin guessing what was counted.
     const at = new Date(d.at).toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
-    const text = `${at} - ${d.found}/${d.checks}`;
+    const found = TAPi18n.__('data-health-checks-found', { found: d.found, checks: d.checks });
+    const text = `${at} - ${found}`;
     return d.error ? `${text} - ${d.error}` : text;
   },
   repairRunning() {

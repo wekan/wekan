@@ -97,7 +97,7 @@ template(name="problemsSummary")
             input.js-problem-check(type="checkbox" data-stream="{{area.stream}}")
             i.fa.fa-exclamation-triangle
             span.admin-problem-path {{_ 'admin-panel'}} → {{_ 'problems'}} → {{areaLabel area.stream}}
-            span.admin-problem-count {{area.count}} {{_ 'new-problems'}}
+            span.admin-problem-count {{_ 'new-problems-count' count=area.count}}
         .admin-problem-actions
           button.js-ack-checked.primary {{_ 'acknowledge'}}
           button.js-clear-checked {{_ 'clear-problems'}}
