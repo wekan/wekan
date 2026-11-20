@@ -41,3 +41,59 @@ is the rest.
   OpenProject, GitHub and the others, Focalboard, Nullboard, Super
   Productivity, Kanri, Taiga, Vikunja, Mattermost) and the workbooks. Each of
   those needs its own writer of a document in parts.
+
+## Import and Export of everything each tool has
+
+Asked on 2026-11-20: check and fix that everything each tool with a WeKan
+import or export can hold comes across, whether a whole export is read or
+written at once or only a part of it (a board, a project, some lists, a date
+range), and check each tool's newest features - what its current version
+exports and imports - so their data has a place in WeKan too. For every tool,
+compare its newest export file, documentation and changelog with the parser
+and the formatter here, record what is lost in the import loss report
+(`unsupported`), and add what has a place in WeKan.
+
+- WeKan's own JSON and .zip, and Trello (file and API): every field of the
+  current schema, attachments and their versions, custom fields, rules,
+  templates, Scrum data, and a part of a board as well as all of it.
+- Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana,
+  Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
+  Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
+  Quire, Planka, KanbanFlow, Basecamp - sub-items, dependencies, time
+  tracking, custom fields, comments, attachments and their newer views.
+- Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
+  Pivotal - epics, sprints, versions and milestones, links between issues,
+  work logs, reactions, and fields added in their newest releases.
+- Task tools: Todoist, TickTick, Tasks.org, Super Productivity, todo.txt,
+  Taskwarrior, Vikunja, Microsoft To Do, Google Tasks, Google Keep -
+  recurrence, reminders, priorities, sub-tasks and sections.
+- Spreadsheets, text and outlines: CSV / TSV, Excel, Markdown, Leo, OPML,
+  Org mode - every column, and every Org property and timestamp.
+- Mail, calendars and chats: mail, mbox, iCalendar, Google Takeout, Slack,
+  Mattermost, Telegram, WhatsApp, Discord, Evernote .enex - threads, replies,
+  reactions, recurring events and the attached files that are now only
+  counted.
+
+## Kanban and Scrum features to add
+
+Asked on 2026-11-20: Kanban and Scrum practices other tools have and WeKan
+does not, which can be built from WeKan's own code or a copyfree package, work
+offline, and need no local AI model. Each one must be possible to hide in the
+board's settings and in Admin Panel features. Sources: the Kanban Guide
+(kanban.university), the Scrum Glossary (scrum.org), Scrum Alliance's scrum
+board article, ScrumDesk's feature list.
+
+- Blocked flag with a reason (impediment log): a card marked blocked shows it
+  on the minicard; the reason, who and since when are kept.
+- Explicit list policies: each list's entry and exit criteria, shown at the
+  list header (Kanban practice "make policies explicit").
+- Definition of Ready next to the existing Definition of Done.
+- Classes of service with an expedite lane: Standard, Fixed date, Expedite,
+  Intangible, with a WIP limit of one for Expedite.
+- WIP limit per person: how many open cards one assignee may hold.
+- MoSCoW priority (Must, Should, Could, Won't) per card.
+- WSJF score: cost of delay (business value, time criticality, risk
+  reduction) divided by job size.
+- Retrospective board: Start / Stop / Continue lists made for a sprint.
+- Daily standup timer per person.
+- Commitment point and split Doing / Done columns.
