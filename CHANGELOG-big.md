@@ -104,8 +104,9 @@ WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
 entries that did nothing now work. Cards get the **Kanban and Scrum flow
 fields** Blocked, Class of service, MoSCoW and WSJF, lists their **policies**,
-the board menu a **standup timer** and a **retrospective board**, and
-**InviteBleed** is closed for the old invitation codes too.
+the board menu a **standup timer** and a **retrospective board**, every export
+is **written a page at a time**, and **InviteBleed** is closed for the old
+invitation codes too.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/):
 
@@ -701,6 +702,22 @@ release.
 The reports spec seeds a Scrum release; the limit test POSTs with the HttpOnly
 login cookie, as the page's own upload does, and checks the warning names the
 limit.
+
+</details>
+
+and updates the following documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c277c4d187e59f3e32e1ce1cc04900009a8e047">The docs follow the menus and cover this release's features; README lists what WeKan has</a>. Thanks to xet7.</summary>
+
+Scrum meetings moved under Board Settings, where they are turned on. The
+Board Settings Card, List and Scrum pages name the flow fields, list
+policies, Definition of Ready, standup and retrospective settings, and Admin
+Panel / Settings / Features the new Kanban and Scrum features. Docs that still
+said Settings / Visibility / Features name the pane where they are now.
+Newest-Features.md has a November 2026 guide, and README.md and the
+wekan.fi docs page list the reports, the flow features, the mail, calendar and
+chat imports and the paged exports. The docs link and menu suites pass.
 
 </details>
 
