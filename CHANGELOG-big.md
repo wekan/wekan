@@ -226,6 +226,17 @@ of the description; the export writes them back.
 - [Nextcloud Deck labels keep their colors instead of coming in black](https://github.com/wekan/wekan/commit/22d000b9136b11a4f8030d0e5d42e77518a70f64). Thanks to xet7.
 - [OpenProject imports remaining time and exports spent time, which a round trip lost](https://github.com/wekan/wekan/commit/9bd503a71b22cfcf46c6e75e159c5bf0f5417331). Thanks to xet7.
 - [ClickUp and GitLab exports write spent time, which their imports read and a round trip lost](https://github.com/wekan/wekan/commit/14afc74adbb6659ee3a8f57ebe84999b439557c6). Thanks to xet7.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a02de4b5b398018bbe2076d98cba10b01639e5a">Every export is held to what its own import reads back; Asana time tracking, Deck's done tick and Kanboard colors now survive</a>. Thanks to xet7.</summary>
+
+A new test exports a card with every field set in 32 formats, reads the file
+back and holds each format to what it keeps of dates, spent time, the done
+tick, recurrence, people, custom fields and color. It found Asana's time
+tracking read and written by neither side, Deck's done tick lost without an
+end date, and Kanboard colors not written; all three are fixed.
+
+</details>
+
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
