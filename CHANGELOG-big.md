@@ -202,6 +202,16 @@ emoji or a skin tone.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1122e49ca96930ac19f0431b514f68f7716da45a">Chat imports keep threads: a reply is a reply to the comment of the message it answers</a>. Thanks to xet7.</summary>
+
+Slack, Mattermost, Telegram and Discord say which message a reply answers,
+and the import made each reply a comment of its own. It is now a reply to that
+comment, one level deep as WeKan's replies are; a reply to a message that is
+not in the file stays a comment marked "↳".
+
+</details>
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
