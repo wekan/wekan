@@ -247,6 +247,7 @@ end date, and Kanboard colors not written; all three are fixed.
 - [Taiga's blocked state is the card's Blocked flow field, both ways](https://github.com/wekan/wekan/commit/ab884547f44913cb5269b8248e6301b4983a43c0). Thanks to xet7.
 - [Linear cycles become Scrum sprints and project milestones Scrum releases](https://github.com/wekan/wekan/commit/75694ac644d71016b092c0543a62fb63aef817ee). Thanks to xet7.
 - [Telegram and Discord imports bring their message files from a zipped export folder](https://github.com/wekan/wekan/commit/828ca63713b0a034c9e1c436341cd60435c01443). Thanks to xet7.
+- [Super Productivity export writes a repeating card's repeat config, so it repeats there too](https://github.com/wekan/wekan/commit/35f3f6c9dbec5de87e1181956ed7bf71c30a2f12). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
