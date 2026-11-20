@@ -240,6 +240,7 @@ end date, and Kanboard colors not written; all three are fixed.
 - [Asana's html_notes, approval states and comment likes come across](https://github.com/wekan/wekan/commit/57a657445ef63cc979530f04585227d778c01845). Thanks to xet7.
 - [Planka 2 custom fields and stopwatch time come across](https://github.com/wekan/wekan/commit/0d65eec4f2f36ba6df3b0fcf2d26aa023a02fa75). Thanks to xet7.
 - [Imported subtasks keep their due date and person on the checklist item (Google Tasks, KanbanFlow)](https://github.com/wekan/wekan/commit/cf6f67e789ac404866d4b51591820570850baaa3). Thanks to xet7.
+- [Basecamp card steps keep their due date and assignee](https://github.com/wekan/wekan/commit/a72b29726821301db304b4120bcc21566650202a). Thanks to xet7.
 - [Notion relations between rows of an export become "related to" dependencies](https://github.com/wekan/wekan/commit/f546ff238345dd267e568d75ce1fe25bf4fdbbb7). Thanks to xet7.
 - [ClickUp custom field columns come across both ways, and the task link is kept](https://github.com/wekan/wekan/commit/60f569afe679ffcf6bdfe36f16d4d2bb42f07502). Thanks to xet7.
 - [Todoist and TickTick imports report a column they do not write, instead of dropping it](https://github.com/wekan/wekan/commit/c72a05d11a7527a0b0cb1855de8609de4217faa2). Thanks to xet7.
