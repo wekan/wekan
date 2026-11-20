@@ -99,11 +99,17 @@ const JSON_PAGED = {
   zenkit: { path: ['items'] },
   openproject: { path: ['_embedded', 'elements'] },
   github: { path: [] }, gitea: { path: [] }, forgejo: { path: [] }, gitlab: { path: [] },
+  // Nested: the cards are in their lists' `cards` (Deck's stacks, Kanri's
+  // columns). The pages come list by list; the lists are the document's own,
+  // the same on every page (the formatter makes them from the board's lists
+  // and its light first pass), each written around its cards.
+  deck: { path: ['stacks'], nested: 'cards', byList: 'listIds' },
+  kanri: { path: ['columns'], nested: 'cards', byList: 'listIds' },
 };
 const ARRAY_PLACE = '__wekan_paged_array__';
 
 async function streamJsonExport(res, boardId, format, fields) {
-  const { path } = JSON_PAGED[format];
+  const { path, nested, byList } = JSON_PAGED[format];
   const { externalExportPages, formatters } = require('/models/lib/externalExporters');
   const { secureTransfer } = require('/server/lib/secureTransfer');
   const { containsFields } = require('/models/lib/adminOnlyCustomFields');
@@ -116,10 +122,64 @@ async function streamJsonExport(res, boardId, format, fields) {
   const write = async text => {
     if (!res.write(text)) await new Promise(resolve => res.once('drain', resolve));
   };
+  const place = JSON.stringify(ARRAY_PLACE);
+  // A JSON text split around its placeholder.
+  const around = async value => {
+    const text = JSON.stringify(await safe(value));
+    const at = text.indexOf(place);
+    return [text.slice(0, at), text.slice(at + place.length)];
+  };
   let tail = null;
   let count = 0;
-  for await (const collected of externalExportPages(boardId, format, fields, 500, { paged: true })) {
+  // Nested: each list written around its cards, opened when its first card
+  // comes (or the next list's does) and closed after it.
+  let shells = null;
+  let open = -1;
+  const openUpTo = async index => {
+    while (open < index) {
+      if (open >= 0) await write(`]${shells[open][1]}`);
+      open += 1;
+      await write(`${open ? ',' : ''}${shells[open][0]}[`);
+      count = 0;
+    }
+  };
+  for await (const collected of externalExportPages(boardId, format, fields, 500, { paged: true, ...(byList ? { byList } : {}) })) {
     const doc = formatters[format](collected);
+    if (nested) {
+      const lists = path.reduce((node, key) => (node ? node[key] : undefined), doc) || [];
+      if (tail === null) {
+        const empty = formatters[format]({ ...collected, items: [] });
+        const shellLists = path.reduce((node, key) => (node ? node[key] : undefined), empty) || [];
+        shells = [];
+        for (const list of shellLists) {
+          // eslint-disable-next-line no-await-in-loop
+          shells.push(await around({ ...JSON.parse(JSON.stringify(list)), [nested]: ARRAY_PLACE }));
+        }
+        const skeleton = JSON.parse(JSON.stringify(empty));
+        let node = skeleton;
+        path.slice(0, -1).forEach(key => { node = node[key]; });
+        node[path[path.length - 1]] = ARRAY_PLACE;
+        const [head, rest] = await around(skeleton);
+        tail = rest;
+        res.statusCode = 200;
+        res.setHeader('Cache-Control', 'no-store');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Content-Type', 'application/json');
+        await write(`${head}[`);
+      }
+      for (const [index, list] of lists.entries()) {
+        const cards = list[nested] || [];
+        if (!cards.length) continue;
+        // eslint-disable-next-line no-await-in-loop
+        await openUpTo(index);
+        for (const card of cards) {
+          // eslint-disable-next-line no-await-in-loop
+          await write(`${count ? ',' : ''}${JSON.stringify(await safe(card))}`);
+          count += 1;
+        }
+      }
+      continue;
+    }
     const cards = path.reduce((node, key) => (node ? node[key] : undefined), doc) || [];
     if (tail === null) {
       let skeleton = ARRAY_PLACE;
@@ -143,6 +203,11 @@ async function streamJsonExport(res, boardId, format, fields) {
       await write(`${count ? ',' : ''}${JSON.stringify(await safe(card))}`);
       count += 1;
     }
+  }
+  if (nested) {
+    await openUpTo(shells.length - 1);
+    res.end(`${shells.length ? `]${shells[shells.length - 1][1]}` : ''}]${tail}`);
+    return true;
   }
   res.end(`]${tail}`);
   return true;

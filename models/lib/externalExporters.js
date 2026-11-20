@@ -208,6 +208,8 @@ export async function* externalExportPages(boardId, format, fields, pageSize = 5
     // 'lists': in the board's list order, as the outlines group them;
     // true: in the order the cards first name their lists (Todoist).
     if (options.byList === 'lists') all = paging.byListOrder(all, paging.listTitlesOf(safeParts(light).lists, all));
+    // 'listIds': by list id, for the documents that nest cards in their lists.
+    else if (options.byList === 'listIds') all = paging.byListIdOrder(all, (light.lists || []).map(l => l._id));
     else if (options.byList) all = paging.byFirstListOrder(all, item => item.listTitle || '');
     ids = all.map(item => item.cardId);
   } else {

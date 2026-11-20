@@ -81,3 +81,15 @@ export function outlineMarks(all, titles) {
 export function joinPage(lines, first) {
   return lines.map((line, i) => (first && i === 0 ? line : `\n${line}`)).join('');
 }
+
+// The JSON documents that nest the cards under their lists by list id (Deck's
+// stacks, Kanri's columns): the board's lists in order, then each list only a
+// card names, in the order the cards first name it; each list's cards in
+// board order. A list's cards are then one run, as the nested writer needs.
+export function byListIdOrder(all, listIds) {
+  const rank = new Map(listIds.map((id, i) => [id, i]));
+  all.forEach(item => { if (!rank.has(item.listId || '')) rank.set(item.listId || '', rank.size); });
+  return all.map((item, index) => ({ item, index }))
+    .sort((a, b) => (rank.get(a.item.listId || '') - rank.get(b.item.listId || '')) || (a.index - b.index))
+    .map(({ item }) => item);
+}

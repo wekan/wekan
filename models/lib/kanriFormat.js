@@ -33,6 +33,7 @@
 // it), the relative due date display, tags no card uses, the app settings.
 
 export const MAX_KANRI_CARDS = 20000;
+import { pagingOf, byListIdOrder } from './exportPaging.js';
 const TASKS_CHECKLIST = 'Tasks';
 const DEFAULT_SWIMLANE = 'Default';
 // Kanri's default card color: "no color".
@@ -284,28 +285,35 @@ function tagFor(label) {
 
 // A Kanri single-board export for a collected board
 // (models/lib/externalExporters.js): what Kanri's Partial import reads.
-export function formatKanri({ board, lists, items }, now = new Date()) {
+// The whole board, or one page of it (models/lib/exportPaging.js): the
+// columns - a card's list that is not exported among them - and the tags in
+// use are found over the whole board, list by list; each page fills in its
+// own cards.
+export function formatKanri(collected, now = new Date()) {
+  const { board, lists } = collected;
+  const { items, all } = pagingOf(collected);
   const labelsById = new Map((board && Array.isArray(board.labels) ? board.labels : [])
     .filter(label => label && text(label.name).trim()).map(label => [label._id, label]));
   const used = new Map();
   const columns = (Array.isArray(lists) ? lists : []).map(list => ({ id: text(list._id), title: text(list.title), cards: [] }));
   const byId = new Map(columns.map(column => [column.id, column]));
-  for (const item of Array.isArray(items) ? items : []) {
-    let column = byId.get(text(item.listId));
-    if (!column) {
-      // A card whose list is not exported (an archived list) gets a column of
-      // its own list, so it is not lost.
-      const key = text(item.listId) || 'no-list';
-      column = { id: key, title: text(item.listTitle) || 'Untitled', cards: [] };
+  const tagsOf = item => (Array.isArray(item.labelIds) ? item.labelIds : [])
+    .map(id => labelsById.get(id)).filter(Boolean).map(tagFor);
+  for (const item of byListIdOrder(all, columns.map(column => column.id))) {
+    // A card whose list is not exported (an archived list) gets a column of
+    // its own list, so it is not lost - one column per such list, the cards of
+    // no list in one "no-list" column.
+    const key = text(item.listId) || 'no-list';
+    if (!byId.get(key)) {
+      const column = { id: key, title: text(item.listTitle) || 'Untitled', cards: [] };
       columns.push(column);
       byId.set(key, column);
     }
-    const tags = (Array.isArray(item.labelIds) ? item.labelIds : [])
-      .map(id => labelsById.get(id)).filter(Boolean).map(label => {
-        const tag = tagFor(label);
-        used.set(tag.id, tag);
-        return tag;
-      });
+    for (const tag of tagsOf(item)) used.set(tag.id, tag);
+  }
+  for (const item of items) {
+    const column = byId.get(text(item.listId) || 'no-list');
+    const tags = tagsOf(item);
     const due = isoDate(item.dueAt) || null;
     const card = {
       id: text(item.cardId),

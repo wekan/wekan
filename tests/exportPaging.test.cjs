@@ -220,13 +220,61 @@ test('negative: no part of a paged JSON document skips the export boundary or th
   const render = read('server/lib/renderExternalExport.js');
   for (const format of Object.keys(JSON_FORMATS)) assert.match(render, new RegExp(`\\b${format}: \\{ path: `), `${format} is paged`);
   assert.match(render, /const checked = secureTransfer\(value, context\);\n\s+return containsFields\(checked\) \? require\('\/server\/lib\/adminOnlyCustomFields'\)\.redactFields\(checked, userId\) : checked;/);
-  assert.match(render, /const text = JSON\.stringify\(await safe\(skeleton\)\);/, 'the document around the cards');
   assert.match(render, /JSON\.stringify\(await safe\(card\)\)/, 'and every card');
-  // What is written: the head from the checked skeleton's text, and every card
-  // through safe() - no write of a JSON text made from anything else.
+  // What is written: every card through safe(); every other text is a piece
+  // of a JSON text made by around(), which is safe() too - no write of a JSON
+  // text made from anything else.
   const writer = render.slice(render.indexOf('async function streamJsonExport'), render.indexOf('async function streamExternalExport'));
-  const writes = [...writer.matchAll(/(?:await write|res\.end)\(([^;]*)\);/g)].map(m => m[1]);
-  assert.deepStrictEqual(writes, ['`${text.slice(0, at)}[`', "`${count ? ',' : ''}${JSON.stringify(await safe(card))}`", '`]${tail}`'],
-    'nothing is written without passing safe()');
+  const stringified = [...writer.matchAll(/JSON\.stringify\(([^()]*(?:\([^()]*\))?[^()]*)\)/g)].map(m => m[1]);
+  for (const arg of stringified) {
+    assert.ok(/^await safe\(/.test(arg) || arg === 'ARRAY_PLACE' || /^(list|empty|doc)$/.test(arg),
+      `JSON.stringify(${arg}) is safe(), the placeholder, or a copy that is not written`);
+  }
+  assert.match(writer, /const text = JSON\.stringify\(await safe\(value\)\);/, 'around() checks what it splits');
+  assert.doesNotMatch(writer, /write\([^)]*JSON\.parse/, 'no copy is written');
   assert.match(render, /if \(JSON_PAGED\[format\]\) return streamJsonExport\(res, boardId, format, fields\);/);
+});
+
+// Deck's stacks and Kanri's columns hold their cards: the pages come list by
+// list (byListIdOrder), and each list's cards across the pages are its cards
+// in the whole document; the lists are the document's own on every page.
+test('nested JSON documents: each list\'s cards across the pages are its cards in the whole document', async () => {
+  const { formatKanri } = await import('../models/lib/kanriFormat.js');
+  const nestedLists = [{ _id: 'la', title: 'To Do' }, { _id: 'lb', title: 'Doing' }, { _id: 'lc', title: 'Done' }, { _id: 'ld', title: 'To Do' }];
+  const listIdOf = { 'To Do': 'la', Doing: 'lb', Done: 'lc' };
+  const nestedItems = jsonItems.map(item => ({ ...item, listId: listIdOf[item.listTitle] }))
+    .concat([{ cardId: 'h', title: 'Archived list', listTitle: 'Old', listId: 'gone', labels: [], comments: [] },
+      { cardId: 'i', title: 'No list', listTitle: '', listId: '', labels: [], comments: [] },
+      { cardId: 'j', title: 'No list either', listTitle: '', listId: '', labels: [], comments: [] }]);
+  const nestedLight = nestedItems.map(item => ({ ...item, description: '' }));
+  const now = new Date('2026-11-20T00:00:00Z');
+  const formats = { deck: c => fmt.deck(c), kanri: c => formatKanri(c, now) };
+  const listsOf = { deck: doc => doc.stacks, kanri: doc => doc.columns };
+  for (const [format, run] of Object.entries(formats)) {
+    const whole = JSON.parse(JSON.stringify(run({ board, lists: nestedLists, items: nestedItems })));
+    const all = paging.byListIdOrder(nestedLight, nestedLists.map(l => l._id));
+    const full = new Map(nestedItems.map(item => [item.cardId, item]));
+    for (const size of [1, 2, 3, 100]) {
+      const pages = Math.max(1, Math.ceil(all.length / size));
+      const perList = listsOf[format](whole).map(() => []);
+      for (let n = 0; n < pages; n += 1) {
+        const pageItems = all.slice(n * size, (n + 1) * size).map(item => full.get(item.cardId));
+        const doc = JSON.parse(JSON.stringify(run({ board, lists: nestedLists, items: pageItems,
+          page: { all, offset: n * size, first: n === 0, last: n === pages - 1 } })));
+        assert.strictEqual(listsOf[format](doc).length, perList.length, `${format}: the same lists on every page`);
+        listsOf[format](doc).forEach((list, i) => perList[i].push(...list.cards));
+      }
+      assert.deepStrictEqual(perList, listsOf[format](whole).map(list => list.cards), `${format}, ${size} card(s) a page`);
+      const empty = JSON.parse(JSON.stringify(run({ board, lists: nestedLists, items: [], page: { all, offset: 0, first: true, last: true } })));
+      const shell = doc => ({ ...doc, [format === 'deck' ? 'stacks' : 'columns']: listsOf[format](doc).map(l => ({ ...l, cards: [] })) });
+      assert.deepStrictEqual(shell(empty), shell(whole), `${format}: the document around the cards`);
+    }
+  }
+  // Negative: two lists of one name keep their own cards, and the cards of no list are one column.
+  const deck = fmt.deck({ board, lists: nestedLists, items: nestedItems });
+  assert.strictEqual(deck.stacks[3].cards.length, 0, 'the second "To Do" has none of the first one\'s cards');
+  const kanri = formatKanri({ board, lists: nestedLists, items: nestedItems }, now);
+  assert.strictEqual(kanri.columns.filter(c => c.id === 'no-list').length, 1);
+  assert.strictEqual(kanri.columns.find(c => c.id === 'no-list').cards.length, 2);
+  assert.match(read('server/lib/renderExternalExport.js'), /deck: \{ path: \['stacks'\], nested: 'cards', byList: 'listIds' \}/);
 });

@@ -132,12 +132,14 @@ function kanboardTaskLinks(items) {
 
 export const formatters = {
   // NextCloud Deck: board with stacks, each stack carrying its cards.
+  // A card is in the stack of its own list (by id; by title when either has
+  // none), so two lists of one name do not each carry the other's cards.
   deck: ({ board, lists, items }) => ({
     title: board.title,
     stacks: lists.map(l => ({
       title: l.title,
       cards: items
-        .filter(i => i.listTitle === l.title)
+        .filter(i => (l._id && i.listId ? i.listId === l._id : i.listTitle === l.title))
         .map(i => ({
           title: i.title,
           description: i.description,

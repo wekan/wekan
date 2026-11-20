@@ -39,10 +39,11 @@ is the rest.
   a time, the references across pages read in a light first pass
   (`models/lib/exportPaging.js`). The JSON documents whose cards are one array
   (Trello, Jira, Asana, Zenkit, OpenProject, GitHub, Gitea, Forgejo, GitLab)
-  are written around that array, each page's cards into it. Still built whole:
-  the JSON documents that nest their cards under the lists or spread them over
-  several arrays (Deck, Nullboard, Super Productivity, Kanri, Taiga, Vikunja)
-  and the workbooks. Each of those needs its own writer
+  are written around that array, each page's cards into it, and those that
+  nest their cards in their lists (Deck, Kanri) around each list. Still built
+  whole: Nullboard (a JSON text with lists of its own making), Super
+  Productivity, Taiga and Vikunja (cards spread over several arrays) and the
+  workbooks. Each of those needs its own writer
   of a document in parts.
 
 ## Import and Export of everything each tool has
