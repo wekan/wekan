@@ -140,6 +140,30 @@ at a time, never held whole in memory, and held to the upload limit set in
 **Admin Panel → Attachments → Limits**, if one is set
 (`server/lib/importAttachmentStream.js`).
 
+## Large files
+
+A file chosen on the Import page for any tool of the generalized importer is
+sent to the server a part at a time (`POST /api/import/upload/:source`,
+`server/routes/importUpload.js`) and written to `WRITABLE_PATH/import-uploads`,
+never held whole in the browser or in the server's memory on the way:
+
+- before the first byte, the size the browser announces is checked against
+  the largest import the administrator set (Admin Panel → Settings → Security)
+  and against the free space of that disk, less a reserve
+  (`IMPORT_DISK_RESERVE_MB`, default 512 MB); while it is written, the space is
+  checked again every 64 MB. An import that would fill the disk is refused with
+  that reason, and its partial file is removed;
+- with no limit set, an import may be as large as the free disk space lets it
+  finish;
+- a `.zip` export (Slack, Google Takeout, Vikunja, Notion, Plane) is opened from
+  the disk, its entries read as they are needed, and what they inflate to is
+  counted against the limit or the free space; a mailbox is read a message at
+  a time, also inside a Takeout zip;
+- the file is removed once it has been read, or after an hour.
+
+`tests/importUpload.test.cjs` covers the limit, the full disk before and during
+the upload, an interrupted upload and how each source reads its file.
+
 ## Many boards at once
 
 - **Import many boards**: on the import page of any tool, choose several of

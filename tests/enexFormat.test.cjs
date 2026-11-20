@@ -48,7 +48,7 @@ test('notes become cards with their to-dos, tags, reminder and done state', () =
 test('negative: no script, no markup and no non-ENEX file', () => {
   assert.doesNotMatch(enmlText('<en-note><div>a</div><script>alert(1)</script></en-note>'), /alert/);
   const { notes } = readEnex(ENEX);
-  assert.doesNotMatch(JSON.stringify(enex.enexBoard(notes)), /<script|<div|en-todo/);
+  assert.doesNotMatch(JSON.stringify(enex.enexBoard(notes)), /<script|<div|en-todo/i);
   assert.throws(() => readEnex('<opml/>'), /no <en-export>/);
 });
 

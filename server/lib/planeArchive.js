@@ -64,17 +64,10 @@ async function readPlaneWorkbook(buffer) {
 }
 
 // { files: [{ name, format, content | rows }] } from the zip's bytes.
+// buffer: the zip's bytes, or { file } - an upload on the local disk
+// (server/lib/zipSource.js opens either).
 async function readPlaneArchive(buffer) {
-  if (!Buffer.isBuffer(buffer) || !buffer.length) throw new Error('Plane export is empty');
-  if (buffer.length > MAX_PLANE_ZIP_BYTES) throw new Error(`Plane export is larger than ${MAX_PLANE_ZIP_BYTES} bytes`);
-  if (!isZip(buffer)) throw new Error('Plane export is not a .zip file');
-  const unzipper = require('unzipper');
-  let directory;
-  try {
-    directory = await unzipper.Open.buffer(buffer);
-  } catch (error) {
-    throw new Error('Plane export is not a readable .zip file');
-  }
+  const directory = await require('./zipSource').openZipSource(buffer, { what: 'Plane export', maxBytes: MAX_PLANE_ZIP_BYTES });
   const entries = directory.files.filter(entry => entry.type === 'File');
   if (entries.length > MAX_PLANE_ZIP_ENTRIES) throw new Error(`Plane export has more than ${MAX_PLANE_ZIP_ENTRIES} files`);
   // An .xlsx is a zip too; Plane's export never holds one at its top level.
@@ -110,6 +103,7 @@ const tooLarge = base64 => base64.length > Math.ceil(MAX_PLANE_ZIP_BYTES / 3) * 
 // import page's file input, or the text of a JSON or CSV file, chosen or pasted.
 async function readPlaneImport(value) {
   if (typeof value === 'string') return value;
+  if (value && typeof value.zipFile === 'string') return readPlaneArchive({ file: value.zipFile, maxBytes: value.maxBytes });
   const zip = value && value.zipBase64;
   const xlsx = value && value.xlsxBase64;
   const base64 = typeof zip === 'string' && zip ? zip : typeof xlsx === 'string' && xlsx ? xlsx : '';

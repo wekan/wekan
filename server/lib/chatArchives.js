@@ -16,22 +16,43 @@ const MAX_ZIP_ENTRIES = 50000;
 const MAX_INFLATED_BYTES = 256 * 1024 * 1024;
 const MAX_ENTRY_BYTES = 128 * 1024 * 1024;
 
+// value: { zipBase64 } from the page, or { zipFile, inflateLimit } - an
+// upload on the local disk (server/lib/importUpload.js), opened from there so
+// the archive is never in memory whole. What its entries inflate to is counted
+// against MAX_INFLATED_BYTES, or for an upload against inflateLimit: the
+// administrator's limit, or with none the free disk space, as if it were
+// unpacked there (models/import.js).
 async function openZip(value, what) {
-  const base64 = value && value.zipBase64;
-  if (typeof base64 !== 'string' || !base64) throw new Error(`${what} is empty`);
-  if (base64.length > Math.ceil(MAX_ZIP_BYTES / 3) * 4 + 4) throw new Error(`${what} is larger than ${MAX_ZIP_BYTES} bytes`);
-  const buffer = Buffer.from(base64, 'base64');
-  const magic = buffer.length >= 4 ? buffer.readUInt32LE(0) : 0;
-  if (magic !== 0x04034b50 && magic !== 0x06054b50) throw new Error(`${what} is not a .zip file`);
+  const unzipper = require('unzipper');
   let directory;
-  try {
-    directory = await require('unzipper').Open.buffer(buffer);
-  } catch (error) {
-    throw new Error(`${what} is not a readable .zip file`);
+  if (value && typeof value.zipFile === 'string') {
+    const fd = await require('fs').promises.open(value.zipFile, 'r');
+    const head = Buffer.alloc(4);
+    try { await fd.read(head, 0, 4, 0); } finally { await fd.close(); }
+    const magic = head.readUInt32LE(0);
+    if (magic !== 0x04034b50 && magic !== 0x06054b50) throw new Error(`${what} is not a .zip file`);
+    try {
+      directory = await unzipper.Open.file(value.zipFile);
+    } catch (error) {
+      throw new Error(`${what} is not a readable .zip file`);
+    }
+  } else {
+    const base64 = value && value.zipBase64;
+    if (typeof base64 !== 'string' || !base64) throw new Error(`${what} is empty`);
+    if (base64.length > Math.ceil(MAX_ZIP_BYTES / 3) * 4 + 4) throw new Error(`${what} is larger than ${MAX_ZIP_BYTES} bytes`);
+    const buffer = Buffer.from(base64, 'base64');
+    const magic = buffer.length >= 4 ? buffer.readUInt32LE(0) : 0;
+    if (magic !== 0x04034b50 && magic !== 0x06054b50) throw new Error(`${what} is not a .zip file`);
+    try {
+      directory = await unzipper.Open.buffer(buffer);
+    } catch (error) {
+      throw new Error(`${what} is not a readable .zip file`);
+    }
   }
   const entries = directory.files.filter(entry => entry.type === 'File');
   if (entries.length > MAX_ZIP_ENTRIES) throw new Error(`${what} has more than ${MAX_ZIP_ENTRIES} files`);
-  const budget = { remaining: MAX_INFLATED_BYTES };
+  const inflateLimit = value && value.zipFile && Number(value.inflateLimit) > 0 ? Number(value.inflateLimit) : MAX_INFLATED_BYTES;
+  const budget = { remaining: inflateLimit };
   const read = async entry => {
     if (declaredZipEntrySize(entry) > MAX_ENTRY_BYTES) throw new Error(`${what}: ${entry.path} is too large`);
     try {
@@ -47,7 +68,10 @@ async function openZip(value, what) {
       return undefined;
     }
   };
-  return { entries, read, json };
+  // An entry streamed on rather than read - an mbox - under the same budget,
+  // with no size of its own beyond it.
+  const stream = entry => require('./boundedZipEntry').boundedZipEntryStream(entry, inflateLimit, budget);
+  return { entries, read, json, stream };
 }
 
 const parts = path => String(path).split('/').filter(Boolean);
@@ -82,8 +106,7 @@ async function readSlackExport(value) {
 // Google Takeout: each product is recognised by what a file IS, not by its
 // folder name, which Takeout writes in the account's language.
 async function readGoogleTakeout(value) {
-  const { entries, read, json } = await openZip(value, 'Google Takeout export');
-  const { decodeMail } = require('./mailImport');
+  const { entries, read, json, stream } = await openZip(value, 'Google Takeout export');
   const found = { tasks: [], keep: [], mail: [], calendars: [], chat: [], skipped: [] };
   const spaces = new Map();
   // Product folders seen, and those something was read from.
@@ -98,8 +121,10 @@ async function readGoogleTakeout(value) {
     if (product) products.add(product);
     if (name.endsWith('.mbox')) {
       used.add(product);
+      // Streamed, a message at a time: a Takeout mailbox can be many gigabytes.
       // eslint-disable-next-line no-await-in-loop
-      found.mail.push(...await decodeMail(await read(entry)));
+      const { messages } = await require('./mailImport').decodeMailStream(stream(entry));
+      found.mail.push(...messages);
     } else if (name.endsWith('.ics')) {
       used.add(product);
       // eslint-disable-next-line no-await-in-loop

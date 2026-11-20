@@ -98,3 +98,25 @@ test('negative: a file that is not of the chosen kind is refused and makes no bo
   });
   expect(results).toEqual(['invalid-import-format', 'invalid-import-format', 'invalid-import-format', 'invalid-import-format']);
 });
+
+test('negative: a file over the administrator\'s largest import is refused by the upload', async ({ loggedInPage: page }) => {
+  db.updateOne('settings', {}, { $set: { importMaxMegabytes: 1 } });
+  try {
+    await navigateInApp(page, '/import/mail');
+    const before = db.countDocuments('boards', {});
+    const big = Buffer.from(`${MBOX}\n${'x'.repeat(2 * 1024 * 1024)}\n`);
+    await page.locator('.js-import-file').setInputFiles({ name: 'big.mbox', mimeType: 'application/mbox', buffer: big });
+    await page.locator('.js-import-without-mapping').click();
+    await expect(page.locator('.warning').first()).toBeVisible();
+    expect(db.countDocuments('boards', {})).toBe(before);
+    // The route answers the same to a direct POST, with the reason.
+    const status = await page.evaluate(async size => {
+      const token = localStorage.getItem('Meteor.loginToken');
+      const r = await fetch('/api/import/upload/mail', { method: 'POST', headers: { 'Content-Type': 'application/octet-stream', Authorization: `Bearer ${token}` }, body: new Uint8Array(size) });
+      return [r.status, (await r.json()).error];
+    }, 2 * 1024 * 1024);
+    expect(status).toEqual([413, 'import-too-large']);
+  } finally {
+    db.updateOne('settings', {}, { $unset: { importMaxMegabytes: '' } });
+  }
+});

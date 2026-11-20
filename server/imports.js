@@ -422,6 +422,7 @@ import '/server/routes/avatarServer';
 import '/server/routes/cardOgTags';
 import '/server/routes/customHeadAssets';
 import '/server/routes/importTrelloZip';
+import '/server/routes/importUpload';
 import '/server/routes/exportAllBoards';
 // Reply-by-email (#2414). Never imported before ReplyBleed was fixed, so the
 // endpoint the docs describe did not exist.

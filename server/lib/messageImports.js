@@ -15,8 +15,16 @@ const text = value => {
 
 export async function parseMessageImport(source, value) {
   switch (source) {
-    case 'mail':
+    case 'mail': {
+      // A mailbox streamed to the local disk is read a message at a time.
+      if (value && typeof value.mboxFile === 'string') {
+        const { messages, skipped } = await require('./mailImport').decodeMailFile(value.mboxFile);
+        const board = parseMailMessages(messages, { name: 'Imported mail' });
+        if (skipped) board.unsupported.push({ path: '/messages', reason: `${skipped} message(s) larger than 32 MB are not imported` });
+        return board;
+      }
       return parseMailMessages(await require('./mailImport').decodeMail(text(value)), { name: 'Imported mail' });
+    }
     case 'evernote': {
       const { notes, cutOff } = require('./enexImport').readEnex(text(value));
       return enexBoard(notes, { cutOff });

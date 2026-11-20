@@ -160,6 +160,13 @@ template(name="featuresSecurity")
         .materialCheckBox(class="{{#if disableAllImport}}is-checked{{/if}}")
         span {{_ 'disable-all-import'}}
       p.description {{_ 'disable-all-import-description'}}
+    //- The largest import upload (server/lib/importDiskSpace.js); empty is no
+      limit, only the free disk space.
+    li
+      label.flex
+        span {{_ 'import-max-megabytes'}}
+        input.js-import-max-megabytes(type="number" min="0" step="1" value="{{importMaxMegabytes}}" placeholder="{{_ 'import-max-megabytes-none'}}")
+      p.description {{_ 'import-max-megabytes-description'}}
     li
       a.flex.js-toggle-disable-all-export
         .materialCheckBox(class="{{#if disableAllExport}}is-checked{{/if}}")

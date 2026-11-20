@@ -25,6 +25,11 @@ Until 2026-11-19 this pane was Admin Panel / Problems / Security;
   Jira, Kanboard, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea and Forgejo,
   and cloning a board. The menu options are hidden and the server refuses any
   import request.
+- **Largest import (MB)** - the largest file the Import page accepts. Empty is
+  no limit: a file may be as large as the free disk space lets the import
+  finish. Every upload is written to the server's disk a part at a time and an
+  import that would fill the disk is refused
+  ([Large files](../../Board-Sidebar/Board-Settings/Import-Export/External-Tools.md#large-files)).
 - **Disable all export** - every export is off: WeKan JSON, CSV, Excel, Kanboard,
   and to NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo, and
   single-attachment export.

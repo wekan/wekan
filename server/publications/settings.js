@@ -55,6 +55,8 @@ const SETTING_FIELDS = {
   enablePermanentDelete: 1,
   disableAllExport: 1,
   disableAllImport: 1,
+  // The largest import, so the Import page can say so before uploading.
+  importMaxMegabytes: 1,
   disableExportAvatars: 1,
   disableImportAvatars: 1,
   anonymizeExportUsers: 1,

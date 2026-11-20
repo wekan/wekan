@@ -49,6 +49,12 @@ function attachmentAuthData(importTpl) {
   return auth ? { attachmentAuth: auth } : {};
 }
 
+// The file streamed to the server for this import (postImportUpload), by its
+// id; the preview of its people and the import itself both read it.
+function uploadData(importTpl) {
+  return importTpl.upload && importTpl.upload.uploadId ? { uploadId: importTpl.upload.uploadId } : {};
+}
+
 // Helper to find the closest ancestor template instance by name
 function findParentTemplateInstance(childTemplateInstance, parentTemplateName) {
   let view = childTemplateInstance.view;
@@ -115,6 +121,33 @@ async function postTrelloImport(body, contentType) {
   if (!resp.ok || result.error) {
     throw new Error(result.error || 'import-trello-failed');
   }
+  return result;
+}
+
+// A chosen file of the generalized importer's sources, streamed to the server
+// a part at a time (server/routes/importUpload.js) rather than read here and
+// sent whole through the importBoard method: the server writes it to its disk,
+// checking the free space and the administrator's import limit, and importBoard
+// reads it by the id answered here. Returns { uploadId, size }.
+async function postImportUpload(source, file) {
+  const token =
+    (window.localStorage && window.localStorage.getItem('Meteor.loginToken')) || '';
+  const resp = await fetch(`/api/import/upload/${encodeURIComponent(source)}`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: file,
+  });
+  let result = {};
+  try {
+    result = await resp.json();
+  } catch (e) {
+    result = {};
+  }
+  if (!resp.ok || result.error || !result.uploadId) throw new Error(result.error || 'import-upload-failed');
   return result;
 }
 
@@ -313,7 +346,17 @@ Template.import.onCreated(function () {
         openOrReportImportedBoard(boardId, '');
         return;
       }
-      if (file) {
+      this.upload = null;
+      if (file && spec.creator === 'generalized') {
+        // Streamed to the server's disk, never read into this page whole.
+        try {
+          this.upload = await postImportUpload(dataSource, file);
+        } catch (e) {
+          this.setError((e && e.message) || 'import-upload-failed');
+          return;
+        }
+        doc = {};
+      } else if (file) {
         doc = documentForFile(dataSource, file.name || '', new Uint8Array(await file.arrayBuffer()));
       } else {
         const text = (this.find('.js-import-json') || {}).value || '';
@@ -393,7 +436,7 @@ Template.import.onCreated(function () {
     let people = [];
     try {
       people = await Meteor.callAsync('importBoard', pruneImportDocument(this.importedData.get(), selectedFields()),
-        { previewPeople: true, importFields: selectedFields() }, source, null);
+        { previewPeople: true, importFields: selectedFields(), ...uploadData(this) }, source, null);
     } catch (e) {
       this.setError((e && (e.reason || e.error)) || 'error-json-malformed');
       return;
@@ -544,7 +587,10 @@ Template.import.onCreated(function () {
     this.membersToMap.set([]);
     let settled = false;
     const importDocument = pruneImportDocument(importedData, selectedFields());
-    const timeoutMs = importDeadlineFor(parseInt(window.WEKAN_IMPORT_TIMEOUT_MS, 10) || 120000, importDocument);
+    // An uploaded file is not in the document: its size gives it time, two
+    // seconds a megabyte on top of the usual deadline.
+    const uploadMs = this.upload ? Math.ceil((this.upload.size || 0) / (1024 * 1024)) * 2000 : 0;
+    const timeoutMs = importDeadlineFor(parseInt(window.WEKAN_IMPORT_TIMEOUT_MS, 10) || 120000, importDocument) + uploadMs;
     const watchdog = Meteor.setTimeout(() => {
       if (settled) return;
       settled = true;
@@ -560,7 +606,7 @@ Template.import.onCreated(function () {
       // The selection again, for the parts only a creator can leave out:
       // the Scrum planning external parsers find (models/kanboardCreator.js).
       { membersMapping: mappingById, importFields: selectedFields(), membersMode: this.membersMode || 'map', ...csvMappingData(this),
-        ...attachmentAuthData(this),
+        ...attachmentAuthData(this), ...uploadData(this),
         ...(splitByProject(this.importSource) ? { splitBy: 'swimlane' } : {}) },
       this.importSource,
       Session.get('fromBoard'),

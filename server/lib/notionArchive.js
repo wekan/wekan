@@ -35,19 +35,10 @@ const MAX_NOTION_DATABASES = 50;
 const dirname = name => (name.includes('/') ? name.slice(0, name.lastIndexOf('/')) : '');
 const basename = name => name.slice(name.lastIndexOf('/') + 1);
 
+// buffer: the zip's bytes, or { file } - an upload on the local disk
+// (server/lib/zipSource.js opens either).
 async function openZip(buffer) {
-  if (!Buffer.isBuffer(buffer) || !buffer.length) throw new Error('Notion export is empty');
-  if (buffer.length > MAX_NOTION_ZIP_BYTES) throw new Error(`Notion export is larger than ${MAX_NOTION_ZIP_BYTES} bytes`);
-  // A zip starts with a local file header (PK\3\4), or is an empty archive (PK\5\6).
-  const magic = buffer.length >= 4 ? buffer.readUInt32LE(0) : 0;
-  if (magic !== 0x04034b50 && magic !== 0x06054b50) throw new Error('Notion export is not a .zip file');
-  const unzipper = require('unzipper');
-  let directory;
-  try {
-    directory = await unzipper.Open.buffer(buffer);
-  } catch (error) {
-    throw new Error('Notion export is not a readable .zip file');
-  }
+  const directory = await require('./zipSource').openZipSource(buffer, { what: 'Notion export', maxBytes: MAX_NOTION_ZIP_BYTES });
   const entries = directory.files.filter(entry => entry.type === 'File');
   if (entries.length > MAX_NOTION_ZIP_ENTRIES) throw new Error(`Notion export has more than ${MAX_NOTION_ZIP_ENTRIES} files`);
   return entries;
@@ -130,6 +121,7 @@ async function readNotionArchive(buffer, budget = { remaining: MAX_NOTION_INFLAT
 // What models/import.js received: { zipBase64 } from the import page's file
 // input, or the text of one database CSV pasted or chosen.
 async function readNotionImport(value) {
+  if (value && typeof value.zipFile === 'string') return readNotionArchive({ file: value.zipFile, maxBytes: value.maxBytes });
   if (typeof value === 'string') return value;
   const base64 = value && value.zipBase64;
   if (typeof base64 !== 'string' || !base64) throw new Error('Notion export is empty');

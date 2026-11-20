@@ -126,6 +126,14 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Settings / Security: the largest file an Import page upload
+    // may be, in megabytes. Unset or 0: no limit - as large as the free disk
+    // space lets the import finish (server/lib/importDiskSpace.js).
+    importMaxMegabytes: {
+      type: Number,
+      optional: true,
+      min: 0,
+    },
     // Admin Panel / Features: when true, avatars (user profile pictures) are never
     // included when EXPORTING a board (WeKan JSON / CSV export). Default false.
     disableExportAvatars: {

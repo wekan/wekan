@@ -82,7 +82,8 @@ test('every deadline in models/import.js scales with its document, and the page 
   assert.ok(calls.length >= 4, 'importBoard (three paths) and importScoped');
   for (const call of calls) assert.match(call, /,\s*importDeadlineFor\(importDeadlineMs\(\), [\w.]+\),$/, call);
   const page = read('client/components/import/import.js');
-  assert.match(page, /const timeoutMs = importDeadlineFor\(parseInt\(window\.WEKAN_IMPORT_TIMEOUT_MS, 10\) \|\| 120000, importDocument\);/);
+  // An uploaded file is not in the document; its size adds time (uploadMs).
+  assert.match(page, /const timeoutMs = importDeadlineFor\(parseInt\(window\.WEKAN_IMPORT_TIMEOUT_MS, 10\) \|\| 120000, importDocument\) \+ uploadMs;/);
   // The watchdog measures the document the server is sent.
   assert.match(page, /'importBoard',\s*importDocument,/);
 });

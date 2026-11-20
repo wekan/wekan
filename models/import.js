@@ -97,6 +97,9 @@ Meteor.methods({
     // or GitLab import (models/lib/importAttachmentAuth.js): used for this
     // import's downloads only, never stored or logged.
     check(data.attachmentAuth, Match.Maybe(Match.Where(isAttachmentAuthShape)));
+    // An upload streamed to the local disk (server/routes/importUpload.js):
+    // the file is read from there instead of `board`.
+    check(data.uploadId, Match.Maybe(Match.Where(id => typeof id === 'string' && /^[0-9a-f]{32}$/.test(id))));
     // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
     // writes, so authentication is rejected immediately after Meteor's mandatory
     // argument audit and before feature checks, parsing or creator construction.
@@ -109,6 +112,20 @@ Meteor.methods({
     // CreateBleed: every import makes a new board - the UI's, and POST
     // /api/boards/import and /api/boards/import/:source, which call this.
     await assertMayCreateBoardOnServer(this.userId, 'method:importBoard');
+    let uploadId = null;
+    if (data.uploadId) {
+      if (!Meteor.isServer) return undefined;
+      uploadId = data.uploadId;
+      try {
+        const Settings = require('/models/settings').default;
+        board = await require('/server/lib/importUploadSource').uploadedImportValue(uploadId, this.userId, importSource, {
+          setting: (await Settings.findOneAsync({}, { fields: { importMaxMegabytes: 1 } })) || {},
+          spec: require('/models/lib/importSources').importSource(importSource),
+        });
+      } catch (error) {
+        throw new Meteor.Error(error.code || 'invalid-import-format', error.message);
+      }
+    }
     try { validateImportSourceShape(importSource, board); }
     catch (error) { throw new Meteor.Error('invalid-import-format', error.message); }
     let creator;
@@ -560,6 +577,10 @@ Meteor.methods({
         }
         break;
     }
+    // The upload has been read and parsed: it is not kept on the disk. (One
+    // that failed to parse is removed by the hourly sweep.)
+    // The people preview reads the same upload once more for the import itself.
+    if (uploadId && data.previewPeople !== true) await require('/server/lib/importUpload').removeUpload(uploadId);
     if (!creator) {
       throw new Meteor.Error('invalid-import-source', `Unknown import source: ${importSource}`);
     }

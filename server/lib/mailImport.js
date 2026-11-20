@@ -13,15 +13,29 @@ const MAX_MESSAGE_BYTES = 32 * 1024 * 1024;
 const MAX_TEXT = 100000;
 
 // The text of an HTML-only message: this mailparser gives no text for it.
-// Block ends become line breaks, scripts and styles are dropped, and what is
-// left is the document's text - never its markup.
+// The HTML is parsed (htmlparser2) and its text nodes read, a line break at
+// each block's end; script, style and the like are skipped as elements, so no
+// pattern ever strips markup and nothing of the markup is kept.
+const SKIPPED = new Set(['script', 'style', 'noscript', 'template', 'head', 'title', 'iframe', 'object']);
+const BLOCK_ENDS = new Set(['p', 'div', 'li', 'tr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'table', 'ul', 'ol']);
 function htmlText(html) {
-  const { parseDocument, DomUtils } = require('htmlparser2');
-  const marked = String(html || '').slice(0, MAX_TEXT * 10)
-    .replace(/<(script|style)\b[\s\S]*?<\/\1\s*>/gi, '')
-    .replace(/<br\s*\/?>|<\/(p|div|li|h[1-6]|tr|blockquote)\s*>/gi, '\n');
-  return DomUtils.textContent(parseDocument(marked, { decodeEntities: true }))
-    .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+  const { parseDocument } = require('htmlparser2');
+  const doc = parseDocument(String(html || '').slice(0, MAX_TEXT * 10), { decodeEntities: true });
+  let out = '';
+  const walk = nodes => {
+    for (const node of nodes || []) {
+      if (node.type === 'text') out += node.data.replace(/\s+/g, ' ');
+      else if (node.type === 'tag' || node.type === 'script' || node.type === 'style') {
+        const name = String(node.name || '').toLowerCase();
+        if (SKIPPED.has(name) || node.type !== 'tag') continue;
+        if (name === 'br') { out += '\n'; continue; }
+        walk(node.children);
+        if (BLOCK_ENDS.has(name)) out += '\n';
+      }
+    }
+  };
+  walk(doc.children);
+  return out.split('\n').map(line => line.trim()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 const people = value => {
@@ -65,4 +79,53 @@ async function decodeMail(text) {
   return out;
 }
 
-module.exports = { decodeMail, decodeMessage, htmlText, MAX_MESSAGE_BYTES };
+// The messages of an mbox read from a stream a line at a time - a file on
+// disk or a zip entry - so a mailbox of any size is never in memory whole:
+// one message at a time is, up to MAX_MESSAGE_BYTES (a larger one is skipped
+// and counted). At most MAX_MAIL_MESSAGES are kept.
+async function decodeMailStream(stream, { maxMessages = require('../../models/lib/mboxSplit').MAX_MAIL_MESSAGES } = {}) {
+  const readline = require('readline');
+  const lines = readline.createInterface({ input: stream, crlfDelay: Infinity });
+  const out = [];
+  let current = null;
+  let size = 0;
+  let skipped = 0;
+  let first = true;
+  let single = false;
+  const flush = async () => {
+    if (current && current.length && out.length < maxMessages) {
+      if (size > MAX_MESSAGE_BYTES) skipped += 1;
+      else {
+        const message = await decodeMessage(current.join('\n'));
+        if (message) out.push(message);
+      }
+    }
+    current = [];
+    size = 0;
+  };
+  for await (const line of lines) {
+    if (first) {
+      first = false;
+      single = !/^From /.test(line.replace(/^\uFEFF/, ''));
+      if (single) { current = [line]; size = line.length + 1; continue; }
+    }
+    if (!single && /^From /.test(line)) {
+      await flush();
+      if (out.length >= maxMessages) break;
+      continue;
+    }
+    if (!current) current = [];
+    if (size <= MAX_MESSAGE_BYTES) current.push(/^>+From /.test(line) ? line.slice(1) : line);
+    size += line.length + 1;
+  }
+  await flush();
+  lines.close();
+  return { messages: out, skipped };
+}
+
+async function decodeMailFile(file) {
+  const fs = require('fs');
+  return decodeMailStream(fs.createReadStream(file));
+}
+
+module.exports = { decodeMail, decodeMessage, decodeMailStream, decodeMailFile, htmlText, MAX_MESSAGE_BYTES };

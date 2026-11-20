@@ -49,24 +49,21 @@ rest.
 
 ## Import and Export of large files
 
-Asked on 2026-11-20. Today a chosen file reaches the server through the
-`importBoard` method as text or base64, whole and in memory, and each zip
-reader has fixed caps (the Trello zip route 200 MB compressed and 1 GB
-unpacked, the Vikunja and chat archives 64-128 MB).
+Asked on 2026-11-20. A file chosen on the Import page for the generalized
+importer's sources is now streamed to the server's disk a part at a time, with
+the free space checked before and while it is written and the Admin Panel
+limit (none: the free disk space) applied; zips are opened from the disk and
+mailboxes read a message at a time. This is the rest.
 
-- Every Import upload is streamed to the server a part at a time, to a file
-  under WRITABLE_PATH, and read from there a part at a time: zip entries as
-  streams, mbox and JSONL line by line, other formats in bounded pieces -
-  never the whole file in memory. Export writes the same way.
-- Before an import to the local disk starts, and while it runs, the free space
-  of that file system is checked against what the upload and its unpacked
-  contents need; an import that would fill the disk is refused with that
-  reason, and its partial files are removed.
-- Admin Panel sets the largest import. With no limit set, an import may be as
-  large as the free disk space allows it to finish; the fixed caps are only a
-  default when a limit is set. The zip-bomb guard stays: what an entry
-  inflates to is counted against the free space and the limit, not trusted
-  from the archive.
+- JSON and text formats are still read whole into memory once uploaded:
+  read them in bounded pieces too (a streaming JSON parser for the large JSON
+  exports - Jira, Taiga, Telegram - and line by line for the CSV and line
+  formats).
+- WeKan's own .zip and Trello's package have upload routes of their own with
+  fixed caps (200 MB and 1 GB): route them through the same upload, limit and
+  disk check.
+- Export: write a large board to the response as it is collected, in parts,
+  instead of building the whole file in memory first.
 
 ## Reports to add to Board Views
 

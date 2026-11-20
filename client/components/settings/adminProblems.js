@@ -1261,6 +1261,10 @@ const featurePaneHelpers = {
   disableAllExport() {
     return (ReactiveCache.getCurrentSetting() || {}).disableAllExport;
   },
+  importMaxMegabytes() {
+    const mb = (ReactiveCache.getCurrentSetting() || {}).importMaxMegabytes;
+    return mb > 0 ? mb : '';
+  },
   disableImportAvatars() {
     return (ReactiveCache.getCurrentSetting() || {}).disableImportAvatars;
   },
@@ -1301,6 +1305,14 @@ const featurePaneEvents = {
   },
   'click .js-toggle-disable-all-export'() {
     toggleSettingField('disableAllExport');
+  },
+  // Empty or 0 is no limit; anything else a whole number of megabytes.
+  'change .js-import-max-megabytes'(event) {
+    const setting = ReactiveCache.getCurrentSetting();
+    if (!setting) return;
+    const mb = Math.floor(Number(event.currentTarget.value));
+    Settings.update(setting._id, Number.isFinite(mb) && mb > 0
+      ? { $set: { importMaxMegabytes: mb } } : { $unset: { importMaxMegabytes: '' } });
   },
   'click .js-toggle-disable-import-avatars'() {
     toggleSettingField('disableImportAvatars');

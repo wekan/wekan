@@ -91,7 +91,8 @@ async function main() {
     assert.match(read('server/routes/importTrelloZip.js'), /new TrelloCreator\(\{ membersMapping, membersMode \}\)/);
     const page = read('client/components/import/import.js');
     assert.match(page, /this\.membersMode = chosenMembersMode\(skipMapping\);/);
-    assert.match(page, /\{ previewPeople: true, importFields: selectedFields\(\) \}, source, null\);/);
+    // With the upload's id when the file was streamed to the server (server/lib/importUpload.js).
+    assert.match(page, /\{ previewPeople: true, importFields: selectedFields\(\), \.\.\.uploadData\(this\) \}, source, null\);/);
     assert.match(page, /membersMode: this\.membersMode \|\| 'map',/);
     assert.match(read('client/components/import/import.jade'), /each membersModes\s*\n\s*a\.flex\.js-import-members-mode\(data-mode="\{\{mode\}\}" href="#"\)/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

@@ -22,19 +22,10 @@ const MAX_VIKUNJA_INFLATED_BYTES = MAX_VIKUNJA_DATA_BYTES + 2 * MAX_VIKUNJA_SMAL
 const MAX_VIKUNJA_ZIP_ENTRIES = 20000;
 
 // { version, data, files, filters } from the zip's bytes.
+// buffer: the zip's bytes, or { file } - an upload on the local disk
+// (server/lib/zipSource.js opens either).
 async function readVikunjaArchive(buffer) {
-  if (!Buffer.isBuffer(buffer) || !buffer.length) throw new Error('Vikunja export is empty');
-  if (buffer.length > MAX_VIKUNJA_ZIP_BYTES) throw new Error(`Vikunja export is larger than ${MAX_VIKUNJA_ZIP_BYTES} bytes`);
-  // A zip starts with a local file header (PK\3\4), or is an empty archive (PK\5\6).
-  const magic = buffer.length >= 4 ? buffer.readUInt32LE(0) : 0;
-  if (magic !== 0x04034b50 && magic !== 0x06054b50) throw new Error('Vikunja export is not a .zip file');
-  const unzipper = require('unzipper');
-  let directory;
-  try {
-    directory = await unzipper.Open.buffer(buffer);
-  } catch (error) {
-    throw new Error('Vikunja export is not a readable .zip file');
-  }
+  const directory = await require('./zipSource').openZipSource(buffer, { what: 'Vikunja export', maxBytes: MAX_VIKUNJA_ZIP_BYTES });
   const entries = directory.files.filter(entry => entry.type === 'File');
   if (entries.length > MAX_VIKUNJA_ZIP_ENTRIES) throw new Error(`Vikunja export has more than ${MAX_VIKUNJA_ZIP_ENTRIES} files`);
   const named = name => entries.find(entry => entry.path === name);
@@ -73,6 +64,7 @@ async function readVikunjaArchive(buffer) {
 // input, or the text of data.json pasted into the textarea.
 async function readVikunjaImport(value) {
   if (typeof value === 'string') return value;
+  if (value && typeof value.zipFile === 'string') return readVikunjaArchive({ file: value.zipFile, maxBytes: value.maxBytes });
   const base64 = value && value.zipBase64;
   if (typeof base64 !== 'string' || !base64) throw new Error('Vikunja export is empty');
   // Refused before decoding: base64 is 4 characters for every 3 bytes.
