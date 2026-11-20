@@ -653,6 +653,19 @@ any other unawaited result kept in a variable.
 and has the following developer-facing changes:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49dbdbb6d62d10dbcfd7b9f922221f76ba04c875">Push Snap to Store releases the release's snaps to every Snap Store channel</a>. Thanks to xet7.</summary>
+
+On v13.20 every build was green and the snaps were on the GitHub release, but
+the Snap Store kept the old version: the store kept the uploads in processing
+and never released them. The new workflow runs after every release, and by
+hand for any tag: it releases each wekan, wekan-ondra and wekan-gantt-gpl snap
+of the release to stable, candidate, beta and edge - a revision the store
+already has without uploading it again, a new one after its upload - and fails
+when a snap still did not reach a channel. `tests/snapStorePush.test.cjs`.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4da72ff72ddbe51370bd94ceb19a96b1c540ed5">The shared templates spec runs its tests in order and waits for the reset</a>. Thanks to xet7.</summary>
 
 The scopes are one instance setting now, so the spec's tests run serially,
