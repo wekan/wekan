@@ -22,9 +22,13 @@ assert.equal(locales['ast-ES']['select-none'], 'Nun seleicionar nengún');
 for (const language of ['cy', 'cy-GB']) {
   assert.equal(locales[language]['select-none'], 'Dewis dim');
 }
-for (const language of ['uz-AR', 'uz-LA', 'uz-UZ', 'uz']) {
+for (const language of ['uz-LA', 'uz-UZ', 'uz']) {
   assert.equal(locales[language]['select-none'], 'Hech birini tanlamaslik');
 }
+// uz-AR is Uzbek in Arabic script, as the rest of that file: its Latin values
+// were replaced on 2026-11-20 (a locale file holds its tag's language and script).
+assert.equal(locales['uz-AR']['select-none'], 'هیچ بیرینی تنلمسلیک');
+assert.doesNotMatch(locales['uz-AR']['select-none'], /[A-Za-z]/);
 for (const locale of Object.values(locales)) {
   assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
   assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);

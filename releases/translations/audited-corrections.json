@@ -199,8 +199,8 @@
     "locale": "uz-AR",
     "key": "copyManyCardsPopup-format",
     "before": "[ {\"title\": \"Birinchi karta nomi\", \"tavsif\":\"Birinchi karta tavsifi\"}, {\"title\":\"Ikkinchi karta sarlavhasi\",\"tavsif\":\"Ikkinchi karta tavsifi\"},{\"title\":\"Oxirgi karta nomi\",\"tavsif\":\"Oxirgi karta tavsifi\"} ]",
-    "after": "[{\"title\": \"Birinchi karta nomi\",\"description\": \"Birinchi karta tavsifi\"},{\"title\": \"Ikkinchi karta sarlavhasi\",\"description\": \"Ikkinchi karta tavsifi\"},{\"title\": \"Oxirgi karta nomi\",\"description\": \"Oxirgi karta tavsifi\"}]",
-    "reason": "Restore literal JSON property names; preserve translated sample prose."
+    "after": "[{\"title\": \"بیرینچی کارت سرلوحه‌سی\",\"description\": \"بیرینچی کارت توصیفی\"},{\"title\": \"ایککینچی کارت سرلوحه‌سی\",\"description\": \"ایککینچی کارت توصیفی\"},{\"title\": \"آخیرگی کارت سرلوحه‌سی\",\"description\": \"آخیرگی کارت توصیفی\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose. 2026-11-20: the sample text in Arabic script, as uz-AR is; the JSON property names stay literal."
   },
   {
     "locale": "uz-LA",
