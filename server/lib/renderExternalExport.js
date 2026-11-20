@@ -93,7 +93,9 @@ const PAGED = {
 // its own cards into it. Each part passes the export boundary and the
 // admin-only field redaction as the whole document does (sendJsonResult).
 const JSON_PAGED = {
-  trello: { path: ['cards'] },
+  // Trello: the cards, their checklists and their comments (commentCard
+  // actions), each array a pass of its own.
+  trello: { paths: [['cards'], ['checklists'], ['actions']] },
   jira: { path: ['issues'] },
   asana: { path: ['data'] },
   zenkit: { path: ['items'] },
@@ -111,7 +113,66 @@ const JSON_PAGED = {
 };
 const ARRAY_PLACE = '__wekan_paged_array__';
 
+// A JSON document with several card arrays (`paths`, e.g. Trello's cards,
+// checklists and comment actions): the document around them is made on the
+// first page, and each array is written by a pass of its own over the pages,
+// in the order the arrays stand in the document. Every part passes safe().
+async function streamJsonArrays(res, boardId, format, fields) {
+  const { paths } = JSON_PAGED[format];
+  const { externalExportPages, formatters } = require('/models/lib/externalExporters');
+  const { secureTransfer } = require('/server/lib/secureTransfer');
+  const { containsFields } = require('/models/lib/adminOnlyCustomFields');
+  const context = { direction: 'export', source: `export:${format}` };
+  const userId = res.req && res.req.userId;
+  const safe = async value => {
+    const checked = secureTransfer(value, context);
+    return containsFields(checked) ? require('/server/lib/adminOnlyCustomFields').redactFields(checked, userId) : checked;
+  };
+  const write = async text => {
+    if (!res.write(text)) await new Promise(resolve => res.once('drain', resolve));
+  };
+  const at = (doc, path) => path.reduce((node, key) => (node ? node[key] : undefined), doc) || [];
+  const pages = () => externalExportPages(boardId, format, fields, 500, { paged: true });
+  // The document around the arrays, from the first page with no cards.
+  let skeleton = null;
+  for await (const collected of pages()) {
+    skeleton = JSON.parse(JSON.stringify(formatters[format]({ ...collected, items: [] })));
+    break;
+  }
+  const places = paths.map((path, i) => {
+    let node = skeleton;
+    path.slice(0, -1).forEach(key => { node = node[key]; });
+    const mark = `${ARRAY_PLACE}${i}`;
+    node[path[path.length - 1]] = mark;
+    return JSON.stringify(mark);
+  });
+  const text = JSON.stringify(await safe(skeleton));
+  const order = paths.map((path, i) => i).sort((a, b) => text.indexOf(places[a]) - text.indexOf(places[b]));
+  res.statusCode = 200;
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Content-Type', 'application/json');
+  let from = 0;
+  for (const i of order) {
+    const where = text.indexOf(places[i]);
+    await write(`${text.slice(from, where)}[`);
+    let count = 0;
+    for await (const collected of pages()) {
+      for (const element of at(formatters[format](collected), paths[i])) {
+        // eslint-disable-next-line no-await-in-loop
+        await write(`${count ? ',' : ''}${JSON.stringify(await safe(element))}`);
+        count += 1;
+      }
+    }
+    await write(']');
+    from = where + places[i].length;
+  }
+  res.end(text.slice(from));
+  return true;
+}
+
 async function streamJsonExport(res, boardId, format, fields) {
+  if (JSON_PAGED[format].paths) return streamJsonArrays(res, boardId, format, fields);
   const { path, nested, byList, text: asText } = JSON_PAGED[format];
   const formatted = collected => {
     const out = formatters[format](collected);

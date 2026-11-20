@@ -267,25 +267,71 @@ export const formatters = {
     }));
   },
   // Trello board JSON (round-trips with WeKan's Trello import).
-  trello: ({ board, lists, items }) => ({
-    name: board.title,
-    prefs: { background: 'blue', permissionLevel: 'private' },
-    labels: (board.labels || []).map(l => ({ id: l._id, name: l.name, color: l.color })),
-    lists: lists.map(l => ({ id: l._id, name: l.title, closed: false })),
-    cards: items.map(i => ({
-      id: i.cardId,
-      name: i.title,
-      desc: i.description,
-      idList: i.listId,
-      due: i.dueAt || null,
-      closed: false,
-      idLabels: i.labelIds,
-      idMembers: [],
-      idChecklists: [],
-    })),
-    checklists: [],
-    actions: [],
-  }),
+  // The card's checklists are Trello checklists and its comments commentCard
+  // actions, the shapes models/trelloCreator.js reads back (checkChecklists,
+  // parseActions); each card's arrays depend only on the card, so a page
+  // writes its own (server/lib/renderExternalExport.js JSON_PAGED).
+  trello: collected => {
+    const { board, lists } = collected;
+    const { items, all, offset } = pagingOf(collected);
+    // The board's people - card owners, assignees, comment authors - over the
+    // whole board, as Trello members named by username; the import maps them
+    // to users by username (client/components/import/trelloMembersMapper.js).
+    const peopleOf = i => [i.owner, ...list(i.assignees)].filter(has).map(String);
+    const people = [...new Set(all.flatMap(i => [...peopleOf(i),
+      ...list(i.comments).map(c => c && c.author).filter(has).map(String)]))];
+    // What models/trelloCreator.js checks every card for: an ISO date of its
+    // last activity and a position - without them a Trello export did not
+    // import into WeKan at all.
+    const isoOf = value => {
+      const date = value ? new Date(value) : null;
+      return date && !Number.isNaN(date.getTime()) ? date.toISOString() : new Date(0).toISOString();
+    };
+    const checklistsOf = i => list(i.checklists).map((c, n) => ({
+      id: `${i.cardId}-checklist-${n + 1}`,
+      idBoard: String(board._id || ''),
+      idCard: String(i.cardId),
+      name: String(c.title || 'Checklist'),
+      pos: n + 1,
+      checkItems: list(c.items).map((x, m) => ({
+        id: `${i.cardId}-checklist-${n + 1}-item-${m + 1}`,
+        name: String(x.title || ''),
+        state: x.done ? 'complete' : 'incomplete',
+        pos: m + 1,
+      })),
+    }));
+    return {
+      name: board.title,
+      prefs: { background: 'blue', permissionLevel: 'private' },
+      members: people.map(username => ({ id: username, username, fullName: username })),
+      labels: (board.labels || []).map(l => ({ id: l._id, name: String(l.name || ''), color: l.color })),
+      lists: lists.map((l, n) => ({ id: l._id, name: l.title, closed: false, pos: n + 1 })),
+      cards: items.map((i, n) => ({
+        id: i.cardId,
+        name: i.title,
+        desc: String(i.description || ''),
+        pos: offset + n + 1,
+        dateLastActivity: isoOf(i.modifiedAt || i.createdAt),
+        idList: i.listId,
+        due: i.dueAt || null,
+        ...(has(i.startAt) ? { start: i.startAt } : {}),
+        dueComplete: Boolean(i.dueComplete),
+        closed: false,
+        idLabels: list(i.labelIds),
+        idMembers: [...new Set(peopleOf(i))],
+        idChecklists: checklistsOf(i).map(c => c.id),
+      })),
+      checklists: items.flatMap(checklistsOf),
+      actions: items.flatMap(i => list(i.comments).filter(c => c && has(c.text)).map((c, n) => ({
+        id: `${i.cardId}-comment-${n + 1}`,
+        type: 'commentCard',
+        date: isoOf(c.date || i.createdAt),
+        idMemberCreator: c.author || null,
+        memberCreator: c.author ? { username: c.author, fullName: c.author } : null,
+        data: { text: String(c.text), card: { id: i.cardId, name: i.title }, board: { id: String(board._id || '') } },
+      }))),
+    };
+  },
   // Jira issues collection (round-trips with WeKan's Jira import).
   // The issue keys and custom field names are counted over the whole board,
   // whichever page is written (models/lib/exportPaging.js).

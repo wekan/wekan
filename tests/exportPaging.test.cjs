@@ -176,7 +176,7 @@ test('Focalboard: the board\'s options from the whole board on the first page, e
 // The JSON documents whose cards are one array (server/lib/renderExternalExport.js
 // JSON_PAGED): the first page's document around the array is the whole
 // document's, and the pages' arrays together are the whole array.
-const JSON_FORMATS = { trello: ['cards'], jira: ['issues'], asana: ['data'], zenkit: ['items'],
+const JSON_FORMATS = { jira: ['issues'], asana: ['data'], zenkit: ['items'],
   openproject: ['_embedded', 'elements'], github: [], gitea: [], forgejo: [], gitlab: [] };
 const at = (doc, path) => path.reduce((node, key) => (node ? node[key] : undefined), doc);
 const without = (doc, path) => {
@@ -210,6 +210,28 @@ test('every JSON document: the pages\' card arrays together are the whole array,
       assert.deepStrictEqual(without(first, path), without(whole, path), `${format}, ${size}: the document around them`);
     }
   }
+  // Trello's three arrays - cards, checklists, comment actions - each the
+  // pages' together, and the document around them the first page's.
+  const multi = { trello: [['cards'], ['checklists'], ['actions']] };
+  for (const [format, paths] of Object.entries(multi)) {
+    const whole = JSON.parse(JSON.stringify(fmt[format]({ board: board2, lists: lists2, items: jsonItems })));
+    for (const size of [1, 2, 4, 100]) {
+      const pages = Math.max(1, Math.ceil(jsonItems.length / size));
+      for (const path of paths) {
+        let elements = [];
+        for (let n = 0; n < pages; n += 1) {
+          elements = elements.concat(at(JSON.parse(JSON.stringify(fmt[format]({ board: board2, lists: lists2, items: jsonItems.slice(n * size, (n + 1) * size),
+            page: { all: jsonLight, offset: n * size, first: n === 0, last: n === pages - 1 } }))), path) || []);
+        }
+        assert.deepStrictEqual(elements, at(whole, path), `${format} ${path.join('.')}, ${size} card(s) a page`);
+      }
+    }
+    // As the writer makes it: no cards, the board's light first pass (its members).
+    const empty = JSON.parse(JSON.stringify(fmt[format]({ board: board2, lists: lists2, items: [],
+      page: { all: jsonLight, offset: 0, first: true, last: true } })));
+    paths.forEach(path => { delete empty[path[0]]; delete whole[path[0]]; });
+    assert.deepStrictEqual(empty, whole, `${format}: the document around the arrays`);
+  }
   // The references across pages: a Jira child names its parent's key from the other page.
   const second = fmt.jira({ board: board2, items: [jsonItems[1]], page: { all: jsonLight, offset: 1, first: false, last: false } });
   assert.strictEqual(second.issues[0].key, 'WEKAN-2');
@@ -219,15 +241,16 @@ test('every JSON document: the pages\' card arrays together are the whole array,
 test('negative: no part of a paged JSON document skips the export boundary or the field redaction', () => {
   const render = read('server/lib/renderExternalExport.js');
   for (const format of Object.keys(JSON_FORMATS)) assert.match(render, new RegExp(`\\b${format}: \\{ path: `), `${format} is paged`);
+  assert.match(render, /trello: \{ paths: \[\['cards'\], \['checklists'\], \['actions'\]\] \}/, 'Trello\'s three arrays, each a pass');
   assert.match(render, /const checked = secureTransfer\(value, context\);\n\s+return containsFields\(checked\) \? require\('\/server\/lib\/adminOnlyCustomFields'\)\.redactFields\(checked, userId\) : checked;/);
   assert.match(render, /JSON\.stringify\(await safe\(card\)\)/, 'and every card');
   // What is written: every card through safe(); every other text is a piece
   // of a JSON text made by around(), which is safe() too - no write of a JSON
   // text made from anything else.
-  const writer = render.slice(render.indexOf('async function streamJsonExport'), render.indexOf('async function streamExternalExport'));
+  const writer = render.slice(render.indexOf('async function streamJsonArrays'), render.indexOf('async function streamExternalExport'));
   const stringified = [...writer.matchAll(/JSON\.stringify\(([^()]*(?:\([^()]*\))?[^()]*)\)/g)].map(m => m[1]);
   for (const arg of stringified) {
-    assert.ok(/^await safe\(/.test(arg) || arg === 'ARRAY_PLACE' || /^(list|empty|doc)$/.test(arg),
+    assert.ok(/^await safe\(/.test(arg) || ['ARRAY_PLACE', 'mark'].includes(arg) || /^(list|empty|doc|formatters\[format\]\(\{ \.\.\.collected, items: \[\] \}\))$/.test(arg),
       `JSON.stringify(${arg}) is safe(), the placeholder, or a copy that is not written`);
   }
   assert.match(writer, /const text = JSON\.stringify\(await safe\(value\)\);/, 'around() checks what it splits');
