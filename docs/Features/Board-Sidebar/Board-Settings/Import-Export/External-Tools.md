@@ -13,6 +13,12 @@ tools. You use them from the existing menus:
   Spreadsheets and tables, Text and outlines, Mail, calendars, chats and
   notes, and Fetched from a service - from one table,
   `models/lib/toolGroups.js`, so a tool is in the same group on both.
+- A company with more than one product there has a heading of its own, right
+  after WeKan, and its products are listed under it without the company's
+  name in front: **37signals** (Basecamp, Fizzy), **Atlassian** (Trello,
+  Jira), **Google** (Takeout, Tasks, Keep) and **Microsoft** (Planner, To Do,
+  Excel, GitHub). A company with one product stays under the heading of its
+  kind.
 - **Rules and workflows**: **Board Settings → Rules → Import / Export rules**
   (see [Rules](../../../Rules/Rules/Rules.md#import--export)).
 

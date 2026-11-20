@@ -326,14 +326,15 @@ function resolvedFormatGroups() {
     }))
     .filter(group => group.entries.length)
     // The other tools' formats under headings by kind (models/lib/toolGroups.js),
-    // the same groups as the Import page; WeKan's own JSON keeps "JSON".
+    // the same groups as the Import page; WeKan's own JSON keeps "JSON", and
+    // a company with several products is headed by the company's name.
     .flatMap(group => {
       if (group.key !== 'json') return [group];
       const { groupTools } = require('/models/lib/toolGroups');
       const parts = [];
       for (const entry of groupTools(group.entries)) {
         if (entry.groupStart) {
-          parts.push({ key: `json-${entry.group}`, heading: entry.groupLabelKey ? TAPi18n.__(entry.groupLabelKey) : group.heading, entries: [] });
+          parts.push({ key: `json-${entry.group}`, heading: entry.groupLabelKey ? TAPi18n.__(entry.groupLabelKey) : entry.groupLabel || group.heading, entries: [] });
         }
         parts[parts.length - 1].entries.push(entry);
       }

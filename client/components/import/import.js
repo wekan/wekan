@@ -684,7 +684,8 @@ Template.import.helpers({
     const product = productNameOrDefault(setting && setting.productName);
     const current = Session.get('importSource');
     // Grouped by kind under headings (models/lib/toolGroups.js), the same
-    // groups the Export menu uses; WeKan's own is headed by the product name.
+    // groups the Export menu uses; WeKan's own is headed by the product name,
+    // and a company with several products by the company's name.
     const { groupTools } = require('/models/lib/toolGroups');
     return groupTools(IMPORT_SOURCES.map(source => ({
       key: source.key,
@@ -694,7 +695,9 @@ Template.import.helpers({
       selected: source.key === current,
     }))).map(source => ({
       ...source,
-      groupHeading: source.groupStart ? (source.groupLabelKey ? TAPi18n.__(source.groupLabelKey) : product) : '',
+      groupHeading: source.groupStart
+        ? (source.groupLabelKey ? TAPi18n.__(source.groupLabelKey) : source.groupLabel || product)
+        : '',
     }));
   },
   hasImportSource() {
