@@ -115,6 +115,13 @@ async function main() {
     assert.ok(gl.unsupported.some(u => u.reason === '3 reaction(s) are counts without who reacted, and are not imported'));
   });
 
+  test('GitHub\'s issue type is a "type:" label, as GitLab\'s issue_type is', () => {
+    const out = parseGithub([{ number: 1, title: 'A', state: 'open', type: { id: 1, name: 'Bug', color: 'red' } },
+      { number: 2, title: 'B', state: 'open', type: null }]);
+    assert.deepStrictEqual(out.tasks[0].tags, ['type:Bug']);
+    assert.deepStrictEqual(out.tasks[1].tags, [], 'negative: no type, no label');
+  });
+
   // The export side is held by tests/exportRoundTripFields.test.cjs (created, owner, requester).
   test('created and closed dates, and Gitea\'s time estimate, are read', () => {
     const out = parseGitea([{ number: 1, title: 'A', state: 'closed', created_at: '2026-10-01T10:00:00Z', closed_at: '2026-10-05T10:00:00Z', time_estimate: 5400 },

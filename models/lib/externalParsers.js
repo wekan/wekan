@@ -654,6 +654,11 @@ function parseIssuesArray(data, system) {
       if (issue.state_reason && issue.state_reason !== 'completed') {
         tags.push(`state_reason:${issue.state_reason}`);
       }
+      // GitHub's issue type (2025): { name, color, ... } - a "type:" label,
+      // as the GitLab import keeps issue_type.
+      if (issue.type && typeof issue.type === 'object' && typeof issue.type.name === 'string' && issue.type.name.trim()) {
+        tags.push(`type:${issue.type.name.trim()}`);
+      }
       const footer = [
         issue.number != null ? `Source: #${issue.number}` : null,
         issue.html_url || issue.url || null,
