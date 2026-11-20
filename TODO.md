@@ -41,9 +41,11 @@ lists, and a Trello .zip export carries the attachment files; the GitHub,
 Gitea and Forgejo exports carry the comments. What is left below is per tool: the
 tool's newest features against its parser and formatter.
 
-- WeKan's own JSON and .zip: every field of the current schema, attachments
-  and their versions, custom fields, rules, templates, Scrum data, and a part
-  of a board as well as all of it.
+- WeKan's own JSON and .zip: every board and card field now comes back
+  (tests/wekanCardFields.test.cjs holds the lists to those two schemas); left
+  are the lists', swimlanes', checklists', custom fields' and rules' fields
+  the same way, attachment versions, templates, and a part of a board as well
+  as all of it.
 - Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana,
   Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,

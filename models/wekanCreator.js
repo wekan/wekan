@@ -1,3 +1,6 @@
+import { wekanCardFields } from '/models/lib/wekanCardFields';
+import { recordImportLosses } from '/models/lib/importedCardChildren';
+import { BOARD_COPIED, wekanBoardFields } from '/models/lib/wekanBoardFields';
 import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -93,6 +96,8 @@ export class WekanCreator {
     this.commentIds = {};
     // Map of attachments Wekan ID => Wekan ID
     this.attachmentIds = {};
+    // What the import could not bring over (models/lib/importLossReport.js).
+    this.losses = [];
     // Map of checklists Wekan ID => Wekan ID
     this.checklists = {};
     // Map of checklistItems Wekan ID => Wekan ID
@@ -525,6 +530,10 @@ export class WekanCreator {
         });
       }
 
+      // The rest of the card: flow fields, votes, poker, stickers, locations,
+      // drawings, display settings (models/lib/wekanCardFields.js, which
+      // also names the fields deliberately not written).
+      Object.assign(cardToCreate, wekanCardFields(card, { members: this.members, attachmentIds: this.attachmentIds }));
       // insert card
       const cardId = await writeImportedEntity(Cards, cardToCreate);
       // keep track of Wekan id => Wekan id
@@ -656,6 +665,12 @@ export class WekanCreator {
             }
             // One failed attachment must not abort the whole import.
           }
+        }
+        // A drawing's PNG is one of these attachments: written again now that
+        // its new id is known.
+        if (Array.isArray(card.drawings) && card.drawings.some(d => d && d.pngAttachmentId)) {
+          const { drawings } = wekanCardFields({ drawings: card.drawings }, { attachmentIds: this.attachmentIds });
+          if (drawings) await Cards.direct.updateAsync(cardId, { $set: { drawings } });
         }
       }
       result.push(cardId);
@@ -1155,6 +1170,8 @@ export class WekanCreator {
       { method: 'createBoardAndLabels', createsBoard: true },
       { method: 'createLists', source: 'lists' },
       { method: 'createSwimlanes', source: 'swimlanes' },
+      // Board Settings name lists, so they come once the lists exist.
+      { method: 'createBoardSettings' },
       { method: 'createCustomFields', source: 'customFields' },
       { method: 'createCards', source: 'cards' },
       { method: 'createSubtasks', source: 'cards' },
@@ -1169,7 +1186,34 @@ export class WekanCreator {
       { method: 'createRules', source: 'rules' },
       { method: 'recordImportedUsernames' },
       { method: 'recreateBackgrounds' },
+      { method: 'recordLosses' },
     ]);
+  }
+
+  // The import's loss report, as the other importers write it.
+  async recordLosses(board, boardId) {
+    if (!Meteor.isServer || !this.losses.length) return;
+    await recordImportLosses({ source: 'wekan', unsupported: this.losses, boardId,
+      boardTitle: board.title || undefined, userId: Meteor.userId() });
+  }
+
+  // Board Settings (models/lib/wekanBoardFields.js): one update, and when the
+  // schema refuses it - a value from an older or newer WeKan - one field at a
+  // time, each refused one reported, so one bad value does not fail the import.
+  async createBoardSettings(board, boardId) {
+    const fields = wekanBoardFields(board, BOARD_COPIED, { lists: this.lists });
+    if (!Object.keys(fields).length) return;
+    try {
+      await Boards.direct.updateAsync(boardId, { $set: fields });
+    } catch (error) {
+      for (const [field, value] of Object.entries(fields)) {
+        try {
+          await Boards.direct.updateAsync(boardId, { $set: { [field]: value } });
+        } catch (refused) {
+          this.losses.push({ path: `/${field}`, reason: `Board Settings ${field} is not a value this WeKan accepts: ${refused && refused.message}` });
+        }
+      }
+    }
   }
 
   async createScrumData(board, boardId) {
