@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.23 2026-11-20 WeKan ® release
 
 The **Import** page and the **Export** menu list a company's
 products under the company's name: **37signals**, **Atlassian**, **Google** and
 **Microsoft**.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.23](CHANGELOG-big.md#v1323-2026-11-20-wekan--release)
 
 # v13.22 2026-11-20 WeKan ® release
 
@@ -58,11 +58,3 @@ to process an upload, or when a **Termux** or **BSD** package mirror has a bad
 minute.
 
 [All changes in v13.19](CHANGELOG-big.md#v1319-2026-11-19-wekan--release)
-
-# v13.18 2026-11-19 WeKan ® release
-
-**Admin Panel / Problems** says what its numbers count - "New
-problems: 1" and "Checks with findings: 8 / 31", in every language - and a
-report row's address, location and user always belong to the same occurrence.
-
-[All changes in v13.18](CHANGELOG-big.md#v1318-2026-11-19-wekan--release)

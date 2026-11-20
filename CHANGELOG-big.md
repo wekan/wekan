@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.23 2026-11-20 WeKan ® release
 
 **In short:** The **Import** page and the **Export** menu list a company's
 products under the company's name: **37signals**, **Atlassian**, **Google** and
