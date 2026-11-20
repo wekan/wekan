@@ -1,0 +1,69 @@
+/* The Kanban and Scrum flow fields (docs/Features/Cards/Flow-Fields.md). */
+/* Blocked is a labelled native checkbox; the app-wide material form rule hides
+   native checkboxes three ways (display, visibility, an offset), so all three
+   are undone, as in scrumView.css. */
+.card-flow-blocked-toggle input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 0;
+  margin-inline-end: 4px;
+  padding: 0;
+  vertical-align: middle;
+}
+.card-details-item-flow-blocked.is-blocked .card-details-item-title,
+.card-flow-blocked-text {
+  color: #c0392b;
+}
+.card-details-item-flow-blocked .js-card-flow-blocked-reason {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+}
+.card-flow-blocked-since {
+  font-size: 0.85em;
+}
+.card-flow-wsjf-score {
+  margin-inline-start: 6px;
+  font-weight: bold;
+}
+.card-flow-wsjf-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+.card-flow-wsjf-part {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.minicard .badges .minicard-flow-blocked {
+  color: #fff;
+  background: #c0392b;
+  border-radius: 3px;
+  padding: 0 4px;
+}
+.minicard .badges .minicard-flow-class.flow-class-expedite {
+  color: #fff;
+  background: #d35400;
+  border-radius: 3px;
+  padding: 0 4px;
+}
+.minicard .badges .minicard-flow-class.flow-class-fixed-date {
+  color: #8e44ad;
+}
+.minicard .badges .minicard-flow-moscow {
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 0 4px;
+}
+.minicard .badges .minicard-flow-moscow.flow-moscow-must {
+  color: #c0392b;
+}
+.minicard .badges .minicard-flow-moscow.flow-moscow-wont {
+  color: #7f8c8d;
+}

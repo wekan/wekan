@@ -933,6 +933,9 @@ function cardSectionHasContent(card, board, id) {
     case 'card': {
       const swimlane = typeof card?.swimlane === 'function' ? card.swimlane() : null;
       return Boolean(board.allowsDependencies || board.allowsCardSortingByNumber || board.allowsShowLists
+        // The flow fields (models/lib/cardFlow.js).
+        || board.allowsBlockedOnCard || board.allowsClassOfServiceOnCard || board.allowsMoscowOnCard
+        || board.allowsWsjfOnCard
         || (board.allowsSwimlaneNameOnCard && swimlane && swimlane.title)
         || (board.allowsCardButtonsOnCard !== false && cardHasButtons(card)));
     }

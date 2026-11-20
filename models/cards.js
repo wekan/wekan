@@ -109,6 +109,9 @@ Cards.attachSchema(
     // Scrum metadata is optional and hidden by default; only validated methods write it.
     scrum: { type: Object, optional: true, blackbox: true },
     scrumRevision: { type: Number, optional: true, min: 0 },
+    // The Kanban and Scrum flow fields (models/lib/cardFlow.js): written only
+    // by the validated setCardFlow method.
+    flow: { type: Object, optional: true, blackbox: true },
     title: {
       /**
        * the title of the card
@@ -4326,9 +4329,11 @@ export default Cards;
 // Prevent direct DDP writes bypassing Scrum reference and lifecycle validation.
 if (Meteor.isServer) {
   Cards.deny({
-    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined; },
+    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined || doc.flow !== undefined; },
     update(userId, doc, fields) {
-      return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision');
+      return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision'
+        // The flow fields' who and when are the server's (server/lib/cardFlowMethod.js).
+        || field === 'flow' || field.startsWith('flow.'));
     },
   });
 }

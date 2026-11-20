@@ -25,6 +25,7 @@ opened card and on the minicard, is [Card Settings](Card-Settings.md) -
 | Due date typed in the title | [Due date from the title](Dates/Due-Date-From-Title.md) |
 | Similar cards | [Similar cards and possible duplicates](Similar-Cards.md) |
 | At risk mark | [At risk](At-Risk.md) |
+| Blocked, Class of service, MoSCoW, WSJF | [Flow fields](Flow-Fields.md) |
 | Members and Assignees popups | [Suggested members](Suggested-Members.md) |
 | Forecast done date | [Forecast](Dates/Forecast.md) |
 | Checklists → From description | [Checklist or subtasks from the description](Checklist-From-Description.md) |

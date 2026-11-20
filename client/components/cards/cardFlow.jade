@@ -1,0 +1,66 @@
+//- The Kanban and Scrum flow fields of the opened card (models/lib/cardFlow.js,
+  docs/Features/Cards/Flow-Fields.md): each a row of Board Settings / Card,
+  drawn in the Card section. Saved through the setCardFlow method.
+template(name="cardFlowBlocked")
+  with flowOf card
+    .card-details-item.card-details-item-flow-blocked(class="{{#if blocked}}is-blocked{{/if}}")
+      h3.card-details-item-title
+        i.fa.fa-ban
+        | {{_ 'card-blocked'}}
+      if ../canModifyCard
+        label.card-flow-blocked-toggle
+          input.js-card-flow-blocked(type="checkbox" checked=blocked)
+          |  {{_ 'card-blocked'}}
+        if blocked
+          input.js-card-flow-blocked-reason(type="text" maxlength="1000" value=blockedReason placeholder="{{_ 'card-blocked-reason'}}")
+      else
+        if blocked
+          span.card-flow-blocked-text {{_ 'card-blocked'}}{{#if blockedReason}}: {{blockedReason}}{{/if}}
+      if blocked
+        if blockedAt
+          .card-flow-blocked-since.quiet {{_ 'card-blocked-since' date=(flowDate blockedAt) user=(flowUser blockedBy)}}
+
+template(name="cardFlowClassOfService")
+  with flowOf card
+    .card-details-item.card-details-item-flow-class
+      h3.card-details-item-title
+        i.fa.fa-road
+        | {{_ 'class-of-service'}}
+      if ../canModifyCard
+        select.js-card-flow-class
+          each option in classOptions
+            option(value=option.value selected=option.selected) {{#if option.labelKey}}{{_ option.labelKey}}{{else}}-{{/if}}
+      else
+        span.card-flow-value {{#if classLabelKey}}{{_ classLabelKey}}{{else}}-{{/if}}
+
+template(name="cardFlowMoscow")
+  with flowOf card
+    .card-details-item.card-details-item-flow-moscow
+      h3.card-details-item-title
+        i.fa.fa-sort-amount-desc
+        | {{_ 'moscow-priority'}}
+      if ../canModifyCard
+        select.js-card-flow-moscow
+          each option in moscowOptions
+            option(value=option.value selected=option.selected) {{#if option.labelKey}}{{_ option.labelKey}}{{else}}-{{/if}}
+      else
+        span.card-flow-value {{#if moscowLabelKey}}{{_ moscowLabelKey}}{{else}}-{{/if}}
+
+template(name="cardFlowWsjf")
+  with flowOf card
+    .card-details-item.card-details-item-flow-wsjf
+      h3.card-details-item-title
+        i.fa.fa-balance-scale
+        | {{_ 'wsjf-score'}}
+        if wsjfScore
+          span.card-flow-wsjf-score  {{wsjfScore}}
+      .card-flow-wsjf-parts
+        each part in wsjfParts
+          label.card-flow-wsjf-part
+            span {{_ part.labelKey}}
+            if ../canModifyCard
+              select.js-card-flow-wsjf(data-part=part.key)
+                each option in part.options
+                  option(value=option.value selected=option.selected) {{option.text}}
+            else
+              span.card-flow-value {{#if part.value}}{{part.value}}{{else}}-{{/if}}

@@ -548,6 +548,19 @@ template(name="cardFieldSectionCard")
                 a.js-add-dependency(title="{{_ 'add-dependency'}}")
                   i.fa.fa-plus
                   | {{_ 'add-dependency'}}
+        //- The Kanban and Scrum flow fields (docs/Features/Cards/Flow-Fields.md).
+        if $eq field "blocked"
+          if currentBoard.allowsBlockedOnCard
+            +cardFlowBlocked(card=this canModifyCard=canModifyCard)
+        if $eq field "classOfService"
+          if currentBoard.allowsClassOfServiceOnCard
+            +cardFlowClassOfService(card=this canModifyCard=canModifyCard)
+        if $eq field "moscow"
+          if currentBoard.allowsMoscowOnCard
+            +cardFlowMoscow(card=this canModifyCard=canModifyCard)
+        if $eq field "wsjf"
+          if currentBoard.allowsWsjfOnCard
+            +cardFlowWsjf(card=this canModifyCard=canModifyCard)
         if $eq field "cardSortingByNumber"
           if currentBoard.allowsCardSortingByNumber
             .card-details-item.card-details-sort-order

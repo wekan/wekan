@@ -449,7 +449,10 @@ test('inside a card section the fields render through its ordered*Fields loop, i
   const loops = { labels: 'orderedLabelsFields', date: 'orderedDateFields', members: 'orderedMembersFields',
     card: 'orderedCardFields', time: 'orderedTimeFields', scrum: 'orderedScrumFields',
     checklists: 'orderedChecklistsFields', attachments: 'orderedAttachmentsFields' };
-  const gateToKey = Object.fromEntries(cardRows.filter(r => !r.card.after).map(r => [r.card.field, r.key]));
+  // Every row's gate, the rows placed `after` another included: the flow
+  // fields (models/lib/cardFlow.js, 2026-11-20) follow Dependencies and are
+  // still gated by their own flag.
+  const gateToKey = Object.fromEntries(cardRows.map(r => [r.card.field, r.key]));
   const js = read('client/components/cards/cardDetails.js');
   for (const [section, helper] of Object.entries(loops)) {
     const name = SECTION_TEMPLATE(section);

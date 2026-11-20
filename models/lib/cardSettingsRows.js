@@ -251,6 +251,20 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-board-card-flag', field: 'allowsWhiteboardOnCard', flag: true, default: true, after: 'attachments' } },
   { key: 'actionItems', icons: ['fa-tasks'], label: ['action-items'],
     card: { toggle: 'js-board-card-flag', field: 'allowsActionItemsOnCard', flag: true, default: true, after: 'comments' } },
+  // The Kanban and Scrum flow fields (models/lib/cardFlow.js), in Card after
+  // the dependencies: off on both sides until a board turns them on.
+  { key: 'blocked', icons: ['fa-ban'], label: ['card-blocked'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsBlockedOnCard', flag: true, default: false, after: 'dependencies' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsBlockedOnMinicard', flag: true, default: false, after: 'dependencies' } },
+  { key: 'classOfService', icons: ['fa-road'], label: ['class-of-service'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsClassOfServiceOnCard', flag: true, default: false, after: 'blocked' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsClassOfServiceOnMinicard', flag: true, default: false, after: 'blocked' } },
+  { key: 'moscow', icons: ['fa-sort-amount-desc'], label: ['moscow-priority'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsMoscowOnCard', flag: true, default: false, after: 'classOfService' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsMoscowOnMinicard', flag: true, default: false, after: 'classOfService' } },
+  { key: 'wsjf', icons: ['fa-balance-scale'], label: ['wsjf-score'],
+    card: { toggle: 'js-board-card-flag', field: 'allowsWsjfOnCard', flag: true, default: false, after: 'moscow' },
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsWsjfOnMinicard', flag: true, default: false, after: 'moscow' } },
 
   // The Scrum fields, one row each, "Scrum settings: Sprint" and so on: shown
   // where the board's order puts them, like any other row. `scrum` names the

@@ -1448,6 +1448,15 @@ Boards.attachSchema(
     allowsForecastOnMinicard: { type: Boolean, optional: true },
     allowsChecklistFromDescriptionOnCard: { type: Boolean, optional: true },
     allowsActionItemsOnCard: { type: Boolean, optional: true },
+    // The Kanban and Scrum flow fields (models/lib/cardFlow.js), off until turned on.
+    allowsBlockedOnCard: { type: Boolean, optional: true },
+    allowsBlockedOnMinicard: { type: Boolean, optional: true },
+    allowsClassOfServiceOnCard: { type: Boolean, optional: true },
+    allowsClassOfServiceOnMinicard: { type: Boolean, optional: true },
+    allowsMoscowOnCard: { type: Boolean, optional: true },
+    allowsMoscowOnMinicard: { type: Boolean, optional: true },
+    allowsWsjfOnCard: { type: Boolean, optional: true },
+    allowsWsjfOnMinicard: { type: Boolean, optional: true },
     allowsWhiteboardOnCard: { type: Boolean, optional: true },
     // #6796: the opened card's attachment previews, and each attachment's
     // uploader and date. On unless a board admin turned them off.

@@ -83,17 +83,10 @@ board's settings and in Admin Panel features. Sources: the Kanban Guide
 (kanban.university), the Scrum Glossary (scrum.org), Scrum Alliance's scrum
 board article, ScrumDesk's feature list.
 
-- Blocked flag with a reason (impediment log): a card marked blocked shows it
-  on the minicard; the reason, who and since when are kept.
 - Explicit list policies: each list's entry and exit criteria, shown at the
   list header (Kanban practice "make policies explicit").
 - Definition of Ready next to the existing Definition of Done.
-- Classes of service with an expedite lane: Standard, Fixed date, Expedite,
-  Intangible, with a WIP limit of one for Expedite.
 - WIP limit per person: how many open cards one assignee may hold.
-- MoSCoW priority (Must, Should, Could, Won't) per card.
-- WSJF score: cost of delay (business value, time criticality, risk
-  reduction) divided by job size.
 - Retrospective board: Start / Stop / Continue lists made for a sprint.
 - Daily standup timer per person.
 - Commitment point and split Doing / Done columns.

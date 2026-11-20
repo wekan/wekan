@@ -46,7 +46,8 @@ const SECTIONS = Object.freeze([
   // Card: what is not a field (asking for a move reason, the Draggable table,
   // in its hamburger) and the card's own rows.
   { id: 'card', icon: 'fa-id-card-o', labelKey: 'card', general: true,
-    keys: ['cardNumber', 'collapse', 'parentCard', 'linkedCard', 'dependencies', 'cardSortingByNumber',
+    keys: ['cardNumber', 'collapse', 'parentCard', 'linkedCard', 'dependencies', 'blocked', 'classOfService', 'moscow',
+      'wsjf', 'cardSortingByNumber',
       'showLists', 'listTitle', 'swimlaneName', 'cardButtons', 'similarCards'] },
   { id: 'time', icon: 'fa-clock-o', labelKey: 'time',
     keys: ['spentTime', 'flowtime', 'pomodoro'] },

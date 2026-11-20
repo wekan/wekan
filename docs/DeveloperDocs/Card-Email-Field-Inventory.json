@@ -46,6 +46,12 @@
   },
   {
     "fields": [
+      "flow"
+    ],
+    "handling": "The Kanban and Scrum flow fields (models/lib/cardFlow.js: blocked and why, class of service, MoSCoW, WSJF) are not in card emails yet; blockedBy is a user id and is never written into a message."
+  },
+  {
+    "fields": [
       "archived",
       "archivedAt",
       "createdAt",

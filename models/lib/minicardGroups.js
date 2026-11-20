@@ -19,7 +19,9 @@ const DATE_FIELDS = Object.freeze(['receivedDate', 'startDate', 'dueDate', 'endD
 // Drawn inside the `.badges` strip. `cardKind` is not a row: the Story / Task
 // badge (#2012), first of the Scrum section, where Card kind is set.
 const BADGE_FIELDS = Object.freeze(['cardKind', 'scrumIssueType', 'dependencies', 'stickers', 'commentCount',
-  'vote', 'poker', 'attachmentCount', 'subtasks', 'checklistCount', 'cardSortingByNumber', 'descriptionBadge']);
+  'vote', 'poker', 'attachmentCount', 'subtasks', 'checklistCount', 'cardSortingByNumber', 'descriptionBadge',
+  // The flow fields (models/lib/cardFlow.js).
+  'blocked', 'classOfService', 'moscow', 'wsjf']);
 // Drawn as blocks of their own.
 const BLOCK_FIELDS = Object.freeze(['scrumSprint', 'scrumPastSprints', 'scrumRelease', 'scrumAcceptanceCriteria',
   'scrumBacklogRank', 'labels', 'customFields', 'assignee', 'members', 'creator', 'checklists', 'cardButtons',

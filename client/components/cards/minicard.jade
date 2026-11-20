@@ -211,6 +211,37 @@ template(name="minicard")
                       span.badge-icon(style="color:{{dependencyBadge.color}}")
                         i.fa(class="fa-{{dependencyBadge.icon}}")
                       span.badge-text {{ dependencyBadge.count }}
+              //- The flow fields, Show on Minicard (docs/Features/Cards/Flow-Fields.md).
+              if $eq field "blocked"
+                if currentBoard.allowsBlockedOnMinicard
+                  with cardFlowOf this
+                    if blocked
+                      .badge.minicard-flow-blocked.js-minicard-flow-blocked(title="{{_ 'card-blocked'}}{{#if blockedReason}}: {{blockedReason}}{{/if}}")
+                        span.badge-icon
+                          i.fa.fa-ban
+                        span.badge-text {{_ 'card-blocked'}}
+              if $eq field "classOfService"
+                if currentBoard.allowsClassOfServiceOnMinicard
+                  with cardFlowOf this
+                    if classOfService
+                      .badge.minicard-flow-class(class="flow-class-{{classOfService}}" title="{{_ 'class-of-service'}}: {{_ classLabelKey}}")
+                        span.badge-icon
+                          i.fa.fa-road
+                        span.badge-text {{_ classLabelKey}}
+              if $eq field "moscow"
+                if currentBoard.allowsMoscowOnMinicard
+                  with cardFlowOf this
+                    if moscow
+                      .badge.minicard-flow-moscow(class="flow-moscow-{{moscow}}" title="{{_ 'moscow-priority'}}: {{_ moscowLabelKey}}")
+                        span.badge-text {{_ moscowLabelKey}}
+              if $eq field "wsjf"
+                if currentBoard.allowsWsjfOnMinicard
+                  with cardFlowOf this
+                    if wsjfScore
+                      .badge.minicard-flow-wsjf(title="{{_ 'wsjf-score'}}")
+                        span.badge-icon
+                          i.fa.fa-balance-scale
+                        span.badge-text {{wsjfScore}}
               if $eq field "stickers"
                 if showStickersOnMinicard
                   if stickers.length
