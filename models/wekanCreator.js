@@ -1,7 +1,7 @@
 import { wekanCardFields } from '/models/lib/wekanCardFields';
 import { wekanRecordFields } from '/models/lib/wekanRecordFields';
 import { recordImportLosses } from '/models/lib/importedCardChildren';
-import { BOARD_COPIED, wekanBoardFields } from '/models/lib/wekanBoardFields';
+import { BOARD_COPIED, wekanBoardFields, wekanBoardType } from '/models/lib/wekanBoardFields';
 import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -1223,6 +1223,10 @@ export class WekanCreator {
   // time, each refused one reported, so one bad value does not fail the import.
   async createBoardSettings(board, boardId) {
     const fields = wekanBoardFields(board, BOARD_COPIED, { lists: this.lists });
+    if (wekanBoardType(board.type)) fields.type = wekanBoardType(board.type);
+    if (board.type === 'template-container') {
+      this.losses.push({ path: '/type', reason: 'a user\'s Templates board is imported as a template board; the importing user\'s own Templates board stays theirs' });
+    }
     if (!Object.keys(fields).length) return;
     try {
       await Boards.direct.updateAsync(boardId, { $set: fields });

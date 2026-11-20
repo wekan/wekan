@@ -41,13 +41,11 @@ lists, and a Trello .zip export carries the attachment files; the GitHub,
 Gitea and Forgejo exports carry the comments. `tests/exportRoundTripFields.test.cjs`
 does the same in plain Node for 32 formats and the fields that spec does not
 look at (start and creation dates, spent time, the done tick, recurrence,
-people, custom fields, color). What is left below is per tool: the tool's
+people, custom fields, color). A WeKan board keeps every field of its board,
+cards, lists, swimlanes, checklists, custom fields and comments, and its
+templates (tests/wekanCardFields.test.cjs). What is left below is per tool: the tool's
 newest features against its parser and formatter.
 
-- WeKan's own JSON and .zip: attachment versions, templates, and a part of a
-  board as well as all of it. (Every field of the board, its cards, lists,
-  swimlanes, checklists, items, custom fields and comments comes back;
-  tests/wekanCardFields.test.cjs holds the lists to the schemas.)
 - Kanban and project tools: Asana,
   Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,

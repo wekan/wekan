@@ -76,6 +76,9 @@ export function wekanCardFields(card, { members = {}, attachmentIds = {} } = {})
     if (out[field] === undefined) delete out[field];
   }
   if (card.archived && date(card.archivedAt)) out.archivedAt = date(card.archivedAt);
+  // A card template stays one. A linked card or board points at the exporting
+  // WeKan (linkedId is not imported), so it comes as an ordinary card.
+  if (card.type === 'template-card') out.type = 'template-card';
 
   // The Kanban and Scrum flow fields (models/lib/cardFlow.js); who marked it
   // blocked is a user.

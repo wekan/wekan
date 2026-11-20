@@ -159,7 +159,8 @@ What the current code does:
 | `comments` | Comments, a reply under the comment it answers |
 | `activities` | Activities |
 | `rules`, `triggers`, `actions` | Rules |
-| `attachments` (base64 in JSON, files in .zip) | Attachments, in the default storage |
+| `attachments` (base64 in JSON, files in .zip) | Attachments, in the default storage. The original is the file; a thumbnail is made from it when it is first shown, so it is not exported |
+| `type`: a template board, card, list or swimlane | It stays a template. A user's own Templates board comes as a template board (the importing user's own Templates board stays theirs), and is noted in the loss report |
 | Scrum records | Sprints, releases and Scrum settings |
 | Board background attachments | Board background |
 

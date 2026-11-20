@@ -185,6 +185,25 @@ async function main() {
     assert.match(src, /\$set: \{ parentId: this\.commentIds\[parentId\] \}/);
   });
 
+  test('templates stay templates; a user\'s Templates board comes as a template board; linked cards as cards', () => {
+    assert.equal(boardFields.wekanBoardType('template-board'), 'template-board');
+    assert.equal(boardFields.wekanBoardType('template-container'), 'template-board');
+    assert.equal(boardFields.wekanBoardType('board'), undefined);
+    assert.equal(cardFields.wekanCardFields({ type: 'template-card' }).type, 'template-card');
+    for (const type of ['cardType-card', 'cardType-linkedCard', 'cardType-linkedBoard', 'junk']) {
+      assert.equal(cardFields.wekanCardFields({ type }).type, undefined, type);
+    }
+    assert.equal(records.wekanRecordFields('lists', { type: 'template-list' }).type, 'template-list');
+    assert.equal(records.wekanRecordFields('swimlanes', { type: 'template-swimlane' }).type, 'template-swimlane');
+    assert.equal(records.wekanRecordFields('swimlanes', { type: 'template-container' }).type, undefined);
+    const src = read('models/wekanCreator.js');
+    assert.match(src, /if \(wekanBoardType\(board\.type\)\) fields\.type = wekanBoardType\(board\.type\);/);
+    assert.match(src, /a user\\'s Templates board is imported as a template board/);
+    // The completeness check above would accept "type" from any mention of the
+    // word in wekanCreator.js (attachments have a type too); it is the helpers'.
+    assert.match(read('models/lib/wekanCardFields.js'), /card\.type === 'template-card'/);
+  });
+
   console.log(`wekanCardFields: ${passed} checks passed`);
 }
 

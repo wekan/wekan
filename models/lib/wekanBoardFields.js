@@ -58,6 +58,13 @@ export const BOARD_COPIED = [
   'allowsDueCompleteOnMinicard', 'showActivities', 'notificationDelivery'
 ];
 
+// A template board stays one. The user's own Templates board
+// (template-container) is the one their profile points to, so an imported
+// one is an ordinary template board (wekanCreator reports it).
+export function wekanBoardType(type) {
+  return type === 'template-board' || type === 'template-container' ? 'template-board' : undefined;
+}
+
 // A field that names a list of the board is remapped to the new list's id.
 export const LIST_REFERENCES = ['commitmentListId'];
 

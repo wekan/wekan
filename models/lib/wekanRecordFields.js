@@ -58,6 +58,11 @@ export function wekanRecordFields(kind, doc, { members = {}, cards = {}, comment
     if (doc[field] !== undefined && doc[field] !== null) out[field] = doc[field];
   }
   if (doc.archived && date(doc.archivedAt) && (kind === 'lists' || kind === 'swimlanes')) out.archivedAt = date(doc.archivedAt);
+  // A list or swimlane template stays one. The section swimlanes of a user's
+  // Templates board (template-container) are ordinary swimlanes on an
+  // imported board, as that board is an ordinary template board.
+  if (kind === 'lists' && doc.type === 'template-list') out.type = 'template-list';
+  if (kind === 'swimlanes' && doc.type === 'template-swimlane') out.type = 'template-swimlane';
 
   if (kind === 'lists' && isObject(doc.roleExceptions)) {
     // A role's exception is kept where it RESTRICTS (false): a list that was
@@ -87,8 +92,8 @@ export function wekanRecordFields(kind, doc, { members = {}, cards = {}, comment
 
 // Fields the creator writes under another name, or derived.
 export const SPECIAL = {
-  lists: ['archivedAt', 'roleExceptions'],
-  swimlanes: ['archivedAt'],
+  lists: ['archivedAt', 'roleExceptions', 'type'],
+  swimlanes: ['archivedAt', 'type'],
   checklists: ['finishedAt', 'lastResetAt'],
   checklistItems: ['assigneeId', 'linkedCardId'],
   customFields: [],
