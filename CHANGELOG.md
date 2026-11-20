@@ -5,6 +5,17 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
+**Todoist**, **TickTick**, **iCalendar**, **Org mode** and **Obsidian Kanban**
+now repeat in WeKan, and their exports write the repeat back. **Release All**
+builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
+Snap Store channel, and **Release All Missing** adds what a release lacks,
+snaps included.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.21 2026-11-20 WeKan ® release
 
 Twelve new **Board View reports** - Created vs. Resolved, Net

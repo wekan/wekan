@@ -11,7 +11,508 @@ Releases per day:
 | 2026-10 | Releases |
 | --- | --- |
 | 08 | 2 |
-| 10 | 1 |
+| 10 | 2 |
+
+# v12.27 2026-10-10 WeKan ® release
+
+**In short:** **FerretDB** now answers a `$group` with several accumulators,
+`$min`/`$max` and capped collections the way MongoDB does - found by new
+**MongoDB 6, 7, 8 and 9** conformance tests that EVERYTHING now runs - and
+**build.bat** does what build.sh does, not only offers the same menu. Current
+strings are translated in 15 languages, among them Czech, Japanese, Korean
+and Spanish.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/7fc21b45">FerretDB answers a $group with several accumulators, $min/$max and capped max like MongoDB</a>. Thanks to xet7.</summary>
+
+`$group` gave all its accumulators one iterator over the group, so every
+accumulator after the first saw an empty group: `$min`/`$max` after `$avg`
+answered null, and `$last`/`$push` after `$first` answered null and `[]`.
+WeKan's e-mail outbox report is one such `$group`, so on FerretDB only its
+queued count was right. `$min`/`$max` also took null as the smallest value,
+and a capped collection kept more than its `max` until the periodic cleanup.
+Each accumulator now gets its own iterator, null is skipped, and an insert
+trims a capped collection at once. A Go test in `stages/group_test.go` fails
+without the fix.
+
+</details>
+
+and has the following developer-facing changes:
+
+**Database conformance** - MongoDB beside FerretDB, so a fault every backend
+shares is still a difference.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08cba19eac">EVERYTHING compares MongoDB 8 and MongoDB 9 too, queried directly</a>. Thanks to xet7.</summary>
+
+releases/db-conformance.sh, run by EVERYTHING from build.sh and build.bat, now
+runs the query catalogue against `mongo:8.0` and `mongo:9.0` beside FerretDB's
+SQLite, PostgreSQL, MySQL and MariaDB. The `$text` case creates the text index
+MongoDB requires and compares the score by type. On a Linux kernel MongoDB
+refuses (6.19 to 7.0.13) its backend is a skip with the reason. All six now
+answer all 110 cases the same, MongoDB 8.0.32 and 9.0.2 included.
+
+</details>
+
+- [MongoDB 6 and 7 are compared too: all eight databases answer all 110 cases the same](https://github.com/wekan/wekan/commit/debd1d876d).
+  Thanks to xet7.
+
+**Build scripts** - build.bat does what build.sh does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c454f8567d">build.bat runs Mocha, guards, Playwright, builds and Setup the same way as build.sh</a>. Thanks to xet7.</summary>
+
+Mocha with `--full-app` and its exit status, `--run-everything` on the command
+line, a floating-promises guard that fails, Playwright browsers in
+`.tools\ms-playwright`, the same CUSTOM PORT + SUBDOMAIN rule, the computed
+heap for the trace dev server, the compose file's image tag, stopping
+`rspack build --watch`, the same build diagnostics, and Node.js and npm at the
+Dockerfile's versions - build.sh had npm pinned by hand to a stale 12.0.2.
+tests/buildScriptParity.test.cjs checks each in both scripts.
+
+</details>
+
+and improves translations:
+
+**Translations** - Catalan, Czech, Dutch, French, Galician, German, Greek,
+Hungarian, Indonesian,
+Japanese, Korean, Malay,
+Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian and
+Valencian
+base and regional catalogs.
+
+**Languages updated:** Catalan, Czech, Dutch, French, Galician, German, Greek, Hungarian, Indonesian, Japanese, Korean, Malay, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Turkish, Ukrainian, Valencian.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5f1ea975c">Translate remaining current Galician strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across gl and gl-ES for linked cards, fields,
+imports, member mapping, CSV columns, bulk exports, webhooks, notifications,
+Wrike workflows and subtasks. Both full current fill lists are empty.
+Preserve existing translations, exact placeholders and parsed constants.
+Regressions verify permissions, field directions, member replacement,
+ZIP semantics, inherited settings, quiet hours and completion states.
+Longer technical wording remains provisional pending speaker review;
+older catalog fluency is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6261f8a46">Translate remaining current Valencian strings</a>. Thanks to xet7.</summary>
+
+Fill 109 English placeholders in ca@valencia for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows, with reviewed
+Valencian forms. Retain the native shared Dates label with locale-isolation
+and changed-source tests. Its full current fill list is empty. Preserve existing
+translations, exact placeholders and parsed constants. Regressions verify
+regional wording, permissions, propagation, import semantics, timing and
+workflow states. Longer technical and regional wording remains provisional
+pending speaker review; older catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases use ca-valencia and pass syntax and discovery;
+execution remains unverified because the local app and browser system
+dependencies are unavailable. The wider all-language backlog and semantic
+audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9485d19719">Translate remaining current Catalan strings</a>. Thanks to xet7.</summary>
+
+Fill 218 English placeholders across ca and ca_ES for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Retain the native
+shared Dates label with tests for locale isolation and changed-source rejection.
+Both full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, propagation,
+import semantics, timing and workflow completion states. Longer technical
+wording remains provisional pending speaker review; older catalog wording is
+not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f26c8ee12">Translate remaining current Greek strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across el and el-GR for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Both full current
+fill lists are empty. Preserve existing translations, exact placeholders and
+parsed constants. Regressions verify permissions, field propagation directions,
+import semantics, notification timing and workflow completion states. Longer
+technical wording remains provisional pending speaker review; older catalog
+wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0c7a0a40a">Translate remaining current Malay strings</a>. Thanks to xet7.</summary>
+
+Fill 352 English placeholders across ms and ms-MY for linked cards, imports,
+member mapping, webhooks, notifications, Wrike, LDAP and recovery. Both full
+current fill lists are empty. Preserve existing translations, exact placeholders
+and parsed constants. Regressions verify permissions, propagation, import
+semantics, timing, workflow states, destructive recovery warnings and preserved
+changes. Longer technical wording remains provisional pending speaker review;
+older catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef6a8178d1">Translate remaining current Indonesian strings</a>. Thanks to xet7.</summary>
+
+Fill 176 English placeholders in id for linked cards, imports, member mapping,
+webhooks, notifications, Wrike, LDAP and recovery. Its full current fill list
+is empty. Preserve existing translations, exact placeholders and parsed
+constants. Regressions verify permissions, propagation, import semantics,
+timing, workflow states, destructive recovery warnings and preserved changes.
+Longer technical wording remains provisional pending speaker review; older
+catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a56a3abb9e">Translate remaining current Korean strings</a>. Thanks to xet7.</summary>
+
+Fill 412 English placeholders across ko and ko-KR for linked cards, imports,
+member mapping, webhooks, notifications, Wrike, planning, LDAP and recovery.
+Both full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, propagation,
+import semantics, timing, workflow states, destructive recovery warnings and
+checkpoint restrictions. Longer technical wording remains provisional pending
+speaker review; older catalog wording is not fully audited.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb336423fd">Translate current Japanese Hiragana placeholders</a>. Thanks to xet7.</summary>
+
+Fill 206 current English placeholders in ja-HI, registered as ja-Hira, with
+hiragana prose and spaced phrases. Preserve technical names, parsed syntax
+and exact placeholders. Its full current fill list is empty. Regressions
+check the script of all 206 entries, permissions, field direction, imports,
+notification timing, workflow states and recovery warnings. Longer technical
+wording and spacing remain provisional pending reader review.
+
+All 305 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases use the actual ja-Hira runtime tag and pass
+syntax and discovery; execution remains unverified without the local app and
+browser system dependencies. A separate script audit remains: 3,641 older
+values contain kanji or katakana and need review against the source. The wider
+all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b4d16b1ce">Translate remaining current standard Japanese strings</a>. Thanks to xet7.</summary>
+
+Fill 412 English placeholders across ja and ja-JP for linked cards, imports,
+member mapping, webhooks, notifications, Wrike, planning, LDAP and recovery.
+Both full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, propagation,
+import semantics, timing, workflow states, destructive recovery warnings and
+checkpoint restrictions. Longer technical wording remains provisional pending
+speaker review; older catalog wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Add five browser cases alongside existing Japanese notification
+coverage; all six pass syntax and discovery. Execution remains unverified
+because the local app and browser system dependencies are unavailable.
+The Hiragana catalog (ja-HI, registered as ja-Hira) is handled separately; its
+older script review remains open. The wider all-language backlog and semantic
+audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1774f913c">Translate remaining current Russian strings</a>. Thanks to xet7.</summary>
+
+Fill 330 English placeholders across ru, ru_RU and ru-UA for linked cards,
+imports, member mapping, webhooks, notifications and Wrike workflows. All three
+full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Regressions verify permissions, field
+propagation directions, import semantics, notification timing and workflow
+completion states. Longer technical wording remains provisional pending speaker
+review; older catalog wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Add eight browser cases alongside existing base Russian
+notification coverage; all nine pass syntax and discovery. Execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/782a778f28">Translate remaining current Ukrainian strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across uk and uk-UA for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Both full current
+fill lists are empty. Preserve existing translations, exact placeholders and
+parsed constants. Regressions verify permissions, field propagation directions,
+import semantics, notification timing and workflow completion states. Longer
+technical wording remains provisional pending speaker review; older catalog
+wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Add five browser cases alongside existing base Ukrainian
+notification coverage; all six pass syntax and discovery. Execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05a077cbbe">Translate remaining current Turkish strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders in tr for linked cards, imports, member mapping,
+webhooks, notifications and Wrike workflows. Its full current fill list is
+empty. Preserve existing translations, exact placeholders and parsed constants.
+Regressions verify permissions, field propagation directions, import semantics,
+notification timing and workflow completion states. Longer technical wording
+remains provisional pending speaker review; older catalog wording is not
+fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Add two browser cases alongside existing notification coverage;
+all three pass syntax and discovery. Execution remains unverified because the
+local app and browser system dependencies are unavailable. The wider
+all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab22344f91">Fill current Romanian strings and correct Italian field labels</a>. Thanks to xet7.</summary>
+
+Fill 220 English placeholders across ro and ro-RO for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. Both full current
+fill lists are empty. Correct the Italian custom-field label to Romanian in
+both catalogs. Preserve other translations, exact placeholders and parsed
+constants. Regressions verify Romanian wording, permissions, field propagation,
+import semantics, notification timing and workflow completion states. Longer
+technical wording remains provisional pending speaker review; older catalog
+wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ec3ab7731">Translate remaining current Hungarian strings</a>. Thanks to xet7.</summary>
+
+Fill 110 English placeholders in hu for linked cards, imports, member mapping,
+webhooks, notifications and Wrike workflows. Its full current fill list is
+empty. Preserve existing translations, exact placeholders and parsed constants.
+Regressions verify permissions, field propagation directions, import semantics,
+notification timing and workflow completion states. Longer technical wording
+remains provisional pending speaker review; older catalog wording is not
+fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d76d08c7f">Fill current Slovak strings and correct Czech seed wording</a>. Thanks to xet7.</summary>
+
+Translate 110 English placeholders in sk for linked cards, imports, member
+mapping, webhooks, notifications and Wrike workflows. Its full current fill
+list is empty. Correct 198 older Czech or mixed-language values in menus,
+filters, rules, activity text, account labels and time reporting to Slovak.
+Preserve other existing translations, exact placeholders and parsed constants.
+Regressions check native vocabulary, permissions, propagation directions,
+import semantics, notification timing, workflow states and time corrections.
+Longer technical wording remains provisional pending speaker review; older
+catalog wording is not fully audited.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Three browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ac133b2f4">Translate remaining current Czech strings</a>. Thanks to xet7.</summary>
+
+Fill 316 English placeholders across cs and cs-CZ: 220 newly translated values
+and 96 regional values reused from existing base Czech translations. Both full
+current fill lists are empty. Preserve existing translations, exact placeholders
+and parsed constants. Cover linked cards, imports, member mapping, webhooks,
+notifications and Wrike workflows, plus regional planning and recovery wording.
+Regressions verify permissions, propagation, timing, completion states and
+recovery warnings. Longer technical wording remains provisional pending speaker
+review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff097539bf">Translate remaining current Polish strings</a>. Thanks to xet7.</summary>
+
+Fill 316 English placeholders across pl and pl-PL: 220 newly translated values
+and 96 regional values reused from existing base Polish translations. Both
+full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Cover linked cards, imports, member mapping,
+webhooks, notifications and Wrike workflows, plus regional planning and recovery
+wording. Regressions verify permissions, propagation, timing, completion states
+and recovery warnings. Longer technical wording remains provisional pending
+speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six browser cases pass syntax and discovery; execution remains
+unverified because the local app and browser system dependencies are
+unavailable.
+The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f18ec01d9">Translate remaining current Dutch strings</a>. Thanks to xet7.</summary>
+
+Fill 220 English values across nl and nl-NL for linked cards, imports, member
+mapping, webhooks, notifications and Wrike workflows. Both full current fill
+lists are empty. Preserve existing translations, exact placeholders and parsed
+constants. Regressions cover permissions, propagation direction, import
+semantics, notification timing and workflow completion states. Longer technical
+wording remains provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Six representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/465b62605d">Translate current strings across Portuguese locale variants</a>. Thanks to xet7.</summary>
+
+Fill 440 English values across pt, pt-BR, pt-PT and pt_PT for linked cards,
+imports, member mapping, webhooks, notifications and Wrike workflows. All four
+full current fill lists are empty. Preserve existing translations, exact
+placeholders and parsed constants. Use European and Brazilian terminology in
+the corresponding catalogs, with regressions for regional terms, permissions,
+propagation direction, imports and workflow meanings. Longer technical and
+regional phrasing remains provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Twelve representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5146f9365c">Translate current strings across Spanish locale variants</a>. Thanks to xet7.</summary>
+
+Fill 990 English values across nine Spanish catalogs for linked cards, imports,
+member mapping, webhooks, notifications and Wrike workflows. All nine full
+current fill lists are empty. Preserve existing regional translations, exact
+placeholders and parsed constants. Regressions cover permissions, propagation
+direction, import semantics, notification timing and workflow completion states.
+New wording uses neutral Spanish; regional style and longer technical phrasing
+remain provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Twenty-seven representative browser cases pass syntax and
+discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78bceed7d7">Translate current strings across French locale variants</a>. Thanks to xet7.</summary>
+
+Fill 540 English values across fr, fr-FR, fr-BE, fr-CA and fr-CH for linked
+cards, imports, member mapping, webhooks, notifications and Wrike workflows.
+All five full current fill lists are empty. Retain Dates and __count__ minutes
+as correct French with exact-source, locale-specific exceptions; tests prove
+that changed English prose becomes eligible for translation again. Preserve
+existing translations, exact placeholders and parsed constants. Longer
+technical and regional wording remains provisional pending speaker review.
+
+All 304 translation/Blockly suites, 246 catalog inventories and 21 preservation
+checks pass. Fifteen representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee9fbe1cfd">Translate current strings across German locale variants</a>. Thanks to xet7.</summary>
+
+Fill 440 English values across de, de-AT, de-CH and de_DE for linked cards,
+imports, member mapping, webhooks, notifications and Wrike workflows. All four
+full current fill lists are empty. Separately normalize 86 older Swiss German
+values from ß to ss without changing their wording otherwise. Preserve all
+other existing translations, source tokens and parsed constants. Regression
+checks cover permissions, propagation direction, import semantics, notification
+timing, workflow states and Swiss spelling. Longer technical phrasing remains
+provisional pending speaker review.
+
+All 304 translation/Blockly suites pass, along with 16 German/Blockly suites
+rerun after spelling corrections, 246 catalog inventories and 21 preservation
+checks. Twelve representative browser cases pass syntax and discovery;
+execution remains unverified because the local app and browser dependencies
+are unavailable. The wider all-language backlog and semantic audit remain open.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.26 2026-10-10 WeKan ® release
 
