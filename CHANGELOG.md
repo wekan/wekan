@@ -8,8 +8,9 @@ make changes there.
 # Upcoming WeKan ® release
 
 Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
-**Todoist**, **TickTick**, **iCalendar**, **Org mode** and **Obsidian Kanban**
-now repeat in WeKan, and their exports write the repeat back. **Release All**
+**Todoist**, **TickTick**, **Tasks.org**, **Vikunja**, **Super Productivity**,
+**iCalendar**, **Org mode** and **Obsidian Kanban** now repeat in WeKan, and
+their exports write the repeat back. **Release All**
 builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
 Snap Store channel, and **Release All Missing** adds what a release lacks,
 snaps included.

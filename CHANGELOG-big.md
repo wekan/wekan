@@ -98,8 +98,9 @@ Which databases WeKan supports
 # Upcoming WeKan ® release
 
 **In short:** Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
-**Todoist**, **TickTick**, **iCalendar**, **Org mode** and **Obsidian Kanban**
-now repeat in WeKan, and their exports write the repeat back. **Release All**
+**Todoist**, **TickTick**, **Tasks.org**, **Vikunja**, **Super Productivity**,
+**iCalendar**, **Org mode** and **Obsidian Kanban** now repeat in WeKan, and
+their exports write the repeat back. **Release All**
 builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
 Snap Store channel, and **Release All Missing** adds what a release lacks,
 snaps included.
@@ -122,6 +123,17 @@ so the recurrence job does not copy every card at once; of Taskwarrior's
 instances only the newest open one repeats. The exports write it back
 (Taskwarrior, Org mode, Obsidian Kanban, TickTick, the iCal feed), and the WeKan
 JSON import keeps it. `tests/recurrenceMap.test.cjs`, with negative tests.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/878e53f418c2416796b5af00876ada7cc87a4161">Tasks.org, Vikunja and Super Productivity repeats become the card's recurrence too</a>. Thanks to xet7.</summary>
+
+The Tasks.org RRULE and Vikunja's repeat_after (a day, a week) or repeat_mode
+1 (monthly) are imported and written back; a Super Productivity task's repeat
+config of every 1 day, week or month is imported. Other rules, and the repeat
+of a finished task, stay in the import loss report. Google Tasks' API has no
+repeat to read.
 
 </details>
 
