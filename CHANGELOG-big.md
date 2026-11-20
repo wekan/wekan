@@ -181,6 +181,16 @@ reported instead of dropped.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10caa20b094beae76ce941e609c7f130e6dd7d5f">Markdown reads and writes #tags, due dates and indented checkboxes as labels, due dates and checklists</a>. Thanks to xet7.</summary>
+
+The import kept only a card's title, done mark and indented text, and the
+export wrote no labels, dates or checklists. #tag words, Obsidian Kanban's
+@{day} @@{time}, Obsidian Tasks' 📅 and todo.txt's due: are now labels and the
+due date, and indented checkboxes the checklist, both ways.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
