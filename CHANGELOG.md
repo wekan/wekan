@@ -7,11 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-Menu entries that could not be reached or did nothing now work:
-a member's own **username change**, a **Public Support page** for signed-out
-visitors, **Create board from this card** for members who can edit it, and
-**All Boards Settings** in the board menu. The **Shared templates** sharing
-choice is an instance setting, so its targets appear for every user.
+WeKan imports **mail**, **calendars**, **chats** and **notes** -
+mbox and .eml, iCalendar, **Google Takeout**, Slack, Mattermost, Telegram,
+WhatsApp, Discord and Evernote - into the Email, Chat and Calendar views, and
+exports .mbox, .enex and Mattermost files. Menu entries that could not be
+reached or did nothing now work, and the **Shared templates** sharing choice is
+an instance setting.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
