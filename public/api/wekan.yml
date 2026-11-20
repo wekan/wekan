@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.20
+  version: v13.21
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -6006,6 +6006,42 @@ definitions:
       allowsActionItemsOnCard:
         type: boolean
         x-nullable: true
+      allowsListPolicies:
+        type: boolean
+        x-nullable: true
+      commitmentListId:
+        type: string
+        x-nullable: true
+      personWipLimit:
+        $ref: "#/definitions/BoardsPersonwiplimit"
+        x-nullable: true
+      allowsSplitLists:
+        type: boolean
+        x-nullable: true
+      allowsBlockedOnCard:
+        type: boolean
+        x-nullable: true
+      allowsBlockedOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsClassOfServiceOnCard:
+        type: boolean
+        x-nullable: true
+      allowsClassOfServiceOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsMoscowOnCard:
+        type: boolean
+        x-nullable: true
+      allowsMoscowOnMinicard:
+        type: boolean
+        x-nullable: true
+      allowsWsjfOnCard:
+        type: boolean
+        x-nullable: true
+      allowsWsjfOnMinicard:
+        type: boolean
+        x-nullable: true
       allowsWhiteboardOnCard:
         type: boolean
         x-nullable: true
@@ -6612,6 +6648,9 @@ definitions:
         x-nullable: true
       scrumRevision:
         type: number
+        x-nullable: true
+      flow:
+        type: object
         x-nullable: true
       title:
         description: |
@@ -7764,6 +7803,19 @@ definitions:
         x-nullable: true
       modifiedAt:
         type: string
+      policy:
+        description: |
+           The list's explicit policy - when a card may come in and when it is
+           done here (models/lib/boardFlowPolicies.js). Shown at the list header
+           when the board shows list policies.
+        type: string
+        x-nullable: true
+      split:
+        description: |
+           The list is split into Doing and Done (models/lib/boardFlowPolicies.js):
+           a card marked Done here waits in it to be pulled into the next list.
+        type: boolean
+        x-nullable: true
       wipLimit:
         description: |
            WIP object, see below
@@ -8131,6 +8183,9 @@ definitions:
       disableAllImport:
         type: boolean
         x-nullable: true
+      importMaxMegabytes:
+        type: number
+        x-nullable: true
       disableExportAvatars:
         type: boolean
         x-nullable: true
@@ -8194,6 +8249,12 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/SettingsFeatureprofiles"
+        x-nullable: true
+      sharedTemplatesScopes:
+        type: array
+        items:
+          type: string
+          x-nullable: true
         x-nullable: true
       webhookInternalHosts:
         type: array
@@ -9197,6 +9258,18 @@ definitions:
           - board-view-chat
           - board-view-version-control
           - board-view-column-sets
+          - board-view-created-resolved
+          - board-view-net-flow
+          - board-view-time-in-list
+          - board-view-average-age
+          - board-view-throughput-run
+          - board-view-due-date-performance
+          - board-view-release-burndown
+          - board-view-epic-progress
+          - board-view-workload
+          - board-view-distribution
+          - board-view-dependency-map
+          - board-view-activity-heatmap
       listSortBy:
         description: |
            default sort list for user
