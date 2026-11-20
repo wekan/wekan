@@ -107,7 +107,8 @@ snaps included.
 
 This release adds the following new features:
 
-**Import and Export** - repeating tasks, and the rest of an Org heading.
+**Import and Export** - repeating tasks, the rest of an Org heading, and every
+column of a table.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/24ac6b2bd2e55323fa1c6e52eb53ff3291fc80fb">A daily, weekly or monthly repeat becomes the card's recurrence, and is exported back</a>. Thanks to xet7.</summary>
@@ -145,6 +146,17 @@ properties and the :LOGBOOK: drawer were dropped without a word in the import
 loss report. Every other property is now a custom field, written back as a
 property on export, and the closed CLOCK lines add up to the spent time. An
 open clock, a malformed property line and any other drawer are reported.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b9fa791a82da0bcaa01e5b04f8e711c011580db">CSV, TSV and Excel imports keep every column, a column with no card field as a text custom field</a>. Thanks to xet7.</summary>
+
+A column the header guess had no field for was imported only when ticked in
+the mapping step, and dropped without a word otherwise - always for a REST
+import. Every other named column now becomes a text custom field of its name,
+ticked by default on the page; WeKan's own Number, Last activity and Voting
+columns are not.
 
 </details>
 

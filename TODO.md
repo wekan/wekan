@@ -59,8 +59,9 @@ tool's newest features against its parser and formatter.
   recurrence (Google Tasks' API exposes none); left is writing a Super
   Productivity taskRepeatCfg on export, which needs the app's scheduler fields
   verified against a running Super Productivity.
-- Spreadsheets, text and outlines: CSV / TSV, Excel, Markdown, Leo, OPML -
-  every column. (Org mode reads every property, clocked time and repeater.)
+- Text and outlines: Markdown, Leo, OPML - every attribute an outline node
+  can carry. (CSV / TSV and Excel keep every column; Org mode every property,
+  clocked time and repeater.)
 - Mail, calendars and chats: mail, mbox, iCalendar, Google Takeout, Slack,
   Mattermost, Telegram, WhatsApp, Discord, Evernote .enex - threads, replies,
   reactions, recurring events and the attached files that are now only
