@@ -37,16 +37,26 @@ function normalizeInviteEmail(email) {
   return email.trim().toLowerCase();
 }
 
-// True when `code` is a non-empty string — the only shape the sign-up lookup
-// { code: <string from the form>, valid: true } can ever match. Legacy or
-// hand-inserted documents may carry a Number code, which MongoDB will never
-// match against the form's string.
+// InviteBleed (GHSA-rg85-qx5c-qx67): an invitation code is the 128-bit value
+// server/models/settings.js generateInvitationCode makes -
+// crypto.randomBytes(16).toString('base64url'), 22 characters. Until v9.96 a
+// code was six digits from Math.random(), and such an invitation, made before
+// the upgrade and not used yet, is still in the database as valid: with a
+// keyspace of 900,000 it can be guessed. So a code shorter than 22 base64url
+// characters is not a code: sign-up refuses it (server/models/users.js), and a
+// re-invite replaces it with a strong one instead of mailing it again.
+const STRONG_INVITATION_CODE = /^[A-Za-z0-9_-]{22,128}$/;
+function isStrongInvitationCode(code) {
+  return typeof code === 'string' && STRONG_INVITATION_CODE.test(code);
+}
+
+// True when `code` is a strong string code — the only shape the sign-up lookup
+// { code: <string from the form>, valid: true } can ever match, and accept.
+// Legacy or hand-inserted documents may carry a Number code, which MongoDB will
+// never match against the form's string, or a six-digit one, which sign-up
+// refuses (isStrongInvitationCode).
 function hasUsableCode(invitation) {
-  return Boolean(
-    invitation &&
-      typeof invitation.code === 'string' &&
-      invitation.code.length > 0,
-  );
+  return Boolean(invitation && isStrongInvitationCode(invitation.code));
 }
 
 // An invitation email may only be sent for a document that exists, carries a
@@ -80,6 +90,7 @@ function shouldRemoveInvitationOnEmailFailure({ isNewInvitation } = {}) {
 }
 
 module.exports = {
+  isStrongInvitationCode,
   normalizeInviteEmail,
   hasUsableCode,
   isInvitationCodeSendable,

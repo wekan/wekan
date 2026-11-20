@@ -57,6 +57,20 @@ if (Meteor.isServer) {
     10,
     60 * 1000,
   );
+  // InviteBleed (GHSA-rg85-qx5c-qx67): the sign-up FORM creates the account
+  // through useraccounts' ATCreateUserServer, not through createUser above -
+  // which a client is refused anyway - so the throttle the first fix added
+  // never applied to the method the attack used. The same 10 a minute per
+  // address here, and a refusal is shown in Admin Panel -> Problems.
+  DDPRateLimiter.addRule(
+    { type: 'method', name: 'ATCreateUserServer', clientAddress() { return true; } },
+    10,
+    60 * 1000,
+    (result, input) => recordAuthRateLimitDenial(result, input, event =>
+      require('/server/lib/securityLog').record(event), {
+      key: 'brute.invite', detail: 'sign-up DDP rate limit exceeded',
+    }),
+  );
   DDPRateLimiter.addRule(
     { type: 'method', name: 'searchUsers' },
     20,
@@ -2301,7 +2315,11 @@ Accounts.onCreateUser(async (options, user) => {
   if (!options || !options.profile) {
     throw new Meteor.Error('error-invitation-code-blank', 'The invitation code is required');
   }
-  const invitationCode = await ReactiveCache.getInvitationCode({
+  // InviteBleed: a six-digit code from before v9.96 can be guessed, so it is
+  // not looked up at all - the invitee is invited again and gets a strong one.
+  const { isStrongInvitationCode } = require('/models/lib/invitationCodeEmail');
+  const strongCode = isStrongInvitationCode(options.profile.invitationcode);
+  const invitationCode = strongCode && await ReactiveCache.getInvitationCode({
     code: options.profile.invitationcode,
     email: options.email,
     valid: true,
@@ -2591,7 +2609,8 @@ Users.after.insert(async (userId, doc) => {
         email: typeof oauthEmail === 'string' ? oauthEmail.toLowerCase() : '',
         valid: true,
       });
-    } else {
+    } else if (require('/models/lib/invitationCodeEmail').isStrongInvitationCode(doc.profile && doc.profile.icode)) {
+      // InviteBleed: only a strong code, as at onCreateUser above.
       invitationCode = await ReactiveCache.getInvitationCode({
         code: doc.profile.icode,
         valid: true,

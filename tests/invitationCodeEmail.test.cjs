@@ -34,8 +34,13 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-// Deterministic stand-in for getRandomNum(100000, 999999).
+// Deterministic stand-in for the code generator (only its String coercion is
+// tested here).
 const generateCode = () => 654321;
+// A code as generateInvitationCode makes it since InviteBleed: 128 bits,
+// base64url. A six-digit code is no longer usable (models/lib/invitationCodeEmail.js
+// isStrongInvitationCode), so the tests of a usable code use this one.
+const STRONG = 'AbCdEfGhIjKlMnOpQrStUv';
 
 // Mimic the sign-up lookup selector { code, email, valid: true } from
 // server/models/users.js onCreateUser, with Mongo's exact-match semantics
@@ -58,18 +63,18 @@ test('normalizeInviteEmail lowercases and trims the address', () => {
 
 test('a valid pending invitation is sendable', () => {
   assert.strictEqual(
-    isInvitationCodeSendable({ code: '123456', valid: true }),
+    isInvitationCodeSendable({ code: STRONG, valid: true }),
     true,
   );
 });
 
 test('a legacy invitation without a valid field is still sendable', () => {
   // Documents predating the `valid` defaultValue must keep working.
-  assert.strictEqual(isInvitationCodeSendable({ code: '123456' }), true);
+  assert.strictEqual(isInvitationCodeSendable({ code: STRONG }), true);
 });
 
 test('re-invite of a STILL-VALID invitation keeps its code (earlier email stays usable)', () => {
-  const invitation = { _id: 'i1', code: '111111', valid: true, email: 'a@b.c' };
+  const invitation = { _id: 'i1', code: STRONG, valid: true, email: 'a@b.c' };
   const modifier = buildReinviteModifier(invitation, ['board1'], generateCode);
   assert.deepStrictEqual(modifier, { $set: { boardsToBeInvited: ['board1'] } });
   // No code/valid churn: the code delivered in the first email still validates.
@@ -134,6 +139,19 @@ test('re-invite regenerates when the stored code is a Number or missing', () => 
     assert.strictEqual(modifier.$set.code, '654321');
     assert.strictEqual(modifier.$set.valid, true);
   }
+});
+
+test('InviteBleed: a six-digit code from before v9.96 is not usable, and a re-invite replaces it', () => {
+  const { isStrongInvitationCode } = require('../models/lib/invitationCodeEmail');
+  assert.strictEqual(isStrongInvitationCode(STRONG), true);
+  assert.strictEqual(isStrongInvitationCode(require('crypto').randomBytes(16).toString('base64url')), true);
+  for (const weak of ['123456', '999999', 'abcdefghij', '', null, 123456, `${STRONG}!`, 'x'.repeat(129)]) {
+    assert.strictEqual(isStrongInvitationCode(weak), false, String(weak));
+  }
+  assert.strictEqual(isInvitationCodeSendable({ code: '123456', valid: true }), false, 'a guessable code is never mailed again');
+  const modifier = buildReinviteModifier({ _id: 'i1', code: '123456', valid: true }, ['b'], () => STRONG);
+  assert.strictEqual(modifier.$set.code, STRONG);
+  assert.strictEqual(modifier.$set.valid, true);
 });
 
 test('a Number code in the document never matches the sign-up (string) lookup', () => {

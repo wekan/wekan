@@ -146,4 +146,44 @@ check('#8 account creation is rate-limited (defence in depth)', () => {
   assert.ok(/name:\s*'createUser'/.test(src), 'the rule must target createUser');
 });
 
+// GHSA-rg85-qx5c-qx67 (2026-11-20), the two parts of InviteBleed the first fix
+// left: a six-digit code made before it is still a valid invitation, and the
+// throttle sat on createUser while the sign-up form calls ATCreateUserServer.
+check('#8 sign-up accepts only a strong code, in both places it looks one up', () => {
+  const src = read('server/models/users.js');
+  assert.match(src, /const strongCode = isStrongInvitationCode\(options\.profile\.invitationcode\);\n\s+const invitationCode = strongCode && await ReactiveCache\.getInvitationCode\(/);
+  assert.match(src, /\} else if \(require\('\/models\/lib\/invitationCodeEmail'\)\.isStrongInvitationCode\(doc\.profile && doc\.profile\.icode\)\) \{/);
+});
+check('#8 negative: no invitation code is looked up by its code without the strength check', () => {
+  // Every lookup by { code: ... } in the server: each must sit right under a
+  // strength check. An OAuth sign-up matches by email and has no code.
+  const files = ['server/models/users.js', 'server/models/settings.js', 'config/accounts.js'];
+  for (const file of files) {
+    const src = read(file);
+    const re = /getInvitationCode\(\{\s*code:/g;
+    let m;
+    while ((m = re.exec(src))) {
+      const before = src.slice(Math.max(0, m.index - 400), m.index);
+      assert.ok(/isStrongInvitationCode|strongCode &&/.test(before), `${file}: a code lookup without isStrongInvitationCode`);
+    }
+  }
+  const { hasUsableCode } = require('../models/lib/invitationCodeEmail');
+  assert.strictEqual(hasUsableCode({ code: '123456' }), false, 'a six-digit code is not mailed again');
+});
+check('#8 the sign-up FORM\'s method is throttled, and a refusal is an InviteBleed problem', () => {
+  const src = read('server/models/users.js');
+  assert.match(src, /\{ type: 'method', name: 'ATCreateUserServer', clientAddress\(\) \{ return true; \} \},\n\s+10,\n\s+60 \* 1000,/);
+  assert.match(src, /key: 'brute\.invite', detail: 'sign-up DDP rate limit exceeded'/);
+  const { recordAuthRateLimitDenial } = require('../server/lib/authRateLimitDecision');
+  const events = [];
+  recordAuthRateLimitDenial({ allowed: false }, { name: 'ATCreateUserServer', clientAddress: '10.0.0.1' }, e => events.push(e),
+    { key: 'brute.invite', detail: 'sign-up DDP rate limit exceeded' });
+  assert.strictEqual(events[0].key, 'brute.invite');
+  assert.strictEqual(events[0].ip, '10.0.0.1');
+  recordAuthRateLimitDenial({ allowed: true }, { name: 'ATCreateUserServer' }, e => events.push(e));
+  assert.strictEqual(events.length, 1, 'negative: an allowed sign-up is not a problem');
+  recordAuthRateLimitDenial({ allowed: false }, { name: 'forgotPassword' }, e => events.push(e));
+  assert.strictEqual(events[1].key, 'brute.account-recovery', 'account recovery keeps its own key');
+});
+
 console.log(`\nsecurityMeifukun: ${passed} checks passed`);
