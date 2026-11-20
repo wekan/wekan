@@ -24,7 +24,7 @@ board; otherwise the name stays in the title.
 ## Hiding it
 
 Board Settings / Card row **Action items** (*Show on Card*). A site admin hides
-it on every board from Admin Panel / Settings / Visibility / Features / Card
+it on every board from Admin Panel / Settings / Features / Card
 fields.
 
 ## Implementation

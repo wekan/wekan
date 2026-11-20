@@ -1,7 +1,7 @@
 # Scrum meetings: daily standup timer, retrospective board
 
 Two helpers in the board menu, offline and with no AI
-([models/lib/scrumMeetings.js](../../../models/lib/scrumMeetings.js)). Every
+([models/lib/scrumMeetings.js](../../../../models/lib/scrumMeetings.js)). Every
 member of the board sees them, next to Summary and Since your last visit.
 
 ## Daily standup
@@ -26,7 +26,7 @@ team is invited the usual way.
 
 - For one board: the **Scrum settings** (Board menu / Scrum settings) have a
   checkbox for each, *Daily standup* and *Retrospective board*, both on.
-- For the instance: **Admin Panel / Settings / Visibility / Features**,
+- For the instance: **Admin Panel / Settings / Features**,
   *Daily standup timer* and *Retrospective board*. Feature profiles can hide
   them for some users only.
 

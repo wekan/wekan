@@ -22,7 +22,7 @@ suggestion adds the person, as clicking them in the full list does.
 ## Hiding it
 
 Board Settings / Card row **Suggested members** (*Show on Card*). A site admin
-hides it on every board from Admin Panel / Settings / Visibility / Features /
+hides it on every board from Admin Panel / Settings / Features /
 Card fields.
 
 ## Implementation

@@ -23,7 +23,7 @@ parts"*.
 
 Board Settings / Card row **At risk**: *Show on Minicard* is the triangle,
 *Show on Card* the line in the opened card. A site admin hides both on every
-board from Admin Panel / Settings / Visibility / Features / Card fields.
+board from Admin Panel / Settings / Features / Card fields.
 
 ## Implementation
 

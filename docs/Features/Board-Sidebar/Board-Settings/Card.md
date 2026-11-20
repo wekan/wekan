@@ -153,6 +153,14 @@ where the helper works:
 
 All are on by default except the minicard's forecast.
 
+## The flow fields
+
+The Card section also has four Kanban and Scrum fields, each a row with its
+Show on Minicard and Show on Card checkboxes, off until turned on:
+**Blocked** (with a reason), **Class of service**, **MoSCoW priority** and
+**WSJF score**. Admin Panel can hide any of them on every board. See
+[flow fields](../../Cards/Flow-Fields.md).
+
 ## Prerequisites
 
 - Only a board admin can change these settings; only an admin can drag a

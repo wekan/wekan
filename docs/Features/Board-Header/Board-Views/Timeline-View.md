@@ -3,7 +3,7 @@
 Board header → **Board View** → **Timeline**. The board as it was at an earlier
 moment. Click a point on the line to see the cards, by list, as they were then;
 **Now** returns to the present. A site admin can turn it off with "Time views"
-in Admin Panel / Settings / Visibility / Features.
+in Admin Panel / Settings / Features.
 
 ## What it shows
 

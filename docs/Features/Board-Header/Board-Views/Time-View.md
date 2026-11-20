@@ -4,7 +4,7 @@ Board header → **Board View** → **Time**. The board's time tracking in one
 place: how much time is spent, by whom and on which cards. Time is entered on
 the cards themselves ([Time tracking](../../Cards/Time-Tracking.md)); this view
 only reports it. A site admin can turn it off with "Time views" in Admin Panel /
-Settings / Visibility / Features.
+Settings / Features.
 
 ## What it shows
 

@@ -75,7 +75,7 @@ the exact workflow.
 
 ## Meetings
 
-The board menu's [Daily standup timer and Retrospective board](../Scrum/Meetings.md)
+The board menu's [Daily standup timer and Retrospective board](../Board-Sidebar/Board-Settings/Scrum-Meetings.md)
 help with the daily standup and the sprint retrospective, and the
 [flow policies](../Lists/Flow-Policies.md) page describes the Definition of
 Ready beside the Definition of Done.

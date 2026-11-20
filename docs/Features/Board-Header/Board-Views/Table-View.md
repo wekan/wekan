@@ -4,7 +4,7 @@ Board header → **Board View** → **Table**. The board's cards as a table: one
 per card, sortable by every column. A board admin can hide the view in
 [Board Settings / Board View](../../Board-Sidebar/Board-Settings/Board-View.md),
 and a site admin can turn it off for the whole instance in Admin Panel /
-Settings / Visibility / Features ("Table view").
+Settings / Features ("Table view").
 
 ## What it shows
 

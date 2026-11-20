@@ -21,6 +21,15 @@ here: **Rule suggestions**, **Summary**, **Since your last visit** and
 risk, Suggested members, Forecast, Checklist from description and Action
 items - are card fields, below.
 
+The Kanban and Scrum helpers are features here too, each also turned on or off
+per board: **List policies**, **Commitment point**, **WIP limit per person**
+and **Split lists** ([flow policies](../../Lists/Flow-Policies.md), Board
+Settings / List), and **Daily standup** and **Retrospective board**
+([Scrum meetings](../../Board-Sidebar/Board-Settings/Scrum-Meetings.md), Board
+Settings / Scrum). The four flow fields - Blocked, Class of service, MoSCoW
+priority and WSJF score ([flow fields](../../Cards/Flow-Fields.md)) - are card
+fields, below.
+
 ### Card fields
 
 Above the Features **Save** there is one tick per field type of the board right

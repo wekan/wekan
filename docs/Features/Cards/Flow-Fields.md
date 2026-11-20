@@ -18,7 +18,7 @@ All four are **off until a board turns them on**:
 - **Board Settings / Card**, section **Card**: each field has a row with its
   *Show on Minicard* and *Show on Card* checkboxes, after Dependencies, and is
   moved within the section like any other row.
-- **Admin Panel / Settings / Visibility / Features / Card fields**: unticking
+- **Admin Panel / Settings / Features / Card fields**: unticking
   a field hides it on every board of the instance, whatever the boards chose.
   Nothing is deleted - ticking it again shows every card as it was.
 

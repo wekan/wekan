@@ -23,7 +23,7 @@ The minicard can show the 85 % date in its dates line, off by default.
 Board Settings / Card row **Forecast**: *Show on Card* is the line in the opened
 card (on by default), *Show on Minicard* the date in the minicard (off by
 default). A site admin hides both on every board from Admin Panel / Settings /
-Visibility / Features / Card fields.
+Features / Card fields.
 
 ## Implementation
 

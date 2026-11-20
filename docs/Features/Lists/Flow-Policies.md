@@ -19,7 +19,7 @@ List**: *Show list policies*, *Allow lists split into Doing and Done*,
 *Commitment point* (a list, or none) and *WIP limit per person* (1-99, empty
 for none).
 
-Each is also a feature of **Admin Panel / Settings / Visibility / Features**:
+Each is also a feature of **Admin Panel / Settings / Features**:
 *List policies*, *Split lists*, *Commitment point*, *WIP limit per person*. Turned off there,
 it is not offered in Board Settings and not drawn on any board; nothing a board
 set is deleted, so turning it on again shows every board as it was. Feature

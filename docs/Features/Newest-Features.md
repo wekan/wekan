@@ -1,9 +1,27 @@
-# September 2026 feature guide
+# Newest features
 
-This guide follows the current menus and September's
-[changelog](../../CHANGELOG.md). The multiline-creation feature is currently
-in **Upcoming**; the remaining topics describe features available in the
-current source. Check your installed release before expecting the newest UI.
+This guide follows the current menus and the
+[changelog](../../CHANGELOG.md). The November 2026 features are in the
+**Upcoming** release until it is published; check your installed release
+before expecting the newest UI. For all menus, use [Features](Features.md).
+
+## November 2026
+
+| Feature | Where to find it | Instructions |
+| --- | --- | --- |
+| Twelve more reports: Created vs. Resolved, Net Flow, Time in List and the rest, each with its export bar | Board header / Board View, Reports group | [Board reports](Board-Header/Board-Views/Charts/Board-Reports.md) and [report charts](Board-Header/Board-Views/Charts/Board-Report-Charts.md) |
+| Menus grouped under headings | Board View menu; list, card and swimlane menus; Import and Export | [Board View](Board-Sidebar/Board-Settings/Board-View.md) and [formats](Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md) |
+| Kanban and Scrum flow fields: Blocked, Class of service, MoSCoW priority, WSJF score | Board Settings / Card; Admin Panel / Settings / Features / Card fields | [Flow fields](Cards/Flow-Fields.md) |
+| List policies, Definition of Ready, commitment point, WIP limit per person | Board Settings / List and Scrum; Admin Panel / Settings / Features | [Flow policies](Lists/Flow-Policies.md) |
+| Lists split into Doing and Done | Board Settings / List; the list header | [Flow policies](Lists/Flow-Policies.md) |
+| Daily standup timer and retrospective board | Board menu, turned on in Board Settings / Scrum | [Scrum meetings](Board-Sidebar/Board-Settings/Scrum-Meetings.md) and [Scrum settings](Board-Sidebar/Board-Settings/Scrum-Settings.md) |
+| Import mail, calendars, chats and notes | Add Board / Import | [Mail](Board-Sidebar/Board-Settings/Import-Export/Mail/Mail.md), [iCalendar](Board-Sidebar/Board-Settings/Import-Export/iCalendar/iCalendar.md), [WhatsApp](Board-Sidebar/Board-Settings/Import-Export/WhatsApp/WhatsApp.md), [Discord](Board-Sidebar/Board-Settings/Import-Export/Discord/Discord.md), [Google Keep](Board-Sidebar/Board-Settings/Import-Export/Google-Keep/Google-Keep.md) |
+| Trello export as a .zip with attachments; Trello custom fields and archived items | Board Settings / Export; Add Board / Import | [Trello](Board-Sidebar/Board-Settings/Import-Export/Trello/Trello.md) |
+| Every export written a page of cards at a time; large imports streamed to disk within its free space | Board Settings / Export; Add Board / Import | [External tools](Board-Sidebar/Board-Settings/Import-Export/External-Tools.md) and [WeKan](Board-Sidebar/Board-Settings/Import-Export/WeKan/WeKan.md) |
+| What each tool's files keep, round-tripped tool by tool | - | [Format coverage](Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md) |
+| Admin Panel Features as a pane of its own | Admin Panel / Settings / Features | [Features](Admin-Panel/Settings/Features.md) |
+
+## September 2026
 
 | Feature | Where to find it | Instructions |
 | --- | --- | --- |
@@ -29,6 +47,5 @@ current source. Check your installed release before expecting the newest UI.
 | Offices and login-address reporting | Admin Panel / Problems / Offices | [Offices](Admin-Panel/Problems/Offices.md) |
 | Per-pane Admin URLs and recovery reports | Admin Panel | [URLs](Admin-Panel/Admin-Panel-URLs.md) and [Problems](Admin-Panel/Problems/README.md) |
 
-For all menus, use [Features](Features.md). Build-system changes, dependency
-updates and security fixes are recorded in the changelog; platform installation
-instructions remain under [Platforms](../Platforms).
+Build-system changes, dependency updates and security fixes are recorded in the
+changelog; platform installation instructions remain under [Platforms](../Platforms).

@@ -45,7 +45,10 @@ that by providing one-click installation on various platforms.
       - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Obsidian Kanban, Leo, OPML, Org mode, todo.txt
       - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
         Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion, Plane
-      - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior
+      - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior, Planka, KanbanFlow, Basecamp, Microsoft To Do, Google Tasks
+      - Mail (.eml/mbox), Calendars (iCalendar), Google Takeout, Google Keep, Evernote,
+        Chats: Slack, Mattermost, Telegram, WhatsApp, Discord - each into the view it fits
+      - Large files are streamed to disk, within its free space or the Admin Panel limit
       - GitHub, GitLab, Gitea, Forgejo
       - Import many boards at once: several export files, or a .zip of them, each its own board;
         One board per project splits an export of a whole app into a board per project
@@ -72,6 +75,9 @@ that by providing one-click installation on various platforms.
       - Minicard: At list there is card, that has not been not opened yet
       - Card: Opened card popup of minicard
         - Attachments viewer for PDF and Office documents
+        - Kanban and Scrum flow fields: Blocked, Class of service, MoSCoW priority, WSJF score
+      - List policies, Definition of Ready, commitment point, WIP limit per person,
+        lists split into Doing and Done
       - Drag drop reorder one or Multi-Selection: Swimlanes, Lists, Minicards, Checklists, Checklist Items
       - Collapse/Uncollapse: Menus, Swimlanes, Lists, Cards
     - Table, Calendar, Multi Board Calendar, Time, Timeline
@@ -82,6 +88,9 @@ that by providing one-click installation on various platforms.
       Lead Time, Throughtput Histogram, WIP Run, Pulse, Aging WIP,
       Blocker Analysis, Monte Carlo Forecasts, Process Behavior (XmR),
       Work Item Size vs Cycle Time, Map
+    - Reports: Created vs. Resolved, Net Flow, Time in List, Average Age,
+      Throughput Run Chart, Due Date Performance, Release Burndown, Epic Progress,
+      Workload, Distribution, Dependency Map, Activity Heatmap - each with PDF and Excel export
    - Right Sidebar / Board Settings:
     - Rules: like IFTTT like Trello Butler
       - Lists view for Rules
@@ -96,10 +105,11 @@ that by providing one-click installation on various platforms.
        Microsoft Planner, MeisterTask, Obsidian Kanban, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
        Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
-       Gitea, Forgejo, Asana, Zenkit
+       Gitea, Forgejo, Asana, Zenkit, Trello .zip with attachments, mbox, Evernote, Mattermost
+       - Every export is written a page of cards at a time, so a large board exports without running out of memory
      - Export all boards at once (All Boards sidebar, or Multi-Selection): Excel as one workbook
        with a sheet per board, every other format as a .zip with a file per board
-    - Scrum Settings
+    - Scrum Settings: Definition of Ready and Done, Daily standup timer, Retrospective board
     - Change color theme, Change Background Image, Date settings
     - Settings:
       - Board View: Show/Hide and drag drop reorder what is shown atat Public Board and Private Board
@@ -108,7 +118,8 @@ that by providing one-click installation on various platforms.
   - Admin Panel
     - Settings
       - Version
-      - Visibility: What is shown/hidden, Whitelabeling
+      - Features: which features this WeKan offers, Card fields, Feature profiles
+      - Appearance: What is shown/hidden, Whitelabeling
       - Announcement
       - Accessibility
       - Translation: Add custom translation strings

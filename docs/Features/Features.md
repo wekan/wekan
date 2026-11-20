@@ -22,8 +22,8 @@ visibility depends on your role, the board and the site's settings.
 
 ## Newest features
 
-[September 2026 feature guide](Newest-Features.md) links the month's additions
-and the current Upcoming features to their instructions. For release status,
+[Newest features](Newest-Features.md) links the November and September 2026
+additions, including the Upcoming release, to their instructions. For release status,
 fixes and version details, use the [changelog](../../CHANGELOG.md).
 
 ## Shared reference guides

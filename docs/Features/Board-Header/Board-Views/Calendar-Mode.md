@@ -7,7 +7,7 @@ the card. For dragging cards to new dates, and for the start, end and received
 dates, use the [Calendar](Calendar.md) view.
 
 A site admin can turn the calendar views off in Admin Panel / Settings /
-Visibility / Features ("Calendar views").
+Features ("Calendar views").
 
 ## What it shows
 

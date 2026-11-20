@@ -20,7 +20,7 @@ one place, [Card Settings](Card-Settings.md) - **Board Settings / Card**.
 | In which section, and where in it | the row's section, and its place among that section's rows there |
 | In what order the sections are | the order of the sections in the Show on Card pane |
 | Whether a whole section (Date, Members, ...) is shown on them | the section's own checkbox, left of its title |
-| Whether the administrator offers the field at all | Admin Panel / Settings / Visibility / Features |
+| Whether the administrator offers the field at all | Admin Panel / Settings / Features |
 
 ## The card's sections
 
@@ -121,7 +121,7 @@ and so on). The opened card and each of its section templates get their own
 `CARD_FIELD_TEMPLATES`): the board as its cards see it
 (`models/lib/cardShownFields.js` `boardForCard`), whose flags read false for
 the rows of a section hidden whole on Show on Card - the same overlay as Admin
-Panel / Visibility / Features (`models/lib/cardFieldVisibility.js`), one level
+Panel / Settings / Features (`models/lib/cardFieldVisibility.js`), one level
 down. It is the same for every card of the board: it does not depend on what
 the card holds. The minicard has its own (`boardForMinicard`,
 `client/components/cards/minicard.js`). The board itself is never changed. The

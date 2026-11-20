@@ -52,7 +52,7 @@ Without a time the due date gets the due date picker's default time, 17:00.
 | Show on Card | renaming the title in the opened card |
 
 Both are on by default. A site admin hides it everywhere from Admin Panel /
-Settings / Visibility / Features / Card fields. See
+Settings / Features / Card fields. See
 [Helpers that need no AI](../../General/Assistants/Assistants.md).
 
 ## Implementation

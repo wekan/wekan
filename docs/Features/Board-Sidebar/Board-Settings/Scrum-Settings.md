@@ -17,11 +17,14 @@ drawn when the server says the user is a board admin (`canAdmin`):
 | --- | --- |
 | Enable Scrum planning | Whether Scrum planning is on for this board. |
 | Product Goal | Free text. |
-| Definition of Done | Free text. |
+| Definition of Ready | Free text: when a backlog item may be taken into a sprint. Shown to every member in the Scrum views once written. |
+| Definition of Done | Free text. Shown to every member in the Scrum views once written. |
 | Product Owner | One active board member, or none. |
 | Scrum Master | One active board member, or none. |
 | Developers | Any number of active board members. |
 | Working days | One or more of Monday to Sunday (required). |
+| Daily standup, Minutes per person | Whether the board menu offers the [daily standup timer](Scrum-Meetings.md), and each member's timebox. |
+| Retrospective board | Whether the board menu offers making a [retrospective board](Scrum-Meetings.md). |
 | Estimate source | **Planning poker estimate** or **Numeric custom field**. |
 | Custom Fields | The custom field to read estimates from, or none. |
 | Estimate unit | Free text, up to 80 characters. |
