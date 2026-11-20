@@ -517,6 +517,15 @@ in its own format. Eight formats keep dependencies through an export and import.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd34f44460838cfacd10c678d6349f9cc5fd90a0">The Vikunja export is streamed a page at a time, and carries the dependencies</a>. Thanks to xet7.</summary>
+
+Its .zip was built whole; now data.json is written a page of cards at a time,
+numbered over the whole board, and a task's dependencies are Vikunja's blocked
+relations. The round trip of every export includes Vikunja and keeps all six.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
