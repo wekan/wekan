@@ -103,6 +103,15 @@ async function main() {
     assert.equal(parseGitlab([]).tasks.length, 0);
   });
 
+  const { formatters } = await import('../models/lib/externalExportFormatters.js');
+  test('the export writes spent hours as time_stats seconds, and they come back', () => {
+    const out = formatters.gitlab({ items: [{ title: 'T', listTitle: 'Open', labels: [], spentTime: 2.25 },
+      { title: 'U', listTitle: 'Open', labels: [] }] });
+    assert.deepStrictEqual(out[0].time_stats, { total_time_spent: 8100 });
+    assert.strictEqual(out[1].time_stats, undefined, 'negative: none when nothing was spent');
+    assert.strictEqual(parseGitlab(out).tasks[0].spent_hours, 2.25);
+  });
+
   console.log(`\ngitlabImport: ${passed} tests passed`);
 }
 

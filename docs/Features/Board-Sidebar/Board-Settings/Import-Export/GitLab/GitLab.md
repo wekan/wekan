@@ -167,8 +167,8 @@ each card that is not archived: `title`, `description`, `state` (`closed` when
 the list name contains done, closed, complete, archiv or finished, otherwise
 `opened`), `labels` (names), `due_date`, and, when the parts are ticked,
 `assignees` (owner first), `author`, `created_at`, `closed_at` (closed items
-only), comments as `notes`, and the sprint and release as `iteration` and
-`milestone`. It writes no `iid`, so importing the file again does not add a
+only), comments as `notes`, the spent hours as `time_stats.total_time_spent`
+(seconds), and the sprint and release as `iteration` and `milestone`. It writes no `iid`, so importing the file again does not add a
 second `Source:` line.
 
 ## What is kept

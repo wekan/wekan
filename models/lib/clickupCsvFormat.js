@@ -216,6 +216,8 @@ export function formatClickUpCsv(collected) {
       'Folder Name/Path': fields.Folder || '',
       'Space Name': (board && board.title) || '',
       'Time Estimated': estimate > 0 ? String(Math.round(estimate * HOUR)) : '',
+      // Hours spent, in ClickUp's milliseconds - what the import reads back.
+      'Time Spent': Number(item.spentTime) > 0 ? String(Math.round(Number(item.spentTime) * HOUR)) : '',
       Checklist: checklist.map(entry => String(entry.title || '').replace(/,/g, ' ')).join(','),
     };
     rows.push(CLICKUP_EXPORT_COLUMNS.map(name => values[name] || ''));

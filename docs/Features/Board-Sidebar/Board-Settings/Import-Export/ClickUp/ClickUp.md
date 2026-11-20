@@ -190,8 +190,9 @@ silently:
 Other columns, such as Task Link, Rolled Up Time and the `Text` date columns,
 are not read and not reported.
 
-The export leaves out comments, attachments, done state of checklist items,
-spent time, archived cards, and custom fields other than those named above.
+The export writes the spent hours as Time Spent (milliseconds). It leaves
+out comments, attachments, done state of checklist items, archived cards, and
+custom fields other than those named above.
 
 ## REST API
 

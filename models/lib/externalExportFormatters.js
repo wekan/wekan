@@ -372,6 +372,8 @@ export const formatters = {
       state: isClosed(i.listTitle) ? 'closed' : 'opened',
       labels: i.labels,
       due_date: i.dueAt,
+      // Hours spent, as GitLab's time_stats seconds - what parseGitlab reads back.
+      ...(Number(i.spentTime) > 0 ? { time_stats: { total_time_spent: Math.round(Number(i.spentTime) * 3600) } } : {}),
       ...(has(i.owner) ? { assignees: [i.owner, ...list(i.assignees)].map(username => ({ username })) } : {}),
       ...(has(i.creator) ? { author: { username: i.creator } } : {}),
       ...(has(i.createdAt) ? { created_at: i.createdAt } : {}),

@@ -127,6 +127,16 @@ async function main() {
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-clickup'], /Export Items/);
   });
 
+  // Hours spent go out as ClickUp's Time Spent milliseconds and come back.
+  {
+    const csv = formatClickUpCsv({ board: { title: 'B' }, items: [{ cardId: 'c', title: 'T', listTitle: 'To Do', labels: [], spentTime: 1.5 },
+      { cardId: 'd', title: 'U', listTitle: 'To Do', labels: [] }] });
+    const [spent, none] = parseClickUpCsv(csv).tasks;
+    assert.strictEqual(spent.spent_hours, 1.5);
+    assert.strictEqual(none.spent_hours, undefined, 'negative: none when nothing was spent');
+    passed += 1;
+  }
+
   console.log(`\nclickupCsv: ${passed} checks passed`);
 }
 
