@@ -5,7 +5,8 @@
 //   each card table   -> a swimlane named after it; its columns (Triage,
 //                        ordinary columns, Done, Not now) -> lists, titles kept
 //   each card         -> a card: content as plain text, due_on, assignees,
-//                        steps as a "Steps" checklist, comments
+//                        steps as a "Steps" checklist (each with its own due
+//                        date and assignee), comments
 //   the to-do lists   -> a swimlane "To-dos", each to-do list a list
 //   each to-do        -> a card: description, starts_on, due_on, assignees,
 //                        comments; a completed to-do is archived
@@ -134,7 +135,12 @@ export function parseBasecampApi(input) {
         if (card.completed === true && task.date_due) task.due_complete = true;
         const items = (Array.isArray(card.steps) ? card.steps : [])
           .filter(step => isObject(step) && text(step.title).trim())
-          .map(step => ({ title: text(step.title).trim(), done: step.completed === true }));
+          // A step's own due date and first assignee are its checklist item's.
+          .map(step => {
+            const due = isoDate(step.due_on);
+            const person = (Array.isArray(step.assignees) ? step.assignees : []).map(personName).find(Boolean);
+            return { title: text(step.title).trim(), done: step.completed === true, ...(due ? { due } : {}), ...(person ? { assignee: person } : {}) };
+          });
         if (items.length) task.checklists = [{ title: STEPS_CHECKLIST, items }];
         tasks.push(task);
       });

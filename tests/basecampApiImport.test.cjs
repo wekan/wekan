@@ -183,6 +183,20 @@ async function main() {
   const many = { basecamp: true, project: { name: 'Big' }, todolists: [{ title: 'L', todos: Array.from({ length: MAX_BASECAMP_TASKS + 1 }, () => ({ title: 't' })) }] };
   assert.throws(() => parseBasecampApi(many), /more than/);
 
+  // A card step's own due date and assignee are its checklist item's.
+  {
+    const { importedChecklists } = await import('../models/lib/importedTaskPlan.js');
+    const one = parseBasecampApi({ basecamp: true, project: { name: 'P' }, cardTables: [{ title: 'T', lists: [{ title: 'Doing', cards: [{
+      id: 1, title: 'Card', steps: [{ title: 'Draw', completed: false, due_on: '2026-12-01', assignees: [{ name: 'Ann' }] }, { title: 'Ship', completed: true }],
+    }] }] }], todolists: [] });
+    const items = one.tasks[0].checklists[0].items;
+    assert.deepEqual(items[0], { title: 'Draw', done: false, due: '2026-12-01T00:00:00.000Z', assignee: 'Ann' });
+    assert.deepEqual(items[1], { title: 'Ship', done: true }, 'negative: a step without them has none');
+    const [planned] = importedChecklists(one.tasks[0].checklists, { Ann: 'uA' });
+    assert.equal(planned.items[0].assigneeId, 'uA');
+    assert.equal(planned.items[0].dueAt.toISOString(), '2026-12-01T00:00:00.000Z');
+  }
+
   console.log('basecampApiImport.test.cjs: all tests passed');
 }
 

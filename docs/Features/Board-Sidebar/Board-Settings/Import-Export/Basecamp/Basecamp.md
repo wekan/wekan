@@ -110,7 +110,7 @@ The fetched JSON, which is also what the REST API takes:
 | `created_at` | Created date |
 | `completed` | Due date marked done; a completed to-do is archived |
 | `assignees` | Members: the first as owner, then the others |
-| Card `steps` (`title`, `completed`) | Checklist "Steps" |
+| Card `steps` (`title`, `completed`, `due_on`, `assignees`) | Checklist "Steps", each item with the step's due date and first assignee |
 | Comments (`content`, `creator`, `created_at`) | Comments |
 | Card and to-do `id` | Source reference |
 
