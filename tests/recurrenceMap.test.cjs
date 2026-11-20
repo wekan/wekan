@@ -223,6 +223,38 @@ async function main() {
     assert.equal(board.unsupported.filter(u => /repeatCfgId$/.test(u.path)).length, 3);
   });
 
+  test('Super Productivity: the export writes a taskRepeatCfg of its own model, and the import reads it back', () => {
+    const now = Date.parse('2026-11-20T00:00:00Z');
+    const out = JSON.parse(sp.formatSuperProductivity({ board: { title: 'B' }, lists: [{ title: 'To Do' }, { title: 'Done' }], items: [
+      { cardId: 'w', title: 'Report', listTitle: 'To Do', labels: [], recurrence: 'weekly', dueAt: '2026-12-02T00:00:00.000Z' },
+      { cardId: 'd', title: 'Water', listTitle: 'To Do', labels: [], recurrence: 'daily' },
+      { cardId: 'm', title: 'Invoice', listTitle: 'To Do', labels: [], recurrence: 'monthly', dueAt: '2026-12-15T00:00:00.000Z' },
+      { cardId: 'x', title: 'Done one', listTitle: 'Done', labels: [], recurrence: 'weekly', endAt: '2026-11-01T00:00:00.000Z' },
+      { cardId: 'o', title: 'Once', listTitle: 'To Do', labels: [] }] }, { now }));
+    const cfgs = out.data.taskRepeatCfg.entities;
+    // The required fields of TaskRepeatCfgCopy, as the app's model has them.
+    for (const cfg of Object.values(cfgs)) {
+      for (const key of ['id', 'projectId', 'title', 'tagIds', 'order', 'isPaused', 'quickSetting', 'repeatCycle', 'repeatEvery', 'notes']) {
+        assert.ok(key in cfg, key);
+      }
+      assert.equal(cfg.lastTaskCreationDay, '2026-11-20', 'the card is this period\'s task');
+    }
+    const byTitle = Object.fromEntries(Object.values(cfgs).map(cfg => [cfg.title, cfg]));
+    assert.deepEqual(Object.keys(byTitle).sort(), ['Invoice', 'Report', 'Water'], 'negative: no config for a finished or a one-off card');
+    assert.deepEqual([byTitle.Report.repeatCycle, byTitle.Report.quickSetting, byTitle.Report.startDate, byTitle.Report.wednesday, byTitle.Report.monday],
+      ['WEEKLY', 'WEEKLY_CURRENT_WEEKDAY', '2026-12-02', true, false]);
+    assert.deepEqual([byTitle.Water.repeatCycle, byTitle.Water.saturday], ['DAILY', true]);
+    assert.deepEqual([byTitle.Invoice.repeatCycle, byTitle.Invoice.quickSetting, byTitle.Invoice.startDate], ['MONTHLY', 'MONTHLY_CURRENT_DATE', '2026-12-15']);
+    const tasks = Object.values(out.data.task.entities);
+    assert.equal(tasks.find(t => t.title === 'Report').repeatCfgId, byTitle.Report.id);
+    assert.equal(tasks.find(t => t.title === 'Once').repeatCfgId, undefined);
+    assert.deepEqual(sp.parseSuperProductivity(out).tasks.map(t => [t.title, t.recurrence]),
+      [['Report', 'weekly'], ['Water', 'daily'], ['Invoice', 'monthly'], ['Done one', undefined], ['Once', undefined]]);
+    // Negative: a board with no repeating card has no taskRepeatCfg slice.
+    const none = JSON.parse(sp.formatSuperProductivity({ board: { title: 'B' }, lists: [{ title: 'To Do' }], items: [{ cardId: 'o', title: 'Once', listTitle: 'To Do', labels: [] }] }, { now }));
+    assert.equal(none.data.taskRepeatCfg, undefined);
+  });
+
   test('WeKan JSON import keeps recurrenceInterval, counted from the import; exports carry it', () => {
     const creator = read('models/wekanCreator.js');
     assert.match(creator, /recurrenceInterval: card\.recurrenceInterval, lastRecurrenceAt: this\._now\(\)/);

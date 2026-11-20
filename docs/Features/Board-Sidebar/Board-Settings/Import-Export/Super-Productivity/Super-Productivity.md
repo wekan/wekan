@@ -179,7 +179,8 @@ The export writes a backup Super Productivity's **Import from File** reads:
 The import reports these on the loss report, rather than dropping them
 silently:
 
-- repeat configurations (the task imports once);
+- a repeat configuration other than every 1 day, week or month, or a paused
+  one (the task imports once);
 - reminders;
 - a task's link to an issue of an issue provider;
 - project notes;
@@ -243,3 +244,14 @@ The HTTP routes:
 
 See also the [format coverage table](../Format-Coverage.md) and
 [all formats](../External-Tools.md).
+
+## Repeating tasks
+
+A task's repeat configuration (`taskRepeatCfg`) that repeats every 1 day,
+week or month makes the card repeat daily, weekly or monthly. The export
+writes an open repeating card's repeat back as a `taskRepeatCfg` with the
+fields and defaults of Super Productivity's own model
+(`src/app/features/task-repeat-cfg/task-repeat-cfg.model.ts`): the cycle, its
+quick setting, the start date (the due date, or the creation date), the
+weekday of a weekly repeat, and today as the last creation day, since the card
+is this period's task.

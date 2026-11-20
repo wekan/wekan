@@ -41,7 +41,7 @@ const KEEPS = {
   pivotal: ['created', 'owner', 'requester'],
   redmine: ['start', 'created', 'spent', 'owner', 'requester', 'customFields'],
   tasksorg: ['start', 'created', 'spent', 'recurrence', 'customFields'],
-  superproductivity: ['created', 'spent', 'customFields'],
+  superproductivity: ['created', 'spent', 'recurrence', 'customFields'],
   taiga: ['created', 'owner', 'requester', 'customFields', 'blocked'],
   teamwork: ['start', 'dueComplete', 'owner', 'customFields'],
   quire: ['start', 'created', 'owner', 'requester', 'customFields'],

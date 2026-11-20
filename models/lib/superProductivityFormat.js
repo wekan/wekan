@@ -37,6 +37,8 @@
 //   id                                  -> the card's source reference
 //   repeatCfgId -> taskRepeatCfg        -> the card repeats, when the config
 //                                          repeats every 1 day, week or month
+// Export: an open repeating card's repeat as a taskRepeatCfg, its fields and
+// defaults those of Super Productivity's own model.
 // Reported, not imported: other repeat configurations, reminders, issue-provider
 // links, project notes, file/command/note attachments, the per-day time
 // breakdown and the saved Kanban boards.
@@ -410,6 +412,27 @@ export function formatSuperProductivity(collected = {}, { now = Date.now() } = {
   };
 
   const taskState = { ids: [], entities: {}, currentTaskId: null, selectedTaskId: null, lastCurrentTaskId: null, isDataLoaded: false };
+  // A repeating card's repeat config (taskRepeatCfg), with the fields and
+  // defaults of Super Productivity's own TaskRepeatCfgCopy and
+  // DEFAULT_TASK_REPEAT_CFG (src/app/features/task-repeat-cfg/task-repeat-cfg.model.ts).
+  const repeatState = { ids: [], entities: {} };
+  const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const repeatCfg = (id, item, projectId, startMs) => {
+    const cycle = { daily: 'DAILY', weekly: 'WEEKLY', monthly: 'MONTHLY' }[item.recurrence];
+    const weekday = new Date(startMs).getUTCDay();
+    const days = Object.fromEntries(WEEKDAYS.map((name, i) => [name,
+      cycle === 'DAILY' ? true : cycle === 'WEEKLY' ? i === weekday : i >= 1 && i <= 5]));
+    return {
+      id, projectId, title: String(item.title || '').trim() || 'Untitled', tagIds: [], order: 0,
+      // The card itself is this period's task: the next one is made from the next period.
+      lastTaskCreation: now, lastTaskCreationDay: dayOf(now),
+      isPaused: false,
+      quickSetting: { DAILY: 'DAILY', WEEKLY: 'WEEKLY_CURRENT_WEEKDAY', MONTHLY: 'MONTHLY_CURRENT_DATE' }[cycle],
+      repeatCycle: cycle, repeatEvery: 1, startDate: dayOf(startMs),
+      repeatFromCompletionDate: false, waitForCompletion: false, shouldInheritSubtasks: false,
+      disableAutoUpdateSubtasks: false, skipOverdue: false, notes: '', ...days,
+    };
+  };
   const listTitles = [];
   (Array.isArray(lists) ? lists.map(list => list.title) : []).concat(cards.map(item => item.listTitle))
     .forEach(title => { const name = String(title || ''); if (!listTitles.includes(name)) listTitles.push(name); });
@@ -455,6 +478,13 @@ export function formatSuperProductivity(collected = {}, { now = Date.now() } = {
         ? { dueDay: dayOf(due) } : { dueWithTime: due }),
       ...(priority ? { priority } : {}),
     };
+    // An open repeating card repeats in Super Productivity too.
+    if (!isDone && ['daily', 'weekly', 'monthly'].includes(item.recurrence)) {
+      const cfgId = `wekan-repeat-${id}`;
+      task.repeatCfgId = cfgId;
+      repeatState.ids.push(cfgId);
+      repeatState.entities[cfgId] = repeatCfg(cfgId, item, projectId, due === undefined ? created : due);
+    }
     taskState.ids.push(id);
     taskState.entities[id] = task;
     task.tagIds.forEach(tagId => tagState.entities[tagId].taskIds.push(id));
@@ -513,6 +543,7 @@ export function formatSuperProductivity(collected = {}, { now = Date.now() } = {
       project: projectState,
       task: taskState,
       tag: tagState,
+      ...(repeatState.ids.length ? { taskRepeatCfg: repeatState } : {}),
       note: { ids: [], entities: {}, todayOrder: [] },
       boards: { boardCfgs: panels.length ? [{ id: 'wekan-board', title: boardTitle, cols: Math.min(panels.length, 4), panels }] : [] },
       archiveYoung: emptyArchive(),
