@@ -267,6 +267,8 @@ role exception is kept only where it restricts a role.
 
 </details>
 
+- [Templates stay templates: a WeKan template board, card, list or swimlane imports as one](https://github.com/wekan/wekan/commit/a4359731b1bed397e1616dd8289b0d437f8e7243). Thanks to xet7.
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
