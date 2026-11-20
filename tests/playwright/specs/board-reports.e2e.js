@@ -19,15 +19,22 @@ const DAY = 86400000;
 function seed(board, user) {
   const [first, second] = db.find('cards', { boardId: board.boardId });
   const now = Date.now();
+  // A Scrum release with a card, for the Release Burndown's table.
+  const releaseId = db.uid('rel');
+  db.insertOne('scrumReleases', { _id: releaseId, boardId: board.boardId, name: 'R1', state: 'planned', createdAt: new Date() });
+  db.updateOne('cards', { _id: second._id }, { $set: { 'scrum.releaseIds': [releaseId] } });
   db.updateOne('cards', { _id: first._id }, { $set: { createdAt: new Date(now - 20 * DAY), endAt: new Date(now - 3 * DAY),
     dueAt: new Date(now - 5 * DAY), assignees: [user.id] } });
   db.updateOne('cards', { _id: second._id }, { $set: { createdAt: new Date(now - 10 * DAY), parentId: first._id, assignees: [user.id],
     cardDependencies: [{ cardId: first._id, type: 'blocks' }] } });
 }
 
+test.afterEach(({ board }) => { db.deleteMany('scrumReleases', { boardId: board.boardId }); });
+
 for (const [slug, key] of REPORTS) {
   test(`${slug}: menu, chart, table, PDF and Excel`, async ({ page, user, board }) => {
     seed(board, user);
+    test.info().annotations.push({ type: 'report', description: key });
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
     await page.locator('.js-toggle-board-view').first().click();
