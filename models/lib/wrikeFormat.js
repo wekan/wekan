@@ -72,7 +72,7 @@ export const WRIKE_STATUSES = ['Active', 'Completed', 'Deferred', 'Cancelled'];
 export const WRIKE_PRIORITIES = ['High', 'Normal', 'Low'];
 // Wrike's own export stops at 65,000 rows.
 export const MAX_WRIKE_ROWS = 65000;
-import { pagingOf } from './exportPaging.js';
+import { pagingOf, blockersOf } from './exportPaging.js';
 const MAX_KEY = 999999;
 
 const ROLES = {
@@ -324,6 +324,7 @@ export function formatWrikeRows(collected = {}) {
   const rows = first ? [header] : [];
   const plan = wrikePlan(all);
   const { keyOf } = plan;
+  const blockers = blockersOf(all);
   let order = plan.order;
   if (collected.page) {
     // This page's cards, each with the folder row of its lane before the
@@ -355,7 +356,8 @@ export function formatWrikeRows(collected = {}) {
       'Start Date': day(item.startAt),
       Duration: fieldOf('duration') ? String(fields[fieldOf('duration')]) : '',
       'End Date': day(item.dueAt),
-      'Depends On': '',
+      // What the task waits for, as Wrike's <Key>FS, read back as is-blocked-by.
+      'Depends On': (blockers.get(item.cardId) || []).filter(id => keyOf.has(id)).map(id => `${keyOf.get(id)}FS`).join(', '),
       'Start Date Constraint': '',
       Description: item.description || '',
     };

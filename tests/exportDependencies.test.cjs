@@ -52,3 +52,35 @@ test('Taskwarrior: a card waits for what blocks it, as depends, whichever card t
   assert.deepStrictEqual(byTitle.C.depends, [taskwarriorUuid('a')], 'C is blocked by A; a card not exported is left out');
   assert.ok(!('depends' in byTitle.A), 'negative: A waits for nothing');
 });
+
+// Asana, OpenProject, Obsidian and Wrike say what a task waits for; each
+// export writes it the way its import reads it (2026-11-20).
+const waiting = [
+  { cardId: 'a', title: 'A', listTitle: 'To Do', labels: [], dependencies: [{ cardId: 'b', type: 'blocks' }] },
+  { cardId: 'b', title: 'B', listTitle: 'To Do', labels: [] },
+  { cardId: 'c', title: 'C', listTitle: 'To Do', labels: [], dependencies: [{ cardId: 'a', type: 'is-blocked-by' }, { cardId: 'gone', type: 'is-blocked-by' }] },
+];
+
+test('Asana, OpenProject, Obsidian and Wrike write what each card waits for', async () => {
+  const asana = fmt.asana({ items: waiting });
+  assert.deepStrictEqual(asana.data.map(t => t.dependencies || []), [[], [{ gid: 'a' }], [{ gid: 'a' }]]);
+
+  const op = fmt.openproject({ items: waiting });
+  const relations = op._embedded.elements.map(wp => ((wp._embedded || {}).relations || [])
+    .map(r => [r.type, r._links.from.href, r._links.to.href]));
+  assert.deepStrictEqual(relations, [[], [['blocked', '/api/v3/work_packages/2', '/api/v3/work_packages/1']],
+    [['blocked', '/api/v3/work_packages/3', '/api/v3/work_packages/1']]]);
+
+  const md = fmt.obsidian({ lists: [{ title: 'To Do' }], items: waiting });
+  assert.match(md, /- \[ \] A .*🆔 a/, 'A is waited for: its id');
+  assert.match(md, /- \[ \] B .*⛔ a/, 'B waits for A');
+  assert.doesNotMatch(md.split('\n').find(line => line.includes('] B')), /🆔/, 'negative: nobody waits for B');
+
+  const { formatWrikeRows } = await import('../models/lib/wrikeFormat.js');
+  const sheet = formatWrikeRows({ board: { title: 'T' }, items: waiting });
+  const at = name => sheet.rows[0].indexOf(name);
+  const byTitle = Object.fromEntries(sheet.rows.slice(1).map(row => [row[at('Title')], row]));
+  assert.strictEqual(byTitle.B[at('Depends On')], `${byTitle.A[at('Key')]}FS`);
+  assert.strictEqual(byTitle.C[at('Depends On')], `${byTitle.A[at('Key')]}FS`);
+  assert.strictEqual(byTitle.A[at('Depends On')], '', 'negative: A waits for nothing');
+});

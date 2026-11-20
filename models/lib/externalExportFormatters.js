@@ -10,7 +10,7 @@
 // startAt, endAt, createdAt, owner, assignees, creator, requestedBy, comments,
 // checklists, parentCardId and customFields. A format drops what it has no
 // field for; that is the honest answer, not a loss this module invents.
-import { pagingOf } from './exportPaging.js';
+import { pagingOf, blockersOf } from './exportPaging.js';
 import { formatMarkdownKanban } from './markdownKanbanFormat.js';
 import { formatLeo } from './leoOutlineFormat.js';
 import { formatTodoTxt } from './todoTxtFormat.js';
@@ -292,6 +292,7 @@ export const formatters = {
   openproject: collected => {
     const { items, all } = pagingOf(collected);
     const ids = numericIds(all);
+    const blockers = blockersOf(all);
     const planning = planningIndex(collected);
     const ranks = positions(all);
     const versions = [...planning.releases.values()].map(r => ({ _type: 'Version', id: r.number, name: r.name,
@@ -331,9 +332,15 @@ export const formatters = {
             ...(has(i.creator) ? { author: { title: i.creator } } : {}),
             ...(ids.has(i.parentCardId) ? { parent: { href: `/api/v3/work_packages/${ids.get(i.parentCardId)}` } } : {}),
           },
-          ...(list(i.comments).length ? { _embedded: { activities: i.comments.map(c => ({
-            _type: 'Activity::Comment', comment: { raw: c.text }, createdAt: c.date,
-            _links: { user: { title: c.author } } })) } } : {}),
+          // Comments as activities, and what the work package waits for as
+          // "blocked" relations from it, which the OpenProject import reads.
+          ...(list(i.comments).length || blockers.has(i.cardId) ? { _embedded: {
+            ...(list(i.comments).length ? { activities: i.comments.map(c => ({
+              _type: 'Activity::Comment', comment: { raw: c.text }, createdAt: c.date,
+              _links: { user: { title: c.author } } })) } : {}),
+            ...(blockers.has(i.cardId) ? { relations: blockers.get(i.cardId).map(on => ({ _type: 'Relation', type: 'blocked',
+              _links: { from: { href: `/api/v3/work_packages/${ids.get(i.cardId)}` }, to: { href: `/api/v3/work_packages/${ids.get(on)}` } } })) } : {}),
+          } } : {}),
         })),
       },
     };
@@ -429,8 +436,11 @@ export const formatters = {
     };
   },
   // Asana tasks (sections become the board columns).
-  asana: ({ items }) => ({
+  // A task's dependencies are what it waits for, as the Asana import reads
+  // them (models/lib/externalParsers.js parseAsana): over the whole board.
+  asana: collected => { const { items, all } = pagingOf(collected); const blockers = blockersOf(all); return {
     data: items.map(i => ({
+      ...(blockers.has(i.cardId) ? { dependencies: blockers.get(i.cardId).map(gid => ({ gid })) } : {}),
       gid: i.cardId,
       name: i.title,
       notes: i.description,
@@ -449,7 +459,7 @@ export const formatters = {
       ...(list(i.comments).length ? { stories: i.comments.map(c => ({
         resource_subtype: 'comment_added', text: c.text, created_by: { name: c.author }, created_at: c.date })) } : {}),
     })),
-  }),
+  }; },
   // ZenKit-style export (stages + items), the adapter shape the importer reads.
   zenkit: ({ board, lists, items }) => ({
     title: board.title,

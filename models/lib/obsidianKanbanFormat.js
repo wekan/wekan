@@ -47,7 +47,7 @@
 // Reported: 🔁 recurrence, ❌ cancelled dates, other frontmatter keys and
 // dates that do not match the date format. Wikilinks stay text.
 
-import { pagingOf, byListOrder, outlineMarks, markKey } from './exportPaging.js';
+import { pagingOf, byListOrder, outlineMarks, markKey, blockersOf } from './exportPaging.js';
 
 const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 const PRIORITY = { '🔺': 'Highest', '⏫': 'High', '🔼': 'Medium', '🔽': 'Low', '⏬': 'Lowest' };
@@ -275,6 +275,10 @@ export function formatObsidianKanban(collected) {
     .map(list => [list.title, list.wipLimit.value]));
   const ordered = collected.page ? pageItems : byListOrder(pageItems, titles);
   const { marks, lastKnown } = outlineMarks(collected.page ? all : ordered, titles);
+  // Dependencies as the Tasks plugin writes them, which the import reads: a
+  // card others wait for gets its 🆔, a card that waits ⛔ and their ids.
+  const blockers = blockersOf(collected.page ? all : pageItems);
+  const waitedFor = new Set([...blockers.values()].flat());
   const lane = index => `## ${titles[index]}${limits[titles[index]] ? ` (${limits[titles[index]]})` : ''}\n\n`;
   let out = first ? '---\n\nkanban-plugin: board\n\n---\n\n' : '';
   for (const item of ordered) {
@@ -297,6 +301,8 @@ export function formatObsidianKanban(collected) {
       if (item.startAt) parts.push(`🛫 ${day(item.startAt)}`);
       if (item.endAt) parts.push(`✅ ${day(item.endAt)}`);
       if (PRIORITY_EMOJI[fields.Priority]) parts.push(PRIORITY_EMOJI[fields.Priority]);
+      if (waitedFor.has(item.cardId)) parts.push(`🆔 ${item.cardId}`);
+      if (blockers.has(item.cardId)) parts.push(`⛔ ${blockers.get(item.cardId).join(',')}`);
       out += `- [${done ? 'x' : ' '}] ${parts.join(' ')}\n`;
       const body = [
         ...String(item.description || '').split(/\r\n|\r|\n/).filter((line, i, all) => line || i < all.length - 1),

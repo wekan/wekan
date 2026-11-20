@@ -28,7 +28,7 @@
 // either (its instances are ordinary tasks); both are reported, as is every
 // other attribute WeKan has no place for. Taskwarrior has no members.
 
-import { pagingOf } from './exportPaging.js';
+import { pagingOf, blockersOf } from './exportPaging.js';
 const COMPACT = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/;
 const PRIORITIES = ['H', 'M', 'L'];
 // Computed or bookkeeping attributes: nothing is lost by not importing them.
@@ -167,22 +167,8 @@ export function taskwarriorUuid(cardId) {
 export function formatTaskwarrior(collected) {
   const { items, all, offset, first, last } = pagingOf(collected);
   // What each card waits for, as Taskwarrior's depends (read back as "is
-  // blocked by"): the cards it is blocked by, and the cards whose
-  // dependency says they block it - over the whole board, whichever page.
-  const waitsFor = new Map();
-  const wait = (cardId, onId) => {
-    if (!cardId || !onId || cardId === onId) return;
-    if (!waitsFor.has(cardId)) waitsFor.set(cardId, new Set());
-    waitsFor.get(cardId).add(onId);
-  };
-  const exported = new Set(all.map(item => item.cardId));
-  for (const item of all) {
-    for (const dep of Array.isArray(item.dependencies) ? item.dependencies : []) {
-      if (!dep || !exported.has(dep.cardId)) continue;
-      if (dep.type === 'blocks') wait(dep.cardId, item.cardId);
-      else if (dep.type === 'is-blocked-by') wait(item.cardId, dep.cardId);
-    }
-  }
+  // blocked by"), over the whole board (models/lib/exportPaging.js blockersOf).
+  const waitsFor = blockersOf(all);
   const tasks = items.map(item => {
     const done = isClosed(item.listTitle);
     const labels = Array.isArray(item.labels) ? item.labels : [];
@@ -202,7 +188,7 @@ export function formatTaskwarrior(collected) {
     if (project) task.project = project[1];
     if (priority) task.priority = priority[1];
     if (tags.length) task.tags = tags;
-    if (waitsFor.has(item.cardId)) task.depends = [...waitsFor.get(item.cardId)].map(id => taskwarriorUuid(id));
+    if (waitsFor.has(item.cardId)) task.depends = waitsFor.get(item.cardId).map(id => taskwarriorUuid(id));
     const annotations = (Array.isArray(item.comments) ? item.comments : [])
       .filter(comment => comment && typeof comment.text === 'string' && comment.text.trim())
       .map(comment => ({ ...(compactDate(comment.date) ? { entry: compactDate(comment.date) } : {}),

@@ -98,3 +98,27 @@ export function byListIdOrder(all, listIds, unknownBy = item => item.listId || '
     .sort((a, b) => (rank.get(keyOf(a.item)) - rank.get(keyOf(b.item))) || (a.index - b.index))
     .map(({ item }) => item);
 }
+
+// What each card waits for, over the whole board: cardId -> [cardIds it is
+// blocked by], from a dependency stored on either card ("A blocks B" on A is
+// "B is blocked by A"), for the formats whose dependency says what a task
+// waits for (Taskwarrior's depends, Asana's dependencies, Obsidian's ⛔,
+// Wrike's Depends On, OpenProject's blocked relation). A card that is not
+// exported is left out.
+export function blockersOf(all) {
+  const exported = new Set((all || []).map(item => item.cardId));
+  const waits = new Map();
+  const wait = (cardId, onId) => {
+    if (!cardId || !onId || cardId === onId || !exported.has(cardId) || !exported.has(onId)) return;
+    if (!waits.has(cardId)) waits.set(cardId, []);
+    if (!waits.get(cardId).includes(onId)) waits.get(cardId).push(onId);
+  };
+  for (const item of all || []) {
+    for (const dep of Array.isArray(item.dependencies) ? item.dependencies : []) {
+      if (!dep) continue;
+      if (dep.type === 'blocks') wait(dep.cardId, item.cardId);
+      else if (dep.type === 'is-blocked-by') wait(item.cardId, dep.cardId);
+    }
+  }
+  return waits;
+}
