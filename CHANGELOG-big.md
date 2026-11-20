@@ -223,6 +223,7 @@ of the description; the export writes them back.
 
 </details>
 
+- [Nextcloud Deck labels keep their colors instead of coming in black](https://github.com/wekan/wekan/commit/22d000b9136b11a4f8030d0e5d42e77518a70f64). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
