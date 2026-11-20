@@ -16,8 +16,9 @@ import { pagingOf, listTitlesOf, byListOrder, outlineMarks, joinPage, markKey } 
 // The same terminal-list heuristic the markdown and Leo formatters use.
 const isClosed = listTitle => /done|closed|complete|archiv|finished/i.test(listTitle || '');
 
-const outline = (text, { note, done, kids = [] }, indent) => {
-  const attrs = `text="${escapeAttr(text)}"${note ? ` _note="${escapeAttr(note)}"` : ''}${done ? ' _complete="true"' : ''}`;
+const outline = (text, { note, done, created, category, kids = [] }, indent) => {
+  const attrs = `text="${escapeAttr(text)}"${note ? ` _note="${escapeAttr(note)}"` : ''}${done ? ' _complete="true"' : ''}`
+    + `${created ? ` created="${escapeAttr(created)}"` : ''}${category ? ` category="${escapeAttr(category)}"` : ''}`;
   return kids.length
     ? `${indent}<outline ${attrs}>\n${kids.map(k => k(`${indent}  `)).join('\n')}\n${indent}</outline>`
     : `${indent}<outline ${attrs}/>`;
@@ -51,6 +52,10 @@ export function formatOpml(collected) {
     lines.push(outline(i.title, {
       note: i.description || '',
       done: isClosed(i.listTitle),
+      // OPML 2.0: created is an RFC 822 date, category comma-separated.
+      created: i.createdAt && !Number.isNaN(new Date(i.createdAt).getTime()) ? new Date(i.createdAt).toUTCString() : '',
+      category: (Array.isArray(i.labels) ? i.labels : []).filter(name => name && name !== 'done')
+        .map(name => String(name).replace(/,/g, ' ').trim()).filter(Boolean).join(','),
       kids: (Array.isArray(i.checklists) ? i.checklists : []).map(c => ind => outline(c.title, {
         kids: (Array.isArray(c.items) ? c.items : []).map(x => ii => outline(x.title, { done: Boolean(x.done) }, ii)),
       }, ind)),

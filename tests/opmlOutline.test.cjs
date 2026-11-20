@@ -40,7 +40,32 @@ async function main() {
       { title: 'Order valves', items: [{ title: 'Measure', done: true }, { title: 'Call vendor', done: false }] },
       { title: 'Fitting', items: [{ title: 'Seal', done: false }, { title: 'Bolts', done: true }, { title: 'M12', done: false }] },
     ], 'Workflowy\'s _complete and Dynalist\'s complete');
-    assert.deepEqual(unsupported.map(u => u.reason), ['OPML url has no WeKan field', 'a list note has no WeKan field']);
+    // A link has a place now: the end of the description, so it is not reported.
+    assert.equal(tasks[1].description, 'https://example.com/manual');
+    assert.deepEqual(unsupported.map(u => u.reason), ['a list note has no WeKan field']);
+  });
+
+  await test('OPML 2.0 created and category, and an outliner\'s own attributes, are kept; the export writes created and category', () => {
+    const { tasks, unsupported } = parseOpml(`<opml version="2.0"><body><outline text="L">
+  <outline text="Card" type="link" isComment="false" created="Mon, 31 Aug 2026 12:00:00 GMT" category="/Work/Pumps, urgent" Status="Open" _Estimate="3">
+    <outline text="Item" Owner="ann"/>
+  </outline></outline></body></opml>`);
+    const [card] = tasks;
+    assert.equal(card.date_creation, '2026-08-31T12:00:00.000Z');
+    assert.deepEqual(card.tags, ['Work/Pumps', 'urgent']);
+    assert.deepEqual(card.custom_fields, { Status: 'Open', Estimate: '3' });
+    // Negative: an attribute of a checklist item has no place, and is said so;
+    // type and isComment only say how a row is drawn.
+    assert.deepEqual(unsupported.map(u => u.reason), ['OPML Owner of "Item" has no WeKan field']);
+    const bad = parseOpml('<opml><body><outline text="L"><outline text="C" created="soon"/></outline></body></opml>');
+    assert.equal(bad.tasks[0].date_creation, undefined);
+    assert.match(bad.unsupported[0].reason, /created "soon" is not a date/);
+    const opml = formatOpml({ board: { title: 'B' }, lists: [{ title: 'L' }], items: [
+      { cardId: 'c', listTitle: 'L', title: 'Card', createdAt: '2026-08-31T12:00:00.000Z', labels: ['Work', 'a,b', 'done'] }] });
+    assert.match(opml, /created="Mon, 31 Aug 2026 12:00:00 GMT" category="Work,a b"/);
+    const back = parseOpml(opml).tasks[0];
+    assert.equal(back.date_creation, '2026-08-31T12:00:00.000Z');
+    assert.deepEqual(back.tags, ['Work', 'a b']);
   });
 
   await test('a board exported to OPML imports back with lists, cards, notes, done state and checklists', () => {

@@ -97,7 +97,12 @@ What the import must cover:
 - deeper outlines become checklists, with their descendants as items
   (completed = finished);
 - the head title becomes the board title;
-- a list's note and `url` / `htmlUrl` / `xmlUrl` links are reported.
+- on a card, OPML 2.0's `created` becomes the creation date and `category`
+  the labels, a `url` / `htmlUrl` / `xmlUrl` link goes at the end of the
+  description, and any other attribute (OmniOutliner writes its columns this
+  way) becomes a custom field;
+- a list's note, and an attribute of a list or a checklist item, are
+  reported.
 
 The export writes the same, with Workflowy's attribute names. Line breaks in
 notes survive as `&#10;`. The file is parsed on the server only, and DTDs and
@@ -122,9 +127,10 @@ What the export writes (`models/lib/opmlOutlineFormat.js`):
 - `<opml version="2.0">` with the board title in `<head><title>`;
 - each list as a top-level `<outline text="…">`, including lists without
   cards;
-- each card as a child outline, with its description as `_note` and
+- each card as a child outline, with its description as `_note`,
   `_complete="true"` when its list's name looks finished (contains "done",
-  "closed", "complete", "archiv" or "finished");
+  "closed", "complete", "archiv" or "finished"), its creation date as
+  `created` (RFC 822) and its labels as `category`;
 - each checklist as a child of the card, with its items as children,
   `_complete="true"` when finished.
 
@@ -140,6 +146,10 @@ reader gives them back. Archived cards and archived lists are not exported.
 | Level 2 outline: `text` (or `title`) | Card title |
 | Level 2 outline: `_note` | Card description |
 | Level 2 outline: `_complete` / `complete` = true | Card with the label `done` |
+| Level 2 outline: `created` | Creation date |
+| Level 2 outline: `category` (comma-separated, leading `/` taken off) | Labels |
+| Level 2 outline: `url`, `htmlUrl`, `xmlUrl` | A link at the end of the description |
+| Level 2 outline: any other attribute | Custom field of that name (a leading `_` taken off) |
 | Level 3 outline with children | Checklist, its descendants the items |
 | Level 3 outline without children | Item of a checklist named after the card |
 | Completed item | Finished checklist item |
@@ -149,14 +159,17 @@ reader gives them back. Archived cards and archived lists are not exported.
 The import reports these on the loss report:
 
 - a `_note` on a top-level (list) outline;
-- `url`, `htmlUrl` and `xmlUrl` attributes, on any outline;
+- an attribute of a list or a checklist item other than its text and
+  complete state;
+- a `created` that is not a date;
 - outlines deeper than 64 levels.
 
-Other attributes, such as `created`, are not read.
+`type`, `isComment` and `isBreakpoint` only say how an outliner draws a row,
+and are not read.
 
-The OPML export writes only lists, cards, notes, the complete state and
-checklists. It does not write swimlanes, labels, dates, members, comments,
-custom fields or attachments.
+The OPML export writes lists, cards, notes, the complete state, the creation
+date, labels and checklists. It does not write swimlanes, other dates,
+members, comments, custom fields or attachments.
 
 ## REST API
 

@@ -53,7 +53,7 @@ const KEEPS = {
   taiga: ['description', 'comment', 'label', 'due'],
   markdown: ['description'],
   leo: ['description', 'checklist'],
-  opml: ['description', 'checklist'],
+  opml: ['description', 'checklist', 'label'],
   orgmode: ['description', 'checklist', 'label', 'due'],
   todotxt: ['label', 'due'],
   taskwarrior: ['description', 'comment', 'dependency', 'label', 'due'],

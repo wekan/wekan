@@ -18,9 +18,17 @@
 //                              = finished); a level 3 outline with no children
 //                              is an item of a checklist named after the card
 //   head/title              -> board title
+// and, on a card (OPML 2.0 and the outliners' own):
+//   created                 -> creation date (an RFC 822 date)
+//   category                -> labels, one per comma-separated category, its
+//                              leading "/" taken off
+//   url / htmlUrl / xmlUrl  -> a link line at the end of the description
+//   any other attribute     -> a custom field of that name (OmniOutliner
+//                              writes its columns this way)
 //
-// A note on a list, and a link (url / htmlUrl / xmlUrl) have no WeKan field
-// and are reported.
+// A note on a list, and an attribute of a list or a checklist item other than
+// text and complete, have no WeKan field and are reported. type, isComment and
+// isBreakpoint are how an outliner draws a row, not data.
 import { parseDocument } from 'htmlparser2';
 
 export const MAX_OPML_LENGTH = 16 * 1024 * 1024;
@@ -29,6 +37,9 @@ export const MAX_OPML_LENGTH = 16 * 1024 * 1024;
 const MAX_OPML_DEPTH = 64;
 export const MAX_OPML_NODES = 100000;
 const LINKS = ['url', 'htmlUrl', 'xmlUrl'];
+// Read into a node's own fields, or only how an outliner draws it.
+const READ = new Set(['text', 'title', '_note', '_complete', 'complete', 'created', 'category', ...LINKS]);
+const DRAWING = new Set(['type', 'isComment', 'isBreakpoint']);
 
 const elements = node => (node && node.children ? node.children.filter(c => c.type === 'tag') : []);
 const child = (node, name) => elements(node).find(c => c.name === name);
@@ -68,11 +79,10 @@ export function parseOpml(text) {
       text: String(attribs.text != null ? attribs.text : attribs.title || '').trim(),
       note: String(attribs._note || ''),
       done: isComplete(attribs),
+      attribs,
+      at,
       children: [],
     };
-    for (const name of LINKS) {
-      if (attribs[name]) unsupported.push({ path: `${at}/@${name}`, reason: `OPML ${name} has no WeKan field` });
-    }
     const kids = elements(outline).filter(c => c.name === 'outline');
     if (depth >= MAX_OPML_DEPTH) {
       if (kids.length) unsupported.push({ path: at, reason: `outline deeper than ${MAX_OPML_DEPTH} levels` });
@@ -85,9 +95,29 @@ export function parseOpml(text) {
 
   const descendants = node => node.children.flatMap(c => [c, ...descendants(c)]);
   const tasks = [];
+  // What is left of an outline that is not a card: reported.
+  const reportRest = (node, kept) => {
+    for (const name of Object.keys(node.attribs)) {
+      if (kept.has(name) || DRAWING.has(name) || !String(node.attribs[name]).trim()) continue;
+      unsupported.push({ path: `${node.at}/@${name}`, reason: `OPML ${name} of "${node.text}" has no WeKan field` });
+    }
+  };
   roots.forEach((listNode, li) => {
     if (listNode.note.trim()) unsupported.push({ path: `/outline/${li + 1}/@_note`, reason: 'a list note has no WeKan field' });
+    reportRest(listNode, new Set(['text', 'title', '_note']));
     listNode.children.forEach(cardNode => {
+      descendants(cardNode).forEach(item => reportRest(item, new Set(['text', 'title', '_complete', 'complete'])));
+      const attribs = cardNode.attribs;
+      const created = attribs.created ? new Date(String(attribs.created)) : null;
+      if (attribs.created && Number.isNaN(created.getTime())) {
+        unsupported.push({ path: `${cardNode.at}/@created`, reason: `OPML created "${attribs.created}" is not a date` });
+      }
+      const categories = String(attribs.category || '').split(',')
+        .map(name => name.trim().replace(/^\/+/, '').trim()).filter(Boolean);
+      const links = LINKS.map(name => String(attribs[name] || '').trim()).filter(Boolean);
+      const custom = Object.fromEntries(Object.entries(attribs)
+        .filter(([name, value]) => !READ.has(name) && !DRAWING.has(name) && String(value).trim())
+        .map(([name, value]) => [name.replace(/^_/, ''), String(value).trim()]));
       const loose = cardNode.children.filter(c => !c.children.length);
       const checklists = [
         ...(loose.length ? [{ title: cardNode.text || 'Checklist', items: loose.map(c => ({ title: c.text, done: c.done })) }] : []),
@@ -98,10 +128,12 @@ export function parseOpml(text) {
       ];
       tasks.push({
         title: cardNode.text || 'Imported item',
-        description: cardNode.note,
+        description: [cardNode.note, ...links.filter(link => !cardNode.note.includes(link))].filter(Boolean).join('\n\n'),
         column_name: listNode.text || 'Imported',
         swimlane_name: 'Default',
-        tags: cardNode.done ? ['done'] : [],
+        tags: [...new Set([...(cardNode.done ? ['done'] : []), ...categories])],
+        ...(created && !Number.isNaN(created.getTime()) ? { date_creation: created.toISOString() } : {}),
+        ...(Object.keys(custom).length ? { custom_fields: custom } : {}),
         ...(checklists.length ? { checklists } : {}),
       });
     });
