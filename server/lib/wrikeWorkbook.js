@@ -45,4 +45,36 @@ async function writeWrikeWorkbook({ sheet, rows }) {
   return Buffer.from(await workbook.xlsx.writeBuffer());
 }
 
-module.exports = { readWrikeWorkbook, writeWrikeWorkbook };
+// The same workbook written to `stream` a page at a time, from an async
+// iterable of formatWrikeRows()'s pages ({ sheet, rows }, the header on the
+// first): ExcelJS's streaming writer commits each row as it comes, the date
+// columns made date cells as above.
+async function streamWrikeWorkbook(stream, pages) {
+  const ExcelJS = require('@wekanteam/exceljs');
+  const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream, useStyles: true });
+  let worksheet = null;
+  let dateAt = [];
+  for await (const { sheet, rows } of pages) {
+    for (const cells of rows || []) {
+      if (!worksheet) {
+        worksheet = workbook.addWorksheet(sheet || 'Tasks');
+        dateAt = (cells || []).map((title, index) => (DATE_COLUMNS.includes(String(title).trim().toLowerCase()) ? index : -1))
+          .filter(index => index !== -1);
+        dateAt.forEach(index => { worksheet.getColumn(index + 1).numFmt = 'yyyy-mm-dd'; });
+        const header = worksheet.addRow(cells);
+        header.font = { bold: true };
+        header.commit();
+        continue;
+      }
+      worksheet.addRow((cells || []).map((value, index) => {
+        const iso = dateAt.includes(index) && /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value));
+        return iso ? new Date(Date.UTC(+iso[1], +iso[2] - 1, +iso[3])) : value;
+      })).commit();
+    }
+  }
+  if (!worksheet) workbook.addWorksheet('Tasks');
+  else await worksheet.commit();
+  await workbook.commit();
+}
+
+module.exports = { readWrikeWorkbook, writeWrikeWorkbook, streamWrikeWorkbook };

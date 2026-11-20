@@ -32,4 +32,8 @@ async function writeMondayWorkbook({ sheets }) {
   return Buffer.from(await workbook.xlsx.writeBuffer());
 }
 
-module.exports = { readMondayWorkbook, writeMondayWorkbook };
+// The same workbook written to `stream` a page at a time
+// (server/lib/streamSheetWorkbook.js).
+const streamMondayWorkbook = (stream, pages) => require('./streamSheetWorkbook').streamSheetWorkbook(stream, pages);
+
+module.exports = { readMondayWorkbook, writeMondayWorkbook, streamMondayWorkbook };

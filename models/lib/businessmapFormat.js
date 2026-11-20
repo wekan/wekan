@@ -56,6 +56,7 @@
 import { NAMED_COLOR_HEX } from './contrastColor.js';
 
 export const BUSINESSMAP_PRIORITIES = ['low', 'average', 'high', 'critical'];
+import { pagingOf } from './exportPaging.js';
 const LINK_TYPES = {
   parent: 'parents', parents: 'parents',
   child: 'children', children: 'children',
@@ -371,10 +372,15 @@ const ROLE_FIELDS = new Set(Object.values(FIELD_OF_ROLE));
 // updates that existing Businessmap card; WeKan's own ids are not Businessmap
 // ids. Columns no card has a value for are left out, other custom fields
 // follow by name, and comments go to repeated Comment columns.
-export function formatBusinessmapSheets({ board, items }) {
-  const list = Array.isArray(items) ? items : [];
-  const cardIdOf = new Map(list.map(item => [item.cardId, (item.customFields || {})['Card ID']]));
-  const rows = list.map(item => {
+// The whole board, or one page of it (models/lib/exportPaging.js): the
+// columns - the optional ones any card fills, the comment columns, the other
+// custom fields - and each parent's Card ID come from the whole board; the
+// header is written on the first page.
+export function formatBusinessmapSheets(collected = {}) {
+  const { board } = collected;
+  const { items: list, all, first } = pagingOf(collected);
+  const cardIdOf = new Map(all.map(item => [item.cardId, (item.customFields || {})['Card ID']]));
+  const rowOf = item => {
     const fields = item.customFields || {};
     const color = typeof item.color === 'string'
       ? (/^#[0-9a-fA-F]{6}$/.test(item.color) ? item.color.toUpperCase() : (NAMED_COLOR_HEX[item.color] || '').toUpperCase()) : '';
@@ -411,17 +417,19 @@ export function formatBusinessmapSheets({ board, items }) {
         .filter(([name]) => !ROLE_FIELDS.has(name) && !businessmapRole(name))
         .map(([name, value]) => [name, cellValue(value)])),
     };
-  });
+  };
+  const rows = list.map(rowOf);
+  const allRows = collected.page ? all.map(rowOf) : rows;
   const always = ['Title', 'Description', 'Column', 'Lane', 'Owner', 'Co-Owners', 'Tags', 'Deadline', 'Color'];
   const optional = ['Card ID', 'Custom Card ID', 'Workflow name', 'Priority', 'Size', 'Type', 'Start Date', 'End Date', 'Planned Start', 'Planned End', 'Track', 'Parent'];
   const order = ['Card ID', 'Custom Card ID', 'Title', 'Description', 'Workflow name', 'Column', 'Lane', 'Owner', 'Co-Owners',
     'Priority', 'Color', 'Size', 'Tags', 'Deadline', 'Start Date', 'End Date', 'Type', 'Planned Start', 'Planned End', 'Track', 'Parent'];
-  const named = order.filter(name => always.includes(name) || (optional.includes(name) && rows.some(row => row[name] !== '')));
+  const named = order.filter(name => always.includes(name) || (optional.includes(name) && allRows.some(row => row[name] !== '')));
   const extra = [];
-  rows.forEach(row => Object.keys(row.extra).forEach(name => { if (!extra.includes(name)) extra.push(name); }));
-  const commentColumns = Math.max(0, ...rows.map(row => row.comments.length));
+  allRows.forEach(row => Object.keys(row.extra).forEach(name => { if (!extra.includes(name)) extra.push(name); }));
+  const commentColumns = allRows.reduce((most, row) => Math.max(most, row.comments.length), 0);
   const header = [...named, ...Array(commentColumns).fill('Comment'), ...extra];
-  const out = [header];
+  const out = first ? [header] : [];
   for (const row of rows) {
     out.push([
       ...named.map(name => row[name]),

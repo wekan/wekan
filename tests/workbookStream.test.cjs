@@ -122,3 +122,104 @@ test('Planner: the plan\'s head on the first page, each card\'s row after it, an
   assert.deepStrictEqual(norm(await back(Buffer.concat(chunks))), norm(await back(await writePlannerWorkbook(whole))));
   assert.match(read('server/lib/renderExternalExport.js'), /planner: \{\n\s+order: \(\) => null,\n\s+write: \(\) => require\('\/server\/lib\/plannerWorkbook'\)\.streamPlannerWorkbook,/);
 });
+
+test('monday.com: the custom field columns over the whole board, and the stream reads back the same', async () => {
+  const monday = await import('../models/lib/mondayFormat.js');
+  const fielded = items.map((item, i) => ({ ...item, customFields: i === 4 ? { Cost: 7 } : {} }));
+  const lightFielded = fielded.map(item => ({ ...item, description: '' }));
+  const whole = monday.formatMondaySheets({ board, items: fielded });
+  const rows = [];
+  for (let n = 0; n < 3; n += 1) {
+    rows.push(...monday.formatMondaySheets({ board, items: fielded.slice(n * 2, n * 2 + 2),
+      page: { all: lightFielded, offset: n * 2, first: n === 0, last: n === 2 } }).sheets[0].rows);
+  }
+  assert.deepStrictEqual(rows, whole.sheets[0].rows);
+  assert.ok(whole.sheets[0].rows[0].includes('Cost'), 'a column that only a later page\'s card has is in the header');
+  const { writeMondayWorkbook, streamMondayWorkbook, readMondayWorkbook } = require('../server/lib/mondayWorkbook');
+  const sink = new PassThrough();
+  const chunks = [];
+  sink.on('data', chunk => chunks.push(chunk));
+  async function* pages() {
+    for (let n = 0; n < 3; n += 1) {
+      yield monday.formatMondaySheets({ board, items: fielded.slice(n * 2, n * 2 + 2), page: { all: lightFielded, offset: n * 2, first: n === 0, last: n === 2 } });
+    }
+  }
+  await streamMondayWorkbook(sink, pages());
+  await new Promise(resolve => setImmediate(resolve));
+  // An empty cell is left out by the streaming writer and '' in the whole one.
+  const norm = sheets => sheets.map(sheet => ({ ...sheet, rows: sheet.rows.map(row => {
+    const cells = Array.from(row, value => (value === undefined || value === null ? '' : value));
+    while (cells.length && cells[cells.length - 1] === '') cells.pop();
+    return cells;
+  }) }));
+  const back = async buffer => norm(await readMondayWorkbook(buffer.toString('base64')));
+  assert.deepStrictEqual(await back(Buffer.concat(chunks)), await back(await writeMondayWorkbook(whole)));
+});
+
+test('Businessmap: columns found over the whole board, a parent named from another page, the stream reads back the same', async () => {
+  const bm = await import('../models/lib/businessmapFormat.js');
+  const rich = items.map((item, i) => ({ ...item, customFields: { 'Card ID': 100 + i, ...(i === 5 ? { Track: 'Fast', Effort: 3 } : {}) },
+    comments: i === 4 ? [{ text: 'One', author: 'ann' }, { text: 'Two', author: 'bob' }] : [] }));
+  const lightRich = rich.map(item => ({ ...item, description: '', comments: item.comments.map(c => ({ ...c, text: '·' })) }));
+  const whole = bm.formatBusinessmapSheets({ board, items: rich });
+  const pageOf = n => bm.formatBusinessmapSheets({ board, items: rich.slice(n * 2, n * 2 + 2), page: { all: lightRich, offset: n * 2, first: n === 0, last: n === 2 } });
+  assert.deepStrictEqual([0, 1, 2].flatMap(n => pageOf(n).sheets[0].rows), whole.sheets[0].rows);
+  const header = whole.sheets[0].rows[0];
+  assert.ok(header.includes('Track') && header.includes('Effort') && header.filter(h => h === 'Comment').length === 2,
+    'what only the last page\'s cards have is a column from the first page on');
+  const { writeBusinessmapWorkbook, streamBusinessmapWorkbook, readBusinessmapWorkbook } = require('../server/lib/businessmapWorkbook');
+  const sink = new PassThrough();
+  const chunks = [];
+  sink.on('data', chunk => chunks.push(chunk));
+  async function* pages() { for (const n of [0, 1, 2]) yield pageOf(n); }
+  await streamBusinessmapWorkbook(sink, pages());
+  await new Promise(resolve => setImmediate(resolve));
+  const norm = sheets => sheets.map(sheet => ({ ...sheet, rows: sheet.rows.map(row => {
+    const cells = Array.from(row, value => (value === undefined || value === null ? '' : value));
+    while (cells.length && cells[cells.length - 1] === '') cells.pop();
+    return cells;
+  }) }));
+  const back = async buffer => norm(await readBusinessmapWorkbook(buffer.toString('base64')));
+  assert.deepStrictEqual(await back(Buffer.concat(chunks)), await back(await writeBusinessmapWorkbook(whole)));
+  const render = read('server/lib/renderExternalExport.js');
+  for (const format of ['teamwork', 'planner', 'monday', 'businessmap']) assert.match(render, new RegExp(`\\n  ${format}: \\{\\n\\s+order: `), `${format} is streamed`);
+});
+
+test('Wrike: the lanes\' folder rows before their first cards, every key the whole board\'s, the stream reads back the same', async () => {
+  const wrike = await import('../models/lib/wrikeFormat.js');
+  const laned = items.map((item, i) => ({ ...item, swimlaneTitle: ['Default', 'Ops', 'Default', 'Ops', 'Web', 'Default'][i],
+    customFields: i === 5 ? { Cost: 9 } : {} }));
+  const lightLaned = laned.map(item => ({ ...item, description: '' }));
+  const all = wrike.wrikePageOrder(lightLaned);
+  const full = new Map(laned.map(item => [item.cardId, item]));
+  const whole = wrike.formatWrikeRows({ board, items: laned });
+  for (const size of [1, 2, 4, 100]) {
+    const pages = Math.max(1, Math.ceil(all.length / size));
+    const rows = [];
+    for (let n = 0; n < pages; n += 1) {
+      rows.push(...wrike.formatWrikeRows({ board, items: all.slice(n * size, (n + 1) * size).map(item => full.get(item.cardId)),
+        page: { all, offset: n * size, first: n === 0, last: n === pages - 1 } }).rows);
+    }
+    assert.deepStrictEqual(rows, whole.rows, `${size} card(s) a page`);
+  }
+  const titles = whole.rows.slice(1).map(row => row[whole.rows[0].indexOf('Title')]);
+  assert.deepStrictEqual(titles, ['Epic', 'Other list child', 'Loop two', '/Ops/', 'Child', 'Grandchild', '/Web/', 'Loop one']);
+  const { writeWrikeWorkbook, streamWrikeWorkbook, readWrikeWorkbook } = require('../server/lib/wrikeWorkbook');
+  const sink = new PassThrough();
+  const chunks = [];
+  sink.on('data', chunk => chunks.push(chunk));
+  async function* pages() {
+    for (let n = 0; n < 3; n += 1) {
+      yield wrike.formatWrikeRows({ board, items: all.slice(n * 2, n * 2 + 2).map(item => full.get(item.cardId)), page: { all, offset: n * 2, first: n === 0, last: n === 2 } });
+    }
+  }
+  await streamWrikeWorkbook(sink, pages());
+  await new Promise(resolve => setImmediate(resolve));
+  const norm = rows => rows.map(row => {
+    const cells = Array.from(row, value => (value === undefined || value === null ? '' : value instanceof Date ? value.toISOString() : value));
+    while (cells.length && cells[cells.length - 1] === '') cells.pop();
+    return cells;
+  });
+  const back = async buffer => norm(await readWrikeWorkbook(buffer.toString('base64')));
+  assert.deepStrictEqual(await back(Buffer.concat(chunks)), await back(await writeWrikeWorkbook(whole)));
+});

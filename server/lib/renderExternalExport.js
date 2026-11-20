@@ -228,6 +228,22 @@ const STREAMED_WORKBOOKS = {
     order: () => require('/models/lib/teamworkFormat').teamworkPageOrder,
     write: () => require('/server/lib/teamworkWorkbook').streamTeamworkWorkbook,
   },
+  // monday.com: one sheet, its custom field columns counted over the board.
+  monday: {
+    order: () => null,
+    write: () => require('/server/lib/mondayWorkbook').streamMondayWorkbook,
+  },
+  // Wrike: the Default lane's cards, then each lane's folder row and cards,
+  // planned over the whole board.
+  wrike: {
+    order: () => require('/models/lib/wrikeFormat').wrikePageOrder,
+    write: () => require('/server/lib/wrikeWorkbook').streamWrikeWorkbook,
+  },
+  // Businessmap: one sheet, its columns found over the whole board.
+  businessmap: {
+    order: () => null,
+    write: () => require('/server/lib/businessmapWorkbook').streamBusinessmapWorkbook,
+  },
   // Planner's rows stand on their own: the cards in board order.
   planner: {
     order: () => null,

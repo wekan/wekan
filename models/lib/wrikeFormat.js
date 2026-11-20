@@ -72,6 +72,7 @@ export const WRIKE_STATUSES = ['Active', 'Completed', 'Deferred', 'Cancelled'];
 export const WRIKE_PRIORITIES = ['High', 'Normal', 'Low'];
 // Wrike's own export stops at 65,000 rows.
 export const MAX_WRIKE_ROWS = 65000;
+import { pagingOf } from './exportPaging.js';
 const MAX_KEY = 999999;
 
 const ROLES = {
@@ -275,25 +276,15 @@ const PRIORITY_ALIASES = { urgent: 'High', highest: 'High', high: 'High', medium
 // the board - the one the "Wrike workflow" export describes, which has to
 // exist in Wrike for its import to use it - and each folder row makes that
 // workflow its tasks' default.
-export function formatWrikeRows({ board, items, lists, workflowRules }) {
-  const list = Array.isArray(items) ? items : [];
-  const boardLists = Array.isArray(lists) && lists.length ? lists
-    : [...new Set(list.map(item => item.listTitle).filter(Boolean))].map(title => ({ title }));
-  const { workflow, statusOf } = wrikeWorkflowFromBoard({ boardTitle: board && board.title, lists: boardLists, rules: workflowRules });
-  const workflowName = workflow.data[0].name;
-  const extra = [];
-  for (const item of list) {
-    for (const name of Object.keys(item.customFields || {})) {
-      if (!extra.includes(name) && !roleOf(name) && !['priority', 'duration'].includes(name.toLowerCase())) extra.push(name);
-    }
-  }
-  const header = [...WRIKE_EXPORT_COLUMNS, ...extra];
-  const rows = [header];
+// Wrike's rows in order, over the whole board: the cards of the Default lane
+// first, then each other lane's folder row and its cards; each row's Key.
+// From the board's light first pass when written a page at a time, so every
+// page knows each card's key and where a lane's folder row goes.
+export function wrikePlan(cards) {
+  const list = Array.isArray(cards) ? cards : [];
+  const laneOf = item => (item.swimlaneTitle && item.swimlaneTitle !== 'Default' ? item.swimlaneTitle : 'Default');
   const lanes = [];
-  for (const item of list) {
-    const lane = item.swimlaneTitle && item.swimlaneTitle !== 'Default' ? item.swimlaneTitle : 'Default';
-    if (!lanes.includes(lane)) lanes.push(lane);
-  }
+  for (const item of list) if (!lanes.includes(laneOf(item))) lanes.push(laneOf(item));
   // Default first: its cards need no folder row.
   lanes.sort((a, b) => (a === 'Default' ? -1 : b === 'Default' ? 1 : 0));
   const keyOf = new Map();
@@ -302,11 +293,46 @@ export function formatWrikeRows({ board, items, lists, workflowRules }) {
   for (const lane of lanes) {
     if (lane !== 'Default') order.push({ folder: lane, key: next++ });
     for (const item of list) {
-      const itemLane = item.swimlaneTitle && item.swimlaneTitle !== 'Default' ? item.swimlaneTitle : 'Default';
-      if (itemLane !== lane) continue;
+      if (laneOf(item) !== lane) continue;
       keyOf.set(item.cardId, next);
       order.push({ item, key: next++ });
     }
+  }
+  return { order, keyOf };
+}
+
+// The cards in the order the pages come (server/lib/renderExternalExport.js).
+export const wrikePageOrder = all => wrikePlan(all).order.filter(entry => entry.item).map(entry => entry.item);
+
+// The whole board, or one page of it (models/lib/exportPaging.js; the pages
+// come in wrikePageOrder): the header on the first page, a lane's folder row
+// before its first card, each row's Key the whole board's.
+export function formatWrikeRows(collected = {}) {
+  const { board, lists, workflowRules } = collected;
+  const { items, all, first } = pagingOf(collected);
+  const boardLists = Array.isArray(lists) && lists.length ? lists
+    : [...new Set(all.map(item => item.listTitle).filter(Boolean))].map(title => ({ title }));
+  const { workflow, statusOf } = wrikeWorkflowFromBoard({ boardTitle: board && board.title, lists: boardLists, rules: workflowRules });
+  const workflowName = workflow.data[0].name;
+  const extra = [];
+  for (const item of all) {
+    for (const name of Object.keys(item.customFields || {})) {
+      if (!extra.includes(name) && !roleOf(name) && !['priority', 'duration'].includes(name.toLowerCase())) extra.push(name);
+    }
+  }
+  const header = [...WRIKE_EXPORT_COLUMNS, ...extra];
+  const rows = first ? [header] : [];
+  const plan = wrikePlan(all);
+  const { keyOf } = plan;
+  let order = plan.order;
+  if (collected.page) {
+    // This page's cards, each with the folder row of its lane before the
+    // lane's first card.
+    const onPage = new Set(items.map(item => item.cardId));
+    const full = new Map(items.map(item => [item.cardId, item]));
+    order = plan.order.filter((entry, i) => (entry.item ? onPage.has(entry.item.cardId)
+      : plan.order[i + 1] && plan.order[i + 1].item && onPage.has(plan.order[i + 1].item.cardId)))
+      .map(entry => (entry.item ? { ...entry, item: full.get(entry.item.cardId) } : entry));
   }
   for (const { folder, item, key } of order) {
     if (folder) {

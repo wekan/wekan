@@ -35,6 +35,7 @@
 // Updates become comments on the item they name. Summary rows are skipped.
 
 export const MONDAY_COLUMNS = ['Name', 'Group', 'Status', 'Person', 'Date', 'Timeline', 'Tags', 'Priority', 'Description', 'Item ID'];
+import { pagingOf } from './exportPaging.js';
 const ROLES = [
   ['title', /^name$/i],
   ['status', /^status$/i],
@@ -204,16 +205,22 @@ const day = value => {
 // One flat table on the first sheet, header in row 1 and ISO dates: what
 // monday.com's own Excel import reads (it imports the first sheet only and
 // lets the user pick the header row). Custom fields follow the fixed columns.
-export function formatMondaySheets({ board, items }) {
+//
+// The whole board, or one page of it (models/lib/exportPaging.js): the custom
+// field columns are counted over the whole board, the header written on the
+// first page.
+export function formatMondaySheets(collected = {}) {
+  const { board } = collected;
+  const { items, all, first } = pagingOf(collected);
   const extra = [];
-  for (const item of items || []) {
+  for (const item of all) {
     for (const name of Object.keys(item.customFields || {})) {
       if (!extra.includes(name) && !roleOf(name) && !MONDAY_COLUMNS.includes(name)) extra.push(name);
     }
   }
   const header = [...MONDAY_COLUMNS, ...extra];
-  const rows = [header];
-  for (const item of items || []) {
+  const rows = first ? [header] : [];
+  for (const item of items) {
     const fields = item.customFields || {};
     const values = {
       Name: String(item.title || '').trim() || 'Untitled',

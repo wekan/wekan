@@ -38,4 +38,8 @@ async function writeBusinessmapWorkbook({ sheets }) {
   return Buffer.from(await workbook.xlsx.writeBuffer());
 }
 
-module.exports = { readBusinessmapWorkbook, writeBusinessmapWorkbook };
+// The same workbook written to `stream` a page at a time
+// (server/lib/streamSheetWorkbook.js).
+const streamBusinessmapWorkbook = (stream, pages) => require('./streamSheetWorkbook').streamSheetWorkbook(stream, pages);
+
+module.exports = { readBusinessmapWorkbook, writeBusinessmapWorkbook, streamBusinessmapWorkbook };
