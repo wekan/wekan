@@ -11,6 +11,7 @@
 // checklists, parentCardId and customFields. A format drops what it has no
 // field for; that is the honest answer, not a loss this module invents.
 import { pagingOf, blockersOf } from './exportPaging.js';
+import { kanboardRecurrenceOf, KANBOARD_ESTIMATE_FIELD } from './kanboardFields.js';
 import { formatMarkdownKanban } from './markdownKanbanFormat.js';
 import { formatLeo } from './leoOutlineFormat.js';
 import { formatTodoTxt } from './todoTxtFormat.js';
@@ -283,6 +284,14 @@ export const formatters = {
         ...(list(i.comments).length ? { comments: i.comments.map(c => ({
           comment: c.text, username: c.author, date_creation: c.date })) } : {}),
         ...(links[index].length ? { links: links[index] } : {}),
+        // What parseKanboard reads back: spent time, recurrence, and the
+        // estimate, score and reference custom fields.
+        ...(Number(i.spentTime) > 0 ? { time_spent: Number(i.spentTime) } : {}),
+        ...(kanboardRecurrenceOf(i.recurrence) && !has(i.endAt) ? { recurrence_status: 1, recurrence_trigger: 0,
+          recurrence_factor: kanboardRecurrenceOf(i.recurrence)[0], recurrence_timeframe: kanboardRecurrenceOf(i.recurrence)[1] } : {}),
+        ...(Number((i.customFields || {})[KANBOARD_ESTIMATE_FIELD]) > 0 ? { time_estimated: Number(i.customFields[KANBOARD_ESTIMATE_FIELD]) } : {}),
+        ...(Number((i.customFields || {}).Score) > 0 ? { score: Number(i.customFields.Score) } : {}),
+        ...(has((i.customFields || {}).Reference) ? { reference: String(i.customFields.Reference) } : {}),
       })),
     };
   },

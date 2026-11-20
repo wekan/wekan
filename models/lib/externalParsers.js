@@ -1,4 +1,5 @@
 import { jiraTimeTracking } from './jiraTimeTracking.js';
+import { kanboardRecurrence, KANBOARD_ESTIMATE_FIELD } from './kanboardFields.js';
 import { parseTodoTxt } from './todoTxtFormat.js';
 import { parseTaskwarrior } from './taskwarriorFormat.js';
 import { parseFocalboard } from './focalboardFormat.js';
@@ -240,17 +241,25 @@ export function parseKanboard(data) {
     const priority = Number(task.priority);
     if (Number.isFinite(priority) && priority > 0) tags.push(`priority:${priority}`);
     const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+    // The estimate, the complexity score and the external reference, as
+    // custom fields - the way the GitLab import keeps its estimate.
+    const custom = {};
     const estimated = Number(task.time_estimated);
-    if (Number.isFinite(estimated) && estimated > 0) {
-      unsupported.push({ path: `${at}/time_estimated`, reason: 'WeKan cards have no estimate field; map it to a custom field by hand' });
+    if (Number.isFinite(estimated) && estimated > 0) custom[KANBOARD_ESTIMATE_FIELD] = estimated;
+    if (Number(task.score) > 0) custom.Score = Number(task.score);
+    if (typeof task.reference === 'string' && task.reference.trim()) custom.Reference = task.reference.trim();
+    const recurrence = kanboardRecurrence(task);
+    if (Number(task.recurrence_status) && !recurrence) {
+      unsupported.push({ path: `${at}/recurrence_factor`, reason: `a Kanboard repeat every ${task.recurrence_factor} ${['day(s)', 'month(s)', 'year(s)'][Number(task.recurrence_timeframe) || 0] || ''} is not every 1 day, 7 days or 1 month; the task is imported once` });
     }
     if (Array.isArray(task.files) && task.files.length) {
       unsupported.push({ path: `${at}/files`, reason: `${task.files.length} file(s): the API export carries metadata, not file contents` });
     }
-    if (Array.isArray(task.external_links) && task.external_links.length) {
-      unsupported.push({ path: `${at}/external_links`, reason: `${task.external_links.length} external link(s) are not imported` });
-    }
-    const footer = task.url ? `Source: ${task.url}` : '';
+    // External links: a line each at the end of the description.
+    const linkLines = (Array.isArray(task.external_links) ? task.external_links : [])
+      .filter(link => link && typeof link.url === 'string' && link.url.trim())
+      .map(link => (link.title && link.title !== link.url ? `${link.title}: ${link.url}` : link.url));
+    const footer = [...linkLines, task.url ? `Source: ${task.url}` : ''].filter(Boolean).join('\n');
     const parentRef = links.parentRefs.get(index);
     const dependencies = links.dependencies.get(index);
     return {
@@ -268,6 +277,8 @@ export function parseKanboard(data) {
       archived: task.is_active === '0' || task.is_active === 0 || task.is_active === false,
       color: KANBOARD_COLORS[task.color_id] || undefined,
       spent_hours: task.time_spent,
+      ...(Object.keys(custom).length ? { custom_fields: custom } : {}),
+      ...(recurrence ? { recurrence } : {}),
       owner_id: task.owner_id,
       owner_username: task.owner_username || task.assignee_username,
       owner_name: task.owner_name || task.assignee_name,

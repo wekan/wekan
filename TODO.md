@@ -45,11 +45,13 @@ tool's newest features against its parser and formatter.
   board as well as all of it. (Every field of the board, its cards, lists,
   swimlanes, checklists, items, custom fields and comments comes back;
   tests/wekanCardFields.test.cjs holds the lists to the schemas.)
-- Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana,
+- Kanban and project tools: Nextcloud Deck, OpenProject, Asana,
   Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
   Quire, Planka, KanbanFlow, Basecamp - sub-items, dependencies, time
   tracking, custom fields, comments, attachments and their newer views.
+  (Kanboard: its recurrence, estimate, score, reference and external links
+  come across both ways.)
 - Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
   Pivotal - epics, sprints, versions and milestones, links between issues,
   work logs, and fields added in their newest releases, checked against each

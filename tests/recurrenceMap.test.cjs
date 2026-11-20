@@ -242,7 +242,12 @@ async function main() {
         assert.ok(map.RECURRENCES.includes(match[1].slice(1, -1)), `${file}: recurrence ${match[1]}`);
       }
       if (/\.recurrence = |\{ recurrence \}/.test(source) && file !== 'recurrenceMap.js' && file !== 'importedTaskPlan.js') {
-        assert.match(source, /from '\.\/recurrenceMap(\.js)?'/, `${file} sets a recurrence without models/lib/recurrenceMap.js`);
+        // From the mapper, or from a module that reads its rules through it
+        // (kanboardFields.js).
+        const viaMapper = [...source.matchAll(/from '\.\/([\w]+)(?:\.js)?'/g)].map(m => m[1])
+          .some(name => name === 'recurrenceMap' || (fs.existsSync(path.join(dir, `${name}.js`))
+            && /from '\.\/recurrenceMap(\.js)?'/.test(fs.readFileSync(path.join(dir, `${name}.js`), 'utf8'))));
+        assert.ok(viaMapper, `${file} sets a recurrence without models/lib/recurrenceMap.js`);
       }
     }
     // The plan is the one place a card's recurrenceInterval is written by an

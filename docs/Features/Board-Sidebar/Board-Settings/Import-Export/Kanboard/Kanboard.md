@@ -121,8 +121,9 @@ From the [format coverage](../Format-Coverage.md) audit:
   creation dates, archive state, colors and source order are kept. Creation
   dates survive the schema's `createdAt` autoValue through
   `writeImportedEntity`. What has no equivalent is listed in the loss report:
-  file contents (the JSON carries attachment metadata only), time estimates,
-  external links, and task links WeKan cannot keep (see below).
+  file contents (the JSON carries attachment metadata only), a repeat other
+  than every 1 day, 7 days or 1 month, and task links WeKan cannot keep (see
+  below).
 
 What the current code does (`parseKanboard` in
 `models/lib/externalParsers.js`, `models/kanboardCreator.js`):
@@ -177,6 +178,10 @@ What the current code does (`parseKanboard` in
 | `tags`, category, `priority` | Board labels |
 | `color_id` | Card color |
 | `time_spent` | Spent time (hours) |
+| `time_estimated` | Custom field **Time estimate (hours)** |
+| `score`, `reference` | Custom fields **Score** and **Reference** |
+| `recurrence_status`, `recurrence_factor`, `recurrence_timeframe`: every 1 day, 7 days or 1 month | The card repeats daily, weekly or monthly |
+| `external_links` (`url`, `title`) | A line each at the end of the description |
 | `is_active` `0` | Archived card |
 | `subtasks` (`title`, `status`) | Checklist **Subtasks** |
 | `links` "is a child of" / "is a parent of" | The card's parent card |
@@ -189,7 +194,10 @@ each card: an `id` (1, 2, 3 ... in card order), `title`, `description`,
 `column_name`, `swimlane_name`, `date_due`, `date_started`, `date_completed`,
 `date_creation`, `owner_username`, `creator_username`, the labels as `tags`,
 every checklist item as a `subtasks` entry (status `2` when finished, `0`
-otherwise), the comments, and the card's parent and dependencies as `links`
+otherwise), the comments, `time_spent`, a repeating open card's
+`recurrence_status`, `recurrence_factor` and `recurrence_timeframe`, the
+custom fields **Time estimate (hours)**, **Score** and **Reference** as
+`time_estimated`, `score` and `reference`, and the card's parent and dependencies as `links`
 in the `getAllTaskLinks` shape (`{ "id", "task_id", "label" }`, `task_id`
 being the other task). Like Kanboard, each link is written from both tasks,
 the second time with the opposite label, and the import folds the two back
@@ -200,10 +208,9 @@ when **Dependencies** is.
 
 The import reports these on the loss report:
 
-- `time_estimated` (WeKan cards have no estimate field; map it to a custom
-  field by hand);
 - `files` (the API export carries metadata, not file contents);
-- `external_links` (links to web pages and other systems are not imported);
+- a repeat other than every 1 day, 7 days or 1 month (the task is imported
+  once);
 - task links to a task that is not in the file;
 - task links whose label is not one of Kanboard's built-in link types
   (a link type added in Kanboard's settings);
