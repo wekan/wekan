@@ -492,6 +492,15 @@ brings the files back with their cards, byte for byte.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d613a00030a7827d4d6318c50d6feb5d80d008ce">Jira and Taskwarrior exports carry the card dependencies</a>. Thanks to xet7.</summary>
+
+As Jira issue links and Taskwarrior's depends, which their imports read back.
+The round trip of every export now checks dependencies too: Jira, Kanboard,
+Taskwarrior and Redmine keep them.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
