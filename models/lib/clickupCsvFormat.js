@@ -32,6 +32,10 @@
 //   Folder Name/Path,
 //   Time Estimated (ms)        -> custom fields
 //   Checklist (importer)       -> a checklist, comma-delimited
+//   Task Link                  -> "Source: <link>" at the end of the description
+//   any other column           -> a custom field of its name: a workspace
+//                                 export writes each custom field as a column,
+//                                 and the export writes them back that way
 // The export's Checklists and Comments cells have no documented format and
 // are reported, as are dates that are neither milliseconds nor ISO 8601.
 
@@ -44,6 +48,10 @@ export const CLICKUP_COLUMNS = ['Task ID', 'Task Link', 'Task Type', 'Task Custo
   'Attachments', 'Assignees', 'Tags', 'Priority', 'List Name', 'Folder Name/Path', 'Space Name', 'Time Estimated',
   'Time Estimated Text', 'Checklists', 'Comments', 'Assigned Comments', 'Time Spent', 'Time Spent Text', 'Rolled Up Time',
   'Rolled Up Time Text'];
+// The importer's own columns, and the custom fields named after them.
+const KNOWN_COLUMNS = new Set([...CLICKUP_COLUMNS, 'Checklist', 'Description content', 'List', 'Task assignee', 'Task type',
+  'Time Estimate', 'Time Tracked']);
+const OWN_FIELDS = new Set(['Priority', 'Task Type', 'Custom ID', 'Folder', 'Time Estimate (hours)']);
 const PRIORITY = { 1: 'Urgent', 2: 'High', 3: 'Normal', 4: 'Low', urgent: 'Urgent', high: 'High', normal: 'Normal', low: 'Low' };
 const HOUR = 3600000;
 const NO_STATUS = 'No status';
@@ -111,6 +119,11 @@ export function parseClickUpCsv(text) {
     const estimate = Number(get(cells, 'Time Estimated', 'Time Estimate'));
     if (estimate > 0) custom['Time Estimate (hours)'] = Math.round((estimate / HOUR) * 100) / 100;
     const spent = Number(get(cells, 'Time Spent', 'Time Tracked'));
+    // The workspace's own custom fields: every column ClickUp itself does not name.
+    header.forEach((name, c) => {
+      const value = String(cells[c] == null ? '' : cells[c]).trim();
+      if (name && value && !KNOWN_COLUMNS.has(name) && !OWN_FIELDS.has(name)) custom[name] = value;
+    });
     let description = get(cells, 'Task Content', 'Description content');
     const attachments = get(cells, 'Attachments');
     if (attachments && attachments !== '[]') {
@@ -122,6 +135,7 @@ export function parseClickUpCsv(text) {
         unsupported.push({ path: `${at}/Attachments`, reason: 'ClickUp attachments are not the documented JSON list' });
       }
     }
+    if (get(cells, 'Task Link')) description = [description, `Source: ${get(cells, 'Task Link')}`].filter(Boolean).join('\n\n');
     for (const name of ['Checklists', 'Comments', 'Assigned Comments']) {
       const value = get(cells, name);
       if (value && value !== '0' && value !== '[]') unsupported.push({ path: `${at}/${name}`, reason: `ClickUp ${name} cells have no documented format and are not imported` });
@@ -187,7 +201,12 @@ export function formatClickUpCsv(collected) {
       children.set(item.parentCardId, [...(children.get(item.parentCardId) || []), item.cardId]);
     }
   });
-  const rows = first ? [CLICKUP_EXPORT_COLUMNS] : [];
+  // A card's other custom fields are columns of their own, named over the
+  // whole board so every page has the same columns.
+  const extra = [...new Set(all.flatMap(item => Object.keys(item.customFields || {})))]
+    .filter(name => !OWN_FIELDS.has(name) && !KNOWN_COLUMNS.has(name));
+  const header = [...CLICKUP_EXPORT_COLUMNS, ...extra];
+  const rows = first ? [header] : [];
   for (const item of items) {
     const fields = item.customFields || {};
     const priority = PRIORITY[String(fields.Priority || '').toLowerCase()];
@@ -220,7 +239,8 @@ export function formatClickUpCsv(collected) {
       'Time Spent': Number(item.spentTime) > 0 ? String(Math.round(Number(item.spentTime) * HOUR)) : '',
       Checklist: checklist.map(entry => String(entry.title || '').replace(/,/g, ' ')).join(','),
     };
-    rows.push(CLICKUP_EXPORT_COLUMNS.map(name => values[name] || ''));
+    for (const name of extra) values[name] = fields[name] === undefined || fields[name] === null ? '' : String(fields[name]);
+    rows.push(header.map(name => values[name] || ''));
   }
   return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

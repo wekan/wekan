@@ -35,7 +35,8 @@ async function main() {
     assert.deepEqual(board.swimlanes.map(s => s.name), ['Website']);
     const [page, hero] = board.tasks;
     assert.equal(page.ref, '86a1b2c3d');
-    assert.equal(page.description, 'Hero + pricing\n\n[sunset beach pic.png](https://example.com/s.png)');
+    // The Task Link is the Source line at the end, as other imports keep the source's link.
+    assert.equal(page.description, 'Hero + pricing\n\n[sunset beach pic.png](https://example.com/s.png)\n\nSource: https://app.clickup.com/t/86a1b2c3d');
     assert.equal(page.owner_username, 'Jane Doe');
     assert.deepEqual(page.assignees, ['John Smith']);
     assert.deepEqual(page.tags, ['web', 'q1']);
@@ -126,6 +127,22 @@ async function main() {
     assert.match(read('client/components/boards/exportScope.js'), /key: 'clickup'[^}]*path: 'export\/clickup', ext: 'csv'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-clickup'], /Export Items/);
   });
+
+  // A workspace's own custom field columns come in as custom fields and go back out as columns.
+  {
+    const parsed = parseClickUpCsv('Task ID,Task Name,Status,Story Points,Sprint,Priority\r\n1,A,to do,5,Sprint 3,high\r\n');
+    assert.deepStrictEqual(parsed.tasks[0].custom_fields, { Priority: 'High', 'Story Points': '5', Sprint: 'Sprint 3' });
+    const csv = formatClickUpCsv({ board: { title: 'B' }, items: [
+      { cardId: 'c', title: 'A', listTitle: 'to do', labels: [], customFields: { 'Story Points': 5, Priority: 'High' } },
+      { cardId: 'd', title: 'B', listTitle: 'to do', labels: [], customFields: { Sprint: 'S1' } }] });
+    const header = csv.split('\r\n')[0].split(',');
+    assert.deepStrictEqual(header.slice(-2), ['Story Points', 'Sprint'], 'one column per field over the whole board');
+    assert.ok(!header.filter(name => name === 'Priority').length || header.indexOf('Priority') < header.indexOf('Story Points'), 'Priority keeps its own column');
+    assert.deepStrictEqual(parseClickUpCsv(csv).tasks.map(t => t.custom_fields), [{ Priority: 'High', 'Story Points': '5' }, { Sprint: 'S1' }]);
+    // Negative: ClickUp's own columns are not custom fields.
+    assert.strictEqual(parseClickUpCsv('Task ID,Task Name,Status,Rolled Up Time\r\n1,A,to do,600000\r\n').tasks[0].custom_fields, undefined);
+    passed += 1;
+  }
 
   // Hours spent go out as ClickUp's Time Spent milliseconds and come back.
   {

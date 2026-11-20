@@ -129,7 +129,8 @@ From the current code (`models/lib/clickupCsvFormat.js`):
   Name, the board is named **Imported ClickUp tasks**.
 
 The export writes the 31 workspace export columns, from **Task ID** to
-**Rolled Up Time Text**, then **Checklist**:
+**Rolled Up Time Text**, then **Checklist**, then one column per custom field
+of the board that is not one of those named above:
 
 - Task ID is the WeKan card id; Parent ID and Subtask IDs link the cards of
   the same board;
@@ -162,6 +163,8 @@ The export writes the 31 workspace export columns, from **Task ID** to
 | Due date | Due date |
 | Start date | Start date |
 | Time Spent / Time Tracked | Spent time, in hours |
+| Task Link | `Source: <link>` at the end of the description |
+| Any other column (a workspace export writes each custom field as one) | A custom field of the column's name |
 | Priority | Custom field Priority |
 | Task Type (other than task) | Custom field Task Type |
 | Task Custom ID | Custom field Custom ID |
@@ -187,12 +190,11 @@ silently:
 - a parent that is not in the same import, a Task ID used twice, and a parent
   link that would form a cycle.
 
-Other columns, such as Task Link, Rolled Up Time and the `Text` date columns,
-are not read and not reported.
+ClickUp's own Rolled Up Time and `Text` date columns repeat other columns,
+and are not read.
 
 The export writes the spent hours as Time Spent (milliseconds). It leaves
-out comments, attachments, done state of checklist items, archived cards, and
-custom fields other than those named above.
+out comments, attachments, done state of checklist items and archived cards.
 
 ## REST API
 
