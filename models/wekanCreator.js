@@ -1,4 +1,5 @@
 import { wekanCardFields } from '/models/lib/wekanCardFields';
+import { wekanRecordFields } from '/models/lib/wekanRecordFields';
 import { recordImportLosses } from '/models/lib/importedCardChildren';
 import { BOARD_COPIED, wekanBoardFields } from '/models/lib/wekanBoardFields';
 import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
@@ -177,6 +178,11 @@ export class WekanCreator {
    * @param wekanUserId
    * @private
    */
+  // The id maps models/lib/wekanRecordFields.js remaps by.
+  _recordMaps() {
+    return { members: this.members, cards: this.cards, comments: this.commentIds, now: this._now() };
+  }
+
   _user(wekanUserId) {
     if (wekanUserId && this.members[wekanUserId]) {
       return this.members[wekanUserId];
@@ -556,6 +562,8 @@ export class WekanCreator {
       // add comments
       const comments = this.comments[card._id];
       if (comments) {
+        // A reply whose comment comes later is linked once that one exists.
+        const unlinked = [];
         for (const comment of comments) {
           const commentToCreate = {
             boardId,
@@ -564,11 +572,14 @@ export class WekanCreator {
             text: comment.text,
             // we attribute the comment to the original author, default to current user
             userId: this._user(comment.userId),
+            // A reply, under the new id of the comment it answers.
+            ...wekanRecordFields('cardComments', comment, this._recordMaps()),
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
           const commentId = await writeImportedEntity(CardComments, commentToCreate);
           this.commentIds[comment._id] = commentId;
+          if (comment.parentId && !commentToCreate.parentId) unlinked.push({ commentId, parentId: comment.parentId });
           // Activities.direct.insert({
           //   activityType: 'addComment',
           //   boardId: commentToCreate.boardId,
@@ -579,6 +590,9 @@ export class WekanCreator {
           //   // to the original author - it is needed by some UI elements.
           //   userId: commentToCreate.userId,
           // });
+        }
+        for (const { commentId, parentId } of unlinked) {
+          if (this.commentIds[parentId]) await CardComments.direct.updateAsync(commentId, { $set: { parentId: this.commentIds[parentId] } });
         }
       }
       const attachments = this.attachments[card._id];
@@ -698,6 +712,8 @@ export class WekanCreator {
         //use date "now" if now created at date is provided (e.g. for very old boards)
         createdAt: this._now(this.createdAt.customFields[field._id]),
         modifiedAt: field.modifiedAt,
+        // "Admin only" and "read only" are who may see and edit the field.
+        ...wekanRecordFields('customFields', field, this._recordMaps()),
       };
       //insert copy of custom field
       await writeImportedEntity(CustomFields, fieldToCreate, {
@@ -762,6 +778,8 @@ export class WekanCreator {
       if (typeof list.collapsed === 'boolean') {
         listToCreate.collapsed = list.collapsed;
       }
+      // WIP limit, flow policy, split, role restrictions (models/lib/wekanRecordFields.js).
+      Object.assign(listToCreate, wekanRecordFields('lists', list, this._recordMaps()));
       const listId = await writeImportedEntity(Lists, listToCreate, {
         ids: this.lists,
         sourceId: list._id,
@@ -807,6 +825,7 @@ export class WekanCreator {
       if (swimlane.color && SWIMLANE_COLORS.includes(swimlane.color)) {
         swimlaneToCreate.color = swimlane.color;
       }
+      Object.assign(swimlaneToCreate, wekanRecordFields('swimlanes', swimlane, this._recordMaps()));
       const swimlaneId = await writeImportedEntity(Swimlanes, swimlaneToCreate, {
         ids: this.swimlanes,
         sourceId: swimlane._id,
@@ -913,6 +932,7 @@ export class WekanCreator {
         title: checklist.title,
         createdAt: checklist.createdAt,
         sort: checklist.sort ? checklist.sort : checklistIndex,
+        ...wekanRecordFields('checklists', checklist, this._recordMaps()),
       };
       const checklistId = await writeImportedEntity(Checklists, checklistToCreate, {
         ids: this.checklists,
@@ -977,6 +997,7 @@ export class WekanCreator {
           boardId,
           sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
           isFinished: checklistitem.isFinished,
+          ...wekanRecordFields('checklistItems', checklistitem, this._recordMaps()),
         };
 
         const checklistItemId = await ChecklistItems.direct.insertAsync(

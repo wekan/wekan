@@ -128,6 +128,63 @@ async function main() {
     assert.match(src, /recordImportLosses\(\{ source: 'wekan', unsupported: this\.losses/);
   });
 
+  const records = await import('../models/lib/wekanRecordFields.js');
+  test('every field of a list, swimlane, checklist, item, custom field and comment is imported, or named', () => {
+    const files = { lists: 'models/lists.js', swimlanes: 'models/swimlanes.js', checklists: 'models/checklists.js',
+      checklistItems: 'models/checklistItems.js', customFields: 'models/customFields.js', cardComments: 'models/cardComments.js' };
+    for (const [kind, file] of Object.entries(files)) {
+      const spec = records.RECORDS[kind];
+      const missing = schemaFields(file).filter(field => !spec.copied.includes(field) && !(field in spec.notCopied)
+        && !records.SPECIAL[kind].includes(field) && !writtenByCreator(field));
+      assert.deepEqual(missing, [], kind);
+      const schema = new Set(schemaFields(file));
+      assert.deepEqual(spec.copied.filter(f => !schema.has(f)), [], `${kind}: a copied field the schema does not have`);
+    }
+  });
+
+  test('a list\'s WIP limit, policy and split, a checklist\'s reset, an item\'s assignee and a reply come back', () => {
+    const now = new Date('2026-11-20T10:00:00Z');
+    const list = records.wekanRecordFields('lists', { wipLimit: { value: 3, enabled: true, soft: false }, policy: 'Pull when ready',
+      split: true, cardsUseListColor: true, archived: true, archivedAt: '2026-10-01T00:00:00Z', syncSource: 'x', linkedBoardId: 'b' }, { now });
+    assert.deepEqual(list.wipLimit, { value: 3, enabled: true, soft: false });
+    assert.equal(list.policy, 'Pull when ready');
+    assert.equal(list.split, true);
+    assert.equal(list.archivedAt.toISOString(), '2026-10-01T00:00:00.000Z');
+    assert.equal(list.syncSource, undefined);
+    assert.equal(list.linkedBoardId, undefined);
+    assert.deepEqual(records.wekanRecordFields('swimlanes', { height: 240 }), { height: 240 });
+    const checklist = records.wekanRecordFields('checklists', { resetInterval: 'weekly', lastResetAt: '2020-01-01T00:00:00Z',
+      hideCheckedChecklistItems: true, finishedAt: '2026-10-02T00:00:00Z' }, { now });
+    assert.equal(checklist.resetInterval, 'weekly');
+    assert.equal(checklist.lastResetAt.toISOString(), now.toISOString(), 'not from 2020: no reset at once');
+    assert.equal(checklist.finishedAt.toISOString(), '2026-10-02T00:00:00.000Z');
+    assert.deepEqual(records.wekanRecordFields('checklistItems', { assigneeId: 'old1', linkedCardId: 'c1' },
+      { members: { old1: 'new1' }, cards: { c1: 'n1' } }), { assigneeId: 'new1', linkedCardId: 'n1' });
+    assert.deepEqual(records.wekanRecordFields('customFields', { adminOnly: true, readOnly: true, cardKinds: ['bug'], showSumAtTopOfList: true }),
+      { adminOnly: true, readOnly: true, cardKinds: ['bug'], showSumAtTopOfList: true });
+    assert.deepEqual(records.wekanRecordFields('cardComments', { parentId: 'p1', webhookResponsePending: true }, { comments: { p1: 'n1' } }),
+      { parentId: 'n1' });
+  });
+
+  test('negative: a list role exception that opens a list to a role is not set by a file; one that closes it is', () => {
+    const out = records.wekanRecordFields('lists', { roleExceptions: { normal: { write: false, comment: true }, commentOnly: { write: true },
+      readOnly: 'junk' } });
+    assert.deepEqual(out.roleExceptions, { normal: { write: false } });
+    assert.equal(records.wekanRecordFields('lists', { roleExceptions: { worker: { write: true } } }).roleExceptions, undefined);
+    // Negative: an unmapped user, card or comment is left out, not kept as a dangling id.
+    assert.deepEqual(records.wekanRecordFields('checklistItems', { assigneeId: 'stranger', linkedCardId: 'gone' }), {});
+    assert.deepEqual(records.wekanRecordFields('cardComments', { parentId: 'gone' }), {});
+  });
+
+  test('the WeKan import writes them in each create step, and links a reply whose comment comes later', () => {
+    const src = read('models/wekanCreator.js');
+    for (const kind of ['lists', 'swimlanes', 'customFields', 'checklists', 'checklistItems', 'cardComments']) {
+      assert.match(src, new RegExp(`wekanRecordFields\\('${kind}', `), kind);
+    }
+    assert.match(src, /if \(comment\.parentId && !commentToCreate\.parentId\) unlinked\.push/);
+    assert.match(src, /\$set: \{ parentId: this\.commentIds\[parentId\] \}/);
+  });
+
   console.log(`wekanCardFields: ${passed} checks passed`);
 }
 
