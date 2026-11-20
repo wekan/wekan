@@ -450,6 +450,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   SKIP['single-file/meteor-device-paths.mjs'] = 'imported by single-file/build.mjs (Windows device and UNC paths)';
   SKIP['single-file/sea-inject.mjs'] = 'imported by single-file/build.mjs (can LIEF inject this Node.js)';
   SKIP['translations/audit-exempt-prose.mjs'] = 'read-only audit supplement to the fill inventory; run directly';
+  SKIP['snap-store-release-newest.sh'] = 'run by Push Snap to Store (.github/workflows/snap-store.yml) after the push, with SNAP_AUTH';
   SKIP['snap-store-push.sh'] = 'run by Push Snap to Store (.github/workflows/snap-store.yml), with the Snap Store login of SNAP_AUTH';
   SKIP['snap-rename.sh'] = 'run by release-all-missing.yml variants job: a release snap renamed to wekan-ondra or wekan-gantt-gpl';
   SKIP['release-missing-scan.sh'] = 'run by release-all-missing.yml scan job, with the GitHub token of the run';

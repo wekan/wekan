@@ -122,3 +122,35 @@ Actions tab, for any release tag.
 Run with no version, it checks the newest releases
 (`releases/release-missing-scan.sh`, the `scan` input says how many) and starts
 itself once for each release that is missing something.
+
+## When the Snap Store holds a revision for review
+
+The store can keep an uploaded revision in its manual review queue. On the
+snap's dashboard (`https://dashboard.snapcraft.io/snaps/<name>/`, Releases)
+it is listed under "Revisions available to release" as **Can't be released:
+ReviewQueued**. That happened to `wekan` (revision 4793) and `wekan-gantt-gpl`
+(revision 913) on v13.21, while `wekan-ondra`, built from the same tag with
+only its name changed, was released.
+
+While a revision is held:
+
+- uploading the same file again answers "Error checking upload uniqueness":
+  the store takes a file only once. "Push Snap to Store" therefore asks the
+  store first (`snapcraft revisions`; snapcraft 9 renamed `list-revisions`,
+  whose failure made v13.20 and v13.21 upload again and again), releases a
+  revision it already has, uploads a file at most once, and after the
+  uniqueness answer releases the store's revision or says it is held;
+- every release goes to each channel on its own (stable, candidate, beta,
+  edge), so a channel the store refuses does not keep the revision out of the
+  others, and each refusal is an error line in the build log; the workflow
+  also releases the newest revision of every architecture the store has
+  (`releases/snap-store-release-newest.sh`), whatever the GitHub release
+  holds;
+- no upload or release command can skip the review. Ask for it at
+  <https://forum.snapcraft.io/c/store-requests/>, naming the snap and the
+  revision, then run "Push Snap to Store" again: it releases the reviewed
+  revision to every channel.
+
+"Push Snap to Store" also makes a missing `wekan-ondra` or `wekan-gantt-gpl`
+snap from the release's `wekan` snaps (`releases/snap-rename.sh`), so a
+release cut before the variants were attached can still be pushed.

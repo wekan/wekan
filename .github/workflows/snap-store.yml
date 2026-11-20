@@ -117,6 +117,7 @@ jobs:
           sparse-checkout: releases
           persist-credentials: false
       - name: Install snapcraft and check SNAP_AUTH
+        id: snapcraft
         env:
           SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
         run: |
@@ -142,13 +143,27 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p snaps
-          # gh fails with a bare "no assets match the file pattern" when the
-          # release has none; say what that means instead. Before v13.21 the
-          # snap-variants job did not attach wekan-ondra and wekan-gantt-gpl
-          # to the release, so an older release has only wekan_*.snap.
+          # A release cut before v13.22 has no wekan-ondra or wekan-gantt-gpl
+          # snap attached (snap-variants did not attach them). A variant IS
+          # wekan with another name and title, so it is made from the
+          # release's wekan snaps (releases/snap-rename.sh), as Release All
+          # Missing does.
           if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap"; then
-            echo "::error::Release $TAG has no ${SNAP}_*.snap to push: its snap job did not attach one (snap-native and snap-launchpad attach wekan, snap-variants wekan-ondra and wekan-gantt-gpl). Re-run that job of the release, or Release All Missing, then this workflow."
-            exit 1
+            case "$SNAP" in
+              wekan-ondra) title='Wekan Ondra' ;;
+              wekan-gantt-gpl) title='Wekan Gantt GPL' ;;
+              *) echo "::error::Release $TAG has no ${SNAP}_*.snap to push: its snap job did not attach one (snap-native and snap-launchpad attach wekan). Re-run that job of the release, or Release All Missing, then this workflow."; exit 1 ;;
+            esac
+            mkdir -p wekan-snaps
+            if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir wekan-snaps --pattern "wekan_*.snap"; then
+              echo "::error::Release $TAG has neither ${SNAP}_*.snap nor a wekan_*.snap to make it from. Re-run the release's snap jobs, or Release All Missing, then this workflow."
+              exit 1
+            fi
+            sudo apt-get install -y squashfs-tools >/dev/null
+            for f in wekan-snaps/wekan_*.snap; do
+              bash releases/snap-rename.sh "$f" "$SNAP" "$title" snaps
+            done
+            echo "::notice::$TAG had no ${SNAP} snap; made it from the release's wekan snaps."
           fi
           ls -l snaps
       - name: Push ${{ matrix.snap }} to the Snap Store, releasing to ${{ needs.plan.outputs.channels }}
@@ -167,3 +182,14 @@ jobs:
             echo "::error::Not released:$failed. The ::error:: lines above say why."
             exit 1
           fi
+      # The newest revision the store has of each architecture, released to
+      # every channel too - one that reached the store some other way, or a
+      # reviewer approved later, whatever this release's files are. always():
+      # also when a file above was not taken.
+      - name: Release the newest ${{ matrix.snap }} revisions the store has to ${{ needs.plan.outputs.channels }}
+        if: ${{ always() && steps.snapcraft.outcome == 'success' }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          CHANNELS: ${{ needs.plan.outputs.channels }}
+          SNAP: ${{ matrix.snap }}
+        run: bash releases/snap-store-release-newest.sh "$SNAP" "$CHANNELS"

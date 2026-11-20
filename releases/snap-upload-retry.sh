@@ -91,6 +91,17 @@ while [ "$attempt" -le "$attempts" ]; do
       continue
     fi
 
+    # "Error checking upload uniqueness" every time is no glitch: the store
+    # already holds this file (on v13.21 its revision sat in the store's
+    # manual review queue). Nothing was lost; "Push Snap to Store", last in
+    # this release, releases the revision or names why the store has not.
+    if grep -qiE 'Error checking upload uniqueness' "$log_file"; then
+      echo "::warning::The Snap Store already holds $label and has not released it (manual review?). \"Push Snap to Store\" releases its revision to $channels, or says why it cannot."
+      if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+        echo "HELD $label: the Snap Store already holds this file" >> "$GITHUB_STEP_SUMMARY"
+      fi
+      exit 0
+    fi
     echo "::error::The Snap Store kept returning a transient processing/server error while uploading $label (attempt $attempt/$attempts)." >&2
     exit 10
   fi

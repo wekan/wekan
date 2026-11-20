@@ -62,6 +62,21 @@ test('negative: an upload cut off before the store accepted it is retried, then 
   assert.doesNotMatch(r.out, /still processing/);
 });
 
+test('a uniqueness error that outlasts the retries is a file the store holds, left to Push Snap to Store', () => {
+  // v10.78: a store glitch, and an upload again went through - so it is still
+  // retried. v13.21: the store held the file for manual review, and every
+  // upload answered the same - so after the retries it is not a failed build.
+  const held = run('echo "Status: error while processing"; echo "- binary_sha3_384: Error checking upload uniqueness."; exit 1',
+    { SNAP_UPLOAD_ATTEMPTS: '3' });
+  assert.strictEqual(held.status, 0, held.out);
+  assert.strictEqual(held.calls, 3, 'retried first');
+  assert.match(held.out, /already holds .* has not released it/);
+  assert.match(held.summary, /^HELD /m);
+  // Negative: any other processing error that outlasts the retries still fails.
+  const failed = run('echo "Status: error while processing"; echo "- something else"; exit 1', { SNAP_UPLOAD_ATTEMPTS: '2' });
+  assert.strictEqual(failed.status, 10, failed.out);
+});
+
 test('negative: a normal upload and a refused upload behave as before', () => {
   const ok = run('echo "Status: ready to release!"; echo "Revision 1 created"');
   assert.strictEqual(ok.status, 0, ok.out);

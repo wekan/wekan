@@ -34,7 +34,9 @@ function setup(store, { upload = 'Revision 77 created for wekan', uploadRc = 0, 
   fs.writeFileSync(path.join(bin, 'snapcraft'), `#!/bin/bash
 echo "$*" >> "${dir}/calls.txt"
 case "$1" in
-  list-revisions)
+  # snapcraft 9: the old name only says it was renamed, and fails.
+  list-revisions) echo "The 'list-revisions' command was renamed to 'revisions'." >&2; exit 1 ;;
+  revisions)
     n=$(cat "${dir}/count" 2>/dev/null || echo 0); n=$((n + 1)); echo $n > "${dir}/count"
     echo "Rev.  Uploaded              Arches   Version  Channels"
     if [ "$n" -gt ${appears} ]; then cat "${dir}/store.txt"; fi ;;
@@ -51,6 +53,8 @@ esac
   return { dir, snap, env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, SNAP_PUSH_POLL: '1', SNAP_PUSH_WAIT_BUDGET: '3',
     SNAP_PUSH_UPLOAD_BUDGET: '10', SNAP_PUSH_RETRY_DELAY: '0', GITHUB_STEP_SUMMARY: '' } };
 }
+// Released to every channel, each on its own.
+const releasedAll = (calls, rev, name = 'wekan') => ['stable', 'candidate', 'beta', 'edge'].every(c => calls.includes(`release ${name} ${rev} ${c}`));
 const run = (s, channels = 'stable,candidate,beta,edge') => {
   const result = spawnSync('bash', [SCRIPT, s.snap, channels], { env: s.env, encoding: 'utf8' });
   const calls = fs.existsSync(path.join(s.dir, 'calls.txt')) ? fs.readFileSync(path.join(s.dir, 'calls.txt'), 'utf8').trim().split('\n') : [];
@@ -61,7 +65,7 @@ const run = (s, channels = 'stable,candidate,beta,edge') => {
 test('a version the store already has is released, not uploaded again', () => {
   const r = run(setup('55    2026-11-20T10:00:00Z  amd64    13.20    -\n54    2026-11-19T10:00:00Z  amd64    13.19    latest/stable\n'));
   assert.strictEqual(r.status, 0, r.stderr);
-  assert.ok(r.calls.includes('release wekan 55 stable,candidate,beta,edge'), r.calls.join('|'));
+  assert.ok(releasedAll(r.calls, 55, 'wekan'), r.calls.join('|'));
   assert.ok(!r.calls.some(call => call.startsWith('upload')), 'nothing is uploaded twice');
 });
 
@@ -70,13 +74,13 @@ test('a new version is uploaded without --release, then its revision released by
   assert.strictEqual(r.status, 0, r.stderr);
   const upload = r.calls.find(call => call.startsWith('upload'));
   assert.ok(upload && !upload.includes('--release'), upload);
-  assert.ok(r.calls.includes('release wekan 77 stable,candidate,beta,edge'));
+  assert.ok(releasedAll(r.calls, 77, 'wekan'));
 });
 
 test('an upload cut off while processing waits for the revision and releases it', () => {
   const r = run(setup('80    2026-11-20T10:00:00Z  amd64    13.20    -\n', { upload: 'Status: processing', uploadRc: 124, appears: 2 }));
   assert.strictEqual(r.status, 0, r.stderr);
-  assert.ok(r.calls.includes('release wekan 80 stable,candidate,beta,edge'), r.calls.join('|'));
+  assert.ok(releasedAll(r.calls, 80, 'wekan'), r.calls.join('|'));
 });
 
 test('negative: a revision that never appears fails the push, and another arch or version is not released', () => {
@@ -89,27 +93,104 @@ test('negative: a revision that never appears fails the push, and another arch o
   assert.notStrictEqual(badName.status, 0);
 });
 
-test('a store-side failure is uploaded again, then released; the v13.20 run waited two hours instead', () => {
-  const r = run(setup('', { uploads: [
-    { out: 'Status: error while processing\nIssues while processing snap:\n- binary_sha3_384: Error checking upload uniqueness.', rc: 1 },
-    { out: 'Revision 81 created for wekan', rc: 0 }] }));
+test('a store-side 503 is uploaded again, then released', () => {
+  const s503 = setup('', { uploads: [
+    { out: 'Error: 503 Service Unavailable', rc: 1 },
+    { out: 'Revision 81 created for wekan', rc: 0 }] });
+  s503.env.SNAP_PUSH_UPLOAD_ATTEMPTS = '4';
+  const r = run(s503);
   assert.strictEqual(r.status, 0, r.stderr);
   assert.strictEqual(r.calls.filter(call => call.startsWith('upload')).length, 2, r.calls.join('|'));
-  assert.ok(r.calls.includes('release wekan 81 stable,candidate,beta,edge'), r.calls.join('|'));
+  assert.ok(releasedAll(r.calls, 81, 'wekan'), r.calls.join('|'));
   assert.match(r.stdout, /uploading it again/);
 });
 
-test('negative: a refusal that is not the store\'s fault fails at once, without waiting or uploading again', () => {
+test('"Error checking upload uniqueness" is a file the store holds: its listed revision is released, once', () => {
+  // On v13.21 the store already had the file; uploading it again failed the same way every time.
+  const listed = run(setup('82    2026-11-20T10:00:00Z  amd64    13.20    -\n', { appears: 1, uploads: [
+    { out: 'Status: error while processing\n- binary_sha3_384: Error checking upload uniqueness.', rc: 1 }] }));
+  assert.strictEqual(listed.status, 0, listed.stderr);
+  assert.strictEqual(listed.calls.filter(call => call.startsWith('upload')).length, 1, 'not uploaded again');
+  assert.ok(releasedAll(listed.calls, 82, 'wekan'), listed.calls.join('|'));
+});
+
+test('negative: a file the store holds and does not list (manual review) fails at once, saying so', () => {
+  const held = run(setup('', { uploads: [{ out: '- binary_sha3_384: Error checking upload uniqueness.', rc: 1 }] }));
+  assert.notStrictEqual(held.status, 0);
+  assert.match(held.stderr, /already holds .* has not released it/);
+  assert.match(held.stderr, /ReviewQueued/);
+  assert.match(held.stderr, /forum\.snapcraft\.io\/c\/store-requests/);
+  // Never uploaded again: the store takes a file once.
+  assert.strictEqual(held.calls.filter(call => call.startsWith('upload')).length, 1);
+  assert.ok(held.calls.filter(call => call.startsWith('list-revisions')).length <= 5, 'no hours of waiting');
+  // A refusal that is not the store's fault fails at once too, without waiting or uploading again.
   const r = run(setup('', { uploads: [{ out: 'Error: you do not have permission to push to wekan', rc: 1 }] }));
   assert.notStrictEqual(r.status, 0);
   assert.match(r.stderr, /did not take .* NOT released/);
   assert.strictEqual(r.calls.filter(call => call.startsWith('upload')).length, 1);
-  assert.ok(!r.calls.some(call => call.startsWith('release')));
-  assert.strictEqual(r.calls.filter(call => call.startsWith('list-revisions')).length, 1, 'no polling for a revision that cannot come');
-  // A store error that keeps coming fails after the attempts, red.
-  const again = run(setup('', { uploads: [{ out: '- binary_sha3_384: Error checking upload uniqueness.', rc: 1 }] }));
+  // A 503 that keeps coming fails after the attempts, red.
+  const s503 = setup('', { uploads: [{ out: 'Error: 503 Service Unavailable', rc: 1 }] });
+  s503.env.SNAP_PUSH_UPLOAD_ATTEMPTS = '4';
+  const again = run(s503);
   assert.notStrictEqual(again.status, 0);
   assert.strictEqual(again.calls.filter(call => call.startsWith('upload')).length, 4);
+  // By default a file is uploaded once.
+  const once = run(setup('', { uploads: [{ out: 'Error: 503 Service Unavailable', rc: 1 }] }));
+  assert.strictEqual(once.calls.filter(call => call.startsWith('upload')).length, 1);
+});
+
+test('negative: a revision the store will not release yet (review) is reported as held', () => {
+  const dir = setup('55    2026-11-20T10:00:00Z  amd64    13.20    -\n');
+  // The fake's release says no, as the store does for a ReviewQueued revision.
+  const fake = path.join(dir.dir, 'bin', 'snapcraft');
+  fs.writeFileSync(fake, fs.readFileSync(fake, 'utf8').replace('release) echo "released" ;;', 'release) echo "Can\'t be released: ReviewQueued" >&2; exit 1 ;;'));
+  const r = run(dir);
+  assert.notStrictEqual(r.status, 0);
+  // Each channel is asked on its own, and each refusal is in the log.
+  assert.match(r.stderr, /did not release wekan 13\.20 \(amd64\), revision 55, to stable/);
+  assert.match(r.stderr, /r55 not released to: stable candidate beta edge/);
+});
+
+test('negative: the renamed list-revisions is not used alone - the store\'s revision is found, nothing uploaded', () => {
+  // v13.20 and v13.21: list-revisions failed, nothing was found, and the file was uploaded again.
+  const r = run(setup('55    2026-11-20T10:00:00Z  amd64    13.20    -\n'));
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.ok(r.calls.some(call => call.startsWith('revisions wekan')), r.calls.join('|'));
+  assert.ok(!r.calls.some(call => call.startsWith('upload')));
+  assert.ok(releasedAll(r.calls, 55, 'wekan'));
+});
+
+test('the newest store revision of every architecture is released; a held one is reported and the rest go on', () => {
+  const NEWEST = path.join(ROOT, 'releases/snap-store-release-newest.sh');
+  const go = (store, releaseScript) => {
+    const s = setup(store);
+    const fake = path.join(s.dir, 'bin', 'snapcraft');
+    if (releaseScript) fs.writeFileSync(fake, fs.readFileSync(fake, 'utf8').replace('release) echo "released" ;;', releaseScript));
+    const result = spawnSync('bash', [NEWEST, 'wekan', 'stable,candidate,beta,edge'], { env: s.env, encoding: 'utf8' });
+    const calls = fs.readFileSync(path.join(s.dir, 'calls.txt'), 'utf8').trim().split('\n');
+    fs.rmSync(s.dir, { recursive: true, force: true });
+    return { ...result, calls };
+  };
+  const store = ['4793  2026-11-20T10:00:00Z  amd64    13.21    -', '4790  2026-11-19T10:00:00Z  amd64    13.20    -',
+    '4794  2026-11-20T10:00:00Z  arm64    13.21    -', '4765  2026-10-01T10:00:00Z  s390x    13.16    latest/stable*', ''].join('\n');
+  const ok = go(store);
+  assert.strictEqual(ok.status, 0, ok.stderr);
+  for (const rev of [4765, 4793, 4794]) assert.ok(releasedAll(ok.calls, rev), `${rev} to every channel`);
+  assert.strictEqual(ok.calls.filter(call => call.startsWith('release')).length, 12, 'three revisions, four channels each');
+  // Negative: the store refusing amd64 (review) is red, and arm64 is still released.
+  // The store refuses amd64 on stable only: the other channels still get it.
+  const held = go(store, 'release) if [ "$3" = 4793 ] && [ "$4" = stable ]; then echo "Can\'t be released: ReviewQueued" >&2; exit 1; fi; echo released ;;');
+  assert.notStrictEqual(held.status, 0);
+  assert.match(held.stderr, /did not release wekan 13\.21 \(amd64\), revision 4793, to stable/);
+  assert.match(held.stderr, /not released: amd64:r4793:stable/);
+  for (const c of ['candidate', 'beta', 'edge']) assert.ok(held.calls.includes(`release wekan 4793 ${c}`), c);
+  assert.ok(releasedAll(held.calls, 4794, 'wekan'));
+  // Negative: names and channels are checked before they reach snapcraft.
+  assert.notStrictEqual(spawnSync('bash', [NEWEST, 'other'], { encoding: 'utf8' }).status, 0);
+  assert.notStrictEqual(spawnSync('bash', [NEWEST, 'wekan', 'stable;rm'], { encoding: 'utf8' }).status, 0);
+  // The workflow runs it for each snap, also when the push of a file failed.
+  const wf = read('.github/workflows/snap-store.yml');
+  assert.match(wf, /if: \$\{\{ always\(\) && steps\.snapcraft\.outcome == 'success' \}\}[\s\S]*?run: bash releases\/snap-store-release-newest\.sh "\$SNAP" "\$CHANNELS"/);
 });
 
 test('the workflow pushes all three snaps of the release it is given, called by Release All and by hand', () => {
@@ -126,6 +207,10 @@ test('the workflow pushes all three snaps of the release it is given, called by 
   assert.match(wf, /default: 'stable,candidate,beta,edge'/);
   assert.match(wf, /gh release download "\$TAG" --repo "\$GITHUB_REPOSITORY" --dir snaps --pattern "\$\{SNAP\}_\*\.snap"/);
   assert.match(wf, /has no \$\{SNAP\}_\*\.snap to push: its snap job did not attach one/);
+  // A release without its variant snaps gets them made from its wekan snaps.
+  assert.match(wf, /gh release download "\$TAG" --repo "\$GITHUB_REPOSITORY" --dir wekan-snaps --pattern "wekan_\*\.snap"/);
+  assert.match(wf, /bash releases\/snap-rename\.sh "\$f" "\$SNAP" "\$title" snaps/);
+  assert.match(wf, /wekan-ondra\) title='Wekan Ondra' ;;/);
   assert.match(wf, /bash releases\/snap-store-push\.sh "\$f" "\$CHANNELS"/);
   assert.match(wf, /SNAPCRAFT_STORE_CREDENTIALS: \$\{\{ secrets\.SNAP_AUTH \}\}/);
   // Negative: an input is checked before it reaches a shell command.
