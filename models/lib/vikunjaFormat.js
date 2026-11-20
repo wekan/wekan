@@ -59,6 +59,12 @@ export const MAX_VIKUNJA_DATA_CHARS = 64 * 1024 * 1024;
 export const MAX_VIKUNJA_TASKS = 20000;
 export const VIKUNJA_PRIORITIES = ['', 'Low', 'Medium', 'High', 'Urgent', 'DO NOW'];
 import { pagingOf, markKey, blockersOf } from './exportPaging.js';
+import { RECURRENCES } from './recurrenceMap.js';
+
+// Vikunja repeats: repeat_after seconds (mode 0, from the due date, or 2,
+// from when it was done), or repeat_mode 1, every month.
+const DAY = 86400;
+const VIKUNJA_REPEAT = { [DAY]: 'daily', [7 * DAY]: 'weekly' };
 const ZERO_TIME = '0001-01-01T00:00:00Z';
 const POSITION_STEP = 65536;
 const DEFAULT_TITLE = 'Checklist';
@@ -488,7 +494,10 @@ function parseTask(task, { at, swimlane, column, archived }, unsupported, state)
   const reminders = list(task.reminders).length + list(task.reminder_dates).length;
   if (reminders) unsupported.push({ path: `${at}/reminders`, reason: `${reminders} reminder(s) are not imported` });
   if (num(task.repeat_after) > 0 || num(task.repeat_mode) === 1) {
-    unsupported.push({ path: `${at}/repeat_after`, reason: 'a repeating Vikunja task is imported once; its repeat is not imported' });
+    const recurrence = task.done === true ? null
+      : num(task.repeat_mode) === 1 ? 'monthly' : VIKUNJA_REPEAT[num(task.repeat_after)] || null;
+    if (RECURRENCES.includes(recurrence)) parsed.recurrence = recurrence;
+    else unsupported.push({ path: `${at}/repeat_after`, reason: 'a Vikunja repeat other than every day, week or month (or of a done task) is not imported; the task is imported once' });
   }
   if (isObject(task.reactions) ? Object.keys(task.reactions).length : list(task.reactions).length) {
     unsupported.push({ path: `${at}/reactions`, reason: 'reactions are not imported' });
@@ -757,8 +766,8 @@ export function formatVikunja(collected = {}, now = new Date()) {
       start_date: vikunjaTime(item.startAt),
       end_date: vikunjaTime(item.endAt),
       reminders: [],
-      repeat_after: 0,
-      repeat_mode: 0,
+      repeat_after: !isDone && item.recurrence === 'daily' ? DAY : !isDone && item.recurrence === 'weekly' ? 7 * DAY : 0,
+      repeat_mode: !isDone && item.recurrence === 'monthly' ? 1 : 0,
       priority: vikunjaPriority(fields.Priority),
       assignees: [...new Set(people)],
       labels: [...new Set(list(item.labels).map(name => String(name).trim()).filter(Boolean))].map(label),

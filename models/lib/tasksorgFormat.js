@@ -38,7 +38,8 @@
 //                              checklist item could not keep
 //   the account             -> the board title, when every list is in one
 // Reported, not guessed: deleted tasks (deletionDate) are skipped, and a
-// task's repeat rule, reminders (alarms), location reminders (geofences),
+// task's repeat rule other than daily, weekly or monthly (those make the card
+// repeat, and are written back), reminders (alarms), location reminders (geofences),
 // a running timer, attachments (the backup has no file bytes), comment
 // pictures and a list the backup does not define.
 //
@@ -51,6 +52,8 @@
 
 export const TASKSORG_BACKUP_VERSION = 151300;
 export const TASKSORG_PRIORITY = ['High', 'Medium', 'Low'];
+import { recurrenceFromRRule, rruleOf } from './recurrenceMap.js';
+
 const PRIORITY_NONE = 3;
 const LOCAL_ACCOUNT = 2;
 const NO_LIST = 'No list';
@@ -155,7 +158,8 @@ export function parseTasksOrgBackup(input) {
       unsupported.push({ path: `${at}/task/priority`, reason: `Tasks.org priority ${JSON.stringify(priority)} is not 0, 1, 2 or 3` });
     }
     if (positive(task.estimatedSeconds)) customFields[ESTIMATE_FIELD] = Math.round(task.estimatedSeconds / 36) / 100;
-    if (text(task.recurrence)) {
+    const recurrence = text(task.recurrence) && !task.completionDate ? recurrenceFromRRule(task.recurrence) : null;
+    if (text(task.recurrence) && !recurrence) {
       unsupported.push({ path: `${at}/task/recurrence`, reason: `Tasks.org repeat rule "${task.recurrence}" has no WeKan equivalent` });
     }
     const alarms = array(backup.alarms).length;
@@ -190,6 +194,7 @@ export function parseTasksOrgBackup(input) {
       ...(start ? { date_started: start } : {}),
       ...(ended ? { date_end: ended } : {}),
       ...(created ? { date_creation: created } : {}),
+      ...(recurrence ? { recurrence } : {}),
       ...(positive(task.elapsedSeconds) ? { spent_hours: Math.round(task.elapsedSeconds / 36) / 100 } : {}),
       ...(comments.length ? { comments } : {}),
       ...(Object.keys(customFields).length ? { custom_fields: customFields } : {}),
@@ -260,6 +265,7 @@ export function formatTasksOrgBackup({ board, lists, items }, now = new Date()) 
       creationDate: created,
       modificationDate: timestamp,
       ...(tasksorgMillis(item.endAt) ? { completionDate: tasksorgMillis(item.endAt) } : {}),
+      ...(!item.endAt && rruleOf(item.recurrence) ? { recurrence: `RRULE:${rruleOf(item.recurrence)};INTERVAL=1` } : {}),
       ...(item.description ? { notes: item.description } : {}),
       ...(Number.isFinite(estimate) && estimate > 0 ? { estimatedSeconds: Math.round(estimate * 3600) } : {}),
       // Time spent goes back as Tasks.org keeps it, so it survives the round trip.

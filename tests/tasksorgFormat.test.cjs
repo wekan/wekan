@@ -100,7 +100,7 @@ async function main() {
   test('negative: deleted tasks, repeats, reminders and the rest are reported, never guessed', () => {
     const board = parseTasksOrgBackup({ version: 1, data: { tasks: [
       { task: { title: 'Gone', deletionDate: 1791100000000 } },
-      { task: { title: 'Weekly', recurrence: 'FREQ=WEEKLY', priority: 7, timerStart: 1791100000000 },
+      { task: { title: 'Weekly', recurrence: 'FREQ=WEEKLY;INTERVAL=2', priority: 7, timerStart: 1791100000000 },
         alarms: [{ time: 0, type: 1 }], geofences: [{ place: 'p' }], attachments: [{ attachmentUid: 'a' }],
         comments: [{ message: '', picture: 'content://x' }],
         caldavTasks: [{ calendar: 'missing', remoteId: 'w' }] },
@@ -109,7 +109,9 @@ async function main() {
     ] } });
     const reasons = board.unsupported.map(u => `${u.path} ${u.reason}`).join('\n');
     assert.match(reasons, /\/data\/tasks\/0\/task\/deletionDate Tasks\.org task "Gone" is deleted/);
-    assert.match(reasons, /\/data\/tasks\/1\/task\/recurrence Tasks\.org repeat rule "FREQ=WEEKLY"/);
+    // Every two weeks has no WeKan recurrence; a plain weekly rule now makes
+    // the card repeat (models/lib/recurrenceMap.js, tests/recurrenceMap.test.cjs).
+    assert.match(reasons, /\/data\/tasks\/1\/task\/recurrence Tasks\.org repeat rule "FREQ=WEEKLY;INTERVAL=2"/);
     assert.match(reasons, /\/data\/tasks\/1\/task\/priority Tasks\.org priority 7/);
     assert.match(reasons, /\/data\/tasks\/1\/alarms 1 Tasks\.org reminder/);
     assert.match(reasons, /\/data\/tasks\/1\/geofences 1 Tasks\.org location reminder/);

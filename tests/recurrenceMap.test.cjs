@@ -24,6 +24,9 @@ async function main() {
   const { parseMicrosoftTodoApi } = await import('../models/lib/mstodoApiFormat.js');
   const { parseTodoistCsv } = await import('../models/lib/todoistCsvFormat.js');
   const { parseTickTickCsv, formatTickTickCsv } = await import('../models/lib/ticktickCsvFormat.js');
+  const tasksorg = await import('../models/lib/tasksorgFormat.js');
+  const vikunja = await import('../models/lib/vikunjaFormat.js');
+  const sp = await import('../models/lib/superProductivityFormat.js');
   let passed = 0;
   const test = (name, fn) => { fn(); passed += 1; console.log('  ok -', name); };
   const reasons = board => board.unsupported.map(u => u.reason).join(' | ');
@@ -167,6 +170,59 @@ async function main() {
     assert.match(reasons(other), /repeating task "RRULE:FREQ=DAILY;INTERVAL=2" is imported once/);
   });
 
+  test('Tasks.org: RRULE round trip; negative: INTERVAL=2 and a completed task stay reported', () => {
+    const { parseTasksOrgBackup, formatTasksOrgBackup } = tasksorg;
+    const backup = formatTasksOrgBackup({ board: { title: 'B' }, lists: [{ _id: 'l', title: 'Doing' }], items: [
+      { cardId: 'c1', listId: 'l', listTitle: 'Doing', title: 'Report', recurrence: 'weekly' },
+      { cardId: 'c2', listId: 'l', listTitle: 'Doing', title: 'Once' }] }, new Date('2026-11-20T00:00:00Z'));
+    const text = JSON.stringify(backup);
+    assert.match(text, /"recurrence":"RRULE:FREQ=WEEKLY;INTERVAL=1"/);
+    const back = parseTasksOrgBackup(text);
+    assert.deepEqual(back.tasks.map(t => [t.title, t.recurrence]), [['Report', 'weekly'], ['Once', undefined]]);
+    const other = parseTasksOrgBackup({ version: 1, data: { tasks: [
+      { task: { title: 'Fortnight', recurrence: 'RRULE:FREQ=WEEKLY;INTERVAL=2' } },
+      { task: { title: 'Done', recurrence: 'FREQ=DAILY', completionDate: 1791100000000 } }] } });
+    assert.deepEqual(other.tasks.map(t => t.recurrence), [undefined, undefined]);
+    assert.equal(other.unsupported.filter(u => /recurrence$/.test(u.path)).length, 2);
+  });
+
+  test('Vikunja: repeat_after a day or a week, repeat_mode 1 monthly, round trip; negative: 3 days is reported', () => {
+    const { parseVikunjaExport, formatVikunja, vikunjaArchiveData } = vikunja;
+    const doc = formatVikunja({ board: { title: 'B' }, lists: [{ title: 'To Do' }], swimlanes: [{ title: 'Default' }], items: [
+      { cardId: 'a', title: 'Daily', listTitle: 'To Do', recurrence: 'daily' },
+      { cardId: 'b', title: 'Weekly', listTitle: 'To Do', recurrence: 'weekly' },
+      { cardId: 'c', title: 'Monthly', listTitle: 'To Do', recurrence: 'monthly' },
+      { cardId: 'd', title: 'Once', listTitle: 'To Do' }] });
+    const tasks = Object.fromEntries(doc.projects.flatMap(p => p.tasks).map(t => [t.title, [t.repeat_after, t.repeat_mode]]));
+    assert.deepEqual(tasks, { Daily: [86400, 0], Weekly: [604800, 0], Monthly: [0, 1], Once: [0, 0] });
+    const back = parseVikunjaExport(JSON.parse(JSON.stringify(vikunjaArchiveData(doc))));
+    assert.deepEqual(back.tasks.map(t => [t.title, t.recurrence]),
+      [['Daily', 'daily'], ['Weekly', 'weekly'], ['Monthly', 'monthly'], ['Once', undefined]]);
+    const data = vikunjaArchiveData(doc);
+    data[0].tasks[0].repeat_after = 3 * 86400;
+    const other = parseVikunjaExport(JSON.parse(JSON.stringify(data)));
+    assert.equal(other.tasks[0].recurrence, undefined);
+    assert.ok(other.unsupported.some(u => /repeat other than every day, week or month/.test(u.reason)));
+  });
+
+  test('Super Productivity: a repeat config of every 1 day, week or month; negative: every 2 weeks and paused are reported', () => {
+    const { parseSuperProductivity } = sp;
+    const task = (id, cfg, extra = {}) => ({ id, title: id, projectId: 'p', subTaskIds: [], tagIds: [], timeSpentOnDay: {}, isDone: false,
+      repeatCfgId: cfg, ...extra });
+    const cfg = (id, repeatCycle, repeatEvery, extra = {}) => ({ id, repeatCycle, repeatEvery, ...extra });
+    const backup = { crossModelVersion: 4.5, timestamp: 1733100000000, data: {
+      project: { ids: ['p'], entities: { p: { id: 'p', title: 'P', taskIds: ['a', 'b', 'c', 'd', 'e'], backlogTaskIds: [] } } },
+      task: { ids: ['a', 'b', 'c', 'd', 'e'], entities: { a: task('a', 'r1'), b: task('b', 'r2'), c: task('c', 'r3'), d: task('d', 'r4'),
+        e: task('e', 'r1', { isDone: true, doneOn: 1733100000000 }) } },
+      taskRepeatCfg: { ids: ['r1', 'r2', 'r3', 'r4'], entities: { r1: cfg('r1', 'DAILY', 1), r2: cfg('r2', 'MONTHLY', 1),
+        r3: cfg('r3', 'WEEKLY', 2), r4: cfg('r4', 'WEEKLY', 1, { isPaused: true }) } },
+    } };
+    const board = parseSuperProductivity(backup);
+    assert.deepEqual(board.tasks.map(t => [t.title, t.recurrence]),
+      [['a', 'daily'], ['b', 'monthly'], ['c', undefined], ['d', undefined], ['e', undefined]]);
+    assert.equal(board.unsupported.filter(u => /repeatCfgId$/.test(u.path)).length, 3);
+  });
+
   test('WeKan JSON import keeps recurrenceInterval, counted from the import; exports carry it', () => {
     const creator = read('models/wekanCreator.js');
     assert.match(creator, /recurrenceInterval: card\.recurrenceInterval, lastRecurrenceAt: this\._now\(\)/);
@@ -181,7 +237,8 @@ async function main() {
     for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.js'))) {
       const source = fs.readFileSync(path.join(dir, file), 'utf8');
       // Every normalized `recurrence` comes from a variable the mapper filled.
-      for (const match of source.matchAll(/\brecurrence\s*:\s*(['"`][^'"`]*['"`])/g)) {
+      // A plain string value; a template is a tool's own field (Tasks.org's RRULE).
+      for (const match of source.matchAll(/\brecurrence\s*:\s*(['"][^'"]*['"])/g)) {
         assert.ok(map.RECURRENCES.includes(match[1].slice(1, -1)), `${file}: recurrence ${match[1]}`);
       }
       if (/\.recurrence = |\{ recurrence \}/.test(source) && file !== 'recurrenceMap.js' && file !== 'importedTaskPlan.js') {

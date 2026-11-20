@@ -141,7 +141,10 @@ async function main() {
     assert.equal(plan.description, 'Old **Markdown** text', 'pre-HTML descriptions stay as they are');
     assert.deepEqual(plan.custom_fields, { Priority: 'Low' });
     const reasons = board.unsupported.map(u => `${u.path} ${u.reason}`).join('\n');
-    for (const pattern of [/attachment "brief\.pdf" .*files\/7/, /reminders .*1 reminder/, /repeat_after .*repeat/,
+    // repeat_after 86400 is every day: the card repeats now (models/lib/recurrenceMap.js), so it is not reported.
+    assert.equal(write.recurrence, 'daily');
+    assert.doesNotMatch(reasons, /repeat_after/);
+    for (const pattern of [/attachment "brief\.pdf" .*files\/7/, /reminders .*1 reminder/,
       /related_tasks\/precedes .*"precedes"/, /hex_color the project color/, /description the project description/,
       /buckets\/20\/limit .*limit of 3/, /\/labels .*label colors/, /filters\.json 1 saved filter/]) {
       assert.match(reasons, pattern);
