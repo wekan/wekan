@@ -1539,13 +1539,25 @@ Meteor.methods({
     if (username.includes('/') || userId.includes('/')) {
       return false;
     }
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      const nUsersWithUsername = (await ReactiveCache.getUsers({ username })).length;
-      if (nUsersWithUsername > 0) {
-        throw new Meteor.Error('username-already-taken');
-      } else {
-        await Users.updateAsync(userId, { $set: { username } });
-      }
+    // As setEmail: a site admin changes anybody's username, and a member their
+    // own when Admin Panel / People / Login allows a username change. Anything
+    // else is refused, so the Edit Profile popup does not close as if it saved.
+    const currentUser = await ReactiveCache.getCurrentUser();
+    const allowSelfChange =
+      !!this.userId && this.userId === userId &&
+      !!(await AccountSettings.findOneAsync('accounts-allowUserNameChange'))
+        ?.booleanValue;
+    if (!currentUser?.isAdmin && !allowSelfChange) {
+      throw new Meteor.Error('not-authorized');
+    }
+    if (!username.trim()) {
+      throw new Meteor.Error('invalid-username');
+    }
+    const nUsersWithUsername = (await ReactiveCache.getUsers({ username })).length;
+    if (nUsersWithUsername > 0) {
+      throw new Meteor.Error('username-already-taken');
+    } else {
+      await Users.updateAsync(userId, { $set: { username } });
     }
   },
 
@@ -1594,13 +1606,20 @@ Meteor.methods({
     if (username.includes('/') || email.includes('/') || userId.includes('/')) {
       return false;
     }
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      if (Array.isArray(email)) {
-        email = email.shift();
+    // Each of the two checks its own permission (admin, or the member's own
+    // account with that change allowed); the username is not changed when the
+    // e-mail address may not be.
+    const currentUser = await ReactiveCache.getCurrentUser();
+    if (!currentUser?.isAdmin) {
+      const own = !!this.userId && this.userId === userId;
+      const allowed = async key => !!(await AccountSettings.findOneAsync(key))?.booleanValue;
+      if (!own || !(await allowed('accounts-allowUserNameChange'))
+        || !(await allowed('accounts-allowEmailChange'))) {
+        throw new Meteor.Error('not-authorized');
       }
-      await Meteor.callAsync('setUsername', username, userId);
-      await Meteor.callAsync('setEmail', email, userId);
     }
+    await Meteor.callAsync('setUsername', username, userId);
+    await Meteor.callAsync('setEmail', email, userId);
   },
 
   async setPassword(newPassword, userId) {

@@ -74,4 +74,36 @@ test.describe('Profile email', () => {
       );
     }
   });
+
+  test('a member saves their own new username when Username change is allowed', async ({ page, user, user2 }) => {
+    const original = db.findOne('users', { _id: user.id }).username;
+    const renamed = `renamed${Date.now().toString(36)}`;
+    const setting = value => db.updateOne('accountSettings', { _id: 'accounts-allowUserNameChange' },
+      { $set: { booleanValue: value } });
+    setting(true);
+    try {
+      await loginWithToken(page, user.id, user.token);
+      await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+      await page.locator('.js-open-header-member-menu').click();
+      await page.locator('.js-pop-over .js-edit-profile').click();
+      const popup = page.locator('.js-pop-over');
+      const username = popup.locator('.js-profile-username');
+      await expect(username).toBeEditable();
+      await username.fill(renamed);
+      await popup.locator('input[type="submit"]').click();
+      await expect.poll(() => db.findOne('users', { _id: user.id })?.username).toBe(renamed);
+
+      const callError = (targetId, name) => page.evaluate(async ([id, n]) => {
+        try { await Meteor.callAsync('setUsername', n, id); return null; } catch (e) { return e.error; }
+      }, [targetId, name]);
+      // Negative: never another member's username, and not one's own once disallowed.
+      expect(await callError(user2.id, `x${renamed}`)).toBe('not-authorized');
+      setting(false);
+      expect(await callError(user.id, `y${renamed}`)).toBe('not-authorized');
+      expect(db.findOne('users', { _id: user.id }).username).toBe(renamed);
+    } finally {
+      setting(false);
+      db.updateOne('users', { _id: user.id }, { $set: { username: original } });
+    }
+  });
 });
