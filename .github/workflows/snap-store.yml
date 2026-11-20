@@ -1,0 +1,150 @@
+name: Push Snap to Store
+
+# Puts the .snap files of a GitHub release on the Snap Store and RELEASES them
+# to every channel: wekan, wekan-ondra and wekan-gantt-gpl, every architecture
+# the release carries.
+#
+# WHY: release-all.yml uploads each snap as it builds it, with
+# `snapcraft upload --release=...`. The store can keep a revision in
+# "processing" for hours, and an upload that gives up waiting leaves the
+# release to the store - the job is green either way. On v13.20 every build
+# was green and the snaps were on the GitHub release, but the Snap Store kept
+# the old version. This workflow finishes that from the release itself,
+# without building anything: releases/snap-store-push.sh releases a revision
+# the store already has, uploads one it has not, waits for one still
+# processing, and FAILS - red, not green - when a snap still did not reach a
+# channel.
+#
+# It runs after every "Release All Platforms" run, and by hand from the
+# Actions tab for any release, snap names and channels.
+#
+# Secrets: SNAP_AUTH, as for release-all.yml - an exported login carrying
+# package_access, package_push, package_release and package_update for all
+# three names.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v13.20). Empty: the latest release.'
+        required: false
+        default: ''
+      snaps:
+        description: 'Snap names, space separated'
+        required: false
+        default: 'wekan wekan-ondra wekan-gantt-gpl'
+      channels:
+        description: 'Channels to release to'
+        required: false
+        default: 'stable,candidate,beta,edge'
+  workflow_run:
+    workflows: ['Release All Platforms']
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: snap-store
+  cancel-in-progress: false
+
+env:
+  DO_NOT_TRACK: 1
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      snaps: ${{ steps.plan.outputs.snaps }}
+      channels: ${{ steps.plan.outputs.channels }}
+    steps:
+      - name: Which release, which snaps, which channels
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          INPUT_SNAPS: ${{ github.event.inputs.snaps }}
+          INPUT_CHANNELS: ${{ github.event.inputs.channels }}
+        run: |
+          set -euo pipefail
+          tag="${INPUT_TAG:-}"
+          if [ -z "$tag" ]; then
+            tag="$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)"
+          fi
+          case "$tag" in v[0-9]*) ;; *) echo "::error::'$tag' is not a release tag like v13.20."; exit 1 ;; esac
+          snaps="${INPUT_SNAPS:-wekan wekan-ondra wekan-gantt-gpl}"
+          for s in $snaps; do
+            case "$s" in wekan|wekan-ondra|wekan-gantt-gpl) ;; *) echo "::error::'$s' is not one of WeKan's snaps (wekan, wekan-ondra, wekan-gantt-gpl)."; exit 1 ;; esac
+          done
+          channels="${INPUT_CHANNELS:-stable,candidate,beta,edge}"
+          case "$channels" in *[!a-z0-9/,.-]*) echo "::error::'$channels' is not a channel list."; exit 1 ;; esac
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "snaps=$(printf '%s\n' $snaps | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+          echo "channels=$channels" >> "$GITHUB_OUTPUT"
+          echo "Release $tag: $snaps -> $channels"
+
+  push:
+    needs: [plan]
+    runs-on: ubuntu-24.04
+    # One snap name per job; its architectures one after another. A store
+    # still processing may take the whole wait of snap-store-push.sh.
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        snap: ${{ fromJSON(needs.plan.outputs.snaps) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: releases
+          persist-credentials: false
+      - name: Install snapcraft and check SNAP_AUTH
+        env:
+          SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SNAP_AUTH:-}" ]; then
+            echo "::error::SNAP_AUTH is not set. snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+            exit 1
+          fi
+          installed=""
+          for i in 1 2 3 4 5; do
+            if timeout 180 sudo snap install snapcraft --classic; then installed=1; break; fi
+            sudo snap abort --last=install >/dev/null 2>&1 || true
+            echo "snapcraft install attempt $i/5 failed; retrying in 30s..."
+            sleep 30
+          done
+          [ -n "$installed" ] || { echo "::error::snapcraft could not be installed: the Snap Store did not answer. Re-run the job."; exit 1; }
+          SNAPCRAFT_STORE_CREDENTIALS="$SNAP_AUTH" snapcraft whoami
+      - name: Download ${{ matrix.snap }} from ${{ needs.plan.outputs.tag }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.plan.outputs.tag }}
+          SNAP: ${{ matrix.snap }}
+        run: |
+          set -euo pipefail
+          mkdir -p snaps
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap"
+          ls -l snaps
+          if ! ls snaps/"${SNAP}"_*.snap >/dev/null 2>&1; then
+            echo "::error::Release $TAG has no ${SNAP}_*.snap to push."
+            exit 1
+          fi
+      - name: Push ${{ matrix.snap }} to the Snap Store, releasing to ${{ needs.plan.outputs.channels }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          CHANNELS: ${{ needs.plan.outputs.channels }}
+        run: |
+          set -euo pipefail
+          failed=""
+          for f in snaps/*.snap; do
+            # Each architecture on its own: one that the store is still
+            # processing does not stop the others.
+            if ! bash releases/snap-store-push.sh "$f" "$CHANNELS"; then failed="$failed $(basename "$f")"; fi
+          done
+          if [ -n "$failed" ]; then
+            echo "::error::Not released:$failed. The ::error:: lines above say why."
+            exit 1
+          fi

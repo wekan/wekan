@@ -67,7 +67,10 @@ while [ "$attempt" -le "$attempts" ]; do
       # The store has the file and is processing it. The channels were sent
       # with the upload, so the store releases the revision itself when its
       # processing finishes; uploading again would only queue a duplicate.
-      echo "::warning::The Snap Store accepted $label but was still processing it after ${budget}s. It releases the revision to $channels by itself when processing finishes; check with 'snapcraft list-revisions <snap>' or https://dashboard.snapcraft.io/ if it does not appear."
+      # The store does not always release it then (v13.20 kept the old
+      # version): "Push Snap to Store" (.github/workflows/snap-store.yml),
+      # which runs after every release, releases the revision by number.
+      echo "::warning::The Snap Store accepted $label but was still processing it after ${budget}s. \"Push Snap to Store\" runs after this release and releases the revision to $channels when processing has finished."
       if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
         echo "PROCESSING $label: accepted by the Snap Store, still processing after ${budget}s" >> "$GITHUB_STEP_SUMMARY"
       fi
