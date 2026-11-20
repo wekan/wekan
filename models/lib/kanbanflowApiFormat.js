@@ -167,9 +167,12 @@ export function parseKanbanflowApi(input) {
 
     const subTasks = (Array.isArray(source.subTasks) ? source.subTasks : []).filter(s => isObject(s) && text(s.name).trim());
     if (subTasks.length) {
-      task.checklists = [{ title: SUBTASKS_CHECKLIST, items: subTasks.map(s => ({ title: text(s.name).trim(), done: s.finished === true })) }];
-      if (subTasks.some(s => text(s.userId) || text(s.dueDate))) {
-        unsupported.push({ path: `${at}/subTasks`, reason: 'a KanbanFlow subtask\'s own person and due date have no place on a WeKan checklist item' });
+      // A checklist item has a due date and an assignee too: the subtask's own.
+      task.checklists = [{ title: SUBTASKS_CHECKLIST, items: subTasks.map(s => ({ title: text(s.name).trim(), done: s.finished === true,
+        ...(isoDate(s.dueDate) ? { due: isoDate(s.dueDate) } : {}),
+        ...(text(s.userId) ? { assignee: userName(s.userId) } : {}) })) }];
+      if (subTasks.some(s => text(s.dueDate) && !isoDate(s.dueDate))) {
+        unsupported.push({ path: `${at}/subTasks`, reason: 'a KanbanFlow subtask due date that is not a date is not kept' });
       }
     }
 

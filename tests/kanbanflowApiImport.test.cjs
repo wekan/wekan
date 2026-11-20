@@ -164,9 +164,18 @@ async function main() {
   assert.deepEqual(t1.custom_fields, { 'Estimate (hours)': 2 });
   assert.equal(t1.owner_name, 'Ann Smith');
   assert.deepEqual(t1.assignees, ['Bob Jones'], 'the owner is not repeated as an assignee');
-  assert.deepEqual(t1.checklists, [{ title: 'Subtasks', items: [{ title: 'Reproduce', done: true }, { title: 'Patch', done: false }] }]);
+  // A subtask's person and due date are the checklist item's assignee and due date.
+  assert.deepEqual(t1.checklists, [{ title: 'Subtasks', items: [{ title: 'Reproduce', done: true },
+    { title: 'Patch', done: false, due: '2026-03-14T00:00:00.000Z', assignee: 'Bob Jones' }] }]);
+  {
+    const { importedChecklists } = await import('../models/lib/importedTaskPlan.js');
+    const [items] = importedChecklists(t1.checklists, { 'Bob Jones': 'uB' }).map(c => c.items);
+    assert.equal(items[1].dueAt.toISOString(), '2026-03-14T00:00:00.000Z');
+    assert.equal(items[1].assigneeId, 'uB');
+    assert.equal(importedChecklists(t1.checklists, {})[0].items[1].assigneeId, undefined, 'negative: an unmapped person is no assignee');
+  }
   assert.deepEqual(t1.comments, [{ text: 'Seen it too', author: 'Bob Jones', date: '2026-03-10T09:00:00.000Z' }]);
-  assert.ok(parsed.unsupported.some(u => u.path === '/tasks/0/subTasks'));
+  assert.ok(!parsed.unsupported.some(u => u.path === '/tasks/0/subTasks'), 'nothing of the subtasks is lost now');
   assert.ok(parsed.unsupported.some(u => u.path === '/tasks/0/dates/0/targetColumnId'));
   const t5 = parsed.tasks.find(t => t.ref === 't5');
   assert.equal(t5.column_name, 'Do today');

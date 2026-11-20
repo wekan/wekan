@@ -104,12 +104,17 @@ export function parseGoogleTasksApi(input) {
       if (subtasks.length) {
         card.checklists = [{
           title: SUBTASKS_CHECKLIST,
-          items: subtasks.map(({ task: sub }) => ({ title: text(sub.title).trim() || 'Untitled', done: sub.status === 'completed' })),
+          // A checklist item has a due date (dueAt) too.
+          items: subtasks.map(({ task: sub }) => ({ title: text(sub.title).trim() || 'Untitled', done: sub.status === 'completed',
+            ...(dueDate(sub.due) ? { due: dueDate(sub.due) } : {}) })),
         }];
         subtasks.forEach(({ task: sub, at: subAt }) => {
-          const lost = ['notes', 'due', 'links'].filter(key => (key === 'links' ? linkLines(sub.links).length : text(sub[key])));
+          const lost = ['notes', 'links'].filter(key => (key === 'links' ? linkLines(sub.links).length : text(sub[key])));
           if (lost.length) {
-            unsupported.push({ path: subAt, reason: `the ${lost.join(', ')} of subtask "${text(sub.title).trim() || 'Untitled'}" are not kept: a checklist item has only a title and done` });
+            unsupported.push({ path: subAt, reason: `the ${lost.join(', ')} of subtask "${text(sub.title).trim() || 'Untitled'}" are not kept: a checklist item has a title, done, a due date and an assignee` });
+          }
+          if (text(sub.due) && !dueDate(sub.due)) {
+            unsupported.push({ path: `${subAt}/due`, reason: `Google Tasks due date "${text(sub.due)}" of subtask "${text(sub.title).trim() || 'Untitled'}" is not a date` });
           }
         });
       }

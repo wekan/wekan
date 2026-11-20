@@ -215,6 +215,20 @@ async function main() {
     assert.doesNotMatch(read('releases/live-tests/googletasks-import.mjs'), /method: '(POST|PUT|PATCH|DELETE)'/, 'the live test only reads');
   });
 
+  await test('a subtask\'s due date is its checklist item\'s; its notes are still reported', () => {
+    const board = parseGoogleTasksApi({ googletasks: true, lists: [{ id: 'L', title: 'Trip', tasks: [
+      { id: 'p', title: 'Plan', status: 'needsAction', position: '0' },
+      { id: 'c', title: 'Book', parent: 'p', status: 'needsAction', position: '1', due: '2026-05-10T00:00:00.000Z', notes: 'Window seat' },
+      { id: 'd', title: 'Pack', parent: 'p', status: 'needsAction', position: '2', due: 'soon' },
+    ] }] });
+    const items = board.tasks[0].checklists[0].items;
+    assert.deepEqual(items.map(i => [i.title, i.due]), [['Book', '2026-05-10T00:00:00.000Z'], ['Pack', undefined]]);
+    const reasons = board.unsupported.map(u => u.reason).join('|');
+    assert.match(reasons, /the notes of subtask "Book" are not kept/);
+    assert.doesNotMatch(reasons, /due of subtask "Book"/);
+    assert.match(reasons, /due date "soon" of subtask "Pack" is not a date/);
+  });
+
   console.log(`\ngoogletasksApiImport: ${passed} checks passed`);
 }
 

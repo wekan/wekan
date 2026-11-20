@@ -151,14 +151,21 @@ export function threadImportedComments(comments) {
   return out;
 }
 
-export function importedChecklists(checklists) {
+// An item may carry `due` (a date) and `assignee` (a source user key): a
+// WeKan checklist item has a due date and an assignee too.
+export function importedChecklists(checklists, members = {}) {
   if (!Array.isArray(checklists)) return [];
   return checklists
     .map((checklist, index) => ({
       title: text(checklist && checklist.title).trim() || 'Checklist',
       sort: index,
       items: (Array.isArray(checklist && checklist.items) ? checklist.items : [])
-        .map(item => ({ title: text(item && item.title).trim(), isFinished: Boolean(item && item.done) }))
+        .map(item => {
+          const due = importedDate(item && item.due);
+          const assignee = item && (typeof item.assignee === 'string' || typeof item.assignee === 'number') ? members[item.assignee] : undefined;
+          return { title: text(item && item.title).trim(), isFinished: Boolean(item && item.done),
+            ...(due ? { dueAt: due } : {}), ...(assignee ? { assigneeId: assignee } : {}) };
+        })
         .filter(item => item.title)
         .map((item, sort) => ({ ...item, sort })),
     }))
@@ -219,7 +226,7 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
     memberIds,
     watcherIds,
     unwatchedCount: watcherKeys.length - watcherKeys.filter(key => watcherIds.includes(members[key])).length,
-    checklists: importedChecklists(task.checklists),
+    checklists: importedChecklists(task.checklists, members),
     comments: threadImportedComments((Array.isArray(task.comments) ? task.comments : [])
       .map(comment => importedComment(comment, members))
       .filter(Boolean)),

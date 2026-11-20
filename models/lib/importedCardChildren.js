@@ -19,6 +19,7 @@ export async function insertImportedChecklists(checklists, { boardId, cardId, no
     for (const item of checklist.items) {
       await ChecklistItems.direct.insertAsync({
         boardId, cardId, checklistId, title: item.title, sort: item.sort, isFinished: item.isFinished,
+        ...(item.dueAt ? { dueAt: item.dueAt } : {}), ...(item.assigneeId ? { assigneeId: item.assigneeId } : {}),
       });
     }
   }

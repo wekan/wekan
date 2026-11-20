@@ -94,7 +94,9 @@ What the current code does:
 - `responsibleUserId` is the owner and `collaborators` are further
   assignees, both by the user's full name (or e-mail without one), mapped to
   WeKan members on the members step.
-- `subTasks` become a checklist **Subtasks**, `finished` = done.
+- `subTasks` become a checklist **Subtasks**, `finished` = done, a subtask's
+  `dueDate` the item's due date and its `userId` the item's assignee (when
+  mapped).
 - Comments keep their author and date.
 - The task id is the source reference.
 - Limits: 20,000 tasks; comments are fetched for the first 5,000 tasks
@@ -117,7 +119,7 @@ What the current code does:
 | `totalSecondsEstimate` | Custom field "Estimate (hours)" |
 | `responsibleUserId` | Card member (owner) |
 | `collaborators` | Card members |
-| `subTasks` (`name`, `finished`) | Checklist "Subtasks" |
+| `subTasks` (`name`, `finished`, `dueDate`, `userId`) | Checklist "Subtasks", with each item's due date and assignee |
 | Comments | Comments, with author and date |
 
 ## What is not kept
@@ -126,7 +128,7 @@ The import reports these on the loss report:
 
 - the column a due date is tied to (`targetColumnId`): WeKan keeps the date;
 - every due date after the first;
-- a subtask's own person and due date;
+- a subtask due date that is not a date;
 - a color that is not one of KanbanFlow's ten;
 - a due date that is not a date;
 - a task in a column the board does not have, and tasks that are not objects;

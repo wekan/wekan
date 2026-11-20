@@ -90,7 +90,7 @@ The parser (`models/lib/googletasksApiFormat.js`):
 | `due` | Due date |
 | `status: completed` | Archived card |
 | `completed` | End date |
-| Subtasks (`parent`) | Checklist "Subtasks", done = completed |
+| Subtasks (`parent`) | Checklist "Subtasks", done = completed, with the subtask's due date |
 | `position` | Card and checklist item order |
 | Hidden (cleared) completed tasks | Archived cards |
 
@@ -99,8 +99,8 @@ The parser (`models/lib/googletasksApiFormat.js`):
 The import reports these on the loss report:
 
 - deleted tasks (`deleted: true`), counted per list;
-- the notes, due date and links of a subtask: a checklist item has only a
-  title and a done mark;
+- the notes and links of a subtask: a checklist item has a title, done, a due
+  date and an assignee;
 - a subtask whose parent is missing (it becomes its own card);
 - a due date that is not a date;
 - a second list with the same title (it is imported as `<title> (2)`);
