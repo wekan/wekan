@@ -3,8 +3,9 @@
 WeKan imports and exports a board as an [Org mode](https://orgmode.org/manual/)
 outline: the `.org` text file that Emacs, Orgzly, Beorg and organice write.
 Top-level headings are lists and second-level headings are cards. TODO
-keywords, priorities, tags, SCHEDULED, DEADLINE and CLOSED dates, the
-`:CREATED:` property, body text and checkboxes are kept.
+keywords, priorities, tags, SCHEDULED, DEADLINE and CLOSED dates and their
+daily, weekly or monthly repeaters, properties, clocked time, body text and
+checkboxes are kept.
 
 ## How to import
 
@@ -86,16 +87,21 @@ What the import must cover:
   keyword as the `done` label);
 - priorities become `priority:A` labels, and tags become labels;
 - SCHEDULED / DEADLINE / CLOSED become the start, due and end dates;
-- `:CREATED:` becomes the creation date;
+- `:CREATED:` becomes the creation date, `:ID:` (or `:CUSTOM_ID:`) the card's
+  source reference, and every other property a custom field of that name;
+- the closed `CLOCK:` lines of the `:LOGBOOK:` drawer add up to the spent
+  time;
+- a `+1d`, `+1w` or `+1m` repeater (also `++` and `.+`) makes the card repeat
+  daily, weekly or monthly;
 - body text becomes the description;
 - checkboxes and level-3 headings without children become the card's
   checklist, and level-3 headings with children become checklists of their
   own;
 - `#+TITLE` becomes the board title.
 
-Timestamps have no zone in Org, and are read and written as UTC. Repeaters
-and warning delays, text under a list heading and text before the first
-heading are reported. Comments have no place in Org and are not exported.
+Timestamps have no zone in Org, and are read and written as UTC. Other
+repeaters and warning delays, other drawers, open clocks, text under a list
+heading and text before the first heading are reported. Comments have no place in Org and are not exported.
 
 What the current code does (`models/lib/orgModeFormat.js`):
 
@@ -107,8 +113,10 @@ What the current code does (`models/lib/orgModeFormat.js`):
 - A planning line (SCHEDULED, DEADLINE, CLOSED) is read when it comes before
   the body text. A timestamp may be active `<…>` or inactive `[…]`, with or
   without a time.
-- Of the property drawer, only `:CREATED:` is read. Other drawers (such as
-  `:LOGBOOK:`) are skipped.
+- The property drawer is read whole: `:CREATED:`, `:ID:` / `:CUSTOM_ID:`, and
+  every other property as a custom field (a `:NAME+:` line appends to it). The
+  `:LOGBOOK:` drawer gives the spent time; its state-change notes are history
+  and are not kept. Any other drawer is reported.
 - `- [ ]`, `+ [ ]` and numbered checkbox lines in the body become the first
   checklist, named after the card, together with level-3 headings that have
   no children. A level-3 heading with children is a checklist named after it,
@@ -129,7 +137,9 @@ What the export writes (`formatOrgMode` in the same module):
   Org does not allow in a tag become `_`);
 - `SCHEDULED:` (start date), `DEADLINE:` (due date) and, for a done card,
   `CLOSED:` (end date);
-- the creation date as `:CREATED:` in a property drawer;
+- the creation date as `:CREATED:` and the custom fields as properties in a
+  property drawer (a space in a field name is written as `_`);
+- a repeating card's repeater on its DEADLINE (`+1d`, `+1w`, `+1m`);
 - the description, indented three spaces;
 - each checklist as `*** <checklist>` with `**** TODO` / `**** DONE` items.
 
@@ -149,6 +159,10 @@ Archived cards and archived lists are not exported.
 | DEADLINE | Due date |
 | CLOSED | End date |
 | `:CREATED:` property | Creation date |
+| `:ID:` / `:CUSTOM_ID:` property | Source reference |
+| Any other property | Custom field |
+| `CLOCK:` lines in `:LOGBOOK:` | Spent time |
+| `+1d` / `+1w` / `+1m` repeater | Daily / weekly / monthly recurrence |
 | Body text | Card description |
 | `- [ ]` / `- [X]` checkboxes, level-3 headings without children | Checklist named after the card |
 | Level-3 heading with children | Checklist, its descendants the items |
@@ -159,14 +173,14 @@ The import reports these on the loss report:
 
 - text before the first heading (other than `#+` lines);
 - text under a level-1 (list) heading;
-- a repeater (`+1w`) or warning delay (`-2d`) on a planning timestamp: the
-  date is kept, the repeat is not;
-- a SCHEDULED, DEADLINE or CLOSED value that is not a date.
+- a repeater other than every 1 day, week or month (`+2w`), or a warning
+  delay (`-2d`): the date is kept, the repeat is not;
+- a SCHEDULED, DEADLINE or CLOSED value that is not a date, and a `:CREATED:`
+  that is not one;
+- a property line that is not `:NAME: value`, an open clock (no end), and any
+  drawer other than PROPERTIES and LOGBOOK.
 
-Properties other than `:CREATED:` and other drawers are skipped without a
-report.
-
-The Org mode export does not write swimlanes, members, comments, custom fields
+The Org mode export does not write swimlanes, members, comments, spent time
 or attachments.
 
 ## REST API
