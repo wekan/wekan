@@ -13,7 +13,8 @@ Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
 their exports write the repeat back. **Release All**
 builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
 Snap Store channel, and **Release All Missing** adds what a release lacks,
-snaps included.
+snaps included. A **WeKan board** imported from its own export keeps all of
+its Board Settings and card fields.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

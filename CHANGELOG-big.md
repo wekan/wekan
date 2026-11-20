@@ -103,7 +103,8 @@ Which databases WeKan supports
 their exports write the repeat back. **Release All**
 builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
 Snap Store channel, and **Release All Missing** adds what a release lacks,
-snaps included.
+snaps included. A **WeKan board** imported from its own export keeps all of
+its Board Settings and card fields.
 
 This release adds the following new features:
 
@@ -209,6 +210,23 @@ Slack, Mattermost, Telegram and Discord say which message a reply answers,
 and the import made each reply a comment of its own. It is now a reply to that
 comment, one level deep as WeKan's replies are; a reply to a message that is
 not in the file stays a comment marked "↳".
+
+</details>
+
+and fixes the following bugs:
+
+**WeKan import** - a board exported and imported back.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c640c5c376526f6550873b757fa6b68511c63d42">A WeKan board imported from its own export keeps every Board Settings choice and every card field</a>. Thanks to xet7.</summary>
+
+The export writes the whole board and its cards, and the import wrote 32 of
+the 210 board fields and about 30 of the 87 card fields: every Board Settings
+choice came back at its default, and cards lost their flow fields, votes,
+planning poker, stickers, locations, drawings and more. They are all written
+now, users mapped to the new board's; access and inbound email are left to
+the new board's admin, and a value the schema refuses is reported.
+`tests/wekanCardFields.test.cjs` holds the lists to the schemas.
 
 </details>
 
