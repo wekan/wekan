@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.21 2026-11-20 WeKan ® release
 
 **In short:** Twelve new **Board View reports** - Created vs. Resolved, Net
 Flow, Time in List and more - and **grouped menus**: the Board View menu, the

@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.21 2026-11-20 WeKan ® release
 
 Twelve new **Board View reports** - Created vs. Resolved, Net
 Flow, Time in List and more - and **grouped menus**: the Board View menu, the
@@ -18,7 +18,7 @@ the board menu a **standup timer** and a **retrospective board**, every export
 is **written a page at a time**, and **InviteBleed** is closed for the old
 invitation codes too.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.21](CHANGELOG-big.md#v1321-2026-11-20-wekan--release)
 
 # v13.20 2026-11-19 WeKan ® release
 
@@ -55,15 +55,3 @@ address redirects. The docs now have a page for every menu entry, and cards of
 an archived swimlane no longer appear in the first swimlane.
 
 [All changes in v13.17](CHANGELOG-big.md#v1317-2026-11-19-wekan--release)
-
-# v13.16 2026-11-19 WeKan ® release
-
-**ListLockBulkBleed** is fixed, and a list that refuses a role
-now also refuses that role's bulk writes, dependency lines, rule actions and
-changes to the list or swimlane itself. Administrators can give chosen users,
-teams and organizations a smaller WeKan with opt-in **feature profiles**. A
-server no longer runs out of memory in the hourly **History integrity audit**,
-**scheduled rules** can create cards again, and **Card Excel export** and
-clearing a card's text work again.
-
-[All changes in v13.16](CHANGELOG-big.md#v1316-2026-11-19-wekan--release)
