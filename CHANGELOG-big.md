@@ -102,9 +102,36 @@ Flow, Time in List and more - and **grouped menus**: the Board View menu, the
 Import and Export lists and the list, card and swimlane menus have headings.
 WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
-entries that did nothing now work.
+entries that did nothing now work. **InviteBleed** is closed for the old
+invitation codes too.
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUE of [InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fad2a9000403ae92069060eb3a4b6b53e67f658">Old six-digit invitation codes are refused, and the sign-up form is throttled</a>. Thanks to meifukun and xet7.</summary>
+
+[GHSA-rg85-qx5c-qx67](https://github.com/wekan/wekan/security/advisories/GHSA-rg85-qx5c-qx67)
+reported the invitation code brute force again. The 128-bit code of the first
+fix was in place, but an invitation made before it, and not used yet, kept its
+guessable six-digit code and was still accepted - a re-invite even mailed that
+code again. A code shorter than the 22 characters of a 128-bit code is now
+refused at sign-up and replaced by a strong one on a re-invite. The throttle was
+on `createUser`, which a client is refused anyway, while the sign-up form calls
+`ATCreateUserServer`: that method now takes 10 attempts a minute per address,
+and each refusal is counted in Admin Panel / Problems under InviteBleed. The
+same report's OIDC race
+([GHSA-6944-p22h-3qpx](https://github.com/wekan/wekan/security/advisories/GHSA-6944-p22h-3qpx))
+and stale impersonation export
+([GHSA-j4x8-689m-h4hv](https://github.com/wekan/wekan/security/advisories/GHSA-j4x8-689m-h4hv))
+were checked against the current code and were already fixed.
+`tests/securityMeifukun.test.cjs` pins both places a code is looked up, sweeps
+for any lookup without the strength check, and drives the throttle's Problems
+record; `tests/invitationCodeEmail.test.cjs` refuses six-digit and malformed
+codes and checks that a re-invite replaces them.
+
+</details>
+
+and adds the following new features:
 
 **Import and Export** - mail, calendars, chats and notes, each into the view it
 is for.

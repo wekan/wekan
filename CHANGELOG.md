@@ -12,7 +12,8 @@ Flow, Time in List and more - and **grouped menus**: the Board View menu, the
 Import and Export lists and the list, card and swimlane menus have headings.
 WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
-entries that did nothing now work.
+entries that did nothing now work. **InviteBleed** is closed for the old
+invitation codes too.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
