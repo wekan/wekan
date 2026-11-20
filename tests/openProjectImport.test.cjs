@@ -127,6 +127,22 @@ async function main() {
   assert.match(creator, /normalizeDependency\(\{ cardId: cardIds\[dep\.target\], type: dep\.type \}\)/);
 
   console.log('  ok - OpenProject fields, comments, custom fields, hierarchy and relations import');
+
+  // Remaining time in; spent time out and back.
+  {
+    const { formatters } = await import('../models/lib/externalExportFormatters.js');
+    const one = parseOpenProject({ _embedded: { elements: [{ id: 1, subject: 'A', remainingTime: 'PT2H30M', estimatedTime: 'PT4H' }] } });
+    assert.equal(one.tasks[0].custom_fields['Remaining time (hours)'], 2.5);
+    assert.equal(one.tasks[0].custom_fields['Estimated time (hours)'], 4);
+    const out = formatters.openproject({ board: { title: 'B' }, lists: [{ title: 'L' }], swimlanes: [], items: [
+      { cardId: 'c', title: 'Spent', listTitle: 'L', labels: [], spentTime: 1.5 }, { cardId: 'd', title: 'None', listTitle: 'L', labels: [] }] });
+    const [spent, none] = out._embedded.elements;
+    assert.equal(spent.spentTime, 'PT1.5H');
+    assert.equal(none.spentTime, undefined, 'negative: no spent time, none written');
+    assert.equal(isoDurationHours(spent.spentTime), 1.5);
+    assert.equal(parseOpenProject(out).tasks[0].spent_hours, 1.5);
+    console.log('  ok - OpenProject remaining time imports, spent time exports and comes back');
+  }
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });

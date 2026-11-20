@@ -474,6 +474,8 @@ export function parseOpenProject(data) {
     Object.keys(links).filter(k => /^customField\d+$/.test(k)).forEach(key => addField(key, halTitle(links[key])));
     const estimated = isoDurationHours(wp.estimatedTime);
     if (estimated !== undefined) custom['Estimated time (hours)'] = estimated;
+    const remaining = isoDurationHours(wp.remainingTime);
+    if (remaining !== undefined) custom['Remaining time (hours)'] = remaining;
     if (typeof wp.percentageDone === 'number') custom['Progress (%)'] = wp.percentageDone;
     // Backlogs story points: the board's Scrum estimate (externalScrumPlanning.js).
     if (typeof wp.storyPoints === 'number' && Number.isFinite(wp.storyPoints) && wp.storyPoints >= 0) {

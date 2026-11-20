@@ -133,9 +133,11 @@ What the current code does (`parseOpenProject` in
   (`_embedded.schemas`, or a work package's `_embedded.schema`); without a
   schema the field keeps the name `customFieldN`. Values are read from the
   work package (`raw` for formatted text) and from `_links` (the title).
-- `estimatedTime` (ISO 8601 duration) becomes the custom field **Estimated
-  time (hours)**, and `percentageDone` the custom field **Progress (%)**.
-  `spentTime` becomes the card's spent hours.
+- `estimatedTime` and `remainingTime` (ISO 8601 durations) become the custom
+  fields **Estimated time (hours)** and **Remaining time (hours)**, and
+  `percentageDone` the custom field **Progress (%)**. `spentTime` becomes the
+  card's spent hours, and the export writes a card's spent hours back as
+  `spentTime` (`PT1.5H`).
 - Relations embedded on a work package are kept from their `from` side:
   `blocks`, `blocked` (is blocked by), `duplicates`, `duplicated`; any other
   type is kept as related-to.
@@ -161,7 +163,7 @@ What the current code does (`parseOpenProject` in
 | Embedded `relations` | Dependencies |
 | Embedded `watchers` | Card watchers, when mapped to a board member |
 | Type, priority, category, version | Labels |
-| `customFieldN`, `estimatedTime`, `percentageDone` | Custom fields |
+| `customFieldN`, `estimatedTime`, `remainingTime`, `percentageDone` | Custom fields |
 | `storyPoints` | Number field **Story points**, the Scrum estimate |
 | `version`, `sprint`, `position` | Scrum release, sprint, backlog rank |
 | Embedded comment activities | Comments |

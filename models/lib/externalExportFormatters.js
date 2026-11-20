@@ -329,6 +329,8 @@ export const formatters = {
           ...(has(i.startAt) ? { startDate: i.startAt } : {}),
           ...(has(i.createdAt) ? { createdAt: i.createdAt } : {}),
           ...(ranks.has(i.cardId) ? { position: ranks.get(i.cardId) } : {}),
+          // Hours spent as OpenProject's ISO 8601 duration, which parseOpenProject reads back.
+          ...(Number(i.spentTime) > 0 ? { spentTime: `PT${Math.round(Number(i.spentTime) * 100) / 100}H` } : {}),
           ...Object.fromEntries(Object.entries(i.customFields || {}).map(([name, value]) => [fieldKey(name), value])),
           _links: {
             status: { title: i.listTitle },
