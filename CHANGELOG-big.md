@@ -445,7 +445,30 @@ its menu; Admin Panel / Features / Split lists hides it everywhere.
 
 </details>
 
+**Import and Export coverage** - what each tool's files carry, tool by tool.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cde21a7651262efe00147228ea57cf67d8fdc004">The Trello export imports back, with its checklists, comments and members</a>. Thanks to xet7.</summary>
+
+It wrote no card's last activity date or position, which the Trello import
+checks for, so no Trello export imported back; its checklists and comments were
+empty. Now the checklists, the comments and the board's people come along, and
+`trello-export-round-trip.e2e.js` exports a board and imports it back.
+
+</details>
+
 and fixes the following bugs:
+
+**Trello import** - a file with no members.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1be2d2131714d023a22a6ffc0a94de651dc7f4e">A Trello file with no members imports instead of doing nothing</a>. Thanks to xet7.</summary>
+
+The member mapper read the file's members list without checking it was there,
+so a board nobody else was on threw in the browser and the Import buttons did
+nothing. No members is nobody to map.
+
+</details>
 
 **Member menu** - Edit Profile and Support do what their settings say.
 
