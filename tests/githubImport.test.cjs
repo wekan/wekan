@@ -15,7 +15,7 @@
 const assert = require('assert');
 
 async function main() {
-  const { parseGithub, parseGitea } = await import('../models/lib/externalParsers.js');
+  const { parseGithub, parseGitea, parseGitlab } = await import('../models/lib/externalParsers.js');
 
   const issues = [
     {
@@ -102,6 +102,17 @@ async function main() {
     assert.deepStrictEqual(geteaOut.tasks.map(t => t.title), out.tasks.map(t => t.title));
     assert.strictEqual(geteaOut.board.name, 'Imported Gitea/Forgejo issues');
     assert.ok(geteaOut.unsupported.length > 0);
+  });
+
+  test('reaction counts on an issue and its comments are reported, not dropped; GitLab votes too', () => {
+    const out = parseGithub([{ number: 1, title: 'A', state: 'open', reactions: { url: 'u', total_count: 3, '+1': 3 },
+      comments: [{ body: 'c', user: { login: 'a' }, reactions: { '+1': 1, heart: 1, url: 'u' } }] }]);
+    assert.deepStrictEqual(out.unsupported.filter(u => /reactions$/.test(u.path)).map(u => u.reason),
+      ['5 reaction(s) are counts without who reacted, and are not imported']);
+    const gitea = parseGitea([{ number: 1, title: 'A', state: 'open', reactions: { total_count: 0 } }]);
+    assert.deepStrictEqual(gitea.unsupported.filter(u => /reactions$/.test(u.path)), [], 'negative: no reactions, no report');
+    const gl = parseGitlab([{ iid: 1, title: 'A', state: 'opened', upvotes: 2, downvotes: 1 }]);
+    assert.ok(gl.unsupported.some(u => u.reason === '3 reaction(s) are counts without who reacted, and are not imported'));
   });
 
   console.log(`\ngithubImport: ${passed} tests passed`);

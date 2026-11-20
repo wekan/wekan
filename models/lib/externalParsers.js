@@ -602,6 +602,23 @@ function withAttachments(issue) {
   return attachments.length ? { attachments } : {};
 }
 
+// GitHub's and Gitea's reaction summary ({ total_count, "+1": 2, ... }) and
+// GitLab's upvotes/downvotes are counts, without who reacted; a WeKan reaction
+// is kept by who reacted (models/lib/importedReactions.js), so they are counted
+// in the loss report rather than dropped without a word.
+function reactionCount(summary) {
+  if (!summary || typeof summary !== 'object') return 0;
+  if (Number(summary.total_count) > 0) return Number(summary.total_count);
+  return Object.entries(summary).filter(([key]) => key !== 'url' && key !== 'total_count')
+    .reduce((sum, [, value]) => sum + (Number(value) > 0 ? Number(value) : 0), 0);
+}
+function reportReactionCounts(unsupported, path, count) {
+  if (count > 0) {
+    unsupported.push({ path: `${path}/reactions`,
+      reason: `${count} reaction(s) are counts without who reacted, and are not imported` });
+  }
+}
+
 function parseIssuesArray(data, system) {
   const issues = Array.isArray(data) ? data : data.issues || [];
   const unsupported = [];
@@ -631,6 +648,8 @@ function parseIssuesArray(data, system) {
         issue.html_url || issue.url || null,
       ].filter(Boolean).join(' ');
       const comments = issueComments(issue, path, unsupported);
+      reportReactionCounts(unsupported, path, reactionCount(issue.reactions)
+        + (Array.isArray(issue.comments) ? issue.comments : []).reduce((sum, c) => sum + reactionCount(c && c.reactions), 0));
       const description = [issue.body || issue.description || '', footer]
         .filter(Boolean).join('\n\n').trim();
       return {
@@ -719,6 +738,7 @@ export function parseGitlab(data) {
     if (completion && Number(completion.count) > 0) {
       custom.Tasks = `${Number(completion.completed_count) || 0}/${Number(completion.count)}`;
     }
+    reportReactionCounts(unsupported, path, (Number(issue.upvotes) || 0) + (Number(issue.downvotes) || 0));
     const notes = Array.isArray(issue.notes) ? issue.notes : null;
     const comments = (notes || [])
       .filter(note => note && !note.system && typeof note.body === 'string' && note.body.trim())
