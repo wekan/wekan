@@ -526,6 +526,15 @@ relations. The round trip of every export includes Vikunja and keeps all six.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6187806cf1006bb0f00d27d5e72af9147027f0a9">The Super Productivity export is written a page at a time</a>. Thanks to xet7.</summary>
+
+The backup is made over the whole board on every page, and each page writes
+only its own cards' tasks, with their notes. Of the exports, only Taiga's is
+still built whole.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
