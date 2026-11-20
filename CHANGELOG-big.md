@@ -466,6 +466,23 @@ stores a number field's value as a number.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba31f2b592f9db1de8dabaf0ea20d3bdcf4553eb">GitHub, Gitea and Forgejo exports carry the comments</a>. Thanks to xet7.</summary>
+
+As the embedded comments the issues import reads, so an exported board imports
+back with them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
+
+One spec exports a board in each of the 41 formats WeKan both writes and reads
+and imports it back; every one brings the card back, and a table holds each to
+what its file keeps of the description, the checklist and the comment.
+
+</details>
+
 and fixes the following bugs:
 
 **Trello import** - a file with no members.
