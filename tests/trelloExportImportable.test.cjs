@@ -93,3 +93,14 @@ test('custom fields: one Trello field per name, typed by its values, each card\'
   assert.deepStrictEqual(fmt.trello({ board, lists, items }).customFields, []);
   assert.match(read('models/trelloCreator.js'), /const number = Number\(item\.value\.number\);\n\s+custom\.value = Number\.isFinite\(number\) \? number : item\.value\.number;/);
 });
+
+test('archived cards and lists are Trello\'s closed ones; the Trello export alone collects them', () => {
+  const doc = fmt.trello({ board, lists: [...lists, { _id: 'L3', title: 'Old', archived: true }],
+    items: [...items, { cardId: 'c3', title: 'Gone', listId: 'L3', archived: true }] });
+  assert.deepStrictEqual(doc.lists.map(l => [l.name, l.closed]), [['To Do', false], ['Done', false], ['Old', true]]);
+  assert.deepStrictEqual(doc.cards.map(c => [c.name, c.closed]), [['One', false], ['Two', false], ['Gone', true]]);
+  const exporters = read('models/lib/externalExporters.js');
+  assert.match(exporters, /const ARCHIVED_FORMATS = new Set\(\['trello'\]\);/, 'negative: no other format');
+  assert.match(exporters, /const open = ARCHIVED_FORMATS\.has\(format\) \? notDeleted\(\{\}\) : \{ archived: false \};/,
+    'never a deleted card, archived or not');
+});

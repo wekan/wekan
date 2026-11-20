@@ -5,6 +5,8 @@ const { jiraScrumMetadataExport } = require('./jiraScrumMetadata');
 const { jiraEstimateExportMapping, jiraEstimateExportValue } = require('./jiraEstimateMapping');
 const { buildCustomFieldsWD } = require('./customFieldsWD');
 const { notDeleted } = require('./softDelete');
+// Formats that export the archived cards and lists as well (collect below).
+const ARCHIVED_FORMATS = new Set(['trello']);
 
 export { EXTERNAL_EXPORT_FORMATS, formatters };
 
@@ -66,9 +68,13 @@ async function moveCompletionRules(boardId) {
 // `all`) - no description and no comment text, each comment only counted.
 async function collect(boardId, fields, format, pageCardIds, light) {
   const board = await ReactiveCache.getBoard(boardId);
-  const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
+  // The formats whose own exports carry the archived cards and lists too
+  // (Trello's closed ones); every other format, the open ones. Never a
+  // deleted one.
+  const open = ARCHIVED_FORMATS.has(format) ? notDeleted({}) : { archived: false };
+  const lists = await ReactiveCache.getLists({ boardId, ...open }, { sort: { sort: 1 } });
   const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
-  const cards = await ReactiveCache.getCards({ boardId, archived: false, ...(Array.isArray(pageCardIds) ? { _id: { $in: pageCardIds } } : {}) },
+  const cards = await ReactiveCache.getCards({ boardId, ...open, ...(Array.isArray(pageCardIds) ? { _id: { $in: pageCardIds } } : {}) },
     { sort: { sort: 1 } });
   const listById = {};
   const listRecords = new Map(lists.map(list => [list._id, list]));
@@ -138,6 +144,7 @@ async function collect(boardId, fields, format, pageCardIds, light) {
         // One release in these formats: the card's first (models/lib/scrum.js).
         firstReleaseId: require('./scrum').cardReleaseIds(c.scrum)[0] || undefined, backlogRank: c.scrum.backlogRank ?? undefined } } : {}),
       cardId: c._id,
+      ...(c.archived ? { archived: true } : {}),
       listId: c.listId,
       title: c.title,
       description: light ? '' : c.description || '',

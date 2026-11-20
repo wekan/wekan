@@ -72,10 +72,10 @@ tool's newest features against its parser and formatter.
   and their versions, custom fields, rules, templates, Scrum data, and a part
   of a board as well as all of it.
 - Trello (file and API): the export now carries checklists, comments,
-  members and custom fields and imports back; still missing from it are the
-  attachments (Trello's attachments name a URL, which an export from WeKan
-  has no public address for) and the archived cards and lists (the export
-  collects open cards only).
+  members, custom fields and the archived cards and lists, and imports back;
+  still missing from it are the attachments (Trello's attachments name a URL,
+  which an export from WeKan has no public address for: they need the files
+  in a .zip beside board.json, as the Trello .zip import reads them).
 - Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana,
   Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,

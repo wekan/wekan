@@ -331,7 +331,9 @@ export const formatters = {
       customFields: fields.map((field, n) => ({ id: field.id, idModel: String(board._id || ''), modelType: 'board',
         name: field.name, type: field.type, pos: n + 1, display: { cardFront: true } })),
       labels: (board.labels || []).map(l => ({ id: l._id, name: String(l.name || ''), color: l.color })),
-      lists: lists.map((l, n) => ({ id: l._id, name: l.title, closed: false, pos: n + 1 })),
+      // Archived lists and cards are Trello's closed ones (the Trello
+      // export collects them; models/trelloCreator.js reads closed back).
+      lists: lists.map((l, n) => ({ id: l._id, name: l.title, closed: Boolean(l.archived), pos: n + 1 })),
       cards: items.map((i, n) => ({
         id: i.cardId,
         name: i.title,
@@ -342,7 +344,7 @@ export const formatters = {
         due: i.dueAt || null,
         ...(has(i.startAt) ? { start: i.startAt } : {}),
         dueComplete: Boolean(i.dueComplete),
-        closed: false,
+        closed: Boolean(i.archived),
         idLabels: list(i.labelIds),
         idMembers: [...new Set(peopleOf(i))],
         idChecklists: checklistsOf(i).map(c => c.id),
