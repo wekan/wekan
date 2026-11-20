@@ -10,7 +10,9 @@
 //   { format: 20190412, id: <epoch ms>, revision: <int>, title,
 //     lists: [ { title, notes: [ { text, raw, min } ] } ] }
 // and that is all there is: no dates, labels, people, comments, attachments
-// or checklists.
+// or checklists. A saved board also carries `history`, the revision numbers of
+// its undo history, which is not board data and is not read. (Checked against
+// apankrat/nullboard's nullboard.html, 2026-11-20.)
 //
 // A note is free text with line breaks. It maps to a card:
 //   list                    -> a list, in order (a repeated or empty title is
