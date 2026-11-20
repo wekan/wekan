@@ -171,6 +171,16 @@ a list or a checklist item is reported.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3be07b147b46bcbe42f64da1170eda5fafcfe2ad">Leo keeps a card's creation date in its node id, both ways, and reports plugin data</a>. Thanks to xet7.</summary>
+
+Leo stamps a node's id with the time it was made, and WeKan read it only as a
+key and wrote ids without a time. The import now takes the creation date from
+the id and the export writes it there; a Leo plugin's own data on a node is
+reported instead of dropped.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
