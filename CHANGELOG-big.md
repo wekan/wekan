@@ -107,7 +107,7 @@ snaps included.
 
 This release adds the following new features:
 
-**Import and Export** - repeating tasks.
+**Import and Export** - repeating tasks, and the rest of an Org heading.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/24ac6b2bd2e55323fa1c6e52eb53ff3291fc80fb">A daily, weekly or monthly repeat becomes the card's recurrence, and is exported back</a>. Thanks to xet7.</summary>
@@ -134,6 +134,17 @@ The Tasks.org RRULE and Vikunja's repeat_after (a day, a week) or repeat_mode
 config of every 1 day, week or month is imported. Other rules, and the repeat
 of a finished task, stay in the import loss report. Google Tasks' API has no
 repeat to read.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55c3f574f4d0ba3fce3e507679b8c9d467feea46">Org mode keeps every property, uses :ID: as the card's reference and LOGBOOK clocks as its spent time</a>. Thanks to xet7.</summary>
+
+Only :CREATED: was read from a heading's property drawer; the other
+properties and the :LOGBOOK: drawer were dropped without a word in the import
+loss report. Every other property is now a custom field, written back as a
+property on export, and the closed CLOCK lines add up to the spent time. An
+open clock, a malformed property line and any other drawer are reported.
 
 </details>
 
