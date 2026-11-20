@@ -46,6 +46,7 @@ that by providing one-click installation on various platforms.
       - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
         Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion, Fizzy, Plane
       - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior, Planka, KanbanFlow, Basecamp, Microsoft To Do, Google Tasks
+      - Microsoft: Lists, Project (XML), Outlook (.msg), Teams, OneNote, Azure DevOps Boards
       - Mail (.eml/mbox), Calendars (iCalendar), Google Takeout, Google Keep, Evernote,
         Chats: Slack, Mattermost, Rocket.Chat, Telegram, WhatsApp, Discord - each into the view it fits
       - Large files are streamed to disk, within its free space or the Admin Panel limit
@@ -105,7 +106,8 @@ that by providing one-click installation on various platforms.
        Microsoft Planner, MeisterTask, Obsidian Kanban, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
        Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion,
        Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
-       Gitea, Forgejo, Asana, Zenkit, Trello .zip with attachments, mbox, Evernote, Mattermost, Rocket.Chat, Fizzy
+       Gitea, Forgejo, Asana, Zenkit, Trello .zip with attachments, mbox, Evernote, Mattermost, Rocket.Chat, Fizzy,
+       Azure DevOps Boards, Microsoft Lists, Microsoft Project (XML), Outlook (.eml), Teams, OneNote
        - Every export is written a page of cards at a time, so a large board exports without running out of memory
      - Export all boards at once (All Boards sidebar, or Multi-Selection): Excel as one workbook
        with a sheet per board, every other format as a .zip with a file per board

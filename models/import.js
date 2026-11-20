@@ -152,8 +152,10 @@ Meteor.methods({
     // workbook, or JSON or CSV text whose cells hold JSON.
     // So are mail (raw MIME, whose "Name <address>" would read as a tag), an
     // iCalendar, chat and note text, and the Slack and Google Takeout zips:
-    // each is parsed first, and what was parsed is sanitized.
-    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'rocketchat' || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'fizzy' || importSource === 'notion' || importSource === 'plane' ? board
+    // each is parsed first, and what was parsed is sanitized. So are Microsoft's:
+    // Azure DevOps' "Name <address>" people, Project's XML, Outlook's and Teams'
+    // bytes, Teams' and OneNote's HTML.
+    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'rocketchat' || importSource === 'azuredevops' || importSource === 'msproject' || importSource === 'outlook' || importSource === 'teams' || importSource === 'onenote' || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'fizzy' || importSource === 'notion' || importSource === 'plane' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -419,6 +421,41 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, 'fizzy', this);
         creator = new KanboardCreator(data, 'fizzy');
         break;
+      case 'azuredevops':
+      case 'mslists':
+      case 'msproject':
+        // Azure DevOps Boards CSV, Microsoft Lists CSV and Microsoft Project
+        // XML - models/lib/azureDevOpsCsvFormat.js, msListsCsvFormat.js and
+        // msProjectXmlFormat.js. Azure DevOps and Project are parsed first
+        // (their people and XML), the parsed tasks sanitized below.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS[importSource](importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        if (importSource !== 'mslists') importedBoard = sanitizeImported(importedBoard, importSource, this);
+        creator = new KanboardCreator(data, importSource);
+        break;
+      case 'onenote':
+      case 'teams':
+        // OneNote and Teams: what server/apiImport.js fetched from Microsoft
+        // Graph, or a file - models/lib/onenoteApiFormat.js and
+        // chatExportFormats.js parseTeamsExport. A .zip and Teams' .tar are
+        // opened on the server (server/lib/microsoftArchives.js).
+        check(board, Match.OneOf(Object, Array, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          const archives = require('/server/lib/microsoftArchives');
+          if (importSource === 'teams') importedBoard = await archives.readTeamsExport(importedBoard);
+          else importedBoard = await archives.readOnenoteExport(importedBoard);
+          importedBoard = EXTERNAL_PARSERS[importSource](importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, importSource, this);
+        creator = new KanboardCreator(data, importSource);
+        break;
       case 'quire':
         // A Quire project CSV - see models/lib/quireCsvFormat.js.
         check(board, String);
@@ -554,6 +591,7 @@ Meteor.methods({
       case 'telegram':
       case 'discord':
       case 'rocketchat':
+      case 'outlook':
         // Mail, calendars, chats and notes - models/lib/mailFormat.js,
         // icalendarFormat.js, chatExportFormats.js, enexFormat.js and
         // googleTakeoutFormat.js. The zips and the MIME and XML decoders are

@@ -221,10 +221,10 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // The services' clients DEFINE fetch(credentials, id, request) - the
     // contract of models/lib/apiImportServices.js - and send every request
     // through the `request` they are given (checked below), never the platform's.
-    ...Object.fromEntries(['planka', 'mstodo', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep']
+    ...Object.fromEntries(['planka', 'mstodo', 'onenote', 'teams', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep']
       .map(key => [`models/lib/apiImport/${key}.js`, 'defines fetch(); requests only through the request it is given'])),
   };
-  for (const key of ['planka', 'mstodo', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep']) {
+  for (const key of ['planka', 'mstodo', 'onenote', 'teams', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep']) {
     const client = fs.readFileSync(path.join(ROOT, `models/lib/apiImport/${key}.js`), 'utf8').replace(/^\s*(\/\/|\*).*$/gm, '');
     assert.doesNotMatch(client, /(?:await|return|=)\s*fetch\(|globalThis\.fetch/, `${key}: the platform fetch is not called`);
   }

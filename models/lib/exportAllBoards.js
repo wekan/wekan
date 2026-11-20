@@ -17,6 +17,7 @@ const EXTENSIONS = {
   pivotal: 'csv', redmine: 'csv', notion: 'csv', quire: 'csv', superproductivity: 'json', vikunja: 'zip', fizzy: 'zip',
   planner: 'xlsx', monday: 'xlsx', wrike: 'xlsx', teamwork: 'xlsx', businessmap: 'xlsx',
   mbox: 'mbox', enex: 'enex', mattermost: 'jsonl', rocketchat: 'zip',
+  azuredevops: 'csv', mslists: 'csv', msproject: 'xml', outlook: 'zip', onenote: 'zip', teams: 'json',
 };
 export const extensionOf = format => EXTENSIONS[format] || 'json';
 

@@ -35,6 +35,11 @@ import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
 import { formatVikunja } from './vikunjaFormat.js';
 import { formatFizzy } from './fizzyFormat.js';
+import { formatAzureDevOpsCsv } from './azureDevOpsCsvFormat.js';
+import { formatMsListsCsv } from './msListsCsvFormat.js';
+import { formatMsProjectXml } from './msProjectXmlFormat.js';
+import { formatOutlookEml } from './outlookMsgFormat.js';
+import { formatOnenote } from './onenoteApiFormat.js';
 import { formatWrikeRows } from './wrikeFormat.js';
 import { formatWrikeWorkflow } from './wrikeWorkflow.js';
 import { formatTeamworkSheet } from './teamworkFormat.js';
@@ -43,7 +48,7 @@ import { formatNotionCsv } from './notionFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatMbox } from './mailFormat.js';
 import { formatEnex } from './enexFormat.js';
-import { formatMattermostBulk, formatRocketChat } from './chatExportFormats.js';
+import { formatMattermostBulk, formatRocketChat, formatTeams } from './chatExportFormats.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
@@ -592,6 +597,16 @@ export const formatters = {
   // The .zip Rocket.Chat's CSV importer reads: rows here, the files written by
   // server/lib/renderExternalExport.js (rocketChatCsvFiles).
   rocketchat: formatRocketChat,
+  // Microsoft: the CSV Azure DevOps Boards' and Microsoft Lists' imports read,
+  // the XML Microsoft Project opens, .eml files for Outlook and OneNote pages
+  // (both a .zip, server/lib/renderExternalExport.js), and Teams chats as
+  // Graph chat messages.
+  azuredevops: formatAzureDevOpsCsv,
+  mslists: formatMsListsCsv,
+  msproject: formatMsProjectXml,
+  outlook: data => formatOutlookEml(data),
+  onenote: data => formatOnenote(data),
+  teams: data => formatTeams(data),
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

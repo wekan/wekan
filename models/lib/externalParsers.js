@@ -30,13 +30,17 @@ import { parsePlaneExport } from './planeFormat.js';
 import { parseOrgMode } from './orgModeFormat.js';
 import { parsePlankaApi } from './plankaApiFormat.js';
 import { parseMicrosoftTodoApi } from './mstodoApiFormat.js';
+import { parseAzureDevOpsCsv } from './azureDevOpsCsvFormat.js';
+import { parseMsListsCsv } from './msListsCsvFormat.js';
+import { parseMsProjectXml } from './msProjectXmlFormat.js';
+import { parseOnenoteApi } from './onenoteApiFormat.js';
 import { parseKanbanflowApi } from './kanbanflowApiFormat.js';
 import { parseBasecampApi } from './basecampApiFormat.js';
 import { parseGoogleTasksApi } from './googletasksApiFormat.js';
 import { parseGoogleKeepApi } from './googlekeepApiFormat.js';
 import { issueAttachments } from './issueAttachments.js';
 import { parseICalendar } from './icalendarFormat.js';
-import { parseMattermostBulk, parseTelegramExport, parseWhatsAppChat, parseDiscordExport, parseRocketChatExport } from './chatExportFormats.js';
+import { parseMattermostBulk, parseTelegramExport, parseWhatsAppChat, parseDiscordExport, parseRocketChatExport, parseTeamsExport } from './chatExportFormats.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
 } from './externalScrumPlanning.js';
@@ -1346,6 +1350,14 @@ export const EXTERNAL_PARSERS = {
   // Fetched from the service's API (server/apiImport.js, models/lib/apiImport/).
   planka: parsePlankaApi,
   mstodo: parseMicrosoftTodoApi,
+  // Azure DevOps Boards' and Microsoft Lists' CSV, Microsoft Project's XML.
+  azuredevops: parseAzureDevOpsCsv,
+  mslists: parseMsListsCsv,
+  msproject: parseMsProjectXml,
+  // OneNote and Teams, fetched from Microsoft Graph or read from a file
+  // (server/lib/microsoftArchives.js opens the .zip and the .tar).
+  onenote: parseOnenoteApi,
+  teams: parseTeamsExport,
   kanbanflow: parseKanbanflowApi,
   basecamp: parseBasecampApi,
   googletasks: parseGoogleTasksApi,

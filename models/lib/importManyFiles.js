@@ -81,6 +81,8 @@ export function expandFiles(source, files) {
 // The document a single import of this file sends, for `source`.
 export function documentForFile(source, name, bytes) {
   const ext = extensionOf(name);
+  // An Outlook .msg, the Teams export's .tar: the bytes themselves.
+  if ((IMPORT_SOURCES.find(s => s.key === source)?.binaryFiles || []).includes(`.${ext}`)) return { binaryBase64: toBase64(bytes) };
   if (EXCEL_SOURCES.includes(source) || (source === 'plane' && ext === 'xlsx')) {
     return source === 'plane' ? { xlsxBase64: toBase64(bytes) } : { excelBase64: toBase64(bytes) };
   }

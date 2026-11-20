@@ -3351,6 +3351,30 @@
     {
       "key": "import-board-instruction-rocketchat",
       "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-azuredevops",
+      "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-mslists",
+      "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-msproject",
+      "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-outlook",
+      "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-onenote",
+      "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-teams",
+      "since": "2026-11-20"
     }
   ]
 }

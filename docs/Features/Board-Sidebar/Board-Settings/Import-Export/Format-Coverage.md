@@ -59,6 +59,12 @@ page or a format in the export menu has no page here.
 | [Gitea](./Gitea/Gitea.md) | yes | yes |
 | [Forgejo](./Forgejo/Forgejo.md) | yes | yes |
 | [Microsoft Planner](./Microsoft-Planner/Microsoft-Planner.md) | yes | yes |
+| [Azure DevOps Boards](./Azure-DevOps/Azure-DevOps.md) | yes | yes |
+| [Microsoft Lists](./Microsoft-Lists/Microsoft-Lists.md) | yes | yes |
+| [Microsoft Project](./Microsoft-Project/Microsoft-Project.md) | yes | yes |
+| [Microsoft Outlook](./Microsoft-Outlook/Microsoft-Outlook.md) | yes | yes |
+| [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | yes | yes |
+| [Microsoft OneNote](./Microsoft-OneNote/Microsoft-OneNote.md) | yes | yes |
 | [monday.com](./monday-com/monday-com.md) | yes | yes |
 | [Wrike and Wrike workflow](./Wrike/Wrike.md) | yes | yes |
 | [Teamwork.com](./Teamwork/Teamwork.md) | yes | yes |

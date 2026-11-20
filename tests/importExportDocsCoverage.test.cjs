@@ -62,6 +62,8 @@ const DIRECTORY = {
   mail: 'Mail', mbox: 'Mail', googletakeout: 'Google-Takeout', slack: 'Slack', mattermost: 'Mattermost',
   telegram: 'Telegram', whatsapp: 'WhatsApp', discord: 'Discord', evernote: 'Evernote', enex: 'Evernote',
   rocketchat: 'Rocket-Chat', fizzy: 'Fizzy',
+  azuredevops: 'Azure-DevOps', mslists: 'Microsoft-Lists', msproject: 'Microsoft-Project', outlook: 'Microsoft-Outlook',
+  teams: 'Microsoft-Teams', onenote: 'Microsoft-OneNote',
 };
 const HEADINGS = ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
   'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources'];

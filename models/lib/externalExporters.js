@@ -184,7 +184,7 @@ async function collect(boardId, fields, format, pageCardIds, light) {
       // A card that came from mail keeps its sender, recipients and
       // Message-ID in an .mbox - not when Admin Panel anonymizes the export,
       // since they name people.
-      ...(format === 'mbox' && !anonymized && want('people') && c.email && c.email.from ? { email: {
+      ...((format === 'mbox' || format === 'outlook') && !anonymized && want('people') && c.email && c.email.from ? { email: {
         from: { name: c.email.from.name || '', address: c.email.from.address || '' },
         to: Array.isArray(c.email.to) ? c.email.to : [],
         // Without brackets: the export boundary reads "<id@host>" as a tag.

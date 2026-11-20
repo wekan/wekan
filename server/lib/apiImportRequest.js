@@ -47,6 +47,12 @@ export async function apiImportRequest(url, { method = 'GET', headers = {}, body
     throw error;
   }
   if (response.status === 204) return null;
+  // A text answer asked for by its Accept header (a OneNote page's HTML,
+  // models/lib/apiImport/onenote.js) is the text itself.
+  const accept = String(headers.Accept || headers.accept || '');
+  if (/^text\//i.test(accept)) {
+    try { return await response.text(); } catch (error) { throw new Error(`${origin} did not answer with text`); }
+  }
   try { return await response.json(); } catch (error) { throw new Error(`${origin} did not answer with JSON`); }
 }
 

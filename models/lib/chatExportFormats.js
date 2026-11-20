@@ -631,3 +631,169 @@ export function rocketChatCsvFiles(built = {}) {
   }
   return files;
 }
+
+// ----- Microsoft Teams -----------------------------------------------------
+//
+// Read in four shapes:
+//   { teams: true, chats: [{ id, topic, chatType, kind, team, column,
+//     swimlane, messages: [chatMessage] }] }
+//       what the Teams import fetches from Microsoft Graph
+//       (models/lib/apiImport/teams.js) and what WeKan exports
+//   { value: [chatMessage] } or [chatMessage]
+//       a Graph page of one chat's or channel's messages, or the Teams
+//       Export API's messages_<user>.json (the messages of every chat, each
+//       with its chatId)
+//   { conversations: [{ id, displayName, threadProperties, MessageList:
+//     [{ id, displayName, originalarrivaltime, messagetype, content, from }] }] }
+//       messages.json of the personal "Export your data" (teams.live.com/
+//       dataexport, a .tar) - Microsoft does not document this file; it is
+//       read as the Skype export it shares its layout with
+//
+// chatMessage (Graph v1.0): id, replyToId, messageType ('message' - the
+// others are system events), createdDateTime, deletedDateTime, subject,
+// body { contentType, content }, from { user { id, displayName } },
+// chatId, channelIdentity { teamId, channelId }, attachments [{ name,
+// contentUrl }], reactions [{ reactionType, user { user { id, displayName } } }]
+// and, for a channel message fetched with $expand=replies, replies.
+//
+// A chat or channel is a card in the list Direct messages (oneOnOne), Groups
+// (group), Meetings (meeting) or Channels, in the swimlane of its team; a
+// message is a comment. A file attachment is written as its name and link;
+// system events and deleted messages are counted, not imported.
+
+const TEAMS_COLUMNS = { oneOnOne: 'Direct messages', group: 'Groups', meeting: 'Meetings', channel: 'Channels' };
+const TEAMS_REACTIONS = { like: '👍', heart: '❤️', laugh: '😆', surprised: '😮', sad: '😢', angry: '😡' };
+const teamsHtml = value => {
+  let out = String(value || '');
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<(style|script)\b[\s\S]*?<\/\1\s*>/gi, '');
+  } while (out !== prev);
+  out = out.replace(/<br\s*\/?>/gi, '\n').replace(/<\/(p|div|li|tr|h[1-6])\s*>/gi, '\n')
+    .replace(/<attachment\b[^>]*><\/attachment>/gi, '');
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+  return out.replace(/&nbsp;/gi, ' ').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'").replace(/&amp;/gi, '&').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+};
+const graphPerson = from => {
+  const who = from && (from.user || from.application || from.device);
+  return who ? { key: clean(who.id) || clean(who.displayName), name: clean(who.displayName) } : { key: '', name: '' };
+};
+
+function teamsMessages(list, counts) {
+  const out = [];
+  for (const m of Array.isArray(list) ? list : []) {
+    if (!m || typeof m !== 'object') continue;
+    if (m.deletedDateTime) { counts.deleted += 1; continue; }
+    if (m.messageType && m.messageType !== 'message') { counts.system += 1; continue; }
+    const person = graphPerson(m.from);
+    const links = (Array.isArray(m.attachments) ? m.attachments : [])
+      .filter(a => a && /^https:\/\//i.test(clean(a.contentUrl)))
+      .map(a => `${clean(a.name) || 'File'}: ${clean(a.contentUrl)}`);
+    const body = m.body && m.body.contentType === 'text' ? clean(m.body.content) : teamsHtml(m.body && m.body.content);
+    const text = [clean(m.subject), body, ...links].filter(Boolean).join('\n');
+    const reactions = (Array.isArray(m.reactions) ? m.reactions : []).filter(Boolean).map(r => {
+      const type = clean(r.reactionType);
+      const by = graphPerson(r.user);
+      return { emoji: TEAMS_REACTIONS[type] || (/^[a-z]+$/i.test(type) ? '' : type), name: TEAMS_REACTIONS[type] || !/^[a-z]+$/i.test(type) ? '' : type,
+        authors: by.key ? [by.key] : [], count: 1 };
+    });
+    out.push(message(text, person.key, person.name, m.createdDateTime, reactions,
+      { ref: clean(m.id), replyTo: clean(m.replyToId) }));
+    if (Array.isArray(m.replies)) out.push(...teamsMessages(m.replies.map(reply => ({ ...reply, replyToId: reply.replyToId || m.id })), counts));
+  }
+  return out;
+}
+
+// messages.json of the personal export (the Skype export's layout).
+function teamsPersonalChats(conversations, counts) {
+  return conversations.filter(c => c && Array.isArray(c.MessageList)).map(c => {
+    const messages = [];
+    for (const m of c.MessageList) {
+      if (!m || typeof m !== 'object') continue;
+      const type = clean(m.messagetype);
+      if (!/^(Text|RichText(\/Html)?)$/i.test(type)) { counts.system += 1; continue; }
+      if (!clean(m.content)) { counts.deleted += 1; continue; }
+      messages.push(message(teamsHtml(m.content), clean(m.from), clean(m.displayName) || clean(m.from), m.originalarrivaltime,
+        [], { ref: clean(m.id) }));
+    }
+    const members = (() => {
+      try { return JSON.parse((c.threadProperties && c.threadProperties.members) || '[]'); } catch (e) { return []; }
+    })();
+    return {
+      title: clean(c.displayName) || clean(c.threadProperties && c.threadProperties.topic) || clean(c.id),
+      column: Array.isArray(members) && members.length > 2 ? TEAMS_COLUMNS.group : TEAMS_COLUMNS.oneOnOne,
+      swimlane: 'Teams', messages,
+    };
+  });
+}
+
+export function parseTeamsExport(input) {
+  let data = input;
+  if (typeof data === 'string') {
+    try { data = JSON.parse(data.replace(/^﻿/, '')); } catch (e) { throw new Error('Microsoft Teams data is not valid JSON'); }
+  }
+  const counts = { system: 0, deleted: 0 };
+  let chats;
+  if (data && data.teams === true && Array.isArray(data.chats)) {
+    chats = data.chats.filter(c => c && typeof c === 'object').map(c => ({
+      title: clean(c.topic) || clean(c.displayName) || clean(c.id) || 'Chat',
+      description: clean(c.description),
+      column: clean(c.column) || TEAMS_COLUMNS[c.kind === 'channel' ? 'channel' : c.chatType] || TEAMS_COLUMNS.group,
+      swimlane: clean(c.swimlane) || clean(c.team) || 'Teams',
+      messages: teamsMessages(c.messages, counts),
+    }));
+  } else if (data && Array.isArray(data.conversations)) {
+    chats = teamsPersonalChats(data.conversations, counts);
+  } else if (Array.isArray(data) || (data && Array.isArray(data.value))) {
+    // One page, or the Export API's messages of every chat: grouped by chat.
+    const byChat = new Map();
+    for (const m of Array.isArray(data) ? data : data.value) {
+      if (!m || typeof m !== 'object') continue;
+      const channel = m.channelIdentity && clean(m.channelIdentity.channelId);
+      const key = clean(m.chatId) || channel || 'chat';
+      if (!byChat.has(key)) byChat.set(key, { channel: Boolean(channel), list: [] });
+      byChat.get(key).list.push(m);
+    }
+    chats = [...byChat.entries()].map(([key, { channel, list }]) => ({
+      title: clean((list.find(m => clean(m.subject)) || {}).subject) || key,
+      column: channel ? TEAMS_COLUMNS.channel : TEAMS_COLUMNS.group,
+      swimlane: 'Teams',
+      messages: teamsMessages(list, counts),
+    }));
+  } else {
+    throw new Error('Not Microsoft Teams messages: expected Graph chat messages ({ value: [...] }), messages.json of the personal export, or what the Teams import fetched');
+  }
+  if (!chats.length) throw new Error('Microsoft Teams data has no chats');
+  const unsupported = [];
+  if (counts.system) unsupported.push({ path: '/messages', reason: `${counts.system} Teams system event(s) (calls, members joining) are not imported` });
+  if (counts.deleted) unsupported.push({ path: '/messages', reason: `${counts.deleted} deleted Teams message(s) are not imported` });
+  return chatBoard(chats.length === 1 ? chats[0].title : 'Imported Microsoft Teams', chats, { unsupported });
+}
+
+const teamsBody = value => clean(value).split(/\n{2,}/).map(part => `<p>${part.split('\n')
+  .map(line => line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')).join('<br>')}</p>`).join('');
+
+// The board as Teams chats: a card a chat (its description kept beside it),
+// its comments the messages, every message a Graph chatMessage - what Teams'
+// migration API (POST .../channels/{id}/messages in migration mode) takes,
+// and what the Teams import reads back, list and swimlane included.
+export function formatTeams(collected = {}) {
+  const chats = (collected.items || []).map((item, index) => {
+    const at = item.createdAt || new Date(0).toISOString();
+    const post = (n, text, author, date) => ({
+      id: `${index + 1}.${n}`, messageType: 'message', createdDateTime: date || at,
+      from: { user: { id: clean(author) || 'wekan', displayName: clean(author) || 'WeKan' } },
+      body: { contentType: 'html', content: teamsBody(text) },
+    });
+    const messages = [];
+    (item.comments || []).forEach((comment, n) => { if (clean(comment.text)) messages.push(post(n + 1, comment.text, comment.author, comment.date)); });
+    return { id: `wekan-${index + 1}`, topic: clean(item.title) || 'Chat', chatType: 'group', kind: 'chat',
+      description: clean(item.description), column: clean(item.listTitle), swimlane: clean(item.swimlaneTitle), messages };
+  });
+  return { teams: true, chats };
+}

@@ -1,8 +1,8 @@
 'use strict';
 
 // Import from a service's API (decided 2026-10-14): Planka, Microsoft To Do,
-// KanbanFlow, Basecamp, Google Tasks and Google Keep. The member types what
-// the service needs; server/apiImport.js lists what can be imported and
+// Microsoft OneNote and Teams (2026-11-21), KanbanFlow, Basecamp, Google Tasks
+// and Google Keep. The member types what the service needs; server/apiImport.js lists what can be imported and
 // fetches the chosen one with those credentials - used for that request and
 // never stored - and the import page then imports the fetched JSON like a
 // pasted export, through the service's parser (models/lib/<key>ApiFormat.js)
@@ -28,6 +28,12 @@ const API_IMPORT_SERVICES = [
     { name: 'password', label: 'api-import-password', secret: true, required: true },
   ] },
   { key: 'mstodo', name: 'Microsoft To Do', fields: [
+    { name: 'token', label: 'api-import-token', secret: true, required: true },
+  ] },
+  { key: 'onenote', name: 'Microsoft OneNote', fields: [
+    { name: 'token', label: 'api-import-token', secret: true, required: true },
+  ] },
+  { key: 'teams', name: 'Microsoft Teams', fields: [
     { name: 'token', label: 'api-import-token', secret: true, required: true },
   ] },
   { key: 'kanbanflow', name: 'KanbanFlow', fields: [

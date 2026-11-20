@@ -14,7 +14,8 @@ const TEXT_TYPES = { markdown: 'text/markdown', leo: 'application/xml', todotxt:
   obsidian: 'text/markdown', linear: 'text/csv', ticktick: 'text/csv', clickup: 'text/csv', nullboard: 'application/json',
   pivotal: 'text/csv', redmine: 'text/csv', notion: 'text/csv', superproductivity: 'application/json', quire: 'text/csv',
   opml: 'text/x-opml', orgmode: 'text/x-org',
-  mbox: 'application/mbox', enex: 'application/enex+xml', mattermost: 'application/x-ndjson' };
+  mbox: 'application/mbox', enex: 'application/enex+xml', mattermost: 'application/x-ndjson',
+  azuredevops: 'text/csv', mslists: 'text/csv', msproject: 'application/xml' };
 // The tools whose import file is an Excel workbook, and the function writing
 // it. Each require names its module literally: the bundler (rspack) resolves
 // only a literal path, and the [path, name] pairs this used to hold were
@@ -50,6 +51,16 @@ async function renderExternalExport(boardId, format, fields) {
   if (format === 'rocketchat') {
     const { rocketChatCsvFiles } = require('/models/lib/chatExportFormats');
     return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(rocketChatCsvFiles(built)) };
+  }
+  // Outlook's .eml files and OneNote's pages: a .zip of each
+  // (models/lib/outlookMsgFormat.js, onenoteApiFormat.js).
+  if (format === 'outlook') {
+    const { outlookArchiveFiles } = require('/models/lib/outlookMsgFormat');
+    return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(outlookArchiveFiles(built)) };
+  }
+  if (format === 'onenote') {
+    const { onenoteArchiveFiles } = require('/models/lib/onenoteApiFormat');
+    return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(onenoteArchiveFiles(built)) };
   }
   if (WORKBOOKS[format]) {
     return { contentType: XLSX, body: await WORKBOOKS[format]()(built) };
@@ -88,7 +99,7 @@ const STREAMED = {
 // list's heading opened before its first card and closed after its last.
 const PAGED = {
   todotxt: {}, taskwarrior: {}, meistertask: {}, linear: {}, ticktick: {}, clickup: {},
-  pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true }, notion: {},
+  pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true }, notion: {}, azuredevops: {}, mslists: {},
   // NDJSON: the head named over the whole board on the first page, each
   // card's records after it.
   focalboard: {}, mattermost: {},

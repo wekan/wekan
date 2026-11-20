@@ -165,6 +165,9 @@
       "https://tasks\\.googleapis\\.com/.*",
       "https://www\\.googleapis\\.com/auth/tasks\\.readonly"
     ],
+    "models/lib/apiImport/graph.js": [
+      "https://graph\\.microsoft\\.com/.*"
+    ],
     "models/lib/apiImport/kanbanflow.js": [
       "https://kanbanflow\\.com/.*"
     ],
@@ -180,6 +183,9 @@
     "models/lib/importAttachmentAuth.js": [
       "https://app\\.asana\\.com(/.*)?",
       "https://files\\.slack\\.com(/.*)?"
+    ],
+    "models/lib/msProjectXmlFormat.js": [
+      "http://schemas\\.microsoft\\.com/project"
     ],
     "server/lib/passwordPolicy.js": [
       "https://api\\.pwnedpasswords\\.com/range/"

@@ -25,6 +25,13 @@ export async function parseMessageImport(source, value) {
       }
       return parseMailMessages(await require('./mailImport').decodeMail(text(value)), { name: 'Imported mail' });
     }
+    case 'outlook': {
+      // Outlook's .msg, or a .zip of .msg and .eml (server/lib/microsoftArchives.js).
+      const messages = await require('./microsoftArchives').readOutlookMessages(value);
+      // A message's attachments go with its card; those without data (an
+      // embedded message) are counted by parseMailMessages.
+      return parseMailMessages(messages, { name: messages.length === 1 ? (messages[0].subject || 'Imported Outlook mail') : 'Imported Outlook mail' });
+    }
     case 'evernote': {
       const { notes, cutOff } = require('./enexImport').readEnex(text(value));
       return enexBoard(notes, { cutOff });

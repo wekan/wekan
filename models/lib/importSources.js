@@ -18,11 +18,15 @@
 //                 'zip'   { zipBase64 } - the .zip is ONE export of the tool
 //                 'rows'  CSV/TSV rows
 //                 'own'   the source's own upload route (WeKan .zip, Trello .zip)
+//                 'binary' its bytes (see binaryFiles): an Outlook .msg
 //   creator   - 'generalized' for models/kanboardCreator.js through
 //               models/lib/externalParsers.js, else the source's own creator;
 //               only the generalized importer can make one board per project
 //   package   - a .zip of many boards with their files, uploaded to a route
 //               of its own (Trello's)
+//   binaryFiles - extensions of a file that is neither text nor a .zip, sent
+//               as { binaryFile } from an upload or { binaryBase64 } (an
+//               Outlook .msg, the Teams export's .tar)
 
 const JSON_FILE = ['.json'];
 const TEXT = { paste: true, send: 'text', creator: 'generalized' };
@@ -53,6 +57,16 @@ export const IMPORT_SOURCES = [
   { key: 'focalboard', name: 'Focalboard', ...TEXT, files: ['.jsonl', '.json'] },
   { key: 'todoist', name: 'Todoist', ...TEXT, files: ['.csv'] },
   { key: 'planner', name: 'Microsoft Planner', ...EXCEL },
+  // Azure DevOps Boards' "Export to CSV" of a query, and Microsoft Lists'
+  // "Export to CSV" of a list.
+  { key: 'azuredevops', name: 'Azure DevOps Boards', ...TEXT, files: ['.csv'] },
+  { key: 'mslists', name: 'Microsoft Lists', ...TEXT, files: ['.csv'] },
+  // Microsoft Project's "XML Format (*.xml)" (MSPDI); the .mpp is not read.
+  { key: 'msproject', name: 'Microsoft Project (XML)', ...TEXT, files: ['.xml'] },
+  // Outlook's .msg files - binary, read on the server - or a .zip of .msg
+  // and .eml files.
+  { key: 'outlook', name: 'Microsoft Outlook (.msg)', paste: false, files: ['.msg', '.zip'], send: 'binary', zipSend: 'zip',
+    binaryFiles: ['.msg'], creator: 'generalized' },
   { key: 'meistertask', name: 'MeisterTask', ...TEXT, files: ['.csv'] },
   { key: 'obsidian', name: 'Obsidian Kanban', ...TEXT, files: ['.md'] },
   { key: 'linear', name: 'Linear', ...TEXT, files: ['.csv'] },
@@ -96,6 +110,11 @@ export const IMPORT_SOURCES = [
   // JSON such a fetch returns.
   { key: 'planka', name: 'Planka', ...JSON_SOURCE, api: true },
   { key: 'mstodo', name: 'Microsoft To Do', ...JSON_SOURCE, api: true },
+  // Fetched from Microsoft Graph, or a file: OneNote the .zip WeKan exports,
+  // Teams its personal export (.tar), Graph's chat messages (.json) or the
+  // .zip WeKan exports.
+  { key: 'onenote', name: 'Microsoft OneNote', ...JSON_SOURCE, files: ['.json', '.zip'], zipSend: 'zip', api: true },
+  { key: 'teams', name: 'Microsoft Teams', ...JSON_SOURCE, files: ['.json', '.tar', '.zip'], zipSend: 'zip', binaryFiles: ['.tar'], api: true },
   { key: 'kanbanflow', name: 'KanbanFlow', ...JSON_SOURCE, api: true },
   { key: 'basecamp', name: 'Basecamp', ...JSON_SOURCE, api: true },
   { key: 'googletasks', name: 'Google Tasks', ...JSON_SOURCE, api: true },
@@ -111,3 +130,6 @@ export const zipIsOneExport = key => Boolean((importSource(key) || {}).zipSend);
 export const instructionKey = key => `import-board-instruction-${key}`;
 // Whether the import page offers to fetch it from the service's API.
 export const isApiImport = key => Boolean((importSource(key) || {}).api);
+// Whether a file of this name is sent as bytes for this source.
+export const isBinaryFile = (key, name) => ((importSource(key) || {}).binaryFiles || [])
+  .some(ext => String(name || '').toLowerCase().endsWith(ext));

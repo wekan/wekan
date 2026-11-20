@@ -16,6 +16,14 @@
 const assert = require('node:assert/strict');
 
 const KEEPS = {
+  // 2026-11-21: Microsoft's. Azure DevOps writes the owner and the fields it
+  // came with (Priority ...), Lists every custom field and the start date,
+  // Project the dates and percent complete; a Teams chat starts with its first
+  // message.
+  azuredevops: ['owner', 'customFields'],
+  mslists: ['start', 'owner', 'customFields'],
+  msproject: ['start', 'created', 'dueComplete', 'owner', 'customFields'],
+  teams: ['created'],
   deck: ['created', 'dueComplete', 'owner', 'requester'],
   kanboard: ['start', 'created', 'spent', 'recurrence', 'owner', 'requester', 'color'],
   openproject: ['start', 'created', 'spent', 'owner', 'requester', 'customFields'],
@@ -83,7 +91,7 @@ async function main() {
   // round-trips those through the server).
   // Fizzy's account export and Rocket.Chat's CSV importer zip are archives too;
   // tests/fizzyFormat.test.cjs and tests/chatExportFormats.test.cjs round-trip them.
-  const BINARY = ['planner', 'monday', 'businessmap', 'vikunja', 'wrike', 'teamwork', 'fizzy', 'rocketchat'];
+  const BINARY = ['planner', 'monday', 'businessmap', 'vikunja', 'wrike', 'teamwork', 'fizzy', 'rocketchat', 'outlook', 'onenote'];
   const both = Object.keys(formatters).filter(name => typeof formatters[name] === 'function' && EXTERNAL_PARSERS[name]);
   assert.deepEqual(both.filter(name => !(name in KEEPS) && !BINARY.includes(name)), [], 'a format missing from KEEPS');
   console.log(`  ok - ${Object.keys(KEEPS).length} formats keep what KEEPS says`);

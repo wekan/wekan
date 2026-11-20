@@ -80,7 +80,11 @@ export function parseMailMessages(messages, { name = 'Imported mail' } = {}) {
     const ids = thread.flatMap(m => [m.messageId, m.inReplyTo, ...(Array.isArray(m.references) ? m.references : [])])
       .map(idOf).filter(Boolean);
     const from = { name: clean(first.from && first.from.name), address: addressOf(first.from) };
+    // The files a message carried (an Outlook .msg, models/lib/outlookMsgFormat.js).
+    const files = thread.flatMap(m => (Array.isArray(m.files) ? m.files : []))
+      .filter(f => f && typeof f.file === 'string' && typeof f.name === 'string');
     return {
+      ...(files.length ? { attachments: files } : {}),
       title: subjectOf(first) || '(no subject)',
       description: clean(first.text),
       column_name: MAIL_INBOX_LIST,
@@ -180,6 +184,12 @@ function message({ from, to, subject, date, messageId, inReplyTo, text, labels }
 // that came from mail keeps its sender, recipients and Message-ID; another is
 // a message from its creator. Its comments follow as replies.
 export function formatMbox({ items = [] } = {}) {
+  return mailMessagesOf(items).join('\n');
+}
+
+// Each message of formatMbox on its own, its "From " line first - an .eml
+// file is one without that line (the Outlook export, models/lib/outlookMsgFormat.js).
+export function mailMessagesOf(items = []) {
   const out = [];
   for (const item of items) {
     const email = item.email || null;
@@ -209,5 +219,5 @@ export function formatMbox({ items = [] } = {}) {
       }));
     });
   }
-  return out.join('\n');
+  return out;
 }

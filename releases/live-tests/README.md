@@ -17,6 +17,8 @@ repository, for example in your shell's profile.
 | `gitlab-write-back` | List Sync's write-back ([#2698](https://github.com/wekan/wekan/issues/2698)): edits, a comment, close and reopen on one scratch issue in a private `wekan-live-test` project of your account, deleted at the end | the `glab` login `releases/mirror.sh` uses, or `GITLAB_TOKEN`; `WEKAN_LIVE_GITLAB_PROJECT`, `WEKAN_LIVE_GITLAB_URL` optional |
 | `planka-import` | lists your boards, fetches the first, parses it - read only | `WEKAN_LIVE_PLANKA_URL`, `WEKAN_LIVE_PLANKA_USERNAME`, `WEKAN_LIVE_PLANKA_PASSWORD` |
 | `mstodo-import` | Microsoft To Do: all lists - read only | `WEKAN_LIVE_MSTODO_TOKEN` (Microsoft Graph, Tasks.Read) |
+| `onenote-import` | Microsoft OneNote: the first notebook - read only | `WEKAN_LIVE_ONENOTE_TOKEN` (Microsoft Graph, Notes.Read) |
+| `teams-import` | Microsoft Teams: the first chat or channel - read only | `WEKAN_LIVE_TEAMS_TOKEN` (Microsoft Graph, Chat.Read; channels also ChannelMessage.Read.All) |
 | `kanbanflow-import` | the token's board - read only | `WEKAN_LIVE_KANBANFLOW_TOKEN` |
 | `basecamp-import` | lists your projects, fetches the first - read only | `WEKAN_LIVE_BASECAMP_ACCOUNT`, `WEKAN_LIVE_BASECAMP_TOKEN` |
 | `googletasks-import` | all task lists - read only | `WEKAN_LIVE_GOOGLE_TASKS_TOKEN` (tasks.readonly) |

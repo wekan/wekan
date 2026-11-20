@@ -15,8 +15,8 @@ const { API_IMPORT_SERVICES, MAX_FIELD_LENGTH, apiImportService, cleanApiImportC
 
 const ROOT = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
-const KEYS = ['planka', 'mstodo', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep'];
-const PARSERS = { planka: 'parsePlankaApi', mstodo: 'parseMicrosoftTodoApi', kanbanflow: 'parseKanbanflowApi',
+const KEYS = ['planka', 'mstodo', 'onenote', 'teams', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep'];
+const PARSERS = { planka: 'parsePlankaApi', mstodo: 'parseMicrosoftTodoApi', onenote: 'parseOnenoteApi', teams: 'parseTeamsExport', kanbanflow: 'parseKanbanflowApi',
   basecamp: 'parseBasecampApi', googletasks: 'parseGoogleTasksApi', googlekeep: 'parseGoogleKeepApi' };
 
 (async () => {
@@ -58,7 +58,14 @@ const PARSERS = { planka: 'parsePlankaApi', mstodo: 'parseMicrosoftTodoApi', kan
   assert.match(request, /redirect: 'error'/, 'an allowed private host is still fetched without redirects');
   assert.match(request, /API_IMPORT_ALLOWED_PRIVATE_HOSTS/);
   // Negative: an error says only the origin and the status, never the answer.
-  assert.doesNotMatch(request, /await response\.text\(\)/);
+  // A successful answer may be text (2026-11-21: a OneNote page's HTML, asked
+  // for with Accept: text/html), read only after the non-2xx answer has been
+  // turned into an error that holds no body.
+  const okAt = request.indexOf('if (!response.ok) {');
+  assert.ok(okAt > 0);
+  assert.doesNotMatch(request.slice(0, request.indexOf('if (response.status === 204)')), /response\.text\(\)/);
+  assert.match(request.slice(okAt, okAt + 200), /new Error\(`\$\{origin\} answered HTTP \$\{response\.status\}`\)/);
+  assert.match(request, /if \(\/\^text\\\/\/i\.test\(accept\)\) \{\s*try \{ return await response\.text\(\); \}/);
   console.log('  ok - the server methods: gated, rate limited, through the SSRF guard');
 
   // The wiring of every service.
@@ -68,7 +75,8 @@ const PARSERS = { planka: 'parsePlankaApi', mstodo: 'parseMicrosoftTodoApi', kan
   const importJs = read('models/import.js');
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   for (const key of KEYS) {
-    assert.match(sources, new RegExp(`\\{ key: '${key}', name: '[^']+', \\.\\.\\.JSON_SOURCE, api: true \\}`), key);
+    // OneNote and Teams also read a file of their own (files, zipSend), still a JSON source.
+    assert.match(sources, new RegExp(`\\{ key: '${key}', name: '[^']+', \\.\\.\\.JSON_SOURCE(, [^}]*)?, api: true \\}`), key);
     assert.match(shape, new RegExp(`case '${key}'`), key);
     assert.match(parsers, new RegExp(`  ${key}: ${PARSERS[key]},`), key);
     assert.match(importJs, new RegExp(`      case '${key}':`), key);
@@ -86,7 +94,7 @@ const PARSERS = { planka: 'parsePlankaApi', mstodo: 'parseMicrosoftTodoApi', kan
   for (const key of ['api-import-desc', 'api-import-list', 'api-import-fetch', 'api-import-fetched', 'api-import-failed', 'api-import-token']) {
     assert.equal(typeof en[key], 'string', key);
   }
-  console.log('  ok - six services wired: source, shape, parser, import, client, test, live test, instruction');
+  console.log('  ok - eight services wired: source, shape, parser, import, client, test, live test, instruction');
 
   // A shape the fetch does not return is refused before any parser runs.
   const { validateImportSourceShape } = await import('../models/lib/importSourceShape.js');

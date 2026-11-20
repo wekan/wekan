@@ -10,6 +10,8 @@ import { assertImportEnabled } from '/models/lib/importExportSecurity';
 import { apiImportRequest } from '/server/lib/apiImportRequest';
 import * as planka from '/models/lib/apiImport/planka';
 import * as mstodo from '/models/lib/apiImport/mstodo';
+import * as onenote from '/models/lib/apiImport/onenote';
+import * as teams from '/models/lib/apiImport/teams';
 import * as kanbanflow from '/models/lib/apiImport/kanbanflow';
 import * as basecamp from '/models/lib/apiImport/basecamp';
 import * as googletasks from '/models/lib/apiImport/googletasks';
@@ -17,7 +19,7 @@ import * as googlekeep from '/models/lib/apiImport/googlekeep';
 
 const { apiImportService, cleanApiImportCredentials } = require('/models/lib/apiImportServices');
 
-const CLIENTS = { planka, mstodo, kanbanflow, basecamp, googletasks, googlekeep };
+const CLIENTS = { planka, mstodo, onenote, teams, kanbanflow, basecamp, googletasks, googlekeep };
 const MAX_ID_LENGTH = 200;
 
 async function prepare(userId, service, credentials) {

@@ -53,6 +53,23 @@ export function validateImportSourceShape(source, value) {
     case 'rocketchat': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
       || typeof value?.zipFile === 'string'
       || (typeof value === 'string' && value.trim().length > 0); break;
+    // Azure DevOps and Microsoft Lists CSV, Microsoft Project XML: text.
+    case 'azuredevops':
+    case 'mslists': valid = typeof value === 'string' && value.trim().length > 0; break;
+    case 'msproject': valid = typeof value === 'string' && /<Project[\s>]/.test(value); break;
+    // Outlook: a .msg as bytes, or a .zip of .msg and .eml files.
+    case 'outlook': valid = (typeof value?.binaryBase64 === 'string' && value.binaryBase64.length > 0)
+      || typeof value?.binaryFile === 'string'
+      || (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
+      || typeof value?.zipFile === 'string'; break;
+    // Teams and OneNote: JSON (fetched, or a file), a .zip, or Teams' .tar.
+    case 'teams': valid = (value && typeof value === 'object' && (value.teams === true || Array.isArray(value.value)
+      || Array.isArray(value.conversations) || typeof value.binaryBase64 === 'string' || typeof value.binaryFile === 'string'
+      || typeof value.zipBase64 === 'string' || typeof value.zipFile === 'string')) || Array.isArray(value)
+      || (typeof value === 'string' && value.trim().length > 0); break;
+    case 'onenote': valid = (value && typeof value === 'object' && (value.onenote === true
+      || typeof value.zipBase64 === 'string' || typeof value.zipFile === 'string'))
+      || (typeof value === 'string' && value.trim().length > 0); break;
     case 'evernote': valid = typeof value === 'string' && /<en-export[\s>]/.test(value); break;
     case 'telegram': valid = arrayAt(value, 'messages') || arrayAt(value?.chats, 'list'); break;
     case 'discord': valid = (Array.isArray(value) ? value : [value]).every(e => e && e.channel && Array.isArray(e.messages)); break;

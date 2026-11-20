@@ -7,7 +7,7 @@
 //
 // A company with MORE than one product here gets a group of its own, headed
 // by the company's name, and its products are shown without that name in
-// front of them: under "Microsoft" it is Planner, To Do, Excel and GitHub,
+// front of them: under "Microsoft" it is Planner, To Do, Lists, Excel, ...,
 // not "Microsoft Planner". A company with one product stays in the group of
 // its kind. The heading is the company's name, so it is not translated.
 
@@ -31,7 +31,7 @@ const MEMBERS = {
   '37signals': ['basecamp', 'fizzy'],
   atlassian: ['trello', 'trello-api', 'trellozip', 'jira'],
   google: ['googletakeout', 'googletasks', 'googlekeep'],
-  microsoft: ['planner', 'mstodo', 'excel', 'github'],
+  microsoft: ['planner', 'mstodo', 'azuredevops', 'mslists', 'msproject', 'outlook', 'teams', 'onenote', 'excel', 'github'],
   kanban: ['kanboard', 'deck', 'openproject', 'asana', 'zenkit', 'monday', 'wrike',
     'wrikeworkflow', 'teamwork', 'businessmap', 'clickup', 'notion', 'plane', 'taiga', 'focalboard', 'nullboard', 'kanri',
     'obsidian', 'meistertask', 'quire'],

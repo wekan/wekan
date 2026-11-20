@@ -5,6 +5,7 @@
 //   a .zip that is one export of the tool -> { zipFile, maxBytes, inflateLimit }
 //                                            (opened from disk, never whole)
 //   mail                                  -> { mboxFile }   (a message at a time)
+//   a binary file (.msg, .tar)            -> { binaryFile }
 //   a workbook                            -> { excelBase64 } / { xlsxBase64 }
 //   JSON                                  -> the parsed document
 //   text                                  -> the text
@@ -36,6 +37,10 @@ async function uploadedImportValue(uploadId, userId, source, { setting = {}, spe
     return { zipFile: file, maxBytes: limit, inflateLimit: limit || (room === Infinity ? 0 : room) };
   }
   if (source === 'mail') return { mboxFile: file };
+  // An Outlook .msg or the Teams export's .tar: read as bytes from the disk.
+  if (spec && Array.isArray(spec.binaryFiles) && spec.binaryFiles.some(ext => String(upload.name || '').toLowerCase().endsWith(ext))) {
+    return { binaryFile: file };
+  }
   // CSV/TSV: the rows, parsed on the server as the page parses a pasted text.
   if (source === 'csv') {
     try {

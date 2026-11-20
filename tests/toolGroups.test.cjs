@@ -55,6 +55,13 @@ test('a company with several products is headed by its name, which its products 
   assert.deepStrictEqual(out.filter(t => t.groupStart).map(t => t.groupLabel),
     ['37signals', 'Atlassian', 'Google', 'Microsoft', null]);
   assert.deepStrictEqual(out.filter(t => t.groupStart).map(t => t.groupLabelKey), [null, null, null, null, 'tool-group-messages']);
+  // 2026-11-21: Lists, Project, Outlook, Teams, OneNote and Azure DevOps Boards
+  // joined Microsoft's heading; a name without "Microsoft " stays whole.
+  assert.deepStrictEqual(groupTools(['outlook', 'msproject', 'teams', 'onenote', 'mslists', 'azuredevops'].map(key => ({ key,
+    name: { outlook: 'Microsoft Outlook (.msg)', msproject: 'Microsoft Project (XML)', teams: 'Microsoft Teams', onenote: 'Microsoft OneNote',
+      mslists: 'Microsoft Lists', azuredevops: 'Azure DevOps Boards' }[key] }))).map(t => [t.group, t.name]),
+  [['microsoft', 'Outlook (.msg)'], ['microsoft', 'Project (XML)'], ['microsoft', 'Teams'], ['microsoft', 'OneNote'],
+    ['microsoft', 'Lists'], ['microsoft', 'Azure DevOps Boards']]);
 });
 
 test('negative: a company group needs two products, and only its own name is dropped', () => {

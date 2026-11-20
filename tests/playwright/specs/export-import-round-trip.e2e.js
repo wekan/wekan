@@ -29,6 +29,10 @@ const ROUND_TRIPS = {
   planner: ['planner', 'excel'], monday: ['monday', 'excel'], wrike: ['wrike', 'excel'], teamwork: ['teamwork', 'excel'],
   businessmap: ['businessmap', 'excel'],
   vikunja: ['vikunja', 'zip'], fizzy: ['fizzy', 'zip'],
+  // Microsoft's (2026-11-21): Outlook's .eml files and OneNote's pages are a
+  // .zip, Teams' chats JSON.
+  azuredevops: ['azuredevops', 'text'], mslists: ['mslists', 'text'], msproject: ['msproject', 'text'],
+  outlook: ['outlook', 'zip'], teams: ['teams', 'json'], onenote: ['onenote', 'zip'],
   // Rocket.Chat is not here: its CSV importer has no display name for a
   // channel and takes only [0-9a-zA-Z-_.] in its name, so "Alpha Card" comes
   // back as "#alpha-card" - tests/chatExportFormats.test.cjs round-trips it.
@@ -83,6 +87,17 @@ const KEEPS = {
   businessmap: ['description', 'comment', 'label', 'due'],
   vikunja: ['description', 'checklist', 'comment', 'dependency', 'label', 'due'],
   fizzy: ['description', 'checklist', 'comment', 'label', 'due'],
+  // Azure DevOps writes no dates, and a checklist only into the description's
+  // HTML; Lists has no comments; Project has dates and links but no labels
+  // (other than Milestone); Outlook is the .mbox export's messages; a Teams
+  // chat keeps its description and messages; OneNote a page's text and to-do
+  // boxes.
+  azuredevops: ['description', 'label'],
+  mslists: ['description', 'label', 'due'],
+  msproject: ['description', 'dependency', 'due'],
+  outlook: ['description', 'comment', 'label'],
+  teams: ['description', 'comment'],
+  onenote: ['description', 'checklist'],
 };
 const DESCRIPTION = 'Round trip description';
 const STEP = 'Round trip step';

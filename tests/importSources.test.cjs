@@ -22,11 +22,15 @@ async function main() {
     assert.equal(new Set(keys).size, keys.length, 'no source twice');
     // 44 with Fizzy, the six fetched from a service's API
     // (models/lib/apiImportServices.js), and the ten mail, calendar, chat and
-    // note sources (mail ... evernote, Rocket.Chat among them).
-    assert.equal(keys.length, 60, "every source the import page offers");
+    // note sources (mail ... evernote, Rocket.Chat among them); 2026-11-21 six
+    // more of Microsoft's: Azure DevOps Boards, Lists, Project, Outlook, Teams
+    // and OneNote.
+    assert.equal(keys.length, 66, "every source the import page offers");
     for (const source of reg.IMPORT_SOURCES) {
       assert.ok(source.product || source.name, source.key);
-      assert.ok(['text', 'json', 'excel', 'rows'].includes(source.send), `${source.key} send`);
+      assert.ok(['text', 'json', 'excel', 'rows', 'binary'].includes(source.send), `${source.key} send`);
+      // A binary source names the extensions it reads as bytes.
+      if (source.send === 'binary') assert.ok((source.binaryFiles || []).length, `${source.key} binaryFiles`);
       assert.ok(source.paste || (source.files && source.files.length), `${source.key} can be given somehow`);
       for (const ext of source.files || []) assert.match(ext, /^\.[a-z]+$/, `${source.key} ${ext}`);
     }
@@ -43,7 +47,7 @@ async function main() {
       assert.match(shape, new RegExp(`case '${source.key}':`), `${source.key} has a shape check`);
       // Leo and OPML, and mail, Slack, Google Takeout and Evernote, are decoded on
       // the server only (htmlparser2, mailparser, unzipper - server/lib/messageImports.js).
-      if (source.creator === 'generalized' && !['leo', 'opml', 'kanboard', 'mail', 'googletakeout', 'slack', 'evernote'].includes(source.key)) {
+      if (source.creator === 'generalized' && !['leo', 'opml', 'kanboard', 'mail', 'googletakeout', 'slack', 'evernote', 'outlook'].includes(source.key)) {
         assert.equal(typeof EXTERNAL_PARSERS[source.key], 'function', `${source.key} has a parser`);
       }
       if (source.zipSend === 'zip') assert.match(importJs, new RegExp(`case '${source.key}':[\\s\\S]{0,800}?zip`, 'i'), `${source.key} reads its .zip on the server`);
@@ -54,8 +58,8 @@ async function main() {
   test('the many-files lists are read from it', () => {
     assert.deepEqual(many.EXCEL_SOURCES, reg.IMPORT_SOURCES.filter(s => s.send === 'excel').map(s => s.key));
     // Telegram and Discord: the export folder zipped, with the message files beside the JSON.
-    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'fizzy', 'googletakeout', 'notion', 'plane', 'rocketchat', 'slack', 'telegram', 'vikunja', 'wekan']);
-    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy'\}/);
+    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'fizzy', 'googletakeout', 'notion', 'onenote', 'outlook', 'plane', 'rocketchat', 'slack', 'teams', 'telegram', 'vikunja', 'wekan']);
+    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy',\s+'outlook', 'teams', 'onenote'\}/);
     assert.deepEqual(many.OWN_CREATOR_SOURCES.sort(), ['csv', 'excel', 'jira', 'trello', 'wekan']);
     // api.py cannot import JavaScript; its lists must agree by hand.
     const api = read('api.py');
