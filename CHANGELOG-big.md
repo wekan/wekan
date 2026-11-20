@@ -97,12 +97,12 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** WeKan imports **mail**, **calendars**, **chats** and **notes** -
-mbox and .eml, iCalendar, **Google Takeout**, Slack, Mattermost, Telegram,
-WhatsApp, Discord and Evernote - into the Email, Chat and Calendar views, and
-exports .mbox, .enex and Mattermost files. Menu entries that could not be
-reached or did nothing now work, and the **Shared templates** sharing choice is
-an instance setting.
+**In short:** Twelve new **Board View reports** - Created vs. Resolved, Net
+Flow, Time in List and more - and **grouped menus**: the Board View menu, the
+Import and Export lists and the list, card and swimlane menus have headings.
+WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
+are **streamed to disk** within the free space or an Admin Panel limit. Menu
+entries that did nothing now work.
 
 This release adds the following new features:
 
@@ -132,6 +132,88 @@ language. `tests/mailFormat.test.cjs`, `icalendarFormat`, `chatExportFormats`,
 `enexFormat` and `googleTakeoutFormat` run each format both ways with its
 negative cases; `tests/playwright/specs/import-mail-chat-notes.e2e.js` imports
 through the page and reads the result in the Email and Chat views.
+
+</details>
+
+**Board View reports** - twelve more reports, each with the export bar at its
+top like the other charts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63b5e089f5113960f22fc3d72e3dce3ae86981e2">Created vs. Resolved, Net Flow, Time in List, Average Age, Throughput Run, Due Date Performance and six more</a>. Thanks to xet7.</summary>
+
+Added after comparing WeKan's charts with the reports of Jira, Azure DevOps,
+Nave, ActionableAgile and the Flow Framework: Created vs. Resolved, Net Flow,
+Time in List, Average Age, Throughput Run Chart and Due Date Performance under
+Kanban flow; Release Burndown and Epic Progress under Scrum; Workload,
+Distribution, Dependency Map and Activity Heatmap under Overview. Each draws a
+Chart.js chart over its data table, and its PDF and Excel export write that
+table. The calculations are pure (`models/lib/boardReports.js`) and answer one
+shape, so the view and both exports read every report the same way. A member
+who may see only their assigned cards gets none of them.
+`tests/boardReports.test.cjs` checks each report's numbers from known cards,
+including a dependency cycle and an empty release;
+`tests/playwright/specs/board-reports.e2e.js` opens each from the menu and
+downloads its PDF and Excel.
+
+</details>
+
+**Menus** - grouped under headings, as the Admin Panel is.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/257835733b0ec5d950fac6feb2e13c589219bb9d">The Board View menu and the Import and Export lists are grouped under headings</a>. Thanks to xet7.</summary>
+
+The Board View menu and Board Settings / Board View show the views in six
+groups - Board, Calendar and time, Scrum, Kanban flow, Overview, and
+Communication and code - with the board's own order inside each. The Import
+page and the Export menu list the other tools under the same headings from one
+table (`models/lib/toolGroups.js`): Kanban and project tools, Issue trackers and
+version control, Task and to-do apps, Spreadsheets and tables, Text and
+outlines, Mail, calendars, chats and notes, and Fetched from a service.
+`tests/boardViewMenu.test.cjs`, `tests/toolGroups.test.cjs` and
+`tests/playwright/specs/board-view-groups.e2e.js` check the groups and their
+order.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d8f8b8d96b868a6d75b803ef105e50aad450977">The list, card and swimlane menus are grouped under headings</a>. Thanks to xet7.</summary>
+
+Share and history, Export and import, Add, Watch, Edit or Appearance,
+Settings, Move and copy, and Archive. No entry moved or changed its
+condition; each heading sits inside its group's condition, so a member who sees
+none of a group sees no heading, and a heading is not clickable. The two header
+bars keep their layout. `tests/menuGroupHeadings.test.cjs` and
+`tests/playwright/specs/menu-group-headings.e2e.js`.
+
+</details>
+
+**Large files** - imports streamed to the disk, within its free space.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32c24ed84e9d6c8080e89bdd4097f87a3b0b4b04">Import page uploads stream to the server's disk, checked against the free space and an Admin Panel limit</a>. Thanks to xet7.</summary>
+
+A chosen file is POSTed to `/api/import/upload/:source` and written to
+`WRITABLE_PATH/import-uploads` a part at a time, instead of being read in the
+browser and sent whole through the import method. Before the first byte the
+announced size is checked against Admin Panel / Settings / Security **Largest
+import** (empty: no limit) and against the free space less a reserve, and the
+space again every 64 MB; a refused or interrupted upload leaves no file. Zip
+exports are opened from the disk and mailboxes read a message at a time, also
+inside a Google Takeout zip. `tests/importUpload.test.cjs` covers the limit,
+the full disk before and during the upload and an interrupted one;
+`tests/playwright/specs/import-mail-chat-notes.e2e.js` refuses a file over the
+limit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b1c7ce7bb430834e024d7684734f7586a07b007">WeKan and Trello .zip imports use the same limit and disk check; .mbox and .enex export a page at a time</a>. Thanks to xet7.</summary>
+
+The WeKan .zip and Trello package routes had caps of their own (5 GB, and
+200 MB with 1 GB unpacked); they now use the shared receiver, so the limit is
+the administrator's or the free disk space. The .mbox and .enex exports are
+written 500 cards at a time, waiting for the socket, rather than built whole in
+memory.
 
 </details>
 
@@ -228,6 +310,34 @@ The Sandstorm activity notifier read the card, the comment and the board from
 `comment.text.match` threw on every comment activity and a card's members were
 never found. `tests/serverReactiveCacheAwaited.test.cjs` sweeps `server/` for
 any other unawaited result kept in a variable.
+
+</details>
+
+and has the following developer-facing change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4da72ff72ddbe51370bd94ceb19a96b1c540ed5">The shared templates spec runs its tests in order and waits for the reset</a>. Thanks to xet7.</summary>
+
+The scopes are one instance setting now, so the spec's tests run serially,
+wait until the page shows the reset the test server sees at its next database
+poll, and find each template link inside its own group.
+
+</details>
+
+and improves the following translations:
+
+**Languages updated:** 245 languages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1732bd3a598e7e2828a4596ec4b60765759003f">Locale files that held another language get their own</a>. Thanks to xet7.</summary>
+
+Values in another language than their locale's tag are replaced with the tag's
+language: Northern Sami seeded in Finnish, Veps in Venda, Maltese sentences in
+Italian, Northern Ndebele in Shona, Uzbek in Latin letters in the Arabic-script
+file, Wolaytta in Ethiopic script, Tsonga in Swati, Luganda in Swahili, the
+Armenian "board" and the Vietnamese "history". Words correct in both languages
+are kept. Low confidence: the chart and metric names in Veps, Wolaytta, Tsonga,
+Luganda and Northern Sami.
 
 </details>
 

@@ -7,12 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-WeKan imports **mail**, **calendars**, **chats** and **notes** -
-mbox and .eml, iCalendar, **Google Takeout**, Slack, Mattermost, Telegram,
-WhatsApp, Discord and Evernote - into the Email, Chat and Calendar views, and
-exports .mbox, .enex and Mattermost files. Menu entries that could not be
-reached or did nothing now work, and the **Shared templates** sharing choice is
-an instance setting.
+Twelve new **Board View reports** - Created vs. Resolved, Net
+Flow, Time in List and more - and **grouped menus**: the Board View menu, the
+Import and Export lists and the list, card and swimlane menus have headings.
+WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
+are **streamed to disk** within the free space or an Admin Panel limit. Menu
+entries that did nothing now work.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
