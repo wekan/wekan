@@ -52,6 +52,8 @@ template(name="editSwimlaneTitleForm")
         i.fa.fa-times-thin
 
 template(name="swimlaneActionPopup")
+  //- Grouped under headings (2026-11-20), as the list and card menus are; every
+    entry keeps its own condition.
   if currentUser
     //- Copy link, FIRST and above every permission check: a swimlane has an
       address now, and copying it is reading, not editing - somebody who may
@@ -59,6 +61,7 @@ template(name="swimlaneActionPopup")
       The rows below are all guarded because they change the board.
       models/lib/boardItemUrl.js, docs/Features/General/Board-Item-Links.md
     ul.pop-over-list
+      li.menu-group-heading {{_ 'menu-group-share'}}
       li: a.js-copy-swimlane-link
         i.fa.fa-link
         span
@@ -83,6 +86,7 @@ template(name="swimlaneActionPopup")
       like copying a link it is READING - so it sits above the rows that change
       the board and is not guarded by them.
     ul.pop-over-list
+      li.menu-group-heading {{_ 'menu-group-export'}}
       li: a.js-export-swimlane
         i.fa.fa-upload
         span {{_ 'export'}}
@@ -95,6 +99,7 @@ template(name="swimlaneActionPopup")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           ul.pop-over-list
+             li.menu-group-heading {{_ 'add'}}
              li: a.js-add-swimlane
                i.fa.fa-plus
                span
@@ -115,12 +120,14 @@ template(name="swimlaneActionPopup")
           if currentUser.isBoardAdmin
             hr
             ul.pop-over-list
+              li.menu-group-heading {{_ 'appearance'}}
               li: a.js-set-swimlane-color
                 i.fa.fa-paint-brush
                 | {{_ 'select-color'}}
             unless this.isTemplateContainer
               hr
               ul.pop-over-list
+                li.menu-group-heading {{_ 'menu-group-move-copy'}}
                 li: a.js-copy-swimlane
                   i.fa.fa-clipboard
                   | {{_ 'copy-swimlane'}}
@@ -130,6 +137,7 @@ template(name="swimlaneActionPopup")
                   | {{_ 'move-swimlane'}}
               hr
               ul.pop-over-list
+                li.menu-group-heading {{_ 'archives'}}
                 li: a.js-close-swimlane
                   i.fa.fa-archive
                   | {{_ 'archive-swimlane'}}

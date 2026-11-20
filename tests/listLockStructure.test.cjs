@@ -101,7 +101,8 @@ test('client writes are refused the same way, and the menu does not offer them',
   assert.match(rules, /Swimlanes\.deny\(\{[\s\S]*?swimlaneRefusingListIds\(/);
   const menu = read('client/components/lists/listHeader.jade');
   assert.match(menu, /if mayWriteList\n\s+li\n\s+a\.js-archive-list-cards/);
-  assert.match(menu, /if mayWriteList\n\s+hr\n\s+ul\.pop-over-list\n\s+li\n\s+a\.js-close-list/);
+  // With the Archive heading of the grouped menu (2026-11-20) above it.
+  assert.match(menu, /if mayWriteList\n\s+hr\n\s+h4\.menu-group-heading \{\{_ 'archives'\}\}\n\s+ul\.pop-over-list\n\s+li\n\s+a\.js-close-list/);
 });
 
 test('negative: renaming, recolouring and reordering a list are not refused', () => {

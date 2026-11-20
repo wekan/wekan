@@ -127,7 +127,8 @@ test('Shift+M and Shift+C are bound once, and the plain m and c keep their own a
 test('the menu items it clicks are the ones the menu renders only with permission', () => {
   const jade = read('client/components/cards/cardDetails.jade');
   const popup = jade.slice(jade.indexOf('template(name="cardDetailsActionsPopup")'));
-  assert.match(popup, /if cardMenuWrites\s*\n\s*if currentUser\.isBoardAdmin\s*\n\s*li\s*\n\s*a\.js-move-card/);
+  // The card menu's "Move and copy" heading (2026-11-20) may come first.
+  assert.match(popup, /if cardMenuWrites\s*\n(?:\s*li\.menu-group-heading [^\n]*\n)?\s*if currentUser\.isBoardAdmin\s*\n\s*li\s*\n\s*a\.js-move-card/);
   assert.match(popup, /unless currentUser\.isWorker\s*\n\s*li\s*\n\s*a\.js-copy-card/);
   const details = read('client/components/cards/cardDetails.js');
   assert.match(details, /'click \.js-move-card': Popup\.open\('moveCard'\)/);

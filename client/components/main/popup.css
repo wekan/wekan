@@ -1543,3 +1543,17 @@ body.mobile-mode .pop-over .content-wrapper {
 .pop-over[data-popup='boardCardSettingsPopup'] .content-container > .clearfix {
   display: none;
 }
+
+/* A heading over a group of a menu's entries (the list, card and swimlane
+   menus, 2026-11-20): not an entry - nothing to click. */
+.pop-over .menu-group-heading {
+  margin: 0;
+  padding: 8px 10px 2px;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b778c;
+  cursor: default;
+  pointer-events: none;
+}

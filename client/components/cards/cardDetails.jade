@@ -1141,9 +1141,13 @@ template(name="cardDetailsActionsPopup")
     Planning Poker, Change spent time and Card kind are in the hamburger of
     their own section of the opened card, and in Card Settings' pane of that
     section (docs/Features/Cards/Card-Fields.md).
+  //- Grouped under headings (2026-11-20): Move and copy, Watch, Appearance,
+    Share and history, Archive. Every entry keeps its own condition; a heading
+    sits inside its group's.
   if currentUser
     ul.pop-over-list
       if cardMenuWrites
+        li.menu-group-heading {{_ 'menu-group-move-copy'}}
         if currentUser.isBoardAdmin
           li
             a.js-move-card
@@ -1175,6 +1179,7 @@ template(name="cardDetailsActionsPopup")
           a.js-move-card-to-bottom
             i.fa.fa-arrow-down
             | {{_ 'moveCardToBottom-title'}}
+      li.menu-group-heading {{_ 'watch'}}
       li
         a.js-toggle-watch-card
           if isWatching
@@ -1196,6 +1201,7 @@ template(name="cardDetailsActionsPopup")
       unless currentUser.isWorker
         hr
         ul.pop-over-list
+          li.menu-group-heading {{_ 'appearance'}}
           li
             a.js-set-card-color
               i.fa.fa-paint-brush
@@ -1214,6 +1220,7 @@ template(name="cardDetailsActionsPopup")
                 |  {{_ 'action-items-create'}}
     hr
   ul.pop-over-list
+    li.menu-group-heading {{_ 'menu-group-share'}}
     if currentUser
       //- Copy link, named - the card's header carried this as an icon with only
         a tooltip. docs/Features/General/Board-Item-Links.md
@@ -1254,6 +1261,7 @@ template(name="cardDetailsActionsPopup")
     if currentUser
       if cardMenuWrites
         unless currentUser.isWorker
+          li.menu-group-heading {{_ 'archives'}}
           if archived
             li
               a.js-restore-archived-card
