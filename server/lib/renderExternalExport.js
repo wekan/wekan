@@ -113,6 +113,9 @@ const JSON_PAGED = {
   // Super Productivity's backup: made over the whole board on every page, its
   // task entities (by id) the page's own (models/lib/superProductivityFormat.js).
   superproductivity: { paths: [{ path: ['data', 'task', 'entities'], object: true }], text: true },
+  // Taiga's project: made over the whole board on every page, its epics,
+  // stories, tasks and issues a page's own (models/lib/taigaFormat.js).
+  taiga: { paths: [['epics'], ['user_stories'], ['tasks'], ['issues']] },
 };
 const ARRAY_PLACE = '__wekan_paged_array__';
 

@@ -373,3 +373,33 @@ test('Super Productivity: the pages\' task entities are the whole backup\'s, the
   assert.match(Object.values(one.data.task.entities)[0].notes, /Line\nbreak, comma/, 'its notes from the card itself');
   assert.match(read('server/lib/renderExternalExport.js'), /superproductivity: \{ paths: \[\{ path: \['data', 'task', 'entities'\], object: true \}\], text: true \}/);
 });
+
+// Taiga: the project is made over the whole board on every page; its epics,
+// stories, tasks and issues across the pages are the whole project's, the
+// tasks made of checklist items on the last page, and the rest is the same.
+test('Taiga: the pages\' epics, stories, tasks and issues are the whole project\'s, the rest the same on every page', async () => {
+  const tg = await import('../models/lib/taigaFormat.js');
+  const now = new Date('2026-11-20T00:00:00Z');
+  const lanes = [{ title: 'Default' }, { title: 'Epics' }, { title: 'Issues' }];
+  const tItems = items.map((item, i) => ({ ...item, listId: `l${i % 3}`, swimlaneTitle: ['Default', 'Epics', 'Default', 'Issues', 'Default', 'Default'][i] }));
+  const tLight = tItems.map(item => ({ ...item, description: '', ...(item.comments ? { comments: item.comments.map(c => ({ ...c, text: '·' })) } : {}) }));
+  const tLists = lists.map((l, i) => ({ ...l, _id: `l${i}` }));
+  const whole = JSON.parse(JSON.stringify(tg.formatTaiga({ board, lists: tLists, swimlanes: lanes, items: tItems }, now)));
+  const arrays = ['epics', 'user_stories', 'tasks', 'issues'];
+  assert.ok(whole.tasks.length > 0 && whole.epics.length > 0 && whole.issues.length > 0, 'the fixture has each kind');
+  for (const size of [1, 2, 4, 100]) {
+    const pages = Math.max(1, Math.ceil(tItems.length / size));
+    const got = Object.fromEntries(arrays.map(key => [key, []]));
+    let shell = null;
+    for (let n = 0; n < pages; n += 1) {
+      const doc = JSON.parse(JSON.stringify(tg.formatTaiga({ board, lists: tLists, swimlanes: lanes, items: tItems.slice(n * size, (n + 1) * size),
+        page: { all: tLight, offset: n * size, first: n === 0, last: n === pages - 1 } }, now)));
+      arrays.forEach(key => got[key].push(...doc[key]));
+      if (n === 0) shell = doc;
+    }
+    arrays.forEach(key => assert.deepStrictEqual(got[key], whole[key], `${size}: ${key}`));
+    const strip = doc => ({ ...doc, epics: [], user_stories: [], tasks: [], issues: [] });
+    assert.deepStrictEqual(strip(shell), strip(whole), `${size}: the project around them`);
+  }
+  assert.match(read('server/lib/renderExternalExport.js'), /taiga: \{ paths: \[\['epics'\], \['user_stories'\], \['tasks'\], \['issues'\]\] \}/);
+});

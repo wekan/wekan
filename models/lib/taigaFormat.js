@@ -85,6 +85,7 @@ export const WEKAN_LABEL_HEX = {
   gray: '#808080', saddlebrown: '#8b4513', paleturquoise: '#afeeee', mistyrose: '#ffe4e1', indigo: '#4b0082',
 };
 
+import { pagingOf } from './exportPaging.js';
 const list = value => (Array.isArray(value) ? value : []);
 const str = value => (typeof value === 'string' ? value : '');
 const has = value => value !== undefined && value !== null && value !== '';
@@ -524,8 +525,18 @@ function addStatus(rows, name, closed = CLOSED_LIST.test(name)) {
 
 // The dump for a collected board ({ board, lists, swimlanes, items,
 // scrumSprints }, models/lib/externalExporters.js).
-export function formatTaiga({ board, lists, swimlanes, items, scrumSprints } = {}, now = new Date()) {
-  const all = list(items);
+// The whole board, or one page of it (models/lib/exportPaging.js): the
+// project is made over the whole board - its light first pass when written a
+// page at a time, so every ref, order, status, point and attribute is the
+// whole board's - and a page keeps only its own cards' epics, stories, tasks
+// and issues, their descriptions and histories (the text the first pass does
+// not read) from the cards themselves. The tasks made of story checklist
+// items, which have no card of their own, are on the last page, after the
+// other tasks, as in the whole project.
+export function formatTaiga(collected = {}, now = new Date()) {
+  const { board, lists, swimlanes, scrumSprints } = collected;
+  const paging = pagingOf(collected);
+  const all = list(collected.page ? paging.all : paging.items);
   const nowText = taigaDateTimeText(now);
   const byCard = new Map(all.map(item => [item.cardId, item]));
 
@@ -821,6 +832,32 @@ export function formatTaiga({ board, lists, swimlanes, items, scrumSprints } = {
     }));
   });
 
+  // What the project says it has, over the whole board.
+  const hasEpics = epicsOut.length > 0;
+  const hasIssues = issuesOut.length > 0;
+  if (collected.page) {
+    const full = new Map(paging.items.map(item => [item.cardId, item]));
+    const cardOfRef = new Map(all.map(item => [refs.get(item.cardId), item.cardId]));
+    const own = element => full.get(cardOfRef.get(element.ref));
+    const withText = (element, kind) => {
+      const card = own(element);
+      return { ...element, history: history(card.comments, now),
+        description: kind === 'story' ? str(card.description)
+          : [str(card.description), checklistMarkdown(card.checklists)].filter(Boolean).join('\n\n') };
+    };
+    const keep = (array, kind, extra = () => false) => {
+      const kept = array.filter(element => own(element)).map(element => withText(element, kind));
+      const others = array.filter(element => !cardOfRef.has(element.ref) && extra(element));
+      array.length = 0;
+      array.push(...kept, ...others);
+    };
+    keep(epicsOut, 'epic');
+    keep(storiesOut, 'story');
+    keep(issuesOut, 'issue');
+    // A checklist item's task has no card: all of them on the last page.
+    keep(tasksOut, 'task', () => paging.last);
+  }
+
   // Tags with their colors: every board label but the issue facets.
   const tagsColors = list(board && board.labels).filter(l => l && str(l.name).trim()
     && !FACETS.some(f => l.name.startsWith(`${f}:`)))
@@ -847,11 +884,11 @@ export function formatTaiga({ board, lists, swimlanes, items, scrumSprints } = {
     logo: null,
     total_milestones: milestones.length || null,
     total_story_points: null,
-    is_epics_activated: epicsOut.length > 0,
+    is_epics_activated: hasEpics,
     is_backlog_activated: milestones.length > 0,
     is_kanban_activated: true,
     is_wiki_activated: false,
-    is_issues_activated: issuesOut.length > 0,
+    is_issues_activated: hasIssues,
     videoconferences: null,
     videoconferences_extra_data: null,
     creation_template: null,

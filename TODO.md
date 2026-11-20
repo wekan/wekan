@@ -20,36 +20,6 @@ the changelog only says what changed.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 
-## Import and Export of large files
-
-Asked on 2026-11-20. A file chosen on the Import page for the generalized
-importer's sources is now streamed to the server's disk a part at a time, with
-the free space checked before and while it is written and the Admin Panel
-limit (none: the free disk space) applied; zips are opened from the disk and
-mailboxes read a message at a time, JSON built from the file a chunk at a
-time, and Jira's people and CSV / TSV's columns read from the upload; WeKan's
-own .zip and Trello's package use the same upload, limit and disk check. This
-is the rest.
-
-- Export: WeKan's own JSON export is written to the response as it is
-  collected (`buildStream`); the .mbox, .enex, Todoist, TickTick, ClickUp,
-  MeisterTask, Linear, Pivotal, Redmine, Quire, Taskwarrior and todo.txt
-  exports, the Markdown, Obsidian, OPML, Org mode and Leo outlines and the
-  Notion CSV, and the Focalboard and Mattermost NDJSON, a page of 500 cards at
-  a time, the references across pages read in a light first pass
-  (`models/lib/exportPaging.js`). The JSON documents whose cards are one array
-  (Trello, Jira, Asana, Zenkit, OpenProject, GitHub, Gitea, Forgejo, GitLab)
-  are written around that array, each page's cards into it, and those that
-  nest their cards in their lists (Deck, Kanri, Nullboard) around each list.
-  Vikunja's .zip is written the same way, its data.json each project's
-  arrays a pass over the pages, and Super Productivity's backup, its task
-  entities a page's own. Still built whole: Taiga (statuses, points and
-  attribute definitions found while the cards are written, per-kind orders,
-  and tasks made of checklist items, which have no card of their own to
-  page by), which needs a writer of its own. The five
-  workbooks (Teamwork, Planner, monday.com, Businessmap, Wrike) are written a
-  page at a time with ExcelJS's streaming writer.
-
 ## Import and Export of everything each tool has
 
 Asked on 2026-11-20: check and fix that everything each tool with a WeKan
