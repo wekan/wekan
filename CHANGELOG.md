@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Six more of **Microsoft**'s tools are imported and exported under
+the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
+**Microsoft Project** (XML), **Outlook** (.msg in, .eml out), **Teams** and
+**OneNote**, the last two also fetched from Microsoft Graph.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.23 2026-11-20 WeKan ® release
 
 The **Import** page and the **Export** menu list a company's

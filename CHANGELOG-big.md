@@ -95,6 +95,87 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Six more of **Microsoft**'s tools are imported and exported under
+the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
+**Microsoft Project** (XML), **Outlook** (.msg in, .eml out), **Teams** and
+**OneNote**, the last two also fetched from Microsoft Graph.
+
+This release adds the following new features:
+
+**Microsoft** - six tools of Microsoft's, each read from what it exports and
+written as what it imports, with tests and the instruction in every language.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85">Azure DevOps Boards: a query's CSV is imported, and a board exports as its CSV import</a>. Thanks to xet7.</summary>
+
+Board Column (or State) becomes the lists and Board Lane the swimlanes; a tree
+query's Title 1, Title 2, ... columns become parent and child cards,
+`Name <address>` people the owner, regional dates are read day first when they
+have
+to be, and the other columns become custom fields. The export is the file
+**Import from CSV** reads: new work items whose type and State come from a
+label and a list named after the built-in processes' types and states.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85">Microsoft Lists: a list's CSV is imported, and a board exports as a CSV Lists makes a list of</a>. Thanks to xet7.</summary>
+
+The Status (or Progress) column - the one a list's board view groups by -
+becomes the lists, with the items' people (also SharePoint's `;#` form), dates,
+tags and the other columns as custom fields. SharePoint's own columns are
+reported. The export is the CSV **New list → From CSV** reads.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85">Microsoft Project: its XML plan is imported, and a board exports as a plan Project opens</a>. Thanks to xet7.</summary>
+
+MSPDI XML: summary tasks become swimlanes, tasks cards in Not started, In
+progress or Completed, with dates, notes, resources, subtasks and predecessors.
+A small XML reader of WeKan's own reads it and never resolves a DTD or an
+entity; the negative test feeds it an external entity and gets the text back
+unexpanded.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85">Outlook: .msg files are imported as mail, and a board exports as .eml files</a>. Thanks to xet7.</summary>
+
+The Compound File Binary format and the message's properties are read without
+a library - subject, sender, recipients, time, ids, body and attachments - and
+go through the mail import, so replies join their thread in Board View / Email.
+A `.zip` of `.msg` and `.eml` files is read too. Tested with `.msg` files
+written by a Compound File writer in the test, and checked against files saved
+by Outlook.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85">Teams: chats and channels are fetched from Microsoft Graph or read from an export</a>. Thanks to xet7.</summary>
+
+Graph chat messages, the Teams Export API's file and the personal export's
+`.tar` become cards in Board View / Chat, the messages and replies their
+comments, with files as links and reactions. A board exports as Teams chats of
+Graph chat messages, which the migration API takes and WeKan reads back.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85">OneNote: a notebook is fetched from Microsoft Graph, and a board exports as OneNote pages</a>. Thanks to xet7.</summary>
+
+Sections become lists and pages cards, with the page's text, its to-do boxes as
+a checklist and subpages as subtasks. The export is a `.zip` of pages in the
+XHTML Graph's create page takes, with `onenote.json` that WeKan reads back.
+Both Graph clients refuse a next link that leaves graph.microsoft.com, and
+have live tests in `releases/live-tests/`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.23 2026-11-20 WeKan ® release
 
 **In short:** The **Import** page and the **Export** menu list a company's
@@ -8505,108 +8586,6 @@ only the glibc four, the job is named `AppImage x86_64-musl` and so on, and
 each run checks only its own AppImages are attached. The musl run had warned
 that the glibc ones were missing. `tests/muslBundles.test.cjs` checks that the
 names are unique and that each row is built by one call.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.54 2026-10-18 WeKan ® release
-
-**In short:** the **Android** bundles, the **x86_64 musl AppImage** and the
-**armhf single file**, which v12.53 could not build or start, build again.
-
-This release fixes the following bugs:
-
-**Release builds** - bundles that v12.53 built broken or not at all.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/519869b561">Android bundles preload termux-exec, so bcrypt's install script runs</a>. Thanks to xet7.</summary>
-
-Every Android bundle of v12.53 stopped in `npm-rebuild.js` with "sh: 1:
-node-gyp-build: not found". Termux has no `/usr/bin/env`, so a
-`#!/usr/bin/env node` script runs only through termux-exec, an `LD_PRELOAD`
-library that Termux's `login` exports, and the workflow starts bash without
-`login`. `releases/android/build-bundle.sh` now exports it the way `login`
-does. `tests/androidBundles.test.cjs` pins it before `npm install`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fa0c03437c">A single file's --build-sea is tried again when it runs out of memory</a>. Thanks to xet7.</summary>
-
-The armhf single file of v12.53 failed with `std::bad_alloc`. A 32-bit target
-is injected by the 32-bit i386 Node.js, and the executable, the 180 MiB
-archive and LIEF's copies of both come near its 4 GiB address space: armv7
-and armv6, with the same archive and host, built in the same run. `buildSea()`
-retries up to three times on `std::bad_alloc` only.
-`tests/singleFileSeaInject.test.cjs` covers the retry and that no other
-failure is retried.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/df5560ad51">musl bundles carry every library their Node.js needs, libatomic too</a>. Thanks to xet7.</summary>
-
-Every x86_64 musl AppImage of v12.53 did not start in a bare Alpine: "Error
-loading shared library libatomic.so.1". `node-runtime` held only libstdc++
-and libgcc_s, and the build container had libatomic through g++. The musl
-build now copies every `NEEDED` library of `bundle/node` except musl's libc,
-and `AppImage.yml` checks each is there before packing.
-`tests/muslBundles.test.cjs` pins both.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.53 2026-10-18 WeKan ® release
-
-**In short:** moving a card with an **outgoing webhook** no longer disables
-the mover's account as **HookBleed**, and a security refusal that says it
-blocks nobody (**RedirectBleed**, **LiveBleed**, **IntegrationBleed**) now
-really does not.
-
-This release fixes the following bugs:
-
-**Outgoing webhooks** - a card move delivered to a webhook is the server's own,
-and costs nobody their account.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/b01c233269">Moving a card with an outgoing webhook is no HookBleed and keeps the mover's account</a>. Thanks to do4me and xet7.</summary>
-
-[#6782](https://github.com/wekan/wekan/issues/6782): the activity hook sent
-webhooks through `Meteor.call('outgoingWebhooks')`, and that method took a
-call without `this.connection` to be the server's own. Meteor gives a
-server-side `Meteor.call` the user and connection of the method it runs in,
-and a card moved in a browser runs in that browser's method. The server's own
-`act-moveCard` delivery was therefore taken for a client forging one. It was
-logged as HookBleed, and the mover's account was disabled.
-
-- The server now delivers through `deliverActivityWebhook()`, a function that
-  no client can call. It reads the integration again and names the
-  activity's actor. The method accepts only the card-opened notification, as
-  it already did for clients.
-- A server delivery no longer needs the actor to be a member of the hook's
-  board. That check had also stopped global webhooks and activities with no
-  method behind them, such as REST and timers.
-- `securityLog.record()` passed neither the catalog key nor `blocksAccount`
-  to the block decision. Every high-severity refusal therefore disabled the
-  account it named: a hook refused for its own internal address disabled the
-  mover too, and the existing `blocksAccount: false` of RedirectBleed and
-  LiveBleed never applied. Both reach the decision now, and `ssrf.webhook`
-  is `blocksAccount: false`, because the mover did not write the hook's URL.
-
-`tests/hookBleedServerDelivery.test.cjs` covers:
-
-- a card move delivered with nothing logged, also in an inherited context;
-- a forged call, still refused, logged and blocking;
-- the card-opened notification;
-- failing and internal hooks that block nobody, through `record()` itself;
-- a scan of the whole tree that no server code calls a method gated on
-  `this.connection` from inside a client's method.
-
-`hook-bleed.e2e.js` moves a card in the Move dialog with a webhook enabled.
-An account disabled by this before the upgrade is enabled again in Admin
-Panel / People.
 
 </details>
 
