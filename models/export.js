@@ -258,6 +258,7 @@ if (Meteor.isServer) {
         dueAt: card.dueAt,
         endAt: card.endAt,
         receivedAt: card.receivedAt,
+        recurrenceInterval: card.recurrenceInterval,
         url: typeof card.absoluteUrl === 'function' ? card.absoluteUrl(board) : undefined,
       }));
 

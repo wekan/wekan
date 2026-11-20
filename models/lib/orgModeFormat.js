@@ -37,6 +37,7 @@
 // under a list heading and before the first heading.
 
 import { pagingOf, listTitlesOf, byListOrder, outlineMarks, joinPage, markKey } from './exportPaging.js';
+import { recurrenceFromText, orgRepeaterOf } from './recurrenceMap.js';
 
 export const MAX_ORG_LENGTH = 16 * 1024 * 1024;
 export const MAX_ORG_HEADINGS = 100000;
@@ -134,7 +135,11 @@ export function parseOrgMode(text) {
         for (const [, word, stamp] of trimmed.matchAll(/(SCHEDULED|DEADLINE|CLOSED):\s*([<[][^>\]]*[>\]])/g)) {
           const parsed = orgTimestamp(stamp);
           if (!parsed) { unsupported.push({ path: `${at}/${word}`, reason: `Org ${word} is not a date` }); continue; }
-          if (parsed.extra) unsupported.push({ path: `${at}/${word}`, reason: `Org repeater or delay ${parsed.extra} is not kept` });
+          // A daily, weekly or monthly repeater alone makes the card repeat;
+          // any other repeater, and a warning delay, is reported.
+          const repeat = parsed.extra && word !== 'CLOSED' ? recurrenceFromText(parsed.extra) : null;
+          if (repeat) dates.recurrence = repeat;
+          else if (parsed.extra) unsupported.push({ path: `${at}/${word}`, reason: `Org repeater or delay ${parsed.extra} is not kept` });
           dates[word.toLowerCase()] = parsed.iso;
         }
         return;
@@ -182,6 +187,9 @@ export function parseOrgMode(text) {
         ...cardNode.tags,
         ...(cardNode.done ? ['done'] : []),
       ];
+      if (body.dates.recurrence && cardNode.done) {
+        unsupported.push({ path: at, reason: `the ${body.dates.recurrence} repeater of a done heading is not kept` });
+      }
       tasks.push({
         title: cardNode.title || 'Imported heading',
         description: body.description,
@@ -192,6 +200,7 @@ export function parseOrgMode(text) {
         ...(body.dates.scheduled ? { date_started: body.dates.scheduled } : {}),
         ...(body.dates.closed ? { date_end: body.dates.closed } : {}),
         ...(body.dates.created ? { date_creation: body.dates.created } : {}),
+        ...(body.dates.recurrence && !cardNode.done ? { recurrence: body.dates.recurrence } : {}),
         ...(checklists.length ? { checklists } : {}),
       });
     }
@@ -210,13 +219,13 @@ export function parseOrgMode(text) {
 const isClosed = listTitle => /done|closed|complete|archiv|finished/i.test(listTitle || '');
 
 // "<2026-10-10 Sat>" or "<2026-10-10 Sat 14:30>"; brackets [] for inactive.
-function stamp(value, active = true) {
+function stamp(value, active = true, repeater = null) {
   if (!value) return '';
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '';
   const day = date.toISOString().slice(0, 10);
   const time = date.toISOString().slice(11, 16);
-  const inner = `${day} ${DAYS[date.getUTCDay()]}${time === '00:00' ? '' : ` ${time}`}`;
+  const inner = `${day} ${DAYS[date.getUTCDay()]}${time === '00:00' ? '' : ` ${time}`}${repeater ? ` ${repeater}` : ''}`;
   return active ? `<${inner}>` : `[${inner}]`;
 }
 
@@ -249,7 +258,7 @@ export function formatOrgMode(collected) {
       out.push(`** ${done ? 'DONE' : 'TODO'} ${priority ? `[#${priority[1]}] ` : ''}${title}${tags.length ? ` :${tags.join(':')}:` : ''}`);
       const planning = [
         item.startAt && `SCHEDULED: ${stamp(item.startAt)}`,
-        item.dueAt && `DEADLINE: ${stamp(item.dueAt)}`,
+        item.dueAt && `DEADLINE: ${stamp(item.dueAt, true, done ? null : orgRepeaterOf(item.recurrence))}`,
         done && item.endAt && `CLOSED: ${stamp(item.endAt, false)}`,
       ].filter(Boolean);
       if (planning.length) out.push(`   ${planning.join(' ')}`);

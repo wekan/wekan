@@ -92,7 +92,9 @@ async function main() {
     const reasons = board.unsupported.map(u => `${u.path} ${u.reason}`).join('\n');
     assert.match(reasons, /\/frontmatter\/aliases /);
     assert.match(reasons, /stray|not a lane/);
-    assert.match(reasons, /recurrence "🔁 every week" is imported once/);
+    // "every week" makes the card repeat now (models/lib/recurrenceMap.js), so it is not reported.
+    assert.doesNotMatch(reasons, /recurrence "🔁 every week"/);
+    assert.equal(board.tasks[0].recurrence, 'weekly');
     assert.match(reasons, /cancelled/);
     assert.equal(board.tasks[0].title, 'Weekly');
     assert.equal(board.tasks[0].date_due, '2026-10-10T00:00:00.000Z');

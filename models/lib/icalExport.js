@@ -16,6 +16,8 @@
 // Meteor/npm dependencies, so this is trivial to unit-test and reuse from
 // both the server route and a future client-side preview.
 
+import { rruleOf } from './recurrenceMap.js';
+
 // RFC 5545 §3.3.11 TEXT escaping: backslash, semicolon, comma and embedded
 // newlines are escaped; everything else passes through unchanged.
 function escapeText(value) {
@@ -55,7 +57,7 @@ function foldLine(line) {
   return out;
 }
 
-function buildEvent({ uid, dtstamp, start, end, summary, description, url }) {
+function buildEvent({ uid, dtstamp, start, end, summary, description, url, rrule }) {
   const startFmt = formatDateUtc(start);
   if (!startFmt) return null;
   const endFmt = formatDateUtc(end || start);
@@ -67,6 +69,7 @@ function buildEvent({ uid, dtstamp, start, end, summary, description, url }) {
     foldLine(`DTEND:${endFmt || startFmt}`),
     foldLine(`SUMMARY:${escapeText(summary)}`),
   ];
+  if (rrule) lines.push(`RRULE:${rrule}`);
   if (description) lines.push(foldLine(`DESCRIPTION:${escapeText(description)}`));
   if (url) lines.push(foldLine(`URL:${url}`));
   lines.push('END:VEVENT');
@@ -122,6 +125,8 @@ export function cardsToIcs(cards, options = {}) {
         summary: `${base.title} (due)`,
         description: card.description,
         url: base.url,
+        // A repeating card repeats in the calendar too (models/lib/recurrenceMap.js).
+        rrule: rruleOf(card.recurrenceInterval),
       });
       if (evt) lines.push(...evt);
     }

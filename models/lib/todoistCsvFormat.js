@@ -26,11 +26,13 @@
 //   DATE                       -> due date, or the start date when there is
 //                                 also a DEADLINE, which is then the due date
 //   meta                       -> board settings; view_style is read, not kept
-// A DATE in words ("every monday", "tomorrow") is Todoist's own natural
-// language and is reported, as are DURATION, a note with no task above it and
+// A DATE "every day", "every week" or "every month" makes the card repeat
+// (models/lib/recurrenceMap.js); any other DATE in words ("every monday",
+// "tomorrow") is Todoist's own natural language and is reported, as are DURATION, a note with no task above it and
 // a TYPE Todoist does not define. Todoist exports no completed tasks.
 
 import { pagingOf, byFirstListOrder } from './exportPaging.js';
+import { recurrenceFromText } from './recurrenceMap.js';
 export const TODOIST_COLUMNS = ['TYPE', 'CONTENT', 'DESCRIPTION', 'PRIORITY', 'INDENT', 'AUTHOR', 'RESPONSIBLE',
   'DATE', 'DATE_LANG', 'TIMEZONE', 'DURATION', 'DURATION_UNIT', 'DEADLINE', 'DEADLINE_LANG'];
 export const MAX_TODOIST_ROWS = 20000;
@@ -134,7 +136,8 @@ export function parseTodoistCsv(text) {
     const deadlineText = cell(cells, 'DEADLINE');
     const date = todoistDate(dateText, timezone);
     const deadline = todoistDate(deadlineText, timezone);
-    if (dateText && !date) unsupported.push({ path: `${at}/DATE`, reason: `Todoist date "${dateText}" is not a calendar date` });
+    const recurrence = dateText && !date ? recurrenceFromText(dateText) : null;
+    if (dateText && !date && !recurrence) unsupported.push({ path: `${at}/DATE`, reason: `Todoist date "${dateText}" is not a calendar date` });
     if (deadlineText && !deadline) unsupported.push({ path: `${at}/DEADLINE`, reason: `Todoist deadline "${deadlineText}" is not a calendar date` });
     if (cell(cells, 'DURATION')) unsupported.push({ path: `${at}/DURATION`, reason: 'Todoist duration has no WeKan field' });
     const owner = person(cell(cells, 'RESPONSIBLE'));
@@ -146,6 +149,7 @@ export function parseTodoistCsv(text) {
       tags: labels,
       ...(owner ? { owner_username: owner } : {}),
       ...(deadline ? { date_due: deadline, ...(date ? { date_started: date } : {}) } : date ? { date_due: date } : {}),
+      ...(recurrence ? { recurrence } : {}),
       comments: [],
       checklists: [],
     };

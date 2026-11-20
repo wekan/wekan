@@ -59,9 +59,10 @@ async function main() {
     assert.deepEqual(idea.tags, ['done'], 'CANCELLED is a done keyword from #+TODO');
     assert.deepEqual([pump.tags, pump.date_end], [['done'], '2026-10-09T12:00:00.000Z']);
     assert.equal(weekly.date_started, '2026-10-05T00:00:00.000Z');
+    // A +1w repeater makes the card repeat weekly now (models/lib/recurrenceMap.js).
+    assert.equal(weekly.recurrence, 'weekly');
     assert.deepEqual(unsupported.map(u => u.reason), [
       'text before the first heading has no WeKan field',
-      'Org repeater or delay +1w is not kept',
     ]);
     const plan = planImportedTask(valves);
     assert.equal(plan.card.dueAt.toISOString(), '2026-10-10T14:30:00.000Z');

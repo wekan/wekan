@@ -54,7 +54,10 @@ tool's newest features against its parser and formatter.
   work logs, reactions, and fields added in their newest releases.
 - Task tools: Todoist, TickTick, Tasks.org, Super Productivity, todo.txt,
   Taskwarrior, Vikunja, Microsoft To Do, Google Tasks, Google Keep -
-  recurrence, reminders, priorities, sub-tasks and sections.
+  reminders, priorities, sub-tasks and sections, and recurrence for Tasks.org,
+  Super Productivity, Vikunja and Google Tasks (Taskwarrior, Todoist, TickTick
+  and Microsoft To Do, with iCalendar, Org mode and Obsidian Kanban, map a
+  daily, weekly or monthly repeat to the card's recurrence).
 - Spreadsheets, text and outlines: CSV / TSV, Excel, Markdown, Leo, OPML,
   Org mode - every column, and every Org property and timestamp.
 - Mail, calendars and chats: mail, mbox, iCalendar, Google Takeout, Slack,

@@ -46,7 +46,9 @@ test('tasks go to their status list, events to Events, with their dates', () => 
   assert.strictEqual(meeting.date_started, '2026-11-16T10:00:00.000Z');
   assert.strictEqual(meeting.date_due, '2026-11-16T11:00:00.000Z');
   assert.match(meeting.description, /goes on and on\.\n\nLocation: Room 2$/);
-  assert.ok(board.unsupported.some(u => /1 repeating item/.test(u.reason)));
+  // A weekly RRULE makes the card repeat now (models/lib/recurrenceMap.js), so it is not reported.
+  assert.equal(meeting.recurrence, 'weekly');
+  assert.ok(!board.unsupported.some(u => /repeat/.test(u.reason)));
 });
 
 test('negative: not a calendar, bad dates, an alarm and an unknown parent', () => {

@@ -29,12 +29,13 @@
 // other attribute WeKan has no place for. Taskwarrior has no members.
 
 import { pagingOf, blockersOf } from './exportPaging.js';
+import { recurrenceFromText } from './recurrenceMap.js';
 const COMPACT = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/;
 const PRIORITIES = ['H', 'M', 'L'];
 // Computed or bookkeeping attributes: nothing is lost by not importing them.
-const IGNORED = new Set(['id', 'urgency', 'modified', 'mask', 'imask', 'start']);
+const IGNORED = new Set(['id', 'urgency', 'modified', 'mask', 'imask', 'start', 'parent']);
 const MAPPED = new Set(['uuid', 'status', 'description', 'entry', 'due', 'scheduled', 'end', 'project', 'priority', 'tags',
-  'annotations', 'depends', 'wekanlist', 'wekandescription']);
+  'annotations', 'depends', 'recur', 'wekanlist', 'wekandescription']);
 export const MAX_TASKWARRIOR_TASKS = 10000;
 
 // "20260901T120000Z" (Taskwarrior's own form) or an ISO date, as ISO; else undefined.
@@ -112,6 +113,17 @@ export function parseTaskwarrior(text) {
       .filter(note => note && typeof note.description === 'string' && note.description.trim())
       .map(note => ({ text: note.description, date: taskwarriorDate(note.entry) }));
     const dependencies = words(task.depends).map(ref => ({ ref, type: 'is-blocked-by' }));
+    // A repeating task: its instances are in the file, each a pending task
+    // with recur and the template's uuid as parent. Only the newest open
+    // instance of each template repeats in WeKan, so the next occurrence is
+    // made once, not once for every instance already there.
+    const recurrence = task.recur !== undefined ? recurrenceFromText(String(task.recur)) : null;
+    if (recurrence && task.status === 'completed') {
+      unsupported.push({ path: `${at}/recur`, reason: `the recur ${task.recur} of a completed task is not kept` });
+    }
+    if (task.recur !== undefined && !recurrence) {
+      unsupported.push({ path: `${at}/recur`, reason: `Taskwarrior recur ${task.recur} is not daily, weekly or monthly; the task is imported once` });
+    }
     normalized.push({
       ...(typeof task.uuid === 'string' && task.uuid ? { ref: task.uuid } : {}),
       title: typeof task.description === 'string' && task.description.trim() ? task.description.trim() : 'Imported task',
@@ -125,7 +137,18 @@ export function parseTaskwarrior(text) {
       ...(done && taskwarriorDate(task.end) ? { date_end: taskwarriorDate(task.end) } : {}),
       ...(comments.length ? { comments } : {}),
       ...(dependencies.length ? { dependencies } : {}),
+      ...(recurrence && !done ? { recurrence, recurParent: typeof task.parent === 'string' ? task.parent : '' } : {}),
     });
+  });
+  const newest = new Map();
+  normalized.forEach((task, index) => {
+    if (!task.recurrence || !task.recurParent) return;
+    const best = newest.get(task.recurParent);
+    if (best === undefined || String(task.date_due || '') > String(normalized[best].date_due || '')) newest.set(task.recurParent, index);
+  });
+  normalized.forEach((task, index) => {
+    if (task.recurParent && newest.get(task.recurParent) !== index) delete task.recurrence;
+    delete task.recurParent;
   });
   const columns = [...new Set(normalized.map(task => task.column_name))];
   return {
@@ -188,6 +211,7 @@ export function formatTaskwarrior(collected) {
     if (project) task.project = project[1];
     if (priority) task.priority = priority[1];
     if (tags.length) task.tags = tags;
+    if (item.recurrence && !done) task.recur = item.recurrence;
     if (waitsFor.has(item.cardId)) task.depends = waitsFor.get(item.cardId).map(id => taskwarriorUuid(id));
     const annotations = (Array.isArray(item.comments) ? item.comments : [])
       .filter(comment => comment && typeof comment.text === 'string' && comment.text.trim())

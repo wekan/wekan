@@ -449,6 +449,10 @@ export class WekanCreator {
         dueAt: cardDates.dueAt,
         endAt: cardDates.endAt,
         spentTime: card.spentTime || null,
+        // A repeating card repeats again after its import; from the import,
+        // not from its old creation date, or every one would be copied at once.
+        ...(['daily', 'weekly', 'monthly'].includes(card.recurrenceInterval)
+          ? { recurrenceInterval: card.recurrenceInterval, lastRecurrenceAt: this._now() } : {}),
         // The two free-text "by" fields. They are exported - the JSON, the
         // .zip, the CSV and both card exports all carry them - and were not
         // imported, so a card came back having forgotten who asked for it and

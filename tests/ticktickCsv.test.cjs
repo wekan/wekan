@@ -58,7 +58,10 @@ async function main() {
     assert.deepEqual(dropped.tags, ["won't do"]);
     const reasons = board.unsupported.map(u => `${u.path} ${u.reason}`).join('\n');
     assert.match(reasons, /Reminder TickTick reminders/);
-    assert.match(reasons, /Repeat repeating task "FREQ=WEEKLY;INTERVAL=1" is imported once/);
+    // A weekly repeat is a card repeat now (models/lib/recurrenceMap.js); on a
+    // finished task it is not kept, and the report says so.
+    assert.match(reasons, /Repeat the repeat "FREQ=WEEKLY;INTERVAL=1" of a finished task is not kept/);
+    assert.equal(later.recurrence, undefined);
   });
 
   test('a 7.1 backup without projectKind reads the same, by header name', () => {

@@ -15,11 +15,15 @@
 //   comments:   [{ text, author, authorName, date }]
 //   watchers:   [source user key]           - who follows the item
 //   date_received                           - when it arrived (receivedAt)
+//   recurrence                              - 'daily', 'weekly' or 'monthly'
+//                                             (models/lib/recurrenceMap.js)
 //   email: { direction, from: { name, address }, to: [address], cc: [address],
 //            subject, messageId, threadIds: [Message-ID], at }
 //                                           - a mail message (mbox, .eml,
 //            Google Takeout Mail): the card is then mail in Board View / Email
 // Every one of them is optional; a task without them imports as before.
+
+import { RECURRENCES } from './recurrenceMap.js';
 
 const HEX6 = /^#?([0-9a-fA-F]{6})$/;
 
@@ -133,7 +137,7 @@ export function importedChecklists(checklists) {
 // `boardMemberIds` are the new board's members. A source watcher becomes a
 // card watcher only when mapped to one of them: watching grants no access,
 // but a watcher outside a private board must not receive its notifications.
-export function planImportedTask(task, { members = {}, allowedColors = [], boardMemberIds = [] } = {}) {
+export function planImportedTask(task, { members = {}, allowedColors = [], boardMemberIds = [], now } = {}) {
   const card = {
     title: text(task.title) || 'Imported task',
     description: text(task.description),
@@ -157,6 +161,13 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
   const email = importedEmail(task.email);
   if (email) card.email = email;
   if (task.due_complete === true && card.dueAt) card.dueComplete = true;
+  // A repeating source task repeats here too. Its last occurrence counts as
+  // now: from its creation date, the recurrence job would make a copy of
+  // every imported card at once.
+  if (RECURRENCES.includes(task.recurrence)) {
+    card.recurrenceInterval = task.recurrence;
+    card.lastRecurrenceAt = now instanceof Date ? new Date(now.getTime()) : new Date();
+  }
   const spent = Number(task.spent_hours);
   if (task.spent_hours !== undefined && task.spent_hours !== null && Number.isFinite(spent) && spent > 0) {
     card.spentTime = spent;

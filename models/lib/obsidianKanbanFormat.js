@@ -44,10 +44,12 @@
 //   key:: value (Dataview)      -> custom field
 //   - [ ] lines in the body     -> the card's checklist
 //   Archive section             -> archived cards
-// Reported: 🔁 recurrence, ❌ cancelled dates, other frontmatter keys and
+//   🔁 every day / week / month -> the card repeats
+// Reported: other 🔁 recurrence, ❌ cancelled dates, other frontmatter keys and
 // dates that do not match the date format. Wikilinks stay text.
 
 import { pagingOf, byListOrder, outlineMarks, markKey, blockersOf } from './exportPaging.js';
+import { recurrenceFromText, everyOf } from './recurrenceMap.js';
 
 const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 const PRIORITY = { '🔺': 'Highest', '⏫': 'High', '🔼': 'Medium', '🔽': 'Low', '⏬': 'Lowest' };
@@ -140,7 +142,9 @@ function parseCard(first, body, { format, trigger, timeTrigger }, at, unsupporte
   const repeat = /🔁️?\s*([^📅🛫➕✅⏳❌🆔⛔#]*)/u.exec(text);
   if (repeat) {
     text = text.replace(repeat[0], ' ');
-    unsupported.push({ path: at, reason: `recurrence "🔁 ${repeat[1].trim()}" is imported once` });
+    const recurrence = recurrenceFromText(repeat[1]);
+    if (recurrence) card.recurrence = recurrence;
+    else unsupported.push({ path: at, reason: `recurrence "🔁 ${repeat[1].trim()}" is imported once` });
   }
   const id = /🆔️?\s*([\w-]+)/u.exec(text);
   if (id) { card.ref = id[1]; text = text.replace(id[0], ' '); }
@@ -299,6 +303,7 @@ export function formatObsidianKanban(collected) {
         if (clock(item.dueAt)) parts.push(`@@{${clock(item.dueAt)}}`);
       }
       if (item.startAt) parts.push(`🛫 ${day(item.startAt)}`);
+      if (!done && everyOf(item.recurrence)) parts.push(`🔁 ${everyOf(item.recurrence)}`);
       if (item.endAt) parts.push(`✅ ${day(item.endAt)}`);
       if (PRIORITY_EMOJI[fields.Priority]) parts.push(PRIORITY_EMOJI[fields.Priority]);
       if (waitedFor.has(item.cardId)) parts.push(`🆔 ${item.cardId}`);

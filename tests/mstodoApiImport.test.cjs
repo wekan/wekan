@@ -203,7 +203,9 @@ async function main() {
 
     const reasons = board.unsupported.map(u => `${u.path}: ${u.reason}`).join('\n');
     assert.match(reasons, /\/lists\/0\/tasks\/0\/reminderDateTime: .*reminder .*2026-10-20T07:00:00\.000Z/);
-    assert.match(reasons, /\/lists\/0\/tasks\/0\/recurrence: .*repeat \(weekly\)/);
+    // A weekly repeat makes the card repeat now (models/lib/recurrenceMap.js), so it is not reported.
+    assert.doesNotMatch(reasons, /\/lists\/0\/tasks\/0\/recurrence: /);
+    assert.equal(first.recurrence, 'weekly');
     assert.match(reasons, /\/lists\/0\/tasks\/0\/attachments: /);
     assert.match(reasons, /\/lists\/1\/tasks\/1\/dueDateTime: .*not a date/);
     assert.match(reasons, /\/lists\/1\/tasks\/2: .*not an object/);

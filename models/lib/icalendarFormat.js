@@ -21,7 +21,10 @@
 //   X-WR-CALNAME                     -> the board title
 // A time with TZID is read as written, in UTC: an .ics carries the zone's
 // rules in VTIMEZONE, which is not interpreted. RRULE repeats are not
-// expanded; each is reported.
+// expanded: a daily, weekly or monthly one makes the card repeat
+// (models/lib/recurrenceMap.js), any other is reported.
+
+import { recurrenceFromRRule } from './recurrenceMap.js';
 
 export const MAX_ICS_LENGTH = 64 * 1024 * 1024;
 export const MAX_ICS_COMPONENTS = 50000;
@@ -116,7 +119,8 @@ export function parseICalendar(text, { name } = {}) {
     if (isTodo) {
       column = { 'IN-PROCESS': 'In Progress', COMPLETED: 'Done', CANCELLED: 'Cancelled' }[status] || 'To Do';
     } else if (status === 'CANCELLED') column = 'Cancelled';
-    if (one('RRULE')) repeats += 1;
+    const recurrence = one('RRULE') ? recurrenceFromRRule(value('RRULE')) : null;
+    if (one('RRULE') && !recurrence) repeats += 1;
     const tags = (item.props.CATEGORIES || []).flatMap(p => textList(p.value));
     const priority = priorityLabel(value('PRIORITY'));
     if (priority) tags.push(priority);
@@ -136,6 +140,7 @@ export function parseICalendar(text, { name } = {}) {
       date_creation: icalDate(value('CREATED')) || icalDate(value('DTSTAMP')),
       due_complete: isTodo && status === 'COMPLETED' ? true : undefined,
       tags: [...new Set(tags)],
+      ...(recurrence ? { recurrence } : {}),
     };
     const related = one('RELATED-TO');
     if (isTodo && related && (!related.params.RELTYPE || related.params.RELTYPE.toUpperCase() === 'PARENT')) {
@@ -148,7 +153,7 @@ export function parseICalendar(text, { name } = {}) {
     unsupported.push({ path: '/VCALENDAR', reason: `only the first ${MAX_ICS_COMPONENTS} tasks and events are imported` });
   }
   if (repeats) {
-    unsupported.push({ path: '/VCALENDAR/RRULE', reason: `${repeats} repeating item(s) are imported once, at their first date` });
+    unsupported.push({ path: '/VCALENDAR/RRULE', reason: `${repeats} item(s) repeat other than daily, weekly or monthly, and are imported once, at their first date` });
   }
   // A parent that is not in the file is no parent.
   for (const task of tasks) if (task.parent_ref && !byUid.has(task.parent_ref)) delete task.parent_ref;

@@ -30,10 +30,12 @@
 //   Priority 1 / 3 / 5       -> custom field Priority Low / Medium / High
 //   Folder Name              -> custom field Folder
 //   taskId / parentId        -> the card's reference / its parent card
-// Reported: reminders, repeat rules and unknown status or priority codes.
+// Repeat: a daily, weekly or monthly RRULE makes the card repeat.
+// Reported: reminders, other repeat rules and unknown status or priority codes.
 
 import { readCsv } from './todoistCsvFormat.js';
 import { pagingOf, byFirstListOrder } from './exportPaging.js';
+import { recurrenceFromRRule, rruleOf } from './recurrenceMap.js';
 
 export const TICKTICK_COLUMNS = ['Folder Name', 'List Name', 'Title', 'Kind', 'Tags', 'Content', 'Is Check list',
   'Start Date', 'Due Date', 'Reminder', 'Repeat', 'Priority', 'Status', 'Created Time', 'Completed Time', 'Order',
@@ -104,8 +106,10 @@ export function parseTickTickCsv(text) {
     if (status === '-1') tags.push("won't do");
     else if (!['0', '1', '2'].includes(status)) unsupported.push({ path: `${at}/Status`, reason: `TickTick status "${status}" is not 0, 1 or 2; imported as open` });
     if (get(cells, 'Reminder')) unsupported.push({ path: `${at}/Reminder`, reason: 'TickTick reminders have no WeKan place' });
-    if (get(cells, 'Repeat')) unsupported.push({ path: `${at}/Repeat`, reason: `repeating task "${get(cells, 'Repeat')}" is imported once` });
+    const recurrence = recurrenceFromRRule(get(cells, 'Repeat'));
+    if (get(cells, 'Repeat') && !recurrence) unsupported.push({ path: `${at}/Repeat`, reason: `repeating task "${get(cells, 'Repeat')}" is imported once` });
     const ended = status === '1' || status === '2' ? date('Completed Time') : undefined;
+    if (recurrence && ended) unsupported.push({ path: `${at}/Repeat`, reason: `the repeat "${get(cells, 'Repeat')}" of a finished task is not kept` });
     tasks.push({
       title,
       description: description.join('\n').trim(),
@@ -119,6 +123,7 @@ export function parseTickTickCsv(text) {
       ...(date('Created Time') ? { date_creation: date('Created Time') } : {}),
       ...(ended ? { date_end: ended } : {}),
       ...(status === '2' ? { archived: true } : {}),
+      ...(recurrence && !ended ? { recurrence } : {}),
       ...(items.length ? { checklists: [{ title: 'Checklist', items }] } : {}),
       ...(Object.keys(custom).length ? { custom_fields: custom } : {}),
     });
@@ -175,6 +180,7 @@ export function formatTickTickCsv(collected, now = new Date()) {
       'Is Check list': checklist.length ? 'Y' : 'N',
       'Start Date': stamp(item.startAt),
       'Due Date': stamp(item.dueAt),
+      Repeat: !item.endAt && rruleOf(item.recurrence) ? `RRULE:${rruleOf(item.recurrence)};INTERVAL=1` : '',
       Priority: PRIORITY_CODE[fields.Priority] || '0',
       Status: wontDo ? '-1' : item.endAt ? '1' : '0',
       'Created Time': stamp(item.createdAt),

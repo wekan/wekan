@@ -15,8 +15,11 @@
 // the HTML body as plain text, checklistItems as a "Steps" checklist,
 // categories as labels, high importance as a red "High importance" label, a
 // status other than notStarted/completed as a label, and a completed task as
-// an archived card ended when it was completed. Reminders, repeats and
-// attachments have no WeKan place and are reported.
+// an archived card ended when it was completed. A daily, weekly or monthly
+// repeat makes the card repeat (models/lib/recurrenceMap.js); reminders,
+// other repeats and attachments have no WeKan place and are reported.
+
+import { recurrenceFromMsTodo } from './recurrenceMap.js';
 
 export const MAX_MSTODO_CARDS = 50000;
 const STEPS_CHECKLIST = 'Steps';
@@ -167,7 +170,9 @@ function parseTask(item, at, column, unsupported) {
     unsupported.push({ path: `${at}/reminderDateTime`,
       reason: `Microsoft To Do reminder of "${title}"${when ? ` at ${when}` : ''} is not imported; WeKan has no reminders` });
   }
-  if (isObject(item.recurrence)) {
+  const recurrence = isObject(item.recurrence) ? recurrenceFromMsTodo(item.recurrence) : null;
+  if (recurrence && item.status !== 'completed') task.recurrence = recurrence;
+  else if (isObject(item.recurrence)) {
     const type = isObject(item.recurrence.pattern) ? text(item.recurrence.pattern.type) : '';
     unsupported.push({ path: `${at}/recurrence`,
       reason: `Microsoft To Do repeat${type ? ` (${type})` : ''} of "${title}" is not imported; the card is imported once` });
