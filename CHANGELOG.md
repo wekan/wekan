@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Menu entries that could not be reached or did nothing now work:
+a member's own **username change**, a **Public Support page** for signed-out
+visitors, **Create board from this card** for members who can edit it, and
+**All Boards Settings** in the board menu. The **Shared templates** sharing
+choice is an instance setting, so its targets appear for every user.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.20 2026-11-19 WeKan ® release
 
 The **REST API** card lists of a list and of a swimlane now carry

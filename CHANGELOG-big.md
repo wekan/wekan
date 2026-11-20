@@ -95,6 +95,113 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Menu entries that could not be reached or did nothing now work:
+a member's own **username change**, a **Public Support page** for signed-out
+visitors, **Create board from this card** for members who can edit it, and
+**All Boards Settings** in the board menu. The **Shared templates** sharing
+choice is an instance setting, so its targets appear for every user.
+
+This release fixes the following bugs:
+
+**Member menu** - Edit Profile and Support do what their settings say.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42959d02f1ea7b87512439415a9ea8187cd4e19b">Edit Profile saves a member's own new username when Username change is allowed</a>. Thanks to xet7.</summary>
+
+With Admin Panel / People / Login **Username change** allowed, a member's new
+username was not saved and the popup closed as if it had: `setUsername` wrote
+only for a site admin. It now follows `setEmail` beside it - an admin renames
+any account, a member their own when the setting allows it - and anything else
+is refused with `not-authorized` instead of returning quietly.
+`setUsernameAndEmail` needs both changes allowed.
+`tests/selfUsernameChange.test.cjs` runs the methods with the collections
+stubbed; `tests/playwright/specs/45-profile-email.e2e.js` saves one through the
+popup and is refused for another account and with the setting off.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ccf182001e64d1949b1cec94604cecf08537338">A signed-out visitor sees a Public Support page, and no text of one that is not</a>. Thanks to xet7.</summary>
+
+The `/support` route sent every signed-out visitor to sign-in, so the page's
+**Public** setting did nothing and the "only for logged-in users" text was
+never shown - while the page's text was sent to every signed-out subscriber of
+the settings publication anyway. The route is open, and a visitor who is not
+signed in receives the text only when the page is Public. The support popup the
+menu no longer opened is removed. `tests/supportPageSignedOut.test.cjs` and
+`tests/playwright/specs/support-page-signed-out.e2e.js` check both cases,
+including that the text is not in the browser.
+
+</details>
+
+**Card menu** - who sees which entry.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60c25690dfc2072509f0e1075e905984cb733f5f">Create board from this card is shown to members who can edit the card</a>. Thanks to xet7.</summary>
+
+The entry sat under `unless canModifyCard`, so exactly the members the
+`createBoardFromCard` method lets convert a card never saw it. It was in both
+branches when it was added; a later refactor kept only that one. It is now
+with the card menu's other write entries, not for Workers, when board creation
+is allowed. `tests/createBoardFromCardMethod.test.cjs` checks the entry's
+conditions in the template, and
+`tests/playwright/specs/create-board-from-card-menu.e2e.js` that an editor sees
+it and a read-only member does not.
+
+</details>
+
+**Board menu** - an entry that had no way in.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b00e2c81333032063bad33092181cc917911384f">All Boards Settings is back in the board menu, below Date, for board admins</a>. Thanks to xet7.</summary>
+
+The entry was commented out for the "icons random dance"
+([#4214](https://github.com/wekan/wekan/issues/4214)), which left its popup -
+card counters and member avatars on All Boards, card aging, auto-archive and
+personal list widths - with no way in. The All Boards tiles now read one fetch
+of `getAllBoardsTileData` instead of reactive cursors, so the loop cannot
+return. `tests/boardMenuOrder.test.cjs` pins its place and its board-admin
+guard; `tests/playwright/specs/all-boards-settings-menu.e2e.js` opens it and
+saves a row.
+
+</details>
+
+**Shared templates** - one choice for the whole instance, and the targets that
+it allows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0339ccc592ceb3f14f5339db864b2e63004ca98">The group kinds to share templates with are an instance setting, and the targets appear</a>. Thanks to xet7.</summary>
+
+Which group kinds Admin Panel / People / Shared templates allows came from the
+browser's localStorage, so it differed per browser and was empty for everyone
+but the admin who ticked it. It is `Settings.sharedTemplatesScopes` now,
+published to every client, and an admin's earlier ticks are carried over once.
+The All Boards / Templates targets were empty for everyone anyway:
+`getMyShareableGroups` did not await the user, and read the groups from a
+Promise. `tests/sharedTemplatesScopesSetting.test.cjs` and
+`tests/playwright/specs/26-shared-templates.e2e.js` check the setting, and that
+a user in another browser gets the targets.
+
+</details>
+
+**Sandstorm** - notifications of comments.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a24e3a49a9bb4ce64cc692d4ce75c2cbbed0a9aa">Comment activity notifications await the card, comment and board</a>. Thanks to xet7.</summary>
+
+The Sandstorm activity notifier read the card, the comment and the board from
+`ReactiveCache` without `await`. On the server those are Promises, so
+`comment.text.match` threw on every comment activity and a card's members were
+never found. `tests/serverReactiveCacheAwaited.test.cjs` sweeps `server/` for
+any other unawaited result kept in a variable.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v13.20 2026-11-19 WeKan ® release
 
 **In short:** The **REST API** card lists of a list and of a swimlane now carry
