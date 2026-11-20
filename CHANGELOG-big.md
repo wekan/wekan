@@ -103,8 +103,8 @@ Import and Export lists and the list, card and swimlane menus have headings.
 WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
 entries that did nothing now work. Cards get the **Kanban and Scrum flow
-fields** Blocked, Class of service, MoSCoW and WSJF, and **InviteBleed** is
-closed for the old invitation codes too.
+fields** Blocked, Class of service, MoSCoW and WSJF, lists their **policies**,
+and **InviteBleed** is closed for the old invitation codes too.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/):
 
@@ -299,6 +299,27 @@ until a board turns it on, and an Admin Panel card field that hides it on every
 board. Only the `setCardFlow` method writes them, checking the card edit right
 and the values. `tests/cardFlow.test.cjs` and
 `tests/playwright/specs/card-flow-fields.e2e.js`.
+
+</details>
+
+**Lists** - the Kanban policies of a board's lists, and the Scrum Definition
+of Ready.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ac7b916c08bb139f1090d4e87b8319aed08d324">List policies, a commitment point, a WIP limit per person and the Definition of Ready</a>. Thanks to xet7.</summary>
+
+A list can carry its own **policy** - when a card may come in and when it is
+done there - written from the list menu and shown as a gavel at its header. A
+board can name its **commitment point**, the list from which work is committed
+to, flagged at that list. A **WIP limit per person** makes an opened card name
+each of its people holding more open cards than the limit. All three are off
+until a board admin turns them on in Board Settings / List, and each is an
+Admin Panel feature that hides it on every board
+(docs/Features/Lists/Flow-Policies.md). The Scrum settings get a **Definition
+of Ready** beside the Definition of Done, both now readable by every member in
+the Scrum views. `tests/boardFlowPolicies.test.cjs`,
+`tests/playwright/specs/list-flow-policies.e2e.js` and
+`scrum-definition-of-ready.e2e.js`.
 
 </details>
 
