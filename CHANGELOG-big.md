@@ -241,6 +241,7 @@ end date, and Kanboard colors not written; all three are fixed.
 - [Planka 2 custom fields and stopwatch time come across](https://github.com/wekan/wekan/commit/0d65eec4f2f36ba6df3b0fcf2d26aa023a02fa75). Thanks to xet7.
 - [Imported subtasks keep their due date and person on the checklist item (Google Tasks, KanbanFlow)](https://github.com/wekan/wekan/commit/cf6f67e789ac404866d4b51591820570850baaa3). Thanks to xet7.
 - [Notion relations between rows of an export become "related to" dependencies](https://github.com/wekan/wekan/commit/f546ff238345dd267e568d75ce1fe25bf4fdbbb7). Thanks to xet7.
+- [ClickUp custom field columns come across both ways, and the task link is kept](https://github.com/wekan/wekan/commit/60f569afe679ffcf6bdfe36f16d4d2bb42f07502). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
