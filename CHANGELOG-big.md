@@ -251,6 +251,7 @@ end date, and Kanboard colors not written; all three are fixed.
 - [Super Productivity export writes a repeating card's repeat config, so it repeats there too](https://github.com/wekan/wekan/commit/35f3f6c9dbec5de87e1181956ed7bf71c30a2f12). Thanks to xet7.
 - [GitHub, Gitea and Forgejo keep an issue's dates, people and Gitea's time estimate, both ways](https://github.com/wekan/wekan/commit/efeb55f57a903a80ab7b6ee124a87f9ce39bdf00). Thanks to xet7.
 - [GitHub's issue type is kept as a "type:" label](https://github.com/wekan/wekan/commit/9ceb4dbf55ecb2518c64d449b9d6d06703b961a9). Thanks to xet7.
+- [GitLab issue health status and incident severity are kept as labels](https://github.com/wekan/wekan/commit/c916b154731084d1a9e7674852575a205ff68a66). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
