@@ -529,8 +529,16 @@ relations. The round trip of every export includes Vikunja and keeps all six.
 <summary><a href="https://github.com/wekan/wekan/commit/6187806cf1006bb0f00d27d5e72af9147027f0a9">The Super Productivity export is written a page at a time</a>. Thanks to xet7.</summary>
 
 The backup is made over the whole board on every page, and each page writes
-only its own cards' tasks, with their notes. Of the exports, only Taiga's is
-still built whole.
+only its own cards' tasks, with their notes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f85b51695be62df106f9c823645b10988a9a13a">The Taiga export is written a page at a time: every export now is</a>. Thanks to xet7.</summary>
+
+The project is made over the whole board on every page, and each page writes
+only its own cards' epics, stories, tasks and issues, with their text; the
+tasks made of checklist items come on the last page.
 
 </details>
 
