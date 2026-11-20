@@ -63,10 +63,10 @@ Template.listFlowMarks.events({
 });
 
 Template.listPolicyPopup.helpers({
+  // Whoever may write to the list's board (models/lib/boardRoleCapabilities.js),
+  // the same as the server's Lists allow rule.
   canEdit() {
-    const user = ReactiveCache.getCurrentUser();
-    return Boolean(user && user.isBoardMember?.() && !user.isCommentOnly?.() && !user.isReadOnly?.()
-      && !user.isReadAssignedOnly?.() && !user.isWorker?.());
+    return Utils.currentUserCan('write', ReactiveCache.getBoard(this.boardId));
   },
 });
 Template.listPolicyPopup.events({
