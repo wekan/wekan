@@ -142,3 +142,27 @@ test('#4495: the i18n key exists with a non-empty English string', () => {
   assert.strictEqual(typeof en.linkCardToNewBoard, 'string');
   assert.ok(en.linkCardToNewBoard.length > 0);
 });
+
+// The entry sat under `unless canModifyCard`, so a member who could edit the
+// card - the one the method lets convert it - never saw it. Its ancestors in
+// the card menu are what decide who sees it.
+test('the create-board entry is shown to a member who may write the card', () => {
+  const lines = cardDetailsJade.split('\n');
+  let at = lines.findIndex(l => /^\s*a\.js-create-board-from-card\b/.test(l));
+  assert.ok(at > 0);
+  const ancestors = [];
+  let indent = lines[at].search(/\S/);
+  for (let i = at - 1; i >= 0 && indent > 0; i--) {
+    const own = lines[i].search(/\S/);
+    if (own >= 0 && own < indent && !lines[i].trim().startsWith('//')) {
+      ancestors.push(lines[i].trim());
+      indent = own;
+    }
+  }
+  assert.ok(ancestors.includes('template(name="cardDetailsActionsPopup")'), ancestors.join(' < '));
+  for (const needed of ['if boardCreationAllowed', 'unless currentUser.isWorker', 'if cardMenuWrites']) {
+    assert.ok(ancestors.includes(needed), `${needed}: ${ancestors.join(' < ')}`);
+  }
+  // Negative: no canModifyCard condition, either way round, above it.
+  assert.ok(!ancestors.some(a => /canModifyCard/.test(a)), ancestors.join(' < '));
+});

@@ -1269,12 +1269,14 @@ template(name="cardDetailsActionsPopup")
               span.emoji-icon
                 i.fa.fa-link
               | {{_ 'cardMorePopup-title'}}
-          unless canModifyCard
-            if boardCreationAllowed
-              li
-                a.js-create-board-from-card
-                  i.fa.fa-external-link
-                  | {{_ 'linkCardToNewBoard'}}
+          //- For every member who may write the card (cardMenuWrites, not a
+            Worker), as when it was added; createBoardFromCard checks the same
+            write access and the assigned-only scope on the server.
+          if boardCreationAllowed
+            li
+              a.js-create-board-from-card
+                i.fa.fa-external-link
+                | {{_ 'linkCardToNewBoard'}}
   span.copied-tooltip {{_ 'copied'}}
 
 //- #1173: the card export popup IS the shared export body - the same checkbox
