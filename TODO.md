@@ -38,8 +38,11 @@ format to what its file keeps of the description, the checklist and the
 comment, so a format that loses more fails. The Trello export imports back
 with checklists, comments, members, custom fields and archived cards and
 lists, and a Trello .zip export carries the attachment files; the GitHub,
-Gitea and Forgejo exports carry the comments. What is left below is per tool: the
-tool's newest features against its parser and formatter.
+Gitea and Forgejo exports carry the comments. `tests/exportRoundTripFields.test.cjs`
+does the same in plain Node for 32 formats and the fields that spec does not
+look at (start and creation dates, spent time, the done tick, recurrence,
+people, custom fields, color). What is left below is per tool: the tool's
+newest features against its parser and formatter.
 
 - WeKan's own JSON and .zip: attachment versions, templates, and a part of a
   board as well as all of it. (Every field of the board, its cards, lists,
