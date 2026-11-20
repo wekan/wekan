@@ -217,6 +217,31 @@ memory.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/640e4925935e3842e00a864057b083b6dc386031">Uploaded JSON is parsed from the file a chunk at a time; a Mattermost export a line at a time</a>. Thanks to xet7.</summary>
+
+A JavaScript string cannot be longer than about 512 MB, so `readFile` and
+`JSON.parse` could not read a larger uploaded export at all.
+`server/lib/streamJson.js` builds the value as the file is read: every escape
+and surrogate pair, chunk boundaries anywhere, the same value and refusals as
+`JSON.parse`, a `__proto__` key as an own property, nesting bounded.
+`tests/streamJson.test.cjs` compares it with `JSON.parse` on 500 random
+documents in random chunks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60bbf69164766746718c1792f228b6f2809cd715">Jira and CSV / TSV files are uploaded too; their people and columns are read on the server</a>. Thanks to xet7.</summary>
+
+They were the last files the page read itself and sent whole. A Jira file's
+people for the map-members step, and a CSV / TSV file's header, sample rows,
+guessed mapping and people, now come from the server's reading of the upload
+(`csvUploadPreview`, `csvUploadPeople`); each reads only the sender's own
+upload, signed in and while import is enabled. `tests/csvUpload.test.cjs` and
+`tests/playwright/specs/csv-upload.e2e.js`.
+
+</details>
+
 and fixes the following bugs:
 
 **Member menu** - Edit Profile and Support do what their settings say.
@@ -321,6 +346,26 @@ and has the following developer-facing change:
 The scopes are one instance setting now, so the spec's tests run serially,
 wait until the page shows the reset the test server sees at its next database
 poll, and find each template link inside its own group.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11992ac951278a22d376d079e7dfe0347112b04e">The built server bundle is checked with node --check; the streamed export no longer stops the server starting</a>. Thanks to xet7.</summary>
+
+A parameter of the page-at-a-time export was named like a const in its
+function's body, so the server bundle did not load; no node suite loads that
+ES module, so all of them passed. `tests/serverBundleSyntax.test.cjs` now
+checks the built bundle whenever a build is there. The fault never reached a
+release.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/905f60a1ea15aa240a65c83d32ba505d6608b6d6">UI specs: Release Burndown gets a release to show; the upload limit test signs in by the login cookie</a>. Thanks to xet7.</summary>
+
+The reports spec seeds a Scrum release; the limit test POSTs with the HttpOnly
+login cookie, as the page's own upload does, and checks the warning names the
+limit.
 
 </details>
 
@@ -8533,131 +8578,5 @@ and updates the following documentation:
   Thanks to xet7.
 - [Custom roles from the Admin Panel apply in every board view as built-in roles do, verified for every combination](https://github.com/wekan/wekan/commit/1020cd7e86).
   Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.48 2026-10-15 WeKan ® release
-
-**In short:** an **AssignedBleed** follow-up keeps assigned-only members to
-their own cards' files and document text on every remaining read path, and the
-**release workflows** are hardened against injection. The **Windows** and
-**NetBSD** bundles build again: the release scripts read their files as UTF-8 on
-every runner, and the NetBSD build finds pkgsrc's Python. **LDAP background
-sync** imports new users again and keeps the interval it is given, and every
-**Caddyfile** example is **Caddy 2**, so the snap no longer renames a Caddyfile
-copied from the docs.
-
-This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f3428db8e">Assigned-only members get only their own cards' files and document text</a>. Thanks to crypto-nidh and xet7.</summary>
-
-[GHSA-3cgr-47wm-9cc9](https://github.com/wekan/wekan/security/advisories/GHSA-3cgr-47wm-9cc9):
-an assigned-only member sees only the cards assigned to them, but six read
-paths asked only for board membership. Both file downloads, the
-`Attachments.protected` check and the legacy download route served any card's
-file. The document search returned other cards' extracted text with their ids,
-the legacy attachment publication listed every legacy file of the board, and a
-linked list showed every card of its source list. Each now applies the
-assigned-only rule. A refused download, or a subscription to another card's
-legacy files, shows as AssignedBleed in Admin Panel → Problems; searching and
-viewing a linked list are ordinary use and are narrowed without a record. The
-board's background and map image stay readable to every member. A test fails
-when any file serving attachment or document data lacks the rule.
-
-</details>
-
-and fixes the following SECURITY ISSUES found by Qlty code scanning:
-
-**Release workflows** - the GitHub Actions that build and publish every release.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f7cc63cde">No expressions in scripts, every action pinned, and write access only where it is used</a>. Thanks to Qlty and xet7.</summary>
-
-A `${{ ... }}` pasted into a `run:` script is expanded before the shell sees it,
-so a crafted input, tag or output became shell code: 251 such values now reach
-their scripts through `env:`. Every action is pinned to a commit with its
-version in a comment. Six workflows granted write to every job; they grant read
-and each job that writes says so. Checkouts no longer keep the token, except in
-the jobs that push. `tests/workflowHardening.test.cjs` fails on any of the four
-and runs zizmor when installed. Build tooling only, so there is no attempt to
-record in Admin Panel → Problems.
-
-</details>
-
-**Python scripts and tests** - the bandit findings.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ee2a657977">The LDAP photo hash says it is not for security, and a downloaded zip is checked before extracting</a>. Thanks to Qlty and xet7.</summary>
-
-The LDAP sync script's MD5 only notices a changed photo, and says so. The
-Nextcloud test bootstrap checks every member of the WeKan zip lands inside its
-target before extracting. The other three were test code: a fixture password
-is passed as a variable, and an `exec` of the repository's own script and a
-fake `/tmp` path are marked with their reasons.
-
-</details>
-
-and fixes the following bugs:
-
-**Bundle builds** - the Windows and NetBSD bundles of v12.47.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/11f97d016e">The Windows bundles build again: release scripts read their files as UTF-8</a>. Thanks to xet7.</summary>
-
-All three Windows bundles of v12.47 stopped at the risk audit, which named a
-file that had not changed. The audit read its baseline in the runner's own
-encoding - cp1252 on Windows - so a URL ending in "…" no longer matched. Every
-text read and write in the release scripts now names UTF-8, and a test fails on
-any that does not.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/fa62479245">The NetBSD bundle builds again: node-gyp finds pkgsrc's Python</a>. Thanks to xet7.</summary>
-
-pkgsrc installs Python as `python3.13` only, so compiling argon2 stopped with
-"You need to install the latest version of Python". The build now hands node-gyp
-the versioned interpreter when there is no `python3`.
-
-</details>
-
-**LDAP background sync** - which users it imports, and how often it runs.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a944be1817">It imports new users again and keeps the sync interval it is given</a>. Thanks to tromlet and xet7.</summary>
-
-The import searched `(uid=\2a)` and found nobody: it asked for every user with
-the string `*`, and the escaping added for login names on 2026-09-27 made that
-a literal asterisk. Only an internal value a login cannot send is the wildcard
-now, so a typed `*` is still escaped.
-
-The interval in milliseconds became a later.js calendar rule that only works
-when it divides the hour: 2 hours and 1 day synced hourly, 90 seconds every
-minute, and 3600 every 4 seconds. Each interval now becomes one later keeps
-exactly, or the nearest one with a warning, and one under a minute is warned
-about as probably seconds. Tests reproduce the reported filter and check the
-spacing of every interval with the real later.js.
-
-</details>
-
-**The snap's Caddy** - the Caddyfiles it ships and the ones the docs show.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/37d2397603">Caddyfile examples are Caddy 2, and Caddy proxies to where WeKan listens</a>. Thanks to Group-Deed and xet7.</summary>
-
-The snap moves a Caddyfile that Caddy 2 cannot read to `Caddyfile.v1.bak-<n>`
-on every start, and 19 examples in the docs were Caddy v1 (`proxy / ...
-websocket transparent`, `browse`, `fastcgi`, `tls self_signed`), so a file
-copied from the snap install page was renamed each time it was put back. All
-are Caddy 2 now and pass `caddy adapt`, as do the Docker Caddyfile and
-Caddy.md's systemd unit.
-
-The default the migration writes proxied to port 3000, where nothing of WeKan
-listens in the snap. Both templates now read `port` and `caddy-bind-port` from
-the snap settings. A test fails on Caddy v1 syntax anywhere and, with a Caddy
-2 binary, adapts all 30 Caddyfiles.
-
-</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
