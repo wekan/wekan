@@ -92,6 +92,29 @@ async function main() {
   assert.deepEqual(parseAsana({}).tasks, []);
 
   console.log('  ok - Asana dates, custom fields, comments, subtasks and dependencies import');
+
+  // html_notes, an approval's state, and who liked a comment.
+  {
+    const { importedComment } = await import('../models/lib/importedTaskPlan.js');
+    const out = parseAsana({ data: [
+      { gid: '1', name: 'Rich', html_notes: '<body>Line one<br>Line <strong>two</strong></body>' },
+      { gid: '2', name: 'Plain', notes: 'Kept', html_notes: '<body>not used</body>' },
+      { gid: '3', name: 'Approve', resource_subtype: 'approval', approval_status: 'changes_requested' },
+      { gid: '4', name: 'Pending', resource_subtype: 'approval', approval_status: 'pending' },
+      { gid: '5', name: 'Liked', stories: [{ resource_subtype: 'comment_added', text: 'Nice', created_by: { name: 'Ann' },
+        likes: [{ user: { name: 'Bob' } }], num_likes: 3 }] },
+    ] });
+    const [rich, plain, approve, pending, liked] = out.tasks;
+    assert.equal(rich.description, 'Line one\nLine two');
+    assert.equal(plain.description, 'Kept', 'notes win over html_notes');
+    assert.deepEqual(approve.tags, ['approval:changes requested']);
+    assert.deepEqual(pending.tags, [], 'negative: a pending approval is no state');
+    assert.deepEqual(liked.comments[0].reactions, [{ emoji: '👍', authors: ['Bob'], count: 3 }]);
+    const comment = importedComment(liked.comments[0], { Bob: 'u2' });
+    assert.deepEqual(comment.reactions, [{ reactionCodepoint: '&#128077;', userIds: ['u2'] }]);
+    assert.equal(comment.reactionsUnmapped, 2, 'the two likes the export does not name are counted');
+    console.log('  ok - Asana html_notes, approval states and comment likes import');
+  }
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });

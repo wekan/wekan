@@ -128,6 +128,9 @@ What the current code does (`parseAsana` in `models/lib/externalParsers.js`):
 | `name`, `notes` | Card title, description |
 | `start_at` / `start_on`, `due_at` / `due_on` | Start date, due date |
 | `actual_time_minutes` (time tracking) | Spent time (hours), written back on export |
+| `html_notes`, when there are no `notes` | Card description, as text |
+| `approval_status` of an approval task (not pending) | Label `approval:approved`, `approval:rejected` or `approval:changes requested` |
+| `likes` of a comment story | The comment's 👍 reactions, by who liked it; likes the export does not name are counted in the loss report |
 | `completed_at` (when completed) | End date |
 | `created_at` | Creation date |
 | `assignee` | Card member, when mapped |

@@ -1,4 +1,5 @@
 import { jiraTimeTracking } from './jiraTimeTracking.js';
+import { mstodoBodyText } from './mstodoApiFormat.js';
 import { kanboardRecurrence, KANBOARD_ESTIMATE_FIELD, KANBOARD_COLORS } from './kanboardFields.js';
 import { parseTodoTxt } from './todoTxtFormat.js';
 import { parseTaskwarrior } from './taskwarriorFormat.js';
@@ -882,7 +883,10 @@ export function parseAsana(data) {
         .filter(d => d && d.gid !== undefined)
         .map(d => ({ ref: String(d.gid), type: 'is-blocked-by' })),
       title: t.name || 'Imported task',
-      description: [t.notes || '', footer].filter(Boolean).join('\n\n'),
+      // An API export asked for html_notes may carry only those: the rich text
+      // as text (the same careful stripping as the Microsoft To Do body).
+      description: [t.notes || (typeof t.html_notes === 'string' ? mstodoBodyText({ contentType: 'html', content: t.html_notes }) : ''),
+        footer].filter(Boolean).join('\n\n'),
       column_name: section,
       swimlane_name: 'Default',
       date_due: t.due_at || t.due_on,
@@ -892,7 +896,10 @@ export function parseAsana(data) {
       date_end: t.completed ? t.completed_at : undefined,
       date_creation: t.created_at,
       owner_username: asanaUser(t.assignee),
-      tags: (t.tags || []).map(tag => (typeof tag === 'string' ? tag : tag && tag.name)).filter(Boolean),
+      tags: [...(t.tags || []).map(tag => (typeof tag === 'string' ? tag : tag && tag.name)).filter(Boolean),
+        // An approval task's state: approved, rejected, changes requested.
+        ...(t.resource_subtype === 'approval' && typeof t.approval_status === 'string' && t.approval_status !== 'pending'
+          ? [`approval:${t.approval_status.replace(/_/g, ' ')}`] : [])],
       custom_fields: custom,
       ...(followers.length ? { watchers: followers } : {}),
       checklists: embedded.length ? [{
@@ -901,7 +908,14 @@ export function parseAsana(data) {
       }] : [],
       comments: (Array.isArray(t.stories) ? t.stories : [])
         .filter(story => story && story.resource_subtype === 'comment_added')
-        .map(story => ({ text: story.text, author: asanaUser(story.created_by), date: story.created_at })),
+        .map(story => {
+          // A story's likes are who liked the comment: its 👍 reactions
+          // (models/lib/importedReactions.js).
+          const likes = (Array.isArray(story.likes) ? story.likes : []).map(like => asanaUser(like && like.user)).filter(Boolean);
+          const count = Math.max(Number(story.num_likes) || 0, likes.length);
+          return { text: story.text, author: asanaUser(story.created_by), date: story.created_at,
+            ...(count ? { reactions: [{ emoji: '👍', authors: likes, count }] } : {}) };
+        }),
     };
   });
   // Milestone tasks as releases; Asana has no sprint record.
