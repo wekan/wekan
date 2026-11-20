@@ -171,7 +171,7 @@ if (isSandstorm) {
 
         if (doc.cardId) {
           path = `b/sandstorm/libreboard/${doc.cardId}`;
-          const card = ReactiveCache.getCard(doc.cardId);
+          const card = await ReactiveCache.getCard(doc.cardId);
           if (card && card.members) {
             for (const memberId of card.members) {
               await subscribedUser(memberId);
@@ -184,11 +184,13 @@ if (isSandstorm) {
         }
 
         if (doc.activityType === 'addComment') {
-          const comment = ReactiveCache.getCardComment(doc.commentId);
-          caption = comment.text;
-          const board = ReactiveCache.getBoard(doc.boardId);
+          // Awaited: on the server ReactiveCache is async, and a Promise has no
+          // text - `comment.text.match` threw on every comment activity.
+          const comment = await ReactiveCache.getCardComment(doc.commentId);
+          caption = comment ? comment.text : null;
+          const board = await ReactiveCache.getBoard(doc.boardId);
           const activeMembers = board ? board.activeMembers().map(x => x.userId) : [];
-          const mentions = comment.text.match(/\B@([\w.]*)/g) || [];
+          const mentions = ((comment && comment.text) || '').match(/\B@([\w.]*)/g) || [];
           for (const username of mentions) {
             const user = await Meteor.users.findOneAsync({
               username: username.slice(1),
