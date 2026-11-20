@@ -149,7 +149,9 @@ creation or close dates, relationships or events.
 The export (`models/lib/externalExportFormatters.js`, `githubLike`) writes, for
 each card that is not archived: `title`, `body` (the description), `state`
 (`closed` when the list name contains done, closed, complete, archiv or
-finished, otherwise `open`), `labels` (as `{ "name": ... }`) and `due_date`.
+finished, otherwise `open`), `labels` (as `{ "name": ... }`), `due_date`, the
+owner as `assignee` (and `assignees`), the creator as `user`, `created_at`,
+`closed_at` for a closed issue.
 GitHub has no `due_date` field; WeKan reads it back when the file is imported
 again.
 
@@ -164,6 +166,7 @@ again.
 | `state_reason` other than completed | Label `state_reason:...` |
 | `milestone.title` | Label `milestone:...` |
 | `milestone.due_on`, else `due_date` | Due date |
+| `created_at`, and `closed_at` of a closed issue | Created and end dates |
 | First of `assignees` (`assignee`) | Owner, when mapped to a WeKan user |
 | Other assignees | Labels `assignee:...` |
 | `user.login` | Requested By |

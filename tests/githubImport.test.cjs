@@ -115,6 +115,16 @@ async function main() {
     assert.ok(gl.unsupported.some(u => u.reason === '3 reaction(s) are counts without who reacted, and are not imported'));
   });
 
+  // The export side is held by tests/exportRoundTripFields.test.cjs (created, owner, requester).
+  test('created and closed dates, and Gitea\'s time estimate, are read', () => {
+    const out = parseGitea([{ number: 1, title: 'A', state: 'closed', created_at: '2026-10-01T10:00:00Z', closed_at: '2026-10-05T10:00:00Z', time_estimate: 5400 },
+      { number: 2, title: 'B', state: 'open', created_at: '2026-10-02T10:00:00Z', closed_at: '2026-10-03T10:00:00Z' }]);
+    assert.strictEqual(out.tasks[0].date_creation, '2026-10-01T10:00:00Z');
+    assert.strictEqual(out.tasks[0].date_end, '2026-10-05T10:00:00Z');
+    assert.deepStrictEqual(out.tasks[0].custom_fields, { 'Time estimate (hours)': 1.5 });
+    assert.strictEqual(out.tasks[1].date_end, undefined, 'negative: an open issue has no end');
+  });
+
   console.log(`\ngithubImport: ${passed} tests passed`);
 }
 

@@ -659,6 +659,8 @@ function parseIssuesArray(data, system) {
         issue.html_url || issue.url || null,
       ].filter(Boolean).join(' ');
       const comments = issueComments(issue, path, unsupported);
+      // Gitea and Forgejo (1.23+): the time estimate, in seconds.
+      const estimate = Number(issue.time_estimate);
       reportReactionCounts(unsupported, path, reactionCount(issue.reactions)
         + (Array.isArray(issue.comments) ? issue.comments : []).reduce((sum, c) => sum + reactionCount(c && c.reactions), 0));
       const description = [issue.body || issue.description || '', footer]
@@ -683,6 +685,10 @@ function parseIssuesArray(data, system) {
           || (issue.author && (issue.author.login || issue.author.username || issue.author.name))
           || undefined,
         tags,
+        // Created, and closed for a closed issue.
+        ...(issue.created_at ? { date_creation: issue.created_at } : {}),
+        ...(issue.state === 'closed' && issue.closed_at ? { date_end: issue.closed_at } : {}),
+        ...(Number.isFinite(estimate) && estimate > 0 ? { custom_fields: { 'Time estimate (hours)': Math.round(estimate / 36) / 100 } } : {}),
         ...(comments.length ? { comments } : {}),
         // The issue's files, downloaded into the board's attachments.
         ...withAttachments(issue),

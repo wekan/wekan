@@ -36,10 +36,11 @@ not have:
 
 - Each tool's newest release, checked with a real export file of it: Planner,
   monday.com, Wrike, Teamwork, Businessmap, Focalboard, MeisterTask, Quire,
-  Jira, GitHub, GitLab, Gitea, Forgejo, Redmine and Linear. The parsers follow
+  Jira, GitHub, GitLab, Redmine and Linear. The parsers follow
   the formats the tools document and report what they do not read, so a new
   field shows up in the import's loss report; checking for one needs an
   account on each tool. (Checked against their current source on 2026-11-20:
   Plane's IssueExportSerializer, Kanri's kanban-types.d.ts, Obsidian Kanban's
-  markers and Nullboard's board object - all as the parsers read them.
+  markers, Nullboard's board object, and Gitea's (and Forgejo's) Issue
+  struct, whose created_at, closed_at and time_estimate are read now.
   Pivotal Tracker was shut down in 2025, so there is no newer release.)

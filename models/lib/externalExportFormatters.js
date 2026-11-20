@@ -64,6 +64,13 @@ const githubLike = ({ items }) =>
     state: isClosed(i.listTitle) ? 'closed' : 'open',
     labels: i.labels.map(name => ({ name })),
     due_date: i.dueAt,
+    // What parseGithub / parseGitea read back: who it is for and who asked,
+    // when it was made and closed, and Gitea's time estimate in seconds.
+    ...(has(i.owner) ? { assignee: { login: i.owner }, assignees: [i.owner, ...list(i.assignees)].filter(has).map(login => ({ login })) } : {}),
+    ...(has(i.creator) ? { user: { login: i.creator } } : {}),
+    ...(has(i.createdAt) ? { created_at: i.createdAt } : {}),
+    ...(isClosed(i.listTitle) && has(i.endAt) ? { closed_at: i.endAt } : {}),
+    ...(Number((i.customFields || {})['Time estimate (hours)']) > 0 ? { time_estimate: Math.round(Number(i.customFields['Time estimate (hours)']) * 3600) } : {}),
     ...(list(i.comments).some(c => c && has(c.text)) ? { comments_data: list(i.comments).filter(c => c && has(c.text)).map(c => ({
       body: String(c.text), ...(has(c.author) ? { user: { login: c.author } } : {}), ...(has(c.date) ? { created_at: c.date } : {}) })) } : {}),
   }));

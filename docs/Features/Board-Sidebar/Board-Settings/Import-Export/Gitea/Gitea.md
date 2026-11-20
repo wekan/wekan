@@ -129,7 +129,9 @@ metadata and label colors are not imported.
 The export (`gitea` in `models/lib/externalExportFormatters.js`) is the same
 as GitHub's: for each card that is not archived, `title`, `body`, `state`
 (`closed` when the list name contains done, closed, complete, archiv or
-finished, otherwise `open`), `labels` (as `{ "name": ... }`) and `due_date`.
+finished, otherwise `open`), `labels` (as `{ "name": ... }`), `due_date`, the
+owner as `assignee` (and `assignees`), the creator as `user`, `created_at`,
+`closed_at` for a closed issue, and a **Time estimate (hours)** custom field as `time_estimate` (seconds).
 
 ## What is kept
 
@@ -142,6 +144,8 @@ finished, otherwise `open`), `labels` (as `{ "name": ... }`) and `due_date`.
 | `state_reason` other than completed | Label `state_reason:...` |
 | `milestone.title` | Label `milestone:...` |
 | `milestone.due_on`, else `due_date` | Due date |
+| `created_at`, and `closed_at` of a closed issue | Created and end dates |
+| `time_estimate` (seconds, Gitea 1.23 and later) | Custom field **Time estimate (hours)** |
 | First of `assignees` (`assignee`) | Owner, when mapped to a WeKan user |
 | Other assignees | Labels `assignee:...` |
 | `user.login` | Requested By |
