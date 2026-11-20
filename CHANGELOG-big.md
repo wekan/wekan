@@ -328,6 +328,16 @@ admin-only custom field specs (12) pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21c64e092d8b067a9416a09a92c0ca1424b9da26">Deck and Kanri exports are written a page at a time, each list around its cards</a>. Thanks to xet7.</summary>
+
+The pages come list by list, and each list is opened at its first card and
+closed after its last. A Deck card is in the stack of its own list by id, where
+two lists of one name each carried the other's cards, and Kanri's cards of no
+list are one column, where each made a column of its own.
+
+</details>
+
 **Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
 it.
 
