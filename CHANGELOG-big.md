@@ -350,6 +350,21 @@ in its Scrum settings and for the instance in Admin Panel / Features
 
 </details>
 
+**Split lists** - Doing and Done in one list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd5c207006ac1c3ac605b4689860b47205a18d80">A list split into Doing and Done</a>. Thanks to xet7.</summary>
+
+A card of a split list marked **Done here** waits, dimmed and edged green, to be
+pulled into the next list, and the list header counts Doing and Done. The mark
+belongs to the list it was made in, so a card moved on is in Doing again. A
+board admin allows split lists in Board Settings / List and splits a list from
+its menu; Admin Panel / Features / Split lists hides it everywhere.
+`tests/boardFlowPolicies.test.cjs` and
+`tests/playwright/specs/list-flow-policies.e2e.js`.
+
+</details>
+
 and fixes the following bugs:
 
 **Member menu** - Edit Profile and Support do what their settings say.
@@ -446,7 +461,7 @@ any other unawaited result kept in a variable.
 
 </details>
 
-and has the following developer-facing change:
+and has the following developer-facing changes:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4da72ff72ddbe51370bd94ceb19a96b1c540ed5">The shared templates spec runs its tests in order and waits for the reset</a>. Thanks to xet7.</summary>
@@ -456,6 +471,8 @@ wait until the page shows the reset the test server sees at its next database
 poll, and find each template link inside its own group.
 
 </details>
+
+- [v12.49 is kept in old-CHANGELOG/2026/10.md, where the changelog's size budget moved it](https://github.com/wekan/wekan/commit/3a1d6701554b95bd594828b36021bb187ea565b1). Thanks to xet7.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/11992ac951278a22d376d079e7dfe0347112b04e">The built server bundle is checked with node --check; the streamed export no longer stops the server starting</a>. Thanks to xet7.</summary>
