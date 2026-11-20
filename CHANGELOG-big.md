@@ -355,6 +355,15 @@ whole board, so each page writes its cards at their depth.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/db9c06dc5eb5d5ff76867431f969da67eb3b0676">monday.com, Businessmap and Wrike workbooks are streamed a page at a time too</a>. Thanks to xet7.</summary>
+
+Every workbook export is now written a row at a time. The columns any card
+fills, Businessmap's parents and Wrike's lane folders and keys are found over
+the whole board first, so every page writes its own rows in their place.
+
+</details>
+
 **Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
 it.
 
