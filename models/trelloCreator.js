@@ -549,7 +549,10 @@ export class TrelloCreator {
           } else if (item.value.hasOwnProperty('date')) {
             custom.value = item.value.date;
           } else if (item.value.hasOwnProperty('number')) {
-            custom.value = item.value.number;
+            // Trello writes a number field's value as text ("3"); a WeKan
+            // number field holds a number.
+            const number = Number(item.value.number);
+            custom.value = Number.isFinite(number) ? number : item.value.number;
           }
           cardToCreate.customFields.push(custom);
         });

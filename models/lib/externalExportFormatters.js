@@ -280,6 +280,25 @@ export const formatters = {
     const peopleOf = i => [i.owner, ...list(i.assignees)].filter(has).map(String);
     const people = [...new Set(all.flatMap(i => [...peopleOf(i),
       ...list(i.comments).map(c => c && c.author).filter(has).map(String)]))];
+    // Custom fields: one Trello field per name the board's cards use, its type
+    // what every value of it is (checkbox, number, date, else text), and each
+    // card's values as Trello's customFieldItems (models/trelloCreator.js).
+    const fieldNames = [...new Set(all.flatMap(i => Object.keys(i.customFields || {})))];
+    const ISO_DAY = /^\d{4}-\d{2}-\d{2}(T|$)/;
+    const typeOf = name => {
+      const values = all.map(i => (i.customFields || {})[name]).filter(has);
+      if (values.length && values.every(v => typeof v === 'boolean')) return 'checkbox';
+      if (values.length && values.every(v => typeof v === 'number' && Number.isFinite(v))) return 'number';
+      if (values.length && values.every(v => typeof v === 'string' && ISO_DAY.test(v) && !Number.isNaN(Date.parse(v)))) return 'date';
+      return 'text';
+    };
+    const fields = fieldNames.map((name, n) => ({ id: `${board._id || 'board'}-field-${n + 1}`, name, type: typeOf(name) }));
+    const valueOf = (field, raw) => {
+      if (field.type === 'checkbox') return { checked: raw ? 'true' : 'false' };
+      if (field.type === 'number') return { number: String(raw) };
+      if (field.type === 'date') return { date: new Date(raw).toISOString() };
+      return { text: Array.isArray(raw) ? raw.join(', ') : String(raw) };
+    };
     // What models/trelloCreator.js checks every card for: an ISO date of its
     // last activity and a position - without them a Trello export did not
     // import into WeKan at all.
@@ -304,6 +323,8 @@ export const formatters = {
       name: board.title,
       prefs: { background: 'blue', permissionLevel: 'private' },
       members: people.map(username => ({ id: username, username, fullName: username })),
+      customFields: fields.map((field, n) => ({ id: field.id, idModel: String(board._id || ''), modelType: 'board',
+        name: field.name, type: field.type, pos: n + 1, display: { cardFront: true } })),
       labels: (board.labels || []).map(l => ({ id: l._id, name: String(l.name || ''), color: l.color })),
       lists: lists.map((l, n) => ({ id: l._id, name: l.title, closed: false, pos: n + 1 })),
       cards: items.map((i, n) => ({
@@ -320,6 +341,9 @@ export const formatters = {
         idLabels: list(i.labelIds),
         idMembers: [...new Set(peopleOf(i))],
         idChecklists: checklistsOf(i).map(c => c.id),
+        customFieldItems: fields.filter(field => has((i.customFields || {})[field.name])).map(field => ({
+          id: `${i.cardId}-${field.id}`, idCustomField: field.id, idModel: i.cardId, modelType: 'card',
+          value: valueOf(field, i.customFields[field.name]) })),
       })),
       checklists: items.flatMap(checklistsOf),
       actions: items.flatMap(i => list(i.comments).filter(c => c && has(c.text)).map((c, n) => ({

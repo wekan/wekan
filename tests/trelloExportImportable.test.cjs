@@ -74,3 +74,22 @@ test('negative: a card with nothing has empty arrays, and the importer still che
     assert.ok(creator.includes(field), `the import checks ${field}`);
   }
 });
+
+test('custom fields: one Trello field per name, typed by its values, each card\'s values as customFieldItems', () => {
+  const fielded = [
+    { ...items[0], customFields: { Estimate: 3, Done: true, Shipped: '2026-11-03', Note: 'Hi', Tags: ['a', 'b'] } },
+    { ...items[1], customFields: { Estimate: 5, Note: 'There' } },
+  ];
+  const doc = fmt.trello({ board, lists, items: fielded });
+  assert.deepStrictEqual(doc.customFields.map(f => [f.name, f.type]),
+    [['Estimate', 'number'], ['Done', 'checkbox'], ['Shipped', 'date'], ['Note', 'text'], ['Tags', 'text']]);
+  assert.ok(doc.customFields.every(f => f.display.cardFront === true), 'the import reads display.cardFront');
+  const byName = card => Object.fromEntries(card.customFieldItems.map(item =>
+    [doc.customFields.find(f => f.id === item.idCustomField).name, item.value]));
+  assert.deepStrictEqual(byName(doc.cards[0]), { Estimate: { number: '3' }, Done: { checked: 'true' },
+    Shipped: { date: '2026-11-03T00:00:00.000Z' }, Note: { text: 'Hi' }, Tags: { text: 'a, b' } });
+  assert.deepStrictEqual(byName(doc.cards[1]), { Estimate: { number: '5' }, Note: { text: 'There' } }, 'a card without a value has no item');
+  // Negative: no custom fields, none written; and the import reads a number back as a number.
+  assert.deepStrictEqual(fmt.trello({ board, lists, items }).customFields, []);
+  assert.match(read('models/trelloCreator.js'), /const number = Number\(item\.value\.number\);\n\s+custom\.value = Number\.isFinite\(number\) \? number : item\.value\.number;/);
+});

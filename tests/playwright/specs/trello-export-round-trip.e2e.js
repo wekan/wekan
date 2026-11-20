@@ -31,6 +31,12 @@ test('a Trello export carries the checklists and comments, and imports back with
     boardIds.push(source);
     await expect.poll(() => db.find('checklistItems', { boardId: source }).length).toBe(1);
 
+    // A number custom field with a value on the card.
+    const fieldId = `trellofield${db.uniqueSuffix()}`;
+    db.insertOne('customFields', { _id: fieldId, name: 'Estimate', type: 'number', boardIds: [source], settings: {},
+      showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false, showLabelOnMiniCard: false });
+    const sourceCard = db.findOne('cards', { boardId: source });
+    db.updateOne('cards', { _id: sourceCard._id }, { $set: { customFields: [{ _id: fieldId, value: 3 }] } });
     const response = await page.request.get(`/api/boards/${source}/export/trello?authToken=${encodeURIComponent(user.token)}`);
     expect(response.status()).toBe(200);
     const exported = await response.json();
@@ -40,6 +46,8 @@ test('a Trello export carries the checklists and comments, and imports back with
     const comments = exported.actions.filter(action => action.type === 'commentCard');
     expect(comments.map(action => action.data.text)).toContain(expected.comment);
     expect(comments[0].data.card.id).toBe(exported.cards[0].id);
+    expect(exported.customFields.map(f => [f.name, f.type])).toEqual([['Estimate', 'number']]);
+    expect(exported.cards[0].customFieldItems[0].value).toEqual({ number: '3' });
     // The comment's author is a member of the file, so the import can map them.
     expect(exported.members.map(m => m.username)).toContain(comments[0].idMemberCreator);
 
@@ -49,5 +57,12 @@ test('a Trello export carries the checklists and comments, and imports back with
     await expect.poll(() => db.find('checklistItems', { boardId: restored }).length).toBe(1);
     expect(db.find('card_comments', { boardId: restored }).map(c => c.text)).toContain(expected.comment);
     expect(db.findOne('cards', { boardId: restored }).title).toBe(expected.title);
-  } finally { db.cleanup({ boardIds }); }
+    // The custom field and its value came back, the value a number.
+    const restoredField = db.findOne('customFields', { boardIds: restored, name: 'Estimate' });
+    expect(restoredField.type).toBe('number');
+    expect(db.findOne('cards', { boardId: restored }).customFields).toEqual([{ _id: restoredField._id, value: 3 }]);
+  } finally {
+    db.deleteMany('customFields', { boardIds: { $in: boardIds } });
+    db.cleanup({ boardIds });
+  }
 });

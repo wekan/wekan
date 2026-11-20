@@ -62,10 +62,11 @@ and the formatter here, record what is lost in the import loss report
 - WeKan's own JSON and .zip: every field of the current schema, attachments
   and their versions, custom fields, rules, templates, Scrum data, and a part
   of a board as well as all of it.
-- Trello (file and API): the export now carries checklists, comments and
-  members and imports back; still missing from it are custom fields (Trello's
-  customFields and customFieldItems), the attachments and the archived cards
-  and lists.
+- Trello (file and API): the export now carries checklists, comments,
+  members and custom fields and imports back; still missing from it are the
+  attachments (Trello's attachments name a URL, which an export from WeKan
+  has no public address for) and the archived cards and lists (the export
+  collects open cards only).
 - Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana,
   Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
