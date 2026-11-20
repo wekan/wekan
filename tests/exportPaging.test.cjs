@@ -250,10 +250,13 @@ test('negative: no part of a paged JSON document skips the export boundary or th
   const writer = render.slice(render.indexOf('async function streamJsonArrays'), render.indexOf('async function streamExternalExport'));
   const stringified = [...writer.matchAll(/JSON\.stringify\(([^()]*(?:\([^()]*\))?[^()]*)\)/g)].map(m => m[1]);
   for (const arg of stringified) {
-    assert.ok(/^await safe\(/.test(arg) || ['ARRAY_PLACE', 'mark'].includes(arg) || /^(list|empty|doc|formatters\[format\]\(\{ \.\.\.collected, items: \[\] \}\))$/.test(arg),
+    // checkedKey/checkedValue: an object's entry, which passed safe() as a whole.
+    assert.ok(/^await safe\(/.test(arg) || ['ARRAY_PLACE', 'mark', 'checkedKey', 'checkedValue'].includes(arg) || /^(list|empty|doc|formatters\[format\]\(\{ \.\.\.collected, items: \[\] \}\))$/.test(arg),
       `JSON.stringify(${arg}) is safe(), the placeholder, or a copy that is not written`);
   }
   assert.match(writer, /const text = JSON\.stringify\(await safe\(value\)\);/, 'around() checks what it splits');
+  assert.match(writer, /const \[\[checkedKey, checkedValue\]\] = Object\.entries\(await safe\(\{ \[key\]: element \}\)\);/,
+    'an object\'s entry passes safe() with its key');
   assert.doesNotMatch(writer, /write\([^)]*JSON\.parse/, 'no copy is written');
   assert.match(render, /if \(JSON_PAGED\[format\]\) return streamJsonExport\(res, boardId, format, fields\);/);
 });
@@ -340,4 +343,33 @@ test('Vikunja: each project\'s three arrays across the pages are the whole docum
   assert.match(render, /const archiveData = doc => vikunjaArchiveData\(secureTransfer\(doc, context\)\);/,
     'negative: the HTML is made from text the boundary has checked, as the whole export\'s is');
   assert.match(render, /if \(format === 'vikunja'\) return streamVikunjaZip\(res, boardId, fields\);/);
+});
+
+// Super Productivity: the backup is made over the whole board on every page;
+// the pages' task entities together are the whole backup's, each with its
+// own notes, and the rest is the same.
+test('Super Productivity: the pages\' task entities are the whole backup\'s, the rest the same on every page', async () => {
+  const sp = await import('../models/lib/superProductivityFormat.js');
+  const at = { now: Date.UTC(2026, 10, 20) };
+  const spItems = items.map(item => ({ ...item, checklists: item.checklists || [] }));
+  const whole = JSON.parse(sp.formatSuperProductivity({ board, lists, items: spItems }, at));
+  for (const size of [1, 2, 4, 100]) {
+    const pages = Math.max(1, Math.ceil(spItems.length / size));
+    const entities = {};
+    let shell = null;
+    for (let n = 0; n < pages; n += 1) {
+      const doc = JSON.parse(sp.formatSuperProductivity({ board, lists, items: spItems.slice(n * size, (n + 1) * size),
+        page: { all: light, offset: n * size, first: n === 0, last: n === pages - 1 } }, at));
+      Object.assign(entities, doc.data.task.entities);
+      if (n === 0) shell = doc;
+    }
+    assert.deepStrictEqual(Object.entries(entities), Object.entries(whole.data.task.entities), `${size}: the task entities, in order`);
+    const strip = doc => ({ ...doc, data: { ...doc.data, task: { ...doc.data.task, entities: {} } } });
+    assert.deepStrictEqual(strip(shell), strip(whole), `${size}: the backup around them`);
+  }
+  // Negative: a page has only its own tasks' entities.
+  const one = JSON.parse(sp.formatSuperProductivity({ board, lists, items: [spItems[2]], page: { all: light, offset: 2, first: false, last: false } }, at));
+  assert.strictEqual(Object.keys(one.data.task.entities).length, 1);
+  assert.match(Object.values(one.data.task.entities)[0].notes, /Line\nbreak, comma/, 'its notes from the card itself');
+  assert.match(read('server/lib/renderExternalExport.js'), /superproductivity: \{ paths: \[\{ path: \['data', 'task', 'entities'\], object: true \}\], text: true \}/);
 });

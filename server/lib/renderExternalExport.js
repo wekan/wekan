@@ -110,6 +110,9 @@ const JSON_PAGED = {
   // Nullboard's formatter writes its JSON as text; its lists of cards whose
   // list is not exported are named by that list's title.
   nullboard: { path: ['lists'], nested: 'notes', byList: 'listIdsThenTitles', text: true },
+  // Super Productivity's backup: made over the whole board on every page, its
+  // task entities (by id) the page's own (models/lib/superProductivityFormat.js).
+  superproductivity: { paths: [{ path: ['data', 'task', 'entities'], object: true }], text: true },
 };
 const ARRAY_PLACE = '__wekan_paged_array__';
 
@@ -145,6 +148,10 @@ async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED
     break;
   }
   if (typeof paths === 'function') paths = paths(skeleton);
+  // A path is an array of cards, or { path, object: true }: an object whose
+  // entries are the cards (Super Productivity's task entities by id).
+  const specs = paths.map(entry => (Array.isArray(entry) ? { path: entry, object: false } : entry));
+  paths = specs.map(entry => entry.path);
   const places = paths.map((path, i) => {
     let node = skeleton;
     path.slice(0, -1).forEach(key => { node = node[key]; });
@@ -161,16 +168,28 @@ async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED
   let from = 0;
   for (const i of order) {
     const where = text.indexOf(places[i]);
-    await write(`${text.slice(from, where)}[`);
+    const object = specs[i].object;
+    await write(`${text.slice(from, where)}${object ? '{' : '['}`);
     let count = 0;
     for await (const collected of pages()) {
-      for (const element of at(transform(formatters[format](collected)), paths[i])) {
+      const container = at(transform(formatters[format](collected)), paths[i]);
+      if (object) {
+        for (const [key, element] of Object.entries(container || {})) {
+          // The entry as a whole passes safe(), its key with its value.
+          // eslint-disable-next-line no-await-in-loop
+          const [[checkedKey, checkedValue]] = Object.entries(await safe({ [key]: element }));
+          await write(`${count ? ',' : ''}${JSON.stringify(checkedKey)}:${JSON.stringify(checkedValue)}`);
+          count += 1;
+        }
+        continue;
+      }
+      for (const element of container) {
         // eslint-disable-next-line no-await-in-loop
         await write(`${count ? ',' : ''}${JSON.stringify(await safe(element))}`);
         count += 1;
       }
     }
-    await write(']');
+    await write(object ? '}' : ']');
     from = where + places[i].length;
   }
   res.end(text.slice(from));
@@ -178,7 +197,11 @@ async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED
 }
 
 async function streamJsonExport(res, boardId, format, fields) {
-  if (JSON_PAGED[format].paths) return streamJsonArrays(res, boardId, format, fields);
+  if (JSON_PAGED[format].paths) {
+    // A formatter that writes its JSON as text (Super Productivity) is read as JSON.
+    const transform = JSON_PAGED[format].text ? doc => JSON.parse(doc) : undefined;
+    return streamJsonArrays(res, boardId, format, fields, JSON_PAGED[format].paths, transform);
+  }
   const { path, nested, byList, text: asText } = JSON_PAGED[format];
   const formatted = collected => {
     const out = formatters[format](collected);

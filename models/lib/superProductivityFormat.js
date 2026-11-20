@@ -54,6 +54,7 @@ export const SP_IN_PROGRESS_TAG_ID = 'KANBAN_IN_PROGRESS';
 export const SP_TODAY_TAG_ID = 'TODAY';
 export const SP_ESTIMATE_FIELD = 'Time estimate (hours)';
 export const SP_PRIORITY_FIELD = 'Priority';
+import { pagingOf } from './exportPaging.js';
 const LIST = { backlog: 'Backlog', todo: 'To Do', progress: 'In Progress', done: 'Done' };
 const NO_PROJECT = 'No project';
 const HOUR = 3600000;
@@ -305,6 +306,9 @@ const listKind = title => {
 };
 const PRIORITY_VALUES = { low: 1, medium: 2, high: 3, 1: 1, 2: 2, 3: 3 };
 
+// A task's notes: the card's description, then its checklists as Markdown.
+const notesOf = item => [String(item.description || '').trim(), checklistMarkdown(item.checklists)].filter(Boolean).join('\n\n');
+
 function checklistMarkdown(checklists) {
   return (Array.isArray(checklists) ? checklists : [])
     .filter(checklist => checklist && Array.isArray(checklist.items) && checklist.items.length)
@@ -313,9 +317,16 @@ function checklistMarkdown(checklists) {
     .join('\n\n');
 }
 
-export function formatSuperProductivity({ board, lists, swimlanes, items } = {}, { now = Date.now() } = {}) {
+// The whole board, or one page of it (models/lib/exportPaging.js): the
+// backup is made over the whole board - its light first pass when written a
+// page at a time - and a page's task entities are its own cards', their
+// notes (description and checklists, the only part the first pass does not
+// read) from the cards themselves.
+export function formatSuperProductivity(collected = {}, { now = Date.now() } = {}) {
+  const { board, lists, swimlanes } = collected;
+  const { items: pageItems, all } = pagingOf(collected);
   const boardTitle = String((board && board.title) || '').trim() || 'WeKan board';
-  const cards = (Array.isArray(items) ? items : []).filter(Boolean);
+  const cards = (collected.page ? all : pageItems).filter(Boolean);
 
   // Projects: one per swimlane in use, or one named after the board.
   const laneOrder = (Array.isArray(swimlanes) ? swimlanes : []).map(lane => String(lane.title || ''));
@@ -403,7 +414,7 @@ export function formatSuperProductivity({ board, lists, swimlanes, items } = {},
     const tagIds = (Array.isArray(item.labels) ? item.labels : []).map(tagFor).filter(Boolean);
     if (kind === 'progress' && !isDone) tagIds.push(inProgressTag());
     if (kind === 'other') tagIds.push(listTag(item.listTitle));
-    const notes = [String(item.description || '').trim(), checklistMarkdown(item.checklists)].filter(Boolean).join('\n\n');
+    const notes = notesOf(item);
     const created = msOf(item.createdAt) || now;
     const spent = Number(item.spentTime);
     const fields = item.customFields || {};
@@ -472,6 +483,16 @@ export function formatSuperProductivity({ board, lists, swimlanes, items } = {},
     }
   });
 
+  if (collected.page) {
+    // This page's tasks only, in their order, each with its own notes.
+    const lightOf = new Map(cards.map(item => [item.cardId, item]));
+    const entities = {};
+    for (const item of pageItems) {
+      const id = taskIdOf.get(lightOf.get(item.cardId));
+      if (id && taskState.entities[id]) entities[id] = { ...taskState.entities[id], notes: notesOf(item) };
+    }
+    taskState.entities = entities;
+  }
   const backup = {
     timestamp: now,
     lastUpdate: now,

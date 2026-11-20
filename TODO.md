@@ -42,11 +42,11 @@ is the rest.
   are written around that array, each page's cards into it, and those that
   nest their cards in their lists (Deck, Kanri, Nullboard) around each list.
   Vikunja's .zip is written the same way, its data.json each project's
-  arrays a pass over the pages. Still built whole: Super Productivity (a state
-  of ids and entities that refer to each other - each project's and tag's task
-  ids, sub-tasks under their top ancestor) and Taiga (statuses, points and
-  attribute definitions found while the cards are written, and tasks made of
-  checklist items). Each of those needs a writer of its own. The five
+  arrays a pass over the pages, and Super Productivity's backup, its task
+  entities a page's own. Still built whole: Taiga (statuses, points and
+  attribute definitions found while the cards are written, per-kind orders,
+  and tasks made of checklist items, which have no card of their own to
+  page by), which needs a writer of its own. The five
   workbooks (Teamwork, Planner, monday.com, Businessmap, Wrike) are written a
   page at a time with ExcelJS's streaming writer.
 
