@@ -53,6 +53,9 @@ const has = value => value !== undefined && value !== null && value !== '';
 const list = value => (Array.isArray(value) ? value : []);
 const checklistItems = item => list(item.checklists).flatMap(c => list(c.items));
 
+// The comments go along as comments_data, the embedded comments the issues
+// parser reads (models/lib/externalParsers.js issueComments) - the shape
+// `gh issue view --json comments` and similar clients write.
 const githubLike = ({ items }) =>
   items.map(i => ({
     title: i.title,
@@ -60,6 +63,8 @@ const githubLike = ({ items }) =>
     state: isClosed(i.listTitle) ? 'closed' : 'open',
     labels: i.labels.map(name => ({ name })),
     due_date: i.dueAt,
+    ...(list(i.comments).some(c => c && has(c.text)) ? { comments_data: list(i.comments).filter(c => c && has(c.text)).map(c => ({
+      body: String(c.text), ...(has(c.author) ? { user: { login: c.author } } : {}), ...(has(c.date) ? { created_at: c.date } : {}) })) } : {}),
   }));
 
 // OpenProject reads ids from HAL hrefs ending in a number.
