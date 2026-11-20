@@ -346,6 +346,15 @@ found over the whole board, and each is written around its notes.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2257442a855ce930cc3ae3a4a5b9fdb16555aa8">Teamwork and Planner workbooks are streamed a page at a time</a>. Thanks to xet7.</summary>
+
+They are written by ExcelJS's streaming workbook writer, each row as it comes,
+instead of a whole workbook in memory. Teamwork's task tree is planned over the
+whole board, so each page writes its cards at their depth.
+
+</details>
+
 **Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
 it.
 
