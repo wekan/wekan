@@ -15,6 +15,18 @@ const PLACEHOLDER_VIEW_TEMPLATES = [
   'throughputHistogramView',
   'wipRunView',
   'pulseView',
+  'createdResolvedView',
+  'netFlowView',
+  'timeInListView',
+  'averageAgeView',
+  'throughputRunView',
+  'dueDatePerformanceView',
+  'releaseBurndownView',
+  'epicProgressView',
+  'workloadView',
+  'distributionView',
+  'dependencyMapView',
+  'activityHeatmapView',
 ];
 
 PLACEHOLDER_VIEW_TEMPLATES.forEach(name => {

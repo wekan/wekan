@@ -110,6 +110,30 @@ template(name="boardBody")
           +processBehaviorView
         else if isViewSizeCycleTime
           +sizeCycleTimeView
+        else if isViewCreatedResolved
+          +createdResolvedView
+        else if isViewNetFlow
+          +netFlowView
+        else if isViewTimeInList
+          +timeInListView
+        else if isViewAverageAge
+          +averageAgeView
+        else if isViewThroughputRun
+          +throughputRunView
+        else if isViewDueDatePerformance
+          +dueDatePerformanceView
+        else if isViewReleaseBurndown
+          +releaseBurndownView
+        else if isViewEpicProgress
+          +epicProgressView
+        else if isViewWorkload
+          +workloadView
+        else if isViewDistribution
+          +distributionView
+        else if isViewDependencyMap
+          +dependencyMapView
+        else if isViewActivityHeatmap
+          +activityHeatmapView
         else if isViewPulse
           +pulseView
         else if isViewMap

@@ -51,3 +51,42 @@ template(name="processBehaviorView")
 
 template(name="sizeCycleTimeView")
   +boardChartView(chartKey="sizeCycleTime" titleKey="board-view-size-cycle-time")
+
+//- The reports of 2026-11-20 (models/lib/boardReports.js): each answers bars and
+  a table, drawn and exported by boardChartView like the charts above.
+
+template(name="createdResolvedView")
+  +boardChartView(chartKey="createdResolved" titleKey="board-view-created-resolved")
+
+template(name="netFlowView")
+  +boardChartView(chartKey="netFlow" titleKey="board-view-net-flow")
+
+template(name="timeInListView")
+  +boardChartView(chartKey="timeInList" titleKey="board-view-time-in-list")
+
+template(name="averageAgeView")
+  +boardChartView(chartKey="averageAge" titleKey="board-view-average-age")
+
+template(name="throughputRunView")
+  +boardChartView(chartKey="throughputRun" titleKey="board-view-throughput-run")
+
+template(name="dueDatePerformanceView")
+  +boardChartView(chartKey="dueDatePerformance" titleKey="board-view-due-date-performance")
+
+template(name="releaseBurndownView")
+  +boardChartView(chartKey="releaseBurndown" titleKey="board-view-release-burndown")
+
+template(name="epicProgressView")
+  +boardChartView(chartKey="epicProgress" titleKey="board-view-epic-progress")
+
+template(name="workloadView")
+  +boardChartView(chartKey="workload" titleKey="board-view-workload")
+
+template(name="distributionView")
+  +boardChartView(chartKey="distribution" titleKey="board-view-distribution")
+
+template(name="dependencyMapView")
+  +boardChartView(chartKey="dependencyMap" titleKey="board-view-dependency-map")
+
+template(name="activityHeatmapView")
+  +boardChartView(chartKey="activityHeatmap" titleKey="board-view-activity-heatmap")

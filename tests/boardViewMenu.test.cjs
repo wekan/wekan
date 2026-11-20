@@ -74,6 +74,19 @@ const VIEWS = [
   { view: 'board-view-version-control', jsClass: 'js-open-version-control-view', icon: 'fa-code-fork', template: 'versionControlView', helper: 'isViewVersionControl' },
   // #211: appended after Version Control.
   { view: 'board-view-column-sets', jsClass: 'js-open-column-sets-view', icon: 'fa-columns', template: 'columnSetsView', helper: 'isViewColumnSets' },
+  // The reports of 2026-11-20 (models/lib/boardReports.js), appended after Column sets.
+  { view: 'board-view-created-resolved', jsClass: 'js-open-created-resolved-view', icon: 'fa-exchange', template: 'createdResolvedView', helper: 'isViewCreatedResolved', chart: true },
+  { view: 'board-view-net-flow', jsClass: 'js-open-net-flow-view', icon: 'fa-balance-scale', template: 'netFlowView', helper: 'isViewNetFlow', chart: true },
+  { view: 'board-view-time-in-list', jsClass: 'js-open-time-in-list-view', icon: 'fa-hourglass-o', template: 'timeInListView', helper: 'isViewTimeInList', chart: true },
+  { view: 'board-view-average-age', jsClass: 'js-open-average-age-view', icon: 'fa-birthday-cake', template: 'averageAgeView', helper: 'isViewAverageAge', chart: true },
+  { view: 'board-view-throughput-run', jsClass: 'js-open-throughput-run-view', icon: 'fa-line-chart', template: 'throughputRunView', helper: 'isViewThroughputRun', chart: true },
+  { view: 'board-view-due-date-performance', jsClass: 'js-open-due-date-performance-view', icon: 'fa-calendar-check-o', template: 'dueDatePerformanceView', helper: 'isViewDueDatePerformance', chart: true },
+  { view: 'board-view-release-burndown', jsClass: 'js-open-release-burndown-view', icon: 'fa-flag', template: 'releaseBurndownView', helper: 'isViewReleaseBurndown', chart: true },
+  { view: 'board-view-epic-progress', jsClass: 'js-open-epic-progress-view', icon: 'fa-sitemap', template: 'epicProgressView', helper: 'isViewEpicProgress', chart: true },
+  { view: 'board-view-workload', jsClass: 'js-open-workload-view', icon: 'fa-user-circle', template: 'workloadView', helper: 'isViewWorkload', chart: true },
+  { view: 'board-view-distribution', jsClass: 'js-open-distribution-view', icon: 'fa-pie-chart', template: 'distributionView', helper: 'isViewDistribution', chart: true },
+  { view: 'board-view-dependency-map', jsClass: 'js-open-dependency-map-view', icon: 'fa-share-alt', template: 'dependencyMapView', helper: 'isViewDependencyMap', chart: true },
+  { view: 'board-view-activity-heatmap', jsClass: 'js-open-activity-heatmap-view', icon: 'fa-th', template: 'activityHeatmapView', helper: 'isViewActivityHeatmap', chart: true },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between

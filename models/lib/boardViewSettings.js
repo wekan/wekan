@@ -69,6 +69,19 @@ const BOARD_VIEWS = [
   { view: 'board-view-version-control', labelKey: 'board-view-version-control', icon: 'fa-code-fork', group: 'communication' },
   // #211: the same cards in several named column sets (client/components/boards/columnSetsView.*).
   { view: 'board-view-column-sets', labelKey: 'board-view-column-sets', icon: 'fa-columns', group: 'board' },
+  // The reports of 2026-11-20 (models/lib/boardReports.js BOARD_REPORTS).
+  { view: 'board-view-created-resolved', labelKey: 'board-view-created-resolved', icon: 'fa-exchange', group: 'flow' },
+  { view: 'board-view-net-flow', labelKey: 'board-view-net-flow', icon: 'fa-balance-scale', group: 'flow' },
+  { view: 'board-view-time-in-list', labelKey: 'board-view-time-in-list', icon: 'fa-hourglass-o', group: 'flow' },
+  { view: 'board-view-average-age', labelKey: 'board-view-average-age', icon: 'fa-birthday-cake', group: 'flow' },
+  { view: 'board-view-throughput-run', labelKey: 'board-view-throughput-run', icon: 'fa-line-chart', group: 'flow' },
+  { view: 'board-view-due-date-performance', labelKey: 'board-view-due-date-performance', icon: 'fa-calendar-check-o', group: 'flow' },
+  { view: 'board-view-release-burndown', labelKey: 'board-view-release-burndown', icon: 'fa-flag', group: 'scrum' },
+  { view: 'board-view-epic-progress', labelKey: 'board-view-epic-progress', icon: 'fa-sitemap', group: 'scrum' },
+  { view: 'board-view-workload', labelKey: 'board-view-workload', icon: 'fa-user-circle', group: 'overview' },
+  { view: 'board-view-distribution', labelKey: 'board-view-distribution', icon: 'fa-pie-chart', group: 'overview' },
+  { view: 'board-view-dependency-map', labelKey: 'board-view-dependency-map', icon: 'fa-share-alt', group: 'overview' },
+  { view: 'board-view-activity-heatmap', labelKey: 'board-view-activity-heatmap', icon: 'fa-th', group: 'overview' },
 ];
 
 // The menu's groups, in the order they are drawn, each under its heading
@@ -139,13 +152,38 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-chat',
   'board-view-version-control',
   'board-view-column-sets',
+  'board-view-created-resolved',
+  'board-view-net-flow',
+  'board-view-time-in-list',
+  'board-view-average-age',
+  'board-view-throughput-run',
+  'board-view-due-date-performance',
+  'board-view-release-burndown',
+  'board-view-epic-progress',
+  'board-view-workload',
+  'board-view-distribution',
+  'board-view-dependency-map',
+  'board-view-activity-heatmap',
 ];
 
 // Views added to the default order after a board could save an order of its
 // own (Board Settings / Board View). A saved order that lacks only these is
 // the default order of its time, not a custom one (normalizeBoardViewOrder).
 const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'board-view-chat', 'board-view-version-control',
-  'board-view-column-sets'];
+  'board-view-column-sets',
+  'board-view-created-resolved',
+  'board-view-net-flow',
+  'board-view-time-in-list',
+  'board-view-average-age',
+  'board-view-throughput-run',
+  'board-view-due-date-performance',
+  'board-view-release-burndown',
+  'board-view-epic-progress',
+  'board-view-workload',
+  'board-view-distribution',
+  'board-view-dependency-map',
+  'board-view-activity-heatmap',
+];
 
 // After which entries the menu draws a separator - the same six `hr`s the
 // pre-feature template had, at the same places - only in the DEFAULT order,

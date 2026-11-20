@@ -32,6 +32,10 @@ const CHART_TITLE_KEYS = {
   pulse: ['board-view-pulse', 'Pulse'],
 };
 
+// The reports of 2026-11-20 (models/lib/boardReports.js), titled by their view.
+const { BOARD_REPORTS, reportByKey, labelText } = require('./boardReports');
+for (const report of BOARD_REPORTS) CHART_TITLE_KEYS[report.key] = [report.view, report.title];
+
 function chartTitle(chartKey, translate) {
   const [key, fallback] = CHART_TITLE_KEYS[chartKey] || [chartKey, chartKey];
   return translate ? translate(key, fallback) : fallback;
@@ -43,6 +47,18 @@ function round(value) {
 
 function chartExportRows(chartKey, data, translate = (key, fallback) => fallback) {
   const title = chartTitle(chartKey, translate);
+  // A report answers its own table: [key, fallback] headers (a null key is a
+  // name of the board's, such as a list title) and rows whose [key, fallback]
+  // cells - the weekdays - are translated too.
+  if (reportByKey(chartKey)) {
+    const table = (data && data.table) || { headers: [], rows: [] };
+    const cell = value => (Array.isArray(value) ? labelText(value, translate) : value);
+    return {
+      title,
+      headers: table.headers.map(([key, fallback]) => (key ? translate(key, fallback) : fallback)),
+      rows: table.rows.map(row => row.map(cell)),
+    };
+  }
   if (chartKey === 'scrumDaily') {
     const headers = [translate('scrum-sprint', 'Sprint'), translate('date', 'Date'), 'UTC', translate('scrum-estimate-unit', 'Unit')];
     for (const [key, fallback] of [['scrum-observed-scope', 'Observed scope'], ['scrum-incomplete', 'Incomplete'], ['scrum-completed', 'Completed']]) {

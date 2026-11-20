@@ -28,11 +28,49 @@ const {
   computeRemainingTimeSum,
 } = require('/models/lib/chartCalculations');
 
+async function loadBoardReport(board, lists, report, options, computeBoardReport) {
+  const boardId = board._id;
+  const needs = new Set(report.needs || []);
+  const cards = await Cards.find({ boardId, type: { $ne: 'template-container' } }, { fields: {
+    title: 1, listId: 1, swimlaneId: 1, createdAt: 1, archivedAt: 1, archived: 1, endAt: 1, dueAt: 1,
+    assignees: 1, members: 1, labelIds: 1, parentId: 1, cardDependencies: 1, scrum: 1,
+  } }).fetchAsync();
+  const input = { cards, lists, labels: board.labels || [], now: new Date() };
+  if (needs.has('history')) {
+    input.history = await require('/models/changeHistory').default.find(
+      { boardId, entityType: 'card', group: 'position' },
+      { fields: { entityId: 1, previousContent: 1, newContent: 1, createdAt: 1 } },
+    ).fetchAsync();
+  }
+  if (needs.has('releases')) {
+    input.releases = await require('/models/scrumReleases').default.find(
+      { boardId }, { fields: { _id: 1, name: 1 }, sort: { plannedEnd: 1, name: 1 } }).fetchAsync();
+  }
+  if (needs.has('activities')) {
+    const since = new Date(Date.now() - 365 * 86400000);
+    input.activities = await Activities.find({ boardId, createdAt: { $gte: since } }, { fields: { createdAt: 1 } }).fetchAsync();
+  }
+  if (needs.has('users')) {
+    const ids = [...new Set(cards.flatMap(c => [...(c.assignees || []), ...(c.members || [])]))];
+    const users = ids.length ? await ReactiveCache.getUsers({ _id: { $in: ids } }, { fields: { username: 1, 'profile.fullname': 1 } }) : [];
+    // An export follows Admin Panel / Anonymize export users, as every export does.
+    if (options.forExport) await require('/models/lib/importExportSecurity').anonymizeExportIdentities({ boardId, users, cards });
+    const byId = new Map(users.map(u => [u._id, u]));
+    input.nameOf = id => (byId.get(id) && ((byId.get(id).profile || {}).fullname || byId.get(id).username)) || id;
+  }
+  return computeBoardReport(report.key, input);
+}
+
 export async function loadBoardChartData(boardId, chartKey, options = {}) {
   const board = await ReactiveCache.getBoard(boardId);
   if (!board) return null;
 
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
+  // The reports of 2026-11-20 (models/lib/boardReports.js): each loads only
+  // what it reads, and every one answers { bars, table }.
+  const { reportByKey, computeBoardReport } = require('/models/lib/boardReports');
+  const report = reportByKey(chartKey);
+  if (report) return loadBoardReport(board, lists, report, options, computeBoardReport);
   const { FLOW_CHART_KEYS, computeFlowAnalytics } = require('/models/lib/flowAnalytics');
   const advanced = FLOW_CHART_KEYS.includes(chartKey);
   const cardFields = {

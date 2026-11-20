@@ -98,6 +98,12 @@ function barsFromSeries(series, valueKey, labelKey) {
 
 function computeBarRows(chartKey, data) {
   if (!data) return [];
+  // The reports (models/lib/boardReports.js) answer their bars ready to draw.
+  if (Array.isArray(data.bars)) {
+    const { labelText } = require('/models/lib/boardReports');
+    return data.bars.map(bar => ({ label: labelText(bar.label, (key, fallback) => TAPi18n.__(key) || fallback),
+      value: Math.round((Number(bar.value) || 0) * 100) / 100 }));
+  }
   if (chartKey === 'burndown') return barsFromSeries(data.series, 'remaining', 'day');
   if (chartKey === 'burnup') return barsFromSeries(data.series, 'completed', 'day');
   if (chartKey === 'wipRun') return barsFromSeries(data.series, 'count', 'day');

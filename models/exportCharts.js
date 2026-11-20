@@ -8,6 +8,8 @@ const CHART_KEYS = new Set([
   'cycleTime', 'flowEfficiency', 'leadTime', 'throughputHistogram', 'wipRun',
   'gantt', 'time', 'pulse', 'scrumVelocity', 'scrumSprint', 'scrumDaily',
   'agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime',
+  // The reports of 2026-11-20 (models/lib/boardReports.js).
+  ...require('/models/lib/boardReports').REPORT_KEYS,
 ]);
 
 runOnServer(function() {

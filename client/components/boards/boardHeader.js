@@ -452,6 +452,55 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-size-cycle-time');
     Popup.back();
   },
+  // The reports of 2026-11-20 (models/lib/boardReports.js).
+  'click .js-open-created-resolved-view'() {
+    Utils.setBoardView('board-view-created-resolved');
+    Popup.back();
+  },
+  'click .js-open-net-flow-view'() {
+    Utils.setBoardView('board-view-net-flow');
+    Popup.back();
+  },
+  'click .js-open-time-in-list-view'() {
+    Utils.setBoardView('board-view-time-in-list');
+    Popup.back();
+  },
+  'click .js-open-average-age-view'() {
+    Utils.setBoardView('board-view-average-age');
+    Popup.back();
+  },
+  'click .js-open-throughput-run-view'() {
+    Utils.setBoardView('board-view-throughput-run');
+    Popup.back();
+  },
+  'click .js-open-due-date-performance-view'() {
+    Utils.setBoardView('board-view-due-date-performance');
+    Popup.back();
+  },
+  'click .js-open-release-burndown-view'() {
+    Utils.setBoardView('board-view-release-burndown');
+    Popup.back();
+  },
+  'click .js-open-epic-progress-view'() {
+    Utils.setBoardView('board-view-epic-progress');
+    Popup.back();
+  },
+  'click .js-open-workload-view'() {
+    Utils.setBoardView('board-view-workload');
+    Popup.back();
+  },
+  'click .js-open-distribution-view'() {
+    Utils.setBoardView('board-view-distribution');
+    Popup.back();
+  },
+  'click .js-open-dependency-map-view'() {
+    Utils.setBoardView('board-view-dependency-map');
+    Popup.back();
+  },
+  'click .js-open-activity-heatmap-view'() {
+    Utils.setBoardView('board-view-activity-heatmap');
+    Popup.back();
+  },
   'click .js-open-map-view'() {
     Utils.setBoardView('board-view-map');
     Popup.back();
@@ -976,6 +1025,18 @@ Template.boardViewMenu.helpers({
       'board-view-chat': 'board-view-chat',
       'board-view-version-control': 'board-view-version-control',
       'board-view-column-sets': 'board-view-column-sets',
+      'board-view-created-resolved': 'board-view-created-resolved',
+      'board-view-net-flow': 'board-view-net-flow',
+      'board-view-time-in-list': 'board-view-time-in-list',
+      'board-view-average-age': 'board-view-average-age',
+      'board-view-throughput-run': 'board-view-throughput-run',
+      'board-view-due-date-performance': 'board-view-due-date-performance',
+      'board-view-release-burndown': 'board-view-release-burndown',
+      'board-view-epic-progress': 'board-view-epic-progress',
+      'board-view-workload': 'board-view-workload',
+      'board-view-distribution': 'board-view-distribution',
+      'board-view-dependency-map': 'board-view-dependency-map',
+      'board-view-activity-heatmap': 'board-view-activity-heatmap',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

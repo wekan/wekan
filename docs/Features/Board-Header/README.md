@@ -82,3 +82,15 @@ Role permissions apply in every view; see
 | Chat | `board-view-chat` | `chatView` in `client/components/boards/chatView.jade` | [Chat-View](Board-Views/Chat-View.md) |
 | Version Control | `board-view-version-control` | `versionControlView` in `client/components/boards/versionControlView.jade` | [Version-Control-View](Board-Views/Version-Control-View.md) |
 | Column sets | `board-view-column-sets` | `columnSetsView` in `client/components/boards/columnSetsView.jade` | [Column-Sets](Board-Views/Column-Sets.md) |
+| Created vs. Resolved | `board-view-created-resolved` | `createdResolvedView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Net Flow | `board-view-net-flow` | `netFlowView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Time in List | `board-view-time-in-list` | `timeInListView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Average Age | `board-view-average-age` | `averageAgeView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Throughput Run Chart | `board-view-throughput-run` | `throughputRunView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Due Date Performance | `board-view-due-date-performance` | `dueDatePerformanceView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Release Burndown | `board-view-release-burndown` | `releaseBurndownView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Epic Progress | `board-view-epic-progress` | `epicProgressView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Workload | `board-view-workload` | `workloadView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Distribution | `board-view-distribution` | `distributionView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Dependency Map | `board-view-dependency-map` | `dependencyMapView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
+| Activity Heatmap | `board-view-activity-heatmap` | `activityHeatmapView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |

@@ -334,8 +334,9 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
   assert.deepStrictEqual(down, all, 'and back');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-swimlanes', 'up'), all, 'first item up');
   // #3256 appended the Map view; the Email (#794), Chat, Version Control and
-  // Column sets (#211) views followed it, so Column sets is the last row now.
-  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-column-sets', 'down'), all, 'last item down');
+  // Column sets (#211) views followed it, and the reports of 2026-11-20 after
+  // those, so the Activity Heatmap is the last row now.
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-activity-heatmap', 'down'), all, 'last item down');
   assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-chat', 'down'), all, 'Chat is no longer last');
   assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-map', 'down'), all, 'Map is no longer last');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-nope', 'up'), all, 'unknown');
@@ -438,6 +439,19 @@ const PRE_FEATURE_MENU = [
   'board-view-version-control',
   // #211: Column sets, appended after Version Control.
   'board-view-column-sets',
+  // The reports of 2026-11-20 (models/lib/boardReports.js), appended after Column sets.
+  'board-view-created-resolved',
+  'board-view-net-flow',
+  'board-view-time-in-list',
+  'board-view-average-age',
+  'board-view-throughput-run',
+  'board-view-due-date-performance',
+  'board-view-release-burndown',
+  'board-view-epic-progress',
+  'board-view-workload',
+  'board-view-distribution',
+  'board-view-dependency-map',
+  'board-view-activity-heatmap',
 ];
 const bvsSrc = read('models/lib/boardViewSettings.js');
 const PRE_FEATURE_ORDER = PRE_FEATURE_MENU.filter(k => k !== 'hr');
@@ -461,8 +475,8 @@ test('the default order is the pre-feature menu order (525bcab1b), literally', (
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
   // 34 before the Map view (#3256) was appended, 35 before Calendar Mode
   // (#3194), 36 before Email (#794) and Chat, 38 before Version Control,
-  // 39 before Column sets (#211).
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 40);
+  // 39 before Column sets (#211), 40 before the twelve reports of 2026-11-20.
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 52);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);

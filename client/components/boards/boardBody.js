@@ -964,6 +964,55 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-size-cycle-time';
   },
 
+  // The reports of 2026-11-20 (models/lib/boardReports.js).
+  isViewCreatedResolved() {
+    return Utils.boardView() === 'board-view-created-resolved';
+  },
+
+  isViewNetFlow() {
+    return Utils.boardView() === 'board-view-net-flow';
+  },
+
+  isViewTimeInList() {
+    return Utils.boardView() === 'board-view-time-in-list';
+  },
+
+  isViewAverageAge() {
+    return Utils.boardView() === 'board-view-average-age';
+  },
+
+  isViewThroughputRun() {
+    return Utils.boardView() === 'board-view-throughput-run';
+  },
+
+  isViewDueDatePerformance() {
+    return Utils.boardView() === 'board-view-due-date-performance';
+  },
+
+  isViewReleaseBurndown() {
+    return Utils.boardView() === 'board-view-release-burndown';
+  },
+
+  isViewEpicProgress() {
+    return Utils.boardView() === 'board-view-epic-progress';
+  },
+
+  isViewWorkload() {
+    return Utils.boardView() === 'board-view-workload';
+  },
+
+  isViewDistribution() {
+    return Utils.boardView() === 'board-view-distribution';
+  },
+
+  isViewDependencyMap() {
+    return Utils.boardView() === 'board-view-dependency-map';
+  },
+
+  isViewActivityHeatmap() {
+    return Utils.boardView() === 'board-view-activity-heatmap';
+  },
+
   isViewMap() {
     return Utils.boardView() === 'board-view-map';
   },
