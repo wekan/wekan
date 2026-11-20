@@ -93,6 +93,11 @@ What the current code does (`models/lib/leoOutline.js`):
 - The outline is the `<v t="gnx">` nodes under `<vnodes>`. A node's body is
   the `<t tx="gnx">` under `<tnodes>` with the same id. A node marked in Leo
   carries `a="M"`.
+- Leo stamps a node's id with the time it was made (`ekr.20260902080910.2`);
+  that time is the card's creation date. Leo writes it in local time with no
+  zone, so it is read as UTC.
+- Any other attribute of a `<v>` or `<t>` is a Leo plugin's own data (its
+  "unknown attributes", pickled Python), and is reported.
 - A level 3 node with children is a checklist named after it; all its
   descendants, at any depth, are the items. Level 3 nodes without children
   are the items of one checklist named after the card.
@@ -113,7 +118,8 @@ What the export writes (`models/lib/leoOutlineFormat.js`):
 - each list as a top-level node, including lists without cards;
 - each card as a child node, with its description as the body, marked when
   its list's name looks finished (contains "done", "closed", "complete",
-  "archiv" or "finished");
+  "archiv" or "finished"), and its creation time in its id
+  (`wekan.YYYYMMDDHHMMSS.n`);
 - each checklist as a child of the card, with its items as children, marked
   when finished.
 
@@ -128,6 +134,7 @@ Archived cards and archived lists are not exported.
 | Level 2 node: headline | Card title |
 | Level 2 node: body | Card description |
 | Level 2 node marked (`a="M"`) | Card with the label `done` |
+| Level 2 node: the time in its id | Creation date |
 | Level 3 node with children | Checklist, its descendants the items |
 | Level 3 node without children | Item of a checklist named after the card |
 | Marked item node | Finished checklist item |
@@ -137,10 +144,12 @@ Archived cards and archived lists are not exported.
 The import reports these on the loss report:
 
 - body text of a top-level (list) node: a WeKan list has no text field;
+- a Leo plugin's data on a node (an attribute Leo itself does not write);
 - nodes deeper than 64 levels.
 
-The Leo export writes only lists, cards, descriptions, the done mark and
-checklists. It does not write swimlanes, labels, dates, members, comments,
+The Leo export writes only lists, cards, descriptions, the done mark, the
+creation date and checklists. It does not write swimlanes, labels, other
+dates, members, comments,
 custom fields or attachments.
 
 ## REST API

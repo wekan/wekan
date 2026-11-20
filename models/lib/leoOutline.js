@@ -16,6 +16,11 @@
 //                              (marked = finished); a level 3 node with no
 //                              children is an item of a checklist named after
 //                              the card
+//   gnx "id.YYYYMMDDHHMMSS.n" -> the card's creation date: Leo stamps a node's
+//                              gnx with the time it was made (local time, read
+//                              as UTC, as Org does)
+// Other attributes of a <v> or <t> are Leo plugins' "unknown attributes"
+// (pickled Python) and are reported, not read.
 //
 // A .leo file has no board title of its own, so the export writes the board as
 // the lists at the top level and the import names the board from the file's
@@ -48,6 +53,20 @@ function findTag(root, name) {
   return null;
 }
 
+// <v> and <t> attributes Leo itself writes, in every file format it has had.
+const V_ATTRIBUTES = new Set(['t', 'a', 'tnodeList', 'expanded', 'marks', 'descendentTnodeUnknownAttributes',
+  'descendentVnodeUnknownAttributes']);
+const T_ATTRIBUTES = new Set(['tx']);
+
+// The time in a gnx (id.YYYYMMDDHHMMSS[.n]) as ISO, or undefined.
+export function gnxDate(gnx) {
+  const match = /^[^.]*\.(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?:\.\d+)?$/.exec(String(gnx || ''));
+  if (!match) return undefined;
+  const [, y, mo, d, h, mi, se] = match.map(Number);
+  const date = new Date(Date.UTC(y, mo - 1, d, h, mi, se));
+  return Number.isNaN(date.getTime()) || date.getUTCMonth() !== mo - 1 || date.getUTCDate() !== d ? undefined : date.toISOString();
+}
+
 export function parseLeo(text) {
   const source = String(text == null ? '' : text);
   if (source.length > MAX_LEO_LENGTH) throw new Error('Leo outline is too large');
@@ -59,19 +78,25 @@ export function parseLeo(text) {
   const vnodes = leoFile && child(leoFile, 'vnodes');
   if (!vnodes) throw new Error('Not a Leo outline: no <leo_file><vnodes>');
 
+  const unsupported = [];
+  // Leo's own attributes; any other is a plugin's pickled data.
+  const reportPlugin = (attribs, known, at) => {
+    const extra = Object.keys(attribs || {}).filter(name => !known.has(name));
+    if (extra.length) unsupported.push({ path: at, reason: `Leo plugin data (${extra.join(', ')}) is not imported` });
+  };
   const bodies = new Map();
   elements(child(leoFile, 'tnodes')).filter(t => t.name === 't')
-    .forEach(t => bodies.set(t.attribs.tx, textOf(t)));
+    .forEach(t => { bodies.set(t.attribs.tx, textOf(t)); reportPlugin(t.attribs, T_ATTRIBUTES, t.attribs.tx || 't'); });
   // Clones: the first occurrence of a gnx carries its children.
   const childrenOf = new Map();
   const headlines = new Map();
-  const unsupported = [];
 
   let count = 0;
   const read = (v, depth, ancestors) => {
     count += 1;
     if (count > MAX_LEO_NODES) throw new Error('Leo outline has too many nodes');
     const gnx = v.attribs.t || '';
+    reportPlugin(v.attribs, V_ATTRIBUTES, gnx || 'v');
     let kids = elements(v).filter(c => c.name === 'v');
     if (kids.length && gnx && !childrenOf.has(gnx)) childrenOf.set(gnx, kids);
     // A clone of its own ancestor would loop; Leo forbids it, a crafted file may not.
@@ -81,6 +106,7 @@ export function parseLeo(text) {
     if (vh && gnx && !headlines.has(gnx)) headlines.set(gnx, { headline: textOf(vh).trim(), marked: /M/.test(v.attribs.a || '') });
     const first = !vh && headlines.get(gnx);
     const node = {
+      created: gnxDate(gnx),
       headline: first ? first.headline : textOf(vh).trim(),
       body: bodies.get(gnx) || '',
       marked: first ? first.marked : /M/.test(v.attribs.a || ''),
@@ -115,6 +141,7 @@ export function parseLeo(text) {
         column_name: listNode.headline || 'Imported',
         swimlane_name: 'Default',
         tags: cardNode.marked ? ['done'] : [],
+        ...(cardNode.created ? { date_creation: cardNode.created } : {}),
         ...(checklists.length ? { checklists } : {}),
       });
     });

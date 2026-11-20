@@ -136,7 +136,8 @@ test('every outline: the pages together are the whole file, list headings and em
   // Leo: the outline first, each card's text after it under the card's node
   // number - the same number whichever page the card is on.
   const leo = fmt.leo({ board, lists: outlineLists, items: outlineItems });
-  const gnx = /<v t="(wekan\.1\.\d+)"><vh>Second in To Do<\/vh>/.exec(leo)[1];
+  // wekan.<creation time>.<n> for a card with a creation date, wekan.1.<n> otherwise.
+  const gnx = /<v t="(wekan\.\d+\.\d+)"><vh>Second in To Do<\/vh>/.exec(leo)[1];
   assert.ok(leo.includes(`<t tx="${gnx}">Line\nbreak, comma</t>`));
   assert.ok(leo.indexOf('</vnodes>') < leo.indexOf('<t tx='), 'the texts come after the whole outline');
   const org = fmt.orgmode({ board, lists: outlineLists, items: outlineItems });

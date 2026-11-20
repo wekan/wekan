@@ -143,6 +143,31 @@ Body &amp; more</t>
     assert.doesNotMatch(read('models/lib/externalParsers.js'), /leoOutline/);
   });
 
+  await test('a gnx stamp is the creation date, both ways; plugin data is reported', async () => {
+    const { gnxDate } = await import('../models/lib/leoOutline.js');
+    assert.equal(gnxDate('ekr.20031218072017.2406'), '2003-12-18T07:20:17.000Z');
+    assert.equal(gnxDate('ekr.20031218072017'), '2003-12-18T07:20:17.000Z');
+    for (const none of ['wekan.1.3', 'ekr.20031318072017.1', 'ekr.20030230072017.1', '', undefined, 'x.y.z']) assert.equal(gnxDate(none), undefined, String(none));
+    const board = parseLeo(`<?xml version="1.0"?><leo_file><vnodes>
+<v t="ekr.20260901120000.1"><vh>L</vh>
+<v t="ekr.20260902080910.2" icons="7d71002e"><vh>Card</vh></v>
+</v></vnodes><tnodes><t tx="ekr.20260902080910.2" str_leo_pos="5">body</t></tnodes></leo_file>`);
+    assert.equal(board.tasks[0].date_creation, '2026-09-02T08:09:10.000Z');
+    assert.equal(board.tasks[0].description, 'body');
+    const reasons = board.unsupported.map(u => u.reason);
+    assert.ok(reasons.includes('Leo plugin data (icons) is not imported'), reasons.join('|'));
+    assert.ok(reasons.includes('Leo plugin data (str_leo_pos) is not imported'));
+    // Negative: Leo's own attributes are not plugin data.
+    const own = parseLeo('<leo_file><vnodes><v t="a.1" a="ME" expanded="x"><vh>L</vh></v></vnodes></leo_file>');
+    assert.deepEqual(own.unsupported, []);
+    const leo = formatLeo({ board: { title: 'B' }, lists: [{ title: 'L' }], items: [
+      { cardId: 'c', listTitle: 'L', title: 'Card', createdAt: '2026-09-02T08:09:10.000Z' },
+      { cardId: 'd', listTitle: 'L', title: 'Undated' }] });
+    assert.match(leo, /<v t="wekan\.20260902080910\.\d+"><vh>Card<\/vh>/);
+    assert.match(leo, /<v t="wekan\.1\.\d+"><vh>Undated<\/vh>/);
+    assert.deepEqual(parseLeo(leo).tasks.map(t => t.date_creation), ['2026-09-02T08:09:10.000Z', undefined]);
+  });
+
   console.log(`\n${passed} tests passed`);
 }
 

@@ -25,9 +25,15 @@ export function formatLeo(collected) {
   const outlineCards = collected.page ? all : ordered;
   let next = 0;
   const gnxOf = new Map();
+  // A card's gnx carries its creation time, as Leo's own do
+  // (id.YYYYMMDDHHMMSS.n); the number keeps each one unique.
+  const stampOf = card => {
+    const date = card && card.createdAt ? new Date(card.createdAt) : null;
+    return date && !Number.isNaN(date.getTime()) ? date.toISOString().replace(/\D/g, '').slice(0, 14) : '1';
+  };
   const node = (headline, marked, kids, indent, card) => {
     next += 1;
-    const gnx = `wekan.1.${next}`;
+    const gnx = `wekan.${stampOf(card)}.${next}`;
     if (card) gnxOf.set(markKey(card), gnx);
     const open = `${indent}<v t="${gnx}"${marked ? ' a="M"' : ''}><vh>${escapeXml(headline)}</vh>`;
     return kids.length ? `${open}\n${kids.map(k => k(`${indent}  `)).join('\n')}\n${indent}</v>` : `${open}</v>`;
