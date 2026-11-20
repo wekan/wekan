@@ -316,6 +316,18 @@ page; each page then writes its own cards' records.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f293ae4076092a387505b1909053cd66a62441c8">Trello, Jira, Asana, Zenkit, OpenProject, GitHub, Gitea, Forgejo and GitLab exports are written a page at a time</a>. Thanks to xet7.</summary>
+
+Each is one JSON document whose cards are one array: the first page writes the
+document around it, and every page its own cards into it. Every part passes the
+export boundary and the admin-only field redaction, as a whole document does.
+Jira's issue keys and OpenProject's numbers are counted over the whole board,
+so a card refers to one on another page. The import/export audit (173) and the
+admin-only custom field specs (12) pass.
+
+</details>
+
 **Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
 it.
 
