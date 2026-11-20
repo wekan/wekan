@@ -134,3 +134,15 @@ test('a board exported as an .mbox reads back as the same cards and comments', a
   assert.strictEqual(back.tasks[1].email.from.address, 'matti@example.com');
   assert.deepStrictEqual(back.tasks[1].email.to, ['anna@example.com']);
 });
+
+test('a card\'s labels go out as X-Gmail-Labels and come back as its labels', async () => {
+  const { formatMbox } = await import('../models/lib/mailFormat.js');
+  const text = formatMbox({ items: [{ cardId: 'c1', title: 'Labelled', description: 'Body', creator: 'ann',
+    labels: ['Urgent', 'Has, comma'], comments: [{ text: 'Reply', author: 'bob' }] }] });
+  assert.match(text, /^X-Gmail-Labels: Urgent,Has comma$/m);
+  assert.strictEqual(text.match(/X-Gmail-Labels/g).length, 1, 'negative: a reply carries no labels');
+  const [decoded, reply] = await decodeMail(text);
+  assert.deepStrictEqual(decoded.labels, ['Urgent', 'Has comma']);
+  assert.deepStrictEqual(reply.labels, []);
+  assert.doesNotMatch(formatMbox({ items: [{ cardId: 'c2', title: 'Plain', labels: [] }] }), /X-Gmail-Labels/, 'negative: no labels, no header');
+});

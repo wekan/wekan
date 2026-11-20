@@ -33,49 +33,50 @@ const ROUND_TRIPS = {
 // 2026-11-20. A format that keeps less fails the test; one that keeps more
 // fails it too, so its line here is raised with it. What a format has no
 // place for (todo.txt has no description, an outline no comments) stays out.
-// 'dependency': Alpha Card blocks Beta Card.
+// 'dependency': Alpha Card blocks Beta Card; 'label' a board label on it;
+// 'due' its due day.
 const KEEPS = {
-  trello: ['description', 'checklist', 'comment'],
-  jira: ['description', 'checklist', 'comment', 'dependency'],
-  kanboard: ['description', 'checklist', 'comment', 'dependency'],
-  deck: ['description', 'comment'],
-  openproject: ['description', 'comment'],
-  github: ['description', 'comment'],
-  gitlab: ['description', 'comment'],
-  gitea: ['description', 'comment'],
-  forgejo: ['description', 'comment'],
-  asana: ['description', 'checklist', 'comment'],
-  zenkit: ['description', 'checklist', 'comment'],
-  kanri: ['description', 'checklist'],
-  tasksorg: ['description', 'comment'],
-  taiga: ['description', 'comment'],
+  trello: ['description', 'checklist', 'comment', 'label', 'due'],
+  jira: ['description', 'checklist', 'comment', 'dependency', 'label', 'due'],
+  kanboard: ['description', 'checklist', 'comment', 'dependency', 'label', 'due'],
+  deck: ['description', 'comment', 'label', 'due'],
+  openproject: ['description', 'comment', 'due'],
+  github: ['description', 'comment', 'label', 'due'],
+  gitlab: ['description', 'comment', 'label', 'due'],
+  gitea: ['description', 'comment', 'label', 'due'],
+  forgejo: ['description', 'comment', 'label', 'due'],
+  asana: ['description', 'checklist', 'comment', 'label', 'due'],
+  zenkit: ['description', 'checklist', 'comment', 'label', 'due'],
+  kanri: ['description', 'checklist', 'label', 'due'],
+  tasksorg: ['description', 'comment', 'label', 'due'],
+  taiga: ['description', 'comment', 'label', 'due'],
   markdown: ['description'],
   leo: ['description', 'checklist'],
   opml: ['description', 'checklist'],
-  orgmode: ['description', 'checklist'],
-  todotxt: [],
-  taskwarrior: ['description', 'comment', 'dependency'],
-  focalboard: ['description', 'checklist', 'comment'],
-  todoist: ['description', 'comment'],
-  meistertask: ['description'],
-  obsidian: ['description', 'checklist'],
-  linear: ['description'],
-  ticktick: ['description', 'checklist'],
-  clickup: ['description', 'checklist'],
+  orgmode: ['description', 'checklist', 'label', 'due'],
+  todotxt: ['label', 'due'],
+  taskwarrior: ['description', 'comment', 'dependency', 'label', 'due'],
+  focalboard: ['description', 'checklist', 'comment', 'label', 'due'],
+  todoist: ['description', 'comment', 'label', 'due'],
+  meistertask: ['description', 'label', 'due'],
+  obsidian: ['description', 'checklist', 'label', 'due'],
+  linear: ['description', 'label', 'due'],
+  ticktick: ['description', 'checklist', 'label', 'due'],
+  clickup: ['description', 'checklist', 'label', 'due'],
   nullboard: ['description'],
-  pivotal: ['description', 'checklist', 'comment'],
-  redmine: ['description', 'dependency'],
-  superproductivity: ['description'],
-  quire: ['description'],
-  notion: ['description'],
-  mbox: ['description', 'comment'],
-  enex: ['description', 'checklist'],
+  pivotal: ['description', 'checklist', 'comment', 'label'],
+  redmine: ['description', 'dependency', 'label', 'due'],
+  superproductivity: ['description', 'label', 'due'],
+  quire: ['description', 'label', 'due'],
+  notion: ['description', 'label', 'due'],
+  mbox: ['description', 'comment', 'label'],
+  enex: ['description', 'checklist', 'label', 'due'],
   mattermost: ['comment'],
-  planner: ['description', 'checklist'],
-  monday: ['description'],
-  wrike: ['description'],
-  teamwork: ['description'],
-  businessmap: ['description', 'comment'],
+  planner: ['description', 'checklist', 'label', 'due'],
+  monday: ['description', 'label', 'due'],
+  wrike: ['description', 'due'],
+  teamwork: ['description', 'label', 'due'],
+  businessmap: ['description', 'comment', 'label', 'due'],
 };
 const DESCRIPTION = 'Round trip description';
 const STEP = 'Round trip step';
@@ -85,7 +86,11 @@ test('every tool WeKan exports to and imports from: the card comes back, and wha
   test.setTimeout(600000);
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const beta = db.findOne('cards', { boardId: board.boardId, title: 'Beta Card' });
-  db.updateOne('cards', { _id: card._id }, { $set: { description: DESCRIPTION, cardDependencies: [{ cardId: beta._id, type: 'blocks' }] } });
+  // A label of the board, and a due date.
+  const labelId = `rtlabel${db.uniqueSuffix()}`;
+  db.updateOne('boards', { _id: board.boardId }, { $push: { labels: { _id: labelId, name: 'Roundtriplabel', color: 'green' } } });
+  db.updateOne('cards', { _id: card._id }, { $set: { description: DESCRIPTION, cardDependencies: [{ cardId: beta._id, type: 'blocks' }],
+    labelIds: [labelId], dueAt: new Date('2026-12-24T12:00:00Z') } });
   const checklistId = `rtcl${db.uniqueSuffix()}`;
   db.insertOne('checklists', { _id: checklistId, cardId: card._id, boardId: board.boardId, title: 'Round trip list', sort: 0, createdAt: new Date() });
   db.insertOne('checklistItems', { _id: `${checklistId}i`, checklistId, cardId: card._id, boardId: board.boardId, title: STEP, sort: 0, isFinished: true, createdAt: new Date() });
@@ -117,6 +122,9 @@ test('every tool WeKan exports to and imports from: the card comes back, and wha
         report[format].checklist = db.find('checklistItems', { cardId: back._id }).some(item => item.title === STEP);
         report[format].comment = db.find('card_comments', { cardId: back._id }).some(c => String(c.text || '').includes(COMMENT));
         const betaBack = cards.find(c => String(c.title || '').includes('Beta Card'));
+        const backBoard = db.findOne('boards', { _id: boardId }) || {};
+        report[format].label = (back.labelIds || []).some(id => (backBoard.labels || []).some(l => l._id === id && /roundtriplabel/i.test(l.name || '')));
+        report[format].due = Boolean(back.dueAt) && new Date(back.dueAt).toISOString().slice(0, 10) === '2026-12-24';
         // Stored on either card: "Alpha blocks Beta" is also "Beta is blocked by Alpha".
         report[format].dependency = Boolean(betaBack && ((back.cardDependencies || []).some(dep => dep.cardId === betaBack._id)
           || (betaBack.cardDependencies || []).some(dep => dep.cardId === back._id)));
@@ -130,7 +138,7 @@ test('every tool WeKan exports to and imports from: the card comes back, and wha
   const lost = Object.entries(report).filter(([, r]) => !r.title).map(([format, r]) => `${format}: ${r.error || `status ${r.status}, no card`}`);
   expect(lost, 'every round trip brings the card back').toEqual([]);
   const differ = Object.entries(report).filter(([, r]) => r.title).map(([format, r]) => {
-    const keeps = ['description', 'checklist', 'comment', 'dependency'].filter(name => r[name]);
+    const keeps = ['description', 'checklist', 'comment', 'dependency', 'label', 'due'].filter(name => r[name]);
     return JSON.stringify(keeps) === JSON.stringify(KEEPS[format]) ? null : `${format}: keeps ${keeps.join(', ') || 'nothing'} - KEEPS says ${KEEPS[format].join(', ') || 'nothing'}`;
   }).filter(Boolean);
   expect(differ, 'each tool keeps what KEEPS says, no less and no more').toEqual([]);

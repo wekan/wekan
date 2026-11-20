@@ -157,7 +157,7 @@ const userAddress = name => `${String(name || 'wekan').replace(SAFE_LOCAL, '-') 
 const body = text => String(text || '').replace(/\r\n|\r/g, '\n').split('\n')
   .map(line => (/^>*From /.test(line) ? `>${line}` : line)).join('\n');
 
-function message({ from, to, subject, date, messageId, inReplyTo, text }) {
+function message({ from, to, subject, date, messageId, inReplyTo, text, labels }) {
   const headers = [
     `From: ${from}`,
     ...(to ? [`To: ${to}`] : []),
@@ -165,6 +165,9 @@ function message({ from, to, subject, date, messageId, inReplyTo, text }) {
     `Date: ${rfc5322Date(date)}`,
     `Message-ID: ${messageId}`,
     ...(inReplyTo ? [`In-Reply-To: ${inReplyTo}`, `References: ${inReplyTo}`] : []),
+    // The card's labels as Gmail's, which the mail import reads back
+    // (server/lib/mailImport.js): comma separated, so a comma in a name is a space.
+    ...(labels && labels.length ? [`X-Gmail-Labels: ${headerText(labels.map(label => String(label).replace(/[,\s]+/g, ' ').trim()).filter(Boolean).join(','))}`] : []),
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
@@ -193,6 +196,7 @@ export function formatMbox({ items = [] } = {}) {
       date,
       messageId,
       text: item.description,
+      labels: Array.isArray(item.labels) ? item.labels : [],
     }));
     (item.comments || []).forEach((comment, index) => {
       out.push(message({
