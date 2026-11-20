@@ -160,6 +160,17 @@ columns are not.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95b88095c45bf582a2fdc3056cf5030f0b61e57a">OPML keeps created, category, links and an outliner's own attributes</a>. Thanks to xet7.</summary>
+
+A card outline's created date, its categories, a link and any attribute of
+the outliner's own (OmniOutliner's columns) were dropped or only reported.
+Now they are the creation date, labels, a link in the description and custom
+fields; the export writes created and the labels as category. An attribute of
+a list or a checklist item is reported.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
