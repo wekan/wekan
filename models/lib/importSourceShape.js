@@ -45,7 +45,8 @@ export function validateImportSourceShape(source, value) {
     case 'mail': valid = (typeof value === 'string' && value.trim().length > 0) || typeof value?.mboxFile === 'string'; break;
     case 'whatsapp': valid = typeof value === 'string' && value.trim().length > 0; break;
     case 'ical': valid = typeof value === 'string' && /BEGIN:VCALENDAR/i.test(value); break;
-    case 'mattermost': valid = typeof value === 'string' && /"type"\s*:\s*"version"/.test(value); break;
+    case 'mattermost': valid = (typeof value === 'string' && /"type"\s*:\s*"version"/.test(value))
+      || (Array.isArray(value?.jsonLines) && value.jsonLines.some(line => line && line.type === 'version')); break;
     case 'evernote': valid = typeof value === 'string' && /<en-export[\s>]/.test(value); break;
     case 'telegram': valid = arrayAt(value, 'messages') || arrayAt(value?.chats, 'list'); break;
     case 'discord': valid = (Array.isArray(value) ? value : [value]).every(e => e && e.channel && Array.isArray(e.messages)); break;

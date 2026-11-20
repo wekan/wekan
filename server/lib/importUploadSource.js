@@ -43,11 +43,39 @@ async function uploadedImportValue(uploadId, userId, source, { setting = {}, spe
   if (source === 'plane' && /\.xlsx$/i.test(upload.name || '')) {
     return { xlsxBase64: (await fs.promises.readFile(file)).toString('base64') };
   }
-  const text = (await fs.promises.readFile(file, 'utf8')).replace(/^\uFEFF/, '');
+  // JSON is built from the file a chunk at a time (server/lib/streamJson.js):
+  // a JavaScript string cannot exceed about 512 MB, so a larger export could
+  // not be read as text at all.
   if (spec && spec.send === 'json') {
-    try { return JSON.parse(text); } catch (e) { throw new UploadError('invalid-import-format', 'The file is not JSON'); }
+    try {
+      return await require('./streamJson').parseJsonStream(fs.createReadStream(file, { encoding: 'utf8' }));
+    } catch (e) {
+      throw new UploadError('invalid-import-format', `The file is not JSON: ${e.message}`);
+    }
   }
-  return text;
+  // A Mattermost bulk export is JSON Lines: read a line at a time, each line
+  // parsed on its own.
+  if (source === 'mattermost') {
+    const readline = require('readline');
+    const lines = [];
+    let n = 0;
+    for await (const line of readline.createInterface({ input: fs.createReadStream(file, { encoding: 'utf8' }), crlfDelay: Infinity })) {
+      n += 1;
+      if (!line.trim()) continue;
+      try { lines.push(JSON.parse(n === 1 ? line.replace(/^\uFEFF/, '') : line)); } catch (e) {
+        throw new UploadError('invalid-import-format', `Line ${n} is not JSON`);
+      }
+    }
+    return { jsonLines: lines };
+  }
+  // The other text formats are parsed as one text; past what one string can
+  // hold that is refused with its reason rather than failing as out of memory.
+  const { size } = await fs.promises.stat(file);
+  if (size > MAX_TEXT_BYTES) {
+    throw new UploadError('import-too-large', `A ${source} file is read as one text, at most ${MAX_TEXT_BYTES} bytes`);
+  }
+  return (await fs.promises.readFile(file, 'utf8')).replace(/^\uFEFF/, '');
 }
+const MAX_TEXT_BYTES = 256 * 1024 * 1024;
 
-module.exports = { uploadedImportValue, UploadError };
+module.exports = { uploadedImportValue, UploadError, MAX_TEXT_BYTES };

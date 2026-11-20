@@ -167,3 +167,22 @@ test('WeKan\'s own .zip and Trello\'s package use the same upload, limit and dis
   assert.doesNotMatch(trello, /const MAX_ZIP_BYTES = 200/, 'no fixed 200 MB cap');
   assert.match(trello, /await removeUpload\(upload\.uploadId\)/, 'the upload is removed once imported');
 });
+
+test('a Mattermost export on disk is read a line at a time; a text past one string is refused', async () => {
+  const { uploadedImportValue, MAX_TEXT_BYTES } = require('../server/lib/importUploadSource');
+  const dir = path.join(root, 'lines');
+  const jsonl = '{"type":"version","version":1}\n\n{"type":"team","team":{"name":"t"}}\n';
+  const id = (await upload.receiveUpload(request([Buffer.from(jsonl)], { length: jsonl.length }),
+    { userId: 'u1', source: 'mattermost', dir, room: async () => 1e9 })).uploadId;
+  const value = await uploadedImportValue(id, 'u1', 'mattermost', { spec: { send: 'text' } });
+  assert.deepStrictEqual(value, { jsonLines: [{ type: 'version', version: 1 }, { type: 'team', team: { name: 't' } }] });
+  const { parseMattermostBulk } = await import('../models/lib/chatExportFormats.js');
+  assert.throws(() => parseMattermostBulk({ jsonLines: [{ type: 'team', team: {} }] }), /no version line/);
+  await upload.removeUpload(id);
+  const bad = '{"type":"version"}\nnot json\n';
+  const badId = (await upload.receiveUpload(request([Buffer.from(bad)], { length: bad.length }),
+    { userId: 'u1', source: 'mattermost', dir, room: async () => 1e9 })).uploadId;
+  await assert.rejects(uploadedImportValue(badId, 'u1', 'mattermost', { spec: { send: 'text' } }), /Line 2 is not JSON/);
+  await upload.removeUpload(badId);
+  assert.ok(MAX_TEXT_BYTES <= 256 * 1024 * 1024, 'under what one JavaScript string can hold');
+});

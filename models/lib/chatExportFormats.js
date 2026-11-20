@@ -148,8 +148,10 @@ function jsonLines(text) {
   });
 }
 
+// text: the JSONL export, or { jsonLines } - its lines already parsed one at a
+// time from a file on disk (server/lib/importUploadSource.js).
 export function parseMattermostBulk(text) {
-  const lines = jsonLines(text);
+  const lines = text && Array.isArray(text.jsonLines) ? text.jsonLines : jsonLines(text);
   if (!lines.some(l => l && l.type === 'version')) throw new Error('Not a Mattermost bulk export: no version line');
   const teams = new Map();
   const chats = new Map();

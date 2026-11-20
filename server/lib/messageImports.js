@@ -33,7 +33,9 @@ export async function parseMessageImport(source, value) {
       return parseSlackExport(await require('./chatArchives').readSlackExport(value));
     case 'googletakeout':
       return parseGoogleTakeout(await require('./chatArchives').readGoogleTakeout(value));
-    case 'ical': case 'mattermost': case 'whatsapp':
+    case 'mattermost':
+      return EXTERNAL_PARSERS.mattermost(value && Array.isArray(value.jsonLines) ? value : text(value));
+    case 'ical': case 'whatsapp':
       return EXTERNAL_PARSERS[source](text(value));
     case 'telegram': case 'discord':
       return EXTERNAL_PARSERS[source](value);

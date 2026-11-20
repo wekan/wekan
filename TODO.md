@@ -29,10 +29,13 @@ limit (none: the free disk space) applied; zips are opened from the disk and
 mailboxes read a message at a time; WeKan's own .zip and Trello's package use
 the same upload, limit and disk check. This is the rest.
 
-- JSON and text formats are still read whole into memory once uploaded:
-  read them in bounded pieces too (a streaming JSON parser for the large JSON
-  exports - Jira, Taiga, Telegram - and line by line for the CSV and line
-  formats).
+- Uploaded JSON is built from the file a chunk at a time
+  (`server/lib/streamJson.js`) and a Mattermost export read a line at a time;
+  the other text formats are read as one text up to 256 MB. Still read in the
+  page and sent whole: Jira (its own creator asks about the people from the
+  document in the page) and CSV / TSV (its columns are mapped in the page).
+  Move those to the upload too, with their mapping steps asked from the
+  server.
 - Export: WeKan's own JSON export is written to the response as it is
   collected (`buildStream`), and the .mbox and .enex exports a page of 500
   cards at a time (`streamExternalExport`); the other tools' formats are still
