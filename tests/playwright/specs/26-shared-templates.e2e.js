@@ -27,6 +27,13 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 test.describe('Admin – shared templates', () => {
   test.use({ storageState: undefined });
+  // The scopes are one instance setting (Settings.sharedTemplatesScopes), not
+  // each browser's storage: tests that tick them must not run at the same time.
+  test.describe.configure({ mode: 'serial' });
+  // A template link inside the group of that name, so a scope another test left
+  // on - listing the same board in its own group - cannot make it ambiguous.
+  const inGroup = (page, groupName, title) => page.locator('.shared-templates-group', {
+    has: page.locator('h5', { hasText: groupName }) }).locator('a.js-shared-template-link', { hasText: title });
 
   // Shared scope/group identifiers for the seeded users. Every value carries a
   // random per-run token: the parallel run launches Chromium/Firefox/WebKit as
@@ -75,12 +82,18 @@ test.describe('Admin – shared templates', () => {
     db.cleanup({ userIds: [userA.id, userB.id, userEmpty.id] });
   });
 
-  async function openTemplatesTab(page) {
+  async function openTemplatesTab(page, { reset = true } = {}) {
     await navigateInApp(page, '/admin/people/shared-templates');
     // The shared left menu addresses an entry by data-id, not by a per-page class
     // (docs/Features/All-Boards/Left-Menu.md).
     // templatesGeneral renders its three scope checkboxes.
     await page.locator('#templates-setting').waitFor({ timeout: 15_000 });
+    // The server sees the beforeEach reset of the setting at its next poll of
+    // the database, so wait for the page to show it before ticking anything:
+    // a tick on the previous test's state would add to it.
+    for (const scope of reset ? ['organizations', 'teams', 'domains'] : []) {
+      await expect(scopeCheckbox(page, scope)).not.toHaveClass(/is-checked/, { timeout: 30_000 });
+    }
   }
 
   function scopeCheckbox(page, scope) {
@@ -115,15 +128,15 @@ test.describe('Admin – shared templates', () => {
     await expect(page.locator('.shared-templates-group h5', { hasText: ORG.orgDisplayName })).toBeVisible();
 
     // Non-empty users' template boards appear by name.
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.beta })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.gamma })).toBeVisible();
+    await expect(inGroup(page, ORG.orgDisplayName, TPL.alpha)).toBeVisible();
+    await expect(inGroup(page, ORG.orgDisplayName, TPL.beta)).toBeVisible();
+    await expect(inGroup(page, ORG.orgDisplayName, TPL.gamma)).toBeVisible();
 
     // The empty user must NOT be listed.
     await expect(page.locator('.shared-templates-user', { hasText: userEmpty.username })).toHaveCount(0);
 
     // Links point at the template boards.
-    const href = await page.locator('a.js-shared-template-link', { hasText: TPL.alpha }).getAttribute('href');
+    const href = await inGroup(page, ORG.orgDisplayName, TPL.alpha).getAttribute('href');
     expect(href).toMatch(/^\/b\//);
 
     // Screenshot for visual verification of grouped shared templates.
@@ -138,8 +151,8 @@ test.describe('Admin – shared templates', () => {
     await expect(scopeCheckbox(page, 'teams')).toHaveClass(/is-checked/);
 
     await expect(page.locator('.shared-templates-group h5', { hasText: TEAM.teamDisplayName })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.beta })).toBeVisible();
+    await expect(inGroup(page, TEAM.teamDisplayName, TPL.alpha)).toBeVisible();
+    await expect(inGroup(page, TEAM.teamDisplayName, TPL.beta)).toBeVisible();
   });
 
   test('checking Domains groups by email domain', async ({ page, adminUser }) => {
@@ -150,8 +163,8 @@ test.describe('Admin – shared templates', () => {
     await expect(scopeCheckbox(page, 'domains')).toHaveClass(/is-checked/);
 
     await expect(page.locator('.shared-templates-group h5', { hasText: DOMAIN })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.gamma })).toBeVisible();
+    await expect(inGroup(page, DOMAIN, TPL.alpha)).toBeVisible();
+    await expect(inGroup(page, DOMAIN, TPL.gamma)).toBeVisible();
   });
 
   test('unchecking a scope hides its results again', async ({ page, adminUser }) => {
@@ -160,7 +173,7 @@ test.describe('Admin – shared templates', () => {
 
     const orgToggle = page.locator('a.js-toggle-template-scope[data-scope="organizations"]');
     await orgToggle.click();
-    await expect(page.locator('a.js-shared-template-link', { hasText: TPL.alpha })).toBeVisible();
+    await expect(inGroup(page, ORG.orgDisplayName, TPL.alpha)).toBeVisible();
 
     // Uncheck — results disappear, the hint returns.
     await orgToggle.click();
@@ -177,7 +190,7 @@ test.describe('Admin – shared templates', () => {
     await expect(scopeCheckbox(page, 'teams')).toHaveClass(/is-checked/);
 
     // Reload and reopen the tab: the selection must still be checked and applied.
-    await openTemplatesTab(page);
+    await openTemplatesTab(page, { reset: false });
     await expect(scopeCheckbox(page, 'teams')).toHaveClass(/is-checked/);
     await expect(
       page.locator('.shared-templates-group h5', { hasText: TEAM.teamDisplayName }),
