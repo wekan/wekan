@@ -213,6 +213,16 @@ not in the file stays a comment marked "↳".
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/28891103f6bec2d51e1dd1531103235d95a1a70c">Kanboard keeps its task recurrence, estimate, score, reference and external links, both ways</a>. Thanks to xet7.</summary>
+
+WeKan's card recurrence was modelled on Kanboard's, and the import ignored it.
+A repeat every 1 day, 7 days or 1 month now makes the card repeat, the
+estimate, score and reference are custom fields, and external links are lines
+of the description; the export writes them back.
+
+</details>
+
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
