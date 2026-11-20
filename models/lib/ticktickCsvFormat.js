@@ -73,6 +73,10 @@ export function parseTickTickCsv(text) {
   const swimlanes = [];
   const tasks = [];
   const unsupported = [];
+  // TickTick writes these columns (and taskId, parentId, projectKind); one
+  // more is reported, not dropped.
+  const other = header.filter(name => name && !TICKTICK_COLUMNS.includes(name) && !['taskId', 'parentId', 'projectKind'].includes(name));
+  if (other.length) unsupported.push({ path: `/row/${headerAt + 1}`, reason: `column(s) TickTick does not write are not imported: ${other.join(', ')}` });
   rows.slice(headerAt + 1).forEach((cells, index) => {
     const at = `/row/${headerAt + index + 2}`;
     const title = get(cells, 'Title');

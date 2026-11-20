@@ -121,6 +121,13 @@ async function main() {
     assert.match(en['import-board-instruction-todoist'], /Manage data > Export as CSV/);
   });
 
+  test('negative: a column Todoist does not write is reported, not dropped', () => {
+    const { unsupported } = parseTodoistCsv('TYPE,CONTENT,PRIORITY,Story Points\r\ntask,A,4,5\r\n');
+    assert.ok(unsupported.some(u => /column\(s\) Todoist does not write are not imported: STORY POINTS/.test(u.reason)));
+    assert.ok(!parseTodoistCsv(formatTodoistCsv({ items: [{ cardId: 'c', title: 'A', listTitle: 'L', labels: [] }] }))
+      .unsupported.some(u => /does not write/.test(u.reason)), 'its own export has no other column');
+  });
+
   console.log(`\ntodoistCsv: ${passed} tests passed`);
 }
 

@@ -129,6 +129,14 @@ async function main() {
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-ticktick'], /Backup & Import/);
   });
 
+  // Negative: a column TickTick does not write is reported, not dropped.
+  {
+    const board = parseTickTickCsv(backup('7.1', [...HEADER_71, 'Story Points'], [{ 'List Name': 'L', Title: 'T', 'Story Points': '5' }]));
+    assert.ok(board.unsupported.some(u => /column\(s\) TickTick does not write are not imported: Story Points/.test(u.reason)));
+    assert.ok(!parseTickTickCsv(backup('7.1', HEADER_71, [{ 'List Name': 'L', Title: 'T' }])).unsupported.some(u => /does not write/.test(u.reason)));
+    passed += 1;
+  }
+
   console.log(`\nticktickCsv: ${passed} checks passed`);
 }
 

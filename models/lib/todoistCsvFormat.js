@@ -98,6 +98,9 @@ export function parseTodoistCsv(text) {
   const unsupported = [];
   let list = null;
   let card = null;
+  // Todoist writes these columns and no others; one more is reported, not dropped.
+  const other = header.filter(name => name && !TODOIST_COLUMNS.includes(name));
+  if (other.length) unsupported.push({ path: '/header', reason: `column(s) Todoist does not write are not imported: ${other.join(', ')}` });
   rows.slice(1).forEach((cells, index) => {
     const at = `/row/${index + 2}`;
     const type = cell(cells, 'TYPE').toLowerCase();
