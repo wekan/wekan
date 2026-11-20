@@ -292,9 +292,18 @@ opened before its first card and closed after its last wherever a page ends,
 and a list with no cards in its place. Every page's board and list titles now
 pass the export boundary, as the whole export's do. Markdown and Obsidian write
 a list title once, where two lists of one name used to repeat their cards under
-both. Leo stays whole: its card texts are a section after the outline.
+both.
 `tests/exportPaging.test.cjs` and the 173 round trips of
 `import-export-format-audit.e2e.js`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1261ef5fb9f233e60352ee28a8e4e16eb44a4c7">Leo outlines are written a page at a time too</a>. Thanks to xet7.</summary>
+
+Leo's outline holds only titles and checklists, which the light first pass
+already has, so the first page writes it whole and each page then writes its
+own cards' texts after it, under the same node numbers.
 
 </details>
 
