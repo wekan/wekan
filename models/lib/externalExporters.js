@@ -205,6 +205,8 @@ export async function* externalExportPages(boardId, format, fields, pageSize = 5
     const light = await collect(boardId, fields, format, null, true);
     all = secureTransfer(light.items, context);
     const paging = require('./exportPaging');
+    // `order`: a format's own order of the cards (Teamwork's task tree).
+    if (options.order) all = options.order(all);
     // 'lists': in the board's list order, as the outlines group them;
     // true: in the order the cards first name their lists (Todoist).
     if (options.byList === 'lists') all = paging.byListOrder(all, paging.listTitlesOf(safeParts(light).lists, all));

@@ -46,4 +46,34 @@ async function writeTeamworkWorkbook({ name, rows }) {
   return Buffer.from(await workbook.xlsx.writeBuffer());
 }
 
-module.exports = { readTeamworkWorkbook, writeTeamworkWorkbook };
+// The same workbook written to `stream` a page at a time, from an async
+// iterable of formatTeamworkSheet()'s pages ({ name, rows }, the header on
+// the first): ExcelJS's streaming writer commits each row as it comes, so
+// only one page of rows is in memory.
+async function streamTeamworkWorkbook(stream, pages) {
+  const ExcelJS = require('@wekanteam/exceljs');
+  const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream, useStyles: true });
+  let worksheet = null;
+  for await (const { name, rows } of pages) {
+    for (const cells of rows || []) {
+      if (!worksheet) {
+        const title = String(name || 'Tasks').replace(/[\\/?*[\]:]/g, ' ').trim().slice(0, 31) || 'Tasks';
+        worksheet = workbook.addWorksheet(title);
+        for (const columnName of ['Start date', 'Due date']) {
+          const index = cells.indexOf(columnName);
+          if (index !== -1) worksheet.getColumn(index + 1).numFmt = 'yyyy-mm-dd';
+        }
+        const header = worksheet.addRow(cells);
+        header.font = { bold: true };
+        header.commit();
+        continue;
+      }
+      worksheet.addRow(cells).commit();
+    }
+  }
+  if (!worksheet) workbook.addWorksheet('Tasks');
+  else await worksheet.commit();
+  await workbook.commit();
+}
+
+module.exports = { readTeamworkWorkbook, writeTeamworkWorkbook, streamTeamworkWorkbook };

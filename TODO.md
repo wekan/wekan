@@ -44,9 +44,11 @@ is the rest.
   Still built whole: Super Productivity (a state of ids and entities that
   refer to each other - each project's and tag's task ids, sub-tasks under
   their top ancestor), Taiga and Vikunja (cards spread over several arrays,
-  Vikunja's in a .zip) and the five workbooks (each lays the board out in its
-  own rows: Wrike's folders per swimlane, Planner's buckets ...). Each of those
-  needs a writer of its own. Each of those needs its own writer
+  Vikunja's in a .zip) and the Wrike, monday.com and Businessmap workbooks
+  (Wrike's folders per swimlane and its workflow; monday.com's and
+  Businessmap's several sheets, which a streaming workbook writes one after
+  another). Each of those needs a writer of its own. The Teamwork and Planner
+  workbooks are written a page at a time with ExcelJS's streaming writer. Each of those needs its own writer
   of a document in parts.
 
 ## Import and Export of everything each tool has

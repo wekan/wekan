@@ -46,6 +46,7 @@ export const PLANNER_COLUMNS = ['Task ID', 'Task Name', 'Bucket Name', 'Progress
 export const PLANNER_PROGRESS = ['Not started', 'In progress', 'Completed'];
 export const PLANNER_PRIORITY = ['Urgent', 'Important', 'Medium', 'Low'];
 export const MAX_PLANNER_ROWS = 20000;
+import { pagingOf } from './exportPaging.js';
 const NO_BUCKET = 'No bucket';
 const SEPARATOR = ';';
 
@@ -207,15 +208,19 @@ export function plannerDateText(value) {
 
 // The rows of a Planner workbook for a collected board
 // (models/lib/externalExporters.js); server/lib/plannerWorkbook.js writes them.
-export function formatPlannerRows({ board, items }, now = new Date()) {
-  const rows = [
+// The whole board, or one page of it (models/lib/exportPaging.js): the plan's
+// head and the column row on the first page, each card's row after it.
+export function formatPlannerRows(collected = {}, now = new Date()) {
+  const { board } = collected;
+  const { items, first } = pagingOf(collected);
+  const rows = first ? [
     ['Plan name', (board && board.title) || 'WeKan board'],
     ['Plan ID', (board && board._id) || ''],
     ['Date of export', plannerDateText(now)],
     [],
     PLANNER_COLUMNS,
-  ];
-  for (const item of items || []) {
+  ] : [];
+  for (const item of items) {
     const fields = item.customFields || {};
     const completed = fields.Progress === 'Completed' || (!PLANNER_PROGRESS.includes(fields.Progress) && Boolean(item.endAt));
     const progress = PLANNER_PROGRESS.includes(fields.Progress) ? fields.Progress : completed ? 'Completed' : 'Not started';

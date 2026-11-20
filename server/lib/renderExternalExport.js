@@ -220,9 +220,42 @@ async function streamJsonExport(res, boardId, format, fields) {
   return true;
 }
 
+// The workbooks written a page of cards at a time: the order the pages come
+// in (planned over the whole board's light first pass) and the streaming
+// writer of the format's rows.
+const STREAMED_WORKBOOKS = {
+  teamwork: {
+    order: () => require('/models/lib/teamworkFormat').teamworkPageOrder,
+    write: () => require('/server/lib/teamworkWorkbook').streamTeamworkWorkbook,
+  },
+  // Planner's rows stand on their own: the cards in board order.
+  planner: {
+    order: () => null,
+    write: () => require('/server/lib/plannerWorkbook').streamPlannerWorkbook,
+  },
+};
+
+async function streamWorkbookExport(res, boardId, format, fields) {
+  const { externalExportPages, formatters } = require('/models/lib/externalExporters');
+  const spec = STREAMED_WORKBOOKS[format];
+  const { secureTransfer } = require('/server/lib/secureTransfer');
+  const context = { direction: 'export', source: `export:${format}` };
+  res.writeHead(200, { 'Content-Type': XLSX });
+  // Each page's rows pass the export boundary, as the whole workbook's do
+  // (buildExternalExport).
+  async function* pages() {
+    for await (const collected of externalExportPages(boardId, format, fields, 500, { paged: true, ...(spec.order() ? { order: spec.order() } : {}) })) {
+      yield secureTransfer(formatters[format](collected), context);
+    }
+  }
+  await spec.write()(res, pages());
+  return true;
+}
+
 // Writes the export to `res` page by page, or answers false when the format
 // is not one that streams.
 async function streamExternalExport(res, boardId, format, fields) {
+  if (STREAMED_WORKBOOKS[format]) return streamWorkbookExport(res, boardId, format, fields);
   if (JSON_PAGED[format]) return streamJsonExport(res, boardId, format, fields);
   if (!STREAMED[format] && !PAGED[format]) return false;
   const { externalExportPages, formatters } = require('/models/lib/externalExporters');
@@ -239,4 +272,4 @@ async function streamExternalExport(res, boardId, format, fields) {
   return true;
 }
 
-module.exports = { renderExternalExport, streamExternalExport, STREAMED, PAGED, JSON_PAGED };
+module.exports = { renderExternalExport, streamExternalExport, STREAMED, PAGED, JSON_PAGED, STREAMED_WORKBOOKS };

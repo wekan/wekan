@@ -33,4 +33,24 @@ async function writePlannerWorkbook({ sheet, rows }) {
   return Buffer.from(await workbook.xlsx.writeBuffer());
 }
 
-module.exports = { readPlannerWorkbook, writePlannerWorkbook };
+// The same workbook written to `stream` a page at a time, from an async
+// iterable of formatPlannerRows()'s pages ({ sheet, rows }, the head on the
+// first): ExcelJS's streaming writer commits each row as it comes.
+async function streamPlannerWorkbook(stream, pages) {
+  const ExcelJS = require('@wekanteam/exceljs');
+  const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream, useStyles: true });
+  let worksheet = null;
+  for await (const { sheet, rows } of pages) {
+    if (!worksheet) worksheet = workbook.addWorksheet(sheet || 'Tasks');
+    for (const cells of rows || []) {
+      const row = worksheet.addRow(cells);
+      if (Array.isArray(cells) && cells.includes('Task Name')) row.font = { bold: true };
+      row.commit();
+    }
+  }
+  if (!worksheet) workbook.addWorksheet('Tasks');
+  else await worksheet.commit();
+  await workbook.commit();
+}
+
+module.exports = { readPlannerWorkbook, writePlannerWorkbook, streamPlannerWorkbook };

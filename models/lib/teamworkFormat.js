@@ -52,6 +52,7 @@ export const TEAMWORK_PRIORITY = ['low', 'medium', 'high'];
 export const TEAMWORK_STATUS = ['Active', 'Complete'];
 export const ESTIMATE_FIELD = 'Estimated time (hours)';
 export const MAX_TEAMWORK_ROWS = 20000;
+import { pagingOf, markKey } from './exportPaging.js';
 const DEFAULT_LIST = 'Tasks';
 const PREFIX = /^[-#>]+/;
 
@@ -241,8 +242,13 @@ const day = value => {
 // subtask prefix, and the template has no escape for it, so it is dropped.
 // The template has ten fixed columns: swimlanes, other custom fields,
 // checklists, comments and attachments have no place in it.
-export function formatTeamworkSheet({ board, items }) {
-  const all = Array.isArray(items) ? items : [];
+// The order Teamwork's tasks are written in, over the whole board: each root
+// card, then its sub-tasks (of the same task list) under it, depth first; a
+// parent loop leaves cards no root reaches, written as top-level tasks.
+// [{ item, depth }]. From the board's light first pass when written a page
+// at a time, so every page knows its cards' places.
+export function teamworkPlan(cards) {
+  const all = Array.isArray(cards) ? cards : [];
   const byId = new Map(all.map(item => [item.cardId, item]));
   const parentOf = item => {
     const parent = item.parentCardId && byId.get(item.parentCardId);
@@ -257,33 +263,56 @@ export function formatTeamworkSheet({ board, items }) {
       children.get(parent.cardId).push(item);
     } else roots.push(item);
   }
-  const rows = [TEAMWORK_COLUMNS];
+  const plan = [];
   const seen = new Set();
-  const write = (item, depth) => {
+  const visit = (item, depth) => {
     if (seen.has(item)) return;
     seen.add(item);
-    const fields = item.customFields || {};
-    const people = [item.owner, ...(Array.isArray(item.assignees) ? item.assignees : [])].filter(Boolean);
-    const priority = String(fields.Priority || '').toLowerCase();
-    const complete = fields.Complete === true || item.dueComplete === true || Boolean(item.endAt);
-    const title = String(item.title || '').replace(/^[-#>\s]+/, '').trim() || 'Untitled';
-    const values = {
-      Tasklist: item.listTitle || DEFAULT_LIST,
-      Task: `${'-'.repeat(depth)}${title}`,
-      Description: item.description || '',
-      'Assign to': people.join(', '),
-      'Start date': day(item.startAt),
-      'Due date': day(item.dueAt),
-      Priority: TEAMWORK_PRIORITY.includes(priority) ? priority : '',
-      'Estimated time': teamworkEstimateText(Number(fields[ESTIMATE_FIELD]) * 60),
-      Tags: (Array.isArray(item.labels) ? item.labels : []).map(tag => String(tag).replace(/,/g, ' ').trim()).filter(Boolean).join(', '),
-      Status: complete ? 'Complete' : 'Active',
-    };
-    rows.push(TEAMWORK_COLUMNS.map(name => values[name]));
-    for (const child of children.get(item.cardId) || []) write(child, depth + 1);
+    plan.push({ item, depth });
+    for (const child of children.get(item.cardId) || []) visit(child, depth + 1);
   };
-  roots.forEach(item => write(item, 0));
-  // A parent loop leaves cards no root reaches: they are written as tasks.
-  all.forEach(item => write(item, 0));
+  roots.forEach(item => visit(item, 0));
+  all.forEach(item => visit(item, 0));
+  return plan;
+}
+
+// The cards in the order the pages come (server/lib/renderExternalExport.js).
+export const teamworkPageOrder = all => teamworkPlan(all).map(({ item }) => item);
+
+function teamworkRow(item, depth) {
+  const fields = item.customFields || {};
+  const people = [item.owner, ...(Array.isArray(item.assignees) ? item.assignees : [])].filter(Boolean);
+  const priority = String(fields.Priority || '').toLowerCase();
+  const complete = fields.Complete === true || item.dueComplete === true || Boolean(item.endAt);
+  const title = String(item.title || '').replace(/^[-#>\s]+/, '').trim() || 'Untitled';
+  const values = {
+    Tasklist: item.listTitle || DEFAULT_LIST,
+    Task: `${'-'.repeat(depth)}${title}`,
+    Description: item.description || '',
+    'Assign to': people.join(', '),
+    'Start date': day(item.startAt),
+    'Due date': day(item.dueAt),
+    Priority: TEAMWORK_PRIORITY.includes(priority) ? priority : '',
+    'Estimated time': teamworkEstimateText(Number(fields[ESTIMATE_FIELD]) * 60),
+    Tags: (Array.isArray(item.labels) ? item.labels : []).map(tag => String(tag).replace(/,/g, ' ').trim()).filter(Boolean).join(', '),
+    Status: complete ? 'Complete' : 'Active',
+  };
+  return TEAMWORK_COLUMNS.map(name => values[name]);
+}
+
+// The whole board, or one page of it (models/lib/exportPaging.js; the pages
+// come in teamworkPageOrder): the header on the first page, each card's row
+// at its depth in the whole board's tree.
+export function formatTeamworkSheet(collected = {}) {
+  const { board } = collected;
+  const { items, all, first } = pagingOf(collected);
+  const plan = teamworkPlan(collected.page ? all : items);
+  const rows = first ? [TEAMWORK_COLUMNS] : [];
+  if (collected.page) {
+    const depthOf = new Map(plan.map(({ item, depth }) => [markKey(item), depth]));
+    for (const item of items) rows.push(teamworkRow(item, depthOf.get(markKey(item)) || 0));
+  } else {
+    for (const { item, depth } of plan) rows.push(teamworkRow(item, depth));
+  }
   return { name: String((board && board.title) || 'Tasks'), rows };
 }
