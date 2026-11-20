@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **Import** page and the **Export** menu list a company's
+products under the company's name: **37signals**, **Atlassian**, **Google** and
+**Microsoft**.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.22 2026-11-20 WeKan ® release
 
 Repeating tasks of **Taskwarrior**, **Microsoft To Do**,

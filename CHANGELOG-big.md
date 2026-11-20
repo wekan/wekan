@@ -95,6 +95,30 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **Import** page and the **Export** menu list a company's
+products under the company's name: **37signals**, **Atlassian**, **Google** and
+**Microsoft**.
+
+This release adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa28e3fba81f3f5eafc8cb7044133cc330e12b80">Import and Export list a company's products under the company's name</a>. Thanks to xet7.</summary>
+
+A company with more than one product has a heading of its own right after
+WeKan: 37signals (Basecamp, Fizzy), Atlassian (Trello, Jira), Google (Takeout,
+Tasks, Keep) and Microsoft (Planner, To Do, Excel, GitHub). Under it the
+products drop the company's name, so it reads Planner rather than Microsoft
+Planner. A company with one product stays under the heading of its kind. The
+table is `models/lib/toolGroups.js`, shared by both pages;
+`tests/toolGroups.test.cjs` pins the headings, the shortened names, and that no
+company group heads a single product.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.22 2026-11-20 WeKan ® release
 
 **In short:** Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
