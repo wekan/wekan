@@ -35,8 +35,11 @@ color, Blocked), and a WeKan board's every field by
 not have:
 
 - Each tool's newest release, checked with a real export file of it: Planner,
-  Wrike, Teamwork, Businessmap, MeisterTask, Quire, Jira and Linear - the
-  proprietary ones, whose current export is only seen with an account. The parsers follow
+  Wrike, Teamwork, Businessmap, MeisterTask, Quire and Jira - the
+  proprietary ones, whose current export is only seen with an account
+  (Planner's newer Status, Task title and Assignments columns are read, as
+  Microsoft's help page names them; a real file would confirm their exact
+  spelling). The parsers follow
   the formats the tools document and report what they do not read, so a new
   field shows up in the import's loss report; checking for one needs an
   account on each tool. (Checked against their current source on 2026-11-20:
@@ -49,4 +52,6 @@ not have:
   column a new release adds comes across without a change. Focalboard's archive
   format is frozen: Mattermost stopped merging changes to Focalboard and
   Boards in September 2023.
-  Pivotal Tracker was shut down in 2025, so there is no newer release.)
+  Pivotal Tracker was shut down in 2025, so there is no newer release.
+  Linear's open-source importer, @linear/import, declares the columns the
+  parser reads.)

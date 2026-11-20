@@ -89,7 +89,10 @@ writes:
 
 Columns are matched by name. The layout follows a real export: the test data
 of the [plannr](https://github.com/program--/plannr) package, copied to
-`tests/fixtures/planner/`.
+`tests/fixtures/planner/`. The newer Planner's **Export as Excel** is described by
+Microsoft's [Export a plan to Excel](https://support.microsoft.com/en-us/planner/export-a-plan-to-excel)
+with Status, Task title and Assignments; those names are read as Progress,
+Task Name and Assigned To.
 
 What the import covers:
 

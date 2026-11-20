@@ -216,6 +216,18 @@ async function main() {
     assert.match(en['import-board-instruction-planner'], /Export plan to Excel/);
   });
 
+  await test('the newer Planner\'s column names (Status, Task title, Assignments) are read as the classic ones', async () => {
+    const { parsePlannerRows: parseRows } = await import('../models/lib/plannerFormat.js');
+    const board = parseRows([['Task ID', 'Task title', 'Bucket Name', 'Status', 'Priority', 'Assignments', 'Due Date'],
+      ['t1', 'Write it', 'Doing', 'In progress', 'Important', 'Ann', '2026-12-01']]);
+    const [task] = board.tasks;
+    assert.equal(task.title, 'Write it');
+    assert.equal(task.column_name, 'Doing');
+    assert.equal(task.owner_username || task.owner_name, 'Ann');
+    // Negative: a sheet without a title column is still refused.
+    assert.throws(() => parseRows([['Task ID', 'Bucket Name'], ['t1', 'Doing']]), /Task Name and Bucket Name/);
+  });
+
   console.log(`\nplannerFormat: ${passed} checks passed`);
 }
 

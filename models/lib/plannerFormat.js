@@ -112,12 +112,18 @@ export function parsePlannerRows(rows) {
   if (!Array.isArray(rows) || !rows.length) throw new Error('Planner workbook is empty');
   if (rows.length > MAX_PLANNER_ROWS) throw new Error(`Planner workbook has more than ${MAX_PLANNER_ROWS} rows`);
   const texts = rows.map(row => (Array.isArray(row) ? row.map(cellText) : []));
-  const headerAt = texts.findIndex(row => row.includes('Task Name') && row.includes('Bucket Name'));
+  // The newer Planner's "Export as Excel" names some columns as Microsoft's
+  // help page does (support.microsoft.com, "Export a plan to Excel"): Status,
+  // Task title and Assignments where the classic export writes Progress,
+  // Task Name and Assigned To. Either is read.
+  const ALIASES = { 'Task Name': ['Task title', 'Title'], Progress: ['Status'], 'Assigned To': ['Assignments', 'Assigned to'] };
+  const named = (row, name) => [name, ...(ALIASES[name] || [])].map(n => row.indexOf(n)).find(i => i !== -1);
+  const headerAt = texts.findIndex(row => named(row, 'Task Name') !== undefined && row.includes('Bucket Name'));
   if (headerAt === -1) throw new Error('Planner workbook needs the Task Name and Bucket Name columns');
   const header = texts[headerAt];
   const meta = {};
   texts.slice(0, headerAt).forEach(row => { if (row[0]) meta[row[0]] = row[1] || ''; });
-  const col = name => header.indexOf(name);
+  const col = name => { const i = named(header, name); return i === undefined ? -1 : i; };
   const get = (row, name) => (col(name) === -1 ? '' : row[col(name)] || '');
 
   const body = texts.slice(headerAt + 1).map((row, index) => ({ row, number: headerAt + index + 2 }))
