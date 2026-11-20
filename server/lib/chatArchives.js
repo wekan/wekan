@@ -8,7 +8,10 @@
 // declares is checked first, and every entry read inflates through
 // readZipEntryBounded, counting what actually comes out against one budget
 // for the whole archive. Nothing is written to disk and an entry's name is
-// only matched, never used as a path. Attachments and images are not read.
+// only matched, never used as a path. The Slack and Google Takeout readers
+// read no attachments; Telegram's and Discord's export folders carry the
+// message files beside the JSON, and those are read as bytes, under the same
+// budget, for the import to attach.
 const { declaredZipEntrySize, readZipEntryBounded } = require('./boundedZipEntry');
 
 const MAX_ZIP_BYTES = 128 * 1024 * 1024;
@@ -68,10 +71,19 @@ async function openZip(value, what) {
       return undefined;
     }
   };
+  const bytes = async entry => {
+    if (declaredZipEntrySize(entry) > MAX_ENTRY_BYTES) throw new Error(`${what}: ${entry.path} is too large`);
+    try {
+      return await readZipEntryBounded(entry, MAX_ENTRY_BYTES, budget);
+    } catch (error) {
+      if (/zip-(entry-)?too-large/.test(String(error && error.message))) throw new Error(`${what} is too large once unpacked`);
+      throw new Error(`${what}: ${entry.path} could not be read`);
+    }
+  };
   // An entry streamed on rather than read - an mbox - under the same budget,
   // with no size of its own beyond it.
   const stream = entry => require('./boundedZipEntry').boundedZipEntryStream(entry, inflateLimit, budget);
-  return { entries, read, json, stream };
+  return { entries, read, json, stream, bytes };
 }
 
 const parts = path => String(path).split('/').filter(Boolean);
@@ -155,4 +167,59 @@ async function readGoogleTakeout(value) {
   return found;
 }
 
-module.exports = { readSlackExport, readGoogleTakeout, MAX_ZIP_BYTES, MAX_INFLATED_BYTES };
+// Telegram Desktop's and DiscordChatExporter's export folders, zipped: the
+// JSON, and the files its messages name by a path relative to it (Telegram:
+// photos/..., files/...; DiscordChatExporter with --media: <name>.json_Files/...).
+// `files` maps such a path to the file's bytes as base64, for the parser
+// (models/lib/chatExportFormats.js) to attach to the chat's card; a path the
+// messages do not name is not read.
+async function readFolderExport(value, what, pick) {
+  const { entries, json, bytes } = await openZip(value, what);
+  const jsonEntries = entries.filter(e => base(e.path).toLowerCase().endsWith('.json')).filter(pick);
+  if (!jsonEntries.length) throw new Error(`${what} has no export JSON`);
+  const docs = [];
+  for (const entry of jsonEntries) {
+    // eslint-disable-next-line no-await-in-loop
+    const doc = await json(entry);
+    if (doc && typeof doc === 'object') docs.push({ doc, folder: parts(entry.path).slice(0, -1).join('/') });
+  }
+  if (!docs.length) throw new Error(`${what}: its JSON could not be read`);
+  const byPath = new Map(entries.map(e => [parts(e.path).join('/'), e]));
+  const files = {};
+  const wanted = new Set();
+  const visit = (doc, folder) => {
+    const add = rel => {
+      const clean = String(rel || '').replace(/\\/g, '/').split('/').filter(p => p && p !== '.' && p !== '..').join('/');
+      if (clean) wanted.add(JSON.stringify([folder, clean]));
+    };
+    const messages = Array.isArray(doc.messages) ? doc.messages
+      : doc.chats && Array.isArray(doc.chats.list) ? doc.chats.list.flatMap(c => (c && Array.isArray(c.messages) ? c.messages : [])) : [];
+    for (const m of messages) {
+      if (!m || typeof m !== 'object') continue;
+      for (const key of ['photo', 'file', 'thumbnail']) if (typeof m[key] === 'string') add(m[key]);
+      for (const a of Array.isArray(m.attachments) ? m.attachments : []) if (a && typeof a.url === 'string' && !/^https?:/i.test(a.url)) add(decodeURIComponent(a.url));
+    }
+  };
+  docs.forEach(({ doc, folder }) => visit(doc, folder));
+  for (const item of wanted) {
+    const [folder, rel] = JSON.parse(item);
+    const entry = byPath.get([folder, rel].filter(Boolean).join('/'));
+    // eslint-disable-next-line no-await-in-loop
+    if (entry) files[rel] = (await bytes(entry)).toString('base64');
+  }
+  return { docs: docs.map(d => d.doc), files };
+}
+
+async function readTelegramExport(value) {
+  const { docs, files } = await readFolderExport(value, 'Telegram export', e => base(e.path).toLowerCase() === 'result.json');
+  return { ...docs[0], attachedFiles: files };
+}
+
+async function readDiscordExport(value) {
+  const { docs, files } = await readFolderExport(value, 'Discord export', () => true);
+  const exports = docs.filter(doc => doc.channel && Array.isArray(doc.messages));
+  if (!exports.length) throw new Error('Discord export has no DiscordChatExporter JSON');
+  return { exports, attachedFiles: files };
+}
+
+module.exports = { readSlackExport, readGoogleTakeout, readTelegramExport, readDiscordExport, MAX_ZIP_BYTES, MAX_INFLATED_BYTES };

@@ -68,6 +68,8 @@ function chatBoard(name, chats, { files = 0, unsupported = [] } = {}) {
       swimlane_name: swimlane,
       date_creation: chat.created || (comments[0] && comments[0].date),
       comments,
+      // The message files an export folder carried (server/lib/chatArchives.js).
+      ...(Array.isArray(chat.attachments) && chat.attachments.length ? { attachments: chat.attachments } : {}),
     });
   }
   const losses = [...unsupported];
@@ -275,6 +277,14 @@ export function formatMattermostBulk(collected = {}) {
   return lines.length ? `${lines.map(line => JSON.stringify(line)).join('\n')}\n` : '';
 }
 
+// A message file the export folder carried, as an attachment of the chat's
+// card, or null when the export only names it. `files` is { path: base64 }.
+function carriedFile(files, path, name) {
+  const key = String(path || '').replace(/\\/g, '/').split('/').filter(p => p && p !== '.' && p !== '..').join('/');
+  if (!key || !files || typeof files !== 'object' || typeof files[key] !== 'string') return null;
+  return { name: String(name || key.split('/').pop() || 'attachment'), file: files[key] };
+}
+
 // ----- Telegram ------------------------------------------------------------
 
 const telegramText = text => (Array.isArray(text)
@@ -290,11 +300,22 @@ export function parseTelegramExport(data) {
     : Array.isArray(data.messages) ? [data] : null;
   if (!list) throw new Error('Not a Telegram export: no chats.list and no messages');
   let files = 0;
+  const carried = data.attachedFiles;
   const chats = list.filter(chat => chat && Array.isArray(chat.messages)).map(chat => ({
     title: chat.name || (chat.type === 'saved_messages' ? 'Saved Messages' : `Chat ${chat.id}`),
     column: TELEGRAM_COLUMNS[chat.type] || 'Groups',
-    messages: chat.messages.filter(m => m && m.type === 'message').map(m => {
-      if (m.photo || m.file || m.media_type) files += 1;
+    attachments: [],
+    messages: [],
+  }));
+  list.filter(chat => chat && Array.isArray(chat.messages)).forEach((source, i) => {
+    const chat = chats[i];
+    chat.messages = source.messages.filter(m => m && m.type === 'message').map(m => {
+      // A photo or file the zipped export folder carries is attached;
+      // one it only names ("File not included") is counted.
+      const path = m.photo || m.file;
+      const file = path ? carriedFile(carried, path, m.file_name) : null;
+      if (file) chat.attachments.push(file);
+      else if (m.photo || m.file || m.media_type) files += 1;
       const at = m.date_unixtime ? Number(m.date_unixtime) * 1000 : `${m.date}Z`;
       // Telegram: reactions [{ type: "emoji", emoji, count, recent: [{ from, from_id }] }];
       // "recent" names some of those who reacted, the count all of them.
@@ -305,8 +326,8 @@ export function parseTelegramExport(data) {
       }));
       return message(telegramText(m.text), m.from_id || m.from, m.from, at, reactions,
         { ref: m.id !== undefined ? String(m.id) : '', replyTo: m.reply_to_message_id !== undefined ? String(m.reply_to_message_id) : '' });
-    }),
-  }));
+    });
+  });
   const who = data.personal_information && [data.personal_information.first_name, data.personal_information.last_name]
     .filter(Boolean).join(' ');
   return chatBoard(who ? `Telegram - ${who}` : list.length === 1 ? list[0].name || 'Imported Telegram' : 'Imported Telegram',
@@ -364,7 +385,10 @@ export function parseWhatsAppChat(text, { name } = {}) {
 // ----- Discord (DiscordChatExporter) ---------------------------------------
 
 export function parseDiscordExport(data) {
-  const exports = Array.isArray(data) ? data : [data];
+  // A zipped export folder (server/lib/chatArchives.js readDiscordExport):
+  // its channels' JSON, and the message files it carried.
+  const carried = data && !Array.isArray(data) && Array.isArray(data.exports) ? data.attachedFiles : null;
+  const exports = data && !Array.isArray(data) && Array.isArray(data.exports) ? data.exports : Array.isArray(data) ? data : [data];
   if (!exports.every(e => e && e.channel && Array.isArray(e.messages))) {
     throw new Error('Not a DiscordChatExporter JSON export: no channel and messages');
   }
@@ -374,8 +398,22 @@ export function parseDiscordExport(data) {
     description: clean(e.channel.topic),
     column: /dm|direct|group/i.test(e.channel.type || '') ? 'Direct messages' : clean(e.channel.category) || 'Channels',
     swimlane: (e.guild && e.guild.name) || 'Discord',
-    messages: e.messages.filter(m => m && (!m.type || /^(Default|Reply)$/.test(m.type))).map(m => {
-      files += (Array.isArray(m.attachments) ? m.attachments.length : 0) + (Array.isArray(m.stickers) ? m.stickers.length : 0);
+    attachments: [],
+    messages: [],
+  }));
+  exports.forEach((e, i) => {
+    const chat = chats[i];
+    chat.messages = e.messages.filter(m => m && (!m.type || /^(Default|Reply)$/.test(m.type))).map(m => {
+      // An attachment the --media export folder carries (a local path in
+      // url) is attached; one it only links is counted, as are stickers.
+      for (const a of Array.isArray(m.attachments) ? m.attachments : []) {
+        let path = '';
+        try { path = a && typeof a.url === 'string' && !/^https?:/i.test(a.url) ? decodeURIComponent(a.url) : ''; } catch (error) { path = ''; }
+        const file = path ? carriedFile(carried, path, a.fileName) : null;
+        if (file) chat.attachments.push(file);
+        else files += 1;
+      }
+      files += Array.isArray(m.stickers) ? m.stickers.length : 0;
       const author = m.author || {};
       // DiscordChatExporter: reactions [{ emoji: { id, name }, count, users: [{ id, name }] }];
       // an emoji with an id is the server's own image, not a character.
@@ -386,8 +424,8 @@ export function parseDiscordExport(data) {
       }));
       return message(m.content, author.name || author.id, author.nickname || author.name, m.timestamp, reactions,
         { ref: m.id, replyTo: m.type === 'Reply' && m.reference ? m.reference.messageId : '' });
-    }),
-  }));
+    });
+  });
   const guilds = [...new Set(chats.map(c => c.swimlane))];
   return chatBoard(guilds.length === 1 ? guilds[0] : 'Imported Discord', chats, { files });
 }

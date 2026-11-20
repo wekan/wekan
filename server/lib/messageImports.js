@@ -38,6 +38,11 @@ export async function parseMessageImport(source, value) {
     case 'ical': case 'whatsapp':
       return EXTERNAL_PARSERS[source](text(value));
     case 'telegram': case 'discord':
+      // The export folder zipped: its JSON and the message files beside it.
+      if (value && (typeof value.zipFile === 'string' || typeof value.zipBase64 === 'string')) {
+        const archives = require('./chatArchives');
+        return EXTERNAL_PARSERS[source](await (source === 'telegram' ? archives.readTelegramExport(value) : archives.readDiscordExport(value)));
+      }
       return EXTERNAL_PARSERS[source](value);
     default:
       throw new Error(`Unknown import source: ${source}`);

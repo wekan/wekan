@@ -7,6 +7,8 @@ const test = require('node:test');
 const assert = require('node:assert');
 const { zipSync, strToU8 } = require('fflate');
 const { readSlackExport } = require('../server/lib/chatArchives');
+const fs = require('node:fs');
+const path = require('node:path');
 
 let chat;
 test.before(async () => { chat = await import('../models/lib/chatExportFormats.js'); });
@@ -134,4 +136,46 @@ test('Discord (DiscordChatExporter) and Google Chat', () => {
     messages: [{ creator: { name: 'Anna', email: 'anna@example.com' }, created_date: 'Monday, November 16, 2026 at 10:00:00 AM UTC', text: 'Hello' }] }]);
   assert.deepStrictEqual(google.tasks[0].comments.map(c => [c.author, c.text]), [['anna@example.com', 'Hello']]);
   assert.strictEqual(google.tasks[0].column_name, 'Spaces');
+});
+
+test('a zipped Telegram export folder: the message files beside result.json are attached to the chat card', async () => {
+  const { readTelegramExport } = require('../server/lib/chatArchives');
+  const data = await readTelegramExport(zipOf({
+    'ChatExport_2026-11-20/result.json': JSON.stringify({ name: 'Team', type: 'private_group', id: 1, messages: [
+      { type: 'message', id: 1, date_unixtime: '1790000000', from: 'Ann', from_id: 'u1', text: 'Look', photo: 'photos/photo_1.jpg' },
+      { type: 'message', id: 2, date_unixtime: '1790000060', from: 'Bob', from_id: 'u2', text: 'Spec', file: 'files/spec.pdf', file_name: 'spec.pdf' },
+      { type: 'message', id: 3, date_unixtime: '1790000120', from: 'Bob', from_id: 'u2', text: 'Video', file: '(File not included. Change data exporting settings to download.)' },
+    ] }),
+    'ChatExport_2026-11-20/photos/photo_1.jpg': 'JPEGDATA',
+    'ChatExport_2026-11-20/files/spec.pdf': 'PDFDATA',
+    'ChatExport_2026-11-20/files/unused.bin': 'NOT READ',
+  }));
+  assert.deepStrictEqual(Object.keys(data.attachedFiles).sort(), ['files/spec.pdf', 'photos/photo_1.jpg'], 'only the files the messages name are read');
+  const board = chat.parseTelegramExport(data);
+  assert.deepStrictEqual(board.tasks[0].attachments.map(a => [a.name, Buffer.from(a.file, 'base64').toString()]),
+    [['photo_1.jpg', 'JPEGDATA'], ['spec.pdf', 'PDFDATA']]);
+  // Negative: the file the export left out is counted, not guessed.
+  assert.ok(board.unsupported.some(u => /1 file\(s\) and image\(s\) in messages are not imported/.test(u.reason)));
+  // The JSON alone, as before: every file is counted.
+  const plain = chat.parseTelegramExport(JSON.parse(JSON.stringify({ ...data, attachedFiles: undefined })));
+  assert.strictEqual(plain.tasks[0].attachments, undefined);
+  assert.ok(plain.unsupported.some(u => /3 file\(s\)/.test(u.reason)));
+  await assert.rejects(readTelegramExport(zipOf({ 'readme.txt': 'x' })), /no export JSON/);
+});
+
+test('a zipped DiscordChatExporter folder with --media: local attachments are attached, linked ones counted', async () => {
+  const { readDiscordExport } = require('../server/lib/chatArchives');
+  const data = await readDiscordExport(zipOf({
+    'general.json': JSON.stringify({ guild: { name: 'G' }, channel: { id: '1', name: 'general' }, messages: [
+      { id: '1', type: 'Default', content: 'Here', timestamp: '2026-10-01T10:00:00Z', author: { name: 'ann' },
+        attachments: [{ url: 'general.json_Files/shot%20one.png', fileName: 'shot one.png' }, { url: 'https://cdn.discordapp.com/x.png', fileName: 'x.png' }] }] }),
+    'general.json_Files/shot one.png': 'PNGDATA',
+  }));
+  const board = chat.parseDiscordExport(data);
+  assert.deepStrictEqual(board.tasks[0].attachments.map(a => a.name), ['shot one.png']);
+  assert.ok(board.unsupported.some(u => /1 file\(s\)/.test(u.reason)), 'the linked one is counted');
+  // The wiring: both accept a .zip, read on the server.
+  const sources = fs.readFileSync(path.join(__dirname, '../models/lib/importSources.js'), 'utf8');
+  for (const key of ['telegram', 'discord']) assert.match(sources, new RegExp(`key: '${key}'[^\\n]*files: \\['\\.json', '\\.zip'\\], zipSend: 'zip'`));
+  assert.match(fs.readFileSync(path.join(__dirname, '../server/lib/messageImports.js'), 'utf8'), /archives\.readTelegramExport\(value\) : archives\.readDiscordExport\(value\)/);
 });

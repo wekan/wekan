@@ -9,7 +9,9 @@ Chat**: each chat is a card and its messages are the card's comments.
    (or a chat's menu → **Export chat history**), choose the format
    **Machine-readable JSON**, and export.
 2. In WeKan, go to **All Boards → New → Import → Telegram**.
-3. Choose `result.json`, or paste its text.
+3. Choose `result.json`, or paste its text - or, to bring the photos and
+   files along, zip the whole export folder (the one with `result.json`,
+   `photos/` and `files/`) and choose the `.zip`.
 4. Map the people to WeKan members, or leave them as they are.
 5. Click **Import**.
 
@@ -71,7 +73,7 @@ emoji of several code points (a skin tone, a flag). See
 
 ## What is not kept
 
-Photos, files, stickers and voice messages (counted), custom emoji reactions, edits. What was left out is listed in the import's loss report, also in
+Photos and files the export did not download ("File not included"), and every one when only `result.json` is imported (counted); stickers and voice messages not in the zipped folder (counted); custom emoji reactions; edits. A photo or file the zipped folder carries is an attachment of the chat's card. What was left out is listed in the import's loss report, also in
 **Admin Panel → Problems → Recovery**.
 
 ## REST API

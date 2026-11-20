@@ -9,7 +9,9 @@ server its swimlane, and the messages the card's comments.
 
 1. Export the channel with DiscordChatExporter in the **JSON** format.
 2. In WeKan, go to **All Boards → New → Import → Discord (DiscordChatExporter)**.
-3. Choose the `.json` file, or paste its text.
+3. Choose the `.json` file, or paste its text - or, when DiscordChatExporter
+   ran with `--media` (the attachments downloaded beside the JSON), zip the
+   folder with the `.json` and its `_Files` folder and choose the `.zip`.
 4. Map the authors to WeKan members, or leave them as they are.
 5. Click **Import**.
 
@@ -68,7 +70,7 @@ emoji of several code points (a skin tone, a flag). See
 
 ## What is not kept
 
-Attachments and stickers (counted), embeds, a server's own emoji reactions. What was left out is listed in the import's loss report, also in
+Attachments that are only links (not downloaded with `--media`) and stickers (counted), embeds, a server's own emoji reactions. An attachment the zipped folder carries is an attachment of the channel's card. What was left out is listed in the import's loss report, also in
 **Admin Panel → Problems → Recovery**.
 
 ## REST API

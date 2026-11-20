@@ -52,7 +52,9 @@ async function main() {
 
   test('the many-files lists are read from it', () => {
     assert.deepEqual(many.EXCEL_SOURCES, reg.IMPORT_SOURCES.filter(s => s.send === 'excel').map(s => s.key));
-    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['googletakeout', 'notion', 'plane', 'slack', 'vikunja', 'wekan']);
+    // Telegram and Discord: the export folder zipped, with the message files beside the JSON.
+    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'googletakeout', 'notion', 'plane', 'slack', 'telegram', 'vikunja', 'wekan']);
+    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord'\}/);
     assert.deepEqual(many.OWN_CREATOR_SOURCES.sort(), ['csv', 'excel', 'jira', 'trello', 'wekan']);
     // api.py cannot import JavaScript; its lists must agree by hand.
     const api = read('api.py');

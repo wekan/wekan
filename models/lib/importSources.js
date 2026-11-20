@@ -80,9 +80,11 @@ export const IMPORT_SOURCES = [
   { key: 'googletakeout', name: 'Google Takeout', paste: false, files: ['.zip'], send: 'text', zipSend: 'zip', creator: 'generalized' },
   { key: 'slack', name: 'Slack', paste: false, files: ['.zip'], send: 'text', zipSend: 'zip', creator: 'generalized' },
   { key: 'mattermost', name: 'Mattermost', ...TEXT, files: ['.jsonl', '.json'] },
-  { key: 'telegram', name: 'Telegram', ...JSON_SOURCE },
+  // Its JSON, or the export folder zipped with the message files beside it.
+  { key: 'telegram', name: 'Telegram', ...JSON_SOURCE, files: ['.json', '.zip'], zipSend: 'zip' },
   { key: 'whatsapp', name: 'WhatsApp', ...TEXT, files: ['.txt'] },
-  { key: 'discord', name: 'Discord (DiscordChatExporter)', ...JSON_SOURCE },
+  // Its JSON, or the export folder zipped with the message files beside it.
+  { key: 'discord', name: 'Discord (DiscordChatExporter)', ...JSON_SOURCE, files: ['.json', '.zip'], zipSend: 'zip' },
   { key: 'evernote', name: 'Evernote (.enex)', ...TEXT, files: ['.enex', '.xml'] },
   // Fetched from the service's API with the member's credentials
   // (models/lib/apiImportServices.js, server/apiImport.js), or pasted as the
