@@ -36,6 +36,14 @@ async function uploadedImportValue(uploadId, userId, source, { setting = {}, spe
     return { zipFile: file, maxBytes: limit, inflateLimit: limit || (room === Infinity ? 0 : room) };
   }
   if (source === 'mail') return { mboxFile: file };
+  // CSV/TSV: the rows, parsed on the server as the page parses a pasted text.
+  if (source === 'csv') {
+    try {
+      return await require('./csvUpload').readCsvUploadRows(file);
+    } catch (e) {
+      throw new UploadError(e.code || 'invalid-import-format', e.message);
+    }
+  }
   if (spec && spec.send === 'excel') {
     const base64 = (await fs.promises.readFile(file)).toString('base64');
     return source === 'plane' ? { xlsxBase64: base64 } : { excelBase64: base64 };

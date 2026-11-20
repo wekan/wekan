@@ -186,3 +186,19 @@ test('a Mattermost export on disk is read a line at a time; a text past one stri
   await upload.removeUpload(badId);
   assert.ok(MAX_TEXT_BYTES <= 256 * 1024 * 1024, 'under what one JavaScript string can hold');
 });
+
+test('a Jira file is uploaded too: its people and its estimate mapping come from the server', async () => {
+  const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
+  const { jiraGetMembersToMap } = await import('../models/lib/jiraMembersMapper.js');
+  const doc = { issues: [{ fields: { assignee: { accountId: 'a1', displayName: 'Ann' } } }, { fields: { assignee: { accountId: 'a1' } } }, { fields: {} }] };
+  assert.deepStrictEqual(jiraGetMembersToMap(doc), [{ id: 'a1', username: 'Ann', fullName: 'Ann', wekanId: null }]);
+  const page = read('client/components/import/import.js');
+  assert.match(page, /if \(file && \(spec\.creator === 'generalized' \|\| dataSource === 'jira' \|\| dataSource === 'csv'\)\)/);
+  assert.match(page, /Meteor\.callAsync\('importBoard', \{\}, \{ previewPeople: true, \.\.\.uploadData\(this\) \}, 'jira', null\)/);
+  const importJs = read('models/import.js');
+  assert.match(importJs, /check\(data\.wekanScrumMapping, Match\.Maybe\(Match\.ObjectIncluding\(\{ estimateFieldId: String \}\)\)\);/,
+    'negative: a mapping without its field is refused before anything is read');
+  assert.match(importJs, /if \(data\.previewPeople === true && importSource === 'jira'\) \{\s*return require\('\/models\/lib\/jiraMembersMapper'\)/);
+  // The preview reads the same upload the import reads after it: it is not removed then.
+  assert.match(importJs, /if \(uploadId && data\.previewPeople !== true\) await require\('\/server\/lib\/importUpload'\)\.removeUpload\(uploadId\);/);
+});

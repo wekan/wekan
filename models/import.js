@@ -100,6 +100,8 @@ Meteor.methods({
     // An upload streamed to the local disk (server/routes/importUpload.js):
     // the file is read from there instead of `board`.
     check(data.uploadId, Match.Maybe(Match.Where(id => typeof id === 'string' && /^[0-9a-f]{32}$/.test(id))));
+    // Jira's estimate mapping, sent with the call when the file was uploaded.
+    check(data.wekanScrumMapping, Match.Maybe(Match.ObjectIncluding({ estimateFieldId: String })));
     // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
     // writes, so authentication is rejected immediately after Meteor's mandatory
     // argument audit and before feature checks, parsing or creator construction.
@@ -124,6 +126,14 @@ Meteor.methods({
         });
       } catch (error) {
         throw new Meteor.Error(error.code || 'invalid-import-format', error.message);
+      }
+      if (importSource === 'jira' && data.wekanScrumMapping && board && typeof board === 'object' && !Array.isArray(board)) {
+        board.wekanScrumMapping = { estimateFieldId: String(data.wekanScrumMapping.estimateFieldId),
+          ...(typeof data.wekanScrumMapping.estimateUnit === 'string' ? { estimateUnit: data.wekanScrumMapping.estimateUnit } : {}) };
+      }
+      // The people of an uploaded Jira file, for the page's map-members step.
+      if (data.previewPeople === true && importSource === 'jira') {
+        return require('/models/lib/jiraMembersMapper').jiraGetMembersToMap(board);
       }
     }
     try { validateImportSourceShape(importSource, board); }

@@ -3,7 +3,7 @@ import { trelloGetMembersToMap } from './trelloMembersMapper';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
-import { jiraGetMembersToMap } from './jiraMembersMapper';
+import { jiraGetMembersToMap } from '/models/lib/jiraMembersMapper';
 import getSlug from 'limax';
 import { UserSearchIndex } from '/models/users';
 import { Utils } from '/client/lib/utils';
@@ -52,7 +52,8 @@ function attachmentAuthData(importTpl) {
 // The file streamed to the server for this import (postImportUpload), by its
 // id; the preview of its people and the import itself both read it.
 function uploadData(importTpl) {
-  return importTpl.upload && importTpl.upload.uploadId ? { uploadId: importTpl.upload.uploadId } : {};
+  return importTpl.upload && importTpl.upload.uploadId
+    ? { uploadId: importTpl.upload.uploadId, ...(importTpl.uploadExtras || {}) } : {};
 }
 
 // Helper to find the closest ancestor template instance by name
@@ -347,7 +348,9 @@ Template.import.onCreated(function () {
         return;
       }
       this.upload = null;
-      if (file && spec.creator === 'generalized') {
+      this.uploadExtras = null;
+      // Jira too: its people are read from the uploaded file by the server.
+      if (file && (spec.creator === 'generalized' || dataSource === 'jira' || dataSource === 'csv')) {
         // Streamed to the server's disk, never read into this page whole.
         try {
           this.upload = await postImportUpload(dataSource, file);
@@ -374,6 +377,13 @@ Template.import.onCreated(function () {
     // CSV/TSV and Excel: which column is which field comes first
     // (csvMapping.js), the people after it for CSV.
     if (dataSource === 'csv') {
+      // An uploaded file: its header, rows and people are read on the server.
+      if (this.upload) {
+        this.importedData.set([]);
+        this.membersToMap.set([]);
+        await startCsvMapping(this, { uploadId: this.upload.uploadId, membersStep: !skipMapping });
+        return;
+      }
       if (!Array.isArray(doc) || !doc.length) {
         this.setError('error-csv-schema');
         return;
@@ -399,6 +409,8 @@ Template.import.onCreated(function () {
       const estimateFieldId = this.find('.js-jira-estimate-field')?.value.trim();
       if (estimateFieldId) doc.wekanScrumMapping = { estimateFieldId,
         estimateUnit: this.find('.js-jira-estimate-unit')?.value.trim() };
+      // An uploaded file is read on the server: the mapping goes with the call.
+      if (this.upload && doc.wekanScrumMapping) this.uploadExtras = { wekanScrumMapping: doc.wekanScrumMapping };
     }
     // Trello: remember the target personal-workspace name for finishImport.
     this.workspaceName = '';
@@ -414,6 +426,17 @@ Template.import.onCreated(function () {
     // (mapPeopleOrImport); WeKan, Trello and Jira read their own.
     if (spec.creator === 'generalized') {
       await this.mapPeopleOrImport(dataSource, skipMapping);
+      return;
+    }
+    // An uploaded Jira file: its people from the server, read from the file.
+    if (this.upload && dataSource === 'jira') {
+      try {
+        this.membersToMap.set(await Meteor.callAsync('importBoard', {}, { previewPeople: true, ...uploadData(this) }, 'jira', null));
+      } catch (e) {
+        this.setError((e && (e.reason || e.error)) || 'error-json-malformed');
+        return;
+      }
+      await advance();
       return;
     }
     this.membersToMap.set(_prepareAdditionalData(doc));

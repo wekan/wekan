@@ -18,7 +18,47 @@ const SAMPLE_ROWS = 3;
 const headerCell = Match.Where(value => value == null || typeof value === 'string'
   || typeof value === 'number' || typeof value === 'boolean');
 
+// The upload of a CSV/TSV file, its sender's: never removed here, the import
+// that follows reads it.
+async function uploadedRows(userId, uploadId) {
+  const { takeUpload } = require('/server/lib/importUpload');
+  const upload = takeUpload(uploadId, userId, 'csv');
+  if (!upload) throw new Meteor.Error('import-upload-not-found');
+  try {
+    return await require('/server/lib/csvUpload').readCsvUploadRows(upload.file);
+  } catch (error) {
+    throw new Meteor.Error(error.code || 'invalid-import-format', error.message);
+  }
+}
+const uploadIdPattern = Match.Where(id => typeof id === 'string' && /^[0-9a-f]{32}$/.test(id));
+
 Meteor.methods({
+  // The mapping step of an uploaded CSV/TSV file: its header, a few rows and
+  // the guessed mapping, read from the file on the server.
+  async csvUploadPreview(uploadId) {
+    check(uploadId, uploadIdPattern);
+    if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+    await assertImportEnabled();
+    const rows = await uploadedRows(this.userId, uploadId);
+    if (!rows.length) throw new Meteor.Error('error-csv-schema');
+    return {
+      header: rows[0],
+      samples: rows.slice(1, 1 + SAMPLE_ROWS),
+      boards: [],
+      skipped: [],
+      mapping: guessCsvMapping(rows[0].map(cell => (cell == null ? '' : String(cell))), await importHeaderNames()),
+    };
+  },
+  // The usernames in the people columns chosen, for the map-members step.
+  async csvUploadPeople(uploadId, columns) {
+    check(uploadId, uploadIdPattern);
+    check(columns, Match.ObjectIncluding({}));
+    if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+    await assertImportEnabled();
+    const { csvPeopleNames } = require('/models/lib/csvPeople');
+    const clean = Object.fromEntries(Object.entries(columns).filter(([, v]) => Number.isInteger(v) && v >= 0));
+    return csvPeopleNames(await uploadedRows(this.userId, uploadId), clean).slice(0, 10000);
+  },
   async csvImportGuessMapping(header) {
     check(header, [headerCell]);
     if (!this.userId) throw new Meteor.Error('error-notAuthorized');

@@ -286,9 +286,11 @@ async function main() {
     assert.match(jade, /input\.js-csv-map-list-name/);
     assert.match(read('client/features/importing.js'), /csvMapping\.jade[\s\S]*csvMapping\.js[\s\S]*csvMapping\.css/);
     const methods = read('server/methods/csvImportMapping.js');
-    // Both questions need a signed-in user and import enabled.
-    assert.equal((methods.match(/if \(!this\.userId\) throw new Meteor\.Error\('error-notAuthorized'\);/g) || []).length, 2);
-    assert.equal((methods.match(/await assertImportEnabled\(\);/g) || []).length, 2);
+    // All four questions need a signed-in user and import enabled: the two of
+    // a pasted text or a workbook, and the two of an uploaded file
+    // (csvUploadPreview, csvUploadPeople - tests/csvUpload.test.cjs).
+    assert.equal((methods.match(/if \(!this\.userId\) throw new Meteor\.Error\('error-notAuthorized'\);/g) || []).length, 4);
+    assert.equal((methods.match(/await assertImportEnabled\(\);/g) || []).length, 4);
     assert.match(read('server/imports.js'), /import '\/server\/methods\/csvImportMapping';/);
   });
 

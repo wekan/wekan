@@ -159,6 +159,12 @@ never held whole in the browser or in the server's memory on the way:
   the disk, its entries read as they are needed, and what they inflate to is
   counted against the limit or the free space; a mailbox is read a message at
   a time, also inside a Takeout zip;
+- JSON is built from the file a chunk at a time (`server/lib/streamJson.js`),
+  so an export larger than one JavaScript string - about 512 MB - can still be
+  read; a Mattermost export is read a line at a time;
+- a Jira file is uploaded too, and the people of its map-members step are read
+  from it on the server; a CSV / TSV file's header, sample rows and people come
+  from the server for its column mapping step;
 - the file is removed once it has been read, or after an hour.
 
 `tests/importUpload.test.cjs` covers the limit, the full disk before and during

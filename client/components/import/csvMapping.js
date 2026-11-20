@@ -9,7 +9,7 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { CSV_IMPORT_FIELDS, csvSeparatorOf, normalizeHeader } from '/models/lib/csvImportMapping';
-import { csvGetMembersToMap } from './csvMembersMapper';
+import { csvGetMembersToMap, csvMembersFromNames } from './csvMembersMapper';
 
 const Papa = require('papaparse');
 
@@ -28,7 +28,7 @@ export function parseCsvImportText(text) {
 // `excelBase64` for a workbook (read on the server, which answers with the
 // first board sheet's header and the sheets it found). `membersStep`: the
 // "map members" step follows this one.
-export async function startCsvMapping(importTpl, { rows, excelBase64, membersStep = false }) {
+export async function startCsvMapping(importTpl, { rows, excelBase64, uploadId, membersStep = false }) {
   activeImportTpl = importTpl;
   if (!importTpl.csvMappingState) importTpl.csvMappingState = new ReactiveVar(null);
   importTpl.csvMapping = null;
@@ -40,6 +40,9 @@ export async function startCsvMapping(importTpl, { rows, excelBase64, membersSte
     let preview;
     if (excelBase64) {
       preview = await Meteor.callAsync('excelImportPreview', excelBase64);
+    } else if (uploadId) {
+      // A file streamed to the server's disk (server/lib/importUpload.js).
+      preview = await Meteor.callAsync('csvUploadPreview', uploadId);
     } else {
       const header = (rows && rows[0]) || [];
       preview = {
@@ -62,6 +65,7 @@ export async function startCsvMapping(importTpl, { rows, excelBase64, membersSte
       boards: preview.boards || [],
       skipped: preview.skipped || [],
       rows: rows || null,
+      uploadId: uploadId || null,
       membersStep,
       mapping,
     });
@@ -201,7 +205,15 @@ Template.importCsvMapping.events({
       ...(chosen.columns.list === undefined ? { listName } : {}),
     };
     const state = tpl.state();
-    // The people to map are the ones in the columns chosen for people.
+    // The people to map are the ones in the columns chosen for people - read
+    // by the server from an uploaded file.
+    if (state.uploadId && state.membersStep) {
+      Meteor.callAsync('csvUploadPeople', state.uploadId, chosen.columns).then(names => {
+        importTpl.membersToMap.set(csvMembersFromNames(names || []));
+        importTpl.nextStep();
+      }, error => tpl.mappingError.set((error && error.error) || 'error-csv-schema'));
+      return;
+    }
     if (state.rows && state.membersStep) {
       importTpl.membersToMap.set(csvGetMembersToMap(state.rows, chosen.columns));
     }
