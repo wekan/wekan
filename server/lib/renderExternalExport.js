@@ -117,8 +117,7 @@ const ARRAY_PLACE = '__wekan_paged_array__';
 // checklists and comment actions): the document around them is made on the
 // first page, and each array is written by a pass of its own over the pages,
 // in the order the arrays stand in the document. Every part passes safe().
-async function streamJsonArrays(res, boardId, format, fields) {
-  const { paths } = JSON_PAGED[format];
+async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED[format].paths) {
   const { externalExportPages, formatters } = require('/models/lib/externalExporters');
   const { secureTransfer } = require('/server/lib/secureTransfer');
   const { containsFields } = require('/models/lib/adminOnlyCustomFields');
@@ -329,9 +328,59 @@ async function streamWorkbookExport(res, boardId, format, fields) {
   return true;
 }
 
+// The Trello .zip: board.json - the Trello document, written by
+// streamJsonArrays a page at a time - and each exported card's attachments as
+// the files they are, attachments/<id>_<name>, piped from the file store as
+// WeKan's own .zip export does (models/server/ExporterZip.js). The Trello
+// .zip import reads it back with the files.
+async function streamTrelloZip(res, boardId, fields) {
+  const { PassThrough } = require('stream');
+  const { ZipArchive } = require('archiver');
+  const { ReactiveCache } = require('/imports/reactiveCache');
+  const { trelloZipFileName } = require('/models/lib/externalExportFormatters');
+  const { fileStoreStrategyFactory } = require('/models/attachments.server');
+  const archive = new ZipArchive({ zlib: { level: 6 } });
+  res.writeHead(200, { 'Content-Type': 'application/zip', 'Content-Disposition': 'attachment; filename="trello.zip"' });
+  let failed = null;
+  archive.on('error', err => { failed = err; });
+  archive.on('warning', err => { console.warn('Trello .zip export:', err && err.message); });
+  archive.pipe(res);
+  const json = new PassThrough();
+  archive.append(json, { name: 'board.json' });
+  // streamJsonArrays writes to a response; here, into the archive's entry.
+  const into = {
+    req: res.req,
+    statusCode: 200,
+    setHeader() {},
+    write: text => json.write(text),
+    once: (event, fn) => json.once(event, fn),
+    end: text => json.end(text),
+  };
+  await streamJsonArrays(into, boardId, 'trellozip', fields, JSON_PAGED.trello.paths);
+  const { notDeleted } = require('/models/lib/softDelete');
+  const cardIds = (await ReactiveCache.getCards({ boardId, ...notDeleted({}) }, { fields: { _id: 1 } })).map(card => card._id);
+  const wantsFiles = !fields || !fields.length || fields.includes('attachments');
+  const files = wantsFiles && cardIds.length
+    ? await ReactiveCache.getAttachments(require('/models/lib/attachmentSoftDelete').liveAttachments({ 'meta.cardId': { $in: cardIds } }))
+    : [];
+  for (const attachment of files) {
+    try {
+      const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+      const stream = strategy && strategy.getReadStream();
+      if (stream) archive.append(stream, { name: `attachments/${attachment._id}_${trelloZipFileName({ id: attachment._id, name: attachment.name })}` });
+    } catch (error) {
+      console.warn(`Trello .zip export: could not add attachment ${attachment._id}: ${error.message}`);
+    }
+  }
+  await archive.finalize();
+  if (failed) throw failed;
+  return true;
+}
+
 // Writes the export to `res` page by page, or answers false when the format
 // is not one that streams.
 async function streamExternalExport(res, boardId, format, fields) {
+  if (format === 'trellozip') return streamTrelloZip(res, boardId, fields);
   if (STREAMED_WORKBOOKS[format]) return streamWorkbookExport(res, boardId, format, fields);
   if (JSON_PAGED[format]) return streamJsonExport(res, boardId, format, fields);
   if (!STREAMED[format] && !PAGED[format]) return false;

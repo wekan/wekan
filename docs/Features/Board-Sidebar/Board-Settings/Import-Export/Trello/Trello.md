@@ -128,6 +128,22 @@ label. WeKan's Trello import turns those labels back into swimlanes.
    The file is read by WeKan's Trello import and by other tools that import
    Trello exports.
 
+The file has the cards with their checklists, comments (as `commentCard`
+actions), members, custom fields and dates, and the archived cards and lists
+as closed ones. WeKan's Trello import reads all of it back.
+
+### As a Trello .zip, with the attachments
+
+1. In WeKan, open the board, then **Board Settings → Export**.
+2. Choose **Trello .zip Attachments**. The download is `trello.zip`: the
+   Trello JSON as `board.json`, and each card's attachments as files under
+   `attachments/`, named `<id>_<file name>`.
+3. Import it into another WeKan with **Import → Trello**, choosing the `.zip`:
+   the attachments come back with the cards.
+
+The `.zip` is written a page of cards at a time, and the files are streamed
+from storage, so a large board does not have to fit in memory.
+
 ## How to export all boards at once
 
 1. **All Boards → sidebar → Export all boards**, then choose **Trello**.

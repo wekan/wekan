@@ -18,7 +18,7 @@ const TOOL_GROUPS = [
 
 const MEMBERS = {
   wekan: ['wekan', 'json', 'json-no-attachments', 'zip'],
-  kanban: ['trello', 'trello-api', 'kanboard', 'deck', 'openproject', 'asana', 'zenkit', 'planner', 'monday', 'wrike',
+  kanban: ['trello', 'trello-api', 'trellozip', 'kanboard', 'deck', 'openproject', 'asana', 'zenkit', 'planner', 'monday', 'wrike',
     'wrikeworkflow', 'teamwork', 'businessmap', 'clickup', 'notion', 'plane', 'taiga', 'focalboard', 'nullboard', 'kanri',
     'obsidian', 'meistertask', 'quire'],
   issues: ['jira', 'github', 'gitlab', 'gitea', 'forgejo', 'redmine', 'linear', 'pivotal'],

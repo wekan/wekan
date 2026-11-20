@@ -64,18 +64,14 @@ a board in each of the 41 formats WeKan both writes and reads and imports the
 file back; every one brings the card back, and its KEEPS table holds each
 format to what its file keeps of the description, the checklist and the
 comment, so a format that loses more fails. The Trello export imports back
-with checklists, comments, members and custom fields; the GitHub, Gitea and
-Forgejo exports carry the comments. What is left below is per tool: the
+with checklists, comments, members, custom fields and archived cards and
+lists, and a Trello .zip export carries the attachment files; the GitHub,
+Gitea and Forgejo exports carry the comments. What is left below is per tool: the
 tool's newest features against its parser and formatter.
 
 - WeKan's own JSON and .zip: every field of the current schema, attachments
   and their versions, custom fields, rules, templates, Scrum data, and a part
   of a board as well as all of it.
-- Trello (file and API): the export now carries checklists, comments,
-  members, custom fields and the archived cards and lists, and imports back;
-  still missing from it are the attachments (Trello's attachments name a URL,
-  which an export from WeKan has no public address for: they need the files
-  in a .zip beside board.json, as the Trello .zip import reads them).
 - Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana,
   Zenkit, Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,

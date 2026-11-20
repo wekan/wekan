@@ -71,3 +71,55 @@ test('a Trello export carries the checklists and comments, and imports back with
     db.cleanup({ boardIds });
   }
 });
+
+// The Trello .zip: board.json with the cards' attachments named, and each
+// attachment as its file - imported back with the same bytes.
+test('a Trello .zip export carries the attachment files and imports back with them', async ({ loggedInPage: page, user }) => {
+  test.setTimeout(120000);
+  const JSZip = require('jszip');
+  const { openBoard } = require('../helpers/auth');
+  const bytes = fs.readFileSync(path.join(fixtures, 'audit.txt'));
+  const importZip = async (zipBuffer) => {
+    await navigateInApp(page, '/import/trello');
+    await page.locator('.js-import-zip-file').setInputFiles({ name: 'trello.zip', mimeType: 'application/zip', buffer: zipBuffer });
+    await page.locator('.js-import-without-mapping').click();
+  };
+  const document = JSON.parse(fs.readFileSync(path.join(fixtures, 'trello.json')));
+  document.name += ` ${db.uniqueSuffix()}`;
+  const source = new JSZip();
+  source.file('board.json', JSON.stringify(document));
+  source.file('attachments/audit.txt', bytes);
+  const boardIds = [];
+  try {
+    await importZip(await source.generateAsync({ type: 'nodebuffer' }));
+    await expect.poll(() => db.find('boards', { title: document.name }).length).toBe(1);
+    const sourceBoard = db.findOne('boards', { title: document.name });
+    boardIds.push(sourceBoard._id);
+    await expect.poll(() => db.find('attachments', { 'meta.boardId': sourceBoard._id }).length).toBe(1);
+
+    const response = await page.request.get(`/api/boards/${sourceBoard._id}/export/trellozip?authToken=${encodeURIComponent(user.token)}`);
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toContain('application/zip');
+    const exported = await JSZip.loadAsync(await response.body());
+    const boardJson = JSON.parse(await exported.file('board.json').async('string'));
+    const attachment = boardJson.cards.flatMap(card => card.attachments || [])[0];
+    expect(attachment.fileName).toBe('audit.txt');
+    const entry = Object.keys(exported.files).find(name => name.startsWith('attachments/') && name.endsWith('_audit.txt'));
+    expect(entry).toBeTruthy();
+    expect(Buffer.from(await exported.file(entry).async('nodebuffer'))).toEqual(bytes);
+
+    boardJson.name += ' zip round trip';
+    exported.file('board.json', JSON.stringify(boardJson));
+    await importZip(await exported.generateAsync({ type: 'nodebuffer' }));
+    await expect.poll(() => db.find('boards', { title: boardJson.name }).length).toBe(1);
+    const restored = db.findOne('boards', { title: boardJson.name });
+    boardIds.push(restored._id);
+    await expect.poll(() => db.find('attachments', { 'meta.boardId': restored._id }).length).toBe(1);
+    const restoredAttachment = db.findOne('attachments', { 'meta.boardId': restored._id });
+    await openBoard(page, restored._id, restored.slug);
+    const mtok = await page.evaluate(() => Meteor.connection._lastSessionId);
+    const file = await page.request.get(`/cdn/storage/attachments/${restoredAttachment._id}/original/audit.txt`, { headers: { 'x-mtok': mtok } });
+    expect(file.status()).toBe(200);
+    expect(await file.body()).toEqual(bytes);
+  } finally { db.cleanup({ boardIds }); }
+});

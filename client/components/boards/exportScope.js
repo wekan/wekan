@@ -238,6 +238,9 @@ const EXPORT_FORMAT_GROUPS = [
       // Straight into Trello through its API (server/trelloApiExport.js), not
       // a file: an action that opens its own popup.
       { key: 'trello-api', icon: 'fa-trello', label: 'Trello', action: 'js-export-to-trello', scopes: BOARD_ONLY },
+      // Trello's board.json with the cards' attachments as files, the .zip
+      // the Trello import reads (server/lib/renderExternalExport.js streamTrelloZip).
+      { key: 'trellozip', icon: 'fa-file-archive-o', labelKey: 'attachments', labelPrefix: 'Trello .zip', path: 'export/trellozip', ext: 'zip', scopes: BOARD_ONLY },
       { key: 'kanboard', icon: 'fa-upload', label: 'Kanboard', path: 'export/kanboard', ext: 'json', scopes: BOARD_ONLY },
       { key: 'markdown', icon: 'fa-file-text-o', label: 'Markdown', path: 'export/markdown', ext: 'md', scopes: BOARD_ONLY },
       { key: 'leo', icon: 'fa-sitemap', label: 'Leo', path: 'export/leo', ext: 'leo', scopes: BOARD_ONLY },

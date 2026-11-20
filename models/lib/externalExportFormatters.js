@@ -135,6 +135,103 @@ function kanboardTaskLinks(items) {
   return links;
 }
 
+// An attachment's file name in a Trello .zip, the same in board.json and in
+// the archive: no path separators, never empty.
+export const trelloZipFileName = att => String((att && att.name) || (att && att.id) || 'file').replace(/[\\/\0]/g, '_').slice(0, 200) || 'file';
+
+function trelloDocument(collected, { withAttachments = false } = {}) {
+  const { board, lists } = collected;
+  const { items, all, offset } = pagingOf(collected);
+  // The board's people - card owners, assignees, comment authors - over the
+  // whole board, as Trello members named by username; the import maps them
+  // to users by username (client/components/import/trelloMembersMapper.js).
+  const peopleOf = i => [i.owner, ...list(i.assignees)].filter(has).map(String);
+  const people = [...new Set(all.flatMap(i => [...peopleOf(i),
+    ...list(i.comments).map(c => c && c.author).filter(has).map(String)]))];
+  // Custom fields: one Trello field per name the board's cards use, its type
+  // what every value of it is (checkbox, number, date, else text), and each
+  // card's values as Trello's customFieldItems (models/trelloCreator.js).
+  const fieldNames = [...new Set(all.flatMap(i => Object.keys(i.customFields || {})))];
+  const ISO_DAY = /^\d{4}-\d{2}-\d{2}(T|$)/;
+  const typeOf = name => {
+    const values = all.map(i => (i.customFields || {})[name]).filter(has);
+    if (values.length && values.every(v => typeof v === 'boolean')) return 'checkbox';
+    if (values.length && values.every(v => typeof v === 'number' && Number.isFinite(v))) return 'number';
+    if (values.length && values.every(v => typeof v === 'string' && ISO_DAY.test(v) && !Number.isNaN(Date.parse(v)))) return 'date';
+    return 'text';
+  };
+  const fields = fieldNames.map((name, n) => ({ id: `${board._id || 'board'}-field-${n + 1}`, name, type: typeOf(name) }));
+  const valueOf = (field, raw) => {
+    if (field.type === 'checkbox') return { checked: raw ? 'true' : 'false' };
+    if (field.type === 'number') return { number: String(raw) };
+    if (field.type === 'date') return { date: new Date(raw).toISOString() };
+    return { text: Array.isArray(raw) ? raw.join(', ') : String(raw) };
+  };
+  // What models/trelloCreator.js checks every card for: an ISO date of its
+  // last activity and a position - without them a Trello export did not
+  // import into WeKan at all.
+  const isoOf = value => {
+    const date = value ? new Date(value) : null;
+    return date && !Number.isNaN(date.getTime()) ? date.toISOString() : new Date(0).toISOString();
+  };
+  const checklistsOf = i => list(i.checklists).map((c, n) => ({
+    id: `${i.cardId}-checklist-${n + 1}`,
+    idBoard: String(board._id || ''),
+    idCard: String(i.cardId),
+    name: String(c.title || 'Checklist'),
+    pos: n + 1,
+    checkItems: list(c.items).map((x, m) => ({
+      id: `${i.cardId}-checklist-${n + 1}-item-${m + 1}`,
+      name: String(x.title || ''),
+      state: x.done ? 'complete' : 'incomplete',
+      pos: m + 1,
+    })),
+  }));
+  return {
+    name: board.title,
+    prefs: { background: 'blue', permissionLevel: 'private' },
+    members: people.map(username => ({ id: username, username, fullName: username })),
+    customFields: fields.map((field, n) => ({ id: field.id, idModel: String(board._id || ''), modelType: 'board',
+      name: field.name, type: field.type, pos: n + 1, display: { cardFront: true } })),
+    labels: (board.labels || []).map(l => ({ id: l._id, name: String(l.name || ''), color: l.color })),
+    // Archived lists and cards are Trello's closed ones (the Trello
+    // export collects them; models/trelloCreator.js reads closed back).
+    lists: lists.map((l, n) => ({ id: l._id, name: l.title, closed: Boolean(l.archived), pos: n + 1 })),
+    cards: items.map((i, n) => ({
+      id: i.cardId,
+      name: i.title,
+      desc: String(i.description || ''),
+      pos: offset + n + 1,
+      dateLastActivity: isoOf(i.modifiedAt || i.createdAt),
+      idList: i.listId,
+      due: i.dueAt || null,
+      ...(has(i.startAt) ? { start: i.startAt } : {}),
+      dueComplete: Boolean(i.dueComplete),
+      closed: Boolean(i.archived),
+      idLabels: list(i.labelIds),
+      idMembers: [...new Set(peopleOf(i))],
+      idChecklists: checklistsOf(i).map(c => c.id),
+      // The Trello .zip: each attachment named as its file in the archive
+      // (attachments/<id>_<name>), which the Trello .zip import matches by
+      // fileName (server/routes/importTrelloZip.js).
+      ...(withAttachments ? { attachments: list(i.attachments).map(att => ({ id: att.id, name: trelloZipFileName(att),
+        fileName: trelloZipFileName(att), bytes: att.size || 0, mimeType: att.type || '', isUpload: true })) } : {}),
+      customFieldItems: fields.filter(field => has((i.customFields || {})[field.name])).map(field => ({
+        id: `${i.cardId}-${field.id}`, idCustomField: field.id, idModel: i.cardId, modelType: 'card',
+        value: valueOf(field, i.customFields[field.name]) })),
+    })),
+    checklists: items.flatMap(checklistsOf),
+    actions: items.flatMap(i => list(i.comments).filter(c => c && has(c.text)).map((c, n) => ({
+      id: `${i.cardId}-comment-${n + 1}`,
+      type: 'commentCard',
+      date: isoOf(c.date || i.createdAt),
+      idMemberCreator: c.author || null,
+      memberCreator: c.author ? { username: c.author, fullName: c.author } : null,
+      data: { text: String(c.text), card: { id: i.cardId, name: i.title }, board: { id: String(board._id || '') } },
+    }))),
+  };
+}
+
 export const formatters = {
   // NextCloud Deck: board with stacks, each stack carrying its cards.
   // A card is in the stack of its own list (by id; by title when either has
@@ -276,93 +373,10 @@ export const formatters = {
   // actions, the shapes models/trelloCreator.js reads back (checkChecklists,
   // parseActions); each card's arrays depend only on the card, so a page
   // writes its own (server/lib/renderExternalExport.js JSON_PAGED).
-  trello: collected => {
-    const { board, lists } = collected;
-    const { items, all, offset } = pagingOf(collected);
-    // The board's people - card owners, assignees, comment authors - over the
-    // whole board, as Trello members named by username; the import maps them
-    // to users by username (client/components/import/trelloMembersMapper.js).
-    const peopleOf = i => [i.owner, ...list(i.assignees)].filter(has).map(String);
-    const people = [...new Set(all.flatMap(i => [...peopleOf(i),
-      ...list(i.comments).map(c => c && c.author).filter(has).map(String)]))];
-    // Custom fields: one Trello field per name the board's cards use, its type
-    // what every value of it is (checkbox, number, date, else text), and each
-    // card's values as Trello's customFieldItems (models/trelloCreator.js).
-    const fieldNames = [...new Set(all.flatMap(i => Object.keys(i.customFields || {})))];
-    const ISO_DAY = /^\d{4}-\d{2}-\d{2}(T|$)/;
-    const typeOf = name => {
-      const values = all.map(i => (i.customFields || {})[name]).filter(has);
-      if (values.length && values.every(v => typeof v === 'boolean')) return 'checkbox';
-      if (values.length && values.every(v => typeof v === 'number' && Number.isFinite(v))) return 'number';
-      if (values.length && values.every(v => typeof v === 'string' && ISO_DAY.test(v) && !Number.isNaN(Date.parse(v)))) return 'date';
-      return 'text';
-    };
-    const fields = fieldNames.map((name, n) => ({ id: `${board._id || 'board'}-field-${n + 1}`, name, type: typeOf(name) }));
-    const valueOf = (field, raw) => {
-      if (field.type === 'checkbox') return { checked: raw ? 'true' : 'false' };
-      if (field.type === 'number') return { number: String(raw) };
-      if (field.type === 'date') return { date: new Date(raw).toISOString() };
-      return { text: Array.isArray(raw) ? raw.join(', ') : String(raw) };
-    };
-    // What models/trelloCreator.js checks every card for: an ISO date of its
-    // last activity and a position - without them a Trello export did not
-    // import into WeKan at all.
-    const isoOf = value => {
-      const date = value ? new Date(value) : null;
-      return date && !Number.isNaN(date.getTime()) ? date.toISOString() : new Date(0).toISOString();
-    };
-    const checklistsOf = i => list(i.checklists).map((c, n) => ({
-      id: `${i.cardId}-checklist-${n + 1}`,
-      idBoard: String(board._id || ''),
-      idCard: String(i.cardId),
-      name: String(c.title || 'Checklist'),
-      pos: n + 1,
-      checkItems: list(c.items).map((x, m) => ({
-        id: `${i.cardId}-checklist-${n + 1}-item-${m + 1}`,
-        name: String(x.title || ''),
-        state: x.done ? 'complete' : 'incomplete',
-        pos: m + 1,
-      })),
-    }));
-    return {
-      name: board.title,
-      prefs: { background: 'blue', permissionLevel: 'private' },
-      members: people.map(username => ({ id: username, username, fullName: username })),
-      customFields: fields.map((field, n) => ({ id: field.id, idModel: String(board._id || ''), modelType: 'board',
-        name: field.name, type: field.type, pos: n + 1, display: { cardFront: true } })),
-      labels: (board.labels || []).map(l => ({ id: l._id, name: String(l.name || ''), color: l.color })),
-      // Archived lists and cards are Trello's closed ones (the Trello
-      // export collects them; models/trelloCreator.js reads closed back).
-      lists: lists.map((l, n) => ({ id: l._id, name: l.title, closed: Boolean(l.archived), pos: n + 1 })),
-      cards: items.map((i, n) => ({
-        id: i.cardId,
-        name: i.title,
-        desc: String(i.description || ''),
-        pos: offset + n + 1,
-        dateLastActivity: isoOf(i.modifiedAt || i.createdAt),
-        idList: i.listId,
-        due: i.dueAt || null,
-        ...(has(i.startAt) ? { start: i.startAt } : {}),
-        dueComplete: Boolean(i.dueComplete),
-        closed: Boolean(i.archived),
-        idLabels: list(i.labelIds),
-        idMembers: [...new Set(peopleOf(i))],
-        idChecklists: checklistsOf(i).map(c => c.id),
-        customFieldItems: fields.filter(field => has((i.customFields || {})[field.name])).map(field => ({
-          id: `${i.cardId}-${field.id}`, idCustomField: field.id, idModel: i.cardId, modelType: 'card',
-          value: valueOf(field, i.customFields[field.name]) })),
-      })),
-      checklists: items.flatMap(checklistsOf),
-      actions: items.flatMap(i => list(i.comments).filter(c => c && has(c.text)).map((c, n) => ({
-        id: `${i.cardId}-comment-${n + 1}`,
-        type: 'commentCard',
-        date: isoOf(c.date || i.createdAt),
-        idMemberCreator: c.author || null,
-        memberCreator: c.author ? { username: c.author, fullName: c.author } : null,
-        data: { text: String(c.text), card: { id: i.cardId, name: i.title }, board: { id: String(board._id || '') } },
-      }))),
-    };
-  },
+  trello: collected => trelloDocument(collected),
+  // The same, with the cards' attachments, as a .zip beside board.json
+  // (server/lib/renderExternalExport.js streamTrelloZip).
+  trellozip: collected => trelloDocument(collected, { withAttachments: true }),
   // Jira issues collection (round-trips with WeKan's Jira import).
   // The issue keys and custom field names are counted over the whole board,
   // whichever page is written (models/lib/exportPaging.js).

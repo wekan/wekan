@@ -100,7 +100,7 @@ test('archived cards and lists are Trello\'s closed ones; the Trello export alon
   assert.deepStrictEqual(doc.lists.map(l => [l.name, l.closed]), [['To Do', false], ['Done', false], ['Old', true]]);
   assert.deepStrictEqual(doc.cards.map(c => [c.name, c.closed]), [['One', false], ['Two', false], ['Gone', true]]);
   const exporters = read('models/lib/externalExporters.js');
-  assert.match(exporters, /const ARCHIVED_FORMATS = new Set\(\['trello'\]\);/, 'negative: no other format');
+  assert.match(exporters, /const ARCHIVED_FORMATS = new Set\(\['trello', 'trellozip'\]\);/, 'negative: no other format');
   assert.match(exporters, /const open = ARCHIVED_FORMATS\.has\(format\) \? notDeleted\(\{\}\) : \{ archived: false \};/,
     'never a deleted card, archived or not');
 });

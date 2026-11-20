@@ -6,7 +6,9 @@ const { jiraEstimateExportMapping, jiraEstimateExportValue } = require('./jiraEs
 const { buildCustomFieldsWD } = require('./customFieldsWD');
 const { notDeleted } = require('./softDelete');
 // Formats that export the archived cards and lists as well (collect below).
-const ARCHIVED_FORMATS = new Set(['trello']);
+const ARCHIVED_FORMATS = new Set(['trello', 'trellozip']);
+// Formats that list each card's attachments (the Trello .zip carries the files).
+const ATTACHMENT_FORMATS = new Set(['trellozip']);
 
 export { EXTERNAL_EXPORT_FORMATS, formatters };
 
@@ -107,6 +109,9 @@ async function collect(boardId, fields, format, pageCardIds, light) {
       { sort: { createdAt: 1 }, ...(light ? { fields: { cardId: 1, userId: 1, createdAt: 1 } } : {}) }) : [];
   const checklists = want('checklists') && cardIds.length
     ? await ReactiveCache.getChecklists(notDeleted({ cardId: { $in: cardIds } }), { sort: { sort: 1 } }) : [];
+  const attachments = ATTACHMENT_FORMATS.has(format) && want('attachments') && cardIds.length
+    ? await ReactiveCache.getAttachments(require('./attachmentSoftDelete').liveAttachments({ 'meta.cardId': { $in: cardIds } }),
+      { fields: { _id: 1, name: 1, size: 1, type: 1, 'meta.cardId': 1 } }) : [];
   const checklistItems = checklists.length
     ? await ReactiveCache.getChecklistItems(notDeleted({ checklistId: { $in: checklists.map(c => c._id) } }), { sort: { sort: 1 } }) : [];
   const definitions = want('custom-fields')
@@ -145,6 +150,8 @@ async function collect(boardId, fields, format, pageCardIds, light) {
         firstReleaseId: require('./scrum').cardReleaseIds(c.scrum)[0] || undefined, backlogRank: c.scrum.backlogRank ?? undefined } } : {}),
       cardId: c._id,
       ...(c.archived ? { archived: true } : {}),
+      ...(attachments.length ? { attachments: attachments.filter(att => att.meta && att.meta.cardId === c._id)
+        .map(att => ({ id: att._id, name: att.name, size: att.size, type: att.type })) } : {}),
       listId: c.listId,
       title: c.title,
       description: light ? '' : c.description || '',

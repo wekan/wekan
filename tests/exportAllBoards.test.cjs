@@ -40,12 +40,17 @@ async function main() {
   });
 
   test('every tool format, WeKan JSON, CSV/TSV and Excel are offered; one-board documents are not', () => {
-    for (const key of ['wekan', 'csv', 'scsv', 'tsv', 'excel', ...EXTERNAL_EXPORT_FORMATS]) assert.ok(lib.MASS_EXPORT_FORMATS.includes(key), key);
+    // The Trello .zip streams a board's attachment files and is not one of
+    // "Export all boards"' formats (2026-11-20).
+    for (const key of ['wekan', 'csv', 'scsv', 'tsv', 'excel', ...EXTERNAL_EXPORT_FORMATS.filter(f => f !== 'trellozip')]) assert.ok(lib.MASS_EXPORT_FORMATS.includes(key), key);
+    assert.ok(!lib.MASS_EXPORT_FORMATS.includes('trellozip'), 'trellozip');
     for (const key of ['pdf', 'html', 'ical', 'dep-json', 'dep-svg']) assert.ok(!lib.MASS_EXPORT_FORMATS.includes(key), key);
     // The extension of each tool format matches the export menu's.
     const menu = read('client/components/boards/exportScope.js');
     for (const match of menu.matchAll(/key: '([a-z]+)'[^}]*path: 'export\/[a-z]+', ext: '([a-z]+)'/g)) {
       if (match[1] === 'csv' || match[1] === 'scsv' || match[1] === 'tsv') continue;
+      // Not a mass export format (above): the menu's .zip is its own route.
+      if (match[1] === 'trellozip') continue;
       assert.equal(lib.extensionOf(match[1]), match[2], match[1]);
     }
   });
