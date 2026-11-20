@@ -15,6 +15,8 @@
 //   comments:   [{ text, author, authorName, date }]
 //   watchers:   [source user key]           - who follows the item
 //   date_received                           - when it arrived (receivedAt)
+//   blocked, blocked_reason                 - the card's Blocked flow field
+//                                             (models/lib/cardFlow.js)
 //   recurrence                              - 'daily', 'weekly' or 'monthly'
 //                                             (models/lib/recurrenceMap.js)
 //   email: { direction, from: { name, address }, to: [address], cc: [address],
@@ -199,6 +201,10 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
   const email = importedEmail(task.email);
   if (email) card.email = email;
   if (task.due_complete === true && card.dueAt) card.dueComplete = true;
+  // Blocked, with its reason: the card's Blocked flow field.
+  if (task.blocked === true) {
+    card.flow = { blocked: true, ...(text(task.blocked_reason).trim() ? { blockedReason: text(task.blocked_reason).trim().slice(0, 1000) } : {}) };
+  }
   // A repeating source task repeats here too. Its last occurrence counts as
   // now: from its creation date, the recurrence job would make a copy of
   // every imported card at once.

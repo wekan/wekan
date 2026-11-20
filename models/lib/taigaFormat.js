@@ -38,7 +38,7 @@
 //                                    roles), the board's Scrum estimate
 //   milestones                    -> Scrum sprints (models/lib/externalScrumPlanning.js)
 //   tags_colors                   -> label colors, the nearest WeKan label color
-//   is_blocked / blocked_note,
+//   is_blocked / blocked_note     -> the card's Blocked flow field, with its reason
 //   client_requirement,
 //   team_requirement,
 //   due_date_reason, is_iocaine   -> custom fields of those names
@@ -257,11 +257,13 @@ export function parseTaiga(input) {
         if (has(value)) fields[name] = value;
       }
     }
-    if (item.is_blocked === true) fields[TAIGA_FIELDS.blocked] = str(item.blocked_note).trim() || 'Blocked';
     if (str(item.due_date_reason).trim()) fields[TAIGA_FIELDS.dueReason] = item.due_date_reason.trim();
     for (const [name, value] of Object.entries(extra)) if (has(value)) fields[name] = value;
     return fields;
   };
+  // Blocked, with its note: the card's Blocked flow field.
+  const blockedOf = item => (item.is_blocked === true
+    ? { blocked: true, ...(str(item.blocked_note).trim() ? { blocked_reason: str(item.blocked_note).trim() } : {}) } : {});
   const people = item => uniq([person(item.assigned_to), ...list(item.assigned_users).map(person)]);
   const owner = (item, out) => {
     const assigned = people(item);
@@ -322,6 +324,7 @@ export function parseTaiga(input) {
         date_end: date(story.finish_date, `${at}/finish_date`),
         date_due: date(story.due_date, `${at}/due_date`),
         comments: comments(story, at),
+        ...blockedOf(story),
         custom_fields: customFields(story, {
           [TAIGA_FIELDS.points]: storyPoints(story),
           [TAIGA_FIELDS.client]: story.client_requirement === true ? true : undefined,
@@ -352,6 +355,7 @@ export function parseTaiga(input) {
         date_end: date(item.finished_date, `${at}/finished_date`),
         date_due: date(item.due_date, `${at}/due_date`),
         comments: comments(item, at),
+        ...blockedOf(item),
         custom_fields: customFields(item, {
           [TAIGA_FIELDS.taskStatus]: str(item.status).trim() || undefined,
           [TAIGA_FIELDS.iocaine]: item.is_iocaine === true ? true : undefined,
@@ -375,7 +379,8 @@ export function parseTaiga(input) {
       ...(str(epic.color) ? { color: epic.color } : {}),
       date_creation: date(epic.created_date, `${at}/created_date`),
       comments: comments(epic, at),
-      custom_fields: customFields(epic, {
+      ...blockedOf(epic),
+        custom_fields: customFields(epic, {
         [TAIGA_FIELDS.client]: epic.client_requirement === true ? true : undefined,
         [TAIGA_FIELDS.team]: epic.team_requirement === true ? true : undefined,
       }),
@@ -402,7 +407,8 @@ export function parseTaiga(input) {
       date_end: date(issue.finished_date, `${at}/finished_date`),
       date_due: date(issue.due_date, `${at}/due_date`),
       comments: comments(issue, at),
-      custom_fields: customFields(issue),
+      ...blockedOf(issue),
+        custom_fields: customFields(issue),
     }), { milestone: issue.milestone, path: at });
   });
   if (!columns.length) addColumn(defaultStatus);
@@ -651,6 +657,9 @@ export function formatTaiga(collected = {}, now = new Date()) {
     return has(value) && typeof value !== 'object' ? String(value) : '';
   };
   const blocked = item => {
+    // The card's Blocked flow field; a board imported before it has the
+    // "Blocked" custom field instead.
+    if (item.blocked) return { blocked_note: str(item.blockedReason), is_blocked: true };
     const note = fieldText(item, TAIGA_FIELDS.blocked);
     return { blocked_note: note && note !== 'Blocked' && note !== 'true' ? note : '', is_blocked: Boolean(note) && note !== 'false' };
   };

@@ -167,6 +167,12 @@ export class KanboardCreator {
       boardToCreate.labels.push({ _id: Random.id(6), color: chosen, name });
     }
 
+    // A blocked card's Blocked field is shown only where the board shows it
+    // (Board Settings / Card): on, when the import has a blocked card.
+    if (this._tasks(data).some(task => task && task.blocked === true)) {
+      boardToCreate.allowsBlockedOnCard = true;
+      boardToCreate.allowsBlockedOnMinicard = true;
+    }
     const boardId = await Boards.direct.insertAsync(boardToCreate);
     await Activities.direct.insertAsync({
       activityType: 'importBoard',

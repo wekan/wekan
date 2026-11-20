@@ -144,9 +144,10 @@ python3 api.py exportallboards taiga boards.zip
   the board's Scrum estimate, in points.
 - **Tags**: `tags_colors` give each label the nearest WeKan label color.
   Older Taiga versions stored a tag as `[name, color]`; that color is used too.
-- **Blocked** (with the blocked note), **Client requirement**, **Team
-  requirement**, **Due date reason** and **Iocaine** become custom fields of
-  those names.
+- **Blocked**, with the blocked note as its reason, is the card's Blocked
+  flow field, and the imported board shows it (Board Settings / Card).
+  **Client requirement**, **Team requirement**, **Due date reason** and
+  **Iocaine** become custom fields of those names.
 
 People become card members, assignees and watchers only when they are mapped
 to WeKan users. The import page imports Taiga without member mapping, so
@@ -197,8 +198,10 @@ The export writes a dump with every key Taiga's exporter writes, in its order:
 - Comments become history entries.
 - Custom fields become custom attributes, typed number, checkbox or text.
 - **Story points** become role points of one role, **Team**. The fields
-  Task status, Blocked, Client requirement, Team requirement, Due date reason
-  and Iocaine go back to Taiga's own fields.
+  Task status, Client requirement, Team requirement, Due date reason and
+  Iocaine go back to Taiga's own fields, and the card's Blocked flow field (or
+  a Blocked custom field of a board imported before) to `is_blocked` and
+  `blocked_note`.
 - Scrum sprints with both a planned start and end become milestones. A closed
   sprint is a closed milestone. A cancelled sprint is left out. A card's sprint
   is its story's, task's or issue's milestone, and its backlog rank is the
@@ -232,7 +235,7 @@ The export writes a dump with every key Taiga's exporter writes, in its order:
 | Issue | Card in the Issues swimlane, list per issue status |
 | Issue type, priority, severity | `type:`, `priority:`, `severity:` labels |
 | `generated_from_issue`, `generated_from_task` | Related link |
-| `is_blocked`, `blocked_note` | Blocked custom field |
+| `is_blocked`, `blocked_note` | The card's Blocked flow field, with its reason |
 | `client_requirement`, `team_requirement` | Client requirement, Team requirement custom fields |
 | `due_date_reason` | Due date reason custom field |
 | `is_iocaine` | Iocaine custom field |

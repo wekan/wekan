@@ -48,7 +48,7 @@ newest features against its parser and formatter.
 
 - Kanban and project tools:
   Planner, monday.com, Wrike, Teamwork, Businessmap,
-  Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
+  Plane, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
   Quire, KanbanFlow, Basecamp - sub-items, dependencies, time
   tracking, custom fields, comments, attachments and their newer views.
   (Kanboard: its recurrence, estimate, score, reference and external links
@@ -57,7 +57,8 @@ newest features against its parser and formatter.
   Asana: time tracking, html_notes, approval states and comment likes;
   Zenkit: already reports what it does not read; Planka 2: custom fields and
   the stopwatch; Notion: relations between rows are dependencies; ClickUp:
-  custom field columns both ways, and the task link.)
+  custom field columns both ways, and the task link; Taiga: blocked is the
+  card's Blocked flow field.)
 - Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
   Pivotal - epics, sprints, versions and milestones, links between issues,
   work logs, and fields added in their newest releases, checked against each

@@ -77,6 +77,8 @@ function collectedFrom(parsed) {
       assignees: t.assignees || [],
       creator: t.requested_by,
       color: t.color,
+      // What models/lib/externalExporters.js writes from the card's flow field.
+      ...(t.blocked ? { blocked: true, ...(t.blocked_reason ? { blockedReason: t.blocked_reason } : {}) } : {}),
       ...(t.parent_ref ? { parentCardId: t.parent_ref } : {}),
       ...(t.comments.length ? { comments: t.comments.map(c => ({ text: c.text, author: c.author, date: c.date })) } : {}),
       ...(t.checklists ? { checklists: t.checklists } : {}),
@@ -120,8 +122,16 @@ async function main() {
     assert.equal(story.date_creation, '2024-03-01T10:20:00.000Z');
     assert.equal(story.parent_ref, 'epic-7', 'its epic is its parent');
     assert.deepEqual(story.dependencies, [{ ref: 'issue-6', type: 'related-to' }], 'the issue it was generated from');
-    assert.deepEqual(story.custom_fields, { Audience: 'Customers', Words: 800, Blocked: 'Waiting for the brand guide',
+    assert.deepEqual(story.custom_fields, { Audience: 'Customers', Words: 800,
       'Due date reason': 'Launch', 'Story points': 5 }, 'points of computable roles only: UX 3 + Design 2');
+    // Blocked is the card's Blocked flow field now, with its note as the reason.
+    assert.equal(story.blocked, true);
+    assert.equal(story.blocked_reason, 'Waiting for the brand guide');
+    assert.deepEqual(planImportedTask(story).card.flow, { blocked: true, blockedReason: 'Waiting for the brand guide' });
+    assert.equal(planImportedTask(board.tasks[0]).card.flow, undefined, 'negative: a card that is not blocked has no flow');
+    // The board shows the Blocked field when the import has a blocked card (flow fields are off by default).
+    const creator = require('node:fs').readFileSync(require('node:path').join(__dirname, '../models/kanboardCreator.js'), 'utf8');
+    assert.match(creator, /if \(this\._tasks\(data\)\.some\(task => task && task\.blocked === true\)\) \{\n\s+boardToCreate\.allowsBlockedOnCard = true;\n\s+boardToCreate\.allowsBlockedOnMinicard = true;/);
     assert.deepEqual(board.tasks[0].custom_fields, { 'Client requirement': true });
     assert.equal(board.tasks[2].archived, true, 'a story in an archived status');
     assert.equal(board.tasks[2].date_end, '2024-02-10T10:00:00.000Z');

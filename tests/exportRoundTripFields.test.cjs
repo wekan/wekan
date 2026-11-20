@@ -5,7 +5,8 @@
 // back is held to KEEPS. It is the Playwright spec
 // tests/playwright/specs/export-import-round-trip.e2e.js for the fields that
 // spec does not look at - start and creation dates, spent time, the due
-// date's done tick, recurrence, owner, requester, custom fields and color -
+// date's done tick, recurrence, owner, requester, custom fields, color and
+// the Blocked flow field with its reason -
 // and it found exports that did not write what their own import reads
 // (Kanboard, OpenProject, ClickUp, GitLab, Asana, Deck). A format that keeps
 // less fails; one that keeps more fails too, so its line is raised with it.
@@ -41,7 +42,7 @@ const KEEPS = {
   redmine: ['start', 'created', 'spent', 'owner', 'requester', 'customFields'],
   tasksorg: ['start', 'created', 'spent', 'recurrence', 'customFields'],
   superproductivity: ['created', 'spent', 'customFields'],
-  taiga: ['created', 'owner', 'requester', 'customFields'],
+  taiga: ['created', 'owner', 'requester', 'customFields', 'blocked'],
   teamwork: ['start', 'dueComplete', 'owner', 'customFields'],
   quire: ['start', 'created', 'owner', 'requester', 'customFields'],
   notion: ['start', 'owner', 'customFields'],
@@ -56,6 +57,7 @@ async function main() {
     dueAt: '2026-12-24T12:00:00.000Z', startAt: '2026-12-01T09:00:00.000Z', createdAt: '2026-11-01T08:00:00.000Z',
     labels: ['Red'], labelIds: ['x'], owner: 'ann', assignees: ['bob'], creator: 'cid', requestedBy: 'dan',
     spentTime: 1.5, dueComplete: true, recurrence: 'weekly', color: 'red', customFields: { Priority: 'High', Points: 3 },
+    blocked: true, blockedReason: 'Waiting for parts',
     comments: [{ text: 'A comment', author: 'ann', date: '2026-11-02T00:00:00.000Z' }],
     checklists: [{ title: 'CL', items: [{ title: 'Step', done: true }] }] };
   const collected = { board: { title: 'B' }, lists: [{ _id: 'l1', title: 'Doing' }], swimlanes: [{ title: 'Default' }], items: [item] };
@@ -64,6 +66,7 @@ async function main() {
     dueComplete: t => t.due_complete === true, recurrence: t => t.recurrence === 'weekly',
     owner: t => Boolean(t.owner_username || t.owner_id || t.owner_name), requester: t => Boolean(t.requested_by),
     customFields: t => Boolean(t.custom_fields) && Object.keys(t.custom_fields).length > 0, color: t => Boolean(t.color),
+    blocked: t => t.blocked === true && t.blocked_reason === 'Waiting for parts',
   };
   const differ = [];
   for (const [format, keeps] of Object.entries(KEEPS)) {
