@@ -104,7 +104,8 @@ their exports write the repeat back. **Release All**
 builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
 Snap Store channel, and **Release All Missing** adds what a release lacks,
 snaps included. A **WeKan board** imported from its own export keeps all of
-its Board Settings and card fields.
+its Board Settings and card fields, and **Rocket.Chat** and **Fizzy** are
+imported and exported.
 
 This release adds the following new features:
 
@@ -254,6 +255,35 @@ end date, and Kanboard colors not written; all three are fixed.
 - [GitLab issue health status and incident severity are kept as labels](https://github.com/wekan/wekan/commit/c916b154731084d1a9e7674852575a205ff68a66). Thanks to xet7.
 - [Planner imports read the newer "Export as Excel" column names too](https://github.com/wekan/wekan/commit/d3aa34e7b8f5d579fabb0e4df9f06710493fd1f2). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
+
+**Rocket.Chat and Fizzy** - two more tools, imported and exported.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dffbafd30fd16978dbae49a4e0d576bb1ff017ec">Rocket.Chat exports are imported for the Chat view, and a board exports for its CSV importer</a>. Thanks to xet7.</summary>
+
+Read from Rocket.Chat's source: "Download my data" as JSON is a .zip of
+`channels.json` and a message file per room with the files under `assets/`;
+one room's `.json` and the .zip its CSV importer reads are imported too. A room
+is a card in Channels, Groups, Direct messages or Omnichannel, its messages the
+comments, its files the attachments; system messages and missing files are
+counted. The export writes `users.csv`, `channels.csv` and a `messages.csv` per
+card, with no header rows and names Rocket.Chat accepts.
+`tests/chatExportFormats.test.cjs` reads both zips and round-trips the export.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dffbafd30fd16978dbae49a4e0d576bb1ff017ec">Fizzy's account and personal data exports are imported, and a board exports as its account export</a>. Thanks to xet7.</summary>
+
+Read from Fizzy's source (37signals). A Fizzy board is a swimlane, its columns
+lists between Maybe?, Not now and Done; tags, assignees, steps, comments,
+golden cards and files come along, drafts and reactions are counted. The
+export is `data/<table>/<id>.json` with every column Fizzy's account import
+requires, base36 UUIDv7 ids and only users of the export, so Fizzy reads it
+back. `tests/fizzyFormat.test.cjs` checks those columns and round-trips it; the
+Playwright round trip sends it through the server.
+
+</details>
 
 and fixes the following bugs:
 

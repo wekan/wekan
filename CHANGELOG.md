@@ -14,7 +14,8 @@ their exports write the repeat back. **Release All**
 builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
 Snap Store channel, and **Release All Missing** adds what a release lacks,
 snaps included. A **WeKan board** imported from its own export keeps all of
-its Board Settings and card fields.
+its Board Settings and card fields, and **Rocket.Chat** and **Fizzy** are
+imported and exported.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
