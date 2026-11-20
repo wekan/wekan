@@ -105,11 +105,18 @@ const JSON_PAGED = {
   // and its light first pass), each written around its cards.
   deck: { path: ['stacks'], nested: 'cards', byList: 'listIds' },
   kanri: { path: ['columns'], nested: 'cards', byList: 'listIds' },
+  // Nullboard's formatter writes its JSON as text; its lists of cards whose
+  // list is not exported are named by that list's title.
+  nullboard: { path: ['lists'], nested: 'notes', byList: 'listIdsThenTitles', text: true },
 };
 const ARRAY_PLACE = '__wekan_paged_array__';
 
 async function streamJsonExport(res, boardId, format, fields) {
-  const { path, nested, byList } = JSON_PAGED[format];
+  const { path, nested, byList, text: asText } = JSON_PAGED[format];
+  const formatted = collected => {
+    const out = formatters[format](collected);
+    return asText ? JSON.parse(out) : out;
+  };
   const { externalExportPages, formatters } = require('/models/lib/externalExporters');
   const { secureTransfer } = require('/server/lib/secureTransfer');
   const { containsFields } = require('/models/lib/adminOnlyCustomFields');
@@ -144,11 +151,11 @@ async function streamJsonExport(res, boardId, format, fields) {
     }
   };
   for await (const collected of externalExportPages(boardId, format, fields, 500, { paged: true, ...(byList ? { byList } : {}) })) {
-    const doc = formatters[format](collected);
+    const doc = formatted(collected);
     if (nested) {
       const lists = path.reduce((node, key) => (node ? node[key] : undefined), doc) || [];
       if (tail === null) {
-        const empty = formatters[format]({ ...collected, items: [] });
+        const empty = formatted({ ...collected, items: [] });
         const shellLists = path.reduce((node, key) => (node ? node[key] : undefined), empty) || [];
         shells = [];
         for (const list of shellLists) {
@@ -206,7 +213,7 @@ async function streamJsonExport(res, boardId, format, fields) {
   }
   if (nested) {
     await openUpTo(shells.length - 1);
-    res.end(`${shells.length ? `]${shells[shells.length - 1][1]}` : ''}]${tail}`);
+    res.end(`${shells.length ? `]${shells[shells.length - 1][1]}` : ''}]${tail}${asText ? '\n' : ''}`);
     return true;
   }
   res.end(`]${tail}`);

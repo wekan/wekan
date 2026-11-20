@@ -248,11 +248,13 @@ test('nested JSON documents: each list\'s cards across the pages are its cards i
       { cardId: 'j', title: 'No list either', listTitle: '', listId: '', labels: [], comments: [] }]);
   const nestedLight = nestedItems.map(item => ({ ...item, description: '' }));
   const now = new Date('2026-11-20T00:00:00Z');
-  const formats = { deck: c => fmt.deck(c), kanri: c => formatKanri(c, now) };
-  const listsOf = { deck: doc => doc.stacks, kanri: doc => doc.columns };
+  const formats = { deck: c => fmt.deck(c), kanri: c => formatKanri(c, now), nullboard: c => JSON.parse(fmt.nullboard(c)) };
+  const listsOf = { deck: doc => doc.stacks, kanri: doc => doc.columns, nullboard: doc => doc.lists };
+  const cardsKey = { deck: 'cards', kanri: 'cards', nullboard: 'notes' };
+  const unknownBy = { deck: undefined, kanri: undefined, nullboard: item => String(item.listTitle || 'List') };
   for (const [format, run] of Object.entries(formats)) {
     const whole = JSON.parse(JSON.stringify(run({ board, lists: nestedLists, items: nestedItems })));
-    const all = paging.byListIdOrder(nestedLight, nestedLists.map(l => l._id));
+    const all = paging.byListIdOrder(nestedLight, nestedLists.map(l => l._id), unknownBy[format]);
     const full = new Map(nestedItems.map(item => [item.cardId, item]));
     for (const size of [1, 2, 3, 100]) {
       const pages = Math.max(1, Math.ceil(all.length / size));
@@ -262,11 +264,12 @@ test('nested JSON documents: each list\'s cards across the pages are its cards i
         const doc = JSON.parse(JSON.stringify(run({ board, lists: nestedLists, items: pageItems,
           page: { all, offset: n * size, first: n === 0, last: n === pages - 1 } })));
         assert.strictEqual(listsOf[format](doc).length, perList.length, `${format}: the same lists on every page`);
-        listsOf[format](doc).forEach((list, i) => perList[i].push(...list.cards));
+        listsOf[format](doc).forEach((list, i) => perList[i].push(...list[cardsKey[format]]));
       }
-      assert.deepStrictEqual(perList, listsOf[format](whole).map(list => list.cards), `${format}, ${size} card(s) a page`);
+      assert.deepStrictEqual(perList, listsOf[format](whole).map(list => list[cardsKey[format]]), `${format}, ${size} card(s) a page`);
       const empty = JSON.parse(JSON.stringify(run({ board, lists: nestedLists, items: [], page: { all, offset: 0, first: true, last: true } })));
-      const shell = doc => ({ ...doc, [format === 'deck' ? 'stacks' : 'columns']: listsOf[format](doc).map(l => ({ ...l, cards: [] })) });
+      const listsKey = { deck: 'stacks', kanri: 'columns', nullboard: 'lists' }[format];
+      const shell = doc => ({ ...doc, id: 0, [listsKey]: listsOf[format](doc).map(l => ({ ...l, [cardsKey[format]]: [] })) });
       assert.deepStrictEqual(shell(empty), shell(whole), `${format}: the document around the cards`);
     }
   }
@@ -277,4 +280,8 @@ test('nested JSON documents: each list\'s cards across the pages are its cards i
   assert.strictEqual(kanri.columns.filter(c => c.id === 'no-list').length, 1);
   assert.strictEqual(kanri.columns.find(c => c.id === 'no-list').cards.length, 2);
   assert.match(read('server/lib/renderExternalExport.js'), /deck: \{ path: \['stacks'\], nested: 'cards', byList: 'listIds' \}/);
+  assert.match(read('server/lib/renderExternalExport.js'), /nullboard: \{ path: \['lists'\], nested: 'notes', byList: 'listIdsThenTitles', text: true \}/);
+  // Nullboard: the cards of a list that is not exported are one list of its title, on every page.
+  const nb = JSON.parse(fmt.nullboard({ board, lists: nestedLists, items: nestedItems }));
+  assert.deepStrictEqual(nb.lists.map(l => l.title), ['To Do', 'Doing', 'Done', 'To Do', 'Old', 'List']);
 });

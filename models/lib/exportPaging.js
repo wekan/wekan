@@ -86,10 +86,15 @@ export function joinPage(lines, first) {
 // stacks, Kanri's columns): the board's lists in order, then each list only a
 // card names, in the order the cards first name it; each list's cards in
 // board order. A list's cards are then one run, as the nested writer needs.
-export function byListIdOrder(all, listIds) {
-  const rank = new Map(listIds.map((id, i) => [id, i]));
-  all.forEach(item => { if (!rank.has(item.listId || '')) rank.set(item.listId || '', rank.size); });
+// `unknownBy`: what a card of a list not among `listIds` is grouped by -
+// its list id (Kanri's column of that list), or its list's title
+// (Nullboard's list of that name).
+export function byListIdOrder(all, listIds, unknownBy = item => item.listId || '') {
+  const known = new Set(listIds);
+  const keyOf = item => (known.has(item.listId) ? `id:${item.listId}` : `other:${unknownBy(item)}`);
+  const rank = new Map(listIds.map((id, i) => [`id:${id}`, i]));
+  all.forEach(item => { if (!rank.has(keyOf(item))) rank.set(keyOf(item), rank.size); });
   return all.map((item, index) => ({ item, index }))
-    .sort((a, b) => (rank.get(a.item.listId || '') - rank.get(b.item.listId || '')) || (a.index - b.index))
+    .sort((a, b) => (rank.get(keyOf(a.item)) - rank.get(keyOf(b.item))) || (a.index - b.index))
     .map(({ item }) => item);
 }

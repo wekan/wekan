@@ -34,6 +34,7 @@
 
 export const NULLBOARD_FORMAT = 20190412;
 export const NULLBOARD_RAW_LABEL = 'raw';
+import { pagingOf } from './exportPaging.js';
 const REQUIRED = ['format', 'id', 'revision', 'title', 'lists'];
 
 // The checks of Nullboard's own checkImport(), with its messages.
@@ -148,7 +149,13 @@ function noteText(item) {
 // One board object that Nullboard's importer accepts. The id is the board's
 // creation time in epoch milliseconds, as Nullboard makes its own ids, so a
 // second export of the same board is offered as an overwrite in Nullboard.
-export function formatNullboard({ board, lists, items }) {
+// The whole board, or one page of it (models/lib/exportPaging.js): the lists -
+// the board's, then one per title of the lists its cards name that are not
+// exported - are found over the whole board, so every page has the same
+// lists; each page fills in its own cards.
+export function formatNullboard(collected) {
+  const { board, lists } = collected;
+  const { items, all } = pagingOf(collected);
   const created = board && board.createdAt ? new Date(board.createdAt).getTime() : NaN;
   const out = {
     format: NULLBOARD_FORMAT,
@@ -157,28 +164,29 @@ export function formatNullboard({ board, lists, items }) {
     title: String((board && board.title) || 'WeKan board'),
     lists: [],
   };
-  const all = Array.isArray(items) ? items : [];
-  const used = new Set();
-  const notesOf = cards => cards.map(item => {
-    used.add(item);
-    return {
-      text: noteText(item),
-      raw: (Array.isArray(item.labels) ? item.labels : []).includes(NULLBOARD_RAW_LABEL),
-      min: false,
-    };
+  const boardLists = Array.isArray(lists) ? lists : [];
+  const matches = (list, item) => (list._id && item.listId ? item.listId === list._id : item.listTitle === list.title);
+  const noteOf = item => ({
+    text: noteText(item),
+    raw: (Array.isArray(item.labels) ? item.labels : []).includes(NULLBOARD_RAW_LABEL),
+    min: false,
   });
-  for (const list of Array.isArray(lists) ? lists : []) {
-    const cards = all.filter(item => (list._id && item.listId ? item.listId === list._id : item.listTitle === list.title));
-    out.lists.push({ title: String(list.title || ''), notes: notesOf(cards) });
-  }
+  for (const list of boardLists) out.lists.push({ title: String(list.title || ''), notes: [] });
   // Cards whose list was not passed are kept in a list of their own name.
+  const extra = new Map();
   for (const item of all) {
-    if (used.has(item)) continue;
+    if (boardLists.some(list => matches(list, item))) continue;
     const title = String(item.listTitle || 'List');
-    let list = out.lists.find(entry => entry.title === title && entry.extra);
-    if (!list) { list = { title, notes: [], extra: true }; out.lists.push(list); }
-    list.notes.push(...notesOf([item]));
+    if (!extra.has(title)) { extra.set(title, out.lists.length); out.lists.push({ title, notes: [] }); }
   }
-  out.lists.forEach(list => { delete list.extra; });
+  for (const item of items) {
+    const at = boardLists.findIndex(list => matches(list, item));
+    if (at !== -1) {
+      // A card of two lists of one title (no ids) is in each, as before.
+      boardLists.forEach((list, i) => { if (matches(list, item)) out.lists[i].notes.push(noteOf(item)); });
+    } else {
+      out.lists[extra.get(String(item.listTitle || 'List'))].notes.push(noteOf(item));
+    }
+  }
   return `${JSON.stringify(out)}\n`;
 }

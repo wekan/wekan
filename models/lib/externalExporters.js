@@ -210,6 +210,10 @@ export async function* externalExportPages(boardId, format, fields, pageSize = 5
     if (options.byList === 'lists') all = paging.byListOrder(all, paging.listTitlesOf(safeParts(light).lists, all));
     // 'listIds': by list id, for the documents that nest cards in their lists.
     else if (options.byList === 'listIds') all = paging.byListIdOrder(all, (light.lists || []).map(l => l._id));
+    // 'listIdsThenTitles': a card of a list that is not exported by its list's title (Nullboard).
+    else if (options.byList === 'listIdsThenTitles') {
+      all = paging.byListIdOrder(all, (light.lists || []).map(l => l._id), item => String(item.listTitle || 'List'));
+    }
     else if (options.byList) all = paging.byFirstListOrder(all, item => item.listTitle || '');
     ids = all.map(item => item.cardId);
   } else {

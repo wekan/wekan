@@ -40,10 +40,13 @@ is the rest.
   (`models/lib/exportPaging.js`). The JSON documents whose cards are one array
   (Trello, Jira, Asana, Zenkit, OpenProject, GitHub, Gitea, Forgejo, GitLab)
   are written around that array, each page's cards into it, and those that
-  nest their cards in their lists (Deck, Kanri) around each list. Still built
-  whole: Nullboard (a JSON text with lists of its own making), Super
-  Productivity, Taiga and Vikunja (cards spread over several arrays) and the
-  workbooks. Each of those needs its own writer
+  nest their cards in their lists (Deck, Kanri, Nullboard) around each list.
+  Still built whole: Super Productivity (a state of ids and entities that
+  refer to each other - each project's and tag's task ids, sub-tasks under
+  their top ancestor), Taiga and Vikunja (cards spread over several arrays,
+  Vikunja's in a .zip) and the five workbooks (each lays the board out in its
+  own rows: Wrike's folders per swimlane, Planner's buckets ...). Each of those
+  needs a writer of its own. Each of those needs its own writer
   of a document in parts.
 
 ## Import and Export of everything each tool has
