@@ -227,7 +227,7 @@ of the description; the export writes them back.
 - [OpenProject imports remaining time and exports spent time, which a round trip lost](https://github.com/wekan/wekan/commit/9bd503a71b22cfcf46c6e75e159c5bf0f5417331). Thanks to xet7.
 - [ClickUp and GitLab exports write spent time, which their imports read and a round trip lost](https://github.com/wekan/wekan/commit/14afc74adbb6659ee3a8f57ebe84999b439557c6). Thanks to xet7.
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1a02de4b5b398018bbe2076d98cba10b01639e5a">Every export is held to what its own import reads back; Asana time tracking, Deck's done tick and Kanboard colors now survive</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1a02de4b5b398018bbe2076d98cba10b01639e5a">Exports are held to what their imports read back; Asana time, Deck done ticks, Kanboard colors survive</a>. Thanks to xet7.</summary>
 
 A new test exports a card with every field set in 32 formats, reads the file
 back and holds each format to what it keeps of dates, spent time, the done
