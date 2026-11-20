@@ -53,9 +53,14 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release to complete, without the v (e.g. 10.58). Empty = the newest release.'
+        description: 'Release to complete, without the v (e.g. 10.58). Empty = check the newest releases and complete each one that is missing something.'
         required: false
         type: string
+      scan:
+        description: 'With no version: how many of the newest releases to check.'
+        required: false
+        type: string
+        default: '10'
 
 # Read-only by default; the job that writes is granted it below.
 permissions:
@@ -74,6 +79,10 @@ concurrency:
 
 jobs:
   recover:
+    # One release at a time: with no version, scan below starts a run of this
+    # workflow for every release that is missing something, and each of those
+    # recovers its own release.
+    if: ${{ inputs.version != '' }}
     permissions:
       contents: read
       actions: write
@@ -95,6 +104,41 @@ jobs:
           [ -n "$V" ] || V="$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)"
           python3 releases/retry-failed-release.py "$V"
 
+  # With no version: which releases are missing something. Each of them gets a
+  # run of its own (`-f version=...`), which does everything below for it -
+  # retries the failed jobs of its full release, builds what can be built,
+  # renames the variant snaps and finishes its Snap Store release - so one
+  # run of this workflow, with no input, adds everything that is missing.
+  scan:
+    if: ${{ inputs.version == '' }}
+    permissions:
+      contents: read
+      actions: write
+    timeout-minutes: 15
+    name: which releases are missing something
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Start a run for each incomplete release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SCAN: ${{ inputs.scan }}
+        run: |
+          set -euo pipefail
+          case "${SCAN:-10}" in ''|*[!0-9]*) echo "::error::scan must be a number of releases, not '$SCAN'."; exit 1 ;; esac
+          bash releases/release-missing-scan.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "${SCAN:-10}" > incomplete.txt
+          {
+            echo "### Releases missing something"
+            echo ""
+            if [ -s incomplete.txt ]; then sed 's/^/- /' incomplete.txt; else echo "None - the ${SCAN:-10} newest releases are complete."; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          while read -r version count; do
+            echo "v$version is missing $count asset(s): starting Release all missing for it."
+            gh workflow run release-all-missing.yml --repo "${GITHUB_REPOSITORY:-wekan/wekan}" --ref "${GITHUB_REF_NAME:-main}" -f version="$version"
+          done < incomplete.txt
+
   plan:
     needs: recover
     # The planner runs whatever recover's rerun ended with. A rerun that still
@@ -102,7 +146,7 @@ jobs:
     # so in every rerun of it (v12.68's OpenBSD start) - used to skip the
     # planner and every build after it, so not even the assets that COULD be
     # filled were. recover stays red and names the jobs; the rest goes on.
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() && inputs.version != '' }}
     timeout-minutes: 15
     name: what the release is missing
     runs-on: ubuntu-latest
@@ -114,6 +158,8 @@ jobs:
       mac: ${{ steps.plan.outputs.mac }}
       flatpak: ${{ steps.plan.outputs.flatpak }}
       windows: ${{ steps.plan.outputs.windows }}
+      variant: ${{ steps.plan.outputs.variant }}
+      snap: ${{ steps.plan.outputs.snap }}
       manual: ${{ steps.plan.outputs.manual }}
       total: ${{ steps.plan.outputs.total }}
     steps:
@@ -168,7 +214,7 @@ jobs:
           total="$(wc -l < missing.txt | tr -d ' ')"
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
-          for kind in extra appimage mac flatpak windows bun; do
+          for kind in extra appimage mac flatpak windows bun variant snap; do
             sels="$(awk -v k="$kind" '$1 == k { print $2 }' missing.txt)"
             json="$(printf '%s\n' $sels | sed '/^$/d' | jq -R . | jq -sc .)"
             [ -n "$json" ] || json='[]'
@@ -197,18 +243,25 @@ jobs:
                 echo ""
                 echo "Not buildable here (run release-all.yml): \`$manual\`"
               fi
+              if grep -q '^snap ' missing.txt; then
+                echo ""
+                echo "wekan snaps are rebuilt by retrying the release's snap-native or snap-launchpad job (recover, above)."
+              fi
             fi
           } >> "$GITHUB_STEP_SUMMARY"
           echo "Missing $total. Needs release-all.yml: ${manual:-none}"
 
+      # Not a failure HERE: a red plan skipped every build below (they need
+      # plan to succeed), so a release missing its amd64 zip did not get even
+      # the AppImages that could be made. The done job, at the end, is red
+      # for it instead.
       - name: Say plainly what this run will not do
         if: ${{ steps.plan.outputs.manual != '' }}
         env:
           STEP_PLAN_VERSION: ${{ steps.plan.outputs.version }}
           STEP_PLAN_MANUAL: ${{ steps.plan.outputs.manual }}
         run: |
-          echo "::error::v${STEP_PLAN_VERSION} still lacks ${STEP_PLAN_MANUAL} after recovery. Inspect the matching full-release run; older unnamed runs need their failed jobs retried manually."
-          exit 1
+          echo "::warning::v${STEP_PLAN_VERSION} still lacks ${STEP_PLAN_MANUAL} after recovery, which this workflow cannot build; the rest is built anyway. Inspect the matching full-release run; older unnamed runs need their failed jobs retried manually."
 
   # The six architectures nobody else builds for, repacked from the PUBLISHED
   # amd64 bundle - which is what makes this possible without a Meteor build.
@@ -517,6 +570,74 @@ jobs:
           esac
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
 
+  # wekan-ondra and wekan-gantt-gpl snaps the release lacks: the release's own
+  # wekan snap of that architecture under the variant's name and title
+  # (releases/snap-rename.sh) - what snap-variants builds from source, with
+  # nothing else changed. Releases before v13.21 have none attached.
+  variants:
+    permissions:
+      contents: write
+    name: variant snap ${{ matrix.variant }}
+    needs: plan
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.variant != '[]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(needs.plan.outputs.variant) }}
+    env:
+      VERSION: ${{ needs.plan.outputs.version }}
+      VARIANT: ${{ matrix.variant }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Rename the release's wekan snap
+        id: rename
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          name="${VARIANT%%:*}"
+          arch="${VARIANT#*:}"
+          case "$name" in
+            wekan-ondra) title='Wekan Ondra' ;;
+            wekan-gantt-gpl) title='Wekan Gantt GPL' ;;
+            *) echo "::error::'$name' is not a variant snap."; exit 1 ;;
+          esac
+          case "$arch" in *[!a-z0-9]*|'') echo "::error::'$arch' is not an architecture."; exit 1 ;; esac
+          sudo apt-get install -y squashfs-tools >/dev/null
+          mkdir -p source out
+          if ! gh release download "v$VERSION" --repo "$GITHUB_REPOSITORY" --dir source --pattern "wekan_${VERSION}_${arch}.snap"; then
+            echo "::error::v$VERSION has no wekan_${VERSION}_${arch}.snap to make $name from. Retry the release's snap job first (recover does), then run this again."
+            exit 1
+          fi
+          bash releases/snap-rename.sh "source/wekan_${VERSION}_${arch}.snap" "$name" "$title" out
+      - name: Attach it to the release
+        if: ${{ always() && steps.rename.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          bash releases/github-release-upload.sh "$GITHUB_REPOSITORY" "v$VERSION" out/*.snap
+
+  # Every snap of the release, in every channel of its snap name: the same
+  # "Push Snap to Store" that release-all.yml ends with. A revision the store
+  # already has is released by number; nothing is uploaded twice.
+  snap-store:
+    needs: [plan, variants]
+    if: ${{ !cancelled() && needs.plan.result == 'success' }}
+    permissions:
+      contents: read
+    uses: ./.github/workflows/snap-store.yml
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      snaps: wekan wekan-ondra wekan-gantt-gpl
+      channels: stable,candidate,beta,edge
+    secrets:
+      SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+
   # The end of the run attaches nothing: every job above attached its own files
   # as it finished them. This only reports what the release still lacks, and it
   # runs on always() - not !cancelled() - so a cancelled run still says what
@@ -525,7 +646,7 @@ jobs:
   done:
     timeout-minutes: 15
     name: what is still missing
-    needs: [plan, extra-arches, appimage, mac, flatpak, windows-exe, charts, bun]
+    needs: [plan, extra-arches, appimage, mac, flatpak, windows-exe, charts, bun, variants, snap-store]
     if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
@@ -566,3 +687,10 @@ jobs:
             echo "::warning::v$V is still missing:${still}"
             echo "Still missing:\`${still# }\`" >> "$GITHUB_STEP_SUMMARY"
           fi
+          # What only release-all.yml can build, still missing: red here,
+          # once everything that could be built has been.
+          case " $still" in
+            *" meteor/"*|*" repack/"*|*" sandstorm/"*)
+              echo "::error::v$V still lacks what only release-all.yml builds:${still}. Inspect the matching full-release run."
+              exit 1 ;;
+          esac

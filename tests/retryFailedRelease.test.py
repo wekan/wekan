@@ -54,7 +54,11 @@ class Recovery(unittest.TestCase):
         wf=(Path(__file__).resolve().parent.parent/'.github/workflows/release-all-missing.yml').read_text()
         plan=wf[wf.index('  plan:\n'):wf.index('    timeout-minutes',wf.index('  plan:\n'))]
         self.assertIn('needs: recover',plan)
-        self.assertIn("if: ${{ !cancelled() }}",plan)
+        # !cancelled(), not success(): a failed recover still plans. The plan
+        # is also skipped with no version, when the scan job starts one run
+        # per incomplete release instead - and that is all it adds.
+        self.assertIn("if: ${{ !cancelled() && inputs.version != '' }}",plan)
+        self.assertNotIn("success()",plan)
         import re
         jobs=re.split(r'\n  (?=[a-z][a-z-]*:\n)',wf[wf.index('\njobs:\n'):])
         for job in jobs:

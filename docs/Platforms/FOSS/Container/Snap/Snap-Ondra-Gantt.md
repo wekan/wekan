@@ -82,3 +82,43 @@ release still appeared successful.
 Keeping synchronization in a required reusable workflow gives it one clear
 result per repository and avoids attempting the same source update from
 architecture-specific snap jobs.
+
+## How the three snaps reach every Snap Store channel
+
+`wekan`, `wekan-ondra` and `wekan-gantt-gpl` are the same program under three
+snap names. One run of `release-all.yml` makes all three:
+
+| Job | Snaps | Architectures |
+| --- | --- | --- |
+| `snap-native` | `wekan` | amd64, arm64 |
+| `snap-launchpad` | `wekan` | armhf, ppc64el, s390x, riscv64 |
+| `snap-variants` | `wekan-ondra`, `wekan-gantt-gpl` | amd64, arm64 |
+
+Each job uploads its snap with `--release` to stable, candidate, beta and edge,
+and attaches it to the GitHub Release. Until v13.21 `snap-variants` did not
+attach its snaps, so older releases carry only `wekan_*.snap`.
+
+The Snap Store can keep an upload "processing" for hours and then not release
+it: on v13.20 every snap job was green and the store kept the old version. So
+the last snap job of the release, `snap-store`, calls
+`.github/workflows/snap-store.yml` ("Push Snap to Store") for the release tag.
+For every snap on the release it runs `releases/snap-store-push.sh`, which
+releases a revision the store already has by number, uploads one it has not,
+uploads again after a store-side failure ("Error checking upload
+uniqueness", HTTP 5xx), waits for one still processing, and is red when a snap
+did not reach its channels. "Push Snap to Store" also runs by hand from the
+Actions tab, for any release tag.
+
+`release-all-missing.yml` finishes a release that lacks snaps:
+
+- the `wekan` snaps come from retrying the release's own `snap-native` or
+  `snap-launchpad` job (its `recover` job);
+- a missing `wekan-ondra` or `wekan-gantt-gpl` snap is made from the release's
+  `wekan` snap of the same architecture by `releases/snap-rename.sh`, which
+  changes only `name:` and `title:` in `meta/snap.yaml` - what `snap-variants`
+  changes in `snapcraft.yaml` - and attaches it;
+- then it calls "Push Snap to Store" for that release.
+
+Run with no version, it checks the newest releases
+(`releases/release-missing-scan.sh`, the `scan` input says how many) and starts
+itself once for each release that is missing something.

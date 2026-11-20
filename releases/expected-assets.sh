@@ -20,6 +20,8 @@
 #   windows    windows.yml
 #   flatpak    Flatpak.yml
 #   sandstorm  the .spk
+#   snap       the wekan snaps; variant the wekan-ondra and wekan-gantt-gpl
+#              snaps (see the end)
 #
 # `selector` is what the matching workflow's `only` input filters its matrix on.
 #
@@ -28,7 +30,8 @@
 # counts as present only when both are there. A bundle whose checksum upload
 # failed is a half-published release.
 #
-# `nosums` is for the Sandstorm .spk, which is signed rather than checksummed.
+# `nosums` is for the Sandstorm .spk, which is signed rather than checksummed,
+# and for the snaps, which the Snap Store verifies.
 #
 # NOTE ON OLD RELEASES: the .sha256sum files were added during v10.58's
 # development, so v10.57 and earlier carry none. Asking this about one of those
@@ -76,6 +79,22 @@ done
 echo "windows win64 WeKan-${v}-win64.exe sums"
 
 echo "sandstorm sandstorm wekan-${v}-sandstorm.spk nosums"
+
+# The snaps. A snap is not checksummed beside it; the store verifies it.
+#   snap     wekan, from release-all.yml's snap-native (amd64, arm64) and
+#            snap-launchpad (the other four). Not built here: "Release all
+#            missing" retries those jobs of the release (its recover job).
+#   variant  wekan-ondra and wekan-gantt-gpl, from snap-variants (amd64,
+#            arm64). Buildable here: the release's own wekan snap renamed
+#            (releases/snap-rename.sh). The selector is <name>:<arch>.
+for arch in amd64 arm64 armhf ppc64el s390x riscv64; do
+    echo "snap wekan:${arch} wekan_${v}_${arch}.snap nosums"
+done
+for name in wekan-ondra wekan-gantt-gpl; do
+    for arch in amd64 arm64; do
+        echo "variant ${name}:${arch} ${name}_${v}_${arch}.snap nosums"
+    done
+done
 
 # Bun has a separate ESM build; its catalog is also the workflow matrix.
 python3 - "$v" "$(dirname "$0")/bun/targets.json" <<'PYBUN'

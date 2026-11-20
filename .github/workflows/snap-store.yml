@@ -15,8 +15,11 @@ name: Push Snap to Store
 # processing, and FAILS - red, not green - when a snap still did not reach a
 # channel.
 #
-# It runs after every "Release All Platforms" run, and by hand from the
-# Actions tab for any release, snap names and channels.
+# "Release All Platforms" calls it as its last snap job, for the tag it just
+# released (its snap-store job), and it runs by hand from the Actions tab for
+# any release, snap names and channels. It used to run on workflow_run after
+# every Release All run and take "the latest release" - which, for a run that
+# finished before its release was published, was the previous one (v13.20).
 #
 # Secrets: SNAP_AUTH, as for release-all.yml - an exported login carrying
 # package_access, package_push, package_release and package_update for all
@@ -37,9 +40,22 @@ on:
         description: 'Channels to release to'
         required: false
         default: 'stable,candidate,beta,edge'
-  workflow_run:
-    workflows: ['Release All Platforms']
-    types: [completed]
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      snaps:
+        type: string
+        required: false
+        default: 'wekan wekan-ondra wekan-gantt-gpl'
+      channels:
+        type: string
+        required: false
+        default: 'stable,candidate,beta,edge'
+    secrets:
+      SNAP_AUTH:
+        required: true
 
 permissions:
   contents: read
@@ -64,9 +80,9 @@ jobs:
         id: plan
         env:
           GH_TOKEN: ${{ github.token }}
-          INPUT_TAG: ${{ github.event.inputs.tag }}
-          INPUT_SNAPS: ${{ github.event.inputs.snaps }}
-          INPUT_CHANNELS: ${{ github.event.inputs.channels }}
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_SNAPS: ${{ inputs.snaps }}
+          INPUT_CHANNELS: ${{ inputs.channels }}
         run: |
           set -euo pipefail
           tag="${INPUT_TAG:-}"
@@ -126,12 +142,15 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p snaps
-          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap"
-          ls -l snaps
-          if ! ls snaps/"${SNAP}"_*.snap >/dev/null 2>&1; then
-            echo "::error::Release $TAG has no ${SNAP}_*.snap to push."
+          # gh fails with a bare "no assets match the file pattern" when the
+          # release has none; say what that means instead. Before v13.21 the
+          # snap-variants job did not attach wekan-ondra and wekan-gantt-gpl
+          # to the release, so an older release has only wekan_*.snap.
+          if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap"; then
+            echo "::error::Release $TAG has no ${SNAP}_*.snap to push: its snap job did not attach one (snap-native and snap-launchpad attach wekan, snap-variants wekan-ondra and wekan-gantt-gpl). Re-run that job of the release, or Release All Missing, then this workflow."
             exit 1
           fi
+          ls -l snaps
       - name: Push ${{ matrix.snap }} to the Snap Store, releasing to ${{ needs.plan.outputs.channels }}
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}

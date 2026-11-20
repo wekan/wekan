@@ -5530,6 +5530,10 @@ jobs:
     needs: [prepare, release, snap-auth-check]
     continue-on-error: true
     timeout-minutes: 90
+    # contents: write attaches the built snap to the GitHub Release; the
+    # workflow's default is read.
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
@@ -5655,6 +5659,7 @@ jobs:
           echo "snap=$BUILT_SNAP" >> "$GITHUB_OUTPUT"
 
       - name: Verify the built snap is ${{ matrix.snapname }}
+        id: verify
         if: steps.guard.outputs.snap == 'true'
         env:
           STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
@@ -5684,6 +5689,21 @@ jobs:
           SNAP_UPLOAD_LABEL="${STEP_BUILD_SNAP}" \
           bash "$GITHUB_WORKSPACE/wekan/releases/snap-upload-retry.sh" "${STEP_BUILD_SNAP}" stable,candidate,beta,edge
 
+      # always(): a built variant snap goes onto the GitHub Release even when the
+      # Snap Store push above failed. "Push Snap to Store"
+      # (.github/workflows/snap-store.yml) releases the snaps OF A GITHUB
+      # RELEASE to the store - and until v13.21 this job only uploaded to the
+      # store, so v13.20 had no wekan-ondra_*.snap or wekan-gantt-gpl_*.snap and
+      # that workflow failed with "no assets match the file pattern".
+      - name: Attach the ${{ matrix.snapname }} ${{ matrix.arch }} snap to the GitHub Release
+        if: ${{ always() && steps.verify.outcome == 'success' && steps.build.outputs.snap != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STEP_BUILD_SNAP: ${{ steps.build.outputs.snap }}
+        run: |
+          set -euo pipefail
+          bash "$GITHUB_WORKSPACE/wekan/releases/github-release-upload.sh" "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${STEP_BUILD_SNAP}"
+
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
@@ -5710,6 +5730,28 @@ jobs:
 
   # Refresh the selected changelog notes after builds. Binary provenance remains
   # in build artifacts and is never appended to release notes.
+  # ─── Finish the Snap Store release of all three snaps ───────────────────────
+  # snap-native, snap-launchpad and snap-variants upload each snap with
+  # --release to every channel, but the store can keep a revision in
+  # "processing" for hours and then not release it: on v13.20 every snap job
+  # was green and the store kept the old version of wekan, wekan-ondra and
+  # wekan-gantt-gpl. This job takes the snaps those jobs attached to THIS
+  # release and releases each to stable, candidate, beta and edge - a revision
+  # the store already has by number, a missing one by uploading it - and is red
+  # when one did not get there. It also runs by hand as "Push Snap to Store".
+  snap-store:
+    needs: [prepare, snap-native, snap-launchpad, snap-variants]
+    if: ${{ !cancelled() && needs.prepare.result == 'success' }}
+    permissions:
+      contents: read
+    uses: ./.github/workflows/snap-store.yml
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      snaps: wekan wekan-ondra wekan-gantt-gpl
+      channels: stable,candidate,beta,edge
+    secrets:
+      SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
+
   release-notes:
     permissions:
       contents: write
