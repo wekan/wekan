@@ -30,6 +30,7 @@
 
 export const MAX_CHAT_MESSAGES = 200000;
 export const MAX_CHAT_TEXT_LENGTH = 128 * 1024 * 1024;
+import { pagingOf } from './exportPaging.js';
 const MESSAGE_LIMIT = 20000; // the text of one message
 
 const clean = value => (typeof value === 'string' ? value : '').replace(/\r\n|\r/g, '\n').trim();
@@ -198,19 +199,30 @@ export function parseMattermostBulk(text) {
 // so the import does not merge them into existing accounts by e-mail.
 const slug = (value, fallback) => (String(value || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '').slice(0, 60)) || fallback;
-export function formatMattermostBulk({ board, items = [] } = {}) {
+// The whole board, or one page of it (models/lib/exportPaging.js): the team,
+// every channel and every user are named over the whole board and written on
+// the first page; each page then writes its own cards' posts.
+export function formatMattermostBulk(collected = {}) {
+  const { board } = collected;
+  const { items, all, first, offset } = pagingOf(collected);
   const team = slug(board && board.title, 'wekan');
   const names = new Set();
   const users = new Set();
-  const channels = items.map((item, index) => {
+  const channels = all.map((item, index) => {
     let name = slug(item.title, `card-${index + 1}`);
     for (let n = 2; names.has(name); n += 1) name = `${slug(item.title, 'card').slice(0, 56)}-${n}`;
     names.add(name);
     return name;
   });
   const user = value => { const u = slug(value, 'wekan').replace(/-/g, '.').slice(0, 22); users.add(u); return u; };
+  // Every user, in the order the posts name them, over the whole board.
+  all.forEach(item => {
+    user(item.creator || 'wekan');
+    for (const comment of item.comments || []) user(comment.author || 'wekan');
+  });
   const posts = [];
-  items.forEach((item, index) => {
+  items.forEach((item, pageIndex) => {
+    const index = offset + pageIndex;
     const creator = user(item.creator || 'wekan');
     const at = Date.parse(item.createdAt || 0) || 0;
     if (clean(item.description)) {
@@ -222,15 +234,17 @@ export function formatMattermostBulk({ board, items = [] } = {}) {
     }
   });
   const lines = [
+    ...(first ? [
     { type: 'version', version: 1 },
     { type: 'team', team: { name: team, display_name: (board && board.title) || team, type: 'I' } },
-    ...items.map((item, index) => ({ type: 'channel', channel: { team, name: channels[index],
+    ...all.map((item, index) => ({ type: 'channel', channel: { team, name: channels[index],
       display_name: String(item.title || channels[index]).slice(0, 64), type: 'O', purpose: clean(item.listTitle).slice(0, 250) } })),
     ...[...users].map(username => ({ type: 'user', user: { username, email: `${username}@wekan.invalid`,
       teams: [{ name: team, channels: channels.map(name => ({ name })) }] } })),
+    ] : []),
     ...posts,
   ];
-  return `${lines.map(line => JSON.stringify(line)).join('\n')}\n`;
+  return lines.length ? `${lines.map(line => JSON.stringify(line)).join('\n')}\n` : '';
 }
 
 // ----- Telegram ------------------------------------------------------------

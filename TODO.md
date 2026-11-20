@@ -35,11 +35,11 @@ is the rest.
   collected (`buildStream`); the .mbox, .enex, Todoist, TickTick, ClickUp,
   MeisterTask, Linear, Pivotal, Redmine, Quire, Taskwarrior and todo.txt
   exports, the Markdown, Obsidian, OPML, Org mode and Leo outlines and the
-  Notion CSV a page of 500 cards at a time, the references across pages read
-  in a light first pass (`models/lib/exportPaging.js`). Still built whole: the
-  formats that are one JSON document (Trello, Jira, Deck, OpenProject, GitHub
-  and the others, Focalboard, Nullboard, Super Productivity, Kanri, Taiga,
-  Vikunja, Mattermost) and the workbooks. Each of those needs its own writer
+  Notion CSV, and the Focalboard and Mattermost NDJSON, a page of 500 cards at
+  a time, the references across pages read in a light first pass
+  (`models/lib/exportPaging.js`). Still built whole: the formats that are one
+  JSON document (Trello, Jira, Deck, OpenProject, GitHub and the others,
+  Nullboard, Super Productivity, Kanri, Taiga, Vikunja) and the workbooks. Each of those needs its own writer
   of a document in parts.
 
 ## Import and Export of everything each tool has

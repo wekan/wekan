@@ -78,6 +78,9 @@ const STREAMED = {
 const PAGED = {
   todotxt: {}, taskwarrior: {}, meistertask: {}, linear: {}, ticktick: {}, clickup: {},
   pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true }, notion: {},
+  // NDJSON: the head named over the whole board on the first page, each
+  // card's records after it.
+  focalboard: {}, mattermost: {},
   markdown: { byList: 'lists' }, opml: { byList: 'lists' }, orgmode: { byList: 'lists' }, obsidian: { byList: 'lists' },
   // Leo: its outline from the light first pass on the first page, each page's
   // card texts after it.

@@ -42,7 +42,7 @@ test.before(async () => {
   paging = await import('../models/lib/exportPaging.js');
 });
 
-const PAGED = ['todotxt', 'taskwarrior', 'meistertask', 'linear', 'ticktick', 'clickup', 'pivotal', 'redmine', 'quire', 'todoist', 'notion'];
+const PAGED = ['todotxt', 'taskwarrior', 'meistertask', 'linear', 'ticktick', 'clickup', 'pivotal', 'redmine', 'quire', 'todoist', 'notion', 'mattermost'];
 
 function paged(format, size) {
   const byList = format === 'todoist';
@@ -151,4 +151,24 @@ test('negative: an empty board is one page of headings, and the route streams th
   }
   const render = read('server/lib/renderExternalExport.js');
   for (const format of OUTLINES) assert.match(render, new RegExp(`\\b${format}: \\{ byList: 'lists' \\}`), `${format} is paged list by list`);
+});
+
+test('Focalboard: the board\'s options from the whole board on the first page, each card\'s blocks after', async () => {
+  const { formatFocalboard } = await import('../models/lib/focalboardFormat.js');
+  const at = { now: Date.UTC(2026, 10, 20) };
+  const whole = formatFocalboard({ board, lists, items }, at);
+  const all = light;
+  for (const size of [1, 2, 4, 100]) {
+    const pages = Math.max(1, Math.ceil(items.length / size));
+    let out = '';
+    for (let n = 0; n < pages; n += 1) {
+      out += formatFocalboard({ board, lists, items: items.slice(n * size, (n + 1) * size),
+        page: { all, offset: n * size, first: n === 0, last: n === pages - 1 } }, at);
+    }
+    assert.strictEqual(out, whole, `${size} card(s) a page`);
+  }
+  // Negative: a later page has no head.
+  const later = formatFocalboard({ board, lists, items: [items[1]], page: { all, offset: 1, first: false, last: false } }, at);
+  assert.doesNotMatch(later, /"type":"board"|"version":1/);
+  assert.match(read('server/lib/renderExternalExport.js'), /focalboard: \{\}, mattermost: \{\},/);
 });

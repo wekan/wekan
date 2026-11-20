@@ -33,6 +33,7 @@
 // templates are reported, not imported. A deleted block is skipped.
 
 export const MAX_FOCALBOARD_BLOCKS = 50000;
+import { pagingOf, joinPage } from './exportPaging.js';
 const CUSTOM_TYPES = new Set(['text', 'number', 'email', 'url', 'phone', 'checkbox']);
 const COMPUTED_TYPES = new Set(['createdTime', 'updatedTime', 'createdBy', 'updatedBy']);
 
@@ -197,26 +198,32 @@ function blockId(prefix, source) {
 }
 const ms = value => { const date = value ? new Date(value) : null; return date && !Number.isNaN(date.getTime()) ? date.getTime() : null; };
 
-export function formatFocalboard({ board = {}, lists = [], items = [] }, { now = Date.now() } = {}) {
+// The whole board, or one page of it (models/lib/exportPaging.js): the
+// board's options are counted over the whole board and written on the first
+// page; every card's lines stand on their own.
+export function formatFocalboard(collected = {}, { now = Date.now() } = {}) {
+  const { board = {}, lists = [] } = collected;
+  const { items, all, first, last } = pagingOf(collected);
   const boardId = blockId('b', board._id || board.title || 'board');
   const status = { id: blockId('p', `${boardId}:status`), name: 'Status', type: 'select',
-    options: [...new Set([...(lists || []).map(list => list.title), ...items.map(item => item.listTitle)].filter(Boolean))]
+    options: [...new Set([...(lists || []).map(list => list.title), ...all.map(item => item.listTitle)].filter(Boolean))]
       .map(title => ({ id: blockId('o', `${boardId}:status:${title}`), value: title, color: 'propColorDefault' })) };
-  const labelNames = [...new Set(items.flatMap(item => (Array.isArray(item.labels) ? item.labels : [])))];
+  const labelNames = [...new Set(all.flatMap(item => (Array.isArray(item.labels) ? item.labels : [])))];
   const labels = { id: blockId('p', `${boardId}:labels`), name: 'Labels', type: 'multiSelect',
     options: labelNames.map(name => ({ id: blockId('o', `${boardId}:label:${name}`), value: name, color: 'propColorDefault' })) };
   const due = { id: blockId('p', `${boardId}:due`), name: 'Due', type: 'date', options: [] };
-  const fieldNames = [...new Set(items.flatMap(item => Object.keys(item.customFields || {})))];
+  const fieldNames = [...new Set(all.flatMap(item => Object.keys(item.customFields || {})))];
   const fields = fieldNames.map(name => ({ id: blockId('p', `${boardId}:field:${name}`), name, type: 'text', options: [] }));
   const line = (type, data) => JSON.stringify({ type, data });
   const base = (id, parentId, type, title, fields2, created) => ({ id, parentId, boardId, createdBy: '', modifiedBy: '',
     schema: 1, type, title, fields: fields2, createAt: created || now, updateAt: created || now, deleteAt: 0 });
-  const out = [JSON.stringify({ version: 1, date: now })];
-  out.push(line('board', { id: boardId, teamId: '0', channelId: '', createdBy: '', modifiedBy: '', type: 'P',
+  const out = [];
+  if (first) out.push(JSON.stringify({ version: 1, date: now }));
+  if (first) out.push(line('board', { id: boardId, teamId: '0', channelId: '', createdBy: '', modifiedBy: '', type: 'P',
     minimumRole: '', title: board.title || 'WeKan board', description: board.description || '', icon: '',
     showDescription: false, isTemplate: false, templateVersion: 0, properties: {},
     cardProperties: [status, labels, due, ...fields], createAt: now, updateAt: now, deleteAt: 0 }));
-  out.push(line('block', base(blockId('v', `${boardId}:view`), boardId, 'view', 'Board view', {
+  if (first) out.push(line('block', base(blockId('v', `${boardId}:view`), boardId, 'view', 'Board view', {
     viewType: 'board', groupById: status.id, sortOptions: [], visiblePropertyIds: [labels.id, due.id],
     visibleOptionIds: [], hiddenOptionIds: [], collapsedOptionIds: [], filter: { operation: 'and', filters: [] },
     cardOrder: [], columnWidths: {}, columnCalculations: {}, kanbanCalculations: {}, defaultTemplateId: '' })));
@@ -257,5 +264,6 @@ export function formatFocalboard({ board = {}, lists = [], items = [] }, { now =
       }
     });
   }
-  return `${out.join('\n')}\n`;
+  const text = joinPage(out, first);
+  return last ? `${text}\n` : text;
 }
