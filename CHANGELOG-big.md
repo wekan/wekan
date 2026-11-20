@@ -483,6 +483,15 @@ other format still exports the open cards, and no format a deleted one.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8330fb090c885c9d8ea015ed896c34a9b6cf251">A Trello .zip export carries the attachment files and imports back with them</a>. Thanks to xet7.</summary>
+
+Board Settings / Export / Trello .zip writes the Trello board JSON beside each
+card's attachments as files, streamed from storage, and the Trello .zip import
+brings the files back with their cards, byte for byte.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
