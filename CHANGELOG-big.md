@@ -501,6 +501,14 @@ Taskwarrior and Redmine keep them.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0b3d9013d68ae4ac787655183233935766c5997">The .mbox export carries the card labels, as Gmail labels</a>. Thanks to xet7.</summary>
+
+The mail import reads X-Gmail-Labels, so labels now come back. The round trip
+of every export also checks labels and due dates.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
