@@ -475,6 +475,14 @@ back with them.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ac8b802c5a6be6bfebdb4d3303625a8e1cf3484">The Trello export carries the archived cards and lists, as closed ones</a>. Thanks to xet7.</summary>
+
+As Trello's own export does, and the import reads them back archived. Every
+other format still exports the open cards, and no format a deleted one.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
