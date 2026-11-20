@@ -49,6 +49,13 @@ replies are imported; pins, joins and other system messages are not.
 
 Channel name and topic, category, server, messages with author, nickname and time.
 
+## Replies
+
+A reply, found by its `reference`, is a reply to the comment of the message it answers,
+one level deep as WeKan's replies are: a reply to a reply goes under the same
+comment. A reply to a message that is not in the file is a comment of its own,
+starting with "↳".
+
 ## Reactions
 
 A message's reactions become the comment's reactions, read from the emoji itself.

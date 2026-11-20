@@ -123,7 +123,32 @@ export function importedComment(comment, members = {}) {
     ...(reactions.length ? { reactions } : {}),
     ...(unknown ? { reactionsUnknown: unknown } : {}),
     ...(unmapped ? { reactionsUnmapped: unmapped } : {}),
+    ...(text(comment.ref) ? { ref: text(comment.ref) } : {}),
+    ...(text(comment.reply_to) ? { replyTo: text(comment.reply_to) } : {}),
   };
+}
+
+// A chat's replies as WeKan's: a comment with `replyTo` (the `ref` of the
+// message it answers, on the same card) gets `parentIndex`, the index of the
+// top-level comment it belongs under - one level of threading, as WeKan has
+// (models/cardComments.js resolveParentId): a reply to a reply goes under the
+// first one's parent. A reply whose message is not on the card stays a
+// comment of its own, marked "↳ " so a reader still sees it answers one.
+export function threadImportedComments(comments) {
+  const indexOf = new Map();
+  const out = (Array.isArray(comments) ? comments : []).map(comment => ({ ...comment }));
+  out.forEach((comment, index) => {
+    const parent = comment.replyTo && indexOf.has(comment.replyTo) ? indexOf.get(comment.replyTo) : undefined;
+    if (parent !== undefined && parent !== index) {
+      comment.parentIndex = out[parent].parentIndex !== undefined ? out[parent].parentIndex : parent;
+    } else if (comment.replyTo && !/^↳ /.test(comment.text)) {
+      comment.text = `↳ ${comment.text}`;
+    }
+    if (comment.ref && !indexOf.has(comment.ref)) indexOf.set(comment.ref, index);
+    delete comment.replyTo;
+    delete comment.ref;
+  });
+  return out;
 }
 
 export function importedChecklists(checklists) {
@@ -195,9 +220,9 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
     watcherIds,
     unwatchedCount: watcherKeys.length - watcherKeys.filter(key => watcherIds.includes(members[key])).length,
     checklists: importedChecklists(task.checklists),
-    comments: (Array.isArray(task.comments) ? task.comments : [])
+    comments: threadImportedComments((Array.isArray(task.comments) ? task.comments : [])
       .map(comment => importedComment(comment, members))
-      .filter(Boolean),
+      .filter(Boolean)),
   };
 }
 

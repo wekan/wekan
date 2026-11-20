@@ -25,12 +25,17 @@ export async function insertImportedChecklists(checklists, { boardId, cardId, no
 }
 
 export async function insertImportedComments(comments, { boardId, cardId, now, importerId }) {
+  const ids = [];
   for (const comment of comments) {
     const createdAt = comment.createdAt || now;
     const userId = comment.userId || importerId;
+    // A reply (models/lib/importedTaskPlan.js threadImportedComments): its
+    // top-level comment comes first, so its id is known.
+    const parentId = comment.parentIndex !== undefined ? ids[comment.parentIndex] : undefined;
     const commentId = await writeImportedEntity(CardComments, {
-      boardId, cardId, createdAt, text: comment.text, userId,
+      boardId, cardId, createdAt, text: comment.text, userId, ...(parentId ? { parentId } : {}),
     });
+    ids.push(commentId);
     // The activity feed and comment counters read addComment activities.
     await Activities.direct.insertAsync({
       activityType: 'addComment', boardId, cardId, commentId, createdAt, userId,

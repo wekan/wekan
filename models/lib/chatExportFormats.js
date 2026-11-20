@@ -85,9 +85,14 @@ function chatBoard(name, chats, { files = 0, unsupported = [] } = {}) {
 
 // `reactions`: [{ emoji | name, authors: [the same keys as `author`], count }]
 // (models/lib/importedReactions.js keeps them as the comment's reactions).
-const message = (text, author, authorName, date, reactions) => ({
+// `thread`: { ref, replyTo } - the message's own id in the export and the id of
+// the message it answers; the import makes it a reply to that comment
+// (models/lib/importedTaskPlan.js threadImportedComments).
+const message = (text, author, authorName, date, reactions, thread = {}) => ({
   text: cut(text), author: clean(author), authorName: clean(authorName) || clean(author), date: iso(date),
   ...(Array.isArray(reactions) && reactions.length ? { reactions } : {}),
+  ...(clean(thread.ref) ? { ref: clean(thread.ref) } : {}),
+  ...(clean(thread.replyTo) ? { reply_to: clean(thread.replyTo) } : {}),
 });
 const keys = list => (Array.isArray(list) ? list : []).map(clean).filter(Boolean);
 
@@ -132,12 +137,14 @@ export function parseSlackExport(data) {
         messages: list.filter(m => m && m.type === 'message' && !['channel_join', 'channel_leave'].includes(m.subtype))
           .map(m => {
             files += Array.isArray(m.files) ? m.files.length : 0;
-            const reply = m.thread_ts && m.thread_ts !== m.ts ? '↳ ' : '';
+            // A thread reply carries its parent's ts as thread_ts.
+            const replyTo = m.thread_ts && m.thread_ts !== m.ts ? m.thread_ts : '';
             const name = (m.user_profile && (m.user_profile.display_name || m.user_profile.real_name)) || userName(m.user);
             // Slack: reactions [{ name: "thumbsup", users: [user ids], count }].
             const reactions = (Array.isArray(m.reactions) ? m.reactions : []).filter(x => x && x.name)
               .map(x => ({ name: x.name, authors: keys(x.users).map(userKey), count: Number(x.count) || 0 }));
-            return message(reply + slackText(m.text, userName), userKey(m.user), name, Number(m.ts) * 1000, reactions);
+            return message(slackText(m.text, userName), userKey(m.user), name, Number(m.ts) * 1000, reactions,
+              { ref: m.ts, replyTo });
           }),
       });
     }
@@ -175,12 +182,16 @@ export function parseMattermostBulk(text) {
     }
     return [...byEmoji.entries()].map(([name, authors]) => ({ name, authors: authors.filter(Boolean), count: authors.length }));
   };
+  // A bulk export's post has no id; its replies are nested in it.
+  let posts = 0;
   const posted = (chat, post) => {
     files += Array.isArray(post.attachments) ? post.attachments.length : 0;
-    chat.messages.push(message(post.message, post.user, post.user, post.create_at, reactionsOf(post)));
+    posts += 1;
+    const ref = `post-${posts}`;
+    chat.messages.push(message(post.message, post.user, post.user, post.create_at, reactionsOf(post), { ref }));
     for (const reply of Array.isArray(post.replies) ? post.replies : []) {
       files += Array.isArray(reply.attachments) ? reply.attachments.length : 0;
-      chat.messages.push(message(`↳ ${clean(reply.message)}`, reply.user, reply.user, reply.create_at, reactionsOf(reply)));
+      chat.messages.push(message(reply.message, reply.user, reply.user, reply.create_at, reactionsOf(reply), { replyTo: ref }));
     }
   };
   for (const line of lines) {
@@ -292,7 +303,8 @@ export function parseTelegramExport(data) {
         authors: (Array.isArray(x.recent) ? x.recent : []).map(r => clean(r && (r.from_id || r.from))).filter(Boolean),
         count: Number(x.count) || 0,
       }));
-      return message(telegramText(m.text), m.from_id || m.from, m.from, at, reactions);
+      return message(telegramText(m.text), m.from_id || m.from, m.from, at, reactions,
+        { ref: m.id !== undefined ? String(m.id) : '', replyTo: m.reply_to_message_id !== undefined ? String(m.reply_to_message_id) : '' });
     }),
   }));
   const who = data.personal_information && [data.personal_information.first_name, data.personal_information.last_name]
@@ -372,7 +384,8 @@ export function parseDiscordExport(data) {
         authors: (Array.isArray(x.users) ? x.users : []).map(u => clean(u && (u.name || u.id))).filter(Boolean),
         count: Number(x.count) || 0,
       }));
-      return message(m.content, author.name || author.id, author.nickname || author.name, m.timestamp, reactions);
+      return message(m.content, author.name || author.id, author.nickname || author.name, m.timestamp, reactions,
+        { ref: m.id, replyTo: m.type === 'Reply' && m.reference ? m.reference.messageId : '' });
     }),
   }));
   const guilds = [...new Set(chats.map(c => c.swimlane))];

@@ -54,6 +54,13 @@ out.
 
 Channels with their topic and purpose, every message and thread reply with its author and time.
 
+## Replies
+
+A reply, found by its `thread_ts`, is a reply to the comment of the message it answers,
+one level deep as WeKan's replies are: a reply to a reply goes under the same
+comment. A reply to a message that is not in the file is a comment of its own,
+starting with "↳".
+
 ## Reactions
 
 A message's reactions become the comment's reactions, read from Slack's shortcode, such as `thumbsup` or `tada`.

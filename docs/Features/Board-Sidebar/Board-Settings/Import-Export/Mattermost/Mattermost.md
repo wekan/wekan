@@ -66,6 +66,13 @@ messages**; a reply starts with `↳`.
 
 Channels with header and purpose, posts and replies with author and time, teams.
 
+## Replies
+
+A reply, found by the post it is nested in, is a reply to the comment of the message it answers,
+one level deep as WeKan's replies are: a reply to a reply goes under the same
+comment. A reply to a message that is not in the file is a comment of its own,
+starting with "↳".
+
 ## Reactions
 
 A message's reactions become the comment's reactions, read from Mattermost's `emoji_name`, such as `+1` or `tada`.

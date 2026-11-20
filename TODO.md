@@ -59,8 +59,9 @@ tool's newest features against its parser and formatter.
   tool that has them; reminders are reported, since a WeKan card has no
   reminder.)
 - Mail, calendars and chats: mail, mbox, Google Takeout, Slack, Mattermost,
-  Telegram, WhatsApp, Discord, Evernote .enex - threads and replies (a reply
-  is a "↳" comment line, not linked to the message it answers), and the
-  attached files that are now only counted. (Reactions are the comments'
+  Telegram, WhatsApp, Discord, Evernote .enex - the attached files that are
+  now only counted: the chat exports name them but do not carry their bytes
+  (Slack's are behind its sign-in, Telegram's and Discord's sit beside the
+  JSON). (Chat replies are comment replies and reactions the comments'
   reactions; a daily, weekly or monthly iCalendar RRULE is the card's
   recurrence.)

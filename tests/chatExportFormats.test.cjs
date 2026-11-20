@@ -33,9 +33,13 @@ test('Slack: a channel is a card, its days of messages its comments in order', a
   assert.strictEqual(general.description, 'Company-wide');
   assert.deepStrictEqual(general.comments.map(c => [c.author, c.authorName, c.text]), [
     ['anna', 'Anna', 'Hi @Matti M, see WeKan (https://wekan.fi) & #general'],
-    ['matti', 'Matti M', '↳ In the thread'],
+    ['matti', 'Matti M', 'In the thread'],
     ['matti', 'Matti M', 'Second day'],
   ]);
+  // A thread reply is a reply to its parent's comment now, not a "↳" line
+  // (tests/importedReactions.test.cjs runs the threading).
+  assert.strictEqual(general.comments[1].reply_to, '1795338000.000100');
+  assert.strictEqual(general.comments[0].ref, '1795338000.000100');
   assert.ok(board.unsupported.some(u => /1 file/.test(u.reason)));
   // Negative: a zip that is not a Slack export is refused.
   await assert.rejects(readSlackExport(zipOf({ 'readme.txt': 'x' })), /no channels\.json/);
@@ -55,7 +59,8 @@ test('Mattermost: channels with posts and replies, and the board exported back',
   assert.strictEqual(board.board.name, 'Engineering');
   assert.deepStrictEqual(board.tasks.map(t => [t.title, t.column_name, t.swimlane_name]),
     [['Town Square', 'Channels', 'Engineering'], ['anna, matti', 'Direct messages', 'Direct messages']]);
-  assert.deepStrictEqual(board.tasks[0].comments.map(c => c.text), ['Release today', '↳ Ok']);
+  assert.deepStrictEqual(board.tasks[0].comments.map(c => c.text), ['Release today', 'Ok']);
+  assert.strictEqual(board.tasks[0].comments[1].reply_to, board.tasks[0].comments[0].ref, 'the reply answers its post');
   assert.throws(() => chat.parseMattermostBulk('{"type":"post"}'), /no version line/);
   assert.throws(() => chat.parseMattermostBulk('{"type":"version"}\nnot json'), /Line 2 is not JSON/);
 
