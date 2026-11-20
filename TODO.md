@@ -37,9 +37,12 @@ is the rest.
   exports, the Markdown, Obsidian, OPML, Org mode and Leo outlines and the
   Notion CSV, and the Focalboard and Mattermost NDJSON, a page of 500 cards at
   a time, the references across pages read in a light first pass
-  (`models/lib/exportPaging.js`). Still built whole: the formats that are one
-  JSON document (Trello, Jira, Deck, OpenProject, GitHub and the others,
-  Nullboard, Super Productivity, Kanri, Taiga, Vikunja) and the workbooks. Each of those needs its own writer
+  (`models/lib/exportPaging.js`). The JSON documents whose cards are one array
+  (Trello, Jira, Asana, Zenkit, OpenProject, GitHub, Gitea, Forgejo, GitLab)
+  are written around that array, each page's cards into it. Still built whole:
+  the JSON documents that nest their cards under the lists or spread them over
+  several arrays (Deck, Nullboard, Super Productivity, Kanri, Taiga, Vikunja)
+  and the workbooks. Each of those needs its own writer
   of a document in parts.
 
 ## Import and Export of everything each tool has

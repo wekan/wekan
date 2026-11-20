@@ -10,6 +10,7 @@
 // startAt, endAt, createdAt, owner, assignees, creator, requestedBy, comments,
 // checklists, parentCardId and customFields. A format drops what it has no
 // field for; that is the honest answer, not a loss this module invents.
+import { pagingOf } from './exportPaging.js';
 import { formatMarkdownKanban } from './markdownKanbanFormat.js';
 import { formatLeo } from './leoOutlineFormat.js';
 import { formatTodoTxt } from './todoTxtFormat.js';
@@ -182,11 +183,13 @@ export const formatters = {
     };
   },
   // OpenProject: a work-packages collection with HAL links.
+  // A page of the board, or all of it (models/lib/exportPaging.js): the
+  // numbers, ranks and custom field columns are counted over the whole board.
   openproject: collected => {
-    const { items } = collected;
-    const ids = numericIds(items);
+    const { items, all } = pagingOf(collected);
+    const ids = numericIds(all);
     const planning = planningIndex(collected);
-    const ranks = positions(items);
+    const ranks = positions(all);
     const versions = [...planning.releases.values()].map(r => ({ _type: 'Version', id: r.number, name: r.name,
       ...(has(r.notes) ? { description: { raw: r.notes } } : {}),
       ...(r.plannedStart ? { startDate: day(r.plannedStart) } : {}), ...(r.plannedEnd ? { endDate: day(r.plannedEnd) } : {}),
@@ -197,7 +200,7 @@ export const formatters = {
       _links: { self: { href: `/api/v3/sprints/${sp.number}`, title: sp.name },
         status: { href: `urn:openproject-org:api:v3:sprints:status:${OPENPROJECT_SPRINT_STATUS[sp.state] || 'in_planning'}`,
           title: OPENPROJECT_SPRINT_TITLE[sp.state] || 'In planning' } } }));
-    const fieldNames = [...new Set(items.flatMap(i => Object.keys(i.customFields || {})))];
+    const fieldNames = [...new Set(all.flatMap(i => Object.keys(i.customFields || {})))];
     const fieldKey = name => `customField${fieldNames.indexOf(name) + 1}`;
     return {
       _embedded: {
@@ -282,9 +285,13 @@ export const formatters = {
     actions: [],
   }),
   // Jira issues collection (round-trips with WeKan's Jira import).
-  jira: ({ board, items, jiraEstimateMapping }) => {
-    const keys = new Map(items.map((item, idx) => [item.cardId, `WEKAN-${idx + 1}`]));
-    const fieldNames = [...new Set(items.flatMap(i => Object.keys(i.customFields || {})))];
+  // The issue keys and custom field names are counted over the whole board,
+  // whichever page is written (models/lib/exportPaging.js).
+  jira: collected => {
+    const { board, jiraEstimateMapping } = collected;
+    const { items, all } = pagingOf(collected);
+    const keys = new Map(all.map((item, idx) => [item.cardId, `WEKAN-${idx + 1}`]));
+    const fieldNames = [...new Set(all.flatMap(i => Object.keys(i.customFields || {})))];
     const fieldKey = name => `customfield_${90000 + fieldNames.indexOf(name) + 1}`;
     return {
       board: { name: board.title },

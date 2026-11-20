@@ -87,9 +87,71 @@ const PAGED = {
   leo: { byList: 'lists' },
 };
 
+// The formats that are one JSON document whose cards are one array: `path`
+// names the array (empty: the document is the array). The first page writes
+// the document around it, with the array left open; every page then writes
+// its own cards into it. Each part passes the export boundary and the
+// admin-only field redaction as the whole document does (sendJsonResult).
+const JSON_PAGED = {
+  trello: { path: ['cards'] },
+  jira: { path: ['issues'] },
+  asana: { path: ['data'] },
+  zenkit: { path: ['items'] },
+  openproject: { path: ['_embedded', 'elements'] },
+  github: { path: [] }, gitea: { path: [] }, forgejo: { path: [] }, gitlab: { path: [] },
+};
+const ARRAY_PLACE = '__wekan_paged_array__';
+
+async function streamJsonExport(res, boardId, format, fields) {
+  const { path } = JSON_PAGED[format];
+  const { externalExportPages, formatters } = require('/models/lib/externalExporters');
+  const { secureTransfer } = require('/server/lib/secureTransfer');
+  const { containsFields } = require('/models/lib/adminOnlyCustomFields');
+  const context = { direction: 'export', source: `export:${format}` };
+  const userId = res.req && res.req.userId;
+  const safe = async value => {
+    const checked = secureTransfer(value, context);
+    return containsFields(checked) ? require('/server/lib/adminOnlyCustomFields').redactFields(checked, userId) : checked;
+  };
+  const write = async text => {
+    if (!res.write(text)) await new Promise(resolve => res.once('drain', resolve));
+  };
+  let tail = null;
+  let count = 0;
+  for await (const collected of externalExportPages(boardId, format, fields, 500, { paged: true })) {
+    const doc = formatters[format](collected);
+    const cards = path.reduce((node, key) => (node ? node[key] : undefined), doc) || [];
+    if (tail === null) {
+      let skeleton = ARRAY_PLACE;
+      if (path.length) {
+        skeleton = JSON.parse(JSON.stringify(doc));
+        let node = skeleton;
+        path.slice(0, -1).forEach(key => { node = node[key]; });
+        node[path[path.length - 1]] = ARRAY_PLACE;
+      }
+      const text = JSON.stringify(await safe(skeleton));
+      const at = text.indexOf(JSON.stringify(ARRAY_PLACE));
+      tail = text.slice(at + JSON.stringify(ARRAY_PLACE).length);
+      res.statusCode = 200;
+      res.setHeader('Cache-Control', 'no-store');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Content-Type', 'application/json');
+      await write(`${text.slice(0, at)}[`);
+    }
+    for (const card of cards) {
+      // eslint-disable-next-line no-await-in-loop
+      await write(`${count ? ',' : ''}${JSON.stringify(await safe(card))}`);
+      count += 1;
+    }
+  }
+  res.end(`]${tail}`);
+  return true;
+}
+
 // Writes the export to `res` page by page, or answers false when the format
 // is not one that streams.
 async function streamExternalExport(res, boardId, format, fields) {
+  if (JSON_PAGED[format]) return streamJsonExport(res, boardId, format, fields);
   if (!STREAMED[format] && !PAGED[format]) return false;
   const { externalExportPages, formatters } = require('/models/lib/externalExporters');
   const parts = STREAMED[format] ? STREAMED[format]() : { head: '', page: collected => formatters[format](collected), tail: '' };
@@ -105,4 +167,4 @@ async function streamExternalExport(res, boardId, format, fields) {
   return true;
 }
 
-module.exports = { renderExternalExport, streamExternalExport, STREAMED, PAGED };
+module.exports = { renderExternalExport, streamExternalExport, STREAMED, PAGED, JSON_PAGED };

@@ -172,3 +172,61 @@ test('Focalboard: the board\'s options from the whole board on the first page, e
   assert.doesNotMatch(later, /"type":"board"|"version":1/);
   assert.match(read('server/lib/renderExternalExport.js'), /focalboard: \{\}, mattermost: \{\},/);
 });
+
+// The JSON documents whose cards are one array (server/lib/renderExternalExport.js
+// JSON_PAGED): the first page's document around the array is the whole
+// document's, and the pages' arrays together are the whole array.
+const JSON_FORMATS = { trello: ['cards'], jira: ['issues'], asana: ['data'], zenkit: ['items'],
+  openproject: ['_embedded', 'elements'], github: [], gitea: [], forgejo: [], gitlab: [] };
+const at = (doc, path) => path.reduce((node, key) => (node ? node[key] : undefined), doc);
+const without = (doc, path) => {
+  if (!path.length) return null;
+  const copy = JSON.parse(JSON.stringify(doc));
+  let node = copy;
+  path.slice(0, -1).forEach(key => { node = node[key]; });
+  delete node[path[path.length - 1]];
+  return copy;
+};
+const jsonItems = items.map(item => ({ ...item, labels: item.labels || [], labelIds: [], listId: 'l', comments: item.comments || [],
+  scrum: { backlogRank: item.cardId.charCodeAt(0) } }));
+const jsonLight = jsonItems.map(item => ({ ...item, description: '', comments: item.comments.map(c => ({ ...c, text: '·' })) }));
+
+test('every JSON document: the pages\' card arrays together are the whole array, the rest is the first page\'s', () => {
+  const lists2 = lists.map((l, i) => ({ ...l, _id: `l${i}` }));
+  const board2 = { ...board, labels: [] };
+  for (const [format, path] of Object.entries(JSON_FORMATS)) {
+    const whole = JSON.parse(JSON.stringify(fmt[format]({ board: board2, lists: lists2, items: jsonItems })));
+    for (const size of [1, 2, 4, 100]) {
+      const pages = Math.max(1, Math.ceil(jsonItems.length / size));
+      let cards = [];
+      let first = null;
+      for (let n = 0; n < pages; n += 1) {
+        const doc = JSON.parse(JSON.stringify(fmt[format]({ board: board2, lists: lists2, items: jsonItems.slice(n * size, (n + 1) * size),
+          page: { all: jsonLight, offset: n * size, first: n === 0, last: n === pages - 1 } })));
+        if (n === 0) first = doc;
+        cards = cards.concat(at(doc, path) || []);
+      }
+      assert.deepStrictEqual(cards, at(whole, path), `${format}, ${size} card(s) a page: the cards`);
+      assert.deepStrictEqual(without(first, path), without(whole, path), `${format}, ${size}: the document around them`);
+    }
+  }
+  // The references across pages: a Jira child names its parent's key from the other page.
+  const second = fmt.jira({ board: board2, items: [jsonItems[1]], page: { all: jsonLight, offset: 1, first: false, last: false } });
+  assert.strictEqual(second.issues[0].key, 'WEKAN-2');
+  assert.strictEqual(second.issues[0].fields.parent.key, 'WEKAN-1');
+});
+
+test('negative: no part of a paged JSON document skips the export boundary or the field redaction', () => {
+  const render = read('server/lib/renderExternalExport.js');
+  for (const format of Object.keys(JSON_FORMATS)) assert.match(render, new RegExp(`\\b${format}: \\{ path: `), `${format} is paged`);
+  assert.match(render, /const checked = secureTransfer\(value, context\);\n\s+return containsFields\(checked\) \? require\('\/server\/lib\/adminOnlyCustomFields'\)\.redactFields\(checked, userId\) : checked;/);
+  assert.match(render, /const text = JSON\.stringify\(await safe\(skeleton\)\);/, 'the document around the cards');
+  assert.match(render, /JSON\.stringify\(await safe\(card\)\)/, 'and every card');
+  // What is written: the head from the checked skeleton's text, and every card
+  // through safe() - no write of a JSON text made from anything else.
+  const writer = render.slice(render.indexOf('async function streamJsonExport'), render.indexOf('async function streamExternalExport'));
+  const writes = [...writer.matchAll(/(?:await write|res\.end)\(([^;]*)\);/g)].map(m => m[1]);
+  assert.deepStrictEqual(writes, ['`${text.slice(0, at)}[`', "`${count ? ',' : ''}${JSON.stringify(await safe(card))}`", '`]${tail}`'],
+    'nothing is written without passing safe()');
+  assert.match(render, /if \(JSON_PAGED\[format\]\) return streamJsonExport\(res, boardId, format, fields\);/);
+});
