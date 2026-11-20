@@ -25,10 +25,14 @@
 //   Archived (any date)     -> an archived card
 //   Priority, Estimate,
 //   Project, Cycle          -> custom fields ("No priority" is left out)
-// Columns with no WeKan place (Updated, Triaged, the cycle's dates,
-// Initiatives, milestones, SLA Status) are reported once, by name.
+//   Cycle (with Cycle Start
+//   and Cycle End)          -> a Scrum sprint, per team
+//   Project Milestone       -> a Scrum release
+// Columns with no WeKan place (Updated, Triaged, Initiatives, SLA Status)
+// are reported once, by name.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { linearScrumPlanning } from './externalScrumPlanning.js';
 import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const LINEAR_COLUMNS = ['ID', 'Team', 'Title', 'Description', 'Status', 'Estimate', 'Priority', 'Project ID',
@@ -38,7 +42,7 @@ export const LINEAR_COLUMNS = ['ID', 'Team', 'Title', 'Description', 'Status', '
 export const LINEAR_PRIORITIES = ['Urgent', 'High', 'Medium', 'Low'];
 const READ = new Set(['ID', 'Id', 'Team', 'Title', 'Description', 'Status', 'Estimate', 'Priority', 'Project ID', 'Project',
   'Creator', 'Assignee', 'Labels', 'Cycle Number', 'Cycle Name', 'Created', 'Started', 'Completed', 'Canceled', 'Archived',
-  'Due Date', 'Parent issue']);
+  'Due Date', 'Parent issue', 'Cycle Start', 'Cycle End', 'Project Milestone ID', 'Project Milestone']);
 const FORMULA = /^'(?=[+\-=@∑√∏<>＜＞≤≥＝≠±÷×])/;
 const NEEDS_QUOTE = /^[+\-=@∑√∏<>＜＞≤≥＝≠±÷×]/;
 const NO_STATUS = 'No status';
@@ -72,6 +76,7 @@ export function parseLinearCsv(text) {
   const columns = [];
   const swimlanes = [];
   const tasks = [];
+  const planning = [];
   rows.slice(1).forEach((cells, index) => {
     const at = `/row/${index + 2}`;
     const title = get(cells, 'Title');
@@ -104,6 +109,13 @@ export function parseLinearCsv(text) {
     const archived = get(cells, 'Archived');
     if (archived) date('Archived');
     const owner = get(cells, 'Assignee');
+    // Cycles as sprints and project milestones as releases (models/lib/externalScrumPlanning.js).
+    if (cycle || get(cells, 'Project Milestone')) {
+      planning.push({ index: tasks.length, row: index + 2, team: get(cells, 'Team'), cycleNumber: get(cells, 'Cycle Number'),
+        cycleName: get(cells, 'Cycle Name'), cycleStart: get(cells, 'Cycle Start').slice(0, 10) || undefined,
+        cycleEnd: get(cells, 'Cycle End').slice(0, 10) || undefined, done: Boolean(ended),
+        milestoneId: get(cells, 'Project Milestone ID'), milestone: get(cells, 'Project Milestone') });
+    }
     tasks.push({
       title,
       description: get(cells, 'Description'),
@@ -122,6 +134,7 @@ export function parseLinearCsv(text) {
       ...(Object.keys(custom).length ? { custom_fields: custom } : {}),
     });
   });
+  const scrum = linearScrumPlanning(planning);
   return {
     board: { name: 'Imported Linear issues' },
     columns: columns.map(title => ({ title })),
@@ -129,6 +142,9 @@ export function parseLinearCsv(text) {
     tasks,
     warnings: [],
     unsupported,
+    // Applied by the creator only when Scrum is part of the import selection.
+    ...(scrum.transfer ? { scrumTransfer: scrum.transfer } : {}),
+    ...(scrum.losses.length ? { scrumLosses: scrum.losses } : {}),
   };
 }
 

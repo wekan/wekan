@@ -97,10 +97,16 @@ What the import covers:
 - `, `-separated labels;
 - the created, started, completed (or canceled) and due dates;
 - Archived as an archived card;
-- Priority, Estimate, Project and Cycle (and Canceled) as custom fields.
+- Priority, Estimate, Project and Cycle (and Canceled) as custom fields;
+- with Scrum ticked in the import, each cycle as a Scrum sprint with its Cycle
+  Start and Cycle End, one per team (a cycle number is its team's), and each
+  project milestone as a Scrum release. The CSV gives a cycle no state: one
+  whose issues are all done is finished and not imported, as no commitment or
+  close snapshot is in the export, and any other is imported as planned. A
+  milestone has no dates in the CSV. Both are noted in the loss report.
 
-Reported: Updated, Triaged, the cycle's dates, Initiatives, milestones, SLA
-Status, dates that are not ISO 8601, and unknown priorities. The export writes
+Reported: Updated, Triaged, Initiatives, SLA Status, dates that are not ISO
+8601, and unknown priorities. The export writes
 Linear's columns in its order, with the formula guard.
 
 From the current code (`models/lib/linearCsvFormat.js`):

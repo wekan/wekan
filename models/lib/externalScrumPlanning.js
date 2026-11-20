@@ -22,6 +22,10 @@
 //     it depends on. Asana has no sprint record.
 //   * Pivotal Tracker (stories CSV): a story's iteration becomes a sprint
 //     with its start and end dates, its estimate the Scrum estimate in points.
+//   * Linear (issues CSV): an issue's cycle becomes a sprint with the
+//     export's Cycle Start and Cycle End, per team (cycle numbers are a
+//     team's own), and its project milestone a release (the CSV has no
+//     milestone dates, which is reported).
 //   * Taiga (project dump): `milestones` become sprints (estimated start and
 //     finish; a closed one is reported), an item's `milestone` its sprint and
 //     a user story's `backlog_order` its backlog rank. Taiga has no releases.
@@ -413,6 +417,50 @@ function pivotalScrumPlanning(stories) {
   return p.finish({ estimate: estimate ? { field: STORY_POINTS_FIELD, unit: 'points' } : null });
 }
 
+// --- Linear -----------------------------------------------------------------
+
+// `rows`: { index, row, team, cycleNumber, cycleName, cycleStart, cycleEnd,
+// done, milestoneId, milestone } per issue. The CSV gives a cycle no state,
+// so - as for Pivotal - a cycle whose issues are all done is finished and not
+// imported, and any other is imported as planned; both are reported.
+function linearScrumPlanning(rows) {
+  const p = createPlanner('linear');
+  const list = (Array.isArray(rows) ? rows : []).filter(row => row && typeof row === 'object');
+  const cycleKey = row => (row.cycleNumber || row.cycleName ? `${row.team || ''}#${row.cycleNumber || row.cycleName}` : '');
+  const finished = new Map();
+  list.forEach(row => {
+    const key = cycleKey(row);
+    if (key) finished.set(key, (finished.has(key) ? finished.get(key) : true) && row.done === true);
+  });
+  list.forEach(row => {
+    const key = cycleKey(row);
+    if (key) {
+      const name = (text(row.cycleName, 200) || `Cycle ${row.cycleNumber}`).slice(0, 200);
+      const label = `cycle ${shown(name)}${row.team ? ` of ${shown(row.team)}` : ''}`;
+      const path = `/cycles/${key}`;
+      const sprintId = p.record(p.sprints, 'sprint', key, 'cycle', () => {
+        if (finished.get(key)) {
+          p.lost(path, `${label} holds only done issues, so it is finished; it is not imported: the export has no commitment or close snapshot`);
+          return null;
+        }
+        p.lost(path, `${label} has no state in the export and is imported as planned`);
+        return { name, goal: '', state: 'planned', ...p.dates(path, label, row.cycleStart, row.cycleEnd) };
+      });
+      p.assign(row.index, 'sprintId', sprintId, `/row/${row.row}/Cycle`, label);
+    }
+    const milestone = text(row.milestone, 200);
+    if (milestone) {
+      const releaseKey = text(row.milestoneId, 200) || `name:${milestone}`;
+      const releaseId = p.record(p.releases, 'release', releaseKey, 'project milestone', () => {
+        p.lost(`/milestones/${releaseKey}`, `project milestone ${shown(milestone)} has no dates or state in the export and is imported as planned`);
+        return { name: milestone, notes: '', state: 'planned' };
+      });
+      p.assign(row.index, 'releaseId', releaseId, `/row/${row.row}/Project Milestone`, `project milestone ${shown(milestone)}`);
+    }
+  });
+  return p.finish();
+}
+
 // --- Taiga ------------------------------------------------------------------
 
 // A Taiga project dump (models/lib/taigaFormat.js): `milestones` are its
@@ -481,5 +529,5 @@ function trelloScrumLosses(board) {
 }
 
 module.exports = { taskCardId, sourceDate, gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning,
-  pivotalScrumPlanning, taigaScrumPlanning,
+  pivotalScrumPlanning, linearScrumPlanning, taigaScrumPlanning,
   trelloScrumLosses, STORY_POINTS_FIELD, GITLAB_ITERATION_STATES };

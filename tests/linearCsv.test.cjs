@@ -57,7 +57,8 @@ async function main() {
     assert.deepEqual(planImportedLinks(board.tasks).parents, [{ index: 1, parent: 0 }]);
     // Reported once each, by name.
     const columns = board.unsupported.filter(u => u.path.startsWith('/columns/')).map(u => u.path.slice(9));
-    assert.deepEqual(columns.sort(), ['Cycle End', 'Cycle Start', 'Initiatives', 'Project Milestone', 'Project Milestone ID', 'SLA Status', 'Triaged', 'Updated'].sort());
+    // The cycle's dates and the project milestone are Scrum planning now (below).
+    assert.deepEqual(columns.sort(), ['Initiatives', 'SLA Status', 'Triaged', 'Updated'].sort());
   });
 
   test('negative: unknown priorities, estimates and dates are reported, never guessed', () => {
@@ -112,6 +113,30 @@ async function main() {
     assert.match(read('models/lib/importSources.js'), /\{ key: 'linear', name: '[^']+', \.\.\.TEXT/, 'read by the one import path');
     assert.match(read('client/components/boards/exportScope.js'), /key: 'linear'[^}]*path: 'export\/linear', ext: 'csv'/);
     assert.match(JSON.parse(read('imports/i18n/data/en.i18n.json'))['import-board-instruction-linear'], /Export data/);
+  });
+
+  test('cycles are sprints with their dates, per team; project milestones are releases', () => {
+    const csv = [HEADER,
+      row({ ID: 'ENG-1', Team: 'Engineering', Title: 'A', Status: 'Todo', 'Cycle Number': 7, 'Cycle Name': 'Cycle 7',
+        'Cycle Start': '2026-11-02T00:00:00.000Z', 'Cycle End': '2026-11-16T00:00:00.000Z', 'Project Milestone ID': 'm1', 'Project Milestone': 'Beta' }),
+      row({ ID: 'ENG-2', Team: 'Engineering', Title: 'B', Status: 'Done', 'Cycle Number': 7, Completed: '2026-11-05T00:00:00.000Z' }),
+      row({ ID: 'OPS-1', Team: 'Ops', Title: 'C', Status: 'Todo', 'Cycle Number': 7 }),
+      row({ ID: 'ENG-3', Team: 'Engineering', Title: 'D', Status: 'Done', 'Cycle Number': 6, Completed: '2026-10-20T00:00:00.000Z' }),
+    ].join('\n');
+    const board = parseLinearCsv(csv);
+    const { sprints, releases, cards } = board.scrumTransfer;
+    // Cycle 7 of Engineering and cycle 7 of Ops are two sprints; cycle 6 has only done issues.
+    assert.deepEqual(sprints.map(sp => [sp.name, sp.state, sp.plannedStart && sp.plannedStart.toISOString().slice(0, 10),
+      sp.plannedEnd && sp.plannedEnd.toISOString().slice(0, 10)]), [['Cycle 7', 'planned', '2026-11-02', '2026-11-16'], ['Cycle 7', 'planned', undefined, undefined]]);
+    assert.deepEqual(releases.map(rel => [rel.name, rel.state]), [['Beta', 'planned']]);
+    assert.equal(cards.find(c => c._id === 'task-0').scrum.releaseId, releases[0]._id);
+    assert.equal(cards.find(c => c._id === 'task-0').scrum.sprintId, cards.find(c => c._id === 'task-1').scrum.sprintId);
+    assert.notEqual(cards.find(c => c._id === 'task-2').scrum.sprintId, cards.find(c => c._id === 'task-0').scrum.sprintId, 'a cycle number is its team\'s');
+    const losses = board.scrumLosses.map(u => u.reason).join('|');
+    assert.match(losses, /cycle "Cycle 6" of "Engineering" holds only done issues, so it is finished; it is not imported/);
+    assert.match(losses, /project milestone "Beta" has no dates or state in the export/);
+    // Negative: an issue without a cycle or milestone has no Scrum planning.
+    assert.equal(parseLinearCsv([HEADER, row({ ID: 'X-1', Title: 'X', Status: 'Todo' })].join('\n')).scrumTransfer, undefined);
   });
 
   console.log(`\nlinearCsv: ${passed} checks passed`);
