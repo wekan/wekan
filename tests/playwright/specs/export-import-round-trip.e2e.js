@@ -33,10 +33,11 @@ const ROUND_TRIPS = {
 // 2026-11-20. A format that keeps less fails the test; one that keeps more
 // fails it too, so its line here is raised with it. What a format has no
 // place for (todo.txt has no description, an outline no comments) stays out.
+// 'dependency': Alpha Card blocks Beta Card.
 const KEEPS = {
   trello: ['description', 'checklist', 'comment'],
-  jira: ['description', 'checklist', 'comment'],
-  kanboard: ['description', 'checklist', 'comment'],
+  jira: ['description', 'checklist', 'comment', 'dependency'],
+  kanboard: ['description', 'checklist', 'comment', 'dependency'],
   deck: ['description', 'comment'],
   openproject: ['description', 'comment'],
   github: ['description', 'comment'],
@@ -53,7 +54,7 @@ const KEEPS = {
   opml: ['description', 'checklist'],
   orgmode: ['description', 'checklist'],
   todotxt: [],
-  taskwarrior: ['description', 'comment'],
+  taskwarrior: ['description', 'comment', 'dependency'],
   focalboard: ['description', 'checklist', 'comment'],
   todoist: ['description', 'comment'],
   meistertask: ['description'],
@@ -63,7 +64,7 @@ const KEEPS = {
   clickup: ['description', 'checklist'],
   nullboard: ['description'],
   pivotal: ['description', 'checklist', 'comment'],
-  redmine: ['description'],
+  redmine: ['description', 'dependency'],
   superproductivity: ['description'],
   quire: ['description'],
   notion: ['description'],
@@ -83,7 +84,8 @@ const COMMENT = 'Round trip comment';
 test('every tool WeKan exports to and imports from: the card comes back, and what else its file keeps', async ({ request, board, user }) => {
   test.setTimeout(600000);
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
-  db.updateOne('cards', { _id: card._id }, { $set: { description: DESCRIPTION } });
+  const beta = db.findOne('cards', { boardId: board.boardId, title: 'Beta Card' });
+  db.updateOne('cards', { _id: card._id }, { $set: { description: DESCRIPTION, cardDependencies: [{ cardId: beta._id, type: 'blocks' }] } });
   const checklistId = `rtcl${db.uniqueSuffix()}`;
   db.insertOne('checklists', { _id: checklistId, cardId: card._id, boardId: board.boardId, title: 'Round trip list', sort: 0, createdAt: new Date() });
   db.insertOne('checklistItems', { _id: `${checklistId}i`, checklistId, cardId: card._id, boardId: board.boardId, title: STEP, sort: 0, isFinished: true, createdAt: new Date() });
@@ -114,6 +116,10 @@ test('every tool WeKan exports to and imports from: the card comes back, and wha
         report[format].description = String(back.description || '').includes(DESCRIPTION);
         report[format].checklist = db.find('checklistItems', { cardId: back._id }).some(item => item.title === STEP);
         report[format].comment = db.find('card_comments', { cardId: back._id }).some(c => String(c.text || '').includes(COMMENT));
+        const betaBack = cards.find(c => String(c.title || '').includes('Beta Card'));
+        // Stored on either card: "Alpha blocks Beta" is also "Beta is blocked by Alpha".
+        report[format].dependency = Boolean(betaBack && ((back.cardDependencies || []).some(dep => dep.cardId === betaBack._id)
+          || (betaBack.cardDependencies || []).some(dep => dep.cardId === back._id)));
       });
     }
   } finally {
@@ -124,7 +130,7 @@ test('every tool WeKan exports to and imports from: the card comes back, and wha
   const lost = Object.entries(report).filter(([, r]) => !r.title).map(([format, r]) => `${format}: ${r.error || `status ${r.status}, no card`}`);
   expect(lost, 'every round trip brings the card back').toEqual([]);
   const differ = Object.entries(report).filter(([, r]) => r.title).map(([format, r]) => {
-    const keeps = ['description', 'checklist', 'comment'].filter(name => r[name]);
+    const keeps = ['description', 'checklist', 'comment', 'dependency'].filter(name => r[name]);
     return JSON.stringify(keeps) === JSON.stringify(KEEPS[format]) ? null : `${format}: keeps ${keeps.join(', ') || 'nothing'} - KEEPS says ${KEEPS[format].join(', ') || 'nothing'}`;
   }).filter(Boolean);
   expect(differ, 'each tool keeps what KEEPS says, no less and no more').toEqual([]);

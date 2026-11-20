@@ -409,6 +409,16 @@ export const formatters = {
           ...(has(i.owner) ? { assignee: { name: i.owner } } : {}),
           ...(has(i.requestedBy || i.creator) ? { reporter: { displayName: i.requestedBy || i.creator } } : {}),
           ...(keys.has(i.parentCardId) ? { parent: { key: keys.get(i.parentCardId) } } : {}),
+          // Card dependencies as Jira issue links, read back by
+          // models/jiraCreator.js createDependencies: blocks and duplicates
+          // keep their direction, anything else is Relates.
+          ...(list(i.dependencies).some(dep => keys.has(dep.cardId)) ? { issuelinks: list(i.dependencies)
+            .filter(dep => keys.has(dep.cardId)).map(dep => {
+              const key = keys.get(dep.cardId);
+              const kind = { blocks: ['Blocks', 'outward'], 'is-blocked-by': ['Blocks', 'inward'],
+                duplicates: ['Duplicate', 'outward'], 'is-duplicated-by': ['Duplicate', 'inward'] }[dep.type] || ['Relates', 'outward'];
+              return { type: { name: kind[0] }, [kind[1] === 'outward' ? 'outwardIssue' : 'inwardIssue']: { key } };
+            }) } : {}),
           ...(checklistItems(i).length ? { subtasks: checklistItems(i).map(x => ({
             fields: { summary: x.title, status: { statusCategory: { key: x.done ? 'done' : 'new' } } } })) } : {}),
           ...(list(i.comments).length ? { comment: { comments: i.comments.map(c => ({

@@ -1,0 +1,54 @@
+'use strict';
+// The Jira export carries the cards' dependencies as Jira issue links
+// (2026-11-20, the import/export coverage review): the Jira import reads
+// fields.issuelinks back into dependencies (models/jiraCreator.js
+// createDependencies), but the export wrote none, so they were lost.
+// Run: node --test tests/exportDependencies.test.cjs
+const test = require('node:test');
+const assert = require('node:assert');
+const fs = require('node:fs');
+const path = require('node:path');
+
+let fmt;
+test.before(async () => { fmt = (await import('../models/lib/externalExportFormatters.js')).formatters; });
+const items = [
+  { cardId: 'a', title: 'A', labels: [], dependencies: [{ cardId: 'b', type: 'blocks' }, { cardId: 'c', type: 'is-duplicated-by' }, { cardId: 'gone', type: 'blocks' }] },
+  { cardId: 'b', title: 'B', labels: [], dependencies: [{ cardId: 'a', type: 'related-to' }] },
+  { cardId: 'c', title: 'C', labels: [], dependencies: [{ cardId: 'a', type: 'is-blocked-by' }] },
+];
+
+test('each dependency is an issue link in the direction the import reads', () => {
+  const doc = fmt.jira({ board: { title: 'B' }, items });
+  const links = Object.fromEntries(doc.issues.map(issue => [issue.fields.summary, issue.fields.issuelinks]));
+  assert.deepStrictEqual(links.A, [
+    { type: { name: 'Blocks' }, outwardIssue: { key: 'WEKAN-2' } },
+    { type: { name: 'Duplicate' }, inwardIssue: { key: 'WEKAN-3' } },
+  ], 'a dependency on a card not exported is left out');
+  assert.deepStrictEqual(links.B, [{ type: { name: 'Relates' }, outwardIssue: { key: 'WEKAN-1' } }]);
+  assert.deepStrictEqual(links.C, [{ type: { name: 'Blocks' }, inwardIssue: { key: 'WEKAN-1' } }]);
+  // A link to a card on another page uses the whole board's key.
+  const page = fmt.jira({ board: { title: 'B' }, items: [items[2]], page: { all: items, offset: 2, first: false, last: true } });
+  assert.deepStrictEqual(page.issues[0].fields.issuelinks, [{ type: { name: 'Blocks' }, inwardIssue: { key: 'WEKAN-1' } }]);
+});
+
+test('negative: no dependencies, no issuelinks; and the import still reads these link shapes', () => {
+  const doc = fmt.jira({ board: { title: 'B' }, items: [{ cardId: 'x', title: 'X', labels: [] }] });
+  assert.ok(!('issuelinks' in doc.issues[0].fields));
+  const creator = fs.readFileSync(path.join(__dirname, '..', 'models/jiraCreator.js'), 'utf8');
+  for (const part of ["typeName.includes('block')", "depType = 'is-blocked-by'", "depType = 'is-duplicated-by'", 'link.outwardIssue', 'link.inwardIssue']) {
+    assert.ok(creator.includes(part), part);
+  }
+});
+
+test('Taskwarrior: a card waits for what blocks it, as depends, whichever card the dependency is stored on', async () => {
+  const { taskwarriorUuid } = await import('../models/lib/taskwarriorFormat.js');
+  const tasks = JSON.parse(fmt.taskwarrior({ items: [
+    { cardId: 'a', title: 'A', labels: [], dependencies: [{ cardId: 'b', type: 'blocks' }] },
+    { cardId: 'b', title: 'B', labels: [] },
+    { cardId: 'c', title: 'C', labels: [], dependencies: [{ cardId: 'a', type: 'is-blocked-by' }, { cardId: 'gone', type: 'is-blocked-by' }] },
+  ] }));
+  const byTitle = Object.fromEntries(tasks.map(task => [task.description, task]));
+  assert.deepStrictEqual(byTitle.B.depends, [taskwarriorUuid('a')], 'A blocks B: B waits for A');
+  assert.deepStrictEqual(byTitle.C.depends, [taskwarriorUuid('a')], 'C is blocked by A; a card not exported is left out');
+  assert.ok(!('depends' in byTitle.A), 'negative: A waits for nothing');
+});
