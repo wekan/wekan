@@ -191,6 +191,17 @@ due date, and indented checkboxes the checklist, both ways.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f467e31d176a2be66cfffecd87d9ac9938ff0d93">Slack, Mattermost, Telegram and Discord reactions become the imported comments' reactions</a>. Thanks to xet7.</summary>
+
+Every reaction in a chat export was dropped without a word. An emoji, or a
+Slack or Mattermost shortcode, is now kept as the comment's reaction for each
+person mapped to a WeKan user; the loss report counts the reactions of people
+not mapped and those of an emoji WeKan cannot store, such as a server's own
+emoji or a skin tone.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
