@@ -58,6 +58,7 @@ export const VIKUNJA_MIN_VERSION = [0, 20, 1];
 export const MAX_VIKUNJA_DATA_CHARS = 64 * 1024 * 1024;
 export const MAX_VIKUNJA_TASKS = 20000;
 export const VIKUNJA_PRIORITIES = ['', 'Low', 'Medium', 'High', 'Urgent', 'DO NOW'];
+import { pagingOf, markKey, blockersOf } from './exportPaging.js';
 const ZERO_TIME = '0001-01-01T00:00:00Z';
 const POSITION_STEP = 65536;
 const DEFAULT_TITLE = 'Checklist';
@@ -616,7 +617,11 @@ export function vikunjaPriority(value) {
 // Done custom fields, comments and parent cards go to their Vikunja fields.
 // Descriptions and comments stay text here, so the export boundary checks
 // them as text; vikunjaArchiveFiles() turns them into Vikunja's HTML.
-export function formatVikunja({ board, lists, swimlanes, items }, now = new Date()) {
+// The whole board, or one page of it (models/lib/exportPaging.js): every page
+// has the same projects, views and buckets, and only its own cards' tasks.
+export function formatVikunja(collected = {}, now = new Date()) {
+  const { board, lists, swimlanes } = collected;
+  const { items, all } = pagingOf(collected);
   const stamp = now.toISOString();
   const title = String((board && board.title) || 'WeKan board').trim() || 'WeKan board';
   const lanes = list(swimlanes).map(lane => String(lane.title || '').trim() || 'Default');
@@ -636,7 +641,7 @@ export function formatVikunja({ board, lists, swimlanes, items }, now = new Date
     return labels.get(name);
   };
   const listTitles = list(lists).map(entry => String(entry.title || '').trim() || 'Untitled');
-  list(items).forEach(item => {
+  all.forEach(item => {
     const name = String(item.listTitle || '').trim() || 'Untitled';
     if (!listTitles.includes(name)) listTitles.push(name);
   });
@@ -686,25 +691,62 @@ export function formatVikunja({ board, lists, swimlanes, items }, now = new Date
       kanbanId: kanban.id, doneBucketId: kanban.done_bucket_id };
   });
 
+  // The plan, over the whole board (models/lib/exportPaging.js `all`, the
+  // board's light first pass when written a page at a time): every card's
+  // task id, project, index and position in it, its comments' ids, and the
+  // users and labels in the order the cards first name them - so a page's
+  // tasks are numbered as the whole board's are.
   const taskIdOf = new Map();
-  const checklists = {};
-  let taskId = 0;
-  list(items).forEach(item => {
-    taskId += 1;
-    if (item.cardId && !taskIdOf.has(item.cardId)) taskIdOf.set(item.cardId, { taskId, task: null });
-  });
-  taskId = 0;
-  list(items).forEach(item => {
-    taskId += 1;
+  const planOf = new Map();
+  const perProject = laneProjects.map(() => 0);
+  all.forEach((item, n) => {
+    const taskId = n + 1;
+    if (item.cardId && !taskIdOf.has(item.cardId)) taskIdOf.set(item.cardId, taskId);
     const lane = several ? Math.max(0, lanes.indexOf(String(item.swimlaneTitle || '').trim() || 'Default')) : 0;
-    const project = laneProjects[lane];
+    perProject[lane] += 1;
+    [item.owner, ...list(item.assignees)].forEach(user);
+    [...new Set(list(item.labels).map(name => String(name).trim()).filter(Boolean))].forEach(label);
+    user(item.creator || item.requestedBy);
+    const commentIds = list(item.comments).filter(comment => String(comment.text || '').trim()).map(comment => {
+      const commentId = id('comment');
+      user(comment.author);
+      return commentId;
+    });
+    planOf.set(markKey(item), { taskId, lane, index: perProject[lane], commentIds });
+  });
+  // Parent cards as Vikunja's subtask/parenttask pair, by id only: an id
+  // that is not in the same project is dropped by Vikunja's import, never
+  // duplicated as a new task.
+  const related = new Map();
+  const relate = (taskId, kind, otherId) => {
+    if (!related.has(taskId)) related.set(taskId, {});
+    (related.get(taskId)[kind] = related.get(taskId)[kind] || []).push({ id: otherId });
+  };
+  all.forEach(item => {
+    const child = item.cardId && taskIdOf.get(item.cardId);
+    const parent = item.parentCardId && taskIdOf.get(item.parentCardId);
+    if (!child || !parent || child === parent || planOf.get(markKey(item)).taskId !== child) return;
+    relate(child, 'parenttask', parent);
+    relate(parent, 'subtask', child);
+  });
+  // What a task waits for, as Vikunja's "blocked" relation, read back as
+  // is-blocked-by (RELATION_TYPES above).
+  for (const [cardId, onIds] of blockersOf(all)) {
+    for (const onId of onIds) relate(taskIdOf.get(cardId), 'blocked', taskIdOf.get(onId));
+  }
 
+  const checklists = {};
+  items.forEach(item => {
+    const { taskId, lane, index, commentIds } = planOf.get(markKey(item)) || {};
+    if (!taskId) return;
+    const project = laneProjects[lane];
     const bucket = project.buckets.find(entry => entry.title === (String(item.listTitle || '').trim() || 'Untitled')) || project.buckets[0];
     const fields = item.customFields || {};
     const isDone = fields.Done === true || Boolean(bucket && bucket.id === project.doneBucketId);
     const percent = Number(fields['Percent Done']);
     const people = [item.owner, ...list(item.assignees)].map(user).filter(Boolean);
-    const position = (project.tasks.length + 1) * POSITION_STEP;
+    const position = index * POSITION_STEP;
+    const comments = list(item.comments).filter(comment => String(comment.text || '').trim());
     const task = {
       id: taskId,
       title: String(item.title || '').trim() || 'Untitled',
@@ -723,9 +765,9 @@ export function formatVikunja({ board, lists, swimlanes, items }, now = new Date
       hex_color: '',
       percent_done: Number.isFinite(percent) && percent > 0 ? Math.min(percent, 100) / 100 : 0,
       identifier: '',
-      index: project.tasks.length + 1,
+      index,
       project_id: project.id,
-      related_tasks: {},
+      related_tasks: related.has(taskId) && taskIdOf.get(item.cardId) === taskId ? related.get(taskId) : {},
       attachments: [],
       cover_image_attachment_id: 0,
       is_favorite: false,
@@ -734,8 +776,8 @@ export function formatVikunja({ board, lists, swimlanes, items }, now = new Date
       created: vikunjaTime(item.createdAt || stamp),
       updated: stamp,
       ...(user(item.creator || item.requestedBy) ? { created_by: user(item.creator || item.requestedBy) } : {}),
-      comments: list(item.comments).filter(comment => String(comment.text || '').trim()).map(comment => ({
-        id: id('comment'),
+      comments: comments.map((comment, c) => ({
+        id: commentIds[c],
         comment: String(comment.text || ''),
         ...(user(comment.author) ? { author: user(comment.author) } : {}),
         created: vikunjaTime(comment.date || stamp),
@@ -747,21 +789,8 @@ export function formatVikunja({ board, lists, swimlanes, items }, now = new Date
         items: list(entry.items).map(it => ({ title: String(it.title || ''), done: Boolean(it.done) })) }));
     }
     project.tasks.push(task);
-    if (item.cardId && taskIdOf.get(item.cardId).taskId === taskId) taskIdOf.get(item.cardId).task = task;
     if (bucket) project.task_buckets.push({ bucket_id: bucket.id, task_id: taskId, project_view_id: project.kanbanId });
     project.positions.push({ task_id: taskId, project_view_id: project.kanbanId, position });
-  });
-  // Parent cards as Vikunja's subtask/parenttask pair, by id only: an id
-  // that is not in the same project is dropped by Vikunja's import, never
-  // duplicated as a new task.
-  list(items).forEach(item => {
-    const child = item.cardId && taskIdOf.get(item.cardId);
-    const parent = item.parentCardId && taskIdOf.get(item.parentCardId);
-    if (!child || !parent || !child.task || !parent.task || child.taskId === parent.taskId) return;
-    const childTask = child.task;
-    const parentTask = parent.task;
-    childTask.related_tasks.parenttask = [{ id: parent.taskId }];
-    (parentTask.related_tasks.subtask = parentTask.related_tasks.subtask || []).push({ id: child.taskId });
   });
   laneProjects.forEach(project => {
     delete project.kanbanId;
@@ -773,16 +802,27 @@ export function formatVikunja({ board, lists, swimlanes, items }, now = new Date
 
 // The files of the export zip for formatVikunja()'s result, descriptions and
 // comments as Vikunja's HTML; server/lib/vikunjaArchive.js zips them.
-export function vikunjaArchiveFiles({ version, projects, checklists } = {}) {
+// One task as the archive writes it: its description - with its checklists -
+// and its comments as Vikunja's HTML.
+export function vikunjaArchiveTask(task, checklists) {
+  return {
+    ...task,
+    description: vikunjaHtml(task.description, checklists),
+    comments: list(task.comments).map(comment => ({ ...comment, comment: vikunjaHtml(comment.comment) })),
+  };
+}
+
+// data.json's projects, each task as the archive writes it.
+export function vikunjaArchiveData({ projects, checklists } = {}) {
   const lists = isObject(checklists) ? checklists : {};
-  const data = list(projects).map(project => ({
+  return list(projects).map(project => ({
     ...project,
-    tasks: list(project.tasks).map(task => ({
-      ...task,
-      description: vikunjaHtml(task.description, lists[task.id]),
-      comments: list(task.comments).map(comment => ({ ...comment, comment: vikunjaHtml(comment.comment) })),
-    })),
+    tasks: list(project.tasks).map(task => vikunjaArchiveTask(task, lists[task.id])),
   }));
+}
+
+export function vikunjaArchiveFiles({ version, projects, checklists } = {}) {
+  const data = vikunjaArchiveData({ projects, checklists });
   return {
     'data.json': JSON.stringify(data),
     'filters.json': '[]',

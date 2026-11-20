@@ -117,13 +117,19 @@ const ARRAY_PLACE = '__wekan_paged_array__';
 // checklists and comment actions): the document around them is made on the
 // first page, and each array is written by a pass of its own over the pages,
 // in the order the arrays stand in the document. Every part passes safe().
-async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED[format].paths) {
+// `paths` may be a function of the document around the arrays (Vikunja: three
+// arrays in each of its projects); `transform` makes the written document of
+// the formatter's (Vikunja's archive HTML).
+async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED[format].paths, transform = doc => doc) {
   const { externalExportPages, formatters } = require('/models/lib/externalExporters');
   const { secureTransfer } = require('/server/lib/secureTransfer');
   const { containsFields } = require('/models/lib/adminOnlyCustomFields');
   const context = { direction: 'export', source: `export:${format}` };
   const userId = res.req && res.req.userId;
-  const safe = async value => {
+  // A transform that makes its document from text it has checked itself
+  // (`transform.checked`: Vikunja's HTML is made after the boundary, as the
+  // whole export's is) is not checked again; every other part is here.
+  const safe = transform.checked ? async value => value : async value => {
     const checked = secureTransfer(value, context);
     return containsFields(checked) ? require('/server/lib/adminOnlyCustomFields').redactFields(checked, userId) : checked;
   };
@@ -135,9 +141,10 @@ async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED
   // The document around the arrays, from the first page with no cards.
   let skeleton = null;
   for await (const collected of pages()) {
-    skeleton = JSON.parse(JSON.stringify(formatters[format]({ ...collected, items: [] })));
+    skeleton = JSON.parse(JSON.stringify(transform(formatters[format]({ ...collected, items: [] }))));
     break;
   }
+  if (typeof paths === 'function') paths = paths(skeleton);
   const places = paths.map((path, i) => {
     let node = skeleton;
     path.slice(0, -1).forEach(key => { node = node[key]; });
@@ -157,7 +164,7 @@ async function streamJsonArrays(res, boardId, format, fields, paths = JSON_PAGED
     await write(`${text.slice(from, where)}[`);
     let count = 0;
     for await (const collected of pages()) {
-      for (const element of at(formatters[format](collected), paths[i])) {
+      for (const element of at(transform(formatters[format](collected)), paths[i])) {
         // eslint-disable-next-line no-await-in-loop
         await write(`${count ? ',' : ''}${JSON.stringify(await safe(element))}`);
         count += 1;
@@ -333,6 +340,43 @@ async function streamWorkbookExport(res, boardId, format, fields) {
 // the files they are, attachments/<id>_<name>, piped from the file store as
 // WeKan's own .zip export does (models/server/ExporterZip.js). The Trello
 // .zip import reads it back with the files.
+// Vikunja's export .zip: data.json - its projects, each with its tasks,
+// task buckets and positions, every array a pass over the pages
+// (streamJsonArrays) - filters.json and VERSION. Every page has the same
+// projects (models/lib/vikunjaFormat.js formatVikunja), and its tasks are
+// written as the archive does (vikunjaArchiveData).
+async function streamVikunjaZip(res, boardId, fields) {
+  const { PassThrough } = require('stream');
+  const { ZipArchive } = require('archiver');
+  const { vikunjaArchiveData, VIKUNJA_EXPORT_VERSION } = require('/models/lib/vikunjaFormat');
+  const archive = new ZipArchive({ zlib: { level: 6 } });
+  res.writeHead(200, { 'Content-Type': 'application/zip', 'Content-Disposition': 'attachment; filename="vikunja.zip"' });
+  let failed = null;
+  archive.on('error', err => { failed = err; });
+  archive.pipe(res);
+  const json = new PassThrough();
+  archive.append(json, { name: 'data.json' });
+  const into = {
+    req: res.req, statusCode: 200, setHeader() {},
+    write: text => json.write(text), once: (event, fn) => json.once(event, fn), end: text => json.end(text),
+  };
+  const ARRAYS = ['tasks', 'task_buckets', 'positions'];
+  // The formatter's document passes the export boundary first; the HTML is
+  // made from what it let through, as the whole export's is.
+  const { secureTransfer } = require('/server/lib/secureTransfer');
+  const context = { direction: 'export', source: 'export:vikunja' };
+  const archiveData = doc => vikunjaArchiveData(secureTransfer(doc, context));
+  archiveData.checked = true;
+  await streamJsonArrays(into, boardId, 'vikunja', fields,
+    skeleton => skeleton.flatMap((project, p) => ARRAYS.map(key => [p, key])), archiveData);
+  archive.append('[]', { name: 'filters.json' });
+  // Vikunja parses this file as it is: no trailing newline.
+  archive.append(String(VIKUNJA_EXPORT_VERSION).trim(), { name: 'VERSION' });
+  await archive.finalize();
+  if (failed) throw failed;
+  return true;
+}
+
 async function streamTrelloZip(res, boardId, fields) {
   const { PassThrough } = require('stream');
   const { ZipArchive } = require('archiver');
@@ -381,6 +425,7 @@ async function streamTrelloZip(res, boardId, fields) {
 // is not one that streams.
 async function streamExternalExport(res, boardId, format, fields) {
   if (format === 'trellozip') return streamTrelloZip(res, boardId, fields);
+  if (format === 'vikunja') return streamVikunjaZip(res, boardId, fields);
   if (STREAMED_WORKBOOKS[format]) return streamWorkbookExport(res, boardId, format, fields);
   if (JSON_PAGED[format]) return streamJsonExport(res, boardId, format, fields);
   if (!STREAMED[format] && !PAGED[format]) return false;

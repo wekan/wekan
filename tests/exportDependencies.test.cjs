@@ -84,3 +84,12 @@ test('Asana, OpenProject, Obsidian and Wrike write what each card waits for', as
   assert.strictEqual(byTitle.C[at('Depends On')], `${byTitle.A[at('Key')]}FS`);
   assert.strictEqual(byTitle.A[at('Depends On')], '', 'negative: A waits for nothing');
 });
+
+test('Vikunja: what a task waits for is its "blocked" relation, by task id', async () => {
+  const { formatVikunja } = await import('../models/lib/vikunjaFormat.js');
+  const doc = formatVikunja({ board: { title: 'T' }, lists: [{ title: 'To Do' }], swimlanes: [{ title: 'Default' }], items: waiting });
+  const byTitle = Object.fromEntries(doc.projects[0].tasks.map(task => [task.title, task]));
+  assert.deepStrictEqual(byTitle.B.related_tasks.blocked, [{ id: byTitle.A.id }]);
+  assert.deepStrictEqual(byTitle.C.related_tasks.blocked, [{ id: byTitle.A.id }]);
+  assert.ok(!byTitle.A.related_tasks.blocked, 'negative: A waits for nothing');
+});

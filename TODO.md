@@ -41,10 +41,12 @@ is the rest.
   (Trello, Jira, Asana, Zenkit, OpenProject, GitHub, Gitea, Forgejo, GitLab)
   are written around that array, each page's cards into it, and those that
   nest their cards in their lists (Deck, Kanri, Nullboard) around each list.
-  Still built whole: Super Productivity (a state of ids and entities that
-  refer to each other - each project's and tag's task ids, sub-tasks under
-  their top ancestor), Taiga and Vikunja (cards spread over several arrays,
-  Vikunja's in a .zip). Each of those needs a writer of its own. The five
+  Vikunja's .zip is written the same way, its data.json each project's
+  arrays a pass over the pages. Still built whole: Super Productivity (a state
+  of ids and entities that refer to each other - each project's and tag's task
+  ids, sub-tasks under their top ancestor) and Taiga (statuses, points and
+  attribute definitions found while the cards are written, and tasks made of
+  checklist items). Each of those needs a writer of its own. The five
   workbooks (Teamwork, Planner, monday.com, Businessmap, Wrike) are written a
   page at a time with ExcelJS's streaming writer.
 

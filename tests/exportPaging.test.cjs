@@ -308,3 +308,36 @@ test('nested JSON documents: each list\'s cards across the pages are its cards i
   const nb = JSON.parse(fmt.nullboard({ board, lists: nestedLists, items: nestedItems }));
   assert.deepStrictEqual(nb.lists.map(l => l.title), ['To Do', 'Doing', 'Done', 'To Do', 'Old', 'List']);
 });
+
+// Vikunja: every page has the same projects, views and buckets; each
+// project's tasks, task buckets and positions across the pages are the whole
+// board's - task ids, indexes, positions, comment, user and label ids and
+// parent links numbered over the whole board (models/lib/vikunjaFormat.js).
+test('Vikunja: each project\'s three arrays across the pages are the whole document\'s, the rest the same on every page', async () => {
+  const vk = await import('../models/lib/vikunjaFormat.js');
+  const now = new Date('2026-11-20T00:00:00Z');
+  const lanes = [{ title: 'Default' }, { title: 'Ops' }];
+  const vItems = items.map((item, i) => ({ ...item, swimlaneTitle: i % 2 ? 'Ops' : 'Default', creator: ['ann', 'bob', 'cid'][i % 3] }));
+  const vLight = vItems.map(item => ({ ...item, description: '', ...(item.comments ? { comments: item.comments.map(c => ({ ...c, text: '·' })) } : {}) }));
+  const whole = JSON.parse(JSON.stringify(vk.vikunjaArchiveData(vk.formatVikunja({ board, lists, swimlanes: lanes, items: vItems }, now))));
+  const arrays = ['tasks', 'task_buckets', 'positions'];
+  for (const size of [1, 2, 4, 100]) {
+    const pages = Math.max(1, Math.ceil(vItems.length / size));
+    const got = whole.map(() => Object.fromEntries(arrays.map(key => [key, []])));
+    let shell = null;
+    for (let n = 0; n < pages; n += 1) {
+      const doc = JSON.parse(JSON.stringify(vk.vikunjaArchiveData(vk.formatVikunja({ board, lists, swimlanes: lanes,
+        items: vItems.slice(n * size, (n + 1) * size), page: { all: vLight, offset: n * size, first: n === 0, last: n === pages - 1 } }, now))));
+      assert.strictEqual(doc.length, whole.length, 'the same projects on every page');
+      doc.forEach((project, p) => arrays.forEach(key => got[p][key].push(...project[key])));
+      if (n === 0) shell = doc;
+    }
+    whole.forEach((project, p) => arrays.forEach(key => assert.deepStrictEqual(got[p][key], project[key], `${size}: project ${p} ${key}`)));
+    const strip = doc => doc.map(project => ({ ...project, tasks: [], task_buckets: [], positions: [] }));
+    assert.deepStrictEqual(strip(shell), strip(whole), `${size}: the projects around the arrays`);
+  }
+  const render = read('server/lib/renderExternalExport.js');
+  assert.match(render, /const archiveData = doc => vikunjaArchiveData\(secureTransfer\(doc, context\)\);/,
+    'negative: the HTML is made from text the boundary has checked, as the whole export\'s is');
+  assert.match(render, /if \(format === 'vikunja'\) return streamVikunjaZip\(res, boardId, fields\);/);
+});

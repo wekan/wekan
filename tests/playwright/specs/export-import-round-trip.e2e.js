@@ -28,6 +28,7 @@ const ROUND_TRIPS = {
   mattermost: ['mattermost', 'text'],
   planner: ['planner', 'excel'], monday: ['monday', 'excel'], wrike: ['wrike', 'excel'], teamwork: ['teamwork', 'excel'],
   businessmap: ['businessmap', 'excel'],
+  vikunja: ['vikunja', 'zip'],
 };
 // What each tool's file keeps of the card besides its title, as found
 // 2026-11-20. A format that keeps less fails the test; one that keeps more
@@ -77,6 +78,7 @@ const KEEPS = {
   wrike: ['description', 'dependency', 'due'],
   teamwork: ['description', 'label', 'due'],
   businessmap: ['description', 'comment', 'label', 'due'],
+  vikunja: ['description', 'checklist', 'comment', 'dependency', 'label', 'due'],
 };
 const DESCRIPTION = 'Round trip description';
 const STEP = 'Round trip step';
@@ -106,6 +108,7 @@ test('every tool WeKan exports to and imports from: the card comes back, and wha
         const bytes = await exportResponse.body();
         const payload = send === 'json' ? JSON.parse(bytes.toString('utf8'))
           : send === 'excel' ? { excelBase64: bytes.toString('base64') }
+            : send === 'zip' ? { zipBase64: bytes.toString('base64') }
             : bytes.toString('utf8');
         const importResponse = await request.post(`/api/boards/import/${source}`,
           { headers: headers(user.token), data: { board: payload, membersMode: 'me' } });
