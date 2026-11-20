@@ -178,7 +178,8 @@
       "https://kanbanflow\\.com/.*"
     ],
     "models/lib/importAttachmentAuth.js": [
-      "https://app\\.asana\\.com(/.*)?"
+      "https://app\\.asana\\.com(/.*)?",
+      "https://files\\.slack\\.com(/.*)?"
     ],
     "server/lib/passwordPolicy.js": [
       "https://api\\.pwnedpasswords\\.com/range/"
