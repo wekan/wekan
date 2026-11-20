@@ -1,5 +1,5 @@
 import { jiraTimeTracking } from './jiraTimeTracking.js';
-import { kanboardRecurrence, KANBOARD_ESTIMATE_FIELD } from './kanboardFields.js';
+import { kanboardRecurrence, KANBOARD_ESTIMATE_FIELD, KANBOARD_COLORS } from './kanboardFields.js';
 import { parseTodoTxt } from './todoTxtFormat.js';
 import { parseTaskwarrior } from './taskwarriorFormat.js';
 import { parseFocalboard } from './focalboardFormat.js';
@@ -76,12 +76,6 @@ function uniq(arr) {
 // a task with only column_id/swimlane_id/category_id still lands correctly,
 // and task links resolve through the tasks' own `id`s into parent cards and
 // dependencies.
-const KANBOARD_COLORS = {
-  yellow: 'yellow', blue: 'blue', green: 'green', purple: 'purple', red: 'red',
-  orange: 'orange', grey: 'gray', brown: 'saddlebrown', deep_orange: 'crimson',
-  dark_grey: 'black', pink: 'pink', teal: 'paleturquoise', cyan: 'sky',
-  lime: 'lime', light_green: 'darkgreen', amber: 'gold',
-};
 
 function byId(items, nameKeys) {
   const map = {};
@@ -893,6 +887,8 @@ export function parseAsana(data) {
       swimlane_name: 'Default',
       date_due: t.due_at || t.due_on,
       date_started: t.start_at || t.start_on,
+      // Asana's time tracking: the minutes logged on the task.
+      ...(Number(t.actual_time_minutes) > 0 ? { spent_hours: Math.round(Number(t.actual_time_minutes) / 0.6) / 100 } : {}),
       date_end: t.completed ? t.completed_at : undefined,
       date_creation: t.created_at,
       owner_username: asanaUser(t.assignee),

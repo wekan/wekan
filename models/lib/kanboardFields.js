@@ -24,3 +24,17 @@ export function kanboardRecurrence(task) {
 export function kanboardRecurrenceOf(recurrence) {
   return { daily: [1, 0], weekly: [7, 0], monthly: [1, 1] }[recurrence] || null;
 }
+
+// Kanboard's color_id as a WeKan card color, and back (the first Kanboard
+// color that maps to it).
+export const KANBOARD_COLORS = {
+  yellow: 'yellow', blue: 'blue', green: 'green', purple: 'purple', red: 'red',
+  orange: 'orange', grey: 'gray', brown: 'saddlebrown', deep_orange: 'crimson',
+  dark_grey: 'black', pink: 'pink', teal: 'paleturquoise', cyan: 'sky',
+  lime: 'lime', light_green: 'darkgreen', amber: 'gold',
+};
+
+export function kanboardColorId(color) {
+  const found = Object.entries(KANBOARD_COLORS).find(([, wekan]) => wekan === color);
+  return found ? found[0] : undefined;
+}

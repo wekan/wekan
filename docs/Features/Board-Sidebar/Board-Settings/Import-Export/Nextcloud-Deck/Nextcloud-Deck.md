@@ -122,7 +122,8 @@ What the current code does (`parseNextcloudDeck` in
 
 The export writes the board `title` and a stack per list, in order. Each card
 has `title`, `description`, `duedate`, the labels as `{ title }`, `createdAt`,
-the end date as `done`, the owner and further people as `assignedUsers`, the
+the end date as `done` (or `done: true` for a due date ticked done without an
+end date), the owner and further people as `assignedUsers`, the
 creator as `owner` and the comments.
 
 ## Attachment files

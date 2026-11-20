@@ -127,6 +127,7 @@ What the current code does (`parseAsana` in `models/lib/externalParsers.js`):
 | `gid` | Source reference, for parent and dependency links |
 | `name`, `notes` | Card title, description |
 | `start_at` / `start_on`, `due_at` / `due_on` | Start date, due date |
+| `actual_time_minutes` (time tracking) | Spent time (hours), written back on export |
 | `completed_at` (when completed) | End date |
 | `created_at` | Creation date |
 | `assignee` | Card member, when mapped |

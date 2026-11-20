@@ -11,7 +11,7 @@
 // checklists, parentCardId and customFields. A format drops what it has no
 // field for; that is the honest answer, not a loss this module invents.
 import { pagingOf, blockersOf } from './exportPaging.js';
-import { kanboardRecurrenceOf, KANBOARD_ESTIMATE_FIELD } from './kanboardFields.js';
+import { kanboardRecurrenceOf, KANBOARD_ESTIMATE_FIELD, kanboardColorId } from './kanboardFields.js';
 import { formatMarkdownKanban } from './markdownKanbanFormat.js';
 import { formatLeo } from './leoOutlineFormat.js';
 import { formatTodoTxt } from './todoTxtFormat.js';
@@ -250,7 +250,9 @@ export const formatters = {
           ...(Object.keys(i.timetracking || {}).length ? { timetracking: i.timetracking } : {}),
           labels: i.labels.map(name => ({ title: name })),
           ...(has(i.createdAt) ? { createdAt: i.createdAt } : {}),
-          ...(has(i.endAt) ? { done: i.endAt } : {}),
+          // Deck's done: the end date, or done without one when the due
+          // date is ticked done (the import reads both).
+          ...(has(i.endAt) ? { done: i.endAt } : i.dueComplete ? { done: true } : {}),
           ...(has(i.owner) || list(i.assignees).length
             ? { assignedUsers: [i.owner, ...list(i.assignees)].filter(has).map(uid => ({ participant: { uid } })) } : {}),
           ...(has(i.creator) ? { owner: { uid: i.creator } } : {}),
@@ -287,6 +289,7 @@ export const formatters = {
         // What parseKanboard reads back: spent time, recurrence, and the
         // estimate, score and reference custom fields.
         ...(Number(i.spentTime) > 0 ? { time_spent: Number(i.spentTime) } : {}),
+        ...(kanboardColorId(i.color) ? { color_id: kanboardColorId(i.color) } : {}),
         ...(kanboardRecurrenceOf(i.recurrence) && !has(i.endAt) ? { recurrence_status: 1, recurrence_trigger: 0,
           recurrence_factor: kanboardRecurrenceOf(i.recurrence)[0], recurrence_timeframe: kanboardRecurrenceOf(i.recurrence)[1] } : {}),
         ...(Number((i.customFields || {})[KANBOARD_ESTIMATE_FIELD]) > 0 ? { time_estimated: Number(i.customFields[KANBOARD_ESTIMATE_FIELD]) } : {}),
@@ -460,6 +463,8 @@ export const formatters = {
       completed: isClosed(i.listTitle),
       ...(isClosed(i.listTitle) && has(i.endAt) ? { completed_at: i.endAt } : {}),
       due_on: i.dueAt,
+      // Asana's time tracking, in minutes - what parseAsana reads back.
+      ...(Number(i.spentTime) > 0 ? { actual_time_minutes: Math.round(Number(i.spentTime) * 60) } : {}),
       ...(has(i.startAt) ? { start_on: i.startAt } : {}),
       ...(has(i.createdAt) ? { created_at: i.createdAt } : {}),
       ...(has(i.owner) ? { assignee: { name: i.owner } } : {}),

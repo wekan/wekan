@@ -176,7 +176,7 @@ What the current code does (`parseKanboard` in
 | `owner_username` (or `assignee_username`, `owner_id`, `owner_name`) | Card member, when mapped |
 | `creator_username` (or `creator_name`) | Requested by |
 | `tags`, category, `priority` | Board labels |
-| `color_id` | Card color |
+| `color_id` | Card color, written back on export |
 | `time_spent` | Spent time (hours) |
 | `time_estimated` | Custom field **Time estimate (hours)** |
 | `score`, `reference` | Custom fields **Score** and **Reference** |
