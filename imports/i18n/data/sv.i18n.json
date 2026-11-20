@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer för daglig standup",
   "feature-standup-timer-desc": "Daglig standup i tavlans meny: tavlans medlemmar i slumpad ordning, var och en med samma tidsram. Stängs av per tavla i dess Scrum-inställningar.",
   "feature-retrospective-board": "Retrospektivtavla",
-  "feature-retrospective-board-desc": "Retrospektivtavla i tavlans meny: en ny privat tavla med listorna Börja göra, Sluta göra, Fortsätt göra och Åtgärdspunkter. Stängs av per tavla i dess Scrum-inställningar."
+  "feature-retrospective-board-desc": "Retrospektivtavla i tavlans meny: en ny privat tavla med listorna Börja göra, Sluta göra, Fortsätt göra och Åtgärdspunkter. Stängs av per tavla i dess Scrum-inställningar.",
+  "show-split-lists": "Tillåt att listor delas i Pågående och Färdig",
+  "list-split": "Dela i Pågående och Färdig",
+  "split-counts": "Pågående __doing__ · Färdig __done__",
+  "split-done": "Färdig här, väntar på att dras vidare",
+  "mark-split-done": "Markera som färdig här",
+  "feature-split-lists": "Delade listor",
+  "feature-split-lists-desc": "En lista delad i Pågående och Färdig: ett kort som markerats som färdigt där väntar, nedtonat, på att dras in i nästa lista, och listrubriken räknar båda. Tillåts per tavla i Tavelinställningar / Lista och slås sedan på i varje listas meny."
 }

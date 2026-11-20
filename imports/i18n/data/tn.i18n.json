@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sebadi sa nako sa kopano ya letsatsi le letsatsi",
   "feature-standup-timer-desc": "Kopano ya letsatsi le letsatsi mo menung ya boto: maloko a boto ka thulaganyo e e tlhakantsweng, mongwe le mongwe ka nako e e lekanang. E timiwa ka boto mo Dipeakanyong tsa Scrum tsa yone.",
   "feature-retrospective-board": "Boto ya go lebelela morago",
-  "feature-retrospective-board-desc": "Boto ya go lebelela morago mo menung ya boto: boto e ntšha ya sephiri e e nang le manaane a Simolola go dira, Emisa go dira, Tswelela go dira le Dilo tse di tshwanetseng go dirwa. E timiwa ka boto mo Dipeakanyong tsa Scrum tsa yone."
+  "feature-retrospective-board-desc": "Boto ya go lebelela morago mo menung ya boto: boto e ntšha ya sephiri e e nang le manaane a Simolola go dira, Emisa go dira, Tswelela go dira le Dilo tse di tshwanetseng go dirwa. E timiwa ka boto mo Dipeakanyong tsa Scrum tsa yone.",
+  "show-split-lists": "Letla manaane go kgaoganngwa ka Di a dirwa le Go fedile",
+  "list-split": "Kgaoganya ka Di a dirwa le Go fedile",
+  "split-counts": "Di a dirwa __doing__ · Go fedile __done__",
+  "split-done": "Go fedile fano, e emetse go gogelwa pele",
+  "mark-split-done": "Tshwaya jaaka go fedile fano",
+  "feature-split-lists": "Manaane a a kgaogantsweng",
+  "feature-split-lists-desc": "Lenaane le le kgaogantsweng ka Di a dirwa le Go fedile: karata e e tshwailweng jaaka e fedile koo e a leta, e fifaditswe, go gogelwa mo lenaaneng le le latelang, mme setlhogo sa lenaane se bala tsotlhe tse pedi. Go letlelelwa boto nngwe le nngwe mo Dipeakanyo tsa boto / Lenaane, morago go bulwa mo menyung ya lenaane lengwe le lengwe."
 }

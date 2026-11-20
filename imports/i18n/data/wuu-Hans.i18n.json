@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "每日站会计时器",
   "feature-standup-timer-desc": "看板菜单里个每日站会：看板成员按打乱个顺序，每人一样个时间。每块看板可以勒伊个 Scrum 设置里关脱。",
   "feature-retrospective-board": "回顾看板",
-  "feature-retrospective-board-desc": "看板菜单里个回顾看板：新建一块私有看板，有开始做、勿要再做、继续做搭待办事项几张列表。每块看板可以勒伊个 Scrum 设置里关脱。"
+  "feature-retrospective-board-desc": "看板菜单里个回顾看板：新建一块私有看板，有开始做、勿要再做、继续做搭待办事项几张列表。每块看板可以勒伊个 Scrum 设置里关脱。",
+  "show-split-lists": "允许拿列表分成正勒做搭完毕",
+  "list-split": "分成正勒做搭完毕",
+  "split-counts": "正勒做 __doing__ · 完毕 __done__",
+  "split-done": "辣海完毕哉，等勒拉到下一步",
+  "mark-split-done": "标记辣海做完哉",
+  "feature-split-lists": "分开个列表",
+  "feature-split-lists-desc": "分成正勒做搭完毕个列表：辣该搭标记做完个卡片会变暗，等人家拉到下一只列表里，列表头会两边侪数。每只看板辣看板设置 / 列表里允许，再辣每只列表个菜单里打开。"
 }

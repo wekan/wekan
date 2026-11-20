@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer foar it deistich oerlis",
   "feature-standup-timer-desc": "It Deistich oerlis yn it boerdmenu: de leden fan it boerd yn willekeurige folchoarder, elk mei deselde tiidslimyt. Per boerd út te setten yn syn Scrum-ynstellingen.",
   "feature-retrospective-board": "Weromsjochboerd",
-  "feature-retrospective-board-desc": "It Weromsjochboerd yn it boerdmenu: in nij priveeboerd mei de listen Begjinne mei, Ophâlde mei, Trochgean mei en Aksjepunten. Per boerd út te setten yn syn Scrum-ynstellingen."
+  "feature-retrospective-board-desc": "It Weromsjochboerd yn it boerdmenu: in nij priveeboerd mei de listen Begjinne mei, Ophâlde mei, Trochgean mei en Aksjepunten. Per boerd út te setten yn syn Scrum-ynstellingen.",
+  "show-split-lists": "Tastean dat listen yn Dwaande en Dien splitst wurde",
+  "list-split": "Splitse yn Dwaande en Dien",
+  "split-counts": "Dwaande __doing__ · Dien __done__",
+  "split-done": "Hjir dien, wachtet om fierder lutsen te wurden",
+  "mark-split-done": "Markearje as hjir dien",
+  "feature-split-lists": "Splitste listen",
+  "feature-split-lists-desc": "In list splitst yn Dwaande en Dien: in kaart dy't dêr as dien markearre is, wachtet, dimme, om nei de folgjende list lutsen te wurden, en de listkop telt beide. Per boerd tastien yn Board Ynstellings / Oersjochslist, en dan ynskeakele yn it menu fan elke list."
 }

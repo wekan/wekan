@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Daily standup timer",
   "feature-standup-timer-desc": "The board menu's Daily standup: the board's members in a shuffled order, each with the same timebox. Turned off per board in its Scrum settings.",
   "feature-retrospective-board": "Retrospective board",
-  "feature-retrospective-board-desc": "The board menu's Retrospective board: a new private board with the lists Start doing, Stop doing, Keep doing and Action items. Turned off per board in its Scrum settings."
+  "feature-retrospective-board-desc": "The board menu's Retrospective board: a new private board with the lists Start doing, Stop doing, Keep doing and Action items. Turned off per board in its Scrum settings.",
+  "show-split-lists": "Allow lists split into Doing and Done",
+  "list-split": "Split into Doing and Done",
+  "split-counts": "Doing __doing__ · Done __done__",
+  "split-done": "Done here, waiting to be pulled on",
+  "mark-split-done": "Mark as done here",
+  "feature-split-lists": "Split lists",
+  "feature-split-lists-desc": "A list split into Doing and Done: a card marked done there waits, dimmed, to be pulled into the next list, and the list header counts both. Allowed per board in Board Settings / List, then turned on in each list's menu."
 }

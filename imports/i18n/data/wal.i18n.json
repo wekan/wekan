@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Gallassaa shiiquwaa wodiyaa qoodiyaabaa",
   "feature-standup-timer-desc": "Bookkiyaa menuwan Gallassaa shiiquwaa: bookkiyaa yaraata walahettida maaran, issoy issoy issi wodiyaa. Issi issi bookkiyaas a Scrum giigissuwaan aggi.",
   "feature-retrospective-board": "Guyye xeelliya bookkiya",
-  "feature-retrospective-board-desc": "Bookkiyaa menuwan Guyye xeelliya bookkiya: Oosuwaa doomma, Oosuwaa aggi, Oosuwaa minththa nne Oosettanaw bessiyaabaa mazgabaa de'iya ooratta bagga bookkiya. Issi issi bookkiyaas a Scrum giigissuwaan aggi."
+  "feature-retrospective-board-desc": "Bookkiyaa menuwan Guyye xeelliya bookkiya: Oosuwaa doomma, Oosuwaa aggi, Oosuwaa minththa nne Oosettanaw bessiyaabaa mazgabaa de'iya ooratta bagga bookkiya. Issi issi bookkiyaas a Scrum giigissuwaan aggi.",
+  "show-split-lists": "Mazgabata Oottettees nne Polettiis giidi shaakettanaadan paqqadda",
+  "list-split": "Oottettees nne Polettiis giidi shaakka",
+  "split-counts": "Oottettees __doing__ · Polettiis __done__",
+  "split-done": "Hagan polettiis, sinttau goochettanau naagees",
+  "mark-split-done": "Hagan polettiis giidi malaata wotta",
+  "feature-split-lists": "Shaakettida mazgabata",
+  "feature-split-lists-desc": "Oottettees nne Polettiis giidi shaakettida mazgabaa: yan polettiis giidi malaatettida kaardiyay, dhuuma gidi, kaallidi yaana mazgabaa giddo goochettanau naagees, qassi mazgabaa huuphiyay naaskka qoodees. Bookkiya ubbau Bookkiya giigissuwaa / Mazgabaa giddon paqqadettees, hegaappe guyyiyan mazgabaa ubbaa Doorettaa giddon doyettees."
 }

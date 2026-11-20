@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sapa p'unchaw huñunakuypa pacha tupunan",
   "feature-standup-timer-desc": "Pirqa menupi sapa p'unchaw huñunakuy: pirqapa ayllumasinkuna chaqrusqa ñiqipi, sapankapas kikin pachayuq. Sapa pirqapaq Scrum allichaykunanpi wañuchikun.",
   "feature-retrospective-board": "Qhipaman qhawariy pirqa",
-  "feature-retrospective-board-desc": "Pirqa menupi qhipaman qhawariy pirqa: musuq pakasqa pirqa, Ruwayta qallariy, Ruwayta saqiy, Ruwaspa kachkay hinallataq Ruranakuna sutisuyukunayuq. Sapa pirqapaq Scrum allichaykunanpi wañuchikun."
+  "feature-retrospective-board-desc": "Pirqa menupi qhipaman qhawariy pirqa: musuq pakasqa pirqa, Ruwayta qallariy, Ruwayta saqiy, Ruwaspa kachkay hinallataq Ruranakuna sutisuyukunayuq. Sapa pirqapaq Scrum allichaykunanpi wañuchikun.",
+  "show-split-lists": "Sutisuyukunata Ruwakuchkan, Tukusqa nispa rakinanpaq saqiy",
+  "list-split": "Ruwakuchkan, Tukusqa nispa rakiy",
+  "split-counts": "Ruwakuchkan __doing__ · Tukusqa __done__",
+  "split-done": "Kaypi tukusqa, ñawpaqman aysanankuta suyachkan",
+  "mark-split-done": "Kaypi tukusqa nispa marcay",
+  "feature-split-lists": "Rakisqa sutisuyukuna",
+  "feature-split-lists-desc": "Ruwakuchkan, Tukusqa nispa rakisqa sutisuyu: chaypi tukusqa nispa marcasqa kartaqa suyan, tutayasqa, qatiq sutisuyuman aysanankukama, sutisuyup umanmi iskayninta yupan. Sapa pirqapaq Pirqa allichaykuna / Sutisuyu nisqapi saqisqa, chaymanta sapa sutisuyup akllananpi hap'ichisqa."
 }

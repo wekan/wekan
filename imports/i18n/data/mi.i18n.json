@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Taima hui tū o ia rā",
   "feature-standup-timer-desc": "Te hui tū o ia rā i te tahua papa: ngā mema o te papa i te raupapa kōrapurapu, he ōrite te wā mō ia tangata. Ka whakawetohia mō ia papa i ōna Ngā tautuhinga Scrum.",
   "feature-retrospective-board": "Papa whakaaro whakamuri",
-  "feature-retrospective-board-desc": "Te papa whakaaro whakamuri i te tahua papa: he papa tūmataiti hou me ngā rārangi Tīmata ki te mahi, Kāti te mahi, Haere tonu te mahi me Ngā mahi hei mahi. Ka whakawetohia mō ia papa i ōna Ngā tautuhinga Scrum."
+  "feature-retrospective-board-desc": "Te papa whakaaro whakamuri i te tahua papa: he papa tūmataiti hou me ngā rārangi Tīmata ki te mahi, Kāti te mahi, Haere tonu te mahi me Ngā mahi hei mahi. Ka whakawetohia mō ia papa i ōna Ngā tautuhinga Scrum.",
+  "show-split-lists": "Tukuna kia wehea ngā rārangi ki E mahia ana me Kua oti",
+  "list-split": "Wehea ki E mahia ana me Kua oti",
+  "split-counts": "E mahia ana __doing__ · Kua oti __done__",
+  "split-done": "Kua oti i konei, e tatari ana kia tōia whakamua",
+  "mark-split-done": "Tohua kua oti i konei",
+  "feature-split-lists": "Ngā rārangi kua wehea",
+  "feature-split-lists-desc": "He rārangi kua wehea ki E mahia ana me Kua oti: ko te kāri kua tohua kua oti ki reira ka tatari, kua mōhinahina, kia tōia ki te rārangi e whai ake nei, ā, ka tatau te pane o te rārangi i ngā mea e rua. Ka whakaaetia mō ia papa i Ngā tautuhinga papa / Rārangi, kātahi ka whakakāngia i te tahua o ia rārangi."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "每日企會計時器",
   "feature-standup-timer-desc": "看板選單入面嘅每日企會：看板成員按打亂嘅次序，每人一樣嘅時間。每個看板可以喺佢嘅 Scrum 設定入面閂咗。",
   "feature-retrospective-board": "回顧看板",
-  "feature-retrospective-board-desc": "看板選單入面嘅回顧看板：開一個新嘅私人看板，有開始做、唔好再做、繼續做同要做嘅事呢幾個清單。每個看板可以喺佢嘅 Scrum 設定入面閂咗。"
+  "feature-retrospective-board-desc": "看板選單入面嘅回顧看板：開一個新嘅私人看板，有開始做、唔好再做、繼續做同要做嘅事呢幾個清單。每個看板可以喺佢嘅 Scrum 設定入面閂咗。",
+  "show-split-lists": "容許將清單分成進行中同完畢",
+  "list-split": "分成進行中同完畢",
+  "split-counts": "進行中 __doing__ · 完畢 __done__",
+  "split-done": "喺度完畢，等緊拉去下一步",
+  "mark-split-done": "喺度標記為完畢",
+  "feature-split-lists": "分開嘅清單",
+  "feature-split-lists-desc": "分成進行中同完畢嘅清單：喺嗰度標記咗完畢嘅卡片會變暗，等住俾人拉去下一個清單，而清單標題會兩邊都數。每個看板喺看板設定 / 清單度容許，然後喺每個清單嘅選單度開啟。"
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Tidtaker for daglig standup",
   "feature-standup-timer-desc": "Daglig standup i tavlemenyen: tavlens medlemmer i tilfeldig rekkefølge, hver med samme tidsramme. Slås av per tavle i tavlens Scrum-innstillinger.",
   "feature-retrospective-board": "Retrospektivtavle",
-  "feature-retrospective-board-desc": "Retrospektivtavle i tavlemenyen: en ny privat tavle med listene Begynn å gjøre, Slutt å gjøre, Fortsett å gjøre og Handlingspunkter. Slås av per tavle i tavlens Scrum-innstillinger."
+  "feature-retrospective-board-desc": "Retrospektivtavle i tavlemenyen: en ny privat tavle med listene Begynn å gjøre, Slutt å gjøre, Fortsett å gjøre og Handlingspunkter. Slås av per tavle i tavlens Scrum-innstillinger.",
+  "show-split-lists": "Tillat at lister deles i Pågår og Utført",
+  "list-split": "Del i Pågår og Utført",
+  "split-counts": "Pågår __doing__ · Utført __done__",
+  "split-done": "Utført her, venter på å bli trukket videre",
+  "mark-split-done": "Merk som utført her",
+  "feature-split-lists": "Delte lister",
+  "feature-split-lists-desc": "En liste delt i Pågår og Utført: et kort som er merket utført der, venter nedtonet på å bli trukket inn i neste liste, og listeoverskriften teller begge. Tillates per tavle i Innstillinger Tavle / Liste, og slås deretter på i menyen til hver liste."
 }

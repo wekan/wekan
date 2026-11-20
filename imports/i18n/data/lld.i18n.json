@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Temporisadù dla scontra de uni di",
   "feature-standup-timer-desc": "La scontra de uni di tl menu dla tofl: i mëmbri dla tofl te n ordin mescedé, vignun cun le medem temp. Ala se destuda per vigni tofl tles sues Mpustazions de Scrum.",
   "feature-retrospective-board": "Tofl de retrospectiva",
-  "feature-retrospective-board-desc": "La tofl de retrospectiva tl menu dla tofl: na tofl privata nueva cun les listes Scomencé a fé, Ressé de fé, Jì inant a fé y Atività da fé. Ala se destuda per vigni tofl tles sues Mpustazions de Scrum."
+  "feature-retrospective-board-desc": "La tofl de retrospectiva tl menu dla tofl: na tofl privata nueva cun les listes Scomencé a fé, Ressé de fé, Jì inant a fé y Atività da fé. Ala se destuda per vigni tofl tles sues Mpustazions de Scrum.",
+  "show-split-lists": "Lascé spartì les listes te Tl laour y Fat",
+  "list-split": "Spartì te Tl laour y Fat",
+  "split-counts": "Tl laour __doing__ · Fat __done__",
+  "split-done": "Fat chiló, aspieta de vegnì tret inant",
+  "mark-split-done": "Marché sciche fat chiló",
+  "feature-split-lists": "Listes spartides",
+  "feature-split-lists-desc": "Na lista spartida te Tl laour y Fat: na ciarta marcheda sciche fata ilò aspieta, stluda, de vegnì trata te la lista do, y l cë dla lista conta dutes does. Lascé per tofl te Mpustazions dla tofl / Lista, spo da mëter en funzion tl menù de vigni lista."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronomètre de la reünion quotidiana",
   "feature-standup-timer-desc": "La reünion quotidiana del menú del tablèu : los membres del tablèu dins un òrdre mesclat, cadun amb lo meteis temps. Se desactiva per tablèu dins sos Paramètres Scrum.",
   "feature-retrospective-board": "Tablèu de retrospectiva",
-  "feature-retrospective-board-desc": "Lo tablèu de retrospectiva del menú del tablèu : un tablèu privat novèl amb las listas Començar de far, Arrestar de far, Contunhar de far e Accions de far. Se desactiva per tablèu dins sos Paramètres Scrum."
+  "feature-retrospective-board-desc": "Lo tablèu de retrospectiva del menú del tablèu : un tablèu privat novèl amb las listas Començar de far, Arrestar de far, Contunhar de far e Accions de far. Se desactiva per tablèu dins sos Paramètres Scrum.",
+  "show-split-lists": "Permetre de partejar las listas en En cors e Acabat",
+  "list-split": "Partejar en En cors e Acabat",
+  "split-counts": "En cors __doing__ · Acabat __done__",
+  "split-done": "Acabat aicí, espèra d'èsser tirat endavant",
+  "mark-split-done": "Marcar coma acabat aicí",
+  "feature-split-lists": "Listas partejadas",
+  "feature-split-lists-desc": "Una lista partejada en En cors e Acabat: una carta marcada coma acabada ailà espèra, enfoscada, d'èsser tirada dins la lista seguenta, e l'entèsta de la lista compta los dos. Permés per tablèu dins Opcions del tablèu / Lista, puèi activat dins lo menut de cada lista."
 }

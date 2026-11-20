@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kronómetro di reunion diario",
   "feature-standup-timer-desc": "E reunion diario den e menu di tabla: e miembronan di e tabla den un órden mesklá, kada un ku e mesun tempu. Ta pag'é pa kada tabla den su Konfigurashon di Scrum.",
   "feature-retrospective-board": "Tabla di retrospektiva",
-  "feature-retrospective-board-desc": "E tabla di retrospektiva den e menu di tabla: un tabla privá nobo ku e listanan Kuminsá hasi, Stop di hasi, Sigui hasi i Akshonnan pa hasi. Ta pag'é pa kada tabla den su Konfigurashon di Scrum."
+  "feature-retrospective-board-desc": "E tabla di retrospektiva den e menu di tabla: un tabla privá nobo ku e listanan Kuminsá hasi, Stop di hasi, Sigui hasi i Akshonnan pa hasi. Ta pag'é pa kada tabla den su Konfigurashon di Scrum.",
+  "show-split-lists": "Permití partí lista den Den progreso i Kla",
+  "list-split": "Partí den Den progreso i Kla",
+  "split-counts": "Den progreso __doing__ · Kla __done__",
+  "split-done": "Kla akí, ta warda pa wòrdu hala mas leu",
+  "mark-split-done": "Marká komo kla akí",
+  "feature-split-lists": "Lista partí",
+  "feature-split-lists-desc": "Un lista partí den Den progreso i Kla: un karchi marká komo kla aya ta warda, sombrá, pa wòrdu hala den e siguiente lista, i e kabes di e lista ta konta tur dos. Permití pa tabla den Konfigurashon di tabla / Lista, despues pon'é na funshon den e menú di kada lista."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sapüru tantachäwi pacha uñjiri",
   "feature-standup-timer-desc": "Pirqa menun Sapüru sayt'at tantachäwipa: pirqan masinakapax mayjt'ayat siqinxa, sapa mayniw pachpa pachan. Sapa pirqan Scrum wakichäwinaka ukan jiwtayasispa.",
   "feature-retrospective-board": "Qhipar uñtawi pirqa",
-  "feature-retrospective-board-desc": "Pirqa menun Qhipar uñtawi pirqapa: machaq sapaki pirqa, Lurañ qallta, Lurañ jaytma, Lurañ sarantma ukat Luräwinaka sutinakampi. Sapa pirqan Scrum wakichäwinaka ukan jiwtayasispa."
+  "feature-retrospective-board-desc": "Pirqa menun Qhipar uñtawi pirqapa: machaq sapaki pirqa, Lurañ qallta, Lurañ jaytma, Lurañ sarantma ukat Luräwinaka sutinakampi. Sapa pirqan Scrum wakichäwinaka ukan jiwtayasispa.",
+  "show-split-lists": "Sutinaka Lurasiski ukat Tukuyata ukar jaljañ jaysaña",
+  "list-split": "Lurasiski ukat Tukuyata ukar jaljaña",
+  "split-counts": "Lurasiski __doing__ · Tukuyata __done__",
+  "split-done": "Akan tukuyata, jutir sutinakar aysatañ suyaski",
+  "mark-split-done": "Akan tukuyata sasin chimpuña",
+  "feature-split-lists": "Jaljata sutinaka",
+  "feature-split-lists-desc": "Lurasiski ukat Tukuyata ukar jaljata sutinaka: uka tukuyata sasin chimpuni karta suyaski, chʼamaktata, jutir sutinakar aysatañataki, sutinakan pʼiqipax panpachaniw jakhu. Sapa pirqatakiw Pirqa wakichawinaka / Sutinaka ukan jaysasi, ukatsti sapa sutinakan menupan naktayasi."
 }

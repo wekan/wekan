@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Päivižen kogoneminpiran ajanlugii",
   "feature-standup-timer-desc": "Laudan menün Päivine kogoneminpird: laudan ühtnikad segoitadud järgendusel, kaikutte ühtejiččen aigan. Sambutadas kaikuččes laudas sen Scrum-valičusiš.",
   "feature-retrospective-board": "Retrospektivan laud",
-  "feature-retrospective-board-desc": "Laudan menün Retrospektivan laud: uz' personaline laud lugetižidenke Zavodi tehta, Lopi tehta, Jatka tehta i Tehtäd radod. Sambutadas kaikuččes laudas sen Scrum-valičusiš."
+  "feature-retrospective-board-desc": "Laudan menün Retrospektivan laud: uz' personaline laud lugetižidenke Zavodi tehta, Lopi tehta, Jatka tehta i Tehtäd radod. Sambutadas kaikuččes laudas sen Scrum-valičusiš.",
+  "show-split-lists": "Lubada lugetišiden jagamine Radas da Vaumiž -palaks",
+  "list-split": "Jagada Radas da Vaumiž -palaks",
+  "split-counts": "Radas __doing__ · Vaumiž __done__",
+  "split-done": "Vaumiž täs, varastab, miše sidä vedetaiš edemba",
+  "mark-split-done": "Znamoita vaumižeks täs",
+  "feature-split-lists": "Jagatud lugetišed",
+  "feature-split-lists-desc": "Lugetiž, jagatud Radas da Vaumiž -palaks: kart, kudamb om znamoitud vaumižeks sigä, varastab, tuskmenz, miše sidä vedetaiš jäl'gmäižhe lugetišehe, i lugetišen pä lugeb kaks' pol't. Lubadas kaikuččele laudale Laudan sändod / Lugetiž -lehtpolel, sid' käzktas kaikuččen lugetišen menüs."
 }

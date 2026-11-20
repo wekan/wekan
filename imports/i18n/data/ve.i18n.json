@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Tshikali tsha tshifhinga tsha muṱangano wa ḓuvha ḽiṅwe na ḽiṅwe",
   "feature-standup-timer-desc": "Muṱangano wa ḓuvha ḽiṅwe na ḽiṅwe kha menyu ya bodo: miraḓo ya bodo nga nzudzanyo yo ṱanganywaho, muṅwe na muṅwe a na tshifhinga tshi linganaho. Hu dzimiwa nga bodo kha Nzudzanyo dza Scrum dzayo.",
   "feature-retrospective-board": "Bodo ya u sedza murahu",
-  "feature-retrospective-board-desc": "Bodo ya u sedza murahu kha menyu ya bodo: bodo ntswa ya tshiphiri i re na mitevhe ya Thoma u ita, Litsha u ita, Bvela phanḓa u ita na Zwine zwa fanela u itwa. Hu dzimiwa nga bodo kha Nzudzanyo dza Scrum dzayo."
+  "feature-retrospective-board-desc": "Bodo ya u sedza murahu kha menyu ya bodo: bodo ntswa ya tshiphiri i re na mitevhe ya Thoma u ita, Litsha u ita, Bvela phanḓa u ita na Zwine zwa fanela u itwa. Hu dzimiwa nga bodo kha Nzudzanyo dza Scrum dzayo.",
+  "show-split-lists": "Tendelani mitevhe i tshi kovhekanywa nga Zwi khou itwa na Zwo itwa",
+  "list-split": "Kovhekanya nga Zwi khou itwa na Zwo itwa",
+  "split-counts": "Zwi khou itwa __doing__ · Zwo itwa __done__",
+  "split-done": "Zwo itwa fhano, i khou lindela u kokodzwa phanḓa",
+  "mark-split-done": "Swayani sa zwo itwa fhano",
+  "feature-split-lists": "Mitevhe yo kovhekanywaho",
+  "feature-split-lists-desc": "Mutevhe wo kovhekanywaho nga Zwi khou itwa na Zwo itwa: garaṱa yo swaywaho sa yo itwa henefho i a lindela, yo swifhala, u kokodzwa kha mutevhe u tevhelaho, nahone ṱhoho ya mutevhe i vhala zwoṱhe zwivhili. Zwi tendelwa kha bodo iṅwe na iṅwe kha Nzudzanyo dza bodo / Mutevhe, nga murahu zwa vulwa kha imenyu ya mutevhe muṅwe na muṅwe."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Bộ hẹn giờ họp đứng hằng ngày",
   "feature-standup-timer-desc": "Họp đứng hằng ngày trong menu bảng: các thành viên của bảng theo thứ tự xáo trộn, mỗi người có cùng khung thời gian. Tắt cho từng bảng trong Cài đặt Scrum của bảng đó.",
   "feature-retrospective-board": "Bảng rút kinh nghiệm",
-  "feature-retrospective-board-desc": "Bảng rút kinh nghiệm trong menu bảng: một bảng riêng tư mới với các danh sách Bắt đầu làm, Ngừng làm, Tiếp tục làm và Việc cần làm. Tắt cho từng bảng trong Cài đặt Scrum của bảng đó."
+  "feature-retrospective-board-desc": "Bảng rút kinh nghiệm trong menu bảng: một bảng riêng tư mới với các danh sách Bắt đầu làm, Ngừng làm, Tiếp tục làm và Việc cần làm. Tắt cho từng bảng trong Cài đặt Scrum của bảng đó.",
+  "show-split-lists": "Cho phép chia danh sách thành Đang thực hiện và Xong",
+  "list-split": "Chia thành Đang thực hiện và Xong",
+  "split-counts": "Đang thực hiện __doing__ · Xong __done__",
+  "split-done": "Đã xong ở đây, đang chờ được kéo tiếp",
+  "mark-split-done": "Đánh dấu đã xong ở đây",
+  "feature-split-lists": "Danh sách chia đôi",
+  "feature-split-lists-desc": "Danh sách được chia thành Đang thực hiện và Xong: thẻ được đánh dấu xong ở đó sẽ chờ, mờ đi, để được kéo sang danh sách tiếp theo, và tiêu đề danh sách đếm cả hai. Cho phép theo từng bảng trong Cài đặt Bảng / Danh sách, sau đó bật trong menu của từng danh sách."
 }

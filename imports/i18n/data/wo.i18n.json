@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Montar ndaje bu bés bu nekk",
   "feature-standup-timer-desc": "Ndaje bu bés bu nekk ci menu tablo bi: bokkkat yi ci tablo bi ci tolluwaay bu jaxasoo, ku nekk am jamono ju yem. Ñu ngi koy fey ci tablo bu nekk ci Jekkalu Scrum am.",
   "feature-retrospective-board": "Tablo xoolaat",
-  "feature-retrospective-board-desc": "Tablo xoolaat ci menu tablo bi: tablo bu bees bu sutura ak limu yi Tàmbali def, Bàyyi def, Wéy ci def ak Li war a def. Ñu ngi koy fey ci tablo bu nekk ci Jekkalu Scrum am."
+  "feature-retrospective-board-desc": "Tablo xoolaat ci menu tablo bi: tablo bu bees bu sutura ak limu yi Tàmbali def, Bàyyi def, Wéy ci def ak Li war a def. Ñu ngi koy fey ci tablo bu nekk ci Jekkalu Scrum am.",
+  "show-split-lists": "Mayal ñu xaajal limu yi ci Ci kaw def ak Noppi",
+  "list-split": "Xaajal ci Ci kaw def ak Noppi",
+  "split-counts": "Ci kaw def __doing__ · Noppi __done__",
+  "split-done": "Noppi na fii, mi ngi xaar ñu yóbbu ko kanam",
+  "mark-split-done": "Rëddal ni noppi na fii",
+  "feature-split-lists": "Limu yu ñu xaajal",
+  "feature-split-lists-desc": "Limu bu ñu xaajal ci Ci kaw def ak Noppi: karta bu ñu rëddal ni noppi na foofu dina xaar, mu lëndëm tuuti, ba ñu yóbbu ko ci limu bi topp, te boppu limu bi dina waññ ñaari wàll yi. Ñu ngi ko may ci tablo bu nekk ci Tëraliini Tablo / Limu, ginnaaw loolu ñu taal ko ci limu tànneefu limu bu nekk."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Časovač denního stand-upu",
   "feature-standup-timer-desc": "Denní stand-up v nabídce tabla: členové tabla v zamíchaném pořadí, každý se stejným časovým limitem. Vypíná se pro každé tablo v jeho Nastavení Scrumu.",
   "feature-retrospective-board": "Tablo retrospektivy",
-  "feature-retrospective-board-desc": "Tablo retrospektivy v nabídce tabla: nové soukromé tablo se seznamy Začít dělat, Přestat dělat, Pokračovat v tom a Úkoly k akci. Vypíná se pro každé tablo v jeho Nastavení Scrumu."
+  "feature-retrospective-board-desc": "Tablo retrospektivy v nabídce tabla: nové soukromé tablo se seznamy Začít dělat, Přestat dělat, Pokračovat v tom a Úkoly k akci. Vypíná se pro každé tablo v jeho Nastavení Scrumu.",
+  "show-split-lists": "Povolit rozdělení seznamů na Rozpracováno a Hotovo",
+  "list-split": "Rozdělit na Rozpracováno a Hotovo",
+  "split-counts": "Rozpracováno __doing__ · Hotovo __done__",
+  "split-done": "Zde hotovo, čeká na přetažení dál",
+  "mark-split-done": "Označit jako hotové zde",
+  "feature-split-lists": "Rozdělené seznamy",
+  "feature-split-lists-desc": "Seznam rozdělený na Rozpracováno a Hotovo: karta tam označená jako hotová čeká, ztlumená, až bude přetažena do dalšího seznamu, a záhlaví seznamu počítá obojí. Povoluje se pro každé tablo v Nastavení Tabla / Seznam a poté se zapíná v nabídce každého seznamu."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Contreu d' tins di l' assimblêye di tos les djoûs",
   "feature-standup-timer-desc": "L' Assimblêye di tos les djoûs dins l' menu del tåvlea: les mimbes del tåvlea dins on ôrde mak'té, tchaeke avou l' minme tins. On l' distind pa tåvlea dins ses Apontiaedjes Scrum.",
   "feature-retrospective-board": "Tåvlea di rawaitaedje",
-  "feature-retrospective-board-desc": "Li Tåvlea di rawaitaedje dins l' menu del tåvlea: ene novele tåvlea privêye avou les djivêyes Cominci a fé, Arester d' fé, Continuwer a fé et Bouyes a fé. On l' distind pa tåvlea dins ses Apontiaedjes Scrum."
+  "feature-retrospective-board-desc": "Li Tåvlea di rawaitaedje dins l' menu del tåvlea: ene novele tåvlea privêye avou les djivêyes Cominci a fé, Arester d' fé, Continuwer a fé et Bouyes a fé. On l' distind pa tåvlea dins ses Apontiaedjes Scrum.",
+  "show-split-lists": "Permete di pårti les djivêyes e En alaedje et Fwait",
+  "list-split": "Pårti e En alaedje et Fwait",
+  "split-counts": "En alaedje __doing__ · Fwait __done__",
+  "split-done": "Fwait chal, ratind d' esse tiré pus lon",
+  "mark-split-done": "Mårker come fwait chal",
+  "feature-split-lists": "Djivêyes pårteyes",
+  "feature-split-lists-desc": "Ene djivêye pårteye e En alaedje et Fwait: ene cåte mårkêye come fwaite la ratind, aflouwêye, d' esse tirêye dins l' djivêye shuvante, et l' tiestire del djivêye conte les deus. Permetou pa tåvlea dins Apontiaedjes de tåvlea / Djivêye, pwis metou en alaedje dins l' dressêye di tchaeke djivêye."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronometri de riunion di ogni dì",
   "feature-standup-timer-desc": "La Riunion di ogni dì dal menù de taule: i membris de taule in ordin casuâl, ognidun cul stes limit di timp. Si distude par ogni taule tes sôs Impostazions Scrum.",
   "feature-retrospective-board": "Taule di retrospetive",
-  "feature-retrospective-board-desc": "La Taule di retrospetive dal menù de taule: une gnove taule privade cu lis listis Scomence a fâ, Smet di fâ, Continue a fâ e Azions di fâ. Si distude par ogni taule tes sôs Impostazions Scrum."
+  "feature-retrospective-board-desc": "La Taule di retrospetive dal menù de taule: une gnove taule privade cu lis listis Scomence a fâ, Smet di fâ, Continue a fâ e Azions di fâ. Si distude par ogni taule tes sôs Impostazions Scrum.",
+  "show-split-lists": "Permet di dividi lis listis in In vore e Fat",
+  "list-split": "Dividi in In vore e Fat",
+  "split-counts": "In vore __doing__ · Fat __done__",
+  "split-done": "Fat achì, e spiete di jessi tirade indenant",
+  "mark-split-done": "Segne come fat achì",
+  "feature-split-lists": "Listis dividudis",
+  "feature-split-lists-desc": "Une liste dividude in In vore e Fat: une cjarte segnade come fate li e spiete, sbiadide, di jessi tirade te liste sucessive, e la intestazion de liste e conte dutis dôs. Al ven permetût par taule in Impostazions de taule / Liste, e po al ven ativât tal menù di ogni liste."
 }

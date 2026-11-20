@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Gündəlik ayaqüstü görüş taymeri",
   "feature-standup-timer-desc": "Lövhə menyusunun Gündəlik ayaqüstü görüşü: lövhənin üzvləri qarışıq sırada, hər biri eyni vaxt həddi ilə. Hər lövhə üçün onun Scrum parametrləri bölməsində söndürülür.",
   "feature-retrospective-board": "Retrospektiv lövhə",
-  "feature-retrospective-board-desc": "Lövhə menyusunun Retrospektiv lövhəsi: Etməyə başla, Etməyi dayandır, Etməyə davam et və Görüləcək işlər siyahıları olan yeni şəxsi lövhə. Hər lövhə üçün onun Scrum parametrləri bölməsində söndürülür."
+  "feature-retrospective-board-desc": "Lövhə menyusunun Retrospektiv lövhəsi: Etməyə başla, Etməyi dayandır, Etməyə davam et və Görüləcək işlər siyahıları olan yeni şəxsi lövhə. Hər lövhə üçün onun Scrum parametrləri bölməsində söndürülür.",
+  "show-split-lists": "Siyahıların İcrada və Bitdi hissələrinə bölünməsinə icazə ver",
+  "list-split": "İcrada və Bitdi hissələrinə böl",
+  "split-counts": "İcrada __doing__ · Bitdi __done__",
+  "split-done": "Burada bitdi, növbəti siyahıya çəkilməyi gözləyir",
+  "mark-split-done": "Burada bitmiş kimi işarələ",
+  "feature-split-lists": "Bölünmüş siyahılar",
+  "feature-split-lists-desc": "İcrada və Bitdi hissələrinə bölünmüş siyahı: orada bitmiş kimi işarələnmiş kart solğun halda növbəti siyahıya çəkilməyi gözləyir, siyahı başlığı isə hər ikisini sayır. Hər lövhə üçün Board Parametrləri / Siyahı bölməsində icazə verilir, sonra hər siyahının menyusunda aktivləşdirilir."
 }

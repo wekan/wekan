@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronometru di a riunione cutidiana",
   "feature-standup-timer-desc": "A riunione cutidiana di u menu di a tavula: i membri di a tavula in un ordine mischjatu, ognunu cù u listessu tempu. Si disattiva per tavula in i so Parametri Scrum.",
   "feature-retrospective-board": "Tavula di retrospettiva",
-  "feature-retrospective-board-desc": "A tavula di retrospettiva di u menu di a tavula: una nova tavula privata cù e liste Principià à fà, Piantà di fà, Cuntinuà à fà è Azzioni da fà. Si disattiva per tavula in i so Parametri Scrum."
+  "feature-retrospective-board-desc": "A tavula di retrospettiva di u menu di a tavula: una nova tavula privata cù e liste Principià à fà, Piantà di fà, Cuntinuà à fà è Azzioni da fà. Si disattiva per tavula in i so Parametri Scrum.",
+  "show-split-lists": "Permette di sparte e liste in In corsu è Fattu",
+  "list-split": "Sparte in In corsu è Fattu",
+  "split-counts": "In corsu __doing__ · Fattu __done__",
+  "split-done": "Fattu quì, aspetta d'esse tirata à a seguente",
+  "mark-split-done": "Marcà cum'è fattu quì",
+  "feature-split-lists": "Liste sparte",
+  "feature-split-lists-desc": "Una lista sparta in In corsu è Fattu: una carta marcata cum'è fatta culà aspetta, sbiadita, d'esse tirata in a lista seguente, è u capu di a lista conta e duie. Permessu per tavula in Parametri di a tavula / Lista, poi attivatu in u menu di ogni lista."
 }

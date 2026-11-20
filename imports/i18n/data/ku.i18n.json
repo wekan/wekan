@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Demjimêra civîna rojane",
   "feature-standup-timer-desc": "Civîna rojane ya di menuya depoyê de: endamên depoyê bi rêzeke tevlihev, her yek bi heman sînorê demê. Ji bo her depoyê di Mîhengên Scrum ên wê de tê girtin.",
   "feature-retrospective-board": "Depoya paşvenêrînê",
-  "feature-retrospective-board-desc": "Depoya paşvenêrînê ya di menuya depoyê de: depoyeke taybet a nû bi lîsteyên Dest bi kirinê bike, Kirinê rawestîne, Kirinê bidomîne û Karên ku bên kirin. Ji bo her depoyê di Mîhengên Scrum ên wê de tê girtin."
+  "feature-retrospective-board-desc": "Depoya paşvenêrînê ya di menuya depoyê de: depoyeke taybet a nû bi lîsteyên Dest bi kirinê bike, Kirinê rawestîne, Kirinê bidomîne û Karên ku bên kirin. Ji bo her depoyê di Mîhengên Scrum ên wê de tê girtin.",
+  "show-split-lists": "Destûr bide ku lîste li Tê kirin û Qediya bên parvekirin",
+  "list-split": "Li Tê kirin û Qediya parve bike",
+  "split-counts": "Tê kirin __doing__ · Qediya __done__",
+  "split-done": "Li vir qediya, li bendê ye ku pêş ve bê kişandin",
+  "mark-split-done": "Wekî li vir qediya nîşan bike",
+  "feature-split-lists": "Lîsteyên parvekirî",
+  "feature-split-lists-desc": "Lîsteyek ku li Tê kirin û Qediya hatiye parvekirin: kartek ku li wir wekî qediya hatiye nîşankirin, kêmreng bûyî, li bendê dimîne ku bo lîsteya din bê kişandin, û sernivîsa lîsteyê herduyan dihejmêre. Ji bo her depoyê di Mîhengên depoyê / Lîste de destûr tê dayîn, paşê di menuya her lîsteyê de tê vêxistin."
 }

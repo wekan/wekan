@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Gbesiagbe kpekpe ƒe gaƒoƒodzidzenu",
   "feature-standup-timer-desc": "Ŋɔŋlɔkpe ƒe menu me Gbesiagbe kpekpe: ŋɔŋlɔkpea ƒe hametɔwo le ɖoɖo si wotsaka me, ɖe sia ɖe kple ɣeyiɣi ɖeka ma. Wotsia enu le ŋɔŋlɔkpe ɖe sia ɖe ƒe Scrum ƒe ɖoɖowo me.",
   "feature-retrospective-board": "Megbekpɔkpɔ ƒe ŋɔŋlɔkpe",
-  "feature-retrospective-board-desc": "Ŋɔŋlɔkpe ƒe menu me Megbekpɔkpɔ ƒe ŋɔŋlɔkpe: ŋɔŋlɔkpe yeye si nye ame ŋutɔ tɔ kple xexlẽdzesi Dze wɔwɔ gɔme, Dzudzɔ wɔwɔ, Yi wɔwɔ dzi kple Dɔ siwo wòle be woawɔ. Wotsia enu le ŋɔŋlɔkpe ɖe sia ɖe ƒe Scrum ƒe ɖoɖowo me."
+  "feature-retrospective-board-desc": "Ŋɔŋlɔkpe ƒe menu me Megbekpɔkpɔ ƒe ŋɔŋlɔkpe: ŋɔŋlɔkpe yeye si nye ame ŋutɔ tɔ kple xexlẽdzesi Dze wɔwɔ gɔme, Dzudzɔ wɔwɔ, Yi wɔwɔ dzi kple Dɔ siwo wòle be woawɔ. Wotsia enu le ŋɔŋlɔkpe ɖe sia ɖe ƒe Scrum ƒe ɖoɖowo me.",
+  "show-split-lists": "Ɖe mɔ be woama xexlẽdzesiwo ɖe Le edzi kple Ewu enu me",
+  "list-split": "Mae ɖe Le edzi kple Ewu enu me",
+  "split-counts": "Le edzi __doing__ · Ewu enu __done__",
+  "split-done": "Ewu enu le afii, le lalam be woahee ayi ŋgɔ",
+  "mark-split-done": "De dzesii be ewu enu le afii",
+  "feature-split-lists": "Xexlẽdzesi siwo woma",
+  "feature-split-lists-desc": "Xexlẽdzesi si woma ɖe Le edzi kple Ewu enu me: agbalẽvi si wode dzesii be ewu enu le afima la lalana, eƒe amadede dzi ɖe kpɔtɔ, be woahee ayi xexlẽdzesi si kplɔe ɖo me, eye xexlẽdzesi ƒe tame xlẽa eveawo siaa. Woɖea mɔ ɖe ŋɔŋlɔkpe ɖesiaɖe ŋu le Ŋɔŋlɔkpe ƒe ɖoɖowo / Xexlẽdzesi me, emegbe wotsɔnɛ ɖe xexlẽdzesi ɖesiaɖe ƒe menu me."
 }

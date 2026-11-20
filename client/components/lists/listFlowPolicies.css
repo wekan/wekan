@@ -33,3 +33,25 @@
   color: #c0392b;
   margin-bottom: 4px;
 }
+
+/* Split Doing / Done lists. */
+.list-split-counts {
+  display: inline-block;
+  margin-inline-start: 4px;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+.minicard-split-toggle {
+  float: inline-end;
+  margin-inline-start: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.minicard-split-toggle.is-done {
+  color: #27ae60;
+  opacity: 1;
+}
+.minicard.minicard-split-done {
+  opacity: 0.6;
+  border-inline-start: 3px solid #27ae60;
+}

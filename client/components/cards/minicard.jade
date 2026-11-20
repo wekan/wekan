@@ -17,6 +17,7 @@ template(name="minicard")
     class="{{#if minicardCollapsed}}minicard-collapsed{{/if}}"
     class="{{#if hasUnreadComments}}minicard-unread-comments{{/if}}"
     class="{{#if hasUnreadChanges}}minicard-unread-changes{{/if}}"
+    class="{{#if splitDoneHere}}minicard-split-done{{/if}}"
     title="{{#if hasUnreadComments}}{{_ 'card-has-unread-comments'}}{{else}}{{#if hasUnreadChanges}}{{_ 'card-has-unread-changes'}}{{/if}}{{/if}}"
     style="{{#if showCardColorOnMinicard}}{{colorStyle}}{{/if}}")
     if canMoveCard
@@ -30,6 +31,8 @@ template(name="minicard")
     if canModifyCard
       a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
         i.fa.fa-bars
+    //- Done here, in a list split into Doing and Done (listFlowPolicies.jade).
+    +minicardSplitDone
     if showDependencyConnectHandle
       a.dependency-connect-handle.js-dependency-connect-handle(title="{{_ 'drag-to-connect'}}")
         i.fa.fa-dot-circle-o

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Mierzélnik czasu codniowégò zéńdzeniô",
   "feature-standup-timer-desc": "Codniowé zéńdzenié w menu tôflë: nôleżnicë tôflë w pòmieszónym pòrządkù, kòżdi z tim samim czasã. Wëłączô sã dlô kòżdi tôflë w ji Nastôwë Scrum.",
   "feature-retrospective-board": "Tôfla pòdzérkù nazôd",
-  "feature-retrospective-board-desc": "Tôfla pòdzérkù nazôd w menu tôflë: nowô priwatnô tôfla z lëstama Zaczni robic, Przestóń robic, Robi dali ë Zadania do zrobieniô. Wëłączô sã dlô kòżdi tôflë w ji Nastôwë Scrum."
+  "feature-retrospective-board-desc": "Tôfla pòdzérkù nazôd w menu tôflë: nowô priwatnô tôfla z lëstama Zaczni robic, Przestóń robic, Robi dali ë Zadania do zrobieniô. Wëłączô sã dlô kòżdi tôflë w ji Nastôwë Scrum.",
+  "show-split-lists": "Pòzwòlë dzelëc lëstë na W robòce ë Zrobioné",
+  "list-split": "Pòdzelë na W robòce ë Zrobioné",
+  "split-counts": "W robòce __doing__ · Zrobioné __done__",
+  "split-done": "Zrobioné tuwò, czekô na przecygniãcé dali",
+  "mark-split-done": "Òznaczë jakno zrobioné tuwò",
+  "feature-split-lists": "Pòdzeloné lëstë",
+  "feature-split-lists-desc": "Lësta pòdzelonô na W robòce ë Zrobioné: kôrta òznaczonô tam jakno zrobionô czekô, przëcemnionô, na przecygniãcé do pòstãpny lëstë, a nagłówk lëstë rechùje òbie. Pòzwòlenié dlô kòżdi tôflë w Ùstôwë tôflë / Lësta, a pòtemù włączenié w menu kòżdi lëstë."
 }

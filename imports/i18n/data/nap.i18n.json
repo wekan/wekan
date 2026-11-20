@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer d''a riunione 'e ogni juorno",
   "feature-standup-timer-desc": "'A riunione 'e ogni juorno dint''o menù d''a tavula: 'e membre d''a tavula 'n ordine ammiscato, ognuno cu 'o stesso tiempo. Se stuta pe ogni tavula dint''e Mpustazzione Scrum soje.",
   "feature-retrospective-board": "Tavula 'e retrospettiva",
-  "feature-retrospective-board-desc": "'A tavula 'e retrospettiva dint''o menù d''a tavula: na tavula privata nova cu 'e liste Accummencia a fà, Fernisce 'e fà, Cuntinua a fà e Cose 'a fà. Se stuta pe ogni tavula dint''e Mpustazzione Scrum soje."
+  "feature-retrospective-board-desc": "'A tavula 'e retrospettiva dint''o menù d''a tavula: na tavula privata nova cu 'e liste Accummencia a fà, Fernisce 'e fà, Cuntinua a fà e Cose 'a fà. Se stuta pe ogni tavula dint''e Mpustazzione Scrum soje.",
+  "show-split-lists": "Permettere 'e dividere 'e liste 'n 'N corso e Fatto",
+  "list-split": "Dividere 'n 'N corso e Fatto",
+  "split-counts": "'N corso __doing__ · Fatto __done__",
+  "split-done": "Fatto ccà, aspetta 'e essere tirato annanze",
+  "mark-split-done": "Segna comme fatto ccà",
+  "feature-split-lists": "Liste divise",
+  "feature-split-lists-desc": "Na lista divisa 'n 'N corso e Fatto: na carta segnata comme fatta llà aspetta, appannata, 'e essere tirata dint' 'a lista appriesso, e 'a capa d' 'a lista conta tutt' e doje. Se permette pe' ogne tavula 'n Mpustaziune d'a tavula / Lista, po' s'appiccia dint' 'o menù 'e ogne lista."
 }

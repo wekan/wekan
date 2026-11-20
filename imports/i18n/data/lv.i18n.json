@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Ikdienas sapulces taimeris",
   "feature-standup-timer-desc": "Ikdienas sapulce dēļa izvēlnē: dēļa dalībnieki sajauktā secībā, katram vienāds laika ierobežojums. Izslēdzama katram dēlim tā Scrum iestatījumos.",
   "feature-retrospective-board": "Retrospekcijas dēlis",
-  "feature-retrospective-board-desc": "Retrospekcijas dēlis dēļa izvēlnē: jauns privāts dēlis ar sarakstiem Sākt darīt, Pārstāt darīt, Turpināt darīt un Darbības punkti. Izslēdzams katram dēlim tā Scrum iestatījumos."
+  "feature-retrospective-board-desc": "Retrospekcijas dēlis dēļa izvēlnē: jauns privāts dēlis ar sarakstiem Sākt darīt, Pārstāt darīt, Turpināt darīt un Darbības punkti. Izslēdzams katram dēlim tā Scrum iestatījumos.",
+  "show-split-lists": "Atļaut sarakstus sadalīt Procesā un Darīts",
+  "list-split": "Sadalīt Procesā un Darīts",
+  "split-counts": "Procesā __doing__ · Darīts __done__",
+  "split-done": "Šeit darīts, gaida, kad to paņems tālāk",
+  "mark-split-done": "Atzīmēt kā darītu šeit",
+  "feature-split-lists": "Sadalīti saraksti",
+  "feature-split-lists-desc": "Saraksts, kas sadalīts Procesā un Darīts: tur par darītu atzīmēta kartiņa gaida, aptumšota, līdz to paņem nākamajā sarakstā, un saraksta galvene skaita abas daļas. Atļauts katram dēlim sadaļā Dēļa iestatījumi / Saraksts, pēc tam ieslēgts katra saraksta izvēlnē."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Saatiwal batu ñalnde",
   "feature-standup-timer-desc": "Batu ñalnde e dosol alluwal: terɗe alluwal ngal e doggol jillingol, gooto kala e keerol sahaa gootol. Ina uddee e alluwal kala e Teelte Scrum mayre.",
   "feature-retrospective-board": "Alluwal rutto-ƴeewndo",
-  "feature-retrospective-board-desc": "Alluwal rutto-ƴeewndo e dosol alluwal: alluwal keeriiɗo kesal e doggi Fuɗɗo waɗde, Accu waɗde, Jokku waɗde e Ko foti waɗeede. Ina uddee e alluwal kala e Teelte Scrum mayre."
+  "feature-retrospective-board-desc": "Alluwal rutto-ƴeewndo e dosol alluwal: alluwal keeriiɗo kesal e doggi Fuɗɗo waɗde, Accu waɗde, Jokku waɗde e Ko foti waɗeede. Ina uddee e alluwal kala e Teelte Scrum mayre.",
+  "show-split-lists": "Yamir senndude doggi e Ina golle e Gasii",
+  "list-split": "Senndu e Ina golle e Gasii",
+  "split-counts": "Ina golle __doing__ · Gasii __done__",
+  "split-done": "Gasii ɗoo, ina sabbori ndaasegol yeeso",
+  "mark-split-done": "Maantin wonde gasii ɗoo",
+  "feature-split-lists": "Doggi senndaaɗi",
+  "feature-split-lists-desc": "Doggol senndaangol e Ina golle e Gasii: kartal maantinaangal wonde gasii ɗoon ina sabbori, ina ɓuuɓi, ndaasegol e doggol garowol ngol, e hoore doggol ngol ina limta ɗiɗi ɗii fof. Yamiraa e alluwal kala e Teelte alluwal / Doggol, caggal ɗuum hubbee e cuɓirde doggol kala."
 }

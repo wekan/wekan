@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Časowak wšědneje zhromadźizny",
   "feature-standup-timer-desc": "Wšědna zhromadźizna w meniju tafle: čłonojo tafle w měšanym porjedźe, kóždy ze samsnym časowym wobłukom. Wupina so za kóždu taflu w jeje Nastajenja Scrum.",
   "feature-retrospective-board": "Tafla wróćopohlada",
-  "feature-retrospective-board-desc": "Tafla wróćopohlada w meniju tafle: nowa priwatna tafla z lisćinami Započeć činić, Přestać činić, Dale činić a Nadawki. Wupina so za kóždu taflu w jeje Nastajenja Scrum."
+  "feature-retrospective-board-desc": "Tafla wróćopohlada w meniju tafle: nowa priwatna tafla z lisćinami Započeć činić, Přestać činić, Dale činić a Nadawki. Wupina so za kóždu taflu w jeje Nastajenja Scrum.",
+  "show-split-lists": "Dźělenje lisćinow na W dźěle a Hotowe dowolić",
+  "list-split": "Na W dźěle a Hotowe rozdźělić",
+  "split-counts": "W dźěle __doing__ · Hotowe __done__",
+  "split-done": "Tu hotowe, čaka na to, zo so dale sćehnje",
+  "mark-split-done": "Jako tu hotowe markěrować",
+  "feature-split-lists": "Rozdźělene lisćiny",
+  "feature-split-lists-desc": "Lisćina rozdźělena na W dźěle a Hotowe: karta, kotraž je tam jako hotowa markěrowana, čaka, přićmjena, zo by so do přichodneje lisćiny sćahnyła, a hłowa lisćiny liči wobě. Dowoli so za kóždu taflu w Nastajenja tafle / Lisćina, a potom so w meniju kóždeje lisćiny zapina."
 }

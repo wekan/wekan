@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Aago ìpàdé ìdúró ojoojúmọ́",
   "feature-standup-timer-desc": "Ìpàdé ìdúró ojoojúmọ́ nínú àkójọ pátákó: àwọn ọmọ ẹgbẹ́ pátákó ní ètò tí a dàpọ̀, ẹnìkọ̀ọ̀kan pẹ̀lú àkókò kan náà. A máa ń pa á fún pátákó kọ̀ọ̀kan nínú Àwọn ètò Scrum rẹ̀.",
   "feature-retrospective-board": "Pátákó ìwòẹ̀yìn",
-  "feature-retrospective-board-desc": "Pátákó ìwòẹ̀yìn nínú àkójọ pátákó: pátákó àdáni tuntun pẹ̀lú àwọn àkójọ Bẹ̀rẹ̀ sí ṣe, Dẹ́kun ṣíṣe, Máa ṣe é lọ àti Àwọn nǹkan láti ṣe. A máa ń pa á fún pátákó kọ̀ọ̀kan nínú Àwọn ètò Scrum rẹ̀."
+  "feature-retrospective-board-desc": "Pátákó ìwòẹ̀yìn nínú àkójọ pátákó: pátákó àdáni tuntun pẹ̀lú àwọn àkójọ Bẹ̀rẹ̀ sí ṣe, Dẹ́kun ṣíṣe, Máa ṣe é lọ àti Àwọn nǹkan láti ṣe. A máa ń pa á fún pátákó kọ̀ọ̀kan nínú Àwọn ètò Scrum rẹ̀.",
+  "show-split-lists": "Gba laaye pipin awọn akojọ si Iṣẹ́ ń lọ ati Ti ṣe",
+  "list-split": "Pin si Iṣẹ́ ń lọ ati Ti ṣe",
+  "split-counts": "Iṣẹ́ ń lọ __doing__ · Ti ṣe __done__",
+  "split-done": "Ti ṣe nibi, n duro de ki a fa siwaju",
+  "mark-split-done": "Samisi bi ti ṣe nibi",
+  "feature-split-lists": "Awọn akojọ pipin",
+  "feature-split-lists-desc": "Akojọ ti a pin si Iṣẹ́ ń lọ ati Ti ṣe: kaadi ti a samisi bi ti ṣe nibẹ n duro, ni didan kekere, de ki a fa a sinu akojọ ti o tẹle, ati akọle akojọ naa n ka awọn mejeeji. A gba laaye fun ọkọ kọọkan ni Eto Ọkọ / Akojọ, lẹhinna a tan an ninu akojọ aṣyn ti akojọ kọọkan."
 }

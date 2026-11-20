@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Ceas ti adunarea di cafi dzuã",
   "feature-standup-timer-desc": "Adunarea di cafi dzuã tu meniul a tabelãljei: membrili a tabelãljei tu unã aradã amisticatã, cafi unu cu idyiul chiro. S-astindzi ti cafi tabelã tu Sitãri Scrum a ljei.",
   "feature-retrospective-board": "Tabelã di retrospectivã",
-  "feature-retrospective-board-desc": "Tabela di retrospectivã tu meniul a tabelãljei: unã tabelã privatã nauã cu listili Ahurhi s-faţ, Astãmãtsea s-faţ, Ducheaţ-u ninti şi Lucri tsi lipsescu fapti. S-astindzi ti cafi tabelã tu Sitãri Scrum a ljei."
+  "feature-retrospective-board-desc": "Tabela di retrospectivã tu meniul a tabelãljei: unã tabelã privatã nauã cu listili Ahurhi s-faţ, Astãmãtsea s-faţ, Ducheaţ-u ninti şi Lucri tsi lipsescu fapti. S-astindzi ti cafi tabelã tu Sitãri Scrum a ljei.",
+  "show-split-lists": "Alasã listile s-hibã mpãrtsâte tu Tu lucru shi Bitisit",
+  "list-split": "Mpartsã tu Tu lucru shi Bitisit",
+  "split-counts": "Tu lucru __doing__ · Bitisit __done__",
+  "split-done": "Bitisit aoa, ashteaptã s-hibã trãpsit ma nclo",
+  "mark-split-done": "Semnã ca bitisit aoa",
+  "feature-split-lists": "Listi mpãrtsâte",
+  "feature-split-lists-desc": "Unã listã mpãrtsâtã tu Tu lucru shi Bitisit: unã cartã semnatã ca bitisitã aclo ashteaptã, ntunicatã, s-hibã trãpsitã tu lista tsi yini, shi caplu a listãljei li numirã tuti doauãli. Alãsat ti cathi tabelã tu Sitãri di tabelã / Listã, deapoea apreasã tu meniul a cathi listã."
 }

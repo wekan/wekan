@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Mjerač vremena dnevnog sastanka",
   "feature-standup-timer-desc": "Dnevni sastanak u izborniku ploče: korisnici ploče nasumičnim redoslijedom, svaki s istim vremenskim ograničenjem. Isključuje se za svaku ploču u izborniku Postavke Scruma.",
   "feature-retrospective-board": "Ploča retrospektive",
-  "feature-retrospective-board-desc": "Ploča retrospektive u izborniku ploče: nova privatna ploča s popisima Počni raditi, Prestani raditi, Nastavi raditi i Zadaci. Isključuje se za svaku ploču u izborniku Postavke Scruma."
+  "feature-retrospective-board-desc": "Ploča retrospektive u izborniku ploče: nova privatna ploča s popisima Počni raditi, Prestani raditi, Nastavi raditi i Zadaci. Isključuje se za svaku ploču u izborniku Postavke Scruma.",
+  "show-split-lists": "Dopusti dijeljenje popisa na U tijeku i Gotovo",
+  "list-split": "Podijeli na U tijeku i Gotovo",
+  "split-counts": "U tijeku __doing__ · Gotovo __done__",
+  "split-done": "Ovdje gotovo, čeka da bude povučeno dalje",
+  "mark-split-done": "Označi kao gotovo ovdje",
+  "feature-split-lists": "Podijeljeni popisi",
+  "feature-split-lists-desc": "Popis podijeljen na U tijeku i Gotovo: kartica ondje označena kao gotova čeka, zatamnjena, da bude povučena u sljedeći popis, a zaglavlje popisa broji oboje. Dopušta se po ploči u Postavke ploče / Popis, a zatim se uključuje u izborniku svakog popisa."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Licznik czasu codziennego spotkania",
   "feature-standup-timer-desc": "Codzienne spotkanie w menu tablicy: członkowie tablicy w losowej kolejności, każdy z takim samym limitem czasu. Wyłączane dla każdej tablicy w jej Ustawieniach Scrum.",
   "feature-retrospective-board": "Tablica retrospektywy",
-  "feature-retrospective-board-desc": "Tablica retrospektywy w menu tablicy: nowa prywatna tablica z listami Zacznij robić, Przestań robić, Rób dalej i Zadania do wykonania. Wyłączana dla każdej tablicy w jej Ustawieniach Scrum."
+  "feature-retrospective-board-desc": "Tablica retrospektywy w menu tablicy: nowa prywatna tablica z listami Zacznij robić, Przestań robić, Rób dalej i Zadania do wykonania. Wyłączana dla każdej tablicy w jej Ustawieniach Scrum.",
+  "show-split-lists": "Zezwalaj na dzielenie list na W toku i Zakończone",
+  "list-split": "Podziel na W toku i Zakończone",
+  "split-counts": "W toku __doing__ · Zakończone __done__",
+  "split-done": "Zakończone tutaj, czeka na pociągnięcie dalej",
+  "mark-split-done": "Oznacz jako zakończone tutaj",
+  "feature-split-lists": "Podzielone listy",
+  "feature-split-lists-desc": "Lista podzielona na W toku i Zakończone: karta oznaczona tam jako zakończona czeka, przygaszona, aż zostanie pociągnięta do następnej listy, a nagłówek listy liczy obie części. Zezwalane dla każdej tablicy w Ustawienia tablicy / Lista, a potem włączane w menu każdej listy."
 }

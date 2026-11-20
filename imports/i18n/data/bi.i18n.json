@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Taima blong miting blong evri dei",
   "feature-standup-timer-desc": "Miting blong evri dei long menyu blong bod: ol memba blong bod long wan oda we i miksimap, evriwan i gat sem taem. Yu save stopem long evri bod long Ol seting blong Scrum blong hem.",
   "feature-retrospective-board": "Bod blong lukbak",
-  "feature-retrospective-board-desc": "Bod blong lukbak long menyu blong bod: wan niu bod blong yu nomo wetem ol lis Statem mekem, Stop mekem, Gohed mekem mo Ol wok blong mekem. Yu save stopem long evri bod long Ol seting blong Scrum blong hem."
+  "feature-retrospective-board-desc": "Bod blong lukbak long menyu blong bod: wan niu bod blong yu nomo wetem ol lis Statem mekem, Stop mekem, Gohed mekem mo Ol wok blong mekem. Yu save stopem long evri bod long Ol seting blong Scrum blong hem.",
+  "show-split-lists": "Letem ol lis oli seraot long Stap wok mo I finis",
+  "list-split": "Seraot long Stap wok mo I finis",
+  "split-counts": "Stap wok __doing__ · I finis __done__",
+  "split-done": "I finis long ples ia, i stap wet blong oli pulum i go",
+  "mark-split-done": "Makem se i finis long ples ia",
+  "feature-split-lists": "Ol lis we oli seraot",
+  "feature-split-lists-desc": "Wan lis we i seraot long Stap wok mo I finis: wan kad we oli makem se i finis long ples ia i stap wet, i no klia tumas, blong oli pulum i go long nekis lis, mo hed blong lis i kaontem tufala. Oli letem long evri bod long Ol seting blong bod / Lis, nao oli openem long menu blong evri lis."
 }

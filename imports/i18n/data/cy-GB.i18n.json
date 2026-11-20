@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Amserydd y cyfarfod sefyll dyddiol",
   "feature-standup-timer-desc": "Cyfarfod sefyll dyddiol dewislen y bwrdd: aelodau'r bwrdd mewn trefn gymysg, pob un â'r un terfyn amser. Wedi'i ddiffodd fesul bwrdd yn ei Gosodiadau Scrum.",
   "feature-retrospective-board": "Bwrdd ôl-adolygu",
-  "feature-retrospective-board-desc": "Bwrdd ôl-adolygu dewislen y bwrdd: bwrdd preifat newydd gyda'r rhestrau Dechrau gwneud, Peidio â gwneud, Dal ati i wneud a Pwyntiau gweithredu. Wedi'i ddiffodd fesul bwrdd yn ei Gosodiadau Scrum."
+  "feature-retrospective-board-desc": "Bwrdd ôl-adolygu dewislen y bwrdd: bwrdd preifat newydd gyda'r rhestrau Dechrau gwneud, Peidio â gwneud, Dal ati i wneud a Pwyntiau gweithredu. Wedi'i ddiffodd fesul bwrdd yn ei Gosodiadau Scrum.",
+  "show-split-lists": "Caniatáu rhannu rhestrau yn Ar waith a Wedi'i wneud",
+  "list-split": "Rhannu yn Ar waith a Wedi'i wneud",
+  "split-counts": "Ar waith __doing__ · Wedi'i wneud __done__",
+  "split-done": "Wedi'i wneud yma, yn aros i gael ei dynnu ymlaen",
+  "mark-split-done": "Marcio fel wedi'i wneud yma",
+  "feature-split-lists": "Rhestrau hollt",
+  "feature-split-lists-desc": "Rhestr wedi'i rhannu yn Ar waith a Wedi'i wneud: mae cerdyn sydd wedi'i farcio fel wedi'i wneud yno yn aros, wedi pylu, i gael ei dynnu i'r rhestr nesaf, ac mae pennawd y rhestr yn cyfrif y ddau. Caniateir fesul bwrdd yn Gosodiadau Bwrdd / Rhestr, yna caiff ei droi ymlaen yn newislen pob rhestr."
 }

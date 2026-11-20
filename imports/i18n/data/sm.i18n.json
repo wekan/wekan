@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Uati o le fonotaga o aso taitasi",
   "feature-standup-timer-desc": "Le fonotaga o aso taitasi i le lisi o le laupapa: sui o le laupapa i se faasologa fefiloi, e tutusa le taimi mo i latou taitoatasi. E tape mo laupapa taitasi i ona Faatulagaga o le Scrum.",
   "feature-retrospective-board": "Laupapa o toe mafaufauga",
-  "feature-retrospective-board-desc": "Le laupapa o toe mafaufauga i le lisi o le laupapa: se laupapa fou faalilolilo ma lisi Amata ona fai, Taofi ona fai, Faʻaauau ona fai ma Mea e fai. E tape mo laupapa taitasi i ona Faatulagaga o le Scrum."
+  "feature-retrospective-board-desc": "Le laupapa o toe mafaufauga i le lisi o le laupapa: se laupapa fou faalilolilo ma lisi Amata ona fai, Taofi ona fai, Faʻaauau ona fai ma Mea e fai. E tape mo laupapa taitasi i ona Faatulagaga o le Scrum.",
+  "show-split-lists": "Faʻataga lisi e vaevae i le O loo faia ma le Ua maea",
+  "list-split": "Vaevae i le O loo faia ma le Ua maea",
+  "split-counts": "O loo faia __doing__ · Ua maea __done__",
+  "split-done": "Ua maea iinei, o loo faatali e toso i luma",
+  "mark-split-done": "Faailoga ua maea iinei",
+  "feature-split-lists": "Lisi vaevaeina",
+  "feature-split-lists-desc": "O se lisi ua vaevaeina i le O loo faia ma le Ua maea: o le pepa ua faailogaina ua maea ai iina e faatali, ua pogisa, ina ia toso i le isi lisi, ma o le ulutala o le lisi e faitau uma mea e lua. E faatagaina mo laupapa taitasi i le Faatulagaga o le laupapa / Lisi, ona ki lea i le lisi autū o lisi taitasi."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Isikhathi somhlangano wansuku zonke",
   "feature-standup-timer-desc": "Umhlangano wansuku zonke kumenyu yebhodi: amalunga ebhodi ngokulandelana okuxubileyo, ngamunye elesikhathi esifanayo. Kuvalwa ebhodini ngalinye ku-Izilungiselelo ze-Scrum zalo.",
   "feature-retrospective-board": "Ibhodi lokukhangela emuva",
-  "feature-retrospective-board-desc": "Ibhodi lokukhangela emuva kumenyu yebhodi: ibhodi elitsha eliyimfihlo elinezinhlu Qala ukwenza, Yekela ukwenza, Qhubeka wenza lo Okumele kwenziwe. Kuvalwa ebhodini ngalinye ku-Izilungiselelo ze-Scrum zalo."
+  "feature-retrospective-board-desc": "Ibhodi lokukhangela emuva kumenyu yebhodi: ibhodi elitsha eliyimfihlo elinezinhlu Qala ukwenza, Yekela ukwenza, Qhubeka wenza lo Okumele kwenziwe. Kuvalwa ebhodini ngalinye ku-Izilungiselelo ze-Scrum zalo.",
+  "show-split-lists": "Vumela uluhlu ukuthi lwehlukaniswe kube Kuyaqhubeka loKuqedile",
+  "list-split": "Hlukanisa kube Kuyaqhubeka loKuqedile",
+  "split-counts": "Kuyaqhubeka __doing__ · Kuqedile __done__",
+  "split-done": "Kuqedile lapha, kulinde ukudonselwa phambili",
+  "mark-split-done": "Phawula ukuthi kuqedile lapha",
+  "feature-split-lists": "Uluhlu oluhlukanisiweyo",
+  "feature-split-lists-desc": "Uluhlu oluhlukaniswe kube Kuyaqhubeka loKuqedile: ikhadi eliphawulwe ukuthi liqedile khona lilinda, lifiphele, ukudonselwa ohlwini olulandelayo, njalo isihloko sohlu sibala kokubili. Kuvunyelwa ebhodini ngalinye ku-Izilungiselelo zebhodi / Uluhlu, kusukela lapho kuvulwe kumenyu yoluhlu ngalunye."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Beaivválaš čoahkkima áigemihtár",
   "feature-standup-timer-desc": "Beaivválaš čoahkkin távvalmenus: távvala lahtut seaguhuvvon ortnegis, juohkehaččas seamma áigi. Jáddaduvvo juohke távvalii dan Scrum-heivehusain.",
   "feature-retrospective-board": "Maŋoščalmmusteapmi-távval",
-  "feature-retrospective-board-desc": "Maŋoščalmmusteapmi-távval távvalmenus: ođđa priváhta távval listtuiguin Álgge dahkat, Heaittit dahkamis, Joatkke dahkat ja Doaibmačuoggát. Jáddaduvvo juohke távvalii dan Scrum-heivehusain."
+  "feature-retrospective-board-desc": "Maŋoščalmmusteapmi-távval távvalmenus: ođđa priváhta távval listtuiguin Álgge dahkat, Heaittit dahkamis, Joatkke dahkat ja Doaibmačuoggát. Jáddaduvvo juohke távvalii dan Scrum-heivehusain.",
+  "show-split-lists": "Divtte listtuid juohkit Jođus ja Gárvvis osiide",
+  "list-split": "Juoge Jođus ja Gárvvis osiide",
+  "split-counts": "Jođus __doing__ · Gárvvis __done__",
+  "split-done": "Gárvvis dás, vuordá ahte geasuhuvvo viidáset",
+  "mark-split-done": "Merke gárvvisin dás",
+  "feature-split-lists": "Juhkkojuvvon listtut",
+  "feature-split-lists-desc": "Listu mii lea juhkkojuvvon Jođus ja Gárvvis osiide: goartta mii lea merkejuvvon gárvvisin doppe vuordá, seavdnjaduvvon, ahte dan geasuhit čuovvovaš listui, ja listu oaivi lohká goappašagaid. Lobálaš juohke távvalii Távvala heivehusat / Listu siste, ja de čatnojuvvo juohke listtu fállus."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Uaki hālāwai kū o kēlā me kēia lā",
   "feature-standup-timer-desc": "Ka Hālāwai kū o kēlā me kēia lā ma ka papa koho o ka papa: nā lālā o ka papa ma ke kaʻina i hoʻohuikau ʻia, ka palena manawa like no kēlā me kēia. Hoʻopio ʻia no kēlā me kēia papa ma kona Nā hoʻonohonoho Scrum.",
   "feature-retrospective-board": "Papa nānā i hope",
-  "feature-retrospective-board-desc": "Ka Papa nānā i hope ma ka papa koho o ka papa: he papa pilikino hou me nā papa inoa E hoʻomaka e hana, E hoʻōki i ka hana, E hoʻomau i ka hana a me Nā hana e hana ai. Hoʻopio ʻia no kēlā me kēia papa ma kona Nā hoʻonohonoho Scrum."
+  "feature-retrospective-board-desc": "Ka Papa nānā i hope ma ka papa koho o ka papa: he papa pilikino hou me nā papa inoa E hoʻomaka e hana, E hoʻōki i ka hana, E hoʻomau i ka hana a me Nā hana e hana ai. Hoʻopio ʻia no kēlā me kēia papa ma kona Nā hoʻonohonoho Scrum.",
+  "show-split-lists": "E ʻae i ka māhele ʻana i nā papa inoa i Ke hana ʻia nei a me Ua pau",
+  "list-split": "Māhele i Ke hana ʻia nei a me Ua pau",
+  "split-counts": "Ke hana ʻia nei __doing__ · Ua pau __done__",
+  "split-done": "Ua pau ma ʻaneʻi, e kali ana e huki ʻia aku",
+  "mark-split-done": "Kaha ma ke ʻano ua pau ma ʻaneʻi",
+  "feature-split-lists": "Nā papa inoa māhele",
+  "feature-split-lists-desc": "He papa inoa i māhele ʻia i Ke hana ʻia nei a me Ua pau: kali ke kāleka i kaha ʻia ua pau ma laila, me ka hoʻopōʻeleʻele ʻia, e huki ʻia i ka papa inoa aʻe, a helu ke poʻo o ka papa inoa i nā mea ʻelua. ʻAe ʻia no kēlā me kēia papa ma Nā hoʻonohonoho papa / Papa inoa, a laila hoʻā ʻia ma ka papa koho o kēlā me kēia papa inoa."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Saacadda kulanka maalinlaha ah",
   "feature-standup-timer-desc": "Kulanka maalinlaha ah ee liiska sabuuradda: xubnaha sabuuradda oo kala dambayn isku qasan ah, mid kastaa waqti isku mid ah. Waa la damiyaa sabuurad kasta Dejinta Scrum-keeda.",
   "feature-retrospective-board": "Sabuuradda dib-u-milicsiga",
-  "feature-retrospective-board-desc": "Sabuuradda dib-u-milicsiga ee liiska sabuuradda: sabuurad gaar ah oo cusub oo leh liisaska Bilow samaynta, Jooji samaynta, Sii wad samaynta iyo Waxyaabaha la qabanayo. Waa la damiyaa sabuurad kasta Dejinta Scrum-keeda."
+  "feature-retrospective-board-desc": "Sabuuradda dib-u-milicsiga ee liiska sabuuradda: sabuurad gaar ah oo cusub oo leh liisaska Bilow samaynta, Jooji samaynta, Sii wad samaynta iyo Waxyaabaha la qabanayo. Waa la damiyaa sabuurad kasta Dejinta Scrum-keeda.",
+  "show-split-lists": "U oggolow liisaska in loo qaybiyo Shaqo socota iyo La dhammeeyay",
+  "list-split": "U qaybi Shaqo socota iyo La dhammeeyay",
+  "split-counts": "Shaqo socota __doing__ · La dhammeeyay __done__",
+  "split-done": "Halkan waa la dhammeeyay, wuxuu sugayaa in loo jiido hore",
+  "mark-split-done": "U calaamadee mid halkan lagu dhammeeyay",
+  "feature-split-lists": "Liisas la qaybiyay",
+  "feature-split-lists-desc": "Liis loo qaybiyay Shaqo socota iyo La dhammeeyay: kaarka halkaas loogu calaamadeeyay dhammaad wuu sugaa, isagoo madoobaaday, in loo jiido liiska xiga, madaxa liiskuna labadaba wuu tiriyaa. Waxaa loo oggol yahay sabuurad kasta gudaha Dejinta sabuuradda / Liis, kadibna waxaa lagu shitaa menyuuga liis kasta."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kundalik yigʻilish taymeri",
   "feature-standup-timer-desc": "Taxta menyusidagi Kundalik yigʻilish: taxta a'zolari aralash tartibda, har biriga bir xil vaqt. Har bir taxta uchun uning Scrum sozlamalarida oʻchiriladi.",
   "feature-retrospective-board": "Retrospektiva taxtasi",
-  "feature-retrospective-board-desc": "Taxta menyusidagi Retrospektiva taxtasi: Qilishni boshlash, Qilishni toʻxtatish, Qilishda davom etish va Bajariladigan ishlar roʻyxatlari bilan yangi shaxsiy taxta. Har bir taxta uchun uning Scrum sozlamalarida oʻchiriladi."
+  "feature-retrospective-board-desc": "Taxta menyusidagi Retrospektiva taxtasi: Qilishni boshlash, Qilishni toʻxtatish, Qilishda davom etish va Bajariladigan ishlar roʻyxatlari bilan yangi shaxsiy taxta. Har bir taxta uchun uning Scrum sozlamalarida oʻchiriladi.",
+  "show-split-lists": "Roʻyxatlarni Bajarilmoqda va Bajarildi qismlariga boʻlishga ruxsat berish",
+  "list-split": "Bajarilmoqda va Bajarildi qismlariga boʻlish",
+  "split-counts": "Bajarilmoqda __doing__ · Bajarildi __done__",
+  "split-done": "Shu yerda bajarildi, keyingisiga tortilishini kutmoqda",
+  "mark-split-done": "Shu yerda bajarildi deb belgilash",
+  "feature-split-lists": "Boʻlingan roʻyxatlar",
+  "feature-split-lists-desc": "Bajarilmoqda va Bajarildi qismlariga boʻlingan roʻyxat: u yerda bajarildi deb belgilangan karta xiralashib, keyingi roʻyxatga tortilishini kutadi, roʻyxat sarlavhasi esa ikkalasini ham sanaydi. Har bir taxta uchun Taxta sozlamalari / Roʻyxat boʻlimida ruxsat beriladi, soʻng har bir roʻyxat menyusida yoqiladi."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kaloko ni bose ni veisiga",
   "feature-standup-timer-desc": "Na Bose ni veisiga ena mineu ni vola: na lewe ni vola ena ituvatuva veisau, e tautauvata na gauna me dui vakayagataka. E vakaboko ena vola yadua ena kena Ituvatuva ni Scrum.",
   "feature-retrospective-board": "Vola ni vakasamataki lesu",
-  "feature-retrospective-board-desc": "Na Vola ni vakasamataki lesu ena mineu ni vola: e dua na vola vou vakataki koya kei na lisi Tekivu me caka, Tarova me caka, Tomana me caka kei na Ka me cakavi. E vakaboko ena vola yadua ena kena Ituvatuva ni Scrum."
+  "feature-retrospective-board-desc": "Na Vola ni vakasamataki lesu ena mineu ni vola: e dua na vola vou vakataki koya kei na lisi Tekivu me caka, Tarova me caka, Tomana me caka kei na Ka me cakavi. E vakaboko ena vola yadua ena kena Ituvatuva ni Scrum.",
+  "show-split-lists": "Vakatara me wasei na lisi ki na Se cakacaka tiko kei na Sa oti",
+  "list-split": "Wasei ki na Se cakacaka tiko kei na Sa oti",
+  "split-counts": "Se cakacaka tiko __doing__ · Sa oti __done__",
+  "split-done": "Sa oti eke, waraka tiko me dreti ki liu",
+  "mark-split-done": "Vakatakila ni sa oti eke",
+  "feature-split-lists": "Lisi sa wasei",
+  "feature-split-lists-desc": "E dua na lisi sa wasei ki na Se cakacaka tiko kei na Sa oti: na kadi sa vakatakilai ni sa oti e kea e waraka tiko, sa rabuka, me dreti ki na lisi tarava, ka na ulu ni lisi e wilika ruarua. E vakatarai ena vola yadua ena Veisautaki ni vola / Lisi, oti e vakayagataki ena menu ni lisi yadua."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Isaha y'inama ya misi yose",
   "feature-standup-timer-desc": "Inama ya misi yose mu menu y'icapa: abanywanyi b'icapa mu rutonde ruvangavanze, umwe wese afise umwanya ungana. Irazimwa kuri buri capa mu Bigenwa vya Scrum vyaco.",
   "feature-retrospective-board": "Icapa co gusubiza amaso inyuma",
-  "feature-retrospective-board-desc": "Icapa co gusubiza amaso inyuma mu menu y'icapa: icapa gishasha c'ibanga gifise intonde Tangura gukora, Reka gukora, Bandanya gukora n'Ibikorwa bikenewe. Kirazimwa kuri buri capa mu Bigenwa vya Scrum vyaco."
+  "feature-retrospective-board-desc": "Icapa co gusubiza amaso inyuma mu menu y'icapa: icapa gishasha c'ibanga gifise intonde Tangura gukora, Reka gukora, Bandanya gukora n'Ibikorwa bikenewe. Kirazimwa kuri buri capa mu Bigenwa vya Scrum vyaco.",
+  "show-split-lists": "Emera ko intonde zigabanywamwo Biriko birakorwa na Vyarangiye",
+  "list-split": "Gabanyamwo Biriko birakorwa na Vyarangiye",
+  "split-counts": "Biriko birakorwa __doing__ · Vyarangiye __done__",
+  "split-done": "Vyarangiye ngaha, birindiriye gukwegwa imbere",
+  "mark-split-done": "Shiraho ikimenyetso ko vyarangiye ngaha",
+  "feature-split-lists": "Intonde zigabanijwe",
+  "feature-split-lists-desc": "Urutonde rugabanijwemwo Biriko birakorwa na Vyarangiye: ikarata yashizweko ikimenyetso ko yarangiye aho irindira, yijimye, gukwegwa mu rutonde rukurikira, kandi umutwe w'urutonde uharura vyose bibiri. Biremerwa kuri buri capa muri Ibigenwa vy'icapa / Urutonde, hanyuma bigacanwa mu bikubiyemo vya buri rutonde."
 }

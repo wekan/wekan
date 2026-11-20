@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kwonomèt reyinyon chak jou",
   "feature-standup-timer-desc": "Reyinyon chak jou nan meni tablo a: manm tablo a nan yon lòd melanje, chak moun ak menm tan limite. Yo dezaktive l pou chak tablo nan Paramèt Scrum li.",
   "feature-retrospective-board": "Tablo retwospektiv",
-  "feature-retrospective-board-desc": "Tablo retwospektiv nan meni tablo a: yon nouvo tablo prive ak lis Kòmanse fè, Sispann fè, Kontinye fè ak Aksyon pou fè. Yo dezaktive l pou chak tablo nan Paramèt Scrum li."
+  "feature-retrospective-board-desc": "Tablo retwospektiv nan meni tablo a: yon nouvo tablo prive ak lis Kòmanse fè, Sispann fè, Kontinye fè ak Aksyon pou fè. Yo dezaktive l pou chak tablo nan Paramèt Scrum li.",
+  "show-split-lists": "Pèmèt lis yo divize an Ap fèt ak Fini",
+  "list-split": "Divize an Ap fèt ak Fini",
+  "split-counts": "Ap fèt __doing__ · Fini __done__",
+  "split-done": "Fini isit la, ap tann pou yo rale l pi devan",
+  "mark-split-done": "Make kòm fini isit la",
+  "feature-split-lists": "Lis divize",
+  "feature-split-lists-desc": "Yon lis divize an Ap fèt ak Fini: yon kat ki make kòm fini la a ap tann, li vin pal, pou yo rale l nan pwochen lis la, epi tèt lis la konte toude. Yo pèmèt li pou chak tablo nan Paramèt tablo / Lis, epi apre yo aktive l nan meni chak lis."
 }

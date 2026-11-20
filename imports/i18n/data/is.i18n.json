@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Tímamælir fyrir daglegan stöðufund",
   "feature-standup-timer-desc": "Daglegur stöðufundur í valmynd töflunnar: meðlimir töflunnar í stokkaðri röð, hver með sömu tímamörk. Slökkt á honum fyrir hverja töflu í Scrum-stillingar hennar.",
   "feature-retrospective-board": "Endurlitstafla",
-  "feature-retrospective-board-desc": "Endurlitstafla í valmynd töflunnar: ný einkatafla með listunum Byrja að gera, Hætta að gera, Halda áfram að gera og Aðgerðaatriði. Slökkt á henni fyrir hverja töflu í Scrum-stillingar hennar."
+  "feature-retrospective-board-desc": "Endurlitstafla í valmynd töflunnar: ný einkatafla með listunum Byrja að gera, Hætta að gera, Halda áfram að gera og Aðgerðaatriði. Slökkt á henni fyrir hverja töflu í Scrum-stillingar hennar.",
+  "show-split-lists": "Leyfa að skipta listum í Í vinnslu og Lokið",
+  "list-split": "Skipta í Í vinnslu og Lokið",
+  "split-counts": "Í vinnslu __doing__ · Lokið __done__",
+  "split-done": "Lokið hér, bíður eftir að vera dregið áfram",
+  "mark-split-done": "Merkja sem lokið hér",
+  "feature-split-lists": "Skiptir listar",
+  "feature-split-lists-desc": "Listi sem er skipt í Í vinnslu og Lokið: spjald sem er merkt lokið þar bíður, dofnað, eftir að vera dregið í næsta lista, og haus listans telur hvort tveggja. Leyft fyrir hverja töflu í Stillingar töflu / Listi og síðan kveikt á í valmynd hvers lista."
 }

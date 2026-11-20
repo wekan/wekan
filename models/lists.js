@@ -227,6 +227,14 @@ Lists.attachSchema(
       optional: true,
       max: 2000,
     },
+    split: {
+      /**
+       * The list is split into Doing and Done (models/lib/boardFlowPolicies.js):
+       * a card marked Done here waits in it to be pulled into the next list.
+       */
+      type: Boolean,
+      optional: true,
+    },
     wipLimit: {
       /**
        * WIP object, see below

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
+import Lists from '/models/lists';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 
 const { flowModifier, expediteOverLimit } = require('/models/lib/cardFlow');
@@ -31,9 +32,14 @@ export async function setCardFlowFor(userId, cardId, patch) {
   }
   let modifier;
   try {
-    modifier = flowModifier(patch, { userId, now: new Date() });
+    modifier = flowModifier(patch, { userId, now: new Date(), listId: card.listId });
   } catch (e) {
     throw new Meteor.Error(e.code || 'invalid-flow-patch');
+  }
+  // Done here only in a list split into Doing and Done.
+  if (patch.splitDone === true) {
+    const list = await Lists.findOneAsync(card.listId, { fields: { split: 1 } });
+    if (!list || list.split !== true) throw new Meteor.Error('not-a-split-list');
   }
   if (patch.classOfService === 'expedite' && card.flow?.classOfService !== 'expedite') {
     const others = await Cards.find(

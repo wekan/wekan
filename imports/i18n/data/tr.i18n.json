@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Günlük ayakta toplantı zamanlayıcısı",
   "feature-standup-timer-desc": "Pano menüsündeki Günlük ayakta toplantı: panonun üyeleri karışık sırayla, her biri aynı zaman kutusuyla. Her pano için Scrum ayarlarından kapatılır.",
   "feature-retrospective-board": "Retrospektif panosu",
-  "feature-retrospective-board-desc": "Pano menüsündeki Retrospektif panosu: Yapmaya başla, Yapmayı bırak, Yapmaya devam et ve Eylem maddeleri listelerine sahip yeni bir gizli pano. Her pano için Scrum ayarlarından kapatılır."
+  "feature-retrospective-board-desc": "Pano menüsündeki Retrospektif panosu: Yapmaya başla, Yapmayı bırak, Yapmaya devam et ve Eylem maddeleri listelerine sahip yeni bir gizli pano. Her pano için Scrum ayarlarından kapatılır.",
+  "show-split-lists": "Listelerin Devam ediyor ve Tamam olarak bölünmesine izin ver",
+  "list-split": "Devam ediyor ve Tamam olarak böl",
+  "split-counts": "Devam ediyor __doing__ · Tamam __done__",
+  "split-done": "Burada tamam, ileri çekilmeyi bekliyor",
+  "mark-split-done": "Burada tamam olarak işaretle",
+  "feature-split-lists": "Bölünmüş listeler",
+  "feature-split-lists-desc": "Devam ediyor ve Tamam olarak bölünmüş bir liste: orada tamam olarak işaretlenen kart soluk biçimde bir sonraki listeye çekilmeyi bekler ve liste başlığı ikisini de sayar. Her pano için Pano Ayarları / Liste içinde izin verilir, ardından her listenin menüsünden açılır."
 }

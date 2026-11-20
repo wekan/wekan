@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Pengatur watèe rapat beudoh tiep uroe",
   "feature-standup-timer-desc": "Rapat beudoh tiep uroe lam menu papan: anggota papan lam urutan acak, tiep-tiep ngon watèe nyang saban. Jeut geupeumatè per papan lam Peuatôran Scrum.",
   "feature-retrospective-board": "Papan retrospektif",
-  "feature-retrospective-board-desc": "Papan retrospektif lam menu papan: papan pribadi barô ngon dapeuta Mulai peubuet, Piyôh peubuet, Teuruh peubuet ngon Buet nyang harôh. Jeut geupeumatè per papan lam Peuatôran Scrum."
+  "feature-retrospective-board-desc": "Papan retrospektif lam menu papan: papan pribadi barô ngon dapeuta Mulai peubuet, Piyôh peubuet, Teuruh peubuet ngon Buet nyang harôh. Jeut geupeumatè per papan lam Peuatôran Scrum.",
+  "show-split-lists": "Peuidin dapeuta geubagi keu Teungoh ngon Ka leusoe",
+  "list-split": "Bagi keu Teungoh ngon Ka leusoe",
+  "split-counts": "Teungoh __doing__ · Ka leusoe __done__",
+  "split-done": "Ka leusoe sinoe, preh geutarék u dapeuta lheuh nyoe",
+  "mark-split-done": "Tanda ka leusoe sinoe",
+  "feature-split-lists": "Dapeuta geubagi",
+  "feature-split-lists-desc": "Dapeuta nyang geubagi keu Teungoh ngon Ka leusoe: kad nyang geutanda ka leusoe sinan preh, suram, keu geutarék u dapeuta lheuh nyan, ngon ulèe dapeuta geuitông duwa-duwa. Geupeuidin per papan bak Peuatôran Papan / Dapeuta, lheuh nyan geupeuudép bak menu tiep dapeuta."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Agogon taron tsaye na kullum",
   "feature-standup-timer-desc": "Taron tsaye na kullum a menu na allo: mambobin allon a cikin tsari da aka gauraya, kowanne da iyakacin lokaci ɗaya. Ana kashe shi ga kowane allo a cikin Saitunan Scrum nasa.",
   "feature-retrospective-board": "Allon nazari",
-  "feature-retrospective-board-desc": "Allon nazari a menu na allo: sabon allo na sirri da jerin Fara yi, Daina yi, Ci gaba da yi da Abubuwan da za a yi. Ana kashe shi ga kowane allo a cikin Saitunan Scrum nasa."
+  "feature-retrospective-board-desc": "Allon nazari a menu na allo: sabon allo na sirri da jerin Fara yi, Daina yi, Ci gaba da yi da Abubuwan da za a yi. Ana kashe shi ga kowane allo a cikin Saitunan Scrum nasa.",
+  "show-split-lists": "Bada damar raba jerin zuwa Ana yi da An gama",
+  "list-split": "Raba zuwa Ana yi da An gama",
+  "split-counts": "Ana yi __doing__ · An gama __done__",
+  "split-done": "An gama a nan, yana jiran a ja shi gaba",
+  "mark-split-done": "Yi alama a matsayin an gama a nan",
+  "feature-split-lists": "Jerin da aka raba",
+  "feature-split-lists-desc": "Jerin da aka raba zuwa Ana yi da An gama: katin da aka yi wa alama an gama a can yana jira, a dushe, a ja shi zuwa jerin na gaba, kuma kan jerin yana ƙidaya duka biyun. Ana bari a kowane allo a Saitunan allo / Jerin, sannan a kunna shi a menu na kowane jerin."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronómetru de la reunión diaria",
   "feature-standup-timer-desc": "La reunión diaria del menú del tableru: los miembros del tableru n'orde aleatoriu, caún col mesmu tiempu. Desactívase per tableru nos sos Axustes de Scrum.",
   "feature-retrospective-board": "Tableru de retrospectiva",
-  "feature-retrospective-board-desc": "El tableru de retrospectiva del menú del tableru: un tableru priváu nuevu coles llistes Empezar a facer, Dexar de facer, Siguir faciendo y Acciones pendientes. Desactívase per tableru nos sos Axustes de Scrum."
+  "feature-retrospective-board-desc": "El tableru de retrospectiva del menú del tableru: un tableru priváu nuevu coles llistes Empezar a facer, Dexar de facer, Siguir faciendo y Acciones pendientes. Desactívase per tableru nos sos Axustes de Scrum.",
+  "show-split-lists": "Permitir dividir les listes en En cursu y Hecho",
+  "list-split": "Dividir en En cursu y Hecho",
+  "split-counts": "En cursu __doing__ · Hecho __done__",
+  "split-done": "Hecho equí, esperando a que la tiren a la siguiente",
+  "mark-split-done": "Marcar como hecho equí",
+  "feature-split-lists": "Listes divididas",
+  "feature-split-lists-desc": "Una lista dividida en En cursu y Hecho: una tarxeta marcada como fecha ellí espera, atenuada, a que la tiren a la siguiente lista, y la cabecera de la lista cuenta les dos. Permítese per tableru en Preferencias del tablero / Lista, y dempués actívase nel menú de cada lista."
 }

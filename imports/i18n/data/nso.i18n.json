@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sebali sa nako sa kopano ya letšatši le letšatši",
   "feature-standup-timer-desc": "Kopano ya letšatši le letšatši lenaneong la poto: maloko a poto ka tatelano ye e hlakantšwego, yo mongwe le yo mongwe ka nako ye e swanago. E timwa potong ye nngwe le ye nngwe go Dipeakanyo tša Scrum tša yona.",
   "feature-retrospective-board": "Poto ya go lebelela morago",
-  "feature-retrospective-board-desc": "Poto ya go lebelela morago lenaneong la poto: poto ye mpsha ya sephiri ye e nago le malokelelo a Thoma go dira, Emiša go dira, Tšwela pele go dira le Dilo tša go dirwa. E timwa potong ye nngwe le ye nngwe go Dipeakanyo tša Scrum tša yona."
+  "feature-retrospective-board-desc": "Poto ya go lebelela morago lenaneong la poto: poto ye mpsha ya sephiri ye e nago le malokelelo a Thoma go dira, Emiša go dira, Tšwela pele go dira le Dilo tša go dirwa. E timwa potong ye nngwe le ye nngwe go Dipeakanyo tša Scrum tša yona.",
+  "show-split-lists": "Dumelela malokelelo go arolwa ka E sa dirwa le Go fedile",
+  "list-split": "Arola ka E sa dirwa le Go fedile",
+  "split-counts": "E sa dirwa __doing__ · Go fedile __done__",
+  "split-done": "Go fedile mo, e emetše go gogelwa pele",
+  "mark-split-done": "Swaya bjalo ka go fedile mo",
+  "feature-split-lists": "Malokelelo a arotšwego",
+  "feature-split-lists-desc": "Lelokelelo le arotšwego ka E sa dirwa le Go fedile: karata ye e swailwego bjalo ka ye e fedilego moo e a ema, e fifaditšwe, go gogelwa lelokelelong le le latelago, gomme hlogo ya lelokelelo e bala ka bobedi. E dumelelwa potong ye nngwe le ye nngwe go Dipeakanyo tša poto / Lelokelelo, ke moka e bulwa go menyu ya lelokelelo le lengwe le le lengwe."
 }

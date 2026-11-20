@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Essaawa y'olukung'aana lwa buli lunaku",
   "feature-standup-timer-desc": "Olukung'aana lwa buli lunaku mu menu y'olubaawo: abamemba b'olubaawo mu nsengeka etabuddwa, buli omu n'obudde bwe bumu. Luggyibwako ku buli lubaawo mu Entegeka za Scrum.",
   "feature-retrospective-board": "Olubaawo lw'okutunuulira emabega",
-  "feature-retrospective-board-desc": "Olubaawo lw'okutunuulira emabega mu menu y'olubaawo: olubaawo olupya olw'ekyama n'ebikalala Tandika okukola, Lekera awo okukola, Weyongere okukola n'Ebirina okukolebwa. Luggyibwako ku buli lubaawo mu Entegeka za Scrum."
+  "feature-retrospective-board-desc": "Olubaawo lw'okutunuulira emabega mu menu y'olubaawo: olubaawo olupya olw'ekyama n'ebikalala Tandika okukola, Lekera awo okukola, Weyongere okukola n'Ebirina okukolebwa. Luggyibwako ku buli lubaawo mu Entegeka za Scrum.",
+  "show-split-lists": "Kkiriza enkalala okwawulwamu mu Bikolebwako ne Kiwedde",
+  "list-split": "Yawulamu mu Bikolebwako ne Kiwedde",
+  "split-counts": "Bikolebwako __doing__ · Kiwedde __done__",
+  "split-done": "Kiwedde wano, kirinze okusikibwa okugenda mu maaso",
+  "mark-split-done": "Kissaako akabonero nti kiwedde wano",
+  "feature-split-lists": "Enkalala ezaawuddwamu",
+  "feature-split-lists-desc": "Olukalala olwawuddwamu mu Bikolebwako ne Kiwedde: ekaadi eteekeddwako akabonero nti ewedde eyo erinda, ng'efuuse enzirugavu, okusikibwa mu lukalala oluddako, era omutwe gw'olukalala gubala byombi. Kikkirizibwa ku buli lubaawo mu Entegeka z'olubaawo / Olukalala, oluvannyuma ne kikoleezebwa mu menyu y'olukalala lwonna."
 }

@@ -51,9 +51,9 @@ function invalid(what) {
 // The Mongo modifier a patch makes, or throws. `patch` holds any of
 // { blocked, blockedReason, classOfService, moscow, wsjf }; '' or null clears a
 // field. `userId` and `now` are the server's: a client never sets who or when.
-function flowModifier(patch, { userId, now = new Date() } = {}) {
+function flowModifier(patch, { userId, now = new Date(), listId = null } = {}) {
   if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw invalid('patch');
-  const known = ['blocked', 'blockedReason', 'classOfService', 'moscow', 'wsjf'];
+  const known = ['blocked', 'blockedReason', 'classOfService', 'moscow', 'wsjf', 'splitDone'];
   const keys = Object.keys(patch);
   if (!keys.length || keys.some(key => !known.includes(key))) throw invalid('patch');
   const $set = {};
@@ -98,6 +98,17 @@ function flowModifier(patch, { userId, now = new Date() } = {}) {
         else if (!WSJF_SCALE.includes(Number(wsjf[part]))) throw invalid('wsjf');
         else $set[`flow.wsjf.${part}`] = Number(wsjf[part]);
       }
+    }
+  }
+  // Done here in a split list (models/lib/boardFlowPolicies.js): the list it
+  // was marked in is the server's - the card's own list when it is written.
+  if ('splitDone' in patch) {
+    if (typeof patch.splitDone !== 'boolean') throw invalid('split');
+    if (patch.splitDone) {
+      if (!listId) throw invalid('split');
+      $set['flow.splitDoneListId'] = listId;
+    } else {
+      $unset['flow.splitDoneListId'] = '';
     }
   }
   const modifier = {};

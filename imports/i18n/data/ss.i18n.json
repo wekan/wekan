@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sikhatsi semhlangano walamalanga onkhe",
   "feature-standup-timer-desc": "Umhlangano walamalanga onkhe kumenyu yelibhodi: emalunga elibhodi ngekulandzelana lokuhlanganisiwe, ngamunye anesikhatsi lesifanako. Uyacimwa kulelo nalelo libhodi ku-Tilungiselelo te-Scrum talo.",
   "feature-retrospective-board": "Libhodi lekubuka emuva",
-  "feature-retrospective-board-desc": "Libhodi lekubuka emuva kumenyu yelibhodi: libhodi lelisha lelimfihlo leneluhla Cala kwenta, Yekela kwenta, Chubeka wenta kanye Lokufanele kwentiwe. Liyacimwa kulelo nalelo libhodi ku-Tilungiselelo te-Scrum talo."
+  "feature-retrospective-board-desc": "Libhodi lekubuka emuva kumenyu yelibhodi: libhodi lelisha lelimfihlo leneluhla Cala kwenta, Yekela kwenta, Chubeka wenta kanye Lokufanele kwentiwe. Liyacimwa kulelo nalelo libhodi ku-Tilungiselelo te-Scrum talo.",
+  "show-split-lists": "Vumela luhla kutsi luhlukaniswe kube Kuyachubeka naKuphelile",
+  "list-split": "Hlukanisa kube Kuyachubeka naKuphelile",
+  "split-counts": "Kuyachubeka __doing__ · Kuphelile __done__",
+  "split-done": "Kuphelile lapha, kulindzele kudonselwa embili",
+  "mark-split-done": "Phawula kutsi kuphelile lapha",
+  "feature-split-lists": "Tinhla letihlukanisiwe",
+  "feature-split-lists-desc": "Luhla loluhlukaniswe kube Kuyachubeka naKuphelile: likhadi lelaphawulwa kutsi liphelile lapho liyalindza, lifiphele, kudonselwa eluhleni lolulandzelako, futsi sihloko seluhla sibala kokubili. Kuvunyelwa kulibhodi ngalinye ku-Tilungiselelo telibhodi / Luhla, bese kuvulwa kumenyu yaluhla ngalunye."
 }

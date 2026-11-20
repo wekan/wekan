@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Nthawi ya msonkhano wa tsiku ndi tsiku",
   "feature-standup-timer-desc": "Msonkhano wa tsiku ndi tsiku mu menyu ya bolodi: mamembala a bolodi mwadongosolo losakanizidwa, aliyense ndi nthawi yofanana. Umazimitsidwa pa bolodi lililonse mu Zokonda za Scrum zake.",
   "feature-retrospective-board": "Bolodi loyang'ana mmbuyo",
-  "feature-retrospective-board-desc": "Bolodi loyang'ana mmbuyo mu menyu ya bolodi: bolodi latsopano lachinsinsi lokhala ndi mindandanda Yambani kuchita, Lekani kuchita, Pitirizani kuchita ndi Zochita. Limazimitsidwa pa bolodi lililonse mu Zokonda za Scrum zake."
+  "feature-retrospective-board-desc": "Bolodi loyang'ana mmbuyo mu menyu ya bolodi: bolodi latsopano lachinsinsi lokhala ndi mindandanda Yambani kuchita, Lekani kuchita, Pitirizani kuchita ndi Zochita. Limazimitsidwa pa bolodi lililonse mu Zokonda za Scrum zake.",
+  "show-split-lists": "Lolani mindandanda igawidwe kukhala Zikuchitika ndi Zatha",
+  "list-split": "Gawani kukhala Zikuchitika ndi Zatha",
+  "split-counts": "Zikuchitika __doing__ · Zatha __done__",
+  "split-done": "Zatha pano, likudikira kukokedwa patsogolo",
+  "mark-split-done": "Lembani kuti zatha pano",
+  "feature-split-lists": "Mindandanda yogawidwa",
+  "feature-split-lists-desc": "Mndandanda wogawidwa kukhala Zikuchitika ndi Zatha: khadi lolembedwa kuti latha pamenepo limadikira, litazimiririka, kuti likokedwe ku mndandanda wotsatira, ndipo mutu wa mndandanda umawerenga zonse ziwiri. Zimaloledwa pa bolodi lililonse mu Zokonda za bolodi / Mndandanda, kenako zimayatsidwa mu menyu ya mndandanda uliwonse."
 }

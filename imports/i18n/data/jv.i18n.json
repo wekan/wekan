@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Pangatur wektu rapat saben dina",
   "feature-standup-timer-desc": "Rapat saben dina ing menu papan: anggota papan kanthi urutan acak, saben wong nduweni wates wektu sing padha. Dipateni saben papan ing Setelan Scrum-e.",
   "feature-retrospective-board": "Papan refleksi",
-  "feature-retrospective-board-desc": "Papan refleksi ing menu papan: papan pribadi anyar kanthi dhaptar Wiwiti nindakake, Mandheg nindakake, Terusake nindakake lan Butir tumindak. Dipateni saben papan ing Setelan Scrum-e."
+  "feature-retrospective-board-desc": "Papan refleksi ing menu papan: papan pribadi anyar kanthi dhaptar Wiwiti nindakake, Mandheg nindakake, Terusake nindakake lan Butir tumindak. Dipateni saben papan ing Setelan Scrum-e.",
+  "show-split-lists": "Idinake dhaptar dipérang dadi Lagi digarap lan Rampung",
+  "list-split": "Pérang dadi Lagi digarap lan Rampung",
+  "split-counts": "Lagi digarap __doing__ · Rampung __done__",
+  "split-done": "Rampung ing kéné, ngenteni ditarik menyang sabanjuré",
+  "mark-split-done": "Tandhani rampung ing kéné",
+  "feature-split-lists": "Dhaptar dipérang",
+  "feature-split-lists-desc": "Dhaptar sing dipérang dadi Lagi digarap lan Rampung: kertu sing ditandhani rampung ing kono ngenteni, surem, ditarik menyang dhaptar sabanjuré, lan sirah dhaptar ngétung loro-loroné. Diidinake saben papan ing Setelan papan / Dhaptar, banjur diuripaké ing menu saben dhaptar."
 }

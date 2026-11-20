@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sesen tonalli nechicoliztli tlapohualli",
   "feature-standup-timer-desc": "Sesen tonalli nechicoliztli ipan huapalli tlatecpanaliztli: in tlacameh ipan huapalli ahmo tlatecpantli, ceceyaca ica in zan ce cahuitl. Motzacua ipan cecen huapalli ipan Scrum itlaahxitiliz.",
   "feature-retrospective-board": "Huapalli tlacuepaliztli",
-  "feature-retrospective-board-desc": "Huapalli tlacuepaliztli ipan huapalli tlatecpanaliztli: yancuic ichtaca huapalli ica Xipeua xicchihua, Ma ticcahua, Ma tiquitzquia ihuan Tequitl monequi. Motzacua ipan cecen huapalli ipan Scrum itlaahxitiliz."
+  "feature-retrospective-board-desc": "Huapalli tlacuepaliztli ipan huapalli tlatecpanaliztli: yancuic ichtaca huapalli ica Xipeua xicchihua, Ma ticcahua, Ma tiquitzquia ihuan Tequitl monequi. Motzacua ipan cecen huapalli ipan Scrum itlaahxitiliz.",
+  "show-split-lists": "Ma motequi in tocatlahtoltin ipan Mochiuhtica ihuan Otlan",
+  "list-split": "Xictequi ipan Mochiuhtica ihuan Otlan",
+  "split-counts": "Mochiuhtica __doing__ · Otlan __done__",
+  "split-done": "Nican otlan, quichiya ma quitilanacan",
+  "mark-split-done": "Xicmachiyoti quemeh otlan nican",
+  "feature-split-lists": "Tocatlahtoltin tetectli",
+  "feature-split-lists-desc": "Ce tocatlahtolli tectli ipan Mochiuhtica ihuan Otlan: amatlapalli tlen omachiyotiloc quemeh otlan ompa quichiya, tlayohuatoc, ma quitilanacan ipan occe tocatlahtolli, ihuan itzontecon tocatlahtolli quipohua ominti. Mocahua ipan cecen huapalli ipan Huapalli tlaahxitiliztli / Tocatlahtolli, satepan mopehualtia ipan itlaahxitiliz cecen tocatlahtolli."
 }

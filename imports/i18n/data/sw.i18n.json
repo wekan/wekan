@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kipima muda cha kikao cha kila siku",
   "feature-standup-timer-desc": "Kikao cha kila siku katika menyu ya bodi: wanachama wa bodi kwa mpangilio uliochanganywa, kila mmoja akiwa na muda sawa. Huzimwa kwa kila bodi katika Mipangilio ya Scrum yake.",
   "feature-retrospective-board": "Bodi ya tathmini",
-  "feature-retrospective-board-desc": "Bodi ya tathmini katika menyu ya bodi: bodi mpya binafsi yenye orodha Anza kufanya, Acha kufanya, Endelea kufanya na Mambo ya kufanya. Huzimwa kwa kila bodi katika Mipangilio ya Scrum yake."
+  "feature-retrospective-board-desc": "Bodi ya tathmini katika menyu ya bodi: bodi mpya binafsi yenye orodha Anza kufanya, Acha kufanya, Endelea kufanya na Mambo ya kufanya. Huzimwa kwa kila bodi katika Mipangilio ya Scrum yake.",
+  "show-split-lists": "Ruhusu orodha kugawanywa kuwa Zinaendelea na Imekamilika",
+  "list-split": "Gawanya kuwa Zinaendelea na Imekamilika",
+  "split-counts": "Zinaendelea __doing__ · Imekamilika __done__",
+  "split-done": "Imekamilika hapa, inasubiri kuvutwa mbele",
+  "mark-split-done": "Weka alama imekamilika hapa",
+  "feature-split-lists": "Orodha zilizogawanywa",
+  "feature-split-lists-desc": "Orodha iliyogawanywa kuwa Zinaendelea na Imekamilika: kadi iliyowekwa alama ya kukamilika hapo inasubiri, ikiwa imefifia, kuvutwa kwenye orodha inayofuata, na kichwa cha orodha huhesabu zote mbili. Inaruhusiwa kwa kila bodi katika Mipangilio ya Bodi / Orodha, kisha huwashwa kwenye menyu ya kila orodha."
 }

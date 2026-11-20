@@ -10,6 +10,13 @@ template(name="boardFlowListSettings")
           span
             i.fa.fa-gavel
             | {{_ 'show-list-policies'}}
+    if allowFeature 'split-lists'
+      div.check-div
+        a.flex.js-toggle-split-lists(class="{{#if allowsSplitLists}}is-checked{{/if}}" title="{{_ 'show-split-lists'}}")
+          i.fa(class="{{#if allowsSplitLists}}fa-check{{else}}fa-square-o{{/if}}")
+          span
+            i.fa.fa-columns
+            | {{_ 'show-split-lists'}}
     if allowFeature 'commitment-point'
       label.board-flow-setting
         span
@@ -32,6 +39,8 @@ template(name="listFlowMarks")
   if showPolicy
     a.list-policy-mark.js-open-list-policy(title=policy aria-label="{{_ 'list-policy'}}")
       i.fa.fa-gavel
+  if splitCounts
+    span.list-split-counts(title="{{_ 'list-split'}}") {{_ 'split-counts' doing=splitCounts.doing done=splitCounts.done}}
   if isCommitmentPoint
     span.list-commitment-mark(title="{{_ 'commitment-point'}}: {{_ 'commitment-point-hint'}}" aria-label="{{_ 'commitment-point'}}")
       i.fa.fa-flag-checkered
@@ -55,3 +64,15 @@ template(name="cardPersonWipWarnings")
     .card-person-wip-over.js-card-person-wip-over
       i.fa.fa-user-times
       |  {{_ 'person-wip-over' user=warning.name count=warning.count limit=warning.limit}}
+
+//- On a minicard of a split list: whether it is Done here, and the toggle for
+  whoever may change the card.
+template(name="minicardSplitDone")
+  if inSplitList
+    if canModifyCard
+      a.minicard-split-toggle.js-minicard-split-done(class="{{#if splitDone}}is-done{{/if}}" title="{{#if splitDone}}{{_ 'split-done'}}{{else}}{{_ 'mark-split-done'}}{{/if}}" aria-pressed="{{#if splitDone}}true{{else}}false{{/if}}")
+        i.fa(class="{{#if splitDone}}fa-check-circle{{else}}fa-circle-o{{/if}}")
+    else
+      if splitDone
+        span.minicard-split-toggle.is-done(title="{{_ 'split-done'}}")
+          i.fa.fa-check-circle

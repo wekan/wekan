@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer für das tägliche Standup",
   "feature-standup-timer-desc": "Das tägliche Standup im Board-Menü: die Mitglieder des Boards in gemischter Reihenfolge, jedes mit derselben Timebox. Pro Board in dessen Scrum-Einstellungen abschaltbar.",
   "feature-retrospective-board": "Retrospektiven-Board",
-  "feature-retrospective-board-desc": "Das Retrospektiven-Board im Board-Menü: ein neues privates Board mit den Listen Damit anfangen, Damit aufhören, Weitermachen und Aufgabenpunkte. Pro Board in dessen Scrum-Einstellungen abschaltbar."
+  "feature-retrospective-board-desc": "Das Retrospektiven-Board im Board-Menü: ein neues privates Board mit den Listen Damit anfangen, Damit aufhören, Weitermachen und Aufgabenpunkte. Pro Board in dessen Scrum-Einstellungen abschaltbar.",
+  "show-split-lists": "Aufteilung von Listen in In Arbeit und Erledigt erlauben",
+  "list-split": "Aufteilen in In Arbeit und Erledigt",
+  "split-counts": "In Arbeit __doing__ · Erledigt __done__",
+  "split-done": "Hier erledigt, wartet darauf, weitergezogen zu werden",
+  "mark-split-done": "Hier als erledigt markieren",
+  "feature-split-lists": "Geteilte Listen",
+  "feature-split-lists-desc": "Eine in In Arbeit und Erledigt geteilte Liste: Eine dort als erledigt markierte Karte wartet abgeblendet darauf, in die nächste Liste gezogen zu werden, und der Listenkopf zählt beides. Pro Arbeitstafel in Boardeinstellungen / Liste erlaubt und dann im Menü jeder Liste eingeschaltet."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronometro de la riunion de ogni dì",
   "feature-standup-timer-desc": "La Riunion in pie de ogni dì del menù del quadro: i membri del quadro in ordine mescolà, ognun col steso tempo. Se la stua par ogni quadro ne le so Inpostasion Scrum.",
   "feature-retrospective-board": "Quadro de retrospetiva",
-  "feature-retrospective-board-desc": "El Quadro de retrospetiva del menù del quadro: un quadro novo privà co le liste Scominsia a far, Smeti de far, Continua a far e Robe da far. Se lo stua par ogni quadro ne le so Inpostasion Scrum."
+  "feature-retrospective-board-desc": "El Quadro de retrospetiva del menù del quadro: un quadro novo privà co le liste Scominsia a far, Smeti de far, Continua a far e Robe da far. Se lo stua par ogni quadro ne le so Inpostasion Scrum.",
+  "show-split-lists": "Parmeti de dividar le liste in In corso e Fato",
+  "list-split": "Dividi in In corso e Fato",
+  "split-counts": "In corso __doing__ · Fato __done__",
+  "split-done": "Fato qua, el speta de vegner tirà avanti",
+  "mark-split-done": "Segna come fato qua",
+  "feature-split-lists": "Liste divise",
+  "feature-split-lists-desc": "Na lista divisa in In corso e Fato: na scheda segnà come fata là la speta, smorsà, de vegner tirà ne la lista dopo, e l'intestasion de la lista la conta tute do. Parmeso par ogni quadro in Inpostasion del quadro / Lista, dopo inpisà nel menù de ogni lista."
 }

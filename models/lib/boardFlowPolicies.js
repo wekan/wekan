@@ -11,6 +11,9 @@
 //   WIP per person     how many open cards one person may hold on the board
 //                      (`board.personWipLimit`); the opened card warns about
 //                      each of its people over it
+//   Split lists        a list split into Doing and Done (`list.split`): a card
+//                      marked Done here waits, dimmed, to be pulled on, and
+//                      the header counts both halves
 //
 // Each is turned on in Board Settings / List and is a feature of Admin Panel /
 // Settings / Visibility / Features (models/lib/instanceFeatures.js), so it can
@@ -24,6 +27,7 @@ const FEATURE_OF = Object.freeze({
   listPolicies: 'list-policies',
   commitmentPoint: 'commitment-point',
   personWip: 'person-wip-limit',
+  splitLists: 'split-lists',
 });
 
 // A list's policy as stored: trimmed text, '' clears it. Throws on what is
@@ -84,7 +88,28 @@ function isCommitted(listId, lists, commitmentListId) {
   return at !== -1 && own !== -1 && own >= at;
 }
 
+// Split Doing / Done lists (`list.split`): a card of a split list marked
+// Done here waits to be pulled into the next list. The mark names the list
+// it was made in (`card.flow.splitDoneListId`), so a card moved on is in
+// Doing of its new list without anybody clearing it.
+function isSplitDone(card) {
+  return Boolean(card && card.flow && card.flow.splitDoneListId && card.flow.splitDoneListId === card.listId);
+}
+
+// { doing, done } of the open cards of a list.
+function splitCounts(cards) {
+  let doing = 0;
+  let done = 0;
+  for (const card of cards || []) {
+    if (!card || card.archived) continue;
+    if (isSplitDone(card)) done += 1;
+    else doing += 1;
+  }
+  return { doing, done };
+}
+
 module.exports = {
   MAX_POLICY, MAX_PERSON_WIP, FEATURE_OF,
   normalizePolicy, normalizePersonWipLimit, peopleOf, openCardsPerPerson, overPersonWip, isCommitted,
+  isSplitDone, splitCounts,
 };

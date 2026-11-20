@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "每日站会计时器",
   "feature-standup-timer-desc": "看板菜单中的每日站会：看板成员按随机顺序，每人拥有相同的时间盒。可在每个看板的 Scrum 设置中关闭。",
   "feature-retrospective-board": "回顾看板",
-  "feature-retrospective-board-desc": "看板菜单中的回顾看板：新建一个私有看板，包含开始做、停止做、继续做和待办事项列表。可在每个看板的 Scrum 设置中关闭。"
+  "feature-retrospective-board-desc": "看板菜单中的回顾看板：新建一个私有看板，包含开始做、停止做、继续做和待办事项列表。可在每个看板的 Scrum 设置中关闭。",
+  "show-split-lists": "允许将列表拆分为进行中和完成",
+  "list-split": "拆分为进行中和完成",
+  "split-counts": "进行中 __doing__ · 完成 __done__",
+  "split-done": "此处已完成，等待被拉入下一步",
+  "mark-split-done": "标记为此处已完成",
+  "feature-split-lists": "拆分列表",
+  "feature-split-lists-desc": "拆分为进行中和完成的列表：在那里标记为完成的卡片会变暗并等待被拉入下一个列表，列表标题会分别计数。在每个看板的看板设置 / 列表中允许，然后在每个列表的菜单中开启。"
 }

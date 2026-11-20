@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Temporizador da reunión diaria",
   "feature-standup-timer-desc": "A Reunión diaria do menú do taboleiro: os membros do taboleiro nunha orde aleatoria, cada un co mesmo tempo asignado. Desactívase por taboleiro na súa Configuración de Scrum.",
   "feature-retrospective-board": "Taboleiro de retrospectiva",
-  "feature-retrospective-board-desc": "O Taboleiro de retrospectiva do menú do taboleiro: un novo taboleiro privado coas listas Comezar a facer, Deixar de facer, Seguir facendo e Accións pendentes. Desactívase por taboleiro na súa Configuración de Scrum."
+  "feature-retrospective-board-desc": "O Taboleiro de retrospectiva do menú do taboleiro: un novo taboleiro privado coas listas Comezar a facer, Deixar de facer, Seguir facendo e Accións pendentes. Desactívase por taboleiro na súa Configuración de Scrum.",
+  "show-split-lists": "Permitir dividir as listas en En curso e Feito",
+  "list-split": "Dividir en En curso e Feito",
+  "split-counts": "En curso __doing__ · Feito __done__",
+  "split-done": "Feito aquí, agardando a que a tiren cara á seguinte",
+  "mark-split-done": "Marcar como feito aquí",
+  "feature-split-lists": "Listas divididas",
+  "feature-split-lists-desc": "Unha lista dividida en En curso e Feito: unha tarxeta marcada alí como feita agarda, atenuada, a que a tiren cara á seguinte lista, e a cabeceira da lista conta ambas. Permítese por taboleiro en Configuración do taboleiro / Lista, e despois actívase no menú de cada lista."
 }

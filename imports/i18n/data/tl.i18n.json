@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer ng araw-araw na standup",
   "feature-standup-timer-desc": "Ang Araw-araw na standup sa menu ng pisara: ang mga miyembro ng pisara sa pinaghalong pagkakasunod-sunod, bawat isa ay may parehong takdang oras. Pinapatay bawat pisara sa Mga setting ng Scrum nito.",
   "feature-retrospective-board": "Pisara ng pagbabalik-tanaw",
-  "feature-retrospective-board-desc": "Ang Pisara ng pagbabalik-tanaw sa menu ng pisara: isang bagong pribadong pisara na may mga listahang Simulang gawin, Itigil ang paggawa, Ipagpatuloy ang paggawa at Mga gagawin. Pinapatay bawat pisara sa Mga setting ng Scrum nito."
+  "feature-retrospective-board-desc": "Ang Pisara ng pagbabalik-tanaw sa menu ng pisara: isang bagong pribadong pisara na may mga listahang Simulang gawin, Itigil ang paggawa, Ipagpatuloy ang paggawa at Mga gagawin. Pinapatay bawat pisara sa Mga setting ng Scrum nito.",
+  "show-split-lists": "Payagang hatiin ang mga listahan sa Ginagawa at Tapos",
+  "list-split": "Hatiin sa Ginagawa at Tapos",
+  "split-counts": "Ginagawa __doing__ · Tapos __done__",
+  "split-done": "Tapos na rito, naghihintay na hilahin pasulong",
+  "mark-split-done": "Markahan bilang tapos dito",
+  "feature-split-lists": "Mga hinating listahan",
+  "feature-split-lists-desc": "Isang listahang hinati sa Ginagawa at Tapos: ang kard na minarkahang tapos doon ay naghihintay, malabo, na mahila sa susunod na listahan, at binibilang ng header ng listahan ang dalawa. Pinapayagan bawat pisara sa Mga setting ng pisara / Listahan, saka binubuksan sa menu ng bawat listahan."
 }

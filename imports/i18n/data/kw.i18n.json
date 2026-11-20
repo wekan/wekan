@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Euryer an guntelles pub dydh",
   "feature-standup-timer-desc": "An Guntelles pub dydh yn rol dewis an estyllen: eseli an estyllen yn aray kemmyskys, pub huni gans an keth finweth termyn. Diskeyys rag pub estyllen yn hy Settyansow Scrum.",
   "feature-retrospective-board": "Estyllen mires war-dhelergh",
-  "feature-retrospective-board-desc": "An Estyllen mires war-dhelergh yn rol dewis an estyllen: estyllen privedh nowydh gans an rolyow Dalleth gul, Hedhi gul, Pesya gul ha Poyntys gwrians. Diskeyys rag pub estyllen yn hy Settyansow Scrum."
+  "feature-retrospective-board-desc": "An Estyllen mires war-dhelergh yn rol dewis an estyllen: estyllen privedh nowydh gans an rolyow Dalleth gul, Hedhi gul, Pesya gul ha Poyntys gwrians. Diskeyys rag pub estyllen yn hy Settyansow Scrum.",
+  "show-split-lists": "Gesys rolyow dhe vos rynnys yn Yn ober ha Gwrys",
+  "list-split": "Ranna yn Yn ober ha Gwrys",
+  "split-counts": "Yn ober __doing__ · Gwrys __done__",
+  "split-done": "Gwrys omma, ow kortos bos tennys yn-rag",
+  "mark-split-done": "Merkya avel gwrys omma",
+  "feature-split-lists": "Rolyow rynnys",
+  "feature-split-lists-desc": "Rol rynnys yn Yn ober ha Gwrys: karten merkys avel gwrys ena a wortos, disliwys, dhe vos tennys dhe'n nessa rol, ha penn an rol a niver an dhew. Gesys rag pub estyllen yn Settyansow an estyllen / Rol, ha wosa henna gorrys yn fyw yn rol dewis pub rol."
 }

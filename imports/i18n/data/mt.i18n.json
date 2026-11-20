@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Arloġġ tal-laqgħa ta' kuljum",
   "feature-standup-timer-desc": "Il-laqgħa ta' kuljum fil-menu tal-bord: il-membri tal-bord f'ordni mħawwad, kull wieħed bl-istess ħin. Tintefa għal kull bord fil-Konfigurazzjoni ta’ Scrum tiegħu.",
   "feature-retrospective-board": "Bord tar-retrospettiva",
-  "feature-retrospective-board-desc": "Il-bord tar-retrospettiva fil-menu tal-bord: bord privat ġdid bil-listi Ibda agħmel, Ieqaf agħmel, Kompli agħmel u Punti ta' azzjoni. Jintefa għal kull bord fil-Konfigurazzjoni ta’ Scrum tiegħu."
+  "feature-retrospective-board-desc": "Il-bord tar-retrospettiva fil-menu tal-bord: bord privat ġdid bil-listi Ibda agħmel, Ieqaf agħmel, Kompli agħmel u Punti ta' azzjoni. Jintefa għal kull bord fil-Konfigurazzjoni ta’ Scrum tiegħu.",
+  "show-split-lists": "Ippermetti li l-listi jinqasmu f'Għaddej u Lest",
+  "list-split": "Aqsam f'Għaddej u Lest",
+  "split-counts": "Għaddej __doing__ · Lest __done__",
+  "split-done": "Lest hawn, qed jistenna li jinġibed 'il quddiem",
+  "mark-split-done": "Immarka bħala lest hawn",
+  "feature-split-lists": "Listi maqsuma",
+  "feature-split-lists-desc": "Lista maqsuma f'Għaddej u Lest: karta mmarkata bħala lesta hemm tistenna, mdallma, li tinġibed fil-lista li jmiss, u l-intestatura tal-lista tgħodd it-tnejn. Permess għal kull bord f'Issettjar tal-bord / Lista, imbagħad mixgħul fil-menù ta' kull lista."
 }

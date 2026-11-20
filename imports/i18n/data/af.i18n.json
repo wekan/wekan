@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Daaglikse staanvergadering-tydhouer",
   "feature-standup-timer-desc": "Die bordkieslys se Daaglikse staanvergadering: die bord se lede in 'n geskommelde volgorde, elk met dieselfde tydblok. Per bord afgeskakel in sy Scrum-instellings.",
   "feature-retrospective-board": "Terugblikbord",
-  "feature-retrospective-board-desc": "Die bordkieslys se Terugblikbord: 'n nuwe privaat bord met die lyste Begin doen, Hou op doen, Hou aan doen en Aksie-items. Per bord afgeskakel in sy Scrum-instellings."
+  "feature-retrospective-board-desc": "Die bordkieslys se Terugblikbord: 'n nuwe privaat bord met die lyste Begin doen, Hou op doen, Hou aan doen en Aksie-items. Per bord afgeskakel in sy Scrum-instellings.",
+  "show-split-lists": "Laat toe dat lyste in Besig en Klaar verdeel word",
+  "list-split": "Verdeel in Besig en Klaar",
+  "split-counts": "Besig __doing__ · Klaar __done__",
+  "split-done": "Hier klaar, wag om aangetrek te word",
+  "mark-split-done": "Merk as hier klaar",
+  "feature-split-lists": "Verdeelde lyste",
+  "feature-split-lists-desc": "'n Lys verdeel in Besig en Klaar: 'n kaart wat daar as klaar gemerk is, wag, verdof, om na die volgende lys getrek te word, en die lyskop tel albei. Per bord toegelaat in Bordinstellings / Lys, en dan in elke lys se kieslys aangeskakel."
 }

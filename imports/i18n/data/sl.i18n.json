@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Časovnik dnevnega sestanka",
   "feature-standup-timer-desc": "Dnevni sestanek v meniju table: člani table v premešanem vrstnem redu, vsak z enakim časovnim okvirom. Izklopi se za vsako tablo v njenih Nastavitvah Scrum.",
   "feature-retrospective-board": "Tabla retrospektive",
-  "feature-retrospective-board-desc": "Tabla retrospektive v meniju table: nova zasebna tabla s seznami Začni delati, Nehaj delati, Nadaljuj in Akcijske točke. Izklopi se za vsako tablo v njenih Nastavitvah Scrum."
+  "feature-retrospective-board-desc": "Tabla retrospektive v meniju table: nova zasebna tabla s seznami Začni delati, Nehaj delati, Nadaljuj in Akcijske točke. Izklopi se za vsako tablo v njenih Nastavitvah Scrum.",
+  "show-split-lists": "Dovoli delitev seznamov na V teku in Končano",
+  "list-split": "Razdeli na V teku in Končano",
+  "split-counts": "V teku __doing__ · Končano __done__",
+  "split-done": "Tu končano, čaka, da se potegne naprej",
+  "mark-split-done": "Označi kot končano tukaj",
+  "feature-split-lists": "Razdeljeni seznami",
+  "feature-split-lists-desc": "Seznam, razdeljen na V teku in Končano: kartica, ki je tam označena kot končana, čaka, zatemnjena, da se potegne v naslednji seznam, glava seznama pa šteje oboje. Dovoljeno za vsako tablo v Nastavitve table / Seznam, nato vklopljeno v meniju vsakega seznama."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer voor de dagelijkse stand-up",
   "feature-standup-timer-desc": "De dagelijkse stand-up in het bordmenu: de leden van het bord in willekeurige volgorde, elk met dezelfde timebox. Per bord uit te schakelen in de Scrum-instellingen ervan.",
   "feature-retrospective-board": "Retrospectivebord",
-  "feature-retrospective-board-desc": "Het retrospectivebord in het bordmenu: een nieuw privébord met de lijsten Beginnen met, Stoppen met, Blijven doen en Actiepunten. Per bord uit te schakelen in de Scrum-instellingen ervan."
+  "feature-retrospective-board-desc": "Het retrospectivebord in het bordmenu: een nieuw privébord met de lijsten Beginnen met, Stoppen met, Blijven doen en Actiepunten. Per bord uit te schakelen in de Scrum-instellingen ervan.",
+  "show-split-lists": "Lijsten splitsen in In uitvoering en Klaar toestaan",
+  "list-split": "Splitsen in In uitvoering en Klaar",
+  "split-counts": "In uitvoering __doing__ · Klaar __done__",
+  "split-done": "Hier klaar, wacht om verder getrokken te worden",
+  "mark-split-done": "Hier als klaar markeren",
+  "feature-split-lists": "Gesplitste lijsten",
+  "feature-split-lists-desc": "Een lijst gesplitst in In uitvoering en Klaar: een kaart die daar als klaar is gemarkeerd wacht, gedimd, tot ze in de volgende lijst wordt getrokken, en de lijstkop telt beide. Per bord toegestaan in Bord Instellingen / Lijst, daarna aangezet in het menu van elke lijst."
 }

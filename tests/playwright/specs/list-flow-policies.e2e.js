@@ -67,4 +67,30 @@ test.describe('List flow policies', () => {
     db.updateOne('boards', { _id: board.boardId }, { $set: { personWipLimit: 5 } });
     await expect(cp.root.locator('.js-card-person-wip-over')).toHaveCount(0, { timeout: 15_000 });
   });
+
+  test('a split list marks a card Done here and counts both halves', async ({ boardPage, board }) => {
+    const saved = featureStates();
+    const listId = board.listIds[0];
+    const bp = new BoardPage(boardPage);
+    const mini = bp.minicard(listId, 'Alpha Card');
+    await expect(mini).toBeVisible({ timeout: 15_000 });
+    // Negative: nothing until the board allows split lists and the list is split.
+    await expect(mini.locator('.js-minicard-split-done')).toHaveCount(0);
+    try {
+      db.updateOne('boards', { _id: board.boardId }, { $set: { allowsSplitLists: true } });
+      db.updateOne('lists', { _id: listId }, { $set: { split: true } });
+      await mini.locator('.js-minicard-split-done').click({ timeout: 15_000 });
+      await expect.poll(() => ((db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' }) || {}).flow || {}).splitDoneListId,
+        { timeout: 15_000 }).toBe(listId);
+      await expect(mini.locator('.minicard')).toHaveClass(/minicard-split-done/, { timeout: 15_000 });
+      await expect(bp.list(listId).locator('.list-split-counts')).toContainText('0', { timeout: 15_000 });
+      await expect(bp.list(listId).locator('.list-split-counts')).toContainText('1');
+
+      db.updateOne('settings', {}, { $set: { 'featureStates.split-lists': false } });
+      await expect(mini.locator('.js-minicard-split-done')).toHaveCount(0, { timeout: 15_000 });
+      await expect(mini.locator('.minicard')).not.toHaveClass(/minicard-split-done/);
+    } finally {
+      restoreFeatures(saved);
+    }
+  });
 });

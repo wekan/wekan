@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Päivittäispalaverin ajastin",
   "feature-standup-timer-desc": "Taulun valikon Päivittäispalaveri: taulun jäsenet sekoitetussa järjestyksessä, kullakin sama aikaraja. Poistetaan käytöstä tauluittain sen Scrum-asetuksissa.",
   "feature-retrospective-board": "Retrospektiivitaulu",
-  "feature-retrospective-board-desc": "Taulun valikon Retrospektiivitaulu: uusi yksityinen taulu, jossa on listat Aloitetaan, Lopetetaan, Jatketaan ja Toimenpiteet. Poistetaan käytöstä tauluittain sen Scrum-asetuksissa."
+  "feature-retrospective-board-desc": "Taulun valikon Retrospektiivitaulu: uusi yksityinen taulu, jossa on listat Aloitetaan, Lopetetaan, Jatketaan ja Toimenpiteet. Poistetaan käytöstä tauluittain sen Scrum-asetuksissa.",
+  "show-split-lists": "Salli listojen jako osiin Työn alla ja Valmis",
+  "list-split": "Jaa osiin Työn alla ja Valmis",
+  "split-counts": "Työn alla __doing__ · Valmis __done__",
+  "split-done": "Valmis täällä, odottaa vetämistä eteenpäin",
+  "mark-split-done": "Merkitse valmiiksi täällä",
+  "feature-split-lists": "Jaetut listat",
+  "feature-split-lists-desc": "Lista, joka on jaettu osiin Työn alla ja Valmis: siellä valmiiksi merkitty kortti odottaa himmennettynä, että se vedetään seuraavaan listaan, ja listan otsake laskee molemmat. Sallitaan tauluittain kohdassa Tauluasetukset / Lista, ja otetaan sitten käyttöön kunkin listan valikosta."
 }

@@ -1,6 +1,7 @@
 // The Kanban flow policies of the lists (models/lib/boardFlowPolicies.js,
 // docs/Features/Lists/Flow-Policies.md): Board Settings / List, the marks at
 // a list's header, the list's policy popup and the opened card's warning.
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { allowFeature } from '/client/lib/instanceFeatures';
@@ -8,13 +9,18 @@ import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import Lists from '/models/lists';
 
-const { normalizePolicy, overPersonWip } = require('/models/lib/boardFlowPolicies');
+const { normalizePolicy, overPersonWip, isSplitDone, splitCounts } = require('/models/lib/boardFlowPolicies');
+
+// Whether a list of `board` is drawn split into Doing and Done.
+const splitShown = (board, list) => Boolean(board?.allowsSplitLists === true && list?.split === true && allowFeature('split-lists'));
+export { splitShown };
 
 const board = () => Utils.getCurrentBoard();
 const isBoardAdmin = () => Boolean(ReactiveCache.getCurrentUser()?.isBoardAdmin?.());
 
 Template.boardFlowListSettings.helpers({
   allowsListPolicies() { return board()?.allowsListPolicies === true; },
+  allowsSplitLists() { return board()?.allowsSplitLists === true; },
   notBoardAdmin() { return !isBoardAdmin(); },
   personWipLimit() { return board()?.personWipLimit || ''; },
   commitmentOptions() {
@@ -32,6 +38,11 @@ Template.boardFlowListSettings.events({
     event.preventDefault();
     const current = board();
     if (current && isBoardAdmin()) current.setAllowsListPolicies(current.allowsListPolicies !== true);
+  },
+  'click .js-toggle-split-lists'(event) {
+    event.preventDefault();
+    const current = board();
+    if (current && isBoardAdmin()) current.setAllowsSplitLists(current.allowsSplitLists !== true);
   },
   'change .js-commitment-list'(event) {
     const current = board();
@@ -52,6 +63,11 @@ Template.listFlowMarks.helpers({
   showPolicy() {
     const current = ReactiveCache.getBoard(this.boardId);
     return Boolean(current?.allowsListPolicies === true && this.policy && allowFeature('list-policies'));
+  },
+  splitCounts() {
+    const current = ReactiveCache.getBoard(this.boardId);
+    if (!splitShown(current, this)) return null;
+    return splitCounts(ReactiveCache.getCards({ listId: this._id, archived: false }, { fields: { listId: 1, flow: 1, archived: 1 } }) || []);
   },
   isCommitmentPoint() {
     const current = ReactiveCache.getBoard(this.boardId);
@@ -96,5 +112,23 @@ Template.cardPersonWipWarnings.helpers({
       const user = ReactiveCache.getUser(row.userId);
       return { ...row, name: (user && (user.profile?.fullname || user.username)) || row.userId };
     });
+  },
+});
+
+// The minicard's Done here toggle; the data is the card.
+Template.minicardSplitDone.helpers({
+  inSplitList() {
+    const card = this;
+    return splitShown(ReactiveCache.getBoard(card.boardId), ReactiveCache.getList(card.listId));
+  },
+  splitDone() { return isSplitDone(this); },
+  canModifyCard() { return Utils.canModifyCard(this); },
+});
+Template.minicardSplitDone.events({
+  'click .js-minicard-split-done'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    Meteor.callAsync('setCardFlow', this._id, { splitDone: !isSplitDone(this) })
+      .catch(error => window.alert((error && (error.reason || error.error)) || String(error)));
   },
 });

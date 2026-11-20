@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronometru pentru ședința zilnică",
   "feature-standup-timer-desc": "Ședința zilnică din meniul panoului: membrii panoului într-o ordine amestecată, fiecare cu același interval de timp. Se dezactivează pentru fiecare panou în Setări Scrum ale acestuia.",
   "feature-retrospective-board": "Panou de retrospectivă",
-  "feature-retrospective-board-desc": "Panoul de retrospectivă din meniul panoului: un panou privat nou cu listele Începe să faci, Nu mai face, Continuă să faci și Acțiuni de făcut. Se dezactivează pentru fiecare panou în Setări Scrum ale acestuia."
+  "feature-retrospective-board-desc": "Panoul de retrospectivă din meniul panoului: un panou privat nou cu listele Începe să faci, Nu mai face, Continuă să faci și Acțiuni de făcut. Se dezactivează pentru fiecare panou în Setări Scrum ale acestuia.",
+  "show-split-lists": "Permite împărțirea listelor în În curs și Gata",
+  "list-split": "Împarte în În curs și Gata",
+  "split-counts": "În curs __doing__ · Gata __done__",
+  "split-done": "Gata aici, așteaptă să fie tras mai departe",
+  "mark-split-done": "Marchează ca gata aici",
+  "feature-split-lists": "Liste împărțite",
+  "feature-split-lists-desc": "O listă împărțită în În curs și Gata: un card marcat acolo ca gata așteaptă, estompat, să fie tras în lista următoare, iar antetul listei le numără pe amândouă. Permis pentru fiecare panou în Setările panoului / Listă, apoi activat în meniul fiecărei liste."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronometer da la sentupada quotidiana",
   "feature-standup-timer-desc": "La sentupada quotidiana en il menu da la tabella: ils commembers da la tabella en in urden maschadà, mintgin cun il medem temp. Vegn deactivada per tabella en ses Parameters da Scrum.",
   "feature-retrospective-board": "Tabella da retrospectiva",
-  "feature-retrospective-board-desc": "La tabella da retrospectiva en il menu da la tabella: ina nova tabella privata cun las glistas Cumenzar a far, Chalar da far, Cuntinuar a far ed Acziuns da far. Vegn deactivada per tabella en ses Parameters da Scrum."
+  "feature-retrospective-board-desc": "La tabella da retrospectiva en il menu da la tabella: ina nova tabella privata cun las glistas Cumenzar a far, Chalar da far, Cuntinuar a far ed Acziuns da far. Vegn deactivada per tabella en ses Parameters da Scrum.",
+  "show-split-lists": "Permetter da divider glistas en En elavuraziun e Fatg",
+  "list-split": "Divider en En elavuraziun e Fatg",
+  "split-counts": "En elavuraziun __doing__ · Fatg __done__",
+  "split-done": "Fatg qua, spetga dad esser tratg vinavant",
+  "mark-split-done": "Marcar sco fatg qua",
+  "feature-split-lists": "Glistas dividas",
+  "feature-split-lists-desc": "Ina glista dividida en En elavuraziun e Fatg: ina carta marcada sco fatga là spetga, stgirentada, dad esser tratga en la proxima glista, e il chau da la glista quinta omadus. Permess per tabella en Parameters da la tabella / Glista, lura activà en il menu da mintga glista."
 }

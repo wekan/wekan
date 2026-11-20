@@ -73,15 +73,3 @@ and the formatter here, record what is lost in the import loss report
   Mattermost, Telegram, WhatsApp, Discord, Evernote .enex - threads, replies,
   reactions, recurring events and the attached files that are now only
   counted.
-
-## Kanban and Scrum features to add
-
-Asked on 2026-11-20: Kanban and Scrum practices other tools have and WeKan
-does not, which can be built from WeKan's own code or a copyfree package, work
-offline, and need no local AI model. Each one must be possible to hide in the
-board's settings and in Admin Panel features. Sources: the Kanban Guide
-(kanban.university), the Scrum Glossary (scrum.org), Scrum Alliance's scrum
-board article, ScrumDesk's feature list.
-
-- Split Doing / Done columns: a list split into two halves, so finished work
-  waits visibly before it is pulled on.

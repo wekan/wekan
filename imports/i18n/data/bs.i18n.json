@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Tajmer dnevnog stand-upa",
   "feature-standup-timer-desc": "Dnevni stand-up iz menija table: članovi table nasumičnim redoslijedom, svaki s istim vremenskim okvirom. Isključuje se po tabli u njenim Postavke Scruma.",
   "feature-retrospective-board": "Tabla retrospektive",
-  "feature-retrospective-board-desc": "Tabla retrospektive iz menija table: nova privatna tabla s listama Početi raditi, Prestati raditi, Nastaviti raditi i Zadaci. Isključuje se po tabli u njenim Postavke Scruma."
+  "feature-retrospective-board-desc": "Tabla retrospektive iz menija table: nova privatna tabla s listama Početi raditi, Prestati raditi, Nastaviti raditi i Zadaci. Isključuje se po tabli u njenim Postavke Scruma.",
+  "show-split-lists": "Dozvoli dijeljenje lista na U toku i Gotovo",
+  "list-split": "Podijeli na U toku i Gotovo",
+  "split-counts": "U toku __doing__ · Gotovo __done__",
+  "split-done": "Ovdje gotovo, čeka da bude povučeno dalje",
+  "mark-split-done": "Označi kao gotovo ovdje",
+  "feature-split-lists": "Podijeljene liste",
+  "feature-split-lists-desc": "Lista podijeljena na U toku i Gotovo: kartica označena tu kao gotova čeka, zatamnjena, da bude povučena u sljedeću listu, a zaglavlje liste broji oboje. Dozvoljava se po tabli u Postavke table / Lista, a zatim se uključuje u meniju svake liste."
 }

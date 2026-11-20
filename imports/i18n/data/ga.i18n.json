@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Amadóir an chruinnithe laethúil",
   "feature-standup-timer-desc": "An Cruinniú laethúil i roghchlár an chláir: baill an chláir in ord suaite, gach duine leis an teorainn ama chéanna. Múchtar é in aghaidh an chláir ina Socruithe Scrum.",
   "feature-retrospective-board": "Clár súil siar",
-  "feature-retrospective-board-desc": "An Clár súil siar i roghchlár an chláir: clár príobháideach nua leis na liostaí Tosaigh ag déanamh, Stop ag déanamh, Lean ort ag déanamh agus Pointí gnímh. Múchtar é in aghaidh an chláir ina Socruithe Scrum."
+  "feature-retrospective-board-desc": "An Clár súil siar i roghchlár an chláir: clár príobháideach nua leis na liostaí Tosaigh ag déanamh, Stop ag déanamh, Lean ort ag déanamh agus Pointí gnímh. Múchtar é in aghaidh an chláir ina Socruithe Scrum.",
+  "show-split-lists": "Ceadaigh liostaí a roinnt ina Ar siúl agus Déanta",
+  "list-split": "Roinn ina Ar siúl agus Déanta",
+  "split-counts": "Ar siúl __doing__ · Déanta __done__",
+  "split-done": "Déanta anseo, ag fanacht le tarraingt ar aghaidh",
+  "mark-split-done": "Marcáil mar déanta anseo",
+  "feature-split-lists": "Liostaí roinnte",
+  "feature-split-lists-desc": "Liosta atá roinnte ina Ar siúl agus Déanta: fanann cárta atá marcáilte mar déanta ansin, agus é laghdaithe, go dtarraingítear isteach sa chéad liosta eile é, agus áiríonn ceanntásc an liosta an dá cheann. Ceadaítear é in aghaidh an chláir i Socruithe an chláir / Liosta, agus ansin cuirtear ar siúl é i roghchlár gach liosta."
 }

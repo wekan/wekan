@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "每日站會計時器",
   "feature-standup-timer-desc": "看板選單中的每日站會：看板成員依隨機順序，每人擁有相同的時間盒。可在每個看板的 Scrum 設定中關閉。",
   "feature-retrospective-board": "回顧看板",
-  "feature-retrospective-board-desc": "看板選單中的回顧看板：新建一個私有看板，包含開始做、停止做、繼續做和待辦事項清單。可在每個看板的 Scrum 設定中關閉。"
+  "feature-retrospective-board-desc": "看板選單中的回顧看板：新建一個私有看板，包含開始做、停止做、繼續做和待辦事項清單。可在每個看板的 Scrum 設定中關閉。",
+  "show-split-lists": "允許將清單拆分為進行中和完成",
+  "list-split": "拆分為進行中和完成",
+  "split-counts": "進行中 __doing__ · 完成 __done__",
+  "split-done": "此處已完成，等待被拉入下一步",
+  "mark-split-done": "標記為此處已完成",
+  "feature-split-lists": "拆分清單",
+  "feature-split-lists-desc": "拆分為進行中和完成的清單：在那裡標記為完成的卡片會變暗並等待被拉入下一個清單，清單標題會分別計數。在每個看板的看板設定 / 清單中允許，然後在每個清單的選單中開啟。"
 }

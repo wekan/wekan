@@ -1453,6 +1453,7 @@ Boards.attachSchema(
     allowsListPolicies: { type: Boolean, optional: true },
     commitmentListId: { type: String, optional: true },
     personWipLimit: { type: SimpleSchema.Integer, optional: true, min: 1, max: 99 },
+    allowsSplitLists: { type: Boolean, optional: true },
     // The Kanban and Scrum flow fields (models/lib/cardFlow.js), off until turned on.
     allowsBlockedOnCard: { type: Boolean, optional: true },
     allowsBlockedOnMinicard: { type: Boolean, optional: true },
@@ -3415,6 +3416,10 @@ Boards.helpers({
   // Board Settings / List: the Kanban flow policies (models/lib/boardFlowPolicies.js).
   async setAllowsListPolicies(allowsListPolicies) {
     return await Boards.updateAsync(this._id, { $set: { allowsListPolicies: !!allowsListPolicies } });
+  },
+
+  async setAllowsSplitLists(allowsSplitLists) {
+    return await Boards.updateAsync(this._id, { $set: { allowsSplitLists: !!allowsSplitLists } });
   },
 
   async setCommitmentListId(commitmentListId) {

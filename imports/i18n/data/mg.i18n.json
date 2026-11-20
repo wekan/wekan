@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Famantaranandro fivoriana isan'andro",
   "feature-standup-timer-desc": "Ny fivoriana isan'andro ao amin'ny menon'ny solaitra: ireo mpikambana ao amin'ny solaitra amin'ny filaharana afangaro, samy manana fotoana mitovy. Azo vonoina isaky ny solaitra ao amin'ny Fikirana Scrum-ny.",
   "feature-retrospective-board": "Solaitra fiverenana mijery",
-  "feature-retrospective-board-desc": "Ny solaitra fiverenana mijery ao amin'ny menon'ny solaitra: solaitra manokana vaovao misy ny lisitra Atombohy atao, Atsaharo atao, Tohizo atao ary Asa tokony hatao. Azo vonoina isaky ny solaitra ao amin'ny Fikirana Scrum-ny."
+  "feature-retrospective-board-desc": "Ny solaitra fiverenana mijery ao amin'ny menon'ny solaitra: solaitra manokana vaovao misy ny lisitra Atombohy atao, Atsaharo atao, Tohizo atao ary Asa tokony hatao. Azo vonoina isaky ny solaitra ao amin'ny Fikirana Scrum-ny.",
+  "show-split-lists": "Avelao hozaraina ho Atao sy Vita ny lisitra",
+  "list-split": "Zarao ho Atao sy Vita",
+  "split-counts": "Atao __doing__ · Vita __done__",
+  "split-done": "Vita eto, miandry ho sintonina any aoriana",
+  "mark-split-done": "Mariho ho vita eto",
+  "feature-split-lists": "Lisitra voazara",
+  "feature-split-lists-desc": "Lisitra voazara ho Atao sy Vita: ny karatra voamarika ho vita ao dia miandry, manjavozavo, ho sintonina any amin'ny lisitra manaraka, ary ny lohan'ny lisitra no manisa azy roa. Avela isaky ny solaitra ao amin'ny Fandrindrana ny solaitra / Lisitra, avy eo alefa ao amin'ny menion'ny lisitra tsirairay."
 }

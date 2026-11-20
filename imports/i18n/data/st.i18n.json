@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Sebali sa nako sa kopano ya letsatsi le letsatsi",
   "feature-standup-timer-desc": "Kopano ya letsatsi le letsatsi ho menu ya boto: ditho tsa boto ka tatelano e kopantsweng, e mong le e mong a ena le nako e lekanang. E tingwa ka boto ho Dipeakanyo tsa Scrum tsa yona.",
   "feature-retrospective-board": "Boto ya ho hetla morao",
-  "feature-retrospective-board-desc": "Boto ya ho hetla morao ho menu ya boto: boto e ntjha ya poraefete e nang le manane a Qala ho etsa, Emisa ho etsa, Tswela pele ho etsa le Dintho tse lokelang ho etswa. E tingwa ka boto ho Dipeakanyo tsa Scrum tsa yona."
+  "feature-retrospective-board-desc": "Boto ya ho hetla morao ho menu ya boto: boto e ntjha ya poraefete e nang le manane a Qala ho etsa, Emisa ho etsa, Tswela pele ho etsa le Dintho tse lokelang ho etswa. E tingwa ka boto ho Dipeakanyo tsa Scrum tsa yona.",
+  "show-split-lists": "Dumella manane ho arolwa ka Tse tswellang pele le Ho phethiloe",
+  "list-split": "Arola ka Tse tswellang pele le Ho phethiloe",
+  "split-counts": "Tse tswellang pele __doing__ · Ho phethiloe __done__",
+  "split-done": "Ho phethiloe mona, e emetse ho hulelwa pele",
+  "mark-split-done": "Tshwaya hore ho phethiloe mona",
+  "feature-split-lists": "Manane a arotsweng",
+  "feature-split-lists-desc": "Lenane le arotsweng ka Tse tswellang pele le Ho phethiloe: karete e tshwailweng e phethiloe moo e a ema, e fifaditswe, ho hulelwa lenaneng le latelang, mme sehlooho sa lenane se bala tsohle tse pedi. E dumellwa botong ka nngwe ho Ditlhophiso tsa boto / Lenane, ebe e bulwa ho menyu ya lenane ka leng."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronómetro da reunião diária",
   "feature-standup-timer-desc": "A reunião diária no menu do quadro: os membros do quadro por ordem baralhada, cada um com o mesmo tempo. Desativada por quadro nas respetivas Definições de Scrum.",
   "feature-retrospective-board": "Quadro de retrospetiva",
-  "feature-retrospective-board-desc": "O quadro de retrospetiva no menu do quadro: um novo quadro privado com as listas Começar a fazer, Deixar de fazer, Continuar a fazer e Itens de ação. Desativado por quadro nas respetivas Definições de Scrum."
+  "feature-retrospective-board-desc": "O quadro de retrospetiva no menu do quadro: um novo quadro privado com as listas Começar a fazer, Deixar de fazer, Continuar a fazer e Itens de ação. Desativado por quadro nas respetivas Definições de Scrum.",
+  "show-split-lists": "Permitir dividir listas em Em curso e Feito",
+  "list-split": "Dividir em Em curso e Feito",
+  "split-counts": "Em curso __doing__ · Feito __done__",
+  "split-done": "Feito aqui, à espera de ser puxado adiante",
+  "mark-split-done": "Marcar como feito aqui",
+  "feature-split-lists": "Listas divididas",
+  "feature-split-lists-desc": "Uma lista dividida em Em curso e Feito: um cartão marcado como feito aí espera, esbatido, ser puxado para a lista seguinte, e o cabeçalho da lista conta ambos. Permitido por quadro em Configurações do Quadro / Lista, depois ativado no menu de cada lista."
 }

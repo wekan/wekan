@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Pemasa mesyuarat harian",
   "feature-standup-timer-desc": "Mesyuarat harian dalam menu papan: ahli papan dalam susunan rawak, masing-masing dengan masa yang sama. Dimatikan bagi setiap papan dalam Tetapan Scrum papan itu.",
   "feature-retrospective-board": "Papan retrospektif",
-  "feature-retrospective-board-desc": "Papan retrospektif dalam menu papan: papan peribadi baharu dengan senarai Mula lakukan, Berhenti lakukan, Teruskan lakukan dan Item tindakan. Dimatikan bagi setiap papan dalam Tetapan Scrum papan itu."
+  "feature-retrospective-board-desc": "Papan retrospektif dalam menu papan: papan peribadi baharu dengan senarai Mula lakukan, Berhenti lakukan, Teruskan lakukan dan Item tindakan. Dimatikan bagi setiap papan dalam Tetapan Scrum papan itu.",
+  "show-split-lists": "Benarkan senarai dibahagi kepada Sedang dijalankan dan Selesai",
+  "list-split": "Bahagi kepada Sedang dijalankan dan Selesai",
+  "split-counts": "Sedang dijalankan __doing__ · Selesai __done__",
+  "split-done": "Selesai di sini, menunggu untuk ditarik seterusnya",
+  "mark-split-done": "Tandakan selesai di sini",
+  "feature-split-lists": "Senarai berbahagi",
+  "feature-split-lists-desc": "Senarai yang dibahagi kepada Sedang dijalankan dan Selesai: kad yang ditandakan selesai di situ menunggu, dimalapkan, untuk ditarik ke senarai seterusnya, dan pengepala senarai mengira kedua-duanya. Dibenarkan bagi setiap papan dalam Tetapan Papan / Senarai, kemudian dihidupkan dalam menu setiap senarai."
 }

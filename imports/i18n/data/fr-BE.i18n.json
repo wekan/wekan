@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Minuteur de la mêlée quotidienne",
   "feature-standup-timer-desc": "La Mêlée quotidienne du menu du tableau : les participants du tableau dans un ordre aléatoire, chacun avec la même durée maximale. Désactivable par tableau dans ses Paramètres Scrum.",
   "feature-retrospective-board": "Tableau de rétrospective",
-  "feature-retrospective-board-desc": "Le Tableau de rétrospective du menu du tableau : un nouveau tableau privé avec les listes Commencer à faire, Arrêter de faire, Continuer à faire et Actions à mener. Désactivable par tableau dans ses Paramètres Scrum."
+  "feature-retrospective-board-desc": "Le Tableau de rétrospective du menu du tableau : un nouveau tableau privé avec les listes Commencer à faire, Arrêter de faire, Continuer à faire et Actions à mener. Désactivable par tableau dans ses Paramètres Scrum.",
+  "show-split-lists": "Autoriser la division des listes en En cours et Fait",
+  "list-split": "Diviser en En cours et Fait",
+  "split-counts": "En cours __doing__ · Fait __done__",
+  "split-done": "Fait ici, en attente d'être tirée plus loin",
+  "mark-split-done": "Marquer comme fait ici",
+  "feature-split-lists": "Listes divisées",
+  "feature-split-lists-desc": "Une liste divisée en En cours et Fait : une carte marquée comme faite là attend, estompée, d'être tirée dans la liste suivante, et l'en-tête de la liste compte les deux. Autorisé par tableau dans Paramètres du tableau / Liste, puis activé dans le menu de chaque liste."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Xikomba-nkarhi xa nhlengeletano ya siku na siku",
   "feature-standup-timer-desc": "Nhlengeletano ya siku na siku eka menyu ya bodo: swirho swa bodo hi ndlela leyi pfanganisiweke, un'wana na un'wana a ri na nkarhi wo fana. Yi timiwa hi bodo eka Swipimelo swa Scrum swa yona.",
   "feature-retrospective-board": "Bodo ya ku languta endzhaku",
-  "feature-retrospective-board-desc": "Bodo ya ku languta endzhaku eka menyu ya bodo: bodo leyintshwa ya xihundla leyi nga na minxaxamelo ya Sungula ku endla, Yima ku endla, Yisa emahlweni ku endla na Swilo swo endla. Yi timiwa hi bodo eka Swipimelo swa Scrum swa yona."
+  "feature-retrospective-board-desc": "Bodo ya ku languta endzhaku eka menyu ya bodo: bodo leyintshwa ya xihundla leyi nga na minxaxamelo ya Sungula ku endla, Yima ku endla, Yisa emahlweni ku endla na Swilo swo endla. Yi timiwa hi bodo eka Swipimelo swa Scrum swa yona.",
+  "show-split-lists": "Pfumelela minxaxamelo ku avanyisiwa hi Swa ha endliwa na Swi hetile",
+  "list-split": "Avanyisa hi Swa ha endliwa na Swi hetile",
+  "split-counts": "Swa ha endliwa __doing__ · Swi hetile __done__",
+  "split-done": "Swi hetile laha, yi rindzele ku kokiwa emahlweni",
+  "mark-split-done": "Funghela leswaku swi hetile laha",
+  "feature-split-lists": "Minxaxamelo leyi avanyisiweke",
+  "feature-split-lists-desc": "Nxaxamelo lowu avanyisiweke hi Swa ha endliwa na Swi hetile: khadi leri funghiweke leswaku ri hetile kwalaho ri rindza, ri dzimile, ku kokeriwa eka nxaxamelo lowu landzelaka, naswona nhloko ya nxaxamelo yi hlayela swa mbirhi. Swi pfumeleriwa eka bodo yin'wana na yin'wana eka Swipimelo swa bodo / Nxaxamelo, kutani swi lumekiwa eka menyu ya nxaxamelo wun'wana na wun'wana."
 }

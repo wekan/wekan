@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kohëmatësi i takimit të përditshëm",
   "feature-standup-timer-desc": "Takimi i përditshëm në menynë e tabelës: anëtarët e tabelës në rend të përzier, secili me të njëjtën kohë. Çaktivizohet për çdo tabelë te Cilësimet e Scrum të saj.",
   "feature-retrospective-board": "Tabelë retrospektive",
-  "feature-retrospective-board-desc": "Tabela retrospektive në menynë e tabelës: një tabelë e re private me listat Fillo të bësh, Ndalo së bëri, Vazhdo të bësh dhe Pika veprimi. Çaktivizohet për çdo tabelë te Cilësimet e Scrum të saj."
+  "feature-retrospective-board-desc": "Tabela retrospektive në menynë e tabelës: një tabelë e re private me listat Fillo të bësh, Ndalo së bëri, Vazhdo të bësh dhe Pika veprimi. Çaktivizohet për çdo tabelë te Cilësimet e Scrum të saj.",
+  "show-split-lists": "Lejo ndarjen e listave në Në vazhdim dhe U krye",
+  "list-split": "Ndaje në Në vazhdim dhe U krye",
+  "split-counts": "Në vazhdim __doing__ · U krye __done__",
+  "split-done": "U krye këtu, pret të tërhiqet më tej",
+  "mark-split-done": "Shëno si të kryer këtu",
+  "feature-split-lists": "Lista të ndara",
+  "feature-split-lists-desc": "Një listë e ndarë në Në vazhdim dhe U krye: një kartë e shënuar atje si e kryer pret, e zbehur, të tërhiqet në listën tjetër, dhe koka e listës i numëron të dyja. Lejohet për çdo tabelë te Cilësimet e tabelës / Listë, pastaj aktivizohet në menynë e çdo liste."
 }

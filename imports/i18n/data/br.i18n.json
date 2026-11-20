@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kontadur amzer an emvod pemdeziek",
   "feature-standup-timer-desc": "Emvod pemdeziek lañser an daolenn: izili an daolenn en un urzh meskaet, gant an hevelep amzer evit pep hini. Diweredekaet evit pep taolenn en he Arventennoù Scrum.",
   "feature-retrospective-board": "Taolenn sell war-gil",
-  "feature-retrospective-board-desc": "Taolenn sell war-gil lañser an daolenn: un daolenn brevez nevez gant ar rolloù Kregiñ d'ober, Paouez d'ober, Kenderc'hel d'ober hag Oberoù da ober. Diweredekaet evit pep taolenn en he Arventennoù Scrum."
+  "feature-retrospective-board-desc": "Taolenn sell war-gil lañser an daolenn: un daolenn brevez nevez gant ar rolloù Kregiñ d'ober, Paouez d'ober, Kenderc'hel d'ober hag Oberoù da ober. Diweredekaet evit pep taolenn en he Arventennoù Scrum.",
+  "show-split-lists": "Aotren rannañ ar rolloù etre War ober ha Graet",
+  "list-split": "Rannañ etre War ober ha Graet",
+  "split-counts": "War ober __doing__ · Graet __done__",
+  "split-done": "Graet amañ, o c'hortoz bezañ sachet war-raok",
+  "mark-split-done": "Merkañ evel graet amañ",
+  "feature-split-lists": "Rolloù rannet",
+  "feature-split-lists-desc": "Ur roll rannet etre War ober ha Graet: ur gartenn merket evel graet eno a chom da c'hortoz, teñvaloc'h, bezañ sachet d'ar roll war-lerc'h, ha talbenn ar roll a gont an daou. Aotreet evit pep taolenn e Arventennoù an daolenn / Roll, ha goude enaouet e lañser pep roll."
 }

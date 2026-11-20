@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Czasōmiyrz codziynnego standupu",
   "feature-standup-timer-desc": "Codziynny standup we myni tabule: czōnkowie tabule we pomiyszanym porzōndku, kożdy z tym samym czasym. Wyłōnczo sie na kożdyj tabuli we jeji Sztelōnkach Scrum.",
   "feature-retrospective-board": "Tabula retrospektywy",
-  "feature-retrospective-board-desc": "Tabula retrospektywy we myni tabule: nowo prywatno tabula z listami Zacznij robić, Przestoń robić, Rōb dalij i Zadania do zrobiyniŏ. Wyłōnczo sie na kożdyj tabuli we jeji Sztelōnkach Scrum."
+  "feature-retrospective-board-desc": "Tabula retrospektywy we myni tabule: nowo prywatno tabula z listami Zacznij robić, Przestoń robić, Rōb dalij i Zadania do zrobiyniŏ. Wyłōnczo sie na kożdyj tabuli we jeji Sztelōnkach Scrum.",
+  "show-split-lists": "Dozwōl dzielić listy na W robocie i Zrobiōne",
+  "list-split": "Podziel na W robocie i Zrobiōne",
+  "split-counts": "W robocie __doing__ · Zrobiōne __done__",
+  "split-done": "Zrobiōne sam, czeko na pociōngniyńcie dalij",
+  "mark-split-done": "Ôznacz za zrobiōne sam",
+  "feature-split-lists": "Podzielōne listy",
+  "feature-split-lists-desc": "Lista podzielōnŏ na W robocie i Zrobiōne: karta ôznaczōnŏ tam za zrobiōnŏ czeko, przigaszōnŏ, aż bydzie pociōngniyntŏ do nastympnyj listy, a nagłōwek listy rachuje ôbie. Dozwolōne dlŏ kożdyj tabule w Sztelōnki tabule / Lista, potym zapinane w menu kożdyj listy."
 }

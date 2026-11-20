@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Taimi ʻo e fakataha tuʻu fakaʻaho",
   "feature-standup-timer-desc": "Ko e Fakataha tuʻu fakaʻaho ʻi he menu ʻo e papa: ko e kau mēmipa ʻo e papa ʻi ha fokotuʻutuʻu fakafefiofi, taki taha mo e taimi tatau. ʻOku tāmateʻi ki he papa taki taha ʻi hono Ngaahi fokotuʻutuʻu Scrum.",
   "feature-retrospective-board": "Papa vakai ki mui",
-  "feature-retrospective-board-desc": "Ko e Papa vakai ki mui ʻi he menu ʻo e papa: ko ha papa fakafoʻituitui foʻou mo e ngaahi lisi Kamata fai, Taʻofi fai, Hokohoko atu fai mo e Ngaahi meʻa ke fai. ʻOku tāmateʻi ki he papa taki taha ʻi hono Ngaahi fokotuʻutuʻu Scrum."
+  "feature-retrospective-board-desc": "Ko e Papa vakai ki mui ʻi he menu ʻo e papa: ko ha papa fakafoʻituitui foʻou mo e ngaahi lisi Kamata fai, Taʻofi fai, Hokohoko atu fai mo e Ngaahi meʻa ke fai. ʻOku tāmateʻi ki he papa taki taha ʻi hono Ngaahi fokotuʻutuʻu Scrum.",
+  "show-split-lists": "Fakangofua ke vahevahe ʻa e ngaahi lisi ki he Lolotonga mo e Kuo ʻosi",
+  "list-split": "Vahevahe ki he Lolotonga mo e Kuo ʻosi",
+  "split-counts": "Lolotonga __doing__ · Kuo ʻosi __done__",
+  "split-done": "Kuo ʻosi heni, ʻoku tatali ke toho ki muʻa",
+  "mark-split-done": "Fakaʻilongaʻi kuo ʻosi heni",
+  "feature-split-lists": "Ngaahi lisi vahevahe",
+  "feature-split-lists-desc": "Ko ha lisi kuo vahevahe ki he Lolotonga mo e Kuo ʻosi: ko e kaati kuo fakaʻilongaʻi kuo ʻosi ai ʻoku tatali, fakapoʻupoʻuli, ke toho ki he lisi hoko, pea ʻoku lau ʻe he ʻulu ʻo e lisi ʻa e ongo meʻa ʻe ua. Fakangofua ki he papa taki taha ʻi he Ngaahi fokotuʻutuʻu ʻo e papa / Lisi, pea toki fakaʻaki ʻi he lisi fili ʻo e lisi taki taha."
 }

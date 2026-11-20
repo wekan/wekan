@@ -106,7 +106,7 @@ test('negative: the flow is written only by the validated method, never by a dir
   assert.match(method, /canEditCardOrLinkedCard\(userId, card, board\)/, 'the card edit right');
   assert.match(method, /isAssignedOnlyMember\(board, userId\)/, 'an assigned-only member, only their own cards');
   assert.match(method, /throw new Meteor\.Error\('expedite-limit'\)/);
-  assert.match(method, /flowModifier\(patch, \{ userId, now: new Date\(\) \}\)/, 'who and when are the server\'s');
+  assert.match(method, /flowModifier\(patch, \{ userId, now: new Date\(\), listId: card\.listId \}\)/, 'who, when and which list are the server\'s');
   assert.match(read('server/models/cards.js'), /import '\/server\/lib\/cardFlowMethod';/);
   // The Blocked checkbox is a native one, which the app-wide rule hides three
   // ways; all three are undone or it cannot be ticked (found by the UI spec).

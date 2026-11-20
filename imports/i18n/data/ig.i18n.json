@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Oge nzukọ kwa ụbọchị",
   "feature-standup-timer-desc": "Nzukọ kwa ụbọchị dị na menu bọọdụ: ndị otu bọọdụ n'usoro agwakọtara agwakọta, onye ọ bụla nwere otu oke oge. A na-agbanyụ ya maka bọọdụ ọ bụla na Ntọala Scrum ya.",
   "feature-retrospective-board": "Bọọdụ ntụgharị uche",
-  "feature-retrospective-board-desc": "Bọọdụ ntụgharị uche dị na menu bọọdụ: bọọdụ nkeonwe ọhụrụ nwere ndepụta Malite ime, Kwụsị ime, Gaa n'ihu ime na Ihe a ga-eme. A na-agbanyụ ya maka bọọdụ ọ bụla na Ntọala Scrum ya."
+  "feature-retrospective-board-desc": "Bọọdụ ntụgharị uche dị na menu bọọdụ: bọọdụ nkeonwe ọhụrụ nwere ndepụta Malite ime, Kwụsị ime, Gaa n'ihu ime na Ihe a ga-eme. A na-agbanyụ ya maka bọọdụ ọ bụla na Ntọala Scrum ya.",
+  "show-split-lists": "Kwe ka e kewaa ndepụta n'ime Na-aga n'ihu na Emechaala",
+  "list-split": "Kewaa n'ime Na-aga n'ihu na Emechaala",
+  "split-counts": "Na-aga n'ihu __doing__ · Emechaala __done__",
+  "split-done": "Emechaala ebe a, na-eche ka a dọkpụrụ ya n'ihu",
+  "mark-split-done": "Kaa akara dị ka emechaala ebe a",
+  "feature-split-lists": "Ndepụta ekewara",
+  "feature-split-lists-desc": "Ndepụta ekewara n'ime Na-aga n'ihu na Emechaala: kaadị a kara akara na emechaala ebe ahụ na-eche, nke na-adịghị ìhè nke ọma, ka a dọkpụrụ ya gaa na ndepụta na-esote, isi ndepụta ahụ na-agụkwa ha abụọ. A na-ekwe ya kwa bọọdụ na Ntọala bọọdụ / Ndepụta, wee gbanye ya na menu nke ndepụta ọ bụla."
 }

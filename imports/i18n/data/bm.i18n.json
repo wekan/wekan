@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Don o don ɲɔgɔnye waati jateminɛna",
   "feature-standup-timer-desc": "Walan menu ka Don o don jɔlen ɲɔgɔnye: walan tɔndenw cogo ɲagamilen na, u kelen kelen bɛɛ bɛ waati kelen sɔrɔ. A bɛ se ka dabila walan kelen kelen na a ka Scrum labɛnw kɔnɔ.",
   "feature-retrospective-board": "Kɔfɛ lajɛli walan",
-  "feature-retrospective-board-desc": "Walan menu ka Kɔfɛ lajɛli walan: walan kura gundo min sɛbɛnw ye Daminɛ ka kɛ, Dabila ka kɛ, Taa a fɛ ka kɛ ani Baara minnu ka kan ka kɛ ye. A bɛ se ka dabila walan kelen kelen na a ka Scrum labɛnw kɔnɔ."
+  "feature-retrospective-board-desc": "Walan menu ka Kɔfɛ lajɛli walan: walan kura gundo min sɛbɛnw ye Daminɛ ka kɛ, Dabila ka kɛ, Taa a fɛ ka kɛ ani Baara minnu ka kan ka kɛ ye. A bɛ se ka dabila walan kelen kelen na a ka Scrum labɛnw kɔnɔ.",
+  "show-split-lists": "Sɛbɛnw tilali ka kɛ A bɛ kɛ ni A banna ye, o sira di",
+  "list-split": "A tila ka kɛ A bɛ kɛ ni A banna ye",
+  "split-counts": "A bɛ kɛ __doing__ · A banna __done__",
+  "split-done": "A banna yan, a bɛ makɔnɔ ka sama ka taa ɲɛfɛ",
+  "mark-split-done": "A taamasiyɛn ko a banna yan",
+  "feature-split-lists": "Sɛbɛn tilalenw",
+  "feature-split-lists-desc": "Sɛbɛn min tilalen don ka kɛ A bɛ kɛ ni A banna ye: karti min taamasiyɛnnen don ko a banna yen, o bɛ makɔnɔ, a ɲɛ dɔgɔyalen, ka sama ka taa sɛbɛn nata la, ani sɛbɛn kunkolo bɛ u fila bɛɛ jate. A sira bɛ di walan kelen kelen na Walan labɛnw / Sɛbɛn kɔnɔ, o kɔfɛ a bɛ mana sɛbɛn kelen kelen ka menu kɔnɔ."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Pengatur waktu rapat harian",
   "feature-standup-timer-desc": "Rapat harian di menu papan: anggota papan dalam urutan acak, masing-masing dengan batas waktu yang sama. Dimatikan per papan di Pengaturan Scrum-nya.",
   "feature-retrospective-board": "Papan retrospektif",
-  "feature-retrospective-board-desc": "Papan retrospektif di menu papan: papan privat baru dengan daftar Mulai lakukan, Berhenti lakukan, Tetap lakukan dan Butir tindakan. Dimatikan per papan di Pengaturan Scrum-nya."
+  "feature-retrospective-board-desc": "Papan retrospektif di menu papan: papan privat baru dengan daftar Mulai lakukan, Berhenti lakukan, Tetap lakukan dan Butir tindakan. Dimatikan per papan di Pengaturan Scrum-nya.",
+  "show-split-lists": "Izinkan daftar dibagi menjadi Dikerjakan dan Selesai",
+  "list-split": "Bagi menjadi Dikerjakan dan Selesai",
+  "split-counts": "Dikerjakan __doing__ · Selesai __done__",
+  "split-done": "Selesai di sini, menunggu ditarik ke berikutnya",
+  "mark-split-done": "Tandai selesai di sini",
+  "feature-split-lists": "Daftar terbagi",
+  "feature-split-lists-desc": "Daftar yang dibagi menjadi Dikerjakan dan Selesai: kartu yang ditandai selesai di sana menunggu, diredupkan, untuk ditarik ke daftar berikutnya, dan kepala daftar menghitung keduanya. Diizinkan per papan di Pengaturan Papan / Daftar, lalu diaktifkan di menu setiap daftar."
 }

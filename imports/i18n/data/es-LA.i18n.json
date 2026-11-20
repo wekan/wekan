@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronómetro de la reunión diaria",
   "feature-standup-timer-desc": "La reunión diaria del menú del tablero: los miembros del tablero en orden aleatorio, cada uno con el mismo tiempo. Se desactiva por tablero en su Configuración de Scrum.",
   "feature-retrospective-board": "Tablero de retrospectiva",
-  "feature-retrospective-board-desc": "El tablero de retrospectiva del menú del tablero: un nuevo tablero privado con las listas Empezar a hacer, Dejar de hacer, Seguir haciendo y Acciones pendientes. Se desactiva por tablero en su Configuración de Scrum."
+  "feature-retrospective-board-desc": "El tablero de retrospectiva del menú del tablero: un nuevo tablero privado con las listas Empezar a hacer, Dejar de hacer, Seguir haciendo y Acciones pendientes. Se desactiva por tablero en su Configuración de Scrum.",
+  "show-split-lists": "Permitir dividir las listas en En curso y Hecho",
+  "list-split": "Dividir en En curso y Hecho",
+  "split-counts": "En curso __doing__ · Hecho __done__",
+  "split-done": "Hecho aquí, esperando a que la tiren a la siguiente",
+  "mark-split-done": "Marcar como hecho aquí",
+  "feature-split-lists": "Listas divididas",
+  "feature-split-lists-desc": "Una lista dividida en En curso y Hecho: una tarjeta marcada como hecha allí espera, atenuada, a que la tiren a la siguiente lista, y la cabecera de la lista cuenta ambas. Se permite por tablero en Preferencias del tablero / Lista y luego se activa en el menú de cada lista."
 }

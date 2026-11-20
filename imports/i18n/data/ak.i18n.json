@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Da biara nhyiam berɛ susudua",
   "feature-standup-timer-desc": "Bɔɔd menu no mu Da biara nhyiam: bɔɔd no amanfoɔ wɔ nhyehyɛe a wɔafra mu, obiara nya berɛ korɔ. Wobɛtumi adum no bɔɔd biara mu wɔ ne Scrum nhyehyɛe mu.",
   "feature-retrospective-board": "Bɔɔd a wɔde dwennwen nea atwam",
-  "feature-retrospective-board-desc": "Bɔɔd menu no mu Bɔɔd a wɔde dwennwen nea atwam: bɔɔd foforɔ a ɛyɛ kokoam a ne din a wɔahyehyɛ ne Fi ase yɛ, Gyae yɛ, Kɔ so yɛ ne Nneɛma a ɛsɛ sɛ wɔyɛ. Wobɛtumi adum no bɔɔd biara mu wɔ ne Scrum nhyehyɛe mu."
+  "feature-retrospective-board-desc": "Bɔɔd menu no mu Bɔɔd a wɔde dwennwen nea atwam: bɔɔd foforɔ a ɛyɛ kokoam a ne din a wɔahyehyɛ ne Fi ase yɛ, Gyae yɛ, Kɔ so yɛ ne Nneɛma a ɛsɛ sɛ wɔyɛ. Wobɛtumi adum no bɔɔd biara mu wɔ ne Scrum nhyehyɛe mu.",
+  "show-split-lists": "Ma kwan ma wɔnkyɛ din a wɔahyehyɛ mu mma Ɛrekɔ so ne Ɛwie",
+  "list-split": "Kyɛ mu ma Ɛrekɔ so ne Ɛwie",
+  "split-counts": "Ɛrekɔ so __doing__ · Ɛwie __done__",
+  "split-done": "Ɛwie wɔ ha, retwɛn sɛ wɔbɛtwe akɔ anim",
+  "mark-split-done": "Hyɛ no nsɛnkyerɛnne sɛ ɛwie wɔ ha",
+  "feature-split-lists": "Din a wɔakyɛ mu",
+  "feature-split-lists-desc": "Din a wɔahyehyɛ a wɔakyɛ mu ma Ɛrekɔ so ne Ɛwie: kaad a wɔahyɛ no nsɛnkyerɛnne sɛ ɛwie wɔ hɔ no twɛn, a ne kɔla ayɛ kusuu, sɛ wɔbɛtwe no akɔ din a edi so no mu, na din no ti kan abien no nyinaa. Wɔma ho kwan wɔ bɔɔd biara mu wɔ Bɔɔd nhyehyɛeɛ / Din a wɔahyehyɛ, na afei wɔsɔ no wɔ din biara menu mu."
 }

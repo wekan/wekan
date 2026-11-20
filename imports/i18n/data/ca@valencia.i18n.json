@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronòmetre de la reunió diària",
   "feature-standup-timer-desc": "La reunió diària del menú del tauler: els membres del tauler en un ordre aleatori, cadascun amb el mateix temps. Es desactiva per tauler a la seua Configuració de Scrum.",
   "feature-retrospective-board": "Tauler de retrospectiva",
-  "feature-retrospective-board-desc": "El tauler de retrospectiva del menú del tauler: un tauler privat nou amb les llistes Començar a fer, Deixar de fer, Continuar fent i Accions pendents. Es desactiva per tauler a la seua Configuració de Scrum."
+  "feature-retrospective-board-desc": "El tauler de retrospectiva del menú del tauler: un tauler privat nou amb les llistes Començar a fer, Deixar de fer, Continuar fent i Accions pendents. Es desactiva per tauler a la seua Configuració de Scrum.",
+  "show-split-lists": "Permet dividir les llistes en En curs i Fet",
+  "list-split": "Divideix en En curs i Fet",
+  "split-counts": "En curs __doing__ · Fet __done__",
+  "split-done": "Fet ací, esperant que l'estiren cap a la següent",
+  "mark-split-done": "Marca com a fet ací",
+  "feature-split-lists": "Llistes dividides",
+  "feature-split-lists-desc": "Una llista dividida en En curs i Fet: una fitxa marcada com a feta allà espera, atenuada, que l'estiren cap a la llista següent, i la capçalera de la llista compta totes dues. Es permet per tauler a Configuració del tauler / Llista, i després s'activa al menú de cada llista."
 }

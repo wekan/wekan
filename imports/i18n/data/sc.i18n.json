@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Cronòmetru de sa riunione de cada die",
   "feature-standup-timer-desc": "Sa riunione de cada die in su menù de sa tàula: sos sòtzios de sa tàula in un'òrdine ammesturadu, cadaunu cun su matessi tempus. Si disativat pro cada tàula in sas Cunfiguratziones Scrum suas.",
   "feature-retrospective-board": "Tàula de retrospetiva",
-  "feature-retrospective-board-desc": "Sa tàula de retrospetiva in su menù de sa tàula: una tàula privada noa cun sas listas Comintza a fàghere, Lassa de fàghere, Sighi a fàghere e Atziones de fàghere. Si disativat pro cada tàula in sas Cunfiguratziones Scrum suas."
+  "feature-retrospective-board-desc": "Sa tàula de retrospetiva in su menù de sa tàula: una tàula privada noa cun sas listas Comintza a fàghere, Lassa de fàghere, Sighi a fàghere e Atziones de fàghere. Si disativat pro cada tàula in sas Cunfiguratziones Scrum suas.",
+  "show-split-lists": "Permìtere de partzire sas listas in In cursu e Fatu",
+  "list-split": "Partzi in In cursu e Fatu",
+  "split-counts": "In cursu __doing__ · Fatu __done__",
+  "split-done": "Fatu inoghe, isetat de èssere tiradu a in antis",
+  "mark-split-done": "Signa comente fatu inoghe",
+  "feature-split-lists": "Listas partzidas",
+  "feature-split-lists-desc": "Una lista partzida in In cursu e Fatu: una carta signada comente fata in cue isetat, iscurigada, de èssere tirada a sa lista chi sighit, e s'intestatzione de sa lista los contat ambos. Permìtidu pro cada tàula in Impostatziones de sa tàula / Lista, a pustis ativadu in su menù de cada lista."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Crunòmitru dâ riunioni di ogni jornu",
   "feature-standup-timer-desc": "La riunioni di ogni jornu nnô menù dâ tavula: li membri dâ tavula nta n'òrdini ammiscatu, ognunu cu lu stissu tempu. Si stuta pi ogni tavula nnê so Mpustazzioni Scrum.",
   "feature-retrospective-board": "Tavula di ritruspittiva",
-  "feature-retrospective-board-desc": "La tavula di ritruspittiva nnô menù dâ tavula: na tavula privata nova cu li listi Accumincia a fari, Finisci di fari, Cuntinua a fari e Cosi di fari. Si stuta pi ogni tavula nnê so Mpustazzioni Scrum."
+  "feature-retrospective-board-desc": "La tavula di ritruspittiva nnô menù dâ tavula: na tavula privata nova cu li listi Accumincia a fari, Finisci di fari, Cuntinua a fari e Cosi di fari. Si stuta pi ogni tavula nnê so Mpustazzioni Scrum.",
+  "show-split-lists": "Pirmèttiri di dividiri li listi 'n In cursu e Fattu",
+  "list-split": "Dividiri 'n In cursu e Fattu",
+  "split-counts": "In cursu __doing__ · Fattu __done__",
+  "split-done": "Fattu ccà, aspetta d'èssiri tiratu avanti",
+  "mark-split-done": "Marca comu fattu ccà",
+  "feature-split-lists": "Listi divisi",
+  "feature-split-lists-desc": "Na lista divisa 'n In cursu e Fattu: na carta marcata comu fatta ddà aspetta, appannata, d'èssiri tirata nâ lista appressu, e la tistata dâ lista cunta tutti dui. Pirmissu pi ogni tavula 'n Mpustazzioni dâ tavula / Lista, poi attivatu ntô menù di ogni lista."
 }

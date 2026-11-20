@@ -95,3 +95,31 @@ test('the Definition of Ready is a Scrum setting beside the Definition of Done',
   assert.match(read('client/components/boards/scrum/scrumView.js'), /definitionOfReady: values\.definitionOfReady/);
   assert.match(read('models/lib/importExportSecurity.js'), /\['productGoal', 'definitionOfDone', 'definitionOfReady'\]/, 'sanitized on import like the other two');
 });
+
+test('a split list counts Doing and Done; Done here belongs to the list it was marked in', () => {
+  const cards = [
+    { _id: 'a', listId: 'dev', flow: { splitDoneListId: 'dev' } },
+    { _id: 'b', listId: 'dev' },
+    { _id: 'c', listId: 'dev', flow: { splitDoneListId: 'review' } },
+    { _id: 'd', listId: 'dev', archived: true, flow: { splitDoneListId: 'dev' } },
+  ];
+  assert.strictEqual(p.isSplitDone(cards[0]), true);
+  assert.strictEqual(p.isSplitDone(cards[2]), false, 'moved on from where it was done: Doing again');
+  assert.deepStrictEqual(p.splitCounts(cards), { doing: 2, done: 1 }, 'archived cards are not counted');
+  const { flowModifier } = require('../models/lib/cardFlow');
+  assert.deepStrictEqual(flowModifier({ splitDone: true }, { listId: 'dev' }), { $set: { 'flow.splitDoneListId': 'dev' } });
+  assert.deepStrictEqual(flowModifier({ splitDone: false }), { $unset: { 'flow.splitDoneListId': '' } });
+  // Negative: no list, or a client naming its own, is refused.
+  assert.throws(() => flowModifier({ splitDone: true }), /invalid-flow-split/);
+  assert.throws(() => flowModifier({ splitDone: 'yes' }, { listId: 'dev' }), /invalid-flow-split/);
+  assert.throws(() => flowModifier({ splitDoneListId: 'other' }, { listId: 'dev' }), /invalid-flow-patch/);
+  const method = read('server/lib/cardFlowMethod.js');
+  assert.match(method, /if \(!list \|\| list\.split !== true\) throw new Meteor\.Error\('not-a-split-list'\);/, 'only in a split list');
+  const js = read('client/components/lists/listFlowPolicies.js');
+  assert.match(js, /board\?\.allowsSplitLists === true && list\?\.split === true && allowFeature\('split-lists'\)/,
+    'drawn only when the board allows it, the list is split and the instance offers it');
+  assert.match(read('models/lists.js'), /split: \{[\s\S]{0,300}?type: Boolean,\n\s+optional: true,/);
+  assert.match(read('models/boards.js'), /allowsSplitLists: \{ type: Boolean, optional: true \}/);
+  assert.match(read('client/components/cards/minicard.jade'), /\+minicardSplitDone/);
+  assert.match(read('client/components/lists/listHeader.jade'), /if showsSplitLists\n[\s\S]{0,80}a\.js-toggle-list-split/);
+});

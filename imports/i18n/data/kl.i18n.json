@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Ullormut ataatsimiinnermut piffissaliut",
   "feature-standup-timer-desc": "Ilisarnaatip menuani Ullormut ataatsimiinneq: ilisarnaatip ilaasortai akulerussisumik tulleriiaarlugit, tamarmik piffissaliussamik assigiimmik. Ilisarnaammi tamani Scrum-ip aaqqissuussaanerai-ni matuneqarsinnaavoq.",
   "feature-retrospective-board": "Kiinnerlunnermut ilisarnaat",
-  "feature-retrospective-board-desc": "Ilisarnaatip menuani Kiinnerlunnermut ilisarnaat: ilisarnaat nutaaq nammineq allattorsimaffinnik Aallartiguk, Unitsiguk, Ingerlatiguk aamma Suliassat. Ilisarnaammi tamani Scrum-ip aaqqissuussaanerai-ni matuneqarsinnaavoq."
+  "feature-retrospective-board-desc": "Ilisarnaatip menuani Kiinnerlunnermut ilisarnaat: ilisarnaat nutaaq nammineq allattorsimaffinnik Aallartiguk, Unitsiguk, Ingerlatiguk aamma Suliassat. Ilisarnaammi tamani Scrum-ip aaqqissuussaanerai-ni matuneqarsinnaavoq.",
+  "show-split-lists": "Allattorsimaffiit Suliarineqarpoq aamma Naammassivoq-mut avinneqarsinnaanerat akuersissutigiuk",
+  "list-split": "Suliarineqarpoq aamma Naammassivoq-mut aviguk",
+  "split-counts": "Suliarineqarpoq __doing__ · Naammassivoq __done__",
+  "split-done": "Maani naammassivoq, siumut nusunneqarnissani utaqqivaa",
+  "mark-split-done": "Maani naammassisutut nalunaaqutsiguk",
+  "feature-split-lists": "Allattorsimaffiit avinneqartut",
+  "feature-split-lists-desc": "Allattorsimaffik Suliarineqarpoq aamma Naammassivoq-mut avinneqartoq: kortsi tassani naammassisutut nalunaaqutsikkaq utaqqivoq, qaamasuunngitsoq, allattorsimaffimmut tullermut nusunneqarnissani, allattorsimaffiullu qulequtaa marluk tamarmik kisittarpai. Ilisarnaat tamaasa Ilisarnaammi aaqqissuussaanerit / Allattorsimaffik-mi akuerineqartarpoq, taavalu allattorsimaffiup tamarmi menuani ikitsinneqartarluni."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Yeroo lakkaa'aa walgahii guyyaa guyyaa",
   "feature-standup-timer-desc": "Walgahii guyyaa guyyaa baafata gabatee keessatti: miseensota gabatee tartiiba walmakameen, tokkoon tokkoon isaanii yeroo walfakkaataa qabu. Gabatee tokkoon tokkoon isaa Qindaa'ina Scrum isaa keessatti dhaamsama.",
   "feature-retrospective-board": "Gabatee duubatti ilaalchaa",
-  "feature-retrospective-board-desc": "Gabatee duubatti ilaalchaa baafata gabatee keessatti: gabatee dhuunfaa haaraa tarreewwan Gochuu jalqabi, Gochuu dhiisi, Gochuu itti fufi fi Wantoota hojjetamuu qaban qabu. Gabatee tokkoon tokkoon isaa Qindaa'ina Scrum isaa keessatti dhaamsama."
+  "feature-retrospective-board-desc": "Gabatee duubatti ilaalchaa baafata gabatee keessatti: gabatee dhuunfaa haaraa tarreewwan Gochuu jalqabi, Gochuu dhiisi, Gochuu itti fufi fi Wantoota hojjetamuu qaban qabu. Gabatee tokkoon tokkoon isaa Qindaa'ina Scrum isaa keessatti dhaamsama.",
+  "show-split-lists": "Tarreewwan gara Hojii irra jira fi Xumurameeratti akka qoodaman hayyami",
+  "list-split": "Gara Hojii irra jira fi Xumurameeratti qoodi",
+  "split-counts": "Hojii irra jira __doing__ · Xumurameera __done__",
+  "split-done": "Asitti xumurameera, gara fuulduraatti harkifamuuf eegaa jira",
+  "mark-split-done": "Akka asitti xumurameetti mallattoo godhi",
+  "feature-split-lists": "Tarreewwan qoodaman",
+  "feature-split-lists-desc": "Tarree gara Hojii irra jira fi Xumurameeratti qoodame: kaardiin achitti akka xumurameetti mallattoo godhame, dimimmisaa'ee, gara tarree itti aanutti harkifamuuf eega, mataan tarree immoo lachuu lakkaa'a. Gabatee tokko tokkoof Qindaa'ina gabatee / Tarree keessatti hayyamama, achiis baafata tarree tokko tokkoo keessatti banama."
 }

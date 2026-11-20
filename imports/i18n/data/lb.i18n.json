@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer fir den deegleche Standup",
   "feature-standup-timer-desc": "Den deegleche Standup am Tafelmenü: d'Membere vun der Tafel an enger gemëschter Reiefolleg, jidderee mat der selwechter Zäitbox. Gëtt pro Tafel an hiren Scrum-Astellungen ausgeschalt.",
   "feature-retrospective-board": "Retrospektiv-Tafel",
-  "feature-retrospective-board-desc": "D'Retrospektiv-Tafel am Tafelmenü: eng nei privat Tafel mat de Lëschten Ufänken ze maachen, Ophale mat, Weider maachen an Aktiounspunkten. Gëtt pro Tafel an hiren Scrum-Astellungen ausgeschalt."
+  "feature-retrospective-board-desc": "D'Retrospektiv-Tafel am Tafelmenü: eng nei privat Tafel mat de Lëschten Ufänken ze maachen, Ophale mat, Weider maachen an Aktiounspunkten. Gëtt pro Tafel an hiren Scrum-Astellungen ausgeschalt.",
+  "show-split-lists": "Lëschten an An Aarbecht a Fäerdeg opdeelen erlaben",
+  "list-split": "An An Aarbecht a Fäerdeg opdeelen",
+  "split-counts": "An Aarbecht __doing__ · Fäerdeg __done__",
+  "split-done": "Hei fäerdeg, waart drop, weidergezunn ze ginn",
+  "mark-split-done": "Hei als fäerdeg markéieren",
+  "feature-split-lists": "Opgedeelt Lëschten",
+  "feature-split-lists-desc": "Eng Lëscht, opgedeelt an An Aarbecht a Fäerdeg: eng Kaart, déi do als fäerdeg markéiert ass, waart gedämpft drop, an déi nächst Lëscht gezunn ze ginn, an de Lëschtekapp zielt allebéid. Pro Tafel erlaabt an Tafel-Astellungen / Lëscht, duerno am Menü vun all Lëscht ageschalt."
 }

@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Gündelik ýygnak taýmeri",
   "feature-standup-timer-desc": "Geňeş menýusyndaky Gündelik ýygnak: geňeşiň agzalary garyşyk tertipde, her biri deň wagt bilen. Her geňeş üçin onuň Scrum sazlamalarynda öçürilýär.",
   "feature-retrospective-board": "Retrospektiwa geňeşi",
-  "feature-retrospective-board-desc": "Geňeş menýusyndaky Retrospektiwa geňeşi: Etmäge başla, Etmegi bes et, Etmegi dowam et we Ediljek işler sanawlary bolan täze hususy geňeş. Her geňeş üçin onuň Scrum sazlamalarynda öçürilýär."
+  "feature-retrospective-board-desc": "Geňeş menýusyndaky Retrospektiwa geňeşi: Etmäge başla, Etmegi bes et, Etmegi dowam et we Ediljek işler sanawlary bolan täze hususy geňeş. Her geňeş üçin onuň Scrum sazlamalarynda öçürilýär.",
+  "show-split-lists": "Sanawlary Dowam edýär we Boldy diýip bölmäge rugsat ber",
+  "list-split": "Dowam edýär we Boldy diýip böl",
+  "split-counts": "Dowam edýär __doing__ · Boldy __done__",
+  "split-done": "Şu ýerde boldy, öňe çekilmegine garaşýar",
+  "mark-split-done": "Şu ýerde boldy diýip belle",
+  "feature-split-lists": "Bölünen sanawlar",
+  "feature-split-lists-desc": "Dowam edýär we Boldy diýip bölünen sanaw: ol ýerde boldy diýip bellenen kart öçügsi görnüşde indiki sanawa çekilmegine garaşýar, sanawyň sözbaşysy bolsa ikisini hem sanaýar. Her tagta üçin Tagtanyň sazlamalary / Sanaw bölüminde rugsat berilýär, soňra her sanawyň menýusynda açylýar."
 }

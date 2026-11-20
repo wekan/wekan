@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Tíðarmátari til dagligan fund",
   "feature-standup-timer-desc": "Dagligur fundur í talvumenuini: limirnir á talvuni í blandaðari raðfylgju, hvør við sama tíðarmarki. Sløkt fyri hvørja talvu í hennara Scrum-stillingar.",
   "feature-retrospective-board": "Afturlitstalva",
-  "feature-retrospective-board-desc": "Afturlitstalva í talvumenuini: ein nýggj privat talva við listunum Byrja at gera, Halt uppat at gera, Halt fram at gera og Uppgávupunkt. Sløkt fyri hvørja talvu í hennara Scrum-stillingar."
+  "feature-retrospective-board-desc": "Afturlitstalva í talvumenuini: ein nýggj privat talva við listunum Byrja at gera, Halt uppat at gera, Halt fram at gera og Uppgávupunkt. Sløkt fyri hvørja talvu í hennara Scrum-stillingar.",
+  "show-split-lists": "Loyv at býta listar í Í gongd og Liðugt",
+  "list-split": "Být í Í gongd og Liðugt",
+  "split-counts": "Í gongd __doing__ · Liðugt __done__",
+  "split-done": "Liðugt her, bíðar eftir at verða drigið víðari",
+  "mark-split-done": "Merk sum liðugt her",
+  "feature-split-lists": "Býttir listar",
+  "feature-split-lists-desc": "Ein listi býttur í Í gongd og Liðugt: eitt kort, sum er merkt sum liðugt har, bíðar, dimt, eftir at verða drigið í næsta lista, og høvd listans telur bæði. Loyvt fyri hvørja talvu í Stillingar av talvu / Listi, og síðan tendrað í valmyndini hjá hvørjum lista."
 }

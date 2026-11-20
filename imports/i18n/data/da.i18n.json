@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Timer til dagligt standup-møde",
   "feature-standup-timer-desc": "Tavlemenuens daglige standup-møde: tavlens medlemmer i tilfældig rækkefølge, hver med samme tidsramme. Slås fra pr. tavle i dens Scrum-indstillinger.",
   "feature-retrospective-board": "Retrospektivtavle",
-  "feature-retrospective-board-desc": "Tavlemenuens retrospektivtavle: en ny privat tavle med listerne Begynd at gøre, Hold op med at gøre, Bliv ved med at gøre og Handlingspunkter. Slås fra pr. tavle i dens Scrum-indstillinger."
+  "feature-retrospective-board-desc": "Tavlemenuens retrospektivtavle: en ny privat tavle med listerne Begynd at gøre, Hold op med at gøre, Bliv ved med at gøre og Handlingspunkter. Slås fra pr. tavle i dens Scrum-indstillinger.",
+  "show-split-lists": "Tillad lister opdelt i I gang og Færdig",
+  "list-split": "Opdel i I gang og Færdig",
+  "split-counts": "I gang __doing__ · Færdig __done__",
+  "split-done": "Færdig her, venter på at blive trukket videre",
+  "mark-split-done": "Markér som færdig her",
+  "feature-split-lists": "Opdelte lister",
+  "feature-split-lists-desc": "En liste opdelt i I gang og Færdig: et kort, der er markeret som færdigt der, venter, nedtonet, på at blive trukket til den næste liste, og listens overskrift tæller begge. Tillades pr. tavle i Tavleindstillinger / Liste og slås derefter til i hver listes menu."
 }

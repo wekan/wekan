@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Nguva yemusangano wezuva nezuva",
   "feature-standup-timer-desc": "Musangano wezuva nezuva mumenyu yebhodhi: nhengo dzebhodhi nenhevedzano yakasanganiswa, mumwe nemumwe nenguva imwe chete. Unodzimwa pabhodhi rimwe nerimwe muZvirongwa zveScrum zvaro.",
   "feature-retrospective-board": "Bhodhi rekutarisa kumashure",
-  "feature-retrospective-board-desc": "Bhodhi rekutarisa kumashure mumenyu yebhodhi: bhodhi idzva rakavanzika rine marondedzero Tanga kuita, Rega kuita, Ramba uchiita uye Zvinofanira kuitwa. Rinodzimwa pabhodhi rimwe nerimwe muZvirongwa zveScrum zvaro."
+  "feature-retrospective-board-desc": "Bhodhi rekutarisa kumashure mumenyu yebhodhi: bhodhi idzva rakavanzika rine marondedzero Tanga kuita, Rega kuita, Ramba uchiita uye Zvinofanira kuitwa. Rinodzimwa pabhodhi rimwe nerimwe muZvirongwa zveScrum zvaro.",
+  "show-split-lists": "Bvumira marondedzero kupatsanurwa kuva Zviri kuitwa neZvapera",
+  "list-split": "Patsanura kuva Zviri kuitwa neZvapera",
+  "split-counts": "Zviri kuitwa __doing__ · Zvapera __done__",
+  "split-done": "Zvapera pano, rakamirira kudhonzwa mberi",
+  "mark-split-done": "Isa mucherechedzo wekuti zvapera pano",
+  "feature-split-lists": "Marondedzero akapatsanurwa",
+  "feature-split-lists-desc": "Rondedzero rakapatsanurwa kuva Zviri kuitwa neZvapera: kadhi rakaiswa mucherechedzo wekuti rapera ipapo rinomirira, rakasviba, kudhonzwa kurondedzero inotevera, uye musoro werondedzero unoverenga zvese zviri zviviri. Zvinobvumirwa pabhodhi rimwe nerimwe muna Marongero ebhodhi / Rondedzero, wozobatidzwa mumenyu yerondedzero imwe neimwe."
 }

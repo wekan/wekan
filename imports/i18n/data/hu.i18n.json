@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Napi állómegbeszélés időzítő",
   "feature-standup-timer-desc": "A tábla menüjének Napi állómegbeszélése: a tábla tagjai véletlen sorrendben, mindenki ugyanazzal az időkerettel. Táblánként kikapcsolható a Scrum-beállítások között.",
   "feature-retrospective-board": "Visszatekintő tábla",
-  "feature-retrospective-board-desc": "A tábla menüjének Visszatekintő táblája: új személyes tábla a Kezdjük el, Hagyjuk abba, Folytassuk és Teendők listákkal. Táblánként kikapcsolható a Scrum-beállítások között."
+  "feature-retrospective-board-desc": "A tábla menüjének Visszatekintő táblája: új személyes tábla a Kezdjük el, Hagyjuk abba, Folytassuk és Teendők listákkal. Táblánként kikapcsolható a Scrum-beállítások között.",
+  "show-split-lists": "Listák felosztásának engedélyezése Folyamatban és Kész részre",
+  "list-split": "Felosztás Folyamatban és Kész részre",
+  "split-counts": "Folyamatban __doing__ · Kész __done__",
+  "split-done": "Itt kész, továbbhúzásra vár",
+  "mark-split-done": "Megjelölés itt késznek",
+  "feature-split-lists": "Felosztott listák",
+  "feature-split-lists-desc": "Folyamatban és Kész részre osztott lista: az ott késznek jelölt kártya halványítva várja, hogy a következő listába húzzák, a lista fejléce pedig mindkettőt számolja. Táblánként engedélyezhető a Tábla beállítások / Lista helyen, majd az egyes listák menüjében kapcsolható be."
 }

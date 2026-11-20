@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Isaha y'inama ya buri munsi",
   "feature-standup-timer-desc": "Inama ya buri munsi muri menu y'ikibaho: abanyamuryango b'ikibaho mu buryo buvanze, buri wese afite igihe kimwe. Izimywa kuri buri kibaho mu Igenamiterere rya Scrum ryacyo.",
   "feature-retrospective-board": "Ikibaho cy'isubiramo",
-  "feature-retrospective-board-desc": "Ikibaho cy'isubiramo muri menu y'ikibaho: ikibaho gishya cyihariye gifite intonde Tangira gukora, Reka gukora, Komeza gukora n'Ibikorwa bikenewe. Kizimywa kuri buri kibaho mu Igenamiterere rya Scrum ryacyo."
+  "feature-retrospective-board-desc": "Ikibaho cy'isubiramo muri menu y'ikibaho: ikibaho gishya cyihariye gifite intonde Tangira gukora, Reka gukora, Komeza gukora n'Ibikorwa bikenewe. Kizimywa kuri buri kibaho mu Igenamiterere rya Scrum ryacyo.",
+  "show-split-lists": "Emera ko intonde zigabanywamo Birimo gukorwa na Byarangiye",
+  "list-split": "Gabanyamo Birimo gukorwa na Byarangiye",
+  "split-counts": "Birimo gukorwa __doing__ · Byarangiye __done__",
+  "split-done": "Byarangiye hano, bitegereje gukururwa imbere",
+  "mark-split-done": "Shyiraho ikimenyetso ko byarangiye hano",
+  "feature-split-lists": "Intonde zigabanyijwe",
+  "feature-split-lists-desc": "Urutonde rugabanyijwemo Birimo gukorwa na Byarangiye: ikarita yashyizweho ikimenyetso ko yarangiye aho itegereza, yijimye, gukururwa mu rutonde rukurikira, kandi umutwe w'urutonde ubara byombi. Byemerwa kuri buri kibaho muri Igenamiterere ry'ikibaho / Urutonde, hanyuma bigafungurwa mu bikubiyemo bya buri rutonde."
 }

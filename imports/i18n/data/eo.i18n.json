@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Tempomezurilo de ĉiutaga starkunveno",
   "feature-standup-timer-desc": "La ĉiutaga starkunveno de la tabula menuo: la membroj de la tabulo en miksita ordo, ĉiu kun la sama tempolimo. Malŝaltebla po tabulo en ĝiaj Agordoj de Scrum.",
   "feature-retrospective-board": "Retrospektiva tabulo",
-  "feature-retrospective-board-desc": "La retrospektiva tabulo de la tabula menuo: nova privata tabulo kun la listoj Komenci fari, Ĉesi fari, Daŭre fari kaj Agpunktoj. Malŝaltebla po tabulo en ĝiaj Agordoj de Scrum."
+  "feature-retrospective-board-desc": "La retrospektiva tabulo de la tabula menuo: nova privata tabulo kun la listoj Komenci fari, Ĉesi fari, Daŭre fari kaj Agpunktoj. Malŝaltebla po tabulo en ĝiaj Agordoj de Scrum.",
+  "show-split-lists": "Permesi dividi listojn en Farata kaj Farite",
+  "list-split": "Dividi en Farata kaj Farite",
+  "split-counts": "Farata __doing__ · Farite __done__",
+  "split-done": "Farite ĉi tie, atendas esti tirita plu",
+  "mark-split-done": "Marki kiel farita ĉi tie",
+  "feature-split-lists": "Dividitaj listoj",
+  "feature-split-lists-desc": "Listo dividita en Farata kaj Farite: karto markita tie kiel farita atendas, malheligita, esti tirita en la sekvan liston, kaj la kapo de la listo nombras ambaŭ. Permesata por ĉiu tabulo en Agordoj de tabulo / Listo, poste ŝaltata en la menuo de ĉiu listo."
 }

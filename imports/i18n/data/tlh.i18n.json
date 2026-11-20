@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "jaj Hoch ghom poH chovwI'",
   "feature-standup-timer-desc": "'echlet HIDjolev jaj Hoch ghom: 'echlet chuDpu' DuDlu'pu'bogh mI'Daq, Hoch nuv rap poH ghaj. 'echlet Hoch Scrum chermeH De'Daq chu'Ha'lu'.",
   "feature-retrospective-board": "ret nuD 'echlet",
-  "feature-retrospective-board-desc": "'echlet HIDjolev ret nuD 'echlet: 'echlet chu' pegh, tetlhmey ta' yItagh, ta' yImev, ta' yItaH, Qu'mey je ghaj. 'echlet Hoch Scrum chermeH De'Daq chu'Ha'lu'."
+  "feature-retrospective-board-desc": "'echlet HIDjolev ret nuD 'echlet: 'echlet chu' pegh, tetlhmey ta' yItagh, ta' yImev, ta' yItaH, Qu'mey je ghaj. 'echlet Hoch Scrum chermeH De'Daq chu'Ha'lu'.",
+  "show-split-lists": "tetlhmey ta'lu'taH pItlh je wav 'e' chaw'",
+  "list-split": "ta'lu'taH pItlh je wav",
+  "split-counts": "ta'lu'taH __doing__ · pItlh __done__",
+  "split-done": "naDev pItlh, veb tetlhDaq lutlhap 'e' loS",
+  "mark-split-done": "naDev pItlh 'e' ghItlh",
+  "feature-split-lists": "tetlhmey wavlu'pu'bogh",
+  "feature-split-lists-desc": "tetlh ta'lu'taH pItlh je wavlu'pu'bogh: pItlh 'e' ghItlhlu'pu'bogh 'echletHom loS, Hurghmoh, veb tetlhDaq tlhaplu' 'e', tetlh nach je chaH cha' toghlu'. Hoch 'echlet raS DuHmey / tetlh Daq chaw'lu', ghIq Hoch tetlh DuHmey tetlh Daq chu'lu'."
 }

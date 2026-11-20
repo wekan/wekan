@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Igapäevase koosoleku taimer",
   "feature-standup-timer-desc": "Tahvli menüü Igapäevane koosolek: tahvli liikmed segatud järjekorras, igaühel sama ajapiirang. Lülitatakse tahvlipõhiselt välja selle Scrumi seadetes.",
   "feature-retrospective-board": "Tagasivaate tahvel",
-  "feature-retrospective-board-desc": "Tahvli menüü Tagasivaate tahvel: uus privaatne tahvel loeteludega Hakka tegema, Lõpeta tegemine, Jätka tegemist ja Tegevuspunktid. Lülitatakse tahvlipõhiselt välja selle Scrumi seadetes."
+  "feature-retrospective-board-desc": "Tahvli menüü Tagasivaate tahvel: uus privaatne tahvel loeteludega Hakka tegema, Lõpeta tegemine, Jätka tegemist ja Tegevuspunktid. Lülitatakse tahvlipõhiselt välja selle Scrumi seadetes.",
+  "show-split-lists": "Luba loetelusid jagada osadeks Töös ja Valmis",
+  "list-split": "Jaga osadeks Töös ja Valmis",
+  "split-counts": "Töös __doing__ · Valmis __done__",
+  "split-done": "Siin valmis, ootab edasi tõmbamist",
+  "mark-split-done": "Märgi siin valmis",
+  "feature-split-lists": "Jagatud loetelud",
+  "feature-split-lists-desc": "Loetelu, mis on jagatud osadeks Töös ja Valmis: seal valmis märgitud kaart ootab tuhmilt, et see järgmisse loetellu tõmmataks, ja loetelu päis loendab mõlemat. Lubatakse iga tahvli jaoks jaotises Juhatuse seaded / Loetelu ning lülitatakse seejärel sisse iga loetelu menüüs."
 }

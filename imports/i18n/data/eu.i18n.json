@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Eguneroko bileraren tenporizadorea",
   "feature-standup-timer-desc": "Arbelaren menuko Eguneroko bilera: arbelaren kideak ausazko ordenan, bakoitza denbora-muga berarekin. Arbel bakoitzean desaktibatzen da bere Scrum ezarpenak atalean.",
   "feature-retrospective-board": "Atzera begirako arbela",
-  "feature-retrospective-board-desc": "Arbelaren menuko Atzera begirako arbela: arbel pribatu berri bat Hasi egiten, Utzi egiteari, Jarraitu egiten eta Egiteko ekintzak zerrendekin. Arbel bakoitzean desaktibatzen da bere Scrum ezarpenak atalean."
+  "feature-retrospective-board-desc": "Arbelaren menuko Atzera begirako arbela: arbel pribatu berri bat Hasi egiten, Utzi egiteari, Jarraitu egiten eta Egiteko ekintzak zerrendekin. Arbel bakoitzean desaktibatzen da bere Scrum ezarpenak atalean.",
+  "show-split-lists": "Baimendu zerrendak Egiten eta Egina ataletan zatitzea",
+  "list-split": "Zatitu Egiten eta Egina ataletan",
+  "split-counts": "Egiten __doing__ · Egina __done__",
+  "split-done": "Hemen egina, hurrengora eramateko zain",
+  "mark-split-done": "Markatu hemen egina bezala",
+  "feature-split-lists": "Zatitutako zerrendak",
+  "feature-split-lists-desc": "Egiten eta Egina ataletan zatitutako zerrenda: han egina gisa markatutako txartela zain geratzen da, ilunduta, hurrengo zerrendara eraman arte, eta zerrendaren goiburuak biak zenbatzen ditu. Arbela bakoitzeko baimentzen da Arbelaren ezarpenak / Zerrenda atalean, eta gero zerrenda bakoitzaren menuan aktibatzen da."
 }

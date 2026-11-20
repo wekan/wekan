@@ -4903,5 +4903,12 @@
   "feature-standup-timer": "Kasdienio susitikimo laikmatis",
   "feature-standup-timer-desc": "Kasdienis susitikimas lentos meniu: lentos nariai sumaišyta tvarka, kiekvienam vienodas laiko tarpas. Išjungiamas kiekvienai lentai jos Scrum nustatymuose.",
   "feature-retrospective-board": "Retrospektyvos lenta",
-  "feature-retrospective-board-desc": "Retrospektyvos lenta lentos meniu: nauja privati lenta su sąrašais Pradėti daryti, Nustoti daryti, Toliau daryti ir Veiksmų punktai. Išjungiama kiekvienai lentai jos Scrum nustatymuose."
+  "feature-retrospective-board-desc": "Retrospektyvos lenta lentos meniu: nauja privati lenta su sąrašais Pradėti daryti, Nustoti daryti, Toliau daryti ir Veiksmų punktai. Išjungiama kiekvienai lentai jos Scrum nustatymuose.",
+  "show-split-lists": "Leisti sąrašus padalyti į Vykdoma ir Atlikta",
+  "list-split": "Padalyti į Vykdoma ir Atlikta",
+  "split-counts": "Vykdoma __doing__ · Atlikta __done__",
+  "split-done": "Čia atlikta, laukia, kol bus paimta toliau",
+  "mark-split-done": "Pažymėti kaip atliktą čia",
+  "feature-split-lists": "Padalyti sąrašai",
+  "feature-split-lists-desc": "Sąrašas, padalytas į Vykdoma ir Atlikta: ten atlikta pažymėta kortelė laukia, pritemdyta, kol bus paimta į kitą sąrašą, o sąrašo antraštė skaičiuoja abi dalis. Leidžiama kiekvienai lentai skiltyje Lentos nustatymai / Sąrašas, tada įjungiama kiekvieno sąrašo meniu."
 }

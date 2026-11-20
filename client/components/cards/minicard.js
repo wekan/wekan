@@ -180,6 +180,12 @@ Template.minicard.helpers({
   // #3984: visual card aging — fade cards that have not been touched recently,
   // based on dateLastActivity, when the board has card aging enabled.
   // docs/Features/Cards/At-Risk.md
+  // Done here in a list split into Doing and Done (models/lib/boardFlowPolicies.js).
+  splitDoneHere() {
+    const { splitShown } = require('/client/components/lists/listFlowPolicies');
+    return splitShown(ReactiveCache.getBoard(this.boardId), ReactiveCache.getList(this.listId))
+      && require('/models/lib/boardFlowPolicies').isSplitDone(this);
+  },
   atRisk() {
     return riskOf(this);
   },
