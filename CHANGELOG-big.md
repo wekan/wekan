@@ -307,6 +307,15 @@ own cards' texts after it, under the same node numbers.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bad71f9a1e80f54472c87eb8605d5a4206185ea4">Focalboard and Mattermost exports are written a page at a time</a>. Thanks to xet7.</summary>
+
+Their heads - Focalboard's board options, Mattermost's channels and users - are
+named over the whole board from the light first pass and written on the first
+page; each page then writes its own cards' records.
+
+</details>
+
 **Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
 it.
 
