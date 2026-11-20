@@ -509,6 +509,14 @@ of every export also checks labels and due dates.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9da13b63e6f1fea86cb30b604093a8a120bcf53">Asana, OpenProject, Obsidian and Wrike exports carry the card dependencies</a>. Thanks to xet7.</summary>
+
+Each import read what a task waits for and no export wrote it; now each does,
+in its own format. Eight formats keep dependencies through an export and import.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df92d8de63fa332d9d287c9c97e72ac5596c0f5c">Every export WeKan also imports is round-tripped, each held to what its file keeps</a>. Thanks to xet7.</summary>
 
 One spec exports a board in each of the 41 formats WeKan both writes and reads
