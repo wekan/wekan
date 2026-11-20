@@ -102,8 +102,9 @@ Flow, Time in List and more - and **grouped menus**: the Board View menu, the
 Import and Export lists and the list, card and swimlane menus have headings.
 WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
-entries that did nothing now work. **InviteBleed** is closed for the old
-invitation codes too.
+entries that did nothing now work. Cards get the **Kanban and Scrum flow
+fields** Blocked, Class of service, MoSCoW and WSJF, and **InviteBleed** is
+closed for the old invitation codes too.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/):
 
@@ -266,6 +267,38 @@ guessed mapping and people, now come from the server's reading of the upload
 (`csvUploadPreview`, `csvUploadPeople`); each reads only the sender's own
 upload, signed in and while import is enabled. `tests/csvUpload.test.cjs` and
 `tests/playwright/specs/csv-upload.e2e.js`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2cbbe510457940b6db26c90b45307a6c539a0e7">Ten more exports are written a page of cards at a time</a>. Thanks to xet7.</summary>
+
+Todoist, TickTick, ClickUp, MeisterTask, Linear, Pivotal, Redmine, Quire and
+Taskwarrior exports, with todo.txt, are written 500 cards at a time instead
+of as one string. What a row refers to on another page - a parent's number,
+a section, a counted column - comes from a light first pass that reads no
+descriptions and no comment text (`models/lib/exportPaging.js`).
+`tests/exportPaging.test.cjs` checks that the pages together are byte for byte
+the whole file, for every page size.
+
+</details>
+
+**Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
+it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0071dde0f36bb7c8582073a2c072159e15f41ceb">Blocked with a reason, Class of service with Expedite's WIP limit, MoSCoW and WSJF on cards</a>. Thanks to xet7.</summary>
+
+Four practices other Kanban and Scrum tools have, offline and with no AI
+(docs/Features/Cards/Flow-Fields.md). **Blocked** keeps why, who and since
+when, and puts a red badge on the minicard. **Class of service** is Standard,
+Fixed date, Expedite or Intangible, and only one open card of a board can be
+Expedite. **MoSCoW** is Must, Should, Could or Won't have. **WSJF** divides
+the cost of delay by the job size. Each is a row of Board Settings / Card, off
+until a board turns it on, and an Admin Panel card field that hides it on every
+board. Only the `setCardFlow` method writes them, checking the card edit right
+and the values. `tests/cardFlow.test.cjs` and
+`tests/playwright/specs/card-flow-fields.e2e.js`.
 
 </details>
 
