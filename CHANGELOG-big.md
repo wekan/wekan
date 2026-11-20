@@ -213,6 +213,8 @@ not in the file stays a comment marked "↳".
 
 </details>
 
+- [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
+
 and fixes the following bugs:
 
 **WeKan import** - a board exported and imported back.
