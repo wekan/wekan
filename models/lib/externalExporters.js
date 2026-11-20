@@ -6,7 +6,7 @@ const { jiraEstimateExportMapping, jiraEstimateExportValue } = require('./jiraEs
 const { buildCustomFieldsWD } = require('./customFieldsWD');
 const { notDeleted } = require('./softDelete');
 
-export { EXTERNAL_EXPORT_FORMATS };
+export { EXTERNAL_EXPORT_FORMATS, formatters };
 
 // Generalized export: collect a WeKan board into a neutral intermediate, then a
 // per-format formatter (externalExportFormatters.js) emits the target
@@ -62,7 +62,9 @@ async function moveCompletionRules(boardId) {
 // pageCardIds: only these cards (one page of a streamed export), else all.
 // (Not `cardIds`: the body declares a const of that name, and a parameter of
 // the same name is a SyntaxError the server died of on 2026-11-20.)
-async function collect(boardId, fields, format, pageCardIds) {
+// light: the board's references for a paged export (models/lib/exportPaging.js
+// `all`) - no description and no comment text, each comment only counted.
+async function collect(boardId, fields, format, pageCardIds, light) {
   const board = await ReactiveCache.getBoard(boardId);
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
   const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
@@ -95,7 +97,8 @@ async function collect(boardId, fields, format, pageCardIds) {
   // assertFieldExport has let this caller read every value on the board.
   const cardIds = cards.map(c => c._id);
   const comments = want('comments') && cardIds.length
-    ? await ReactiveCache.getCardComments(notDeleted({ cardId: { $in: cardIds } }), { sort: { createdAt: 1 } }) : [];
+    ? await ReactiveCache.getCardComments(notDeleted({ cardId: { $in: cardIds } }),
+      { sort: { createdAt: 1 }, ...(light ? { fields: { cardId: 1, userId: 1, createdAt: 1 } } : {}) }) : [];
   const checklists = want('checklists') && cardIds.length
     ? await ReactiveCache.getChecklists(notDeleted({ cardId: { $in: cardIds } }), { sort: { sort: 1 } }) : [];
   const checklistItems = checklists.length
@@ -137,7 +140,7 @@ async function collect(boardId, fields, format, pageCardIds) {
       cardId: c._id,
       listId: c.listId,
       title: c.title,
-      description: c.description || '',
+      description: light ? '' : c.description || '',
       listTitle: listById[c.listId] || '',
       swimlaneTitle: swById[c.swimlaneId] || 'Default',
       dueAt: iso(c.dueAt),
@@ -157,7 +160,8 @@ async function collect(boardId, fields, format, pageCardIds) {
       // Hours spent, for formats with a place for tracked time (Super Productivity).
       ...(want('dates') && Number(c.spentTime) > 0 ? { spentTime: Number(c.spentTime) } : {}),
       ...(comments.length ? { comments: comments.filter(cm => cm.cardId === c._id)
-        .map(cm => ({ text: cm.text, author: username(cm.userId), date: iso(cm.createdAt) })) } : {}),
+        // A light comment is only counted; its text is read with its page.
+        .map(cm => ({ text: light ? '\u00b7' : cm.text, author: username(cm.userId), date: iso(cm.createdAt) })) } : {}),
       ...(cardChecklists.length ? { checklists: cardChecklists } : {}),
       // A card that came from mail keeps its sender, recipients and
       // Message-ID in an .mbox - not when Admin Panel anonymizes the export,
@@ -181,14 +185,33 @@ async function collect(boardId, fields, format, pageCardIds) {
 // streams the formats that are a sequence of independent parts): the board's
 // card ids are read first, then each page is collected and passed through the
 // export boundary as the whole document is, so only one page is in memory.
-export async function* externalExportPages(boardId, format, fields, pageSize = 500) {
+// With { paged: true } each page also carries the board's light references
+// and its place (models/lib/exportPaging.js), for the formats whose rows refer
+// to other cards; { byList: true } orders the cards list by list, as the
+// formats that group by list write them. There is always at least one page,
+// so a formatter writes its head and tail for an empty board too.
+export async function* externalExportPages(boardId, format, fields, pageSize = 500, options = {}) {
   const { secureTransfer } = require('/server/lib/secureTransfer');
   const context = { direction: 'export', source: `export:${format}` };
-  const ids = (await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 }, fields: { _id: 1 } })).map(c => c._id);
-  for (let at = 0; at < ids.length; at += pageSize) {
+  let all = null;
+  let ids;
+  if (options.paged) {
+    all = secureTransfer((await collect(boardId, fields, format, null, true)).items, context);
+    if (options.byList) all = require('./exportPaging').byFirstListOrder(all, item => item.listTitle || '');
+    ids = all.map(item => item.cardId);
+  } else {
+    ids = (await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 }, fields: { _id: 1 } })).map(c => c._id);
+  }
+  const pages = Math.max(1, Math.ceil(ids.length / pageSize));
+  for (let n = 0; n < pages; n += 1) {
+    const pageIds = ids.slice(n * pageSize, (n + 1) * pageSize);
     // eslint-disable-next-line no-await-in-loop
-    const collected = await collect(boardId, fields, format, ids.slice(at, at + pageSize));
-    yield { ...collected, items: secureTransfer(collected.items, context) };
+    const collected = await collect(boardId, fields, format, pageIds);
+    // A page is in the order of its ids (the board's order, or list by list).
+    const rank = new Map(pageIds.map((id, i) => [id, i]));
+    const items = secureTransfer(collected.items, context).sort((a, b) => rank.get(a.cardId) - rank.get(b.cardId));
+    yield { ...collected, items,
+      ...(all ? { page: { all, offset: n * pageSize, first: n === 0, last: n === pages - 1 } } : {}) };
   }
 }
 

@@ -30,6 +30,7 @@
 // language and is reported, as are DURATION, a note with no task above it and
 // a TYPE Todoist does not define. Todoist exports no completed tasks.
 
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 export const TODOIST_COLUMNS = ['TYPE', 'CONTENT', 'DESCRIPTION', 'PRIORITY', 'INDENT', 'AUTHOR', 'RESPONSIBLE',
   'DATE', 'DATE_LANG', 'TIMEZONE', 'DURATION', 'DURATION_UNIT', 'DEADLINE', 'DEADLINE_LANG'];
 export const MAX_TODOIST_ROWS = 20000;
@@ -180,14 +181,22 @@ function csvDate(value) {
   return time === '00:00' ? day : `${day} ${time}`;
 }
 
-export function formatTodoistCsv({ items }) {
+export function formatTodoistCsv(collected) {
+  const { items, all, first } = pagingOf(collected);
   const row = values => TODOIST_COLUMNS.map(name => values[name] || '');
-  const rows = [TODOIST_COLUMNS, row({ TYPE: 'meta', CONTENT: 'view_style=board' })];
+  const rows = first ? [TODOIST_COLUMNS, row({ TYPE: 'meta', CONTENT: 'view_style=board' })] : [];
+  const listOf = item => item.listTitle || NO_SECTION;
+  // The sections in the order the board's cards first name them, each written
+  // above the first card of its list - whichever page that card is on (the
+  // pages come list by list: exportPaging.js byFirstListOrder).
   const lists = [];
-  for (const item of items || []) if (!lists.includes(item.listTitle || NO_SECTION)) lists.push(item.listTitle || NO_SECTION);
+  const firstOfList = new Set();
+  for (const item of all) {
+    if (!lists.includes(listOf(item))) { lists.push(listOf(item)); firstOfList.add(item.cardId); }
+  }
   for (const list of lists) {
-    if (list !== NO_SECTION) rows.push(row({ TYPE: 'section', CONTENT: list }));
-    for (const item of (items || []).filter(it => (it.listTitle || NO_SECTION) === list)) {
+    for (const item of items.filter(it => listOf(it) === list)) {
+      if (list !== NO_SECTION && firstOfList.has(item.cardId)) rows.push(row({ TYPE: 'section', CONTENT: list }));
       const labels = Array.isArray(item.labels) ? item.labels : [];
       const priority = labels.map(name => /^p([123])$/.exec(name)).find(Boolean);
       const tags = labels.filter(name => !/^p[123]$/.test(name)).map(name => `@${String(name).trim().replace(/\s+/g, '_')}`);
@@ -218,5 +227,5 @@ export function formatTodoistCsv({ items }) {
       }
     }
   }
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

@@ -33,6 +33,7 @@
 // Reported: reminders, repeat rules and unknown status or priority codes.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const TICKTICK_COLUMNS = ['Folder Name', 'List Name', 'Title', 'Kind', 'Tags', 'Content', 'Is Check list',
   'Start Date', 'Due Date', 'Reminder', 'Repeat', 'Priority', 'Status', 'Created Time', 'Completed Time', 'Order',
@@ -143,17 +144,20 @@ const midnight = value => Boolean(value) && new Date(value).toISOString().slice(
 // A backup TickTick's Import backup reads: the preamble, the 7.2 header, and
 // one row per card, every field quoted as TickTick writes them. The board is
 // one TickTick list; its WeKan lists are that list's kanban columns.
-export function formatTickTickCsv({ board, lists, items }, now = new Date()) {
+export function formatTickTickCsv(collected, now = new Date()) {
+  const { board, lists } = collected;
+  const { items, all, offset, first } = pagingOf(collected);
   const listName = (board && board.title) || 'WeKan board';
   const order = (Array.isArray(lists) ? lists : []).map(list => list.title);
-  const ids = new Map((items || []).map((item, index) => [item.cardId, String(index + 1)]));
-  const lines = [
+  const ids = new Map(all.map((item, index) => [item.cardId, String(index + 1)]));
+  const lines = first ? [
     quoted(`Date: ${now.toISOString().slice(0, 10)}+0000`),
     quoted('Version: 7.2'),
     quoted('Status: \n0 Normal\n1 Completed\n2 Archived'),
     TICKTICK_COLUMNS.map(quoted).join(','),
-  ];
-  (items || []).forEach((item, index) => {
+  ] : [];
+  items.forEach((item, pageIndex) => {
+    const index = offset + pageIndex;
     const fields = item.customFields || {};
     const checklist = (Array.isArray(item.checklists) ? item.checklists : []).flatMap(list => (Array.isArray(list.items) ? list.items : []));
     const content = [item.description || '', ...checklist.map(entry => `${entry.done ? DONE : OPEN}${entry.title}`)]
@@ -188,5 +192,5 @@ export function formatTickTickCsv({ board, lists, items }, now = new Date()) {
     };
     lines.push(TICKTICK_COLUMNS.map(name => quoted(values[name] || '')).join(','));
   });
-  return `${lines.join('\n')}\n`;
+  return lines.length ? `${lines.join('\n')}\n` : '';
 }

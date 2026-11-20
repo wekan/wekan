@@ -47,6 +47,7 @@
 // WeKan has no equivalent for are reported.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const REDMINE_FIELDS = {
   id: '#', project: 'Project', tracker: 'Tracker', parent: 'Parent task', parentSubject: 'Parent task subject',
@@ -337,17 +338,18 @@ const decimal = value => (value !== undefined && value !== '' && Number.isFinite
 // Parent task and the relation columns refer to, so the importer links
 // issues of the same file; dates are %Y-%m-%d, the importer's first format.
 // Redmine has no labels: a card's first label is its Tracker.
-export function formatRedmineCsv({ items }) {
-  const list = Array.isArray(items) ? items : [];
+export function formatRedmineCsv(collected) {
+  const { items: list, all, first } = pagingOf(collected);
   const extra = [];
-  for (const item of list) {
+  // The custom-field columns of the whole board, so every page has them all.
+  for (const item of all) {
     for (const name of Object.keys(item.customFields || {})) {
       if (!RESERVED.has(name.toLowerCase()) && !extra.includes(name)) extra.push(name);
     }
   }
   const columns = REDMINE_EXPORT_COLUMNS.concat(extra);
-  const rows = [columns];
-  const ids = new Set(list.map(item => item.cardId).filter(Boolean));
+  const rows = first ? [columns] : [];
+  const ids = new Set(all.map(item => item.cardId).filter(Boolean));
   for (const item of list) {
     const fields = item.customFields || {};
     const relations = {};
@@ -382,5 +384,6 @@ export function formatRedmineCsv({ items }) {
     for (const name of extra) values[name] = fields[name] === undefined || fields[name] === null ? '' : fields[name];
     rows.push(columns.map(name => values[name]));
   }
-  return `﻿${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  // The byte order mark opens the file: on its first page only.
+  return rows.length ? `${first ? '\uFEFF' : ''}${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

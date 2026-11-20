@@ -68,15 +68,26 @@ const STREAMED = {
   },
 };
 
+// The formats whose rows refer to other cards - a parent's number, columns
+// counted over the board, the order of the lists - written a page at a time
+// with the board's light references (models/lib/exportPaging.js): the
+// formatter writes the head on the first page and the tail on the last.
+// byList: its cards are written list by list (Todoist's sections).
+const PAGED = {
+  todotxt: {}, taskwarrior: {}, meistertask: {}, linear: {}, ticktick: {}, clickup: {},
+  pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true },
+};
+
 // Writes the export to `res` page by page, or answers false when the format
 // is not one that streams.
 async function streamExternalExport(res, boardId, format, fields) {
-  if (!STREAMED[format]) return false;
-  const { externalExportPages } = require('/models/lib/externalExporters');
-  const parts = STREAMED[format]();
+  if (!STREAMED[format] && !PAGED[format]) return false;
+  const { externalExportPages, formatters } = require('/models/lib/externalExporters');
+  const parts = STREAMED[format] ? STREAMED[format]() : { head: '', page: collected => formatters[format](collected), tail: '' };
+  const options = PAGED[format] ? { paged: true, ...PAGED[format] } : {};
   res.writeHead(200, { 'Content-Type': `${TEXT_TYPES[format]}; charset=utf-8` });
   if (parts.head) res.write(parts.head);
-  for await (const collected of externalExportPages(boardId, format, fields)) {
+  for await (const collected of externalExportPages(boardId, format, fields, 500, options)) {
     const text = parts.page(collected);
     // Wait for the socket when it is full, so the pages do not pile up in memory.
     if (text && !res.write(text)) await new Promise(resolve => res.once('drain', resolve));
@@ -85,4 +96,4 @@ async function streamExternalExport(res, boardId, format, fields) {
   return true;
 }
 
-module.exports = { renderExternalExport, streamExternalExport, STREAMED };
+module.exports = { renderExternalExport, streamExternalExport, STREAMED, PAGED };

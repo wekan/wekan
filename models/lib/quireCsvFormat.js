@@ -41,6 +41,7 @@
 // that cannot be read.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const QUIRE_PRIORITIES = ['Low', 'Medium', 'High', 'Urgent'];
 const PRIORITY_NUMBERS = { '-1': 'Low', 0: 'Medium', 1: 'High', 2: 'Urgent' };
@@ -194,19 +195,21 @@ const repeat = (value, count) => Array.from({ length: Math.max(0, count) }, () =
 // #1, #2 ... in export order, and Parent names the parent card's number; an
 // Assignee or Tag column is repeated as often as the busiest card needs, as
 // Quire's own export does.
-export function formatQuireCsv({ items }) {
-  const list = items || [];
-  const numbers = new Map(list.map((item, index) => [item.cardId, `#${index + 1}`]));
+export function formatQuireCsv(collected) {
+  const { items: list, all, offset, first } = pagingOf(collected);
+  const numbers = new Map(all.map((item, index) => [item.cardId, `#${index + 1}`]));
   const people = item => [...new Set([item.owner, ...(Array.isArray(item.assignees) ? item.assignees : [])]
     .map(name => String(name || '').replace(/,/g, ' ').trim()).filter(Boolean))];
   const tags = item => [...new Set((Array.isArray(item.labels) ? item.labels : [])
     .map(label => String(label || '').replace(/,/g, ' ').trim()).filter(Boolean))];
-  const assignees = Math.max(1, ...list.map(item => people(item).length));
-  const tagCount = Math.max(1, ...list.map(item => tags(item).length));
+  // Counted over the whole board, so every page has as many columns.
+  const assignees = Math.max(1, ...all.map(item => people(item).length));
+  const tagCount = Math.max(1, ...all.map(item => tags(item).length));
   const header = ['ID', 'Parent', 'Name', 'Status', 'Completed', 'Priority', 'Start', 'Due',
     ...repeat('Assignee', assignees), ...repeat('Tag', tagCount), 'Created', 'Created by', 'Description'];
-  const rows = [header];
-  list.forEach((item, index) => {
+  const rows = first ? [header] : [];
+  list.forEach((item, pageIndex) => {
+    const index = offset + pageIndex;
     const fields = item.customFields || {};
     const priority = QUIRE_PRIORITIES.find(p => p.toLowerCase() === String(fields.Priority || '').toLowerCase());
     const who = people(item);
@@ -227,5 +230,5 @@ export function formatQuireCsv({ items }) {
       item.description || '',
     ]);
   });
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

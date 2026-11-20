@@ -32,11 +32,12 @@ own .zip and Trello's package use the same upload, limit and disk check. This
 is the rest.
 
 - Export: WeKan's own JSON export is written to the response as it is
-  collected (`buildStream`), and the .mbox and .enex exports a page of 500
-  cards at a time (`streamExternalExport`); the other tools' formats are still
-  built whole in memory and then sent. Most of them refer from one row to
-  another - a subtask to its parent, a card to its position or to an id
-  numbered across the board (Todoist, TickTick, ClickUp, Pivotal, Redmine,
-  Quire and the rest) - so a page cannot be written without the others: they
-  need a first pass over the board for those references, then the rows a page
-  at a time.
+  collected (`buildStream`); the .mbox, .enex, Todoist, TickTick, ClickUp,
+  MeisterTask, Linear, Pivotal, Redmine, Quire, Taskwarrior and todo.txt
+  exports a page of 500 cards at a time, the references across pages read in a
+  light first pass (`models/lib/exportPaging.js`). Still built whole: the
+  outlines grouped by list and nested (Markdown, Obsidian, Org mode, OPML, Leo,
+  Notion), the formats that are one JSON document (Trello, Jira, Deck,
+  OpenProject, GitHub and the others, Focalboard, Nullboard, Super
+  Productivity, Kanri, Taiga, Vikunja, Mattermost) and the workbooks. Each of
+  those needs its own writer of a document in parts.

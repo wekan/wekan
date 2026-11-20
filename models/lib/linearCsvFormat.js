@@ -29,6 +29,7 @@
 // Initiatives, milestones, SLA Status) are reported once, by name.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const LINEAR_COLUMNS = ['ID', 'Team', 'Title', 'Description', 'Status', 'Estimate', 'Priority', 'Project ID',
   'Project', 'Creator', 'Assignee', 'Labels', 'Cycle Number', 'Cycle Name', 'Cycle Start', 'Cycle End', 'Created',
@@ -144,9 +145,10 @@ const iso = value => {
 };
 
 // Linear's export columns, in its order; what WeKan has no value for is empty.
-export function formatLinearCsv({ items }) {
-  const rows = [LINEAR_COLUMNS];
-  for (const item of items || []) {
+export function formatLinearCsv(collected) {
+  const { items, first } = pagingOf(collected);
+  const rows = first ? [LINEAR_COLUMNS] : [];
+  for (const item of items) {
     const fields = item.customFields || {};
     const canceled = fields.Canceled === true || fields.Canceled === 'true';
     const values = {
@@ -171,5 +173,5 @@ export function formatLinearCsv({ items }) {
     };
     rows.push(LINEAR_COLUMNS.map(name => values[name] || ''));
   }
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

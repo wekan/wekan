@@ -50,6 +50,7 @@
 
 import { readCsv } from './todoistCsvFormat.js';
 import { pivotalScrumPlanning, STORY_POINTS_FIELD } from './externalScrumPlanning.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const PIVOTAL_STATES = ['unscheduled', 'unstarted', 'planned', 'started', 'finished', 'delivered', 'accepted', 'rejected'];
 export const PIVOTAL_TYPES = ['feature', 'bug', 'chore', 'epic', 'release'];
@@ -255,20 +256,21 @@ const repeat = (name, count) => Array.from({ length: count }, () => name);
 // list is accepted for a card with an end date, unstarted otherwise. The first
 // label naming a type is the Type; the due date is the Deadline only of a
 // release, the one type Tracker gives a deadline.
-export function formatPivotalCsv({ items }) {
-  const list = items || [];
+export function formatPivotalCsv(collected) {
+  const { items: list, all, first } = pagingOf(collected);
   const people = item => [...new Set([item.owner, ...(Array.isArray(item.assignees) ? item.assignees : [])].filter(Boolean))]
     .slice(0, MAX_OWNERS);
   const tasks = item => (Array.isArray(item.checklists) ? item.checklists : [])
     .flatMap(checklist => (Array.isArray(checklist.items) ? checklist.items : []))
     .filter(entry => String(entry.title || '').trim());
   const comments = item => (Array.isArray(item.comments) ? item.comments : []).filter(c => String(c.text || '').trim());
-  const owners = Math.max(1, ...list.map(item => people(item).length));
-  const commentCount = Math.max(0, ...list.map(item => comments(item).length));
-  const taskCount = Math.max(0, ...list.map(item => tasks(item).length));
+  // The columns are counted over the whole board, so every page has as many.
+  const owners = Math.max(1, ...all.map(item => people(item).length));
+  const commentCount = Math.max(0, ...all.map(item => comments(item).length));
+  const taskCount = Math.max(0, ...all.map(item => tasks(item).length));
   const header = [...PIVOTAL_IMPORT_COLUMNS, ...repeat('Owned By', owners), ...repeat('Comment', commentCount),
     ...Array.from({ length: taskCount }, () => ['Task', 'Task Status']).flat()];
-  const rows = [header];
+  const rows = first ? [header] : [];
   for (const item of list) {
     const labels = (Array.isArray(item.labels) ? item.labels : []).map(label => String(label).trim()).filter(Boolean);
     const typeLabel = labels.find(label => PIVOTAL_TYPES.includes(label.toLowerCase()));
@@ -303,5 +305,5 @@ export function formatPivotalCsv({ items }) {
       ...repeat('', (taskCount - done.length) * 2),
     ].map(guard));
   }
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

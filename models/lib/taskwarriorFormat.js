@@ -28,6 +28,7 @@
 // either (its instances are ordinary tasks); both are reported, as is every
 // other attribute WeKan has no place for. Taskwarrior has no members.
 
+import { pagingOf } from './exportPaging.js';
 const COMPACT = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/;
 const PRIORITIES = ['H', 'M', 'L'];
 // Computed or bookkeeping attributes: nothing is lost by not importing them.
@@ -163,8 +164,9 @@ export function taskwarriorUuid(cardId) {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-export function formatTaskwarrior({ items }) {
-  const tasks = (items || []).map(item => {
+export function formatTaskwarrior(collected) {
+  const { items, offset, first, last } = pagingOf(collected);
+  const tasks = items.map(item => {
     const done = isClosed(item.listTitle);
     const labels = Array.isArray(item.labels) ? item.labels : [];
     const priority = labels.map(name => /^priority:([HML])$/.exec(name)).find(Boolean);
@@ -192,5 +194,11 @@ export function formatTaskwarrior({ items }) {
     if (item.description) task.wekandescription = item.description;
     return task;
   });
-  return `${JSON.stringify(tasks, null, 2)}\n`;
+  // One JSON array, written in pieces that together are exactly
+  // JSON.stringify(allTasks, null, 2): its opening on the first page, each
+  // task indented as an element, the commas between pages, the close on the last.
+  if (first && last && !tasks.length) return '[]\n';
+  const body = tasks.map(task => JSON.stringify(task, null, 2).replace(/\n/g, '\n  ')).join(',\n  ');
+  const open = first ? '[\n  ' : (tasks.length && offset > 0 ? ',\n  ' : '');
+  return `${open}${body}${last ? '\n]\n' : ''}`;
 }

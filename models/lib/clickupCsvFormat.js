@@ -37,6 +37,7 @@
 
 import { readCsv } from './todoistCsvFormat.js';
 import { markdownLink } from './markdownLink.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const CLICKUP_COLUMNS = ['Task ID', 'Task Link', 'Task Type', 'Task Custom ID', 'Task Name', 'Task Content', 'Status',
   'Date created', 'Date created Text', 'Due date', 'Due date Text', 'Start date', 'Start date Text', 'Parent ID', 'Subtask IDs',
@@ -176,16 +177,18 @@ const bracket = values => (values.length ? `[${values.map(v => String(v).replace
 // Checklists cell has no documented format: ClickUp's importer maps them by
 // these names.
 export const CLICKUP_EXPORT_COLUMNS = [...CLICKUP_COLUMNS, 'Checklist'];
-export function formatClickUpCsv({ board, items }) {
-  const ids = new Map((items || []).map(item => [item.cardId, item.cardId]));
+export function formatClickUpCsv(collected) {
+  const { board } = collected;
+  const { items, all, first } = pagingOf(collected);
+  const ids = new Map(all.map(item => [item.cardId, item.cardId]));
   const children = new Map();
-  (items || []).forEach(item => {
+  all.forEach(item => {
     if (item.parentCardId && ids.has(item.parentCardId)) {
       children.set(item.parentCardId, [...(children.get(item.parentCardId) || []), item.cardId]);
     }
   });
-  const rows = [CLICKUP_EXPORT_COLUMNS];
-  for (const item of items || []) {
+  const rows = first ? [CLICKUP_EXPORT_COLUMNS] : [];
+  for (const item of items) {
     const fields = item.customFields || {};
     const priority = PRIORITY[String(fields.Priority || '').toLowerCase()];
     const estimate = Number(fields['Time Estimate (hours)']);
@@ -217,5 +220,5 @@ export function formatClickUpCsv({ board, items }) {
     };
     rows.push(CLICKUP_EXPORT_COLUMNS.map(name => values[name] || ''));
   }
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

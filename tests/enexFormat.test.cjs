@@ -84,9 +84,9 @@ test('a large board is exported a page at a time: the pages together are the who
   const path = require('node:path');
   const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
   const render = read('server/lib/renderExternalExport.js');
-  assert.match(render, /for await \(const collected of externalExportPages\(boardId, format, fields\)\)/);
+  assert.match(render, /for await \(const collected of externalExportPages\(boardId, format, fields, 500, options\)\)/);
   assert.match(render, /if \(text && !res\.write\(text\)\) await new Promise\(resolve => res\.once\('drain', resolve\)\);/,
     'it waits for the socket, so pages do not pile up in memory');
-  assert.match(read('models/lib/externalExporters.js'), /export async function\* externalExportPages\(boardId, format, fields, pageSize = 500\)/);
+  assert.match(read('models/lib/externalExporters.js'), /export async function\* externalExportPages\(boardId, format, fields, pageSize = 500, options = \{\}\)/);
   assert.match(read('models/export.js'), /streamExternalExport\(res, boardId, format, fields\)\) return;/);
 });

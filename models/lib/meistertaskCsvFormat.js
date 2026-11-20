@@ -26,6 +26,7 @@
 // fields, tracked time) have no documented shape and are reported by name.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { pagingOf, byFirstListOrder } from './exportPaging.js';
 
 export const MEISTERTASK_IMPORT_COLUMNS = ['project', 'section', 'name', 'notes', 'due_date', 'status', 'tags'];
 const KNOWN = new Set([...MEISTERTASK_IMPORT_COLUMNS, 'id', 'token', 'created_at', 'updated_at',
@@ -118,10 +119,12 @@ const isoSeconds = value => {
 
 // The import shape MeisterTask reads back. A card with an end date is
 // completed; an archived card is not exported (WeKan exports none).
-export function formatMeisterTaskCsv({ board, items }) {
+export function formatMeisterTaskCsv(collected) {
+  const { board } = collected;
+  const { items, first } = pagingOf(collected);
   const project = (board && board.title) || 'WeKan board';
-  const rows = [MEISTERTASK_IMPORT_COLUMNS];
-  for (const item of items || []) {
+  const rows = first ? [MEISTERTASK_IMPORT_COLUMNS] : [];
+  for (const item of items) {
     rows.push([
       project,
       item.listTitle || NO_SECTION,
@@ -132,5 +135,5 @@ export function formatMeisterTaskCsv({ board, items }) {
       (Array.isArray(item.labels) ? item.labels : []).map(tag => String(tag).replace(/;/g, ',').trim()).filter(Boolean).join('; '),
     ]);
   }
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }
