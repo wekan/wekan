@@ -14,7 +14,8 @@ WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
 entries that did nothing now work. Cards get the **Kanban and Scrum flow
 fields** Blocked, Class of service, MoSCoW and WSJF, lists their **policies**,
-and **InviteBleed** is closed for the old invitation codes too.
+the board menu a **standup timer** and a **retrospective board**, and
+**InviteBleed** is closed for the old invitation codes too.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

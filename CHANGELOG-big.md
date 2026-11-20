@@ -104,7 +104,8 @@ WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
 are **streamed to disk** within the free space or an Admin Panel limit. Menu
 entries that did nothing now work. Cards get the **Kanban and Scrum flow
 fields** Blocked, Class of service, MoSCoW and WSJF, lists their **policies**,
-and **InviteBleed** is closed for the old invitation codes too.
+the board menu a **standup timer** and a **retrospective board**, and
+**InviteBleed** is closed for the old invitation codes too.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [InviteBleed](https://wekan.fi/hall-of-fame/invitebleed/):
 
@@ -320,6 +321,32 @@ of Ready** beside the Definition of Done, both now readable by every member in
 the Scrum views. `tests/boardFlowPolicies.test.cjs`,
 `tests/playwright/specs/list-flow-policies.e2e.js` and
 `scrum-definition-of-ready.e2e.js`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/524946c1bf14ada5660ffde987574b8129c47732">The list policy popup asks the board's write capability</a>. Thanks to xet7.</summary>
+
+Its edit check called each role helper as an optional call, which the
+role-helper guard reads as a bare reference; it asks
+`Utils.currentUserCan('write')`, as the server's Lists allow rule does.
+
+</details>
+
+**Scrum meetings** - a standup timer and a retrospective board, in the board
+menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f7a4e210f0e90005bba662e7ac418b403ffa2ba">Daily standup timer and retrospective board</a>. Thanks to xet7.</summary>
+
+**Daily standup** lists the board's members in a shuffled order and gives each
+the same timebox, set in the Scrum settings, counted down and red once over.
+**Retrospective board** makes a new private board with the lists Start doing,
+Stop doing, Keep doing and Action items, through the same server path as Add
+Board. Both are in the board menu for every member, each turned off per board
+in its Scrum settings and for the instance in Admin Panel / Features
+(docs/Features/Scrum/Meetings.md). `tests/scrumMeetings.test.cjs` and
+`tests/playwright/specs/scrum-meetings.e2e.js`.
 
 </details>
 
@@ -8623,41 +8650,6 @@ help and Admin Panel catalog. The LDAP and Traefik examples ran MongoDB 3.2 and
 </details>
 
 - [Guides for the Table, Calendar Mode, Time, Timeline and Map views](https://github.com/wekan/wekan/commit/c046afa807).
-  Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.49 2026-10-16 WeKan ® release
-
-**In short:** an **AssignedBleed** follow-up makes **board role permissions
-apply to every board view** and API: an assigned-only member sees and changes
-only the cards assigned to them, in the **Email View**, the Chat view, linked
-cards, notifications, counts and REST alike.
-
-This release fixes the following CRITICAL SECURITY ISSUE of [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/):
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/5b2ed17e6b">Board role permissions apply to every board view and every path to a card</a>. Thanks to crypto-nidh, binary-lover and xet7.</summary>
-
-[GHSA-r4gm-mjj9-g3x8](https://github.com/wekan/wekan/security/advisories/GHSA-r4gm-mjj9-g3x8):
-the Board Email View checked only that the reader was a board member, so an
-assigned-only member read the title and body of every card in a list or label,
-and their counts. An audit of every path to a card found the same shape in the
-board publication's parent and linked cards, All Boards counts, linked boards'
-activities, the Chat view, notifications, position history and REST - and in
-writes: the role's `write` let such a member change, comment on, move or watch
-any card by id. Each now asks the card. REST writes refuse assigned-only
-members, as REST reads already did. Attempts no view would make show as
-AssignedBleed in Admin Panel → Problems; a test fails when any server path
-serving card data has no role rule.
-
-</details>
-
-and updates the following documentation:
-
-- [Board roles: how a role applies to every board view, the API and every write](https://github.com/wekan/wekan/commit/63117b61d9).
-  Thanks to xet7.
-- [Custom roles from the Admin Panel apply in every board view as built-in roles do, verified for every combination](https://github.com/wekan/wekan/commit/1020cd7e86).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
