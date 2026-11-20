@@ -237,6 +237,7 @@ end date, and Kanboard colors not written; all three are fixed.
 
 </details>
 
+- [Asana's html_notes, approval states and comment likes come across](https://github.com/wekan/wekan/commit/57a657445ef63cc979530f04585227d778c01845). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
