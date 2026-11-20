@@ -9,8 +9,16 @@ not create a board, and it has no entry on the import page.
 
 ## How to import
 
-The `.ics` import is available through the REST API and `api.py`, not on the
-import page.
+On the import page: **All Boards → New → Import → iCalendar (.ics)**, then
+choose the `.ics` file or paste its text. A new board is made: tasks (`VTODO`)
+go to **To Do**, **In Progress**, **Done** or **Cancelled** by their `STATUS`,
+events (`VEVENT`) to **Events**, with their start, due and completion dates;
+`CATEGORIES` and `PRIORITY` become labels, a subtask (`RELATED-TO`) keeps its
+parent, and the calendar's name is the board's title. A repeating item
+(`RRULE`) is imported once, and that is in the loss report
+(`models/lib/icalendarFormat.js`, `tests/icalendarFormat.test.cjs`).
+
+Into an existing list of a board, through the REST API and `api.py`:
 
 1. Get the `.ics` file from the calendar app. In Google Calendar on a
    computer: under **My calendars**, point at the calendar, click **More →

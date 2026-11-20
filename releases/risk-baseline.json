@@ -182,6 +182,13 @@
     ],
     "server/lib/passwordPolicy.js": [
       "https://api\\.pwnedpasswords\\.com/range/"
+    ],
+    "models/lib/enexFormat.js": [
+      "https://evernote\\.com/blog/how-evernotes-xml-export-format-works",
+      "http://xml\\.evernote\\.com/pub/(evernote-export4|enml2)\\.dtd"
+    ],
+    "models/lib/googleTakeoutFormat.js": [
+      "https://takeout\\.google\\.com"
     ]
   },
   "files": {

@@ -59,6 +59,8 @@ const DIRECTORY = {
   wrikeworkflow: 'Wrike', teamwork: 'Teamwork', businessmap: 'Businessmap', quire: 'Quire', notion: 'Notion', plane: 'Plane',
   planka: 'Planka', mstodo: 'Microsoft-To-Do', kanbanflow: 'KanbanFlow', basecamp: 'Basecamp', googletasks: 'Google-Tasks',
   googlekeep: 'Google-Keep',
+  mail: 'Mail', mbox: 'Mail', googletakeout: 'Google-Takeout', slack: 'Slack', mattermost: 'Mattermost',
+  telegram: 'Telegram', whatsapp: 'WhatsApp', discord: 'Discord', evernote: 'Evernote', enex: 'Evernote',
 };
 const HEADINGS = ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
   'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources'];

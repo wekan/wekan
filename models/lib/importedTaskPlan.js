@@ -14,6 +14,11 @@
 //   checklists: [{ title, items: [{ title, done }] }]
 //   comments:   [{ text, author, authorName, date }]
 //   watchers:   [source user key]           - who follows the item
+//   date_received                           - when it arrived (receivedAt)
+//   email: { direction, from: { name, address }, to: [address], cc: [address],
+//            subject, messageId, threadIds: [Message-ID], at }
+//                                           - a mail message (mbox, .eml,
+//            Google Takeout Mail): the card is then mail in Board View / Email
 // Every one of them is optional; a task without them imports as before.
 
 const HEX6 = /^#?([0-9a-fA-F]{6})$/;
@@ -51,6 +56,46 @@ function text(value) {
   if (typeof value === 'string') return value;
   if (typeof value === 'number' && Number.isFinite(value)) return String(value);
   return '';
+}
+
+// The card's `email` (models/cards.js) from an imported message, with only
+// the keys Board View / Email reads, each a plain value of bounded size: an
+// address without spaces or angle brackets, at most MAX_IMPORTED_RECIPIENTS
+// of them, a subject and ids of bounded length. A message without a usable
+// sender or subject still imports as a card; it is just not mail.
+export const MAX_IMPORTED_RECIPIENTS = 50;
+const IMPORTED_ADDRESS = /^[^\s@<>(),;:"\\[\]]{1,64}@[A-Za-z0-9.-]{1,253}$/;
+const bounded = (value, max) => text(value).replace(/[\r\n]+/g, ' ').trim().slice(0, max);
+const importedAddress = value => {
+  const address = bounded(value, 320).toLowerCase();
+  return IMPORTED_ADDRESS.test(address) ? address : '';
+};
+const importedAddresses = values => [...new Set((Array.isArray(values) ? values : [])
+  .map(importedAddress).filter(Boolean))].slice(0, MAX_IMPORTED_RECIPIENTS);
+export function importedEmail(email) {
+  if (!email || typeof email !== 'object') return undefined;
+  const fromAddress = importedAddress(email.from && email.from.address);
+  if (!fromAddress) return undefined;
+  const at = importedDate(email.at);
+  // A Message-ID as email to card stores it: "<id@host>" (a parser leaves the
+  // brackets off, so the sanitizer does not take it for a tag).
+  const messageIdOf = value => {
+    const id = bounded(value, 996).replace(/^<|>$/g, '').trim();
+    return id && !/[\s<>]/.test(id) ? `<${id}>` : '';
+  };
+  const messageId = messageIdOf(email.messageId);
+  const threadIds = [...new Set([messageId, ...(Array.isArray(email.threadIds) ? email.threadIds : [])]
+    .map(messageIdOf).filter(Boolean))].slice(0, 200);
+  return {
+    direction: email.direction === 'out' ? 'out' : 'in',
+    from: { name: bounded(email.from.name, 200), address: fromAddress },
+    to: importedAddresses(email.to),
+    cc: importedAddresses(email.cc),
+    subject: bounded(email.subject, 255),
+    ...(messageId ? { messageId } : {}),
+    threadIds,
+    ...(at ? { at } : {}),
+  };
 }
 
 // A comment is attributed to the mapped WeKan user when the source author was
@@ -101,6 +146,7 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
     startAt: task.date_started,
     endAt: task.date_end,
     createdAt: task.date_creation,
+    receivedAt: task.date_received,
   };
   for (const [field, value] of Object.entries(dates)) {
     const date = importedDate(value);
@@ -108,6 +154,8 @@ export function planImportedTask(task, { members = {}, allowedColors = [], board
   }
   const color = importedColor(task.color, allowedColors);
   if (color) card.color = color;
+  const email = importedEmail(task.email);
+  if (email) card.email = email;
   if (task.due_complete === true && card.dueAt) card.dueComplete = true;
   const spent = Number(task.spent_hours);
   if (task.spent_hours !== undefined && task.spent_hours !== null && Number.isFinite(spent) && spent > 0) {

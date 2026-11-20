@@ -20,58 +20,58 @@ the changelog only says what changed.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 
-## Import and Export formats to add
+## Menus grouped so they are easier to understand
 
-Found on 2026-11-20 by comparing `models/lib/importSources.js` and the export
-menu (`client/components/boards/exportScope.js`) with the export files other
-programs write and document. Each goes into the existing Import page and
-Export menu, through the generalized importer (`models/lib/externalParsers.js`,
-`models/kanboardCreator.js`) and the external exporters
-(`models/lib/externalExportFormatters.js`), so a message becomes mail in Board
-View / Email, a chat's messages become comments in Board View / Chat, and dated
-items show in Calendar and Gantt.
+Asked on 2026-11-20, after the Admin Panel was reorganised into groups. The
+Board View menu (`models/lib/boardViewSettings.js`) is one list of 40 views in
+the order they were added, and the Import page and Export menu list some 60
+tools under few headings.
 
-- Mail: mbox (RFC 4155, as Thunderbird, Apple Mail, mutt and Gmail write it)
-  and single .eml messages (RFC 5322 / MIME). Import: each conversation (by
-  Message-ID, In-Reply-To and References) is one card in the Inbox list with
-  its `email` set, the replies its comments. Export: the board as an .mbox.
-- Google Takeout .zip (<https://takeout.google.com>): Tasks (`Tasks/Tasks.json`,
-  task lists and tasks with due dates and completion), Keep (`Keep/*.json`,
-  notes, checklists, labels, colors, archived), Mail (`Mail/*.mbox`, as above),
-  Calendar (`Calendar/*.ics`, events and tasks) and Google Chat
-  (`Google Chat/Groups/*/messages.json`, a space's messages). One import makes
-  one board with a swimlane per product. Import only: Takeout cannot be imported
-  back into Google.
-- iCalendar .ics on the Import page (RFC 5545): VTODO tasks by STATUS into
-  To Do / In Progress / Done / Cancelled, and VEVENT events, with their dates,
-  CATEGORIES as labels and the calendar's name as the board title. The existing
-  calendar-only ICS import reads VEVENT into one list; the .ics feed export
-  already exists.
-- Slack workspace export .zip (<https://slack.com/help/articles/201658943>):
-  `users.json`, `channels.json` and `<channel>/<YYYY-MM-DD>.json`. A channel is
-  a card, its messages and thread replies the card's comments, so Board View /
-  Chat reads it as the channel. Import only: Slack does not import its own
-  export.
-- Mattermost bulk export JSONL (<https://docs.mattermost.com/manage/bulk-export-tool.html>):
-  `channel`, `post` and `direct_post` lines with their `replies`. Import as
-  channels with comments; export the board as a bulk import file Mattermost's
-  `mmctl import` reads, a card being a channel and its comments the posts.
-- Telegram Desktop export `result.json` (Settings / Advanced / Export Telegram
-  data, JSON): one chat or the full export's `chats.list`. A chat is a card,
-  its messages the comments; text entities are joined to plain text. Import
-  only.
-- WhatsApp "Export chat" .txt (one line per message, `date, time - name:
-  text`, in the phone's date format; the bracketed iOS form too). One chat is
-  one card with its messages as comments. Import only.
-- Discord channel export JSON as DiscordChatExporter writes it
-  (<https://github.com/Tyrrrz/DiscordChatExporter>): `guild`, `channel`,
-  `messages[]` with `author`, `timestamp` and `content`. A channel is a card.
-  Import only.
-- Evernote .enex (<https://evernote.com/blog/how-evernotes-xml-export-format-works>):
-  notes with title, ENML content, created/updated, tags and the reminder time.
-  A note is a card, its tags labels, its to-do checkboxes a checklist, the
-  reminder the due date. Export: the board as an .enex Evernote and Joplin
-  import.
+- Board View menu: group the views under headings, in this order -
+  **Board** (Swimlanes, Lists, Table, Column sets, Group by Assignee, Map,
+  Bigboard), **Calendar and time** (Calendar, Calendar Mode, Multi Board
+  Calendar, Time, Timeline, Gantt and its two engines, Roadmap), **Scrum**
+  (Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup),
+  **Kanban flow** (Cumulative Flow, Control, Cycle Time, Lead Time, Flow
+  Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis,
+  Monte Carlo, Process Behavior, Size vs. Cycle Time), **Overview**
+  (Dashboard, Pulse, Statistics) and **Communication and code** (Email, Chat,
+  Version Control). A board's own order and hidden views (Board Settings /
+  Board View) still apply inside each group; Board Settings / Board View shows
+  the same groups.
+- Swimlanes view: the swimlane, list and card hamburger menus and the board
+  header's buttons, reviewed against the same idea - entries grouped by what
+  they act on (the item itself, its contents, moving and copying, view and
+  settings, archive and delete), with a heading per group as the board menu
+  already has.
+- Import page and Export menu: the tools grouped under headings - **WeKan**,
+  **Kanban and project tools**, **Issue trackers and version control**, **Task
+  and to-do apps**, **Spreadsheets and tables**, **Text and outlines**,
+  **Mail, calendars, chats and notes** and **Fetched from a service** - in
+  the order `docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md`
+  already groups them, the group of each tool written once in
+  `models/lib/importSources.js` and the export table.
+
+## Import and Export of large files
+
+Asked on 2026-11-20. Today a chosen file reaches the server through the
+`importBoard` method as text or base64, whole and in memory, and each zip
+reader has fixed caps (the Trello zip route 200 MB compressed and 1 GB
+unpacked, the Vikunja and chat archives 64-128 MB).
+
+- Every Import upload is streamed to the server a part at a time, to a file
+  under WRITABLE_PATH, and read from there a part at a time: zip entries as
+  streams, mbox and JSONL line by line, other formats in bounded pieces -
+  never the whole file in memory. Export writes the same way.
+- Before an import to the local disk starts, and while it runs, the free space
+  of that file system is checked against what the upload and its unpacked
+  contents need; an import that would fill the disk is refused with that
+  reason, and its partial files are removed.
+- Admin Panel sets the largest import. With no limit set, an import may be as
+  large as the free disk space allows it to finish; the fixed caps are only a
+  default when a limit is set. The zip-bomb guard stays: what an entry
+  inflates to is counted against the free space and the limit, not trusted
+  from the archive.
 
 ## Reports to add to Board Views
 

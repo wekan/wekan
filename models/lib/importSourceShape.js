@@ -37,6 +37,16 @@ export function validateImportSourceShape(source, value) {
     case 'excel': case 'planner': case 'monday': case 'wrike': case 'teamwork': case 'businessmap': valid = typeof value?.excelBase64 === 'string' && value.excelBase64.length > 0; break;
     case 'markdown': case 'todotxt': case 'taskwarrior': case 'focalboard': case 'todoist': case 'meistertask': case 'obsidian': case 'linear': case 'ticktick': case 'clickup': case 'nullboard': case 'pivotal': case 'redmine': case 'superproductivity': case 'quire': case 'orgmode': valid = typeof value === 'string' && value.trim().length > 0; break;
     case 'leo': valid = typeof value === 'string' && /<leo_file[\s>]/.test(value); break;
+    // Mail, calendar, chat and note exports (models/lib/mailFormat.js,
+    // icalendarFormat.js, chatExportFormats.js, enexFormat.js,
+    // googleTakeoutFormat.js).
+    case 'mail': case 'whatsapp': valid = typeof value === 'string' && value.trim().length > 0; break;
+    case 'ical': valid = typeof value === 'string' && /BEGIN:VCALENDAR/i.test(value); break;
+    case 'mattermost': valid = typeof value === 'string' && /"type"\s*:\s*"version"/.test(value); break;
+    case 'evernote': valid = typeof value === 'string' && /<en-export[\s>]/.test(value); break;
+    case 'telegram': valid = arrayAt(value, 'messages') || arrayAt(value?.chats, 'list'); break;
+    case 'discord': valid = (Array.isArray(value) ? value : [value]).every(e => e && e.channel && Array.isArray(e.messages)); break;
+    case 'slack': case 'googletakeout': valid = typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0; break;
     case 'opml': valid = typeof value === 'string' && /<opml[\s>]/.test(value); break;
   }
   if (!valid) throw new Error(`Invalid ${source} import document shape`);

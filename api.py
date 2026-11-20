@@ -2029,10 +2029,11 @@ if arguments >= 3 and sys.argv[1] == 'exportboardpdf':
 # { excelBase64 } (Plane's as { xlsxBase64 }), an export .zip as { zipBase64 },
 # a CSV/TSV file as rows, a text format as its text, and the rest as JSON.
 EXCEL_IMPORT_SOURCES = {'excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'}
-ZIP_IMPORT_SOURCES = {'vikunja', 'notion', 'plane'}
+ZIP_IMPORT_SOURCES = {'vikunja', 'notion', 'plane', 'slack', 'googletakeout'}
 TEXT_IMPORT_SOURCES = {'markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian',
                        'linear', 'ticktick', 'clickup', 'nullboard', 'pivotal', 'redmine', 'superproductivity',
-                       'quire', 'orgmode', 'leo', 'opml', 'vikunja', 'notion', 'plane'}
+                       'quire', 'orgmode', 'leo', 'opml', 'vikunja', 'notion', 'plane',
+                       'mail', 'ical', 'mattermost', 'whatsapp', 'evernote', 'slack', 'googletakeout'}
 
 def import_document(source, filepath):
     import base64, csv, io, os

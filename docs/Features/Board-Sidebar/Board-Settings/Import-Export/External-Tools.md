@@ -84,6 +84,23 @@ own API, so the exported file is for a script that calls it.
 | [OPML](./OPML/OPML.md) | Outline from Workflowy, Dynalist, OmniOutliner, Logseq and others | OPML (`.opml`) |
 | [Leo](./Leo/Leo.md) | Leo outline (`.leo`) | Leo outline |
 
+## Mail, calendars, chats and notes
+
+Mail shows in Board View → Email, chats in Board View → Chat (a channel is a
+card, its messages the comments), and dated items in Calendar and Gantt.
+
+| Tool | Import (the file you give WeKan) | Export (the file WeKan writes) |
+| --- | --- | --- |
+| [Mail (mbox, .eml)](./Mail/Mail.md) | An `.mbox` (Thunderbird, Apple Mail, mutt, Gmail) or one `.eml` message | Mail (mbox) |
+| [iCalendar (.ics)](./iCalendar/iCalendar.md) | An `.ics` file: tasks (VTODO) by status, and events | Calendar feed of the board's dates |
+| [Google Takeout](./Google-Takeout/Google-Takeout.md) | The Takeout `.zip`: Tasks, Keep, Mail, Calendar and Google Chat | — (Takeout is not imported back into Google) |
+| [Slack](./Slack/Slack.md) | The workspace export `.zip` | — |
+| [Mattermost](./Mattermost/Mattermost.md) | Bulk export `.jsonl` (`mmctl export create`) | Mattermost bulk import `.jsonl` |
+| [Telegram](./Telegram/Telegram.md) | Telegram Desktop's JSON export `result.json` | — |
+| [WhatsApp](./WhatsApp/WhatsApp.md) | *Export chat* `.txt` | — |
+| [Discord (DiscordChatExporter)](./Discord/Discord.md) | DiscordChatExporter JSON | — |
+| [Evernote (.enex)](./Evernote/Evernote.md) | Notes export `.enex` | Evernote (.enex) |
+
 ## WeKan's own formats and documents
 
 | Format | Import | Export |
@@ -92,7 +109,6 @@ own API, so the exported file is for a script that calls it.
 | [CSV / TSV](./CSV/CSV.md) | Comma, semicolon or tab separated | CSV `,` / CSV `;` / TSV |
 | [Excel](./Excel/Excel.md) | WeKan-style `.xlsx` | Excel (`.xlsx`) |
 | [PDF](./PDF/PDF.md), [HTML](./HTML/HTML.md) | — | PDF and an HTML archive of the board |
-| [iCalendar](./iCalendar/iCalendar.md) | — | Calendar feed of the board's dates |
 | [Dependencies](./Dependencies/Dependencies.md) | — | Dependency graph as JSON or SVG |
 | [Rules](./Rules/Rules.md) | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
 

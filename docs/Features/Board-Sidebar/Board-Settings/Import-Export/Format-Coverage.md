@@ -93,6 +93,14 @@ page or a format in the export menu has no page here.
 | [Basecamp](./Basecamp/Basecamp.md) | yes | — |
 | [Google Tasks](./Google-Tasks/Google-Tasks.md) | yes | — |
 | [Google Keep](./Google-Keep/Google-Keep.md) | yes | — |
+| [Mail](./Mail/Mail.md) | yes | yes |
+| [Google Takeout](./Google-Takeout/Google-Takeout.md) | yes | — |
+| [Slack](./Slack/Slack.md) | yes | — |
+| [Mattermost](./Mattermost/Mattermost.md) | yes | yes |
+| [Telegram](./Telegram/Telegram.md) | yes | — |
+| [WhatsApp](./WhatsApp/WhatsApp.md) | yes | — |
+| [Discord](./Discord/Discord.md) | yes | — |
+| [Evernote](./Evernote/Evernote.md) | yes | yes |
 
 The [overview](./External-Tools.md) groups them by kind.
 

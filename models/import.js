@@ -123,7 +123,10 @@ Meteor.methods({
     // So is a Notion export: a .zip whose pages are read on the server, or a
     // database CSV; the parsed board is sanitized. And a Plane export: a zip, a
     // workbook, or JSON or CSV text whose cells hold JSON.
-    let importedBoard = importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'notion' || importSource === 'plane' ? board
+    // So are mail (raw MIME, whose "Name <address>" would read as a tag), an
+    // iCalendar, chat and note text, and the Slack and Google Takeout zips:
+    // each is parsed first, and what was parsed is sanitized.
+    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'notion' || importSource === 'plane' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -495,6 +498,29 @@ Meteor.methods({
           throw new Meteor.Error('invalid-import-format', error.message);
         }
         creator = new KanboardCreator(data, 'orgmode');
+        break;
+      case 'mail':
+      case 'ical':
+      case 'googletakeout':
+      case 'slack':
+      case 'mattermost':
+      case 'whatsapp':
+      case 'evernote':
+      case 'telegram':
+      case 'discord':
+        // Mail, calendars, chats and notes - models/lib/mailFormat.js,
+        // icalendarFormat.js, chatExportFormats.js, enexFormat.js and
+        // googleTakeoutFormat.js. The zips and the MIME and XML decoders are
+        // server-only (server/lib/chatArchives.js, mailImport.js, enexImport.js).
+        check(board, Match.OneOf(Object, Array, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/messageImports').parseMessageImport(importSource, importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, importSource, this);
+        creator = new KanboardCreator(data, importSource);
         break;
       case 'leo':
         // The Leo literate editor's outline - see models/lib/leoOutline.js.

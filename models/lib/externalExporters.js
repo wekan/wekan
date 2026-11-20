@@ -108,7 +108,7 @@ async function collect(boardId, fields, format) {
   // Admin Panel / Anonymize export users, for every external format: the names
   // and the cards' and comments' text (CrossBoardExportBleed - only the JSON
   // export anonymized).
-  await require('./importExportSecurity').anonymizeExportIdentities({ boardId, users, cards, comments });
+  const anonymized = await require('./importExportSecurity').anonymizeExportIdentities({ boardId, users, cards, comments });
   const username = id => (users.find(u => u._id === id) || {}).username;
 
   const items = cards.map(c => {
@@ -155,6 +155,15 @@ async function collect(boardId, fields, format) {
       ...(comments.length ? { comments: comments.filter(cm => cm.cardId === c._id)
         .map(cm => ({ text: cm.text, author: username(cm.userId), date: iso(cm.createdAt) })) } : {}),
       ...(cardChecklists.length ? { checklists: cardChecklists } : {}),
+      // A card that came from mail keeps its sender, recipients and
+      // Message-ID in an .mbox - not when Admin Panel anonymizes the export,
+      // since they name people.
+      ...(format === 'mbox' && !anonymized && want('people') && c.email && c.email.from ? { email: {
+        from: { name: c.email.from.name || '', address: c.email.from.address || '' },
+        to: Array.isArray(c.email.to) ? c.email.to : [],
+        // Without brackets: the export boundary reads "<id@host>" as a tag.
+        messageId: String(c.email.messageId || '').replace(/^<|>$/g, ''), at: iso(c.email.at),
+      } } : {}),
       ...(Object.keys(customFields).length ? { customFields } : {}),
     };
   });

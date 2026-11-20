@@ -73,6 +73,17 @@ export const IMPORT_SOURCES = [
   { key: 'quire', name: 'Quire', ...TEXT, files: ['.csv'] },
   { key: 'notion', name: 'Notion', ...TEXT, files: ['.zip', '.csv'], zipSend: 'zip' },
   { key: 'plane', name: 'Plane', ...TEXT, files: ['.zip', '.json', '.csv', '.xlsx'], zipSend: 'zip' },
+  // Mail (Board View / Email), calendars (Calendar, Gantt), chats (Board View
+  // / Chat) and notes. A .zip of these is one export of the tool.
+  { key: 'mail', name: 'Mail (mbox, .eml)', ...TEXT, files: ['.mbox', '.eml', '.txt'] },
+  { key: 'ical', name: 'iCalendar (.ics)', ...TEXT, files: ['.ics', '.ical'] },
+  { key: 'googletakeout', name: 'Google Takeout', paste: false, files: ['.zip'], send: 'text', zipSend: 'zip', creator: 'generalized' },
+  { key: 'slack', name: 'Slack', paste: false, files: ['.zip'], send: 'text', zipSend: 'zip', creator: 'generalized' },
+  { key: 'mattermost', name: 'Mattermost', ...TEXT, files: ['.jsonl', '.json'] },
+  { key: 'telegram', name: 'Telegram', ...JSON_SOURCE },
+  { key: 'whatsapp', name: 'WhatsApp', ...TEXT, files: ['.txt'] },
+  { key: 'discord', name: 'Discord (DiscordChatExporter)', ...JSON_SOURCE },
+  { key: 'evernote', name: 'Evernote (.enex)', ...TEXT, files: ['.enex', '.xml'] },
   // Fetched from the service's API with the member's credentials
   // (models/lib/apiImportServices.js, server/apiImport.js), or pasted as the
   // JSON such a fetch returns.

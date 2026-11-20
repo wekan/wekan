@@ -16,6 +16,7 @@ const EXTENSIONS = {
   todoist: 'csv', meistertask: 'csv', obsidian: 'md', linear: 'csv', ticktick: 'csv', clickup: 'csv', nullboard: 'nbx',
   pivotal: 'csv', redmine: 'csv', notion: 'csv', quire: 'csv', superproductivity: 'json', vikunja: 'zip',
   planner: 'xlsx', monday: 'xlsx', wrike: 'xlsx', teamwork: 'xlsx', businessmap: 'xlsx',
+  mbox: 'mbox', enex: 'enex', mattermost: 'jsonl',
 };
 export const extensionOf = format => EXTENSIONS[format] || 'json';
 

@@ -38,6 +38,9 @@ import { formatTeamworkSheet } from './teamworkFormat.js';
 import { formatQuireCsv } from './quireCsvFormat.js';
 import { formatNotionCsv } from './notionFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
+import { formatMbox } from './mailFormat.js';
+import { formatEnex } from './enexFormat.js';
+import { formatMattermostBulk } from './chatExportFormats.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
@@ -431,6 +434,12 @@ export const formatters = {
   opml: formatOpml,
   // An Org mode outline; round-trips with parseOrgMode (orgModeFormat.js).
   orgmode: formatOrgMode,
+  // Mail, notes and chat: an .mbox (models/lib/mailFormat.js), an Evernote
+  // .enex (enexFormat.js) and a Mattermost bulk import file (chatExportFormats.js),
+  // each read back by WeKan's import of the same format.
+  mbox: formatMbox,
+  enex: data => formatEnex(data),
+  mattermost: formatMattermostBulk,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

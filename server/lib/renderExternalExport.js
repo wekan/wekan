@@ -13,7 +13,8 @@ const TEXT_TYPES = { markdown: 'text/markdown', leo: 'application/xml', todotxt:
   taskwarrior: 'application/json', focalboard: 'application/x-ndjson', todoist: 'text/csv', meistertask: 'text/csv',
   obsidian: 'text/markdown', linear: 'text/csv', ticktick: 'text/csv', clickup: 'text/csv', nullboard: 'application/json',
   pivotal: 'text/csv', redmine: 'text/csv', notion: 'text/csv', superproductivity: 'application/json', quire: 'text/csv',
-  opml: 'text/x-opml', orgmode: 'text/x-org' };
+  opml: 'text/x-opml', orgmode: 'text/x-org',
+  mbox: 'application/mbox', enex: 'application/enex+xml', mattermost: 'application/x-ndjson' };
 // The tools whose import file is an Excel workbook, and the function writing
 // it. Each require names its module literally: the bundler (rspack) resolves
 // only a literal path, and the [path, name] pairs this used to hold were

@@ -20,8 +20,9 @@ async function main() {
   test('every source is described once, with what its file is sent as', () => {
     const keys = reg.IMPORT_SOURCES.map(s => s.key);
     assert.equal(new Set(keys).size, keys.length, 'no source twice');
-    // 43, and the six fetched from a service's API (models/lib/apiImportServices.js).
-    assert.equal(keys.length, 49, "every source the import page offers");
+    // 43, the six fetched from a service's API (models/lib/apiImportServices.js),
+    // and the nine mail, calendar, chat and note sources (mail ... evernote).
+    assert.equal(keys.length, 58, "every source the import page offers");
     for (const source of reg.IMPORT_SOURCES) {
       assert.ok(source.product || source.name, source.key);
       assert.ok(['text', 'json', 'excel', 'rows'].includes(source.send), `${source.key} send`);
@@ -39,7 +40,9 @@ async function main() {
     const importJs = read('models/import.js');
     for (const source of reg.IMPORT_SOURCES) {
       assert.match(shape, new RegExp(`case '${source.key}':`), `${source.key} has a shape check`);
-      if (source.creator === 'generalized' && !['leo', 'opml', 'kanboard'].includes(source.key)) {
+      // Leo and OPML, and mail, Slack, Google Takeout and Evernote, are decoded on
+      // the server only (htmlparser2, mailparser, unzipper - server/lib/messageImports.js).
+      if (source.creator === 'generalized' && !['leo', 'opml', 'kanboard', 'mail', 'googletakeout', 'slack', 'evernote'].includes(source.key)) {
         assert.equal(typeof EXTERNAL_PARSERS[source.key], 'function', `${source.key} has a parser`);
       }
       if (source.zipSend === 'zip') assert.match(importJs, new RegExp(`case '${source.key}':[\\s\\S]{0,800}?zip`, 'i'), `${source.key} reads its .zip on the server`);
@@ -49,7 +52,7 @@ async function main() {
 
   test('the many-files lists are read from it', () => {
     assert.deepEqual(many.EXCEL_SOURCES, reg.IMPORT_SOURCES.filter(s => s.send === 'excel').map(s => s.key));
-    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['notion', 'plane', 'vikunja', 'wekan']);
+    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['googletakeout', 'notion', 'plane', 'slack', 'vikunja', 'wekan']);
     assert.deepEqual(many.OWN_CREATOR_SOURCES.sort(), ['csv', 'excel', 'jira', 'trello', 'wekan']);
     // api.py cannot import JavaScript; its lists must agree by hand.
     const api = read('api.py');

@@ -32,6 +32,8 @@ import { parseBasecampApi } from './basecampApiFormat.js';
 import { parseGoogleTasksApi } from './googletasksApiFormat.js';
 import { parseGoogleKeepApi } from './googlekeepApiFormat.js';
 import { issueAttachments } from './issueAttachments.js';
+import { parseICalendar } from './icalendarFormat.js';
+import { parseMattermostBulk, parseTelegramExport, parseWhatsAppChat, parseDiscordExport } from './chatExportFormats.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
 } from './externalScrumPlanning.js';
@@ -1247,6 +1249,13 @@ export const EXTERNAL_PARSERS = {
   basecamp: parseBasecampApi,
   googletasks: parseGoogleTasksApi,
   googlekeep: parseGoogleKeepApi,
+  // Calendars and chats. Mail, Slack, Google Takeout and Evernote are read on
+  // the server (models/import.js): their decoders are server-only.
+  ical: parseICalendar,
+  mattermost: parseMattermostBulk,
+  telegram: parseTelegramExport,
+  whatsapp: parseWhatsAppChat,
+  discord: parseDiscordExport,
 };
 
 // Sync-capable sources: sources whose normalized tasks carry `externalId`, so
