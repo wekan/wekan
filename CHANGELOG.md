@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.22 2026-11-20 WeKan ® release
 
 Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
 **Todoist**, **TickTick**, **Tasks.org**, **Vikunja**, **Super Productivity**,
@@ -17,7 +17,7 @@ snaps included. A **WeKan board** imported from its own export keeps all of
 its Board Settings and card fields, and **Rocket.Chat** and **Fizzy** are
 imported and exported.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.22](CHANGELOG-big.md#v1322-2026-11-20-wekan--release)
 
 # v13.21 2026-11-20 WeKan ® release
 
@@ -58,14 +58,3 @@ problems: 1" and "Checks with findings: 8 / 31", in every language - and a
 report row's address, location and user always belong to the same occurrence.
 
 [All changes in v13.18](CHANGELOG-big.md#v1318-2026-11-19-wekan--release)
-
-# v13.17 2026-11-19 WeKan ® release
-
-The **Admin Panel** answers one question per tab: Settings gains
-**Appearance**, **Features**, **Feature profiles**, Security, Activities and
-notifications, and Delete, Problems keeps only what is going wrong, and every
-old
-address redirects. The docs now have a page for every menu entry, and cards of
-an archived swimlane no longer appear in the first swimlane.
-
-[All changes in v13.17](CHANGELOG-big.md#v1317-2026-11-19-wekan--release)

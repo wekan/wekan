@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.22 2026-11-20 WeKan ® release
 
 **In short:** Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
 **Todoist**, **TickTick**, **Tasks.org**, **Vikunja**, **Super Productivity**,
