@@ -457,6 +457,15 @@ empty. Now the checklists, the comments and the board's people come along, and
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c20c7296a8cd6ee2232b9cda99c20f719a2794a2">The Trello export carries the custom fields, and a Trello number field imports as a number</a>. Thanks to xet7.</summary>
+
+One Trello field per custom field name, typed by its values, and each card's
+values as Trello writes them. Trello writes a number as text, so its import now
+stores a number field's value as a number.
+
+</details>
+
 and fixes the following bugs:
 
 **Trello import** - a file with no members.
