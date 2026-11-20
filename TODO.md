@@ -52,13 +52,12 @@ tool's newest features against its parser and formatter.
 - Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
   Pivotal - epics, sprints, versions and milestones, links between issues,
   work logs, reactions, and fields added in their newest releases.
-- Task tools: Todoist, TickTick, Tasks.org, Super Productivity, todo.txt,
-  Taskwarrior, Vikunja, Microsoft To Do, Google Tasks, Google Keep -
-  reminders, priorities, sub-tasks and sections. Recurrence: every task tool
-  with a repeat rule now maps a daily, weekly or monthly repeat to the card's
-  recurrence (Google Tasks' API exposes none); left is writing a Super
-  Productivity taskRepeatCfg on export, which needs the app's scheduler fields
-  verified against a running Super Productivity.
+- Task tools: write a Super Productivity taskRepeatCfg on export, so a
+  repeating card repeats there too - it needs the app's scheduler fields
+  verified against a running Super Productivity. (Priorities, sub-tasks,
+  sections and daily, weekly or monthly repeats come across for every task
+  tool that has them; reminders are reported, since a WeKan card has no
+  reminder.)
 - Mail, calendars and chats: mail, mbox, iCalendar, Google Takeout, Slack,
   Mattermost, Telegram, WhatsApp, Discord, Evernote .enex - threads, replies,
   reactions, recurring events and the attached files that are now only
