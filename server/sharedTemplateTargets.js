@@ -13,7 +13,9 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    // Awaited: on the server ReactiveCache.getUser returns a Promise, and the
+    // Promise has no orgs, teams or emails - every list came back empty.
+    const user = await ReactiveCache.getUser(this.userId);
     const result = { orgs: [], teams: [], domains: [] };
     if (!user) {
       return result;

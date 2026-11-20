@@ -18,8 +18,12 @@ returns, for the signed-in user:
 
 The page then keeps only the kinds - organizations, teams, domains - that are
 ticked as scopes in Admin Panel / People / Shared templates. Those ticks are
-read from this browser's `localStorage` (`sharedTemplatesScopes`), where that
-pane stores them; a browser in which they were never set offers no targets.
+the instance setting `Settings.sharedTemplatesScopes`
+(`models/lib/sharedTemplatesScopes.js`), the same for every user in every
+browser; with none ticked, no targets are offered. (They used to be read from
+the browser's `localStorage`, so they differed per browser; the first time an
+admin opens that pane, ticks still stored there are carried over to the
+setting when the instance has none yet.)
 
 ## Sharing
 

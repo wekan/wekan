@@ -1475,34 +1475,47 @@ Template.rolesGeneral.events({
 
 // Feature #3313 "Shared templates": admin view of users' shareable template
 // boards, grouped by Organization / Team / email Domain. The three checkboxes
-// are LIVE view filters (no Save button) — each toggles a grouping dimension and
-// the selection is remembered (persisted in localStorage) so it survives reload.
-const SHARED_TEMPLATES_SCOPE_KEY = 'sharedTemplatesScopes';
-const SHARED_TEMPLATES_VALID_SCOPES = ['organizations', 'teams', 'domains'];
+// write the instance setting Settings.sharedTemplatesScopes at once (no Save
+// button, like every checkbox here): it is both which groupings this view lists
+// and which group kinds every user may share a template board with
+// (models/lib/sharedTemplatesScopes.js). It used to live in this browser's
+// localStorage, so it differed per browser and was empty for everyone else.
+const sharedScopes = require('/models/lib/sharedTemplatesScopes');
 
 function loadSharedTemplatesScopes() {
-  try {
-    const raw = window.localStorage.getItem(SHARED_TEMPLATES_SCOPE_KEY);
-    const arr = raw ? JSON.parse(raw) : [];
-    return Array.isArray(arr)
-      ? arr.filter(s => SHARED_TEMPLATES_VALID_SCOPES.includes(s))
-      : [];
-  } catch (e) {
-    return [];
-  }
+  return sharedScopes.sharedTemplatesScopes(ReactiveCache.getCurrentSetting());
 }
 
 function saveSharedTemplatesScopes(scopes) {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (!setting) return;
+  Settings.update(setting._id, {
+    $set: { sharedTemplatesScopes: sharedScopes.normalizeScopes(scopes) },
+  });
+}
+
+// An install that has never stored the setting takes over the ticks an admin
+// made in this browser while it was localStorage, once; the old key is then
+// dropped so it cannot come back.
+function carryOverLegacyScopes() {
+  let legacy = [];
   try {
-    window.localStorage.setItem(SHARED_TEMPLATES_SCOPE_KEY, JSON.stringify(scopes));
+    const raw = window.localStorage.getItem(sharedScopes.LEGACY_STORAGE_KEY);
+    legacy = sharedScopes.normalizeScopes(raw ? JSON.parse(raw) : []);
+    window.localStorage.removeItem(sharedScopes.LEGACY_STORAGE_KEY);
   } catch (e) {
-    // ignore storage errors (e.g. private mode)
+    return;
+  }
+  const setting = ReactiveCache.getCurrentSetting();
+  if (legacy.length && setting && setting.sharedTemplatesScopes === undefined) {
+    saveSharedTemplatesScopes(legacy);
   }
 }
 
 Template.templatesGeneral.onCreated(function () {
-  // Restore the previously-checked scopes (empty by default → nothing shown).
-  this.selectedScopes = new ReactiveVar(loadSharedTemplatesScopes());
+  carryOverLegacyScopes();
+  // The instance setting, reactively: another admin's change shows here too.
+  this.selectedScopes = { get: loadSharedTemplatesScopes };
   // Raw rows returned by the admin-only method (one entry per user whose
   // Templates board is non-empty).
   this.sharedTemplates = new ReactiveVar([]);
@@ -1598,15 +1611,7 @@ Template.templatesGeneral.events({
   'click a.js-toggle-template-scope'(event, tpl) {
     event.preventDefault();
     const scope = $(event.currentTarget).data('scope');
-    const current = tpl.selectedScopes.get().slice();
-    const idx = current.indexOf(scope);
-    if (idx >= 0) {
-      current.splice(idx, 1);
-    } else {
-      current.push(scope);
-    }
-    tpl.selectedScopes.set(current);
-    saveSharedTemplatesScopes(current);
+    saveSharedTemplatesScopes(sharedScopes.toggleScope(tpl.selectedScopes.get(), scope));
   },
 });
 

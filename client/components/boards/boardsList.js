@@ -75,16 +75,11 @@ import { errorMessage } from '/client/lib/errorMessage';
 // SubsManager removed for Meteor 3 migration
 
 // #5850: which sharing scopes (organizations/teams/domains) the admin enabled
-// in Admin Panel > People > Shared Templates (stored in localStorage, like the
-// Shared Templates admin UI). Used to gate the drag-to-share drop targets.
+// in Admin Panel > People > Shared Templates - an instance setting, the same in
+// every browser. Used to gate the drag-to-share drop targets.
 function loadSharedTemplatesScopes() {
-  try {
-    const raw = window.localStorage.getItem('sharedTemplatesScopes');
-    const arr = raw ? JSON.parse(raw) : [];
-    return Array.isArray(arr) ? arr : [];
-  } catch (e) {
-    return [];
-  }
+  const { sharedTemplatesScopes } = require('/models/lib/sharedTemplatesScopes');
+  return sharedTemplatesScopes(ReactiveCache.getCurrentSetting());
 }
 
 // #5850: share a (template) board with an Organization / Team / Domain by adding
@@ -1178,7 +1173,7 @@ Template.boardList.helpers({
     return Template.instance().selectedMenu.get() === type;
   },
   // #5850: drag-to-share drop targets — the user's organizations/teams/domains,
-  // gated by the admin's Shared Templates scopes (localStorage). Shown in the
+  // gated by the admin's Shared Templates scopes (Settings). Shown in the
   // Templates view so a personal Template Board can be dragged onto one to share.
   shareTargets() {
     const scopes = loadSharedTemplatesScopes();

@@ -296,6 +296,16 @@ Settings.attachSchema(
       type: Array,
       optional: true,
     },
+    // Admin Panel / People / Shared templates: the group kinds a template board
+    // may be shared with (models/lib/sharedTemplatesScopes.js).
+    sharedTemplatesScopes: {
+      type: Array,
+      optional: true,
+    },
+    'sharedTemplatesScopes.$': {
+      type: String,
+      allowedValues: ['organizations', 'teams', 'domains'],
+    },
     'featureProfiles.$': {
       type: Object,
       blackbox: true,
