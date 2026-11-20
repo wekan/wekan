@@ -59,12 +59,14 @@ async function moveCompletionRules(boardId) {
   return out;
 }
 
-// cardIds: only these cards (one page of a streamed export), else all.
-async function collect(boardId, fields, format, cardIds = null) {
+// pageCardIds: only these cards (one page of a streamed export), else all.
+// (Not `cardIds`: the body declares a const of that name, and a parameter of
+// the same name is a SyntaxError the server died of on 2026-11-20.)
+async function collect(boardId, fields, format, pageCardIds) {
   const board = await ReactiveCache.getBoard(boardId);
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
   const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
-  const cards = await ReactiveCache.getCards({ boardId, archived: false, ...(cardIds ? { _id: { $in: cardIds } } : {}) },
+  const cards = await ReactiveCache.getCards({ boardId, archived: false, ...(Array.isArray(pageCardIds) ? { _id: { $in: pageCardIds } } : {}) },
     { sort: { sort: 1 } });
   const listById = {};
   const listRecords = new Map(lists.map(list => [list._id, list]));

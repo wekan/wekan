@@ -39,5 +39,9 @@ the same upload, limit and disk check. This is the rest.
 - Export: WeKan's own JSON export is written to the response as it is
   collected (`buildStream`), and the .mbox and .enex exports a page of 500
   cards at a time (`streamExternalExport`); the other tools' formats are still
-  built whole in memory and then sent. Write those in parts too, where the
-  format allows it.
+  built whole in memory and then sent. Most of them refer from one row to
+  another - a subtask to its parent, a card to its position or to an id
+  numbered across the board (Todoist, TickTick, ClickUp, Pivotal, Redmine,
+  Quire and the rest) - so a page cannot be written without the others: they
+  need a first pass over the board for those references, then the rows a page
+  at a time.
