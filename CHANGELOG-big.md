@@ -293,6 +293,21 @@ and with no version starts one run per incomplete release.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce646dc937689f4ff84049e3af9b73ebeff9ef07">Push Snap to Store releases what the store already has, each channel on its own, and uploads a file once</a>. Thanks to xet7.</summary>
+
+snapcraft 9 renamed list-revisions to revisions, so the push never found the
+revision the store already had and uploaded the same file again and again,
+answered "Error checking upload uniqueness". It now reads the store's
+revisions, releases one it has instead of uploading, uploads a file once,
+releases to each channel on its own so one refusal does not stop the others,
+and also releases the newest revision of every architecture the store holds.
+A revision held for the store's manual review ("ReviewQueued") is reported
+with how to ask for the review. Release All and Release All Missing run the
+same steps.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v13.21 2026-11-20 WeKan ® release
