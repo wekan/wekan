@@ -77,6 +77,10 @@ const SETTING_FIELDS = {
   // user's profile hides; they hold no secret. A user's own assignment is on
   // their own document (user-admin), never here.
   featureProfiles: 1,
+  // Which group kinds a template board may be shared with
+  // (models/lib/sharedTemplatesScopes.js): every user's Templates view needs
+  // it; no secret.
+  sharedTemplatesScopes: 1,
   // The card fields every board shows (models/lib/cardFieldVisibility.js):
   // every client hides the unticked ones; no secret.
   cardFieldStates: 1,
@@ -143,8 +147,8 @@ const SETTING_FIELDS = {
   supportPageEnabled: 1,
   supportPagePublic: 1,
   supportTitle: 1,
+  // Sent to a signed-out visitor only when the page is Public (below).
   supportPageText: 1,
-  supportPopupText: 1,
   // Same story: the All Boards group's "Board activities" checkbox.
   hideBoardActivitiesOnAllBoards: 1,
   // …and the two board-member restrictions shown in Admin Panel / People /
@@ -219,7 +223,14 @@ Meteor.publish('setting', async function() {
   const viewer = this.userId ? await ReactiveCache.getUser(this.userId) : null;
   const fields = viewer && viewer.isAdmin === true && viewer.loginDisabled !== true
     ? { ...SETTING_FIELDS, ...ADMIN_SETTING_FIELDS }
-    : SETTING_FIELDS;
+    : { ...SETTING_FIELDS };
+  // A Support page that is not Public is for signed-in users: its text is not
+  // sent to a visitor who is not signed in. (Read once per subscription - a
+  // signed-out visitor sees a change of the Public setting on the next load.)
+  if (!viewer) {
+    const support = await Settings.findOneAsync({}, { fields: { supportPagePublic: 1 } });
+    if (support?.supportPagePublic !== true) delete fields.supportPageText;
+  }
   // No tenancy, or a host no Organization claims: byte-for-byte what it always was,
   // a plain reactive cursor.
   if (!org) {

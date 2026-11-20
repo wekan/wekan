@@ -121,7 +121,6 @@ Template.memberMenuPopup.events({
   'click .js-sqrl': Popup.open('sqrl'),
   'click .js-hidden-boards': Popup.open('hiddenBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-support': Popup.open('support'),
   async 'click .js-logout'(event) {
     event.preventDefault();
     if (Meteor.user()?.authenticationMethod === 'saml') {

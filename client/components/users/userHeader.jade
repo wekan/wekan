@@ -237,12 +237,6 @@ template(name="editProfilePopup")
         input#anonymizeButton.primary.wide(type="button" value="{{_ 'anonymize-account'}}")
 
 
-template(name="supportPopup")
-  ul.pop-over-list
-    li
-      +viewer
-        = currentSetting.supportPopupText
-
 template(name="changePasswordPopup")
   +atForm(state='changePwd')
 

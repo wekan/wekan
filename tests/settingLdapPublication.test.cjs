@@ -27,7 +27,12 @@ test('the directory server details are admin-only', () => {
 });
 
 test('both publishing paths use the per-viewer field set', () => {
-  assert.match(src, /viewer && viewer\.isAdmin === true && viewer\.loginDisabled !== true\n\s*\? \{ \.\.\.SETTING_FIELDS, \.\.\.ADMIN_SETTING_FIELDS \}\n\s*: SETTING_FIELDS;/);
+  // A copy for everyone else, not the shared constant: the signed-out visitor's
+  // set drops the Support page text when that page is not Public
+  // (tests/supportPageSignedOut.test.cjs), and must not drop it for the next one.
+  assert.match(src, /viewer && viewer\.isAdmin === true && viewer\.loginDisabled !== true\n\s*\? \{ \.\.\.SETTING_FIELDS, \.\.\.ADMIN_SETTING_FIELDS \}\n\s*: \{ \.\.\.SETTING_FIELDS \};/);
+  // Negative: still no LDAP field for a viewer who is not an admin.
+  assert.doesNotMatch(src.slice(src.indexOf('const SETTING_FIELDS'), src.indexOf('const ADMIN_SETTING_FIELDS')), /'ldap\.host'/);
   assert.equal((src.match(/Settings\.find\(\{\}, \{ fields \}\)/g) || []).length, 2);
   assert.doesNotMatch(src, /Settings\.find\(\{\}, \{ fields: SETTING_FIELDS \}\)/);
 });

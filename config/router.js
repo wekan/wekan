@@ -380,9 +380,11 @@ FlowRouter.route('/share-target', {
   },
 });
 
+// No sign-in guard: Admin Panel / Settings / Visibility marks the Support page
+// Public or not, and the template says "only for logged-in users" to a signed-out
+// visitor of a page that is not public (the publication then sends no text).
 FlowRouter.route('/support', {
   name: 'support',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
