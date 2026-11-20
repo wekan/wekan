@@ -249,6 +249,7 @@ end date, and Kanboard colors not written; all three are fixed.
 - [Telegram and Discord imports bring their message files from a zipped export folder](https://github.com/wekan/wekan/commit/828ca63713b0a034c9e1c436341cd60435c01443). Thanks to xet7.
 - [Slack import downloads the messages' files with a Slack token, from Slack's file host only](https://github.com/wekan/wekan/commit/dd8242b82ffe97bb760471a3677550632d72a4d8). Thanks to xet7.
 - [Super Productivity export writes a repeating card's repeat config, so it repeats there too](https://github.com/wekan/wekan/commit/35f3f6c9dbec5de87e1181956ed7bf71c30a2f12). Thanks to xet7.
+- [GitHub, Gitea and Forgejo keep an issue's dates, people and Gitea's time estimate, both ways](https://github.com/wekan/wekan/commit/efeb55f57a903a80ab7b6ee124a87f9ce39bdf00). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
