@@ -35,8 +35,8 @@ color, Blocked), and a WeKan board's every field by
 not have:
 
 - Each tool's newest release, checked with a real export file of it: Planner,
-  monday.com, Wrike, Teamwork, Businessmap, MeisterTask, Quire, Jira, Redmine
-  and Linear. The parsers follow
+  Wrike, Teamwork, Businessmap, MeisterTask, Quire, Jira and Linear - the
+  proprietary ones, whose current export is only seen with an account. The parsers follow
   the formats the tools document and report what they do not read, so a new
   field shows up in the import's loss report; checking for one needs an
   account on each tool. (Checked against their current source on 2026-11-20:
@@ -44,7 +44,9 @@ not have:
   markers, Nullboard's board object, and Gitea's (and Forgejo's) Issue
   struct, whose created_at, closed_at and time_estimate are read now;
   GitHub's REST issue, whose issue type is read now; GitLab's Issues API v4,
-  whose health status and incident severity are read now. Focalboard's archive
+  whose health status and incident severity are read now. Redmine and
+  monday.com import every column they do not name as a custom field, so a
+  column a new release adds comes across without a change. Focalboard's archive
   format is frozen: Mattermost stopped merging changes to Focalboard and
   Boards in September 2023.
   Pivotal Tracker was shut down in 2025, so there is no newer release.)
