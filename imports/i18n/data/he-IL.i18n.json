@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "הרשימה שממנה מתחייבים לעבודה, מסומנת בכותרתה. נבחרת לכל לוח בהגדרות הלוח / רשימה.",
   "feature-person-wip-limit": "מגבלת WIP לאדם",
   "feature-person-wip-limit-desc": "כמה כרטיסים פתוחים אדם אחד יכול להחזיק בלוח; כרטיס פתוח מזהיר על כל מי שחורג ממנה. נקבעת לכל לוח בהגדרות הלוח / רשימה.",
-  "scrum-definition-of-ready": "הגדרת מוכנות"
+  "scrum-definition-of-ready": "הגדרת מוכנות",
+  "daily-standup": "ישיבת עמידה יומית",
+  "dailyStandupPopup-title": "ישיבת עמידה יומית",
+  "standup-minutes": "דקות לאדם",
+  "standup-shuffle": "ערבוב",
+  "standup-total": "סה״כ: __time__",
+  "standup-done": "ישיבת העמידה נמשכה __time__.",
+  "retrospective-board": "לוח רטרוספקטיבה",
+  "retrospective-board-title": "__board__ - רטרוספקטיבה __date__",
+  "retro-start": "להתחיל לעשות",
+  "retro-stop": "להפסיק לעשות",
+  "retro-continue": "להמשיך לעשות",
+  "feature-standup-timer": "טיימר לישיבת עמידה יומית",
+  "feature-standup-timer-desc": "ישיבת העמידה היומית בתפריט הלוח: חברי הלוח בסדר אקראי, לכל אחד אותה מסגרת זמן. ניתן לכבות לכל לוח בהגדרות סקראם שלו.",
+  "feature-retrospective-board": "לוח רטרוספקטיבה",
+  "feature-retrospective-board-desc": "לוח הרטרוספקטיבה בתפריט הלוח: לוח פרטי חדש עם הרשימות להתחיל לעשות, להפסיק לעשות, להמשיך לעשות ופריטי פעולה. ניתן לכבות לכל לוח בהגדרות סקראם שלו."
 }

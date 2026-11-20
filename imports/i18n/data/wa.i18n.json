@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Li djivêye a pårti di kéne li botaedje est ingaedjî, markêye dins s' tchessî. Tchoezeye po tchaeke tåvlea dins Apontiaedjes de tåvlea / Djivêye.",
   "feature-person-wip-limit": "Limite WIP pa djin",
   "feature-person-wip-limit-desc": "Kibén d' cåtes drovowes ene djin pout wårder so ene tåvlea; ene cåte drovowe advierti so tot l' minme kî k' el passe. Apontieye po tchaeke tåvlea dins Apontiaedjes de tåvlea / Djivêye.",
-  "scrum-definition-of-ready": "Definixha di presse"
+  "scrum-definition-of-ready": "Definixha di presse",
+  "daily-standup": "Assimblêye di tos les djoûs",
+  "dailyStandupPopup-title": "Assimblêye di tos les djoûs",
+  "standup-minutes": "Munutes pa djin",
+  "standup-shuffle": "Mak'ter",
+  "standup-total": "Totå: __time__",
+  "standup-done": "L' assimblêye a duré __time__.",
+  "retrospective-board": "Tåvlea di rawaitaedje",
+  "retrospective-board-title": "__board__ - rawaitaedje __date__",
+  "retro-start": "Cominci a fé",
+  "retro-stop": "Arester d' fé",
+  "retro-continue": "Continuwer a fé",
+  "feature-standup-timer": "Contreu d' tins di l' assimblêye di tos les djoûs",
+  "feature-standup-timer-desc": "L' Assimblêye di tos les djoûs dins l' menu del tåvlea: les mimbes del tåvlea dins on ôrde mak'té, tchaeke avou l' minme tins. On l' distind pa tåvlea dins ses Apontiaedjes Scrum.",
+  "feature-retrospective-board": "Tåvlea di rawaitaedje",
+  "feature-retrospective-board-desc": "Li Tåvlea di rawaitaedje dins l' menu del tåvlea: ene novele tåvlea privêye avou les djivêyes Cominci a fé, Arester d' fé, Continuwer a fé et Bouyes a fé. On l' distind pa tåvlea dins ses Apontiaedjes Scrum."
 }

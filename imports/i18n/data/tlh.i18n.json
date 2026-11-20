@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "tetlh vo' Qu' lay'lu'bogh, nachDaq ghItlhlu'. Hoch 'echletDaq raS DuHmey / tetlh Daq wIvlu'.",
   "feature-person-wip-limit": "nuv wa' WIP 'aqroS",
   "feature-person-wip-limit-desc": "'echletDaq 'echletHommey poSbogh 'ar ghaj nuv wa'; 'echletHom poSlu'bogh ghoH nuv 'aqroS juSbogh. Hoch 'echletDaq raS DuHmey / tetlh Daq cherlu'.",
-  "scrum-definition-of-ready": "ghuHghach QIjmeH De'"
+  "scrum-definition-of-ready": "ghuHghach QIjmeH De'",
+  "daily-standup": "jaj Hoch ghom",
+  "dailyStandupPopup-title": "jaj Hoch ghom",
+  "standup-minutes": "nuv wa' tup'mey",
+  "standup-shuffle": "DuD",
+  "standup-total": "Hoch: __time__",
+  "standup-done": "ghom: __time__ poH.",
+  "retrospective-board": "ret nuD 'echlet",
+  "retrospective-board-title": "__board__ - ret nuD __date__",
+  "retro-start": "ta' yItagh",
+  "retro-stop": "ta' yImev",
+  "retro-continue": "ta' yItaH",
+  "feature-standup-timer": "jaj Hoch ghom poH chovwI'",
+  "feature-standup-timer-desc": "'echlet HIDjolev jaj Hoch ghom: 'echlet chuDpu' DuDlu'pu'bogh mI'Daq, Hoch nuv rap poH ghaj. 'echlet Hoch Scrum chermeH De'Daq chu'Ha'lu'.",
+  "feature-retrospective-board": "ret nuD 'echlet",
+  "feature-retrospective-board-desc": "'echlet HIDjolev ret nuD 'echlet: 'echlet chu' pegh, tetlhmey ta' yItagh, ta' yImev, ta' yItaH, Qu'mey je ghaj. 'echlet Hoch Scrum chermeH De'Daq chu'Ha'lu'."
 }

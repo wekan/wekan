@@ -871,6 +871,18 @@ template(name="boardMenuPopup")
             | {{_ 'since-last-visit-count' count=sinceVisitCount}}
           else
             | {{_ 'since-last-visit'}}
+    //- The Scrum meeting helpers (client/components/boards/scrum/scrumMeetings.jade),
+      each hidden by its Admin Panel feature and by the board's Scrum settings.
+    if showsStandupTimer
+      li
+        a.js-open-daily-standup
+          i.fa.fa-hourglass-half
+          | {{_ 'daily-standup'}}
+    if showsRetrospectiveBoard
+      li
+        a.js-create-retrospective-board
+          i.fa.fa-refresh
+          | {{_ 'retrospective-board'}}
     unless currentBoard.isTemplatesBoard
       if currentUser.isBoardAdmin
         // li

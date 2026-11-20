@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "A lista a partir da qual o trabalho é assumido, marcada no seu cabeçalho. Escolhida por quadro em Configurações do quadro / Lista.",
   "feature-person-wip-limit": "Limite WIP por pessoa",
   "feature-person-wip-limit-desc": "Quantos cartões abertos uma pessoa pode ter em um quadro; um cartão aberto avisa sobre quem estiver acima dele. Definido por quadro em Configurações do quadro / Lista.",
-  "scrum-definition-of-ready": "Definição de preparado"
+  "scrum-definition-of-ready": "Definição de preparado",
+  "daily-standup": "Reunião diária",
+  "dailyStandupPopup-title": "Reunião diária",
+  "standup-minutes": "Minutos por pessoa",
+  "standup-shuffle": "Embaralhar",
+  "standup-total": "No total: __time__",
+  "standup-done": "A reunião diária durou __time__.",
+  "retrospective-board": "Quadro de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Começar a fazer",
+  "retro-stop": "Parar de fazer",
+  "retro-continue": "Continuar fazendo",
+  "feature-standup-timer": "Cronômetro da reunião diária",
+  "feature-standup-timer-desc": "A reunião diária no menu do quadro: os membros do quadro em ordem embaralhada, cada um com o mesmo tempo. Desativada por quadro nas suas Configurações de Scrum.",
+  "feature-retrospective-board": "Quadro de retrospectiva",
+  "feature-retrospective-board-desc": "O quadro de retrospectiva no menu do quadro: um novo quadro privado com as listas Começar a fazer, Parar de fazer, Continuar fazendo e Itens de ação. Desativado por quadro nas suas Configurações de Scrum."
 }

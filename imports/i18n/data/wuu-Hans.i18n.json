@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "从伊开始承诺做事体个列表，勒伊头上标出来。每块看板勒 看板设置 / 列表 里向选。",
   "feature-person-wip-limit": "每人在制品限制",
   "feature-person-wip-limit-desc": "一个人勒一块看板上最多好拿几张打开个卡片；打开个卡片会提醒超出限制个人。每块看板勒 看板设置 / 列表 里向设置。",
-  "scrum-definition-of-ready": "准备好个标准"
+  "scrum-definition-of-ready": "准备好个标准",
+  "daily-standup": "每日站会",
+  "dailyStandupPopup-title": "每日站会",
+  "standup-minutes": "每人分钟数",
+  "standup-shuffle": "打乱",
+  "standup-total": "总共：__time__",
+  "standup-done": "站会用脱 __time__。",
+  "retrospective-board": "回顾看板",
+  "retrospective-board-title": "__board__ - 回顾 __date__",
+  "retro-start": "开始做",
+  "retro-stop": "勿要再做",
+  "retro-continue": "继续做",
+  "feature-standup-timer": "每日站会计时器",
+  "feature-standup-timer-desc": "看板菜单里个每日站会：看板成员按打乱个顺序，每人一样个时间。每块看板可以勒伊个 Scrum 设置里关脱。",
+  "feature-retrospective-board": "回顾看板",
+  "feature-retrospective-board-desc": "看板菜单里个回顾看板：新建一块私有看板，有开始做、勿要再做、继续做搭待办事项几张列表。每块看板可以勒伊个 Scrum 设置里关脱。"
 }

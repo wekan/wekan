@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "وہ فہرست جہاں سے کام کا عزم کیا جاتا ہے، اس کے ہیڈر پر نشان زد۔ ہر بورڈ کے لیے بورڈ کی ترتیبات / فہرست میں منتخب کی جاتی ہے۔",
   "feature-person-wip-limit": "فی فرد WIP حد",
   "feature-person-wip-limit-desc": "ایک بورڈ پر ایک فرد کتنے کھلے کارڈز رکھ سکتا ہے؛ کھولا گیا کارڈ اس حد سے تجاوز کرنے والے ہر فرد کے بارے میں خبردار کرتا ہے۔ ہر بورڈ کے لیے بورڈ کی ترتیبات / فہرست میں مقرر کی جاتی ہے۔",
-  "scrum-definition-of-ready": "تیار ہونے کی تعریف"
+  "scrum-definition-of-ready": "تیار ہونے کی تعریف",
+  "daily-standup": "روزانہ اسٹینڈ اپ",
+  "dailyStandupPopup-title": "روزانہ اسٹینڈ اپ",
+  "standup-minutes": "فی شخص منٹ",
+  "standup-shuffle": "ترتیب بدلیں",
+  "standup-total": "کل: __time__",
+  "standup-done": "اسٹینڈ اپ میں __time__ لگے۔",
+  "retrospective-board": "جائزے کا بورڈ",
+  "retrospective-board-title": "__board__ - جائزہ __date__",
+  "retro-start": "کرنا شروع کریں",
+  "retro-stop": "کرنا بند کریں",
+  "retro-continue": "کرتے رہیں",
+  "feature-standup-timer": "روزانہ اسٹینڈ اپ ٹائمر",
+  "feature-standup-timer-desc": "بورڈ مینو کا روزانہ اسٹینڈ اپ: بورڈ کے ارکان بے ترتیب ترتیب میں، ہر ایک کے لیے یکساں وقت۔ ہر بورڈ کے لیے اس کی اسکرم کی ترتیبات میں بند کیا جاتا ہے۔",
+  "feature-retrospective-board": "جائزے کا بورڈ",
+  "feature-retrospective-board-desc": "بورڈ مینو کا جائزے کا بورڈ: ایک نیا نجی بورڈ جس میں کرنا شروع کریں، کرنا بند کریں، کرتے رہیں اور کرنے کے کام کی فہرستیں ہیں۔ ہر بورڈ کے لیے اس کی اسکرم کی ترتیبات میں بند کیا جاتا ہے۔"
 }

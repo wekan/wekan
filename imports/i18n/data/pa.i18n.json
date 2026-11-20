@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ਉਹ ਸੂਚੀ ਜਿਸ ਤੋਂ ਕੰਮ ਲਈ ਵਚਨਬੱਧਤਾ ਹੁੰਦੀ ਹੈ, ਉਸਦੇ ਸਿਰਲੇਖ ਵਿੱਚ ਨਿਸ਼ਾਨਬੱਧ। ਹਰ ਬੋਰਡ ਲਈ ਬੋਰਡ ਸੈਟਿੰਗਾਂ / ਸੂਚੀ ਵਿੱਚ ਚੁਣੀ ਜਾਂਦੀ ਹੈ।",
   "feature-person-wip-limit": "ਪ੍ਰਤੀ ਵਿਅਕਤੀ WIP ਸੀਮਾ",
   "feature-person-wip-limit-desc": "ਇੱਕ ਵਿਅਕਤੀ ਬੋਰਡ ਉੱਤੇ ਕਿੰਨੇ ਖੁੱਲ੍ਹੇ ਕਾਰਡ ਰੱਖ ਸਕਦਾ ਹੈ; ਖੋਲ੍ਹਿਆ ਕਾਰਡ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹਰ ਕਿਸੇ ਬਾਰੇ ਚੇਤਾਵਨੀ ਦਿੰਦਾ ਹੈ। ਹਰ ਬੋਰਡ ਲਈ ਬੋਰਡ ਸੈਟਿੰਗਾਂ / ਸੂਚੀ ਵਿੱਚ ਸੈੱਟ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।",
-  "scrum-definition-of-ready": "ਕੰਮ ਤਿਆਰ ਹੋਣ ਦੀ ਪਰਿਭਾਸ਼ਾ"
+  "scrum-definition-of-ready": "ਕੰਮ ਤਿਆਰ ਹੋਣ ਦੀ ਪਰਿਭਾਸ਼ਾ",
+  "daily-standup": "ਰੋਜ਼ਾਨਾ ਸਟੈਂਡਅੱਪ",
+  "dailyStandupPopup-title": "ਰੋਜ਼ਾਨਾ ਸਟੈਂਡਅੱਪ",
+  "standup-minutes": "ਪ੍ਰਤੀ ਵਿਅਕਤੀ ਮਿੰਟ",
+  "standup-shuffle": "ਰਲਾਓ",
+  "standup-total": "ਕੁੱਲ: __time__",
+  "standup-done": "ਸਟੈਂਡਅੱਪ ਨੂੰ __time__ ਲੱਗਾ।",
+  "retrospective-board": "ਪਿਛਲਝਾਤ ਬੋਰਡ",
+  "retrospective-board-title": "__board__ - ਪਿਛਲਝਾਤ __date__",
+  "retro-start": "ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ",
+  "retro-stop": "ਕਰਨਾ ਬੰਦ ਕਰੋ",
+  "retro-continue": "ਕਰਦੇ ਰਹੋ",
+  "feature-standup-timer": "ਰੋਜ਼ਾਨਾ ਸਟੈਂਡਅੱਪ ਟਾਈਮਰ",
+  "feature-standup-timer-desc": "ਬੋਰਡ ਮੀਨੂ ਦਾ ਰੋਜ਼ਾਨਾ ਸਟੈਂਡਅੱਪ: ਬੋਰਡ ਦੇ ਮੈਂਬਰ ਰਲਾਏ ਕ੍ਰਮ ਵਿੱਚ, ਹਰੇਕ ਨੂੰ ਇੱਕੋ ਸਮਾਂ-ਸੀਮਾ। ਹਰ ਬੋਰਡ ਲਈ ਉਸ ਦੀਆਂ ਸਕਰਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਬੰਦ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
+  "feature-retrospective-board": "ਪਿਛਲਝਾਤ ਬੋਰਡ",
+  "feature-retrospective-board-desc": "ਬੋਰਡ ਮੀਨੂ ਦਾ ਪਿਛਲਝਾਤ ਬੋਰਡ: ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ, ਕਰਨਾ ਬੰਦ ਕਰੋ, ਕਰਦੇ ਰਹੋ ਅਤੇ ਕਰਨ ਵਾਲੇ ਕੰਮ ਸੂਚੀਆਂ ਵਾਲਾ ਇੱਕ ਨਵਾਂ ਨਿੱਜੀ ਬੋਰਡ। ਹਰ ਬੋਰਡ ਲਈ ਉਸ ਦੀਆਂ ਸਕਰਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਬੰਦ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
 }

@@ -4,6 +4,7 @@ import '/client/components/sidebar/sidebarOriginalPositions.jade';
 import '/client/components/sidebar/sidebarCustomFields.jade';
 import '/client/components/sidebar/sidebarFilters.jade';
 import '/client/components/sidebar/sidebarSearches.jade';
+import '/client/components/sidebar/scrumMeetings.jade';
 
 import '/client/components/sidebar/sidebar.js';
 import '/client/components/sidebar/sidebarArchives.js';
@@ -13,7 +14,9 @@ import '/client/components/sidebar/sidebarSinceLastVisit.js';
 import '/client/components/sidebar/sidebarCustomFields.js';
 import '/client/components/sidebar/sidebarFilters.js';
 import '/client/components/sidebar/sidebarSearches.js';
+import '/client/components/sidebar/scrumMeetings.js';
 
 import '/client/components/sidebar/sidebar.css';
 import '/client/components/sidebar/sidebarSearches.css';
+import '/client/components/sidebar/scrumMeetings.css';
 

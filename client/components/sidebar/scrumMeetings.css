@@ -1,0 +1,20 @@
+/* The Scrum meeting helpers (docs/Features/Scrum/Meetings.md). */
+.daily-standup {
+  min-width: 220px;
+}
+.daily-standup-speaker {
+  font-size: 1.4em;
+  margin: 4px 0;
+}
+.daily-standup-clock {
+  font-size: 2em;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0;
+}
+.daily-standup-clock.is-overtime {
+  color: #c0392b;
+}
+.daily-standup-order {
+  margin-block: 4px;
+  padding-inline-start: 20px;
+}

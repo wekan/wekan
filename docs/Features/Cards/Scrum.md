@@ -72,3 +72,10 @@ purpose-built "sprint" or "story points" object, velocity chart, or
 sprint-close/rollover action. If your team needs one of those built in
 rather than assembled this way, please open a feature request describing
 the exact workflow.
+
+## Meetings
+
+The board menu's [Daily standup timer and Retrospective board](../Scrum/Meetings.md)
+help with the daily standup and the sprint retrospective, and the
+[flow policies](../Lists/Flow-Policies.md) page describes the Definition of
+Ready beside the Definition of Done.

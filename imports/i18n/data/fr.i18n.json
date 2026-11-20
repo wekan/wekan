@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La liste à partir de laquelle le travail est engagé, signalée dans son en-tête. Se choisit par tableau dans Paramètres du tableau / Liste.",
   "feature-person-wip-limit": "Limite WIP par personne",
   "feature-person-wip-limit-desc": "Combien de cartes ouvertes une personne peut détenir sur un tableau ; une carte ouverte avertit de toute personne qui la dépasse. Se définit par tableau dans Paramètres du tableau / Liste.",
-  "scrum-definition-of-ready": "Définition de prêt"
+  "scrum-definition-of-ready": "Définition de prêt",
+  "daily-standup": "Mêlée quotidienne",
+  "dailyStandupPopup-title": "Mêlée quotidienne",
+  "standup-minutes": "Minutes par personne",
+  "standup-shuffle": "Mélanger",
+  "standup-total": "Durée totale : __time__",
+  "standup-done": "La mêlée quotidienne a duré __time__.",
+  "retrospective-board": "Tableau de rétrospective",
+  "retrospective-board-title": "__board__ - rétrospective __date__",
+  "retro-start": "Commencer à faire",
+  "retro-stop": "Arrêter de faire",
+  "retro-continue": "Continuer à faire",
+  "feature-standup-timer": "Minuteur de la mêlée quotidienne",
+  "feature-standup-timer-desc": "La Mêlée quotidienne du menu du tableau : les participants du tableau dans un ordre aléatoire, chacun avec la même durée maximale. Désactivable par tableau dans ses Paramètres Scrum.",
+  "feature-retrospective-board": "Tableau de rétrospective",
+  "feature-retrospective-board-desc": "Le Tableau de rétrospective du menu du tableau : un nouveau tableau privé avec les listes Commencer à faire, Arrêter de faire, Continuer à faire et Actions à mener. Désactivable par tableau dans ses Paramètres Scrum."
 }

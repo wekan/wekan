@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista, josta alkaen työhön sitoudutaan, merkittynä sen otsakkeeseen. Valitaan tauluittain kohdassa Taulun asetukset / Lista.",
   "feature-person-wip-limit": "WIP-raja henkilöä kohden",
   "feature-person-wip-limit-desc": "Kuinka monta avointa korttia yksi henkilö saa pitää taululla; avattu kortti varoittaa jokaisesta, joka ylittää sen. Asetetaan tauluittain kohdassa Taulun asetukset / Lista.",
-  "scrum-definition-of-ready": "Aloitusvalmiuden määritelmä"
+  "scrum-definition-of-ready": "Aloitusvalmiuden määritelmä",
+  "daily-standup": "Päivittäispalaveri",
+  "dailyStandupPopup-title": "Päivittäispalaveri",
+  "standup-minutes": "Minuuttia henkilöä kohden",
+  "standup-shuffle": "Sekoita",
+  "standup-total": "Yhteensä: __time__",
+  "standup-done": "Päivittäispalaveri kesti __time__.",
+  "retrospective-board": "Retrospektiivitaulu",
+  "retrospective-board-title": "__board__ - retrospektiivi __date__",
+  "retro-start": "Aloitetaan",
+  "retro-stop": "Lopetetaan",
+  "retro-continue": "Jatketaan",
+  "feature-standup-timer": "Päivittäispalaverin ajastin",
+  "feature-standup-timer-desc": "Taulun valikon Päivittäispalaveri: taulun jäsenet sekoitetussa järjestyksessä, kullakin sama aikaraja. Poistetaan käytöstä tauluittain sen Scrum-asetuksissa.",
+  "feature-retrospective-board": "Retrospektiivitaulu",
+  "feature-retrospective-board-desc": "Taulun valikon Retrospektiivitaulu: uusi yksityinen taulu, jossa on listat Aloitetaan, Lopetetaan, Jatketaan ja Toimenpiteet. Poistetaan käytöstä tauluittain sen Scrum-asetuksissa."
 }

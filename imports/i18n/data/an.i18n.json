@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "A lista dende a quala se compromete o trabajo, sinyalada en a suya capecera. S'esleye por tablero en Configuración d'o tablero / Lista.",
   "feature-person-wip-limit": "Límite d'o trabajo en proceso por persona",
   "feature-person-wip-limit-desc": "Quántas tarchetas ubiertas puede tener una persona en un tablero; una tarcheta ubierta avisa de qualsequiera que lo pase. Se fixa por tablero en Configuración d'o tablero / Lista.",
-  "scrum-definition-of-ready": "Definición de preparau"
+  "scrum-definition-of-ready": "Definición de preparau",
+  "daily-standup": "Reunión diaria de pie",
+  "dailyStandupPopup-title": "Reunión diaria de pie",
+  "standup-minutes": "Minutos per persona",
+  "standup-shuffle": "Barreyar",
+  "standup-total": "En total: __time__",
+  "standup-done": "A reunión diaria ha durau __time__.",
+  "retrospective-board": "Tablero de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Empecipiar a fer",
+  "retro-stop": "Deixar de fer",
+  "retro-continue": "Continar fendo",
+  "feature-standup-timer": "Cronometro d'a reunión diaria",
+  "feature-standup-timer-desc": "A reunión diaria d'o menú d'o tablero: os miembros d'o tablero en un orden barreyau, cadaguno con o mesmo tiempo. Se desactiva per tablero en os suyos Achustes de Scrum.",
+  "feature-retrospective-board": "Tablero de retrospectiva",
+  "feature-retrospective-board-desc": "O tablero de retrospectiva d'o menú d'o tablero: un nuevo tablero privau con as listas Empecipiar a fer, Deixar de fer, Continar fendo y Accions. Se desactiva per tablero en os suyos Achustes de Scrum."
 }

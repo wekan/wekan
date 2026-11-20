@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La lista a partir de la cual se compromete el trabajo, marcada en su cabecera. Se elige por tablero en Preferencias del tablero / Lista.",
   "feature-person-wip-limit": "Límite del trabajo en proceso por persona",
   "feature-person-wip-limit-desc": "Cuántas tarjetas abiertas puede tener una persona en un tablero; una tarjeta abierta avisa de cualquiera que lo supere. Se define por tablero en Preferencias del tablero / Lista.",
-  "scrum-definition-of-ready": "Definición de listo"
+  "scrum-definition-of-ready": "Definición de listo",
+  "daily-standup": "Reunión diaria de pie",
+  "dailyStandupPopup-title": "Reunión diaria de pie",
+  "standup-minutes": "Minutos por persona",
+  "standup-shuffle": "Mezclar",
+  "standup-total": "Tiempo total: __time__",
+  "standup-done": "La reunión diaria duró __time__.",
+  "retrospective-board": "Tablero de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Empezar a hacer",
+  "retro-stop": "Dejar de hacer",
+  "retro-continue": "Seguir haciendo",
+  "feature-standup-timer": "Cronómetro de la reunión diaria",
+  "feature-standup-timer-desc": "La reunión diaria del menú del tablero: los miembros del tablero en orden aleatorio, cada uno con el mismo tiempo. Se desactiva por tablero en su Configuración de Scrum.",
+  "feature-retrospective-board": "Tablero de retrospectiva",
+  "feature-retrospective-board-desc": "El tablero de retrospectiva del menú del tablero: un nuevo tablero privado con las listas Empezar a hacer, Dejar de hacer, Seguir haciendo y Acciones pendientes. Se desactiva por tablero en su Configuración de Scrum."
 }

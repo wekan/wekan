@@ -547,6 +547,17 @@ function openRulesViewFromBoardMenu(mode) {
 }
 
 Template.boardMenuPopup.events({
+  'click .js-open-daily-standup': Popup.open('dailyStandup'),
+  async 'click .js-create-retrospective-board'() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    Popup.close();
+    try {
+      await require('/client/components/sidebar/scrumMeetings').createRetrospectiveBoard(board);
+    } catch (error) {
+      window.alert((error && (error.reason || error.error)) || String(error));
+    }
+  },
   'click .js-open-rules-list-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('list'); },
   'click .js-open-rules-workflow-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('workflow'); },
   'click .js-open-rules-bots-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('bots'); },
@@ -998,6 +1009,11 @@ Template.wipLimitGroupsPopup.events({
 });
 
 Template.boardMenuPopup.helpers({
+  // The Scrum meeting helpers (scrumMeetings.js).
+  showsStandupTimer() { return require('/client/components/sidebar/scrumMeetings').showsStandupTimer(Utils.getCurrentBoard()); },
+  showsRetrospectiveBoard() {
+    return require('/client/components/sidebar/scrumMeetings').showsRetrospectiveBoard(Utils.getCurrentBoard());
+  },
   sinceVisitCount() {
     return Template.instance().sinceVisitCount.get();
   },

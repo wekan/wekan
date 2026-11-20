@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Senarai tempat kerja mula dikomitkan, ditanda pada pengepalanya. Dipilih bagi setiap papan dalam Tetapan Papan / Senarai.",
   "feature-person-wip-limit": "Had WIP setiap orang",
   "feature-person-wip-limit-desc": "Berapa banyak kad terbuka yang boleh dipegang seorang pada papan; kad yang dibuka memberi amaran tentang sesiapa yang melebihinya. Ditetapkan bagi setiap papan dalam Tetapan Papan / Senarai.",
-  "scrum-definition-of-ready": "Takrif sedia"
+  "scrum-definition-of-ready": "Takrif sedia",
+  "daily-standup": "Mesyuarat harian",
+  "dailyStandupPopup-title": "Mesyuarat harian",
+  "standup-minutes": "Minit setiap orang",
+  "standup-shuffle": "Kocok",
+  "standup-total": "Jumlah: __time__",
+  "standup-done": "Mesyuarat harian mengambil masa __time__.",
+  "retrospective-board": "Papan retrospektif",
+  "retrospective-board-title": "__board__ - retrospektif __date__",
+  "retro-start": "Mula lakukan",
+  "retro-stop": "Berhenti lakukan",
+  "retro-continue": "Teruskan lakukan",
+  "feature-standup-timer": "Pemasa mesyuarat harian",
+  "feature-standup-timer-desc": "Mesyuarat harian dalam menu papan: ahli papan dalam susunan rawak, masing-masing dengan masa yang sama. Dimatikan bagi setiap papan dalam Tetapan Scrum papan itu.",
+  "feature-retrospective-board": "Papan retrospektif",
+  "feature-retrospective-board-desc": "Papan retrospektif dalam menu papan: papan peribadi baharu dengan senarai Mula lakukan, Berhenti lakukan, Teruskan lakukan dan Item tindakan. Dimatikan bagi setiap papan dalam Tetapan Scrum papan itu."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "اها فهرست جنهن کان ڪم جو واعدو ڪيو وڃي ٿو، ان جي سري تي نشان لڳل. هر بورڊ لاءِ بورڊ سيٽنگون / فهرست ۾ چونڊي وڃي ٿي.",
   "feature-person-wip-limit": "في ماڻهو WIP حد",
   "feature-person-wip-limit-desc": "هڪ ماڻهو بورڊ تي ڪيترا کليل ڪارڊ رکي سگهي ٿو؛ کوليل ڪارڊ حد کان مٿي هر ڪنهن بابت خبردار ڪري ٿو. هر بورڊ لاءِ بورڊ سيٽنگون / فهرست ۾ مقرر ڪئي وڃي ٿي.",
-  "scrum-definition-of-ready": "تيار ٿيڻ جي تعريف"
+  "scrum-definition-of-ready": "تيار ٿيڻ جي تعريف",
+  "daily-standup": "روزاني اسٽينڊ اپ",
+  "dailyStandupPopup-title": "روزاني اسٽينڊ اپ",
+  "standup-minutes": "في ماڻهو منٽ",
+  "standup-shuffle": "ملايو",
+  "standup-total": "ڪل: __time__",
+  "standup-done": "اسٽينڊ اپ __time__ ورتو.",
+  "retrospective-board": "پوئتي نظر جو بورڊ",
+  "retrospective-board-title": "__board__ - پوئتي نظر __date__",
+  "retro-start": "ڪرڻ شروع ڪريو",
+  "retro-stop": "ڪرڻ بند ڪريو",
+  "retro-continue": "ڪندا رهو",
+  "feature-standup-timer": "روزاني اسٽينڊ اپ ٽائمر",
+  "feature-standup-timer-desc": "بورڊ مينيو جو روزاني اسٽينڊ اپ: بورڊ جا ميمبر ملايل ترتيب ۾، هر هڪ کي ساڳيو وقت. هر بورڊ لاءِ ان جي اسڪرم جون ترتيبون ۾ بند ڪيو ويندو آهي.",
+  "feature-retrospective-board": "پوئتي نظر جو بورڊ",
+  "feature-retrospective-board-desc": "بورڊ مينيو جو پوئتي نظر جو بورڊ: هڪ نئون ذاتي بورڊ جنهن ۾ فهرستون ڪرڻ شروع ڪريو، ڪرڻ بند ڪريو، ڪندا رهو ۽ ڪرڻ جا ڪم آهن. هر بورڊ لاءِ ان جي اسڪرم جون ترتيبون ۾ بند ڪيو ويندو آهي."
 }

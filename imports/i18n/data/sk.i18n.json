@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Zoznam, od ktorého sa práca stáva záväzkom, označený v jeho hlavičke. Vyberá sa pre každú nástenku v Nastavenia nástenky / Zoznam.",
   "feature-person-wip-limit": "WIP limit na osobu",
   "feature-person-wip-limit-desc": "Koľko otvorených kariet môže jedna osoba mať na nástenke; otvorená karta upozorní na každého, kto ho prekračuje. Nastavuje sa pre každú nástenku v Nastavenia nástenky / Zoznam.",
-  "scrum-definition-of-ready": "Definícia pripravenosti"
+  "scrum-definition-of-ready": "Definícia pripravenosti",
+  "daily-standup": "Denné stretnutie",
+  "dailyStandupPopup-title": "Denné stretnutie",
+  "standup-minutes": "Minúty na osobu",
+  "standup-shuffle": "Zamiešať",
+  "standup-total": "Spolu: __time__",
+  "standup-done": "Stretnutie trvalo __time__.",
+  "retrospective-board": "Nástenka retrospektívy",
+  "retrospective-board-title": "__board__ - retrospektíva __date__",
+  "retro-start": "Začať robiť",
+  "retro-stop": "Prestať robiť",
+  "retro-continue": "Pokračovať",
+  "feature-standup-timer": "Časovač denného stretnutia",
+  "feature-standup-timer-desc": "Denné stretnutie v ponuke nástenky: členovia nástenky v náhodnom poradí, každý s rovnakým časovým limitom. Vypína sa pre každú nástenku v jej Nastaveniach Scrumu.",
+  "feature-retrospective-board": "Nástenka retrospektívy",
+  "feature-retrospective-board-desc": "Nástenka retrospektívy v ponuke nástenky: nová súkromná nástenka so zoznamami Začať robiť, Prestať robiť, Pokračovať a Úlohy na vykonanie. Vypína sa pre každú nástenku v jej Nastaveniach Scrumu."
 }

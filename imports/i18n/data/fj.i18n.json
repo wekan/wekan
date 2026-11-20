@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Na lisi e yalataki kina na cakacaka, vakatakilakilataki e na kena ulu. Digitaki e na vola yadua e Ituvatuva ni Vola / Lisi.",
   "feature-person-wip-limit": "iYalayala WIP ni dua na tamata",
   "feature-person-wip-limit-desc": "E vica na kadi dola e rawa ni taura e dua na tamata e na dua na vola; na kadi e dolavi e vakatakila ni dua e sivita. Lesia e na vola yadua e Ituvatuva ni Vola / Lisi.",
-  "scrum-definition-of-ready": "Ivakamacala ni Sa Vakarau"
+  "scrum-definition-of-ready": "Ivakamacala ni Sa Vakarau",
+  "daily-standup": "Bose ni veisiga",
+  "dailyStandupPopup-title": "Bose ni veisiga",
+  "standup-minutes": "Miniti me dua na tamata",
+  "standup-shuffle": "Veisautaka na ituvatuva",
+  "standup-total": "Taucoko: __time__",
+  "standup-done": "A bose ni veisiga e taura e __time__.",
+  "retrospective-board": "Vola ni vakasamataki lesu",
+  "retrospective-board-title": "__board__ - vakasamataki lesu __date__",
+  "retro-start": "Tekivu me caka",
+  "retro-stop": "Tarova me caka",
+  "retro-continue": "Tomana me caka",
+  "feature-standup-timer": "Kaloko ni bose ni veisiga",
+  "feature-standup-timer-desc": "Na Bose ni veisiga ena mineu ni vola: na lewe ni vola ena ituvatuva veisau, e tautauvata na gauna me dui vakayagataka. E vakaboko ena vola yadua ena kena Ituvatuva ni Scrum.",
+  "feature-retrospective-board": "Vola ni vakasamataki lesu",
+  "feature-retrospective-board-desc": "Na Vola ni vakasamataki lesu ena mineu ni vola: e dua na vola vou vakataki koya kei na lisi Tekivu me caka, Tarova me caka, Tomana me caka kei na Ka me cakavi. E vakaboko ena vola yadua ena kena Ituvatuva ni Scrum."
 }

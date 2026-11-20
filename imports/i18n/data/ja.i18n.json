@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "作業がコミットされるリストで、そのヘッダーに印が付きます。ボードごとに「ボード設定 / リスト」で選択します。",
   "feature-person-wip-limit": "1人あたりの仕掛中制限",
   "feature-person-wip-limit-desc": "1人がボード上で持てる未完了のカードの数です。開いたカードは、それを超えている人について警告します。ボードごとに「ボード設定 / リスト」で設定します。",
-  "scrum-definition-of-ready": "準備完了の定義"
+  "scrum-definition-of-ready": "準備完了の定義",
+  "daily-standup": "デイリースタンドアップ",
+  "dailyStandupPopup-title": "デイリースタンドアップ",
+  "standup-minutes": "1人あたりの分数",
+  "standup-shuffle": "シャッフル",
+  "standup-total": "合計: __time__",
+  "standup-done": "スタンドアップの所要時間は __time__ でした。",
+  "retrospective-board": "振り返りボード",
+  "retrospective-board-title": "__board__ - 振り返り __date__",
+  "retro-start": "始めること",
+  "retro-stop": "やめること",
+  "retro-continue": "続けること",
+  "feature-standup-timer": "デイリースタンドアップタイマー",
+  "feature-standup-timer-desc": "ボードメニューのデイリースタンドアップ: ボードのメンバーをシャッフルした順に並べ、全員に同じタイムボックスを割り当てます。ボードごとにスクラム設定でオフにできます。",
+  "feature-retrospective-board": "振り返りボード",
+  "feature-retrospective-board-desc": "ボードメニューの振り返りボード: 始めること、やめること、続けること、アクションアイテムのリストを持つ新しいプライベートボードです。ボードごとにスクラム設定でオフにできます。"
 }

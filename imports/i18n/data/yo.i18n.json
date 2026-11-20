@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Akojọ tí a ti ń ṣe ìlérí iṣẹ́ láti ọ̀dọ̀ rẹ̀, tí a sàmì sí ní orí rẹ̀. A máa ń yàn án fún ọkọ kọ̀ọ̀kan ní Ètò Ọkọ / Akojọ.",
   "feature-person-wip-limit": "Iwọn WIP fún ènìyàn kọ̀ọ̀kan",
   "feature-person-wip-limit-desc": "Iye kaadi tó ṣí sílẹ̀ tí ènìyàn kan lè dì mú lórí ọkọ; kaadi tí a ṣí máa ń kìlọ̀ nípa ẹnikẹ́ni tó kọjá rẹ̀. A máa ń ṣètò rẹ̀ fún ọkọ kọ̀ọ̀kan ní Ètò Ọkọ / Akojọ.",
-  "scrum-definition-of-ready": "Ìtumọ̀ iṣẹ́ tí ó ti ṣetán"
+  "scrum-definition-of-ready": "Ìtumọ̀ iṣẹ́ tí ó ti ṣetán",
+  "daily-standup": "Ìpàdé ìdúró ojoojúmọ́",
+  "dailyStandupPopup-title": "Ìpàdé ìdúró ojoojúmọ́",
+  "standup-minutes": "Ìṣẹ́jú fún ẹnìkọ̀ọ̀kan",
+  "standup-shuffle": "Dàpọ̀",
+  "standup-total": "Àpapọ̀: __time__",
+  "standup-done": "Ìpàdé náà gba __time__.",
+  "retrospective-board": "Pátákó ìwòẹ̀yìn",
+  "retrospective-board-title": "__board__ - ìwòẹ̀yìn __date__",
+  "retro-start": "Bẹ̀rẹ̀ sí ṣe",
+  "retro-stop": "Dẹ́kun ṣíṣe",
+  "retro-continue": "Máa ṣe é lọ",
+  "feature-standup-timer": "Aago ìpàdé ìdúró ojoojúmọ́",
+  "feature-standup-timer-desc": "Ìpàdé ìdúró ojoojúmọ́ nínú àkójọ pátákó: àwọn ọmọ ẹgbẹ́ pátákó ní ètò tí a dàpọ̀, ẹnìkọ̀ọ̀kan pẹ̀lú àkókò kan náà. A máa ń pa á fún pátákó kọ̀ọ̀kan nínú Àwọn ètò Scrum rẹ̀.",
+  "feature-retrospective-board": "Pátákó ìwòẹ̀yìn",
+  "feature-retrospective-board-desc": "Pátákó ìwòẹ̀yìn nínú àkójọ pátákó: pátákó àdáni tuntun pẹ̀lú àwọn àkójọ Bẹ̀rẹ̀ sí ṣe, Dẹ́kun ṣíṣe, Máa ṣe é lọ àti Àwọn nǹkan láti ṣe. A máa ń pa á fún pátákó kọ̀ọ̀kan nínú Àwọn ètò Scrum rẹ̀."
 }

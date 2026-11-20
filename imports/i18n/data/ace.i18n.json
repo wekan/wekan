@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Dapeuta nyang buet geukomitmen mulai dari sinan, geutanda bak kapay jih. Geupilèh per papan lam Peuatôran Papan / Dapeuta.",
   "feature-person-wip-limit": "Bataih WIP tiep ureueng",
   "feature-person-wip-limit-desc": "Padum kad teubuka jeuet geupegang lé sidroe ureueng bak papan; kad nyang geuhah geupeuingat keu soe mantong nyang leubeh. Geupeuduek per papan lam Peuatôran Papan / Dapeuta.",
-  "scrum-definition-of-ready": "Definisi Siap"
+  "scrum-definition-of-ready": "Definisi Siap",
+  "daily-standup": "Rapat beudoh tiep uroe",
+  "dailyStandupPopup-title": "Rapat beudoh tiep uroe",
+  "standup-minutes": "Menit per ureuëng",
+  "standup-shuffle": "Acak",
+  "standup-total": "Jumlah: __time__",
+  "standup-done": "Rapat beudoh nyoe makan watèe __time__.",
+  "retrospective-board": "Papan retrospektif",
+  "retrospective-board-title": "__board__ - retrospektif __date__",
+  "retro-start": "Mulai peubuet",
+  "retro-stop": "Piyôh peubuet",
+  "retro-continue": "Teuruh peubuet",
+  "feature-standup-timer": "Pengatur watèe rapat beudoh tiep uroe",
+  "feature-standup-timer-desc": "Rapat beudoh tiep uroe lam menu papan: anggota papan lam urutan acak, tiep-tiep ngon watèe nyang saban. Jeut geupeumatè per papan lam Peuatôran Scrum.",
+  "feature-retrospective-board": "Papan retrospektif",
+  "feature-retrospective-board-desc": "Papan retrospektif lam menu papan: papan pribadi barô ngon dapeuta Mulai peubuet, Piyôh peubuet, Teuruh peubuet ngon Buet nyang harôh. Jeut geupeumatè per papan lam Peuatôran Scrum."
 }

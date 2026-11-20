@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "De lijst vanaf waar het werk wordt toegezegd, gemarkeerd in de kop ervan. Per bord gekozen in Bord Instellingen / Lijst.",
   "feature-person-wip-limit": "WIP limiet per persoon",
   "feature-person-wip-limit-desc": "Hoeveel open kaarten één persoon op een bord mag hebben; een geopende kaart waarschuwt voor iedereen die erover gaat. Per bord ingesteld in Bord Instellingen / Lijst.",
-  "scrum-definition-of-ready": "Definitie van startklaar"
+  "scrum-definition-of-ready": "Definitie van startklaar",
+  "daily-standup": "Dagelijkse standup",
+  "dailyStandupPopup-title": "Dagelijkse standup",
+  "standup-minutes": "Minuutn per persoon",
+  "standup-shuffle": "Schuddn",
+  "standup-total": "Totoal: __time__",
+  "standup-done": "De standup duurde __time__.",
+  "retrospective-board": "Terugblikbord",
+  "retrospective-board-title": "__board__ - terugblik __date__",
+  "retro-start": "Beginn mee doen",
+  "retro-stop": "Stoppn mee doen",
+  "retro-continue": "Blyvn doen",
+  "feature-standup-timer": "Timer vo de dagelijkse standup",
+  "feature-standup-timer-desc": "De Dagelijkse standup in 't bordmenu: de leden van 't bord in e gemengde volgorde, elk mee dezelfde tyd. Per bord uutgezet in zyn Scrum-instellingen.",
+  "feature-retrospective-board": "Terugblikbord",
+  "feature-retrospective-board-desc": "'t Terugblikbord in 't bordmenu: e nieuw privé bord mee de lijstn Beginn mee doen, Stoppn mee doen, Blyvn doen en Actiepuntn. Per bord uutgezet in zyn Scrum-instellingen."
 }

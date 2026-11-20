@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista od koje se preuzima obaveza za rad, označena u njenom zaglavlju. Bira se po tabli u Postavke table / Lista.",
   "feature-person-wip-limit": "WIP ograničenje po osobi",
   "feature-person-wip-limit-desc": "Koliko otvorenih kartica jedna osoba smije držati na tabli; otvorena kartica upozorava na svakoga ko ga prelazi. Postavlja se po tabli u Postavke table / Lista.",
-  "scrum-definition-of-ready": "Definicija spremnosti"
+  "scrum-definition-of-ready": "Definicija spremnosti",
+  "daily-standup": "Dnevni stand-up sastanak",
+  "dailyStandupPopup-title": "Dnevni stand-up sastanak",
+  "standup-minutes": "Minuta po osobi",
+  "standup-shuffle": "Izmiješaj",
+  "standup-total": "Ukupno: __time__",
+  "standup-done": "Stand-up je trajao __time__.",
+  "retrospective-board": "Tabla retrospektive",
+  "retrospective-board-title": "__board__ - retrospektiva __date__",
+  "retro-start": "Početi raditi",
+  "retro-stop": "Prestati raditi",
+  "retro-continue": "Nastaviti raditi",
+  "feature-standup-timer": "Tajmer dnevnog stand-upa",
+  "feature-standup-timer-desc": "Dnevni stand-up iz menija table: članovi table nasumičnim redoslijedom, svaki s istim vremenskim okvirom. Isključuje se po tabli u njenim Postavke Scruma.",
+  "feature-retrospective-board": "Tabla retrospektive",
+  "feature-retrospective-board-desc": "Tabla retrospektive iz menija table: nova privatna tabla s listama Početi raditi, Prestati raditi, Nastaviti raditi i Zadaci. Isključuje se po tabli u njenim Postavke Scruma."
 }

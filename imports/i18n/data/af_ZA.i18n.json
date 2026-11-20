@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Die lys vanaf waar werk aan verbind word, gemerk by sy opskrif. Per bord gekies in Bordinstellings / Lys.",
   "feature-person-wip-limit": "WIP-limiet per persoon",
   "feature-person-wip-limit-desc": "Hoeveel oop kaarte een persoon op 'n bord mag hou; 'n oopgemaakte kaart waarsku oor enigiemand daarbo. Per bord gestel in Bordinstellings / Lys.",
-  "scrum-definition-of-ready": "Definisie van gereed"
+  "scrum-definition-of-ready": "Definisie van gereed",
+  "daily-standup": "Daaglikse staanvergadering",
+  "dailyStandupPopup-title": "Daaglikse staanvergadering",
+  "standup-minutes": "Minute per persoon",
+  "standup-shuffle": "Skommel",
+  "standup-total": "Totaal: __time__",
+  "standup-done": "Die staanvergadering het __time__ geduur.",
+  "retrospective-board": "Terugblikbord",
+  "retrospective-board-title": "__board__ - terugblik __date__",
+  "retro-start": "Begin doen",
+  "retro-stop": "Hou op doen",
+  "retro-continue": "Hou aan doen",
+  "feature-standup-timer": "Daaglikse staanvergadering-tydhouer",
+  "feature-standup-timer-desc": "Die bordkieslys se Daaglikse staanvergadering: die bord se lede in 'n geskommelde volgorde, elk met dieselfde tydblok. Per bord afgeskakel in sy Scrum-instellings.",
+  "feature-retrospective-board": "Terugblikbord",
+  "feature-retrospective-board-desc": "Die bordkieslys se Terugblikbord: 'n nuwe privaat bord met die lyste Begin doen, Hou op doen, Hou aan doen en Aksie-items. Per bord afgeskakel in sy Scrum-instellings."
 }

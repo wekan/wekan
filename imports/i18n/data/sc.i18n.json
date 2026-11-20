@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Sa lista dae ue su traballu est impinnadu, marcada in s'intestatzione sua. Seberada pro cada tàula in Impostatziones de sa tàula / Lista.",
   "feature-person-wip-limit": "Lìmite WIP pro persone",
   "feature-person-wip-limit-desc": "Cantas cartas abertas podet tènnere una persone in una tàula; una carta aberta avisat de chie si siat chi lu passat. Impostadu pro cada tàula in Impostatziones de sa tàula / Lista.",
-  "scrum-definition-of-ready": "Definitzione de prontu"
+  "scrum-definition-of-ready": "Definitzione de prontu",
+  "daily-standup": "Riunione de cada die",
+  "dailyStandupPopup-title": "Riunione de cada die",
+  "standup-minutes": "Minutos pro persone",
+  "standup-shuffle": "Ammestura",
+  "standup-total": "Totale: __time__",
+  "standup-done": "Sa riunione at duradu __time__.",
+  "retrospective-board": "Tàula de retrospetiva",
+  "retrospective-board-title": "__board__ - retrospetiva __date__",
+  "retro-start": "Comintza a fàghere",
+  "retro-stop": "Lassa de fàghere",
+  "retro-continue": "Sighi a fàghere",
+  "feature-standup-timer": "Cronòmetru de sa riunione de cada die",
+  "feature-standup-timer-desc": "Sa riunione de cada die in su menù de sa tàula: sos sòtzios de sa tàula in un'òrdine ammesturadu, cadaunu cun su matessi tempus. Si disativat pro cada tàula in sas Cunfiguratziones Scrum suas.",
+  "feature-retrospective-board": "Tàula de retrospetiva",
+  "feature-retrospective-board-desc": "Sa tàula de retrospetiva in su menù de sa tàula: una tàula privada noa cun sas listas Comintza a fàghere, Lassa de fàghere, Sighi a fàghere e Atziones de fàghere. Si disativat pro cada tàula in sas Cunfiguratziones Scrum suas."
 }

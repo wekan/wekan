@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Jerin da ake ɗaukar alƙawarin aiki daga gare shi, an yi masa alama a kansa. Ana zaɓa ga kowane allo a Saitunan allo / Jerin.",
   "feature-person-wip-limit": "Iyakar WIP ga kowane mutum",
   "feature-person-wip-limit-desc": "Katunan buɗaɗɗu nawa mutum ɗaya zai iya riƙe a kan allo; kati da aka buɗe yana gargaɗi game da duk wanda ya wuce ta. Ana saita shi ga kowane allo a Saitunan allo / Jerin.",
-  "scrum-definition-of-ready": "Ma’anar shiryawa"
+  "scrum-definition-of-ready": "Ma’anar shiryawa",
+  "daily-standup": "Taron tsaye na kullum",
+  "dailyStandupPopup-title": "Taron tsaye na kullum",
+  "standup-minutes": "Mintuna ga kowane mutum",
+  "standup-shuffle": "Gauraya",
+  "standup-total": "Jimilla: __time__",
+  "standup-done": "Taron tsaye ya ɗauki __time__.",
+  "retrospective-board": "Allon nazari",
+  "retrospective-board-title": "__board__ - nazari __date__",
+  "retro-start": "Fara yi",
+  "retro-stop": "Daina yi",
+  "retro-continue": "Ci gaba da yi",
+  "feature-standup-timer": "Agogon taron tsaye na kullum",
+  "feature-standup-timer-desc": "Taron tsaye na kullum a menu na allo: mambobin allon a cikin tsari da aka gauraya, kowanne da iyakacin lokaci ɗaya. Ana kashe shi ga kowane allo a cikin Saitunan Scrum nasa.",
+  "feature-retrospective-board": "Allon nazari",
+  "feature-retrospective-board-desc": "Allon nazari a menu na allo: sabon allo na sirri da jerin Fara yi, Daina yi, Ci gaba da yi da Abubuwan da za a yi. Ana kashe shi ga kowane allo a cikin Saitunan Scrum nasa."
 }

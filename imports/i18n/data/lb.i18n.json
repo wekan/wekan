@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "D'Lëscht, vun där un d'Aarbecht zougesot gëtt, an hirem Kapp markéiert. Pro Tafel gewielt an Tafel-Astellungen / Lëscht.",
   "feature-person-wip-limit": "WIP-Limit pro Persoun",
   "feature-person-wip-limit-desc": "Wéi vill oppe Kaarten eng Persoun op enger Tafel hale däerf; eng opgemaach Kaart warnt virun jidderengem driwwer. Pro Tafel festgeluecht an Tafel-Astellungen / Lëscht.",
-  "scrum-definition-of-ready": "Definitioun vu Prett"
+  "scrum-definition-of-ready": "Definitioun vu Prett",
+  "daily-standup": "Deeglecht Standup",
+  "dailyStandupPopup-title": "Deeglecht Standup",
+  "standup-minutes": "Minutten pro Persoun",
+  "standup-shuffle": "Mëschen",
+  "standup-total": "Insgesamt: __time__",
+  "standup-done": "De Standup huet __time__ gedauert.",
+  "retrospective-board": "Retrospektiv-Tafel",
+  "retrospective-board-title": "__board__ - Retrospektiv __date__",
+  "retro-start": "Ufänken ze maachen",
+  "retro-stop": "Ophale mat",
+  "retro-continue": "Weider maachen",
+  "feature-standup-timer": "Timer fir den deegleche Standup",
+  "feature-standup-timer-desc": "Den deegleche Standup am Tafelmenü: d'Membere vun der Tafel an enger gemëschter Reiefolleg, jidderee mat der selwechter Zäitbox. Gëtt pro Tafel an hiren Scrum-Astellungen ausgeschalt.",
+  "feature-retrospective-board": "Retrospektiv-Tafel",
+  "feature-retrospective-board-desc": "D'Retrospektiv-Tafel am Tafelmenü: eng nei privat Tafel mat de Lëschten Ufänken ze maachen, Ophale mat, Weider maachen an Aktiounspunkten. Gëtt pro Tafel an hiren Scrum-Astellungen ausgeschalt."
 }

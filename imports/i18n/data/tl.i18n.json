@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ang listahan kung saan nagsisimulang pangakuan ang gawain, minarkahan sa header nito. Pinipili bawat pisara sa Mga setting ng pisara / Listahan.",
   "feature-person-wip-limit": "WIP limitasyon bawat tao",
   "feature-person-wip-limit-desc": "Ilang bukas na kard ang maaaring hawakan ng isang tao sa isang pisara; ang nabuksang kard ay nagbababala tungkol sa sinumang lumampas dito. Itinatakda bawat pisara sa Mga setting ng pisara / Listahan.",
-  "scrum-definition-of-ready": "Pamantayan ng pagkahanda"
+  "scrum-definition-of-ready": "Pamantayan ng pagkahanda",
+  "daily-standup": "Araw-araw na standup",
+  "dailyStandupPopup-title": "Araw-araw na standup",
+  "standup-minutes": "Minuto bawat tao",
+  "standup-shuffle": "Paghaluin",
+  "standup-total": "Kabuuan: __time__",
+  "standup-done": "Tumagal ang standup nang __time__.",
+  "retrospective-board": "Pisara ng pagbabalik-tanaw",
+  "retrospective-board-title": "__board__ - pagbabalik-tanaw __date__",
+  "retro-start": "Simulang gawin",
+  "retro-stop": "Itigil ang paggawa",
+  "retro-continue": "Ipagpatuloy ang paggawa",
+  "feature-standup-timer": "Timer ng araw-araw na standup",
+  "feature-standup-timer-desc": "Ang Araw-araw na standup sa menu ng pisara: ang mga miyembro ng pisara sa pinaghalong pagkakasunod-sunod, bawat isa ay may parehong takdang oras. Pinapatay bawat pisara sa Mga setting ng Scrum nito.",
+  "feature-retrospective-board": "Pisara ng pagbabalik-tanaw",
+  "feature-retrospective-board-desc": "Ang Pisara ng pagbabalik-tanaw sa menu ng pisara: isang bagong pribadong pisara na may mga listahang Simulang gawin, Itigil ang paggawa, Ipagpatuloy ang paggawa at Mga gagawin. Pinapatay bawat pisara sa Mga setting ng Scrum nito."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La lista dalaìte l laour vegn sourantout, marcada tl si cë. Cernida per tofl te Mpustazions dla tofl / Lista.",
   "feature-person-wip-limit": "Limit WIP per persona",
   "feature-person-wip-limit-desc": "Tan de ciartes davertes che una na persona possa tenì sun na tofl; na ciarta daverta avisa de vigni un sura. Metù per tofl te Mpustazions dla tofl / Lista.",
-  "scrum-definition-of-ready": "Definizion de laour pront"
+  "scrum-definition-of-ready": "Definizion de laour pront",
+  "daily-standup": "Scontra de uni di",
+  "dailyStandupPopup-title": "Scontra de uni di",
+  "standup-minutes": "Minuc per persona",
+  "standup-shuffle": "Mescedé",
+  "standup-total": "Dut adum: __time__",
+  "standup-done": "La scontra é dureda __time__.",
+  "retrospective-board": "Tofl de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Scomencé a fé",
+  "retro-stop": "Ressé de fé",
+  "retro-continue": "Jì inant a fé",
+  "feature-standup-timer": "Temporisadù dla scontra de uni di",
+  "feature-standup-timer-desc": "La scontra de uni di tl menu dla tofl: i mëmbri dla tofl te n ordin mescedé, vignun cun le medem temp. Ala se destuda per vigni tofl tles sues Mpustazions de Scrum.",
+  "feature-retrospective-board": "Tofl de retrospectiva",
+  "feature-retrospective-board-desc": "La tofl de retrospectiva tl menu dla tofl: na tofl privata nueva cun les listes Scomencé a fé, Ressé de fé, Jì inant a fé y Atività da fé. Ala se destuda per vigni tofl tles sues Mpustazions de Scrum."
 }

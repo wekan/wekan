@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Listen, hvorfra der forpligtes til arbejdet, markeret i dens overskrift. Vælges pr. tavle i Tavleindstillinger / Liste.",
   "feature-person-wip-limit": "WIP-begrænsning pr. person",
   "feature-person-wip-limit-desc": "Hvor mange åbne kort én person må have på en tavle; et åbnet kort advarer om enhver, der er over den. Angives pr. tavle i Tavleindstillinger / Liste.",
-  "scrum-definition-of-ready": "Definition af klar"
+  "scrum-definition-of-ready": "Definition af klar",
+  "daily-standup": "Dagligt standup-møde",
+  "dailyStandupPopup-title": "Dagligt standup-møde",
+  "standup-minutes": "Minutter pr. person",
+  "standup-shuffle": "Bland",
+  "standup-total": "I alt: __time__",
+  "standup-done": "Standup-mødet tog __time__.",
+  "retrospective-board": "Retrospektivtavle",
+  "retrospective-board-title": "__board__ - retrospektiv __date__",
+  "retro-start": "Begynd at gøre",
+  "retro-stop": "Hold op med at gøre",
+  "retro-continue": "Bliv ved med at gøre",
+  "feature-standup-timer": "Timer til dagligt standup-møde",
+  "feature-standup-timer-desc": "Tavlemenuens daglige standup-møde: tavlens medlemmer i tilfældig rækkefølge, hver med samme tidsramme. Slås fra pr. tavle i dens Scrum-indstillinger.",
+  "feature-retrospective-board": "Retrospektivtavle",
+  "feature-retrospective-board-desc": "Tavlemenuens retrospektivtavle: en ny privat tavle med listerne Begynd at gøre, Hold op med at gøre, Bliv ved med at gøre og Handlingspunkter. Slås fra pr. tavle i dens Scrum-indstillinger."
 }

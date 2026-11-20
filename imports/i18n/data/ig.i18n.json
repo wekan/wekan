@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ndepụta e si na ya ekwe nkwa ọrụ, akara n'isi ya. A na-ahọrọ ya maka bọọdụ ọ bụla na Ntọala bọọdụ / Ndepụta.",
   "feature-person-wip-limit": "Oke WIP maka onye ọ bụla",
   "feature-person-wip-limit-desc": "Kaadị ole ghe oghe otu onye nwere ike ijide na bọọdụ; kaadị e meghere na-adọ aka ná ntị maka onye ọ bụla gafere ya. A na-esetịpụ ya maka bọọdụ ọ bụla na Ntọala bọọdụ / Ndepụta.",
-  "scrum-definition-of-ready": "Nkọwa nke ọrụ dị njikere"
+  "scrum-definition-of-ready": "Nkọwa nke ọrụ dị njikere",
+  "daily-standup": "Nzukọ kwa ụbọchị",
+  "dailyStandupPopup-title": "Nzukọ kwa ụbọchị",
+  "standup-minutes": "Nkeji maka onye ọ bụla",
+  "standup-shuffle": "Gwakọta",
+  "standup-total": "Ngụkọta: __time__",
+  "standup-done": "Nzukọ kwa ụbọchị were __time__.",
+  "retrospective-board": "Bọọdụ ntụgharị uche",
+  "retrospective-board-title": "__board__ - ntụgharị uche __date__",
+  "retro-start": "Malite ime",
+  "retro-stop": "Kwụsị ime",
+  "retro-continue": "Gaa n'ihu ime",
+  "feature-standup-timer": "Oge nzukọ kwa ụbọchị",
+  "feature-standup-timer-desc": "Nzukọ kwa ụbọchị dị na menu bọọdụ: ndị otu bọọdụ n'usoro agwakọtara agwakọta, onye ọ bụla nwere otu oke oge. A na-agbanyụ ya maka bọọdụ ọ bụla na Ntọala Scrum ya.",
+  "feature-retrospective-board": "Bọọdụ ntụgharị uche",
+  "feature-retrospective-board-desc": "Bọọdụ ntụgharị uche dị na menu bọọdụ: bọọdụ nkeonwe ọhụrụ nwere ndepụta Malite ime, Kwụsị ime, Gaa n'ihu ime na Ihe a ga-eme. A na-agbanyụ ya maka bọọdụ ọ bụla na Ntọala Scrum ya."
 }

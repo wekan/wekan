@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Die Liste, ab der sich zur Arbeit verpflichtet wird, in ihrem Kopf markiert. Pro Board zu wählen unter Boardeinstellungen / Liste.",
   "feature-person-wip-limit": "WIP-Limit pro Person",
   "feature-person-wip-limit-desc": "Wie viele offene Karten eine Person auf einem Board halten darf; eine geöffnete Karte warnt vor allen, die darüber liegen. Pro Board festzulegen unter Boardeinstellungen / Liste.",
-  "scrum-definition-of-ready": "Definition von bereit"
+  "scrum-definition-of-ready": "Definition von bereit",
+  "daily-standup": "Tägliches Standup",
+  "dailyStandupPopup-title": "Tägliches Standup",
+  "standup-minutes": "Minuten pro Person",
+  "standup-shuffle": "Mischen",
+  "standup-total": "Gesamt: __time__",
+  "standup-done": "Das Standup dauerte __time__.",
+  "retrospective-board": "Retrospektiven-Board",
+  "retrospective-board-title": "__board__ - Retrospektive __date__",
+  "retro-start": "Damit anfangen",
+  "retro-stop": "Damit aufhören",
+  "retro-continue": "Weitermachen",
+  "feature-standup-timer": "Timer für das tägliche Standup",
+  "feature-standup-timer-desc": "Das tägliche Standup im Board-Menü: die Mitglieder des Boards in gemischter Reihenfolge, jedes mit derselben Timebox. Pro Board in dessen Scrum-Einstellungen abschaltbar.",
+  "feature-retrospective-board": "Retrospektiven-Board",
+  "feature-retrospective-board-desc": "Das Retrospektiven-Board im Board-Menü: ein neues privates Board mit den Listen Damit anfangen, Damit aufhören, Weitermachen und Aufgabenpunkte. Pro Board in dessen Scrum-Einstellungen abschaltbar."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "由佢開始承諾做嘢嘅清單，喺佢標題度標示。每塊看板喺 看板設定 / 清單 揀選。",
   "feature-person-wip-limit": "每人在製品限制",
   "feature-person-wip-limit-desc": "一個人喺一塊看板上面最多可以揸幾多張打開咗嘅卡片；打開咗嘅卡片會提醒超出限制嘅人。每塊看板喺 看板設定 / 清單 設定。",
-  "scrum-definition-of-ready": "就緒定義"
+  "scrum-definition-of-ready": "就緒定義",
+  "daily-standup": "每日企會",
+  "dailyStandupPopup-title": "每日企會",
+  "standup-minutes": "每人分鐘數",
+  "standup-shuffle": "打亂",
+  "standup-total": "總共：__time__",
+  "standup-done": "企會用咗 __time__。",
+  "retrospective-board": "回顧看板",
+  "retrospective-board-title": "__board__ - 回顧 __date__",
+  "retro-start": "開始做",
+  "retro-stop": "唔好再做",
+  "retro-continue": "繼續做",
+  "feature-standup-timer": "每日企會計時器",
+  "feature-standup-timer-desc": "看板選單入面嘅每日企會：看板成員按打亂嘅次序，每人一樣嘅時間。每個看板可以喺佢嘅 Scrum 設定入面閂咗。",
+  "feature-retrospective-board": "回顧看板",
+  "feature-retrospective-board-desc": "看板選單入面嘅回顧看板：開一個新嘅私人看板，有開始做、唔好再做、繼續做同要做嘅事呢幾個清單。每個看板可以喺佢嘅 Scrum 設定入面閂咗。"
 }

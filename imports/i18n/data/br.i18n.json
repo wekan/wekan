@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ar roll adal pehini eo emouestlet al labour, merket en e benn. Dibabet evit pep taolenn e Arventennoù an daolenn / Roll.",
   "feature-person-wip-limit": "Bevenn WIP dre zen",
   "feature-person-wip-limit-desc": "Pet kartenn digor a c'hall un den derc'hel war un daolenn; ur gartenn digoret a ziwall diwar-benn an neb a ya dreist. Termenet evit pep taolenn e Arventennoù an daolenn / Roll.",
-  "scrum-definition-of-ready": "Termenadur ar prest"
+  "scrum-definition-of-ready": "Termenadur ar prest",
+  "daily-standup": "Emvod pemdeziek en sav",
+  "dailyStandupPopup-title": "Emvod pemdeziek en sav",
+  "standup-minutes": "Munutennoù dre zen",
+  "standup-shuffle": "Meskañ",
+  "standup-total": "Hollad: __time__",
+  "standup-done": "Padet en deus an emvod __time__.",
+  "retrospective-board": "Taolenn sell war-gil",
+  "retrospective-board-title": "__board__ - sell war-gil __date__",
+  "retro-start": "Kregiñ d'ober",
+  "retro-stop": "Paouez d'ober",
+  "retro-continue": "Kenderc'hel d'ober",
+  "feature-standup-timer": "Kontadur amzer an emvod pemdeziek",
+  "feature-standup-timer-desc": "Emvod pemdeziek lañser an daolenn: izili an daolenn en un urzh meskaet, gant an hevelep amzer evit pep hini. Diweredekaet evit pep taolenn en he Arventennoù Scrum.",
+  "feature-retrospective-board": "Taolenn sell war-gil",
+  "feature-retrospective-board-desc": "Taolenn sell war-gil lañser an daolenn: un daolenn brevez nevez gant ar rolloù Kregiñ d'ober, Paouez d'ober, Kenderc'hel d'ober hag Oberoù da ober. Diweredekaet evit pep taolenn en he Arventennoù Scrum."
 }

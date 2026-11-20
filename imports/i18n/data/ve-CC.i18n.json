@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ła lista da cuała el lavoro el vien inpegnà, segnà inte ła so intestasion. Se ła siełze par ogni quadro in Inpostasion del quadro / Lista.",
   "feature-person-wip-limit": "Łimite WIP par persona",
   "feature-person-wip-limit-desc": "Quante schede verte na persona ła pol tegner su un quadro; na scheda verta ła avisa de chi che ło sorpasa. Se ło inposta par ogni quadro in Inpostasion del quadro / Lista.",
-  "scrum-definition-of-ready": "Definision de Pronto"
+  "scrum-definition-of-ready": "Definision de Pronto",
+  "daily-standup": "Riunion in pie de ogni dì",
+  "dailyStandupPopup-title": "Riunion in pie de ogni dì",
+  "standup-minutes": "Minuti par persona",
+  "standup-shuffle": "Mescola",
+  "standup-total": "Totale: __time__",
+  "standup-done": "La riunion la ga durà __time__.",
+  "retrospective-board": "Quadro de retrospetiva",
+  "retrospective-board-title": "__board__ - retrospetiva __date__",
+  "retro-start": "Scominsia a far",
+  "retro-stop": "Smeti de far",
+  "retro-continue": "Continua a far",
+  "feature-standup-timer": "Cronometro de la riunion de ogni dì",
+  "feature-standup-timer-desc": "La Riunion in pie de ogni dì del menù del quadro: i membri del quadro in ordine mescolà, ognun col steso tempo. Se la stua par ogni quadro ne le so Inpostasion Scrum.",
+  "feature-retrospective-board": "Quadro de retrospetiva",
+  "feature-retrospective-board-desc": "El Quadro de retrospetiva del menù del quadro: un quadro novo privà co le liste Scominsia a far, Smeti de far, Continua a far e Robe da far. Se lo stua par ogni quadro ne le so Inpostasion Scrum."
 }

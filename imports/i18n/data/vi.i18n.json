@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Danh sách mà từ đó công việc được cam kết, được đánh dấu ở tiêu đề của nó. Chọn cho từng bảng trong Cài đặt Bảng / Danh sách.",
   "feature-person-wip-limit": "Giới hạn WIP mỗi người",
   "feature-person-wip-limit-desc": "Số thẻ đang mở mà một người được giữ trên một bảng; thẻ được mở sẽ cảnh báo về bất kỳ ai vượt quá giới hạn. Đặt cho từng bảng trong Cài đặt Bảng / Danh sách.",
-  "scrum-definition-of-ready": "Tiêu chuẩn sẵn sàng"
+  "scrum-definition-of-ready": "Tiêu chuẩn sẵn sàng",
+  "daily-standup": "Họp đứng hằng ngày",
+  "dailyStandupPopup-title": "Họp đứng hằng ngày",
+  "standup-minutes": "Số phút mỗi người",
+  "standup-shuffle": "Xáo trộn",
+  "standup-total": "Tổng: __time__",
+  "standup-done": "Buổi họp kéo dài __time__.",
+  "retrospective-board": "Bảng rút kinh nghiệm",
+  "retrospective-board-title": "__board__ - rút kinh nghiệm __date__",
+  "retro-start": "Bắt đầu làm",
+  "retro-stop": "Ngừng làm",
+  "retro-continue": "Tiếp tục làm",
+  "feature-standup-timer": "Bộ hẹn giờ họp đứng hằng ngày",
+  "feature-standup-timer-desc": "Họp đứng hằng ngày trong menu bảng: các thành viên của bảng theo thứ tự xáo trộn, mỗi người có cùng khung thời gian. Tắt cho từng bảng trong Cài đặt Scrum của bảng đó.",
+  "feature-retrospective-board": "Bảng rút kinh nghiệm",
+  "feature-retrospective-board-desc": "Bảng rút kinh nghiệm trong menu bảng: một bảng riêng tư mới với các danh sách Bắt đầu làm, Ngừng làm, Tiếp tục làm và Việc cần làm. Tắt cho từng bảng trong Cài đặt Scrum của bảng đó."
 }

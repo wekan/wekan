@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Limu bi liggéey bi dale ci moom lañu koy dige, mu am màndarga ci boppam. Dañu koy tànn ci tablo bu nekk ci Tëraliini Tablo / Limu.",
   "feature-person-wip-limit": "WIP Limit ci ku nekk",
   "feature-person-wip-limit-desc": "Ñaata karta yu ubbeeku la benn nit mën a yor ci tablo; karta bu ubbeeku dina artu ci ku ko weesu. Dañu koy taxawal ci tablo bu nekk ci Tëraliini Tablo / Limu.",
-  "scrum-definition-of-ready": "Melokaanu Lu Pare"
+  "scrum-definition-of-ready": "Melokaanu Lu Pare",
+  "daily-standup": "Ndaje bu bés bu nekk",
+  "dailyStandupPopup-title": "Ndaje bu bés bu nekk",
+  "standup-minutes": "Simili ci ku nekk",
+  "standup-shuffle": "Jaxase",
+  "standup-total": "Lépp: __time__",
+  "standup-done": "Ndaje bi yàgg na __time__.",
+  "retrospective-board": "Tablo xoolaat",
+  "retrospective-board-title": "__board__ - xoolaat __date__",
+  "retro-start": "Tàmbali def",
+  "retro-stop": "Bàyyi def",
+  "retro-continue": "Wéy ci def",
+  "feature-standup-timer": "Montar ndaje bu bés bu nekk",
+  "feature-standup-timer-desc": "Ndaje bu bés bu nekk ci menu tablo bi: bokkkat yi ci tablo bi ci tolluwaay bu jaxasoo, ku nekk am jamono ju yem. Ñu ngi koy fey ci tablo bu nekk ci Jekkalu Scrum am.",
+  "feature-retrospective-board": "Tablo xoolaat",
+  "feature-retrospective-board-desc": "Tablo xoolaat ci menu tablo bi: tablo bu bees bu sutura ak limu yi Tàmbali def, Bàyyi def, Wéy ci def ak Li war a def. Ñu ngi koy fey ci tablo bu nekk ci Jekkalu Scrum am."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Rondedzero inozvipirwa basa kubva pairi, yakamakwa pamusoro payo. Inosarudzwa pabhodhi rimwe nerimwe muna Marongero ebhodhi / Rondedzero.",
   "feature-person-wip-limit": "Muganho we-WIP pamunhu",
   "feature-person-wip-limit-desc": "Makadhi akavhurika mangani anogona kubatwa nemunhu mumwe pabhodhi; kadhi rakavhurwa rinoyambira nezvemunhu wese apfuura. Unoiswa pabhodhi rimwe nerimwe muna Marongero ebhodhi / Rondedzero.",
-  "scrum-definition-of-ready": "Tsananguro yekuti basa rakagadzirira"
+  "scrum-definition-of-ready": "Tsananguro yekuti basa rakagadzirira",
+  "daily-standup": "Musangano wezuva nezuva",
+  "dailyStandupPopup-title": "Musangano wezuva nezuva",
+  "standup-minutes": "Maminitsi pamunhu",
+  "standup-shuffle": "Sanganisa",
+  "standup-total": "Pamwe chete: __time__",
+  "standup-done": "Musangano watora __time__.",
+  "retrospective-board": "Bhodhi rekutarisa kumashure",
+  "retrospective-board-title": "__board__ - kutarisa kumashure __date__",
+  "retro-start": "Tanga kuita",
+  "retro-stop": "Rega kuita",
+  "retro-continue": "Ramba uchiita",
+  "feature-standup-timer": "Nguva yemusangano wezuva nezuva",
+  "feature-standup-timer-desc": "Musangano wezuva nezuva mumenyu yebhodhi: nhengo dzebhodhi nenhevedzano yakasanganiswa, mumwe nemumwe nenguva imwe chete. Unodzimwa pabhodhi rimwe nerimwe muZvirongwa zveScrum zvaro.",
+  "feature-retrospective-board": "Bhodhi rekutarisa kumashure",
+  "feature-retrospective-board-desc": "Bhodhi rekutarisa kumashure mumenyu yebhodhi: bhodhi idzva rakavanzika rine marondedzero Tanga kuita, Rega kuita, Ramba uchiita uye Zvinofanira kuitwa. Rinodzimwa pabhodhi rimwe nerimwe muZvirongwa zveScrum zvaro."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lis kote travay la angaje apati li, ki make nan tèt li. Yo chwazi l pou chak tablo nan Paramèt tablo / Lis.",
   "feature-person-wip-limit": "Limit WIP pou chak moun",
   "feature-person-wip-limit-desc": "Konbyen kat louvri yon sèl moun ka genyen sou yon tablo; yon kat ki louvri avèti sou nenpòt moun ki depase l. Yo regle l pou chak tablo nan Paramèt tablo / Lis.",
-  "scrum-definition-of-ready": "Definisyon travay pare"
+  "scrum-definition-of-ready": "Definisyon travay pare",
+  "daily-standup": "Reyinyon chak jou",
+  "dailyStandupPopup-title": "Reyinyon chak jou",
+  "standup-minutes": "Minit pou chak moun",
+  "standup-shuffle": "Melanje",
+  "standup-total": "An tou: __time__",
+  "standup-done": "Reyinyon chak jou a te dire __time__.",
+  "retrospective-board": "Tablo retwospektiv",
+  "retrospective-board-title": "__board__ - retwospektiv __date__",
+  "retro-start": "Kòmanse fè",
+  "retro-stop": "Sispann fè",
+  "retro-continue": "Kontinye fè",
+  "feature-standup-timer": "Kwonomèt reyinyon chak jou",
+  "feature-standup-timer-desc": "Reyinyon chak jou nan meni tablo a: manm tablo a nan yon lòd melanje, chak moun ak menm tan limite. Yo dezaktive l pou chak tablo nan Paramèt Scrum li.",
+  "feature-retrospective-board": "Tablo retwospektiv",
+  "feature-retrospective-board-desc": "Tablo retwospektiv nan meni tablo a: yon nouvo tablo prive ak lis Kòmanse fè, Sispann fè, Kontinye fè ak Aksyon pou fè. Yo dezaktive l pou chak tablo nan Paramèt Scrum li."
 }

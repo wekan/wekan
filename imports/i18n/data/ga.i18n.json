@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "An liosta óna ndéantar tiomantas don obair, marcáilte ina cheannteideal. Roghnaítear é in aghaidh an chláir i Socruithe cláir / Liosta.",
   "feature-person-wip-limit": "Teorainn WIP in aghaidh an duine",
   "feature-person-wip-limit-desc": "Cé mhéad cárta oscailte is féidir le duine amháin a choinneáil ar chlár; tugann cárta oscailte rabhadh faoi aon duine os a chionn. Socraítear é in aghaidh an chláir i Socruithe cláir / Liosta.",
-  "scrum-definition-of-ready": "Sainmhíniú ar réidh"
+  "scrum-definition-of-ready": "Sainmhíniú ar réidh",
+  "daily-standup": "Cruinniú laethúil",
+  "dailyStandupPopup-title": "Cruinniú laethúil",
+  "standup-minutes": "Nóiméid an duine",
+  "standup-shuffle": "Suaith",
+  "standup-total": "Iomlán: __time__",
+  "standup-done": "Mhair an cruinniú laethúil __time__.",
+  "retrospective-board": "Clár súil siar",
+  "retrospective-board-title": "__board__ - súil siar __date__",
+  "retro-start": "Tosaigh ag déanamh",
+  "retro-stop": "Stop ag déanamh",
+  "retro-continue": "Lean ort ag déanamh",
+  "feature-standup-timer": "Amadóir an chruinnithe laethúil",
+  "feature-standup-timer-desc": "An Cruinniú laethúil i roghchlár an chláir: baill an chláir in ord suaite, gach duine leis an teorainn ama chéanna. Múchtar é in aghaidh an chláir ina Socruithe Scrum.",
+  "feature-retrospective-board": "Clár súil siar",
+  "feature-retrospective-board-desc": "An Clár súil siar i roghchlár an chláir: clár príobháideach nua leis na liostaí Tosaigh ag déanamh, Stop ag déanamh, Lean ort ag déanamh agus Pointí gnímh. Múchtar é in aghaidh an chláir ina Socruithe Scrum."
 }

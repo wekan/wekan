@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "İşin öhdəliyə götürüldüyü siyahı, başlığında işarələnir. Hər lövhə üçün Board Parametrləri / Siyahı bölməsində seçilir.",
   "feature-person-wip-limit": "Hər şəxs üçün WIP limiti",
   "feature-person-wip-limit-desc": "Bir şəxsin lövhədə neçə açıq kart saxlaya biləcəyi; açılmış kart limiti aşan hər kəs barədə xəbərdarlıq edir. Hər lövhə üçün Board Parametrləri / Siyahı bölməsində təyin edilir.",
-  "scrum-definition-of-ready": "Hazırlıq meyarları"
+  "scrum-definition-of-ready": "Hazırlıq meyarları",
+  "daily-standup": "Gündəlik ayaqüstü görüş",
+  "dailyStandupPopup-title": "Gündəlik ayaqüstü görüş",
+  "standup-minutes": "Hər nəfərə dəqiqə",
+  "standup-shuffle": "Qarışdır",
+  "standup-total": "Cəmi: __time__",
+  "standup-done": "Ayaqüstü görüş __time__ çəkdi.",
+  "retrospective-board": "Retrospektiv lövhə",
+  "retrospective-board-title": "__board__ - retrospektiv __date__",
+  "retro-start": "Etməyə başla",
+  "retro-stop": "Etməyi dayandır",
+  "retro-continue": "Etməyə davam et",
+  "feature-standup-timer": "Gündəlik ayaqüstü görüş taymeri",
+  "feature-standup-timer-desc": "Lövhə menyusunun Gündəlik ayaqüstü görüşü: lövhənin üzvləri qarışıq sırada, hər biri eyni vaxt həddi ilə. Hər lövhə üçün onun Scrum parametrləri bölməsində söndürülür.",
+  "feature-retrospective-board": "Retrospektiv lövhə",
+  "feature-retrospective-board-desc": "Lövhə menyusunun Retrospektiv lövhəsi: Etməyə başla, Etməyi dayandır, Etməyə davam et və Görüləcək işlər siyahıları olan yeni şəxsi lövhə. Hər lövhə üçün onun Scrum parametrləri bölməsində söndürülür."
 }

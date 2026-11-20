@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Din a efi so na wɔhyɛ bɔ sɛ wɔbɛyɛ adwuma, wɔahyɛ ho agyirae wɔ ne ti. Wɔpaw no bɔɔd biara mu wɔ Bɔɔd nhyehyɛeɛ / Din a wɔahyehyɛ.",
   "feature-person-wip-limit": "Adwuma a ɛrekɔ so dodow ano ma onipa biara",
   "feature-person-wip-limit-desc": "Kaad dodow a ɛda hɔ a onipa baako betumi akura wɔ bɔɔd so; kaad a wɔabue no bɔ obiara a ɔboro so no ho kɔkɔ. Wɔhyehyɛ no bɔɔd biara mu wɔ Bɔɔd nhyehyɛeɛ / Din a wɔahyehyɛ.",
-  "scrum-definition-of-ready": "Nea ɛkyerɛ sɛ ayɛ krado"
+  "scrum-definition-of-ready": "Nea ɛkyerɛ sɛ ayɛ krado",
+  "daily-standup": "Da biara nhyiam a wɔgyina",
+  "dailyStandupPopup-title": "Da biara nhyiam a wɔgyina",
+  "standup-minutes": "Simma ma obiara",
+  "standup-shuffle": "Fra",
+  "standup-total": "Ne nyinaa: __time__",
+  "standup-done": "Nhyiam no dii __time__.",
+  "retrospective-board": "Bɔɔd a wɔde dwennwen nea atwam",
+  "retrospective-board-title": "__board__ - nea atwam ho adwinnwen __date__",
+  "retro-start": "Fi ase yɛ",
+  "retro-stop": "Gyae yɛ",
+  "retro-continue": "Kɔ so yɛ",
+  "feature-standup-timer": "Da biara nhyiam berɛ susudua",
+  "feature-standup-timer-desc": "Bɔɔd menu no mu Da biara nhyiam: bɔɔd no amanfoɔ wɔ nhyehyɛe a wɔafra mu, obiara nya berɛ korɔ. Wobɛtumi adum no bɔɔd biara mu wɔ ne Scrum nhyehyɛe mu.",
+  "feature-retrospective-board": "Bɔɔd a wɔde dwennwen nea atwam",
+  "feature-retrospective-board-desc": "Bɔɔd menu no mu Bɔɔd a wɔde dwennwen nea atwam: bɔɔd foforɔ a ɛyɛ kokoam a ne din a wɔahyehyɛ ne Fi ase yɛ, Gyae yɛ, Kɔ so yɛ ne Nneɛma a ɛsɛ sɛ wɔyɛ. Wobɛtumi adum no bɔɔd biara mu wɔ ne Scrum nhyehyɛe mu."
 }

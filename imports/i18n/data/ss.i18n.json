@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Luhla lapho umsebenti utibophelelwa khona, lolumakwe esihlokweni salo. Luyakhetfwa elibhodini ngalinye ku-Tilungiselelo telibhodi / Luhla.",
   "feature-person-wip-limit": "Umkhawulo we-WIP kumuntu ngamunye",
   "feature-person-wip-limit-desc": "Mangaki emakhadi lavulekile umuntu munye langawabamba elibhodini; likhadi lelivulekile lixwayisa ngabo bonkhe labeca umkhawulo. Kusetjwa elibhodini ngalinye ku-Tilungiselelo telibhodi / Luhla.",
-  "scrum-definition-of-ready": "Incazelo yalokulungele"
+  "scrum-definition-of-ready": "Incazelo yalokulungele",
+  "daily-standup": "Umhlangano walamalanga onkhe",
+  "dailyStandupPopup-title": "Umhlangano walamalanga onkhe",
+  "standup-minutes": "Imizuzu ngamunye",
+  "standup-shuffle": "Hlanganisa",
+  "standup-total": "Kukonkhe: __time__",
+  "standup-done": "Umhlangano utsatse __time__.",
+  "retrospective-board": "Libhodi lekubuka emuva",
+  "retrospective-board-title": "__board__ - kubuka emuva __date__",
+  "retro-start": "Cala kwenta",
+  "retro-stop": "Yekela kwenta",
+  "retro-continue": "Chubeka wenta",
+  "feature-standup-timer": "Sikhatsi semhlangano walamalanga onkhe",
+  "feature-standup-timer-desc": "Umhlangano walamalanga onkhe kumenyu yelibhodi: emalunga elibhodi ngekulandzelana lokuhlanganisiwe, ngamunye anesikhatsi lesifanako. Uyacimwa kulelo nalelo libhodi ku-Tilungiselelo te-Scrum talo.",
+  "feature-retrospective-board": "Libhodi lekubuka emuva",
+  "feature-retrospective-board-desc": "Libhodi lekubuka emuva kumenyu yelibhodi: libhodi lelisha lelimfihlo leneluhla Cala kwenta, Yekela kwenta, Chubeka wenta kanye Lokufanele kwentiwe. Liyacimwa kulelo nalelo libhodi ku-Tilungiselelo te-Scrum talo."
 }

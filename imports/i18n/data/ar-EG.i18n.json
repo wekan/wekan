@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "القائمة التي يُلتزم بالعمل ابتداءً منها، مع علامة في رأسها. تُختار لكل لوحة في إعدادات اللوحة / قائمة.",
   "feature-person-wip-limit": "حد العمل الجاري (WIP) لكل شخص",
   "feature-person-wip-limit-desc": "عدد البطاقات المفتوحة التي يمكن لشخص واحد الاحتفاظ بها في لوحة؛ وتُنبّه البطاقة المفتوحة إلى أي شخص تجاوزه. يُضبط لكل لوحة في إعدادات اللوحة / قائمة.",
-  "scrum-definition-of-ready": "تعريف الجاهزية"
+  "scrum-definition-of-ready": "تعريف الجاهزية",
+  "daily-standup": "اجتماع الوقوف اليومي",
+  "dailyStandupPopup-title": "اجتماع الوقوف اليومي",
+  "standup-minutes": "دقائق لكل شخص",
+  "standup-shuffle": "خلط",
+  "standup-total": "الإجمالي: __time__",
+  "standup-done": "استغرق اجتماع الوقوف __time__.",
+  "retrospective-board": "لوحة الاستعراض الرجعي",
+  "retrospective-board-title": "__board__ - استعراض رجعي __date__",
+  "retro-start": "ابدأ بفعله",
+  "retro-stop": "توقف عن فعله",
+  "retro-continue": "استمر في فعله",
+  "feature-standup-timer": "مؤقت اجتماع الوقوف اليومي",
+  "feature-standup-timer-desc": "اجتماع الوقوف اليومي في قائمة اللوحة: أعضاء اللوحة بترتيب عشوائي، لكل منهم المدة الزمنية نفسها. يمكن إيقافه لكل لوحة في إعدادات سكرم الخاصة بها.",
+  "feature-retrospective-board": "لوحة الاستعراض الرجعي",
+  "feature-retrospective-board-desc": "لوحة الاستعراض الرجعي في قائمة اللوحة: لوحة خاصة جديدة بالقوائم ابدأ بفعله، توقف عن فعله، استمر في فعله وبنود العمل. يمكن إيقافها لكل لوحة في إعدادات سكرم الخاصة بها."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista di la cari lucrul easti asumat, semnatã tu caplu a ljei. Aleaptã tu cathi tabelã tu Sitãri di tabelã / Listã.",
   "feature-person-wip-limit": "Limitã WIP di persoanã",
   "feature-person-wip-limit-desc": "Cãti cãrtsã dishcljisi poati s-tsãnã ũnã persoanã pi ũnã tabelã; ũnã cartã dishcljisã avertizeadzã ti cariva cari u tricã. Bãgatã tu cathi tabelã tu Sitãri di tabelã / Listã.",
-  "scrum-definition-of-ready": "Definitsia a lucrului etim"
+  "scrum-definition-of-ready": "Definitsia a lucrului etim",
+  "daily-standup": "Adunari di cafi dzuã",
+  "dailyStandupPopup-title": "Adunari di cafi dzuã",
+  "standup-minutes": "Minuti di persoanã",
+  "standup-shuffle": "Amisticã",
+  "standup-total": "Tut: __time__",
+  "standup-done": "Adunarea ţãnu __time__.",
+  "retrospective-board": "Tabelã di retrospectivã",
+  "retrospective-board-title": "__board__ - retrospectivã __date__",
+  "retro-start": "Ahurhi s-faţ",
+  "retro-stop": "Astãmãtsea s-faţ",
+  "retro-continue": "Ducheaţ-u ninti",
+  "feature-standup-timer": "Ceas ti adunarea di cafi dzuã",
+  "feature-standup-timer-desc": "Adunarea di cafi dzuã tu meniul a tabelãljei: membrili a tabelãljei tu unã aradã amisticatã, cafi unu cu idyiul chiro. S-astindzi ti cafi tabelã tu Sitãri Scrum a ljei.",
+  "feature-retrospective-board": "Tabelã di retrospectivã",
+  "feature-retrospective-board-desc": "Tabela di retrospectivã tu meniul a tabelãljei: unã tabelã privatã nauã cu listili Ahurhi s-faţ, Astãmãtsea s-faţ, Ducheaţ-u ninti şi Lucri tsi lipsescu fapti. S-astindzi ti cafi tabelã tu Sitãri Scrum a ljei."
 }

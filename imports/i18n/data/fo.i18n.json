@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Listin, sum arbeiðið verður bundið frá, merktur í høvdinum. Verður valdur fyri hvørja talvu í Talvustillingar / Listi.",
   "feature-person-wip-limit": "WIP-mark fyri hvønn persón",
   "feature-person-wip-limit-desc": "Hvussu nógv opin kort ein persónur kann hava á eini talvu; eitt opnað kort ávarar um øll, ið eru omanfyri. Verður sett fyri hvørja talvu í Talvustillingar / Listi.",
-  "scrum-definition-of-ready": "Treytir fyri at vera klárt at byrja"
+  "scrum-definition-of-ready": "Treytir fyri at vera klárt at byrja",
+  "daily-standup": "Dagligur fundur",
+  "dailyStandupPopup-title": "Dagligur fundur",
+  "standup-minutes": "Minuttir fyri hvønn persón",
+  "standup-shuffle": "Bland",
+  "standup-total": "Tilsamans: __time__",
+  "standup-done": "Dagligi fundurin vardi __time__.",
+  "retrospective-board": "Afturlitstalva",
+  "retrospective-board-title": "__board__ - afturlit __date__",
+  "retro-start": "Byrja at gera",
+  "retro-stop": "Halt uppat at gera",
+  "retro-continue": "Halt fram at gera",
+  "feature-standup-timer": "Tíðarmátari til dagligan fund",
+  "feature-standup-timer-desc": "Dagligur fundur í talvumenuini: limirnir á talvuni í blandaðari raðfylgju, hvør við sama tíðarmarki. Sløkt fyri hvørja talvu í hennara Scrum-stillingar.",
+  "feature-retrospective-board": "Afturlitstalva",
+  "feature-retrospective-board-desc": "Afturlitstalva í talvumenuini: ein nýggj privat talva við listunum Byrja at gera, Halt uppat at gera, Halt fram at gera og Uppgávupunkt. Sløkt fyri hvørja talvu í hennara Scrum-stillingar."
 }

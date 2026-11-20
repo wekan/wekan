@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ish majburiyat sifatida olinadigan roʻyxat, sarlavhasida belgilanadi. Har bir taxta uchun Taxta sozlamalari / Roʻyxat boʻlimida tanlanadi.",
   "feature-person-wip-limit": "Har bir shaxs uchun WIP chegarasi",
   "feature-person-wip-limit-desc": "Bir shaxs taxtada nechta ochiq kartani ushlab turishi mumkin; ochilgan karta chegaradan oshgan har kim haqida ogohlantiradi. Har bir taxta uchun Taxta sozlamalari / Roʻyxat boʻlimida oʻrnatiladi.",
-  "scrum-definition-of-ready": "Tayyorlik mezonlari"
+  "scrum-definition-of-ready": "Tayyorlik mezonlari",
+  "daily-standup": "Kundalik yigʻilish",
+  "dailyStandupPopup-title": "Kundalik yigʻilish",
+  "standup-minutes": "Har bir kishiga daqiqa",
+  "standup-shuffle": "Aralashtirish",
+  "standup-total": "Jami: __time__",
+  "standup-done": "Yigʻilish __time__ davom etdi.",
+  "retrospective-board": "Retrospektiva taxtasi",
+  "retrospective-board-title": "__board__ - retrospektiva __date__",
+  "retro-start": "Qilishni boshlash",
+  "retro-stop": "Qilishni toʻxtatish",
+  "retro-continue": "Qilishda davom etish",
+  "feature-standup-timer": "Kundalik yigʻilish taymeri",
+  "feature-standup-timer-desc": "Taxta menyusidagi Kundalik yigʻilish: taxta a'zolari aralash tartibda, har biriga bir xil vaqt. Har bir taxta uchun uning Scrum sozlamalarida oʻchiriladi.",
+  "feature-retrospective-board": "Retrospektiva taxtasi",
+  "feature-retrospective-board-desc": "Taxta menyusidagi Retrospektiva taxtasi: Qilishni boshlash, Qilishni toʻxtatish, Qilishda davom etish va Bajariladigan ishlar roʻyxatlari bilan yangi shaxsiy taxta. Har bir taxta uchun uning Scrum sozlamalarida oʻchiriladi."
 }

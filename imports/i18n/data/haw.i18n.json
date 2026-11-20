@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ka papa inoa e hoʻohiki ʻia ai ka hana mai laila aku, i kaha ʻia ma kona poʻo. Koho ʻia no kēlā me kēia papa ma Hoʻonohonoho Papa / Papa inoa.",
   "feature-person-wip-limit": "Palena WIP no kēlā me kēia kanaka",
   "feature-person-wip-limit-desc": "ʻEhia kāleka hāmama e hiki ai i ke kanaka hoʻokahi ke paʻa ma kahi papa; hoʻolaha ke kāleka i wehe ʻia no ka mea i ʻoi aku. Hoʻonohonoho ʻia no kēlā me kēia papa ma Hoʻonohonoho Papa / Papa inoa.",
-  "scrum-definition-of-ready": "Wehewehena o ka mākaukau"
+  "scrum-definition-of-ready": "Wehewehena o ka mākaukau",
+  "daily-standup": "Hālāwai kū o kēlā me kēia lā",
+  "dailyStandupPopup-title": "Hālāwai kū o kēlā me kēia lā",
+  "standup-minutes": "Nā minuke no kēlā me kēia kanaka",
+  "standup-shuffle": "Hoʻohuikau",
+  "standup-total": "Huina: __time__",
+  "standup-done": "Ua lōʻihi ka hālāwai kū he __time__.",
+  "retrospective-board": "Papa nānā i hope",
+  "retrospective-board-title": "__board__ - nānā i hope __date__",
+  "retro-start": "E hoʻomaka e hana",
+  "retro-stop": "E hoʻōki i ka hana",
+  "retro-continue": "E hoʻomau i ka hana",
+  "feature-standup-timer": "Uaki hālāwai kū o kēlā me kēia lā",
+  "feature-standup-timer-desc": "Ka Hālāwai kū o kēlā me kēia lā ma ka papa koho o ka papa: nā lālā o ka papa ma ke kaʻina i hoʻohuikau ʻia, ka palena manawa like no kēlā me kēia. Hoʻopio ʻia no kēlā me kēia papa ma kona Nā hoʻonohonoho Scrum.",
+  "feature-retrospective-board": "Papa nānā i hope",
+  "feature-retrospective-board-desc": "Ka Papa nānā i hope ma ka papa koho o ka papa: he papa pilikino hou me nā papa inoa E hoʻomaka e hana, E hoʻōki i ka hana, E hoʻomau i ka hana a me Nā hana e hana ai. Hoʻopio ʻia no kēlā me kēia papa ma kona Nā hoʻonohonoho Scrum."
 }

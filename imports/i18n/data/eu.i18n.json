@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lana konprometitzen den zerrenda, bere goiburuan markatuta. Arbelka aukeratzen da Arbelaren ezarpenak / Zerrenda atalean.",
   "feature-person-wip-limit": "Pertsona bakoitzeko WIP muga",
   "feature-person-wip-limit-desc": "Pertsona batek arbel batean zenbat txartel ireki izan ditzakeen; txartel ireki batek ohartarazten du muga gainditzen duen edonori buruz. Arbelka ezartzen da Arbelaren ezarpenak / Zerrenda atalean.",
-  "scrum-definition-of-ready": "Prestatutakoaren definizioa"
+  "scrum-definition-of-ready": "Prestatutakoaren definizioa",
+  "daily-standup": "Eguneroko bilera",
+  "dailyStandupPopup-title": "Eguneroko bilera",
+  "standup-minutes": "Minutuak pertsonako",
+  "standup-shuffle": "Nahastu",
+  "standup-total": "Guztira: __time__",
+  "standup-done": "Eguneroko bilerak __time__ iraun du.",
+  "retrospective-board": "Atzera begirako arbela",
+  "retrospective-board-title": "__board__ - atzera begirakoa __date__",
+  "retro-start": "Hasi egiten",
+  "retro-stop": "Utzi egiteari",
+  "retro-continue": "Jarraitu egiten",
+  "feature-standup-timer": "Eguneroko bileraren tenporizadorea",
+  "feature-standup-timer-desc": "Arbelaren menuko Eguneroko bilera: arbelaren kideak ausazko ordenan, bakoitza denbora-muga berarekin. Arbel bakoitzean desaktibatzen da bere Scrum ezarpenak atalean.",
+  "feature-retrospective-board": "Atzera begirako arbela",
+  "feature-retrospective-board-desc": "Arbelaren menuko Atzera begirako arbela: arbel pribatu berri bat Hasi egiten, Utzi egiteari, Jarraitu egiten eta Egiteko ekintzak zerrendekin. Arbel bakoitzean desaktibatzen da bere Scrum ezarpenak atalean."
 }

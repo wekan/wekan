@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ሥራ ቃል የሚገባበት ዝርዝር፣ በራስጌው ላይ ምልክት የተደረገበት። በየሰሌዳው በሰሌዳ ቅንብሮች / ዝርዝር ውስጥ ይመረጣል።",
   "feature-person-wip-limit": "የWIP ገደብ ለአንድ ሰው",
   "feature-person-wip-limit-desc": "አንድ ሰው በሰሌዳ ላይ ስንት ክፍት ካርዶችን መያዝ እንደሚችል፤ የተከፈተ ካርድ ከገደቡ ስላለፈ ማንኛውም ሰው ያስጠነቅቃል። በየሰሌዳው በሰሌዳ ቅንብሮች / ዝርዝር ውስጥ ይዘጋጃል።",
-  "scrum-definition-of-ready": "የዝግጁ ሥራ መስፈርት"
+  "scrum-definition-of-ready": "የዝግጁ ሥራ መስፈርት",
+  "daily-standup": "ዕለታዊ የቆሞ ስብሰባ",
+  "dailyStandupPopup-title": "ዕለታዊ የቆሞ ስብሰባ",
+  "standup-minutes": "ደቂቃ ለአንድ ሰው",
+  "standup-shuffle": "አደባልቅ",
+  "standup-total": "ጠቅላላ፦ __time__",
+  "standup-done": "ስብሰባው __time__ ፈጅቷል።",
+  "retrospective-board": "የኋላ ግምገማ ሰሌዳ",
+  "retrospective-board-title": "__board__ - የኋላ ግምገማ __date__",
+  "retro-start": "ማድረግ ጀምር",
+  "retro-stop": "ማድረግ አቁም",
+  "retro-continue": "ማድረግ ቀጥል",
+  "feature-standup-timer": "የዕለታዊ ስብሰባ ሰዓት ቆጣሪ",
+  "feature-standup-timer-desc": "የሰሌዳው ምናሌ ዕለታዊ የቆሞ ስብሰባ፦ የሰሌዳው አባላት በተደባለቀ ቅደም ተከተል፣ እያንዳንዱ ተመሳሳይ የጊዜ ገደብ አለው። በእያንዳንዱ ሰሌዳ የስክረም ቅንብሮች ውስጥ ሊጠፋ ይችላል።",
+  "feature-retrospective-board": "የኋላ ግምገማ ሰሌዳ",
+  "feature-retrospective-board-desc": "የሰሌዳው ምናሌ የኋላ ግምገማ ሰሌዳ፦ ማድረግ ጀምር፣ ማድረግ አቁም፣ ማድረግ ቀጥል እና የሚወሰዱ እርምጃዎች ዝርዝሮች ያሉት አዲስ የግል ሰሌዳ። በእያንዳንዱ ሰሌዳ የስክረም ቅንብሮች ውስጥ ሊጠፋ ይችላል።"
 }

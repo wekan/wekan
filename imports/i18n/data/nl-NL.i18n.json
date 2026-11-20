@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "De lijst vanaf waar het werk wordt toegezegd, gemarkeerd in de kop. Per bord te kiezen in Bord Instellingen / Lijst.",
   "feature-person-wip-limit": "WIP limiet per persoon",
   "feature-person-wip-limit-desc": "Hoeveel open kaarten één persoon op een bord mag hebben; een geopende kaart waarschuwt voor iedereen die erboven zit. Per bord in te stellen in Bord Instellingen / Lijst.",
-  "scrum-definition-of-ready": "Definitie van startklaar"
+  "scrum-definition-of-ready": "Definitie van startklaar",
+  "daily-standup": "Dagelijkse stand-up",
+  "dailyStandupPopup-title": "Dagelijkse stand-up",
+  "standup-minutes": "Minuten per persoon",
+  "standup-shuffle": "Schudden",
+  "standup-total": "Totaal: __time__",
+  "standup-done": "De stand-up duurde __time__.",
+  "retrospective-board": "Retrospectivebord",
+  "retrospective-board-title": "__board__ - terugblik __date__",
+  "retro-start": "Beginnen met",
+  "retro-stop": "Stoppen met",
+  "retro-continue": "Blijven doen",
+  "feature-standup-timer": "Timer voor de dagelijkse stand-up",
+  "feature-standup-timer-desc": "De dagelijkse stand-up in het bordmenu: de leden van het bord in willekeurige volgorde, elk met dezelfde timebox. Per bord uit te schakelen in de Scrum-instellingen ervan.",
+  "feature-retrospective-board": "Retrospectivebord",
+  "feature-retrospective-board-desc": "Het retrospectivebord in het bordmenu: een nieuw privébord met de lijsten Beginnen met, Stoppen met, Blijven doen en Actiepunten. Per bord uit te schakelen in de Scrum-instellingen ervan."
 }

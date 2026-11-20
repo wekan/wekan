@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ስራሕ ካብኡ ጀሚሩ ዝውፈ ዝርዝር፡ ኣብ ርእሱ ተመልኪቱ። ንነፍሲ ወከፍ ሰሌዳ ኣብ ናይ ሰሌዳ ቅንብራት / ዝርዝር ይሕረይ።",
   "feature-person-wip-limit": "ደረት WIP ንሓደ ሰብ",
   "feature-person-wip-limit-desc": "ሓደ ሰብ ኣብ ሰሌዳ ክንደይ ክፉታት ካርዳት ክሕዝ ከም ዝኽእል፤ ዝተኸፍተ ካርድ ብዛዕባ ዝሓለፎ ዝኾነ ሰብ የጠንቅቕ። ንነፍሲ ወከፍ ሰሌዳ ኣብ ናይ ሰሌዳ ቅንብራት / ዝርዝር ይቕመጥ።",
-  "scrum-definition-of-ready": "ትርጉም ድሉው"
+  "scrum-definition-of-ready": "ትርጉም ድሉው",
+  "daily-standup": "መዓልታዊ ናይ ደው ምባል ኣኼባ",
+  "dailyStandupPopup-title": "መዓልታዊ ናይ ደው ምባል ኣኼባ",
+  "standup-minutes": "ደቓይቕ ንነፍሲ ወከፍ ሰብ",
+  "standup-shuffle": "ሕወስ",
+  "standup-total": "ድምር: __time__",
+  "standup-done": "ኣኼባ __time__ ወሲዱ።",
+  "retrospective-board": "ሰሌዳ ድሕሪት ምጥማት",
+  "retrospective-board-title": "__board__ - ድሕሪት ምጥማት __date__",
+  "retro-start": "ምግባር ጀምር",
+  "retro-stop": "ምግባር ኣቋርጽ",
+  "retro-continue": "ምግባር ቀጽል",
+  "feature-standup-timer": "ሰዓት መዓልታዊ ኣኼባ",
+  "feature-standup-timer-desc": "መዓልታዊ ኣኼባ ኣብ ሜኑ ሰሌዳ: ኣባላት ሰሌዳ ብዝተሓዋወሰ ስርዓት፡ ነፍሲ ወከፎም ሓደ ዓይነት ግዜ። ንነፍሲ ወከፍ ሰሌዳ ኣብ ቅንብራት Scrum ናቱ ይጠፍእ።",
+  "feature-retrospective-board": "ሰሌዳ ድሕሪት ምጥማት",
+  "feature-retrospective-board-desc": "ሰሌዳ ድሕሪት ምጥማት ኣብ ሜኑ ሰሌዳ: ሓድሽ ብሕታዊ ሰሌዳ ምስ ዝርዝራት ምግባር ጀምር፡ ምግባር ኣቋርጽ፡ ምግባር ቀጽል ከምኡ'ውን ዝግበሩ ነገራት። ንነፍሲ ወከፍ ሰሌዳ ኣብ ቅንብራት Scrum ናቱ ይጠፍእ።"
 }

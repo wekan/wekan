@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Seznam, od kterého se k práci zavazuje, označený v jeho záhlaví. Volí se pro každé tablo v Nastavení Tabla / Seznam.",
   "feature-person-wip-limit": "WIP limit na osobu",
   "feature-person-wip-limit-desc": "Kolik otevřených karet smí jedna osoba na tablu držet; otevřená karta upozorní na každého, kdo jej překročil. Nastavuje se pro každé tablo v Nastavení Tabla / Seznam.",
-  "scrum-definition-of-ready": "Definice připravenosti"
+  "scrum-definition-of-ready": "Definice připravenosti",
+  "daily-standup": "Denní stand-up",
+  "dailyStandupPopup-title": "Denní stand-up",
+  "standup-minutes": "Minut na osobu",
+  "standup-shuffle": "Zamíchat",
+  "standup-total": "Celkem: __time__",
+  "standup-done": "Stand-up trval __time__.",
+  "retrospective-board": "Tablo retrospektivy",
+  "retrospective-board-title": "__board__ - retrospektiva __date__",
+  "retro-start": "Začít dělat",
+  "retro-stop": "Přestat dělat",
+  "retro-continue": "Pokračovat v tom",
+  "feature-standup-timer": "Časovač denního stand-upu",
+  "feature-standup-timer-desc": "Denní stand-up v nabídce tabla: členové tabla v zamíchaném pořadí, každý se stejným časovým limitem. Vypíná se pro každé tablo v jeho Nastavení Scrumu.",
+  "feature-retrospective-board": "Tablo retrospektivy",
+  "feature-retrospective-board-desc": "Tablo retrospektivy v nabídce tabla: nové soukromé tablo se seznamy Začít dělat, Přestat dělat, Pokračovat v tom a Úkoly k akci. Vypíná se pro každé tablo v jeho Nastavení Scrumu."
 }

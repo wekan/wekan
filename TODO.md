@@ -83,7 +83,5 @@ board's settings and in Admin Panel features. Sources: the Kanban Guide
 (kanban.university), the Scrum Glossary (scrum.org), Scrum Alliance's scrum
 board article, ScrumDesk's feature list.
 
-- Retrospective board: Start / Stop / Continue lists made for a sprint.
-- Daily standup timer per person.
 - Split Doing / Done columns: a list split into two halves, so finished work
   waits visibly before it is pulled on.

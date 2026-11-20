@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "İşin taahhüt edildiği liste, başlığında işaretlenir. Her pano için Pano Ayarları / Liste bölümünden seçilir.",
   "feature-person-wip-limit": "Kişi başına devam eden iş sınırı",
   "feature-person-wip-limit-desc": "Bir kişinin bir panoda kaç açık kart tutabileceği; açılan bir kart bu sınırı aşan herkes için uyarır. Her pano için Pano Ayarları / Liste bölümünden ayarlanır.",
-  "scrum-definition-of-ready": "Hazır Tanımı"
+  "scrum-definition-of-ready": "Hazır Tanımı",
+  "daily-standup": "Günlük ayakta toplantı",
+  "dailyStandupPopup-title": "Günlük ayakta toplantı",
+  "standup-minutes": "Kişi başına dakika",
+  "standup-shuffle": "Karıştır",
+  "standup-total": "Toplam: __time__",
+  "standup-done": "Toplantı __time__ sürdü.",
+  "retrospective-board": "Retrospektif panosu",
+  "retrospective-board-title": "__board__ - retrospektif __date__",
+  "retro-start": "Yapmaya başla",
+  "retro-stop": "Yapmayı bırak",
+  "retro-continue": "Yapmaya devam et",
+  "feature-standup-timer": "Günlük ayakta toplantı zamanlayıcısı",
+  "feature-standup-timer-desc": "Pano menüsündeki Günlük ayakta toplantı: panonun üyeleri karışık sırayla, her biri aynı zaman kutusuyla. Her pano için Scrum ayarlarından kapatılır.",
+  "feature-retrospective-board": "Retrospektif panosu",
+  "feature-retrospective-board-desc": "Pano menüsündeki Retrospektif panosu: Yapmaya başla, Yapmayı bırak, Yapmaya devam et ve Eylem maddeleri listelerine sahip yeni bir gizli pano. Her pano için Scrum ayarlarından kapatılır."
 }

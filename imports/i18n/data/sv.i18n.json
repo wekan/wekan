@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Listan från vilken man åtar sig arbetet, markerad i dess huvud. Väljs per tavla i Tavelinställningar / Lista.",
   "feature-person-wip-limit": "WIP-gräns per person",
   "feature-person-wip-limit-desc": "Hur många öppna kort en person får ha på en tavla; ett öppnat kort varnar för alla som överskrider gränsen. Ställs in per tavla i Tavelinställningar / Lista.",
-  "scrum-definition-of-ready": "Definition av redo"
+  "scrum-definition-of-ready": "Definition av redo",
+  "daily-standup": "Daglig standup",
+  "dailyStandupPopup-title": "Daglig standup",
+  "standup-minutes": "Minuter per person",
+  "standup-shuffle": "Blanda",
+  "standup-total": "Totalt: __time__",
+  "standup-done": "Standupen tog __time__.",
+  "retrospective-board": "Retrospektivtavla",
+  "retrospective-board-title": "__board__ - retrospektiv __date__",
+  "retro-start": "Börja göra",
+  "retro-stop": "Sluta göra",
+  "retro-continue": "Fortsätt göra",
+  "feature-standup-timer": "Timer för daglig standup",
+  "feature-standup-timer-desc": "Daglig standup i tavlans meny: tavlans medlemmar i slumpad ordning, var och en med samma tidsram. Stängs av per tavla i dess Scrum-inställningar.",
+  "feature-retrospective-board": "Retrospektivtavla",
+  "feature-retrospective-board-desc": "Retrospektivtavla i tavlans meny: en ny privat tavla med listorna Börja göra, Sluta göra, Fortsätt göra och Åtgärdspunkter. Stängs av per tavla i dess Scrum-inställningar."
 }

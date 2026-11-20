@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ओ सूची जाहि सँ काजक प्रतिबद्धता होइत अछि, ओकर शीर्षक पर चिन्हित। प्रत्येक पट्ट लेल पट्ट सेटिंग / सूची मे चुनल जाइत अछि।",
   "feature-person-wip-limit": "प्रति व्यक्ति WIP सीमा",
   "feature-person-wip-limit-desc": "एक व्यक्ति एक पट्ट पर कतेक खुजल कार्ड राखि सकैत अछि; खोलल कार्ड सीमा सँ ऊपर सभक बारे मे चेतावनी दैत अछि। प्रत्येक पट्ट लेल पट्ट सेटिंग / सूची मे निर्धारित।",
-  "scrum-definition-of-ready": "तैयार होयबाक परिभाषा"
+  "scrum-definition-of-ready": "तैयार होयबाक परिभाषा",
+  "daily-standup": "दैनिक स्टैंडअप बैसक",
+  "dailyStandupPopup-title": "दैनिक स्टैंडअप बैसक",
+  "standup-minutes": "प्रति व्यक्ति मिनट",
+  "standup-shuffle": "फेंटू",
+  "standup-total": "कुल: __time__",
+  "standup-done": "स्टैंडअप बैसक __time__ लेलक।",
+  "retrospective-board": "पुनरावलोकन पट्ट",
+  "retrospective-board-title": "__board__ - पुनरावलोकन __date__",
+  "retro-start": "करब शुरू करू",
+  "retro-stop": "करब बंद करू",
+  "retro-continue": "करैत रहू",
+  "feature-standup-timer": "दैनिक स्टैंडअप टाइमर",
+  "feature-standup-timer-desc": "पट्टक मेनूक दैनिक स्टैंडअप: पट्टक सदस्य फेंटल क्रममे, सभकेँ एकहि समय-सीमा। प्रत्येक पट्टक स्क्रम सेटिंग्समे बंद कएल जाइत अछि।",
+  "feature-retrospective-board": "पुनरावलोकन पट्ट",
+  "feature-retrospective-board-desc": "पट्टक मेनूक पुनरावलोकन पट्ट: एकटा नव निजी पट्ट जाहिमे सूची अछि करब शुरू करू, करब बंद करू, करैत रहू आ करबाक काज। प्रत्येक पट्टक स्क्रम सेटिंग्समे बंद कएल जाइत अछि।"
 }

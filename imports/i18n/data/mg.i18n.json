@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ny lisitra anoloran-tena amin'ny asa, voamarika eo amin'ny lohany. Fidiana isaky ny solaitra ao amin'ny Fandrindrana ny solaitra / Lisitra.",
   "feature-person-wip-limit": "Fetra WIP isan'olona",
   "feature-person-wip-limit-desc": "Firy ny karatra misokatra azon'ny olona iray tazonina amin'ny solaitra; mampitandrina momba izay mihoatra ny karatra nosokafana. Apetraka isaky ny solaitra ao amin'ny Fandrindrana ny solaitra / Lisitra.",
-  "scrum-definition-of-ready": "Famaritana ny hoe vonona"
+  "scrum-definition-of-ready": "Famaritana ny hoe vonona",
+  "daily-standup": "Fivoriana isan'andro",
+  "dailyStandupPopup-title": "Fivoriana isan'andro",
+  "standup-minutes": "Minitra isaky ny olona",
+  "standup-shuffle": "Afangaroy",
+  "standup-total": "Totaliny: __time__",
+  "standup-done": "Naharitra __time__ ny fivoriana.",
+  "retrospective-board": "Solaitra fiverenana mijery",
+  "retrospective-board-title": "__board__ - fiverenana mijery __date__",
+  "retro-start": "Atombohy atao",
+  "retro-stop": "Atsaharo atao",
+  "retro-continue": "Tohizo atao",
+  "feature-standup-timer": "Famantaranandro fivoriana isan'andro",
+  "feature-standup-timer-desc": "Ny fivoriana isan'andro ao amin'ny menon'ny solaitra: ireo mpikambana ao amin'ny solaitra amin'ny filaharana afangaro, samy manana fotoana mitovy. Azo vonoina isaky ny solaitra ao amin'ny Fikirana Scrum-ny.",
+  "feature-retrospective-board": "Solaitra fiverenana mijery",
+  "feature-retrospective-board-desc": "Ny solaitra fiverenana mijery ao amin'ny menon'ny solaitra: solaitra manokana vaovao misy ny lisitra Atombohy atao, Atsaharo atao, Tohizo atao ary Asa tokony hatao. Azo vonoina isaky ny solaitra ao amin'ny Fikirana Scrum-ny."
 }

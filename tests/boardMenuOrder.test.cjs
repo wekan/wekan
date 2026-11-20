@@ -112,6 +112,11 @@ const EXPECTED = [
   // Settings / Visibility / Features tick (docs/Features/General/Assistants).
   'js-open-board-summary',
   'js-open-since-last-visit',
+  // The Scrum meeting helpers (models/lib/scrumMeetings.js, 2026-11-20): for
+  // every member, like the two above, each behind its Admin Panel feature and
+  // the board's Scrum setting.
+  'js-open-daily-standup',
+  'js-create-retrospective-board',
   // #6792: the board, copied into the user's Templates as a board template.
   'js-save-board-as-template',
   'js-archive-board',

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ko e lisi ʻoku fakapapauʻi mei ai ʻa e ngāue, kuo fakaʻilongaʻi ʻi hono ʻulu. ʻOku fili ki he papa taki taha ʻi he Ngaahi fokotuʻutuʻu ʻo e papa / Lisi.",
   "feature-person-wip-limit": "Fakangatangata WIP ki he tokotaha",
   "feature-person-wip-limit-desc": "Ko e kaati ʻoku ava ʻe fiha ʻe lava ke puke ʻe ha tokotaha ʻi ha papa; ʻoku fakatokanga ha kaati kuo fakaava ki ha taha pē kuo ne laka ange ai. ʻOku fokotuʻu ki he papa taki taha ʻi he Ngaahi fokotuʻutuʻu ʻo e papa / Lisi.",
-  "scrum-definition-of-ready": "ʻUhinga ʻo e mateuteu"
+  "scrum-definition-of-ready": "ʻUhinga ʻo e mateuteu",
+  "daily-standup": "Fakataha tuʻu fakaʻaho",
+  "dailyStandupPopup-title": "Fakataha tuʻu fakaʻaho",
+  "standup-minutes": "Miniti ki he tokotaha",
+  "standup-shuffle": "Fakafefiofi",
+  "standup-total": "Fakakātoa: __time__",
+  "standup-done": "Naʻe fai ʻa e fakataha ʻi he __time__.",
+  "retrospective-board": "Papa vakai ki mui",
+  "retrospective-board-title": "__board__ - vakai ki mui __date__",
+  "retro-start": "Kamata fai",
+  "retro-stop": "Taʻofi fai",
+  "retro-continue": "Hokohoko atu fai",
+  "feature-standup-timer": "Taimi ʻo e fakataha tuʻu fakaʻaho",
+  "feature-standup-timer-desc": "Ko e Fakataha tuʻu fakaʻaho ʻi he menu ʻo e papa: ko e kau mēmipa ʻo e papa ʻi ha fokotuʻutuʻu fakafefiofi, taki taha mo e taimi tatau. ʻOku tāmateʻi ki he papa taki taha ʻi hono Ngaahi fokotuʻutuʻu Scrum.",
+  "feature-retrospective-board": "Papa vakai ki mui",
+  "feature-retrospective-board-desc": "Ko e Papa vakai ki mui ʻi he menu ʻo e papa: ko ha papa fakafoʻituitui foʻou mo e ngaahi lisi Kamata fai, Taʻofi fai, Hokohoko atu fai mo e Ngaahi meʻa ke fai. ʻOku tāmateʻi ki he papa taki taha ʻi hono Ngaahi fokotuʻutuʻu Scrum."
 }

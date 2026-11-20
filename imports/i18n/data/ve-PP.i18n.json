@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lugetiž, kuspäi radon kohustadas, znamoitud sen pälkirjutuses. Valitas kaikuččele laudale Laudan sändod / Lugetiž -kohtas.",
   "feature-person-wip-limit": "WIP-röun ühtele ristitule",
   "feature-person-wip-limit-desc": "Äjak avaitud kartoid üks' ristitud voib pidäda laudal; avaitud kart varutoitab kaikuččes, ken mäneb röunan taga. Säritas kaikuččele laudale Laudan sändod / Lugetiž -kohtas.",
-  "scrum-definition-of-ready": "Vaumuden-märičend"
+  "scrum-definition-of-ready": "Vaumuden-märičend",
+  "daily-standup": "Päivine kogoneminpird",
+  "dailyStandupPopup-title": "Päivine kogoneminpird",
+  "standup-minutes": "Minutad mehele",
+  "standup-shuffle": "Segoitada",
+  "standup-total": "Kaik: __time__",
+  "standup-done": "Kogoneminpird kesti __time__.",
+  "retrospective-board": "Retrospektivan laud",
+  "retrospective-board-title": "__board__ - retrospektiv __date__",
+  "retro-start": "Zavodi tehta",
+  "retro-stop": "Lopi tehta",
+  "retro-continue": "Jatka tehta",
+  "feature-standup-timer": "Päivižen kogoneminpiran ajanlugii",
+  "feature-standup-timer-desc": "Laudan menün Päivine kogoneminpird: laudan ühtnikad segoitadud järgendusel, kaikutte ühtejiččen aigan. Sambutadas kaikuččes laudas sen Scrum-valičusiš.",
+  "feature-retrospective-board": "Retrospektivan laud",
+  "feature-retrospective-board-desc": "Laudan menün Retrospektivan laud: uz' personaline laud lugetižidenke Zavodi tehta, Lopi tehta, Jatka tehta i Tehtäd radod. Sambutadas kaikuččes laudas sen Scrum-valičusiš."
 }

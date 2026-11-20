@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Index a quo opus suscipitur, in capite eius notatus. Per tabulam eligitur in Optiones tabulae / Index.",
   "feature-person-wip-limit": "Limes WIP per personam",
   "feature-person-wip-limit-desc": "Quot chartas apertas una persona in tabula tenere potest; charta aperta de quoquam qui eum excedit monet. Per tabulam constituitur in Optiones tabulae / Index.",
-  "scrum-definition-of-ready": "Definitio operis parati"
+  "scrum-definition-of-ready": "Definitio operis parati",
+  "daily-standup": "Conventus cotidianus",
+  "dailyStandupPopup-title": "Conventus cotidianus",
+  "standup-minutes": "Minuta per personam",
+  "standup-shuffle": "Misce",
+  "standup-total": "Summa: __time__",
+  "standup-done": "Conventus cotidianus __time__ duravit.",
+  "retrospective-board": "Tabula retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Incipe facere",
+  "retro-stop": "Desine facere",
+  "retro-continue": "Perge facere",
+  "feature-standup-timer": "Horologium conventus cotidiani",
+  "feature-standup-timer-desc": "Conventus cotidianus in menu tabulae: sodales tabulae ordine mixto, quisque eodem tempore definito. In Optionibus Scrum cuiusque tabulae exstingui potest.",
+  "feature-retrospective-board": "Tabula retrospectiva",
+  "feature-retrospective-board-desc": "Tabula retrospectiva in menu tabulae: nova tabula privata cum indicibus Incipe facere, Desine facere, Perge facere et Agenda. In Optionibus Scrum cuiusque tabulae exstingui potest."
 }

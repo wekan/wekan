@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "The list from which work is committed to, marked at its header. Chosen per board in Board Settings / List.",
   "feature-person-wip-limit": "WIP limit per person",
   "feature-person-wip-limit-desc": "How many open cards one person may hold on a board; an opened card warns about anyone over it. Set per board in Board Settings / List.",
-  "scrum-definition-of-ready": "Definition of Ready"
+  "scrum-definition-of-ready": "Definition of Ready",
+  "daily-standup": "Daily standup",
+  "dailyStandupPopup-title": "Daily standup",
+  "standup-minutes": "Minutes per person",
+  "standup-shuffle": "Shuffle",
+  "standup-total": "Total: __time__",
+  "standup-done": "The standup took __time__.",
+  "retrospective-board": "Retrospective board",
+  "retrospective-board-title": "__board__ - retrospective __date__",
+  "retro-start": "Start doing",
+  "retro-stop": "Stop doing",
+  "retro-continue": "Keep doing",
+  "feature-standup-timer": "Daily standup timer",
+  "feature-standup-timer-desc": "The board menu's Daily standup: the board's members in a shuffled order, each with the same timebox. Turned off per board in its Scrum settings.",
+  "feature-retrospective-board": "Retrospective board",
+  "feature-retrospective-board-desc": "The board menu's Retrospective board: a new private board with the lists Start doing, Stop doing, Keep doing and Action items. Turned off per board in its Scrum settings."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Uhlu okuzibophezelwa kulo umsebenzi kusukela kulo, olumakwe enhloko yalo. Lukhethwa ebhodini ngalinye ku-Izilungiselelo Zebhodi / Uhlu.",
   "feature-person-wip-limit": "Umkhawulo we-WIP ngomuntu ngamunye",
   "feature-person-wip-limit-desc": "Mangaki amakhadi avuliwe umuntu oyedwa angawaphatha ebhodini; ikhadi elivuliwe lixwayisa nganoma ubani owedlula umkhawulo. Usethwa ebhodini ngalinye ku-Izilungiselelo Zebhodi / Uhlu.",
-  "scrum-definition-of-ready": "Incazelo yokulungela umsebenzi"
+  "scrum-definition-of-ready": "Incazelo yokulungela umsebenzi",
+  "daily-standup": "Umhlangano wansuku zonke",
+  "dailyStandupPopup-title": "Umhlangano wansuku zonke",
+  "standup-minutes": "Imizuzu ngomuntu ngamunye",
+  "standup-shuffle": "Xuba",
+  "standup-total": "Isamba: __time__",
+  "standup-done": "Umhlangano uthathe __time__.",
+  "retrospective-board": "Ibhodi yokubheka emuva",
+  "retrospective-board-title": "__board__ - ukubheka emuva __date__",
+  "retro-start": "Qala ukwenza",
+  "retro-stop": "Yeka ukwenza",
+  "retro-continue": "Qhubeka wenze",
+  "feature-standup-timer": "Isibali sikhathi somhlangano wansuku zonke",
+  "feature-standup-timer-desc": "Umhlangano wansuku zonke kumenyu yebhodi: amalungu ebhodi ngokulandelana okuxutshiwe, ngamunye enesikhathi esifanayo. Kuvalwa ngebhodi ngayinye ku-Izilungiselelo ze-Scrum zayo.",
+  "feature-retrospective-board": "Ibhodi yokubheka emuva",
+  "feature-retrospective-board-desc": "Ibhodi yokubheka emuva kumenyu yebhodi: ibhodi entsha eyimfihlo enohlu lwe-Qala ukwenza, Yeka ukwenza, Qhubeka wenze kanye ne-Izinto okufanele zenziwe. Kuvalwa ngebhodi ngayinye ku-Izilungiselelo ze-Scrum zayo."
 }

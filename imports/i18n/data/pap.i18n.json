@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "E lista for di kua e trabou ta kompromete, marká den su kabes. Ta skohé pa kada tabla den Konfigurashon di tabla / Lista.",
   "feature-person-wip-limit": "Límite WIP pa persona",
   "feature-person-wip-limit-desc": "Kuantu karchi habrí un persona por tene riba un tabla; un karchi habrí ta avisá tokante kualke hende ku ta pasa e límite. Ta stablesé pa kada tabla den Konfigurashon di tabla / Lista.",
-  "scrum-definition-of-ready": "Definishon di kla pa kuminsá"
+  "scrum-definition-of-ready": "Definishon di kla pa kuminsá",
+  "daily-standup": "Reunion diario",
+  "dailyStandupPopup-title": "Reunion diario",
+  "standup-minutes": "Minüt pa persona",
+  "standup-shuffle": "Mesklá",
+  "standup-total": "Tur tempu: __time__",
+  "standup-done": "E reunion a dura __time__.",
+  "retrospective-board": "Tabla di retrospektiva",
+  "retrospective-board-title": "__board__ - retrospektiva __date__",
+  "retro-start": "Kuminsá hasi",
+  "retro-stop": "Stop di hasi",
+  "retro-continue": "Sigui hasi",
+  "feature-standup-timer": "Kronómetro di reunion diario",
+  "feature-standup-timer-desc": "E reunion diario den e menu di tabla: e miembronan di e tabla den un órden mesklá, kada un ku e mesun tempu. Ta pag'é pa kada tabla den su Konfigurashon di Scrum.",
+  "feature-retrospective-board": "Tabla di retrospektiva",
+  "feature-retrospective-board-desc": "E tabla di retrospektiva den e menu di tabla: un tabla privá nobo ku e listanan Kuminsá hasi, Stop di hasi, Sigui hasi i Akshonnan pa hasi. Ta pag'é pa kada tabla den su Konfigurashon di Scrum."
 }

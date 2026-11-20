@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Az a lista, amelytől kezdve a munkát elvállaljuk, a fejlécében megjelölve. Táblánként választható a Táblabeállítások / Lista részben.",
   "feature-person-wip-limit": "Személyenkénti WIP korlát",
   "feature-person-wip-limit-desc": "Hány nyitott kártyát tarthat egy személy egy táblán; a megnyitott kártya figyelmeztet mindenkire, aki túllépi. Táblánként állítható be a Táblabeállítások / Lista részben.",
-  "scrum-definition-of-ready": "A kezdésre kész állapot meghatározása"
+  "scrum-definition-of-ready": "A kezdésre kész állapot meghatározása",
+  "daily-standup": "Napi állómegbeszélés",
+  "dailyStandupPopup-title": "Napi állómegbeszélés",
+  "standup-minutes": "Perc fejenként",
+  "standup-shuffle": "Keverés",
+  "standup-total": "Összesen: __time__",
+  "standup-done": "Az állómegbeszélés __time__ ideig tartott.",
+  "retrospective-board": "Visszatekintő tábla",
+  "retrospective-board-title": "__board__ - visszatekintés __date__",
+  "retro-start": "Kezdjük el",
+  "retro-stop": "Hagyjuk abba",
+  "retro-continue": "Folytassuk",
+  "feature-standup-timer": "Napi állómegbeszélés időzítő",
+  "feature-standup-timer-desc": "A tábla menüjének Napi állómegbeszélése: a tábla tagjai véletlen sorrendben, mindenki ugyanazzal az időkerettel. Táblánként kikapcsolható a Scrum-beállítások között.",
+  "feature-retrospective-board": "Visszatekintő tábla",
+  "feature-retrospective-board-desc": "A tábla menüjének Visszatekintő táblája: új személyes tábla a Kezdjük el, Hagyjuk abba, Folytassuk és Teendők listákkal. Táblánként kikapcsolható a Scrum-beállítások között."
 }

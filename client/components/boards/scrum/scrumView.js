@@ -307,6 +307,8 @@ Template.scrumView.events({
     const formData = new FormData(event.currentTarget);
     await mutate(tpl, 'scrum.configure', { enabled: values.enabled === 'on', productGoal: values.productGoal,
       definitionOfDone: values.definitionOfDone, definitionOfReady: values.definitionOfReady,
+      standupTimer: values.standupTimer === 'on', retrospectiveBoard: values.retrospectiveBoard === 'on',
+      standupMinutes: require('/models/lib/scrumMeetings').standupMinutes(values.standupMinutes),
       estimateSource: values.estimateSource,
       estimateCustomFieldId: nullable(values.estimateCustomFieldId), estimateUnit: values.estimateUnit,
       completionPolicy: values.completionPolicy, productOwnerId: nullable(values.productOwnerId),

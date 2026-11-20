@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Sąrašas, nuo kurio įsipareigojama darbui, pažymėtas jo antraštėje. Pasirenkamas kiekvienai lentai skiltyje Lentos nustatymai / Sąrašas.",
   "feature-person-wip-limit": "WIP limitas vienam asmeniui",
   "feature-person-wip-limit-desc": "Kiek atvirų kortelių vienas asmuo gali turėti lentoje; atidaryta kortelė įspėja apie kiekvieną viršijusį. Nustatoma kiekvienai lentai skiltyje Lentos nustatymai / Sąrašas.",
-  "scrum-definition-of-ready": "Pasirengimo apibrėžimas"
+  "scrum-definition-of-ready": "Pasirengimo apibrėžimas",
+  "daily-standup": "Kasdienis susitikimas",
+  "dailyStandupPopup-title": "Kasdienis susitikimas",
+  "standup-minutes": "Minučių vienam asmeniui",
+  "standup-shuffle": "Sumaišyti",
+  "standup-total": "Iš viso: __time__",
+  "standup-done": "Susitikimas truko __time__.",
+  "retrospective-board": "Retrospektyvos lenta",
+  "retrospective-board-title": "__board__ - retrospektyva __date__",
+  "retro-start": "Pradėti daryti",
+  "retro-stop": "Nustoti daryti",
+  "retro-continue": "Toliau daryti",
+  "feature-standup-timer": "Kasdienio susitikimo laikmatis",
+  "feature-standup-timer-desc": "Kasdienis susitikimas lentos meniu: lentos nariai sumaišyta tvarka, kiekvienam vienodas laiko tarpas. Išjungiamas kiekvienai lentai jos Scrum nustatymuose.",
+  "feature-retrospective-board": "Retrospektyvos lenta",
+  "feature-retrospective-board-desc": "Retrospektyvos lenta lentos meniu: nauja privati lenta su sąrašais Pradėti daryti, Nustoti daryti, Toliau daryti ir Veiksmų punktai. Išjungiama kiekvienai lentai jos Scrum nustatymuose."
 }

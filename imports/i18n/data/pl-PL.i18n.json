@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista, od której praca jest zobowiązaniem, oznaczona w jej nagłówku. Wybierana dla każdej tablicy w Ustawienia tablicy / Lista.",
   "feature-person-wip-limit": "Limit WIP na osobę",
   "feature-person-wip-limit-desc": "Ile otwartych kart może mieć jedna osoba na tablicy; otwarta karta ostrzega o każdym, kto go przekracza. Ustawiany dla każdej tablicy w Ustawienia tablicy / Lista.",
-  "scrum-definition-of-ready": "Definicja gotowości"
+  "scrum-definition-of-ready": "Definicja gotowości",
+  "daily-standup": "Codzienne spotkanie",
+  "dailyStandupPopup-title": "Codzienne spotkanie",
+  "standup-minutes": "Minuty na osobę",
+  "standup-shuffle": "Przetasuj",
+  "standup-total": "Łącznie: __time__",
+  "standup-done": "Spotkanie trwało __time__.",
+  "retrospective-board": "Tablica retrospektywy",
+  "retrospective-board-title": "__board__ - retrospektywa __date__",
+  "retro-start": "Zacznij robić",
+  "retro-stop": "Przestań robić",
+  "retro-continue": "Rób dalej",
+  "feature-standup-timer": "Licznik czasu codziennego spotkania",
+  "feature-standup-timer-desc": "Codzienne spotkanie w menu tablicy: członkowie tablicy w losowej kolejności, każdy z takim samym limitem czasu. Wyłączane dla każdej tablicy w jej Ustawieniach Scrum.",
+  "feature-retrospective-board": "Tablica retrospektywy",
+  "feature-retrospective-board-desc": "Tablica retrospektywy w menu tablicy: nowa prywatna tablica z listami Zacznij robić, Przestań robić, Rób dalej i Zadania do wykonania. Wyłączana dla każdej tablicy w jej Ustawieniach Scrum."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ऊ सूची जहाँ से काम खातिर प्रतिबद्धता होला, ओकरा शीर्षक पर चिन्हित। हर बोर्ड खातिर बोर्ड सेटिंग / सूची में चुनल जाला।",
   "feature-person-wip-limit": "हर व्यक्ति खातिर चालू काम के सीमा",
   "feature-person-wip-limit-desc": "एगो व्यक्ति बोर्ड पर केतना खुलल कार्ड रख सकेला; खोलल कार्ड ओह हर आदमी के बारे में चेतावेला जे सीमा से ऊपर बा। हर बोर्ड खातिर बोर्ड सेटिंग / सूची में तय कइल जाला।",
-  "scrum-definition-of-ready": "तइयार मानल जाए के परिभाषा"
+  "scrum-definition-of-ready": "तइयार मानल जाए के परिभाषा",
+  "daily-standup": "रोज के खड़ा बइठक",
+  "dailyStandupPopup-title": "रोज के खड़ा बइठक",
+  "standup-minutes": "हर आदमी खातिर मिनट",
+  "standup-shuffle": "फेंट दीं",
+  "standup-total": "कुल: __time__",
+  "standup-done": "बइठक में __time__ लागल।",
+  "retrospective-board": "पाछे के समीक्षा बोर्ड",
+  "retrospective-board-title": "__board__ - समीक्षा __date__",
+  "retro-start": "करे सुरू करीं",
+  "retro-stop": "कइल बंद करीं",
+  "retro-continue": "करत रहीं",
+  "feature-standup-timer": "रोज के बइठक के टाइमर",
+  "feature-standup-timer-desc": "बोर्ड मेनू के रोज के खड़ा बइठक: बोर्ड के सदस्य फेंटल क्रम में, हर केहू के एके समय। हर बोर्ड के स्क्रम सेटिंग में बंद कइल जा सकेला।",
+  "feature-retrospective-board": "पाछे के समीक्षा बोर्ड",
+  "feature-retrospective-board-desc": "बोर्ड मेनू के पाछे के समीक्षा बोर्ड: करे सुरू करीं, कइल बंद करीं, करत रहीं आ करे वाला काम सूची वाला एगो नया निजी बोर्ड। हर बोर्ड के स्क्रम सेटिंग में बंद कइल जा सकेला।"
 }

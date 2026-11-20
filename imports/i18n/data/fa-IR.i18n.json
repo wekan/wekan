@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "لیستی که کار از آن به بعد تعهد می‌شود، در سرصفحه‌اش علامت‌گذاری شده است. برای هر برد در تنظیمات برد / لیست انتخاب می‌شود.",
   "feature-person-wip-limit": "محدودیت WIP برای هر نفر",
   "feature-person-wip-limit-desc": "یک نفر چند کارت باز می‌تواند در یک برد داشته باشد؛ کارت بازشده درباره هر کسی که از آن فراتر رفته هشدار می‌دهد. برای هر برد در تنظیمات برد / لیست تنظیم می‌شود.",
-  "scrum-definition-of-ready": "تعریف آماده‌بودن"
+  "scrum-definition-of-ready": "تعریف آماده‌بودن",
+  "daily-standup": "جلسه روزانه ایستاده",
+  "dailyStandupPopup-title": "جلسه روزانه ایستاده",
+  "standup-minutes": "دقیقه برای هر نفر",
+  "standup-shuffle": "ترتیب تصادفی",
+  "standup-total": "مجموع: __time__",
+  "standup-done": "جلسه روزانه __time__ طول کشید.",
+  "retrospective-board": "برد بازنگری",
+  "retrospective-board-title": "__board__ - بازنگری __date__",
+  "retro-start": "شروع به انجام",
+  "retro-stop": "توقف انجام",
+  "retro-continue": "ادامه انجام",
+  "feature-standup-timer": "زمان‌سنج جلسه روزانه",
+  "feature-standup-timer-desc": "جلسه روزانه در منوی برد: اعضای برد به ترتیب تصادفی، هر کدام با بازهٔ زمانی یکسان. برای هر برد در تنظیمات اسکرام آن خاموش می‌شود.",
+  "feature-retrospective-board": "برد بازنگری",
+  "feature-retrospective-board-desc": "برد بازنگری در منوی برد: یک برد خصوصی جدید با لیست‌های شروع به انجام، توقف انجام، ادامه انجام و اقدامات. برای هر برد در تنظیمات اسکرام آن خاموش می‌شود."
 }

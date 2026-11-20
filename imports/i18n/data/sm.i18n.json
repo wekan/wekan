@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "O le lisi e tautino mai ai le galuega, ua faailogaina i lona ulutala. E filifilia i laupapa taitasi i Faatulagaga o le laupapa / Lisi.",
   "feature-person-wip-limit": "Tapulaa WIP i le tagata",
   "feature-person-wip-limit-desc": "E fia pepa tatala e mafai e se tagata e toatasi ona taofi i se laupapa; e lapataia e se pepa tatala soo se tasi ua sili atu. E seti i laupapa taitasi i Faatulagaga o le laupapa / Lisi.",
-  "scrum-definition-of-ready": "Faauigaga o le Sauni"
+  "scrum-definition-of-ready": "Faauigaga o le Sauni",
+  "daily-standup": "Fonotaga o aso taitasi",
+  "dailyStandupPopup-title": "Fonotaga o aso taitasi",
+  "standup-minutes": "Minute mo le tagata",
+  "standup-shuffle": "Fefiloi",
+  "standup-total": "Aofaʻi: __time__",
+  "standup-done": "Na umi le fonotaga __time__.",
+  "retrospective-board": "Laupapa o toe mafaufauga",
+  "retrospective-board-title": "__board__ - toe mafaufauga __date__",
+  "retro-start": "Amata ona fai",
+  "retro-stop": "Taofi ona fai",
+  "retro-continue": "Faʻaauau ona fai",
+  "feature-standup-timer": "Uati o le fonotaga o aso taitasi",
+  "feature-standup-timer-desc": "Le fonotaga o aso taitasi i le lisi o le laupapa: sui o le laupapa i se faasologa fefiloi, e tutusa le taimi mo i latou taitoatasi. E tape mo laupapa taitasi i ona Faatulagaga o le Scrum.",
+  "feature-retrospective-board": "Laupapa o toe mafaufauga",
+  "feature-retrospective-board-desc": "Le laupapa o toe mafaufauga i le lisi o le laupapa: se laupapa fou faalilolilo ma lisi Amata ona fai, Taofi ona fai, Faʻaauau ona fai ma Mea e fai. E tape mo laupapa taitasi i ona Faatulagaga o le Scrum."
 }

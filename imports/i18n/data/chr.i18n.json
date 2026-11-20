@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ᎠᏎᏊᎢ ᏗᎦᎸᏫᏍᏓᏁᏗ ᎠᏚᎢᏍᏛ ᏅᏓᎬᏩᏓᎴᏅᏛ, ᎠᏍᎪᎵ ᎪᏪᎸ. ᏗᏟᎶᏍᏙᏗ ᏗᏄᏬᏍᏗ / ᎠᏎᏊᎢ ᏑᏰᏍᏗ.",
   "feature-person-wip-limit": "WIP ᎢᎦᎢ ᏏᏏᏴᏫ",
   "feature-person-wip-limit-desc": "ᎯᎳᎪ ᏗᎪᏪᎵ ᏧᏍᏚᎢᏛ ᏌᏉ ᏴᏫ ᏰᎵ ᎤᏂᏴᏗ ᏗᏟᎶᏍᏙᏗ; ᏧᏍᏚᎢᏛ ᎪᏪᎵ ᎠᏓᏅᏍᎨ ᎩᎶ ᎤᏓᎾᏩᏍᏛ. ᏗᏟᎶᏍᏙᏗ ᏗᏄᏬᏍᏗ / ᎠᏎᏊᎢ ᎦᏟᏌᏅ.",
-  "scrum-definition-of-ready": "ᎠᏛᏅᎢᏍᏗ ᎧᏃᎮᏗ"
+  "scrum-definition-of-ready": "ᎠᏛᏅᎢᏍᏗ ᎧᏃᎮᏗ",
+  "daily-standup": "ᏂᎦᏛ ᎢᎦ Scrum ᏗᎦᏓᏡᎬ",
+  "dailyStandupPopup-title": "ᏂᎦᏛ ᎢᎦ Scrum ᏗᎦᏓᏡᎬ",
+  "standup-minutes": "ᎢᏳᏟᎶᏛ ᏌᏉ ᎠᏴᏫ ᎢᏳᏍᏗ",
+  "standup-shuffle": "ᏚᏟᏍᏔᏅ",
+  "standup-total": "ᏂᎦᏛ: __time__",
+  "standup-done": "ᏗᎦᏓᏡᎬ __time__ ᎤᏪᏙᎵᏨ.",
+  "retrospective-board": "ᎣᏂᏗᏢ ᎠᎦᏔᏗ ᏗᏟᎶᏍᏙᏗ",
+  "retrospective-board-title": "__board__ - ᎣᏂᏗᏢ ᎠᎦᏔᏗ __date__",
+  "retro-start": "ᎠᎴᏅᏗ ᎠᏛᏁᏗ",
+  "retro-stop": "ᎠᏲᎯᏍᏗ ᎠᏛᏁᏗ",
+  "retro-continue": "ᎠᏍᏓᏩᏛᏍᏗ ᎠᏛᏁᏗ",
+  "feature-standup-timer": "ᏂᎦᏛ ᎢᎦ ᏗᎦᏓᏡᎬ ᎢᏳᏟᎶᏛ ᎠᏟᎶᏍᏗ",
+  "feature-standup-timer-desc": "ᏗᏟᎶᏍᏙᏗ ᏗᏑᏰᏍᏗ ᏂᎦᏛ ᎢᎦ Scrum ᏗᎦᏓᏡᎬ: ᏗᏟᎶᏍᏙᏗ ᎠᏂᎳᏫᏍᎩ ᏚᏟᏍᏔᏅ, ᏌᏉ ᎢᏳᏟᎶᏛ ᏂᎦᏛ. ᎠᏲᎯᏍᏗ Scrum ᏗᏄᏬᏍᏗ.",
+  "feature-retrospective-board": "ᎣᏂᏗᏢ ᎠᎦᏔᏗ ᏗᏟᎶᏍᏙᏗ",
+  "feature-retrospective-board-desc": "ᏗᏟᎶᏍᏙᏗ ᏗᏑᏰᏍᏗ ᎣᏂᏗᏢ ᎠᎦᏔᏗ ᏗᏟᎶᏍᏙᏗ: ᎢᏤ ᎤᏩᏒ ᏗᏟᎶᏍᏙᏗ ᎠᎴᏅᏗ ᎠᏛᏁᏗ, ᎠᏲᎯᏍᏗ ᎠᏛᏁᏗ, ᎠᏍᏓᏩᏛᏍᏗ ᎠᏛᏁᏗ ᎠᎴ ᏧᎸᏫᏍᏓᏁᏗ. ᎠᏲᎯᏍᏗ Scrum ᏗᏄᏬᏍᏗ."
 }

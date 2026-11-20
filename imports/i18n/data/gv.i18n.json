@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Yn rolley veih ta'n obbyr er ny ghiallyn, cowrit ec y chione echey. Er ny reih son dagh boayrd ayns Reaghyssyn y Voayrd / Rolley.",
   "feature-person-wip-limit": "Eallagh WIP son dagh persoon",
   "feature-person-wip-limit-desc": "Wheesh kaartyn foshlit as oddys un persoon y chummal er boayrd; ta kaart foshlit cur raaue mychione peiagh erbee harrish. Er ny hoiaghey son dagh boayrd ayns Reaghyssyn y Voayrd / Rolley.",
-  "scrum-definition-of-ready": "Meanaghey Aarloo"
+  "scrum-definition-of-ready": "Meanaghey Aarloo",
+  "daily-standup": "Co-chaglym gagh laa",
+  "dailyStandupPopup-title": "Co-chaglym gagh laa",
+  "standup-minutes": "Mynnidyn son dagh peiagh",
+  "standup-shuffle": "Measkee",
+  "standup-total": "Ooilley: __time__",
+  "standup-done": "Ghow yn co-chaglym gagh laa __time__.",
+  "retrospective-board": "Boayrd jeeaghyn er ash",
+  "retrospective-board-title": "__board__ - jeeaghyn er ash __date__",
+  "retro-start": "Toshee jannoo",
+  "retro-stop": "Scuirr jeh jannoo",
+  "retro-continue": "Freill ort jannoo",
+  "feature-standup-timer": "Earrooder traa yn cho-chaglym gagh laa",
+  "feature-standup-timer-desc": "Yn Co-chaglym gagh laa ayns roie-chlaare y voayrd: olteynyn y voayrd ayns oardagh measkit, dagh fer lesh yn un termee traa. Er ny chur jeh son dagh boayrd ayns e Reaghyssyn Scrum.",
+  "feature-retrospective-board": "Boayrd jeeaghyn er ash",
+  "feature-retrospective-board-desc": "Yn Boayrd jeeaghyn er ash ayns roie-chlaare y voayrd: boayrd preevaadjagh noa lesh ny rolleyn Toshee jannoo, Scuirr jeh jannoo, Freill ort jannoo as Reddyn ry-yannoo. Er ny chur jeh son dagh boayrd ayns e Reaghyssyn Scrum."
 }

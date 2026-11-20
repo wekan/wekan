@@ -1,0 +1,26 @@
+//- The Scrum meeting helpers of the board menu (models/lib/scrumMeetings.js,
+  docs/Features/Scrum/Meetings.md).
+template(name="dailyStandupPopup")
+  .daily-standup.js-daily-standup
+    if running
+      with view
+        if done
+          p.daily-standup-done {{_ 'standup-done' time=(clockOf elapsedSeconds)}}
+          button.js-standup-reset(type="button") {{_ 'start'}}
+        else
+          p.daily-standup-position {{position}} / {{count}}
+          h3.daily-standup-speaker= speakerName
+          p.daily-standup-clock(class="{{#if overtime}}is-overtime{{/if}}") {{clockOf remainingSeconds}}
+          p.quiet {{_ 'standup-total' time=(clockOf elapsedSeconds)}}
+          button.primary.js-standup-next(type="button") {{_ 'next'}}
+          button.js-standup-reset(type="button") {{_ 'stop'}}
+    else
+      ol.daily-standup-order
+        each person in order
+          li= person.name
+      p
+        button.js-standup-shuffle(type="button")
+          i.fa.fa-random
+          |  {{_ 'standup-shuffle'}}
+      p.quiet {{_ 'standup-minutes'}}: {{minutes}}
+      button.primary.js-standup-start(type="button" disabled=noPeople) {{_ 'start'}}

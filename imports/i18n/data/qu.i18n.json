@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Llamk'ay rimanakusqa kaq sutisuyu, umanpi unanchasqa. Sapa pirqapaq Pirqa allichaykuna / Sutisuyu nisqapi akllasqa.",
   "feature-person-wip-limit": "Sapa runapaq WIP sayway",
   "feature-person-wip-limit-desc": "Hayk'a kichasqa kartakunata huk runa pirqapi hap'inman; kichasqa karta pipas aswan kaqmanta willan. Sapa pirqapaq Pirqa allichaykuna / Sutisuyu nisqapi churasqa.",
-  "scrum-definition-of-ready": "Wakichisqa kaypa riqsichiynin"
+  "scrum-definition-of-ready": "Wakichisqa kaypa riqsichiynin",
+  "daily-standup": "Sapa p'unchaw huñunakuy",
+  "dailyStandupPopup-title": "Sapa p'unchaw huñunakuy",
+  "standup-minutes": "Sapa runapaq minutukuna",
+  "standup-shuffle": "Chaqruy",
+  "standup-total": "Llapan: __time__",
+  "standup-done": "Huñunakuyqa __time__ unarqan.",
+  "retrospective-board": "Qhipaman qhawariy pirqa",
+  "retrospective-board-title": "__board__ - qhipaman qhawariy __date__",
+  "retro-start": "Ruwayta qallariy",
+  "retro-stop": "Ruwayta saqiy",
+  "retro-continue": "Ruwaspa kachkay",
+  "feature-standup-timer": "Sapa p'unchaw huñunakuypa pacha tupunan",
+  "feature-standup-timer-desc": "Pirqa menupi sapa p'unchaw huñunakuy: pirqapa ayllumasinkuna chaqrusqa ñiqipi, sapankapas kikin pachayuq. Sapa pirqapaq Scrum allichaykunanpi wañuchikun.",
+  "feature-retrospective-board": "Qhipaman qhawariy pirqa",
+  "feature-retrospective-board-desc": "Pirqa menupi qhipaman qhawariy pirqa: musuq pakasqa pirqa, Ruwayta qallariy, Ruwayta saqiy, Ruwaspa kachkay hinallataq Ruranakuna sutisuyukunayuq. Sapa pirqapaq Scrum allichaykunanpi wañuchikun."
 }

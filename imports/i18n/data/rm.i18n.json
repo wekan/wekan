@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La glista a partir da la quala la lavur vegn surpigliada, marcada en ses chau. Tschernida per tabella en Parameters da la tabella / Glista.",
   "feature-person-wip-limit": "Limita WIP per persuna",
   "feature-person-wip-limit-desc": "Quantas cartas avertas ina persuna dastga tegnair sin ina tabella; ina carta averta avertescha da mintgin che la surpassa. Fixada per tabella en Parameters da la tabella / Glista.",
-  "scrum-definition-of-ready": "Definiziun da pront"
+  "scrum-definition-of-ready": "Definiziun da pront",
+  "daily-standup": "Sentupada quotidiana",
+  "dailyStandupPopup-title": "Sentupada quotidiana",
+  "standup-minutes": "Minutas per persuna",
+  "standup-shuffle": "Maschadar",
+  "standup-total": "En tut: __time__",
+  "standup-done": "La sentupada ha durà __time__.",
+  "retrospective-board": "Tabella da retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Cumenzar a far",
+  "retro-stop": "Chalar da far",
+  "retro-continue": "Cuntinuar a far",
+  "feature-standup-timer": "Cronometer da la sentupada quotidiana",
+  "feature-standup-timer-desc": "La sentupada quotidiana en il menu da la tabella: ils commembers da la tabella en in urden maschadà, mintgin cun il medem temp. Vegn deactivada per tabella en ses Parameters da Scrum.",
+  "feature-retrospective-board": "Tabella da retrospectiva",
+  "feature-retrospective-board-desc": "La tabella da retrospectiva en il menu da la tabella: ina nova tabella privata cun las glistas Cumenzar a far, Chalar da far, Cuntinuar a far ed Acziuns da far. Vegn deactivada per tabella en ses Parameters da Scrum."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Popis od kojeg se rad preuzima kao obveza, označen u svom zaglavlju. Bira se po ploči u Postavkama ploče / Popis.",
   "feature-person-wip-limit": "WIP ograničenje po osobi",
   "feature-person-wip-limit-desc": "Koliko otvorenih kartica jedna osoba smije držati na ploči; otvorena kartica upozorava na svakoga tko ga prelazi. Postavlja se po ploči u Postavkama ploče / Popis.",
-  "scrum-definition-of-ready": "Definicija spremnosti"
+  "scrum-definition-of-ready": "Definicija spremnosti",
+  "daily-standup": "Dnevni sastanak",
+  "dailyStandupPopup-title": "Dnevni sastanak",
+  "standup-minutes": "Minuta po osobi",
+  "standup-shuffle": "Promiješaj",
+  "standup-total": "Ukupno: __time__",
+  "standup-done": "Dnevni sastanak trajao je __time__.",
+  "retrospective-board": "Ploča retrospektive",
+  "retrospective-board-title": "__board__ - retrospektiva __date__",
+  "retro-start": "Počni raditi",
+  "retro-stop": "Prestani raditi",
+  "retro-continue": "Nastavi raditi",
+  "feature-standup-timer": "Mjerač vremena dnevnog sastanka",
+  "feature-standup-timer-desc": "Dnevni sastanak u izborniku ploče: korisnici ploče nasumičnim redoslijedom, svaki s istim vremenskim ograničenjem. Isključuje se za svaku ploču u izborniku Postavke Scruma.",
+  "feature-retrospective-board": "Ploča retrospektive",
+  "feature-retrospective-board-desc": "Ploča retrospektive u izborniku ploče: nova privatna ploča s popisima Počni raditi, Prestani raditi, Nastavi raditi i Zadaci. Isključuje se za svaku ploču u izborniku Postavke Scruma."
 }

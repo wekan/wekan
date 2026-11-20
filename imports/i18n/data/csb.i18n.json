@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lësta, òd chtërny robòta je zòbòwiązónô, ùznaczonô w ji głowie. Wëbiérô sã dlô kòżdi tôflë w Ùstôwë tôflë / Lësta.",
   "feature-person-wip-limit": "Ògrańczenié WIP na òsobã",
   "feature-person-wip-limit-desc": "Wiele òtemkłëch kôrtów jedna òsoba mòże miec na tôflë; òtemkłô kôrta òstrzégô ò kòżdim, chto je przekrôcził. Ùstôwiô sã dlô kòżdi tôflë w Ùstôwë tôflë / Lësta.",
-  "scrum-definition-of-ready": "Definicjô parôtnoscë"
+  "scrum-definition-of-ready": "Definicjô parôtnoscë",
+  "daily-standup": "Codniowé stojącé zéńdzenié",
+  "dailyStandupPopup-title": "Codniowé stojącé zéńdzenié",
+  "standup-minutes": "Minutë na òsobã",
+  "standup-shuffle": "Pòmieszôj",
+  "standup-total": "Razã: __time__",
+  "standup-done": "Zéńdzenié trwało __time__.",
+  "retrospective-board": "Tôfla pòdzérkù nazôd",
+  "retrospective-board-title": "__board__ - pòdzérk nazôd __date__",
+  "retro-start": "Zaczni robic",
+  "retro-stop": "Przestóń robic",
+  "retro-continue": "Robi dali",
+  "feature-standup-timer": "Mierzélnik czasu codniowégò zéńdzeniô",
+  "feature-standup-timer-desc": "Codniowé zéńdzenié w menu tôflë: nôleżnicë tôflë w pòmieszónym pòrządkù, kòżdi z tim samim czasã. Wëłączô sã dlô kòżdi tôflë w ji Nastôwë Scrum.",
+  "feature-retrospective-board": "Tôfla pòdzérkù nazôd",
+  "feature-retrospective-board-desc": "Tôfla pòdzérkù nazôd w menu tôflë: nowô priwatnô tôfla z lëstama Zaczni robic, Przestóń robic, Robi dali ë Zadania do zrobieniô. Wëłączô sã dlô kòżdi tôflë w ji Nastôwë Scrum."
 }

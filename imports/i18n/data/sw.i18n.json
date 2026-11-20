@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Orodha ambayo kazi inaahidiwa kuanzia hapo, ikiwa imewekwa alama kwenye kichwa chake. Huchaguliwa kwa kila bodi katika Mipangilio ya Bodi / Orodha.",
   "feature-person-wip-limit": "Kikomo cha WIP kwa kila mtu",
   "feature-person-wip-limit-desc": "Idadi ya kadi zilizo wazi ambazo mtu mmoja anaweza kushika kwenye bodi; kadi iliyofunguliwa huonya kuhusu yeyote aliyezidi kikomo hicho. Huwekwa kwa kila bodi katika Mipangilio ya Bodi / Orodha.",
-  "scrum-definition-of-ready": "Ufafanuzi wa Utayari"
+  "scrum-definition-of-ready": "Ufafanuzi wa Utayari",
+  "daily-standup": "Kikao cha kila siku cha kusimama",
+  "dailyStandupPopup-title": "Kikao cha kila siku cha kusimama",
+  "standup-minutes": "Dakika kwa kila mtu",
+  "standup-shuffle": "Changanya",
+  "standup-total": "Jumla: __time__",
+  "standup-done": "Kikao kilichukua __time__.",
+  "retrospective-board": "Bodi ya tathmini",
+  "retrospective-board-title": "__board__ - tathmini __date__",
+  "retro-start": "Anza kufanya",
+  "retro-stop": "Acha kufanya",
+  "retro-continue": "Endelea kufanya",
+  "feature-standup-timer": "Kipima muda cha kikao cha kila siku",
+  "feature-standup-timer-desc": "Kikao cha kila siku katika menyu ya bodi: wanachama wa bodi kwa mpangilio uliochanganywa, kila mmoja akiwa na muda sawa. Huzimwa kwa kila bodi katika Mipangilio ya Scrum yake.",
+  "feature-retrospective-board": "Bodi ya tathmini",
+  "feature-retrospective-board-desc": "Bodi ya tathmini katika menyu ya bodi: bodi mpya binafsi yenye orodha Anza kufanya, Acha kufanya, Endelea kufanya na Mambo ya kufanya. Huzimwa kwa kila bodi katika Mipangilio ya Scrum yake."
 }

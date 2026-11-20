@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Doggol ngol golle ahdetee gila e mayre, maantaaɗo e hoore mayre. Suɓetee e alluwal kala e Teelte alluwal / Doggol.",
   "feature-person-wip-limit": "Keerol WIP neɗɗo kala",
   "feature-person-wip-limit-desc": "Karte udditiiɗe no foti neɗɗo gooto waawi jogaade e alluwal; kartal udditiingal no jeertina e kala on rewtuɗo ɗum. Teeltetee e alluwal kala e Teelte alluwal / Doggol.",
-  "scrum-definition-of-ready": "Firo heblaade"
+  "scrum-definition-of-ready": "Firo heblaade",
+  "daily-standup": "Batu ñalnde",
+  "dailyStandupPopup-title": "Batu ñalnde",
+  "standup-minutes": "Majaango e neɗɗo kala",
+  "standup-shuffle": "Jillin",
+  "standup-total": "Fof: __time__",
+  "standup-done": "Batu ñalnde ngu juuti __time__.",
+  "retrospective-board": "Alluwal rutto-ƴeewndo",
+  "retrospective-board-title": "__board__ - rutto-ƴeewndo __date__",
+  "retro-start": "Fuɗɗo waɗde",
+  "retro-stop": "Accu waɗde",
+  "retro-continue": "Jokku waɗde",
+  "feature-standup-timer": "Saatiwal batu ñalnde",
+  "feature-standup-timer-desc": "Batu ñalnde e dosol alluwal: terɗe alluwal ngal e doggol jillingol, gooto kala e keerol sahaa gootol. Ina uddee e alluwal kala e Teelte Scrum mayre.",
+  "feature-retrospective-board": "Alluwal rutto-ƴeewndo",
+  "feature-retrospective-board-desc": "Alluwal rutto-ƴeewndo e dosol alluwal: alluwal keeriiɗo kesal e doggi Fuɗɗo waɗde, Accu waɗde, Jokku waɗde e Ko foti waɗeede. Ina uddee e alluwal kala e Teelte Scrum mayre."
 }

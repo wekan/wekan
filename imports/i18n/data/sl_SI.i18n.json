@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Seznam, od katerega se delo prevzame z zavezo, označen v njegovi glavi. Izbere se za vsako tablo v Nastavitve table / Seznam.",
   "feature-person-wip-limit": "Omejitev WIP na osebo",
   "feature-person-wip-limit-desc": "Koliko odprtih kartic lahko ima ena oseba na tabli; odprta kartica opozori na vsakogar, ki jo presega. Nastavi se za vsako tablo v Nastavitve table / Seznam.",
-  "scrum-definition-of-ready": "Opredelitev pripravljenosti"
+  "scrum-definition-of-ready": "Opredelitev pripravljenosti",
+  "daily-standup": "Dnevni sestanek",
+  "dailyStandupPopup-title": "Dnevni sestanek",
+  "standup-minutes": "Minut na osebo",
+  "standup-shuffle": "Premešaj",
+  "standup-total": "Skupaj: __time__",
+  "standup-done": "Sestanek je trajal __time__.",
+  "retrospective-board": "Tabla retrospektive",
+  "retrospective-board-title": "__board__ - retrospektiva __date__",
+  "retro-start": "Začni delati",
+  "retro-stop": "Nehaj delati",
+  "retro-continue": "Nadaljuj",
+  "feature-standup-timer": "Časovnik dnevnega sestanka",
+  "feature-standup-timer-desc": "Dnevni sestanek v meniju table: člani table v premešanem vrstnem redu, vsak z enakim časovnim okvirom. Izklopi se za vsako tablo v njenih Nastavitvah Scrum.",
+  "feature-retrospective-board": "Tabla retrospektive",
+  "feature-retrospective-board-desc": "Tabla retrospektive v meniju table: nova zasebna tabla s seznami Začni delati, Nehaj delati, Nadaljuj in Akcijske točke. Izklopi se za vsako tablo v njenih Nastavitvah Scrum."
 }

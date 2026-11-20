@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La lista a partir de la que se compromete'l trabayu, marcada na so cabecera. Escuéyese per tableru en Preferencias del tablero / Lista.",
   "feature-person-wip-limit": "Llende del trabayu en cursu por persona",
   "feature-person-wip-limit-desc": "Cuántes tarxetes abiertes pue tener una persona nun tableru; una tarxeta abierta avisa de cualquiera que la pase. Afítase per tableru en Preferencias del tablero / Lista.",
-  "scrum-definition-of-ready": "Definición de preparáu"
+  "scrum-definition-of-ready": "Definición de preparáu",
+  "daily-standup": "Reunión diaria de pie",
+  "dailyStandupPopup-title": "Reunión diaria de pie",
+  "standup-minutes": "Minutos por persona",
+  "standup-shuffle": "Barayar",
+  "standup-total": "Tiempu total: __time__",
+  "standup-done": "La reunión diaria duró __time__.",
+  "retrospective-board": "Tableru de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Empezar a facer",
+  "retro-stop": "Dexar de facer",
+  "retro-continue": "Siguir faciendo",
+  "feature-standup-timer": "Cronómetru de la reunión diaria",
+  "feature-standup-timer-desc": "La reunión diaria del menú del tableru: los miembros del tableru n'orde aleatoriu, caún col mesmu tiempu. Desactívase per tableru nos sos Axustes de Scrum.",
+  "feature-retrospective-board": "Tableru de retrospectiva",
+  "feature-retrospective-board-desc": "El tableru de retrospectiva del menú del tableru: un tableru priváu nuevu coles llistes Empezar a facer, Dexar de facer, Siguir faciendo y Acciones pendientes. Desactívase per tableru nos sos Axustes de Scrum."
 }

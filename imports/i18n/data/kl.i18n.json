@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Allattorsimaffik suliap pisussaaffigineqalerfia, qulequttaani nalunaaqutsersugaq. Ilisarnaatini tamani toqqarneqartarpoq Ilisarnaammi aaqqissuussaanerit / Allattorsimaffik-mi.",
   "feature-person-wip-limit": "Inummut ataatsimut WIP-ip killissaa",
   "feature-person-wip-limit-desc": "Kortsit ammasut qassit inuk ataaseq ilisarnaammi tigumisinnaavai; kortsi ammaasoq kikkulluunniit qaangiisut pillugit mianersoqqussaasarpoq. Ilisarnaatini tamani aalajangersarneqartarpoq Ilisarnaammi aaqqissuussaanerit / Allattorsimaffik-mi.",
-  "scrum-definition-of-ready": "Piareersimanerup nassuiaataa"
+  "scrum-definition-of-ready": "Piareersimanerup nassuiaataa",
+  "daily-standup": "Ullormut ataatsimiinneq",
+  "dailyStandupPopup-title": "Ullormut ataatsimiinneq",
+  "standup-minutes": "Minutsit inummut ataatsimut",
+  "standup-shuffle": "Akulerussiguk",
+  "standup-total": "Katillugit: __time__",
+  "standup-done": "Ataatsimiinneq sivisussuseqarpoq __time__.",
+  "retrospective-board": "Kiinnerlunnermut ilisarnaat",
+  "retrospective-board-title": "__board__ - kiinnerlunneq __date__",
+  "retro-start": "Aallartiguk",
+  "retro-stop": "Unitsiguk",
+  "retro-continue": "Ingerlatiguk",
+  "feature-standup-timer": "Ullormut ataatsimiinnermut piffissaliut",
+  "feature-standup-timer-desc": "Ilisarnaatip menuani Ullormut ataatsimiinneq: ilisarnaatip ilaasortai akulerussisumik tulleriiaarlugit, tamarmik piffissaliussamik assigiimmik. Ilisarnaammi tamani Scrum-ip aaqqissuussaanerai-ni matuneqarsinnaavoq.",
+  "feature-retrospective-board": "Kiinnerlunnermut ilisarnaat",
+  "feature-retrospective-board-desc": "Ilisarnaatip menuani Kiinnerlunnermut ilisarnaat: ilisarnaat nutaaq nammineq allattorsimaffinnik Aallartiguk, Unitsiguk, Ingerlatiguk aamma Suliassat. Ilisarnaammi tamani Scrum-ip aaqqissuussaanerai-ni matuneqarsinnaavoq."
 }

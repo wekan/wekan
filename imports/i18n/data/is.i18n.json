@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Listinn sem skuldbundið er til verksins frá, merktur í haus sínum. Valinn fyrir hverja töflu í Stillingar töflu / Listi.",
   "feature-person-wip-limit": "WIP-mörk á mann",
   "feature-person-wip-limit-desc": "Hve mörg opin spjöld einn maður má hafa á töflu; opnað spjald varar við hverjum þeim sem fer yfir þau. Stillt fyrir hverja töflu í Stillingar töflu / Listi.",
-  "scrum-definition-of-ready": "Skilgreining á tilbúnu verki"
+  "scrum-definition-of-ready": "Skilgreining á tilbúnu verki",
+  "daily-standup": "Daglegur stöðufundur",
+  "dailyStandupPopup-title": "Daglegur stöðufundur",
+  "standup-minutes": "Mínútur á mann",
+  "standup-shuffle": "Stokka",
+  "standup-total": "Samtals: __time__",
+  "standup-done": "Stöðufundurinn tók __time__.",
+  "retrospective-board": "Endurlitstafla",
+  "retrospective-board-title": "__board__ - endurlit __date__",
+  "retro-start": "Byrja að gera",
+  "retro-stop": "Hætta að gera",
+  "retro-continue": "Halda áfram að gera",
+  "feature-standup-timer": "Tímamælir fyrir daglegan stöðufund",
+  "feature-standup-timer-desc": "Daglegur stöðufundur í valmynd töflunnar: meðlimir töflunnar í stokkaðri röð, hver með sömu tímamörk. Slökkt á honum fyrir hverja töflu í Scrum-stillingar hennar.",
+  "feature-retrospective-board": "Endurlitstafla",
+  "feature-retrospective-board-desc": "Endurlitstafla í valmynd töflunnar: ný einkatafla með listunum Byrja að gera, Hætta að gera, Halda áfram að gera og Aðgerðaatriði. Slökkt á henni fyrir hverja töflu í Scrum-stillingar hennar."
 }

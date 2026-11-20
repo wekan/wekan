@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista de la care munca este asumată, marcată în antetul ei. Aleasă per panou în Setările panoului / Listă.",
   "feature-person-wip-limit": "Limita WIP per persoană",
   "feature-person-wip-limit-desc": "Câte carduri deschise poate ține o persoană pe un panou; un card deschis avertizează despre oricine o depășește. Setată per panou în Setările panoului / Listă.",
-  "scrum-definition-of-ready": "Definiția pregătirii"
+  "scrum-definition-of-ready": "Definiția pregătirii",
+  "daily-standup": "Ședință zilnică",
+  "dailyStandupPopup-title": "Ședință zilnică",
+  "standup-minutes": "Minute de persoană",
+  "standup-shuffle": "Amestecă",
+  "standup-total": "În total: __time__",
+  "standup-done": "Ședința a durat __time__.",
+  "retrospective-board": "Panou de retrospectivă",
+  "retrospective-board-title": "__board__ - retrospectivă __date__",
+  "retro-start": "Începe să faci",
+  "retro-stop": "Nu mai face",
+  "retro-continue": "Continuă să faci",
+  "feature-standup-timer": "Cronometru pentru ședința zilnică",
+  "feature-standup-timer-desc": "Ședința zilnică din meniul panoului: membrii panoului într-o ordine amestecată, fiecare cu același interval de timp. Se dezactivează pentru fiecare panou în Setări Scrum ale acestuia.",
+  "feature-retrospective-board": "Panou de retrospectivă",
+  "feature-retrospective-board-desc": "Panoul de retrospectivă din meniul panoului: un panou privat nou cu listele Începe să faci, Nu mai face, Continuă să faci și Acțiuni de făcut. Se dezactivează pentru fiecare panou în Setări Scrum ale acestuia."
 }

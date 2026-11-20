@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Loetelu, millest alates töö võetakse kohustuseks, märgitud selle päises. Valitakse tahvli kaupa jaotises Tahvli seaded / Loetelu.",
   "feature-person-wip-limit": "WIP limiit inimese kohta",
   "feature-person-wip-limit-desc": "Mitu avatud kaarti võib üks inimene tahvlil hoida; avatud kaart hoiatab igaühest, kes seda ületab. Määratakse tahvli kaupa jaotises Tahvli seaded / Loetelu.",
-  "scrum-definition-of-ready": "Alustamisvalmiduse määratlus"
+  "scrum-definition-of-ready": "Alustamisvalmiduse määratlus",
+  "daily-standup": "Igapäevane koosolek",
+  "dailyStandupPopup-title": "Igapäevane koosolek",
+  "standup-minutes": "Minutit inimese kohta",
+  "standup-shuffle": "Sega",
+  "standup-total": "Kokku: __time__",
+  "standup-done": "Igapäevane koosolek kestis __time__.",
+  "retrospective-board": "Tagasivaate tahvel",
+  "retrospective-board-title": "__board__ - tagasivaade __date__",
+  "retro-start": "Hakka tegema",
+  "retro-stop": "Lõpeta tegemine",
+  "retro-continue": "Jätka tegemist",
+  "feature-standup-timer": "Igapäevase koosoleku taimer",
+  "feature-standup-timer-desc": "Tahvli menüü Igapäevane koosolek: tahvli liikmed segatud järjekorras, igaühel sama ajapiirang. Lülitatakse tahvlipõhiselt välja selle Scrumi seadetes.",
+  "feature-retrospective-board": "Tagasivaate tahvel",
+  "feature-retrospective-board-desc": "Tahvli menüü Tagasivaate tahvel: uus privaatne tahvel loeteludega Hakka tegema, Lõpeta tegemine, Jätka tegemist ja Tegevuspunktid. Lülitatakse tahvlipõhiselt välja selle Scrumi seadetes."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "从此开始承诺执行工作的列表，在其标题处标出。在 看板设置 / 列表 中按看板选择。",
   "feature-person-wip-limit": "每人最大任务数",
   "feature-person-wip-limit-desc": "一个人在看板上最多可持有的未完成卡片数；打开卡片时会提醒超出限制的人员。在 看板设置 / 列表 中按看板设置。",
-  "scrum-definition-of-ready": "就绪的定义"
+  "scrum-definition-of-ready": "就绪的定义",
+  "daily-standup": "每日站会",
+  "dailyStandupPopup-title": "每日站会",
+  "standup-minutes": "每人分钟数",
+  "standup-shuffle": "随机排序",
+  "standup-total": "总计：__time__",
+  "standup-done": "站会用时 __time__。",
+  "retrospective-board": "回顾看板",
+  "retrospective-board-title": "__board__ - 回顾 __date__",
+  "retro-start": "开始做",
+  "retro-stop": "停止做",
+  "retro-continue": "继续做",
+  "feature-standup-timer": "每日站会计时器",
+  "feature-standup-timer-desc": "看板菜单中的每日站会：看板成员按随机顺序，每人拥有相同的时间盒。可在每个看板的 Scrum 设置中关闭。",
+  "feature-retrospective-board": "回顾看板",
+  "feature-retrospective-board-desc": "看板菜单中的回顾看板：新建一个私有看板，包含开始做、停止做、继续做和待办事项列表。可在每个看板的 Scrum 设置中关闭。"
 }

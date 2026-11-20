@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Urutonde akazi kemerwa guhera kurwo, rugaragazwa ku mutwe warwo. Ruhitwamo kuri buri kibaho muri Igenamiterere ry'ikibaho / Urutonde.",
   "feature-person-wip-limit": "Urugero rwa WIP ku muntu",
   "feature-person-wip-limit-desc": "Umubare w'amakarita afunguye umuntu umwe ashobora gufata ku kibaho; ikarita ifunguye iburira ku muntu wese urenzeho. Ushyirwaho kuri buri kibaho muri Igenamiterere ry'ikibaho / Urutonde.",
-  "scrum-definition-of-ready": "Igisobanuro cy'Icyiteguye"
+  "scrum-definition-of-ready": "Igisobanuro cy'Icyiteguye",
+  "daily-standup": "Inama ya buri munsi",
+  "dailyStandupPopup-title": "Inama ya buri munsi",
+  "standup-minutes": "Iminota kuri buri muntu",
+  "standup-shuffle": "Vanga",
+  "standup-total": "Igiteranyo: __time__",
+  "standup-done": "Inama yamaze __time__.",
+  "retrospective-board": "Ikibaho cy'isubiramo",
+  "retrospective-board-title": "__board__ - isubiramo __date__",
+  "retro-start": "Tangira gukora",
+  "retro-stop": "Reka gukora",
+  "retro-continue": "Komeza gukora",
+  "feature-standup-timer": "Isaha y'inama ya buri munsi",
+  "feature-standup-timer-desc": "Inama ya buri munsi muri menu y'ikibaho: abanyamuryango b'ikibaho mu buryo buvanze, buri wese afite igihe kimwe. Izimywa kuri buri kibaho mu Igenamiterere rya Scrum ryacyo.",
+  "feature-retrospective-board": "Ikibaho cy'isubiramo",
+  "feature-retrospective-board-desc": "Ikibaho cy'isubiramo muri menu y'ikibaho: ikibaho gishya cyihariye gifite intonde Tangira gukora, Reka gukora, Komeza gukora n'Ibikorwa bikenewe. Kizimywa kuri buri kibaho mu Igenamiterere rya Scrum ryacyo."
 }

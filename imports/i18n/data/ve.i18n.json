@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Mutevhe une mushumo wa ḓiimiselwa u bva khawo, wo swayiwa kha ṱhoho yawo. U khethwa nga bodo iṅwe na iṅwe kha Nzudzanyo dza bodo / Mutevhe.",
   "feature-person-wip-limit": "Mukano wa WIP nga muthu",
   "feature-person-wip-limit-desc": "Uri muthu muthihi a nga fara garaṱa nngana dzo vulwaho kha bodo; garaṱa yo vulwaho i sevhidza nga muṅwe na muṅwe o fhiraho mukano. U vhewa nga bodo iṅwe na iṅwe kha Nzudzanyo dza bodo / Mutevhe.",
-  "scrum-definition-of-ready": "Ṱhalutshedzo ya zwo Lugela"
+  "scrum-definition-of-ready": "Ṱhalutshedzo ya zwo Lugela",
+  "daily-standup": "Muṱangano wa ḓuvha ḽiṅwe na ḽiṅwe",
+  "dailyStandupPopup-title": "Muṱangano wa ḓuvha ḽiṅwe na ḽiṅwe",
+  "standup-minutes": "Mimunithi nga muthu",
+  "standup-shuffle": "Ṱanganya",
+  "standup-total": "Zwoṱhe: __time__",
+  "standup-done": "Muṱangano wo dzhia __time__.",
+  "retrospective-board": "Bodo ya u sedza murahu",
+  "retrospective-board-title": "__board__ - u sedza murahu __date__",
+  "retro-start": "Thoma u ita",
+  "retro-stop": "Litsha u ita",
+  "retro-continue": "Bvela phanḓa u ita",
+  "feature-standup-timer": "Tshikali tsha tshifhinga tsha muṱangano wa ḓuvha ḽiṅwe na ḽiṅwe",
+  "feature-standup-timer-desc": "Muṱangano wa ḓuvha ḽiṅwe na ḽiṅwe kha menyu ya bodo: miraḓo ya bodo nga nzudzanyo yo ṱanganywaho, muṅwe na muṅwe a na tshifhinga tshi linganaho. Hu dzimiwa nga bodo kha Nzudzanyo dza Scrum dzayo.",
+  "feature-retrospective-board": "Bodo ya u sedza murahu",
+  "feature-retrospective-board-desc": "Bodo ya u sedza murahu kha menyu ya bodo: bodo ntswa ya tshiphiri i re na mitevhe ya Thoma u ita, Litsha u ita, Bvela phanḓa u ita na Zwine zwa fanela u itwa. Hu dzimiwa nga bodo kha Nzudzanyo dza Scrum dzayo."
 }

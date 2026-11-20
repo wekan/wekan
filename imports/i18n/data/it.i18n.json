@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La lista da cui il lavoro viene preso in carico, segnata nella sua intestazione. Si sceglie per bacheca in Impostazioni della bacheca / Lista.",
   "feature-person-wip-limit": "Limite WIP per persona",
   "feature-person-wip-limit-desc": "Quante schede aperte può tenere una persona su una bacheca; una scheda aperta avvisa di chiunque lo superi. Si imposta per bacheca in Impostazioni della bacheca / Lista.",
-  "scrum-definition-of-ready": "Definizione di pronto"
+  "scrum-definition-of-ready": "Definizione di pronto",
+  "daily-standup": "Stand-up giornaliero",
+  "dailyStandupPopup-title": "Stand-up giornaliero",
+  "standup-minutes": "Minuti a persona",
+  "standup-shuffle": "Mescola",
+  "standup-total": "Totale: __time__",
+  "standup-done": "Lo stand-up è durato __time__.",
+  "retrospective-board": "Bacheca di retrospettiva",
+  "retrospective-board-title": "__board__ - retrospettiva __date__",
+  "retro-start": "Iniziare a fare",
+  "retro-stop": "Smettere di fare",
+  "retro-continue": "Continuare a fare",
+  "feature-standup-timer": "Timer dello stand-up giornaliero",
+  "feature-standup-timer-desc": "Lo Stand-up giornaliero del menu della bacheca: i membri della bacheca in ordine casuale, ognuno con la stessa durata massima. Si disattiva per ogni bacheca nelle sue Impostazioni Scrum.",
+  "feature-retrospective-board": "Bacheca di retrospettiva",
+  "feature-retrospective-board-desc": "La Bacheca di retrospettiva del menu della bacheca: una nuova bacheca privata con le liste Iniziare a fare, Smettere di fare, Continuare a fare e Azioni da fare. Si disattiva per ogni bacheca nelle sue Impostazioni Scrum."
 }

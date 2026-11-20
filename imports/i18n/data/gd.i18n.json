@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "An liosta on tèid gealltainn na h-obrach, comharraichte na bhann-cinn. Taghar e airson gach bùird ann an Roghainnean a' bhùird / Liosta.",
   "feature-person-wip-limit": "Crìoch WIP gach neach",
   "feature-person-wip-limit-desc": "Co mheud cairt fhosgailte a dh'fhaodas aon neach a chumail air bòrd; bheir cairt fhosgailte rabhadh mu neach sam bith a tha thairis oirre. Suidhichear e airson gach bùird ann an Roghainnean a' bhùird / Liosta.",
-  "scrum-definition-of-ready": "Mìneachadh air Ullamh"
+  "scrum-definition-of-ready": "Mìneachadh air Ullamh",
+  "daily-standup": "Coinneamh làitheil",
+  "dailyStandupPopup-title": "Coinneamh làitheil",
+  "standup-minutes": "Mionaidean gach neach",
+  "standup-shuffle": "Measgaich",
+  "standup-total": "Iomlan: __time__",
+  "standup-done": "Mhair a' choinneamh làitheil __time__.",
+  "retrospective-board": "Bòrd sùil air ais",
+  "retrospective-board-title": "__board__ - sùil air ais __date__",
+  "retro-start": "Tòisich air a dhèanamh",
+  "retro-stop": "Sguir dheth",
+  "retro-continue": "Cùm a' dol leis",
+  "feature-standup-timer": "Tìmear na coinneimh làitheil",
+  "feature-standup-timer-desc": "A' Choinneamh làitheil ann an clàr-taice a' bhùird: buill a' bhùird ann an òrdugh measgaichte, gach fear leis an aon chrìoch-ama. Cuirear dheth i airson gach bòrd sna Roghainnean Scrum aige.",
+  "feature-retrospective-board": "Bòrd sùil air ais",
+  "feature-retrospective-board-desc": "Am Bòrd sùil air ais ann an clàr-taice a' bhùird: bòrd prìobhaideach ùr leis na liostaichean Tòisich air a dhèanamh, Sguir dheth, Cùm a' dol leis agus Puingean gnìomha. Cuirear dheth e airson gach bòrd sna Roghainnean Scrum aige."
 }

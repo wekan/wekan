@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Oosuwaa ammanettiya mazgabaa, ba huuphiyan malaatettidaagaa. Bookkiya ubbaas Bookkiya giigissuwaa / Mazgabaa giddon doorettees.",
   "feature-person-wip-limit": "Asa issuwaas WIP gaxaa",
   "feature-person-wip-limit-desc": "Asi issoy bookkiya bolla dooyettida kaardiyata awudde gidiya oyqqana danddayiyaakko; dooyettida kaardiyay gaxaa aattida oonakka zoriyees. Bookkiya ubbaas Bookkiya giigissuwaa / Mazgabaa giddon wottettees.",
-  "scrum-definition-of-ready": "Giigettidaagaa qonccissuwaa"
+  "scrum-definition-of-ready": "Giigettidaagaa qonccissuwaa",
+  "daily-standup": "Gallassaa shiiquwaa",
+  "dailyStandupPopup-title": "Gallassaa shiiquwaa",
+  "standup-minutes": "Issi issi asaas daqiiqaa",
+  "standup-shuffle": "Walahha",
+  "standup-total": "Wurssi: __time__",
+  "standup-done": "Shiiquwaa __time__ ekkiis.",
+  "retrospective-board": "Guyye xeelliya bookkiya",
+  "retrospective-board-title": "__board__ - guyye xeelluwaa __date__",
+  "retro-start": "Oosuwaa doomma",
+  "retro-stop": "Oosuwaa aggi",
+  "retro-continue": "Oosuwaa minththa",
+  "feature-standup-timer": "Gallassaa shiiquwaa wodiyaa qoodiyaabaa",
+  "feature-standup-timer-desc": "Bookkiyaa menuwan Gallassaa shiiquwaa: bookkiyaa yaraata walahettida maaran, issoy issoy issi wodiyaa. Issi issi bookkiyaas a Scrum giigissuwaan aggi.",
+  "feature-retrospective-board": "Guyye xeelliya bookkiya",
+  "feature-retrospective-board-desc": "Bookkiyaa menuwan Guyye xeelliya bookkiya: Oosuwaa doomma, Oosuwaa aggi, Oosuwaa minththa nne Oosettanaw bessiyaabaa mazgabaa de'iya ooratta bagga bookkiya. Issi issi bookkiyaas a Scrum giigissuwaan aggi."
 }

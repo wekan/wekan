@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Nxaxamelo lowu ntirho wu tshembisiwaka ku sukela eka wona, lowu fungiweke eka nhloko ya wona. Wu hlawuriwa hi bodo yin'wana na yin'wana eka Swipimelo swa bodo / Nxaxamelo.",
   "feature-person-wip-limit": "Ndzelekano wa WIP hi munhu",
   "feature-person-wip-limit-desc": "Tikhadi to tani hi kwihi leti pfulekeke leti munhu un'we a nga ti khomaka eka bodo; khadi leyi pfuriweke yi tsundzuxa hi un'wana na un'wana loyi a tlulaka ndzelekano. Yi vekiwa hi bodo yin'wana na yin'wana eka Swipimelo swa bodo / Nxaxamelo.",
-  "scrum-definition-of-ready": "Nhlamuselo ya Ku Lunghekela"
+  "scrum-definition-of-ready": "Nhlamuselo ya Ku Lunghekela",
+  "daily-standup": "Nhlengeletano ya siku na siku",
+  "dailyStandupPopup-title": "Nhlengeletano ya siku na siku",
+  "standup-minutes": "Timinete hi munhu",
+  "standup-shuffle": "Pfanganisa",
+  "standup-total": "Hinkwaswo: __time__",
+  "standup-done": "Nhlengeletano yi teke __time__.",
+  "retrospective-board": "Bodo ya ku languta endzhaku",
+  "retrospective-board-title": "__board__ - ku languta endzhaku __date__",
+  "retro-start": "Sungula ku endla",
+  "retro-stop": "Yima ku endla",
+  "retro-continue": "Yisa emahlweni ku endla",
+  "feature-standup-timer": "Xikomba-nkarhi xa nhlengeletano ya siku na siku",
+  "feature-standup-timer-desc": "Nhlengeletano ya siku na siku eka menyu ya bodo: swirho swa bodo hi ndlela leyi pfanganisiweke, un'wana na un'wana a ri na nkarhi wo fana. Yi timiwa hi bodo eka Swipimelo swa Scrum swa yona.",
+  "feature-retrospective-board": "Bodo ya ku languta endzhaku",
+  "feature-retrospective-board-desc": "Bodo ya ku languta endzhaku eka menyu ya bodo: bodo leyintshwa ya xihundla leyi nga na minxaxamelo ya Sungula ku endla, Yima ku endla, Yisa emahlweni ku endla na Swilo swo endla. Yi timiwa hi bodo eka Swipimelo swa Scrum swa yona."
 }

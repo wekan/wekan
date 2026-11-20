@@ -91,6 +91,12 @@ const FEATURES = [
     views: [] },
   { key: 'person-wip-limit', labelKey: 'feature-person-wip-limit', descKey: 'feature-person-wip-limit-desc',
     views: [] },
+  // The Scrum meeting helpers (models/lib/scrumMeetings.js): each also turned
+  // off per board in its Scrum settings.
+  { key: 'standup-timer', labelKey: 'feature-standup-timer', descKey: 'feature-standup-timer-desc',
+    views: [] },
+  { key: 'retrospective-board', labelKey: 'feature-retrospective-board', descKey: 'feature-retrospective-board-desc',
+    views: [] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

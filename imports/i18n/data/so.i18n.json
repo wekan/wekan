@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Liiska laga ballanqaado shaqada, oo lagu calaamadeeyay madaxiisa. Waxaa loo doortaa sabuurad kasta Dejinta sabuuradda / Liis.",
   "feature-person-wip-limit": "Xadka WIP qofkiiba",
   "feature-person-wip-limit-desc": "Imisa kaar oo furan uu qof keliya ku hayn karaa sabuurad; kaar la furay wuxuu ka digaa qof kasta oo dhaafay. Waxaa loo dejiyaa sabuurad kasta Dejinta sabuuradda / Liis.",
-  "scrum-definition-of-ready": "Qeexidda diyaarsanaanta"
+  "scrum-definition-of-ready": "Qeexidda diyaarsanaanta",
+  "daily-standup": "Kulan maalinle ah",
+  "dailyStandupPopup-title": "Kulan maalinle ah",
+  "standup-minutes": "Daqiiqado qofkiiba",
+  "standup-shuffle": "Isku qas",
+  "standup-total": "Wadarta: __time__",
+  "standup-done": "Kulanku wuxuu qaatay __time__.",
+  "retrospective-board": "Sabuuradda dib-u-milicsiga",
+  "retrospective-board-title": "__board__ - dib-u-milicsi __date__",
+  "retro-start": "Bilow samaynta",
+  "retro-stop": "Jooji samaynta",
+  "retro-continue": "Sii wad samaynta",
+  "feature-standup-timer": "Saacadda kulanka maalinlaha ah",
+  "feature-standup-timer-desc": "Kulanka maalinlaha ah ee liiska sabuuradda: xubnaha sabuuradda oo kala dambayn isku qasan ah, mid kastaa waqti isku mid ah. Waa la damiyaa sabuurad kasta Dejinta Scrum-keeda.",
+  "feature-retrospective-board": "Sabuuradda dib-u-milicsiga",
+  "feature-retrospective-board-desc": "Sabuuradda dib-u-milicsiga ee liiska sabuuradda: sabuurad gaar ah oo cusub oo leh liisaska Bilow samaynta, Jooji samaynta, Sii wad samaynta iyo Waxyaabaha la qabanayo. Waa la damiyaa sabuurad kasta Dejinta Scrum-keeda."
 }

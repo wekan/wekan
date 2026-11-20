@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "An lista nga tikang didto iginpapasaad an buruhaton, gintimaan ha ulohan hini. Ginpipili kada pisara ha Mga Setting han Board / Lista.",
   "feature-person-wip-limit": "WIP Limit kada tawo",
   "feature-person-wip-limit-desc": "Pira nga bukas nga kard an puydi kuptan han usa nga tawo ha pisara; an ginbuksan nga kard nagpapahamangno mahitungod ha bisan hin-o nga lumapos hini. Gintatakda kada pisara ha Mga Setting han Board / Lista.",
-  "scrum-definition-of-ready": "Kahulogan han andam na nga buruhaton"
+  "scrum-definition-of-ready": "Kahulogan han andam na nga buruhaton",
+  "daily-standup": "Adlaw-adlaw nga standup",
+  "dailyStandupPopup-title": "Adlaw-adlaw nga standup",
+  "standup-minutes": "Minuto kada tawo",
+  "standup-shuffle": "Isagol",
+  "standup-total": "Kabug-osan: __time__",
+  "standup-done": "Inabot an standup hin __time__.",
+  "retrospective-board": "Pisara han pagtan-aw balik",
+  "retrospective-board-title": "__board__ - pagtan-aw balik __date__",
+  "retro-start": "Tikanga buhaton",
+  "retro-stop": "Untati an pagbuhat",
+  "retro-continue": "Padayon nga buhaton",
+  "feature-standup-timer": "Timer han adlaw-adlaw nga standup",
+  "feature-standup-timer-desc": "An Adlaw-adlaw nga standup ha menu han pisara: an mga membro han pisara ha ginsagol nga pagkasunod-sunod, tagsa may parehas nga oras. Ginpapalong kada pisara ha iya Mga takda han Scrum.",
+  "feature-retrospective-board": "Pisara han pagtan-aw balik",
+  "feature-retrospective-board-desc": "An Pisara han pagtan-aw balik ha menu han pisara: bag-o nga pribado nga pisara nga may mga lista nga Tikanga buhaton, Untati an pagbuhat, Padayon nga buhaton ngan Mga bubuhaton. Ginpapalong kada pisara ha iya Mga takda han Scrum."
 }

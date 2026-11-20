@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lis we ol i promis long wok long en i go, ol i makim long het bilong en. Ol i makim long wan wan bot long Ol seting bilong bot / Lis.",
   "feature-person-wip-limit": "Mak bilong WIP long wanpela man",
   "feature-person-wip-limit-desc": "Hamas kat i op wanpela man inap holim long wanpela bot; kat i op i save givim tok lukaut long husat i winim mak. Ol i putim long wan wan bot long Ol seting bilong bot / Lis.",
-  "scrum-definition-of-ready": "Tok bilong makim olsem wok i redi"
+  "scrum-definition-of-ready": "Tok bilong makim olsem wok i redi",
+  "daily-standup": "Miting bilong olgeta de",
+  "dailyStandupPopup-title": "Miting bilong olgeta de",
+  "standup-minutes": "Minit long wanpela wanpela man",
+  "standup-shuffle": "Miksim",
+  "standup-total": "Olgeta: __time__",
+  "standup-done": "Miting i kisim __time__.",
+  "retrospective-board": "Bot bilong lukluk bek",
+  "retrospective-board-title": "__board__ - lukluk bek __date__",
+  "retro-start": "Kirap mekim",
+  "retro-stop": "Lusim mekim",
+  "retro-continue": "Wok yet long mekim",
+  "feature-standup-timer": "Klok bilong miting bilong olgeta de",
+  "feature-standup-timer-desc": "Miting bilong olgeta de long menu bilong bot: ol memba bilong bot long ol miks oda, wanwan i gat wankain taim. Yu ken pasim long wanwan bot long Ol seting bilong Scrum bilong en.",
+  "feature-retrospective-board": "Bot bilong lukluk bek",
+  "feature-retrospective-board-desc": "Bot bilong lukluk bek long menu bilong bot: nupela praivet bot wantaim ol lis Kirap mekim, Lusim mekim, Wok yet long mekim na Ol samting long mekim. Yu ken pasim long wanwan bot long Ol seting bilong Scrum bilong en."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lenaane le tiro e itlamelwang go simolola go lone, le tshwailwe mo tlhogong ya lone. Le tlhophiwa ka boto nngwe le nngwe mo Dipeakanyo tsa boto / Lenaane.",
   "feature-person-wip-limit": "Tekanyetso ya WIP ka motho",
   "feature-person-wip-limit-desc": "Gore motho a le mongwe a ka tshwara dikarata di le kae tse di butsweng mo botong; karata e e butsweng e tlhagisa ka mongwe le mongwe yo o e fetang. E beiwa ka boto nngwe le nngwe mo Dipeakanyo tsa boto / Lenaane.",
-  "scrum-definition-of-ready": "Tlhaloso ya go Ipaakanya"
+  "scrum-definition-of-ready": "Tlhaloso ya go Ipaakanya",
+  "daily-standup": "Kopano ya letsatsi le letsatsi",
+  "dailyStandupPopup-title": "Kopano ya letsatsi le letsatsi",
+  "standup-minutes": "Metsotso ka motho",
+  "standup-shuffle": "Tlhakanya",
+  "standup-total": "Palogotlhe: __time__",
+  "standup-done": "Kopano e tsere __time__.",
+  "retrospective-board": "Boto ya go lebelela morago",
+  "retrospective-board-title": "__board__ - go lebelela morago __date__",
+  "retro-start": "Simolola go dira",
+  "retro-stop": "Emisa go dira",
+  "retro-continue": "Tswelela go dira",
+  "feature-standup-timer": "Sebadi sa nako sa kopano ya letsatsi le letsatsi",
+  "feature-standup-timer-desc": "Kopano ya letsatsi le letsatsi mo menung ya boto: maloko a boto ka thulaganyo e e tlhakantsweng, mongwe le mongwe ka nako e e lekanang. E timiwa ka boto mo Dipeakanyong tsa Scrum tsa yone.",
+  "feature-retrospective-board": "Boto ya go lebelela morago",
+  "feature-retrospective-board-desc": "Boto ya go lebelela morago mo menung ya boto: boto e ntšha ya sephiri e e nang le manaane a Simolola go dira, Emisa go dira, Tswelela go dira le Dilo tse di tshwanetseng go dirwa. E timiwa ka boto mo Dipeakanyong tsa Scrum tsa yone."
 }

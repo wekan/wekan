@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La llista a partir de la qual es compromet la feina, marcada a la seva capçalera. Es tria per tauler a Configuració del tauler / Llista.",
   "feature-person-wip-limit": "Límit de Treball en Progrés per persona",
   "feature-person-wip-limit-desc": "Quantes fitxes obertes pot tenir una persona en un tauler; una fitxa oberta avisa de qualsevol que el superi. Es defineix per tauler a Configuració del tauler / Llista.",
-  "scrum-definition-of-ready": "Definició de preparat"
+  "scrum-definition-of-ready": "Definició de preparat",
+  "daily-standup": "Reunió diària dempeus",
+  "dailyStandupPopup-title": "Reunió diària dempeus",
+  "standup-minutes": "Minuts per persona",
+  "standup-shuffle": "Barreja",
+  "standup-total": "Temps total: __time__",
+  "standup-done": "La reunió diària ha durat __time__.",
+  "retrospective-board": "Tauler de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Començar a fer",
+  "retro-stop": "Deixar de fer",
+  "retro-continue": "Continuar fent",
+  "feature-standup-timer": "Cronòmetre de la reunió diària",
+  "feature-standup-timer-desc": "La reunió diària del menú del tauler: els membres del tauler en un ordre aleatori, cadascun amb el mateix temps. Es desactiva per tauler a la seva Configuració de Scrum.",
+  "feature-retrospective-board": "Tauler de retrospectiva",
+  "feature-retrospective-board-desc": "El tauler de retrospectiva del menú del tauler: un tauler privat nou amb les llistes Començar a fer, Deixar de fer, Continuar fent i Accions pendents. Es desactiva per tauler a la seva Configuració de Scrum."
 }

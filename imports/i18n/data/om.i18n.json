@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Tarree hojiin irraa waadaa itti galamu, mataa isaa irratti mallattaa'e. Gabatee tokko tokkoof Qindaa'ina gabatee / Tarree keessatti filatama.",
   "feature-person-wip-limit": "Daangaa WIP nama tokkoof",
   "feature-person-wip-limit-desc": "Namni tokko gabatee irratti kaardii banaa meeqa qabachuu danda'a; kaardiin banamee nama daangaa darbe kamiifuu akeekkachiisa. Gabatee tokko tokkoof Qindaa'ina gabatee / Tarree keessatti qindaa'a.",
-  "scrum-definition-of-ready": "Hiika Qophaa'uu"
+  "scrum-definition-of-ready": "Hiika Qophaa'uu",
+  "daily-standup": "Walgahii guyyaa guyyaa",
+  "dailyStandupPopup-title": "Walgahii guyyaa guyyaa",
+  "standup-minutes": "Daqiiqaa nama tokkoof",
+  "standup-shuffle": "Walmakaa",
+  "standup-total": "Waliigala: __time__",
+  "standup-done": "Walgahichi __time__ fudhate.",
+  "retrospective-board": "Gabatee duubatti ilaalchaa",
+  "retrospective-board-title": "__board__ - duubatti ilaalcha __date__",
+  "retro-start": "Gochuu jalqabi",
+  "retro-stop": "Gochuu dhiisi",
+  "retro-continue": "Gochuu itti fufi",
+  "feature-standup-timer": "Yeroo lakkaa'aa walgahii guyyaa guyyaa",
+  "feature-standup-timer-desc": "Walgahii guyyaa guyyaa baafata gabatee keessatti: miseensota gabatee tartiiba walmakameen, tokkoon tokkoon isaanii yeroo walfakkaataa qabu. Gabatee tokkoon tokkoon isaa Qindaa'ina Scrum isaa keessatti dhaamsama.",
+  "feature-retrospective-board": "Gabatee duubatti ilaalchaa",
+  "feature-retrospective-board-desc": "Gabatee duubatti ilaalchaa baafata gabatee keessatti: gabatee dhuunfaa haaraa tarreewwan Gochuu jalqabi, Gochuu dhiisi, Gochuu itti fufi fi Wantoota hojjetamuu qaban qabu. Gabatee tokkoon tokkoon isaa Qindaa'ina Scrum isaa keessatti dhaamsama."
 }

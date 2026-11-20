@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Sɛbɛn min na baara layidu bɛ ta, taamasiyɛn bɛ a kunkan na. A bɛ sugandi walan kelen-kelen na Walan labɛnw / Sɛbɛn kɔnɔ.",
   "feature-person-wip-limit": "WIP dantigɛ mɔgɔ kelen-kelen na",
   "feature-person-wip-limit-desc": "Karti dayɛlɛlen joli mɔgɔ kelen bɛ se ka mara walan kan; karti dayɛlɛlen bɛ mɔgɔ o mɔgɔ lasɔmi min tɛmɛna a kan. A bɛ sigi walan kelen-kelen na Walan labɛnw / Sɛbɛn kɔnɔ.",
-  "scrum-definition-of-ready": "Labɛnni ɲɛfɔli"
+  "scrum-definition-of-ready": "Labɛnni ɲɛfɔli",
+  "daily-standup": "Don o don jɔlen ɲɔgɔnye",
+  "dailyStandupPopup-title": "Don o don jɔlen ɲɔgɔnye",
+  "standup-minutes": "Miniti mɔgɔ kelen kelen ye",
+  "standup-shuffle": "Ka ɲagami",
+  "standup-total": "A bɛɛ lajɛlen: __time__",
+  "standup-done": "Ɲɔgɔnye in mɛnna __time__.",
+  "retrospective-board": "Kɔfɛ lajɛli walan",
+  "retrospective-board-title": "__board__ - kɔfɛ lajɛli __date__",
+  "retro-start": "Daminɛ ka kɛ",
+  "retro-stop": "Dabila ka kɛ",
+  "retro-continue": "Taa a fɛ ka kɛ",
+  "feature-standup-timer": "Don o don ɲɔgɔnye waati jateminɛna",
+  "feature-standup-timer-desc": "Walan menu ka Don o don jɔlen ɲɔgɔnye: walan tɔndenw cogo ɲagamilen na, u kelen kelen bɛɛ bɛ waati kelen sɔrɔ. A bɛ se ka dabila walan kelen kelen na a ka Scrum labɛnw kɔnɔ.",
+  "feature-retrospective-board": "Kɔfɛ lajɛli walan",
+  "feature-retrospective-board-desc": "Walan menu ka Kɔfɛ lajɛli walan: walan kura gundo min sɛbɛnw ye Daminɛ ka kɛ, Dabila ka kɛ, Taa a fɛ ka kɛ ani Baara minnu ka kan ka kɛ ye. A bɛ se ka dabila walan kelen kelen na a ka Scrum labɛnw kɔnɔ."
 }

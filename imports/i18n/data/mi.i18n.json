@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Te rārangi e taunahatia ai te mahi, kua tohua ki tōna pane. Ka kōwhiria mō ia papa i Ngā tautuhinga papa / Rārangi.",
   "feature-person-wip-limit": "Tepe WIP mō ia tangata",
   "feature-person-wip-limit-desc": "E hia ngā kāri tuwhera ka puritia e te tangata kotahi ki tētahi papa; ka whakatūpato te kāri kua whakatuwheratia mō te hunga kua hipa. Ka tautuhia mō ia papa i Ngā tautuhinga papa / Rārangi.",
-  "scrum-definition-of-ready": "Whakamāramatanga o te mahi kua rite"
+  "scrum-definition-of-ready": "Whakamāramatanga o te mahi kua rite",
+  "daily-standup": "Hui tū o ia rā",
+  "dailyStandupPopup-title": "Hui tū o ia rā",
+  "standup-minutes": "Meneti mō ia tangata",
+  "standup-shuffle": "Kōrapurapu",
+  "standup-total": "Tapeke: __time__",
+  "standup-done": "I roa te hui tū __time__.",
+  "retrospective-board": "Papa whakaaro whakamuri",
+  "retrospective-board-title": "__board__ - whakaaro whakamuri __date__",
+  "retro-start": "Tīmata ki te mahi",
+  "retro-stop": "Kāti te mahi",
+  "retro-continue": "Haere tonu te mahi",
+  "feature-standup-timer": "Taima hui tū o ia rā",
+  "feature-standup-timer-desc": "Te hui tū o ia rā i te tahua papa: ngā mema o te papa i te raupapa kōrapurapu, he ōrite te wā mō ia tangata. Ka whakawetohia mō ia papa i ōna Ngā tautuhinga Scrum.",
+  "feature-retrospective-board": "Papa whakaaro whakamuri",
+  "feature-retrospective-board-desc": "Te papa whakaaro whakamuri i te tahua papa: he papa tūmataiti hou me ngā rārangi Tīmata ki te mahi, Kāti te mahi, Haere tonu te mahi me Ngā mahi hei mahi. Ka whakawetohia mō ia papa i ōna Ngā tautuhinga Scrum."
 }

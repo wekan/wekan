@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "De list fan wêr ôf it wurk tasein wurdt, markearre yn de kop. Per boerd keazen yn Boerdynstellings / List.",
   "feature-person-wip-limit": "WIP-limyt per persoan",
   "feature-person-wip-limit-desc": "Hoefolle iepen kaarten ien persoan op in boerd hawwe mei; in iepene kaart warskôget oer elkenien dy't deroer giet. Per boerd ynsteld yn Boerdynstellings / List.",
-  "scrum-definition-of-ready": "Definysje fan ree"
+  "scrum-definition-of-ready": "Definysje fan ree",
+  "daily-standup": "Deistich oerlis",
+  "dailyStandupPopup-title": "Deistich oerlis",
+  "standup-minutes": "Minuten per persoan",
+  "standup-shuffle": "Skodzje",
+  "standup-total": "Totaal: __time__",
+  "standup-done": "It deistich oerlis duorre __time__.",
+  "retrospective-board": "Weromsjochboerd",
+  "retrospective-board-title": "__board__ - weromsjen __date__",
+  "retro-start": "Begjinne mei",
+  "retro-stop": "Ophâlde mei",
+  "retro-continue": "Trochgean mei",
+  "feature-standup-timer": "Timer foar it deistich oerlis",
+  "feature-standup-timer-desc": "It Deistich oerlis yn it boerdmenu: de leden fan it boerd yn willekeurige folchoarder, elk mei deselde tiidslimyt. Per boerd út te setten yn syn Scrum-ynstellingen.",
+  "feature-retrospective-board": "Weromsjochboerd",
+  "feature-retrospective-board-desc": "It Weromsjochboerd yn it boerdmenu: in nij priveeboerd mei de listen Begjinne mei, Ophâlde mei, Trochgean mei en Aksjepunten. Per boerd út te setten yn syn Scrum-ynstellingen."
 }

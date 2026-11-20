@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Dhaptar sing dadi wiwitane pakaryan dikomitmenake, ditandhani ing sirahe. Dipilih saben papan ing Setelan papan / Dhaptar.",
   "feature-person-wip-limit": "Wates WIP saben wong",
   "feature-person-wip-limit-desc": "Pira kertu mbukak sing kena dicekel siji wong ing papan; kertu sing dibukak ngelingake babagan sapa wae sing ngluwihi. Disetel saben papan ing Setelan papan / Dhaptar.",
-  "scrum-definition-of-ready": "Paugeran siyap"
+  "scrum-definition-of-ready": "Paugeran siyap",
+  "daily-standup": "Rapat saben dina",
+  "dailyStandupPopup-title": "Rapat saben dina",
+  "standup-minutes": "Menit saben wong",
+  "standup-shuffle": "Kocok",
+  "standup-total": "Gunggung: __time__",
+  "standup-done": "Rapat saben dina mlaku __time__.",
+  "retrospective-board": "Papan refleksi",
+  "retrospective-board-title": "__board__ - refleksi __date__",
+  "retro-start": "Wiwiti nindakake",
+  "retro-stop": "Mandheg nindakake",
+  "retro-continue": "Terusake nindakake",
+  "feature-standup-timer": "Pangatur wektu rapat saben dina",
+  "feature-standup-timer-desc": "Rapat saben dina ing menu papan: anggota papan kanthi urutan acak, saben wong nduweni wates wektu sing padha. Dipateni saben papan ing Setelan Scrum-e.",
+  "feature-retrospective-board": "Papan refleksi",
+  "feature-retrospective-board-desc": "Papan refleksi ing menu papan: papan pribadi anyar kanthi dhaptar Wiwiti nindakake, Mandheg nindakake, Terusake nindakake lan Butir tumindak. Dipateni saben papan ing Setelan Scrum-e."
 }

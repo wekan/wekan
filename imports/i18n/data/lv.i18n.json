@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Saraksts, no kura darbs tiek apņemts, atzīmēts tā galvenē. Izvēlas katram dēlim sadaļā Dēļa iestatījumi / Saraksts.",
   "feature-person-wip-limit": "WIP ierobežojums vienai personai",
   "feature-person-wip-limit-desc": "Cik atvērtu kartiņu viena persona drīkst turēt uz dēļa; atvērta kartiņa brīdina par ikvienu, kas to pārsniedz. Iestata katram dēlim sadaļā Dēļa iestatījumi / Saraksts.",
-  "scrum-definition-of-ready": "Gatavības definīcija"
+  "scrum-definition-of-ready": "Gatavības definīcija",
+  "daily-standup": "Ikdienas sapulce",
+  "dailyStandupPopup-title": "Ikdienas sapulce",
+  "standup-minutes": "Minūtes katram dalībniekam",
+  "standup-shuffle": "Sajaukt",
+  "standup-total": "Kopā: __time__",
+  "standup-done": "Sapulce ilga __time__.",
+  "retrospective-board": "Retrospekcijas dēlis",
+  "retrospective-board-title": "__board__ - retrospekcija __date__",
+  "retro-start": "Sākt darīt",
+  "retro-stop": "Pārstāt darīt",
+  "retro-continue": "Turpināt darīt",
+  "feature-standup-timer": "Ikdienas sapulces taimeris",
+  "feature-standup-timer-desc": "Ikdienas sapulce dēļa izvēlnē: dēļa dalībnieki sajauktā secībā, katram vienāds laika ierobežojums. Izslēdzama katram dēlim tā Scrum iestatījumos.",
+  "feature-retrospective-board": "Retrospekcijas dēlis",
+  "feature-retrospective-board-desc": "Retrospekcijas dēlis dēļa izvēlnē: jauns privāts dēlis ar sarakstiem Sākt darīt, Pārstāt darīt, Turpināt darīt un Darbības punkti. Izslēdzams katram dēlim tā Scrum iestatījumos."
 }

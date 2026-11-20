@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lis we wok i stap promis stat long hem, i gat mak long hed blong hem. Yu jusum long evri bod long Ol seting blong bod / Lis.",
   "feature-person-wip-limit": "Limit blong wok we i stap gohed blong wan wan man",
   "feature-person-wip-limit-desc": "Hamas kad we i open wan man i save holem long wan bod; wan kad we i open i wonem long eni man we i pas long hem. Yu setem long evri bod long Ol seting blong bod / Lis.",
-  "scrum-definition-of-ready": "Mining blong wok we i redi"
+  "scrum-definition-of-ready": "Mining blong wok we i redi",
+  "daily-standup": "Miting blong evri dei",
+  "dailyStandupPopup-title": "Miting blong evri dei",
+  "standup-minutes": "Minit long wan wan man",
+  "standup-shuffle": "Miksimap",
+  "standup-total": "Olgeta: __time__",
+  "standup-done": "Miting i tekem __time__.",
+  "retrospective-board": "Bod blong lukbak",
+  "retrospective-board-title": "__board__ - lukbak __date__",
+  "retro-start": "Statem mekem",
+  "retro-stop": "Stop mekem",
+  "retro-continue": "Gohed mekem",
+  "feature-standup-timer": "Taima blong miting blong evri dei",
+  "feature-standup-timer-desc": "Miting blong evri dei long menyu blong bod: ol memba blong bod long wan oda we i miksimap, evriwan i gat sem taem. Yu save stopem long evri bod long Ol seting blong Scrum blong hem.",
+  "feature-retrospective-board": "Bod blong lukbak",
+  "feature-retrospective-board-desc": "Bod blong lukbak long menyu blong bod: wan niu bod blong yu nomo wetem ol lis Statem mekem, Stop mekem, Gohed mekem mo Ol wok blong mekem. Yu save stopem long evri bod long Ol seting blong Scrum blong hem."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "القائمة التي يُلتزم بالعمل ابتداءً منها، مع علامة في رأسها. تُختار لكل لوحة في إعدادات اللوحة / قائمة.",
   "feature-person-wip-limit": "حد العمل الجاري (WIP) لكل شخص",
   "feature-person-wip-limit-desc": "عدد البطاقات المفتوحة التي يمكن لشخص واحد الاحتفاظ بها في لوحة؛ وتُنبّه البطاقة المفتوحة إلى أي شخص تجاوزه. يُضبط لكل لوحة في إعدادات اللوحة / قائمة.",
-  "scrum-definition-of-ready": "تعريف الخدمة الواجدة"
+  "scrum-definition-of-ready": "تعريف الخدمة الواجدة",
+  "daily-standup": "لقاء الوقفة اليومي",
+  "dailyStandupPopup-title": "لقاء الوقفة اليومي",
+  "standup-minutes": "دقايق لكل واحد",
+  "standup-shuffle": "خلّط",
+  "standup-total": "المجموع: __time__",
+  "standup-done": "لقاء الوقفة دام __time__.",
+  "retrospective-board": "لوحة التقييم",
+  "retrospective-board-title": "__board__ - تقييم __date__",
+  "retro-start": "بدا دير",
+  "retro-stop": "وقف ما تديرش",
+  "retro-continue": "كمّل دير",
+  "feature-standup-timer": "مؤقت لقاء الوقفة اليومي",
+  "feature-standup-timer-desc": "لقاء الوقفة اليومي فقائمة اللوحة: الأعضاء ديال اللوحة بترتيب مخلّط، كل واحد عندو نفس الوقت. كيتطفى لكل لوحة فإعدادات سكرام ديالها.",
+  "feature-retrospective-board": "لوحة التقييم",
+  "feature-retrospective-board-desc": "لوحة التقييم فقائمة اللوحة: لوحة خاصة جديدة فيها القوائم بدا دير، وقف ما تديرش، كمّل دير والحوايج اللي خاصها تدار. كتطفى لكل لوحة فإعدادات سكرام ديالها."
 }

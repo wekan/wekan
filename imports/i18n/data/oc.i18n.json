@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La lista a partir de la quala lo trabalh es engatjat, marcada dins son entèsta. Se causís per tablèu dins Opcions del tablèu / Lista.",
   "feature-person-wip-limit": "Limita WIP per persona",
   "feature-person-wip-limit-desc": "Quantas cartas dobèrtas una persona pòt téner sus un tablèu; una carta dobèrta avisa de qual que siá que la despassa. Se definís per tablèu dins Opcions del tablèu / Lista.",
-  "scrum-definition-of-ready": "Definicion de prèst"
+  "scrum-definition-of-ready": "Definicion de prèst",
+  "daily-standup": "Reünion quotidiana",
+  "dailyStandupPopup-title": "Reünion quotidiana",
+  "standup-minutes": "Minutas per persona",
+  "standup-shuffle": "Mesclar",
+  "standup-total": "En tot : __time__",
+  "standup-done": "La reünion durèt __time__.",
+  "retrospective-board": "Tablèu de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Començar de far",
+  "retro-stop": "Arrestar de far",
+  "retro-continue": "Contunhar de far",
+  "feature-standup-timer": "Cronomètre de la reünion quotidiana",
+  "feature-standup-timer-desc": "La reünion quotidiana del menú del tablèu : los membres del tablèu dins un òrdre mesclat, cadun amb lo meteis temps. Se desactiva per tablèu dins sos Paramètres Scrum.",
+  "feature-retrospective-board": "Tablèu de retrospectiva",
+  "feature-retrospective-board-desc": "Lo tablèu de retrospectiva del menú del tablèu : un tablèu privat novèl amb las listas Començar de far, Arrestar de far, Contunhar de far e Accions de far. Se desactiva per tablèu dins sos Paramètres Scrum."
 }

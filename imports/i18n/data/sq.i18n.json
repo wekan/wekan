@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista nga e cila puna merret përsipër, e shënuar në kokën e saj. Zgjidhet për çdo tabelë te Cilësimet e tabelës / Listë.",
   "feature-person-wip-limit": "Kufiri WIP për person",
   "feature-person-wip-limit-desc": "Sa karta të hapura mund të mbajë një person në një tabelë; një kartë e hapur paralajmëron për këdo që e kalon. Caktohet për çdo tabelë te Cilësimet e tabelës / Listë.",
-  "scrum-definition-of-ready": "Përkufizimi i gatishmërisë"
+  "scrum-definition-of-ready": "Përkufizimi i gatishmërisë",
+  "daily-standup": "Takimi i përditshëm",
+  "dailyStandupPopup-title": "Takimi i përditshëm",
+  "standup-minutes": "Minuta për person",
+  "standup-shuffle": "Përziej",
+  "standup-total": "Gjithsej: __time__",
+  "standup-done": "Takimi zgjati __time__.",
+  "retrospective-board": "Tabelë retrospektive",
+  "retrospective-board-title": "__board__ - retrospektivë __date__",
+  "retro-start": "Fillo të bësh",
+  "retro-stop": "Ndalo së bëri",
+  "retro-continue": "Vazhdo të bësh",
+  "feature-standup-timer": "Kohëmatësi i takimit të përditshëm",
+  "feature-standup-timer-desc": "Takimi i përditshëm në menynë e tabelës: anëtarët e tabelës në rend të përzier, secili me të njëjtën kohë. Çaktivizohet për çdo tabelë te Cilësimet e Scrum të saj.",
+  "feature-retrospective-board": "Tabelë retrospektive",
+  "feature-retrospective-board-desc": "Tabela retrospektive në menynë e tabelës: një tabelë e re private me listat Fillo të bësh, Ndalo së bëri, Vazhdo të bësh dhe Pika veprimi. Çaktivizohet për çdo tabelë te Cilësimet e Scrum të saj."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "An rol mayth yw ober ambosys anedhi, merkys yn hy fenn. Dewisys rag pub estyllen yn Settyansow Estyllen / Rol.",
   "feature-person-wip-limit": "Fin WIP rag pub den",
   "feature-person-wip-limit-desc": "Pes karten igor a hyll unn den synsi war estyllen; karten igorys a warn a-dro dhe neb dres an fin. Settys rag pub estyllen yn Settyansow Estyllen / Rol.",
-  "scrum-definition-of-ready": "Styryans a Barys"
+  "scrum-definition-of-ready": "Styryans a Barys",
+  "daily-standup": "Kuntelles pub dydh",
+  "dailyStandupPopup-title": "Kuntelles pub dydh",
+  "standup-minutes": "Mynysennow rag pub den",
+  "standup-shuffle": "Kemmyska",
+  "standup-total": "Oll warbarth: __time__",
+  "standup-done": "An guntelles a dhuryas __time__.",
+  "retrospective-board": "Estyllen mires war-dhelergh",
+  "retrospective-board-title": "__board__ - mires war-dhelergh __date__",
+  "retro-start": "Dalleth gul",
+  "retro-stop": "Hedhi gul",
+  "retro-continue": "Pesya gul",
+  "feature-standup-timer": "Euryer an guntelles pub dydh",
+  "feature-standup-timer-desc": "An Guntelles pub dydh yn rol dewis an estyllen: eseli an estyllen yn aray kemmyskys, pub huni gans an keth finweth termyn. Diskeyys rag pub estyllen yn hy Settyansow Scrum.",
+  "feature-retrospective-board": "Estyllen mires war-dhelergh",
+  "feature-retrospective-board-desc": "An Estyllen mires war-dhelergh yn rol dewis an estyllen: estyllen privedh nowydh gans an rolyow Dalleth gul, Hedhi gul, Pesya gul ha Poyntys gwrians. Diskeyys rag pub estyllen yn hy Settyansow Scrum."
 }

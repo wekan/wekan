@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lised de kel vobod pabligon, pemalöl in tiäd okik. Pavälon a tab alik in Väls taba / Lised.",
   "feature-person-wip-limit": "Mied WIP a pösod",
   "feature-person-wip-limit-desc": "Kadis maifik limödik pösod bal kanon labön su tab; kad pemaifiköl nunon dö alan, kel plu labon. Paleadon a tab alik in Väls taba / Lised.",
-  "scrum-definition-of-ready": "Miedet blümöfa"
+  "scrum-definition-of-ready": "Miedet blümöfa",
+  "daily-standup": "Kobikam delik",
+  "dailyStandupPopup-title": "Kobikam delik",
+  "standup-minutes": "Minuts a pösod",
+  "standup-shuffle": "Migön",
+  "standup-total": "Valod: __time__",
+  "standup-done": "Kobikam äduron __time__.",
+  "retrospective-board": "Tab gelogama",
+  "retrospective-board-title": "__board__ - gelogam __date__",
+  "retro-start": "Primön dunön",
+  "retro-stop": "Stopön dunön",
+  "retro-continue": "Fovön dunön",
+  "feature-standup-timer": "Timamaf kobikama delik",
+  "feature-standup-timer-desc": "Kobikam delik in lisedabuked taba: limans taba ma leod pemigöl, alik labü tim ot. Pestopon pro tab alik in Väls ela Scrum ona.",
+  "feature-retrospective-board": "Tab gelogama",
+  "feature-retrospective-board-desc": "Tab gelogama in lisedabuked taba: tab privatik nulik labü lised Primön dunön, Stopön dunön, Fovön dunön e Dunots. Pestopon pro tab alik in Väls ela Scrum ona."
 }

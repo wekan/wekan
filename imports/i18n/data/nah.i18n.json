@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "In tocatlahtolli campa motlaquetza tequitl, machiyotilli ipan itzontecon. Mopepena ce ce huapalli ipan Huapalli tlaahxitiliztli / Tocatlahtolli.",
   "feature-person-wip-limit": "WIP nepantlaliztli ce tlacatl",
   "feature-person-wip-limit-desc": "Quezquich tlapouhtoc amatlapaltin huel quipia ce tlacatl ipan huapalli; ce tlapouhtoc amatlapalli quinnotza aquin panhuetzi. Motlalia ce ce huapalli ipan Huapalli tlaahxitiliztli / Tocatlahtolli.",
-  "scrum-definition-of-ready": "Tlen quihtoa ye cualtitoc"
+  "scrum-definition-of-ready": "Tlen quihtoa ye cualtitoc",
+  "daily-standup": "Sesen tonalli nechicoliztli",
+  "dailyStandupPopup-title": "Sesen tonalli nechicoliztli",
+  "standup-minutes": "Cahuitl ic cecen tlacatl",
+  "standup-shuffle": "Xiquinahuatequi",
+  "standup-total": "Mochi: __time__",
+  "standup-done": "In nechicoliztli oquiz __time__.",
+  "retrospective-board": "Huapalli tlacuepaliztli",
+  "retrospective-board-title": "__board__ - tlacuepaliztli __date__",
+  "retro-start": "Xipeua xicchihua",
+  "retro-stop": "Ma ticcahua",
+  "retro-continue": "Ma tiquitzquia",
+  "feature-standup-timer": "Sesen tonalli nechicoliztli tlapohualli",
+  "feature-standup-timer-desc": "Sesen tonalli nechicoliztli ipan huapalli tlatecpanaliztli: in tlacameh ipan huapalli ahmo tlatecpantli, ceceyaca ica in zan ce cahuitl. Motzacua ipan cecen huapalli ipan Scrum itlaahxitiliz.",
+  "feature-retrospective-board": "Huapalli tlacuepaliztli",
+  "feature-retrospective-board-desc": "Huapalli tlacuepaliztli ipan huapalli tlatecpanaliztli: yancuic ichtaca huapalli ica Xipeua xicchihua, Ma ticcahua, Ma tiquitzquia ihuan Tequitl monequi. Motzacua ipan cecen huapalli ipan Scrum itlaahxitiliz."
 }

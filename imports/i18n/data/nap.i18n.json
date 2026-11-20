@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "'A lista 'a do' 'a fatica se piglia mpegno, signata ncopp'â capa soja. Se sceglie pe' ogne tavula dint'a Mpustaziune d'a tavula / Lista.",
   "feature-person-wip-limit": "Limite WIP pe' perzona",
   "feature-person-wip-limit-desc": "Quanta carte aperte pò tené na perzona ncopp'a na tavula; na carta aperta avvisa pe' chi 'o passa. Se mposta pe' ogne tavula dint'a Mpustaziune d'a tavula / Lista.",
-  "scrum-definition-of-ready": "Definizzione 'e pronto"
+  "scrum-definition-of-ready": "Definizzione 'e pronto",
+  "daily-standup": "Riunione 'e ogni juorno",
+  "dailyStandupPopup-title": "Riunione 'e ogni juorno",
+  "standup-minutes": "Minute pe perzona",
+  "standup-shuffle": "Ammisca",
+  "standup-total": "Tutale: __time__",
+  "standup-done": "'A riunione ha durato __time__.",
+  "retrospective-board": "Tavula 'e retrospettiva",
+  "retrospective-board-title": "__board__ - retrospettiva __date__",
+  "retro-start": "Accummencia a fà",
+  "retro-stop": "Fernisce 'e fà",
+  "retro-continue": "Cuntinua a fà",
+  "feature-standup-timer": "Timer d''a riunione 'e ogni juorno",
+  "feature-standup-timer-desc": "'A riunione 'e ogni juorno dint''o menù d''a tavula: 'e membre d''a tavula 'n ordine ammiscato, ognuno cu 'o stesso tiempo. Se stuta pe ogni tavula dint''e Mpustazzione Scrum soje.",
+  "feature-retrospective-board": "Tavula 'e retrospettiva",
+  "feature-retrospective-board-desc": "'A tavula 'e retrospettiva dint''o menù d''a tavula: na tavula privata nova cu 'e liste Accummencia a fà, Fernisce 'e fà, Cuntinua a fà e Cose 'a fà. Se stuta pe ogni tavula dint''e Mpustazzione Scrum soje."
 }

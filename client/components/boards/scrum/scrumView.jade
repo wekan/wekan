@@ -58,6 +58,15 @@ template(name="scrumView")
                 textarea(name="definitionOfReady") {{settings.definitionOfReady}}
               label {{_ 'scrum-definition-of-done'}}
                 textarea(name="definitionOfDone") {{settings.definitionOfDone}}
+              //- The meeting helpers of the board menu (scrumMeetings.js).
+              label
+                input(type="checkbox" name="standupTimer" checked=settings.standupTimer)
+                | {{_ 'daily-standup'}}
+              label {{_ 'standup-minutes'}}
+                input(type="number" name="standupMinutes" min="1" max="15" value=settings.standupMinutes)
+              label
+                input(type="checkbox" name="retrospectiveBoard" checked=settings.retrospectiveBoard)
+                | {{_ 'retrospective-board'}}
               each accountabilityFields
                 label {{label}}
                   select(name=field multiple=multiple)

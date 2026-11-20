@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lenane leo mosebetsi o itlamelwang ho tloha ho lona, le tshwailweng hloohong ya lona. Le kgethwa ka boto ka nngwe ho Ditlhophiso tsa boto / Lenane.",
   "feature-person-wip-limit": "Moedi wa WIP ka motho",
   "feature-person-wip-limit-desc": "Ke dikarete tse kae tse butsweng tseo motho a le mong a ka di tshwarang botong; karete e butsweng e lemosa ka mang kapa mang ya fetang moedi. E behwa ka boto ka nngwe ho Ditlhophiso tsa boto / Lenane.",
-  "scrum-definition-of-ready": "Tlhaloso ya ho itokisa"
+  "scrum-definition-of-ready": "Tlhaloso ya ho itokisa",
+  "daily-standup": "Kopano ya letsatsi le letsatsi",
+  "dailyStandupPopup-title": "Kopano ya letsatsi le letsatsi",
+  "standup-minutes": "Metsotso ka motho",
+  "standup-shuffle": "Kopanya",
+  "standup-total": "Kakaretso: __time__",
+  "standup-done": "Kopano e nkile __time__.",
+  "retrospective-board": "Boto ya ho hetla morao",
+  "retrospective-board-title": "__board__ - ho hetla morao __date__",
+  "retro-start": "Qala ho etsa",
+  "retro-stop": "Emisa ho etsa",
+  "retro-continue": "Tswela pele ho etsa",
+  "feature-standup-timer": "Sebali sa nako sa kopano ya letsatsi le letsatsi",
+  "feature-standup-timer-desc": "Kopano ya letsatsi le letsatsi ho menu ya boto: ditho tsa boto ka tatelano e kopantsweng, e mong le e mong a ena le nako e lekanang. E tingwa ka boto ho Dipeakanyo tsa Scrum tsa yona.",
+  "feature-retrospective-board": "Boto ya ho hetla morao",
+  "feature-retrospective-board-desc": "Boto ya ho hetla morao ho menu ya boto: boto e ntjha ya poraefete e nang le manane a Qala ho etsa, Emisa ho etsa, Tswela pele ho etsa le Dintho tse lokelang ho etswa. E tingwa ka boto ho Dipeakanyo tsa Scrum tsa yona."
 }

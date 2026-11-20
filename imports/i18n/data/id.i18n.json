@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Daftar tempat pekerjaan mulai dikomitmenkan, ditandai di kepalanya. Dipilih per papan di Setelan Papan / Daftar.",
   "feature-person-wip-limit": "Batas WIP per orang",
   "feature-person-wip-limit-desc": "Berapa banyak kartu terbuka yang boleh dipegang satu orang di sebuah papan; kartu yang dibuka memperingatkan tentang siapa pun yang melampauinya. Diatur per papan di Setelan Papan / Daftar.",
-  "scrum-definition-of-ready": "Definisi siap"
+  "scrum-definition-of-ready": "Definisi siap",
+  "daily-standup": "Rapat harian",
+  "dailyStandupPopup-title": "Rapat harian",
+  "standup-minutes": "Menit per orang",
+  "standup-shuffle": "Acak",
+  "standup-total": "Jumlah: __time__",
+  "standup-done": "Rapat harian berlangsung __time__.",
+  "retrospective-board": "Papan retrospektif",
+  "retrospective-board-title": "__board__ - retrospektif __date__",
+  "retro-start": "Mulai lakukan",
+  "retro-stop": "Berhenti lakukan",
+  "retro-continue": "Tetap lakukan",
+  "feature-standup-timer": "Pengatur waktu rapat harian",
+  "feature-standup-timer-desc": "Rapat harian di menu papan: anggota papan dalam urutan acak, masing-masing dengan batas waktu yang sama. Dimatikan per papan di Pengaturan Scrum-nya.",
+  "feature-retrospective-board": "Papan retrospektif",
+  "feature-retrospective-board-desc": "Papan retrospektif di menu papan: papan privat baru dengan daftar Mulai lakukan, Berhenti lakukan, Tetap lakukan dan Butir tindakan. Dimatikan per papan di Pengaturan Scrum-nya."
 }

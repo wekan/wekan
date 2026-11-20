@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Işiň borç hökmünde alynýan sanawy, sözbaşysynda bellenýär. Her geňeş üçin Tagtanyň sazlamalary / Sanaw bölüminde saýlanýar.",
   "feature-person-wip-limit": "Bir adam üçin WIP çägi",
   "feature-person-wip-limit-desc": "Bir adamyň geňeşde näçe açyk kart saklap biljekdigi; açylan kart çägi aşan islendik adam barada duýduryş berýär. Her geňeş üçin Tagtanyň sazlamalary / Sanaw bölüminde bellenýär.",
-  "scrum-definition-of-ready": "Taýýarlygyň kesgitlemesi"
+  "scrum-definition-of-ready": "Taýýarlygyň kesgitlemesi",
+  "daily-standup": "Gündelik ýygnak",
+  "dailyStandupPopup-title": "Gündelik ýygnak",
+  "standup-minutes": "Her adama minut",
+  "standup-shuffle": "Garyşdyr",
+  "standup-total": "Jemi: __time__",
+  "standup-done": "Ýygnak __time__ dowam etdi.",
+  "retrospective-board": "Retrospektiwa geňeşi",
+  "retrospective-board-title": "__board__ - retrospektiwa __date__",
+  "retro-start": "Etmäge başla",
+  "retro-stop": "Etmegi bes et",
+  "retro-continue": "Etmegi dowam et",
+  "feature-standup-timer": "Gündelik ýygnak taýmeri",
+  "feature-standup-timer-desc": "Geňeş menýusyndaky Gündelik ýygnak: geňeşiň agzalary garyşyk tertipde, her biri deň wagt bilen. Her geňeş üçin onuň Scrum sazlamalarynda öçürilýär.",
+  "feature-retrospective-board": "Retrospektiwa geňeşi",
+  "feature-retrospective-board-desc": "Geňeş menýusyndaky Retrospektiwa geňeşi: Etmäge başla, Etmegi bes et, Etmegi dowam et we Ediljek işler sanawlary bolan täze hususy geňeş. Her geňeş üçin onuň Scrum sazlamalarynda öçürilýär."
 }

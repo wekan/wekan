@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "هغه لړليک چې له هغه څخه کار ته ژمنه کیږي، په سرليک کې یې نښه شوی. د هرې تختې لپاره په د تختې امستنې / لړليک کې ټاکل کیږي.",
   "feature-person-wip-limit": "د هر کس لپاره د WIP حد",
   "feature-person-wip-limit-desc": "یو کس په یوه تخته کې څومره پرانیستي کارتونه ساتلای شي؛ پرانیستل شوی کارت د هر هغه چا په اړه خبرداری ورکوي چې ترې اوړي. د هرې تختې لپاره په د تختې امستنې / لړليک کې ټاکل کیږي.",
-  "scrum-definition-of-ready": "د چمتو کار تعريف"
+  "scrum-definition-of-ready": "د چمتو کار تعريف",
+  "daily-standup": "ورځنۍ ولاړه غونډه",
+  "dailyStandupPopup-title": "ورځنۍ ولاړه غونډه",
+  "standup-minutes": "په هر کس دقیقې",
+  "standup-shuffle": "ګډوډ کړئ",
+  "standup-total": "ټول: __time__",
+  "standup-done": "غونډه __time__ ونیوله.",
+  "retrospective-board": "د بیاکتنې تخته",
+  "retrospective-board-title": "__board__ - بیاکتنه __date__",
+  "retro-start": "کول پیل کړئ",
+  "retro-stop": "کول بند کړئ",
+  "retro-continue": "کول دوام ورکړئ",
+  "feature-standup-timer": "د ورځنۍ غونډې ټایمر",
+  "feature-standup-timer-desc": "د تختې په مینو کې ورځنۍ غونډه: د تختې غړي په ګډوډ ترتیب، هر یو د یو شان وخت سره. د هرې تختې لپاره د هغې د سکرَم امستنو کې بندېږي.",
+  "feature-retrospective-board": "د بیاکتنې تخته",
+  "feature-retrospective-board-desc": "د تختې په مینو کې د بیاکتنې تخته: یوه نوې شخصي تخته د کول پیل کړئ، کول بند کړئ، کول دوام ورکړئ او د عمل ټکي لړلیکونو سره. د هرې تختې لپاره د هغې د سکرَم امستنو کې بندېږي."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Ysaja ojeñe'ẽme'ẽháguio tembiapo rehe, ojehechaukáva iñakãme. Ojeporavo peteĩteĩ peteĩchápe Peteĩcha ñemboheko / Ysaja-pe.",
   "feature-person-wip-limit": "WIP paha peteĩ tapicha rehe",
   "feature-person-wip-limit-desc": "Mboy kuatia'i ijurujáva ikatu oguereko peteĩ tapicha peteĩ peteĩchápe; kuatia'i ojeipe'áva omomarandu oimeraẽva ohasáva chugui. Oñemboheko peteĩteĩ peteĩchápe Peteĩcha ñemboheko / Ysaja-pe.",
-  "scrum-definition-of-ready": "Oĩmbaporã ñemyesakã"
+  "scrum-definition-of-ready": "Oĩmbaporã ñemyesakã",
+  "daily-standup": "Aty ára ha ára",
+  "dailyStandupPopup-title": "Aty ára ha ára",
+  "standup-minutes": "Aravo'i peteĩ tapichápe",
+  "standup-shuffle": "Mbojeheje'a",
+  "standup-total": "Opaite: __time__",
+  "standup-done": "Aty ára ha ára ipukukue __time__.",
+  "retrospective-board": "Tembiapo renda jehechajey",
+  "retrospective-board-title": "__board__ - jehechajey __date__",
+  "retro-start": "Eñepyrũ ejapo",
+  "retro-stop": "Anive ejapo",
+  "retro-continue": "Ejapo jey",
+  "feature-standup-timer": "Aravo papaha aty ára ha árape guarã",
+  "feature-standup-timer-desc": "Aty ára ha ára tembiapo renda poravorãme: tembiapo renda ñemoirũha oñembojeheje'apyre, peteĩteĩ aravo ryru peteĩchaguánte ndive. Oñembogue peteĩteĩ tembiapo rendápe Scrum ñemboheko-pe.",
+  "feature-retrospective-board": "Tembiapo renda jehechajey",
+  "feature-retrospective-board-desc": "Tembiapo renda jehechajey tembiapo renda poravorãme: tembiapo renda pyahu ñemi ysaja Eñepyrũ ejapo, Anive ejapo, Ejapo jey ha Tembiapo ojejapo va'erã ndive. Oñembogue peteĩteĩ tembiapo rendápe Scrum ñemboheko-pe."
 }

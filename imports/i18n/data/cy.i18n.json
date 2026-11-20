@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Y rhestr yr ymrwymir i waith ohoni, wedi'i marcio yn ei phennawd. Caiff ei dewis fesul bwrdd yn Gosodiadau Bwrdd / Rhestr.",
   "feature-person-wip-limit": "Terfyn WIP fesul unigolyn",
   "feature-person-wip-limit-desc": "Faint o gardiau agored y caiff un unigolyn eu dal ar fwrdd; mae cerdyn a agorwyd yn rhybuddio am unrhyw un sydd drosto. Caiff ei osod fesul bwrdd yn Gosodiadau Bwrdd / Rhestr.",
-  "scrum-definition-of-ready": "Diffiniad o barod"
+  "scrum-definition-of-ready": "Diffiniad o barod",
+  "daily-standup": "Cyfarfod sefyll dyddiol",
+  "dailyStandupPopup-title": "Cyfarfod sefyll dyddiol",
+  "standup-minutes": "Munudau i bob person",
+  "standup-shuffle": "Cymysgu",
+  "standup-total": "Cyfanswm: __time__",
+  "standup-done": "Parhaodd y cyfarfod sefyll __time__.",
+  "retrospective-board": "Bwrdd ôl-adolygu",
+  "retrospective-board-title": "__board__ - ôl-adolygiad __date__",
+  "retro-start": "Dechrau gwneud",
+  "retro-stop": "Peidio â gwneud",
+  "retro-continue": "Dal ati i wneud",
+  "feature-standup-timer": "Amserydd y cyfarfod sefyll dyddiol",
+  "feature-standup-timer-desc": "Cyfarfod sefyll dyddiol dewislen y bwrdd: aelodau'r bwrdd mewn trefn gymysg, pob un â'r un terfyn amser. Wedi'i ddiffodd fesul bwrdd yn ei Gosodiadau Scrum.",
+  "feature-retrospective-board": "Bwrdd ôl-adolygu",
+  "feature-retrospective-board-desc": "Bwrdd ôl-adolygu dewislen y bwrdd: bwrdd preifat newydd gyda'r rhestrau Dechrau gwneud, Peidio â gwneud, Dal ati i wneud a Pwyntiau gweithredu. Wedi'i ddiffodd fesul bwrdd yn ei Gosodiadau Scrum."
 }

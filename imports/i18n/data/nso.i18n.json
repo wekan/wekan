@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lelokelelo leo mošomo o ikgafelwago go tloga go lona, le swailwe hlogong ya lona. Le kgethwa ka poto ka Dipeakanyo tša poto / Lelokelelo.",
   "feature-person-wip-limit": "Moedi wa WIP ka motho",
   "feature-person-wip-limit-desc": "Ke dikarata tše kae tše di bulegilego motho o tee a ka di swarago potong; karata ye e bulegilego e lemoša ka mang le mang yo a fetago. E beakanywa ka poto ka Dipeakanyo tša poto / Lelokelelo.",
-  "scrum-definition-of-ready": "Tlhalošo ya go loketše"
+  "scrum-definition-of-ready": "Tlhalošo ya go loketše",
+  "daily-standup": "Kopano ya letšatši le letšatši",
+  "dailyStandupPopup-title": "Kopano ya letšatši le letšatši",
+  "standup-minutes": "Metsotso ka motho",
+  "standup-shuffle": "Hlakanya",
+  "standup-total": "Palomoka: __time__",
+  "standup-done": "Kopano e tšere __time__.",
+  "retrospective-board": "Poto ya go lebelela morago",
+  "retrospective-board-title": "__board__ - go lebelela morago __date__",
+  "retro-start": "Thoma go dira",
+  "retro-stop": "Emiša go dira",
+  "retro-continue": "Tšwela pele go dira",
+  "feature-standup-timer": "Sebali sa nako sa kopano ya letšatši le letšatši",
+  "feature-standup-timer-desc": "Kopano ya letšatši le letšatši lenaneong la poto: maloko a poto ka tatelano ye e hlakantšwego, yo mongwe le yo mongwe ka nako ye e swanago. E timwa potong ye nngwe le ye nngwe go Dipeakanyo tša Scrum tša yona.",
+  "feature-retrospective-board": "Poto ya go lebelela morago",
+  "feature-retrospective-board-desc": "Poto ya go lebelela morago lenaneong la poto: poto ye mpsha ya sephiri ye e nago le malokelelo a Thoma go dira, Emiša go dira, Tšwela pele go dira le Dilo tša go dirwa. E timwa potong ye nngwe le ye nngwe go Dipeakanyo tša Scrum tša yona."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Listu mas bargu geatnegahttojuvvo, merkejuvvon dan bajilčállagis. Válljejuvvo juohke távvalii Távvala heivehusat / Listu siste.",
   "feature-person-wip-limit": "WIP-rádji olbmo nammii",
   "feature-person-wip-limit-desc": "Man galle rabas goartta okta olmmoš sáhttá doallat távvalis; rahppon goartta várreha juohkehačča birra gii manná badjel. Bidjojuvvo juohke távvalii Távvala heivehusat / Listu siste.",
-  "scrum-definition-of-ready": "Gearggusvuođa definišuvdna"
+  "scrum-definition-of-ready": "Gearggusvuođa definišuvdna",
+  "daily-standup": "Beaivválaš čoahkkin",
+  "dailyStandupPopup-title": "Beaivválaš čoahkkin",
+  "standup-minutes": "Minuhtat juohke olbmui",
+  "standup-shuffle": "Seagut",
+  "standup-total": "Oktiibuot: __time__",
+  "standup-done": "Čoahkkin bisttii __time__.",
+  "retrospective-board": "Maŋoščalmmusteapmi-távval",
+  "retrospective-board-title": "__board__ - maŋoščalmmusteapmi __date__",
+  "retro-start": "Álgge dahkat",
+  "retro-stop": "Heaittit dahkamis",
+  "retro-continue": "Joatkke dahkat",
+  "feature-standup-timer": "Beaivválaš čoahkkima áigemihtár",
+  "feature-standup-timer-desc": "Beaivválaš čoahkkin távvalmenus: távvala lahtut seaguhuvvon ortnegis, juohkehaččas seamma áigi. Jáddaduvvo juohke távvalii dan Scrum-heivehusain.",
+  "feature-retrospective-board": "Maŋoščalmmusteapmi-távval",
+  "feature-retrospective-board-desc": "Maŋoščalmmusteapmi-távval távvalmenus: ođđa priváhta távval listtuiguin Álgge dahkat, Heaittit dahkamis, Joatkke dahkat ja Doaibmačuoggát. Jáddaduvvo juohke távvalii dan Scrum-heivehusain."
 }

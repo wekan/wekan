@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lista, ôd kieryj robota je zobowiōnzanŏ, ôznaczōnŏ we jeji nagłōwku. Wybiyranŏ dlŏ kŏżdyj tabule we Sztelōnki tabule / Lista.",
   "feature-person-wip-limit": "Limit WIP na ôsobã",
   "feature-person-wip-limit-desc": "Wiela ôtwartych kart jedna ôsoba może mieć na tabuli; ôtwartŏ karta ôstrzegŏ ô kŏżdym, fto go przekrŏczŏ. Ustŏwianŏ dlŏ kŏżdyj tabule we Sztelōnki tabule / Lista.",
-  "scrum-definition-of-ready": "Definicyjŏ gotowości"
+  "scrum-definition-of-ready": "Definicyjŏ gotowości",
+  "daily-standup": "Codziynny standup",
+  "dailyStandupPopup-title": "Codziynny standup",
+  "standup-minutes": "Minuty na osoba",
+  "standup-shuffle": "Pomiyszej",
+  "standup-total": "Społym: __time__",
+  "standup-done": "Standup trwoł __time__.",
+  "retrospective-board": "Tabula retrospektywy",
+  "retrospective-board-title": "__board__ - retrospektywa __date__",
+  "retro-start": "Zacznij robić",
+  "retro-stop": "Przestoń robić",
+  "retro-continue": "Rōb dalij",
+  "feature-standup-timer": "Czasōmiyrz codziynnego standupu",
+  "feature-standup-timer-desc": "Codziynny standup we myni tabule: czōnkowie tabule we pomiyszanym porzōndku, kożdy z tym samym czasym. Wyłōnczo sie na kożdyj tabuli we jeji Sztelōnkach Scrum.",
+  "feature-retrospective-board": "Tabula retrospektywy",
+  "feature-retrospective-board-desc": "Tabula retrospektywy we myni tabule: nowo prywatno tabula z listami Zacznij robić, Przestoń robić, Rōb dalij i Zadania do zrobiyniŏ. Wyłōnczo sie na kożdyj tabuli we jeji Sztelōnkach Scrum."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "ስራሕ ካብኡ ጀሚሩ ዝውፈ ዝርዝር፡ ኣብ ርእሱ ተመልኪቱ። ንነፍሲ ወከፍ ምዱድ ኣብ ናይ ምዱድ ምድላው / ዝርዝር ይሕረይ።",
   "feature-person-wip-limit": "ደረት WIP ንሓደ ነፈር",
   "feature-person-wip-limit-desc": "ሓደ ነፈር ኣብ ምዱድ ክንደይ ክፉት ወረቀት ካርዳት ክሕዝ ከም ዝኽእል፤ ዝተኸፍተ ወረቀት ካርድ ብዛዕባ ዝሓለፎ ዝኾነ ነፈር የጠንቅቕ። ንነፍሲ ወከፍ ምዱድ ኣብ ናይ ምዱድ ምድላው / ዝርዝር ይቕመጥ።",
-  "scrum-definition-of-ready": "ትርጉም ድሉው"
+  "scrum-definition-of-ready": "ትርጉም ድሉው",
+  "daily-standup": "ኣኼባ ናይ ኵል ምዕል",
+  "dailyStandupPopup-title": "ኣኼባ ናይ ኵል ምዕል",
+  "standup-minutes": "ደቂቅ ለኵሉ ሰብ",
+  "standup-shuffle": "ሐልጥ",
+  "standup-total": "ጅምላ: __time__",
+  "standup-done": "ኣኼባ __time__ ነሥአ።",
+  "retrospective-board": "ምዱድ ድሕረ-ግምገማ",
+  "retrospective-board-title": "__board__ - ድሕረ-ግምገማ __date__",
+  "retro-start": "ዐማል ጀምር",
+  "retro-stop": "ዐማል ዐርፍ",
+  "retro-continue": "ዐማል ቀጽል",
+  "feature-standup-timer": "ሰዐት ኣኼባ ናይ ኵል ምዕል",
+  "feature-standup-timer-desc": "ኣኼባ ናይ ኵል ምዕል እብ ሜኑ ምዱድ: አባላት ምዱድ እብ ሐሉጥ ስርዐት፡ ኵሉ ሐቴ ወቅት። እብ ኵል ምዱድ እብ ምድላው Scrum ለኢሉ ልትአጠፍእ።",
+  "feature-retrospective-board": "ምዱድ ድሕረ-ግምገማ",
+  "feature-retrospective-board-desc": "ምዱድ ድሕረ-ግምገማ እብ ሜኑ ምዱድ: ሐዲስ ምዱድ ናይ ውልቂ ምስል ዝርዝራት ዐማል ጀምር፡ ዐማል ዐርፍ፡ ዐማል ቀጽል ወ ልትገብእ ዐማል። እብ ኵል ምዱድ እብ ምድላው Scrum ለኢሉ ልትአጠፍእ።"
 }

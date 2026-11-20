@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La lista d'unni lu travagghiu è mpignatu, signata nta la so intistazzioni. Scigghiuta pi ogni tavula nta Mpustazzioni dâ tavula / Lista.",
   "feature-person-wip-limit": "Limiti WIP pi pirsuna",
   "feature-person-wip-limit-desc": "Quantu carti aperti pò tèniri na pirsuna supra na tavula; na carta aperta avvisa di cu' lu supira. Mpustatu pi ogni tavula nta Mpustazzioni dâ tavula / Lista.",
-  "scrum-definition-of-ready": "Difinizzioni di prontu"
+  "scrum-definition-of-ready": "Difinizzioni di prontu",
+  "daily-standup": "Riunioni di ogni jornu",
+  "dailyStandupPopup-title": "Riunioni di ogni jornu",
+  "standup-minutes": "Minuti pi pirsuna",
+  "standup-shuffle": "Ammisca",
+  "standup-total": "Tutali: __time__",
+  "standup-done": "La riunioni durau __time__.",
+  "retrospective-board": "Tavula di ritruspittiva",
+  "retrospective-board-title": "__board__ - ritruspittiva __date__",
+  "retro-start": "Accumincia a fari",
+  "retro-stop": "Finisci di fari",
+  "retro-continue": "Cuntinua a fari",
+  "feature-standup-timer": "Crunòmitru dâ riunioni di ogni jornu",
+  "feature-standup-timer-desc": "La riunioni di ogni jornu nnô menù dâ tavula: li membri dâ tavula nta n'òrdini ammiscatu, ognunu cu lu stissu tempu. Si stuta pi ogni tavula nnê so Mpustazzioni Scrum.",
+  "feature-retrospective-board": "Tavula di ritruspittiva",
+  "feature-retrospective-board-desc": "La tavula di ritruspittiva nnô menù dâ tavula: na tavula privata nova cu li listi Accumincia a fari, Finisci di fari, Cuntinua a fari e Cosi di fari. Si stuta pi ogni tavula nnê so Mpustazzioni Scrum."
 }

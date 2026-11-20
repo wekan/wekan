@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Lîsteya ku soz ji bo kar jê tê dayîn, di serê wê de nîşankirî. Ji bo her depoyê di Mîhengên depoyê / Lîste de tê hilbijartin.",
   "feature-person-wip-limit": "Sînorê WIP ji bo her kesî",
   "feature-person-wip-limit-desc": "Kesek dikare çend kartên vekirî li ser depoyekê bigire; karta vekirî li ser her kesê ku jê derbas dibe hişyar dike. Ji bo her depoyê di Mîhengên depoyê / Lîste de tê sazkirin.",
-  "scrum-definition-of-ready": "Pênaseya amadebûnê"
+  "scrum-definition-of-ready": "Pênaseya amadebûnê",
+  "daily-standup": "Civîna rojane",
+  "dailyStandupPopup-title": "Civîna rojane",
+  "standup-minutes": "Deqe ji bo her kesî",
+  "standup-shuffle": "Tevlihev bike",
+  "standup-total": "Tevahî: __time__",
+  "standup-done": "Civîna rojane __time__ ajot.",
+  "retrospective-board": "Depoya paşvenêrînê",
+  "retrospective-board-title": "__board__ - paşvenêrîn __date__",
+  "retro-start": "Dest bi kirinê bike",
+  "retro-stop": "Kirinê rawestîne",
+  "retro-continue": "Kirinê bidomîne",
+  "feature-standup-timer": "Demjimêra civîna rojane",
+  "feature-standup-timer-desc": "Civîna rojane ya di menuya depoyê de: endamên depoyê bi rêzeke tevlihev, her yek bi heman sînorê demê. Ji bo her depoyê di Mîhengên Scrum ên wê de tê girtin.",
+  "feature-retrospective-board": "Depoya paşvenêrînê",
+  "feature-retrospective-board-desc": "Depoya paşvenêrînê ya di menuya depoyê de: depoyeke taybet a nû bi lîsteyên Dest bi kirinê bike, Kirinê rawestîne, Kirinê bidomîne û Karên ku bên kirin. Ji bo her depoyê di Mîhengên Scrum ên wê de tê girtin."
 }

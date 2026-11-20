@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Il-lista li minnha x-xogħol huwa impenjat, immarkata fl-intestatura tagħha. Tintgħażel għal kull bord f'Issettjar tal-bord / Lista.",
   "feature-person-wip-limit": "Limitu WIP għal kull persuna",
   "feature-person-wip-limit-desc": "Kemm karti miftuħa persuna waħda tista' żżomm fuq bord; karta miftuħa twissi dwar kull min jaqbżu. Jiġi ssettjat għal kull bord f'Issettjar tal-bord / Lista.",
-  "scrum-definition-of-ready": "Definizzjoni ta’ xogħol ippreparat"
+  "scrum-definition-of-ready": "Definizzjoni ta’ xogħol ippreparat",
+  "daily-standup": "Laqgħa ta' kuljum",
+  "dailyStandupPopup-title": "Laqgħa ta' kuljum",
+  "standup-minutes": "Minuti għal kull persuna",
+  "standup-shuffle": "Ħawwad",
+  "standup-total": "B'kollox: __time__",
+  "standup-done": "Il-laqgħa damet __time__.",
+  "retrospective-board": "Bord tar-retrospettiva",
+  "retrospective-board-title": "__board__ - retrospettiva __date__",
+  "retro-start": "Ibda agħmel",
+  "retro-stop": "Ieqaf agħmel",
+  "retro-continue": "Kompli agħmel",
+  "feature-standup-timer": "Arloġġ tal-laqgħa ta' kuljum",
+  "feature-standup-timer-desc": "Il-laqgħa ta' kuljum fil-menu tal-bord: il-membri tal-bord f'ordni mħawwad, kull wieħed bl-istess ħin. Tintefa għal kull bord fil-Konfigurazzjoni ta’ Scrum tiegħu.",
+  "feature-retrospective-board": "Bord tar-retrospettiva",
+  "feature-retrospective-board-desc": "Il-bord tar-retrospettiva fil-menu tal-bord: bord privat ġdid bil-listi Ibda agħmel, Ieqaf agħmel, Kompli agħmel u Punti ta' azzjoni. Jintefa għal kull bord fil-Konfigurazzjoni ta’ Scrum tiegħu."
 }

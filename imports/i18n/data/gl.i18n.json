@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "A lista a partir da cal se compromete o traballo, marcada na súa cabeceira. Escóllese por taboleiro en Configuración do taboleiro / Lista.",
   "feature-person-wip-limit": "Límite WIP por persoa",
   "feature-person-wip-limit-desc": "Cantas tarxetas abertas pode ter unha persoa nun taboleiro; unha tarxeta aberta avisa de calquera que o supere. Establécese por taboleiro en Configuración do taboleiro / Lista.",
-  "scrum-definition-of-ready": "Definición de preparado"
+  "scrum-definition-of-ready": "Definición de preparado",
+  "daily-standup": "Reunión diaria",
+  "dailyStandupPopup-title": "Reunión diaria",
+  "standup-minutes": "Minutos por persoa",
+  "standup-shuffle": "Mesturar",
+  "standup-total": "Tempo total: __time__",
+  "standup-done": "A reunión diaria durou __time__.",
+  "retrospective-board": "Taboleiro de retrospectiva",
+  "retrospective-board-title": "__board__ - retrospectiva __date__",
+  "retro-start": "Comezar a facer",
+  "retro-stop": "Deixar de facer",
+  "retro-continue": "Seguir facendo",
+  "feature-standup-timer": "Temporizador da reunión diaria",
+  "feature-standup-timer-desc": "A Reunión diaria do menú do taboleiro: os membros do taboleiro nunha orde aleatoria, cada un co mesmo tempo asignado. Desactívase por taboleiro na súa Configuración de Scrum.",
+  "feature-retrospective-board": "Taboleiro de retrospectiva",
+  "feature-retrospective-board-desc": "O Taboleiro de retrospectiva do menú do taboleiro: un novo taboleiro privado coas listas Comezar a facer, Deixar de facer, Seguir facendo e Accións pendentes. Desactívase por taboleiro na súa Configuración de Scrum."
 }

@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "La listo ekde kiu oni engaĝiĝas al la laboro, markita ĉe ĝia kapo. Elektebla por ĉiu tabulo en Agordoj de tabulo / Listo.",
   "feature-person-wip-limit": "WIP-limo por persono",
   "feature-person-wip-limit-desc": "Kiom da malfermitaj kartoj unu persono rajtas teni sur tabulo; malfermita karto avertas pri ĉiu, kiu superas ĝin. Agordebla por ĉiu tabulo en Agordoj de tabulo / Listo.",
-  "scrum-definition-of-ready": "Difino de preteco"
+  "scrum-definition-of-ready": "Difino de preteco",
+  "daily-standup": "Ĉiutaga starkunveno",
+  "dailyStandupPopup-title": "Ĉiutaga starkunveno",
+  "standup-minutes": "Minutoj por persono",
+  "standup-shuffle": "Miksi",
+  "standup-total": "Sume: __time__",
+  "standup-done": "La starkunveno daŭris __time__.",
+  "retrospective-board": "Retrospektiva tabulo",
+  "retrospective-board-title": "__board__ - retrospektivo __date__",
+  "retro-start": "Komenci fari",
+  "retro-stop": "Ĉesi fari",
+  "retro-continue": "Daŭre fari",
+  "feature-standup-timer": "Tempomezurilo de ĉiutaga starkunveno",
+  "feature-standup-timer-desc": "La ĉiutaga starkunveno de la tabula menuo: la membroj de la tabulo en miksita ordo, ĉiu kun la sama tempolimo. Malŝaltebla po tabulo en ĝiaj Agordoj de Scrum.",
+  "feature-retrospective-board": "Retrospektiva tabulo",
+  "feature-retrospective-board-desc": "La retrospektiva tabulo de la tabula menuo: nova privata tabulo kun la listoj Komenci fari, Ĉesi fari, Daŭre fari kaj Agpunktoj. Malŝaltebla po tabulo en ĝiaj Agordoj de Scrum."
 }

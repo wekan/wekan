@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "A lista à parte da a quale u travagliu hè impegnatu, marcata à a so intestatura. Scelta per tavula in Parametri di a tavula / Lista.",
   "feature-person-wip-limit": "Limita WIP per persona",
   "feature-person-wip-limit-desc": "Quante carte aperte pò tene una persona nant'à una tavula; una carta aperta avverte di chiunque a supera. Definita per tavula in Parametri di a tavula / Lista.",
-  "scrum-definition-of-ready": "Definizione di prontu"
+  "scrum-definition-of-ready": "Definizione di prontu",
+  "daily-standup": "Riunione cutidiana in piedi",
+  "dailyStandupPopup-title": "Riunione cutidiana in piedi",
+  "standup-minutes": "Minuti per persona",
+  "standup-shuffle": "Mischjà",
+  "standup-total": "Totale: __time__",
+  "standup-done": "A riunione hè durata __time__.",
+  "retrospective-board": "Tavula di retrospettiva",
+  "retrospective-board-title": "__board__ - retrospettiva __date__",
+  "retro-start": "Principià à fà",
+  "retro-stop": "Piantà di fà",
+  "retro-continue": "Cuntinuà à fà",
+  "feature-standup-timer": "Cronometru di a riunione cutidiana",
+  "feature-standup-timer-desc": "A riunione cutidiana di u menu di a tavula: i membri di a tavula in un ordine mischjatu, ognunu cù u listessu tempu. Si disattiva per tavula in i so Parametri Scrum.",
+  "feature-retrospective-board": "Tavula di retrospettiva",
+  "feature-retrospective-board-desc": "A tavula di retrospettiva di u menu di a tavula: una nova tavula privata cù e liste Principià à fà, Piantà di fà, Cuntinuà à fà è Azzioni da fà. Si disattiva per tavula in i so Parametri Scrum."
 }

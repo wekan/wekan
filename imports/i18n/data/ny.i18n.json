@@ -4888,5 +4888,20 @@
   "feature-commitment-point-desc": "Mndandanda umene ntchito imadziperekedwa kuyambira pamenepo, wolembedwa pamutu wake. Umasankhidwa pa bolodi lililonse mu Zokonda za bolodi / Mndandanda.",
   "feature-person-wip-limit": "Malire a WIP pa munthu",
   "feature-person-wip-limit-desc": "Makhadi otsegula angati munthu mmodzi angakhale nawo pa bolodi; khadi lotsegulidwa limachenjeza za aliyense amene wapitirira. Amakhazikitsidwa pa bolodi lililonse mu Zokonda za bolodi / Mndandanda.",
-  "scrum-definition-of-ready": "Tanthauzo la Kukonzeka"
+  "scrum-definition-of-ready": "Tanthauzo la Kukonzeka",
+  "daily-standup": "Msonkhano wa tsiku ndi tsiku",
+  "dailyStandupPopup-title": "Msonkhano wa tsiku ndi tsiku",
+  "standup-minutes": "Mphindi pa munthu aliyense",
+  "standup-shuffle": "Sakanizani",
+  "standup-total": "Zonse: __time__",
+  "standup-done": "Msonkhano watenga __time__.",
+  "retrospective-board": "Bolodi loyang'ana mmbuyo",
+  "retrospective-board-title": "__board__ - kuyang'ana mmbuyo __date__",
+  "retro-start": "Yambani kuchita",
+  "retro-stop": "Lekani kuchita",
+  "retro-continue": "Pitirizani kuchita",
+  "feature-standup-timer": "Nthawi ya msonkhano wa tsiku ndi tsiku",
+  "feature-standup-timer-desc": "Msonkhano wa tsiku ndi tsiku mu menyu ya bolodi: mamembala a bolodi mwadongosolo losakanizidwa, aliyense ndi nthawi yofanana. Umazimitsidwa pa bolodi lililonse mu Zokonda za Scrum zake.",
+  "feature-retrospective-board": "Bolodi loyang'ana mmbuyo",
+  "feature-retrospective-board-desc": "Bolodi loyang'ana mmbuyo mu menyu ya bolodi: bolodi latsopano lachinsinsi lokhala ndi mindandanda Yambani kuchita, Lekani kuchita, Pitirizani kuchita ndi Zochita. Limazimitsidwa pa bolodi lililonse mu Zokonda za Scrum zake."
 }
