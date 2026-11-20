@@ -40,6 +40,3 @@ not have:
   Forgejo, Redmine, Linear and Pivotal. The parsers follow the formats the
   tools document and report what they do not read, so a new field shows up in
   the import's loss report; checking for one needs an account on each tool.
-- Slack: a message's files are behind Slack's sign-in (`url_private`) and not
-  in its export zip, so they stay counted. Fetching them needs a Slack token
-  with `files:read`, and a workspace to test it against.

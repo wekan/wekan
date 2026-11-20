@@ -21,8 +21,9 @@ const basic = (u, p) => `Basic ${Buffer.from(`${u}:${p}`).toString('base64')}`;
 
 const JIRA = { url: 'https://acme.atlassian.net', username: 'me@acme.test', token: 'jira-token' };
 
-test('the five services and what each asks for; Zenkit publishes no download', () => {
-  assert.deepEqual(ATTACHMENT_AUTH_SOURCES, ['jira', 'deck', 'openproject', 'asana', 'gitlab']);
+test('the six services and what each asks for; Zenkit publishes no download', () => {
+  assert.deepEqual(ATTACHMENT_AUTH_SOURCES, ['jira', 'deck', 'openproject', 'asana', 'gitlab', 'slack']);
+  assert.deepEqual(attachmentAuthFields('slack'), { url: false, username: false }, 'Slack: a token, on its fixed file host');
   assert.deepEqual(attachmentAuthFields('jira'), { url: true, username: true });
   assert.deepEqual(attachmentAuthFields('deck'), { url: true, username: true });
   assert.deepEqual(attachmentAuthFields('openproject'), { url: true, username: false });
@@ -167,6 +168,28 @@ test('the selection: attachments left out are not downloaded', () => {
   const kept = { issues: [{ fields: { attachment: [{ content: 'https://x/1' }] } }] };
   pruneImportDocument(kept, ['attachments']);
   assert.equal(kept.issues[0].fields.attachment.length, 1);
+});
+
+test('Slack: a message file is fetched from files.slack.com with the token, and not without one', () => {
+  const url = 'https://files.slack.com/files-pri/T1-F1/download/plan.pdf';
+  assert.deepEqual(attachmentRequest('slack', { name: 'plan.pdf', url }, { token: 'xoxp-1' }),
+    { url, headers: { Authorization: 'Bearer xoxp-1' } });
+  // Negative: no token - Slack would answer with its sign-in page, which is no file.
+  assert.match(attachmentRequest('slack', { name: 'plan.pdf', url }, {}).lost, /give a Slack token with the files:read scope/);
+  // Negative: a link elsewhere gets no token, and is not fetched as a Slack file.
+  assert.match(attachmentRequest('slack', { name: 'x', url: 'https://evil.example/files.slack.com/x' }, { token: 'xoxp-1' }).lost, /not a Slack file address/);
+  assert.match(attachmentRequest('slack', { name: 'x', url: 'http://files.slack.com/x' }, { token: 'xoxp-1' }).lost, /not a Slack file address/);
+});
+
+test('the Slack import puts a message\'s files on the channel card, and counts the ones with no address', async () => {
+  const chat = await import('../models/lib/chatExportFormats.js');
+  const board = chat.parseSlackExport({ users: [{ id: 'U1', name: 'ann' }], channels: [{ id: 'C1', name: 'general' }], messages: { general: [
+    { type: 'message', user: 'U1', ts: '1.1', text: 'See', files: [
+      { name: 'plan.pdf', url_private: 'https://files.slack.com/files-pri/T1-F1/plan.pdf', url_private_download: 'https://files.slack.com/files-pri/T1-F1/download/plan.pdf' },
+      { name: 'gone.png', mode: 'tombstone' },
+      { name: 'old.png', mode: 'hidden_by_limit', url_private: 'https://files.slack.com/files-pri/T1-F2/old.png' }] }] } });
+  assert.deepEqual(board.tasks[0].attachments, [{ name: 'plan.pdf', url: 'https://files.slack.com/files-pri/T1-F1/download/plan.pdf' }]);
+  assert.ok(board.unsupported.some(u => /2 file\(s\)/.test(u.reason)));
 });
 
 console.log(`# ${passed} passed`);

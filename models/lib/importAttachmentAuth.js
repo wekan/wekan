@@ -17,6 +17,9 @@
 //                fetched without the token; Bearer PERSONAL-ACCESS-TOKEN
 //   GitLab       GET /api/v4/projects/<id>/uploads/<secret>/<file> (GitLab 17.4+)
 //                for an /uploads/ link of a private project; Bearer TOKEN
+//   Slack        a message file's url_private(_download), on files.slack.com;
+//                Bearer TOKEN with the files:read scope. Without one Slack
+//                answers with its sign-in page, so no token, no download.
 //
 // The import page asks for the address and the sign-in once per import. They
 // go with that import only - never stored, never logged - and are sent ONLY to
@@ -36,6 +39,7 @@ const SOURCES = {
   openproject: { url: true, username: false },
   asana: { url: false, username: false, origin: 'https://app.asana.com' },
   gitlab: { url: true, username: false },
+  slack: { url: false, username: false, origin: 'https://files.slack.com' },
 };
 
 const MAX_FIELD = 2048;
@@ -82,6 +86,7 @@ function attachmentSignIn(source, auth) {
     openproject: () => ({ Authorization: basic('apikey', token) }),
     asana: () => ({ Authorization: `Bearer ${token}` }),
     gitlab: () => ({ Authorization: `Bearer ${token}` }),
+    slack: () => ({ Authorization: `Bearer ${token}` }),
   }[source]();
   return { origin, base, headers };
 }
@@ -142,6 +147,12 @@ function attachmentRequest(source, attachment, auth) {
   if (!att.url) return { lost: 'not downloaded: no address' };
   // Jira serves no attachment without a sign-in.
   if (source === 'jira' && !signIn) return { lost: 'not downloaded: give the Jira address, email and API token on the import page' };
+  // Slack answers a file without a sign-in with its sign-in page, which is no
+  // file - and a link that is not on Slack's file host gets no token.
+  if (source === 'slack') {
+    if (originOf(att.url) !== 'https://files.slack.com') return { lost: 'not downloaded: not a Slack file address' };
+    if (!signIn) return { lost: 'not downloaded: give a Slack token with the files:read scope on the import page' };
+  }
   if (source === 'gitlab') {
     const api = gitlabApiUpload(att.url, signIn);
     if (api) return { url: api, headers: withHeaders(api) };

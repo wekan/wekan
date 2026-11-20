@@ -10,7 +10,10 @@ card's comments, by their author and time.
    Export**, start the export and download the `.zip` when Slack mails the
    link.
 2. In WeKan, go to **All Boards → New → Import → Slack**.
-3. Choose the `.zip` file.
+3. Choose the `.zip` file. To bring the messages' files along, give a Slack
+   token with the `files:read` scope under the file sign-in (a user token of a
+   Slack app installed in the workspace): the files are on Slack's file host,
+   behind its sign-in, and are not in the export zip.
 4. Map the Slack users to WeKan members, or leave them as they are.
 5. Click **Import**, and open the board in **Board View → Chat**.
 
@@ -73,7 +76,7 @@ emoji of several code points (a skin tone, a flag). See
 
 ## What is not kept
 
-Files and images (counted in the loss report), edits and pins. The zip is read within the same bounds as the other zip imports. What was left out is listed in the import's loss report, also in
+Files and images without a token, deleted ones, and ones hidden by the plan's history limit (counted in the loss report), edits and pins. With a token, each file is downloaded from `files.slack.com` only, through the import's guarded download, and attached to the channel's card. The zip is read within the same bounds as the other zip imports. What was left out is listed in the import's loss report, also in
 **Admin Panel → Problems → Recovery**.
 
 ## REST API

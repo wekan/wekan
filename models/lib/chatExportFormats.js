@@ -129,7 +129,9 @@ export function parseSlackExport(data) {
       const folder = channel.name || channel.id;
       const list = Array.isArray(messages[folder]) ? messages[folder] : [];
       const members = (channel.members || []).map(userName).filter(Boolean);
+      const chatAttachments = [];
       chats.push({
+        attachments: chatAttachments,
         title: channel.name ? (key === 'channels' ? `#${channel.name}` : channel.name)
           : members.join(', ') || channel.id,
         description: [channel.topic && channel.topic.value, channel.purpose && channel.purpose.value]
@@ -138,7 +140,16 @@ export function parseSlackExport(data) {
         created: iso(Number(channel.created) * 1000),
         messages: list.filter(m => m && m.type === 'message' && !['channel_join', 'channel_leave'].includes(m.subtype))
           .map(m => {
-            files += Array.isArray(m.files) ? m.files.length : 0;
+            // A message's files: on Slack's file host, behind its sign-in -
+            // downloaded with the token the import page asks for
+            // (models/lib/importAttachmentAuth.js). One deleted or hidden by
+            // the plan's history limit has no address, and is counted.
+            for (const f of Array.isArray(m.files) ? m.files : []) {
+              const url = f && (f.url_private_download || f.url_private);
+              if (typeof url === 'string' && /^https:\/\/files\.slack\.com\//.test(url) && f.mode !== 'tombstone' && f.mode !== 'hidden_by_limit') {
+                chatAttachments.push({ name: String(f.name || f.title || 'attachment'), url });
+              } else files += 1;
+            }
             // A thread reply carries its parent's ts as thread_ts.
             const replyTo = m.thread_ts && m.thread_ts !== m.ts ? m.thread_ts : '';
             const name = (m.user_profile && (m.user_profile.display_name || m.user_profile.real_name)) || userName(m.user);
