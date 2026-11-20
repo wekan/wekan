@@ -4,11 +4,11 @@
 `boardInfoOnMyBoardsPopup` in `client/components/sidebar/sidebar.jade`, with
 its helpers and events in `client/components/sidebar/sidebar.js`.
 
-**It is not in the Board Settings menu at the moment.** The menu entry that
-opens it (`a.js-board-info-on-my-boards`, `fa-id-card-o`) is commented out in
-`boardMenuPopup`, with the note *Bug Board icons random dance* (#4214). The
-popup and its click handler (`'click .js-board-info-on-my-boards'`) are still
-in the code, so this page describes what it does when opened.
+A board admin opens it from the Board Settings menu, below **Date**
+(`a.js-board-info-on-my-boards`, `fa-id-card-o`). The entry was commented out
+for a while because of the *Bug Board icons random dance* (#4214), a reactive
+re-render loop on All Boards; the board tiles now read one fetch of
+`getAllBoardsTileData` instead of reactive cursors, so the entry is back.
 
 ## The popup
 

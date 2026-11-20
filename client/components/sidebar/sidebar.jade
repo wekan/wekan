@@ -755,24 +755,20 @@ template(name="boardMenuPopup")
         a.js-open-board-date-settings(title="{{_ 'date'}}")
           i.fa.fa-calendar
           | {{_ 'date'}}
+      //- All Boards Settings: what the All Boards page shows of this board
+        (card counters, member avatars), card aging, auto-archive and personal
+        list widths. It was commented out for the #4214 "icons random dance";
+        the All Boards tiles now read one fetch of getAllBoardsTileData, not
+        reactive cursors, so the loop it caused cannot return. The popup hides
+        its own counter and avatar rows when Admin Panel turns those off.
+      li
+        a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
+          i.fa.fa-id-card-o
+          | {{_ 'board-info-on-my-boards'}}
       //- "Board backgrounds" was here. It was the list of pictures uploaded to
         this board, and that list is drawn inside Change Background Image now -
         under the upload that adds to it - so a second entry to the same list
         was a second place to look for one thing.
-    //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-    //if currentUser.isBoardAdmin
-    //
-      unless currentSetting.hideBoardMemberList
-    //
-        unless currentSetting.hideCardCounterList
-    //
-          li
-    //
-            a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
-    //
-              i.fa.fa-id-card-o
-    //
-              | {{_ 'board-info-on-my-boards'}}
     hr
   else if rulesReadable
     //- #2217: a member of a board that shows its Rules reads them here; the

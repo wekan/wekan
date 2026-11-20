@@ -17,6 +17,7 @@ entries.
 | Board announcement | [A message shown to everyone on the board](Board-Announcement.md) | Board admin |
 | Change Background Image | [Upload and choose a background](Background-Image.md) | Board admin |
 | Date | [Board date override and week numbers](Date.md) | Board admin for the format |
+| All Boards Settings | [What the All Boards tile shows, card aging, auto-archive, list widths](All-Boards-Settings.md) | Board admin |
 | Board View | [Visible views, defaults and menu order](Board-View.md) | Board admin |
 | Swimlane | [Height resize lock and WIP Limit Groups](Swimlane.md) | Board admin |
 | List | [Width resize lock and same width for all lists](List.md) | Board admin |
@@ -32,13 +33,13 @@ entries.
 | Save as Template | [Copy the board into your board templates](../../All-Boards/Templates.md#d-save-an-existing-board-as-a-board-template) | Board admin; not on a template board |
 | Move Board to Archive | [Archive the board](../Archive/Archive-and-Delete.md) | Board admin; unavailable on the templates board |
 
-The groups are: Rules and its views; Scrum settings; Change Color to Date (the
-board's look); Board View to Card; Export to Outgoing Webhooks; and Archive to
+The groups are: Rules and its views; Scrum settings; Change Color to All Boards
+Settings (the board's look); Board View to Card; Export to Outgoing Webhooks; and Archive to
 Move Board to Archive.
 
 [All Boards Settings](All-Boards-Settings.md) (what the board's tile shows on
-All Boards, card aging, auto-archive and personal list widths) has a popup in
-the code, but its menu entry is commented out and not shown.
+All Boards, card aging, auto-archive and personal list widths) is below Date,
+for board admins.
 
 Custom Fields are reached from an opened card's menu, then the settings cog.
 Subtasks settings are behind the menu beside an opened card's **Subtasks**
