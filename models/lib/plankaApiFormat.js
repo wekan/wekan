@@ -12,6 +12,8 @@
 //   due done   v1 card.isDueDateCompleted     v2 card.isDueCompleted
 //   tasks      v1 task.cardId                 v2 task.taskListId -> taskList.cardId
 //   lists      v1 all shown                   v2 type active | closed | archive | trash
+//   v2 custom fields (customFieldGroups, customFields, customFieldValues)
+//              -> custom fields; the stopwatch total -> spent time
 // Cards of the v2 archive list are imported archived, in the list they came
 // from (prevListId) or the first list; cards in the trash are not imported.
 
@@ -144,6 +146,31 @@ export function parsePlankaApi(input) {
   let trashed = 0;
   let archivedWithoutList = false;
   const cards = array(included.cards).slice().sort(byPosition);
+  // Planka 2's custom fields: a value names its field, and the field its
+  // group. A value is the card's custom field of the field's name - "Group:
+  // Field" when the board has fields of the same name in two groups.
+  const groups = new Map(array(included.customFieldGroups).map(group => [id(group.id), text(group.name).trim()]));
+  const fields = new Map(array(included.customFields).map(field => [id(field.id), field]));
+  const nameCount = new Map();
+  for (const field of fields.values()) {
+    const name = text(field.name).trim();
+    if (name) nameCount.set(name, (nameCount.get(name) || 0) + 1);
+  }
+  const fieldValuesOf = new Map();
+  let unnamedValues = 0;
+  for (const value of array(included.customFieldValues)) {
+    const field = fields.get(id(value.customFieldId));
+    const name = field && text(field.name).trim();
+    const content = text(value.content).trim();
+    if (!content) continue;
+    if (!name) { unnamedValues += 1; continue; }
+    const group = groups.get(id(value.customFieldGroupId || field.customFieldGroupId));
+    const key = nameCount.get(name) > 1 && group ? `${group}: ${name}` : name;
+    const card = id(value.cardId);
+    if (!fieldValuesOf.has(card)) fieldValuesOf.set(card, {});
+    fieldValuesOf.get(card)[key] = content;
+  }
+
   for (const card of cards) {
     const cardId = id(card.id);
     const listId = id(card.listId);
@@ -196,9 +223,13 @@ export function parsePlankaApi(input) {
         return comment;
       });
     if (notes.length) task.comments = notes;
+    // The stopwatch's total seconds are the card's spent time. A running
+    // stopwatch (startedAt) counts what it had when the export was made.
     if (card.stopwatch && isObject(card.stopwatch) && Number(card.stopwatch.total) > 0) {
-      unsupported.push({ path: `${at}/stopwatch`, reason: 'the Planka stopwatch time is not imported' });
+      task.spent_hours = Math.round(Number(card.stopwatch.total) / 36) / 100;
     }
+    const values = fieldValuesOf.get(cardId);
+    if (values) task.custom_fields = values;
     tasks.push(task);
   }
   if (archivedWithoutList) columns.push('Archive');
@@ -206,8 +237,7 @@ export function parsePlankaApi(input) {
 
   const attachments = array(included.attachments).length;
   if (attachments) unsupported.push({ path: '/attachments', reason: `${attachments} Planka attachment(s) are files on the Planka server and are not imported` });
-  const customFields = array(included.customFieldValues).length;
-  if (customFields) unsupported.push({ path: '/customFieldValues', reason: `${customFields} Planka custom field value(s) are not imported` });
+  if (unnamedValues) unsupported.push({ path: '/customFieldValues', reason: `${unnamedValues} Planka custom field value(s) of a field the export does not name are not imported` });
   const skipped = Number(data.commentsSkipped) || 0;
   if (skipped) unsupported.push({ path: '/comments', reason: `the comments of ${skipped} card(s) were not fetched (too many cards)` });
 

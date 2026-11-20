@@ -254,6 +254,32 @@ async function main() {
     await assert.rejects(client.list(credentials, noToken), /did not log in/);
   });
 
+  await test('v2 custom fields are custom fields, the stopwatch total spent time', () => {
+    const board = v2Board();
+    const card = board.included.cards[0];
+    card.stopwatch = { startedAt: null, total: 5400 };
+    board.included.customFieldGroups = [{ id: 'g1', name: 'Effort' }, { id: 'g2', name: 'Review' }];
+    board.included.customFields = [{ id: 'f1', customFieldGroupId: 'g1', name: 'Points' }, { id: 'f2', customFieldGroupId: 'g1', name: 'Owner' },
+      { id: 'f3', customFieldGroupId: 'g2', name: 'Owner' }];
+    board.included.customFieldValues = [
+      { cardId: card.id, customFieldGroupId: 'g1', customFieldId: 'f1', content: '5' },
+      { cardId: card.id, customFieldGroupId: 'g1', customFieldId: 'f2', content: 'Ann' },
+      { cardId: card.id, customFieldGroupId: 'g2', customFieldId: 'f3', content: 'Bob' },
+      { cardId: card.id, customFieldGroupId: 'g1', customFieldId: 'gone', content: 'x' },
+      { cardId: card.id, customFieldGroupId: 'g1', customFieldId: 'f1', content: '' },
+    ];
+    const parsed = parsePlankaApi({ planka: board, comments: {} });
+    const task = parsed.tasks.find(t => t.ref === String(card.id));
+    assert.equal(task.spent_hours, 1.5);
+    assert.deepEqual(task.custom_fields, { Points: '5', 'Effort: Owner': 'Ann', 'Review: Owner': 'Bob' },
+      'a field name in two groups is told apart by its group');
+    // Negative: a value of a field the export does not name is reported; the
+    // stopwatch is no loss any more.
+    const reasons = parsed.unsupported.map(u => u.reason).join('|');
+    assert.match(reasons, /1 Planka custom field value\(s\) of a field the export does not name/);
+    assert.doesNotMatch(reasons, /stopwatch/);
+  });
+
   console.log(`\nplankaApiImport: ${passed} checks passed`);
 }
 

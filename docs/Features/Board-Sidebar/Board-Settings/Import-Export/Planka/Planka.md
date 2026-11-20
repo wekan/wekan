@@ -89,6 +89,8 @@ Limit: 20,000 cards. Every card goes to the swimlane Default.
 | Planka | WeKan |
 | --- | --- |
 | Board `name` | Board title |
+| v2 `customFieldValues` (`content`), named by `customFields` and `customFieldGroups` | Custom fields of the field's name (`Group: Field` when two groups have a field of that name) |
+| Card `stopwatch.total` (seconds) | Spent time (hours) |
 | Lists (`active`, `closed`) | Lists, in order |
 | Card `name` | Card title |
 | `description` | Card description |
@@ -108,8 +110,7 @@ The import reports these on the loss report:
 
 - cards in the Planka trash;
 - attachments: they are files on the Planka server;
-- custom field values;
-- the stopwatch time;
+- a custom field value of a field the export does not name;
 - a due date that is not a date;
 - a second list with the same name (it is imported as `<name> (2)`);
 - a card whose list is not on the board;
