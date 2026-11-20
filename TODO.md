@@ -59,6 +59,15 @@ compare its newest export file, documentation and changelog with the parser
 and the formatter here, record what is lost in the import loss report
 (`unsupported`), and add what has a place in WeKan.
 
+Done so far: `tests/playwright/specs/export-import-round-trip.e2e.js` exports
+a board in each of the 41 formats WeKan both writes and reads and imports the
+file back; every one brings the card back, and its KEEPS table holds each
+format to what its file keeps of the description, the checklist and the
+comment, so a format that loses more fails. The Trello export imports back
+with checklists, comments, members and custom fields; the GitHub, Gitea and
+Forgejo exports carry the comments. What is left below is per tool: the
+tool's newest features against its parser and formatter.
+
 - WeKan's own JSON and .zip: every field of the current schema, attachments
   and their versions, custom fields, rules, templates, Scrum data, and a part
   of a board as well as all of it.
