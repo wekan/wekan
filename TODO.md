@@ -20,60 +20,29 @@ the changelog only says what changed.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 
-## Import and Export of everything each tool has
+## Need accounts on the tools, or a running copy of one
 
-Asked on 2026-11-20: check and fix that everything each tool with a WeKan
-import or export can hold comes across, whether a whole export is read or
-written at once or only a part of it (a board, a project, some lists, a date
-range), and check each tool's newest features - what its current version
-exports and imports - so their data has a place in WeKan too. For every tool,
-compare its newest export file, documentation and changelog with the parser
-and the formatter here, record what is lost in the import loss report
-(`unsupported`), and add what has a place in WeKan.
+The import/export review asked on 2026-11-20 (everything each tool with a
+WeKan import or export can hold comes across, whole or in part) went through
+every parser and formatter against the export format its header documents.
+What it found is fixed and in the Upcoming release; the round trips are held
+by `tests/playwright/specs/export-import-round-trip.e2e.js` (41 formats, the
+description, checklist, comment, dependency, label and due date) and
+`tests/exportRoundTripFields.test.cjs` (32 formats in plain Node: start and
+creation dates, spent time, the done tick, recurrence, people, custom fields,
+color, Blocked), and a WeKan board's every field by
+`tests/wekanCardFields.test.cjs`. What is left needs what this checkout does
+not have:
 
-Done so far: `tests/playwright/specs/export-import-round-trip.e2e.js` exports
-a board in each of the 41 formats WeKan both writes and reads and imports the
-file back; every one brings the card back, and its KEEPS table holds each
-format to what its file keeps of the description, the checklist and the
-comment, so a format that loses more fails. The Trello export imports back
-with checklists, comments, members, custom fields and archived cards and
-lists, and a Trello .zip export carries the attachment files; the GitHub,
-Gitea and Forgejo exports carry the comments. `tests/exportRoundTripFields.test.cjs`
-does the same in plain Node for 32 formats and the fields that spec does not
-look at (start and creation dates, spent time, the done tick, recurrence,
-people, custom fields, color). A WeKan board keeps every field of its board,
-cards, lists, swimlanes, checklists, custom fields and comments, and its
-templates (tests/wekanCardFields.test.cjs). What is left below is per tool: the tool's
-newest features against its parser and formatter.
-
-- Kanban and project tools:
-  Planner, monday.com, Wrike, Teamwork, Businessmap,
-  Plane, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
-  Quire - sub-items, dependencies, time
-  tracking, custom fields, comments, attachments and their newer views.
-  (Kanboard: its recurrence, estimate, score, reference and external links
-  come across both ways; Nextcloud Deck: done dates, attachments, comments and
-  now label colors; OpenProject: remaining time in, spent time both ways;
-  Asana: time tracking, html_notes, approval states and comment likes;
-  Zenkit: already reports what it does not read; Planka 2: custom fields and
-  the stopwatch; Notion: relations between rows are dependencies; ClickUp:
-  custom field columns both ways, and the task link; Taiga: blocked is the
-  card's Blocked flow field; Focalboard: reports what it does not read;
-  KanbanFlow and Basecamp: a subtask's due date and person.)
-- Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
-  Pivotal - epics, sprints, versions and milestones, links between issues,
-  work logs, and fields added in their newest releases, checked against each
-  tool's current export documentation. (Reactions there are counts without
-  who reacted, and are reported; Linear's cycles are sprints and its project
-  milestones releases.)
-- Task tools: write a Super Productivity taskRepeatCfg on export, so a
-  repeating card repeats there too - it needs the app's scheduler fields
-  verified against a running Super Productivity. (Priorities, sub-tasks,
-  sections and daily, weekly or monthly repeats come across for every task
-  tool that has them; reminders are reported, since a WeKan card has no
-  reminder.)
-- Mail, calendars and chats: Slack's message files are behind its sign-in
-  and not in its export zip, so they stay counted. (Telegram's and Discord's
-  zipped export folders bring their files as attachments; chat replies are
-  comment replies and reactions the comments' reactions; a daily, weekly or
-  monthly iCalendar RRULE is the card's recurrence.)
+- Each tool's newest release, checked with a real export file of it: Planner,
+  monday.com, Wrike, Teamwork, Businessmap, Plane, Focalboard, Nullboard,
+  Kanri, Obsidian Kanban, MeisterTask, Quire, Jira, GitHub, GitLab, Gitea,
+  Forgejo, Redmine, Linear and Pivotal. The parsers follow the formats the
+  tools document and report what they do not read, so a new field shows up in
+  the import's loss report; checking for one needs an account on each tool.
+- Super Productivity: writing a taskRepeatCfg on export, so a repeating card
+  repeats there too. Its scheduler fields have to be checked against a running
+  Super Productivity before WeKan writes them.
+- Slack: a message's files are behind Slack's sign-in (`url_private`) and not
+  in its export zip, so they stay counted. Fetching them needs a Slack token
+  with `files:read`, and a workspace to test it against.
