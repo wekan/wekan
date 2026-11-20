@@ -100,7 +100,8 @@ What the current code does (`parseNextcloudDeck` in
   mark a card done with a timestamp). Either form, a date or Deck's REST API's
   plain `true`, marks the card's due date done. A card without a due date has
   no due date to mark, so `true` alone is not kept for it.
-- Label colors are not read: labels are created black.
+- A label keeps its color (Deck's hex `color`, such as `0082c9`); a label
+  without one is created black.
 
 ## What is kept
 
@@ -116,7 +117,7 @@ What the current code does (`parseNextcloudDeck` in
 | `archived: true` | Archived card |
 | `assignedUsers` | Card members, when mapped |
 | `owner` | Requested by |
-| `labels` (title) | Board labels |
+| `labels` (`title`, `color`) | Board labels, with their colors |
 | `comments` (`message`, `actorId`, `creationDateTime`) | Comments |
 
 The export writes the board `title` and a stack per list, in order. Each card

@@ -28,7 +28,14 @@ async function main() {
   assert.equal(task.owner_username, 'deck-a');
   assert.deepEqual(task.assignees, ['deck-b']);
   assert.equal(task.requested_by, 'deck-owner');
-  assert.deepEqual(task.tags, [expected.label]);
+  // A Deck label keeps its color, onto the board label.
+  assert.deepEqual(task.tags, [{ name: expected.label, color: '0082c9' }]);
+  const { planImportedLabels } = await import('../models/lib/importedTaskPlan.js');
+  assert.deepEqual(planImportedLabels([task]), [{ name: expected.label, color: '#0082c9' }]);
+  // Negative: a label with no color is its name, black on the board as before.
+  const plain = parseNextcloudDeck({ title: 'B', stacks: [{ title: 'S', cards: [{ title: 'C', labels: [{ title: 'Plain' }] }] }] });
+  assert.deepEqual(plain.tasks[0].tags, ['Plain']);
+  assert.deepEqual(planImportedLabels(plain.tasks), [{ name: 'Plain', color: 'black' }]);
   assert.deepEqual(parsed.warnings, [{ path: '/stacks/0/cards', reason: '1 deleted card(s) skipped' }]);
   assert.deepEqual(parsed.unsupported.map(u => u.path), ['/acl']);
   // Each listed attachment is downloaded from Deck's attachment endpoint.

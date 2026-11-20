@@ -383,7 +383,10 @@ export function parseNextcloudDeck(data) {
         owner_username: people[0] || deckUser(card.owner),
         assignees: people.slice(1),
         requested_by: deckUser(card.owner),
-        tags: (card.labels || []).map(l => (typeof l === 'string' ? l : l && l.title)).filter(Boolean),
+        // A Deck label has a hex color ("31CC7C"): it stays the label's color
+        // (models/lib/importedTaskPlan.js planImportedLabels).
+        tags: (card.labels || []).map(l => (typeof l === 'string' ? l
+          : l && l.title ? (l.color ? { name: l.title, color: String(l.color) } : l.title) : null)).filter(Boolean),
         comments: (Array.isArray(card.comments) ? card.comments : []).map(comment => ({
           text: comment && comment.message,
           author: comment && (comment.actorId || comment.actorDisplayName),
