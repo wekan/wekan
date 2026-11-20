@@ -245,6 +245,7 @@ end date, and Kanboard colors not written; all three are fixed.
 - [ClickUp custom field columns come across both ways, and the task link is kept](https://github.com/wekan/wekan/commit/60f569afe679ffcf6bdfe36f16d4d2bb42f07502). Thanks to xet7.
 - [Todoist and TickTick imports report a column they do not write, instead of dropping it](https://github.com/wekan/wekan/commit/c72a05d11a7527a0b0cb1855de8609de4217faa2). Thanks to xet7.
 - [Taiga's blocked state is the card's Blocked flow field, both ways](https://github.com/wekan/wekan/commit/ab884547f44913cb5269b8248e6301b4983a43c0). Thanks to xet7.
+- [Linear cycles become Scrum sprints and project milestones Scrum releases](https://github.com/wekan/wekan/commit/75694ac644d71016b092c0543a62fb63aef817ee). Thanks to xet7.
 - [GitHub, Gitea, Forgejo and GitLab imports count reactions in the loss report, which are counts without who reacted](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a). Thanks to xet7.
 
 and fixes the following bugs:
