@@ -95,8 +95,14 @@ What the current code does (`parseMarkdownKanban` in
   list called "Imported".
 - A line starting with `- ` or `* `, with or without `[ ]`, `[x]` or `[X]`,
   is a card. `[x]` adds the label `done`.
-- A line that starts with white space, under a card, is added to that card's
-  description. Indented bullets therefore also become description lines.
+- On a card line, `#tag` words are labels (a word that starts with a letter,
+  so `#1234` and `C#` stay in the title), and `@{2026-12-24}` with an optional
+  `@@{14:30}` (Obsidian Kanban), `📅 2026-12-24` (Obsidian Tasks) or
+  `due:2026-12-24` (todo.txt) is the due date. A due day that is no date is
+  reported.
+- An indented `- [ ]` / `- [x]` line under a card is an item of its checklist.
+  Any other line that starts with white space is added to the card's
+  description; `\- [ ]` there is a description line, not an item.
 - Other headings (`#`, `###` and deeper, or a second `#` line) are skipped.
   Any other non-blank line is reported.
 - Every card goes to the swimlane Default.
@@ -108,8 +114,12 @@ What the export writes (`formatMarkdownKanban` in
   lists without cards are left out.
 - Each card as `- [ ] <title>`, or `- [x] <title>` when its list's name looks
   finished: it contains "done", "closed", "complete", "archiv" or
-  "finished" (case does not matter).
-- Each non-blank line of the description, indented two spaces.
+  "finished" (case does not matter); then its labels as `#tags` (a space
+  written as `-`) and its due date as `@{day}`, with `@@{time}` when it has
+  one.
+- Each non-blank line of the description, indented two spaces, a line that
+  looks like a checklist item escaped as `\- [ ]`.
+- Each checklist item as an indented `- [ ]` / `- [x]` line.
 - Archived cards and archived lists are not exported.
 
 ## What is kept
@@ -121,6 +131,9 @@ What the export writes (`formatMarkdownKanban` in
 | `- [ ] Item`, `- Item`, `* Item` | Card |
 | `- [x] Item` | Card with the label `done` |
 | Indented lines under an item | Card description |
+| `#tag` on an item | Label |
+| `@{day}` `@@{time}`, `📅 day`, `due:day` | Due date |
+| Indented `- [ ]` / `- [x]` under an item | Checklist item |
 
 ## What is not kept
 
@@ -129,10 +142,12 @@ heading, a card or an indented line under a card (for example a numbered list
 item, or text before the first card). Headings other than the first `#` line
 and the `##` lines are skipped.
 
-The Markdown export writes only lists, card titles and descriptions. It does
-not write swimlanes, labels (including `done`; the checkbox comes from the
-list name), dates, members, comments, checklists, custom fields,
-attachments, blank lines inside a description, or lists without cards.
+The Markdown export writes lists, card titles, descriptions, labels, the due
+date and checklist items. It does not write swimlanes, the `done` label (the
+checkbox comes from the list name), a label that does not start with a
+letter, other dates, members, comments, custom fields, attachments, blank
+lines inside a description, or lists without cards. A card's checklists come
+back as one checklist.
 
 ## REST API
 

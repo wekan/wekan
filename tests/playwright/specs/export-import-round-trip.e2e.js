@@ -51,7 +51,7 @@ const KEEPS = {
   kanri: ['description', 'checklist', 'label', 'due'],
   tasksorg: ['description', 'comment', 'label', 'due'],
   taiga: ['description', 'comment', 'label', 'due'],
-  markdown: ['description'],
+  markdown: ['description', 'checklist', 'label', 'due'],
   leo: ['description', 'checklist'],
   opml: ['description', 'checklist', 'label'],
   orgmode: ['description', 'checklist', 'label', 'due'],

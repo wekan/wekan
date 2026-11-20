@@ -1084,6 +1084,34 @@ export function parseZenkit(data) {
 // open (unchecked) card, so an ordinary bulleted to-do list imports too, not
 // only one written specifically for a kanban tool. Round-trips with the
 // `markdown` formatter in externalExporters.js.
+// On a card line, the conventions markdown-kanban tools share:
+//   #tag                    -> a label (a word starting with a letter: not
+//                              "#123", not "C#")
+//   @{2026-12-24}, @@{14:30} -> the due date and its time (Obsidian Kanban's)
+//   📅 2026-12-24, due: 2026-12-24 -> the due date (Obsidian Tasks, todo.txt)
+// and an indented "- [ ]" / "- [x]" line under it is an item of its checklist.
+// A description line that starts "\- [" is a description line: the export
+// escapes it so it does not read back as a checklist item.
+const MD_TAG = /(^|\s)#([A-Za-z][\w/-]*)/g;
+const MD_DUE = /(?:@\{(\d{4}-\d{2}-\d{2})\}|📅\s*(\d{4}-\d{2}-\d{2})|\bdue:(\d{4}-\d{2}-\d{2}))/u;
+const MD_TIME = /@@\{(\d{1,2}):(\d{2})\}/;
+function markdownCardLine(text) {
+  let title = text;
+  let due;
+  const day = MD_DUE.exec(title);
+  if (day) {
+    const iso = day[1] || day[2] || day[3];
+    const time = MD_TIME.exec(title);
+    const date = new Date(`${iso}T${time ? `${time[1].padStart(2, '0')}:${time[2]}` : '00:00'}:00Z`);
+    if (!Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === iso) due = date.toISOString();
+    title = title.replace(day[0], ' ');
+    if (time) title = title.replace(time[0], ' ');
+  }
+  const tags = [];
+  title = title.replace(MD_TAG, (all, space, tag) => { tags.push(tag); return space; });
+  return { title: title.replace(/\s+/g, ' ').trim(), tags, due, dayText: day && !due ? day[0] : '' };
+}
+
 export function parseMarkdownKanban(text) {
   const lines = String(text == null ? '' : text).split(/\r\n|\r|\n/);
   const tasks = [];
@@ -1111,20 +1139,30 @@ export function parseMarkdownKanban(text) {
     }
     if (taskMatch) {
       const done = (taskMatch[1] || '').toLowerCase() === 'x';
+      const card = markdownCardLine(taskMatch[2]);
+      if (card.dayText) unsupported.push({ path: `/${index}`, reason: `${card.dayText} is not a date` });
       currentTask = {
-        title: taskMatch[2],
+        title: card.title || taskMatch[2],
         description: '',
         column_name: currentList,
         swimlane_name: 'Default',
-        tags: done ? ['done'] : [],
+        tags: [...new Set([...(done ? ['done'] : []), ...card.tags])],
+        ...(card.due ? { date_due: card.due } : {}),
       };
       tasks.push(currentTask);
       return;
     }
+    const item = currentTask && /^\s+[-*+]\s+\[([ xX])\]\s+(.+?)\s*$/.exec(line);
+    if (item) {
+      if (!currentTask.checklists) currentTask.checklists = [{ title: 'Checklist', items: [] }];
+      currentTask.checklists[0].items.push({ title: item[2], done: item[1].toLowerCase() === 'x' });
+      return;
+    }
     if (currentTask && /^\s+\S/.test(line)) {
+      const body = line.trim().replace(/^\\(?=[-*+]\s+\[)/, '');
       currentTask.description = currentTask.description
-        ? `${currentTask.description}\n${line.trim()}`
-        : line.trim();
+        ? `${currentTask.description}\n${body}`
+        : body;
       return;
     }
     if (line.trim() && !/^#{1,6}\s/.test(line)) {
