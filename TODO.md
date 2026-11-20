@@ -47,7 +47,7 @@ templates (tests/wekanCardFields.test.cjs). What is left below is per tool: the 
 newest features against its parser and formatter.
 
 - Kanban and project tools:
-  Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp, Notion,
+  Planner, monday.com, Wrike, Teamwork, Businessmap, ClickUp,
   Plane, Taiga, Focalboard, Nullboard, Kanri, Obsidian Kanban, MeisterTask,
   Quire, KanbanFlow, Basecamp - sub-items, dependencies, time
   tracking, custom fields, comments, attachments and their newer views.
@@ -56,7 +56,7 @@ newest features against its parser and formatter.
   now label colors; OpenProject: remaining time in, spent time both ways;
   Asana: time tracking, html_notes, approval states and comment likes;
   Zenkit: already reports what it does not read; Planka 2: custom fields and
-  the stopwatch.)
+  the stopwatch; Notion: relations between rows are dependencies.)
 - Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
   Pivotal - epics, sprints, versions and milestones, links between issues,
   work logs, and fields added in their newest releases, checked against each

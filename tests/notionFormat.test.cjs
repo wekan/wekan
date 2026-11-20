@@ -98,7 +98,10 @@ async function main() {
     assert.equal(ship.date_started, '2026-10-01T00:00:00.000Z', 'a range is start and due');
     assert.equal(ship.date_due, '2026-10-10T00:00:00.000Z');
     assert.deepEqual(ship.custom_fields, { Done: true, Estimate: 5 });
-    assert.ok(board.unsupported.some(u => /relation column "Related"/.test(u.reason)), 'relations are reported');
+    // A relation to a row of the export is a "related to" dependency now.
+    assert.deepEqual(ship.dependencies, [{ ref: write.ref, type: 'related-to' }]);
+    assert.ok(write.ref, 'the related row gets a reference');
+    assert.ok(!board.unsupported.some(u => /relation/.test(u.reason)), 'nothing of the relation is lost');
     assert.equal(write.description, undefined, 'a CSV alone has no page bodies');
     const fields = planImportedCustomFields(board.tasks).fields;
     assert.deepEqual(fields.map(f => [f.name, f.type]), [['Done', 'checkbox'], ['Estimate', 'number']]);
@@ -129,7 +132,17 @@ async function main() {
     assert.match(reasons, /1 image\(s\) or other file\(s\)/);
     assert.match(reasons, /1 nested subpage file\(s\)/);
     assert.match(reasons, /page of "Ship it" links to files or pages inside the export/);
-    assert.match(reasons, /relation column "Related"/);
+    assert.doesNotMatch(reasons, /relation/);
+    assert.deepEqual(board.tasks[1].dependencies, [{ ref: board.tasks[0].ref, type: 'related-to' }]);
+  });
+
+  await test('negative: a relation to a page that is no row, or to a title two rows share, is reported', () => {
+    const csv = 'Name,Status,Related\r\n'
+      + 'A,Done,"Elsewhere (https://www.notion.so/Elsewhere-1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d)"\r\n'
+      + 'B,Done,"Twin (Twin%20x.md)"\r\nTwin,Done,\r\nTwin,Done,\r\n';
+    const board = EXTERNAL_PARSERS.notion(csv);
+    assert.ok(board.tasks.every(t => !t.dependencies), 'no dependency is guessed');
+    assert.ok(board.unsupported.some(u => /2 Notion relation\(s\) to a page that is not one row of this export/.test(u.reason)));
   });
 
   await test('the export .zip: several databases are swimlanes, flat folders and zip parts are read', async () => {

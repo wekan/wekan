@@ -118,7 +118,9 @@ them:
   and a range `A → B`. WeKan also reads `YYYY-MM-DD`, `MM/DD/YYYY` and a
   `(GMT+3)` style zone at the end. A time without a zone is taken as UTC.
 - Checkboxes are `Yes` and `No`.
-- Relations are the related page's title and its encoded path or URL.
+- Relations are the related page's title and its encoded path or URL. A
+  related page that is one row of the export, in any of its databases, is a
+  "related to" dependency between the two cards.
 - A row's page file starts with `# Title`, a blank line, one
   `Property: value` line per non-empty property, a blank line, then the page
   body.
@@ -262,7 +264,8 @@ The export writes, per card:
 The import reports these on the loss report, rather than dropping them
 silently:
 
-- relation columns (links to other pages);
+- a relation to a page that is not a row of the export, or to a title that
+  two rows share (it is not guessed which one);
 - a **Last edited time** column;
 - date columns after the ones above; they are kept as text fields, and the
   report says which column was the due date;

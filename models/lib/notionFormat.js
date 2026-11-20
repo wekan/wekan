@@ -265,9 +265,8 @@ function parseDatabase(database, index, swimlaneName, state) {
       return;
     }
     if (kinds[c] === 'people' && c !== peopleCol) kinds[c] = 'text';
-    if (kinds[c] === 'relation') {
-      unsupported.push({ path: `${at}/columns/${name}`, reason: `Notion relation column "${name}" links to other pages; relations are not imported` });
-    }
+    // A relation is kept as a "related to" dependency when it names a row of
+    // this export (parseNotionExport resolves them); the rest is reported there.
     if (kinds[c] === 'edited') {
       unsupported.push({ path: `${at}/columns/${name}`, reason: `Notion column "${name}" (last edited time) has no WeKan place and is not imported` });
     }
@@ -323,6 +322,12 @@ function parseDatabase(database, index, swimlaneName, state) {
           } else task.date_due = range.start;
           break;
         }
+        case 'relation': {
+          // "Title (path or URL), Title (...)": the related rows' titles.
+          const titles = [...value.matchAll(/(?:^|,\s*)([^,(]+?)\s*\((?:[^()]|\([^()]*\))*\)/g)].map(m => m[1].trim()).filter(Boolean);
+          task.relations = [...(task.relations || []), ...titles.map(t => ({ title: t, column: name }))];
+          break;
+        }
         case 'checkbox': custom[name] = /^yes$/i.test(value); break;
         case 'number': custom[name] = Number(value); break;
         case 'text': custom[name] = value; break;
@@ -373,6 +378,30 @@ export function parseNotionExport(input) {
     tasks.push(...parseDatabase({ ...database, name }, index, swimlane, state));
   });
   for (const task of tasks) if (!swimlanes.includes(task.swimlane_name)) swimlanes.push(task.swimlane_name);
+  // Relations: a title that names exactly one row of the export is that
+  // card, as a "related to" dependency; any other is reported.
+  const byTitle = new Map();
+  for (const task of tasks) {
+    const key = normalTitle(task.title);
+    byTitle.set(key, byTitle.has(key) ? null : task);
+  }
+  let refs = 0;
+  let unresolved = 0;
+  for (const task of tasks) {
+    for (const relation of task.relations || []) {
+      const other = byTitle.get(normalTitle(relation.title));
+      if (!other || other === task) { unresolved += 1; continue; }
+      if (!other.ref) { refs += 1; other.ref = `notion-${refs}`; }
+      task.dependencies = [...(task.dependencies || []), { ref: other.ref, type: 'related-to' }];
+    }
+    delete task.relations;
+  }
+  for (const task of tasks) {
+    if (task.dependencies) task.dependencies = task.dependencies.filter((d, i, all) => all.findIndex(x => x.ref === d.ref) === i);
+  }
+  if (unresolved) {
+    state.unsupported.push({ path: '/relations', reason: `${unresolved} Notion relation(s) to a page that is not one row of this export are not imported` });
+  }
   if (num(source.assets)) {
     state.unsupported.push({ path: '/files', reason: `${source.assets} image(s) or other file(s) in the Notion export are not imported` });
   }
