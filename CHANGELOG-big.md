@@ -230,6 +230,17 @@ the new board's admin, and a value the schema refuses is reported.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24b6b9b0247bf1cda039faec6dba9298f9115116">It also keeps the lists' WIP limits and policies, checklist settings, custom field access and comment replies</a>. Thanks to xet7.</summary>
+
+A list lost its WIP limit, flow policy and split, a swimlane its height, a
+checklist its hide settings and reset schedule, an item its assignee, a reply
+its comment - and a custom field its "admin only" and "read only", which left
+it open to everyone on the imported board. All of them come back now; a list
+role exception is kept only where it restricts a role.
+
+</details>
+
 and has the following developer-facing changes:
 
 **Snap packages** - all three snap names, on every channel.
