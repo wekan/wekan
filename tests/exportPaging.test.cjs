@@ -102,7 +102,7 @@ test('the export route streams these formats with the light first pass', () => {
 // (byList: 'lists'): a list's heading opens before its first card and closes
 // after its last, a list with no cards stands where it is, between the cards
 // of the lists around it, and a card names a list the board does not have.
-const OUTLINES = ['markdown', 'opml', 'orgmode', 'obsidian'];
+const OUTLINES = ['markdown', 'opml', 'orgmode', 'obsidian', 'leo'];
 const outlineLists = [{ title: 'Ideas' }, { title: 'To Do' }, { title: 'Review' }, { title: 'Doing' }, { title: 'Done' }, { title: 'Later' }];
 const outlineItems = [...items, { cardId: 'g', title: 'Stray', listTitle: 'Elsewhere', description: 'Not on the board' }];
 
@@ -133,6 +133,12 @@ test('every outline: the pages together are the whole file, list headings and em
     'OPML keeps every list in its place, and a list only a card names after them');
   const obsidian = fmt.obsidian({ board, lists: outlineLists, items: outlineItems });
   assert.match(obsidian, /## Ideas\n\n\n\n\n## To Do\n\n/, 'an Obsidian lane with no cards keeps its place and its blank lines');
+  // Leo: the outline first, each card's text after it under the card's node
+  // number - the same number whichever page the card is on.
+  const leo = fmt.leo({ board, lists: outlineLists, items: outlineItems });
+  const gnx = /<v t="(wekan\.1\.\d+)"><vh>Second in To Do<\/vh>/.exec(leo)[1];
+  assert.ok(leo.includes(`<t tx="${gnx}">Line\nbreak, comma</t>`));
+  assert.ok(leo.indexOf('</vnodes>') < leo.indexOf('<t tx='), 'the texts come after the whole outline');
   const org = fmt.orgmode({ board, lists: outlineLists, items: outlineItems });
   assert.match(org, /\* Ideas\n\* To Do\n/, 'an empty list heading stands before the next list\'s');
   assert.match(org, /\* Later\n\* Elsewhere\n/);

@@ -34,14 +34,13 @@ is the rest.
 - Export: WeKan's own JSON export is written to the response as it is
   collected (`buildStream`); the .mbox, .enex, Todoist, TickTick, ClickUp,
   MeisterTask, Linear, Pivotal, Redmine, Quire, Taskwarrior and todo.txt
-  exports, the Markdown, Obsidian, OPML and Org mode outlines and the Notion
-  CSV a page of 500 cards at a time, the references across pages read in a
-  light first pass (`models/lib/exportPaging.js`). Still built whole: Leo,
-  whose card texts are a second section after the whole outline (it needs two
-  passes over the cards); the formats that are one JSON document (Trello,
-  Jira, Deck, OpenProject, GitHub and the others, Focalboard, Nullboard, Super
-  Productivity, Kanri, Taiga, Vikunja, Mattermost) and the workbooks. Each of
-  those needs its own writer of a document in parts.
+  exports, the Markdown, Obsidian, OPML, Org mode and Leo outlines and the
+  Notion CSV a page of 500 cards at a time, the references across pages read
+  in a light first pass (`models/lib/exportPaging.js`). Still built whole: the
+  formats that are one JSON document (Trello, Jira, Deck, OpenProject, GitHub
+  and the others, Focalboard, Nullboard, Super Productivity, Kanri, Taiga,
+  Vikunja, Mattermost) and the workbooks. Each of those needs its own writer
+  of a document in parts.
 
 ## Import and Export of everything each tool has
 

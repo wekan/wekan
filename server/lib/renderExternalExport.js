@@ -79,6 +79,9 @@ const PAGED = {
   todotxt: {}, taskwarrior: {}, meistertask: {}, linear: {}, ticktick: {}, clickup: {},
   pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true }, notion: {},
   markdown: { byList: 'lists' }, opml: { byList: 'lists' }, orgmode: { byList: 'lists' }, obsidian: { byList: 'lists' },
+  // Leo: its outline from the light first pass on the first page, each page's
+  // card texts after it.
+  leo: { byList: 'lists' },
 };
 
 // Writes the export to `res` page by page, or answers false when the format
