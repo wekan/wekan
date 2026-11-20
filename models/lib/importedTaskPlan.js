@@ -24,6 +24,7 @@
 // Every one of them is optional; a task without them imports as before.
 
 import { RECURRENCES } from './recurrenceMap.js';
+import { importedReactions } from './importedReactions.js';
 
 const HEX6 = /^#?([0-9a-fA-F]{6})$/;
 
@@ -113,10 +114,15 @@ export function importedComment(comment, members = {}) {
   const author = text(comment.author).trim();
   const shown = text(comment.authorName).trim() || author;
   const userId = (author && members[author]) || null;
+  // Reactions of a chat message (models/lib/importedReactions.js).
+  const { reactions, unknown, unmapped } = importedReactions(comment.reactions, members);
   return {
     text: userId || !shown ? body : `${shown}: ${body}`,
     userId,
     createdAt: importedDate(comment.date),
+    ...(reactions.length ? { reactions } : {}),
+    ...(unknown ? { reactionsUnknown: unknown } : {}),
+    ...(unmapped ? { reactionsUnmapped: unmapped } : {}),
   };
 }
 

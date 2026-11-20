@@ -54,9 +54,19 @@ out.
 
 Channels with their topic and purpose, every message and thread reply with its author and time.
 
+## Reactions
+
+A message's reactions become the comment's reactions, read from Slack's shortcode, such as `thumbsup` or `tada`.
+WeKan keeps a reaction by who reacted, so a reaction is kept for each person
+mapped to a WeKan user in the members step. The loss report counts the
+reactions of people who were not mapped, and those with an emoji WeKan cannot
+store: a shortcode WeKan does not know, a server's or a chat's own emoji, or an
+emoji of several code points (a skin tone, a flag). See
+`models/lib/importedReactions.js`.
+
 ## What is not kept
 
-Files and images (counted in the loss report), reactions, edits and pins. The zip is read within the same bounds as the other zip imports. What was left out is listed in the import's loss report, also in
+Files and images (counted in the loss report), edits and pins. The zip is read within the same bounds as the other zip imports. What was left out is listed in the import's loss report, also in
 **Admin Panel → Problems → Recovery**.
 
 ## REST API

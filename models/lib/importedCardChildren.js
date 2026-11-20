@@ -1,5 +1,6 @@
 import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
+import CardCommentReactions from '/models/cardCommentReactions';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import RecoveryEvents from '/models/recoveryEvents';
@@ -34,6 +35,12 @@ export async function insertImportedComments(comments, { boardId, cardId, now, i
     await Activities.direct.insertAsync({
       activityType: 'addComment', boardId, cardId, commentId, createdAt, userId,
     });
+    // Its reactions, as the comment's reaction row (models/cardCommentReactions.js).
+    if (Array.isArray(comment.reactions) && comment.reactions.length) {
+      await CardCommentReactions.insertAsync({
+        boardId, cardId, cardCommentId: commentId, reactions: comment.reactions,
+      });
+    }
   }
 }
 

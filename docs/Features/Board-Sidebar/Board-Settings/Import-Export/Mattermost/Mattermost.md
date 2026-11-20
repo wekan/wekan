@@ -66,9 +66,19 @@ messages**; a reply starts with `↳`.
 
 Channels with header and purpose, posts and replies with author and time, teams.
 
+## Reactions
+
+A message's reactions become the comment's reactions, read from Mattermost's `emoji_name`, such as `+1` or `tada`.
+WeKan keeps a reaction by who reacted, so a reaction is kept for each person
+mapped to a WeKan user in the members step. The loss report counts the
+reactions of people who were not mapped, and those with an emoji WeKan cannot
+store: a shortcode WeKan does not know, a server's or a chat's own emoji, or an
+emoji of several code points (a skin tone, a flag). See
+`models/lib/importedReactions.js`.
+
 ## What is not kept
 
-Attachments (counted), reactions, emoji, users' profiles and preferences. What was left out is listed in the import's loss report, also in
+Attachments (counted), custom emoji, users' profiles and preferences. What was left out is listed in the import's loss report, also in
 **Admin Panel → Problems → Recovery**.
 
 ## REST API

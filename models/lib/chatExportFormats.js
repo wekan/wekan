@@ -83,9 +83,13 @@ function chatBoard(name, chats, { files = 0, unsupported = [] } = {}) {
   };
 }
 
-const message = (text, author, authorName, date) => ({
+// `reactions`: [{ emoji | name, authors: [the same keys as `author`], count }]
+// (models/lib/importedReactions.js keeps them as the comment's reactions).
+const message = (text, author, authorName, date, reactions) => ({
   text: cut(text), author: clean(author), authorName: clean(authorName) || clean(author), date: iso(date),
+  ...(Array.isArray(reactions) && reactions.length ? { reactions } : {}),
 });
+const keys = list => (Array.isArray(list) ? list : []).map(clean).filter(Boolean);
 
 // ----- Slack ---------------------------------------------------------------
 
@@ -130,7 +134,10 @@ export function parseSlackExport(data) {
             files += Array.isArray(m.files) ? m.files.length : 0;
             const reply = m.thread_ts && m.thread_ts !== m.ts ? '↳ ' : '';
             const name = (m.user_profile && (m.user_profile.display_name || m.user_profile.real_name)) || userName(m.user);
-            return message(reply + slackText(m.text, userName), userKey(m.user), name, Number(m.ts) * 1000);
+            // Slack: reactions [{ name: "thumbsup", users: [user ids], count }].
+            const reactions = (Array.isArray(m.reactions) ? m.reactions : []).filter(x => x && x.name)
+              .map(x => ({ name: x.name, authors: keys(x.users).map(userKey), count: Number(x.count) || 0 }));
+            return message(reply + slackText(m.text, userName), userKey(m.user), name, Number(m.ts) * 1000, reactions);
           }),
       });
     }
@@ -158,12 +165,22 @@ export function parseMattermostBulk(text) {
   const chats = new Map();
   let files = 0;
   const chatFor = (key, init) => { if (!chats.has(key)) chats.set(key, { ...init, messages: [] }); return chats.get(key); };
+  // Mattermost: reactions [{ user, emoji_name: "+1", create_at }], one per person.
+  const reactionsOf = post => {
+    const byEmoji = new Map();
+    for (const x of Array.isArray(post.reactions) ? post.reactions : []) {
+      if (!x || !x.emoji_name) continue;
+      if (!byEmoji.has(x.emoji_name)) byEmoji.set(x.emoji_name, []);
+      byEmoji.get(x.emoji_name).push(clean(x.user));
+    }
+    return [...byEmoji.entries()].map(([name, authors]) => ({ name, authors: authors.filter(Boolean), count: authors.length }));
+  };
   const posted = (chat, post) => {
     files += Array.isArray(post.attachments) ? post.attachments.length : 0;
-    chat.messages.push(message(post.message, post.user, post.user, post.create_at));
+    chat.messages.push(message(post.message, post.user, post.user, post.create_at, reactionsOf(post)));
     for (const reply of Array.isArray(post.replies) ? post.replies : []) {
       files += Array.isArray(reply.attachments) ? reply.attachments.length : 0;
-      chat.messages.push(message(`↳ ${clean(reply.message)}`, reply.user, reply.user, reply.create_at));
+      chat.messages.push(message(`↳ ${clean(reply.message)}`, reply.user, reply.user, reply.create_at, reactionsOf(reply)));
     }
   };
   for (const line of lines) {
@@ -268,7 +285,14 @@ export function parseTelegramExport(data) {
     messages: chat.messages.filter(m => m && m.type === 'message').map(m => {
       if (m.photo || m.file || m.media_type) files += 1;
       const at = m.date_unixtime ? Number(m.date_unixtime) * 1000 : `${m.date}Z`;
-      return message(telegramText(m.text), m.from_id || m.from, m.from, at);
+      // Telegram: reactions [{ type: "emoji", emoji, count, recent: [{ from, from_id }] }];
+      // "recent" names some of those who reacted, the count all of them.
+      const reactions = (Array.isArray(m.reactions) ? m.reactions : []).filter(Boolean).map(x => ({
+        emoji: x.type === 'emoji' ? x.emoji : '', name: x.type === 'emoji' ? '' : `custom:${x.document_id || ''}`,
+        authors: (Array.isArray(x.recent) ? x.recent : []).map(r => clean(r && (r.from_id || r.from))).filter(Boolean),
+        count: Number(x.count) || 0,
+      }));
+      return message(telegramText(m.text), m.from_id || m.from, m.from, at, reactions);
     }),
   }));
   const who = data.personal_information && [data.personal_information.first_name, data.personal_information.last_name]
@@ -341,7 +365,14 @@ export function parseDiscordExport(data) {
     messages: e.messages.filter(m => m && (!m.type || /^(Default|Reply)$/.test(m.type))).map(m => {
       files += (Array.isArray(m.attachments) ? m.attachments.length : 0) + (Array.isArray(m.stickers) ? m.stickers.length : 0);
       const author = m.author || {};
-      return message(m.content, author.name || author.id, author.nickname || author.name, m.timestamp);
+      // DiscordChatExporter: reactions [{ emoji: { id, name }, count, users: [{ id, name }] }];
+      // an emoji with an id is the server's own image, not a character.
+      const reactions = (Array.isArray(m.reactions) ? m.reactions : []).filter(x => x && x.emoji).map(x => ({
+        emoji: x.emoji.id ? '' : x.emoji.name, name: x.emoji.id ? `custom:${x.emoji.name || x.emoji.id}` : '',
+        authors: (Array.isArray(x.users) ? x.users : []).map(u => clean(u && (u.name || u.id))).filter(Boolean),
+        count: Number(x.count) || 0,
+      }));
+      return message(m.content, author.name || author.id, author.nickname || author.name, m.timestamp, reactions);
     }),
   }));
   const guilds = [...new Set(chats.map(c => c.swimlane))];

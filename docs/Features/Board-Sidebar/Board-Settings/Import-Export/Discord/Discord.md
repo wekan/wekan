@@ -49,9 +49,19 @@ replies are imported; pins, joins and other system messages are not.
 
 Channel name and topic, category, server, messages with author, nickname and time.
 
+## Reactions
+
+A message's reactions become the comment's reactions, read from the emoji itself.
+WeKan keeps a reaction by who reacted, so a reaction is kept for each person
+mapped to a WeKan user in the members step. The loss report counts the
+reactions of people who were not mapped, and those with an emoji WeKan cannot
+store: a shortcode WeKan does not know, a server's or a chat's own emoji, or an
+emoji of several code points (a skin tone, a flag). See
+`models/lib/importedReactions.js`.
+
 ## What is not kept
 
-Attachments and stickers (counted), embeds, reactions. What was left out is listed in the import's loss report, also in
+Attachments and stickers (counted), embeds, a server's own emoji reactions. What was left out is listed in the import's loss report, also in
 **Admin Panel → Problems → Recovery**.
 
 ## REST API
