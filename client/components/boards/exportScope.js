@@ -319,7 +319,21 @@ function resolvedFormatGroups() {
         url: entry.path ? exportUrl(`/api/boards/:boardId/${entry.path}`, entry.query || {}) : '',
       })),
     }))
-    .filter(group => group.entries.length);
+    .filter(group => group.entries.length)
+    // The other tools' formats under headings by kind (models/lib/toolGroups.js),
+    // the same groups as the Import page; WeKan's own JSON keeps "JSON".
+    .flatMap(group => {
+      if (group.key !== 'json') return [group];
+      const { groupTools } = require('/models/lib/toolGroups');
+      const parts = [];
+      for (const entry of groupTools(group.entries)) {
+        if (entry.groupStart) {
+          parts.push({ key: `json-${entry.group}`, heading: entry.groupLabelKey ? TAPi18n.__(entry.groupLabelKey) : group.heading, entries: [] });
+        }
+        parts[parts.length - 1].entries.push(entry);
+      }
+      return parts;
+    });
 }
 
 // Import writes to the board, so unlike export it is offered only to somebody

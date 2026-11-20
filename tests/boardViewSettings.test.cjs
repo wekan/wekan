@@ -129,7 +129,7 @@ test('the Board View menu and the popup render the same BOARD_VIEWS table, every
   // rows and the menu's entries are the same list by construction; every
   // view has a click handler (per-view class), a label key and an icon.
   assert.ok(bvs.BOARD_VIEWS.length >= 25, `the table has ${bvs.BOARD_VIEWS.length} views`);
-  assert.match(menu, /each boardViewMenuEntries\n\s*li\n\s*a\.js-board-view-entry\(class="\{\{jsClass\}\}"\)\n\s*i\.fa\(class="\{\{icon\}\}"\)\n\s*\| \{\{_ labelKey\}\}/);
+  assert.match(menu, /each boardViewMenuEntries\n\s*if groupLabelKey\n\s*li\.board-view-group-heading \{\{_ groupLabelKey\}\}\n\s*li\n\s*a\.js-board-view-entry\(class="\{\{jsClass\}\}"\)\n\s*i\.fa\(class="\{\{icon\}\}"\)\n\s*\| \{\{_ labelKey\}\}/);
   bvs.BOARD_VIEWS.forEach(v => {
     assert.ok(typeof en[v.labelKey] === 'string' && en[v.labelKey], `${v.labelKey} is an English key`);
     assert.ok(/^fa-[a-z-]+$/.test(v.icon), `${v.view} has an icon`);
@@ -257,12 +257,17 @@ test('the Board View menu lists only the views shown for the board\'s visibility
     boardViewSettings: { 'board-view-lists': { showOnPublic: false }, 'board-view-cal': { showOnPrivate: false } },
   };
   const pub = bvs.boardViewMenuEntries(board, 'board-view-pulse');
-  assert.deepStrictEqual(pub.slice(0, 2).map(e => e.view), ['board-view-pulse', 'board-view-swimlanes'], 'custom order, Lists hidden on public');
+  // Grouped since 2026-11-20: Pulse leads its own group (Overview), the board
+  // group starts with Swimlanes, and Lists is hidden on public.
+  const overview = pub.filter(e => bvs.BOARD_VIEWS.find(v => v.view === e.view).group === 'overview').map(e => e.view);
+  assert.strictEqual(overview[0], 'board-view-pulse', 'the custom order inside its group');
+  assert.strictEqual(pub[0].view, 'board-view-swimlanes');
   assert.ok(!pub.some(e => e.view === 'board-view-lists'));
   assert.ok(pub.some(e => e.view === 'board-view-cal'), 'Calendar is hidden on private only');
-  assert.strictEqual(pub[0].isCurrent, true);
-  assert.strictEqual(pub[0].jsClass, 'js-open-pulse-view');
-  assert.ok(pub.every(e => !e.separatorAfter), 'a custom order has no separators');
+  const pulse = pub.find(e => e.view === 'board-view-pulse');
+  assert.strictEqual(pulse.isCurrent, true);
+  assert.strictEqual(pulse.jsClass, 'js-open-pulse-view');
+  assert.strictEqual(pulse.groupLabelKey, 'board-view-group-overview', 'the first of its group carries the heading');
   const priv = bvs.boardViewMenuEntries({ ...board, permission: 'private' }, 'board-view-cal');
   assert.ok(priv.some(e => e.view === 'board-view-lists') && !priv.some(e => e.view === 'board-view-cal'));
   assert.ok(priv.every(e => !e.isCurrent), 'the hidden current view is ticked nowhere');
@@ -466,16 +471,16 @@ test('the default order is the pre-feature menu order (525bcab1b), literally', (
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER.slice().sort(), bvs.BOARD_VIEWS.map(v => v.view).sort());
 });
 
-test('a board with no stored order renders the pre-feature menu, separators in the same places', () => {
+test('a board with no stored order renders the pre-feature order, grouped under headings', () => {
+  // The pre-feature order decides inside each group; the six separators it
+  // had are group headings since 2026-11-20 (BOARD_VIEW_GROUPS).
+  const preFeature = PRE_FEATURE_MENU.filter(e => e !== 'hr');
+  const grouped = bvs.groupedBoardViews(preFeature.map(view => bvs.BOARD_VIEWS.find(v => v.view === view))).map(v => v.view);
   ['public', 'private'].forEach(permission => {
     [undefined, null, [], 'garbage'].forEach(boardViewOrder => {
       const entries = bvs.boardViewMenuEntries({ permission, boardViewOrder });
-      const rendered = [];
-      entries.forEach(e => {
-        rendered.push(e.view);
-        if (e.separatorAfter) rendered.push('hr');
-      });
-      assert.deepStrictEqual(rendered, PRE_FEATURE_MENU, `${permission} / ${JSON.stringify(boardViewOrder)}`);
+      assert.deepStrictEqual(entries.map(e => e.view), grouped, `${permission} / ${JSON.stringify(boardViewOrder)}`);
+      assert.strictEqual(entries.filter(e => e.groupLabelKey).length, bvs.BOARD_VIEW_GROUPS.length);
     });
   });
   assert.deepStrictEqual(bvs.SEPARATOR_AFTER, PRE_FEATURE_HR_AFTER);

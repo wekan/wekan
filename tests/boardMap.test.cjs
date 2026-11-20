@@ -33,7 +33,7 @@ assert.equal(mapMarker({ title: 'Not placed' }, board), null);
 console.log('  ok - a marker carries its place, first label colour and card number');
 
 // Wiring: every registry knows the view, and the data is validated.
-assert.match(read('models/lib/boardViewSettings.js'), /\{ view: 'board-view-map', labelKey: 'board-view-map', icon: 'fa-map-marker' \}/);
+assert.match(read('models/lib/boardViewSettings.js'), /\{ view: 'board-view-map', labelKey: 'board-view-map', icon: 'fa-map-marker', group: 'board' \}/);
 assert.match(read('client/components/boards/boardBody.jade'), /else if isViewMap\n\s*\+mapView/);
 assert.match(read('client/components/boards/boardHeader.js'), /'click \.js-open-map-view'\(\) \{\s*Utils\.setBoardView\('board-view-map'\);/);
 // Stored and restored without an account: client/lib/utils.js checks the

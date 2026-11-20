@@ -173,16 +173,18 @@ template(name="boardChangeWatchPopup")
   (js-open-<view>-view), which is what the click handlers in boardHeader.js
   listen for. docs/Features/Board-Sidebar/Board-Settings/Board-View.md
 template(name="boardChangeViewPopup")
+  //- Grouped, a heading over each group (models/lib/boardViewSettings.js
+    BOARD_VIEW_GROUPS), the board's own order inside a group.
   ul.pop-over-list
     each boardViewMenuEntries
+      if groupLabelKey
+        li.board-view-group-heading {{_ groupLabelKey}}
       li
         a.js-board-view-entry(class="{{jsClass}}")
           i.fa(class="{{icon}}")
           | {{_ labelKey}}
           if isCurrent
             i.fa.fa-check
-        if separatorAfter
-          hr
 
 //- The Create Board form: a title, what the board is visible to, and Create.
   Four templates drew it letter for letter - the one on the All Boards page and

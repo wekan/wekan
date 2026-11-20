@@ -20,56 +20,70 @@
 // keys as client/components/boards/boardHeader.jade (boardChangeViewPopup).
 // tests/boardViewSettings.test.cjs fails when the two differ.
 const BOARD_VIEWS = [
-  { view: 'board-view-swimlanes', labelKey: 'swimlanes', icon: 'fa-th-large' },
-  { view: 'board-view-lists', labelKey: 'board-view-lists', icon: 'fa-trello' },
-  { view: 'board-view-table', labelKey: 'board-view-table', icon: 'fa-table' },
-  { view: 'board-view-cal', labelKey: 'board-view-cal', icon: 'fa-calendar' },
+  { view: 'board-view-swimlanes', labelKey: 'swimlanes', icon: 'fa-th-large', group: 'board' },
+  { view: 'board-view-lists', labelKey: 'board-view-lists', icon: 'fa-trello', group: 'board' },
+  { view: 'board-view-table', labelKey: 'board-view-table', icon: 'fa-table', group: 'board' },
+  { view: 'board-view-cal', labelKey: 'board-view-cal', icon: 'fa-calendar', group: 'calendar' },
   // #3194: Trello's calendar - a card on its due day, with its labels.
-  { view: 'board-view-calendar-mode', labelKey: 'board-view-calendar-mode', icon: 'fa-calendar-check-o' },
-  { view: 'board-view-multiboard-cal', labelKey: 'board-view-multiboard-cal', icon: 'fa-calendar-plus-o' },
-  { view: 'board-view-time', labelKey: 'board-view-time', icon: 'fa-clock-o' },
-  { view: 'board-view-timeline', labelKey: 'board-view-timeline', icon: 'fa-history' },
-  { view: 'board-view-stats', labelKey: 'board-view-stats', icon: 'fa-pie-chart' },
-  { view: 'board-view-group-by-assignee', labelKey: 'board-view-group-by-assignee', icon: 'fa-users' },
-  { view: 'board-view-gantt', labelKey: 'board-view-gantt', icon: 'fa-bar-chart' },
-  { view: 'board-view-gantt-frappe', labelKey: 'board-view-gantt-frappe', icon: 'fa-tasks' },
-  { view: 'board-view-gantt-dhtmlx', labelKey: 'board-view-gantt-dhtmlx', icon: 'fa-list-alt' },
-  { view: 'board-view-product-backlog', labelKey: 'board-view-product-backlog', icon: 'fa-list-ol' },
-  { view: 'board-view-sprints', labelKey: 'board-view-sprints', icon: 'fa-repeat' },
-  { view: 'board-view-sprint-report', labelKey: 'board-view-sprint-report', icon: 'fa-bar-chart' },
-  { view: 'board-view-velocity', labelKey: 'board-view-velocity', icon: 'fa-line-chart' },
-  { view: 'board-view-roadmap', labelKey: 'board-view-roadmap', icon: 'fa-road' },
-  { view: 'board-view-dashboard', labelKey: 'board-view-dashboard', icon: 'fa-tachometer' },
-  { view: 'board-view-bigboard', labelKey: 'board-view-bigboard', icon: 'fa-th' },
-  { view: 'board-view-burndown', labelKey: 'board-view-burndown', icon: 'fa-line-chart' },
-  { view: 'board-view-burnup', labelKey: 'board-view-burnup', icon: 'fa-area-chart' },
-  { view: 'board-view-cumulative-flow', labelKey: 'board-view-cumulative-flow', icon: 'fa-signal' },
-  { view: 'board-view-control-chart', labelKey: 'board-view-control-chart', icon: 'fa-crosshairs' },
-  { view: 'board-view-cycle-time', labelKey: 'board-view-cycle-time', icon: 'fa-refresh' },
-  { view: 'board-view-flow-efficiency', labelKey: 'board-view-flow-efficiency', icon: 'fa-percent' },
-  { view: 'board-view-lead-time', labelKey: 'board-view-lead-time', icon: 'fa-hourglass-half' },
-  { view: 'board-view-throughput-histogram', labelKey: 'board-view-throughput-histogram', icon: 'fa-columns' },
-  { view: 'board-view-wip-run', labelKey: 'board-view-wip-run', icon: 'fa-flag-checkered' },
-  { view: 'board-view-pulse', labelKey: 'board-view-pulse', icon: 'fa-heartbeat' },
-  { view: 'board-view-aging-wip', labelKey: 'board-view-aging-wip', icon: 'fa-hourglass-half' },
-  { view: 'board-view-blocker-analysis', labelKey: 'board-view-blocker-analysis', icon: 'fa-ban' },
-  { view: 'board-view-monte-carlo', labelKey: 'board-view-monte-carlo', icon: 'fa-random' },
-  { view: 'board-view-process-behavior', labelKey: 'board-view-process-behavior', icon: 'fa-line-chart' },
-  { view: 'board-view-size-cycle-time', labelKey: 'board-view-size-cycle-time', icon: 'fa-braille' },
+  { view: 'board-view-calendar-mode', labelKey: 'board-view-calendar-mode', icon: 'fa-calendar-check-o', group: 'calendar' },
+  { view: 'board-view-multiboard-cal', labelKey: 'board-view-multiboard-cal', icon: 'fa-calendar-plus-o', group: 'calendar' },
+  { view: 'board-view-time', labelKey: 'board-view-time', icon: 'fa-clock-o', group: 'calendar' },
+  { view: 'board-view-timeline', labelKey: 'board-view-timeline', icon: 'fa-history', group: 'calendar' },
+  { view: 'board-view-stats', labelKey: 'board-view-stats', icon: 'fa-pie-chart', group: 'overview' },
+  { view: 'board-view-group-by-assignee', labelKey: 'board-view-group-by-assignee', icon: 'fa-users', group: 'board' },
+  { view: 'board-view-gantt', labelKey: 'board-view-gantt', icon: 'fa-bar-chart', group: 'calendar' },
+  { view: 'board-view-gantt-frappe', labelKey: 'board-view-gantt-frappe', icon: 'fa-tasks', group: 'calendar' },
+  { view: 'board-view-gantt-dhtmlx', labelKey: 'board-view-gantt-dhtmlx', icon: 'fa-list-alt', group: 'calendar' },
+  { view: 'board-view-product-backlog', labelKey: 'board-view-product-backlog', icon: 'fa-list-ol', group: 'scrum' },
+  { view: 'board-view-sprints', labelKey: 'board-view-sprints', icon: 'fa-repeat', group: 'scrum' },
+  { view: 'board-view-sprint-report', labelKey: 'board-view-sprint-report', icon: 'fa-bar-chart', group: 'scrum' },
+  { view: 'board-view-velocity', labelKey: 'board-view-velocity', icon: 'fa-line-chart', group: 'scrum' },
+  { view: 'board-view-roadmap', labelKey: 'board-view-roadmap', icon: 'fa-road', group: 'calendar' },
+  { view: 'board-view-dashboard', labelKey: 'board-view-dashboard', icon: 'fa-tachometer', group: 'overview' },
+  { view: 'board-view-bigboard', labelKey: 'board-view-bigboard', icon: 'fa-th', group: 'board' },
+  { view: 'board-view-burndown', labelKey: 'board-view-burndown', icon: 'fa-line-chart', group: 'scrum' },
+  { view: 'board-view-burnup', labelKey: 'board-view-burnup', icon: 'fa-area-chart', group: 'scrum' },
+  { view: 'board-view-cumulative-flow', labelKey: 'board-view-cumulative-flow', icon: 'fa-signal', group: 'flow' },
+  { view: 'board-view-control-chart', labelKey: 'board-view-control-chart', icon: 'fa-crosshairs', group: 'flow' },
+  { view: 'board-view-cycle-time', labelKey: 'board-view-cycle-time', icon: 'fa-refresh', group: 'flow' },
+  { view: 'board-view-flow-efficiency', labelKey: 'board-view-flow-efficiency', icon: 'fa-percent', group: 'flow' },
+  { view: 'board-view-lead-time', labelKey: 'board-view-lead-time', icon: 'fa-hourglass-half', group: 'flow' },
+  { view: 'board-view-throughput-histogram', labelKey: 'board-view-throughput-histogram', icon: 'fa-columns', group: 'flow' },
+  { view: 'board-view-wip-run', labelKey: 'board-view-wip-run', icon: 'fa-flag-checkered', group: 'flow' },
+  { view: 'board-view-pulse', labelKey: 'board-view-pulse', icon: 'fa-heartbeat', group: 'overview' },
+  { view: 'board-view-aging-wip', labelKey: 'board-view-aging-wip', icon: 'fa-hourglass-half', group: 'flow' },
+  { view: 'board-view-blocker-analysis', labelKey: 'board-view-blocker-analysis', icon: 'fa-ban', group: 'flow' },
+  { view: 'board-view-monte-carlo', labelKey: 'board-view-monte-carlo', icon: 'fa-random', group: 'flow' },
+  { view: 'board-view-process-behavior', labelKey: 'board-view-process-behavior', icon: 'fa-line-chart', group: 'flow' },
+  { view: 'board-view-size-cycle-time', labelKey: 'board-view-size-cycle-time', icon: 'fa-braille', group: 'flow' },
   // #3256: cards as markers on an uploaded image (client/components/boards/mapView.*).
-  { view: 'board-view-map', labelKey: 'board-view-map', icon: 'fa-map-marker' },
+  { view: 'board-view-map', labelKey: 'board-view-map', icon: 'fa-map-marker', group: 'board' },
   // #794: the board as a Gmail-like mailbox - the email-to-card list is the
   // Inbox, lists and labels are folders and labels (client/components/boards/emailView.*).
-  { view: 'board-view-email', labelKey: 'board-view-email', icon: 'fa-envelope' },
+  { view: 'board-view-email', labelKey: 'board-view-email', icon: 'fa-envelope', group: 'communication' },
   // The board as a Slack / Rocket.Chat workspace: channels in a tree, the card,
   // its comments as chat (client/components/boards/chatView.*).
-  { view: 'board-view-chat', labelKey: 'board-view-chat', icon: 'fa-comments' },
+  { view: 'board-view-chat', labelKey: 'board-view-chat', icon: 'fa-comments', group: 'communication' },
   // The board as a GitHub / Gitea issue tracker: issues, milestones, labels,
   // files and the history with its undo (client/components/boards/versionControlView.*).
-  { view: 'board-view-version-control', labelKey: 'board-view-version-control', icon: 'fa-code-fork' },
+  { view: 'board-view-version-control', labelKey: 'board-view-version-control', icon: 'fa-code-fork', group: 'communication' },
   // #211: the same cards in several named column sets (client/components/boards/columnSetsView.*).
-  { view: 'board-view-column-sets', labelKey: 'board-view-column-sets', icon: 'fa-columns' },
+  { view: 'board-view-column-sets', labelKey: 'board-view-column-sets', icon: 'fa-columns', group: 'board' },
 ];
+
+// The menu's groups, in the order they are drawn, each under its heading
+// (2026-11-20, asked so the menu reads like the regrouped Admin Panel). A
+// view's `group` above says where it is; inside a group the board's own order
+// (Board Settings / Board View) still decides.
+const BOARD_VIEW_GROUPS = [
+  { group: 'board', labelKey: 'board-view-group-board' },
+  { group: 'calendar', labelKey: 'board-view-group-calendar' },
+  { group: 'scrum', labelKey: 'board-view-group-scrum' },
+  { group: 'flow', labelKey: 'board-view-group-flow' },
+  { group: 'overview', labelKey: 'board-view-group-overview' },
+  { group: 'communication', labelKey: 'board-view-group-communication' },
+];
+const GROUP_INDEX = new Map(BOARD_VIEW_GROUPS.map((g, i) => [g.group, i]));
 
 const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
 
@@ -298,17 +312,30 @@ function visibleBoardViews(board, visibility, allowView = allowAll) {
 // each with the class its click handler listens for, whether it is the one
 // currently rendered, and whether a separator follows it (default order
 // only). `currentView` is what Utils.boardView() returns.
+// The visible views grouped (BOARD_VIEW_GROUPS), each group in the board's
+// order: a stable sort by group keeps that order inside a group.
+function groupedBoardViews(views) {
+  return views.map((v, i) => ({ v, i }))
+    .sort((a, b) => (GROUP_INDEX.get(a.v.group) - GROUP_INDEX.get(b.v.group)) || (a.i - b.i))
+    .map(({ v }) => v);
+}
+
+// What the Board View menu renders: the visible views by group, in the
+// board's order inside each, each with the class its click handler listens
+// for, whether it is the one currently rendered, and - on the first view of a
+// group - the group's heading. (The six separators the menu drew before
+// views were grouped are the headings now.)
 function boardViewMenuEntries(board, currentView, allowView = allowAll, userId) {
   const visibility = boardViewAudience(board, userId);
-  const defaultOrder = isDefaultBoardViewOrder(board && board.boardViewOrder);
-  const visible = visibleBoardViews(board, visibility, allowView);
+  const visible = groupedBoardViews(visibleBoardViews(board, visibility, allowView));
   return visible.map((v, i) => ({
     view: v.view,
     labelKey: v.labelKey,
     icon: v.icon,
     jsClass: boardViewJsClass(v.view),
     isCurrent: v.view === currentView,
-    separatorAfter: defaultOrder && i < visible.length - 1 && SEPARATOR_AFTER.includes(v.view),
+    groupLabelKey: i === 0 || visible[i - 1].group !== v.group
+      ? BOARD_VIEW_GROUPS[GROUP_INDEX.get(v.group)].labelKey : null,
   }));
 }
 
@@ -475,6 +502,8 @@ module.exports = {
   DEFAULT_BOARD_VIEW,
   DEFAULT_BOARD_VIEW_ORDER,
   SEPARATOR_AFTER,
+  BOARD_VIEW_GROUPS,
+  groupedBoardViews,
   boardViewJsClass,
   normalizeBoardViewOrder,
   isDefaultBoardViewOrder,

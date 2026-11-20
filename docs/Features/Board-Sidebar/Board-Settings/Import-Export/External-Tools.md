@@ -8,6 +8,11 @@ tools. You use them from the existing menus:
   text where the format is text.
 - **Export**: **Board Settings → Export**. Choose the scope and the fields to
   include, then the format.
+- Both list the tools under the same headings - WeKan, Kanban and project
+  tools, Issue trackers and version control, Task and to-do apps,
+  Spreadsheets and tables, Text and outlines, Mail, calendars, chats and
+  notes, and Fetched from a service - from one table,
+  `models/lib/toolGroups.js`, so a tool is in the same group on both.
 - **Rules and workflows**: **Board Settings → Rules → Import / Export rules**
   (see [Rules](../../../Rules/Rules/Rules.md#import--export)).
 

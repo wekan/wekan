@@ -614,12 +614,18 @@ Template.import.helpers({
     const setting = ReactiveCache.getCurrentSetting();
     const product = productNameOrDefault(setting && setting.productName);
     const current = Session.get('importSource');
-    return IMPORT_SOURCES.map(source => ({
+    // Grouped by kind under headings (models/lib/toolGroups.js), the same
+    // groups the Export menu uses; WeKan's own is headed by the product name.
+    const { groupTools } = require('/models/lib/toolGroups');
+    return groupTools(IMPORT_SOURCES.map(source => ({
       key: source.key,
       // "a previous export of <Product name>", which for an unbranded WeKan is
       // "WeKan" and for a rebranded one is whatever it was rebranded to.
       name: source.product ? `${product} (JSON, .zip)` : source.name,
       selected: source.key === current,
+    }))).map(source => ({
+      ...source,
+      groupHeading: source.groupStart ? (source.groupLabelKey ? TAPi18n.__(source.groupLabelKey) : product) : '',
     }));
   },
   hasImportSource() {

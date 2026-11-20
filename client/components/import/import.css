@@ -280,3 +280,16 @@ a.show-mapping {
 .import-report-row {
   overflow-wrap: anywhere;
 }
+
+/* The Import page's sources by kind (models/lib/toolGroups.js). */
+.import-source-list .import-source-group {
+  margin-top: 0.8em;
+  font-weight: bold;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b778c;
+}
+.import-source-list .import-source-group:first-child {
+  margin-top: 0;
+}

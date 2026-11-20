@@ -916,6 +916,9 @@ template(name="boardViewSettingsPopup")
         h4 {{_ 'description'}}
     .board-view-settings-rows.js-board-view-sortable
       each boardViewRows
+        //- The same groups as the Board View menu; only rows are dragged.
+        if groupLabelKey
+          .board-view-settings-group-heading {{_ groupLabelKey}}
         .board-view-settings-row.js-board-view-row(data-view="{{view}}")
           unless ../publicBoardsHidden
             .board-view-settings-column

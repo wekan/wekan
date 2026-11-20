@@ -102,11 +102,13 @@ test('the menu lists every view in the required top-to-bottom order', () => {
   // list and the separator positions against the same template.
   assert.deepStrictEqual(bvs.BOARD_VIEWS.map(v => v.view), VIEWS.map(v => v.view));
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, VIEWS.map(v => v.view));
-  // A board with no stored order renders exactly that, all of it.
-  assert.deepStrictEqual(bvs.boardViewMenuEntries({ permission: 'private' }).map(e => e.view), VIEWS.map(v => v.view));
+  // A board with no stored order renders all of it, GROUPED (2026-11-20): by
+  // BOARD_VIEW_GROUPS, and in that order inside each group.
+  assert.deepStrictEqual(bvs.boardViewMenuEntries({ permission: 'private' }).map(e => e.view),
+    bvs.groupedBoardViews(bvs.BOARD_VIEWS).map(v => v.view));
   // Each anchor also carries js-board-view-entry: on the Rules page, picking a
   // view goes back to the board.
-  assert.match(popup, /each boardViewMenuEntries\n\s*li\n\s*a\.js-board-view-entry\(class="\{\{jsClass\}\}"\)/, 'the template loops over the entries');
+  assert.match(popup, /each boardViewMenuEntries\n\s*if groupLabelKey\n\s*li\.board-view-group-heading \{\{_ groupLabelKey\}\}\n\s*li\n\s*a\.js-board-view-entry\(class="\{\{jsClass\}\}"\)/, 'the template loops over the entries');
 });
 
 test('every entry carries a font-awesome icon', () => {
@@ -132,18 +134,27 @@ test('a chart view menu entry is no longer parenthesized as "not implemented yet
   });
 });
 
-test('a separator sits between Table and Calendar, between Timeline and Statistics, and between Gantt and Roadmap', () => {
-  // Like the right sidebar's own hr-separated groups
-  // (client/components/sidebar/sidebar.jade's homeSidebar).
-  assert.deepStrictEqual(bvs.SEPARATOR_AFTER, HR_AFTER);
+test('the menu is grouped under headings: Board, Calendar and time, Scrum, Kanban flow, Overview, Communication', () => {
+  // The six separators the menu had (HR_AFTER, the pre-feature template) were
+  // replaced by group headings on 2026-11-20, when the maintainer asked for
+  // the menu to be grouped like the regrouped Admin Panel.
+  assert.deepStrictEqual(bvs.BOARD_VIEW_GROUPS.map(g => g.group), ['board', 'calendar', 'scrum', 'flow', 'overview', 'communication']);
+  const groupOf = view => bvs.BOARD_VIEWS.find(v => v.view === view).group;
+  assert.ok(bvs.BOARD_VIEWS.every(v => bvs.BOARD_VIEW_GROUPS.some(g => g.group === v.group)), 'every view is in a group');
+  assert.deepStrictEqual(['board-view-swimlanes', 'board-view-sprints', 'board-view-cumulative-flow', 'board-view-chat'].map(groupOf),
+    ['board', 'scrum', 'flow', 'communication']);
   const entries = bvs.boardViewMenuEntries({ permission: 'private' });
-  entries.forEach(e => {
-    assert.strictEqual(e.separatorAfter, HR_AFTER.includes(e.view), `separator after ${e.view}`);
-  });
-  assert.match(popup, /if separatorAfter\n\s*hr/, 'the template draws it');
-  // A custom order has no groups, so no separators.
-  const custom = bvs.boardViewMenuEntries({ permission: 'private', boardViewOrder: ['board-view-pulse'] });
-  assert.ok(custom.every(e => !e.separatorAfter));
+  const headings = entries.filter(e => e.groupLabelKey).map(e => e.groupLabelKey);
+  assert.deepStrictEqual(headings, bvs.BOARD_VIEW_GROUPS.map(g => g.labelKey), 'one heading per group, in order');
+  // A board's own order still decides inside a group.
+  const custom = bvs.boardViewMenuEntries({ permission: 'private',
+    boardViewOrder: ['board-view-pulse', 'board-view-lists', 'board-view-swimlanes'] }).map(e => e.view);
+  assert.ok(custom.indexOf('board-view-lists') < custom.indexOf('board-view-swimlanes'), 'the board order inside Board');
+  assert.ok(custom.indexOf('board-view-swimlanes') < custom.indexOf('board-view-pulse'), 'and the groups in their order');
+  // Negative: a group with no visible view has no heading.
+  const fewer = bvs.boardViewMenuEntries({ permission: 'private' }, null, view => groupOf(view) !== 'scrum');
+  assert.ok(!fewer.some(e => e.groupLabelKey === 'board-view-group-scrum'));
+  for (const g of bvs.BOARD_VIEW_GROUPS) assert.strictEqual(typeof en[g.labelKey], 'string', `${g.labelKey} is translated`);
 });
 
 test('every menu entry has a click handler that sets that board view', () => {
@@ -279,3 +290,12 @@ test('on the Rules page, picking a board view goes back to the board', () => {
 });
 
 console.log(`\nboardViewMenu: ${passed} tests passed`);
+
+test('Board Settings / Board View shows the same groups, only its rows dragged', () => {
+  const sidebarJs = read('client/components/sidebar/sidebar.js');
+  const sidebarJade = read('client/components/sidebar/sidebar.jade');
+  assert.match(sidebarJs, /boardViewSettings\.groupedBoardViews\(\s*boardViewSettings\.orderedBoardViews\(board\)/);
+  assert.match(sidebarJade, /each boardViewRows\n(?:\s*\/\/-[^\n]*\n)*\s*if groupLabelKey\n\s*\.board-view-settings-group-heading \{\{_ groupLabelKey\}\}\n\s*\.board-view-settings-row\.js-board-view-row/);
+  // Negative: the heading is not a sortable item, so it cannot be dragged.
+  assert.match(sidebarJs, /items: '> \.js-board-view-row'/);
+});

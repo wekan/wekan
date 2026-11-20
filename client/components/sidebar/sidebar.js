@@ -780,8 +780,13 @@ Template.boardViewSettingsPopup.helpers({
   boardViewRows() {
     const board = Utils.getCurrentBoard();
     // #6736: views the instance disabled are not rows; their board settings stay.
-    const ordered = boardViewSettings.orderedBoardViews(board).filter(v => allowBoardView(v.view));
-    return ordered.map(v => ({
+    // Grouped as the Board View menu is (BOARD_VIEW_GROUPS): a heading over
+    // each group, the board's order inside it.
+    const ordered = boardViewSettings.groupedBoardViews(
+      boardViewSettings.orderedBoardViews(board).filter(v => allowBoardView(v.view)));
+    const headingOf = group => (boardViewSettings.BOARD_VIEW_GROUPS.find(g => g.group === group) || {}).labelKey;
+    return ordered.map((v, i) => ({
+      groupLabelKey: i === 0 || ordered[i - 1].group !== v.group ? headingOf(v.group) : null,
       view: v.view,
       labelKey: v.labelKey,
       icon: `fa ${v.icon}`,

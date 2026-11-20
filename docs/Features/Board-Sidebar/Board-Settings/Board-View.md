@@ -7,6 +7,23 @@ board opens in - separately for when the board is **public** and when it is
 offer only Roadmap and Gantt and open in Roadmap, while the same board, made
 private again, shows its members every view and opens in Swimlanes.
 
+## Groups
+
+The Board View menu and this popup show the views in six groups, each under its
+heading (`BOARD_VIEW_GROUPS` in `models/lib/boardViewSettings.js`):
+
+| Group | Views |
+| --- | --- |
+| Board | Swimlanes, Lists, Table, Column sets, Group by Assignee, Map, Bigboard |
+| Calendar and time | Calendar, Calendar Mode, Multi Board Calendar, Time, Timeline, Gantt, Frappe Gantt, DHTMLX Gantt, Roadmap |
+| Scrum | Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup |
+| Kanban flow | Cumulative Flow, Control, Cycle Time, Lead Time, Flow Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis, Monte Carlo, Process Behavior, Size vs. Cycle Time |
+| Overview | Dashboard, Pulse, Statistics |
+| Communication and code | Email, Chat, Version Control |
+
+The order a board admin drags here decides inside each group; a view stays in
+its own group. A group none of whose views is shown has no heading.
+
 ## Where to find it
 
 **Board sidebar (hamburger menu) → Board Settings → Board View**, the first

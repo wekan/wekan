@@ -983,3 +983,19 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
     font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   }
 }
+
+/* Board View menu: the heading over each group of views
+   (models/lib/boardViewSettings.js BOARD_VIEW_GROUPS). */
+.pop-over-list .board-view-group-heading {
+  padding: 8px 10px 2px;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b778c;
+  cursor: default;
+}
+.pop-over-list .board-view-group-heading:not(:first-child) {
+  margin-top: 4px;
+  border-top: 1px solid #dfe1e6;
+}

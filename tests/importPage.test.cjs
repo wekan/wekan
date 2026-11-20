@@ -189,7 +189,9 @@ test('no source to begin with, and choosing one un-chooses the last (negative)',
   assert.ok(/FlowRouter\.go\(`\/import\/\$\{source\}`\)/.test(handler.slice(0, 400)),
     'clicking a source goes there, so the previous one cannot stay chosen');
   const helper = js.slice(js.indexOf('importSources() {'));
-  assert.ok(/selected: source\.key === current/.test(helper.slice(0, 600)),
+  // The helper also groups the sources (models/lib/toolGroups.js), so the
+  // window it is read in is larger.
+  assert.ok(/selected: source\.key === current/.test(helper.slice(0, 1000)),
     'and exactly one row is ticked');
 });
 

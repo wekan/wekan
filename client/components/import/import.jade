@@ -39,6 +39,8 @@ template(name="import")
         h2 {{_ 'import-source-heading'}}
         ul.import-source-list
           each importSources
+            if groupHeading
+              li.import-source-group {{groupHeading}}
             li
               //- The same green tick every checkbox in the app uses
                 (`.materialCheckBox`, forms.css) - the one Admin Panel /

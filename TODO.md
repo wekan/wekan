@@ -20,37 +20,32 @@ the changelog only says what changed.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 
+## Translations in the wrong language
+
+Found on 2026-11-20 while translating the new Import and menu headings: these
+locale files hold values in another language than their tag, which the
+translation rules say to replace with the tag's language.
+
+- `se` (Northern Sami): values seeded in Finnish.
+- `ve-PP` (Veps): values in Venda, for example `board-view-cumulative-flow`.
+- `uz-AR` (Uzbek, Arabic script): values in Latin script, for example
+  `calendar` as "Kalendar".
+- `wal` (Wolaytta): values in Ethiopic script, for example "ጊዜ" for time.
+- `mt` (Maltese): `board-view-cumulative-flow` in Italian.
+- `nd` (Northern Ndebele): the view names look like Shona.
+- `hy` (Armenian): `board` as Վարչություն, "administration".
+
 ## Menus grouped so they are easier to understand
 
 Asked on 2026-11-20, after the Admin Panel was reorganised into groups. The
-Board View menu (`models/lib/boardViewSettings.js`) is one list of 40 views in
-the order they were added, and the Import page and Export menu list some 60
-tools under few headings.
+Board View menu and the Import and Export lists are grouped now; this is the
+rest.
 
-- Board View menu: group the views under headings, in this order -
-  **Board** (Swimlanes, Lists, Table, Column sets, Group by Assignee, Map,
-  Bigboard), **Calendar and time** (Calendar, Calendar Mode, Multi Board
-  Calendar, Time, Timeline, Gantt and its two engines, Roadmap), **Scrum**
-  (Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup),
-  **Kanban flow** (Cumulative Flow, Control, Cycle Time, Lead Time, Flow
-  Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis,
-  Monte Carlo, Process Behavior, Size vs. Cycle Time), **Overview**
-  (Dashboard, Pulse, Statistics) and **Communication and code** (Email, Chat,
-  Version Control). A board's own order and hidden views (Board Settings /
-  Board View) still apply inside each group; Board Settings / Board View shows
-  the same groups.
 - Swimlanes view: the swimlane, list and card hamburger menus and the board
   header's buttons, reviewed against the same idea - entries grouped by what
   they act on (the item itself, its contents, moving and copying, view and
   settings, archive and delete), with a heading per group as the board menu
   already has.
-- Import page and Export menu: the tools grouped under headings - **WeKan**,
-  **Kanban and project tools**, **Issue trackers and version control**, **Task
-  and to-do apps**, **Spreadsheets and tables**, **Text and outlines**,
-  **Mail, calendars, chats and notes** and **Fetched from a service** - in
-  the order `docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md`
-  already groups them, the group of each tool written once in
-  `models/lib/importSources.js` and the export table.
 
 ## Import and Export of large files
 
