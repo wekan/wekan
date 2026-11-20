@@ -42,6 +42,7 @@ sources of the format.
 | [Linear](./Linear/Linear.md) | Issues CSV export | Linear CSV |
 | [Notion](./Notion/Notion.md) | *Markdown & CSV* export `.zip`, or one database CSV | Notion database CSV |
 | [Redmine](./Redmine/Redmine.md) | Issues list *Also available in: CSV* | Redmine issues CSV |
+| [Fizzy](./Fizzy/Fizzy.md) | Account export or personal data export `.zip`, or one card's `.json` | Fizzy account export `.zip` (its account import reads it) |
 | [Plane](./Plane/Plane.md) | Workspace Settings → Exports `.zip` (CSV, JSON or XLSX inside), or one file from it | — (Plane has no file import) |
 | [Taiga](./Taiga/Taiga.md) | Project export (dump) JSON | Taiga project dump JSON, with sprints |
 | [Pivotal Tracker](./Pivotal-Tracker/Pivotal-Tracker.md) | Stories CSV | Pivotal Tracker CSV |
@@ -104,6 +105,7 @@ card, its messages the comments), and dated items in Calendar and Gantt.
 | [Telegram](./Telegram/Telegram.md) | Telegram Desktop's JSON export `result.json` | — |
 | [WhatsApp](./WhatsApp/WhatsApp.md) | *Export chat* `.txt` | — |
 | [Discord (DiscordChatExporter)](./Discord/Discord.md) | DiscordChatExporter JSON | — |
+| [Rocket.Chat](./Rocket-Chat/Rocket-Chat.md) | "Download my data" as JSON `.zip`, one room's `.json`, or a CSV importer `.zip` | Rocket.Chat CSV importer `.zip` |
 | [Evernote (.enex)](./Evernote/Evernote.md) | Notes export `.enex` | Evernote (.enex) |
 
 ## WeKan's own formats and documents
@@ -155,8 +157,8 @@ never held whole in the browser or in the server's memory on the way:
   that reason, and its partial file is removed;
 - with no limit set, an import may be as large as the free disk space lets it
   finish;
-- a `.zip` export (Slack, Google Takeout, Vikunja, Notion, Plane) is opened from
-  the disk, its entries read as they are needed, and what they inflate to is
+- a `.zip` export (Slack, Google Takeout, Vikunja, Notion, Plane, Rocket.Chat,
+  Fizzy) is opened from the disk, its entries read as they are needed, and what they inflate to is
   counted against the limit or the free space; a mailbox is read a message at
   a time, also inside a Takeout zip;
 - JSON is built from the file a chunk at a time (`server/lib/streamJson.js`),

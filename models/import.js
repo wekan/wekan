@@ -153,7 +153,7 @@ Meteor.methods({
     // So are mail (raw MIME, whose "Name <address>" would read as a tag), an
     // iCalendar, chat and note text, and the Slack and Google Takeout zips:
     // each is parsed first, and what was parsed is sanitized.
-    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'notion' || importSource === 'plane' ? board
+    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'rocketchat' || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'fizzy' || importSource === 'notion' || importSource === 'plane' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -401,6 +401,24 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, 'vikunja', this);
         creator = new KanboardCreator(data, 'vikunja');
         break;
+      case 'fizzy':
+        // Fizzy's account export or personal data export - see
+        // models/lib/fizzyFormat.js. server/lib/fizzyArchive.js opens the
+        // .zip under size limits; the parsed tasks are sanitized below.
+        check(board, Match.OneOf(Object, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          if (importedBoard && typeof importedBoard === 'object'
+            && (typeof importedBoard.zipFile === 'string' || typeof importedBoard.zipBase64 === 'string')) {
+            importedBoard = await require('/server/lib/fizzyArchive').readFizzyExport(importedBoard);
+          }
+          importedBoard = EXTERNAL_PARSERS.fizzy(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'fizzy', this);
+        creator = new KanboardCreator(data, 'fizzy');
+        break;
       case 'quire':
         // A Quire project CSV - see models/lib/quireCsvFormat.js.
         check(board, String);
@@ -535,6 +553,7 @@ Meteor.methods({
       case 'evernote':
       case 'telegram':
       case 'discord':
+      case 'rocketchat':
         // Mail, calendars, chats and notes - models/lib/mailFormat.js,
         // icalendarFormat.js, chatExportFormats.js, enexFormat.js and
         // googleTakeoutFormat.js. The zips and the MIME and XML decoders are

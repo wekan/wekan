@@ -14,9 +14,9 @@ const EXTENSIONS = {
   wekan: 'json', csv: 'csv', scsv: 'csv', tsv: 'tsv',
   markdown: 'md', leo: 'leo', opml: 'opml', orgmode: 'org', todotxt: 'txt', taskwarrior: 'json', focalboard: 'jsonl',
   todoist: 'csv', meistertask: 'csv', obsidian: 'md', linear: 'csv', ticktick: 'csv', clickup: 'csv', nullboard: 'nbx',
-  pivotal: 'csv', redmine: 'csv', notion: 'csv', quire: 'csv', superproductivity: 'json', vikunja: 'zip',
+  pivotal: 'csv', redmine: 'csv', notion: 'csv', quire: 'csv', superproductivity: 'json', vikunja: 'zip', fizzy: 'zip',
   planner: 'xlsx', monday: 'xlsx', wrike: 'xlsx', teamwork: 'xlsx', businessmap: 'xlsx',
-  mbox: 'mbox', enex: 'enex', mattermost: 'jsonl',
+  mbox: 'mbox', enex: 'enex', mattermost: 'jsonl', rocketchat: 'zip',
 };
 export const extensionOf = format => EXTENSIONS[format] || 'json';
 

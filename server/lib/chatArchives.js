@@ -222,4 +222,68 @@ async function readDiscordExport(value) {
   return { exports, attachedFiles: files };
 }
 
-module.exports = { readSlackExport, readGoogleTakeout, readTelegramExport, readDiscordExport, MAX_ZIP_BYTES, MAX_INFLATED_BYTES };
+// Rocket.Chat: "Download my data" as JSON - channels.json, a { roomId,
+// roomName, type } line per room, <roomName>.json beside it for each room, a
+// message a line, and assets/<fileId>-<fileName> - or the zip its own CSV
+// importer reads: users.csv, channels.csv and <channel>/<file>.csv. Either may
+// sit in a folder of its own inside the zip. Into what
+// models/lib/chatExportFormats.js parseRocketChatExport reads.
+async function readRocketChatExport(value) {
+  const what = 'Rocket.Chat export';
+  const { entries, read, bytes } = await openZip(value, what);
+  const shallowest = name => entries.filter(e => base(e.path).toLowerCase() === name)
+    .sort((a, b) => parts(a.path).length - parts(b.path).length)[0];
+  const dirOf = entry => parts(entry.path).slice(0, -1).join('/');
+  const inDir = (dir, rel) => [dir, rel].filter(Boolean).join('/');
+  const byPath = new Map(entries.map(e => [parts(e.path).join('/'), e]));
+  const lines = text => String(text).split(/\r?\n/).filter(line => line.trim()).map(line => {
+    try { return JSON.parse(line); } catch (error) { return null; }
+  }).filter(Boolean);
+  const channelsJson = shallowest('channels.json');
+  if (channelsJson) {
+    const dir = dirOf(channelsJson);
+    const rooms = [];
+    for (const room of lines(await read(channelsJson))) {
+      const name = String(room.roomName || room.roomId || '');
+      const entry = name && byPath.get(inDir(dir, `${name}.json`));
+      if (!entry || name.includes('/')) continue;
+      // eslint-disable-next-line no-await-in-loop
+      rooms.push({ name, type: room.type, messages: lines(await read(entry)) });
+    }
+    if (!rooms.length) throw new Error(`${what}: channels.json names no room file beside it`);
+    // Only the files the messages name are read.
+    const attachedFiles = {};
+    for (const room of rooms) {
+      for (const m of room.messages) {
+        for (const a of Array.isArray(m && m.attachments) ? m.attachments : []) {
+          if (!a || !a.fileId || !a.fileName) continue;
+          const rel = `assets/${a.fileId}-${a.fileName}`;
+          const entry = byPath.get(inDir(dir, rel));
+          // eslint-disable-next-line no-await-in-loop
+          if (entry && !attachedFiles[rel]) attachedFiles[rel] = (await bytes(entry)).toString('base64');
+        }
+      }
+    }
+    return { rooms, attachedFiles };
+  }
+  const anchor = shallowest('channels.csv') || shallowest('users.csv');
+  if (!anchor) throw new Error(`${what} has no channels.json and no channels.csv`);
+  const dir = dirOf(anchor);
+  const depth = parts(dir).length;
+  const top = name => byPath.get(inDir(dir, name));
+  const folders = {};
+  for (const entry of entries) {
+    const path = parts(entry.path);
+    if (path.length !== depth + 2 || path.slice(0, depth).join('/') !== dir || !/\.csv$/i.test(path[depth + 1])) continue;
+    // eslint-disable-next-line no-await-in-loop
+    (folders[path[depth]] = folders[path[depth]] || []).push(await read(entry));
+  }
+  // The CSV's rows are read by the parser (rocketChatCsvRooms).
+  return { csv: {
+    users: top('users.csv') ? await read(top('users.csv')) : '',
+    channels: top('channels.csv') ? await read(top('channels.csv')) : '',
+    folders,
+  } };
+}
+
+module.exports = { readSlackExport, readGoogleTakeout, readTelegramExport, readDiscordExport, readRocketChatExport, openZip, MAX_ZIP_BYTES, MAX_INFLATED_BYTES };

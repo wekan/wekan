@@ -47,6 +47,12 @@ export function validateImportSourceShape(source, value) {
     case 'ical': valid = typeof value === 'string' && /BEGIN:VCALENDAR/i.test(value); break;
     case 'mattermost': valid = (typeof value === 'string' && /"type"\s*:\s*"version"/.test(value))
       || (Array.isArray(value?.jsonLines) && value.jsonLines.some(line => line && line.type === 'version')); break;
+    // Rocket.Chat and Fizzy: an export .zip, or the text of one room's or
+    // card's .json.
+    case 'fizzy':
+    case 'rocketchat': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
+      || typeof value?.zipFile === 'string'
+      || (typeof value === 'string' && value.trim().length > 0); break;
     case 'evernote': valid = typeof value === 'string' && /<en-export[\s>]/.test(value); break;
     case 'telegram': valid = arrayAt(value, 'messages') || arrayAt(value?.chats, 'list'); break;
     case 'discord': valid = (Array.isArray(value) ? value : [value]).every(e => e && e.channel && Array.isArray(e.messages)); break;

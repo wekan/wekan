@@ -19,13 +19,13 @@ const TOOL_GROUPS = [
 const MEMBERS = {
   wekan: ['wekan', 'json', 'json-no-attachments', 'zip'],
   kanban: ['trello', 'trello-api', 'trellozip', 'kanboard', 'deck', 'openproject', 'asana', 'zenkit', 'planner', 'monday', 'wrike',
-    'wrikeworkflow', 'teamwork', 'businessmap', 'clickup', 'notion', 'plane', 'taiga', 'focalboard', 'nullboard', 'kanri',
+    'wrikeworkflow', 'teamwork', 'businessmap', 'clickup', 'notion', 'plane', 'fizzy', 'taiga', 'focalboard', 'nullboard', 'kanri',
     'obsidian', 'meistertask', 'quire'],
   issues: ['jira', 'github', 'gitlab', 'gitea', 'forgejo', 'redmine', 'linear', 'pivotal'],
   tasks: ['todoist', 'ticktick', 'tasksorg', 'superproductivity', 'todotxt', 'taskwarrior', 'vikunja'],
   spreadsheets: ['csv', 'excel'],
   text: ['markdown', 'leo', 'opml', 'orgmode'],
-  messages: ['mail', 'mbox', 'ical', 'googletakeout', 'slack', 'mattermost', 'telegram', 'whatsapp', 'discord', 'evernote', 'enex'],
+  messages: ['mail', 'mbox', 'ical', 'googletakeout', 'slack', 'mattermost', 'telegram', 'whatsapp', 'discord', 'rocketchat', 'evernote', 'enex'],
   api: ['planka', 'mstodo', 'kanbanflow', 'basecamp', 'googletasks', 'googlekeep'],
 };
 const GROUP_OF = new Map(Object.entries(MEMBERS).flatMap(([group, keys]) => keys.map(key => [key, group])));

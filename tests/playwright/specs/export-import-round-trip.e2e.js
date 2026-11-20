@@ -28,7 +28,10 @@ const ROUND_TRIPS = {
   mattermost: ['mattermost', 'text'],
   planner: ['planner', 'excel'], monday: ['monday', 'excel'], wrike: ['wrike', 'excel'], teamwork: ['teamwork', 'excel'],
   businessmap: ['businessmap', 'excel'],
-  vikunja: ['vikunja', 'zip'],
+  vikunja: ['vikunja', 'zip'], fizzy: ['fizzy', 'zip'],
+  // Rocket.Chat is not here: its CSV importer has no display name for a
+  // channel and takes only [0-9a-zA-Z-_.] in its name, so "Alpha Card" comes
+  // back as "#alpha-card" - tests/chatExportFormats.test.cjs round-trips it.
 };
 // What each tool's file keeps of the card besides its title, as found
 // 2026-11-20. A format that keeps less fails the test; one that keeps more
@@ -79,6 +82,7 @@ const KEEPS = {
   teamwork: ['description', 'label', 'due'],
   businessmap: ['description', 'comment', 'label', 'due'],
   vikunja: ['description', 'checklist', 'comment', 'dependency', 'label', 'due'],
+  fizzy: ['description', 'checklist', 'comment', 'label', 'due'],
 };
 const DESCRIPTION = 'Round trip description';
 const STEP = 'Round trip step';

@@ -133,7 +133,8 @@ Body &amp; more</t>
     // which sanitizing the raw text as markup would break (tests/vikunjaFormat.test.cjs).
     // And a Notion export, whose zip is opened on the server (tests/notionFormat.test.cjs).
     // And a Plane export, whose CSV cells hold JSON (tests/planeFormat.test.cjs).
-    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \|\| importSource === 'vikunja' \|\| importSource === 'notion' \|\| importSource === 'plane' \? board\s*: sanitizeImported\(board, importSource, this\)/);
+    // And a Fizzy export, whose rich text is HTML inside JSON (tests/fizzyFormat.test.cjs).
+    assert.match(src, /importSource === 'leo' \|\| importSource === 'opml' \|\| importSource === 'vikunja' \|\| importSource === 'fizzy' \|\| importSource === 'notion' \|\| importSource === 'plane' \? board\s*: sanitizeImported\(board, importSource, this\)/);
     const leoCase = src.slice(src.indexOf("case 'leo':"), src.indexOf('default:', src.indexOf("case 'leo':")));
     assert.match(leoCase, /check\(board, String\)/);
     assert.match(leoCase, /if \(!Meteor\.isServer\) return undefined;/);

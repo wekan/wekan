@@ -67,6 +67,7 @@ page or a format in the export menu has no page here.
 | [Linear](./Linear/Linear.md) | yes | yes |
 | [Notion](./Notion/Notion.md) | yes | yes |
 | [Redmine](./Redmine/Redmine.md) | yes | yes |
+| [Fizzy](./Fizzy/Fizzy.md) | yes | yes |
 | [Plane](./Plane/Plane.md) | yes | — |
 | [Taiga](./Taiga/Taiga.md) | yes | yes |
 | [Pivotal Tracker](./Pivotal-Tracker/Pivotal-Tracker.md) | yes | yes |
@@ -100,6 +101,7 @@ page or a format in the export menu has no page here.
 | [Telegram](./Telegram/Telegram.md) | yes | — |
 | [WhatsApp](./WhatsApp/WhatsApp.md) | yes | — |
 | [Discord](./Discord/Discord.md) | yes | — |
+| [Rocket.Chat](./Rocket-Chat/Rocket-Chat.md) | yes | yes |
 | [Evernote](./Evernote/Evernote.md) | yes | yes |
 
 The [overview](./External-Tools.md) groups them by kind.

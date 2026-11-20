@@ -20,9 +20,10 @@ async function main() {
   test('every source is described once, with what its file is sent as', () => {
     const keys = reg.IMPORT_SOURCES.map(s => s.key);
     assert.equal(new Set(keys).size, keys.length, 'no source twice');
-    // 43, the six fetched from a service's API (models/lib/apiImportServices.js),
-    // and the nine mail, calendar, chat and note sources (mail ... evernote).
-    assert.equal(keys.length, 58, "every source the import page offers");
+    // 44 with Fizzy, the six fetched from a service's API
+    // (models/lib/apiImportServices.js), and the ten mail, calendar, chat and
+    // note sources (mail ... evernote, Rocket.Chat among them).
+    assert.equal(keys.length, 60, "every source the import page offers");
     for (const source of reg.IMPORT_SOURCES) {
       assert.ok(source.product || source.name, source.key);
       assert.ok(['text', 'json', 'excel', 'rows'].includes(source.send), `${source.key} send`);
@@ -53,8 +54,8 @@ async function main() {
   test('the many-files lists are read from it', () => {
     assert.deepEqual(many.EXCEL_SOURCES, reg.IMPORT_SOURCES.filter(s => s.send === 'excel').map(s => s.key));
     // Telegram and Discord: the export folder zipped, with the message files beside the JSON.
-    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'googletakeout', 'notion', 'plane', 'slack', 'telegram', 'vikunja', 'wekan']);
-    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord'\}/);
+    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'fizzy', 'googletakeout', 'notion', 'plane', 'rocketchat', 'slack', 'telegram', 'vikunja', 'wekan']);
+    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy'\}/);
     assert.deepEqual(many.OWN_CREATOR_SOURCES.sort(), ['csv', 'excel', 'jira', 'trello', 'wekan']);
     // api.py cannot import JavaScript; its lists must agree by hand.
     const api = read('api.py');

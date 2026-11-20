@@ -40,6 +40,17 @@ async function renderExternalExport(boardId, format, fields) {
     const { vikunjaArchiveFiles } = require('/models/lib/vikunjaFormat');
     return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(vikunjaArchiveFiles(built)) };
   }
+  // Fizzy's account export: data/<table>/<id>.json (models/lib/fizzyFormat.js).
+  if (format === 'fizzy') {
+    const { fizzyArchiveFiles } = require('/models/lib/fizzyFormat');
+    return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(fizzyArchiveFiles(built)) };
+  }
+  // Rocket.Chat's CSV importer zip: users.csv, channels.csv and a
+  // messages.csv per channel (models/lib/chatExportFormats.js).
+  if (format === 'rocketchat') {
+    const { rocketChatCsvFiles } = require('/models/lib/chatExportFormats');
+    return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(rocketChatCsvFiles(built)) };
+  }
   if (WORKBOOKS[format]) {
     return { contentType: XLSX, body: await WORKBOOKS[format]()(built) };
   }

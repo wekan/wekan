@@ -21,6 +21,7 @@ import { parseBusinessmapSheets } from './businessmapFormat.js';
 import { parseSuperProductivity } from './superProductivityFormat.js';
 import { parseTaiga } from './taigaFormat.js';
 import { parseVikunjaExport } from './vikunjaFormat.js';
+import { parseFizzyExport } from './fizzyFormat.js';
 import { parseWrikeRows } from './wrikeFormat.js';
 import { parseTeamworkSheet } from './teamworkFormat.js';
 import { parseQuireCsv } from './quireCsvFormat.js';
@@ -35,7 +36,7 @@ import { parseGoogleTasksApi } from './googletasksApiFormat.js';
 import { parseGoogleKeepApi } from './googlekeepApiFormat.js';
 import { issueAttachments } from './issueAttachments.js';
 import { parseICalendar } from './icalendarFormat.js';
-import { parseMattermostBulk, parseTelegramExport, parseWhatsAppChat, parseDiscordExport } from './chatExportFormats.js';
+import { parseMattermostBulk, parseTelegramExport, parseWhatsAppChat, parseDiscordExport, parseRocketChatExport } from './chatExportFormats.js';
 import {
   gitlabScrumPlanning, openProjectScrumPlanning, asanaScrumPlanning, STORY_POINTS_FIELD,
 } from './externalScrumPlanning.js';
@@ -1329,6 +1330,7 @@ export const EXTERNAL_PARSERS = {
   taiga: parseTaiga,
   // Vikunja's data export: data.json, as server/lib/vikunjaArchive.js reads it from the zip.
   vikunja: parseVikunjaExport,
+  fizzy: parseFizzyExport,
   // Wrike's Excel import template, as rows of its Tasks sheet (server/lib/wrikeWorkbook.js).
   wrike: parseWrikeRows,
   // Teamwork.com's Excel task import template, as a sheet of rows (server/lib/teamworkWorkbook.js).
@@ -1352,6 +1354,7 @@ export const EXTERNAL_PARSERS = {
   // the server (models/import.js): their decoders are server-only.
   ical: parseICalendar,
   mattermost: parseMattermostBulk,
+  rocketchat: parseRocketChatExport,
   telegram: parseTelegramExport,
   whatsapp: parseWhatsAppChat,
   discord: parseDiscordExport,

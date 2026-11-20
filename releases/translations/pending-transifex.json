@@ -3343,6 +3343,14 @@
     {
       "key": "clear-problems",
       "since": "2026-11-11"
+    },
+    {
+      "key": "import-board-instruction-fizzy",
+      "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-rocketchat",
+      "since": "2026-11-20"
     }
   ]
 }

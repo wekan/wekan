@@ -34,6 +34,7 @@ import { formatBusinessmapSheets } from './businessmapFormat.js';
 import { formatSuperProductivity } from './superProductivityFormat.js';
 import { formatTaiga } from './taigaFormat.js';
 import { formatVikunja } from './vikunjaFormat.js';
+import { formatFizzy } from './fizzyFormat.js';
 import { formatWrikeRows } from './wrikeFormat.js';
 import { formatWrikeWorkflow } from './wrikeWorkflow.js';
 import { formatTeamworkSheet } from './teamworkFormat.js';
@@ -42,7 +43,7 @@ import { formatNotionCsv } from './notionFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatMbox } from './mailFormat.js';
 import { formatEnex } from './enexFormat.js';
-import { formatMattermostBulk } from './chatExportFormats.js';
+import { formatMattermostBulk, formatRocketChat } from './chatExportFormats.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
@@ -561,6 +562,9 @@ export const formatters = {
   // Vikunja's data export: projects that models/export.js writes as the .zip
   // (vikunjaArchiveFiles, server/lib/vikunjaArchive.js); round-trips with parseVikunjaExport.
   vikunja: data => formatVikunja(data),
+  // Fizzy's account export, which its account import reads: rows here, the
+  // .zip written by server/lib/renderExternalExport.js (fizzyArchiveFiles).
+  fizzy: data => formatFizzy(data),
   // Wrike's Excel import template: rows models/export.js writes as .xlsx
   // (server/lib/wrikeWorkbook.js); round-trips with parseWrikeRows.
   wrike: formatWrikeRows,
@@ -585,6 +589,9 @@ export const formatters = {
   mbox: formatMbox,
   enex: data => formatEnex(data),
   mattermost: formatMattermostBulk,
+  // The .zip Rocket.Chat's CSV importer reads: rows here, the files written by
+  // server/lib/renderExternalExport.js (rocketChatCsvFiles).
+  rocketchat: formatRocketChat,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

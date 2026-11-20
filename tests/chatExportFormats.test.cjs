@@ -179,3 +179,108 @@ test('a zipped DiscordChatExporter folder with --media: local attachments are at
   for (const key of ['telegram', 'discord']) assert.match(sources, new RegExp(`key: '${key}'[^\\n]*files: \\['\\.json', '\\.zip'\\], zipSend: 'zip'`));
   assert.match(fs.readFileSync(path.join(__dirname, '../server/lib/messageImports.js'), 'utf8'), /archives\.readTelegramExport\(value\) : archives\.readDiscordExport\(value\)/);
 });
+
+// Rocket.Chat, as its source writes and reads it: "Download my data" as JSON
+// (apps/meteor/server/lib/dataExport - channels.json a { roomId, roomName,
+// type } line per room, <roomName>.json a { msg, username, ts, attachments,
+// type } line per message, assets/<fileId>-<fileName>) and the CSV importer's
+// zip (apps/meteor/server/lib/import/csv/CsvImporter.ts).
+const jsonl = rows => rows.map(row => JSON.stringify(row)).join('\n') + '\n';
+
+test('Rocket.Chat "Download my data": rooms by type, messages in order, files from assets/ attached', async () => {
+  const { readRocketChatExport } = require('../server/lib/chatArchives');
+  const data = await readRocketChatExport(zipOf({
+    'export/channels.json': jsonl([
+      { roomId: 'R1', roomName: 'general', type: 'c' },
+      { roomId: 'R2', roomName: 'board-team', type: 'p' },
+      { roomId: 'R3R4', roomName: 'R3R4', type: 'd' },
+      { roomId: 'R5', roomName: '../escape', type: 'c' },
+    ]),
+    'export/general.json': jsonl([
+      { msg: 'Second', username: 'matti', ts: '2026-11-16T10:05:00.000Z' },
+      { msg: 'First', username: 'anna', ts: '2026-11-16T10:00:00.000Z',
+        attachments: [{ type: 'file', title: 'plan.pdf', fileId: 'F1', fileName: 'plan.pdf', url: '/file-upload/F1/plan.pdf', remote: false }] },
+      { msg: 'User joined the channel', username: 'matti', ts: '2026-11-16T09:59:00.000Z', type: 'uj' },
+      { msg: '', username: 'anna', ts: '2026-11-16T10:06:00.000Z', attachments: [{ type: 'file', fileId: 'F2', fileName: 'gone.png' }] },
+    ]),
+    'export/board-team.json': jsonl([{ msg: 'Private', username: 'anna', ts: '2026-11-16T11:00:00.000Z' }]),
+    'export/R3R4.json': jsonl([{ msg: 'Hi', username: 'anna', ts: '2026-11-16T12:00:00.000Z' }, { msg: 'Hello', username: 'matti', ts: '2026-11-16T12:01:00.000Z' }]),
+    'export/assets/F1-plan.pdf': '%PDF-1.4',
+    'export/user.json': '{"username":"anna"}',
+  }));
+  const board = chat.parseRocketChatExport(data);
+  assert.deepStrictEqual(board.tasks.map(t => [t.title, t.column_name, t.swimlane_name]), [
+    ['#general', 'Channels', 'Rocket.Chat'],
+    ['#board-team', 'Groups', 'Rocket.Chat'],
+    // A direct message room is named by its people, not its id.
+    ['anna, matti', 'Direct messages', 'Rocket.Chat'],
+  ]);
+  const [general] = board.tasks;
+  assert.deepStrictEqual(general.comments.map(c => [c.author, c.text, c.date]), [
+    ['anna', 'First', '2026-11-16T10:00:00.000Z'],
+    ['matti', 'Second', '2026-11-16T10:05:00.000Z'],
+  ]);
+  assert.deepStrictEqual(general.attachments.map(a => [a.name, Buffer.from(a.file, 'base64').toString()]), [['plan.pdf', '%PDF-1.4']]);
+  assert.ok(board.unsupported.some(u => /1 system message/.test(u.reason)), 'the join is reported, not imported');
+  assert.ok(board.unsupported.some(u => /1 file\(s\)/.test(u.reason)), 'a file the zip does not hold is counted');
+});
+
+test('Rocket.Chat: one room\'s .json pasted, and what is not a Rocket.Chat export', () => {
+  const board = chat.parseRocketChatExport(jsonl([{ msg: 'Only room', username: 'anna', ts: '2026-11-16T10:00:00.000Z' }]));
+  assert.deepStrictEqual(board.tasks.map(t => [t.title, t.comments.length]), [['#Rocket.Chat', 1]]);
+  assert.throws(() => chat.parseRocketChatExport({}), /Not a Rocket.Chat export/);
+  assert.throws(() => chat.parseRocketChatExport(jsonl([{ content: 'Discord', author: {} }])), /username and ts/);
+});
+
+test('Rocket.Chat CSV importer zip: channels, users\' names, direct messages', async () => {
+  const { readRocketChatExport } = require('../server/lib/chatArchives');
+  const data = await readRocketChatExport(zipOf({
+    'users.csv': 'anna,anna@example.com,Anna A\nmatti,matti@example.com,Matti M\n',
+    'channels.csv': 'general,anna,public,anna;matti\nsecret,matti,private,matti\n',
+    'general/messages.csv': 'anna,1795338000000,"Hello, ""all""\nsecond line"\nmatti,1795338060000,Reply\n',
+    'directmessages/messages.csv': 'matti,anna,1795338120000,Psst\n',
+  }));
+  const board = chat.parseRocketChatExport(data);
+  assert.deepStrictEqual(board.tasks.map(t => [t.title, t.column_name, t.comments.length]), [
+    ['#general', 'Channels', 2], ['#secret', 'Groups', 0], ['anna, matti', 'Direct messages', 1],
+  ]);
+  assert.deepStrictEqual(board.tasks[0].comments.map(c => [c.author, c.authorName, c.text, c.date]), [
+    ['anna', 'Anna A', 'Hello, "all"\nsecond line', new Date(1795338000000).toISOString()],
+    ['matti', 'Matti M', 'Reply', new Date(1795338060000).toISOString()],
+  ]);
+  await assert.rejects(readRocketChatExport(zipOf({ 'readme.txt': 'x' })), /no channels\.json and no channels\.csv/);
+});
+
+test('Rocket.Chat export: the CSV importer zip, read back the same', async () => {
+  const built = chat.formatRocketChat({ board: { title: 'Plant' }, items: [
+    { title: 'Valve Ö', description: 'Replace, "soon"', creator: 'Anna', createdAt: '2026-11-16T10:00:00.000Z',
+      comments: [{ author: 'matti', text: 'Done\nyesterday', date: '2026-11-16T11:00:00.000Z' }] },
+    { title: 'Valve Ö', creator: 'anna', comments: [] },
+  ] });
+  // Names Rocket.Chat accepts by default, unique, and no header rows.
+  assert.deepStrictEqual(built.channels.map(c => c[0]), ['valve-o', 'valve-o-2']);
+  assert.ok(built.users.every(u => /^[0-9a-zA-Z._-]+$/.test(u[0]) && u[1].endsWith('@wekan.invalid')));
+  const files = chat.rocketChatCsvFiles(built);
+  assert.deepStrictEqual(Object.keys(files).sort(), ['channels.csv', 'users.csv', 'valve-o-2/messages.csv', 'valve-o/messages.csv']);
+  assert.doesNotMatch(files['users.csv'], /^username/);
+  const { readRocketChatExport } = require('../server/lib/chatArchives');
+  const back = chat.parseRocketChatExport(await readRocketChatExport(zipOf(files)));
+  assert.deepStrictEqual(back.tasks.map(t => t.title), ['#valve-o', '#valve-o-2']);
+  assert.deepStrictEqual(back.tasks[0].comments.map(c => [c.author, c.text, c.date]), [
+    ['anna', 'Replace, "soon"', '2026-11-16T10:00:00.000Z'],
+    ['matti', 'Done\nyesterday', '2026-11-16T11:00:00.000Z'],
+  ]);
+  // Negative: a name that is not a safe folder is never a path in the zip.
+  assert.deepStrictEqual(Object.keys(chat.rocketChatCsvFiles({ messages: { '../x': [['a', '1', 'b']], directmessages: [] } })).sort(), ['channels.csv', 'users.csv']);
+});
+
+test('Rocket.Chat is wired into the import page, the server, the export menu and api.py', () => {
+  const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+  assert.match(read('models/lib/importSources.js'), /key: 'rocketchat', name: 'Rocket\.Chat'[^\n]*files: \['\.zip', '\.json'\], zipSend: 'zip'/);
+  assert.match(read('server/lib/messageImports.js'), /readRocketChatExport\(value\)/);
+  assert.match(read('models/import.js'), /case 'rocketchat':/);
+  assert.match(read('models/lib/importSourceShape.js'), /case 'rocketchat':/);
+  assert.match(read('client/components/boards/exportScope.js'), /key: 'rocketchat'[^\n]*path: 'export\/rocketchat', ext: 'zip'/);
+  assert.match(read('server/lib/renderExternalExport.js'), /format === 'rocketchat'[\s\S]*rocketChatCsvFiles\(built\)/);
+  assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{[^}]*'rocketchat'/);
+});

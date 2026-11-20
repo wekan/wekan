@@ -27,10 +27,18 @@
 //   Discord     DiscordChatExporter JSON, one channel or an array of them
 //   Google Chat Google Takeout's Google Chat/Groups/<space>/messages.json and
 //               group_info.json, as { name, members, messages }
+//   Rocket.Chat "Download my data" with "Export as JSON" (account
+//               preferences): a .zip of channels.json - a { roomId, roomName,
+//               type } line per room - and <roomName>.json per room, a
+//               { msg, username, ts, attachments, type } line per message,
+//               with the files under assets/<fileId>-<fileName>; or one
+//               room's .json. Also the .zip Rocket.Chat's own CSV importer
+//               reads, which is what WeKan exports (formatRocketChat).
 
 export const MAX_CHAT_MESSAGES = 200000;
 export const MAX_CHAT_TEXT_LENGTH = 128 * 1024 * 1024;
 import { pagingOf } from './exportPaging.js';
+import { readCsv } from './todoistCsvFormat.js';
 const MESSAGE_LIMIT = 20000; // the text of one message
 
 const clean = value => (typeof value === 'string' ? value : '').replace(/\r\n|\r/g, '\n').trim();
@@ -472,4 +480,154 @@ export function parseGoogleChat(spaces) {
   const { chats, files } = parseGoogleChatSpaces(spaces);
   if (!chats.length) throw new Error('Google Chat export has no spaces');
   return chatBoard('Imported Google Chat', chats, { files });
+}
+
+// ----- Rocket.Chat ---------------------------------------------------------
+
+// Rocket.Chat's room types (core-typings RoomType): c public channel,
+// p private group, d direct message, l omnichannel (livechat).
+const ROCKETCHAT_COLUMNS = { c: 'Channels', p: 'Groups', d: 'Direct messages', l: 'Omnichannel' };
+
+// Rocket.Chat's CSV importer zip (apps/meteor/server/lib/import/csv/CsvImporter.ts),
+// none of its files with a header row:
+//   users.csv                  username, email, name
+//   channels.csv               name, creator, public | private, members a;b;c
+//   <channel>/<any>.csv        username, ts (milliseconds), text
+//   directmessages/<any>.csv   username, other username, ts, text
+// `folders`: { folder: [the texts of its .csv files] }. Into the rooms
+// parseRocketChatExport reads, and the users' names.
+export function rocketChatCsvRooms({ users = '', channels = '', folders = {} } = {}) {
+  const rows = text => readCsv(text, 'Rocket.Chat');
+  const names = {};
+  for (const r of rows(users)) if (clean(r[0])) names[clean(r[0])] = clean(r[2]) || clean(r[0]);
+  const rooms = [];
+  const byName = new Map();
+  for (const r of rows(channels)) {
+    const name = clean(r[0]);
+    if (!name || byName.has(name)) continue;
+    const room = { name, type: /^private$/i.test(clean(r[2])) ? 'p' : 'c', messages: [] };
+    byName.set(name, room);
+    rooms.push(room);
+  }
+  for (const [folder, texts] of Object.entries(folders || {})) {
+    const lines = (Array.isArray(texts) ? texts : [texts]).flatMap(rows);
+    if (folder.toLowerCase() === 'directmessages') {
+      for (const r of lines) {
+        const people = [clean(r[0]), clean(r[1])].filter(Boolean).sort();
+        const pair = people.join(', ');
+        let room = byName.get(`\u0000${pair}`);
+        if (!room) { room = { name: pair, type: 'd', people, messages: [] }; byName.set(`\u0000${pair}`, room); rooms.push(room); }
+        room.messages.push({ username: clean(r[0]), ts: Number(r[2]), msg: r[3] });
+      }
+      continue;
+    }
+    let room = byName.get(folder);
+    if (!room) { room = { name: folder, type: 'c', messages: [] }; byName.set(folder, room); rooms.push(room); }
+    room.messages.push(...lines.map(r => ({ username: clean(r[0]), ts: Number(r[1]), msg: r[2] })));
+  }
+  return { rooms, names };
+}
+
+// data: { rooms: [{ name, type, messages }], attachedFiles } from the JSON
+// zip, or { csv: { users, channels, folders } } from the CSV one, as
+// server/lib/chatArchives.js readRocketChatExport opens them; or the
+// text of one room's .json from "Download my data", a message a line.
+export function parseRocketChatExport(data) {
+  let rooms;
+  let names = {};
+  let carried = null;
+  if (data && data.csv && typeof data.csv === 'object') data = rocketChatCsvRooms(data.csv);
+  if (typeof data === 'string') rooms = [{ name: 'Rocket.Chat', type: 'c', messages: jsonLines(data) }];
+  else if (data && Array.isArray(data.rooms)) {
+    rooms = data.rooms;
+    names = data.names && typeof data.names === 'object' ? data.names : {};
+    carried = data.attachedFiles;
+  } else throw new Error('Not a Rocket.Chat export');
+  rooms = rooms.filter(room => room && Array.isArray(room.messages));
+  const isMessage = m => m && typeof m === 'object' && typeof m.username === 'string' && m.ts !== undefined;
+  if (!rooms.length || !rooms.every(room => room.messages.every(isMessage))) {
+    throw new Error('Not a Rocket.Chat export: no rooms of messages with username and ts');
+  }
+  let files = 0;
+  let system = 0;
+  const chats = rooms.map(room => {
+    const attachments = [];
+    const messages = [];
+    for (const m of room.messages) {
+      // A system message - a join, a leave, a topic change - has a type, and
+      // its msg is the exporter's translation of what happened.
+      if (m.type) { system += 1; continue; }
+      for (const a of Array.isArray(m.attachments) ? m.attachments : []) {
+        if (!a || typeof a !== 'object') continue;
+        const file = a.fileId && a.fileName ? carriedFile(carried, `assets/${a.fileId}-${a.fileName}`, a.fileName) : null;
+        if (file) attachments.push(file);
+        else files += 1;
+      }
+      // The CSV importer's ts is milliseconds; the JSON export's an ISO date.
+      const at = typeof m.ts === 'number' || /^\d+$/.test(String(m.ts)) ? Number(m.ts) : m.ts;
+      messages.push(message(m.msg, m.username, names[m.username], at));
+    }
+    // A direct message room is named by its id in the JSON export: its
+    // people name it instead.
+    const people = [...new Set([...(Array.isArray(room.people) ? room.people : []), ...room.messages.map(m => m.username)]
+      .map(clean).filter(Boolean))].sort();
+    const title = room.type === 'd' ? (people.join(', ') || clean(room.name))
+      : room.type === 'l' ? clean(room.name) : `#${clean(room.name)}`;
+    return { title, column: ROCKETCHAT_COLUMNS[room.type] || 'Channels', swimlane: 'Rocket.Chat', attachments, messages };
+  });
+  const unsupported = system ? [{ path: '/messages/system', reason: `${system} system message(s) - joins, leaves, topic changes - are not imported` }] : [];
+  return chatBoard('Imported Rocket.Chat', chats, { files, unsupported });
+}
+
+// A board as the zip Rocket.Chat's CSV importer reads (Administration ->
+// Import -> CSV): a card is a public channel, its description and comments
+// the channel's messages, each by its author at its time. Names are those
+// Rocket.Chat accepts by default ([0-9a-zA-Z-_.]). The rows, as
+// rocketChatCsvFiles writes them into users.csv, channels.csv and
+// <channel>/messages.csv.
+export function formatRocketChat(collected = {}) {
+  const items = (collected.items || []);
+  const names = new Set();
+  const users = new Map();
+  const user = value => {
+    const name = slug(value, 'wekan').replace(/-/g, '.').slice(0, 32);
+    if (!users.has(name)) users.set(name, clean(value) || name);
+    return name;
+  };
+  const channels = [];
+  const messages = {};
+  items.forEach((item, index) => {
+    let name = slug(item.title, `card-${index + 1}`);
+    for (let n = 2; names.has(name); n += 1) name = `${slug(item.title, 'card').slice(0, 56)}-${n}`;
+    names.add(name);
+    const creator = user(item.creator || 'wekan');
+    const at = Date.parse(item.createdAt || 0) || 0;
+    const rows = [];
+    if (clean(item.description)) rows.push([creator, String(at || 1), clean(item.description)]);
+    for (const comment of item.comments || []) {
+      rows.push([user(comment.author || 'wekan'), String(Date.parse(comment.date || 0) || at || 1), clean(comment.text)]);
+    }
+    channels.push({ name, creator, people: [...new Set([creator, ...rows.map(r => r[0])])] });
+    messages[name] = rows;
+  });
+  return {
+    users: [...users].map(([name, label]) => [name, `${name}@wekan.invalid`, label]),
+    channels: channels.map(c => [c.name, c.creator, 'public', c.people.join(';')]),
+    messages,
+  };
+}
+
+const csvCell = value => {
+  const text = String(value == null ? '' : value);
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+};
+const csvText = rows => rows.map(row => row.map(csvCell).join(',')).join('\n') + (rows.length ? '\n' : '');
+
+// formatRocketChat's rows as the zip's files: { path: text }.
+export function rocketChatCsvFiles(built = {}) {
+  const files = { 'users.csv': csvText(built.users || []), 'channels.csv': csvText(built.channels || []) };
+  for (const [name, rows] of Object.entries(built.messages || {})) {
+    if (/^[0-9a-zA-Z._-]+$/.test(name) && name.toLowerCase() !== 'directmessages') files[`${name}/messages.csv`] = csvText(rows);
+  }
+  return files;
 }
