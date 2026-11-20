@@ -338,6 +338,14 @@ list are one column, where each made a column of its own.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4666bb60f42acbc2b774c1657171636b7b900767">Nullboard exports are written a page at a time too</a>. Thanks to xet7.</summary>
+
+Its lists, the board's and one per title of a list that is not exported, are
+found over the whole board, and each is written around its notes.
+
+</details>
+
 **Cards** - Kanban and Scrum flow fields, each one hidden until a board shows
 it.
 
