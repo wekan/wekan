@@ -360,10 +360,12 @@ if (Meteor.isServer) {
     let user = null;
     const respond = async () => {
       await require('/server/lib/adminOnlyCustomFields').assertFieldExport(boardId, user?._id);
+      const fields = parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS);
+      // A format of independent parts is written a page of cards at a time.
+      if (await require('/server/lib/renderExternalExport').streamExternalExport(res, boardId, format, fields)) return;
       // The bytes for this format (server/lib/renderExternalExport.js), shared
       // with "Export all boards" (server/lib/exportAllBoards.js).
-      const rendered = await require('/server/lib/renderExternalExport').renderExternalExport(boardId, format,
-        parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS));
+      const rendered = await require('/server/lib/renderExternalExport').renderExternalExport(boardId, format, fields);
       if (rendered.json !== undefined) {
         sendJsonResult(res, { code: 200, data: rendered.json });
         return;

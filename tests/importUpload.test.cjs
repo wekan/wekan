@@ -153,3 +153,17 @@ test('Admin Panel / Settings / Security sets the largest import; empty is no lim
     assert.strictEqual(typeof en[key], 'string', key);
   }
 });
+
+test('WeKan\'s own .zip and Trello\'s package use the same upload, limit and disk check', () => {
+  const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
+  const zip = read('models/importZip.js');
+  assert.match(zip, /receiveUpload\(req, \{ userId: 'import-zip', source: 'wekan', limit \}\)/);
+  assert.match(zip, /importLimitBytes\(await Settings\.findOneAsync/);
+  assert.match(zip, /message === 'import-disk-full' \? 507/);
+  assert.doesNotMatch(zip, /5 \* 1024 \* 1024 \* 1024/, 'no fixed 5 GB cap: the limit, else the free space');
+  const trello = read('server/routes/importTrelloZip.js');
+  assert.match(trello, /receiveUpload\(req, \{ userId, source: 'trello', limit \}\)/);
+  assert.match(trello, /importZipFile\(upload\.file, userId, membersMode, inflate\)/);
+  assert.doesNotMatch(trello, /const MAX_ZIP_BYTES = 200/, 'no fixed 200 MB cap');
+  assert.match(trello, /await removeUpload\(upload\.uploadId\)/, 'the upload is removed once imported');
+});

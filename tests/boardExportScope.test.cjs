@@ -450,7 +450,9 @@ test('every downloadable format carries the selection, and the server reads it',
   }
   // The route hands the selection to the shared renderer
   // (server/lib/renderExternalExport.js), which hands it to the collector.
-  assert.ok(/renderExternalExport\(boardId, format,\s*\n\s*parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\)/
+  // The selection is parsed once and given to both the streamed path (.mbox,
+  // .enex, a page at a time) and the shared renderer.
+  assert.ok(/const fields = parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\);[\s\S]{0,300}streamExternalExport\(res, boardId, format, fields\)[\s\S]{0,300}renderExternalExport\(boardId, format, fields\)/
     .test(read('models/export.js')),
     'and the external-tool exports (Trello, Jira, GitHub, Markdown, ...) must read it too');
 });

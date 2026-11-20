@@ -14,7 +14,6 @@ const MAX_IMPORT_DOCUMENT_BYTES = 256 * 1024 * 1024;
 
 runOnServer(function () {
   const fs = Npm.require('fs');
-  const os = Npm.require('os');
   const path = Npm.require('path');
   const { WebApp } = require('meteor/webapp');
   const { safeRoute } = require('/server/apiMiddleware');
@@ -44,47 +43,33 @@ runOnServer(function () {
   // and the name is never used as a path - a temp name is generated instead, so
   // an entry called `../../etc/cron.d/x` can only ever be an attachment called
   // that.
-  const MAX_ZIP_BYTES = (() => {
+  // The upload is streamed to WRITABLE_PATH/import-uploads by the same receiver
+  // as every Import page upload (server/lib/importUpload.js): the free space is
+  // checked before and while it is written, and the largest import is the
+  // Admin Panel's (Settings / Security), else WEKAN_IMPORT_ZIP_MAX_BYTES when
+  // set, else none - as large as the free disk space lets it finish. Its name
+  // is generated, never the archive's, and the entries below are matched by
+  // name, never used as paths.
+  const receiveToTempFile = async req => {
+    const { receiveUpload } = require('/server/lib/importUpload');
+    const { importLimitBytes } = require('/server/lib/importDiskSpace');
+    const Settings = require('/models/settings').default;
     const configured = parseInt(process.env.WEKAN_IMPORT_ZIP_MAX_BYTES, 10);
-    return Number.isFinite(configured) && configured > 0 ? configured : 5 * 1024 * 1024 * 1024;
-  })();
-
-  const receiveToTempFile = req => new Promise((resolve, reject) => {
-    // The name is ours, not the archive's - but it is still built with
-    // safeEntryPath, which resolves the result and requires it to be BENEATH the
-    // temp directory. A generated name that cannot escape is worth as much as
-    // the check that proves it, and tests/fixedVulnerabilityClasses.test.cjs
-    // asks every file that reads an archive to show one (ZipBleed).
-    const tempPath = safeEntryPath(os.tmpdir(),
-      [`wekan-import-${Date.now()}-${Math.random().toString(36).slice(2)}.zip`]);
-    if (!tempPath) {
-      reject(new Error('import-temp-path'));
-      return;
+    const limit = importLimitBytes(await Settings.findOneAsync({}, { fields: { importMaxMegabytes: 1 } }))
+      || (Number.isFinite(configured) && configured > 0 ? configured : 0);
+    try {
+      const { file, size } = await receiveUpload(req, { userId: 'import-zip', source: 'wekan', limit });
+      // The generated name is still proven to be beneath the upload directory
+      // (ZipBleed: tests/fixedVulnerabilityClasses.test.cjs).
+      const tempPath = safeEntryPath(require('path').dirname(file), [require('path').basename(file)]);
+      if (!tempPath) throw new Error('import-temp-path');
+      return { tempPath, received: size };
+    } catch (error) {
+      if (error && error.code === 'import-too-large') throw new Error('import-zip-too-large');
+      if (error && error.code === 'import-disk-full') throw new Error('import-disk-full');
+      throw error;
     }
-    const out = fs.createWriteStream(tempPath);
-    let received = 0;
-    let aborted = false;
-
-    const fail = error => {
-      if (aborted) return;
-      aborted = true;
-      try { req.destroy(); } catch (e) { /* already gone */ }
-      try { out.destroy(); } catch (e) { /* already gone */ }
-      fs.promises.unlink(tempPath).catch(() => {});
-      reject(error);
-    };
-
-    req.on('data', chunk => {
-      received += chunk.length;
-      // A cap that is checked as it arrives, not after: the point of streaming
-      // is that an oversized upload never lands.
-      if (received > MAX_ZIP_BYTES) fail(new Error('import-zip-too-large'));
-    });
-    req.on('error', fail);
-    out.on('error', fail);
-    out.on('finish', () => (aborted ? undefined : resolve({ tempPath, received })));
-    req.pipe(out);
-  });
+  };
 
   /**
    * @operation importZip
@@ -239,11 +224,11 @@ runOnServer(function () {
         answer(400, { error: error.reason });
         return;
       }
-      const message = error && error.message === 'import-zip-too-large'
-        ? 'import-zip-too-large'
+      const message = error && ['import-zip-too-large', 'import-disk-full'].includes(error.message)
+        ? error.message
         : 'import-failed';
       console.error('importZip failed', error);
-      answer(message === 'import-zip-too-large' ? 413 : 500, { error: message });
+      answer(message === 'import-zip-too-large' ? 413 : message === 'import-disk-full' ? 507 : 500, { error: message });
     } finally {
       if (tempPath) fs.promises.unlink(tempPath).catch(() => {});
     }

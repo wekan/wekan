@@ -48,4 +48,41 @@ async function renderExternalExport(boardId, format, fields) {
   return { json: built };
 }
 
-module.exports = { renderExternalExport };
+// The text formats that are a sequence of independent parts, written to the
+// response a page of cards at a time instead of built whole: an .mbox is one
+// message after another, an .enex a head, notes and a tail.
+const STREAMED = {
+  mbox: () => {
+    const { formatMbox } = require('/models/lib/mailFormat');
+    let first = true;
+    return { head: '', page: collected => {
+      const text = formatMbox(collected);
+      const out = first || !text ? text : `\n${text}`;
+      first = false;
+      return out;
+    }, tail: '' };
+  },
+  enex: () => {
+    const { enexHead, enexNotes, ENEX_TAIL } = require('/models/lib/enexFormat');
+    return { head: enexHead(), page: collected => enexNotes(collected.items), tail: ENEX_TAIL };
+  },
+};
+
+// Writes the export to `res` page by page, or answers false when the format
+// is not one that streams.
+async function streamExternalExport(res, boardId, format, fields) {
+  if (!STREAMED[format]) return false;
+  const { externalExportPages } = require('/models/lib/externalExporters');
+  const parts = STREAMED[format]();
+  res.writeHead(200, { 'Content-Type': `${TEXT_TYPES[format]}; charset=utf-8` });
+  if (parts.head) res.write(parts.head);
+  for await (const collected of externalExportPages(boardId, format, fields)) {
+    const text = parts.page(collected);
+    // Wait for the socket when it is full, so the pages do not pile up in memory.
+    if (text && !res.write(text)) await new Promise(resolve => res.once('drain', resolve));
+  }
+  res.end(parts.tail);
+  return true;
+}
+
+module.exports = { renderExternalExport, streamExternalExport, STREAMED };

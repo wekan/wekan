@@ -24,8 +24,10 @@ import {
 // guards count what streams, so nothing is held in memory but the board JSON.
 
 // --- zip-bomb / abuse guards -------------------------------------------------
-const MAX_ZIP_BYTES = 200 * 1024 * 1024; // 200 MB compressed upload cap
-const MAX_TOTAL_UNCOMPRESSED = 1024 * 1024 * 1024; // 1 GB total uncompressed
+// The upload and what its entries inflate to are bounded by the largest
+// import of Admin Panel / Settings / Security, or with none set by the free
+// disk space (server/lib/importUpload.js, importDiskSpace.js) - no fixed cap.
+const DEFAULT_TOTAL_UNCOMPRESSED = 1024 * 1024 * 1024; // when the free space cannot be measured
 const MAX_ENTRIES = 5000; // maximum number of files inside the zip
 const MAX_FILE_BYTES = 100 * 1024 * 1024; // 100 MB per extracted file
 
@@ -172,7 +174,8 @@ async function importSingleBoard(payload, userId) {
 }
 
 // Read and import every board in the zip file, returning { boardIds, errors }.
-async function importZipFile(zipPath, userId, membersMode) {
+async function importZipFile(zipPath, userId, membersMode, maxUncompressed = DEFAULT_TOTAL_UNCOMPRESSED) {
+  const MAX_TOTAL_UNCOMPRESSED = maxUncompressed;
   const unzipper = require('unzipper');
   const zip = await unzipper.Open.file(zipPath);
 
@@ -336,43 +339,29 @@ Meteor.startup(() => {
     // A .zip package: the body-parser does not touch application/zip, so the
     // raw stream is intact. It is written to a temporary file as it arrives,
     // under the same compressed-upload cap, and opened from there.
-    const fs = require('fs');
-    const os = require('os');
-    const path = require('path');
-    const { Random } = require('meteor/random');
-    const tempPath = path.join(os.tmpdir(), `wekan-trello-import-${Random.id()}.zip`);
+    const Settings = require('/models/settings').default;
+    const { receiveUpload, removeUpload } = require('/server/lib/importUpload');
+    const { importLimitBytes, roomFor } = require('/server/lib/importDiskSpace');
+    const limit = importLimitBytes(await Settings.findOneAsync({}, { fields: { importMaxMegabytes: 1 } }));
     const membersMode = (req.query && req.query.membersMode) || '';
-    let total = 0;
-    let aborted = false;
-    const out = fs.createWriteStream(tempPath);
-    const cleanup = () => fs.promises.unlink(tempPath).catch(() => {});
-    const fail = (code, error) => {
-      if (aborted) return;
-      aborted = true;
-      try { req.unpipe(out); out.destroy(); } catch (e) { /* closed */ }
-      cleanup();
-      sendJson(code, { error });
-    };
-    req.on('data', chunk => {
-      total += chunk.length;
-      if (total > MAX_ZIP_BYTES) {
-        fail(413, 'import-trello-zip-too-large');
-        req.destroy();
-      }
-    });
-    req.on('error', () => fail(400, 'import-trello-zip-read-failed'));
-    out.on('error', () => fail(500, 'import-trello-zip-read-failed'));
-    out.on('finish', async () => {
-      if (aborted) return;
-      try {
-        const result = await importZipFile(tempPath, userId, membersMode);
-        sendJson(200, result);
-      } catch (e) {
-        sendJson(400, { error: (e && e.message) || 'import-trello-zip-failed' });
-      } finally {
-        cleanup();
-      }
-    });
-    req.pipe(out);
+    let upload;
+    try {
+      upload = await receiveUpload(req, { userId, source: 'trello', limit });
+    } catch (e) {
+      const code = e && e.code;
+      sendJson(code === 'import-too-large' ? 413 : code === 'import-disk-full' ? 507 : 400,
+        { error: code === 'import-too-large' ? 'import-trello-zip-too-large' : code || 'import-trello-zip-read-failed' });
+      return;
+    }
+    try {
+      const room = await roomFor(require('path').dirname(upload.file));
+      const inflate = limit || (Number.isFinite(room) ? room : DEFAULT_TOTAL_UNCOMPRESSED);
+      const result = await importZipFile(upload.file, userId, membersMode, inflate);
+      sendJson(200, result);
+    } catch (e) {
+      sendJson(400, { error: (e && e.message) || 'import-trello-zip-failed' });
+    } finally {
+      await removeUpload(upload.uploadId);
+    }
   });
 });

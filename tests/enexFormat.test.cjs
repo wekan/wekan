@@ -69,3 +69,24 @@ test('a board exported as .enex reads back as the same notes', () => {
   assert.deepStrictEqual(card.tags, ['shop', 'To Do']);
   assert.strictEqual(card.date_due, '2026-11-20T09:00:00.000Z');
 });
+
+test('a large board is exported a page at a time: the pages together are the whole file', async () => {
+  const mail = await import('../models/lib/mailFormat.js');
+  const items = Array.from({ length: 5 }, (_, i) => ({ cardId: `c${i}`, title: `Card ${i}`, description: `Text ${i}`,
+    creator: 'anna', createdAt: `2026-11-0${i + 1}T10:00:00.000Z`, comments: i % 2 ? [{ text: 'ok', author: 'matti' }] : [] }));
+  const now = new Date('2026-11-16T10:00:00Z');
+  const pages = [items.slice(0, 2), items.slice(2, 4), items.slice(4)];
+  assert.strictEqual(enex.enexHead(now) + pages.map(p => enex.enexNotes(p)).join('') + enex.ENEX_TAIL,
+    enex.formatEnex({ items }, { now }), 'an .enex: head, the notes page by page, tail');
+  assert.strictEqual(pages.map(p => mail.formatMbox({ items: p })).join('\n'), mail.formatMbox({ items }),
+    'an .mbox: the messages page by page');
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
+  const render = read('server/lib/renderExternalExport.js');
+  assert.match(render, /for await \(const collected of externalExportPages\(boardId, format, fields\)\)/);
+  assert.match(render, /if \(text && !res\.write\(text\)\) await new Promise\(resolve => res\.once\('drain', resolve\)\);/,
+    'it waits for the socket, so pages do not pile up in memory');
+  assert.match(read('models/lib/externalExporters.js'), /export async function\* externalExportPages\(boardId, format, fields, pageSize = 500\)/);
+  assert.match(read('models/export.js'), /streamExternalExport\(res, boardId, format, fields\)\) return;/);
+});

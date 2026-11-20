@@ -102,8 +102,15 @@ function enml(item) {
     + `<en-note>${blocks.join('')}</en-note>`;
 }
 
-export function formatEnex({ items = [] } = {}, { now = new Date() } = {}) {
-  const notes = items.map(item => {
+// The parts of an .enex, so a large board can be written a page at a time
+// (server/lib/renderExternalExport.js): the head, the notes of some cards, the
+// tail. formatEnex is the three together.
+export const enexHead = (now = new Date()) => '<?xml version="1.0" encoding="UTF-8"?>\n'
+  + '<!DOCTYPE en-export SYSTEM "http://xml.evernote.com/pub/evernote-export4.dtd">\n'
+  + `<en-export export-date="${toEnexDate(now)}" application="WeKan" version="1">\n`;
+export const ENEX_TAIL = '</en-export>\n';
+export function enexNotes(items = []) {
+  return items.map(item => {
     const created = toEnexDate(item.createdAt);
     const attributes = [
       item.dueAt ? `<reminder-time>${toEnexDate(item.dueAt)}</reminder-time>` : '',
@@ -120,8 +127,9 @@ export function formatEnex({ items = [] } = {}, { now = new Date() } = {}) {
       attributes ? `    <note-attributes>${attributes}</note-attributes>` : '',
       '  </note>',
     ].filter(Boolean).join('\n');
-  });
-  return '<?xml version="1.0" encoding="UTF-8"?>\n'
-    + '<!DOCTYPE en-export SYSTEM "http://xml.evernote.com/pub/evernote-export4.dtd">\n'
-    + `<en-export export-date="${toEnexDate(now)}" application="WeKan" version="1">\n${notes.join('\n')}\n</en-export>\n`;
+  }).map(note => `${note}\n`).join('');
+}
+
+export function formatEnex({ items = [] } = {}, { now = new Date() } = {}) {
+  return enexHead(now) + enexNotes(items) + ENEX_TAIL;
 }

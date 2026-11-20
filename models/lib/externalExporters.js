@@ -59,11 +59,13 @@ async function moveCompletionRules(boardId) {
   return out;
 }
 
-async function collect(boardId, fields, format) {
+// cardIds: only these cards (one page of a streamed export), else all.
+async function collect(boardId, fields, format, cardIds = null) {
   const board = await ReactiveCache.getBoard(boardId);
   const lists = await ReactiveCache.getLists({ boardId, archived: false }, { sort: { sort: 1 } });
   const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
-  const cards = await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 } });
+  const cards = await ReactiveCache.getCards({ boardId, archived: false, ...(cardIds ? { _id: { $in: cardIds } } : {}) },
+    { sort: { sort: 1 } });
   const listById = {};
   const listRecords = new Map(lists.map(list => [list._id, list]));
   lists.forEach(l => { listById[l._id] = l.title; });
@@ -171,6 +173,21 @@ async function collect(boardId, fields, format) {
     ...(planning ? { scrumSprints: planning.sprints, scrumReleases: planning.releases } : {}),
     ...(workflowRules ? { workflowRules } : {}),
     items: items.map(item => gateItem(item, wanted)) };
+}
+
+// A text export a page of cards at a time (server/lib/renderExternalExport.js
+// streams the formats that are a sequence of independent parts): the board's
+// card ids are read first, then each page is collected and passed through the
+// export boundary as the whole document is, so only one page is in memory.
+export async function* externalExportPages(boardId, format, fields, pageSize = 500) {
+  const { secureTransfer } = require('/server/lib/secureTransfer');
+  const context = { direction: 'export', source: `export:${format}` };
+  const ids = (await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 }, fields: { _id: 1 } })).map(c => c._id);
+  for (let at = 0; at < ids.length; at += pageSize) {
+    // eslint-disable-next-line no-await-in-loop
+    const collected = await collect(boardId, fields, format, ids.slice(at, at + pageSize));
+    yield { ...collected, items: secureTransfer(collected.items, context) };
+  }
 }
 
 export async function buildExternalExport(boardId, format, fields) {

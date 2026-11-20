@@ -239,7 +239,10 @@ test('a .zip is UPLOADED, not unpacked in the browser', () => {
 
 test('the upload route never holds the archive in memory', () => {
   const route = read('models/importZip.js');
-  assert.ok(/req\.pipe\(out\)/.test(route), 'the body is streamed to a temp file');
+  // Through the shared receiver since 2026-11-20 (server/lib/importUpload.js),
+  // which pipes the request to its file with the limit and disk checks.
+  assert.ok(/receiveUpload\(req, /.test(route), 'the body is streamed to a temp file');
+  assert.ok(/req\.pipe\(out\)/.test(read('server/lib/importUpload.js')), 'by the shared receiver, a part at a time');
   assert.ok(/unzipper\.Open\.file\(tempPath\)/.test(route),
     'and the archive is read through its central directory, entry by entry');
   assert.ok(/entry\.stream\(\)/.test(route), 'each attachment is opened as a stream');
@@ -250,7 +253,9 @@ test('the upload route never holds the archive in memory', () => {
 
 test('an oversized upload is refused as it arrives (negative)', () => {
   const route = read('models/importZip.js');
-  assert.ok(/received > MAX_ZIP_BYTES/.test(route), 'the cap is checked per chunk');
+  // The shared receiver checks the limit per chunk (server/lib/importUpload.js).
+  assert.ok(/if \(limit && total > limit\)/.test(read('server/lib/importUpload.js')), 'the cap is checked per chunk');
+  assert.ok(/receiveUpload\(req, \{ userId: 'import-zip', source: 'wekan', limit \}\)/.test(route), 'with the zip route\'s limit');
   assert.ok(/WEKAN_IMPORT_ZIP_MAX_BYTES/.test(route), 'and is configurable');
   assert.ok(/import-zip-too-large/.test(route), 'with an answer that says which limit');
 });
