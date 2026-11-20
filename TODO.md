@@ -52,7 +52,9 @@ tool's newest features against its parser and formatter.
   tracking, custom fields, comments, attachments and their newer views.
 - Issue trackers: Jira, GitHub, GitLab, Gitea, Forgejo, Redmine, Linear,
   Pivotal - epics, sprints, versions and milestones, links between issues,
-  work logs, reactions, and fields added in their newest releases.
+  work logs, and fields added in their newest releases, checked against each
+  tool's current export documentation. (Reactions there are counts without
+  who reacted, and are reported.)
 - Task tools: write a Super Productivity taskRepeatCfg on export, so a
   repeating card repeats there too - it needs the app's scheduler fields
   verified against a running Super Productivity. (Priorities, sub-tasks,
