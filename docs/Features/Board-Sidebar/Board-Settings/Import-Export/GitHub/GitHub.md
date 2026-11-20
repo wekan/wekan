@@ -167,6 +167,7 @@ again.
 | `milestone.title` | Label `milestone:...` |
 | `milestone.due_on`, else `due_date` | Due date |
 | `created_at`, and `closed_at` of a closed issue | Created and end dates |
+| `type.name` (GitHub's issue types: Bug, Feature, Task, or the organization's own) | Label `type:<name>` |
 | First of `assignees` (`assignee`) | Owner, when mapped to a WeKan user |
 | Other assignees | Labels `assignee:...` |
 | `user.login` | Requested By |
