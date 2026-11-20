@@ -55,7 +55,9 @@ export async function startCsvMapping(importTpl, { rows, excelBase64, uploadId, 
     }
     const mapping = {
       columns: { ...((preview.mapping && preview.mapping.columns) || {}) },
-      customFieldColumns: [],
+      // The guess ticks every column it has no field for, so nothing is left
+      // behind unless the user unticks it.
+      customFieldColumns: [...((preview.mapping && preview.mapping.customFieldColumns) || [])],
       listName: TAPi18n.__('scrum-category-todo'),
     };
     importTpl.csvMappingState.set({

@@ -205,7 +205,7 @@ Last activity and Voting are not imported.
 | Parent card | The card's parent, by title |
 | Spent time, Overtime, Archived | Spent time, overtime, archived |
 | `CustomField-...` | Board custom fields and the card's values |
-| Other columns ticked in the mapping step | Text custom fields |
+| Every other named column | A text custom field of its name: ticked in the mapping step by default, and always when no mapping is sent (a REST import) |
 
 The export writes every column listed under **Export columns**.
 
@@ -213,8 +213,8 @@ The export writes every column listed under **Export columns**.
 
 On import:
 
-- columns no field uses and that were not ticked as custom fields,
-  including WeKan's Last activity and Voting columns;
+- columns unticked in the mapping step, and WeKan's own Number, Last
+  activity and Voting columns, which no card field takes;
 - members who were not mapped (Requested By and Assigned By keep them as
   text);
 - label names with spaces or commas in them: those separate two labels;

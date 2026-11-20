@@ -181,7 +181,17 @@ export function guessCsvMapping(header, translations = {}) {
       && !knownHeader(name, index));
     if (first !== -1) columns.title = first;
   }
-  return { columns, customFieldColumns: [] };
+  // Every other named column comes across too, as a text custom field of its
+  // name ("Story points", "Sprint"): without a mapping from the import page
+  // (a REST import, or the page left at this guess) such a column was dropped
+  // without a word. A column of WeKan's own that has no card field (Number,
+  // Last activity, Voting) is not one of them.
+  const used = new Set(Object.values(columns));
+  const customFieldColumns = names.map((name, i) => i)
+    // A named column: a text cell, not the number or blank of a sparse row (#6620).
+    .filter(i => typeof row[i] === 'string' && names[i] && !used.has(i) && !isCustomFieldHeader(names[i])
+      && !knownHeader(names[i], index));
+  return { columns, customFieldColumns };
 }
 
 // The column order of WeKan's own exports: models/exporter.js (CSV/TSV) and

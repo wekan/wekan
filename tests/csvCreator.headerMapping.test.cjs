@@ -42,11 +42,24 @@ async function main() {
     assert.strictEqual(columnsOf(['Title', 'modified on']).modifiedAt, 1);
   }
 
-  // 3. Unknown headers are not mapped, and not fatal.
+  // 3. An unknown header is no card field, and not fatal - and its column
+  // still comes across, as a text custom field of its name. It used to be
+  // dropped without a word whenever no mapping came from the import page.
   {
     const mapping = guessCsvMapping(['title', 'Some Unknown Column']);
     assert.deepStrictEqual(mapping.columns, { title: 0 });
-    assert.strictEqual(customFieldsOf(['title', 'Some Unknown Column'], mapping).length, 0);
+    assert.deepStrictEqual(mapping.customFieldColumns, [1]);
+    assert.deepStrictEqual(customFieldsOf(['title', 'Some Unknown Column'], mapping),
+      [{ name: 'Some Unknown Column', type: 'text', position: 1 }]);
+    // Negative: WeKan's own columns with no card field, an empty header and a
+    // CustomField-* column (read with its type) are not made text fields.
+    // The server passes every language's export column names (_headerNames).
+    const en = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/en.i18n.json'), 'utf8'));
+    const names = { en: { number: en.number, voting: en.voting, title: en.title } };
+    const own = guessCsvMapping(['Title', en.number, en.voting, '', 'customfield-Budget-number', 'Sprint'], names);
+    assert.deepStrictEqual(own.customFieldColumns, [5]);
+    assert.deepStrictEqual(customFieldsOf(['Title', en.number, en.voting, '', 'customfield-Budget-number', 'Sprint'], own),
+      [{ name: 'Budget', type: 'number', position: 4 }, { name: 'Sprint', type: 'text', position: 5 }]);
   }
 
   // 4. customfield-<name>-<type> plain custom field.
